@@ -33,4 +33,4 @@ Depending on the country, some energy meters provide a switch which toggle on at
 Support has been added to force full power on all loads. In my variant, that's used to switch the heater one during off-peak period if not enough surplus has been routed during the day. Here, to optimize the behaviour, a temp-sensor will be used to check the temperature of the water and decide to switch on or not during night.
 
 ### temperature sensor
-For the moment, just reading. It'll be used to optimize force full power, to make the right decision during might.
+For the moment, just reading. It'll be used to optimize force full power, to make the right decision during night.
