@@ -2,10 +2,11 @@
 My version of the 3-phase Mk2PVRouter firmware (see http://www.mk2pvrouter.co.uk)
 
 Robin Emley already proposes a 3 phase PV-router (https://www.mk2pvrouter.co.uk/3-phase-version.html).
-It supports 3 resistive output loads, which a completely independant.
+It supports 3 resistive output loads, which are completely independant.
 
 Goal was to modify/optimize the sketch for the "special" case of a 3-phase water heater. A 3-phase water heater is composed in fact of 3 independant heating elements. Most of the time, such a heater can be connected in mono, or 3-phase WYE or 3-phase Delta.
 When connected in WYE (without variator), there's no need of a neutral wire because the system is equaly distributed, so at any time, there's no current flowing to the neutral.
+
 If a variator is used, the neutral wire must be connected.
 
 Added functionalities:
@@ -21,7 +22,8 @@ Now, all the time-critical processing is done inside the ISR, other stuff like (
 
 ### load priorities management
 In my variant of Robin's sketch, the 3 loads are still physically independant, so it means, the router will divert surplus of energy to the first load (highest priority) from 0% to 100%, then to the second (0% to 100%) and finally to the third.
-To avoid that the priorities stays all the time unchanged, which would mean that load 1 will run much more than load 2, which again will run much more than 3, I add a priority management.
+
+To avoid that the priorities stays all the time unchanged, which would mean that load 1 will run much more than load 2, which again will run much more than 3, I've added a priority management.
 Each day, the load priorities are rotated, so over many days, all the heating elements will run somehow the same amount of time.
 
 ### off-peak period detection
