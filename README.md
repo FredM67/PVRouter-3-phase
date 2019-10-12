@@ -13,6 +13,11 @@ Added functionalities:
 - off-peak period detection
 - force full power
 - temperature sensor (just reading for the moment)
+- optimized (RF) data logging
+
+The original sketch had to be completely re-worked and re-structured to support temperature reading. In the original sketch, the ISR "just" reads and converts the analog data, and the processing is done in the loop. This won't work with a temperatur sensor because of its slow performance. It would break the whole system, current/voltage data will be lost, ...
+
+Now, all the time-critical processing is done inside the ISR, other stuff like (RF) data logging, Serial printing, temperature reading is made inside the loop(). The ISR and main processor communicate with each other through "events".
 
 ### load priorities management
 In my variant of Robin's sketch, the 3 loads are still physically independant, so it means, the router will divert surplus of energy to the first load (highest priority) from 0% to 100%, then to the second (0% to 100%) and finally to the third.
