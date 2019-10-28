@@ -136,7 +136,7 @@ const enum outputModes outputMode = ANTI_FLICKER;
 
 // Load priorities at startup
 byte loadPrioritiesAndState[NO_OF_DUMPLOADS] = {0, 1, 2};
-const byte loadStateOnBit = 0x80;
+const byte loadStateOnBit = 0x80U;
 const byte loadStateOffMask = ~loadStateOnBit;
 
 /* --------------------------------------
