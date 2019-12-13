@@ -34,3 +34,8 @@ Support has been added to force full power on all loads. In my variant, that's u
 
 ### temperature sensor
 For the moment, just reading. It'll be used to optimize force full power, to make the right decision during night.
+
+### wiring diagram
+![Chauffe-eau](Chauffe-eau.png)
+
+*Figure: Wiring diagram*
