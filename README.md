@@ -7,7 +7,7 @@ It supports 3 resistive output loads, which are completely independant.
 Goal was to modify/optimize the sketch for the "special" case of a 3-phase water heater. A 3-phase water heater is composed in fact of 3 independant heating elements. Most of the time, such a heater can be connected in mono, or 3-phase WYE or 3-phase Delta.
 When connected in WYE (without variator), there's no need of a neutral wire because the system is equaly distributed, so at any time, there's no current flowing to the neutral.
 
-If a variator is used, the neutral wire must be connected.
+If a diverter is used, the neutral wire must be connected.
 
 Added functionalities:
 - load priorities management
