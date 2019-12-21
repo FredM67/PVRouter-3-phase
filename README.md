@@ -7,7 +7,11 @@ It supports 3 resistive output loads, which are completely independent.
 Goal was to modify/optimize the sketch for the "special" case of a 3-phase water heater. A 3-phase water heater is composed in fact of 3 independent heating elements. Most of the time, such a heater can be connected in mono, or 3-phase WYE or 3-phase Delta.
 When connected in WYE (without varistor), there's no need of a neutral wire because the system is equally distributed, so at any time, there's no current flowing to the neutral.
 
+<<<<<<< HEAD
 If a varistor is used, the neutral wire must be connected.
+=======
+If a diverter is used, the neutral wire must be connected.
+>>>>>>> 72a2296ff7581dd7bfbef4026d9aa754fcae1390
 
 Added functionalities:
 - load priorities management
@@ -34,3 +38,13 @@ Support has been added to force full power on all loads. In my variant, that's u
 
 ### temperature sensor
 For the moment, just reading. It'll be used to optimize force full power, to make the right decision during night.
+
+### wiring diagram
+![Chauffe-eau](Chauffe-eau.png)
+
+*Figure: Wiring diagram*
+
+#### about the thermostat
+Since on all (3-phase) water heaters I've seen, the thermostat switches only 2 phases in normal mode (all 3 phases in security mode), it must be wired in another way to achieve a full switch on all 3 phases. In a fully balanced 3-phase situation, you don't need any neutral wire. To switch off the device, you only need to switch off 2 phases.
+
+For that, I've "recycled" a peak/off peak relay. It doesn't matter on which phase the command coil is connected, but it must be permanent.

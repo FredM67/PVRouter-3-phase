@@ -86,17 +86,17 @@
 
 // -----------------------------------------------------
 // Change these values to suit the local mains frequency and supply meter
-#define CYCLES_PER_SECOND 50L
+#define CYCLES_PER_SECOND 50L // number of cycles/s of the grid power supply
 #define WORKING_ZONE_IN_JOULES 3600L
 #define REQUIRED_EXPORT_IN_WATTS 10L // when set to a negative value, this acts as a PV generator
 
 // ----------------
 // general literals
-#define DATALOG_PERIOD_IN_MAINS_CYCLES 250L
+#define DATALOG_PERIOD_IN_MAINS_CYCLES 250L // Period of datalogging in cycles
 
-#define NO_OF_PHASES 3L
+#define NO_OF_PHASES 3L // number of phases of the main supply.
 
-#define NO_OF_DUMPLOADS 3L
+#define NO_OF_DUMPLOADS 3L // number of dump loads connected to the diverter
 
 #ifdef TEMP_SENSOR
 // --------------------------
@@ -1093,6 +1093,8 @@ void configureParamsForSelectedOutputMode()
 }
 
 #ifdef TEMP_SENSOR
+// convert the internal value read from the sensor to a value in °C
+//
 void convertTemperature()
 {
   oneWire.reset();
@@ -1100,6 +1102,8 @@ void convertTemperature()
   oneWire.write(CONVERT_TEMPERATURE);
 }
 
+// read the temperature
+//
 int readTemperature()
 {
   byte buf[9];
@@ -1123,10 +1127,10 @@ int readTemperature()
 #endif
 
 #ifdef RF_PRESENT
-void send_rf_data()
 //
 // To avoid disturbance to the sampling process, the RFM12B needs to remain in its
 // active state rather than being periodically put to sleep.
+void send_rf_data()
 {
   // check whether it's ready to send, and an exit route if it gets stuck
   int i = 0;
