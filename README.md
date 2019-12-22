@@ -14,8 +14,8 @@ If a diverter is used, the neutral wire must be connected.
 >>>>>>> 72a2296ff7581dd7bfbef4026d9aa754fcae1390
 
 Added functionalities:
-- load priorities management
-- off-peak period detection
+- load priorities management (configurable)
+- off-peak period detection (configurable)
 - force full power
 - temperature sensor (just reading for the moment)
 - optimized (RF) data logging
