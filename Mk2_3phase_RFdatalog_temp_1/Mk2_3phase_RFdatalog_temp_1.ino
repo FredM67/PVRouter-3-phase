@@ -71,10 +71,6 @@
 //#define TEMP_SENSOR // <- this line must be commented out if the temperature sensor is not present
 #define OFF_PEAK_TARIFF // <- this line must be commented out if there's only one single tariff each day
 
-#ifdef OFF_PEAK_TARIFF
-#define PRIORITY_ROTATION // <- this line must be commented out if you want fixed priorities
-#endif
-
 #ifdef TEMP_SENSOR
 #include <OneWire.h> // for temperature sensing
 #endif
@@ -91,17 +87,18 @@
 
 // -----------------------------------------------------
 // Change these values to suit the local mains frequency and supply meter
-#define CYCLES_PER_SECOND 50L // number of cycles/s of the grid power supply
-#define WORKING_ZONE_IN_JOULES 3600L
-#define REQUIRED_EXPORT_IN_WATTS 10L // when set to a negative value, this acts as a PV generator
+constexpr unsigned long CYCLES_PER_SECOND = 50ul; // number of cycles/s of the grid power supply
+constexpr unsigned long WORKING_ZONE_IN_JOULES = 3600ul;
+constexpr long REQUIRED_EXPORT_IN_WATTS = 10l; // when set to a negative value, this acts as a PV generator
 
+constexpr unsigned long ulHour2MS = 3600ul * 1000ul;
 // ----------------
 // general literals
-#define DATALOG_PERIOD_IN_MAINS_CYCLES 250L // Period of datalogging in cycles
+constexpr unsigned long DATALOG_PERIOD_IN_MAINS_CYCLES = 250ul; // Period of datalogging in cycles
 
-#define NO_OF_PHASES 3L // number of phases of the main supply.
+#define NO_OF_PHASES 3UL // number of phases of the main supply.
 
-#define NO_OF_DUMPLOADS 3L // number of dump loads connected to the diverter
+#define NO_OF_DUMPLOADS 3UL // number of dump loads connected to the diverter
 
 #ifdef TEMP_SENSOR
 // --------------------------
@@ -110,6 +107,19 @@
 #define CONVERT_TEMPERATURE 0x44
 #define READ_SCRATCHPAD 0xbe
 #define BAD_TEMPERATURE 30000 // this value (300C) is sent if no sensor is present
+#endif
+
+#ifdef OFF_PEAK_TARIFF
+#define PRIORITY_ROTATION                       // <- this line must be commented out if you want fixed priorities
+const unsigned long ul_OFF_PEAK_DURATION = 8ul; // <- this is the duration of the off-peak period in hours
+// off-peak forced control for load 0
+// rg_ForceLoad[i] = { offset, duration }
+// the load #i will be started with full power at start_offpeak + 'offset' for a duration of 'duration'
+// - all values are in hours.
+// - to leave the load at full power till the end of the off-peak period, set the duration to -1 (somehow infinite time)
+const unsigned long rg_ForceLoad[NO_OF_DUMPLOADS][2] = {{5, -1ul},
+                                                        {5, -1ul},
+                                                        {5, -1ul}};
 #endif
 
 // -------------------------------
@@ -141,8 +151,8 @@ const enum outputModes outputMode = ANTI_FLICKER;
 
 // Load priorities at startup
 byte loadPrioritiesAndState[NO_OF_DUMPLOADS] = {0, 1, 2};
-const byte loadStateOnBit = 0x80U;
-const byte loadStateOffMask = ~loadStateOnBit;
+constexpr byte loadStateOnBit = 0x80U;
+constexpr byte loadStateOffMask = ~loadStateOnBit;
 
 /* --------------------------------------
  * RF configuration (for the RFM12B module)
@@ -151,12 +161,12 @@ const byte loadStateOffMask = ~loadStateOnBit;
 #ifdef RF_PRESENT
 #define freq RF12_868MHZ
 
-const int nodeID = 10;        //  RFM12B node ID
-const int networkGroup = 210; // wireless network group - needs to be same for all nodes
-const int UNO = 1;            // for when the processor contains the UNO bootloader.
+constexpr int nodeID = 10;        //  RFM12B node ID
+constexpr int networkGroup = 210; // wireless network group - needs to be same for all nodes
+constexpr int UNO = 1;            // for when the processor contains the UNO bootloader.
 #endif
 
-typedef struct
+using Tx_struct = struct
 {
   int power;                 // import = +ve, to match OEM convention
   int power_L[NO_OF_PHASES]; // import = +ve, to match OEM convention
@@ -164,7 +174,7 @@ typedef struct
 #ifdef TEMP_SENSOR
   int temperature_times100;
 #endif
-} Tx_struct; // revised data for RF comms
+}; // revised data for RF comms
 Tx_struct tx_data;
 
 // ----------- Pinout assignments  -----------
@@ -173,12 +183,12 @@ Tx_struct tx_data;
 // D0 & D1 are reserved for the Serial i/f
 // D2 is for the RFM12B
 #ifdef OFF_PEAK_TARIFF
-const byte offPeakForcePin = 3; // for 3-phase PCB, off-peak trigger
+constexpr byte offPeakForcePin = 3; // for 3-phase PCB, off-peak trigger
 #endif
 #ifdef TEMP_SENSOR
-const byte tempSensorPin = 4; // for 3-phase PCB
+constexpr byte tempSensorPin = 4; // for 3-phase PCB
 #endif
-const byte physicalLoadPin[NO_OF_DUMPLOADS] = {5, 6, 7}; // for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB)
+constexpr byte physicalLoadPin[NO_OF_DUMPLOADS] = {5, 6, 7}; // for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB)
 // D8 is not in use
 // D9 is not in use
 // D10 is for the RFM12B
@@ -187,8 +197,8 @@ const byte physicalLoadPin[NO_OF_DUMPLOADS] = {5, 6, 7}; // for 3-phase PCB, Loa
 // D13 is for the RFM12B
 
 // analogue input pins
-const byte sensorV[NO_OF_PHASES] = {0, 2, 4}; // for 3-phase PCB
-const byte sensorI[NO_OF_PHASES] = {1, 3, 5}; // for 3-phase PCB
+constexpr byte sensorV[NO_OF_PHASES] = {0, 2, 4}; // for 3-phase PCB
+constexpr byte sensorI[NO_OF_PHASES] = {1, 3, 5}; // for 3-phase PCB
 
 // --------------  general global variables -----------------
 //
@@ -196,24 +206,27 @@ const byte sensorI[NO_OF_PHASES] = {1, 3, 5}; // for 3-phase PCB
 // For integer maths, some variables need to be 'long'
 //
 boolean beyondStartUpPeriod = false; // start-up delay, allows things to settle
-const long initialDelay = 3000;      // in milli-seconds, to allow time to open the Serial monitor
-const long startUpPeriod = 3000;     // in milli-seconds, to allow LP filter to settle
+constexpr long initialDelay = 3000;  // in milli-seconds, to allow time to open the Serial monitor
+constexpr long startUpPeriod = 3000; // in milli-seconds, to allow LP filter to settle
 
+#ifdef OFF_PEAK_TARIFF
 unsigned long ul_TimeOffPeak; // 'timestamp' for start of off-peak period
+unsigned long rg_OffsetForce[NO_OF_DUMPLOADS][2];
+#endif
 
 long l_DCoffset_V[NO_OF_PHASES]; // <--- for LPF
 
 // Define operating limits for the LP filters which identify DC offset in the voltage
 // sample streams. By limiting the output range, these filters always should start up
 // correctly.
-const long l_DCoffset_V_min = (512L - 100L) * 256L; // mid-point of ADC minus a working margin
-const long l_DCoffset_V_max = (512L + 100L) * 256L; // mid-point of ADC plus a working margin
-const int i_DCoffset_I_nom = 512;                   // nominal mid-point value of ADC @ x1 scale
+constexpr long l_DCoffset_V_min = (512L - 100L) * 256L; // mid-point of ADC minus a working margin
+constexpr long l_DCoffset_V_max = (512L + 100L) * 256L; // mid-point of ADC plus a working margin
+constexpr int i_DCoffset_I_nom = 512;                   // nominal mid-point value of ADC @ x1 scale
 
 // for 3-phase use, with units of Joules * CYCLES_PER_SECOND
-const float f_capacityOfEnergyBucket_main = (float)WORKING_ZONE_IN_JOULES * CYCLES_PER_SECOND;
-const float f_midPointOfEnergyBucket_main = f_capacityOfEnergyBucket_main * 0.5; // for resetting flexible thresholds
-const float f_offsetOfEnergyThresholdsInAFmode = 0.1f;                           // <-- must not exceed 0.4
+constexpr float f_capacityOfEnergyBucket_main = (float)WORKING_ZONE_IN_JOULES * CYCLES_PER_SECOND;
+constexpr float f_midPointOfEnergyBucket_main = f_capacityOfEnergyBucket_main * 0.5; // for resetting flexible thresholds
+constexpr float f_offsetOfEnergyThresholdsInAFmode = 0.1f;                           // <-- must not exceed 0.4
 float f_energyInBucket_main;
 float f_lowerThreshold_default;
 float f_lowerEnergyThreshold;
@@ -238,10 +251,10 @@ long l_sampleSetsDuringThisDatalogPeriod;         // for counting the sample set
 long l_cycleCountForDatalogging = 0;              // for counting how often datalog is updated
 
 // for interaction between the main processor and the ISR
-volatile boolean b_forceAllOn = false;          // async trigger to force all loads to ON
-volatile boolean b_reOrderLoads = false;        // async trigger for load re-ordering
-volatile boolean b_datalogEventPending = false; // async trigger to signal datalog is available
-volatile boolean b_newMainsCycle = false;       // async trigger to signal start of new main cycle based on first phase
+volatile boolean b_forceLoadOn[NO_OF_DUMPLOADS] = {false}; // async trigger to force all loads to ON
+volatile boolean b_reOrderLoads = false;                   // async trigger for load re-ordering
+volatile boolean b_datalogEventPending = false;            // async trigger to signal datalog is available
+volatile boolean b_newMainsCycle = false;                  // async trigger to signal start of new main cycle based on first phase
 // since there's no real locking feature for shared variables, a couple of data
 // generated from inside the ISR are copied from time to time to be passed to the
 // main processor. When the data are available, the ISR signals it to the main processor.
@@ -282,7 +295,7 @@ long l_lowestNoOfSampleSetsPerMainsCycle;
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-const float f_powerCal[NO_OF_PHASES] = {0.0556f, 0.0560f, 0.0558f};
+constexpr float f_powerCal[NO_OF_PHASES] = {0.0556f, 0.0560f, 0.0558f};
 
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the
 // current waveform. The algorithm interpolates between the most recent pair
@@ -295,120 +308,15 @@ const float f_powerCal[NO_OF_PHASES] = {0.0556f, 0.0560f, 0.0558f};
 // NB. Any tool which determines the optimal value of f_phaseCal must have a similar
 // scheme for taking sample values as does this sketch.
 //
-const float f_phaseCal = 1; // <- nominal values only
+constexpr float f_phaseCal = 1; // <- nominal values only
 // When using integer maths, calibration values that have been supplied in
 // floating point form need to be rescaled.
-const int i_phaseCal = 256; // to avoid the need for floating-point maths (f_phaseCal * 256)
+constexpr int i_phaseCal = 256; // to avoid the need for floating-point maths (f_phaseCal * 256)
 
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-const float f_voltageCal = 1.03f; // compared with Fluke 77 meter
-
-void setup()
-{
-  delay(initialDelay); // allows time to open the Serial Monitor
-
-  Serial.begin(9600); // initialize Serial interface
-  Serial.println();
-  Serial.println();
-  Serial.println();
-  Serial.println(F("----------------------------------"));
-  Serial.println(F("Sketch ID:  Mk2_3phase_RFdatalog_temp_1.ino"));
-
-  for (byte i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    DDRD |= (1 << physicalLoadPin[i]); // driver pin for Load #n
-    loadPrioritiesAndState[i] &= loadStateOffMask;
-  }
-  updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
-
-  updatePortsStates();
-
-#ifdef OFF_PEAK_TARIFF
-  DDRD &= ~(1 << offPeakForcePin);              // set as output
-  PORTD |= (1 << offPeakForcePin);              // enable the internal pullup resistor
-  delay(100);                                   // allow time to settle
-  int pinState = PIND & (1 << offPeakForcePin); // initial selection and
-#endif
-
-  ul_TimeOffPeak = millis();
-
-  for (byte phase = 0; phase < NO_OF_PHASES; ++phase)
-    l_DCoffset_V[phase] = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
-
-  // for the main energy bucket
-  f_energyInBucket_main = 0;
-
-  Serial.println(F("ADC mode:       free-running"));
-  Serial.print(F("requiredExport in Watts = "));
-  Serial.println(REQUIRED_EXPORT_IN_WATTS);
-
-  // Set up the ADC to be free-running
-  ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2); // Set the ADC's clock to system clock / 128
-  ADCSRA |= (1 << ADEN);                               // Enable the ADC
-
-  ADCSRA |= (1 << ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
-  // bits ADTS0-2 have not been set (i.e. they are all zero), the
-  // ADC's trigger source is set to "free running mode".
-
-  ADCSRA |= (1 << ADIE); // set the ADC interrupt enable bit. When this bit is written
-  // to one and the I-bit in SREG is set, the
-  // ADC Conversion Complete Interrupt is activated.
-
-  ADCSRA |= (1 << ADSC); // start ADC manually first time
-  sei();                 // Enable Global Interrupts
-
-  for (byte phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    Serial.print(F("f_powerCal for L"));
-    Serial.print(phase + 1);
-    Serial.print(F(" =    "));
-    Serial.println(f_powerCal[phase], 4);
-  }
-  Serial.print(F("f_phaseCal for all phases"));
-  Serial.print(F(" =     "));
-  Serial.println(f_phaseCal);
-
-  Serial.print(F("f_voltageCal, for Vrms  =      "));
-  Serial.println(f_voltageCal, 4);
-
-  Serial.print(F("Export rate (Watts) = "));
-  Serial.println(REQUIRED_EXPORT_IN_WATTS);
-
-  Serial.print(F("zero-crossing persistence (sample sets) = "));
-  Serial.println(PERSISTENCE_FOR_POLARITY_CHANGE);
-
-  configureParamsForSelectedOutputMode();
-
-  logLoadPriorities();
-
-  Serial.print(F(">>free RAM = "));
-  Serial.println(freeRam()); // a useful value to keep an eye on
-
-  Serial.println(F("----"));
-
-#ifdef TEMP_SENSOR
-  convertTemperature(); // start initial temperature conversion
-#endif
-
-  Serial.print("RF capability ");
-
-#ifdef RF_PRESENT
-  Serial.print(F("IS present, freq = "));
-  if (freq == RF12_433MHZ)
-    Serial.println(F("433 MHz"));
-  else if (freq == RF12_868MHZ)
-    Serial.println(F("868 MHz"));
-  rf12_initialize(nodeID, freq, networkGroup); // initialize RF
-#else
-  Serial.println(F("is NOT present"));
-#endif
-
-#ifdef TEMP_SENSOR
-  convertTemperature(); // start initial temperature conversion
-#endif
-}
+constexpr float f_voltageCal = 1.03f; // compared with Fluke 77 meter
 
 // update the control ports for each of the physical loads
 //
@@ -423,6 +331,29 @@ void updatePortsStates()
       PORTD |= (1 << physicalLoadPin[i]);
   }
 }
+
+void processCurrentRawSample(const byte phase, const int rawSample);
+void processVoltageRawSample(const byte phase, const int rawSample);
+void processPolarity(const byte phase, const int rawSample);
+void confirmPolarity(const byte phase);
+void processVoltage(const byte phase);
+
+void processRawSamples(const byte phase);
+void processStartUp(const byte phase);
+void processStartNewCycle();
+void processMinusHalfCycle(const byte phase);
+void processPlusHalfCycle(const byte phase);
+void processLatestContribution(const byte phase);
+
+byte nextLogicalLoadToBeAdded();
+void proceedHighEnergyLevel();
+byte nextLogicalLoadToBeRemoved();
+void proceedLowEnergyLevel();
+
+void updatePhysicalLoadStates();
+void updatePortsStates();
+
+void processDataLogging();
 
 /*
  * An Interrupt Service Routine is now defined which instructs the ADC to perform a conversion
@@ -459,7 +390,7 @@ ISR(ADC_vect)
     ADMUX = 0x40 + sensorI[1]; // the conversion for V2 is already under way
     ++sample_index;            // increment the control flag
     //
-    processCurrent(0, rawSample);
+    processCurrentRawSample(0, rawSample);
     break;
   case 2:
     rawSample = ADC;           // store the ADC value (this one is for Voltage L2)
@@ -473,7 +404,7 @@ ISR(ADC_vect)
     ADMUX = 0x40 + sensorI[2]; // the conversion for V3 is already under way
     ++sample_index;            // increment the control flag
     //
-    processCurrent(1, rawSample);
+    processCurrentRawSample(1, rawSample);
     break;
   case 4:
     rawSample = ADC;           // store the ADC value (this one is for Voltage L3)
@@ -487,32 +418,20 @@ ISR(ADC_vect)
     ADMUX = 0x40 + sensorI[0]; // the conversion for V1 is already under way
     sample_index = 0;          // reset the control flag
     //
-    processCurrent(2, rawSample);
+    processCurrentRawSample(2, rawSample);
     break;
   default:
     sample_index = 0; // to prevent lockup (should never get here)
   }
-}
+} // end of ISR
 
 /* -----------------------------------------------------------
  * Start of various helper functions which are used by the ISR
 */
 
-// Process the current voltage raw sample for the specific phase
-//
-void processVoltageRawSample(const byte phase, const int rawSample)
-{
-  processPolarity(phase, rawSample);
-  confirmPolarity(phase);
-  //
-  processRawSamples(phase); // deals with aspects that only occur at particular stages of each mains cycle
-  //
-  processVoltage(phase);
-}
-
 // Process the calculation for the actual current raw sample for the specific phase
 //
-void processCurrent(const byte phase, const int rawSample)
+void processCurrentRawSample(const byte phase, const int rawSample)
 {
   static long sampleIminusDC;
   static long phaseShiftedSampleVminusDC;
@@ -536,6 +455,18 @@ void processCurrent(const byte phase, const int rawSample)
   l_sumP_atSupplyPoint[phase] += instP; // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
 }
 
+// Process the current voltage raw sample for the specific phase
+//
+void processVoltageRawSample(const byte phase, const int rawSample)
+{
+  processPolarity(phase, rawSample);
+  confirmPolarity(phase);
+  //
+  processRawSamples(phase); // deals with aspects that only occur at particular stages of each mains cycle
+  //
+  processVoltage(phase);
+}
+
 // Process with the polarity for the actual voltage sample for the specific phase
 //
 void processPolarity(const byte phase, const int rawSample)
@@ -547,7 +478,26 @@ void processPolarity(const byte phase, const int rawSample)
   polarityOfMostRecentVsample[phase] = (l_sampleVminusDC[phase] > 0) ? POSITIVE : NEGATIVE;
 }
 
-// Prcess the calculation for the current voltage sample for the specific phase
+// This routine prevents a zero-crossing point from being declared until a certain number
+// of consecutive samples in the 'other' half of the waveform have been encountered.
+//
+void confirmPolarity(const byte phase)
+{
+  static byte count[NO_OF_PHASES] = {0, 0, 0};
+
+  if (polarityOfMostRecentVsample[phase] != polarityConfirmedOfLastSampleV[phase])
+    ++count[phase];
+  else
+    count[phase] = 0;
+
+  if (count[phase] > PERSISTENCE_FOR_POLARITY_CHANGE)
+  {
+    count[phase] = 0;
+    polarityConfirmed[phase] = polarityOfMostRecentVsample[phase];
+  }
+}
+
+// Process the calculation for the current voltage sample for the specific phase
 //
 void processVoltage(const byte phase)
 {
@@ -678,27 +628,6 @@ void processStartNewCycle()
     f_energyInBucket_main = 0;
 }
 
-// Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
-//
-void processPlusHalfCycle(const byte phase)
-{
-  processLatestContribution(phase); // runs at 6.6 ms intervals
-
-  // A performance check to monitor and display the minimum number of sets of
-  // ADC samples per mains cycle, the expected number being 20ms / (104us * 6) = 32.05
-  //
-  if (0 == phase)
-  {
-    if (l_samplesDuringThisMainsCycle[phase] < l_lowestNoOfSampleSetsPerMainsCycle)
-      l_lowestNoOfSampleSetsPerMainsCycle = l_samplesDuringThisMainsCycle[phase];
-
-    processDataLogging();
-  }
-
-  l_sumP[phase] = 0;
-  l_samplesDuringThisMainsCycle[phase] = 0;
-}
-
 // Process the start of a new -ve half cycle, for this phase, just after the zero-crossing point.
 //
 void processMinusHalfCycle(const byte phase)
@@ -719,6 +648,34 @@ void processMinusHalfCycle(const byte phase)
     l_DCoffset_V[phase] = l_DCoffset_V_min;
   else if (l_DCoffset_V[phase] > l_DCoffset_V_max)
     l_DCoffset_V[phase] = l_DCoffset_V_max;
+}
+
+// retrieve the next load that could be added (be aware of the order)
+// return NO_OF_DUMPLOADS in case of failure
+//
+byte nextLogicalLoadToBeAdded()
+{
+  for (byte index = 0; index < NO_OF_DUMPLOADS; ++index)
+    if (0x00 == (loadPrioritiesAndState[index] & loadStateOnBit))
+      return (index);
+
+  return (NO_OF_DUMPLOADS);
+}
+
+// retrieve the next load that could be removed (be aware of the reverse-order)
+// return NO_OF_DUMPLOADS in case of failure
+//
+byte nextLogicalLoadToBeRemoved()
+{
+  byte index = NO_OF_DUMPLOADS;
+  do
+  {
+    --index;
+    if (loadPrioritiesAndState[index] & loadStateOnBit)
+      return (index);
+  } while (0 != index);
+
+  return (NO_OF_DUMPLOADS);
 }
 
 // Process the case of high energy level, some action may be required
@@ -815,81 +772,25 @@ void processLatestContribution(const byte phase)
   //
 }
 
-// Process with data logging.
-// At the end of each datalogging period, copies are made of the relevant variables
-// for use by the main code. These variable are then reset for use during the next
-// datalogging period.
+// Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
 //
-void processDataLogging()
+void processPlusHalfCycle(const byte phase)
 {
-  if (++l_cycleCountForDatalogging < DATALOG_PERIOD_IN_MAINS_CYCLES)
-    return; // data logging period not yet reached
+  processLatestContribution(phase); // runs at 6.6 ms intervals
 
-  l_cycleCountForDatalogging = 0;
-
-  for (byte phase = 0; phase < NO_OF_PHASES; ++phase)
+  // A performance check to monitor and display the minimum number of sets of
+  // ADC samples per mains cycle, the expected number being 20ms / (104us * 6) = 32.05
+  //
+  if (0 == phase)
   {
-    copyOf_sumP_atSupplyPoint[phase] = l_sumP_atSupplyPoint[phase];
-    l_sumP_atSupplyPoint[phase] = 0;
+    if (l_samplesDuringThisMainsCycle[phase] < l_lowestNoOfSampleSetsPerMainsCycle)
+      l_lowestNoOfSampleSetsPerMainsCycle = l_samplesDuringThisMainsCycle[phase];
 
-    copyOf_sum_Vsquared[phase] = l_sum_Vsquared[phase];
-    l_sum_Vsquared[phase] = 0;
+    processDataLogging();
   }
 
-  copyOf_sampleSetsDuringThisDatalogPeriod = l_sampleSetsDuringThisDatalogPeriod; // (for diags only)
-  copyOf_lowestNoOfSampleSetsPerMainsCycle = l_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
-  copyOf_energyInBucket_main = f_energyInBucket_main;                             // (for diags only)
-
-  l_lowestNoOfSampleSetsPerMainsCycle = 999L;
-  l_sampleSetsDuringThisDatalogPeriod = 0;
-  b_datalogEventPending = true;
-}
-
-// retrieve the next load that could be added (be aware of the order)
-// return NO_OF_DUMPLOADS in case of failure
-//
-byte nextLogicalLoadToBeAdded()
-{
-  for (byte index = 0; index < NO_OF_DUMPLOADS; ++index)
-    if (0x00 == (loadPrioritiesAndState[index] & loadStateOnBit))
-      return (index);
-
-  return (NO_OF_DUMPLOADS);
-}
-
-// retrieve the next load that could be removed (be aware of the reverse-order)
-// return NO_OF_DUMPLOADS in case of failure
-//
-byte nextLogicalLoadToBeRemoved()
-{
-  byte index = NO_OF_DUMPLOADS;
-  do
-  {
-    --index;
-    if (loadPrioritiesAndState[index] & loadStateOnBit)
-      return (index);
-  } while (0 != index);
-
-  return (NO_OF_DUMPLOADS);
-}
-
-// This routine prevents a zero-crossing point from being declared until a certain number
-// of consecutive samples in the 'other' half of the waveform have been encountered.
-//
-void confirmPolarity(const byte phase)
-{
-  static byte count[NO_OF_PHASES] = {0, 0, 0};
-
-  if (polarityOfMostRecentVsample[phase] != polarityConfirmedOfLastSampleV[phase])
-    ++count[phase];
-  else
-    count[phase] = 0;
-
-  if (count[phase] > PERSISTENCE_FOR_POLARITY_CHANGE)
-  {
-    count[phase] = 0;
-    polarityConfirmed[phase] = polarityOfMostRecentVsample[phase];
-  }
+  l_sumP[phase] = 0;
+  l_samplesDuringThisMainsCycle[phase] = 0;
 }
 
 /*
@@ -923,61 +824,41 @@ void updatePhysicalLoadStates()
 
   for (i = 0; i < NO_OF_DUMPLOADS; ++i)
     physicalLoadState[loadPrioritiesAndState[i] & loadStateOffMask] =
-        (loadPrioritiesAndState[i] & loadStateOnBit) || b_forceAllOn ? LOAD_ON : LOAD_OFF;
+        (loadPrioritiesAndState[i] & loadStateOnBit) || b_forceLoadOn[i] ? LOAD_ON : LOAD_OFF;
 }
 
+// Process with data logging.
+// At the end of each datalogging period, copies are made of the relevant variables
+// for use by the main code. These variable are then reset for use during the next
+// datalogging period.
+//
+void processDataLogging()
+{
+  if (++l_cycleCountForDatalogging < DATALOG_PERIOD_IN_MAINS_CYCLES)
+    return; // data logging period not yet reached
+
+  l_cycleCountForDatalogging = 0;
+
+  for (byte phase = 0; phase < NO_OF_PHASES; ++phase)
+  {
+    copyOf_sumP_atSupplyPoint[phase] = l_sumP_atSupplyPoint[phase];
+    l_sumP_atSupplyPoint[phase] = 0;
+
+    copyOf_sum_Vsquared[phase] = l_sum_Vsquared[phase];
+    l_sum_Vsquared[phase] = 0;
+  }
+
+  copyOf_sampleSetsDuringThisDatalogPeriod = l_sampleSetsDuringThisDatalogPeriod; // (for diags only)
+  copyOf_lowestNoOfSampleSetsPerMainsCycle = l_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
+  copyOf_energyInBucket_main = f_energyInBucket_main;                             // (for diags only)
+
+  l_lowestNoOfSampleSetsPerMainsCycle = 999L;
+  l_sampleSetsDuringThisDatalogPeriod = 0;
+  b_datalogEventPending = true;
+}
 /* End of helper functions which are used by the ISR
  * -------------------------------------------------
  */
-
-/* None of the workload in loop() is time-critical. All the processing of
- *  ADC data is done within the ISR.
- */
-void loop()
-{
-  static byte perSecondTimer = 0;
-
-  if (b_newMainsCycle) // flag is set after every pair of ADC conversions
-  {
-    b_newMainsCycle = false; // reset the flag
-    ++perSecondTimer;
-
-    if (perSecondTimer >= CYCLES_PER_SECOND)
-    {
-      perSecondTimer = 0;
-      checkLoadPrioritySelection(); // called every second
-    }
-  }
-
-  if (b_datalogEventPending)
-  {
-    b_datalogEventPending = false;
-
-    tx_data.power = 0;
-    for (byte phase = 0; phase < NO_OF_PHASES; ++phase)
-    {
-      tx_data.power_L[phase] = copyOf_sumP_atSupplyPoint[phase] / copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
-      tx_data.power_L[phase] *= -1;
-
-      tx_data.power += tx_data.power_L[phase];
-
-      tx_data.Vrms_L_times100[phase] = (int)(100 * f_voltageCal * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
-    }
-#ifdef TEMP_SENSOR
-    tx_data.temperature_times100 = readTemperature();
-#endif
-
-#ifdef RF_PRESENT
-    send_rf_data();
-#endif
-
-    printDataLogging();
-
-#ifdef TEMP_SENSOR
-    convertTemperature(); // for use next time around
-#endif
-  }
-} // end of loop()
 
 // prints data logs to the Serial output
 //
@@ -1014,6 +895,18 @@ void printDataLogging()
   Serial.println(F(")"));
 }
 
+// prints the load priorities to the Serial output
+//
+void logLoadPriorities()
+{
+  Serial.println(F("loadPriority: "));
+  for (byte i = 0; i < NO_OF_DUMPLOADS; ++i)
+  {
+    Serial.print(F("\tload "));
+    Serial.println(loadPrioritiesAndState[i]);
+  }
+}
+
 // This function changes the value of the load priorities
 // Since we don't have access to a clock, we detect the offPeak start from the main
 // energy meter. The period lasts 8 hours. We'll restrict full heating to 3 hours.
@@ -1022,8 +915,9 @@ void printDataLogging()
 void checkLoadPrioritySelection()
 {
 #ifdef OFF_PEAK_TARIFF
-  //static unsigned long interval = 30 * 1000; // here 30 seconds for DEBUG
-  static unsigned long interval = 5ul * 3600ul * 1000ul; // here 5 hours
+  byte i;
+
+  static unsigned long endTimeForced[NO_OF_DUMPLOADS];
 
   static int pinOffPeakState = HIGH;
 
@@ -1035,6 +929,9 @@ void checkLoadPrioritySelection()
     Serial.println(F("Change to off-peak period!"));
     ul_TimeOffPeak = millis();
 
+    for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+      endTimeForced[i] = ul_TimeOffPeak + rg_ForceLoad[i][0] + rg_ForceLoad[i][1];
+
 #ifdef PRIORITY_ROTATION
     b_reOrderLoads = true;
 #else
@@ -1045,28 +942,25 @@ void checkLoadPrioritySelection()
       delay(10);
     logLoadPriorities();
   }
-  else if (!pinOffPeakState && !pinNewState && ((unsigned long)(millis() - ul_TimeOffPeak) >= interval))
-    b_forceAllOn = true;
   else
-    b_forceAllOn = false;
+  {
+    const unsigned long ulElapsedTime = (unsigned long)(millis() - ul_TimeOffPeak);
+
+    for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+    {
+      if (!pinOffPeakState && !pinNewState &&
+          (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
+        b_forceLoadOn[i] = true;
+      else
+        b_forceLoadOn[i] = false;
+    }
+  }
 
   if (!pinOffPeakState && pinNewState)
     Serial.println(F("Change to peak period!"));
 
   pinOffPeakState = pinNewState;
 #endif
-}
-
-// prints the load priorities to the Serial output
-//
-void logLoadPriorities()
-{
-  Serial.println(F("loadPriority: "));
-  for (byte i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    Serial.print(F("\tload "));
-    Serial.println(loadPrioritiesAndState[i]);
-  }
 }
 
 // Although this sketch always operates in ANTI_FLICKER mode, it was convenient
@@ -1164,3 +1058,165 @@ int freeRam()
   int v;
   return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
 }
+
+void setup()
+{
+  delay(initialDelay); // allows time to open the Serial Monitor
+
+  Serial.begin(9600); // initialize Serial interface
+  Serial.println();
+  Serial.println();
+  Serial.println();
+  Serial.println(F("----------------------------------"));
+  Serial.println(F("Sketch ID:  Mk2_3phase_RFdatalog_temp_1.ino"));
+
+  for (byte i = 0; i < NO_OF_DUMPLOADS; ++i)
+  {
+    DDRD |= (1 << physicalLoadPin[i]); // driver pin for Load #n
+    loadPrioritiesAndState[i] &= loadStateOffMask;
+  }
+  updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
+
+  updatePortsStates();
+
+#ifdef OFF_PEAK_TARIFF
+  DDRD &= ~(1 << offPeakForcePin);              // set as output
+  PORTD |= (1 << offPeakForcePin);              // enable the internal pullup resistor
+  delay(100);                                   // allow time to settle
+  int pinState = PIND & (1 << offPeakForcePin); // initial selection and
+
+  ul_TimeOffPeak = millis();
+  for (byte i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+  {
+    rg_OffsetForce[i][0] = ul_OFF_PEAK_DURATION - rg_ForceLoad[i][0];
+    rg_OffsetForce[i][1] = (rg_ForceLoad[i][1] != -1) ? rg_OffsetForce[i][0] + rg_ForceLoad[i][1] : rg_ForceLoad[i][1];
+
+    rg_OffsetForce[i][0] *= ulHour2MS;
+    rg_OffsetForce[i][1] *= ulHour2MS;
+  }
+#endif
+
+  for (byte phase = 0; phase < NO_OF_PHASES; ++phase)
+    l_DCoffset_V[phase] = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
+
+  // for the main energy bucket
+  f_energyInBucket_main = 0;
+
+  Serial.println(F("ADC mode:       free-running"));
+  Serial.print(F("requiredExport in Watts = "));
+  Serial.println(REQUIRED_EXPORT_IN_WATTS);
+
+  // Set up the ADC to be free-running
+  ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2); // Set the ADC's clock to system clock / 128
+  ADCSRA |= (1 << ADEN);                               // Enable the ADC
+
+  ADCSRA |= (1 << ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  // bits ADTS0-2 have not been set (i.e. they are all zero), the
+  // ADC's trigger source is set to "free running mode".
+
+  ADCSRA |= (1 << ADIE); // set the ADC interrupt enable bit. When this bit is written
+  // to one and the I-bit in SREG is set, the
+  // ADC Conversion Complete Interrupt is activated.
+
+  ADCSRA |= (1 << ADSC); // start ADC manually first time
+  sei();                 // Enable Global Interrupts
+
+  for (byte phase = 0; phase < NO_OF_PHASES; ++phase)
+  {
+    Serial.print(F("f_powerCal for L"));
+    Serial.print(phase + 1);
+    Serial.print(F(" =    "));
+    Serial.println(f_powerCal[phase], 4);
+  }
+  Serial.print(F("f_phaseCal for all phases"));
+  Serial.print(F(" =     "));
+  Serial.println(f_phaseCal);
+
+  Serial.print(F("f_voltageCal, for Vrms  =      "));
+  Serial.println(f_voltageCal, 4);
+
+  Serial.print(F("Export rate (Watts) = "));
+  Serial.println(REQUIRED_EXPORT_IN_WATTS);
+
+  Serial.print(F("zero-crossing persistence (sample sets) = "));
+  Serial.println(PERSISTENCE_FOR_POLARITY_CHANGE);
+
+  configureParamsForSelectedOutputMode();
+
+  logLoadPriorities();
+
+  Serial.print(F(">>free RAM = "));
+  Serial.println(freeRam()); // a useful value to keep an eye on
+
+  Serial.println(F("----"));
+
+#ifdef TEMP_SENSOR
+  convertTemperature(); // start initial temperature conversion
+#endif
+
+  Serial.print("RF capability ");
+
+#ifdef RF_PRESENT
+  Serial.print(F("IS present, freq = "));
+  if (freq == RF12_433MHZ)
+    Serial.println(F("433 MHz"));
+  else if (freq == RF12_868MHZ)
+    Serial.println(F("868 MHz"));
+  rf12_initialize(nodeID, freq, networkGroup); // initialize RF
+#else
+  Serial.println(F("is NOT present"));
+#endif
+
+#ifdef TEMP_SENSOR
+  convertTemperature(); // start initial temperature conversion
+#endif
+}
+
+/* None of the workload in loop() is time-critical. All the processing of
+ *  ADC data is done within the ISR.
+ */
+void loop()
+{
+  static byte perSecondTimer = 0;
+
+  if (b_newMainsCycle) // flag is set after every pair of ADC conversions
+  {
+    b_newMainsCycle = false; // reset the flag
+    ++perSecondTimer;
+
+    if (perSecondTimer >= CYCLES_PER_SECOND)
+    {
+      perSecondTimer = 0;
+      checkLoadPrioritySelection(); // called every second
+    }
+  }
+
+  if (b_datalogEventPending)
+  {
+    b_datalogEventPending = false;
+
+    tx_data.power = 0;
+    for (byte phase = 0; phase < NO_OF_PHASES; ++phase)
+    {
+      tx_data.power_L[phase] = copyOf_sumP_atSupplyPoint[phase] / copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
+      tx_data.power_L[phase] *= -1;
+
+      tx_data.power += tx_data.power_L[phase];
+
+      tx_data.Vrms_L_times100[phase] = (int)(100 * f_voltageCal * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+    }
+#ifdef TEMP_SENSOR
+    tx_data.temperature_times100 = readTemperature();
+#endif
+
+#ifdef RF_PRESENT
+    send_rf_data();
+#endif
+
+    printDataLogging();
+
+#ifdef TEMP_SENSOR
+    convertTemperature(); // for use next time around
+#endif
+  }
+} // end of loop()
