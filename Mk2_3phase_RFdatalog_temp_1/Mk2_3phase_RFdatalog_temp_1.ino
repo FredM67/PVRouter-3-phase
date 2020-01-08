@@ -216,8 +216,8 @@ constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; // for 3-phase PCB
 // For integer maths, some variables need to be 'int32_t'
 //
 bool beyondStartUpPeriod{false};       // start-up delay, allows things to settle
-constexpr int32_t initialDelay{3000};  // in milli-seconds, to allow time to open the Serial monitor
-constexpr int32_t startUpPeriod{3000}; // in milli-seconds, to allow LP filter to settle
+constexpr uint32_t initialDelay{3000};  // in milli-seconds, to allow time to open the Serial monitor
+constexpr uint32_t startUpPeriod{3000}; // in milli-seconds, to allow LP filter to settle
 
 #ifdef OFF_PEAK_TARIFF
 uint32_t ul_TimeOffPeak; // 'timestamp' for start of off-peak period
