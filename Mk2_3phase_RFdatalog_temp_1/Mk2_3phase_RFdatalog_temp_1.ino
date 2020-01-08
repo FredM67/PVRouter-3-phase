@@ -78,13 +78,14 @@
 #include <Arduino.h> // may not be needed, but it's probably a good idea to include this
 
 //#define TEMP_SENSOR     // <- this line must be commented out if the temperature sensor is not present
+
 #define OFF_PEAK_TARIFF // <- this line must be commented out if there's only one single tariff each day
+
+//#define RF_PRESENT // <- this line must be commented out if the RFM12B module is not present
 
 #ifdef TEMP_SENSOR
 #include <OneWire.h> // for temperature sensing
 #endif
-
-//#define RF_PRESENT // <- this line must be commented out if the RFM12B module is not present
 
 #ifdef RF_PRESENT
 #define RF69_COMPAT 0 // for the RFM12B
@@ -125,19 +126,21 @@ constexpr uint32_t ul_OFF_PEAK_DURATION{8ul}; // <- this is the duration of the 
 // the load 'i' will be started with full power at start_offpeak + 'offset' for a duration of 'duration'
 // - all values are in hours.
 // - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT32_MAX' (somehow infinite time)
-constexpr uint32_t rg_ForceLoad[NO_OF_DUMPLOADS][2] = {{5, UINT32_MAX},
-                                                       {5, UINT32_MAX},
-                                                       {5, UINT32_MAX}};
+constexpr uint32_t rg_ForceLoad[NO_OF_DUMPLOADS][2] = {{5, UINT32_MAX},  // <-- for load #1
+                                                       {5, UINT32_MAX},  // <-- for load #2
+                                                       {5, UINT32_MAX}}; // <-- for load #3
 #endif
 
 // -------------------------------
 // definitions of enumerated types
+// polarities
 enum class Polarities : uint8_t
 {
   NEGATIVE,
   POSITIVE
 };
 
+// output modes
 enum class OutputModes : uint8_t
 {
   ANTI_FLICKER,
@@ -158,9 +161,9 @@ LoadStates physicalLoadState[NO_OF_DUMPLOADS];
 constexpr OutputModes outputMode{OutputModes::ANTI_FLICKER};
 
 // Load priorities at startup
-uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2};
-constexpr uint8_t loadStateOnBit{0x80U};
-constexpr uint8_t loadStateOffMask{~loadStateOnBit};
+uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; // load priorities and states.
+constexpr uint8_t loadStateOnBit{0x80U};                  // bit mask for load state ON
+constexpr uint8_t loadStateOffMask{~loadStateOnBit};      // bit mask for load state OFF
 
 /* --------------------------------------
    RF configuration (for the RFM12B module)
@@ -196,7 +199,7 @@ Tx_struct tx_data;
 constexpr uint8_t offPeakForcePin{3}; // for 3-phase PCB, off-peak trigger
 #endif
 #ifdef TEMP_SENSOR
-constexpr uint8_t tempSensorPin{4}; // for 3-phase PCB
+constexpr uint8_t tempSensorPin{4}; // for 3-phase PCB, sensor pin
 #endif
 constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6, 7}; // for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB)
 // D8 is not in use
@@ -207,21 +210,21 @@ constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6, 7}; // for 3-phase PCB,
 // D13 is for the RFM12B
 
 // analogue input pins
-constexpr uint8_t sensorV[NO_OF_PHASES]{0, 2, 4}; // for 3-phase PCB
-constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; // for 3-phase PCB
+constexpr uint8_t sensorV[NO_OF_PHASES]{0, 2, 4}; // for 3-phase PCB, voltage measurement for each phase
+constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; // for 3-phase PCB, current measurement for each phase
 
 // --------------  general global variables -----------------
 //
 // Some of these variables are used in multiple blocks so cannot be static.
 // For integer maths, some variables need to be 'int32_t'
 //
-bool beyondStartUpPeriod{false};       // start-up delay, allows things to settle
+bool beyondStartUpPeriod{false};        // start-up delay, allows things to settle
 constexpr uint32_t initialDelay{3000};  // in milli-seconds, to allow time to open the Serial monitor
 constexpr uint32_t startUpPeriod{3000}; // in milli-seconds, to allow LP filter to settle
 
 #ifdef OFF_PEAK_TARIFF
-uint32_t ul_TimeOffPeak; // 'timestamp' for start of off-peak period
-uint32_t rg_OffsetForce[NO_OF_DUMPLOADS][2];
+uint32_t ul_TimeOffPeak;                     // 'timestamp' for start of off-peak period
+uint32_t rg_OffsetForce[NO_OF_DUMPLOADS][2]; // start & stop offsets for each load
 #endif
 
 int32_t l_DCoffset_V[NO_OF_PHASES]; // <--- for LPF
@@ -246,19 +249,19 @@ constexpr float initThreshold(const bool lower)
              : f_capacityOfEnergyBucket_main * (0.5 + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0));
 }
 
-constexpr float f_lowerThreshold_default{initThreshold(true)};
-constexpr float f_upperThreshold_default{initThreshold(false)};
+constexpr float f_lowerThreshold_default{initThreshold(true)};  // lower default threshold set accordingly to the output mode
+constexpr float f_upperThreshold_default{initThreshold(false)}; // upper default threshold set accordingly to the output mode
 
-float f_energyInBucket_main{0};
-float f_lowerEnergyThreshold;
-float f_upperEnergyThreshold;
+float f_energyInBucket_main{0}; // main energy bucket (over all phases)
+float f_lowerEnergyThreshold;   // dynamic lower threshold
+float f_upperEnergyThreshold;   // dynamic upper threshold
 
 // for improved control of multiple loads
-bool b_recentTransition{false};
-uint8_t postTransitionCount;
+bool b_recentTransition{false};                 // a load state has been recently toggled
+uint8_t postTransitionCount;                    // counts the number of cycle since last transition
 constexpr uint8_t POST_TRANSITION_MAX_COUNT{3}; // <-- allows each transition to take effect
 //constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; // <-- for testing only
-uint8_t activeLoad{0};
+uint8_t activeLoad{0}; // current active load
 
 int32_t l_sumP[NO_OF_PHASES];                         // cumulative power per phase
 int32_t l_sampleVminusDC[NO_OF_PHASES];               // for the phaseCal algorithm
@@ -293,8 +296,8 @@ OneWire oneWire(tempSensorPin);
 #endif
 
 // For an enhanced polarity detection mechanism, which includes a persistence check
-constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{2};
-Polarities polarityOfMostRecentVsample[NO_OF_PHASES];
+constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{2};    // <-- allows polarity changes to be confirmed
+Polarities polarityOfMostRecentVsample[NO_OF_PHASES];    // for zero-crossing detection
 Polarities polarityConfirmed[NO_OF_PHASES];              // for zero-crossing detection
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; // for zero-crossing detection
 
@@ -354,7 +357,7 @@ void updatePortsStates()
   }
 }
 
-/* Since the pre-processor doesn't generate the function prototypes, we must declare then by hand !
+/* Since the pre-processor doesn't generate the function prototypes, we must declare them by hand !
 */
 void processCurrentRawSample(const uint8_t phase, const int16_t rawSample);
 void processVoltageRawSample(const uint8_t phase, const int16_t rawSample);
@@ -692,7 +695,7 @@ uint8_t nextLogicalLoadToBeAdded()
 //
 uint8_t nextLogicalLoadToBeRemoved()
 {
-  uint8_t index = NO_OF_DUMPLOADS;
+  uint8_t index{NO_OF_DUMPLOADS};
   do
   {
     --index;
@@ -959,10 +962,12 @@ void checkLoadPrioritySelection()
 #ifdef PRIORITY_ROTATION
     b_reOrderLoads = true;
 
+    // waits till the priorities have been rotated from inside the ISR
     while (b_reOrderLoads)
       delay(10);
 #endif
 
+    // prints the (new) load priorities
     logLoadPriorities();
   }
   else
@@ -971,6 +976,7 @@ void checkLoadPrioritySelection()
 
     for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
     {
+      // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
       if (!pinOffPeakState && !pinNewState &&
           (ulElapsedTime >= rg_OffsetForce[i][0]) &&
           (ulElapsedTime < rg_OffsetForce[i][1]))
@@ -980,6 +986,7 @@ void checkLoadPrioritySelection()
     }
   }
 
+  // end of off-peak period
   if (!pinOffPeakState && pinNewState)
     Serial.println(F("Change to peak period!"));
 
@@ -1076,6 +1083,7 @@ void setup()
   Serial.println(F("----------------------------------"));
   Serial.println(F("Sketch ID:  Mk2_3phase_RFdatalog_temp_1.ino"));
 
+  // initializes all loads to OFF at startup
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
     DDRD |= (1 << physicalLoadPin[i]); // driver pin for Load #n
@@ -1083,7 +1091,7 @@ void setup()
   }
   updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
 
-  updatePortsStates();
+  updatePortsStates(); // updates output pin states
 
 #ifdef OFF_PEAK_TARIFF
   DDRD &= ~(1 << offPeakForcePin);                 // set as output
@@ -1092,6 +1100,8 @@ void setup()
   uint8_t pinState{PIND & (1 << offPeakForcePin)}; // initial selection and
 
   ul_TimeOffPeak = millis();
+
+  // calculates offsets for force start and stop of each load
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
   {
     rg_OffsetForce[i][0] = ul_OFF_PEAK_DURATION - rg_ForceLoad[i][0];
