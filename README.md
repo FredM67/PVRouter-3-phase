@@ -45,4 +45,4 @@ For the moment, just reading. It'll be used to optimize force full power, to mak
 #### about the thermostat
 Since on all (3-phase) water heaters I've seen, the thermostat switches only 2 phases in normal mode (all 3 phases in security mode), it must be wired in another way to achieve a full switch on all 3 phases. In a fully balanced 3-phase situation, you don't need any neutral wire. To switch off the device, you only need to switch off 2 phases.
 
-For that, I've "recycled" a peak/off peak relay. It doesn't matter on which phase the command coil is connected, but it must be permanent.
+For that, I've "recycled" a peak/off peak relay. It doesn't matter on which phase the command coil is connected, but it must be permanent (not through the router).
