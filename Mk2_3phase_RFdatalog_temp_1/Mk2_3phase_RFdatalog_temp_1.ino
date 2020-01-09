@@ -103,7 +103,7 @@ constexpr int32_t REQUIRED_EXPORT_IN_WATTS{10}; // when set to a negative value,
 
 // ----------------
 // general literals
-constexpr uint32_t DATALOG_PERIOD_IN_MAINS_CYCLES{250}; // Period of datalogging in cycles
+constexpr int32_t DATALOG_PERIOD_IN_MAINS_CYCLES{250}; // Period of datalogging in cycles
 
 constexpr uint8_t NO_OF_PHASES{3}; // number of phases of the main supply.
 
