@@ -261,7 +261,7 @@ bool b_recentTransition{false};                 // a load state has been recentl
 uint8_t postTransitionCount;                    // counts the number of cycle since last transition
 constexpr uint8_t POST_TRANSITION_MAX_COUNT{3}; // <-- allows each transition to take effect
 //constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; // <-- for testing only
-uint8_t activeLoad{0}; // current active load
+uint8_t activeLoad{NO_OF_DUMPLOADS}; // current active load
 
 int32_t l_sumP[NO_OF_PHASES];                         // cumulative power per phase
 int32_t l_sampleVminusDC[NO_OF_PHASES];               // for the phaseCal algorithm
@@ -530,7 +530,7 @@ void confirmPolarity(const uint8_t phase)
 void processVoltage(const uint8_t phase)
 {
   static int32_t filtV_div4;
-  static uint32_t inst_Vsquared;
+  static int32_t inst_Vsquared;
 
   // for the Vrms calculation (for datalogging only)
   filtV_div4 = l_sampleVminusDC[phase] >> 2; // reduce to 16-bits (now x64, or 2^6)
