@@ -1097,7 +1097,7 @@ void setup()
   updatePortsStates(); // updates output pin states
 
 #ifdef OFF_PEAK_TARIFF
-  DDRD &= ~(1 << offPeakForcePin);                 // set as output
+  DDRD &= ~(1 << offPeakForcePin);                 // set as input
   PORTD |= (1 << offPeakForcePin);                 // enable the internal pullup resistor
   delay(100);                                      // allow time to settle
   uint8_t pinState{PIND & (1 << offPeakForcePin)}; // initial selection and
