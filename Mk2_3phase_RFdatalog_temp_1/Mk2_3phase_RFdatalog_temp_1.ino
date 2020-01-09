@@ -270,12 +270,12 @@ int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]; // for the LPF which determines DC 
 int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];  // for summation of 'real power' values during datalog period
 int32_t l_sum_Vsquared[NO_OF_PHASES];        // for summation of V^2 values during datalog period
 
-uint32_t l_samplesDuringThisMainsCycle[NO_OF_PHASES]; // for counting the sample sets during each mains cycle
-uint32_t l_sampleSetsDuringThisDatalogPeriod;         // for counting the sample sets during each datalogging period
-uint32_t l_cycleCountForDatalogging{0};               // for counting how often datalog is updated
+int32_t l_samplesDuringThisMainsCycle[NO_OF_PHASES]; // for counting the sample sets during each mains cycle
+int32_t l_sampleSetsDuringThisDatalogPeriod;         // for counting the sample sets during each datalogging period
+int32_t l_cycleCountForDatalogging{0};               // for counting how often datalog is updated
 
 // For a mechanism to check the integrity of this code structure
-uint32_t l_lowestNoOfSampleSetsPerMainsCycle;
+int32_t l_lowestNoOfSampleSetsPerMainsCycle;
 
 // for interaction between the main processor and the ISR
 volatile bool b_forceLoadsOn[NO_OF_DUMPLOADS]; // async trigger to force specific load(s) to ON
@@ -291,8 +291,8 @@ volatile bool b_newMainsCycle{false};       // async trigger to signal start of 
 volatile int32_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES];
 volatile int32_t copyOf_sum_Vsquared[NO_OF_PHASES];
 volatile float copyOf_energyInBucket_main;
-volatile uint32_t copyOf_lowestNoOfSampleSetsPerMainsCycle;
-volatile uint32_t copyOf_sampleSetsDuringThisDatalogPeriod;
+volatile int32_t copyOf_lowestNoOfSampleSetsPerMainsCycle;
+volatile int32_t copyOf_sampleSetsDuringThisDatalogPeriod;
 
 #ifdef TEMP_SENSOR
 // For temperature sensing
