@@ -263,15 +263,19 @@ constexpr uint8_t POST_TRANSITION_MAX_COUNT{3}; // <-- allows each transition to
 //constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; // <-- for testing only
 uint8_t activeLoad{NO_OF_DUMPLOADS}; // current active load
 
-int32_t l_sumP[NO_OF_PHASES];                         // cumulative power per phase
-int32_t l_sampleVminusDC[NO_OF_PHASES];               // for the phaseCal algorithm
-int32_t l_lastSampleVminusDC[NO_OF_PHASES];           // for the phaseCal algorithm
-int32_t l_cumVdeltasThisCycle[NO_OF_PHASES];          // for the LPF which determines DC offset (voltage)
+int32_t l_sumP[NO_OF_PHASES];                // cumulative power per phase
+int32_t l_sampleVminusDC[NO_OF_PHASES];      // for the phaseCal algorithm
+int32_t l_lastSampleVminusDC[NO_OF_PHASES];  // for the phaseCal algorithm
+int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]; // for the LPF which determines DC offset (voltage)
+int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];  // for summation of 'real power' values during datalog period
+int32_t l_sum_Vsquared[NO_OF_PHASES];        // for summation of V^2 values during datalog period
+
 uint32_t l_samplesDuringThisMainsCycle[NO_OF_PHASES]; // for counting the sample sets during each mains cycle
-int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];           // for summation of 'real power' values during datalog period
-uint32_t l_sum_Vsquared[NO_OF_PHASES];                // for summation of V^2 values during datalog period
 uint32_t l_sampleSetsDuringThisDatalogPeriod;         // for counting the sample sets during each datalogging period
 uint32_t l_cycleCountForDatalogging{0};               // for counting how often datalog is updated
+
+// For a mechanism to check the integrity of this code structure
+uint32_t l_lowestNoOfSampleSetsPerMainsCycle;
 
 // for interaction between the main processor and the ISR
 volatile bool b_forceLoadsOn[NO_OF_DUMPLOADS]; // async trigger to force specific load(s) to ON
@@ -285,10 +289,10 @@ volatile bool b_newMainsCycle{false};       // async trigger to signal start of 
 // generated from inside the ISR are copied from time to time to be passed to the
 // main processor. When the data are available, the ISR signals it to the main processor.
 volatile int32_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES];
-volatile uint32_t copyOf_sum_Vsquared[NO_OF_PHASES];
+volatile int32_t copyOf_sum_Vsquared[NO_OF_PHASES];
+volatile float copyOf_energyInBucket_main;
 volatile uint32_t copyOf_lowestNoOfSampleSetsPerMainsCycle;
 volatile uint32_t copyOf_sampleSetsDuringThisDatalogPeriod;
-volatile float copyOf_energyInBucket_main;
 
 #ifdef TEMP_SENSOR
 // For temperature sensing
@@ -300,9 +304,6 @@ constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{2};    // <-- allows polarity 
 Polarities polarityOfMostRecentVsample[NO_OF_PHASES];    // for zero-crossing detection
 Polarities polarityConfirmed[NO_OF_PHASES];              // for zero-crossing detection
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; // for zero-crossing detection
-
-// For a mechanism to check the integrity of this code structure
-uint32_t l_lowestNoOfSampleSetsPerMainsCycle;
 
 // Calibration values
 //-------------------
@@ -465,7 +466,7 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   static int32_t instP;
 
   // remove most of the DC offset from the current sample (the precise value does not matter)
-  sampleIminusDC = ((int32_t)(rawSample - l_DCoffset_I_nom)) << 8;
+  sampleIminusDC = ((int32_t)rawSample - l_DCoffset_I_nom) << 8;
   //
   // phase-shift the voltage waveform so that it aligns with the grid current waveform
   phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) * l_phaseCal) >> 8);
@@ -617,7 +618,7 @@ void processStartNewCycle()
   // Restrictions apply for the period immediately after a load has been switched.
   // Here the b_recentTransition flag is checked and updated as necessary.
   // if (b_recentTransition)
-  //   b_recentTransition &= (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
+  //   b_recentTransition = (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
   // for optimization, the next line is equivalent to the two lines above
   b_recentTransition &= (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
 
