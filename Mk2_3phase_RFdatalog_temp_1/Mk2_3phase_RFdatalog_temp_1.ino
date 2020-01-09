@@ -97,8 +97,8 @@
 
 // -----------------------------------------------------
 // Change these values to suit the local mains frequency and supply meter
-constexpr uint32_t CYCLES_PER_SECOND{50}; // number of cycles/s of the grid power supply
-constexpr uint32_t WORKING_ZONE_IN_JOULES{3600};
+constexpr int32_t CYCLES_PER_SECOND{50}; // number of cycles/s of the grid power supply
+constexpr int32_t WORKING_ZONE_IN_JOULES{3600};
 constexpr int32_t REQUIRED_EXPORT_IN_WATTS{10}; // when set to a negative value, this acts as a PV generator
 
 // ----------------
@@ -163,7 +163,7 @@ constexpr OutputModes outputMode{OutputModes::ANTI_FLICKER};
 // Load priorities at startup
 uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; // load priorities and states.
 constexpr uint8_t loadStateOnBit{0x80U};                  // bit mask for load state ON
-constexpr uint8_t loadStateMask{~loadStateOnBit};         // bit mask for masking load state
+constexpr uint8_t loadStateMask{0x7FU};                   // bit mask for masking load state
 
 /* --------------------------------------
    RF configuration (for the RFM12B module)
@@ -181,11 +181,11 @@ constexpr int UNO{1};            // for when the processor contains the UNO boot
 // definitions of a structure for datalogging
 using Tx_struct = struct
 {
-  int32_t power;                 // import = +ve, to match OEM convention
-  int32_t power_L[NO_OF_PHASES]; // import = +ve, to match OEM convention
-  int32_t Vrms_L_times100[NO_OF_PHASES];
+  int16_t power;                 // import = +ve, to match OEM convention
+  int16_t power_L[NO_OF_PHASES]; // import = +ve, to match OEM convention
+  int16_t Vrms_L_times100[NO_OF_PHASES];
 #ifdef TEMP_SENSOR
-  int32_t temperature_times100;
+  int16_t temperature_times100;
 #endif
 }; // revised data for RF comms
 Tx_struct tx_data;
@@ -234,7 +234,7 @@ int32_t l_DCoffset_V[NO_OF_PHASES]; // <--- for LPF
 // correctly.
 constexpr int32_t l_DCoffset_V_min{(512L - 100L) * 256L}; // mid-point of ADC minus a working margin
 constexpr int32_t l_DCoffset_V_max{(512L + 100L) * 256L}; // mid-point of ADC plus a working margin
-constexpr int32_t l_DCoffset_I_nom{512L};                 // nominal mid-point value of ADC @ x1 scale
+constexpr int16_t i_DCoffset_I_nom{512L};                 // nominal mid-point value of ADC @ x1 scale
 
 // for 3-phase use, with units of Joules * CYCLES_PER_SECOND
 constexpr float f_capacityOfEnergyBucket_main{(float)(WORKING_ZONE_IN_JOULES * CYCLES_PER_SECOND)};
@@ -337,7 +337,7 @@ constexpr float f_powerCal[NO_OF_PHASES]{0.0556f, 0.0560f, 0.0558f};
 constexpr float f_phaseCal{1}; // <- nominal values only
 // When using integer maths, calibration values that have been supplied in
 // floating point form need to be rescaled.
-constexpr int32_t l_phaseCal{256}; // to avoid the need for floating-point maths (f_phaseCal * 256)
+constexpr int16_t i_phaseCal{256}; // to avoid the need for floating-point maths (f_phaseCal * 256)
 
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
@@ -466,10 +466,10 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   static int32_t instP;
 
   // remove most of the DC offset from the current sample (the precise value does not matter)
-  sampleIminusDC = ((int32_t)rawSample - l_DCoffset_I_nom) << 8;
+  sampleIminusDC = ((int32_t)(rawSample - i_DCoffset_I_nom)) << 8;
   //
   // phase-shift the voltage waveform so that it aligns with the grid current waveform
-  phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) * l_phaseCal) >> 8);
+  phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) * i_phaseCal) >> 8);
   //
   // calculate the "real power" in this sample pair and add to the accumulated sum
   filtV_div4 = phaseShiftedSampleVminusDC >> 2; // reduce to 16-bits (now x64, or 2^6)
@@ -1091,7 +1091,7 @@ void setup()
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
     DDRD |= (1 << physicalLoadPin[i]); // driver pin for Load #n
-    loadPrioritiesAndState[i] &= loadStateOffMask;
+    loadPrioritiesAndState[i] &= loadStateMask;
   }
   updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
 
