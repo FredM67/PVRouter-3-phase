@@ -163,7 +163,7 @@ constexpr OutputModes outputMode{OutputModes::ANTI_FLICKER};
 // Load priorities at startup
 uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; // load priorities and states.
 constexpr uint8_t loadStateOnBit{0x80U};                  // bit mask for load state ON
-constexpr uint8_t loadStateOffMask{~loadStateOnBit};      // bit mask for load state OFF
+constexpr uint8_t loadStateMask{~loadStateOnBit};         // bit mask for masking load state
 
 /* --------------------------------------
    RF configuration (for the RFM12B module)
@@ -773,7 +773,7 @@ void proceedLowEnergyLevel()
 
   if (bOK_toRemoveLoad)
   {
-    loadPrioritiesAndState[tempLoad] &= loadStateOffMask;
+    loadPrioritiesAndState[tempLoad] &= loadStateMask;
     activeLoad = tempLoad;
     postTransitionCount = 0;
     b_recentTransition = true;
@@ -830,7 +830,7 @@ void processPlusHalfCycle(const uint8_t phase)
    The lowest 7 bits of element is the load number as defined in 'physicalLoadState'.
    The highest bit of each 'loadPrioritiesAndState' determines if the load is ON or OFF.
    The order of each element in 'loadPrioritiesAndState' determines the load priority.
-     'loadPrioritiesAndState[i] & loadStateOffMask' will extract the load number at position 'i'
+     'loadPrioritiesAndState[i] & loadStateMask' will extract the load number at position 'i'
      'loadPrioritiesAndState[i] & loadStateOnBit' will extract the load state at position 'i'
 
    Any other mapping relationships could be configured here.
@@ -842,7 +842,7 @@ void updatePhysicalLoadStates()
 #ifdef PRIORITY_ROTATION
   if (b_reOrderLoads)
   {
-    auto temp{loadPrioritiesAndState[0]};
+    const auto temp{loadPrioritiesAndState[0]};
     for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
       loadPrioritiesAndState[i] = loadPrioritiesAndState[i + 1];
 
@@ -853,8 +853,11 @@ void updatePhysicalLoadStates()
 #endif
 
   for (i = 0; i < NO_OF_DUMPLOADS; ++i)
-    physicalLoadState[loadPrioritiesAndState[i] & loadStateOffMask] =
-        (loadPrioritiesAndState[i] & loadStateOnBit) || b_forceLoadsOn[i] ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
+  {
+    const auto iLoad{loadPrioritiesAndState[i] & loadStateMask};
+    physicalLoadState[iLoad] =
+        (loadPrioritiesAndState[i] & loadStateOnBit) || b_forceLoadsOn[iLoad] ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
+  }
 }
 
 // Process with data logging.
