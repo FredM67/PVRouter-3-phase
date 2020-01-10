@@ -396,6 +396,14 @@ void processDataLogging();
   By means of various helper functions, all of the time-critical activities are processed
     within the ISR.
   The main code is notified by means of a flag when fresh copies of loggable data are available.
+
+  Keep in mind, when writing an Interrupt Service Routine (ISR):
+    - Keep it short
+    - Don't use delay ()
+    - Don't do serial prints
+    - Make variables shared with the main code volatile
+    - Variables shared with main code may need to be protected by "critical sections"
+    - Don't try to turn interrupts off or on
 */
 ISR(ADC_vect)
 {
