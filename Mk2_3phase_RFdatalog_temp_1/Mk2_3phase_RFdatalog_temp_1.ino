@@ -83,6 +83,10 @@
 
 //#define RF_PRESENT // <- this line must be commented out if the RFM12B module is not present
 
+#define NO_OUTPUT // <- this line can be commented out if "debuging" output is needed
+
+#define DATALOG_OUTPUT // <- this line can be commented if no datalogging is needed
+
 #ifdef TEMP_SENSOR
 #include <OneWire.h> // for temperature sensing
 #endif
@@ -91,6 +95,10 @@
 #define RF69_COMPAT 0 // for the RFM12B
 // #define RF69_COMPAT 1 // for the RF69
 #include <JeeLib.h>
+#endif
+
+#ifdef DATALOG_OUTPUT
+//#define JSON_FORMAT
 #endif
 
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
@@ -121,14 +129,21 @@ constexpr uint16_t BAD_TEMPERATURE{30000}; // this value (300C) is sent if no se
 #ifdef OFF_PEAK_TARIFF
 #define PRIORITY_ROTATION                     // <- this line must be commented out if you want fixed priorities
 constexpr uint32_t ul_OFF_PEAK_DURATION{8ul}; // <- this is the duration of the off-peak period in hours
-// off-peak forced control for loads 0..n
-// for load 'i' => rg_ForceLoad[i] = { offset, duration }
-// the load 'i' will be started with full power at start_offpeak + 'offset' for a duration of 'duration'
-// - all values are in hours.
-// - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT32_MAX' (somehow infinite time)
-constexpr uint32_t rg_ForceLoad[NO_OF_DUMPLOADS][2] = {{5, UINT32_MAX},  // <-- for load #1
-                                                       {5, UINT32_MAX},  // <-- for load #2
-                                                       {5, UINT32_MAX}}; // <-- for load #3
+/* off-peak forced control for loads 0..n
+ for load 'i' => rg_ForceLoad[i] = { offset, duration }
+ the load 'i' will be started with full power at start_offpeak + 'offset' for a duration of 'duration'
+ - all values are in hours.
+ - if the offset is negative, it's calculated from the end of the off-peak period (ie -3 means 3 hours back from the end).
+ - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT8_MAX' (somehow infinite time)
+*/
+using pairForceLoad = struct
+{
+  int8_t iStartOffset;
+  uint8_t uiDuration;
+};
+constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-3, UINT8_MAX},  // <-- for load #1
+                                                         {-3, UINT8_MAX},  // <-- for load #2
+                                                         {-3, UINT8_MAX}}; // <-- for load #3
 #endif
 
 // -------------------------------
@@ -906,6 +921,7 @@ void processDataLogging()
 
 // prints data logs to the Serial output
 //
+#ifndef JSON_FORMAT
 void printDataLogging()
 {
   uint8_t phase;
@@ -939,17 +955,43 @@ void printDataLogging()
   Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
   Serial.println(F(")"));
 }
+#else
+printDataLogging()
+{
+  Serial.print("{\"L1\":");
+  Serial.print(tx_data.power_L[0]);
+
+  Serial.print(",\"L2\":");
+  Serial.print(tx_data.power_L[1]);
+
+  Serial.print(",\"L3\":");
+  Serial.print(tx_data.power_L[2]);
+
+  Serial.print(",\"LOAD_0\":");
+  Serial.print(loadPrioritiesAndState[0]);
+
+  Serial.print(",\"LOAD_1\":");
+  Serial.print(loadPrioritiesAndState[1]);
+
+  Serial.print(",\"LOAD_2\":");
+  Serial.print(loadPrioritiesAndState[2]);
+
+  Serial.println("}");
+}
+#endif
 
 // prints the load priorities to the Serial output
 //
 void logLoadPriorities()
 {
+#ifndef NO_OUTPUT
   Serial.println(F("loadPriority: "));
   for (const auto loadPrioAndState : loadPrioritiesAndState)
   {
     Serial.print(F("\tload "));
     Serial.println(loadPrioAndState);
   }
+#endif
 }
 
 // This function changes the value of the load priorities
@@ -967,8 +1009,10 @@ void checkLoadPrioritySelection()
 
   if (pinOffPeakState && !pinNewState)
   {
-    // we start off-peak period
+// we start off-peak period
+#ifndef NO_OUTPUT
     Serial.println(F("Change to off-peak period!"));
+#endif
     ul_TimeOffPeak = millis();
 
 #ifdef PRIORITY_ROTATION
@@ -998,9 +1042,11 @@ void checkLoadPrioritySelection()
     }
   }
 
-  // end of off-peak period
+// end of off-peak period
+#ifndef NO_OUTPUT
   if (!pinOffPeakState && pinNewState)
     Serial.println(F("Change to peak period!"));
+#endif
 
   pinOffPeakState = pinNewState;
 #endif
@@ -1011,6 +1057,7 @@ void checkLoadPrioritySelection()
 //
 void printParamsForSelectedOutputMode()
 {
+#ifndef NO_OUTPUT
   // display relevant settings for selected output mode
   Serial.print("Output mode:    ");
   if (OutputModes::NORMAL == outputMode)
@@ -1027,6 +1074,7 @@ void printParamsForSelectedOutputMode()
   Serial.println(f_lowerThreshold_default);
   Serial.print(F("\tf_upperEnergyThreshold   = "));
   Serial.println(f_upperThreshold_default);
+#endif
 }
 
 #ifdef TEMP_SENSOR
@@ -1089,11 +1137,13 @@ void setup()
   delay(initialDelay); // allows time to open the Serial Monitor
 
   Serial.begin(9600); // initialize Serial interface
+#ifndef NO_OUTPUT
   Serial.println();
   Serial.println();
   Serial.println();
   Serial.println(F("----------------------------------"));
   Serial.println(F("Sketch ID:  Mk2_3phase_RFdatalog_temp_1.ino"));
+#endif
 
   // initializes all loads to OFF at startup
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
@@ -1116,8 +1166,12 @@ void setup()
   // calculates offsets for force start and stop of each load
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
   {
-    rg_OffsetForce[i][0] = ul_OFF_PEAK_DURATION - rg_ForceLoad[i][0];
-    rg_OffsetForce[i][1] = (UINT32_MAX != rg_ForceLoad[i][1]) ? rg_OffsetForce[i][0] + rg_ForceLoad[i][1] : rg_ForceLoad[i][1];
+    if (rg_ForceLoad[i].iStartOffset >= 0)
+      rg_OffsetForce[i][0] = rg_ForceLoad[i].iStartOffset;
+    else
+      rg_OffsetForce[i][0] = ul_OFF_PEAK_DURATION - rg_ForceLoad[i].iStartOffset;
+
+    rg_OffsetForce[i][1] = (UINT8_MAX != rg_ForceLoad[i].uiDuration) ? rg_OffsetForce[i][0] + rg_ForceLoad[i].uiDuration : rg_ForceLoad[i].uiDuration;
 
     rg_OffsetForce[i][0] *= 3600000ul; // convert in milli-seconds
     rg_OffsetForce[i][1] *= 3600000ul; // convert in milli-seconds
@@ -1130,9 +1184,11 @@ void setup()
   for (auto &DCoffset_V : l_DCoffset_V)
     DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
 
+#ifndef NO_OUTPUT
   Serial.println(F("ADC mode:       free-running"));
   Serial.print(F("requiredExport in Watts = "));
   Serial.println(REQUIRED_EXPORT_IN_WATTS);
+#endif
 
   // Set up the ADC to be free-running
   ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2); // Set the ADC's clock to system clock / 128
@@ -1149,6 +1205,7 @@ void setup()
   ADCSRA |= (1 << ADSC); // start ADC manually first time
   sei();                 // Enable Global Interrupts
 
+#ifndef NO_OUTPUT
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
   {
     Serial.print(F("f_powerCal for L"));
@@ -1168,21 +1225,26 @@ void setup()
 
   Serial.print(F("zero-crossing persistence (sample sets) = "));
   Serial.println(PERSISTENCE_FOR_POLARITY_CHANGE);
+#endif
 
   printParamsForSelectedOutputMode();
 
   logLoadPriorities();
 
+#ifndef NO_OUTPUT
   Serial.print(F(">>free RAM = "));
   Serial.println(freeRam()); // a useful value to keep an eye on
 
   Serial.println(F("----"));
+#endif
 
 #ifdef TEMP_SENSOR
   convertTemperature(); // start initial temperature conversion
 #endif
 
+#ifndef NO_OUTPUT
   Serial.print("RF capability ");
+#endif
 
 #ifdef RF_PRESENT
   Serial.print(F("IS present, freq = "));
@@ -1192,7 +1254,9 @@ void setup()
     Serial.println(F("868 MHz"));
   rf12_initialize(nodeID, freq, networkGroup); // initialize RF
 #else
+#ifndef NO_OUTPUT
   Serial.println(F("is NOT present"));
+#endif
 #endif
 
 #ifdef TEMP_SENSOR
@@ -1241,7 +1305,9 @@ void loop()
     send_rf_data();
 #endif
 
+#ifdef DATALOG_OUTPUT
     printDataLogging();
+#endif
 
 #ifdef TEMP_SENSOR
     convertTemperature(); // for use next time around
