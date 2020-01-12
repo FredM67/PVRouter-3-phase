@@ -1169,7 +1169,7 @@ void setup()
     if (rg_ForceLoad[i].iStartOffset >= 0)
       rg_OffsetForce[i][0] = rg_ForceLoad[i].iStartOffset;
     else
-      rg_OffsetForce[i][0] = ul_OFF_PEAK_DURATION - rg_ForceLoad[i].iStartOffset;
+      rg_OffsetForce[i][0] = ul_OFF_PEAK_DURATION + rg_ForceLoad[i].iStartOffset;
 
     rg_OffsetForce[i][1] = (UINT8_MAX != rg_ForceLoad[i].uiDuration) ? rg_OffsetForce[i][0] + rg_ForceLoad[i].uiDuration : rg_ForceLoad[i].uiDuration;
 
