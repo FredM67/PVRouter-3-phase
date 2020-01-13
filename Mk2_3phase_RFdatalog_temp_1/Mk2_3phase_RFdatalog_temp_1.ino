@@ -958,23 +958,14 @@ void printDataLogging()
 #else
 printDataLogging()
 {
-  Serial.print("{\"L1\":");
+  Serial.print(R"({"L1":)");
   Serial.print(tx_data.power_L[0]);
 
-  Serial.print(",\"L2\":");
+  Serial.print(R"(,"L2":)");
   Serial.print(tx_data.power_L[1]);
 
-  Serial.print(",\"L3\":");
+  Serial.print(R"(,"L3":)");
   Serial.print(tx_data.power_L[2]);
-
-  Serial.print(",\"LOAD_0\":");
-  Serial.print(loadPrioritiesAndState[0]);
-
-  Serial.print(",\"LOAD_1\":");
-  Serial.print(loadPrioritiesAndState[1]);
-
-  Serial.print(",\"LOAD_2\":");
-  Serial.print(loadPrioritiesAndState[2]);
 
   Serial.println("}");
 }
