@@ -83,7 +83,7 @@
 
 //#define RF_PRESENT // <- this line must be commented out if the RFM12B module is not present
 
-#define NO_OUTPUT // <- this line can be commented out if "debuging" output is needed
+//#define NO_OUTPUT // <- this line can be commented out if "debuging" output is needed
 
 #define DATALOG_OUTPUT // <- this line can be commented if no datalogging is needed
 
