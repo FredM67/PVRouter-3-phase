@@ -114,7 +114,7 @@
 #endif
 
 #ifdef DATALOG_OUTPUT
-//#define JSON_FORMAT ///< output in json format
+#define JSON_FORMAT ///< output in json format
 #endif
 
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
@@ -146,19 +146,24 @@ constexpr uint16_t BAD_TEMPERATURE{30000}; /**< this value (300C) is sent if no 
 #define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
 
 constexpr uint32_t ul_OFF_PEAK_DURATION{8ul}; /**< Duration of the off-peak period in hours */
-/* off-peak forced control for loads 0..n
- for load 'i' => rg_ForceLoad[i] = { offset, duration }
- the load 'i' will be started with full power at start_offpeak + 'offset' for a duration of 'duration'
- - all values are in hours.
- - if the offset is negative, it's calculated from the end of the off-peak period (ie -3 means 3 hours back from the end).
- - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT8_MAX' (somehow infinite time)
-*/
 
-/** config parameters for forcing a load */
-using pairForceLoad = struct
+/** @brief Config parameters for forcing a load
+ *  @details This class allows the user to define when and how long a load will be forced at 
+ *           full power during off-peak period.
+ * 
+ *           For each load, the user defines a pair of values: pairForceLoad => { offset, duration }.
+ *           The load will be started with full power at ('start_offpeak' + 'offset') for a duration of 'duration'
+ *             - all values are in hours.
+ *             - if the offset is negative, it's calculated from the end of the off-peak period (ie -3 means 3 hours back from the end).
+ *             - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT8_MAX' (somehow infinite time)
+*/
+class pairForceLoad
 {
-  int8_t iStartOffset; /**< the start offset from the off-peak begin in hours */
-  uint8_t uiDuration;  /**< the duration for forcing the load in hours */
+public:
+  constexpr pairForceLoad(int8_t _iStartOffset, uint8_t _uiDuration) : iStartOffset(_iStartOffset), uiDuration(_uiDuration) {}
+
+  int8_t iStartOffset{0}; /**< the start offset from the off-peak begin in hours */
+  uint8_t uiDuration{0};  /**< the duration for forcing the load in hours */
 };
 
 constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-3, UINT8_MAX},  /**< force config for load #1 */
@@ -195,6 +200,7 @@ constexpr uint8_t loadStateOnBit{0x80U}; /**< bit mask for load state ON */
 constexpr uint8_t loadStateMask{0x7FU};  /**< bit mask for masking load state */
 
 LoadStates physicalLoadState[NO_OF_DUMPLOADS]; /**< Physical state of the loads */
+uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was ON (over 1 datalog period) */
 
 constexpr OutputModes outputMode{OutputModes::ANTI_FLICKER}; /**< Output mode to be used */
 
@@ -213,12 +219,15 @@ constexpr int networkGroup{210}; /**< wireless network group - needs to be same 
 constexpr int UNO{1};            /**< for when the processor contains the UNO bootloader. */
 #endif
 
-/** @brief structure for datalogging */
-using Tx_struct = struct
+/** @brief container for datalogging
+ *  @details This class is used for datalogging.
+*/
+class Tx_struct
 {
-  int16_t power;                 /**< main power, import = +ve, to match OEM convention */
-  int16_t power_L[NO_OF_PHASES]; /**< power for phase #, import = +ve, to match OEM convention */
-  int16_t Vrms_L_times100[NO_OF_PHASES];
+public:
+  int16_t power;                         /**< main power, import = +ve, to match OEM convention */
+  int16_t power_L[NO_OF_PHASES];         /**< power for phase #, import = +ve, to match OEM convention */
+  int16_t Vrms_L_times100[NO_OF_PHASES]; /**< average voltage over datalogging period (in 100th of Volt)*/
 #ifdef TEMP_SENSOR
   int16_t temperature_times100; /**< temperature in 100th of °C */
 #endif
@@ -336,6 +345,7 @@ volatile int32_t copyOf_sum_Vsquared[NO_OF_PHASES];        /**< copy of for summ
 volatile float copyOf_energyInBucket_main;                 /**< copy of main energy bucket (over all phases) */
 volatile int32_t copyOf_lowestNoOfSampleSetsPerMainsCycle; /**<  */
 volatile int32_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
+volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];     /**< copy of number of cycle the load was ON (over 1 datalog period) */
 
 #ifdef TEMP_SENSOR
 // For temperature sensing
@@ -399,7 +409,10 @@ void updatePortsStates()
     if (LoadStates::LOAD_OFF == physicalLoadState[i])
       PORTD &= ~(1 << physicalLoadPin[i]);
     else
+    {
+      ++countLoadON[i];
       PORTD |= (1 << physicalLoadPin[i]);
+    }
   }
 }
 
@@ -981,6 +994,12 @@ void processDataLogging()
     l_sum_Vsquared[phase] = 0;
   }
 
+  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  {
+    copyOf_countLoadON[i] = countLoadON[i];
+    countLoadON[i] = 0;
+  }
+
   copyOf_sampleSetsDuringThisDatalogPeriod = l_sampleSetsDuringThisDatalogPeriod; // (for diags only)
   copyOf_lowestNoOfSampleSetsPerMainsCycle = l_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
   copyOf_energyInBucket_main = f_energyInBucket_main;                             // (for diags only)
@@ -1001,9 +1020,9 @@ void processDataLogging()
  */
 void printDataLogging()
 {
-#ifndef JSON_FORMAT
   uint8_t phase;
 
+#ifndef JSON_FORMAT
   Serial.print(copyOf_energyInBucket_main / CYCLES_PER_SECOND);
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
@@ -1034,312 +1053,322 @@ void printDataLogging()
   Serial.println(F(")"));
 
 #else
+  for (phase = 0; phase < NO_OF_PHASES; ++phase)
+  {
+    Serial.print(F(R"({"L)"));
+    Serial.print(phase + 1);
+    Serial.print(F(R"(": )"));
+    Serial.print(tx_data.power_L[phase]);
+    Serial.print(F(", "));
+  }
 
-  Serial.print(R"({"L1":)");
-  Serial.print(tx_data.power_L[0]);
+  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  {
+    Serial.print(F(R"(,"LOAD_)"));
+    Serial.print(i + 1);
+    Serial.print(F(R"(": ")"));
+    Serial.print((float)((100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod) / 100);
+    Serial.print(F(R"(")"));
+    if (NO_OF_DUMPLOADS == (i + 1))
+      Serial.print(F(", ")); // no ',' for last item
+  }
 
-  Serial.print(R"(,"L2":)");
-  Serial.print(tx_data.power_L[1]);
-
-  Serial.print(R"(,"L3":)");
-  Serial.print(tx_data.power_L[2]);
-
-  Serial.println("}");
-}
+  Serial.println(F("}"));
 #endif
+}
 
-  /**
+/**
  * @brief Prints the load priorities to the Serial output.
  * 
  */
-  void logLoadPriorities()
-  {
+void logLoadPriorities()
+{
 #ifndef NO_OUTPUT
-    Serial.println(F("loadPriority: "));
-    for (const auto loadPrioAndState : loadPrioritiesAndState)
-    {
-      Serial.print(F("\tload "));
-      Serial.println(loadPrioAndState);
-    }
-#endif
+  Serial.println(F("loadPriority: "));
+  for (const auto loadPrioAndState : loadPrioritiesAndState)
+  {
+    Serial.print(F("\tload "));
+    Serial.println(loadPrioAndState);
   }
+#endif
+}
 
-  /**
+/**
  * @brief This function changes the value of the load priorities.
  * @details Since we don't have access to a clock, we detect the offPeak start from the main energy meter.
  *          Additionally, when off-peak period starts, we rotate the load priorities for the next day.
  * 
  */
-  void checkLoadPrioritySelection()
-  {
+void checkLoadPrioritySelection()
+{
 #ifdef OFF_PEAK_TARIFF
-    uint8_t i;
+  uint8_t i;
 
-    static uint8_t pinOffPeakState{HIGH};
+  static uint8_t pinOffPeakState{HIGH};
 
-    const uint8_t pinNewState{PIND & (1 << offPeakForcePin)};
+  const uint8_t pinNewState{PIND & (1 << offPeakForcePin)};
 
-    if (pinOffPeakState && !pinNewState)
-    {
+  if (pinOffPeakState && !pinNewState)
+  {
 // we start off-peak period
 #ifndef NO_OUTPUT
-      Serial.println(F("Change to off-peak period!"));
+    Serial.println(F("Change to off-peak period!"));
 #endif
-      ul_TimeOffPeak = millis();
+    ul_TimeOffPeak = millis();
 
 #ifdef PRIORITY_ROTATION
-      b_reOrderLoads = true;
+    b_reOrderLoads = true;
 
-      // waits till the priorities have been rotated from inside the ISR
-      while (b_reOrderLoads)
-        delay(10);
+    // waits till the priorities have been rotated from inside the ISR
+    while (b_reOrderLoads)
+      delay(10);
 #endif
 
-      // prints the (new) load priorities
-      logLoadPriorities();
-    }
-    else
-    {
-      const auto ulElapsedTime{(uint32_t)(millis() - ul_TimeOffPeak)};
+    // prints the (new) load priorities
+    logLoadPriorities();
+  }
+  else
+  {
+    const auto ulElapsedTime{(uint32_t)(millis() - ul_TimeOffPeak)};
 
-      for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
-      {
-        // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
-        if (!pinOffPeakState && !pinNewState &&
-            (ulElapsedTime >= rg_OffsetForce[i][0]) &&
-            (ulElapsedTime < rg_OffsetForce[i][1]))
-          b_forceLoadsOn[i] = true;
-        else
-          b_forceLoadsOn[i] = false;
-      }
+    for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+    {
+      // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
+      if (!pinOffPeakState && !pinNewState &&
+          (ulElapsedTime >= rg_OffsetForce[i][0]) &&
+          (ulElapsedTime < rg_OffsetForce[i][1]))
+        b_forceLoadsOn[i] = true;
+      else
+        b_forceLoadsOn[i] = false;
     }
+  }
 
 // end of off-peak period
 #ifndef NO_OUTPUT
-    if (!pinOffPeakState && pinNewState)
-      Serial.println(F("Change to peak period!"));
+  if (!pinOffPeakState && pinNewState)
+    Serial.println(F("Change to peak period!"));
 #endif
 
-    pinOffPeakState = pinNewState;
+  pinOffPeakState = pinNewState;
 #endif
-  }
+}
 
-  /**
+/**
  * @brief Print the settings used for the selected output mode.
  * 
  */
-  void printParamsForSelectedOutputMode()
-  {
+void printParamsForSelectedOutputMode()
+{
 #ifndef NO_OUTPUT
-    // display relevant settings for selected output mode
-    Serial.print("Output mode:    ");
-    if (OutputModes::NORMAL == outputMode)
-      Serial.println("normal");
-    else
-    {
-      Serial.println("anti-flicker");
-      Serial.print("\toffsetOfEnergyThresholds  = ");
-      Serial.println(f_offsetOfEnergyThresholdsInAFmode);
-    }
-    Serial.print(F("\tf_capacityOfEnergyBucket_main = "));
-    Serial.println(f_capacityOfEnergyBucket_main);
-    Serial.print(F("\tf_lowerEnergyThreshold   = "));
-    Serial.println(f_lowerThreshold_default);
-    Serial.print(F("\tf_upperEnergyThreshold   = "));
-    Serial.println(f_upperThreshold_default);
-#endif
+  // display relevant settings for selected output mode
+  Serial.print("Output mode:    ");
+  if (OutputModes::NORMAL == outputMode)
+    Serial.println("normal");
+  else
+  {
+    Serial.println("anti-flicker");
+    Serial.print("\toffsetOfEnergyThresholds  = ");
+    Serial.println(f_offsetOfEnergyThresholdsInAFmode);
   }
+  Serial.print(F("\tf_capacityOfEnergyBucket_main = "));
+  Serial.println(f_capacityOfEnergyBucket_main);
+  Serial.print(F("\tf_lowerEnergyThreshold   = "));
+  Serial.println(f_lowerThreshold_default);
+  Serial.print(F("\tf_upperEnergyThreshold   = "));
+  Serial.println(f_upperThreshold_default);
+#endif
+}
 
 #ifdef TEMP_SENSOR
-  /**
+/**
  * @brief Convert the internal value read from the sensor to a value in °C.
  * 
  */
-  void convertTemperature()
-  {
-    oneWire.reset();
-    oneWire.write(SKIP_ROM);
-    oneWire.write(CONVERT_TEMPERATURE);
-  }
+void convertTemperature()
+{
+  oneWire.reset();
+  oneWire.write(SKIP_ROM);
+  oneWire.write(CONVERT_TEMPERATURE);
+}
 
-  /**
+/**
  * @brief Read the temperature.
  * 
  * @return The temperature in °C. 
  */
-  int16_t readTemperature()
-  {
-    uint8_t buf[9];
+int16_t readTemperature()
+{
+  uint8_t buf[9];
 
-    oneWire.reset();
-    oneWire.write(SKIP_ROM);
-    oneWire.write(READ_SCRATCHPAD);
-    for (auto &buf_elem : buf)
-      buf_elem = oneWire.read();
+  oneWire.reset();
+  oneWire.write(SKIP_ROM);
+  oneWire.write(READ_SCRATCHPAD);
+  for (auto &buf_elem : buf)
+    buf_elem = oneWire.read();
 
-    if (oneWire.crc8(buf, 8) != buf[8])
-      return BAD_TEMPERATURE;
+  if (oneWire.crc8(buf, 8) != buf[8])
+    return BAD_TEMPERATURE;
 
-    // result is temperature x16, multiply by 6.25 to convert to temperature x100
-    int16_t result = (buf[1] << 8) | buf[0];
-    return (result * 6) + (result >> 2);
-  }
+  // result is temperature x16, multiply by 6.25 to convert to temperature x100
+  int16_t result = (buf[1] << 8) | buf[0];
+  return (result * 6) + (result >> 2);
+}
 #endif
 
 #ifdef RF_PRESENT
-  /**
+/**
  * @brief Send the logging data through RF.
  * @details For better performance, the RFM12B needs to remain in its
  *          active state rather than being periodically put to sleep.
  * 
  */
-  void send_rf_data()
+void send_rf_data()
+{
+  // check whether it's ready to send, and an exit route if it gets stuck
+  uint32_t i = 0;
+  while (!rf12_canSend() && i < 10)
   {
-    // check whether it's ready to send, and an exit route if it gets stuck
-    uint32_t i = 0;
-    while (!rf12_canSend() && i < 10)
-    {
-      rf12_recvDone();
-      ++i;
-    }
-    rf12_sendNow(0, &tx_data, sizeof tx_data);
+    rf12_recvDone();
+    ++i;
   }
+  rf12_sendNow(0, &tx_data, sizeof tx_data);
+}
 #endif
 
-  int freeRam()
-  {
-    extern int __heap_start, *__brkval;
-    int v;
-    return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
-  }
+int freeRam()
+{
+  extern int __heap_start, *__brkval;
+  int v;
+  return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
+}
 
-  /**
+/**
  * @brief Called once during startup.
  * @details This function initializes a couple of variables we cannot init at compile time and
  *          sets a couple of parameters for runtime.
  * 
  */
-  void setup()
-  {
-    delay(initialDelay); // allows time to open the Serial Monitor
+void setup()
+{
+  delay(initialDelay); // allows time to open the Serial Monitor
 
-    Serial.begin(9600); // initialize Serial interface
+  Serial.begin(9600); // initialize Serial interface
 #ifndef NO_OUTPUT
-    Serial.println();
-    Serial.println();
-    Serial.println();
-    Serial.println(F("----------------------------------"));
-    Serial.println(F("Sketch ID:  Mk2_3phase_RFdatalog_temp_1.ino"));
+  Serial.println();
+  Serial.println();
+  Serial.println();
+  Serial.println(F("----------------------------------"));
+  Serial.println(F("Sketch ID:  Mk2_3phase_RFdatalog_temp_1.ino"));
 #endif
 
-    // initializes all loads to OFF at startup
-    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-    {
-      DDRD |= (1 << physicalLoadPin[i]); // driver pin for Load #n
-      loadPrioritiesAndState[i] &= loadStateMask;
-    }
-    updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
+  // initializes all loads to OFF at startup
+  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  {
+    DDRD |= (1 << physicalLoadPin[i]); // driver pin for Load #n
+    loadPrioritiesAndState[i] &= loadStateMask;
+  }
+  updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
 
-    updatePortsStates(); // updates output pin states
+  updatePortsStates(); // updates output pin states
 
 #ifdef OFF_PEAK_TARIFF
-    DDRD &= ~(1 << offPeakForcePin);                 // set as input
-    PORTD |= (1 << offPeakForcePin);                 // enable the internal pullup resistor
-    delay(100);                                      // allow time to settle
-    uint8_t pinState{PIND & (1 << offPeakForcePin)}; // initial selection and
+  DDRD &= ~(1 << offPeakForcePin);                 // set as input
+  PORTD |= (1 << offPeakForcePin);                 // enable the internal pullup resistor
+  delay(100);                                      // allow time to settle
+  uint8_t pinState{PIND & (1 << offPeakForcePin)}; // initial selection and
 
-    ul_TimeOffPeak = millis();
+  ul_TimeOffPeak = millis();
 
-    // calculates offsets for force start and stop of each load
-    for (uint8_t i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
-    {
-      if (rg_ForceLoad[i].iStartOffset >= 0)
-        rg_OffsetForce[i][0] = rg_ForceLoad[i].iStartOffset;
-      else
-        rg_OffsetForce[i][0] = ul_OFF_PEAK_DURATION + rg_ForceLoad[i].iStartOffset;
+  // calculates offsets for force start and stop of each load
+  for (uint8_t i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+  {
+    if (rg_ForceLoad[i].iStartOffset >= 0)
+      rg_OffsetForce[i][0] = rg_ForceLoad[i].iStartOffset;
+    else
+      rg_OffsetForce[i][0] = ul_OFF_PEAK_DURATION + rg_ForceLoad[i].iStartOffset;
 
-      rg_OffsetForce[i][1] = (UINT8_MAX != rg_ForceLoad[i].uiDuration) ? rg_OffsetForce[i][0] + rg_ForceLoad[i].uiDuration : rg_ForceLoad[i].uiDuration;
+    rg_OffsetForce[i][1] = (UINT8_MAX != rg_ForceLoad[i].uiDuration) ? rg_OffsetForce[i][0] + rg_ForceLoad[i].uiDuration : rg_ForceLoad[i].uiDuration;
 
-      rg_OffsetForce[i][0] *= 3600000ul; // convert in milli-seconds
-      rg_OffsetForce[i][1] *= 3600000ul; // convert in milli-seconds
-    }
+    rg_OffsetForce[i][0] *= 3600000ul; // convert in milli-seconds
+    rg_OffsetForce[i][1] *= 3600000ul; // convert in milli-seconds
+  }
 #endif
 
-    for (auto &bforceLoad : b_forceLoadsOn)
-      bforceLoad = false;
+  for (auto &bforceLoad : b_forceLoadsOn)
+    bforceLoad = false;
 
-    for (auto &DCoffset_V : l_DCoffset_V)
-      DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
+  for (auto &DCoffset_V : l_DCoffset_V)
+    DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
 
 #ifndef NO_OUTPUT
-    Serial.println(F("ADC mode:       free-running"));
-    Serial.print(F("requiredExport in Watts = "));
-    Serial.println(REQUIRED_EXPORT_IN_WATTS);
+  Serial.println(F("ADC mode:       free-running"));
+  Serial.print(F("requiredExport in Watts = "));
+  Serial.println(REQUIRED_EXPORT_IN_WATTS);
 #endif
 
-    // Set up the ADC to be free-running
-    ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2); // Set the ADC's clock to system clock / 128
-    ADCSRA |= (1 << ADEN);                               // Enable the ADC
+  // Set up the ADC to be free-running
+  ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2); // Set the ADC's clock to system clock / 128
+  ADCSRA |= (1 << ADEN);                               // Enable the ADC
 
-    ADCSRA |= (1 << ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
-    // bits ADTS0-2 have not been set (i.e. they are all zero), the
-    // ADC's trigger source is set to "free running mode".
+  ADCSRA |= (1 << ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  // bits ADTS0-2 have not been set (i.e. they are all zero), the
+  // ADC's trigger source is set to "free running mode".
 
-    ADCSRA |= (1 << ADIE); // set the ADC interrupt enable bit. When this bit is written
-    // to one and the I-bit in SREG is set, the
-    // ADC Conversion Complete Interrupt is activated.
+  ADCSRA |= (1 << ADIE); // set the ADC interrupt enable bit. When this bit is written
+  // to one and the I-bit in SREG is set, the
+  // ADC Conversion Complete Interrupt is activated.
 
-    ADCSRA |= (1 << ADSC); // start ADC manually first time
-    sei();                 // Enable Global Interrupts
+  ADCSRA |= (1 << ADSC); // start ADC manually first time
+  sei();                 // Enable Global Interrupts
 
 #ifndef NO_OUTPUT
-    for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
-    {
-      Serial.print(F("f_powerCal for L"));
-      Serial.print(phase + 1);
-      Serial.print(F(" =    "));
-      Serial.println(f_powerCal[phase], 4);
-    }
-    Serial.print(F("f_phaseCal for all phases"));
-    Serial.print(F(" =     "));
-    Serial.println(f_phaseCal);
+  for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
+  {
+    Serial.print(F("f_powerCal for L"));
+    Serial.print(phase + 1);
+    Serial.print(F(" =    "));
+    Serial.println(f_powerCal[phase], 4);
+  }
+  Serial.print(F("f_phaseCal for all phases"));
+  Serial.print(F(" =     "));
+  Serial.println(f_phaseCal);
 
-    Serial.print(F("f_voltageCal, for Vrms  =      "));
-    Serial.println(f_voltageCal, 4);
+  Serial.print(F("f_voltageCal, for Vrms  =      "));
+  Serial.println(f_voltageCal, 4);
 
-    Serial.print(F("Export rate (Watts) = "));
-    Serial.println(REQUIRED_EXPORT_IN_WATTS);
+  Serial.print(F("Export rate (Watts) = "));
+  Serial.println(REQUIRED_EXPORT_IN_WATTS);
 
-    Serial.print(F("zero-crossing persistence (sample sets) = "));
-    Serial.println(PERSISTENCE_FOR_POLARITY_CHANGE);
+  Serial.print(F("zero-crossing persistence (sample sets) = "));
+  Serial.println(PERSISTENCE_FOR_POLARITY_CHANGE);
 #endif
 
-    printParamsForSelectedOutputMode();
+  printParamsForSelectedOutputMode();
 
-    logLoadPriorities();
+  logLoadPriorities();
 
 #ifndef NO_OUTPUT
-    Serial.print(F(">>free RAM = "));
-    Serial.println(freeRam()); // a useful value to keep an eye on
+  Serial.print(F(">>free RAM = "));
+  Serial.println(freeRam()); // a useful value to keep an eye on
 
-    Serial.println(F("----"));
+  Serial.println(F("----"));
 #endif
 
 #ifdef TEMP_SENSOR
-    convertTemperature(); // start initial temperature conversion
+  convertTemperature(); // start initial temperature conversion
 #endif
 
 #ifndef NO_OUTPUT
-    Serial.print("RF capability ");
+  Serial.print("RF capability ");
 #endif
 
 #ifdef RF_PRESENT
-    Serial.print(F("IS present, Freq = "));
-    if (FREQ == RF12_433MHZ)
-      Serial.println(F("433 MHz"));
-    else if (FREQ == RF12_868MHZ)
-      Serial.println(F("868 MHz"));
-    rf12_initialize(nodeID, FREQ, networkGroup); // initialize RF
+  Serial.print(F("IS present, Freq = "));
+  if (FREQ == RF12_433MHZ)
+    Serial.println(F("433 MHz"));
+  else if (FREQ == RF12_868MHZ)
+    Serial.println(F("868 MHz"));
+  rf12_initialize(nodeID, FREQ, networkGroup); // initialize RF
 #else
 #ifndef NO_OUTPUT
   Serial.println(F("is NOT present"));
@@ -1347,60 +1376,60 @@ void printDataLogging()
 #endif
 
 #ifdef TEMP_SENSOR
-    convertTemperature(); // start initial temperature conversion
+  convertTemperature(); // start initial temperature conversion
 #endif
-  }
+}
 
-  /**
+/**
  * @brief Main processor.
  * @details None of the workload in loop() is time-critical.
  *          All the processing of ADC data is done within the ISR.
  * 
 */
-  void loop()
+void loop()
+{
+  static uint8_t perSecondTimer{0};
+
+  if (b_newMainsCycle) // flag is set after every pair of ADC conversions
   {
-    static uint8_t perSecondTimer{0};
+    b_newMainsCycle = false; // reset the flag
+    ++perSecondTimer;
 
-    if (b_newMainsCycle) // flag is set after every pair of ADC conversions
+    if (perSecondTimer >= CYCLES_PER_SECOND)
     {
-      b_newMainsCycle = false; // reset the flag
-      ++perSecondTimer;
-
-      if (perSecondTimer >= CYCLES_PER_SECOND)
-      {
-        perSecondTimer = 0;
-        checkLoadPrioritySelection(); // called every second
-      }
+      perSecondTimer = 0;
+      checkLoadPrioritySelection(); // called every second
     }
+  }
 
-    if (b_datalogEventPending)
+  if (b_datalogEventPending)
+  {
+    b_datalogEventPending = false;
+
+    tx_data.power = 0;
+    for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
     {
-      b_datalogEventPending = false;
+      tx_data.power_L[phase] = copyOf_sumP_atSupplyPoint[phase] / copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
+      tx_data.power_L[phase] *= -1;
 
-      tx_data.power = 0;
-      for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
-      {
-        tx_data.power_L[phase] = copyOf_sumP_atSupplyPoint[phase] / copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
-        tx_data.power_L[phase] *= -1;
+      tx_data.power += tx_data.power_L[phase];
 
-        tx_data.power += tx_data.power_L[phase];
-
-        tx_data.Vrms_L_times100[phase] = (int32_t)(100 * f_voltageCal * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
-      }
+      tx_data.Vrms_L_times100[phase] = (int32_t)(100 * f_voltageCal * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+    }
 #ifdef TEMP_SENSOR
-      tx_data.temperature_times100 = readTemperature();
+    tx_data.temperature_times100 = readTemperature();
 #endif
 
 #ifdef RF_PRESENT
-      send_rf_data();
+    send_rf_data();
 #endif
 
 #ifdef DATALOG_OUTPUT
-      printDataLogging();
+    printDataLogging();
 #endif
 
 #ifdef TEMP_SENSOR
-      convertTemperature(); // for use next time around
+    convertTemperature(); // for use next time around
 #endif
-    }
-  } // end of loop()
+  }
+} // end of loop()
