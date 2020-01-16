@@ -1067,7 +1067,7 @@ void printDataLogging()
     Serial.print(F(R"(,"LOAD_)"));
     Serial.print(i + 1);
     Serial.print(F(R"(": ")"));
-    Serial.print((float)((100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod) / 100);
+    Serial.print((100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod);
     Serial.print(F(R"(")"));
     if (NO_OF_DUMPLOADS == (i + 1))
       Serial.print(F(", ")); // no ',' for last item
