@@ -13,7 +13,7 @@
  * In the absence of such a system, surplus energy flows away to the grid and is of no benefit to the PV-owner.
  * 
  * @section history History
- *    Issue 1 was released in January 2015.
+ * __Issue 1 was released in January 2015.__
  *
  * This sketch provides continuous monitoring of real power on three phases.
  * Surplus power is diverted to multiple loads in sequential order. A suitable
@@ -23,7 +23,7 @@
  * Datalogging of real power and Vrms is provided for each phase.
  * The presence or absence of the RFM12B needs to be set at compile time
  *
- * January 2016, renamed as Mk2_3phase_RFdatalog_2 with these changes:
+ * __January 2016, renamed as Mk2_3phase_RFdatalog_2 with these changes:__
  * - Improved control of multiple loads has been imported from the
  *     equivalent 1-phase sketch, Mk2_multiLoad_wired_6.ino
  * - the ISR has been upgraded to fix a possible timing anomaly
@@ -32,7 +32,7 @@
  * - a performance check has been added with the result being sent to the Serial port
  * - control signals for loads are now active-high to suit the latest 3-phase PCB
  *
- * February 2016, renamed as Mk2_3phase_RFdatalog_3 with these changes:
+ * __February 2016, renamed as Mk2_3phase_RFdatalog_3 with these changes:__
  * - improvements to the start-up logic. The start of normal operation is now
  *    synchronized with the start of a new mains cycle.
  * - reduce the amount of feedback in the Low Pass Filter for removing the DC content
@@ -46,7 +46,7 @@
  *      Robin Emley
  *      www.Mk2PVrouter.co.uk
  *
- * October 2019, renamed as Mk2_3phase_RFdatalog_temp_1 with these changes:
+ * __October 2019, renamed as Mk2_3phase_RFdatalog_temp_1 with these changes:__
  * - This sketch has been restructured in order to make better use of the ISR.
  * - All of the time-critical code is now contained within the ISR and its helper functions.
  * - Values for datalogging are transferred to the main code using a flag-based handshake mechanism.
@@ -75,7 +75,7 @@
  *   - renaming of most of the variables with a single-letter prefix to identify its type.
  *   - direct port manipulation to save code size and speed-up performance
  *
- * January 2020, changes:
+ * __January 2020, changes:__
  * - This sketch has been again re-engineered. All 'defines' have been removed except
  *   the ones for compile-time optional functionalities.
  * - All constants have been replaced with constexpr initialized at compile-time
@@ -527,11 +527,18 @@ ISR(ADC_vect)
    Start of various helper functions which are used by the ISR
 */
 
+/*!
+*  @defgroup TimeCritical Time critical functions Group
+*  Functions used by the ISR
+*/
+
 /**
  * @brief Process the calculation for the actual current raw sample for the specific phase
  * 
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
+ * 
+ * @ingroup TimeCritical
  */
 void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 {
@@ -562,6 +569,8 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
  * 
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
+ * 
+ * @ingroup TimeCritical
  */
 void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
 {
@@ -581,6 +590,8 @@ void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
  * 
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
+ * 
+ * @ingroup TimeCritical
  */
 void processPolarity(const uint8_t phase, const int16_t rawSample)
 {
@@ -596,6 +607,8 @@ void processPolarity(const uint8_t phase, const int16_t rawSample)
  *        of consecutive samples in the 'other' half of the waveform have been encountered.
  * 
  * @param phase the phase number [0..NO_OF_PHASES[
+ * 
+ * @ingroup TimeCritical
  */
 void confirmPolarity(const uint8_t phase)
 {
@@ -617,6 +630,8 @@ void confirmPolarity(const uint8_t phase)
  * @brief Process the calculation for the current voltage sample for the specific phase
  * 
  * @param phase the phase number [0..NO_OF_PHASES[
+ * 
+ * @ingroup TimeCritical
  */
 void processVoltage(const uint8_t phase)
 {
@@ -639,6 +654,8 @@ void processVoltage(const uint8_t phase)
  * @brief This routine is called by the ISR when a pair of V & I sample becomes available.
  * 
  * @param phase the phase number [0..NO_OF_PHASES[
+ * 
+ * @ingroup TimeCritical
  */
 void processRawSamples(const uint8_t phase)
 {
@@ -681,6 +698,8 @@ void processRawSamples(const uint8_t phase)
  * @brief Process the startup period for the router.
  * 
  * @param phase the phase number [0..NO_OF_PHASES[
+ * 
+ * @ingroup TimeCritical
  */
 void processStartUp(const uint8_t phase)
 {
@@ -706,6 +725,8 @@ void processStartUp(const uint8_t phase)
  *          - change the LOGICAL load states as necessary to maintain the energy level
  *          - update the PHYSICAL load states according to the logical -> physical mapping
  *          - update the driver lines for each of the loads.
+ * 
+ * @ingroup TimeCritical
  */
 void processStartNewCycle()
 {
@@ -755,6 +776,8 @@ void processStartNewCycle()
  * @brief Process the start of a new -ve half cycle, for this phase, just after the zero-crossing point.
  * 
  * @param phase the phase number [0..NO_OF_PHASES[
+ * 
+ * @ingroup TimeCritical
  */
 void processMinusHalfCycle(const uint8_t phase)
 {
@@ -780,6 +803,8 @@ void processMinusHalfCycle(const uint8_t phase)
  * @brief Retrieve the next load that could be added (be aware of the order)
  * 
  * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure 
+ * 
+ * @ingroup TimeCritical
  */
 uint8_t nextLogicalLoadToBeAdded()
 {
@@ -794,6 +819,8 @@ uint8_t nextLogicalLoadToBeAdded()
  * @brief Retrieve the next load that could be removed (be aware of the reverse-order)
  * 
  * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure 
+ * 
+ * @ingroup TimeCritical
  */
 uint8_t nextLogicalLoadToBeRemoved()
 {
@@ -811,6 +838,7 @@ uint8_t nextLogicalLoadToBeRemoved()
 /**
  * @brief Process the case of high energy level, some action may be required.
  * 
+ * @ingroup TimeCritical
  */
 void proceedHighEnergyLevel()
 {
@@ -850,6 +878,7 @@ void proceedHighEnergyLevel()
 /**
  * @brief Process the case of low energy level, some action may be required.
  * 
+ * @ingroup TimeCritical
  */
 void proceedLowEnergyLevel()
 {
@@ -890,6 +919,7 @@ void proceedLowEnergyLevel()
  * @brief Process the lastest contribution after each phase specific new cycle
  *        additional processing is performed after each main cycle based on phase 0.
  * 
+ * @ingroup TimeCritical
  */
 void processLatestContribution(const uint8_t phase)
 {
@@ -911,6 +941,7 @@ void processLatestContribution(const uint8_t phase)
 /**
  * @brief Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
  * 
+ * @ingroup TimeCritical
  */
 void processPlusHalfCycle(const uint8_t phase)
 {
@@ -945,6 +976,7 @@ void processPlusHalfCycle(const uint8_t phase)
  * 
  *          Any other mapping relationships could be configured here.
  * 
+ * @ingroup TimeCritical
  */
 void updatePhysicalLoadStates()
 {
@@ -977,6 +1009,7 @@ void updatePhysicalLoadStates()
  *          for use by the main code. These variable are then reset for use during the next
  *          datalogging period.
  * 
+ * @ingroup TimeCritical
  */
 void processDataLogging()
 {

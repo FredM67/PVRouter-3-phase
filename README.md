@@ -4,6 +4,9 @@ My version of the 3-phase Mk2PVRouter firmware (see http://www.mk2pvrouter.co.uk
 Robin Emley already proposes a 3 phase PV-router (https://www.mk2pvrouter.co.uk/3-phase-version.html).
 It supports 3 resistive output loads, which are completely independent.
 
+### documentation
+You can start reading the documentation here [3-phase diverter](https://fredm67.github.io/mk2pvrouter/html/index.html).
+
 Goal was to modify/optimize the sketch for the "special" case of a 3-phase water heater. A 3-phase water heater is composed in fact of 3 independent heating elements. Most of the time, such a heater can be connected in mono, or 3-phase WYE or 3-phase Delta.
 When connected in WYE (without varistor), there's no need of a neutral wire because the system is equally distributed, so at any time, there's no current flowing to the neutral.
 
