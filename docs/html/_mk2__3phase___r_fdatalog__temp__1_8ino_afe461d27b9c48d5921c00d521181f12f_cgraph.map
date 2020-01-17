@@ -1,0 +1,10 @@
+<map id="loop" name="loop">
+<area shape="rect" id="node1" title="Main processor." alt="" coords="5,107,52,133"/>
+<area shape="rect" id="node2" href="$_mk2__3phase___r_fdatalog__temp__1_8ino.html#af92f0c1dbb416b110980db671dbb4cb0" title="This function changes the value of the load priorities." alt="" coords="100,5,280,32"/>
+<area shape="rect" id="node4" href="$_mk2__3phase___r_fdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d" title="Convert the internal value read from the sensor to a value in °C." alt="" coords="123,56,257,83"/>
+<area shape="rect" id="node6" href="$_mk2__3phase___r_fdatalog__temp__1_8ino.html#a5c30ee10994f277461407506298c10fd" title="Prints data logs to the Serial output in text or json format." alt="" coords="131,107,249,133"/>
+<area shape="rect" id="node7" href="$_mk2__3phase___r_fdatalog__temp__1_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba" title="Read the temperature." alt="" coords="131,157,249,184"/>
+<area shape="rect" id="node8" href="$_mk2__3phase___r_fdatalog__temp__1_8ino.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="142,208,238,235"/>
+<area shape="rect" id="node3" href="$_mk2__3phase___r_fdatalog__temp__1_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="328,5,447,32"/>
+<area shape="rect" id="node5" href="$_mk2__3phase___r_fdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee" title=" " alt="" coords="352,107,423,133"/>
+</map>
