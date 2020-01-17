@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>3-phase PV router: A 3-phase photovoltaïc router/diverter</title>
+<title>3-phase PV router: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,71 +60,11 @@ $(function() {
 </iframe>
 </div>
 
-<div class="PageDoc"><div class="header">
+<div class="header">
   <div class="headertitle">
-<div class="title">A 3-phase photovoltaïc router/diverter </div>  </div>
+<div class="title">3-phase PV router Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="description"></a>
-Description</h1>
-<p><a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino.html">Mk2_3phase_RFdatalog_temp_1.ino</a> - Arduino program that maximizes the use of home photovoltaïc production by monitoring energy consumption and diverting power to one or more resistive charge(s) when needed. In the absence of such a system, surplus energy flows away to the grid and is of no benefit to the PV-owner.</p>
-<h1><a class="anchor" id="history"></a>
-History</h1>
-<p><b>Issue 1 was released in January 2015.</b></p>
-<p>This sketch provides continuous monitoring of real power on three phases. Surplus power is diverted to multiple loads in sequential order. A suitable output-stage is required for each load; this can be either triac-based, or a Solid State Relay.</p>
-<p>Datalogging of real power and Vrms is provided for each phase. The presence or absence of the RFM12B needs to be set at compile time</p>
-<p><b>January 2016, renamed as Mk2_3phase_RFdatalog_2 with these changes:</b></p><ul>
-<li>Improved control of multiple loads has been imported from the equivalent 1-phase sketch, Mk2_multiLoad_wired_6.ino</li>
-<li>the ISR has been upgraded to fix a possible timing anomaly</li>
-<li>variables to store ADC samples are now declared as "volatile"</li>
-<li>for RF69 RF module is now supported</li>
-<li>a performance check has been added with the result being sent to the Serial port</li>
-<li>control signals for loads are now active-high to suit the latest 3-phase PCB</li>
-</ul>
-<p><b>February 2016, renamed as Mk2_3phase_RFdatalog_3 with these changes:</b></p><ul>
-<li>improvements to the start-up logic. The start of normal operation is now synchronized with the start of a new mains cycle.</li>
-<li>reduce the amount of feedback in the Low Pass Filter for removing the DC content from the Vsample stream. This resolves an anomaly which has been present since the start of this project. Although the amount of feedback has previously been excessive, this anomaly has had minimal effect on the system's overall behaviour.</li>
-<li><p class="startli">The reported power at each of the phases has been inverted. These values are now in line with the Open Energy Monitor convention, whereby import is positive and export is negative.</p>
-<p class="startli">Robin Emley www.Mk2PVrouter.co.uk</p>
-</li>
-</ul>
-<p><b>October 2019, renamed as Mk2_3phase_RFdatalog_temp_1 with these changes:</b></p><ul>
-<li>This sketch has been restructured in order to make better use of the ISR.</li>
-<li>All of the time-critical code is now contained within the ISR and its helper functions.</li>
-<li>Values for datalogging are transferred to the main code using a flag-based handshake mechanism.</li>
-<li>The diversion of surplus power can no longer be affected by slower activities which may be running in the main code such as Serial statements and RF.</li>
-<li>Temperature sensing is supported. A pullup resistor (4K7 or similar) is required for the Dallas sensor.</li>
-<li>The output mode, i.e. NORMAL or ANTI_FLICKER, is now set at compile time.</li>
-<li>Also:<ul>
-<li>The ADC is now in free-running mode, at ~104 µs per conversion.</li>
-<li>a persistence check has been added for zero-crossing detection (polarityConfirmed)</li>
-<li>a lowestNoOfSampleSetsPerMainsCycle check has been added, to detect any disturbances</li>
-<li>Vrms has been added to the datalog payload (as Vrms x 100)</li>
-<li>temperature has been added to the datalog payload (as degrees C x 100)</li>
-<li>the phaseCal/f_voltageCal mechanism has been modified to be the same for all phases</li>
-<li>RF capability made switchable so that the code will continue to run when an RF module is not fitted. Dataloging can then take place via the Serial port.</li>
-<li>temperature capability made switchable so that the code will continue to run w/o sensor.</li>
-<li>priority pin changed to handle peak/off-peak tariff</li>
-<li>add rotating load priorities: this sketch is intended to control a 3-phase water heater which is composed of 3 independent heating elements wired in WYE with a neutral wire. The router will control each element in a specific order. To ensure that in average (over many days/months), each load runs the same time, each day, the router will rotate the priorities.</li>
-<li>most functions have been splitted in one or more sub-functions. This way, each function has a specific task and is much smaller than before.</li>
-<li>renaming of most of the variables with a single-letter prefix to identify its type.</li>
-<li>direct port manipulation to save code size and speed-up performance</li>
-</ul>
-</li>
-</ul>
-<p><b>January 2020, changes:</b></p><ul>
-<li>This sketch has been again re-engineered. All 'defines' have been removed except the ones for compile-time optional functionalities.</li>
-<li>All constants have been replaced with constexpr initialized at compile-time</li>
-<li>all number-types have been replaced with fixed width number types</li>
-<li>old fashion enums replaced by scoped enums with fixed types</li>
-<li>off-peak tariff made switchable at compile-time</li>
-<li>rotation of load priorities made switcheable at compile-time</li>
-<li><p class="startli">enhanced configuration for forcing specific loads during off-peak period</p>
-<p class="startli">Fred Metrich</p>
-</li>
-</ul>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2020 </dd></dl>
-</div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
