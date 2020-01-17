@@ -5,8 +5,6 @@
  * @brief Mk2_3phase_RFdatalog_temp_1.ino - A photovoltaïc energy diverter.
  * @date 2020-01-14
  * 
- * @mainpage A 3-phase photovoltaïc router/diverter
- * 
  * @section description Description
  * Mk2_3phase_RFdatalog_temp_1.ino - Arduino program that maximizes the use of home photovoltaïc production
  * by monitoring energy consumption and diverting power to one or more resistive charge(s) when needed.

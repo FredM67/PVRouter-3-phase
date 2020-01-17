@@ -71,6 +71,9 @@ $(function() {
 <div class="title">Mk2_3phase_RFdatalog_temp_1.ino File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino.html" title="Mk2_3phase_RFdatalog_temp_1.ino - A photovoltaïc energy diverter.">Mk2_3phase_RFdatalog_temp_1.ino</a> - A photovoltaïc energy diverter.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
 <code>#include &lt;OneWire.h&gt;</code><br />
 <code>#include &lt;JeeLib.h&gt;</code><br />
@@ -79,7 +82,7 @@ Include dependency graph for Mk2_3phase_RFdatalog_temp_1.ino:</div>
 <div class="dyncontent">
 <div class="center"><img src="_mk2__3phase___r_fdatalog__temp__1_8ino__incl.png" border="0" usemap="#_mk2__3phase___r_fdatalog__temp__1_8ino" alt=""/></div>
 <map name="_mk2__3phase___r_fdatalog__temp__1_8ino" id="_mk2__3phase___r_fdatalog__temp__1_8ino">
-<area shape="rect" title=" " alt="" coords="68,5,231,47"/>
+<area shape="rect" title="Mk2_3phase_RFdatalog_temp_1.ino &#45; A photovoltaïc energy diverter." alt="" coords="68,5,231,47"/>
 <area shape="rect" title=" " alt="" coords="5,95,83,121"/>
 <area shape="rect" title=" " alt="" coords="107,95,191,121"/>
 <area shape="rect" title=" " alt="" coords="215,95,286,121"/>
@@ -380,7 +383,74 @@ Variables</h2></td></tr>
 <tr class="memitem:a59fe2f06ab4bbf0fd06909c56c3324e3"><td class="memItemLeft" align="right" valign="top">constexpr int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino.html#a59fe2f06ab4bbf0fd06909c56c3324e3">WORKING_ZONE_IN_JOULES</a> {3600}</td></tr>
 <tr class="separator:a59fe2f06ab4bbf0fd06909c56c3324e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino.html" title="Mk2_3phase_RFdatalog_temp_1.ino - A photovoltaïc energy diverter.">Mk2_3phase_RFdatalog_temp_1.ino</a> - A photovoltaïc energy diverter. </p>
+<dl class="section author"><dt>Author</dt><dd>Robin Emley (www.Mk2PVrouter.co.uk) </dd>
+<dd>
+Frederic Metrich (<a href="#" onclick="location.href='mai'+'lto:'+'fre'+'de'+'ric'+'.m'+'etr'+'ic'+'h@l'+'iv'+'e.f'+'r'; return false;">frede<span style="display: none;">.nosp@m.</span>ric.<span style="display: none;">.nosp@m.</span>metri<span style="display: none;">.nosp@m.</span>ch@l<span style="display: none;">.nosp@m.</span>ive.f<span style="display: none;">.nosp@m.</span>r</a>) </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2020-01-14</dd></dl>
+<h1><a class="anchor" id="description"></a>
+Description</h1>
+<p><a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino.html" title="Mk2_3phase_RFdatalog_temp_1.ino - A photovoltaïc energy diverter.">Mk2_3phase_RFdatalog_temp_1.ino</a> - Arduino program that maximizes the use of home photovoltaïc production by monitoring energy consumption and diverting power to one or more resistive charge(s) when needed. In the absence of such a system, surplus energy flows away to the grid and is of no benefit to the PV-owner.</p>
+<h1><a class="anchor" id="history"></a>
+History</h1>
+<p><b>Issue 1 was released in January 2015.</b></p>
+<p>This sketch provides continuous monitoring of real power on three phases. Surplus power is diverted to multiple loads in sequential order. A suitable output-stage is required for each load; this can be either triac-based, or a Solid State Relay.</p>
+<p>Datalogging of real power and Vrms is provided for each phase. The presence or absence of the RFM12B needs to be set at compile time</p>
+<p><b>January 2016, renamed as Mk2_3phase_RFdatalog_2 with these changes:</b></p><ul>
+<li>Improved control of multiple loads has been imported from the equivalent 1-phase sketch, Mk2_multiLoad_wired_6.ino</li>
+<li>the ISR has been upgraded to fix a possible timing anomaly</li>
+<li>variables to store ADC samples are now declared as "volatile"</li>
+<li>for RF69 RF module is now supported</li>
+<li>a performance check has been added with the result being sent to the Serial port</li>
+<li>control signals for loads are now active-high to suit the latest 3-phase PCB</li>
+</ul>
+<p><b>February 2016, renamed as Mk2_3phase_RFdatalog_3 with these changes:</b></p><ul>
+<li>improvements to the start-up logic. The start of normal operation is now synchronized with the start of a new mains cycle.</li>
+<li>reduce the amount of feedback in the Low Pass Filter for removing the DC content from the Vsample stream. This resolves an anomaly which has been present since the start of this project. Although the amount of feedback has previously been excessive, this anomaly has had minimal effect on the system's overall behaviour.</li>
+<li><p class="startli">The reported power at each of the phases has been inverted. These values are now in line with the Open Energy Monitor convention, whereby import is positive and export is negative.</p>
+<p class="startli">Robin Emley www.Mk2PVrouter.co.uk</p>
+</li>
+</ul>
+<p><b>October 2019, renamed as Mk2_3phase_RFdatalog_temp_1 with these changes:</b></p><ul>
+<li>This sketch has been restructured in order to make better use of the ISR.</li>
+<li>All of the time-critical code is now contained within the ISR and its helper functions.</li>
+<li>Values for datalogging are transferred to the main code using a flag-based handshake mechanism.</li>
+<li>The diversion of surplus power can no longer be affected by slower activities which may be running in the main code such as Serial statements and RF.</li>
+<li>Temperature sensing is supported. A pullup resistor (4K7 or similar) is required for the Dallas sensor.</li>
+<li>The output mode, i.e. NORMAL or ANTI_FLICKER, is now set at compile time.</li>
+<li>Also:<ul>
+<li>The ADC is now in free-running mode, at ~104 µs per conversion.</li>
+<li>a persistence check has been added for zero-crossing detection (polarityConfirmed)</li>
+<li>a lowestNoOfSampleSetsPerMainsCycle check has been added, to detect any disturbances</li>
+<li>Vrms has been added to the datalog payload (as Vrms x 100)</li>
+<li>temperature has been added to the datalog payload (as degrees C x 100)</li>
+<li>the phaseCal/f_voltageCal mechanism has been modified to be the same for all phases</li>
+<li>RF capability made switchable so that the code will continue to run when an RF module is not fitted. Dataloging can then take place via the Serial port.</li>
+<li>temperature capability made switchable so that the code will continue to run w/o sensor.</li>
+<li>priority pin changed to handle peak/off-peak tariff</li>
+<li>add rotating load priorities: this sketch is intended to control a 3-phase water heater which is composed of 3 independent heating elements wired in WYE with a neutral wire. The router will control each element in a specific order. To ensure that in average (over many days/months), each load runs the same time, each day, the router will rotate the priorities.</li>
+<li>most functions have been splitted in one or more sub-functions. This way, each function has a specific task and is much smaller than before.</li>
+<li>renaming of most of the variables with a single-letter prefix to identify its type.</li>
+<li>direct port manipulation to save code size and speed-up performance</li>
+</ul>
+</li>
+</ul>
+<p><b>January 2020, changes:</b></p><ul>
+<li>This sketch has been again re-engineered. All 'defines' have been removed except the ones for compile-time optional functionalities.</li>
+<li>All constants have been replaced with constexpr initialized at compile-time</li>
+<li>all number-types have been replaced with fixed width number types</li>
+<li>old fashion enums replaced by scoped enums with fixed types</li>
+<li>off-peak tariff made switchable at compile-time</li>
+<li>rotation of load priorities made switcheable at compile-time</li>
+<li><p class="startli">enhanced configuration for forcing specific loads during off-peak period</p>
+<p class="startli">Fred Metrich</p>
+</li>
+</ul>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2020 </dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="af12c89508377abedc02c2b74330e08b2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af12c89508377abedc02c2b74330e08b2">&#9670;&nbsp;</a></span>DATALOG_OUTPUT</h2>
 
@@ -395,7 +465,7 @@ Variables</h2></td></tr>
 
 <p>this line can be commented if no datalogging is needed </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00104">104</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00102">102</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -411,7 +481,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00215">215</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00213">213</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -429,7 +499,7 @@ Variables</h2></td></tr>
 
 <p>output in json format </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00117">117</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00115">115</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -447,7 +517,7 @@ Variables</h2></td></tr>
 
 <p>this line must be commented out if there's only one single tariff each day </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00098">98</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00096">96</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -465,7 +535,7 @@ Variables</h2></td></tr>
 
 <p>this line must be commented out if you want fixed priorities </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00146">146</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00144">144</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -481,7 +551,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00111">111</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00109">109</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -513,7 +583,7 @@ Variables</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00192">192</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00190">190</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -544,7 +614,7 @@ Variables</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00185">185</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00183">183</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -575,7 +645,7 @@ Variables</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00178">178</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00176">176</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -598,7 +668,7 @@ Variables</h2></td></tr>
 <p>This function changes the value of the load priorities. </p>
 <p>Since we don't have access to a clock, we detect the offPeak start from the main energy meter. Additionally, when off-peak period starts, we rotate the load priorities for the next day. </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01135">1135</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01133">1133</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -637,7 +707,7 @@ Here is the caller graph for this function:</div>
 
 <p>Convert the internal value read from the sensor to a value in °C. </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01220">1220</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01218">1218</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -675,7 +745,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01271">1271</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01269">1269</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -721,7 +791,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the corresponding threshold </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00297">297</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00295">295</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -756,7 +826,7 @@ Here is the caller graph for this function:</div>
 <li>Don't try to turn interrupts off or on </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00472">472</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00470">470</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -803,7 +873,7 @@ Here is the call graph for this function:</div>
 
 <p>Prints the load priorities to the Serial output. </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01117">1117</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01115">1115</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -836,7 +906,7 @@ Here is the caller graph for this function:</div>
 <p>Main processor. </p>
 <p>None of the workload in <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor.">loop()</a> is time-critical. All the processing of ADC data is done within the ISR. </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01422">1422</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01420">1420</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -902,7 +972,7 @@ Here is the caller graph for this function:</div>
 
 <p>Prints data logs to the Serial output in text or json format. </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01054">1054</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01052">1052</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -932,7 +1002,7 @@ Here is the caller graph for this function:</div>
 
 <p>Print the settings used for the selected output mode. </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01193">1193</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01191">1191</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -963,7 +1033,7 @@ Here is the caller graph for this function:</div>
 <p>Read the temperature. </p>
 <dl class="section return"><dt>Returns</dt><dd>The temperature in °C. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01232">1232</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01230">1230</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1003,7 +1073,7 @@ Here is the caller graph for this function:</div>
 <p>Send the logging data through RF. </p>
 <p>For better performance, the RFM12B needs to remain in its active state rather than being periodically put to sleep. </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01258">1258</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01256">1256</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1034,7 +1104,7 @@ Here is the caller graph for this function:</div>
 <p>Called once during startup. </p>
 <p>This function initializes a couple of variables we cannot init at compile time and sets a couple of parameters for runtime. </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01284">1284</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l01282">1282</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1070,7 +1140,7 @@ Here is the call graph for this function:</div>
 
 <p>update the control ports for each of the physical loads </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00404">404</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00402">402</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1101,7 +1171,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>current active load </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00316">316</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00314">314</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1118,7 +1188,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>async trigger to signal datalog is available </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00337">337</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00335">335</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1135,7 +1205,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>async trigger to force specific load(s) to ON </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00333">333</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00331">331</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1152,7 +1222,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>async trigger to signal start of new main cycle based on first phase </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00338">338</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00336">336</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1169,7 +1239,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>a load state has been recently toggled </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00312">312</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00310">310</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1186,7 +1256,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>async trigger for loads re-ordering </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00335">335</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00333">333</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1211,7 +1281,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>this value (300C) is sent if no sensor is present </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00142">142</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00140">140</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1228,7 +1298,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>start-up delay, allows things to settle </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00266">266</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00264">264</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1252,7 +1322,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00140">140</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00138">138</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1269,7 +1339,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>copy of number of cycle the load was ON (over 1 datalog period) </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00348">348</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00346">346</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1286,7 +1356,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>copy of main energy bucket (over all phases) </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00345">345</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00343">343</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1302,7 +1372,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00346">346</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00344">344</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1319,7 +1389,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>copy of for counting the sample sets during each datalogging period </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00347">347</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00345">345</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1336,7 +1406,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>copy of for summation of V^2 values during datalog period </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00344">344</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00342">342</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1353,7 +1423,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>copy of cumulative power per phase </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00343">343</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00341">341</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1370,7 +1440,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Number of cycle the load was ON (over 1 datalog period) </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00203">203</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00201">201</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1395,7 +1465,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>number of cycles/s of the grid power supply </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00124">124</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00122">122</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1420,7 +1490,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Period of datalogging in cycles </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00130">130</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00128">128</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1445,7 +1515,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for resetting flexible thresholds </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00285">285</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00283">283</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1462,7 +1532,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>main energy bucket (over all phases) </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00307">307</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00305">305</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1479,7 +1549,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>dynamic lower threshold </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00308">308</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00306">306</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1504,7 +1574,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>lower default threshold set accordingly to the output mode </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00304">304</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00302">302</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1529,7 +1599,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>threshold in anti-flicker mode - must not exceed 0.4 </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00287">287</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00285">285</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1553,7 +1623,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00289">289</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00287">287</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1578,7 +1648,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Nominal values only </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00390">390</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00388">388</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1602,7 +1672,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00377">377</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00375">375</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1619,7 +1689,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>dynamic upper threshold </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00309">309</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00307">307</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1644,7 +1714,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>upper default threshold set accordingly to the output mode </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00305">305</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00303">303</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1669,7 +1739,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>compared with Fluke 77 meter </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00398">398</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00396">396</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1694,7 +1764,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>nominal mid-point value of ADC @ x1 scale main energy bucket for 3-phase use, with units of Joules * CYCLES_PER_SECOND </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00282">282</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00280">280</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1719,7 +1789,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>to avoid the need for floating-point maths (f_phaseCal * 256) </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00393">393</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00391">391</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1744,7 +1814,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>in milli-seconds, to allow time to open the Serial monitor </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00267">267</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00265">265</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1761,7 +1831,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for the LPF which determines DC offset (voltage) </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00321">321</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00319">319</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1778,7 +1848,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for counting how often datalog is updated </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00327">327</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00325">325</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1795,7 +1865,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>&lt;&mdash; for LPF </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00275">275</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00273">273</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1820,7 +1890,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>mid-point of ADC plus a working margin </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00281">281</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00279">279</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1845,7 +1915,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>mid-point of ADC minus a working margin </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00280">280</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00278">278</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1862,7 +1932,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for the phaseCal algorithm </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00320">320</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00318">318</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1878,7 +1948,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00330">330</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00328">328</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1895,7 +1965,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>number of sample sets for each phase during each mains cycle </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00325">325</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00323">323</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1912,7 +1982,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>number of sample sets during each datalogging period </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00326">326</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00324">324</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1929,7 +1999,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for the phaseCal algorithm </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00319">319</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00317">317</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1946,7 +2016,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for summation of V^2 values during datalog period </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00323">323</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00321">321</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1963,7 +2033,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>cumulative power per phase </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00318">318</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00316">316</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1980,7 +2050,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for summation of 'real power' values during datalog period </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00322">322</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00320">320</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -1997,7 +2067,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>load priorities and states. </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00208">208</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00206">206</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2022,7 +2092,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>bit mask for masking load state </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00200">200</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00198">198</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2047,7 +2117,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>bit mask for load state ON </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00199">199</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00197">197</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2072,7 +2142,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>wireless network group - needs to be same for all nodes </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00218">218</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00216">216</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2097,7 +2167,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>number of dump loads connected to the diverter </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00134">134</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00132">132</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2122,7 +2192,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>number of phases of the main supply. </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00132">132</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00130">130</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2147,7 +2217,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>RFM12B node ID </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00217">217</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00215">215</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2172,7 +2242,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for 3-phase PCB, off-peak trigger </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00244">244</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00242">242</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2197,7 +2267,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Output mode to be used </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00205">205</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00203">203</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2222,7 +2292,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>allows polarity changes to be confirmed </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00356">356</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00354">354</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2247,7 +2317,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00249">249</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00247">247</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2264,7 +2334,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Physical state of the loads </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00202">202</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00200">200</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2281,7 +2351,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for zero-crossing detection </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00358">358</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00356">356</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2298,7 +2368,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for zero-crossing detection </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00359">359</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00357">357</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2315,7 +2385,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for zero-crossing detection </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00357">357</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00355">355</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2340,7 +2410,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>allows each transition to take effect </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00314">314</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00312">312</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2357,7 +2427,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>counts the number of cycle since last transition </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00313">313</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00311">311</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2381,7 +2451,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00141">141</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00139">139</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2406,7 +2476,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>when set to a negative value, this acts as a PV generator </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00126">126</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00124">124</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2434,7 +2504,7 @@ Here is the caller graph for this function:</div>
 <div class="line">                                                         {-3, UINT8_MAX}}</div>
 </div><!-- fragment --><p>force config for load #3 </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00169">169</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00167">167</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2451,7 +2521,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>start &amp; stop offsets for each load </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00272">272</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00270">270</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2476,7 +2546,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for 3-phase PCB, current measurement for each phase </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00259">259</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00257">257</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2501,7 +2571,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for 3-phase PCB, voltage measurement for each phase </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00258">258</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00256">256</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2525,7 +2595,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00139">139</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00137">137</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2550,7 +2620,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>in milli-seconds, to allow LP filter to settle </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00268">268</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00266">266</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2575,7 +2645,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for 3-phase PCB, sensor pin </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00247">247</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00245">245</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2592,7 +2662,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>logging data </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00236">236</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00234">234</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2617,7 +2687,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Duration of the off-peak period in hours </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00148">148</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00146">146</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2634,7 +2704,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>'timestamp' for start of off-peak period </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00271">271</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00269">269</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2659,7 +2729,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>for when the processor contains the UNO bootloader. </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00219">219</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00217">217</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
@@ -2684,7 +2754,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>number of joule for 1Wh </p>
 
-<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00125">125</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html#l00123">123</a> of file <a class="el" href="_mk2__3phase___r_fdatalog__temp__1_8ino_source.html">Mk2_3phase_RFdatalog_temp_1.ino</a>.</p>
 
 </div>
 </div>
