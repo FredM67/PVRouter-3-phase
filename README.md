@@ -31,7 +31,7 @@ To avoid that the priorities stays all the time unchanged, which would mean that
 Each day, the load priorities are rotated, so over many days, all the heating elements will run somehow the same amount of time.
 
 ### Off-peak period detection
-Depending on the country, some energy meters provide a switch which toggle on at the beginning of the off-peak period. It is intended to control a relay. If you wire it to a free digital pin of the router (in my case D3), you can detect off-peak/peak period.
+Depending on the country, some energy meters provide a switch which toggles on at the beginning of the off-peak period. It is intended to control a relay. If you wire it to a free digital pin of the router (in my case D3), you can detect off-peak/peak period.
 
 ### Force full power
 Support has been added to force full power on specific loads. Each load can be forced independantly from each other, start time and duration can be set individualy.
