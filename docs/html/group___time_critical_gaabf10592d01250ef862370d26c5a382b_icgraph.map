@@ -1,0 +1,7 @@
+<map id="processDataLogging" name="processDataLogging">
+<area shape="rect" id="node1" title="Process with data logging." alt="" coords="715,5,855,32"/>
+<area shape="rect" id="node2" href="$group___time_critical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="517,5,667,32"/>
+<area shape="rect" id="node3" href="$group___time_critical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="325,5,469,32"/>
+<area shape="rect" id="node4" href="$group___time_critical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,277,32"/>
+<area shape="rect" id="node5" href="$_mk2__3phase___r_fdatalog__temp__1_8ino.html#a05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,32"/>
+</map>
