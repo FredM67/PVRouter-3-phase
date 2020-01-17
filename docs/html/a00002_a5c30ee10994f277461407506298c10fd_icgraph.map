@@ -1,0 +1,4 @@
+<map id="printDataLogging" name="printDataLogging">
+<area shape="rect" id="node1" title="Prints data logs to the Serial output in text or json format." alt="" coords="100,5,219,32"/>
+<area shape="rect" id="node2" href="$a00002.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,52,32"/>
+</map>

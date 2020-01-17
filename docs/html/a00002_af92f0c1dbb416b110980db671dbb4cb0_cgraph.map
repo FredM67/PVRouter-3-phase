@@ -1,0 +1,4 @@
+<map id="checkLoadPrioritySelection" name="checkLoadPrioritySelection">
+<area shape="rect" id="node1" title="This function changes the value of the load priorities." alt="" coords="5,5,185,32"/>
+<area shape="rect" id="node2" href="$a00002.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="233,5,352,32"/>
+</map>
