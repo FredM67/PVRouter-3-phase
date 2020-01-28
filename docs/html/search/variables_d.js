@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['temperature_5ftimes100_279',['temperature_times100',['../classTx__struct.html#a338e4b4e5de3414eb265592285664e75',1,'Tx_struct']]],
-  ['tempsensorpin_280',['tempSensorPin',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a8437eec6f152492cefbba0cae0681e27',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['tx_5fdata_281',['tx_data',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
+  ['uiduration_244',['uiDuration',['../classpairForceLoad.html#a9e88b9afed25aae7053c1c63079fa6df',1,'pairForceLoad']]],
+  ['ul_5foff_5fpeak_5fduration_245',['ul_OFF_PEAK_DURATION',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a76cf2fcd57c33ee2c65bead8d7f39c63',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['ul_5ftimeoffpeak_246',['ul_TimeOffPeak',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a9b220149c714c37067af68c2056d9316',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['uno_247',['UNO',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a8384e668d128a4edd7086620f0987f77',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
 ];

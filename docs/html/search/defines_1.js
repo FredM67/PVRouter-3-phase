@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['datalog_5foutput_303',['DATALOG_OUTPUT',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#af12c89508377abedc02c2b74330e08b2',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
+  ['freq_260',['FREQ',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a1b04ec1cde4d3032f558ed8ad05930a4',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
 ];
