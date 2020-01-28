@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['offpeakforcepin_221',['offPeakForcePin',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a0900b23861b581b89e1ad8a2b78c78a7',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['outputmode_222',['outputMode',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a14c0bd4df597ffb07f73e5a3581238b9',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
+  ['networkgroup_250',['networkGroup',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a2195a98d46c91f74fcde7cb8ed2350d0',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['no_5fof_5fdumploads_251',['NO_OF_DUMPLOADS',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2458020f21db854d8f2fe0e500dcd05',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['no_5fof_5fphases_252',['NO_OF_PHASES',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#ac17be2735ad17e6198cd2a24eb39eb91',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['nodeid_253',['nodeID',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a60f522aaa42faf22b9ce5d66e6e45346',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
 ];

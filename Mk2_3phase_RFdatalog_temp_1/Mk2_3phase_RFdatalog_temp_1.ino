@@ -1102,7 +1102,7 @@ void printDataLogging()
     Serial.print(F(R"(": ")"));
     Serial.print((100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod);
     Serial.print(F(R"(")"));
-    if (NO_OF_DUMPLOADS == (i + 1))
+    if (NO_OF_DUMPLOADS != (i + 1))
       Serial.print(F(", ")); // no ',' for last item
   }
 
@@ -1131,8 +1131,10 @@ void logLoadPriorities()
  * @details Since we don't have access to a clock, we detect the offPeak start from the main energy meter.
  *          Additionally, when off-peak period starts, we rotate the load priorities for the next day.
  * 
+ * @return true if off-peak tariff is active
+ * @return false if on-peak tariff is active
  */
-void checkLoadPrioritySelection()
+bool checkLoadPrioritySelection()
 {
 #ifdef OFF_PEAK_TARIFF
   uint8_t i;
@@ -1183,6 +1185,10 @@ void checkLoadPrioritySelection()
 #endif
 
   pinOffPeakState = pinNewState;
+
+  return (LOW == pinOffPeakState);
+#else
+  return true;
 #endif
 }
 

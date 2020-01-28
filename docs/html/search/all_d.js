@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['send_5frf_5fdata_114',['send_rf_data',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#ab5bc929f5a874ed02b16ed1d620d71cf',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['sensori_115',['sensorI',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a8843ac58fa4e38e3bec429fac0f8de41',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['sensorv_116',['sensorV',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a84dbfaffb1c8ccc490804b5f976d7933',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['setup_117',['setup',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['skip_5from_118',['SKIP_ROM',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#ae21308f181dcb2cbe1e7c24e0c63f561',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['startupperiod_119',['startUpPeriod',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a9f2d74348a1797d532bcd9a5efce77e0',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
+  ['read_5fscratchpad_127',['READ_SCRATCHPAD',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a4efcca8a8902b210fd176b46753964f1',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['readtemperature_128',['readTemperature',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['registerconsumedpower_129',['registerConsumedPower',['../cal__CTx__v__meter_8ino.html#a1a4ba8d5087ea7f7892130ae82ccfe90',1,'cal_CTx_v_meter.ino']]],
+  ['required_5fexport_5fin_5fwatts_130',['REQUIRED_EXPORT_IN_WATTS',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#aef28d13cd34d7b6d21729ad15ea97350',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['rf69_5fcompat_131',['RF69_COMPAT',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#ac7df154e6d284322427bec4d2dfc0dda',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['rg_5fforceload_132',['rg_ForceLoad',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['rg_5foffsetforce_133',['rg_OffsetForce',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
 ];

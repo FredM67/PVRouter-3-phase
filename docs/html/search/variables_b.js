@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['sensori_237',['sensorI',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a8843ac58fa4e38e3bec429fac0f8de41',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['sensorv_238',['sensorV',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a84dbfaffb1c8ccc490804b5f976d7933',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['skip_5from_239',['SKIP_ROM',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#ae21308f181dcb2cbe1e7c24e0c63f561',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['startupperiod_240',['startUpPeriod',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a9f2d74348a1797d532bcd9a5efce77e0',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
+  ['read_5fscratchpad_269',['READ_SCRATCHPAD',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a4efcca8a8902b210fd176b46753964f1',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['required_5fexport_5fin_5fwatts_270',['REQUIRED_EXPORT_IN_WATTS',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#aef28d13cd34d7b6d21729ad15ea97350',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['rg_5fforceload_271',['rg_ForceLoad',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['rg_5foffsetforce_272',['rg_OffsetForce',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
 ];
