@@ -807,388 +807,392 @@ $(function() {
 <div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;<span class="comment">   -------------------------------------------------</span></div>
 <div class="line"><a name="l01048"></a><span class="lineno"> 1048</span>&#160;<span class="comment">*/</span></div>
 <div class="line"><a name="l01049"></a><span class="lineno"> 1049</span>&#160; </div>
-<div class="line"><a name="l01054"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a5c30ee10994f277461407506298c10fd"> 1054</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a5c30ee10994f277461407506298c10fd">printDataLogging</a>()</div>
-<div class="line"><a name="l01055"></a><span class="lineno"> 1055</span>&#160;{</div>
-<div class="line"><a name="l01056"></a><span class="lineno"> 1056</span>&#160;  uint8_t phase;</div>
-<div class="line"><a name="l01057"></a><span class="lineno"> 1057</span>&#160; </div>
-<div class="line"><a name="l01058"></a><span class="lineno"> 1058</span>&#160;<span class="preprocessor">#ifndef JSON_FORMAT</span></div>
-<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160;  Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a8f6102f3df67ce0ea2d019559ac03e72">copyOf_energyInBucket_main</a> / <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf0ec5f146cef5f3710fbf397fc63d6b">CYCLES_PER_SECOND</a>);</div>
-<div class="line"><a name="l01060"></a><span class="lineno"> 1060</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;, P:&quot;</span>));</div>
-<div class="line"><a name="l01061"></a><span class="lineno"> 1061</span>&#160;  Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a2c60caf9e97f338ecd5ad9c51d1a6bb9">power</a>);</div>
-<div class="line"><a name="l01062"></a><span class="lineno"> 1062</span>&#160; </div>
-<div class="line"><a name="l01063"></a><span class="lineno"> 1063</span>&#160;  <span class="keywordflow">for</span> (phase = 0; phase &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>; ++phase)</div>
-<div class="line"><a name="l01064"></a><span class="lineno"> 1064</span>&#160;  {</div>
-<div class="line"><a name="l01065"></a><span class="lineno"> 1065</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;, P&quot;</span>));</div>
-<div class="line"><a name="l01066"></a><span class="lineno"> 1066</span>&#160;    Serial.print(phase + 1);</div>
-<div class="line"><a name="l01067"></a><span class="lineno"> 1067</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;:&quot;</span>));</div>
-<div class="line"><a name="l01068"></a><span class="lineno"> 1068</span>&#160;    Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#ad50665176ae7a169b25cf2868d212d22">power_L</a>[phase]);</div>
-<div class="line"><a name="l01069"></a><span class="lineno"> 1069</span>&#160;  }</div>
-<div class="line"><a name="l01070"></a><span class="lineno"> 1070</span>&#160;  <span class="keywordflow">for</span> (phase = 0; phase &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>; ++phase)</div>
-<div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160;  {</div>
-<div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;, V&quot;</span>));</div>
-<div class="line"><a name="l01073"></a><span class="lineno"> 1073</span>&#160;    Serial.print(phase + 1);</div>
-<div class="line"><a name="l01074"></a><span class="lineno"> 1074</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;:&quot;</span>));</div>
-<div class="line"><a name="l01075"></a><span class="lineno"> 1075</span>&#160;    Serial.print((<span class="keywordtype">float</span>)<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a8df74109eaeab81f3a5d3dc987841706">Vrms_L_times100</a>[phase] / 100);</div>
-<div class="line"><a name="l01076"></a><span class="lineno"> 1076</span>&#160;  }</div>
-<div class="line"><a name="l01077"></a><span class="lineno"> 1077</span>&#160; </div>
-<div class="line"><a name="l01078"></a><span class="lineno"> 1078</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
-<div class="line"><a name="l01079"></a><span class="lineno"> 1079</span>&#160;  Serial.print(<span class="stringliteral">&quot;, temperature &quot;</span>);</div>
-<div class="line"><a name="l01080"></a><span class="lineno"> 1080</span>&#160;  Serial.print((<span class="keywordtype">float</span>)<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a338e4b4e5de3414eb265592285664e75">temperature_times100</a> / 100);</div>
-<div class="line"><a name="l01081"></a><span class="lineno"> 1081</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01082"></a><span class="lineno"> 1082</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;, (minSampleSets/MC &quot;</span>));</div>
-<div class="line"><a name="l01083"></a><span class="lineno"> 1083</span>&#160;  Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a689d20be95062bd44dca04adfe8bfd5e">copyOf_lowestNoOfSampleSetsPerMainsCycle</a>);</div>
-<div class="line"><a name="l01084"></a><span class="lineno"> 1084</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;, #ofSampleSets &quot;</span>));</div>
-<div class="line"><a name="l01085"></a><span class="lineno"> 1085</span>&#160;  Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a6ebfc0ef69ea54c4d02cda3dbed04660">copyOf_sampleSetsDuringThisDatalogPeriod</a>);</div>
-<div class="line"><a name="l01086"></a><span class="lineno"> 1086</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;)&quot;</span>));</div>
-<div class="line"><a name="l01087"></a><span class="lineno"> 1087</span>&#160; </div>
-<div class="line"><a name="l01088"></a><span class="lineno"> 1088</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l01089"></a><span class="lineno"> 1089</span>&#160;  <span class="keywordflow">for</span> (phase = 0; phase &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>; ++phase)</div>
-<div class="line"><a name="l01090"></a><span class="lineno"> 1090</span>&#160;  {</div>
-<div class="line"><a name="l01091"></a><span class="lineno"> 1091</span>&#160;    Serial.print(F(R<span class="stringliteral">&quot;({&quot;L)&quot;));</span></div>
-<div class="line"><a name="l01092"></a><span class="lineno"> 1092</span>&#160;<span class="stringliteral">    Serial.print(phase + 1);</span></div>
-<div class="line"><a name="l01093"></a><span class="lineno"> 1093</span>&#160;<span class="stringliteral">    Serial.print(F(R</span><span class="stringliteral">&quot;(&quot;: )&quot;));</span></div>
-<div class="line"><a name="l01094"></a><span class="lineno"> 1094</span>&#160;<span class="stringliteral">    Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#ad50665176ae7a169b25cf2868d212d22">power_L</a>[phase]);</span></div>
-<div class="line"><a name="l01095"></a><span class="lineno"> 1095</span>&#160;<span class="stringliteral">    Serial.print(F(</span><span class="stringliteral">&quot;, &quot;</span>));</div>
-<div class="line"><a name="l01096"></a><span class="lineno"> 1096</span>&#160;  }</div>
-<div class="line"><a name="l01097"></a><span class="lineno"> 1097</span>&#160; </div>
-<div class="line"><a name="l01098"></a><span class="lineno"> 1098</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>; ++i)</div>
-<div class="line"><a name="l01099"></a><span class="lineno"> 1099</span>&#160;  {</div>
-<div class="line"><a name="l01100"></a><span class="lineno"> 1100</span>&#160;    Serial.print(F(R<span class="stringliteral">&quot;(,&quot;LOAD_)&quot;));</span></div>
-<div class="line"><a name="l01101"></a><span class="lineno"> 1101</span>&#160;<span class="stringliteral">    Serial.print(i + 1);</span></div>
-<div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;<span class="stringliteral">    Serial.print(F(R</span><span class="stringliteral">&quot;(&quot;: &quot;)&quot;));</span></div>
-<div class="line"><a name="l01103"></a><span class="lineno"> 1103</span>&#160;<span class="stringliteral">    Serial.print((100 * <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#afe6a94d476e5100c87c30c68c87e7276">copyOf_countLoadON</a>[i]) / <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a6ebfc0ef69ea54c4d02cda3dbed04660">copyOf_sampleSetsDuringThisDatalogPeriod</a>);</span></div>
-<div class="line"><a name="l01104"></a><span class="lineno"> 1104</span>&#160;<span class="stringliteral">    Serial.print(F(R</span><span class="stringliteral">&quot;(&quot;)&quot;));</span></div>
-<div class="line"><a name="l01105"></a><span class="lineno"> 1105</span>&#160;<span class="stringliteral">    </span><span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> != (i + 1))</div>
-<div class="line"><a name="l01106"></a><span class="lineno"> 1106</span>&#160;      Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>)); <span class="comment">// no &#39;,&#39; for last item</span></div>
-<div class="line"><a name="l01107"></a><span class="lineno"> 1107</span>&#160;  }</div>
-<div class="line"><a name="l01108"></a><span class="lineno"> 1108</span>&#160; </div>
-<div class="line"><a name="l01109"></a><span class="lineno"> 1109</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;}&quot;</span>));</div>
-<div class="line"><a name="l01110"></a><span class="lineno"> 1110</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01111"></a><span class="lineno"> 1111</span>&#160;}</div>
+<div class="line"><a name="l01055"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad638bed72de67d46a0c2929e89e79e86"> 1055</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad638bed72de67d46a0c2929e89e79e86">printDataLogging</a>(<span class="keywordtype">bool</span> bOffPeak)</div>
+<div class="line"><a name="l01056"></a><span class="lineno"> 1056</span>&#160;{</div>
+<div class="line"><a name="l01057"></a><span class="lineno"> 1057</span>&#160;  uint8_t phase;</div>
+<div class="line"><a name="l01058"></a><span class="lineno"> 1058</span>&#160; </div>
+<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160;<span class="preprocessor">#ifndef JSON_FORMAT</span></div>
+<div class="line"><a name="l01060"></a><span class="lineno"> 1060</span>&#160;  Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a8f6102f3df67ce0ea2d019559ac03e72">copyOf_energyInBucket_main</a> / <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf0ec5f146cef5f3710fbf397fc63d6b">CYCLES_PER_SECOND</a>);</div>
+<div class="line"><a name="l01061"></a><span class="lineno"> 1061</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;, P:&quot;</span>));</div>
+<div class="line"><a name="l01062"></a><span class="lineno"> 1062</span>&#160;  Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a2c60caf9e97f338ecd5ad9c51d1a6bb9">power</a>);</div>
+<div class="line"><a name="l01063"></a><span class="lineno"> 1063</span>&#160; </div>
+<div class="line"><a name="l01064"></a><span class="lineno"> 1064</span>&#160;  <span class="keywordflow">for</span> (phase = 0; phase &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>; ++phase)</div>
+<div class="line"><a name="l01065"></a><span class="lineno"> 1065</span>&#160;  {</div>
+<div class="line"><a name="l01066"></a><span class="lineno"> 1066</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;, P&quot;</span>));</div>
+<div class="line"><a name="l01067"></a><span class="lineno"> 1067</span>&#160;    Serial.print(phase + 1);</div>
+<div class="line"><a name="l01068"></a><span class="lineno"> 1068</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;:&quot;</span>));</div>
+<div class="line"><a name="l01069"></a><span class="lineno"> 1069</span>&#160;    Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#ad50665176ae7a169b25cf2868d212d22">power_L</a>[phase]);</div>
+<div class="line"><a name="l01070"></a><span class="lineno"> 1070</span>&#160;  }</div>
+<div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160;  <span class="keywordflow">for</span> (phase = 0; phase &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>; ++phase)</div>
+<div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;  {</div>
+<div class="line"><a name="l01073"></a><span class="lineno"> 1073</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;, V&quot;</span>));</div>
+<div class="line"><a name="l01074"></a><span class="lineno"> 1074</span>&#160;    Serial.print(phase + 1);</div>
+<div class="line"><a name="l01075"></a><span class="lineno"> 1075</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;:&quot;</span>));</div>
+<div class="line"><a name="l01076"></a><span class="lineno"> 1076</span>&#160;    Serial.print((<span class="keywordtype">float</span>)<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a8df74109eaeab81f3a5d3dc987841706">Vrms_L_times100</a>[phase] / 100);</div>
+<div class="line"><a name="l01077"></a><span class="lineno"> 1077</span>&#160;  }</div>
+<div class="line"><a name="l01078"></a><span class="lineno"> 1078</span>&#160; </div>
+<div class="line"><a name="l01079"></a><span class="lineno"> 1079</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
+<div class="line"><a name="l01080"></a><span class="lineno"> 1080</span>&#160;  Serial.print(<span class="stringliteral">&quot;, temperature &quot;</span>);</div>
+<div class="line"><a name="l01081"></a><span class="lineno"> 1081</span>&#160;  Serial.print((<span class="keywordtype">float</span>)<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a338e4b4e5de3414eb265592285664e75">temperature_times100</a> / 100);</div>
+<div class="line"><a name="l01082"></a><span class="lineno"> 1082</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01083"></a><span class="lineno"> 1083</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;, (minSampleSets/MC &quot;</span>));</div>
+<div class="line"><a name="l01084"></a><span class="lineno"> 1084</span>&#160;  Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a689d20be95062bd44dca04adfe8bfd5e">copyOf_lowestNoOfSampleSetsPerMainsCycle</a>);</div>
+<div class="line"><a name="l01085"></a><span class="lineno"> 1085</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;, #ofSampleSets &quot;</span>));</div>
+<div class="line"><a name="l01086"></a><span class="lineno"> 1086</span>&#160;  Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a6ebfc0ef69ea54c4d02cda3dbed04660">copyOf_sampleSetsDuringThisDatalogPeriod</a>);</div>
+<div class="line"><a name="l01087"></a><span class="lineno"> 1087</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;)&quot;</span>));</div>
+<div class="line"><a name="l01088"></a><span class="lineno"> 1088</span>&#160; </div>
+<div class="line"><a name="l01089"></a><span class="lineno"> 1089</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l01090"></a><span class="lineno"> 1090</span>&#160;  <span class="keywordflow">for</span> (phase = 0; phase &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>; ++phase)</div>
+<div class="line"><a name="l01091"></a><span class="lineno"> 1091</span>&#160;  {</div>
+<div class="line"><a name="l01092"></a><span class="lineno"> 1092</span>&#160;    Serial.print(F(R<span class="stringliteral">&quot;({&quot;L)&quot;));</span></div>
+<div class="line"><a name="l01093"></a><span class="lineno"> 1093</span>&#160;<span class="stringliteral">    Serial.print(phase + 1);</span></div>
+<div class="line"><a name="l01094"></a><span class="lineno"> 1094</span>&#160;<span class="stringliteral">    Serial.print(F(R</span><span class="stringliteral">&quot;(&quot;: )&quot;));</span></div>
+<div class="line"><a name="l01095"></a><span class="lineno"> 1095</span>&#160;<span class="stringliteral">    Serial.print(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#ad50665176ae7a169b25cf2868d212d22">power_L</a>[phase]);</span></div>
+<div class="line"><a name="l01096"></a><span class="lineno"> 1096</span>&#160;<span class="stringliteral">    Serial.print(F(</span><span class="stringliteral">&quot;, &quot;</span>));</div>
+<div class="line"><a name="l01097"></a><span class="lineno"> 1097</span>&#160;  }</div>
+<div class="line"><a name="l01098"></a><span class="lineno"> 1098</span>&#160; </div>
+<div class="line"><a name="l01099"></a><span class="lineno"> 1099</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>; ++i)</div>
+<div class="line"><a name="l01100"></a><span class="lineno"> 1100</span>&#160;  {</div>
+<div class="line"><a name="l01101"></a><span class="lineno"> 1101</span>&#160;    Serial.print(F(R<span class="stringliteral">&quot;(,&quot;LOAD_)&quot;));</span></div>
+<div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;<span class="stringliteral">    Serial.print(i + 1);</span></div>
+<div class="line"><a name="l01103"></a><span class="lineno"> 1103</span>&#160;<span class="stringliteral">    Serial.print(F(R</span><span class="stringliteral">&quot;(&quot;: &quot;)&quot;));</span></div>
+<div class="line"><a name="l01104"></a><span class="lineno"> 1104</span>&#160;<span class="stringliteral">    Serial.print((100 * <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#afe6a94d476e5100c87c30c68c87e7276">copyOf_countLoadON</a>[i]) / <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a6ebfc0ef69ea54c4d02cda3dbed04660">copyOf_sampleSetsDuringThisDatalogPeriod</a>);</span></div>
+<div class="line"><a name="l01105"></a><span class="lineno"> 1105</span>&#160;<span class="stringliteral">    Serial.print(F(R</span><span class="stringliteral">&quot;(&quot;)&quot;));</span></div>
+<div class="line"><a name="l01106"></a><span class="lineno"> 1106</span>&#160;<span class="stringliteral">    </span><span class="comment">//if (NO_OF_DUMPLOADS != (i + 1)) // no &#39;,&#39; for last item</span></div>
+<div class="line"><a name="l01107"></a><span class="lineno"> 1107</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
+<div class="line"><a name="l01108"></a><span class="lineno"> 1108</span>&#160;  }</div>
+<div class="line"><a name="l01109"></a><span class="lineno"> 1109</span>&#160; </div>
+<div class="line"><a name="l01110"></a><span class="lineno"> 1110</span>&#160;  Serial.print(F(R<span class="stringliteral">&quot;(OFF_PEAK_TARIFF: )&quot;));</span></div>
+<div class="line"><a name="l01111"></a><span class="lineno"> 1111</span>&#160;<span class="stringliteral">  Serial.print(bOffPeak ? F(</span><span class="stringliteral">&quot;true&quot;</span>) : F(<span class="stringliteral">&quot;false&quot;</span>));</div>
 <div class="line"><a name="l01112"></a><span class="lineno"> 1112</span>&#160; </div>
-<div class="line"><a name="l01117"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1"> 1117</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a>()</div>
-<div class="line"><a name="l01118"></a><span class="lineno"> 1118</span>&#160;{</div>
-<div class="line"><a name="l01119"></a><span class="lineno"> 1119</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
-<div class="line"><a name="l01120"></a><span class="lineno"> 1120</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;loadPriority: &quot;</span>));</div>
-<div class="line"><a name="l01121"></a><span class="lineno"> 1121</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> loadPrioAndState : <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a49958eb014b70dfb9d8cb9ded3564ef7">loadPrioritiesAndState</a>)</div>
-<div class="line"><a name="l01122"></a><span class="lineno"> 1122</span>&#160;  {</div>
-<div class="line"><a name="l01123"></a><span class="lineno"> 1123</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\tload &quot;</span>));</div>
-<div class="line"><a name="l01124"></a><span class="lineno"> 1124</span>&#160;    Serial.println(loadPrioAndState);</div>
-<div class="line"><a name="l01125"></a><span class="lineno"> 1125</span>&#160;  }</div>
-<div class="line"><a name="l01126"></a><span class="lineno"> 1126</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01127"></a><span class="lineno"> 1127</span>&#160;}</div>
-<div class="line"><a name="l01128"></a><span class="lineno"> 1128</span>&#160; </div>
-<div class="line"><a name="l01137"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0174ba402fa693193c2c5601fc70dbd4"> 1137</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0174ba402fa693193c2c5601fc70dbd4">checkLoadPrioritySelection</a>()</div>
-<div class="line"><a name="l01138"></a><span class="lineno"> 1138</span>&#160;{</div>
-<div class="line"><a name="l01139"></a><span class="lineno"> 1139</span>&#160;<span class="preprocessor">#ifdef OFF_PEAK_TARIFF</span></div>
-<div class="line"><a name="l01140"></a><span class="lineno"> 1140</span>&#160;  uint8_t i;</div>
-<div class="line"><a name="l01141"></a><span class="lineno"> 1141</span>&#160; </div>
-<div class="line"><a name="l01142"></a><span class="lineno"> 1142</span>&#160;  <span class="keyword">static</span> uint8_t pinOffPeakState{HIGH};</div>
-<div class="line"><a name="l01143"></a><span class="lineno"> 1143</span>&#160; </div>
-<div class="line"><a name="l01144"></a><span class="lineno"> 1144</span>&#160;  <span class="keyword">const</span> uint8_t pinNewState{PIND &amp; (1 &lt;&lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0900b23861b581b89e1ad8a2b78c78a7">offPeakForcePin</a>)};</div>
+<div class="line"><a name="l01113"></a><span class="lineno"> 1113</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;}&quot;</span>));</div>
+<div class="line"><a name="l01114"></a><span class="lineno"> 1114</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01115"></a><span class="lineno"> 1115</span>&#160;}</div>
+<div class="line"><a name="l01116"></a><span class="lineno"> 1116</span>&#160; </div>
+<div class="line"><a name="l01121"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1"> 1121</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a>()</div>
+<div class="line"><a name="l01122"></a><span class="lineno"> 1122</span>&#160;{</div>
+<div class="line"><a name="l01123"></a><span class="lineno"> 1123</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
+<div class="line"><a name="l01124"></a><span class="lineno"> 1124</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;loadPriority: &quot;</span>));</div>
+<div class="line"><a name="l01125"></a><span class="lineno"> 1125</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> loadPrioAndState : <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a49958eb014b70dfb9d8cb9ded3564ef7">loadPrioritiesAndState</a>)</div>
+<div class="line"><a name="l01126"></a><span class="lineno"> 1126</span>&#160;  {</div>
+<div class="line"><a name="l01127"></a><span class="lineno"> 1127</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\tload &quot;</span>));</div>
+<div class="line"><a name="l01128"></a><span class="lineno"> 1128</span>&#160;    Serial.println(loadPrioAndState);</div>
+<div class="line"><a name="l01129"></a><span class="lineno"> 1129</span>&#160;  }</div>
+<div class="line"><a name="l01130"></a><span class="lineno"> 1130</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01131"></a><span class="lineno"> 1131</span>&#160;}</div>
+<div class="line"><a name="l01132"></a><span class="lineno"> 1132</span>&#160; </div>
+<div class="line"><a name="l01141"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0174ba402fa693193c2c5601fc70dbd4"> 1141</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0174ba402fa693193c2c5601fc70dbd4">checkLoadPrioritySelection</a>()</div>
+<div class="line"><a name="l01142"></a><span class="lineno"> 1142</span>&#160;{</div>
+<div class="line"><a name="l01143"></a><span class="lineno"> 1143</span>&#160;<span class="preprocessor">#ifdef OFF_PEAK_TARIFF</span></div>
+<div class="line"><a name="l01144"></a><span class="lineno"> 1144</span>&#160;  uint8_t i;</div>
 <div class="line"><a name="l01145"></a><span class="lineno"> 1145</span>&#160; </div>
-<div class="line"><a name="l01146"></a><span class="lineno"> 1146</span>&#160;  <span class="keywordflow">if</span> (pinOffPeakState &amp;&amp; !pinNewState)</div>
-<div class="line"><a name="l01147"></a><span class="lineno"> 1147</span>&#160;  {</div>
-<div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;<span class="comment">// we start off-peak period</span></div>
-<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
-<div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;Change to off-peak period!&quot;</span>));</div>
-<div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9b220149c714c37067af68c2056d9316">ul_TimeOffPeak</a> = millis();</div>
-<div class="line"><a name="l01153"></a><span class="lineno"> 1153</span>&#160; </div>
-<div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160;<span class="preprocessor">#ifdef PRIORITY_ROTATION</span></div>
-<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4be9b67cfa7c4e48c63817d06f3d293c">b_reOrderLoads</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160; </div>
-<div class="line"><a name="l01157"></a><span class="lineno"> 1157</span>&#160;    <span class="comment">// waits till the priorities have been rotated from inside the ISR</span></div>
-<div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160;    <span class="keywordflow">while</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4be9b67cfa7c4e48c63817d06f3d293c">b_reOrderLoads</a>)</div>
-<div class="line"><a name="l01159"></a><span class="lineno"> 1159</span>&#160;      delay(10);</div>
-<div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160; </div>
-<div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;    <span class="comment">// prints the (new) load priorities</span></div>
-<div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a>();</div>
-<div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;  }</div>
-<div class="line"><a name="l01165"></a><span class="lineno"> 1165</span>&#160;  <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01166"></a><span class="lineno"> 1166</span>&#160;  {</div>
-<div class="line"><a name="l01167"></a><span class="lineno"> 1167</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> ulElapsedTime{(uint32_t)(millis() - <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9b220149c714c37067af68c2056d9316">ul_TimeOffPeak</a>)};</div>
-<div class="line"><a name="l01168"></a><span class="lineno"> 1168</span>&#160; </div>
-<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160;    <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> - 1; ++i)</div>
-<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;    {</div>
-<div class="line"><a name="l01171"></a><span class="lineno"> 1171</span>&#160;      <span class="comment">// for each load, if we&#39;re inside off-peak period and within the &#39;force period&#39;, trigger the ISR to turn the load ON</span></div>
-<div class="line"><a name="l01172"></a><span class="lineno"> 1172</span>&#160;      <span class="keywordflow">if</span> (!pinOffPeakState &amp;&amp; !pinNewState &amp;&amp;</div>
-<div class="line"><a name="l01173"></a><span class="lineno"> 1173</span>&#160;          (ulElapsedTime &gt;= <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][0]) &amp;&amp;</div>
-<div class="line"><a name="l01174"></a><span class="lineno"> 1174</span>&#160;          (ulElapsedTime &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][1]))</div>
-<div class="line"><a name="l01175"></a><span class="lineno"> 1175</span>&#160;        <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb69ec3283f18fbbb35e6f96b851e58e">b_forceLoadsOn</a>[i] = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l01176"></a><span class="lineno"> 1176</span>&#160;      <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01177"></a><span class="lineno"> 1177</span>&#160;        <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb69ec3283f18fbbb35e6f96b851e58e">b_forceLoadsOn</a>[i] = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l01178"></a><span class="lineno"> 1178</span>&#160;    }</div>
-<div class="line"><a name="l01179"></a><span class="lineno"> 1179</span>&#160;  }</div>
-<div class="line"><a name="l01180"></a><span class="lineno"> 1180</span>&#160; </div>
-<div class="line"><a name="l01181"></a><span class="lineno"> 1181</span>&#160;<span class="comment">// end of off-peak period</span></div>
-<div class="line"><a name="l01182"></a><span class="lineno"> 1182</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
-<div class="line"><a name="l01183"></a><span class="lineno"> 1183</span>&#160;  <span class="keywordflow">if</span> (!pinOffPeakState &amp;&amp; pinNewState)</div>
-<div class="line"><a name="l01184"></a><span class="lineno"> 1184</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;Change to peak period!&quot;</span>));</div>
-<div class="line"><a name="l01185"></a><span class="lineno"> 1185</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01186"></a><span class="lineno"> 1186</span>&#160; </div>
-<div class="line"><a name="l01187"></a><span class="lineno"> 1187</span>&#160;  pinOffPeakState = pinNewState;</div>
-<div class="line"><a name="l01188"></a><span class="lineno"> 1188</span>&#160; </div>
-<div class="line"><a name="l01189"></a><span class="lineno"> 1189</span>&#160;  <span class="keywordflow">return</span> (LOW == pinOffPeakState);</div>
-<div class="line"><a name="l01190"></a><span class="lineno"> 1190</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l01191"></a><span class="lineno"> 1191</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l01192"></a><span class="lineno"> 1192</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01193"></a><span class="lineno"> 1193</span>&#160;}</div>
-<div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160; </div>
-<div class="line"><a name="l01199"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2b3b1d496e37e5f29af6a766743dc8b"> 1199</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2b3b1d496e37e5f29af6a766743dc8b">printParamsForSelectedOutputMode</a>()</div>
-<div class="line"><a name="l01200"></a><span class="lineno"> 1200</span>&#160;{</div>
-<div class="line"><a name="l01201"></a><span class="lineno"> 1201</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
-<div class="line"><a name="l01202"></a><span class="lineno"> 1202</span>&#160;  <span class="comment">// display relevant settings for selected output mode</span></div>
-<div class="line"><a name="l01203"></a><span class="lineno"> 1203</span>&#160;  Serial.print(<span class="stringliteral">&quot;Output mode:    &quot;</span>);</div>
-<div class="line"><a name="l01204"></a><span class="lineno"> 1204</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aae913bd32d3b848f4a5ba5b9d32e9a1fa1e23852820b9154316c7c06e2b7ba051">OutputModes::NORMAL</a> == <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a14c0bd4df597ffb07f73e5a3581238b9">outputMode</a>)</div>
-<div class="line"><a name="l01205"></a><span class="lineno"> 1205</span>&#160;    Serial.println(<span class="stringliteral">&quot;normal&quot;</span>);</div>
-<div class="line"><a name="l01206"></a><span class="lineno"> 1206</span>&#160;  <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01207"></a><span class="lineno"> 1207</span>&#160;  {</div>
-<div class="line"><a name="l01208"></a><span class="lineno"> 1208</span>&#160;    Serial.println(<span class="stringliteral">&quot;anti-flicker&quot;</span>);</div>
-<div class="line"><a name="l01209"></a><span class="lineno"> 1209</span>&#160;    Serial.print(<span class="stringliteral">&quot;\toffsetOfEnergyThresholds  = &quot;</span>);</div>
-<div class="line"><a name="l01210"></a><span class="lineno"> 1210</span>&#160;    Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a43212c58ded1ca3978ab206d531a7f7c">f_offsetOfEnergyThresholdsInAFmode</a>);</div>
-<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160;  }</div>
-<div class="line"><a name="l01212"></a><span class="lineno"> 1212</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;\tf_capacityOfEnergyBucket_main = &quot;</span>));</div>
-<div class="line"><a name="l01213"></a><span class="lineno"> 1213</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a6299b24c71bc3d39388e1bc853bf9e3b">f_capacityOfEnergyBucket_main</a>);</div>
-<div class="line"><a name="l01214"></a><span class="lineno"> 1214</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;\tf_lowerEnergyThreshold   = &quot;</span>));</div>
-<div class="line"><a name="l01215"></a><span class="lineno"> 1215</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9a289b1cbd73e38a2a762174f7fdb1c1">f_lowerThreshold_default</a>);</div>
-<div class="line"><a name="l01216"></a><span class="lineno"> 1216</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;\tf_upperEnergyThreshold   = &quot;</span>));</div>
-<div class="line"><a name="l01217"></a><span class="lineno"> 1217</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac5d95ffd4d4d32b7bc1e27f802500fb4">f_upperThreshold_default</a>);</div>
-<div class="line"><a name="l01218"></a><span class="lineno"> 1218</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01219"></a><span class="lineno"> 1219</span>&#160;}</div>
-<div class="line"><a name="l01220"></a><span class="lineno"> 1220</span>&#160; </div>
-<div class="line"><a name="l01221"></a><span class="lineno"> 1221</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
-<div class="line"><a name="l01222"></a><span class="lineno"> 1222</span>&#160; </div>
-<div class="line"><a name="l01226"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d"> 1226</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d">convertTemperature</a>()</div>
-<div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;{</div>
-<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.reset();</div>
-<div class="line"><a name="l01229"></a><span class="lineno"> 1229</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.write(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae21308f181dcb2cbe1e7c24e0c63f561">SKIP_ROM</a>);</div>
-<div class="line"><a name="l01230"></a><span class="lineno"> 1230</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.write(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0fc0867cb8eb64709ec9326821f0657c">CONVERT_TEMPERATURE</a>);</div>
-<div class="line"><a name="l01231"></a><span class="lineno"> 1231</span>&#160;}</div>
-<div class="line"><a name="l01232"></a><span class="lineno"> 1232</span>&#160; </div>
-<div class="line"><a name="l01238"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba"> 1238</a></span>&#160;int16_t <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba">readTemperature</a>()</div>
-<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160;{</div>
-<div class="line"><a name="l01240"></a><span class="lineno"> 1240</span>&#160;  uint8_t buf[9];</div>
-<div class="line"><a name="l01241"></a><span class="lineno"> 1241</span>&#160; </div>
-<div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.reset();</div>
-<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.write(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae21308f181dcb2cbe1e7c24e0c63f561">SKIP_ROM</a>);</div>
-<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.write(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4efcca8a8902b210fd176b46753964f1">READ_SCRATCHPAD</a>);</div>
-<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;buf_elem : buf)</div>
-<div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160;    buf_elem = <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.read();</div>
-<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160; </div>
-<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.crc8(buf, 8) != buf[8])</div>
-<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#afc47675197af32c76cf489724045909c">BAD_TEMPERATURE</a>;</div>
-<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160; </div>
-<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160;  <span class="comment">// result is temperature x16, multiply by 6.25 to convert to temperature x100</span></div>
-<div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;  int16_t result = (buf[1] &lt;&lt; 8) | buf[0];</div>
-<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;  <span class="keywordflow">return</span> (result * 6) + (result &gt;&gt; 2);</div>
-<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160;}</div>
-<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160; </div>
-<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160;<span class="preprocessor">#ifdef RF_PRESENT</span></div>
-<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160; </div>
-<div class="line"><a name="l01264"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab5bc929f5a874ed02b16ed1d620d71cf"> 1264</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab5bc929f5a874ed02b16ed1d620d71cf">send_rf_data</a>()</div>
-<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160;{</div>
-<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160;  <span class="comment">// check whether it&#39;s ready to send, and an exit route if it gets stuck</span></div>
-<div class="line"><a name="l01267"></a><span class="lineno"> 1267</span>&#160;  uint32_t i = 0;</div>
-<div class="line"><a name="l01268"></a><span class="lineno"> 1268</span>&#160;  <span class="keywordflow">while</span> (!rf12_canSend() &amp;&amp; i &lt; 10)</div>
-<div class="line"><a name="l01269"></a><span class="lineno"> 1269</span>&#160;  {</div>
-<div class="line"><a name="l01270"></a><span class="lineno"> 1270</span>&#160;    rf12_recvDone();</div>
-<div class="line"><a name="l01271"></a><span class="lineno"> 1271</span>&#160;    ++i;</div>
-<div class="line"><a name="l01272"></a><span class="lineno"> 1272</span>&#160;  }</div>
-<div class="line"><a name="l01273"></a><span class="lineno"> 1273</span>&#160;  rf12_sendNow(0, &amp;<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>, <span class="keyword">sizeof</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>);</div>
-<div class="line"><a name="l01274"></a><span class="lineno"> 1274</span>&#160;}</div>
-<div class="line"><a name="l01275"></a><span class="lineno"> 1275</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01276"></a><span class="lineno"> 1276</span>&#160; </div>
-<div class="line"><a name="l01277"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aac7b29dc45caaaca67299571f6a2dcc0"> 1277</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a>()</div>
-<div class="line"><a name="l01278"></a><span class="lineno"> 1278</span>&#160;{</div>
-<div class="line"><a name="l01279"></a><span class="lineno"> 1279</span>&#160;  <span class="keyword">extern</span> <span class="keywordtype">int</span> __heap_start, *__brkval;</div>
-<div class="line"><a name="l01280"></a><span class="lineno"> 1280</span>&#160;  <span class="keywordtype">int</span> v;</div>
-<div class="line"><a name="l01281"></a><span class="lineno"> 1281</span>&#160;  <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)&amp;v - (__brkval == 0 ? (int)&amp;__heap_start : (<span class="keywordtype">int</span>)__brkval);</div>
-<div class="line"><a name="l01282"></a><span class="lineno"> 1282</span>&#160;}</div>
-<div class="line"><a name="l01283"></a><span class="lineno"> 1283</span>&#160; </div>
-<div class="line"><a name="l01290"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4fc01d736fe50cf5b977f755b675f11d"> 1290</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a>()</div>
-<div class="line"><a name="l01291"></a><span class="lineno"> 1291</span>&#160;{</div>
-<div class="line"><a name="l01292"></a><span class="lineno"> 1292</span>&#160;  delay(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a47624474e7579456fbafc8dfc46de826">initialDelay</a>); <span class="comment">// allows time to open the Serial Monitor</span></div>
-<div class="line"><a name="l01293"></a><span class="lineno"> 1293</span>&#160; </div>
-<div class="line"><a name="l01294"></a><span class="lineno"> 1294</span>&#160;  Serial.begin(9600); <span class="comment">// initialize Serial interface</span></div>
-<div class="line"><a name="l01295"></a><span class="lineno"> 1295</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
-<div class="line"><a name="l01296"></a><span class="lineno"> 1296</span>&#160;  Serial.println();</div>
-<div class="line"><a name="l01297"></a><span class="lineno"> 1297</span>&#160;  Serial.println();</div>
-<div class="line"><a name="l01298"></a><span class="lineno"> 1298</span>&#160;  Serial.println();</div>
-<div class="line"><a name="l01299"></a><span class="lineno"> 1299</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;----------------------------------&quot;</span>));</div>
-<div class="line"><a name="l01300"></a><span class="lineno"> 1300</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;Sketch ID:  Mk2_3phase_RFdatalog_temp_1.ino&quot;</span>));</div>
-<div class="line"><a name="l01301"></a><span class="lineno"> 1301</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01302"></a><span class="lineno"> 1302</span>&#160; </div>
-<div class="line"><a name="l01303"></a><span class="lineno"> 1303</span>&#160;  <span class="comment">// initializes all loads to OFF at startup</span></div>
-<div class="line"><a name="l01304"></a><span class="lineno"> 1304</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>; ++i)</div>
-<div class="line"><a name="l01305"></a><span class="lineno"> 1305</span>&#160;  {</div>
-<div class="line"><a name="l01306"></a><span class="lineno"> 1306</span>&#160;    DDRD |= (1 &lt;&lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4cfb4b5cc5504c54511b565a29906efc">physicalLoadPin</a>[i]); <span class="comment">// driver pin for Load #n</span></div>
-<div class="line"><a name="l01307"></a><span class="lineno"> 1307</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a49958eb014b70dfb9d8cb9ded3564ef7">loadPrioritiesAndState</a>[i] &amp;= <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9679e65b07cf301abc92aadaef35b3a8">loadStateMask</a>;</div>
-<div class="line"><a name="l01308"></a><span class="lineno"> 1308</span>&#160;  }</div>
-<div class="line"><a name="l01309"></a><span class="lineno"> 1309</span>&#160;  <a class="code" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88">updatePhysicalLoadStates</a>(); <span class="comment">// allows the logical-to-physical mapping to be changed</span></div>
-<div class="line"><a name="l01310"></a><span class="lineno"> 1310</span>&#160; </div>
-<div class="line"><a name="l01311"></a><span class="lineno"> 1311</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a44ac46a7ff4e0717bd668d5907b38249">updatePortsStates</a>(); <span class="comment">// updates output pin states</span></div>
-<div class="line"><a name="l01312"></a><span class="lineno"> 1312</span>&#160; </div>
-<div class="line"><a name="l01313"></a><span class="lineno"> 1313</span>&#160;<span class="preprocessor">#ifdef OFF_PEAK_TARIFF</span></div>
-<div class="line"><a name="l01314"></a><span class="lineno"> 1314</span>&#160;  DDRD &amp;= ~(1 &lt;&lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0900b23861b581b89e1ad8a2b78c78a7">offPeakForcePin</a>);                 <span class="comment">// set as input</span></div>
-<div class="line"><a name="l01315"></a><span class="lineno"> 1315</span>&#160;  PORTD |= (1 &lt;&lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0900b23861b581b89e1ad8a2b78c78a7">offPeakForcePin</a>);                 <span class="comment">// enable the internal pullup resistor</span></div>
-<div class="line"><a name="l01316"></a><span class="lineno"> 1316</span>&#160;  delay(100);                                      <span class="comment">// allow time to settle</span></div>
-<div class="line"><a name="l01317"></a><span class="lineno"> 1317</span>&#160;  uint8_t pinState{PIND &amp; (1 &lt;&lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0900b23861b581b89e1ad8a2b78c78a7">offPeakForcePin</a>)}; <span class="comment">// initial selection and</span></div>
-<div class="line"><a name="l01318"></a><span class="lineno"> 1318</span>&#160; </div>
-<div class="line"><a name="l01319"></a><span class="lineno"> 1319</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9b220149c714c37067af68c2056d9316">ul_TimeOffPeak</a> = millis();</div>
-<div class="line"><a name="l01320"></a><span class="lineno"> 1320</span>&#160; </div>
-<div class="line"><a name="l01321"></a><span class="lineno"> 1321</span>&#160;  <span class="comment">// calculates offsets for force start and stop of each load</span></div>
-<div class="line"><a name="l01322"></a><span class="lineno"> 1322</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> - 1; ++i)</div>
-<div class="line"><a name="l01323"></a><span class="lineno"> 1323</span>&#160;  {</div>
-<div class="line"><a name="l01324"></a><span class="lineno"> 1324</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].iStartOffset &gt;= 0)</div>
-<div class="line"><a name="l01325"></a><span class="lineno"> 1325</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][0] = <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a22cc79434e71d9aa9ca70a96b5fee9c1">iStartOffset</a>;</div>
-<div class="line"><a name="l01326"></a><span class="lineno"> 1326</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l01327"></a><span class="lineno"> 1327</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][0] = <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a76cf2fcd57c33ee2c65bead8d7f39c63">ul_OFF_PEAK_DURATION</a> + <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a22cc79434e71d9aa9ca70a96b5fee9c1">iStartOffset</a>;</div>
-<div class="line"><a name="l01328"></a><span class="lineno"> 1328</span>&#160; </div>
-<div class="line"><a name="l01329"></a><span class="lineno"> 1329</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][1] = (UINT8_MAX != <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a9e88b9afed25aae7053c1c63079fa6df">uiDuration</a>) ? <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][0] + <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].uiDuration : <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].uiDuration;</div>
-<div class="line"><a name="l01330"></a><span class="lineno"> 1330</span>&#160; </div>
-<div class="line"><a name="l01331"></a><span class="lineno"> 1331</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][0] *= 3600000ul; <span class="comment">// convert in milli-seconds</span></div>
-<div class="line"><a name="l01332"></a><span class="lineno"> 1332</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][1] *= 3600000ul; <span class="comment">// convert in milli-seconds</span></div>
-<div class="line"><a name="l01333"></a><span class="lineno"> 1333</span>&#160;  }</div>
-<div class="line"><a name="l01334"></a><span class="lineno"> 1334</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01335"></a><span class="lineno"> 1335</span>&#160; </div>
-<div class="line"><a name="l01336"></a><span class="lineno"> 1336</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;bforceLoad : <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb69ec3283f18fbbb35e6f96b851e58e">b_forceLoadsOn</a>)</div>
-<div class="line"><a name="l01337"></a><span class="lineno"> 1337</span>&#160;    bforceLoad = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l01338"></a><span class="lineno"> 1338</span>&#160; </div>
-<div class="line"><a name="l01339"></a><span class="lineno"> 1339</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;DCoffset_V : <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adc2062ae814fde5e1ef71b5546d2ce3d">l_DCoffset_V</a>)</div>
-<div class="line"><a name="l01340"></a><span class="lineno"> 1340</span>&#160;    DCoffset_V = 512L * 256L; <span class="comment">// nominal mid-point value of ADC @ x256 scale</span></div>
-<div class="line"><a name="l01341"></a><span class="lineno"> 1341</span>&#160; </div>
-<div class="line"><a name="l01342"></a><span class="lineno"> 1342</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
-<div class="line"><a name="l01343"></a><span class="lineno"> 1343</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;ADC mode:       free-running&quot;</span>));</div>
-<div class="line"><a name="l01344"></a><span class="lineno"> 1344</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;requiredExport in Watts = &quot;</span>));</div>
-<div class="line"><a name="l01345"></a><span class="lineno"> 1345</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aef28d13cd34d7b6d21729ad15ea97350">REQUIRED_EXPORT_IN_WATTS</a>);</div>
-<div class="line"><a name="l01346"></a><span class="lineno"> 1346</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01347"></a><span class="lineno"> 1347</span>&#160; </div>
-<div class="line"><a name="l01348"></a><span class="lineno"> 1348</span>&#160;  <span class="comment">// Set up the ADC to be free-running</span></div>
-<div class="line"><a name="l01349"></a><span class="lineno"> 1349</span>&#160;  ADCSRA = (1 &lt;&lt; ADPS0) + (1 &lt;&lt; ADPS1) + (1 &lt;&lt; ADPS2); <span class="comment">// Set the ADC&#39;s clock to system clock / 128</span></div>
-<div class="line"><a name="l01350"></a><span class="lineno"> 1350</span>&#160;  ADCSRA |= (1 &lt;&lt; ADEN);                               <span class="comment">// Enable the ADC</span></div>
+<div class="line"><a name="l01146"></a><span class="lineno"> 1146</span>&#160;  <span class="keyword">static</span> uint8_t pinOffPeakState{HIGH};</div>
+<div class="line"><a name="l01147"></a><span class="lineno"> 1147</span>&#160; </div>
+<div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;  <span class="keyword">const</span> uint8_t pinNewState{PIND &amp; (1 &lt;&lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0900b23861b581b89e1ad8a2b78c78a7">offPeakForcePin</a>)};</div>
+<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160; </div>
+<div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160;  <span class="keywordflow">if</span> (pinOffPeakState &amp;&amp; !pinNewState)</div>
+<div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160;  {</div>
+<div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160;<span class="comment">// we start off-peak period</span></div>
+<div class="line"><a name="l01153"></a><span class="lineno"> 1153</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
+<div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;Change to off-peak period!&quot;</span>));</div>
+<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9b220149c714c37067af68c2056d9316">ul_TimeOffPeak</a> = millis();</div>
+<div class="line"><a name="l01157"></a><span class="lineno"> 1157</span>&#160; </div>
+<div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160;<span class="preprocessor">#ifdef PRIORITY_ROTATION</span></div>
+<div class="line"><a name="l01159"></a><span class="lineno"> 1159</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4be9b67cfa7c4e48c63817d06f3d293c">b_reOrderLoads</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160; </div>
+<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;    <span class="comment">// waits till the priorities have been rotated from inside the ISR</span></div>
+<div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;    <span class="keywordflow">while</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4be9b67cfa7c4e48c63817d06f3d293c">b_reOrderLoads</a>)</div>
+<div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160;      delay(10);</div>
+<div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01165"></a><span class="lineno"> 1165</span>&#160; </div>
+<div class="line"><a name="l01166"></a><span class="lineno"> 1166</span>&#160;    <span class="comment">// prints the (new) load priorities</span></div>
+<div class="line"><a name="l01167"></a><span class="lineno"> 1167</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a>();</div>
+<div class="line"><a name="l01168"></a><span class="lineno"> 1168</span>&#160;  }</div>
+<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160;  <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;  {</div>
+<div class="line"><a name="l01171"></a><span class="lineno"> 1171</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> ulElapsedTime{(uint32_t)(millis() - <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9b220149c714c37067af68c2056d9316">ul_TimeOffPeak</a>)};</div>
+<div class="line"><a name="l01172"></a><span class="lineno"> 1172</span>&#160; </div>
+<div class="line"><a name="l01173"></a><span class="lineno"> 1173</span>&#160;    <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> - 1; ++i)</div>
+<div class="line"><a name="l01174"></a><span class="lineno"> 1174</span>&#160;    {</div>
+<div class="line"><a name="l01175"></a><span class="lineno"> 1175</span>&#160;      <span class="comment">// for each load, if we&#39;re inside off-peak period and within the &#39;force period&#39;, trigger the ISR to turn the load ON</span></div>
+<div class="line"><a name="l01176"></a><span class="lineno"> 1176</span>&#160;      <span class="keywordflow">if</span> (!pinOffPeakState &amp;&amp; !pinNewState &amp;&amp;</div>
+<div class="line"><a name="l01177"></a><span class="lineno"> 1177</span>&#160;          (ulElapsedTime &gt;= <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][0]) &amp;&amp;</div>
+<div class="line"><a name="l01178"></a><span class="lineno"> 1178</span>&#160;          (ulElapsedTime &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][1]))</div>
+<div class="line"><a name="l01179"></a><span class="lineno"> 1179</span>&#160;        <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb69ec3283f18fbbb35e6f96b851e58e">b_forceLoadsOn</a>[i] = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l01180"></a><span class="lineno"> 1180</span>&#160;      <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01181"></a><span class="lineno"> 1181</span>&#160;        <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb69ec3283f18fbbb35e6f96b851e58e">b_forceLoadsOn</a>[i] = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l01182"></a><span class="lineno"> 1182</span>&#160;    }</div>
+<div class="line"><a name="l01183"></a><span class="lineno"> 1183</span>&#160;  }</div>
+<div class="line"><a name="l01184"></a><span class="lineno"> 1184</span>&#160; </div>
+<div class="line"><a name="l01185"></a><span class="lineno"> 1185</span>&#160;<span class="comment">// end of off-peak period</span></div>
+<div class="line"><a name="l01186"></a><span class="lineno"> 1186</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
+<div class="line"><a name="l01187"></a><span class="lineno"> 1187</span>&#160;  <span class="keywordflow">if</span> (!pinOffPeakState &amp;&amp; pinNewState)</div>
+<div class="line"><a name="l01188"></a><span class="lineno"> 1188</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;Change to peak period!&quot;</span>));</div>
+<div class="line"><a name="l01189"></a><span class="lineno"> 1189</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01190"></a><span class="lineno"> 1190</span>&#160; </div>
+<div class="line"><a name="l01191"></a><span class="lineno"> 1191</span>&#160;  pinOffPeakState = pinNewState;</div>
+<div class="line"><a name="l01192"></a><span class="lineno"> 1192</span>&#160; </div>
+<div class="line"><a name="l01193"></a><span class="lineno"> 1193</span>&#160;  <span class="keywordflow">return</span> (LOW == pinOffPeakState);</div>
+<div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l01195"></a><span class="lineno"> 1195</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l01196"></a><span class="lineno"> 1196</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01197"></a><span class="lineno"> 1197</span>&#160;}</div>
+<div class="line"><a name="l01198"></a><span class="lineno"> 1198</span>&#160; </div>
+<div class="line"><a name="l01203"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2b3b1d496e37e5f29af6a766743dc8b"> 1203</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2b3b1d496e37e5f29af6a766743dc8b">printParamsForSelectedOutputMode</a>()</div>
+<div class="line"><a name="l01204"></a><span class="lineno"> 1204</span>&#160;{</div>
+<div class="line"><a name="l01205"></a><span class="lineno"> 1205</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
+<div class="line"><a name="l01206"></a><span class="lineno"> 1206</span>&#160;  <span class="comment">// display relevant settings for selected output mode</span></div>
+<div class="line"><a name="l01207"></a><span class="lineno"> 1207</span>&#160;  Serial.print(<span class="stringliteral">&quot;Output mode:    &quot;</span>);</div>
+<div class="line"><a name="l01208"></a><span class="lineno"> 1208</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aae913bd32d3b848f4a5ba5b9d32e9a1fa1e23852820b9154316c7c06e2b7ba051">OutputModes::NORMAL</a> == <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a14c0bd4df597ffb07f73e5a3581238b9">outputMode</a>)</div>
+<div class="line"><a name="l01209"></a><span class="lineno"> 1209</span>&#160;    Serial.println(<span class="stringliteral">&quot;normal&quot;</span>);</div>
+<div class="line"><a name="l01210"></a><span class="lineno"> 1210</span>&#160;  <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160;  {</div>
+<div class="line"><a name="l01212"></a><span class="lineno"> 1212</span>&#160;    Serial.println(<span class="stringliteral">&quot;anti-flicker&quot;</span>);</div>
+<div class="line"><a name="l01213"></a><span class="lineno"> 1213</span>&#160;    Serial.print(<span class="stringliteral">&quot;\toffsetOfEnergyThresholds  = &quot;</span>);</div>
+<div class="line"><a name="l01214"></a><span class="lineno"> 1214</span>&#160;    Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a43212c58ded1ca3978ab206d531a7f7c">f_offsetOfEnergyThresholdsInAFmode</a>);</div>
+<div class="line"><a name="l01215"></a><span class="lineno"> 1215</span>&#160;  }</div>
+<div class="line"><a name="l01216"></a><span class="lineno"> 1216</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;\tf_capacityOfEnergyBucket_main = &quot;</span>));</div>
+<div class="line"><a name="l01217"></a><span class="lineno"> 1217</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a6299b24c71bc3d39388e1bc853bf9e3b">f_capacityOfEnergyBucket_main</a>);</div>
+<div class="line"><a name="l01218"></a><span class="lineno"> 1218</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;\tf_lowerEnergyThreshold   = &quot;</span>));</div>
+<div class="line"><a name="l01219"></a><span class="lineno"> 1219</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9a289b1cbd73e38a2a762174f7fdb1c1">f_lowerThreshold_default</a>);</div>
+<div class="line"><a name="l01220"></a><span class="lineno"> 1220</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;\tf_upperEnergyThreshold   = &quot;</span>));</div>
+<div class="line"><a name="l01221"></a><span class="lineno"> 1221</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac5d95ffd4d4d32b7bc1e27f802500fb4">f_upperThreshold_default</a>);</div>
+<div class="line"><a name="l01222"></a><span class="lineno"> 1222</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01223"></a><span class="lineno"> 1223</span>&#160;}</div>
+<div class="line"><a name="l01224"></a><span class="lineno"> 1224</span>&#160; </div>
+<div class="line"><a name="l01225"></a><span class="lineno"> 1225</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
+<div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160; </div>
+<div class="line"><a name="l01230"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d"> 1230</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d">convertTemperature</a>()</div>
+<div class="line"><a name="l01231"></a><span class="lineno"> 1231</span>&#160;{</div>
+<div class="line"><a name="l01232"></a><span class="lineno"> 1232</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.reset();</div>
+<div class="line"><a name="l01233"></a><span class="lineno"> 1233</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.write(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae21308f181dcb2cbe1e7c24e0c63f561">SKIP_ROM</a>);</div>
+<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.write(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0fc0867cb8eb64709ec9326821f0657c">CONVERT_TEMPERATURE</a>);</div>
+<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160;}</div>
+<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160; </div>
+<div class="line"><a name="l01242"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba"> 1242</a></span>&#160;int16_t <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba">readTemperature</a>()</div>
+<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160;{</div>
+<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160;  uint8_t buf[9];</div>
+<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160; </div>
+<div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.reset();</div>
+<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.write(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae21308f181dcb2cbe1e7c24e0c63f561">SKIP_ROM</a>);</div>
+<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.write(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4efcca8a8902b210fd176b46753964f1">READ_SCRATCHPAD</a>);</div>
+<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;buf_elem : buf)</div>
+<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160;    buf_elem = <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.read();</div>
+<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160; </div>
+<div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a>.crc8(buf, 8) != buf[8])</div>
+<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#afc47675197af32c76cf489724045909c">BAD_TEMPERATURE</a>;</div>
+<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160; </div>
+<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;  <span class="comment">// result is temperature x16, multiply by 6.25 to convert to temperature x100</span></div>
+<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160;  int16_t result = (buf[1] &lt;&lt; 8) | buf[0];</div>
+<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160;  <span class="keywordflow">return</span> (result * 6) + (result &gt;&gt; 2);</div>
+<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160;}</div>
+<div class="line"><a name="l01259"></a><span class="lineno"> 1259</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01260"></a><span class="lineno"> 1260</span>&#160; </div>
+<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160;<span class="preprocessor">#ifdef RF_PRESENT</span></div>
+<div class="line"><a name="l01262"></a><span class="lineno"> 1262</span>&#160; </div>
+<div class="line"><a name="l01268"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab5bc929f5a874ed02b16ed1d620d71cf"> 1268</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab5bc929f5a874ed02b16ed1d620d71cf">send_rf_data</a>()</div>
+<div class="line"><a name="l01269"></a><span class="lineno"> 1269</span>&#160;{</div>
+<div class="line"><a name="l01270"></a><span class="lineno"> 1270</span>&#160;  <span class="comment">// check whether it&#39;s ready to send, and an exit route if it gets stuck</span></div>
+<div class="line"><a name="l01271"></a><span class="lineno"> 1271</span>&#160;  uint32_t i = 0;</div>
+<div class="line"><a name="l01272"></a><span class="lineno"> 1272</span>&#160;  <span class="keywordflow">while</span> (!rf12_canSend() &amp;&amp; i &lt; 10)</div>
+<div class="line"><a name="l01273"></a><span class="lineno"> 1273</span>&#160;  {</div>
+<div class="line"><a name="l01274"></a><span class="lineno"> 1274</span>&#160;    rf12_recvDone();</div>
+<div class="line"><a name="l01275"></a><span class="lineno"> 1275</span>&#160;    ++i;</div>
+<div class="line"><a name="l01276"></a><span class="lineno"> 1276</span>&#160;  }</div>
+<div class="line"><a name="l01277"></a><span class="lineno"> 1277</span>&#160;  rf12_sendNow(0, &amp;<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>, <span class="keyword">sizeof</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>);</div>
+<div class="line"><a name="l01278"></a><span class="lineno"> 1278</span>&#160;}</div>
+<div class="line"><a name="l01279"></a><span class="lineno"> 1279</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01280"></a><span class="lineno"> 1280</span>&#160; </div>
+<div class="line"><a name="l01281"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aac7b29dc45caaaca67299571f6a2dcc0"> 1281</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a>()</div>
+<div class="line"><a name="l01282"></a><span class="lineno"> 1282</span>&#160;{</div>
+<div class="line"><a name="l01283"></a><span class="lineno"> 1283</span>&#160;  <span class="keyword">extern</span> <span class="keywordtype">int</span> __heap_start, *__brkval;</div>
+<div class="line"><a name="l01284"></a><span class="lineno"> 1284</span>&#160;  <span class="keywordtype">int</span> v;</div>
+<div class="line"><a name="l01285"></a><span class="lineno"> 1285</span>&#160;  <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)&amp;v - (__brkval == 0 ? (int)&amp;__heap_start : (<span class="keywordtype">int</span>)__brkval);</div>
+<div class="line"><a name="l01286"></a><span class="lineno"> 1286</span>&#160;}</div>
+<div class="line"><a name="l01287"></a><span class="lineno"> 1287</span>&#160; </div>
+<div class="line"><a name="l01294"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4fc01d736fe50cf5b977f755b675f11d"> 1294</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a>()</div>
+<div class="line"><a name="l01295"></a><span class="lineno"> 1295</span>&#160;{</div>
+<div class="line"><a name="l01296"></a><span class="lineno"> 1296</span>&#160;  delay(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a47624474e7579456fbafc8dfc46de826">initialDelay</a>); <span class="comment">// allows time to open the Serial Monitor</span></div>
+<div class="line"><a name="l01297"></a><span class="lineno"> 1297</span>&#160; </div>
+<div class="line"><a name="l01298"></a><span class="lineno"> 1298</span>&#160;  Serial.begin(9600); <span class="comment">// initialize Serial interface</span></div>
+<div class="line"><a name="l01299"></a><span class="lineno"> 1299</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
+<div class="line"><a name="l01300"></a><span class="lineno"> 1300</span>&#160;  Serial.println();</div>
+<div class="line"><a name="l01301"></a><span class="lineno"> 1301</span>&#160;  Serial.println();</div>
+<div class="line"><a name="l01302"></a><span class="lineno"> 1302</span>&#160;  Serial.println();</div>
+<div class="line"><a name="l01303"></a><span class="lineno"> 1303</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;----------------------------------&quot;</span>));</div>
+<div class="line"><a name="l01304"></a><span class="lineno"> 1304</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;Sketch ID:  Mk2_3phase_RFdatalog_temp_1.ino&quot;</span>));</div>
+<div class="line"><a name="l01305"></a><span class="lineno"> 1305</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01306"></a><span class="lineno"> 1306</span>&#160; </div>
+<div class="line"><a name="l01307"></a><span class="lineno"> 1307</span>&#160;  <span class="comment">// initializes all loads to OFF at startup</span></div>
+<div class="line"><a name="l01308"></a><span class="lineno"> 1308</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>; ++i)</div>
+<div class="line"><a name="l01309"></a><span class="lineno"> 1309</span>&#160;  {</div>
+<div class="line"><a name="l01310"></a><span class="lineno"> 1310</span>&#160;    DDRD |= (1 &lt;&lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4cfb4b5cc5504c54511b565a29906efc">physicalLoadPin</a>[i]); <span class="comment">// driver pin for Load #n</span></div>
+<div class="line"><a name="l01311"></a><span class="lineno"> 1311</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a49958eb014b70dfb9d8cb9ded3564ef7">loadPrioritiesAndState</a>[i] &amp;= <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9679e65b07cf301abc92aadaef35b3a8">loadStateMask</a>;</div>
+<div class="line"><a name="l01312"></a><span class="lineno"> 1312</span>&#160;  }</div>
+<div class="line"><a name="l01313"></a><span class="lineno"> 1313</span>&#160;  <a class="code" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88">updatePhysicalLoadStates</a>(); <span class="comment">// allows the logical-to-physical mapping to be changed</span></div>
+<div class="line"><a name="l01314"></a><span class="lineno"> 1314</span>&#160; </div>
+<div class="line"><a name="l01315"></a><span class="lineno"> 1315</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a44ac46a7ff4e0717bd668d5907b38249">updatePortsStates</a>(); <span class="comment">// updates output pin states</span></div>
+<div class="line"><a name="l01316"></a><span class="lineno"> 1316</span>&#160; </div>
+<div class="line"><a name="l01317"></a><span class="lineno"> 1317</span>&#160;<span class="preprocessor">#ifdef OFF_PEAK_TARIFF</span></div>
+<div class="line"><a name="l01318"></a><span class="lineno"> 1318</span>&#160;  DDRD &amp;= ~(1 &lt;&lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0900b23861b581b89e1ad8a2b78c78a7">offPeakForcePin</a>);                 <span class="comment">// set as input</span></div>
+<div class="line"><a name="l01319"></a><span class="lineno"> 1319</span>&#160;  PORTD |= (1 &lt;&lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0900b23861b581b89e1ad8a2b78c78a7">offPeakForcePin</a>);                 <span class="comment">// enable the internal pullup resistor</span></div>
+<div class="line"><a name="l01320"></a><span class="lineno"> 1320</span>&#160;  delay(100);                                      <span class="comment">// allow time to settle</span></div>
+<div class="line"><a name="l01321"></a><span class="lineno"> 1321</span>&#160;  uint8_t pinState{PIND &amp; (1 &lt;&lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0900b23861b581b89e1ad8a2b78c78a7">offPeakForcePin</a>)}; <span class="comment">// initial selection and</span></div>
+<div class="line"><a name="l01322"></a><span class="lineno"> 1322</span>&#160; </div>
+<div class="line"><a name="l01323"></a><span class="lineno"> 1323</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9b220149c714c37067af68c2056d9316">ul_TimeOffPeak</a> = millis();</div>
+<div class="line"><a name="l01324"></a><span class="lineno"> 1324</span>&#160; </div>
+<div class="line"><a name="l01325"></a><span class="lineno"> 1325</span>&#160;  <span class="comment">// calculates offsets for force start and stop of each load</span></div>
+<div class="line"><a name="l01326"></a><span class="lineno"> 1326</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> - 1; ++i)</div>
+<div class="line"><a name="l01327"></a><span class="lineno"> 1327</span>&#160;  {</div>
+<div class="line"><a name="l01328"></a><span class="lineno"> 1328</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].iStartOffset &gt;= 0)</div>
+<div class="line"><a name="l01329"></a><span class="lineno"> 1329</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][0] = <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a22cc79434e71d9aa9ca70a96b5fee9c1">iStartOffset</a>;</div>
+<div class="line"><a name="l01330"></a><span class="lineno"> 1330</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l01331"></a><span class="lineno"> 1331</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][0] = <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a76cf2fcd57c33ee2c65bead8d7f39c63">ul_OFF_PEAK_DURATION</a> + <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a22cc79434e71d9aa9ca70a96b5fee9c1">iStartOffset</a>;</div>
+<div class="line"><a name="l01332"></a><span class="lineno"> 1332</span>&#160; </div>
+<div class="line"><a name="l01333"></a><span class="lineno"> 1333</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][1] = (UINT8_MAX != <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a9e88b9afed25aae7053c1c63079fa6df">uiDuration</a>) ? <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][0] + <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].uiDuration : <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].uiDuration;</div>
+<div class="line"><a name="l01334"></a><span class="lineno"> 1334</span>&#160; </div>
+<div class="line"><a name="l01335"></a><span class="lineno"> 1335</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][0] *= 3600000ul; <span class="comment">// convert in milli-seconds</span></div>
+<div class="line"><a name="l01336"></a><span class="lineno"> 1336</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a>[i][1] *= 3600000ul; <span class="comment">// convert in milli-seconds</span></div>
+<div class="line"><a name="l01337"></a><span class="lineno"> 1337</span>&#160;  }</div>
+<div class="line"><a name="l01338"></a><span class="lineno"> 1338</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01339"></a><span class="lineno"> 1339</span>&#160; </div>
+<div class="line"><a name="l01340"></a><span class="lineno"> 1340</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;bforceLoad : <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb69ec3283f18fbbb35e6f96b851e58e">b_forceLoadsOn</a>)</div>
+<div class="line"><a name="l01341"></a><span class="lineno"> 1341</span>&#160;    bforceLoad = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l01342"></a><span class="lineno"> 1342</span>&#160; </div>
+<div class="line"><a name="l01343"></a><span class="lineno"> 1343</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;DCoffset_V : <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adc2062ae814fde5e1ef71b5546d2ce3d">l_DCoffset_V</a>)</div>
+<div class="line"><a name="l01344"></a><span class="lineno"> 1344</span>&#160;    DCoffset_V = 512L * 256L; <span class="comment">// nominal mid-point value of ADC @ x256 scale</span></div>
+<div class="line"><a name="l01345"></a><span class="lineno"> 1345</span>&#160; </div>
+<div class="line"><a name="l01346"></a><span class="lineno"> 1346</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
+<div class="line"><a name="l01347"></a><span class="lineno"> 1347</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;ADC mode:       free-running&quot;</span>));</div>
+<div class="line"><a name="l01348"></a><span class="lineno"> 1348</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;requiredExport in Watts = &quot;</span>));</div>
+<div class="line"><a name="l01349"></a><span class="lineno"> 1349</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aef28d13cd34d7b6d21729ad15ea97350">REQUIRED_EXPORT_IN_WATTS</a>);</div>
+<div class="line"><a name="l01350"></a><span class="lineno"> 1350</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01351"></a><span class="lineno"> 1351</span>&#160; </div>
-<div class="line"><a name="l01352"></a><span class="lineno"> 1352</span>&#160;  ADCSRA |= (1 &lt;&lt; ADATE); <span class="comment">// set the Auto Trigger Enable bit in the ADCSRA register. Because</span></div>
-<div class="line"><a name="l01353"></a><span class="lineno"> 1353</span>&#160;  <span class="comment">// bits ADTS0-2 have not been set (i.e. they are all zero), the</span></div>
-<div class="line"><a name="l01354"></a><span class="lineno"> 1354</span>&#160;  <span class="comment">// ADC&#39;s trigger source is set to &quot;free running mode&quot;.</span></div>
+<div class="line"><a name="l01352"></a><span class="lineno"> 1352</span>&#160;  <span class="comment">// Set up the ADC to be free-running</span></div>
+<div class="line"><a name="l01353"></a><span class="lineno"> 1353</span>&#160;  ADCSRA = (1 &lt;&lt; ADPS0) + (1 &lt;&lt; ADPS1) + (1 &lt;&lt; ADPS2); <span class="comment">// Set the ADC&#39;s clock to system clock / 128</span></div>
+<div class="line"><a name="l01354"></a><span class="lineno"> 1354</span>&#160;  ADCSRA |= (1 &lt;&lt; ADEN);                               <span class="comment">// Enable the ADC</span></div>
 <div class="line"><a name="l01355"></a><span class="lineno"> 1355</span>&#160; </div>
-<div class="line"><a name="l01356"></a><span class="lineno"> 1356</span>&#160;  ADCSRA |= (1 &lt;&lt; ADIE); <span class="comment">// set the ADC interrupt enable bit. When this bit is written</span></div>
-<div class="line"><a name="l01357"></a><span class="lineno"> 1357</span>&#160;  <span class="comment">// to one and the I-bit in SREG is set, the</span></div>
-<div class="line"><a name="l01358"></a><span class="lineno"> 1358</span>&#160;  <span class="comment">// ADC Conversion Complete Interrupt is activated.</span></div>
+<div class="line"><a name="l01356"></a><span class="lineno"> 1356</span>&#160;  ADCSRA |= (1 &lt;&lt; ADATE); <span class="comment">// set the Auto Trigger Enable bit in the ADCSRA register. Because</span></div>
+<div class="line"><a name="l01357"></a><span class="lineno"> 1357</span>&#160;  <span class="comment">// bits ADTS0-2 have not been set (i.e. they are all zero), the</span></div>
+<div class="line"><a name="l01358"></a><span class="lineno"> 1358</span>&#160;  <span class="comment">// ADC&#39;s trigger source is set to &quot;free running mode&quot;.</span></div>
 <div class="line"><a name="l01359"></a><span class="lineno"> 1359</span>&#160; </div>
-<div class="line"><a name="l01360"></a><span class="lineno"> 1360</span>&#160;  ADCSRA |= (1 &lt;&lt; ADSC); <span class="comment">// start ADC manually first time</span></div>
-<div class="line"><a name="l01361"></a><span class="lineno"> 1361</span>&#160;  sei();                 <span class="comment">// Enable Global Interrupts</span></div>
-<div class="line"><a name="l01362"></a><span class="lineno"> 1362</span>&#160; </div>
-<div class="line"><a name="l01363"></a><span class="lineno"> 1363</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
-<div class="line"><a name="l01364"></a><span class="lineno"> 1364</span>&#160;  <span class="keywordflow">for</span> (uint8_t phase = 0; phase &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>; ++phase)</div>
-<div class="line"><a name="l01365"></a><span class="lineno"> 1365</span>&#160;  {</div>
-<div class="line"><a name="l01366"></a><span class="lineno"> 1366</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;f_powerCal for L&quot;</span>));</div>
-<div class="line"><a name="l01367"></a><span class="lineno"> 1367</span>&#160;    Serial.print(phase + 1);</div>
-<div class="line"><a name="l01368"></a><span class="lineno"> 1368</span>&#160;    Serial.print(F(<span class="stringliteral">&quot; =    &quot;</span>));</div>
-<div class="line"><a name="l01369"></a><span class="lineno"> 1369</span>&#160;    Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>[phase], 4);</div>
-<div class="line"><a name="l01370"></a><span class="lineno"> 1370</span>&#160;  }</div>
-<div class="line"><a name="l01371"></a><span class="lineno"> 1371</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;f_phaseCal for all phases&quot;</span>));</div>
-<div class="line"><a name="l01372"></a><span class="lineno"> 1372</span>&#160;  Serial.print(F(<span class="stringliteral">&quot; =     &quot;</span>));</div>
-<div class="line"><a name="l01373"></a><span class="lineno"> 1373</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a1d63b22231b730d0f9d9fd4971a0fd35">f_phaseCal</a>);</div>
-<div class="line"><a name="l01374"></a><span class="lineno"> 1374</span>&#160; </div>
-<div class="line"><a name="l01375"></a><span class="lineno"> 1375</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;f_voltageCal, for Vrms  =      &quot;</span>));</div>
-<div class="line"><a name="l01376"></a><span class="lineno"> 1376</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a7a8327dcf62ab819a2cfff87e7b08ca4">f_voltageCal</a>, 4);</div>
-<div class="line"><a name="l01377"></a><span class="lineno"> 1377</span>&#160; </div>
-<div class="line"><a name="l01378"></a><span class="lineno"> 1378</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;Export rate (Watts) = &quot;</span>));</div>
-<div class="line"><a name="l01379"></a><span class="lineno"> 1379</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aef28d13cd34d7b6d21729ad15ea97350">REQUIRED_EXPORT_IN_WATTS</a>);</div>
-<div class="line"><a name="l01380"></a><span class="lineno"> 1380</span>&#160; </div>
-<div class="line"><a name="l01381"></a><span class="lineno"> 1381</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;zero-crossing persistence (sample sets) = &quot;</span>));</div>
-<div class="line"><a name="l01382"></a><span class="lineno"> 1382</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a2a52b2459c1ca802c59cfa96e71885ba">PERSISTENCE_FOR_POLARITY_CHANGE</a>);</div>
-<div class="line"><a name="l01383"></a><span class="lineno"> 1383</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01360"></a><span class="lineno"> 1360</span>&#160;  ADCSRA |= (1 &lt;&lt; ADIE); <span class="comment">// set the ADC interrupt enable bit. When this bit is written</span></div>
+<div class="line"><a name="l01361"></a><span class="lineno"> 1361</span>&#160;  <span class="comment">// to one and the I-bit in SREG is set, the</span></div>
+<div class="line"><a name="l01362"></a><span class="lineno"> 1362</span>&#160;  <span class="comment">// ADC Conversion Complete Interrupt is activated.</span></div>
+<div class="line"><a name="l01363"></a><span class="lineno"> 1363</span>&#160; </div>
+<div class="line"><a name="l01364"></a><span class="lineno"> 1364</span>&#160;  ADCSRA |= (1 &lt;&lt; ADSC); <span class="comment">// start ADC manually first time</span></div>
+<div class="line"><a name="l01365"></a><span class="lineno"> 1365</span>&#160;  sei();                 <span class="comment">// Enable Global Interrupts</span></div>
+<div class="line"><a name="l01366"></a><span class="lineno"> 1366</span>&#160; </div>
+<div class="line"><a name="l01367"></a><span class="lineno"> 1367</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
+<div class="line"><a name="l01368"></a><span class="lineno"> 1368</span>&#160;  <span class="keywordflow">for</span> (uint8_t phase = 0; phase &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>; ++phase)</div>
+<div class="line"><a name="l01369"></a><span class="lineno"> 1369</span>&#160;  {</div>
+<div class="line"><a name="l01370"></a><span class="lineno"> 1370</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;f_powerCal for L&quot;</span>));</div>
+<div class="line"><a name="l01371"></a><span class="lineno"> 1371</span>&#160;    Serial.print(phase + 1);</div>
+<div class="line"><a name="l01372"></a><span class="lineno"> 1372</span>&#160;    Serial.print(F(<span class="stringliteral">&quot; =    &quot;</span>));</div>
+<div class="line"><a name="l01373"></a><span class="lineno"> 1373</span>&#160;    Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>[phase], 4);</div>
+<div class="line"><a name="l01374"></a><span class="lineno"> 1374</span>&#160;  }</div>
+<div class="line"><a name="l01375"></a><span class="lineno"> 1375</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;f_phaseCal for all phases&quot;</span>));</div>
+<div class="line"><a name="l01376"></a><span class="lineno"> 1376</span>&#160;  Serial.print(F(<span class="stringliteral">&quot; =     &quot;</span>));</div>
+<div class="line"><a name="l01377"></a><span class="lineno"> 1377</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a1d63b22231b730d0f9d9fd4971a0fd35">f_phaseCal</a>);</div>
+<div class="line"><a name="l01378"></a><span class="lineno"> 1378</span>&#160; </div>
+<div class="line"><a name="l01379"></a><span class="lineno"> 1379</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;f_voltageCal, for Vrms  =      &quot;</span>));</div>
+<div class="line"><a name="l01380"></a><span class="lineno"> 1380</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a7a8327dcf62ab819a2cfff87e7b08ca4">f_voltageCal</a>, 4);</div>
+<div class="line"><a name="l01381"></a><span class="lineno"> 1381</span>&#160; </div>
+<div class="line"><a name="l01382"></a><span class="lineno"> 1382</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;Export rate (Watts) = &quot;</span>));</div>
+<div class="line"><a name="l01383"></a><span class="lineno"> 1383</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aef28d13cd34d7b6d21729ad15ea97350">REQUIRED_EXPORT_IN_WATTS</a>);</div>
 <div class="line"><a name="l01384"></a><span class="lineno"> 1384</span>&#160; </div>
-<div class="line"><a name="l01385"></a><span class="lineno"> 1385</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2b3b1d496e37e5f29af6a766743dc8b">printParamsForSelectedOutputMode</a>();</div>
-<div class="line"><a name="l01386"></a><span class="lineno"> 1386</span>&#160; </div>
-<div class="line"><a name="l01387"></a><span class="lineno"> 1387</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a>();</div>
+<div class="line"><a name="l01385"></a><span class="lineno"> 1385</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;zero-crossing persistence (sample sets) = &quot;</span>));</div>
+<div class="line"><a name="l01386"></a><span class="lineno"> 1386</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a2a52b2459c1ca802c59cfa96e71885ba">PERSISTENCE_FOR_POLARITY_CHANGE</a>);</div>
+<div class="line"><a name="l01387"></a><span class="lineno"> 1387</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01388"></a><span class="lineno"> 1388</span>&#160; </div>
-<div class="line"><a name="l01389"></a><span class="lineno"> 1389</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
-<div class="line"><a name="l01390"></a><span class="lineno"> 1390</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;&gt;&gt;free RAM = &quot;</span>));</div>
-<div class="line"><a name="l01391"></a><span class="lineno"> 1391</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a>()); <span class="comment">// a useful value to keep an eye on</span></div>
+<div class="line"><a name="l01389"></a><span class="lineno"> 1389</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2b3b1d496e37e5f29af6a766743dc8b">printParamsForSelectedOutputMode</a>();</div>
+<div class="line"><a name="l01390"></a><span class="lineno"> 1390</span>&#160; </div>
+<div class="line"><a name="l01391"></a><span class="lineno"> 1391</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a>();</div>
 <div class="line"><a name="l01392"></a><span class="lineno"> 1392</span>&#160; </div>
-<div class="line"><a name="l01393"></a><span class="lineno"> 1393</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;----&quot;</span>));</div>
-<div class="line"><a name="l01394"></a><span class="lineno"> 1394</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01395"></a><span class="lineno"> 1395</span>&#160; </div>
-<div class="line"><a name="l01396"></a><span class="lineno"> 1396</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
-<div class="line"><a name="l01397"></a><span class="lineno"> 1397</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d">convertTemperature</a>(); <span class="comment">// start initial temperature conversion</span></div>
+<div class="line"><a name="l01393"></a><span class="lineno"> 1393</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
+<div class="line"><a name="l01394"></a><span class="lineno"> 1394</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;&gt;&gt;free RAM = &quot;</span>));</div>
+<div class="line"><a name="l01395"></a><span class="lineno"> 1395</span>&#160;  Serial.println(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a>()); <span class="comment">// a useful value to keep an eye on</span></div>
+<div class="line"><a name="l01396"></a><span class="lineno"> 1396</span>&#160; </div>
+<div class="line"><a name="l01397"></a><span class="lineno"> 1397</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;----&quot;</span>));</div>
 <div class="line"><a name="l01398"></a><span class="lineno"> 1398</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01399"></a><span class="lineno"> 1399</span>&#160; </div>
-<div class="line"><a name="l01400"></a><span class="lineno"> 1400</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
-<div class="line"><a name="l01401"></a><span class="lineno"> 1401</span>&#160;  Serial.print(<span class="stringliteral">&quot;RF capability &quot;</span>);</div>
+<div class="line"><a name="l01400"></a><span class="lineno"> 1400</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
+<div class="line"><a name="l01401"></a><span class="lineno"> 1401</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d">convertTemperature</a>(); <span class="comment">// start initial temperature conversion</span></div>
 <div class="line"><a name="l01402"></a><span class="lineno"> 1402</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01403"></a><span class="lineno"> 1403</span>&#160; </div>
-<div class="line"><a name="l01404"></a><span class="lineno"> 1404</span>&#160;<span class="preprocessor">#ifdef RF_PRESENT</span></div>
-<div class="line"><a name="l01405"></a><span class="lineno"> 1405</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;IS present, Freq = &quot;</span>));</div>
-<div class="line"><a name="l01406"></a><span class="lineno"> 1406</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a1b04ec1cde4d3032f558ed8ad05930a4">FREQ</a> == RF12_433MHZ)</div>
-<div class="line"><a name="l01407"></a><span class="lineno"> 1407</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;433 MHz&quot;</span>));</div>
-<div class="line"><a name="l01408"></a><span class="lineno"> 1408</span>&#160;  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a1b04ec1cde4d3032f558ed8ad05930a4">FREQ</a> == RF12_868MHZ)</div>
-<div class="line"><a name="l01409"></a><span class="lineno"> 1409</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;868 MHz&quot;</span>));</div>
-<div class="line"><a name="l01410"></a><span class="lineno"> 1410</span>&#160;  rf12_initialize(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a60f522aaa42faf22b9ce5d66e6e45346">nodeID</a>, <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a1b04ec1cde4d3032f558ed8ad05930a4">FREQ</a>, <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a2195a98d46c91f74fcde7cb8ed2350d0">networkGroup</a>); <span class="comment">// initialize RF</span></div>
-<div class="line"><a name="l01411"></a><span class="lineno"> 1411</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l01412"></a><span class="lineno"> 1412</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
-<div class="line"><a name="l01413"></a><span class="lineno"> 1413</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;is NOT present&quot;</span>));</div>
-<div class="line"><a name="l01414"></a><span class="lineno"> 1414</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01415"></a><span class="lineno"> 1415</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01416"></a><span class="lineno"> 1416</span>&#160; </div>
-<div class="line"><a name="l01417"></a><span class="lineno"> 1417</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
-<div class="line"><a name="l01418"></a><span class="lineno"> 1418</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d">convertTemperature</a>(); <span class="comment">// start initial temperature conversion</span></div>
+<div class="line"><a name="l01404"></a><span class="lineno"> 1404</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
+<div class="line"><a name="l01405"></a><span class="lineno"> 1405</span>&#160;  Serial.print(<span class="stringliteral">&quot;RF capability &quot;</span>);</div>
+<div class="line"><a name="l01406"></a><span class="lineno"> 1406</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01407"></a><span class="lineno"> 1407</span>&#160; </div>
+<div class="line"><a name="l01408"></a><span class="lineno"> 1408</span>&#160;<span class="preprocessor">#ifdef RF_PRESENT</span></div>
+<div class="line"><a name="l01409"></a><span class="lineno"> 1409</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;IS present, Freq = &quot;</span>));</div>
+<div class="line"><a name="l01410"></a><span class="lineno"> 1410</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a1b04ec1cde4d3032f558ed8ad05930a4">FREQ</a> == RF12_433MHZ)</div>
+<div class="line"><a name="l01411"></a><span class="lineno"> 1411</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;433 MHz&quot;</span>));</div>
+<div class="line"><a name="l01412"></a><span class="lineno"> 1412</span>&#160;  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a1b04ec1cde4d3032f558ed8ad05930a4">FREQ</a> == RF12_868MHZ)</div>
+<div class="line"><a name="l01413"></a><span class="lineno"> 1413</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;868 MHz&quot;</span>));</div>
+<div class="line"><a name="l01414"></a><span class="lineno"> 1414</span>&#160;  rf12_initialize(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a60f522aaa42faf22b9ce5d66e6e45346">nodeID</a>, <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a1b04ec1cde4d3032f558ed8ad05930a4">FREQ</a>, <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a2195a98d46c91f74fcde7cb8ed2350d0">networkGroup</a>); <span class="comment">// initialize RF</span></div>
+<div class="line"><a name="l01415"></a><span class="lineno"> 1415</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l01416"></a><span class="lineno"> 1416</span>&#160;<span class="preprocessor">#ifndef NO_OUTPUT</span></div>
+<div class="line"><a name="l01417"></a><span class="lineno"> 1417</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;is NOT present&quot;</span>));</div>
+<div class="line"><a name="l01418"></a><span class="lineno"> 1418</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01419"></a><span class="lineno"> 1419</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01420"></a><span class="lineno"> 1420</span>&#160;}</div>
-<div class="line"><a name="l01421"></a><span class="lineno"> 1421</span>&#160; </div>
-<div class="line"><a name="l01428"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#afe461d27b9c48d5921c00d521181f12f"> 1428</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a>()</div>
-<div class="line"><a name="l01429"></a><span class="lineno"> 1429</span>&#160;{</div>
-<div class="line"><a name="l01430"></a><span class="lineno"> 1430</span>&#160;  <span class="keyword">static</span> uint8_t perSecondTimer{0};</div>
-<div class="line"><a name="l01431"></a><span class="lineno"> 1431</span>&#160; </div>
-<div class="line"><a name="l01432"></a><span class="lineno"> 1432</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa3dd7bd843acabd72f702af584c0511d">b_newMainsCycle</a>) <span class="comment">// flag is set after every pair of ADC conversions</span></div>
-<div class="line"><a name="l01433"></a><span class="lineno"> 1433</span>&#160;  {</div>
-<div class="line"><a name="l01434"></a><span class="lineno"> 1434</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa3dd7bd843acabd72f702af584c0511d">b_newMainsCycle</a> = <span class="keyword">false</span>; <span class="comment">// reset the flag</span></div>
-<div class="line"><a name="l01435"></a><span class="lineno"> 1435</span>&#160;    ++perSecondTimer;</div>
+<div class="line"><a name="l01420"></a><span class="lineno"> 1420</span>&#160; </div>
+<div class="line"><a name="l01421"></a><span class="lineno"> 1421</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
+<div class="line"><a name="l01422"></a><span class="lineno"> 1422</span>&#160;  <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d">convertTemperature</a>(); <span class="comment">// start initial temperature conversion</span></div>
+<div class="line"><a name="l01423"></a><span class="lineno"> 1423</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01424"></a><span class="lineno"> 1424</span>&#160;}</div>
+<div class="line"><a name="l01425"></a><span class="lineno"> 1425</span>&#160; </div>
+<div class="line"><a name="l01432"></a><span class="lineno"><a class="line" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#afe461d27b9c48d5921c00d521181f12f"> 1432</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a>()</div>
+<div class="line"><a name="l01433"></a><span class="lineno"> 1433</span>&#160;{</div>
+<div class="line"><a name="l01434"></a><span class="lineno"> 1434</span>&#160;  <span class="keyword">static</span> uint8_t perSecondTimer{0};</div>
+<div class="line"><a name="l01435"></a><span class="lineno"> 1435</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> bOffPeak{<span class="keyword">false</span>};</div>
 <div class="line"><a name="l01436"></a><span class="lineno"> 1436</span>&#160; </div>
-<div class="line"><a name="l01437"></a><span class="lineno"> 1437</span>&#160;    <span class="keywordflow">if</span> (perSecondTimer &gt;= <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf0ec5f146cef5f3710fbf397fc63d6b">CYCLES_PER_SECOND</a>)</div>
-<div class="line"><a name="l01438"></a><span class="lineno"> 1438</span>&#160;    {</div>
-<div class="line"><a name="l01439"></a><span class="lineno"> 1439</span>&#160;      perSecondTimer = 0;</div>
-<div class="line"><a name="l01440"></a><span class="lineno"> 1440</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0174ba402fa693193c2c5601fc70dbd4">checkLoadPrioritySelection</a>(); <span class="comment">// called every second</span></div>
-<div class="line"><a name="l01441"></a><span class="lineno"> 1441</span>&#160;    }</div>
-<div class="line"><a name="l01442"></a><span class="lineno"> 1442</span>&#160;  }</div>
-<div class="line"><a name="l01443"></a><span class="lineno"> 1443</span>&#160; </div>
-<div class="line"><a name="l01444"></a><span class="lineno"> 1444</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab76a3cdd049ea024d204d62770405dc9">b_datalogEventPending</a>)</div>
-<div class="line"><a name="l01445"></a><span class="lineno"> 1445</span>&#160;  {</div>
-<div class="line"><a name="l01446"></a><span class="lineno"> 1446</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab76a3cdd049ea024d204d62770405dc9">b_datalogEventPending</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l01447"></a><span class="lineno"> 1447</span>&#160; </div>
-<div class="line"><a name="l01448"></a><span class="lineno"> 1448</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a2c60caf9e97f338ecd5ad9c51d1a6bb9">power</a> = 0;</div>
-<div class="line"><a name="l01449"></a><span class="lineno"> 1449</span>&#160;    <span class="keywordflow">for</span> (uint8_t phase = 0; phase &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>; ++phase)</div>
-<div class="line"><a name="l01450"></a><span class="lineno"> 1450</span>&#160;    {</div>
-<div class="line"><a name="l01451"></a><span class="lineno"> 1451</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#ad50665176ae7a169b25cf2868d212d22">power_L</a>[phase] = <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a92487f63c679b2125aa51fddd1549836">copyOf_sumP_atSupplyPoint</a>[phase] / <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a6ebfc0ef69ea54c4d02cda3dbed04660">copyOf_sampleSetsDuringThisDatalogPeriod</a> * <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>[phase];</div>
-<div class="line"><a name="l01452"></a><span class="lineno"> 1452</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#ad50665176ae7a169b25cf2868d212d22">power_L</a>[phase] *= -1;</div>
-<div class="line"><a name="l01453"></a><span class="lineno"> 1453</span>&#160; </div>
-<div class="line"><a name="l01454"></a><span class="lineno"> 1454</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a2c60caf9e97f338ecd5ad9c51d1a6bb9">power</a> += <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#ad50665176ae7a169b25cf2868d212d22">power_L</a>[phase];</div>
-<div class="line"><a name="l01455"></a><span class="lineno"> 1455</span>&#160; </div>
-<div class="line"><a name="l01456"></a><span class="lineno"> 1456</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a8df74109eaeab81f3a5d3dc987841706">Vrms_L_times100</a>[phase] = (int32_t)(100 * <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a7a8327dcf62ab819a2cfff87e7b08ca4">f_voltageCal</a> * sqrt(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a952240da797ea106fa52eec5f8e2b1d9">copyOf_sum_Vsquared</a>[phase] / <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a6ebfc0ef69ea54c4d02cda3dbed04660">copyOf_sampleSetsDuringThisDatalogPeriod</a>));</div>
-<div class="line"><a name="l01457"></a><span class="lineno"> 1457</span>&#160;    }</div>
-<div class="line"><a name="l01458"></a><span class="lineno"> 1458</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
-<div class="line"><a name="l01459"></a><span class="lineno"> 1459</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a338e4b4e5de3414eb265592285664e75">temperature_times100</a> = <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba">readTemperature</a>();</div>
-<div class="line"><a name="l01460"></a><span class="lineno"> 1460</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01461"></a><span class="lineno"> 1461</span>&#160; </div>
-<div class="line"><a name="l01462"></a><span class="lineno"> 1462</span>&#160;<span class="preprocessor">#ifdef RF_PRESENT</span></div>
-<div class="line"><a name="l01463"></a><span class="lineno"> 1463</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab5bc929f5a874ed02b16ed1d620d71cf">send_rf_data</a>();</div>
-<div class="line"><a name="l01464"></a><span class="lineno"> 1464</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01465"></a><span class="lineno"> 1465</span>&#160; </div>
-<div class="line"><a name="l01466"></a><span class="lineno"> 1466</span>&#160;<span class="preprocessor">#ifdef DATALOG_OUTPUT</span></div>
-<div class="line"><a name="l01467"></a><span class="lineno"> 1467</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a5c30ee10994f277461407506298c10fd">printDataLogging</a>();</div>
-<div class="line"><a name="l01468"></a><span class="lineno"> 1468</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01469"></a><span class="lineno"> 1469</span>&#160; </div>
-<div class="line"><a name="l01470"></a><span class="lineno"> 1470</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
-<div class="line"><a name="l01471"></a><span class="lineno"> 1471</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d">convertTemperature</a>(); <span class="comment">// for use next time around</span></div>
-<div class="line"><a name="l01472"></a><span class="lineno"> 1472</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01473"></a><span class="lineno"> 1473</span>&#160;  }</div>
-<div class="line"><a name="l01474"></a><span class="lineno"> 1474</span>&#160;} <span class="comment">// end of loop()</span></div>
+<div class="line"><a name="l01437"></a><span class="lineno"> 1437</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa3dd7bd843acabd72f702af584c0511d">b_newMainsCycle</a>) <span class="comment">// flag is set after every pair of ADC conversions</span></div>
+<div class="line"><a name="l01438"></a><span class="lineno"> 1438</span>&#160;  {</div>
+<div class="line"><a name="l01439"></a><span class="lineno"> 1439</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa3dd7bd843acabd72f702af584c0511d">b_newMainsCycle</a> = <span class="keyword">false</span>; <span class="comment">// reset the flag</span></div>
+<div class="line"><a name="l01440"></a><span class="lineno"> 1440</span>&#160;    ++perSecondTimer;</div>
+<div class="line"><a name="l01441"></a><span class="lineno"> 1441</span>&#160; </div>
+<div class="line"><a name="l01442"></a><span class="lineno"> 1442</span>&#160;    <span class="keywordflow">if</span> (perSecondTimer &gt;= <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf0ec5f146cef5f3710fbf397fc63d6b">CYCLES_PER_SECOND</a>)</div>
+<div class="line"><a name="l01443"></a><span class="lineno"> 1443</span>&#160;    {</div>
+<div class="line"><a name="l01444"></a><span class="lineno"> 1444</span>&#160;      perSecondTimer = 0;</div>
+<div class="line"><a name="l01445"></a><span class="lineno"> 1445</span>&#160;      bOffPeak = <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0174ba402fa693193c2c5601fc70dbd4">checkLoadPrioritySelection</a>(); <span class="comment">// called every second</span></div>
+<div class="line"><a name="l01446"></a><span class="lineno"> 1446</span>&#160;    }</div>
+<div class="line"><a name="l01447"></a><span class="lineno"> 1447</span>&#160;  }</div>
+<div class="line"><a name="l01448"></a><span class="lineno"> 1448</span>&#160; </div>
+<div class="line"><a name="l01449"></a><span class="lineno"> 1449</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab76a3cdd049ea024d204d62770405dc9">b_datalogEventPending</a>)</div>
+<div class="line"><a name="l01450"></a><span class="lineno"> 1450</span>&#160;  {</div>
+<div class="line"><a name="l01451"></a><span class="lineno"> 1451</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab76a3cdd049ea024d204d62770405dc9">b_datalogEventPending</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l01452"></a><span class="lineno"> 1452</span>&#160; </div>
+<div class="line"><a name="l01453"></a><span class="lineno"> 1453</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a2c60caf9e97f338ecd5ad9c51d1a6bb9">power</a> = 0;</div>
+<div class="line"><a name="l01454"></a><span class="lineno"> 1454</span>&#160;    <span class="keywordflow">for</span> (uint8_t phase = 0; phase &lt; <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>; ++phase)</div>
+<div class="line"><a name="l01455"></a><span class="lineno"> 1455</span>&#160;    {</div>
+<div class="line"><a name="l01456"></a><span class="lineno"> 1456</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#ad50665176ae7a169b25cf2868d212d22">power_L</a>[phase] = <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a92487f63c679b2125aa51fddd1549836">copyOf_sumP_atSupplyPoint</a>[phase] / <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a6ebfc0ef69ea54c4d02cda3dbed04660">copyOf_sampleSetsDuringThisDatalogPeriod</a> * <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>[phase];</div>
+<div class="line"><a name="l01457"></a><span class="lineno"> 1457</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#ad50665176ae7a169b25cf2868d212d22">power_L</a>[phase] *= -1;</div>
+<div class="line"><a name="l01458"></a><span class="lineno"> 1458</span>&#160; </div>
+<div class="line"><a name="l01459"></a><span class="lineno"> 1459</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a2c60caf9e97f338ecd5ad9c51d1a6bb9">power</a> += <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#ad50665176ae7a169b25cf2868d212d22">power_L</a>[phase];</div>
+<div class="line"><a name="l01460"></a><span class="lineno"> 1460</span>&#160; </div>
+<div class="line"><a name="l01461"></a><span class="lineno"> 1461</span>&#160;      <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a8df74109eaeab81f3a5d3dc987841706">Vrms_L_times100</a>[phase] = (int32_t)(100 * <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a7a8327dcf62ab819a2cfff87e7b08ca4">f_voltageCal</a> * sqrt(<a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a952240da797ea106fa52eec5f8e2b1d9">copyOf_sum_Vsquared</a>[phase] / <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a6ebfc0ef69ea54c4d02cda3dbed04660">copyOf_sampleSetsDuringThisDatalogPeriod</a>));</div>
+<div class="line"><a name="l01462"></a><span class="lineno"> 1462</span>&#160;    }</div>
+<div class="line"><a name="l01463"></a><span class="lineno"> 1463</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
+<div class="line"><a name="l01464"></a><span class="lineno"> 1464</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a>.<a class="code" href="classTx__struct.html#a338e4b4e5de3414eb265592285664e75">temperature_times100</a> = <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba">readTemperature</a>();</div>
+<div class="line"><a name="l01465"></a><span class="lineno"> 1465</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01466"></a><span class="lineno"> 1466</span>&#160; </div>
+<div class="line"><a name="l01467"></a><span class="lineno"> 1467</span>&#160;<span class="preprocessor">#ifdef RF_PRESENT</span></div>
+<div class="line"><a name="l01468"></a><span class="lineno"> 1468</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab5bc929f5a874ed02b16ed1d620d71cf">send_rf_data</a>();</div>
+<div class="line"><a name="l01469"></a><span class="lineno"> 1469</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01470"></a><span class="lineno"> 1470</span>&#160; </div>
+<div class="line"><a name="l01471"></a><span class="lineno"> 1471</span>&#160;<span class="preprocessor">#ifdef DATALOG_OUTPUT</span></div>
+<div class="line"><a name="l01472"></a><span class="lineno"> 1472</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad638bed72de67d46a0c2929e89e79e86">printDataLogging</a>(bOffPeak);</div>
+<div class="line"><a name="l01473"></a><span class="lineno"> 1473</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01474"></a><span class="lineno"> 1474</span>&#160; </div>
+<div class="line"><a name="l01475"></a><span class="lineno"> 1475</span>&#160;<span class="preprocessor">#ifdef TEMP_SENSOR</span></div>
+<div class="line"><a name="l01476"></a><span class="lineno"> 1476</span>&#160;    <a class="code" href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d">convertTemperature</a>(); <span class="comment">// for use next time around</span></div>
+<div class="line"><a name="l01477"></a><span class="lineno"> 1477</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01478"></a><span class="lineno"> 1478</span>&#160;  }</div>
+<div class="line"><a name="l01479"></a><span class="lineno"> 1479</span>&#160;} <span class="comment">// end of loop()</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_adf2c5c520260e6f2be918c72a0b7614d"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d">convertTemperature</a></div><div class="ttdeci">void convertTemperature()</div><div class="ttdoc">Convert the internal value read from the sensor to a value in °C.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01226">Mk2_3phase_RFdatalog_temp_1.ino:1226</a></div></div>
+<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_adf2c5c520260e6f2be918c72a0b7614d"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d">convertTemperature</a></div><div class="ttdeci">void convertTemperature()</div><div class="ttdoc">Convert the internal value read from the sensor to a value in °C.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01230">Mk2_3phase_RFdatalog_temp_1.ino:1230</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_aa689e963b2305ff62d412abb6ebf7244"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa689e963b2305ff62d412abb6ebf7244">LoadStates</a></div><div class="ttdeci">LoadStates</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00192">Mk2_3phase_RFdatalog_temp_1.ino:192</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_af2b0819129155dfadd10d9f42a70f704"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#af2b0819129155dfadd10d9f42a70f704">l_cycleCountForDatalogging</a></div><div class="ttdeci">int32_t l_cycleCountForDatalogging</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00327">Mk2_3phase_RFdatalog_temp_1.ino:327</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a4be9b67cfa7c4e48c63817d06f3d293c"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4be9b67cfa7c4e48c63817d06f3d293c">b_reOrderLoads</a></div><div class="ttdeci">volatile bool b_reOrderLoads</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00335">Mk2_3phase_RFdatalog_temp_1.ino:335</a></div></div>
@@ -1212,11 +1216,11 @@ $(function() {
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_aa39016b13509c904209c66891eaef7da"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa39016b13509c904209c66891eaef7da">f_midPointOfEnergyBucket_main</a></div><div class="ttdeci">constexpr float f_midPointOfEnergyBucket_main</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00287">Mk2_3phase_RFdatalog_temp_1.ino:287</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a9e72b6e05ef972b4929a13596b0ceec6"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9e72b6e05ef972b4929a13596b0ceec6">loadStateOnBit</a></div><div class="ttdeci">constexpr uint8_t loadStateOnBit</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00199">Mk2_3phase_RFdatalog_temp_1.ino:199</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a2a52b2459c1ca802c59cfa96e71885ba"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a2a52b2459c1ca802c59cfa96e71885ba">PERSISTENCE_FOR_POLARITY_CHANGE</a></div><div class="ttdeci">constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00356">Mk2_3phase_RFdatalog_temp_1.ino:356</a></div></div>
-<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_aac7b29dc45caaaca67299571f6a2dcc0"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a></div><div class="ttdeci">int freeRam()</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01277">Mk2_3phase_RFdatalog_temp_1.ino:1277</a></div></div>
+<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_aac7b29dc45caaaca67299571f6a2dcc0"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a></div><div class="ttdeci">int freeRam()</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01281">Mk2_3phase_RFdatalog_temp_1.ino:1281</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_ab76a3cdd049ea024d204d62770405dc9"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab76a3cdd049ea024d204d62770405dc9">b_datalogEventPending</a></div><div class="ttdeci">volatile bool b_datalogEventPending</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00337">Mk2_3phase_RFdatalog_temp_1.ino:337</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_ad462970b50df0943a9f36f1dcb49a9ee"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee">oneWire</a></div><div class="ttdeci">OneWire oneWire(tempSensorPin)</div></div>
 <div class="ttc" id="agroup__TimeCritical_html_gadc681bbd6c00b6c808ad999bc0e49542"><div class="ttname"><a href="group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542">confirmPolarity</a></div><div class="ttdeci">void confirmPolarity(const uint8_t phase)</div><div class="ttdoc">This routine prevents a zero-crossing point from being declared until a certain number of consecutive...</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00613">Mk2_3phase_RFdatalog_temp_1.ino:613</a></div></div>
-<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a0174ba402fa693193c2c5601fc70dbd4"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0174ba402fa693193c2c5601fc70dbd4">checkLoadPrioritySelection</a></div><div class="ttdeci">bool checkLoadPrioritySelection()</div><div class="ttdoc">This function changes the value of the load priorities.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01137">Mk2_3phase_RFdatalog_temp_1.ino:1137</a></div></div>
+<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a0174ba402fa693193c2c5601fc70dbd4"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0174ba402fa693193c2c5601fc70dbd4">checkLoadPrioritySelection</a></div><div class="ttdeci">bool checkLoadPrioritySelection()</div><div class="ttdoc">This function changes the value of the load priorities.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01141">Mk2_3phase_RFdatalog_temp_1.ino:1141</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_aaecb72fa3ab0755ac124b5fa6ffa1c6f"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aaecb72fa3ab0755ac124b5fa6ffa1c6f">beyondStartUpPeriod</a></div><div class="ttdeci">bool beyondStartUpPeriod</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00266">Mk2_3phase_RFdatalog_temp_1.ino:266</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_aa689e963b2305ff62d412abb6ebf7244a9c23d2669d8e4741a50b2db484750152"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa689e963b2305ff62d412abb6ebf7244a9c23d2669d8e4741a50b2db484750152">LoadStates::LOAD_ON</a></div><div class="ttdeci">@ LOAD_ON</div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a297c9a15e28f6c3824b7a33453238136aab6c31432785221bae58327ef5f6ea58"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a297c9a15e28f6c3824b7a33453238136aab6c31432785221bae58327ef5f6ea58">Polarities::POSITIVE</a></div><div class="ttdeci">@ POSITIVE</div></div>
@@ -1231,7 +1235,7 @@ $(function() {
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_acb8a1e6bb4f45bb1254a339ec05c944c"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb8a1e6bb4f45bb1254a339ec05c944c">rg_OffsetForce</a></div><div class="ttdeci">uint32_t rg_OffsetForce[NO_OF_DUMPLOADS][2]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00272">Mk2_3phase_RFdatalog_temp_1.ino:272</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_aae913bd32d3b848f4a5ba5b9d32e9a1f"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aae913bd32d3b848f4a5ba5b9d32e9a1f">OutputModes</a></div><div class="ttdeci">OutputModes</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00185">Mk2_3phase_RFdatalog_temp_1.ino:185</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a92487f63c679b2125aa51fddd1549836"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a92487f63c679b2125aa51fddd1549836">copyOf_sumP_atSupplyPoint</a></div><div class="ttdeci">volatile int32_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00343">Mk2_3phase_RFdatalog_temp_1.ino:343</a></div></div>
-<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_afe461d27b9c48d5921c00d521181f12f"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a></div><div class="ttdeci">void loop()</div><div class="ttdoc">Main processor.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01428">Mk2_3phase_RFdatalog_temp_1.ino:1428</a></div></div>
+<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_afe461d27b9c48d5921c00d521181f12f"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#afe461d27b9c48d5921c00d521181f12f">loop</a></div><div class="ttdeci">void loop()</div><div class="ttdoc">Main processor.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01432">Mk2_3phase_RFdatalog_temp_1.ino:1432</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a59fe2f06ab4bbf0fd06909c56c3324e3"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a59fe2f06ab4bbf0fd06909c56c3324e3">WORKING_ZONE_IN_JOULES</a></div><div class="ttdeci">constexpr int32_t WORKING_ZONE_IN_JOULES</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00125">Mk2_3phase_RFdatalog_temp_1.ino:125</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_adc2fc872fade85c5057931672990032f"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adc2fc872fade85c5057931672990032f">l_lowestNoOfSampleSetsPerMainsCycle</a></div><div class="ttdeci">int32_t l_lowestNoOfSampleSetsPerMainsCycle</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00330">Mk2_3phase_RFdatalog_temp_1.ino:330</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_ac5d95ffd4d4d32b7bc1e27f802500fb4"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ac5d95ffd4d4d32b7bc1e27f802500fb4">f_upperThreshold_default</a></div><div class="ttdeci">constexpr float f_upperThreshold_default</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00305">Mk2_3phase_RFdatalog_temp_1.ino:305</a></div></div>
@@ -1241,7 +1245,7 @@ $(function() {
 <div class="ttc" id="aclassTx__struct_html_a2c60caf9e97f338ecd5ad9c51d1a6bb9"><div class="ttname"><a href="classTx__struct.html#a2c60caf9e97f338ecd5ad9c51d1a6bb9">Tx_struct::power</a></div><div class="ttdeci">int16_t power</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00228">Mk2_3phase_RFdatalog_temp_1.ino:228</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a80e32cbcd32fd5c296d801366f3752f7"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a80e32cbcd32fd5c296d801366f3752f7">l_sumP</a></div><div class="ttdeci">int32_t l_sumP[NO_OF_PHASES]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00318">Mk2_3phase_RFdatalog_temp_1.ino:318</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a281368464ae362f565124959a02d2888"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a></div><div class="ttdeci">constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00169">Mk2_3phase_RFdatalog_temp_1.ino:169</a></div></div>
-<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a25d96f58fa31053a5f4417fb2a8045ba"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba">readTemperature</a></div><div class="ttdeci">int16_t readTemperature()</div><div class="ttdoc">Read the temperature.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01238">Mk2_3phase_RFdatalog_temp_1.ino:1238</a></div></div>
+<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a25d96f58fa31053a5f4417fb2a8045ba"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba">readTemperature</a></div><div class="ttdeci">int16_t readTemperature()</div><div class="ttdoc">Read the temperature.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01242">Mk2_3phase_RFdatalog_temp_1.ino:1242</a></div></div>
 <div class="ttc" id="agroup__TimeCritical_html_ga8cff922940989b7edaa8bd0347f9becc"><div class="ttname"><a href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc">processRawSamples</a></div><div class="ttdeci">void processRawSamples(const uint8_t phase)</div><div class="ttdoc">This routine is called by the ISR when a pair of V &amp; I sample becomes available.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00660">Mk2_3phase_RFdatalog_temp_1.ino:660</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a60f522aaa42faf22b9ce5d66e6e45346"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a60f522aaa42faf22b9ce5d66e6e45346">nodeID</a></div><div class="ttdeci">constexpr int nodeID</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00217">Mk2_3phase_RFdatalog_temp_1.ino:217</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_afc47675197af32c76cf489724045909c"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#afc47675197af32c76cf489724045909c">BAD_TEMPERATURE</a></div><div class="ttdeci">constexpr uint16_t BAD_TEMPERATURE</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00142">Mk2_3phase_RFdatalog_temp_1.ino:142</a></div></div>
@@ -1259,14 +1263,14 @@ $(function() {
 <div class="ttc" id="aclasspairForceLoad_html_a22cc79434e71d9aa9ca70a96b5fee9c1"><div class="ttname"><a href="classpairForceLoad.html#a22cc79434e71d9aa9ca70a96b5fee9c1">pairForceLoad::iStartOffset</a></div><div class="ttdeci">int8_t iStartOffset</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00165">Mk2_3phase_RFdatalog_temp_1.ino:165</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_acb69ec3283f18fbbb35e6f96b851e58e"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acb69ec3283f18fbbb35e6f96b851e58e">b_forceLoadsOn</a></div><div class="ttdeci">volatile bool b_forceLoadsOn[NO_OF_DUMPLOADS]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00333">Mk2_3phase_RFdatalog_temp_1.ino:333</a></div></div>
 <div class="ttc" id="agroup__TimeCritical_html_ga1950a35c4c210dae480943adca0a3c88"><div class="ttname"><a href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88">updatePhysicalLoadStates</a></div><div class="ttdeci">void updatePhysicalLoadStates()</div><div class="ttdoc">This function provides the link between the logical and physical loads.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00981">Mk2_3phase_RFdatalog_temp_1.ino:981</a></div></div>
-<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_aa2b3b1d496e37e5f29af6a766743dc8b"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2b3b1d496e37e5f29af6a766743dc8b">printParamsForSelectedOutputMode</a></div><div class="ttdeci">void printParamsForSelectedOutputMode()</div><div class="ttdoc">Print the settings used for the selected output mode.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01199">Mk2_3phase_RFdatalog_temp_1.ino:1199</a></div></div>
+<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_aa2b3b1d496e37e5f29af6a766743dc8b"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aa2b3b1d496e37e5f29af6a766743dc8b">printParamsForSelectedOutputMode</a></div><div class="ttdeci">void printParamsForSelectedOutputMode()</div><div class="ttdoc">Print the settings used for the selected output mode.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01203">Mk2_3phase_RFdatalog_temp_1.ino:1203</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a8843ac58fa4e38e3bec429fac0f8de41"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a8843ac58fa4e38e3bec429fac0f8de41">sensorI</a></div><div class="ttdeci">constexpr uint8_t sensorI[NO_OF_PHASES]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00259">Mk2_3phase_RFdatalog_temp_1.ino:259</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a0fc0867cb8eb64709ec9326821f0657c"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a0fc0867cb8eb64709ec9326821f0657c">CONVERT_TEMPERATURE</a></div><div class="ttdeci">constexpr uint8_t CONVERT_TEMPERATURE</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00140">Mk2_3phase_RFdatalog_temp_1.ino:140</a></div></div>
 <div class="ttc" id="aclassTx__struct_html_ad50665176ae7a169b25cf2868d212d22"><div class="ttname"><a href="classTx__struct.html#ad50665176ae7a169b25cf2868d212d22">Tx_struct::power_L</a></div><div class="ttdeci">int16_t power_L[NO_OF_PHASES]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00229">Mk2_3phase_RFdatalog_temp_1.ino:229</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a1d63b22231b730d0f9d9fd4971a0fd35"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a1d63b22231b730d0f9d9fd4971a0fd35">f_phaseCal</a></div><div class="ttdeci">constexpr float f_phaseCal</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00390">Mk2_3phase_RFdatalog_temp_1.ino:390</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_acd86b2bd1d365808284de13bb3a05a7b"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#acd86b2bd1d365808284de13bb3a05a7b">tx_data</a></div><div class="ttdeci">Tx_struct tx_data</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00236">Mk2_3phase_RFdatalog_temp_1.ino:236</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_adce365deed551463ed7943d910302043"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#adce365deed551463ed7943d910302043">l_sumP_atSupplyPoint</a></div><div class="ttdeci">int32_t l_sumP_atSupplyPoint[NO_OF_PHASES]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00322">Mk2_3phase_RFdatalog_temp_1.ino:322</a></div></div>
-<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_ab5bc929f5a874ed02b16ed1d620d71cf"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab5bc929f5a874ed02b16ed1d620d71cf">send_rf_data</a></div><div class="ttdeci">void send_rf_data()</div><div class="ttdoc">Send the logging data through RF.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01264">Mk2_3phase_RFdatalog_temp_1.ino:1264</a></div></div>
+<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_ab5bc929f5a874ed02b16ed1d620d71cf"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab5bc929f5a874ed02b16ed1d620d71cf">send_rf_data</a></div><div class="ttdeci">void send_rf_data()</div><div class="ttdoc">Send the logging data through RF.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01268">Mk2_3phase_RFdatalog_temp_1.ino:1268</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a043c3df0e6f259a7c11e6bbc89500c66"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a043c3df0e6f259a7c11e6bbc89500c66">polarityConfirmedOfLastSampleV</a></div><div class="ttdeci">Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00359">Mk2_3phase_RFdatalog_temp_1.ino:359</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_aae913bd32d3b848f4a5ba5b9d32e9a1fa1e23852820b9154316c7c06e2b7ba051"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aae913bd32d3b848f4a5ba5b9d32e9a1fa1e23852820b9154316c7c06e2b7ba051">OutputModes::NORMAL</a></div><div class="ttdeci">@ NORMAL</div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a84dbfaffb1c8ccc490804b5f976d7933"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a84dbfaffb1c8ccc490804b5f976d7933">sensorV</a></div><div class="ttdeci">constexpr uint8_t sensorV[NO_OF_PHASES]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00258">Mk2_3phase_RFdatalog_temp_1.ino:258</a></div></div>
@@ -1284,10 +1288,11 @@ $(function() {
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a70643ee1e9a67f10738575bcf1ad7bad"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a70643ee1e9a67f10738575bcf1ad7bad">initThreshold</a></div><div class="ttdeci">constexpr float initThreshold(const bool lower)</div><div class="ttdoc">set default threshold at compile time so the variable can be read-only</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00297">Mk2_3phase_RFdatalog_temp_1.ino:297</a></div></div>
 <div class="ttc" id="aclasspairForceLoad_html_a9e88b9afed25aae7053c1c63079fa6df"><div class="ttname"><a href="classpairForceLoad.html#a9e88b9afed25aae7053c1c63079fa6df">pairForceLoad::uiDuration</a></div><div class="ttdeci">uint8_t uiDuration</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00166">Mk2_3phase_RFdatalog_temp_1.ino:166</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a2f61fd181a2806e678e5473eaad03891"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a2f61fd181a2806e678e5473eaad03891">countLoadON</a></div><div class="ttdeci">uint16_t countLoadON[NO_OF_DUMPLOADS]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00203">Mk2_3phase_RFdatalog_temp_1.ino:203</a></div></div>
+<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_ad638bed72de67d46a0c2929e89e79e86"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ad638bed72de67d46a0c2929e89e79e86">printDataLogging</a></div><div class="ttdeci">void printDataLogging(bool bOffPeak)</div><div class="ttdoc">Prints data logs to the Serial output in text or json format.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01055">Mk2_3phase_RFdatalog_temp_1.ino:1055</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a8f6102f3df67ce0ea2d019559ac03e72"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a8f6102f3df67ce0ea2d019559ac03e72">copyOf_energyInBucket_main</a></div><div class="ttdeci">volatile float copyOf_energyInBucket_main</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00345">Mk2_3phase_RFdatalog_temp_1.ino:345</a></div></div>
-<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_ae473b1c0d80fe056d1fab9bdee38aca1"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a></div><div class="ttdeci">void logLoadPriorities()</div><div class="ttdoc">Prints the load priorities to the Serial output.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01117">Mk2_3phase_RFdatalog_temp_1.ino:1117</a></div></div>
+<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_ae473b1c0d80fe056d1fab9bdee38aca1"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a></div><div class="ttdeci">void logLoadPriorities()</div><div class="ttdoc">Prints the load priorities to the Serial output.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01121">Mk2_3phase_RFdatalog_temp_1.ino:1121</a></div></div>
 <div class="ttc" id="agroup__TimeCritical_html_ga81f4cbdafdfc13103fdfa34a136cd6fd"><div class="ttname"><a href="group__TimeCritical.html#ga81f4cbdafdfc13103fdfa34a136cd6fd">processPolarity</a></div><div class="ttdeci">void processPolarity(const uint8_t phase, const int16_t rawSample)</div><div class="ttdoc">Process with the polarity for the actual voltage sample for the specific phase.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00596">Mk2_3phase_RFdatalog_temp_1.ino:596</a></div></div>
-<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a4fc01d736fe50cf5b977f755b675f11d"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a></div><div class="ttdeci">void setup()</div><div class="ttdoc">Called once during startup.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01290">Mk2_3phase_RFdatalog_temp_1.ino:1290</a></div></div>
+<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a4fc01d736fe50cf5b977f755b675f11d"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a></div><div class="ttdeci">void setup()</div><div class="ttdoc">Called once during startup.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01294">Mk2_3phase_RFdatalog_temp_1.ino:1294</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_aef28d13cd34d7b6d21729ad15ea97350"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#aef28d13cd34d7b6d21729ad15ea97350">REQUIRED_EXPORT_IN_WATTS</a></div><div class="ttdeci">constexpr int32_t REQUIRED_EXPORT_IN_WATTS</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00126">Mk2_3phase_RFdatalog_temp_1.ino:126</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a6ebfc0ef69ea54c4d02cda3dbed04660"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a6ebfc0ef69ea54c4d02cda3dbed04660">copyOf_sampleSetsDuringThisDatalogPeriod</a></div><div class="ttdeci">volatile int32_t copyOf_sampleSetsDuringThisDatalogPeriod</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00347">Mk2_3phase_RFdatalog_temp_1.ino:347</a></div></div>
 <div class="ttc" id="agroup__TimeCritical_html_ga7b45c0ceb64e191cb1f053c28f02cee6"><div class="ttname"><a href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6">processVoltageRawSample</a></div><div class="ttdeci">void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)</div><div class="ttdoc">Process the current voltage raw sample for the specific phase.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00575">Mk2_3phase_RFdatalog_temp_1.ino:575</a></div></div>
@@ -1305,7 +1310,6 @@ $(function() {
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a14cff0127f52c57f50fe52f2ed2ab093"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a14cff0127f52c57f50fe52f2ed2ab093">i_DCoffset_I_nom</a></div><div class="ttdeci">constexpr int16_t i_DCoffset_I_nom</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00282">Mk2_3phase_RFdatalog_temp_1.ino:282</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_ab14feb79b0030a2b400205b5d34580e5"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ab14feb79b0030a2b400205b5d34580e5">l_cumVdeltasThisCycle</a></div><div class="ttdeci">int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00321">Mk2_3phase_RFdatalog_temp_1.ino:321</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a9a289b1cbd73e38a2a762174f7fdb1c1"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a9a289b1cbd73e38a2a762174f7fdb1c1">f_lowerThreshold_default</a></div><div class="ttdeci">constexpr float f_lowerThreshold_default</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00304">Mk2_3phase_RFdatalog_temp_1.ino:304</a></div></div>
-<div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_a5c30ee10994f277461407506298c10fd"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#a5c30ee10994f277461407506298c10fd">printDataLogging</a></div><div class="ttdeci">void printDataLogging()</div><div class="ttdoc">Prints data logs to the Serial output in text or json format.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l01054">Mk2_3phase_RFdatalog_temp_1.ino:1054</a></div></div>
 <div class="ttc" id="agroup__TimeCritical_html_ga21380cdbe3f783dad431ff1a912cbaa1"><div class="ttname"><a href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1">processLatestContribution</a></div><div class="ttdeci">void processLatestContribution(const uint8_t phase)</div><div class="ttdoc">Process the lastest contribution after each phase specific new cycle additional processing is perform...</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00924">Mk2_3phase_RFdatalog_temp_1.ino:924</a></div></div>
 <div class="ttc" id="agroup__TimeCritical_html_ga5a8b9dce34e44a69a46344e8ee1c0dd6"><div class="ttname"><a href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6">processStartNewCycle</a></div><div class="ttdeci">void processStartNewCycle()</div><div class="ttdoc">This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0.</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00731">Mk2_3phase_RFdatalog_temp_1.ino:731</a></div></div>
 <div class="ttc" id="aMk2__3phase__RFdatalog__temp__1_8ino_html_ae21308f181dcb2cbe1e7c24e0c63f561"><div class="ttname"><a href="Mk2__3phase__RFdatalog__temp__1_8ino.html#ae21308f181dcb2cbe1e7c24e0c63f561">SKIP_ROM</a></div><div class="ttdeci">constexpr uint8_t SKIP_ROM</div><div class="ttdef"><b>Definition:</b> <a href="Mk2__3phase__RFdatalog__temp__1_8ino_source.html#l00139">Mk2_3phase_RFdatalog_temp_1.ino:139</a></div></div>

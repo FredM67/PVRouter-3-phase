@@ -1050,8 +1050,9 @@ void processDataLogging()
 /**
  * @brief Prints data logs to the Serial output in text or json format
  * 
+ * @param bOffPeak true if off-peak tariff is active
  */
-void printDataLogging()
+void printDataLogging(bool bOffPeak)
 {
   uint8_t phase;
 
@@ -1102,9 +1103,12 @@ void printDataLogging()
     Serial.print(F(R"(": ")"));
     Serial.print((100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod);
     Serial.print(F(R"(")"));
-    if (NO_OF_DUMPLOADS != (i + 1))
-      Serial.print(F(", ")); // no ',' for last item
+    //if (NO_OF_DUMPLOADS != (i + 1)) // no ',' for last item
+    Serial.print(F(", "));
   }
+
+  Serial.print(F(R"(OFF_PEAK_TARIFF: )"));
+  Serial.print(bOffPeak ? F("true") : F("false"));
 
   Serial.println(F("}"));
 #endif
@@ -1428,6 +1432,7 @@ void setup()
 void loop()
 {
   static uint8_t perSecondTimer{0};
+  static bool bOffPeak{false};
 
   if (b_newMainsCycle) // flag is set after every pair of ADC conversions
   {
@@ -1437,7 +1442,7 @@ void loop()
     if (perSecondTimer >= CYCLES_PER_SECOND)
     {
       perSecondTimer = 0;
-      checkLoadPrioritySelection(); // called every second
+      bOffPeak = checkLoadPrioritySelection(); // called every second
     }
   }
 
@@ -1464,7 +1469,7 @@ void loop()
 #endif
 
 #ifdef DATALOG_OUTPUT
-    printDataLogging();
+    printDataLogging(bOffPeak);
 #endif
 
 #ifdef TEMP_SENSOR
