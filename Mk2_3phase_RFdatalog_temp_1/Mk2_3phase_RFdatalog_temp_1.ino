@@ -1103,12 +1103,16 @@ void printDataLogging(bool bOffPeak)
     Serial.print(F(R"(": ")"));
     Serial.print((100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod);
     Serial.print(F(R"(")"));
-    //if (NO_OF_DUMPLOADS != (i + 1)) // no ',' for last item
-    Serial.print(F(", "));
+#ifndef OFF_PEAK_TARIFF
+    if (NO_OF_DUMPLOADS != (i + 1)) // no ',' for last item
+#endif
+      Serial.print(F(", "));
   }
 
-  Serial.print(F(R"(OFF_PEAK_TARIFF: )"));
+#ifdef OFF_PEAK_TARIFF
+  Serial.print(F(R"("OFF_PEAK_TARIFF": )"));
   Serial.print(bOffPeak ? F("true") : F("false"));
+#endif
 
   Serial.println(F("}"));
 #endif
