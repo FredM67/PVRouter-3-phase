@@ -1098,7 +1098,7 @@ void printDataLogging(bool bOffPeak)
 
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    Serial.print(F(R"(,"LOAD_)"));
+    Serial.print(F(R"("LOAD_)"));
     Serial.print(i + 1);
     Serial.print(F(R"(": ")"));
     Serial.print((100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod);
