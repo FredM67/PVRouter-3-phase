@@ -1087,9 +1087,10 @@ void printDataLogging(bool bOffPeak)
   Serial.println(F(")"));
 
 #else
+  Serial.print(F("{"));
   for (phase = 0; phase < NO_OF_PHASES; ++phase)
   {
-    Serial.print(F(R"({"L)"));
+    Serial.print(F(R"("L)"));
     Serial.print(phase + 1);
     Serial.print(F(R"(": )"));
     Serial.print(tx_data.power_L[phase]);
