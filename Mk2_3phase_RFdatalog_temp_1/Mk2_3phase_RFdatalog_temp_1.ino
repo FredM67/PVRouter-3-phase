@@ -117,6 +117,10 @@
 #define JSON_FORMAT ///< output in json format
 #endif
 
+#ifdef JSON_FORMAT
+#include <ArduinoJson.h>
+#endif
+
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
 
 // -----------------------------------------------------
@@ -1087,35 +1091,32 @@ void printDataLogging(bool bOffPeak)
   Serial.println(F(")"));
 
 #else
-  Serial.print(F("{"));
+  StaticJsonDocument<120> doc;
+  char strPhase[]{"L0"};
+  char strLoad[]{"LOAD_0"};
+
   for (phase = 0; phase < NO_OF_PHASES; ++phase)
   {
-    Serial.print(F(R"("L)"));
-    Serial.print(phase + 1);
-    Serial.print(F(R"(": )"));
-    Serial.print(tx_data.power_L[phase]);
-    Serial.print(F(", "));
+    doc[strPhase] = tx_data.power_L[phase];
+    ++strPhase[1];
   }
 
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    Serial.print(F(R"("LOAD_)"));
-    Serial.print(i + 1);
-    Serial.print(F(R"(": ")"));
-    Serial.print((100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod);
-    Serial.print(F(R"(")"));
-#ifndef OFF_PEAK_TARIFF
-    if (NO_OF_DUMPLOADS != (i + 1)) // no ',' for last item
-#endif
-      Serial.print(F(", "));
+    doc[strLoad] = (100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod;
+    ++strLoad[5];
   }
 
 #ifdef OFF_PEAK_TARIFF
-  Serial.print(F(R"("OFF_PEAK_TARIFF": )"));
-  Serial.print(bOffPeak ? F("true") : F("false"));
+  doc["OFF_PEAK_TARIFF"] = bOffPeak ? true : false;
 #endif
 
-  Serial.println(F("}"));
+  // Generate the minified JSON and send it to the Serial port.
+  //
+  serializeJson(doc, Serial);
+
+  // Start a new line
+  Serial.println();
 #endif
 }
 
