@@ -1091,7 +1091,7 @@ void printDataLogging(bool bOffPeak)
   Serial.println(F(")"));
 
 #else
-  StaticJsonDocument<120> doc;
+  StaticJsonDocument<200> doc;
   char strPhase[]{"L0"};
   char strLoad[]{"LOAD_0"};
 
