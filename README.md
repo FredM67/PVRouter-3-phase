@@ -25,6 +25,7 @@ Added functionalities:
 - force full power
 - temperature sensor (just reading for the moment)
 - optimized (RF) data logging
+- serial output in JSON or TXT
 
 The original sketch had to be completely re-worked and re-structured to support temperature reading. In the original sketch, the ISR "just" reads and converts the analog data, and the processing is done in the loop. This won't work with a temperature sensor because of its slow performance. It would break the whole system, current/voltage data will be lost, ...
 
