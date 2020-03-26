@@ -1,4 +1,4 @@
-# Mk2PVRouter
+# Mk2PVRouter 3-phase
 
 My version of the 3-phase Mk2PVRouter firmware (see <http://www.mk2pvrouter.co.uk>)
 
