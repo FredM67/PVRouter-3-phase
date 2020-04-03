@@ -83,18 +83,20 @@
 #define ADC_TIMER_PERIOD 125 // uS (determines the sampling rate / amount of idle time)
 
 // Physical constants, please do not change!
-#define SECONDS_PER_MINUTE 60
-#define MINUTES_PER_HOUR 60
 #define JOULES_PER_WATT_HOUR 3600 //  (0.001 kWh = 3600 Joules)
 
 // Change these values to suit the local mains frequency and supply meter
-#define CYCLES_PER_SECOND 50
-#define WORKING_RANGE_IN_JOULES 360 // 0.1 Wh, reduced for faster start-up
-#define REQUIRED_EXPORT_IN_WATTS 0  // when set to a negative value, this acts as a PV generator
+constexpr uint32_t CYCLES_PER_SECOND{50};
+constexpr uint32_t WORKING_RANGE_IN_JOULES{360}; // 0.1 Wh, reduced for faster start-up
+constexpr int32_t REQUIRED_EXPORT_IN_WATTS{0};   // when set to a Polarities::NEGATIVE value, this acts as a PV generator
 
 // to prevent the diverted energy total from 'creeping'
-#define ANTI_CREEP_LIMIT 5 // in Joules per mains cycle (has no effect when set to 0)
-long antiCreepLimit_inIEUperMainsCycle;
+constexpr uint32_t ANTI_CREEP_LIMIT{5}; // in Joules per mains cycle (has no effect when set to 0)
+
+constexpr uint8_t MAX_DISPLAY_TIME_COUNT{10};           // no of processing loops between display updates
+constexpr uint8_t UPDATE_PERIOD_FOR_DISPLAYED_DATA{50}; // mains cycles
+constexpr uint8_t DISPLAY_SHUTDOWN_IN_HOURS{8};         // auto-reset after this period of inactivity
+// #define DISPLAY_SHUTDOWN_IN_HOURS 0.01 // for testing that the display clears after 36 seconds
 
 //  The two versions of the hardware require different logic.  The following line should
 //  be included if the additional logic chips are present, or excluded if they are
@@ -102,87 +104,94 @@ long antiCreepLimit_inIEUperMainsCycle;
 //
 #define PIN_SAVING_HARDWARE
 
-const byte NO_OF_DUMPLOADS = 2;
+constexpr uint8_t NO_OF_DUMPLOADS{2};
 
 // definition of enumerated types
-enum polarities
+/** Polarities */
+enum class Polarities : uint8_t
 {
-  NEGATIVE,
-  POSITIVE
+  NEGATIVE, /**< polarity is Polarities::NEGATIVE */
+  POSITIVE  /**< polarity is Polarities::POSITIVE */
 };
-enum loadStates
+
+enum class LoadStates : uint8_t
 {
-  LOAD_ON,
-  LOAD_OFF
-}; // all loads are logically active-low
-enum loadStates logicalLoadState[NO_OF_DUMPLOADS];
-enum loadStates physicalLoadState[NO_OF_DUMPLOADS];
+  LOAD_ON, /**< load is ON */
+  LOAD_OFF /**< load is OFF */
+};         // all loads are logically active-low
+
+LoadStates logicalLoadState[NO_OF_DUMPLOADS];
+LoadStates physicalLoadState[NO_OF_DUMPLOADS];
 
 // For this go-faster version, the unit's operation will effectively always be "Normal";
 // there is no "Anti-flicker" option. The controlMode variable has been removed.
 
 // allocation of digital pins which are not dependent on the display type that is in use
 // *************************************************************************************
-// const byte outOfRangeIndication = 3; // <-- this output port is active-high
-const byte physicalLoad_1_pin = 3; // <-- the "mode" port is active-high
-const byte physicalLoad_0_pin = 4; // <-- the "trigger" port is active-low
+// constexpr uint8_t outOfRangeIndication{3}; // <-- this output port is active-high
+constexpr uint8_t physicalLoad_1_pin{3}; // <-- the "mode" port is active-high
+constexpr uint8_t physicalLoad_0_pin{4}; // <-- the "trigger" port is active-low
 
 // allocation of analogue pins which are not dependent on the display type that is in use
 // **************************************************************************************
-const byte voltageSensor = 3;          // A3 is for the voltage sensor
-const byte currentSensor_diverted = 4; // A4 is for CT2 which measures diverted current
-const byte currentSensor_grid = 5;     // A5 is for CT1 which measures grid current
+constexpr uint8_t voltageSensor{3};          // A3 is for the voltage sensor
+constexpr uint8_t currentSensor_diverted{4}; // A4 is for CT2 which measures diverted current
+constexpr uint8_t currentSensor_grid{5};     // A5 is for CT1 which measures grid current
 
-const byte delayBeforeSerialStarts = 1; // in seconds, to allow Serial window to be opened
-const byte startUpPeriod = 3;           // in seconds, to allow LP filter to settle
-const int DCoffset_I = 512;             // nominal mid-point value of ADC @ x1 scale
+constexpr uint8_t delayBeforeSerialStarts{1}; // in seconds, to allow Serial window to be opened
+constexpr uint8_t startUpPeriod{3};           // in seconds, to allow LP filter to settle
+constexpr int16_t DCoffset_I{512};            // nominal mid-point value of ADC @ x1 scale
 
 // General global variables that are used in multiple blocks so cannot be static.
-// For integer maths, many variables need to be 'long'
+// For integer maths, many variables need to be 'int32_t'
 //
-boolean beyondStartUpPhase = false; // start-up delay, allows things to settle
-long energyInBucket_long;           // in Integer Energy Units
-long capacityOfEnergyBucket_long;   // depends on powerCal, frequency & the 'sweetzone' size.
-long nominalEnergyThreshold;
-long workingEnergyThreshold_upper;
-long workingEnergyThreshold_lower;
+bool beyondStartUpPhase{false}; // start-up delay, allows things to settle
+int32_t energyInBucket_long{0}; // in Integer Energy Units
 
-long sumP_grid;     // for per-cycle summation of 'real power'
-long sumP_diverted; // for per-cycle summation of 'real power'
-long sum_Vsquared;  // for summation of V^2 values during datalog period
+// for improved control of multiple loads
+bool b_recentTransition{false};                 /**< a load state has been recently toggled */
+uint8_t postTransitionCount;                    /**< counts the number of cycle since last transition */
+constexpr uint8_t POST_TRANSITION_MAX_COUNT{3}; /**< allows each transition to take effect */
+//constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
+uint8_t activeLoad{NO_OF_DUMPLOADS}; /**< current active load */
 
-long cumVdeltasThisCycle_long; // for the LPF which determines DC offset (voltage)
-long sampleVminusDC_long;
+int32_t sumP_grid;     // for per-cycle summation of 'real power'
+int32_t sumP_diverted; // for per-cycle summation of 'real power'
+int32_t sum_Vsquared;  // for summation of V^2 values during datalog period
 
-long DCoffset_V_long;                    // <--- for LPF
-long DCoffset_V_min;                     // <--- for LPF
-long DCoffset_V_max;                     // <--- for LPF
-long divertedEnergyRecent_IEU = 0;       // Hi-res accumulator of limited range
-unsigned int divertedEnergyTotal_Wh = 0; // WattHour register of 63K range
-long IEU_per_Wh;                         // depends on powerCal, frequency & the 'sweetzone' size.
+int32_t cumVdeltasThisCycle_long; // for the LPF which determines DC offset (voltage)
+int32_t sampleVminusDC_long;
 
-unsigned long displayShutdown_inMainsCycles;
-unsigned long absenceOfDivertedEnergyCount = 0;
+int32_t DCoffset_V_long;                                // <--- for LPF
+constexpr int32_t DCoffset_V_min{(512L - 100L) * 256L}; /**< mid-point of ADC minus a working margin */
+constexpr int32_t DCoffset_V_max{(512L + 100L) * 256L}; /**< mid-point of ADC plus a working margin */
 
-#define POST_TRANSITION_MAX_COUNT 3 // <-- allows each transition to take effect
+int32_t divertedEnergyRecent_IEU{0}; // Hi-res accumulator of limited range
+uint16_t divertedEnergyTotal_Wh{0};  // WattHour register of 63K range
+
+constexpr uint32_t displayShutdown_inMainsCycles{DISPLAY_SHUTDOWN_IN_HOURS * CYCLES_PER_SECOND * 3600L};
+uint32_t absenceOfDivertedEnergyCount{0};
+uint8_t timerForDisplayUpdate{0};
+int16_t sampleSetsDuringNegativeHalfOfMainsCycle; // for arming the triac/trigger
+int32_t energyInBucket_prediction;
+bool loadHasJustChangedState;
 
 // for interaction between the main processor and the ISRs
-volatile boolean dataReady = false;
-volatile int sampleI_grid;
-volatile int sampleI_diverted;
-volatile int sampleV;
+volatile int16_t sampleI_grid;
+volatile int16_t sampleI_diverted;
+volatile int16_t sampleV;
 
 // For an enhanced polarity detection mechanism, which includes a persistence check
 #define PERSISTENCE_FOR_POLARITY_CHANGE 1 // sample sets
-enum polarities polarityOfMostRecentVsample;
-enum polarities polarityConfirmed;
-enum polarities polarityConfirmedOfLastSampleV;
+Polarities polarityOfMostRecentVsample;
+Polarities polarityConfirmed;
+Polarities polarityConfirmedOfLastSampleV;
 
 // For a mechanism to check the continuity of the sampling sequence
 #define CONTINUITY_CHECK_MAXCOUNT 250 // mains cycles
-int sampleCount_forContinuityChecker;
-int sampleSetsDuringThisMainsCycle;
-int lowestNoOfSampleSetsPerMainsCycle;
+int16_t sampleCount_forContinuityChecker;
+int16_t sampleSetsDuringThisMainsCycle;
+int16_t lowestNoOfSampleSetsPerMainsCycle;
 
 // Calibration values
 //-------------------
@@ -228,19 +237,24 @@ int lowestNoOfSampleSetsPerMainsCycle;
 // powerCal is the RECIPR0CAL of the power conversion rate.  A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-const float powerCal_grid = 0.0435;     // for CT1
-const float powerCal_diverted = 0.0435; // for CT2
+constexpr float powerCal_grid{0.0435};     // for CT1
+constexpr float powerCal_diverted{0.0435}; // for CT2
+
+constexpr int32_t capacityOfEnergyBucket_long{(int32_t)WORKING_RANGE_IN_JOULES * CYCLES_PER_SECOND * (1 / powerCal_grid)}; // depends on powerCal, frequency & the 'sweetzone' size.
+constexpr int32_t nominalEnergyThreshold{capacityOfEnergyBucket_long * 0.5};
+int32_t workingEnergyThreshold_upper;
+int32_t workingEnergyThreshold_lower;
+
+constexpr int32_t IEU_per_Wh{(int32_t)JOULES_PER_WATT_HOUR * CYCLES_PER_SECOND * (1 / powerCal_diverted)}; // depends on powerCal, frequency & the 'sweetzone' size.
+
+constexpr int32_t antiCreepLimit_inIEUperMainsCycle{(float)ANTI_CREEP_LIMIT * (1 / powerCal_grid)}; // to avoid the diverted energy accumulator 'creeping' when the load is not active
 
 // for this go-faster sketch, the phaseCal logic has been removed.  If required, it can be
 // found in most of the standard Mk2_bothDisplay_n versions
 
 // Various settings for the 4-digit display, which needs to be refreshed every few mS
-const byte noOfDigitLocations = 4;
-const byte noOfPossibleCharacters = 22;
-#define MAX_DISPLAY_TIME_COUNT 10           // no of processing loops between display updates
-#define UPDATE_PERIOD_FOR_DISPLAYED_DATA 50 // mains cycles
-#define DISPLAY_SHUTDOWN_IN_HOURS 8         // auto-reset after this period of inactivity
-// #define DISPLAY_SHUTDOWN_IN_HOURS 0.01 // for testing that the display clears after 36 seconds
+constexpr uint8_t noOfDigitLocations{4};
+constexpr uint8_t noOfPossibleCharacters{22};
 
 //  The two versions of the hardware require different logic.
 #ifdef PIN_SAVING_HARDWARE
@@ -249,20 +263,20 @@ const byte noOfPossibleCharacters = 22;
 #define DRIVER_CHIP_ENABLED LOW
 
 // the primary segments are controlled by a pair of logic chips
-const byte noOfDigitSelectionLines = 4; // <- for the 74HC4543 7-segment display driver
-const byte noOfDigitLocationLines = 2;  // <- for the 74HC138 2->4 line demultiplexer
+constexpr uint8_t noOfDigitSelectionLines{4}; // <- for the 74HC4543 7-segment display driver
+constexpr uint8_t noOfDigitLocationLines{2};  // <- for the 74HC138 2->4 line demultiplexer
 
-byte enableDisableLine = 5; // <- affects the primary 7 segments only (not the DP)
-byte decimalPointLine = 14; // <- this line has to be individually controlled.
+uint8_t enableDisableLine{5}; // <- affects the primary 7 segments only (not the DP)
+uint8_t decimalPointLine{14}; // <- this line has to be individually controlled.
 
-byte digitLocationLine[noOfDigitLocationLines] = {16, 15};
-byte digitSelectionLine[noOfDigitSelectionLines] = {7, 9, 8, 6};
+uint8_t digitLocationLine[noOfDigitLocationLines]{16, 15};
+uint8_t digitSelectionLine[noOfDigitSelectionLines]{7, 9, 8, 6};
 
 // The final column of digitValueMap[] is for the decimal point status.  In this version,
 // the decimal point has to be treated differently than the other seven segments, so
 // a convenient means of accessing this column is provided.
 //
-byte digitValueMap[noOfPossibleCharacters][noOfDigitSelectionLines + 1] = {
+uint8_t digitValueMap[noOfPossibleCharacters][noOfDigitSelectionLines + 1]{
     LOW, LOW, LOW, LOW, LOW,     // '0' <- element 0
     LOW, LOW, LOW, HIGH, LOW,    // '1' <- element 1
     LOW, LOW, HIGH, LOW, LOW,    // '2' <- element 2
@@ -288,9 +302,9 @@ byte digitValueMap[noOfPossibleCharacters][noOfDigitSelectionLines + 1] = {
 };
 
 // a tidy means of identifying the DP status data when accessing the above table
-const byte DPstatus_columnID = noOfDigitSelectionLines;
+constexpr uint8_t DPstatus_columnID{noOfDigitSelectionLines};
 
-byte digitLocationMap[noOfDigitLocations][noOfDigitLocationLines] = {
+uint8_t digitLocationMap[noOfDigitLocations][noOfDigitLocationLines]{
     LOW, LOW,   // Digit 1
     LOW, HIGH,  // Digit 2
     HIGH, LOW,  // Digit 3
@@ -302,21 +316,21 @@ byte digitLocationMap[noOfDigitLocations][noOfDigitLocationLines] = {
 #define ON HIGH
 #define OFF LOW
 
-const byte noOfSegmentsPerDigit = 8; // includes one for the decimal point
+constexpr uint8_t noOfSegmentsPerDigit{8}; // includes one for the decimal point
 enum digitEnableStates
 {
   DIGIT_ENABLED,
   DIGIT_DISABLED
 };
 
-byte digitSelectorPin[noOfDigitLocations] = {16, 10, 13, 11};
-byte segmentDrivePin[noOfSegmentsPerDigit] = {2, 5, 12, 6, 7, 9, 8, 14};
+uint8_t digitSelectorPin[noOfDigitLocations]{16, 10, 13, 11};
+uint8_t segmentDrivePin[noOfSegmentsPerDigit]{2, 5, 12, 6, 7, 9, 8, 14};
 
 // The final column of segMap[] is for the decimal point status.  In this version,
 // the decimal point is treated just like all the other segments, so there is
 // no need to access this column specifically.
 //
-byte segMap[noOfPossibleCharacters][noOfSegmentsPerDigit] = {
+uint8_t segMap[noOfPossibleCharacters][noOfSegmentsPerDigit]{
     ON, ON, ON, ON, ON, ON, OFF, OFF,       // '0' <- element 0
     OFF, ON, ON, OFF, OFF, OFF, OFF, OFF,   // '1' <- element 1
     ON, ON, OFF, ON, ON, OFF, ON, OFF,      // '2' <- element 2
@@ -342,10 +356,11 @@ byte segMap[noOfPossibleCharacters][noOfSegmentsPerDigit] = {
 };
 #endif // PIN_SAVING_HARDWARE
 
-byte charsForDisplay[noOfDigitLocations] = {20, 20, 20, 20}; // all blank
+uint8_t charsForDisplay[noOfDigitLocations]{20, 20, 20, 20}; // all blank
 
-boolean EDD_isActive = false; // energy divertion detection
-long requiredExportPerMainsCycle_inIEU;
+bool EDD_isActive{false}; // energy divertion detection
+
+constexpr int32_t requiredExportPerMainsCycle_inIEU{(int32_t)REQUIRED_EXPORT_IN_WATTS * (1 / powerCal_grid)};
 
 void setup()
 {
@@ -355,14 +370,14 @@ void setup()
   pinMode(physicalLoad_0_pin, OUTPUT); // driver pin for the primary load
   pinMode(physicalLoad_1_pin, OUTPUT); // driver pin for an additional load
   //
-  for (int i = 0; i < NO_OF_DUMPLOADS; i++) // re-using the logic from my multiLoad code
+  for (int16_t i = 0; i < NO_OF_DUMPLOADS; ++i) // re-using the logic from my multiLoad code
   {
-    logicalLoadState[i] = LOAD_OFF;
-    physicalLoadState[i] = LOAD_OFF;
+    logicalLoadState[i] = LoadStates::LOAD_OFF;
+    physicalLoadState[i] = LoadStates::LOAD_OFF;
   }
   //
-  digitalWrite(physicalLoad_0_pin, physicalLoadState[0]);  // the primary load is active low.
-  digitalWrite(physicalLoad_1_pin, !physicalLoadState[1]); // the additional load is active high.
+  digitalWrite(physicalLoad_0_pin, (uint8_t)physicalLoadState[0]);  // the primary load is active low.
+  digitalWrite(physicalLoad_1_pin, !(uint8_t)physicalLoadState[1]); // the additional load is active high.
 
   delay(delayBeforeSerialStarts * 1000); // allow time to open Serial monitor
 
@@ -379,40 +394,28 @@ void setup()
   pinMode(decimalPointLine, OUTPUT); // the 'decimal point' line
 
   // set up the control lines for the 74HC4543 7-seg display driver
-  for (int i = 0; i < noOfDigitSelectionLines; i++)
-  {
+  for (int16_t i = 0; i < noOfDigitSelectionLines; ++i)
     pinMode(digitSelectionLine[i], OUTPUT);
-  }
 
   // an enable line is required for the 74HC4543 7-seg display driver
   pinMode(enableDisableLine, OUTPUT); // for the 74HC4543 7-seg display driver
   digitalWrite(enableDisableLine, DRIVER_CHIP_DISABLED);
 
   // set up the control lines for the 74HC138 2->4 demux
-  for (int i = 0; i < noOfDigitLocationLines; i++)
-  {
+  for (int16_t i = 0; i < noOfDigitLocationLines; ++i)
     pinMode(digitLocationLine[i], OUTPUT);
-  }
 #else
-  for (int i = 0; i < noOfSegmentsPerDigit; i++)
-  {
+  for (int16_t i = 0; i < noOfSegmentsPerDigit; ++i)
     pinMode(segmentDrivePin[i], OUTPUT);
-  }
 
-  for (int i = 0; i < noOfDigitLocations; i++)
-  {
+  for (int16_t i = 0; i < noOfDigitLocations; ++i)
     pinMode(digitSelectorPin[i], OUTPUT);
-  }
 
-  for (int i = 0; i < noOfDigitLocations; i++)
-  {
+  for (int16_t i = 0; i < noOfDigitLocations; ++i)
     digitalWrite(digitSelectorPin[i], DIGIT_DISABLED);
-  }
 
-  for (int i = 0; i < noOfSegmentsPerDigit; i++)
-  {
+  for (int16_t i = 0; i < noOfSegmentsPerDigit; ++i)
     digitalWrite(segmentDrivePin[i], OFF);
-  }
 #endif
 
   // When using integer maths, calibration values that have supplied in floating point
@@ -430,11 +433,7 @@ void setup()
   // included in the calculation below.
   //
   // For the flow of energy at the 'grid' connection point (CT1)
-  capacityOfEnergyBucket_long =
-      (long)WORKING_RANGE_IN_JOULES * CYCLES_PER_SECOND * (1 / powerCal_grid);
-  energyInBucket_long = 0;
 
-  nominalEnergyThreshold = capacityOfEnergyBucket_long * 0.5;
   workingEnergyThreshold_upper = nominalEnergyThreshold; // initial value
   workingEnergyThreshold_lower = nominalEnergyThreshold; // initial value
 
@@ -445,25 +444,10 @@ void setup()
   // accumulator's value is decremented accordingly. The calculation below is to determine
   // the scaling for this accumulator.
 
-  IEU_per_Wh =
-      (long)JOULES_PER_WATT_HOUR * CYCLES_PER_SECOND * (1 / powerCal_diverted);
-
-  // to avoid the diverted energy accumulator 'creeping' when the load is not active
-  antiCreepLimit_inIEUperMainsCycle = (float)ANTI_CREEP_LIMIT * (1 / powerCal_grid);
-
-  long mainsCyclesPerHour = (long)CYCLES_PER_SECOND *
-                            SECONDS_PER_MINUTE * MINUTES_PER_HOUR;
-
-  displayShutdown_inMainsCycles = DISPLAY_SHUTDOWN_IN_HOURS * mainsCyclesPerHour;
-
-  requiredExportPerMainsCycle_inIEU = (long)REQUIRED_EXPORT_IN_WATTS * (1 / powerCal_grid);
-
   // Define operating limits for the LP filter which identifies DC offset in the voltage
   // sample stream.  By limiting the output range, the filter always should start up
   // correctly.
-  DCoffset_V_long = 512L * 256;              // nominal mid-point value of ADC @ x256 scale
-  DCoffset_V_min = (long)(512L - 100) * 256; // mid-point of ADC minus a working margin
-  DCoffset_V_max = (long)(512L + 100) * 256; // mid-point of ADC plus a working margin
+  DCoffset_V_long = 512L * 256; // nominal mid-point value of ADC @ x256 scale
 
   Serial.print("ADC mode:       ");
   Serial.print(ADC_TIMER_PERIOD);
@@ -515,7 +499,7 @@ void setup()
 //
 void timerIsr(void)
 {
-  static unsigned char sample_index = 0;
+  static unsigned char sample_index{0};
   int16_t rawSample;
   int32_t sampleIminusDC;
   int32_t filtV_div4;
@@ -531,8 +515,8 @@ void timerIsr(void)
     ADCSRA |= (1 << ADSC);                 // start the ADC
     ++sample_index;                        // increment the control flag
 
-    sampleVminusDC_long = ((long)rawSample << 8) - DCoffset_V_long;
-    polarityOfMostRecentVsample = (sampleVminusDC_long > 0) ? POSITIVE : NEGATIVE;
+    sampleVminusDC_long = ((int32_t)rawSample << 8) - DCoffset_V_long;
+    polarityOfMostRecentVsample = (sampleVminusDC_long > 0) ? Polarities::POSITIVE : Polarities::NEGATIVE;
     confirmPolarity();
     //
     processRawSamples(); // deals with aspects that only occur at particular stages of each mains cycle
@@ -542,7 +526,7 @@ void timerIsr(void)
     inst_Vsquared = filtV_div4 * filtV_div4; // 32-bits (now x4096, or 2^12)
     inst_Vsquared = inst_Vsquared >> 12;     // scaling is now x1 (V_ADC x I_ADC)
     sum_Vsquared += inst_Vsquared;           // cumulative V^2 (V_ADC x I_ADC)
-    //sampleSetsDuringThisDatalogPeriod++;
+    //++sampleSetsDuringThisDatalogPeriod;
     //
     // store items for use during next loop
     cumVdeltasThisCycle_long += sampleVminusDC_long;    // for use with LP filter
@@ -558,7 +542,7 @@ void timerIsr(void)
     ++sample_index;               // increment the control flag
     //
     // remove most of the DC offset from the current sample (the precise value does not matter)
-    sampleIminusDC = ((long)(rawSample - DCoffset_I)) << 8;
+    sampleIminusDC = ((int32_t)(rawSample - DCoffset_I)) << 8;
     //
     // calculate the "real power" in this sample pair and add to the accumulated sum
     filtV_div4 = sampleVminusDC_long >> 2; // reduce to 16-bits (now x64, or 2^6)
@@ -574,7 +558,7 @@ void timerIsr(void)
     sample_index = 0;                  // reset the control flag
     //
     // remove most of the DC offset from the current sample (the precise value does not matter)
-    sampleIminusDC = ((long)(rawSample - DCoffset_I)) << 8;
+    sampleIminusDC = ((int32_t)(rawSample - DCoffset_I)) << 8;
     //
     // calculate the "real power" in this sample pair and add to the accumulated sum
     filtV_div4 = sampleVminusDC_long >> 2; // reduce to 16-bits (now x64, or 2^6)
@@ -588,18 +572,6 @@ void timerIsr(void)
   }
 }
 
-// When using interrupt-based logic, the main processor waits in loop() until the
-// dataReady flag has been set by the ADC.  Once this flag has been set, the main
-// processor clears the flag and proceeds with all the processing for one set of
-// V & I samples.  It then returns to loop() to wait for the next set to become
-// available.
-//   If there is insufficient processing capacity to do all that is required, the
-//  workload rate can be reduced by increasing the duration of ADC_TIMER_PERIOD.
-//
-void loop()
-{
-} // end of loop()
-
 // This routine is called to process each set of V & I samples. The main processor and
 // the ADC work autonomously, their operation being only linked via the dataReady flag.
 // As soon as a new set of data is made available by the ADC, the main processor can
@@ -607,309 +579,32 @@ void loop()
 //
 void processRawSamples()
 {
-  static byte timerForDisplayUpdate = 0;
-  static int sampleSetsDuringNegativeHalfOfMainsCycle; // for arming the triac/trigger
-  static long energyInBucket_prediction;
-  static bool loadHasJustChangedState;
-  static boolean b_recentTransition;
-  static byte postTransitionCount;
-  static byte activeLoad = 0;
-
-  if (polarityConfirmed == POSITIVE)
+  if (polarityConfirmed == Polarities::POSITIVE)
   {
-    if (polarityConfirmedOfLastSampleV != POSITIVE)
+    if (polarityConfirmedOfLastSampleV != Polarities::POSITIVE)
     {
       // This is the start of a new +ve half cycle (just after the zero-crossing point)
       if (beyondStartUpPhase)
-      {
-        // a simple routine for checking the performance of this new ISR structure
-        if (sampleSetsDuringThisMainsCycle < lowestNoOfSampleSetsPerMainsCycle)
-          lowestNoOfSampleSetsPerMainsCycle = sampleSetsDuringThisMainsCycle;
-
-        // Calculate the real power and energy during the last whole mains cycle.
-        //
-        // sumP contains the sum of many individual calculations of instantaneous power.  In
-        // order to obtain the average power during the relevant period, sumP must first be
-        // divided by the number of samples that have contributed to its value.
-        //
-        // The next stage would normally be to apply a calibration factor so that real power
-        // can be expressed in Watts.  That's fine for floating point maths, but it's not such
-        // a good idea when integer maths is being used.  To keep the numbers large, and also
-        // to save time, calibration of power is omitted at this stage.  Real Power (stored as
-        // a 'long') is therefore (1/powerCal) times larger than the actual power in Watts.
-        //
-        long realPower_grid = sumP_grid / sampleSetsDuringThisMainsCycle;         // proportional to Watts
-        long realPower_diverted = sumP_diverted / sampleSetsDuringThisMainsCycle; // proportional to Watts
-
-        realPower_grid -= requiredExportPerMainsCycle_inIEU; // <- useful for PV simulation
-
-        // Next, the energy content of this power rating needs to be determined.  Energy is
-        // power multiplied by time, so the next step would normally be to multiply the measured
-        // value of power by the time over which it was measured.
-        //   Instanstaneous power is calculated once every mains cycle. When integer maths is
-        // being used, a repetitive power-to-energy conversion seems an unnecessary workload.
-        // As all sampling periods are of similar duration, it is more efficient to just
-        // add all of the power samples together, and note that their sum is actually
-        // CYCLES_PER_SECOND greater than it would otherwise be.
-        //   Although the numerical value itself does not change, I thought that a new name
-        // may be helpful so as to minimise confusion.
-        //   The 'energy' variable below is CYCLES_PER_SECOND * (1/powerCal) times larger than
-        // the actual energy in Joules.
-        //
-        long realEnergy_grid = realPower_grid;
-        long realEnergy_diverted = realPower_diverted;
-
-        // Energy contributions from the grid connection point (CT1) are summed in an
-        // accumulator which is known as the energy bucket.  The purpose of the energy bucket
-        // is to mimic the operation of the supply meter.  The range over which energy can
-        // pass to and fro without loss or charge to the user is known as its 'sweet-zone'.
-        // The capacity of the energy bucket is set to this same value within setup().
-        //
-        // The latest contribution can now be added to this energy bucket
-        energyInBucket_long += realEnergy_grid;
-
-        // Apply max and min limits to bucket's level.  This is to ensure correct operation
-        // when conditions change, i.e. when import changes to export, and vici versa.
-        //
-        //bool endOfRangeEncountered = false;
-        if (energyInBucket_long > capacityOfEnergyBucket_long)
-        {
-          energyInBucket_long = capacityOfEnergyBucket_long;
-          //endOfRangeEncountered = true;
-        }
-        else if (energyInBucket_long < 0)
-        {
-          energyInBucket_long = 0;
-          //endOfRangeEncountered = true;
-        }
-
-        /*
-        if (endOfRangeEncountered) {
-          digitalWrite (outOfRangeIndication , LED_ON); }
-        else {
-          digitalWrite (outOfRangeIndication , LED_OFF); }*/
-
-        if (EDD_isActive) // Energy Diversion Display
-        {
-          // For diverted energy, the latest contribution needs to be added to an
-          // accumulator which operates with maximum precision.
-
-          if (realEnergy_diverted < antiCreepLimit_inIEUperMainsCycle)
-            realEnergy_diverted = 0;
-
-          divertedEnergyRecent_IEU += realEnergy_diverted;
-
-          // Whole kWhours are then recorded separately
-          if (divertedEnergyRecent_IEU > IEU_per_Wh)
-          {
-            divertedEnergyRecent_IEU -= IEU_per_Wh;
-            divertedEnergyTotal_Wh++;
-          }
-        }
-
-        if (timerForDisplayUpdate > UPDATE_PERIOD_FOR_DISPLAYED_DATA)
-        { // the 4-digit display needs to be refreshed every few mS. For convenience,
-          // this action is performed every N times around this processing loop.
-          timerForDisplayUpdate = 0;
-
-          // After a pre-defined period of inactivity, the 4-digit display needs to
-          // close down in readiness for the next's day's data.
-          //
-          if (absenceOfDivertedEnergyCount > displayShutdown_inMainsCycles)
-          {
-            // clear the accumulators for diverted energy
-            divertedEnergyTotal_Wh = 0;
-            divertedEnergyRecent_IEU = 0;
-            EDD_isActive = false; // energy diversion detector is now inactive
-          }
-
-          configureValueForDisplay();
-        }
-        else
-          timerForDisplayUpdate++;
-
-        // continuity checker
-        sampleCount_forContinuityChecker++;
-        if (sampleCount_forContinuityChecker >= CONTINUITY_CHECK_MAXCOUNT)
-        {
-          sampleCount_forContinuityChecker = 0;
-          //Serial.println(lowestNoOfSampleSetsPerMainsCycle);
-          lowestNoOfSampleSetsPerMainsCycle = 999;
-        }
-
-        // clear the per-cycle accumulators for use in this new mains cycle.
-        sampleSetsDuringThisMainsCycle = 0;
-        sumP_grid = 0;
-        sumP_diverted = 0;
-        sampleSetsDuringNegativeHalfOfMainsCycle = 0;
-      }
+        processPlusHalfCycle();
       else
         processStartUp();
     } // end of processing that is specific to the first Vsample in each +ve half cycle
 
-    // still processing samples where the voltage is POSITIVE ...
+    // still processing samples where the voltage is Polarities::POSITIVE ...
     if (beyondStartUpPhase && (sampleSetsDuringThisMainsCycle == 5)) // to distribute the workload within each mains cycle
-    {
-      // Restrictions apply for the period immediately after a load has been switched.
-      // Here the b_recentTransition flag is checked and updated as necessary.
-      b_recentTransition &= (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
-
-      if (b_recentTransition)
-      {
-        // During the post-transition period, any change in the energy level is noted.
-        if (energyInBucket_long > workingEnergyThreshold_upper)
-        {
-          workingEnergyThreshold_lower = nominalEnergyThreshold; // reset the opposite threshold
-          workingEnergyThreshold_upper = energyInBucket_long;
-
-          // the energy thresholds must remain within range
-          if (workingEnergyThreshold_upper > capacityOfEnergyBucket_long)
-            workingEnergyThreshold_upper = capacityOfEnergyBucket_long;
-        }
-        else if (energyInBucket_long < workingEnergyThreshold_lower)
-        {
-          workingEnergyThreshold_upper = nominalEnergyThreshold; // reset the opposite threshold
-          workingEnergyThreshold_lower = energyInBucket_long;
-
-          // the energy thresholds must remain within range
-          if (workingEnergyThreshold_lower < 0)
-            workingEnergyThreshold_lower = 0;
-        }
-      }
-    }
-  }    // end of processing that is specific to samples where the voltage is positive
-  else // the polatity of this sample is negative
+      postProcessPlusHalfCycle();
+  }    // end of processing that is specific to samples where the voltage is Polarities::POSITIVE
+  else // the polatity of this sample is Polarities::NEGATIVE
   {
-    if (polarityConfirmedOfLastSampleV != NEGATIVE)
-    {
-      // This is the start of a new -ve half cycle (just after the zero-crossing point)
-      // which is a convenient point to update the Low Pass Filter for DC-offset removal
-      //  The portion which is fed back into the integrator is approximately one percent
-      // of the average offset of all the Vsamples in the previous mains cycle.
-      //
-      long previousOffset = DCoffset_V_long;
-      DCoffset_V_long = previousOffset + (cumVdeltasThisCycle_long >> 12);
-      cumVdeltasThisCycle_long = 0;
-
-      // To ensure that the LPF will always start up correctly when 240V AC is available, its
-      // output value needs to be prevented from drifting beyond the likely range of the
-      // voltage signal.  This avoids the need to use a HPF as was done for initial Mk2 builds.
-      //
-      if (DCoffset_V_long < DCoffset_V_min)
-        DCoffset_V_long = DCoffset_V_min;
-      else if (DCoffset_V_long > DCoffset_V_max)
-        DCoffset_V_long = DCoffset_V_max;
-
-      // The average power that has been measured during the first half of this mains cycle can now be used
-      // to predict the energy state at the end of this mains cycle.  That prediction will be used to alter
-      // the state of the load as necessary. The arming signal for the triac can't be set yet - that must
-      // wait until the voltage has advanced further beyond the -ve going zero-crossing point.
-      //
-      long averagePower = sumP_grid / sampleSetsDuringThisMainsCycle; // for 1st half of this mains cycle only
-      //
-      // To avoid repetitive and unnecessary calculations, the increase in energy during each mains cycle is
-      // deemed to be numerically equal to the average power.  The predicted value for the energy state at the
-      // end of this mains cycle will therefore be the known energy state at its start plus the average power
-      // as measured. Although the average power has been determined over only half a mains cycle, the correct
-      // number of contributing sample sets has been used so the result can be expected to be a true measurement
-      // of average power, not half of it.
-      // However, it can be shown that the average power during the first half of any mains cycle after the
-      // load has changed state will alway be under-recorded so its value should now be increased by 30%.  This
-      // arbitrary looking adjustment gives good test results with differening amounts of surplus power and it
-      // only affects the predicted value of the energy state at the end of the current mains cycle; it does
-      // not affect the value in the main energy bucket.  This complication is a fundamental consequence
-      // of the floating CTs that we use.
-      //
-      if (loadHasJustChangedState)
-        averagePower = averagePower * 1.3;
-
-      energyInBucket_prediction = energyInBucket_long + averagePower; // at end of this mains cycle
-    } // end of processing that is specific to the first Vsample in each -ve half cycle
+    if (polarityConfirmedOfLastSampleV != Polarities::NEGATIVE)
+      processMinusHalfCycle();
+    // end of processing that is specific to the first Vsample in each -ve half cycle
 
     if (sampleSetsDuringNegativeHalfOfMainsCycle == 5)
-    {
-      // the zero-crossing trigger device(s) can now be reliably armed
-      if (beyondStartUpPhase)
-      {
-        /* Determining whether any of the loads need to be changed is is a 3-stage process:
-         * - change the LOGICAL load states as necessary to maintain the energy level
-         * - update the PHYSICAL load states according to the logical -> physical mapping 
-         * - update the driver lines for each of the loads.
-         */
+      postProcessMinusHalfCycle();
 
-        loadHasJustChangedState = false; // clear the predictive algorithm's flag
-        if (energyInBucket_prediction > workingEnergyThreshold_upper)
-        {
-          // the predicted energy state is high so an extra load may need to be added
-          boolean OK_toAddLoad = true; // default state of flag
-
-          byte tempLoad = nextLogicalLoadToBeAdded();
-          if (tempLoad < NO_OF_DUMPLOADS)
-          {
-            // a load which is now OFF has been identified for potentially being switched ON
-            if (b_recentTransition)
-            {
-              if (tempLoad != activeLoad)
-                OK_toAddLoad = false;
-            }
-
-            if (OK_toAddLoad)
-            {
-              // tempLoad will be either the active load, or the next load in the priority sequence
-              logicalLoadState[tempLoad] = LOAD_ON;
-              activeLoad = tempLoad;
-              postTransitionCount = 0;
-              b_recentTransition = true;
-              loadHasJustChangedState = true;
-            }
-          }
-        }
-        else if (energyInBucket_prediction < workingEnergyThreshold_lower)
-        {
-          // the predicted energy state is low so some load may need to be removed
-          boolean OK_toRemoveLoad = true; // default state of flag
-
-          byte tempLoad = nextLogicalLoadToBeRemoved();
-          if (tempLoad < NO_OF_DUMPLOADS)
-          {
-            // a load which is now ON has been identified for potentially being switched OFF
-            if (b_recentTransition)
-            {
-              if (tempLoad != activeLoad)
-                OK_toRemoveLoad = false;
-            }
-
-            if (OK_toRemoveLoad)
-            {
-              // tempLoad will be either the active load, or the next load in the priority sequence
-              logicalLoadState[tempLoad] = LOAD_OFF;
-              activeLoad = tempLoad;
-              postTransitionCount = 0;
-              b_recentTransition = true;
-              loadHasJustChangedState = true;
-            }
-          }
-        }
-
-        updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
-
-        // update each of the physical loads
-        digitalWrite(physicalLoad_0_pin, physicalLoadState[0]);  // active low for trigger
-        digitalWrite(physicalLoad_1_pin, !physicalLoadState[1]); // active high for additional load
-
-        // update the Energy Diversion Detector
-        if (physicalLoadState[0] == LOAD_ON)
-        {
-          absenceOfDivertedEnergyCount = 0;
-          EDD_isActive = true;
-        }
-        else
-          absenceOfDivertedEnergyCount++;
-      }
-    }
-
-    sampleSetsDuringNegativeHalfOfMainsCycle++;
-  } // end of processing that is specific to samples where the voltage is negative
+    ++sampleSetsDuringNegativeHalfOfMainsCycle;
+  } // end of processing that is specific to samples where the voltage is Polarities::NEGATIVE
 }
 
 /**
@@ -932,6 +627,310 @@ void processStartUp()
   lowestNoOfSampleSetsPerMainsCycle = 999;
   // can't say "Go!" here 'cos we're in an ISR!
 }
+
+/**
+ * @brief Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
+ * 
+ * @ingroup TimeCritical
+ */
+void processPlusHalfCycle()
+{
+  // a simple routine for checking the performance of this new ISR structure
+  if (sampleSetsDuringThisMainsCycle < lowestNoOfSampleSetsPerMainsCycle)
+    lowestNoOfSampleSetsPerMainsCycle = sampleSetsDuringThisMainsCycle;
+
+  // Calculate the real power and energy during the last whole mains cycle.
+  //
+  // sumP contains the sum of many individual calculations of instantaneous power.  In
+  // order to obtain the average power during the relevant period, sumP must first be
+  // divided by the number of samples that have contributed to its value.
+  //
+  // The next stage would normally be to apply a calibration factor so that real power
+  // can be expressed in Watts.  That's fine for floating point maths, but it's not such
+  // a good idea when integer maths is being used.  To keep the numbers large, and also
+  // to save time, calibration of power is omitted at this stage.  Real Power (stored as
+  // a 'int32_t') is therefore (1/powerCal) times larger than the actual power in Watts.
+  //
+  int32_t realPower_grid{sumP_grid / sampleSetsDuringThisMainsCycle};         // proportional to Watts
+  int32_t realPower_diverted{sumP_diverted / sampleSetsDuringThisMainsCycle}; // proportional to Watts
+
+  realPower_grid -= requiredExportPerMainsCycle_inIEU; // <- useful for PV simulation
+
+  // Next, the energy content of this power rating needs to be determined.  Energy is
+  // power multiplied by time, so the next step would normally be to multiply the measured
+  // value of power by the time over which it was measured.
+  //   Instanstaneous power is calculated once every mains cycle. When integer maths is
+  // being used, a repetitive power-to-energy conversion seems an unnecessary workload.
+  // As all sampling periods are of similar duration, it is more efficient to just
+  // add all of the power samples together, and note that their sum is actually
+  // CYCLES_PER_SECOND greater than it would otherwise be.
+  //   Although the numerical value itself does not change, I thought that a new name
+  // may be helpful so as to minimise confusion.
+  //   The 'energy' variable below is CYCLES_PER_SECOND * (1/powerCal) times larger than
+  // the actual energy in Joules.
+  //
+  int32_t realEnergy_grid{realPower_grid};
+  int32_t realEnergy_diverted{realPower_diverted};
+
+  // Energy contributions from the grid connection point (CT1) are summed in an
+  // accumulator which is known as the energy bucket.  The purpose of the energy bucket
+  // is to mimic the operation of the supply meter.  The range over which energy can
+  // pass to and fro without loss or charge to the user is known as its 'sweet-zone'.
+  // The capacity of the energy bucket is set to this same value within setup().
+  //
+  // The latest contribution can now be added to this energy bucket
+  energyInBucket_long += realEnergy_grid;
+
+  // Apply max and min limits to bucket's level.  This is to ensure correct operation
+  // when conditions change, i.e. when import changes to export, and vici versa.
+  //
+  //bool endOfRangeEncountered{false};
+  if (energyInBucket_long > capacityOfEnergyBucket_long)
+  {
+    energyInBucket_long = capacityOfEnergyBucket_long;
+    //endOfRangeEncountered = true;
+  }
+  else if (energyInBucket_long < 0)
+  {
+    energyInBucket_long = 0;
+    //endOfRangeEncountered = true;
+  }
+
+  /*
+        if (endOfRangeEncountered) {
+          digitalWrite (outOfRangeIndication , LED_ON); }
+        else {
+          digitalWrite (outOfRangeIndication , LED_OFF); }*/
+
+  if (EDD_isActive) // Energy Diversion Display
+  {
+    // For diverted energy, the latest contribution needs to be added to an
+    // accumulator which operates with maximum precision.
+
+    if (realEnergy_diverted < antiCreepLimit_inIEUperMainsCycle)
+      realEnergy_diverted = 0;
+
+    divertedEnergyRecent_IEU += realEnergy_diverted;
+
+    // Whole kWhours are then recorded separately
+    if (divertedEnergyRecent_IEU > IEU_per_Wh)
+    {
+      divertedEnergyRecent_IEU -= IEU_per_Wh;
+      ++divertedEnergyTotal_Wh;
+    }
+  }
+
+  if (timerForDisplayUpdate > UPDATE_PERIOD_FOR_DISPLAYED_DATA)
+  { // the 4-digit display needs to be refreshed every few mS. For convenience,
+    // this action is performed every N times around this processing loop.
+    timerForDisplayUpdate = 0;
+
+    // After a pre-defined period of inactivity, the 4-digit display needs to
+    // close down in readiness for the next's day's data.
+    //
+    if (absenceOfDivertedEnergyCount > displayShutdown_inMainsCycles)
+    {
+      // clear the accumulators for diverted energy
+      divertedEnergyTotal_Wh = 0;
+      divertedEnergyRecent_IEU = 0;
+      EDD_isActive = false; // energy diversion detector is now inactive
+    }
+
+    configureValueForDisplay();
+  }
+  else
+    ++timerForDisplayUpdate;
+
+  // continuity checker
+  ++sampleCount_forContinuityChecker;
+  if (sampleCount_forContinuityChecker >= CONTINUITY_CHECK_MAXCOUNT)
+  {
+    sampleCount_forContinuityChecker = 0;
+    //Serial.println(lowestNoOfSampleSetsPerMainsCycle);
+    lowestNoOfSampleSetsPerMainsCycle = 999;
+  }
+
+  // clear the per-cycle accumulators for use in this new mains cycle.
+  sampleSetsDuringThisMainsCycle = 0;
+  sumP_grid = 0;
+  sumP_diverted = 0;
+  sampleSetsDuringNegativeHalfOfMainsCycle = 0;
+}
+
+void postProcessPlusHalfCycle()
+{
+  // Restrictions apply for the period immediately after a load has been switched.
+  // Here the b_recentTransition flag is checked and updated as necessary.
+  b_recentTransition &= (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
+
+  if (!b_recentTransition)
+    return;
+
+  // During the post-transition period, any change in the energy level is noted.
+  if (energyInBucket_long > workingEnergyThreshold_upper)
+  {
+    workingEnergyThreshold_lower = nominalEnergyThreshold; // reset the opposite threshold
+    workingEnergyThreshold_upper = energyInBucket_long;
+
+    // the energy thresholds must remain within range
+    if (workingEnergyThreshold_upper > capacityOfEnergyBucket_long)
+      workingEnergyThreshold_upper = capacityOfEnergyBucket_long;
+  }
+  else if (energyInBucket_long < workingEnergyThreshold_lower)
+  {
+    workingEnergyThreshold_upper = nominalEnergyThreshold; // reset the opposite threshold
+    workingEnergyThreshold_lower = energyInBucket_long;
+
+    // the energy thresholds must remain within range
+    if (workingEnergyThreshold_lower < 0)
+      workingEnergyThreshold_lower = 0;
+  }
+}
+
+/**
+ * @brief Process the start of a new -ve half cycle, just after the zero-crossing point.
+ * 
+ * @ingroup TimeCritical
+ */
+void processMinusHalfCycle()
+{
+  // This is the start of a new -ve half cycle (just after the zero-crossing point)
+  // which is a convenient point to update the Low Pass Filter for DC-offset removal
+  //  The portion which is fed back into the integrator is approximately one percent
+  // of the average offset of all the Vsamples in the previous mains cycle.
+  //
+  int32_t previousOffset{DCoffset_V_long};
+  DCoffset_V_long = previousOffset + (cumVdeltasThisCycle_long >> 12);
+  cumVdeltasThisCycle_long = 0;
+
+  // To ensure that the LPF will always start up correctly when 240V AC is available, its
+  // output value needs to be prevented from drifting beyond the likely range of the
+  // voltage signal.  This avoids the need to use a HPF as was done for initial Mk2 builds.
+  //
+  if (DCoffset_V_long < DCoffset_V_min)
+    DCoffset_V_long = DCoffset_V_min;
+  else if (DCoffset_V_long > DCoffset_V_max)
+    DCoffset_V_long = DCoffset_V_max;
+
+  // The average power that has been measured during the first half of this mains cycle can now be used
+  // to predict the energy state at the end of this mains cycle.  That prediction will be used to alter
+  // the state of the load as necessary. The arming signal for the triac can't be set yet - that must
+  // wait until the voltage has advanced further beyond the -ve going zero-crossing point.
+  //
+  int32_t averagePower{sumP_grid / sampleSetsDuringThisMainsCycle}; // for 1st half of this mains cycle only
+  //
+  // To avoid repetitive and unnecessary calculations, the increase in energy during each mains cycle is
+  // deemed to be numerically equal to the average power.  The predicted value for the energy state at the
+  // end of this mains cycle will therefore be the known energy state at its start plus the average power
+  // as measured. Although the average power has been determined over only half a mains cycle, the correct
+  // number of contributing sample sets has been used so the result can be expected to be a true measurement
+  // of average power, not half of it.
+  // However, it can be shown that the average power during the first half of any mains cycle after the
+  // load has changed state will alway be under-recorded so its value should now be increased by 30%.  This
+  // arbitrary looking adjustment gives good test results with differening amounts of surplus power and it
+  // only affects the predicted value of the energy state at the end of the current mains cycle; it does
+  // not affect the value in the main energy bucket.  This complication is a fundamental consequence
+  // of the floating CTs that we use.
+  //
+  if (loadHasJustChangedState)
+    averagePower *= 1.3;
+
+  energyInBucket_prediction = energyInBucket_long + averagePower; // at end of this mains cycle
+}
+
+void postProcessMinusHalfCycle()
+{
+  // the zero-crossing trigger device(s) can now be reliably armed
+  if (!beyondStartUpPhase)
+    return;
+
+  /* Determining whether any of the loads need to be changed is is a 3-stage process:
+  * - change the LOGICAL load states as necessary to maintain the energy level
+  * - update the PHYSICAL load states according to the logical -> physical mapping 
+  * - update the driver lines for each of the loads.
+  */
+
+  loadHasJustChangedState = false; // clear the predictive algorithm's flag
+
+  if (energyInBucket_prediction > workingEnergyThreshold_upper)
+    proceedHighEnergyLevel();
+  else if (energyInBucket_prediction < workingEnergyThreshold_lower)
+    proceedLowEnergyLevel();
+
+  updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
+
+  // update each of the physical loads
+  digitalWrite(physicalLoad_0_pin, (uint8_t)physicalLoadState[0]);  // active low for trigger
+  digitalWrite(physicalLoad_1_pin, !(uint8_t)physicalLoadState[1]); // active high for additional load
+
+  // update the Energy Diversion Detector
+  if (physicalLoadState[0] == LoadStates::LOAD_ON)
+  {
+    absenceOfDivertedEnergyCount = 0;
+    EDD_isActive = true;
+  }
+  else
+    ++absenceOfDivertedEnergyCount;
+}
+
+/**
+ * @brief Process the case of high energy level, some action may be required.
+ * 
+ * @ingroup TimeCritical
+ */
+void proceedHighEnergyLevel()
+{
+  // the predicted energy state is high so an extra load may need to be added
+  bool OK_toAddLoad{true}; // default state of flag
+
+  auto tempLoad{nextLogicalLoadToBeAdded()};
+  if (tempLoad >= NO_OF_DUMPLOADS)
+    return;
+
+  // a load which is now OFF has been identified for potentially being switched ON
+  if (b_recentTransition)
+    OK_toAddLoad = (tempLoad == activeLoad);
+
+  if (OK_toAddLoad)
+  {
+    // tempLoad will be either the active load, or the next load in the priority sequence
+    logicalLoadState[tempLoad] = LoadStates::LOAD_ON;
+    activeLoad = tempLoad;
+    postTransitionCount = 0;
+    b_recentTransition = true;
+    loadHasJustChangedState = true;
+  }
+}
+
+/**
+ * @brief Process the case of low energy level, some action may be required.
+ * 
+ * @ingroup TimeCritical
+ */
+void proceedLowEnergyLevel()
+{
+  // the predicted energy state is low so some load may need to be removed
+  bool OK_toRemoveLoad{true}; // default state of flag
+
+  auto tempLoad{nextLogicalLoadToBeRemoved()};
+  if (tempLoad >= NO_OF_DUMPLOADS)
+    return;
+
+  // a load which is now ON has been identified for potentially being switched OFF
+  if (b_recentTransition)
+    OK_toRemoveLoad = (tempLoad == activeLoad);
+
+  if (OK_toRemoveLoad)
+  {
+    // tempLoad will be either the active load, or the next load in the priority sequence
+    logicalLoadState[tempLoad] = LoadStates::LOAD_OFF;
+    activeLoad = tempLoad;
+    postTransitionCount = 0;
+    b_recentTransition = true;
+    loadHasJustChangedState = true;
+  }
+}
+
 //  ----- end of main Mk2i code -----
 
 void confirmPolarity()
@@ -940,7 +939,7 @@ void confirmPolarity()
    * a certain number of consecutive samples in the 'other' half of the 
    * waveform have been encountered.  
    */
-  static byte count = 0;
+  static uint8_t count{0};
   if (polarityOfMostRecentVsample != polarityConfirmedOfLastSampleV)
     ++count;
   else
@@ -953,22 +952,22 @@ void confirmPolarity()
   }
 }
 
-byte nextLogicalLoadToBeAdded()
+uint8_t nextLogicalLoadToBeAdded()
 {
   for (uint8_t index = 0; index < NO_OF_DUMPLOADS; ++index)
-    if (logicalLoadState[index] == LOAD_OFF)
+    if (logicalLoadState[index] == LoadStates::LOAD_OFF)
       return (index);
 
   return (NO_OF_DUMPLOADS);
 }
 
-byte nextLogicalLoadToBeRemoved()
+uint8_t nextLogicalLoadToBeRemoved()
 {
   uint8_t index{NO_OF_DUMPLOADS};
   do
   {
     --index;
-    if (logicalLoadState[index] == LOAD_ON)
+    if (logicalLoadState[index] == LoadStates::LOAD_ON)
       return (index);
   } while (0 != index);
 
@@ -990,62 +989,60 @@ void updatePhysicalLoadStates()
  * Any other mapping relaionships could be configured here.
  */
 {
-  for (int i = 0; i < NO_OF_DUMPLOADS; i++)
+  for (int16_t i = 0; i < NO_OF_DUMPLOADS; ++i)
     physicalLoadState[i] = logicalLoadState[i];
 }
 
 // called infrequently, to update the characters to be displayed
 void configureValueForDisplay()
 {
-  static byte locationOfDot = 0;
+  static uint8_t locationOfDot{0};
 
-  //  Serial.println(divertedEnergyTotal_Wh);
-
-  if (EDD_isActive)
-  {
-    unsigned int val = divertedEnergyTotal_Wh;
-    boolean energyValueExceeds10kWh;
-
-    if (val < 10000)
-      energyValueExceeds10kWh = false; // no need to re-scale (display to 3 DPs)
-    else
-    {
-      // re-scale is needed (display to 2 DPs)
-      energyValueExceeds10kWh = true;
-      val = val / 10;
-    }
-
-    byte thisDigit = val / 1000;
-    charsForDisplay[0] = thisDigit;
-    val -= 1000 * thisDigit;
-
-    thisDigit = val / 100;
-    charsForDisplay[1] = thisDigit;
-    val -= 100 * thisDigit;
-
-    thisDigit = val / 10;
-    charsForDisplay[2] = thisDigit;
-    val -= 10 * thisDigit;
-
-    charsForDisplay[3] = val;
-
-    // assign the decimal point location
-    if (energyValueExceeds10kWh)
-      charsForDisplay[1] += 10; // dec point after 2nd digit
-    else
-      charsForDisplay[0] += 10; // dec point after 1st digit
-  }
-  else
+  if (!EDD_isActive)
   {
     // "walking dots" display
     charsForDisplay[locationOfDot] = 20; // blank
 
-    locationOfDot++;
+    ++locationOfDot;
     if (locationOfDot >= noOfDigitLocations)
       locationOfDot = 0;
 
     charsForDisplay[locationOfDot] = 21; // dot
+
+    return;
   }
+
+  uint16_t val{divertedEnergyTotal_Wh};
+  bool energyValueExceeds10kWh;
+
+  if (val < 10000)
+    energyValueExceeds10kWh = false; // no need to re-scale (display to 3 DPs)
+  else
+  {
+    // re-scale is needed (display to 2 DPs)
+    energyValueExceeds10kWh = true;
+    val = val / 10;
+  }
+
+  uint8_t thisDigit{val / 1000};
+  charsForDisplay[0] = thisDigit;
+  val -= 1000 * thisDigit;
+
+  thisDigit = val / 100;
+  charsForDisplay[1] = thisDigit;
+  val -= 100 * thisDigit;
+
+  thisDigit = val / 10;
+  charsForDisplay[2] = thisDigit;
+  val -= 10 * thisDigit;
+
+  charsForDisplay[3] = val;
+
+  // assign the decimal point location
+  if (energyValueExceeds10kWh)
+    charsForDisplay[1] += 10; // dec point after 2nd digit
+  else
+    charsForDisplay[0] += 10; // dec point after 1st digit
 }
 
 void refreshDisplay()
@@ -1054,6 +1051,16 @@ void refreshDisplay()
   // display time has expired.  It then makes the necessary adjustments for displaying
   // the next digit.
   //   The two versions of the hardware require different logic.
+
+  static uint8_t displayTime_count{0};
+  static uint8_t digitLocationThatIsActive{0};
+
+  ++displayTime_count;
+
+  if (displayTime_count <= MAX_DISPLAY_TIME_COUNT)
+    return;
+
+  displayTime_count = 0;
 
 #ifdef PIN_SAVING_HARDWARE
   // With this version of the hardware, care must be taken that all transitory states
@@ -1070,54 +1077,44 @@ void refreshDisplay()
   // 7. set up decimal point line for the new active location
   // 8. enable the 7-segment driver chip
 
-  static byte displayTime_count = 0;
-  static byte digitLocationThatIsActive = 0;
+  uint8_t lineState;
 
-  displayTime_count++;
+  // 1. disable the Decimal Point driver line;
+  digitalWrite(decimalPointLine, LOW);
 
-  if (displayTime_count > MAX_DISPLAY_TIME_COUNT)
+  // 2. disable the driver chip while changes are taking place
+  digitalWrite(enableDisableLine, DRIVER_CHIP_DISABLED);
+
+  // 3. determine the next digit location to be active
+  ++digitLocationThatIsActive;
+  if (digitLocationThatIsActive >= noOfDigitLocations)
+    digitLocationThatIsActive = 0;
+
+  // 4. set up the digit location drivers for the new active location
+  for (uint8_t line = 0; line < noOfDigitLocationLines; ++line)
   {
-    byte lineState;
-
-    displayTime_count = 0;
-
-    // 1. disable the Decimal Point driver line;
-    digitalWrite(decimalPointLine, LOW);
-
-    // 2. disable the driver chip while changes are taking place
-    digitalWrite(enableDisableLine, DRIVER_CHIP_DISABLED);
-
-    // 3. determine the next digit location to be active
-    digitLocationThatIsActive++;
-    if (digitLocationThatIsActive >= noOfDigitLocations)
-      digitLocationThatIsActive = 0;
-
-    // 4. set up the digit location drivers for the new active location
-    for (byte line = 0; line < noOfDigitLocationLines; line++)
-    {
-      lineState = digitLocationMap[digitLocationThatIsActive][line];
-      digitalWrite(digitLocationLine[line], lineState);
-    }
-
-    // 5. determine the character to be displayed at this new location
-    // (which includes the decimal point information)
-    byte digitVal = charsForDisplay[digitLocationThatIsActive];
-
-    // 6. configure the 7-segment driver for the character to be displayed
-    for (byte line = 0; line < noOfDigitSelectionLines; line++)
-    {
-      lineState = digitValueMap[digitVal][line];
-      digitalWrite(digitSelectionLine[line], lineState);
-    }
-
-    // 7. set up the Decimal Point driver line;
-    digitalWrite(decimalPointLine, digitValueMap[digitVal][DPstatus_columnID]);
-
-    // 8. enable the 7-segment driver chip
-    digitalWrite(enableDisableLine, DRIVER_CHIP_ENABLED);
+    lineState = digitLocationMap[digitLocationThatIsActive][line];
+    digitalWrite(digitLocationLine[line], lineState);
   }
 
-#else  // PIN_SAVING_HARDWARE
+  // 5. determine the character to be displayed at this new location
+  // (which includes the decimal point information)
+  uint8_t digitVal{charsForDisplay[digitLocationThatIsActive]};
+
+  // 6. configure the 7-segment driver for the character to be displayed
+  for (uint8_t line = 0; line < noOfDigitSelectionLines; ++line)
+  {
+    lineState = digitValueMap[digitVal][line];
+    digitalWrite(digitSelectionLine[line], lineState);
+  }
+
+  // 7. set up the Decimal Point driver line;
+  digitalWrite(decimalPointLine, digitValueMap[digitVal][DPstatus_columnID]);
+
+  // 8. enable the 7-segment driver chip
+  digitalWrite(enableDisableLine, DRIVER_CHIP_ENABLED);
+
+#else // PIN_SAVING_HARDWARE
 
   // This version is more straightforward because the digit-enable lines can be
   // used to mask out all of the transitory states, including the Decimal Point.
@@ -1129,45 +1126,47 @@ void refreshDisplay()
   // 4. set up the segment drivers for the character to be displayed (includes the DP)
   // 5. activate the digit-enable line for the new active location
 
-  static byte displayTime_count = 0;
-  static byte digitLocationThatIsActive = 0;
+  // 1. de-activate the location which is currently being displayed
+  digitalWrite(digitSelectorPin[digitLocationThatIsActive], DIGIT_DISABLED);
 
-  displayTime_count++;
-
-  if (displayTime_count > MAX_DISPLAY_TIME_COUNT)
+  // 2. determine the next digit location which is to be displayed
+  ++digitLocationThatIsActive;
+  if (digitLocationThatIsActive >= noOfDigitLocations)
   {
-    displayTime_count = 0;
-
-    // 1. de-activate the location which is currently being displayed
-    digitalWrite(digitSelectorPin[digitLocationThatIsActive], DIGIT_DISABLED);
-
-    // 2. determine the next digit location which is to be displayed
-    digitLocationThatIsActive++;
-    if (digitLocationThatIsActive >= noOfDigitLocations)
-    {
-      digitLocationThatIsActive = 0;
-    }
-
-    // 3. determine the relevant character for the new active location
-    byte digitVal = charsForDisplay[digitLocationThatIsActive];
-
-    // 4. set up the segment drivers for the character to be displayed (includes the DP)
-    for (byte segment = 0; segment < noOfSegmentsPerDigit; segment++)
-    {
-      byte segmentState = segMap[digitVal][segment];
-      digitalWrite(segmentDrivePin[segment], segmentState);
-    }
-
-    // 5. activate the digit-enable line for the new active location
-    digitalWrite(digitSelectorPin[digitLocationThatIsActive], DIGIT_ENABLED);
+    digitLocationThatIsActive = 0;
   }
-#endif // PIN_SAVING_HARDWARE
 
+  // 3. determine the relevant character for the new active location
+  uint8_t digitVal{charsForDisplay[digitLocationThatIsActive]};
+
+  // 4. set up the segment drivers for the character to be displayed (includes the DP)
+  for (uint8_t segment = 0; segment < noOfSegmentsPerDigit; ++segment)
+  {
+    uint8_t segmentState{segMap[digitVal][segment]};
+    digitalWrite(segmentDrivePin[segment], segmentState);
+  }
+
+  // 5. activate the digit-enable line for the new active location
+  digitalWrite(digitSelectorPin[digitLocationThatIsActive], DIGIT_ENABLED);
+
+#endif // PIN_SAVING_HARDWARE
 } // end of refreshDisplay()
 
-int freeRam()
+// When using interrupt-based logic, the main processor waits in loop() until the
+// dataReady flag has been set by the ADC.  Once this flag has been set, the main
+// processor clears the flag and proceeds with all the processing for one set of
+// V & I samples.  It then returns to loop() to wait for the next set to become
+// available.
+//   If there is insufficient processing capacity to do all that is required, the
+//  workload rate can be reduced by increasing the duration of ADC_TIMER_PERIOD.
+//
+void loop()
 {
-  extern int __heap_start, *__brkval;
-  int v;
-  return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
+} // end of loop()
+
+int16_t freeRam()
+{
+  extern int16_t __heap_start, *__brkval;
+  int16_t v;
+  return (int16_t)&v - (__brkval == 0 ? (int16_t)&__heap_start : (int16_t)__brkval);
 }
