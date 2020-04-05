@@ -73,9 +73,24 @@
  *   the lower priority one. This logic now mirrors that in the Mk2_multiLoad_wired_n line.
  * 
  *   
- * *      Robin Emley
+ *      Robin Emley
  *      www.Mk2PVrouter.co.uk
- */
+ *
+ * April 2020: renamed as Mk2_fasterControl_twoLoads__temp_1 with these changes:
+ * - This sketch has been restructured in order to make better use of the ISR.
+ * - This sketch has been again re-engineered. All 'defines' have been removed except
+ *   the ones for compile-time optional functionalities.
+ * - All constants have been replaced with constexpr initialized at compile-time
+ * - all number-types have been replaced with fixed width number types
+ * - old fashion enums replaced by scoped enums with fixed types
+ * - All of the time-critical code is now contained within the ISR and its helper functions.
+ * - Values for datalogging are transferred to the main code using a flag-based handshake mechanism.
+ * - The diversion of surplus power can no longer be affected by slower
+ * activities which may be running in the main code such as Serial statements and RF.
+ * - Temperature sensing is supported. A pullup resistor (4K7 or similar) is required for the Dallas sensor.
+ * 
+ *      Fred Metrich
+*/
 
 #include <Arduino.h>
 #include <TimerOne.h>
