@@ -191,8 +191,8 @@ constexpr uint8_t voltageSensor{3};          /**< A3 is for the voltage sensor *
 constexpr uint8_t currentSensor_diverted{4}; /**< A4 is for CT2 which measures diverted current */
 constexpr uint8_t currentSensor_grid{5};     /**< A5 is for CT1 which measures grid current */
 
-constexpr uint8_t delayBeforeSerialStarts{1}; /**< in seconds, to allow Serial window to be opened */
-constexpr uint8_t startUpPeriod{3};           /**< in seconds, to allow LP filter to settle */
+constexpr uint8_t delayBeforeSerialStarts{1000}; /**< in milli-seconds, to allow Serial window to be opened */
+constexpr uint8_t startUpPeriod{3000};           /**< in milli-seconds, to allow LP filter to settle */
 constexpr int16_t DCoffset_I{512};            /**< nominal mid-point value of ADC @ x1 scale */
 
 // General global variables that are used in multiple blocks so cannot be static.
@@ -440,7 +440,7 @@ void setup()
   digitalWrite(physicalLoad_0_pin, (uint8_t)physicalLoadState[0]);  // the primary load is active low.
   digitalWrite(physicalLoad_1_pin, !(uint8_t)physicalLoadState[1]); // the additional load is active high.
 
-  delay(delayBeforeSerialStarts * 1000); // allow time to open Serial monitor
+  delay(delayBeforeSerialStarts); // allow time to open Serial monitor
 
   Serial.begin(9600);
   Serial.println();
