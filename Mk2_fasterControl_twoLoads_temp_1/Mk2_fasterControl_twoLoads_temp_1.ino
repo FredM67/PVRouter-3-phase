@@ -203,7 +203,8 @@ bool b_recentTransition{false};                 /**< a load state has been recen
 uint8_t postTransitionCount;                    /**< counts the number of cycle since last transition */
 constexpr uint8_t POST_TRANSITION_MAX_COUNT{3}; /**< allows each transition to take effect */
 //constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
-uint8_t activeLoad{NO_OF_DUMPLOADS}; /**< current active load */
+uint8_t activeLoad{NO_OF_DUMPLOADS};   /**< current active load */
+uint16_t countLoadON[NO_OF_DUMPLOADS]; /**< Number of cycle the load was ON (over 1 datalog period) */
 
 int32_t sumP_forEnergyBucket;                   /**< for per-cycle summation of 'real power' */
 int32_t sumP_atSupplyPoint;                     /**< for per-cycle summation of 'real power' during datalog period */
@@ -238,6 +239,7 @@ volatile int32_t copyOf_divertedEnergyTotal_Wh;            /**< for per-cycle su
 volatile int32_t copyOf_sum_Vsquared;                      /**< for summation of V^2 values during datalog period */
 volatile int16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
 volatile int16_t copyOf_lowestNoOfSampleSetsPerMainsCycle; /**<  */
+volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];     /**< copy of number of cycle the load was ON (over 1 datalog period) */
 
 // For an enhanced polarity detection mechanism, which includes a persistence check
 constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{1}; /**< allows polarity changes to be confirmed */
@@ -805,6 +807,12 @@ void processLatestContribution()
     copyOf_sampleSetsDuringThisDatalogPeriod = sampleSetsDuringThisDatalogPeriod_long; // (for diags only)
     copyOf_lowestNoOfSampleSetsPerMainsCycle = lowestNoOfSampleSetsPerMainsCycle;      // (for diags only)
 
+    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+    {
+      copyOf_countLoadON[i] = countLoadON[i];
+      countLoadON[i] = 0;
+    }
+
     sumP_atSupplyPoint = 0;
     sum_Vsquared = 0;
     lowestNoOfSampleSetsPerMainsCycle = 999;
@@ -1052,7 +1060,11 @@ void updatePhysicalLoadStates()
  */
 {
   for (int16_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  {
+    if (logicalLoadState[i] == LoadStates::LOAD_ON)
+      ++countLoadON[i];
     physicalLoadState[i] = logicalLoadState[i];
+  }
 }
 
 // called infrequently, to update the characters to be displayed
@@ -1271,6 +1283,14 @@ void loop()
     Serial.print(tx_data.divertedEnergyTotal_Wh);
     Serial.print(", Vrms ");
     Serial.print((float)tx_data.Vrms_times100 / 100);
+    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+    {
+      Serial.print(", #");
+      Serial.print(i);
+      Serial.print(" ");
+      Serial.print((100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod);
+      Serial.print("%");
+    }
 #ifdef TEMP_SENSOR
     Serial.print(", temperature ");
     Serial.print((float)tx_data.temperature_times100 / 100);
