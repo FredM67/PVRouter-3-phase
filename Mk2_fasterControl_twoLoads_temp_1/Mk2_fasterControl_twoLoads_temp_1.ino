@@ -583,7 +583,7 @@ void timerIsr(void)
     inst_Vsquared = filtV_div4 * filtV_div4; // 32-bits (now x4096, or 2^12)
     inst_Vsquared = inst_Vsquared >> 12;     // scaling is now x1 (V_ADC x I_ADC)
     sum_Vsquared += inst_Vsquared;           // cumulative V^2 (V_ADC x I_ADC)
-    //++sampleSetsDuringThisDatalogPeriod;
+    ++sampleSetsDuringThisDatalogPeriod_long;
     //
     // store items for use during next loop
     cumVdeltasThisCycle_long += sampleVminusDC_long;    // for use with LP filter
@@ -679,10 +679,12 @@ void processStartUp()
   // the DC-blocking filters have had time to settle
   beyondStartUpPhase = true;
   sumP_forEnergyBucket = 0;
+  sumP_atSupplyPoint = 0;
   sumP_diverted = 0;
   sampleSetsDuringThisMainsCycle = 0;   // not yet dealt with for this cycle
   sampleCount_forContinuityChecker = 1; // opportunity has been missed for this cycle
   lowestNoOfSampleSetsPerMainsCycle = 999;
+  sampleSetsDuringThisDatalogPeriod_long = 0;
   // can't say "Go!" here 'cos we're in an ISR!
 }
 
