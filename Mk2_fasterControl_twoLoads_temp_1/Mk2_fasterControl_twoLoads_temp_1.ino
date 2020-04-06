@@ -93,7 +93,6 @@
 */
 
 #include <Arduino.h>
-#include <TimerOne.h>
 
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 
@@ -102,8 +101,6 @@
 #ifdef TEMP_SENSOR
 #include <OneWire.h> // for temperature sensing
 #endif
-
-#define ADC_TIMER_PERIOD 125 // uS (determines the sampling rate / amount of idle time)
 
 // Physical constants, please do not change!
 constexpr int32_t JOULES_PER_WATT_HOUR{3600}; /**< (0.001 kWh = 3600 Joules) */
@@ -193,7 +190,7 @@ constexpr uint8_t currentSensor_grid{5};     /**< A5 is for CT1 which measures g
 
 constexpr uint8_t delayBeforeSerialStarts{1000}; /**< in milli-seconds, to allow Serial window to be opened */
 constexpr uint8_t startUpPeriod{3000};           /**< in milli-seconds, to allow LP filter to settle */
-constexpr int16_t DCoffset_I{512};            /**< nominal mid-point value of ADC @ x1 scale */
+constexpr int16_t DCoffset_I{512};               /**< nominal mid-point value of ADC @ x1 scale */
 
 // General global variables that are used in multiple blocks so cannot be static.
 // For integer maths, many variables need to be 'int32_t'
@@ -506,16 +503,22 @@ void setup()
   // sample stream. By limiting the output range, the filter always should start up
   // correctly.
 
-  Serial.print("ADC mode:       ");
-  Serial.print(ADC_TIMER_PERIOD);
-  Serial.println(" uS fixed timer");
+  Serial.println("ADC mode:       free-running");
 
-  // Set up the ADC to be triggered by a hardware timer of fixed duration
+  // Set up the ADC to be free-running
   ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2); // Set the ADC's clock to system clock / 128
-  ADCSRA |= (1 << ADEN);                               // Enable ADC
+  ADCSRA |= (1 << ADEN);                               // Enable the ADC
 
-  Timer1.initialize(ADC_TIMER_PERIOD); // set Timer1 interval
-  Timer1.attachInterrupt(timerIsr);    // declare timerIsr() as interrupt service routine
+  ADCSRA |= (1 << ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+                          // bits ADTS0-2 have not been set (i.e. they are all zero), the
+                          // ADC's trigger source is set to "free running mode".
+
+  ADCSRA |= (1 << ADIE); // set the ADC interrupt enable bit. When this bit is written
+                         // to one and the I-bit in SREG is set, the
+                         // ADC Conversion Complete Interrupt is activated.
+
+  ADCSRA |= (1 << ADSC); // start ADC manually first time
+  sei();                 // Enable Global Interrupts
 
   Serial.print("powerCal_grid =      ");
   Serial.println(powerCal_grid, 4);
@@ -554,7 +557,7 @@ void setup()
 // executed whenever the ADC timer expires. In this mode, the next ADC conversion is
 // initiated from within this ISR.
 //
-void timerIsr(void)
+ISR(ADC_vect)
 {
   static unsigned char sample_index{0};
   int16_t rawSample;
@@ -569,7 +572,6 @@ void timerIsr(void)
   case 0:
     rawSample = ADC;                       // store the ADC value (this one is for Voltage)
     ADMUX = 0x40 + currentSensor_diverted; // set up the next conversion, which is for Diverted Current
-    ADCSRA |= (1 << ADSC);                 // start the ADC
     ++sample_index;                        // increment the control flag
 
     sampleVminusDC_long = ((int32_t)rawSample << 8) - DCoffset_V_long;
@@ -581,7 +583,7 @@ void timerIsr(void)
     // for the Vrms calculation (for datalogging only)
     filtV_div4 = sampleVminusDC_long >> 2;   // reduce to 16-bits (now x64, or 2^6)
     inst_Vsquared = filtV_div4 * filtV_div4; // 32-bits (now x4096, or 2^12)
-    inst_Vsquared = inst_Vsquared >> 12;     // scaling is now x1 (V_ADC x I_ADC)
+    inst_Vsquared >>= 12;                    // scaling is now x1 (V_ADC x I_ADC)
     sum_Vsquared += inst_Vsquared;           // cumulative V^2 (V_ADC x I_ADC)
     ++sampleSetsDuringThisDatalogPeriod_long;
     //
@@ -595,7 +597,6 @@ void timerIsr(void)
   case 1:
     rawSample = ADC;              // store the ADC value (this one is for Grid Current)
     ADMUX = 0x40 + voltageSensor; // set up the next conversion, which is for Voltage
-    ADCSRA |= (1 << ADSC);        // start the ADC
     ++sample_index;               // increment the control flag
     //
     // remove most of the DC offset from the current sample (the precise value does not matter)
@@ -605,14 +606,13 @@ void timerIsr(void)
     filtV_div4 = sampleVminusDC_long >> 2; // reduce to 16-bits (now x64, or 2^6)
     filtI_div4 = sampleIminusDC >> 2;      // reduce to 16-bits (now x64, or 2^6)
     instP = filtV_div4 * filtI_div4;       // 32-bits (now x4096, or 2^12)
-    instP = instP >> 12;                   // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+    instP >>= 12;                          // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
     sumP_forEnergyBucket += instP;         // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
     sumP_atSupplyPoint += instP;
     break;
   case 2:
     rawSample = ADC;                   // store the ADC value (this one is for Diverted Current)
     ADMUX = 0x40 + currentSensor_grid; // set up the next conversion, which is for Grid Current
-    ADCSRA |= (1 << ADSC);             // start the ADC
     sample_index = 0;                  // reset the control flag
     //
     // remove most of the DC offset from the current sample (the precise value does not matter)
@@ -622,7 +622,7 @@ void timerIsr(void)
     filtV_div4 = sampleVminusDC_long >> 2; // reduce to 16-bits (now x64, or 2^6)
     filtI_div4 = sampleIminusDC >> 2;      // reduce to 16-bits (now x64, or 2^6)
     instP = filtV_div4 * filtI_div4;       // 32-bits (now x4096, or 2^12)
-    instP = instP >> 12;                   // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+    instP >>= 12;                          // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
     sumP_diverted += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
     break;
   default:
@@ -782,27 +782,6 @@ void processLatestContribution()
     }
   }
 
-  if (timerForDisplayUpdate > UPDATE_PERIOD_FOR_DISPLAYED_DATA)
-  { // the 4-digit display needs to be refreshed every few mS. For convenience,
-    // this action is performed every N times around this processing loop.
-    timerForDisplayUpdate = 0;
-
-    // After a pre-defined period of inactivity, the 4-digit display needs to
-    // close down in readiness for the next's day's data.
-    //
-    if (absenceOfDivertedEnergyCount > displayShutdown_inMainsCycles)
-    {
-      // clear the accumulators for diverted energy
-      divertedEnergyTotal_Wh = 0;
-      divertedEnergyRecent_IEU = 0;
-      EDD_isActive = false; // energy diversion detector is now inactive
-    }
-
-    configureValueForDisplay();
-  }
-  else
-    ++timerForDisplayUpdate;
-
   // continuity checker
   ++sampleCount_forContinuityChecker;
   if (sampleCount_forContinuityChecker >= CONTINUITY_CHECK_MAXCOUNT)
@@ -816,8 +795,7 @@ void processLatestContribution()
    * for use by the main code.  These variable are then reset for use during the next 
    * datalogging period.
    */
-  ++cycleCountForDatalogging_long;
-  if (cycleCountForDatalogging_long >= DATALOG_PERIOD_IN_MAINS_CYCLES)
+  if (++cycleCountForDatalogging_long >= DATALOG_PERIOD_IN_MAINS_CYCLES)
   {
     cycleCountForDatalogging_long = 0;
 
@@ -1139,9 +1117,7 @@ void refreshDisplay()
   static uint8_t displayTime_count{0};
   static uint8_t digitLocationThatIsActive{0};
 
-  ++displayTime_count;
-
-  if (displayTime_count <= MAX_DISPLAY_TIME_COUNT)
+  if (++displayTime_count <= MAX_DISPLAY_TIME_COUNT)
     return;
 
   displayTime_count = 0;
@@ -1247,6 +1223,33 @@ void refreshDisplay()
 void loop()
 {
   static uint8_t perSecondTimer{0};
+
+  if (b_newMainsCycle)
+  {
+    b_newMainsCycle = false;
+    ++perSecondTimer;
+
+    if (perSecondTimer >= CYCLES_PER_SECOND)
+    {
+      perSecondTimer = 0;
+
+      // After a pre-defined period of inactivity, the 4-digit display needs to
+      // close down in readiness for the next's day's data.
+      //
+      if (absenceOfDivertedEnergyCount > displayShutdown_inMainsCycles)
+      {
+        // Clear the accumulators for diverted energy.  These are the "genuine"
+        // accumulators that are used by ISR rather than the copies that are
+        // regularly made available for use by the main code.
+        //
+        divertedEnergyTotal_Wh = 0;
+        divertedEnergyRecent_IEU = 0;
+        EDD_isActive = false; // energy diversion detector is now inactive
+      }
+
+      configureValueForDisplay(); // this timing is not critical so does not need to be in the ISR
+    }
+  }
 
   if (b_datalogEventPending)
   {
