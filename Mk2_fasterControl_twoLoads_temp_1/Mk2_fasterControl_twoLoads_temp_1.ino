@@ -1288,7 +1288,7 @@ void loop()
       Serial.print(", #");
       Serial.print(i);
       Serial.print(" ");
-      Serial.print((100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod);
+      Serial.print((float)(100 * copyOf_countLoadON[i]) / DATALOG_PERIOD_IN_MAINS_CYCLES);
       Serial.print("%");
     }
 #ifdef TEMP_SENSOR
