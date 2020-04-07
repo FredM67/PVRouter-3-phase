@@ -226,7 +226,6 @@ uint16_t divertedEnergyTotal_Wh{0};  /**< WattHour register of 63K range */
 constexpr uint8_t displayCyclingInSeconds{5}; /**< duration for cycling between diverted energy and temperature */
 constexpr uint32_t displayShutdown_inMainsCycles{DISPLAY_SHUTDOWN_IN_HOURS * CYCLES_PER_SECOND * 3600L};
 uint32_t absenceOfDivertedEnergyCount{0};
-uint8_t timerForDisplayUpdate{0};
 int16_t sampleSetsDuringNegativeHalfOfMainsCycle; /**< for arming the triac/trigger */
 int32_t energyInBucket_prediction;
 bool loadHasJustChangedState;
@@ -423,7 +422,7 @@ constexpr uint8_t segMap[noOfPossibleCharacters][noOfSegmentsPerDigit]{
 };
 #endif // PIN_SAVING_HARDWARE
 
-uint8_t charsForDisplay[noOfDigitLocations]{20, 20, 20, 20}; /**< all blank */
+volatile uint8_t charsForDisplay[noOfDigitLocations]{20, 20, 20, 20}; /**< all blank */
 
 bool EDD_isActive{false}; /**< energy divertion detection */
 
@@ -1092,7 +1091,7 @@ void configureValueForDisplay(const bool bToggleDisplayTemp)
   if (bToggleDisplayTemp)
   {
     // we want to display the temperature
-    uint16_t val{tx_data.Vrms_times100};
+    uint16_t val{tx_data.temperature_times100};
 
     uint8_t thisDigit{val / 1000};
     charsForDisplay[0] = thisDigit;
@@ -1244,9 +1243,7 @@ void refreshDisplay()
   // 2. determine the next digit location which is to be displayed
   ++digitLocationThatIsActive;
   if (digitLocationThatIsActive >= noOfDigitLocations)
-  {
     digitLocationThatIsActive = 0;
-  }
 
   // 3. determine the relevant character for the new active location
   uint8_t digitVal{charsForDisplay[digitLocationThatIsActive]};
