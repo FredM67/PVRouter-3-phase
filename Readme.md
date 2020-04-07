@@ -8,7 +8,7 @@ It supports 3 resistive output loads, which are completely independent.
 ---
 **_NOTE:_**
 
-Mk2_fasterControl_twoLoads_temp_1 is a refactored version of the original sketch Mk2_fasterControl_twoLoads_2.ino from Robin Emley.
+***Mk2_fasterControl_twoLoads_temp_1*** is a refactored version of the original sketch ***Mk2_fasterControl_twoLoads_2*** from Robin Emley.
 This is for the single phase version of the diverter.
 
 Main changes in this version:
