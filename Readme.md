@@ -5,6 +5,20 @@ My version of the 3-phase Mk2PVRouter firmware (see <http://www.mk2pvrouter.co.u
 Robin Emley already proposes a 3 phase PV-router (<https://www.mk2pvrouter.co.uk/3-phase-version.html>).
 It supports 3 resistive output loads, which are completely independent.
 
+---
+**_NOTE:_**
+
+Mk2_fasterControl_twoLoads_temp_1 is a refactored version of the original sketch Mk2_fasterControl_twoLoads_2.ino from Robin Emley.
+This is for the single phase version of the diverter.
+
+Main changes in this version:
+
+- Time-critical work is now in the ISR.
+- Serial data logging has been added
+- Temperatur sensor has been added.
+
+---
+
 ## Implementation documentation
 
 You can start reading the documentation here [3-phase diverter](https://fredm67.github.io/Mk2PVRouter/html/index.html).
