@@ -115,9 +115,8 @@ constexpr uint32_t ANTI_CREEP_LIMIT{5}; /**< in Joules per mains cycle (has no e
 
 constexpr int32_t DATALOG_PERIOD_IN_MAINS_CYCLES{250}; /**< Period of datalogging in cycles */
 
-constexpr uint8_t MAX_DISPLAY_TIME_COUNT{10};           /**< no of processing loops between display updates */
-constexpr uint8_t UPDATE_PERIOD_FOR_DISPLAYED_DATA{50}; /**< mains cycles */
-constexpr uint8_t DISPLAY_SHUTDOWN_IN_HOURS{8};         /**< auto-reset after this period of inactivity */
+constexpr uint8_t MAX_DISPLAY_TIME_COUNT{CYCLES_PER_SECOND}; /**< no of processing loops between display updates */
+constexpr uint8_t DISPLAY_SHUTDOWN_IN_HOURS{8};              /**< auto-reset after this period of inactivity */
 // #define DISPLAY_SHUTDOWN_IN_HOURS 0.01 // for testing that the display clears after 36 seconds
 
 //  The two versions of the hardware require different logic. The following line should
@@ -1348,6 +1347,14 @@ void loop()
     Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
     Serial.println(')');
 #endif
+
+    Serial.print(bToggleDisplayTemp ? "Energy - " : "Temp - ");
+    for (uint8_t _iDigit = 0; _iDigit < noOfDigitLocations; ++_iDigit)
+    {
+      Serial.print(charsForDisplay[_iDigit]);
+      Serial.print(" - ");
+    }
+    Serial.println();
 
 #ifdef TEMP_SENSOR
     convertTemperature(); // for use next time around
