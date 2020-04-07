@@ -1305,7 +1305,7 @@ void loop()
   if (displayCyclingTimer >= displayCyclingInSeconds)
   {
     displayCyclingTimer = 0;
-    bToggleDisplayTemp != bToggleDisplayTemp;
+    bToggleDisplayTemp = !bToggleDisplayTemp;
   }
 
   if (b_datalogEventPending)
@@ -1347,14 +1347,6 @@ void loop()
     Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
     Serial.println(')');
 #endif
-
-    Serial.print(bToggleDisplayTemp ? "Energy - " : "Temp - ");
-    for (uint8_t _iDigit = 0; _iDigit < noOfDigitLocations; ++_iDigit)
-    {
-      Serial.print(charsForDisplay[_iDigit]);
-      Serial.print(" - ");
-    }
-    Serial.println();
 
 #ifdef TEMP_SENSOR
     convertTemperature(); // for use next time around
