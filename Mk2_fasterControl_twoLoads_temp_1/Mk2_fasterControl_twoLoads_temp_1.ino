@@ -94,7 +94,7 @@
 
 #include <Arduino.h>
 
-//#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
+#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 
 #define DATALOG_OUTPUT ///< this line can be commented if no datalogging is needed
 
@@ -322,9 +322,11 @@ constexpr uint8_t noOfPossibleCharacters{22};
 #define DRIVER_CHIP_DISABLED HIGH
 #define DRIVER_CHIP_ENABLED LOW
 
+constexpr uint8_t tempSensorPin{xx};         /**< <- a free pin must be choosen for temperatur sensor
+
 // the primary segments are controlled by a pair of logic chips
 constexpr uint8_t noOfDigitSelectionLines{4}; /**< <- for the 74HC4543 7-segment display driver */
-constexpr uint8_t noOfDigitLocationLines{2};  /**< <- for the 74HC138 2->4 line demultiplexer */
+constexpr uint8_t noOfDigitLocationLines{2}; /**< <- for the 74HC138 2->4 line demultiplexer */
 
 constexpr uint8_t enableDisableLine{5}; /**< <- affects the primary 7 segments only (not the DP) */
 constexpr uint8_t decimalPointLine{14}; /**< <- this line has to be individually controlled. */
@@ -376,7 +378,10 @@ constexpr uint8_t digitLocationMap[noOfDigitLocations][noOfDigitLocationLines]{
 #define ON HIGH
 #define OFF LOW
 
+constexpr uint8_t tempSensorPin{15}; /**< the only free pin left in thins case (pin1 of IC4) */
+
 constexpr uint8_t noOfSegmentsPerDigit{8}; /**< includes one for the decimal point */
+
 enum class DigitEnableStates : uint8_t
 {
   DIGIT_ENABLED,
@@ -421,6 +426,11 @@ uint8_t charsForDisplay[noOfDigitLocations]{20, 20, 20, 20}; /**< all blank */
 bool EDD_isActive{false}; /**< energy divertion detection */
 
 constexpr int32_t requiredExportPerMainsCycle_inIEU{(int32_t)REQUIRED_EXPORT_IN_WATTS * (1 / powerCal_grid)};
+
+#ifdef TEMP_SENSOR
+// For temperature sensing
+OneWire oneWire(tempSensorPin);
+#endif
 
 void setup()
 {
@@ -546,6 +556,10 @@ void setup()
   Serial.println(freeRam()); // a useful value to keep an eye on
 
   Serial.println("----");
+
+#ifdef TEMP_SENSOR
+  convertTemperature(); // start initial temperature conversion
+#endif
 }
 
 // An Interrupt Service Routine is now defined in which the ADC is instructed to
@@ -1294,6 +1308,7 @@ void loop()
 #ifdef TEMP_SENSOR
     Serial.print(", temperature ");
     Serial.print((float)tx_data.temperature_times100 / 100);
+    Serial.print("°C ");
 #endif
     Serial.print(",  (minSampleSets/MC ");
     Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
