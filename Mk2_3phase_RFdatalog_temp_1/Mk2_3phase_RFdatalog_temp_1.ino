@@ -85,6 +85,10 @@
  * - rotation of load priorities made switcheable at compile-time
  * - enhanced configuration for forcing specific loads during off-peak period
  * 
+ * __April 2020, changes:__
+ * - Fix a bug in the load level calculation
+ * 
+ * 
  *   Fred Metrich
  *  
  * @copyright Copyright (c) 2020
@@ -1103,7 +1107,7 @@ void printDataLogging(bool bOffPeak)
 
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    doc[strLoad] = (100 * copyOf_countLoadON[i]) / copyOf_sampleSetsDuringThisDatalogPeriod;
+    doc[strLoad] = (100 * copyOf_countLoadON[i]) / DATALOG_PERIOD_IN_MAINS_CYCLES;
     ++strLoad[5];
   }
 
