@@ -223,7 +223,7 @@ constexpr int32_t DCoffset_V_max{(512L + 100L) * 256L}; /**< mid-point of ADC pl
 int32_t divertedEnergyRecent_IEU{0}; /**< Hi-res accumulator of limited range */
 uint16_t divertedEnergyTotal_Wh{0};  /**< WattHour register of 63K range */
 
-constexpr uint32_t displayCyclingInSeconds{5}; /**< duration for cycling between diverted energy and temperature */
+constexpr uint8_t displayCyclingInSeconds{5}; /**< duration for cycling between diverted energy and temperature */
 constexpr uint32_t displayShutdown_inMainsCycles{DISPLAY_SHUTDOWN_IN_HOURS * CYCLES_PER_SECOND * 3600L};
 uint32_t absenceOfDivertedEnergyCount{0};
 uint8_t timerForDisplayUpdate{0};
@@ -1088,20 +1088,6 @@ void configureValueForDisplay(const bool bToggleDisplayTemp)
 {
   static uint8_t locationOfDot{0};
 
-  if (!EDD_isActive)
-  {
-    // "walking dots" display
-    charsForDisplay[locationOfDot] = 20; // blank
-
-    ++locationOfDot;
-    if (locationOfDot >= noOfDigitLocations)
-      locationOfDot = 0;
-
-    charsForDisplay[locationOfDot] = 21; // dot
-
-    return;
-  }
-
 #ifdef TEMP_SENSOR
   if (bToggleDisplayTemp)
   {
@@ -1124,7 +1110,21 @@ void configureValueForDisplay(const bool bToggleDisplayTemp)
 
     return;
   }
-  #endif
+#endif
+
+  if (!EDD_isActive)
+  {
+    // "walking dots" display
+    charsForDisplay[locationOfDot] = 20; // blank
+
+    ++locationOfDot;
+    if (locationOfDot >= noOfDigitLocations)
+      locationOfDot = 0;
+
+    charsForDisplay[locationOfDot] = 21; // dot
+
+    return;
+  }
 
   uint16_t val{divertedEnergyTotal_Wh};
   bool energyValueExceeds10kWh;
