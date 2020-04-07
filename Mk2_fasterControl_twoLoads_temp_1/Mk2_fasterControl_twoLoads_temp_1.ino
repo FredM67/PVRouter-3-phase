@@ -223,6 +223,7 @@ constexpr int32_t DCoffset_V_max{(512L + 100L) * 256L}; /**< mid-point of ADC pl
 int32_t divertedEnergyRecent_IEU{0}; /**< Hi-res accumulator of limited range */
 uint16_t divertedEnergyTotal_Wh{0};  /**< WattHour register of 63K range */
 
+constexpr uint32_t displayCyclingInSeconds{5}; /**< duration for cycling between diverted energy and temperature */
 constexpr uint32_t displayShutdown_inMainsCycles{DISPLAY_SHUTDOWN_IN_HOURS * CYCLES_PER_SECOND * 3600L};
 uint32_t absenceOfDivertedEnergyCount{0};
 uint8_t timerForDisplayUpdate{0};
@@ -314,7 +315,7 @@ constexpr int32_t antiCreepLimit_inIEUperMainsCycle{(float)ANTI_CREEP_LIMIT * (1
 
 // Various settings for the 4-digit display, which needs to be refreshed every few mS
 constexpr uint8_t noOfDigitLocations{4};
-constexpr uint8_t noOfPossibleCharacters{22};
+constexpr uint8_t noOfPossibleCharacters{23};
 
 //  The two versions of the hardware require different logic.
 #ifdef PIN_SAVING_HARDWARE
@@ -417,7 +418,8 @@ constexpr uint8_t segMap[noOfPossibleCharacters][noOfSegmentsPerDigit]{
     ON, ON, ON, ON, ON, ON, ON, ON,         // '8.' <- element 18
     ON, ON, ON, ON, OFF, ON, ON, ON,        // '9.' <- element 19
     OFF, OFF, OFF, OFF, OFF, OFF, OFF, OFF, // ' ' <- element 20
-    OFF, OFF, OFF, OFF, OFF, OFF, OFF, ON   // '.' <- element 11
+    OFF, OFF, OFF, OFF, OFF, OFF, OFF, ON,  // '.' <- element 21
+    ON, ON, OFF, OFF, OFF, ON, ON, OFF      // '°' <- element 22
 };
 #endif // PIN_SAVING_HARDWARE
 
@@ -1082,7 +1084,7 @@ void updatePhysicalLoadStates()
 }
 
 // called infrequently, to update the characters to be displayed
-void configureValueForDisplay()
+void configureValueForDisplay(const bool bToggleDisplayTemp)
 {
   static uint8_t locationOfDot{0};
 
@@ -1099,6 +1101,30 @@ void configureValueForDisplay()
 
     return;
   }
+
+#ifdef TEMP_SENSOR
+  if (bToggleDisplayTemp)
+  {
+    // we want to display the temperature
+    uint16_t val{tx_data.Vrms_times100};
+
+    uint8_t thisDigit{val / 1000};
+    charsForDisplay[0] = thisDigit;
+    val -= 1000 * thisDigit;
+
+    thisDigit = val / 100;
+    charsForDisplay[1] = thisDigit + 10; // dec point after 2nd digit
+    val -= 100 * thisDigit;
+
+    thisDigit = val / 10;
+    charsForDisplay[2] = thisDigit;
+    val -= 10 * thisDigit;
+
+    charsForDisplay[3] = 21; // we skip the last character, display '°' instead
+
+    return;
+  }
+  #endif
 
   uint16_t val{divertedEnergyTotal_Wh};
   bool energyValueExceeds10kWh;
@@ -1249,6 +1275,8 @@ void refreshDisplay()
 void loop()
 {
   static uint8_t perSecondTimer{0};
+  static bool bToggleDisplayTemp{false};
+  static uint16_t displayCyclingTimer{0};
 
   if (b_newMainsCycle)
   {
@@ -1258,6 +1286,7 @@ void loop()
     if (perSecondTimer >= CYCLES_PER_SECOND)
     {
       perSecondTimer = 0;
+      ++displayCyclingTimer;
 
       // After a pre-defined period of inactivity, the 4-digit display needs to
       // close down in readiness for the next's day's data.
@@ -1273,8 +1302,14 @@ void loop()
         EDD_isActive = false; // energy diversion detector is now inactive
       }
 
-      configureValueForDisplay(); // this timing is not critical so does not need to be in the ISR
+      configureValueForDisplay(bToggleDisplayTemp); // this timing is not critical so does not need to be in the ISR
     }
+  }
+
+  if (displayCyclingTimer >= displayCyclingInSeconds)
+  {
+    displayCyclingTimer = 0;
+    bToggleDisplayTemp != bToggleDisplayTemp;
   }
 
   if (b_datalogEventPending)
