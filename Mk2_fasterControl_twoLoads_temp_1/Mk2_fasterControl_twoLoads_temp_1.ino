@@ -1288,7 +1288,8 @@ void configureValueForDisplay(const bool bToggleDisplayTemp)
   static uint8_t locationOfDot{0};
 
 #ifdef TEMP_SENSOR
-  if (bToggleDisplayTemp)
+  // leave the temperature in case of zero diversion instead of "walking dots"
+  if (bToggleDisplayTemp || !EDD_isActive)
   {
     // we want to display the temperature
     uint16_t val{tx_data.temperature_times100};
