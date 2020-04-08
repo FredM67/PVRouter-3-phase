@@ -115,8 +115,8 @@ constexpr uint32_t ANTI_CREEP_LIMIT{5}; /**< in Joules per mains cycle (has no e
 
 constexpr int32_t DATALOG_PERIOD_IN_MAINS_CYCLES{250}; /**< Period of datalogging in cycles */
 
-constexpr uint8_t MAX_DISPLAY_TIME_COUNT{CYCLES_PER_SECOND}; /**< no of processing loops between display updates */
-constexpr uint8_t DISPLAY_SHUTDOWN_IN_HOURS{8};              /**< auto-reset after this period of inactivity */
+constexpr uint8_t MAX_DISPLAY_TIME_COUNT{10};   /**< no of processing loops between display updates */
+constexpr uint8_t DISPLAY_SHUTDOWN_IN_HOURS{8}; /**< auto-reset after this period of inactivity */
 // #define DISPLAY_SHUTDOWN_IN_HOURS 0.01 // for testing that the display clears after 36 seconds
 
 //  The two versions of the hardware require different logic. The following line should
@@ -421,7 +421,7 @@ constexpr uint8_t segMap[noOfPossibleCharacters][noOfSegmentsPerDigit]{
 };
 #endif // PIN_SAVING_HARDWARE
 
-volatile uint8_t charsForDisplay[noOfDigitLocations]{20, 20, 20, 20}; /**< all blank */
+uint8_t charsForDisplay[noOfDigitLocations]{20, 20, 20, 20}; /**< all blank */
 
 bool EDD_isActive{false}; /**< energy divertion detection */
 
