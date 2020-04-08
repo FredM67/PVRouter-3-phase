@@ -1,6 +1,20 @@
-/* Mk2_fasterControl_twoLoads_2.ino
+/**
+ * @file Mk2_fasterControl_twoLoads_temp_1.ino
+ * @author Robin Emley (www.Mk2PVrouter.co.uk)
+ * @author Frederic Metrich (frederic.metrich@live.fr)
+ * @brief Mk2_fasterControl_twoLoads_temp_1.ino - A photovoltaïc energy diverter.
+ * @date 2020-04-08
+ * 
+ * @mainpage A 3-phase photovoltaïc router/diverter
+ * 
+ * @section description Description
+ * Mk2_fasterControl_twoLoads_temp_1.ino - Arduino program that maximizes the use of home photovoltaïc production
+ * by monitoring energy consumption and diverting power to one or more resistive charge(s) when needed.
+ * In the absence of such a system, surplus energy flows away to the grid and is of no benefit to the PV-owner.
+ * 
+ * @section history History
+ * __Initially released as Mk2_bothDisplays_1 in March 2014.__
  *
- *  (initially released as Mk2_bothDisplays_1 in March 2014)
  * This sketch is for diverting suplus PV power to a dump load using a triac or  
  * Solid State Relay. It is based on the Mk2i PV Router code that I have posted in on  
  * the OpenEnergyMonitor forum. The original version, and other related material, 
@@ -19,28 +33,29 @@
  * appropriate version of the sketch must be selected by including or commenting 
  * out the "#define PIN_SAVING_HARDWARE" statement near the top of the code.
  *
- * September 2014: renamed as Mk2_bothDisplays_2, with these changes:
+ * __September 2014: renamed as Mk2_bothDisplays_2, with these changes:__
  * - cycleCount removed (was not actually used in this sketch, but could have overflowed);
  * - removal of unhelpful comments in the IO pin section;
  * - tidier initialisation of display logic in setup();
  * - addition of REQUIRED_EXPORT_IN_WATTS logic (useful as a built-in PV simulation facility);
  *
- * December 2014: renamed as Mk2_bothDisplays_3, with these changes:
+ * __December 2014: renamed as Mk2_bothDisplays_3, with these changes:__
  * - persistence check added for zero-crossing detection (polarityConfirmed)
  * - lowestNoOfSampleSetsPerMainsCycle added, to check for any disturbances
  *
- * December 2014: renamed as Mk2_bothDisplays_3a, with some typographical errors fixed.
+ * __December 2014: renamed as Mk2_bothDisplays_3a, with these changes:__
+ * - some typographical errors fixed.
  *
- * January 2016: renamed as Mk2_bothDisplays_3b, with a minor change in the ISR to 
- *   remove a timing uncertainty.
+ * __January 2016: renamed as Mk2_bothDisplays_3b, with these changes:__
+ * - a minor change in the ISR to remove a timing uncertainty.
  *
- * January 2016: updated to Mk2_bothDisplays_3c:
- *   The variables to store the ADC results are now declared as "volatile" to remove 
- *   any possibility of incorrect operation due to optimisation by the compiler.
+ * __January 2016: updated to Mk2_bothDisplays_3c:__
+ * -  The variables to store the ADC results are now declared as "volatile" to remove 
+ *      any possibility of incorrect operation due to optimisation by the compiler.
  *
- * February 2016: updated to Mk2_bothDisplays_4, with these changes:
+ * __February 2016: updated to Mk2_bothDisplays_4, with these changes:__
  * - improvements to the start-up logic. The start of normal operation is now 
- *    synchronised with the start of a new mains cycle.
+ *     synchronised with the start of a new mains cycle.
  * - reduce the amount of feedback in the Low Pass Filter for removing the DC content
  *     from the Vsample stream. This resolves an anomaly which has been present since 
  *     the start of this project. Although the amount of feedback has previously been 
@@ -50,46 +65,50 @@
  * - SWEETZONE_IN_JOULES changed to WORKING_RANGE_IN_JOULES 
  * - change "triac" to "load" wherever appropriate
  *
- * November 2019: updated to Mk2_fasterControl_1 with these changes:
+ * __November 2019: updated to Mk2_fasterControl_1 with these changes:__
  * - Half way through each mains cycle, a prediction is made of the likely energy level at the
- *   end of the cycle. That predicted value allows the triac to be switched at the +ve going 
- *   zero-crossing point rather than waiting for a further 10 ms. These changes allow for 
- *   faster switching of the load.
+ *     end of the cycle. That predicted value allows the triac to be switched at the +ve going 
+ *     zero-crossing point rather than waiting for a further 10 ms. These changes allow for 
+ *     faster switching of the load.
  * - The range of the energy bucket has been reduced to one tenth of its former value. This
- *   allows the unit's operation to commence more rapidly whenever surplus power is available.
+ *     allows the unit's operation to commence more rapidly whenever surplus power is available.
  * - controlMode is no longer selectable, the unit's operation being effectively hard-coded 
- *   as "Normal" rather than Anti-flicker. 
+ *     as "Normal" rather than Anti-flicker. 
  * - Port D3 now supports an indicator which shows when the level in the energy bucket
- *   reaches either end of its range. While the unit is actively diverting surplus power,
- *   it is vital that the level in the reduced capacity energy bucket remains within its 
- *   permitted range, hence the addition of this indicator.
+ *     reaches either end of its range. While the unit is actively diverting surplus power,
+ *     it is vital that the level in the reduced capacity energy bucket remains within its 
+ *     permitted range, hence the addition of this indicator.
  *   
- * February 2020: updated to Mk2_fasterControl_twoLoads_1 with these changes:
+ * __February 2020: updated to Mk2_fasterControl_twoLoads_1 with these changes:__
  * - the energy overflow indicator has been disabled to free up port D3 
  * - port D3 now supports a second load
  * 
- * February 2020: updated to Mk2_fasterControl_twoLoads_2 with these changes:
+ * __February 2020: updated to Mk2_fasterControl_twoLoads_2 with these changes:__
  * - improved multi-load control logic to prevent the primary load from being disturbed by
- *   the lower priority one. This logic now mirrors that in the Mk2_multiLoad_wired_n line.
+ *     the lower priority one. This logic now mirrors that in the Mk2_multiLoad_wired_n line.
  * 
  *   
  *      Robin Emley
  *      www.Mk2PVrouter.co.uk
  *
- * April 2020: renamed as Mk2_fasterControl_twoLoads__temp_1 with these changes:
+ * __April 2020: renamed as Mk2_fasterControl_twoLoads__temp_1 with these changes:__
  * - This sketch has been restructured in order to make better use of the ISR.
  * - This sketch has been again re-engineered. All 'defines' have been removed except
- *   the ones for compile-time optional functionalities.
+ *     the ones for compile-time optional functionalities.
  * - All constants have been replaced with constexpr initialized at compile-time
  * - all number-types have been replaced with fixed width number types
  * - old fashion enums replaced by scoped enums with fixed types
  * - All of the time-critical code is now contained within the ISR and its helper functions.
  * - Values for datalogging are transferred to the main code using a flag-based handshake mechanism.
  * - The diversion of surplus power can no longer be affected by slower
- * activities which may be running in the main code such as Serial statements and RF.
+ *     activities which may be running in the main code such as Serial statements and RF.
  * - Temperature sensing is supported. A pullup resistor (4K7 or similar) is required for the Dallas sensor.
+ * - Display shows diverted envergy and temperature in a cycling way (5 seconds cycle) 
  * 
- *      Fred Metrich
+ *   Fred Metrich
+ *  
+ * @copyright Copyright (c) 2020
+ * 
 */
 
 #include <Arduino.h>
@@ -102,13 +121,15 @@
 #include <OneWire.h> // for temperature sensing
 #endif
 
-// Physical constants, please do not change!
-constexpr int32_t JOULES_PER_WATT_HOUR{3600}; /**< (0.001 kWh = 3600 Joules) */
+// In this sketch, the ADC is free-running with a cycle time of ~104uS.
 
 // Change these values to suit the local mains frequency and supply meter
-constexpr uint32_t CYCLES_PER_SECOND{50};
+constexpr int32_t CYCLES_PER_SECOND{50};         /**< number of cycles/s of the grid power supply */
 constexpr uint32_t WORKING_RANGE_IN_JOULES{360}; /**< 0.1 Wh, reduced for faster start-up */
 constexpr int32_t REQUIRED_EXPORT_IN_WATTS{0};   /**< when set to a Polarities::NEGATIVE value, this acts as a PV generator */
+
+// Physical constants, please do not change!
+constexpr int32_t JOULES_PER_WATT_HOUR{3600}; /**< (0.001 kWh = 3600 Joules) */
 
 // to prevent the diverted energy total from 'creeping'
 constexpr uint32_t ANTI_CREEP_LIMIT{5}; /**< in Joules per mains cycle (has no effect when set to 0) */
@@ -125,7 +146,7 @@ constexpr uint8_t DISPLAY_SHUTDOWN_IN_HOURS{8}; /**< auto-reset after this perio
 //
 //#define PIN_SAVING_HARDWARE
 
-constexpr uint8_t NO_OF_DUMPLOADS{2};
+constexpr uint8_t NO_OF_DUMPLOADS{2}; /**< number of dump loads connected to the diverter */
 
 #ifdef TEMP_SENSOR
 // --------------------------
@@ -142,8 +163,8 @@ constexpr uint16_t BAD_TEMPERATURE{30000}; /**< this value (300C) is sent if no 
 /** Polarities */
 enum class Polarities : uint8_t
 {
-  NEGATIVE, /**< polarity is Polarities::NEGATIVE */
-  POSITIVE  /**< polarity is Polarities::POSITIVE */
+  NEGATIVE, /**< polarity is negative */
+  POSITIVE  /**< polarity is positive */
 };
 
 /** all loads are logically active-low */
@@ -153,8 +174,8 @@ enum class LoadStates : uint8_t
   LOAD_OFF /**< load is OFF */
 };
 
-LoadStates logicalLoadState[NO_OF_DUMPLOADS];
-LoadStates physicalLoadState[NO_OF_DUMPLOADS];
+LoadStates logicalLoadState[NO_OF_DUMPLOADS];  /**< Logical state of the loads */
+LoadStates physicalLoadState[NO_OF_DUMPLOADS]; /**< Physical state of the loads */
 
 /** @brief container for datalogging
  *  @details This class is used for datalogging.
@@ -164,7 +185,7 @@ class Tx_struct
 public:
   int16_t powerAtSupplyPoint_Watts; /**< main power, import = +ve, to match OEM convention */
   int16_t divertedEnergyTotal_Wh;   /**< diverted energy, always positive */
-  int16_t Vrms_times100;
+  int16_t Vrms_times100;            /**< average voltage over datalogging period (in 100th of Volt)*/
 #ifdef TEMP_SENSOR
   int16_t temperature_times100; /**< temperature in 100th of °C */
 #endif
@@ -224,10 +245,10 @@ uint16_t divertedEnergyTotal_Wh{0};  /**< WattHour register of 63K range */
 
 constexpr uint8_t displayCyclingInSeconds{5}; /**< duration for cycling between diverted energy and temperature */
 constexpr uint32_t displayShutdown_inMainsCycles{DISPLAY_SHUTDOWN_IN_HOURS * CYCLES_PER_SECOND * 3600L};
-uint32_t absenceOfDivertedEnergyCount{0};
+uint32_t absenceOfDivertedEnergyCount{0};         /**< count the # of cycles w/o energy diversion */
 int16_t sampleSetsDuringNegativeHalfOfMainsCycle; /**< for arming the triac/trigger */
-int32_t energyInBucket_prediction;
-bool loadHasJustChangedState;
+int32_t energyInBucket_prediction;                /**< predicted energy level until the end of the cycle */
+bool loadHasJustChangedState;                     /**< load has just changed its state - for predictive algorithm */
 
 // for interaction between the main processor and the ISRs
 volatile bool b_datalogEventPending{false}; /**< async trigger to signal datalog is available */
@@ -242,9 +263,9 @@ volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];     /**< copy of number o
 
 // For an enhanced polarity detection mechanism, which includes a persistence check
 constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{1}; /**< allows polarity changes to be confirmed */
-Polarities polarityOfMostRecentVsample;
-Polarities polarityConfirmed;
-Polarities polarityConfirmedOfLastSampleV;
+Polarities polarityOfMostRecentVsample;               /**< for zero-crossing detection */
+Polarities polarityConfirmed;                         /**< for zero-crossing detection */
+Polarities polarityConfirmedOfLastSampleV;            /**< for zero-crossing detection */
 
 // For a mechanism to check the continuity of the sampling sequence
 constexpr int32_t CONTINUITY_CHECK_MAXCOUNT{250}; /**< mains cycles */
@@ -1119,7 +1140,7 @@ void configureValueForDisplay(const bool bToggleDisplayTemp)
     if (locationOfDot >= noOfDigitLocations)
       locationOfDot = 0;
 
-    charsForDisplay[locationOfDot] = 21; // dot
+    charsForDisplay[locationOfDot] = 22; // dot
 
     return;
   }
