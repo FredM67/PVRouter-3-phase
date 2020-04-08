@@ -258,7 +258,7 @@ volatile int32_t copyOf_sumP_atSupplyPoint;                /**< for per-cycle su
 volatile int32_t copyOf_divertedEnergyTotal_Wh;            /**< for per-cycle summation of 'real power' */
 volatile int32_t copyOf_sum_Vsquared;                      /**< for summation of V^2 values during datalog period */
 volatile int16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
-volatile int16_t copyOf_lowestNoOfSampleSetsPerMainsCycle; /**<  */
+volatile int16_t copyOf_lowestNoOfSampleSetsPerMainsCycle; /**< copy of lowest # of sample sets during this cycle */
 volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];     /**< copy of number of cycle the load was ON (over 1 datalog period) */
 
 // For an enhanced polarity detection mechanism, which includes a persistence check
@@ -269,9 +269,9 @@ Polarities polarityConfirmedOfLastSampleV;            /**< for zero-crossing det
 
 // For a mechanism to check the continuity of the sampling sequence
 constexpr int32_t CONTINUITY_CHECK_MAXCOUNT{250}; /**< mains cycles */
-int16_t sampleCount_forContinuityChecker;
-int16_t sampleSetsDuringThisMainsCycle; /**< # of sample sets during this cycle */
-int16_t lowestNoOfSampleSetsPerMainsCycle; /**< lowest # of sample sets during this cycle */
+int16_t sampleCount_forContinuityChecker;         /**< for checking the stability of acquisition */
+int16_t sampleSetsDuringThisMainsCycle;           /**< # of sample sets during this cycle */
+int16_t lowestNoOfSampleSetsPerMainsCycle;        /**< lowest # of sample sets during this cycle */
 
 // Calibration values
 //-------------------
@@ -319,6 +319,11 @@ int16_t lowestNoOfSampleSetsPerMainsCycle; /**< lowest # of sample sets during t
 //
 constexpr float powerCal_grid{0.0435};     /**< for CT1 */
 constexpr float powerCal_diverted{0.0435}; /**< for CT2 */
+
+// For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
+// similar to the actual range of volts, the optimal value for this cal factor is likely to be
+// close to unity.
+constexpr float f_voltageCal{1.03f}; /**< compared with Fluke 77 meter */
 
 constexpr int32_t capacityOfEnergyBucket_long{(int32_t)WORKING_RANGE_IN_JOULES * CYCLES_PER_SECOND * (1 / powerCal_grid)}; /**< depends on powerCal, frequency & the 'sweetzone' size. */
 constexpr int32_t nominalEnergyThreshold{capacityOfEnergyBucket_long * 0.5};
@@ -453,6 +458,12 @@ constexpr int32_t requiredExportPerMainsCycle_inIEU{(int32_t)REQUIRED_EXPORT_IN_
 OneWire oneWire(tempSensorPin);
 #endif
 
+/**
+ * @brief Called once during startup.
+ * @details This function initializes a couple of variables we cannot init at compile time and
+ *          sets a couple of parameters for runtime.
+ * 
+ */
 void setup()
 {
   //  pinMode(outOfRangeIndication, OUTPUT);
@@ -583,17 +594,34 @@ void setup()
 #endif
 }
 
-// An Interrupt Service Routine is now defined in which the ADC is instructed to
-// measure each analogue input in sequence. A "data ready" flag is set after each
-// voltage conversion has been completed.
-//   For each set of samples, the two samples for current  are taken before the one
-// for voltage. This is appropriate because each waveform current is generally slightly
-// advanced relative to the waveform for voltage. The data ready flag is cleared
-// within loop().
-//   This Interrupt Service Routine is for use when the ADC is fixed timer mode. It is
-// executed whenever the ADC timer expires. In this mode, the next ADC conversion is
-// initiated from within this ISR.
-//
+/**
+ * @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
+ * @details An Interrupt Service Routine is now defined which instructs the ADC to perform a conversion
+ *          for each of the voltage and current sensors in turn.
+ *        
+ *          This Interrupt Service Routine is for use when the ADC is in the free-running mode.
+ *          It is executed whenever an ADC conversion has finished, approx every 104 µs. In
+ *          free-running mode, the ADC has already started its next conversion by the time that
+ *          the ISR is executed. The ISR therefore needs to "look ahead".
+ *        
+ *          At the end of conversion Type N, conversion Type N+1 will start automatically. The ISR
+ *          which runs at this point therefore needs to capture the results of conversion Type N,
+ *          and set up the conditions for conversion Type N+2, and so on.
+ *        
+ *          By means of various helper functions, all of the time-critical activities are processed
+ *          within the ISR.
+ *        
+ *          The main code is notified by means of a flag when fresh copies of loggable data are available.
+ *        
+ *          Keep in mind, when writing an Interrupt Service Routine (ISR):
+ *            - Keep it short
+ *            - Don't use delay ()
+ *            - Don't do serial prints
+ *            - Make variables shared with the main code volatile
+ *            - Variables shared with main code may need to be protected by "critical sections"
+ *            - Don't try to turn interrupts off or on
+ * 
+ */
 ISR(ADC_vect)
 {
   static unsigned char sample_index{0};
@@ -665,13 +693,22 @@ ISR(ADC_vect)
   default:
     sample_index = 0; // to prevent lockup (should never get here)
   }
-}
+} // end of ISR
 
-// This routine is called to process each set of V & I samples. The main processor and
-// the ADC work autonomously, their operation being only linked via the dataReady flag.
-// As soon as a new set of data is made available by the ADC, the main processor can
-// start to work on it immediately.
-//
+/* -----------------------------------------------------------
+   Start of various helper functions which are used by the ISR
+*/
+
+/*!
+*  @defgroup TimeCritical Time critical functions Group
+*  Functions used by the ISR
+*/
+
+/**
+ * @brief This routine is called by the ISR when a pair of V & I sample becomes available.
+ * 
+ * @ingroup TimeCritical
+ */
 void processRawSamples()
 {
   if (polarityConfirmed == Polarities::POSITIVE)
@@ -862,6 +899,11 @@ void processLatestContribution()
   sampleSetsDuringNegativeHalfOfMainsCycle = 0;
 }
 
+/**
+ * @brief Post processing after the start of a new +ve half cycle, just after the zero-crossing point.
+ * 
+ * @ingroup TimeCritical
+ */
 void postProcessPlusHalfCycle()
 {
   // Restrictions apply for the period immediately after a load has been switched.
@@ -943,6 +985,11 @@ void processMinusHalfCycle()
   energyInBucket_prediction = energyInBucket_long + averagePower; // at end of this mains cycle
 }
 
+/**
+ * @brief Post processing after the start of a new -ve half cycle, just after the zero-crossing point.
+ * 
+ * @ingroup TimeCritical
+ */
 void postProcessMinusHalfCycle()
 {
   // the zero-crossing trigger device(s) can now be reliably armed
@@ -1036,8 +1083,12 @@ void proceedLowEnergyLevel()
   }
 }
 
-//  ----- end of main Mk2i code -----
-
+/**
+ * @brief This routine prevents a zero-crossing point from being declared until a certain number
+ *        of consecutive samples in the 'other' half of the waveform have been encountered.
+ * 
+ * @ingroup TimeCritical
+ */
 void confirmPolarity()
 {
   /* This routine prevents a zero-crossing point from being declared until 
@@ -1057,6 +1108,13 @@ void confirmPolarity()
   }
 }
 
+/**
+ * @brief Retrieve the next load that could be added (be aware of the order)
+ * 
+ * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure 
+ * 
+ * @ingroup TimeCritical
+ */
 uint8_t nextLogicalLoadToBeAdded()
 {
   for (uint8_t index = 0; index < NO_OF_DUMPLOADS; ++index)
@@ -1066,6 +1124,13 @@ uint8_t nextLogicalLoadToBeAdded()
   return (NO_OF_DUMPLOADS);
 }
 
+/**
+ * @brief Retrieve the next load that could be removed (be aware of the reverse-order)
+ * 
+ * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure 
+ * 
+ * @ingroup TimeCritical
+ */
 uint8_t nextLogicalLoadToBeRemoved()
 {
   uint8_t index{NO_OF_DUMPLOADS};
@@ -1079,20 +1144,22 @@ uint8_t nextLogicalLoadToBeRemoved()
   return (NO_OF_DUMPLOADS);
 }
 
-void updatePhysicalLoadStates()
-/*
- * This function provides the link between the logical and physical loads. The 
- * array, logicalLoadState[], contains the on/off state of all logical loads, with 
- * element 0 being for the one with the highest priority. The array, 
- * physicalLoadState[], contains the on/off state of all physical loads. 
+/**
+ * @brief This function provides the link between the logical and physical loads.
+ * @details The array, logicalLoadState[], contains the on/off state of all logical loads, with
+ *          element 0 being for the one with the highest priority. The array,
+ *          physicalLoadState[], contains the on/off state of all physical loads.
  * 
- * The association between the physical and logical loads is 1:1. By default, numerical
- * equivalence is maintained, so logical(N) maps to physical(N). If physical load 1 is set 
- * to have priority, rather than physical load 0, the logical-to-physical association for 
- * loads 0 and 1 are swapped.
- *
- * Any other mapping relaionships could be configured here.
+ *          The association between the physical and logical loads is 1:1. By default, numerical
+ *          equivalence is maintained, so logical(N) maps to physical(N). If physical load 1 is set 
+ *          to have priority, rather than physical load 0, the logical-to-physical association for 
+ *          loads 0 and 1 are swapped.
+ * 
+ *          Any other mapping relationships could be configured here.
+ * 
+ * @ingroup TimeCritical
  */
+void updatePhysicalLoadStates()
 {
   for (int16_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
@@ -1102,89 +1169,15 @@ void updatePhysicalLoadStates()
   }
 }
 
-// called infrequently, to update the characters to be displayed
-void configureValueForDisplay(const bool bToggleDisplayTemp)
-{
-  static uint8_t locationOfDot{0};
-
-#ifdef TEMP_SENSOR
-  if (bToggleDisplayTemp)
-  {
-    // we want to display the temperature
-    uint16_t val{tx_data.temperature_times100};
-
-    uint8_t thisDigit{val / 1000};
-    charsForDisplay[0] = thisDigit;
-    val -= 1000 * thisDigit;
-
-    thisDigit = val / 100;
-    charsForDisplay[1] = thisDigit + 10; // dec point after 2nd digit
-    val -= 100 * thisDigit;
-
-    thisDigit = val / 10;
-    charsForDisplay[2] = thisDigit;
-    val -= 10 * thisDigit;
-
-    charsForDisplay[3] = 22; // we skip the last character, display '°' instead
-
-    return;
-  }
-#endif
-
-  if (!EDD_isActive)
-  {
-    // "walking dots" display
-    charsForDisplay[locationOfDot] = 20; // blank
-
-    ++locationOfDot;
-    if (locationOfDot >= noOfDigitLocations)
-      locationOfDot = 0;
-
-    charsForDisplay[locationOfDot] = 21; // dot
-
-    return;
-  }
-
-  uint16_t val{divertedEnergyTotal_Wh};
-  bool energyValueExceeds10kWh;
-
-  if (val < 10000)
-    energyValueExceeds10kWh = false; // no need to re-scale (display to 3 DPs)
-  else
-  {
-    // re-scale is needed (display to 2 DPs)
-    energyValueExceeds10kWh = true;
-    val = val / 10;
-  }
-
-  uint8_t thisDigit{val / 1000};
-  charsForDisplay[0] = thisDigit;
-  val -= 1000 * thisDigit;
-
-  thisDigit = val / 100;
-  charsForDisplay[1] = thisDigit;
-  val -= 100 * thisDigit;
-
-  thisDigit = val / 10;
-  charsForDisplay[2] = thisDigit;
-  val -= 10 * thisDigit;
-
-  charsForDisplay[3] = val;
-
-  // assign the decimal point location
-  if (energyValueExceeds10kWh)
-    charsForDisplay[1] += 10; // dec point after 2nd digit
-  else
-    charsForDisplay[0] += 10; // dec point after 1st digit
-}
-
+/**
+ * @brief This routine keeps track of which digit is being displayed and checks when its display 
+ *        time has expired. It then makes the necessary adjustments for displaying the next digit.
+ *        The two versions of the hardware require different logic.
+ * 
+ * @ingroup TimeCritical
+ */
 void refreshDisplay()
 {
-  // This routine keeps track of which digit is being displayed and checks when its
-  // display time has expired. It then makes the necessary adjustments for displaying
-  // the next digit.
-  //   The two versions of the hardware require different logic.
-
   static uint8_t displayTime_count{0};
   static uint8_t digitLocationThatIsActive{0};
 
@@ -1281,14 +1274,96 @@ void refreshDisplay()
 #endif // PIN_SAVING_HARDWARE
 } // end of refreshDisplay()
 
-// When using interrupt-based logic, the main processor waits in loop() until the
-// dataReady flag has been set by the ADC. Once this flag has been set, the main
-// processor clears the flag and proceeds with all the processing for one set of
-// V & I samples. It then returns to loop() to wait for the next set to become
-// available.
-//   If there is insufficient processing capacity to do all that is required, the
-//  workload rate can be reduced by increasing the duration of ADC_TIMER_PERIOD.
-//
+/* End of helper functions which are used by the ISR
+   -------------------------------------------------
+*/
+
+/**
+ * @brief Called infrequently, to update the characters to be displayed
+ * 
+ * @param bToggleDisplayTemp true for temperature, fasle for diverted energy 
+ */
+void configureValueForDisplay(const bool bToggleDisplayTemp)
+{
+  static uint8_t locationOfDot{0};
+
+#ifdef TEMP_SENSOR
+  if (bToggleDisplayTemp)
+  {
+    // we want to display the temperature
+    uint16_t val{tx_data.temperature_times100};
+
+    uint8_t thisDigit{val / 1000};
+    charsForDisplay[0] = thisDigit;
+    val -= 1000 * thisDigit;
+
+    thisDigit = val / 100;
+    charsForDisplay[1] = thisDigit + 10; // dec point after 2nd digit
+    val -= 100 * thisDigit;
+
+    thisDigit = val / 10;
+    charsForDisplay[2] = thisDigit;
+    val -= 10 * thisDigit;
+
+    charsForDisplay[3] = 22; // we skip the last character, display '°' instead
+
+    return;
+  }
+#endif
+
+  if (!EDD_isActive)
+  {
+    // "walking dots" display
+    charsForDisplay[locationOfDot] = 20; // blank
+
+    ++locationOfDot;
+    if (locationOfDot >= noOfDigitLocations)
+      locationOfDot = 0;
+
+    charsForDisplay[locationOfDot] = 21; // dot
+
+    return;
+  }
+
+  uint16_t val{divertedEnergyTotal_Wh};
+  bool energyValueExceeds10kWh;
+
+  if (val < 10000)
+    energyValueExceeds10kWh = false; // no need to re-scale (display to 3 DPs)
+  else
+  {
+    // re-scale is needed (display to 2 DPs)
+    energyValueExceeds10kWh = true;
+    val = val / 10;
+  }
+
+  uint8_t thisDigit{val / 1000};
+  charsForDisplay[0] = thisDigit;
+  val -= 1000 * thisDigit;
+
+  thisDigit = val / 100;
+  charsForDisplay[1] = thisDigit;
+  val -= 100 * thisDigit;
+
+  thisDigit = val / 10;
+  charsForDisplay[2] = thisDigit;
+  val -= 10 * thisDigit;
+
+  charsForDisplay[3] = val;
+
+  // assign the decimal point location
+  if (energyValueExceeds10kWh)
+    charsForDisplay[1] += 10; // dec point after 2nd digit
+  else
+    charsForDisplay[0] += 10; // dec point after 1st digit
+}
+
+/**
+ * @brief Main processor.
+ * @details None of the workload in loop() is time-critical.
+ *          All the processing of ADC data is done within the ISR.
+ * 
+*/
 void loop()
 {
   static uint8_t perSecondTimer{0};
@@ -1336,7 +1411,7 @@ void loop()
     tx_data.powerAtSupplyPoint_Watts = copyOf_sumP_atSupplyPoint * powerCal_grid / copyOf_sampleSetsDuringThisDatalogPeriod;
     tx_data.powerAtSupplyPoint_Watts *= -1; // to match the OEM convention (import is =ve; export is -ve)
     tx_data.divertedEnergyTotal_Wh = copyOf_divertedEnergyTotal_Wh;
-    tx_data.Vrms_times100 = (int16_t)(100 * sqrt(copyOf_sum_Vsquared / copyOf_sampleSetsDuringThisDatalogPeriod));
+    tx_data.Vrms_times100 = (int16_t)(100 * f_voltageCal * sqrt(copyOf_sum_Vsquared / copyOf_sampleSetsDuringThisDatalogPeriod));
 
 #ifdef TEMP_SENSOR
     tx_data.temperature_times100 = readTemperature();
