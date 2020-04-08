@@ -270,8 +270,8 @@ Polarities polarityConfirmedOfLastSampleV;            /**< for zero-crossing det
 // For a mechanism to check the continuity of the sampling sequence
 constexpr int32_t CONTINUITY_CHECK_MAXCOUNT{250}; /**< mains cycles */
 int16_t sampleCount_forContinuityChecker;
-int16_t sampleSetsDuringThisMainsCycle;
-int16_t lowestNoOfSampleSetsPerMainsCycle;
+int16_t sampleSetsDuringThisMainsCycle; /**< # of sample sets during this cycle */
+int16_t lowestNoOfSampleSetsPerMainsCycle; /**< lowest # of sample sets during this cycle */
 
 // Calibration values
 //-------------------
@@ -1125,7 +1125,7 @@ void configureValueForDisplay(const bool bToggleDisplayTemp)
     charsForDisplay[2] = thisDigit;
     val -= 10 * thisDigit;
 
-    charsForDisplay[3] = 21; // we skip the last character, display '°' instead
+    charsForDisplay[3] = 22; // we skip the last character, display '°' instead
 
     return;
   }
@@ -1140,7 +1140,7 @@ void configureValueForDisplay(const bool bToggleDisplayTemp)
     if (locationOfDot >= noOfDigitLocations)
       locationOfDot = 0;
 
-    charsForDisplay[locationOfDot] = 22; // dot
+    charsForDisplay[locationOfDot] = 21; // dot
 
     return;
   }
