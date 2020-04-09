@@ -339,10 +339,11 @@ constexpr int32_t antiCreepLimit_inIEUperMainsCycle{(float)ANTI_CREEP_LIMIT * (1
 
 // Various settings for the 4-digit display, which needs to be refreshed every few mS
 constexpr uint8_t noOfDigitLocations{4};
-constexpr uint8_t noOfPossibleCharacters{23};
 
 //  The two versions of the hardware require different logic.
 #ifdef PIN_SAVING_HARDWARE
+
+constexpr uint8_t noOfPossibleCharacters{22};
 
 #define DRIVER_CHIP_DISABLED HIGH
 #define DRIVER_CHIP_ENABLED LOW
@@ -406,6 +407,8 @@ constexpr uint8_t digitLocationMap[noOfDigitLocations][noOfDigitLocationLines]{
 constexpr uint8_t tempSensorPin{15}; /**< the only free pin left in thins case (pin1 of IC4) */
 
 constexpr uint8_t noOfSegmentsPerDigit{8}; /**< includes one for the decimal point */
+
+constexpr uint8_t noOfPossibleCharacters{23};
 
 enum class DigitEnableStates : uint8_t
 {
@@ -1281,7 +1284,7 @@ void refreshDisplay()
 /**
  * @brief Called infrequently, to update the characters to be displayed
  * 
- * @param bToggleDisplayTemp true for temperature, fasle for diverted energy 
+ * @param bToggleDisplayTemp true for temperature, false for diverted energy 
  */
 void configureValueForDisplay(const bool bToggleDisplayTemp)
 {
@@ -1306,7 +1309,10 @@ void configureValueForDisplay(const bool bToggleDisplayTemp)
     charsForDisplay[2] = thisDigit;
     val -= 10 * thisDigit;
 
+#ifndef PIN_SAVING_HARDWARE
+    // In case we use the BCD converter, we cannot display this character :-(
     charsForDisplay[3] = 22; // we skip the last character, display '°' instead
+#endif
 
     return;
   }
