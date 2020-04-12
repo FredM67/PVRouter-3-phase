@@ -96,6 +96,7 @@
  */
 
 #include <Arduino.h> // may not be needed, but it's probably a good idea to include this
+#include <TimeLib.h>
 
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 
@@ -111,6 +112,10 @@
 #include <OneWire.h> // for temperature sensing
 #endif
 
+// single character message tags
+#define TIME_HEADER 'T' // Header tag for serial time sync message
+#define TIME_REQUEST 7  // ASCII bell character requests a time sync message
+
 #ifdef RF_PRESENT
 #define RF69_COMPAT 0 // for the RFM12B
 //#define RF69_COMPAT 1 // for the RF69
@@ -124,6 +129,10 @@
 #ifdef JSON_FORMAT
 #include <ArduinoJson.h>
 #endif
+
+constexpr int32_t SERIAL_BAUD{500000}; /**< Speed of serial port */
+
+constexpr int32_t SERIALTIMEOUT{30000}; /**< Timeout for serial query in ms */
 
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
 
@@ -210,7 +219,7 @@ constexpr uint8_t loadStateMask{0x7FU};  /**< bit mask for masking load state */
 LoadStates physicalLoadState[NO_OF_DUMPLOADS]; /**< Physical state of the loads */
 uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was ON (over 1 datalog period) */
 
-constexpr OutputModes outputMode{OutputModes::ANTI_FLICKER}; /**< Output mode to be used */
+constexpr OutputModes outputMode{OutputModes::NORMAL}; /**< Output mode to be used */
 
 // Load priorities at startup
 uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load priorities and states. */
@@ -242,6 +251,33 @@ public:
 };
 
 Tx_struct tx_data; /**< logging data */
+
+time_t currentTime; /**< the current time */
+
+/**
+ * @brief container for uptime stats
+ * 
+ */
+class Uptime_struct
+{
+public:
+  uint32_t uptimeClock{0}; /**< uptime clock in second based on the grid period */
+
+  uint8_t secondsOnline{0}; /**< # of seconds */
+  uint8_t minutesOnline{0}; /**< # of minutes */
+  uint8_t hoursOnline{0};   /**< #of of hours */
+  uint16_t daysOnline{0};   /**< # of days */
+
+  void updateSplittedTime()
+  {
+    secondsOnline = (uptimeClock) % 60;
+    minutesOnline = (uptimeClock / 60) % 60;
+    hoursOnline = (uptimeClock / 3600) % 24;
+    daysOnline = (uptimeClock / 86400);
+  };
+};
+
+Uptime_struct uptime_data; /**< uptime data */
 
 // ----------- Pinout assignments  -----------
 //
@@ -1062,9 +1098,21 @@ void processDataLogging()
  */
 void printDataLogging(bool bOffPeak)
 {
+  uptime_data.updateSplittedTime();
+
   uint8_t phase;
 
 #ifndef JSON_FORMAT
+  Serial.print(F("Up time\t: "));
+  Serial.print(uptime_data.daysOnline);
+  Serial.print(F(" days "));
+  Serial.print(uptime_data.hoursOnline);
+  Serial.print(F(" h "));
+  Serial.print(uptime_data.minutesOnline);
+  Serial.print(F(" min "));
+  Serial.print(uptime_data.secondsOnline);
+  Serial.println(F(" s"));
+
   Serial.print(copyOf_energyInBucket_main / CYCLES_PER_SECOND);
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
@@ -1095,32 +1143,30 @@ void printDataLogging(bool bOffPeak)
   Serial.println(F(")"));
 
 #else
-  StaticJsonDocument<200> doc;
-  char strPhase[]{"L0"};
-  char strLoad[]{"LOAD_0"};
+  static StaticJsonDocument<120> doc;
 
-  for (phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    doc[strPhase] = tx_data.power_L[phase];
-    ++strPhase[1];
-  }
+  doc["P"] = tx_data.power;
+  doc["L1"] = tx_data.power_L[0];
+  doc["L2"] = tx_data.power_L[1];
+  doc["L3"] = tx_data.power_L[2];
+#ifdef OFF_PEAK_TARIFF
+  doc["HC"] = bOffPeak ? true : false;
+#endif
+#ifdef TEMP_SENSOR
+  doc["T"] = tx_data.temperature_times100;
+#endif
 
+  /*
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
     doc[strLoad] = (100 * copyOf_countLoadON[i]) / DATALOG_PERIOD_IN_MAINS_CYCLES;
     ++strLoad[5];
   }
-
-#ifdef OFF_PEAK_TARIFF
-  doc["OFF_PEAK_TARIFF"] = bOffPeak ? true : false;
-#endif
+  */
 
   // Generate the minified JSON and send it to the Serial port.
   //
   serializeJson(doc, Serial);
-
-  // Start a new line
-  Serial.println();
 #endif
 }
 
@@ -1295,6 +1341,65 @@ int freeRam()
   return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
 }
 
+void processSyncMessage()
+{
+  unsigned long pctime;
+  const unsigned long DEFAULT_TIME = 1357041600; // Jan 1 2013 - paul, perhaps we define in time.h?
+
+  pctime = Serial.parseInt();
+  if (pctime >= DEFAULT_TIME)
+  {                  // check the integer is a valid time (greater than Jan 1 2013)
+    setTime(pctime); // Sync Arduino clock to the time received on the serial port
+  }
+}
+
+time_t requestSync()
+{
+  Serial.write(TIME_REQUEST);
+  return 0; // the time will be sent later in response to serial mesg
+}
+
+/**
+ * @brief utility function for digital clock display: prints preceding colon and leading 0
+ * 
+ * @param digits the digit to print
+ */
+void printDigits(int digits)
+{
+  Serial.print(":");
+  if (digits < 10)
+    Serial.print('0');
+  Serial.print(digits);
+}
+
+/**
+ * @brief Display the date-time on the serial output
+ * 
+ * @param isLongFormat True if long format, false for short format
+ */
+void digitalClockDisplay(bool isLongFormat)
+{
+  // digital clock display of the time
+  Serial.print(hour());
+  printDigits(minute());
+  printDigits(second());
+  Serial.print(" ");
+  if (isLongFormat)
+    Serial.print(dayStr(weekday()));
+  else
+    Serial.print(dayShortStr(weekday()));
+  Serial.print(" ");
+  Serial.print(day());
+  Serial.print(" ");
+  if (isLongFormat)
+    Serial.print(monthStr(month()));
+  else
+    Serial.print(monthShortStr(month()));
+  Serial.print(" ");
+  Serial.print(year());
+  Serial.println();
+}
+
 /**
  * @brief Called once during startup.
  * @details This function initializes a couple of variables we cannot init at compile time and
@@ -1305,9 +1410,15 @@ void setup()
 {
   delay(initialDelay); // allows time to open the Serial Monitor
 
-  Serial.begin(9600); // initialize Serial interface
+  Serial.begin(SERIAL_BAUD);
+  while (!Serial)
+    ;
+  //Serial.setTimeout(SERIALTIMEOUT);
+
+  setSyncProvider(requestSync); //set function to call when sync required
+  Serial.println("Waiting for sync message");
+
 #ifndef NO_OUTPUT
-  Serial.println();
   Serial.println();
   Serial.println();
   Serial.println(F("----------------------------------"));
@@ -1431,6 +1542,39 @@ void setup()
 #ifdef TEMP_SENSOR
   convertTemperature(); // start initial temperature conversion
 #endif
+
+  currentTime = now();
+  if (timeStatus() == timeNotSet)
+    Serial.println("Time not set...");
+  else if (timeStatus() == timeNeedsSync)
+    Serial.println("Time needs sync...");
+  else
+  {
+    digitalClockDisplay(false);
+    digitalClockDisplay(true);
+  }
+}
+
+/**
+ * @brief Clear the serial output
+ * 
+ */
+void clearScreen(void)
+{
+  Serial.write(27);    // ESC
+  Serial.print("[2J"); // clear screen
+  Serial.write(27);    // ESC
+  Serial.print("[H");  // cursor to home
+}
+
+/**
+ * @brief Clear the input serial buffer
+ * 
+ */
+void clearSerialInputCache()
+{
+  while (Serial.available() > 0)
+    Serial.read();
 }
 
 /**
@@ -1452,6 +1596,9 @@ void loop()
     if (perSecondTimer >= CYCLES_PER_SECOND)
     {
       perSecondTimer = 0;
+
+      ++uptime_data.uptimeClock;
+
       bOffPeak = checkLoadPrioritySelection(); // called every second
     }
   }
@@ -1485,5 +1632,12 @@ void loop()
 #ifdef TEMP_SENSOR
     convertTemperature(); // for use next time around
 #endif
+
+    if (Serial.available() > 0)
+    {
+      delay(200);
+      //readTime
+    }
+    clearSerialInputCache();
   }
 } // end of loop()
