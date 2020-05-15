@@ -103,7 +103,7 @@ For that, I've "recycled" a peak/off peak 3-phase relay but you can use any 3-ph
 
 In this case, it's somehow the same situation as before.
 You don't need to buy a 3-phase kit to convert your single phase heater.
-The ACI pcb must be connect to a permanent phase. It will then control any 3-phase relay.
+The ACI pcb must be connected to a permanent phase. It will then control any 3-phase relay.
 
 ![Heater with ACI single phase thermostat](Heater-ACI-Mono.png)
 *Figure: Wiring diagram*
