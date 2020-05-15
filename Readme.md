@@ -15,9 +15,21 @@ Main changes in this version:
 
 - Time-critical work is now in the ISR.
 - Serial data logging has been added
-- Temperatur sensor has been added.
+- Temperature sensor has been added.
 
 ---
+- [Mk2PVRouter (3-phase version)](#mk2pvrouter-3-phase-version)
+  - [Implementation documentation](#implementation-documentation)
+  - [End-user documentation](#end-user-documentation)
+    - [Overview](#overview)
+    - [Load priorities management](#load-priorities-management)
+    - [Off-peak period detection](#off-peak-period-detection)
+    - [Force full power](#force-full-power)
+    - [Temperature sensor](#temperature-sensor)
+    - [Wiring diagram](#wiring-diagram)
+      - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
+      - [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
+      - [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
 
 ## Implementation documentation
 
@@ -58,7 +70,7 @@ Depending on the country, some energy meters provide a switch which toggles on a
 
 ### Force full power
 
-Support has been added to force full power on specific loads. Each load can be forced independantly from each other, start time and duration can be set individualy.
+Support has been added to force full power on specific loads. Each load can be forced independently from each other, start time and duration can be set individually.
 
 In my variant, that's used to switch the heater one during off-peak period if not enough surplus has been routed during the day. Here, to optimize the behavior, a temp-sensor will be used to check the temperature of the water and decide to switch on or not during night.
 
@@ -68,11 +80,25 @@ For the moment, just reading. It'll be used to optimize force full power, to mak
 
 ### Wiring diagram
 
-![Chauffe-eau](Chauffe-eau.png)
-*Figure: Wiring diagram*
-
-#### About the thermostat
+#### Heater with mechanical thermostat
 
 Since on all (3-phase) water heaters I've seen, the thermostat switches only 2 phases in normal mode (all 3 phases in security mode), it must be wired in another way to achieve a full switch on all 3 phases. In a fully balanced 3-phase situation, you don't need any neutral wire. To switch off the device, you only need to switch off 2 phases.
 
-For that, I've "recycled" a peak/off peak 3-phase relay. It doesn't matter on which phase the command coil is connected, but it must be permanent (not through the router).
+For that, I've "recycled" a peak/off peak 3-phase relay but you can use any 3-phase relay. It doesn't matter on which phase the command coil is connected, but it must be permanent (not through the router).
+
+![Heater with mechanical thermostat](Heater-mechanical.png)
+*Figure: Wiring diagram*
+
+#### Heater with ACI single phase thermostat
+
+In this case, it's somehow the same situation as before. The ACI pcb must be connect to a permanent phase. It will then control any 3-phase relay.
+
+![Heater with ACI single phase thermostat](Heater-ACI-Mono.png)
+*Figure: Wiring diagram*
+
+#### Heater with ACI 3-phase thermostat
+
+In this case, the neutral wire is not connected to the ACI pcb. So you'll need to connect the neutral wire to the blue wire already connected to the heating elements. The ACI pcb must be connected to 3 permanent phases. 
+
+![Heater with ACI 3-phase thermostat](Heater-ACI-Tri.png)
+*Figure: Wiring diagram*
