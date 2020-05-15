@@ -27,6 +27,7 @@ Main changes in this version:
     - [Force full power](#force-full-power)
     - [Temperature sensor](#temperature-sensor)
     - [Wiring diagram](#wiring-diagram)
+      - [Requirements](#requirements)
       - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
       - [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
       - [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
@@ -80,6 +81,15 @@ For the moment, just reading. It'll be used to optimize force full power, to mak
 
 ### Wiring diagram
 
+#### Requirements
+Your water heater MUST support 3-phase wiring (i.e. it must have 3 heating elements).
+
+---
+**_Safety Warning_**
+To modify the existing wiring, access to 240V mains voltage is required. Please take great care, and do not undertake this stage unless you feel confident to do so.
+
+---
+
 #### Heater with mechanical thermostat
 
 Since on all (3-phase) water heaters I've seen, the thermostat switches only 2 phases in normal mode (all 3 phases in security mode), it must be wired in another way to achieve a full switch on all 3 phases. In a fully balanced 3-phase situation, you don't need any neutral wire. To switch off the device, you only need to switch off 2 phases.
@@ -91,7 +101,9 @@ For that, I've "recycled" a peak/off peak 3-phase relay but you can use any 3-ph
 
 #### Heater with ACI single phase thermostat
 
-In this case, it's somehow the same situation as before. The ACI pcb must be connect to a permanent phase. It will then control any 3-phase relay.
+In this case, it's somehow the same situation as before.
+You don't need to buy a 3-phase kit to convert your single phase heater.
+The ACI pcb must be connect to a permanent phase. It will then control any 3-phase relay.
 
 ![Heater with ACI single phase thermostat](Heater-ACI-Mono.png)
 *Figure: Wiring diagram*
