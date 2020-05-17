@@ -114,3 +114,6 @@ In this case, the neutral wire is not connected to the ACI pcb. So you'll need t
 
 ![Heater with ACI 3-phase thermostat](Heater-ACI-Tri.png)
 *Figure: Wiring diagram*
+
+![ACI 3-phase PCB](ACI-Tri.jpeg)
+*Figure: An ACI 3-phase module*
