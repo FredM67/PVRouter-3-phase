@@ -117,3 +117,7 @@ In this case, the neutral wire is not connected to the ACI pcb. So you'll need t
 
 ![ACI 3-phase PCB](ACI-Tri.jpeg)
 *Figure: An ACI 3-phase module*
+
+And now with an "hybrid" schematic-picture:
+![How to connect ACI 3-phase module](ACI-Tri-Hybrid.jpeg)
+*Figure: How to connect ACI 3-phase module*
