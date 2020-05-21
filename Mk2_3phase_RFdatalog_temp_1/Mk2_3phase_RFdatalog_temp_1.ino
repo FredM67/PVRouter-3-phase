@@ -82,11 +82,15 @@
  * - all number-types have been replaced with fixed width number types
  * - old fashion enums replaced by scoped enums with fixed types
  * - off-peak tariff made switchable at compile-time
- * - rotation of load priorities made switcheable at compile-time
+ * - rotation of load priorities made switchable at compile-time
  * - enhanced configuration for forcing specific loads during off-peak period
  * 
  * __April 2020, changes:__
  * - Fix a bug in the load level calculation
+ * 
+ * May 2020, changes:__
+ * - Fix a bug in the initialization of off-peak offsets
+ * - added detailed configuration on start-up with build timestamp
  * 
  * 
  *   Fred Metrich
