@@ -8,7 +8,7 @@ It supports 3 resistive output loads, which are completely independent.
 ---
 **_NOTE:_**
 
-For a single phase version, please see...
+For a single phase version, please see [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
 
 ---
 - [PVRouter (3-phase version)](#pvrouter-3-phase-version)
