@@ -91,10 +91,9 @@
  * __May 2020, changes:__
  * - Fix a bug in the initialization of off-peak offsets
  * - added detailed configuration on start-up with build timestamp
- * 
- * 
- *   Fred Metrich
- *  
+ *
+ *
+ * @author Fred Metrich
  * @copyright Copyright (c) 2020
  * 
  */
