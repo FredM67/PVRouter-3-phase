@@ -1207,6 +1207,120 @@ bool checkLoadPrioritySelection()
 }
 
 /**
+ * @brief Print the configuration during start
+ * 
+ */
+void printConfiguration()
+{
+  Serial.println();
+  Serial.println();
+  Serial.println(F("----------------------------------"));
+  Serial.print(F("Sketch ID: "));
+  Serial.println(__FILE__);
+  Serial.print(F("Build on "));
+  Serial.print(__DATE__);
+  Serial.print(F(" "));
+  Serial.println(__TIME__);
+
+  Serial.println(F("ADC mode:       free-running"));
+
+Serial.println(F("Electrical settings"));
+  for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
+  {
+    Serial.print(F("\tf_powerCal for L"));
+    Serial.print(phase + 1);
+    Serial.print(F(" =    "));
+    Serial.println(f_powerCal[phase], 4);
+  }
+  Serial.print(F("\tf_phaseCal for all phases"));
+  Serial.print(F(" =     "));
+  Serial.println(f_phaseCal);
+
+  Serial.print(F("\tf_voltageCal, for Vrms  =      "));
+  Serial.println(f_voltageCal, 4);
+
+  Serial.print(F("\tExport rate (Watts) = "));
+  Serial.println(REQUIRED_EXPORT_IN_WATTS);
+
+  Serial.print(F("\tzero-crossing persistence (sample sets) = "));
+  Serial.println(PERSISTENCE_FOR_POLARITY_CHANGE);
+
+  printParamsForSelectedOutputMode();
+
+  Serial.print("Temperature capability ");
+#ifdef TEMP_SENSOR
+  Serial.println(F("is present"));
+#else
+  Serial.println(F("is NOT present"));
+#endif
+
+  Serial.print("Dual-tariff capability ");
+#ifdef OFF_PEAK_TARIFF
+  Serial.println(F("is present"));
+  printOffPeakConfiguration();
+#else
+  Serial.println(F("is NOT present"));
+#endif
+
+  Serial.print("RF capability ");
+#ifdef RF_PRESENT
+  Serial.print(F("IS present, Freq = "));
+  if (FREQ == RF12_433MHZ)
+    Serial.println(F("433 MHz"));
+  else if (FREQ == RF12_868MHZ)
+    Serial.println(F("868 MHz"));
+  rf12_initialize(nodeID, FREQ, networkGroup); // initialize RF
+#else
+  Serial.println(F("is NOT present"));
+#endif
+
+  Serial.print("Datalogging capability ");
+#ifdef DATALOG_OUTPUT
+  Serial.println(F("is present"));
+#else
+  Serial.println(F("is NOT present"));
+#endif
+}
+
+/**
+ * @brief Print the settings for off-peak period
+ * 
+ */
+void printOffPeakConfiguration()
+{
+  Serial.print(F("\tDuration of off-peak period is "));
+  Serial.print(ul_OFF_PEAK_DURATION);
+  Serial.println(F(" hours."));
+
+  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  {
+    Serial.print(F("\tLoad #"));
+    Serial.print(i + 1);
+    Serial.println(F(":"));
+
+    Serial.print(F("\t\tStart "));
+    if (rg_ForceLoad[i].iStartOffset >= 0)
+    {
+      Serial.print(rg_ForceLoad[i].iStartOffset);
+      Serial.print(F(" hours after begin of off-peak period "));
+    }
+    else
+    {
+      Serial.print(-rg_ForceLoad[i].iStartOffset);
+      Serial.print(F(" hours before the end of off-peak period "));
+    }
+    if (rg_ForceLoad[i].uiDuration == UINT8_MAX)
+      Serial.println(F("till the end of the period."));
+    else
+    {
+      Serial.print(F("for a duration of "));
+      Serial.print(rg_ForceLoad[i].uiDuration);
+      Serial.println(F(" hour(s)."));
+    }
+  }
+}
+
+/**
  * @brief Print the settings used for the selected output mode.
  * 
  */
@@ -1306,13 +1420,9 @@ void setup()
   delay(initialDelay); // allows time to open the Serial Monitor
 
   Serial.begin(9600); // initialize Serial interface
-#ifndef NO_OUTPUT
-  Serial.println();
-  Serial.println();
-  Serial.println();
-  Serial.println(F("----------------------------------"));
-  Serial.println(F("Sketch ID:  Mk2_3phase_RFdatalog_temp_1.ino"));
-#endif
+
+  // On start, always display config info in the serial monitor
+  printConfiguration();
 
   // initializes all loads to OFF at startup
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
@@ -1333,7 +1443,7 @@ void setup()
   ul_TimeOffPeak = millis();
 
   // calculates offsets for force start and stop of each load
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
     if (rg_ForceLoad[i].iStartOffset >= 0)
       rg_OffsetForce[i][0] = rg_ForceLoad[i].iStartOffset;
@@ -1347,17 +1457,11 @@ void setup()
   }
 #endif
 
-  for (auto &bforceLoad : b_forceLoadsOn)
-    bforceLoad = false;
+  for (auto &bForceLoad : b_forceLoadsOn)
+    bForceLoad = false;
 
   for (auto &DCoffset_V : l_DCoffset_V)
     DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
-
-#ifndef NO_OUTPUT
-  Serial.println(F("ADC mode:       free-running"));
-  Serial.print(F("requiredExport in Watts = "));
-  Serial.println(REQUIRED_EXPORT_IN_WATTS);
-#endif
 
   // Set up the ADC to be free-running
   ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2); // Set the ADC's clock to system clock / 128
@@ -1374,62 +1478,20 @@ void setup()
   ADCSRA |= (1 << ADSC); // start ADC manually first time
   sei();                 // Enable Global Interrupts
 
-#ifndef NO_OUTPUT
-  for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    Serial.print(F("f_powerCal for L"));
-    Serial.print(phase + 1);
-    Serial.print(F(" =    "));
-    Serial.println(f_powerCal[phase], 4);
-  }
-  Serial.print(F("f_phaseCal for all phases"));
-  Serial.print(F(" =     "));
-  Serial.println(f_phaseCal);
+  logLoadPriorities();
 
-  Serial.print(F("f_voltageCal, for Vrms  =      "));
-  Serial.println(f_voltageCal, 4);
-
-  Serial.print(F("Export rate (Watts) = "));
-  Serial.println(REQUIRED_EXPORT_IN_WATTS);
-
-  Serial.print(F("zero-crossing persistence (sample sets) = "));
-  Serial.println(PERSISTENCE_FOR_POLARITY_CHANGE);
+#ifdef TEMP_SENSOR
+  convertTemperature(); // start initial temperature conversion
 #endif
 
-  printParamsForSelectedOutputMode();
-
-  logLoadPriorities();
+#ifdef TEMP_SENSOR
+  convertTemperature(); // start initial temperature conversion
+#endif
 
 #ifndef NO_OUTPUT
   Serial.print(F(">>free RAM = "));
   Serial.println(freeRam()); // a useful value to keep an eye on
-
   Serial.println(F("----"));
-#endif
-
-#ifdef TEMP_SENSOR
-  convertTemperature(); // start initial temperature conversion
-#endif
-
-#ifndef NO_OUTPUT
-  Serial.print("RF capability ");
-#endif
-
-#ifdef RF_PRESENT
-  Serial.print(F("IS present, Freq = "));
-  if (FREQ == RF12_433MHZ)
-    Serial.println(F("433 MHz"));
-  else if (FREQ == RF12_868MHZ)
-    Serial.println(F("868 MHz"));
-  rf12_initialize(nodeID, FREQ, networkGroup); // initialize RF
-#else
-#ifndef NO_OUTPUT
-  Serial.println(F("is NOT present"));
-#endif
-#endif
-
-#ifdef TEMP_SENSOR
-  convertTemperature(); // start initial temperature conversion
 #endif
 }
 
