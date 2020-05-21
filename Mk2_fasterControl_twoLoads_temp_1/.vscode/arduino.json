@@ -1,5 +1,0 @@
-{
-    "programmer": "AVRISP mkII",
-    "board": "arduino:avr:uno",
-    "sketch": "Mk2_fasterControl_twoLoads_temp_1.ino"
-}
