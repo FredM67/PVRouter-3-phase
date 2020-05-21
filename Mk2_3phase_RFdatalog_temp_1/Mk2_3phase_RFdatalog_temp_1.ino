@@ -88,7 +88,7 @@
  * __April 2020, changes:__
  * - Fix a bug in the load level calculation
  * 
- * May 2020, changes:__
+ * __May 2020, changes:__
  * - Fix a bug in the initialization of off-peak offsets
  * - added detailed configuration on start-up with build timestamp
  * 
