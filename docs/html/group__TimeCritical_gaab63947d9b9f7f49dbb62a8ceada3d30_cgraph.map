@@ -1,5 +1,5 @@
 <map id="processPlusHalfCycle" name="processPlusHalfCycle">
 <area shape="rect" id="node1" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="5,31,155,57"/>
-<area shape="rect" id="node2" href="$group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the lastest contribution after each phase specific new cycle additional processing is perform..." alt="" coords="203,5,376,32"/>
-<area shape="rect" id="node3" href="$group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process with data logging." alt="" coords="219,56,359,83"/>
+<area shape="rect" id="node2" href="$group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process with data logging." alt="" coords="219,5,359,32"/>
+<area shape="rect" id="node3" href="$group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the lastest contribution after each phase specific new cycle additional processing is perform..." alt="" coords="203,56,376,83"/>
 </map>

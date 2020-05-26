@@ -121,7 +121,7 @@
 #endif
 
 #ifdef DATALOG_OUTPUT
-#define JSON_FORMAT ///< output in json format
+//#define JSON_FORMAT ///< output in json format
 #endif
 
 #ifdef JSON_FORMAT
@@ -134,7 +134,7 @@
 // Change these values to suit the local mains frequency and supply meter
 constexpr int32_t CYCLES_PER_SECOND{50};        /**< number of cycles/s of the grid power supply */
 constexpr int32_t WORKING_ZONE_IN_JOULES{3600}; /**< number of joule for 1Wh */
-constexpr int32_t REQUIRED_EXPORT_IN_WATTS{10}; /**< when set to a negative value, this acts as a PV generator */
+constexpr int32_t REQUIRED_EXPORT_IN_WATTS{20}; /**< when set to a negative value, this acts as a PV generator */
 
 // ----------------
 // general literals
@@ -213,7 +213,7 @@ constexpr uint8_t loadStateMask{0x7FU};  /**< bit mask for masking load state */
 LoadStates physicalLoadState[NO_OF_DUMPLOADS]; /**< Physical state of the loads */
 uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was ON (over 1 datalog period) */
 
-constexpr OutputModes outputMode{OutputModes::ANTI_FLICKER}; /**< Output mode to be used */
+constexpr OutputModes outputMode{OutputModes::NORMAL}; /**< Output mode to be used */
 
 // Load priorities at startup
 uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load priorities and states. */
@@ -934,16 +934,16 @@ void proceedLowEnergyLevel()
  */
 void processLatestContribution(const uint8_t phase)
 {
-  b_newMainsCycle = true; //  a 50 Hz 'tick' for use by the main code
-
   // for efficiency, the energy scale is Joules * CYCLES_PER_SECOND
   // add the latest energy contribution to the main energy accumulator
   f_energyInBucket_main += (l_sumP[phase] / l_samplesDuringThisMainsCycle[phase]) * f_powerCal[phase];
 
   // apply any adjustment that is required.
   if (0 == phase)
+  {
+    b_newMainsCycle = true;                            //  a 50 Hz 'tick' for use by the main code
     f_energyInBucket_main -= REQUIRED_EXPORT_IN_WATTS; // energy scale is Joules x 50
-
+  }
   // Applying max and min limits to the main accumulator's level
   // is deferred until after the energy related decisions have been taken
   //
@@ -1227,7 +1227,7 @@ void printConfiguration()
 
   Serial.println(F("ADC mode:       free-running"));
 
-Serial.println(F("Electrical settings"));
+  Serial.println(F("Electrical settings"));
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
   {
     Serial.print(F("\tf_powerCal for L"));

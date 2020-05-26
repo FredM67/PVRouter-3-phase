@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['json_5fformat',['JSON_FORMAT',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#ab237b82857a245a2466046b5630d439d',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
+  ['off_5fpeak_5ftariff_264',['OFF_PEAK_TARIFF',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#aca70efd15d1856085e5c022163af83a8',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
 ];
