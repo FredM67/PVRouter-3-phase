@@ -92,6 +92,8 @@
  * - Fix a bug in the initialization of off-peak offsets
  * - added detailed configuration on start-up with build timestamp
  *
+ * __June 2020, changes:__
+ * - Add force pin for full power through overwrite switch
  *
  * @author Fred Metrich
  * @copyright Copyright (c) 2020
@@ -102,7 +104,7 @@
 
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 
-#define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
+//#define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
 
 //#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
@@ -254,8 +256,11 @@ Tx_struct tx_data; /**< logging data */
 #ifdef OFF_PEAK_TARIFF
 constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
 #endif
+
+constexpr uint8_t forcePin{4};
+
 #ifdef TEMP_SENSOR
-constexpr uint8_t tempSensorPin{4}; /**< for 3-phase PCB, sensor pin */
+constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
 constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6, 7}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 // D8 is not in use
@@ -385,7 +390,7 @@ Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing 
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.0556f, 0.0560f, 0.0558f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.0558f, 0.0559f, 0.0561f} /*{0.0556f, 0.0560f, 0.0558f}*/;
 
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the
 // current waveform. The algorithm interpolates between the most recent pair
@@ -406,7 +411,7 @@ constexpr int16_t i_phaseCal{256}; /**< to avoid the need for floating-point mat
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-constexpr float f_voltageCal{1.03f}; /**< compared with Fluke 77 meter */
+constexpr float f_voltageCal[NO_OF_PHASES]{1.01f, 1.02f, 1.01f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
 
 /**
  * @brief update the control ports for each of the physical loads
@@ -1144,6 +1149,18 @@ void logLoadPriorities()
 }
 
 /**
+ * @brief This function set all 3 loads to full power.
+ * 
+ */
+void forceFullPower()
+{
+  const uint8_t pinState{PIND & (1 << forcePin)};
+
+  for (uint8_t i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+    b_forceLoadsOn[i] = pinState;
+}
+
+/**
  * @brief This function changes the value of the load priorities.
  * @details Since we don't have access to a clock, we detect the offPeak start from the main energy meter.
  *          Additionally, when off-peak period starts, we rotate the load priorities for the next day.
@@ -1205,7 +1222,7 @@ bool checkLoadPrioritySelection()
 
   return (LOW == pinOffPeakState);
 #else
-  return true;
+  return false;
 #endif
 }
 
@@ -1234,13 +1251,15 @@ void printConfiguration()
     Serial.print(phase + 1);
     Serial.print(F(" =    "));
     Serial.println(f_powerCal[phase], 4);
-  }
-  Serial.print(F("\tf_phaseCal for all phases"));
-  Serial.print(F(" =     "));
-  Serial.println(f_phaseCal);
 
-  Serial.print(F("\tf_voltageCal, for Vrms  =      "));
-  Serial.println(f_voltageCal, 4);
+    Serial.print(F("\tf_voltageCal, for Vrms_L"));
+    Serial.print(phase + 1);
+    Serial.print(F(" =    "));
+    Serial.println(f_voltageCal[phase], 4);
+  }
+
+  Serial.print(F("\tf_phaseCal for all phases =     "));
+  Serial.println(f_phaseCal);
 
   Serial.print(F("\tExport rate (Watts) = "));
   Serial.println(REQUIRED_EXPORT_IN_WATTS);
@@ -1289,6 +1308,7 @@ void printConfiguration()
  * @brief Print the settings for off-peak period
  * 
  */
+#ifdef OFF_PEAK_TARIFF
 void printOffPeakConfiguration()
 {
   Serial.print(F("\tDuration of off-peak period is "));
@@ -1322,6 +1342,7 @@ void printOffPeakConfiguration()
     }
   }
 }
+#endif
 
 /**
  * @brief Print the settings used for the selected output mode.
@@ -1517,6 +1538,9 @@ void loop()
     if (perSecondTimer >= CYCLES_PER_SECOND)
     {
       perSecondTimer = 0;
+      
+      forceFullPower();
+
       bOffPeak = checkLoadPrioritySelection(); // called every second
     }
   }
@@ -1533,7 +1557,7 @@ void loop()
 
       tx_data.power += tx_data.power_L[phase];
 
-      tx_data.Vrms_L_times100[phase] = (int32_t)(100 * f_voltageCal * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      tx_data.Vrms_L_times100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
     }
 #ifdef TEMP_SENSOR
     tx_data.temperature_times100 = readTemperature();
