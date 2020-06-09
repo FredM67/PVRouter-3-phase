@@ -1156,8 +1156,8 @@ void forceFullPower()
 {
   const uint8_t pinState{PIND & (1 << forcePin)};
 
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
-    b_forceLoadsOn[i] = pinState;
+  for (auto &bForceLoad : b_forceLoadsOn)
+    bForceLoad = pinState;
 }
 
 /**
@@ -1200,7 +1200,7 @@ bool checkLoadPrioritySelection()
   {
     const auto ulElapsedTime{(uint32_t)(millis() - ul_TimeOffPeak)};
 
-    for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+    for (i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
       // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
       if (!pinOffPeakState && !pinNewState &&
@@ -1480,6 +1480,10 @@ void setup()
     rg_OffsetForce[i][1] *= 3600000ul; // convert in milli-seconds
   }
 #endif
+
+  DDRD &= ~(1 << forcePin);                 // set as input
+  PORTD |= (1 << forcePin);                 // enable the internal pullup resistor
+  delay(100);                               // allow time to settle
 
   for (auto &bForceLoad : b_forceLoadsOn)
     bForceLoad = false;
