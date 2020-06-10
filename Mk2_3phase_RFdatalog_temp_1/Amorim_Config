@@ -1,6 +1,6 @@
 ----------------------------------
 Sketch ID: D:\Git\PVRouter-3-phase\Mk2_3phase_RFdatalog_temp_1\Mk2_3phase_RFdatalog_temp_1.ino
-Build on Jun  9 2020 06:58:01
+Build on Jun  9 2020 16:35:03
 ADC mode:       free-running
 Electrical settings
 	f_powerCal for L1 =    0.0558
@@ -18,13 +18,15 @@ Output mode:    normal
 	f_upperEnergyThreshold   = 90000.00
 Temperature capability is NOT present
 Dual-tariff capability is NOT present
+Load rotation feature is present
 RF capability is NOT present
 Datalogging capability is present
 loadPriority: 
 	load 0
 	load 1
 	load 2
->>free RAM = 1376
+>>free RAM = 1347
 ----
-0.25, P:58, P1:86, P2:61, P3:-89, V1:277.74, V2:278.72, V3:279.34, (minSampleSets/MC 32, #ofSampleSets 7995)
--4.01, P:63, P1:64, P2:61, P3:-62, V1:233.15, V2:233.88, V3:234.42, (minSampleSets/MC 32, #ofSampleSets 8017)
+-10.31, P:645, P1:113, P2:539, P3:-7, V1:279.27, V2:279.51, V3:280.59, (minSampleSets/MC 32, #ofSampleSets 8011, NoED 254)
+-10.41, P:497, P1:116, P2:384, P3:-3, V1:234.68, V2:235.18, V3:235.86, (minSampleSets/MC 32, #ofSampleSets 8010, NoED 504)
+-9.98, P:491, P1:113, P2:383, P3:-5, V1:234.79, V2:235.24, V3:235.95, (minSampleSets/MC 32, #ofSampleSets 8011, NoED 754)
