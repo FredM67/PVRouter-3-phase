@@ -15,8 +15,8 @@ For a single phase version, please see [PVRouter-Single](https://github.com/Fred
   - [Implementation documentation](#implementation-documentation)
   - [End-user documentation](#end-user-documentation)
     - [Overview](#overview)
-    - [Load priorities management](#load-priorities-management)
     - [Off-peak period detection](#off-peak-period-detection)
+    - [Load priorities management](#load-priorities-management)
     - [Force full power](#force-full-power)
     - [Temperature sensor](#temperature-sensor)
     - [Wiring diagram](#wiring-diagram)
@@ -40,8 +40,8 @@ If a diverter is used, the neutral wire must be connected.
 
 Added functionalities:
 
-- load priorities management (configurable)
 - off-peak period detection (configurable)
+- load priorities management (configurable)
 - force full power
 - temperature sensor (just reading for the moment)
 - optimized (RF) data logging
@@ -51,6 +51,10 @@ The original sketch had to be completely re-worked and re-structured to support 
 
 Now, all the time-critical processing is done inside the ISR, other stuff like (RF) data logging, Serial printing, temperature reading is made inside the loop(). The ISR and main processor communicate with each other through "events".
 
+### Off-peak period detection
+
+Depending on the country, some energy meters provide a switch which toggles on at the beginning of the off-peak period. It is intended to control a relay. If you wire it to a free digital pin of the router (in my case D3), you can detect off-peak/peak period.
+
 ### Load priorities management
 
 In my variant of Robin's sketch, the 3 loads are still physically independent, so it means, the router will divert surplus of energy to the first load (highest priority) from 0% to 100%, then to the second (0% to 100%) and finally to the third.
@@ -58,15 +62,16 @@ In my variant of Robin's sketch, the 3 loads are still physically independent, s
 To avoid that the priorities stays all the time unchanged, which would mean that load 1 will run much more than load 2, which again will run much more than 3, I've added a priority management.
 Each day, the load priorities are rotated, so over many days, all the heating elements will run somehow the same amount of time.
 
-### Off-peak period detection
-
-Depending on the country, some energy meters provide a switch which toggles on at the beginning of the off-peak period. It is intended to control a relay. If you wire it to a free digital pin of the router (in my case D3), you can detect off-peak/peak period.
+If Off-peak tariff support is **enabled**, the rotation will happen at each start of the off-peak period.
+If Off-peak tariff support is **disabled**, the rotation will happen after 8 hours (can be configured) without energy diversion.
 
 ### Force full power
 
 Support has been added to force full power on specific loads. Each load can be forced independently from each other, start time and duration can be set individually.
 
 In my variant, that's used to switch the heater one during off-peak period if not enough surplus has been routed during the day. Here, to optimize the behavior, a temp-sensor will be used to check the temperature of the water and decide to switch on or not during night.
+
+Additionally, a switch can be connected on pin D4 (configurable) to force full power of all 3 loads (similar to the overwrite switch on the single phase, except here, the switch DOES NOT short-circuit the triac but sets a pin to LOW to signal the software to force full power).
 
 ### Temperature sensor
 
