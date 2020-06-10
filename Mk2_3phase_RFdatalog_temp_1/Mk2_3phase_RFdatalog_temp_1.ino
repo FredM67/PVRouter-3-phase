@@ -94,6 +94,7 @@
  *
  * __June 2020, changes:__
  * - Add force pin for full power through overwrite switch
+ * - Add priority rotation for single tariff
  *
  * @author Fred Metrich
  * @copyright Copyright (c) 2020
@@ -103,6 +104,8 @@
 #include <Arduino.h> // may not be needed, but it's probably a good idea to include this
 
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
+
+#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
 
 //#define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
 
@@ -155,9 +158,14 @@ constexpr uint8_t READ_SCRATCHPAD{0xbe};
 constexpr uint16_t BAD_TEMPERATURE{30000}; /**< this value (300C) is sent if no sensor is present */
 #endif
 
-#ifdef OFF_PEAK_TARIFF
-#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
+#ifndef OFF_PEAK_TARIFF
 
+#ifdef PRIORITY_ROTATION
+constexpr uint32_t ROTATION_AFTER_CYCLES{8 * 3600 * CYCLES_PER_SECOND}; /**< rotates load priorities after this period of inactivity */
+volatile uint32_t absenceOfDivertedEnergyCount{0}; /**< number of main cycles without diverted energy */
+#endif
+
+#else
 constexpr uint32_t ul_OFF_PEAK_DURATION{8ul}; /**< Duration of the off-peak period in hours */
 
 /** @brief Config parameters for forcing a load
@@ -346,7 +354,7 @@ int32_t l_cycleCountForDatalogging{0};               /**< for counting how often
 int32_t l_lowestNoOfSampleSetsPerMainsCycle;
 
 // for interaction between the main processor and the ISR
-volatile bool b_forceLoadsOn[NO_OF_DUMPLOADS]; /**< async trigger to force specific load(s) to ON */
+volatile bool b_forceLoadOn[NO_OF_DUMPLOADS]; /**< async trigger to force specific load(s) to ON */
 #ifdef PRIORITY_ROTATION
 volatile bool b_reOrderLoads{false}; /**< async trigger for loads re-ordering */
 #endif
@@ -1009,13 +1017,19 @@ void updatePhysicalLoadStates()
 
     b_reOrderLoads = false;
   }
+
+  if (0x00 == (loadPrioritiesAndState[0] & loadStateOnBit))
+    ++absenceOfDivertedEnergyCount;
+  else
+    absenceOfDivertedEnergyCount = 0;
+
 #endif
 
   for (i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
     const auto iLoad{loadPrioritiesAndState[i] & loadStateMask};
     physicalLoadState[iLoad] =
-        (loadPrioritiesAndState[i] & loadStateOnBit) || b_forceLoadsOn[iLoad] ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
+        (loadPrioritiesAndState[i] & loadStateOnBit) || b_forceLoadOn[iLoad] ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   }
 }
 
@@ -1100,6 +1114,8 @@ void printDataLogging(bool bOffPeak)
   Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
   Serial.print(F(", #ofSampleSets "));
   Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
+  Serial.print(F(", NoED "));
+  Serial.print(absenceOfDivertedEnergyCount);
   Serial.println(F(")"));
 
 #else
@@ -1156,7 +1172,7 @@ void forceFullPower()
 {
   const uint8_t pinState{PIND & (1 << forcePin)};
 
-  for (auto &bForceLoad : b_forceLoadsOn)
+  for (auto &bForceLoad : b_forceLoadOn)
     bForceLoad = pinState;
 }
 
@@ -1206,9 +1222,9 @@ bool checkLoadPrioritySelection()
       if (!pinOffPeakState && !pinNewState &&
           (ulElapsedTime >= rg_OffsetForce[i][0]) &&
           (ulElapsedTime < rg_OffsetForce[i][1]))
-        b_forceLoadsOn[i] = true;
+        b_forceLoadOn[i] = true;
       else
-        b_forceLoadsOn[i] = false;
+        b_forceLoadOn[i] = false;
     }
   }
 
@@ -1222,6 +1238,20 @@ bool checkLoadPrioritySelection()
 
   return (LOW == pinOffPeakState);
 #else
+#ifdef PRIORITY_ROTATION
+  if (ROTATION_AFTER_CYCLES < absenceOfDivertedEnergyCount)
+  {
+    b_reOrderLoads = true;
+    absenceOfDivertedEnergyCount = 0;
+
+    // waits till the priorities have been rotated from inside the ISR
+    while (b_reOrderLoads)
+      delay(10);
+
+    // prints the (new) load priorities
+    logLoadPriorities();
+  }
+#endif
   return false;
 #endif
 }
@@ -1280,6 +1310,13 @@ void printConfiguration()
 #ifdef OFF_PEAK_TARIFF
   Serial.println(F("is present"));
   printOffPeakConfiguration();
+#else
+  Serial.println(F("is NOT present"));
+#endif
+
+  Serial.print("Load rotation feature ");
+#ifdef PRIORITY_ROTATION
+  Serial.println(F("is present"));
 #else
   Serial.println(F("is NOT present"));
 #endif
@@ -1481,11 +1518,11 @@ void setup()
   }
 #endif
 
-  DDRD &= ~(1 << forcePin);                 // set as input
-  PORTD |= (1 << forcePin);                 // enable the internal pullup resistor
-  delay(100);                               // allow time to settle
+  DDRD &= ~(1 << forcePin); // set as input
+  PORTD |= (1 << forcePin); // enable the internal pullup resistor
+  delay(100);               // allow time to settle
 
-  for (auto &bForceLoad : b_forceLoadsOn)
+  for (auto &bForceLoad : b_forceLoadOn)
     bForceLoad = false;
 
   for (auto &DCoffset_V : l_DCoffset_V)
@@ -1542,7 +1579,7 @@ void loop()
     if (perSecondTimer >= CYCLES_PER_SECOND)
     {
       perSecondTimer = 0;
-      
+
       forceFullPower();
 
       bOffPeak = checkLoadPrioritySelection(); // called every second

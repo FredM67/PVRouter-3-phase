@@ -7,7 +7,7 @@ var indexSectionsWithContent =
   4: "abcdfilnoprstuvw",
   5: "lop",
   6: "alnp",
-  7: "dfopr",
+  7: "dfpr",
   8: "t",
   9: "a"
 };
