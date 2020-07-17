@@ -5,7 +5,7 @@
 
 # PVRouter (3-phase version)
 
-My version of the 3-phase Mk2PVRouter firmware (see <http://www.mk2pvrouter.co.uk>)
+My version of the 3-phase Mk2PVRouter firmware (see <http://www.mk2pvrouter.co.uk>).
 
 Robin Emley already proposes a 3 phase PV-router (<https://www.mk2pvrouter.co.uk/3-phase-version.html>).
 It supports 3 resistive output loads, which are completely independent.

@@ -3,6 +3,117 @@
   <span>Français</span>
 </p>
 
-# PVRouter (3-phase version)
+# PVRouter (version triphasée)
 
-Bientôt en français...
+PVRouter (version triphasée)
+Ma version du firmware Mk2PVRouter en 3 phases (voir http://www.mk2pvrouter.co.uk).
+
+Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.uk/3-phase-version.html). Il prend en charge 3 charges de sortie résistives, qui sont complètement indépendantes.
+
+---
+**_NOTE:_**
+
+Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
+
+---
+
+- [PVRouter (version triphasée)](#pvrouter-version-triphasée)
+  - [Documentation de développement](#documentation-de-développement)
+  - [Documentation de l’utilisateur final](#documentation-de-lutilisateur-final)
+    - [Aperçu](#aperçu)
+    - [Gestion des priorités de charge](#gestion-des-priorités-de-charge)
+    - [Détection HC](#détection-hc)
+    - [Forcage pleine puissance](#forcage-pleine-puissance)
+    - [Capteur de température](#capteur-de-température)
+  - [Diagramme de câblage](#diagramme-de-câblage)
+    - [Pré-requis](#pré-requis)
+    - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
+    - [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
+    - [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
+
+## Documentation de développement
+
+Vous pouvez commencer à lire la documentation ici [3-phase diverter](https://fredm67.github.io/PVRouter-3-phase/html/index.html) (en anglais).
+
+## Documentation de l’utilisateur final
+
+### Aperçu
+
+L’objectif était de modifier/optimiser le programme pour le cas « spécial » d’un chauffe-eau triphasé. Un chauffe-eau triphasé est composé en fait de 3 éléments de chauffage indépendants. La plupart du temps, un tel chauffe-eau peut être connecté en mono, ou en triphasé étoile (WYE) ou triphasé triangle (Delta). Lorsqu’il est connecté en étoile (sans varistor), il n’y a pas besoin de fil de neutre parce que le système est équilibré, donc à tout moment, il n’y a pas de courant qui circule vers le neutre.
+
+Si un diverteur est utilisé, le fil neutre doit être connecté.
+
+Fonctionnalités ajoutées :
+
+- gestion des priorités de charge (configurable)
+- détection HC/HP (configurable)
+- forcage à pleine puissance
+- capteur de température (juste la lecture pour le moment)
+- enregistrement de données optimisé (RF)
+- sortie série en JSON ou TXT
+  
+Le programme original a dû être entièrement retravaillé et re-structuré pour permettre la lecture de la température. Dans le programme d’origine, l’ISR ne fait que lire et convertit les données analogiques, et le traitement se fait dans la boucle *loop*. Cela ne fonctionnera pas avec un capteur de température en raison de ses performances lentes. Il déstabiliserait l’ensemble du système, des données de courant / tension seraient perdues, ...
+
+Maintenant, tout le traitement critique dans le temps se fait à l’intérieur de l’ISR, les autres tâches comme la journalisation des données (RF), la sortie série, la lecture de la température sont faites à l’intérieur de la boucle *loop()*. L’ISR et le processeur principal communiquent entre eux par le biais d'« êvénements ».
+
+### Gestion des priorités de charge
+
+Dans ma variante de du programme de Robin, les 3 charges sont toujours physiquement indépendantes, c'est-à-dire que le routeur va détourner l’excédent d’énergie à la première charge (priorité la plus élevée) de 0% à 100%, puis à la seconde (0% à 100%) et enfin à la troisième.
+
+Pour éviter que les priorités restent tout le temps inchangées, ce qui signifie que la charge 1 fonctionnera beaucoup plus que la charge 2, qui fonctionne encore beaucoup plus de 3, j’ai ajouté une gestion des priorités. Chaque jour, les priorités des charges sont permutées, donc sur plusieurs jours, tous les éléments de chauffage fonctionneront en quelque sorte sur la même durée.
+
+### Détection HC
+
+Selon le pays, certains compteurs d’énergie fournissent un interrupteur/relais qui bascule au début de la période creuse. Il est destiné à contrôler un relais. Si vous le reliez à une broche numérique libre du routeur (dans mon cas D3), vous pouvez détecter le début et fin des HC.
+
+### Forcage pleine puissance
+
+Le support a été ajouté pour forcer la pleine puissance sur des charges spécifiques. Chaque charge peut être forcée indépendamment les unes des autres, l’heure de début et la durée peuvent être définies individuellement.
+
+Dans ma variante, c’est utilisé pour changer le chauffage pendant la période creuse, dans le cas où le surplus a été trop faible au cours de la journée. Ici, pour optimiser le comportement, un capteur de température sera utilisé pour vérifier la température de l’eau et décider d’allumer ou non pendant la nuit.
+
+### Capteur de température
+
+Pour l’instant, uniquement lecture. Il sera utilisé pour optimiser la pleine puissance de la force, pour prendre la bonne décision pendant la nuit.
+
+## Diagramme de câblage
+
+### Pré-requis
+
+Votre chauffe-eau DOIT supporter le câblage en triphasé (c'est-à-dire il doit y avoir 3 éléments chauffants).
+
+---
+**_Avertissement de sécurité_**
+Pour modifier le câblage existant, l’accès à la tension du réseau 240V est nécessaire. Soyez sûr de savoir ce que vous entreprenez. Au besoin, faîtes appel à un électricien qualifié.
+
+---
+
+### Chauffe-eau avec thermostat mécanique
+
+Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2 phases en mode normal (les 3 phases en mode de sécurité), il doit donc être câblé d’une autre manière pour obtenir un commutateur complet sur les 3 phases. Dans une situation entièrement équilibrée en triphasé, vous n’avez pas besoin de fil neutre. Pour éteindre l’appareil, vous n’avez qu’à couper 2 phases.
+
+Pour cela, j’ai « recyclé » un commutateur HC/HP triphasé, mais vous pouvez utiliser n’importe quel relais triphasé. La bobine de commande doit être connectée à une alimentation permanente (et non à travers le routeur).
+
+![Chauffe-eau avec thermostat mécanique](../../img/Heater-mechanical.png)
+*Figure: Diagramme de câblage*
+
+### Chauffe-eau avec thermostat ACI monophasé
+
+Dans ce cas, c’est en quelque sorte la même situation qu’avant. Vous n’avez pas besoin d’acheter un kit ACI en triphasé pour convertir votre chauffe-eau monophasé. La carte ACI doit être connectée à une phase permanente. Elle contrôlera ensuite n’importe quel relais en triphasé.
+
+![Chauffe-eau avec thermostat ACI monophasé](../../img/Heater-ACI-Mono.png)
+*Figure : Diagramme de câblage
+
+### Chauffe-eau avec thermostat ACI triphasé
+
+Dans ce cas, le fil neutre n’est pas connecté à la carte ACI. Ainsi, vous aurez besoin de connecter le fil neutre au fil bleu déjà connecté aux éléments de chauffage. La carte ACI doit être reliée à 3 phases permanentes.
+
+![Chauffe-eau avec thermostat ACI triphasé](../../img/Heater-ACI-Tri.png)
+*Figure : Diagramme de câblage
+
+![Carte ACI triphasée](../../img/ACI-Tri.jpeg)
+*Figure : Une carte ACI triphasée
+
+Et maintenant avec un schéma « hybride »:
+![Comment connecter un module ACI triphasé](../../img/ACI-Tri-Hybrid.jpeg)
+*Figure: Comment connecter un module ACI triphasé
