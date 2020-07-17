@@ -103,7 +103,7 @@ Dans une situation entièrement équilibrée en triphasé, vous n’avez pas bes
 Pour cela, j’ai « recyclé » un commutateur HC/HP triphasé, mais vous pouvez utiliser n’importe quel relais triphasé. La bobine de commande doit être connectée à une alimentation "permanente" (et non à travers le routeur) contrôlée par le thermostat.
 
 ![Chauffe-eau avec thermostat mécanique](../../img/Heater-mechanical.png)
-*Figure: Diagramme de câblage*
+*Figure: Diagramme de câblage
 
 ### Chauffe-eau avec thermostat ACI monophasé
 
