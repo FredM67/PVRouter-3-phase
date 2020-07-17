@@ -23,7 +23,7 @@ Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM6
     - [Aperçu](#aperçu)
     - [Gestion des priorités de charge](#gestion-des-priorités-de-charge)
     - [Détection HC](#détection-hc)
-    - [Forcage pleine puissance](#forcage-pleine-puissance)
+    - [Forçage pleine puissance](#forçage-pleine-puissance)
     - [Capteur de température](#capteur-de-température)
   - [Diagramme de câblage](#diagramme-de-câblage)
     - [Pré-requis](#pré-requis)
@@ -84,6 +84,7 @@ Votre chauffe-eau DOIT supporter le câblage en triphasé (c'est-à-dire il doit
 
 ---
 **_Avertissement de sécurité_**
+
 Pour modifier le câblage existant, l’accès à la tension du réseau 240V est nécessaire. Soyez sûr de savoir ce que vous entreprenez. Au besoin, faîtes appel à un électricien qualifié.
 
 ---
@@ -94,7 +95,9 @@ Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2
 
 ---
 **_Rappel_**
-Dans une situation entièrement équilibrée en triphasé, vous n’avez pas besoin de fil neutre. Pour éteindre l’appareil, il suffit de couper 2 phases, ce qui explique la construction de ces thermostats.
+
+Dans une situation entièrement équilibrée en triphasé, vous n’avez pas besoin de fil neutre. Pour éteindre l’appareil, il suffit de couper 2 phases, ce qui explique la construction de ces thermostats
+
 ---
 
 Pour cela, j’ai « recyclé » un commutateur HC/HP triphasé, mais vous pouvez utiliser n’importe quel relais triphasé. La bobine de commande doit être connectée à une alimentation "permanente" (et non à travers le routeur) contrôlée par le thermostat.
