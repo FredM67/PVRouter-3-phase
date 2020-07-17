@@ -96,7 +96,7 @@ Since on all (3-phase) water heaters I've seen, the thermostat switches only 2 p
 
 For that, I've "recycled" a peak/off peak 3-phase relay but you can use any 3-phase relay. It doesn't matter on which phase the command coil is connected, but it must be permanent (not through the router).
 
-![Heater with mechanical thermostat](img/Heater-mechanical.png)
+![Heater with mechanical thermostat](img/Heater-mechanical.png)  
 *Figure: Wiring diagram*
 
 ### Heater with ACI single phase thermostat
@@ -105,19 +105,19 @@ In this case, it's somehow the same situation as before.
 You don't need to buy a 3-phase kit to convert your single phase heater.
 The ACI pcb must be connected to a permanent phase. It will then control any 3-phase relay.
 
-![Heater with ACI single phase thermostat](img/Heater-ACI-Mono.png)
+![Heater with ACI single phase thermostat](img/Heater-ACI-Mono.png)  
 *Figure: Wiring diagram*
 
 ### Heater with ACI 3-phase thermostat
 
 In this case, the neutral wire is not connected to the ACI pcb. So you'll need to connect the neutral wire to the blue wire already connected to the heating elements. The ACI pcb must be connected to 3 permanent phases.
 
-![Heater with ACI 3-phase thermostat](img/Heater-ACI-Tri.png)
+![Heater with ACI 3-phase thermostat](img/Heater-ACI-Tri.png)  
 *Figure: Wiring diagram*
 
 ![ACI 3-phase PCB](img/ACI-Tri.jpeg)
 *Figure: An ACI 3-phase module*
 
 And now with an "hybrid" schematic-picture:
-![How to connect ACI 3-phase module](img/ACI-Tri-Hybrid.jpeg)
+![How to connect ACI 3-phase module](img/ACI-Tri-Hybrid.jpeg)  
 *Figure: How to connect ACI 3-phase module*
