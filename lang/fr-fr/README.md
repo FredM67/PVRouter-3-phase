@@ -39,9 +39,9 @@ Vous pouvez commencer à lire la documentation ici [3-phase diverter](https://fr
 
 ### Aperçu
 
-L’objectif était de modifier/optimiser le programme pour le cas « spécial » d’un chauffe-eau triphasé. Un chauffe-eau triphasé est composé en fait de 3 éléments de chauffage indépendants. La plupart du temps, un tel chauffe-eau peut être connecté en mono, ou en triphasé étoile (WYE) ou triphasé triangle (Delta). Lorsqu’il est connecté en étoile (sans varistor), il n’y a pas besoin de fil de neutre parce que le système est équilibré, donc à tout moment, il n’y a pas de courant qui circule vers le neutre.
+L’objectif était de modifier/optimiser le programme pour le cas « spécial » d’un chauffe-eau triphasé. Un chauffe-eau triphasé est composé en fait de 3 éléments de chauffage indépendants. La plupart du temps, un tel chauffe-eau peut être connecté en monophasé, en triphasé étoile (WYE) ou triphasé triangle (Delta). Lorsqu’il est connecté en étoile (sans varistor), il n’y a pas besoin de fil de neutre parce que le système est équilibré, donc à tout moment, il n’y a pas de courant qui circule vers le neutre.
 
-Si un diverteur est utilisé, le fil neutre doit être connecté.
+Si un diverteur est utilisé, le fil neutre DOIT être connecté.
 
 Fonctionnalités ajoutées :
 
@@ -52,21 +52,21 @@ Fonctionnalités ajoutées :
 - enregistrement de données optimisé (RF)
 - sortie série en JSON ou TXT
   
-Le programme original a dû être entièrement retravaillé et re-structuré pour permettre la lecture de la température. Dans le programme d’origine, l’ISR ne fait que lire et convertit les données analogiques, et le traitement se fait dans la boucle *loop*. Cela ne fonctionnera pas avec un capteur de température en raison de ses performances lentes. Il déstabiliserait l’ensemble du système, des données de courant / tension seraient perdues, ...
+Le programme original a dû être entièrement retravaillé et re-structuré pour permettre la lecture de la température. Dans le programme d’origine, l’ISR ne fait que lire et convertir les données analogiques, et le traitement se fait dans la boucle *loop*. Cela ne fonctionnera pas avec un capteur de température en raison de ses performances lentes. Il déstabiliserait l’ensemble du système, des données de courant / tension seraient perdues, ...
 
-Maintenant, tout le traitement critique dans le temps se fait à l’intérieur de l’ISR, les autres tâches comme la journalisation des données (RF), la sortie série, la lecture de la température sont faites à l’intérieur de la boucle *loop()*. L’ISR et le processeur principal communiquent entre eux par le biais d'« êvénements ».
+Maintenant, tout le traitement critique en termes de temps se fait à l’intérieur de l’ISR, les autres tâches comme la journalisation des données (RF), la sortie série, la lecture de la température sont faites à l’intérieur de la boucle *loop()*. L’ISR et le processeur principal communiquent entre eux par le biais d'« êvénements ».
 
 ### Gestion des priorités de charge
 
-Dans ma variante de du programme de Robin, les 3 charges sont toujours physiquement indépendantes, c'est-à-dire que le routeur va détourner l’excédent d’énergie à la première charge (priorité la plus élevée) de 0% à 100%, puis à la seconde (0% à 100%) et enfin à la troisième.
+Dans ma variante du programme de Robin, les 3 charges sont toujours physiquement indépendantes, c'est-à-dire que le routeur va détourner l’excédent d’énergie à la première charge (priorité la plus élevée) de 0% à 100%, puis à la seconde (0% à 100%) et enfin à la troisième.
 
-Pour éviter que les priorités restent tout le temps inchangées, ce qui signifie que la charge 1 fonctionnera beaucoup plus que la charge 2, qui fonctionne encore beaucoup plus de 3, j’ai ajouté une gestion des priorités. Chaque jour, les priorités des charges sont permutées, donc sur plusieurs jours, tous les éléments de chauffage fonctionneront en quelque sorte sur la même durée.
+Pour éviter que les priorités restent tout le temps inchangées, ce qui signifie que la charge 1 fonctionnera beaucoup plus que la charge 2, qui elle-même fonctionnera plus que la charge 3, j’ai ajouté une gestion des priorités. Chaque jour, les priorités des charges sont permutées, donc sur plusieurs jours, tous les éléments de chauffage fonctionneront en moyenne de façon équitable.
 
 ### Détection HC
 
-Selon le pays, certains compteurs d’énergie fournissent un interrupteur/relais qui bascule au début de la période creuse. Il est destiné à contrôler un relais. Si vous le reliez à une broche numérique libre du routeur (dans mon cas D3), vous pouvez détecter le début et fin des HC.
+Selon le pays, certains compteurs d’énergie disposent d'interrupteur/relais qui bascule au début de la période creuse. Il est destiné à contrôler un commutateur HC/HP. Si vous le reliez à une broche numérique libre du routeur (dans mon cas D3), vous pouvez détecter le début et fin des HC.
 
-### Forcage pleine puissance
+### Forçage pleine puissance
 
 Le support a été ajouté pour forcer la pleine puissance sur des charges spécifiques. Chaque charge peut être forcée indépendamment les unes des autres, l’heure de début et la durée peuvent être définies individuellement.
 
@@ -90,9 +90,14 @@ Pour modifier le câblage existant, l’accès à la tension du réseau 240V est
 
 ### Chauffe-eau avec thermostat mécanique
 
-Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2 phases en mode normal (les 3 phases en mode de sécurité), il doit donc être câblé d’une autre manière pour obtenir un commutateur complet sur les 3 phases. Dans une situation entièrement équilibrée en triphasé, vous n’avez pas besoin de fil neutre. Pour éteindre l’appareil, vous n’avez qu’à couper 2 phases.
+Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2 phases en mode normal (les 3 phases en mode de sécurité), il doit donc être câblé d’une autre manière pour obtenir un commutateur complet sur les 3 phases.
 
-Pour cela, j’ai « recyclé » un commutateur HC/HP triphasé, mais vous pouvez utiliser n’importe quel relais triphasé. La bobine de commande doit être connectée à une alimentation permanente (et non à travers le routeur).
+---
+**_Rappel_**
+Dans une situation entièrement équilibrée en triphasé, vous n’avez pas besoin de fil neutre. Pour éteindre l’appareil, il suffit de couper 2 phases, ce qui explique la construction de ces thermostats.
+---
+
+Pour cela, j’ai « recyclé » un commutateur HC/HP triphasé, mais vous pouvez utiliser n’importe quel relais triphasé. La bobine de commande doit être connectée à une alimentation "permanente" (et non à travers le routeur) contrôlée par le thermostat.
 
 ![Chauffe-eau avec thermostat mécanique](../../img/Heater-mechanical.png)
 *Figure: Diagramme de câblage*
