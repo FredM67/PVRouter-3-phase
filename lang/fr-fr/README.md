@@ -102,26 +102,26 @@ Dans une situation entièrement équilibrée en triphasé, vous n’avez pas bes
 
 Pour cela, j’ai « recyclé » un commutateur HC/HP triphasé, mais vous pouvez utiliser n’importe quel relais triphasé. La bobine de commande doit être connectée à une alimentation "permanente" (et non à travers le routeur) contrôlée par le thermostat.
 
-![Chauffe-eau avec thermostat mécanique](../../img/Heater-mechanical.png)
-*Figure: Diagramme de câblage
+![Chauffe-eau avec thermostat mécanique](../../img/Heater-mechanical.png)  
+*Figure: Diagramme de câblage*
 
 ### Chauffe-eau avec thermostat ACI monophasé
 
 Dans ce cas, c’est en quelque sorte la même situation qu’avant. Vous n’avez pas besoin d’acheter un kit ACI en triphasé pour convertir votre chauffe-eau monophasé. La carte ACI doit être connectée à une phase permanente. Elle contrôlera ensuite n’importe quel relais en triphasé.
 
-![Chauffe-eau avec thermostat ACI monophasé](../../img/Heater-ACI-Mono.png)
-*Figure : Diagramme de câblage
+![Chauffe-eau avec thermostat ACI monophasé](../../img/Heater-ACI-Mono.png)  
+*Figure : Diagramme de câblage*
 
 ### Chauffe-eau avec thermostat ACI triphasé
 
 Dans ce cas, le fil neutre n’est pas connecté à la carte ACI. Ainsi, vous aurez besoin de connecter le fil neutre au fil bleu déjà connecté aux éléments de chauffage. La carte ACI doit être reliée à 3 phases permanentes.
 
-![Chauffe-eau avec thermostat ACI triphasé](../../img/Heater-ACI-Tri.png)
-*Figure : Diagramme de câblage
+![Chauffe-eau avec thermostat ACI triphasé](../../img/Heater-ACI-Tri.png)  
+*Figure : Diagramme de câblage*
 
 ![Carte ACI triphasée](../../img/ACI-Tri.jpeg)
-*Figure : Une carte ACI triphasée
+*Figure : Une carte ACI triphasée*
 
 Et maintenant avec un schéma « hybride »:
-![Comment connecter un module ACI triphasé](../../img/ACI-Tri-Hybrid.jpeg)
-*Figure: Comment connecter un module ACI triphasé
+![Comment connecter un module ACI triphasé](../../img/ACI-Tri-Hybrid.jpeg)  
+*Figure: Comment connecter un module ACI triphasé*
