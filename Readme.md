@@ -1,3 +1,8 @@
+<p align="center">
+  <span>English</span> |
+  <a href="lang/fr-fr/">Français</a> |
+</p>
+
 # PVRouter (3-phase version)
 
 My version of the 3-phase Mk2PVRouter firmware (see <http://www.mk2pvrouter.co.uk>)
@@ -11,19 +16,20 @@ It supports 3 resistive output loads, which are completely independent.
 For a single phase version, please see [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
 
 ---
+
 - [PVRouter (3-phase version)](#pvrouter-3-phase-version)
   - [Implementation documentation](#implementation-documentation)
   - [End-user documentation](#end-user-documentation)
     - [Overview](#overview)
-    - [Off-peak period detection](#off-peak-period-detection)
     - [Load priorities management](#load-priorities-management)
+    - [Off-peak period detection](#off-peak-period-detection)
     - [Force full power](#force-full-power)
     - [Temperature sensor](#temperature-sensor)
-    - [Wiring diagram](#wiring-diagram)
-      - [Requirements](#requirements)
-      - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
-      - [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
-      - [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
+  - [Wiring diagram](#wiring-diagram)
+    - [Requirements](#requirements)
+    - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
+    - [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
+    - [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
 
 ## Implementation documentation
 
@@ -40,8 +46,8 @@ If a diverter is used, the neutral wire must be connected.
 
 Added functionalities:
 
-- off-peak period detection (configurable)
 - load priorities management (configurable)
+- off-peak period detection (configurable)
 - force full power
 - temperature sensor (just reading for the moment)
 - optimized (RF) data logging
@@ -51,10 +57,6 @@ The original sketch had to be completely re-worked and re-structured to support 
 
 Now, all the time-critical processing is done inside the ISR, other stuff like (RF) data logging, Serial printing, temperature reading is made inside the loop(). The ISR and main processor communicate with each other through "events".
 
-### Off-peak period detection
-
-Depending on the country, some energy meters provide a switch which toggles on at the beginning of the off-peak period. It is intended to control a relay. If you wire it to a free digital pin of the router (in my case D3), you can detect off-peak/peak period.
-
 ### Load priorities management
 
 In my variant of Robin's sketch, the 3 loads are still physically independent, so it means, the router will divert surplus of energy to the first load (highest priority) from 0% to 100%, then to the second (0% to 100%) and finally to the third.
@@ -62,8 +64,9 @@ In my variant of Robin's sketch, the 3 loads are still physically independent, s
 To avoid that the priorities stays all the time unchanged, which would mean that load 1 will run much more than load 2, which again will run much more than 3, I've added a priority management.
 Each day, the load priorities are rotated, so over many days, all the heating elements will run somehow the same amount of time.
 
-If Off-peak tariff support is **enabled**, the rotation will happen at each start of the off-peak period.
-If Off-peak tariff support is **disabled**, the rotation will happen after 8 hours (can be configured) without energy diversion.
+### Off-peak period detection
+
+Depending on the country, some energy meters provide a switch which toggles on at the beginning of the off-peak period. It is intended to control a relay. If you wire it to a free digital pin of the router (in my case D3), you can detect off-peak/peak period.
 
 ### Force full power
 
@@ -71,15 +74,14 @@ Support has been added to force full power on specific loads. Each load can be f
 
 In my variant, that's used to switch the heater one during off-peak period if not enough surplus has been routed during the day. Here, to optimize the behavior, a temp-sensor will be used to check the temperature of the water and decide to switch on or not during night.
 
-Additionally, a switch can be connected on pin D4 (configurable) to force full power of all 3 loads (similar to the overwrite switch on the single phase, except here, the switch DOES NOT short-circuit the triac but sets a pin to LOW to signal the software to force full power).
-
 ### Temperature sensor
 
 For the moment, just reading. It'll be used to optimize force full power, to make the right decision during night.
 
-### Wiring diagram
+## Wiring diagram
 
-#### Requirements
+### Requirements
+
 Your water heater MUST support 3-phase wiring (i.e. it must have 3 heating elements).
 
 ---
@@ -88,34 +90,34 @@ To modify the existing wiring, access to 240V mains voltage is required. Pleas
 
 ---
 
-#### Heater with mechanical thermostat
+### Heater with mechanical thermostat
 
 Since on all (3-phase) water heaters I've seen, the thermostat switches only 2 phases in normal mode (all 3 phases in security mode), it must be wired in another way to achieve a full switch on all 3 phases. In a fully balanced 3-phase situation, you don't need any neutral wire. To switch off the device, you only need to switch off 2 phases.
 
 For that, I've "recycled" a peak/off peak 3-phase relay but you can use any 3-phase relay. It doesn't matter on which phase the command coil is connected, but it must be permanent (not through the router).
 
-![Heater with mechanical thermostat](Heater-mechanical.png)
+![Heater with mechanical thermostat](img/Heater-mechanical.png)
 *Figure: Wiring diagram*
 
-#### Heater with ACI single phase thermostat
+### Heater with ACI single phase thermostat
 
 In this case, it's somehow the same situation as before.
 You don't need to buy a 3-phase kit to convert your single phase heater.
 The ACI pcb must be connected to a permanent phase. It will then control any 3-phase relay.
 
-![Heater with ACI single phase thermostat](Heater-ACI-Mono.png)
+![Heater with ACI single phase thermostat](img/Heater-ACI-Mono.png)
 *Figure: Wiring diagram*
 
-#### Heater with ACI 3-phase thermostat
+### Heater with ACI 3-phase thermostat
 
-In this case, the neutral wire is not connected to the ACI pcb. So you'll need to connect the neutral wire to the blue wire already connected to the heating elements. The ACI pcb must be connected to 3 permanent phases. 
+In this case, the neutral wire is not connected to the ACI pcb. So you'll need to connect the neutral wire to the blue wire already connected to the heating elements. The ACI pcb must be connected to 3 permanent phases.
 
-![Heater with ACI 3-phase thermostat](Heater-ACI-Tri.png)
+![Heater with ACI 3-phase thermostat](img/Heater-ACI-Tri.png)
 *Figure: Wiring diagram*
 
-![ACI 3-phase PCB](ACI-Tri.jpeg)
+![ACI 3-phase PCB](img/ACI-Tri.jpeg)
 *Figure: An ACI 3-phase module*
 
 And now with an "hybrid" schematic-picture:
-![How to connect ACI 3-phase module](ACI-Tri-Hybrid.jpeg)
+![How to connect ACI 3-phase module](img/ACI-Tri-Hybrid.jpeg)
 *Figure: How to connect ACI 3-phase module*
