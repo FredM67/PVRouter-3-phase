@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="../../">English</a> |
+  <a href="https://github.com/FredM67/PVRouter-3-phase/">English</a> |
   <span>Français</span>
 </p>
 
