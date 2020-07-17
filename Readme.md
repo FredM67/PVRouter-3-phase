@@ -1,6 +1,6 @@
 <p align="center">
   <span>English</span> |
-  <a href="lang/fr-fr/">Français</a> |
+  <a href="lang/fr-fr/">Français</a>
 </p>
 
 # PVRouter (3-phase version)
