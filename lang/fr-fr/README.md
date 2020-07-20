@@ -25,9 +25,12 @@ Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM6
     - [Forçage pleine puissance](#forçage-pleine-puissance)
     - [Capteur de température](#capteur-de-température)
     - [Profil Enphase zéro export](#profil-enphase-zéro-export)
+- [Applications](#applications)
   - [Diagramme de câblage](#diagramme-de-câblage)
     - [Pré-requis](#pré-requis)
     - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
+      - [Passage du monophasé au triphasé](#passage-du-monophasé-au-triphasé)
+      - [Câblage](#câblage)
     - [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
     - [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
 
@@ -96,6 +99,16 @@ Lorsque la production (et l’excédent) arrive au maximum possible, la valeur m
 
 Cela a été testé en situation réelle par Amorim. Selon chaque situation, il peut être nécessaire de modifier cette valeur de *-20* à une valeur plus grande ou plus petite.
 
+# Applications
+
+Je veux:
+
+- changer mon chauffe-eau (mécanique) en une seule phase en 3 phases, voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
+- connecter mon chauffe-eau (mécanique) en 3 phases, voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
+- changer mon chauffe-eau aci en une seule phase à 3 phases w / o acheter un kit en 3 phases, voir [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
+- connecter mon chauffe-eau ACI 3 phases, voir [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
+- connecter plusieurs charges de résistance pure, il suffit de les filer, un sur chaque sortie, et n’oubliez pas de désactiver la gestion des priorités de charge.
+
 ## Diagramme de câblage
 
 ### Pré-requis
@@ -105,11 +118,18 @@ Votre chauffe-eau DOIT supporter le câblage en triphasé (c'est-à-dire il doit
 ---
 **_Avertissement de sécurité_**
 
-Pour modifier le câblage existant, l’accès à la tension du réseau 240V est nécessaire. Soyez sûr de savoir ce que vous entreprenez. Au besoin, faîtes appel à un électricien qualifié.
+Pour modifier le câblage existant, l’accès à la tension du réseau 240V est nécessaire.  
+Soyez sûr de savoir ce que vous entreprenez. Au besoin, faîtes appel à un électricien qualifié.
 
 ---
 
 ### Chauffe-eau avec thermostat mécanique
+
+#### Passage du monophasé au triphasé
+
+Vous devrez séparer les 3 éléments de chauffage, et probablement ajouter un nouveau fil pour chacun d’eux. Parfois, les éléments sont reliés ensemble avec une sorte "d'étoile" métallique. Il y en a une pour la phase, et une pour le fil neutre. Vous n’avez qu’à supprimer l’une d’eux, celui pour neutre doit rester câblée.
+
+#### Câblage
 
 Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2 phases en mode normal (les 3 phases en mode de sécurité), il doit donc être câblé d’une autre manière pour obtenir un commutateur complet sur les 3 phases.
 
