@@ -27,7 +27,7 @@ For a single phase version, please see [PVRouter-Single](https://github.com/Fred
     - [Temperature sensor](#temperature-sensor)
     - [Enphase zero-export profile](#enphase-zero-export-profile)
 - [Use cases](#use-cases)
-  - [Wiring diagram](#wiring-diagram)
+  - [Wiring diagrams](#wiring-diagrams)
     - [Requirements](#requirements)
     - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
       - [Migrate from single-phase to 3-phase](#migrate-from-single-phase-to-3-phase)
@@ -112,7 +112,7 @@ I want to:
 - connect my ACI 3-phase water heater, see [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
 - connect multiple pure resistive charges, simply wire them, one on each output, and do not forget to disable [Load priorities management](#load-priorities-management).
 
-## Wiring diagram
+## Wiring diagrams
 
 ### Requirements
 
