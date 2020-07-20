@@ -85,16 +85,16 @@ When zero-export settings is enabled, the PV system curtails power production if
 
 As a side effect, the diverter won't see at any time surplus of energy.  
 So the idea is to apply a certain offset to the energy measured by the diverter.
-As it is already commented in the code, setting a negative value to *REQUIRED_EXPORT_IN_WATTS*, the diverter will act as a PV generator.  
+As it is already commented in the code, after setting a negative value to *REQUIRED_EXPORT_IN_WATTS*, the diverter will act as a PV generator.  
 If you set a value of -20, each time the diverter measures the energy flowing, it'll add *-20* to the measurements.  
 
 So, now let see what happen in a couple of cases:
 
-- measured value is **positive** (energy import, = no surplus), after adding *-20*, it stays positive, the diverter doesn't do anything. By a value between -20 and 0, the diverter won't do anything either.
+- measured value is **positive** (energy import = no surplus), after adding *-20*, it stays positive, the diverter doesn't do anything. By a value between -20 and 0, the diverter won't do anything either.
 - measured value is **around zero**. In this situation, the "zero export profile" limitation is active.  
 After adding *-20*, we get a negative value that will make the diverter start diverting energy to the water heater.  
 Now, there's a sort of chain reaction. The Envoy detects more consumption, decides to raise production.  
-On the next measurement, the diverter measures a value around zero, add again *-20*, and diverts even more energy.  
+On the next measurement, the diverter measures again a value around zero, add again *-20*, and diverts even more energy.  
 When production (and surplus) gets to the maximum possible, the measured value will stay around zero+ and the system is stable.
 
 This has been tested in real by Amorim. Depending of each situation, it might be necessary to tweak this value of *-20* to a bigger or smaller value.

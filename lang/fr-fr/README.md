@@ -25,6 +25,7 @@ Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM6
     - [Détection HC](#détection-hc)
     - [Forçage pleine puissance](#forçage-pleine-puissance)
     - [Capteur de température](#capteur-de-température)
+    - [Profil Enphase zéro export](#profil-enphase-zéro-export)
   - [Diagramme de câblage](#diagramme-de-câblage)
     - [Pré-requis](#pré-requis)
     - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
@@ -75,6 +76,26 @@ Dans ma variante, c’est utilisé pour changer le chauffage pendant la période
 ### Capteur de température
 
 Pour l’instant, uniquement lecture. Il sera utilisé pour optimiser la pleine puissance de la force, pour prendre la bonne décision pendant la nuit.
+
+### Profil Enphase zéro export
+
+Lorsque le profil zéro-export est activé, le système PV réduit la production d’énergie si la production du système dépasse les besoins de consommation du site. Cela garantit zéro injection dans le réseau.
+
+Comme effet secondaire, le diverteur ne verra pas à aucun moment un surplus d’énergie.  
+L’idée est donc d’appliquer un certain décalage à l’énergie mesurée par le diverteur.
+Comme il est déjà commenté dans le code, après l'assignation d’une valeur négative à *REQUIRED_EXPORT_IN_WATTS*, le diverter agira comme un générateur PV.  
+Si vous définissez une valeur de *-20*, chaque fois que le diverter mesure le flux d’énergie, il ajoutera *-20* aux mesures.  
+
+Alors, maintenant voyons ce qui se passe dans différents cas:
+
+- la valeur mesurée est **positive** (importation d’énergie = pas d’excédent), après avoir ajouté *-20*, cela reste positif, le diverter ne fait rien. Pour une valeur comprise entre -20 et 0, le déviateur ne fera rien non plus.
+- la valeur mesurée est **autour de zéro**. Dans cette situation, la limitation du "profil zéro exportation" est active.  
+Après l’ajout de *-20*, nous obtenons une valeur négative, ce qui déclenchera le détournement d’énergie vers le chauffe-eau.  
+Ensuite, il y a une sorte de réaction en chaîne. L’Envoy détecte plus de consommation, décide d’augmenter la production.  
+À la mesure suivante, le diverter mesure à nouveau une valeur autour de zéro, ajoute à nouveau -20, et détourne encore plus d’énergie.  
+Lorsque la production (et l’excédent) arrive au maximum possible, la valeur mesurée restera autour de zéro+ et le système deviendra stable.
+
+Cela a été testé en situation réelle par Amorim. Selon chaque situation, il peut être nécessaire de modifier cette valeur de *-20* à une valeur plus grande ou plus petite.
 
 ## Diagramme de câblage
 
