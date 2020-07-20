@@ -26,7 +26,7 @@ Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM6
     - [Capteur de température](#capteur-de-température)
     - [Profil Enphase zéro export](#profil-enphase-zéro-export)
 - [Applications](#applications)
-  - [Diagramme de câblage](#diagramme-de-câblage)
+  - [Diagrammes de câblage](#diagrammes-de-câblage)
     - [Pré-requis](#pré-requis)
     - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
       - [Passage du monophasé au triphasé](#passage-du-monophasé-au-triphasé)
@@ -109,7 +109,7 @@ Je veux:
 - connecter mon chauffe-eau ACI 3 phases, voir [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
 - connecter plusieurs charges de résistance pure, il suffit de les filer, un sur chaque sortie, et n’oubliez pas de désactiver la gestion des priorités de charge.
 
-## Diagramme de câblage
+## Diagrammes de câblage
 
 ### Pré-requis
 
