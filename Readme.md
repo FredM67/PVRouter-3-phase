@@ -25,6 +25,7 @@ For a single phase version, please see [PVRouter-Single](https://github.com/Fred
     - [Off-peak period detection](#off-peak-period-detection)
     - [Force full power](#force-full-power)
     - [Temperature sensor](#temperature-sensor)
+    - [Enphase zero-export profile](#enphase-zero-export-profile)
   - [Wiring diagram](#wiring-diagram)
     - [Requirements](#requirements)
     - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
@@ -77,6 +78,26 @@ In my variant, that's used to switch the heater one during off-peak period if no
 ### Temperature sensor
 
 For the moment, just reading. It'll be used to optimize force full power, to make the right decision during night.
+
+### Enphase zero-export profile
+
+When zero-export settings is enabled, the PV system curtails power production if the production of the system exceeds the consumption needs of the site. This ensures zero feed into the grid.
+
+As a side effect, the diverter won't see at any time surplus of energy.  
+So the idea is to apply a certain offset to the energy measured by the diverter.
+As it is already commented in the code, setting a negative value to *REQUIRED_EXPORT_IN_WATTS*, the diverter will act as a PV generator.  
+If you set a value of -20, each time the diverter measures the energy flowing, it'll add *-20* to the measurements.  
+
+So, now let see what happen in a couple of cases:
+
+- measured value is **positive** (energy import, = no surplus), after adding *-20*, it stays positive, the diverter doesn't do anything. By a value between -20 and 0, the diverter won't do anything either.
+- measured value is **around zero**. In this situation, the "zero export profile" limitation is active.  
+After adding *-20*, we get a negative value that will make the diverter start diverting energy to the water heater.  
+Now, there's a sort of chain reaction. The Envoy detects more consumption, decides to raise production.  
+On the next measurement, the diverter measures a value around zero, add again *-20*, and diverts even more energy.  
+When production (and surplus) gets to the maximum possible, the measured value will stay around zero+ and the system is stable.
+
+This has been tested in real by Amorim. Depending of each situation, it might be necessary to tweak this value of *-20* to a bigger or smaller value.
 
 ## Wiring diagram
 
