@@ -26,9 +26,12 @@ For a single phase version, please see [PVRouter-Single](https://github.com/Fred
     - [Force full power](#force-full-power)
     - [Temperature sensor](#temperature-sensor)
     - [Enphase zero-export profile](#enphase-zero-export-profile)
-  - [Wiring diagram](#wiring-diagram)
+- [Use cases](#use-cases)
+  - [Wiring diagrams](#wiring-diagrams)
     - [Requirements](#requirements)
     - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
+      - [Migrate from single-phase to 3-phase](#migrate-from-single-phase-to-3-phase)
+      - [Wiring](#wiring)
     - [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
     - [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
 
@@ -99,19 +102,37 @@ When production (and surplus) gets to the maximum possible, the measured value w
 
 This has been tested in real by Amorim. Depending of each situation, it might be necessary to tweak this value of *-20* to a bigger or smaller value.
 
-## Wiring diagram
+# Use cases
+
+I want to:
+
+- change my (mechanical) single-phase water heater to 3-phase, see [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
+- connect my (mechanical) 3-phase water heater, see [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
+- change my ACI single-phase water heater to 3-phase w/o buying a 3-phase kit, see [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
+- connect my ACI 3-phase water heater, see [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
+- connect multiple pure resistive charges, simply wire them, one on each output, and do not forget to disable [Load priorities management](#load-priorities-management).
+
+## Wiring diagrams
 
 ### Requirements
 
-Your water heater MUST support 3-phase wiring (i.e. it must have 3 heating elements).
+To change your single-phase water heater to 3-phase, it MUST support 3-phase wiring (i.e. it must have 3 heating elements).
 
 ---
 **_Safety Warning_**
-To modify the existing wiring, access to 240V mains voltage is required. Please take great care, and do not undertake this stage unless you feel confident to do so.
+
+To modify the existing wiring, access to 240V mains voltage is required.  
+Please take great care, and do not undertake this stage unless you feel confident to do so.
 
 ---
 
 ### Heater with mechanical thermostat
+
+#### Migrate from single-phase to 3-phase
+
+You'll have to separate all 3 heating elements, and probably add a new wire for each of them. Sometime, the elements are connected together with a sort of metallic "star". There's one for the (single) phase, and one for the neutral wire. You only need to remove one of them, the one for neutral must stay wired.  
+
+#### Wiring
 
 Since on all (3-phase) water heaters I've seen, the thermostat switches only 2 phases in normal mode (all 3 phases in security mode), it must be wired in another way to achieve a full switch on all 3 phases. In a fully balanced 3-phase situation, you don't need any neutral wire. To switch off the device, you only need to switch off 2 phases.
 
