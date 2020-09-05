@@ -105,7 +105,7 @@
 
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 
-#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
+//#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
 
 //#define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
 
@@ -398,7 +398,7 @@ Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing 
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.0556f, 0.0560f, 0.0558f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.0546f, 0.0545f, 0.0540f};
 
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the
 // current waveform. The algorithm interpolates between the most recent pair
@@ -419,7 +419,7 @@ constexpr int16_t i_phaseCal{256}; /**< to avoid the need for floating-point mat
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-constexpr float f_voltageCal[NO_OF_PHASES]{1.01f, 1.02f, 1.01f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
+constexpr float f_voltageCal[NO_OF_PHASES]{1.01f, 1.01f, 1.005f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
 
 /**
  * @brief update the control ports for each of the physical loads
@@ -1114,8 +1114,10 @@ void printDataLogging(bool bOffPeak)
   Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
   Serial.print(F(", #ofSampleSets "));
   Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
+#ifdef PRIORITY_ROTATION
   Serial.print(F(", NoED "));
   Serial.print(absenceOfDivertedEnergyCount);
+#endif
   Serial.println(F(")"));
 
 #else
