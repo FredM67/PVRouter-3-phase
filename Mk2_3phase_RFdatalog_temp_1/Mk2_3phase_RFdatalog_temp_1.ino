@@ -105,7 +105,7 @@
 
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 
-//#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
+#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
 
 //#define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
 
@@ -1172,7 +1172,7 @@ void logLoadPriorities()
  */
 void forceFullPower()
 {
-  const uint8_t pinState{PIND & (1 << forcePin)};
+  const uint8_t pinState{!!(PIND & (1 << forcePin))};
 
   for (auto &bForceLoad : b_forceLoadOn)
     bForceLoad = pinState;
@@ -1193,7 +1193,7 @@ bool checkLoadPrioritySelection()
 
   static uint8_t pinOffPeakState{HIGH};
 
-  const uint8_t pinNewState{PIND & (1 << offPeakForcePin)};
+  const uint8_t pinNewState{!!(PIND & (1 << offPeakForcePin))};
 
   if (pinOffPeakState && !pinNewState)
   {
@@ -1501,7 +1501,7 @@ void setup()
   DDRD &= ~(1 << offPeakForcePin);                 // set as input
   PORTD |= (1 << offPeakForcePin);                 // enable the internal pullup resistor
   delay(100);                                      // allow time to settle
-  uint8_t pinState{PIND & (1 << offPeakForcePin)}; // initial selection and
+  uint8_t pinState{!!(PIND & (1 << offPeakForcePin))}; // initial selection and
 
   ul_TimeOffPeak = millis();
 
@@ -1582,7 +1582,7 @@ void loop()
     {
       perSecondTimer = 0;
 
-      forceFullPower();
+      //forceFullPower();
 
       bOffPeak = checkLoadPrioritySelection(); // called every second
     }
