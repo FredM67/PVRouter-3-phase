@@ -1,5 +1,0 @@
-{
-    "programmer": "AVRISP mkII",
-    "board": "arduino:avr:uno",
-    "sketch": "cal_CTx_v_meter\\cal_CTx_v_meter.ino"
-}
