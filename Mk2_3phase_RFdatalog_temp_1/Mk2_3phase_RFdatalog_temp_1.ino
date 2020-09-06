@@ -1582,7 +1582,7 @@ void loop()
     {
       perSecondTimer = 0;
 
-      //forceFullPower();
+      forceFullPower();
 
       bOffPeak = checkLoadPrioritySelection(); // called every second
     }
