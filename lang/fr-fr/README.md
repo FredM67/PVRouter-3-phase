@@ -5,7 +5,7 @@
 
 # PVRouter (version triphasée)
 
-Ma version du firmware Mk2PVRouter en 3 phases (voir http://www.mk2pvrouter.co.uk).
+Ma version du firmware Mk2PVRouter triphasé (voir http://www.mk2pvrouter.co.uk).
 
 Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.uk/3-phase-version.html). Il prend en charge 3 charges de sortie résistives, qui sont complètement indépendantes.
 
