@@ -1175,7 +1175,7 @@ void forceFullPower()
   const uint8_t pinState{!!(PIND & (1 << forcePin))};
 
   for (auto &bForceLoad : b_forceLoadOn)
-    bForceLoad = pinState;
+    bForceLoad = !pinState;
 }
 
 /**
