@@ -1,0 +1,37 @@
+13:57:59.052 -> 
+13:57:59.052 -> 
+13:57:59.052 -> ----------------------------------
+13:57:59.087 -> Sketch ID: D:\Git\PVRouter-3-phase\Mk2_3phase_RFdatalog_temp_1\Mk2_3phase_RFdatalog_temp_1.ino
+13:57:59.192 -> Build on Sep 15 2020 13:57:18
+13:57:59.227 -> ADC mode:       free-running
+13:57:59.260 -> Electrical settings
+13:57:59.294 -> 	f_powerCal for L1 =    0.0546
+13:57:59.328 -> 	f_voltageCal, for Vrms_L1 =    1.0100
+13:57:59.362 -> 	f_powerCal for L2 =    0.0545
+13:57:59.396 -> 	f_voltageCal, for Vrms_L2 =    1.0200
+13:57:59.430 -> 	f_powerCal for L3 =    0.0540
+13:57:59.465 -> 	f_voltageCal, for Vrms_L3 =    1.0100
+13:57:59.500 -> 	f_phaseCal for all phases =     1.00
+13:57:59.569 -> 	Export rate (Watts) = 20
+13:57:59.569 -> 	zero-crossing persistence (sample sets) = 2
+13:57:59.637 -> Output mode:    normal
+13:57:59.671 -> 	f_capacityOfEnergyBucket_main = 180000.00
+13:57:59.705 -> 	f_lowerEnergyThreshold   = 90000.00
+13:57:59.739 -> 	f_upperEnergyThreshold   = 90000.00
+13:57:59.774 -> Temperature capability is NOT present
+13:57:59.807 -> Dual-tariff capability is NOT present
+13:57:59.877 -> Load rotation feature is NOT present
+13:57:59.911 -> RF capability is NOT present
+13:57:59.946 -> Datalogging capability is present
+13:58:00.016 -> loadPriority: 
+13:58:00.016 -> 	load 0
+13:58:00.016 -> 	load 1
+13:58:00.050 -> >>free RAM = 1362
+13:58:00.050 -> ----
+13:58:07.062 -> 3668.56, P:-4308, P1:-1307, P2:-1189, P3:-1812, V1:279.45, V2:281.74, V3:283.45, (minSampleSets/MC 32, #ofSampleSets 8011)
+13:58:12.074 -> 3668.07, P:-3428, P1:-1306, P2:-842, P3:-1280, V1:234.77, V2:236.72, V3:238.16, (minSampleSets/MC 32, #ofSampleSets 8009)
+13:58:17.070 -> 3668.65, P:-3432, P1:-1306, P2:-846, P3:-1280, V1:234.74, V2:236.69, V3:238.13, (minSampleSets/MC 32, #ofSampleSets 8010)
+13:58:22.042 -> 3668.38, P:-3427, P1:-1306, P2:-842, P3:-1279, V1:234.58, V2:236.47, V3:237.98, (minSampleSets/MC 32, #ofSampleSets 8010)
+13:58:27.040 -> 3668.64, P:-3431, P1:-1305, P2:-846, P3:-1280, V1:234.80, V2:236.70, V3:238.20, (minSampleSets/MC 32, #ofSampleSets 8010)
+13:58:32.042 -> 3668.64, P:-3429, P1:-1306, P2:-844, P3:-1279, V1:235.04, V2:236.88, V3:238.39, (minSampleSets/MC 32, #ofSampleSets 8010)
+13:58:37.059 -> 3668.10, P:-3428, P1:-1307, P2:-840, P3:-1281, V1:235.07, V2:236.89, V3:238.47, (minSampleSets/MC 32, #ofSampleSets 8010)
