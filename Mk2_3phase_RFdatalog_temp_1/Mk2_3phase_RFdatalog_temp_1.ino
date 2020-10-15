@@ -107,7 +107,7 @@
 
 #define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
 
-//#define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
+#define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
 
 //#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
@@ -162,7 +162,7 @@ constexpr uint16_t BAD_TEMPERATURE{30000}; /**< this value (300C) is sent if no 
 
 #ifdef PRIORITY_ROTATION
 constexpr uint32_t ROTATION_AFTER_CYCLES{8 * 3600 * CYCLES_PER_SECOND}; /**< rotates load priorities after this period of inactivity */
-volatile uint32_t absenceOfDivertedEnergyCount{0}; /**< number of main cycles without diverted energy */
+volatile uint32_t absenceOfDivertedEnergyCount{0};                      /**< number of main cycles without diverted energy */
 #endif
 
 #else
@@ -187,9 +187,9 @@ public:
   uint8_t uiDuration{0};  /**< the duration for forcing the load in hours */
 };
 
-constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-3, UINT8_MAX},  /**< force config for load #1 */
-                                                         {-3, UINT8_MAX},  /**< force config for load #2 */
-                                                         {-3, UINT8_MAX}}; /**< force config for load #3 */
+constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-2, UINT8_MAX},  /**< force config for load #1 */
+                                                         {-2, UINT8_MAX},  /**< force config for load #2 */
+                                                         {-2, UINT8_MAX}}; /**< force config for load #3 */
 #endif
 
 // -------------------------------
@@ -1018,12 +1018,14 @@ void updatePhysicalLoadStates()
     b_reOrderLoads = false;
   }
 
+#ifndef OFF_PEAK_TARIFF
   if (0x00 == (loadPrioritiesAndState[0] & loadStateOnBit))
     ++absenceOfDivertedEnergyCount;
   else
     absenceOfDivertedEnergyCount = 0;
+#endif // OFF_PEAK_TARIFF
 
-#endif
+#endif // PRIORITY_ROTATION
 
   for (i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
@@ -1114,9 +1116,11 @@ void printDataLogging(bool bOffPeak)
   Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
   Serial.print(F(", #ofSampleSets "));
   Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
+#ifndef OFF_PEAK_TARIFF
 #ifdef PRIORITY_ROTATION
   Serial.print(F(", NoED "));
   Serial.print(absenceOfDivertedEnergyCount);
+#endif
 #endif
   Serial.println(F(")"));
 
@@ -1200,7 +1204,7 @@ bool checkLoadPrioritySelection()
 // we start off-peak period
 #ifndef NO_OUTPUT
     Serial.println(F("Change to off-peak period!"));
-#endif
+#endif // NO_OUTPUT
     ul_TimeOffPeak = millis();
 
 #ifdef PRIORITY_ROTATION
@@ -1209,7 +1213,7 @@ bool checkLoadPrioritySelection()
     // waits till the priorities have been rotated from inside the ISR
     while (b_reOrderLoads)
       delay(10);
-#endif
+#endif // PRIORITY_ROTATION
 
     // prints the (new) load priorities
     logLoadPriorities();
@@ -1234,12 +1238,12 @@ bool checkLoadPrioritySelection()
 #ifndef NO_OUTPUT
   if (!pinOffPeakState && pinNewState)
     Serial.println(F("Change to peak period!"));
-#endif
+#endif //NO_OUTPUT
 
   pinOffPeakState = pinNewState;
 
   return (LOW == pinOffPeakState);
-#else
+#else // OFF_PEAK_TARIFF
 #ifdef PRIORITY_ROTATION
   if (ROTATION_AFTER_CYCLES < absenceOfDivertedEnergyCount)
   {
@@ -1253,9 +1257,9 @@ bool checkLoadPrioritySelection()
     // prints the (new) load priorities
     logLoadPriorities();
   }
-#endif
+#endif // PRIORITY_ROTATION
   return false;
-#endif
+#endif // OFF_PEAK_TARIFF
 }
 
 /**
@@ -1498,9 +1502,9 @@ void setup()
   updatePortsStates(); // updates output pin states
 
 #ifdef OFF_PEAK_TARIFF
-  DDRD &= ~(1 << offPeakForcePin);                 // set as input
-  PORTD |= (1 << offPeakForcePin);                 // enable the internal pullup resistor
-  delay(100);                                      // allow time to settle
+  DDRD &= ~(1 << offPeakForcePin);                     // set as input
+  PORTD |= (1 << offPeakForcePin);                     // enable the internal pullup resistor
+  delay(100);                                          // allow time to settle
   uint8_t pinState{!!(PIND & (1 << offPeakForcePin))}; // initial selection and
 
   ul_TimeOffPeak = millis();
