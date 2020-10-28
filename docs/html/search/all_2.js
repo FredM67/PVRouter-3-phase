@@ -10,6 +10,5 @@ var searchData=
   ['copyof_5fsamplesetsduringthisdatalogperiod_17',['copyOf_sampleSetsDuringThisDatalogPeriod',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a6ebfc0ef69ea54c4d02cda3dbed04660',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
   ['copyof_5fsum_5fvsquared_18',['copyOf_sum_Vsquared',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a952240da797ea106fa52eec5f8e2b1d9',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
   ['copyof_5fsump_5fatsupplypoint_19',['copyOf_sumP_atSupplyPoint',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a92487f63c679b2125aa51fddd1549836',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['countloadon_20',['countLoadON',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a2f61fd181a2806e678e5473eaad03891',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['cycles_5fper_5fsecond_21',['CYCLES_PER_SECOND',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#adf0ec5f146cef5f3710fbf397fc63d6b',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
+  ['countloadon_20',['countLoadON',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a2f61fd181a2806e678e5473eaad03891',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
 ];

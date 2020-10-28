@@ -95,6 +95,11 @@
  * __June 2020, changes:__
  * - Add force pin for full power through overwrite switch
  * - Add priority rotation for single tariff
+ * 
+ * October 2020, changes:__
+ * - Moving some part around (calibration values toward beginning of the sketch)
+ * - renaming some preprocessor defines
+ * - system/user specific data moved toward beginning of the sketch
  *
  * @author Fred Metrich
  * @copyright Copyright (c) 2020
@@ -103,69 +108,100 @@
 
 #include <Arduino.h> // may not be needed, but it's probably a good idea to include this
 
+//--------------------------------------------------------------------------------------------------
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
-
-#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
-
-#define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
-
 //#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
-//#define NO_OUTPUT ///< this line can be commented out if "debuging" output is needed
+#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
+#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
 
-#define DATALOG_OUTPUT ///< this line can be commented if no datalogging is needed
+// Output messages
+#define DEBUGGING   ///< enable this line to include debugging print statements
+#define SERIALPRINT ///< include 'human-friendly' print statement for commissioning - comment this line to exclude.
 
-#ifdef TEMP_SENSOR
-#include <OneWire.h> // for temperature sensing
-#endif
+//#define EMONESP ///< Uncomment if an ESP WiFi module is used
+//#define SERIALOUT ///< Uncomment if a wired serial connection is used
+//--------------------------------------------------------------------------------------------------
 
-#ifdef RF_PRESENT
-#define RF69_COMPAT 0 // for the RFM12B
-//#define RF69_COMPAT 1 // for the RF69
-#include <JeeLib.h>
-#endif
+//--------------------------------------------------------------------------------------------------
+// constants which must be set individually for each system
+//
+constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
+constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
+//
+// Calibration values
+//-------------------
+// Three calibration values are used in this sketch: f_powerCal, f_phaseCal and f_voltageCal.
+// With most hardware, the default values are likely to work fine without
+// need for change. A compact explanation of each of these values now follows:
 
-#ifdef DATALOG_OUTPUT
-//#define JSON_FORMAT ///< output in json format
-#endif
+// When calculating real power, which is what this code does, the individual
+// conversion rates for voltage and current are not of importance. It is
+// only the conversion rate for POWER which is important. This is the
+// product of the individual conversion rates for voltage and current. It
+// therefore has the units of ADC-steps squared per Watt. Most systems will
+// have a power conversion rate of around 20 (ADC-steps squared per Watt).
+//
+// powerCal is the RECIPR0CAL of the power conversion rate. A good value
+// to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
+//
+constexpr float f_powerCal[NO_OF_PHASES]{0.0556f, 0.0560f, 0.0558f};
+//
+// f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
+// The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
+//
+//    With f_phaseCal = 1, the most recent sample is used.
+//    With f_phaseCal = 0, the previous sample is used
+//    With f_phaseCal = 0.5, the mid-point (average) value in used
+//
+// NB. Any tool which determines the optimal value of f_phaseCal must have a similar
+// scheme for taking sample values as does this sketch.
+//
+constexpr float f_phaseCal{1}; /**< Nominal values only */
+//
+// When using integer maths, calibration values that have been supplied in floating point form need to be rescaled.
+constexpr int16_t i_phaseCal{256}; /**< to avoid the need for floating-point maths (f_phaseCal * 256) */
+//
+// For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
+// similar to the actual range of volts, the optimal value for this cal factor is likely to be
+// close to unity.
+constexpr float f_voltageCal[NO_OF_PHASES]{1.01f, 1.02f, 1.01f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
+//--------------------------------------------------------------------------------------------------
 
-#ifdef JSON_FORMAT
-#include <ArduinoJson.h>
-#endif
+//--------------------------------------------------------------------------------------------------
+// other system constants
+constexpr int32_t SUPPLY_FREQUENCY{50};         /**< number of cycles/s of the grid power supply */
+constexpr int32_t REQUIRED_EXPORT_IN_WATTS{20}; /**< when set to a negative value, this acts as a PV generator */
+constexpr int32_t WORKING_ZONE_IN_JOULES{3600}; /**< number of joule for 1Wh */
+//--------------------------------------------------------------------------------------------------
 
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
-
-// -----------------------------------------------------
-// Change these values to suit the local mains frequency and supply meter
-constexpr int32_t CYCLES_PER_SECOND{50};        /**< number of cycles/s of the grid power supply */
-constexpr int32_t WORKING_ZONE_IN_JOULES{3600}; /**< number of joule for 1Wh */
-constexpr int32_t REQUIRED_EXPORT_IN_WATTS{20}; /**< when set to a negative value, this acts as a PV generator */
 
 // ----------------
 // general literals
 constexpr int32_t DATALOG_PERIOD_IN_MAINS_CYCLES{250}; /**< Period of datalogging in cycles */
 
-constexpr uint8_t NO_OF_PHASES{3}; /**< number of phases of the main supply. */
-
-constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
-
 #ifdef TEMP_SENSOR
-// --------------------------
+#include <OneWire.h> // for temperature sensing
 // Dallas DS18B20 commands
 constexpr uint8_t SKIP_ROM{0xcc};
 constexpr uint8_t CONVERT_TEMPERATURE{0x44};
 constexpr uint8_t READ_SCRATCHPAD{0xbe};
-constexpr uint16_t BAD_TEMPERATURE{30000}; /**< this value (300C) is sent if no sensor is present */
-#endif
+constexpr int16_t UNUSED_TEMPERATURE{30000};     /**< this value (300C) is sent if no sensor has ever been detected */
+constexpr int16_t OUTOFRANGE_TEMPERATURE{30200}; /**< this value (302C) is sent if the sensor reports < -55C or > +125C */
+constexpr int16_t BAD_TEMPERATURE{30400};        /**< this value (304C) is sent if no sensor is present or the checksum is bad (corrupted data) */
+constexpr int16_t TEMP_RANGE_LOW{-5500};
+constexpr int16_t TEMP_RANGE_HIGH{12500};
+#endif // #ifdef TEMP_SENSOR
 
 #ifndef OFF_PEAK_TARIFF
-
 #ifdef PRIORITY_ROTATION
-constexpr uint32_t ROTATION_AFTER_CYCLES{8 * 3600 * CYCLES_PER_SECOND}; /**< rotates load priorities after this period of inactivity */
-volatile uint32_t absenceOfDivertedEnergyCount{0};                      /**< number of main cycles without diverted energy */
-#endif
 
-#else
+constexpr uint32_t ROTATION_AFTER_CYCLES{8 * 3600 * SUPPLY_FREQUENCY}; /**< rotates load priorities after this period of inactivity */
+volatile uint32_t absenceOfDivertedEnergyCount{0};                     /**< number of main cycles without diverted energy */
+
+#endif // #ifdef PRIORITY_ROTATION
+#else  // #ifndef OFF_PEAK_TARIFF
 constexpr uint32_t ul_OFF_PEAK_DURATION{8ul}; /**< Duration of the off-peak period in hours */
 
 /** @brief Config parameters for forcing a load
@@ -190,7 +226,7 @@ public:
 constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-2, UINT8_MAX},  /**< force config for load #1 */
                                                          {-2, UINT8_MAX},  /**< force config for load #2 */
                                                          {-2, UINT8_MAX}}; /**< force config for load #3 */
-#endif
+#endif // #ifndef OFF_PEAK_TARIFF
 
 // -------------------------------
 // definitions of enumerated types
@@ -228,33 +264,52 @@ constexpr OutputModes outputMode{OutputModes::NORMAL}; /**< Output mode to be us
 // Load priorities at startup
 uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load priorities and states. */
 
+//--------------------------------------------------------------------------------------------------
+#ifdef EMONESP
+#undef SERIALPRINT // Must not corrupt serial output to emonHub with 'human-friendly' printout
+#undef SERIALOUT
+#undef DEBUGGING
+#include <ArduinoJson.h>
+#endif
+
+#ifdef SERIALOUT
+#undef EMONESP
+#undef SERIALPRINT // Must not corrupt serial output to emonHub with 'human-friendly' printout
+#undef DEBUGGING
+#endif
+//--------------------------------------------------------------------------------------------------
+
 /* --------------------------------------
    RF configuration (for the RFM12B module)
    frequency options are RF12_433MHZ, RF12_868MHZ or RF12_915MHZ
 */
 #ifdef RF_PRESENT
+#define RF69_COMPAT 0 // for the RFM12B
+//#define RF69_COMPAT 1 // for the RF69
+#include <JeeLib.h>
+
 #define FREQ RF12_868MHZ
 
 constexpr int nodeID{10};        /**<  RFM12B node ID */
 constexpr int networkGroup{210}; /**< wireless network group - needs to be same for all nodes */
 constexpr int UNO{1};            /**< for when the processor contains the UNO bootloader. */
-#endif
+#endif                           // #ifdef RF_PRESENT
 
 /** @brief container for datalogging
  *  @details This class is used for datalogging.
 */
-class Tx_struct
+class PayloadTx_struct
 {
 public:
   int16_t power;                         /**< main power, import = +ve, to match OEM convention */
   int16_t power_L[NO_OF_PHASES];         /**< power for phase #, import = +ve, to match OEM convention */
   int16_t Vrms_L_times100[NO_OF_PHASES]; /**< average voltage over datalogging period (in 100th of Volt)*/
 #ifdef TEMP_SENSOR
-  int16_t temperature_times100; /**< temperature in 100th of °C */
+  int16_t temperature_times100{UNUSED_TEMPERATURE}; /**< temperature in 100th of °C */
 #endif
 };
 
-Tx_struct tx_data; /**< logging data */
+PayloadTx_struct tx_data; /**< logging data */
 
 // ----------- Pinout assignments  -----------
 //
@@ -305,8 +360,8 @@ constexpr int32_t l_DCoffset_V_min{(512L - 100L) * 256L}; /**< mid-point of ADC 
 constexpr int32_t l_DCoffset_V_max{(512L + 100L) * 256L}; /**< mid-point of ADC plus a working margin */
 constexpr int16_t i_DCoffset_I_nom{512L};                 /**< nominal mid-point value of ADC @ x1 scale */
 
-/**< main energy bucket for 3-phase use, with units of Joules * CYCLES_PER_SECOND */
-constexpr float f_capacityOfEnergyBucket_main{(float)(WORKING_ZONE_IN_JOULES * CYCLES_PER_SECOND)};
+/**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
+constexpr float f_capacityOfEnergyBucket_main{(float)(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY)};
 /**< for resetting flexible thresholds */
 constexpr float f_midPointOfEnergyBucket_main{f_capacityOfEnergyBucket_main * 0.5};
 /**< threshold in anti-flicker mode - must not exceed 0.4 */
@@ -381,45 +436,6 @@ constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{2};    /**< allows polarity ch
 Polarities polarityOfMostRecentVsample[NO_OF_PHASES];    /**< for zero-crossing detection */
 Polarities polarityConfirmed[NO_OF_PHASES];              /**< for zero-crossing detection */
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing detection */
-
-// Calibration values
-//-------------------
-// Three calibration values are used in this sketch: f_powerCal, f_phaseCal and f_voltageCal.
-// With most hardware, the default values are likely to work fine without
-// need for change. A compact explanation of each of these values now follows:
-
-// When calculating real power, which is what this code does, the individual
-// conversion rates for voltage and current are not of importance. It is
-// only the conversion rate for POWER which is important. This is the
-// product of the individual conversion rates for voltage and current. It
-// therefore has the units of ADC-steps squared per Watt. Most systems will
-// have a power conversion rate of around 20 (ADC-steps squared per Watt).
-//
-// powerCal is the RECIPR0CAL of the power conversion rate. A good value
-// to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
-//
-constexpr float f_powerCal[NO_OF_PHASES]{0.0556f, 0.0560f, 0.0558f};
-
-// f_phaseCal is used to alter the phase of the voltage waveform relative to the
-// current waveform. The algorithm interpolates between the most recent pair
-// of voltage samples according to the value of f_phaseCal.
-//
-//    With f_phaseCal = 1, the most recent sample is used.
-//    With f_phaseCal = 0, the previous sample is used
-//    With f_phaseCal = 0.5, the mid-point (average) value in used
-//
-// NB. Any tool which determines the optimal value of f_phaseCal must have a similar
-// scheme for taking sample values as does this sketch.
-//
-constexpr float f_phaseCal{1}; /**< Nominal values only */
-// When using integer maths, calibration values that have been supplied in
-// floating point form need to be rescaled.
-constexpr int16_t i_phaseCal{256}; /**< to avoid the need for floating-point maths (f_phaseCal * 256) */
-
-// For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
-// similar to the actual range of volts, the optimal value for this cal factor is likely to be
-// close to unity.
-constexpr float f_voltageCal[NO_OF_PHASES]{1.01f, 1.02f, 1.01f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
 
 /**
  * @brief update the control ports for each of the physical loads
@@ -947,7 +963,7 @@ void proceedLowEnergyLevel()
  */
 void processLatestContribution(const uint8_t phase)
 {
-  // for efficiency, the energy scale is Joules * CYCLES_PER_SECOND
+  // for efficiency, the energy scale is Joules * SUPPLY_FREQUENCY
   // add the latest energy contribution to the main energy accumulator
   f_energyInBucket_main += (l_sumP[phase] / l_samplesDuringThisMainsCycle[phase]) * f_powerCal[phase];
 
@@ -1084,12 +1100,73 @@ void processDataLogging()
  * 
  * @param bOffPeak true if off-peak tariff is active
  */
-void printDataLogging(bool bOffPeak)
+void sendResults(bool bOffPeak)
 {
   uint8_t phase;
 
-#ifndef JSON_FORMAT
-  Serial.print(copyOf_energyInBucket_main / CYCLES_PER_SECOND);
+#ifdef RF_PRESENT
+  send_rf_data(); // *SEND RF DATA*
+#endif
+
+#if defined SERIALOUT && !defined EMONESP
+  Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
+  Serial.print(F(", P:"));
+  Serial.print(tx_data.power);
+
+  for (phase = 0; phase < NO_OF_PHASES; ++phase)
+  {
+    Serial.print(F(", P"));
+    Serial.print(phase + 1);
+    Serial.print(F(":"));
+    Serial.print(tx_data.power_L[phase]);
+  }
+  for (phase = 0; phase < NO_OF_PHASES; ++phase)
+  {
+    Serial.print(F(", V"));
+    Serial.print(phase + 1);
+    Serial.print(F(":"));
+    Serial.print((float)tx_data.Vrms_L_times100[phase] / 100);
+  }
+
+#ifdef TEMP_SENSOR
+  Serial.print(", temperature ");
+  Serial.print((float)tx_data.temperature_times100 / 100);
+#endif
+  Serial.println(F(")"));
+#endif // if defined SERIALOUT && !defined EMONESP
+
+#if defined EMONESP && !defined SERIALOUT
+  StaticJsonDocument<200> doc;
+  char strPhase[]{"L0"};
+  char strLoad[]{"LOAD_0"};
+
+  for (phase = 0; phase < NO_OF_PHASES; ++phase)
+  {
+    doc[strPhase] = tx_data.power_L[phase];
+    ++strPhase[1];
+  }
+
+  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  {
+    doc[strLoad] = (100 * copyOf_countLoadON[i]) / DATALOG_PERIOD_IN_MAINS_CYCLES;
+    ++strLoad[5];
+  }
+
+#ifdef OFF_PEAK_TARIFF
+  doc["OFF_PEAK_TARIFF"] = bOffPeak ? true : false;
+#endif
+
+  // Generate the minified JSON and send it to the Serial port.
+  //
+  serializeJson(doc, Serial);
+
+  // Start a new line
+  Serial.println();
+  delay(50);
+#endif // if defined EMONESP && !defined SERIALOUT
+
+#if defined SERIALPRINT && !defined EMONESP
+  Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
 
@@ -1123,35 +1200,7 @@ void printDataLogging(bool bOffPeak)
 #endif
 #endif
   Serial.println(F(")"));
-
-#else
-  StaticJsonDocument<200> doc;
-  char strPhase[]{"L0"};
-  char strLoad[]{"LOAD_0"};
-
-  for (phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    doc[strPhase] = tx_data.power_L[phase];
-    ++strPhase[1];
-  }
-
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    doc[strLoad] = (100 * copyOf_countLoadON[i]) / DATALOG_PERIOD_IN_MAINS_CYCLES;
-    ++strLoad[5];
-  }
-
-#ifdef OFF_PEAK_TARIFF
-  doc["OFF_PEAK_TARIFF"] = bOffPeak ? true : false;
-#endif
-
-  // Generate the minified JSON and send it to the Serial port.
-  //
-  serializeJson(doc, Serial);
-
-  // Start a new line
-  Serial.println();
-#endif
+#endif // if defined SERIALPRINT && !defined EMONESP
 }
 
 /**
@@ -1160,7 +1209,7 @@ void printDataLogging(bool bOffPeak)
  */
 void logLoadPriorities()
 {
-#ifndef NO_OUTPUT
+#ifdef DEBUGGING
   Serial.println(F("loadPriority: "));
   for (const auto loadPrioAndState : loadPrioritiesAndState)
   {
@@ -1340,7 +1389,7 @@ void printConfiguration()
 #endif
 
   Serial.print("Datalogging capability ");
-#ifdef DATALOG_OUTPUT
+#ifdef SERIALPRINT
   Serial.println(F("is present"));
 #else
   Serial.println(F("is NOT present"));
@@ -1434,20 +1483,28 @@ int16_t readTemperature()
 {
   uint8_t buf[9];
 
-  oneWire.reset();
-  oneWire.write(SKIP_ROM);
-  oneWire.write(READ_SCRATCHPAD);
-  for (auto &buf_elem : buf)
-    buf_elem = oneWire.read();
+  if (oneWire.reset())
+  {
+    oneWire.reset();
+    oneWire.write(SKIP_ROM);
+    oneWire.write(READ_SCRATCHPAD);
+    for (auto &buf_elem : buf)
+      buf_elem = oneWire.read();
 
-  if (oneWire.crc8(buf, 8) != buf[8])
-    return BAD_TEMPERATURE;
+    if (oneWire.crc8(buf, 8) != buf[8])
+      return BAD_TEMPERATURE;
 
-  // result is temperature x16, multiply by 6.25 to convert to temperature x100
-  int16_t result = (buf[1] << 8) | buf[0];
-  return (result * 6) + (result >> 2);
+    // result is temperature x16, multiply by 6.25 to convert to temperature x100
+    int16_t result = (buf[1] << 8) | buf[0];
+    result = (result * 6) + (result >> 2);
+    if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
+      return OUTOFRANGE_TEMPERATURE; // return value ('Out of range')
+
+    return result;
+  }
+  return BAD_TEMPERATURE;
 }
-#endif
+#endif // #ifdef TEMP_SENSOR
 
 #ifdef RF_PRESENT
 /**
@@ -1467,7 +1524,7 @@ void send_rf_data()
   }
   rf12_sendNow(0, &tx_data, sizeof tx_data);
 }
-#endif
+#endif // #ifdef RF_PRESENT
 
 int freeRam()
 {
@@ -1486,10 +1543,12 @@ void setup()
 {
   delay(initialDelay); // allows time to open the Serial Monitor
 
-  Serial.begin(9600); // initialize Serial interface
+  Serial.begin(9600); // initialize Serial interface, Do NOT set greater than 9600
 
+#if !defined SERIALOUT && !defined EMONESP
   // On start, always display config info in the serial monitor
   printConfiguration();
+#endif
 
   // initializes all loads to OFF at startup
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
@@ -1555,11 +1614,7 @@ void setup()
   convertTemperature(); // start initial temperature conversion
 #endif
 
-#ifdef TEMP_SENSOR
-  convertTemperature(); // start initial temperature conversion
-#endif
-
-#ifndef NO_OUTPUT
+#ifdef DEBUGGING
   Serial.print(F(">>free RAM = "));
   Serial.println(freeRam()); // a useful value to keep an eye on
   Serial.println(F("----"));
@@ -1582,7 +1637,7 @@ void loop()
     b_newMainsCycle = false; // reset the flag
     ++perSecondTimer;
 
-    if (perSecondTimer >= CYCLES_PER_SECOND)
+    if (perSecondTimer >= SUPPLY_FREQUENCY)
     {
       perSecondTimer = 0;
 
@@ -1610,13 +1665,7 @@ void loop()
     tx_data.temperature_times100 = readTemperature();
 #endif
 
-#ifdef RF_PRESENT
-    send_rf_data();
-#endif
-
-#ifdef DATALOG_OUTPUT
-    printDataLogging(bOffPeak);
-#endif
+    sendResults(bOffPeak);
 
 #ifdef TEMP_SENSOR
     convertTemperature(); // for use next time around
