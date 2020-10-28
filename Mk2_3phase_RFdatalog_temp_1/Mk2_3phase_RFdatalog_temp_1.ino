@@ -96,7 +96,7 @@
  * - Add force pin for full power through overwrite switch
  * - Add priority rotation for single tariff
  * 
- * October 2020, changes:__
+ * __October 2020, changes:__
  * - Moving some part around (calibration values toward beginning of the sketch)
  * - renaming some preprocessor defines
  * - system/user specific data moved toward beginning of the sketch
