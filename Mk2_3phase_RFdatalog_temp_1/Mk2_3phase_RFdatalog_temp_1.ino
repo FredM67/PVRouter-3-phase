@@ -1222,13 +1222,17 @@ void logLoadPriorities()
 /**
  * @brief This function set all 3 loads to full power.
  * 
+ * @return true if loads are forced
+ * @return false 
  */
-void forceFullPower()
+bool forceFullPower()
 {
   const uint8_t pinState{!!(PIND & (1 << forcePin))};
 
   for (auto &bForceLoad : b_forceLoadOn)
     bForceLoad = !pinState;
+
+  return !pinState;
 }
 
 /**
@@ -1236,10 +1240,11 @@ void forceFullPower()
  * @details Since we don't have access to a clock, we detect the offPeak start from the main energy meter.
  *          Additionally, when off-peak period starts, we rotate the load priorities for the next day.
  * 
+ * @param bForcePin true if the loads are forced via forcePin
  * @return true if off-peak tariff is active
  * @return false if on-peak tariff is active
  */
-bool checkLoadPrioritySelection()
+bool checkLoadPrioritySelection(bool bForcePin)
 {
 #ifdef OFF_PEAK_TARIFF
   uint8_t i;
@@ -1274,9 +1279,9 @@ bool checkLoadPrioritySelection()
     for (i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
       // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
-      if (!pinOffPeakState && !pinNewState &&
-          (ulElapsedTime >= rg_OffsetForce[i][0]) &&
-          (ulElapsedTime < rg_OffsetForce[i][1]))
+      if (bForcePin ||
+          (!pinOffPeakState && !pinNewState &&
+           (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1])))
         b_forceLoadOn[i] = true;
       else
         b_forceLoadOn[i] = false;
@@ -1641,9 +1646,7 @@ void loop()
     {
       perSecondTimer = 0;
 
-      forceFullPower();
-
-      bOffPeak = checkLoadPrioritySelection(); // called every second
+      bOffPeak = checkLoadPrioritySelection(forceFullPower()); // called every second
     }
   }
 
