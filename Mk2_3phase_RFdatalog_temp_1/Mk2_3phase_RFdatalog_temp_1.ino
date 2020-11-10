@@ -145,7 +145,7 @@ constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.0556f, 0.0560f, 0.0558f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.05315f, 0.05415f, 0.05315f};
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
@@ -165,7 +165,7 @@ constexpr int16_t i_phaseCal{256}; /**< to avoid the need for floating-point mat
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-constexpr float f_voltageCal[NO_OF_PHASES]{1.01f, 1.02f, 1.01f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
+constexpr float f_voltageCal[NO_OF_PHASES]{0.985f, 1.003f, 0.987f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -455,31 +455,6 @@ void updatePortsStates()
     }
   }
 }
-
-/* Since the pre-processor doesn't generate the function prototypes, we must declare them by hand !
-*/
-void processCurrentRawSample(const uint8_t phase, const int16_t rawSample);
-void processVoltageRawSample(const uint8_t phase, const int16_t rawSample);
-void processPolarity(const uint8_t phase, const int16_t rawSample);
-void confirmPolarity(const uint8_t phase);
-void processVoltage(const uint8_t phase);
-
-void processRawSamples(const uint8_t phase);
-void processStartUp(const uint8_t phase);
-void processStartNewCycle();
-void processMinusHalfCycle(const uint8_t phase);
-void processPlusHalfCycle(const uint8_t phase);
-void processLatestContribution(const uint8_t phase);
-
-uint8_t nextLogicalLoadToBeAdded();
-void proceedHighEnergyLevel();
-uint8_t nextLogicalLoadToBeRemoved();
-void proceedLowEnergyLevel();
-
-void updatePhysicalLoadStates();
-void updatePortsStates();
-
-void processDataLogging();
 
 /**
  * @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
