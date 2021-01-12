@@ -223,9 +223,9 @@ public:
   uint8_t uiDuration{0};  /**< the duration for forcing the load in hours */
 };
 
-constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-2, UINT8_MAX},  /**< force config for load #1 */
-                                                         {-2, UINT8_MAX},  /**< force config for load #2 */
-                                                         {-2, UINT8_MAX}}; /**< force config for load #3 */
+constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-1, UINT8_MAX},  /**< force config for load #1 */
+                                                         {-1, UINT8_MAX},  /**< force config for load #2 */
+                                                         {-1, UINT8_MAX}}; /**< force config for load #3 */
 #endif // #ifndef OFF_PEAK_TARIFF
 
 // -------------------------------
