@@ -104,7 +104,7 @@ When production (and surplus) gets to the maximum possible, the measured value w
 This has been tested in real by Amorim. Depending of each situation, it might be necessary to tweak this value of *-20* to a bigger or smaller value.
 
 # How to wire the router
-[Here](https://fredm67.github.io/PVRouter-3-phase/docs/HowToInstall.pdf) you'll find a quick how-to for installing/wiring your router.
+[Here](docs/HowToInstall.pdf) you'll find a quick how-to for installing/wiring your router.
 # Use cases
 
 I want to:
