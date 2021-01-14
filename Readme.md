@@ -26,6 +26,7 @@ For a single phase version, please see [PVRouter-Single](https://github.com/Fred
     - [Force full power](#force-full-power)
     - [Temperature sensor](#temperature-sensor)
     - [Enphase zero-export profile](#enphase-zero-export-profile)
+- [How to wire the router](#how-to-wire-the-router)
 - [Use cases](#use-cases)
   - [Wiring diagrams](#wiring-diagrams)
     - [Requirements](#requirements)
@@ -102,6 +103,8 @@ When production (and surplus) gets to the maximum possible, the measured value w
 
 This has been tested in real by Amorim. Depending of each situation, it might be necessary to tweak this value of *-20* to a bigger or smaller value.
 
+# How to wire the router
+[Here](https://fredm67.github.io/PVRouter-3-phase/docs/HowToInstall.pdf) you'll find a quick how-to for installing/wiring your router.
 # Use cases
 
 I want to:
