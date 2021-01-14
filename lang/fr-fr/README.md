@@ -191,6 +191,22 @@ Cette solution vous permet d'économiser le rajout d'un fil de neutre et/ou l'aj
 
 ### Chauffe-eau avec thermostat mécanique
 
+Cette configuration permet de simplifier les branchements et surtout, il n'est plus nécessaire de rajouter un contacteur tri-/quadripolaire.
+
+---
+**_Zoom sur le thermostat_**
+
+Il faut bien faire attention, en regardant sur le thermostat, quelles bornes sont coupées.
+
+En **rouge**, coupure de sécurité (remarquez le 'S' sur chaque contact) : les 3 phases sont coupées.
+
+En **vert**, seules 2 phases sont coupées, L2 et L3. ***Il est très IMPORTANT que la phase L1, non coupée par le thermostat, ne passe pas par un triac***.
+
+![Thermostat mécanique](../../img/Thermostat.png)  
+*Figure: Exemple de thermostat*
+
+---
+
 ![Chauffe-eau avec thermostat mécanique](../../img/Heater_mechanical-No_neutral.png)  
 *Figure: Diagramme de câblage*
 
