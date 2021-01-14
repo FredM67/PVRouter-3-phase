@@ -5,7 +5,7 @@
 
 # PVRouter (version triphasée)
 
-Ma version du firmware Mk2PVRouter triphasé (voir http://www.mk2pvrouter.co.uk).
+Ma version du firmware Mk2PVRouter en 3 phases (voir http://www.mk2pvrouter.co.uk).
 
 Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.uk/3-phase-version.html). Il prend en charge 3 charges de sortie résistives, qui sont complètement indépendantes.
 
@@ -25,14 +25,15 @@ Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM6
     - [Forçage pleine puissance](#forçage-pleine-puissance)
     - [Capteur de température](#capteur-de-température)
     - [Profil Enphase zéro export](#profil-enphase-zéro-export)
-- [Comment câbler le routeur](#comment-câbler-le-routeur)
-- [Applications](#applications)
-  - [Diagrammes de câblage](#diagrammes-de-câblage)
-    - [Pré-requis](#pré-requis)
-    - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
-      - [Passage du monophasé au triphasé](#passage-du-monophasé-au-triphasé)
-      - [Câblage](#câblage)
-    - [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
+- [Applications / Diagrammes de câblage](#applications--diagrammes-de-câblage)
+  - [Pré-requis](#pré-requis)
+  - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
+    - [Passage du monophasé au triphasé (avec neutre)](#passage-du-monophasé-au-triphasé-avec-neutre)
+    - [Câblage](#câblage)
+  - [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
+  - [Chauffe-eau avec thermostat ACI triphasé (avec neutre)](#chauffe-eau-avec-thermostat-aci-triphasé-avec-neutre)
+  - [Alternatives SANS neutre](#alternatives-sans-neutre)
+    - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique-1)
     - [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
 
 ## Documentation de développement
@@ -100,22 +101,17 @@ Lorsque la production (et l’excédent) arrive au maximum possible, la valeur m
 
 Cela a été testé en situation réelle par Amorim. Selon chaque situation, il peut être nécessaire de modifier cette valeur de *-20* à une valeur plus grande ou plus petite.
 
-# Comment câbler le routeur
-[Ici](../../docs/HowToInstall.pdf) vous trouverez une notice simplifiée pour installer/câbler votre routeur.
-
-# Applications
+# Applications / Diagrammes de câblage
 
 Je veux:
 
-- changer mon chauffe-eau (mécanique) en une seule phase en 3 phases, voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
-- connecter mon chauffe-eau (mécanique) en 3 phases, voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
-- changer mon chauffe-eau aci en une seule phase à 3 phases w / o acheter un kit en 3 phases, voir [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
-- connecter mon chauffe-eau ACI 3 phases, voir [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
-- connecter plusieurs charges de résistance pure, il suffit de les filer, un sur chaque sortie, et n’oubliez pas de désactiver la gestion des priorités de charge.
+- changer mon chauffe-eau (avec thermostat mécanique) monophasé en triphasé, voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
+- connecter mon chauffe-eau (avec thermostat mécanique) en triphasé, voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
+- changer mon chauffe-eau aci monophasé en triphasé sans acheter de kit triphasé, voir [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
+- connecter mon chauffe-eau ACI triphasé, voir [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
+- connecter plusieurs charges résistves pures, il suffit de les câbler, une sur chaque sortie. N’oubliez pas de désactiver la gestion des priorités de charge.
 
-## Diagrammes de câblage
-
-### Pré-requis
+## Pré-requis
 
 Votre chauffe-eau DOIT supporter le câblage en triphasé (c'est-à-dire il doit y avoir 3 éléments chauffants).
 
@@ -127,13 +123,20 @@ Soyez sûr de savoir ce que vous entreprenez. Au besoin, faîtes appel à un él
 
 ---
 
-### Chauffe-eau avec thermostat mécanique
+## Chauffe-eau avec thermostat mécanique
 
-#### Passage du monophasé au triphasé
+### Passage du monophasé au triphasé (avec neutre)
 
-Vous devrez séparer les 3 éléments de chauffage, et probablement ajouter un nouveau fil pour chacun d’eux. Parfois, les éléments sont reliés ensemble avec une sorte "d'étoile" métallique. Il y en a une pour la phase, et une pour le fil neutre. Vous n’avez qu’à supprimer l’une d’eux, celui pour neutre doit rester câblée.
+---
+**_Nécessite un routeur avec 3 sorties_**
 
-#### Câblage
+Avec cette solution, vous commandez chaque résistance séparément l'une de l'autre.
+
+---
+
+Vous devrez séparer les 3 éléments de chauffage, et probablement ajouter un nouveau fil pour chacun d’eux. Parfois, les éléments sont reliés ensemble avec une sorte "d'étoile" métallique. Il y en a une pour la phase, et une pour le fil neutre. Vous n’avez qu’à supprimer celle de la phase, celle pour neutre doit rester câblée.
+
+### Câblage
 
 Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2 phases en mode normal (les 3 phases en mode de sécurité), il doit donc être câblé d’une autre manière pour obtenir un commutateur complet sur les 3 phases.
 
@@ -146,21 +149,28 @@ Dans une situation entièrement équilibrée en triphasé, vous n’avez pas bes
 
 Pour cela, j’ai « recyclé » un commutateur HC/HP triphasé, mais vous pouvez utiliser n’importe quel relais triphasé. La bobine de commande doit être connectée à une alimentation "permanente" (et non à travers le routeur) contrôlée par le thermostat.
 
-![Chauffe-eau avec thermostat mécanique](../../img/Heater-mechanical.png)  
+![Chauffe-eau avec thermostat mécanique](../../img/Heater_mechanical.png)  
 *Figure: Diagramme de câblage*
 
-### Chauffe-eau avec thermostat ACI monophasé
+## Chauffe-eau avec thermostat ACI monophasé
 
 Dans ce cas, c’est en quelque sorte la même situation qu’avant. Vous n’avez pas besoin d’acheter un kit ACI en triphasé pour convertir votre chauffe-eau monophasé. La carte ACI doit être connectée à une phase permanente. Elle contrôlera ensuite n’importe quel relais en triphasé.
 
-![Chauffe-eau avec thermostat ACI monophasé](../../img/Heater-ACI-Mono.png)  
+![Chauffe-eau avec thermostat ACI monophasé](../../img/Heater_ACI_Mono.png)  
 *Figure : Diagramme de câblage*
 
-### Chauffe-eau avec thermostat ACI triphasé
+## Chauffe-eau avec thermostat ACI triphasé (avec neutre)
+
+---
+**_Nécessite un routeur avec 3 sorties_**
+
+Avec cette solution, vous commandez chaque résistance séparément l'une de l'autre.
+
+---
 
 Dans ce cas, le fil neutre n’est pas connecté à la carte ACI. Ainsi, vous aurez besoin de connecter le fil neutre au fil bleu déjà connecté aux éléments de chauffage. La carte ACI doit être reliée à 3 phases permanentes.
 
-![Chauffe-eau avec thermostat ACI triphasé](../../img/Heater-ACI-Tri.png)  
+![Chauffe-eau avec thermostat ACI triphasé](../../img/Heater_ACI_Tri.png)  
 *Figure : Diagramme de câblage*
 
 ![Carte ACI triphasée](../../img/ACI-Tri.jpeg)
@@ -169,3 +179,22 @@ Dans ce cas, le fil neutre n’est pas connecté à la carte ACI. Ainsi, vous au
 Et maintenant avec un schéma « hybride »:
 ![Comment connecter un module ACI triphasé](../../img/ACI-Tri-Hybrid.jpeg)  
 *Figure: Comment connecter un module ACI triphasé*
+
+## Alternatives SANS neutre
+
+---
+**_Nécessite un routeur avec 2 sorties_**
+
+Cette solution vous permet d'économiser le rajout d'un fil de neutre et/ou l'ajout un contacteur.
+
+---
+
+### Chauffe-eau avec thermostat mécanique
+
+![Chauffe-eau avec thermostat mécanique](../../img/Heater_mechanical-No_neutral.png)  
+*Figure: Diagramme de câblage*
+
+### Chauffe-eau avec thermostat ACI triphasé
+
+![Chauffe-eau avec thermostat ACI triphasé](../../img/Heater_ACI_Tri-No_neutral.png)  
+*Figure : Diagramme de câblage*
