@@ -105,6 +105,7 @@ This has been tested in real by Amorim. Depending of each situation, it might be
 
 # How to wire the router
 [Here](docs/HowToInstall.pdf) you'll find a quick how-to for installing/wiring your router.
+
 # Use cases
 
 I want to:
