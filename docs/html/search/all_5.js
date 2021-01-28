@@ -1,9 +1,18 @@
 var searchData=
 [
-  ['i_5fdcoffset_5fi_5fnom_38',['i_DCoffset_I_nom',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a14cff0127f52c57f50fe52f2ed2ab093',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['i_5fphasecal_39',['i_phaseCal',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a4f02e0a0a68da4de9c903be83add12af',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['initialdelay_40',['initialDelay',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a47624474e7579456fbafc8dfc46de826',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['initthreshold_41',['initThreshold',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a70643ee1e9a67f10738575bcf1ad7bad',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['isr_42',['ISR',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a05c2e5b588ced1cd7312f5b0edc5b295',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['istartoffset_43',['iStartOffset',['../classpairForceLoad.html#a22cc79434e71d9aa9ca70a96b5fee9c1',1,'pairForceLoad']]]
+  ['f_5fcapacityofenergybucket_5fmain_24',['f_capacityOfEnergyBucket_main',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a6299b24c71bc3d39388e1bc853bf9e3b',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['f_5fenergyinbucket_5fmain_25',['f_energyInBucket_main',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a0f45e018f9db77067ad1c633ff4172b4',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['f_5flowerenergythreshold_26',['f_lowerEnergyThreshold',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#ad00d47f9616c93ceeacc0ed55fa79f36',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['f_5flowerthreshold_5fdefault_27',['f_lowerThreshold_default',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a9a289b1cbd73e38a2a762174f7fdb1c1',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['f_5fmidpointofenergybucket_5fmain_28',['f_midPointOfEnergyBucket_main',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#aa39016b13509c904209c66891eaef7da',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['f_5foffsetofenergythresholdsinafmode_29',['f_offsetOfEnergyThresholdsInAFmode',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a43212c58ded1ca3978ab206d531a7f7c',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['f_5fphasecal_30',['f_phaseCal',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a1d63b22231b730d0f9d9fd4971a0fd35',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['f_5fpowercal_31',['f_powerCal',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#aa04530439c9232df689568f4a6cd64d9',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['f_5fupperenergythreshold_32',['f_upperEnergyThreshold',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a2e3a358b3072a46191e4828bcb6f50c0',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['f_5fupperthreshold_5fdefault_33',['f_upperThreshold_default',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#ac5d95ffd4d4d32b7bc1e27f802500fb4',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['f_5fvoltagecal_34',['f_voltageCal',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a4c3b8983185a9bc5d78bcd2cccbac15d',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['forcefullpower_35',['forceFullPower',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['forcepin_36',['forcePin',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a45c16ccf5033dc4696f17daf792c7130',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['freeram_37',['freeRam',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#aac7b29dc45caaaca67299571f6a2dcc0',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['freq_38',['FREQ',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a1b04ec1cde4d3032f558ed8ad05930a4',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
 ];

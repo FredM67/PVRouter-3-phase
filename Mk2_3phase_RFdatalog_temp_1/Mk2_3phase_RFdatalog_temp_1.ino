@@ -100,9 +100,14 @@
  * - Moving some part around (calibration values toward beginning of the sketch)
  * - renaming some preprocessor defines
  * - system/user specific data moved toward beginning of the sketch
+ * 
+ * __January 2021, changes:__
+ * - Further optimization
+ * - now it's possible to specify the forcing period in minutes and hours
+ * - initialization of runtime parameters for forcing period at compile-time
  *
  * @author Fred Metrich
- * @copyright Copyright (c) 2020
+ * @copyright Copyright (c) 2021
  * 
  */
 
@@ -161,6 +166,7 @@ constexpr float f_phaseCal{1}; /**< Nominal values only */
 //
 // When using integer maths, calibration values that have been supplied in floating point form need to be rescaled.
 constexpr int16_t i_phaseCal{256}; /**< to avoid the need for floating-point maths (f_phaseCal * 256) */
+constexpr int16_t p_phaseCal{8};   /**< to speed up math (i_phaseCal = 1 << p_phaseCal) */
 //
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
@@ -179,7 +185,7 @@ constexpr int32_t WORKING_ZONE_IN_JOULES{3600}; /**< number of joule for 1Wh */
 
 // ----------------
 // general literals
-constexpr int32_t DATALOG_PERIOD_IN_MAINS_CYCLES{250}; /**< Period of datalogging in cycles */
+constexpr uint8_t DATALOG_PERIOD_IN_MAINS_CYCLES{250}; /**< Period of datalogging in cycles */
 
 #ifdef TEMP_SENSOR
 #include <OneWire.h> // for temperature sensing
@@ -202,7 +208,7 @@ volatile uint32_t absenceOfDivertedEnergyCount{0};                     /**< numb
 
 #endif // #ifdef PRIORITY_ROTATION
 #else  // #ifndef OFF_PEAK_TARIFF
-constexpr uint32_t ul_OFF_PEAK_DURATION{8ul}; /**< Duration of the off-peak period in hours */
+constexpr uint16_t ul_OFF_PEAK_DURATION{8}; /**< Duration of the off-peak period in hours */
 
 /** @brief Config parameters for forcing a load
  *  @details This class allows the user to define when and how long a load will be forced at 
@@ -210,22 +216,22 @@ constexpr uint32_t ul_OFF_PEAK_DURATION{8ul}; /**< Duration of the off-peak peri
  * 
  *           For each load, the user defines a pair of values: pairForceLoad => { offset, duration }.
  *           The load will be started with full power at ('start_offpeak' + 'offset') for a duration of 'duration'
- *             - all values are in hours.
+ *             - all values are in hours (if between -24 and 24) or in minutes.
  *             - if the offset is negative, it's calculated from the end of the off-peak period (ie -3 means 3 hours back from the end).
- *             - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT8_MAX' (somehow infinite time)
+ *             - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT16_MAX' (somehow infinite time)
 */
 class pairForceLoad
 {
 public:
-  constexpr pairForceLoad(int8_t _iStartOffset, uint8_t _uiDuration) : iStartOffset(_iStartOffset), uiDuration(_uiDuration) {}
+  constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration) : iStartOffset(_iStartOffset), uiDuration(_uiDuration) {}
 
-  int8_t iStartOffset{0}; /**< the start offset from the off-peak begin in hours */
-  uint8_t uiDuration{0};  /**< the duration for forcing the load in hours */
+  int16_t iStartOffset{0}; /**< the start offset from the off-peak begin in hours */
+  uint16_t uiDuration{0};  /**< the duration for forcing the load in hours */
 };
 
-constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-3, 2},  /**< force config for load #1 */
-                                                         {-3, 2},  /**< force config for load #2 */
-                                                         {-3, 2}}; /**< force config for load #3 */
+constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-3, 2},    /**< force config for load #1 */
+                                                         {-3, 120},  /**< force config for load #2 */
+                                                         {-180, 2}}; /**< force config for load #3 */
 #endif // #ifndef OFF_PEAK_TARIFF
 
 // -------------------------------
@@ -343,12 +349,51 @@ constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; /**< for 3-phase PCB, current 
 // For integer maths, some variables need to be 'int32_t'
 //
 bool beyondStartUpPeriod{false};        /**< start-up delay, allows things to settle */
-constexpr uint32_t initialDelay{3000};  /**< in milli-seconds, to allow time to open the Serial monitor */
-constexpr uint32_t startUpPeriod{3000}; /**< in milli-seconds, to allow LP filter to settle */
+constexpr uint16_t initialDelay{3000};  /**< in milli-seconds, to allow time to open the Serial monitor */
+constexpr uint16_t startUpPeriod{3000}; /**< in milli-seconds, to allow LP filter to settle */
 
 #ifdef OFF_PEAK_TARIFF
-uint32_t ul_TimeOffPeak;                     /**< 'timestamp' for start of off-peak period */
-uint32_t rg_OffsetForce[NO_OF_DUMPLOADS][2]; /**< start & stop offsets for each load */
+uint32_t ul_TimeOffPeak; /**< 'timestamp' for start of off-peak period */
+
+/**
+ * @brief Template class for Load-Forcing
+ * @details The array is initialized at compile time so it can be read-only and
+ *          the performance and code size are better
+ * 
+ * @tparam N # of loads
+ */
+template <uint8_t N>
+class _rg_OffsetForce
+{
+public:
+  constexpr _rg_OffsetForce() : _rg()
+  {
+    constexpr uint16_t uiPeakDurationInSec{ul_OFF_PEAK_DURATION * 3600};
+    // calculates offsets for force start and stop of each load
+    for (uint8_t i = 0; i != N; ++i)
+    {
+      const bool bOffsetInMinutes{ rg_ForceLoad[i].iStartOffset > 24 || rg_ForceLoad[i].iStartOffset < -24 };
+      const bool bDurationInMinutes{ rg_ForceLoad[i].uiDuration > 24 && UINT16_MAX != rg_ForceLoad[i].uiDuration };
+
+      _rg[i][0] = ((rg_ForceLoad[i].iStartOffset >= 0) ? 0 : uiPeakDurationInSec) + rg_ForceLoad[i].iStartOffset * (bOffsetInMinutes ? 60ul : 3600ul);
+      _rg[i][0] *= 1000ul; // convert in milli-seconds
+
+      if (UINT8_MAX == rg_ForceLoad[i].uiDuration)
+        _rg[i][1] = rg_ForceLoad[i].uiDuration;
+      else
+        _rg[i][1] = _rg[i][0] + rg_ForceLoad[i].uiDuration * (bDurationInMinutes ? 60ul : 3600ul) * 1000ul;
+    }
+  }
+  const uint32_t (&operator[](uint8_t i) const)[2]
+  {
+    return _rg[i];
+  }
+
+private:
+  uint32_t _rg[N][2];
+};
+constexpr auto rg_OffsetForce = _rg_OffsetForce<NO_OF_DUMPLOADS>(); /**< start & stop offsets for each load */
+
 #endif
 
 int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
@@ -358,7 +403,7 @@ int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
 // correctly.
 constexpr int32_t l_DCoffset_V_min{(512L - 100L) * 256L}; /**< mid-point of ADC minus a working margin */
 constexpr int32_t l_DCoffset_V_max{(512L + 100L) * 256L}; /**< mid-point of ADC plus a working margin */
-constexpr int16_t i_DCoffset_I_nom{512L};                 /**< nominal mid-point value of ADC @ x1 scale */
+constexpr int32_t l_DCoffset_I_nom{512L};                 /**< nominal mid-point value of ADC @ x1 scale */
 
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
 constexpr float f_capacityOfEnergyBucket_main{(float)(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY)};
@@ -401,12 +446,12 @@ int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]; /**< for the LPF which determines D
 int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];  /**< for summation of 'real power' values during datalog period */
 int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values during datalog period */
 
-int32_t l_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
-int32_t l_sampleSetsDuringThisDatalogPeriod;         /**< number of sample sets during each datalogging period */
-int32_t l_cycleCountForDatalogging{0};               /**< for counting how often datalog is updated */
+uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
+uint16_t i_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
+uint8_t n_cycleCountForDatalogging{0};               /**< for counting how often datalog is updated */
 
 // For a mechanism to check the integrity of this code structure
-int32_t l_lowestNoOfSampleSetsPerMainsCycle;
+uint8_t n_lowestNoOfSampleSetsPerMainsCycle;
 
 // for interaction between the main processor and the ISR
 volatile bool b_forceLoadOn[NO_OF_DUMPLOADS]; /**< async trigger to force specific load(s) to ON */
@@ -419,12 +464,12 @@ volatile bool b_newMainsCycle{false};       /**< async trigger to signal start o
 // since there's no real locking feature for shared variables, a couple of data
 // generated from inside the ISR are copied from time to time to be passed to the
 // main processor. When the data are available, the ISR signals it to the main processor.
-volatile int32_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES];  /**< copy of cumulative power per phase */
-volatile int32_t copyOf_sum_Vsquared[NO_OF_PHASES];        /**< copy of for summation of V^2 values during datalog period */
-volatile float copyOf_energyInBucket_main;                 /**< copy of main energy bucket (over all phases) */
-volatile int32_t copyOf_lowestNoOfSampleSetsPerMainsCycle; /**<  */
-volatile int32_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
-volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];     /**< copy of number of cycle the load was ON (over 1 datalog period) */
+volatile int32_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES];   /**< copy of cumulative power per phase */
+volatile int32_t copyOf_sum_Vsquared[NO_OF_PHASES];         /**< copy of for summation of V^2 values during datalog period */
+volatile float copyOf_energyInBucket_main;                  /**< copy of main energy bucket (over all phases) */
+volatile uint8_t copyOf_lowestNoOfSampleSetsPerMainsCycle;  /**<  */
+volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
+volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];      /**< copy of number of cycle the load was ON (over 1 datalog period) */
 
 #ifdef TEMP_SENSOR
 // For temperature sensing
@@ -564,10 +609,10 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   static int32_t instP;
 
   // remove most of the DC offset from the current sample (the precise value does not matter)
-  sampleIminusDC = ((int32_t)(rawSample - i_DCoffset_I_nom)) << 8;
+  sampleIminusDC = ((int32_t)(rawSample - l_DCoffset_I_nom)) << 8;
   //
   // phase-shift the voltage waveform so that it aligns with the grid current waveform
-  phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) * i_phaseCal) >> 8);
+  phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) << p_phaseCal) >> 8);
   //
   // calculate the "real power" in this sample pair and add to the accumulated sum
   filtV_div4 = phaseShiftedSampleVminusDC >> 2; // reduce to 16-bits (now x64, or 2^6)
@@ -597,7 +642,7 @@ void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
   processVoltage(phase);
 
   if (phase == 0)
-    ++l_sampleSetsDuringThisDatalogPeriod;
+    ++i_sampleSetsDuringThisDatalogPeriod;
 }
 
 /**
@@ -662,7 +707,7 @@ void processVoltage(const uint8_t phase)
   // store items for use during next loop
   l_cumVdeltasThisCycle[phase] += l_sampleVminusDC[phase];          // for use with LP filter
   polarityConfirmedOfLastSampleV[phase] = polarityConfirmed[phase]; // for identification of half cycle boundaries
-  ++l_samplesDuringThisMainsCycle[phase];                           // for real power calculations
+  ++n_samplesDuringThisMainsCycle[phase];                           // for real power calculations
 }
 
 /**
@@ -691,7 +736,7 @@ void processRawSamples(const uint8_t phase)
 
     // still processing samples where the voltage is POSITIVE ...
     // check to see whether the trigger device can now be reliably armed
-    if (beyondStartUpPeriod && (phase == 0) && (2 == l_samplesDuringThisMainsCycle[0])) // lower value for larger sample set
+    if (beyondStartUpPeriod && (phase == 0) && (2 == n_samplesDuringThisMainsCycle[0])) // lower value for larger sample set
     {
       // This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0.
       processStartNewCycle();
@@ -726,10 +771,10 @@ void processStartUp(const uint8_t phase)
   beyondStartUpPeriod = true;
   l_sumP[phase] = 0;
   l_sumP_atSupplyPoint[phase] = 0;
-  l_samplesDuringThisMainsCycle[phase] = 0;
-  l_sampleSetsDuringThisDatalogPeriod = 0;
+  n_samplesDuringThisMainsCycle[phase] = 0;
+  i_sampleSetsDuringThisDatalogPeriod = 0;
 
-  l_lowestNoOfSampleSetsPerMainsCycle = 999L;
+  n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
   // can't say "Go!" here 'cos we're in an ISR!
 }
 
@@ -940,7 +985,7 @@ void processLatestContribution(const uint8_t phase)
 {
   // for efficiency, the energy scale is Joules * SUPPLY_FREQUENCY
   // add the latest energy contribution to the main energy accumulator
-  f_energyInBucket_main += (l_sumP[phase] / l_samplesDuringThisMainsCycle[phase]) * f_powerCal[phase];
+  f_energyInBucket_main += (l_sumP[phase] / n_samplesDuringThisMainsCycle[phase]) * f_powerCal[phase];
 
   // apply any adjustment that is required.
   if (0 == phase)
@@ -967,14 +1012,14 @@ void processPlusHalfCycle(const uint8_t phase)
   //
   if (0 == phase)
   {
-    if (l_samplesDuringThisMainsCycle[phase] < l_lowestNoOfSampleSetsPerMainsCycle)
-      l_lowestNoOfSampleSetsPerMainsCycle = l_samplesDuringThisMainsCycle[phase];
+    if (n_samplesDuringThisMainsCycle[phase] < n_lowestNoOfSampleSetsPerMainsCycle)
+      n_lowestNoOfSampleSetsPerMainsCycle = n_samplesDuringThisMainsCycle[phase];
 
     processDataLogging();
   }
 
   l_sumP[phase] = 0;
-  l_samplesDuringThisMainsCycle[phase] = 0;
+  n_samplesDuringThisMainsCycle[phase] = 0;
 }
 
 /**
@@ -1036,10 +1081,10 @@ void updatePhysicalLoadStates()
  */
 void processDataLogging()
 {
-  if (++l_cycleCountForDatalogging < DATALOG_PERIOD_IN_MAINS_CYCLES)
+  if (++n_cycleCountForDatalogging < DATALOG_PERIOD_IN_MAINS_CYCLES)
     return; // data logging period not yet reached
 
-  l_cycleCountForDatalogging = 0;
+  n_cycleCountForDatalogging = 0;
 
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
   {
@@ -1056,12 +1101,12 @@ void processDataLogging()
     countLoadON[i] = 0;
   }
 
-  copyOf_sampleSetsDuringThisDatalogPeriod = l_sampleSetsDuringThisDatalogPeriod; // (for diags only)
-  copyOf_lowestNoOfSampleSetsPerMainsCycle = l_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
+  copyOf_sampleSetsDuringThisDatalogPeriod = i_sampleSetsDuringThisDatalogPeriod; // (for diags only)
+  copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
   copyOf_energyInBucket_main = f_energyInBucket_main;                             // (for diags only)
 
-  l_lowestNoOfSampleSetsPerMainsCycle = 999L;
-  l_sampleSetsDuringThisDatalogPeriod = 0;
+  n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
+  i_sampleSetsDuringThisDatalogPeriod = 0;
 
   // signal the main processor that logging data are available
   b_datalogEventPending = true;
@@ -1395,21 +1440,25 @@ void printOffPeakConfiguration()
     if (rg_ForceLoad[i].iStartOffset >= 0)
     {
       Serial.print(rg_ForceLoad[i].iStartOffset);
-      Serial.print(F(" hours after begin of off-peak period "));
+      Serial.print(F(" hours/minutes after begin of off-peak period "));
     }
     else
     {
       Serial.print(-rg_ForceLoad[i].iStartOffset);
-      Serial.print(F(" hours before the end of off-peak period "));
+      Serial.print(F(" hours/minutes before the end of off-peak period "));
     }
-    if (rg_ForceLoad[i].uiDuration == UINT8_MAX)
+    if (rg_ForceLoad[i].uiDuration == UINT16_MAX)
       Serial.println(F("till the end of the period."));
     else
     {
       Serial.print(F("for a duration of "));
       Serial.print(rg_ForceLoad[i].uiDuration);
-      Serial.println(F(" hour(s)."));
+      Serial.println(F(" hour/minute(s)."));
     }
+    Serial.print(F("\t\tCalculated offset in seconds: "));
+    Serial.println(rg_OffsetForce[i][0]/1000);
+    Serial.print(F("\t\tCalculated duration in seconds: "));
+    Serial.println(rg_OffsetForce[i][1]/1000);
   }
 }
 #endif
@@ -1545,20 +1594,6 @@ void setup()
   uint8_t pinState{!!(PIND & (1 << offPeakForcePin))}; // initial selection and
 
   ul_TimeOffPeak = millis();
-
-  // calculates offsets for force start and stop of each load
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    if (rg_ForceLoad[i].iStartOffset >= 0)
-      rg_OffsetForce[i][0] = rg_ForceLoad[i].iStartOffset;
-    else
-      rg_OffsetForce[i][0] = ul_OFF_PEAK_DURATION + rg_ForceLoad[i].iStartOffset;
-
-    rg_OffsetForce[i][1] = (UINT8_MAX != rg_ForceLoad[i].uiDuration) ? rg_OffsetForce[i][0] + rg_ForceLoad[i].uiDuration : rg_ForceLoad[i].uiDuration;
-
-    rg_OffsetForce[i][0] *= 3600000ul; // convert in milli-seconds
-    rg_OffsetForce[i][1] *= 3600000ul; // convert in milli-seconds
-  }
 #endif
 
   DDRD &= ~(1 << forcePin); // set as input
