@@ -36,7 +36,7 @@
  * - improvements to the start-up logic. The start of normal operation is now
  *    synchronized with the start of a new mains cycle.
  * - reduce the amount of feedback in the Low Pass Filter for removing the DC content
- *     from the Vsample stream. This resolves an anomaly which has been present since
+ *     from the SampleV stream. This resolves an anomaly which has been present since
  *     the start of this project. Although the amount of feedback has previously been
  *     excessive, this anomaly has had minimal effect on the system's overall behaviour.
  * - The reported power at each of the phases has been inverted. These values are now in
@@ -478,7 +478,7 @@ OneWire oneWire(tempSensorPin);
 
 // For an enhanced polarity detection mechanism, which includes a persistence check
 constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{2};    /**< allows polarity changes to be confirmed */
-Polarities polarityOfMostRecentVsample[NO_OF_PHASES];    /**< for zero-crossing detection */
+Polarities polarityOfMostRecentSampleV[NO_OF_PHASES];    /**< for zero-crossing detection */
 Polarities polarityConfirmed[NO_OF_PHASES];              /**< for zero-crossing detection */
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing detection */
 
@@ -659,7 +659,7 @@ void processPolarity(const uint8_t phase, const int16_t rawSample)
   // remove DC offset from each raw voltage sample by subtracting the accurate value
   // as determined by its associated LP filter.
   l_sampleVminusDC[phase] = (((int32_t)rawSample) << 8) - l_DCoffset_V[phase];
-  polarityOfMostRecentVsample[phase] = (l_sampleVminusDC[phase] > 0) ? Polarities::POSITIVE : Polarities::NEGATIVE;
+  polarityOfMostRecentSampleV[phase] = (l_sampleVminusDC[phase] > 0) ? Polarities::POSITIVE : Polarities::NEGATIVE;
 }
 
 /**
@@ -674,7 +674,7 @@ void confirmPolarity(const uint8_t phase)
 {
   static uint8_t count[NO_OF_PHASES]{};
 
-  if (polarityOfMostRecentVsample[phase] != polarityConfirmedOfLastSampleV[phase])
+  if (polarityOfMostRecentSampleV[phase] != polarityConfirmedOfLastSampleV[phase])
     ++count[phase];
   else
     count[phase] = 0;
@@ -682,7 +682,7 @@ void confirmPolarity(const uint8_t phase)
   if (count[phase] > PERSISTENCE_FOR_POLARITY_CHANGE)
   {
     count[phase] = 0;
-    polarityConfirmed[phase] = polarityOfMostRecentVsample[phase];
+    polarityConfirmed[phase] = polarityOfMostRecentSampleV[phase];
   }
 }
 
@@ -844,7 +844,7 @@ void processMinusHalfCycle(const uint8_t phase)
   // This is a convenient point to update the Low Pass Filter for removing the DC
   // component from the phase that is being processed.
   // The portion which is fed back into the integrator is approximately one percent
-  // of the average offset of all the Vsamples in the previous mains cycle.
+  // of the average offset of all the SampleVs in the previous mains cycle.
   //
   l_DCoffset_V[phase] += (l_cumVdeltasThisCycle[phase] >> 12);
   l_cumVdeltasThisCycle[phase] = 0;

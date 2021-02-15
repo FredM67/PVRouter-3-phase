@@ -1,6 +1,0 @@
-{
-    "board": "arduino:avr:uno",
-    "programmer": "AVRISP mkII",
-    "sketch": "Mk2_3phase_RFdatalog_temp_1.ino",
-    "output": "../build"
-}
