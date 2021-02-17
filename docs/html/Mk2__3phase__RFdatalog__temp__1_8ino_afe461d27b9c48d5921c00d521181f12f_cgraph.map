@@ -1,6 +1,6 @@
 <map id="loop" name="loop">
 <area shape="rect" id="node1" title="Main processor." alt="" coords="5,107,52,133"/>
-<area shape="rect" id="node2" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#a0174ba402fa693193c2c5601fc70dbd4" title="This function changes the value of the load priorities." alt="" coords="100,5,280,32"/>
+<area shape="rect" id="node2" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#a304b471e337be025c1c73de6589ac343" title="This function changes the value of the load priorities." alt="" coords="100,5,280,32"/>
 <area shape="rect" id="node4" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#adf2c5c520260e6f2be918c72a0b7614d" title="Convert the internal value read from the sensor to a value in °C." alt="" coords="123,56,257,83"/>
 <area shape="rect" id="node6" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="137,107,243,133"/>
 <area shape="rect" id="node7" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba" title="Read the temperature." alt="" coords="131,157,249,184"/>

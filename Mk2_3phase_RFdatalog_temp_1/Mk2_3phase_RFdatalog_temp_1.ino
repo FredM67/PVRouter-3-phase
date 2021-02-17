@@ -225,9 +225,11 @@ class pairForceLoad
 public:
   constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration) : iStartOffset(_iStartOffset), uiDuration(_uiDuration) {}
 
-  int16_t iStartOffset{0}; /**< the start offset from the off-peak begin in hours */
-  uint16_t uiDuration{0};  /**< the duration for forcing the load in hours */
+  int16_t iStartOffset{0}; /**< the start offset from the off-peak begin in hours or minutes */
+  uint16_t uiDuration{0};  /**< the duration for forcing the load in hours or minutes */
 };
+
+constexpr uint8_t uiTemperature{100}; /**< the temperature threshold to stop forcing */
 
 constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-3, 2},    /**< force config for load #1 */
                                                          {-3, 120},  /**< force config for load #2 */
@@ -307,11 +309,11 @@ constexpr int UNO{1};            /**< for when the processor contains the UNO bo
 class PayloadTx_struct
 {
 public:
-  int16_t power;                         /**< main power, import = +ve, to match OEM convention */
-  int16_t power_L[NO_OF_PHASES];         /**< power for phase #, import = +ve, to match OEM convention */
-  int16_t Vrms_L_times100[NO_OF_PHASES]; /**< average voltage over datalogging period (in 100th of Volt)*/
+  int16_t power;                     /**< main power, import = +ve, to match OEM convention */
+  int16_t power_L[NO_OF_PHASES];     /**< power for phase #, import = +ve, to match OEM convention */
+  int16_t Vrms_L_x100[NO_OF_PHASES]; /**< average voltage over datalogging period (in 100th of Volt)*/
 #ifdef TEMP_SENSOR
-  int16_t temperature_times100{UNUSED_TEMPERATURE}; /**< temperature in 100th of °C */
+  int16_t temperature_x100{UNUSED_TEMPERATURE}; /**< temperature in 100th of °C */
 #endif
 };
 
@@ -372,8 +374,8 @@ public:
     // calculates offsets for force start and stop of each load
     for (uint8_t i = 0; i != N; ++i)
     {
-      const bool bOffsetInMinutes{ rg_ForceLoad[i].iStartOffset > 24 || rg_ForceLoad[i].iStartOffset < -24 };
-      const bool bDurationInMinutes{ rg_ForceLoad[i].uiDuration > 24 && UINT16_MAX != rg_ForceLoad[i].uiDuration };
+      const bool bOffsetInMinutes{rg_ForceLoad[i].iStartOffset > 24 || rg_ForceLoad[i].iStartOffset < -24};
+      const bool bDurationInMinutes{rg_ForceLoad[i].uiDuration > 24 && UINT16_MAX != rg_ForceLoad[i].uiDuration};
 
       _rg[i][0] = ((rg_ForceLoad[i].iStartOffset >= 0) ? 0 : uiPeakDurationInSec) + rg_ForceLoad[i].iStartOffset * (bOffsetInMinutes ? 60ul : 3600ul);
       _rg[i][0] *= 1000ul; // convert in milli-seconds
@@ -393,7 +395,6 @@ private:
   uint32_t _rg[N][2];
 };
 constexpr auto rg_OffsetForce = _rg_OffsetForce<NO_OF_DUMPLOADS>(); /**< start & stop offsets for each load */
-
 #endif
 
 int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
@@ -450,16 +451,15 @@ uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets 
 uint16_t i_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
 uint8_t n_cycleCountForDatalogging{0};               /**< for counting how often datalog is updated */
 
-// For a mechanism to check the integrity of this code structure
-uint8_t n_lowestNoOfSampleSetsPerMainsCycle;
+uint8_t n_lowestNoOfSampleSetsPerMainsCycle; /**< For a mechanism to check the integrity of this code structure */
 
 // for interaction between the main processor and the ISR
+volatile bool b_datalogEventPending{false};   /**< async trigger to signal datalog is available */
+volatile bool b_newMainsCycle{false};         /**< async trigger to signal start of new main cycle based on first phase */
 volatile bool b_forceLoadOn[NO_OF_DUMPLOADS]; /**< async trigger to force specific load(s) to ON */
 #ifdef PRIORITY_ROTATION
 volatile bool b_reOrderLoads{false}; /**< async trigger for loads re-ordering */
 #endif
-volatile bool b_datalogEventPending{false}; /**< async trigger to signal datalog is available */
-volatile bool b_newMainsCycle{false};       /**< async trigger to signal start of new main cycle based on first phase */
 
 // since there's no real locking feature for shared variables, a couple of data
 // generated from inside the ISR are copied from time to time to be passed to the
@@ -1145,12 +1145,12 @@ void sendResults(bool bOffPeak)
     Serial.print(F(", V"));
     Serial.print(phase + 1);
     Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_times100[phase] / 100);
+    Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
   }
 
 #ifdef TEMP_SENSOR
   Serial.print(", temperature ");
-  Serial.print((float)tx_data.temperature_times100 / 100);
+  Serial.print((float)tx_data.temperature_x100 / 100);
 #endif
   Serial.println(F(")"));
 #endif // if defined SERIALOUT && !defined EMONESP
@@ -1202,12 +1202,12 @@ void sendResults(bool bOffPeak)
     Serial.print(F(", V"));
     Serial.print(phase + 1);
     Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_times100[phase] / 100);
+    Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
   }
 
 #ifdef TEMP_SENSOR
   Serial.print(", temperature ");
-  Serial.print((float)tx_data.temperature_times100 / 100);
+  Serial.print((float)tx_data.temperature_x100 / 100);
 #endif
   Serial.print(F(", (minSampleSets/MC "));
   Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
@@ -1260,16 +1260,16 @@ bool forceFullPower()
  * @details Since we don't have access to a clock, we detect the offPeak start from the main energy meter.
  *          Additionally, when off-peak period starts, we rotate the load priorities for the next day.
  * 
+ * @param currentTemperature_x100 current temperature x 100 (default to 0 if deactivated)
  * @return true if off-peak tariff is active
  * @return false if on-peak tariff is active
  */
-bool checkLoadPrioritySelection()
+bool checkLoadPrioritySelection(const int16_t currentTemperature_x100)
 {
 #ifdef OFF_PEAK_TARIFF
   uint8_t i;
-
+  static constexpr int16_t iTemperatureThreshold_x100{uiTemperature * 100};
   static uint8_t pinOffPeakState{HIGH};
-
   const uint8_t pinNewState{!!(PIND & (1 << offPeakForcePin))};
 
   if (pinOffPeakState && !pinNewState)
@@ -1300,12 +1300,11 @@ bool checkLoadPrioritySelection()
       // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
       if (!pinOffPeakState && !pinNewState &&
           (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
-        b_forceLoadOn[i] = true;
+        b_forceLoadOn[i] = currentTemperature_x100 <= iTemperatureThreshold_x100;
       else
         b_forceLoadOn[i] = false;
     }
   }
-
 // end of off-peak period
 #ifndef NO_OUTPUT
   if (!pinOffPeakState && pinNewState)
@@ -1430,6 +1429,10 @@ void printOffPeakConfiguration()
   Serial.print(ul_OFF_PEAK_DURATION);
   Serial.println(F(" hours."));
 
+  Serial.print(F("\tTemperature threshold is "));
+  Serial.print(uiTemperature);
+  Serial.println(F("°C."));
+
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
     Serial.print(F("\tLoad #"));
@@ -1456,9 +1459,9 @@ void printOffPeakConfiguration()
       Serial.println(F(" hour/minute(s)."));
     }
     Serial.print(F("\t\tCalculated offset in seconds: "));
-    Serial.println(rg_OffsetForce[i][0]/1000);
+    Serial.println(rg_OffsetForce[i][0] / 1000);
     Serial.print(F("\t\tCalculated duration in seconds: "));
-    Serial.println(rg_OffsetForce[i][1]/1000);
+    Serial.println(rg_OffsetForce[i][1] / 1000);
   }
 }
 #endif
@@ -1504,7 +1507,7 @@ void convertTemperature()
 /**
  * @brief Read the temperature.
  * 
- * @return The temperature in °C. 
+ * @return The temperature in °C (x100). 
  */
 int16_t readTemperature()
 {
@@ -1644,6 +1647,7 @@ void loop()
 {
   static uint8_t perSecondTimer{0};
   static bool bOffPeak{false};
+  static int16_t iTemperature_x100{0};
 
   if (b_newMainsCycle) // flag is set after every pair of ADC conversions
   {
@@ -1655,7 +1659,7 @@ void loop()
       perSecondTimer = 0;
 
       if (!forceFullPower())
-        bOffPeak = checkLoadPrioritySelection(); // called every second
+        bOffPeak = checkLoadPrioritySelection(iTemperature_x100); // called every second
     }
   }
 
@@ -1671,10 +1675,11 @@ void loop()
 
       tx_data.power += tx_data.power_L[phase];
 
-      tx_data.Vrms_L_times100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
     }
 #ifdef TEMP_SENSOR
-    tx_data.temperature_times100 = readTemperature();
+    iTemperature_x100 = readTemperature();
+    tx_data.temperature_x100 = iTemperature_x100;
 #endif
 
     sendResults(bOffPeak);

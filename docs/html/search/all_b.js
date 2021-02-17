@@ -9,7 +9,7 @@ var searchData=
   ['polarities_88',['Polarities',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a297c9a15e28f6c3824b7a33453238136',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
   ['polarityconfirmed_89',['polarityConfirmed',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a86686555f56c1d92d7fe1c06d044a2ec',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
   ['polarityconfirmedoflastsamplev_90',['polarityConfirmedOfLastSampleV',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a043c3df0e6f259a7c11e6bbc89500c66',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['polarityofmostrecentvsample_91',['polarityOfMostRecentVsample',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a4379ab5adba197f98ed6ed4dc5519a90',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['polarityofmostrecentsamplev_91',['polarityOfMostRecentSampleV',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#ab499bc63170b1994691a7e84f99c7927',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
   ['positive_92',['POSITIVE',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a297c9a15e28f6c3824b7a33453238136aab6c31432785221bae58327ef5f6ea58',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
   ['post_5ftransition_5fmax_5fcount_93',['POST_TRANSITION_MAX_COUNT',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a555d557c5b47a027b823b11a814f8693',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
   ['posttransitioncount_94',['postTransitionCount',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#aefaf5733efee19a73b7cbcb1159ff61f',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
