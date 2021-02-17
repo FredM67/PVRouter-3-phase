@@ -106,6 +106,9 @@
  * - now it's possible to specify the forcing period in minutes and hours
  * - initialization of runtime parameters for forcing period at compile-time
  *
+ * __February 2021, changes:__
+ * - Added temperature threshold for off-peak period
+ * 
  * @author Fred Metrich
  * @copyright Copyright (c) 2021
  * 
