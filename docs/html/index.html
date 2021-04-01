@@ -83,8 +83,11 @@ History</h1>
 </ul>
 <p><b>February 2016, renamed as Mk2_3phase_RFdatalog_3 with these changes:</b></p><ul>
 <li>improvements to the start-up logic. The start of normal operation is now synchronized with the start of a new mains cycle.</li>
-<li>reduce the amount of feedback in the Low Pass Filter for removing the DC content from the Vsample stream. This resolves an anomaly which has been present since the start of this project. Although the amount of feedback has previously been excessive, this anomaly has had minimal effect on the system's overall behaviour.</li>
-<li><p class="startli">The reported power at each of the phases has been inverted. These values are now in line with the Open Energy Monitor convention, whereby import is positive and export is negative.</p>
+<li>reduce the amount of feedback in the Low Pass Filter for removing the DC content from the SampleV stream. This resolves an anomaly which has been present since the start of this project. Although the amount of feedback has previously been excessive, this anomaly has had minimal effect on the system's overall behaviour.</li>
+<li>The reported power at each of the phases has been inverted. These values are now in line with the Open Energy Monitor convention, whereby import is positive and export is negative.</li>
+</ul>
+<p><b>February 2020: updated to Mk2_3phase_RFdatalog_3a with these changes:</b></p><ul>
+<li><p class="startli">removal of some redundant code in the logic for determining the next load state.</p>
 <p class="startli">Robin Emley www.Mk2PVrouter.co.uk</p>
 </li>
 </ul>
@@ -137,8 +140,19 @@ History</h1>
 <li>renaming some preprocessor defines</li>
 <li>system/user specific data moved toward beginning of the sketch</li>
 </ul>
+<p><b>January 2021, changes:</b></p><ul>
+<li>Further optimization</li>
+<li>now it's possible to specify the forcing period in minutes and hours</li>
+<li>initialization of runtime parameters for forcing period at compile-time</li>
+</ul>
+<p><b>February 2021, changes:</b></p><ul>
+<li>Added temperature threshold for off-peak period</li>
+</ul>
+<p><b>April 2021, changes:</b></p><ul>
+<li>Rename function 'checkLoadPrioritySelection' to function's job</li>
+</ul>
 <dl class="section author"><dt>Author</dt><dd>Fred Metrich </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2020 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2021 </dd></dl>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

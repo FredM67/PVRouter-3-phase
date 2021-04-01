@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['onewire_155',['oneWire',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
+  ['nextlogicalloadtobeadded_158',['nextLogicalLoadToBeAdded',['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
+  ['nextlogicalloadtoberemoved_159',['nextLogicalLoadToBeRemoved',['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'Mk2_3phase_RFdatalog_temp_1.ino']]]
 ];
