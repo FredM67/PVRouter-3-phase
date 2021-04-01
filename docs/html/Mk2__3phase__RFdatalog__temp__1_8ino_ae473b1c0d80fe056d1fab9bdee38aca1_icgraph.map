@@ -1,6 +1,6 @@
 <map id="logLoadPriorities" name="logLoadPriorities">
-<area shape="rect" id="node1" title="Prints the load priorities to the Serial output." alt="" coords="328,31,447,57"/>
-<area shape="rect" id="node2" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#a304b471e337be025c1c73de6589ac343" title="This function changes the value of the load priorities." alt="" coords="100,5,280,32"/>
-<area shape="rect" id="node4" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="163,56,217,83"/>
-<area shape="rect" id="node3" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,52,32"/>
+<area shape="rect" id="node1" title="Prints the load priorities to the Serial output." alt="" coords="319,42,437,69"/>
+<area shape="rect" id="node2" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#a8b905883abd72e6ce168f46d9f6d8335" title="This function changes the value of the load priorities." alt="" coords="100,5,271,47"/>
+<area shape="rect" id="node4" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="158,71,213,98"/>
+<area shape="rect" id="node3" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,13,52,39"/>
 </map>

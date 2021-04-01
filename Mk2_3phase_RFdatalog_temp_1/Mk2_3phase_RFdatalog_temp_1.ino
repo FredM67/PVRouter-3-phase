@@ -43,6 +43,9 @@
  *     line with the Open Energy Monitor convention, whereby import is positive and
  *     export is negative.
  *
+ * __February 2020: updated to Mk2_3phase_RFdatalog_3a with these changes:__
+ * - removal of some redundant code in the logic for determining the next load state.
+ *
  *      Robin Emley
  *      www.Mk2PVrouter.co.uk
  *
@@ -108,6 +111,9 @@
  *
  * __February 2021, changes:__
  * - Added temperature threshold for off-peak period
+ *
+ * __April 2021, changes:__
+ * - Rename function 'checkLoadPrioritySelection' to function's job
  * 
  * @author Fred Metrich
  * @copyright Copyright (c) 2021
@@ -915,14 +921,11 @@ void proceedHighEnergyLevel()
   if (b_recentTransition)
   {
     // During the post-transition period, any increase in the energy level is noted.
-    if (f_energyInBucket_main > f_upperEnergyThreshold)
-    {
-      f_upperEnergyThreshold = f_energyInBucket_main;
+    f_upperEnergyThreshold = f_energyInBucket_main;
 
-      // the energy thresholds must remain within range
-      if (f_upperEnergyThreshold > f_capacityOfEnergyBucket_main)
-        f_upperEnergyThreshold = f_capacityOfEnergyBucket_main;
-    }
+    // the energy thresholds must remain within range
+    if (f_upperEnergyThreshold > f_capacityOfEnergyBucket_main)
+      f_upperEnergyThreshold = f_capacityOfEnergyBucket_main;
 
     // Only the active load may be switched during this period. All other loads must
     // wait until the recent transition has had sufficient opportunity to take effect.
@@ -955,14 +958,11 @@ void proceedLowEnergyLevel()
   if (b_recentTransition)
   {
     // During the post-transition period, any decrease in the energy level is noted.
-    if (f_energyInBucket_main < f_lowerEnergyThreshold)
-    {
-      f_lowerEnergyThreshold = f_energyInBucket_main;
+    f_lowerEnergyThreshold = f_energyInBucket_main;
 
-      // the energy thresholds must remain within range
-      if (f_lowerEnergyThreshold < 0)
-        f_lowerEnergyThreshold = 0;
-    }
+    // the energy thresholds must remain within range
+    if (f_lowerEnergyThreshold < 0)
+      f_lowerEnergyThreshold = 0;
 
     // Only the active load may be switched during this period. All other loads must
     // wait until the recent transition has had sufficient opportunity to take effect.
@@ -1267,7 +1267,7 @@ bool forceFullPower()
  * @return true if off-peak tariff is active
  * @return false if on-peak tariff is active
  */
-bool checkLoadPrioritySelection(const int16_t currentTemperature_x100)
+bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
 {
 #ifdef OFF_PEAK_TARIFF
   uint8_t i;
@@ -1662,7 +1662,7 @@ void loop()
       perSecondTimer = 0;
 
       if (!forceFullPower())
-        bOffPeak = checkLoadPrioritySelection(iTemperature_x100); // called every second
+        bOffPeak = proceedLoadPrioritiesAndForcing(iTemperature_x100); // called every second
     }
   }
 
