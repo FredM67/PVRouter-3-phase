@@ -25,6 +25,7 @@ Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM6
     - [Forçage pleine puissance](#forçage-pleine-puissance)
     - [Capteur de température](#capteur-de-température)
     - [Profil Enphase zéro export](#profil-enphase-zéro-export)
+- [Comment câbler le routeur](#comment-câbler-le-routeur)
 - [Applications / Diagrammes de câblage](#applications--diagrammes-de-câblage)
   - [Pré-requis](#pré-requis)
   - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
@@ -101,6 +102,9 @@ Lorsque la production (et l’excédent) arrive au maximum possible, la valeur m
 
 Cela a été testé en situation réelle par Amorim. Selon chaque situation, il peut être nécessaire de modifier cette valeur de *-20* à une valeur plus grande ou plus petite.
 
+# Comment câbler le routeur
+[Ici](../../docs/HowToInstall.pdf) vous trouverer une rapide notice d'installation du routeur.
+
 # Applications / Diagrammes de câblage
 
 Je veux:
@@ -138,7 +142,7 @@ Vous devrez séparer les 3 éléments de chauffage, et probablement ajouter un n
 
 ### Câblage
 
-Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2 phases en mode normal (les 3 phases en mode de sécurité), il doit donc être câblé d’une autre manière pour obtenir un commutateur complet sur les 3 phases.
+Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2 phases en mode normal (les 3 phases en mode de sécurité), il doit donc être câblé d’une autre manière pour obtenir une commutation complète sur les 3 phases.
 
 ---
 **_Rappel_**

@@ -28,12 +28,13 @@ For a single phase version, please see [PVRouter-Single](https://github.com/Fred
     - [Enphase zero-export profile](#enphase-zero-export-profile)
 - [How to wire the router](#how-to-wire-the-router)
 - [Use cases](#use-cases)
-  - [Wiring diagrams](#wiring-diagrams)
-    - [Requirements](#requirements)
-    - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
-      - [Migrate from single-phase to 3-phase](#migrate-from-single-phase-to-3-phase)
+  - [Requirements](#requirements)
+  - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
+      - [Migrate from single-phase to 3-phase (with neutral wire)](#migrate-from-single-phase-to-3-phase-with-neutral-wire)
       - [Wiring](#wiring)
-    - [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
+  - [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
+  - [Heater with ACI 3-phase thermostat (with neutral wire)](#heater-with-aci-3-phase-thermostat-with-neutral-wire)
+  - [Alternatives WITHOUT neutral wire](#alternatives-without-neutral-wire)
     - [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
 
 ## Implementation documentation
@@ -116,9 +117,7 @@ I want to:
 - connect my ACI 3-phase water heater, see [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
 - connect multiple pure resistive charges, simply wire them, one on each output, and do not forget to disable [Load priorities management](#load-priorities-management).
 
-## Wiring diagrams
-
-### Requirements
+## Requirements
 
 To change your single-phase water heater to 3-phase, it MUST support 3-phase wiring (i.e. it must have 3 heating elements).
 
@@ -130,9 +129,16 @@ Please take great care, and do not undertake this stage unless you feel confiden
 
 ---
 
-### Heater with mechanical thermostat
+## Heater with mechanical thermostat
 
-#### Migrate from single-phase to 3-phase
+#### Migrate from single-phase to 3-phase (with neutral wire)
+
+---
+**_A router with 3 outputs is needed_**
+
+With this solution, you'll control each heating element separately.
+
+---
 
 You'll have to separate all 3 heating elements, and probably add a new wire for each of them. Sometime, the elements are connected together with a sort of metallic "star". There's one for the (single) phase, and one for the neutral wire. You only need to remove one of them, the one for neutral must stay wired.  
 
@@ -140,12 +146,19 @@ You'll have to separate all 3 heating elements, and probably add a new wire for 
 
 Since on all (3-phase) water heaters I've seen, the thermostat switches only 2 phases in normal mode (all 3 phases in security mode), it must be wired in another way to achieve a full switch on all 3 phases. In a fully balanced 3-phase situation, you don't need any neutral wire. To switch off the device, you only need to switch off 2 phases.
 
+---
+**_Note_**
+
+In a balanced situation, you don't need any neutral wire. To switch off the device, you just need to switch off 2 phases out of 3. That's why most thermostats are build like this.
+
+---
+
 For that, I've "recycled" a peak/off peak 3-phase relay but you can use any 3-phase relay. It doesn't matter on which phase the command coil is connected, but it must be permanent (not through the router).
 
 ![Heater with mechanical thermostat](img/Heater-mechanical.png)  
 *Figure: Wiring diagram*
 
-### Heater with ACI single phase thermostat
+## Heater with ACI single phase thermostat
 
 In this case, it's somehow the same situation as before.
 You don't need to buy a 3-phase kit to convert your single phase heater.
@@ -154,7 +167,14 @@ The ACI pcb must be connected to a permanent phase. It will then control any 3-p
 ![Heater with ACI single phase thermostat](img/Heater-ACI-Mono.png)  
 *Figure: Wiring diagram*
 
-### Heater with ACI 3-phase thermostat
+## Heater with ACI 3-phase thermostat (with neutral wire)
+
+---
+**_A router with 3 outputs is needed_**
+
+With this solution, you'll control each heating element separately.
+
+---
 
 In this case, the neutral wire is not connected to the ACI pcb. So you'll need to connect the neutral wire to the blue wire already connected to the heating elements. The ACI pcb must be connected to 3 permanent phases.
 
@@ -167,3 +187,36 @@ In this case, the neutral wire is not connected to the ACI pcb. So you'll need t
 And now with an "hybrid" schematic-picture:
 ![How to connect ACI 3-phase module](img/ACI-Tri-Hybrid.jpeg)  
 *Figure: How to connect ACI 3-phase module*
+
+## Alternatives WITHOUT neutral wire
+
+---
+**_A router with 2 outputs is needed_**
+
+With this solution, you won't need to add an additional neutral wire nor add a relay.
+
+---
+
+This configuration allows to simplify the wiring and specially does not require any 3-4 poles relay.
+
+---
+**_Zoom on the thermostat_**
+
+You need to take care of which wires are switch off.
+
+In **red**, security switch (see the 'S' on each pole) : all 3 phases are switched off.
+
+In **green**, only 2 phases are switched off, L2 et L3. ***It is IMPORTANT that the phase L1, not switched by the thermostat, DOES NOT pass through the triac***.
+
+![Mechanical thermostat](img/Thermostat.png)  
+*Figure: An example of a thermostat*
+
+---
+
+![Heater with mechanical thermostat](img/Heater_mechanical-No_neutral.png)  
+*Figure: Wiring diagram*
+
+### Heater with ACI 3-phase thermostat
+
+![Heater with ACI 3-phase thermostat](img/Heater_ACI_Tri-No_neutral.png)  
+*Figure : Wiring diagram*
