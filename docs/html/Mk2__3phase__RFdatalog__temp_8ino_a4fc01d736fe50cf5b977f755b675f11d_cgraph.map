@@ -1,0 +1,12 @@
+<map id="setup" name="setup">
+<area shape="rect" id="node1" title="Called once during startup." alt="" coords="5,132,60,159"/>
+<area shape="rect" id="node2" href="$Mk2__3phase__RFdatalog__temp_8ino.html#adf2c5c520260e6f2be918c72a0b7614d" title="Convert the internal value read from the sensor to a value in °C." alt="" coords="129,5,264,32"/>
+<area shape="rect" id="node4" href="$Mk2__3phase__RFdatalog__temp_8ino.html#aac7b29dc45caaaca67299571f6a2dcc0" title=" " alt="" coords="161,56,232,83"/>
+<area shape="rect" id="node5" href="$Mk2__3phase__RFdatalog__temp_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="137,107,256,133"/>
+<area shape="rect" id="node6" href="$Mk2__3phase__RFdatalog__temp_8ino.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="135,157,258,184"/>
+<area shape="rect" id="node9" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="108,208,285,235"/>
+<area shape="rect" id="node10" href="$Mk2__3phase__RFdatalog__temp_8ino.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="131,259,262,285"/>
+<area shape="rect" id="node3" href="$Mk2__3phase__RFdatalog__temp_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee" title=" " alt="" coords="415,5,485,32"/>
+<area shape="rect" id="node7" href="$Mk2__3phase__RFdatalog__temp_8ino.html#afc8ab32412591f0bf666c2b7ee2fb411" title="Print the settings for off&#45;peak period." alt="" coords="366,132,534,159"/>
+<area shape="rect" id="node8" href="$Mk2__3phase__RFdatalog__temp_8ino.html#aa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="333,183,567,209"/>
+</map>

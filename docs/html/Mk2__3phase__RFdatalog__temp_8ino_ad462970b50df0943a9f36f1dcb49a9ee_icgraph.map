@@ -1,0 +1,7 @@
+<map id="oneWire" name="oneWire">
+<area shape="rect" id="node1" title=" " alt="" coords="291,31,361,57"/>
+<area shape="rect" id="node2" href="$Mk2__3phase__RFdatalog__temp_8ino.html#adf2c5c520260e6f2be918c72a0b7614d" title="Convert the internal value read from the sensor to a value in °C." alt="" coords="108,56,243,83"/>
+<area shape="rect" id="node5" href="$Mk2__3phase__RFdatalog__temp_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba" title="Read the temperature." alt="" coords="116,5,235,32"/>
+<area shape="rect" id="node3" href="$Mk2__3phase__RFdatalog__temp_8ino.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="9,5,56,32"/>
+<area shape="rect" id="node4" href="$Mk2__3phase__RFdatalog__temp_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,56,60,83"/>
+</map>
