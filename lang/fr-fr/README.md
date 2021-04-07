@@ -103,7 +103,7 @@ Lorsque la production (et l’excédent) arrive au maximum possible, la valeur m
 Cela a été testé en situation réelle par Amorim. Selon chaque situation, il peut être nécessaire de modifier cette valeur de *-20* à une valeur plus grande ou plus petite.
 
 # Comment câbler le routeur
-[Ici](../../docs/HowToInstall.pdf) vous trouverer une rapide notice d'installation du routeur.
+[Ici](../../docs/HowToInstall.pdf) vous trouverez une rapide notice d'installation du routeur.
 
 # Applications / Diagrammes de câblage
 
