@@ -239,8 +239,12 @@ public:
   constexpr pairForceLoad() = default;
   constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration = UINT16_MAX) : iStartOffset(_iStartOffset), uiDuration(_uiDuration) {}
 
-  int16_t iStartOffset{0}; /**< the start offset from the off-peak begin in hours or minutes */
-  uint16_t uiDuration{UINT16_MAX};  /**< the duration for forcing the load in hours or minutes */
+  constexpr int16_t getStartOffset() const { return iStartOffset; }
+  constexpr uint16_t getDuration() const { return uiDuration; }
+
+private:
+  int16_t iStartOffset{0};         /**< the start offset from the off-peak begin in hours or minutes */
+  uint16_t uiDuration{UINT16_MAX}; /**< the duration for forcing the load in hours or minutes */
 };
 
 constexpr uint8_t uiTemperature{100}; /**< the temperature threshold to stop forcing in °C */
@@ -388,16 +392,16 @@ public:
     // calculates offsets for force start and stop of each load
     for (uint8_t i = 0; i != N; ++i)
     {
-      const bool bOffsetInMinutes{rg_ForceLoad[i].iStartOffset > 24 || rg_ForceLoad[i].iStartOffset < -24};
-      const bool bDurationInMinutes{rg_ForceLoad[i].uiDuration > 24 && UINT16_MAX != rg_ForceLoad[i].uiDuration};
+      const bool bOffsetInMinutes{rg_ForceLoad[i].getStartOffset() > 24 || rg_ForceLoad[i].getStartOffset() < -24};
+      const bool bDurationInMinutes{rg_ForceLoad[i].getDuration() > 24 && UINT16_MAX != rg_ForceLoad[i].getDuration()};
 
-      _rg[i][0] = ((rg_ForceLoad[i].iStartOffset >= 0) ? 0 : uiPeakDurationInSec) + rg_ForceLoad[i].iStartOffset * (bOffsetInMinutes ? 60ul : 3600ul);
+      _rg[i][0] = ((rg_ForceLoad[i].getStartOffset() >= 0) ? 0 : uiPeakDurationInSec) + rg_ForceLoad[i].getStartOffset() * (bOffsetInMinutes ? 60ul : 3600ul);
       _rg[i][0] *= 1000ul; // convert in milli-seconds
 
-      if (UINT8_MAX == rg_ForceLoad[i].uiDuration)
-        _rg[i][1] = rg_ForceLoad[i].uiDuration;
+      if (UINT8_MAX == rg_ForceLoad[i].getDuration())
+        _rg[i][1] = rg_ForceLoad[i].getDuration();
       else
-        _rg[i][1] = _rg[i][0] + rg_ForceLoad[i].uiDuration * (bDurationInMinutes ? 60ul : 3600ul) * 1000ul;
+        _rg[i][1] = _rg[i][0] + rg_ForceLoad[i].getDuration() * (bDurationInMinutes ? 60ul : 3600ul) * 1000ul;
     }
   }
   const uint32_t (&operator[](uint8_t i) const)[2]
@@ -1448,22 +1452,22 @@ void printOffPeakConfiguration()
     Serial.println(F(":"));
 
     Serial.print(F("\t\tStart "));
-    if (rg_ForceLoad[i].iStartOffset >= 0)
+    if (rg_ForceLoad[i].getStartOffset() >= 0)
     {
-      Serial.print(rg_ForceLoad[i].iStartOffset);
+      Serial.print(rg_ForceLoad[i].getStartOffset());
       Serial.print(F(" hours/minutes after begin of off-peak period "));
     }
     else
     {
-      Serial.print(-rg_ForceLoad[i].iStartOffset);
+      Serial.print(-rg_ForceLoad[i].getStartOffset());
       Serial.print(F(" hours/minutes before the end of off-peak period "));
     }
-    if (rg_ForceLoad[i].uiDuration == UINT16_MAX)
+    if (rg_ForceLoad[i].getDuration() == UINT16_MAX)
       Serial.println(F("till the end of the period."));
     else
     {
       Serial.print(F("for a duration of "));
-      Serial.print(rg_ForceLoad[i].uiDuration);
+      Serial.print(rg_ForceLoad[i].getDuration());
       Serial.println(F(" hour/minute(s)."));
     }
     Serial.print(F("\t\tCalculated offset in seconds: "));
