@@ -11,13 +11,12 @@ Robin Emley already proposes a 3 phase PV-router (<https://www.mk2pvrouter.co.uk
 It supports up to 7 resistive output loads, which are completely independent.
 
 ---
-**_NOTE:_**
-
-For a single phase version, please see [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
+**_NOTE:_** For a single phase version, please see [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
 
 ---
 
 - [PVRouter (3-phase version)](#pvrouter-3-phase-version)
+  - [Photo Gallery](#photo-gallery)
   - [Implementation documentation](#implementation-documentation)
   - [End-user documentation](#end-user-documentation)
     - [Overview](#overview)
@@ -36,6 +35,10 @@ For a single phase version, please see [PVRouter-Single](https://github.com/Fred
   - [Heater with ACI 3-phase thermostat (with neutral wire)](#heater-with-aci-3-phase-thermostat-with-neutral-wire)
   - [Alternatives WITHOUT neutral wire](#alternatives-without-neutral-wire)
     - [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
+
+## Photo Gallery
+
+[Here](Gallery.md) a couple of pictures of assembled routers.
 
 ## Implementation documentation
 
@@ -155,7 +158,7 @@ In a balanced situation, you don't need any neutral wire. To switch off the devi
 
 For that, I've "recycled" a peak/off peak 3-phase relay but you can use any 3-phase relay. It doesn't matter on which phase the command coil is connected, but it must be permanent (not through the router).
 
-![Heater with mechanical thermostat](img/Heater-mechanical.png)  
+![Heater with mechanical thermostat](img/Heater_mechanical.png)  
 *Figure: Wiring diagram*
 
 ## Heater with ACI single phase thermostat
@@ -164,7 +167,7 @@ In this case, it's somehow the same situation as before.
 You don't need to buy a 3-phase kit to convert your single phase heater.
 The ACI pcb must be connected to a permanent phase. It will then control any 3-phase relay.
 
-![Heater with ACI single phase thermostat](img/Heater-ACI-Mono.png)  
+![Heater with ACI single phase thermostat](img/Heater_ACI_Mono.png)  
 *Figure: Wiring diagram*
 
 ## Heater with ACI 3-phase thermostat (with neutral wire)
@@ -178,7 +181,7 @@ With this solution, you'll control each heating element separately.
 
 In this case, the neutral wire is not connected to the ACI pcb. So you'll need to connect the neutral wire to the blue wire already connected to the heating elements. The ACI pcb must be connected to 3 permanent phases.
 
-![Heater with ACI 3-phase thermostat](img/Heater-ACI-Tri.png)  
+![Heater with ACI 3-phase thermostat](img/Heater_ACI_Tri.png)  
 *Figure: Wiring diagram*
 
 ![ACI 3-phase PCB](img/ACI-Tri.jpeg)

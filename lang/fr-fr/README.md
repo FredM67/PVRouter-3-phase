@@ -10,13 +10,12 @@ Ma version du firmware Mk2PVRouter en 3 phases (voir http://www.mk2pvrouter.co.u
 Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.uk/3-phase-version.html). Il prend en charge 3 charges de sortie résistives, qui sont complètement indépendantes.
 
 ---
-**_NOTE:_**
-
-Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
+**_NOTE:_** Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
 
 ---
 
 - [PVRouter (version triphasée)](#pvrouter-version-triphasée)
+  - [Gallerie photo](#gallerie-photo)
   - [Documentation de développement](#documentation-de-développement)
   - [Documentation de l’utilisateur final](#documentation-de-lutilisateur-final)
     - [Aperçu](#aperçu)
@@ -36,6 +35,10 @@ Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM6
   - [Alternatives SANS neutre](#alternatives-sans-neutre)
     - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique-1)
     - [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
+
+## Gallerie photo
+
+Vous trouverez quelques [photos](Gallery.md) de routeurs assemblés.
 
 ## Documentation de développement
 
