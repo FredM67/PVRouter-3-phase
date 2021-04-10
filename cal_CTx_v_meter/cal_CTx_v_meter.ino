@@ -78,7 +78,7 @@ class Tx_struct
 public:
   int16_t power;                         /**< main power, import = +ve, to match OEM convention */
   int16_t power_L[NO_OF_PHASES];         /**< power for phase #, import = +ve, to match OEM convention */
-  int16_t Vrms_L_times100[NO_OF_PHASES]; /**< average voltage over datalogging period (in 100th of Volt)*/
+  int16_t Vrms_L_x100[NO_OF_PHASES]; /**< average voltage over datalogging period (in 100th of Volt)*/
 };
 
 Tx_struct tx_data; /**< logging data */
@@ -619,7 +619,7 @@ void printDataLogging()
     Serial.print(F(", V"));
     Serial.print(phase + 1);
     Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_times100[phase] / 100);
+    Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
   }
 
   Serial.print(F(", (minSampleSets/MC "));
@@ -742,7 +742,7 @@ void loop()
 
       tx_data.power += tx_data.power_L[phase];
 
-      tx_data.Vrms_L_times100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
     }
 
     printDataLogging();
