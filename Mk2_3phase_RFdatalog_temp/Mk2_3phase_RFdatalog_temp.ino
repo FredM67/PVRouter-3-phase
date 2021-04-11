@@ -991,6 +991,8 @@ void proceedLowEnergyLevel()
  * @brief Process the lastest contribution after each phase specific new cycle
  *        additional processing is performed after each main cycle based on phase 0.
  * 
+ * @param phase the phase number [0..NO_OF_PHASES[
+ *  
  * @ingroup TimeCritical
  */
 void processLatestContribution(const uint8_t phase)
@@ -1013,6 +1015,8 @@ void processLatestContribution(const uint8_t phase)
 /**
  * @brief Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
  * 
+ * @param phase the phase number [0..NO_OF_PHASES[
+ *  
  * @ingroup TimeCritical
  */
 void processPlusHalfCycle(const uint8_t phase)
@@ -1220,7 +1224,7 @@ void sendResults(bool bOffPeak)
 #ifdef TEMP_SENSOR
   Serial.print(", temperature ");
   Serial.print((float)tx_data.temperature_x100 / 100);
-#endif
+#endif // TEMP_SENSOR
   Serial.print(F(", (minSampleSets/MC "));
   Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
   Serial.print(F(", #ofSampleSets "));
@@ -1229,8 +1233,8 @@ void sendResults(bool bOffPeak)
 #ifdef PRIORITY_ROTATION
   Serial.print(F(", NoED "));
   Serial.print(absenceOfDivertedEnergyCount);
-#endif
-#endif
+#endif // PRIORITY_ROTATION
+#endif // OFF_PEAK_TARIFF
   Serial.println(F(")"));
 #endif // if defined SERIALPRINT && !defined EMONESP
 }
@@ -1430,11 +1434,11 @@ void printConfiguration()
 #endif
 }
 
+#ifdef OFF_PEAK_TARIFF
 /**
  * @brief Print the settings for off-peak period
  * 
  */
-#ifdef OFF_PEAK_TARIFF
 void printOffPeakConfiguration()
 {
   Serial.print(F("\tDuration of off-peak period is "));
@@ -1568,6 +1572,11 @@ void send_rf_data()
 }
 #endif // #ifdef RF_PRESENT
 
+/**
+ * @brief Get the available RAM during setup
+ * 
+ * @return int The amount of free RAM
+ */
 int freeRam()
 {
   extern int __heap_start, *__brkval;
