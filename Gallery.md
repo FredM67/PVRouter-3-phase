@@ -1,6 +1,6 @@
 # Photo Gallery (3-phase version)
 
-One of my realizations... other coming...
+A couple of my realizations... other coming...
 
 ## 3-phase router with 3 outputs
 

@@ -1,6 +1,6 @@
 # Gallerie photo (version triphasée)
 
-Une de mes réalisations... d'autres à venir...
+Quelques une de mes réalisations... d'autres à venir...
 
 ## Routeur triphasé 3 sorties
 
