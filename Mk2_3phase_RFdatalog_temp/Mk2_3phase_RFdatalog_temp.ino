@@ -127,8 +127,8 @@
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 //#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
-#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
-#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
+//#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
+//#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
 
 // Output messages
 #define DEBUGGING   ///< enable this line to include debugging print statements
@@ -142,7 +142,7 @@
 // constants which must be set individually for each system
 //
 constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
-constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
+constexpr uint8_t NO_OF_DUMPLOADS{4}; /**< number of dump loads connected to the diverter */
 
 constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
 
@@ -163,7 +163,7 @@ constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in se
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.0532f, 0.0542f, 0.0532f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.05455f, 0.05475f, 0.05435f};
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
@@ -288,7 +288,7 @@ uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was
 constexpr OutputModes outputMode{OutputModes::NORMAL}; /**< Output mode to be used */
 
 // Load priorities at startup
-uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load priorities and states. */
+uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2, 3}; /**< load priorities and states. */
 
 //--------------------------------------------------------------------------------------------------
 #ifdef EMONESP
@@ -346,12 +346,12 @@ PayloadTx_struct tx_data; /**< logging data */
 constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
 #endif
 
-constexpr uint8_t forcePin{4};
+constexpr uint8_t forcePin{3};
 
 #ifdef TEMP_SENSOR
 constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
-constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6, 7}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{4, 5, 6, 7}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 // D8 is not in use
 // D9 is not in use
 // D10 is for the RFM12B
