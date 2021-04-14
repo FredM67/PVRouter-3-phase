@@ -127,8 +127,8 @@
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 //#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
-#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
-#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
+//#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
+//#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
 
 // Output messages
 #define DEBUGGING   ///< enable this line to include debugging print statements
@@ -142,7 +142,7 @@
 // constants which must be set individually for each system
 //
 constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
-constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
+constexpr uint8_t NO_OF_DUMPLOADS{6}; /**< number of dump loads connected to the diverter */
 
 constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
 
@@ -288,7 +288,7 @@ uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was
 constexpr OutputModes outputMode{OutputModes::NORMAL}; /**< Output mode to be used */
 
 // Load priorities at startup
-uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load priorities and states. */
+uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2, 3, 4, 5}; /**< load priorities and states. */
 
 //--------------------------------------------------------------------------------------------------
 #ifdef EMONESP
@@ -351,7 +351,7 @@ constexpr uint8_t forcePin{4};
 #ifdef TEMP_SENSOR
 constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
-constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6, 7}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{3, 4, 5, 6, 7, 8}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 // D8 is not in use
 // D9 is not in use
 // D10 is for the RFM12B
@@ -510,11 +510,19 @@ void updatePortsStates()
   {
     // update the local load's state.
     if (LoadStates::LOAD_OFF == physicalLoadState[i])
-      PORTD &= ~(1 << physicalLoadPin[i]);
+    {
+      if (physicalLoadPin[i] < 8)
+        PORTD &= ~(1 << physicalLoadPin[i]);
+      else
+        PORTB &= ~(1 << (physicalLoadPin[i] - 8));
+    }
     else
     {
       ++countLoadON[i];
-      PORTD |= (1 << physicalLoadPin[i]);
+      if (physicalLoadPin[i] < 8)
+        PORTD |= (1 << physicalLoadPin[i]);
+      else
+        PORTB |= (1 << (physicalLoadPin[i] - 8));
     }
   }
 }
@@ -1604,7 +1612,11 @@ void setup()
   // initializes all loads to OFF at startup
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    DDRD |= (1 << physicalLoadPin[i]); // driver pin for Load #n
+    if (physicalLoadPin[i] < 8)
+      DDRD |= (1 << physicalLoadPin[i]); // driver pin for Load #n
+    else
+      DDRB |= (1 << (physicalLoadPin[i] - 8)); // driver pin for Load #n
+
     loadPrioritiesAndState[i] &= loadStateMask;
   }
   updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
