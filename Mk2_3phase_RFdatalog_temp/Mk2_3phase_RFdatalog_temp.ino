@@ -114,7 +114,10 @@
  *
  * __April 2021, renamed as Mk2_3phase_RFdatalog_temp with these changes:__
  * - since this sketch is under source control, no need to write the version in the name
- * - Rename function 'checkLoadPrioritySelection' to function's job
+ * - rename function 'checkLoadPrioritySelection' to function's job
+ * - made forcePin presence configurable
+ * - added WatchDog LED (blink 1s ON/ 1s OFF)
+ * - code enhanced to support 6 loads
  * 
  * @author Fred Metrich
  * @copyright Copyright (c) 2021
@@ -164,7 +167,7 @@ constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in se
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.0532f, 0.0542f, 0.0532f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.05484f, 0.05469f, 0.05385f};
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
@@ -1388,12 +1391,12 @@ void printConfiguration()
     Serial.print(F("\tf_powerCal for L"));
     Serial.print(phase + 1);
     Serial.print(F(" =    "));
-    Serial.println(f_powerCal[phase], 4);
+    Serial.println(f_powerCal[phase], 5);
 
     Serial.print(F("\tf_voltageCal, for Vrms_L"));
     Serial.print(phase + 1);
     Serial.print(F(" =    "));
-    Serial.println(f_voltageCal[phase], 4);
+    Serial.println(f_voltageCal[phase], 5);
   }
 
   Serial.print(F("\tf_phaseCal for all phases =     "));
