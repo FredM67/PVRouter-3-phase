@@ -129,6 +129,7 @@
 
 //#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
 //#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
+//#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
 
 // Output messages
 #define DEBUGGING   ///< enable this line to include debugging print statements
@@ -346,14 +347,16 @@ PayloadTx_struct tx_data; /**< logging data */
 constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
 #endif
 
+#ifdef FORCE_PIN_PRESENT
 constexpr uint8_t forcePin{4};
+#endif
 
 #ifdef TEMP_SENSOR
 constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
 constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{3, 4, 5, 6, 7, 8}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 // D8 is not in use
-// D9 is not in use
+constexpr uint8_t watchDogPin{9};
 // D10 is for the RFM12B
 // D11 is for the RFM12B
 // D12 is for the RFM12B
@@ -512,17 +515,17 @@ void updatePortsStates()
     if (LoadStates::LOAD_OFF == physicalLoadState[i])
     {
       if (physicalLoadPin[i] < 8)
-        PORTD &= ~(1 << physicalLoadPin[i]);
+        PORTD &= ~bit(physicalLoadPin[i]);
       else
-        PORTB &= ~(1 << (physicalLoadPin[i] - 8));
+        PORTB &= ~bit(physicalLoadPin[i] - 8);
     }
     else
     {
       ++countLoadON[i];
       if (physicalLoadPin[i] < 8)
-        PORTD |= (1 << physicalLoadPin[i]);
+        PORTD |= bit(physicalLoadPin[i]);
       else
-        PORTB |= (1 << (physicalLoadPin[i] - 8));
+        PORTB |= bit(physicalLoadPin[i] - 8);
     }
   }
 }
@@ -1271,12 +1274,16 @@ void logLoadPriorities()
  */
 bool forceFullPower()
 {
-  const uint8_t pinState{!!(PIND & (1 << forcePin))};
+#ifdef FORCE_PIN_PRESENT
+  const uint8_t pinState{!!(PIND & bit(forcePin))};
 
   for (auto &bForceLoad : b_forceLoadOn)
     bForceLoad = !pinState;
 
   return !pinState;
+#else
+  return false;
+#endif
 }
 
 /**
@@ -1294,7 +1301,7 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
   uint8_t i;
   static constexpr int16_t iTemperatureThreshold_x100{uiTemperature * 100};
   static uint8_t pinOffPeakState{HIGH};
-  const uint8_t pinNewState{!!(PIND & (1 << offPeakForcePin))};
+  const uint8_t pinNewState{!!(PIND & bit(offPeakForcePin))};
 
   if (pinOffPeakState && !pinNewState)
   {
@@ -1613,9 +1620,9 @@ void setup()
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
     if (physicalLoadPin[i] < 8)
-      DDRD |= (1 << physicalLoadPin[i]); // driver pin for Load #n
+      DDRD |= bit(physicalLoadPin[i]); // driver pin for Load #n
     else
-      DDRB |= (1 << (physicalLoadPin[i] - 8)); // driver pin for Load #n
+      DDRB |= bit(physicalLoadPin[i] - 8); // driver pin for Load #n
 
     loadPrioritiesAndState[i] &= loadStateMask;
   }
@@ -1624,17 +1631,22 @@ void setup()
   updatePortsStates(); // updates output pin states
 
 #ifdef OFF_PEAK_TARIFF
-  DDRD &= ~(1 << offPeakForcePin);                     // set as input
-  PORTD |= (1 << offPeakForcePin);                     // enable the internal pullup resistor
+  DDRD &= ~bit(offPeakForcePin);                     // set as input
+  PORTD |= bit(offPeakForcePin);                     // enable the internal pullup resistor
   delay(100);                                          // allow time to settle
-  uint8_t pinState{!!(PIND & (1 << offPeakForcePin))}; // initial selection and
+  uint8_t pinState{!!(PIND & bit(offPeakForcePin))}; // initial selection and
 
   ul_TimeOffPeak = millis();
 #endif
 
-  DDRD &= ~(1 << forcePin); // set as input
-  PORTD |= (1 << forcePin); // enable the internal pullup resistor
+#ifdef FORCE_PIN_PRESENT
+  DDRD &= ~bit(forcePin); // set as input
+  PORTD |= bit(forcePin); // enable the internal pullup resistor
   delay(100);               // allow time to settle
+#endif
+
+  DDRB |= bit(watchDogPin - 8);   // set as output
+  PORTB &= ~bit(watchDogPin - 8); // set to off
 
   for (auto &bForceLoad : b_forceLoadOn)
     bForceLoad = false;
@@ -1670,6 +1682,11 @@ void setup()
 #endif
 }
 
+void toggleWatchDogLED()
+{
+  PINB = bit(watchDogPin - 8); // toggle pin
+}
+
 /**
  * @brief Main processor.
  * @details None of the workload in loop() is time-critical.
@@ -1690,6 +1707,8 @@ void loop()
     if (perSecondTimer >= SUPPLY_FREQUENCY)
     {
       perSecondTimer = 0;
+
+      toggleWatchDogLED();
 
       if (!forceFullPower())
         bOffPeak = proceedLoadPrioritiesAndForcing(iTemperature_x100); // called every second
