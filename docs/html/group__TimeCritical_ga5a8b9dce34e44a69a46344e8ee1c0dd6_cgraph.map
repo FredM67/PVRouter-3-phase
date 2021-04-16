@@ -6,4 +6,5 @@
 <area shape="rect" id="node7" href="$Mk2__3phase__RFdatalog__temp_8ino.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="231,157,362,184"/>
 <area shape="rect" id="node3" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="441,5,624,32"/>
 <area shape="rect" id="node5" href="$group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="433,56,632,83"/>
+<area shape="rect" id="node8" href="$Mk2__3phase__RFdatalog__temp_8ino.html#ab2680616c16de5ad80df061b5a222cc1" title="Set the Pin state for the specified pin." alt="" coords="487,157,578,184"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['off_5fpeak_5ftariff_288',['OFF_PEAK_TARIFF',['../Mk2__3phase__RFdatalog__temp_8ino.html#aca70efd15d1856085e5c022163af83a8',1,'Mk2_3phase_RFdatalog_temp.ino']]]
+  ['rf69_5fcompat_290',['RF69_COMPAT',['../Mk2__3phase__RFdatalog__temp_8ino.html#ac7df154e6d284322427bec4d2dfc0dda',1,'Mk2_3phase_RFdatalog_temp.ino']]]
 ];

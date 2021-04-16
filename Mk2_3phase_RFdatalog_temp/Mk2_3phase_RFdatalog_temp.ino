@@ -516,19 +516,11 @@ void updatePortsStates()
   {
     // update the local load's state.
     if (LoadStates::LOAD_OFF == physicalLoadState[i])
-    {
-      if (physicalLoadPin[i] < 8)
-        PORTD &= ~bit(physicalLoadPin[i]);
-      else
-        PORTB &= ~bit(physicalLoadPin[i] - 8);
-    }
+      setPinState(physicalLoadPin[i], false);
     else
     {
       ++countLoadON[i];
-      if (physicalLoadPin[i] < 8)
-        PORTD |= bit(physicalLoadPin[i]);
-      else
-        PORTB |= bit(physicalLoadPin[i] - 8);
+      setPinState(physicalLoadPin[i], true);
     }
   }
 }
@@ -1636,7 +1628,7 @@ void setup()
 #ifdef OFF_PEAK_TARIFF
   DDRD &= ~bit(offPeakForcePin);                     // set as input
   PORTD |= bit(offPeakForcePin);                     // enable the internal pullup resistor
-  delay(100);                                          // allow time to settle
+  delay(100);                                        // allow time to settle
   uint8_t pinState{!!(PIND & bit(offPeakForcePin))}; // initial selection and
 
   ul_TimeOffPeak = millis();
@@ -1645,11 +1637,11 @@ void setup()
 #ifdef FORCE_PIN_PRESENT
   DDRD &= ~bit(forcePin); // set as input
   PORTD |= bit(forcePin); // enable the internal pullup resistor
-  delay(100);               // allow time to settle
+  delay(100);             // allow time to settle
 #endif
 
-  DDRB |= bit(watchDogPin - 8);   // set as output
-  PORTB &= ~bit(watchDogPin - 8); // set to off
+  DDRB |= bit(watchDogPin - 8);    // set as output
+  setPinState(watchDogPin, false); // set to off
 
   for (auto &bForceLoad : b_forceLoadOn)
     bForceLoad = false;
@@ -1685,9 +1677,37 @@ void setup()
 #endif
 }
 
-void toggleWatchDogLED()
+/**
+ * @brief Toggle the watchdog LED
+ * 
+ */
+inline void toggleWatchDogLED()
 {
   PINB = bit(watchDogPin - 8); // toggle pin
+}
+
+/**
+ * @brief Set the Pin state for the specified pin
+ * 
+ * @param pin pin to change [2..13]
+ * @param bState state to be set
+ */
+inline void setPinState(const uint8_t pin, bool bState)
+{
+  if (bState)
+  {
+    if (pin < 8)
+      PORTD |= bit(pin);
+    else
+      PORTB |= bit(pin - 8);
+  }
+  else
+  {
+    if (pin < 8)
+      PORTD &= ~bit(pin);
+    else
+      PORTB &= ~bit(pin - 8);
+  }
 }
 
 /**

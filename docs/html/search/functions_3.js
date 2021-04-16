@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['initthreshold_155',['initThreshold',['../Mk2__3phase__RFdatalog__temp_8ino.html#a70643ee1e9a67f10738575bcf1ad7bad',1,'Mk2_3phase_RFdatalog_temp.ino']]],
-  ['isr_156',['ISR',['../Mk2__3phase__RFdatalog__temp_8ino.html#a05c2e5b588ced1cd7312f5b0edc5b295',1,'Mk2_3phase_RFdatalog_temp.ino']]]
+  ['getduration_155',['getDuration',['../classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2',1,'pairForceLoad']]],
+  ['getstartoffset_156',['getStartOffset',['../classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f',1,'pairForceLoad']]]
 ];
