@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['working_5fzone_5fin_5fjoules_145',['WORKING_ZONE_IN_JOULES',['../Mk2__3phase__RFdatalog__temp_8ino.html#a59fe2f06ab4bbf0fd06909c56c3324e3',1,'Mk2_3phase_RFdatalog_temp.ino']]]
+  ['vrms_5fl_5fx100_143',['Vrms_L_x100',['../classPayloadTx__struct.html#a0ed4c53c7245edaad91d05b3e42f94ef',1,'PayloadTx_struct']]]
 ];

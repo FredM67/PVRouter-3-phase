@@ -114,7 +114,10 @@
  *
  * __April 2021, renamed as Mk2_3phase_RFdatalog_temp with these changes:__
  * - since this sketch is under source control, no need to write the version in the name
- * - Rename function 'checkLoadPrioritySelection' to function's job
+ * - rename function 'checkLoadPrioritySelection' to function's job
+ * - made forcePin presence configurable
+ * - added WatchDog LED (blink 1s ON/ 1s OFF)
+ * - code enhanced to support 6 loads
  * 
  * @author Fred Metrich
  * @copyright Copyright (c) 2021
@@ -127,8 +130,9 @@
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 //#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
-#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
-#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
+//#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
+//#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
+//#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
 
 // Output messages
 #define DEBUGGING   ///< enable this line to include debugging print statements
@@ -142,7 +146,7 @@
 // constants which must be set individually for each system
 //
 constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
-constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
+constexpr uint8_t NO_OF_DUMPLOADS{6}; /**< number of dump loads connected to the diverter */
 
 constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
 
@@ -163,7 +167,7 @@ constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in se
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.0532f, 0.0542f, 0.0532f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.05484f, 0.05469f, 0.05385f};
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
@@ -288,7 +292,7 @@ uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was
 constexpr OutputModes outputMode{OutputModes::NORMAL}; /**< Output mode to be used */
 
 // Load priorities at startup
-uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load priorities and states. */
+uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2, 3, 4, 5}; /**< load priorities and states. */
 
 //--------------------------------------------------------------------------------------------------
 #ifdef EMONESP
@@ -346,14 +350,16 @@ PayloadTx_struct tx_data; /**< logging data */
 constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
 #endif
 
+#ifdef FORCE_PIN_PRESENT
 constexpr uint8_t forcePin{4};
+#endif
 
 #ifdef TEMP_SENSOR
 constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
-constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6, 7}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{3, 4, 5, 6, 7, 8}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 // D8 is not in use
-// D9 is not in use
+constexpr uint8_t watchDogPin{9};
 // D10 is for the RFM12B
 // D11 is for the RFM12B
 // D12 is for the RFM12B
@@ -510,11 +516,11 @@ void updatePortsStates()
   {
     // update the local load's state.
     if (LoadStates::LOAD_OFF == physicalLoadState[i])
-      PORTD &= ~(1 << physicalLoadPin[i]);
+      setPinState(physicalLoadPin[i], false);
     else
     {
       ++countLoadON[i];
-      PORTD |= (1 << physicalLoadPin[i]);
+      setPinState(physicalLoadPin[i], true);
     }
   }
 }
@@ -1263,12 +1269,16 @@ void logLoadPriorities()
  */
 bool forceFullPower()
 {
-  const uint8_t pinState{!!(PIND & (1 << forcePin))};
+#ifdef FORCE_PIN_PRESENT
+  const uint8_t pinState{!!(PIND & bit(forcePin))};
 
   for (auto &bForceLoad : b_forceLoadOn)
     bForceLoad = !pinState;
 
   return !pinState;
+#else
+  return false;
+#endif
 }
 
 /**
@@ -1286,7 +1296,7 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
   uint8_t i;
   static constexpr int16_t iTemperatureThreshold_x100{uiTemperature * 100};
   static uint8_t pinOffPeakState{HIGH};
-  const uint8_t pinNewState{!!(PIND & (1 << offPeakForcePin))};
+  const uint8_t pinNewState{!!(PIND & bit(offPeakForcePin))};
 
   if (pinOffPeakState && !pinNewState)
   {
@@ -1373,12 +1383,12 @@ void printConfiguration()
     Serial.print(F("\tf_powerCal for L"));
     Serial.print(phase + 1);
     Serial.print(F(" =    "));
-    Serial.println(f_powerCal[phase], 4);
+    Serial.println(f_powerCal[phase], 5);
 
     Serial.print(F("\tf_voltageCal, for Vrms_L"));
     Serial.print(phase + 1);
     Serial.print(F(" =    "));
-    Serial.println(f_voltageCal[phase], 4);
+    Serial.println(f_voltageCal[phase], 5);
   }
 
   Serial.print(F("\tf_phaseCal for all phases =     "));
@@ -1604,7 +1614,11 @@ void setup()
   // initializes all loads to OFF at startup
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    DDRD |= (1 << physicalLoadPin[i]); // driver pin for Load #n
+    if (physicalLoadPin[i] < 8)
+      DDRD |= bit(physicalLoadPin[i]); // driver pin for Load #n
+    else
+      DDRB |= bit(physicalLoadPin[i] - 8); // driver pin for Load #n
+
     loadPrioritiesAndState[i] &= loadStateMask;
   }
   updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
@@ -1612,17 +1626,22 @@ void setup()
   updatePortsStates(); // updates output pin states
 
 #ifdef OFF_PEAK_TARIFF
-  DDRD &= ~(1 << offPeakForcePin);                     // set as input
-  PORTD |= (1 << offPeakForcePin);                     // enable the internal pullup resistor
-  delay(100);                                          // allow time to settle
-  uint8_t pinState{!!(PIND & (1 << offPeakForcePin))}; // initial selection and
+  DDRD &= ~bit(offPeakForcePin);                     // set as input
+  PORTD |= bit(offPeakForcePin);                     // enable the internal pullup resistor
+  delay(100);                                        // allow time to settle
+  uint8_t pinState{!!(PIND & bit(offPeakForcePin))}; // initial selection and
 
   ul_TimeOffPeak = millis();
 #endif
 
-  DDRD &= ~(1 << forcePin); // set as input
-  PORTD |= (1 << forcePin); // enable the internal pullup resistor
-  delay(100);               // allow time to settle
+#ifdef FORCE_PIN_PRESENT
+  DDRD &= ~bit(forcePin); // set as input
+  PORTD |= bit(forcePin); // enable the internal pullup resistor
+  delay(100);             // allow time to settle
+#endif
+
+  DDRB |= bit(watchDogPin - 8);    // set as output
+  setPinState(watchDogPin, false); // set to off
 
   for (auto &bForceLoad : b_forceLoadOn)
     bForceLoad = false;
@@ -1659,6 +1678,39 @@ void setup()
 }
 
 /**
+ * @brief Toggle the watchdog LED
+ * 
+ */
+inline void toggleWatchDogLED()
+{
+  PINB = bit(watchDogPin - 8); // toggle pin
+}
+
+/**
+ * @brief Set the Pin state for the specified pin
+ * 
+ * @param pin pin to change [2..13]
+ * @param bState state to be set
+ */
+inline void setPinState(const uint8_t pin, bool bState)
+{
+  if (bState)
+  {
+    if (pin < 8)
+      PORTD |= bit(pin);
+    else
+      PORTB |= bit(pin - 8);
+  }
+  else
+  {
+    if (pin < 8)
+      PORTD &= ~bit(pin);
+    else
+      PORTB &= ~bit(pin - 8);
+  }
+}
+
+/**
  * @brief Main processor.
  * @details None of the workload in loop() is time-critical.
  *          All the processing of ADC data is done within the ISR.
@@ -1678,6 +1730,8 @@ void loop()
     if (perSecondTimer >= SUPPLY_FREQUENCY)
     {
       perSecondTimer = 0;
+
+      toggleWatchDogLED();
 
       if (!forceFullPower())
         bOffPeak = proceedLoadPrioritiesAndForcing(iTemperature_x100); // called every second

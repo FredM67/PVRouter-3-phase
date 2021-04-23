@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['priority_5frotation_289',['PRIORITY_ROTATION',['../Mk2__3phase__RFdatalog__temp_8ino.html#ac2e71aba9dc5a0e0a5eabe59e2b066b8',1,'Mk2_3phase_RFdatalog_temp.ino']]]
+  ['serialprint_291',['SERIALPRINT',['../Mk2__3phase__RFdatalog__temp_8ino.html#a1e2bd592f53e63c8c0323f2f54483420',1,'Mk2_3phase_RFdatalog_temp.ino']]]
 ];

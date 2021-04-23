@@ -1,10 +1,11 @@
 <map id="loop" name="loop">
-<area shape="rect" id="node1" title="Main processor." alt="" coords="5,107,52,133"/>
+<area shape="rect" id="node1" title="Main processor." alt="" coords="5,136,52,163"/>
 <area shape="rect" id="node2" href="$Mk2__3phase__RFdatalog__temp_8ino.html#adf2c5c520260e6f2be918c72a0b7614d" title="Convert the internal value read from the sensor to a value in °C." alt="" coords="118,5,253,32"/>
 <area shape="rect" id="node4" href="$Mk2__3phase__RFdatalog__temp_8ino.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="132,56,239,83"/>
 <area shape="rect" id="node5" href="$Mk2__3phase__RFdatalog__temp_8ino.html#a8b905883abd72e6ce168f46d9f6d8335" title="This function changes the value of the load priorities." alt="" coords="100,158,271,199"/>
 <area shape="rect" id="node7" href="$Mk2__3phase__RFdatalog__temp_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba" title="Read the temperature." alt="" coords="126,107,245,133"/>
 <area shape="rect" id="node8" href="$Mk2__3phase__RFdatalog__temp_8ino.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="138,224,233,251"/>
+<area shape="rect" id="node10" href="$Mk2__3phase__RFdatalog__temp_8ino.html#a1fd8d0aee9ab81da2f15abf141aecf74" title="Toggle the watchdog LED." alt="" coords="114,275,257,301"/>
 <area shape="rect" id="node3" href="$Mk2__3phase__RFdatalog__temp_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee" title=" " alt="" coords="343,56,413,83"/>
 <area shape="rect" id="node6" href="$Mk2__3phase__RFdatalog__temp_8ino.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="319,165,437,192"/>
 <area shape="rect" id="node9" href="$Mk2__3phase__RFdatalog__temp_8ino.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="330,224,426,251"/>

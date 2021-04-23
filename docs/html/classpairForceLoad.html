@@ -63,7 +63,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classpairForceLoad-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">pairForceLoad Class Reference</div>  </div>
@@ -79,13 +78,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afda1e45c16180c8ebdb2f195799bc1e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b1f4ffe43bbc356cc4fcf47d45214d0"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html#a6b1f4ffe43bbc356cc4fcf47d45214d0">pairForceLoad</a> (int16_t _iStartOffset, uint16_t _uiDuration=UINT16_MAX)</td></tr>
 <tr class="separator:a6b1f4ffe43bbc356cc4fcf47d45214d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a63316988cedcec62e0b12aab181515d6"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html#a63316988cedcec62e0b12aab181515d6">iStartOffset</a> {0}</td></tr>
-<tr class="separator:a63316988cedcec62e0b12aab181515d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f581be85688ba176fc977442b6065ff"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html#a2f581be85688ba176fc977442b6065ff">uiDuration</a> {UINT16_MAX}</td></tr>
-<tr class="separator:a2f581be85688ba176fc977442b6065ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b4b18f7af62c643c8672d77c365b0d2"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a> () const</td></tr>
+<tr class="separator:a0b4b18f7af62c643c8672d77c365b0d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f5ce15b46ef76b58c197106b37c097f"><td class="memItemLeft" align="right" valign="top">constexpr int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a> () const</td></tr>
+<tr class="separator:a2f5ce15b46ef76b58c197106b37c097f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Config parameters for forcing a load. </p>
@@ -96,7 +92,7 @@ Public Attributes</h2></td></tr>
 <li>to leave the load at full power till the end of the off-peak period, set the duration to 'UINT16_MAX' (somehow infinite time) </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html#l00236">236</a> of file <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html">Mk2_3phase_RFdatalog_temp.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html#l00240">240</a> of file <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html">Mk2_3phase_RFdatalog_temp.ino</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afda1e45c16180c8ebdb2f195799bc1e4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afda1e45c16180c8ebdb2f195799bc1e4">&#9670;&nbsp;</a></span>pairForceLoad() <span class="overload">[1/2]</span></h2>
@@ -157,42 +153,80 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html#l00240">240</a> of file <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html">Mk2_3phase_RFdatalog_temp.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html#l00244">244</a> of file <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html">Mk2_3phase_RFdatalog_temp.ino</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a63316988cedcec62e0b12aab181515d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63316988cedcec62e0b12aab181515d6">&#9670;&nbsp;</a></span>iStartOffset</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0b4b18f7af62c643c8672d77c365b0d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b4b18f7af62c643c8672d77c365b0d2">&#9670;&nbsp;</a></span>getDuration()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int16_t pairForceLoad::iStartOffset {0}</td>
+          <td class="memname">constexpr uint16_t pairForceLoad::getDuration </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>the start offset from the off-peak begin in hours or minutes </p>
 
-<p class="definition">Definition at line <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html#l00242">242</a> of file <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html">Mk2_3phase_RFdatalog_temp.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html#l00247">247</a> of file <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html">Mk2_3phase_RFdatalog_temp.ino</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classpairForceLoad_a0b4b18f7af62c643c8672d77c365b0d2_icgraph.png" border="0" usemap="#classpairForceLoad_a0b4b18f7af62c643c8672d77c365b0d2_icgraph" alt=""/></div>
+<map name="classpairForceLoad_a0b4b18f7af62c643c8672d77c365b0d2_icgraph" id="classpairForceLoad_a0b4b18f7af62c643c8672d77c365b0d2_icgraph">
+<area shape="rect" title=" " alt="" coords="193,13,372,39"/>
+<area shape="rect" href="class__rg__OffsetForce.html#a2d0fe1a08e4856f38a91f26b46066733" title=" " alt="" coords="5,5,145,47"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="a2f581be85688ba176fc977442b6065ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f581be85688ba176fc977442b6065ff">&#9670;&nbsp;</a></span>uiDuration</h2>
+<a id="a2f5ce15b46ef76b58c197106b37c097f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f5ce15b46ef76b58c197106b37c097f">&#9670;&nbsp;</a></span>getStartOffset()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t pairForceLoad::uiDuration {UINT16_MAX}</td>
+          <td class="memname">constexpr int16_t pairForceLoad::getStartOffset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>the duration for forcing the load in hours or minutes </p>
 
-<p class="definition">Definition at line <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html#l00243">243</a> of file <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html">Mk2_3phase_RFdatalog_temp.ino</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html#l00246">246</a> of file <a class="el" href="Mk2__3phase__RFdatalog__temp_8ino_source.html">Mk2_3phase_RFdatalog_temp.ino</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classpairForceLoad_a2f5ce15b46ef76b58c197106b37c097f_icgraph.png" border="0" usemap="#classpairForceLoad_a2f5ce15b46ef76b58c197106b37c097f_icgraph" alt=""/></div>
+<map name="classpairForceLoad_a2f5ce15b46ef76b58c197106b37c097f_icgraph" id="classpairForceLoad_a2f5ce15b46ef76b58c197106b37c097f_icgraph">
+<area shape="rect" title=" " alt="" coords="193,13,385,39"/>
+<area shape="rect" href="class__rg__OffsetForce.html#a2d0fe1a08e4856f38a91f26b46066733" title=" " alt="" coords="5,5,145,47"/>
+</map>
+</div>
 
 </div>
 </div>
