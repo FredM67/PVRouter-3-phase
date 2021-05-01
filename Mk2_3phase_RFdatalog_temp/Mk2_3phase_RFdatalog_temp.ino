@@ -1256,7 +1256,7 @@ void logLoadPriorities()
 }
 
 /**
- * @brief This function set all 3 loads to full power.
+ * @brief This function set load #2 to full power.
  * 
  * @return true if loads are forced
  * @return false 
@@ -1265,8 +1265,10 @@ bool forceFullPower()
 {
   const uint8_t pinState{!!(PIND & (1 << forcePin))};
 
-  for (auto &bForceLoad : b_forceLoadOn)
-    bForceLoad = !pinState;
+  //for (auto &bForceLoad : b_forceLoadOn)
+  //  bForceLoad = !pinState;
+
+    b_forceLoadOn[1] = !pinState;
 
   return !pinState;
 }
