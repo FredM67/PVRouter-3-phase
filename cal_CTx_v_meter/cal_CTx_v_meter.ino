@@ -163,7 +163,7 @@ Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing 
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.05484f, 0.05469f, 0.05385f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.05534f, 0.05658f, 0.05655f};
 
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the
 // current waveform. The algorithm interpolates between the most recent pair
@@ -692,18 +692,20 @@ void setup()
     DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
 
   // Set up the ADC to be free-running
-  ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2); // Set the ADC's clock to system clock / 128
-  ADCSRA |= (1 << ADEN);                               // Enable the ADC
+  ADCSRB = 0; // ADTS[0-2]=0 - Free Running mode
+  ADCSRA = bit(ADPS0) | bit(ADPS1) | bit(ADPS2); // Set the ADC's clock to system clock / 128
+  ADCSRA |= bit(ADEN);                               // Enable the ADC
 
-  ADCSRA |= (1 << ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  ADCSRA |= bit(ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
   // bits ADTS0-2 have not been set (i.e. they are all zero), the
   // ADC's trigger source is set to "free running mode".
 
-  ADCSRA |= (1 << ADIE); // set the ADC interrupt enable bit. When this bit is written
+  ADCSRA |= bit(ADIE); // set the ADC interrupt enable bit. When this bit is written
   // to one and the I-bit in SREG is set, the
   // ADC Conversion Complete Interrupt is activated.
 
-  ADCSRA |= (1 << ADSC); // start ADC manually first time
+  bitSet(ADCSRA, ADSC); // start ADC manually first time
+
   sei();                 // Enable Global Interrupts
 
   Serial.print(F(">>free RAM = "));
