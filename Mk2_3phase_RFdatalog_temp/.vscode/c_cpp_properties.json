@@ -5,7 +5,8 @@
             "name": "Arduino",
             "compilerPath": "C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr\\bin\\avr-g++",
             "compilerArgs": [
-                "-w",
+                "-Wall",
+                "-Wextra",
                 "-std=gnu++17",
                 "-fpermissive",
                 "-fno-exceptions",
@@ -529,7 +530,8 @@
                 "__cpp_init_captures=201304",
                 "__ATOMIC_ACQ_REL=4",
                 "__ATOMIC_RELEASE=3",
-                "__BUILTIN_AVR_FMUL=1"
+                "__BUILTIN_AVR_FMUL=1",
+                "USBCON"
             ]
         }
     ]

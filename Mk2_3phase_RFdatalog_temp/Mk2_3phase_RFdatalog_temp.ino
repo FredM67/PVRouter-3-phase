@@ -352,6 +352,7 @@ constexpr uint8_t forcePin{3};
 constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
 constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{4, 5, 6, 7}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+constexpr uint8_t invertPriority1_2{8};
 // D8 is not in use
 // D9 is not in use
 // D10 is for the RFM12B
@@ -1271,6 +1272,11 @@ bool forceFullPower()
   return !pinState;
 }
 
+bool invertPriority1_2()
+{
+  return pinState{!!(PIND & (1 << invertPriority1_2))};
+}
+
 /**
  * @brief This function changes the value of the load priorities.
  * @details Since we don't have access to a clock, we detect the offPeak start from the main energy meter.
@@ -1619,6 +1625,9 @@ void setup()
 
   ul_TimeOffPeak = millis();
 #endif
+
+  DDRD &= ~(1 << invertPriority1_2); // set as input
+  PORTD |= (1 << invertPriority1_2); // enable the internal pullup resistor
 
   DDRD &= ~(1 << forcePin); // set as input
   PORTD |= (1 << forcePin); // enable the internal pullup resistor
