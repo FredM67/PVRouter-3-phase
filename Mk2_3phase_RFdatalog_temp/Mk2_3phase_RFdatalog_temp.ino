@@ -115,6 +115,14 @@
  * __April 2021, renamed as Mk2_3phase_RFdatalog_temp with these changes:__
  * - since this sketch is under source control, no need to write the version in the name
  * - Rename function 'checkLoadPrioritySelection' to function's job
+ * - made forcePin presence configurable
+ * - added WatchDog LED (blink 1s ON/ 1s OFF)
+ * - code enhanced to support 6 loads
+ * 
+ * __May 2021, changes:__
+ * - Direct Port Manipulation reworked
+ * - add inversion pin (private to this branch)
+ * - change force pin to force load #2 (private to this branch)
  * 
  * @author Fred Metrich
  * @copyright Copyright (c) 2021
@@ -128,7 +136,9 @@
 //#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
 //#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
+#define PRIORITY_INVERSION ///< this line must be commented out if you want fixed priorities
 //#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
+#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
 
 // Output messages
 #define DEBUGGING   ///< enable this line to include debugging print statements
@@ -346,15 +356,19 @@ PayloadTx_struct tx_data; /**< logging data */
 constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
 #endif
 
-constexpr uint8_t forcePin{3};
+#ifdef FORCE_PIN_PRESENT
+constexpr uint8_t forcePin{4};
+#endif
 
 #ifdef TEMP_SENSOR
 constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
 constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{4, 5, 6, 7}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
-constexpr uint8_t invertPriority1_2{8};
+#ifdef PRIORITY_INVERSION
+constexpr uint8_t invertPriority1_2Pin{8};
+#endif
 // D8 is not in use
-// D9 is not in use
+constexpr uint8_t watchDogPin{9};
 // D10 is for the RFM12B
 // D11 is for the RFM12B
 // D12 is for the RFM12B
@@ -479,6 +493,9 @@ volatile bool b_forceLoadOn[NO_OF_DUMPLOADS]; /**< async trigger to force specif
 #ifdef PRIORITY_ROTATION
 volatile bool b_reOrderLoads{false}; /**< async trigger for loads re-ordering */
 #endif
+#ifdef PRIORITY_INVERSION
+volatile bool b_togglePriority1_2{false}; /**< async trigger for loads 1&2 inversion */
+#endif
 
 // since there's no real locking feature for shared variables, a couple of data
 // generated from inside the ISR are copied from time to time to be passed to the
@@ -511,11 +528,11 @@ void updatePortsStates()
   {
     // update the local load's state.
     if (LoadStates::LOAD_OFF == physicalLoadState[i])
-      PORTD &= ~(1 << physicalLoadPin[i]);
+      setPinState(physicalLoadPin[i], false);
     else
     {
       ++countLoadON[i];
-      PORTD |= (1 << physicalLoadPin[i]);
+      setPinState(physicalLoadPin[i], true);
     }
   }
 }
@@ -1080,6 +1097,17 @@ void updatePhysicalLoadStates()
 
 #endif // PRIORITY_ROTATION
 
+#ifdef PRIORITY_INVERSION
+  if (b_togglePriority1_2)
+  {
+    const auto temp{loadPrioritiesAndState[0]};
+    loadPrioritiesAndState[0] = loadPrioritiesAndState[1];
+    loadPrioritiesAndState[1] = temp;
+
+    b_togglePriority1_2 = false;
+  }
+#endif
+
   for (i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
     const auto iLoad{loadPrioritiesAndState[i] & loadStateMask};
@@ -1264,19 +1292,55 @@ void logLoadPriorities()
  */
 bool forceFullPower()
 {
-  const uint8_t pinState{!!(PIND & (1 << forcePin))};
+#ifdef FORCE_PIN_PRESENT
+  const auto pinState{getPinState(forcePin)};
 
   //for (auto &bForceLoad : b_forceLoadOn)
   //  bForceLoad = !pinState;
 
-    b_forceLoadOn[1] = !pinState;
+  b_forceLoadOn[1] = !pinState;
 
   return !pinState;
+#else
+  return false;
+#endif
 }
 
-bool invertPriority1_2()
+/**
+ * @brief Invert the load priorities for load #1 and #2
+ * 
+ * @return true if load #2 > load #1
+ * @return false if load #1 > load #2
+ */
+bool proceedLoadPrioritiesInversion()
 {
-  return pinState{!!(PIND & (1 << invertPriority1_2))};
+#ifdef PRIORITY_INVERSION
+  static bool pinInvertState{HIGH};
+  const auto pinNewState{getPinState(invertPriority1_2Pin)};
+
+  if ((pinInvertState && !pinNewState) || (!pinInvertState && pinNewState))
+  {
+// Inversion state changed
+#ifndef NO_OUTPUT
+    Serial.print(F("Inversion state changed to '"));
+    Serial.print(pinNewState?F("HIGH"):F("LOW"));
+    Serial.println(F("' !'"));
+#endif // NO_OUTPUT
+
+    b_togglePriority1_2 = true;
+
+    while (b_togglePriority1_2)
+      delay(10);
+
+    //print the (new) load priorities
+    logLoadPriorities();
+
+    pinInvertState = pinNewState;
+  }
+  return LOW == pinInvertState;
+#else
+  return false;
+#endif
 }
 
 /**
@@ -1293,8 +1357,8 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
 #ifdef OFF_PEAK_TARIFF
   uint8_t i;
   static constexpr int16_t iTemperatureThreshold_x100{uiTemperature * 100};
-  static uint8_t pinOffPeakState{HIGH};
-  const uint8_t pinNewState{!!(PIND & (1 << offPeakForcePin))};
+  static bool pinOffPeakState{HIGH};
+  const auto pinNewState{getPinState(offPeakForcePin)};
 
   if (pinOffPeakState && !pinNewState)
   {
@@ -1386,7 +1450,7 @@ void printConfiguration()
     Serial.print(F("\tf_voltageCal, for Vrms_L"));
     Serial.print(phase + 1);
     Serial.print(F(" =    "));
-    Serial.println(f_voltageCal[phase], 4);
+    Serial.println(f_voltageCal[phase], 5);
   }
 
   Serial.print(F("\tf_phaseCal for all phases =     "));
@@ -1612,7 +1676,7 @@ void setup()
   // initializes all loads to OFF at startup
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    DDRD |= (1 << physicalLoadPin[i]); // driver pin for Load #n
+    pinMode(physicalLoadPin[i], OUTPUT); // driver pin for Load #n
     loadPrioritiesAndState[i] &= loadStateMask;
   }
   updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
@@ -1620,20 +1684,20 @@ void setup()
   updatePortsStates(); // updates output pin states
 
 #ifdef OFF_PEAK_TARIFF
-  DDRD &= ~(1 << offPeakForcePin);                     // set as input
-  PORTD |= (1 << offPeakForcePin);                     // enable the internal pullup resistor
-  delay(100);                                          // allow time to settle
-  uint8_t pinState{!!(PIND & (1 << offPeakForcePin))}; // initial selection and
+  pinMode(offPeakForcePin, INPUT_PULLUP); // set as input and enable the internal pullup resistor
+  delay(100);                             // allow time to settle
 
   ul_TimeOffPeak = millis();
 #endif
 
-  DDRD &= ~(1 << invertPriority1_2); // set as input
-  PORTD |= (1 << invertPriority1_2); // enable the internal pullup resistor
+  pinMode(invertPriority1_2Pin, INPUT_PULLUP); // set as input and enable the internal pullup resistor
 
-  DDRD &= ~(1 << forcePin); // set as input
-  PORTD |= (1 << forcePin); // enable the internal pullup resistor
-  delay(100);               // allow time to settle
+#ifdef FORCE_PIN_PRESENT
+  pinMode(forcePin, INPUT_PULLUP); // set as input and enable the internal pullup resistor
+  delay(100);                      // allow time to settle
+#endif
+  pinMode(watchDogPin, OUTPUT);    // set as output
+  setPinState(watchDogPin, false); // set to off
 
   for (auto &bForceLoad : b_forceLoadOn)
     bForceLoad = false;
@@ -1670,6 +1734,54 @@ void setup()
 }
 
 /**
+ * @brief Toggle the watchdog LED
+ * 
+ */
+inline void toggleWatchDogLED()
+{
+  PINB = bit(watchDogPin - 8); // toggle pin
+}
+
+/**
+ * @brief Set the Pin state for the specified pin
+ * 
+ * @param pin pin to change [2..13]
+ * @param bState state to be set
+ */
+inline void setPinState(const uint8_t pin, bool bState)
+{
+  if (bState)
+  {
+    if (pin < 8)
+      PORTD |= bit(pin);
+    else
+      PORTB |= bit(pin - 8);
+  }
+  else
+  {
+    if (pin < 8)
+      PORTD &= ~bit(pin);
+    else
+      PORTB &= ~bit(pin - 8);
+  }
+}
+
+/**
+ * @brief Get the Pin state for the specified pin
+ * 
+ * @param pin pin to read
+ * @return true if pin is HIGH
+ * @return false if pin is LOW
+ */
+inline bool getPinState(const uint8_t pin)
+{
+  if (pin < 8)
+    return bitRead(PIND, pin);
+  else
+    return bitRead(PINB, pin - 8);
+}
+
+/**
  * @brief Main processor.
  * @details None of the workload in loop() is time-critical.
  *          All the processing of ADC data is done within the ISR.
@@ -1689,6 +1801,9 @@ void loop()
     if (perSecondTimer >= SUPPLY_FREQUENCY)
     {
       perSecondTimer = 0;
+      toggleWatchDogLED();
+
+      proceedLoadPrioritiesInversion();
 
       if (!forceFullPower())
         bOffPeak = proceedLoadPrioritiesAndForcing(iTemperature_x100); // called every second

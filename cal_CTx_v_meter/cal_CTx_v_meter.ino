@@ -653,10 +653,10 @@ void printConfiguration()
     Serial.print(F("\tf_powerCal for L"));
     Serial.print(phase + 1);
     Serial.print(F(" =    "));
-    Serial.println(f_powerCal[phase], 4);
+    Serial.println(f_powerCal[phase], 5);
 
     Serial.print(F("\tf_voltageCal, for Vrms  =      "));
-    Serial.println(f_voltageCal[phase], 4);
+    Serial.println(f_voltageCal[phase], 5);
   }
   Serial.print(F("\tf_phaseCal for all phases"));
   Serial.print(F(" =     "));
