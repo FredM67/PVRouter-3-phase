@@ -488,12 +488,18 @@ volatile bool b_reOrderLoads{false}; /**< async trigger for loads re-ordering */
 // since there's no real locking feature for shared variables, a couple of data
 // generated from inside the ISR are copied from time to time to be passed to the
 // main processor. When the data are available, the ISR signals it to the main processor.
-volatile int32_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES];   /**< copy of cumulative power per phase */
-volatile int32_t copyOf_sum_Vsquared[NO_OF_PHASES];         /**< copy of for summation of V^2 values during datalog period */
-volatile float copyOf_energyInBucket_main;                  /**< copy of main energy bucket (over all phases) */
-volatile uint8_t copyOf_lowestNoOfSampleSetsPerMainsCycle;  /**<  */
-volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
-volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];      /**< copy of number of cycle the load was ON (over 1 datalog period) */
+struct dataLog
+{
+  int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];   /**< cumulative power per phase */
+  int32_t l_sum_Vsquared[NO_OF_PHASES];         /**< for summation of V^2 values during datalog period */
+  float f_energyInBucket_main;                  /**< main energy bucket (over all phases) */
+  uint8_t n_lowestNoOfSampleSetsPerMainsCycle;  /**< integrity check */
+  uint16_t i_sampleSetsDuringThisDatalogPeriod; /**< for counting the sample sets during each datalogging period */
+  uint16_t i_countLoadON[NO_OF_DUMPLOADS];      /**< number of cycles the load was ON (over 1 datalog period) */
+};
+using udtDataLog = struct dataLog;
+
+volatile udtDataLog dataLogExport;
 
 #ifdef TEMP_SENSOR
 // For temperature sensing
@@ -1110,22 +1116,22 @@ void processDataLogging()
 
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
   {
-    copyOf_sumP_atSupplyPoint[phase] = l_sumP_atSupplyPoint[phase];
+    dataLogExport.l_sumP_atSupplyPoint[phase] = l_sumP_atSupplyPoint[phase];
     l_sumP_atSupplyPoint[phase] = 0;
 
-    copyOf_sum_Vsquared[phase] = l_sum_Vsquared[phase];
+    dataLogExport.l_sum_Vsquared[phase] = l_sum_Vsquared[phase];
     l_sum_Vsquared[phase] = 0;
   }
 
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    copyOf_countLoadON[i] = countLoadON[i];
+    dataLogExport.i_countLoadON[i] = countLoadON[i];
     countLoadON[i] = 0;
   }
 
-  copyOf_sampleSetsDuringThisDatalogPeriod = i_sampleSetsDuringThisDatalogPeriod; // (for diags only)
-  copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
-  copyOf_energyInBucket_main = f_energyInBucket_main;                             // (for diags only)
+  dataLogExport.i_sampleSetsDuringThisDatalogPeriod = i_sampleSetsDuringThisDatalogPeriod; // (for diags only)
+  dataLogExport.n_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
+  dataLogExport.f_energyInBucket_main = f_energyInBucket_main;                             // (for diags only)
 
   n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
   i_sampleSetsDuringThisDatalogPeriod = 0;
@@ -1208,7 +1214,7 @@ void sendResults(bool bOffPeak)
 #endif // if defined EMONESP && !defined SERIALOUT
 
 #if defined SERIALPRINT && !defined EMONESP
-  Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
+  Serial.print(dataLogExport.f_energyInBucket_main / SUPPLY_FREQUENCY);
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
 
@@ -1232,9 +1238,9 @@ void sendResults(bool bOffPeak)
   Serial.print((float)tx_data.temperature_x100 / 100);
 #endif // TEMP_SENSOR
   Serial.print(F(", (minSampleSets/MC "));
-  Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
+  Serial.print(dataLogExport.n_lowestNoOfSampleSetsPerMainsCycle);
   Serial.print(F(", #ofSampleSets "));
-  Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
+  Serial.print(dataLogExport.i_sampleSetsDuringThisDatalogPeriod);
 #ifndef OFF_PEAK_TARIFF
 #ifdef PRIORITY_ROTATION
   Serial.print(F(", NoED "));
@@ -1745,12 +1751,12 @@ void loop()
     tx_data.power = 0;
     for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
     {
-      tx_data.power_L[phase] = copyOf_sumP_atSupplyPoint[phase] / copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
+      tx_data.power_L[phase] = dataLogExport.l_sumP_atSupplyPoint[phase] / dataLogExport.i_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
       tx_data.power_L[phase] *= -1;
 
       tx_data.power += tx_data.power_L[phase];
 
-      tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(dataLogExport.l_sum_Vsquared[phase] / dataLogExport.i_sampleSetsDuringThisDatalogPeriod));
     }
 #ifdef TEMP_SENSOR
     iTemperature_x100 = readTemperature();
