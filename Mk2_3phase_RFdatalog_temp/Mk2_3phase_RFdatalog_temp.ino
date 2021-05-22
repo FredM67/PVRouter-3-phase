@@ -168,7 +168,7 @@ constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in se
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.05484f, 0.05469f, 0.05385f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.05539f, 0.05662f, 0.05588f};
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
@@ -189,7 +189,7 @@ constexpr int16_t p_phaseCal{8};   /**< to speed up math (i_phaseCal = 1 << p_ph
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-constexpr float f_voltageCal[NO_OF_PHASES]{0.985f, 1.003f, 0.987f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
+constexpr float f_voltageCal[NO_OF_PHASES]{1.003f, 1.003f, 1.003f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
