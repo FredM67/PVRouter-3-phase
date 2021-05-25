@@ -132,8 +132,8 @@
 
 //#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
 //#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
-//#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
-#define ENABLE_RELAY ///< this line must be commented out if no output is used as relay
+#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
+#define ENABLE_RELAY      ///< this line must be commented out if no output is used as relay
 
 // Output messages
 #define DEBUGGING   ///< enable this line to include debugging print statements
@@ -147,7 +147,7 @@
 // constants which must be set individually for each system
 //
 constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
-constexpr uint8_t NO_OF_DUMPLOADS{2}; /**< number of dump loads connected to the diverter */
+constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
 
 constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
 
@@ -293,7 +293,7 @@ uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was
 constexpr OutputModes outputMode{OutputModes::NORMAL}; /**< Output mode to be used */
 
 // Load priorities at startup
-uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1}; /**< load priorities and states. */
+uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load priorities and states. */
 
 //--------------------------------------------------------------------------------------------------
 #ifdef EMONESP
@@ -352,13 +352,14 @@ constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-constexpr uint8_t forcePin{4};
+constexpr uint8_t forcePin0{3};
+constexpr uint8_t forcePin1{4};
 #endif
 
 #ifdef TEMP_SENSOR
 constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
-constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6, 7}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 // D8 is not in use
 constexpr uint8_t watchDogPin{9};
 // D10 is for the RFM12B
@@ -1275,12 +1276,13 @@ void logLoadPriorities()
 bool forceFullPower()
 {
 #ifdef FORCE_PIN_PRESENT
-  const uint8_t pinState{!!(PIND & bit(forcePin))};
+  const uint8_t pinState0{!!(PIND & bit(forcePin0))};
+  const uint8_t pinState1{!!(PIND & bit(forcePin1))};
 
-  for (auto &bForceLoad : b_forceLoadOn)
-    bForceLoad = !pinState;
+  b_forceLoadOn[0] = !pinState0;
+  b_forceLoadOn[1] = !pinState1;
 
-  return !pinState;
+  return !pinState0 || !pinState1;
 #else
   return false;
 #endif
@@ -1630,10 +1632,10 @@ void setup()
 
   updatePortsStates(); // updates output pin states
 
-  #ifdef ENABLE_RELAY
+#ifdef ENABLE_RELAY
   DDRD |= bit(relayPin);
   setPinState(relayPin, false);
-  #endif
+#endif
 
 #ifdef OFF_PEAK_TARIFF
   DDRD &= ~bit(offPeakForcePin);                     // set as input
@@ -1645,8 +1647,10 @@ void setup()
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-  DDRD &= ~bit(forcePin); // set as input
-  PORTD |= bit(forcePin); // enable the internal pullup resistor
+  DDRD &= ~bit(forcePin0); // set as input
+  PORTD |= bit(forcePin0); // enable the internal pullup resistor
+  DDRD &= ~bit(forcePin1); // set as input
+  PORTD |= bit(forcePin1); // enable the internal pullup resistor
   delay(100);             // allow time to settle
 #endif
 
