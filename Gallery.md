@@ -14,6 +14,12 @@ A couple of my realizations... other coming...
 
 |[<img alt="Heatsinks" src="img/ada72e61-2f97-41ee-8d40-62b1563c619a.jpg" width="25%">](img/ada72e61-2f97-41ee-8d40-62b1563c619a.jpg "Heatsinks") |[<img alt="External connections" src="img/897cdbe2-732a-4d81-9d10-05e575900748.jpg" width="25%">](img/897cdbe2-732a-4d81-9d10-05e575900748.jpg "External connections") |[<img alt="Inside the enclosure" src="img/8c1568f4-78a3-4125-9e14-d849fb266f01.jpg" width="25%">](img/8c1568f4-78a3-4125-9e14-d849fb266f01.jpg "Inside the enclosure")
 
+## 3-phase router, 4 remote cable-wired outputs (optionally 6), all outputs wired through network-cable, split box
+
+[<img alt="Global view" src="img/d03d563a-dc9d-4a5e-b4b6-94b93cb05c39.jpg" width="50%">](img/d03d563a-dc9d-4a5e-b4b6-94b93cb05c39.jpg "Global view")
+
+|[<img alt="In/Outputs on the main enclosure" src="img/d395ef4b-2886-42bc-bf0d-46881865aba8.jpg" width="25%">](img/d395ef4b-2886-42bc-bf0d-46881865aba8.jpg "In/Outputs on the main enclosure") |[<img alt="Inside the main enclosure" src="img/b5a37129-8ef5-4b52-9db6-86991e1d2f7e.jpg" width="25%">](img/b5a37129-8ef5-4b52-9db6-86991e1d2f7e.jpg "Inside the main enclosure") |[<img alt="The split box" src="img/3e970a16-3d55-4a36-852a-2b2628096997.jpg" width="25%">](img/3e970a16-3d55-4a36-852a-2b2628096997.jpg "The split box") |[<img alt="Inside the split box" src="img/4e9bc2a4-d0be-4040-9475-e14ed643a81f.jpg" width="25%">](img/4e9bc2a4-d0be-4040-9475-e14ed643a81f.jpg "Inside the split box")
+
 ## 3-phase router, 3 outputs, 2 of them can be controlled via Internet (ON/OFF and forcing)
 
 [<img alt="Global view" src="img/ef52c81c-a295-45f7-bca3-10eb83e562a4.jpg" width="50%">](img/ef52c81c-a295-45f7-bca3-10eb83e562a4.jpg "Global view")

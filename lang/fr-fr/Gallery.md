@@ -14,6 +14,11 @@ Quelques une de mes réalisations... d'autres à venir...
 
 |[<img alt="Radiateurs" src="../../img/ada72e61-2f97-41ee-8d40-62b1563c619a.jpg" width="25%">](../../img/ada72e61-2f97-41ee-8d40-62b1563c619a.jpg "Radiateurs") |[<img alt="Connections extérieures" src="../../img/897cdbe2-732a-4d81-9d10-05e575900748.jpg" width="25%">](../../img/897cdbe2-732a-4d81-9d10-05e575900748.jpg "Connections extérieures") |[<img alt="Intérieur du boîtier" src="../../img/8c1568f4-78a3-4125-9e14-d849fb266f01.jpg" width="25%">](../../img/8c1568f4-78a3-4125-9e14-d849fb266f01.jpg "Intérieur du boîtier")
 
+## Routeur triphasé, 4 sorties distantes par câble (en option 6), sorties connectées par câble réseau, boîte de répartition
+
+[<img alt="Vue d'ensemble" src="../../img/d03d563a-dc9d-4a5e-b4b6-94b93cb05c39.jpg" width="50%">](../../img/d03d563a-dc9d-4a5e-b4b6-94b93cb05c39.jpg "Global view")
+
+|[<img alt="Entrées/sorties sur boîtier principal" src="../../img/d395ef4b-2886-42bc-bf0d-46881865aba8.jpg" width="25%">](../../img/d395ef4b-2886-42bc-bf0d-46881865aba8.jpg "Entrées/sorties sur boîtier principal") |[<img alt="Intérieur du boîtier principal" src="../../img/b5a37129-8ef5-4b52-9db6-86991e1d2f7e.jpg" width="25%">](../../img/b5a37129-8ef5-4b52-9db6-86991e1d2f7e.jpg "Intérieur du boîtier principal") |[<img alt="La boîte de répartition" src="../../img/3e970a16-3d55-4a36-852a-2b2628096997.jpg" width="25%">](../../img/3e970a16-3d55-4a36-852a-2b2628096997.jpg "La boîte de répartition") |[<img alt="Intérieur de la boîte de répartition" src="../../img/4e9bc2a4-d0be-4040-9475-e14ed643a81f.jpg" width="25%">](../../img/4e9bc2a4-d0be-4040-9475-e14ed643a81f.jpg "Intérieur de la boîte de répartition")
 ## Routeur triphasé, 3 sorties, dont 2 pilotables via Internet (ON/OFF et marche forcée)
 
 [<img alt="Vue d'ensemble" src="../../img/ef52c81c-a295-45f7-bca3-10eb83e562a4.jpg" width="50%">](../../img/ef52c81c-a295-45f7-bca3-10eb83e562a4.jpg "Vue d'ensemble")
