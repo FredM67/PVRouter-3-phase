@@ -130,10 +130,6 @@
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 //#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
-//#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
-//#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
-//#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
-
 // Output messages
 #define DEBUGGING   ///< enable this line to include debugging print statements
 #define SERIALPRINT ///< include 'human-friendly' print statement for commissioning - comment this line to exclude.
@@ -216,47 +212,6 @@ constexpr int16_t BAD_TEMPERATURE{30400};        /**< this value (304C) is sent 
 constexpr int16_t TEMP_RANGE_LOW{-5500};
 constexpr int16_t TEMP_RANGE_HIGH{12500};
 #endif // #ifdef TEMP_SENSOR
-
-#ifndef OFF_PEAK_TARIFF
-#ifdef PRIORITY_ROTATION
-
-constexpr uint32_t ROTATION_AFTER_CYCLES{8 * 3600 * SUPPLY_FREQUENCY}; /**< rotates load priorities after this period of inactivity */
-volatile uint32_t absenceOfDivertedEnergyCount{0};                     /**< number of main cycles without diverted energy */
-
-#endif // #ifdef PRIORITY_ROTATION
-#else  // #ifndef OFF_PEAK_TARIFF
-constexpr uint16_t ul_OFF_PEAK_DURATION{8}; /**< Duration of the off-peak period in hours */
-
-/** @brief Config parameters for forcing a load
- *  @details This class allows the user to define when and how long a load will be forced at 
- *           full power during off-peak period.
- * 
- *           For each load, the user defines a pair of values: pairForceLoad => { offset, duration }.
- *           The load will be started with full power at ('start_offpeak' + 'offset') for a duration of 'duration'
- *             - all values are in hours (if between -24 and 24) or in minutes.
- *             - if the offset is negative, it's calculated from the end of the off-peak period (ie -3 means 3 hours back from the end).
- *             - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT16_MAX' (somehow infinite time)
-*/
-class pairForceLoad
-{
-public:
-  constexpr pairForceLoad() = default;
-  constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration = UINT16_MAX) : iStartOffset(_iStartOffset), uiDuration(_uiDuration) {}
-
-  constexpr int16_t getStartOffset() const { return iStartOffset; }
-  constexpr uint16_t getDuration() const { return uiDuration; }
-
-private:
-  int16_t iStartOffset{0};         /**< the start offset from the off-peak begin in hours or minutes */
-  uint16_t uiDuration{UINT16_MAX}; /**< the duration for forcing the load in hours or minutes */
-};
-
-constexpr uint8_t uiTemperature{100}; /**< the temperature threshold to stop forcing in °C */
-
-constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-3, 2},    /**< force config for load #1 */
-                                                         {-3, 120},  /**< force config for load #2 */
-                                                         {-180, 2}}; /**< force config for load #3 */
-#endif // #ifndef OFF_PEAK_TARIFF
 
 // -------------------------------
 // definitions of enumerated types
@@ -346,24 +301,15 @@ PayloadTx_struct tx_data; /**< logging data */
 // digital pins:
 // D0 & D1 are reserved for the Serial i/f
 // D2 is for the RFM12B
-#ifdef OFF_PEAK_TARIFF
-constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
-#endif
-
-#ifdef FORCE_PIN_PRESENT
-constexpr uint8_t forcePin{4};
-#endif
 
 #ifdef TEMP_SENSOR
 constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
+
 constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{3, 4, 5, 6, 7, 8}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
-// D8 is not in use
 constexpr uint8_t watchDogPin{9};
-// D10 is for the RFM12B
-// D11 is for the RFM12B
-// D12 is for the RFM12B
-// D13 is for the RFM12B
+constexpr uint8_t forcePin[3]{10, 11, 12};
+constexpr uint8_t swapPrioHeatersPin{13};
 
 // analogue input pins
 constexpr uint8_t sensorV[NO_OF_PHASES]{0, 2, 4}; /**< for 3-phase PCB, voltage measurement for each phase */
@@ -377,49 +323,6 @@ constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; /**< for 3-phase PCB, current 
 bool beyondStartUpPeriod{false};        /**< start-up delay, allows things to settle */
 constexpr uint16_t initialDelay{3000};  /**< in milli-seconds, to allow time to open the Serial monitor */
 constexpr uint16_t startUpPeriod{3000}; /**< in milli-seconds, to allow LP filter to settle */
-
-#ifdef OFF_PEAK_TARIFF
-uint32_t ul_TimeOffPeak; /**< 'timestamp' for start of off-peak period */
-
-/**
- * @brief Template class for Load-Forcing
- * @details The array is initialized at compile time so it can be read-only and
- *          the performance and code size are better
- * 
- * @tparam N # of loads
- */
-template <uint8_t N>
-class _rg_OffsetForce
-{
-public:
-  constexpr _rg_OffsetForce() : _rg()
-  {
-    constexpr uint16_t uiPeakDurationInSec{ul_OFF_PEAK_DURATION * 3600};
-    // calculates offsets for force start and stop of each load
-    for (uint8_t i = 0; i != N; ++i)
-    {
-      const bool bOffsetInMinutes{rg_ForceLoad[i].getStartOffset() > 24 || rg_ForceLoad[i].getStartOffset() < -24};
-      const bool bDurationInMinutes{rg_ForceLoad[i].getDuration() > 24 && UINT16_MAX != rg_ForceLoad[i].getDuration()};
-
-      _rg[i][0] = ((rg_ForceLoad[i].getStartOffset() >= 0) ? 0 : uiPeakDurationInSec) + rg_ForceLoad[i].getStartOffset() * (bOffsetInMinutes ? 60ul : 3600ul);
-      _rg[i][0] *= 1000ul; // convert in milli-seconds
-
-      if (UINT8_MAX == rg_ForceLoad[i].getDuration())
-        _rg[i][1] = rg_ForceLoad[i].getDuration();
-      else
-        _rg[i][1] = _rg[i][0] + rg_ForceLoad[i].getDuration() * (bDurationInMinutes ? 60ul : 3600ul) * 1000ul;
-    }
-  }
-  const uint32_t (&operator[](uint8_t i) const)[2]
-  {
-    return _rg[i];
-  }
-
-private:
-  uint32_t _rg[N][2];
-};
-constexpr auto rg_OffsetForce = _rg_OffsetForce<NO_OF_DUMPLOADS>(); /**< start & stop offsets for each load */
-#endif
 
 int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
 
@@ -481,9 +384,8 @@ uint8_t n_lowestNoOfSampleSetsPerMainsCycle; /**< For a mechanism to check the i
 volatile bool b_datalogEventPending{false};   /**< async trigger to signal datalog is available */
 volatile bool b_newMainsCycle{false};         /**< async trigger to signal start of new main cycle based on first phase */
 volatile bool b_forceLoadOn[NO_OF_DUMPLOADS]; /**< async trigger to force specific load(s) to ON */
-#ifdef PRIORITY_ROTATION
-volatile bool b_reOrderLoads{false}; /**< async trigger for loads re-ordering */
-#endif
+volatile bool b_swapHeaters{false};
+volatile bool b_mustSwapHeaters{false};
 
 // since there's no real locking feature for shared variables, a couple of data
 // generated from inside the ISR are copied from time to time to be passed to the
@@ -1064,26 +966,27 @@ void updatePhysicalLoadStates()
 {
   uint8_t i;
 
-#ifdef PRIORITY_ROTATION
-  if (b_reOrderLoads)
+  if (b_mustSwapHeaters)
   {
-    const auto temp{loadPrioritiesAndState[0]};
-    for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
-      loadPrioritiesAndState[i] = loadPrioritiesAndState[i + 1];
+    if (b_swapHeaters)
+    {
+      loadPrioritiesAndState[0] = 0;
+      loadPrioritiesAndState[1] = 1;
+      loadPrioritiesAndState[2] = 2;
+      loadPrioritiesAndState[3] = 3;
+      loadPrioritiesAndState[4] = 4;
+    }
+    else
+    {
+      loadPrioritiesAndState[0] = 3;
+      loadPrioritiesAndState[1] = 4;
+      loadPrioritiesAndState[2] = 0;
+      loadPrioritiesAndState[3] = 1;
+      loadPrioritiesAndState[4] = 2;
+    }
 
-    loadPrioritiesAndState[i] = temp;
-
-    b_reOrderLoads = false;
+    b_mustSwapHeaters = false;
   }
-
-#ifndef OFF_PEAK_TARIFF
-  if (0x00 == (loadPrioritiesAndState[0] & loadStateOnBit))
-    ++absenceOfDivertedEnergyCount;
-  else
-    absenceOfDivertedEnergyCount = 0;
-#endif // OFF_PEAK_TARIFF
-
-#endif // PRIORITY_ROTATION
 
   for (i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
@@ -1235,12 +1138,6 @@ void sendResults(bool bOffPeak)
   Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
   Serial.print(F(", #ofSampleSets "));
   Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
-#ifndef OFF_PEAK_TARIFF
-#ifdef PRIORITY_ROTATION
-  Serial.print(F(", NoED "));
-  Serial.print(absenceOfDivertedEnergyCount);
-#endif // PRIORITY_ROTATION
-#endif // OFF_PEAK_TARIFF
   Serial.println(F(")"));
 #endif // if defined SERIALPRINT && !defined EMONESP
 }
@@ -1263,100 +1160,51 @@ void logLoadPriorities()
 
 /**
  * @brief This function set all 3 loads to full power.
- * 
- * @return true if loads are forced
- * @return false 
  */
-bool forceFullPower()
+void proceedForcePins()
 {
-#ifdef FORCE_PIN_PRESENT
-  const uint8_t pinState{!!(PIND & bit(forcePin))};
+  const bool pinState[3]{getPinState(forcePin[0]), getPinState(forcePin[1]), getPinState(forcePin[2])};
 
-  for (auto &bForceLoad : b_forceLoadOn)
-    bForceLoad = !pinState;
-
-  return !pinState;
-#else
-  return false;
-#endif
+  b_forceLoadOn[0] = !pinState[0];
+  b_forceLoadOn[1] = !pinState[0];
+  b_forceLoadOn[2] = !pinState[0];
+  b_forceLoadOn[3] = !pinState[1];
+  b_forceLoadOn[4] = !pinState[1];
+  b_forceLoadOn[5] = !pinState[2];
 }
 
 /**
- * @brief This function changes the value of the load priorities.
- * @details Since we don't have access to a clock, we detect the offPeak start from the main energy meter.
- *          Additionally, when off-peak period starts, we rotate the load priorities for the next day.
+ * @brief Invert the load priorities for load #1 and #2
  * 
- * @param currentTemperature_x100 current temperature x 100 (default to 0 if deactivated)
- * @return true if off-peak tariff is active
- * @return false if on-peak tariff is active
+ * @return true if load #2 > load #1
+ * @return false if load #1 > load #2
  */
-bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
+bool proceedLoadPrioritiesInversion()
 {
-#ifdef OFF_PEAK_TARIFF
-  uint8_t i;
-  static constexpr int16_t iTemperatureThreshold_x100{uiTemperature * 100};
-  static uint8_t pinOffPeakState{HIGH};
-  const uint8_t pinNewState{!!(PIND & bit(offPeakForcePin))};
+  static bool pinInvertState{LOW}; //This value does not exist, so we'll force checking the state at startup
+  const auto pinNewState{getPinState(swapPrioHeatersPin)};
 
-  if (pinOffPeakState && !pinNewState)
+  if ((pinInvertState && !pinNewState) || (!pinInvertState && pinNewState))
   {
-// we start off-peak period
+// Inversion state changed
 #ifndef NO_OUTPUT
-    Serial.println(F("Change to off-peak period!"));
+    Serial.print(F("Inversion state changed to '"));
+    Serial.print(pinNewState ? F("HIGH") : F("LOW"));
+    Serial.println(F("' !'"));
 #endif // NO_OUTPUT
-    ul_TimeOffPeak = millis();
 
-#ifdef PRIORITY_ROTATION
-    b_reOrderLoads = true;
+    b_swapHeaters = !pinNewState;
+    b_mustSwapHeaters = true;
 
-    // waits till the priorities have been rotated from inside the ISR
-    while (b_reOrderLoads)
-      delay(10);
-#endif // PRIORITY_ROTATION
-
-    // prints the (new) load priorities
-    logLoadPriorities();
-  }
-  else
-  {
-    const auto ulElapsedTime{(uint32_t)(millis() - ul_TimeOffPeak)};
-
-    for (i = 0; i < NO_OF_DUMPLOADS; ++i)
-    {
-      // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
-      if (!pinOffPeakState && !pinNewState &&
-          (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
-        b_forceLoadOn[i] = currentTemperature_x100 <= iTemperatureThreshold_x100;
-      else
-        b_forceLoadOn[i] = false;
-    }
-  }
-// end of off-peak period
-#ifndef NO_OUTPUT
-  if (!pinOffPeakState && pinNewState)
-    Serial.println(F("Change to peak period!"));
-#endif //NO_OUTPUT
-
-  pinOffPeakState = pinNewState;
-
-  return (LOW == pinOffPeakState);
-#else // OFF_PEAK_TARIFF
-#ifdef PRIORITY_ROTATION
-  if (ROTATION_AFTER_CYCLES < absenceOfDivertedEnergyCount)
-  {
-    b_reOrderLoads = true;
-    absenceOfDivertedEnergyCount = 0;
-
-    // waits till the priorities have been rotated from inside the ISR
-    while (b_reOrderLoads)
+    while (b_mustSwapHeaters)
       delay(10);
 
-    // prints the (new) load priorities
+    //print the (new) load priorities
     logLoadPriorities();
+
+    pinInvertState = pinNewState;
   }
-#endif // PRIORITY_ROTATION
-  return false;
-#endif // OFF_PEAK_TARIFF
+  return HIGH == pinInvertState;
 }
 
 /**
@@ -1410,19 +1258,10 @@ void printConfiguration()
 #endif
 
   Serial.print("Dual-tariff capability ");
-#ifdef OFF_PEAK_TARIFF
-  Serial.println(F("is present"));
-  printOffPeakConfiguration();
-#else
   Serial.println(F("is NOT present"));
-#endif
 
   Serial.print("Load rotation feature ");
-#ifdef PRIORITY_ROTATION
-  Serial.println(F("is present"));
-#else
   Serial.println(F("is NOT present"));
-#endif
 
   Serial.print("RF capability ");
 #ifdef RF_PRESENT
@@ -1443,54 +1282,6 @@ void printConfiguration()
   Serial.println(F("is NOT present"));
 #endif
 }
-
-#ifdef OFF_PEAK_TARIFF
-/**
- * @brief Print the settings for off-peak period
- * 
- */
-void printOffPeakConfiguration()
-{
-  Serial.print(F("\tDuration of off-peak period is "));
-  Serial.print(ul_OFF_PEAK_DURATION);
-  Serial.println(F(" hours."));
-
-  Serial.print(F("\tTemperature threshold is "));
-  Serial.print(uiTemperature);
-  Serial.println(F("°C."));
-
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    Serial.print(F("\tLoad #"));
-    Serial.print(i + 1);
-    Serial.println(F(":"));
-
-    Serial.print(F("\t\tStart "));
-    if (rg_ForceLoad[i].getStartOffset() >= 0)
-    {
-      Serial.print(rg_ForceLoad[i].getStartOffset());
-      Serial.print(F(" hours/minutes after begin of off-peak period "));
-    }
-    else
-    {
-      Serial.print(-rg_ForceLoad[i].getStartOffset());
-      Serial.print(F(" hours/minutes before the end of off-peak period "));
-    }
-    if (rg_ForceLoad[i].getDuration() == UINT16_MAX)
-      Serial.println(F("till the end of the period."));
-    else
-    {
-      Serial.print(F("for a duration of "));
-      Serial.print(rg_ForceLoad[i].getDuration());
-      Serial.println(F(" hour/minute(s)."));
-    }
-    Serial.print(F("\t\tCalculated offset in seconds: "));
-    Serial.println(rg_OffsetForce[i][0] / 1000);
-    Serial.print(F("\t\tCalculated duration in seconds: "));
-    Serial.println(rg_OffsetForce[i][1] / 1000);
-  }
-}
-#endif
 
 /**
  * @brief Print the settings used for the selected output mode.
@@ -1625,21 +1416,6 @@ void setup()
 
   updatePortsStates(); // updates output pin states
 
-#ifdef OFF_PEAK_TARIFF
-  DDRD &= ~bit(offPeakForcePin);                     // set as input
-  PORTD |= bit(offPeakForcePin);                     // enable the internal pullup resistor
-  delay(100);                                        // allow time to settle
-  uint8_t pinState{!!(PIND & bit(offPeakForcePin))}; // initial selection and
-
-  ul_TimeOffPeak = millis();
-#endif
-
-#ifdef FORCE_PIN_PRESENT
-  DDRD &= ~bit(forcePin); // set as input
-  PORTD |= bit(forcePin); // enable the internal pullup resistor
-  delay(100);             // allow time to settle
-#endif
-
   DDRB |= bit(watchDogPin - 8);    // set as output
   setPinState(watchDogPin, false); // set to off
 
@@ -1684,6 +1460,21 @@ void setup()
 inline void toggleWatchDogLED()
 {
   PINB = bit(watchDogPin - 8); // toggle pin
+}
+
+/**
+ * @brief Get the Pin state for the specified pin
+ * 
+ * @param pin pin to read
+ * @return true if pin is HIGH
+ * @return false if pin is LOW
+ */
+inline bool getPinState(const uint8_t pin)
+{
+  if (pin < 8)
+    return bitRead(PIND, pin);
+  else
+    return bitRead(PINB, pin - 8);
 }
 
 /**
@@ -1733,8 +1524,9 @@ void loop()
 
       toggleWatchDogLED();
 
-      if (!forceFullPower())
-        bOffPeak = proceedLoadPrioritiesAndForcing(iTemperature_x100); // called every second
+      proceedForcePins();
+      
+      proceedLoadPrioritiesInversion();
     }
   }
 
