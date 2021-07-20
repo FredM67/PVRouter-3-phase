@@ -1159,7 +1159,7 @@ void logLoadPriorities()
 }
 
 /**
- * @brief This function set all 3 loads to full power.
+ * @brief This function set selected loads to full power.
  */
 void proceedForcePins()
 {
@@ -1174,7 +1174,7 @@ void proceedForcePins()
 }
 
 /**
- * @brief Invert the load priorities for load #1 and #2
+ * @brief Invert the load priorities for load set #1 and #2
  * 
  * @return true if load #2 > load #1
  * @return false if load #1 > load #2
@@ -1393,6 +1393,8 @@ int freeRam()
  */
 void setup()
 {
+  uint8_t i;
+
   delay(initialDelay); // allows time to open the Serial Monitor
 
   Serial.begin(9600); // initialize Serial interface, Do NOT set greater than 9600
@@ -1403,7 +1405,7 @@ void setup()
 #endif
 
   // initializes all loads to OFF at startup
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  for (i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
     if (physicalLoadPin[i] < 8)
       DDRD |= bit(physicalLoadPin[i]); // driver pin for Load #n
@@ -1412,6 +1414,12 @@ void setup()
 
     loadPrioritiesAndState[i] &= loadStateMask;
   }
+
+  for (i = 0; i < sizeof(forcePin); ++i)
+    pinMode(forcePin[i], INPUT_PULLUP); // set as input and enable the internal pullup resistor
+
+  pinMode(swapPrioHeatersPin, INPUT_PULLUP);
+
   updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
 
   updatePortsStates(); // updates output pin states
