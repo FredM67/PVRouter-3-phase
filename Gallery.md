@@ -25,3 +25,9 @@ A couple of my realizations... other coming...
 [<img alt="Global view" src="img/ef52c81c-a295-45f7-bca3-10eb83e562a4.jpg" width="50%">](img/ef52c81c-a295-45f7-bca3-10eb83e562a4.jpg "Global view")
 
 |[<img alt="Inside the enclosure" src="img/087771a1-7ec3-4b7a-a278-35999f6821ce.jpg" width="25%">](img/087771a1-7ec3-4b7a-a278-35999f6821ce.jpg "Inside the enclosure") |[<img alt="Router side" src="img/85be2be7-bddf-4039-a8d4-92ca197cbb45.jpg" width="25%">](img/85be2be7-bddf-4039-a8d4-92ca197cbb45.jpg "Router side") |[<img alt="Smart-Relay side" src="img/819f9d70-4cc6-4b29-9f21-2e0b1ef3fdeb.jpg" width="25%">](img/819f9d70-4cc6-4b29-9f21-2e0b1ef3fdeb.jpg "Smart-Relay side")
+
+## 3-phase router, 6 outputs, all can be controlled via Internet (forcing and priority inversion)
+
+[<img alt="Global view" src="img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg" width="50%">](img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg "Global view")
+
+|[<img alt="Inside the enclosure" src="img/fec8f37e-e799-4abc-9041-8d9bfd7e70b1.jpg" width="25%">](img/fec8f37e-e799-4abc-9041-8d9bfd7e70b1.jpg "Inside the enclosure")
