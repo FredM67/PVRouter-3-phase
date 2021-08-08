@@ -27,6 +27,4 @@ Quelques une de mes réalisations... d'autres à venir...
 
 ## Routeur triphasé, 6 sorties, toutes pilotables via Internet (marche forcée et inversion de priorité)
 
-[<img alt="Vue d'ensemble" src="../../img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg" width="50%">](../../img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg "Vue d'ensemble")
-
-|[<img alt="Intérieur du boîtier" src="../../img/fec8f37e-e799-4abc-9041-8d9bfd7e70b1.jpg" width="25%">](../../img/fec8f37e-e799-4abc-9041-8d9bfd7e70b1.jpg "Intérieur du boîtier")
+|[<img alt="Vue d'ensemble" src="../../img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg" width="50%">](../../img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg "Vue d'ensemble") |[<img alt="Intérieur du boîtier" src="../../img/fec8f37e-e799-4abc-9041-8d9bfd7e70b1.jpg" width="50%">](../../img/fec8f37e-e799-4abc-9041-8d9bfd7e70b1.jpg "Intérieur du boîtier")
