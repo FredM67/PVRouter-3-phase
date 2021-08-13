@@ -76,8 +76,8 @@ enum class Polarities : uint8_t
 class Tx_struct
 {
 public:
-  int16_t power;                         /**< main power, import = +ve, to match OEM convention */
-  int16_t power_L[NO_OF_PHASES];         /**< power for phase #, import = +ve, to match OEM convention */
+  int16_t power;                     /**< main power, import = +ve, to match OEM convention */
+  int16_t power_L[NO_OF_PHASES];     /**< power for phase #, import = +ve, to match OEM convention */
   int16_t Vrms_L_x100[NO_OF_PHASES]; /**< average voltage over datalogging period (in 100th of Volt)*/
 };
 
@@ -692,19 +692,19 @@ void setup()
     DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
 
   // Set up the ADC to be free-running
-  ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2); // Set the ADC's clock to system clock / 128
-  ADCSRA |= (1 << ADEN);                               // Enable the ADC
+  ADCSRA = bit(ADPS0) + bit(ADPS1) + bit(ADPS2); // Set the ADC's clock to system clock / 128
+  ADCSRA |= bit(ADEN);                           // Enable the ADC
 
-  ADCSRA |= (1 << ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  ADCSRA |= bit(ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
   // bits ADTS0-2 have not been set (i.e. they are all zero), the
   // ADC's trigger source is set to "free running mode".
 
-  ADCSRA |= (1 << ADIE); // set the ADC interrupt enable bit. When this bit is written
+  ADCSRA |= bit(ADIE); // set the ADC interrupt enable bit. When this bit is written
   // to one and the I-bit in SREG is set, the
   // ADC Conversion Complete Interrupt is activated.
 
-  ADCSRA |= (1 << ADSC); // start ADC manually first time
-  sei();                 // Enable Global Interrupts
+  ADCSRA |= bit(ADSC); // start ADC manually first time
+  sei();               // Enable Global Interrupts
 
   Serial.print(F(">>free RAM = "));
   Serial.println(freeRam()); // a useful value to keep an eye on
