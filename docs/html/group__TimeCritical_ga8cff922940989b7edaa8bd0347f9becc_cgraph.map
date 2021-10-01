@@ -1,0 +1,16 @@
+<map id="processRawSamples" name="processRawSamples">
+<area shape="rect" id="node1" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="5,108,149,135"/>
+<area shape="rect" id="node2" href="$group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf" title="Process the start of a new &#45;ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="197,19,356,45"/>
+<area shape="rect" id="node3" href="$group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="202,69,351,96"/>
+<area shape="rect" id="node6" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="199,145,354,172"/>
+<area shape="rect" id="node14" href="$group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Process the startup period for the router." alt="" coords="221,196,333,223"/>
+<area shape="rect" id="node4" href="$group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process with data logging." alt="" coords="423,5,563,32"/>
+<area shape="rect" id="node5" href="$group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the lastest contribution after each phase specific new cycle additional processing is perform..." alt="" coords="406,56,579,83"/>
+<area shape="rect" id="node7" href="$group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="411,107,575,133"/>
+<area shape="rect" id="node9" href="$group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="412,157,573,184"/>
+<area shape="rect" id="node11" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="404,208,581,235"/>
+<area shape="rect" id="node12" href="$Mk2__3phase__RFdatalog__temp_8ino.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="427,259,558,285"/>
+<area shape="rect" id="node8" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="637,107,820,133"/>
+<area shape="rect" id="node10" href="$group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="629,157,828,184"/>
+<area shape="rect" id="node13" href="$Mk2__3phase__RFdatalog__temp_8ino.html#ab2680616c16de5ad80df061b5a222cc1" title="Set the Pin state for the specified pin." alt="" coords="683,259,774,285"/>
+</map>

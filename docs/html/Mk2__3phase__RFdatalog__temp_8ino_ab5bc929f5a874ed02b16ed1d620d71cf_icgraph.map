@@ -1,0 +1,5 @@
+<map id="send_rf_data" name="send_rf_data">
+<area shape="rect" id="node1" title="Send the logging data through RF." alt="" coords="243,5,339,32"/>
+<area shape="rect" id="node2" href="$Mk2__3phase__RFdatalog__temp_8ino.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="100,5,195,32"/>
+<area shape="rect" id="node3" href="$Mk2__3phase__RFdatalog__temp_8ino.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,52,32"/>
+</map>
