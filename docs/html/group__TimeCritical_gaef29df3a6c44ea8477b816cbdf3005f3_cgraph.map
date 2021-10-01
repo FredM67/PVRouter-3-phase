@@ -1,4 +1,0 @@
-<map id="proceedHighEnergyLevel" name="proceedHighEnergyLevel">
-<area shape="rect" id="node1" title="Process the case of high energy level, some action may be required." alt="" coords="5,5,169,32"/>
-<area shape="rect" id="node2" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="217,5,400,32"/>
-</map>
