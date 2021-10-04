@@ -2171,7 +2171,7 @@ INCLUDE_FILE_PATTERNS  =
 
 PREDEFINED             = __cdecl= \
                          TEMP_SENSOR \
-                         OFF_PEAK_TARIFF \
+                         DUAL_TARIFF \
                          RF_PRESENT \
                          DATALOG_OUTPUT \
                          JSON_FORMAT \

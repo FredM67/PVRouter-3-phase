@@ -1,0 +1,8 @@
+<map id="utils.h" name="utils.h">
+<area shape="rect" id="node1" title="Some utility functions." alt="" coords="97,5,155,32"/>
+<area shape="rect" id="node2" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="67,155,134,181"/>
+<area shape="rect" id="node4" href="$constants_8h.html" title="Some constants." alt="" coords="181,304,271,331"/>
+<area shape="rect" id="node5" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="22,80,118,107"/>
+<area shape="rect" id="node6" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="143,80,224,107"/>
+<area shape="rect" id="node3" href="$types_8h.html" title="Some basics classes/types." alt="" coords="128,229,193,256"/>
+</map>

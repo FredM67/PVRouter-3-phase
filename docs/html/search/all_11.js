@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['vrms_5fl_5fx100_143',['Vrms_L_x100',['../classPayloadTx__struct.html#a0ed4c53c7245edaad91d05b3e42f94ef',1,'PayloadTx_struct']]]
+  ['voltagesensor_0',['voltageSensor',['../config_8h.html#a6b18c1cafc3eb349e4e13b47cf05b67c',1,'config.h']]],
+  ['vrms_5fl_5fx100_1',['Vrms_L_x100',['../classPayloadTx__struct.html#a1f7af33608c5901426cb235ec1cb9435',1,'PayloadTx_struct']]]
 ];

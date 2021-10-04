@@ -1,0 +1,5 @@
+<map id="printConfiguration" name="printConfiguration">
+<area shape="rect" id="node1" title="Print the configuration during start." alt="" coords="5,31,128,57"/>
+<area shape="rect" id="node2" href="$dualtariff_8h.html#a4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="205,5,380,32"/>
+<area shape="rect" id="node3" href="$processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="176,56,409,83"/>
+</map>

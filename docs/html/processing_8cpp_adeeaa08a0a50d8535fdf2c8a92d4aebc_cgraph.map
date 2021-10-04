@@ -1,0 +1,7 @@
+<map id="initializeProcessing" name="initializeProcessing">
+<area shape="rect" id="node1" title="Initializes the ports and load states for processing." alt="" coords="5,31,140,57"/>
+<area shape="rect" id="node2" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="188,5,365,32"/>
+<area shape="rect" id="node3" href="$processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="211,56,342,83"/>
+<area shape="rect" id="node4" href="$utils_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="413,31,505,57"/>
+<area shape="rect" id="node5" href="$utils_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="417,81,502,108"/>
+</map>
