@@ -146,7 +146,7 @@
 // constants which must be set individually for each system
 //
 constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
-constexpr uint8_t NO_OF_DUMPLOADS{6}; /**< number of dump loads connected to the diverter */
+constexpr uint8_t NO_OF_DUMPLOADS{2}; /**< number of dump loads connected to the diverter */
 
 constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
 
@@ -292,7 +292,7 @@ uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was
 constexpr OutputModes outputMode{OutputModes::NORMAL}; /**< Output mode to be used */
 
 // Load priorities at startup
-uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2, 3, 4, 5}; /**< load priorities and states. */
+uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1}; /**< load priorities and states. */
 
 //--------------------------------------------------------------------------------------------------
 #ifdef EMONESP
@@ -357,7 +357,7 @@ constexpr uint8_t forcePin{4};
 #ifdef TEMP_SENSOR
 constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
-constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{3, 4, 5, 6, 7, 8}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 // D8 is not in use
 constexpr uint8_t watchDogPin{9};
 // D10 is for the RFM12B
