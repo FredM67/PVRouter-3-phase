@@ -4,9 +4,9 @@
  * @brief Some basics classes/types
  * @version 0.1
  * @date 2021-10-04
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #ifndef __TYPES_H__
@@ -44,23 +44,24 @@ inline constexpr uint8_t loadStateMask{0x7FU};  /**< bit mask for masking load s
 
 /** @brief container for datalogging
  *  @details This class is used for datalogging.
- * 
+ *
  * @tparam N # of phases
+ * @tparam S # of temperature sensors
  */
-template <uint8_t N = 3>
+template <uint8_t N = 3, uint8_t S = 0>
 class PayloadTx_struct
 {
 public:
-    int16_t power;          /**< main power, import = +ve, to match OEM convention */
-    int16_t power_L[N];     /**< power for phase #, import = +ve, to match OEM convention */
-    int16_t Vrms_L_x100[N]; /**< average voltage over datalogging period (in 100th of Volt)*/
-    int16_t temperature_x100{UNUSED_TEMPERATURE}; /**< temperature in 100th of °C */
+    int16_t power;               /**< main power, import = +ve, to match OEM convention */
+    int16_t power_L[N];          /**< power for phase #, import = +ve, to match OEM convention */
+    int16_t Vrms_L_x100[N];      /**< average voltage over datalogging period (in 100th of Volt)*/
+    int16_t temperature_x100[S]; /**< temperature in 100th of °C */
 };
 
 /** @brief Config parameters for forcing a load
- *  @details This class allows the user to define when and how long a load will be forced at 
+ *  @details This class allows the user to define when and how long a load will be forced at
  *           full power during off-peak period.
- * 
+ *
  *           For each load, the user defines a pair of values: pairForceLoad => { offset, duration }.
  *           The load will be started with full power at ('start_offpeak' + 'offset') for a duration of 'duration'
  *             - all values are in hours (if between -24 and 24) or in minutes.
@@ -80,5 +81,11 @@ private:
     int16_t iStartOffset{0};         /**< the start offset from the off-peak begin in hours or minutes */
     uint16_t uiDuration{UINT16_MAX}; /**< the duration for forcing the load in hours or minutes */
 };
+
+using ScratchPad = uint8_t[9];
+using DeviceAddress = uint8_t[8];
+
+template <typename _Tp, size_t _Nm>
+constexpr size_t size(const _Tp (&/*__array*/)[_Nm]) noexcept { return _Nm; }
 
 #endif // __TYPES_H__

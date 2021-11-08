@@ -4,14 +4,14 @@
  * @author Frederic Metrich (frederic.metrich@live.fr)
  * @brief Mk2_3phase_RFdatalog_temp.ino - A photovoltaïc energy diverter.
  * @date 2020-01-14
- * 
+ *
  * @mainpage A 3-phase photovoltaïc router/diverter
- * 
+ *
  * @section description Description
  * Mk2_3phase_RFdatalog_temp.ino - Arduino program that maximizes the use of home photovoltaïc production
  * by monitoring energy consumption and diverting power to one or more resistive charge(s) when needed.
  * In the absence of such a system, surplus energy flows away to the grid and is of no benefit to the PV-owner.
- * 
+ *
  * @section history History
  * __Issue 1 was released in January 2015.__
  *
@@ -86,11 +86,11 @@
  * - old fashion enums replaced by scoped enums with fixed types
  * - off-peak tariff made switchable at compile-time
  * - rotation of load priorities made switchable at compile-time
- * - enhanced configuration for forcing specific loads during off-peak period
- * 
+ * - enhanced configuration for override specific loads during off-peak period
+ *
  * __April 2020, changes:__
  * - Fix a bug in the load level calculation
- * 
+ *
  * __May 2020, changes:__
  * - Fix a bug in the initialization of off-peak offsets
  * - added detailed configuration on start-up with build timestamp
@@ -98,16 +98,16 @@
  * __June 2020, changes:__
  * - Add force pin for full power through overwrite switch
  * - Add priority rotation for single tariff
- * 
+ *
  * __October 2020, changes:__
  * - Moving some part around (calibration values toward beginning of the sketch)
  * - renaming some preprocessor defines
  * - system/user specific data moved toward beginning of the sketch
- * 
+ *
  * __January 2021, changes:__
  * - Further optimization
- * - now it's possible to specify the forcing period in minutes and hours
- * - initialization of runtime parameters for forcing period at compile-time
+ * - now it's possible to specify the override period in minutes and hours
+ * - initialization of runtime parameters for override period at compile-time
  *
  * __February 2021, changes:__
  * - Added temperature threshold for off-peak period
@@ -118,50 +118,42 @@
  * - made forcePin presence configurable
  * - added WatchDog LED (blink 1s ON/ 1s OFF)
  * - code enhanced to support 6 loads
- * 
- * __October 2021, changes:__
+ *
+ * __November 2021, changes:__
  * - heavy refactoring/restructuring of the sketch
- * - user-specific values are now in 'config.h'
- * - all other files should remain unchanged
- * 
+ * - calibration values moved to the dedicated file 'calibration.h'
+ * - user-specific values (pins, ...) are now in 'config.h' all other files should/must remain unchanged
+ * - added support of temperature sensors (virtually no limit of sensor count)
+ * - added support for emonESP (see https://github.com/openenergymonitor/EmonESP)
+ *
  * @author Fred Metrich
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #include <Arduino.h> // may not be needed, but it's probably a good idea to include this
 
-#include "constants.h"
 #include "config.h"
-#include "types.h"
-#include "calibration.h"
-#include "utils.h"
-#include "processing.h"
 
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
-
-#ifdef RF_PRESENT
-#include <JeeLib.h>
-#endif
-
-#ifdef TEMP_SENSOR
-#include <OneWire.h> // for temperature sensing
-#endif               // #ifdef TEMP_SENSOR
 
 //--------------------------------------------------------------------------------------------------
 #ifdef EMONESP
 #undef SERIALPRINT // Must not corrupt serial output to emonHub with 'human-friendly' printout
 #undef SERIALOUT
-#undef DEBUGGING
-#include <ArduinoJson.h>
 #endif
 
 #ifdef SERIALOUT
 #undef EMONESP
 #undef SERIALPRINT // Must not corrupt serial output to emonHub with 'human-friendly' printout
-#undef DEBUGGING
+#undef ENABLE_DEBUG
 #endif
 //--------------------------------------------------------------------------------------------------
+
+#include "types.h"
+#include "calibration.h"
+#include "utils.h"
+#include "processing.h"
 
 // --------------  general global variables -----------------
 //
@@ -173,21 +165,21 @@
  * @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
  * @details An Interrupt Service Routine is now defined which instructs the ADC to perform a conversion
  *          for each of the voltage and current sensors in turn.
- *        
+ *
  *          This Interrupt Service Routine is for use when the ADC is in the free-running mode.
  *          It is executed whenever an ADC conversion has finished, approx every 104 µs. In
  *          free-running mode, the ADC has already started its next conversion by the time that
  *          the ISR is executed. The ISR therefore needs to "look ahead".
- *        
+ *
  *          At the end of conversion Type N, conversion Type N+1 will start automatically. The ISR
  *          which runs at this point therefore needs to capture the results of conversion Type N,
  *          and set up the conditions for conversion Type N+2, and so on.
- *        
+ *
  *          By means of various helper functions, all of the time-critical activities are processed
  *          within the ISR.
- *        
+ *
  *          The main code is notified by means of a flag when fresh copies of loggable data are available.
- *        
+ *
  *          Keep in mind, when writing an Interrupt Service Routine (ISR):
  *            - Keep it short
  *            - Don't use delay ()
@@ -195,7 +187,7 @@
  *            - Make variables shared with the main code volatile
  *            - Variables shared with main code may need to be protected by "critical sections"
  *            - Don't try to turn interrupts off or on
- * 
+ *
  */
 ISR(ADC_vect)
 {
@@ -253,15 +245,15 @@ ISR(ADC_vect)
 
 /**
  * @brief This function set all 3 loads to full power.
- * 
+ *
  * @return true if loads are forced
- * @return false 
+ * @return false
  */
 bool forceFullPower()
 {
   if constexpr (FORCE_PIN_PRESENT)
   {
-    const uint8_t pinState{!!(PIND & bit(forcePin))};
+    const uint8_t pinState{getPinState(forcePin)};
 
     for (auto &bForceLoad : b_forceLoadOn)
       bForceLoad = !pinState;
@@ -272,11 +264,74 @@ bool forceFullPower()
     return false;
 }
 
+void checkDiversionOnOff()
+{
+  if constexpr (DIVERSION_PIN_PRESENT)
+  {
+    const uint8_t pinState{getPinState(diversionPin)};
+
+    b_diversionOff = !pinState;
+  }
+}
+
+void proceedRotation()
+{
+  b_reOrderLoads = true;
+
+  // waits till the priorities have been rotated from inside the ISR
+  while (b_reOrderLoads)
+    delay(10);
+
+  // prints the (new) load priorities
+  logLoadPriorities();
+}
+
+bool proceedLoadPrioritiesAndForcingDualTariff(const int16_t currentTemperature_x100)
+{
+  uint8_t i;
+  static constexpr int16_t iTemperatureThreshold_x100{iTemperatureThreshold * 100};
+  static uint8_t pinOffPeakState{HIGH};
+  const uint8_t pinNewState{getPinState(offPeakForcePin)};
+
+  if (pinOffPeakState && !pinNewState)
+  {
+    // we start off-peak period
+    DBUGLN(F("Change to off-peak period!"));
+
+    ul_TimeOffPeak = millis();
+
+    if constexpr (PRIORITY_ROTATION)
+      proceedRotation();
+  }
+  else
+  {
+    const auto ulElapsedTime{(uint32_t)(millis() - ul_TimeOffPeak)};
+    const uint8_t pinState{getPinState(forcePin)};
+
+    for (i = 0; i < NO_OF_DUMPLOADS; ++i)
+    {
+      // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
+      if (!pinOffPeakState && !pinNewState &&
+          (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
+        b_forceLoadOn[i] = !pinState || (currentTemperature_x100 <= iTemperatureThreshold_x100);
+      else
+        b_forceLoadOn[i] = !pinState;
+    }
+  }
+  // end of off-peak period
+  if (!pinOffPeakState && pinNewState)
+    DBUGLN(F("Change to peak period!"));
+
+  pinOffPeakState = pinNewState;
+
+  return (LOW == pinOffPeakState);
+}
+
 /**
  * @brief This function changes the value of the load priorities.
  * @details Since we don't have access to a clock, we detect the offPeak start from the main energy meter.
  *          Additionally, when off-peak period starts, we rotate the load priorities for the next day.
- * 
+ *
  * @param currentTemperature_x100 current temperature x 100 (default to 0 if deactivated)
  * @return true if off-peak tariff is active
  * @return false if on-peak tariff is active
@@ -284,135 +339,79 @@ bool forceFullPower()
 bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
 {
   if constexpr (DUAL_TARIFF)
+    return proceedLoadPrioritiesAndForcingDualTariff(currentTemperature_x100);
+  else if constexpr (EMONESP_CONTROL)
   {
-    uint8_t i;
-    static constexpr int16_t iTemperatureThreshold_x100{iTemperatureThreshold * 100};
-    static uint8_t pinOffPeakState{HIGH};
-    const uint8_t pinNewState{!!(PIND & bit(offPeakForcePin))};
+    static uint8_t pinRotationState{HIGH};
+    const uint8_t pinNewState{getPinState(rotationPin)};
 
-    if (pinOffPeakState && !pinNewState)
+    if (pinRotationState && !pinNewState)
     {
-// we start off-peak period
-#ifndef NO_OUTPUT
-      Serial.println(F("Change to off-peak period!"));
-#endif // NO_OUTPUT
-      ul_TimeOffPeak = millis();
+      DBUGLN(F("Trigger rotation!"));
 
-      if constexpr (PRIORITY_ROTATION)
-      {
-        b_reOrderLoads = true;
-
-        // waits till the priorities have been rotated from inside the ISR
-        while (b_reOrderLoads)
-          delay(10);
-      }
-
-      // prints the (new) load priorities
-      logLoadPriorities();
+      proceedRotation();
     }
-    else
-    {
-      const auto ulElapsedTime{(uint32_t)(millis() - ul_TimeOffPeak)};
-
-      for (i = 0; i < NO_OF_DUMPLOADS; ++i)
-      {
-        // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
-        if (!pinOffPeakState && !pinNewState &&
-            (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
-          b_forceLoadOn[i] = currentTemperature_x100 <= iTemperatureThreshold_x100;
-        else
-          b_forceLoadOn[i] = false;
-      }
-    }
-// end of off-peak period
-#ifndef NO_OUTPUT
-    if (!pinOffPeakState && pinNewState)
-      Serial.println(F("Change to peak period!"));
-#endif //NO_OUTPUT
-
-    pinOffPeakState = pinNewState;
-
-    return (LOW == pinOffPeakState);
+    pinRotationState = pinNewState;
   }
-  else
+  else if constexpr (PRIORITY_ROTATION)
   {
-    if constexpr (PRIORITY_ROTATION)
+    if (ROTATION_AFTER_CYCLES < absenceOfDivertedEnergyCount)
     {
-      if (ROTATION_AFTER_CYCLES < absenceOfDivertedEnergyCount)
-      {
-        b_reOrderLoads = true;
-        absenceOfDivertedEnergyCount = 0;
+      proceedRotation();
 
-        // waits till the priorities have been rotated from inside the ISR
-        while (b_reOrderLoads)
-          delay(10);
-
-        // prints the (new) load priorities
-        logLoadPriorities();
-      }
+      absenceOfDivertedEnergyCount = 0;
     }
-    return false;
   }
+
+  if constexpr (FORCE_PIN_PRESENT)
+  {
+    const uint8_t pinState{getPinState(forcePin)};
+
+    for (auto &bForceLoad : b_forceLoadOn)
+      bForceLoad = !pinState;
+  }
+
+  return false;
 }
 
 /**
  * @brief Called once during startup.
  * @details This function initializes a couple of variables we cannot init at compile time and
  *          sets a couple of parameters for runtime.
- * 
+ *
  */
 void setup()
 {
   delay(initialDelay); // allows time to open the Serial Monitor
 
+  DEBUG_PORT.begin(9600);
   Serial.begin(9600); // initialize Serial interface, Do NOT set greater than 9600
 
-#if !defined SERIALOUT && !defined EMONESP
   // On start, always display config info in the serial monitor
   printConfiguration();
-#endif
 
   // initializes all loads to OFF at startup
   initializeProcessing();
 
-  if constexpr (DUAL_TARIFF)
-  {
-    DDRD &= ~bit(offPeakForcePin);                     // set as input
-    PORTD |= bit(offPeakForcePin);                     // enable the internal pullup resistor
-    delay(100);                                        // allow time to settle
-    uint8_t pinState{!!(PIND & bit(offPeakForcePin))}; // initial selection and
-
-    ul_TimeOffPeak = millis();
-  }
-
-  if constexpr (FORCE_PIN_PRESENT)
-  {
-    DDRD &= ~bit(forcePin); // set as input
-    PORTD |= bit(forcePin); // enable the internal pullup resistor
-    delay(100);             // allow time to settle
-  }
-
-  DDRB |= bit(watchDogPin - 8); // set as output
-  setPinOFF(watchDogPin);       // set to off
+  initializeOptionalPins();
 
   logLoadPriorities();
 
-  if constexpr (TEMP_SENSOR)
-    convertTemperature(); // start initial temperature conversion
-
-#ifdef DEBUGGING
-  Serial.print(F(">>free RAM = "));
-  Serial.println(freeRam()); // a useful value to keep an eye on
-  Serial.println(F("----"));
+#ifdef TEMP_SENSOR_PRESENT
+  initTemperatureSensors();
 #endif
+
+  DBUG(F(">>free RAM = "));
+  DBUGLN(freeRam()); // a useful value to keep an eye on
+  DBUGLN(F("----"));
 }
 
 /**
  * @brief Main processor.
  * @details None of the workload in loop() is time-critical.
  *          All the processing of ADC data is done within the ISR.
- * 
-*/
+ *
+ */
 void loop()
 {
   static uint8_t perSecondTimer{0};
@@ -429,6 +428,8 @@ void loop()
       perSecondTimer = 0;
 
       togglePin(watchDogPin);
+
+      checkDiversionOnOff();
 
       if (!forceFullPower())
         bOffPeak = proceedLoadPrioritiesAndForcing(iTemperature_x100); // called every second
@@ -450,15 +451,21 @@ void loop()
       tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
     }
 
-    if constexpr (TEMP_SENSOR)
+#ifdef TEMP_SENSOR_PRESENT
+    for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
     {
-      iTemperature_x100 = readTemperature();
-      tx_data.temperature_x100 = iTemperature_x100;
+      static int16_t tmp;
+      tmp = readTemperature(sensorAddrs[idx]);
+
+      // if read temperature is 85 and the delta with previous is greater than 5, skip the value
+      if (8500 == tmp && abs(tmp - tx_data.temperature_x100[idx] > 500))
+        tmp = DEVICE_DISCONNECTED_RAW;
+
+      tx_data.temperature_x100[idx] = tmp;
     }
+    requestTemperatures(); // for use next time around
+#endif
 
     sendResults(bOffPeak);
-
-    if constexpr (TEMP_SENSOR)
-      convertTemperature(); // for use next time around
   }
 } // end of loop()

@@ -4,9 +4,9 @@
  * @brief Some utility functions
  * @version 0.1
  * @date 2021-10-04
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #ifndef __UTILS_H__
@@ -17,6 +17,14 @@
 #include "constants.h"
 #include "dualtariff.h"
 
+#ifdef TEMP_SENSOR_PRESENT
+#include <OneWire.h> // for temperature sensing
+#endif
+
+#ifdef RF_PRESENT
+#include <JeeLib.h>
+#endif
+
 inline void togglePin(const uint8_t pin) __attribute__((always_inline));
 
 inline void setPinON(const uint8_t pin) __attribute__((always_inline));
@@ -25,9 +33,11 @@ inline void setPinsON(const uint16_t pins) __attribute__((always_inline));
 inline void setPinOFF(const uint8_t pin) __attribute__((always_inline));
 inline void setPinsOFF(const uint16_t pins) __attribute__((always_inline));
 
+inline bool getPinState(const uint8_t pin) __attribute__((always_inline));
+
 /**
  * @brief Toggle the specified pin
- * 
+ *
  */
 void togglePin(const uint8_t pin)
 {
@@ -39,7 +49,7 @@ void togglePin(const uint8_t pin)
 
 /**
  * @brief Set the Pin state to ON for the specified pin
- * 
+ *
  * @param pin pin to change [2..13]
  */
 void setPinON(const uint8_t pin)
@@ -52,8 +62,8 @@ void setPinON(const uint8_t pin)
 
 /**
  * @brief Set the Pins state to ON
- * 
- * @param pins 
+ *
+ * @param pins The pins to change
  */
 void setPinsON(const uint16_t pins)
 {
@@ -63,7 +73,7 @@ void setPinsON(const uint16_t pins)
 
 /**
  * @brief Set the Pin state to OFF for the specified pin
- * 
+ *
  * @param pin pin to change [2..13]
  */
 void setPinOFF(const uint8_t pin)
@@ -76,8 +86,8 @@ void setPinOFF(const uint8_t pin)
 
 /**
  * @brief Set the Pins state to OFF
- * 
- * @param pins 
+ *
+ * @param pins The pins to change
  */
 void setPinsOFF(const uint16_t pins)
 {
@@ -86,104 +96,165 @@ void setPinsOFF(const uint16_t pins)
 }
 
 /**
- * @brief Print the configuration during start
+ * @brief Get the Pin State
  * 
+ * @param pin The pin to read
+ * @return true if HIGH
+ * @return false if LOW
+ */
+bool getPinState(const uint8_t pin)
+{
+    return (pin < 8) ? !!(PIND & bit(pin)) : !!(PINB & bit(pin - 8));
+}
+
+/**
+ * @brief Print the configuration during start
+ *
  */
 inline void printConfiguration()
 {
-    Serial.println();
-    Serial.println();
-    Serial.println(F("----------------------------------"));
-    Serial.print(F("Sketch ID: "));
-    Serial.println(__FILE__);
-    Serial.print(F("Build on "));
-    Serial.print(__DATE__);
-    Serial.print(F(" "));
-    Serial.println(__TIME__);
+    DBUGLN();
+    DBUGLN();
+    DBUGLN(F("----------------------------------"));
+    DBUG(F("Sketch ID: "));
+    DBUGLN(__FILE__);
+    DBUG(F("Build on "));
+    DBUG(__DATE__);
+    DBUG(F(" "));
+    DBUGLN(__TIME__);
 
-    Serial.println(F("ADC mode:       free-running"));
+    DBUGLN(F("ADC mode:       free-running"));
 
-    Serial.println(F("Electrical settings"));
+    DBUGLN(F("Electrical settings"));
     for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
     {
-        Serial.print(F("\tf_powerCal for L"));
-        Serial.print(phase + 1);
-        Serial.print(F(" =    "));
-        Serial.println(f_powerCal[phase], 5);
+        DBUG(F("\tf_powerCal for L"));
+        DBUG(phase + 1);
+        DBUG(F(" =    "));
+        DBUGLN(f_powerCal[phase], 5);
 
-        Serial.print(F("\tf_voltageCal, for Vrms_L"));
-        Serial.print(phase + 1);
-        Serial.print(F(" =    "));
-        Serial.println(f_voltageCal[phase], 5);
+        DBUG(F("\tf_voltageCal, for Vrms_L"));
+        DBUG(phase + 1);
+        DBUG(F(" =    "));
+        DBUGLN(f_voltageCal[phase], 5);
     }
 
-    Serial.print(F("\tf_phaseCal for all phases =     "));
-    Serial.println(f_phaseCal);
+    DBUG(F("\tf_phaseCal for all phases =     "));
+    DBUGLN(f_phaseCal);
 
-    Serial.print(F("\tExport rate (Watts) = "));
-    Serial.println(REQUIRED_EXPORT_IN_WATTS);
+    DBUG(F("\tExport rate (Watts) = "));
+    DBUGLN(REQUIRED_EXPORT_IN_WATTS);
 
-    Serial.print(F("\tzero-crossing persistence (sample sets) = "));
-    Serial.println(PERSISTENCE_FOR_POLARITY_CHANGE);
+    DBUG(F("\tzero-crossing persistence (sample sets) = "));
+    DBUGLN(PERSISTENCE_FOR_POLARITY_CHANGE);
 
     printParamsForSelectedOutputMode();
 
-    Serial.print("Temperature capability ");
-#ifdef TEMP_SENSOR
-    Serial.println(F("is present"));
+    DBUG("Temperature capability ");
+#ifdef TEMP_SENSOR_PRESENT
+    DBUGLN(F("is present"));
 #else
-    Serial.println(F("is NOT present"));
+    DBUGLN(F("is NOT present"));
 #endif
 
-    Serial.print("Dual-tariff capability ");
+    DBUG("Dual-tariff capability ");
     if constexpr (DUAL_TARIFF)
     {
-        Serial.println(F("is present"));
+        DBUGLN(F("is present"));
         printDualTariffConfiguration();
     }
     else
-        Serial.println(F("is NOT present"));
+        DBUGLN(F("is NOT present"));
 
-    Serial.print("Load rotation feature ");
+    DBUG("Load rotation feature ");
     if constexpr (PRIORITY_ROTATION)
-        Serial.println(F("is present"));
+        DBUGLN(F("is present"));
     else
-        Serial.println(F("is NOT present"));
+        DBUGLN(F("is NOT present"));
 
-    Serial.print("RF capability ");
+    DBUG("RF capability ");
 #ifdef RF_PRESENT
-    Serial.print(F("IS present, Freq = "));
+    DBUG(F("IS present, Freq = "));
     if (FREQ == RF12_433MHZ)
-        Serial.println(F("433 MHz"));
+        DBUGLN(F("433 MHz"));
     else if (FREQ == RF12_868MHZ)
-        Serial.println(F("868 MHz"));
+        DBUGLN(F("868 MHz"));
     rf12_initialize(nodeID, FREQ, networkGroup); // initialize RF
 #else
-    Serial.println(F("is NOT present"));
+    DBUGLN(F("is NOT present"));
 #endif
 
-    Serial.print("Datalogging capability ");
+    DBUG("Datalogging capability ");
 #ifdef SERIALPRINT
-    Serial.println(F("is present"));
+    DBUGLN(F("is present"));
 #else
-    Serial.println(F("is NOT present"));
+    DBUGLN(F("is NOT present"));
 #endif
+}
+
+inline void printForEmonESP(const bool bOffPeak)
+{
+    uint8_t idx;
+
+    // Total mean power over a data logging period
+    Serial.print(F("P:"));
+    Serial.print(tx_data.power);
+
+    // Mean power for each phase over a data logging period
+    for (idx = 0; idx < NO_OF_PHASES; ++idx)
+    {
+        Serial.print(F(",P"));
+        Serial.print(idx + 1);
+        Serial.print(F(":"));
+        Serial.print(tx_data.power_L[idx]);
+    }
+    // Mean power for each load over a data logging period (in %)
+    for (idx = 0; idx < NO_OF_DUMPLOADS; ++idx)
+    {
+        Serial.print(F(",L"));
+        Serial.print(idx + 1);
+        Serial.print(F(":"));
+        Serial.print((copyOf_countLoadON[idx] * 100) / DATALOG_PERIOD_IN_MAINS_CYCLES);
+    }
+#ifdef TEMP_SENSOR_PRESENT
+    // Current temperature
+    for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+    {
+        if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx]) ||
+            (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
+            continue;
+
+        Serial.print(F(",T"));
+        Serial.print(idx + 1);
+        Serial.print(F(":"));
+        Serial.print((float)tx_data.temperature_x100[idx] / 100);
+    }
+#endif
+
+    if constexpr (DUAL_TARIFF)
+    {
+        // Current tariff
+        Serial.print(F(",T:"));
+        Serial.print(bOffPeak ? "low" : "high");
+    }
+    Serial.println(F(""));
 }
 
 /**
  * @brief Prints data logs to the Serial output in text or json format
- * 
+ *
  * @param bOffPeak true if off-peak tariff is active
  */
 inline void sendResults(bool bOffPeak)
 {
-    uint8_t phase;
-
 #ifdef RF_PRESENT
     send_rf_data(); // *SEND RF DATA*
 #endif
 
-#if defined SERIALOUT && !defined EMONESP
+    uint8_t phase;
+
+#if defined SERIALOUT
+
     Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
     Serial.print(F(", P:"));
     Serial.print(tx_data.power);
@@ -203,42 +274,21 @@ inline void sendResults(bool bOffPeak)
         Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
     }
 
-#ifdef TEMP_SENSOR
-    Serial.print(", temperature ");
-    Serial.print((float)tx_data.temperature_x100 / 100);
+#ifdef TEMP_SENSOR_PRESENT
+    for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+    {
+        Serial.print(F(", T"));
+        Serial.print(idx + 1);
+        Serial.print(F(":"));
+        Serial.print((float)tx_data.temperature_x100[idx] / 100);
+    }
 #endif
     Serial.println(F(")"));
-#endif // if defined SERIALOUT && !defined EMONESP
+#endif // if defined SERIALOUT
 
-#if defined EMONESP && !defined SERIALOUT
-    StaticJsonDocument<200> doc;
-    char strPhase[]{"L0"};
-    char strLoad[]{"LOAD_0"};
-
-    for (phase = 0; phase < NO_OF_PHASES; ++phase)
-    {
-        doc[strPhase] = tx_data.power_L[phase];
-        ++strPhase[1];
-    }
-
-    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-    {
-        doc[strLoad] = (100 * copyOf_countLoadON[i]) / DATALOG_PERIOD_IN_MAINS_CYCLES;
-        ++strLoad[5];
-    }
-
-#ifdef DUAL_TARIFF
-    doc["DUAL_TARIFF"] = bOffPeak ? true : false;
-#endif
-
-    // Generate the minified JSON and send it to the Serial port.
-    //
-    serializeJson(doc, Serial);
-
-    // Start a new line
-    Serial.println();
-    delay(50);
-#endif // if defined EMONESP && !defined SERIALOUT
+#if defined EMONESP
+    printForEmonESP(bOffPeak);
+#endif // if defined EMONESP
 
 #if defined SERIALPRINT && !defined EMONESP
     Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
@@ -260,10 +310,16 @@ inline void sendResults(bool bOffPeak)
         Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
     }
 
-#ifdef TEMP_SENSOR
-    Serial.print(", temperature ");
-    Serial.print((float)tx_data.temperature_x100 / 100);
-#endif // TEMP_SENSOR
+#ifdef TEMP_SENSOR_PRESENT
+    for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+    {
+        Serial.print(F(", T"));
+        Serial.print(idx + 1);
+        Serial.print(F(":"));
+        Serial.print((float)tx_data.temperature_x100[idx] / 100);
+    }
+#endif // TEMP_SENSOR_PRESENT
+
     Serial.print(F(", (minSampleSets/MC "));
     Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
     Serial.print(F(", #ofSampleSets "));
@@ -280,77 +336,82 @@ inline void sendResults(bool bOffPeak)
 
 /**
  * @brief Prints the load priorities to the Serial output.
- * 
+ *
  */
 inline void logLoadPriorities()
 {
-#ifdef DEBUGGING
-    Serial.println(F("Load Priorities: "));
+    DBUGLN(F("Load Priorities: "));
     for (const auto loadPrioAndState : loadPrioritiesAndState)
     {
-        Serial.print(F("\tload "));
-        Serial.println(loadPrioAndState);
+        DBUG(F("\tload "));
+        DBUGLN(loadPrioAndState);
     }
-#endif
 }
 
 #ifdef TEMP_SENSOR_PRESENT
-
-#include <OneWire.h>                   // for temperature sensing
 inline OneWire oneWire(tempSensorPin); /**< For temperature sensing */
 
 /**
- * @brief Convert the internal value read from the sensor to a value in °C.
- * 
+ * @brief Read temperature of a specific device
+ *
+ * @param deviceAddress The address of the device
+ * @return int16_t Temperature * 100
  */
-inline void convertTemperature()
+inline int16_t readTemperature(const DeviceAddress &deviceAddress)
+{
+    static ScratchPad buf;
+
+    if (!oneWire.reset())
+        return DEVICE_DISCONNECTED_RAW;
+
+    oneWire.select(deviceAddress);
+    oneWire.write(READ_SCRATCHPAD);
+
+    for (auto &buf_elem : buf)
+        buf_elem = oneWire.read();
+
+    if (!oneWire.reset())
+        return DEVICE_DISCONNECTED_RAW;
+
+    if (oneWire.crc8(buf, 8) != buf[8])
+        return DEVICE_DISCONNECTED_RAW;
+
+    // result is temperature x16, multiply by 6.25 to convert to temperature x100
+    int16_t result = (buf[1] << 8) | buf[0];
+    result = (result * 6) + (result >> 2);
+    if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
+        return OUTOFRANGE_TEMPERATURE; // return value ('Out of range')
+
+    return result;
+}
+
+/**
+ * @brief Request temperature for all sensors
+ *
+ */
+inline void requestTemperatures()
 {
     oneWire.reset();
-    oneWire.write(SKIP_ROM);
+    oneWire.skip();
     oneWire.write(CONVERT_TEMPERATURE);
 }
 
 /**
- * @brief Read the temperature.
- * 
- * @return The temperature in °C (x100). 
+ * @brief Initialize the Dallas sensors
+ *
  */
-inline int16_t readTemperature()
+inline void initTemperatureSensors()
 {
-    uint8_t buf[9];
-
-    if (oneWire.reset())
-    {
-        oneWire.reset();
-        oneWire.write(SKIP_ROM);
-        oneWire.write(READ_SCRATCHPAD);
-        for (auto &buf_elem : buf)
-            buf_elem = oneWire.read();
-
-        if (oneWire.crc8(buf, 8) != buf[8])
-            return BAD_TEMPERATURE;
-
-        // result is temperature x16, multiply by 6.25 to convert to temperature x100
-        int16_t result = (buf[1] << 8) | buf[0];
-        result = (result * 6) + (result >> 2);
-        if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
-            return OUTOFRANGE_TEMPERATURE; // return value ('Out of range')
-
-        return result;
-    }
-    return BAD_TEMPERATURE;
+    requestTemperatures();
 }
-#else
-void convertTemperature();
-int16_t readTemperature();
-#endif // #ifdef TEMP_SENSOR_PRESENT
+#endif // TEMP_SENSOR_PRESENT
 
 #ifdef RF_PRESENT
 /**
  * @brief Send the logging data through RF.
  * @details For better performance, the RFM12B needs to remain in its
  *          active state rather than being periodically put to sleep.
- * 
+ *
  */
 inline void send_rf_data()
 {
@@ -363,11 +424,11 @@ inline void send_rf_data()
     }
     rf12_sendNow(0, &tx_data, sizeof tx_data);
 }
-#endif // #ifdef RF_PRESENT
+#endif // RF_PRESENT
 
 /**
  * @brief Get the available RAM during setup
- * 
+ *
  * @return int The amount of free RAM
  */
 inline int freeRam()

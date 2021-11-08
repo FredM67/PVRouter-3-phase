@@ -4,9 +4,9 @@
  * @brief Configuration values to be set by the end-user
  * @version 0.1
  * @date 2021-10-04
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #ifndef __CONFIG_H__
@@ -17,13 +17,14 @@
 //#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
 // Output messages
-#define DEBUGGING   ///< enable this line to include debugging print statements
-#define SERIALPRINT ///< include 'human-friendly' print statement for commissioning - comment this line to exclude.
+#define EMONESP ///< Uncomment if an ESP WiFi module is used
 
-//#define EMONESP ///< Uncomment if an ESP WiFi module is used
+//#define ENABLE_DEBUG ///< enable this line to include debugging print statements
+#define SERIALPRINT ///< include 'human-friendly' print statement for commissioning - comment this line to exclude.
 //#define SERIALOUT ///< Uncomment if a wired serial connection is used
 //--------------------------------------------------------------------------------------------------
 
+#include "debug.h"
 #include "types.h"
 
 //--------------------------------------------------------------------------------------------------
@@ -32,53 +33,69 @@
 inline constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
 inline constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
 
-inline constexpr bool PRIORITY_ROTATION{true}; /**< set it to 'false' if you want fixed priorities */
-inline constexpr bool DUAL_TARIFF{false};      /**< set it to 'false' if there's only one single tariff each day */
+// Load priorities at startup
+inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load priorities and states. */
+
+#ifdef EMONESP
+inline constexpr bool EMONESP_CONTROL{true};
+inline constexpr bool DIVERSION_PIN_PRESENT{true}; /**< managed through EmonESP */
+inline constexpr bool PRIORITY_ROTATION{true};     /**< managed through EmonESP */
+inline constexpr bool FORCE_PIN_PRESENT{true};     /**< managed through EmonESP */
+#else
+inline constexpr bool EMONESP_CONTROL{false};
+inline constexpr bool DIVERSION_PIN_PRESENT{false}; /**< set it to 'true' if you want to control diversion ON/OFF */
+inline constexpr bool PRIORITY_ROTATION{true};      /**< set it to 'true' if you want automatic rotation of priorities */
+inline constexpr bool FORCE_PIN_PRESENT{false};     /**< set it to 'true' if there's a force pin */
+#endif
+
+inline constexpr bool DUAL_TARIFF{false}; /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{8};                        /**< Duration of the off-peak period in hours */
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{{-3, 2},    /**< force config for load #1 */
-                                                             {-3, 120},  /**< force config for load #2 */
-                                                             {-180, 2}}; /**< force config for load #3 */
-inline constexpr int16_t iTemperatureThreshold{100};                     /**< the temperature threshold to stop forcing in °C */
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{{-3, 2},    /**< force config for load #1 ONLY for dual tariff */
+                                                             {-3, 120},  /**< force config for load #2 ONLY for dual tariff */
+                                                             {-180, 2}}; /**< force config for load #3 ONLY for dual tariff */
+
+inline constexpr int16_t iTemperatureThreshold{100}; /**< the temperature threshold to stop forcing in °C */
+
+inline constexpr DeviceAddress sensorAddrs[]{{0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4},
+                                             {0x28, 0xED, 0x5B, 0x6A, 0x09, 0x00, 0x00, 0x9D},
+                                             {0x28, 0xDB, 0x6D, 0x6A, 0x09, 0x00, 0x00, 0xDA},
+                                             {0x28, 0x59, 0x1F, 0x6A, 0x09, 0x00, 0x00, 0xB0},
+                                             {0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7}};
 
 // ----------- Pinout assignments -----------
 //
 // digital pins:
 // D0 & D1 are reserved for the Serial i/f
-// D2 is for the RFM12B
+// D2 is for the RFM12B if present
 
-inline constexpr bool FORCE_PIN_PRESENT{false}; /**< set it to 'true' if there's a force pin */
+inline constexpr uint8_t offPeakForcePin{0xff}; /**< for 3-phase PCB, off-peak trigger */
 
-inline constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
-inline constexpr uint8_t forcePin{4};
-
-#ifdef TEMP_SENSOR_PRESENT
-inline constexpr uint8_t tempSensorPin{4}; /**< for 3-phase PCB, sensor pin */
-#endif
-
+inline constexpr uint8_t tempSensorPin{3};                          /**< for 3-phase PCB, sensor pin */
 inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6, 7}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
-// D8 is not in use
-inline constexpr uint8_t watchDogPin{9};
-// D10 is for the RFM12B
-// D11 is for the RFM12B
-// D12 is for the RFM12B
-// D13 is for the RFM12B
+inline constexpr uint8_t watchDogPin{9};                            /**< watch dog LED */
+inline constexpr uint8_t diversionPin{10};                          /**< if LOW, set diversion on standby */
+inline constexpr uint8_t rotationPin{11};                           /**< if LOW, trigger a load priority rotation */
+inline constexpr uint8_t forcePin{12};                              /**< for 3-phase PCB, force pin */
+// D10 is for the RFM12B if present
+// D11 is for the RFM12B if present
+// D12 is for the RFM12B if present
+// D13 is for the RFM12B if present
 
 // analogue input pins
-//inline constexpr uint8_t sensorV[NO_OF_PHASES]{0, 2, 4}; /**< for 3-phase PCB, voltage measurement for each phase */
-inline constexpr uint8_t sensorV[NO_OF_PHASES]{3, 2, 1}; /**< for 3-phase PCB, voltage measurement for each phase */
-//inline constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; /**< for 3-phase PCB, current measurement for each phase */
-inline constexpr uint8_t sensorI[NO_OF_PHASES]{5, 4, 0}; /**< for 3-phase PCB, current measurement for each phase */
+// inline constexpr uint8_t sensorV[NO_OF_PHASES]{0, 2, 4}; /**< for 3-phase PCB, voltage measurement for each phase */
+inline constexpr uint8_t sensorV[NO_OF_PHASES]{3, 2, 1}; /**< for single phase test PCB with 3-phase program */
+// inline constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; /**< for 3-phase PCB, current measurement for each phase */
+inline constexpr uint8_t sensorI[NO_OF_PHASES]{5, 4, 0}; /**< for single phase test PCB with 3-phase program */
 // ------------------------------------------
 
-const byte voltageSensor = 3;          // A3 is for the voltage sensor
-const byte currentSensor_diverted = 4; // A4 is for CT2 which measures diverted current
-const byte currentSensor_grid = 5;     // A5 is for CT1 which measures grid current
+//--------------------------------------------------------------------------------------------------
+// for users with zero-export profile, this value will be negative
+inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{20}; /**< when set to a negative value, this acts as a PV generator */
 
 //--------------------------------------------------------------------------------------------------
-// other system constants
+// other system constants, should match most of installations
 inline constexpr uint32_t SUPPLY_FREQUENCY{50};         /**< number of cycles/s of the grid power supply */
-inline constexpr int8_t REQUIRED_EXPORT_IN_WATTS{20};   /**< when set to a negative value, this acts as a PV generator */
 inline constexpr uint16_t WORKING_ZONE_IN_JOULES{3600}; /**< number of joule for 1Wh */
 
 inline constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5};                                                  /**< Period of datalogging in seconds */
@@ -94,20 +111,12 @@ inline constexpr uint16_t startUpPeriod{3000}; /**< in milli-seconds, to allow L
 
 inline constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{2}; /**< allows polarity changes to be confirmed */
 
-// Load priorities at startup
-inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load priorities and states. */
-
-#ifdef TEMP_SENSOR_PRESENT
-inline constexpr bool TEMP_SENSOR{true};
-#else
-inline constexpr bool TEMP_SENSOR{false};
-#endif
-
 /* --------------------------------------
    RF configuration (for the RFM12B module)
    frequency options are RF12_433MHZ, RF12_868MHZ or RF12_915MHZ
 */
 #ifdef RF_PRESENT
+
 #define RF69_COMPAT 0 // for the RFM12B
 //#define RF69_COMPAT 1 // for the RF69
 
@@ -116,6 +125,7 @@ inline constexpr bool TEMP_SENSOR{false};
 inline constexpr int nodeID{10};        /**<  RFM12B node ID */
 inline constexpr int networkGroup{210}; /**< wireless network group - needs to be same for all nodes */
 inline constexpr int UNO{1};            /**< for when the processor contains the UNO bootloader. */
-#endif                                  // #ifdef RF_PRESENT
+
+#endif // RF_PRESENT
 
 #endif // __CONFIG_H__

@@ -4,9 +4,9 @@
  * @brief Implements the processing engine
  * @version 0.1
  * @date 2021-10-04
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #include <Arduino.h>
@@ -15,9 +15,9 @@
 #include "utils.h"
 
 /*!
-*  @defgroup TimeCritical Time critical functions Group
-*  Functions used by the ISR
-*/
+ *  @defgroup TimeCritical Time critical functions Group
+ *  Functions used by the ISR
+ */
 
 int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
 
@@ -37,9 +37,9 @@ constexpr float f_offsetOfEnergyThresholdsInAFmode{0.1f};
 
 /**
  * @brief set default threshold at compile time so the variable can be read-only
- * 
+ *
  * @param lower True to set the lower threshold, false for higher
- * @return the corresponding threshold 
+ * @return the corresponding threshold
  */
 constexpr float initThreshold(const bool lower)
 {
@@ -59,7 +59,7 @@ float f_upperEnergyThreshold;   /**< dynamic upper threshold */
 bool b_recentTransition{false};                 /**< a load state has been recently toggled */
 uint8_t postTransitionCount;                    /**< counts the number of cycle since last transition */
 constexpr uint8_t POST_TRANSITION_MAX_COUNT{3}; /**< allows each transition to take effect */
-//constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
+// constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
 uint8_t activeLoad{NO_OF_DUMPLOADS}; /**< current active load */
 
 int32_t l_sumP[NO_OF_PHASES];                /**< cumulative power per phase */
@@ -87,17 +87,13 @@ bool beyondStartUpPeriod{false}; /**< start-up delay, allows things to settle */
 
 /**
  * @brief Initializes the ports and load states for processing
- * 
+ *
  */
 void initializeProcessing()
 {
     for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
-        if (physicalLoadPin[i] < 8)
-            DDRD |= bit(physicalLoadPin[i]); // driver pin for Load #n
-        else
-            DDRB |= bit(physicalLoadPin[i] - 8); // driver pin for Load #n
-
+        pinMode(physicalLoadPin[i], OUTPUT); // driver pin for Load #n
         loadPrioritiesAndState[i] &= loadStateMask;
     }
     updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
@@ -127,8 +123,44 @@ void initializeProcessing()
 }
 
 /**
+ * @brief Initializes the optional pins
+ *
+ */
+void initializeOptionalPins()
+{
+    if constexpr (DUAL_TARIFF)
+    {
+        pinMode(offPeakForcePin, INPUT_PULLUP); // set as input & enable the internal pullup resistor
+        delay(100);                             // allow time to settle
+
+        ul_TimeOffPeak = millis();
+    }
+
+    if constexpr (FORCE_PIN_PRESENT)
+    {
+        pinMode(forcePin, INPUT_PULLUP); // set as input & enable the internal pullup resistor
+        delay(100);                      // allow time to settle
+    }
+
+    if constexpr (PRIORITY_ROTATION)
+    {
+        pinMode(rotationPin, INPUT_PULLUP); // set as input & enable the internal pullup resistor
+        delay(100);                         // allow time to settle
+    }
+
+    if constexpr (DIVERSION_PIN_PRESENT)
+    {
+        pinMode(diversionPin, INPUT_PULLUP); // set as input & enable the internal pullup resistor
+        delay(100);                          // allow time to settle
+    }
+
+    pinMode(watchDogPin, OUTPUT); // set as output
+    setPinOFF(watchDogPin);       // set to off
+}
+
+/**
  * @brief update the control ports for each of the physical loads
- * 
+ *
  */
 void updatePortsStates()
 {
@@ -140,13 +172,13 @@ void updatePortsStates()
         // update the local load's state.
         if (LoadStates::LOAD_OFF == physicalLoadState[i])
         {
-            //setPinOFF(physicalLoadPin[i]);
+            // setPinOFF(physicalLoadPin[i]);
             pinsOFF |= bit(physicalLoadPin[i]);
         }
         else
         {
             ++countLoadON[i];
-            //setPinON(physicalLoadPin[i]);
+            // setPinON(physicalLoadPin[i]);
             pinsON |= bit(physicalLoadPin[i]);
         }
     }
@@ -160,15 +192,15 @@ void updatePortsStates()
  * @details The array, logicalLoadState[], contains the on/off state of all logical loads, with
  *          element 0 being for the one with the highest priority. The array,
  *          physicalLoadState[], contains the on/off state of all physical loads.
- * 
+ *
  *          The lowest 7 bits of element is the load number as defined in 'physicalLoadState'.
  *          The highest bit of each 'loadPrioritiesAndState' determines if the load is ON or OFF.
  *          The order of each element in 'loadPrioritiesAndState' determines the load priority.
  *          'loadPrioritiesAndState[i] & loadStateMask' will extract the load number at position 'i'
  *          'loadPrioritiesAndState[i] & loadStateOnBit' will extract the load state at position 'i'
- * 
+ *
  *          Any other mapping relationships could be configured here.
- * 
+ *
  * @ingroup TimeCritical
  */
 void updatePhysicalLoadStates()
@@ -197,11 +229,11 @@ void updatePhysicalLoadStates()
         }
     }
 
+    const bool bDiversionOff{b_diversionOff};
     for (i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
         const auto iLoad{loadPrioritiesAndState[i] & loadStateMask};
-        physicalLoadState[iLoad] =
-            (loadPrioritiesAndState[i] & loadStateOnBit) || b_forceLoadOn[iLoad] ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
+        physicalLoadState[iLoad] = !bDiversionOff && (b_forceLoadOn[iLoad] || (loadPrioritiesAndState[i] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
     }
 }
 
@@ -220,10 +252,10 @@ inline void processLatestContribution(const uint8_t phase) __attribute__((always
 
 /**
  * @brief Process with the polarity for the actual voltage sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
- * 
+ *
  * @ingroup TimeCritical
  */
 void processPolarity(const uint8_t phase, const int16_t rawSample)
@@ -237,10 +269,10 @@ void processPolarity(const uint8_t phase, const int16_t rawSample)
 
 /**
  * @brief Process the calculation for the actual current raw sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
- * 
+ *
  * @ingroup TimeCritical
  */
 void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
@@ -270,9 +302,9 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 /**
  * @brief This routine prevents a zero-crossing point from being declared until a certain number
  *        of consecutive samples in the 'other' half of the waveform have been encountered.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void confirmPolarity(const uint8_t phase)
@@ -293,9 +325,9 @@ void confirmPolarity(const uint8_t phase)
 
 /**
  * @brief Process the calculation for the current voltage sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processVoltage(const uint8_t phase)
@@ -317,9 +349,9 @@ void processVoltage(const uint8_t phase)
 
 /**
  * @brief Process the startup period for the router.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processStartUp(const uint8_t phase)
@@ -341,7 +373,7 @@ void processStartUp(const uint8_t phase)
 
 /**
  * @brief Process the case of high energy level, some action may be required.
- * 
+ *
  * @ingroup TimeCritical
  */
 void proceedHighEnergyLevel()
@@ -378,7 +410,7 @@ void proceedHighEnergyLevel()
 
 /**
  * @brief Process the case of low energy level, some action may be required.
- * 
+ *
  * @ingroup TimeCritical
  */
 void proceedLowEnergyLevel()
@@ -420,7 +452,7 @@ void proceedLowEnergyLevel()
  *          - change the LOGICAL load states as necessary to maintain the energy level
  *          - update the PHYSICAL load states according to the logical -> physical mapping
  *          - update the driver lines for each of the loads.
- * 
+ *
  * @ingroup TimeCritical
  */
 void processStartNewCycle()
@@ -469,9 +501,9 @@ void processStartNewCycle()
 
 /**
  * @brief Process the start of a new -ve half cycle, for this phase, just after the zero-crossing point.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processMinusHalfCycle(const uint8_t phase)
@@ -496,9 +528,9 @@ void processMinusHalfCycle(const uint8_t phase)
 
 /**
  * @brief Retrieve the next load that could be added (be aware of the order)
- * 
- * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure 
- * 
+ *
+ * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure
+ *
  * @ingroup TimeCritical
  */
 uint8_t nextLogicalLoadToBeAdded()
@@ -512,9 +544,9 @@ uint8_t nextLogicalLoadToBeAdded()
 
 /**
  * @brief Retrieve the next load that could be removed (be aware of the reverse-order)
- * 
- * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure 
- * 
+ *
+ * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure
+ *
  * @ingroup TimeCritical
  */
 uint8_t nextLogicalLoadToBeRemoved()
@@ -533,9 +565,9 @@ uint8_t nextLogicalLoadToBeRemoved()
 /**
  * @brief Process the lastest contribution after each phase specific new cycle
  *        additional processing is performed after each main cycle based on phase 0.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- *  
+ *
  * @ingroup TimeCritical
  */
 void processLatestContribution(const uint8_t phase)
@@ -560,7 +592,7 @@ void processLatestContribution(const uint8_t phase)
  * @details At the end of each datalogging period, copies are made of the relevant variables
  *          for use by the main code. These variable are then reset for use during the next
  *          datalogging period.
- * 
+ *
  * @ingroup TimeCritical
  */
 void processDataLogging()
@@ -598,9 +630,9 @@ void processDataLogging()
 
 /**
  * @brief Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- *  
+ *
  * @ingroup TimeCritical
  */
 void processPlusHalfCycle(const uint8_t phase)
@@ -624,9 +656,9 @@ void processPlusHalfCycle(const uint8_t phase)
 
 /**
  * @brief This routine is called by the ISR when a pair of V & I sample becomes available.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processRawSamples(const uint8_t phase)
@@ -667,10 +699,10 @@ void processRawSamples(const uint8_t phase)
 
 /**
  * @brief Process the current voltage raw sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
- * 
+ *
  * @ingroup TimeCritical
  */
 void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
@@ -688,26 +720,24 @@ void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
 
 /**
  * @brief Print the settings used for the selected output mode.
- * 
+ *
  */
 void printParamsForSelectedOutputMode()
 {
-#ifndef NO_OUTPUT
     // display relevant settings for selected output mode
-    Serial.print("Output mode:    ");
+    DBUG("Output mode:    ");
     if (OutputModes::NORMAL == outputMode)
-        Serial.println("normal");
+        DBUGLN("normal");
     else
     {
-        Serial.println("anti-flicker");
-        Serial.print("\toffsetOfEnergyThresholds  = ");
-        Serial.println(f_offsetOfEnergyThresholdsInAFmode);
+        DBUGLN("anti-flicker");
+        DBUG("\toffsetOfEnergyThresholds  = ");
+        DBUGLN(f_offsetOfEnergyThresholdsInAFmode);
     }
-    Serial.print(F("\tf_capacityOfEnergyBucket_main = "));
-    Serial.println(f_capacityOfEnergyBucket_main);
-    Serial.print(F("\tf_lowerEnergyThreshold   = "));
-    Serial.println(f_lowerThreshold_default);
-    Serial.print(F("\tf_upperEnergyThreshold   = "));
-    Serial.println(f_upperThreshold_default);
-#endif
+    DBUG(F("\tf_capacityOfEnergyBucket_main = "));
+    DBUGLN(f_capacityOfEnergyBucket_main);
+    DBUG(F("\tf_lowerEnergyThreshold   = "));
+    DBUGLN(f_lowerThreshold_default);
+    DBUG(F("\tf_upperEnergyThreshold   = "));
+    DBUGLN(f_upperThreshold_default);
 }
