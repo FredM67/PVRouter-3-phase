@@ -97,7 +97,7 @@ void setPinsOFF(const uint16_t pins)
 
 /**
  * @brief Get the Pin State
- * 
+ *
  * @param pin The pin to read
  * @return true if HIGH
  * @return false if LOW
@@ -241,19 +241,12 @@ inline void printForEmonESP(const bool bOffPeak)
 }
 
 /**
- * @brief Prints data logs to the Serial output in text or json format
+ * @brief Prints data logs to the Serial output in Json format
  *
- * @param bOffPeak true if off-peak tariff is active
  */
-inline void sendResults(bool bOffPeak)
+inline void printForSerialJson()
 {
-#ifdef RF_PRESENT
-    send_rf_data(); // *SEND RF DATA*
-#endif
-
     uint8_t phase;
-
-#if defined SERIALOUT
 
     Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
     Serial.print(F(", P:"));
@@ -284,13 +277,16 @@ inline void sendResults(bool bOffPeak)
     }
 #endif
     Serial.println(F(")"));
-#endif // if defined SERIALOUT
+}
 
-#if defined EMONESP
-    printForEmonESP(bOffPeak);
-#endif // if defined EMONESP
+/**
+ * @brief Prints data logs to the Serial output in text format
+ *
+ */
+inline void printForSerialText()
+{
+    uint8_t phase;
 
-#if defined SERIALPRINT && !defined EMONESP
     Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
     Serial.print(F(", P:"));
     Serial.print(tx_data.power);
@@ -331,6 +327,29 @@ inline void sendResults(bool bOffPeak)
 #endif // PRIORITY_ROTATION
 #endif // DUAL_TARIFF
     Serial.println(F(")"));
+}
+
+/**
+ * @brief Prints data logs to the Serial output in text or json format
+ *
+ * @param bOffPeak true if off-peak tariff is active
+ */
+inline void sendResults(bool bOffPeak)
+{
+#ifdef RF_PRESENT
+    send_rf_data(); // *SEND RF DATA*
+#endif
+
+#if defined SERIALOUT
+    printForSerial();
+#endif // if defined SERIALOUT
+
+#if defined EMONESP
+    printForEmonESP(bOffPeak);
+#endif // if defined EMONESP
+
+#if defined SERIALPRINT && !defined EMONESP
+    printForSerialText();
 #endif // if defined SERIALPRINT && !defined EMONESP
 }
 

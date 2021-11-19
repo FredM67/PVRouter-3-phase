@@ -255,6 +255,13 @@ bool forceFullPower()
   {
     const uint8_t pinState{getPinState(forcePin)};
 
+#ifdef ENABLE_DEBUG
+    static uint8_t previousState{1};
+    if(previousState != pinState)
+    DBUGLN(!pinState?F("Trigger override!"):F("End override!"));
+    previousState = pinState;
+#endif
+
     for (auto &bForceLoad : b_forceLoadOn)
       bForceLoad = !pinState;
 
@@ -269,6 +276,13 @@ void checkDiversionOnOff()
   if constexpr (DIVERSION_PIN_PRESENT)
   {
     const uint8_t pinState{getPinState(diversionPin)};
+    
+#ifdef ENABLE_DEBUG
+    static uint8_t previousState{1};
+    if(previousState != pinState)
+    DBUGLN(!pinState?F("Trigger diversion OFF!"):F("End diversion OFF!"));
+    previousState = pinState;
+#endif
 
     b_diversionOff = !pinState;
   }
