@@ -4,9 +4,9 @@
  * @brief Calibration values definition
  * @version 0.1
  * @date 2021-10-04
- * 
+ *
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #ifndef __CALIBRATION_H__
@@ -45,14 +45,13 @@ inline constexpr float f_powerCal[NO_OF_PHASES]{0.05484f, 0.05469f, 0.05385f};
 //
 inline constexpr float f_phaseCal{1}; /**< Nominal values only */
 //
-// When using integer maths, calibration values that have been supplied in floating point form need to be rescaled.
-inline constexpr int16_t i_phaseCal{256}; /**< to avoid the need for floating-point maths (f_phaseCal * 256) */
-inline constexpr int16_t p_phaseCal{8};   /**< to speed up math (i_phaseCal = 1 << p_phaseCal) */
-//
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
 inline constexpr float f_voltageCal[NO_OF_PHASES]{0.985f, 1.003f, 0.987f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
+
+inline constexpr float lpf_gain{8}; /**< setting this to 0 disables this extra processing */
+inline constexpr float alpha{0.002};
 //--------------------------------------------------------------------------------------------------
 
 #endif // __CALIBRATION_H__

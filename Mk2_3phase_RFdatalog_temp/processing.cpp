@@ -63,8 +63,7 @@ constexpr uint8_t POST_TRANSITION_MAX_COUNT{3}; /**< allows each transition to t
 uint8_t activeLoad{NO_OF_DUMPLOADS}; /**< current active load */
 
 int32_t l_sumP[NO_OF_PHASES];                /**< cumulative power per phase */
-int32_t l_sampleVminusDC[NO_OF_PHASES];      /**< for the phaseCal algorithm */
-int32_t l_lastSampleVminusDC[NO_OF_PHASES];  /**< for the phaseCal algorithm */
+int32_t l_sampleVminusDC[NO_OF_PHASES];      /**< current raw voltage sample filtered */
 int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]; /**< for the LPF which determines DC offset (voltage) */
 int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];  /**< for summation of 'real power' values during datalog period */
 int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values during datalog period */
@@ -260,7 +259,6 @@ inline void processLatestContribution(const uint8_t phase) __attribute__((always
  */
 void processPolarity(const uint8_t phase, const int16_t rawSample)
 {
-    l_lastSampleVminusDC[phase] = l_sampleVminusDC[phase]; // required for phaseCal algorithm
     // remove DC offset from each raw voltage sample by subtracting the accurate value
     // as determined by its associated LP filter.
     l_sampleVminusDC[phase] = (((int32_t)rawSample) << 8) - l_DCoffset_V[phase];
@@ -278,22 +276,27 @@ void processPolarity(const uint8_t phase, const int16_t rawSample)
 void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 {
     static int32_t sampleIminusDC;
-    static int32_t phaseShiftedSampleVminusDC;
     static int32_t filtV_div4;
     static int32_t filtI_div4;
     static int32_t instP;
 
+    // extra items for an LPF to improve the processing of data samples from CT1
+    static int32_t lpf_long[NO_OF_PHASES]{}; // new LPF, for offsetting the behaviour of CTx as a HPF
+    static int32_t last_lpf_long;            // extra filtering to offset the HPF effect of CTx
+
     // remove most of the DC offset from the current sample (the precise value does not matter)
     sampleIminusDC = ((int32_t)(rawSample - l_DCoffset_I_nom)) << 8;
-    //
-    // phase-shift the voltage waveform so that it aligns with the grid current waveform
-    phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) << p_phaseCal) >> 8);
+
+    // extra filtering to offset the HPF effect of CTx
+    last_lpf_long = lpf_long[phase];
+    lpf_long[phase] = last_lpf_long + alpha * (sampleIminusDC - last_lpf_long);
+    sampleIminusDC += (lpf_gain * lpf_long[phase]);
     //
     // calculate the "real power" in this sample pair and add to the accumulated sum
-    filtV_div4 = phaseShiftedSampleVminusDC >> 2; // reduce to 16-bits (now x64, or 2^6)
-    filtI_div4 = sampleIminusDC >> 2;             // reduce to 16-bits (now x64, or 2^6)
-    instP = filtV_div4 * filtI_div4;              // 32-bits (now x4096, or 2^12)
-    instP >>= 12;                                 // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+    filtV_div4 = l_sampleVminusDC[phase] >> 2; // reduce to 16-bits (now x64, or 2^6)
+    filtI_div4 = sampleIminusDC >> 2;          // reduce to 16-bits (now x64, or 2^6)
+    instP = filtV_div4 * filtI_div4;           // 32-bits (now x4096, or 2^12)
+    instP >>= 12;                              // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
     l_sumP[phase] += instP;               // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
     l_sumP_atSupplyPoint[phase] += instP; // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
