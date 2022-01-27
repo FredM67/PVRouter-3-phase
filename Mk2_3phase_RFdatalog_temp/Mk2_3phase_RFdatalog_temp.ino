@@ -123,7 +123,7 @@
  * - heavy refactoring/restructuring of the sketch
  * - calibration values moved to the dedicated file 'calibration.h'
  * - user-specific values (pins, ...) are now in 'config.h' all other files should/must remain unchanged
- * - added support of temperature sensors (virtually no limit of sensor count)
+ * - added support of temperature sensors (virtually no limit of sensors count)
  * - added support for emonESP (see https://github.com/openenergymonitor/EmonESP)
  *
  * @author Fred Metrich
@@ -257,8 +257,8 @@ bool forceFullPower()
 
 #ifdef ENABLE_DEBUG
     static uint8_t previousState{1};
-    if(previousState != pinState)
-    DBUGLN(!pinState?F("Trigger override!"):F("End override!"));
+    if (previousState != pinState)
+      DBUGLN(!pinState ? F("Trigger override!") : F("End override!"));
     previousState = pinState;
 #endif
 
@@ -276,11 +276,11 @@ void checkDiversionOnOff()
   if constexpr (DIVERSION_PIN_PRESENT)
   {
     const uint8_t pinState{getPinState(diversionPin)};
-    
+
 #ifdef ENABLE_DEBUG
     static uint8_t previousState{1};
-    if(previousState != pinState)
-    DBUGLN(!pinState?F("Trigger diversion OFF!"):F("End diversion OFF!"));
+    if (previousState != pinState)
+      DBUGLN(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
     previousState = pinState;
 #endif
 

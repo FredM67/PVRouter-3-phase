@@ -314,11 +314,14 @@ void confirmPolarity(const uint8_t phase)
 {
     static uint8_t count[NO_OF_PHASES]{};
 
-    if (polarityOfMostRecentSampleV[phase] != polarityConfirmedOfLastSampleV[phase])
-        ++count[phase];
-    else
+    if (polarityOfMostRecentSampleV[phase] == polarityConfirmedOfLastSampleV[phase])
+    {
         count[phase] = 0;
+        return;
+    }
 
+    ++count[phase];
+    
     if (count[phase] > PERSISTENCE_FOR_POLARITY_CHANGE)
     {
         count[phase] = 0;

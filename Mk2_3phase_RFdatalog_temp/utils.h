@@ -44,7 +44,7 @@ void togglePin(const uint8_t pin)
     if (pin < 8)
         PIND |= bit(pin);
     else
-        PINB |= bit(pin - 8);
+        PINB |= bit(pin ^ 8u);
 }
 
 /**
@@ -57,7 +57,7 @@ void setPinON(const uint8_t pin)
     if (pin < 8)
         PORTD |= bit(pin);
     else
-        PORTB |= bit(pin - 8);
+        PORTB |= bit(pin ^ 8u);
 }
 
 /**
@@ -81,7 +81,7 @@ void setPinOFF(const uint8_t pin)
     if (pin < 8)
         PORTD &= ~bit(pin);
     else
-        PORTB &= ~bit(pin - 8);
+        PORTB &= ~bit(pin ^ 8u);
 }
 
 /**
@@ -104,7 +104,7 @@ void setPinsOFF(const uint16_t pins)
  */
 bool getPinState(const uint8_t pin)
 {
-    return (pin < 8) ? !!(PIND & bit(pin)) : !!(PINB & bit(pin - 8));
+    return (pin < 8) ? !!(PIND & bit(pin)) : !!(PINB & bit(pin ^ 8u));
 }
 
 /**
@@ -218,7 +218,7 @@ inline void printForEmonESP(const bool bOffPeak)
     }
 #ifdef TEMP_SENSOR_PRESENT
     // Current temperature
-    for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+    for (idx = 0; idx < size(tx_data.temperature_x100); ++idx)
     {
         if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx]) ||
             (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
@@ -336,6 +336,14 @@ inline void printForSerialText()
  */
 inline void sendResults(bool bOffPeak)
 {
+    static bool startup{true};
+
+    if (startup)
+    {
+        startup = false;
+        return; // reject the first datalogging which is incomplete !
+    }
+
 #ifdef RF_PRESENT
     send_rf_data(); // *SEND RF DATA*
 #endif
@@ -344,9 +352,8 @@ inline void sendResults(bool bOffPeak)
     printForSerial();
 #endif // if defined SERIALOUT
 
-#if defined EMONESP
-    printForEmonESP(bOffPeak);
-#endif // if defined EMONESP
+    if constexpr (EMONESP_CONTROL)
+        printForEmonESP(bOffPeak);
 
 #if defined SERIALPRINT && !defined EMONESP
     printForSerialText();
