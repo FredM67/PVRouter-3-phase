@@ -4,14 +4,14 @@
  * @author Frederic Metrich (frederic.metrich@live.fr)
  * @brief Mk2_3phase_RFdatalog_temp.ino - A photovoltaïc energy diverter.
  * @date 2020-01-14
- * 
+ *
  * @mainpage A 3-phase photovoltaïc router/diverter
- * 
+ *
  * @section description Description
  * Mk2_3phase_RFdatalog_temp.ino - Arduino program that maximizes the use of home photovoltaïc production
  * by monitoring energy consumption and diverting power to one or more resistive charge(s) when needed.
  * In the absence of such a system, surplus energy flows away to the grid and is of no benefit to the PV-owner.
- * 
+ *
  * @section history History
  * __Issue 1 was released in January 2015.__
  *
@@ -87,10 +87,10 @@
  * - off-peak tariff made switchable at compile-time
  * - rotation of load priorities made switchable at compile-time
  * - enhanced configuration for forcing specific loads during off-peak period
- * 
+ *
  * __April 2020, changes:__
  * - Fix a bug in the load level calculation
- * 
+ *
  * __May 2020, changes:__
  * - Fix a bug in the initialization of off-peak offsets
  * - added detailed configuration on start-up with build timestamp
@@ -98,12 +98,12 @@
  * __June 2020, changes:__
  * - Add force pin for full power through overwrite switch
  * - Add priority rotation for single tariff
- * 
+ *
  * __October 2020, changes:__
  * - Moving some part around (calibration values toward beginning of the sketch)
  * - renaming some preprocessor defines
  * - system/user specific data moved toward beginning of the sketch
- * 
+ *
  * __January 2021, changes:__
  * - Further optimization
  * - now it's possible to specify the forcing period in minutes and hours
@@ -118,10 +118,10 @@
  * - made forcePin presence configurable
  * - added WatchDog LED (blink 1s ON/ 1s OFF)
  * - code enhanced to support 6 loads
- * 
+ *
  * @author Fred Metrich
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #include <Arduino.h> // may not be needed, but it's probably a good idea to include this
@@ -146,7 +146,7 @@
 // constants which must be set individually for each system
 //
 constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
-constexpr uint8_t NO_OF_DUMPLOADS{6}; /**< number of dump loads connected to the diverter */
+constexpr uint8_t NO_OF_DUMPLOADS{4}; /**< number of dump loads connected to the diverter */
 
 constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
 
@@ -167,7 +167,7 @@ constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in se
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.05484f, 0.05469f, 0.05385f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.05522f, 0.05524f, 0.05466f};
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
@@ -188,7 +188,7 @@ constexpr int16_t p_phaseCal{8};   /**< to speed up math (i_phaseCal = 1 << p_ph
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-constexpr float f_voltageCal[NO_OF_PHASES]{0.985f, 1.003f, 0.987f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
+constexpr float f_voltageCal[NO_OF_PHASES]{1.003f, 1.003f, 1.003f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -228,15 +228,15 @@ volatile uint32_t absenceOfDivertedEnergyCount{0};                     /**< numb
 constexpr uint16_t ul_OFF_PEAK_DURATION{8}; /**< Duration of the off-peak period in hours */
 
 /** @brief Config parameters for forcing a load
- *  @details This class allows the user to define when and how long a load will be forced at 
+ *  @details This class allows the user to define when and how long a load will be forced at
  *           full power during off-peak period.
- * 
+ *
  *           For each load, the user defines a pair of values: pairForceLoad => { offset, duration }.
  *           The load will be started with full power at ('start_offpeak' + 'offset') for a duration of 'duration'
  *             - all values are in hours (if between -24 and 24) or in minutes.
  *             - if the offset is negative, it's calculated from the end of the off-peak period (ie -3 means 3 hours back from the end).
  *             - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT16_MAX' (somehow infinite time)
-*/
+ */
 class pairForceLoad
 {
 public:
@@ -292,7 +292,7 @@ uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was
 constexpr OutputModes outputMode{OutputModes::NORMAL}; /**< Output mode to be used */
 
 // Load priorities at startup
-uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2, 3, 4, 5}; /**< load priorities and states. */
+uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2, 3}; /**< load priorities and states. */
 
 //--------------------------------------------------------------------------------------------------
 #ifdef EMONESP
@@ -327,7 +327,7 @@ constexpr int UNO{1};            /**< for when the processor contains the UNO bo
 
 /** @brief container for datalogging
  *  @details This class is used for datalogging.
-*/
+ */
 class PayloadTx_struct
 {
 public:
@@ -357,7 +357,7 @@ constexpr uint8_t forcePin{4};
 #ifdef TEMP_SENSOR
 constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
-constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{3, 4, 5, 6, 7, 8}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6, 7, 8}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 // D8 is not in use
 constexpr uint8_t watchDogPin{9};
 // D10 is for the RFM12B
@@ -385,7 +385,7 @@ uint32_t ul_TimeOffPeak; /**< 'timestamp' for start of off-peak period */
  * @brief Template class for Load-Forcing
  * @details The array is initialized at compile time so it can be read-only and
  *          the performance and code size are better
- * 
+ *
  * @tparam N # of loads
  */
 template <uint8_t N>
@@ -439,9 +439,9 @@ constexpr float f_offsetOfEnergyThresholdsInAFmode{0.1f};
 
 /**
  * @brief set default threshold at compile time so the variable can be read-only
- * 
+ *
  * @param lower True to set the lower threshold, false for higher
- * @return the corresponding threshold 
+ * @return the corresponding threshold
  */
 constexpr float initThreshold(const bool lower)
 {
@@ -461,7 +461,7 @@ float f_upperEnergyThreshold;   /**< dynamic upper threshold */
 bool b_recentTransition{false};                 /**< a load state has been recently toggled */
 uint8_t postTransitionCount;                    /**< counts the number of cycle since last transition */
 constexpr uint8_t POST_TRANSITION_MAX_COUNT{3}; /**< allows each transition to take effect */
-//constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
+// constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
 uint8_t activeLoad{NO_OF_DUMPLOADS}; /**< current active load */
 
 int32_t l_sumP[NO_OF_PHASES];                /**< cumulative power per phase */
@@ -508,7 +508,7 @@ Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing 
 
 /**
  * @brief update the control ports for each of the physical loads
- * 
+ *
  */
 void updatePortsStates()
 {
@@ -529,21 +529,21 @@ void updatePortsStates()
  * @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
  * @details An Interrupt Service Routine is now defined which instructs the ADC to perform a conversion
  *          for each of the voltage and current sensors in turn.
- *        
+ *
  *          This Interrupt Service Routine is for use when the ADC is in the free-running mode.
  *          It is executed whenever an ADC conversion has finished, approx every 104 µs. In
  *          free-running mode, the ADC has already started its next conversion by the time that
  *          the ISR is executed. The ISR therefore needs to "look ahead".
- *        
+ *
  *          At the end of conversion Type N, conversion Type N+1 will start automatically. The ISR
  *          which runs at this point therefore needs to capture the results of conversion Type N,
  *          and set up the conditions for conversion Type N+2, and so on.
- *        
+ *
  *          By means of various helper functions, all of the time-critical activities are processed
  *          within the ISR.
- *        
+ *
  *          The main code is notified by means of a flag when fresh copies of loggable data are available.
- *        
+ *
  *          Keep in mind, when writing an Interrupt Service Routine (ISR):
  *            - Keep it short
  *            - Don't use delay ()
@@ -551,7 +551,7 @@ void updatePortsStates()
  *            - Make variables shared with the main code volatile
  *            - Variables shared with main code may need to be protected by "critical sections"
  *            - Don't try to turn interrupts off or on
- * 
+ *
  */
 ISR(ADC_vect)
 {
@@ -612,16 +612,16 @@ ISR(ADC_vect)
 */
 
 /*!
-*  @defgroup TimeCritical Time critical functions Group
-*  Functions used by the ISR
-*/
+ *  @defgroup TimeCritical Time critical functions Group
+ *  Functions used by the ISR
+ */
 
 /**
  * @brief Process the calculation for the actual current raw sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
- * 
+ *
  * @ingroup TimeCritical
  */
 void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
@@ -650,10 +650,10 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 
 /**
  * @brief Process the current voltage raw sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
- * 
+ *
  * @ingroup TimeCritical
  */
 void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
@@ -671,10 +671,10 @@ void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
 
 /**
  * @brief Process with the polarity for the actual voltage sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
- * 
+ *
  * @ingroup TimeCritical
  */
 void processPolarity(const uint8_t phase, const int16_t rawSample)
@@ -689,9 +689,9 @@ void processPolarity(const uint8_t phase, const int16_t rawSample)
 /**
  * @brief This routine prevents a zero-crossing point from being declared until a certain number
  *        of consecutive samples in the 'other' half of the waveform have been encountered.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void confirmPolarity(const uint8_t phase)
@@ -712,9 +712,9 @@ void confirmPolarity(const uint8_t phase)
 
 /**
  * @brief Process the calculation for the current voltage sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processVoltage(const uint8_t phase)
@@ -736,9 +736,9 @@ void processVoltage(const uint8_t phase)
 
 /**
  * @brief This routine is called by the ISR when a pair of V & I sample becomes available.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processRawSamples(const uint8_t phase)
@@ -780,9 +780,9 @@ void processRawSamples(const uint8_t phase)
 
 /**
  * @brief Process the startup period for the router.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processStartUp(const uint8_t phase)
@@ -809,7 +809,7 @@ void processStartUp(const uint8_t phase)
  *          - change the LOGICAL load states as necessary to maintain the energy level
  *          - update the PHYSICAL load states according to the logical -> physical mapping
  *          - update the driver lines for each of the loads.
- * 
+ *
  * @ingroup TimeCritical
  */
 void processStartNewCycle()
@@ -858,9 +858,9 @@ void processStartNewCycle()
 
 /**
  * @brief Process the start of a new -ve half cycle, for this phase, just after the zero-crossing point.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processMinusHalfCycle(const uint8_t phase)
@@ -885,9 +885,9 @@ void processMinusHalfCycle(const uint8_t phase)
 
 /**
  * @brief Retrieve the next load that could be added (be aware of the order)
- * 
- * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure 
- * 
+ *
+ * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure
+ *
  * @ingroup TimeCritical
  */
 uint8_t nextLogicalLoadToBeAdded()
@@ -901,9 +901,9 @@ uint8_t nextLogicalLoadToBeAdded()
 
 /**
  * @brief Retrieve the next load that could be removed (be aware of the reverse-order)
- * 
- * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure 
- * 
+ *
+ * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure
+ *
  * @ingroup TimeCritical
  */
 uint8_t nextLogicalLoadToBeRemoved()
@@ -921,7 +921,7 @@ uint8_t nextLogicalLoadToBeRemoved()
 
 /**
  * @brief Process the case of high energy level, some action may be required.
- * 
+ *
  * @ingroup TimeCritical
  */
 void proceedHighEnergyLevel()
@@ -958,7 +958,7 @@ void proceedHighEnergyLevel()
 
 /**
  * @brief Process the case of low energy level, some action may be required.
- * 
+ *
  * @ingroup TimeCritical
  */
 void proceedLowEnergyLevel()
@@ -996,9 +996,9 @@ void proceedLowEnergyLevel()
 /**
  * @brief Process the lastest contribution after each phase specific new cycle
  *        additional processing is performed after each main cycle based on phase 0.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- *  
+ *
  * @ingroup TimeCritical
  */
 void processLatestContribution(const uint8_t phase)
@@ -1020,9 +1020,9 @@ void processLatestContribution(const uint8_t phase)
 
 /**
  * @brief Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- *  
+ *
  * @ingroup TimeCritical
  */
 void processPlusHalfCycle(const uint8_t phase)
@@ -1049,15 +1049,15 @@ void processPlusHalfCycle(const uint8_t phase)
  * @details The array, logicalLoadState[], contains the on/off state of all logical loads, with
  *          element 0 being for the one with the highest priority. The array,
  *          physicalLoadState[], contains the on/off state of all physical loads.
- * 
+ *
  *          The lowest 7 bits of element is the load number as defined in 'physicalLoadState'.
  *          The highest bit of each 'loadPrioritiesAndState' determines if the load is ON or OFF.
  *          The order of each element in 'loadPrioritiesAndState' determines the load priority.
  *          'loadPrioritiesAndState[i] & loadStateMask' will extract the load number at position 'i'
  *          'loadPrioritiesAndState[i] & loadStateOnBit' will extract the load state at position 'i'
- * 
+ *
  *          Any other mapping relationships could be configured here.
- * 
+ *
  * @ingroup TimeCritical
  */
 void updatePhysicalLoadStates()
@@ -1098,7 +1098,7 @@ void updatePhysicalLoadStates()
  * @details At the end of each datalogging period, copies are made of the relevant variables
  *          for use by the main code. These variable are then reset for use during the next
  *          datalogging period.
- * 
+ *
  * @ingroup TimeCritical
  */
 void processDataLogging()
@@ -1139,7 +1139,7 @@ void processDataLogging()
 
 /**
  * @brief Prints data logs to the Serial output in text or json format
- * 
+ *
  * @param bOffPeak true if off-peak tariff is active
  */
 void sendResults(bool bOffPeak)
@@ -1247,7 +1247,7 @@ void sendResults(bool bOffPeak)
 
 /**
  * @brief Prints the load priorities to the Serial output.
- * 
+ *
  */
 void logLoadPriorities()
 {
@@ -1263,9 +1263,9 @@ void logLoadPriorities()
 
 /**
  * @brief This function set all 3 loads to full power.
- * 
+ *
  * @return true if loads are forced
- * @return false 
+ * @return false
  */
 bool forceFullPower()
 {
@@ -1285,7 +1285,7 @@ bool forceFullPower()
  * @brief This function changes the value of the load priorities.
  * @details Since we don't have access to a clock, we detect the offPeak start from the main energy meter.
  *          Additionally, when off-peak period starts, we rotate the load priorities for the next day.
- * 
+ *
  * @param currentTemperature_x100 current temperature x 100 (default to 0 if deactivated)
  * @return true if off-peak tariff is active
  * @return false if on-peak tariff is active
@@ -1335,7 +1335,7 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
 #ifndef NO_OUTPUT
   if (!pinOffPeakState && pinNewState)
     Serial.println(F("Change to peak period!"));
-#endif //NO_OUTPUT
+#endif // NO_OUTPUT
 
   pinOffPeakState = pinNewState;
 
@@ -1361,7 +1361,7 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
 
 /**
  * @brief Print the configuration during start
- * 
+ *
  */
 void printConfiguration()
 {
@@ -1447,7 +1447,7 @@ void printConfiguration()
 #ifdef OFF_PEAK_TARIFF
 /**
  * @brief Print the settings for off-peak period
- * 
+ *
  */
 void printOffPeakConfiguration()
 {
@@ -1494,7 +1494,7 @@ void printOffPeakConfiguration()
 
 /**
  * @brief Print the settings used for the selected output mode.
- * 
+ *
  */
 void printParamsForSelectedOutputMode()
 {
@@ -1521,7 +1521,7 @@ void printParamsForSelectedOutputMode()
 #ifdef TEMP_SENSOR
 /**
  * @brief Convert the internal value read from the sensor to a value in °C.
- * 
+ *
  */
 void convertTemperature()
 {
@@ -1532,8 +1532,8 @@ void convertTemperature()
 
 /**
  * @brief Read the temperature.
- * 
- * @return The temperature in °C (x100). 
+ *
+ * @return The temperature in °C (x100).
  */
 int16_t readTemperature()
 {
@@ -1567,7 +1567,7 @@ int16_t readTemperature()
  * @brief Send the logging data through RF.
  * @details For better performance, the RFM12B needs to remain in its
  *          active state rather than being periodically put to sleep.
- * 
+ *
  */
 void send_rf_data()
 {
@@ -1584,7 +1584,7 @@ void send_rf_data()
 
 /**
  * @brief Get the available RAM during setup
- * 
+ *
  * @return int The amount of free RAM
  */
 int freeRam()
@@ -1598,7 +1598,7 @@ int freeRam()
  * @brief Called once during startup.
  * @details This function initializes a couple of variables we cannot init at compile time and
  *          sets a couple of parameters for runtime.
- * 
+ *
  */
 void setup()
 {
@@ -1679,7 +1679,7 @@ void setup()
 
 /**
  * @brief Toggle the watchdog LED
- * 
+ *
  */
 inline void toggleWatchDogLED()
 {
@@ -1688,7 +1688,7 @@ inline void toggleWatchDogLED()
 
 /**
  * @brief Set the Pin state for the specified pin
- * 
+ *
  * @param pin pin to change [2..13]
  * @param bState state to be set
  */
@@ -1714,8 +1714,8 @@ inline void setPinState(const uint8_t pin, bool bState)
  * @brief Main processor.
  * @details None of the workload in loop() is time-critical.
  *          All the processing of ADC data is done within the ISR.
- * 
-*/
+ *
+ */
 void loop()
 {
   static uint8_t perSecondTimer{0};
