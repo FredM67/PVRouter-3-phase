@@ -16,6 +16,7 @@ Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.u
 
 - [PVRouter (version triphasée)](#pvrouter-version-triphasée)
   - [Gallerie photo](#gallerie-photo)
+  - [Schéma de la carte-mère](#schéma-de-la-carte-mère)
   - [Documentation de développement](#documentation-de-développement)
   - [Documentation de l’utilisateur final](#documentation-de-lutilisateur-final)
     - [Aperçu](#aperçu)
@@ -39,6 +40,10 @@ Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.u
 ## Gallerie photo
 
 Vous trouverez quelques [photos](Gallery.md) de routeurs assemblés.
+
+## Schéma de la carte-mère
+
+Vous trouverez [ici](../../docs/3phase_Mainboard.pdf) le schéma de la carte-mère.
 
 ## Documentation de développement
 

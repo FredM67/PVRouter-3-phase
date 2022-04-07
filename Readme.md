@@ -17,6 +17,7 @@ It supports up to 7 resistive output loads, which are completely independent.
 
 - [PVRouter (3-phase version)](#pvrouter-3-phase-version)
   - [Photo Gallery](#photo-gallery)
+  - [Schematic of the mainboard](#schematic-of-the-mainboard)
   - [Implementation documentation](#implementation-documentation)
   - [End-user documentation](#end-user-documentation)
     - [Overview](#overview)
@@ -40,6 +41,10 @@ It supports up to 7 resistive output loads, which are completely independent.
 ## Photo Gallery
 
 [Here](Gallery.md) a couple of pictures of assembled routers.
+
+## Schematic of the mainboard
+
+[Here](docs/3phase_Mainboard.pdf) the schematic of the mainboard.
 
 ## Implementation documentation
 
