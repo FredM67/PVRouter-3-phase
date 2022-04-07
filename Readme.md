@@ -34,6 +34,7 @@ It supports up to 7 resistive output loads, which are completely independent.
   - [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
   - [Heater with ACI 3-phase thermostat (with neutral wire)](#heater-with-aci-3-phase-thermostat-with-neutral-wire)
   - [Alternatives WITHOUT neutral wire](#alternatives-without-neutral-wire)
+    - [Heater with mmechanical thermostat](#heater-with-mmechanical-thermostat)
     - [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
 
 ## Photo Gallery
@@ -70,12 +71,12 @@ Now, all the time-critical processing is done inside the ISR, other stuff like (
 
 In my variant of Robin's sketch, the 3 loads are still physically independent, so it means, the router will divert surplus of energy to the first load (highest priority) from 0% to 100%, then to the second (0% to 100%) and finally to the third.
 
-To avoid that the priorities stays all the time unchanged, which would mean that load 1 will run much more than load 2, which again will run much more than 3, I've added a priority management.
+To avoid that the priorities stay all the time unchanged, which would mean that load 1 will run much more than load 2, which again will run much more than 3, I've added a priority management.
 Each day, the load priorities are rotated, so over many days, all the heating elements will run somehow the same amount of time.
 
 ### Off-peak period detection
 
-Depending on the country, some energy meters provide a switch which toggles on at the beginning of the off-peak period. It is intended to control a relay. If you wire it to a free digital pin of the router (in my case D3), you can detect off-peak/peak period.
+Depending on the country, some energy meters provide a switch/relay which toggles on at the beginning of the off-peak period. It is intended to control a relay. If you wire it to a free digital pin of the router (in my case D3), you can detect off-peak/peak period.
 
 ### Force full power
 
@@ -200,12 +201,14 @@ With this solution, you won't need to add an additional neutral wire nor add a r
 
 ---
 
+### Heater with mmechanical thermostat
+
 This configuration allows to simplify the wiring and specially does not require any 3-4 poles relay.
 
 ---
 **_Zoom on the thermostat_**
 
-You need to take care of which wires are switch off.
+You need to take care of which wires are switched off.
 
 In **red**, security switch (see the 'S' on each pole) : all 3 phases are switched off.
 
