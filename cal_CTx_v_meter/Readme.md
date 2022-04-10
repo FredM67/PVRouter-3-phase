@@ -1,5 +1,3 @@
 # Mk2PVRouter (calibration)
 
-DO NOT USE...
-
-Refactoring in work...
+Calibration sketch for the 3-phase router.
