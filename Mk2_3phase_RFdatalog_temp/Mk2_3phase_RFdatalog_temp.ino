@@ -169,13 +169,26 @@ constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in se
 //
 constexpr float f_powerCal[NO_OF_PHASES]{0.05000f, 0.05000f, 0.05000f};
 //
+// f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
+// The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
+//
+//    With f_phaseCal = 1, the most recent sample is used.
+//    With f_phaseCal = 0, the previous sample is used
+//    With f_phaseCal = 0.5, the mid-point (average) value in used
+//
+// NB. Any tool which determines the optimal value of f_phaseCal must have a similar
+// scheme for taking sample values as does this sketch.
+//
+constexpr float f_phaseCal{1}; /**< Nominal values only */
+//
+// When using integer maths, calibration values that have been supplied in floating point form need to be rescaled.
+constexpr int16_t i_phaseCal{256}; /**< to avoid the need for floating-point maths (f_phaseCal * 256) */
+constexpr int16_t p_phaseCal{8};   /**< to speed up math (i_phaseCal = 1 << p_phaseCal) */
+//
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
 constexpr float f_voltageCal[NO_OF_PHASES]{1.03f, 1.03f, 1.03f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
-
-inline constexpr float lpf_gain{8}; /**< setting this to 0 disables this extra processing */
-inline constexpr float alpha{0.002};
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -614,24 +627,19 @@ ISR(ADC_vect)
 void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 {
   static int32_t sampleIminusDC;
+  static int32_t phaseShiftedSampleVminusDC;
   static int32_t filtV_div4;
   static int32_t filtI_div4;
   static int32_t instP;
 
-  // extra items for an LPF to improve the processing of data samples from CTx
-  static int32_t lpf_long[NO_OF_PHASES]{}; // new LPF, for offsetting the behaviour of CTx as a HPF
-  static int32_t last_lpf_long;            // extra filtering to offset the HPF effect of CTx
-  
   // remove most of the DC offset from the current sample (the precise value does not matter)
   sampleIminusDC = ((int32_t)(rawSample - l_DCoffset_I_nom)) << 8;
   //
-  // extra filtering to offset the HPF effect of CTx
-  last_lpf_long = lpf_long[phase];
-  lpf_long[phase] = last_lpf_long + alpha * (sampleIminusDC - last_lpf_long);
-  sampleIminusDC += (lpf_gain * lpf_long[phase]);
+  // phase-shift the voltage waveform so that it aligns with the grid current waveform
+  phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) << p_phaseCal) >> 8);
   //
   // calculate the "real power" in this sample pair and add to the accumulated sum
-  filtV_div4 = l_sampleVminusDC[phase] >> 2; // reduce to 16-bits (now x64, or 2^6)
+  filtV_div4 = phaseShiftedSampleVminusDC >> 2; // reduce to 16-bits (now x64, or 2^6)
   filtI_div4 = sampleIminusDC >> 2;             // reduce to 16-bits (now x64, or 2^6)
   instP = filtV_div4 * filtI_div4;              // 32-bits (now x4096, or 2^12)
   instP >>= 12;                                 // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
@@ -1382,6 +1390,9 @@ void printConfiguration()
     Serial.print(F(" =    "));
     Serial.println(f_voltageCal[phase], 5);
   }
+
+  Serial.print(F("\tf_phaseCal for all phases =     "));
+  Serial.println(f_phaseCal);
 
   Serial.print(F("\tExport rate (Watts) = "));
   Serial.println(REQUIRED_EXPORT_IN_WATTS);
