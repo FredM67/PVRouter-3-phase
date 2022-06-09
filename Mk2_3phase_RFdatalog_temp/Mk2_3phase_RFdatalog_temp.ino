@@ -132,7 +132,7 @@
 
 #define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
 //#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
-//#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
+#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
 
 // Output messages
 #define DEBUGGING   ///< enable this line to include debugging print statements
@@ -361,10 +361,7 @@ constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-constexpr uint8_t forceGroup1{10};
-constexpr uint8_t forceGroup1_spare{11};
-constexpr uint8_t forceGroup2{12};
-constexpr uint8_t forceGroup2_spare{13};
+constexpr uint8_t forcePins[]{10, 11, 12, 13};
 #endif
 
 #ifdef TEMP_SENSOR
@@ -483,11 +480,11 @@ int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]; /**< for the LPF which determines D
 int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];  /**< for summation of 'real power' values during datalog period */
 int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values during datalog period */
 
-uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
-uint16_t i_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
-uint8_t n_cycleCountForDatalogging{0};               /**< for counting how often datalog is updated */
+uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]{}; /**< number of sample sets for each phase during each mains cycle */
+uint16_t i_sampleSetsDuringThisDatalogPeriod{0};       /**< number of sample sets during each datalogging period */
+uint8_t n_cycleCountForDatalogging{0};                 /**< for counting how often datalog is updated */
 
-uint8_t n_lowestNoOfSampleSetsPerMainsCycle; /**< For a mechanism to check the integrity of this code structure */
+uint8_t n_lowestNoOfSampleSetsPerMainsCycle{UINT8_MAX}; /**< For a mechanism to check the integrity of this code structure */
 
 // for interaction between the main processor and the ISR
 volatile bool b_datalogEventPending{false};   /**< async trigger to signal datalog is available */
@@ -519,23 +516,38 @@ Polarities polarityOfMostRecentSampleV[NO_OF_PHASES];    /**< for zero-crossing 
 Polarities polarityConfirmed[NO_OF_PHASES];              /**< for zero-crossing detection */
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing detection */
 
+template <typename _Tp, size_t _Nm> constexpr size_t size(const _Tp (&/*__array*/)[_Nm]) noexcept
+{
+    return _Nm;
+}
+
 /**
  * @brief update the control ports for each of the physical loads
  *
  */
 void updatePortsStates()
 {
+    uint16_t pinsON{0};
+    uint16_t pinsOFF{0};
+
     for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
         // update the local load's state.
         if (LoadStates::LOAD_OFF == physicalLoadState[i])
-            setPinState(physicalLoadPin[i], false);
+        {
+            // setPinOFF(physicalLoadPin[i]);
+            pinsOFF |= bit(physicalLoadPin[i]);
+        }
         else
         {
             ++countLoadON[i];
-            setPinState(physicalLoadPin[i], true);
+            // setPinON(physicalLoadPin[i]);
+            pinsON |= bit(physicalLoadPin[i]);
         }
     }
+
+    setPinsOFF(pinsOFF);
+    setPinsON(pinsON);
 }
 
 /**
@@ -1290,16 +1302,35 @@ void logLoadPriorities()
  */
 bool forceFullPower()
 {
+    bool bLoadForced{false};
 #ifdef FORCE_PIN_PRESENT
-    const uint8_t pinState{!!(PIND & bit(forcePin))};
-
-    for (auto &bForceLoad : b_forceLoadOn)
-        bForceLoad = !pinState;
-
-    return !pinState;
-#else
-    return false;
+    for (uint8_t i = 0; i < size(forcePins); ++i)
+    {
+        const uint8_t pinState{getPinState(forcePins[i])};
+        switch (i)
+        {
+        case 0:
+            b_forceLoadOn[0] = !pinState;
+            b_forceLoadOn[1] = !pinState;
+            b_forceLoadOn[2] = !pinState;
+            break;
+        case 1:
+            b_forceLoadOn[3] = !pinState;
+            break;
+            break;
+        case 2:
+            b_forceLoadOn[4] = !pinState;
+            b_forceLoadOn[5] = !pinState;
+            b_forceLoadOn[6] = !pinState;
+            break;
+        case 3:
+            b_forceLoadOn[7] = !pinState;
+            break;
+        }
+        bLoadForced |= !pinState;
+    }
 #endif
+    return bLoadForced;
 }
 
 /**
@@ -1635,11 +1666,7 @@ void setup()
     // initializes all loads to OFF at startup
     for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
-        if (physicalLoadPin[i] < 8)
-            DDRD |= bit(physicalLoadPin[i]); // driver pin for Load #n
-        else
-            DDRB |= bit(physicalLoadPin[i] - 8); // driver pin for Load #n
-
+        pinMode(physicalLoadPin[i], OUTPUT); // driver pin for Load #n
         loadPrioritiesAndState[i] &= loadStateMask;
     }
     updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
@@ -1647,18 +1674,19 @@ void setup()
     updatePortsStates(); // updates output pin states
 
 #ifdef OFF_PEAK_TARIFF
-    DDRD &= ~bit(offPeakForcePin);                     // set as input
-    PORTD |= bit(offPeakForcePin);                     // enable the internal pullup resistor
+    pinMode(offPeakForcePin, INPUT_PULLUP);            // set as input & enable the internal pullup resistor
     delay(100);                                        // allow time to settle
-    uint8_t pinState{!!(PIND & bit(offPeakForcePin))}; // initial selection and
+    uint8_t pinState{getPinState(offPeakForcePin)}; // initial selection and
 
     ul_TimeOffPeak = millis();
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-    DDRD &= ~bit(forcePin); // set as input
-    PORTD |= bit(forcePin); // enable the internal pullup resistor
-    delay(100);             // allow time to settle
+    for (const auto &forcePin : forcePins)
+    {
+        pinMode(forcePin, INPUT_PULLUP); // set as input & enable the internal pullup resistor
+        delay(100);                      // allow time to settle
+    }
 #endif
 
     // DDRB |= bit(watchDogPin - 8);    // set as output
@@ -1729,6 +1757,66 @@ inline void setPinState(const uint8_t pin, bool bState)
         else
             PORTB &= ~bit(pin - 8);
     }
+}
+
+/**
+ * @brief Set the Pin state to ON for the specified pin
+ *
+ * @param pin pin to change [2..13]
+ */
+void setPinON(const uint8_t pin)
+{
+    if (pin < 8)
+        PORTD |= bit(pin);
+    else
+        PORTB |= bit(pin ^ 8u);
+}
+
+/**
+ * @brief Set the Pins state to ON
+ *
+ * @param pins The pins to change
+ */
+void setPinsON(const uint16_t pins)
+{
+    PORTD |= lowByte(pins);
+    PORTB |= highByte(pins);
+}
+
+/**
+ * @brief Set the Pin state to OFF for the specified pin
+ *
+ * @param pin pin to change [2..13]
+ */
+void setPinOFF(const uint8_t pin)
+{
+    if (pin < 8)
+        PORTD &= ~bit(pin);
+    else
+        PORTB &= ~bit(pin ^ 8u);
+}
+
+/**
+ * @brief Set the Pins state to OFF
+ *
+ * @param pins The pins to change
+ */
+void setPinsOFF(const uint16_t pins)
+{
+    PORTD &= ~lowByte(pins);
+    PORTB &= ~highByte(pins);
+}
+
+/**
+ * @brief Get the Pin State
+ *
+ * @param pin The pin to read
+ * @return true if HIGH
+ * @return false if LOW
+ */
+bool getPinState(const uint8_t pin)
+{
+    return (pin < 8) ? !!(PIND & bit(pin)) : !!(PINB & bit(pin ^ 8u));
 }
 
 /**
