@@ -4,14 +4,14 @@
  * @author Frederic Metrich (frederic.metrich@live.fr)
  * @brief Mk2_3phase_RFdatalog_temp.ino - A photovoltaïc energy diverter.
  * @date 2020-01-14
- * 
+ *
  * @mainpage A 3-phase photovoltaïc router/diverter
- * 
+ *
  * @section description Description
  * Mk2_3phase_RFdatalog_temp.ino - Arduino program that maximizes the use of home photovoltaïc production
  * by monitoring energy consumption and diverting power to one or more resistive charge(s) when needed.
  * In the absence of such a system, surplus energy flows away to the grid and is of no benefit to the PV-owner.
- * 
+ *
  * @section history History
  * __Issue 1 was released in January 2015.__
  *
@@ -87,10 +87,10 @@
  * - off-peak tariff made switchable at compile-time
  * - rotation of load priorities made switchable at compile-time
  * - enhanced configuration for forcing specific loads during off-peak period
- * 
+ *
  * __April 2020, changes:__
  * - Fix a bug in the load level calculation
- * 
+ *
  * __May 2020, changes:__
  * - Fix a bug in the initialization of off-peak offsets
  * - added detailed configuration on start-up with build timestamp
@@ -98,12 +98,12 @@
  * __June 2020, changes:__
  * - Add force pin for full power through overwrite switch
  * - Add priority rotation for single tariff
- * 
+ *
  * __October 2020, changes:__
  * - Moving some part around (calibration values toward beginning of the sketch)
  * - renaming some preprocessor defines
  * - system/user specific data moved toward beginning of the sketch
- * 
+ *
  * __January 2021, changes:__
  * - Further optimization
  * - now it's possible to specify the forcing period in minutes and hours
@@ -118,10 +118,10 @@
  * - made forcePin presence configurable
  * - added WatchDog LED (blink 1s ON/ 1s OFF)
  * - code enhanced to support 6 loads
- * 
+ *
  * @author Fred Metrich
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #include <Arduino.h> // may not be needed, but it's probably a good idea to include this
@@ -130,7 +130,7 @@
 //#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 //#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
-//#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
+#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
 //#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
 //#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
 
@@ -146,7 +146,7 @@
 // constants which must be set individually for each system
 //
 constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
-constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
+constexpr uint8_t NO_OF_DUMPLOADS{8}; /**< number of dump loads connected to the diverter */
 
 constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
 
@@ -228,27 +228,37 @@ volatile uint32_t absenceOfDivertedEnergyCount{0};                     /**< numb
 constexpr uint16_t ul_OFF_PEAK_DURATION{8}; /**< Duration of the off-peak period in hours */
 
 /** @brief Config parameters for forcing a load
- *  @details This class allows the user to define when and how long a load will be forced at 
+ *  @details This class allows the user to define when and how long a load will be forced at
  *           full power during off-peak period.
- * 
+ *
  *           For each load, the user defines a pair of values: pairForceLoad => { offset, duration }.
  *           The load will be started with full power at ('start_offpeak' + 'offset') for a duration of 'duration'
  *             - all values are in hours (if between -24 and 24) or in minutes.
- *             - if the offset is negative, it's calculated from the end of the off-peak period (ie -3 means 3 hours back from the end).
- *             - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT16_MAX' (somehow infinite time)
-*/
+ *             - if the offset is negative, it's calculated from the end of the off-peak period (ie -3 means 3 hours
+ * back from the end).
+ *             - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT16_MAX'
+ * (somehow infinite time)
+ */
 class pairForceLoad
 {
-public:
-  constexpr pairForceLoad() = default;
-  constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration = UINT16_MAX) : iStartOffset(_iStartOffset), uiDuration(_uiDuration) {}
+  public:
+    constexpr pairForceLoad() = default;
+    constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration = UINT16_MAX) : iStartOffset(_iStartOffset), uiDuration(_uiDuration)
+    {
+    }
 
-  constexpr int16_t getStartOffset() const { return iStartOffset; }
-  constexpr uint16_t getDuration() const { return uiDuration; }
+    constexpr int16_t getStartOffset() const
+    {
+        return iStartOffset;
+    }
+    constexpr uint16_t getDuration() const
+    {
+        return uiDuration;
+    }
 
-private:
-  int16_t iStartOffset{0};         /**< the start offset from the off-peak begin in hours or minutes */
-  uint16_t uiDuration{UINT16_MAX}; /**< the duration for forcing the load in hours or minutes */
+  private:
+    int16_t iStartOffset{0};         /**< the start offset from the off-peak begin in hours or minutes */
+    uint16_t uiDuration{UINT16_MAX}; /**< the duration for forcing the load in hours or minutes */
 };
 
 constexpr uint8_t uiTemperature{100}; /**< the temperature threshold to stop forcing in °C */
@@ -264,22 +274,22 @@ constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS] = {{-3, 2},    /**< force 
 /** Polarities */
 enum class Polarities : uint8_t
 {
-  NEGATIVE, /**< polarity is negative */
-  POSITIVE  /**< polarity is positive */
+    NEGATIVE, /**< polarity is negative */
+    POSITIVE  /**< polarity is positive */
 };
 
 /** Output modes */
 enum class OutputModes : uint8_t
 {
-  ANTI_FLICKER, /**< Anti-flicker mode */
-  NORMAL        /**< Normal mode */
+    ANTI_FLICKER, /**< Anti-flicker mode */
+    NORMAL        /**< Normal mode */
 };
 
 /** Load state (for use if loads are active high (Rev 2 PCB)) */
 enum class LoadStates : uint8_t
 {
-  LOAD_OFF, /**< load is OFF */
-  LOAD_ON   /**< load is ON */
+    LOAD_OFF, /**< load is OFF */
+    LOAD_ON   /**< load is ON */
 };
 // enum loadStates {LOAD_ON, LOAD_OFF}; /**< for use if loads are active low (original PCB) */
 
@@ -292,7 +302,7 @@ uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was
 constexpr OutputModes outputMode{OutputModes::NORMAL}; /**< Output mode to be used */
 
 // Load priorities at startup
-uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load priorities and states. */
+uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2, 3, 4, 5, 6, 7}; /**< load priorities and states. */
 
 //--------------------------------------------------------------------------------------------------
 #ifdef EMONESP
@@ -327,15 +337,15 @@ constexpr int UNO{1};            /**< for when the processor contains the UNO bo
 
 /** @brief container for datalogging
  *  @details This class is used for datalogging.
-*/
+ */
 class PayloadTx_struct
 {
-public:
-  int16_t power;                     /**< main power, import = +ve, to match OEM convention */
-  int16_t power_L[NO_OF_PHASES];     /**< power for phase #, import = +ve, to match OEM convention */
-  int16_t Vrms_L_x100[NO_OF_PHASES]; /**< average voltage over datalogging period (in 100th of Volt)*/
+  public:
+    int16_t power;                     /**< main power, import = +ve, to match OEM convention */
+    int16_t power_L[NO_OF_PHASES];     /**< power for phase #, import = +ve, to match OEM convention */
+    int16_t Vrms_L_x100[NO_OF_PHASES]; /**< average voltage over datalogging period (in 100th of Volt)*/
 #ifdef TEMP_SENSOR
-  int16_t temperature_x100{UNUSED_TEMPERATURE}; /**< temperature in 100th of °C */
+    int16_t temperature_x100{UNUSED_TEMPERATURE}; /**< temperature in 100th of °C */
 #endif
 };
 
@@ -351,15 +361,18 @@ constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-constexpr uint8_t forcePin{4};
+constexpr uint8_t forceGroup1{10};
+constexpr uint8_t forceGroup1_spare{11};
+constexpr uint8_t forceGroup2{12};
+constexpr uint8_t forceGroup2_spare{13};
 #endif
 
 #ifdef TEMP_SENSOR
 constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
-constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{5, 6, 7}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{2, 3, 4, 5, 6, 7, 8, 9}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 // D8 is not in use
-constexpr uint8_t watchDogPin{9};
+// constexpr uint8_t watchDogPin{9};
 // D10 is for the RFM12B
 // D11 is for the RFM12B
 // D12 is for the RFM12B
@@ -385,38 +398,38 @@ uint32_t ul_TimeOffPeak; /**< 'timestamp' for start of off-peak period */
  * @brief Template class for Load-Forcing
  * @details The array is initialized at compile time so it can be read-only and
  *          the performance and code size are better
- * 
+ *
  * @tparam N # of loads
  */
-template <uint8_t N>
-class _rg_OffsetForce
+template <uint8_t N> class _rg_OffsetForce
 {
-public:
-  constexpr _rg_OffsetForce() : _rg()
-  {
-    constexpr uint16_t uiPeakDurationInSec{ul_OFF_PEAK_DURATION * 3600};
-    // calculates offsets for force start and stop of each load
-    for (uint8_t i = 0; i != N; ++i)
+  public:
+    constexpr _rg_OffsetForce() : _rg()
     {
-      const bool bOffsetInMinutes{rg_ForceLoad[i].getStartOffset() > 24 || rg_ForceLoad[i].getStartOffset() < -24};
-      const bool bDurationInMinutes{rg_ForceLoad[i].getDuration() > 24 && UINT16_MAX != rg_ForceLoad[i].getDuration()};
+        constexpr uint16_t uiPeakDurationInSec{ul_OFF_PEAK_DURATION * 3600};
+        // calculates offsets for force start and stop of each load
+        for (uint8_t i = 0; i != N; ++i)
+        {
+            const bool bOffsetInMinutes{rg_ForceLoad[i].getStartOffset() > 24 || rg_ForceLoad[i].getStartOffset() < -24};
+            const bool bDurationInMinutes{rg_ForceLoad[i].getDuration() > 24 && UINT16_MAX != rg_ForceLoad[i].getDuration()};
 
-      _rg[i][0] = ((rg_ForceLoad[i].getStartOffset() >= 0) ? 0 : uiPeakDurationInSec) + rg_ForceLoad[i].getStartOffset() * (bOffsetInMinutes ? 60ul : 3600ul);
-      _rg[i][0] *= 1000ul; // convert in milli-seconds
+            _rg[i][0] =
+                ((rg_ForceLoad[i].getStartOffset() >= 0) ? 0 : uiPeakDurationInSec) + rg_ForceLoad[i].getStartOffset() * (bOffsetInMinutes ? 60ul : 3600ul);
+            _rg[i][0] *= 1000ul; // convert in milli-seconds
 
-      if (UINT8_MAX == rg_ForceLoad[i].getDuration())
-        _rg[i][1] = rg_ForceLoad[i].getDuration();
-      else
-        _rg[i][1] = _rg[i][0] + rg_ForceLoad[i].getDuration() * (bDurationInMinutes ? 60ul : 3600ul) * 1000ul;
+            if (UINT8_MAX == rg_ForceLoad[i].getDuration())
+                _rg[i][1] = rg_ForceLoad[i].getDuration();
+            else
+                _rg[i][1] = _rg[i][0] + rg_ForceLoad[i].getDuration() * (bDurationInMinutes ? 60ul : 3600ul) * 1000ul;
+        }
     }
-  }
-  const uint32_t (&operator[](uint8_t i) const)[2]
-  {
-    return _rg[i];
-  }
+    const uint32_t (&operator[](uint8_t i) const)[2]
+    {
+        return _rg[i];
+    }
 
-private:
-  uint32_t _rg[N][2];
+  private:
+    uint32_t _rg[N][2];
 };
 constexpr auto rg_OffsetForce = _rg_OffsetForce<NO_OF_DUMPLOADS>(); /**< start & stop offsets for each load */
 #endif
@@ -439,15 +452,14 @@ constexpr float f_offsetOfEnergyThresholdsInAFmode{0.1f};
 
 /**
  * @brief set default threshold at compile time so the variable can be read-only
- * 
+ *
  * @param lower True to set the lower threshold, false for higher
- * @return the corresponding threshold 
+ * @return the corresponding threshold
  */
 constexpr float initThreshold(const bool lower)
 {
-  return lower
-             ? f_capacityOfEnergyBucket_main * (0.5 - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0))
-             : f_capacityOfEnergyBucket_main * (0.5 + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0));
+    return lower ? f_capacityOfEnergyBucket_main * (0.5 - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0))
+                 : f_capacityOfEnergyBucket_main * (0.5 + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0));
 }
 
 constexpr float f_lowerThreshold_default{initThreshold(true)};  /**< lower default threshold set accordingly to the output mode */
@@ -461,7 +473,7 @@ float f_upperEnergyThreshold;   /**< dynamic upper threshold */
 bool b_recentTransition{false};                 /**< a load state has been recently toggled */
 uint8_t postTransitionCount;                    /**< counts the number of cycle since last transition */
 constexpr uint8_t POST_TRANSITION_MAX_COUNT{3}; /**< allows each transition to take effect */
-//constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
+// constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
 uint8_t activeLoad{NO_OF_DUMPLOADS}; /**< current active load */
 
 int32_t l_sumP[NO_OF_PHASES];                /**< cumulative power per phase */
@@ -492,7 +504,8 @@ volatile int32_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES];   /**< copy of cumulat
 volatile int32_t copyOf_sum_Vsquared[NO_OF_PHASES];         /**< copy of for summation of V^2 values during datalog period */
 volatile float copyOf_energyInBucket_main;                  /**< copy of main energy bucket (over all phases) */
 volatile uint8_t copyOf_lowestNoOfSampleSetsPerMainsCycle;  /**<  */
-volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
+volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each
+                                                               datalogging period */
 volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];      /**< copy of number of cycle the load was ON (over 1 datalog period) */
 
 #ifdef TEMP_SENSOR
@@ -508,42 +521,42 @@ Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing 
 
 /**
  * @brief update the control ports for each of the physical loads
- * 
+ *
  */
 void updatePortsStates()
 {
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    // update the local load's state.
-    if (LoadStates::LOAD_OFF == physicalLoadState[i])
-      setPinState(physicalLoadPin[i], false);
-    else
+    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
-      ++countLoadON[i];
-      setPinState(physicalLoadPin[i], true);
+        // update the local load's state.
+        if (LoadStates::LOAD_OFF == physicalLoadState[i])
+            setPinState(physicalLoadPin[i], false);
+        else
+        {
+            ++countLoadON[i];
+            setPinState(physicalLoadPin[i], true);
+        }
     }
-  }
 }
 
 /**
  * @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
  * @details An Interrupt Service Routine is now defined which instructs the ADC to perform a conversion
  *          for each of the voltage and current sensors in turn.
- *        
+ *
  *          This Interrupt Service Routine is for use when the ADC is in the free-running mode.
  *          It is executed whenever an ADC conversion has finished, approx every 104 µs. In
  *          free-running mode, the ADC has already started its next conversion by the time that
  *          the ISR is executed. The ISR therefore needs to "look ahead".
- *        
+ *
  *          At the end of conversion Type N, conversion Type N+1 will start automatically. The ISR
  *          which runs at this point therefore needs to capture the results of conversion Type N,
  *          and set up the conditions for conversion Type N+2, and so on.
- *        
+ *
  *          By means of various helper functions, all of the time-critical activities are processed
  *          within the ISR.
- *        
+ *
  *          The main code is notified by means of a flag when fresh copies of loggable data are available.
- *        
+ *
  *          Keep in mind, when writing an Interrupt Service Routine (ISR):
  *            - Keep it short
  *            - Don't use delay ()
@@ -551,60 +564,60 @@ void updatePortsStates()
  *            - Make variables shared with the main code volatile
  *            - Variables shared with main code may need to be protected by "critical sections"
  *            - Don't try to turn interrupts off or on
- * 
+ *
  */
 ISR(ADC_vect)
 {
-  static uint8_t sample_index{0};
-  static int16_t rawSample;
+    static uint8_t sample_index{0};
+    static int16_t rawSample;
 
-  switch (sample_index)
-  {
-  case 0:
-    rawSample = ADC;           // store the ADC value (this one is for Voltage L1)
-    ADMUX = 0x40 + sensorV[1]; // the conversion for I1 is already under way
-    ++sample_index;            // increment the control flag
-    //
-    processVoltageRawSample(0, rawSample);
-    break;
-  case 1:
-    rawSample = ADC;           // store the ADC value (this one is for Current L1)
-    ADMUX = 0x40 + sensorI[1]; // the conversion for V2 is already under way
-    ++sample_index;            // increment the control flag
-    //
-    processCurrentRawSample(0, rawSample);
-    break;
-  case 2:
-    rawSample = ADC;           // store the ADC value (this one is for Voltage L2)
-    ADMUX = 0x40 + sensorV[2]; // the conversion for I2 is already under way
-    ++sample_index;            // increment the control flag
-    //
-    processVoltageRawSample(1, rawSample);
-    break;
-  case 3:
-    rawSample = ADC;           // store the ADC value (this one is for Current L2)
-    ADMUX = 0x40 + sensorI[2]; // the conversion for V3 is already under way
-    ++sample_index;            // increment the control flag
-    //
-    processCurrentRawSample(1, rawSample);
-    break;
-  case 4:
-    rawSample = ADC;           // store the ADC value (this one is for Voltage L3)
-    ADMUX = 0x40 + sensorV[0]; // the conversion for I3 is already under way
-    ++sample_index;            // increment the control flag
-    //
-    processVoltageRawSample(2, rawSample);
-    break;
-  case 5:
-    rawSample = ADC;           // store the ADC value (this one is for Current L3)
-    ADMUX = 0x40 + sensorI[0]; // the conversion for V1 is already under way
-    sample_index = 0;          // reset the control flag
-    //
-    processCurrentRawSample(2, rawSample);
-    break;
-  default:
-    sample_index = 0; // to prevent lockup (should never get here)
-  }
+    switch (sample_index)
+    {
+    case 0:
+        rawSample = ADC;           // store the ADC value (this one is for Voltage L1)
+        ADMUX = 0x40 + sensorV[1]; // the conversion for I1 is already under way
+        ++sample_index;            // increment the control flag
+        //
+        processVoltageRawSample(0, rawSample);
+        break;
+    case 1:
+        rawSample = ADC;           // store the ADC value (this one is for Current L1)
+        ADMUX = 0x40 + sensorI[1]; // the conversion for V2 is already under way
+        ++sample_index;            // increment the control flag
+        //
+        processCurrentRawSample(0, rawSample);
+        break;
+    case 2:
+        rawSample = ADC;           // store the ADC value (this one is for Voltage L2)
+        ADMUX = 0x40 + sensorV[2]; // the conversion for I2 is already under way
+        ++sample_index;            // increment the control flag
+        //
+        processVoltageRawSample(1, rawSample);
+        break;
+    case 3:
+        rawSample = ADC;           // store the ADC value (this one is for Current L2)
+        ADMUX = 0x40 + sensorI[2]; // the conversion for V3 is already under way
+        ++sample_index;            // increment the control flag
+        //
+        processCurrentRawSample(1, rawSample);
+        break;
+    case 4:
+        rawSample = ADC;           // store the ADC value (this one is for Voltage L3)
+        ADMUX = 0x40 + sensorV[0]; // the conversion for I3 is already under way
+        ++sample_index;            // increment the control flag
+        //
+        processVoltageRawSample(2, rawSample);
+        break;
+    case 5:
+        rawSample = ADC;           // store the ADC value (this one is for Current L3)
+        ADMUX = 0x40 + sensorI[0]; // the conversion for V1 is already under way
+        sample_index = 0;          // reset the control flag
+        //
+        processCurrentRawSample(2, rawSample);
+        break;
+    default:
+        sample_index = 0; // to prevent lockup (should never get here)
+    }
 } // end of ISR
 
 /* -----------------------------------------------------------
@@ -612,194 +625,194 @@ ISR(ADC_vect)
 */
 
 /*!
-*  @defgroup TimeCritical Time critical functions Group
-*  Functions used by the ISR
-*/
+ *  @defgroup TimeCritical Time critical functions Group
+ *  Functions used by the ISR
+ */
 
 /**
  * @brief Process the calculation for the actual current raw sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
- * 
+ *
  * @ingroup TimeCritical
  */
 void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 {
-  static int32_t sampleIminusDC;
-  static int32_t phaseShiftedSampleVminusDC;
-  static int32_t filtV_div4;
-  static int32_t filtI_div4;
-  static int32_t instP;
+    static int32_t sampleIminusDC;
+    static int32_t phaseShiftedSampleVminusDC;
+    static int32_t filtV_div4;
+    static int32_t filtI_div4;
+    static int32_t instP;
 
-  // remove most of the DC offset from the current sample (the precise value does not matter)
-  sampleIminusDC = ((int32_t)(rawSample - l_DCoffset_I_nom)) << 8;
-  //
-  // phase-shift the voltage waveform so that it aligns with the grid current waveform
-  phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) << p_phaseCal) >> 8);
-  //
-  // calculate the "real power" in this sample pair and add to the accumulated sum
-  filtV_div4 = phaseShiftedSampleVminusDC >> 2; // reduce to 16-bits (now x64, or 2^6)
-  filtI_div4 = sampleIminusDC >> 2;             // reduce to 16-bits (now x64, or 2^6)
-  instP = filtV_div4 * filtI_div4;              // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                                 // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+    // remove most of the DC offset from the current sample (the precise value does not matter)
+    sampleIminusDC = ((int32_t)(rawSample - l_DCoffset_I_nom)) << 8;
+    //
+    // phase-shift the voltage waveform so that it aligns with the grid current waveform
+    phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) << p_phaseCal) >> 8);
+    //
+    // calculate the "real power" in this sample pair and add to the accumulated sum
+    filtV_div4 = phaseShiftedSampleVminusDC >> 2; // reduce to 16-bits (now x64, or 2^6)
+    filtI_div4 = sampleIminusDC >> 2;             // reduce to 16-bits (now x64, or 2^6)
+    instP = filtV_div4 * filtI_div4;              // 32-bits (now x4096, or 2^12)
+    instP >>= 12;                                 // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
-  l_sumP[phase] += instP;               // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
-  l_sumP_atSupplyPoint[phase] += instP; // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+    l_sumP[phase] += instP;               // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+    l_sumP_atSupplyPoint[phase] += instP; // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
 }
 
 /**
  * @brief Process the current voltage raw sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
- * 
+ *
  * @ingroup TimeCritical
  */
 void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
 {
-  processPolarity(phase, rawSample);
-  confirmPolarity(phase);
-  //
-  processRawSamples(phase); // deals with aspects that only occur at particular stages of each mains cycle
-  //
-  processVoltage(phase);
+    processPolarity(phase, rawSample);
+    confirmPolarity(phase);
+    //
+    processRawSamples(phase); // deals with aspects that only occur at particular stages of each mains cycle
+    //
+    processVoltage(phase);
 
-  if (phase == 0)
-    ++i_sampleSetsDuringThisDatalogPeriod;
+    if (phase == 0)
+        ++i_sampleSetsDuringThisDatalogPeriod;
 }
 
 /**
  * @brief Process with the polarity for the actual voltage sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
  * @param rawSample the current sample for the specified phase
- * 
+ *
  * @ingroup TimeCritical
  */
 void processPolarity(const uint8_t phase, const int16_t rawSample)
 {
-  l_lastSampleVminusDC[phase] = l_sampleVminusDC[phase]; // required for phaseCal algorithm
-  // remove DC offset from each raw voltage sample by subtracting the accurate value
-  // as determined by its associated LP filter.
-  l_sampleVminusDC[phase] = (((int32_t)rawSample) << 8) - l_DCoffset_V[phase];
-  polarityOfMostRecentSampleV[phase] = (l_sampleVminusDC[phase] > 0) ? Polarities::POSITIVE : Polarities::NEGATIVE;
+    l_lastSampleVminusDC[phase] = l_sampleVminusDC[phase]; // required for phaseCal algorithm
+    // remove DC offset from each raw voltage sample by subtracting the accurate value
+    // as determined by its associated LP filter.
+    l_sampleVminusDC[phase] = (((int32_t)rawSample) << 8) - l_DCoffset_V[phase];
+    polarityOfMostRecentSampleV[phase] = (l_sampleVminusDC[phase] > 0) ? Polarities::POSITIVE : Polarities::NEGATIVE;
 }
 
 /**
  * @brief This routine prevents a zero-crossing point from being declared until a certain number
  *        of consecutive samples in the 'other' half of the waveform have been encountered.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void confirmPolarity(const uint8_t phase)
 {
-  static uint8_t count[NO_OF_PHASES]{};
+    static uint8_t count[NO_OF_PHASES]{};
 
-  if (polarityOfMostRecentSampleV[phase] != polarityConfirmedOfLastSampleV[phase])
-    ++count[phase];
-  else
-    count[phase] = 0;
+    if (polarityOfMostRecentSampleV[phase] != polarityConfirmedOfLastSampleV[phase])
+        ++count[phase];
+    else
+        count[phase] = 0;
 
-  if (count[phase] > PERSISTENCE_FOR_POLARITY_CHANGE)
-  {
-    count[phase] = 0;
-    polarityConfirmed[phase] = polarityOfMostRecentSampleV[phase];
-  }
+    if (count[phase] > PERSISTENCE_FOR_POLARITY_CHANGE)
+    {
+        count[phase] = 0;
+        polarityConfirmed[phase] = polarityOfMostRecentSampleV[phase];
+    }
 }
 
 /**
  * @brief Process the calculation for the current voltage sample for the specific phase
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processVoltage(const uint8_t phase)
 {
-  static int32_t filtV_div4;
-  static int32_t inst_Vsquared;
+    static int32_t filtV_div4;
+    static int32_t inst_Vsquared;
 
-  // for the Vrms calculation (for datalogging only)
-  filtV_div4 = l_sampleVminusDC[phase] >> 2; // reduce to 16-bits (now x64, or 2^6)
-  inst_Vsquared = filtV_div4 * filtV_div4;   // 32-bits (now x4096, or 2^12)
-  inst_Vsquared >>= 12;                      // scaling is now x1 (V_ADC x I_ADC)
-  l_sum_Vsquared[phase] += inst_Vsquared;    // cumulative V^2 (V_ADC x I_ADC)
-  //
-  // store items for use during next loop
-  l_cumVdeltasThisCycle[phase] += l_sampleVminusDC[phase];          // for use with LP filter
-  polarityConfirmedOfLastSampleV[phase] = polarityConfirmed[phase]; // for identification of half cycle boundaries
-  ++n_samplesDuringThisMainsCycle[phase];                           // for real power calculations
+    // for the Vrms calculation (for datalogging only)
+    filtV_div4 = l_sampleVminusDC[phase] >> 2; // reduce to 16-bits (now x64, or 2^6)
+    inst_Vsquared = filtV_div4 * filtV_div4;   // 32-bits (now x4096, or 2^12)
+    inst_Vsquared >>= 12;                      // scaling is now x1 (V_ADC x I_ADC)
+    l_sum_Vsquared[phase] += inst_Vsquared;    // cumulative V^2 (V_ADC x I_ADC)
+    //
+    // store items for use during next loop
+    l_cumVdeltasThisCycle[phase] += l_sampleVminusDC[phase];          // for use with LP filter
+    polarityConfirmedOfLastSampleV[phase] = polarityConfirmed[phase]; // for identification of half cycle boundaries
+    ++n_samplesDuringThisMainsCycle[phase];                           // for real power calculations
 }
 
 /**
  * @brief This routine is called by the ISR when a pair of V & I sample becomes available.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processRawSamples(const uint8_t phase)
 {
-  // The raw V and I samples are processed in "phase pairs"
-  if (Polarities::POSITIVE == polarityConfirmed[phase])
-  {
-    // the polarity of this sample is positive
-    if (Polarities::POSITIVE != polarityConfirmedOfLastSampleV[phase])
+    // The raw V and I samples are processed in "phase pairs"
+    if (Polarities::POSITIVE == polarityConfirmed[phase])
     {
-      if (beyondStartUpPeriod)
-      {
-        // This is the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
-        processPlusHalfCycle(phase);
-      }
-      else
-        processStartUp(phase);
-    }
+        // the polarity of this sample is positive
+        if (Polarities::POSITIVE != polarityConfirmedOfLastSampleV[phase])
+        {
+            if (beyondStartUpPeriod)
+            {
+                // This is the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
+                processPlusHalfCycle(phase);
+            }
+            else
+                processStartUp(phase);
+        }
 
-    // still processing samples where the voltage is POSITIVE ...
-    // check to see whether the trigger device can now be reliably armed
-    if (beyondStartUpPeriod && (0 == phase) && (2 == n_samplesDuringThisMainsCycle[0])) // lower value for larger sample set
-    {
-      // This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0.
-      processStartNewCycle();
+        // still processing samples where the voltage is POSITIVE ...
+        // check to see whether the trigger device can now be reliably armed
+        if (beyondStartUpPeriod && (0 == phase) && (2 == n_samplesDuringThisMainsCycle[0])) // lower value for larger sample set
+        {
+            // This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0.
+            processStartNewCycle();
+        }
     }
-  }
-  else
-  {
-    // the polarity of this sample is negative
-    if (Polarities::NEGATIVE != polarityConfirmedOfLastSampleV[phase])
+    else
     {
-      // This is the start of a new -ve half cycle (just after the zero-crossing point)
-      processMinusHalfCycle(phase);
+        // the polarity of this sample is negative
+        if (Polarities::NEGATIVE != polarityConfirmedOfLastSampleV[phase])
+        {
+            // This is the start of a new -ve half cycle (just after the zero-crossing point)
+            processMinusHalfCycle(phase);
+        }
     }
-  }
 }
 // end of processRawSamples()
 
 /**
  * @brief Process the startup period for the router.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processStartUp(const uint8_t phase)
 {
-  // wait until the DC-blocking filters have had time to settle
-  if (millis() <= (initialDelay + startUpPeriod))
-    return; // still settling, do nothing
+    // wait until the DC-blocking filters have had time to settle
+    if (millis() <= (initialDelay + startUpPeriod))
+        return; // still settling, do nothing
 
-  // the DC-blocking filters have had time to settle
-  beyondStartUpPeriod = true;
-  l_sumP[phase] = 0;
-  l_sumP_atSupplyPoint[phase] = 0;
-  n_samplesDuringThisMainsCycle[phase] = 0;
-  i_sampleSetsDuringThisDatalogPeriod = 0;
+    // the DC-blocking filters have had time to settle
+    beyondStartUpPeriod = true;
+    l_sumP[phase] = 0;
+    l_sumP_atSupplyPoint[phase] = 0;
+    n_samplesDuringThisMainsCycle[phase] = 0;
+    i_sampleSetsDuringThisDatalogPeriod = 0;
 
-  n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
-  // can't say "Go!" here 'cos we're in an ISR!
+    n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
+    // can't say "Go!" here 'cos we're in an ISR!
 }
 
 /**
@@ -809,239 +822,243 @@ void processStartUp(const uint8_t phase)
  *          - change the LOGICAL load states as necessary to maintain the energy level
  *          - update the PHYSICAL load states according to the logical -> physical mapping
  *          - update the driver lines for each of the loads.
- * 
+ *
  * @ingroup TimeCritical
  */
 void processStartNewCycle()
 {
-  // Restrictions apply for the period immediately after a load has been switched.
-  // Here the b_recentTransition flag is checked and updated as necessary.
-  // if (b_recentTransition)
-  //   b_recentTransition = (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
-  // for optimization, the next line is equivalent to the two lines above
-  b_recentTransition &= (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
+    // Restrictions apply for the period immediately after a load has been switched.
+    // Here the b_recentTransition flag is checked and updated as necessary.
+    // if (b_recentTransition)
+    //   b_recentTransition = (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
+    // for optimization, the next line is equivalent to the two lines above
+    b_recentTransition &= (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
 
-  if (f_energyInBucket_main > f_midPointOfEnergyBucket_main)
-  {
-    // the energy state is in the upper half of the working range
-    f_lowerEnergyThreshold = f_lowerThreshold_default; // reset the "opposite" threshold
-    if (f_energyInBucket_main > f_upperEnergyThreshold)
+    if (f_energyInBucket_main > f_midPointOfEnergyBucket_main)
     {
-      // Because the energy level is high, some action may be required
-      proceedHighEnergyLevel();
+        // the energy state is in the upper half of the working range
+        f_lowerEnergyThreshold = f_lowerThreshold_default; // reset the "opposite" threshold
+        if (f_energyInBucket_main > f_upperEnergyThreshold)
+        {
+            // Because the energy level is high, some action may be required
+            proceedHighEnergyLevel();
+        }
     }
-  }
-  else
-  {
-    // the energy state is in the lower half of the working range
-    f_upperEnergyThreshold = f_upperThreshold_default; // reset the "opposite" threshold
-    if (f_energyInBucket_main < f_lowerEnergyThreshold)
+    else
     {
-      // Because the energy level is low, some action may be required
-      proceedLowEnergyLevel();
+        // the energy state is in the lower half of the working range
+        f_upperEnergyThreshold = f_upperThreshold_default; // reset the "opposite" threshold
+        if (f_energyInBucket_main < f_lowerEnergyThreshold)
+        {
+            // Because the energy level is low, some action may be required
+            proceedLowEnergyLevel();
+        }
     }
-  }
 
-  updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
+    updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
 
-  updatePortsStates(); // update the control ports for each of the physical loads
+    updatePortsStates(); // update the control ports for each of the physical loads
 
-  // Now that the energy-related decisions have been taken, min and max limits can now
-  // be applied  to the level of the energy bucket. This is to ensure correct operation
-  // when conditions change, i.e. when import changes to export, and vice versa.
-  //
-  if (f_energyInBucket_main > f_capacityOfEnergyBucket_main)
-    f_energyInBucket_main = f_capacityOfEnergyBucket_main;
-  else if (f_energyInBucket_main < 0)
-    f_energyInBucket_main = 0;
+    // Now that the energy-related decisions have been taken, min and max limits can now
+    // be applied  to the level of the energy bucket. This is to ensure correct operation
+    // when conditions change, i.e. when import changes to export, and vice versa.
+    //
+    if (f_energyInBucket_main > f_capacityOfEnergyBucket_main)
+        f_energyInBucket_main = f_capacityOfEnergyBucket_main;
+    else if (f_energyInBucket_main < 0)
+        f_energyInBucket_main = 0;
 }
 
 /**
  * @brief Process the start of a new -ve half cycle, for this phase, just after the zero-crossing point.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- * 
+ *
  * @ingroup TimeCritical
  */
 void processMinusHalfCycle(const uint8_t phase)
 {
-  // This is a convenient point to update the Low Pass Filter for removing the DC
-  // component from the phase that is being processed.
-  // The portion which is fed back into the integrator is approximately one percent
-  // of the average offset of all the SampleVs in the previous mains cycle.
-  //
-  l_DCoffset_V[phase] += (l_cumVdeltasThisCycle[phase] >> 12);
-  l_cumVdeltasThisCycle[phase] = 0;
+    // This is a convenient point to update the Low Pass Filter for removing the DC
+    // component from the phase that is being processed.
+    // The portion which is fed back into the integrator is approximately one percent
+    // of the average offset of all the SampleVs in the previous mains cycle.
+    //
+    l_DCoffset_V[phase] += (l_cumVdeltasThisCycle[phase] >> 12);
+    l_cumVdeltasThisCycle[phase] = 0;
 
-  // To ensure that this LP filter will always start up correctly when 240V AC is
-  // available, its output value needs to be prevented from drifting beyond the likely range
-  // of the voltage signal.
-  //
-  if (l_DCoffset_V[phase] < l_DCoffset_V_min)
-    l_DCoffset_V[phase] = l_DCoffset_V_min;
-  else if (l_DCoffset_V[phase] > l_DCoffset_V_max)
-    l_DCoffset_V[phase] = l_DCoffset_V_max;
+    // To ensure that this LP filter will always start up correctly when 240V AC is
+    // available, its output value needs to be prevented from drifting beyond the likely range
+    // of the voltage signal.
+    //
+    if (l_DCoffset_V[phase] < l_DCoffset_V_min)
+        l_DCoffset_V[phase] = l_DCoffset_V_min;
+    else if (l_DCoffset_V[phase] > l_DCoffset_V_max)
+        l_DCoffset_V[phase] = l_DCoffset_V_max;
 }
 
 /**
  * @brief Retrieve the next load that could be added (be aware of the order)
- * 
- * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure 
- * 
+ *
+ * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure
+ *
  * @ingroup TimeCritical
  */
 uint8_t nextLogicalLoadToBeAdded()
 {
-  for (uint8_t index = 0; index < NO_OF_DUMPLOADS; ++index)
-    if (0x00 == (loadPrioritiesAndState[index] & loadStateOnBit))
-      return (index);
+    for (uint8_t index = 0; index < NO_OF_DUMPLOADS / 2; ++index)
+        if (0x00 == (loadPrioritiesAndState[index] & loadStateOnBit))
+            return index;
 
-  return (NO_OF_DUMPLOADS);
+    return NO_OF_DUMPLOADS;
 }
 
 /**
  * @brief Retrieve the next load that could be removed (be aware of the reverse-order)
- * 
- * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure 
- * 
+ *
+ * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure
+ *
  * @ingroup TimeCritical
  */
 uint8_t nextLogicalLoadToBeRemoved()
 {
-  uint8_t index{NO_OF_DUMPLOADS};
-  do
-  {
-    --index;
-    if (loadPrioritiesAndState[index] & loadStateOnBit)
-      return (index);
-  } while (0 != index);
+    uint8_t index{NO_OF_DUMPLOADS / 2};
+    do
+    {
+        --index;
+        if (loadPrioritiesAndState[index] & loadStateOnBit)
+            return index;
+    } while (0 != index);
 
-  return (NO_OF_DUMPLOADS);
+    return NO_OF_DUMPLOADS;
 }
 
 /**
  * @brief Process the case of high energy level, some action may be required.
- * 
+ *
  * @ingroup TimeCritical
  */
 void proceedHighEnergyLevel()
 {
-  bool bOK_toAddLoad{true};
-  auto tempLoad{nextLogicalLoadToBeAdded()};
+    bool bOK_toAddLoad{true};
+    auto tempLoad{nextLogicalLoadToBeAdded()};
 
-  if (tempLoad >= NO_OF_DUMPLOADS)
-    return;
+    if (tempLoad >= NO_OF_DUMPLOADS)
+        return;
 
-  // a load which is now OFF has been identified for potentially being switched ON
-  if (b_recentTransition)
-  {
-    // During the post-transition period, any increase in the energy level is noted.
-    f_upperEnergyThreshold = f_energyInBucket_main;
+    // a load which is now OFF has been identified for potentially being switched ON
+    if (b_recentTransition)
+    {
+        // During the post-transition period, any increase in the energy level is noted.
+        f_upperEnergyThreshold = f_energyInBucket_main;
 
-    // the energy thresholds must remain within range
-    if (f_upperEnergyThreshold > f_capacityOfEnergyBucket_main)
-      f_upperEnergyThreshold = f_capacityOfEnergyBucket_main;
+        // the energy thresholds must remain within range
+        if (f_upperEnergyThreshold > f_capacityOfEnergyBucket_main)
+            f_upperEnergyThreshold = f_capacityOfEnergyBucket_main;
 
-    // Only the active load may be switched during this period. All other loads must
-    // wait until the recent transition has had sufficient opportunity to take effect.
-    bOK_toAddLoad = (tempLoad == activeLoad);
-  }
+        // Only the active load may be switched during this period. All other loads must
+        // wait until the recent transition has had sufficient opportunity to take effect.
+        bOK_toAddLoad = (tempLoad == activeLoad);
+    }
 
-  if (bOK_toAddLoad)
-  {
-    loadPrioritiesAndState[tempLoad] |= loadStateOnBit;
-    activeLoad = tempLoad;
-    postTransitionCount = 0;
-    b_recentTransition = true;
-  }
+    if (bOK_toAddLoad)
+    {
+        // special case, we add pairs of loads
+        loadPrioritiesAndState[tempLoad] |= loadStateOnBit;
+        loadPrioritiesAndState[tempLoad + (NO_OF_DUMPLOADS / 2)] |= loadStateOnBit;
+        activeLoad = tempLoad;
+        postTransitionCount = 0;
+        b_recentTransition = true;
+    }
 }
 
 /**
  * @brief Process the case of low energy level, some action may be required.
- * 
+ *
  * @ingroup TimeCritical
  */
 void proceedLowEnergyLevel()
 {
-  bool bOK_toRemoveLoad{true};
-  auto tempLoad{nextLogicalLoadToBeRemoved()};
+    bool bOK_toRemoveLoad{true};
+    auto tempLoad{nextLogicalLoadToBeRemoved()};
 
-  if (tempLoad >= NO_OF_DUMPLOADS)
-    return;
+    if (tempLoad >= NO_OF_DUMPLOADS)
+        return;
 
-  // a load which is now ON has been identified for potentially being switched OFF
-  if (b_recentTransition)
-  {
-    // During the post-transition period, any decrease in the energy level is noted.
-    f_lowerEnergyThreshold = f_energyInBucket_main;
+    // a load which is now ON has been identified for potentially being switched OFF
+    if (b_recentTransition)
+    {
+        // During the post-transition period, any decrease in the energy level is noted.
+        f_lowerEnergyThreshold = f_energyInBucket_main;
 
-    // the energy thresholds must remain within range
-    if (f_lowerEnergyThreshold < 0)
-      f_lowerEnergyThreshold = 0;
+        // the energy thresholds must remain within range
+        if (f_lowerEnergyThreshold < 0)
+            f_lowerEnergyThreshold = 0;
 
-    // Only the active load may be switched during this period. All other loads must
-    // wait until the recent transition has had sufficient opportunity to take effect.
-    bOK_toRemoveLoad = (tempLoad == activeLoad);
-  }
+        // Only the active load may be switched during this period. All other loads must
+        // wait until the recent transition has had sufficient opportunity to take effect.
+        bOK_toRemoveLoad = (tempLoad == activeLoad);
+    }
 
-  if (bOK_toRemoveLoad)
-  {
-    loadPrioritiesAndState[tempLoad] &= loadStateMask;
-    activeLoad = tempLoad;
-    postTransitionCount = 0;
-    b_recentTransition = true;
-  }
+    if (bOK_toRemoveLoad)
+    {
+        // special case, we remove pairs of loads
+        loadPrioritiesAndState[tempLoad] &= loadStateMask;
+        loadPrioritiesAndState[tempLoad + (NO_OF_DUMPLOADS / 2)] &= loadStateMask;
+        activeLoad = tempLoad;
+        postTransitionCount = 0;
+        b_recentTransition = true;
+    }
 }
 
 /**
- * @brief Process the lastest contribution after each phase specific new cycle
+ * @brief Process the latest contribution after each phase specific new cycle
  *        additional processing is performed after each main cycle based on phase 0.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- *  
+ *
  * @ingroup TimeCritical
  */
 void processLatestContribution(const uint8_t phase)
 {
-  // for efficiency, the energy scale is Joules * SUPPLY_FREQUENCY
-  // add the latest energy contribution to the main energy accumulator
-  f_energyInBucket_main += (l_sumP[phase] / n_samplesDuringThisMainsCycle[phase]) * f_powerCal[phase];
+    // for efficiency, the energy scale is Joules * SUPPLY_FREQUENCY
+    // add the latest energy contribution to the main energy accumulator
+    f_energyInBucket_main += (l_sumP[phase] / n_samplesDuringThisMainsCycle[phase]) * f_powerCal[phase];
 
-  // apply any adjustment that is required.
-  if (0 == phase)
-  {
-    b_newMainsCycle = true;                            //  a 50 Hz 'tick' for use by the main code
-    f_energyInBucket_main -= REQUIRED_EXPORT_IN_WATTS; // energy scale is Joules x 50
-  }
-  // Applying max and min limits to the main accumulator's level
-  // is deferred until after the energy related decisions have been taken
-  //
+    // apply any adjustment that is required.
+    if (0 == phase)
+    {
+        b_newMainsCycle = true;                            // a 50 Hz 'tick' for use by the main code
+        f_energyInBucket_main -= REQUIRED_EXPORT_IN_WATTS; // energy scale is Joules x 50
+    }
+    // Applying max and min limits to the main accumulator's level
+    // is deferred until after the energy related decisions have been taken
+    //
 }
 
 /**
  * @brief Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
- * 
+ *
  * @param phase the phase number [0..NO_OF_PHASES[
- *  
+ *
  * @ingroup TimeCritical
  */
 void processPlusHalfCycle(const uint8_t phase)
 {
-  processLatestContribution(phase); // runs at 6.6 ms intervals
+    processLatestContribution(phase); // runs at 6.6 ms intervals
 
-  // A performance check to monitor and display the minimum number of sets of
-  // ADC samples per mains cycle, the expected number being 20ms / (104us * 6) = 32.05
-  //
-  if (0 == phase)
-  {
-    if (n_samplesDuringThisMainsCycle[phase] < n_lowestNoOfSampleSetsPerMainsCycle)
-      n_lowestNoOfSampleSetsPerMainsCycle = n_samplesDuringThisMainsCycle[phase];
+    // A performance check to monitor and display the minimum number of sets of
+    // ADC samples per mains cycle, the expected number being 20ms / (104us * 6) = 32.05
+    //
+    if (0 == phase)
+    {
+        if (n_samplesDuringThisMainsCycle[phase] < n_lowestNoOfSampleSetsPerMainsCycle)
+            n_lowestNoOfSampleSetsPerMainsCycle = n_samplesDuringThisMainsCycle[phase];
 
-    processDataLogging();
-  }
+        processDataLogging();
+    }
 
-  l_sumP[phase] = 0;
-  n_samplesDuringThisMainsCycle[phase] = 0;
+    l_sumP[phase] = 0;
+    n_samplesDuringThisMainsCycle[phase] = 0;
 }
 
 /**
@@ -1049,48 +1066,52 @@ void processPlusHalfCycle(const uint8_t phase)
  * @details The array, logicalLoadState[], contains the on/off state of all logical loads, with
  *          element 0 being for the one with the highest priority. The array,
  *          physicalLoadState[], contains the on/off state of all physical loads.
- * 
+ *
  *          The lowest 7 bits of element is the load number as defined in 'physicalLoadState'.
  *          The highest bit of each 'loadPrioritiesAndState' determines if the load is ON or OFF.
  *          The order of each element in 'loadPrioritiesAndState' determines the load priority.
  *          'loadPrioritiesAndState[i] & loadStateMask' will extract the load number at position 'i'
  *          'loadPrioritiesAndState[i] & loadStateOnBit' will extract the load state at position 'i'
- * 
+ *
  *          Any other mapping relationships could be configured here.
- * 
+ *
  * @ingroup TimeCritical
  */
 void updatePhysicalLoadStates()
 {
-  uint8_t i;
+    uint8_t i;
 
 #ifdef PRIORITY_ROTATION
-  if (b_reOrderLoads)
-  {
-    const auto temp{loadPrioritiesAndState[0]};
-    for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
-      loadPrioritiesAndState[i] = loadPrioritiesAndState[i + 1];
+    if (b_reOrderLoads)
+    {
+        const auto temp1{loadPrioritiesAndState[0]};
+        const auto temp2{loadPrioritiesAndState[NO_OF_DUMPLOADS / 2]};
+        // for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+        for (i = 0; i < (NO_OF_DUMPLOADS / 2) - 1; ++i)
+        {
+            loadPrioritiesAndState[i] = loadPrioritiesAndState[i + 1];
+            loadPrioritiesAndState[i + NO_OF_DUMPLOADS / 2] = loadPrioritiesAndState[i + NO_OF_DUMPLOADS / 2 + 1];
+        }
+        loadPrioritiesAndState[i] = temp1;
+        loadPrioritiesAndState[i + NO_OF_DUMPLOADS / 2] = temp2;
 
-    loadPrioritiesAndState[i] = temp;
-
-    b_reOrderLoads = false;
-  }
+        b_reOrderLoads = false;
+    }
 
 #ifndef OFF_PEAK_TARIFF
-  if (0x00 == (loadPrioritiesAndState[0] & loadStateOnBit))
-    ++absenceOfDivertedEnergyCount;
-  else
-    absenceOfDivertedEnergyCount = 0;
+    if (0x00 == (loadPrioritiesAndState[0] & loadStateOnBit))
+        ++absenceOfDivertedEnergyCount;
+    else
+        absenceOfDivertedEnergyCount = 0;
 #endif // OFF_PEAK_TARIFF
 
 #endif // PRIORITY_ROTATION
 
-  for (i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    const auto iLoad{loadPrioritiesAndState[i] & loadStateMask};
-    physicalLoadState[iLoad] =
-        (loadPrioritiesAndState[i] & loadStateOnBit) || b_forceLoadOn[iLoad] ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
-  }
+    for (i = 0; i < NO_OF_DUMPLOADS; ++i)
+    {
+        const auto iLoad{loadPrioritiesAndState[i] & loadStateMask};
+        physicalLoadState[iLoad] = (loadPrioritiesAndState[i] & loadStateOnBit) || b_forceLoadOn[iLoad] ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
+    }
 }
 
 /**
@@ -1098,40 +1119,40 @@ void updatePhysicalLoadStates()
  * @details At the end of each datalogging period, copies are made of the relevant variables
  *          for use by the main code. These variable are then reset for use during the next
  *          datalogging period.
- * 
+ *
  * @ingroup TimeCritical
  */
 void processDataLogging()
 {
-  if (++n_cycleCountForDatalogging < DATALOG_PERIOD_IN_MAINS_CYCLES)
-    return; // data logging period not yet reached
+    if (++n_cycleCountForDatalogging < DATALOG_PERIOD_IN_MAINS_CYCLES)
+        return; // data logging period not yet reached
 
-  n_cycleCountForDatalogging = 0;
+    n_cycleCountForDatalogging = 0;
 
-  for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    copyOf_sumP_atSupplyPoint[phase] = l_sumP_atSupplyPoint[phase];
-    l_sumP_atSupplyPoint[phase] = 0;
+    for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
+    {
+        copyOf_sumP_atSupplyPoint[phase] = l_sumP_atSupplyPoint[phase];
+        l_sumP_atSupplyPoint[phase] = 0;
 
-    copyOf_sum_Vsquared[phase] = l_sum_Vsquared[phase];
-    l_sum_Vsquared[phase] = 0;
-  }
+        copyOf_sum_Vsquared[phase] = l_sum_Vsquared[phase];
+        l_sum_Vsquared[phase] = 0;
+    }
 
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    copyOf_countLoadON[i] = countLoadON[i];
-    countLoadON[i] = 0;
-  }
+    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+    {
+        copyOf_countLoadON[i] = countLoadON[i];
+        countLoadON[i] = 0;
+    }
 
-  copyOf_sampleSetsDuringThisDatalogPeriod = i_sampleSetsDuringThisDatalogPeriod; // (for diags only)
-  copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
-  copyOf_energyInBucket_main = f_energyInBucket_main;                             // (for diags only)
+    copyOf_sampleSetsDuringThisDatalogPeriod = i_sampleSetsDuringThisDatalogPeriod; // (for diags only)
+    copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
+    copyOf_energyInBucket_main = f_energyInBucket_main;                             // (for diags only)
 
-  n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
-  i_sampleSetsDuringThisDatalogPeriod = 0;
+    n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
+    i_sampleSetsDuringThisDatalogPeriod = 0;
 
-  // signal the main processor that logging data are available
-  b_datalogEventPending = true;
+    // signal the main processor that logging data are available
+    b_datalogEventPending = true;
 }
 /* End of helper functions which are used by the ISR
    -------------------------------------------------
@@ -1139,145 +1160,145 @@ void processDataLogging()
 
 /**
  * @brief Prints data logs to the Serial output in text or json format
- * 
+ *
  * @param bOffPeak true if off-peak tariff is active
  */
 void sendResults(bool bOffPeak)
 {
-  uint8_t phase;
+    uint8_t phase;
 
 #ifdef RF_PRESENT
-  send_rf_data(); // *SEND RF DATA*
+    send_rf_data(); // *SEND RF DATA*
 #endif
 
 #if defined SERIALOUT && !defined EMONESP
-  Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
-  Serial.print(F(", P:"));
-  Serial.print(tx_data.power);
+    Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
+    Serial.print(F(", P:"));
+    Serial.print(tx_data.power);
 
-  for (phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    Serial.print(F(", P"));
-    Serial.print(phase + 1);
-    Serial.print(F(":"));
-    Serial.print(tx_data.power_L[phase]);
-  }
-  for (phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    Serial.print(F(", V"));
-    Serial.print(phase + 1);
-    Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
-  }
+    for (phase = 0; phase < NO_OF_PHASES; ++phase)
+    {
+        Serial.print(F(", P"));
+        Serial.print(phase + 1);
+        Serial.print(F(":"));
+        Serial.print(tx_data.power_L[phase]);
+    }
+    for (phase = 0; phase < NO_OF_PHASES; ++phase)
+    {
+        Serial.print(F(", V"));
+        Serial.print(phase + 1);
+        Serial.print(F(":"));
+        Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
+    }
 
 #ifdef TEMP_SENSOR
-  Serial.print(", temperature ");
-  Serial.print((float)tx_data.temperature_x100 / 100);
+    Serial.print(", temperature ");
+    Serial.print((float)tx_data.temperature_x100 / 100);
 #endif
-  Serial.println(F(")"));
+    Serial.println(F(")"));
 #endif // if defined SERIALOUT && !defined EMONESP
 
 #if defined EMONESP && !defined SERIALOUT
-  StaticJsonDocument<200> doc;
-  char strPhase[]{"L0"};
-  char strLoad[]{"LOAD_0"};
+    StaticJsonDocument<200> doc;
+    char strPhase[]{"L0"};
+    char strLoad[]{"LOAD_0"};
 
-  for (phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    doc[strPhase] = tx_data.power_L[phase];
-    ++strPhase[1];
-  }
+    for (phase = 0; phase < NO_OF_PHASES; ++phase)
+    {
+        doc[strPhase] = tx_data.power_L[phase];
+        ++strPhase[1];
+    }
 
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    doc[strLoad] = (100 * copyOf_countLoadON[i]) / DATALOG_PERIOD_IN_MAINS_CYCLES;
-    ++strLoad[5];
-  }
+    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+    {
+        doc[strLoad] = (100 * copyOf_countLoadON[i]) / DATALOG_PERIOD_IN_MAINS_CYCLES;
+        ++strLoad[5];
+    }
 
 #ifdef OFF_PEAK_TARIFF
-  doc["OFF_PEAK_TARIFF"] = bOffPeak ? true : false;
+    doc["OFF_PEAK_TARIFF"] = bOffPeak ? true : false;
 #endif
 
-  // Generate the minified JSON and send it to the Serial port.
-  //
-  serializeJson(doc, Serial);
+    // Generate the minified JSON and send it to the Serial port.
+    //
+    serializeJson(doc, Serial);
 
-  // Start a new line
-  Serial.println();
-  delay(50);
+    // Start a new line
+    Serial.println();
+    delay(50);
 #endif // if defined EMONESP && !defined SERIALOUT
 
 #if defined SERIALPRINT && !defined EMONESP
-  Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
-  Serial.print(F(", P:"));
-  Serial.print(tx_data.power);
+    Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
+    Serial.print(F(", P:"));
+    Serial.print(tx_data.power);
 
-  for (phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    Serial.print(F(", P"));
-    Serial.print(phase + 1);
-    Serial.print(F(":"));
-    Serial.print(tx_data.power_L[phase]);
-  }
-  for (phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    Serial.print(F(", V"));
-    Serial.print(phase + 1);
-    Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
-  }
+    for (phase = 0; phase < NO_OF_PHASES; ++phase)
+    {
+        Serial.print(F(", P"));
+        Serial.print(phase + 1);
+        Serial.print(F(":"));
+        Serial.print(tx_data.power_L[phase]);
+    }
+    for (phase = 0; phase < NO_OF_PHASES; ++phase)
+    {
+        Serial.print(F(", V"));
+        Serial.print(phase + 1);
+        Serial.print(F(":"));
+        Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
+    }
 
 #ifdef TEMP_SENSOR
-  Serial.print(", temperature ");
-  Serial.print((float)tx_data.temperature_x100 / 100);
+    Serial.print(", temperature ");
+    Serial.print((float)tx_data.temperature_x100 / 100);
 #endif // TEMP_SENSOR
-  Serial.print(F(", (minSampleSets/MC "));
-  Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
-  Serial.print(F(", #ofSampleSets "));
-  Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
+    Serial.print(F(", (minSampleSets/MC "));
+    Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
+    Serial.print(F(", #ofSampleSets "));
+    Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
 #ifndef OFF_PEAK_TARIFF
 #ifdef PRIORITY_ROTATION
-  Serial.print(F(", NoED "));
-  Serial.print(absenceOfDivertedEnergyCount);
+    Serial.print(F(", NoED "));
+    Serial.print(absenceOfDivertedEnergyCount);
 #endif // PRIORITY_ROTATION
 #endif // OFF_PEAK_TARIFF
-  Serial.println(F(")"));
+    Serial.println(F(")"));
 #endif // if defined SERIALPRINT && !defined EMONESP
 }
 
 /**
  * @brief Prints the load priorities to the Serial output.
- * 
+ *
  */
 void logLoadPriorities()
 {
 #ifdef DEBUGGING
-  Serial.println(F("loadPriority: "));
-  for (const auto loadPrioAndState : loadPrioritiesAndState)
-  {
-    Serial.print(F("\tload "));
-    Serial.println(loadPrioAndState);
-  }
+    Serial.println(F("loadPriority: "));
+    for (const auto loadPrioAndState : loadPrioritiesAndState)
+    {
+        Serial.print(F("\tload "));
+        Serial.println(loadPrioAndState);
+    }
 #endif
 }
 
 /**
  * @brief This function set all 3 loads to full power.
- * 
+ *
  * @return true if loads are forced
- * @return false 
+ * @return false
  */
 bool forceFullPower()
 {
 #ifdef FORCE_PIN_PRESENT
-  const uint8_t pinState{!!(PIND & bit(forcePin))};
+    const uint8_t pinState{!!(PIND & bit(forcePin))};
 
-  for (auto &bForceLoad : b_forceLoadOn)
-    bForceLoad = !pinState;
+    for (auto &bForceLoad : b_forceLoadOn)
+        bForceLoad = !pinState;
 
-  return !pinState;
+    return !pinState;
 #else
-  return false;
+    return false;
 #endif
 }
 
@@ -1285,7 +1306,7 @@ bool forceFullPower()
  * @brief This function changes the value of the load priorities.
  * @details Since we don't have access to a clock, we detect the offPeak start from the main energy meter.
  *          Additionally, when off-peak period starts, we rotate the load priorities for the next day.
- * 
+ *
  * @param currentTemperature_x100 current temperature x 100 (default to 0 if deactivated)
  * @return true if off-peak tariff is active
  * @return false if on-peak tariff is active
@@ -1293,272 +1314,272 @@ bool forceFullPower()
 bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
 {
 #ifdef OFF_PEAK_TARIFF
-  uint8_t i;
-  static constexpr int16_t iTemperatureThreshold_x100{uiTemperature * 100};
-  static uint8_t pinOffPeakState{HIGH};
-  const uint8_t pinNewState{!!(PIND & bit(offPeakForcePin))};
+    uint8_t i;
+    static constexpr int16_t iTemperatureThreshold_x100{uiTemperature * 100};
+    static uint8_t pinOffPeakState{HIGH};
+    const uint8_t pinNewState{!!(PIND & bit(offPeakForcePin))};
 
-  if (pinOffPeakState && !pinNewState)
-  {
+    if (pinOffPeakState && !pinNewState)
+    {
 // we start off-peak period
 #ifndef NO_OUTPUT
-    Serial.println(F("Change to off-peak period!"));
+        Serial.println(F("Change to off-peak period!"));
 #endif // NO_OUTPUT
-    ul_TimeOffPeak = millis();
+        ul_TimeOffPeak = millis();
 
 #ifdef PRIORITY_ROTATION
-    b_reOrderLoads = true;
+        b_reOrderLoads = true;
 
-    // waits till the priorities have been rotated from inside the ISR
-    while (b_reOrderLoads)
-      delay(10);
+        // waits till the priorities have been rotated from inside the ISR
+        while (b_reOrderLoads)
+            delay(10);
 #endif // PRIORITY_ROTATION
 
-    // prints the (new) load priorities
-    logLoadPriorities();
-  }
-  else
-  {
-    const auto ulElapsedTime{(uint32_t)(millis() - ul_TimeOffPeak)};
-
-    for (i = 0; i < NO_OF_DUMPLOADS; ++i)
-    {
-      // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
-      if (!pinOffPeakState && !pinNewState &&
-          (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
-        b_forceLoadOn[i] = currentTemperature_x100 <= iTemperatureThreshold_x100;
-      else
-        b_forceLoadOn[i] = false;
+        // prints the (new) load priorities
+        logLoadPriorities();
     }
-  }
+    else
+    {
+        const auto ulElapsedTime{(uint32_t)(millis() - ul_TimeOffPeak)};
+
+        for (i = 0; i < NO_OF_DUMPLOADS; ++i)
+        {
+            // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the
+            // load ON
+            if (!pinOffPeakState && !pinNewState && (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
+                b_forceLoadOn[i] = currentTemperature_x100 <= iTemperatureThreshold_x100;
+            else
+                b_forceLoadOn[i] = false;
+        }
+    }
 // end of off-peak period
 #ifndef NO_OUTPUT
-  if (!pinOffPeakState && pinNewState)
-    Serial.println(F("Change to peak period!"));
-#endif //NO_OUTPUT
+    if (!pinOffPeakState && pinNewState)
+        Serial.println(F("Change to peak period!"));
+#endif // NO_OUTPUT
 
-  pinOffPeakState = pinNewState;
+    pinOffPeakState = pinNewState;
 
-  return (LOW == pinOffPeakState);
+    return (LOW == pinOffPeakState);
 #else // OFF_PEAK_TARIFF
 #ifdef PRIORITY_ROTATION
-  if (ROTATION_AFTER_CYCLES < absenceOfDivertedEnergyCount)
-  {
-    b_reOrderLoads = true;
-    absenceOfDivertedEnergyCount = 0;
+    if (ROTATION_AFTER_CYCLES < absenceOfDivertedEnergyCount)
+    {
+        b_reOrderLoads = true;
+        absenceOfDivertedEnergyCount = 0;
 
-    // waits till the priorities have been rotated from inside the ISR
-    while (b_reOrderLoads)
-      delay(10);
+        // waits till the priorities have been rotated from inside the ISR
+        while (b_reOrderLoads)
+            delay(10);
 
-    // prints the (new) load priorities
-    logLoadPriorities();
-  }
+        // prints the (new) load priorities
+        logLoadPriorities();
+    }
 #endif // PRIORITY_ROTATION
-  return false;
+    return false;
 #endif // OFF_PEAK_TARIFF
 }
 
 /**
  * @brief Print the configuration during start
- * 
+ *
  */
 void printConfiguration()
 {
-  Serial.println();
-  Serial.println();
-  Serial.println(F("----------------------------------"));
-  Serial.print(F("Sketch ID: "));
-  Serial.println(__FILE__);
-  Serial.print(F("Build on "));
-  Serial.print(__DATE__);
-  Serial.print(F(" "));
-  Serial.println(__TIME__);
+    Serial.println();
+    Serial.println();
+    Serial.println(F("----------------------------------"));
+    Serial.print(F("Sketch ID: "));
+    Serial.println(__FILE__);
+    Serial.print(F("Build on "));
+    Serial.print(__DATE__);
+    Serial.print(F(" "));
+    Serial.println(__TIME__);
 
-  Serial.println(F("ADC mode:       free-running"));
+    Serial.println(F("ADC mode:       free-running"));
 
-  Serial.println(F("Electrical settings"));
-  for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    Serial.print(F("\tf_powerCal for L"));
-    Serial.print(phase + 1);
-    Serial.print(F(" =    "));
-    Serial.println(f_powerCal[phase], 5);
+    Serial.println(F("Electrical settings"));
+    for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
+    {
+        Serial.print(F("\tf_powerCal for L"));
+        Serial.print(phase + 1);
+        Serial.print(F(" =    "));
+        Serial.println(f_powerCal[phase], 5);
 
-    Serial.print(F("\tf_voltageCal, for Vrms_L"));
-    Serial.print(phase + 1);
-    Serial.print(F(" =    "));
-    Serial.println(f_voltageCal[phase], 5);
-  }
+        Serial.print(F("\tf_voltageCal, for Vrms_L"));
+        Serial.print(phase + 1);
+        Serial.print(F(" =    "));
+        Serial.println(f_voltageCal[phase], 5);
+    }
 
-  Serial.print(F("\tf_phaseCal for all phases =     "));
-  Serial.println(f_phaseCal);
+    Serial.print(F("\tf_phaseCal for all phases =     "));
+    Serial.println(f_phaseCal);
 
-  Serial.print(F("\tExport rate (Watts) = "));
-  Serial.println(REQUIRED_EXPORT_IN_WATTS);
+    Serial.print(F("\tExport rate (Watts) = "));
+    Serial.println(REQUIRED_EXPORT_IN_WATTS);
 
-  Serial.print(F("\tzero-crossing persistence (sample sets) = "));
-  Serial.println(PERSISTENCE_FOR_POLARITY_CHANGE);
+    Serial.print(F("\tzero-crossing persistence (sample sets) = "));
+    Serial.println(PERSISTENCE_FOR_POLARITY_CHANGE);
 
-  printParamsForSelectedOutputMode();
+    printParamsForSelectedOutputMode();
 
-  Serial.print("Temperature capability ");
+    Serial.print("Temperature capability ");
 #ifdef TEMP_SENSOR
-  Serial.println(F("is present"));
+    Serial.println(F("is present"));
 #else
-  Serial.println(F("is NOT present"));
+    Serial.println(F("is NOT present"));
 #endif
 
-  Serial.print("Dual-tariff capability ");
+    Serial.print("Dual-tariff capability ");
 #ifdef OFF_PEAK_TARIFF
-  Serial.println(F("is present"));
-  printOffPeakConfiguration();
+    Serial.println(F("is present"));
+    printOffPeakConfiguration();
 #else
-  Serial.println(F("is NOT present"));
+    Serial.println(F("is NOT present"));
 #endif
 
-  Serial.print("Load rotation feature ");
+    Serial.print("Load rotation feature ");
 #ifdef PRIORITY_ROTATION
-  Serial.println(F("is present"));
+    Serial.println(F("is present"));
 #else
-  Serial.println(F("is NOT present"));
+    Serial.println(F("is NOT present"));
 #endif
 
-  Serial.print("RF capability ");
+    Serial.print("RF capability ");
 #ifdef RF_PRESENT
-  Serial.print(F("IS present, Freq = "));
-  if (FREQ == RF12_433MHZ)
-    Serial.println(F("433 MHz"));
-  else if (FREQ == RF12_868MHZ)
-    Serial.println(F("868 MHz"));
-  rf12_initialize(nodeID, FREQ, networkGroup); // initialize RF
+    Serial.print(F("IS present, Freq = "));
+    if (FREQ == RF12_433MHZ)
+        Serial.println(F("433 MHz"));
+    else if (FREQ == RF12_868MHZ)
+        Serial.println(F("868 MHz"));
+    rf12_initialize(nodeID, FREQ, networkGroup); // initialize RF
 #else
-  Serial.println(F("is NOT present"));
+    Serial.println(F("is NOT present"));
 #endif
 
-  Serial.print("Datalogging capability ");
+    Serial.print("Datalogging capability ");
 #ifdef SERIALPRINT
-  Serial.println(F("is present"));
+    Serial.println(F("is present"));
 #else
-  Serial.println(F("is NOT present"));
+    Serial.println(F("is NOT present"));
 #endif
 }
 
 #ifdef OFF_PEAK_TARIFF
 /**
  * @brief Print the settings for off-peak period
- * 
+ *
  */
 void printOffPeakConfiguration()
 {
-  Serial.print(F("\tDuration of off-peak period is "));
-  Serial.print(ul_OFF_PEAK_DURATION);
-  Serial.println(F(" hours."));
+    Serial.print(F("\tDuration of off-peak period is "));
+    Serial.print(ul_OFF_PEAK_DURATION);
+    Serial.println(F(" hours."));
 
-  Serial.print(F("\tTemperature threshold is "));
-  Serial.print(uiTemperature);
-  Serial.println(F("°C."));
+    Serial.print(F("\tTemperature threshold is "));
+    Serial.print(uiTemperature);
+    Serial.println(F("°C."));
 
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    Serial.print(F("\tLoad #"));
-    Serial.print(i + 1);
-    Serial.println(F(":"));
+    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+    {
+        Serial.print(F("\tLoad #"));
+        Serial.print(i + 1);
+        Serial.println(F(":"));
 
-    Serial.print(F("\t\tStart "));
-    if (rg_ForceLoad[i].getStartOffset() >= 0)
-    {
-      Serial.print(rg_ForceLoad[i].getStartOffset());
-      Serial.print(F(" hours/minutes after begin of off-peak period "));
+        Serial.print(F("\t\tStart "));
+        if (rg_ForceLoad[i].getStartOffset() >= 0)
+        {
+            Serial.print(rg_ForceLoad[i].getStartOffset());
+            Serial.print(F(" hours/minutes after begin of off-peak period "));
+        }
+        else
+        {
+            Serial.print(-rg_ForceLoad[i].getStartOffset());
+            Serial.print(F(" hours/minutes before the end of off-peak period "));
+        }
+        if (rg_ForceLoad[i].getDuration() == UINT16_MAX)
+            Serial.println(F("till the end of the period."));
+        else
+        {
+            Serial.print(F("for a duration of "));
+            Serial.print(rg_ForceLoad[i].getDuration());
+            Serial.println(F(" hour/minute(s)."));
+        }
+        Serial.print(F("\t\tCalculated offset in seconds: "));
+        Serial.println(rg_OffsetForce[i][0] / 1000);
+        Serial.print(F("\t\tCalculated duration in seconds: "));
+        Serial.println(rg_OffsetForce[i][1] / 1000);
     }
-    else
-    {
-      Serial.print(-rg_ForceLoad[i].getStartOffset());
-      Serial.print(F(" hours/minutes before the end of off-peak period "));
-    }
-    if (rg_ForceLoad[i].getDuration() == UINT16_MAX)
-      Serial.println(F("till the end of the period."));
-    else
-    {
-      Serial.print(F("for a duration of "));
-      Serial.print(rg_ForceLoad[i].getDuration());
-      Serial.println(F(" hour/minute(s)."));
-    }
-    Serial.print(F("\t\tCalculated offset in seconds: "));
-    Serial.println(rg_OffsetForce[i][0] / 1000);
-    Serial.print(F("\t\tCalculated duration in seconds: "));
-    Serial.println(rg_OffsetForce[i][1] / 1000);
-  }
 }
 #endif
 
 /**
  * @brief Print the settings used for the selected output mode.
- * 
+ *
  */
 void printParamsForSelectedOutputMode()
 {
 #ifndef NO_OUTPUT
-  // display relevant settings for selected output mode
-  Serial.print("Output mode:    ");
-  if (OutputModes::NORMAL == outputMode)
-    Serial.println("normal");
-  else
-  {
-    Serial.println("anti-flicker");
-    Serial.print("\toffsetOfEnergyThresholds  = ");
-    Serial.println(f_offsetOfEnergyThresholdsInAFmode);
-  }
-  Serial.print(F("\tf_capacityOfEnergyBucket_main = "));
-  Serial.println(f_capacityOfEnergyBucket_main);
-  Serial.print(F("\tf_lowerEnergyThreshold   = "));
-  Serial.println(f_lowerThreshold_default);
-  Serial.print(F("\tf_upperEnergyThreshold   = "));
-  Serial.println(f_upperThreshold_default);
+    // display relevant settings for selected output mode
+    Serial.print("Output mode:    ");
+    if (OutputModes::NORMAL == outputMode)
+        Serial.println("normal");
+    else
+    {
+        Serial.println("anti-flicker");
+        Serial.print("\toffsetOfEnergyThresholds  = ");
+        Serial.println(f_offsetOfEnergyThresholdsInAFmode);
+    }
+    Serial.print(F("\tf_capacityOfEnergyBucket_main = "));
+    Serial.println(f_capacityOfEnergyBucket_main);
+    Serial.print(F("\tf_lowerEnergyThreshold   = "));
+    Serial.println(f_lowerThreshold_default);
+    Serial.print(F("\tf_upperEnergyThreshold   = "));
+    Serial.println(f_upperThreshold_default);
 #endif
 }
 
 #ifdef TEMP_SENSOR
 /**
  * @brief Convert the internal value read from the sensor to a value in °C.
- * 
+ *
  */
 void convertTemperature()
 {
-  oneWire.reset();
-  oneWire.write(SKIP_ROM);
-  oneWire.write(CONVERT_TEMPERATURE);
+    oneWire.reset();
+    oneWire.write(SKIP_ROM);
+    oneWire.write(CONVERT_TEMPERATURE);
 }
 
 /**
  * @brief Read the temperature.
- * 
- * @return The temperature in °C (x100). 
+ *
+ * @return The temperature in °C (x100).
  */
 int16_t readTemperature()
 {
-  uint8_t buf[9];
+    uint8_t buf[9];
 
-  if (oneWire.reset())
-  {
-    oneWire.reset();
-    oneWire.write(SKIP_ROM);
-    oneWire.write(READ_SCRATCHPAD);
-    for (auto &buf_elem : buf)
-      buf_elem = oneWire.read();
+    if (oneWire.reset())
+    {
+        oneWire.reset();
+        oneWire.write(SKIP_ROM);
+        oneWire.write(READ_SCRATCHPAD);
+        for (auto &buf_elem : buf)
+            buf_elem = oneWire.read();
 
-    if (oneWire.crc8(buf, 8) != buf[8])
-      return BAD_TEMPERATURE;
+        if (oneWire.crc8(buf, 8) != buf[8])
+            return BAD_TEMPERATURE;
 
-    // result is temperature x16, multiply by 6.25 to convert to temperature x100
-    int16_t result = (buf[1] << 8) | buf[0];
-    result = (result * 6) + (result >> 2);
-    if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
-      return OUTOFRANGE_TEMPERATURE; // return value ('Out of range')
+        // result is temperature x16, multiply by 6.25 to convert to temperature x100
+        int16_t result = (buf[1] << 8) | buf[0];
+        result = (result * 6) + (result >> 2);
+        if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
+            return OUTOFRANGE_TEMPERATURE; // return value ('Out of range')
 
-    return result;
-  }
-  return BAD_TEMPERATURE;
+        return result;
+    }
+    return BAD_TEMPERATURE;
 }
 #endif // #ifdef TEMP_SENSOR
 
@@ -1567,200 +1588,200 @@ int16_t readTemperature()
  * @brief Send the logging data through RF.
  * @details For better performance, the RFM12B needs to remain in its
  *          active state rather than being periodically put to sleep.
- * 
+ *
  */
 void send_rf_data()
 {
-  // check whether it's ready to send, and an exit route if it gets stuck
-  uint32_t i = 0;
-  while (!rf12_canSend() && i < 10)
-  {
-    rf12_recvDone();
-    ++i;
-  }
-  rf12_sendNow(0, &tx_data, sizeof tx_data);
+    // check whether it's ready to send, and an exit route if it gets stuck
+    uint32_t i = 0;
+    while (!rf12_canSend() && i < 10)
+    {
+        rf12_recvDone();
+        ++i;
+    }
+    rf12_sendNow(0, &tx_data, sizeof tx_data);
 }
 #endif // #ifdef RF_PRESENT
 
 /**
  * @brief Get the available RAM during setup
- * 
+ *
  * @return int The amount of free RAM
  */
 int freeRam()
 {
-  extern int __heap_start, *__brkval;
-  int v;
-  return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
+    extern int __heap_start, *__brkval;
+    int v;
+    return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
 }
 
 /**
  * @brief Called once during startup.
  * @details This function initializes a couple of variables we cannot init at compile time and
  *          sets a couple of parameters for runtime.
- * 
+ *
  */
 void setup()
 {
-  delay(initialDelay); // allows time to open the Serial Monitor
+    delay(initialDelay); // allows time to open the Serial Monitor
 
-  Serial.begin(9600); // initialize Serial interface, Do NOT set greater than 9600
+    Serial.begin(9600); // initialize Serial interface, Do NOT set greater than 9600
 
 #if !defined SERIALOUT && !defined EMONESP
-  // On start, always display config info in the serial monitor
-  printConfiguration();
+    // On start, always display config info in the serial monitor
+    printConfiguration();
 #endif
 
-  // initializes all loads to OFF at startup
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    if (physicalLoadPin[i] < 8)
-      DDRD |= bit(physicalLoadPin[i]); // driver pin for Load #n
-    else
-      DDRB |= bit(physicalLoadPin[i] - 8); // driver pin for Load #n
+    // initializes all loads to OFF at startup
+    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+    {
+        if (physicalLoadPin[i] < 8)
+            DDRD |= bit(physicalLoadPin[i]); // driver pin for Load #n
+        else
+            DDRB |= bit(physicalLoadPin[i] - 8); // driver pin for Load #n
 
-    loadPrioritiesAndState[i] &= loadStateMask;
-  }
-  updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
+        loadPrioritiesAndState[i] &= loadStateMask;
+    }
+    updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
 
-  updatePortsStates(); // updates output pin states
+    updatePortsStates(); // updates output pin states
 
 #ifdef OFF_PEAK_TARIFF
-  DDRD &= ~bit(offPeakForcePin);                     // set as input
-  PORTD |= bit(offPeakForcePin);                     // enable the internal pullup resistor
-  delay(100);                                        // allow time to settle
-  uint8_t pinState{!!(PIND & bit(offPeakForcePin))}; // initial selection and
+    DDRD &= ~bit(offPeakForcePin);                     // set as input
+    PORTD |= bit(offPeakForcePin);                     // enable the internal pullup resistor
+    delay(100);                                        // allow time to settle
+    uint8_t pinState{!!(PIND & bit(offPeakForcePin))}; // initial selection and
 
-  ul_TimeOffPeak = millis();
+    ul_TimeOffPeak = millis();
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-  DDRD &= ~bit(forcePin); // set as input
-  PORTD |= bit(forcePin); // enable the internal pullup resistor
-  delay(100);             // allow time to settle
+    DDRD &= ~bit(forcePin); // set as input
+    PORTD |= bit(forcePin); // enable the internal pullup resistor
+    delay(100);             // allow time to settle
 #endif
 
-  DDRB |= bit(watchDogPin - 8);    // set as output
-  setPinState(watchDogPin, false); // set to off
+    // DDRB |= bit(watchDogPin - 8);    // set as output
+    // setPinState(watchDogPin, false); // set to off
 
-  for (auto &bForceLoad : b_forceLoadOn)
-    bForceLoad = false;
+    for (auto &bForceLoad : b_forceLoadOn)
+        bForceLoad = false;
 
-  for (auto &DCoffset_V : l_DCoffset_V)
-    DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
+    for (auto &DCoffset_V : l_DCoffset_V)
+        DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
 
-  // Set up the ADC to be free-running
-  ADCSRA = bit(ADPS0) + bit(ADPS1) + bit(ADPS2); // Set the ADC's clock to system clock / 128
-  ADCSRA |= bit(ADEN);                           // Enable the ADC
+    // Set up the ADC to be free-running
+    ADCSRA = bit(ADPS0) + bit(ADPS1) + bit(ADPS2); // Set the ADC's clock to system clock / 128
+    ADCSRA |= bit(ADEN);                           // Enable the ADC
 
-  ADCSRA |= bit(ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
-  // bits ADTS0-2 have not been set (i.e. they are all zero), the
-  // ADC's trigger source is set to "free running mode".
+    ADCSRA |= bit(ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+    // bits ADTS0-2 have not been set (i.e. they are all zero), the
+    // ADC's trigger source is set to "free running mode".
 
-  ADCSRA |= bit(ADIE); // set the ADC interrupt enable bit. When this bit is written
-  // to one and the I-bit in SREG is set, the
-  // ADC Conversion Complete Interrupt is activated.
+    ADCSRA |= bit(ADIE); // set the ADC interrupt enable bit. When this bit is written
+    // to one and the I-bit in SREG is set, the
+    // ADC Conversion Complete Interrupt is activated.
 
-  ADCSRA |= bit(ADSC); // start ADC manually first time
-  sei();               // Enable Global Interrupts
+    ADCSRA |= bit(ADSC); // start ADC manually first time
+    sei();               // Enable Global Interrupts
 
-  logLoadPriorities();
+    logLoadPriorities();
 
 #ifdef TEMP_SENSOR
-  convertTemperature(); // start initial temperature conversion
+    convertTemperature(); // start initial temperature conversion
 #endif
 
 #ifdef DEBUGGING
-  Serial.print(F(">>free RAM = "));
-  Serial.println(freeRam()); // a useful value to keep an eye on
-  Serial.println(F("----"));
+    Serial.print(F(">>free RAM = "));
+    Serial.println(freeRam()); // a useful value to keep an eye on
+    Serial.println(F("----"));
 #endif
 }
 
 /**
  * @brief Toggle the watchdog LED
- * 
+ *
  */
-inline void toggleWatchDogLED()
-{
-  PINB = bit(watchDogPin - 8); // toggle pin
-}
+// inline void toggleWatchDogLED()
+// {
+//   PINB = bit(watchDogPin - 8); // toggle pin
+// }
 
 /**
  * @brief Set the Pin state for the specified pin
- * 
+ *
  * @param pin pin to change [2..13]
  * @param bState state to be set
  */
 inline void setPinState(const uint8_t pin, bool bState)
 {
-  if (bState)
-  {
-    if (pin < 8)
-      PORTD |= bit(pin);
+    if (bState)
+    {
+        if (pin < 8)
+            PORTD |= bit(pin);
+        else
+            PORTB |= bit(pin - 8);
+    }
     else
-      PORTB |= bit(pin - 8);
-  }
-  else
-  {
-    if (pin < 8)
-      PORTD &= ~bit(pin);
-    else
-      PORTB &= ~bit(pin - 8);
-  }
+    {
+        if (pin < 8)
+            PORTD &= ~bit(pin);
+        else
+            PORTB &= ~bit(pin - 8);
+    }
 }
 
 /**
  * @brief Main processor.
  * @details None of the workload in loop() is time-critical.
  *          All the processing of ADC data is done within the ISR.
- * 
-*/
+ *
+ */
 void loop()
 {
-  static uint8_t perSecondTimer{0};
-  static bool bOffPeak{false};
-  static int16_t iTemperature_x100{0};
+    static uint8_t perSecondTimer{0};
+    static bool bOffPeak{false};
+    static int16_t iTemperature_x100{0};
 
-  if (b_newMainsCycle) // flag is set after every pair of ADC conversions
-  {
-    b_newMainsCycle = false; // reset the flag
-    ++perSecondTimer;
-
-    if (perSecondTimer >= SUPPLY_FREQUENCY)
+    if (b_newMainsCycle) // flag is set after every pair of ADC conversions
     {
-      perSecondTimer = 0;
+        b_newMainsCycle = false; // reset the flag
+        ++perSecondTimer;
 
-      toggleWatchDogLED();
+        if (perSecondTimer >= SUPPLY_FREQUENCY)
+        {
+            perSecondTimer = 0;
 
-      if (!forceFullPower())
-        bOffPeak = proceedLoadPrioritiesAndForcing(iTemperature_x100); // called every second
+            // toggleWatchDogLED();
+
+            if (!forceFullPower())
+                bOffPeak = proceedLoadPrioritiesAndForcing(iTemperature_x100); // called every second
+        }
     }
-  }
 
-  if (b_datalogEventPending)
-  {
-    b_datalogEventPending = false;
-
-    tx_data.power = 0;
-    for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
+    if (b_datalogEventPending)
     {
-      tx_data.power_L[phase] = copyOf_sumP_atSupplyPoint[phase] / copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
-      tx_data.power_L[phase] *= -1;
+        b_datalogEventPending = false;
 
-      tx_data.power += tx_data.power_L[phase];
+        tx_data.power = 0;
+        for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
+        {
+            tx_data.power_L[phase] = copyOf_sumP_atSupplyPoint[phase] / copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
+            tx_data.power_L[phase] *= -1;
 
-      tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
-    }
+            tx_data.power += tx_data.power_L[phase];
+
+            tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+        }
 #ifdef TEMP_SENSOR
-    iTemperature_x100 = readTemperature();
-    tx_data.temperature_x100 = iTemperature_x100;
+        iTemperature_x100 = readTemperature();
+        tx_data.temperature_x100 = iTemperature_x100;
 #endif
 
-    sendResults(bOffPeak);
+        sendResults(bOffPeak);
 
 #ifdef TEMP_SENSOR
-    convertTemperature(); // for use next time around
+        convertTemperature(); // for use next time around
 #endif
-  }
+    }
 } // end of loop()
