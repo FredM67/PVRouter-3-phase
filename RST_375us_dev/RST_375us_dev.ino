@@ -96,7 +96,8 @@ byte polarityOfLastSample_V; // for zero-crossing detection
 boolean recordingNow;
 boolean recordingComplete;
 byte cycleNumberBeingRecorded;
-byte noOfCyclesToBeRecorded;
+constexpr byte noOfCyclesToBeRecorded{3};
+constexpr byte noOfADCConversion{3};
 
 unsigned long recordingMayStartAt;
 boolean firstLoop = true;
@@ -104,8 +105,12 @@ int settlingDelay = 5; // <<---  settling time (seconds) for HPF
 
 char blankLine[82];
 char newLine[82];
-int storedSample_V[170];
-int storedSample_I1[170];
+
+constexpr uint16_t noOfSamples{1000000 / ADC_TIMER_PERIOD / MAINS_CYCLES_PER_SECOND / noOfADCConversion *
+                               noOfCyclesToBeRecorded};
+
+int storedSample_V[noOfSamples + 10];
+int storedSample_I1[noOfSamples + 10];
 // int storedSample_I2[100];
 
 void setup()
@@ -233,7 +238,6 @@ void allGeneralProcessing() // each iteration is for one set of data samples
         recordingNow = false;
         firstLoop = false;
         recordingComplete = false;
-        noOfCyclesToBeRecorded = 3; // more array space may be needed if this value is >1 !!!
         cycleNumberBeingRecorded = 0;
         samplesRecorded = 0;
     }
