@@ -357,11 +357,11 @@ PayloadTx_struct tx_data; /**< logging data */
 // D0 & D1 are reserved for the Serial i/f
 // D2 is for the RFM12B
 #ifdef OFF_PEAK_TARIFF
-constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
+constexpr uint8_t offPeakForcePin{13}; /**< for 3-phase PCB, off-peak trigger */
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-constexpr uint8_t forcePins[]{10, 11, 12, 13};
+constexpr uint8_t forcePins[]{10, 11, 12};
 #endif
 
 #ifdef TEMP_SENSOR
@@ -1315,15 +1315,12 @@ bool forceFullPower()
             b_forceLoadOn[2] = !pinState;
             break;
         case 1:
-            b_forceLoadOn[3] = !pinState;
-            break;
-            break;
-        case 2:
             b_forceLoadOn[4] = !pinState;
             b_forceLoadOn[5] = !pinState;
             b_forceLoadOn[6] = !pinState;
             break;
-        case 3:
+        case 2:
+            b_forceLoadOn[3] = !pinState;
             b_forceLoadOn[7] = !pinState;
             break;
         }
@@ -1674,8 +1671,8 @@ void setup()
     updatePortsStates(); // updates output pin states
 
 #ifdef OFF_PEAK_TARIFF
-    pinMode(offPeakForcePin, INPUT_PULLUP);            // set as input & enable the internal pullup resistor
-    delay(100);                                        // allow time to settle
+    pinMode(offPeakForcePin, INPUT_PULLUP);         // set as input & enable the internal pullup resistor
+    delay(100);                                     // allow time to settle
     uint8_t pinState{getPinState(offPeakForcePin)}; // initial selection and
 
     ul_TimeOffPeak = millis();
@@ -1689,8 +1686,7 @@ void setup()
     }
 #endif
 
-    // DDRB |= bit(watchDogPin - 8);    // set as output
-    // setPinState(watchDogPin, false); // set to off
+    // pinMode(watchDogPin, OUTPUT);
 
     for (auto &bForceLoad : b_forceLoadOn)
         bForceLoad = false;
