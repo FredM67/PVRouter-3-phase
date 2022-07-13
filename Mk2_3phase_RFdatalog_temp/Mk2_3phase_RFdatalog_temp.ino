@@ -361,7 +361,7 @@ constexpr uint8_t offPeakForcePin{13}; /**< for 3-phase PCB, off-peak trigger */
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-constexpr uint8_t forcePins[]{10, 11, 12};
+constexpr uint8_t forcePins[]{10, 11, 12, 13};
 #endif
 
 #ifdef TEMP_SENSOR
@@ -1315,12 +1315,14 @@ bool forceFullPower()
             b_forceLoadOn[2] = !pinState;
             break;
         case 1:
+            b_forceLoadOn[3] = !pinState;
+            break;
+        case 2:
             b_forceLoadOn[4] = !pinState;
             b_forceLoadOn[5] = !pinState;
             b_forceLoadOn[6] = !pinState;
             break;
-        case 2:
-            b_forceLoadOn[3] = !pinState;
+        case 3:
             b_forceLoadOn[7] = !pinState;
             break;
         }
