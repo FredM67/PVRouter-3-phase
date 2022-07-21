@@ -361,7 +361,7 @@ constexpr uint8_t offPeakForcePin{13}; /**< for 3-phase PCB, off-peak trigger */
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-constexpr uint8_t forcePins[]{10, 11, 12, 13};
+constexpr uint8_t forcePins[]{13, 12, 11, 10};
 #endif
 
 #ifdef TEMP_SENSOR
