@@ -7,6 +7,7 @@ Quelques une de mes réalisations... d'autres à venir...
 - [Routeur triphasé, 4 sorties distantes par câble (en option 6), sorties connectées par câble réseau, boîte de répartition](#routeur-triphasé-4-sorties-distantes-par-câble-en-option-6-sorties-connectées-par-câble-réseau-boîte-de-répartition)
 - [Routeur triphasé, 3 sorties, dont 2 pilotables via Internet (ON/OFF et marche forcée)](#routeur-triphasé-3-sorties-dont-2-pilotables-via-internet-onoff-et-marche-forcée)
 - [Routeur triphasé, 6 sorties, toutes pilotables via Internet (marche forcée et inversion de priorité)](#routeur-triphasé-6-sorties-toutes-pilotables-via-internet-marche-forcée-et-inversion-de-priorité)
+- [Routeur triphasé, 8 sorties, pilotées par paire (1-5, 2-6, 3-7, 4-8), marche forcée par groupe (1-2-3, 4, 5-6-7, 8)](#routeur-triphasé-8-sorties-pilotées-par-paire-1-5-2-6-3-7-4-8-marche-forcée-par-groupe-1-2-3-4-5-6-7-8)
 ## Routeur triphasé 3 sorties
 
 <p align="center">
@@ -37,3 +38,10 @@ Quelques une de mes réalisations... d'autres à venir...
 ## Routeur triphasé, 6 sorties, toutes pilotables via Internet (marche forcée et inversion de priorité)
 
 |[<img alt="Vue d'ensemble" src="../../img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg" width="50%">](../../img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg "Vue d'ensemble") |[<img alt="Intérieur du boîtier" src="../../img/fec8f37e-e799-4abc-9041-8d9bfd7e70b1.jpg" width="50%">](../../img/fec8f37e-e799-4abc-9041-8d9bfd7e70b1.jpg "Intérieur du boîtier")
+
+## Routeur triphasé, 8 sorties, pilotées par paire (1-5, 2-6, 3-7, 4-8), marche forcée par groupe (1-2-3, 4, 5-6-7, 8)
+
+[<img alt="Vue d'ensemble" src="../../img/e3771671-75ca-476e-a3ef-71582be48c67.jpg" width="50%">](../../img/e3771671-75ca-476e-a3ef-71582be48c67.jpg "Vue d'ensemble dessus")
+[<img alt="Vue d'ensemble" src="../../img/0f794432-89e2-4ba1-b937-163a495122d8.jpg" width="50%">](../../img/0f794432-89e2-4ba1-b937-163a495122d8.jpg "Vue d'ensemble connectique")
+
+|[<img alt="Intérieur du boîtier routeur" src="../../img/6cbcf9fc-bbc0-4d99-a64a-3eaab45e34d8.jpg" width="25%">](../../img/6cbcf9fc-bbc0-4d99-a64a-3eaab45e34d8.jpg "Intérieur du boîtier routeur") |[<img alt="Intérieur du boîtier esclave" src="../../img/e903ec0d-7f42-4b21-998d-019408e88f20.jpg" width="25%">](../../img/e903ec0d-7f42-4b21-998d-019408e88f20.jpg "Intérieur du boîtier esclave") |[<img alt="Partie routeur" src="../../img/20a99fa9-3dcc-4d16-a75c-3266c4db29ac.jpg" width="25%">](../../img/20a99fa9-3dcc-4d16-a75c-3266c4db29ac.jpg "Partie routeur") |[<img alt="Commandes de marche forcée" src="../../img/aec80e39-caa6-495b-b781-55cd9dc704b2.jpg" width="25%">](../../img/aec80e39-caa6-495b-b781-55cd9dc704b2.jpg "Commandes de marche forcée")

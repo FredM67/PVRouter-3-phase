@@ -31,3 +31,10 @@ A couple of my realizations... other coming...
 [<img alt="Global view" src="img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg" width="50%">](img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg "Global view")
 
 |[<img alt="Inside the enclosure" src="img/fec8f37e-e799-4abc-9041-8d9bfd7e70b1.jpg" width="25%">](img/fec8f37e-e799-4abc-9041-8d9bfd7e70b1.jpg "Inside the enclosure")
+
+## 3-phase router, 8 outputs, controlled as pair (1-5, 2-6, 3-7, 4-8), group overwrite (1-2-3, 4, 5-6-7, 8)
+
+[<img alt="Vue d'ensemble" src="img/e3771671-75ca-476e-a3ef-71582be48c67.jpg" width="50%">](img/e3771671-75ca-476e-a3ef-71582be48c67.jpg "Global view top")
+[<img alt="Vue d'ensemble" src="img/0f794432-89e2-4ba1-b937-163a495122d8.jpg" width="50%">](img/0f794432-89e2-4ba1-b937-163a495122d8.jpg "Global view connections")
+
+|[<img alt="Inside the mainboard enclosure" src="img/6cbcf9fc-bbc0-4d99-a64a-3eaab45e34d8.jpg" width="25%">](img/6cbcf9fc-bbc0-4d99-a64a-3eaab45e34d8.jpg "Inside the mainboard enclosure") |[<img alt="Inside the slave enclosure" src="img/e903ec0d-7f42-4b21-998d-019408e88f20.jpg" width="25%">](img/e903ec0d-7f42-4b21-998d-019408e88f20.jpg "Inside the slave enclosure") |[<img alt="Mainboard" src="img/20a99fa9-3dcc-4d16-a75c-3266c4db29ac.jpg" width="25%">](img/20a99fa9-3dcc-4d16-a75c-3266c4db29ac.jpg "Mainboard") |[<img alt="Overwrite switches" src="img/aec80e39-caa6-495b-b781-55cd9dc704b2.jpg" width="25%">](img/aec80e39-caa6-495b-b781-55cd9dc704b2.jpg "Overwrite switches")
