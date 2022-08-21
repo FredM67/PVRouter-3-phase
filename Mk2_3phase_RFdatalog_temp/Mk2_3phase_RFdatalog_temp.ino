@@ -302,7 +302,7 @@ uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was
 constexpr OutputModes outputMode{OutputModes::NORMAL}; /**< Output mode to be used */
 
 // Load priorities at startup
-uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2, 3, 4, 5, 6, 7}; /**< load priorities and states. */
+uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2, 4, 5, 6, 3, 7}; /**< load priorities and states. */
 
 //--------------------------------------------------------------------------------------------------
 #ifdef EMONESP
@@ -911,13 +911,14 @@ void processMinusHalfCycle(const uint8_t phase)
 /**
  * @brief Retrieve the next load that could be added (be aware of the order)
  *
- * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure
+ * @return The load number if successful, NO_OF_DUMPLOADS in case of failure
  *
  * @ingroup TimeCritical
  */
 uint8_t nextLogicalLoadToBeAdded()
 {
-    for (uint8_t index = 0; index < NO_OF_DUMPLOADS / 2; ++index)
+    //for (uint8_t index = 0; index < NO_OF_DUMPLOADS / 2; ++index)
+    for (uint8_t index = 0; index < NO_OF_DUMPLOADS; ++index)
         if (0x00 == (loadPrioritiesAndState[index] & loadStateOnBit))
             return index;
 
@@ -927,13 +928,14 @@ uint8_t nextLogicalLoadToBeAdded()
 /**
  * @brief Retrieve the next load that could be removed (be aware of the reverse-order)
  *
- * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure
+ * @return The load number if successful, NO_OF_DUMPLOADS in case of failure
  *
  * @ingroup TimeCritical
  */
 uint8_t nextLogicalLoadToBeRemoved()
 {
-    uint8_t index{NO_OF_DUMPLOADS / 2};
+    uint8_t index{NO_OF_DUMPLOADS};
+    //uint8_t index{NO_OF_DUMPLOADS / 2};
     do
     {
         --index;
@@ -976,7 +978,7 @@ void proceedHighEnergyLevel()
     {
         // special case, we add pairs of loads
         loadPrioritiesAndState[tempLoad] |= loadStateOnBit;
-        loadPrioritiesAndState[tempLoad + (NO_OF_DUMPLOADS / 2)] |= loadStateOnBit;
+        //loadPrioritiesAndState[tempLoad + (NO_OF_DUMPLOADS / 2)] |= loadStateOnBit;
         activeLoad = tempLoad;
         postTransitionCount = 0;
         b_recentTransition = true;
@@ -1015,7 +1017,7 @@ void proceedLowEnergyLevel()
     {
         // special case, we remove pairs of loads
         loadPrioritiesAndState[tempLoad] &= loadStateMask;
-        loadPrioritiesAndState[tempLoad + (NO_OF_DUMPLOADS / 2)] &= loadStateMask;
+        //loadPrioritiesAndState[tempLoad + (NO_OF_DUMPLOADS / 2)] &= loadStateMask;
         activeLoad = tempLoad;
         postTransitionCount = 0;
         b_recentTransition = true;
@@ -1097,15 +1099,15 @@ void updatePhysicalLoadStates()
     if (b_reOrderLoads)
     {
         const auto temp1{loadPrioritiesAndState[0]};
-        const auto temp2{loadPrioritiesAndState[NO_OF_DUMPLOADS / 2]};
-        // for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
-        for (i = 0; i < (NO_OF_DUMPLOADS / 2) - 1; ++i)
+        const auto temp2{loadPrioritiesAndState[3]};
+        //for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+        for (i = 0; i < 2; ++i)
         {
             loadPrioritiesAndState[i] = loadPrioritiesAndState[i + 1];
-            loadPrioritiesAndState[i + NO_OF_DUMPLOADS / 2] = loadPrioritiesAndState[i + NO_OF_DUMPLOADS / 2 + 1];
+            loadPrioritiesAndState[i + 3] = loadPrioritiesAndState[i + 3 + 1];
         }
         loadPrioritiesAndState[i] = temp1;
-        loadPrioritiesAndState[i + NO_OF_DUMPLOADS / 2] = temp2;
+        loadPrioritiesAndState[i + 3] = temp2;
 
         b_reOrderLoads = false;
     }
