@@ -1310,8 +1310,10 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
     b_reOrderLoads = true;
 
     // waits till the priorities have been rotated from inside the ISR
-    while (b_reOrderLoads)
+    do
+    {
       delay(10);
+    } while (b_reOrderLoads)
 #endif // PRIORITY_ROTATION
 
     // prints the (new) load priorities
@@ -1348,8 +1350,10 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
     absenceOfDivertedEnergyCount = 0;
 
     // waits till the priorities have been rotated from inside the ISR
-    while (b_reOrderLoads)
+    do
+    {
       delay(10);
+    } while (b_reOrderLoads)
 
     // prints the (new) load priorities
     logLoadPriorities();
@@ -1572,12 +1576,12 @@ int16_t readTemperature()
 void send_rf_data()
 {
   // check whether it's ready to send, and an exit route if it gets stuck
-  uint32_t i = 0;
-  while (!rf12_canSend() && i < 10)
+  uint8_t i = 10;
+  do
   {
     rf12_recvDone();
-    ++i;
-  }
+  } while (!rf12_canSend() && --i)
+
   rf12_sendNow(0, &tx_data, sizeof tx_data);
 }
 #endif // #ifdef RF_PRESENT
