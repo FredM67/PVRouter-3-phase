@@ -167,7 +167,7 @@ constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in se
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.05000f, 0.05000f, 0.05000f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.04360f, 0.04400f, 0.04302f};
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
@@ -188,13 +188,13 @@ constexpr int16_t p_phaseCal{8};   /**< to speed up math (i_phaseCal = 1 << p_ph
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-constexpr float f_voltageCal[NO_OF_PHASES]{1.03f, 1.03f, 1.03f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
+constexpr float f_voltageCal[NO_OF_PHASES]{0.802f, 0.802f, 0.802f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
 // other system constants
 constexpr int32_t SUPPLY_FREQUENCY{50};         /**< number of cycles/s of the grid power supply */
-constexpr int32_t REQUIRED_EXPORT_IN_WATTS{20}; /**< when set to a negative value, this acts as a PV generator */
+constexpr int32_t REQUIRED_EXPORT_IN_WATTS{30}; /**< when set to a negative value, this acts as a PV generator */
 constexpr int32_t WORKING_ZONE_IN_JOULES{3600}; /**< number of joule for 1Wh */
 //--------------------------------------------------------------------------------------------------
 
@@ -556,7 +556,7 @@ void updatePortsStates()
 ISR(ADC_vect)
 {
   static uint8_t sample_index{0};
-  static int16_t rawSample;
+  int16_t rawSample;
 
   switch (sample_index)
   {
@@ -626,11 +626,11 @@ ISR(ADC_vect)
  */
 void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 {
-  static int32_t sampleIminusDC;
-  static int32_t phaseShiftedSampleVminusDC;
-  static int32_t filtV_div4;
-  static int32_t filtI_div4;
-  static int32_t instP;
+  int32_t sampleIminusDC;
+  int32_t phaseShiftedSampleVminusDC;
+  int32_t filtV_div4;
+  int32_t filtI_div4;
+  int32_t instP;
 
   // remove most of the DC offset from the current sample (the precise value does not matter)
   sampleIminusDC = ((int32_t)(rawSample - l_DCoffset_I_nom)) << 8;
@@ -719,12 +719,9 @@ void confirmPolarity(const uint8_t phase)
  */
 void processVoltage(const uint8_t phase)
 {
-  static int32_t filtV_div4;
-  static int32_t inst_Vsquared;
-
   // for the Vrms calculation (for datalogging only)
-  filtV_div4 = l_sampleVminusDC[phase] >> 2; // reduce to 16-bits (now x64, or 2^6)
-  inst_Vsquared = filtV_div4 * filtV_div4;   // 32-bits (now x4096, or 2^12)
+  int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2; // reduce to 16-bits (now x64, or 2^6)
+  int32_t inst_Vsquared = filtV_div4 * filtV_div4;   // 32-bits (now x4096, or 2^12)
   inst_Vsquared >>= 12;                      // scaling is now x1 (V_ADC x I_ADC)
   l_sum_Vsquared[phase] += inst_Vsquared;    // cumulative V^2 (V_ADC x I_ADC)
   //
