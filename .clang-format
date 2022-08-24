@@ -3,5 +3,6 @@
 BasedOnStyle: Microsoft
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 NamespaceIndentation: All
-# ColumnLimit: 0
+ColumnLimit: 0
+IndentWidth: 2
 ...
