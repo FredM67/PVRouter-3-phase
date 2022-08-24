@@ -89,7 +89,15 @@ byte polarityOfLastSample_V; // for zero-crossing detection
 boolean recordingNow;
 boolean recordingComplete;
 byte cycleNumberBeingRecorded;
-byte noOfCyclesToBeRecorded;
+
+char blankLine[82];
+char newLine[82];
+int storedSample_V[170];
+int storedSample_I1[170];
+// int storedSample_I2[100];
+
+constexpr byte noOfCyclesToBeRecorded{3};
+constexpr byte noOfADCConversion{3};
 
 unsigned long recordingMayStartAt;
 boolean firstLoop = true;
@@ -97,9 +105,11 @@ int settlingDelay = 5; // <<---  settling time (seconds) for HPF
 
 char blankLine[82];
 char newLine[82];
-int storedSample_V[170];
-int storedSample_I1[170];
-// int storedSample_I2[100];
+
+constexpr uint16_t noOfSamples{1000000 / ADC_TIMER_PERIOD / MAINS_CYCLES_PER_SECOND / noOfADCConversion * noOfCyclesToBeRecorded};
+
+int storedSample_V[noOfSamples + 10];
+int storedSample_I1[noOfSamples + 10];
 
 void setup()
 {
@@ -122,7 +132,7 @@ void setup()
   blankLine[0] = '|';
   blankLine[80] = '|';
 
-  for (int i = 1; i < 80; i++)
+  for (int i = 1; i < 80; ++i)
   {
     blankLine[i] = ' ';
   }
@@ -158,7 +168,7 @@ void timerIsr(void)
     sample_V = ADC;           // store the ADC value (this one is for Voltage)
     ADMUX = 0x40 + sensor_I1; // set up the next conversion, which is for current at CT1
     ADCSRA |= (1 << ADSC);    // start the ADC
-    sample_index++;           // increment the control flag
+    ++sample_index;           // increment the control flag
     sample_I1 = sample_I1_raw;
     sample_I2 = sample_I2_raw;
     dataReady = true; // all three ADC values can now be processed
@@ -167,7 +177,7 @@ void timerIsr(void)
     sample_I1_raw = ADC;      // store the ADC value (this one is for current at CT1)
     ADMUX = 0x40 + sensor_I2; // set up the next conversion, which is for current at CT2
     ADCSRA |= (1 << ADSC);    // start the ADC
-    sample_index++;           // increment the control flag
+    ++sample_index;           // increment the control flag
     break;
   case 2:
     sample_I2_raw = ADC;     // store the ADC value (this one is for current at CT2)
@@ -225,7 +235,6 @@ void allGeneralProcessing() // each iteration is for one set of data samples
     recordingNow = false;
     firstLoop = false;
     recordingComplete = false;
-    noOfCyclesToBeRecorded = 3; // more array space may be needed if this value is >1 !!!
     cycleNumberBeingRecorded = 0;
     samplesRecorded = 0;
   }
@@ -235,21 +244,14 @@ void allGeneralProcessing() // each iteration is for one set of data samples
   long sample_VminusDC_long = ((long)sample_V << 8) - DCoffset_V_long;
 
   // determine the polarity of the latest voltage sample
-  if (sample_VminusDC_long > 0)
-  {
-    polarityOfMostRecentVsample = POSITIVE;
-  }
-  else
-  {
-    polarityOfMostRecentVsample = NEGATIVE;
-  }
+  polarityOfMostRecentVsample = (sample_V1minusDC_long > 0) ? POSITIVE : NEGATIVE;
 
   if (polarityOfMostRecentVsample == POSITIVE)
   {
     if (polarityOfLastVsample != POSITIVE)
     {
       // This is the start of a new mains cycle
-      cycleCount++;
+      ++cycleCount;
       sampleSetsDuringThisHalfMainsCycle = 0;
 
       if (recordingNow == true)
@@ -262,7 +264,7 @@ void allGeneralProcessing() // each iteration is for one set of data samples
         }
         else
         {
-          cycleNumberBeingRecorded++;
+          ++cycleNumberBeingRecorded;
         }
       }
 
@@ -272,7 +274,7 @@ void allGeneralProcessing() // each iteration is for one set of data samples
         if (timeNow > recordingMayStartAt)
         {
           recordingNow = true;
-          cycleNumberBeingRecorded++;
+          ++cycleNumberBeingRecorded;
         }
         else
         {
@@ -335,10 +337,10 @@ void allGeneralProcessing() // each iteration is for one set of data samples
     storedSample_V[samplesRecorded] = sample_V;
     storedSample_I1[samplesRecorded] = sample_I1;
     //    storedSample_I2[samplesRecorded] = sample_I2;
-    samplesRecorded++;
+    ++samplesRecorded;
   }
 
-  sampleSetsDuringThisHalfMainsCycle++;
+  ++sampleSetsDuringThisHalfMainsCycle;
   cumVdeltasThisCycle_long += sample_VminusDC_long;    // for use with LP filter
   polarityOfLastVsample = polarityOfMostRecentVsample; // for identification of half cycle boundaries
 } // end of allGeneralProcessing()
@@ -357,7 +359,7 @@ void dispatch_recorded_data()
   int min_V = 1023, min_I1 = 1023, min_I2 = 1023;
   int max_V = 0, max_I1 = 0, max_I2 = 0;
 
-  for (int index = 0; index < samplesRecorded; index++)
+  for (int index = 0; index < samplesRecorded; ++index)
   {
     strcpy(newLine, blankLine);
     V = storedSample_V[index];
@@ -424,7 +426,7 @@ void dispatch_recorded_data()
   Serial.print(samplesRecorded);
   Serial.println(", <<< No of sample sets");
 
-  for (int index = 0; index < samplesRecorded; index++)
+  for (int index = 0; index < samplesRecorded; ++index)
   {
     Serial.print (storedSample_V[index]);
     Serial.print(", ");
@@ -449,7 +451,7 @@ void pause()
     {
       dummyByte = Serial.read(); // to 'consume' the incoming byte
       if (dummyByte == 'g')
-        done++;
+        ++done;
     }
   }
 }
