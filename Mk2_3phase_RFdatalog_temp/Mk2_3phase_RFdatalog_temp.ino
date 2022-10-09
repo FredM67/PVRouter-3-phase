@@ -188,7 +188,7 @@ constexpr int16_t p_phaseCal{8};   /**< to speed up math (i_phaseCal = 1 << p_ph
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-constexpr float f_voltageCal[NO_OF_PHASES]{1.03f, 1.03f, 1.03f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
+constexpr float f_voltageCal[NO_OF_PHASES]{1.0f, 1.0f, 1.0f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
