@@ -489,10 +489,9 @@ int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]; /**< for the LPF which determines D
 int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];  /**< for summation of 'real power' values during datalog period */
 int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values during datalog period */
 
-uint8_t
-    n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
-uint16_t i_sampleSetsDuringThisDatalogPeriod;    /**< number of sample sets during each datalogging period */
-uint8_t n_cycleCountForDatalogging{0};           /**< for counting how often datalog is updated */
+uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
+uint16_t i_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
+uint8_t n_cycleCountForDatalogging{0};               /**< for counting how often datalog is updated */
 
 uint8_t n_lowestNoOfSampleSetsPerMainsCycle; /**< For a mechanism to check the integrity of this code structure */
 
@@ -511,10 +510,8 @@ volatile int32_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES];   /**< copy of cumulat
 volatile int32_t copyOf_sum_Vsquared[NO_OF_PHASES];         /**< copy of for summation of V^2 values during datalog period */
 volatile float copyOf_energyInBucket_main;                  /**< copy of main energy bucket (over all phases) */
 volatile uint8_t copyOf_lowestNoOfSampleSetsPerMainsCycle;  /**<  */
-volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each
-                                                               datalogging period */
-volatile uint16_t
-    copyOf_countLoadON[NO_OF_DUMPLOADS]; /**< copy of number of cycle the load was ON (over 1 datalog period) */
+volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
+volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];      /**< copy of number of cycle the load was ON (over 1 datalog period) */
 
 #ifdef TEMP_SENSOR
 // For temperature sensing
@@ -1153,6 +1150,7 @@ void processDataLogging()
   uint8_t i{NO_OF_DUMPLOADS};
   do
   {
+    --i;
     copyOf_countLoadON[i] = countLoadON[i];
     countLoadON[i] = 0;
   } while (i);
