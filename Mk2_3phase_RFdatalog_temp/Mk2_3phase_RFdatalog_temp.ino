@@ -1153,6 +1153,7 @@ void processDataLogging()
   uint8_t i{NO_OF_DUMPLOADS};
   do
   {
+    --i;
     copyOf_countLoadON[i] = countLoadON[i];
     countLoadON[i] = 0;
   } while (i);
