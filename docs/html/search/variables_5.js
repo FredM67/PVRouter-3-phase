@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['i_5fdcoffset_5fi_5fnom_208',['i_DCoffset_I_nom',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a14cff0127f52c57f50fe52f2ed2ab093',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['i_5fphasecal_209',['i_phaseCal',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a4f02e0a0a68da4de9c903be83add12af',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['initialdelay_210',['initialDelay',['../Mk2__3phase__RFdatalog__temp__1_8ino.html#a47624474e7579456fbafc8dfc46de826',1,'Mk2_3phase_RFdatalog_temp_1.ino']]],
-  ['istartoffset_211',['iStartOffset',['../classpairForceLoad.html#a22cc79434e71d9aa9ca70a96b5fee9c1',1,'pairForceLoad']]]
+  ['i_5fphasecal_220',['i_phaseCal',['../Mk2__3phase__RFdatalog__temp_8ino.html#a4f02e0a0a68da4de9c903be83add12af',1,'Mk2_3phase_RFdatalog_temp.ino']]],
+  ['i_5fsamplesetsduringthisdatalogperiod_221',['i_sampleSetsDuringThisDatalogPeriod',['../Mk2__3phase__RFdatalog__temp_8ino.html#ab652ee1e3280fde59df6719af6e884d0',1,'Mk2_3phase_RFdatalog_temp.ino']]],
+  ['initialdelay_222',['initialDelay',['../Mk2__3phase__RFdatalog__temp_8ino.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'Mk2_3phase_RFdatalog_temp.ino']]]
 ];

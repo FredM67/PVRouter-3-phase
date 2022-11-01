@@ -1,0 +1,8 @@
+# Format Style Options - Created with Clang Power Tools
+---
+BasedOnStyle: Microsoft
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+NamespaceIndentation: All
+ColumnLimit: 0
+IndentWidth: 2
+...

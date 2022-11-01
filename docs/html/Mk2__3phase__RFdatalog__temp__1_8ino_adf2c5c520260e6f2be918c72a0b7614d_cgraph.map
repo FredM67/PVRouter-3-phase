@@ -1,4 +1,0 @@
-<map id="convertTemperature" name="convertTemperature">
-<area shape="rect" id="node1" title="Convert the internal value read from the sensor to a value in °C." alt="" coords="5,5,140,32"/>
-<area shape="rect" id="node2" href="$Mk2__3phase__RFdatalog__temp__1_8ino.html#ad462970b50df0943a9f36f1dcb49a9ee" title=" " alt="" coords="188,5,259,32"/>
-</map>

@@ -75,10 +75,10 @@ enum class Polarities : uint8_t
 */
 class Tx_struct
 {
-  public:
-    int16_t power;                         /**< main power, import = +ve, to match OEM convention */
-    int16_t power_L[NO_OF_PHASES];         /**< power for phase #, import = +ve, to match OEM convention */
-    int16_t Vrms_L_times100[NO_OF_PHASES]; /**< average voltage over datalogging period (in 100th of Volt)*/
+public:
+  int16_t power;                     /**< main power, import = +ve, to match OEM convention */
+  int16_t power_L[NO_OF_PHASES];     /**< power for phase #, import = +ve, to match OEM convention */
+  int16_t Vrms_L_x100[NO_OF_PHASES]; /**< average voltage over datalogging period (in 100th of Volt)*/
 };
 
 Tx_struct tx_data; /**< logging data */
@@ -86,8 +86,8 @@ Tx_struct tx_data; /**< logging data */
 // ----------- Pinout assignments  -----------
 //
 // analogue input pins
-constexpr uint8_t sensorV[NO_OF_PHASES] {0, 2, 4}; /**< for 3-phase PCB, voltage measurement for each phase */
-constexpr uint8_t sensorI[NO_OF_PHASES] {1, 3, 5}; /**< for 3-phase PCB, current measurement for each phase */
+constexpr uint8_t sensorV[NO_OF_PHASES]{0, 2, 4}; /**< for 3-phase PCB, voltage measurement for each phase */
+constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; /**< for 3-phase PCB, current measurement for each phase */
 
 // --------------  general global variables -----------------
 //
@@ -129,14 +129,10 @@ int32_t l_cycleCountForDatalogging{0};               /**< for counting how often
 int32_t l_lowestNoOfSampleSetsPerMainsCycle;
 
 // for interaction between the main processor and the ISR
-volatile bool b_datalogEventPending {
-  false
-}; /**< async trigger to signal datalog is available */
-volatile bool b_newMainsCycle {
-  false
-};       /**< async trigger to signal start of new main cycle based on first phase */
+volatile bool b_datalogEventPending{false}; /**< async trigger to signal datalog is available */
+volatile bool b_newMainsCycle{false};       /**< async trigger to signal start of new main cycle based on first phase */
 
-// since there's no real locking feature for shared variables, a couple of data
+// Since there's no real locking feature for shared variables, a couple of data
 // generated from inside the ISR are copied from time to time to be passed to the
 // main processor. When the data are available, the ISR signals it to the main processor.
 volatile int32_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES];  /**< copy of cumulative power per phase */
@@ -225,50 +221,50 @@ ISR(ADC_vect)
 
   switch (sample_index)
   {
-    case 0:
-      rawSample = ADC;           // store the ADC value (this one is for Voltage L1)
-      ADMUX = 0x40 + sensorV[1]; // the conversion for I1 is already under way
-      ++sample_index;            // increment the control flag
-      //
-      processVoltageRawSample(0, rawSample);
-      break;
-    case 1:
-      rawSample = ADC;           // store the ADC value (this one is for Current L1)
-      ADMUX = 0x40 + sensorI[1]; // the conversion for V2 is already under way
-      ++sample_index;            // increment the control flag
-      //
-      processCurrentRawSample(0, rawSample);
-      break;
-    case 2:
-      rawSample = ADC;           // store the ADC value (this one is for Voltage L2)
-      ADMUX = 0x40 + sensorV[2]; // the conversion for I2 is already under way
-      ++sample_index;            // increment the control flag
-      //
-      processVoltageRawSample(1, rawSample);
-      break;
-    case 3:
-      rawSample = ADC;           // store the ADC value (this one is for Current L2)
-      ADMUX = 0x40 + sensorI[2]; // the conversion for V3 is already under way
-      ++sample_index;            // increment the control flag
-      //
-      processCurrentRawSample(1, rawSample);
-      break;
-    case 4:
-      rawSample = ADC;           // store the ADC value (this one is for Voltage L3)
-      ADMUX = 0x40 + sensorV[0]; // the conversion for I3 is already under way
-      ++sample_index;            // increment the control flag
-      //
-      processVoltageRawSample(2, rawSample);
-      break;
-    case 5:
-      rawSample = ADC;           // store the ADC value (this one is for Current L3)
-      ADMUX = 0x40 + sensorI[0]; // the conversion for V1 is already under way
-      sample_index = 0;          // reset the control flag
-      //
-      processCurrentRawSample(2, rawSample);
-      break;
-    default:
-      sample_index = 0; // to prevent lockup (should never get here)
+  case 0:
+    rawSample = ADC;           // store the ADC value (this one is for Voltage L1)
+    ADMUX = 0x40 + sensorV[1]; // the conversion for I1 is already under way
+    ++sample_index;            // increment the control flag
+    //
+    processVoltageRawSample(0, rawSample);
+    break;
+  case 1:
+    rawSample = ADC;           // store the ADC value (this one is for Current L1)
+    ADMUX = 0x40 + sensorI[1]; // the conversion for V2 is already under way
+    ++sample_index;            // increment the control flag
+    //
+    processCurrentRawSample(0, rawSample);
+    break;
+  case 2:
+    rawSample = ADC;           // store the ADC value (this one is for Voltage L2)
+    ADMUX = 0x40 + sensorV[2]; // the conversion for I2 is already under way
+    ++sample_index;            // increment the control flag
+    //
+    processVoltageRawSample(1, rawSample);
+    break;
+  case 3:
+    rawSample = ADC;           // store the ADC value (this one is for Current L2)
+    ADMUX = 0x40 + sensorI[2]; // the conversion for V3 is already under way
+    ++sample_index;            // increment the control flag
+    //
+    processCurrentRawSample(1, rawSample);
+    break;
+  case 4:
+    rawSample = ADC;           // store the ADC value (this one is for Voltage L3)
+    ADMUX = 0x40 + sensorV[0]; // the conversion for I3 is already under way
+    ++sample_index;            // increment the control flag
+    //
+    processVoltageRawSample(2, rawSample);
+    break;
+  case 5:
+    rawSample = ADC;           // store the ADC value (this one is for Current L3)
+    ADMUX = 0x40 + sensorI[0]; // the conversion for V1 is already under way
+    sample_index = 0;          // reset the control flag
+    //
+    processCurrentRawSample(2, rawSample);
+    break;
+  default:
+    sample_index = 0; // to prevent lockup (should never get here)
   }
 } // end of ISR
 
@@ -361,7 +357,7 @@ void processPolarity(const uint8_t phase, const int16_t rawSample)
 */
 void confirmPolarity(const uint8_t phase)
 {
-  static uint8_t count[NO_OF_PHASES] {};
+  static uint8_t count[NO_OF_PHASES]{};
 
   if (polarityOfMostRecentVsample[phase] != polarityConfirmedOfLastSampleV[phase])
     ++count[phase];
@@ -623,7 +619,7 @@ void printDataLogging()
     Serial.print(F(", V"));
     Serial.print(phase + 1);
     Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_times100[phase] / 100);
+    Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
   }
 
   Serial.print(F(", (minSampleSets/MC "));
@@ -657,10 +653,10 @@ void printConfiguration()
     Serial.print(F("\tf_powerCal for L"));
     Serial.print(phase + 1);
     Serial.print(F(" =    "));
-    Serial.println(f_powerCal[phase], 4);
+    Serial.println(f_powerCal[phase], 5);
 
     Serial.print(F("\tf_voltageCal, for Vrms  =      "));
-    Serial.println(f_voltageCal[phase], 4);
+    Serial.println(f_voltageCal[phase], 5);
   }
   Serial.print(F("\tf_phaseCal for all phases"));
   Serial.print(F(" =     "));
@@ -696,19 +692,19 @@ void setup()
     DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
 
   // Set up the ADC to be free-running
-  ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2); // Set the ADC's clock to system clock / 128
-  ADCSRA |= (1 << ADEN);                               // Enable the ADC
+  ADCSRA = bit(ADPS0) + bit(ADPS1) + bit(ADPS2); // Set the ADC's clock to system clock / 128
+  ADCSRA |= bit(ADEN);                           // Enable the ADC
 
-  ADCSRA |= (1 << ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  ADCSRA |= bit(ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
   // bits ADTS0-2 have not been set (i.e. they are all zero), the
   // ADC's trigger source is set to "free running mode".
 
-  ADCSRA |= (1 << ADIE); // set the ADC interrupt enable bit. When this bit is written
+  ADCSRA |= bit(ADIE); // set the ADC interrupt enable bit. When this bit is written
   // to one and the I-bit in SREG is set, the
   // ADC Conversion Complete Interrupt is activated.
 
-  ADCSRA |= (1 << ADSC); // start ADC manually first time
-  sei();                 // Enable Global Interrupts
+  ADCSRA |= bit(ADSC); // start ADC manually first time
+  sei();               // Enable Global Interrupts
 
   Serial.print(F(">>free RAM = "));
   Serial.println(freeRam()); // a useful value to keep an eye on
@@ -746,7 +742,7 @@ void loop()
 
       tx_data.power += tx_data.power_L[phase];
 
-      tx_data.Vrms_L_times100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
     }
 
     printDataLogging();

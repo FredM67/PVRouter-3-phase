@@ -10,13 +10,13 @@ Ma version du firmware Mk2PVRouter en 3 phases (voir http://www.mk2pvrouter.co.u
 Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.uk/3-phase-version.html). Il prend en charge 3 charges de sortie résistives, qui sont complètement indépendantes.
 
 ---
-**_NOTE:_**
-
-Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
+**_NOTE:_** Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
 
 ---
 
 - [PVRouter (version triphasée)](#pvrouter-version-triphasée)
+  - [Gallerie photo](#gallerie-photo)
+  - [Schéma de la carte-mère](#schéma-de-la-carte-mère)
   - [Documentation de développement](#documentation-de-développement)
   - [Documentation de l’utilisateur final](#documentation-de-lutilisateur-final)
     - [Aperçu](#aperçu)
@@ -25,6 +25,7 @@ Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM6
     - [Forçage pleine puissance](#forçage-pleine-puissance)
     - [Capteur de température](#capteur-de-température)
     - [Profil Enphase zéro export](#profil-enphase-zéro-export)
+- [Comment câbler le routeur](#comment-câbler-le-routeur)
 - [Applications / Diagrammes de câblage](#applications--diagrammes-de-câblage)
   - [Pré-requis](#pré-requis)
   - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
@@ -35,6 +36,14 @@ Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM6
   - [Alternatives SANS neutre](#alternatives-sans-neutre)
     - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique-1)
     - [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
+
+## Gallerie photo
+
+Vous trouverez quelques [photos](Gallery.md) de routeurs assemblés.
+
+## Schéma de la carte-mère
+
+Vous trouverez [ici](../../docs/3phase_Mainboard.pdf) le schéma de la carte-mère.
 
 ## Documentation de développement
 
@@ -101,6 +110,9 @@ Lorsque la production (et l’excédent) arrive au maximum possible, la valeur m
 
 Cela a été testé en situation réelle par Amorim. Selon chaque situation, il peut être nécessaire de modifier cette valeur de *-20* à une valeur plus grande ou plus petite.
 
+# Comment câbler le routeur
+[Ici](../../docs/HowToInstall.pdf) vous trouverez une rapide notice d'installation du routeur.
+
 # Applications / Diagrammes de câblage
 
 Je veux:
@@ -109,7 +121,7 @@ Je veux:
 - connecter mon chauffe-eau (avec thermostat mécanique) en triphasé, voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
 - changer mon chauffe-eau aci monophasé en triphasé sans acheter de kit triphasé, voir [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
 - connecter mon chauffe-eau ACI triphasé, voir [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
-- connecter plusieurs charges résistves pures, il suffit de les câbler, une sur chaque sortie. N’oubliez pas de désactiver la gestion des priorités de charge.
+- connecter plusieurs charges résistives pures, il suffit de les câbler, une sur chaque sortie. N’oubliez pas de désactiver la gestion des priorités de charge.
 
 ## Pré-requis
 
@@ -138,7 +150,7 @@ Vous devrez séparer les 3 éléments de chauffage, et probablement ajouter un n
 
 ### Câblage
 
-Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2 phases en mode normal (les 3 phases en mode de sécurité), il doit donc être câblé d’une autre manière pour obtenir un commutateur complet sur les 3 phases.
+Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2 phases en mode normal (les 3 phases en mode de sécurité), il doit donc être câblé d’une autre manière pour obtenir une commutation complète sur les 3 phases.
 
 ---
 **_Rappel_**
