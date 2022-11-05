@@ -32,10 +32,9 @@ Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.u
     - [Passage du monophasé au triphasé (avec neutre)](#passage-du-monophasé-au-triphasé-avec-neutre)
     - [Câblage](#câblage)
   - [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
-  - [Chauffe-eau avec thermostat ACI triphasé (avec neutre)](#chauffe-eau-avec-thermostat-aci-triphasé-avec-neutre)
+  - [Chauffe-eau avec thermostat ACI triphasé (SANS neutre)](#chauffe-eau-avec-thermostat-aci-triphasé-sans-neutre)
   - [Alternatives SANS neutre](#alternatives-sans-neutre)
     - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique-1)
-    - [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
 
 ## Gallerie photo
 
@@ -171,26 +170,23 @@ Dans ce cas, c’est en quelque sorte la même situation qu’avant. Vous n’av
 ![Chauffe-eau avec thermostat ACI monophasé](../../img/Heater_ACI_Mono.png)  
 *Figure : Diagramme de câblage*
 
-## Chauffe-eau avec thermostat ACI triphasé (avec neutre)
+## Chauffe-eau avec thermostat ACI triphasé (SANS neutre)
 
 ---
-**_Nécessite un routeur avec 3 sorties_**
+**_Nécessite un routeur avec 2 sorties_**
 
 Avec cette solution, vous commandez chaque résistance séparément l'une de l'autre.
 
 ---
 
-Dans ce cas, le fil neutre n’est pas connecté à la carte ACI. Ainsi, vous aurez besoin de connecter le fil neutre au fil bleu déjà connecté aux éléments de chauffage. La carte ACI doit être reliée à 3 phases permanentes.
+La carte ACI ne coupe pas les 3 phases lorsque la température est atteinte. Seules 2 phases sont coupées.
+
+La phase non coupée est celle qui correspond au fil du milieu sur le connecteur. ***Il est très IMPORTANT que cette phase, non coupée par le thermostat, ne passe pas par un triac***.
+
+La carte ACI doit être reliée à 3 phases permanentes.
 
 ![Chauffe-eau avec thermostat ACI triphasé](../../img/Heater_ACI_Tri.png)  
 *Figure : Diagramme de câblage*
-
-![Carte ACI triphasée](../../img/ACI-Tri.jpeg)
-*Figure : Une carte ACI triphasée*
-
-Et maintenant avec un schéma « hybride »:
-![Comment connecter un module ACI triphasé](../../img/ACI-Tri-Hybrid.jpeg)  
-*Figure: Comment connecter un module ACI triphasé*
 
 ## Alternatives SANS neutre
 
@@ -221,8 +217,3 @@ En **vert**, seules 2 phases sont coupées, L2 et L3. ***Il est très IMPORTANT 
 
 ![Chauffe-eau avec thermostat mécanique](../../img/Heater_mechanical-No_neutral.png)  
 *Figure: Diagramme de câblage*
-
-### Chauffe-eau avec thermostat ACI triphasé
-
-![Chauffe-eau avec thermostat ACI triphasé](../../img/Heater_ACI_Tri-No_neutral.png)  
-*Figure : Diagramme de câblage*

@@ -33,10 +33,9 @@ It supports up to 7 resistive output loads, which are completely independent.
       - [Migrate from single-phase to 3-phase (with neutral wire)](#migrate-from-single-phase-to-3-phase-with-neutral-wire)
       - [Wiring](#wiring)
   - [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
-  - [Heater with ACI 3-phase thermostat (with neutral wire)](#heater-with-aci-3-phase-thermostat-with-neutral-wire)
+  - [Heater with ACI 3-phase thermostat (without neutral wire)](#heater-with-aci-3-phase-thermostat-without-neutral-wire)
   - [Alternatives WITHOUT neutral wire](#alternatives-without-neutral-wire)
-    - [Heater with mmechanical thermostat](#heater-with-mmechanical-thermostat)
-    - [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
+    - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat-1)
 
 ## Photo Gallery
 
@@ -176,26 +175,25 @@ The ACI pcb must be connected to a permanent phase. It will then control any 3-p
 ![Heater with ACI single phase thermostat](img/Heater_ACI_Mono.png)  
 *Figure: Wiring diagram*
 
-## Heater with ACI 3-phase thermostat (with neutral wire)
+## Heater with ACI 3-phase thermostat (without neutral wire)
 
 ---
-**_A router with 3 outputs is needed_**
+**_A router with 2 outputs is needed_**
 
 With this solution, you'll control each heating element separately.
 
 ---
 
-In this case, the neutral wire is not connected to the ACI pcb. So you'll need to connect the neutral wire to the blue wire already connected to the heating elements. The ACI pcb must be connected to 3 permanent phases.
+La carte ACI ne coupe pas les 3 phases lorsque la température est atteinte. Seules 2 phases sont coupées.
+The ACI board does not cut all 3 phases when the temperature is reached. Only 2 phases are disconnected.
+
+The remaining connected phase is the one in the middle of the power connector.
+***It is very IMPORTANT that this phase, which remains permanent, does not pass through a triac***.
+
+The ACI pcb must be connected to 3 permanent phases.
 
 ![Heater with ACI 3-phase thermostat](img/Heater_ACI_Tri.png)  
 *Figure: Wiring diagram*
-
-![ACI 3-phase PCB](img/ACI-Tri.jpeg)
-*Figure: An ACI 3-phase module*
-
-And now with an "hybrid" schematic-picture:
-![How to connect ACI 3-phase module](img/ACI-Tri-Hybrid.jpeg)  
-*Figure: How to connect ACI 3-phase module*
 
 ## Alternatives WITHOUT neutral wire
 
@@ -206,7 +204,7 @@ With this solution, you won't need to add an additional neutral wire nor add a r
 
 ---
 
-### Heater with mmechanical thermostat
+### Heater with mechanical thermostat
 
 This configuration allows to simplify the wiring and specially does not require any 3-4 poles relay.
 
@@ -226,8 +224,3 @@ In **green**, only 2 phases are switched off, L2 et L3. ***It is IMPORTANT that 
 
 ![Heater with mechanical thermostat](img/Heater_mechanical-No_neutral.png)  
 *Figure: Wiring diagram*
-
-### Heater with ACI 3-phase thermostat
-
-![Heater with ACI 3-phase thermostat](img/Heater_ACI_Tri-No_neutral.png)  
-*Figure : Wiring diagram*
