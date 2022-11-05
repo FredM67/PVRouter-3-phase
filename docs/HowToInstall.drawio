@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-10-25T12:41:03.719Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="WBjg3DspIJsw90_avm06" version="20.5.1" type="github">
+<mxfile host="app.diagrams.net" modified="2022-11-02T04:32:35.119Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="i2zfvnzVdIgQ3vEr5qvz" version="20.5.1" type="github">
   <diagram name="Page-1" id="7e0a89b8-554c-2b80-1dc8-d5c74ca68de4">
-    <mxGraphModel dx="1422" dy="914" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="687" dy="385" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -433,13 +433,14 @@
         <mxCell id="LaMMDNBPQCh3xhoEPbLG-46" value="" style="pointerEvents=1;verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.resistors.resistor_2;" parent="1" vertex="1">
           <mxGeometry x="120" y="1652" width="100" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="LaMMDNBPQCh3xhoEPbLG-51" value="" style="html=1;strokeWidth=4;fillColor=#0050ef;endArrow=none;endFill=0;exitX=1;exitY=0.125;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.12;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;strokeColor=#808080;" parent="1" source="LaMMDNBPQCh3xhoEPbLG-43" target="_YcDlDGD7Q-Z-5NjXwbV-4" edge="1">
+        <mxCell id="LaMMDNBPQCh3xhoEPbLG-51" value="" style="html=1;strokeWidth=4;fillColor=#0050ef;endArrow=none;endFill=0;exitX=1;exitY=0.125;exitDx=0;exitDy=0;exitPerimeter=0;strokeColor=#808080;" parent="1" source="LaMMDNBPQCh3xhoEPbLG-43" edge="1">
           <mxGeometry x="-61.5" y="-2364" width="100" as="geometry">
             <mxPoint x="380.0799999999999" y="1536" as="sourcePoint" />
-            <mxPoint x="512.5" y="1636" as="targetPoint" />
+            <mxPoint x="270" y="1480" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="195" y="1602" />
-              <mxPoint x="289" y="1602" />
+              <mxPoint x="195" y="1600" />
+              <mxPoint x="290" y="1600" />
+              <mxPoint x="290" y="1480" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -504,8 +505,8 @@
             <Array as="points">
               <mxPoint x="151" y="1320" />
               <mxPoint x="190" y="1320" />
-              <mxPoint x="190" y="1486" />
-              <mxPoint x="289" y="1486" />
+              <mxPoint x="190" y="1480" />
+              <mxPoint x="289" y="1480" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -693,10 +694,10 @@
         <mxCell id="Z-FFovLpa1tO1y4HW4Jo-3" value="&lt;span style=&quot;font-family: &amp;#34;helvetica&amp;#34;&quot;&gt;Contacteur&lt;/span&gt;&lt;br style=&quot;font-family: &amp;#34;helvetica&amp;#34;&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;helvetica&amp;#34;&quot;&gt;Jour/Nuit&lt;/span&gt;" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;position2=0.54;" parent="1" vertex="1">
           <mxGeometry x="105" y="1252" width="70" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="zteKuk2hcf1H4Og1tW2Z-2" value="&lt;font face=&quot;helvetica&quot;&gt;Selon l&#39;arrivage et disponibilité, les borniers TRIAC peuvent être différents (couleur, à vis, push-in)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="zteKuk2hcf1H4Og1tW2Z-2" value="&lt;font face=&quot;helvetica&quot;&gt;Selon l&#39;arrivage et disponibilité, les borniers TRIAC peuvent être différents (couleur, à vis, push-in)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="420.5" y="190" width="379.5" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="zteKuk2hcf1H4Og1tW2Z-4" value="" style="group" vertex="1" connectable="0" parent="1">
+        <mxCell id="zteKuk2hcf1H4Og1tW2Z-4" value="" style="group" parent="1" vertex="1" connectable="0">
           <mxGeometry x="420" y="240" width="380" height="330" as="geometry" />
         </mxCell>
         <mxCell id="P47pTHpwBbHtv2b1lyid-10" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="zteKuk2hcf1H4Og1tW2Z-4" vertex="1">
@@ -794,7 +795,7 @@
         <mxCell id="_YcDlDGD7Q-Z-5NjXwbV-64" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px&quot;&gt;L3&lt;br&gt;&lt;/font&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="zteKuk2hcf1H4Og1tW2Z-4" vertex="1">
           <mxGeometry x="310" y="143" width="40" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="zteKuk2hcf1H4Og1tW2Z-1" value="&lt;font face=&quot;helvetica&quot;&gt;Le neutre (N) et la terre (PE) sont pontés en interne entre les borniers L1, L2 et L3.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="zteKuk2hcf1H4Og1tW2Z-4">
+        <mxCell id="zteKuk2hcf1H4Og1tW2Z-1" value="&lt;font face=&quot;helvetica&quot;&gt;Le neutre (N) et la terre (PE) sont pontés en interne entre les borniers L1, L2 et L3.&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="zteKuk2hcf1H4Og1tW2Z-4" vertex="1">
           <mxGeometry x="70" y="30" width="280" height="40" as="geometry" />
         </mxCell>
       </root>
