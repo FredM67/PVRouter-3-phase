@@ -147,6 +147,9 @@
 //
 constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
 constexpr uint8_t NO_OF_DUMPLOADS{1}; /**< number of dump loads connected to the diverter */
+
+constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
+
 //
 // Calibration values
 //-------------------
@@ -164,7 +167,7 @@ constexpr uint8_t NO_OF_DUMPLOADS{1}; /**< number of dump loads connected to the
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.0513f, 0.0512f, 0.0515f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.04401f, 0.04399f, 0.04296f};
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
