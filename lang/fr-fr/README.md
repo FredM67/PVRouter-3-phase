@@ -60,14 +60,14 @@ Fonctionnalités ajoutées :
 
 - gestion des priorités de charge (configurable)
 - détection HC/HP (configurable)
-- forcage à pleine puissance
+- forçage à pleine puissance
 - capteur de température (juste la lecture pour le moment)
 - enregistrement de données optimisé (RF)
 - sortie série en JSON ou TXT
   
 Le programme original a dû être entièrement retravaillé et re-structuré pour permettre la lecture de la température. Dans le programme d’origine, l’ISR ne fait que lire et convertir les données analogiques, et le traitement se fait dans la boucle *loop*. Cela ne fonctionnera pas avec un capteur de température en raison de ses performances lentes. Il déstabiliserait l’ensemble du système, des données de courant / tension seraient perdues, ...
 
-Maintenant, tout le traitement critique en termes de temps se fait à l’intérieur de l’ISR, les autres tâches comme la journalisation des données (RF), la sortie série, la lecture de la température sont faites à l’intérieur de la boucle *loop()*. L’ISR et le processeur principal communiquent entre eux par le biais d'« êvénements ».
+Maintenant, tout le traitement critique en termes de temps se fait à l’intérieur de l’ISR, les autres tâches comme la journalisation des données (RF), la sortie série, la lecture de la température sont faites à l’intérieur de la boucle *loop()*. L’ISR et le processeur principal communiquent entre eux par le biais d'« événements ».
 
 ### Gestion des priorités de charge
 
@@ -119,7 +119,7 @@ Je veux:
 - changer mon chauffe-eau (avec thermostat mécanique) monophasé en triphasé, voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
 - connecter mon chauffe-eau (avec thermostat mécanique) en triphasé, voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
 - changer mon chauffe-eau aci monophasé en triphasé sans acheter de kit triphasé, voir [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
-- connecter mon chauffe-eau ACI triphasé, voir [Chauffe-eau avec thermostat ACI triphasé](#chauffe-eau-avec-thermostat-aci-triphasé)
+- connecter mon chauffe-eau ACI triphasé, voir [Chauffe-eau avec thermostat ACI triphasé (SANS neutre)](#chauffe-eau-avec-thermostat-aci-triphasé-sans-neutre)
 - connecter plusieurs charges résistives pures, il suffit de les câbler, une sur chaque sortie. N’oubliez pas de désactiver la gestion des priorités de charge.
 
 ## Pré-requis

@@ -122,7 +122,7 @@ I want to:
 - change my (mechanical) single-phase water heater to 3-phase, see [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
 - connect my (mechanical) 3-phase water heater, see [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
 - change my ACI single-phase water heater to 3-phase w/o buying a 3-phase kit, see [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
-- connect my ACI 3-phase water heater, see [Heater with ACI 3-phase thermostat](#heater-with-aci-3-phase-thermostat)
+- connect my ACI 3-phase water heater, see [Heater with ACI 3-phase thermostat (without neutral wire)](#heater-with-aci-3-phase-thermostat-without-neutral-wire)
 - connect multiple pure resistive charges, simply wire them, one on each output, and do not forget to disable [Load priorities management](#load-priorities-management).
 
 ## Requirements
