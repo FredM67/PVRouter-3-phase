@@ -132,7 +132,7 @@
 
 //#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
 //#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
-//#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
+#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
 
 // Output messages
 #define DEBUGGING   ///< enable this line to include debugging print statements
@@ -167,7 +167,7 @@ constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in se
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.05000f, 0.05000f, 0.05000f};
+constexpr float f_powerCal[NO_OF_PHASES]{0.05329f, 0.05326f, 0.05254f};
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
@@ -362,7 +362,8 @@ constexpr uint8_t offPeakForcePin{3}; /**< for 3-phase PCB, off-peak trigger */
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-constexpr uint8_t forcePin{4};
+constexpr uint8_t forcePin0{3};
+constexpr uint8_t forcePin1{4};
 #endif
 
 #ifdef TEMP_SENSOR
@@ -1305,12 +1306,13 @@ void logLoadPriorities()
 bool forceFullPower()
 {
 #ifdef FORCE_PIN_PRESENT
-  const uint8_t pinState{!!(PIND & bit(forcePin))};
+  const uint8_t pinState0{!!(PIND & bit(forcePin0))};
+  const uint8_t pinState1{!!(PIND & bit(forcePin1))};
 
-  for (auto &bForceLoad : b_forceLoadOn)
-    bForceLoad = !pinState;
+  b_forceLoadOn[0] = !pinState0;
+  b_forceLoadOn[1] = !pinState1;
 
-  return !pinState;
+  return !pinState0 || !pinState1;
 #else
   return false;
 #endif
@@ -1678,8 +1680,10 @@ void setup()
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-  DDRD &= ~bit(forcePin); // set as input
-  PORTD |= bit(forcePin); // enable the internal pullup resistor
+  DDRD &= ~bit(forcePin0); // set as input
+  PORTD |= bit(forcePin0); // enable the internal pullup resistor
+  DDRD &= ~bit(forcePin1); // set as input
+  PORTD |= bit(forcePin1); // enable the internal pullup resistor
   delay(100);             // allow time to settle
 #endif
 
