@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-11-02T04:32:35.119Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36" etag="i2zfvnzVdIgQ3vEr5qvz" version="20.5.1" type="github">
+<mxfile host="app.diagrams.net" modified="2022-11-17T22:07:08.293Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="nX0FhRWMmCnPSivFOXYC" version="20.5.2" type="github">
   <diagram name="Page-1" id="7e0a89b8-554c-2b80-1dc8-d5c74ca68de4">
-    <mxGraphModel dx="687" dy="385" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="1422" dy="857" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -29,7 +29,7 @@
           <mxGeometry x="105" y="980" width="100" height="20" as="geometry" />
         </mxCell>
         <mxCell id="_YcDlDGD7Q-Z-5NjXwbV-38" value="Charge #n" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;direction=west;" parent="1" vertex="1">
-          <mxGeometry x="95" y="1000" width="120" height="80" as="geometry" />
+          <mxGeometry x="95" y="1000" width="120" height="70" as="geometry" />
         </mxCell>
         <mxCell id="_YcDlDGD7Q-Z-5NjXwbV-39" value="" style="html=1;exitX=0.78;exitY=0.95;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.12;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#a20025;shadow=0;strokeWidth=4;strokeColor=#FF0000;endArrow=none;endFill=0;" parent="1" source="_YcDlDGD7Q-Z-5NjXwbV-35" target="_YcDlDGD7Q-Z-5NjXwbV-33" edge="1">
           <mxGeometry width="100" relative="1" as="geometry">
@@ -108,8 +108,8 @@
         <mxCell id="X5zUQhGE-58T7xV7t1pe-4" value="&lt;div&gt;&lt;b style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;Installation des pinces&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;Les pinces doivent être installées entre le compteur/disjoncteur principal et l&#39;arrivée principale dans le tableau.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;Il y a une flèche gravée sur chaque pince. Cette flèche doit être dans le sens &lt;b&gt;compteur VERS tableau&lt;/b&gt;.&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;Il faut respecter le marquage. La pince L1, doit être connectée à la prise jack L1.&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;&lt;br&gt;&lt;font color=&quot;#ff0000&quot;&gt;&lt;b&gt;La phase qui passe par la pince L1 doit être la même que celle qui est connectée à la borne L1 de l&#39;alimentation du routeur.&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;b&gt;Idem pour L2 et L3.&lt;/b&gt;&lt;br&gt;Si nécessaire, contrôler au multimètre (position V~) :&lt;br&gt;&lt;ul&gt;&lt;li&gt;tension entre phases différentes =&amp;gt; env. 400V&lt;/li&gt;&lt;li&gt;tension sur la même phase =&amp;gt; 0V.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;perimeterSpacing=2;spacing=4;" parent="1" vertex="1">
           <mxGeometry x="20.5" y="190" width="369.5" height="280" as="geometry" />
         </mxCell>
-        <mxCell id="X5zUQhGE-58T7xV7t1pe-5" value="Alimentation du routeur tri-phasé&lt;br&gt;Branchement des charges" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1;fontSize=20;" parent="1" vertex="1">
-          <mxGeometry x="234.5" y="18" width="330" height="50" as="geometry" />
+        <mxCell id="X5zUQhGE-58T7xV7t1pe-5" value="Alimentation du routeur triphasé&lt;br&gt;Branchement des charges" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontStyle=1;fontSize=20;" parent="1" vertex="1">
+          <mxGeometry x="234.5" y="13" width="330" height="60" as="geometry" />
         </mxCell>
         <mxCell id="LaMMDNBPQCh3xhoEPbLG-22" value="" style="ellipse;whiteSpace=wrap;html=1;dashed=1;strokeWidth=3;" parent="1" vertex="1">
           <mxGeometry x="460" y="960" width="89" height="40" as="geometry" />
@@ -133,7 +133,7 @@
           <mxGeometry x="626" y="1030" width="100" height="20" as="geometry" />
         </mxCell>
         <mxCell id="LaMMDNBPQCh3xhoEPbLG-29" value="Charge #n" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;direction=west;" parent="1" vertex="1">
-          <mxGeometry x="616" y="1050" width="120" height="80" as="geometry" />
+          <mxGeometry x="616" y="1050" width="120" height="70" as="geometry" />
         </mxCell>
         <mxCell id="LaMMDNBPQCh3xhoEPbLG-30" value="" style="html=1;exitX=0.24;exitY=-0.017;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.22;entryY=0.958;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=4;fillColor=#0050ef;strokeColor=#0000FF;endArrow=none;endFill=0;" parent="1" source="LaMMDNBPQCh3xhoEPbLG-33" target="LaMMDNBPQCh3xhoEPbLG-26" edge="1">
           <mxGeometry x="-100" y="60" width="100" as="geometry">
@@ -256,7 +256,7 @@
           <mxGeometry x="516" y="1513" width="100" height="20" as="geometry" />
         </mxCell>
         <mxCell id="u1M8npFr7R6jaQxEBKVy-7" value="Charge #n" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;direction=west;" parent="1" vertex="1">
-          <mxGeometry x="479" y="1533" width="120" height="80" as="geometry" />
+          <mxGeometry x="479" y="1533" width="120" height="67" as="geometry" />
         </mxCell>
         <mxCell id="u1M8npFr7R6jaQxEBKVy-8" value="" style="html=1;exitX=0.78;exitY=0.95;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.12;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#a20025;shadow=0;strokeWidth=4;strokeColor=#FF0000;endArrow=none;endFill=0;" parent="1" source="u1M8npFr7R6jaQxEBKVy-4" target="u1M8npFr7R6jaQxEBKVy-2" edge="1">
           <mxGeometry width="100" relative="1" as="geometry">
@@ -694,7 +694,7 @@
         <mxCell id="Z-FFovLpa1tO1y4HW4Jo-3" value="&lt;span style=&quot;font-family: &amp;#34;helvetica&amp;#34;&quot;&gt;Contacteur&lt;/span&gt;&lt;br style=&quot;font-family: &amp;#34;helvetica&amp;#34;&quot;&gt;&lt;span style=&quot;font-family: &amp;#34;helvetica&amp;#34;&quot;&gt;Jour/Nuit&lt;/span&gt;" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;position2=0.54;" parent="1" vertex="1">
           <mxGeometry x="105" y="1252" width="70" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="zteKuk2hcf1H4Og1tW2Z-2" value="&lt;font face=&quot;helvetica&quot;&gt;Selon l&#39;arrivage et disponibilité, les borniers TRIAC peuvent être différents (couleur, à vis, push-in)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="zteKuk2hcf1H4Og1tW2Z-2" value="&lt;font face=&quot;helvetica&quot;&gt;Selon l&#39;arrivage et disponibilité, les borniers TRIAC&lt;br&gt;peuvent être différents (couleur, à vis, push-in, ...)&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="420.5" y="190" width="379.5" height="40" as="geometry" />
         </mxCell>
         <mxCell id="zteKuk2hcf1H4Og1tW2Z-4" value="" style="group" parent="1" vertex="1" connectable="0">

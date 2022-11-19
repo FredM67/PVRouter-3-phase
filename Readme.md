@@ -184,7 +184,6 @@ With this solution, you'll control each heating element separately.
 
 ---
 
-La carte ACI ne coupe pas les 3 phases lorsque la température est atteinte. Seules 2 phases sont coupées.
 The ACI board does not cut all 3 phases when the temperature is reached. Only 2 phases are disconnected.
 
 The remaining connected phase is the one in the middle of the power connector.
