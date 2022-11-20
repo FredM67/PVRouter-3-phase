@@ -59,7 +59,10 @@ jobs:
       # uses: github/codeql-action/autobuild@v2
       uses: arduino/compile-sketches@v1
       with:
-        fqbn: 'arduino:avr:uno'      
+        fqbn: 'arduino:avr:uno'
+        sketch-paths: |
+          - cal_CTx_v_meter
+          - Mk2_3phase_RFdatalog_temp
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
