@@ -25,12 +25,12 @@ Quelques une de mes réalisations... d'autres à venir...
 ## Routeur triphasé 4 sorties multi-boîtier (carte-mère, 3 sorties, 1 sortie)
 
 ### Boîtier carte-mère
-[<img alt="Boîtier carte-mère" src="../../img/ce87c606-ab8e-44c3-b274-a3130b65f113.jpg" width="50%">](../../img/ce87c606-ab8e-44c3-b274-a3130b65f113.jpg "Boîtier carte-mère")
-[<img alt="Intérieur" src="../../img/ad63052d-ebe5-4e1f-9275-3632a48a1255.jpg" width="50%">](../../img/ad63052d-ebe5-4e1f-9275-3632a48a1255.jpg "Intérieur")
+[<img alt="Boîtier carte-mère" src="../../img/ce87c606-ab8e-44c3-b274-a3130b65f113.jpg" width="25%">](../../img/ce87c606-ab8e-44c3-b274-a3130b65f113.jpg "Boîtier carte-mère")
+[<img alt="Intérieur" src="../../img/ad63052d-ebe5-4e1f-9275-3632a48a1255.jpg" width="25%">](../../img/ad63052d-ebe5-4e1f-9275-3632a48a1255.jpg "Intérieur")
 
 ### Boîtier 3 sorties à proximité du chauffe-eau
 Ce boîtier contient les 3 sorties mais aussi une horloge et un contacteur pour la marche forcée programmée.
-[<img alt="Boîtier chauffe-eau" src="../../img/5291760f-7a21-42bc-bc12-00a551be847b.jpg" width="50%">](../../img/5291760f-7a21-42bc-bc12-00a551be847b.jpg "Boîtier chauffe-eau")
+[<img alt="Boîtier chauffe-eau" src="../../img/5291760f-7a21-42bc-bc12-00a551be847b.jpg" width="25%">](../../img/5291760f-7a21-42bc-bc12-00a551be847b.jpg "Boîtier chauffe-eau")
 
 [<img alt="Intérieur" src="../../img/071abcd1-ac9d-46c5-bbe8-30d14bfc3ad4.jpg" width="25%">](../../img/071abcd1-ac9d-46c5-bbe8-30d14bfc3ad4.jpg "Intérieur") [<img alt="Détail horloge/contacteur" src="../../img/f40a586f-e764-486c-9dc7-2c0aa3767f4b.jpg" width="25%">](../../img/f40a586f-e764-486c-9dc7-2c0aa3767f4b.jpg "Détail horloge/contacteur")
 
