@@ -33,7 +33,7 @@ Ce boîtier contient les 3 sorties mais aussi une horloge et un contacteur pour 
 [<img alt="Boîtier chauffe-eau" src="../../img/5291760f-7a21-42bc-bc12-00a551be847b.jpg" width="25%">](../../img/5291760f-7a21-42bc-bc12-00a551be847b.jpg "Boîtier chauffe-eau") [<img alt="Intérieur" src="../../img/071abcd1-ac9d-46c5-bbe8-30d14bfc3ad4.jpg" width="25%">](../../img/071abcd1-ac9d-46c5-bbe8-30d14bfc3ad4.jpg "Intérieur") [<img alt="Détail horloge/contacteur" src="../../img/f40a586f-e764-486c-9dc7-2c0aa3767f4b.jpg" width="25%">](../../img/f40a586f-e764-486c-9dc7-2c0aa3767f4b.jpg "Détail horloge/contacteur")
 
 ### Boîtier 1 sortie déporté
-[<img alt="Boîtier 1 sortie" src="../../img/ed17d132-fba7-4b36-9564-83fd12fedd17.jpg" width="50%">](../../img/ed17d132-fba7-4b36-9564-83fd12fedd17.jpg "Boîtier 1 sortie")
+[<img alt="Boîtier 1 sortie" src="../../img/ed17d132-fba7-4b36-9564-83fd12fedd17.jpg" width="25%">](../../img/ed17d132-fba7-4b36-9564-83fd12fedd17.jpg "Boîtier 1 sortie")
 
 ## Routeur triphasé 4 sorties
 
