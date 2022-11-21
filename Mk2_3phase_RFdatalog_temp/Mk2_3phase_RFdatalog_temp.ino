@@ -123,6 +123,7 @@
  * @copyright Copyright (c) 2021
  *
  */
+static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
 
 #include <Arduino.h> // may not be needed, but it's probably a good idea to include this
 
@@ -131,7 +132,7 @@
 //#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
 //#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
-//#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
+#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
 //#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
 
 // Output messages
