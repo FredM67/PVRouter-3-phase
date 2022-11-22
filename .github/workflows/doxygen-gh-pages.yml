@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+    - 'Mk2_3phase_RFdatalog_temp/**'      
   workflow_dispatch:
   
 jobs:
