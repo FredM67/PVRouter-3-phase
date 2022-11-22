@@ -1,0 +1,6 @@
+<map id="processRawSamples" name="processRawSamples">
+<area shape="rect" id="node1" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="5,31,161,57"/>
+<area shape="rect" id="node2" href="$group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="209,5,372,32"/>
+<area shape="rect" id="node4" href="$group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Process the startup period for the router." alt="" coords="230,56,351,83"/>
+<area shape="rect" id="node3" href="$group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the lastest contribution after each phase specific new cycle additional processing is perform..." alt="" coords="420,5,612,32"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="processPlusHalfCycle" name="processPlusHalfCycle">
+<area shape="rect" id="node1" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="5,5,168,32"/>
+<area shape="rect" id="node2" href="$group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the lastest contribution after each phase specific new cycle additional processing is perform..." alt="" coords="216,5,408,32"/>
+</map>

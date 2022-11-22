@@ -1,0 +1,10 @@
+<map id="processVoltageRawSample" name="processVoltageRawSample">
+<area shape="rect" id="node1" title="Process the current voltage raw sample for the specific phase." alt="" coords="5,81,204,108"/>
+<area shape="rect" id="node2" href="$group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542" title="This routine prevents a zero&#45;crossing point from being declared until a certain number of consecutive..." alt="" coords="269,5,391,32"/>
+<area shape="rect" id="node3" href="$group__TimeCritical.html#ga81f4cbdafdfc13103fdfa34a136cd6fd" title="Process with the polarity for the actual voltage sample for the specific phase." alt="" coords="269,56,391,83"/>
+<area shape="rect" id="node4" href="$group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="252,107,408,133"/>
+<area shape="rect" id="node8" href="$group__TimeCritical.html#gaed3b88c01657f322f7b985574a3427fd" title="Process the calculation for the current voltage sample for the specific phase." alt="" coords="269,157,391,184"/>
+<area shape="rect" id="node5" href="$group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="456,81,619,108"/>
+<area shape="rect" id="node7" href="$group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Process the startup period for the router." alt="" coords="477,132,598,159"/>
+<area shape="rect" id="node6" href="$group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the lastest contribution after each phase specific new cycle additional processing is perform..." alt="" coords="667,81,859,108"/>
+</map>
