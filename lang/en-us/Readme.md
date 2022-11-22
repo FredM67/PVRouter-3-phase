@@ -1,6 +1,6 @@
 <p align="center">
-  <span>English</span> |
-  <a href="lang/fr-fr/">Français</a>
+  <a href="https://github.com/FredM67/PVRouter-3-phase/">Français</a> |
+  <span>English</span>
 </p>
 
 # PVRouter (3-phase version)
@@ -43,7 +43,7 @@ It supports up to 7 resistive output loads, which are completely independent.
 
 ## Schematic of the mainboard
 
-[Here](docs/3phase_Mainboard.pdf) the schematic of the mainboard.
+[Here](../../docs/3phase_Mainboard.pdf) the schematic of the mainboard.
 
 ## Implementation documentation
 
@@ -113,7 +113,7 @@ When production (and surplus) gets to the maximum possible, the measured value w
 This has been tested in real by Amorim. Depending of each situation, it might be necessary to tweak this value of *-20* to a bigger or smaller value.
 
 # How to wire the router
-[Here](docs/HowToInstall.pdf) you'll find a quick how-to for installing/wiring your router.
+[Here](../../docs/HowToInstall.pdf) you'll find a quick how-to for installing/wiring your router.
 
 # Use cases
 
@@ -163,7 +163,7 @@ In a balanced situation, you don't need any neutral wire. To switch off the devi
 
 For that, I've "recycled" a peak/off peak 3-phase relay but you can use any 3-phase relay. It doesn't matter on which phase the command coil is connected, but it must be permanent (not through the router).
 
-![Heater with mechanical thermostat](img/Heater_mechanical.png)  
+![Heater with mechanical thermostat](../../img/Heater_mechanical.png)  
 *Figure: Wiring diagram*
 
 ## Heater with ACI single phase thermostat
@@ -172,7 +172,7 @@ In this case, it's somehow the same situation as before.
 You don't need to buy a 3-phase kit to convert your single phase heater.
 The ACI pcb must be connected to a permanent phase. It will then control any 3-phase relay.
 
-![Heater with ACI single phase thermostat](img/Heater_ACI_Mono.png)  
+![Heater with ACI single phase thermostat](../../img/Heater_ACI_Mono.png)  
 *Figure: Wiring diagram*
 
 ## Heater with ACI 3-phase thermostat (without neutral wire)
@@ -191,7 +191,7 @@ The remaining connected phase is the one in the middle of the power connector.
 
 The ACI pcb must be connected to 3 permanent phases.
 
-![Heater with ACI 3-phase thermostat](img/Heater_ACI_Tri.png)  
+![Heater with ACI 3-phase thermostat](../../img/Heater_ACI_Tri.png)  
 *Figure: Wiring diagram*
 
 ## Alternatives WITHOUT neutral wire
@@ -216,10 +216,10 @@ In **red**, security switch (see the 'S' on each pole) : all 3 phases are switch
 
 In **green**, only 2 phases are switched off, L2 et L3. ***It is IMPORTANT that the phase L1, not switched by the thermostat, DOES NOT pass through the triac***.
 
-![Mechanical thermostat](img/Thermostat.png)  
+![Mechanical thermostat](../../img/Thermostat.png)  
 *Figure: An example of a thermostat*
 
 ---
 
-![Heater with mechanical thermostat](img/Heater_mechanical-No_neutral.png)  
+![Heater with mechanical thermostat](../../img/Heater_mechanical-No_neutral.png)  
 *Figure: Wiring diagram*

@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://github.com/FredM67/PVRouter-3-phase/">English</a> |
-  <span>Français</span>
+  <span>Français</span> |
+  <a href="lang/en-us/">English</a>
 </p>
 
 # PVRouter (version triphasée)
@@ -42,7 +42,7 @@ Vous trouverez quelques [photos](Gallery.md) de routeurs assemblés.
 
 ## Schéma de la carte-mère
 
-Vous trouverez [ici](../../docs/3phase_Mainboard.pdf) le schéma de la carte-mère.
+Vous trouverez [ici](docs/3phase_Mainboard.pdf) le schéma de la carte-mère.
 
 ## Documentation de développement
 
@@ -110,7 +110,7 @@ Lorsque la production (et l’excédent) arrive au maximum possible, la valeur m
 Cela a été testé en situation réelle par Amorim. Selon chaque situation, il peut être nécessaire de modifier cette valeur de *-20* à une valeur plus grande ou plus petite.
 
 # Comment câbler le routeur
-[Ici](../../docs/HowToInstall.pdf) vous trouverez une rapide notice d'installation du routeur.
+[Ici](docs/HowToInstall.pdf) vous trouverez une rapide notice d'installation du routeur.
 
 # Applications / Diagrammes de câblage
 
@@ -160,14 +160,14 @@ Dans une situation entièrement équilibrée en triphasé, vous n’avez pas bes
 
 Pour cela, j’ai « recyclé » un commutateur HC/HP triphasé, mais vous pouvez utiliser n’importe quel relais triphasé. La bobine de commande doit être connectée à une alimentation "permanente" (et non à travers le routeur) contrôlée par le thermostat.
 
-![Chauffe-eau avec thermostat mécanique](../../img/Heater_mechanical.png)  
+![Chauffe-eau avec thermostat mécanique](img/Heater_mechanical.png)  
 *Figure: Diagramme de câblage*
 
 ## Chauffe-eau avec thermostat ACI monophasé
 
 Dans ce cas, c’est en quelque sorte la même situation qu’avant. Vous n’avez pas besoin d’acheter un kit ACI en triphasé pour convertir votre chauffe-eau monophasé. La carte ACI doit être connectée à une phase permanente. Elle contrôlera ensuite n’importe quel relais en triphasé.
 
-![Chauffe-eau avec thermostat ACI monophasé](../../img/Heater_ACI_Mono.png)  
+![Chauffe-eau avec thermostat ACI monophasé](img/Heater_ACI_Mono.png)  
 *Figure : Diagramme de câblage*
 
 ## Chauffe-eau avec thermostat ACI triphasé (SANS neutre)
@@ -185,7 +185,7 @@ La phase non coupée est celle qui correspond au fil du milieu sur le connecteur
 
 La carte ACI doit être reliée à 3 phases permanentes.
 
-![Chauffe-eau avec thermostat ACI triphasé](../../img/Heater_ACI_Tri.png)  
+![Chauffe-eau avec thermostat ACI triphasé](img/Heater_ACI_Tri.png)  
 *Figure : Diagramme de câblage*
 
 ## Alternatives SANS neutre
@@ -210,10 +210,10 @@ En **rouge**, coupure de sécurité (remarquez le 'S' sur chaque contact) : les 
 
 En **vert**, seules 2 phases sont coupées, L2 et L3. ***Il est très IMPORTANT que la phase L1, non coupée par le thermostat, ne passe pas par un triac***.
 
-![Thermostat mécanique](../../img/Thermostat.png)  
+![Thermostat mécanique](img/Thermostat.png)  
 *Figure: Exemple de thermostat*
 
 ---
 
-![Chauffe-eau avec thermostat mécanique](../../img/Heater_mechanical-No_neutral.png)  
+![Chauffe-eau avec thermostat mécanique](img/Heater_mechanical-No_neutral.png)  
 *Figure: Diagramme de câblage*
