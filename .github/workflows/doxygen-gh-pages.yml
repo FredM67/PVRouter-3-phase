@@ -12,4 +12,3 @@ jobs:
       - uses: DenverCoder1/doxygen-github-pages-action@v1.1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          config_file: Mk2_3phase_RFdatalog_temp/Doxyfile
