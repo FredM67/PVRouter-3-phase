@@ -1,3 +1,5 @@
+[![CodeQL](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml)
+
 <p align="center">
   <span>Français</span> |
   <a href="lang/en-us/">English</a>
