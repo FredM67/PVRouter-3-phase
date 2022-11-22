@@ -48,7 +48,7 @@ Vous trouverez [ici](docs/3phase_Mainboard.pdf) le schéma de la carte-mère.
 
 ## Documentation de développement
 
-Vous pouvez commencer à lire la documentation ici [3-phase diverter](https://fredm67.github.io/PVRouter-3-phase/html/index.html) (en anglais).
+Vous pouvez commencer à lire la documentation ici [3-phase diverter](https://fredm67.github.io/PVRouter-3-phase/) (en anglais).
 
 ## Documentation de l’utilisateur final
 
