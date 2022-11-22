@@ -120,7 +120,7 @@
  * - code enhanced to support 6 loads
  *
  * @author Fred Metrich
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2022
  *
  */
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
