@@ -1,6 +1,0 @@
-<map id="dualtariff.h" name="dualtariff.h">
-<area shape="rect" id="node1" title="Classes/types needed for dual&#45;tariff support." alt="" coords="126,5,207,32"/>
-<area shape="rect" id="node2" href="$utils_8h.html" title="Some utility functions." alt="" coords="138,80,195,107"/>
-<area shape="rect" id="node3" href="$Mk2__3phase__RFdatalog__temp_8ino.html" title="Mk2_3phase_RFdatalog_temp.ino &#45; A photovoltaïc energy diverter." alt="" coords="5,155,168,196"/>
-<area shape="rect" id="node4" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="193,162,303,189"/>
-</map>

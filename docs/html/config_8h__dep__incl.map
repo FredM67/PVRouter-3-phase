@@ -1,9 +1,0 @@
-<map id="config.h" name="config.h">
-<area shape="rect" id="node1" title="Configuration values to be set by the end&#45;user." alt="" coords="114,5,180,32"/>
-<area shape="rect" id="node2" href="$Mk2__3phase__RFdatalog__temp_8ino.html" title="Mk2_3phase_RFdatalog_temp.ino &#45; A photovoltaïc energy diverter." alt="" coords="66,229,228,271"/>
-<area shape="rect" id="node3" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="252,155,344,181"/>
-<area shape="rect" id="node5" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="28,80,109,107"/>
-<area shape="rect" id="node6" href="$utils_8h.html" title="Some utility functions." alt="" coords="118,155,176,181"/>
-<area shape="rect" id="node7" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="184,80,280,107"/>
-<area shape="rect" id="node4" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="253,237,364,263"/>
-</map>

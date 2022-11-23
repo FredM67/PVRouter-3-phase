@@ -1,6 +1,0 @@
-<map id="processing.h" name="processing.h">
-<area shape="rect" id="node1" title="Public functions/variables of processing engine." alt="" coords="5,5,101,32"/>
-<area shape="rect" id="node2" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="20,80,87,107"/>
-<area shape="rect" id="node3" href="$types_8h.html" title="Some basics classes/types." alt="" coords="21,155,86,181"/>
-<area shape="rect" id="node4" href="$constants_8h.html" title="Some constants." alt="" coords="8,229,99,256"/>
-</map>

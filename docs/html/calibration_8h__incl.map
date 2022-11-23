@@ -1,6 +1,0 @@
-<map id="calibration.h" name="calibration.h">
-<area shape="rect" id="node1" title="Calibration values definition." alt="" coords="5,5,97,32"/>
-<area shape="rect" id="node2" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="18,80,85,107"/>
-<area shape="rect" id="node3" href="$types_8h.html" title="Some basics classes/types." alt="" coords="19,155,84,181"/>
-<area shape="rect" id="node4" href="$constants_8h.html" title="Some constants." alt="" coords="6,229,97,256"/>
-</map>
