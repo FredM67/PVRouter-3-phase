@@ -2,13 +2,13 @@
  * @file Mk2_3phase_RFdatalog_temp.ino
  * @author Robin Emley (www.Mk2PVrouter.co.uk)
  * @author Frederic Metrich (frederic.metrich@live.fr)
- * @brief Mk2_3phase_RFdatalog_temp.ino - A photovoltaïc energy diverter.
+ * @brief Mk2_3phase_RFdatalog_temp.ino - A photovoltaic energy diverter.
  * @date 2020-01-14
  *
- * @mainpage A 3-phase photovoltaïc router/diverter
+ * @mainpage A 3-phase photovoltaic router/diverter
  *
  * @section description Description
- * Mk2_3phase_RFdatalog_temp.ino - Arduino program that maximizes the use of home photovoltaïc production
+ * Mk2_3phase_RFdatalog_temp.ino - Arduino program that maximizes the use of home photovoltaic production
  * by monitoring energy consumption and diverting power to one or more resistive charge(s) when needed.
  * In the absence of such a system, surplus energy flows away to the grid and is of no benefit to the PV-owner.
  *
@@ -127,7 +127,7 @@
  * - added support for emonESP (see https://github.com/openenergymonitor/EmonESP)
  *
  * @author Fred Metrich
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2022
  *
  */
 
