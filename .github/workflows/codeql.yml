@@ -15,12 +15,18 @@ on:
   push:
     branches: [ "main" ]
     paths:
-    - 'Mk2_3phase_RFdatalog_temp/**'
+    - '**.ino'
+    - '**.cpp'
+    - '**.hpp'
+    - '**.h'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
     paths:
-    - 'Mk2_3phase_RFdatalog_temp/**'    
+    - '**.ino'
+    - '**.cpp'
+    - '**.hpp'
+    - '**.h'   
   schedule:
     - cron: '25 14 * * 5'
 
