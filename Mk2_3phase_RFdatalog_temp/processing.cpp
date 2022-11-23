@@ -166,10 +166,13 @@ void updatePortsStates()
     uint16_t pinsON{0};
     uint16_t pinsOFF{0};
 
-    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-    {
-        // update the local load's state.
-        if (LoadStates::LOAD_OFF == physicalLoadState[i])
+  uint8_t i{NO_OF_DUMPLOADS};
+
+  do
+  {
+    --i;
+    // update the local load's state.
+    if (LoadStates::LOAD_OFF == physicalLoadState[i])
         {
             // setPinOFF(physicalLoadPin[i]);
             pinsOFF |= bit(physicalLoadPin[i]);
@@ -180,7 +183,7 @@ void updatePortsStates()
             // setPinON(physicalLoadPin[i]);
             pinsON |= bit(physicalLoadPin[i]);
         }
-    }
+  } while (i);
 
     setPinsOFF(pinsOFF);
     setPinsON(pinsON);
@@ -563,7 +566,7 @@ uint8_t nextLogicalLoadToBeRemoved()
         --index;
         if (loadPrioritiesAndState[index] & loadStateOnBit)
             return (index);
-    } while (0 != index);
+  } while (index);
 
     return (NO_OF_DUMPLOADS);
 }
@@ -608,20 +611,24 @@ void processDataLogging()
 
     n_cycleCountForDatalogging = 0;
 
-    for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
-    {
-        copyOf_sumP_atSupplyPoint[phase] = l_sumP_atSupplyPoint[phase];
-        l_sumP_atSupplyPoint[phase] = 0;
+  uint8_t phase{NO_OF_PHASES};
+  do
+  {
+    --phase;
+    copyOf_sumP_atSupplyPoint[phase] = l_sumP_atSupplyPoint[phase];
+    l_sumP_atSupplyPoint[phase] = 0;
 
-        copyOf_sum_Vsquared[phase] = l_sum_Vsquared[phase];
-        l_sum_Vsquared[phase] = 0;
-    }
+    copyOf_sum_Vsquared[phase] = l_sum_Vsquared[phase];
+    l_sum_Vsquared[phase] = 0;
+  } while (phase);
 
-    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-    {
-        copyOf_countLoadON[i] = countLoadON[i];
-        countLoadON[i] = 0;
-    }
+  uint8_t i{NO_OF_DUMPLOADS};
+  do
+  {
+    --i;
+    copyOf_countLoadON[i] = countLoadON[i];
+    countLoadON[i] = 0;
+  } while (i);
 
     copyOf_sampleSetsDuringThisDatalogPeriod = i_sampleSetsDuringThisDatalogPeriod; // (for diags only)
     copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)

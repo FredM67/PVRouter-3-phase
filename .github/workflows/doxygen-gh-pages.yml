@@ -1,0 +1,19 @@
+name: Doxygen GitHub Pages Deploy Action
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+    - 'Mk2_3phase_RFdatalog_temp/**'
+    - Doxyfile
+  workflow_dispatch:
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: DenverCoder1/doxygen-github-pages-action@v1.2.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          config_file: Doxyfile

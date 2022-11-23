@@ -130,6 +130,7 @@
  * @copyright Copyright (c) 2022
  *
  */
+static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
 
 #include <Arduino.h> // may not be needed, but it's probably a good idea to include this
 
@@ -192,7 +193,7 @@
 ISR(ADC_vect)
 {
   static uint8_t sample_index{0};
-  static int16_t rawSample;
+  int16_t rawSample;
 
   switch (sample_index)
   {
