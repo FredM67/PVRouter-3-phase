@@ -2,13 +2,13 @@
  * @file Mk2_3phase_RFdatalog_temp.ino
  * @author Robin Emley (www.Mk2PVrouter.co.uk)
  * @author Frederic Metrich (frederic.metrich@live.fr)
- * @brief Mk2_3phase_RFdatalog_temp.ino - A photovoltaïc energy diverter.
+ * @brief Mk2_3phase_RFdatalog_temp.ino - A photovoltaic energy diverter.
  * @date 2020-01-14
  *
- * @mainpage A 3-phase photovoltaïc router/diverter
+ * @mainpage A 3-phase photovoltaic router/diverter
  *
  * @section description Description
- * Mk2_3phase_RFdatalog_temp.ino - Arduino program that maximizes the use of home photovoltaïc production
+ * Mk2_3phase_RFdatalog_temp.ino - Arduino program that maximizes the use of home photovoltaic production
  * by monitoring energy consumption and diverting power to one or more resistive charge(s) when needed.
  * In the absence of such a system, surplus energy flows away to the grid and is of no benefit to the PV-owner.
  *
@@ -86,7 +86,7 @@
  * - old fashion enums replaced by scoped enums with fixed types
  * - off-peak tariff made switchable at compile-time
  * - rotation of load priorities made switchable at compile-time
- * - enhanced configuration for forcing specific loads during off-peak period
+ * - enhanced configuration for override specific loads during off-peak period
  *
  * __April 2020, changes:__
  * - Fix a bug in the load level calculation
@@ -106,8 +106,8 @@
  *
  * __January 2021, changes:__
  * - Further optimization
- * - now it's possible to specify the forcing period in minutes and hours
- * - initialization of runtime parameters for forcing period at compile-time
+ * - now it's possible to specify the override period in minutes and hours
+ * - initialization of runtime parameters for override period at compile-time
  *
  * __February 2021, changes:__
  * - Added temperature threshold for off-peak period
@@ -128,19 +128,19 @@ static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform
 #include <Arduino.h> // may not be needed, but it's probably a good idea to include this
 
 //--------------------------------------------------------------------------------------------------
-//#define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
-//#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
+// #define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
+// #define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
-//#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
-#define OFF_PEAK_TARIFF   ///< this line must be commented out if there's only one single tariff each day
-//#define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
+// #define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
+#define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
+// #define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
 
 // Output messages
 #define DEBUGGING   ///< enable this line to include debugging print statements
 #define SERIALPRINT ///< include 'human-friendly' print statement for commissioning - comment this line to exclude.
 
-//#define EMONESP ///< Uncomment if an ESP WiFi module is used
-//#define SERIALOUT ///< Uncomment if a wired serial connection is used
+// #define EMONESP ///< Uncomment if an ESP WiFi module is used
+// #define SERIALOUT ///< Uncomment if a wired serial connection is used
 //--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -327,7 +327,7 @@ uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load priorities a
 */
 #ifdef RF_PRESENT
 #define RF69_COMPAT 0 // for the RFM12B
-//#define RF69_COMPAT 1 // for the RF69
+// #define RF69_COMPAT 1 // for the RF69
 #include <JeeLib.h>
 
 #define FREQ RF12_868MHZ
@@ -449,7 +449,7 @@ constexpr int32_t l_DCoffset_I_nom{512L};                 /**< nominal mid-point
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
 constexpr float f_capacityOfEnergyBucket_main{(float)(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY)};
 /**< for resetting flexible thresholds */
-constexpr float f_midPointOfEnergyBucket_main{f_capacityOfEnergyBucket_main * 0.5};
+constexpr float f_midPointOfEnergyBucket_main{f_capacityOfEnergyBucket_main * 0.5f};
 /**< threshold in anti-flicker mode - must not exceed 0.4 */
 constexpr float f_offsetOfEnergyThresholdsInAFmode{0.1f};
 
@@ -461,16 +461,13 @@ constexpr float f_offsetOfEnergyThresholdsInAFmode{0.1f};
  */
 constexpr float initThreshold(const bool lower)
 {
-  return lower ? f_capacityOfEnergyBucket_main *
-                     (0.5 - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0))
-               : f_capacityOfEnergyBucket_main *
-                     (0.5 + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0));
+  return lower
+             ? f_capacityOfEnergyBucket_main * (0.5f - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0))
+             : f_capacityOfEnergyBucket_main * (0.5f + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0));
 }
 
-constexpr float f_lowerThreshold_default{
-    initThreshold(true)}; /**< lower default threshold set accordingly to the output mode */
-constexpr float f_upperThreshold_default{
-    initThreshold(false)}; /**< upper default threshold set accordingly to the output mode */
+constexpr float f_lowerThreshold_default{initThreshold(true)};  /**< lower default threshold set accordingly to the output mode */
+constexpr float f_upperThreshold_default{initThreshold(false)}; /**< upper default threshold set accordingly to the output mode */
 
 float f_energyInBucket_main{0}; /**< main energy bucket (over all phases) */
 float f_lowerEnergyThreshold;   /**< dynamic lower threshold */
@@ -728,11 +725,13 @@ void confirmPolarity(const uint8_t phase)
 {
   static uint8_t count[NO_OF_PHASES]{};
 
-  if (polarityOfMostRecentSampleV[phase] != polarityConfirmedOfLastSampleV[phase])
-    ++count[phase];
-  else
+  if (polarityOfMostRecentSampleV[phase] == polarityConfirmedOfLastSampleV[phase])
+  {
     count[phase] = 0;
+    return;
+  }
 
+  ++count[phase];
   if (count[phase] > PERSISTENCE_FOR_POLARITY_CHANGE)
   {
     count[phase] = 0;
