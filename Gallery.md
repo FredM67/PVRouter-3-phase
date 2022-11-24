@@ -3,6 +3,10 @@
 Quelques une de mes réalisations... d'autres à venir...
 
 - [Routeur triphasé 3 sorties](#routeur-triphasé-3-sorties)
+- [Routeur triphasé 4 sorties multi-boîtier (carte-mère, 3 sorties, 1 sortie)](#routeur-triphasé-4-sorties-multi-boîtier-carte-mère-3-sorties-1-sortie)
+  - [Boîtier carte-mère](#boîtier-carte-mère)
+  - [Boîtier 3 sorties à proximité du chauffe-eau](#boîtier-3-sorties-à-proximité-du-chauffe-eau)
+  - [Boîtier 1 sortie déporté](#boîtier-1-sortie-déporté)
 - [Routeur triphasé 4 sorties](#routeur-triphasé-4-sorties)
 - [Routeur triphasé, 4 sorties distantes par câble (en option 6), sorties connectées par câble réseau, boîte de répartition](#routeur-triphasé-4-sorties-distantes-par-câble-en-option-6-sorties-connectées-par-câble-réseau-boîte-de-répartition)
 - [Routeur triphasé, 3 sorties, dont 2 pilotables via Internet (ON/OFF et marche forcée)](#routeur-triphasé-3-sorties-dont-2-pilotables-via-internet-onoff-et-marche-forcée)
@@ -18,6 +22,21 @@ Quelques une de mes réalisations... d'autres à venir...
 <img alt="Zoom sur une platine de sortie" src="img/66680b82-261f-409e-a767-3690944cae35.jpg" width="25%">
 </P>
 
+## Routeur triphasé 4 sorties multi-boîtier (carte-mère, 3 sorties, 1 sortie)
+
+### Boîtier carte-mère
+[<img alt="Boîtier carte-mère" src="img/ce87c606-ab8e-44c3-b274-a3130b65f113.jpg" width="25%">](img/ce87c606-ab8e-44c3-b274-a3130b65f113.jpg "Boîtier carte-mère")
+[<img alt="Intérieur" src="img/ad63052d-ebe5-4e1f-9275-3632a48a1255.jpg" width="25%">](img/ad63052d-ebe5-4e1f-9275-3632a48a1255.jpg "Intérieur")
+
+### Boîtier 3 sorties à proximité du chauffe-eau
+Ce boîtier contient les 3 sorties mais aussi une horloge et un contacteur pour la marche forcée programmée.
+[<img alt="Boîtier chauffe-eau" src="img/5291760f-7a21-42bc-bc12-00a551be847b.jpg" width="25%">](img/5291760f-7a21-42bc-bc12-00a551be847b.jpg "Boîtier chauffe-eau")
+
+[<img alt="Intérieur" src="img/071abcd1-ac9d-46c5-bbe8-30d14bfc3ad4.jpg" width="25%">](img/071abcd1-ac9d-46c5-bbe8-30d14bfc3ad4.jpg "Intérieur") [<img alt="Détail horloge/contacteur" src="img/f40a586f-e764-486c-9dc7-2c0aa3767f4b.jpg" width="25%">](img/f40a586f-e764-486c-9dc7-2c0aa3767f4b.jpg "Détail horloge/contacteur")
+
+### Boîtier 1 sortie déporté
+[<img alt="Boîtier 1 sortie" src="img/ed17d132-fba7-4b36-9564-83fd12fedd17.jpg" width="25%">](img/ed17d132-fba7-4b36-9564-83fd12fedd17.jpg "Boîtier 1 sortie")
+
 ## Routeur triphasé 4 sorties
 
 [<img alt="Vue d'ensemble" src="img/f05c2b09-0ed7-457f-b3fd-c86048cb763e.jpg" width="50%">](img/f05c2b09-0ed7-457f-b3fd-c86048cb763e.jpg "Vue d'ensemble")
@@ -29,6 +48,7 @@ Quelques une de mes réalisations... d'autres à venir...
 [<img alt="Vue d'ensemble" src="img/d03d563a-dc9d-4a5e-b4b6-94b93cb05c39.jpg" width="50%">](img/d03d563a-dc9d-4a5e-b4b6-94b93cb05c39.jpg "Global view")
 
 [<img alt="Entrées/sorties sur boîtier principal" src="img/d395ef4b-2886-42bc-bf0d-46881865aba8.jpg" width="25%">](img/d395ef4b-2886-42bc-bf0d-46881865aba8.jpg "Entrées/sorties sur boîtier principal") [<img alt="Intérieur du boîtier principal" src="img/b5a37129-8ef5-4b52-9db6-86991e1d2f7e.jpg" width="25%">](img/b5a37129-8ef5-4b52-9db6-86991e1d2f7e.jpg "Intérieur du boîtier principal") [<img alt="La boîte de répartition" src="img/3e970a16-3d55-4a36-852a-2b2628096997.jpg" width="25%">](img/3e970a16-3d55-4a36-852a-2b2628096997.jpg "La boîte de répartition") [<img alt="Intérieur de la boîte de répartition" src="img/4e9bc2a4-d0be-4040-9475-e14ed643a81f.jpg" width="25%">](img/4e9bc2a4-d0be-4040-9475-e14ed643a81f.jpg "Intérieur de la boîte de répartition")
+
 ## Routeur triphasé, 3 sorties, dont 2 pilotables via Internet (ON/OFF et marche forcée)
 
 [<img alt="Vue d'ensemble" src="img/ef52c81c-a295-45f7-bca3-10eb83e562a4.jpg" width="50%">](img/ef52c81c-a295-45f7-bca3-10eb83e562a4.jpg "Vue d'ensemble")
