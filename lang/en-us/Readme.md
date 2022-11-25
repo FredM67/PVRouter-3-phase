@@ -43,7 +43,7 @@ It supports up to 7 resistive output loads, which are completely independent.
 
 ## Schematic of the mainboard
 
-[Here](../../docs/3phase_Mainboard.pdf) the schematic of the mainboard.
+[Here](../../schematics/3phase_Mainboard.pdf) the schematic of the mainboard.
 
 ## Implementation documentation
 

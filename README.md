@@ -51,7 +51,7 @@ Vous trouverez quelques [photos](Gallery.md) de routeurs assemblés.
 
 ## Schéma de la carte-mère
 
-Vous trouverez [ici](docs/3phase_Mainboard.pdf) le schéma de la carte-mère.
+Vous trouverez [ici](schematics/3phase_Mainboard.pdf) le schéma de la carte-mère.
 
 ## Documentation de développement
 
