@@ -132,7 +132,7 @@ static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform
 // #define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
 // #define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
-#define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
+// #define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
 // #define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
 
 // Output messages
@@ -147,7 +147,7 @@ static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform
 // constants which must be set individually for each system
 //
 constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
-constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
+constexpr uint8_t NO_OF_DUMPLOADS{4}; /**< number of dump loads connected to the diverter */
 
 constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
 
@@ -1348,7 +1348,7 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
     do
     {
       delay(10);
-    } while (b_reOrderLoads)
+    } while (b_reOrderLoads);
 #endif // PRIORITY_ROTATION
 
         // prints the (new) load priorities
@@ -1389,7 +1389,7 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
     do
     {
       delay(10);
-    } while (b_reOrderLoads)
+    } while (b_reOrderLoads);
 
         // prints the (new) load priorities
         logLoadPriorities();
