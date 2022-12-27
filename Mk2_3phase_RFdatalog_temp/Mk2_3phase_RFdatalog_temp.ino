@@ -1092,7 +1092,8 @@ void updatePhysicalLoadStates()
 #ifdef PRIORITY_ROTATION
   if (b_reOrderLoads)
   {
-    uint8_t i{NO_OF_DUMPLOADS - 1};
+    // we rotate only the first 3 loads
+    uint8_t i{(NO_OF_DUMPLOADS - 1) - 1};
     const auto temp{loadPrioritiesAndState[i]};
     do
     {
