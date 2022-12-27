@@ -131,7 +131,7 @@ static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform
 // #define TEMP_SENSOR ///< this line must be commented out if the temperature sensor is not present
 // #define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
-// #define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
+#define PRIORITY_ROTATION ///< this line must be commented out if you want fixed priorities
 #define OFF_PEAK_TARIFF ///< this line must be commented out if there's only one single tariff each day
 // #define FORCE_PIN_PRESENT ///< this line must be commented out if there's no force pin
 
@@ -1349,7 +1349,7 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
     do
     {
       delay(10);
-    } while (b_reOrderLoads)
+    } while (b_reOrderLoads);
 #endif // PRIORITY_ROTATION
 
         // prints the (new) load priorities
@@ -1390,7 +1390,7 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
     do
     {
       delay(10);
-    } while (b_reOrderLoads)
+    } while (b_reOrderLoads);
 
         // prints the (new) load priorities
         logLoadPriorities();
