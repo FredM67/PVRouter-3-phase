@@ -18,7 +18,7 @@
 inline volatile uint32_t absenceOfDivertedEnergyCount{0}; /**< number of main cycles without diverted energy */
 inline volatile bool b_datalogEventPending{false};        /**< async trigger to signal datalog is available */
 inline volatile bool b_newMainsCycle{false};              /**< async trigger to signal start of new main cycle based on first phase */
-inline volatile bool b_forceLoadOn[NO_OF_DUMPLOADS];      /**< async trigger to force specific load(s) to ON */
+inline volatile bool b_overrideLoadOn[NO_OF_DUMPLOADS];      /**< async trigger to force specific load(s) to ON */
 inline volatile bool b_reOrderLoads{false};               /**< async trigger for loads re-ordering */
 inline volatile bool b_diversionOff{false};               /**< async trigger to stop diversion */
 

@@ -50,7 +50,7 @@ inline constexpr float f_phaseCal{1}; /**< Nominal values only */
 // close to unity.
 inline constexpr float f_voltageCal[NO_OF_PHASES]{0.985f, 1.003f, 0.987f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
 
-inline constexpr float lpf_gain{8}; /**< setting this to 0 disables this extra processing */
+inline constexpr float lpf_gain{0}; /**< setting this to 0 disables this extra processing */
 inline constexpr float alpha{0.002};
 //--------------------------------------------------------------------------------------------------
 

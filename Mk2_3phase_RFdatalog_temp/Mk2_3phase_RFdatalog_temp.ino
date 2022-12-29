@@ -151,10 +151,11 @@ static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform
 #endif
 //--------------------------------------------------------------------------------------------------
 
-#include "types.h"
 #include "calibration.h"
-#include "utils.h"
 #include "processing.h"
+#include "types.h"
+#include "utils.h"
+
 
 // --------------  general global variables -----------------
 //
@@ -252,24 +253,31 @@ ISR(ADC_vect)
  */
 bool forceFullPower()
 {
-  if constexpr (FORCE_PIN_PRESENT)
+  if constexpr (OVERRIDE_PIN_PRESENT)
   {
     const uint8_t pinState{getPinState(forcePin)};
 
 #ifdef ENABLE_DEBUG
     static uint8_t previousState{1};
     if (previousState != pinState)
+    {
       DBUGLN(!pinState ? F("Trigger override!") : F("End override!"));
+    }
+
     previousState = pinState;
 #endif
 
-    for (auto &bForceLoad : b_forceLoadOn)
-      bForceLoad = !pinState;
+    for (auto &bOverrideLoad : b_overrideLoadOn)
+    {
+      bOverrideLoad = !pinState;
+    }
 
     return !pinState;
   }
   else
+  {
     return false;
+  }
 }
 
 void checkDiversionOnOff()
@@ -281,7 +289,10 @@ void checkDiversionOnOff()
 #ifdef ENABLE_DEBUG
     static uint8_t previousState{1};
     if (previousState != pinState)
+    {
       DBUGLN(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
+    }
+
     previousState = pinState;
 #endif
 
@@ -295,13 +306,15 @@ void proceedRotation()
 
   // waits till the priorities have been rotated from inside the ISR
   while (b_reOrderLoads)
+  {
     delay(10);
+  }
 
   // prints the (new) load priorities
   logLoadPriorities();
 }
 
-bool proceedLoadPrioritiesAndForcingDualTariff(const int16_t currentTemperature_x100)
+bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperature_x100)
 {
   uint8_t i;
   static constexpr int16_t iTemperatureThreshold_x100{iTemperatureThreshold * 100};
@@ -316,7 +329,9 @@ bool proceedLoadPrioritiesAndForcingDualTariff(const int16_t currentTemperature_
     ul_TimeOffPeak = millis();
 
     if constexpr (PRIORITY_ROTATION)
+    {
       proceedRotation();
+    }
   }
   else
   {
@@ -328,14 +343,20 @@ bool proceedLoadPrioritiesAndForcingDualTariff(const int16_t currentTemperature_
       // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
       if (!pinOffPeakState && !pinNewState &&
           (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
-        b_forceLoadOn[i] = !pinState || (currentTemperature_x100 <= iTemperatureThreshold_x100);
+      {
+        b_overrideLoadOn[i] = !pinState || (currentTemperature_x100 <= iTemperatureThreshold_x100);
+      }
       else
-        b_forceLoadOn[i] = !pinState;
+      {
+        b_overrideLoadOn[i] = !pinState;
+      }
     }
   }
   // end of off-peak period
   if (!pinOffPeakState && pinNewState)
+  {
     DBUGLN(F("Change to peak period!"));
+  }
 
   pinOffPeakState = pinNewState;
 
@@ -351,10 +372,12 @@ bool proceedLoadPrioritiesAndForcingDualTariff(const int16_t currentTemperature_
  * @return true if off-peak tariff is active
  * @return false if on-peak tariff is active
  */
-bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
+bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
 {
   if constexpr (DUAL_TARIFF)
-    return proceedLoadPrioritiesAndForcingDualTariff(currentTemperature_x100);
+  {
+    return proceedLoadPrioritiesAndOverridingDualTariff(currentTemperature_x100);
+  }
   else if constexpr (EMONESP_CONTROL)
   {
     static uint8_t pinRotationState{HIGH};
@@ -378,12 +401,14 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
     }
   }
 
-  if constexpr (FORCE_PIN_PRESENT)
+  if constexpr (OVERRIDE_PIN_PRESENT)
   {
     const uint8_t pinState{getPinState(forcePin)};
 
-    for (auto &bForceLoad : b_forceLoadOn)
-      bForceLoad = !pinState;
+    for (auto &bOverrideLoad : b_overrideLoadOn)
+    {
+      bOverrideLoad = !pinState;
+    }
   }
 
   return false;
@@ -447,7 +472,9 @@ void loop()
       checkDiversionOnOff();
 
       if (!forceFullPower())
-        bOffPeak = proceedLoadPrioritiesAndForcing(iTemperature_x100); // called every second
+      {
+        bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100); // called every second
+      }
     }
   }
 
@@ -474,7 +501,9 @@ void loop()
 
       // if read temperature is 85 and the delta with previous is greater than 5, skip the value
       if (8500 == tmp && abs(tmp - tx_data.temperature_x100[idx] > 500))
+      {
         tmp = DEVICE_DISCONNECTED_RAW;
+      }
 
       tx_data.temperature_x100[idx] = tmp;
     }

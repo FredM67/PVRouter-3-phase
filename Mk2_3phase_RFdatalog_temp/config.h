@@ -13,15 +13,15 @@
 #define __CONFIG_H__
 
 //--------------------------------------------------------------------------------------------------
-//#define TEMP_SENSOR_PRESENT ///< this line must be commented out if the temperature sensor is not present
-//#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
+// #define TEMP_SENSOR_PRESENT ///< this line must be commented out if the temperature sensor is not present
+// #define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
 
 // Output messages
 #define EMONESP ///< Uncomment if an ESP WiFi module is used
 
 #define ENABLE_DEBUG ///< enable this line to include debugging print statements
 #define SERIALPRINT  ///< include 'human-friendly' print statement for commissioning - comment this line to exclude.
-//#define SERIALOUT ///< Uncomment if a wired serial connection is used
+// #define SERIALOUT ///< Uncomment if a wired serial connection is used
 //--------------------------------------------------------------------------------------------------
 
 #include "debug.h"
@@ -40,12 +40,12 @@ inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{0, 1, 2}; /**< load prior
 inline constexpr bool EMONESP_CONTROL{true};
 inline constexpr bool DIVERSION_PIN_PRESENT{true}; /**< managed through EmonESP */
 inline constexpr bool PRIORITY_ROTATION{true};     /**< managed through EmonESP */
-inline constexpr bool FORCE_PIN_PRESENT{true};     /**< managed through EmonESP */
+inline constexpr bool OVERRIDE_PIN_PRESENT{true};  /**< managed through EmonESP */
 #else
 inline constexpr bool EMONESP_CONTROL{false};
 inline constexpr bool DIVERSION_PIN_PRESENT{false}; /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr bool PRIORITY_ROTATION{true};      /**< set it to 'true' if you want automatic rotation of priorities */
-inline constexpr bool FORCE_PIN_PRESENT{false};     /**< set it to 'true' if there's a force pin */
+inline constexpr bool OVERRIDE_PIN_PRESENT{false};  /**< set it to 'true' if there's a override pin */
 #endif
 
 inline constexpr bool DUAL_TARIFF{false}; /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
@@ -55,7 +55,7 @@ inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{{-3, 2},    /**< fo
                                                              {-3, 120},  /**< force config for load #2 ONLY for dual tariff */
                                                              {-180, 2}}; /**< force config for load #3 ONLY for dual tariff */
 
-inline constexpr int16_t iTemperatureThreshold{100}; /**< the temperature threshold to stop forcing in °C */
+inline constexpr int16_t iTemperatureThreshold{100}; /**< the temperature threshold to stop overriding in °C */
 
 inline constexpr DeviceAddress sensorAddrs[]{{0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4},
                                              {0x28, 0xED, 0x5B, 0x6A, 0x09, 0x00, 0x00, 0x9D},
@@ -83,10 +83,8 @@ inline constexpr uint8_t forcePin{12};                              /**< for 3-p
 // D13 is for the RFM12B if present
 
 // analogue input pins
-// inline constexpr uint8_t sensorV[NO_OF_PHASES]{0, 2, 4}; /**< for 3-phase PCB, voltage measurement for each phase */
-inline constexpr uint8_t sensorV[NO_OF_PHASES]{3, 2, 1}; /**< for single phase test PCB with 3-phase program */
-// inline constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; /**< for 3-phase PCB, current measurement for each phase */
-inline constexpr uint8_t sensorI[NO_OF_PHASES]{5, 4, 0}; /**< for single phase test PCB with 3-phase program */
+inline constexpr uint8_t sensorV[NO_OF_PHASES]{0, 2, 4}; /**< for 3-phase PCB, voltage measurement for each phase */
+inline constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; /**< for 3-phase PCB, current measurement for each phase */
 // ------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
@@ -118,7 +116,7 @@ inline constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{2}; /**< allows polarit
 #ifdef RF_PRESENT
 
 #define RF69_COMPAT 0 // for the RFM12B
-//#define RF69_COMPAT 1 // for the RF69
+// #define RF69_COMPAT 1 // for the RF69
 
 #define FREQ RF12_868MHZ
 

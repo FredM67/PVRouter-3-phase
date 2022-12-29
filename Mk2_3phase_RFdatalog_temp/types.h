@@ -58,7 +58,7 @@ public:
     int16_t temperature_x100[S]; /**< temperature in 100th of °C */
 };
 
-/** @brief Config parameters for forcing a load
+/** @brief Config parameters for overriding a load
  *  @details This class allows the user to define when and how long a load will be forced at
  *           full power during off-peak period.
  *
@@ -79,7 +79,7 @@ public:
 
 private:
     int16_t iStartOffset{0};         /**< the start offset from the off-peak begin in hours or minutes */
-    uint16_t uiDuration{UINT16_MAX}; /**< the duration for forcing the load in hours or minutes */
+    uint16_t uiDuration{UINT16_MAX}; /**< the duration for overriding the load in hours or minutes */
 };
 
 using ScratchPad = uint8_t[9];
