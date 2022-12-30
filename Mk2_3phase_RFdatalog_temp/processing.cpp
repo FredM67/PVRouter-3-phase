@@ -110,20 +110,30 @@ void initializeProcessing()
     bOverrideLoad = false;
   }
 
-  // Set up the ADC to be free-running
-  ADCSRA = bit(ADPS0) + bit(ADPS1) + bit(ADPS2); // Set the ADC's clock to system clock / 128
-  ADCSRA |= bit(ADEN);                           // Enable the ADC
+  // First stop the ADC
+  bitClear(ADCSRA, ADEN);
 
-  ADCSRA |= bit(ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  // Activate free-running mode
+  ADCSRB = 0x00;
+
+  // Set up the ADC to be free-running
+  bitSet(ADCSRA, ADPS0); // Set the ADC's clock to system clock / 128
+  bitSet(ADCSRA, ADPS1);
+  bitSet(ADCSRA, ADPS2);
+
+  bitSet(ADCSRA, ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
   // bits ADTS0-2 have not been set (i.e. they are all zero), the
   // ADC's trigger source is set to "free running mode".
 
-  ADCSRA |= bit(ADIE); // set the ADC interrupt enable bit. When this bit is written
+  bitSet(ADCSRA, ADIE); // set the ADC interrupt enable bit. When this bit is written
   // to one and the I-bit in SREG is set, the
   // ADC Conversion Complete Interrupt is activated.
 
-  ADCSRA |= bit(ADSC); // start ADC manually first time
-  sei();               // Enable Global Interrupts
+  bitSet(ADCSRA, ADEN); // Enable the ADC
+
+  bitSet(ADCSRA, ADSC); // start ADC manually first time
+
+  sei(); // Enable Global Interrupts
 }
 
 /**
