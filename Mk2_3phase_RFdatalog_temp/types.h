@@ -20,27 +20,27 @@
 /** Polarities */
 enum class Polarities : uint8_t
 {
-    NEGATIVE, /**< polarity is negative */
-    POSITIVE  /**< polarity is positive */
+  NEGATIVE, /**< polarity is negative */
+  POSITIVE  /**< polarity is positive */
 };
 
 /** Output modes */
 enum class OutputModes : uint8_t
 {
-    ANTI_FLICKER, /**< Anti-flicker mode */
-    NORMAL        /**< Normal mode */
+  ANTI_FLICKER, /**< Anti-flicker mode */
+  NORMAL        /**< Normal mode */
 };
 
 /** Load state (for use if loads are active high (Rev 2 PCB)) */
 enum class LoadStates : uint8_t
 {
-    LOAD_OFF, /**< load is OFF */
-    LOAD_ON   /**< load is ON */
+  LOAD_OFF, /**< load is OFF */
+  LOAD_ON   /**< load is ON */
 };
 // enum loadStates {LOAD_ON, LOAD_OFF}; /**< for use if loads are active low (original PCB) */
 
-inline constexpr uint8_t loadStateOnBit{0x80U}; /**< bit mask for load state ON */
-inline constexpr uint8_t loadStateMask{0x7FU};  /**< bit mask for masking load state */
+inline constexpr uint8_t loadStateOnBit{ 0x80U }; /**< bit mask for load state ON */
+inline constexpr uint8_t loadStateMask{ 0x7FU };  /**< bit mask for masking load state */
 
 /** @brief container for datalogging
  *  @details This class is used for datalogging.
@@ -48,14 +48,13 @@ inline constexpr uint8_t loadStateMask{0x7FU};  /**< bit mask for masking load s
  * @tparam N # of phases
  * @tparam S # of temperature sensors
  */
-template <uint8_t N = 3, uint8_t S = 0>
-class PayloadTx_struct
+template< uint8_t N = 3, uint8_t S = 0 > class PayloadTx_struct
 {
 public:
-    int16_t power;               /**< main power, import = +ve, to match OEM convention */
-    int16_t power_L[N];          /**< power for phase #, import = +ve, to match OEM convention */
-    int16_t Vrms_L_x100[N];      /**< average voltage over datalogging period (in 100th of Volt)*/
-    int16_t temperature_x100[S]; /**< temperature in 100th of °C */
+  int16_t power;               /**< main power, import = +ve, to match OEM convention */
+  int16_t power_L[N];          /**< power for phase #, import = +ve, to match OEM convention */
+  int16_t Vrms_L_x100[N];      /**< average voltage over datalogging period (in 100th of Volt)*/
+  int16_t temperature_x100[S]; /**< temperature in 100th of °C */
 };
 
 /** @brief Config parameters for overriding a load
@@ -71,21 +70,32 @@ public:
 class pairForceLoad
 {
 public:
-    constexpr pairForceLoad() = default;
-    constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration = UINT16_MAX) : iStartOffset(_iStartOffset), uiDuration(_uiDuration) {}
+  constexpr pairForceLoad() = default;
+  constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration = UINT16_MAX)
+    : iStartOffset(_iStartOffset), uiDuration(_uiDuration)
+  {
+  }
 
-    constexpr int16_t getStartOffset() const { return iStartOffset; }
-    constexpr uint16_t getDuration() const { return uiDuration; }
+  constexpr int16_t getStartOffset() const
+  {
+    return iStartOffset;
+  }
+  constexpr uint16_t getDuration() const
+  {
+    return uiDuration;
+  }
 
 private:
-    int16_t iStartOffset{0};         /**< the start offset from the off-peak begin in hours or minutes */
-    uint16_t uiDuration{UINT16_MAX}; /**< the duration for overriding the load in hours or minutes */
+  int16_t iStartOffset{ 0 };         /**< the start offset from the off-peak begin in hours or minutes */
+  uint16_t uiDuration{ UINT16_MAX }; /**< the duration for overriding the load in hours or minutes */
 };
 
 using ScratchPad = uint8_t[9];
 using DeviceAddress = uint8_t[8];
 
-template <typename _Tp, size_t _Nm>
-constexpr size_t size(const _Tp (&/*__array*/)[_Nm]) noexcept { return _Nm; }
+template< typename _Tp, size_t _Nm > constexpr size_t size(const _Tp (&/*__array*/)[_Nm]) noexcept
+{
+  return _Nm;
+}
 
-#endif // __TYPES_H__
+#endif  // __TYPES_H__

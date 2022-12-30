@@ -14,8 +14,8 @@
 #define DEBUG_USE_PRINT_P 1
 #else
 #define DEBUG_USE_PRINT_P 0
-#endif // ESP8266
-#endif // DEBUG_USE_PRINT_P
+#endif  // ESP8266
+#endif  // DEBUG_USE_PRINT_P
 
 #ifdef ENABLE_DEBUG
 
@@ -35,14 +35,14 @@
 
 #define DBUG(...) DEBUG_PORT.print(__VA_ARGS__)
 #define DBUGLN(...) DEBUG_PORT.println(__VA_ARGS__)
-#define DBUGVAR(x, ...)                            \
-    do                                             \
-    {                                              \
-        DEBUG_PORT.print(F(ESCAPEQUOTE(x) " = ")); \
-        DEBUG_PORT.println(x, ##__VA_ARGS__);      \
-    } while (false)
+#define DBUGVAR(x, ...) \
+  do \
+  { \
+    DEBUG_PORT.print(F(ESCAPEQUOTE(x) " = ")); \
+    DEBUG_PORT.println(x, ##__VA_ARGS__); \
+  } while (false)
 
-#else // ENABLE_DEBUG
+#else  // ENABLE_DEBUG
 
 #define DEBUG_BEGIN(speed) DEBUG_PORT.begin(speed)
 #define DBUGF(...)
@@ -50,7 +50,7 @@
 #define DBUGLN(...)
 #define DBUGVAR(...)
 
-#endif // ENABLE_DEBUG
+#endif  // ENABLE_DEBUG
 
 #ifdef DEBUG_SERIAL1
 #error DEBUG_SERIAL1 defiend, please use -DDEBUG_PORT=Serial1 instead
@@ -59,7 +59,7 @@
 #ifndef DEBUG_PORT
 #ifdef EMONESP
 #include <SoftwareSerial.h>
-inline SoftwareSerial mySerial(2, 3); // RX, TX
+inline SoftwareSerial mySerial(2, 3);  // RX, TX
 
 #define DEBUG_PORT mySerial
 #else
@@ -68,7 +68,7 @@ inline SoftwareSerial mySerial(2, 3); // RX, TX
 #endif
 #define DEBUG DEBUG_PORT
 
-#else // ARDUINO
+#else  // ARDUINO
 
 #define DEBUG_BEGIN(speed)
 
@@ -86,8 +86,8 @@ inline SoftwareSerial mySerial(2, 3); // RX, TX
 #define DBUGLN(...)
 #define DBUGVAR(...)
 
-#endif // DEBUG
+#endif  // DEBUG
 
-#endif // ARDUINO
+#endif  // ARDUINO
 
-#endif // __DEBUG_H__
+#endif  // __DEBUG_H__

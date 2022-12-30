@@ -31,7 +31,7 @@
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-inline constexpr float f_powerCal[NO_OF_PHASES]{0.05484f, 0.05469f, 0.05385f};
+inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05484f, 0.05469f, 0.05385f };
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
@@ -43,15 +43,15 @@ inline constexpr float f_powerCal[NO_OF_PHASES]{0.05484f, 0.05469f, 0.05385f};
 // NB. Any tool which determines the optimal value of f_phaseCal must have a similar
 // scheme for taking sample values as does this sketch.
 //
-inline constexpr float f_phaseCal{1}; /**< Nominal values only */
+inline constexpr float f_phaseCal{ 1 }; /**< Nominal values only */
 //
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-inline constexpr float f_voltageCal[NO_OF_PHASES]{0.985f, 1.003f, 0.987f} /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
+inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.985f, 1.003f, 0.987f } /*{1.03f, 1.03f, 1.03f}*/; /**< compared with Fluke 77 meter */
 
-inline constexpr float lpf_gain{0}; /**< setting this to 0 disables this extra processing */
-inline constexpr float alpha{0.002};
+inline constexpr float lpf_gain{ 0 }; /**< setting this to 0 disables this extra processing */
+inline constexpr float alpha{ 0.002 };
 //--------------------------------------------------------------------------------------------------
 
-#endif // __CALIBRATION_H__
+#endif  // __CALIBRATION_H__

@@ -22,22 +22,22 @@
  * @tparam N # of loads
  * @tparam D
  */
-template <uint8_t N, uint8_t OffPeakDuration = 8>
+template< uint8_t N, uint8_t OffPeakDuration = 8 >
 class _rg_OffsetForce
 {
 public:
   constexpr _rg_OffsetForce()
-      : _rg()
+    : _rg()
   {
-    constexpr uint16_t uiPeakDurationInSec{OffPeakDuration * 3600};
+    constexpr uint16_t uiPeakDurationInSec{ OffPeakDuration * 3600 };
     // calculates offsets for force start and stop of each load
     for (uint8_t i = 0; i != N; ++i)
     {
-      const bool bOffsetInMinutes{rg_ForceLoad[i].getStartOffset() > 24 || rg_ForceLoad[i].getStartOffset() < -24};
-      const bool bDurationInMinutes{rg_ForceLoad[i].getDuration() > 24 && UINT16_MAX != rg_ForceLoad[i].getDuration()};
+      const bool bOffsetInMinutes{ rg_ForceLoad[i].getStartOffset() > 24 || rg_ForceLoad[i].getStartOffset() < -24 };
+      const bool bDurationInMinutes{ rg_ForceLoad[i].getDuration() > 24 && UINT16_MAX != rg_ForceLoad[i].getDuration() };
 
       _rg[i][0] = ((rg_ForceLoad[i].getStartOffset() >= 0) ? 0 : uiPeakDurationInSec) + rg_ForceLoad[i].getStartOffset() * (bOffsetInMinutes ? 60ul : 3600ul);
-      _rg[i][0] *= 1000ul; // convert in milli-seconds
+      _rg[i][0] *= 1000ul;  // convert in milli-seconds
 
       if (UINT8_MAX == rg_ForceLoad[i].getDuration())
       {
@@ -60,7 +60,7 @@ private:
 
 inline uint32_t ul_TimeOffPeak; /**< 'timestamp' for start of off-peak period */
 
-inline constexpr auto rg_OffsetForce{_rg_OffsetForce<NO_OF_DUMPLOADS, ul_OFF_PEAK_DURATION>()}; /**< start & stop offsets for each load */
+inline constexpr auto rg_OffsetForce{ _rg_OffsetForce< NO_OF_DUMPLOADS, ul_OFF_PEAK_DURATION >() }; /**< start & stop offsets for each load */
 
 /**
  * @brief Print the settings for off-peak period
@@ -110,4 +110,4 @@ inline void printDualTariffConfiguration()
   }
 }
 
-#endif // __OFFPEAK_H__
+#endif  // __OFFPEAK_H__

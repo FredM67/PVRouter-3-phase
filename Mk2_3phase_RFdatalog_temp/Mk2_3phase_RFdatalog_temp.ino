@@ -132,7 +132,7 @@
  */
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
 
-#include <Arduino.h> // may not be needed, but it's probably a good idea to include this
+#include <Arduino.h>  // may not be needed, but it's probably a good idea to include this
 
 #include "config.h"
 
@@ -140,13 +140,13 @@ static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform
 
 //--------------------------------------------------------------------------------------------------
 #ifdef EMONESP
-#undef SERIALPRINT // Must not corrupt serial output to emonHub with 'human-friendly' printout
+#undef SERIALPRINT  // Must not corrupt serial output to emonHub with 'human-friendly' printout
 #undef SERIALOUT
 #endif
 
 #ifdef SERIALOUT
 #undef EMONESP
-#undef SERIALPRINT // Must not corrupt serial output to emonHub with 'human-friendly' printout
+#undef SERIALPRINT  // Must not corrupt serial output to emonHub with 'human-friendly' printout
 #undef ENABLE_DEBUG
 #endif
 //--------------------------------------------------------------------------------------------------
@@ -192,57 +192,57 @@ static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform
  */
 ISR(ADC_vect)
 {
-  static uint8_t sample_index{0};
+  static uint8_t sample_index{ 0 };
   int16_t rawSample;
 
   switch (sample_index)
   {
-  case 0:
-    rawSample = ADC;                 // store the ADC value (this one is for Current L1)
-    ADMUX = bit(REFS0) + sensorI[1]; // the conversion for V1 is already under way
-    ++sample_index;                  // increment the control flag
-    //
-    processCurrentRawSample(0, rawSample);
-    break;
-  case 1:
-    rawSample = ADC;                 // store the ADC value (this one is for Voltage L1)
-    ADMUX = bit(REFS0) + sensorV[1]; // the conversion for I2 is already under way
-    ++sample_index;                  // increment the control flag
-    //
-    processVoltageRawSample(0, rawSample);
-    break;
-  case 2:
-    rawSample = ADC;                 // store the ADC value (this one is for Current L2)
-    ADMUX = bit(REFS0) + sensorI[2]; // the conversion for V2 is already under way
-    ++sample_index;                  // increment the control flag
-    //
-    processCurrentRawSample(1, rawSample);
-    break;
-  case 3:
-    rawSample = ADC;                 // store the ADC value (this one is for Voltage L2)
-    ADMUX = bit(REFS0) + sensorV[2]; // the conversion for I3 is already under way
-    ++sample_index;                  // increment the control flag
-    //
-    processVoltageRawSample(1, rawSample);
-    break;
-  case 4:
-    rawSample = ADC;                 // store the ADC value (this one is for Current L3)
-    ADMUX = bit(REFS0) + sensorI[0]; // the conversion for V3 is already under way
-    ++sample_index;                  // increment the control flag
-    //
-    processCurrentRawSample(2, rawSample);
-    break;
-  case 5:
-    rawSample = ADC;                 // store the ADC value (this one is for Voltage L3)
-    ADMUX = bit(REFS0) + sensorV[0]; // the conversion for I1 is already under way
-    sample_index = 0;                // reset the control flag
-    //
-    processVoltageRawSample(2, rawSample);
-    break;
-  default:
-    sample_index = 0; // to prevent lockup (should never get here)
+    case 0:
+      rawSample = ADC;                  // store the ADC value (this one is for Current L1)
+      ADMUX = bit(REFS0) + sensorI[1];  // the conversion for V1 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processCurrentRawSample(0, rawSample);
+      break;
+    case 1:
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L1)
+      ADMUX = bit(REFS0) + sensorV[1];  // the conversion for I2 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processVoltageRawSample(0, rawSample);
+      break;
+    case 2:
+      rawSample = ADC;                  // store the ADC value (this one is for Current L2)
+      ADMUX = bit(REFS0) + sensorI[2];  // the conversion for V2 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processCurrentRawSample(1, rawSample);
+      break;
+    case 3:
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L2)
+      ADMUX = bit(REFS0) + sensorV[2];  // the conversion for I3 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processVoltageRawSample(1, rawSample);
+      break;
+    case 4:
+      rawSample = ADC;                  // store the ADC value (this one is for Current L3)
+      ADMUX = bit(REFS0) + sensorI[0];  // the conversion for V3 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processCurrentRawSample(2, rawSample);
+      break;
+    case 5:
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L3)
+      ADMUX = bit(REFS0) + sensorV[0];  // the conversion for I1 is already under way
+      sample_index = 0;                 // reset the control flag
+      //
+      processVoltageRawSample(2, rawSample);
+      break;
+    default:
+      sample_index = 0;  // to prevent lockup (should never get here)
   }
-} // end of ISR
+}  // end of ISR
 
 /**
  * @brief This function set all 3 loads to full power.
@@ -254,10 +254,10 @@ bool forceFullPower()
 {
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    const uint8_t pinState{getPinState(forcePin)};
+    const uint8_t pinState{ getPinState(forcePin) };
 
 #ifdef ENABLE_DEBUG
-    static uint8_t previousState{1};
+    static uint8_t previousState{ 1 };
     if (previousState != pinState)
     {
       DBUGLN(!pinState ? F("Trigger override!") : F("End override!"));
@@ -283,10 +283,10 @@ void checkDiversionOnOff()
 {
   if constexpr (DIVERSION_PIN_PRESENT)
   {
-    const uint8_t pinState{getPinState(diversionPin)};
+    const uint8_t pinState{ getPinState(diversionPin) };
 
 #ifdef ENABLE_DEBUG
-    static uint8_t previousState{1};
+    static uint8_t previousState{ 1 };
     if (previousState != pinState)
     {
       DBUGLN(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
@@ -316,9 +316,9 @@ void proceedRotation()
 bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperature_x100)
 {
   uint8_t i;
-  static constexpr int16_t iTemperatureThreshold_x100{iTemperatureThreshold * 100};
-  static uint8_t pinOffPeakState{HIGH};
-  const uint8_t pinNewState{getPinState(offPeakForcePin)};
+  static constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
+  static uint8_t pinOffPeakState{ HIGH };
+  const uint8_t pinNewState{ getPinState(offPeakForcePin) };
 
   if (pinOffPeakState && !pinNewState)
   {
@@ -334,14 +334,13 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperatu
   }
   else
   {
-    const auto ulElapsedTime{(uint32_t)(millis() - ul_TimeOffPeak)};
-    const uint8_t pinState{getPinState(forcePin)};
+    const auto ulElapsedTime{ (uint32_t)(millis() - ul_TimeOffPeak) };
+    const uint8_t pinState{ getPinState(forcePin) };
 
     for (i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
       // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
-      if (!pinOffPeakState && !pinNewState &&
-          (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
+      if (!pinOffPeakState && !pinNewState && (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
       {
         b_overrideLoadOn[i] = !pinState || (currentTemperature_x100 <= iTemperatureThreshold_x100);
       }
@@ -379,8 +378,8 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
   }
   else if constexpr (EMONESP_CONTROL)
   {
-    static uint8_t pinRotationState{HIGH};
-    const uint8_t pinNewState{getPinState(rotationPin)};
+    static uint8_t pinRotationState{ HIGH };
+    const uint8_t pinNewState{ getPinState(rotationPin) };
 
     if (pinRotationState && !pinNewState)
     {
@@ -402,7 +401,7 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
 
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    const uint8_t pinState{getPinState(forcePin)};
+    const uint8_t pinState{ getPinState(forcePin) };
 
     for (auto &bOverrideLoad : b_overrideLoadOn)
     {
@@ -421,10 +420,10 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
  */
 void setup()
 {
-  delay(initialDelay); // allows time to open the Serial Monitor
+  delay(initialDelay);  // allows time to open the Serial Monitor
 
   DEBUG_PORT.begin(9600);
-  Serial.begin(9600); // initialize Serial interface, Do NOT set greater than 9600
+  Serial.begin(9600);  // initialize Serial interface, Do NOT set greater than 9600
 
   // On start, always display config info in the serial monitor
   printConfiguration();
@@ -441,7 +440,7 @@ void setup()
 #endif
 
   DBUG(F(">>free RAM = "));
-  DBUGLN(freeRam()); // a useful value to keep an eye on
+  DBUGLN(freeRam());  // a useful value to keep an eye on
   DBUGLN(F("----"));
 }
 
@@ -453,13 +452,13 @@ void setup()
  */
 void loop()
 {
-  static uint8_t perSecondTimer{0};
-  static bool bOffPeak{false};
-  static int16_t iTemperature_x100{0};
+  static uint8_t perSecondTimer{ 0 };
+  static bool bOffPeak{ false };
+  static int16_t iTemperature_x100{ 0 };
 
-  if (b_newMainsCycle) // flag is set after every pair of ADC conversions
+  if (b_newMainsCycle)  // flag is set after every pair of ADC conversions
   {
-    b_newMainsCycle = false; // reset the flag
+    b_newMainsCycle = false;  // reset the flag
     ++perSecondTimer;
 
     if (perSecondTimer >= SUPPLY_FREQUENCY)
@@ -472,7 +471,7 @@ void loop()
 
       if (!forceFullPower())
       {
-        bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100); // called every second
+        bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100);  // called every second
       }
     }
   }
@@ -506,9 +505,9 @@ void loop()
 
       tx_data.temperature_x100[idx] = tmp;
     }
-    requestTemperatures(); // for use next time around
+    requestTemperatures();  // for use next time around
 #endif
 
     sendResults(bOffPeak);
   }
-} // end of loop()
+}  // end of loop()

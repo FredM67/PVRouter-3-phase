@@ -25,16 +25,16 @@ int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
 // Define operating limits for the LP filters which identify DC offset in the voltage
 // sample streams. By limiting the output range, these filters always should start up
 // correctly.
-constexpr int32_t l_DCoffset_V_min{(512L - 100L) * 256L}; /**< mid-point of ADC minus a working margin */
-constexpr int32_t l_DCoffset_V_max{(512L + 100L) * 256L}; /**< mid-point of ADC plus a working margin */
-constexpr int32_t l_DCoffset_I_nom{512L};                 /**< nominal mid-point value of ADC @ x1 scale */
+constexpr int32_t l_DCoffset_V_min{ (512L - 100L) * 256L }; /**< mid-point of ADC minus a working margin */
+constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
+constexpr int32_t l_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
 
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
-constexpr float f_capacityOfEnergyBucket_main{(float)(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY)};
+constexpr float f_capacityOfEnergyBucket_main{ (float)(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
 /**< for resetting flexible thresholds */
-constexpr float f_midPointOfEnergyBucket_main{f_capacityOfEnergyBucket_main * 0.5f};
+constexpr float f_midPointOfEnergyBucket_main{ f_capacityOfEnergyBucket_main * 0.5f };
 /**< threshold in anti-flicker mode - must not exceed 0.4 */
-constexpr float f_offsetOfEnergyThresholdsInAFmode{0.1f};
+constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1f };
 
 /**
  * @brief set default threshold at compile time so the variable can be read-only
@@ -45,23 +45,23 @@ constexpr float f_offsetOfEnergyThresholdsInAFmode{0.1f};
 constexpr float initThreshold(const bool lower)
 {
   return lower
-             ? f_capacityOfEnergyBucket_main * (0.5f - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0))
-             : f_capacityOfEnergyBucket_main * (0.5f + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0));
+           ? f_capacityOfEnergyBucket_main * (0.5f - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0))
+           : f_capacityOfEnergyBucket_main * (0.5f + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0));
 }
 
-constexpr float f_lowerThreshold_default{initThreshold(true)};  /**< lower default threshold set accordingly to the output mode */
-constexpr float f_upperThreshold_default{initThreshold(false)}; /**< upper default threshold set accordingly to the output mode */
+constexpr float f_lowerThreshold_default{ initThreshold(true) };  /**< lower default threshold set accordingly to the output mode */
+constexpr float f_upperThreshold_default{ initThreshold(false) }; /**< upper default threshold set accordingly to the output mode */
 
-float f_energyInBucket_main{0}; /**< main energy bucket (over all phases) */
-float f_lowerEnergyThreshold;   /**< dynamic lower threshold */
-float f_upperEnergyThreshold;   /**< dynamic upper threshold */
+float f_energyInBucket_main{ 0 }; /**< main energy bucket (over all phases) */
+float f_lowerEnergyThreshold;     /**< dynamic lower threshold */
+float f_upperEnergyThreshold;     /**< dynamic upper threshold */
 
 // for improved control of multiple loads
-bool b_recentTransition{false};                 /**< a load state has been recently toggled */
-uint8_t postTransitionCount;                    /**< counts the number of cycle since last transition */
-constexpr uint8_t POST_TRANSITION_MAX_COUNT{3}; /**< allows each transition to take effect */
+bool b_recentTransition{ false };                 /**< a load state has been recently toggled */
+uint8_t postTransitionCount;                      /**< counts the number of cycle since last transition */
+constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 3 }; /**< allows each transition to take effect */
 // constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
-uint8_t activeLoad{NO_OF_DUMPLOADS}; /**< current active load */
+uint8_t activeLoad{ NO_OF_DUMPLOADS }; /**< current active load */
 
 int32_t l_sumP[NO_OF_PHASES];                /**< cumulative power per phase */
 int32_t l_sampleVminusDC[NO_OF_PHASES];      /**< current raw voltage sample filtered */
@@ -71,7 +71,7 @@ int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values du
 
 uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
 uint16_t i_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
-uint8_t n_cycleCountForDatalogging{0};               /**< for counting how often datalog is updated */
+uint8_t n_cycleCountForDatalogging{ 0 };             /**< for counting how often datalog is updated */
 
 uint8_t n_lowestNoOfSampleSetsPerMainsCycle; /**< For a mechanism to check the integrity of this code structure */
 
@@ -83,7 +83,7 @@ Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing 
 LoadStates physicalLoadState[NO_OF_DUMPLOADS]; /**< Physical state of the loads */
 uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was ON (over 1 datalog period) */
 
-bool beyondStartUpPeriod{false}; /**< start-up delay, allows things to settle */
+bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle */
 
 /**
  * @brief Initializes the ports and load states for processing
@@ -93,16 +93,16 @@ void initializeProcessing()
 {
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    pinMode(physicalLoadPin[i], OUTPUT); // driver pin for Load #n
+    pinMode(physicalLoadPin[i], OUTPUT);  // driver pin for Load #n
     loadPrioritiesAndState[i] &= loadStateMask;
   }
-  updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
+  updatePhysicalLoadStates();  // allows the logical-to-physical mapping to be changed
 
-  updatePortsStates(); // updates output pin states
+  updatePortsStates();  // updates output pin states
 
   for (auto &DCoffset_V : l_DCoffset_V)
   {
-    DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
+    DCoffset_V = 512L * 256L;  // nominal mid-point value of ADC @ x256 scale
   }
 
   for (auto &bOverrideLoad : b_overrideLoadOn)
@@ -117,23 +117,23 @@ void initializeProcessing()
   ADCSRB = 0x00;
 
   // Set up the ADC to be free-running
-  bitSet(ADCSRA, ADPS0); // Set the ADC's clock to system clock / 128
+  bitSet(ADCSRA, ADPS0);  // Set the ADC's clock to system clock / 128
   bitSet(ADCSRA, ADPS1);
   bitSet(ADCSRA, ADPS2);
 
-  bitSet(ADCSRA, ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  bitSet(ADCSRA, ADATE);  // set the Auto Trigger Enable bit in the ADCSRA register. Because
   // bits ADTS0-2 have not been set (i.e. they are all zero), the
   // ADC's trigger source is set to "free running mode".
 
-  bitSet(ADCSRA, ADIE); // set the ADC interrupt enable bit. When this bit is written
+  bitSet(ADCSRA, ADIE);  // set the ADC interrupt enable bit. When this bit is written
   // to one and the I-bit in SREG is set, the
   // ADC Conversion Complete Interrupt is activated.
 
-  bitSet(ADCSRA, ADEN); // Enable the ADC
+  bitSet(ADCSRA, ADEN);  // Enable the ADC
 
-  bitSet(ADCSRA, ADSC); // start ADC manually first time
+  bitSet(ADCSRA, ADSC);  // start ADC manually first time
 
-  sei(); // Enable Global Interrupts
+  sei();  // Enable Global Interrupts
 }
 
 /**
@@ -144,32 +144,32 @@ void initializeOptionalPins()
 {
   if constexpr (DUAL_TARIFF)
   {
-    pinMode(offPeakForcePin, INPUT_PULLUP); // set as input & enable the internal pullup resistor
-    delay(100);                             // allow time to settle
+    pinMode(offPeakForcePin, INPUT_PULLUP);  // set as input & enable the internal pullup resistor
+    delay(100);                              // allow time to settle
 
     ul_TimeOffPeak = millis();
   }
 
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    pinMode(forcePin, INPUT_PULLUP); // set as input & enable the internal pullup resistor
-    delay(100);                      // allow time to settle
+    pinMode(forcePin, INPUT_PULLUP);  // set as input & enable the internal pullup resistor
+    delay(100);                       // allow time to settle
   }
 
   if constexpr (PRIORITY_ROTATION)
   {
-    pinMode(rotationPin, INPUT_PULLUP); // set as input & enable the internal pullup resistor
-    delay(100);                         // allow time to settle
+    pinMode(rotationPin, INPUT_PULLUP);  // set as input & enable the internal pullup resistor
+    delay(100);                          // allow time to settle
   }
 
   if constexpr (DIVERSION_PIN_PRESENT)
   {
-    pinMode(diversionPin, INPUT_PULLUP); // set as input & enable the internal pullup resistor
-    delay(100);                          // allow time to settle
+    pinMode(diversionPin, INPUT_PULLUP);  // set as input & enable the internal pullup resistor
+    delay(100);                           // allow time to settle
   }
 
-  pinMode(watchDogPin, OUTPUT); // set as output
-  setPinOFF(watchDogPin);       // set to off
+  pinMode(watchDogPin, OUTPUT);  // set as output
+  setPinOFF(watchDogPin);        // set to off
 }
 
 /**
@@ -178,10 +178,10 @@ void initializeOptionalPins()
  */
 void updatePortsStates()
 {
-  uint16_t pinsON{0};
-  uint16_t pinsOFF{0};
+  uint16_t pinsON{ 0 };
+  uint16_t pinsOFF{ 0 };
 
-  uint8_t i{NO_OF_DUMPLOADS};
+  uint8_t i{ NO_OF_DUMPLOADS };
 
   do
   {
@@ -228,7 +228,7 @@ void updatePhysicalLoadStates()
   {
     if (b_reOrderLoads)
     {
-      const auto temp{loadPrioritiesAndState[0]};
+      const auto temp{ loadPrioritiesAndState[0] };
       for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
         loadPrioritiesAndState[i] = loadPrioritiesAndState[i + 1];
 
@@ -246,10 +246,10 @@ void updatePhysicalLoadStates()
     }
   }
 
-  const bool bDiversionOff{b_diversionOff};
+  const bool bDiversionOff{ b_diversionOff };
   for (i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    const auto iLoad{loadPrioritiesAndState[i] & loadStateMask};
+    const auto iLoad{ loadPrioritiesAndState[i] & loadStateMask };
     physicalLoadState[iLoad] = !bDiversionOff && (b_overrideLoadOn[iLoad] || (loadPrioritiesAndState[i] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   }
 }
@@ -299,8 +299,8 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   int32_t instP;
 
   // extra items for an LPF to improve the processing of data samples from CT1
-  static int32_t lpf_long[NO_OF_PHASES]{}; // new LPF, for offsetting the behaviour of CTx as a HPF
-  int32_t last_lpf_long;                   // extra filtering to offset the HPF effect of CTx
+  static int32_t lpf_long[NO_OF_PHASES]{};  // new LPF, for offsetting the behaviour of CTx as a HPF
+  int32_t last_lpf_long;                    // extra filtering to offset the HPF effect of CTx
 
   // remove most of the DC offset from the current sample (the precise value does not matter)
   sampleIminusDC = ((int32_t)(rawSample - l_DCoffset_I_nom)) << 8;
@@ -311,13 +311,13 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   sampleIminusDC += (lpf_gain * lpf_long[phase]);
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
-  filtV_div4 = l_sampleVminusDC[phase] >> 2; // reduce to 16-bits (now x64, or 2^6)
-  filtI_div4 = sampleIminusDC >> 2;          // reduce to 16-bits (now x64, or 2^6)
-  instP = filtV_div4 * filtI_div4;           // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                              // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+  filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
+  filtI_div4 = sampleIminusDC >> 2;           // reduce to 16-bits (now x64, or 2^6)
+  instP = filtV_div4 * filtI_div4;            // 32-bits (now x4096, or 2^12)
+  instP >>= 12;                               // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
-  l_sumP[phase] += instP;               // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
-  l_sumP_atSupplyPoint[phase] += instP; // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
 }
 
 /**
@@ -360,15 +360,15 @@ void processVoltage(const uint8_t phase)
   static int32_t inst_Vsquared;
 
   // for the Vrms calculation (for datalogging only)
-  filtV_div4 = l_sampleVminusDC[phase] >> 2; // reduce to 16-bits (now x64, or 2^6)
-  inst_Vsquared = filtV_div4 * filtV_div4;   // 32-bits (now x4096, or 2^12)
-  inst_Vsquared >>= 12;                      // scaling is now x1 (V_ADC x I_ADC)
-  l_sum_Vsquared[phase] += inst_Vsquared;    // cumulative V^2 (V_ADC x I_ADC)
+  filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
+  inst_Vsquared = filtV_div4 * filtV_div4;    // 32-bits (now x4096, or 2^12)
+  inst_Vsquared >>= 12;                       // scaling is now x1 (V_ADC x I_ADC)
+  l_sum_Vsquared[phase] += inst_Vsquared;     // cumulative V^2 (V_ADC x I_ADC)
   //
   // store items for use during next loop
-  l_cumVdeltasThisCycle[phase] += l_sampleVminusDC[phase];          // for use with LP filter
-  polarityConfirmedOfLastSampleV[phase] = polarityConfirmed[phase]; // for identification of half cycle boundaries
-  ++n_samplesDuringThisMainsCycle[phase];                           // for real power calculations
+  l_cumVdeltasThisCycle[phase] += l_sampleVminusDC[phase];           // for use with LP filter
+  polarityConfirmedOfLastSampleV[phase] = polarityConfirmed[phase];  // for identification of half cycle boundaries
+  ++n_samplesDuringThisMainsCycle[phase];                            // for real power calculations
 }
 
 /**
@@ -383,7 +383,7 @@ void processStartUp(const uint8_t phase)
   // wait until the DC-blocking filters have had time to settle
   if (millis() <= (initialDelay + startUpPeriod))
   {
-    return; // still settling, do nothing
+    return;  // still settling, do nothing
   }
 
   // the DC-blocking filters have had time to settle
@@ -404,8 +404,8 @@ void processStartUp(const uint8_t phase)
  */
 void proceedHighEnergyLevel()
 {
-  bool bOK_toAddLoad{true};
-  auto tempLoad{nextLogicalLoadToBeAdded()};
+  bool bOK_toAddLoad{ true };
+  auto tempLoad{ nextLogicalLoadToBeAdded() };
 
   if (tempLoad >= NO_OF_DUMPLOADS)
   {
@@ -445,8 +445,8 @@ void proceedHighEnergyLevel()
  */
 void proceedLowEnergyLevel()
 {
-  bool bOK_toRemoveLoad{true};
-  auto tempLoad{nextLogicalLoadToBeRemoved()};
+  bool bOK_toRemoveLoad{ true };
+  auto tempLoad{ nextLogicalLoadToBeRemoved() };
 
   if (tempLoad >= NO_OF_DUMPLOADS)
   {
@@ -501,7 +501,7 @@ void processStartNewCycle()
   if (f_energyInBucket_main > f_midPointOfEnergyBucket_main)
   {
     // the energy state is in the upper half of the working range
-    f_lowerEnergyThreshold = f_lowerThreshold_default; // reset the "opposite" threshold
+    f_lowerEnergyThreshold = f_lowerThreshold_default;  // reset the "opposite" threshold
     if (f_energyInBucket_main > f_upperEnergyThreshold)
     {
       // Because the energy level is high, some action may be required
@@ -511,7 +511,7 @@ void processStartNewCycle()
   else
   {
     // the energy state is in the lower half of the working range
-    f_upperEnergyThreshold = f_upperThreshold_default; // reset the "opposite" threshold
+    f_upperEnergyThreshold = f_upperThreshold_default;  // reset the "opposite" threshold
     if (f_energyInBucket_main < f_lowerEnergyThreshold)
     {
       // Because the energy level is low, some action may be required
@@ -519,9 +519,9 @@ void processStartNewCycle()
     }
   }
 
-  updatePhysicalLoadStates(); // allows the logical-to-physical mapping to be changed
+  updatePhysicalLoadStates();  // allows the logical-to-physical mapping to be changed
 
-  updatePortsStates(); // update the control ports for each of the physical loads
+  updatePortsStates();  // update the control ports for each of the physical loads
 
   // Now that the energy-related decisions have been taken, min and max limits can now
   // be applied  to the level of the energy bucket. This is to ensure correct operation
@@ -597,7 +597,7 @@ uint8_t nextLogicalLoadToBeAdded()
  */
 uint8_t nextLogicalLoadToBeRemoved()
 {
-  uint8_t index{NO_OF_DUMPLOADS};
+  uint8_t index{ NO_OF_DUMPLOADS };
   do
   {
     --index;
@@ -627,8 +627,8 @@ void processLatestContribution(const uint8_t phase)
   // apply any adjustment that is required.
   if (0 == phase)
   {
-    b_newMainsCycle = true;                            //  a 50 Hz 'tick' for use by the main code
-    f_energyInBucket_main -= REQUIRED_EXPORT_IN_WATTS; // energy scale is Joules x 50
+    b_newMainsCycle = true;                             //  a 50 Hz 'tick' for use by the main code
+    f_energyInBucket_main -= REQUIRED_EXPORT_IN_WATTS;  // energy scale is Joules x 50
   }
   // Applying max and min limits to the main accumulator's level
   // is deferred until after the energy related decisions have been taken
@@ -647,12 +647,12 @@ void processDataLogging()
 {
   if (++n_cycleCountForDatalogging < DATALOG_PERIOD_IN_MAINS_CYCLES)
   {
-    return; // data logging period not yet reached
+    return;  // data logging period not yet reached
   }
 
   n_cycleCountForDatalogging = 0;
 
-  uint8_t phase{NO_OF_PHASES};
+  uint8_t phase{ NO_OF_PHASES };
   do
   {
     --phase;
@@ -663,7 +663,7 @@ void processDataLogging()
     l_sum_Vsquared[phase] = 0;
   } while (phase);
 
-  uint8_t i{NO_OF_DUMPLOADS};
+  uint8_t i{ NO_OF_DUMPLOADS };
   do
   {
     --i;
@@ -671,9 +671,9 @@ void processDataLogging()
     countLoadON[i] = 0;
   } while (i);
 
-  copyOf_sampleSetsDuringThisDatalogPeriod = i_sampleSetsDuringThisDatalogPeriod; // (for diags only)
-  copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
-  copyOf_energyInBucket_main = f_energyInBucket_main;                             // (for diags only)
+  copyOf_sampleSetsDuringThisDatalogPeriod = i_sampleSetsDuringThisDatalogPeriod;  // (for diags only)
+  copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle;  // (for diags only)
+  copyOf_energyInBucket_main = f_energyInBucket_main;                              // (for diags only)
 
   n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
   i_sampleSetsDuringThisDatalogPeriod = 0;
@@ -691,7 +691,7 @@ void processDataLogging()
  */
 void processPlusHalfCycle(const uint8_t phase)
 {
-  processLatestContribution(phase); // runs at 6.6 ms intervals
+  processLatestContribution(phase);  // runs at 6.6 ms intervals
 
   // A performance check to monitor and display the minimum number of sets of
   // ADC samples per mains cycle, the expected number being 20ms / (104us * 6) = 32.05
@@ -738,7 +738,7 @@ void processRawSamples(const uint8_t phase)
 
     // still processing samples where the voltage is POSITIVE ...
     // check to see whether the trigger device can now be reliably armed
-    if (beyondStartUpPeriod && (0 == phase) && (2 == n_samplesDuringThisMainsCycle[0])) // lower value for larger sample set
+    if (beyondStartUpPeriod && (0 == phase) && (2 == n_samplesDuringThisMainsCycle[0]))  // lower value for larger sample set
     {
       // This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0.
       processStartNewCycle();
@@ -753,7 +753,7 @@ void processRawSamples(const uint8_t phase)
       processMinusHalfCycle(phase);
     }
   }
-} // end of processRawSamples()
+}  // end of processRawSamples()
 
 /**
  * @brief Process the current voltage raw sample for the specific phase
@@ -768,7 +768,7 @@ void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
   processPolarity(phase, rawSample);
   confirmPolarity(phase);
   //
-  processRawSamples(phase); // deals with aspects that only occur at particular stages of each mains cycle
+  processRawSamples(phase);  // deals with aspects that only occur at particular stages of each mains cycle
   //
   processVoltage(phase);
 
