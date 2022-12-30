@@ -147,7 +147,7 @@ static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform
 // constants which must be set individually for each system
 //
 constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
-constexpr uint8_t NO_OF_DUMPLOADS{4}; /**< number of dump loads connected to the diverter */
+constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
 
 constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
 
@@ -411,13 +411,10 @@ public:
     // calculates offsets for force start and stop of each load
     for (uint8_t i = 0; i != N; ++i)
     {
-      const bool bOffsetInMinutes{rg_ForceLoad[i].getStartOffset() > 24 ||
-                                  rg_ForceLoad[i].getStartOffset() < -24};
-      const bool bDurationInMinutes{rg_ForceLoad[i].getDuration() > 24 &&
-                                    UINT16_MAX != rg_ForceLoad[i].getDuration()};
+      const bool bOffsetInMinutes{rg_ForceLoad[i].getStartOffset() > 24 || rg_ForceLoad[i].getStartOffset() < -24};
+      const bool bDurationInMinutes{rg_ForceLoad[i].getDuration() > 24 && UINT16_MAX != rg_ForceLoad[i].getDuration()};
 
-      _rg[i][0] = ((rg_ForceLoad[i].getStartOffset() >= 0) ? 0 : uiPeakDurationInSec) +
-                  rg_ForceLoad[i].getStartOffset() * (bOffsetInMinutes ? 60ul : 3600ul);
+      _rg[i][0] = ((rg_ForceLoad[i].getStartOffset() >= 0) ? 0 : uiPeakDurationInSec) + rg_ForceLoad[i].getStartOffset() * (bOffsetInMinutes ? 60ul : 3600ul);
       _rg[i][0] *= 1000ul; // convert in milli-seconds
 
       if (UINT8_MAX == rg_ForceLoad[i].getDuration())
@@ -594,46 +591,46 @@ ISR(ADC_vect)
   switch (sample_index)
   {
   case 0:
-    rawSample = ADC;           // store the ADC value (this one is for Voltage L1)
-    ADMUX = 0x40 + sensorV[1]; // the conversion for I1 is already under way
-    ++sample_index;            // increment the control flag
-    //
-    processVoltageRawSample(0, rawSample);
-    break;
-  case 1:
-    rawSample = ADC;           // store the ADC value (this one is for Current L1)
-    ADMUX = 0x40 + sensorI[1]; // the conversion for V2 is already under way
-    ++sample_index;            // increment the control flag
+    rawSample = ADC;                 // store the ADC value (this one is for Current L1)
+    ADMUX = bit(REFS0) + sensorI[1]; // the conversion for V1 is already under way
+    ++sample_index;                  // increment the control flag
     //
     processCurrentRawSample(0, rawSample);
     break;
-  case 2:
-    rawSample = ADC;           // store the ADC value (this one is for Voltage L2)
-    ADMUX = 0x40 + sensorV[2]; // the conversion for I2 is already under way
-    ++sample_index;            // increment the control flag
+  case 1:
+    rawSample = ADC;                 // store the ADC value (this one is for Voltage L1)
+    ADMUX = bit(REFS0) + sensorV[1]; // the conversion for I2 is already under way
+    ++sample_index;                  // increment the control flag
     //
-    processVoltageRawSample(1, rawSample);
+    processVoltageRawSample(0, rawSample);
     break;
-  case 3:
-    rawSample = ADC;           // store the ADC value (this one is for Current L2)
-    ADMUX = 0x40 + sensorI[2]; // the conversion for V3 is already under way
-    ++sample_index;            // increment the control flag
+  case 2:
+    rawSample = ADC;                 // store the ADC value (this one is for Current L2)
+    ADMUX = bit(REFS0) + sensorI[2]; // the conversion for V2 is already under way
+    ++sample_index;                  // increment the control flag
     //
     processCurrentRawSample(1, rawSample);
     break;
-  case 4:
-    rawSample = ADC;           // store the ADC value (this one is for Voltage L3)
-    ADMUX = 0x40 + sensorV[0]; // the conversion for I3 is already under way
-    ++sample_index;            // increment the control flag
+  case 3:
+    rawSample = ADC;                 // store the ADC value (this one is for Voltage L2)
+    ADMUX = bit(REFS0) + sensorV[2]; // the conversion for I3 is already under way
+    ++sample_index;                  // increment the control flag
     //
-    processVoltageRawSample(2, rawSample);
+    processVoltageRawSample(1, rawSample);
     break;
-  case 5:
-    rawSample = ADC;           // store the ADC value (this one is for Current L3)
-    ADMUX = 0x40 + sensorI[0]; // the conversion for V1 is already under way
-    sample_index = 0;          // reset the control flag
+  case 4:
+    rawSample = ADC;                 // store the ADC value (this one is for Current L3)
+    ADMUX = bit(REFS0) + sensorI[0]; // the conversion for V3 is already under way
+    ++sample_index;                  // increment the control flag
     //
     processCurrentRawSample(2, rawSample);
+    break;
+  case 5:
+    rawSample = ADC;                 // store the ADC value (this one is for Voltage L3)
+    ADMUX = bit(REFS0) + sensorV[0]; // the conversion for I1 is already under way
+    sample_index = 0;                // reset the control flag
+    //
+    processVoltageRawSample(2, rawSample);
     break;
   default:
     sample_index = 0; // to prevent lockup (should never get here)
@@ -786,8 +783,7 @@ void processRawSamples(const uint8_t phase)
 
     // still processing samples where the voltage is POSITIVE ...
     // check to see whether the trigger device can now be reliably armed
-    if (beyondStartUpPeriod && (0 == phase) &&
-        (2 == n_samplesDuringThisMainsCycle[0])) // lower value for larger sample set
+    if (beyondStartUpPeriod && (0 == phase) && (2 == n_samplesDuringThisMainsCycle[0])) // lower value for larger sample set
     {
       // This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0.
       processStartNewCycle();
@@ -1351,8 +1347,8 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
     } while (b_reOrderLoads);
 #endif // PRIORITY_ROTATION
 
-        // prints the (new) load priorities
-        logLoadPriorities();
+    // prints the (new) load priorities
+    logLoadPriorities();
   }
   else
   {
@@ -1362,8 +1358,7 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
     {
       // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the
       // load ON
-      if (!pinOffPeakState && !pinNewState && (ulElapsedTime >= rg_OffsetForce[i][0]) &&
-          (ulElapsedTime < rg_OffsetForce[i][1]))
+      if (!pinOffPeakState && !pinNewState && (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
         b_forceLoadOn[i] = currentTemperature_x100 <= iTemperatureThreshold_x100;
       else
         b_forceLoadOn[i] = false;
@@ -1391,8 +1386,8 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
       delay(10);
     } while (b_reOrderLoads);
 
-        // prints the (new) load priorities
-        logLoadPriorities();
+    // prints the (new) load priorities
+    logLoadPriorities();
   }
 #endif // PRIORITY_ROTATION
   return false;
@@ -1692,20 +1687,30 @@ void setup()
   for (auto &DCoffset_V : l_DCoffset_V)
     DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
 
-  // Set up the ADC to be free-running
-  ADCSRA = bit(ADPS0) + bit(ADPS1) + bit(ADPS2); // Set the ADC's clock to system clock / 128
-  ADCSRA |= bit(ADEN);                           // Enable the ADC
+  // First stop the ADC
+  bitClear(ADCSRA, ADEN);
 
-  ADCSRA |= bit(ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  // Activation du free-running mode
+  ADCSRB = 0x00;
+
+  // Set up the ADC to be free-running
+  bitSet(ADCSRA, ADPS0); // Set the ADC's clock to system clock / 128
+  bitSet(ADCSRA, ADPS1);
+  bitSet(ADCSRA, ADPS2);
+
+  bitSet(ADCSRA, ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
   // bits ADTS0-2 have not been set (i.e. they are all zero), the
   // ADC's trigger source is set to "free running mode".
 
-  ADCSRA |= bit(ADIE); // set the ADC interrupt enable bit. When this bit is written
+  bitSet(ADCSRA, ADIE); // set the ADC interrupt enable bit. When this bit is written
   // to one and the I-bit in SREG is set, the
   // ADC Conversion Complete Interrupt is activated.
 
-  ADCSRA |= bit(ADSC); // start ADC manually first time
-  sei();               // Enable Global Interrupts
+  bitSet(ADCSRA, ADEN); // Enable the ADC
+
+  bitSet(ADCSRA, ADSC); // start ADC manually first time
+
+  sei(); // Enable Global Interrupts
 
   logLoadPriorities();
 
@@ -1798,8 +1803,7 @@ void loop()
       tx_data.power += tx_data.power_L[phase];
 
       tx_data.Vrms_L_x100[phase] =
-          (int32_t)(100 * f_voltageCal[phase] *
-                    sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+          (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
     } while (phase);
 
 #ifdef TEMP_SENSOR
