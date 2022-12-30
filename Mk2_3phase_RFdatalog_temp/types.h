@@ -98,4 +98,9 @@ template< typename _Tp, size_t _Nm > constexpr size_t size(const _Tp (&/*__array
   return _Nm;
 }
 
+template< typename _Tp > constexpr size_t size(const _Tp (&/*__array*/)[0]) noexcept
+{
+  return 0;
+}
+
 #endif  // __TYPES_H__

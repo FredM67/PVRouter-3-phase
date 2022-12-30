@@ -435,9 +435,10 @@ void setup()
 
   logLoadPriorities();
 
-#ifdef TEMP_SENSOR_PRESENT
-  initTemperatureSensors();
-#endif
+  if constexpr (TEMP_SENSOR_PRESENT)
+  {
+    initTemperatureSensors();
+  }
 
   DBUG(F(">>free RAM = "));
   DBUGLN(freeRam());  // a useful value to keep an eye on
@@ -491,22 +492,23 @@ void loop()
       tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
     }
 
-#ifdef TEMP_SENSOR_PRESENT
-    for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+    if constexpr (TEMP_SENSOR_PRESENT)
     {
-      static int16_t tmp;
-      tmp = readTemperature(sensorAddrs[idx]);
-
-      // if read temperature is 85 and the delta with previous is greater than 5, skip the value
-      if (8500 == tmp && abs(tmp - tx_data.temperature_x100[idx] > 500))
+      for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
       {
-        tmp = DEVICE_DISCONNECTED_RAW;
-      }
+        static int16_t tmp;
+        tmp = readTemperature(sensorAddrs[idx]);
 
-      tx_data.temperature_x100[idx] = tmp;
+        // if read temperature is 85 and the delta with previous is greater than 5, skip the value
+        if (8500 == tmp && abs(tmp - tx_data.temperature_x100[idx] > 500))
+        {
+          tmp = DEVICE_DISCONNECTED_RAW;
+        }
+
+        tx_data.temperature_x100[idx] = tmp;
+      }
+      requestTemperatures();  // for use next time around
     }
-    requestTemperatures();  // for use next time around
-#endif
 
     sendResults(bOffPeak);
   }

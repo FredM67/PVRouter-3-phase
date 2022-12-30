@@ -146,12 +146,14 @@ inline void printConfiguration()
   printParamsForSelectedOutputMode();
 
   DBUG("Temperature capability ");
-#ifdef TEMP_SENSOR_PRESENT
-  DBUGLN(F("is present"));
-#else
-  DBUGLN(F("is NOT present"));
-#endif
-
+  if constexpr (TEMP_SENSOR_PRESENT)
+  {
+    DBUGLN(F("is present"));
+  }
+  else
+  {
+    DBUGLN(F("is NOT present"));
+  }
   DBUG("Dual-tariff capability ");
   if constexpr (DUAL_TARIFF)
   {
@@ -159,14 +161,19 @@ inline void printConfiguration()
     printDualTariffConfiguration();
   }
   else
+  {
     DBUGLN(F("is NOT present"));
-
+  }
   DBUG("Load rotation feature ");
   if constexpr (PRIORITY_ROTATION)
+  {
     DBUGLN(F("is present"));
+  }
   else
+  {
     DBUGLN(F("is NOT present"));
-
+  }
+  
   DBUG("RF capability ");
 #ifdef RF_PRESENT
   DBUG(F("IS present, Freq = "));
@@ -211,22 +218,23 @@ inline void printForEmonESP(const bool bOffPeak)
     Serial.print(F(":"));
     Serial.print((copyOf_countLoadON[idx] * 100) / DATALOG_PERIOD_IN_MAINS_CYCLES);
   }
-#ifdef TEMP_SENSOR_PRESENT
-  // Current temperature
-  for (idx = 0; idx < size(tx_data.temperature_x100); ++idx)
-  {
-    if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
-        || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
-    {
-      continue;
-    }
 
-    Serial.print(F(",T"));
-    Serial.print(idx + 1);
-    Serial.print(F(":"));
-    Serial.print((float)tx_data.temperature_x100[idx] / 100);
+  if constexpr (TEMP_SENSOR_PRESENT)
+  {  // Current temperature
+    for (idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+    {
+      if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
+          || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
+      {
+        continue;
+      }
+
+      Serial.print(F(",T"));
+      Serial.print(idx + 1);
+      Serial.print(F(":"));
+      Serial.print((float)tx_data.temperature_x100[idx] / 100);
+    }
   }
-#endif
 
   if constexpr (DUAL_TARIFF)
   {
@@ -264,15 +272,17 @@ inline void printForSerialJson()
     Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
   }
 
-#ifdef TEMP_SENSOR_PRESENT
-  for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+  if constexpr (TEMP_SENSOR_PRESENT)
   {
-    Serial.print(F(", T"));
-    Serial.print(idx + 1);
-    Serial.print(F(":"));
-    Serial.print((float)tx_data.temperature_x100[idx] / 100);
+    for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+    {
+      Serial.print(F(", T"));
+      Serial.print(idx + 1);
+      Serial.print(F(":"));
+      Serial.print((float)tx_data.temperature_x100[idx] / 100);
+    }
   }
-#endif
+
   Serial.println(F(")"));
 }
 
@@ -303,15 +313,16 @@ inline void printForSerialText()
     Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
   }
 
-#ifdef TEMP_SENSOR_PRESENT
-  for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+  if constexpr (TEMP_SENSOR_PRESENT)
   {
-    Serial.print(F(", T"));
-    Serial.print(idx + 1);
-    Serial.print(F(":"));
-    Serial.print((float)tx_data.temperature_x100[idx] / 100);
+    for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+    {
+      Serial.print(F(", T"));
+      Serial.print(idx + 1);
+      Serial.print(F(":"));
+      Serial.print((float)tx_data.temperature_x100[idx] / 100);
+    }
   }
-#endif  // TEMP_SENSOR_PRESENT
 
   Serial.print(F(", (minSampleSets/MC "));
   Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);

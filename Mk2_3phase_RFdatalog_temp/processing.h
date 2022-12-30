@@ -32,11 +32,12 @@ inline volatile uint8_t copyOf_lowestNoOfSampleSetsPerMainsCycle;  /**<  */
 inline volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
 inline volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];      /**< copy of number of cycle the load was ON (over 1 datalog period) */
 
-#ifdef TEMP_SENSOR_PRESENT
+#ifdef TEMP_ENABLED
 inline PayloadTx_struct< NO_OF_PHASES, size(sensorAddrs) > tx_data; /**< logging data */
 #else
 inline PayloadTx_struct< NO_OF_PHASES > tx_data; /**< logging data */
 #endif
+
 
 void initializeProcessing();
 void initializeOptionalPins();

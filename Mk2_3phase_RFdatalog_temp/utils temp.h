@@ -17,9 +17,14 @@
 #include "dualtariff.h"
 #include "processing.h"
 
+inline int16_t readTemperature(const DeviceAddress &deviceAddress);
+inline void requestTemperatures();
+inline void initTemperatureSensors();
 
-#ifdef TEMP_SENSOR_PRESENT
+#ifdef TEMP_ENABLED
 #include <OneWire.h>  // for temperature sensing
+
+inline constexpr bool TEMP_SENSOR_PRESENT{ true };
 
 inline OneWire oneWire(tempSensorPin); /**< For temperature sensing */
 
@@ -29,7 +34,7 @@ inline OneWire oneWire(tempSensorPin); /**< For temperature sensing */
  * @param deviceAddress The address of the device
  * @return int16_t Temperature * 100
  */
-inline int16_t readTemperature(const DeviceAddress &deviceAddress)
+int16_t readTemperature(const DeviceAddress &deviceAddress)
 {
   static ScratchPad buf;
 
@@ -61,7 +66,7 @@ inline int16_t readTemperature(const DeviceAddress &deviceAddress)
  * @brief Request temperature for all sensors
  *
  */
-inline void requestTemperatures()
+void requestTemperatures()
 {
   oneWire.reset();
   oneWire.skip();
@@ -72,10 +77,12 @@ inline void requestTemperatures()
  * @brief Initialize the Dallas sensors
  *
  */
-inline void initTemperatureSensors()
+void initTemperatureSensors()
 {
   requestTemperatures();
 }
+#else
+inline constexpr bool TEMP_SENSOR_PRESENT{ false };
 #endif  // TEMP_SENSOR_PRESENT
 
 #endif  // __UTILS_TEMP_H__
