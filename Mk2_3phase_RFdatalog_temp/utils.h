@@ -17,14 +17,8 @@
 #include "dualtariff.h"
 #include "processing.h"
 
-
-#ifdef TEMP_SENSOR_PRESENT
-#include <OneWire.h>  // for temperature sensing
-#endif
-
-#ifdef RF_PRESENT
-#include <JeeLib.h>
-#endif
+#include "utils temp.h"
+#include "utils_rf.h"
 
 inline void togglePin(const uint8_t pin) __attribute__((always_inline));
 
@@ -376,84 +370,6 @@ inline void logLoadPriorities()
     DBUGLN(loadPrioAndState);
   }
 }
-
-#ifdef TEMP_SENSOR_PRESENT
-inline OneWire oneWire(tempSensorPin); /**< For temperature sensing */
-
-/**
- * @brief Read temperature of a specific device
- *
- * @param deviceAddress The address of the device
- * @return int16_t Temperature * 100
- */
-inline int16_t readTemperature(const DeviceAddress &deviceAddress)
-{
-  static ScratchPad buf;
-
-  if (!oneWire.reset())
-    return DEVICE_DISCONNECTED_RAW;
-
-  oneWire.select(deviceAddress);
-  oneWire.write(READ_SCRATCHPAD);
-
-  for (auto &buf_elem : buf)
-    buf_elem = oneWire.read();
-
-  if (!oneWire.reset())
-    return DEVICE_DISCONNECTED_RAW;
-
-  if (oneWire.crc8(buf, 8) != buf[8])
-    return DEVICE_DISCONNECTED_RAW;
-
-  // result is temperature x16, multiply by 6.25 to convert to temperature x100
-  int16_t result = (buf[1] << 8) | buf[0];
-  result = (result * 6) + (result >> 2);
-  if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
-    return OUTOFRANGE_TEMPERATURE;  // return value ('Out of range')
-
-  return result;
-}
-
-/**
- * @brief Request temperature for all sensors
- *
- */
-inline void requestTemperatures()
-{
-  oneWire.reset();
-  oneWire.skip();
-  oneWire.write(CONVERT_TEMPERATURE);
-}
-
-/**
- * @brief Initialize the Dallas sensors
- *
- */
-inline void initTemperatureSensors()
-{
-  requestTemperatures();
-}
-#endif  // TEMP_SENSOR_PRESENT
-
-#ifdef RF_PRESENT
-/**
- * @brief Send the logging data through RF.
- * @details For better performance, the RFM12B needs to remain in its
- *          active state rather than being periodically put to sleep.
- *
- */
-inline void send_rf_data()
-{
-  // check whether it's ready to send, and an exit route if it gets stuck
-  uint32_t i = 0;
-  while (!rf12_canSend() && i < 10)
-  {
-    rf12_recvDone();
-    ++i;
-  }
-  rf12_sendNow(0, &tx_data, sizeof tx_data);
-}
-#endif  // RF_PRESENT
 
 /**
  * @brief Get the available RAM during setup

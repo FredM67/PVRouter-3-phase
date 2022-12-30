@@ -1,0 +1,81 @@
+/**
+ * @file utils.h
+ * @author Frédéric Metrich (frederic.metrich@live.fr)
+ * @brief Some utility functions
+ * @version 0.1
+ * @date 2021-10-04
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+
+#ifndef __UTILS_TEMP_H__
+#define __UTILS_TEMP_H__
+
+#include "config.h"
+#include "constants.h"
+#include "dualtariff.h"
+#include "processing.h"
+
+
+#ifdef TEMP_SENSOR_PRESENT
+#include <OneWire.h>  // for temperature sensing
+
+inline OneWire oneWire(tempSensorPin); /**< For temperature sensing */
+
+/**
+ * @brief Read temperature of a specific device
+ *
+ * @param deviceAddress The address of the device
+ * @return int16_t Temperature * 100
+ */
+inline int16_t readTemperature(const DeviceAddress &deviceAddress)
+{
+  static ScratchPad buf;
+
+  if (!oneWire.reset())
+    return DEVICE_DISCONNECTED_RAW;
+
+  oneWire.select(deviceAddress);
+  oneWire.write(READ_SCRATCHPAD);
+
+  for (auto &buf_elem : buf)
+    buf_elem = oneWire.read();
+
+  if (!oneWire.reset())
+    return DEVICE_DISCONNECTED_RAW;
+
+  if (oneWire.crc8(buf, 8) != buf[8])
+    return DEVICE_DISCONNECTED_RAW;
+
+  // result is temperature x16, multiply by 6.25 to convert to temperature x100
+  int16_t result = (buf[1] << 8) | buf[0];
+  result = (result * 6) + (result >> 2);
+  if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
+    return OUTOFRANGE_TEMPERATURE;  // return value ('Out of range')
+
+  return result;
+}
+
+/**
+ * @brief Request temperature for all sensors
+ *
+ */
+inline void requestTemperatures()
+{
+  oneWire.reset();
+  oneWire.skip();
+  oneWire.write(CONVERT_TEMPERATURE);
+}
+
+/**
+ * @brief Initialize the Dallas sensors
+ *
+ */
+inline void initTemperatureSensors()
+{
+  requestTemperatures();
+}
+#endif  // TEMP_SENSOR_PRESENT
+
+#endif  // __UTILS_TEMP_H__
