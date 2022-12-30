@@ -63,8 +63,6 @@ Vous pouvez commencer à lire la documentation ici [3-phase diverter](https://fr
 
 L’objectif était de modifier/optimiser le programme pour le cas « spécial » d’un chauffe-eau triphasé. Un chauffe-eau triphasé est composé en fait de 3 éléments de chauffage indépendants. La plupart du temps, un tel chauffe-eau peut être connecté en monophasé, en triphasé étoile (WYE) ou triphasé triangle (Delta). Lorsqu’il est connecté en étoile (sans varistor), il n’y a pas besoin de fil de neutre parce que le système est équilibré, donc à tout moment, il n’y a pas de courant qui circule vers le neutre.
 
-Si un diverteur est utilisé, le fil neutre DOIT être connecté.
-
 Fonctionnalités ajoutées :
 
 - gestion des priorités de charge (configurable)
