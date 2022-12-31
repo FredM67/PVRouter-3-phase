@@ -68,6 +68,10 @@ inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x
 // digital pins:
 // D0 & D1 are reserved for the Serial i/f
 // D2 is for the RFM12B if present
+// D10 is for the RFM12B if present
+// D11 is for the RFM12B if present
+// D12 is for the RFM12B if present
+// D13 is for the RFM12B if present
 
 inline constexpr uint8_t offPeakForcePin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
 
@@ -77,10 +81,6 @@ inline constexpr uint8_t watchDogPin{ 9 };                            /**< watch
 inline constexpr uint8_t diversionPin{ 10 };                          /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ 11 };                           /**< if LOW, trigger a load priority rotation */
 inline constexpr uint8_t forcePin{ 12 };                              /**< for 3-phase PCB, force pin */
-// D10 is for the RFM12B if present
-// D11 is for the RFM12B if present
-// D12 is for the RFM12B if present
-// D13 is for the RFM12B if present
 
 // analogue input pins
 inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
@@ -89,25 +89,17 @@ inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB,
 
 //--------------------------------------------------------------------------------------------------
 // for users with zero-export profile, this value will be negative
-inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 20 }; /**< when set to a negative value, this acts as a PV generator */
+inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 5 }; /**< when set to a negative value, this acts as a PV generator */
 
 //--------------------------------------------------------------------------------------------------
 // other system constants, should match most of installations
 inline constexpr uint32_t SUPPLY_FREQUENCY{ 50 };         /**< number of cycles/s of the grid power supply */
-inline constexpr uint16_t WORKING_ZONE_IN_JOULES{ 3600 }; /**< number of joule for 1Wh */
 
 inline constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{ 5 };                                                  /**< Period of datalogging in seconds */
 inline constexpr uint16_t DATALOG_PERIOD_IN_MAINS_CYCLES{ DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY }; /**< Period of datalogging in cycles */
 //--------------------------------------------------------------------------------------------------
 
 inline constexpr uint32_t ROTATION_AFTER_CYCLES{ 8 * 3600 * SUPPLY_FREQUENCY }; /**< rotates load priorities after this period of inactivity */
-
-inline constexpr OutputModes outputMode{ OutputModes::NORMAL }; /**< Output mode to be used */
-
-inline constexpr uint16_t initialDelay{ 3000 };  /**< in milli-seconds, to allow time to open the Serial monitor */
-inline constexpr uint16_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow LP filter to settle */
-
-inline constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{ 2 }; /**< allows polarity changes to be confirmed */
 
 /* --------------------------------------
    RF configuration (for the RFM12B module)

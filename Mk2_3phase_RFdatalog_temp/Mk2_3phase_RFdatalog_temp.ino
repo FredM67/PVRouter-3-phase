@@ -126,8 +126,12 @@
  * - added support of temperature sensors (virtually no limit of sensors count)
  * - added support for emonESP (see https://github.com/openenergymonitor/EmonESP)
  *
+ * __January 2023: changes:__
+ * - the datalogging accumulator for Vsquared has been rescaled to 1/16 of its previous value 
+ *   to avoid the risk of overflowing during a 20-second datalogging period.
+ *  
  * @author Fred Metrich
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  *
  */
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
@@ -489,7 +493,14 @@ void loop()
 
       tx_data.power += tx_data.power_L[phase];
 
-      tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
+      {
+        tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod)) << 2;
+      }
+      else
+      {
+        tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      }
     }
 
     if constexpr (TEMP_SENSOR_PRESENT)

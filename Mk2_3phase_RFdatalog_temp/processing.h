@@ -14,6 +14,14 @@
 
 #include "config.h"
 
+inline constexpr uint16_t WORKING_ZONE_IN_JOULES{ 3600 }; /**< number of joule for 1Wh */
+
+inline constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{ 2 }; /**< allows polarity changes to be confirmed */
+inline constexpr OutputModes outputMode{ OutputModes::NORMAL }; /**< Output mode to be used */
+
+inline constexpr uint16_t initialDelay{ 3000 };  /**< in milli-seconds, to allow time to open the Serial monitor */
+inline constexpr uint16_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow LP filter to settle */
+
 // for interaction between the main processor and the ISR
 inline volatile uint32_t absenceOfDivertedEnergyCount{ 0 }; /**< number of main cycles without diverted energy */
 inline volatile bool b_datalogEventPending{ false };        /**< async trigger to signal datalog is available */
@@ -37,7 +45,6 @@ inline PayloadTx_struct< NO_OF_PHASES, size(sensorAddrs) > tx_data; /**< logging
 #else
 inline PayloadTx_struct< NO_OF_PHASES > tx_data; /**< logging data */
 #endif
-
 
 void initializeProcessing();
 void initializeOptionalPins();

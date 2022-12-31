@@ -71,7 +71,7 @@ int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values du
 
 uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
 uint16_t i_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
-uint8_t n_cycleCountForDatalogging{ 0 };             /**< for counting how often datalog is updated */
+uint16_t n_cycleCountForDatalogging{ 0 };             /**< for counting how often datalog is updated */
 
 uint8_t n_lowestNoOfSampleSetsPerMainsCycle; /**< For a mechanism to check the integrity of this code structure */
 
@@ -362,8 +362,17 @@ void processVoltage(const uint8_t phase)
   // for the Vrms calculation (for datalogging only)
   filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
   inst_Vsquared = filtV_div4 * filtV_div4;    // 32-bits (now x4096, or 2^12)
-  inst_Vsquared >>= 12;                       // scaling is now x1 (V_ADC x I_ADC)
-  l_sum_Vsquared[phase] += inst_Vsquared;     // cumulative V^2 (V_ADC x I_ADC)
+
+  if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
+  {
+    inst_Vsquared >>= 16;  // scaling is now x1/16 (V_ADC x I_ADC)
+  }
+  else
+  {
+    inst_Vsquared >>= 12;  // scaling is now x1 (V_ADC x I_ADC)
+  }
+  
+  l_sum_Vsquared[phase] += inst_Vsquared;  // cumulative V^2 (V_ADC x I_ADC)
   //
   // store items for use during next loop
   l_cumVdeltasThisCycle[phase] += l_sampleVminusDC[phase];           // for use with LP filter
