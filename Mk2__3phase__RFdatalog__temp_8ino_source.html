@@ -447,46 +447,46 @@ $(function() {
 <div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;  <span class="keywordflow">switch</span> (sample_index)</div>
 <div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;  {</div>
 <div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;  <span class="keywordflow">case</span> 0:</div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;    rawSample = ADC;                 <span class="comment">// store the ADC value (this one is for Current L1)</span></div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a8843ac58fa4e38e3bec429fac0f8de41">sensorI</a>[1]; <span class="comment">// the conversion for V1 is already under way</span></div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    ++sample_index;                  <span class="comment">// increment the control flag</span></div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;    rawSample = ADC;           <span class="comment">// store the ADC value (this one is for Voltage L1)</span></div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a84dbfaffb1c8ccc490804b5f976d7933">sensorV</a>[1]; <span class="comment">// the conversion for I1 is already under way</span></div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    ++sample_index;            <span class="comment">// increment the control flag</span></div>
 <div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    <a class="code" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">processCurrentRawSample</a>(0, rawSample);</div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    <a class="code" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6">processVoltageRawSample</a>(0, rawSample);</div>
 <div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;  <span class="keywordflow">case</span> 1:</div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;    rawSample = ADC;                 <span class="comment">// store the ADC value (this one is for Voltage L1)</span></div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a84dbfaffb1c8ccc490804b5f976d7933">sensorV</a>[1]; <span class="comment">// the conversion for I2 is already under way</span></div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    ++sample_index;                  <span class="comment">// increment the control flag</span></div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;    rawSample = ADC;           <span class="comment">// store the ADC value (this one is for Current L1)</span></div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a8843ac58fa4e38e3bec429fac0f8de41">sensorI</a>[1]; <span class="comment">// the conversion for V2 is already under way</span></div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    ++sample_index;            <span class="comment">// increment the control flag</span></div>
 <div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;    <a class="code" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6">processVoltageRawSample</a>(0, rawSample);</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;    <a class="code" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">processCurrentRawSample</a>(0, rawSample);</div>
 <div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;  <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    rawSample = ADC;                 <span class="comment">// store the ADC value (this one is for Current L2)</span></div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a8843ac58fa4e38e3bec429fac0f8de41">sensorI</a>[2]; <span class="comment">// the conversion for V2 is already under way</span></div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    ++sample_index;                  <span class="comment">// increment the control flag</span></div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    rawSample = ADC;           <span class="comment">// store the ADC value (this one is for Voltage L2)</span></div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a84dbfaffb1c8ccc490804b5f976d7933">sensorV</a>[2]; <span class="comment">// the conversion for I2 is already under way</span></div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    ++sample_index;            <span class="comment">// increment the control flag</span></div>
 <div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;    <a class="code" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">processCurrentRawSample</a>(1, rawSample);</div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;    <a class="code" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6">processVoltageRawSample</a>(1, rawSample);</div>
 <div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;  <span class="keywordflow">case</span> 3:</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;    rawSample = ADC;                 <span class="comment">// store the ADC value (this one is for Voltage L2)</span></div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a84dbfaffb1c8ccc490804b5f976d7933">sensorV</a>[2]; <span class="comment">// the conversion for I3 is already under way</span></div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    ++sample_index;                  <span class="comment">// increment the control flag</span></div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;    rawSample = ADC;           <span class="comment">// store the ADC value (this one is for Current L2)</span></div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a8843ac58fa4e38e3bec429fac0f8de41">sensorI</a>[2]; <span class="comment">// the conversion for V3 is already under way</span></div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    ++sample_index;            <span class="comment">// increment the control flag</span></div>
 <div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;    <a class="code" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6">processVoltageRawSample</a>(1, rawSample);</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;    <a class="code" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">processCurrentRawSample</a>(1, rawSample);</div>
 <div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;  <span class="keywordflow">case</span> 4:</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    rawSample = ADC;                 <span class="comment">// store the ADC value (this one is for Current L3)</span></div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a8843ac58fa4e38e3bec429fac0f8de41">sensorI</a>[0]; <span class="comment">// the conversion for V3 is already under way</span></div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;    ++sample_index;                  <span class="comment">// increment the control flag</span></div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    rawSample = ADC;           <span class="comment">// store the ADC value (this one is for Voltage L3)</span></div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a84dbfaffb1c8ccc490804b5f976d7933">sensorV</a>[0]; <span class="comment">// the conversion for I3 is already under way</span></div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;    ++sample_index;            <span class="comment">// increment the control flag</span></div>
 <div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;    <a class="code" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">processCurrentRawSample</a>(2, rawSample);</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;    <a class="code" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6">processVoltageRawSample</a>(2, rawSample);</div>
 <div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;  <span class="keywordflow">case</span> 5:</div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;    rawSample = ADC;                 <span class="comment">// store the ADC value (this one is for Voltage L3)</span></div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a84dbfaffb1c8ccc490804b5f976d7933">sensorV</a>[0]; <span class="comment">// the conversion for I1 is already under way</span></div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;    sample_index = 0;                <span class="comment">// reset the control flag</span></div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;    rawSample = ADC;           <span class="comment">// store the ADC value (this one is for Current L3)</span></div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;    ADMUX = bit(REFS0) + <a class="code" href="Mk2__3phase__RFdatalog__temp_8ino.html#a8843ac58fa4e38e3bec429fac0f8de41">sensorI</a>[0]; <span class="comment">// the conversion for V1 is already under way</span></div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;    sample_index = 0;          <span class="comment">// reset the control flag</span></div>
 <div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;    <a class="code" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6">processVoltageRawSample</a>(2, rawSample);</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;    <a class="code" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">processCurrentRawSample</a>(2, rawSample);</div>
 <div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;  <span class="keywordflow">default</span>:</div>
 <div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    sample_index = 0; <span class="comment">// to prevent lockup (should never get here)</span></div>
