@@ -591,46 +591,46 @@ ISR(ADC_vect)
   switch (sample_index)
   {
   case 0:
-    rawSample = ADC;                 // store the ADC value (this one is for Current L1)
-    ADMUX = bit(REFS0) + sensorI[1]; // the conversion for V1 is already under way
-    ++sample_index;                  // increment the control flag
-    //
-    processCurrentRawSample(0, rawSample);
-    break;
-  case 1:
-    rawSample = ADC;                 // store the ADC value (this one is for Voltage L1)
-    ADMUX = bit(REFS0) + sensorV[1]; // the conversion for I2 is already under way
-    ++sample_index;                  // increment the control flag
+    rawSample = ADC;           // store the ADC value (this one is for Voltage L1)
+    ADMUX = bit(REFS0) + sensorV[1]; // the conversion for I1 is already under way
+    ++sample_index;            // increment the control flag
     //
     processVoltageRawSample(0, rawSample);
     break;
-  case 2:
-    rawSample = ADC;                 // store the ADC value (this one is for Current L2)
-    ADMUX = bit(REFS0) + sensorI[2]; // the conversion for V2 is already under way
-    ++sample_index;                  // increment the control flag
+  case 1:
+    rawSample = ADC;           // store the ADC value (this one is for Current L1)
+    ADMUX = bit(REFS0) + sensorI[1]; // the conversion for V2 is already under way
+    ++sample_index;            // increment the control flag
     //
-    processCurrentRawSample(1, rawSample);
+    processCurrentRawSample(0, rawSample);
     break;
-  case 3:
-    rawSample = ADC;                 // store the ADC value (this one is for Voltage L2)
-    ADMUX = bit(REFS0) + sensorV[2]; // the conversion for I3 is already under way
-    ++sample_index;                  // increment the control flag
+  case 2:
+    rawSample = ADC;           // store the ADC value (this one is for Voltage L2)
+    ADMUX = bit(REFS0) + sensorV[2]; // the conversion for I2 is already under way
+    ++sample_index;            // increment the control flag
     //
     processVoltageRawSample(1, rawSample);
     break;
-  case 4:
-    rawSample = ADC;                 // store the ADC value (this one is for Current L3)
-    ADMUX = bit(REFS0) + sensorI[0]; // the conversion for V3 is already under way
-    ++sample_index;                  // increment the control flag
+  case 3:
+    rawSample = ADC;           // store the ADC value (this one is for Current L2)
+    ADMUX = bit(REFS0) + sensorI[2]; // the conversion for V3 is already under way
+    ++sample_index;            // increment the control flag
     //
-    processCurrentRawSample(2, rawSample);
+    processCurrentRawSample(1, rawSample);
     break;
-  case 5:
-    rawSample = ADC;                 // store the ADC value (this one is for Voltage L3)
-    ADMUX = bit(REFS0) + sensorV[0]; // the conversion for I1 is already under way
-    sample_index = 0;                // reset the control flag
+  case 4:
+    rawSample = ADC;           // store the ADC value (this one is for Voltage L3)
+    ADMUX = bit(REFS0) + sensorV[0]; // the conversion for I3 is already under way
+    ++sample_index;            // increment the control flag
     //
     processVoltageRawSample(2, rawSample);
+    break;
+  case 5:
+    rawSample = ADC;           // store the ADC value (this one is for Current L3)
+    ADMUX = bit(REFS0) + sensorI[0]; // the conversion for V1 is already under way
+    sample_index = 0;          // reset the control flag
+    //
+    processCurrentRawSample(2, rawSample);
     break;
   default:
     sample_index = 0; // to prevent lockup (should never get here)
