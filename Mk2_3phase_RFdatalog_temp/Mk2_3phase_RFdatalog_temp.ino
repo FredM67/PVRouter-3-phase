@@ -308,10 +308,10 @@ void proceedRotation()
   b_reOrderLoads = true;
 
   // waits till the priorities have been rotated from inside the ISR
-  while (b_reOrderLoads)
+  do
   {
     delay(10);
-  }
+  } while (b_reOrderLoads);
 
   // prints the (new) load priorities
   logLoadPriorities();
@@ -380,7 +380,8 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
   {
     return proceedLoadPrioritiesAndOverridingDualTariff(currentTemperature_x100);
   }
-  else if constexpr (EMONESP_CONTROL)
+  
+  if constexpr (EMONESP_CONTROL)
   {
     static uint8_t pinRotationState{ HIGH };
     const uint8_t pinNewState{ getPinState(rotationPin) };
