@@ -1,7 +1,8 @@
 <div align = center>
 
 [![CodeQL](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml)
-[![Doxygen GitHub Pages Deploy Action](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml)
+&nbsp; &nbsp;
+[![Doxygen](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml)
 <br/>
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 </div>
@@ -50,7 +51,7 @@ Vous trouverez quelques [photos](Gallery.md) de routeurs assemblés.
 
 ## Schéma de la carte-mère
 
-Vous trouverez [ici](docs/3phase_Mainboard.pdf) le schéma de la carte-mère.
+Vous trouverez [ici](schematics/3phase_Mainboard.pdf) le schéma de la carte-mère.
 
 ## Documentation de développement
 
@@ -61,8 +62,6 @@ Vous pouvez commencer à lire la documentation ici [3-phase diverter](https://fr
 ### Aperçu
 
 L’objectif était de modifier/optimiser le programme pour le cas « spécial » d’un chauffe-eau triphasé. Un chauffe-eau triphasé est composé en fait de 3 éléments de chauffage indépendants. La plupart du temps, un tel chauffe-eau peut être connecté en monophasé, en triphasé étoile (WYE) ou triphasé triangle (Delta). Lorsqu’il est connecté en étoile (sans varistor), il n’y a pas besoin de fil de neutre parce que le système est équilibré, donc à tout moment, il n’y a pas de courant qui circule vers le neutre.
-
-Si un diverteur est utilisé, le fil neutre DOIT être connecté.
 
 Fonctionnalités ajoutées :
 
