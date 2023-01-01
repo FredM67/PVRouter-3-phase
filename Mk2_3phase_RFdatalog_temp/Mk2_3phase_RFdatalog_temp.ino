@@ -496,7 +496,7 @@ void loop()
 
       if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
       {
-        tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod)) << 2;
+        tx_data.Vrms_L_x100[phase] = (int32_t)((100 << 2) * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
       }
       else
       {
