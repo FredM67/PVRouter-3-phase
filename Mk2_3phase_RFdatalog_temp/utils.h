@@ -357,7 +357,7 @@ inline void sendResults(bool bOffPeak)
 #endif
 
 #if defined SERIALOUT
-  printForSerial();
+  printForSerialJson();
 #endif  // if defined SERIALOUT
 
   if constexpr (EMONESP_CONTROL)
