@@ -261,7 +261,7 @@ bool forceFullPower()
     const uint8_t pinState{ getPinState(forcePin) };
 
 #ifdef ENABLE_DEBUG
-    static uint8_t previousState{ 1 };
+    static uint8_t previousState{ HIGH };
     if (previousState != pinState)
     {
       DBUGLN(!pinState ? F("Trigger override!") : F("End override!"));
@@ -287,10 +287,10 @@ void checkDiversionOnOff()
 {
   if constexpr (DIVERSION_PIN_PRESENT)
   {
-    const uint8_t pinState{ getPinState(diversionPin) };
+    const auto pinState{ getPinState(diversionPin) };
 
 #ifdef ENABLE_DEBUG
-    static uint8_t previousState{ 1 };
+    static auto previousState{ HIGH };
     if (previousState != pinState)
     {
       DBUGLN(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
@@ -319,10 +319,9 @@ void proceedRotation()
 
 bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperature_x100)
 {
-  uint8_t i;
-  static constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
-  static uint8_t pinOffPeakState{ HIGH };
-  const uint8_t pinNewState{ getPinState(offPeakForcePin) };
+  constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
+  static bool pinOffPeakState{ HIGH };
+  const bool pinNewState{ getPinState(offPeakForcePin) };
 
   if (pinOffPeakState && !pinNewState)
   {
@@ -339,9 +338,9 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperatu
   else
   {
     const auto ulElapsedTime{ (uint32_t)(millis() - ul_TimeOffPeak) };
-    const uint8_t pinState{ getPinState(forcePin) };
+    const bool pinState{ getPinState(forcePin) };
 
-    for (i = 0; i < NO_OF_DUMPLOADS; ++i)
+    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
       // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
       if (!pinOffPeakState && !pinNewState && (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
@@ -380,7 +379,7 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
   {
     return proceedLoadPrioritiesAndOverridingDualTariff(currentTemperature_x100);
   }
-  
+
   if constexpr (EMONESP_CONTROL)
   {
     static uint8_t pinRotationState{ HIGH };

@@ -71,7 +71,7 @@ int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values du
 
 uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
 uint16_t i_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
-uint16_t n_cycleCountForDatalogging{ 0 };             /**< for counting how often datalog is updated */
+uint16_t n_cycleCountForDatalogging{ 0 };            /**< for counting how often datalog is updated */
 
 uint8_t n_lowestNoOfSampleSetsPerMainsCycle; /**< For a mechanism to check the integrity of this code structure */
 
@@ -84,6 +84,8 @@ LoadStates physicalLoadState[NO_OF_DUMPLOADS]; /**< Physical state of the loads 
 uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was ON (over 1 datalog period) */
 
 bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle */
+
+static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too long and will lead to overflow ! ****");
 
 /**
  * @brief Initializes the ports and load states for processing
@@ -356,12 +358,9 @@ void confirmPolarity(const uint8_t phase)
  */
 void processVoltage(const uint8_t phase)
 {
-  static int32_t filtV_div4;
-  static int32_t inst_Vsquared;
-
   // for the Vrms calculation (for datalogging only)
-  filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
-  inst_Vsquared = filtV_div4 * filtV_div4;    // 32-bits (now x4096, or 2^12)
+  int32_t filtV_div4{ l_sampleVminusDC[phase] >> 2 };  // reduce to 16-bits (now x64, or 2^6)
+  int32_t inst_Vsquared{ filtV_div4 * filtV_div4 };    // 32-bits (now x4096, or 2^12)
 
   if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
   {
@@ -371,7 +370,7 @@ void processVoltage(const uint8_t phase)
   {
     inst_Vsquared >>= 12;  // scaling is now x1 (V_ADC x I_ADC)
   }
-  
+
   l_sum_Vsquared[phase] += inst_Vsquared;  // cumulative V^2 (V_ADC x I_ADC)
   //
   // store items for use during next loop
@@ -600,7 +599,7 @@ uint8_t nextLogicalLoadToBeAdded()
 /**
  * @brief Retrieve the next load that could be removed (be aware of the reverse-order)
  *
- * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure
+ * @return The load number if successful, NO_OF_DUMPLOADS in case of failure
  *
  * @ingroup TimeCritical
  */
