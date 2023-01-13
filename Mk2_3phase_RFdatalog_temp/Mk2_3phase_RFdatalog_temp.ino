@@ -195,7 +195,7 @@ constexpr float f_voltageCal[NO_OF_PHASES]{0.803f, 0.803f, 0.803f}; /**< compare
 //--------------------------------------------------------------------------------------------------
 // other system constants
 constexpr uint8_t SUPPLY_FREQUENCY{50};          /**< number of cycles/s of the grid power supply */
-constexpr int8_t REQUIRED_EXPORT_IN_WATTS{20};   /**< when set to a negative value, this acts as a PV generator */
+constexpr int8_t REQUIRED_EXPORT_IN_WATTS{30};   /**< when set to a negative value, this acts as a PV generator */
 constexpr uint16_t WORKING_ZONE_IN_JOULES{3600}; /**< number of joule for 1Wh */
 //--------------------------------------------------------------------------------------------------
 
