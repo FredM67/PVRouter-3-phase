@@ -67,11 +67,17 @@ inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x
 //
 // digital pins:
 // D0 & D1 are reserved for the Serial i/f
+// - RFM12B -------------------------------
 // D2 is for the RFM12B if present
 // D10 is for the RFM12B if present
 // D11 is for the RFM12B if present
 // D12 is for the RFM12B if present
 // D13 is for the RFM12B if present
+// - SPI ----------------------------------
+// D10 is SC
+// D11 is MOSI
+// D12 is MISO
+// D13 is SCK
 
 inline constexpr uint8_t offPeakForcePin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
 
