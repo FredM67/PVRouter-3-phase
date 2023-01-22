@@ -221,7 +221,7 @@ constexpr int16_t TEMP_RANGE_HIGH{12500};
 #ifndef OFF_PEAK_TARIFF
 #ifdef PRIORITY_ROTATION
 
-constexpr uint32_t ROTATION_AFTER_CYCLES{8 * 3600 * SUPPLY_FREQUENCY}; /**< rotates load priorities after this period of inactivity */
+constexpr uint32_t ROTATION_AFTER_CYCLES{8UL * 3600 * SUPPLY_FREQUENCY}; /**< rotates load priorities after this period of inactivity */
 volatile uint32_t absenceOfDivertedEnergyCount{0};                     /**< number of main cycles without diverted energy */
 
 #endif // #ifdef PRIORITY_ROTATION
@@ -531,7 +531,16 @@ static void processDataLogging();
 static bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100);
 static void sendResults(bool bOffPeak);
 static void printConfiguration();
+
+#ifdef RF_PRESENT
 static void send_rf_data();
+#endif
+
+template <typename _Tp, size_t _Nm>
+constexpr size_t size(const _Tp (&/*__array*/)[_Nm]) noexcept
+{
+  return _Nm;
+}
 
 /**
  * @brief update the control ports for each of the physical loads
@@ -1023,7 +1032,7 @@ void proceedLowEnergyLevel()
   {
     return;
   }
-  
+
   // a load which is now ON has been identified for potentially being switched OFF
   if (b_recentTransition)
   {
@@ -1757,13 +1766,16 @@ void setup()
 #endif
 
 #ifdef FORCE_PIN_PRESENT
-  DDRD &= ~bit(forcePin); // set as input
-  PORTD |= bit(forcePin); // enable the internal pullup resistor
-  delay(100);             // allow time to settle
+  for (const auto &forcePin : forcePins)
+  {
+    DDRD &= ~bit(forcePin); // set as input
+    PORTD |= bit(forcePin); // enable the internal pullup resistor
+    delay(100);             // allow time to settle
+  }
 #endif
 
-  DDRB |= bit(watchDogPin - 8);    // set as output
-  setPinState(watchDogPin, false); // set to off
+      DDRB |= bit(watchDogPin - 8); // set as output
+  setPinState(watchDogPin, false);  // set to off
 
   for (auto &bForceLoad : b_forceLoadOn)
   {
@@ -1852,6 +1864,18 @@ inline void setPinState(const uint8_t pin, bool bState)
       PORTB &= ~bit(pin - 8);
     }
   }
+}
+
+/**
+ * @brief Get the Pin State
+ *
+ * @param pin The pin to read
+ * @return true if HIGH
+ * @return false if LOW
+ */
+bool getPinState(const uint8_t pin)
+{
+    return (pin < 8) ? !!(PIND & bit(pin)) : !!(PINB & bit(pin ^ 8u));
 }
 
 /**
