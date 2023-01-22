@@ -222,7 +222,7 @@ constexpr int16_t TEMP_RANGE_HIGH{12500};
 #ifdef PRIORITY_ROTATION
 
 constexpr uint32_t ROTATION_AFTER_CYCLES{8UL * 3600 * SUPPLY_FREQUENCY}; /**< rotates load priorities after this period of inactivity */
-volatile uint32_t absenceOfDivertedEnergyCount{0};                     /**< number of main cycles without diverted energy */
+volatile uint32_t absenceOfDivertedEnergyCount{0};                       /**< number of main cycles without diverted energy */
 
 #endif // #ifdef PRIORITY_ROTATION
 #else  // #ifndef OFF_PEAK_TARIFF
@@ -371,7 +371,7 @@ constexpr uint8_t tempSensorPin{/*4*/}; /**< for 3-phase PCB, sensor pin */
 #endif
 constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{4, 5, 6, 7, 8, 9, 10, 11}; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 // D8 is not in use
-constexpr uint8_t watchDogPin{9};
+// constexpr uint8_t watchDogPin{9};
 // D10 is for the RFM12B
 // D11 is for the RFM12B
 // D12 is for the RFM12B
@@ -550,20 +550,26 @@ void updatePortsStates()
 {
   uint8_t i{NO_OF_DUMPLOADS};
 
+  uint16_t pinsON{0};
+  uint16_t pinsOFF{0};
+
   do
   {
     --i;
     // update the local load's state.
     if (LoadStates::LOAD_OFF == physicalLoadState[i])
     {
-      setPinState(physicalLoadPin[i], false);
+      pinsOFF |= bit(physicalLoadPin[i]);
     }
     else
     {
       ++countLoadON[i];
-      setPinState(physicalLoadPin[i], true);
+      pinsON |= bit(physicalLoadPin[i]);
     }
   } while (i);
+
+  setPinsOFF(pinsOFF);
+  setPinsON(pinsON);
 }
 
 /**
@@ -1774,8 +1780,8 @@ void setup()
   }
 #endif
 
-      DDRB |= bit(watchDogPin - 8); // set as output
-  setPinState(watchDogPin, false);  // set to off
+  // DDRB |= bit(watchDogPin - 8);    // set as output
+  // setPinState(watchDogPin, false); // set to off
 
   for (auto &bForceLoad : b_forceLoadOn)
   {
@@ -1829,10 +1835,10 @@ void setup()
  * @brief Toggle the watchdog LED
  *
  */
-static void toggleWatchDogLED()
-{
-  PINB = bit(watchDogPin - 8); // toggle pin
-}
+// static void toggleWatchDogLED()
+// {
+//   PINB = bit(watchDogPin - 8); // toggle pin
+// }
 
 /**
  * @brief Set the Pin state for the specified pin
@@ -1840,7 +1846,7 @@ static void toggleWatchDogLED()
  * @param pin pin to change [2..13]
  * @param bState state to be set
  */
-inline void setPinState(const uint8_t pin, bool bState)
+inline void setPinState(const uint8_t pin, const bool bState)
 {
   if (bState)
   {
@@ -1867,15 +1873,71 @@ inline void setPinState(const uint8_t pin, bool bState)
 }
 
 /**
+ * @brief Set the Pin state to ON for the specified pin
+ *
+ * @param pin pin to change [2..13]
+ */
+inline void setPinON(const uint8_t pin)
+{
+  if (pin < 8)
+  {
+    PORTD |= bit(pin);
+  }
+  else
+  {
+    PORTB |= bit(pin ^ 8u);
+  }
+}
+
+/**
+ * @brief Set the Pins state to ON
+ *
+ * @param pins The pins to change
+ */
+inline void setPinsON(const uint16_t pins)
+{
+  PORTD |= lowByte(pins);
+  PORTB |= highByte(pins);
+}
+
+/**
+ * @brief Set the Pin state to OFF for the specified pin
+ *
+ * @param pin pin to change [2..13]
+ */
+inline void setPinOFF(const uint8_t pin)
+{
+  if (pin < 8)
+  {
+    PORTD &= ~bit(pin);
+  }
+  else
+  {
+    PORTB &= ~bit(pin ^ 8u);
+  }
+}
+
+/**
+ * @brief Set the Pins state to OFF
+ *
+ * @param pins The pins to change
+ */
+inline void setPinsOFF(const uint16_t pins)
+{
+  PORTD &= ~lowByte(pins);
+  PORTB &= ~highByte(pins);
+}
+
+/**
  * @brief Get the Pin State
  *
  * @param pin The pin to read
  * @return true if HIGH
  * @return false if LOW
  */
-bool getPinState(const uint8_t pin)
+inline bool getPinState(const uint8_t pin)
 {
-    return (pin < 8) ? !!(PIND & bit(pin)) : !!(PINB & bit(pin ^ 8u));
+  return (pin < 8) ? !!(PIND & bit(pin)) : !!(PINB & bit(pin ^ 8u));
 }
 
 /**
@@ -1899,7 +1961,7 @@ void loop()
     {
       perSecondTimer = 0;
 
-      toggleWatchDogLED();
+      // toggleWatchDogLED();
 
       if (!forceFullPower())
         bOffPeak = proceedLoadPrioritiesAndForcing(iTemperature_x100); // called every second
