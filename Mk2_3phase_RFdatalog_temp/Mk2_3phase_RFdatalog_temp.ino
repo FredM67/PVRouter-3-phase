@@ -1885,7 +1885,7 @@ inline void setPinON(const uint8_t pin)
   }
   else
   {
-    PORTB |= bit(pin ^ 8u);
+    PORTB |= highByte(bit(pin));
   }
 }
 
@@ -1913,7 +1913,7 @@ inline void setPinOFF(const uint8_t pin)
   }
   else
   {
-    PORTB &= ~bit(pin ^ 8u);
+    PORTB &= ~highByte(bit(pin));
   }
 }
 
@@ -1937,7 +1937,7 @@ inline void setPinsOFF(const uint16_t pins)
  */
 inline bool getPinState(const uint8_t pin)
 {
-  return (pin < 8) ? !!(PIND & bit(pin)) : !!(PINB & bit(pin ^ 8u));
+  return (pin < 8) ? !!(PIND & bit(pin)) : !!(PINB & highByte(bit(pin)));
 }
 
 /**
