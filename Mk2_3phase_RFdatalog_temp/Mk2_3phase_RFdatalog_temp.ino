@@ -1763,8 +1763,7 @@ void setup()
   updatePortsStates(); // updates output pin states
 
 #ifdef OFF_PEAK_TARIFF
-  DDRD &= ~bit(offPeakForcePin);                     // set as input
-  PORTD |= bit(offPeakForcePin);                     // enable the internal pullup resistor
+  pinMode(offPeakForcePin, INPUT_PULLUP);            // set as input & enable the internal pullup resistor
   delay(100);                                        // allow time to settle
   uint8_t pinState{!!(PIND & bit(offPeakForcePin))}; // initial selection and
 
@@ -1775,7 +1774,7 @@ void setup()
   for (const auto &forcePin : forcePins)
   {
     pinMode(forcePin, INPUT_PULLUP); // set as input
-    delay(100);             // allow time to settle
+    delay(100);                      // allow time to settle
   }
 #endif
 
@@ -1849,25 +1848,11 @@ inline void setPinState(const uint8_t pin, const bool bState)
 {
   if (bState)
   {
-    if (pin < 8)
-    {
-      PORTD |= bit(pin);
-    }
-    else
-    {
-      PORTB |= bit(pin - 8);
-    }
+    setPinON(pin);
   }
   else
   {
-    if (pin < 8)
-    {
-      PORTD &= ~bit(pin);
-    }
-    else
-    {
-      PORTB &= ~bit(pin - 8);
-    }
+    setPinOFF(pin);
   }
 }
 
@@ -1880,11 +1865,11 @@ inline void setPinON(const uint8_t pin)
 {
   if (pin < 8)
   {
-    PORTD |= bit(pin);
+    bitSet(PORTD, pin);
   }
   else
   {
-    PORTB |= highByte(bit(pin));
+    bitSet(PORTB, pin - 8);
   }
 }
 
@@ -1908,11 +1893,11 @@ inline void setPinOFF(const uint8_t pin)
 {
   if (pin < 8)
   {
-    PORTD &= ~bit(pin);
+    bitClear(PORTD, pin);
   }
   else
   {
-    PORTB &= ~highByte(bit(pin));
+    bitClear(PORTB, pin - 8);
   }
 }
 
@@ -1936,7 +1921,7 @@ inline void setPinsOFF(const uint16_t pins)
  */
 inline bool getPinState(const uint8_t pin)
 {
-  return (pin < 8) ? !!(PIND & bit(pin)) : !!(PINB & highByte(bit(pin)));
+  return (pin < 8) ? bitRead(PIND, pin) : bitRead(PINB, pin - 8);
 }
 
 /**
