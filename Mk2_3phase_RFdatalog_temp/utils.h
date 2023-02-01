@@ -37,9 +37,27 @@ inline bool getPinState(const uint8_t pin) __attribute__((always_inline));
 void togglePin(const uint8_t pin)
 {
   if (pin < 8)
-    PIND |= bit(pin);
+    bitSet(PIND, pin);
   else
-    PINB |= bit(pin ^ 8u);
+    bitSet(PINB, pin - 8);
+}
+
+/**
+ * @brief Set the Pin state for the specified pin
+ *
+ * @param pin pin to change [2..13]
+ * @param bState state to be set
+ */
+inline void setPinState(const uint8_t pin, const bool bState)
+{
+  if (bState)
+  {
+    setPinON(pin);
+  }
+  else
+  {
+    setPinOFF(pin);
+  }
 }
 
 /**
@@ -47,12 +65,16 @@ void togglePin(const uint8_t pin)
  *
  * @param pin pin to change [2..13]
  */
-void setPinON(const uint8_t pin)
+inline void setPinON(const uint8_t pin)
 {
   if (pin < 8)
-    PORTD |= bit(pin);
+  {
+    bitSet(PORTD, pin);
+  }
   else
-    PORTB |= bit(pin ^ 8u);
+  {
+    bitSet(PORTB, pin - 8);
+  }
 }
 
 /**
@@ -60,7 +82,7 @@ void setPinON(const uint8_t pin)
  *
  * @param pins The pins to change
  */
-void setPinsON(const uint16_t pins)
+inline void setPinsON(const uint16_t pins)
 {
   PORTD |= lowByte(pins);
   PORTB |= highByte(pins);
@@ -71,12 +93,16 @@ void setPinsON(const uint16_t pins)
  *
  * @param pin pin to change [2..13]
  */
-void setPinOFF(const uint8_t pin)
+inline void setPinOFF(const uint8_t pin)
 {
   if (pin < 8)
-    PORTD &= ~bit(pin);
+  {
+    bitClear(PORTD, pin);
+  }
   else
-    PORTB &= ~bit(pin ^ 8u);
+  {
+    bitClear(PORTB, pin - 8);
+  }
 }
 
 /**
@@ -84,7 +110,7 @@ void setPinOFF(const uint8_t pin)
  *
  * @param pins The pins to change
  */
-void setPinsOFF(const uint16_t pins)
+inline void setPinsOFF(const uint16_t pins)
 {
   PORTD &= ~lowByte(pins);
   PORTB &= ~highByte(pins);
@@ -97,9 +123,9 @@ void setPinsOFF(const uint16_t pins)
  * @return true if HIGH
  * @return false if LOW
  */
-bool getPinState(const uint8_t pin)
+inline bool getPinState(const uint8_t pin)
 {
-  return (pin < 8) ? !!(PIND & bit(pin)) : !!(PINB & bit(pin ^ 8u));
+  return (pin < 8) ? bitRead(PIND, pin) : bitRead(PINB, pin - 8);
 }
 
 /**
@@ -173,7 +199,7 @@ inline void printConfiguration()
   {
     DBUGLN(F("is NOT present"));
   }
-  
+
   DBUG("RF capability ");
 #ifdef RF_PRESENT
   DBUG(F("IS present, Freq = "));

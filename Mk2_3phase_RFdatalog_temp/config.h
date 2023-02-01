@@ -20,7 +20,7 @@
 //#define EMONESP  ///< Uncomment if an ESP WiFi module is used
 
 //#define ENABLE_DEBUG  ///< enable this line to include debugging print statements
-#define SERIALPRINT   ///< include 'human-friendly' print statement for commissioning - comment this line to exclude.
+#define SERIALPRINT  ///< include 'human-friendly' print statement for commissioning - comment this line to exclude.
 //#define SERIALOUT ///< Uncomment if a wired serial connection is used
 //--------------------------------------------------------------------------------------------------
 
@@ -32,9 +32,6 @@
 //
 inline constexpr uint8_t NO_OF_PHASES{ 3 };    /**< number of phases of the main supply. */
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< number of dump loads connected to the diverter */
-
-// Load priorities at startup
-inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities and states. */
 
 #ifdef EMONESP
 inline constexpr bool EMONESP_CONTROL{ true };
@@ -83,6 +80,7 @@ inline constexpr uint8_t offPeakForcePin{ 0xff }; /**< for 3-phase PCB, off-peak
 
 inline constexpr uint8_t tempSensorPin{ 3 };                          /**< for 3-phase PCB, sensor pin */
 inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 }; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1, 2 };    /**< load priorities and states at startup */
 inline constexpr uint8_t watchDogPin{ 9 };                            /**< watch dog LED */
 inline constexpr uint8_t diversionPin{ 10 };                          /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ 11 };                           /**< if LOW, trigger a load priority rotation */
@@ -99,7 +97,7 @@ inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 5 }; /**< when set to a negat
 
 //--------------------------------------------------------------------------------------------------
 // other system constants, should match most of installations
-inline constexpr uint32_t SUPPLY_FREQUENCY{ 50 };         /**< number of cycles/s of the grid power supply */
+inline constexpr uint32_t SUPPLY_FREQUENCY{ 50 }; /**< number of cycles/s of the grid power supply */
 
 inline constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{ 5 };                                                  /**< Period of datalogging in seconds */
 inline constexpr uint16_t DATALOG_PERIOD_IN_MAINS_CYCLES{ DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY }; /**< Period of datalogging in cycles */
