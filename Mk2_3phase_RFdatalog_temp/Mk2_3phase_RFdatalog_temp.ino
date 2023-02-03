@@ -1362,7 +1362,7 @@ bool forceFullPower()
 #ifdef FORCE_PIN_PRESENT
   for (uint8_t i = 0; i < size(forcePins); ++i)
   {
-    const uint8_t pinState{getPinState(forcePins[i])};
+    const auto pinState{getPinState(forcePins[i])};
     switch (i)
     {
     case 0:
@@ -1436,7 +1436,7 @@ bool proceedLoadPrioritiesAndForcing(const int16_t currentTemperature_x100)
       // load ON
       if (!pinOffPeakState && !pinNewState && (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
       {
-        b_forceLoadOn[i] = currentTemperature_x100 <= iTemperatureThreshold_x100;
+        b_forceLoadOn[i] = (currentTemperature_x100 <= iTemperatureThreshold_x100);
       }
       else
       {
