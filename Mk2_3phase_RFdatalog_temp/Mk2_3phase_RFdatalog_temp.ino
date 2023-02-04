@@ -124,6 +124,7 @@
  *
  */
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
+static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/Laclare/Mk2_3phase_RFdatalog_temp/Readme.md");
 
 #include <Arduino.h> // may not be needed, but it's probably a good idea to include this
 
@@ -139,14 +140,14 @@ static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform
 #define DEBUGGING   ///< enable this line to include debugging print statements
 #define SERIALPRINT ///< include 'human-friendly' print statement for commissioning - comment this line to exclude.
 
-// #define EMONESP ///< Uncomment if an ESP WiFi module is used
-// #define SERIALOUT ///< Uncomment if a wired serial connection is used
-//--------------------------------------------------------------------------------------------------
+    // #define EMONESP ///< Uncomment if an ESP WiFi module is used
+    // #define SERIALOUT ///< Uncomment if a wired serial connection is used
+    //--------------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------------
-// constants which must be set individually for each system
-//
-constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
+    //--------------------------------------------------------------------------------------------------
+    // constants which must be set individually for each system
+    //
+    constexpr uint8_t NO_OF_PHASES{3}; /**< number of phases of the main supply. */
 constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
 
 constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
