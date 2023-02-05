@@ -1,0 +1,4 @@
+<map id="convertTemperature" name="convertTemperature">
+<area shape="rect" id="node1" title="Convert the internal value read from the sensor to a value in °C." alt="" coords="112,5,265,32"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
+</map>

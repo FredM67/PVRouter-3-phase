@@ -1,0 +1,13 @@
+<map id="setup" name="setup">
+<area shape="rect" id="node1" title="Called once during startup." alt="" coords="5,157,64,184"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#adf2c5c520260e6f2be918c72a0b7614d" title="Convert the internal value read from the sensor to a value in °C." alt="" coords="132,5,285,32"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#aac7b29dc45caaaca67299571f6a2dcc0" title="Get the available RAM during setup." alt="" coords="169,56,248,83"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="143,107,274,133"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="139,157,278,184"/>
+<area shape="rect" id="node9" href="$main_8cpp.html#ab2680616c16de5ad80df061b5a222cc1" title="Set the Pin state for the specified pin." alt="" coords="433,259,529,285"/>
+<area shape="rect" id="node10" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="112,259,305,285"/>
+<area shape="rect" id="node11" href="$main_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="138,309,279,336"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#ad462970b50df0943a9f36f1dcb49a9ee" title=" " alt="" coords="443,5,519,32"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#afc8ab32412591f0bf666c2b7ee2fb411" title="Print the settings for off&#45;peak period." alt="" coords="386,107,577,133"/>
+<area shape="rect" id="node8" href="$main_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="353,157,609,184"/>
+</map>

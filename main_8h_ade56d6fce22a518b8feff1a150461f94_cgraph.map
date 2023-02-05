@@ -1,0 +1,4 @@
+<map id="sendResults" name="sendResults">
+<area shape="rect" id="node1" title="Prints data logs to the Serial output in text or json format." alt="" coords="5,5,107,32"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="155,5,261,32"/>
+</map>

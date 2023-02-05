@@ -1,5 +1,0 @@
-<map id="oneWire" name="oneWire">
-<area shape="rect" id="node1" title=" " alt="" coords="207,31,283,57"/>
-<area shape="rect" id="node2" href="$Mk2__3phase__RFdatalog__temp_8ino.html#adf2c5c520260e6f2be918c72a0b7614d" title="Convert the internal value read from the sensor to a value in °C." alt="" coords="5,5,159,32"/>
-<area shape="rect" id="node3" href="$Mk2__3phase__RFdatalog__temp_8ino.html#a25d96f58fa31053a5f4417fb2a8045ba" title="Read the temperature." alt="" coords="15,56,149,83"/>
-</map>

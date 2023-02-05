@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['setpinstate_165',['setPinState',['../Mk2__3phase__RFdatalog__temp_8ino.html#ab2680616c16de5ad80df061b5a222cc1',1,'Mk2_3phase_RFdatalog_temp.ino']]],
-  ['setup_166',['setup',['../Mk2__3phase__RFdatalog__temp_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'Mk2_3phase_RFdatalog_temp.ino']]]
+  ['readtemperature_186',['readTemperature',['../main_8cpp.html#a25d96f58fa31053a5f4417fb2a8045ba',1,'main.cpp']]]
 ];

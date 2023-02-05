@@ -1,0 +1,4 @@
+<map id="send_rf_data" name="send_rf_data">
+<area shape="rect" id="node1" title="Send the logging data through RF." alt="" coords="155,5,261,32"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="5,5,107,32"/>
+</map>
