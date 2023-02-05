@@ -1013,7 +1013,7 @@ void proceedHighEnergyLevel()
   {
     loadPrioritiesAndState[tempLoad] |= loadStateOnBit;
     // Special case, loads #4 & #5 are coupled
-    if (tempLoad == 4)
+    if (tempLoad == 3)
     {
       loadPrioritiesAndState[++tempLoad] |= loadStateOnBit;
     }
@@ -1059,7 +1059,7 @@ void proceedLowEnergyLevel()
   {
     loadPrioritiesAndState[tempLoad] &= loadStateMask;
     // Special case, loads #4 & #5 are coupled
-    if (tempLoad == 5)
+    if (tempLoad == 4)
     {
       loadPrioritiesAndState[--tempLoad] |= loadStateOnBit;
     }
