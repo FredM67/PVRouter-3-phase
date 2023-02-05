@@ -15,6 +15,13 @@
 #include "processing.h"
 #include "utils.h"
 
+static_assert(TEMP_SENSOR_PRESENT ^ (tempSensorPin == 0xff), "**** Wrong pin value for temperature sensor(s). ****");
+static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == 0xff), "**** Wrong pin value for diversion command. ****");
+static_assert(PRIORITY_ROTATION ^ (rotationPin == 0xff), "**** Wrong pin value for rotation command. ****");
+static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == 0xff), "**** Wrong pin value for override command. ****");
+
+static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && DIVERSION_PIN_PRESENT && PRIORITY_ROTATION && OVERRIDE_PIN_PRESENT), "**** Wrong configuration. ****");
+
 /*!
  *  @defgroup TimeCritical Time critical functions Group
  *  Functions used by the ISR

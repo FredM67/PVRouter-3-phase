@@ -41,7 +41,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ true };  /**< managed through EmonES
 #else
 inline constexpr bool EMONESP_CONTROL{ false };
 inline constexpr bool DIVERSION_PIN_PRESENT{ false }; /**< set it to 'true' if you want to control diversion ON/OFF */
-inline constexpr bool PRIORITY_ROTATION{ true };      /**< set it to 'true' if you want automatic rotation of priorities */
+inline constexpr bool PRIORITY_ROTATION{ false };     /**< set it to 'true' if you want automatic rotation of priorities */
 inline constexpr bool OVERRIDE_PIN_PRESENT{ false };  /**< set it to 'true' if there's a override pin */
 #endif
 
@@ -80,11 +80,11 @@ inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x
 
 inline constexpr uint8_t offPeakForcePin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
 
-inline constexpr uint8_t tempSensorPin{ 3 };                          /**< for 3-phase PCB, sensor pin */
+inline constexpr uint8_t tempSensorPin{ 0xff };                       /**< for 3-phase PCB, sensor pin */
 inline constexpr uint8_t watchDogPin{ 9 };                            /**< watch dog LED */
-inline constexpr uint8_t diversionPin{ 10 };                          /**< if LOW, set diversion on standby */
-inline constexpr uint8_t rotationPin{ 11 };                           /**< if LOW, trigger a load priority rotation */
-inline constexpr uint8_t forcePin{ 12 };                              /**< for 3-phase PCB, force pin */
+inline constexpr uint8_t diversionPin{ 0xff };                        /**< if LOW, set diversion on standby */
+inline constexpr uint8_t rotationPin{ 0xff };                         /**< if LOW, trigger a load priority rotation */
+inline constexpr uint8_t forcePin{ 0xff };                            /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 }; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1, 2 };    /**< load priorities and states at startup */
 
