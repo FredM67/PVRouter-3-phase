@@ -79,12 +79,12 @@ inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x
 inline constexpr uint8_t offPeakForcePin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
 
 inline constexpr uint8_t tempSensorPin{ 3 };                          /**< for 3-phase PCB, sensor pin */
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 }; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
-inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1, 2 };    /**< load priorities and states at startup */
 inline constexpr uint8_t watchDogPin{ 9 };                            /**< watch dog LED */
 inline constexpr uint8_t diversionPin{ 10 };                          /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ 11 };                           /**< if LOW, trigger a load priority rotation */
 inline constexpr uint8_t forcePin{ 12 };                              /**< for 3-phase PCB, force pin */
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 }; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1, 2 };    /**< load priorities and states at startup */
 
 // analogue input pins
 inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
