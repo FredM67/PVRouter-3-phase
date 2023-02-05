@@ -71,7 +71,11 @@ class pairForceLoad
 {
 public:
   constexpr pairForceLoad() = default;
-  constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration = UINT16_MAX)
+  explicit constexpr pairForceLoad(int16_t _iStartOffset)
+    : iStartOffset(_iStartOffset), uiDuration(UINT16_MAX)
+  {
+  }
+  constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration)
     : iStartOffset(_iStartOffset), uiDuration(_uiDuration)
   {
   }

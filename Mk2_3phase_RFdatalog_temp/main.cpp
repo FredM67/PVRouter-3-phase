@@ -1,7 +1,7 @@
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
 static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/Laclare/Mk2_3phase_RFdatalog_temp/Readme.md");
 
-#include <Arduino.h> // may not be needed, but it's probably a good idea to include this
+#include <Arduino.h>  // may not be needed, but it's probably a good idea to include this
 
 #include "config.h"
 
@@ -376,7 +376,7 @@ void loop()
         tmp = readTemperature(sensorAddrs[idx]);
 
         // if read temperature is 85 and the delta with previous is greater than 5, skip the value
-        if (8500 == tmp && abs(tmp - tx_data.temperature_x100[idx] > 500))
+        if (8500 == tmp && (abs(tmp - tx_data.temperature_x100[idx]) > 500))
         {
           tmp = DEVICE_DISCONNECTED_RAW;
         }
