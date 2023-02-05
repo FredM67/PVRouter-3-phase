@@ -165,7 +165,7 @@ constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in se
 // therefore has the units of ADC-steps squared per Watt. Most systems will
 // have a power conversion rate of around 20 (ADC-steps squared per Watt).
 //
-// powerCal is the RECIPR0CAL of the power conversion rate. A good value
+// powerCal is the RECIPROCAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
 constexpr float f_powerCal[NO_OF_PHASES]{0.05000f, 0.05000f, 0.05000f};
