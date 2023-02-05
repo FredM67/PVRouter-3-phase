@@ -400,12 +400,16 @@ inline void sendResults(bool bOffPeak)
  */
 inline void logLoadPriorities()
 {
+  #ifdef ENABLE_DEBUG
+
   DBUGLN(F("Load Priorities: "));
-  for (const auto loadPrioAndState : loadPrioritiesAndState)
+  for (const auto& loadPrioAndState : loadPrioritiesAndState)
   {
     DBUG(F("\tload "));
     DBUGLN(loadPrioAndState);
   }
+
+  #endif
 }
 
 /**

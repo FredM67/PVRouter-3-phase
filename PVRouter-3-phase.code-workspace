@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "Calibration tool",
+			"path": "cal_CTx_v_meter"
+		},
+		{
+			"name": "Router program",
+			"path": "Mk2_3phase_RFdatalog_temp"
+		}
+	],
+	"settings": {}
+}
