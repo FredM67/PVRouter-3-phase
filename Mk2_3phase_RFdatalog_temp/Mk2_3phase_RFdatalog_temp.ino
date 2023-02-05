@@ -140,14 +140,14 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 #define DEBUGGING   ///< enable this line to include debugging print statements
 #define SERIALPRINT ///< include 'human-friendly' print statement for commissioning - comment this line to exclude.
 
-    // #define EMONESP ///< Uncomment if an ESP WiFi module is used
-    // #define SERIALOUT ///< Uncomment if a wired serial connection is used
-    //--------------------------------------------------------------------------------------------------
+// #define EMONESP ///< Uncomment if an ESP WiFi module is used
+// #define SERIALOUT ///< Uncomment if a wired serial connection is used
+//--------------------------------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------------------------------
-    // constants which must be set individually for each system
-    //
-    constexpr uint8_t NO_OF_PHASES{3}; /**< number of phases of the main supply. */
+//--------------------------------------------------------------------------------------------------
+// constants which must be set individually for each system
+//
+constexpr uint8_t NO_OF_PHASES{3};    /**< number of phases of the main supply. */
 constexpr uint8_t NO_OF_DUMPLOADS{3}; /**< number of dump loads connected to the diverter */
 
 constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{5}; /**< Period of datalogging in seconds */
@@ -592,44 +592,44 @@ ISR(ADC_vect)
   switch (sample_index)
   {
   case 0:
-    rawSample = ADC;           // store the ADC value (this one is for Voltage L1)
+    rawSample = ADC;                 // store the ADC value (this one is for Voltage L1)
     ADMUX = bit(REFS0) + sensorV[1]; // the conversion for I1 is already under way
-    ++sample_index;            // increment the control flag
+    ++sample_index;                  // increment the control flag
     //
     processVoltageRawSample(0, rawSample);
     break;
   case 1:
-    rawSample = ADC;           // store the ADC value (this one is for Current L1)
+    rawSample = ADC;                 // store the ADC value (this one is for Current L1)
     ADMUX = bit(REFS0) + sensorI[1]; // the conversion for V2 is already under way
-    ++sample_index;            // increment the control flag
+    ++sample_index;                  // increment the control flag
     //
     processCurrentRawSample(0, rawSample);
     break;
   case 2:
-    rawSample = ADC;           // store the ADC value (this one is for Voltage L2)
+    rawSample = ADC;                 // store the ADC value (this one is for Voltage L2)
     ADMUX = bit(REFS0) + sensorV[2]; // the conversion for I2 is already under way
-    ++sample_index;            // increment the control flag
+    ++sample_index;                  // increment the control flag
     //
     processVoltageRawSample(1, rawSample);
     break;
   case 3:
-    rawSample = ADC;           // store the ADC value (this one is for Current L2)
+    rawSample = ADC;                 // store the ADC value (this one is for Current L2)
     ADMUX = bit(REFS0) + sensorI[2]; // the conversion for V3 is already under way
-    ++sample_index;            // increment the control flag
+    ++sample_index;                  // increment the control flag
     //
     processCurrentRawSample(1, rawSample);
     break;
   case 4:
-    rawSample = ADC;           // store the ADC value (this one is for Voltage L3)
+    rawSample = ADC;                 // store the ADC value (this one is for Voltage L3)
     ADMUX = bit(REFS0) + sensorV[0]; // the conversion for I3 is already under way
-    ++sample_index;            // increment the control flag
+    ++sample_index;                  // increment the control flag
     //
     processVoltageRawSample(2, rawSample);
     break;
   case 5:
-    rawSample = ADC;           // store the ADC value (this one is for Current L3)
+    rawSample = ADC;                 // store the ADC value (this one is for Current L3)
     ADMUX = bit(REFS0) + sensorI[0]; // the conversion for V1 is already under way
-    sample_index = 0;          // reset the control flag
+    sample_index = 0;                // reset the control flag
     //
     processCurrentRawSample(2, rawSample);
     break;
