@@ -3,9 +3,9 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2021-10-04
+ * @date 2023-02-09
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2023
  *
  */
 
@@ -31,15 +31,40 @@ inline void setPinsOFF(const uint16_t pins) __attribute__((always_inline));
 inline bool getPinState(const uint8_t pin) __attribute__((always_inline));
 
 /**
+ * @brief Set the specified bit to 1
+ * 
+ * @tparam T Type of the variable
+ * @param _dest Integer variable to modify
+ * @param bit Bit to set in _dest
+ */
+template< typename T > constexpr void bit_set(T& _dest, const uint8_t bit)
+{
+  _dest |= (T)1 << bit;
+}
+
+/**
+ * @brief Read the specified bit
+ * 
+ * @tparam T  Type of the variable
+ * @param _src Integer variable to read
+ * @param bit Bit to read in _src
+ * @return constexpr uint8_t 
+ */
+template< typename T > constexpr uint8_t bit_read(const T& _src, const uint8_t bit)
+{
+  return (_src >> bit) & (T)0x01;
+}
+
+/**
  * @brief Toggle the specified pin
  *
  */
 void togglePin(const uint8_t pin)
 {
   if (pin < 8)
-    bitSet(PIND, pin);
+    bit_set(PIND, pin);
   else
-    bitSet(PINB, pin - 8);
+    bit_set(PINB, pin - 8);
 }
 
 /**
@@ -69,11 +94,11 @@ inline void setPinON(const uint8_t pin)
 {
   if (pin < 8)
   {
-    bitSet(PORTD, pin);
+    bit_set(PORTD, pin);
   }
   else
   {
-    bitSet(PORTB, pin - 8);
+    bit_set(PORTB, pin - 8);
   }
 }
 
@@ -126,31 +151,6 @@ inline void setPinsOFF(const uint16_t pins)
 inline bool getPinState(const uint8_t pin)
 {
   return (pin < 8) ? bitRead(PIND, pin) : bitRead(PINB, pin - 8);
-}
-
-/**
- * @brief Set the specified bit to 1
- * 
- * @tparam T 
- * @param _dest 
- * @param bit 
- */
-template<typename T> constexpr void bit_set(T& _dest, const uint8_t bit)
-{
-  _dest |= (T)1 << bit;
-}
-
-/**
- * @brief Read the specified bit
- * 
- * @tparam T 
- * @param _src 
- * @param bit 
- * @return constexpr uint8_t 
- */
-template< typename T > constexpr uint8_t bit_read(const T& _src, const uint8_t bit)
-{
-  return (_src >> bit) & (T)0x01;
 }
 
 /**
@@ -425,7 +425,7 @@ inline void sendResults(bool bOffPeak)
  */
 inline void logLoadPriorities()
 {
-  #ifdef ENABLE_DEBUG
+#ifdef ENABLE_DEBUG
 
   DBUGLN(F("Load Priorities: "));
   for (const auto& loadPrioAndState : loadPrioritiesAndState)
@@ -434,7 +434,7 @@ inline void logLoadPriorities()
     DBUGLN(loadPrioAndState);
   }
 
-  #endif
+#endif
 }
 
 /**

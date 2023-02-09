@@ -1,3 +1,16 @@
+/**
+ * @file main.h
+ * @author Frédéric Metrich (frederic.metrich@live.fr)
+ * @brief Function prototypes declaration
+ * @version 0.1
+ * @date 2023-02-09
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
+#include <Arduino.h>
+
 void processStartUp(const uint8_t phase);
 void processStartNewCycle();
 uint8_t nextLogicalLoadToBeAdded();

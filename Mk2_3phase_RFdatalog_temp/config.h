@@ -2,10 +2,10 @@
  * @file config.h
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Configuration values to be set by the end-user
- * @version 0.1
- * @date 2021-10-04
+ * @version 0.5
+ * @date 2023-02-09
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2023
  *
  */
 
@@ -14,7 +14,7 @@
 
 //--------------------------------------------------------------------------------------------------
 //#define TEMP_ENABLED  ///< this line must be commented out if the temperature sensor is not present
-//#define RF_PRESENT ///< this line must be commented out if the RFM12B module is not present
+//#define RF_PRESENT  ///< this line must be commented out if the RFM12B module is not present
 
 // Output messages
 //#define EMONESP  ///< Uncomment if an ESP WiFi module is used
@@ -46,20 +46,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ false };  /**< set it to 'true' if t
 #endif
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
-inline constexpr bool DUAL_TARIFF{ false }; /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
-
-inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                          /**< Duration of the off-peak period in hours */
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 },     /**< force config for load #1 ONLY for dual tariff */
-                                                              { -3, 120 },   /**< force config for load #2 ONLY for dual tariff */
-                                                              { -180, 2 } }; /**< force config for load #3 ONLY for dual tariff */
-
-inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
-
-inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
-                                              { 0x28, 0xED, 0x5B, 0x6A, 0x09, 0x00, 0x00, 0x9D },
-                                              { 0x28, 0xDB, 0x6D, 0x6A, 0x09, 0x00, 0x00, 0xDA },
-                                              { 0x28, 0x59, 0x1F, 0x6A, 0x09, 0x00, 0x00, 0xB0 },
-                                              { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } }; /**< list of temperature sensor Addresses */
+inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
 // ----------- Pinout assignments -----------
 //
@@ -79,14 +66,29 @@ inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x
 // D12 is MISO
 // D13 is SCK
 
-inline constexpr uint8_t dualTariffPin{ 0xff };                    /**< for 3-phase PCB, off-peak trigger */
-inline constexpr uint8_t tempSensorPin{ 0xff };                    /**< for 3-phase PCB, sensor pin */
-inline constexpr uint8_t watchDogPin{ 0xff };                         /**< watch dog LED */
-inline constexpr uint8_t diversionPin{ 0xff };                        /**< if LOW, set diversion on standby */
-inline constexpr uint8_t rotationPin{ 0xff };                         /**< if LOW, trigger a load priority rotation */
-inline constexpr uint8_t forcePin{ 0xff };                            /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 }; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1, 2 };    /**< load priorities and states at startup */
+
+inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
+inline constexpr uint8_t diversionPin{ 0xff };  /**< if LOW, set diversion on standby */
+inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load priority rotation */
+inline constexpr uint8_t forcePin{ 0xff };      /**< for 3-phase PCB, force pin */
+inline constexpr uint8_t watchDogPin{ 0xff };   /**< watch dog LED */
+
+inline constexpr uint8_t tempSensorPin{ 0xff }; /**< for 3-phase PCB, sensor pin */
+
+inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                          /**< Duration of the off-peak period in hours */
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 },     /**< force config for load #1 ONLY for dual tariff */
+                                                              { -3, 120 },   /**< force config for load #2 ONLY for dual tariff */
+                                                              { -180, 2 } }; /**< force config for load #3 ONLY for dual tariff */
+
+inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
+
+inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
+                                              { 0x28, 0xED, 0x5B, 0x6A, 0x09, 0x00, 0x00, 0x9D },
+                                              { 0x28, 0xDB, 0x6D, 0x6A, 0x09, 0x00, 0x00, 0xDA },
+                                              { 0x28, 0x59, 0x1F, 0x6A, 0x09, 0x00, 0x00, 0xB0 },
+                                              { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } }; /**< list of temperature sensor Addresses */
 
 //--------------------------------------------------------------------------------------------------
 // for users with zero-export profile, this value will be negative

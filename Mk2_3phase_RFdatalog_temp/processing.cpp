@@ -15,77 +15,6 @@
 #include "processing.h"
 #include "utils.h"
 
-static_assert(TEMP_SENSOR_PRESENT ^ (tempSensorPin == 0xff), "******** Wrong pin value for temperature sensor(s). ********");
-static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == 0xff), "******** Wrong pin value for diversion command. ********");
-static_assert(PRIORITY_ROTATION ^ (rotationPin == 0xff), "******** Wrong pin value for rotation command. ********");
-static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == 0xff), "******** Wrong pin value for override command. ********");
-static_assert(WATCHDOG_PIN_PRESENT ^ (watchDogPin == 0xff), "******** Wrong pin value for watchdog. ********");
-static_assert(DUAL_TARIFF ^ (dualTariffPin == 0xff), "******** Wrong pin value for dual tariff. ********");
-
-static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && DIVERSION_PIN_PRESENT && PRIORITY_ROTATION && OVERRIDE_PIN_PRESENT), "**** Wrong configuration. ****");
-
-constexpr bool check_pins()
-{
-  uint16_t used_pins{ 0 };
-
-  if (tempSensorPin != 0xff)
-    bit_set(used_pins, tempSensorPin);
-
-  if (diversionPin != 0xff)
-  {
-    if (bit_read(used_pins, diversionPin))
-      return false;
-
-    bit_set(used_pins, diversionPin);
-  }
-
-  if (rotationPin != 0xff)
-  {
-    if (bit_read(used_pins, rotationPin))
-      return false;
-
-    bit_set(used_pins, rotationPin);
-  }
-
-  if (forcePin != 0xff)
-  {
-    if (bit_read(used_pins, forcePin))
-      return false;
-
-    bit_set(used_pins, forcePin);
-  }
-
-  if (watchDogPin != 0xff)
-  {
-    if (bit_read(used_pins, watchDogPin))
-      return false;
-
-    bit_set(used_pins, watchDogPin);
-  }
-
-  //physicalLoadPin
-  for (const auto &loadPin : physicalLoadPin)
-  {
-    if (loadPin == 0xff)
-      return false;
-
-    if (bitRead(used_pins, loadPin))
-      return false;
-
-    bit_set(used_pins, loadPin);
-  }
-
-  if (bitRead(used_pins, 0))
-    return false;
-
-  if (bitRead(used_pins, 1))
-    return false;
-
-  return true;
-}
-
-static_assert(check_pins(), "******** Duplicate pin definition ! Please check your config ! ********");
-
 /*!
  *  @defgroup TimeCritical Time critical functions Group
  *  Functions used by the ISR
@@ -156,8 +85,6 @@ uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was
 
 bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle */
 
-static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too long and will lead to overflow ! ****");
-
 /**
  * @brief Initializes the ports and load states for processing
  *
@@ -190,21 +117,21 @@ void initializeProcessing()
   ADCSRB = 0x00;
 
   // Set up the ADC to be free-running
-  bitSet(ADCSRA, ADPS0);  // Set the ADC's clock to system clock / 128
-  bitSet(ADCSRA, ADPS1);
-  bitSet(ADCSRA, ADPS2);
+  bit_set(ADCSRA, ADPS0);  // Set the ADC's clock to system clock / 128
+  bit_set(ADCSRA, ADPS1);
+  bit_set(ADCSRA, ADPS2);
 
-  bitSet(ADCSRA, ADATE);  // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  bit_set(ADCSRA, ADATE);  // set the Auto Trigger Enable bit in the ADCSRA register. Because
   // bits ADTS0-2 have not been set (i.e. they are all zero), the
   // ADC's trigger source is set to "free running mode".
 
-  bitSet(ADCSRA, ADIE);  // set the ADC interrupt enable bit. When this bit is written
+  bit_set(ADCSRA, ADIE);  // set the ADC interrupt enable bit. When this bit is written
   // to one and the I-bit in SREG is set, the
   // ADC Conversion Complete Interrupt is activated.
 
-  bitSet(ADCSRA, ADEN);  // Enable the ADC
+  bit_set(ADCSRA, ADEN);  // Enable the ADC
 
-  bitSet(ADCSRA, ADSC);  // start ADC manually first time
+  bit_set(ADCSRA, ADSC);  // start ADC manually first time
 
   sei();  // Enable Global Interrupts
 }

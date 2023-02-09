@@ -3,14 +3,16 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some basics classes/types
  * @version 0.1
- * @date 2021-10-04
+ * @date 2023-02-09
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2023
  *
  */
 
 #ifndef __TYPES_H__
 #define __TYPES_H__
+
+#include <Arduino.h>
 
 #include "constants.h"
 

@@ -130,6 +130,12 @@
  * - the datalogging accumulator for Vsquared has been rescaled to 1/16 of its previous value 
  *   to avoid the risk of overflowing during a 20-second datalogging period.
  *  
+ * __February 2023: changes:__
+ * - heavy refactoring
+ * - compile-time validation for pin assignment and a couple of values
+ * - project can now be used with both Arduino IDE and PlatformIO (Visual Studio Code).
+ * - a couple of pre-defined PlatformIO configs added
+ *  
  * @author Fred Metrich
  * @copyright Copyright (c) 2023
  *

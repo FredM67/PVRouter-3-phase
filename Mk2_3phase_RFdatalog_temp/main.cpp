@@ -1,3 +1,15 @@
+/**
+ * @file main.cpp
+ * @author Frédéric Metrich (frederic.metrich@live.fr)
+ * @brief Main code
+ * @version 0.1
+ * @date 2021-10-04
+ *
+ * @copyright Copyright (c) 2021
+ *
+ */
+
+
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
 static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/Laclare/Mk2_3phase_RFdatalog_temp/Readme.md");
 
@@ -24,6 +36,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 #include "processing.h"
 #include "types.h"
 #include "utils.h"
+#include "validation.h"
 
 // --------------  general global variables -----------------
 //
