@@ -129,6 +129,31 @@ inline bool getPinState(const uint8_t pin)
 }
 
 /**
+ * @brief Set the specified bit to 1
+ * 
+ * @tparam T 
+ * @param _dest 
+ * @param bit 
+ */
+template<typename T> constexpr void bit_set(T& _dest, const uint8_t bit)
+{
+  _dest |= (T)1 << bit;
+}
+
+/**
+ * @brief Read the specified bit
+ * 
+ * @tparam T 
+ * @param _src 
+ * @param bit 
+ * @return constexpr uint8_t 
+ */
+template< typename T > constexpr uint8_t bit_read(const T& _src, const uint8_t bit)
+{
+  return (_src >> bit) & (T)0x01;
+}
+
+/**
  * @brief Print the configuration during start
  *
  */

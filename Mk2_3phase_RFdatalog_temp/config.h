@@ -45,6 +45,7 @@ inline constexpr bool PRIORITY_ROTATION{ false };     /**< set it to 'true' if y
 inline constexpr bool OVERRIDE_PIN_PRESENT{ false };  /**< set it to 'true' if there's a override pin */
 #endif
 
+inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
 inline constexpr bool DUAL_TARIFF{ false }; /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                          /**< Duration of the off-peak period in hours */
@@ -78,10 +79,9 @@ inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x
 // D12 is MISO
 // D13 is SCK
 
-inline constexpr uint8_t offPeakForcePin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
-
-inline constexpr uint8_t tempSensorPin{ 0xff };                       /**< for 3-phase PCB, sensor pin */
-inline constexpr uint8_t watchDogPin{ 9 };                            /**< watch dog LED */
+inline constexpr uint8_t dualTariffPin{ 0xff };                    /**< for 3-phase PCB, off-peak trigger */
+inline constexpr uint8_t tempSensorPin{ 0xff };                    /**< for 3-phase PCB, sensor pin */
+inline constexpr uint8_t watchDogPin{ 0xff };                         /**< watch dog LED */
 inline constexpr uint8_t diversionPin{ 0xff };                        /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ 0xff };                         /**< if LOW, trigger a load priority rotation */
 inline constexpr uint8_t forcePin{ 0xff };                            /**< for 3-phase PCB, force pin */

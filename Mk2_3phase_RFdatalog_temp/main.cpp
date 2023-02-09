@@ -186,7 +186,7 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperatu
 {
   constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
   static bool pinOffPeakState{ HIGH };
-  const bool pinNewState{ getPinState(offPeakForcePin) };
+  const bool pinNewState{ getPinState(dualTariffPin) };
 
   if (pinOffPeakState && !pinNewState)
   {
@@ -335,7 +335,10 @@ void loop()
     {
       perSecondTimer = 0;
 
-      togglePin(watchDogPin);
+      if constexpr (WATCHDOG_PIN_PRESENT)
+      {
+        togglePin(watchDogPin);
+      }
 
       checkDiversionOnOff();
 
