@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __TYPES_H__
-#define __TYPES_H__
+#ifndef _TYPES_H
+#define _TYPES_H
 
 #include <Arduino.h>
 
@@ -109,4 +109,4 @@ template< typename _Tp > constexpr size_t size(const _Tp (&/*__array*/)[0]) noex
   return 0;
 }
 
-#endif  // __TYPES_H__
+#endif  // _TYPES_H

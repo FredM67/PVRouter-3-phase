@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __UTILS_TEMP_H__
-#define __UTILS_TEMP_H__
+#ifndef _UTILS_TEMP_H
+#define _UTILS_TEMP_H
 
 #include "config.h"
 #include "constants.h"
@@ -93,4 +93,4 @@ void initTemperatureSensors()
 inline constexpr bool TEMP_SENSOR_PRESENT{ false };
 #endif  // TEMP_SENSOR_PRESENT
 
-#endif  // __UTILS_TEMP_H__
+#endif  // _UTILS_TEMP_H

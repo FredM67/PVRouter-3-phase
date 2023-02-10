@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __PROCESSING_H__
-#define __PROCESSING_H__
+#ifndef _PROCESSING_H
+#define _PROCESSING_H
 
 #include "config.h"
 
@@ -60,4 +60,4 @@ void printParamsForSelectedOutputMode();
 void processCurrentRawSample(const uint8_t phase, const int16_t rawSample);
 void processVoltageRawSample(const uint8_t phase, const int16_t rawSample);
 
-#endif  // __PROCESSING_H__
+#endif  // _PROCESSING_H

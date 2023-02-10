@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __CALIBRATION_H__
-#define __CALIBRATION_H__
+#ifndef _CALIBRATION_H
+#define _CALIBRATION_H
 
 #include "config.h"
 
@@ -54,4 +54,4 @@ inline constexpr float lpf_gain{ 0 }; /**< setting this to 0 disables this extra
 inline constexpr float alpha{ 0.002 };
 //--------------------------------------------------------------------------------------------------
 
-#endif  // __CALIBRATION_H__
+#endif  // _CALIBRATION_H

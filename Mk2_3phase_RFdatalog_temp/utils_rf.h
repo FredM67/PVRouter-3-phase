@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __UTILS_RF_H__
-#define __UTILS_RF_H__
+#ifndef _UTILS_RF_H
+#define _UTILS_RF_H
 
 #ifdef RF_PRESENT
 #include <JeeLib.h>
@@ -38,4 +38,4 @@ inline void send_rf_data()
 inline constexpr bool RF_CHIP_PRESENT{ false };
 #endif  // RF_PRESENT
 
-#endif  // __UTILS_RF_H__
+#endif  // _UTILS_RF_H

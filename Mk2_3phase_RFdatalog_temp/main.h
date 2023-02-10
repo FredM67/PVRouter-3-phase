@@ -9,6 +9,9 @@
  * 
  */
 
+#ifndef _MAIN_H
+#define _MAIN_H
+
 #include <Arduino.h>
 
 void processStartUp(const uint8_t phase);
@@ -42,3 +45,4 @@ void confirmPolarity(const uint8_t phase);
 void updatePhysicalLoadStates();
 
 void printParamsForSelectedOutputMode();
+#endif

@@ -9,6 +9,9 @@
  * 
  */
 
+#ifndef _VALIDATION_H
+#define _VALIDATION_H
+
 #include "utils.h"
 
 static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too long and will lead to overflow ! ****");
@@ -83,3 +86,5 @@ static_assert(check_pins(), "******** Duplicate pin definition ! Please check yo
 static_assert((check_pins() & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
 static_assert((check_pins() & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
 static_assert(!(RF_CHIP_PRESENT && ((check_pins() & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
+
+#endif

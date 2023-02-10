@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __CONSTANTS_H__
-#define __CONSTANTS_H__
+#ifndef _CONSTANTS_H
+#define _CONSTANTS_H
 
 // Dallas DS18B20 commands
 inline constexpr uint8_t CONVERT_TEMPERATURE{ 0x44 };
@@ -24,4 +24,4 @@ inline constexpr int16_t TEMP_RANGE_HIGH{ 12500 };
 inline constexpr int16_t DEVICE_DISCONNECTED_C{ -127 };
 inline constexpr int16_t DEVICE_DISCONNECTED_RAW{ -7040 };
 
-#endif  // __CONSTANTS_H__
+#endif  // _CONSTANTS_H

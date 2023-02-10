@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef __UTILS_H__
-#define __UTILS_H__
+#ifndef _UTILS_H
+#define _UTILS_H
 
 #include "config.h"
 #include "constants.h"
@@ -449,4 +449,4 @@ inline int freeRam()
   return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
 }
 
-#endif  // __UTILS_H__
+#endif  // _UTILS_H
