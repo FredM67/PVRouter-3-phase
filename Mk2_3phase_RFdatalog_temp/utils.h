@@ -247,7 +247,7 @@ inline void printConfiguration()
 
 inline void printForEmonESP(const bool bOffPeak)
 {
-  uint8_t idx;
+  uint8_t idx{ 0 };
 
   // Total mean power over a data logging period
   Serial.print(F("P:"));
