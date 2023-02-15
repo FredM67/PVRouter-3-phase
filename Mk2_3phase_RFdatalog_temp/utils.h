@@ -245,6 +245,11 @@ inline void printConfiguration()
 #endif
 }
 
+/**
+ * @brief Write on Serial in EmonESP format
+ * 
+ * @param bOffPeak state of on/off-peak period
+ */
 inline void printForEmonESP(const bool bOffPeak)
 {
   uint8_t idx{ 0 };

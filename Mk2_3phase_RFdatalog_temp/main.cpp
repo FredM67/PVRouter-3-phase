@@ -3,12 +3,11 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Main code
  * @version 0.1
- * @date 2021-10-04
+ * @date 2023-02-15
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2023
  *
  */
-
 
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
 static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/Laclare/Mk2_3phase_RFdatalog_temp/Readme.md");
@@ -65,7 +64,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
  *
  *          Keep in mind, when writing an Interrupt Service Routine (ISR):
  *            - Keep it short
- *            - Don't use delay ()
+ *            - Don't use delay()
  *            - Don't do serial prints
  *            - Make variables shared with the main code volatile
  *            - Variables shared with main code may need to be protected by "critical sections"
@@ -161,6 +160,10 @@ bool forceFullPower()
   }
 }
 
+/**
+ * @brief Check the diversion state
+ * 
+ */
 void checkDiversionOnOff()
 {
   if constexpr (DIVERSION_PIN_PRESENT)
@@ -181,6 +184,10 @@ void checkDiversionOnOff()
   }
 }
 
+/**
+ * @brief Proceed load priority rotation
+ * 
+ */
 void proceedRotation()
 {
   b_reOrderLoads = true;
@@ -195,6 +202,13 @@ void proceedRotation()
   logLoadPriorities();
 }
 
+/**
+ * @brief Proceed load priority in combination with dual tariff
+ * 
+ * @param currentTemperature_x100 current temperature x 100 (default to 0 if deactivated)
+ * @return true if high tariff (on-peak period)
+ * @return false if low tariff (off-peak period)
+ */
 bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperature_x100)
 {
   constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };

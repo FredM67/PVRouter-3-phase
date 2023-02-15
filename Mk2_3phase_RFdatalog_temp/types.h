@@ -99,11 +99,22 @@ private:
 using ScratchPad = uint8_t[9];
 using DeviceAddress = uint8_t[8];
 
+/**
+ * @brief Helper function to retrieve the dimension of a C-array
+ * 
+ * @tparam _Tp elements type
+ * @tparam _Nm dimension
+ */
 template< typename _Tp, size_t _Nm > constexpr size_t size(const _Tp (&/*__array*/)[_Nm]) noexcept
 {
   return _Nm;
 }
 
+/**
+ * @brief Helper function for the special case of a 0-dimension C-array
+ * 
+ * @tparam _Tp elements type
+ */
 template< typename _Tp > constexpr size_t size(const _Tp (&/*__array*/)[0]) noexcept
 {
   return 0;
