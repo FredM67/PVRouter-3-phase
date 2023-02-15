@@ -62,9 +62,13 @@ template< typename T > constexpr uint8_t bit_read(const T& _src, const uint8_t b
 void togglePin(const uint8_t pin)
 {
   if (pin < 8)
+  {
     bit_set(PIND, pin);
+  }
   else
+  {
     bit_set(PINB, pin - 8);
+  }
 }
 
 /**
@@ -307,7 +311,7 @@ inline void printForEmonESP(const bool bOffPeak)
  */
 inline void printForSerialJson()
 {
-  uint8_t phase;
+  uint8_t phase{ 0 };
 
   Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
   Serial.print(F(", P:"));
@@ -348,7 +352,7 @@ inline void printForSerialJson()
  */
 inline void printForSerialText()
 {
-  uint8_t phase;
+  uint8_t phase{ 0 };
 
   Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
   Serial.print(F(", P:"));

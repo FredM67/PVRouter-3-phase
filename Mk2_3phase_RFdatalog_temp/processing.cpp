@@ -225,7 +225,7 @@ void updatePortsStates()
  */
 void updatePhysicalLoadStates()
 {
-  uint8_t i;
+  uint8_t i{ 0 };
 
   if constexpr (PRIORITY_ROTATION)
   {
@@ -233,8 +233,9 @@ void updatePhysicalLoadStates()
     {
       const auto temp{ loadPrioritiesAndState[0] };
       for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+      {
         loadPrioritiesAndState[i] = loadPrioritiesAndState[i + 1];
-
+      }
       loadPrioritiesAndState[i] = temp;
 
       b_reOrderLoads = false;
@@ -243,9 +244,13 @@ void updatePhysicalLoadStates()
     if constexpr (!DUAL_TARIFF)
     {
       if (0x00 == (loadPrioritiesAndState[0] & loadStateOnBit))
+      {
         ++absenceOfDivertedEnergyCount;
+      }
       else
+      {
         absenceOfDivertedEnergyCount = 0;
+      }
     }
   }
 
@@ -257,18 +262,18 @@ void updatePhysicalLoadStates()
   }
 }
 
-inline void processStartUp(const uint8_t phase) __attribute__((always_inline));
+inline void processStartUp(uint8_t phase) __attribute__((always_inline));
 inline void processStartNewCycle() __attribute__((always_inline));
-inline void processPlusHalfCycle(const uint8_t phase) __attribute__((always_inline));
-inline void processMinusHalfCycle(const uint8_t phase) __attribute__((always_inline));
-inline void processVoltage(const uint8_t phase) __attribute__((always_inline));
-inline void processPolarity(const uint8_t phase, const uint16_t rawSample) __attribute__((always_inline));
-inline void confirmPolarity(const uint8_t phase) __attribute__((always_inline));
+inline void processPlusHalfCycle(uint8_t phase) __attribute__((always_inline));
+inline void processMinusHalfCycle(uint8_t phase) __attribute__((always_inline));
+inline void processVoltage(uint8_t phase) __attribute__((always_inline));
+inline void processPolarity(uint8_t phase, uint16_t rawSample) __attribute__((always_inline));
+inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
 inline void proceedLowEnergyLevel() __attribute__((always_inline));
 inline void proceedHighEnergyLevel() __attribute__((always_inline));
 inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline));
 inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline));
-inline void processLatestContribution(const uint8_t phase) __attribute__((always_inline));
+inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
 
 /**
  * @brief Process with the polarity for the actual voltage sample for the specific phase
@@ -296,28 +301,22 @@ void processPolarity(const uint8_t phase, const uint16_t rawSample)
  */
 void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
 {
-  int32_t sampleIminusDC;
-  int32_t filtV_div4;
-  int32_t filtI_div4;
-  int32_t instP;
-
   // extra items for an LPF to improve the processing of data samples from CT1
   static int32_t lpf_long[NO_OF_PHASES]{};  // new LPF, for offsetting the behaviour of CTx as a HPF
-  int32_t last_lpf_long;                    // extra filtering to offset the HPF effect of CTx
 
   // remove most of the DC offset from the current sample (the precise value does not matter)
-  sampleIminusDC = (static_cast< int32_t >(rawSample - l_DCoffset_I_nom)) << 8;
+  int32_t sampleIminusDC = (static_cast< int32_t >(rawSample - l_DCoffset_I_nom)) << 8;
 
   // extra filtering to offset the HPF effect of CTx
-  last_lpf_long = lpf_long[phase];
+  const int32_t last_lpf_long{ lpf_long[phase] };
   lpf_long[phase] = last_lpf_long + alpha * (sampleIminusDC - last_lpf_long);
   sampleIminusDC += (lpf_gain * lpf_long[phase]);
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
-  filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
-  filtI_div4 = sampleIminusDC >> 2;           // reduce to 16-bits (now x64, or 2^6)
-  instP = filtV_div4 * filtI_div4;            // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                               // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+  const int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
+  const int32_t filtI_div4 = sampleIminusDC >> 2;           // reduce to 16-bits (now x64, or 2^6)
+  int32_t instP = filtV_div4 * filtI_div4;            // 32-bits (now x4096, or 2^12)
+  instP >>= 12;                                       // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
   l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
   l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
@@ -360,7 +359,7 @@ void confirmPolarity(const uint8_t phase)
 void processVoltage(const uint8_t phase)
 {
   // for the Vrms calculation (for datalogging only)
-  int32_t filtV_div4{ l_sampleVminusDC[phase] >> 2 };  // reduce to 16-bits (now x64, or 2^6)
+  const int32_t filtV_div4{ l_sampleVminusDC[phase] >> 2 };  // reduce to 16-bits (now x64, or 2^6)
   int32_t inst_Vsquared{ filtV_div4 * filtV_div4 };    // 32-bits (now x4096, or 2^12)
 
   if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
