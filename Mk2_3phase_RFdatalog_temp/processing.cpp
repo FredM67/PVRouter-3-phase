@@ -30,11 +30,11 @@ constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of AD
 constexpr int32_t l_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
 
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
-constexpr float f_capacityOfEnergyBucket_main{ (float)(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
+constexpr float f_capacityOfEnergyBucket_main{ static_cast< float >(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
 /**< for resetting flexible thresholds */
-constexpr float f_midPointOfEnergyBucket_main{ f_capacityOfEnergyBucket_main * 0.5f };
+constexpr float f_midPointOfEnergyBucket_main{ f_capacityOfEnergyBucket_main * 0.5F };
 /**< threshold in anti-flicker mode - must not exceed 0.4 */
-constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1f };
+constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1F };
 
 /**
  * @brief set default threshold at compile time so the variable can be read-only
@@ -42,11 +42,11 @@ constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1f };
  * @param lower True to set the lower threshold, false for higher
  * @return the corresponding threshold
  */
-constexpr float initThreshold(const bool lower)
+constexpr auto initThreshold(const bool lower)
 {
   return lower
-           ? f_capacityOfEnergyBucket_main * (0.5f - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0))
-           : f_capacityOfEnergyBucket_main * (0.5f + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0));
+           ? f_capacityOfEnergyBucket_main * (0.5F - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0))
+           : f_capacityOfEnergyBucket_main * (0.5F + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0));
 }
 
 constexpr float f_lowerThreshold_default{ initThreshold(true) };  /**< lower default threshold set accordingly to the output mode */
@@ -262,7 +262,7 @@ inline void processStartNewCycle() __attribute__((always_inline));
 inline void processPlusHalfCycle(const uint8_t phase) __attribute__((always_inline));
 inline void processMinusHalfCycle(const uint8_t phase) __attribute__((always_inline));
 inline void processVoltage(const uint8_t phase) __attribute__((always_inline));
-inline void processPolarity(const uint8_t phase, const int16_t rawSample) __attribute__((always_inline));
+inline void processPolarity(const uint8_t phase, const uint16_t rawSample) __attribute__((always_inline));
 inline void confirmPolarity(const uint8_t phase) __attribute__((always_inline));
 inline void proceedLowEnergyLevel() __attribute__((always_inline));
 inline void proceedHighEnergyLevel() __attribute__((always_inline));
@@ -278,11 +278,11 @@ inline void processLatestContribution(const uint8_t phase) __attribute__((always
  *
  * @ingroup TimeCritical
  */
-void processPolarity(const uint8_t phase, const int16_t rawSample)
+void processPolarity(const uint8_t phase, const uint16_t rawSample)
 {
   // remove DC offset from each raw voltage sample by subtracting the accurate value
   // as determined by its associated LP filter.
-  l_sampleVminusDC[phase] = (((int32_t)rawSample) << 8) - l_DCoffset_V[phase];
+  l_sampleVminusDC[phase] = (static_cast< int32_t >(rawSample) << 8) - l_DCoffset_V[phase];
   polarityOfMostRecentSampleV[phase] = (l_sampleVminusDC[phase] > 0) ? Polarities::POSITIVE : Polarities::NEGATIVE;
 }
 
@@ -294,7 +294,7 @@ void processPolarity(const uint8_t phase, const int16_t rawSample)
  *
  * @ingroup TimeCritical
  */
-void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
+void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
 {
   int32_t sampleIminusDC;
   int32_t filtV_div4;
@@ -306,7 +306,7 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   int32_t last_lpf_long;                    // extra filtering to offset the HPF effect of CTx
 
   // remove most of the DC offset from the current sample (the precise value does not matter)
-  sampleIminusDC = ((int32_t)(rawSample - l_DCoffset_I_nom)) << 8;
+  sampleIminusDC = (static_cast< int32_t >(rawSample - l_DCoffset_I_nom)) << 8;
 
   // extra filtering to offset the HPF effect of CTx
   last_lpf_long = lpf_long[phase];
@@ -772,7 +772,7 @@ void processRawSamples(const uint8_t phase)
  *
  * @ingroup TimeCritical
  */
-void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
+void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample)
 {
   processPolarity(phase, rawSample);
   confirmPolarity(phase);

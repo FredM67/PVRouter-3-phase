@@ -219,7 +219,7 @@ constexpr float f_voltageCal[NO_OF_PHASES]{0.803f, 0.803f, 0.803f}; /**< compare
 ISR(ADC_vect)
 {
   static uint8_t sample_index{0};
-  static int16_t rawSample;
+  uint16_t rawSample;
 
   switch (sample_index)
   {
@@ -287,7 +287,7 @@ ISR(ADC_vect)
 
    @ingroup TimeCritical
 */
-void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
+void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
 {
   static int32_t sampleIminusDC;
   static int32_t phaseShiftedSampleVminusDC;
@@ -319,7 +319,7 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 
    @ingroup TimeCritical
 */
-void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
+void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample)
 {
   processPolarity(phase, rawSample);
   confirmPolarity(phase);
@@ -340,7 +340,7 @@ void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
 
    @ingroup TimeCritical
 */
-void processPolarity(const uint8_t phase, const int16_t rawSample)
+void processPolarity(const uint8_t phase, const uint16_t rawSample)
 {
   l_lastSampleVminusDC[phase] = l_sampleVminusDC[phase]; // required for phaseCal algorithm
   // remove DC offset from each raw voltage sample by subtracting the accurate value

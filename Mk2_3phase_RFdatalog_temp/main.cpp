@@ -74,7 +74,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 ISR(ADC_vect)
 {
   static uint8_t sample_index{ 0 };
-  int16_t rawSample;
+  uint16_t rawSample;
 
   switch (sample_index)
   {
@@ -135,7 +135,7 @@ bool forceFullPower()
 {
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    const uint8_t pinState{ getPinState(forcePin) };
+    const auto pinState{ getPinState(forcePin) };
 
 #ifdef ENABLE_DEBUG
     static uint8_t previousState{ HIGH };
@@ -213,7 +213,7 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperatu
 {
   constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
   static bool pinOffPeakState{ HIGH };
-  const bool pinNewState{ getPinState(dualTariffPin) };
+  const auto pinNewState{ getPinState(dualTariffPin) };
 
   if (pinOffPeakState && !pinNewState)
   {
@@ -229,8 +229,8 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperatu
   }
   else
   {
-    const auto ulElapsedTime{ (uint32_t)(millis() - ul_TimeOffPeak) };
-    const bool pinState{ getPinState(forcePin) };
+    const auto ulElapsedTime{ static_cast<uint32_t>(millis() - ul_TimeOffPeak) };
+    const auto pinState{ getPinState(forcePin) };
 
     for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
@@ -275,7 +275,7 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
   if constexpr (EMONESP_CONTROL)
   {
     static uint8_t pinRotationState{ HIGH };
-    const uint8_t pinNewState{ getPinState(rotationPin) };
+    const auto pinNewState{ getPinState(rotationPin) };
 
     if (pinRotationState && !pinNewState)
     {
@@ -297,7 +297,7 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
 
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    const uint8_t pinState{ getPinState(forcePin) };
+    const auto pinState{ getPinState(forcePin) };
 
     for (auto &bOverrideLoad : b_overrideLoadOn)
     {
@@ -390,11 +390,11 @@ void loop()
 
       if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
       {
-        tx_data.Vrms_L_x100[phase] = (int32_t)((100 << 2) * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+        tx_data.Vrms_L_x100[phase] = static_cast<int32_t>((100 << 2) * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
       }
       else
       {
-        tx_data.Vrms_L_x100[phase] = (int32_t)(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+        tx_data.Vrms_L_x100[phase] = static_cast<int32_t>(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
       }
     }
 
