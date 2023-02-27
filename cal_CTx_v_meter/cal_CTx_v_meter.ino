@@ -45,6 +45,4 @@
 
 */
 
-#include <Arduino.h> // may not be needed, but it's probably a good idea to include this
-
 // The active code can be found in the other cpp/h files

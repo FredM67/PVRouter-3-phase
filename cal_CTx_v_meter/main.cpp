@@ -1,4 +1,7 @@
 
+
+#include <Arduino.h> // may not be needed, but it's probably a good idea to include this
+
 #include "main.h"
 
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
