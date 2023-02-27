@@ -5,7 +5,7 @@
 
 // -----------------------------------------------------
 // Change these values to suit the local mains frequency and supply meter
-constexpr uint32_t SUPPLY_FREQUENCY{50};         /**< number of cycles/s of the grid power supply */
+constexpr uint8_t SUPPLY_FREQUENCY{50};         /**< number of cycles/s of the grid power supply */
 constexpr uint16_t WORKING_ZONE_IN_JOULES{3600}; /**< number of joule for 1Wh */
 
 // ----------------
