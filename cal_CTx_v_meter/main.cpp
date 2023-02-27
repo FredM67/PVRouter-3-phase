@@ -78,7 +78,7 @@ int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]; /**< for the LPF which determines D
 int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];  /**< for summation of 'real power' values during datalog period */
 int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values during datalog period */
 
-uint16_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
+uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES];  /**< number of sample sets for each phase during each mains cycle */
 uint16_t n_sampleSetsDuringThisDatalogPeriod;         /**< number of sample sets during each datalogging period */
 uint16_t n_cycleCountForDatalogging{0};               /**< for counting how often datalog is updated */
 
