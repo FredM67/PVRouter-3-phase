@@ -19,9 +19,9 @@ inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB,
 inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
 // ------------------------------------------
 
-inline constexpr uint16_t WORKING_ZONE_IN_JOULES{ 3600 }; /**< number of joule for 1Wh */
+inline constexpr uint32_t WORKING_ZONE_IN_JOULES{ 3600UL }; /**< number of joule for 1Wh */
 
-inline constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{ 2 }; /**< allows polarity changes to be confirmed */
+inline constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{ 2 };  /**< allows polarity changes to be confirmed */
 inline constexpr OutputModes outputMode{ OutputModes::NORMAL }; /**< Output mode to be used */
 
 inline constexpr uint16_t initialDelay{ 3000 };  /**< in milli-seconds, to allow time to open the Serial monitor */

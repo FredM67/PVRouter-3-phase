@@ -102,7 +102,7 @@ inline constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{ 5 };                        
 inline constexpr uint16_t DATALOG_PERIOD_IN_MAINS_CYCLES{ DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY }; /**< Period of datalogging in cycles */
 //--------------------------------------------------------------------------------------------------
 
-inline constexpr uint32_t ROTATION_AFTER_CYCLES{ 8 * 3600 * SUPPLY_FREQUENCY }; /**< rotates load priorities after this period of inactivity */
+inline constexpr uint32_t ROTATION_AFTER_CYCLES{ 8UL * 3600UL * SUPPLY_FREQUENCY }; /**< rotates load priorities after this period of inactivity */
 
 /* --------------------------------------
    RF configuration (for the RFM12B module)

@@ -1,6 +1,6 @@
 
 
-#include <Arduino.h> // may not be needed, but it's probably a good idea to include this
+#include <Arduino.h>  // may not be needed, but it's probably a good idea to include this
 
 #include "main.h"
 
@@ -8,14 +8,14 @@
 
 // -----------------------------------------------------
 // Change these values to suit the local mains frequency and supply meter
-constexpr uint8_t SUPPLY_FREQUENCY{50};         /**< number of cycles/s of the grid power supply */
-constexpr uint16_t WORKING_ZONE_IN_JOULES{3600}; /**< number of joule for 1Wh */
+constexpr uint8_t SUPPLY_FREQUENCY{ 50 };            /**< number of cycles/s of the grid power supply */
+constexpr uint32_t WORKING_ZONE_IN_JOULES{ 3600UL }; /**< number of joule for 1Wh */
 
 // ----------------
 // general literals
-constexpr uint16_t DATALOG_PERIOD_IN_MAINS_CYCLES{250}; /**< Period of datalogging in cycles */
+constexpr uint16_t DATALOG_PERIOD_IN_MAINS_CYCLES{ 250 }; /**< Period of datalogging in cycles */
 
-constexpr uint8_t NO_OF_PHASES{3}; /**< number of phases of the main supply. */
+constexpr uint8_t NO_OF_PHASES{ 3 }; /**< number of phases of the main supply. */
 
 // -------------------------------
 // definitions of enumerated types
@@ -43,33 +43,33 @@ Tx_struct tx_data; /**< logging data */
 // ----------- Pinout assignments  -----------
 //
 // analogue input pins
-constexpr uint8_t sensorV[NO_OF_PHASES]{0, 2, 4}; /**< for 3-phase PCB, voltage measurement for each phase */
-constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; /**< for 3-phase PCB, current measurement for each phase */
+constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
+constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
 
 // --------------  general global variables -----------------
 //
 // Some of these variables are used in multiple blocks so cannot be static.
 // For integer maths, some variables need to be 'int32_t'
 //
-bool beyondStartUpPeriod{false};        /**< start-up delay, allows things to settle */
-constexpr uint32_t initialDelay{3000};  /**< in milli-seconds, to allow time to open the Serial monitor */
-constexpr uint32_t startUpPeriod{3000}; /**< in milli-seconds, to allow LP filter to settle */
+bool beyondStartUpPeriod{ false };        /**< start-up delay, allows things to settle */
+constexpr uint32_t initialDelay{ 3000 };  /**< in milli-seconds, to allow time to open the Serial monitor */
+constexpr uint32_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow LP filter to settle */
 
 int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
 
 // Define operating limits for the LP filters which identify DC offset in the voltage
 // sample streams. By limiting the output range, these filters always should start up
 // correctly.
-constexpr int32_t l_DCoffset_V_min{(512L - 100L) * 256L}; /**< mid-point of ADC minus a working margin */
-constexpr int32_t l_DCoffset_V_max{(512L + 100L) * 256L}; /**< mid-point of ADC plus a working margin */
-constexpr int16_t i_DCoffset_I_nom{512L};                 /**< nominal mid-point value of ADC @ x1 scale */
+constexpr int32_t l_DCoffset_V_min{ (512L - 100L) * 256L }; /**< mid-point of ADC minus a working margin */
+constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
+constexpr int16_t i_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
 
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
-constexpr float f_capacityOfEnergyBucket_main{(float)(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY)};
+constexpr float f_capacityOfEnergyBucket_main{ (float)(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
 
-float f_energyInBucket_main{0}; /**< main energy bucket (over all phases) */
-float f_lowerEnergyThreshold;   /**< dynamic lower threshold */
-float f_upperEnergyThreshold;   /**< dynamic upper threshold */
+float f_energyInBucket_main{ 0 }; /**< main energy bucket (over all phases) */
+float f_lowerEnergyThreshold;     /**< dynamic lower threshold */
+float f_upperEnergyThreshold;     /**< dynamic upper threshold */
 
 int32_t l_sumP[NO_OF_PHASES];                /**< cumulative power per phase */
 int32_t l_sampleVminusDC[NO_OF_PHASES];      /**< for the phaseCal algorithm */
@@ -78,16 +78,16 @@ int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]; /**< for the LPF which determines D
 int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];  /**< for summation of 'real power' values during datalog period */
 int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values during datalog period */
 
-uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES];  /**< number of sample sets for each phase during each mains cycle */
-uint16_t n_sampleSetsDuringThisDatalogPeriod;         /**< number of sample sets during each datalogging period */
-uint16_t n_cycleCountForDatalogging{0};               /**< for counting how often datalog is updated */
+uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
+uint16_t n_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
+uint16_t n_cycleCountForDatalogging{ 0 };            /**< for counting how often datalog is updated */
 
 // For a mechanism to check the integrity of this code structure
 uint8_t n_lowestNoOfSampleSetsPerMainsCycle;
 
 // for interaction between the main processor and the ISR
-volatile bool b_datalogEventPending{false}; /**< async trigger to signal datalog is available */
-volatile bool b_newMainsCycle{false};       /**< async trigger to signal start of new main cycle based on first phase */
+volatile bool b_datalogEventPending{ false }; /**< async trigger to signal datalog is available */
+volatile bool b_newMainsCycle{ false };       /**< async trigger to signal start of new main cycle based on first phase */
 
 // Since there's no real locking feature for shared variables, a couple of data
 // generated from inside the ISR are copied from time to time to be passed to the
@@ -99,7 +99,7 @@ volatile uint8_t copyOf_lowestNoOfSampleSetsPerMainsCycle;  /**<  */
 volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
 
 // For an enhanced polarity detection mechanism, which includes a persistence check
-constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{2};    /**< allows polarity changes to be confirmed */
+constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{ 2 };  /**< allows polarity changes to be confirmed */
 Polarities polarityOfMostRecentVsample[NO_OF_PHASES];    /**< for zero-crossing detection */
 Polarities polarityConfirmed[NO_OF_PHASES];              /**< for zero-crossing detection */
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing detection */
@@ -120,7 +120,7 @@ Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing 
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-constexpr float f_powerCal[NO_OF_PHASES]{0.05000F, 0.05000F, 0.05000F};
+constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
 
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the
 // current waveform. The algorithm interpolates between the most recent pair
@@ -133,15 +133,15 @@ constexpr float f_powerCal[NO_OF_PHASES]{0.05000F, 0.05000F, 0.05000F};
 // NB. Any tool which determines the optimal value of f_phaseCal must have a similar
 // scheme for taking sample values as does this sketch.
 //
-constexpr float f_phaseCal{1.0F}; /**< Nominal values only */
+constexpr float f_phaseCal{ 1.0F }; /**< Nominal values only */
 // When using integer maths, calibration values that have been supplied in
 // floating point form need to be rescaled.
-constexpr int16_t i_phaseCal{256}; /**< to avoid the need for floating-point maths (f_phaseCal * 256) */
+constexpr int16_t i_phaseCal{ 256 }; /**< to avoid the need for floating-point maths (f_phaseCal * 256) */
 
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-constexpr float f_voltageCal[NO_OF_PHASES]{0.803F, 0.803F, 0.803F}; /**< compared with Fluke 77 meter */
+constexpr float f_voltageCal[NO_OF_PHASES]{ 0.803F, 0.803F, 0.803F }; /**< compared with Fluke 77 meter */
 
 /**
    @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
@@ -173,57 +173,57 @@ constexpr float f_voltageCal[NO_OF_PHASES]{0.803F, 0.803F, 0.803F}; /**< compare
 */
 ISR(ADC_vect)
 {
-  static uint8_t sample_index{0};
+  static uint8_t sample_index{ 0 };
   uint16_t rawSample;
 
   switch (sample_index)
   {
-  case 0:
-    rawSample = ADC;                 // store the ADC value (this one is for Voltage L1)
-    ADMUX = bit(REFS0) + sensorV[1]; // the conversion for I1 is already under way
-    ++sample_index;                  // increment the control flag
-    //
-    processVoltageRawSample(0, rawSample);
-    break;
-  case 1:
-    rawSample = ADC;                 // store the ADC value (this one is for Current L1)
-    ADMUX = bit(REFS0) + sensorI[1]; // the conversion for V2 is already under way
-    ++sample_index;                  // increment the control flag
-    //
-    processCurrentRawSample(0, rawSample);
-    break;
-  case 2:
-    rawSample = ADC;                 // store the ADC value (this one is for Voltage L2)
-    ADMUX = bit(REFS0) + sensorV[2]; // the conversion for I2 is already under way
-    ++sample_index;                  // increment the control flag
-    //
-    processVoltageRawSample(1, rawSample);
-    break;
-  case 3:
-    rawSample = ADC;                 // store the ADC value (this one is for Current L2)
-    ADMUX = bit(REFS0) + sensorI[2]; // the conversion for V3 is already under way
-    ++sample_index;                  // increment the control flag
-    //
-    processCurrentRawSample(1, rawSample);
-    break;
-  case 4:
-    rawSample = ADC;                 // store the ADC value (this one is for Voltage L3)
-    ADMUX = bit(REFS0) + sensorV[0]; // the conversion for I3 is already under way
-    ++sample_index;                  // increment the control flag
-    //
-    processVoltageRawSample(2, rawSample);
-    break;
-  case 5:
-    rawSample = ADC;                 // store the ADC value (this one is for Current L3)
-    ADMUX = bit(REFS0) + sensorI[0]; // the conversion for V1 is already under way
-    sample_index = 0;                // reset the control flag
-    //
-    processCurrentRawSample(2, rawSample);
-    break;
-  default:
-    sample_index = 0; // to prevent lockup (should never get here)
+    case 0:
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L1)
+      ADMUX = bit(REFS0) + sensorV[1];  // the conversion for I1 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processVoltageRawSample(0, rawSample);
+      break;
+    case 1:
+      rawSample = ADC;                  // store the ADC value (this one is for Current L1)
+      ADMUX = bit(REFS0) + sensorI[1];  // the conversion for V2 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processCurrentRawSample(0, rawSample);
+      break;
+    case 2:
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L2)
+      ADMUX = bit(REFS0) + sensorV[2];  // the conversion for I2 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processVoltageRawSample(1, rawSample);
+      break;
+    case 3:
+      rawSample = ADC;                  // store the ADC value (this one is for Current L2)
+      ADMUX = bit(REFS0) + sensorI[2];  // the conversion for V3 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processCurrentRawSample(1, rawSample);
+      break;
+    case 4:
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L3)
+      ADMUX = bit(REFS0) + sensorV[0];  // the conversion for I3 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processVoltageRawSample(2, rawSample);
+      break;
+    case 5:
+      rawSample = ADC;                  // store the ADC value (this one is for Current L3)
+      ADMUX = bit(REFS0) + sensorI[0];  // the conversion for V1 is already under way
+      sample_index = 0;                 // reset the control flag
+      //
+      processCurrentRawSample(2, rawSample);
+      break;
+    default:
+      sample_index = 0;  // to prevent lockup (should never get here)
   }
-} // end of ISR
+}  // end of ISR
 
 /* -----------------------------------------------------------
    Start of various helper functions which are used by the ISR
@@ -251,13 +251,13 @@ void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
   const int32_t phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) * i_phaseCal) >> 8);
   //
   // calculate the "real power" in this sample pair and add to the accumulated sum
-  const int32_t filtV_div4 = phaseShiftedSampleVminusDC >> 2; // reduce to 16-bits (now x64, or 2^6)
-  const int32_t filtI_div4 = sampleIminusDC >> 2;             // reduce to 16-bits (now x64, or 2^6)
-  int32_t instP = filtV_div4 * filtI_div4;              // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                                         // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+  const int32_t filtV_div4 = phaseShiftedSampleVminusDC >> 2;  // reduce to 16-bits (now x64, or 2^6)
+  const int32_t filtI_div4 = sampleIminusDC >> 2;              // reduce to 16-bits (now x64, or 2^6)
+  int32_t instP = filtV_div4 * filtI_div4;                     // 32-bits (now x4096, or 2^12)
+  instP >>= 12;                                                // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
-  l_sumP[phase] += instP;               // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
-  l_sumP_atSupplyPoint[phase] += instP; // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
 }
 
 /**
@@ -273,7 +273,7 @@ void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample)
   processPolarity(phase, rawSample);
   confirmPolarity(phase);
   //
-  processRawSamples(phase); // deals with aspects that only occur at particular stages of each mains cycle
+  processRawSamples(phase);  // deals with aspects that only occur at particular stages of each mains cycle
   //
   processVoltage(phase);
 
@@ -291,7 +291,7 @@ void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample)
 */
 void processPolarity(const uint8_t phase, const uint16_t rawSample)
 {
-  l_lastSampleVminusDC[phase] = l_sampleVminusDC[phase]; // required for phaseCal algorithm
+  l_lastSampleVminusDC[phase] = l_sampleVminusDC[phase];  // required for phaseCal algorithm
   // remove DC offset from each raw voltage sample by subtracting the accurate value
   // as determined by its associated LP filter.
   l_sampleVminusDC[phase] = (((int32_t)rawSample) << 8) - l_DCoffset_V[phase];
@@ -332,15 +332,15 @@ void confirmPolarity(const uint8_t phase)
 void processVoltage(const uint8_t phase)
 {
   // for the Vrms calculation (for datalogging only)
-  int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2; // reduce to 16-bits (now x64, or 2^6)
-  int32_t inst_Vsquared = filtV_div4 * filtV_div4;   // 32-bits (now x4096, or 2^12)
-  inst_Vsquared >>= 12;                              // scaling is now x1 (V_ADC x I_ADC)
-  l_sum_Vsquared[phase] += inst_Vsquared;            // cumulative V^2 (V_ADC x I_ADC)
+  int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
+  int32_t inst_Vsquared = filtV_div4 * filtV_div4;    // 32-bits (now x4096, or 2^12)
+  inst_Vsquared >>= 12;                               // scaling is now x1 (V_ADC x I_ADC)
+  l_sum_Vsquared[phase] += inst_Vsquared;             // cumulative V^2 (V_ADC x I_ADC)
   //
   // store items for use during next loop
-  l_cumVdeltasThisCycle[phase] += l_sampleVminusDC[phase];          // for use with LP filter
-  polarityConfirmedOfLastSampleV[phase] = polarityConfirmed[phase]; // for identification of half cycle boundaries
-  ++n_samplesDuringThisMainsCycle[phase];                           // for real power calculations
+  l_cumVdeltasThisCycle[phase] += l_sampleVminusDC[phase];           // for use with LP filter
+  polarityConfirmedOfLastSampleV[phase] = polarityConfirmed[phase];  // for identification of half cycle boundaries
+  ++n_samplesDuringThisMainsCycle[phase];                            // for real power calculations
 }
 
 /**
@@ -369,7 +369,7 @@ void processRawSamples(const uint8_t phase)
 
     // still processing samples where the voltage is POSITIVE ...
     // check to see whether the trigger device can now be reliably armed
-    if (beyondStartUpPeriod && (phase == 0) && (2 == n_samplesDuringThisMainsCycle[0])) // lower value for larger sample set
+    if (beyondStartUpPeriod && (phase == 0) && (2 == n_samplesDuringThisMainsCycle[0]))  // lower value for larger sample set
     {
       // This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0.
       processStartNewCycle();
@@ -398,7 +398,7 @@ void processStartUp(const uint8_t phase)
 {
   // wait until the DC-blocking filters have had time to settle
   if (millis() <= (initialDelay + startUpPeriod))
-    return; // still settling, do nothing
+    return;  // still settling, do nothing
 
   // the DC-blocking filters have had time to settle
   beyondStartUpPeriod = true;
@@ -485,14 +485,14 @@ void processLatestContribution(const uint8_t phase)
 */
 void processPlusHalfCycle(const uint8_t phase)
 {
-  processLatestContribution(phase); // runs at 6.6 ms intervals
+  processLatestContribution(phase);  // runs at 6.6 ms intervals
 
   // A performance check to monitor and display the minimum number of sets of
   // ADC samples per mains cycle, the expected number being 20ms / (104us * 6) = 32.05
   //
   if (0 == phase)
   {
-    b_newMainsCycle = true; //  a 50 Hz 'tick' for use by the main code
+    b_newMainsCycle = true;  //  a 50 Hz 'tick' for use by the main code
 
     if (n_samplesDuringThisMainsCycle[phase] < n_lowestNoOfSampleSetsPerMainsCycle)
       n_lowestNoOfSampleSetsPerMainsCycle = n_samplesDuringThisMainsCycle[phase];
@@ -515,7 +515,7 @@ void processPlusHalfCycle(const uint8_t phase)
 void processDataLogging()
 {
   if (++n_cycleCountForDatalogging < DATALOG_PERIOD_IN_MAINS_CYCLES)
-    return; // data logging period not yet reached
+    return;  // data logging period not yet reached
 
   n_cycleCountForDatalogging = 0;
 
@@ -528,9 +528,9 @@ void processDataLogging()
     l_sum_Vsquared[phase] = 0;
   }
 
-  copyOf_sampleSetsDuringThisDatalogPeriod = n_sampleSetsDuringThisDatalogPeriod; // (for diags only)
-  copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
-  copyOf_energyInBucket_main = f_energyInBucket_main;                             // (for diags only)
+  copyOf_sampleSetsDuringThisDatalogPeriod = n_sampleSetsDuringThisDatalogPeriod;  // (for diags only)
+  copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle;  // (for diags only)
+  copyOf_energyInBucket_main = f_energyInBucket_main;                              // (for diags only)
 
   n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
   n_sampleSetsDuringThisDatalogPeriod = 0;
@@ -629,33 +629,33 @@ int freeRam()
 */
 void setup()
 {
-  delay(initialDelay); // allows time to open the Serial Monitor
+  delay(initialDelay);  // allows time to open the Serial Monitor
 
-  Serial.begin(9600); // initialize Serial interface
+  Serial.begin(9600);  // initialize Serial interface
 
   // On start, always display config info in the serial monitor
   printConfiguration();
 
   for (auto &DCoffset_V : l_DCoffset_V)
-    DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
+    DCoffset_V = 512L * 256L;  // nominal mid-point value of ADC @ x256 scale
 
   // Set up the ADC to be free-running
-  ADCSRA = bit(ADPS0) + bit(ADPS1) + bit(ADPS2); // Set the ADC's clock to system clock / 128
-  ADCSRA |= bit(ADEN);                           // Enable the ADC
+  ADCSRA = bit(ADPS0) + bit(ADPS1) + bit(ADPS2);  // Set the ADC's clock to system clock / 128
+  ADCSRA |= bit(ADEN);                            // Enable the ADC
 
-  ADCSRA |= bit(ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  ADCSRA |= bit(ADATE);  // set the Auto Trigger Enable bit in the ADCSRA register. Because
   // bits ADTS0-2 have not been set (i.e. they are all zero), the
   // ADC's trigger source is set to "free running mode".
 
-  ADCSRA |= bit(ADIE); // set the ADC interrupt enable bit. When this bit is written
+  ADCSRA |= bit(ADIE);  // set the ADC interrupt enable bit. When this bit is written
   // to one and the I-bit in SREG is set, the
   // ADC Conversion Complete Interrupt is activated.
 
-  ADCSRA |= bit(ADSC); // start ADC manually first time
-  sei();               // Enable Global Interrupts
+  ADCSRA |= bit(ADSC);  // start ADC manually first time
+  sei();                // Enable Global Interrupts
 
   Serial.print(F(">>free RAM = "));
-  Serial.println(freeRam()); // a useful value to keep an eye on
+  Serial.println(freeRam());  // a useful value to keep an eye on
   Serial.println(F("----"));
 }
 
@@ -667,11 +667,11 @@ void setup()
 */
 void loop()
 {
-  static uint8_t perSecondTimer{0};
+  static uint8_t perSecondTimer{ 0 };
 
-  if (b_newMainsCycle) // flag is set after every pair of ADC conversions
+  if (b_newMainsCycle)  // flag is set after every pair of ADC conversions
   {
-    b_newMainsCycle = false; // reset the flag
+    b_newMainsCycle = false;  // reset the flag
     ++perSecondTimer;
 
     if (perSecondTimer >= SUPPLY_FREQUENCY)
@@ -695,4 +695,4 @@ void loop()
 
     printDataLogging();
   }
-} // end of loop()
+}  // end of loop()
