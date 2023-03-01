@@ -19,7 +19,7 @@
 // Output messages
 //#define EMONESP  ///< Uncomment if an ESP WiFi module is used
 
-//#define ENABLE_DEBUG  ///< enable this line to include debugging print statements
+#define ENABLE_DEBUG  ///< enable this line to include debugging print statements
 #define SERIALPRINT  ///< include 'human-friendly' print statement for commissioning - comment this line to exclude.
 //#define SERIALOUT ///< Uncomment if a wired serial connection is used
 //--------------------------------------------------------------------------------------------------
