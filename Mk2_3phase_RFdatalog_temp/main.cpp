@@ -229,7 +229,7 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperatu
   }
   else
   {
-    const auto ulElapsedTime{ static_cast<uint32_t>(millis() - ul_TimeOffPeak) };
+    const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
     const auto pinState{ getPinState(forcePin) };
 
     for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
@@ -390,11 +390,11 @@ void loop()
 
       if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
       {
-        tx_data.Vrms_L_x100[phase] = static_cast<int32_t>((100 << 2) * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+        tx_data.Vrms_L_x100[phase] = static_cast< int32_t >((100 << 2) * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
       }
       else
       {
-        tx_data.Vrms_L_x100[phase] = static_cast<int32_t>(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+        tx_data.Vrms_L_x100[phase] = static_cast< int32_t >(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
       }
     }
 
