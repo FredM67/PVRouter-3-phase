@@ -186,7 +186,7 @@ constexpr int16_t i_phaseCal{256}; /**< to avoid the need for floating-point mat
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-constexpr float f_voltageCal[NO_OF_PHASES]{0.803f, 0.803f, 0.803f}; /**< compared with Fluke 77 meter */
+constexpr float f_voltageCal[NO_OF_PHASES]{0.8151F, 0.8184F, 0.8195F}; /**< compared with Fluke 77 meter */
 
 /**
    @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
