@@ -57,7 +57,7 @@ void updatePhysicalLoadStates();
 void updatePortsStates();
 void printParamsForSelectedOutputMode();
 
-void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample);
-void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample);
+void processCurrentRawSample(uint8_t phase, int16_t rawSample);
+void processVoltageRawSample(uint8_t phase, int16_t rawSample);
 
 #endif  // _PROCESSING_H

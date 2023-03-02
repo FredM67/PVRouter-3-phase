@@ -32,13 +32,13 @@ void send_rf_data();
 
 inline void setPinState(uint8_t pin, bool bState);
 
-void processCurrentRawSample(uint8_t phase, uint16_t rawSample);
-void processVoltageRawSample(uint8_t phase, uint16_t rawSample);
+void processCurrentRawSample(uint8_t phase, int16_t rawSample);
+void processVoltageRawSample(uint8_t phase, int16_t rawSample);
 void processRawSamples(uint8_t phase);
 
 void processVoltage(uint8_t phase);
 
-void processPolarity(uint8_t phase, uint16_t rawSample);
+void processPolarity(uint8_t phase, int16_t rawSample);
 void confirmPolarity(uint8_t phase);
 
 void updatePhysicalLoadStates();

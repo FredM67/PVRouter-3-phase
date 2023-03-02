@@ -27,7 +27,7 @@ int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
 // correctly.
 constexpr int32_t l_DCoffset_V_min{ (512L - 100L) * 256L }; /**< mid-point of ADC minus a working margin */
 constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
-constexpr int32_t l_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
+constexpr int16_t i_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
 
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
 constexpr float f_capacityOfEnergyBucket_main{ static_cast< float >(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
@@ -267,7 +267,7 @@ inline void processStartNewCycle() __attribute__((always_inline));
 inline void processPlusHalfCycle(uint8_t phase) __attribute__((always_inline));
 inline void processMinusHalfCycle(uint8_t phase) __attribute__((always_inline));
 inline void processVoltage(uint8_t phase) __attribute__((always_inline));
-inline void processPolarity(uint8_t phase, uint16_t rawSample) __attribute__((always_inline));
+inline void processPolarity(uint8_t phase, int16_t rawSample) __attribute__((always_inline));
 inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
 inline void proceedLowEnergyLevel() __attribute__((always_inline));
 inline void proceedHighEnergyLevel() __attribute__((always_inline));
@@ -283,7 +283,7 @@ inline void processLatestContribution(uint8_t phase) __attribute__((always_inlin
  *
  * @ingroup TimeCritical
  */
-void processPolarity(const uint8_t phase, const uint16_t rawSample)
+void processPolarity(const uint8_t phase, const int16_t rawSample)
 {
   // remove DC offset from each raw voltage sample by subtracting the accurate value
   // as determined by its associated LP filter.
@@ -299,13 +299,13 @@ void processPolarity(const uint8_t phase, const uint16_t rawSample)
  *
  * @ingroup TimeCritical
  */
-void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
+void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 {
   // extra items for an LPF to improve the processing of data samples from CT1
   static int32_t lpf_long[NO_OF_PHASES]{};  // new LPF, for offsetting the behaviour of CTx as a HPF
 
   // remove most of the DC offset from the current sample (the precise value does not matter)
-  int32_t sampleIminusDC = (static_cast< int32_t >(rawSample - l_DCoffset_I_nom)) << 8;
+  int32_t sampleIminusDC = (static_cast< int32_t >(rawSample - i_DCoffset_I_nom)) << 8;
 
   // extra filtering to offset the HPF effect of CTx
   const int32_t last_lpf_long{ lpf_long[phase] };
@@ -771,7 +771,7 @@ void processRawSamples(const uint8_t phase)
  *
  * @ingroup TimeCritical
  */
-void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample)
+void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
 {
   processPolarity(phase, rawSample);
   confirmPolarity(phase);
