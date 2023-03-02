@@ -44,5 +44,5 @@
    @copyright Copyright (c) 2020
 
 */
-
-// The active code can be found in the other cpp/h files
+static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
+static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/Laclare/Mk2_3phase_RFdatalog_temp/Readme.md");
