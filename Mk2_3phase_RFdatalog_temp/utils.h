@@ -163,28 +163,27 @@ inline bool getPinState(const uint8_t pin)
  */
 inline void printConfiguration()
 {
+#ifndef PROJECT_PATH
+#define PROJECT_PATH(__FILE__)
+#endif
+
+#ifndef BRANCH_NAME
+#define BRANCH_NAME ("N/A")
+#endif
+#ifndef COMMIT_HASH
+#define COMMIT_HASH ("N/A")
+#endif
+
   DBUGLN();
   DBUGLN();
   DBUGLN(F("----------------------------------"));
   DBUG(F("Sketch ID: "));
-#ifdef PROJECT_PATH
   DBUGLN(F(PROJECT_PATH));
-#else
-  DBUGLN(F(__FILE__));
-#endif
 
   DBUG(F("From branch '"));
-#ifdef BRANCH_NAME
   DBUG(F(BRANCH_NAME));
-#else
-  DBUG(F("N/A"));
-#endif
   DBUG(F("', commit "));
-#ifdef COMMIT_HASH
   DBUGLN(F(COMMIT_HASH));
-#else
-  DBUGLN(F("N/A"));
-#endif
 
   DBUG(F("Build on "));
 #ifdef CURRENT_TIME
