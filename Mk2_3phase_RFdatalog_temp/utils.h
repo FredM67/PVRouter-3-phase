@@ -174,9 +174,17 @@ inline void printConfiguration()
 #endif
 
   DBUG(F("From branch '"));
+#ifdef BRANCH_NAME
   DBUG(F(BRANCH_NAME));
+#else
+  DBUG(F("N/A"));
+#endif
   DBUG(F("', commit "));
+#ifdef COMMIT_HASH
   DBUGLN(F(COMMIT_HASH));
+#else
+  DBUGLN(F("N/A"));
+#endif
 
   DBUG(F("Build on "));
 #ifdef CURRENT_TIME
