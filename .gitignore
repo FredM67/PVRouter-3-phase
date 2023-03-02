@@ -1,3 +1,4 @@
 build
 c_cpp_properties.json
 inols*
+platformio-device-monitor-*.log
