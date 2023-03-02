@@ -13,7 +13,7 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "main" ]
+    # branches: [ "main" ]
     paths:
     - '**.ino'
     - '**.cpp'
@@ -22,7 +22,7 @@ on:
     - '**codeql.yml'
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "main" ]
+    # branches: [ "main" ]
     paths:
     - '**.ino'
     - '**.cpp'
