@@ -164,7 +164,7 @@ inline bool getPinState(const uint8_t pin)
 inline void printConfiguration()
 {
 #ifndef PROJECT_PATH
-#define PROJECT_PATH(__FILE__)
+#define PROJECT_PATH (__FILE__)
 #endif
 
 #ifndef BRANCH_NAME
