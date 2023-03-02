@@ -167,12 +167,25 @@ inline void printConfiguration()
   DBUGLN();
   DBUGLN(F("----------------------------------"));
   DBUG(F("Sketch ID: "));
-  DBUGLN(__FILE__);
-  DBUG(F("Build on "));
-  DBUG(__DATE__);
-  DBUG(F(" "));
-  DBUGLN(__TIME__);
+#ifdef PROJECT_PATH
+  DBUGLN(F(PROJECT_PATH));
+#else
+  DBUGLN(F(__FILE__));
+#endif
 
+  DBUG(F("From branch '"));
+  DBUG(F(BRANCH_NAME));
+  DBUG(F("', commit "));
+  DBUGLN(F(COMMIT_HASH));
+
+  DBUG(F("Build on "));
+#ifdef CURRENT_TIME
+  DBUGLN(F(CURRENT_TIME));
+#else
+  DBUG(F(__DATE__));
+  DBUG(F(" "));
+  DBUGLN(F(__TIME__));
+#endif
   DBUGLN(F("ADC mode:       free-running"));
 
   DBUGLN(F("Electrical settings"));
@@ -200,7 +213,7 @@ inline void printConfiguration()
 
   printParamsForSelectedOutputMode();
 
-  DBUG("Temperature capability ");
+  DBUG(F("Temperature capability "));
   if constexpr (TEMP_SENSOR_PRESENT)
   {
     DBUGLN(F("is present"));
@@ -209,7 +222,7 @@ inline void printConfiguration()
   {
     DBUGLN(F("is NOT present"));
   }
-  DBUG("Dual-tariff capability ");
+  DBUG(F("Dual-tariff capability "));
   if constexpr (DUAL_TARIFF)
   {
     DBUGLN(F("is present"));
@@ -219,7 +232,7 @@ inline void printConfiguration()
   {
     DBUGLN(F("is NOT present"));
   }
-  DBUG("Load rotation feature ");
+  DBUG(F("Load rotation feature "));
   if constexpr (PRIORITY_ROTATION)
   {
     DBUGLN(F("is present"));
@@ -229,19 +242,19 @@ inline void printConfiguration()
     DBUGLN(F("is NOT present"));
   }
 
-  DBUG("RF capability ");
+  DBUG(F("RF capability "));
 #ifdef RF_PRESENT
   DBUG(F("IS present, Freq = "));
   if (FREQ == RF12_433MHZ)
     DBUGLN(F("433 MHz"));
   else if (FREQ == RF12_868MHZ)
     DBUGLN(F("868 MHz"));
-  rf12_initialize(nodeID, FREQ, networkGroup);  // initialize RF
+  rf12_initialize(nodeID, FREQ, networkGroup); // initialize RF
 #else
   DBUGLN(F("is NOT present"));
 #endif
 
-  DBUG("Datalogging capability ");
+  DBUG(F("Datalogging capability "));
 #ifdef SERIALPRINT
   DBUGLN(F("is present"));
 #else
@@ -280,7 +293,7 @@ inline void printForEmonESP(const bool bOffPeak)
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
-  {  // Current temperature
+  { // Current temperature
     for (idx = 0; idx < size(tx_data.temperature_x100); ++idx)
     {
       if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
@@ -392,8 +405,8 @@ inline void printForSerialText()
 #ifdef PRIORITY_ROTATION
   Serial.print(F(", NoED "));
   Serial.print(absenceOfDivertedEnergyCount);
-#endif  // PRIORITY_ROTATION
-#endif  // DUAL_TARIFF
+#endif // PRIORITY_ROTATION
+#endif // DUAL_TARIFF
   Serial.println(F(")"));
 }
 
@@ -409,23 +422,23 @@ inline void sendResults(bool bOffPeak)
   if (startup)
   {
     startup = false;
-    return;  // reject the first datalogging which is incomplete !
+    return; // reject the first datalogging which is incomplete !
   }
 
 #ifdef RF_PRESENT
-  send_rf_data();  // *SEND RF DATA*
+  send_rf_data(); // *SEND RF DATA*
 #endif
 
 #if defined SERIALOUT
   printForSerialJson();
-#endif  // if defined SERIALOUT
+#endif // if defined SERIALOUT
 
   if constexpr (EMONESP_CONTROL)
     printForEmonESP(bOffPeak);
 
 #if defined SERIALPRINT && !defined EMONESP
   printForSerialText();
-#endif  // if defined SERIALPRINT && !defined EMONESP
+#endif // if defined SERIALPRINT && !defined EMONESP
 }
 
 /**
@@ -458,4 +471,4 @@ inline int freeRam()
   return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
 }
 
-#endif  // _UTILS_H
+#endif // _UTILS_H

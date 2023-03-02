@@ -793,15 +793,15 @@ void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
 void printParamsForSelectedOutputMode()
 {
   // display relevant settings for selected output mode
-  DBUG("Output mode:    ");
+  DBUG(F("Output mode:    "));
   if (OutputModes::NORMAL == outputMode)
   {
-    DBUGLN("normal");
+    DBUGLN(F("normal"));
   }
   else
   {
-    DBUGLN("anti-flicker");
-    DBUG("\toffsetOfEnergyThresholds  = ");
+    DBUGLN(F("anti-flicker"));
+    DBUG(F("\toffsetOfEnergyThresholds  = "));
     DBUGLN(f_offsetOfEnergyThresholdsInAFmode);
   }
   DBUG(F("\tf_capacityOfEnergyBucket_main = "));
