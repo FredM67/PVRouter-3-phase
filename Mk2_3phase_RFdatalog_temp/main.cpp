@@ -12,7 +12,7 @@
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
 static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/Laclare/Mk2_3phase_RFdatalog_temp/Readme.md");
 
-#include <Arduino.h> // may not be needed, but it's probably a good idea to include this
+#include <Arduino.h>  // may not be needed, but it's probably a good idea to include this
 
 #include "config.h"
 
@@ -20,13 +20,13 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 
 //--------------------------------------------------------------------------------------------------
 #ifdef EMONESP
-#undef SERIALPRINT // Must not corrupt serial output to emonHub with 'human-friendly' printout
+#undef SERIALPRINT  // Must not corrupt serial output to emonHub with 'human-friendly' printout
 #undef SERIALOUT
 #endif
 
 #ifdef SERIALOUT
 #undef EMONESP
-#undef SERIALPRINT // Must not corrupt serial output to emonHub with 'human-friendly' printout
+#undef SERIALPRINT  // Must not corrupt serial output to emonHub with 'human-friendly' printout
 #undef ENABLE_DEBUG
 #endif
 //--------------------------------------------------------------------------------------------------
@@ -79,51 +79,51 @@ ISR(ADC_vect)
   switch (sample_index)
   {
     case 0:
-      rawSample = ADC;                 // store the ADC value (this one is for Voltage L1)
-      ADMUX = bit(REFS0) + sensorV[1]; // the conversion for I1 is already under way
-      ++sample_index;                  // increment the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L1)
+      ADMUX = bit(REFS0) + sensorV[1];  // the conversion for I1 is already under way
+      ++sample_index;                   // increment the control flag
       //
       processVoltageRawSample(0, rawSample);
       break;
     case 1:
-      rawSample = ADC;                 // store the ADC value (this one is for Current L1)
-      ADMUX = bit(REFS0) + sensorI[1]; // the conversion for V2 is already under way
-      ++sample_index;                  // increment the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Current L1)
+      ADMUX = bit(REFS0) + sensorI[1];  // the conversion for V2 is already under way
+      ++sample_index;                   // increment the control flag
       //
       processCurrentRawSample(0, rawSample);
       break;
     case 2:
-      rawSample = ADC;                 // store the ADC value (this one is for Voltage L2)
-      ADMUX = bit(REFS0) + sensorV[2]; // the conversion for I2 is already under way
-      ++sample_index;                  // increment the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L2)
+      ADMUX = bit(REFS0) + sensorV[2];  // the conversion for I2 is already under way
+      ++sample_index;                   // increment the control flag
       //
       processVoltageRawSample(1, rawSample);
       break;
     case 3:
-      rawSample = ADC;                 // store the ADC value (this one is for Current L2)
-      ADMUX = bit(REFS0) + sensorI[2]; // the conversion for V3 is already under way
-      ++sample_index;                  // increment the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Current L2)
+      ADMUX = bit(REFS0) + sensorI[2];  // the conversion for V3 is already under way
+      ++sample_index;                   // increment the control flag
       //
       processCurrentRawSample(1, rawSample);
       break;
     case 4:
-      rawSample = ADC;                 // store the ADC value (this one is for Voltage L3)
-      ADMUX = bit(REFS0) + sensorV[0]; // the conversion for I3 is already under way
-      ++sample_index;                  // increment the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L3)
+      ADMUX = bit(REFS0) + sensorV[0];  // the conversion for I3 is already under way
+      ++sample_index;                   // increment the control flag
       //
       processVoltageRawSample(2, rawSample);
       break;
     case 5:
-      rawSample = ADC;                 // store the ADC value (this one is for Current L3)
-      ADMUX = bit(REFS0) + sensorI[0]; // the conversion for V1 is already under way
-      sample_index = 0;                // reset the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Current L3)
+      ADMUX = bit(REFS0) + sensorI[0];  // the conversion for V1 is already under way
+      sample_index = 0;                 // reset the control flag
       //
       processCurrentRawSample(2, rawSample);
       break;
     default:
-      sample_index = 0; // to prevent lockup (should never get here)
+      sample_index = 0;  // to prevent lockup (should never get here)
   }
-} // end of ISR
+}  // end of ISR
 
 /**
  * @brief This function set all 3 loads to full power.
@@ -316,10 +316,10 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
  */
 void setup()
 {
-  delay(initialDelay); // allows time to open the Serial Monitor
+  delay(initialDelay);  // allows time to open the Serial Monitor
 
   DEBUG_PORT.begin(9600);
-  Serial.begin(9600); // initialize Serial interface, Do NOT set greater than 9600
+  Serial.begin(9600);  // initialize Serial interface, Do NOT set greater than 9600
 
   // On start, always display config info in the serial monitor
   printConfiguration();
@@ -337,7 +337,7 @@ void setup()
   }
 
   DBUG(F(">>free RAM = "));
-  DBUGLN(freeRam()); // a useful value to keep an eye on
+  DBUGLN(freeRam());  // a useful value to keep an eye on
   DBUGLN(F("----"));
 }
 
@@ -353,9 +353,9 @@ void loop()
   static bool bOffPeak{ false };
   static int16_t iTemperature_x100{ 0 };
 
-  if (b_newMainsCycle) // flag is set after every pair of ADC conversions
+  if (b_newMainsCycle)  // flag is set after every pair of ADC conversions
   {
-    b_newMainsCycle = false; // reset the flag
+    b_newMainsCycle = false;  // reset the flag
     ++perSecondTimer;
 
     if (perSecondTimer >= SUPPLY_FREQUENCY)
@@ -371,7 +371,7 @@ void loop()
 
       if (!forceFullPower())
       {
-        bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100); // called every second
+        bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100);  // called every second
       }
     }
   }
@@ -413,9 +413,9 @@ void loop()
 
         tx_data.temperature_x100[idx] = tmp;
       }
-      requestTemperatures(); // for use next time around
+      requestTemperatures();  // for use next time around
     }
 
     sendResults(bOffPeak);
   }
-} // end of loop()
+}  // end of loop()

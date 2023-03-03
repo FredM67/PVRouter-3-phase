@@ -2,7 +2,7 @@
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
 static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/Laclare/Mk2_3phase_RFdatalog_temp/Readme.md");
 
-#include <Arduino.h> // may not be needed, but it's probably a good idea to include this
+#include <Arduino.h>  // may not be needed, but it's probably a good idea to include this
 
 #include "main.h"
 
@@ -181,51 +181,51 @@ ISR(ADC_vect)
   switch (sample_index)
   {
     case 0:
-      rawSample = ADC;                 // store the ADC value (this one is for Voltage L1)
-      ADMUX = bit(REFS0) + sensorV[1]; // the conversion for I1 is already under way
-      ++sample_index;                  // increment the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L1)
+      ADMUX = bit(REFS0) + sensorV[1];  // the conversion for I1 is already under way
+      ++sample_index;                   // increment the control flag
       //
       processVoltageRawSample(0, rawSample);
       break;
     case 1:
-      rawSample = ADC;                 // store the ADC value (this one is for Current L1)
-      ADMUX = bit(REFS0) + sensorI[1]; // the conversion for V2 is already under way
-      ++sample_index;                  // increment the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Current L1)
+      ADMUX = bit(REFS0) + sensorI[1];  // the conversion for V2 is already under way
+      ++sample_index;                   // increment the control flag
       //
       processCurrentRawSample(0, rawSample);
       break;
     case 2:
-      rawSample = ADC;                 // store the ADC value (this one is for Voltage L2)
-      ADMUX = bit(REFS0) + sensorV[2]; // the conversion for I2 is already under way
-      ++sample_index;                  // increment the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L2)
+      ADMUX = bit(REFS0) + sensorV[2];  // the conversion for I2 is already under way
+      ++sample_index;                   // increment the control flag
       //
       processVoltageRawSample(1, rawSample);
       break;
     case 3:
-      rawSample = ADC;                 // store the ADC value (this one is for Current L2)
-      ADMUX = bit(REFS0) + sensorI[2]; // the conversion for V3 is already under way
-      ++sample_index;                  // increment the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Current L2)
+      ADMUX = bit(REFS0) + sensorI[2];  // the conversion for V3 is already under way
+      ++sample_index;                   // increment the control flag
       //
       processCurrentRawSample(1, rawSample);
       break;
     case 4:
-      rawSample = ADC;                 // store the ADC value (this one is for Voltage L3)
-      ADMUX = bit(REFS0) + sensorV[0]; // the conversion for I3 is already under way
-      ++sample_index;                  // increment the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L3)
+      ADMUX = bit(REFS0) + sensorV[0];  // the conversion for I3 is already under way
+      ++sample_index;                   // increment the control flag
       //
       processVoltageRawSample(2, rawSample);
       break;
     case 5:
-      rawSample = ADC;                 // store the ADC value (this one is for Current L3)
-      ADMUX = bit(REFS0) + sensorI[0]; // the conversion for V1 is already under way
-      sample_index = 0;                // reset the control flag
+      rawSample = ADC;                  // store the ADC value (this one is for Current L3)
+      ADMUX = bit(REFS0) + sensorI[0];  // the conversion for V1 is already under way
+      sample_index = 0;                 // reset the control flag
       //
       processCurrentRawSample(2, rawSample);
       break;
     default:
-      sample_index = 0; // to prevent lockup (should never get here)
+      sample_index = 0;  // to prevent lockup (should never get here)
   }
-} // end of ISR
+}  // end of ISR
 
 /* -----------------------------------------------------------
    Start of various helper functions which are used by the ISR
@@ -253,13 +253,13 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   const int32_t phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) * i_phaseCal) >> 8);
   //
   // calculate the "real power" in this sample pair and add to the accumulated sum
-  const int32_t filtV_div4 = phaseShiftedSampleVminusDC >> 2; // reduce to 16-bits (now x64, or 2^6)
-  const int32_t filtI_div4 = sampleIminusDC >> 2;             // reduce to 16-bits (now x64, or 2^6)
-  int32_t instP = filtV_div4 * filtI_div4;                    // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                                               // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+  const int32_t filtV_div4 = phaseShiftedSampleVminusDC >> 2;  // reduce to 16-bits (now x64, or 2^6)
+  const int32_t filtI_div4 = sampleIminusDC >> 2;              // reduce to 16-bits (now x64, or 2^6)
+  int32_t instP = filtV_div4 * filtI_div4;                     // 32-bits (now x4096, or 2^12)
+  instP >>= 12;                                                // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
-  l_sumP[phase] += instP;               // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
-  l_sumP_atSupplyPoint[phase] += instP; // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
 }
 
 /**
@@ -275,7 +275,7 @@ void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
   processPolarity(phase, rawSample);
   confirmPolarity(phase);
   //
-  processRawSamples(phase); // deals with aspects that only occur at particular stages of each mains cycle
+  processRawSamples(phase);  // deals with aspects that only occur at particular stages of each mains cycle
   //
   processVoltage(phase);
 
@@ -293,7 +293,7 @@ void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
 */
 void processPolarity(const uint8_t phase, const int16_t rawSample)
 {
-  l_lastSampleVminusDC[phase] = l_sampleVminusDC[phase]; // required for phaseCal algorithm
+  l_lastSampleVminusDC[phase] = l_sampleVminusDC[phase];  // required for phaseCal algorithm
   // remove DC offset from each raw voltage sample by subtracting the accurate value
   // as determined by its associated LP filter.
   l_sampleVminusDC[phase] = (static_cast< int32_t >(rawSample) << 8) - l_DCoffset_V[phase];
@@ -334,15 +334,15 @@ void confirmPolarity(const uint8_t phase)
 void processVoltage(const uint8_t phase)
 {
   // for the Vrms calculation (for datalogging only)
-  int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2; // reduce to 16-bits (now x64, or 2^6)
-  int32_t inst_Vsquared = filtV_div4 * filtV_div4;   // 32-bits (now x4096, or 2^12)
-  inst_Vsquared >>= 12;                              // scaling is now x1 (V_ADC x I_ADC)
-  l_sum_Vsquared[phase] += inst_Vsquared;            // cumulative V^2 (V_ADC x I_ADC)
+  int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
+  int32_t inst_Vsquared = filtV_div4 * filtV_div4;    // 32-bits (now x4096, or 2^12)
+  inst_Vsquared >>= 12;                               // scaling is now x1 (V_ADC x I_ADC)
+  l_sum_Vsquared[phase] += inst_Vsquared;             // cumulative V^2 (V_ADC x I_ADC)
   //
   // store items for use during next loop
-  l_cumVdeltasThisCycle[phase] += l_sampleVminusDC[phase];          // for use with LP filter
-  polarityConfirmedOfLastSampleV[phase] = polarityConfirmed[phase]; // for identification of half cycle boundaries
-  ++n_samplesDuringThisMainsCycle[phase];                           // for real power calculations
+  l_cumVdeltasThisCycle[phase] += l_sampleVminusDC[phase];           // for use with LP filter
+  polarityConfirmedOfLastSampleV[phase] = polarityConfirmed[phase];  // for identification of half cycle boundaries
+  ++n_samplesDuringThisMainsCycle[phase];                            // for real power calculations
 }
 
 /**
@@ -371,7 +371,7 @@ void processRawSamples(const uint8_t phase)
 
     // still processing samples where the voltage is POSITIVE ...
     // check to see whether the trigger device can now be reliably armed
-    if (beyondStartUpPeriod && (phase == 0) && (2 == n_samplesDuringThisMainsCycle[0])) // lower value for larger sample set
+    if (beyondStartUpPeriod && (phase == 0) && (2 == n_samplesDuringThisMainsCycle[0]))  // lower value for larger sample set
     {
       // This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0.
       processStartNewCycle();
@@ -400,7 +400,7 @@ void processStartUp(const uint8_t phase)
 {
   // wait until the DC-blocking filters have had time to settle
   if (millis() <= (initialDelay + startUpPeriod))
-    return; // still settling, do nothing
+    return;  // still settling, do nothing
 
   // the DC-blocking filters have had time to settle
   beyondStartUpPeriod = true;
@@ -487,14 +487,14 @@ void processLatestContribution(const uint8_t phase)
 */
 void processPlusHalfCycle(const uint8_t phase)
 {
-  processLatestContribution(phase); // runs at 6.6 ms intervals
+  processLatestContribution(phase);  // runs at 6.6 ms intervals
 
   // A performance check to monitor and display the minimum number of sets of
   // ADC samples per mains cycle, the expected number being 20ms / (104us * 6) = 32.05
   //
   if (0 == phase)
   {
-    b_newMainsCycle = true; //  a 50 Hz 'tick' for use by the main code
+    b_newMainsCycle = true;  //  a 50 Hz 'tick' for use by the main code
 
     if (n_samplesDuringThisMainsCycle[phase] < n_lowestNoOfSampleSetsPerMainsCycle)
       n_lowestNoOfSampleSetsPerMainsCycle = n_samplesDuringThisMainsCycle[phase];
@@ -517,7 +517,7 @@ void processPlusHalfCycle(const uint8_t phase)
 void processDataLogging()
 {
   if (++n_cycleCountForDatalogging < DATALOG_PERIOD_IN_MAINS_CYCLES)
-    return; // data logging period not yet reached
+    return;  // data logging period not yet reached
 
   n_cycleCountForDatalogging = 0;
 
@@ -530,9 +530,9 @@ void processDataLogging()
     l_sum_Vsquared[phase] = 0;
   }
 
-  copyOf_sampleSetsDuringThisDatalogPeriod = n_sampleSetsDuringThisDatalogPeriod; // (for diags only)
-  copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle; // (for diags only)
-  copyOf_energyInBucket_main = f_energyInBucket_main;                             // (for diags only)
+  copyOf_sampleSetsDuringThisDatalogPeriod = n_sampleSetsDuringThisDatalogPeriod;  // (for diags only)
+  copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle;  // (for diags only)
+  copyOf_energyInBucket_main = f_energyInBucket_main;                              // (for diags only)
 
   n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
   n_sampleSetsDuringThisDatalogPeriod = 0;
@@ -631,33 +631,33 @@ int freeRam()
 */
 void setup()
 {
-  delay(initialDelay); // allows time to open the Serial Monitor
+  delay(initialDelay);  // allows time to open the Serial Monitor
 
-  Serial.begin(9600); // initialize Serial interface
+  Serial.begin(9600);  // initialize Serial interface
 
   // On start, always display config info in the serial monitor
   printConfiguration();
 
   for (auto &DCoffset_V : l_DCoffset_V)
-    DCoffset_V = 512L * 256L; // nominal mid-point value of ADC @ x256 scale
+    DCoffset_V = 512L * 256L;  // nominal mid-point value of ADC @ x256 scale
 
   // Set up the ADC to be free-running
-  ADCSRA = bit(ADPS0) + bit(ADPS1) + bit(ADPS2); // Set the ADC's clock to system clock / 128
-  ADCSRA |= bit(ADEN);                           // Enable the ADC
+  ADCSRA = bit(ADPS0) + bit(ADPS1) + bit(ADPS2);  // Set the ADC's clock to system clock / 128
+  ADCSRA |= bit(ADEN);                            // Enable the ADC
 
-  ADCSRA |= bit(ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  ADCSRA |= bit(ADATE);  // set the Auto Trigger Enable bit in the ADCSRA register. Because
   // bits ADTS0-2 have not been set (i.e. they are all zero), the
   // ADC's trigger source is set to "free running mode".
 
-  ADCSRA |= bit(ADIE); // set the ADC interrupt enable bit. When this bit is written
+  ADCSRA |= bit(ADIE);  // set the ADC interrupt enable bit. When this bit is written
   // to one and the I-bit in SREG is set, the
   // ADC Conversion Complete Interrupt is activated.
 
-  ADCSRA |= bit(ADSC); // start ADC manually first time
-  sei();               // Enable Global Interrupts
+  ADCSRA |= bit(ADSC);  // start ADC manually first time
+  sei();                // Enable Global Interrupts
 
   Serial.print(F(">>free RAM = "));
-  Serial.println(freeRam()); // a useful value to keep an eye on
+  Serial.println(freeRam());  // a useful value to keep an eye on
   Serial.println(F("----"));
 }
 
@@ -671,9 +671,9 @@ void loop()
 {
   static uint8_t perSecondTimer{ 0 };
 
-  if (b_newMainsCycle) // flag is set after every pair of ADC conversions
+  if (b_newMainsCycle)  // flag is set after every pair of ADC conversions
   {
-    b_newMainsCycle = false; // reset the flag
+    b_newMainsCycle = false;  // reset the flag
     ++perSecondTimer;
 
     if (perSecondTimer >= SUPPLY_FREQUENCY)
@@ -697,4 +697,4 @@ void loop()
 
     printDataLogging();
   }
-} // end of loop()
+}  // end of loop()
