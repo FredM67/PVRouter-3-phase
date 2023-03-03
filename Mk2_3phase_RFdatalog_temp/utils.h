@@ -39,13 +39,13 @@ inline bool getPinState(const uint8_t pin) __attribute__((always_inline));
  */
 template< typename T > constexpr void bit_set(T& _dest, const uint8_t bit)
 {
-  _dest |= (T)1 << bit;
+  _dest |= (T)0x01 << bit;
 }
 
 /**
  * @brief Read the specified bit
  * 
- * @tparam T  Type of the variable
+ * @tparam T Type of the variable
  * @param _src Integer variable to read
  * @param bit Bit to read in _src
  * @return constexpr uint8_t 
@@ -53,6 +53,19 @@ template< typename T > constexpr void bit_set(T& _dest, const uint8_t bit)
 template< typename T > constexpr uint8_t bit_read(const T& _src, const uint8_t bit)
 {
   return (_src >> bit) & (T)0x01;
+}
+
+/**
+ * @brief Clear the specified bit
+ * 
+ * @tparam T Type of the variable
+ * @param _src Integer variable to modify
+ * @param bit Bit to clear in _src
+ * @return constexpr uint8_t 
+ */
+template< typename T > constexpr uint8_t bit_clear(T& _dest, const uint8_t bit)
+{
+  return _dest &= ~((T)0x01 << bit);
 }
 
 /**
@@ -126,11 +139,11 @@ inline void setPinOFF(const uint8_t pin)
 {
   if (pin < 8)
   {
-    bitClear(PORTD, pin);
+    bit_clear(PORTD, pin);
   }
   else
   {
-    bitClear(PORTB, pin - 8);
+    bit_clear(PORTB, pin - 8);
   }
 }
 

@@ -111,7 +111,7 @@ void initializeProcessing()
   }
 
   // First stop the ADC
-  bitClear(ADCSRA, ADEN);
+  bit_clear(ADCSRA, ADEN);
 
   // Activate free-running mode
   ADCSRB = 0x00;

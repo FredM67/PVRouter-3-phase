@@ -14,6 +14,12 @@
 
 #include "utils.h"
 
+/**
+ * @note All these checks are done by the compiler.
+ * It does not take ANY space in the Arduino.
+ * 
+ */
+
 static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too long and will lead to overflow ! ****");
 
 static_assert(TEMP_SENSOR_PRESENT ^ (tempSensorPin == 0xff), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
