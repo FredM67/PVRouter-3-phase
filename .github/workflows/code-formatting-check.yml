@@ -48,8 +48,8 @@ jobs:
           # See: https://docs.github.com/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
           echo "${{ env.CLANG_FORMAT_INSTALL_PATH }}/clang_Linux_64bit" >> "$GITHUB_PATH"
 
-      - name: Format examples
-        run: ./examples_formatter.sh
+      - name: Format projects
+        run: ./formatter.sh
 
       - name: Check formatting
         run: |
