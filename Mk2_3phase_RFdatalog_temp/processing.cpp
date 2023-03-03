@@ -262,19 +262,6 @@ void updatePhysicalLoadStates()
   }
 }
 
-inline void processStartUp(uint8_t phase) __attribute__((always_inline));
-inline void processStartNewCycle() __attribute__((always_inline));
-inline void processPlusHalfCycle(uint8_t phase) __attribute__((always_inline));
-inline void processMinusHalfCycle(uint8_t phase) __attribute__((always_inline));
-inline void processVoltage(uint8_t phase) __attribute__((always_inline));
-inline void processPolarity(uint8_t phase, int16_t rawSample) __attribute__((always_inline));
-inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
-inline void proceedLowEnergyLevel() __attribute__((always_inline));
-inline void proceedHighEnergyLevel() __attribute__((always_inline));
-inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline));
-inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline));
-inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
-
 /**
  * @brief Process with the polarity for the actual voltage sample for the specific phase
  *
