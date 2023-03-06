@@ -12,6 +12,8 @@ Quelques une de mes réalisations... d'autres à venir...
 - [Routeur triphasé, 3 sorties, dont 2 pilotables via Internet (ON/OFF et marche forcée)](#routeur-triphasé-3-sorties-dont-2-pilotables-via-internet-onoff-et-marche-forcée)
 - [Routeur triphasé, 6 sorties, toutes pilotables via Internet (marche forcée et inversion de priorité)](#routeur-triphasé-6-sorties-toutes-pilotables-via-internet-marche-forcée-et-inversion-de-priorité)
 - [Routeur triphasé, 8 sorties, pilotées par paire (1-5, 2-6, 3-7, 4-8), marche forcée par groupe (1-2-3, 4, 5-6-7, 8)](#routeur-triphasé-8-sorties-pilotées-par-paire-1-5-2-6-3-7-4-8-marche-forcée-par-groupe-1-2-3-4-5-6-7-8)
+- [Routeur triphasé, 8 sorties, sorties 4 et 5 pilotées ensemble, 4 groupes de marche forcée (1-2-3, 4, 5, 6-7-8)](#routeur-triphasé-8-sorties-sorties-4-et-5-pilotées-ensemble-4-groupes-de-marche-forcée-1-2-3-4-5-6-7-8)
+
 ## Routeur triphasé 3 sorties
 
 <p align="center">
@@ -65,3 +67,12 @@ Ce boîtier contient les 3 sorties mais aussi une horloge et un contacteur pour 
 
 | [<img alt="Intérieur du boîtier routeur" src="img/6cbcf9fc-bbc0-4d99-a64a-3eaab45e34d8.jpg" width="25%">](img/6cbcf9fc-bbc0-4d99-a64a-3eaab45e34d8.jpg "Intérieur du boîtier routeur") | [<img alt="Intérieur du boîtier esclave" src="img/e903ec0d-7f42-4b21-998d-019408e88f20.jpg" width="25%">](img/e903ec0d-7f42-4b21-998d-019408e88f20.jpg "Intérieur du boîtier esclave") |
 [<img alt="Partie routeur" src="img/20a99fa9-3dcc-4d16-a75c-3266c4db29ac.jpg" width="25%">](img/20a99fa9-3dcc-4d16-a75c-3266c4db29ac.jpg "Partie routeur") | [<img alt="Commandes de marche forcée" src="img/aec80e39-caa6-495b-b781-55cd9dc704b2.jpg" width="25%">](img/aec80e39-caa6-495b-b781-55cd9dc704b2.jpg "Commandes de marche forcée") |
+
+## Routeur triphasé, 8 sorties, sorties 4 et 5 pilotées ensemble, 4 groupes de marche forcée (1-2-3, 4, 5, 6-7-8)
+Ce routeur effectue également la rotation des priorités des charges 1, 2 et 3 toutes les 24h.
+
+| [<img alt="Vue d'ensemble" src="img/1351dc21-54c0-4e20-94f3-659b4994def6.jpg" width="50%">](img/1351dc21-54c0-4e20-94f3-659b4994def6.jpg "Vue d'ensemble ouvert") | [<img alt="Vue d'ensemble" src="img/25c3ebe7-431e-49c9-8f38-0967fc986766.jpg" width="50%">](img/25c3ebe7-431e-49c9-8f38-0967fc986766.jpg "Vue d'ensemble connectique") |
+
+[<img alt="Intérieur du boîtier routeur" src="img/02f0d946-e2fa-45ba-a237-af305bf2e19e.jpg" width="25%">](img/02f0d946-e2fa-45ba-a237-af305bf2e19e.jpg "Intérieur du boîtier routeur")
+
+| [<img alt="Commandes de marche forcée" src="img/93b6093b-e6ae-40bb-8223-56eb6bcaded0.jpg" width="25%">](img/93b6093b-e6ae-40bb-8223-56eb6bcaded0.jpg "Commandes de marche forcée") | [<img alt="Zoom carte-mère" src="img/c5745e45-afac-4638-8403-28f54c4dd6d3.jpg" width="25%">](img/c5745e45-afac-4638-8403-28f54c4dd6d3.jpg "Zoom carte-mère") |
