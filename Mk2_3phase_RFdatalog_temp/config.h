@@ -92,7 +92,7 @@ inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x
 
 //--------------------------------------------------------------------------------------------------
 // for users with zero-export profile, this value will be negative
-inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 5 }; /**< when set to a negative value, this acts as a PV generator */
+inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 25 }; /**< when set to a negative value, this acts as a PV generator */
 
 //--------------------------------------------------------------------------------------------------
 // other system constants, should match most of installations
