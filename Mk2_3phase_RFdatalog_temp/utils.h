@@ -17,8 +17,8 @@
 #include "dualtariff.h"
 #include "processing.h"
 
-#include "utils_temp.h"
 #include "utils_rf.h"
+#include "utils_temp.h"
 
 inline void togglePin(const uint8_t pin) __attribute__((always_inline));
 
