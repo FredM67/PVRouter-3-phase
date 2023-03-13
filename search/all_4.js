@@ -1,6 +1,19 @@
 var searchData=
 [
-  ['datalog_5fperiod_5fin_5fmains_5fcycles_21',['DATALOG_PERIOD_IN_MAINS_CYCLES',['../main_8cpp.html#afffdb07751daad6475506a5053cff8f2',1,'main.cpp']]],
-  ['datalog_5fperiod_5fin_5fseconds_22',['DATALOG_PERIOD_IN_SECONDS',['../main_8cpp.html#aa1ffffd0033bb88a0611cc09daef8d20',1,'main.cpp']]],
-  ['debugging_23',['DEBUGGING',['../main_8cpp.html#a7180786c98af534f76855fef6f1b97ab',1,'main.cpp']]]
+  ['datalog_5fperiod_5fin_5fmains_5fcycles_33',['DATALOG_PERIOD_IN_MAINS_CYCLES',['../config_8h.html#afffdb07751daad6475506a5053cff8f2',1,'config.h']]],
+  ['datalog_5fperiod_5fin_5fseconds_34',['DATALOG_PERIOD_IN_SECONDS',['../config_8h.html#aa1ffffd0033bb88a0611cc09daef8d20',1,'config.h']]],
+  ['dbug_35',['DBUG',['../debug_8h.html#a9d1c575cfb0a8cd96b84f99f63ddeab0',1,'debug.h']]],
+  ['dbugf_36',['DBUGF',['../debug_8h.html#a37d8767dd2b5bdd7dbf06c5c49c2998a',1,'debug.h']]],
+  ['dbugln_37',['DBUGLN',['../debug_8h.html#a720cfea0f47501e0ee77e050ff5ff3b4',1,'debug.h']]],
+  ['dbugvar_38',['DBUGVAR',['../debug_8h.html#a3f2b967e14a2cc658fab9ece43422a1c',1,'debug.h']]],
+  ['debug_2eh_39',['debug.h',['../debug_8h.html',1,'']]],
+  ['debug_5fbegin_40',['DEBUG_BEGIN',['../debug_8h.html#a4c5dc08cf38e1389e9cb7509f2192719',1,'debug.h']]],
+  ['device_5fdisconnected_5fc_41',['DEVICE_DISCONNECTED_C',['../constants_8h.html#afdaf08501000ecdba738310facc056dd',1,'constants.h']]],
+  ['device_5fdisconnected_5fraw_42',['DEVICE_DISCONNECTED_RAW',['../constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83',1,'constants.h']]],
+  ['deviceaddress_43',['DeviceAddress',['../types_8h.html#a4d947262b6c46f3638257e56d331b854',1,'types.h']]],
+  ['diversion_5fpin_5fpresent_44',['DIVERSION_PIN_PRESENT',['../config_8h.html#af4fafac7a898d0c42cf814b9ab893d8c',1,'config.h']]],
+  ['diversionpin_45',['diversionPin',['../config_8h.html#a7356f13f5bd190e1c4617b7143e4416d',1,'config.h']]],
+  ['dual_5ftariff_46',['DUAL_TARIFF',['../config_8h.html#a6e4069ecc0f4af6f9c1d9aafa84178de',1,'config.h']]],
+  ['dualtariff_2eh_47',['dualtariff.h',['../dualtariff_8h.html',1,'']]],
+  ['dualtariffpin_48',['dualTariffPin',['../config_8h.html#a3918ff99c886117c4166c18d7232accf',1,'config.h']]]
 ];

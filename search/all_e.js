@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['send_5frf_5fdata_121',['send_rf_data',['../main_8cpp.html#ab5bc929f5a874ed02b16ed1d620d71cf',1,'send_rf_data():&#160;main.cpp'],['../main_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf',1,'send_rf_data():&#160;main.cpp']]],
-  ['sendresults_122',['sendResults',['../main_8cpp.html#ade56d6fce22a518b8feff1a150461f94',1,'sendResults(bool bOffPeak):&#160;main.cpp'],['../main_8h.html#ade56d6fce22a518b8feff1a150461f94',1,'sendResults(bool bOffPeak):&#160;main.cpp']]],
-  ['sensori_123',['sensorI',['../main_8cpp.html#a8843ac58fa4e38e3bec429fac0f8de41',1,'main.cpp']]],
-  ['sensorv_124',['sensorV',['../main_8cpp.html#a84dbfaffb1c8ccc490804b5f976d7933',1,'main.cpp']]],
-  ['serialprint_125',['SERIALPRINT',['../main_8cpp.html#a1e2bd592f53e63c8c0323f2f54483420',1,'main.cpp']]],
-  ['setpinstate_126',['setPinState',['../main_8cpp.html#ab2680616c16de5ad80df061b5a222cc1',1,'setPinState(const uint8_t pin, bool bState):&#160;main.cpp'],['../main_8h.html#ab2680616c16de5ad80df061b5a222cc1',1,'setPinState(const uint8_t pin, bool bState):&#160;main.cpp']]],
-  ['setup_127',['setup',['../main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'main.cpp']]],
-  ['skip_5from_128',['SKIP_ROM',['../main_8cpp.html#ae21308f181dcb2cbe1e7c24e0c63f561',1,'main.cpp']]],
-  ['startupperiod_129',['startUpPeriod',['../main_8cpp.html#a0d30025137b8f9bfe6d4e9c832db76b4',1,'main.cpp']]],
-  ['supply_5ffrequency_130',['SUPPLY_FREQUENCY',['../main_8cpp.html#ad62846ca1d96695a32041f6dd809401e',1,'main.cpp']]]
+  ['read_5fscratchpad_156',['READ_SCRATCHPAD',['../constants_8h.html#a4efcca8a8902b210fd176b46753964f1',1,'constants.h']]],
+  ['readtemperature_157',['readTemperature',['../utils__temp_8h.html#adc7d85cb6510aea82f8ed660b4743908',1,'utils_temp.h']]],
+  ['requesttemperatures_158',['requestTemperatures',['../utils__temp_8h.html#a15279f2a2446f27d0a1cf82dff006623',1,'utils_temp.h']]],
+  ['required_5fexport_5fin_5fwatts_159',['REQUIRED_EXPORT_IN_WATTS',['../config_8h.html#a0d838172b50bebc493c09edb7b7606d5',1,'config.h']]],
+  ['rf69_5fcompat_160',['RF69_COMPAT',['../config_8h.html#ac7df154e6d284322427bec4d2dfc0dda',1,'config.h']]],
+  ['rf_5fchip_5fpresent_161',['RF_CHIP_PRESENT',['../utils__rf_8h.html#ad6f3853697d5006eed405d11cc04c2a1',1,'utils_rf.h']]],
+  ['rg_5fforceload_162',['rg_ForceLoad',['../config_8h.html#a281368464ae362f565124959a02d2888',1,'config.h']]],
+  ['rg_5foffsetforce_163',['rg_OffsetForce',['../dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4',1,'dualtariff.h']]],
+  ['rotation_5fafter_5fcycles_164',['ROTATION_AFTER_CYCLES',['../config_8h.html#a5f05a671d6f0503882cc818f2a55493e',1,'config.h']]],
+  ['rotationpin_165',['rotationPin',['../config_8h.html#af668b2a5b07a913bd673318dc30654bb',1,'config.h']]]
 ];

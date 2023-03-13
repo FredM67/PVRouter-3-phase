@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>3-phase PV router: PayloadTx_struct Class Reference</title>
+<title>3-phase PV router: PayloadTx_struct&lt; N, S &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,100 +65,120 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classPayloadTx__struct-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">PayloadTx_struct Class Reference</div>  </div>
+<div class="title">PayloadTx_struct&lt; N, S &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
 <p>container for datalogging  
  <a href="classPayloadTx__struct.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="types_8h_source.html">types.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a0f907a53177ea6525a3866cf6c917690"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPayloadTx__struct.html#a0f907a53177ea6525a3866cf6c917690">power</a></td></tr>
-<tr class="separator:a0f907a53177ea6525a3866cf6c917690"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a1ddb46f2c0d93b79ea6a33b0435052"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPayloadTx__struct.html#a1a1ddb46f2c0d93b79ea6a33b0435052">power_L</a> [<a class="el" href="main_8cpp.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>]</td></tr>
-<tr class="separator:a1a1ddb46f2c0d93b79ea6a33b0435052"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af471f7603baacfde47d2a500427dce6e"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPayloadTx__struct.html#af471f7603baacfde47d2a500427dce6e">temperature_x100</a> {<a class="el" href="main_8cpp.html#a4e0b181e53a7444264ad9850634c6c40">UNUSED_TEMPERATURE</a>}</td></tr>
-<tr class="separator:af471f7603baacfde47d2a500427dce6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ed4c53c7245edaad91d05b3e42f94ef"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPayloadTx__struct.html#a0ed4c53c7245edaad91d05b3e42f94ef">Vrms_L_x100</a> [<a class="el" href="main_8cpp.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>]</td></tr>
-<tr class="separator:a0ed4c53c7245edaad91d05b3e42f94ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3001f04334464b35b7dd263bd08b1a0"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPayloadTx__struct.html#ab3001f04334464b35b7dd263bd08b1a0">power</a></td></tr>
+<tr class="separator:ab3001f04334464b35b7dd263bd08b1a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13cbb9a2141427b379764c105825815f"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPayloadTx__struct.html#a13cbb9a2141427b379764c105825815f">power_L</a> [N]</td></tr>
+<tr class="separator:a13cbb9a2141427b379764c105825815f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae46c4aad3871fe7007f2860424a15b"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPayloadTx__struct.html#a1ae46c4aad3871fe7007f2860424a15b">temperature_x100</a> [S]</td></tr>
+<tr class="separator:a1ae46c4aad3871fe7007f2860424a15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a057a8416a916513fd1c0667dbf08713f"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPayloadTx__struct.html#a057a8416a916513fd1c0667dbf08713f">Vrms_L_x100</a> [N]</td></tr>
+<tr class="separator:a057a8416a916513fd1c0667dbf08713f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>container for datalogging </p>
-<p>This class is used for datalogging. </p>
+<div class="textblock"><h3>template&lt;uint8_t N = 3, uint8_t S = 0&gt;<br />
+class PayloadTx_struct&lt; N, S &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00222">222</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p>container for datalogging </p>
+<p>This class is used for datalogging.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">N</td><td># of phases </td></tr>
+    <tr><td class="paramname">S</td><td># of temperature sensors </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00053">53</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a0f907a53177ea6525a3866cf6c917690"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f907a53177ea6525a3866cf6c917690">&#9670;&nbsp;</a></span>power</h2>
+<a id="ab3001f04334464b35b7dd263bd08b1a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3001f04334464b35b7dd263bd08b1a0">&#9670;&nbsp;</a></span>power</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N = 3, uint8_t S = 0&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">int16_t PayloadTx_struct::power</td>
+          <td class="memname">int16_t <a class="el" href="classPayloadTx__struct.html">PayloadTx_struct</a>&lt; N, S &gt;::power</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>main power, import = +ve, to match OEM convention </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00225">225</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00056">56</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
-<a id="a1a1ddb46f2c0d93b79ea6a33b0435052"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a1ddb46f2c0d93b79ea6a33b0435052">&#9670;&nbsp;</a></span>power_L</h2>
+<a id="a13cbb9a2141427b379764c105825815f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13cbb9a2141427b379764c105825815f">&#9670;&nbsp;</a></span>power_L</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N = 3, uint8_t S = 0&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">int16_t PayloadTx_struct::power_L[<a class="el" href="main_8cpp.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>]</td>
+          <td class="memname">int16_t <a class="el" href="classPayloadTx__struct.html">PayloadTx_struct</a>&lt; N, S &gt;::power_L[N]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>power for phase #, import = +ve, to match OEM convention </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00226">226</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00057">57</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
-<a id="af471f7603baacfde47d2a500427dce6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af471f7603baacfde47d2a500427dce6e">&#9670;&nbsp;</a></span>temperature_x100</h2>
+<a id="a1ae46c4aad3871fe7007f2860424a15b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ae46c4aad3871fe7007f2860424a15b">&#9670;&nbsp;</a></span>temperature_x100</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N = 3, uint8_t S = 0&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">int16_t PayloadTx_struct::temperature_x100 {<a class="el" href="main_8cpp.html#a4e0b181e53a7444264ad9850634c6c40">UNUSED_TEMPERATURE</a>}</td>
+          <td class="memname">int16_t <a class="el" href="classPayloadTx__struct.html">PayloadTx_struct</a>&lt; N, S &gt;::temperature_x100[S]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>temperature in 100th of °C </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00229">229</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00059">59</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
-<a id="a0ed4c53c7245edaad91d05b3e42f94ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ed4c53c7245edaad91d05b3e42f94ef">&#9670;&nbsp;</a></span>Vrms_L_x100</h2>
+<a id="a057a8416a916513fd1c0667dbf08713f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a057a8416a916513fd1c0667dbf08713f">&#9670;&nbsp;</a></span>Vrms_L_x100</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N = 3, uint8_t S = 0&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">int16_t PayloadTx_struct::Vrms_L_x100[<a class="el" href="main_8cpp.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>]</td>
+          <td class="memname">int16_t <a class="el" href="classPayloadTx__struct.html">PayloadTx_struct</a>&lt; N, S &gt;::Vrms_L_x100[N]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>average voltage over datalogging period (in 100th of Volt) </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00227">227</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00058">58</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Mk2_3phase_RFdatalog_temp/<a class="el" href="main_8cpp_source.html">main.cpp</a></li>
+<li>Mk2_3phase_RFdatalog_temp/<a class="el" href="types_8h_source.html">types.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

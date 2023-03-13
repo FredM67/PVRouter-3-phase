@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['nextlogicalloadtobeadded_164',['nextLogicalLoadToBeAdded',['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded():&#160;main.cpp'],['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded():&#160;main.cpp']]],
-  ['nextlogicalloadtoberemoved_165',['nextLogicalLoadToBeRemoved',['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved():&#160;main.cpp'],['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved():&#160;main.cpp']]]
+  ['logloadpriorities_241',['logLoadPriorities',['../utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1',1,'utils.h']]],
+  ['loop_242',['loop',['../main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'main.cpp']]]
 ];

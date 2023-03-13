@@ -1,0 +1,8 @@
+<map id="Mk2_3phase_RFdatalog_temp/dualtariff.h" name="Mk2_3phase_RFdatalog_temp/dualtariff.h">
+<area shape="rect" id="node1" title="Classes/types needed for dual&#45;tariff support." alt="" coords="25,5,202,47"/>
+<area shape="rect" id="node2" href="$utils_8h.html" title="Some utility functions." alt="" coords="25,184,202,225"/>
+<area shape="rect" id="node6" href="$utils__temp_8h.html" title=" " alt="" coords="89,95,266,136"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title="Main code." alt="" coords="62,363,240,404"/>
+<area shape="rect" id="node4" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="25,273,202,315"/>
+<area shape="rect" id="node5" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="226,273,404,315"/>
+</map>

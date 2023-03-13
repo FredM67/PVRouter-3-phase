@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['vrms_5fl_5fx100_278',['Vrms_L_x100',['../classPayloadTx__struct.html#a0ed4c53c7245edaad91d05b3e42f94ef',1,'PayloadTx_struct']]]
+  ['ul_5foff_5fpeak_5fduration_379',['ul_OFF_PEAK_DURATION',['../config_8h.html#abd1baf11732956aa199473daae453926',1,'config.h']]],
+  ['ul_5ftimeoffpeak_380',['ul_TimeOffPeak',['../dualtariff_8h.html#a9b220149c714c37067af68c2056d9316',1,'dualtariff.h']]],
+  ['uno_381',['UNO',['../config_8h.html#a8384e668d128a4edd7086620f0987f77',1,'config.h']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['serialprint_293',['SERIALPRINT',['../main_8cpp.html#a1e2bd592f53e63c8c0323f2f54483420',1,'main.cpp']]]
+  ['enable_5fdebug_405',['ENABLE_DEBUG',['../config_8h.html#a432138093c53d7580af9ec5c5dca387f',1,'config.h']]],
+  ['escapequote_406',['ESCAPEQUOTE',['../debug_8h.html#a7b7a44cc02c6f75a1755e473ba0fd12a',1,'debug.h']]]
 ];

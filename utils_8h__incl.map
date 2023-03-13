@@ -1,0 +1,13 @@
+<map id="Mk2_3phase_RFdatalog_temp/utils.h" name="Mk2_3phase_RFdatalog_temp/utils.h">
+<area shape="rect" id="node1" title="Some utility functions." alt="" coords="147,5,325,47"/>
+<area shape="rect" id="node2" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="139,244,213,271"/>
+<area shape="rect" id="node6" href="$constants_8h.html" title="Some constants." alt="" coords="283,393,381,420"/>
+<area shape="rect" id="node7" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="23,169,116,196"/>
+<area shape="rect" id="node8" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="140,169,244,196"/>
+<area shape="rect" id="node9" href="$utils__rf_8h.html" title=" " alt="" coords="421,95,499,121"/>
+<area shape="rect" id="node11" href="$utils__temp_8h.html" title=" " alt="" coords="230,95,333,121"/>
+<area shape="rect" id="node3" href="$debug_8h.html" title=" " alt="" coords="220,319,295,345"/>
+<area shape="rect" id="node4" href="$types_8h.html" title="Some basics classes/types." alt="" coords="125,319,195,345"/>
+<area shape="rect" id="node5" title=" " alt="" coords="118,393,202,420"/>
+<area shape="rect" id="node10" title=" " alt="" coords="423,169,497,196"/>
+</map>

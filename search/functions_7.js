@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['onewire_166',['oneWire',['../main_8cpp.html#ad462970b50df0943a9f36f1dcb49a9ee',1,'main.cpp']]],
-  ['operator_5b_5d_167',['operator[]',['../class__rg__OffsetForce.html#a8990416abb964ca5f478768afe3bf59a',1,'_rg_OffsetForce']]]
+  ['nextlogicalloadtobeadded_243',['nextLogicalLoadToBeAdded',['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded():&#160;processing.cpp'],['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded():&#160;processing.cpp'],['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded() __attribute__((always_inline)):&#160;processing.cpp']]],
+  ['nextlogicalloadtoberemoved_244',['nextLogicalLoadToBeRemoved',['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved():&#160;processing.cpp'],['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved():&#160;processing.cpp'],['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved() __attribute__((always_inline)):&#160;processing.cpp']]]
 ];

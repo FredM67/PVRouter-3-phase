@@ -1,0 +1,4 @@
+<map id="forceFullPower" name="forceFullPower">
+<area shape="rect" id="node1" title="This function set all 3 loads to full power." alt="" coords="104,5,223,32"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,32"/>
+</map>

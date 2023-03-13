@@ -130,6 +130,9 @@ Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void confirmPolarity </td>
@@ -139,6 +142,11 @@ Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>This routine prevents a zero-crossing point from being declared until a certain number of consecutive samples in the 'other' half of the waveform have been encountered. </p>
@@ -149,7 +157,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00589">589</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00320">320</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -168,6 +176,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint8_t nextLogicalLoadToBeAdded </td>
@@ -176,23 +187,24 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Retrieve the next load that could be added (be aware of the order) </p>
 <dl class="section return"><dt>Returns</dt><dd>The load number if successfull, NO_OF_DUMPLOADS in case of failure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00784">784</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00573">573</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga8e7b88bb4b21554d23b57676a45e034e_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga8e7b88bb4b21554d23b57676a45e034e_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga8e7b88bb4b21554d23b57676a45e034e_icgraph" id="agroup__TimeCritical_ga8e7b88bb4b21554d23b57676a45e034e_icgraph">
-<area shape="rect" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="995,5,1195,32"/>
-<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="763,5,947,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,32"/>
-<area shape="rect" href="main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,32"/>
+<area shape="rect" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="237,5,437,32"/>
+<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="5,5,189,32"/>
 </map>
 </div>
 
@@ -203,6 +215,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint8_t nextLogicalLoadToBeRemoved </td>
@@ -211,23 +226,24 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Retrieve the next load that could be removed (be aware of the reverse-order) </p>
-<dl class="section return"><dt>Returns</dt><dd>The load number if successfull, NO_OF_DUMPLOADS in case of failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The load number if successful, NO_OF_DUMPLOADS in case of failure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00800">800</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00593">593</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gabfb25288a79335282af6922e833d3c35_icgraph.png" border="0" usemap="#agroup__TimeCritical_gabfb25288a79335282af6922e833d3c35_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gabfb25288a79335282af6922e833d3c35_icgraph" id="agroup__TimeCritical_gabfb25288a79335282af6922e833d3c35_icgraph">
-<area shape="rect" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="991,5,1212,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="763,5,943,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,32"/>
-<area shape="rect" href="main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,32"/>
+<area shape="rect" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="233,5,455,32"/>
+<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="5,5,185,32"/>
 </map>
 </div>
 
@@ -238,6 +254,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void proceedHighEnergyLevel </td>
@@ -246,11 +265,16 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Process the case of high energy level, some action may be required. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00818">818</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00400">400</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -265,11 +289,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_icgraph.png" border="0" usemap="#agroup__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_icgraph" id="agroup__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_icgraph">
-<area shape="rect" title="Process the case of high energy level, some action may be required." alt="" coords="763,5,947,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,32"/>
-<area shape="rect" href="main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,32"/>
+<area shape="rect" title="Process the case of high energy level, some action may be required." alt="" coords="221,5,405,32"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="5,5,173,32"/>
 </map>
 </div>
 
@@ -280,6 +301,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void proceedLowEnergyLevel </td>
@@ -288,11 +312,16 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Process the case of low energy level, some action may be required. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00855">855</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00441">441</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -307,11 +336,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_icgraph" id="agroup__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_icgraph">
-<area shape="rect" title="Process the case of low energy level, some action may be required." alt="" coords="763,5,943,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,32"/>
-<area shape="rect" href="main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,32"/>
+<area shape="rect" title="Process the case of low energy level, some action may be required." alt="" coords="221,5,401,32"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="5,5,173,32"/>
 </map>
 </div>
 
@@ -352,7 +378,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00525">525</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00289">289</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -383,17 +409,14 @@ Here is the caller graph for this function:</div>
 <p>Process with data logging. </p>
 <p>At the end of each datalogging period, copies are made of the relevant variables for use by the main code. These variable are then reset for use during the next datalogging period. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00999">999</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00641">641</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gaabf10592d01250ef862370d26c5a382b_icgraph.png" border="0" usemap="#agroup__TimeCritical_gaabf10592d01250ef862370d26c5a382b_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gaabf10592d01250ef862370d26c5a382b_icgraph" id="agroup__TimeCritical_gaabf10592d01250ef862370d26c5a382b_icgraph">
-<area shape="rect" title="Process with data logging." alt="" coords="757,5,912,32"/>
-<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="547,5,709,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,32"/>
-<area shape="rect" href="main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,32"/>
+<area shape="rect" title="Process with data logging." alt="" coords="216,5,371,32"/>
+<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="5,5,168,32"/>
 </map>
 </div>
 
@@ -404,6 +427,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void processLatestContribution </td>
@@ -413,6 +439,11 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Process the lastest contribution after each phase specific new cycle additional processing is performed after each main cycle based on phase 0. </p>
@@ -423,17 +454,14 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00895">895</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00616">616</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga21380cdbe3f783dad431ff1a912cbaa1_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga21380cdbe3f783dad431ff1a912cbaa1_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga21380cdbe3f783dad431ff1a912cbaa1_icgraph" id="agroup__TimeCritical_ga21380cdbe3f783dad431ff1a912cbaa1_icgraph">
-<area shape="rect" title="Process the lastest contribution after each phase specific new cycle additional processing is perform..." alt="" coords="757,5,949,32"/>
-<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="547,5,709,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,32"/>
-<area shape="rect" href="main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,32"/>
+<area shape="rect" title="Process the lastest contribution after each phase specific new cycle additional processing is perform..." alt="" coords="216,5,408,32"/>
+<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="5,5,168,32"/>
 </map>
 </div>
 
@@ -444,6 +472,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void processMinusHalfCycle </td>
@@ -453,6 +484,11 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Process the start of a new -ve half cycle, for this phase, just after the zero-crossing point. </p>
@@ -463,7 +499,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00757">757</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00542">542</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -483,6 +519,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void processPlusHalfCycle </td>
@@ -492,6 +531,11 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point. </p>
@@ -502,7 +546,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00919">919</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00687">687</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -532,6 +576,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void processPolarity </td>
@@ -551,6 +598,11 @@ Here is the caller graph for this function:</div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Process with the polarity for the actual voltage sample for the specific phase. </p>
@@ -562,7 +614,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00572">572</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00273">273</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -600,7 +652,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00635">635</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00715">715</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -616,10 +668,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="437,107,621,133"/>
 <area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="439,157,619,184"/>
 <area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="432,208,625,235"/>
-<area shape="rect" href="main_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="458,259,599,285"/>
+<area shape="rect" href="processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="458,259,599,285"/>
 <area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="684,107,884,133"/>
 <area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="673,157,895,184"/>
-<area shape="rect" href="main_8cpp.html#ab2680616c16de5ad80df061b5a222cc1" title="Set the Pin state for the specified pin." alt="" coords="736,259,832,285"/>
+<area shape="rect" href="utils_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="737,233,831,260"/>
+<area shape="rect" href="utils_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="739,284,829,311"/>
 </map>
 </div>
 <div class="dynheader">
@@ -640,6 +693,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void processStartNewCycle </td>
@@ -648,6 +704,11 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0. </p>
@@ -657,7 +718,7 @@ Here is the caller graph for this function:</div>
 <li>update the driver lines for each of the loads. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00706">706</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00487">487</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -667,10 +728,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="226,5,410,32"/>
 <area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="228,56,408,83"/>
 <area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="221,107,415,133"/>
-<area shape="rect" href="main_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="247,157,389,184"/>
+<area shape="rect" href="processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="247,157,389,184"/>
 <area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="473,5,673,32"/>
 <area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="463,56,684,83"/>
-<area shape="rect" href="main_8cpp.html#ab2680616c16de5ad80df061b5a222cc1" title="Set the Pin state for the specified pin." alt="" coords="525,157,621,184"/>
+<area shape="rect" href="utils_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="526,107,621,133"/>
+<area shape="rect" href="utils_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="529,157,618,184"/>
 </map>
 </div>
 <div class="dynheader">
@@ -692,6 +754,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void processStartUp </td>
@@ -701,6 +766,11 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Process the startup period for the router. </p>
@@ -711,7 +781,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00679">679</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00376">376</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -731,6 +801,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void processVoltage </td>
@@ -740,6 +813,11 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Process the calculation for the current voltage sample for the specific phase. </p>
@@ -750,7 +828,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00614">614</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00346">346</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -799,7 +877,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00551">551</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00761">761</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -819,10 +897,11 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="683,107,867,133"/>
 <area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="685,157,865,184"/>
 <area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="679,208,872,235"/>
-<area shape="rect" href="main_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="705,259,846,285"/>
+<area shape="rect" href="processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="705,259,846,285"/>
 <area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="931,107,1131,133"/>
 <area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="920,157,1141,184"/>
-<area shape="rect" href="main_8cpp.html#ab2680616c16de5ad80df061b5a222cc1" title="Set the Pin state for the specified pin." alt="" coords="983,259,1079,285"/>
+<area shape="rect" href="utils_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="983,233,1078,260"/>
+<area shape="rect" href="utils_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="986,284,1075,311"/>
 </map>
 </div>
 <div class="dynheader">
@@ -857,18 +936,16 @@ Here is the caller graph for this function:</div>
 <p>The lowest 7 bits of element is the load number as defined in 'physicalLoadState'. The highest bit of each 'loadPrioritiesAndState' determines if the load is ON or OFF. The order of each element in 'loadPrioritiesAndState' determines the load priority. 'loadPrioritiesAndState[i] &amp; loadStateMask' will extract the load number at position 'i' 'loadPrioritiesAndState[i] &amp; loadStateOnBit' will extract the load state at position 'i'</p>
 <p>Any other mapping relationships could be configured here. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00954">954</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00226">226</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga1950a35c4c210dae480943adca0a3c88_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga1950a35c4c210dae480943adca0a3c88_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga1950a35c4c210dae480943adca0a3c88_icgraph" id="agroup__TimeCritical_ga1950a35c4c210dae480943adca0a3c88_icgraph">
-<area shape="rect" title="This function provides the link between the logical and physical loads." alt="" coords="763,31,956,57"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,32"/>
-<area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="601,56,660,83"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,32"/>
-<area shape="rect" href="main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,32"/>
+<area shape="rect" title="This function provides the link between the logical and physical loads." alt="" coords="328,31,521,57"/>
+<area shape="rect" href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="122,5,270,32"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="112,56,280,83"/>
+<area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
 </map>
 </div>
 

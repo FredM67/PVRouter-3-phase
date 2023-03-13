@@ -1,21 +1,12 @@
 var searchData=
 [
-  ['l_5fcumvdeltasthiscycle_45',['l_cumVdeltasThisCycle',['../main_8cpp.html#ab14feb79b0030a2b400205b5d34580e5',1,'main.cpp']]],
-  ['l_5fdcoffset_5fi_5fnom_46',['l_DCoffset_I_nom',['../main_8cpp.html#a09395804d7770a0624eeeef5ebd4fefb',1,'main.cpp']]],
-  ['l_5fdcoffset_5fv_47',['l_DCoffset_V',['../main_8cpp.html#adc2062ae814fde5e1ef71b5546d2ce3d',1,'main.cpp']]],
-  ['l_5fdcoffset_5fv_5fmax_48',['l_DCoffset_V_max',['../main_8cpp.html#a1caa697b1a0ca4dbf7e3dd3f55dab09a',1,'main.cpp']]],
-  ['l_5fdcoffset_5fv_5fmin_49',['l_DCoffset_V_min',['../main_8cpp.html#a1b70353f2a2e5af3ef3701da84365b69',1,'main.cpp']]],
-  ['l_5flastsamplevminusdc_50',['l_lastSampleVminusDC',['../main_8cpp.html#a236419cdb9165c93ff05948e21473df7',1,'main.cpp']]],
-  ['l_5fsamplevminusdc_51',['l_sampleVminusDC',['../main_8cpp.html#ab375376908dfe3592eb6800beac2153f',1,'main.cpp']]],
-  ['l_5fsum_5fvsquared_52',['l_sum_Vsquared',['../main_8cpp.html#a712bb05ff6a15709471cc7d939701b44',1,'main.cpp']]],
-  ['l_5fsump_53',['l_sumP',['../main_8cpp.html#a80e32cbcd32fd5c296d801366f3752f7',1,'main.cpp']]],
-  ['l_5fsump_5fatsupplypoint_54',['l_sumP_atSupplyPoint',['../main_8cpp.html#adce365deed551463ed7943d910302043',1,'main.cpp']]],
-  ['load_5foff_55',['LOAD_OFF',['../main_8cpp.html#aa689e963b2305ff62d412abb6ebf7244a8f99352268add095fefd3881ea0a06de',1,'main.cpp']]],
-  ['load_5fon_56',['LOAD_ON',['../main_8cpp.html#aa689e963b2305ff62d412abb6ebf7244a9c23d2669d8e4741a50b2db484750152',1,'main.cpp']]],
-  ['loadprioritiesandstate_57',['loadPrioritiesAndState',['../main_8cpp.html#a49958eb014b70dfb9d8cb9ded3564ef7',1,'main.cpp']]],
-  ['loadstatemask_58',['loadStateMask',['../main_8cpp.html#a9679e65b07cf301abc92aadaef35b3a8',1,'main.cpp']]],
-  ['loadstateonbit_59',['loadStateOnBit',['../main_8cpp.html#a9e72b6e05ef972b4929a13596b0ceec6',1,'main.cpp']]],
-  ['loadstates_60',['LoadStates',['../main_8cpp.html#aa689e963b2305ff62d412abb6ebf7244',1,'main.cpp']]],
-  ['logloadpriorities_61',['logLoadPriorities',['../main_8cpp.html#ae473b1c0d80fe056d1fab9bdee38aca1',1,'main.cpp']]],
-  ['loop_62',['loop',['../main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'main.cpp']]]
+  ['i_5fdcoffset_5fi_5fnom_70',['i_DCoffset_I_nom',['../processing_8cpp.html#a14cff0127f52c57f50fe52f2ed2ab093',1,'processing.cpp']]],
+  ['i_5fsamplesetsduringthisdatalogperiod_71',['i_sampleSetsDuringThisDatalogPeriod',['../processing_8cpp.html#ab652ee1e3280fde59df6719af6e884d0',1,'processing.cpp']]],
+  ['initialdelay_72',['initialDelay',['../processing_8h.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'processing.h']]],
+  ['initializeoptionalpins_73',['initializeOptionalPins',['../processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp'],['../processing_8h.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp']]],
+  ['initializeprocessing_74',['initializeProcessing',['../processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp'],['../processing_8h.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp']]],
+  ['inittemperaturesensors_75',['initTemperatureSensors',['../utils__temp_8h.html#a92389cbbe788f2e81116453dc5ae4717',1,'utils_temp.h']]],
+  ['initthreshold_76',['initThreshold',['../processing_8cpp.html#a5c26bb614416d9b5288ef3e5e00bf5b2',1,'processing.cpp']]],
+  ['isr_77',['ISR',['../main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295',1,'main.cpp']]],
+  ['itemperaturethreshold_78',['iTemperatureThreshold',['../config_8h.html#ac2e4a2c6acb5689b056d49896672c30c',1,'config.h']]]
 ];

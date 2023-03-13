@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['i_5fphasecal_40',['i_phaseCal',['../main_8cpp.html#a4f02e0a0a68da4de9c903be83add12af',1,'main.cpp']]],
-  ['i_5fsamplesetsduringthisdatalogperiod_41',['i_sampleSetsDuringThisDatalogPeriod',['../main_8cpp.html#ab652ee1e3280fde59df6719af6e884d0',1,'main.cpp']]],
-  ['initialdelay_42',['initialDelay',['../main_8cpp.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'main.cpp']]],
-  ['initthreshold_43',['initThreshold',['../main_8cpp.html#a70643ee1e9a67f10738575bcf1ad7bad',1,'main.cpp']]],
-  ['isr_44',['ISR',['../main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295',1,'main.cpp']]]
+  ['getduration_67',['getDuration',['../classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2',1,'pairForceLoad']]],
+  ['getpinstate_68',['getPinState',['../utils_8h.html#ad738c44fbe6076c3298fa7a65c697649',1,'utils.h']]],
+  ['getstartoffset_69',['getStartOffset',['../classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f',1,'pairForceLoad']]]
 ];

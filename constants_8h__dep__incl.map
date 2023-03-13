@@ -1,0 +1,13 @@
+<map id="Mk2_3phase_RFdatalog_temp/constants.h" name="Mk2_3phase_RFdatalog_temp/constants.h">
+<area shape="rect" id="node1" title="Some constants." alt="" coords="5,5,183,47"/>
+<area shape="rect" id="node2" href="$types_8h.html" title="Some basics classes/types." alt="" coords="372,95,549,136"/>
+<area shape="rect" id="node8" href="$utils_8h.html" title="Some utility functions." alt="" coords="208,452,385,493"/>
+<area shape="rect" id="node10" href="$utils__temp_8h.html" title=" " alt="" coords="81,363,259,404"/>
+<area shape="rect" id="node3" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="372,184,549,225"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title="Main code." alt="" coords="561,631,739,672"/>
+<area shape="rect" id="node4" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="587,452,764,493"/>
+<area shape="rect" id="node7" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="183,273,360,315"/>
+<area shape="rect" id="node11" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="436,273,613,315"/>
+<area shape="rect" id="node6" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="409,541,587,583"/>
+<area shape="rect" id="node9" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="208,541,385,583"/>
+</map>

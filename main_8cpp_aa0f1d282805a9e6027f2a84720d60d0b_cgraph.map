@@ -1,0 +1,7 @@
+<map id="proceedLoadPrioritiesAndOverriding" name="proceedLoadPrioritiesAndOverriding">
+<area shape="rect" id="node1" title="This function changes the value of the load priorities." alt="" coords="5,25,193,66"/>
+<area shape="rect" id="node2" href="$utils_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="493,5,591,32"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="241,25,429,66"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="477,60,607,87"/>
+<area shape="rect" id="node5" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="655,60,785,87"/>
+</map>

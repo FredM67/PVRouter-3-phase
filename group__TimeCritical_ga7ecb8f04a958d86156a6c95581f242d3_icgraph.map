@@ -1,7 +1,4 @@
 <map id="proceedLowEnergyLevel" name="proceedLowEnergyLevel">
-<area shape="rect" id="node1" title="Process the case of low energy level, some action may be required." alt="" coords="763,5,943,32"/>
-<area shape="rect" id="node2" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,32"/>
-<area shape="rect" id="node3" href="$group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,32"/>
-<area shape="rect" id="node4" href="$group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,32"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,32"/>
+<area shape="rect" id="node1" title="Process the case of low energy level, some action may be required." alt="" coords="221,5,401,32"/>
+<area shape="rect" id="node2" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="5,5,173,32"/>
 </map>

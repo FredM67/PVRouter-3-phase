@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['watchdogpin_145',['watchDogPin',['../main_8cpp.html#afe190da9e3f78f2466d2f5aaf549c12d',1,'main.cpp']]],
-  ['working_5fzone_5fin_5fjoules_146',['WORKING_ZONE_IN_JOULES',['../main_8cpp.html#a6934c64e6f6dd1c9ce2a993cc73fa70c',1,'main.cpp']]]
+  ['validation_2eh_200',['validation.h',['../validation_8h.html',1,'']]],
+  ['vrms_5fl_5fx100_201',['Vrms_L_x100',['../classPayloadTx__struct.html#a057a8416a916513fd1c0667dbf08713f',1,'PayloadTx_struct']]]
 ];

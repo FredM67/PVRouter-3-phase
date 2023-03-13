@@ -69,33 +69,37 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Config parameters for forcing a load.  
+<p>Config parameters for overriding a load.  
  <a href="classpairForceLoad.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="types_8h_source.html">types.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afda1e45c16180c8ebdb2f195799bc1e4"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html#afda1e45c16180c8ebdb2f195799bc1e4">pairForceLoad</a> ()=default</td></tr>
 <tr class="separator:afda1e45c16180c8ebdb2f195799bc1e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b1f4ffe43bbc356cc4fcf47d45214d0"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html#a6b1f4ffe43bbc356cc4fcf47d45214d0">pairForceLoad</a> (int16_t _iStartOffset, uint16_t _uiDuration=UINT16_MAX)</td></tr>
-<tr class="separator:a6b1f4ffe43bbc356cc4fcf47d45214d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96434eb9cf78c7cfd4dd4720563a55d2"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html#a96434eb9cf78c7cfd4dd4720563a55d2">pairForceLoad</a> (int16_t _iStartOffset)</td></tr>
+<tr class="separator:a96434eb9cf78c7cfd4dd4720563a55d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a872c2432415f0ca697cd219e791da168"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html#a872c2432415f0ca697cd219e791da168">pairForceLoad</a> (int16_t _iStartOffset, uint16_t _uiDuration)</td></tr>
+<tr class="separator:a872c2432415f0ca697cd219e791da168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b4b18f7af62c643c8672d77c365b0d2"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a> () const</td></tr>
 <tr class="separator:a0b4b18f7af62c643c8672d77c365b0d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f5ce15b46ef76b58c197106b37c097f"><td class="memItemLeft" align="right" valign="top">constexpr int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a> () const</td></tr>
 <tr class="separator:a2f5ce15b46ef76b58c197106b37c097f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Config parameters for forcing a load. </p>
+<div class="textblock"><p>Config parameters for overriding a load. </p>
 <p>This class allows the user to define when and how long a load will be forced at full power during off-peak period.</p>
-<p>For each load, the user defines a pair of values: <a class="el" href="classpairForceLoad.html" title="Config parameters for forcing a load.">pairForceLoad</a> =&gt; { offset, duration }. The load will be started with full power at ('start_offpeak' + 'offset') for a duration of 'duration'</p><ul>
+<p>For each load, the user defines a pair of values: <a class="el" href="classpairForceLoad.html" title="Config parameters for overriding a load.">pairForceLoad</a> =&gt; { offset, duration }. The load will be started with full power at ('start_offpeak' + 'offset') for a duration of 'duration'</p><ul>
 <li>all values are in hours (if between -24 and 24) or in minutes.</li>
 <li>if the offset is negative, it's calculated from the end of the off-peak period (ie -3 means 3 hours back from the end).</li>
 <li>to leave the load at full power till the end of the off-peak period, set the duration to 'UINT16_MAX' (somehow infinite time) </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00122">122</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00072">72</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afda1e45c16180c8ebdb2f195799bc1e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afda1e45c16180c8ebdb2f195799bc1e4">&#9670;&nbsp;</a></span>pairForceLoad() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afda1e45c16180c8ebdb2f195799bc1e4">&#9670;&nbsp;</a></span>pairForceLoad() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -119,8 +123,36 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6b1f4ffe43bbc356cc4fcf47d45214d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b1f4ffe43bbc356cc4fcf47d45214d0">&#9670;&nbsp;</a></span>pairForceLoad() <span class="overload">[2/2]</span></h2>
+<a id="a96434eb9cf78c7cfd4dd4720563a55d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96434eb9cf78c7cfd4dd4720563a55d2">&#9670;&nbsp;</a></span>pairForceLoad() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr pairForceLoad::pairForceLoad </td>
+          <td>(</td>
+          <td class="paramtype">int16_t&#160;</td>
+          <td class="paramname"><em>_iStartOffset</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00076">76</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+
+</div>
+</div>
+<a id="a872c2432415f0ca697cd219e791da168"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a872c2432415f0ca697cd219e791da168">&#9670;&nbsp;</a></span>pairForceLoad() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -138,7 +170,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>_uiDuration</em> = <code>UINT16_MAX</code>&#160;</td>
+          <td class="paramname"><em>_uiDuration</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -153,7 +185,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00126">126</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00080">80</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
@@ -181,14 +213,14 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00135">135</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00089">89</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classpairForceLoad_a0b4b18f7af62c643c8672d77c365b0d2_icgraph.png" border="0" usemap="#aclasspairForceLoad_a0b4b18f7af62c643c8672d77c365b0d2_icgraph" alt=""/></div>
 <map name="aclasspairForceLoad_a0b4b18f7af62c643c8672d77c365b0d2_icgraph" id="aclasspairForceLoad_a0b4b18f7af62c643c8672d77c365b0d2_icgraph">
 <area shape="rect" title=" " alt="" coords="204,13,403,39"/>
-<area shape="rect" href="class__rg__OffsetForce.html#a2d0fe1a08e4856f38a91f26b46066733" title=" " alt="" coords="5,5,156,47"/>
+<area shape="rect" href="class__rg__OffsetForce.html#aa397559f69858d9b3ea69c37cd429c1b" title=" " alt="" coords="5,5,156,47"/>
 </map>
 </div>
 
@@ -217,21 +249,21 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00131">131</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00085">85</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classpairForceLoad_a2f5ce15b46ef76b58c197106b37c097f_icgraph.png" border="0" usemap="#aclasspairForceLoad_a2f5ce15b46ef76b58c197106b37c097f_icgraph" alt=""/></div>
 <map name="aclasspairForceLoad_a2f5ce15b46ef76b58c197106b37c097f_icgraph" id="aclasspairForceLoad_a2f5ce15b46ef76b58c197106b37c097f_icgraph">
 <area shape="rect" title=" " alt="" coords="204,13,416,39"/>
-<area shape="rect" href="class__rg__OffsetForce.html#a2d0fe1a08e4856f38a91f26b46066733" title=" " alt="" coords="5,5,156,47"/>
+<area shape="rect" href="class__rg__OffsetForce.html#aa397559f69858d9b3ea69c37cd429c1b" title=" " alt="" coords="5,5,156,47"/>
 </map>
 </div>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Mk2_3phase_RFdatalog_temp/<a class="el" href="main_8cpp_source.html">main.cpp</a></li>
+<li>Mk2_3phase_RFdatalog_temp/<a class="el" href="types_8h_source.html">types.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
