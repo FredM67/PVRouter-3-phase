@@ -1,5 +1,5 @@
 /**
- * @file utils.h
+ * @file utils_rf.h
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for the RF chip
  * @version 0.1

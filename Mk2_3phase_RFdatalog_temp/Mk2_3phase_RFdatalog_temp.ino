@@ -2,7 +2,7 @@
  * @file Mk2_3phase_RFdatalog_temp.ino
  * @author Robin Emley (www.Mk2PVrouter.co.uk)
  * @author Frederic Metrich (frederic.metrich@live.fr)
- * @brief Mk2_3phase_RFdatalog_temp.ino - A photovoltaic energy diverter.
+ * @brief A photovoltaic energy diverter.
  * @date 2020-01-14
  *
  * @mainpage A 3-phase photovoltaic router/diverter

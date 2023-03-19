@@ -1,5 +1,5 @@
 /**
- * @file utils.h
+ * @file utils_temp.h
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for temperature sensor(s)
  * @version 0.1
