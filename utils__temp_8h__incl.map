@@ -1,5 +1,5 @@
 <map id="Mk2_3phase_RFdatalog_temp/utils_temp.h" name="Mk2_3phase_RFdatalog_temp/utils_temp.h">
-<area shape="rect" id="node1" title=" " alt="" coords="41,5,219,47"/>
+<area shape="rect" id="node1" title="Some utility functions for temperature sensor(s)" alt="" coords="41,5,219,47"/>
 <area shape="rect" id="node2" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="32,169,105,196"/>
 <area shape="rect" id="node6" href="$constants_8h.html" title="Some constants." alt="" coords="232,319,329,345"/>
 <area shape="rect" id="node7" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="22,95,115,121"/>

@@ -1,5 +1,5 @@
 <map id="Mk2_3phase_RFdatalog_temp/utils_temp.h" name="Mk2_3phase_RFdatalog_temp/utils_temp.h">
-<area shape="rect" id="node1" title=" " alt="" coords="25,5,202,47"/>
+<area shape="rect" id="node1" title="Some utility functions for temperature sensor(s)" alt="" coords="25,5,202,47"/>
 <area shape="rect" id="node2" href="$utils_8h.html" title="Some utility functions." alt="" coords="25,95,202,136"/>
 <area shape="rect" id="node3" href="$main_8cpp.html" title="Main code." alt="" coords="62,273,240,315"/>
 <area shape="rect" id="node4" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="25,184,202,225"/>
