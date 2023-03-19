@@ -5,7 +5,7 @@
 <area shape="rect" id="node8" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="461,244,565,271"/>
 <area shape="rect" id="node9" href="$utils_8h.html" title="Some utility functions." alt="" coords="253,95,315,121"/>
 <area shape="rect" id="node4" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="253,319,326,345"/>
-<area shape="rect" id="node5" href="$debug_8h.html" title=" " alt="" coords="283,393,357,420"/>
+<area shape="rect" id="node5" href="$debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="283,393,357,420"/>
 <area shape="rect" id="node6" href="$types_8h.html" title="Some basics classes/types." alt="" coords="187,393,258,420"/>
 <area shape="rect" id="node7" href="$constants_8h.html" title="Some constants." alt="" coords="375,468,473,495"/>
 <area shape="rect" id="node10" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="243,244,336,271"/>

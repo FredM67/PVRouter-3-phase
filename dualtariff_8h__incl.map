@@ -1,7 +1,7 @@
 <map id="Mk2_3phase_RFdatalog_temp/dualtariff.h" name="Mk2_3phase_RFdatalog_temp/dualtariff.h">
 <area shape="rect" id="node1" title="Classes/types needed for dual&#45;tariff support." alt="" coords="5,5,183,47"/>
 <area shape="rect" id="node2" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="57,95,131,121"/>
-<area shape="rect" id="node3" href="$debug_8h.html" title=" " alt="" coords="9,169,83,196"/>
+<area shape="rect" id="node3" href="$debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="9,169,83,196"/>
 <area shape="rect" id="node4" href="$types_8h.html" title="Some basics classes/types." alt="" coords="108,169,179,196"/>
 <area shape="rect" id="node5" title=" " alt="" coords="44,244,128,271"/>
 <area shape="rect" id="node6" href="$constants_8h.html" title="Some constants." alt="" coords="152,244,249,271"/>
