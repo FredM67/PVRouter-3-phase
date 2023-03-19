@@ -1,3 +1,14 @@
+/**
+ * @file debug.h
+ * @author Frédéric Metrich (frederic.metrich@live.fr)
+ * @brief Some macro for the Serial Output and Debugging
+ * @version 0.1
+ * @date 2023-03-19
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef _DEBUG_H
 #define _DEBUG_H
 
