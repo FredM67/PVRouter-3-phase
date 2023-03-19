@@ -13,4 +13,28 @@ If your Arduino IDE was opened, please close all the instances and open it again
 
 # Use with Visual Studio Code
 
-You'll need to install addional extension(s). The most popular and used extensions for this job are '*Arduino*' and '*Platform IO*'.
+You'll need to install additional extension(s). The most popular and used extensions for this job are '*Arduino*' and '*Platform IO*'.
+
+# Quick overview of the files
+
+- **Mk2_3phase_RFdatalog_temp.ino** : This file is needed for Arduino IDE
+- **calibration.h** : contains the calibration parameters
+- **config.h** : the user's preferences are stored here (pin assignments, features, ...)
+- **constants.h** : some constants - *do not edit*
+- **debug.h** : some macros for serial output and debugging
+- **dualtariff.h** : definitions for the dual tariff feature
+- **main.cpp** : source code
+- **main.h** : functions prototypes
+- **processing.cpp** : source code for the processing engine
+- **processing.h** : functions prototype of the processing engine
+- **Readme.md** : this file
+- **types.h** : definitions of types, ...
+- **utils_rf.h** : source code for the *RF* feature
+- **utils_temp.h** : source code for the *temperature* feature
+- **utils.h** : helper functions and misc stuff
+- **validation.h** : config validation, this code is executed during compile-time only !
+- **platformio.ini** : PlatformIO configuration
+- **inject_sketch_name.py** : helper script for PlatformIO
+- **Doxyfile** : config for Doxygen (code documentation)
+
+The end-user should ONLY edit both files **calibration.h** and **config.h**.
