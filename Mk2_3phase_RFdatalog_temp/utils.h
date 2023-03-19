@@ -59,7 +59,7 @@ template< typename T > constexpr uint8_t bit_read(const T& _src, const uint8_t b
  * @brief Clear the specified bit
  * 
  * @tparam T Type of the variable
- * @param _src Integer variable to modify
+ * @param _dest Integer variable to modify
  * @param bit Bit to clear in _src
  * @return constexpr uint8_t 
  */
