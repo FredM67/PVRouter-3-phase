@@ -222,7 +222,7 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperatu
 
     ul_TimeOffPeak = millis();
 
-    if constexpr (PRIORITY_ROTATION)
+    if constexpr (PRIORITY_ROTATION == RotationModes::AUTO)
     {
       proceedRotation();
     }
@@ -285,7 +285,7 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
     }
     pinRotationState = pinNewState;
   }
-  else if constexpr (PRIORITY_ROTATION)
+  else if constexpr (PRIORITY_ROTATION == RotationModes::AUTO)
   {
     if (ROTATION_AFTER_CYCLES < absenceOfDivertedEnergyCount)
     {

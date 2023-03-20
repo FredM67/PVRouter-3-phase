@@ -253,7 +253,7 @@ inline void printConfiguration()
     DBUGLN(F("is NOT present"));
   }
   DBUG(F("Load rotation feature "));
-  if constexpr (PRIORITY_ROTATION)
+  if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
   {
     DBUGLN(F("is present"));
   }

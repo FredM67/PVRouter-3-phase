@@ -156,7 +156,7 @@ void initializeOptionalPins()
     delay(100);                       // allow time to settle
   }
 
-  if constexpr (PRIORITY_ROTATION)
+  if constexpr (PRIORITY_ROTATION == RotationModes::PIN)
   {
     pinMode(rotationPin, INPUT_PULLUP);  // set as input & enable the internal pullup resistor
     delay(100);                          // allow time to settle
@@ -227,7 +227,7 @@ void updatePhysicalLoadStates()
 {
   uint8_t i{ 0 };
 
-  if constexpr (PRIORITY_ROTATION)
+  if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
   {
     if (b_reOrderLoads)
     {

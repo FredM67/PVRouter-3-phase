@@ -44,6 +44,14 @@ enum class LoadStates : uint8_t
 inline constexpr uint8_t loadStateOnBit{ 0x80U }; /**< bit mask for load state ON */
 inline constexpr uint8_t loadStateMask{ 0x7FU };  /**< bit mask for masking load state */
 
+/** Rotation modes */
+enum class RotationModes : uint8_t
+{
+  OFF,  /**< Off */
+  AUTO, /**< Once a day */
+  PIN   /**< Pin triggered */
+};
+
 /** @brief container for datalogging
  *  @details This class is used for datalogging.
  *

@@ -35,14 +35,14 @@ inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< number of dump loads connect
 
 #ifdef EMONESP
 inline constexpr bool EMONESP_CONTROL{ true };
-inline constexpr bool DIVERSION_PIN_PRESENT{ true }; /**< managed through EmonESP */
-inline constexpr bool PRIORITY_ROTATION{ true };     /**< managed through EmonESP */
-inline constexpr bool OVERRIDE_PIN_PRESENT{ true };  /**< managed through EmonESP */
+inline constexpr bool DIVERSION_PIN_PRESENT{ true };                    /**< managed through EmonESP */
+inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN }; /**< managed through EmonESP */
+inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                     /**< managed through EmonESP */
 #else
 inline constexpr bool EMONESP_CONTROL{ false };
-inline constexpr bool DIVERSION_PIN_PRESENT{ false }; /**< set it to 'true' if you want to control diversion ON/OFF */
-inline constexpr bool PRIORITY_ROTATION{ false };     /**< set it to 'true' if you want automatic rotation of priorities */
-inline constexpr bool OVERRIDE_PIN_PRESENT{ false };  /**< set it to 'true' if there's a override pin */
+inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
+inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */
+inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set it to 'true' if there's a override pin */
 #endif
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
@@ -92,7 +92,7 @@ inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x
 
 //--------------------------------------------------------------------------------------------------
 // for users with zero-export profile, this value will be negative
-inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 5 }; /**< when set to a negative value, this acts as a PV generator */
+inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 20 }; /**< when set to a negative value, this acts as a PV generator */
 
 //--------------------------------------------------------------------------------------------------
 // other system constants, should match most of installations
