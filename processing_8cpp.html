@@ -113,7 +113,7 @@ Functions</h2></td></tr>
 <tr class="memitem:adeeaa08a0a50d8535fdf2c8a92d4aebc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc">initializeProcessing</a> ()</td></tr>
 <tr class="memdesc:adeeaa08a0a50d8535fdf2c8a92d4aebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the ports and load states for processing.  <a href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc">More...</a><br /></td></tr>
 <tr class="separator:adeeaa08a0a50d8535fdf2c8a92d4aebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#a5c26bb614416d9b5288ef3e5e00bf5b2">initThreshold</a> (const <a class="el" href="config_8h.html#a804ee84b9617b415b422deb59701280c">bool</a> lower)</td></tr>
+<tr class="memitem:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#a5c26bb614416d9b5288ef3e5e00bf5b2">initThreshold</a> (const bool lower)</td></tr>
 <tr class="memdesc:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">set default threshold at compile time so the variable can be read-only  <a href="processing_8cpp.html#a5c26bb614416d9b5288ef3e5e00bf5b2">More...</a><br /></td></tr>
 <tr class="separator:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8e7b88bb4b21554d23b57676a45e034e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e">nextLogicalLoadToBeAdded</a> ()</td></tr>
@@ -175,9 +175,9 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:ae3ad049e6ee90e4eacc823d1387f02e0"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#ae3ad049e6ee90e4eacc823d1387f02e0">activeLoad</a> { <a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> }</td></tr>
 <tr class="separator:ae3ad049e6ee90e4eacc823d1387f02e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94046779c01c48ac04dcf44818c600ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="config_8h.html#a804ee84b9617b415b422deb59701280c">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#a94046779c01c48ac04dcf44818c600ad">b_recentTransition</a> { false }</td></tr>
+<tr class="memitem:a94046779c01c48ac04dcf44818c600ad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#a94046779c01c48ac04dcf44818c600ad">b_recentTransition</a> { false }</td></tr>
 <tr class="separator:a94046779c01c48ac04dcf44818c600ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaecb72fa3ab0755ac124b5fa6ffa1c6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="config_8h.html#a804ee84b9617b415b422deb59701280c">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#aaecb72fa3ab0755ac124b5fa6ffa1c6f">beyondStartUpPeriod</a> { false }</td></tr>
+<tr class="memitem:aaecb72fa3ab0755ac124b5fa6ffa1c6f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#aaecb72fa3ab0755ac124b5fa6ffa1c6f">beyondStartUpPeriod</a> { false }</td></tr>
 <tr class="separator:aaecb72fa3ab0755ac124b5fa6ffa1c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f61fd181a2806e678e5473eaad03891"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#a2f61fd181a2806e678e5473eaad03891">countLoadON</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>]</td></tr>
 <tr class="separator:a2f61fd181a2806e678e5473eaad03891"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -341,7 +341,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">constexpr auto initThreshold </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="config_8h.html#a804ee84b9617b415b422deb59701280c">bool</a>&#160;</td>
+          <td class="paramtype">const bool&#160;</td>
           <td class="paramname"><em>lower</em></td><td>)</td>
           <td></td>
         </tr>
@@ -464,7 +464,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="config_8h.html#a804ee84b9617b415b422deb59701280c">bool</a> b_recentTransition { false }</td>
+          <td class="memname">bool b_recentTransition { false }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -481,7 +481,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="config_8h.html#a804ee84b9617b415b422deb59701280c">bool</a> beyondStartUpPeriod { false }</td>
+          <td class="memname">bool beyondStartUpPeriod { false }</td>
         </tr>
       </table>
 </div><div class="memdoc">

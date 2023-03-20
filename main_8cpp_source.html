@@ -234,7 +234,7 @@ $(function() {
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <a class="code" href="dualtariff_8h.html#a9b220149c714c37067af68c2056d9316">ul_TimeOffPeak</a> = millis();</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordflow">if</span> constexpr (PRIORITY_ROTATION)</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordflow">if</span> constexpr (PRIORITY_ROTATION == <a class="code" href="types_8h.html#a06b890c4a964752df814257dc1f13073ae1f2d5134ed2543d38a0de9751cf75d9">RotationModes::AUTO</a>)</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    {</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;      <a class="code" href="main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33">proceedRotation</a>();</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    }</div>
@@ -288,7 +288,7 @@ $(function() {
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    }</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    pinRotationState = pinNewState;</div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;  }</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  <span class="keywordflow">else</span> <span class="keywordflow">if</span> constexpr (PRIORITY_ROTATION)</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  <span class="keywordflow">else</span> <span class="keywordflow">if</span> constexpr (PRIORITY_ROTATION == <a class="code" href="types_8h.html#a06b890c4a964752df814257dc1f13073ae1f2d5134ed2543d38a0de9751cf75d9">RotationModes::AUTO</a>)</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;  {</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#a5f05a671d6f0503882cc818f2a55493e">ROTATION_AFTER_CYCLES</a> &lt; <a class="code" href="processing_8h.html#ab96e74c302f7348daf97a84011e31fcd">absenceOfDivertedEnergyCount</a>)</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    {</div>
@@ -465,7 +465,8 @@ $(function() {
 <div class="ttc" id="aprocessing_8h_html_abd063c9cf1db937d3c2a0f3f2c064f60"><div class="ttname"><a href="processing_8h.html#abd063c9cf1db937d3c2a0f3f2c064f60">initialDelay</a></div><div class="ttdeci">constexpr uint16_t initialDelay</div><div class="ttdef"><b>Definition:</b> <a href="processing_8h_source.html#l00027">processing.h:27</a></div></div>
 <div class="ttc" id="aprocessing_8h_html_adbf5049da054af687e1e15842d883533"><div class="ttname"><a href="processing_8h.html#adbf5049da054af687e1e15842d883533">tx_data</a></div><div class="ttdeci">PayloadTx_struct&lt; NO_OF_PHASES &gt; tx_data</div><div class="ttdef"><b>Definition:</b> <a href="processing_8h_source.html#l00051">processing.h:51</a></div></div>
 <div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div><div class="ttdoc">Some basics classes/types.</div></div>
-<div class="ttc" id="atypes_8h_html_a694147b7171ec0b06bc8880dc100e756"><div class="ttname"><a href="types_8h.html#a694147b7171ec0b06bc8880dc100e756">size</a></div><div class="ttdeci">constexpr size_t size(const _Tp(&amp;)[_Nm]) noexcept</div><div class="ttdoc">Helper function to retrieve the dimension of a C-array.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00108">types.h:108</a></div></div>
+<div class="ttc" id="atypes_8h_html_a06b890c4a964752df814257dc1f13073ae1f2d5134ed2543d38a0de9751cf75d9"><div class="ttname"><a href="types_8h.html#a06b890c4a964752df814257dc1f13073ae1f2d5134ed2543d38a0de9751cf75d9">RotationModes::AUTO</a></div><div class="ttdeci">@ AUTO</div></div>
+<div class="ttc" id="atypes_8h_html_a694147b7171ec0b06bc8880dc100e756"><div class="ttname"><a href="types_8h.html#a694147b7171ec0b06bc8880dc100e756">size</a></div><div class="ttdeci">constexpr size_t size(const _Tp(&amp;)[_Nm]) noexcept</div><div class="ttdoc">Helper function to retrieve the dimension of a C-array.</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00116">types.h:116</a></div></div>
 <div class="ttc" id="autils_8h_html"><div class="ttname"><a href="utils_8h.html">utils.h</a></div><div class="ttdoc">Some utility functions.</div></div>
 <div class="ttc" id="autils_8h_html_aac7b29dc45caaaca67299571f6a2dcc0"><div class="ttname"><a href="utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a></div><div class="ttdeci">int freeRam()</div><div class="ttdoc">Get the available RAM during setup.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00487">utils.h:487</a></div></div>
 <div class="ttc" id="autils_8h_html_ad738c44fbe6076c3298fa7a65c697649"><div class="ttname"><a href="utils_8h.html#ad738c44fbe6076c3298fa7a65c697649">getPinState</a></div><div class="ttdeci">bool getPinState(const uint8_t pin) __attribute__((always_inline))</div><div class="ttdoc">Get the Pin State.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00168">utils.h:168</a></div></div>
