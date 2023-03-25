@@ -66,7 +66,7 @@ inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if th
 // D12 is MISO
 // D13 is SCK
 
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 }; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7, 9 }; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1, 2 };    /**< load priorities and states at startup */
 
 inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
@@ -92,7 +92,7 @@ inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x
 
 //--------------------------------------------------------------------------------------------------
 // for users with zero-export profile, this value will be negative
-inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 20 }; /**< when set to a negative value, this acts as a PV generator */
+inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 25 }; /**< when set to a negative value, this acts as a PV generator */
 
 //--------------------------------------------------------------------------------------------------
 // other system constants, should match most of installations
