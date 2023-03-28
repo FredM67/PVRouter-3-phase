@@ -31,7 +31,7 @@
 // powerCal is the RECIPROCAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
+inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.04327F, 0.04473F, 0.04365F };
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
@@ -48,7 +48,7 @@ inline constexpr float f_phaseCal{ 1 }; /**< Nominal values only */
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F }; /**< compared with Sentron PAC 4200 */
+inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8140F, 0.8104F, 0.8142F  }; /**< compared with Sentron PAC 4200 */
 
 inline constexpr float lpf_gain{ 0 }; /**< setting this to 0 disables this extra processing */
 inline constexpr float alpha{ 0.002 };
