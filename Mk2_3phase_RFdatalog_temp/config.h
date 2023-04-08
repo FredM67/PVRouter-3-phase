@@ -31,7 +31,7 @@
 // constants which must be set individually for each system
 //
 inline constexpr uint8_t NO_OF_PHASES{ 3 };    /**< number of phases of the main supply. */
-inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< number of dump loads connected to the diverter */
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 4 }; /**< number of dump loads connected to the diverter */
 
 #ifdef EMONESP
 inline constexpr bool EMONESP_CONTROL{ true };
@@ -66,8 +66,8 @@ inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if th
 // D12 is MISO
 // D13 is SCK
 
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 }; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
-inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1, 2 };    /**< load priorities and states at startup */
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7, 8 }; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1, 2, 3 };    /**< load priorities and states at startup */
 
 inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
 inline constexpr uint8_t diversionPin{ 0xff };  /**< if LOW, set diversion on standby */
@@ -77,10 +77,8 @@ inline constexpr uint8_t watchDogPin{ 0xff };   /**< watch dog LED */
 
 inline constexpr uint8_t tempSensorPin{ 0xff }; /**< for 3-phase PCB, sensor pin */
 
-inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                          /**< Duration of the off-peak period in hours */
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 },     /**< force config for load #1 ONLY for dual tariff */
-                                                              { -3, 120 },   /**< force config for load #2 ONLY for dual tariff */
-                                                              { -180, 2 } }; /**< force config for load #3 ONLY for dual tariff */
+inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #n ONLY for dual tariff */
 
 inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
 
