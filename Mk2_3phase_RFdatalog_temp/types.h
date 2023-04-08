@@ -107,6 +107,15 @@ private:
 using ScratchPad = uint8_t[9];
 using DeviceAddress = uint8_t[8];
 
+struct Relay_Cfg
+{
+    uint16_t p_relay_on{0};
+    uint16_t p_relay_off{0};
+    uint8_t t_min_on{0};
+    uint8_t t_min_off{0};
+    uint8_t t_hysteresis{0};
+};
+
 /**
  * @brief Helper function to retrieve the dimension of a C-array
  * 

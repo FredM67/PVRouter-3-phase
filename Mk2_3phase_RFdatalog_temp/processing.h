@@ -14,6 +14,8 @@
 
 #include "config.h"
 
+#include "movingAvg.h"
+
 // analogue input pins
 inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
 inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
@@ -44,6 +46,8 @@ inline volatile float copyOf_energyInBucket_main;                  /**< copy of 
 inline volatile uint8_t copyOf_lowestNoOfSampleSetsPerMainsCycle;  /**<  */
 inline volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
 inline volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];      /**< copy of number of cycle the load was ON (over 1 datalog period) */
+
+inline volatile movingAvg< int16_t, DATALOG_PERIOD_IN_MAINS_CYCLES > sliding_Average;
 
 #ifdef TEMP_ENABLED
 inline PayloadTx_struct< NO_OF_PHASES, size(sensorAddrs) > tx_data; /**< logging data */
