@@ -55,7 +55,7 @@ public:
     } while (i);
   }
 
-  float getAverage() const
+  auto getAverage() const
   {
     return _sum / N;
   }
