@@ -27,6 +27,7 @@
 #include "debug.h"
 #include "types.h"
 
+#include "utils_dualtariff.h"
 #include "utils_relay.h"
 #include "utils_temp.h"
 

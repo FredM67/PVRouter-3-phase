@@ -12,7 +12,8 @@
 #ifndef _UTILS_TEMP_H
 #define _UTILS_TEMP_H
 
-#include "config.h"
+#include <Arduino.h>
+
 #include "constants.h"
 
 using ScratchPad = uint8_t[9];
