@@ -66,23 +66,24 @@ inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if th
 // D12 is MISO
 // D13 is SCK
 
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 }; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
-inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1, 2 };    /**< load priorities and states at startup */
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 };      /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1, 2 };         /**< load priorities and states at startup */
 
-inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
-inline constexpr uint8_t diversionPin{ 0xff };  /**< if LOW, set diversion on standby */
-inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load priority rotation */
-inline constexpr uint8_t forcePin{ 0xff };      /**< for 3-phase PCB, force pin */
-inline constexpr uint8_t watchDogPin{ 0xff };   /**< watch dog LED */
+inline constexpr uint8_t relayPin{ 0xff };                                 /**< for 3-phase PCB, relay trigger */
+inline constexpr uint8_t dualTariffPin{ 0xff };                            /**< for 3-phase PCB, off-peak trigger */
+inline constexpr uint8_t diversionPin{ 0xff };                             /**< if LOW, set diversion on standby */
+inline constexpr uint8_t rotationPin{ 0xff };                              /**< if LOW, trigger a load priority rotation */
+inline constexpr uint8_t forcePin{ 0xff };                                 /**< for 3-phase PCB, force pin */
+inline constexpr uint8_t watchDogPin{ 0xff };                              /**< watch dog LED */
 
-inline constexpr uint8_t tempSensorPin{ 0xff }; /**< for 3-phase PCB, sensor pin */
+inline constexpr uint8_t tempSensorPin{ 0xff };                            /**< for 3-phase PCB, sensor pin */
 
-inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                          /**< Duration of the off-peak period in hours */
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 },     /**< force config for load #1 ONLY for dual tariff */
-                                                              { -3, 120 },   /**< force config for load #2 ONLY for dual tariff */
-                                                              { -180, 2 } }; /**< force config for load #3 ONLY for dual tariff */
+inline constexpr relayConfig relay_Config;                                 /**< config for relay diversion */
 
-inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
+inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
+
+inline constexpr int16_t iTemperatureThreshold{ 100 };                     /**< the temperature threshold to stop overriding in °C */
 
 inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
                                               { 0x28, 0xED, 0x5B, 0x6A, 0x09, 0x00, 0x00, 0x9D },
@@ -96,7 +97,7 @@ inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 20 }; /**< when set to a nega
 
 //--------------------------------------------------------------------------------------------------
 // other system constants, should match most of installations
-inline constexpr uint8_t SUPPLY_FREQUENCY{ 50 }; /**< number of cycles/s of the grid power supply */
+inline constexpr uint8_t SUPPLY_FREQUENCY{ 50 };                                                          /**< number of cycles/s of the grid power supply */
 
 inline constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{ 5 };                                                  /**< Period of datalogging in seconds */
 inline constexpr uint16_t DATALOG_PERIOD_IN_MAINS_CYCLES{ DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY }; /**< Period of datalogging in cycles */
@@ -119,6 +120,6 @@ inline constexpr int nodeID{ 10 };        /**<  RFM12B node ID */
 inline constexpr int networkGroup{ 210 }; /**< wireless network group - needs to be same for all nodes */
 inline constexpr int UNO{ 1 };            /**< for when the processor contains the UNO bootloader. */
 
-#endif  // RF_PRESENT
+#endif                                    // RF_PRESENT
 
-#endif  // _CONFIG_H
+#endif                                    // _CONFIG_H

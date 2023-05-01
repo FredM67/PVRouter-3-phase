@@ -67,6 +67,49 @@ public:
   int16_t temperature_x100[S]; /**< temperature in 100th of °C */
 };
 
+/**
+ * @brief Config parameters for relay diversion
+ * 
+ */
+class relayConfig
+{
+public:
+  constexpr relayConfig() = default;
+
+  constexpr relayConfig(uint16_t _surplusThreshold, uint16_t _importThreshold)
+    : surplusThreshold(_surplusThreshold), importThreshold(_importThreshold)
+  {
+  }
+
+  constexpr relayConfig(uint16_t _surplusThreshold, uint16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
+    : surplusThreshold(_surplusThreshold), importThreshold(_importThreshold), minON(_minON * 60), minOFF(_minOFF * 60)
+  {
+  }
+
+  constexpr uint16_t get_surplusThreshold() const
+  {
+    return surplusThreshold;
+  }
+  constexpr uint16_t get_importThreshold() const
+  {
+    return importThreshold;
+  }
+  constexpr uint16_t get_minON() const
+  {
+    return minON;
+  }
+  constexpr uint16_t get_minOFF() const
+  {
+    return minOFF;
+  }
+
+private:
+  uint16_t surplusThreshold{ 1000 }; /**< Surplus threshold to turn relay ON */
+  uint16_t importThreshold{ 200 };   /**< Import threshold to turn relay OFF */
+  uint16_t minON{ 5 * 60 };          /**< Minimum duration in seconds the relay is turned ON */
+  uint16_t minOFF{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned OFF */
+};
+
 /** @brief Config parameters for overriding a load
  *  @details This class allows the user to define when and how long a load will be forced at
  *           full power during off-peak period.
@@ -122,7 +165,7 @@ struct Relay_Cfg
  * @tparam _Tp elements type
  * @tparam _Nm dimension
  */
-template< typename _Tp, size_t _Nm > constexpr size_t size(const _Tp (&/*__array*/)[_Nm]) noexcept
+template< typename _Tp, size_t _Nm > constexpr size_t size(const _Tp (& /*__array*/)[_Nm]) noexcept
 {
   return _Nm;
 }
@@ -132,7 +175,7 @@ template< typename _Tp, size_t _Nm > constexpr size_t size(const _Tp (&/*__array
  * 
  * @tparam _Tp elements type
  */
-template< typename _Tp > constexpr size_t size(const _Tp (&/*__array*/)[0]) noexcept
+template< typename _Tp > constexpr size_t size(const _Tp (& /*__array*/)[0]) noexcept
 {
   return 0;
 }
