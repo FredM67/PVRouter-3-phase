@@ -14,8 +14,9 @@
 
 #include "config.h"
 #include "constants.h"
-#include "dualtariff.h"
-#include "processing.h"
+
+using ScratchPad = uint8_t[9];
+using DeviceAddress = uint8_t[8];
 
 inline int16_t readTemperature(const DeviceAddress &deviceAddress);
 inline void requestTemperatures();

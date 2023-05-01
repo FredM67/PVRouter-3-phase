@@ -27,6 +27,9 @@
 #include "debug.h"
 #include "types.h"
 
+#include "utils_relay.h"
+#include "utils_temp.h"
+
 //--------------------------------------------------------------------------------------------------
 // constants which must be set individually for each system
 //
