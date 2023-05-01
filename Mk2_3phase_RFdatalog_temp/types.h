@@ -76,38 +76,139 @@ class relayConfig
 public:
   constexpr relayConfig() = default;
 
-  constexpr relayConfig(uint16_t _surplusThreshold, uint16_t _importThreshold)
-    : surplusThreshold(_surplusThreshold), importThreshold(_importThreshold)
+  /**
+   * @brief Construct a new relay Config object
+   * 
+   * @param _surplusThreshold Surplus threshold to turn relay ON
+   * @param _importThreshold Import threshold to turn relay OFF
+   */
+  constexpr relayConfig(int16_t _surplusThreshold, int16_t _importThreshold)
+    : surplusThreshold(abs(_surplusThreshold)), importThreshold(abs(_importThreshold))
   {
   }
 
-  constexpr relayConfig(uint16_t _surplusThreshold, uint16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
-    : surplusThreshold(_surplusThreshold), importThreshold(_importThreshold), minON(_minON * 60), minOFF(_minOFF * 60)
+  /**
+   * @brief Construct a new relay Config object
+   * 
+   * @param _surplusThreshold Surplus threshold to turn relay ON
+   * @param _importThreshold Import threshold to turn relay OFF
+   * @param _minON Minimum duration to leave relay ON
+   * @param _minOFF Minimum duration in minutes to l
+   */
+  constexpr relayConfig(int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
+    : surplusThreshold(abs(_surplusThreshold)), importThreshold(abs(_importThreshold)), minON(_minON * 60), minOFF(_minOFF * 60)
   {
   }
 
-  constexpr uint16_t get_surplusThreshold() const
+  /**
+   * @brief Get the surplus threshold which will turns ON the relay
+   * 
+   * @return constexpr auto 
+   */
+  constexpr auto get_surplusThreshold() const
   {
     return surplusThreshold;
   }
-  constexpr uint16_t get_importThreshold() const
+
+  /**
+   * @brief Get the import threshold which will turns OFF the relay
+   * 
+   * @return constexpr auto 
+   */
+  constexpr auto get_importThreshold() const
   {
     return importThreshold;
   }
-  constexpr uint16_t get_minON() const
+
+  /**
+   * @brief Get the minimum ON-time
+   * 
+   * @return constexpr auto 
+   */
+  constexpr auto get_minON() const
   {
     return minON;
   }
-  constexpr uint16_t get_minOFF() const
+
+  /**
+   * @brief Get the minimum OFF-time
+   * 
+   * @return constexpr auto 
+   */
+  constexpr auto get_minOFF() const
   {
     return minOFF;
   }
 
+  /**
+   * @brief Increment the duration of the current state
+   * 
+   */
+  void inc_duration()
+  {
+    ++duration;
+  }
+
+  /**
+   * @brief Proceed with the relay
+   * 
+   * @param currentAvgPower Current sliding average power
+   */
+  void proceed_relay(int16_t currentAvgPower)
+  {
+    if (currentAvgPower > surplusThreshold)
+    {
+      try_turnON();
+    }
+    else if (-currentAvgPower > importThreshold)
+    {
+      try_turnOFF();
+    }
+  }
+
 private:
-  uint16_t surplusThreshold{ 1000 }; /**< Surplus threshold to turn relay ON */
-  uint16_t importThreshold{ 200 };   /**< Import threshold to turn relay OFF */
-  uint16_t minON{ 5 * 60 };          /**< Minimum duration in seconds the relay is turned ON */
-  uint16_t minOFF{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned OFF */
+  /**
+   * @brief Turn ON the relay if the 'time' condition is met
+   * 
+   */
+  void try_turnON()
+  {
+    if (relayState)
+    {
+      return;
+    }
+    if (duration > minOFF)
+    {
+      relayState = true;
+      duration = 0;
+    }
+  }
+
+  /**
+   * @brief Turn OFF the relay if the 'time' condition is met
+   * 
+   */
+  void try_turnOFF()
+  {
+    if (!relayState)
+    {
+      return;
+    }
+    if (duration > minON)
+    {
+      relayState = false;
+      duration = 0;
+    }
+  }
+
+private:
+  int16_t surplusThreshold{ 1000 }; /**< Surplus threshold to turn relay ON */
+  int16_t importThreshold{ 200 };   /**< Import threshold to turn relay OFF */
+  uint16_t minON{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned ON */
+  uint16_t minOFF{ 5 * 60 };        /**< Minimum duration in seconds the relay is turned OFF */
+
+  uint16_t duration{ 0 };           /**< Duration of the current state */
+  bool relayState{ false };         /**< State of the relay */
 };
 
 /** @brief Config parameters for overriding a load
@@ -149,15 +250,6 @@ private:
 
 using ScratchPad = uint8_t[9];
 using DeviceAddress = uint8_t[8];
-
-struct Relay_Cfg
-{
-    uint16_t p_relay_on{0};
-    uint16_t p_relay_off{0};
-    uint8_t t_min_on{0};
-    uint8_t t_min_off{0};
-    uint8_t t_hysteresis{0};
-};
 
 /**
  * @brief Helper function to retrieve the dimension of a C-array
