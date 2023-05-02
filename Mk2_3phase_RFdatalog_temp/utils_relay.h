@@ -18,7 +18,7 @@
  * @brief Config parameters for relay diversion
  * 
  */
-class relayConfig
+template< uint8_t T = 1 > class relayConfig
 {
 public:
   constexpr relayConfig() = default;
@@ -39,8 +39,8 @@ public:
    * 
    * @param _surplusThreshold Surplus threshold to turn relay ON
    * @param _importThreshold Import threshold to turn relay OFF
-   * @param _minON Minimum duration to leave relay ON
-   * @param _minOFF Minimum duration in minutes to l
+   * @param _minON Minimum duration in minutes to leave relay ON
+   * @param _minOFF Minimum duration in minutes to leave relay OFF
    */
   constexpr relayConfig(int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
     : surplusThreshold(abs(_surplusThreshold)), importThreshold(abs(_importThreshold)), minON(_minON * 60), minOFF(_minOFF * 60)

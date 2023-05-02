@@ -50,6 +50,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set
 #endif
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
+inline constexpr bool RELAY_DIVERSION{ false }; /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
 // ----------- Pinout assignments -----------
@@ -82,7 +83,7 @@ inline constexpr uint8_t watchDogPin{ 0xff };                              /**< 
 
 inline constexpr uint8_t tempSensorPin{ 0xff };                            /**< for 3-phase PCB, sensor pin */
 
-inline constexpr relayConfig relay_Config;                                 /**< config for relay diversion */
+inline constexpr relayConfig relay_Config;                                 /**< config for relay diversion, see class definition for defaults */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
