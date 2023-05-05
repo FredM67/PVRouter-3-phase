@@ -24,6 +24,7 @@
 //#define SERIALOUT ///< Uncomment if a wired serial connection is used
 //--------------------------------------------------------------------------------------------------
 
+#include "config_system.h"
 #include "debug.h"
 #include "types.h"
 
@@ -50,7 +51,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set
 #endif
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
-inline constexpr bool RELAY_DIVERSION{ false }; /**< set it to 'true' if a relay is used for diversion */
+inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
 // ----------- Pinout assignments -----------
@@ -83,7 +84,7 @@ inline constexpr uint8_t watchDogPin{ 0xff };                              /**< 
 
 inline constexpr uint8_t tempSensorPin{ 0xff };                            /**< for 3-phase PCB, sensor pin */
 
-inline constexpr relayConfig relay_Config;                                 /**< config for relay diversion, see class definition for defaults */
+inline relayOutput relay_Output{ relayPin };                               /**< config for relay diversion, see class definition for defaults */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
@@ -96,19 +97,7 @@ inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x
                                               { 0x28, 0x59, 0x1F, 0x6A, 0x09, 0x00, 0x00, 0xB0 },
                                               { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } }; /**< list of temperature sensor Addresses */
 
-//--------------------------------------------------------------------------------------------------
-// for users with zero-export profile, this value will be negative
-inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 20 }; /**< when set to a negative value, this acts as a PV generator */
-
-//--------------------------------------------------------------------------------------------------
-// other system constants, should match most of installations
-inline constexpr uint8_t SUPPLY_FREQUENCY{ 50 };                                                          /**< number of cycles/s of the grid power supply */
-
-inline constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{ 5 };                                                  /**< Period of datalogging in seconds */
-inline constexpr uint16_t DATALOG_PERIOD_IN_MAINS_CYCLES{ DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY }; /**< Period of datalogging in cycles */
-//--------------------------------------------------------------------------------------------------
-
-inline constexpr uint32_t ROTATION_AFTER_CYCLES{ 8UL * 3600UL * SUPPLY_FREQUENCY }; /**< rotates load priorities after this period of inactivity */
+inline constexpr uint32_t ROTATION_AFTER_CYCLES{ 8UL * 3600UL * SUPPLY_FREQUENCY };                 /**< rotates load priorities after this period of inactivity */
 
 /* --------------------------------------
    RF configuration (for the RFM12B module)

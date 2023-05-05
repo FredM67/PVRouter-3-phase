@@ -13,7 +13,8 @@
 
 #include "calibration.h"
 #include "processing.h"
-#include "utils.h"
+#include "utils_pins.h"
+#include "dualtariff.h"
 
 /*!
  *  @defgroup TimeCritical Time critical functions Group

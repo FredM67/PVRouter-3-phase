@@ -35,6 +35,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 #include "processing.h"
 #include "types.h"
 #include "utils.h"
+#include "utils_relay.h"
 #include "validation.h"
 
 // --------------  general global variables -----------------
@@ -353,7 +354,7 @@ void loop()
   static bool bOffPeak{ false };
   static int16_t iTemperature_x100{ 0 };
 
-  if (b_newMainsCycle)  // flag is set after every pair of ADC conversions
+  if (b_newMainsCycle)        // flag is set after every pair of ADC conversions
   {
     b_newMainsCycle = false;  // reset the flag
     ++perSecondTimer;
@@ -372,6 +373,12 @@ void loop()
       if (!forceFullPower())
       {
         bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100);  // called every second
+      }
+
+      if constexpr (RELAY_DIVERSION)
+      {
+        relay_Output.inc_duration();
+        relay_Output.proceed_relay();
       }
     }
   }
@@ -395,6 +402,11 @@ void loop()
       else
       {
         tx_data.Vrms_L_x100[phase] = static_cast< int32_t >(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      }
+
+      if constexpr (RELAY_DIVERSION)
+      {
+        relay_Output.update_average(tx_data.power);
       }
     }
 

@@ -80,7 +80,7 @@ public:
 
 private:
   uint8_t _idx{ 0 };
-  typename conditional< is_floating_point< T >::value, T, int32_t >::type _sum;
+  typename conditional< is_floating_point< T >::value, T, int32_t >::type _sum{ 0 };
 
   T _ar[N]{};
 };

@@ -12,7 +12,7 @@
 #ifndef _VALIDATION_H
 #define _VALIDATION_H
 
-#include "utils.h"
+#include "utils_pins.h"
 
 /**
  * @note All these checks are done by the compiler.

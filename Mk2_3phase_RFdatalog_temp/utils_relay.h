@@ -14,36 +14,52 @@
 
 #include "types.h"
 
+#include "config_system.h"
+#include "movingAvg.h"
+#include "utils_pins.h"
+
 /**
  * @brief Config parameters for relay diversion
  * 
  */
-template< uint8_t T = 1 > class relayConfig
+template< uint8_t T = 1 > class relayOutput
 {
 public:
-  constexpr relayConfig() = default;
+  constexpr relayOutput() = delete;
 
   /**
    * @brief Construct a new relay Config object
    * 
-   * @param _surplusThreshold Surplus threshold to turn relay ON
-   * @param _importThreshold Import threshold to turn relay OFF
+   * @param _relay_pin Control pin for the relay
    */
-  constexpr relayConfig(int16_t _surplusThreshold, int16_t _importThreshold)
-    : surplusThreshold(abs(_surplusThreshold)), importThreshold(abs(_importThreshold))
+  explicit constexpr relayOutput(uint8_t _relay_pin)
+    : relay_pin(_relay_pin)
   {
   }
 
   /**
    * @brief Construct a new relay Config object
    * 
+   * @param _relay_pin Control pin for the relay
+   * @param _surplusThreshold Surplus threshold to turn relay ON
+   * @param _importThreshold Import threshold to turn relay OFF
+   */
+  constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)
+    : relay_pin(_relay_pin), surplusThreshold(abs(_surplusThreshold)), importThreshold(abs(_importThreshold))
+  {
+  }
+
+  /**
+   * @brief Construct a new relay Config object
+   * 
+   * @param _relay_pin Control pin for the relay
    * @param _surplusThreshold Surplus threshold to turn relay ON
    * @param _importThreshold Import threshold to turn relay OFF
    * @param _minON Minimum duration in minutes to leave relay ON
    * @param _minOFF Minimum duration in minutes to leave relay OFF
    */
-  constexpr relayConfig(int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
-    : surplusThreshold(abs(_surplusThreshold)), importThreshold(abs(_importThreshold)), minON(_minON * 60), minOFF(_minOFF * 60)
+  constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
+    : relay_pin(_relay_pin), surplusThreshold(abs(_surplusThreshold)), importThreshold(abs(_importThreshold)), minON(_minON * 60), minOFF(_minOFF * 60)
   {
   }
 
@@ -99,10 +115,11 @@ public:
   /**
    * @brief Proceed with the relay
    * 
-   * @param currentAvgPower Current sliding average power
    */
-  void proceed_relay(int16_t currentAvgPower)
+  void proceed_relay()
   {
+    const auto currentAvgPower{ sliding_Average.getAverage() };
+
     if (currentAvgPower > surplusThreshold)
     {
       try_turnON();
@@ -111,6 +128,11 @@ public:
     {
       try_turnOFF();
     }
+  }
+
+  inline static void update_average(int16_t currentPower)
+  {
+    sliding_Average.addValue(currentPower);
   }
 
 private:
@@ -126,6 +148,8 @@ private:
     }
     if (duration > minOFF)
     {
+      setPinON(relay_pin);
+
       relayState = true;
       duration = 0;
     }
@@ -143,19 +167,24 @@ private:
     }
     if (duration > minON)
     {
+      setPinOFF(relay_pin);
+
       relayState = false;
       duration = 0;
     }
   }
 
 private:
-  int16_t surplusThreshold{ 1000 }; /**< Surplus threshold to turn relay ON */
-  int16_t importThreshold{ 200 };   /**< Import threshold to turn relay OFF */
-  uint16_t minON{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned ON */
-  uint16_t minOFF{ 5 * 60 };        /**< Minimum duration in seconds the relay is turned OFF */
+  uint8_t relay_pin{ 0xff }; /**< Pin associated with the relay */
+  int16_t surplusThreshold{ 1000 };    /**< Surplus threshold to turn relay ON */
+  int16_t importThreshold{ 200 };      /**< Import threshold to turn relay OFF */
+  uint16_t minON{ 5 * 60 };            /**< Minimum duration in seconds the relay is turned ON */
+  uint16_t minOFF{ 5 * 60 };           /**< Minimum duration in seconds the relay is turned OFF */
 
-  uint16_t duration{ 0 };           /**< Duration of the current state */
-  bool relayState{ false };         /**< State of the relay */
+  uint16_t duration{ 0 };              /**< Duration of the current state */
+  bool relayState{ false };            /**< State of the relay */
+
+  static inline movingAvg< int16_t, T * 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
 };
 
 #endif  // _UTILS_RELAY_H
