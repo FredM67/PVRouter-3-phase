@@ -142,17 +142,15 @@ private:
    */
   void try_turnON()
   {
-    if (relayState)
+    if (relayState || duration < minOFF)
     {
       return;
     }
-    if (duration > minOFF)
-    {
-      setPinON(relay_pin);
 
-      relayState = true;
-      duration = 0;
-    }
+    setPinON(relay_pin);
+
+    relayState = true;
+    duration = 0;
   }
 
   /**
@@ -161,28 +159,26 @@ private:
    */
   void try_turnOFF()
   {
-    if (!relayState)
+    if (!relayState || duration < minON)
     {
       return;
     }
-    if (duration > minON)
-    {
-      setPinOFF(relay_pin);
 
-      relayState = false;
-      duration = 0;
-    }
+    setPinOFF(relay_pin);
+
+    relayState = false;
+    duration = 0;
   }
 
 private:
-  uint8_t relay_pin{ 0xff }; /**< Pin associated with the relay */
-  int16_t surplusThreshold{ 1000 };    /**< Surplus threshold to turn relay ON */
-  int16_t importThreshold{ 200 };      /**< Import threshold to turn relay OFF */
-  uint16_t minON{ 5 * 60 };            /**< Minimum duration in seconds the relay is turned ON */
-  uint16_t minOFF{ 5 * 60 };           /**< Minimum duration in seconds the relay is turned OFF */
+  const uint8_t relay_pin{ 0xff };        /**< Pin associated with the relay */
+  const int16_t surplusThreshold{ 1000 }; /**< Surplus threshold to turn relay ON */
+  const int16_t importThreshold{ 200 };   /**< Import threshold to turn relay OFF */
+  const uint16_t minON{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned ON */
+  const uint16_t minOFF{ 5 * 60 };        /**< Minimum duration in seconds the relay is turned OFF */
 
-  uint16_t duration{ 0 };              /**< Duration of the current state */
-  bool relayState{ false };            /**< State of the relay */
+  uint16_t duration{ 0 };           /**< Duration of the current state */
+  bool relayState{ false };         /**< State of the relay */
 
   static inline movingAvg< int16_t, T * 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
 };
