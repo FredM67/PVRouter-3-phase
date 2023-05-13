@@ -33,52 +33,50 @@
 #define FREE_RUNNING
 
 // definition of enumerated types
-enum polarities
-{
+enum polarities {
   NEGATIVE,
   POSITIVE
 };
-enum loadStates
-{
+enum loadStates {
   LOAD_OFF,
   LOAD_ON
-}; // the external trigger device is active low
+};  // the external trigger device is active low
 
 #ifndef FREE_RUNNING
 #include <TimerOne.h>
-constexpr uint8_t ADC_TIMER_PERIOD{125}; // uS (determines the sampling rate / amount of idle time)
+constexpr uint8_t ADC_TIMER_PERIOD{ 125 };  // uS (determines the sampling rate / amount of idle time)
 #else
-constexpr uint8_t ADC_TIMER_PERIOD{104}; // uS (determines the sampling rate / amount of idle time)
+constexpr uint8_t ADC_TIMER_PERIOD{ 104 };  // uS (determines the sampling rate / amount of idle time)
 #endif
 
-constexpr uint8_t MAINS_CYCLES_PER_SECOND{50};
+constexpr uint8_t MAINS_CYCLES_PER_SECOND{ 50 };
 
-constexpr uint8_t NO_OF_PHASES{3}; /**< number of phases of the main supply. */
+constexpr uint8_t NO_OF_PHASES{ 3 }; /**< number of phases of the main supply. */
 
 const byte outputForTrigger = 5;
 
 // analogue input pins
-constexpr uint8_t sensorV[NO_OF_PHASES]{0, 2, 4}; /**< for 3-phase PCB, voltage measurement for each phase */
-constexpr uint8_t sensorI[NO_OF_PHASES]{1, 3, 5}; /**< for 3-phase PCB, current measurement for each phase */
+constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
+constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
 
 long cycleCount = 0;
 int samplesRecorded = 0;
-const int DCoffsetI1_nominal = 512; // nominal mid-point value of ADC @ x1 scale
+const int DCoffsetI1_nominal = 512;  // nominal mid-point value of ADC @ x1 scale
 
-long DCoffset_V_long; // <--- for LPF
-long DCoffset_V_min;  // <--- for LPF
-long DCoffset_V_max;  // <--- for LPF
+long DCoffset_V_long;  // <--- for LPF
+long DCoffset_V_min;   // <--- for LPF
+long DCoffset_V_max;   // <--- for LPF
 
 // extra items for an LPF to improve the processing of data samples from CT1
-long lpf_long = 512; // new LPF, for offsetting the behaviour of CT1 as a HPF
+long lpf_long = 512;  // new LPF, for offsetting the behaviour of CT1 as a HPF
 //
 // The next two constants determine the profile of the LPF.
 // They are matched to the physical behaviour of the YHDC SCT-013-000 CT
 // and the CT1 samples being 375 us apart
 //
-const float lpf_gain = 8; // <- setting this to 0 disables this extra processing
+const float lpf_gain = 8;  // <- setting this to 0 disables this extra processing
 // const float lpf_gain = 0;  // <- setting this to 0 disables this extra processing
-const float alpha = 0.002; //
+const float alpha = 0.002;  //
 
 // for interaction between the main processor and the ISRs
 volatile boolean dataReady = false;
@@ -89,25 +87,25 @@ enum polarities polarityOfMostRecentVsample;
 enum polarities polarityOfLastVsample;
 boolean beyondStartUpPhase = false;
 
-int lastSample_V;            // stored value from the previous loop (HP filter is for voltage samples only)
-float lastFiltered_V;        // voltage values after HP-filtering to remove the DC offset
-byte polarityOfLastSample_V; // for zero-crossing detection
+int lastSample_V;             // stored value from the previous loop (HP filter is for voltage samples only)
+float lastFiltered_V;         // voltage values after HP-filtering to remove the DC offset
+byte polarityOfLastSample_V;  // for zero-crossing detection
 
 boolean recordingNow;
 boolean recordingComplete;
 byte cycleNumberBeingRecorded;
 
-constexpr byte noOfCyclesToBeRecorded{3};
-constexpr byte noOfADCConversion{6};
+constexpr byte noOfCyclesToBeRecorded{ 3 };
+constexpr byte noOfADCConversion{ 6 };
 
 unsigned long recordingMayStartAt;
 boolean firstLoop = true;
-int settlingDelay = 5; // <<---  settling time (seconds) for HPF
+int settlingDelay = 5;  // <<---  settling time (seconds) for HPF
 
 char blankLine[82];
 char newLine[82];
 
-constexpr uint16_t noOfSamples{1000000 / MAINS_CYCLES_PER_SECOND * noOfCyclesToBeRecorded / (ADC_TIMER_PERIOD * noOfADCConversion)};
+constexpr uint16_t noOfSamples{ 1000000 / MAINS_CYCLES_PER_SECOND * noOfCyclesToBeRecorded / (ADC_TIMER_PERIOD * noOfADCConversion) };
 
 int storedSample_V1[noOfSamples + 10];
 int storedSample_I1[noOfSamples + 10];
@@ -117,8 +115,7 @@ int storedSample_I1[noOfSamples + 10];
  *
  * @param pin pin to change [2..13]
  */
-void setPinON(const uint8_t pin)
-{
+void setPinON(const uint8_t pin) {
   if (pin < 8)
     PORTD |= bit(pin);
   else
@@ -130,16 +127,14 @@ void setPinON(const uint8_t pin)
  *
  * @param pin pin to change [2..13]
  */
-void setPinOFF(const uint8_t pin)
-{
+void setPinOFF(const uint8_t pin) {
   if (pin < 8)
     PORTD &= ~bit(pin);
   else
     PORTB &= ~bit(pin ^ 8u);
 }
 
-void setup()
-{
+void setup() {
   pinMode(outputForTrigger, OUTPUT);
   setPinOFF(outputForTrigger);
 
@@ -158,8 +153,7 @@ void setup()
   blankLine[0] = '|';
   blankLine[80] = '|';
 
-  for (int i = 1; i < 80; ++i)
-  {
+  for (int i = 1; i < 80; ++i) {
     blankLine[i] = ' ';
   }
   blankLine[40] = '.';
@@ -167,17 +161,17 @@ void setup()
   // Define operating limits for the LP filter which identifies DC offset in the voltage
   // sample stream.  By limiting the output range, the filter always should start up
   // correctly.
-  DCoffset_V_long = 512L * 256;              // nominal mid-point value of ADC @ x256 scale
-  DCoffset_V_min = (long)(512L - 100) * 256; // mid-point of ADC minus a working margin
-  DCoffset_V_max = (long)(512L + 100) * 256; // mid-point of ADC plus a working margin
+  DCoffset_V_long = 512L * 256;               // nominal mid-point value of ADC @ x256 scale
+  DCoffset_V_min = (long)(512L - 100) * 256;  // mid-point of ADC minus a working margin
+  DCoffset_V_max = (long)(512L + 100) * 256;  // mid-point of ADC plus a working margin
 
 #ifndef FREE_RUNNING
   // Set up the ADC to be triggered by a hardware timer of fixed duration
-  ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2); // Set the ADC's clock to system clock / 128
-  ADCSRA |= (1 << ADEN);                               // Enable ADC
+  ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2);  // Set the ADC's clock to system clock / 128
+  ADCSRA |= (1 << ADEN);                                // Enable ADC
 
-  Timer1.initialize(ADC_TIMER_PERIOD); // set Timer1 interval
-  Timer1.attachInterrupt(timerIsr);    // declare timerIsr() as interrupt service routine
+  Timer1.initialize(ADC_TIMER_PERIOD);  // set Timer1 interval
+  Timer1.attachInterrupt(timerIsr);     // declare timerIsr() as interrupt service routine
 
   Serial.print(F("ADC mode:       "));
   Serial.print(ADC_TIMER_PERIOD);
@@ -187,87 +181,85 @@ void setup()
   bitClear(ADCSRA, ADEN);
 
   // Set up the ADC to be free-running
-  bitSet(ADCSRA, ADPS0); // Set the ADC's clock to system clock / 128
+  bitSet(ADCSRA, ADPS0);  // Set the ADC's clock to system clock / 128
   bitSet(ADCSRA, ADPS1);
   bitSet(ADCSRA, ADPS2);
 
-  bitSet(ADCSRA, ADATE); // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  bitSet(ADCSRA, ADATE);  // set the Auto Trigger Enable bit in the ADCSRA register. Because
   // bits ADTS0-2 have not been set (i.e. they are all zero), the
   // ADC's trigger source is set to "free running mode".
 
-  bitSet(ADCSRA, ADIE); // set the ADC interrupt enable bit. When this bit is written
+  bitSet(ADCSRA, ADIE);  // set the ADC interrupt enable bit. When this bit is written
   // to one and the I-bit in SREG is set, the
   // ADC Conversion Complete Interrupt is activated.
 
-  bitSet(ADCSRA, ADEN); // Enable the ADC
+  bitSet(ADCSRA, ADEN);  // Enable the ADC
 
-  bitSet(ADCSRA, ADSC); // start ADC manually first time
+  bitSet(ADCSRA, ADSC);  // start ADC manually first time
 
-  sei(); // Enable Global Interrupts
+  sei();  // Enable Global Interrupts
 
   Serial.println(F("ADC mode:       free-running"));
 #endif
 
   Serial.print(">>free RAM = ");
-  Serial.println(freeRam()); // a useful value to keep an eye on
+  Serial.println(freeRam());  // a useful value to keep an eye on
 }
 
 ISR(ADC_vect)
 // void timerIsr(void)
 {
-  static uint8_t sample_index{0};
+  static uint8_t sample_index{ 0 };
   static int sample_I1_raw;
   int16_t rawSample;
 
-  switch (sample_index)
-  {
-  case 0:
-    sample_V1 = ADC;                 // store the ADC value (this one is for Voltage)
-    ADMUX = bit(REFS0) + sensorV[1]; // the conversion for I1 is already under way
-    ADCSRA |= (1 << ADSC);           // start the ADC
-    ++sample_index;                  // increment the control flag
-    sample_I1 = sample_I1_raw;
-    break;
-  case 1:
-    sample_I1_raw = ADC;             // store the ADC value (this one is for current at CT1)
-    ADMUX = bit(REFS0) + sensorI[1]; // the conversion for V2 is already under way
-    ADCSRA |= (1 << ADSC);           // start the ADC
-    ++sample_index;                  // increment the control flag
-                                     //
-    dataReady = true;                // all three ADC values can now be processed
-    break;
-  case 2:
-    rawSample = ADC;                 // store the ADC value (this one is for current at CT2)
-    ADMUX = bit(REFS0) + sensorV[2]; // the conversion for I2 is already under way
-    ADCSRA |= (1 << ADSC);           // start the ADC
-    ++sample_index;                  // increment the control flag
-    break;
-  case 3:
-    rawSample = ADC;                 // store the ADC value (this one is for Current L2)
-    ADMUX = bit(REFS0) + sensorI[2]; // the conversion for V3 is already under way
-    ++sample_index;                  // increment the control flag
-    break;
-  case 4:
-    rawSample = ADC;                 // store the ADC value (this one is for Voltage L3)
-    ADMUX = bit(REFS0) + sensorV[0]; // the conversion for I3 is already under way
-    ++sample_index;                  // increment the control flag
-    break;
-  case 5:
-    rawSample = ADC;                 // store the ADC value (this one is for Current L3)
-    ADMUX = bit(REFS0) + sensorI[0]; // the conversion for V1 is already under way
-    sample_index = 0;                // reset the control flag
-    break;
-  default:
-    sample_index = 0; // to prevent lockup (should never get here)
+  switch (sample_index) {
+    case 0:
+      sample_V1 = ADC;                  // store the ADC value (this one is for Voltage)
+      ADMUX = bit(REFS0) + sensorV[1];  // the conversion for I1 is already under way
+      ADCSRA |= (1 << ADSC);            // start the ADC
+      ++sample_index;                   // increment the control flag
+      sample_I1 = sample_I1_raw;
+      break;
+    case 1:
+      sample_I1_raw = ADC;              // store the ADC value (this one is for current at CT1)
+      ADMUX = bit(REFS0) + sensorI[1];  // the conversion for V2 is already under way
+      ADCSRA |= (1 << ADSC);            // start the ADC
+      ++sample_index;                   // increment the control flag
+                                        //
+      dataReady = true;                 // all three ADC values can now be processed
+      break;
+    case 2:
+      rawSample = ADC;                  // store the ADC value (this one is for current at CT2)
+      ADMUX = bit(REFS0) + sensorV[2];  // the conversion for I2 is already under way
+      ADCSRA |= (1 << ADSC);            // start the ADC
+      ++sample_index;                   // increment the control flag
+      break;
+    case 3:
+      rawSample = ADC;                  // store the ADC value (this one is for Current L2)
+      ADMUX = bit(REFS0) + sensorI[2];  // the conversion for V3 is already under way
+      ++sample_index;                   // increment the control flag
+      break;
+    case 4:
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L3)
+      ADMUX = bit(REFS0) + sensorV[0];  // the conversion for I3 is already under way
+      ++sample_index;                   // increment the control flag
+      break;
+    case 5:
+      rawSample = ADC;                  // store the ADC value (this one is for Current L3)
+      ADMUX = bit(REFS0) + sensorI[0];  // the conversion for V1 is already under way
+      sample_index = 0;                 // reset the control flag
+      break;
+    default:
+      sample_index = 0;  // to prevent lockup (should never get here)
   }
 }
 
-void loop()
-{
-  if (dataReady) // flag is set after every set of ADC conversions
+void loop() {
+  if (dataReady)  // flag is set after every set of ADC conversions
   {
-    dataReady = false;      // reset the flag
-    allGeneralProcessing(); // executed once for each set of V&I samples
+    dataReady = false;       // reset the flag
+    allGeneralProcessing();  // executed once for each set of V&I samples
   }
 }
 
@@ -284,13 +276,12 @@ void loop()
  *  At the start of the following cycle, the data collected during the
  *  previous mains cycle(s) is sent to the Serial window.
  */
-void allGeneralProcessing() // each iteration is for one set of data samples
+void allGeneralProcessing()  // each iteration is for one set of data samples
 {
-  static long cumVdeltasThisCycle_long; // for the LPF which determines DC offset (voltage)
+  static long cumVdeltasThisCycle_long;  // for the LPF which determines DC offset (voltage)
   static int sampleSetsDuringThisHalfMainsCycle;
   //
-  if (firstLoop)
-  {
+  if (firstLoop) {
     unsigned long timeNow = millis();
     Serial.print("millis() now = ");
     Serial.println(timeNow);
@@ -313,78 +304,62 @@ void allGeneralProcessing() // each iteration is for one set of data samples
   // determine the polarity of the latest voltage sample
   polarityOfMostRecentVsample = (sample_V1minusDC_long > 0) ? POSITIVE : NEGATIVE;
 
-  if (polarityOfMostRecentVsample == POSITIVE)
-  {
-    if (polarityOfLastVsample != POSITIVE)
-    {
+  if (polarityOfMostRecentVsample == POSITIVE) {
+    if (polarityOfLastVsample != POSITIVE) {
       // This is the start of a new mains cycle
       ++cycleCount;
       sampleSetsDuringThisHalfMainsCycle = 0;
 
-      if (recordingNow == true)
-      {
-        if (cycleNumberBeingRecorded >= noOfCyclesToBeRecorded)
-        {
+      if (recordingNow == true) {
+        if (cycleNumberBeingRecorded >= noOfCyclesToBeRecorded) {
           Serial.print("No of cycles recorded = ");
           Serial.println(cycleNumberBeingRecorded);
           dispatch_recorded_data();
-        }
-        else
-        {
+        } else {
           ++cycleNumberBeingRecorded;
         }
       }
 
-      else if ((cycleCount % MAINS_CYCLES_PER_SECOND) == 1)
-      {
+      else if ((cycleCount % MAINS_CYCLES_PER_SECOND) == 1) {
         unsigned long timeNow = millis();
-        if (timeNow > recordingMayStartAt)
-        {
+        if (timeNow > recordingMayStartAt) {
           recordingNow = true;
           ++cycleNumberBeingRecorded;
-        }
-        else
-        {
+        } else {
           Serial.println((int)(recordingMayStartAt - timeNow) / 1000);
         }
       }
-    } // end of specific processing for first +ve Vsample in each mains cycle
+    }  // end of specific processing for first +ve Vsample in each mains cycle
 
     // still processing samples where the voltage is POSITIVE ...
     // check to see whether the trigger device can now be reliably armed
-    if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1))
-    {
-      setPinON(outputForTrigger); // triac will fire at the next ZC point
+    if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1)) {
+      setPinON(outputForTrigger);  // triac will fire at the next ZC point
     }
-  }    // end of specific processing of +ve cycles
-  else // the polatity of this sample is negative
+  }     // end of specific processing of +ve cycles
+  else  // the polatity of this sample is negative
   {
-    if (polarityOfLastVsample != NEGATIVE)
-    {
+    if (polarityOfLastVsample != NEGATIVE) {
       sampleSetsDuringThisHalfMainsCycle = 0;
 
       long previousOffset = DCoffset_V_long;
       DCoffset_V_long = previousOffset + (cumVdeltasThisCycle_long >> 12);
       cumVdeltasThisCycle_long = 0;
 
-      if (DCoffset_V_long < DCoffset_V_min)
-      {
+      if (DCoffset_V_long < DCoffset_V_min) {
         DCoffset_V_long = DCoffset_V_min;
-      }
-      else if (DCoffset_V_long > DCoffset_V_max)
-      {
+      } else if (DCoffset_V_long > DCoffset_V_max) {
         DCoffset_V_long = DCoffset_V_max;
       }
 
-    } // end of processing that is specific to the first Vsample in each -ve half cycle
+    }  // end of processing that is specific to the first Vsample in each -ve half cycle
     // still processing samples where the voltage is NEGATIVE ...
     // check to see whether the trigger device can now be reliably armed
-    if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1))
-    {
-      setPinOFF(outputForTrigger); // triac will release at the next ZC point
+    if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1)) {
+      setPinOFF(outputForTrigger);  // triac will release at the next ZC point
     }
-  } // end of processing that is specific to samples where the voltage is negative
-    //
+  }  // end of processing that is specific to samples where the voltage is negative
+  //
   // processing for EVERY set of samples
   //
   // extra filtering to offset the HPF effect of CT1
@@ -399,20 +374,18 @@ void allGeneralProcessing() // each iteration is for one set of data samples
 
   sample_I1 = (sampleI1minusDC_long >> 8) + DCoffsetI1_nominal;
   //
-  if (recordingNow == true)
-  {
+  if (recordingNow == true) {
     storedSample_V1[samplesRecorded] = sample_V1;
     storedSample_I1[samplesRecorded] = sample_I1;
     ++samplesRecorded;
   }
 
   ++sampleSetsDuringThisHalfMainsCycle;
-  cumVdeltasThisCycle_long += sample_V1minusDC_long;   // for use with LP filter
-  polarityOfLastVsample = polarityOfMostRecentVsample; // for identification of half cycle boundaries
-} // end of allGeneralProcessing()
+  cumVdeltasThisCycle_long += sample_V1minusDC_long;    // for use with LP filter
+  polarityOfLastVsample = polarityOfMostRecentVsample;  // for identification of half cycle boundaries
+}  // end of allGeneralProcessing()
 
-void dispatch_recorded_data()
-{
+void dispatch_recorded_data() {
   // display raw samples via the Serial Monitor
   // ------------------------------------------
 
@@ -425,26 +398,21 @@ void dispatch_recorded_data()
   int min_V = 1023, min_I1 = 1023;
   int max_V = 0, max_I1 = 0;
 
-  for (int index = 0; index < samplesRecorded; ++index)
-  {
+  for (int index = 0; index < samplesRecorded; ++index) {
     strcpy(newLine, blankLine);
     V = storedSample_V1[index];
     I1 = storedSample_I1[index];
 
-    if (V < min_V)
-    {
+    if (V < min_V) {
       min_V = V;
     }
-    if (V > max_V)
-    {
+    if (V > max_V) {
       max_V = V;
     }
-    if (I1 < min_I1)
-    {
+    if (I1 < min_I1) {
       min_I1 = I1;
     }
-    if (I1 > max_I1)
-    {
+    if (I1 > max_I1) {
       max_I1 = I1;
     }
 
@@ -454,12 +422,11 @@ void dispatch_recorded_data()
     int halfRange = 200;
     int lowerLimit = 512 - halfRange;
     int upperLimit = 512 + halfRange;
-    if ((I1 > lowerLimit) && (I1 < upperLimit))
-    {
-      newLine[map(I1, lowerLimit, upperLimit, 0, 80)] = '1'; // <-- raw sample scale
+    if ((I1 > lowerLimit) && (I1 < upperLimit)) {
+      newLine[map(I1, lowerLimit, upperLimit, 0, 80)] = '1';  // <-- raw sample scale
     }
 
-    if ((index % 2) == 0) // change this to "% 1" for full resolution
+    if ((index % 2) == 0)  // change this to "% 1" for full resolution
     {
       Serial.println(newLine);
     }
@@ -495,24 +462,20 @@ void dispatch_recorded_data()
   pause();
 }
 
-void pause()
-{
+void pause() {
   byte done = false;
   byte dummyByte;
 
-  while (done != true)
-  {
-    if (Serial.available() > 0)
-    {
-      dummyByte = Serial.read(); // to 'consume' the incoming byte
+  while (done != true) {
+    if (Serial.available() > 0) {
+      dummyByte = Serial.read();  // to 'consume' the incoming byte
       if (dummyByte == 'g')
         ++done;
     }
   }
 }
 
-int freeRam()
-{
+int freeRam() {
   extern int __heap_start, *__brkval;
   int v;
   return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);

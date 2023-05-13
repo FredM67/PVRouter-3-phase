@@ -20,10 +20,10 @@ inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 20 }; /**< when set to a nega
 
 //--------------------------------------------------------------------------------------------------
 // other system constants, should match most of installations
-inline constexpr uint8_t SUPPLY_FREQUENCY{ 50 };                                                          /**< number of cycles/s of the grid power supply */
+inline constexpr uint8_t SUPPLY_FREQUENCY{ 50 }; /**< number of cycles/s of the grid power supply */
 
 inline constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{ 5 };                                                  /**< Period of datalogging in seconds */
 inline constexpr uint16_t DATALOG_PERIOD_IN_MAINS_CYCLES{ DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY }; /**< Period of datalogging in cycles */
 //--------------------------------------------------------------------------------------------------
 
-#endif // __CONFIG_SYSTEM_H__
+#endif  // __CONFIG_SYSTEM_H__
