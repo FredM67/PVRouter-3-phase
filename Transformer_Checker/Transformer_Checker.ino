@@ -35,11 +35,13 @@
 #define DATALOG_PERIOD 5  // seconds
 
 // definition of enumerated types
-enum polarities {
+enum polarities
+{
   NEGATIVE,
   POSITIVE
 };
-enum outputStates {
+enum outputStates
+{
   OUTPUT_STAGE_OFF,
   OUTPUT_STAGE_ON
 };
@@ -89,7 +91,8 @@ int sampleV;
 //
 const float voltageCal = 1.0;
 
-void setup() {
+void setup()
+{
   pinMode(outputForTrigger, OUTPUT);
   digitalWrite(outputForTrigger, OUTPUT_STAGE_ON);
 
@@ -128,10 +131,12 @@ void setup() {
 // executed whenever the ADC timer expires.  In this mode, the next ADC conversion is
 // initiated from within this ISR.
 //
-void timerIsr(void) {
+void timerIsr(void)
+{
   static unsigned char sample_index = 0;
 
-  switch (sample_index) {
+  switch (sample_index)
+  {
     case 0:
       sampleV = ADC;                          // store the ADC value (this one is for Voltage)
       ADMUX = 0x40 + currentSensor_diverted;  // set up the next conversion, which is for Diverted Current
@@ -162,7 +167,8 @@ void timerIsr(void) {
 // V & I samples.  It then returns to loop() to wait for the next set to become
 // available.
 //
-void loop() {
+void loop()
+{
 
   if (dataReady)  // flag is set after every pair of ADC conversions
   {
@@ -176,7 +182,8 @@ void loop() {
 // As soon as a new set of data is made available by the ADC, the main processor can
 // start to work on it immediately.
 //
-void allGeneralProcessing() {
+void allGeneralProcessing()
+{
   static enum polarities polarityOfLastSampleV;  // for zero-crossing detection
   static long cumVdeltasThisCycle_long;          // for the LPF which determines DC offset (voltage)
   static byte perSecondCounter = 0;
@@ -191,25 +198,33 @@ void allGeneralProcessing() {
 
   // determine the polarity of the latest voltage sample
   enum polarities polarityNow;
-  if (sampleVminusDC_long > 0) {
+  if (sampleVminusDC_long > 0)
+  {
     polarityNow = POSITIVE;
-  } else {
+  }
+  else
+  {
     polarityNow = NEGATIVE;
   }
 
-  if (polarityNow == POSITIVE) {
-    if (beyondStartUpPhase) {
-      if (polarityOfLastSampleV != POSITIVE) {
+  if (polarityNow == POSITIVE)
+  {
+    if (beyondStartUpPhase)
+    {
+      if (polarityOfLastSampleV != POSITIVE)
+      {
         // This is the start of a new +ve half cycle (just after the zero-crossing point)
         outputStateNow = nextOutputState;  // to correspond with the action of the opto-isolator
 
         ++perSecondCounter;
-        if (perSecondCounter >= CYCLES_PER_SECOND) {
+        if (perSecondCounter >= CYCLES_PER_SECOND)
+        {
           perSecondCounter = 0;
 
           // routine data is calculated every N seconds
           ++datalog_counter;
-          if (datalog_counter >= DATALOG_PERIOD) {
+          if (datalog_counter >= DATALOG_PERIOD)
+          {
             datalog_counter = 0;
 
             Vrms_whileOutputStageIsOn =
@@ -232,9 +247,12 @@ void allGeneralProcessing() {
           }
         }
       }  // end of processing that is specific to the first Vsample in each +ve half cycle
-    } else {
+    }
+    else
+    {
       // wait until the DC-blocking filters have had time to settle
-      if (millis() > startUpPeriod * 1000) {
+      if (millis() > startUpPeriod * 1000)
+      {
         beyondStartUpPhase = true;
         Serial.println("Go!");
       }
@@ -243,7 +261,8 @@ void allGeneralProcessing() {
 
   else  // the polatity of this sample is negative
   {
-    if (polarityOfLastSampleV != NEGATIVE) {
+    if (polarityOfLastSampleV != NEGATIVE)
+    {
       // This is the start of a new -ve half cycle (just after the zero-crossing point)
       // which is a convenient point to update the Low Pass Filter for DC-offset removal
       //
@@ -255,16 +274,20 @@ void allGeneralProcessing() {
       // output value needs to be prevented from drifting beyond the likely range of the
       // voltage signal.  This avoids the need to use a HPF as was done for initial Mk2 builds.
       //
-      if (DCoffset_V_long < DCoffset_V_min) {
+      if (DCoffset_V_long < DCoffset_V_min)
+      {
         DCoffset_V_long = DCoffset_V_min;
-      } else if (DCoffset_V_long > DCoffset_V_max) {
+      }
+      else if (DCoffset_V_long > DCoffset_V_max)
+      {
         DCoffset_V_long = DCoffset_V_max;
       }
 
       sampleSetsDuringNegativeHalfOfMainsCycle = 0;
 
       ++outputStateCounter;
-      if (outputStateCounter >= MAX_CONSECUTIVE_CYCLES) {
+      if (outputStateCounter >= MAX_CONSECUTIVE_CYCLES)
+      {
         outputStateCounter = 0;
         nextOutputState = (enum outputStates) !outputStateNow;
       }
@@ -273,7 +296,8 @@ void allGeneralProcessing() {
     ++sampleSetsDuringNegativeHalfOfMainsCycle;
 
     // check to see whether the trigger device can now be reliably armed
-    if (sampleSetsDuringNegativeHalfOfMainsCycle == 3) {
+    if (sampleSetsDuringNegativeHalfOfMainsCycle == 3)
+    {
       digitalWrite(outputForTrigger, !nextOutputState);  // the trigger control circuit is active low
     }
 
@@ -286,10 +310,13 @@ void allGeneralProcessing() {
   long inst_Vsquared = filtV_div4 * filtV_div4;  // 32-bits (now x4096, or 2^12)
   inst_Vsquared = inst_Vsquared >> 12;           // scaling is now x1 (V_ADC x I_ADC)
 
-  if (outputStateNow == OUTPUT_STAGE_ON) {
+  if (outputStateNow == OUTPUT_STAGE_ON)
+  {
     sum_Vsquared_whileOutputStageIsOn += inst_Vsquared;
     ++sampleSets_whileOutputStageIsOn;
-  } else {
+  }
+  else
+  {
     sum_Vsquared_whileOutputStageIsOff += inst_Vsquared;
     ++sampleSets_whileOutputStageIsOff;
   }
@@ -299,7 +326,8 @@ void allGeneralProcessing() {
   polarityOfLastSampleV = polarityNow;              // for identification of half cycle boundaries
 }
 
-int freeRam() {
+int freeRam()
+{
   extern int __heap_start, *__brkval;
   int v;
   return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
