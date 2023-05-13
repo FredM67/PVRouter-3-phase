@@ -51,4 +51,4 @@ private:
   uint16_t uiDuration{ UINT16_MAX }; /**< the duration for overriding the load in hours or minutes */
 };
 
-#endif // __UTILS_DUALTARIFF_H__
+#endif  // __UTILS_DUALTARIFF_H__

@@ -164,4 +164,4 @@ inline bool getPinState(const uint8_t pin)
   return (pin < 8) ? bitRead(PIND, pin) : bitRead(PINB, pin - 8);
 }
 
-#endif // __UTILS_PINS_H__
+#endif  // __UTILS_PINS_H__

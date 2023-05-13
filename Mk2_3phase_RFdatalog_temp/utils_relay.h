@@ -182,8 +182,8 @@ private:
   const uint16_t minON{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned ON */
   const uint16_t minOFF{ 5 * 60 };        /**< Minimum duration in seconds the relay is turned OFF */
 
-  uint16_t duration{ 0 };                 /**< Duration of the current state */
-  bool relayState{ false };               /**< State of the relay */
+  uint16_t duration{ 0 };   /**< Duration of the current state */
+  bool relayState{ false }; /**< State of the relay */
 
   static inline movingAvg< int16_t, T * 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
 };
