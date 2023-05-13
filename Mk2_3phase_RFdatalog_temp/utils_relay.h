@@ -135,6 +135,11 @@ public:
     }
   }
 
+  inline static auto get_average()
+  {
+    return sliding_Average.getAverage();
+  }
+
   inline static void update_average(int16_t currentPower)
   {
     sliding_Average.addValue(currentPower);

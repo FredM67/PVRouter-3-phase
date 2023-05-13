@@ -241,6 +241,12 @@ inline void printForSerialText()
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
 
+  if constexpr (RELAY_DIVERSION)
+  {
+    Serial.print(F("/"));
+    Serial.print(relay_Output.get_average());
+  }
+
   for (phase = 0; phase < NO_OF_PHASES; ++phase)
   {
     Serial.print(F(", P"));
@@ -304,7 +310,9 @@ inline void sendResults(bool bOffPeak)
 #endif  // if defined SERIALOUT
 
   if constexpr (EMONESP_CONTROL)
+  {
     printForEmonESP(bOffPeak);
+  }
 
 #if defined SERIALPRINT && !defined EMONESP
   printForSerialText();
