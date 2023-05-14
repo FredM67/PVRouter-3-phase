@@ -33,7 +33,7 @@ BitFieldColonSpacing: Both
 BraceWrapping:
   AfterCaseLabel: false
   AfterClass: false
-  AfterControlStatement: Never
+  AfterControlStatement: true
   AfterEnum: false
   AfterFunction: false
   AfterNamespace: false
@@ -51,7 +51,7 @@ BraceWrapping:
   SplitEmptyNamespace: true
 BreakAfterJavaFieldAnnotations: false
 BreakBeforeBinaryOperators: NonAssignment
-BreakBeforeBraces: Attach
+BreakBeforeBraces: Allman
 BreakBeforeConceptDeclarations: false
 BreakBeforeInheritanceComma: false
 BreakBeforeTernaryOperators: true
@@ -164,7 +164,7 @@ SpaceBeforeSquareBrackets: false
 SpaceInEmptyBlock: false
 SpaceInEmptyParentheses: false
 SpacesBeforeTrailingComments: 2
-SpacesInAngles: Leave
+SpacesInAngles: true
 SpacesInCStyleCastParentheses: false
 SpacesInConditionalStatement: false
 SpacesInContainerLiterals: false
