@@ -354,7 +354,7 @@ void loop()
   static bool bOffPeak{ false };
   static int16_t iTemperature_x100{ 0 };
 
-  if (b_newMainsCycle)        // flag is set after every pair of ADC conversions
+  if (b_newMainsCycle)  // flag is set after every pair of ADC conversions
   {
     b_newMainsCycle = false;  // reset the flag
     ++perSecondTimer;

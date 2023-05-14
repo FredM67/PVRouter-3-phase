@@ -33,11 +33,13 @@
 #define FREE_RUNNING
 
 // definition of enumerated types
-enum polarities {
+enum polarities
+{
   NEGATIVE,
   POSITIVE
 };
-enum loadStates {
+enum loadStates
+{
   LOAD_OFF,
   LOAD_ON
 };  // the external trigger device is active low
@@ -115,7 +117,8 @@ int storedSample_I1[noOfSamples + 10];
  *
  * @param pin pin to change [2..13]
  */
-void setPinON(const uint8_t pin) {
+void setPinON(const uint8_t pin)
+{
   if (pin < 8)
     PORTD |= bit(pin);
   else
@@ -127,14 +130,16 @@ void setPinON(const uint8_t pin) {
  *
  * @param pin pin to change [2..13]
  */
-void setPinOFF(const uint8_t pin) {
+void setPinOFF(const uint8_t pin)
+{
   if (pin < 8)
     PORTD &= ~bit(pin);
   else
     PORTB &= ~bit(pin ^ 8u);
 }
 
-void setup() {
+void setup()
+{
   pinMode(outputForTrigger, OUTPUT);
   setPinOFF(outputForTrigger);
 
@@ -153,7 +158,8 @@ void setup() {
   blankLine[0] = '|';
   blankLine[80] = '|';
 
-  for (int i = 1; i < 80; ++i) {
+  for (int i = 1; i < 80; ++i)
+  {
     blankLine[i] = ' ';
   }
   blankLine[40] = '.';
@@ -213,7 +219,8 @@ ISR(ADC_vect)
   static int sample_I1_raw;
   int16_t rawSample;
 
-  switch (sample_index) {
+  switch (sample_index)
+  {
     case 0:
       sample_V1 = ADC;                  // store the ADC value (this one is for Voltage)
       ADMUX = bit(REFS0) + sensorV[1];  // the conversion for I1 is already under way
@@ -255,7 +262,8 @@ ISR(ADC_vect)
   }
 }
 
-void loop() {
+void loop()
+{
   if (dataReady)  // flag is set after every set of ADC conversions
   {
     dataReady = false;       // reset the flag
@@ -281,7 +289,8 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
   static long cumVdeltasThisCycle_long;  // for the LPF which determines DC offset (voltage)
   static int sampleSetsDuringThisHalfMainsCycle;
   //
-  if (firstLoop) {
+  if (firstLoop)
+  {
     unsigned long timeNow = millis();
     Serial.print("millis() now = ");
     Serial.println(timeNow);
@@ -304,28 +313,38 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
   // determine the polarity of the latest voltage sample
   polarityOfMostRecentVsample = (sample_V1minusDC_long > 0) ? POSITIVE : NEGATIVE;
 
-  if (polarityOfMostRecentVsample == POSITIVE) {
-    if (polarityOfLastVsample != POSITIVE) {
+  if (polarityOfMostRecentVsample == POSITIVE)
+  {
+    if (polarityOfLastVsample != POSITIVE)
+    {
       // This is the start of a new mains cycle
       ++cycleCount;
       sampleSetsDuringThisHalfMainsCycle = 0;
 
-      if (recordingNow == true) {
-        if (cycleNumberBeingRecorded >= noOfCyclesToBeRecorded) {
+      if (recordingNow == true)
+      {
+        if (cycleNumberBeingRecorded >= noOfCyclesToBeRecorded)
+        {
           Serial.print("No of cycles recorded = ");
           Serial.println(cycleNumberBeingRecorded);
           dispatch_recorded_data();
-        } else {
+        }
+        else
+        {
           ++cycleNumberBeingRecorded;
         }
       }
 
-      else if ((cycleCount % MAINS_CYCLES_PER_SECOND) == 1) {
+      else if ((cycleCount % MAINS_CYCLES_PER_SECOND) == 1)
+      {
         unsigned long timeNow = millis();
-        if (timeNow > recordingMayStartAt) {
+        if (timeNow > recordingMayStartAt)
+        {
           recordingNow = true;
           ++cycleNumberBeingRecorded;
-        } else {
+        }
+        else
+        {
           Serial.println((int)(recordingMayStartAt - timeNow) / 1000);
         }
       }
@@ -333,29 +352,35 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
 
     // still processing samples where the voltage is POSITIVE ...
     // check to see whether the trigger device can now be reliably armed
-    if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1)) {
+    if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1))
+    {
       setPinON(outputForTrigger);  // triac will fire at the next ZC point
     }
   }     // end of specific processing of +ve cycles
   else  // the polatity of this sample is negative
   {
-    if (polarityOfLastVsample != NEGATIVE) {
+    if (polarityOfLastVsample != NEGATIVE)
+    {
       sampleSetsDuringThisHalfMainsCycle = 0;
 
       long previousOffset = DCoffset_V_long;
       DCoffset_V_long = previousOffset + (cumVdeltasThisCycle_long >> 12);
       cumVdeltasThisCycle_long = 0;
 
-      if (DCoffset_V_long < DCoffset_V_min) {
+      if (DCoffset_V_long < DCoffset_V_min)
+      {
         DCoffset_V_long = DCoffset_V_min;
-      } else if (DCoffset_V_long > DCoffset_V_max) {
+      }
+      else if (DCoffset_V_long > DCoffset_V_max)
+      {
         DCoffset_V_long = DCoffset_V_max;
       }
 
     }  // end of processing that is specific to the first Vsample in each -ve half cycle
     // still processing samples where the voltage is NEGATIVE ...
     // check to see whether the trigger device can now be reliably armed
-    if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1)) {
+    if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1))
+    {
       setPinOFF(outputForTrigger);  // triac will release at the next ZC point
     }
   }  // end of processing that is specific to samples where the voltage is negative
@@ -374,7 +399,8 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
 
   sample_I1 = (sampleI1minusDC_long >> 8) + DCoffsetI1_nominal;
   //
-  if (recordingNow == true) {
+  if (recordingNow == true)
+  {
     storedSample_V1[samplesRecorded] = sample_V1;
     storedSample_I1[samplesRecorded] = sample_I1;
     ++samplesRecorded;
@@ -385,7 +411,8 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
   polarityOfLastVsample = polarityOfMostRecentVsample;  // for identification of half cycle boundaries
 }  // end of allGeneralProcessing()
 
-void dispatch_recorded_data() {
+void dispatch_recorded_data()
+{
   // display raw samples via the Serial Monitor
   // ------------------------------------------
 
@@ -398,21 +425,26 @@ void dispatch_recorded_data() {
   int min_V = 1023, min_I1 = 1023;
   int max_V = 0, max_I1 = 0;
 
-  for (int index = 0; index < samplesRecorded; ++index) {
+  for (int index = 0; index < samplesRecorded; ++index)
+  {
     strcpy(newLine, blankLine);
     V = storedSample_V1[index];
     I1 = storedSample_I1[index];
 
-    if (V < min_V) {
+    if (V < min_V)
+    {
       min_V = V;
     }
-    if (V > max_V) {
+    if (V > max_V)
+    {
       max_V = V;
     }
-    if (I1 < min_I1) {
+    if (I1 < min_I1)
+    {
       min_I1 = I1;
     }
-    if (I1 > max_I1) {
+    if (I1 > max_I1)
+    {
       max_I1 = I1;
     }
 
@@ -422,7 +454,8 @@ void dispatch_recorded_data() {
     int halfRange = 200;
     int lowerLimit = 512 - halfRange;
     int upperLimit = 512 + halfRange;
-    if ((I1 > lowerLimit) && (I1 < upperLimit)) {
+    if ((I1 > lowerLimit) && (I1 < upperLimit))
+    {
       newLine[map(I1, lowerLimit, upperLimit, 0, 80)] = '1';  // <-- raw sample scale
     }
 
@@ -462,12 +495,15 @@ void dispatch_recorded_data() {
   pause();
 }
 
-void pause() {
+void pause()
+{
   byte done = false;
   byte dummyByte;
 
-  while (done != true) {
-    if (Serial.available() > 0) {
+  while (done != true)
+  {
+    if (Serial.available() > 0)
+    {
       dummyByte = Serial.read();  // to 'consume' the incoming byte
       if (dummyByte == 'g')
         ++done;
@@ -475,7 +511,8 @@ void pause() {
   }
 }
 
-int freeRam() {
+int freeRam()
+{
   extern int __heap_start, *__brkval;
   int v;
   return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
