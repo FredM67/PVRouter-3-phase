@@ -15,8 +15,8 @@
 #include "config.h"
 
 // analogue input pins
-inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
-inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
+inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, /* 2, */ 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
+inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, /* 3, */ 5 }; /**< for 3-phase PCB, current measurement for each phase */
 // ------------------------------------------
 
 inline constexpr uint32_t WORKING_ZONE_IN_JOULES{ 3600UL }; /**< number of joule for 1Wh */
