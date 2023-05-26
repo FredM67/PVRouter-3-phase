@@ -92,6 +92,7 @@ inline void printConfiguration()
   {
     DBUGLN(F("is NOT present"));
   }
+
   DBUG(F("Dual-tariff capability "));
   if constexpr (DUAL_TARIFF)
   {
@@ -102,10 +103,23 @@ inline void printConfiguration()
   {
     DBUGLN(F("is NOT present"));
   }
+
   DBUG(F("Load rotation feature "));
   if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
   {
     DBUGLN(F("is present"));
+  }
+  else
+  {
+    DBUGLN(F("is NOT present"));
+  }
+
+  DBUG(F("Relay diversion feature "));
+  if constexpr (RELAY_DIVERSION)
+  {
+    DBUGLN(F("is present"));
+
+    relayOutput<>::printRelayConfiguration(relay_Output);
   }
   else
   {

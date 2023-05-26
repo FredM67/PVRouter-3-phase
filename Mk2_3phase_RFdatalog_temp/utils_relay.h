@@ -33,7 +33,7 @@ public:
    * 
    * @param _relay_pin Control pin for the relay
    */
-  explicit constexpr relayOutput(uint8_t _relay_pin)
+  explicit constexpr relayOutput(const uint8_t _relay_pin)
     : relay_pin(_relay_pin)
   {
   }
@@ -145,6 +145,30 @@ public:
     sliding_Average.addValue(currentPower);
   }
 
+  /**
+   * @brief Print the configuration of the current relay-diversion
+   * 
+   */
+  static void printRelayConfiguration(const relayOutput& relay)
+  {
+    Serial.println(F("\tRelay configuration:"));
+
+    Serial.print(F("\t\tPin is "));
+    Serial.println(relay.relay_pin);
+
+    Serial.print(F("\t\tSurplus threshold: "));
+    Serial.println(relay.surplusThreshold);
+
+    Serial.print(F("\t\tImport threshold: "));
+    Serial.println(relay.importThreshold);
+
+    Serial.print(F("\t\tMinimum working time in minutes: "));
+    Serial.println(relay.minON / 60);
+
+    Serial.print(F("\t\tMinimum stop time in minutes: "));
+    Serial.println(relay.minOFF / 60);
+  }
+
 private:
   /**
    * @brief Turn ON the relay if the 'time' condition is met
@@ -158,6 +182,8 @@ private:
     }
 
     setPinON(relay_pin);
+
+    DBUGLN(F("Relay turned ON!"));
 
     relayState = true;
     duration = 0;
@@ -175,6 +201,8 @@ private:
     }
 
     setPinOFF(relay_pin);
+
+    DBUGLN(F("Relay turned OFF!"));
 
     relayState = false;
     duration = 0;
