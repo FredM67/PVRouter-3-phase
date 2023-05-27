@@ -65,6 +65,16 @@ public:
   }
 
   /**
+   * @brief Get the control pin of the relay
+   * 
+   * @return constexpr auto 
+   */
+  constexpr auto get_pin() const
+  {
+    return relay_pin;
+  }
+
+  /**
    * @brief Get the surplus threshold which will turns ON the relay
    * 
    * @return constexpr auto 
@@ -154,19 +164,19 @@ public:
     Serial.println(F("\tRelay configuration:"));
 
     Serial.print(F("\t\tPin is "));
-    Serial.println(relay.relay_pin);
+    Serial.println(relay.get_pin());
 
     Serial.print(F("\t\tSurplus threshold: "));
-    Serial.println(relay.surplusThreshold);
+    Serial.println(relay.get_surplusThreshold());
 
     Serial.print(F("\t\tImport threshold: "));
-    Serial.println(relay.importThreshold);
+    Serial.println(relay.get_importThreshold());
 
     Serial.print(F("\t\tMinimum working time in minutes: "));
-    Serial.println(relay.minON / 60);
+    Serial.println(relay.get_minON() / 60);
 
     Serial.print(F("\t\tMinimum stop time in minutes: "));
-    Serial.println(relay.minOFF / 60);
+    Serial.println(relay.get_minOFF() / 60);
   }
 
 private:
@@ -215,8 +225,8 @@ private:
   const uint16_t minON{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned ON */
   const uint16_t minOFF{ 5 * 60 };        /**< Minimum duration in seconds the relay is turned OFF */
 
-  uint16_t duration{ 0 };   /**< Duration of the current state */
-  bool relayState{ false }; /**< State of the relay */
+  uint16_t duration{ 0 };                 /**< Duration of the current state */
+  bool relayState{ false };               /**< State of the relay */
 
   static inline movingAvg< int16_t, T * 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
 };
