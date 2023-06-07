@@ -296,7 +296,7 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 
   // extra filtering to offset the HPF effect of CTx
   const int32_t last_lpf_long{ lpf_long[phase] };
-  lpf_long[phase] = last_lpf_long + alpha * (sampleIminusDC - last_lpf_long);
+  lpf_long[phase] += alpha * (sampleIminusDC - last_lpf_long);
   sampleIminusDC += (lpf_gain * lpf_long[phase]);
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
