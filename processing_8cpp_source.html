@@ -288,7 +288,7 @@ $(function() {
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;  <span class="comment">// extra filtering to offset the HPF effect of CTx</span></div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;  <span class="keyword">const</span> int32_t last_lpf_long{ lpf_long[phase] };</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;  lpf_long[phase] = last_lpf_long + <a class="code" href="calibration_8h.html#a19b3d4f09bab83f43bd3a3ed5295bddb">alpha</a> * (sampleIminusDC - last_lpf_long);</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;  lpf_long[phase] += <a class="code" href="calibration_8h.html#a19b3d4f09bab83f43bd3a3ed5295bddb">alpha</a> * (sampleIminusDC - last_lpf_long);</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;  sampleIminusDC += (<a class="code" href="calibration_8h.html#a74d2e520152cb559bdb6e18153dcb5e4">lpf_gain</a> * lpf_long[phase]);</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;  <span class="comment">// calculate the &quot;real power&quot; in this sample pair and add to the accumulated sum</span></div>
