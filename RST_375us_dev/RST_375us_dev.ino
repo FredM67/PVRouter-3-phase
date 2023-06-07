@@ -49,7 +49,7 @@ enum loadStates
 
 const byte outputForTrigger = 4;  // active low
 
-byte sensor_V = 3;
+byte sensor_V1 = 3;
 byte sensor_I1 = 5;
 byte sensor_I2 = 4;
 
@@ -74,9 +74,8 @@ const float alpha = 0.002;  //
 
 // for interaction between the main processor and the ISRs
 volatile boolean dataReady = false;
-volatile int sample_I2;
 volatile int sample_I1;
-volatile int sample_V;
+volatile int sample_V1;
 
 enum polarities polarityOfMostRecentVsample;
 enum polarities polarityOfLastVsample;
@@ -160,12 +159,11 @@ void timerIsr(void)
   switch (sample_index)
   {
     case 0:
-      sample_V = ADC;            // store the ADC value (this one is for Voltage)
+      sample_V1 = ADC;            // store the ADC value (this one is for Voltage)
       ADMUX = 0x40 + sensor_I1;  // set up the next conversion, which is for current at CT1
       ADCSRA |= (1 << ADSC);     // start the ADC
       ++sample_index;            // increment the control flag
       sample_I1 = sample_I1_raw;
-      sample_I2 = sample_I2_raw;
       dataReady = true;  // all three ADC values can now be processed
       break;
     case 1:
@@ -176,7 +174,7 @@ void timerIsr(void)
       break;
     case 2:
       sample_I2_raw = ADC;      // store the ADC value (this one is for current at CT2)
-      ADMUX = 0x40 + sensor_V;  // set up the next conversion, which is for Voltage
+      ADMUX = 0x40 + sensor_V1;  // set up the next conversion, which is for Voltage
       ADCSRA |= (1 << ADSC);    // start the ADC
       sample_index = 0;         // reset the control flag
       break;
@@ -213,7 +211,6 @@ void allGeneralProcessing()              // each iteration is for one set of dat
   static byte oneSecondTimer = 0;
   static byte fiveSecondTimer = 0;
   static int sample_V_mag_sum;
-  static int sample_I2_mag_sum;
   static int sample_I1_mag_sum;
   static int sampleSetsDuringThisHalfMainsCycle;
   //
@@ -236,7 +233,7 @@ void allGeneralProcessing()              // each iteration is for one set of dat
 
   // remove DC offset from the raw voltage sample by subtracting the accurate value
   // as determined by a LP filter.
-  long sample_VminusDC_long = ((long)sample_V << 8) - DCoffset_V_long;
+  long sample_VminusDC_long = ((long)sample_V1 << 8) - DCoffset_V_long;
 
   // determine the polarity of the latest voltage sample
   polarityOfMostRecentVsample = (sample_V1minusDC_long > 0) ? POSITIVE : NEGATIVE;
@@ -329,9 +326,8 @@ void allGeneralProcessing()              // each iteration is for one set of dat
   //
   if (recordingNow == true)
   {
-    storedSample_V[samplesRecorded] = sample_V;
+    storedSample_V[samplesRecorded] = sample_V1;
     storedSample_I1[samplesRecorded] = sample_I1;
-    //    storedSample_I2[samplesRecorded] = sample_I2;
     ++samplesRecorded;
   }
 
