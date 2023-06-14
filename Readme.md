@@ -32,7 +32,8 @@ Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.u
     - [Aperçu](#aperçu)
     - [Gestion des priorités de charge](#gestion-des-priorités-de-charge)
     - [Détection HC](#détection-hc)
-    - [Forçage pleine puissance](#forçage-pleine-puissance)
+    - [Marche forcée pleine puissance](#marche-forcée-pleine-puissance)
+    - [Sortie(s) relais tout-ou-rien \*\* NEW \*\*](#sorties-relais-tout-ou-rien--new-)
     - [Capteur de température](#capteur-de-température)
     - [Profil Enphase zéro export](#profil-enphase-zéro-export)
 - [Comment câbler le routeur](#comment-câbler-le-routeur)
@@ -92,11 +93,24 @@ Pour éviter que les priorités restent tout le temps inchangées, ce qui signif
 
 Selon le pays, certains compteurs d’énergie disposent d'interrupteur/relais qui bascule au début de la période creuse. Il est destiné à contrôler un commutateur HC/HP. Si vous le reliez à une broche numérique libre du routeur (dans mon cas D3), vous pouvez détecter le début et fin des HC.
 
-### Forçage pleine puissance
+### Marche forcée pleine puissance
 
 Le support a été ajouté pour forcer la pleine puissance sur des charges spécifiques. Chaque charge peut être forcée indépendamment les unes des autres, l’heure de début et la durée peuvent être définies individuellement.
 
 Dans ma variante, c’est utilisé pour changer le chauffage pendant la période creuse, dans le cas où le surplus a été trop faible au cours de la journée. Ici, pour optimiser le comportement, un capteur de température sera utilisé pour vérifier la température de l’eau et décider d’allumer ou non pendant la nuit.
+
+### Sortie(s) relais tout-ou-rien ** NEW **
+
+Une ou plusieurs sorties tout-ou-rien via un relais peuvent être maintenant pilotées par le routeur.
+Leur priorité sera toujours en dernier, c'est-à-dire que les sorties TRIAC hachées auront toujours une priorité plus élevée.
+
+L'utilisateur devra définir pour cela, et ce pour chaque sortie relais :
+- le seuil de surplus pour le déclenchement du relais
+- le seuil d'import pour l'arrêt du relais
+- le temps minimal de fonctionnement du relais en minutes
+- le temps minimal d'arrêt du relais en minutes
+
+Les seuils de surplus et d'import sont calculés par une moyenne glissante sur une période de temps donnée. Par défaut, les moyennes sont calculées sur 1 minute.
 
 ### Capteur de température
 
