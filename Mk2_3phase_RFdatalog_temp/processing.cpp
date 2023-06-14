@@ -173,6 +173,12 @@ void initializeOptionalPins()
     delay(100);                           // allow time to settle
   }
 
+  if constexpr (RELAY_DIVERSION)
+  {
+    pinMode(relayPin, OUTPUT);
+    delay(100);
+  }
+
   if constexpr (WATCHDOG_PIN_PRESENT)
   {
     pinMode(watchDogPin, OUTPUT);  // set as output

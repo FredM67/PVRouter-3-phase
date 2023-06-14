@@ -46,7 +46,7 @@ public:
    * @param _importThreshold Import threshold to turn relay OFF
    */
   constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)
-    : relay_pin(_relay_pin), surplusThreshold(abs(_surplusThreshold)), importThreshold(abs(_importThreshold))
+    : relay_pin(_relay_pin), surplusThreshold(-abs(_surplusThreshold)), importThreshold(abs(_importThreshold))
   {
   }
 
@@ -60,7 +60,7 @@ public:
    * @param _minOFF Minimum duration in minutes to leave relay OFF
    */
   constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
-    : relay_pin(_relay_pin), surplusThreshold(abs(_surplusThreshold)), importThreshold(abs(_importThreshold)), minON(_minON * 60), minOFF(_minOFF * 60)
+    : relay_pin(_relay_pin), surplusThreshold(-abs(_surplusThreshold)), importThreshold(abs(_importThreshold)), minON(_minON * 60), minOFF(_minOFF * 60)
   {
   }
 
@@ -81,7 +81,7 @@ public:
    */
   constexpr auto get_surplusThreshold() const
   {
-    return surplusThreshold;
+    return -surplusThreshold;
   }
 
   /**
@@ -135,11 +135,12 @@ public:
   {
     const auto currentAvgPower{ sliding_Average.getAverage() };
 
-    if (currentAvgPower > surplusThreshold)
+    // To avoid changing sign, surplus is a negative value
+    if (currentAvgPower < surplusThreshold)
     {
       try_turnON();
     }
-    else if (-currentAvgPower > importThreshold)
+    else if (currentAvgPower > importThreshold)
     {
       try_turnOFF();
     }
@@ -219,14 +220,14 @@ private:
   }
 
 private:
-  const uint8_t relay_pin{ 0xff };        /**< Pin associated with the relay */
-  const int16_t surplusThreshold{ 1000 }; /**< Surplus threshold to turn relay ON */
-  const int16_t importThreshold{ 200 };   /**< Import threshold to turn relay OFF */
-  const uint16_t minON{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned ON */
-  const uint16_t minOFF{ 5 * 60 };        /**< Minimum duration in seconds the relay is turned OFF */
+  const uint8_t relay_pin{ 0xff };         /**< Pin associated with the relay */
+  const int16_t surplusThreshold{ -1000 }; /**< Surplus threshold to turn relay ON */
+  const int16_t importThreshold{ 200 };    /**< Import threshold to turn relay OFF */
+  const uint16_t minON{ 5 * 60 };          /**< Minimum duration in seconds the relay is turned ON */
+  const uint16_t minOFF{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned OFF */
 
-  uint16_t duration{ 0 };                 /**< Duration of the current state */
-  bool relayState{ false };               /**< State of the relay */
+  uint16_t duration{ 0 };                  /**< Duration of the current state */
+  bool relayState{ false };                /**< State of the relay */
 
   static inline movingAvg< int16_t, T * 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
 };
