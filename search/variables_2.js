@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['convert_5ftemperature_298',['CONVERT_TEMPERATURE',['../constants_8h.html#a0fc0867cb8eb64709ec9326821f0657c',1,'constants.h']]],
-  ['copyof_5fcountloadon_299',['copyOf_countLoadON',['../processing_8h.html#afe6a94d476e5100c87c30c68c87e7276',1,'processing.h']]],
-  ['copyof_5fenergyinbucket_5fmain_300',['copyOf_energyInBucket_main',['../processing_8h.html#a8f6102f3df67ce0ea2d019559ac03e72',1,'processing.h']]],
-  ['copyof_5flowestnoofsamplesetspermainscycle_301',['copyOf_lowestNoOfSampleSetsPerMainsCycle',['../processing_8h.html#a0350258a4eae426880cd73a6a754d4c3',1,'processing.h']]],
-  ['copyof_5fsamplesetsduringthisdatalogperiod_302',['copyOf_sampleSetsDuringThisDatalogPeriod',['../processing_8h.html#a9c678dbfc10669e957e7d5a2519ba30d',1,'processing.h']]],
-  ['copyof_5fsum_5fvsquared_303',['copyOf_sum_Vsquared',['../processing_8h.html#a952240da797ea106fa52eec5f8e2b1d9',1,'processing.h']]],
-  ['copyof_5fsump_5fatsupplypoint_304',['copyOf_sumP_atSupplyPoint',['../processing_8h.html#a92487f63c679b2125aa51fddd1549836',1,'processing.h']]],
-  ['countloadon_305',['countLoadON',['../processing_8cpp.html#a2f61fd181a2806e678e5473eaad03891',1,'processing.cpp']]]
+  ['b_5fdatalogeventpending_501',['b_datalogEventPending',['../processing_8h.html#ab76a3cdd049ea024d204d62770405dc9',1,'processing.h']]],
+  ['b_5fdiversionoff_502',['b_diversionOff',['../processing_8h.html#abbcd9c205506eb70e668fc430b531d4d',1,'processing.h']]],
+  ['b_5fnewmainscycle_503',['b_newMainsCycle',['../processing_8h.html#aa3dd7bd843acabd72f702af584c0511d',1,'processing.h']]],
+  ['b_5foverrideloadon_504',['b_overrideLoadOn',['../processing_8h.html#aa1d0d82b79554d3f491238534b2dc4c3',1,'processing.h']]],
+  ['b_5frecenttransition_505',['b_recentTransition',['../processing_8cpp.html#a94046779c01c48ac04dcf44818c600ad',1,'processing.cpp']]],
+  ['b_5freorderloads_506',['b_reOrderLoads',['../processing_8h.html#a4be9b67cfa7c4e48c63817d06f3d293c',1,'processing.h']]],
+  ['beyondstartupperiod_507',['beyondStartUpPeriod',['../processing_8cpp.html#aaecb72fa3ab0755ac124b5fa6ffa1c6f',1,'processing.cpp']]]
 ];

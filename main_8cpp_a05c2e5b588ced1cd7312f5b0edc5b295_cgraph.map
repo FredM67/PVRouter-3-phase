@@ -18,6 +18,6 @@
 <area shape="rect" id="node17" href="$processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="795,259,937,285"/>
 <area shape="rect" id="node13" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="1021,107,1221,133"/>
 <area shape="rect" id="node15" href="$group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="1011,157,1232,184"/>
-<area shape="rect" id="node18" href="$utils_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="1074,233,1169,260"/>
-<area shape="rect" id="node19" href="$utils_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="1077,284,1166,311"/>
+<area shape="rect" id="node18" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="1074,233,1169,260"/>
+<area shape="rect" id="node19" href="$utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="1077,284,1166,311"/>
 </map>

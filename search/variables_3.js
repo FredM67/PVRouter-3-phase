@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['datalog_5fperiod_5fin_5fmains_5fcycles_306',['DATALOG_PERIOD_IN_MAINS_CYCLES',['../config_8h.html#afffdb07751daad6475506a5053cff8f2',1,'config.h']]],
-  ['datalog_5fperiod_5fin_5fseconds_307',['DATALOG_PERIOD_IN_SECONDS',['../config_8h.html#aa1ffffd0033bb88a0611cc09daef8d20',1,'config.h']]],
-  ['device_5fdisconnected_5fc_308',['DEVICE_DISCONNECTED_C',['../constants_8h.html#afdaf08501000ecdba738310facc056dd',1,'constants.h']]],
-  ['device_5fdisconnected_5fraw_309',['DEVICE_DISCONNECTED_RAW',['../constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83',1,'constants.h']]],
-  ['diversion_5fpin_5fpresent_310',['DIVERSION_PIN_PRESENT',['../config_8h.html#af4fafac7a898d0c42cf814b9ab893d8c',1,'config.h']]],
-  ['diversionpin_311',['diversionPin',['../config_8h.html#a7356f13f5bd190e1c4617b7143e4416d',1,'config.h']]],
-  ['dual_5ftariff_312',['DUAL_TARIFF',['../config_8h.html#a6e4069ecc0f4af6f9c1d9aafa84178de',1,'config.h']]],
-  ['dualtariffpin_313',['dualTariffPin',['../config_8h.html#a3918ff99c886117c4166c18d7232accf',1,'config.h']]]
+  ['convert_5ftemperature_508',['CONVERT_TEMPERATURE',['../constants_8h.html#a0fc0867cb8eb64709ec9326821f0657c',1,'constants.h']]],
+  ['copyof_5fcountloadon_509',['copyOf_countLoadON',['../processing_8h.html#afe6a94d476e5100c87c30c68c87e7276',1,'processing.h']]],
+  ['copyof_5fenergyinbucket_5fmain_510',['copyOf_energyInBucket_main',['../processing_8h.html#a8f6102f3df67ce0ea2d019559ac03e72',1,'processing.h']]],
+  ['copyof_5flowestnoofsamplesetspermainscycle_511',['copyOf_lowestNoOfSampleSetsPerMainsCycle',['../processing_8h.html#a0350258a4eae426880cd73a6a754d4c3',1,'processing.h']]],
+  ['copyof_5fsamplesetsduringthisdatalogperiod_512',['copyOf_sampleSetsDuringThisDatalogPeriod',['../processing_8h.html#a9c678dbfc10669e957e7d5a2519ba30d',1,'processing.h']]],
+  ['copyof_5fsum_5fvsquared_513',['copyOf_sum_Vsquared',['../processing_8h.html#a952240da797ea106fa52eec5f8e2b1d9',1,'processing.h']]],
+  ['copyof_5fsump_5fatsupplypoint_514',['copyOf_sumP_atSupplyPoint',['../processing_8h.html#a92487f63c679b2125aa51fddd1549836',1,'processing.h']]],
+  ['countloadon_515',['countLoadON',['../processing_8cpp.html#a2f61fd181a2806e678e5473eaad03891',1,'processing.cpp']]]
 ];

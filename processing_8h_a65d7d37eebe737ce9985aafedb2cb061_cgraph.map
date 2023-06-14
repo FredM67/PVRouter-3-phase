@@ -1,5 +1,5 @@
 <map id="initializeOptionalPins" name="initializeOptionalPins">
 <area shape="rect" id="node1" title="Initializes the optional pins." alt="" coords="5,5,165,32"/>
-<area shape="rect" id="node2" href="$utils_8h.html#a86c6ae548b163825a2f2c826d8ea277e" title="Set the Pin state to OFF for the specified pin." alt="" coords="213,5,301,32"/>
-<area shape="rect" id="node3" href="$utils_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="349,5,428,32"/>
+<area shape="rect" id="node2" href="$utils__pins_8h.html#a86c6ae548b163825a2f2c826d8ea277e" title="Set the Pin state to OFF for the specified pin." alt="" coords="213,5,301,32"/>
+<area shape="rect" id="node3" href="$utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="349,5,428,32"/>
 </map>

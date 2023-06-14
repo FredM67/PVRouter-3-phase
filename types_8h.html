@@ -67,7 +67,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -95,16 +94,15 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="types_8h__dep__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2types_8hdep" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2types_8hdep" id="aMk2__3phase__RFdatalog__temp_2types_8hdep">
-<area shape="rect" title="Some basics classes/types." alt="" coords="450,5,627,47"/>
-<area shape="rect" href="config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="286,95,463,136"/>
-<area shape="rect" href="main_8cpp.html" title="Main code." alt="" coords="412,541,590,583"/>
-<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="438,363,615,404"/>
-<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="32,184,210,225"/>
-<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="59,363,236,404"/>
-<area shape="rect" href="utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="83,273,260,315"/>
-<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="286,184,463,225"/>
-<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="260,452,438,493"/>
-<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="59,452,236,493"/>
+<area shape="rect" title="Some basics classes/types." alt="" coords="534,5,712,47"/>
+<area shape="rect" href="config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="408,184,585,225"/>
+<area shape="rect" href="main_8cpp.html" title="Main code." alt="" coords="534,452,712,493"/>
+<area shape="rect" href="utils__relay_8h.html" title=" " alt="" coords="534,95,712,136"/>
+<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="433,273,610,315"/>
+<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="232,273,409,315"/>
+<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="157,363,334,404"/>
+<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="30,273,208,315"/>
+<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="358,363,536,404"/>
 </map>
 </div>
 </div>
@@ -112,19 +110,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpairForceLoad.html">pairForceLoad</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Config parameters for overriding a load.  <a href="classpairForceLoad.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPayloadTx__struct.html">PayloadTx_struct&lt; N, S &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">container for datalogging  <a href="classPayloadTx__struct.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a4d947262b6c46f3638257e56d331b854"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="types_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a> = uint8_t[8]</td></tr>
-<tr class="separator:a4d947262b6c46f3638257e56d331b854"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7d6fc1361cf961f2a972bd2baefd100"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="types_8h.html#af7d6fc1361cf961f2a972bd2baefd100">ScratchPad</a> = uint8_t[9]</td></tr>
-<tr class="separator:af7d6fc1361cf961f2a972bd2baefd100"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -172,40 +160,7 @@ Variables</h2></td></tr>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="types_8h_source.html">types.h</a>.</p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a4d947262b6c46f3638257e56d331b854"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d947262b6c46f3638257e56d331b854">&#9670;&nbsp;</a></span>DeviceAddress</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="types_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a> =  uint8_t[8]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00108">108</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
-
-</div>
-</div>
-<a id="af7d6fc1361cf961f2a972bd2baefd100"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7d6fc1361cf961f2a972bd2baefd100">&#9670;&nbsp;</a></span>ScratchPad</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="types_8h.html#af7d6fc1361cf961f2a972bd2baefd100">ScratchPad</a> =  uint8_t[9]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00107">107</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="aa689e963b2305ff62d412abb6ebf7244"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa689e963b2305ff62d412abb6ebf7244">&#9670;&nbsp;</a></span>LoadStates</h2>
 
@@ -367,7 +322,7 @@ template&lt;typename _Tp &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00126">126</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00086">86</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 
 </div>
 </div>
@@ -406,7 +361,7 @@ template&lt;typename _Tp , size_t _Nm&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00116">116</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00076">76</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -417,7 +372,7 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096" title="Write on Serial in EmonESP format." alt="" coords="255,34,388,61"/>
 <area shape="rect" href="utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5" title="Prints data logs to the Serial output in Json format." alt="" coords="253,85,389,111"/>
 <area shape="rect" href="utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="253,135,389,162"/>
-<area shape="rect" href="main_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="104,59,205,86"/>
+<area shape="rect" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="104,59,205,86"/>
 </map>
 </div>
 

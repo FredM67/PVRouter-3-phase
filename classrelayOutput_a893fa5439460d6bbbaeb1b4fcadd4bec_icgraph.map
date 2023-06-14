@@ -1,0 +1,6 @@
+<map id="relayOutput::get_minON" name="relayOutput::get_minON">
+<area shape="rect" id="node1" title="Get the minimum ON&#45;time." alt="" coords="608,5,788,32"/>
+<area shape="rect" id="node2" href="$classrelayOutput.html#a44af896fbb55b651037e3ce55622b198" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,5,560,32"/>
+<area shape="rect" id="node3" href="$utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,32"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
+</map>

@@ -1,0 +1,13 @@
+<map id="Mk2_3phase_RFdatalog_temp/type_traits/make_unsigned.hpp" name="Mk2_3phase_RFdatalog_temp/type_traits/make_unsigned.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="521,5,699,61"/>
+<area shape="rect" id="node2" href="$type__traits_8hpp.html" title=" " alt="" coords="521,109,699,151"/>
+<area shape="rect" id="node3" href="$movingAvg_8h.html" title=" " alt="" coords="521,199,699,240"/>
+<area shape="rect" id="node4" href="$utils__relay_8h.html" title=" " alt="" coords="521,288,699,329"/>
+<area shape="rect" id="node5" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="459,377,636,419"/>
+<area shape="rect" id="node7" href="$main_8cpp.html" title="Main code." alt="" coords="459,645,636,687"/>
+<area shape="rect" id="node6" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="5,467,183,508"/>
+<area shape="rect" id="node9" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="207,467,384,508"/>
+<area shape="rect" id="node10" href="$utils_8h.html" title="Some utility functions." alt="" coords="459,556,636,597"/>
+<area shape="rect" id="node11" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="408,467,585,508"/>
+<area shape="rect" id="node8" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="205,556,383,597"/>
+</map>

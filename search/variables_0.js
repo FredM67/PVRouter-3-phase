@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['absenceofdivertedenergycount_288',['absenceOfDivertedEnergyCount',['../processing_8h.html#ab96e74c302f7348daf97a84011e31fcd',1,'processing.h']]],
-  ['activeload_289',['activeLoad',['../processing_8cpp.html#ae3ad049e6ee90e4eacc823d1387f02e0',1,'processing.cpp']]],
-  ['alpha_290',['alpha',['../calibration_8h.html#a19b3d4f09bab83f43bd3a3ed5295bddb',1,'calibration.h']]]
+  ['_5ffrom_497',['_from',['../structis__convertible.html#a2c4dcdbd37ef4c1a7d6fd5147b25d7f0',1,'is_convertible']]]
 ];

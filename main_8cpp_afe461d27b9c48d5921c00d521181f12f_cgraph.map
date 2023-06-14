@@ -1,20 +1,24 @@
 <map id="loop" name="loop">
-<area shape="rect" id="node1" title="Main processor." alt="" coords="5,249,56,276"/>
-<area shape="rect" id="node2" href="$main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Check the diversion state." alt="" coords="355,5,513,32"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="139,81,257,108"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="104,158,292,199"/>
-<area shape="rect" id="node9" href="$utils__temp_8h.html#adc7d85cb6510aea82f8ed660b4743908" title=" " alt="" coords="131,224,265,251"/>
-<area shape="rect" id="node10" href="$utils__temp_8h.html#a15279f2a2446f27d0a1cf82dff006623" title=" " alt="" coords="118,275,278,301"/>
-<area shape="rect" id="node11" href="$main_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="147,325,249,352"/>
-<area shape="rect" id="node13" href="$types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="617,351,665,377"/>
-<area shape="rect" id="node17" href="$utils_8h.html#adab45134ec081b1e227788ca7f613194" title="Toggle the specified pin." alt="" coords="157,528,239,555"/>
-<area shape="rect" id="node3" href="$utils_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="592,81,689,108"/>
-<area shape="rect" id="node6" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="340,158,528,199"/>
-<area shape="rect" id="node7" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="576,195,705,221"/>
-<area shape="rect" id="node8" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="753,195,884,221"/>
-<area shape="rect" id="node12" href="$utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096" title="Write on Serial in EmonESP format." alt="" coords="367,275,501,301"/>
-<area shape="rect" id="node14" href="$utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5" title="Prints data logs to the Serial output in Json format." alt="" coords="366,325,502,352"/>
-<area shape="rect" id="node15" href="$utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="366,376,502,403"/>
-<area shape="rect" id="node16" href="$main_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="381,427,487,453"/>
-<area shape="rect" id="node18" href="$utils_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="401,528,467,555"/>
+<area shape="rect" id="node1" title="Main processor." alt="" coords="5,295,56,322"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Check the diversion state." alt="" coords="355,11,513,38"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="375,63,493,90"/>
+<area shape="rect" id="node5" href="$classrelayOutput.html#af8b4dd1c1515866e7d71e085f2e20016" title="Increment the duration of the current state." alt="" coords="105,112,291,139"/>
+<area shape="rect" id="node6" href="$classrelayOutput.html#acfd23aa67fc83f53666ec0b01eaa9ebd" title="Proceed with the relay." alt="" coords="119,164,277,205"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="104,229,292,270"/>
+<area shape="rect" id="node11" href="$utils__temp_8h.html#adc7d85cb6510aea82f8ed660b4743908" title=" " alt="" coords="131,295,265,322"/>
+<area shape="rect" id="node12" href="$utils__temp_8h.html#a15279f2a2446f27d0a1cf82dff006623" title=" " alt="" coords="118,346,278,372"/>
+<area shape="rect" id="node13" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="147,396,249,423"/>
+<area shape="rect" id="node15" href="$types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="646,387,694,414"/>
+<area shape="rect" id="node20" href="$utils__pins_8h.html#adab45134ec081b1e227788ca7f613194" title="Toggle the specified pin." alt="" coords="157,539,239,566"/>
+<area shape="rect" id="node22" href="$classrelayOutput.html#a89822cf10797dfca1f05e81ff6157f8d" title=" " alt="" coords="122,590,274,632"/>
+<area shape="rect" id="node3" href="$utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="621,90,719,116"/>
+<area shape="rect" id="node8" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="340,169,528,210"/>
+<area shape="rect" id="node9" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="605,206,735,232"/>
+<area shape="rect" id="node10" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="812,206,943,232"/>
+<area shape="rect" id="node14" href="$utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096" title="Write on Serial in EmonESP format." alt="" coords="367,438,501,464"/>
+<area shape="rect" id="node16" href="$utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5" title="Prints data logs to the Serial output in Json format." alt="" coords="366,336,502,363"/>
+<area shape="rect" id="node17" href="$utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="366,286,502,312"/>
+<area shape="rect" id="node19" href="$utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="381,387,487,414"/>
+<area shape="rect" id="node18" href="$classrelayOutput.html#a4a5d8bdcfdacb2b91880cd1a510124a4" title=" " alt="" coords="576,286,764,312"/>
+<area shape="rect" id="node21" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="401,539,467,566"/>
 </map>

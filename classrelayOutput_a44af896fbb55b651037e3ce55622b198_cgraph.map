@@ -1,0 +1,8 @@
+<map id="relayOutput::printRelayConfiguration" name="relayOutput::printRelayConfiguration">
+<area shape="rect" id="node1" title="Print the configuration of the current relay&#45;diversion." alt="" coords="5,107,267,133"/>
+<area shape="rect" id="node2" href="$classrelayOutput.html#ac17e09bffcaea6cf872135a2bb88f502" title="Get the import threshold which will turns OFF the relay." alt="" coords="315,5,557,32"/>
+<area shape="rect" id="node3" href="$classrelayOutput.html#a63a662c2535d687a111835e83c416204" title="Get the minimum OFF&#45;time." alt="" coords="343,56,529,83"/>
+<area shape="rect" id="node4" href="$classrelayOutput.html#a893fa5439460d6bbbaeb1b4fcadd4bec" title="Get the minimum ON&#45;time." alt="" coords="346,107,526,133"/>
+<area shape="rect" id="node5" href="$classrelayOutput.html#acacb00540f208a3000f2f6d8b05f35c8" title="Get the control pin of the relay." alt="" coords="359,157,513,184"/>
+<area shape="rect" id="node6" href="$classrelayOutput.html#a65b71555314d24f62e1f6576f0836796" title="Get the surplus threshold which will turns ON the relay." alt="" coords="345,209,527,250"/>
+</map>

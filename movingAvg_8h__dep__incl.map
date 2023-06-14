@@ -1,0 +1,11 @@
+<map id="Mk2_3phase_RFdatalog_temp/movingAvg.h" name="Mk2_3phase_RFdatalog_temp/movingAvg.h">
+<area shape="rect" id="node1" title=" " alt="" coords="521,5,699,47"/>
+<area shape="rect" id="node2" href="$utils__relay_8h.html" title=" " alt="" coords="521,95,699,136"/>
+<area shape="rect" id="node3" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="459,184,636,225"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title="Main code." alt="" coords="459,452,636,493"/>
+<area shape="rect" id="node4" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="5,273,183,315"/>
+<area shape="rect" id="node7" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="207,273,384,315"/>
+<area shape="rect" id="node8" href="$utils_8h.html" title="Some utility functions." alt="" coords="459,363,636,404"/>
+<area shape="rect" id="node9" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="408,273,585,315"/>
+<area shape="rect" id="node6" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="205,363,383,404"/>
+</map>

@@ -75,18 +75,52 @@ $(function() {
 
 <p>Configuration values to be set by the end-user.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="debug_8h_source.html">debug.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="config__system_8h_source.html">config_system.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="debug_8h_source.html">debug.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="types_8h_source.html">types.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="utils__dualtariff_8h_source.html">utils_dualtariff.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for config.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="config_8h__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2config_8h" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2config_8h" id="aMk2__3phase__RFdatalog__temp_2config_8h">
-<area shape="rect" title="Configuration values to be set by the end&#45;user." alt="" coords="5,5,183,47"/>
-<area shape="rect" href="debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="9,95,83,121"/>
-<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="108,95,179,121"/>
-<area shape="rect" title=" " alt="" coords="44,169,128,196"/>
-<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="152,169,249,196"/>
+<area shape="rect" title="Configuration values to be set by the end&#45;user." alt="" coords="1024,5,1201,47"/>
+<area shape="rect" href="config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="850,169,978,196"/>
+<area shape="rect" href="debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="957,95,1031,121"/>
+<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="1253,169,1324,196"/>
+<area shape="rect" href="utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="786,95,914,121"/>
+<area shape="rect" href="utils__relay_8h.html" title=" " alt="" coords="1107,95,1207,121"/>
+<area shape="rect" href="utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="1348,169,1451,196"/>
+<area shape="rect" title=" " alt="" coords="1008,244,1092,271"/>
+<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="1305,244,1403,271"/>
+<area shape="rect" href="movingAvg_8h.html" title=" " alt="" coords="1122,169,1229,196"/>
+<area shape="rect" href="utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="1002,169,1098,196"/>
+<area shape="rect" href="type__traits_8hpp.html" title=" " alt="" coords="1117,244,1237,271"/>
+<area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="5,326,201,353"/>
+<area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="225,319,365,360"/>
+<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="1407,557,1554,599"/>
+<area shape="rect" href="is__array_8hpp.html" title=" " alt="" coords="389,326,564,353"/>
+<area shape="rect" href="is__base__of_8hpp.html" title=" " alt="" coords="588,319,733,360"/>
+<area shape="rect" href="remove__reference_8hpp.html" title=" " alt="" coords="239,408,408,435"/>
+<area shape="rect" href="is__class_8hpp.html" title=" " alt="" coords="432,408,607,435"/>
+<area shape="rect" href="is__const_8hpp.html" title=" " alt="" coords="1940,483,2117,509"/>
+<area shape="rect" href="is__convertible_8hpp.html" title=" " alt="" coords="631,408,845,435"/>
+<area shape="rect" href="is__enum_8hpp.html" title=" " alt="" coords="910,326,1089,353"/>
+<area shape="rect" href="is__floating__point_8hpp.html" title=" " alt="" coords="921,408,1078,435"/>
+<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="1142,483,1246,509"/>
+<area shape="rect" href="is__integral_8hpp.html" title=" " alt="" coords="1103,408,1221,435"/>
+<area shape="rect" href="is__pointer_8hpp.html" title=" " alt="" coords="1518,483,1705,509"/>
+<area shape="rect" href="is__signed_8hpp.html" title=" " alt="" coords="1297,408,1483,435"/>
+<area shape="rect" href="is__unsigned_8hpp.html" title=" " alt="" coords="1507,408,1708,435"/>
+<area shape="rect" href="make__unsigned_8hpp.html" title=" " alt="" coords="1638,326,1865,353"/>
+<area shape="rect" href="make__void_8hpp.html" title=" " alt="" coords="1990,326,2185,353"/>
+<area shape="rect" href="remove__const_8hpp.html" title=" " alt="" coords="2209,319,2355,360"/>
+<area shape="rect" title=" " alt="" coords="139,408,214,435"/>
+<area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="580,483,677,509"/>
+<area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="1271,483,1392,509"/>
+<area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="1729,483,1864,509"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -94,15 +128,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="config_8h__dep__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2config_8hdep" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2config_8hdep" id="aMk2__3phase__RFdatalog__temp_2config_8hdep">
-<area shape="rect" title="Configuration values to be set by the end&#45;user." alt="" coords="245,5,423,47"/>
-<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="461,273,639,315"/>
-<area shape="rect" href="main_8cpp.html" title="Main code." alt="" coords="397,452,575,493"/>
-<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="5,95,183,136"/>
-<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="69,273,247,315"/>
-<area shape="rect" href="utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="56,184,233,225"/>
-<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="309,95,487,136"/>
-<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="271,363,448,404"/>
-<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="69,363,247,404"/>
+<area shape="rect" title="Configuration values to be set by the end&#45;user." alt="" coords="408,5,585,47"/>
+<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="5,95,183,136"/>
+<area shape="rect" href="main_8cpp.html" title="Main code." alt="" coords="471,273,648,315"/>
+<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="207,95,384,136"/>
+<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="408,184,585,225"/>
+<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="408,95,585,136"/>
+<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="207,184,384,225"/>
 </map>
 </div>
 </div>
@@ -123,10 +155,6 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:afffdb07751daad6475506a5053cff8f2"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#afffdb07751daad6475506a5053cff8f2">DATALOG_PERIOD_IN_MAINS_CYCLES</a> { <a class="el" href="config_8h.html#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> * <a class="el" href="config_8h.html#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> }</td></tr>
-<tr class="separator:afffdb07751daad6475506a5053cff8f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1ffffd0033bb88a0611cc09daef8d20"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> { 5 }</td></tr>
-<tr class="separator:aa1ffffd0033bb88a0611cc09daef8d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4fafac7a898d0c42cf814b9ab893d8c"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#af4fafac7a898d0c42cf814b9ab893d8c">DIVERSION_PIN_PRESENT</a> { false }</td></tr>
 <tr class="separator:af4fafac7a898d0c42cf814b9ab893d8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7356f13f5bd190e1c4617b7143e4416d"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a7356f13f5bd190e1c4617b7143e4416d">diversionPin</a> { 0xff }</td></tr>
@@ -141,11 +169,11 @@ Variables</h2></td></tr>
 <tr class="separator:a45c16ccf5033dc4696f17daf792c7130"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2e4a2c6acb5689b056d49896672c30c"><td class="memItemLeft" align="right" valign="top">constexpr int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#ac2e4a2c6acb5689b056d49896672c30c">iTemperatureThreshold</a> { 100 }</td></tr>
 <tr class="separator:ac2e4a2c6acb5689b056d49896672c30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49958eb014b70dfb9d8cb9ded3564ef7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a49958eb014b70dfb9d8cb9ded3564ef7">loadPrioritiesAndState</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 0, 1, 2 }</td></tr>
+<tr class="memitem:a49958eb014b70dfb9d8cb9ded3564ef7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a49958eb014b70dfb9d8cb9ded3564ef7">loadPrioritiesAndState</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 0, 1 }</td></tr>
 <tr class="separator:a49958eb014b70dfb9d8cb9ded3564ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2195a98d46c91f74fcde7cb8ed2350d0"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a2195a98d46c91f74fcde7cb8ed2350d0">networkGroup</a> { 210 }</td></tr>
 <tr class="separator:a2195a98d46c91f74fcde7cb8ed2350d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2458020f21db854d8f2fe0e500dcd05"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> { 3 }</td></tr>
+<tr class="memitem:aa2458020f21db854d8f2fe0e500dcd05"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> { 2 }</td></tr>
 <tr class="separator:aa2458020f21db854d8f2fe0e500dcd05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac17be2735ad17e6198cd2a24eb39eb91"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a> { 3 }</td></tr>
 <tr class="separator:ac17be2735ad17e6198cd2a24eb39eb91"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,22 +181,24 @@ Variables</h2></td></tr>
 <tr class="separator:a60f522aaa42faf22b9ce5d66e6e45346"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3113411238215d7011c4c5ac3680a973"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a3113411238215d7011c4c5ac3680a973">OVERRIDE_PIN_PRESENT</a> { false }</td></tr>
 <tr class="separator:a3113411238215d7011c4c5ac3680a973"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cfb4b5cc5504c54511b565a29906efc"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a4cfb4b5cc5504c54511b565a29906efc">physicalLoadPin</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 5, 6, 7 }</td></tr>
+<tr class="memitem:a4cfb4b5cc5504c54511b565a29906efc"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a4cfb4b5cc5504c54511b565a29906efc">physicalLoadPin</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 5, 7 }</td></tr>
 <tr class="separator:a4cfb4b5cc5504c54511b565a29906efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d838172b50bebc493c09edb7b7606d5"><td class="memItemLeft" align="right" valign="top">constexpr int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a0d838172b50bebc493c09edb7b7606d5">REQUIRED_EXPORT_IN_WATTS</a> { 20 }</td></tr>
-<tr class="separator:a0d838172b50bebc493c09edb7b7606d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a281368464ae362f565124959a02d2888"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpairForceLoad.html">pairForceLoad</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { { -180, 2 } }</td></tr>
+<tr class="memitem:a200f51c8bd47e8b14cdc6522f2223742"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a200f51c8bd47e8b14cdc6522f2223742">RELAY_DIVERSION</a> { true }</td></tr>
+<tr class="separator:a200f51c8bd47e8b14cdc6522f2223742"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa699148e213d7e48d2b58656905f01cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrelayOutput.html">relayOutput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#aa699148e213d7e48d2b58656905f01cc">relay_Output</a> { <a class="el" href="config_8h.html#aa3289e908a90b70f6855250c309a228b">relayPin</a>, 1000, 200, 1, 1 }</td></tr>
+<tr class="separator:aa699148e213d7e48d2b58656905f01cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3289e908a90b70f6855250c309a228b"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#aa3289e908a90b70f6855250c309a228b">relayPin</a> { 9 }</td></tr>
+<tr class="separator:aa3289e908a90b70f6855250c309a228b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a281368464ae362f565124959a02d2888"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpairForceLoad.html">pairForceLoad</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { { -3, 2 } }</td></tr>
 <tr class="separator:a281368464ae362f565124959a02d2888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f05a671d6f0503882cc818f2a55493e"><td class="memItemLeft" align="right" valign="top">constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a5f05a671d6f0503882cc818f2a55493e">ROTATION_AFTER_CYCLES</a> { 8UL * 3600UL * <a class="el" href="config_8h.html#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> }</td></tr>
+<tr class="memitem:a5f05a671d6f0503882cc818f2a55493e"><td class="memItemLeft" align="right" valign="top">constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a5f05a671d6f0503882cc818f2a55493e">ROTATION_AFTER_CYCLES</a> { 8UL * 3600UL * <a class="el" href="config__system_8h.html#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> }</td></tr>
 <tr class="separator:a5f05a671d6f0503882cc818f2a55493e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e46594bb69d18074193e096a4470dce"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a0e46594bb69d18074193e096a4470dce">RotationModes</a> { <a class="el" href="types_8h.html#a06b890c4a964752df814257dc1f13073a88559a0cfd8250c9d65970cc145c92d4">RotationModes::OFF</a> }</td></tr>
 <tr class="separator:a0e46594bb69d18074193e096a4470dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af668b2a5b07a913bd673318dc30654bb"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#af668b2a5b07a913bd673318dc30654bb">rotationPin</a> { 0xff }</td></tr>
 <tr class="separator:af668b2a5b07a913bd673318dc30654bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4fbf0bf3c5a98998d03e2f54528e6f1"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="types_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#ad4fbf0bf3c5a98998d03e2f54528e6f1">sensorAddrs</a> []</td></tr>
+<tr class="memitem:ad4fbf0bf3c5a98998d03e2f54528e6f1"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="utils__temp_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#ad4fbf0bf3c5a98998d03e2f54528e6f1">sensorAddrs</a> []</td></tr>
 <tr class="separator:ad4fbf0bf3c5a98998d03e2f54528e6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad62846ca1d96695a32041f6dd809401e"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> { 50 }</td></tr>
-<tr class="separator:ad62846ca1d96695a32041f6dd809401e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8437eec6f152492cefbba0cae0681e27"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a8437eec6f152492cefbba0cae0681e27">tempSensorPin</a> { 0xff }</td></tr>
 <tr class="separator:a8437eec6f152492cefbba0cae0681e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd1baf11732956aa199473daae453926"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#abd1baf11732956aa199473daae453926">ul_OFF_PEAK_DURATION</a> { 8 }</td></tr>
@@ -219,7 +249,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00114">114</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00111">111</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -235,7 +265,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00111">111</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00108">108</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -258,56 +288,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="afffdb07751daad6475506a5053cff8f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afffdb07751daad6475506a5053cff8f2">&#9670;&nbsp;</a></span>DATALOG_PERIOD_IN_MAINS_CYCLES</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr uint16_t DATALOG_PERIOD_IN_MAINS_CYCLES { <a class="el" href="config_8h.html#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> * <a class="el" href="config_8h.html#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Period of datalogging in cycles </p>
-
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00100">100</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
-
-</div>
-</div>
-<a id="aa1ffffd0033bb88a0611cc09daef8d20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1ffffd0033bb88a0611cc09daef8d20">&#9670;&nbsp;</a></span>DATALOG_PERIOD_IN_SECONDS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr uint8_t DATALOG_PERIOD_IN_SECONDS { 5 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Period of datalogging in seconds </p>
-
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00099">99</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
-
-</div>
-</div>
 <a id="af4fafac7a898d0c42cf814b9ab893d8c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af4fafac7a898d0c42cf814b9ab893d8c">&#9670;&nbsp;</a></span>DIVERSION_PIN_PRESENT</h2>
 
@@ -329,7 +309,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if you want to control diversion ON/OFF </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00043">43</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00048">48</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -354,7 +334,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>if LOW, set diversion on standby </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00073">73</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00080">80</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -379,7 +359,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00049">49</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00055">55</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -404,7 +384,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>for 3-phase PCB, off-peak trigger </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00072">72</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00079">79</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -428,7 +408,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00042">42</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00047">47</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -453,7 +433,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>for 3-phase PCB, force pin </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00075">75</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00082">82</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -478,7 +458,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>the temperature threshold to stop overriding in °C </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00083">83</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00092">92</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -492,7 +472,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t loadPrioritiesAndState[<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 0, 1, 2 }</td>
+          <td class="memname">uint8_t loadPrioritiesAndState[<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 0, 1 }</td>
         </tr>
       </table>
   </td>
@@ -503,7 +483,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>load priorities and states at startup </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00070">70</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00076">76</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -528,7 +508,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>wireless network group - needs to be same for all nodes </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00117">117</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00114">114</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -542,7 +522,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr uint8_t NO_OF_DUMPLOADS { 3 }</td>
+          <td class="memname">constexpr uint8_t NO_OF_DUMPLOADS { 2 }</td>
         </tr>
       </table>
   </td>
@@ -553,7 +533,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>number of dump loads connected to the diverter </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00034">34</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00039">39</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -578,7 +558,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>number of phases of the main supply. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00033">33</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00038">38</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -603,7 +583,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>RFM12B node ID </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00116">116</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00113">113</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -628,7 +608,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if there's a override pin </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00045">45</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00050">50</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -642,7 +622,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr uint8_t physicalLoadPin[<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 5, 6, 7 }</td>
+          <td class="memname">constexpr uint8_t physicalLoadPin[<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 5, 7 }</td>
         </tr>
       </table>
   </td>
@@ -653,12 +633,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00069">69</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00075">75</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
-<a id="a0d838172b50bebc493c09edb7b7606d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d838172b50bebc493c09edb7b7606d5">&#9670;&nbsp;</a></span>REQUIRED_EXPORT_IN_WATTS</h2>
+<a id="a200f51c8bd47e8b14cdc6522f2223742"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a200f51c8bd47e8b14cdc6522f2223742">&#9670;&nbsp;</a></span>RELAY_DIVERSION</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -667,7 +647,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr int16_t REQUIRED_EXPORT_IN_WATTS { 20 }</td>
+          <td class="memname">constexpr bool RELAY_DIVERSION { true }</td>
         </tr>
       </table>
   </td>
@@ -676,9 +656,59 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>when set to a negative value, this acts as a PV generator </p>
+<p>set it to 'true' if a relay is used for diversion </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00093">93</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00054">54</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+</div>
+</div>
+<a id="aa699148e213d7e48d2b58656905f01cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa699148e213d7e48d2b58656905f01cc">&#9670;&nbsp;</a></span>relay_Output</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classrelayOutput.html">relayOutput</a> relay_Output { <a class="el" href="config_8h.html#aa3289e908a90b70f6855250c309a228b">relayPin</a>, 1000, 200, 1, 1 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>config for relay diversion, see class definition for defaults </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00087">87</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+</div>
+</div>
+<a id="aa3289e908a90b70f6855250c309a228b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3289e908a90b70f6855250c309a228b">&#9670;&nbsp;</a></span>relayPin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr uint8_t relayPin { 9 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>for 3-phase PCB, relay trigger </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00078">78</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -692,7 +722,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="classpairForceLoad.html">pairForceLoad</a> rg_ForceLoad[<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { { -180, 2 } }</td>
+          <td class="memname">constexpr <a class="el" href="classpairForceLoad.html">pairForceLoad</a> rg_ForceLoad[<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { { -3, 2 } }</td>
         </tr>
       </table>
   </td>
@@ -701,9 +731,9 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>force config for load #n ONLY for dual tariff </p>
+<p>force config for load #1 ONLY for dual tariff </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00081">81</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00090">90</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -717,7 +747,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr uint32_t ROTATION_AFTER_CYCLES { 8UL * 3600UL * <a class="el" href="config_8h.html#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> }</td>
+          <td class="memname">constexpr uint32_t ROTATION_AFTER_CYCLES { 8UL * 3600UL * <a class="el" href="config__system_8h.html#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> }</td>
         </tr>
       </table>
   </td>
@@ -728,7 +758,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>rotates load priorities after this period of inactivity </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00103">103</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00100">100</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -753,7 +783,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00044">44</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00049">49</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -778,7 +808,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>if LOW, trigger a load priority rotation </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00074">74</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00081">81</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -792,7 +822,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr <a class="el" href="types_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a> sensorAddrs[]</td>
+          <td class="memname">constexpr <a class="el" href="utils__temp_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a> sensorAddrs[]</td>
         </tr>
       </table>
   </td>
@@ -808,32 +838,7 @@ Variables</h2></td></tr>
 <div class="line">                                              { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } }</div>
 </div><!-- fragment --><p>list of temperature sensor Addresses </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00085">85</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
-
-</div>
-</div>
-<a id="ad62846ca1d96695a32041f6dd809401e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad62846ca1d96695a32041f6dd809401e">&#9670;&nbsp;</a></span>SUPPLY_FREQUENCY</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr uint8_t SUPPLY_FREQUENCY { 50 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>number of cycles/s of the grid power supply </p>
-
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00097">97</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00094">94</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -858,7 +863,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>for 3-phase PCB, sensor pin </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00078">78</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00085">85</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -883,7 +888,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>Duration of the off-peak period in hours </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00080">80</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00089">89</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -908,7 +913,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>for when the processor contains the UNO bootloader. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00118">118</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00115">115</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -933,7 +938,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if there's a watch led </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00048">48</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00053">53</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -958,7 +963,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>watch dog LED </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00076">76</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00083">83</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>

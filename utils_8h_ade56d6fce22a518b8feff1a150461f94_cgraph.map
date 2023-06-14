@@ -3,6 +3,7 @@
 <area shape="rect" id="node2" href="$utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096" title="Write on Serial in EmonESP format." alt="" coords="156,5,289,32"/>
 <area shape="rect" id="node4" href="$utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5" title="Prints data logs to the Serial output in Json format." alt="" coords="155,56,291,83"/>
 <area shape="rect" id="node5" href="$utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="155,107,291,133"/>
-<area shape="rect" id="node6" href="$main_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="169,157,276,184"/>
-<area shape="rect" id="node3" href="$types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="339,56,387,83"/>
+<area shape="rect" id="node7" href="$utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="169,157,276,184"/>
+<area shape="rect" id="node3" href="$types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="409,56,457,83"/>
+<area shape="rect" id="node6" href="$classrelayOutput.html#a4a5d8bdcfdacb2b91880cd1a510124a4" title=" " alt="" coords="339,107,527,133"/>
 </map>

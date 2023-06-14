@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
@@ -75,23 +76,16 @@ $(function() {
 
 <p>Some utility functions for temperature sensor(s)  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="config_8h_source.html">config.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="constants_8h_source.html">constants.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="dualtariff_8h_source.html">dualtariff.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="processing_8h_source.html">processing.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for utils_temp.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__temp_8h__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2utils__temp_8h" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2utils__temp_8h" id="aMk2__3phase__RFdatalog__temp_2utils__temp_8h">
-<area shape="rect" title="Some utility functions for temperature sensor(s)" alt="" coords="41,5,219,47"/>
-<area shape="rect" href="config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="32,169,105,196"/>
-<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="232,319,329,345"/>
-<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="22,95,115,121"/>
-<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="139,95,243,121"/>
-<area shape="rect" href="debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="31,244,106,271"/>
-<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="131,244,201,271"/>
-<area shape="rect" title=" " alt="" coords="124,319,208,345"/>
+<area shape="rect" title="Some utility functions for temperature sensor(s)" alt="" coords="16,5,193,47"/>
+<area shape="rect" title=" " alt="" coords="5,95,89,121"/>
+<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="113,95,211,121"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -99,21 +93,31 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__temp_8h__dep__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2utils__temp_8hdep" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2utils__temp_8hdep" id="aMk2__3phase__RFdatalog__temp_2utils__temp_8hdep">
-<area shape="rect" title="Some utility functions for temperature sensor(s)" alt="" coords="25,5,202,47"/>
-<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="25,95,202,136"/>
-<area shape="rect" href="main_8cpp.html" title="Main code." alt="" coords="62,273,240,315"/>
-<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="25,184,202,225"/>
-<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="226,184,404,225"/>
+<area shape="rect" title="Some utility functions for temperature sensor(s)" alt="" coords="5,5,183,47"/>
+<area shape="rect" href="config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="195,95,372,136"/>
+<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="95,273,272,315"/>
+<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="497,184,675,225"/>
+<area shape="rect" href="main_8cpp.html" title="Main code." alt="" coords="472,363,649,404"/>
+<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="95,184,272,225"/>
+<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="296,184,473,225"/>
+<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="296,273,473,315"/>
 </map>
 </div>
 </div>
 <p><a href="utils__temp_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a4d947262b6c46f3638257e56d331b854"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils__temp_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a> = uint8_t[8]</td></tr>
+<tr class="separator:a4d947262b6c46f3638257e56d331b854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7d6fc1361cf961f2a972bd2baefd100"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils__temp_8h.html#af7d6fc1361cf961f2a972bd2baefd100">ScratchPad</a> = uint8_t[9]</td></tr>
+<tr class="separator:af7d6fc1361cf961f2a972bd2baefd100"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a92389cbbe788f2e81116453dc5ae4717"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils__temp_8h.html#a92389cbbe788f2e81116453dc5ae4717">initTemperatureSensors</a> ()</td></tr>
 <tr class="separator:a92389cbbe788f2e81116453dc5ae4717"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc7d85cb6510aea82f8ed660b4743908"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils__temp_8h.html#adc7d85cb6510aea82f8ed660b4743908">readTemperature</a> (const <a class="el" href="types_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a> &amp;deviceAddress)</td></tr>
+<tr class="memitem:adc7d85cb6510aea82f8ed660b4743908"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils__temp_8h.html#adc7d85cb6510aea82f8ed660b4743908">readTemperature</a> (const <a class="el" href="utils__temp_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a> &amp;deviceAddress)</td></tr>
 <tr class="separator:adc7d85cb6510aea82f8ed660b4743908"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15279f2a2446f27d0a1cf82dff006623"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils__temp_8h.html#a15279f2a2446f27d0a1cf82dff006623">requestTemperatures</a> ()</td></tr>
 <tr class="separator:a15279f2a2446f27d0a1cf82dff006623"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,7 +135,40 @@ Variables</h2></td></tr>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a4d947262b6c46f3638257e56d331b854"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d947262b6c46f3638257e56d331b854">&#9670;&nbsp;</a></span>DeviceAddress</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="utils__temp_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a> =  uint8_t[8]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00020">20</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+
+</div>
+</div>
+<a id="af7d6fc1361cf961f2a972bd2baefd100"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7d6fc1361cf961f2a972bd2baefd100">&#9670;&nbsp;</a></span>ScratchPad</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="utils__temp_8h.html#af7d6fc1361cf961f2a972bd2baefd100">ScratchPad</a> =  uint8_t[9]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00019">19</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a92389cbbe788f2e81116453dc5ae4717"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a92389cbbe788f2e81116453dc5ae4717">&#9670;&nbsp;</a></span>initTemperatureSensors()</h2>
 
@@ -178,7 +215,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">int16_t readTemperature </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="types_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="utils__temp_8h.html#a4d947262b6c46f3638257e56d331b854">DeviceAddress</a> &amp;&#160;</td>
           <td class="paramname"><em>deviceAddress</em></td><td>)</td>
           <td></td>
         </tr>
@@ -256,7 +293,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00093">93</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00095">95</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
 
 </div>
 </div>

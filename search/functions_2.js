@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['check_5fpins_231',['check_pins',['../validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc',1,'validation.h']]],
-  ['checkdiversiononoff_232',['checkDiversionOnOff',['../main_8cpp.html#a31f3d562faae6b598324b56299d74f7d',1,'main.cpp']]],
-  ['confirmpolarity_233',['confirmPolarity',['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(uint8_t phase):&#160;processing.cpp'],['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(const uint8_t phase):&#160;processing.cpp'],['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(uint8_t phase) __attribute__((always_inline)):&#160;processing.cpp']]]
+  ['bit_5fclear_421',['bit_clear',['../utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e',1,'utils_pins.h']]],
+  ['bit_5fread_422',['bit_read',['../utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37',1,'utils_pins.h']]],
+  ['bit_5fset_423',['bit_set',['../utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc',1,'utils_pins.h']]]
 ];

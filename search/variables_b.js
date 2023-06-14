@@ -1,11 +1,13 @@
 var searchData=
 [
-  ['read_5fscratchpad_363',['READ_SCRATCHPAD',['../constants_8h.html#a4efcca8a8902b210fd176b46753964f1',1,'constants.h']]],
-  ['required_5fexport_5fin_5fwatts_364',['REQUIRED_EXPORT_IN_WATTS',['../config_8h.html#a0d838172b50bebc493c09edb7b7606d5',1,'config.h']]],
-  ['rf_5fchip_5fpresent_365',['RF_CHIP_PRESENT',['../utils__rf_8h.html#ad6f3853697d5006eed405d11cc04c2a1',1,'utils_rf.h']]],
-  ['rg_5fforceload_366',['rg_ForceLoad',['../config_8h.html#a281368464ae362f565124959a02d2888',1,'config.h']]],
-  ['rg_5foffsetforce_367',['rg_OffsetForce',['../dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4',1,'dualtariff.h']]],
-  ['rotation_5fafter_5fcycles_368',['ROTATION_AFTER_CYCLES',['../config_8h.html#a5f05a671d6f0503882cc818f2a55493e',1,'config.h']]],
-  ['rotationmodes_369',['RotationModes',['../config_8h.html#a0e46594bb69d18074193e096a4470dce',1,'config.h']]],
-  ['rotationpin_370',['rotationPin',['../config_8h.html#af668b2a5b07a913bd673318dc30654bb',1,'config.h']]]
+  ['persistence_5ffor_5fpolarity_5fchange_563',['PERSISTENCE_FOR_POLARITY_CHANGE',['../processing_8h.html#a2a52b2459c1ca802c59cfa96e71885ba',1,'processing.h']]],
+  ['physicalloadpin_564',['physicalLoadPin',['../config_8h.html#a4cfb4b5cc5504c54511b565a29906efc',1,'config.h']]],
+  ['physicalloadstate_565',['physicalLoadState',['../processing_8cpp.html#a6299bc3dd04b3fec6de87101e9e02d1f',1,'processing.cpp']]],
+  ['polarityconfirmed_566',['polarityConfirmed',['../processing_8cpp.html#a86686555f56c1d92d7fe1c06d044a2ec',1,'processing.cpp']]],
+  ['polarityconfirmedoflastsamplev_567',['polarityConfirmedOfLastSampleV',['../processing_8cpp.html#a043c3df0e6f259a7c11e6bbc89500c66',1,'processing.cpp']]],
+  ['polarityofmostrecentsamplev_568',['polarityOfMostRecentSampleV',['../processing_8cpp.html#ab499bc63170b1994691a7e84f99c7927',1,'processing.cpp']]],
+  ['post_5ftransition_5fmax_5fcount_569',['POST_TRANSITION_MAX_COUNT',['../processing_8cpp.html#a555d557c5b47a027b823b11a814f8693',1,'processing.cpp']]],
+  ['posttransitioncount_570',['postTransitionCount',['../processing_8cpp.html#aefaf5733efee19a73b7cbcb1159ff61f',1,'processing.cpp']]],
+  ['power_571',['power',['../classPayloadTx__struct.html#ab3001f04334464b35b7dd263bd08b1a0',1,'PayloadTx_struct']]],
+  ['power_5fl_572',['power_L',['../classPayloadTx__struct.html#a13cbb9a2141427b379764c105825815f',1,'PayloadTx_struct']]]
 ];

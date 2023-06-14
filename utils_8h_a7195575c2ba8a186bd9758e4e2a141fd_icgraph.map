@@ -1,7 +1,0 @@
-<map id="setPinsOFF" name="setPinsOFF">
-<area shape="rect" id="node1" title="Set the Pins state to OFF." alt="" coords="517,31,612,57"/>
-<area shape="rect" id="node2" href="$processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="328,31,469,57"/>
-<area shape="rect" id="node3" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="122,5,270,32"/>
-<area shape="rect" id="node5" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="112,56,280,83"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
-</map>

@@ -1,13 +1,6 @@
 var searchData=
 [
-  ['persistence_5ffor_5fpolarity_5fchange_353',['PERSISTENCE_FOR_POLARITY_CHANGE',['../processing_8h.html#a2a52b2459c1ca802c59cfa96e71885ba',1,'processing.h']]],
-  ['physicalloadpin_354',['physicalLoadPin',['../config_8h.html#a4cfb4b5cc5504c54511b565a29906efc',1,'config.h']]],
-  ['physicalloadstate_355',['physicalLoadState',['../processing_8cpp.html#a6299bc3dd04b3fec6de87101e9e02d1f',1,'processing.cpp']]],
-  ['polarityconfirmed_356',['polarityConfirmed',['../processing_8cpp.html#a86686555f56c1d92d7fe1c06d044a2ec',1,'processing.cpp']]],
-  ['polarityconfirmedoflastsamplev_357',['polarityConfirmedOfLastSampleV',['../processing_8cpp.html#a043c3df0e6f259a7c11e6bbc89500c66',1,'processing.cpp']]],
-  ['polarityofmostrecentsamplev_358',['polarityOfMostRecentSampleV',['../processing_8cpp.html#ab499bc63170b1994691a7e84f99c7927',1,'processing.cpp']]],
-  ['post_5ftransition_5fmax_5fcount_359',['POST_TRANSITION_MAX_COUNT',['../processing_8cpp.html#a555d557c5b47a027b823b11a814f8693',1,'processing.cpp']]],
-  ['posttransitioncount_360',['postTransitionCount',['../processing_8cpp.html#aefaf5733efee19a73b7cbcb1159ff61f',1,'processing.cpp']]],
-  ['power_361',['power',['../classPayloadTx__struct.html#ab3001f04334464b35b7dd263bd08b1a0',1,'PayloadTx_struct']]],
-  ['power_5fl_362',['power_L',['../classPayloadTx__struct.html#a13cbb9a2141427b379764c105825815f',1,'PayloadTx_struct']]]
+  ['outofrange_5ftemperature_560',['OUTOFRANGE_TEMPERATURE',['../constants_8h.html#a8b4582476cecd5c6149546816236ffa7',1,'constants.h']]],
+  ['outputmode_561',['outputMode',['../processing_8cpp.html#a14c0bd4df597ffb07f73e5a3581238b9',1,'processing.cpp']]],
+  ['override_5fpin_5fpresent_562',['OVERRIDE_PIN_PRESENT',['../config_8h.html#a3113411238215d7011c4c5ac3680a973',1,'config.h']]]
 ];

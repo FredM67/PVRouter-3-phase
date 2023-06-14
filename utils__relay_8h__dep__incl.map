@@ -1,0 +1,10 @@
+<map id="Mk2_3phase_RFdatalog_temp/utils_relay.h" name="Mk2_3phase_RFdatalog_temp/utils_relay.h">
+<area shape="rect" id="node1" title=" " alt="" coords="521,5,699,47"/>
+<area shape="rect" id="node2" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="459,95,636,136"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="Main code." alt="" coords="459,363,636,404"/>
+<area shape="rect" id="node3" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="5,184,183,225"/>
+<area shape="rect" id="node6" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="207,184,384,225"/>
+<area shape="rect" id="node7" href="$utils_8h.html" title="Some utility functions." alt="" coords="459,273,636,315"/>
+<area shape="rect" id="node8" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="408,184,585,225"/>
+<area shape="rect" id="node5" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="205,273,383,315"/>
+</map>

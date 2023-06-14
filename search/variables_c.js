@@ -1,8 +1,14 @@
 var searchData=
 [
-  ['sensoraddrs_371',['sensorAddrs',['../config_8h.html#ad4fbf0bf3c5a98998d03e2f54528e6f1',1,'config.h']]],
-  ['sensori_372',['sensorI',['../processing_8h.html#a8843ac58fa4e38e3bec429fac0f8de41',1,'processing.h']]],
-  ['sensorv_373',['sensorV',['../processing_8h.html#a84dbfaffb1c8ccc490804b5f976d7933',1,'processing.h']]],
-  ['startupperiod_374',['startUpPeriod',['../processing_8h.html#a0d30025137b8f9bfe6d4e9c832db76b4',1,'processing.h']]],
-  ['supply_5ffrequency_375',['SUPPLY_FREQUENCY',['../config_8h.html#ad62846ca1d96695a32041f6dd809401e',1,'config.h']]]
+  ['read_5fscratchpad_573',['READ_SCRATCHPAD',['../constants_8h.html#a4efcca8a8902b210fd176b46753964f1',1,'constants.h']]],
+  ['relay_5fdiversion_574',['RELAY_DIVERSION',['../config_8h.html#a200f51c8bd47e8b14cdc6522f2223742',1,'config.h']]],
+  ['relay_5foutput_575',['relay_Output',['../config_8h.html#aa699148e213d7e48d2b58656905f01cc',1,'config.h']]],
+  ['relaypin_576',['relayPin',['../config_8h.html#aa3289e908a90b70f6855250c309a228b',1,'config.h']]],
+  ['required_5fexport_5fin_5fwatts_577',['REQUIRED_EXPORT_IN_WATTS',['../config__system_8h.html#a0d838172b50bebc493c09edb7b7606d5',1,'config_system.h']]],
+  ['rf_5fchip_5fpresent_578',['RF_CHIP_PRESENT',['../utils__rf_8h.html#ad6f3853697d5006eed405d11cc04c2a1',1,'utils_rf.h']]],
+  ['rg_5fforceload_579',['rg_ForceLoad',['../config_8h.html#a281368464ae362f565124959a02d2888',1,'config.h']]],
+  ['rg_5foffsetforce_580',['rg_OffsetForce',['../dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4',1,'dualtariff.h']]],
+  ['rotation_5fafter_5fcycles_581',['ROTATION_AFTER_CYCLES',['../config_8h.html#a5f05a671d6f0503882cc818f2a55493e',1,'config.h']]],
+  ['rotationmodes_582',['RotationModes',['../config_8h.html#a0e46594bb69d18074193e096a4470dce',1,'config.h']]],
+  ['rotationpin_583',['rotationPin',['../config_8h.html#af668b2a5b07a913bd673318dc30654bb',1,'config.h']]]
 ];

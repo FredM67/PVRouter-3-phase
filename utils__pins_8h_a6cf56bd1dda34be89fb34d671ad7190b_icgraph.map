@@ -1,0 +1,4 @@
+<map id="setPinON" name="setPinON">
+<area shape="rect" id="node1" title="Set the Pin state to ON for the specified pin." alt="" coords="149,5,232,32"/>
+<area shape="rect" id="node2" href="$utils__pins_8h.html#a505180a01641b0a5b17a0f2376f9b586" title="Set the Pin state for the specified pin." alt="" coords="5,5,101,32"/>
+</map>
