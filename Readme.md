@@ -105,10 +105,10 @@ Une ou plusieurs sorties tout-ou-rien via un relais peuvent être maintenant pil
 Leur priorité sera toujours en dernier, c'est-à-dire que les sorties TRIAC hachées auront toujours une priorité plus élevée.
 
 L'utilisateur devra définir pour cela, et ce pour chaque sortie relais :
-- le seuil de surplus pour le déclenchement du relais
-- le seuil d'import pour l'arrêt du relais
-- le temps minimal de fonctionnement du relais en minutes
-- le temps minimal d'arrêt du relais en minutes
+- le seuil de surplus pour le déclenchement du relais (par défaut 1000W)
+- le seuil d'import pour l'arrêt du relais (par défaut 200W)
+- le temps minimal de fonctionnement du relais en minutes (par défaut 5 mn)
+- le temps minimal d'arrêt du relais en minutes (par défaut 5 mn)
 
 Les seuils de surplus et d'import sont calculés par une moyenne glissante sur une période de temps donnée. Par défaut, les moyennes sont calculées sur 1 minute.
 
