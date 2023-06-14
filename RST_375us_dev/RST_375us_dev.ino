@@ -42,7 +42,7 @@ enum loadStates
 {
   LOAD_ON,
   LOAD_OFF
-};                            // the external trigger device is active low
+};  // the external trigger device is active low
 
 #define ADC_TIMER_PERIOD 125  // uS (determines the sampling rate / amount of idle time)
 #define MAINS_CYCLES_PER_SECOND 50
@@ -57,9 +57,9 @@ long cycleCount = 0;
 int samplesRecorded = 0;
 const int DCoffsetI1_nominal = 511;  // nominal mid-point value of ADC @ x1 scale
 
-long DCoffset_V_long;                // <--- for LPF
-long DCoffset_V_min;                 // <--- for LPF
-long DCoffset_V_max;                 // <--- for LPF
+long DCoffset_V_long;  // <--- for LPF
+long DCoffset_V_min;   // <--- for LPF
+long DCoffset_V_max;   // <--- for LPF
 
 // extra items for an LPF to improve the processing of data samples from CT1
 long lpf_long = 512;  // new LPF, for ofsetting the behaviour of CT1 as a HPF
@@ -69,7 +69,7 @@ long lpf_long = 512;  // new LPF, for ofsetting the behaviour of CT1 as a HPF
 // and the CT1 samples being 375 us apart
 //
 const float lpf_gain = 8;  // <- setting this to 0 disables this extra processing
-//const float lpf_gain = 0;  // <- setting this to 0 disables this extra processing
+// const float lpf_gain = 0;  // <- setting this to 0 disables this extra processing
 const float alpha = 0.002;  //
 
 // for interaction between the main processor and the ISRs
@@ -143,8 +143,8 @@ void setup()
   ADCSRA = (1 << ADPS0) + (1 << ADPS1) + (1 << ADPS2);  // Set the ADC's clock to system clock / 128
   ADCSRA |= (1 << ADEN);                                // Enable ADC
 
-  Timer1.initialize(ADC_TIMER_PERIOD);                  // set Timer1 interval
-  Timer1.attachInterrupt(timerIsr);                     // declare timerIsr() as interrupt service routine
+  Timer1.initialize(ADC_TIMER_PERIOD);  // set Timer1 interval
+  Timer1.attachInterrupt(timerIsr);     // declare timerIsr() as interrupt service routine
 
   Serial.print(">>free RAM = ");
   Serial.println(freeRam());  // a useful value to keep an eye on
@@ -185,7 +185,7 @@ void timerIsr(void)
 
 void loop()
 {
-  if (dataReady)             // flag is set after every set of ADC conversions
+  if (dataReady)  // flag is set after every set of ADC conversions
   {
     dataReady = false;       // reset the flag
     allGeneralProcessing();  // executed once for each set of V&I samples
@@ -205,7 +205,7 @@ void loop()
  *  At the start of the following cycle, the data collected during the 
  *  previous mains cycle(s) is sent to the Serial window.  
  */
-void allGeneralProcessing()              // each iteration is for one set of data samples
+void allGeneralProcessing()  // each iteration is for one set of data samples
 {
   static long cumVdeltasThisCycle_long;  // for the LPF which determines DC offset (voltage)
   static byte oneSecondTimer = 0;
@@ -281,8 +281,8 @@ void allGeneralProcessing()              // each iteration is for one set of dat
     {
       digitalWrite(outputForTrigger, LOAD_ON);  // triac will fire at the next ZC point
     }
-  }                                             // end of specific processing of +ve cycles
-  else                                          // the polarity of this sample is negative
+  }     // end of specific processing of +ve cycles
+  else  // the polatity of this sample is negative
   {
     if (polarityOfLastVsample != NEGATIVE)
     {
@@ -308,8 +308,8 @@ void allGeneralProcessing()              // each iteration is for one set of dat
     {
       digitalWrite(outputForTrigger, LOAD_OFF);  // triac will release at the next ZC point
     }
-  }                                              // end of processing that is specific to samples where the voltage is negative
-                                                 //
+  }  // end of processing that is specific to samples where the voltage is negative
+  //
   // processing for EVERY set of samples
   //
   // extra filtering to offset the HPF effect of CT1

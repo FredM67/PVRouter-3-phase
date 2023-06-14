@@ -20,156 +20,6 @@
 #include "utils_rf.h"
 #include "utils_temp.h"
 
-inline void togglePin(const uint8_t pin) __attribute__((always_inline));
-
-inline void setPinON(const uint8_t pin) __attribute__((always_inline));
-inline void setPinsON(const uint16_t pins) __attribute__((always_inline));
-
-inline void setPinOFF(const uint8_t pin) __attribute__((always_inline));
-inline void setPinsOFF(const uint16_t pins) __attribute__((always_inline));
-
-inline bool getPinState(const uint8_t pin) __attribute__((always_inline));
-
-/**
- * @brief Set the specified bit to 1
- * 
- * @tparam T Type of the variable
- * @param _dest Integer variable to modify
- * @param bit Bit to set in _dest
- */
-template< typename T > constexpr void bit_set(T& _dest, const uint8_t bit)
-{
-  _dest |= (T)0x01 << bit;
-}
-
-/**
- * @brief Read the specified bit
- * 
- * @tparam T Type of the variable
- * @param _src Integer variable to read
- * @param bit Bit to read in _src
- * @return constexpr uint8_t 
- */
-template< typename T > constexpr uint8_t bit_read(const T& _src, const uint8_t bit)
-{
-  return (_src >> bit) & (T)0x01;
-}
-
-/**
- * @brief Clear the specified bit
- * 
- * @tparam T Type of the variable
- * @param _dest Integer variable to modify
- * @param bit Bit to clear in _src
- * @return constexpr uint8_t 
- */
-template< typename T > constexpr uint8_t bit_clear(T& _dest, const uint8_t bit)
-{
-  return _dest &= ~((T)0x01 << bit);
-}
-
-/**
- * @brief Toggle the specified pin
- *
- */
-void togglePin(const uint8_t pin)
-{
-  if (pin < 8)
-  {
-    bit_set(PIND, pin);
-  }
-  else
-  {
-    bit_set(PINB, pin - 8);
-  }
-}
-
-/**
- * @brief Set the Pin state for the specified pin
- *
- * @param pin pin to change [2..13]
- * @param bState state to be set
- */
-inline void setPinState(const uint8_t pin, const bool bState)
-{
-  if (bState)
-  {
-    setPinON(pin);
-  }
-  else
-  {
-    setPinOFF(pin);
-  }
-}
-
-/**
- * @brief Set the Pin state to ON for the specified pin
- *
- * @param pin pin to change [2..13]
- */
-inline void setPinON(const uint8_t pin)
-{
-  if (pin < 8)
-  {
-    bit_set(PORTD, pin);
-  }
-  else
-  {
-    bit_set(PORTB, pin - 8);
-  }
-}
-
-/**
- * @brief Set the Pins state to ON
- *
- * @param pins The pins to change
- */
-inline void setPinsON(const uint16_t pins)
-{
-  PORTD |= lowByte(pins);
-  PORTB |= highByte(pins);
-}
-
-/**
- * @brief Set the Pin state to OFF for the specified pin
- *
- * @param pin pin to change [2..13]
- */
-inline void setPinOFF(const uint8_t pin)
-{
-  if (pin < 8)
-  {
-    bit_clear(PORTD, pin);
-  }
-  else
-  {
-    bit_clear(PORTB, pin - 8);
-  }
-}
-
-/**
- * @brief Set the Pins state to OFF
- *
- * @param pins The pins to change
- */
-inline void setPinsOFF(const uint16_t pins)
-{
-  PORTD &= ~lowByte(pins);
-  PORTB &= ~highByte(pins);
-}
-
-/**
- * @brief Get the Pin State
- *
- * @param pin The pin to read
- * @return true if HIGH
- * @return false if LOW
- */
-inline bool getPinState(const uint8_t pin)
-{
-  return (pin < 8) ? bitRead(PIND, pin) : bitRead(PINB, pin - 8);
-}
-
 /**
  * @brief Print the configuration during start
  *
@@ -242,6 +92,7 @@ inline void printConfiguration()
   {
     DBUGLN(F("is NOT present"));
   }
+
   DBUG(F("Dual-tariff capability "));
   if constexpr (DUAL_TARIFF)
   {
@@ -252,10 +103,23 @@ inline void printConfiguration()
   {
     DBUGLN(F("is NOT present"));
   }
+
   DBUG(F("Load rotation feature "));
   if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
   {
     DBUGLN(F("is present"));
+  }
+  else
+  {
+    DBUGLN(F("is NOT present"));
+  }
+
+  DBUG(F("Relay diversion feature "));
+  if constexpr (RELAY_DIVERSION)
+  {
+    DBUGLN(F("is present"));
+
+    relayOutput<>::printRelayConfiguration(relay_Output);
   }
   else
   {
@@ -391,6 +255,12 @@ inline void printForSerialText()
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
 
+  if constexpr (RELAY_DIVERSION)
+  {
+    Serial.print(F("/"));
+    Serial.print(relay_Output.get_average());
+  }
+
   for (phase = 0; phase < NO_OF_PHASES; ++phase)
   {
     Serial.print(F(", P"));
@@ -454,7 +324,9 @@ inline void sendResults(bool bOffPeak)
 #endif  // if defined SERIALOUT
 
   if constexpr (EMONESP_CONTROL)
+  {
     printForEmonESP(bOffPeak);
+  }
 
 #if defined SERIALPRINT && !defined EMONESP
   printForSerialText();

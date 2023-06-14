@@ -25,10 +25,13 @@ You'll need to install additional extension(s). The most popular and used extens
 - **dualtariff.h** : definitions for the dual tariff feature
 - **main.cpp** : source code
 - **main.h** : functions prototypes
+- **movingAvg.h** : source code for sliding-window average
 - **processing.cpp** : source code for the processing engine
 - **processing.h** : functions prototype of the processing engine
 - **Readme.md** : this file
 - **types.h** : definitions of types, ...
+- **type_traits.h** : some STL stuff not yet available in the avr-package
+- **utils_relay.h** : source code for the *relay-diversion* feature
 - **utils_rf.h** : source code for the *RF* feature
 - **utils_temp.h** : source code for the *temperature* feature
 - **utils.h** : helper functions and misc stuff

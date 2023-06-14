@@ -12,8 +12,9 @@
 #include <Arduino.h>
 
 #include "calibration.h"
+#include "dualtariff.h"
 #include "processing.h"
-#include "utils.h"
+#include "utils_pins.h"
 
 /*!
  *  @defgroup TimeCritical Time critical functions Group
@@ -29,12 +30,16 @@ constexpr int32_t l_DCoffset_V_min{ (512L - 100L) * 256L }; /**< mid-point of AD
 constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
 constexpr int16_t i_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
 
+constexpr uint32_t WORKING_ZONE_IN_JOULES{ 3600UL }; /**< number of joule for 1Wh */
+
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
 constexpr float f_capacityOfEnergyBucket_main{ static_cast< float >(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
 /**< for resetting flexible thresholds */
 constexpr float f_midPointOfEnergyBucket_main{ f_capacityOfEnergyBucket_main * 0.5F };
 /**< threshold in anti-flicker mode - must not exceed 0.4 */
 constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1F };
+
+constexpr OutputModes outputMode{ OutputModes::NORMAL }; /**< Output mode to be used */
 
 /**
  * @brief set default threshold at compile time so the variable can be read-only
@@ -166,6 +171,12 @@ void initializeOptionalPins()
   {
     pinMode(diversionPin, INPUT_PULLUP);  // set as input & enable the internal pullup resistor
     delay(100);                           // allow time to settle
+  }
+
+  if constexpr (RELAY_DIVERSION)
+  {
+    pinMode(relayPin, OUTPUT);
+    delay(100);
   }
 
   if constexpr (WATCHDOG_PIN_PRESENT)
@@ -674,7 +685,8 @@ void processDataLogging()
   i_sampleSetsDuringThisDatalogPeriod = 0;
 
   // signal the main processor that logging data are available
-  b_datalogEventPending = true;
+  // we skip the period from start to running stable
+  b_datalogEventPending = beyondStartUpPeriod;
 }
 
 /**
