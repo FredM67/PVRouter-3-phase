@@ -403,11 +403,11 @@ void loop()
       {
         tx_data.Vrms_L_x100[phase] = static_cast< int32_t >(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
       }
+    }
 
-      if constexpr (RELAY_DIVERSION)
-      {
-        relay_Output.update_average(tx_data.power);
-      }
+    if constexpr (RELAY_DIVERSION)
+    {
+      relay_Output.update_average(tx_data.power);
     }
 
     if constexpr (TEMP_SENSOR_PRESENT)

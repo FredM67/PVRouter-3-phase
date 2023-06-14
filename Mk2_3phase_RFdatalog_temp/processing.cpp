@@ -30,7 +30,7 @@ constexpr int32_t l_DCoffset_V_min{ (512L - 100L) * 256L }; /**< mid-point of AD
 constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
 constexpr int16_t i_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
 
-constexpr uint32_t WORKING_ZONE_IN_JOULES{ 3600UL }; /**< number of joule for 1Wh */
+constexpr uint32_t WORKING_ZONE_IN_JOULES{ 3600UL };        /**< number of joule for 1Wh */
 
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
 constexpr float f_capacityOfEnergyBucket_main{ static_cast< float >(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
@@ -57,38 +57,38 @@ constexpr auto initThreshold(const bool lower)
 constexpr float f_lowerThreshold_default{ initThreshold(true) };  /**< lower default threshold set accordingly to the output mode */
 constexpr float f_upperThreshold_default{ initThreshold(false) }; /**< upper default threshold set accordingly to the output mode */
 
-float f_energyInBucket_main{ 0 }; /**< main energy bucket (over all phases) */
-float f_lowerEnergyThreshold;     /**< dynamic lower threshold */
-float f_upperEnergyThreshold;     /**< dynamic upper threshold */
+float f_energyInBucket_main{ 0 };                                 /**< main energy bucket (over all phases) */
+float f_lowerEnergyThreshold;                                     /**< dynamic lower threshold */
+float f_upperEnergyThreshold;                                     /**< dynamic upper threshold */
 
 // for improved control of multiple loads
 bool b_recentTransition{ false };                 /**< a load state has been recently toggled */
 uint8_t postTransitionCount;                      /**< counts the number of cycle since last transition */
 constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 3 }; /**< allows each transition to take effect */
 // constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
-uint8_t activeLoad{ NO_OF_DUMPLOADS }; /**< current active load */
+uint8_t activeLoad{ NO_OF_DUMPLOADS };               /**< current active load */
 
-int32_t l_sumP[NO_OF_PHASES];                /**< cumulative power per phase */
-int32_t l_sampleVminusDC[NO_OF_PHASES];      /**< current raw voltage sample filtered */
-int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]; /**< for the LPF which determines DC offset (voltage) */
-int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];  /**< for summation of 'real power' values during datalog period */
-int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values during datalog period */
+int32_t l_sumP[NO_OF_PHASES];                        /**< cumulative power per phase */
+int32_t l_sampleVminusDC[NO_OF_PHASES];              /**< current raw voltage sample filtered */
+int32_t l_cumVdeltasThisCycle[NO_OF_PHASES];         /**< for the LPF which determines DC offset (voltage) */
+int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];          /**< for summation of 'real power' values during datalog period */
+int32_t l_sum_Vsquared[NO_OF_PHASES];                /**< for summation of V^2 values during datalog period */
 
 uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
 uint16_t i_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
 uint16_t n_cycleCountForDatalogging{ 0 };            /**< for counting how often datalog is updated */
 
-uint8_t n_lowestNoOfSampleSetsPerMainsCycle; /**< For a mechanism to check the integrity of this code structure */
+uint8_t n_lowestNoOfSampleSetsPerMainsCycle;         /**< For a mechanism to check the integrity of this code structure */
 
 // For an enhanced polarity detection mechanism, which includes a persistence check
 Polarities polarityOfMostRecentSampleV[NO_OF_PHASES];    /**< for zero-crossing detection */
 Polarities polarityConfirmed[NO_OF_PHASES];              /**< for zero-crossing detection */
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing detection */
 
-LoadStates physicalLoadState[NO_OF_DUMPLOADS]; /**< Physical state of the loads */
-uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was ON (over 1 datalog period) */
+LoadStates physicalLoadState[NO_OF_DUMPLOADS];           /**< Physical state of the loads */
+uint16_t countLoadON[NO_OF_DUMPLOADS];                   /**< Number of cycle the load was ON (over 1 datalog period) */
 
-bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle */
+bool beyondStartUpPeriod{ false };                       /**< start-up delay, allows things to settle */
 
 /**
  * @brief Initializes the ports and load states for processing
@@ -103,7 +103,7 @@ void initializeProcessing()
   }
   updatePhysicalLoadStates();  // allows the logical-to-physical mapping to be changed
 
-  updatePortsStates();  // updates output pin states
+  updatePortsStates();         // updates output pin states
 
   for (auto &DCoffset_V : l_DCoffset_V)
   {
@@ -138,7 +138,7 @@ void initializeProcessing()
 
   bit_set(ADCSRA, ADSC);  // start ADC manually first time
 
-  sei();  // Enable Global Interrupts
+  sei();                  // Enable Global Interrupts
 }
 
 /**
@@ -316,8 +316,8 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   int32_t instP = filtV_div4 * filtI_div4;                  // 32-bits (now x4096, or 2^12)
   instP >>= 12;                                             // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
-  l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
-  l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP[phase] += instP;                                   // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP_atSupplyPoint[phase] += instP;                     // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
 }
 
 /**
@@ -527,7 +527,7 @@ void processStartNewCycle()
 
   updatePhysicalLoadStates();  // allows the logical-to-physical mapping to be changed
 
-  updatePortsStates();  // update the control ports for each of the physical loads
+  updatePortsStates();         // update the control ports for each of the physical loads
 
   // Now that the energy-related decisions have been taken, min and max limits can now
   // be applied  to the level of the energy bucket. This is to ensure correct operation
@@ -685,7 +685,8 @@ void processDataLogging()
   i_sampleSetsDuringThisDatalogPeriod = 0;
 
   // signal the main processor that logging data are available
-  b_datalogEventPending = true;
+  // we skip the period from start to running stable
+  b_datalogEventPending = beyondStartUpPeriod;
 }
 
 /**
