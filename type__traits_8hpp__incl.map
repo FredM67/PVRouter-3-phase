@@ -1,5 +1,5 @@
 <map id="Mk2_3phase_RFdatalog_temp/type_traits.hpp" name="Mk2_3phase_RFdatalog_temp/type_traits.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="1088,5,1265,47"/>
+<area shape="rect" id="node1" title="Some useful but missing stl functions templates." alt="" coords="1088,5,1265,47"/>
 <area shape="rect" id="node2" href="$conditional_8hpp.html" title=" " alt="" coords="5,102,201,129"/>
 <area shape="rect" id="node3" href="$enable__if_8hpp.html" title=" " alt="" coords="225,95,365,136"/>
 <area shape="rect" id="node4" href="$integral__constant_8hpp.html" title=" " alt="" coords="1407,333,1554,375"/>

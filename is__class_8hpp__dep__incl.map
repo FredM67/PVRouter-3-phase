@@ -1,9 +1,9 @@
 <map id="Mk2_3phase_RFdatalog_temp/type_traits/is_class.hpp" name="Mk2_3phase_RFdatalog_temp/type_traits/is_class.hpp">
 <area shape="rect" id="node1" title=" " alt="" coords="521,5,699,61"/>
 <area shape="rect" id="node2" href="$is__enum_8hpp.html" title=" " alt="" coords="585,109,763,165"/>
-<area shape="rect" id="node3" href="$type__traits_8hpp.html" title=" " alt="" coords="521,213,699,255"/>
-<area shape="rect" id="node4" href="$movingAvg_8h.html" title=" " alt="" coords="521,303,699,344"/>
-<area shape="rect" id="node5" href="$utils__relay_8h.html" title=" " alt="" coords="521,392,699,433"/>
+<area shape="rect" id="node3" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="521,213,699,255"/>
+<area shape="rect" id="node4" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="521,303,699,344"/>
+<area shape="rect" id="node5" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="521,392,699,433"/>
 <area shape="rect" id="node6" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="459,481,636,523"/>
 <area shape="rect" id="node8" href="$main_8cpp.html" title="Main code." alt="" coords="459,749,636,791"/>
 <area shape="rect" id="node7" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="5,571,183,612"/>

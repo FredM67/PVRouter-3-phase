@@ -1,7 +1,7 @@
 <map id="Mk2_3phase_RFdatalog_temp/movingAvg.h" name="Mk2_3phase_RFdatalog_temp/movingAvg.h">
-<area shape="rect" id="node1" title=" " alt="" coords="1024,5,1201,47"/>
+<area shape="rect" id="node1" title="Code for sliding&#45;window average." alt="" coords="1024,5,1201,47"/>
 <area shape="rect" id="node2" title=" " alt="" coords="1008,95,1092,121"/>
-<area shape="rect" id="node3" href="$type__traits_8hpp.html" title=" " alt="" coords="1117,95,1237,121"/>
+<area shape="rect" id="node3" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1117,95,1237,121"/>
 <area shape="rect" id="node4" href="$conditional_8hpp.html" title=" " alt="" coords="5,177,201,203"/>
 <area shape="rect" id="node5" href="$enable__if_8hpp.html" title=" " alt="" coords="225,169,365,211"/>
 <area shape="rect" id="node6" href="$integral__constant_8hpp.html" title=" " alt="" coords="1407,408,1554,449"/>
