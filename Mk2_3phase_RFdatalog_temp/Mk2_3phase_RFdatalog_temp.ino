@@ -136,11 +136,16 @@
  * - project can now be used with both Arduino IDE and PlatformIO (Visual Studio Code).
  * - a couple of pre-defined PlatformIO configs added
  *  
+ * __June 2023: changes:__
+ * - heavy refactoring (again)
+ * - stl add-ons
+ * - add relay-output feature
+ *  
  * @author Fred Metrich
  * @copyright Copyright (c) 2023
  *
  */
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
-static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/Laclare/Mk2_3phase_RFdatalog_temp/Readme.md");
+static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/main/Mk2_3phase_RFdatalog_temp/Readme.md");
 
 // The active code can be found in the other cpp/h files

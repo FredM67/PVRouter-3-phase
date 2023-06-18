@@ -3,20 +3,4 @@ if ! which clang-format &>/dev/null; then
   exit 1
 fi
 
-find \
-  . \
-  \( \
-    -name '*.c' -or \
-    -name '*.cpp' -or \
-    -name '*.h' -or \
-    -name '*.ino' -or \
-    -name '*.ipp' -or \
-    -name '*.tpp' \
-  \) \
-  -type f \
-  -exec \
-    clang-format \
-      --assume-filename=foo.cpp \
-      -i \
-      --style=file \
-      {} \;
+find . -name "*.cpp" -o -name "*.ino" -o -name "*.c" -o -name "*.h"|xargs -I {} clang-format -i --style=file {}

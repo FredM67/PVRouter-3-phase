@@ -12,8 +12,9 @@
 #include <Arduino.h>
 
 #include "calibration.h"
+#include "dualtariff.h"
 #include "processing.h"
-#include "utils.h"
+#include "utils_pins.h"
 
 /*!
  *  @defgroup TimeCritical Time critical functions Group
@@ -29,12 +30,16 @@ constexpr int32_t l_DCoffset_V_min{ (512L - 100L) * 256L }; /**< mid-point of AD
 constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
 constexpr int16_t i_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
 
+constexpr uint32_t WORKING_ZONE_IN_JOULES{ 3600UL }; /**< number of joule for 1Wh */
+
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
 constexpr float f_capacityOfEnergyBucket_main{ static_cast< float >(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
 /**< for resetting flexible thresholds */
 constexpr float f_midPointOfEnergyBucket_main{ f_capacityOfEnergyBucket_main * 0.5F };
 /**< threshold in anti-flicker mode - must not exceed 0.4 */
 constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1F };
+
+constexpr OutputModes outputMode{ OutputModes::NORMAL }; /**< Output mode to be used */
 
 /**
  * @brief set default threshold at compile time so the variable can be read-only
@@ -168,6 +173,12 @@ void initializeOptionalPins()
     delay(100);                           // allow time to settle
   }
 
+  if constexpr (RELAY_DIVERSION)
+  {
+    pinMode(relayPin, OUTPUT);
+    delay(100);
+  }
+
   if constexpr (WATCHDOG_PIN_PRESENT)
   {
     pinMode(watchDogPin, OUTPUT);  // set as output
@@ -296,7 +307,7 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 
   // extra filtering to offset the HPF effect of CTx
   const int32_t last_lpf_long{ lpf_long[phase] };
-  lpf_long[phase] = last_lpf_long + alpha * (sampleIminusDC - last_lpf_long);
+  lpf_long[phase] += alpha * (sampleIminusDC - last_lpf_long);
   sampleIminusDC += (lpf_gain * lpf_long[phase]);
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
@@ -622,8 +633,8 @@ void processLatestContribution(const uint8_t phase)
   // apply any adjustment that is required.
   if (0 == phase)
   {
-    b_newMainsCycle = true;                             //  a 50 Hz 'tick' for use by the main code
     f_energyInBucket_main -= REQUIRED_EXPORT_IN_WATTS;  // energy scale is Joules x 50
+    b_newMainsCycle = true;                             //  a 50 Hz 'tick' for use by the main code
   }
   // Applying max and min limits to the main accumulator's level
   // is deferred until after the energy related decisions have been taken
@@ -674,7 +685,8 @@ void processDataLogging()
   i_sampleSetsDuringThisDatalogPeriod = 0;
 
   // signal the main processor that logging data are available
-  b_datalogEventPending = true;
+  // we skip the period from start to running stable
+  b_datalogEventPending = beyondStartUpPeriod;
 }
 
 /**

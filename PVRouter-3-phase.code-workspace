@@ -12,5 +12,9 @@
 			"path": "Mk2_3phase_RFdatalog_temp"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"xtr1common": "cpp"
+		}
+	}
 }

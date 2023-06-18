@@ -19,10 +19,7 @@ inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB,
 inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
 // ------------------------------------------
 
-inline constexpr uint32_t WORKING_ZONE_IN_JOULES{ 3600UL }; /**< number of joule for 1Wh */
-
-inline constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{ 2 };  /**< allows polarity changes to be confirmed */
-inline constexpr OutputModes outputMode{ OutputModes::NORMAL }; /**< Output mode to be used */
+inline constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{ 2 }; /**< allows polarity changes to be confirmed */
 
 inline constexpr uint16_t initialDelay{ 3000 };  /**< in milli-seconds, to allow time to open the Serial monitor */
 inline constexpr uint16_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow LP filter to settle */
@@ -59,6 +56,9 @@ void printParamsForSelectedOutputMode();
 
 void processCurrentRawSample(uint8_t phase, int16_t rawSample);
 void processVoltageRawSample(uint8_t phase, int16_t rawSample);
+void processRawSamples(uint8_t phase);
+
+void processVoltage(uint8_t phase);
 
 inline void processStartUp(uint8_t phase) __attribute__((always_inline));
 inline void processStartNewCycle() __attribute__((always_inline));
@@ -72,5 +72,7 @@ inline void proceedHighEnergyLevel() __attribute__((always_inline));
 inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline));
 inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline));
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
+
+void processDataLogging();
 
 #endif  // _PROCESSING_H

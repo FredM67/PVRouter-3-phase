@@ -10,7 +10,7 @@
  */
 
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
-static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/Laclare/Mk2_3phase_RFdatalog_temp/Readme.md");
+static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/main/Mk2_3phase_RFdatalog_temp/Readme.md");
 
 #include <Arduino.h>  // may not be needed, but it's probably a good idea to include this
 
@@ -35,6 +35,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 #include "processing.h"
 #include "types.h"
 #include "utils.h"
+#include "utils_relay.h"
 #include "validation.h"
 
 // --------------  general global variables -----------------
@@ -373,6 +374,12 @@ void loop()
       {
         bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100);  // called every second
       }
+
+      if constexpr (RELAY_DIVERSION)
+      {
+        relay_Output.inc_duration();
+        relay_Output.proceed_relay();
+      }
     }
   }
 
@@ -396,6 +403,11 @@ void loop()
       {
         tx_data.Vrms_L_x100[phase] = static_cast< int32_t >(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
       }
+    }
+
+    if constexpr (RELAY_DIVERSION)
+    {
+      relay_Output.update_average(tx_data.power);
     }
 
     if constexpr (TEMP_SENSOR_PRESENT)
