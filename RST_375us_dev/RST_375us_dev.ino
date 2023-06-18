@@ -159,7 +159,7 @@ void timerIsr(void)
   switch (sample_index)
   {
     case 0:
-      sample_V1 = ADC;            // store the ADC value (this one is for Voltage)
+      sample_V1 = ADC;           // store the ADC value (this one is for Voltage)
       ADMUX = 0x40 + sensor_I1;  // set up the next conversion, which is for current at CT1
       ADCSRA |= (1 << ADSC);     // start the ADC
       ++sample_index;            // increment the control flag
@@ -173,10 +173,10 @@ void timerIsr(void)
       ++sample_index;            // increment the control flag
       break;
     case 2:
-      sample_I2_raw = ADC;      // store the ADC value (this one is for current at CT2)
+      sample_I2_raw = ADC;       // store the ADC value (this one is for current at CT2)
       ADMUX = 0x40 + sensor_V1;  // set up the next conversion, which is for Voltage
-      ADCSRA |= (1 << ADSC);    // start the ADC
-      sample_index = 0;         // reset the control flag
+      ADCSRA |= (1 << ADSC);     // start the ADC
+      sample_index = 0;          // reset the control flag
       break;
     default:
       sample_index = 0;  // to prevent lockup (should never get here)
