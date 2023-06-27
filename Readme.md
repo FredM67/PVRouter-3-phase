@@ -1,8 +1,11 @@
 <div align = center>
 
+[![GitHub issues](https://img.shields.io/github/issues/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/issues)
+[![GitHub forks](https://img.shields.io/github/forks/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/network)
+[![GitHub stars](https://img.shields.io/github/stars/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/stargazers)
 [![CodeQL](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml)
-&nbsp; &nbsp;
 [![Doxygen](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml)
+
 <br/>
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 </div>
@@ -36,16 +39,20 @@ Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.u
     - [Sortie(s) relais tout-ou-rien \*\* NEW \*\*](#sorties-relais-tout-ou-rien--new-)
     - [Capteur de température](#capteur-de-température)
     - [Profil Enphase zéro export](#profil-enphase-zéro-export)
-- [Comment câbler le routeur](#comment-câbler-le-routeur)
-- [Applications / Diagrammes de câblage](#applications--diagrammes-de-câblage)
-  - [Pré-requis](#pré-requis)
-  - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
-    - [Passage du monophasé au triphasé (avec neutre)](#passage-du-monophasé-au-triphasé-avec-neutre)
-    - [Câblage](#câblage)
-  - [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
-  - [Chauffe-eau avec thermostat ACI triphasé (SANS neutre)](#chauffe-eau-avec-thermostat-aci-triphasé-sans-neutre)
-  - [Alternatives SANS neutre](#alternatives-sans-neutre)
-    - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique-1)
+  - [Comment câbler le routeur](#comment-câbler-le-routeur)
+  - [Applications / Diagrammes de câblage](#applications--diagrammes-de-câblage)
+    - [Pré-requis](#pré-requis)
+    - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
+      - [Passage du monophasé au triphasé (avec neutre)](#passage-du-monophasé-au-triphasé-avec-neutre)
+      - [Câblage](#câblage)
+    - [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
+    - [Chauffe-eau avec thermostat ACI triphasé (SANS neutre)](#chauffe-eau-avec-thermostat-aci-triphasé-sans-neutre)
+    - [Alternatives SANS neutre](#alternatives-sans-neutre)
+      - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique-1)
+  - [Support](#support)
+  - [Roadmap](#roadmap)
+  - [Contributing](#contributing)
+  - [Authors and acknowledgment](#authors-and-acknowledgment)
 
 ## Aperçu des dossiers
 - **Mk2_3phase_RFdatalog_temp** : contient tous les fichiers nécessaires au programme du routeur.
@@ -136,10 +143,10 @@ Lorsque la production (et l’excédent) arrive au maximum possible, la valeur m
 
 Cela a été testé en situation réelle par Amorim. Selon chaque situation, il peut être nécessaire de modifier cette valeur de *-20* à une valeur plus grande ou plus petite.
 
-# Comment câbler le routeur
+## Comment câbler le routeur
 [Ici](docs/HowToInstall.pdf) vous trouverez une rapide notice d'installation du routeur.
 
-# Applications / Diagrammes de câblage
+## Applications / Diagrammes de câblage
 
 Je veux:
 
@@ -149,7 +156,7 @@ Je veux:
 - connecter mon chauffe-eau ACI triphasé, voir [Chauffe-eau avec thermostat ACI triphasé (SANS neutre)](#chauffe-eau-avec-thermostat-aci-triphasé-sans-neutre)
 - connecter plusieurs charges résistives pures, il suffit de les câbler, une sur chaque sortie. N’oubliez pas de désactiver la gestion des priorités de charge.
 
-## Pré-requis
+### Pré-requis
 
 Votre chauffe-eau DOIT supporter le câblage en triphasé (c'est-à-dire il doit y avoir 3 éléments chauffants).
 
@@ -161,9 +168,9 @@ Soyez sûr de savoir ce que vous entreprenez. Au besoin, faîtes appel à un él
 
 ---
 
-## Chauffe-eau avec thermostat mécanique
+### Chauffe-eau avec thermostat mécanique
 
-### Passage du monophasé au triphasé (avec neutre)
+#### Passage du monophasé au triphasé (avec neutre)
 
 ---
 **_Nécessite un routeur avec 3 sorties_**
@@ -174,7 +181,7 @@ Avec cette solution, vous commandez chaque résistance séparément l'une de l'a
 
 Vous devrez séparer les 3 éléments de chauffage, et probablement ajouter un nouveau fil pour chacun d’eux. Parfois, les éléments sont reliés ensemble avec une sorte "d'étoile" métallique. Il y en a une pour la phase, et une pour le fil neutre. Vous n’avez qu’à supprimer celle de la phase, celle pour neutre doit rester câblée.
 
-### Câblage
+#### Câblage
 
 Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2 phases en mode normal (les 3 phases en mode de sécurité), il doit donc être câblé d’une autre manière pour obtenir une commutation complète sur les 3 phases.
 
@@ -190,14 +197,14 @@ Pour cela, j’ai « recyclé » un commutateur HC/HP triphasé, mais vous pouve
 ![Chauffe-eau avec thermostat mécanique](img/Heater_mechanical.png)  
 *Figure: Diagramme de câblage*
 
-## Chauffe-eau avec thermostat ACI monophasé
+### Chauffe-eau avec thermostat ACI monophasé
 
 Dans ce cas, c’est en quelque sorte la même situation qu’avant. Vous n’avez pas besoin d’acheter un kit ACI en triphasé pour convertir votre chauffe-eau monophasé. La carte ACI doit être connectée à une phase permanente. Elle contrôlera ensuite n’importe quel relais en triphasé.
 
 ![Chauffe-eau avec thermostat ACI monophasé](img/Heater_ACI_Mono.png)  
 *Figure : Diagramme de câblage*
 
-## Chauffe-eau avec thermostat ACI triphasé (SANS neutre)
+### Chauffe-eau avec thermostat ACI triphasé (SANS neutre)
 
 ---
 **_Nécessite un routeur avec 2 sorties_**
@@ -215,7 +222,7 @@ La carte ACI doit être reliée à 3 phases permanentes.
 ![Chauffe-eau avec thermostat ACI triphasé](img/Heater_ACI_Tri.png)  
 *Figure : Diagramme de câblage*
 
-## Alternatives SANS neutre
+### Alternatives SANS neutre
 
 ---
 **_Nécessite un routeur avec 2 sorties_**
@@ -224,7 +231,7 @@ Cette solution vous permet d'économiser le rajout d'un fil de neutre et/ou l'aj
 
 ---
 
-### Chauffe-eau avec thermostat mécanique
+#### Chauffe-eau avec thermostat mécanique
 
 Cette configuration permet de simplifier les branchements et surtout, il n'est plus nécessaire de rajouter un contacteur tri-/quadripolaire.
 
@@ -244,3 +251,29 @@ En **vert**, seules 2 phases sont coupées, L2 et L3. ***Il est très IMPORTANT 
 
 ![Chauffe-eau avec thermostat mécanique](img/Heater_mechanical-No_neutral.png)  
 *Figure: Diagramme de câblage*
+
+## Support
+
+This project is maintained by [@maehr](https://github.com/maehr). Please understand that we won't be able to provide individual support via email. We also believe that help is much more valuable if it's shared publicly, so that more people can benefit from it.
+
+| Type                                  | Platforms                                                                  |
+| ------------------------------------- | -------------------------------------------------------------------------- |
+| 🚨 **Bug Reports**                    | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
+| 📚 **Docs Issue**                     | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
+| 🎁 **Feature Requests**               | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
+| 🛡 **Report a security vulnerability** | See [SECURITY.md](SECURITY.md)                                             |
+| 💬 **General Questions**              | [GitHub Discussions](https://github.com/maehr/github-template/discussions) |
+
+## Roadmap
+
+No changes are currently planned.
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Authors and acknowledgment
+
+- **Frédéric Metrich** - _Initial work_ - [FredM67](https://github.com/FredM67)
+
+See also the list of [contributors](https://github.com/maehr/github-template/graphs/contributors) who participated in this project.
