@@ -214,8 +214,8 @@ $(function() {
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;  <span class="keyword">const</span> int16_t importThreshold{ 200 };    </div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <span class="keyword">const</span> uint16_t minON{ 5 * 60 };          </div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keyword">const</span> uint16_t minOFF{ 5 * 60 };         </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  uint16_t duration{ 0 };                  </div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  <span class="keywordtype">bool</span> relayState{ <span class="keyword">false</span> };                </div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  uint16_t duration{ 0 };   </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  <span class="keywordtype">bool</span> relayState{ <span class="keyword">false</span> }; </div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code" href="classmovingAvg.html">movingAvg</a>&lt; int16_t, T * 60 / <a class="code" href="config__system_8h.html#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> &gt; sliding_Average;</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;};</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
