@@ -136,6 +136,11 @@
  * - project can now be used with both Arduino IDE and PlatformIO (Visual Studio Code).
  * - a couple of pre-defined PlatformIO configs added
  *  
+ * __June 2023: changes:__
+ * - heavy refactoring (again)
+ * - stl add-ons
+ * - add relay-output feature
+ *  
  * @author Fred Metrich
  * @copyright Copyright (c) 2023
  *

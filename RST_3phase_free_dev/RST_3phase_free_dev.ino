@@ -30,7 +30,7 @@
  */
 
 #include <Arduino.h>
-#define FREE_RUNNING
+//#define FREE_RUNNING
 
 // definition of enumerated types
 enum polarities
@@ -212,8 +212,11 @@ void setup()
   Serial.println(freeRam());  // a useful value to keep an eye on
 }
 
+#ifdef FREE_RUNNING
 ISR(ADC_vect)
-// void timerIsr(void)
+#else
+void timerIsr(void)
+#endif
 {
   static uint8_t sample_index{ 0 };
   static int sample_I1_raw;

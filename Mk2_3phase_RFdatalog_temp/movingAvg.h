@@ -1,3 +1,13 @@
+/**
+ * @file movingAvg.h
+ * @author Frédéric Metrich (frederic.metrich@live.fr)
+ * @brief Code for sliding-window average
+ * @version 0.1
+ * @date 2023-06-14
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 
 #ifndef MOVINGAVG_H
 #define MOVINGAVG_H

@@ -307,7 +307,7 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 
   // extra filtering to offset the HPF effect of CTx
   const int32_t last_lpf_long{ lpf_long[phase] };
-  lpf_long[phase] = last_lpf_long + alpha * (sampleIminusDC - last_lpf_long);
+  lpf_long[phase] += alpha * (sampleIminusDC - last_lpf_long);
   sampleIminusDC += (lpf_gain * lpf_long[phase]);
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
@@ -633,8 +633,8 @@ void processLatestContribution(const uint8_t phase)
   // apply any adjustment that is required.
   if (0 == phase)
   {
-    b_newMainsCycle = true;                             //  a 50 Hz 'tick' for use by the main code
     f_energyInBucket_main -= REQUIRED_EXPORT_IN_WATTS;  // energy scale is Joules x 50
+    b_newMainsCycle = true;                             //  a 50 Hz 'tick' for use by the main code
   }
   // Applying max and min limits to the main accumulator's level
   // is deferred until after the energy related decisions have been taken

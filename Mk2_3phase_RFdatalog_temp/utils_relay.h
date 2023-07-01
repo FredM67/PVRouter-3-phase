@@ -1,7 +1,7 @@
 /**
  * @file utils_relay.h
  * @author Frédéric Metrich (frederic.metrich@live.fr)
- * @brief 
+ * @brief Some utility functions for the relay output feature
  * @version 0.1
  * @date 2023-03-31
  * 

@@ -1,3 +1,14 @@
+/**
+ * @file type_traits.hpp
+ * @author Frédéric Metrich (frederic.metrich@live.fr)
+ * @brief Some useful but missing stl functions templates
+ * @version 0.1
+ * @date 2023-06-14
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 // ArduinoJson - https://arduinojson.org
 // Copyright © 2014-2023, Benoit BLANCHON
 // MIT License
