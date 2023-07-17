@@ -17,7 +17,7 @@ constexpr uint32_t WORKING_ZONE_IN_JOULES{ 3600UL }; /**< number of joule for 1W
 // general literals
 constexpr uint16_t DATALOG_PERIOD_IN_MAINS_CYCLES{ 250 }; /**< Period of datalogging in cycles */
 
-constexpr uint8_t NO_OF_PHASES{ 3 }; /**< number of phases of the main supply. */
+constexpr uint8_t NO_OF_PHASES{ 3 };                      /**< number of phases of the main supply. */
 
 // -------------------------------
 // definitions of enumerated types
@@ -57,7 +57,7 @@ bool beyondStartUpPeriod{ false };        /**< start-up delay, allows things to 
 constexpr uint32_t initialDelay{ 3000 };  /**< in milli-seconds, to allow time to open the Serial monitor */
 constexpr uint32_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow LP filter to settle */
 
-int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
+int32_t l_DCoffset_V[NO_OF_PHASES];       /**< <--- for LPF */
 
 // Define operating limits for the LP filters which identify DC offset in the voltage
 // sample streams. By limiting the output range, these filters always should start up
@@ -69,16 +69,16 @@ constexpr int16_t i_DCoffset_I_nom{ 512L };               /**< nominal mid-point
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
 constexpr float f_capacityOfEnergyBucket_main{ (float)(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
 
-float f_energyInBucket_main{ 0 }; /**< main energy bucket (over all phases) */
-float f_lowerEnergyThreshold;     /**< dynamic lower threshold */
-float f_upperEnergyThreshold;     /**< dynamic upper threshold */
+float f_energyInBucket_main{ 0 };                    /**< main energy bucket (over all phases) */
+float f_lowerEnergyThreshold;                        /**< dynamic lower threshold */
+float f_upperEnergyThreshold;                        /**< dynamic upper threshold */
 
-int32_t l_sumP[NO_OF_PHASES];                /**< cumulative power per phase */
-int32_t l_sampleVminusDC[NO_OF_PHASES];      /**< for the phaseCal algorithm */
-int32_t l_lastSampleVminusDC[NO_OF_PHASES];  /**< for the phaseCal algorithm */
-int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]; /**< for the LPF which determines DC offset (voltage) */
-int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];  /**< for summation of 'real power' values during datalog period */
-int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values during datalog period */
+int32_t l_sumP[NO_OF_PHASES];                        /**< cumulative power per phase */
+int32_t l_sampleVminusDC[NO_OF_PHASES];              /**< for the phaseCal algorithm */
+int32_t l_lastSampleVminusDC[NO_OF_PHASES];          /**< for the phaseCal algorithm */
+int32_t l_cumVdeltasThisCycle[NO_OF_PHASES];         /**< for the LPF which determines DC offset (voltage) */
+int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];          /**< for summation of 'real power' values during datalog period */
+int32_t l_sum_Vsquared[NO_OF_PHASES];                /**< for summation of V^2 values during datalog period */
 
 uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
 uint16_t n_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
@@ -122,7 +122,7 @@ Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing 
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
+inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.04767F, 0.04800F, 0.04767F };
 
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the
 // current waveform. The algorithm interpolates between the most recent pair
@@ -143,7 +143,7 @@ constexpr int16_t i_phaseCal{ 256 }; /**< to avoid the need for floating-point m
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F }; /**< compared with Sentron PAC 4200 */
+inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.7158F, 0.7129F, 0.7161F }; /**< compared with Fluke 179 */
 
 /**
    @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
@@ -258,8 +258,8 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   int32_t instP = filtV_div4 * filtI_div4;                     // 32-bits (now x4096, or 2^12)
   instP >>= 12;                                                // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
-  l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
-  l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP[phase] += instP;                                      // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP_atSupplyPoint[phase] += instP;                        // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
 }
 
 /**
@@ -633,7 +633,7 @@ void setup()
 {
   delay(initialDelay);  // allows time to open the Serial Monitor
 
-  Serial.begin(9600);  // initialize Serial interface
+  Serial.begin(9600);   // initialize Serial interface
 
   // On start, always display config info in the serial monitor
   printConfiguration();
@@ -645,7 +645,7 @@ void setup()
   ADCSRA = bit(ADPS0) + bit(ADPS1) + bit(ADPS2);  // Set the ADC's clock to system clock / 128
   ADCSRA |= bit(ADEN);                            // Enable the ADC
 
-  ADCSRA |= bit(ADATE);  // set the Auto Trigger Enable bit in the ADCSRA register. Because
+  ADCSRA |= bit(ADATE);                           // set the Auto Trigger Enable bit in the ADCSRA register. Because
   // bits ADTS0-2 have not been set (i.e. they are all zero), the
   // ADC's trigger source is set to "free running mode".
 
@@ -671,7 +671,7 @@ void loop()
 {
   static uint8_t perSecondTimer{ 0 };
 
-  if (b_newMainsCycle)  // flag is set after every pair of ADC conversions
+  if (b_newMainsCycle)        // flag is set after every pair of ADC conversions
   {
     b_newMainsCycle = false;  // reset the flag
     ++perSecondTimer;
