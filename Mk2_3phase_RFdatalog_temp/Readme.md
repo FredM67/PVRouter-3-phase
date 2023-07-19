@@ -20,6 +20,7 @@ You'll need to install additional extension(s). The most popular and used extens
 - **Mk2_3phase_RFdatalog_temp.ino** : This file is needed for Arduino IDE
 - **calibration.h** : contains the calibration parameters
 - **config.h** : the user's preferences are stored here (pin assignments, features, ...)
+- **config_system.h** : rarely modified system constants
 - **constants.h** : some constants - *do not edit*
 - **debug.h** : some macros for serial output and debugging
 - **dualtariff.h** : definitions for the dual tariff feature
