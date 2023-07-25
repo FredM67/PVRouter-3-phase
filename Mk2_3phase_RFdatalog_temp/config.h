@@ -51,7 +51,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set
 #endif
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
-inline constexpr bool RELAY_DIVERSION{ false };       /**< set it to 'true' if a relay is used for diversion */
+inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
 // ----------- Pinout assignments -----------
@@ -75,6 +75,7 @@ inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if th
 inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 }; /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]{ 0, 1 };    /**< load priorities and states at startup */
 
+// Set the value to 0xff when the pin is not needed (feature deactivated)
 inline constexpr uint8_t relayPin{ 0xff };      /**< for 3-phase PCB, relay trigger */
 inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
 inline constexpr uint8_t diversionPin{ 0xff };  /**< if LOW, set diversion on standby */
