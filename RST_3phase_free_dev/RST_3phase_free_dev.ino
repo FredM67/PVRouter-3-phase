@@ -21,7 +21,7 @@
  * The stream of raw data samples from any floating CT will always be distorted because the CT acts as
  * a High Pass Filter.  This effect is only noticeable when the current that is being measured changes,
  * such as when an electrical load is turned on or off.  This sketch includes additional software which
- * compensates for this effect.  Similar compensation software has been introduced to the varous
+ * compensates for this effect.  Similar compensation software has been introduced to the various
  * "fasterControl" sketches that now exist.
  *
  *      Robin Emley

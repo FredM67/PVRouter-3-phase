@@ -569,7 +569,7 @@ void printDataLogging()
     Serial.print(F(", V"));
     Serial.print(phase + 1);
     Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
+    Serial.print((float)tx_data.Vrms_L_x100[phase] * 0.01F);
   }
 
   Serial.print(F(", (minSampleSets/MC "));

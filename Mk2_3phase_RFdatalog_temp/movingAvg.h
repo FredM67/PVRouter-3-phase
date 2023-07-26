@@ -67,7 +67,7 @@ public:
 
   auto getAverage() const
   {
-    return _sum / N;
+    return _sum * invN;
   }
 
   auto getElement(uint8_t idx) const
@@ -93,6 +93,8 @@ private:
   typename conditional< is_floating_point< T >::value, T, int32_t >::type _sum{ 0 };
 
   T _ar[N]{};
+
+  static constexpr float invN{ 1 / N };
 };
 
 #endif

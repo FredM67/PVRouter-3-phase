@@ -14,12 +14,12 @@
 
 #include <Arduino.h>
 
-inline void togglePin(const uint8_t pin) __attribute__((always_inline));
+inline constexpr void togglePin(const uint8_t pin) __attribute__((always_inline));
 
-inline void setPinON(const uint8_t pin) __attribute__((always_inline));
+inline constexpr void setPinON(const uint8_t pin) __attribute__((always_inline));
 inline void setPinsON(const uint16_t pins) __attribute__((always_inline));
 
-inline void setPinOFF(const uint8_t pin) __attribute__((always_inline));
+inline constexpr void setPinOFF(const uint8_t pin) __attribute__((always_inline));
 inline void setPinsOFF(const uint16_t pins) __attribute__((always_inline));
 
 inline bool getPinState(const uint8_t pin) __attribute__((always_inline));
@@ -66,7 +66,7 @@ template< typename T > constexpr uint8_t bit_clear(T& _dest, const uint8_t bit)
  * @brief Toggle the specified pin
  *
  */
-void togglePin(const uint8_t pin)
+void constexpr togglePin(const uint8_t pin)
 {
   if (pin < 8)
   {
@@ -84,7 +84,7 @@ void togglePin(const uint8_t pin)
  * @param pin pin to change [2..13]
  * @param bState state to be set
  */
-inline void setPinState(const uint8_t pin, const bool bState)
+inline constexpr void setPinState(const uint8_t pin, const bool bState)
 {
   if (bState)
   {
@@ -101,7 +101,7 @@ inline void setPinState(const uint8_t pin, const bool bState)
  *
  * @param pin pin to change [2..13]
  */
-inline void setPinON(const uint8_t pin)
+inline constexpr void setPinON(const uint8_t pin)
 {
   if (pin < 8)
   {
@@ -129,7 +129,7 @@ inline void setPinsON(const uint16_t pins)
  *
  * @param pin pin to change [2..13]
  */
-inline void setPinOFF(const uint8_t pin)
+inline constexpr void setPinOFF(const uint8_t pin)
 {
   if (pin < 8)
   {
