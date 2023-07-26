@@ -9,7 +9,7 @@
 <area shape="rect" id="node12" href="$utils__temp_8h.html#a15279f2a2446f27d0a1cf82dff006623" title=" " alt="" coords="118,346,278,372"/>
 <area shape="rect" id="node13" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="147,396,249,423"/>
 <area shape="rect" id="node15" href="$types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="646,387,694,414"/>
-<area shape="rect" id="node20" href="$utils__pins_8h.html#adab45134ec081b1e227788ca7f613194" title="Toggle the specified pin." alt="" coords="157,539,239,566"/>
+<area shape="rect" id="node20" href="$utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf" title="Toggle the specified pin." alt="" coords="157,539,239,566"/>
 <area shape="rect" id="node22" href="$classrelayOutput.html#a89822cf10797dfca1f05e81ff6157f8d" title=" " alt="" coords="122,590,274,632"/>
 <area shape="rect" id="node3" href="$utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="621,90,719,116"/>
 <area shape="rect" id="node8" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="340,169,528,210"/>

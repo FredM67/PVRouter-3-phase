@@ -128,7 +128,7 @@ $(function() {
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a802baf5c9b763e462ba5c4227ebd576f">   68</a></span>&#160;  <span class="keyword">auto</span> <a class="code" href="classmovingAvg.html#a802baf5c9b763e462ba5c4227ebd576f">getAverage</a>()<span class="keyword"> const</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">  </span>{</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> _sum / N;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> _sum * invN;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  }</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a9fd0f7167c25462f76e4f836f458dcac">   73</a></span>&#160;  <span class="keyword">auto</span> <a class="code" href="classmovingAvg.html#a9fd0f7167c25462f76e4f836f458dcac">getElement</a>(uint8_t idx)<span class="keyword"> const</span></div>
@@ -154,9 +154,11 @@ $(function() {
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keyword">typename</span> <a class="code" href="structconditional.html">conditional&lt; is_floating_point&lt; T &gt;::value</a>, T, int32_t &gt;::type _sum{ 0 };</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  T _ar[N]{};</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;};</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keyword">static</span> constexpr <span class="keywordtype">float</span> invN{ 1 / N };</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;};</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassmovingAvg_html"><div class="ttname"><a href="classmovingAvg.html">movingAvg</a></div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00020">movingAvg.h:21</a></div></div>
 <div class="ttc" id="aclassmovingAvg_html_a2ba1a7411246b14921a5411ebe1eef5d"><div class="ttname"><a href="classmovingAvg.html#a2ba1a7411246b14921a5411ebe1eef5d">movingAvg::getSize</a></div><div class="ttdeci">constexpr uint8_t getSize() const</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00086">movingAvg.h:86</a></div></div>
 <div class="ttc" id="aclassmovingAvg_html_a802baf5c9b763e462ba5c4227ebd576f"><div class="ttname"><a href="classmovingAvg.html#a802baf5c9b763e462ba5c4227ebd576f">movingAvg::getAverage</a></div><div class="ttdeci">auto getAverage() const</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00068">movingAvg.h:68</a></div></div>
