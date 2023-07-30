@@ -173,7 +173,7 @@ inline void printForEmonESP(const bool bOffPeak)
     Serial.print(F(",L"));
     Serial.print(idx + 1);
     Serial.print(F(":"));
-    Serial.print((copyOf_countLoadON[idx] * 100) * invDATALOG_PERIOD_IN_MAINS_CYCLES);
+    Serial.print((copyOf_countLoadON[idx] * 100) / DATALOG_PERIOD_IN_MAINS_CYCLES);
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
@@ -189,7 +189,7 @@ inline void printForEmonESP(const bool bOffPeak)
       Serial.print(F(",T"));
       Serial.print(idx + 1);
       Serial.print(F(":"));
-      Serial.print((float)tx_data.temperature_x100[idx] * 0.01F);
+      Serial.print((float)tx_data.temperature_x100[idx] / 100);
     }
   }
 
@@ -210,7 +210,7 @@ inline void printForSerialJson()
 {
   uint8_t phase{ 0 };
 
-  Serial.print(copyOf_energyInBucket_main * invSUPPLY_FREQUENCY);
+  Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
 
@@ -226,7 +226,7 @@ inline void printForSerialJson()
     Serial.print(F(", V"));
     Serial.print(phase + 1);
     Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_x100[phase] * 0.01F);
+    Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
@@ -236,7 +236,7 @@ inline void printForSerialJson()
       Serial.print(F(", T"));
       Serial.print(idx + 1);
       Serial.print(F(":"));
-      Serial.print((float)tx_data.temperature_x100[idx] * 0.01F);
+      Serial.print((float)tx_data.temperature_x100[idx] / 100);
     }
   }
 
@@ -251,7 +251,7 @@ inline void printForSerialText()
 {
   uint8_t phase{ 0 };
 
-  Serial.print(copyOf_energyInBucket_main * invSUPPLY_FREQUENCY);
+  Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
 
@@ -273,7 +273,7 @@ inline void printForSerialText()
     Serial.print(F(", V"));
     Serial.print(phase + 1);
     Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_x100[phase] * 0.01F);
+    Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
@@ -283,7 +283,7 @@ inline void printForSerialText()
       Serial.print(F(", T"));
       Serial.print(idx + 1);
       Serial.print(F(":"));
-      Serial.print((float)tx_data.temperature_x100[idx] * 0.01F);
+      Serial.print((float)tx_data.temperature_x100[idx] / 100);
     }
   }
 

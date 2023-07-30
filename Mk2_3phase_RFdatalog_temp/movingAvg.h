@@ -67,7 +67,7 @@ public:
 
   auto getAverage() const
   {
-    return _sum * invN;
+    return _sum / N;
   }
 
   auto getElement(uint8_t idx) const
