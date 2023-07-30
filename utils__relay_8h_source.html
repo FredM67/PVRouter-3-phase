@@ -180,7 +180,7 @@ $(function() {
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  <span class="keywordtype">void</span> try_turnON()</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">if</span> (relayState || duration &lt; minOFF)</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">if</span> (relayIsON || duration &lt; minOFF)</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    {</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;      <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    }</div>
@@ -189,13 +189,13 @@ $(function() {
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <a class="code" href="debug_8h.html#a720cfea0f47501e0ee77e050ff5ff3b4">DBUGLN</a>(F(<span class="stringliteral">&quot;Relay turned ON!&quot;</span>));</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    relayState = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    relayIsON = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    duration = 0;</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  }</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  <span class="keywordtype">void</span> try_turnOFF()</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  {</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keywordflow">if</span> (!relayState || duration &lt; minON)</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keywordflow">if</span> (!relayIsON || duration &lt; minON)</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    {</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;      <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
@@ -204,7 +204,7 @@ $(function() {
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <a class="code" href="debug_8h.html#a720cfea0f47501e0ee77e050ff5ff3b4">DBUGLN</a>(F(<span class="stringliteral">&quot;Relay turned OFF!&quot;</span>));</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    relayState = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    relayIsON = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    duration = 0;</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  }</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
@@ -214,8 +214,8 @@ $(function() {
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;  <span class="keyword">const</span> int16_t importThreshold{ 200 };    </div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <span class="keyword">const</span> uint16_t minON{ 5 * 60 };          </div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keyword">const</span> uint16_t minOFF{ 5 * 60 };         </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  uint16_t duration{ 0 };   </div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  <span class="keywordtype">bool</span> relayState{ <span class="keyword">false</span> }; </div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  uint16_t duration{ 0 };  </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  <span class="keywordtype">bool</span> relayIsON{ <span class="keyword">false</span> }; </div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code" href="classmovingAvg.html">movingAvg</a>&lt; int16_t, T * 60 / <a class="code" href="config__system_8h.html#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> &gt; sliding_Average;</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;};</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
