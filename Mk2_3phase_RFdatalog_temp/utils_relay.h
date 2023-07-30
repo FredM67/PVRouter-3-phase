@@ -187,7 +187,7 @@ private:
    */
   void try_turnON()
   {
-    if (relayState || duration < minOFF)
+    if (relayIsON || duration < minOFF)
     {
       return;
     }
@@ -196,7 +196,7 @@ private:
 
     DBUGLN(F("Relay turned ON!"));
 
-    relayState = true;
+    relayIsON = true;
     duration = 0;
   }
 
@@ -206,7 +206,7 @@ private:
    */
   void try_turnOFF()
   {
-    if (!relayState || duration < minON)
+    if (!relayIsON || duration < minON)
     {
       return;
     }
@@ -215,7 +215,7 @@ private:
 
     DBUGLN(F("Relay turned OFF!"));
 
-    relayState = false;
+    relayIsON = false;
     duration = 0;
   }
 
@@ -226,8 +226,8 @@ private:
   const uint16_t minON{ 5 * 60 };          /**< Minimum duration in seconds the relay is turned ON */
   const uint16_t minOFF{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned OFF */
 
-  uint16_t duration{ 0 };   /**< Duration of the current state */
-  bool relayState{ false }; /**< State of the relay */
+  uint16_t duration{ 0 };  /**< Duration of the current state */
+  bool relayIsON{ false }; /**< True if the relay is ON */
 
   static inline movingAvg< int16_t, T * 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
 };
