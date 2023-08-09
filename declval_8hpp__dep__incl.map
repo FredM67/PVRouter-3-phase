@@ -1,17 +1,18 @@
 <map id="Mk2_3phase_RFdatalog_temp/type_traits/declval.hpp" name="Mk2_3phase_RFdatalog_temp/type_traits/declval.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="411,5,627,47"/>
-<area shape="rect" id="node2" href="$is__class_8hpp.html" title=" " alt="" coords="330,95,508,151"/>
-<area shape="rect" id="node15" href="$is__convertible_8hpp.html" title=" " alt="" coords="532,95,709,151"/>
-<area shape="rect" id="node3" href="$is__enum_8hpp.html" title=" " alt="" coords="432,199,609,255"/>
-<area shape="rect" id="node4" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="432,303,609,344"/>
-<area shape="rect" id="node5" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="332,392,509,433"/>
-<area shape="rect" id="node14" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="533,392,710,433"/>
-<area shape="rect" id="node6" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="332,571,509,612"/>
-<area shape="rect" id="node13" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="496,481,673,523"/>
-<area shape="rect" id="node7" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="432,660,609,701"/>
-<area shape="rect" id="node8" href="$main_8cpp.html" title="Main code." alt="" coords="457,839,634,880"/>
-<area shape="rect" id="node10" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="230,660,408,701"/>
-<area shape="rect" id="node11" href="$utils_8h.html" title="Some utility functions." alt="" coords="129,749,306,791"/>
-<area shape="rect" id="node12" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="29,660,206,701"/>
-<area shape="rect" id="node9" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="330,749,508,791"/>
+<area shape="rect" id="node1" title=" " alt="" coords="311,5,527,47"/>
+<area shape="rect" id="node2" href="$is__class_8hpp.html" title=" " alt="" coords="231,95,408,151"/>
+<area shape="rect" id="node16" href="$is__convertible_8hpp.html" title=" " alt="" coords="432,95,609,151"/>
+<area shape="rect" id="node3" href="$is__enum_8hpp.html" title=" " alt="" coords="332,199,509,255"/>
+<area shape="rect" id="node4" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="332,303,509,344"/>
+<area shape="rect" id="node5" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="232,392,409,433"/>
+<area shape="rect" id="node15" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="433,392,611,433"/>
+<area shape="rect" id="node6" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="359,571,536,612"/>
+<area shape="rect" id="node13" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="5,660,183,701"/>
+<area shape="rect" id="node14" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="420,481,597,523"/>
+<area shape="rect" id="node7" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="661,660,839,701"/>
+<area shape="rect" id="node8" href="$main_8cpp.html" title="Main code." alt="" coords="535,839,712,880"/>
+<area shape="rect" id="node10" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="259,660,436,701"/>
+<area shape="rect" id="node11" href="$utils_8h.html" title="Some utility functions." alt="" coords="271,749,448,791"/>
+<area shape="rect" id="node12" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="460,660,637,701"/>
+<area shape="rect" id="node9" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="535,749,712,791"/>
 </map>

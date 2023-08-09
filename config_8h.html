@@ -128,13 +128,14 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="config_8h__dep__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2config_8hdep" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2config_8hdep" id="aMk2__3phase__RFdatalog__temp_2config_8hdep">
-<area shape="rect" title="Configuration values to be set by the end&#45;user." alt="" coords="408,5,585,47"/>
+<area shape="rect" title="Configuration values to be set by the end&#45;user." alt="" coords="471,5,648,47"/>
 <area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="5,95,183,136"/>
-<area shape="rect" href="main_8cpp.html" title="Main code." alt="" coords="471,273,648,315"/>
+<area shape="rect" href="main_8cpp.html" title="Main code." alt="" coords="401,273,579,315"/>
 <area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="207,95,384,136"/>
-<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="408,184,585,225"/>
+<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="401,184,579,225"/>
 <area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="408,95,585,136"/>
-<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="207,184,384,225"/>
+<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="603,184,780,225"/>
+<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="148,184,325,225"/>
 </map>
 </div>
 </div>
@@ -167,8 +168,8 @@ Variables</h2></td></tr>
 <tr class="separator:a45c16ccf5033dc4696f17daf792c7130"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2e4a2c6acb5689b056d49896672c30c"><td class="memItemLeft" align="right" valign="top">constexpr int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#ac2e4a2c6acb5689b056d49896672c30c">iTemperatureThreshold</a> { 100 }</td></tr>
 <tr class="separator:ac2e4a2c6acb5689b056d49896672c30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49958eb014b70dfb9d8cb9ded3564ef7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a49958eb014b70dfb9d8cb9ded3564ef7">loadPrioritiesAndState</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 0, 1 }</td></tr>
-<tr class="separator:a49958eb014b70dfb9d8cb9ded3564ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00662b40b4d1afe819f2bdb6ad0ed191"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a00662b40b4d1afe819f2bdb6ad0ed191">loadPrioritiesAtStartup</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 0, 1 }</td></tr>
+<tr class="separator:a00662b40b4d1afe819f2bdb6ad0ed191"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2195a98d46c91f74fcde7cb8ed2350d0"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a2195a98d46c91f74fcde7cb8ed2350d0">networkGroup</a> { 210 }</td></tr>
 <tr class="separator:a2195a98d46c91f74fcde7cb8ed2350d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2458020f21db854d8f2fe0e500dcd05"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> { 2 }</td></tr>
@@ -458,8 +459,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a49958eb014b70dfb9d8cb9ded3564ef7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49958eb014b70dfb9d8cb9ded3564ef7">&#9670;&nbsp;</a></span>loadPrioritiesAndState</h2>
+<a id="a00662b40b4d1afe819f2bdb6ad0ed191"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00662b40b4d1afe819f2bdb6ad0ed191">&#9670;&nbsp;</a></span>loadPrioritiesAtStartup</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -468,12 +469,12 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t loadPrioritiesAndState[<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 0, 1 }</td>
+          <td class="memname">constexpr uint8_t loadPrioritiesAtStartup[<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { 0, 1 }</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
