@@ -20,6 +20,10 @@
 
 /**
  * @brief Relay diversion config and engine
+ * @details By default, the sliding average is calculated over 1 minute.
+ *          If the user wants to calculate over a longer period,
+ *          decare the variable like this:
+ *          relayOutput<2> relay_Output{ relayPin, 1000, 200, 1, 1 }
  * 
  * @tparam T Duration in minutes of the sliding average
  */
@@ -119,7 +123,7 @@ public:
    * @details This function must be called every second.
    * 
    */
-  void inc_duration()
+  void inc_duration() const
   {
     if (duration < UINT16_MAX)
     {
@@ -131,7 +135,7 @@ public:
    * @brief Proceed with the relay
    * 
    */
-  void proceed_relay()
+  void proceed_relay() const
   {
     const auto currentAvgPower{ sliding_Average.getAverage() };
 
@@ -226,8 +230,8 @@ private:
   const uint16_t minON{ 5 * 60 };          /**< Minimum duration in seconds the relay is turned ON */
   const uint16_t minOFF{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned OFF */
 
-  uint16_t duration{ 0 };  /**< Duration of the current state */
-  bool relayIsON{ false }; /**< True if the relay is ON */
+  mutable uint16_t duration{ 0 };  /**< Duration of the current state */
+  mutable bool relayIsON{ false }; /**< True if the relay is ON */
 
   static inline movingAvg< int16_t, T * 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
 };
