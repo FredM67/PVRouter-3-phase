@@ -99,6 +99,7 @@ void initializeProcessing()
 {
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
+    loadPrioritiesAndState[i] = loadPrioritiesAtStartup[i];
     pinMode(physicalLoadPin[i], OUTPUT);  // driver pin for Load #n
     loadPrioritiesAndState[i] &= loadStateMask;
   }

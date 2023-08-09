@@ -12,7 +12,11 @@
 #ifndef _VALIDATION_H
 #define _VALIDATION_H
 
+#include "config_system.h"
 #include "utils_pins.h"
+#include "utils_rf.h"
+
+#include "config.h"
 
 /**
  * @note All these checks are done by the compiler.
@@ -92,6 +96,27 @@ constexpr uint16_t check_pins()
   return used_pins;
 }
 
+constexpr bool check_load_priorities()
+{
+  uint8_t _sum{ 0 };
+  uint16_t _enum_val{ 0 };
+
+  for (const auto &loadPrio : loadPrioritiesAtStartup)
+  {
+    // we check if a prio is used twice
+    if (bit_read(_enum_val, loadPrio))
+      return 0;
+
+    bit_set(_enum_val, loadPrio);
+
+    _sum += loadPrio;
+  }
+
+  // check if we have all prio between 0 and (NO_OF_DUMPLOADS - 1)
+  return _sum == ((NO_OF_DUMPLOADS * (NO_OF_DUMPLOADS - 1)) >> 1);
+}
+
+static_assert(check_load_priorities(), "******** Load Priorities wrong ! Please check your config ! ********");
 static_assert(check_pins(), "******** Duplicate pin definition ! Please check your config ! ********");
 static_assert((check_pins() & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
 static_assert((check_pins() & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
