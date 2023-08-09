@@ -2,7 +2,7 @@ var searchData=
 [
   ['read_5fscratchpad_584',['READ_SCRATCHPAD',['../constants_8h.html#a4efcca8a8902b210fd176b46753964f1',1,'constants.h']]],
   ['relay_5fdiversion_585',['RELAY_DIVERSION',['../config_8h.html#a200f51c8bd47e8b14cdc6522f2223742',1,'config.h']]],
-  ['relay_5foutput_586',['relay_Output',['../config_8h.html#aa699148e213d7e48d2b58656905f01cc',1,'config.h']]],
+  ['relay_5foutput_586',['relay_Output',['../config_8h.html#ab7fa3e29643f77f4db26c446534d60f9',1,'config.h']]],
   ['relaypin_587',['relayPin',['../config_8h.html#aa3289e908a90b70f6855250c309a228b',1,'config.h']]],
   ['required_5fexport_5fin_5fwatts_588',['REQUIRED_EXPORT_IN_WATTS',['../config__system_8h.html#a0d838172b50bebc493c09edb7b7606d5',1,'config_system.h']]],
   ['rf_5fchip_5fpresent_589',['RF_CHIP_PRESENT',['../utils__rf_8h.html#ad6f3853697d5006eed405d11cc04c2a1',1,'utils_rf.h']]],

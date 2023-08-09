@@ -3,7 +3,7 @@ var searchData=
   ['read_5fscratchpad_241',['READ_SCRATCHPAD',['../constants_8h.html#a4efcca8a8902b210fd176b46753964f1',1,'constants.h']]],
   ['readtemperature_242',['readTemperature',['../utils__temp_8h.html#adc7d85cb6510aea82f8ed660b4743908',1,'utils_temp.h']]],
   ['relay_5fdiversion_243',['RELAY_DIVERSION',['../config_8h.html#a200f51c8bd47e8b14cdc6522f2223742',1,'config.h']]],
-  ['relay_5foutput_244',['relay_Output',['../config_8h.html#aa699148e213d7e48d2b58656905f01cc',1,'config.h']]],
+  ['relay_5foutput_244',['relay_Output',['../config_8h.html#ab7fa3e29643f77f4db26c446534d60f9',1,'config.h']]],
   ['relayoutput_245',['relayOutput',['../classrelayOutput.html',1,'relayOutput&lt; T &gt;'],['../classrelayOutput.html#aa8b9feda986f7f5e2680628e9550a599',1,'relayOutput::relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)'],['../classrelayOutput.html#a7384dd2558c741dfa3b587f91fd09ea5',1,'relayOutput::relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)'],['../classrelayOutput.html#a6d87f0071240ba3242e28a7c6f10caa8',1,'relayOutput::relayOutput(const uint8_t _relay_pin)'],['../classrelayOutput.html#a9e78420ab0db39b83a30d4a69506616d',1,'relayOutput::relayOutput()=delete']]],
   ['relaypin_246',['relayPin',['../config_8h.html#aa3289e908a90b70f6855250c309a228b',1,'config.h']]],
   ['remove_5fconst_247',['remove_const',['../structremove__const.html',1,'']]],

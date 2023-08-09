@@ -2,7 +2,7 @@ var searchData=
 [
   ['i_5fdcoffset_5fi_5fnom_96',['i_DCoffset_I_nom',['../processing_8cpp.html#a14cff0127f52c57f50fe52f2ed2ab093',1,'processing.cpp']]],
   ['i_5fsamplesetsduringthisdatalogperiod_97',['i_sampleSetsDuringThisDatalogPeriod',['../processing_8cpp.html#ab652ee1e3280fde59df6719af6e884d0',1,'processing.cpp']]],
-  ['inc_5fduration_98',['inc_duration',['../classrelayOutput.html#af8b4dd1c1515866e7d71e085f2e20016',1,'relayOutput']]],
+  ['inc_5fduration_98',['inc_duration',['../classrelayOutput.html#a846e06596d608a445715f36f4f000d4d',1,'relayOutput']]],
   ['initialdelay_99',['initialDelay',['../processing_8h.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'processing.h']]],
   ['initializeoptionalpins_100',['initializeOptionalPins',['../processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp'],['../processing_8h.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp']]],
   ['initializeprocessing_101',['initializeProcessing',['../processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp'],['../processing_8h.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp']]],

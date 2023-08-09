@@ -103,12 +103,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a65b71555314d24f62e1f6576f0836796"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a65b71555314d24f62e1f6576f0836796">get_surplusThreshold</a> () const</td></tr>
 <tr class="memdesc:a65b71555314d24f62e1f6576f0836796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the surplus threshold which will turns ON the relay.  <a href="classrelayOutput.html#a65b71555314d24f62e1f6576f0836796">More...</a><br /></td></tr>
 <tr class="separator:a65b71555314d24f62e1f6576f0836796"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8b4dd1c1515866e7d71e085f2e20016"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#af8b4dd1c1515866e7d71e085f2e20016">inc_duration</a> ()</td></tr>
-<tr class="memdesc:af8b4dd1c1515866e7d71e085f2e20016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment the duration of the current state.  <a href="classrelayOutput.html#af8b4dd1c1515866e7d71e085f2e20016">More...</a><br /></td></tr>
-<tr class="separator:af8b4dd1c1515866e7d71e085f2e20016"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfd23aa67fc83f53666ec0b01eaa9ebd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#acfd23aa67fc83f53666ec0b01eaa9ebd">proceed_relay</a> ()</td></tr>
-<tr class="memdesc:acfd23aa67fc83f53666ec0b01eaa9ebd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed with the relay.  <a href="classrelayOutput.html#acfd23aa67fc83f53666ec0b01eaa9ebd">More...</a><br /></td></tr>
-<tr class="separator:acfd23aa67fc83f53666ec0b01eaa9ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a846e06596d608a445715f36f4f000d4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a846e06596d608a445715f36f4f000d4d">inc_duration</a> () const</td></tr>
+<tr class="memdesc:a846e06596d608a445715f36f4f000d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment the duration of the current state.  <a href="classrelayOutput.html#a846e06596d608a445715f36f4f000d4d">More...</a><br /></td></tr>
+<tr class="separator:a846e06596d608a445715f36f4f000d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16e526b1e0a9c02d3d6aa9725c6a83d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a16e526b1e0a9c02d3d6aa9725c6a83d7">proceed_relay</a> () const</td></tr>
+<tr class="memdesc:a16e526b1e0a9c02d3d6aa9725c6a83d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed with the relay.  <a href="classrelayOutput.html#a16e526b1e0a9c02d3d6aa9725c6a83d7">More...</a><br /></td></tr>
+<tr class="separator:a16e526b1e0a9c02d3d6aa9725c6a83d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -125,6 +125,7 @@ Static Public Member Functions</h2></td></tr>
 class relayOutput&lt; T &gt;</h3>
 
 <p>Relay diversion config and engine. </p>
+<p>By default, the sliding average is calculated over 1 minute. If the user wants to calculate over a longer period, decare the variable like this: relayOutput&lt;2&gt; relay_Output{ relayPin, 1000, 200, 1, 1 }</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>Duration in minutes of the sliding average </td></tr>
@@ -132,7 +133,7 @@ class relayOutput&lt; T &gt;</h3>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00026">26</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00030">30</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9e78420ab0db39b83a30d4a69506616d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9e78420ab0db39b83a30d4a69506616d">&#9670;&nbsp;</a></span>relayOutput() <span class="overload">[1/4]</span></h2>
@@ -195,7 +196,7 @@ template&lt;uint8_t T = 1&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00036">36</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00040">40</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -251,7 +252,7 @@ template&lt;uint8_t T = 1&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00048">48</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00052">52</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -321,7 +322,7 @@ template&lt;uint8_t T = 1&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00062">62</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00066">66</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -351,7 +352,7 @@ template&lt;uint8_t T = 1&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00149">149</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00153">153</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -394,7 +395,7 @@ template&lt;uint8_t T = 1&gt; </div>
 <p>Get the import threshold which will turns OFF the relay. </p>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00092">92</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00096">96</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -437,7 +438,7 @@ template&lt;uint8_t T = 1&gt; </div>
 <p>Get the minimum OFF-time. </p>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00112">112</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00116">116</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -480,7 +481,7 @@ template&lt;uint8_t T = 1&gt; </div>
 <p>Get the minimum ON-time. </p>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00102">102</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00106">106</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -523,7 +524,7 @@ template&lt;uint8_t T = 1&gt; </div>
 <p>Get the control pin of the relay. </p>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00072">72</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00076">76</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -566,7 +567,7 @@ template&lt;uint8_t T = 1&gt; </div>
 <p>Get the surplus threshold which will turns ON the relay. </p>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00082">82</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00086">86</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -581,8 +582,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="af8b4dd1c1515866e7d71e085f2e20016"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8b4dd1c1515866e7d71e085f2e20016">&#9670;&nbsp;</a></span>inc_duration()</h2>
+<a id="a846e06596d608a445715f36f4f000d4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a846e06596d608a445715f36f4f000d4d">&#9670;&nbsp;</a></span>inc_duration()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -596,7 +597,7 @@ template&lt;uint8_t T = 1&gt; </div>
           <td class="memname">void <a class="el" href="classrelayOutput.html">relayOutput</a>&lt; T &gt;::inc_duration </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -609,12 +610,12 @@ template&lt;uint8_t T = 1&gt; </div>
 <p>Increment the duration of the current state. </p>
 <p>This function must be called every second. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00122">122</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00126">126</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classrelayOutput_af8b4dd1c1515866e7d71e085f2e20016_icgraph.png" border="0" usemap="#aclassrelayOutput_af8b4dd1c1515866e7d71e085f2e20016_icgraph" alt=""/></div>
-<map name="aclassrelayOutput_af8b4dd1c1515866e7d71e085f2e20016_icgraph" id="aclassrelayOutput_af8b4dd1c1515866e7d71e085f2e20016_icgraph">
+<div class="center"><img src="classrelayOutput_a846e06596d608a445715f36f4f000d4d_icgraph.png" border="0" usemap="#aclassrelayOutput_a846e06596d608a445715f36f4f000d4d_icgraph" alt=""/></div>
+<map name="aclassrelayOutput_a846e06596d608a445715f36f4f000d4d_icgraph" id="aclassrelayOutput_a846e06596d608a445715f36f4f000d4d_icgraph">
 <area shape="rect" title="Increment the duration of the current state." alt="" coords="104,5,291,32"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,32"/>
 </map>
@@ -650,7 +651,7 @@ template&lt;uint8_t T = 1&gt; </div>
 
 <p>Print the configuration of the current relay-diversion. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00163">163</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00167">167</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -677,8 +678,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="acfd23aa67fc83f53666ec0b01eaa9ebd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfd23aa67fc83f53666ec0b01eaa9ebd">&#9670;&nbsp;</a></span>proceed_relay()</h2>
+<a id="a16e526b1e0a9c02d3d6aa9725c6a83d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16e526b1e0a9c02d3d6aa9725c6a83d7">&#9670;&nbsp;</a></span>proceed_relay()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -692,7 +693,7 @@ template&lt;uint8_t T = 1&gt; </div>
           <td class="memname">void <a class="el" href="classrelayOutput.html">relayOutput</a>&lt; T &gt;::proceed_relay </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -704,12 +705,12 @@ template&lt;uint8_t T = 1&gt; </div>
 
 <p>Proceed with the relay. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00134">134</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00138">138</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classrelayOutput_acfd23aa67fc83f53666ec0b01eaa9ebd_icgraph.png" border="0" usemap="#aclassrelayOutput_acfd23aa67fc83f53666ec0b01eaa9ebd_icgraph" alt=""/></div>
-<map name="aclassrelayOutput_acfd23aa67fc83f53666ec0b01eaa9ebd_icgraph" id="aclassrelayOutput_acfd23aa67fc83f53666ec0b01eaa9ebd_icgraph">
+<div class="center"><img src="classrelayOutput_a16e526b1e0a9c02d3d6aa9725c6a83d7_icgraph.png" border="0" usemap="#aclassrelayOutput_a16e526b1e0a9c02d3d6aa9725c6a83d7_icgraph" alt=""/></div>
+<map name="aclassrelayOutput_a16e526b1e0a9c02d3d6aa9725c6a83d7_icgraph" id="aclassrelayOutput_a16e526b1e0a9c02d3d6aa9725c6a83d7_icgraph">
 <area shape="rect" title="Proceed with the relay." alt="" coords="104,5,263,47"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,13,56,39"/>
 </map>
@@ -743,7 +744,7 @@ template&lt;uint8_t T = 1&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00154">154</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00158">158</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
