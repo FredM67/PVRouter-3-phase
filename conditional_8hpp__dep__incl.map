@@ -1,13 +1,14 @@
 <map id="Mk2_3phase_RFdatalog_temp/type_traits/conditional.hpp" name="Mk2_3phase_RFdatalog_temp/type_traits/conditional.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="489,5,731,47"/>
-<area shape="rect" id="node2" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="521,95,699,136"/>
-<area shape="rect" id="node3" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="521,184,699,225"/>
-<area shape="rect" id="node4" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="521,273,699,315"/>
-<area shape="rect" id="node5" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="459,363,636,404"/>
-<area shape="rect" id="node7" href="$main_8cpp.html" title="Main code." alt="" coords="459,631,636,672"/>
-<area shape="rect" id="node6" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="5,452,183,493"/>
-<area shape="rect" id="node9" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="207,452,384,493"/>
-<area shape="rect" id="node10" href="$utils_8h.html" title="Some utility functions." alt="" coords="459,541,636,583"/>
-<area shape="rect" id="node11" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="408,452,585,493"/>
-<area shape="rect" id="node8" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="205,541,383,583"/>
+<area shape="rect" id="node1" title=" " alt="" coords="400,5,641,47"/>
+<area shape="rect" id="node2" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="432,95,609,136"/>
+<area shape="rect" id="node3" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="332,184,509,225"/>
+<area shape="rect" id="node12" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="533,184,710,225"/>
+<area shape="rect" id="node4" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="332,363,509,404"/>
+<area shape="rect" id="node11" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="484,273,661,315"/>
+<area shape="rect" id="node5" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="432,452,609,493"/>
+<area shape="rect" id="node6" href="$main_8cpp.html" title="Main code." alt="" coords="457,631,634,672"/>
+<area shape="rect" id="node8" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="230,452,408,493"/>
+<area shape="rect" id="node9" href="$utils_8h.html" title="Some utility functions." alt="" coords="129,541,306,583"/>
+<area shape="rect" id="node10" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="29,452,206,493"/>
+<area shape="rect" id="node7" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="330,541,508,583"/>
 </map>
