@@ -5,7 +5,12 @@ This program is to be used with the Arduino IDE and/or other development IDE lik
 You'll need to download and install the **latest** [Arduino IDE](https://www.arduino.cc/en/software).
 Since the code is optimized with the latest standard of C++, you'll need to edit a config file to activate C++17. 	
 
-Please search the file '**platform.txt**' located in the installation path of the Arduino IDE. Typically, you'll find the file in '**C:\Program Files (x86)\Arduino\hardware\arduino\avr**' or in '**%LOCALAPPDATA%\Arduino15\packages\arduino\hardware\avr\x.y.z**' where 'x.y.z' is the version of the **Arduino AVR Boards** package.
+Please search the file '**platform.txt**' located in the installation path of the Arduino IDE.
+
+For **Windows**, typically, you'll find the file in '**C:\Program Files (x86)\Arduino\hardware\arduino\avr**' or in '**%LOCALAPPDATA%\Arduino15\packages\arduino\hardware\avr\x.y.z**' where 'x.y.z' is the version of the **Arduino AVR Boards** package.
+
+For **Linux**, if using the AppImage package, you'll find this file in '**~/.arduino15/packages/arduino/hardware/avr/1.8.6**'.  
+You can run `find / -name platform.txt 2>/dev/null` in case the location has been changed.
 
 Edit the file in any Text Editor (you'll need Admin rights) and replace the parameter '**-std=gnu++11**' with '**-std=gnu++17**'. That's it!	
 
