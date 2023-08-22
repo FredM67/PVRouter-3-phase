@@ -292,75 +292,76 @@ inline void printForSerialText()
   Serial.print(F(", #ofSampleSets "));
   Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
 #ifndef DUAL_TARIFF
-#ifdef PRIORITY_ROTATION
-  Serial.print(F(", NoED "));
-  Serial.print(absenceOfDivertedEnergyCount);
-#endif  // PRIORITY_ROTATION
+  if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
+  {
+    Serial.print(F(", NoED "));
+    Serial.print(absenceOfDivertedEnergyCount);
+  }
 #endif  // DUAL_TARIFF
   Serial.println(F(")"));
 }
 
-/**
+  /**
  * @brief Prints data logs to the Serial output in text or json format
  *
  * @param bOffPeak true if off-peak tariff is active
  */
-inline void sendResults(bool bOffPeak)
-{
-  static bool startup{ true };
-
-  if (startup)
+  inline void sendResults(bool bOffPeak)
   {
-    startup = false;
-    return;  // reject the first datalogging which is incomplete !
-  }
+    static bool startup{ true };
+
+    if (startup)
+    {
+      startup = false;
+      return;  // reject the first datalogging which is incomplete !
+    }
 
 #ifdef RF_PRESENT
-  send_rf_data();  // *SEND RF DATA*
+    send_rf_data();  // *SEND RF DATA*
 #endif
 
 #if defined SERIALOUT
-  printForSerialJson();
+    printForSerialJson();
 #endif  // if defined SERIALOUT
 
-  if constexpr (EMONESP_CONTROL)
-  {
-    printForEmonESP(bOffPeak);
-  }
+    if constexpr (EMONESP_CONTROL)
+    {
+      printForEmonESP(bOffPeak);
+    }
 
 #if defined SERIALPRINT && !defined EMONESP
-  printForSerialText();
+    printForSerialText();
 #endif  // if defined SERIALPRINT && !defined EMONESP
-}
+  }
 
-/**
+  /**
  * @brief Prints the load priorities to the Serial output.
  *
  */
-inline void logLoadPriorities()
-{
+  inline void logLoadPriorities()
+  {
 #ifdef ENABLE_DEBUG
 
-  DBUGLN(F("Load Priorities: "));
-  for (const auto& loadPrioAndState : loadPrioritiesAndState)
-  {
-    DBUG(F("\tload "));
-    DBUGLN(loadPrioAndState);
-  }
+    DBUGLN(F("Load Priorities: "));
+    for (const auto& loadPrioAndState : loadPrioritiesAndState)
+    {
+      DBUG(F("\tload "));
+      DBUGLN(loadPrioAndState);
+    }
 
 #endif
-}
+  }
 
-/**
+  /**
  * @brief Get the available RAM during setup
  *
  * @return int The amount of free RAM
  */
-inline int freeRam()
-{
-  extern int __heap_start, *__brkval;
-  int v;
-  return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
-}
+  inline int freeRam()
+  {
+    extern int __heap_start, *__brkval;
+    int v;
+    return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
+  }
 
 #endif  // _UTILS_H
