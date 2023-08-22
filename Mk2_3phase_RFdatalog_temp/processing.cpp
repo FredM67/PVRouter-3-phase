@@ -76,7 +76,8 @@ int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values du
 
 uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
 uint16_t i_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
-uint16_t n_cycleCountForDatalogging{ 0 };            /**< for counting how often datalog is updated */
+
+remove_cv< remove_reference< decltype(DATALOG_PERIOD_IN_MAINS_CYCLES) >::type >::type n_cycleCountForDatalogging{ 0 }; /**< for counting how often datalog is updated */
 
 uint8_t n_lowestNoOfSampleSetsPerMainsCycle; /**< For a mechanism to check the integrity of this code structure */
 
@@ -98,6 +99,7 @@ void initializeProcessing()
 {
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
+    loadPrioritiesAndState[i] = loadPrioritiesAtStartup[i];
     pinMode(physicalLoadPin[i], OUTPUT);  // driver pin for Load #n
     loadPrioritiesAndState[i] &= loadStateMask;
   }
