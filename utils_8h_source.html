@@ -336,64 +336,65 @@ $(function() {
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;, #ofSampleSets &quot;</span>));</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;  Serial.print(<a class="code" href="processing_8h.html#a9c678dbfc10669e957e7d5a2519ba30d">copyOf_sampleSetsDuringThisDatalogPeriod</a>);</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="preprocessor">#ifndef DUAL_TARIFF</span></div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="preprocessor">#ifdef PRIORITY_ROTATION</span></div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;, NoED &quot;</span>));</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;  Serial.print(<a class="code" href="processing_8h.html#ab96e74c302f7348daf97a84011e31fcd">absenceOfDivertedEnergyCount</a>);</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// PRIORITY_ROTATION</span></div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// DUAL_TARIFF</span></div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;)&quot;</span>));</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;}</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
-<div class="line"><a name="l00308"></a><span class="lineno"><a class="line" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94">  308</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94">sendResults</a>(<span class="keywordtype">bool</span> bOffPeak)</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;{</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> startup{ <span class="keyword">true</span> };</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;  <span class="keywordflow">if</span> (startup)</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;  {</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    startup = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keywordflow">return</span>;  <span class="comment">// reject the first datalogging which is incomplete !</span></div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;  }</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160; </div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="preprocessor">#ifdef RF_PRESENT</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;  <a class="code" href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf">send_rf_data</a>();  <span class="comment">// *SEND RF DATA*</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="preprocessor">#if defined SERIALOUT</span></div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;  <a class="code" href="utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5">printForSerialJson</a>();</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// if defined SERIALOUT</span></div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;  <span class="keywordflow">if</span> constexpr (<a class="code" href="config_8h.html#a8cdbe058763c4b2524b45836e8f12689">EMONESP_CONTROL</a>)</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;  {</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <a class="code" href="utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096">printForEmonESP</a>(bOffPeak);</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;  }</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160; </div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="preprocessor">#if defined SERIALPRINT &amp;&amp; !defined EMONESP</span></div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;  <a class="code" href="utils_8h.html#ae46d07fd4694c49e10360b5d79163443">printForSerialText</a>();</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// if defined SERIALPRINT &amp;&amp; !defined EMONESP</span></div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;}</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
-<div class="line"><a name="l00340"></a><span class="lineno"><a class="line" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1">  340</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a>()</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;{</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="preprocessor">#ifdef ENABLE_DEBUG</span></div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;  <a class="code" href="debug_8h.html#a720cfea0f47501e0ee77e050ff5ff3b4">DBUGLN</a>(F(<span class="stringliteral">&quot;Load Priorities: &quot;</span>));</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; loadPrioAndState : <a class="code" href="processing_8h.html#a49958eb014b70dfb9d8cb9ded3564ef7">loadPrioritiesAndState</a>)</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;  {</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <a class="code" href="debug_8h.html#a9d1c575cfb0a8cd96b84f99f63ddeab0">DBUG</a>(F(<span class="stringliteral">&quot;\tload &quot;</span>));</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <a class="code" href="debug_8h.html#a720cfea0f47501e0ee77e050ff5ff3b4">DBUGLN</a>(loadPrioAndState);</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;  }</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160; </div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;}</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
-<div class="line"><a name="l00359"></a><span class="lineno"><a class="line" href="utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0">  359</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a>()</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;{</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;  <span class="keyword">extern</span> <span class="keywordtype">int</span> __heap_start, *__brkval;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;  <span class="keywordtype">int</span> v;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;  <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)&amp;v - (__brkval == 0 ? (int)&amp;__heap_start : (<span class="keywordtype">int</span>)__brkval);</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;}</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// _UTILS_H</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;  <span class="keywordflow">if</span> constexpr (PRIORITY_ROTATION != <a class="code" href="types_8h.html#a06b890c4a964752df814257dc1f13073a88559a0cfd8250c9d65970cc145c92d4">RotationModes::OFF</a>)</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;  {</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;, NoED &quot;</span>));</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    Serial.print(<a class="code" href="processing_8h.html#ab96e74c302f7348daf97a84011e31fcd">absenceOfDivertedEnergyCount</a>);</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;  }</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// DUAL_TARIFF</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;)&quot;</span>));</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;}</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno"><a class="line" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94">  309</a></span>&#160;  <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94">sendResults</a>(<span class="keywordtype">bool</span> bOffPeak)</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  {</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> startup{ <span class="keyword">true</span> };</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160; </div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordflow">if</span> (startup)</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    {</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;      startup = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;      <span class="keywordflow">return</span>;  <span class="comment">// reject the first datalogging which is incomplete !</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    }</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor">#ifdef RF_PRESENT</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <a class="code" href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf">send_rf_data</a>();  <span class="comment">// *SEND RF DATA*</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160; </div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="preprocessor">#if defined SERIALOUT</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <a class="code" href="utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5">printForSerialJson</a>();</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// if defined SERIALOUT</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordflow">if</span> constexpr (<a class="code" href="config_8h.html#a8cdbe058763c4b2524b45836e8f12689">EMONESP_CONTROL</a>)</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    {</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;      <a class="code" href="utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096">printForEmonESP</a>(bOffPeak);</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    }</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="preprocessor">#if defined SERIALPRINT &amp;&amp; !defined EMONESP</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <a class="code" href="utils_8h.html#ae46d07fd4694c49e10360b5d79163443">printForSerialText</a>();</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// if defined SERIALPRINT &amp;&amp; !defined EMONESP</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;  }</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160; </div>
+<div class="line"><a name="l00341"></a><span class="lineno"><a class="line" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1">  341</a></span>&#160;  <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a>()</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;  {</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="preprocessor">#ifdef ENABLE_DEBUG</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <a class="code" href="debug_8h.html#a720cfea0f47501e0ee77e050ff5ff3b4">DBUGLN</a>(F(<span class="stringliteral">&quot;Load Priorities: &quot;</span>));</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; loadPrioAndState : <a class="code" href="processing_8h.html#a49958eb014b70dfb9d8cb9ded3564ef7">loadPrioritiesAndState</a>)</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    {</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;      <a class="code" href="debug_8h.html#a9d1c575cfb0a8cd96b84f99f63ddeab0">DBUG</a>(F(<span class="stringliteral">&quot;\tload &quot;</span>));</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;      <a class="code" href="debug_8h.html#a720cfea0f47501e0ee77e050ff5ff3b4">DBUGLN</a>(loadPrioAndState);</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    }</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;  }</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
+<div class="line"><a name="l00360"></a><span class="lineno"><a class="line" href="utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0">  360</a></span>&#160;  <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code" href="utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a>()</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;  {</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="keyword">extern</span> <span class="keywordtype">int</span> __heap_start, *__brkval;</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    <span class="keywordtype">int</span> v;</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    <span class="keywordflow">return</span> (<span class="keywordtype">int</span>)&amp;v - (__brkval == 0 ? (int)&amp;__heap_start : (<span class="keywordtype">int</span>)__brkval);</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;  }</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// _UTILS_H</span></div>
 <div class="ttc" id="acalibration_8h_html_a1d63b22231b730d0f9d9fd4971a0fd35"><div class="ttname"><a href="calibration_8h.html#a1d63b22231b730d0f9d9fd4971a0fd35">f_phaseCal</a></div><div class="ttdeci">constexpr float f_phaseCal</div><div class="ttdef"><b>Definition:</b> <a href="calibration_8h_source.html#l00046">calibration.h:46</a></div></div>
 <div class="ttc" id="acalibration_8h_html_a4c3b8983185a9bc5d78bcd2cccbac15d"><div class="ttname"><a href="calibration_8h.html#a4c3b8983185a9bc5d78bcd2cccbac15d">f_voltageCal</a></div><div class="ttdeci">constexpr float f_voltageCal[NO_OF_PHASES]</div><div class="ttdef"><b>Definition:</b> <a href="calibration_8h_source.html#l00051">calibration.h:51</a></div></div>
 <div class="ttc" id="acalibration_8h_html_aa04530439c9232df689568f4a6cd64d9"><div class="ttname"><a href="calibration_8h.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a></div><div class="ttdeci">constexpr float f_powerCal[NO_OF_PHASES]</div><div class="ttdef"><b>Definition:</b> <a href="calibration_8h_source.html#l00034">calibration.h:34</a></div></div>
@@ -436,11 +437,11 @@ $(function() {
 <div class="ttc" id="autils_8h_html_a2e85b03079f1fbb8df1d5553f2431ac5"><div class="ttname"><a href="utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5">printForSerialJson</a></div><div class="ttdeci">void printForSerialJson()</div><div class="ttdoc">Prints data logs to the Serial output in Json format.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00209">utils.h:209</a></div></div>
 <div class="ttc" id="autils_8h_html_a799965f801bbe1f540c3100566f78d81"><div class="ttname"><a href="utils_8h.html#a799965f801bbe1f540c3100566f78d81">PROJECT_PATH</a></div><div class="ttdeci">#define PROJECT_PATH</div></div>
 <div class="ttc" id="autils_8h_html_aa45f069fe76674a03f3dd560dd00b1ee"><div class="ttname"><a href="utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee">printConfiguration</a></div><div class="ttdeci">void printConfiguration()</div><div class="ttdoc">Print the configuration during start.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00027">utils.h:27</a></div></div>
-<div class="ttc" id="autils_8h_html_aac7b29dc45caaaca67299571f6a2dcc0"><div class="ttname"><a href="utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a></div><div class="ttdeci">int freeRam()</div><div class="ttdoc">Get the available RAM during setup.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00359">utils.h:359</a></div></div>
+<div class="ttc" id="autils_8h_html_aac7b29dc45caaaca67299571f6a2dcc0"><div class="ttname"><a href="utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0">freeRam</a></div><div class="ttdeci">int freeRam()</div><div class="ttdoc">Get the available RAM during setup.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00360">utils.h:360</a></div></div>
 <div class="ttc" id="autils_8h_html_ac2e12eea4bb766ba5ddc1799aa342096"><div class="ttname"><a href="utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096">printForEmonESP</a></div><div class="ttdeci">void printForEmonESP(const bool bOffPeak)</div><div class="ttdoc">Write on Serial in EmonESP format.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00154">utils.h:154</a></div></div>
-<div class="ttc" id="autils_8h_html_ade56d6fce22a518b8feff1a150461f94"><div class="ttname"><a href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94">sendResults</a></div><div class="ttdeci">void sendResults(bool bOffPeak)</div><div class="ttdoc">Prints data logs to the Serial output in text or json format.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00308">utils.h:308</a></div></div>
+<div class="ttc" id="autils_8h_html_ade56d6fce22a518b8feff1a150461f94"><div class="ttname"><a href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94">sendResults</a></div><div class="ttdeci">void sendResults(bool bOffPeak)</div><div class="ttdoc">Prints data logs to the Serial output in text or json format.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00309">utils.h:309</a></div></div>
 <div class="ttc" id="autils_8h_html_ae46d07fd4694c49e10360b5d79163443"><div class="ttname"><a href="utils_8h.html#ae46d07fd4694c49e10360b5d79163443">printForSerialText</a></div><div class="ttdeci">void printForSerialText()</div><div class="ttdoc">Prints data logs to the Serial output in text format.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00250">utils.h:250</a></div></div>
-<div class="ttc" id="autils_8h_html_ae473b1c0d80fe056d1fab9bdee38aca1"><div class="ttname"><a href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a></div><div class="ttdeci">void logLoadPriorities()</div><div class="ttdoc">Prints the load priorities to the Serial output.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00340">utils.h:340</a></div></div>
+<div class="ttc" id="autils_8h_html_ae473b1c0d80fe056d1fab9bdee38aca1"><div class="ttname"><a href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a></div><div class="ttdeci">void logLoadPriorities()</div><div class="ttdoc">Prints the load priorities to the Serial output.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8h_source.html#l00341">utils.h:341</a></div></div>
 <div class="ttc" id="autils__rf_8h_html"><div class="ttname"><a href="utils__rf_8h.html">utils_rf.h</a></div><div class="ttdoc">Some utility functions for the RF chip.</div></div>
 <div class="ttc" id="autils__rf_8h_html_ab5bc929f5a874ed02b16ed1d620d71cf"><div class="ttname"><a href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf">send_rf_data</a></div><div class="ttdeci">void send_rf_data()</div><div class="ttdoc">Send the logging data through RF.</div><div class="ttdef"><b>Definition:</b> <a href="utils__rf_8h_source.html#l00026">utils_rf.h:26</a></div></div>
 <div class="ttc" id="autils__temp_8h_html"><div class="ttname"><a href="utils__temp_8h.html">utils_temp.h</a></div><div class="ttdoc">Some utility functions for temperature sensor(s)</div></div>
