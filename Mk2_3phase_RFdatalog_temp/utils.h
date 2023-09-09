@@ -64,7 +64,7 @@ inline void printConfiguration()
     DBUG(F("\tf_powerCal for L"));
     DBUG(phase + 1);
     DBUG(F(" =    "));
-    DBUGLN(f_powerCal[phase], 5);
+    DBUGLN(f_powerCal[phase], 6);
 
     DBUG(F("\tf_voltageCal, for Vrms_L"));
     DBUG(phase + 1);
