@@ -76,7 +76,7 @@ jobs:
           - --build-property
           - compiler.cpp.extra_flags=-std=gnu++17
         sketch-paths: |
-          - cal_CTx_v_meter
+          - dev/cal_CTx_v_meter
           - Mk2_3phase_RFdatalog_temp
 
     # ℹ️ Command-line programs to run using the OS shell.

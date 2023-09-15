@@ -55,7 +55,9 @@ Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.u
 
 ## Aperçu des dossiers
 - **Mk2_3phase_RFdatalog_temp** : contient tous les fichiers nécessaires au programme du routeur.
-- **cal_CTx_v_meter** : contient tous les fichiers nécessaires au programme d'étalonnage du routeur.
+- **dev** : contient divers programmes pour le développement du routeur.
+    - **cal_CTx_v_meter** : contient tous les fichiers nécessaires au programme d'étalonnage du routeur.
+    - **RawSamplesTool_6chan** : permet de tester les 6 canaux de mesure.
 - autres dossiers : contiennent des fichiers divers et variés relatifs au site.
 
 ## Gallerie photo
@@ -257,11 +259,11 @@ This project is maintained by [@maehr](https://github.com/maehr). Please underst
 
 | Type                                  | Platforms                                                                  |
 | ------------------------------------- | -------------------------------------------------------------------------- |
-| 🚨 **Bug Reports**                    | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
-| 📚 **Docs Issue**                     | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
-| 🎁 **Feature Requests**               | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
+| 🚨 **Bug Reports**                     | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
+| 📚 **Docs Issue**                      | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
+| 🎁 **Feature Requests**                | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
 | 🛡 **Report a security vulnerability** | See [SECURITY.md](SECURITY.md)                                             |
-| 💬 **General Questions**              | [GitHub Discussions](https://github.com/maehr/github-template/discussions) |
+| 💬 **General Questions**               | [GitHub Discussions](https://github.com/maehr/github-template/discussions) |
 
 ## Roadmap
 
