@@ -5,12 +5,20 @@
 		},
 		{
 			"name": "Calibration tool",
-			"path": "cal_CTx_v_meter"
+			"path": "dev/cal_CTx_v_meter"
 		},
 		{
 			"name": "Router program",
 			"path": "Mk2_3phase_RFdatalog_temp"
-		}
+		},
+		{
+			"name": "Transformer checker",
+			"path": "dev/Transformer_Checker"
+		},
+		{
+			"name": "6-channel raw sampler",
+			"path": "dev/RawSamplesTool_6chan"
+		},
 	],
 	"settings": {
 		"files.associations": {
