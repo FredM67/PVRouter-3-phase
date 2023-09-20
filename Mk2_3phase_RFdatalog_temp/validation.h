@@ -34,7 +34,7 @@ static_assert((PRIORITY_ROTATION == RotationModes::PIN) ^ (rotationPin == 0xff),
 static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == 0xff), "******** Wrong pin value for override command. Please check your config.h ! ********");
 static_assert(WATCHDOG_PIN_PRESENT ^ (watchDogPin == 0xff), "******** Wrong pin value for watchdog. Please check your config.h ! ********");
 
-static_assert(RELAY_DIVERSION ^ (relayPin == 0xff), "******** Wrong pin value for relay diversion. Please check your config.h ! ********");
+static_assert(RELAY_DIVERSION ^ (relay_Output.get_pin() == 0xff), "******** Wrong pin value for relay diversion. Please check your config.h ! ********");
 
 static_assert(DUAL_TARIFF ^ (dualTariffPin == 0xff), "******** Wrong pin value for dual tariff. Please check your config.h ! ********");
 static_assert(!DUAL_TARIFF | (ul_OFF_PEAK_DURATION == 0), "******** Off-peak duration cannot be zero. Please check your config.h ! ********");

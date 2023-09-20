@@ -135,7 +135,7 @@ public:
    * @brief Proceed with the relay
    * 
    */
-  void proceed_relay() const
+  void proceed_relay()
   {
     const auto currentAvgPower{ sliding_Average.getAverage() };
 

@@ -177,7 +177,7 @@ void initializeOptionalPins()
 
   if constexpr (RELAY_DIVERSION)
   {
-    pinMode(relayPin, OUTPUT);
+    pinMode(relay_Output.get_pin(), OUTPUT);
     delay(100);
   }
 
