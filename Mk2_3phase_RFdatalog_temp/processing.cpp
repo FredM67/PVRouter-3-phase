@@ -734,9 +734,9 @@ void processRawSamples(const uint8_t phase)
     // the polarity of this sample is positive
     if (Polarities::POSITIVE != polarityConfirmedOfLastSampleV[phase])
     {
+      // This is the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
       if (beyondStartUpPeriod)
       {
-        // This is the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
         processPlusHalfCycle(phase);
       }
       else
