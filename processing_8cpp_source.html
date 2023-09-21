@@ -630,9 +630,9 @@ $(function() {
 <div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;    <span class="comment">// the polarity of this sample is positive</span></div>
 <div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="types_8h.html#a297c9a15e28f6c3824b7a33453238136aab6c31432785221bae58327ef5f6ea58">Polarities::POSITIVE</a> != <a class="code" href="processing_8cpp.html#a043c3df0e6f259a7c11e6bbc89500c66">polarityConfirmedOfLastSampleV</a>[phase])</div>
 <div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;    {</div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;      <span class="keywordflow">if</span> (<a class="code" href="processing_8cpp.html#aaecb72fa3ab0755ac124b5fa6ffa1c6f">beyondStartUpPeriod</a>)</div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;      {</div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;        <span class="comment">// This is the start of a new +ve half cycle, for this phase, just after the zero-crossing point.</span></div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;      <span class="comment">// This is the start of a new +ve half cycle, for this phase, just after the zero-crossing point.</span></div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;      <span class="keywordflow">if</span> (<a class="code" href="processing_8cpp.html#aaecb72fa3ab0755ac124b5fa6ffa1c6f">beyondStartUpPeriod</a>)</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;      {</div>
 <div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;        <a class="code" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30">processPlusHalfCycle</a>(phase);</div>
 <div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;      }</div>
 <div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;      <span class="keywordflow">else</span></div>
