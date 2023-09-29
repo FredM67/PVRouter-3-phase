@@ -122,7 +122,7 @@ Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing 
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.050000F, 0.050000F, 0.050000F };
+inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.044186F, 0.044559F, 0.043366F };
 
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the
 // current waveform. The algorithm interpolates between the most recent pair
