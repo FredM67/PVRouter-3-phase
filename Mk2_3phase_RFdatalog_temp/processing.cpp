@@ -50,16 +50,16 @@ constexpr OutputModes outputMode{ OutputModes::NORMAL }; /**< Output mode to be 
 constexpr auto initThreshold(const bool lower)
 {
   return lower
-           ? f_capacityOfEnergyBucket_main * (0.5F - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0))
-           : f_capacityOfEnergyBucket_main * (0.5F + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0));
+           ? f_capacityOfEnergyBucket_main * (0.5F - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0.0F))
+           : f_capacityOfEnergyBucket_main * (0.5F + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0.0F));
 }
 
 constexpr float f_lowerThreshold_default{ initThreshold(true) };  /**< lower default threshold set accordingly to the output mode */
 constexpr float f_upperThreshold_default{ initThreshold(false) }; /**< upper default threshold set accordingly to the output mode */
 
-float f_energyInBucket_main{ 0 }; /**< main energy bucket (over all phases) */
-float f_lowerEnergyThreshold;     /**< dynamic lower threshold */
-float f_upperEnergyThreshold;     /**< dynamic upper threshold */
+float f_energyInBucket_main{ 0.0F }; /**< main energy bucket (over all phases) */
+float f_lowerEnergyThreshold;        /**< dynamic lower threshold */
+float f_upperEnergyThreshold;        /**< dynamic upper threshold */
 
 // for improved control of multiple loads
 bool b_recentTransition{ false };                 /**< a load state has been recently toggled */
