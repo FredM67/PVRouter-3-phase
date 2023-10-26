@@ -275,6 +275,14 @@ inline void printForSerialText()
     Serial.print(F(":"));
     Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
   }
+  // Mean power for each load over a data logging period (in %)
+  for (uint8_t idx = 0; idx < NO_OF_DUMPLOADS; ++idx)
+  {
+    Serial.print(F(", L"));
+    Serial.print(idx + 1);
+    Serial.print(F(":"));
+    Serial.print((copyOf_countLoadON[idx] * 100) / DATALOG_PERIOD_IN_MAINS_CYCLES);
+  }
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {

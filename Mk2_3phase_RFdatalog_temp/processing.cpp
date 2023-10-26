@@ -64,7 +64,7 @@ float f_upperEnergyThreshold;        /**< dynamic upper threshold */
 // for improved control of multiple loads
 bool b_recentTransition{ false };                 /**< a load state has been recently toggled */
 uint8_t postTransitionCount;                      /**< counts the number of cycle since last transition */
-constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 3 }; /**< allows each transition to take effect */
+constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 1 }; /**< allows each transition to take effect */
 // constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
 uint8_t activeLoad{ NO_OF_DUMPLOADS }; /**< current active load */
 
