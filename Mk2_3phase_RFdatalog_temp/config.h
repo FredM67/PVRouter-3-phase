@@ -51,7 +51,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set
 #endif
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
-inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
+inline constexpr bool RELAY_DIVERSION{ true };      /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
 // ----------- Pinout assignments -----------
@@ -72,11 +72,11 @@ inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if th
 // D12 is MISO
 // D13 is SCK
 
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 }; /**< load priorities and states at startup */
 
 // Set the value to 0xff when the pin is not needed (feature deactivated)
-inline constexpr uint8_t relayPin{ 0xff };      /**< for 3-phase PCB, relay trigger */
+inline constexpr uint8_t relayPin{ 7 };      /**< for 3-phase PCB, relay trigger */
 inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
 inline constexpr uint8_t diversionPin{ 0xff };  /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load priority rotation */
@@ -85,7 +85,7 @@ inline constexpr uint8_t watchDogPin{ 0xff };   /**< watch dog LED */
 
 inline constexpr uint8_t tempSensorPin{ 0xff }; /**< for 3-phase PCB, sensor pin */
 
-inline constexpr relayOutput relay_Output{ relayPin, 1000, 200, 1, 1 }; /**< config for relay diversion, see class definition for defaults and advanced options */
+inline constexpr relayOutput relay_Output{ relayPin, 5, 200, 1, 1 }; /**< config for relay diversion, see class definition for defaults and advanced options */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
