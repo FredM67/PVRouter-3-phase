@@ -255,15 +255,15 @@ En **vert**, seules 2 phases sont coupées, L2 et L3. ***Il est très IMPORTANT 
 
 ## Support
 
-This project is maintained by [@maehr](https://github.com/maehr). Please understand that we won't be able to provide individual support via email. We also believe that help is much more valuable if it's shared publicly, so that more people can benefit from it.
+This project is maintained by [@mFredM67](https://github.com/FredM67). Please understand that we won't be able to provide individual support via email. We also believe that help is much more valuable if it's shared publicly, so that more people can benefit from it.
 
 | Type                                  | Platforms                                                                  |
 | ------------------------------------- | -------------------------------------------------------------------------- |
-| 🚨 **Bug Reports**                     | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
-| 📚 **Docs Issue**                      | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
-| 🎁 **Feature Requests**                | [GitHub Issue Tracker](https://github.com/maehr/github-template/issues)    |
+| 🚨 **Bug Reports**                     | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
+| 📚 **Docs Issue**                      | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
+| 🎁 **Feature Requests**                | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
 | 🛡 **Report a security vulnerability** | See [SECURITY.md](SECURITY.md)                                             |
-| 💬 **General Questions**               | [GitHub Discussions](https://github.com/maehr/github-template/discussions) |
+| 💬 **General Questions**               | [GitHub Discussions](https://github.com/FredM67/PVRouter-3-phase/discussions) |
 
 ## Roadmap
 
