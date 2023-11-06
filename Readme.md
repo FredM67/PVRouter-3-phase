@@ -277,4 +277,4 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 - **Frédéric Metrich** - _Initial work_ - [FredM67](https://github.com/FredM67)
 
-See also the list of [contributors](https://github.com/maehr/github-template/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/FredM67/PVRouter-3-phase/graphs/contributors) who participated in this project.
