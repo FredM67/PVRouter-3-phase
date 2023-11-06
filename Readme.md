@@ -54,9 +54,9 @@ Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.u
   - [Authors and acknowledgment](#authors-and-acknowledgment)
 
 ## Aperçu des dossiers
-- **Mk2_3phase_RFdatalog_temp** : contient tous les fichiers nécessaires au programme du routeur.
-- **dev** : contient divers programmes pour le développement du routeur.
-    - **cal_CTx_v_meter** : contient tous les fichiers nécessaires au programme d'étalonnage du routeur.
+- [**Mk2_3phase_RFdatalog_temp**](Mk2_3phase_RFdatalog_temp) : contient tous les fichiers nécessaires au programme du routeur.
+- [**dev**](dev) : contient divers programmes pour le développement du routeur.
+    - [**cal_CTx_v_meter**](dev/cal_CTx_v_meter) : contient tous les fichiers nécessaires au programme d'étalonnage du routeur.
     - **RawSamplesTool_6chan** : permet de tester les 6 canaux de mesure.
 - autres dossiers : contiennent des fichiers divers et variés relatifs au site.
 
