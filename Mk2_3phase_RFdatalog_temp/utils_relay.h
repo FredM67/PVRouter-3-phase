@@ -189,7 +189,7 @@ private:
    * @brief Turn ON the relay if the 'time' condition is met
    * 
    */
-  void try_turnON()
+  void try_turnON() const
   {
     if (relayIsON || duration < minOFF)
     {
@@ -208,7 +208,7 @@ private:
    * @brief Turn OFF the relay if the 'time' condition is met
    * 
    */
-  void try_turnOFF()
+  void try_turnOFF() const
   {
     if (!relayIsON || duration < minON)
     {
