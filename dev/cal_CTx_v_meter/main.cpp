@@ -106,6 +106,11 @@ Polarities polarityOfMostRecentVsample[NO_OF_PHASES];    /**< for zero-crossing 
 Polarities polarityConfirmed[NO_OF_PHASES];              /**< for zero-crossing detection */
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing detection */
 
+constexpr double MICROSPERSEC{ 1.0e6 };
+
+constexpr int16_t ADCBits{ 10 };       // 10 for the Arduino Uno.
+constexpr int16_t ADCDuration{ 104 };  // Time in microseconds for one ADC conversion = 104 for 16 MHz clock
+
 // Calibration values
 //-------------------
 // Three calibration values are used in this sketch: f_powerCal, f_phaseCal and f_voltageCal.
