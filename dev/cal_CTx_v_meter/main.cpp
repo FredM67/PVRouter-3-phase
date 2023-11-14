@@ -106,6 +106,11 @@ Polarities polarityOfMostRecentVsample[NO_OF_PHASES];    /**< for zero-crossing 
 Polarities polarityConfirmed[NO_OF_PHASES];              /**< for zero-crossing detection */
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing detection */
 
+constexpr double MICROSPERSEC{ 1.0e6 };
+
+constexpr int16_t ADCBits{ 10 };       // 10 for the Arduino Uno.
+constexpr int16_t ADCDuration{ 104 };  // Time in microseconds for one ADC conversion = 104 for 16 MHz clock
+
 // Calibration values
 //-------------------
 // Three calibration values are used in this sketch: f_powerCal, f_phaseCal and f_voltageCal.
@@ -144,6 +149,30 @@ constexpr int16_t i_phaseCal{ 256 }; /**< to avoid the need for floating-point m
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
 inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F }; /**< compared with Sentron PAC 4200 */
+
+constexpr auto calcPhaseShift(const bool xParam)
+{
+  /* Calculate the 'X' & 'Y' coefficients of phase shift for the c.t.
+    * phaseCal value supplied is the difference between VT lead and CT lead in degrees
+    * Add the delay due to the time taken by the ADC to convert one sample (ADCDuration),
+    * knowing the position of the current sample with respect to 
+    * the voltage, then convert to radians.
+    * x & y are the constants used in the power interpolation. (Sanity check: x + y ≈ 1)
+    */
+
+  const double two_pi{ 2 * PI };
+  const double sampleRate{ ADCDuration * two_pi * SUPPLY_FREQUENCY / MICROSPERSEC };                           // in radians
+  const double phase_shift{ (1.0 / 360.0 + ADCDuration * (double)SUPPLY_FREQUENCY / MICROSPERSEC) * two_pi };  // Total phase shift in radians
+                                                                                                               // (lChannel+1) was ADC_Sequence[lChannel+1]
+  const auto _y{ sin(phase_shift) / sin(sampleRate) };
+  const auto _x{ cos(phase_shift) - _y * cos(sampleRate) };
+
+  return xParam ? _x : _y;
+}
+
+// coefficients for real power interpolation
+constexpr double x{ calcPhaseShift(true) };
+constexpr double y{ calcPhaseShift(false) };
 
 /**
    @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
