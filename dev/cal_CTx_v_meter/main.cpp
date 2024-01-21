@@ -127,7 +127,7 @@ constexpr int16_t ADCDuration{ 104 };  // Time in microseconds for one ADC conve
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.050000F, 0.050000F, 0.050000F };
+inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.061298F, 0.062328F, 0.061501F };
 
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the
 // current waveform. The algorithm interpolates between the most recent pair
@@ -148,7 +148,7 @@ constexpr int16_t i_phaseCal{ 256 }; /**< to avoid the need for floating-point m
 // For datalogging purposes, f_voltageCal has been added too. Because the range of ADC values is
 // similar to the actual range of volts, the optimal value for this cal factor is likely to be
 // close to unity.
-inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F }; /**< compared with Sentron PAC 4200 */
+inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.7301F, 0.7397F, 0.7387F }; /**< compared with Sentron PAC 4200 */
 
 /**
    @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
