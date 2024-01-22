@@ -95,87 +95,90 @@ $(function() {
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;static_assert(!<a class="code" href="config_8h.html#a8cdbe058763c4b2524b45836e8f12689">EMONESP_CONTROL</a> || (<a class="code" href="config_8h.html#af4fafac7a898d0c42cf814b9ab893d8c">DIVERSION_PIN_PRESENT</a> &amp;&amp; <a class="code" href="config_8h.html#af4fafac7a898d0c42cf814b9ab893d8c">DIVERSION_PIN_PRESENT</a> &amp;&amp; (PRIORITY_ROTATION == <a class="code" href="types_8h.html#a06b890c4a964752df814257dc1f13073acdbc895d08b5d92db04174533a8548f7">RotationModes::PIN</a>) &amp;&amp; <a class="code" href="config_8h.html#a3113411238215d7011c4c5ac3680a973">OVERRIDE_PIN_PRESENT</a>), <span class="stringliteral">&quot;******** Wrong configuration. Please check your config.h ! ********&quot;</span>);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">   45</a></span>&#160;constexpr <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> <a class="code" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a>()</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> used_pins{ 0 };</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#a8437eec6f152492cefbba0cae0681e27">tempSensorPin</a> != 0xff)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, <a class="code" href="config_8h.html#a8437eec6f152492cefbba0cae0681e27">tempSensorPin</a>);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;static_assert(!<a class="code" href="config_8h.html#a200f51c8bd47e8b14cdc6522f2223742">RELAY_DIVERSION</a> | (60 / <a class="code" href="config__system_8h.html#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> * <a class="code" href="config__system_8h.html#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> == 60), <span class="stringliteral">&quot;******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********&quot;</span>);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;constexpr <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">   48</a></span>&#160;<a class="code" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a>()</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> used_pins{ 0 };</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#a7356f13f5bd190e1c4617b7143e4416d">diversionPin</a> != 0xff)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(used_pins, <a class="code" href="config_8h.html#a7356f13f5bd190e1c4617b7143e4416d">diversionPin</a>))</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, <a class="code" href="config_8h.html#a7356f13f5bd190e1c4617b7143e4416d">diversionPin</a>);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#a8437eec6f152492cefbba0cae0681e27">tempSensorPin</a> != 0xff)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, <a class="code" href="config_8h.html#a8437eec6f152492cefbba0cae0681e27">tempSensorPin</a>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#a7356f13f5bd190e1c4617b7143e4416d">diversionPin</a> != 0xff)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(used_pins, <a class="code" href="config_8h.html#a7356f13f5bd190e1c4617b7143e4416d">diversionPin</a>))</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#af668b2a5b07a913bd673318dc30654bb">rotationPin</a> != 0xff)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(used_pins, <a class="code" href="config_8h.html#af668b2a5b07a913bd673318dc30654bb">rotationPin</a>))</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, <a class="code" href="config_8h.html#af668b2a5b07a913bd673318dc30654bb">rotationPin</a>);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, <a class="code" href="config_8h.html#a7356f13f5bd190e1c4617b7143e4416d">diversionPin</a>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#af668b2a5b07a913bd673318dc30654bb">rotationPin</a> != 0xff)</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(used_pins, <a class="code" href="config_8h.html#af668b2a5b07a913bd673318dc30654bb">rotationPin</a>))</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#a45c16ccf5033dc4696f17daf792c7130">forcePin</a> != 0xff)</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(used_pins, <a class="code" href="config_8h.html#a45c16ccf5033dc4696f17daf792c7130">forcePin</a>))</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, <a class="code" href="config_8h.html#a45c16ccf5033dc4696f17daf792c7130">forcePin</a>);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, <a class="code" href="config_8h.html#af668b2a5b07a913bd673318dc30654bb">rotationPin</a>);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#a45c16ccf5033dc4696f17daf792c7130">forcePin</a> != 0xff)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(used_pins, <a class="code" href="config_8h.html#a45c16ccf5033dc4696f17daf792c7130">forcePin</a>))</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#afe190da9e3f78f2466d2f5aaf549c12d">watchDogPin</a> != 0xff)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(used_pins, <a class="code" href="config_8h.html#afe190da9e3f78f2466d2f5aaf549c12d">watchDogPin</a>))</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, <a class="code" href="config_8h.html#afe190da9e3f78f2466d2f5aaf549c12d">watchDogPin</a>);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, <a class="code" href="config_8h.html#a45c16ccf5033dc4696f17daf792c7130">forcePin</a>);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#afe190da9e3f78f2466d2f5aaf549c12d">watchDogPin</a> != 0xff)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(used_pins, <a class="code" href="config_8h.html#afe190da9e3f78f2466d2f5aaf549c12d">watchDogPin</a>))</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="comment">//physicalLoadPin</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;loadPin : <a class="code" href="config_8h.html#a4cfb4b5cc5504c54511b565a29906efc">physicalLoadPin</a>)</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">if</span> (loadPin == 0xff)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">if</span> (bitRead(used_pins, loadPin))</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, <a class="code" href="config_8h.html#afe190da9e3f78f2466d2f5aaf549c12d">watchDogPin</a>);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="comment">//physicalLoadPin</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;loadPin : <a class="code" href="config_8h.html#a4cfb4b5cc5504c54511b565a29906efc">physicalLoadPin</a>)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">if</span> (loadPin == 0xff)</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, loadPin);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">if</span> (bitRead(used_pins, loadPin))</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordflow">return</span> used_pins;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(used_pins, loadPin);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  }</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac">   99</a></span>&#160;constexpr <span class="keywordtype">bool</span> <a class="code" href="validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac">check_load_priorities</a>()</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;{</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  uint8_t _sum{ 0 };</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> _enum_val{ 0 };</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;loadPrio : <a class="code" href="config_8h.html#a00662b40b4d1afe819f2bdb6ad0ed191">loadPrioritiesAtStartup</a>)</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="comment">// we check if a prio is used twice</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(_enum_val, loadPrio))</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(_enum_val, loadPrio);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    _sum += loadPrio;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keywordflow">return</span> used_pins;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac">  102</a></span>&#160;constexpr <span class="keywordtype">bool</span> <a class="code" href="validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac">check_load_priorities</a>()</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;{</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  uint8_t _sum{ 0 };</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> _enum_val{ 0 };</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;loadPrio : <a class="code" href="config_8h.html#a00662b40b4d1afe819f2bdb6ad0ed191">loadPrioritiesAtStartup</a>)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="comment">// we check if a prio is used twice</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(_enum_val, loadPrio))</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(_enum_val, loadPrio);</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="comment">// check if we have all prio between 0 and (NO_OF_DUMPLOADS - 1)</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <span class="keywordflow">return</span> _sum == ((<a class="code" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> * (<a class="code" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> - 1)) &gt;&gt; 1);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;static_assert(<a class="code" href="validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac">check_load_priorities</a>(), <span class="stringliteral">&quot;******** Load Priorities wrong ! Please check your config ! ********&quot;</span>);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;static_assert(<a class="code" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a>(), <span class="stringliteral">&quot;******** Duplicate pin definition ! Please check your config ! ********&quot;</span>);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;static_assert((<a class="code" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a>() &amp; B00000011) == 0, <span class="stringliteral">&quot;******** Pins 0 &amp; 1 are reserved for RX/TX ! Please check your config ! ********&quot;</span>);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;static_assert((<a class="code" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a>() &amp; 0xC000) == 0, <span class="stringliteral">&quot;******** Pins 14 and/or 15 do not exist ! Please check your config ! ********&quot;</span>);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;static_assert(!(<a class="code" href="utils__rf_8h.html#ad6f3853697d5006eed405d11cc04c2a1">RF_CHIP_PRESENT</a> &amp;&amp; ((<a class="code" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a>() &amp; 0x3C04) != 0)), <span class="stringliteral">&quot;******** Pins from RF chip are reserved ! Please check your config ! ********&quot;</span>);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    _sum += loadPrio;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="comment">// check if we have all prio between 0 and (NO_OF_DUMPLOADS - 1)</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keywordflow">return</span> _sum == ((<a class="code" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> * (<a class="code" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> - 1)) &gt;&gt; 1);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;static_assert(<a class="code" href="validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac">check_load_priorities</a>(), <span class="stringliteral">&quot;******** Load Priorities wrong ! Please check your config ! ********&quot;</span>);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;static_assert(<a class="code" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a>(), <span class="stringliteral">&quot;******** Duplicate pin definition ! Please check your config ! ********&quot;</span>);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;static_assert((<a class="code" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a>() &amp; B00000011) == 0, <span class="stringliteral">&quot;******** Pins 0 &amp; 1 are reserved for RX/TX ! Please check your config ! ********&quot;</span>);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;static_assert((<a class="code" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a>() &amp; 0xC000) == 0, <span class="stringliteral">&quot;******** Pins 14 and/or 15 do not exist ! Please check your config ! ********&quot;</span>);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;static_assert(!(<a class="code" href="utils__rf_8h.html#ad6f3853697d5006eed405d11cc04c2a1">RF_CHIP_PRESENT</a> &amp;&amp; ((<a class="code" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a>() &amp; 0x3C04) != 0)), <span class="stringliteral">&quot;******** Pins from RF chip are reserved ! Please check your config ! ********&quot;</span>);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div><div class="ttdoc">Configuration values to be set by the end-user.</div></div>
 <div class="ttc" id="aconfig_8h_html_a00662b40b4d1afe819f2bdb6ad0ed191"><div class="ttname"><a href="config_8h.html#a00662b40b4d1afe819f2bdb6ad0ed191">loadPrioritiesAtStartup</a></div><div class="ttdeci">constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]</div><div class="ttdef"><b>Definition:</b> <a href="config_8h_source.html#l00076">config.h:76</a></div></div>
 <div class="ttc" id="aconfig_8h_html_a200f51c8bd47e8b14cdc6522f2223742"><div class="ttname"><a href="config_8h.html#a200f51c8bd47e8b14cdc6522f2223742">RELAY_DIVERSION</a></div><div class="ttdeci">constexpr bool RELAY_DIVERSION</div><div class="ttdef"><b>Definition:</b> <a href="config_8h_source.html#l00054">config.h:54</a></div></div>
@@ -204,8 +207,8 @@ $(function() {
 <div class="ttc" id="autils__rf_8h_html"><div class="ttname"><a href="utils__rf_8h.html">utils_rf.h</a></div><div class="ttdoc">Some utility functions for the RF chip.</div></div>
 <div class="ttc" id="autils__rf_8h_html_ad6f3853697d5006eed405d11cc04c2a1"><div class="ttname"><a href="utils__rf_8h.html#ad6f3853697d5006eed405d11cc04c2a1">RF_CHIP_PRESENT</a></div><div class="ttdeci">constexpr bool RF_CHIP_PRESENT</div><div class="ttdef"><b>Definition:</b> <a href="utils__rf_8h_source.html#l00018">utils_rf.h:18</a></div></div>
 <div class="ttc" id="autils__temp_8h_html_abe9c0a80c3e6d59aaa13ce3e193a5083"><div class="ttname"><a href="utils__temp_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a></div><div class="ttdeci">constexpr bool TEMP_SENSOR_PRESENT</div><div class="ttdef"><b>Definition:</b> <a href="utils__temp_8h_source.html#l00095">utils_temp.h:95</a></div></div>
-<div class="ttc" id="avalidation_8h_html_a07d77671cb50e935bf9015eb1bef3bcc"><div class="ttname"><a href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a></div><div class="ttdeci">constexpr uint16_t check_pins()</div><div class="ttdef"><b>Definition:</b> <a href="validation_8h_source.html#l00045">validation.h:45</a></div></div>
-<div class="ttc" id="avalidation_8h_html_a97da13005cbcf80e3bb29f69a46139ac"><div class="ttname"><a href="validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac">check_load_priorities</a></div><div class="ttdeci">constexpr bool check_load_priorities()</div><div class="ttdef"><b>Definition:</b> <a href="validation_8h_source.html#l00099">validation.h:99</a></div></div>
+<div class="ttc" id="avalidation_8h_html_a07d77671cb50e935bf9015eb1bef3bcc"><div class="ttname"><a href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc">check_pins</a></div><div class="ttdeci">constexpr uint16_t check_pins()</div><div class="ttdef"><b>Definition:</b> <a href="validation_8h_source.html#l00048">validation.h:48</a></div></div>
+<div class="ttc" id="avalidation_8h_html_a97da13005cbcf80e3bb29f69a46139ac"><div class="ttname"><a href="validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac">check_load_priorities</a></div><div class="ttdeci">constexpr bool check_load_priorities()</div><div class="ttdef"><b>Definition:</b> <a href="validation_8h_source.html#l00102">validation.h:102</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

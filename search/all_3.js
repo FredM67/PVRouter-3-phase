@@ -4,7 +4,7 @@ var searchData=
   ['check_5fload_5fpriorities_21',['check_load_priorities',['../validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac',1,'validation.h']]],
   ['check_5fpins_22',['check_pins',['../validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc',1,'validation.h']]],
   ['checkdiversiononoff_23',['checkDiversionOnOff',['../main_8cpp.html#a31f3d562faae6b598324b56299d74f7d',1,'main.cpp']]],
-  ['clear_24',['clear',['../classmovingAvg.html#aa16de101d297db413ed473df48c3cacc',1,'movingAvg']]],
+  ['clear_24',['clear',['../classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7',1,'movingAvg']]],
   ['commit_5fhash_25',['COMMIT_HASH',['../utils_8h.html#a2c55f8693f5917de9217fba7c72ce663',1,'utils.h']]],
   ['conditional_26',['conditional',['../structconditional.html',1,'']]],
   ['conditional_2ehpp_27',['conditional.hpp',['../conditional_8hpp.html',1,'']]],

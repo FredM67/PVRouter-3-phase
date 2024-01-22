@@ -19,5 +19,5 @@ var searchData=
   ['mk2_5f3phase_5frfdatalog_5ftemp_2eino_177',['Mk2_3phase_RFdatalog_temp.ino',['../Mk2__3phase__RFdatalog__temp_8ino.html',1,'']]],
   ['movingavg_178',['movingAvg',['../classmovingAvg.html',1,'']]],
   ['movingavg_2eh_179',['movingAvg.h',['../movingAvg_8h.html',1,'']]],
-  ['movingavg_3c_20int16_5ft_2c_201_20_2a60_2fdatalog_5fperiod_5fin_5fseconds_20_3e_180',['movingAvg&lt; int16_t, 1 *60/DATALOG_PERIOD_IN_SECONDS &gt;',['../classmovingAvg.html',1,'']]]
+  ['movingavg_3c_20int16_5ft_2c_201_2c_2060_2fdatalog_5fperiod_5fin_5fseconds_20_3e_180',['movingAvg&lt; int16_t, 1, 60/DATALOG_PERIOD_IN_SECONDS &gt;',['../classmovingAvg.html',1,'']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>3-phase PV router: movingAvg&lt; T, N &gt; Class Template Reference</title>
+<title>3-phase PV router: movingAvg&lt; T, DURATION_IN_MINUTES, VALUES_PER_MINUTE &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,47 +65,69 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classmovingAvg-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">movingAvg&lt; T, N &gt; Class Template Reference</div>  </div>
+<div class="title">movingAvg&lt; T, DURATION_IN_MINUTES, VALUES_PER_MINUTE &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Template class for implementing a sliding average.  
+ <a href="classmovingAvg.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab39f2254e4da7311ad2ec544f466367f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#ab39f2254e4da7311ad2ec544f466367f">addValue</a> (const T &amp;_value)</td></tr>
-<tr class="separator:ab39f2254e4da7311ad2ec544f466367f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa16de101d297db413ed473df48c3cacc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#aa16de101d297db413ed473df48c3cacc">clear</a> ()</td></tr>
-<tr class="separator:aa16de101d297db413ed473df48c3cacc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3f4b9dcff1e3d4f54b7a25e553badeb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#ac3f4b9dcff1e3d4f54b7a25e553badeb">fillValue</a> (const T &amp;_value)</td></tr>
-<tr class="separator:ac3f4b9dcff1e3d4f54b7a25e553badeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a802baf5c9b763e462ba5c4227ebd576f"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#a802baf5c9b763e462ba5c4227ebd576f">getAverage</a> () const</td></tr>
-<tr class="separator:a802baf5c9b763e462ba5c4227ebd576f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fd0f7167c25462f76e4f836f458dcac"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#a9fd0f7167c25462f76e4f836f458dcac">getElement</a> (uint8_t idx) const</td></tr>
-<tr class="separator:a9fd0f7167c25462f76e4f836f458dcac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ba1a7411246b14921a5411ebe1eef5d"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#a2ba1a7411246b14921a5411ebe1eef5d">getSize</a> () const</td></tr>
-<tr class="separator:a2ba1a7411246b14921a5411ebe1eef5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5">addValue</a> (const T &amp;_value)</td></tr>
+<tr class="memdesc:aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a value.  <a href="classmovingAvg.html#aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5">More...</a><br /></td></tr>
+<tr class="separator:aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc157cfdb883805b88f3979cebb72de7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7">clear</a> ()</td></tr>
+<tr class="memdesc:adc157cfdb883805b88f3979cebb72de7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset everything.  <a href="classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7">More...</a><br /></td></tr>
+<tr class="separator:adc157cfdb883805b88f3979cebb72de7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac85cf80e40b547a203818d10ba30618"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#aac85cf80e40b547a203818d10ba30618">fillValue</a> (const T &amp;_value)</td></tr>
+<tr class="separator:aac85cf80e40b547a203818d10ba30618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dcbea2038fad2497a67aecbf8605aae"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae">getAverage</a> () const</td></tr>
+<tr class="memdesc:a1dcbea2038fad2497a67aecbf8605aae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the sliding average.  <a href="classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae">More...</a><br /></td></tr>
+<tr class="separator:a1dcbea2038fad2497a67aecbf8605aae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaea648c9898a00cdbf8991971279861"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#afaea648c9898a00cdbf8991971279861">getElement</a> (uint8_t idx) const</td></tr>
+<tr class="separator:afaea648c9898a00cdbf8991971279861"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a588664a30754acc54ac30962e5a5e303"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmovingAvg.html#a588664a30754acc54ac30962e5a5e303">getSize</a> () const</td></tr>
+<tr class="separator:a588664a30754acc54ac30962e5a5e303"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, uint8_t N = 10&gt;<br />
-class movingAvg&lt; T, N &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, uint8_t DURATION_IN_MINUTES = 10, uint8_t VALUES_PER_MINUTE = 10&gt;<br />
+class movingAvg&lt; T, DURATION_IN_MINUTES, VALUES_PER_MINUTE &gt;</h3>
 
+<p>Template class for implementing a sliding average. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type of values to be stored </td></tr>
+    <tr><td class="paramname">DURATION_IN_MINUTES</td><td>Size of main array </td></tr>
+    <tr><td class="paramname">VALUES_PER_MINUTE</td><td>Size of sub array</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Since the Arduino RAM is tiny, we need to store a few values as possible. Suppose, you want a sliding window of 10 minutes and receive a value every 5 seconds. With one single array, 10 x 12 values would be necessary to store. Using 2 arrays, one to store incoming values over 1 minute and one to store values every minutes, we need only 12 + 10 values. How it works :<ul>
+<li>the average is calculated over 1 minute with incoming values</li>
+<li>this sub-average is added to the main array</li>
+<li>the average is calculated on the main array</li>
+</ul>
+</dd></dl>
+<p>Drawback of this method: the average is updated only every minutes ! </p>
 
-<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00020">20</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00040">40</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab39f2254e4da7311ad2ec544f466367f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab39f2254e4da7311ad2ec544f466367f">&#9670;&nbsp;</a></span>addValue()</h2>
+<a id="aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5">&#9670;&nbsp;</a></span>addValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , uint8_t N = 10&gt; </div>
+template&lt;typename T , uint8_t DURATION_IN_MINUTES = 10, uint8_t VALUES_PER_MINUTE = 10&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, N &gt;::addValue </td>
+          <td class="memname">void <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, DURATION_IN_MINUTES, VALUES_PER_MINUTE &gt;::addValue </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>_value</em></td><td>)</td>
@@ -119,23 +141,31 @@ template&lt;typename T , uint8_t N = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00043">43</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
+<p>Add a value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_value</td><td>Value to be added </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00084">84</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
 
 </div>
 </div>
-<a id="aa16de101d297db413ed473df48c3cacc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa16de101d297db413ed473df48c3cacc">&#9670;&nbsp;</a></span>clear()</h2>
+<a id="adc157cfdb883805b88f3979cebb72de7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc157cfdb883805b88f3979cebb72de7">&#9670;&nbsp;</a></span>clear()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , uint8_t N = 10&gt; </div>
+template&lt;typename T , uint8_t DURATION_IN_MINUTES = 10, uint8_t VALUES_PER_MINUTE = 10&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, N &gt;::clear </td>
+          <td class="memname">void <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, DURATION_IN_MINUTES, VALUES_PER_MINUTE &gt;::clear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -148,23 +178,25 @@ template&lt;typename T , uint8_t N = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00023">23</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
+<p>Reset everything. </p>
+
+<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00047">47</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
 
 </div>
 </div>
-<a id="ac3f4b9dcff1e3d4f54b7a25e553badeb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3f4b9dcff1e3d4f54b7a25e553badeb">&#9670;&nbsp;</a></span>fillValue()</h2>
+<a id="aac85cf80e40b547a203818d10ba30618"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac85cf80e40b547a203818d10ba30618">&#9670;&nbsp;</a></span>fillValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , uint8_t N = 10&gt; </div>
+template&lt;typename T , uint8_t DURATION_IN_MINUTES = 10, uint8_t VALUES_PER_MINUTE = 10&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, N &gt;::fillValue </td>
+          <td class="memname">void <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, DURATION_IN_MINUTES, VALUES_PER_MINUTE &gt;::fillValue </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"><em>_value</em></td><td>)</td>
@@ -178,23 +210,23 @@ template&lt;typename T , uint8_t N = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00056">56</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00098">98</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
 
 </div>
 </div>
-<a id="a802baf5c9b763e462ba5c4227ebd576f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a802baf5c9b763e462ba5c4227ebd576f">&#9670;&nbsp;</a></span>getAverage()</h2>
+<a id="a1dcbea2038fad2497a67aecbf8605aae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dcbea2038fad2497a67aecbf8605aae">&#9670;&nbsp;</a></span>getAverage()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , uint8_t N = 10&gt; </div>
+template&lt;typename T , uint8_t DURATION_IN_MINUTES = 10, uint8_t VALUES_PER_MINUTE = 10&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, N &gt;::getAverage </td>
+          <td class="memname">auto <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, DURATION_IN_MINUTES, VALUES_PER_MINUTE &gt;::getAverage </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -207,23 +239,27 @@ template&lt;typename T , uint8_t N = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00068">68</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
+<p>Get the sliding average. </p>
+<dl class="section return"><dt>Returns</dt><dd>auto The sliding average</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This value is updated every minute, except for the special case of a duration of ONE minute. In this case, it is updated for each new input value. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00118">118</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
 
 </div>
 </div>
-<a id="a9fd0f7167c25462f76e4f836f458dcac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fd0f7167c25462f76e4f836f458dcac">&#9670;&nbsp;</a></span>getElement()</h2>
+<a id="afaea648c9898a00cdbf8991971279861"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaea648c9898a00cdbf8991971279861">&#9670;&nbsp;</a></span>getElement()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , uint8_t N = 10&gt; </div>
+template&lt;typename T , uint8_t DURATION_IN_MINUTES = 10, uint8_t VALUES_PER_MINUTE = 10&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, N &gt;::getElement </td>
+          <td class="memname">auto <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, DURATION_IN_MINUTES, VALUES_PER_MINUTE &gt;::getElement </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>idx</em></td><td>)</td>
@@ -237,23 +273,23 @@ template&lt;typename T , uint8_t N = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00073">73</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00136">136</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
 
 </div>
 </div>
-<a id="a2ba1a7411246b14921a5411ebe1eef5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ba1a7411246b14921a5411ebe1eef5d">&#9670;&nbsp;</a></span>getSize()</h2>
+<a id="a588664a30754acc54ac30962e5a5e303"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a588664a30754acc54ac30962e5a5e303">&#9670;&nbsp;</a></span>getSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , uint8_t N = 10&gt; </div>
+template&lt;typename T , uint8_t DURATION_IN_MINUTES = 10, uint8_t VALUES_PER_MINUTE = 10&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr uint8_t <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, N &gt;::getSize </td>
+          <td class="memname">constexpr uint8_t <a class="el" href="classmovingAvg.html">movingAvg</a>&lt; T, DURATION_IN_MINUTES, VALUES_PER_MINUTE &gt;::getSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -266,7 +302,7 @@ template&lt;typename T , uint8_t N = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00086">86</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00149">149</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
 
 </div>
 </div>

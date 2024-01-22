@@ -12,7 +12,7 @@ var searchData=
   ['f_5fupperthreshold_5fdefault_76',['f_upperThreshold_default',['../processing_8cpp.html#ac5d95ffd4d4d32b7bc1e27f802500fb4',1,'processing.cpp']]],
   ['f_5fvoltagecal_77',['f_voltageCal',['../calibration_8h.html#a4c3b8983185a9bc5d78bcd2cccbac15d',1,'calibration.h']]],
   ['false_5ftype_78',['false_type',['../integral__constant_8hpp.html#a40f5dcd7f02f795c4ae997d5709bd73c',1,'integral_constant.hpp']]],
-  ['fillvalue_79',['fillValue',['../classmovingAvg.html#ac3f4b9dcff1e3d4f54b7a25e553badeb',1,'movingAvg']]],
+  ['fillvalue_79',['fillValue',['../classmovingAvg.html#aac85cf80e40b547a203818d10ba30618',1,'movingAvg']]],
   ['forcefullpower_80',['forceFullPower',['../main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef',1,'main.cpp']]],
   ['forcepin_81',['forcePin',['../config_8h.html#a45c16ccf5033dc4696f17daf792c7130',1,'config.h']]],
   ['freeram_82',['freeRam',['../utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0',1,'utils.h']]],

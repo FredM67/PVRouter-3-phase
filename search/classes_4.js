@@ -14,5 +14,5 @@ var searchData=
   ['make_5funsigned_3c_20unsigned_20short_20_3e_362',['make_unsigned&lt; unsigned short &gt;',['../structmake__unsigned_3_01unsigned_01short_01_4.html',1,'']]],
   ['make_5fvoid_363',['make_void',['../structmake__void.html',1,'']]],
   ['movingavg_364',['movingAvg',['../classmovingAvg.html',1,'']]],
-  ['movingavg_3c_20int16_5ft_2c_201_20_2a60_2fdatalog_5fperiod_5fin_5fseconds_20_3e_365',['movingAvg&lt; int16_t, 1 *60/DATALOG_PERIOD_IN_SECONDS &gt;',['../classmovingAvg.html',1,'']]]
+  ['movingavg_3c_20int16_5ft_2c_201_2c_2060_2fdatalog_5fperiod_5fin_5fseconds_20_3e_365',['movingAvg&lt; int16_t, 1, 60/DATALOG_PERIOD_IN_SECONDS &gt;',['../classmovingAvg.html',1,'']]]
 ];

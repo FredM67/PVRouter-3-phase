@@ -6,10 +6,10 @@ var searchData=
   ['get_5fminon_87',['get_minON',['../classrelayOutput.html#a893fa5439460d6bbbaeb1b4fcadd4bec',1,'relayOutput']]],
   ['get_5fpin_88',['get_pin',['../classrelayOutput.html#acacb00540f208a3000f2f6d8b05f35c8',1,'relayOutput']]],
   ['get_5fsurplusthreshold_89',['get_surplusThreshold',['../classrelayOutput.html#a65b71555314d24f62e1f6576f0836796',1,'relayOutput']]],
-  ['getaverage_90',['getAverage',['../classmovingAvg.html#a802baf5c9b763e462ba5c4227ebd576f',1,'movingAvg']]],
+  ['getaverage_90',['getAverage',['../classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae',1,'movingAvg']]],
   ['getduration_91',['getDuration',['../classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2',1,'pairForceLoad']]],
-  ['getelement_92',['getElement',['../classmovingAvg.html#a9fd0f7167c25462f76e4f836f458dcac',1,'movingAvg']]],
+  ['getelement_92',['getElement',['../classmovingAvg.html#afaea648c9898a00cdbf8991971279861',1,'movingAvg']]],
   ['getpinstate_93',['getPinState',['../utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649',1,'utils_pins.h']]],
-  ['getsize_94',['getSize',['../classmovingAvg.html#a2ba1a7411246b14921a5411ebe1eef5d',1,'movingAvg']]],
+  ['getsize_94',['getSize',['../classmovingAvg.html#a588664a30754acc54ac30962e5a5e303',1,'movingAvg']]],
   ['getstartoffset_95',['getStartOffset',['../classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f',1,'pairForceLoad']]]
 ];
