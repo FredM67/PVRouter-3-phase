@@ -106,6 +106,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a846e06596d608a445715f36f4f000d4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a846e06596d608a445715f36f4f000d4d">inc_duration</a> () const</td></tr>
 <tr class="memdesc:a846e06596d608a445715f36f4f000d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment the duration of the current state.  <a href="classrelayOutput.html#a846e06596d608a445715f36f4f000d4d">More...</a><br /></td></tr>
 <tr class="separator:a846e06596d608a445715f36f4f000d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accecd848d5c032766d349f188b0484e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#accecd848d5c032766d349f188b0484e7">printRelayConfiguration</a> () const</td></tr>
+<tr class="memdesc:accecd848d5c032766d349f188b0484e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the configuration of the current relay-diversion.  <a href="classrelayOutput.html#accecd848d5c032766d349f188b0484e7">More...</a><br /></td></tr>
+<tr class="separator:accecd848d5c032766d349f188b0484e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16e526b1e0a9c02d3d6aa9725c6a83d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a16e526b1e0a9c02d3d6aa9725c6a83d7">proceed_relay</a> () const</td></tr>
 <tr class="memdesc:a16e526b1e0a9c02d3d6aa9725c6a83d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed with the relay.  <a href="classrelayOutput.html#a16e526b1e0a9c02d3d6aa9725c6a83d7">More...</a><br /></td></tr>
 <tr class="separator:a16e526b1e0a9c02d3d6aa9725c6a83d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,9 +117,6 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a4a5d8bdcfdacb2b91880cd1a510124a4"><td class="memItemLeft" align="right" valign="top">static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a4a5d8bdcfdacb2b91880cd1a510124a4">get_average</a> ()</td></tr>
 <tr class="separator:a4a5d8bdcfdacb2b91880cd1a510124a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44af896fbb55b651037e3ce55622b198"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a44af896fbb55b651037e3ce55622b198">printRelayConfiguration</a> (const <a class="el" href="classrelayOutput.html">relayOutput</a> &amp;relay)</td></tr>
-<tr class="memdesc:a44af896fbb55b651037e3ce55622b198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the configuration of the current relay-diversion.  <a href="classrelayOutput.html#a44af896fbb55b651037e3ce55622b198">More...</a><br /></td></tr>
-<tr class="separator:a44af896fbb55b651037e3ce55622b198"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89822cf10797dfca1f05e81ff6157f8d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a89822cf10797dfca1f05e81ff6157f8d">update_average</a> (int16_t currentPower)</td></tr>
 <tr class="separator:a89822cf10797dfca1f05e81ff6157f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -402,7 +402,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classrelayOutput_ac17e09bffcaea6cf872135a2bb88f502_icgraph.png" border="0" usemap="#aclassrelayOutput_ac17e09bffcaea6cf872135a2bb88f502_icgraph" alt=""/></div>
 <map name="aclassrelayOutput_ac17e09bffcaea6cf872135a2bb88f502_icgraph" id="aclassrelayOutput_ac17e09bffcaea6cf872135a2bb88f502_icgraph">
 <area shape="rect" title="Get the import threshold which will turns OFF the relay." alt="" coords="608,5,851,32"/>
-<area shape="rect" href="classrelayOutput.html#a44af896fbb55b651037e3ce55622b198" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,5,560,32"/>
+<area shape="rect" href="classrelayOutput.html#accecd848d5c032766d349f188b0484e7" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,5,560,32"/>
 <area shape="rect" href="utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,32"/>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
 </map>
@@ -445,7 +445,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classrelayOutput_a63a662c2535d687a111835e83c416204_icgraph.png" border="0" usemap="#aclassrelayOutput_a63a662c2535d687a111835e83c416204_icgraph" alt=""/></div>
 <map name="aclassrelayOutput_a63a662c2535d687a111835e83c416204_icgraph" id="aclassrelayOutput_a63a662c2535d687a111835e83c416204_icgraph">
 <area shape="rect" title="Get the minimum OFF&#45;time." alt="" coords="608,5,795,32"/>
-<area shape="rect" href="classrelayOutput.html#a44af896fbb55b651037e3ce55622b198" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,5,560,32"/>
+<area shape="rect" href="classrelayOutput.html#accecd848d5c032766d349f188b0484e7" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,5,560,32"/>
 <area shape="rect" href="utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,32"/>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
 </map>
@@ -488,7 +488,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classrelayOutput_a893fa5439460d6bbbaeb1b4fcadd4bec_icgraph.png" border="0" usemap="#aclassrelayOutput_a893fa5439460d6bbbaeb1b4fcadd4bec_icgraph" alt=""/></div>
 <map name="aclassrelayOutput_a893fa5439460d6bbbaeb1b4fcadd4bec_icgraph" id="aclassrelayOutput_a893fa5439460d6bbbaeb1b4fcadd4bec_icgraph">
 <area shape="rect" title="Get the minimum ON&#45;time." alt="" coords="608,5,788,32"/>
-<area shape="rect" href="classrelayOutput.html#a44af896fbb55b651037e3ce55622b198" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,5,560,32"/>
+<area shape="rect" href="classrelayOutput.html#accecd848d5c032766d349f188b0484e7" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,5,560,32"/>
 <area shape="rect" href="utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,32"/>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
 </map>
@@ -531,7 +531,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classrelayOutput_acacb00540f208a3000f2f6d8b05f35c8_icgraph.png" border="0" usemap="#aclassrelayOutput_acacb00540f208a3000f2f6d8b05f35c8_icgraph" alt=""/></div>
 <map name="aclassrelayOutput_acacb00540f208a3000f2f6d8b05f35c8_icgraph" id="aclassrelayOutput_acacb00540f208a3000f2f6d8b05f35c8_icgraph">
 <area shape="rect" title="Get the control pin of the relay." alt="" coords="608,5,763,32"/>
-<area shape="rect" href="classrelayOutput.html#a44af896fbb55b651037e3ce55622b198" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,5,560,32"/>
+<area shape="rect" href="classrelayOutput.html#accecd848d5c032766d349f188b0484e7" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,5,560,32"/>
 <area shape="rect" href="utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,32"/>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
 </map>
@@ -574,7 +574,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classrelayOutput_a65b71555314d24f62e1f6576f0836796_icgraph.png" border="0" usemap="#aclassrelayOutput_a65b71555314d24f62e1f6576f0836796_icgraph" alt=""/></div>
 <map name="aclassrelayOutput_a65b71555314d24f62e1f6576f0836796_icgraph" id="aclassrelayOutput_a65b71555314d24f62e1f6576f0836796_icgraph">
 <area shape="rect" title="Get the surplus threshold which will turns ON the relay." alt="" coords="608,5,791,47"/>
-<area shape="rect" href="classrelayOutput.html#a44af896fbb55b651037e3ce55622b198" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,13,560,39"/>
+<area shape="rect" href="classrelayOutput.html#accecd848d5c032766d349f188b0484e7" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,13,560,39"/>
 <area shape="rect" href="utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,13,251,39"/>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,13,64,39"/>
 </map>
@@ -623,8 +623,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a44af896fbb55b651037e3ce55622b198"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44af896fbb55b651037e3ce55622b198">&#9670;&nbsp;</a></span>printRelayConfiguration()</h2>
+<a id="accecd848d5c032766d349f188b0484e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accecd848d5c032766d349f188b0484e7">&#9670;&nbsp;</a></span>printRelayConfiguration()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -635,16 +635,15 @@ template&lt;uint8_t T = 1&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="classrelayOutput.html">relayOutput</a>&lt; T &gt;::printRelayConfiguration </td>
+          <td class="memname">void <a class="el" href="classrelayOutput.html">relayOutput</a>&lt; T &gt;::printRelayConfiguration </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classrelayOutput.html">relayOutput</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>relay</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -655,8 +654,8 @@ template&lt;uint8_t T = 1&gt; </div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classrelayOutput_a44af896fbb55b651037e3ce55622b198_cgraph.png" border="0" usemap="#aclassrelayOutput_a44af896fbb55b651037e3ce55622b198_cgraph" alt=""/></div>
-<map name="aclassrelayOutput_a44af896fbb55b651037e3ce55622b198_cgraph" id="aclassrelayOutput_a44af896fbb55b651037e3ce55622b198_cgraph">
+<div class="center"><img src="classrelayOutput_accecd848d5c032766d349f188b0484e7_cgraph.png" border="0" usemap="#aclassrelayOutput_accecd848d5c032766d349f188b0484e7_cgraph" alt=""/></div>
+<map name="aclassrelayOutput_accecd848d5c032766d349f188b0484e7_cgraph" id="aclassrelayOutput_accecd848d5c032766d349f188b0484e7_cgraph">
 <area shape="rect" title="Print the configuration of the current relay&#45;diversion." alt="" coords="5,107,267,133"/>
 <area shape="rect" href="classrelayOutput.html#ac17e09bffcaea6cf872135a2bb88f502" title="Get the import threshold which will turns OFF the relay." alt="" coords="315,5,557,32"/>
 <area shape="rect" href="classrelayOutput.html#a63a662c2535d687a111835e83c416204" title="Get the minimum OFF&#45;time." alt="" coords="343,56,529,83"/>
@@ -668,8 +667,8 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classrelayOutput_a44af896fbb55b651037e3ce55622b198_icgraph.png" border="0" usemap="#aclassrelayOutput_a44af896fbb55b651037e3ce55622b198_icgraph" alt=""/></div>
-<map name="aclassrelayOutput_a44af896fbb55b651037e3ce55622b198_icgraph" id="aclassrelayOutput_a44af896fbb55b651037e3ce55622b198_icgraph">
+<div class="center"><img src="classrelayOutput_accecd848d5c032766d349f188b0484e7_icgraph.png" border="0" usemap="#aclassrelayOutput_accecd848d5c032766d349f188b0484e7_icgraph" alt=""/></div>
+<map name="aclassrelayOutput_accecd848d5c032766d349f188b0484e7_icgraph" id="aclassrelayOutput_accecd848d5c032766d349f188b0484e7_icgraph">
 <area shape="rect" title="Print the configuration of the current relay&#45;diversion." alt="" coords="299,5,560,32"/>
 <area shape="rect" href="utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,32"/>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
