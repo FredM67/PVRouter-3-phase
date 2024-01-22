@@ -233,7 +233,7 @@ private:
   mutable uint16_t duration{ 0 };  /**< Duration of the current state */
   mutable bool relayIsON{ false }; /**< True if the relay is ON */
 
-  static inline movingAvg< int16_t, T * 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
+  static inline movingAvg< int16_t, T, 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
 };
 
 #endif  // _UTILS_RELAY_H

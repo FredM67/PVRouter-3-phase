@@ -91,7 +91,7 @@ public:
     if (_sub_idx == VALUES_PER_MINUTE)
     {
       _sub_idx = 0;  // faster than %
-      _addValue(_getAverage());
+        _addValue(_getAverage());
     }
   }
 

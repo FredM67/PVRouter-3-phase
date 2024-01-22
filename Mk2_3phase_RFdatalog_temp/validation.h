@@ -42,7 +42,10 @@ static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION > 12)), "******** Off-peak d
 
 static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && DIVERSION_PIN_PRESENT && (PRIORITY_ROTATION == RotationModes::PIN) && OVERRIDE_PIN_PRESENT), "******** Wrong configuration. Please check your config.h ! ********");
 
-constexpr uint16_t check_pins()
+static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
+
+constexpr uint16_t
+check_pins()
 {
   uint16_t used_pins{ 0 };
 
