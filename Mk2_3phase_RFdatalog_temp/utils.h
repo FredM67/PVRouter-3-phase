@@ -119,7 +119,7 @@ inline void printConfiguration()
   {
     DBUGLN(F("is present"));
 
-    relayOutput<>::printRelayConfiguration(relay_Output);
+    relay_Output.printRelayConfiguration();
   }
   else
   {
