@@ -9,10 +9,11 @@
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 </div>
 
-<p align="center">
+<div align = center>
   [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/FredM67/PVRouter-3-phase/blob/main/Readme.md)
+<br/>
   [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/FredM67/PVRouter-3-phase/blob/main/Readme.fr.md)
-</p>
+</div>
 
 # PVRouter (3-phase version)
 
@@ -47,6 +48,10 @@ It supports up to 7 resistive output loads, which are completely independent.
   - [Heater with ACI 3-phase thermostat (without neutral wire)](#heater-with-aci-3-phase-thermostat-without-neutral-wire)
   - [Alternatives WITHOUT neutral wire](#alternatives-without-neutral-wire)
     - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat-1)
+  - [Support](#support)
+  - [Roadmap](#roadmap)
+  - [Contributing](#contributing)
+  - [Authors and acknowledgment](#authors-and-acknowledgment)
 
 ## Photo Gallery
 
@@ -239,8 +244,8 @@ In **green**, only 2 phases are switched off, L2 et L3. ***It is IMPORTANT that 
 
 This project is maintained by [@FredM67](https://github.com/FredM67). Please understand that we won't be able to provide individual support via email. We also believe that help is much more valuable if it's shared publicly, so that more people can benefit from it.
 
-| Type                                  | Platforms                                                                     |
-| ------------------------------------- | ----------------------------------------------------------------------------- |
+| Type                                   | Platforms                                                                     |
+| -------------------------------------- | ----------------------------------------------------------------------------- |
 | ?? **Bug Reports**                     | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
 | ?? **Docs Issue**                      | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
 | ?? **Feature Requests**                | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
@@ -257,6 +262,6 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Authors and acknowledgment
 
-- **Frédéric Metrich** - _Initial work_ - [FredM67](https://github.com/FredM67)
+- **Frï¿½dï¿½ric Metrich** - _Initial work_ - [FredM67](https://github.com/FredM67)
 
 See also the list of [contributors](https://github.com/FredM67/PVRouter-3-phase/graphs/contributors) who participated in this project.

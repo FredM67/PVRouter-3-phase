@@ -9,10 +9,11 @@
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 </div>
 
-<p align="center">
+<div align = center>
   [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/FredM67/PVRouter-3-phase/blob/main/Readme.md)
+<br/>
   [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/FredM67/PVRouter-3-phase/blob/main/Readme.fr.md)
-</p>
+</div>
 
 # PVRouter (version triphasée)
 
