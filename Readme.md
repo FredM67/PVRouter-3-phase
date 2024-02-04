@@ -1,3 +1,14 @@
+<div align = center>
+
+[![GitHub issues](https://img.shields.io/github/issues/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/issues)
+[![GitHub forks](https://img.shields.io/github/forks/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/network)
+[![GitHub stars](https://img.shields.io/github/stars/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/stargazers)
+[![CodeQL](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml)
+[![Doxygen](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml)
+<br/>
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
+</div>
+
 <p align="center">
   [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/FredM67/PVRouter-3-phase/blob/main/Readme.md)
   [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/FredM67/PVRouter-3-phase/blob/main/Readme.fr.md)
@@ -223,3 +234,29 @@ In **green**, only 2 phases are switched off, L2 et L3. ***It is IMPORTANT that 
 
 ![Heater with mechanical thermostat](../../img/Heater_mechanical-No_neutral.png)  
 *Figure: Wiring diagram*
+
+## Support
+
+This project is maintained by [@FredM67](https://github.com/FredM67). Please understand that we won't be able to provide individual support via email. We also believe that help is much more valuable if it's shared publicly, so that more people can benefit from it.
+
+| Type                                  | Platforms                                                                     |
+| ------------------------------------- | ----------------------------------------------------------------------------- |
+| ?? **Bug Reports**                     | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
+| ?? **Docs Issue**                      | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
+| ?? **Feature Requests**                | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
+| ?? **Report a security vulnerability** | See [SECURITY.md](SECURITY.md)                                                |
+| ?? **General Questions**               | [GitHub Discussions](https://github.com/FredM67/PVRouter-3-phase/discussions) |
+
+## Roadmap
+
+No changes are currently planned.
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Authors and acknowledgment
+
+- **Frédéric Metrich** - _Initial work_ - [FredM67](https://github.com/FredM67)
+
+See also the list of [contributors](https://github.com/FredM67/PVRouter-3-phase/graphs/contributors) who participated in this project.
