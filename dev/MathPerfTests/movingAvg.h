@@ -66,14 +66,14 @@ public:
       if constexpr (is_floating_point< T >::value)
       {
         _ar[i] = 0.0F;
-        _sub_ar[i] = 0.0F;
       }
       else
       {
         _ar[i] = 0;
-        _sub_ar[i] = 0;
       }
     } while (i);
+
+    _clear_sub();
   }
 
   /**
@@ -91,7 +91,7 @@ public:
     if (_sub_idx == VALUES_PER_MINUTE)
     {
       _sub_idx = 0;  // faster than %
-      _addValue(_getAverage());
+        _addValue(_getAverage());
     }
   }
 
