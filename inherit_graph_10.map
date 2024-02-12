@@ -1,12 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structintegral__constant.html" title=" " alt="" coords="5,201,152,242"/>
-<area shape="rect" id="node2" href="$structis__array.html" title=" " alt="" coords="220,5,332,32"/>
-<area shape="rect" id="node3" href="$structis__array_3_01T_0fN_0e_01_4.html" title=" " alt="" coords="210,56,342,83"/>
-<area shape="rect" id="node4" href="$structis__array_3_01T_0f_0e_01_4.html" title=" " alt="" coords="215,107,337,133"/>
-<area shape="rect" id="node5" href="$structis__const.html" title=" " alt="" coords="219,157,333,184"/>
-<area shape="rect" id="node6" href="$structis__const_3_01const_01T_01_4.html" title=" " alt="" coords="200,208,352,235"/>
-<area shape="rect" id="node7" href="$structis__pointer.html" title=" " alt="" coords="214,259,338,285"/>
-<area shape="rect" id="node8" href="$structis__pointer_3_01T_01_5_01_4.html" title=" " alt="" coords="209,309,343,336"/>
-<area shape="rect" id="node9" href="$structis__same.html" title=" " alt="" coords="210,360,342,387"/>
-<area shape="rect" id="node10" href="$structis__same_3_01T_00_01T_01_4.html" title=" " alt="" coords="211,411,341,437"/>
+<area shape="rect" id="node1" href="$structintegral__constant.html" title=" " alt="" coords="5,5,357,179"/>
+<area shape="rect" id="node2" href="$structis__unsigned.html" title=" " alt="" coords="405,79,543,105"/>
 </map>
