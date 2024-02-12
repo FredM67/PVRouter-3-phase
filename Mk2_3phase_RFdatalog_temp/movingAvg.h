@@ -17,6 +17,61 @@
 #include "type_traits.hpp"
 
 /**
+ * @brief Helper compile-time function to retrieve the previous power of 2 of the given number (120 => 64 => 6)
+ * 
+ * @param v The input number
+ * @return constexpr uint8_t The next power of two
+ */
+constexpr uint8_t round_up_to_power_of_2(uint16_t v)
+{
+  if (__builtin_popcount(v) == 1) { return __builtin_ctz(v) - 1; }
+
+  uint8_t next_pow_of_2{ 0 };
+
+  while (v)
+  {
+    v >>= 1;
+    ++next_pow_of_2;
+  }
+
+  return --next_pow_of_2;
+}
+
+/**
+ * @brief Exponentially Weighted Moving Average
+ * 
+ * @details The smoothing factor is the approximate amount of values taken to calculate the average.
+ *          Since the Arduino is very slow and does not provide any dedicated math co-processor,
+ *          the smoothing factor will be rounded to the previous power of 2. Ie 120 will be rounded to 64.
+ *          This allows to perform all the calculations with integer math, which is much faster !
+ * 
+ * @note    Because of the 'sign extension', the sign is copied into lower bits.
+ * 
+ * @tparam A Smoothing factor
+ * @param input Input value
+ * @return long Output value
+ */
+template< uint8_t A = 10 >
+class EWMA_average
+{
+public:
+  void addValue(int32_t input)
+  {
+    w = w - x + input;
+    x = w >> round_up_to_power_of_2(A);
+  }
+
+  auto getAverage() const
+  {
+    return x;
+  }
+
+private:
+  int32_t w{ 0 };
+  int32_t x{ 0 };
+};
+
+/**
  * @brief Template class for implementing a sliding average
  * 
  * @tparam T Type of values to be stored
@@ -47,17 +102,14 @@ public:
   void clear()
   {
     _idx = 0;
-    _sub_idx = 0;
 
     if constexpr (is_floating_point< T >::value)
     {
       _sum = 0.0F;
-      _sub_sum = 0.0F;
     }
     else
     {
       _sum = 0;
-      _sub_sum = 0;
     }
 
     uint8_t i{ DURATION_IN_MINUTES };
@@ -66,14 +118,14 @@ public:
       if constexpr (is_floating_point< T >::value)
       {
         _ar[i] = 0.0F;
-        _sub_ar[i] = 0.0F;
       }
       else
       {
         _ar[i] = 0;
-        _sub_ar[i] = 0;
       }
     } while (i);
+
+    _clear_sub();
   }
 
   /**
