@@ -36,7 +36,7 @@
 // constants which must be set individually for each system
 //
 inline constexpr uint8_t NO_OF_PHASES{ 3 };    /**< number of phases of the main supply. */
-inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 }; /**< number of dump loads connected to the diverter */
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< number of dump loads connected to the diverter */
 
 #ifdef EMONESP
 inline constexpr bool EMONESP_CONTROL{ true };
@@ -50,7 +50,7 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set
 inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set it to 'true' if there's a override pin */
 #endif
 
-inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
+inline constexpr bool WATCHDOG_PIN_PRESENT{ true }; /**< set it to 'true' if there's a watch led */
 inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
@@ -72,8 +72,8 @@ inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if th
 // D12 is MISO
 // D13 is SCK
 
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
-inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 }; /**< load priorities and states at startup */
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities and states at startup */
 
 // Set the value to 0xff when the pin is not needed (feature deactivated)
 inline constexpr uint8_t relayPin{ 0xff };      /**< for 3-phase PCB, relay trigger */
@@ -81,7 +81,7 @@ inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak t
 inline constexpr uint8_t diversionPin{ 0xff };  /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load priority rotation */
 inline constexpr uint8_t forcePin{ 0xff };      /**< for 3-phase PCB, force pin */
-inline constexpr uint8_t watchDogPin{ 0xff };   /**< watch dog LED */
+inline constexpr uint8_t watchDogPin{ 9 };   /**< watch dog LED */
 
 inline constexpr uint8_t tempSensorPin{ 0xff }; /**< for 3-phase PCB, sensor pin */
 
