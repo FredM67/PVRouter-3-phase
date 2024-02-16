@@ -3,8 +3,8 @@
 
 #include "movingAvg.h"
 
-const int nb_of_interation_per_pass = 30000;
-const int nb_of_pass = 100;
+const int nb_of_interation_per_pass = 500;
+const int nb_of_pass = 10;
 
 unsigned long initial_time = 0;
 unsigned long final_time = 0;
@@ -23,7 +23,7 @@ volatile float float_1 = 0;
 volatile float float_2 = 0;
 volatile float float_3 = 0;
 
-volatile long long_1 = 0;
+long long_1 = 0;
 volatile long long_2 = 0;
 volatile long long_3 = 0;
 
@@ -39,11 +39,43 @@ volatile boolean bool_1 = 0;
 volatile boolean bool_2 = 0;
 volatile boolean bool_3 = 0;
 
-movingAvg< int32_t, 1, 12 > sliding_Average;
+constexpr uint8_t round_up_to_power_of_2(uint16_t v) {
+  if (__builtin_popcount(v) == 1) { return __builtin_ctz(v) - 1; }
+
+  uint8_t next_pow_of_2{ 0 };
+
+  while (v) {
+    v >>= 1;
+    ++next_pow_of_2;
+  }
+
+  return --next_pow_of_2;
+}
+
+template< uint8_t A = 10 >
+class EWMA_average {
+public:
+  void addValue(int32_t input) {
+    w = w - x + input;
+    x = w >> round_up_to_power_of_2(A);
+  }
+
+  auto getAverage() const {
+    return x;
+  }
+
+private:
+  int32_t w{ 0 };
+  int32_t x{ 0 };
+};
+
+movingAvg< int32_t, 10, 12 > sliding_Average;
+EWMA_average<120> ewma_average;
 
 void setup() {
 
   Serial.begin(115200);
+  Serial.println("Setup ***");
 }
 
 void loop() {
@@ -67,10 +99,12 @@ void loop() {
     initial_time = micros();
     for (int i = 0; i < nb_of_interation_per_pass; i++) {
       dummy++;  // The dummy instruction is also performed here so that we can remove the effect of the dummy FOR loop accurately.
-      // **************** PUT YOUR COMMAND TO TEST HERE ********************
-      sliding_Average.addValue(i);
+                // **************** PUT YOUR COMMAND TO TEST HERE ********************
+      long_1 = sin(i) * 1000;
 
-      long_3 = sliding_Average.getAverage();
+      sliding_Average.addValue(long_1);
+      ewma_average.addValue(long_1);
+
       // **************** PUT YOUR COMMAND TO TEST HERE ********************
     }
     final_time = micros();
@@ -82,9 +116,13 @@ void loop() {
 
     Serial.print(sliding_Average.getAverage());
     Serial.print(" - ");
+    Serial.print(ewma_average.getAverage());
+    Serial.print(" - ");
     Serial.print(j);
     Serial.print(". ");
     print_result(duration);
+
+    sliding_Average.clear();
   }
 
   Serial.println();
@@ -92,10 +130,10 @@ void loop() {
   print_result(duration_sum / nb_of_pass);
   Serial.println("****************************************** ");
   Serial.println();
-  for (uint8_t idx = 0; idx < sliding_Average.getSize(); ++idx) {
-    Serial.println(sliding_Average.getElement(idx));
-  }
-  Serial.println();
+  //for (uint8_t idx = 0; idx < sliding_Average.getSize(); ++idx) {
+  //  Serial.println(sliding_Average.getElement(idx));
+  //}
+  //Serial.println();
   duration_sum = 0;
   delay(2000);
 }
