@@ -16,6 +16,3 @@ template< typename T >
 struct is_same< T, T > : true_type
 {
 };
-
-template< class T, class U >
-inline constexpr bool is_same_v = is_same< T, U >::value;

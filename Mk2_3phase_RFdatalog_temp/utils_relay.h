@@ -164,24 +164,24 @@ public:
    * @brief Print the configuration of the current relay-diversion
    * 
    */
-  static void printRelayConfiguration(const relayOutput& relay)
+  void printRelayConfiguration() const
   {
     Serial.println(F("\tRelay configuration:"));
 
     Serial.print(F("\t\tPin is "));
-    Serial.println(relay.get_pin());
+    Serial.println(get_pin());
 
     Serial.print(F("\t\tSurplus threshold: "));
-    Serial.println(relay.get_surplusThreshold());
+    Serial.println(get_surplusThreshold());
 
     Serial.print(F("\t\tImport threshold: "));
-    Serial.println(relay.get_importThreshold());
+    Serial.println(get_importThreshold());
 
     Serial.print(F("\t\tMinimum working time in minutes: "));
-    Serial.println(relay.get_minON() / 60);
+    Serial.println(get_minON() / 60);
 
     Serial.print(F("\t\tMinimum stop time in minutes: "));
-    Serial.println(relay.get_minOFF() / 60);
+    Serial.println(get_minOFF() / 60);
   }
 
 private:
@@ -189,7 +189,7 @@ private:
    * @brief Turn ON the relay if the 'time' condition is met
    * 
    */
-  void try_turnON()
+  void try_turnON() const
   {
     if (relayIsON || duration < minOFF)
     {
@@ -208,7 +208,7 @@ private:
    * @brief Turn OFF the relay if the 'time' condition is met
    * 
    */
-  void try_turnOFF()
+  void try_turnOFF() const
   {
     if (!relayIsON || duration < minON)
     {
@@ -233,7 +233,7 @@ private:
   mutable uint16_t duration{ 0 };  /**< Duration of the current state */
   mutable bool relayIsON{ false }; /**< True if the relay is ON */
 
-  static inline movingAvg< int16_t, T * 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
+  static inline movingAvg< int16_t, T, 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
 };
 
 #endif  // _UTILS_RELAY_H
