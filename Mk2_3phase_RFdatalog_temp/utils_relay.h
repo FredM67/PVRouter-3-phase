@@ -352,6 +352,8 @@ public:
   void printConfiguration() const
   {
     Serial.println(F("\t*** Relay(s) configuration ***"));
+    Serial.print(F("\t\tSliding average: "));
+    Serial.println(D);
 
     for (uint8_t i = 0; i < N; ++i)
     {
