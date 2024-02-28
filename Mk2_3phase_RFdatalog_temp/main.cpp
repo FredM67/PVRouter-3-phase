@@ -377,8 +377,8 @@ void loop()
 
       if constexpr (RELAY_DIVERSION)
       {
-        relay_Output.inc_duration();
-        relay_Output.proceed_relay();
+        relays.inc_duration();
+        relays.proceed_relays();
       }
     }
   }
@@ -407,7 +407,7 @@ void loop()
 
     if constexpr (RELAY_DIVERSION)
     {
-      relay_Output.update_average(tx_data.power);
+      relays.update_average(tx_data.power);
     }
 
     if constexpr (TEMP_SENSOR_PRESENT)

@@ -34,8 +34,6 @@ static_assert((PRIORITY_ROTATION == RotationModes::PIN) ^ (rotationPin == 0xff),
 static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == 0xff), "******** Wrong pin value for override command. Please check your config.h ! ********");
 static_assert(WATCHDOG_PIN_PRESENT ^ (watchDogPin == 0xff), "******** Wrong pin value for watchdog. Please check your config.h ! ********");
 
-static_assert(RELAY_DIVERSION ^ (relay_Output.get_pin() == 0xff), "******** Wrong pin value for relay diversion. Please check your config.h ! ********");
-
 static_assert(DUAL_TARIFF ^ (dualTariffPin == 0xff), "******** Wrong pin value for dual tariff. Please check your config.h ! ********");
 static_assert(!DUAL_TARIFF | (ul_OFF_PEAK_DURATION == 0), "******** Off-peak duration cannot be zero. Please check your config.h ! ********");
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION > 12)), "******** Off-peak duration cannot last more than 12 hours. Please check your config.h ! ********");
@@ -84,7 +82,7 @@ check_pins()
     bit_set(used_pins, watchDogPin);
   }
 
-  //physicalLoadPin
+  //physicalLoadPin for the TRIACS
   for (const auto &loadPin : physicalLoadPin)
   {
     if (loadPin == 0xff)
@@ -96,7 +94,44 @@ check_pins()
     bit_set(used_pins, loadPin);
   }
 
+  if constexpr (RELAY_DIVERSION)
+  {
+    for (uint8_t idx = 0; idx < relays.get_size(); ++idx)
+    {
+      const auto relayPin = relays.get_relay(idx).get_pin();
+
+      if (relayPin != 0xff)
+      {
+        if (bitRead(used_pins, relayPin))
+          return 0;
+
+        bit_set(used_pins, relayPin);
+      }
+    }
+  }
+
   return used_pins;
+}
+
+constexpr uint16_t check_relay_pins()
+{
+  bool pins_ok{ true };
+
+  for (uint8_t idx = 0; idx < relays.get_size(); ++idx)
+  {
+    const auto relayPin = relays.get_relay(idx).get_pin();
+
+    if constexpr (RELAY_DIVERSION)
+    {
+      pins_ok &= (relayPin != 0xff);
+    }
+    else
+    {
+      pins_ok &= (relayPin == 0xff);
+    }
+  }
+
+  return pins_ok;
 }
 
 constexpr bool check_load_priorities()
@@ -124,5 +159,6 @@ static_assert(check_pins(), "******** Duplicate pin definition ! Please check yo
 static_assert((check_pins() & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
 static_assert((check_pins() & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
 static_assert(!(RF_CHIP_PRESENT && ((check_pins() & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
+static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
 
 #endif

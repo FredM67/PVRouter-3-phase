@@ -177,8 +177,7 @@ void initializeOptionalPins()
 
   if constexpr (RELAY_DIVERSION)
   {
-    pinMode(relay_Output.get_pin(), OUTPUT);
-    delay(100);
+    relays.initializePins();
   }
 
   if constexpr (WATCHDOG_PIN_PRESENT)
@@ -583,6 +582,7 @@ void processMinusHalfCycle(const uint8_t phase)
  *
  * @ingroup TimeCritical
  */
+uint8_t nextLogicalLoadToBeAdded() __attribute__((optimize("-O3")));
 uint8_t nextLogicalLoadToBeAdded()
 {
   for (uint8_t index = 0; index < NO_OF_DUMPLOADS; ++index)
@@ -603,6 +603,7 @@ uint8_t nextLogicalLoadToBeAdded()
  *
  * @ingroup TimeCritical
  */
+uint8_t nextLogicalLoadToBeRemoved() __attribute__((optimize("-O3")));
 uint8_t nextLogicalLoadToBeRemoved()
 {
   uint8_t index{ NO_OF_DUMPLOADS };
@@ -651,6 +652,8 @@ void processLatestContribution(const uint8_t phase)
  *
  * @ingroup TimeCritical
  */
+void processDataLogging() __attribute__((optimize("-O3")));
+
 void processDataLogging()
 {
   if (++n_cycleCountForDatalogging < DATALOG_PERIOD_IN_MAINS_CYCLES)

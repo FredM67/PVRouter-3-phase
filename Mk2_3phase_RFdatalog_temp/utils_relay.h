@@ -13,21 +13,18 @@
 #define _UTILS_RELAY_H
 
 #include "types.h"
+#include "type_traits.hpp"
 
 #include "config_system.h"
 #include "movingAvg.h"
+#include "ewma_avg.hpp"
 #include "utils_pins.h"
 
 /**
  * @brief Relay diversion config and engine
- * @details By default, the sliding average is calculated over 1 minute.
- *          If the user wants to calculate over a longer period,
- *          decare the variable like this:
- *          relayOutput<2> relay_Output{ relayPin, 1000, 200, 1, 1 }
  * 
- * @tparam T Duration in minutes of the sliding average
  */
-template< uint8_t T = 1 > class relayOutput
+class relayOutput
 {
 public:
   constexpr relayOutput() = delete;
@@ -119,6 +116,16 @@ public:
   }
 
   /**
+   * @brief Return the state
+   * 
+   * @return auto 
+   */
+  auto isRelayON() const
+  {
+    return relayIsON;
+  }
+
+  /**
    * @brief Increment the duration of the current state
    * @details This function must be called every second.
    * 
@@ -134,39 +141,30 @@ public:
   /**
    * @brief Proceed with the relay
    * 
+   * @return bool True if state has changed
    */
-  void proceed_relay()
+  bool proceed_relay(const int32_t currentAvgPower) const
   {
-    const auto currentAvgPower{ sliding_Average.getAverage() };
-
     // To avoid changing sign, surplus is a negative value
     if (currentAvgPower < surplusThreshold)
     {
-      try_turnON();
+      return try_turnON();
     }
     else if (currentAvgPower > importThreshold)
     {
-      try_turnOFF();
+      return try_turnOFF();
     }
-  }
-
-  inline static auto get_average()
-  {
-    return sliding_Average.getAverage();
-  }
-
-  inline static void update_average(int16_t currentPower)
-  {
-    sliding_Average.addValue(currentPower);
+    return false;
   }
 
   /**
    * @brief Print the configuration of the current relay-diversion
    * 
    */
-  void printRelayConfiguration() const
+  void printRelayConfiguration(uint8_t idx) const
   {
-    Serial.println(F("\tRelay configuration:"));
+    Serial.print(F("\tRelay configuration: #"));
+    Serial.println(idx + 1);
 
     Serial.print(F("\t\tPin is "));
     Serial.println(get_pin());
@@ -188,12 +186,13 @@ private:
   /**
    * @brief Turn ON the relay if the 'time' condition is met
    * 
+   * @return bool True if state has changed
    */
-  void try_turnON() const
+  bool try_turnON() const
   {
     if (relayIsON || duration < minOFF)
     {
-      return;
+      return false;
     }
 
     setPinON(relay_pin);
@@ -202,17 +201,20 @@ private:
 
     relayIsON = true;
     duration = 0;
+
+    return true;
   }
 
   /**
    * @brief Turn OFF the relay if the 'time' condition is met
    * 
+   * @return bool True if state has changed
    */
-  void try_turnOFF() const
+  bool try_turnOFF() const
   {
     if (!relayIsON || duration < minON)
     {
-      return;
+      return false;
     }
 
     setPinOFF(relay_pin);
@@ -221,6 +223,8 @@ private:
 
     relayIsON = false;
     duration = 0;
+
+    return true;
   }
 
 private:
@@ -232,8 +236,149 @@ private:
 
   mutable uint16_t duration{ 0 };  /**< Duration of the current state */
   mutable bool relayIsON{ false }; /**< True if the relay is ON */
-
-  static inline movingAvg< int16_t, T, 60 / DATALOG_PERIOD_IN_SECONDS > sliding_Average;
 };
+
+/**
+ * @brief This class implements the relay management engine
+ * 
+ * @tparam N The number of relays to be used
+ * @tparam D The duration in minutes of the sliding average
+ */
+template< uint8_t N, uint8_t D = 10 >
+class RelayEngine
+{
+public:
+  /**
+   * @brief Construct a list of relays
+   * 
+   */
+  constexpr RelayEngine(const relayOutput (&ref)[N])
+    : relay(ref)
+  {
+  }
+
+  constexpr auto get_size() const
+  {
+    return N;
+  }
+
+  /**
+   * @brief Get the relay object
+   * 
+   * @tparam idx The index of the relay
+   * @return constexpr const auto& The relay object
+   */
+  constexpr const auto& get_relay(uint8_t idx) const
+  {
+    return relay[idx];
+  }
+
+  /**
+   * @brief Get the current average
+   * 
+   * @return auto The current average
+   */
+  inline static auto get_average()
+  {
+    return ewma_average.getAverage();
+  }
+
+  /**
+   * @brief Update the sliding average
+   * 
+   * @param currentPower Current power at the grid
+   */
+  inline static void update_average(int16_t currentPower)
+  {
+    ewma_average.addValue(currentPower);
+  }
+
+  void inc_duration() const __attribute__((optimize("-O3")));
+
+  /**
+   * @brief Proceed all relays in increasing order (surplus) or decreasing order (import)
+   * 
+   */
+  void proceed_relays() const
+  {
+    if (settle_change != 0)
+    {
+      // A relay has been toggle less than a minute ago, wait until changes take effect
+      return;
+    }
+
+    if (ewma_average.getAverage() > 0)
+    {
+      // Currently importing, try to turn OFF some relays
+      uint8_t idx{ N };
+      do
+      {
+        if (relay[--idx].proceed_relay(ewma_average.getAverage()))
+        {
+          settle_change = 60;
+          return;
+        }
+      } while (idx);
+    }
+    else
+    {
+      // Remaining surplus, try to turn ON more relays
+      uint8_t idx{ 0 };
+      do
+      {
+        if (relay[idx].proceed_relay(ewma_average.getAverage()))
+        {
+          settle_change = 60;
+          return;
+        }
+      } while (++idx < N);
+    }
+  }
+
+  void initializePins() const
+  {
+    uint8_t idx{ N };
+    do
+    {
+      pinMode(relay[--idx].get_pin(), OUTPUT);
+      delay(100);
+    } while (idx);
+  }
+
+  /**
+   * @brief Print the configuration of each relay
+   * 
+   */
+  void printConfiguration() const
+  {
+    Serial.println(F("\t*** Relay(s) configuration ***"));
+
+    for (uint8_t i = 0; i < N; ++i)
+    {
+      relay[i].printRelayConfiguration(i);
+    }
+  }
+
+private:
+  const relayOutput relay[N]; /**< Array of relays */
+
+  mutable uint8_t settle_change{ 60 }; /**< Delay in seconds until next change occurs */
+
+  static inline EWMA_average< D * 60 / DATALOG_PERIOD_IN_SECONDS > ewma_average; /**< EWMA average */
+};
+
+template< uint8_t N, uint8_t D > void RelayEngine< N, D >::inc_duration() const
+{
+  uint8_t idx{ N };
+  do
+  {
+    relay[--idx].inc_duration();
+  } while (idx);
+
+  if (settle_change > 0)
+  {
+    --settle_change;
+  }
+}
 
 #endif  // _UTILS_RELAY_H
