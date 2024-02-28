@@ -1,5 +1,5 @@
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/FredM67/PVRouter-3-phase/blob/main/Mk2_3phase_RFdatalog_temp/Readme.en.md)
-[![fr](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/FredM67/PVRouter-3-phase/blob/main/Mk2_3phase_RFdatalog_temp/Readme.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](Readme.en.md)
+[![fr](https://img.shields.io/badge/lang-fr-blue.svg)](Readme.md)
 
 This program is to be used with the Arduino IDE and/or other development IDE like VSCode + PlatformIO.
 
