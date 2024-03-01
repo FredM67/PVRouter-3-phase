@@ -128,7 +128,7 @@ Pour l’instant, uniquement lecture. Il sera utilisé pour optimiser la pleine 
 
 Lorsque le profil zéro-export est activé, le système PV réduit la production d’énergie si la production du système dépasse les besoins de consommation du site. Cela garantit zéro injection dans le réseau.
 
-Comme effet secondaire, le diverteur ne verra pas à aucun moment un surplus d’énergie.  
+Comme effet secondaire, le diverteur ne verra jamais, à aucun moment, un surplus d’énergie.  
 L’idée est donc d’appliquer un certain décalage à l’énergie mesurée par le diverteur.
 Comme il est déjà commenté dans le code, après l'assignation d’une valeur négative à *REQUIRED_EXPORT_IN_WATTS*, le diverter agira comme un générateur PV.  
 Si vous définissez une valeur de *-20*, chaque fois que le diverter mesure le flux d’énergie, il ajoutera *-20* aux mesures.  
