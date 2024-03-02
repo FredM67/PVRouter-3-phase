@@ -16,83 +16,103 @@
 
 #include "constants.h"
 
-using ScratchPad = uint8_t[9];
-using DeviceAddress = uint8_t[8];
+struct DeviceAddress
+{
+  uint8_t addr[8];
+};
 
-inline int16_t readTemperature(const DeviceAddress &deviceAddress);
-inline void requestTemperatures();
-inline void initTemperatureSensors();
-
-#ifdef TEMP_ENABLED
 #include <OneWire.h>  // for temperature sensing
 
-inline constexpr bool TEMP_SENSOR_PRESENT{ true };
-
-inline OneWire oneWire(tempSensorPin); /**< For temperature sensing */
-
-/**
- * @brief Read temperature of a specific device
- *
- * @param deviceAddress The address of the device
- * @return int16_t Temperature * 100
- */
-int16_t readTemperature(const DeviceAddress &deviceAddress)
+template< uint8_t N >
+class TemperatureSensing
 {
-  static ScratchPad buf;
+  using ScratchPad = uint8_t[9];
 
-  if (!oneWire.reset())
+public:
+  constexpr TemperatureSensing(uint8_t pin, const DeviceAddress (&ref)[N])
+    : sensorPin{ pin }, sensorAddrs(ref)
   {
-    return DEVICE_DISCONNECTED_RAW;
-  }
-  oneWire.select(deviceAddress);
-  oneWire.write(READ_SCRATCHPAD);
-
-  for (auto &buf_elem : buf)
-  {
-    buf_elem = oneWire.read();
   }
 
-  if (!oneWire.reset())
+  /**
+   * @brief Request temperature for all sensors
+   *
+   */
+  void requestTemperatures()
   {
-    return DEVICE_DISCONNECTED_RAW;
-  }
-  if (oneWire.crc8(buf, 8) != buf[8])
-  {
-    return DEVICE_DISCONNECTED_RAW;
-  }
-
-  // result is temperature x16, multiply by 6.25 to convert to temperature x100
-  int16_t result = (buf[1] << 8) | buf[0];
-  result = (result * 6) + (result >> 2);
-  if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
-  {
-    return OUTOFRANGE_TEMPERATURE;  // return value ('Out of range')
+    oneWire.reset();
+    oneWire.skip();
+    oneWire.write(CONVERT_TEMPERATURE);
   }
 
-  return result;
-}
+  /**
+   * @brief Initialize the Dallas sensors
+   *
+   */
+  void initTemperatureSensors()
+  {
+    oneWire.begin(sensorPin);
+    requestTemperatures();
+  }
 
-/**
- * @brief Request temperature for all sensors
- *
- */
-void requestTemperatures()
-{
-  oneWire.reset();
-  oneWire.skip();
-  oneWire.write(CONVERT_TEMPERATURE);
-}
+  constexpr auto get_size() const
+  {
+    return N;
+  }
 
-/**
- * @brief Initialize the Dallas sensors
- *
- */
-void initTemperatureSensors()
-{
-  requestTemperatures();
-}
-#else
-inline constexpr bool TEMP_SENSOR_PRESENT{ false };
-#endif  // TEMP_SENSOR_PRESENT
+  constexpr auto get_pin() const
+  {
+    return sensorPin;
+  }
+
+  /**
+   * @brief Read temperature of a specific device
+   *
+   * @param deviceAddress The address of the device
+   * @return int16_t Temperature * 100
+   */
+  int16_t readTemperature(const uint8_t idx)
+  {
+    static ScratchPad buf;
+
+    if (!oneWire.reset())
+    {
+      return DEVICE_DISCONNECTED_RAW;
+    }
+    oneWire.select(sensorAddrs[idx].addr);
+    oneWire.write(READ_SCRATCHPAD);
+
+    for (auto &buf_elem : buf)
+    {
+      buf_elem = oneWire.read();
+    }
+
+    if (!oneWire.reset())
+    {
+      return DEVICE_DISCONNECTED_RAW;
+    }
+    if (oneWire.crc8(buf, 8) != buf[8])
+    {
+      return DEVICE_DISCONNECTED_RAW;
+    }
+
+    // result is temperature x16, multiply by 6.25 to convert to temperature x100
+    int16_t result = (buf[1] << 8) | buf[0];
+    result = (result * 6) + (result >> 2);
+    if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
+    {
+      return OUTOFRANGE_TEMPERATURE;  // return value ('Out of range')
+    }
+
+    return result;
+  }
+
+private:
+  const uint8_t sensorPin;
+
+  const DeviceAddress sensorAddrs[N];
+
+  static inline OneWire oneWire; /**< For temperature sensing */
+};
 
 #endif  // _UTILS_TEMP_H
