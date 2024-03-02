@@ -5,7 +5,7 @@
  * @version 0.1
  * @date 2023-02-09
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2024
  *
  */
 
@@ -23,6 +23,11 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ true }; /**< set it to 'true' if temp
 inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
 #endif
 
+/**
+ * @brief This class implements the temperature sensing feature
+ * 
+ * @tparam N Number of sensors, automatically deduced
+ */
 template< uint8_t N >
 class TemperatureSensing
 {
@@ -34,6 +39,12 @@ class TemperatureSensing
   };
 
 public:
+  /**
+   * @brief Construct a new Temperature Sensing object
+   * 
+   * @param pin Pin of the temperature sensor(s)
+   * @param ref The list of temperature sensor(s)
+   */
   constexpr TemperatureSensing(uint8_t pin, const DeviceAddress (&ref)[N])
     : sensorPin{ pin }, sensorAddrs(ref)
   {
@@ -64,11 +75,21 @@ public:
 #endif
   }
 
+  /**
+   * @brief Get the number of sensors
+   * 
+   * @return constexpr auto 
+   */
   constexpr auto get_size() const
   {
     return N;
   }
 
+  /**
+   * @brief Get the pin of the sensor(s)
+   * 
+   * @return constexpr auto 
+   */
   constexpr auto get_pin() const
   {
     return sensorPin;
@@ -120,9 +141,9 @@ public:
   }
 
 private:
-  const uint8_t sensorPin;
+  const uint8_t sensorPin; /**< The pin of the sensor(s) */
 
-  const DeviceAddress sensorAddrs[N];
+  const DeviceAddress sensorAddrs[N]; /**< Array of sensors */
 
 #ifdef TEMP_ENABLED
   static inline OneWire oneWire; /**< For temperature sensing */
