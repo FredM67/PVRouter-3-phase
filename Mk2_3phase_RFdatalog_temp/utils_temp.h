@@ -15,6 +15,7 @@
 #include <Arduino.h>
 
 #include "constants.h"
+#include "config.h"
 
 using ScratchPad = uint8_t[9];
 using DeviceAddress = uint8_t[8];
