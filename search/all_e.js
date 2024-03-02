@@ -1,7 +1,7 @@
 var searchData=
 [
   ['read_5fscratchpad_244',['READ_SCRATCHPAD',['../constants_8h.html#a4efcca8a8902b210fd176b46753964f1',1,'constants.h']]],
-  ['readtemperature_245',['readTemperature',['../utils__temp_8h.html#adc7d85cb6510aea82f8ed660b4743908',1,'utils_temp.h']]],
+  ['readtemperature_245',['readTemperature',['../classTemperatureSensing.html#a7fef01650aa12d8a4ff2b3ca26bd0803',1,'TemperatureSensing']]],
   ['relay_5fdiversion_246',['RELAY_DIVERSION',['../config_8h.html#a200f51c8bd47e8b14cdc6522f2223742',1,'config.h']]],
   ['relay_5foutput_247',['relay_Output',['../config_8h.html#ab7fa3e29643f77f4db26c446534d60f9',1,'config.h']]],
   ['relayoutput_248',['relayOutput',['../classrelayOutput.html',1,'relayOutput&lt; T &gt;'],['../classrelayOutput.html#aa8b9feda986f7f5e2680628e9550a599',1,'relayOutput::relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)'],['../classrelayOutput.html#a7384dd2558c741dfa3b587f91fd09ea5',1,'relayOutput::relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)'],['../classrelayOutput.html#a6d87f0071240ba3242e28a7c6f10caa8',1,'relayOutput::relayOutput(const uint8_t _relay_pin)'],['../classrelayOutput.html#a9e78420ab0db39b83a30d4a69506616d',1,'relayOutput::relayOutput()=delete']]],
@@ -17,7 +17,7 @@ var searchData=
   ['remove_5freference_258',['remove_reference',['../structremove__reference.html',1,'']]],
   ['remove_5freference_2ehpp_259',['remove_reference.hpp',['../remove__reference_8hpp.html',1,'']]],
   ['remove_5freference_3c_20t_20_26_20_3e_260',['remove_reference&lt; T &amp; &gt;',['../structremove__reference_3_01T_01_6_01_4.html',1,'']]],
-  ['requesttemperatures_261',['requestTemperatures',['../utils__temp_8h.html#a15279f2a2446f27d0a1cf82dff006623',1,'utils_temp.h']]],
+  ['requesttemperatures_261',['requestTemperatures',['../classTemperatureSensing.html#ab40e9df6930615d4c700780b6174e14f',1,'TemperatureSensing']]],
   ['required_5fexport_5fin_5fwatts_262',['REQUIRED_EXPORT_IN_WATTS',['../config__system_8h.html#a0d838172b50bebc493c09edb7b7606d5',1,'config_system.h']]],
   ['rf69_5fcompat_263',['RF69_COMPAT',['../config_8h.html#ac7df154e6d284322427bec4d2dfc0dda',1,'config.h']]],
   ['rf_5fchip_5fpresent_264',['RF_CHIP_PRESENT',['../utils__rf_8h.html#ad6f3853697d5006eed405d11cc04c2a1',1,'utils_rf.h']]],

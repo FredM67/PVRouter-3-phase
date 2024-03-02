@@ -1,24 +1,25 @@
 <map id="setup" name="setup">
-<area shape="rect" id="node1" title="Called once during startup." alt="" coords="5,145,64,172"/>
-<area shape="rect" id="node2" href="$utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0" title="Get the available RAM during setup." alt="" coords="161,19,239,45"/>
-<area shape="rect" id="node3" href="$processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061" title="Initializes the optional pins." alt="" coords="120,69,280,96"/>
-<area shape="rect" id="node6" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="126,120,274,147"/>
-<area shape="rect" id="node12" href="$utils__temp_8h.html#a92389cbbe788f2e81116453dc5ae4717" title=" " alt="" coords="112,171,288,197"/>
-<area shape="rect" id="node13" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="135,221,265,248"/>
-<area shape="rect" id="node14" href="$utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="131,284,269,311"/>
-<area shape="rect" id="node4" href="$utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="423,5,511,32"/>
-<area shape="rect" id="node5" href="$utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="727,31,806,57"/>
-<area shape="rect" id="node7" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="433,107,500,133"/>
-<area shape="rect" id="node8" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="370,157,563,184"/>
-<area shape="rect" id="node9" href="$processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="396,208,537,235"/>
-<area shape="rect" id="node10" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="719,157,814,184"/>
-<area shape="rect" id="node11" href="$utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="722,208,811,235"/>
-<area shape="rect" id="node15" href="$dualtariff_8h.html#a4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="366,259,567,285"/>
-<area shape="rect" id="node16" href="$processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="339,309,595,336"/>
-<area shape="rect" id="node17" href="$classrelayOutput.html#accecd848d5c032766d349f188b0484e7" title="Print the configuration of the current relay&#45;diversion." alt="" coords="336,360,597,387"/>
-<area shape="rect" id="node18" href="$classrelayOutput.html#ac17e09bffcaea6cf872135a2bb88f502" title="Get the import threshold which will turns OFF the relay." alt="" coords="645,259,888,285"/>
-<area shape="rect" id="node19" href="$classrelayOutput.html#a63a662c2535d687a111835e83c416204" title="Get the minimum OFF&#45;time." alt="" coords="673,309,860,336"/>
-<area shape="rect" id="node20" href="$classrelayOutput.html#a893fa5439460d6bbbaeb1b4fcadd4bec" title="Get the minimum ON&#45;time." alt="" coords="677,360,857,387"/>
-<area shape="rect" id="node21" href="$classrelayOutput.html#acacb00540f208a3000f2f6d8b05f35c8" title="Get the control pin of the relay." alt="" coords="689,411,844,437"/>
-<area shape="rect" id="node22" href="$classrelayOutput.html#a65b71555314d24f62e1f6576f0836796" title="Get the surplus threshold which will turns ON the relay." alt="" coords="675,462,858,503"/>
+<area shape="rect" id="node1" title="Called once during startup." alt="" coords="5,187,64,213"/>
+<area shape="rect" id="node2" href="$utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0" title="Get the available RAM during setup." alt="" coords="165,56,243,83"/>
+<area shape="rect" id="node3" href="$processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061" title="Initializes the optional pins." alt="" coords="124,107,284,133"/>
+<area shape="rect" id="node6" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="130,157,278,184"/>
+<area shape="rect" id="node12" href="$classTemperatureSensing.html#af739aa9acd846f3ac2da655d9ba8e1a8" title="Initialize the Dallas sensors." alt="" coords="112,209,296,250"/>
+<area shape="rect" id="node14" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="139,275,269,301"/>
+<area shape="rect" id="node15" href="$utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="135,351,273,377"/>
+<area shape="rect" id="node4" href="$utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="431,5,519,32"/>
+<area shape="rect" id="node5" href="$utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="735,31,814,57"/>
+<area shape="rect" id="node7" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="441,107,508,133"/>
+<area shape="rect" id="node8" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="378,157,571,184"/>
+<area shape="rect" id="node9" href="$processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="404,208,545,235"/>
+<area shape="rect" id="node10" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="727,183,822,209"/>
+<area shape="rect" id="node11" href="$utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="730,233,819,260"/>
+<area shape="rect" id="node13" href="$classTemperatureSensing.html#ab40e9df6930615d4c700780b6174e14f" title="Request temperature for all sensors." alt="" coords="391,259,559,301"/>
+<area shape="rect" id="node16" href="$dualtariff_8h.html#a4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="374,325,575,352"/>
+<area shape="rect" id="node17" href="$processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="347,376,603,403"/>
+<area shape="rect" id="node18" href="$classrelayOutput.html#accecd848d5c032766d349f188b0484e7" title="Print the configuration of the current relay&#45;diversion." alt="" coords="344,427,605,453"/>
+<area shape="rect" id="node19" href="$classrelayOutput.html#ac17e09bffcaea6cf872135a2bb88f502" title="Get the import threshold which will turns OFF the relay." alt="" coords="653,325,896,352"/>
+<area shape="rect" id="node20" href="$classrelayOutput.html#a63a662c2535d687a111835e83c416204" title="Get the minimum OFF&#45;time." alt="" coords="681,376,868,403"/>
+<area shape="rect" id="node21" href="$classrelayOutput.html#a893fa5439460d6bbbaeb1b4fcadd4bec" title="Get the minimum ON&#45;time." alt="" coords="685,427,865,453"/>
+<area shape="rect" id="node22" href="$classrelayOutput.html#acacb00540f208a3000f2f6d8b05f35c8" title="Get the control pin of the relay." alt="" coords="697,477,852,504"/>
+<area shape="rect" id="node23" href="$classrelayOutput.html#a65b71555314d24f62e1f6576f0836796" title="Get the surplus threshold which will turns ON the relay." alt="" coords="683,529,866,570"/>
 </map>

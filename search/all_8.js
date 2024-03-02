@@ -6,7 +6,7 @@ var searchData=
   ['initialdelay_101',['initialDelay',['../processing_8h.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'processing.h']]],
   ['initializeoptionalpins_102',['initializeOptionalPins',['../processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp'],['../processing_8h.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp']]],
   ['initializeprocessing_103',['initializeProcessing',['../processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp'],['../processing_8h.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp']]],
-  ['inittemperaturesensors_104',['initTemperatureSensors',['../utils__temp_8h.html#a92389cbbe788f2e81116453dc5ae4717',1,'utils_temp.h']]],
+  ['inittemperaturesensors_104',['initTemperatureSensors',['../classTemperatureSensing.html#af739aa9acd846f3ac2da655d9ba8e1a8',1,'TemperatureSensing']]],
   ['initthreshold_105',['initThreshold',['../processing_8cpp.html#a5c26bb614416d9b5288ef3e5e00bf5b2',1,'processing.cpp']]],
   ['integral_5fconstant_106',['integral_constant',['../structintegral__constant.html',1,'']]],
   ['integral_5fconstant_2ehpp_107',['integral_constant.hpp',['../integral__constant_8hpp.html',1,'']]],

@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['get_5faverage_86',['get_average',['../classrelayOutput.html#a4a5d8bdcfdacb2b91880cd1a510124a4',1,'relayOutput']]],
-  ['get_5fimportthreshold_87',['get_importThreshold',['../classrelayOutput.html#ac17e09bffcaea6cf872135a2bb88f502',1,'relayOutput']]],
-  ['get_5fminoff_88',['get_minOFF',['../classrelayOutput.html#a63a662c2535d687a111835e83c416204',1,'relayOutput']]],
-  ['get_5fminon_89',['get_minON',['../classrelayOutput.html#a893fa5439460d6bbbaeb1b4fcadd4bec',1,'relayOutput']]],
-  ['get_5fpin_90',['get_pin',['../classrelayOutput.html#acacb00540f208a3000f2f6d8b05f35c8',1,'relayOutput']]],
+  ['get_5faverage_85',['get_average',['../classrelayOutput.html#a4a5d8bdcfdacb2b91880cd1a510124a4',1,'relayOutput']]],
+  ['get_5fimportthreshold_86',['get_importThreshold',['../classrelayOutput.html#ac17e09bffcaea6cf872135a2bb88f502',1,'relayOutput']]],
+  ['get_5fminoff_87',['get_minOFF',['../classrelayOutput.html#a63a662c2535d687a111835e83c416204',1,'relayOutput']]],
+  ['get_5fminon_88',['get_minON',['../classrelayOutput.html#a893fa5439460d6bbbaeb1b4fcadd4bec',1,'relayOutput']]],
+  ['get_5fpin_89',['get_pin',['../classrelayOutput.html#acacb00540f208a3000f2f6d8b05f35c8',1,'relayOutput::get_pin()'],['../classTemperatureSensing.html#aed6d4373de91a9d842e4f2f6ccbc93be',1,'TemperatureSensing::get_pin() const']]],
+  ['get_5fsize_90',['get_size',['../classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90',1,'TemperatureSensing']]],
   ['get_5fsurplusthreshold_91',['get_surplusThreshold',['../classrelayOutput.html#a65b71555314d24f62e1f6576f0836796',1,'relayOutput']]],
   ['getaverage_92',['getAverage',['../classEWMA__average.html#a6fbbe5221e07dccf5bb8af302c9c59f1',1,'EWMA_average::getAverage()'],['../classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae',1,'movingAvg::getAverage()']]],
   ['getduration_93',['getDuration',['../classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2',1,'pairForceLoad']]],

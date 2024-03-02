@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['i_5fdcoffset_5fi_5fnom_551',['i_DCoffset_I_nom',['../processing_8cpp.html#a14cff0127f52c57f50fe52f2ed2ab093',1,'processing.cpp']]],
-  ['i_5fsamplesetsduringthisdatalogperiod_552',['i_sampleSetsDuringThisDatalogPeriod',['../processing_8cpp.html#ab652ee1e3280fde59df6719af6e884d0',1,'processing.cpp']]],
-  ['initialdelay_553',['initialDelay',['../processing_8h.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'processing.h']]],
-  ['invdatalog_5fperiod_5fin_5fmains_5fcycles_554',['invDATALOG_PERIOD_IN_MAINS_CYCLES',['../config__system_8h.html#a4a5d5712de1dbf5858d70eece9831150',1,'config_system.h']]],
-  ['invsupply_5ffrequency_555',['invSUPPLY_FREQUENCY',['../config__system_8h.html#a67f74c9ab3b5742314d978837b857777',1,'config_system.h']]],
-  ['is_5fsame_5fv_556',['is_same_v',['../is__same_8hpp.html#aa6c6bde5fd020a928e6d7b5fe8db7bb0',1,'is_same.hpp']]],
-  ['itemperaturethreshold_557',['iTemperatureThreshold',['../config_8h.html#ac2e4a2c6acb5689b056d49896672c30c',1,'config.h']]]
+  ['i_5fdcoffset_5fi_5fnom_553',['i_DCoffset_I_nom',['../processing_8cpp.html#a14cff0127f52c57f50fe52f2ed2ab093',1,'processing.cpp']]],
+  ['i_5fsamplesetsduringthisdatalogperiod_554',['i_sampleSetsDuringThisDatalogPeriod',['../processing_8cpp.html#ab652ee1e3280fde59df6719af6e884d0',1,'processing.cpp']]],
+  ['initialdelay_555',['initialDelay',['../processing_8h.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'processing.h']]],
+  ['invdatalog_5fperiod_5fin_5fmains_5fcycles_556',['invDATALOG_PERIOD_IN_MAINS_CYCLES',['../config__system_8h.html#a4a5d5712de1dbf5858d70eece9831150',1,'config_system.h']]],
+  ['invsupply_5ffrequency_557',['invSUPPLY_FREQUENCY',['../config__system_8h.html#a67f74c9ab3b5742314d978837b857777',1,'config_system.h']]],
+  ['is_5fsame_5fv_558',['is_same_v',['../is__same_8hpp.html#aa6c6bde5fd020a928e6d7b5fe8db7bb0',1,'is_same.hpp']]],
+  ['itemperaturethreshold_559',['iTemperatureThreshold',['../config_8h.html#ac2e4a2c6acb5689b056d49896672c30c',1,'config.h']]]
 ];
