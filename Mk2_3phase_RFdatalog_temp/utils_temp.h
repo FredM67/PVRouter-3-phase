@@ -16,17 +16,22 @@
 
 #include "constants.h"
 
-struct DeviceAddress
-{
-  uint8_t addr[8];
-};
-
-#include <OneWire.h>  // for temperature sensing
+#ifdef TEMP_ENABLED
+inline constexpr bool TEMP_SENSOR_PRESENT{ true }; /**< set it to 'true' if temperature sensing is needed */
+#include <OneWire.h>                               // for temperature sensing
+#else
+inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
+#endif
 
 template< uint8_t N >
 class TemperatureSensing
 {
   using ScratchPad = uint8_t[9];
+
+  struct DeviceAddress
+  {
+    uint8_t addr[8];
+  };
 
 public:
   constexpr TemperatureSensing(uint8_t pin, const DeviceAddress (&ref)[N])
@@ -40,9 +45,11 @@ public:
    */
   void requestTemperatures()
   {
+#ifdef TEMP_ENABLED
     oneWire.reset();
     oneWire.skip();
     oneWire.write(CONVERT_TEMPERATURE);
+#endif
   }
 
   /**
@@ -51,8 +58,10 @@ public:
    */
   void initTemperatureSensors()
   {
+#ifdef TEMP_ENABLED
     oneWire.begin(sensorPin);
     requestTemperatures();
+#endif
   }
 
   constexpr auto get_size() const
@@ -75,6 +84,7 @@ public:
   {
     static ScratchPad buf;
 
+#ifdef TEMP_ENABLED
     if (!oneWire.reset())
     {
       return DEVICE_DISCONNECTED_RAW;
@@ -96,6 +106,8 @@ public:
       return DEVICE_DISCONNECTED_RAW;
     }
 
+#endif
+
     // result is temperature x16, multiply by 6.25 to convert to temperature x100
     int16_t result = (buf[1] << 8) | buf[0];
     result = (result * 6) + (result >> 2);
@@ -112,7 +124,9 @@ private:
 
   const DeviceAddress sensorAddrs[N];
 
+#ifdef TEMP_ENABLED
   static inline OneWire oneWire; /**< For temperature sensing */
+#endif
 };
 
 #endif  // _UTILS_TEMP_H
