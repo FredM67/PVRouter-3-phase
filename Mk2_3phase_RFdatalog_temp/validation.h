@@ -28,7 +28,7 @@
 
 static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too long and will lead to overflow ! ****");
 
-static_assert(TEMP_SENSOR_PRESENT ^ (tempSensorPin == 0xff), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
+static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == 0xff), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
 static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == 0xff), "******** Wrong pin value for diversion command. Please check your config.h ! ********");
 static_assert((PRIORITY_ROTATION == RotationModes::PIN) ^ (rotationPin == 0xff), "******** Wrong pin value for rotation command. Please check your config.h ! ********");
 static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == 0xff), "******** Wrong pin value for override command. Please check your config.h ! ********");
@@ -49,8 +49,11 @@ check_pins()
 {
   uint16_t used_pins{ 0 };
 
-  if (tempSensorPin != 0xff)
-    bit_set(used_pins, tempSensorPin);
+  if constexpr (TEMP_SENSOR_PRESENT)
+  {
+    if (temperatureSensing.get_pin() != 0xff)
+      bit_set(used_pins, temperatureSensing.get_pin());
+  }
 
   if (diversionPin != 0xff)
   {
