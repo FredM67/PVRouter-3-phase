@@ -2,5 +2,5 @@
 <area shape="rect" id="node1" title=" " alt="" coords="5,56,100,83"/>
 <area shape="rect" id="node2" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="188,5,263,32"/>
 <area shape="rect" id="node3" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="192,56,259,83"/>
-<area shape="rect" id="node4" href="$classTemperatureSensing.html#aed6d4373de91a9d842e4f2f6ccbc93be" title=" " alt="" coords="148,107,303,149"/>
+<area shape="rect" id="node4" href="$classTemperatureSensing.html#aed6d4373de91a9d842e4f2f6ccbc93be" title="Get the pin of the sensor(s)" alt="" coords="148,107,303,149"/>
 </map>
