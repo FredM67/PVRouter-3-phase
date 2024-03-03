@@ -334,7 +334,7 @@ void setup()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    initTemperatureSensors();
+    temperatureSensing.initTemperatureSensors();
   }
 
   DBUG(F(">>free RAM = "));
@@ -415,7 +415,7 @@ void loop()
       for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
       {
         static int16_t tmp;
-        tmp = readTemperature(sensorAddrs[idx]);
+        tmp = temperatureSensing.readTemperature(idx);
 
         // if read temperature is 85 and the delta with previous is greater than 5, skip the value
         if (8500 == tmp && (abs(tmp - tx_data.temperature_x100[idx]) > 500))
@@ -425,7 +425,7 @@ void loop()
 
         tx_data.temperature_x100[idx] = tmp;
       }
-      requestTemperatures();  // for use next time around
+      temperatureSensing.requestTemperatures();  // for use next time around
     }
 
     sendResults(bOffPeak);

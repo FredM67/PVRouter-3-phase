@@ -45,7 +45,7 @@ inline volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of 
 inline volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];      /**< copy of number of cycle the load was ON (over 1 datalog period) */
 
 #ifdef TEMP_ENABLED
-inline PayloadTx_struct< NO_OF_PHASES, size(sensorAddrs) > tx_data; /**< logging data */
+inline PayloadTx_struct< NO_OF_PHASES, temperatureSensing.get_size() > tx_data; /**< logging data */
 #else
 inline PayloadTx_struct< NO_OF_PHASES > tx_data; /**< logging data */
 #endif

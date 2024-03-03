@@ -83,8 +83,6 @@ inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load prio
 inline constexpr uint8_t forcePin{ 0xff };      /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t watchDogPin{ 4 };      /**< watch dog LED */
 
-inline constexpr uint8_t tempSensorPin{ 10 }; /**< for 3-phase PCB, sensor pin */
-
 inline constexpr relayOutput relay_Output{ relayPin, 1000, 200, 1, 1 }; /**< config for relay diversion, see class definition for defaults and advanced options */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
@@ -92,7 +90,8 @@ inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< 
 
 inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
 
-inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xE9, 0xD1, 0xB0, 0x1B, 0x13, 0x01, 0xCF } }; /**< list of temperature sensor Addresses */
+inline constexpr TemperatureSensing temperatureSensing{ 0xff,
+                                                        { { 0x28, 0xE9, 0xD1, 0xB0, 0x1B, 0x13, 0x01, 0xCF } } }; /**< list of temperature sensor Addresses */
 
 inline constexpr uint32_t ROTATION_AFTER_CYCLES{ 8UL * 3600UL * SUPPLY_FREQUENCY }; /**< rotates load priorities after this period of inactivity */
 
