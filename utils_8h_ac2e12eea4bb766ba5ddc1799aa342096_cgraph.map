@@ -1,4 +1,4 @@
 <map id="printForEmonESP" name="printForEmonESP">
-<area shape="rect" id="node1" title="Write on Serial in EmonESP format." alt="" coords="5,5,139,32"/>
-<area shape="rect" id="node2" href="$types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="187,5,235,32"/>
+<area shape="rect" id="node1" title="Write on Serial in EmonESP format." alt="" coords="5,13,139,39"/>
+<area shape="rect" id="node2" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="187,5,341,47"/>
 </map>
