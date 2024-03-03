@@ -126,7 +126,6 @@ public:
     {
       return DEVICE_DISCONNECTED_RAW;
     }
-
 #endif
 
     // result is temperature x16, multiply by 6.25 to convert to temperature x100
