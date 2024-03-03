@@ -412,10 +412,10 @@ void loop()
 
     if constexpr (TEMP_SENSOR_PRESENT)
     {
-      for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+      uint8_t idx{ temperatureSensing.get_size() };
+      do
       {
-        static int16_t tmp;
-        tmp = temperatureSensing.readTemperature(idx);
+        auto tmp = temperatureSensing.readTemperature(--idx);
 
         // if read temperature is 85 and the delta with previous is greater than 5, skip the value
         if (8500 == tmp && (abs(tmp - tx_data.temperature_x100[idx]) > 500))
@@ -424,7 +424,8 @@ void loop()
         }
 
         tx_data.temperature_x100[idx] = tmp;
-      }
+      } while (idx);
+
       temperatureSensing.requestTemperatures();  // for use next time around
     }
 

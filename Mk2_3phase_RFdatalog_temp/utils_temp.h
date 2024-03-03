@@ -15,7 +15,6 @@
 #include <Arduino.h>
 
 #include "constants.h"
-#include "config.h"
 
 #ifdef TEMP_ENABLED
 inline constexpr bool TEMP_SENSOR_PRESENT{ true }; /**< set it to 'true' if temperature sensing is needed */
@@ -127,7 +126,6 @@ public:
     {
       return DEVICE_DISCONNECTED_RAW;
     }
-
 #endif
 
     // result is temperature x16, multiply by 6.25 to convert to temperature x100
