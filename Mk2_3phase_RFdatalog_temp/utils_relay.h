@@ -241,8 +241,8 @@ private:
 /**
  * @brief This class implements the relay management engine
  * 
- * @tparam N The number of relays to be used
  * @tparam D The duration in minutes of the sliding average
+ * @tparam N The number of relays to be used
  */
 template< uint8_t N, uint8_t D = 10 >
 class RelayEngine
@@ -256,6 +256,12 @@ public:
     : relay(ref)
   {
   }
+
+  constexpr RelayEngine(integral_constant< uint8_t, D > ic, const relayOutput (&ref)[N])
+    : relay(ref)
+  {
+  }
+
 
   constexpr auto get_size() const
   {
@@ -377,7 +383,7 @@ template< uint8_t N, uint8_t D > void RelayEngine< N, D >::inc_duration() const
     relay[--idx].inc_duration();
   } while (idx);
 
-  if (settle_change > 0)
+  if (settle_change)
   {
     --settle_change;
   }

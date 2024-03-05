@@ -88,4 +88,23 @@ template< typename _Tp > constexpr size_t size(const _Tp (& /*__array*/)[0]) noe
   return 0;
 }
 
+template< class... Ts >
+constexpr uint8_t ival(Ts... Vs)
+{
+  char vals[sizeof...(Vs)] = { Vs... };
+  uint8_t result = 0;
+  for (uint8_t i = 0; i < sizeof...(Vs); i++)
+  {
+    result *= 10;
+    result += vals[i] - '0';
+  }
+  return result;
+}
+
+template< char... Vs >
+constexpr integral_constant< uint8_t, ival(Vs...) > operator""_i()
+{
+  return {};
+}
+
 #endif  // _TYPES_H

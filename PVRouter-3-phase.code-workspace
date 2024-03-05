@@ -22,7 +22,8 @@
 	],
 	"settings": {
 		"files.associations": {
-			"xtr1common": "cpp"
+			"xtr1common": "cpp",
+			"new": "cpp"
 		}
 	}
 }
