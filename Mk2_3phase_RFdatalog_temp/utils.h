@@ -233,6 +233,12 @@ inline void printForSerialJson()
   {
     for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
     {
+      if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
+          || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
+      {
+        continue;
+      }
+
       Serial.print(F(", T"));
       Serial.print(idx + 1);
       Serial.print(F(":"));
@@ -280,6 +286,12 @@ inline void printForSerialText()
   {
     for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
     {
+      if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
+          || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
+      {
+        continue;
+      }
+
       Serial.print(F(", T"));
       Serial.print(idx + 1);
       Serial.print(F(":"));
