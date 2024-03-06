@@ -27,29 +27,29 @@ Ce programme doit être utilisé avec l’IDE Arduino et/ou d’autres IDE de d�
 
 Vous devrez télécharger et installer la version la plus récente de l'[Arduino IDE](https://www.arduino.cc/en/software).
 
-Download the "standalone" version, NOT the version from the Microsoft Store.
-Pick-up the "Win 10 and newer, 64 bits" or the "MSI installer" version.
+Téléchargez la version « standard », PAS la version du Microsoft Store.
+Procurez-vous la version « Win 10 et plus récent, 64 bits » ou la version « MSI installer ».
 
-Since the code is optimized with the latest standard of C++, you'll need to edit a config file to activate C++17. 	
+Étant donné que le code est optimisé avec l'une des dernières normes de C++, vous devrez modifier un fichier de configuration pour activer C++17.
 
-Please search the file '**platform.txt**' located in the installation path of the Arduino IDE.
+Veuillez rechercher le fichier '**platform.txt**' situé dans le chemin d’installation de l’IDE Arduino.
 
-For **Windows**, typically, you'll find the file in '**C:\Program Files (x86)\Arduino\hardware\arduino\avr**' and/or in '**%LOCALAPPDATA%\Arduino15\packages\arduino\hardware\avr\x.y.z**' where 'x.y.z' is the version of the **Arduino AVR Boards** package.
+Pour **Windows**, typiquement, vous trouverez le fichier dans '**C:\Program Files (x86)\Arduino\hardware\arduino\avr**' et/ou dans '**%LOCALAPPDATA%\Arduino15\packages\arduino\hardware\avr\x.y.z**' où 'x.y.z' est la version du package **Arduino AVR Boards**.
 
-You can type this command in a Powershell : `Get-Childitem –Path C:\ -Include platform.txt -Recurse -ErrorAction SilentlyContinue`. It could take a couple of seconds/minutes until the file is found.
+Vous pouvez aussi taper cette commande dans unPowershell : `Get-Childitem –Path C:\ -Include platform.txt -Recurse -ErrorAction SilentlyContinue`. Cela peut prendre quelques secondes  /minutes jusqu’à ce que le fichiersoittrouvé.
 
-For **Linux**, if using the AppImage package, you'll find this file in '**~/.arduino15/packages/arduino/hardware/avr/1.8.6**'.  
-You can run `find / -name platform.txt 2>/dev/null` in case the location has been changed.
+Pour **Linux**, si vous utilisez le paquetAppImage, vous trouverez ce fichier dans '**~/.arduino15/packages/arduino/hardware/avr/1.8.6**'.  
+Vous pouvez exécuter `find / -name platform.txt 2>/dev/null` au cas où l’emplacement aurait été modifié.
 
-Edit the file in any Text Editor (you'll need **Admin rights**) and replace the parameter '**-std=gnu++11**' with '**-std=gnu++17**'. That's it!	
+Modifiez le fichier dans n’importe quel éditeur detexte(vous aurez besoindes**droits d’administrateur**) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. Voilà !	
 
-If your Arduino IDE was opened, please close all the instances and open it again.	
+Si votre IDEArduino a été ouvert, veuillez fermer toutes les instances et l’ouvrir à nouveau.	
 
-# Use with Visual Studio Code
+# Utilisation avec Visual Studio Code
 
-You'll need to install additional extension(s). The most popular and used extensions for this job are '*Arduino*' and '*Platform IO*'.
+Vous devrez installer des extensions supplémentaires. Les extensions les plus populaires et les plus utilisées pour cetravailsont'*Arduino*' et '*Platform IO*'.
 
-# Quick overview of the files
+# Aperçu rapide des fichiers
 
 - **Mk2_3phase_RFdatalog_temp.ino** : Ce fichier est nécessaire pour l’IDE Arduino
 - **calibration.h** : contient les paramètres d’étalonnage
