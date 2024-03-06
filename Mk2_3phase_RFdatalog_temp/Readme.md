@@ -111,22 +111,25 @@ inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 Les sorties relais tout-ou-rien permettent d'alimenter des appareils qui contiennent de l'électronique (pompe à chaleur, …).
 
 Pour chaque relais, il faut définir 5 paramètres :
-- numéro de pin sur laquelle est branché le relais
-- seuil de surplus avant mise en route (par défaut **1000 W**)
-- seuil d'import avant arrêt (par défaut **200 W**)
-- durée de fonctionnement minimale en minutes (par défaut **5 mn**)
-- durée d'arrêt minimale en minutes (par défaut **5 mn**).
+- numéro de **pin** sur laquelle est branché le relais
+- **seuil de surplus** avant mise en route (par défaut **1000 W**)
+- **seuil d'import** avant arrêt (par défaut **200 W**)
+- **durée de fonctionnement minimale** en minutes (par défaut **5 mn**)
+- **durée d'arrêt minimale** en minutes (par défaut **5 mn**).
 
+Exemple :
 ```cpp
 inline constexpr RelayEngine relays{ { { 4, 1000, 200, 10, 10 } } };
 ```
-Cette ligne définit ainsi un relais câblé sur la pin **4**, qui se déclenchera à partir de **1000 W**, et qui s'arrêtera à partir de **200 W** d'import et donc le temps de fonctionnement mais aussi d'arrêt sera de **10 mn**.
+Cette ligne définit ainsi un relais câblé sur la *pin* **4**, qui se déclenchera à partir de **1000 W** de surplus, et qui s'arrêtera à partir de **200 W** d'import et dont le temps de fonctionnement mais aussi d'arrêt seront de **10 mn**.
 
 Si plusieurs relais sont présents, on listera tout simplement les configurations de chaque relais de cette façon :
 ```cpp
 inline constexpr RelayEngine relays{ { { 4, 1000, 200, 10, 10 },
                                        { 3, 1500, 250, 5, 15 } } };
 ```
+Les relais seront mis en route dans le même ordre que dans la liste. L'ordre d'arrêt sera l'inverse.  
+Dans tous les cas, les consignes de durée de fonctionnement et d'arrêt seront respectées.
 
 ### Principe de fonctionnement
 Les valeurs de surplus ainsi que d'import sont calculées selon une moyenne mobile pondérée exponentiellement (EWMA pour Exponentially Weighted Moving Average).  
