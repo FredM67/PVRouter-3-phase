@@ -132,8 +132,10 @@ Si l'utilisateur souhaite plutôt une fenêtre de 15 mn, il suffira d'écrire 
 ```cpp
 inline constexpr RelayEngine relays{ 15_i, { { 3, 1000, 200, 1, 1 } } };
 ```
+___
 **_Note_**
 Attention au suffixe '**_i**' après le nombre *15* !
+___
 
 ### Diagramme de fonctionnement
 À venir...
@@ -191,8 +193,10 @@ inline constexpr TemperatureSensing temperatureSensing{ 4,
 ```
 Le nombre *4* en 1<sup>er</sup> paramètre est la *pin* que l'utilisateur aura choisi pour le bus OneWire.
 
+___
 **_Note_**
 Plusieurs capteurs peuvent être branchés sur le même câble.  
 Sur Internet vous trouverez tous les détails concernant la topologie utilisable avec ce genre de capteurs.
+___
 
 *doc non finie*
