@@ -425,7 +425,7 @@ void loop()
 
         tx_data.temperature_x100[idx] = tmp;
       } while (idx);
-
+      
       temperatureSensing.requestTemperatures();  // for use next time around
     }
 
