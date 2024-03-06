@@ -16,6 +16,9 @@ Ce programme doit être utilisé avec l’IDE Arduino et/ou d’autres IDE de d�
     - [Avec l'Arduino IDE](#avec-larduino-ide)
     - [Avec Visual Studio Code et PlatformIO](#avec-visual-studio-code-et-platformio)
     - [Configuration du ou des capteurs (commun aux 2 cas précédents)](#configuration-du-ou-des-capteurs-commun-aux-2-cas-précédents)
+  - [Configuration de la gestion des Heures Creuses (dual tariff)](#configuration-de-la-gestion-des-heures-creuses-dual-tariff)
+    - [Configuration matérielle](#configuration-matérielle)
+    - [Configuration logicielle](#configuration-logicielle)
 
 # Utilisation avec Arduino IDE
 
@@ -90,7 +93,7 @@ D'une manière générale, la configuration d'une fonctionnalité nécessite 2 c
 La pertinence de l'ensemble est validée lors de la compilation. Ainsi, si par mégarde, une *pin* est allouée 2 fois par exemple, le compilateur émettra une erreur.
 
 ## Configuration des sorties TRIAC
-Il faudra dans un 1<sup>er</sup> temps définir le nombre de sortie TRIAC.
+Il faudra dans un 1<sup>er</sup> temps définir le nombre de sorties TRIAC.
 ```cpp
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
 ```
@@ -198,5 +201,64 @@ ___
 Plusieurs capteurs peuvent être branchés sur le même câble.  
 Sur Internet vous trouverez tous les détails concernant la topologie utilisable avec ce genre de capteurs.
 ___
+
+## Configuration de la gestion des Heures Creuses (dual tariff)
+Il est possible de confier la gestion des Heures Creuses par le routeur.  
+Cela permet par exemple de limiter la chauffe en marche forcée afin de ne pas trop chauffer l'eau dans l'optique d'utiliser le surplus le lendemain matin.  
+Cette limite peut être en durée ou en température (nécessite d'utiliser un capteur de température Dallas DS18B20).
+
+### Configuration matérielle
+Il faudra décâbler la commande du contacteur Jour/Nuit, il ne servira plus à rien.  
+Ensuite, il conviendra de relier *directement* une *pin* choisie au relais incorporé dans le compteur (bornes C1 et C2).
+___
+**__ATTENTION__**
+Il faut relier **directement**, une paire *pin/masse* avec les bornes *C1/C2* du compteur.  
+Il NE doit PAS y avoir de 230V sur ce circuit !
+___
+
+### Configuration logicielle
+Cette fonctionnalité s'active via la ligne :
+```cpp
+inline constexpr bool DUAL_TARIFF{ true };
+```
+Il faudra aussi choisir le *pin* sur laquelle est relié le compteur :
+```cpp
+inline constexpr uint8_t dualTariffPin{ 3 };
+```
+
+Il faudra aussi la durée en *heures* de la période d'Heures Creuses (pour l'instant, une seule période est supportée par jour)  :
+```cpp
+inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };
+```
+
+Enfin, on définira les modalités de fonctionnement pendant la période d'Heures Creuses :
+```cpp
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } };
+```
+Il est possible de définir une configuration pour chaque charge indépendamment l'une des autres.
+Le 1<sup>er</sup> paramètre détermine la temporisation de démarrage par rapport au début de la période d'Heures Creuses ou la fin de cette période  :
+- si le nombre est positif et inférieur à 24, il s'agit du nombre d'heures,
+- si le nombre est négatif supérieur à -24, il s'agit du nombre d'heures par rapport à la fin des Heures Creuses
+- si le nombre est positif et supérieur à 24, il s'agit du nombre de minutes,
+- si le nombre est négatif inférieur à -24, il s'agit du nombre de minutes par rapport à la fin des Heures Creuses
+
+Le 2<sup>ème</sup> paramètre détermine la durée de la marche forcée :
+- si le nombre est inférieur à 24, il s'agit du nombre d'heures,
+- si le nombre est supérieur à 24, il s'agit du nombre de minutes.
+
+Prenons quelques exemples pour mieux comprendre (avec début d'HC à 23:00, jusqu'à 7:00 soit 8 h de durée) :
+- ```{ -3, 2 }``` signifie démarrage **3 heures AVANT** la fin de période (à 4 h du matin), pour une durée de 2 h.
+- ```{ 3, 2 }``` signifie démarrage **3 heures APRÈS** la début de période (à 2 h du matin), pour une durée de 2 h.
+- ```{ -150, 2 }``` signifie démarrage **150 minutes AVANT** la fin de période (à 4:30), pour une durée de 2 h.
+- ```{ 3, 180 }``` signifie démarrage **3 heures APRÈS** la début de période (à 2 h du matin), pour une durée de 180 mn.
+
+Dans le cas où l'on désire une durée *infinie* (donc jusqu'à la fin de la période d'HC), il faudra écrire par exemple :
+- ```{ -3, UINT16_MAX }``` signifie démarrage **3 heures AVANT** la fin de période (à 4 h du matin) avec marche forcée jusqu'à la fin de période d'HC.
+
+Dans un système comprenant 2 sorties (```NO_OF_DUMPLOADS``` aura alors une valeur de 2), si l'on souhaite une marche forcée uniquement sur la 2<sup>ème</sup> sortie, on écrira :
+```cpp
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
+                                                              { -3, 2 } };
+```
 
 *doc non finie*
