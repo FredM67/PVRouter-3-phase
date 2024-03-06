@@ -209,7 +209,7 @@ Sur Internet vous trouverez tous les détails concernant la topologie utilisable
 ___
 
 ## Configuration de la gestion des Heures Creuses (dual tariff)
-Il est possible de confier la gestion des Heures Creuses par le routeur.  
+Il est possible de confier la gestion des Heures Creuses au le routeur.  
 Cela permet par exemple de limiter la chauffe en marche forcée afin de ne pas trop chauffer l'eau dans l'optique d'utiliser le surplus le lendemain matin.  
 Cette limite peut être en durée ou en température (nécessite d'utiliser un capteur de température Dallas DS18B20).
 
