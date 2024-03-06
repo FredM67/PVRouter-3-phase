@@ -3,8 +3,8 @@
 Ce programme doit être utilisé avec l’IDE Arduino et/ou d’autres IDE de développement comme VSCode + PlatformIO.
 
 - [Utilisation avec Arduino IDE](#utilisation-avec-arduino-ide)
-- [Use with Visual Studio Code](#use-with-visual-studio-code)
-- [Quick overview of the files](#quick-overview-of-the-files)
+- [Utilisation avec Visual Studio Code](#utilisation-avec-visual-studio-code)
+- [Aperçu rapide des fichiers](#aperçu-rapide-des-fichiers)
 - [Étalonnage du routeur](#étalonnage-du-routeur)
 - [Configuration du programme](#configuration-du-programme)
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
@@ -27,7 +27,7 @@ Ce programme doit être utilisé avec l’IDE Arduino et/ou d’autres IDE de d�
 
 Vous devrez télécharger et installer la version la plus récente de l'[Arduino IDE](https://www.arduino.cc/en/software).
 
-Téléchargez la version « standard », PAS la version du Microsoft Store.
+Téléchargez la version « standard », PAS la version du Microsoft Store.
 Procurez-vous la version « Win 10 et plus récent, 64 bits » ou la version « MSI installer ».
 
 Étant donné que le code est optimisé avec l'une des dernières normes de C++, vous devrez modifier un fichier de configuration pour activer C++17.
@@ -36,26 +36,27 @@ Veuillez rechercher le fichier '**platform.txt**' situé dans le chemin d’inst
 
 Pour **Windows**, typiquement, vous trouverez le fichier dans '**C:\Program Files (x86)\Arduino\hardware\arduino\avr**' et/ou dans '**%LOCALAPPDATA%\Arduino15\packages\arduino\hardware\avr\x.y.z**' où 'x.y.z' est la version du package **Arduino AVR Boards**.
 
-Vous pouvez aussi taper cette commande dans unPowershell : `Get-Childitem –Path C:\ -Include platform.txt -Recurse -ErrorAction SilentlyContinue`. Cela peut prendre quelques secondes  /minutes jusqu’à ce que le fichiersoittrouvé.
+Vous pouvez aussi taper cette commande dans unPowershell : `Get-Childitem –Path C:\ -Include platform.txt -Recurse -ErrorAction SilentlyContinue`. Cela peut prendre quelques secondes/minutes jusqu’à ce que le fichier soit trouvé.
 
 Pour **Linux**, si vous utilisez le paquetAppImage, vous trouverez ce fichier dans '**~/.arduino15/packages/arduino/hardware/avr/1.8.6**'.  
 Vous pouvez exécuter `find / -name platform.txt 2>/dev/null` au cas où l’emplacement aurait été modifié.
 
-Modifiez le fichier dans n’importe quel éditeur detexte(vous aurez besoindes**droits d’administrateur**) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. Voilà !	
+Modifiez le fichier dans n’importe quel éditeur de texte (vous aurez besoin des **droits d’administrateur**) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. Voilà !	
 
-Si votre IDEArduino a été ouvert, veuillez fermer toutes les instances et l’ouvrir à nouveau.	
+Si votre Arduino IDE a été ouvert, veuillez fermer toutes les instances et l’ouvrir à nouveau.	
 
 # Utilisation avec Visual Studio Code
 
-Vous devrez installer des extensions supplémentaires. Les extensions les plus populaires et les plus utilisées pour cetravailsont'*Arduino*' et '*Platform IO*'.
+Vous devrez installer des extensions supplémentaires. Les extensions les plus populaires et les plus utilisées pour ce travail sont '*Arduino*' et '*Platform IO*'.  
+L'ensemble du projet a été conçu pour être utilisé de façon optimale avec *Platform IO*.
 
 # Aperçu rapide des fichiers
 
 - **Mk2_3phase_RFdatalog_temp.ino** : Ce fichier est nécessaire pour l’IDE Arduino
 - **calibration.h** : contient les paramètres d’étalonnage
-- **config.h** : les préférences de l’utilisateur sont stockées ici (affectation des broches, fonctionnalités, …)
+- **config.h** : les préférences de l’utilisateur sont stockées ici (affectation des broches, fonctionnalités …)
 - **config_system.h** : constantes système rarement modifiées
-- **constants.h** : quelques constantes - *ne pas modifier*
+- **constants.h** : quelques constantes — *ne pas modifier*
 - **debug.h** : Quelques macros pour la sortie série et le débogage
 - **dualtariff.h** : définitions de la fonction double tarif
 - **main.cpp** : code source principal
@@ -64,14 +65,14 @@ Vous devrez installer des extensions supplémentaires. Les extensions les plus p
 - **processing.cpp** : code source du moteur de traitement
 - **processing.h** : prototypes de fonctions du moteur de traitement
 - **Readme.fr.md** : ce fichier
-- **types.h** : définitions des types, …
+- **types.h** : définitions des types …
 - **type_traits.h** : quelques trucs STL qui ne sont pas encore disponibles dans le paquet avr
 - **type_traits** : contient des patrons STL manquants
 - **utils_relay.h** : code source de la fonctionnalité *diversion par relais*
 - **utils_rf.h** : code source de la fonction *RF*
 - **utils_temp.h** : code source de la fonctionnalité *Température*
 - **utils.h** : fonctions d’aide et trucs divers
-- **validation.h** : validation des paramètres, ce code n’est exécuté qu’au moment de la compilation !
+- **validation.h** : validation des paramètres, ce code n’est exécuté qu’au moment de la compilation !
 - **platformio.ini** : paramètres PlatformIO
 - **inject_sketch_name.py** : script d'aide pour PlatformIO
 - **Doxyfile** : paramètre pour Doxygen (documentation du code)
@@ -96,7 +97,7 @@ D'une manière générale, la configuration d'une fonctionnalité nécessite 2 c
 La pertinence de l'ensemble est validée lors de la compilation. Ainsi, si par mégarde, une *pin* est allouée 2 fois par exemple, le compilateur émettra une erreur.
 
 ## Configuration des sorties TRIAC
-Il faudra dans un 1<sup>er</sup> temps définir le nombre de sorties TRIAC.
+Il faudra dans un 1ᵉʳ temps définir le nombre de sorties TRIAC.
 ```cpp
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
 ```
@@ -108,7 +109,7 @@ inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ```
 
 ## Configuration des sorties relais tout-ou-rien
-Les sorties relais tout-ou-rien permettent d'alimenter des appareils qui contiennent de l'électronique (pompe à chaleur, …).
+Les sorties relais tout-ou-rien permettent d'alimenter des appareils qui contiennent de l'électronique (pompe à chaleur …).
 
 Pour chaque relais, il faut définir 5 paramètres :
 - numéro de **pin** sur laquelle est branché le relais
@@ -132,7 +133,7 @@ Les relais seront mis en route dans le même ordre que dans la liste. L'ordre d'
 Dans tous les cas, les consignes de durée de fonctionnement et d'arrêt seront respectées.
 
 ### Principe de fonctionnement
-Les valeurs de surplus ainsi que d'import sont calculées selon une moyenne mobile pondérée exponentiellement (EWMA pour Exponentially Weighted Moving Average).  
+Les valeurs de surplus ainsi que d'import sont calculées selon une moyenne mobile pondérée exponentiellement (**EWMA** pour **E**xponentially **W**eighted **M**oving **A**verage).  
 Par défaut, cette moyenne prend en compte une fenêtre d'environ 10 mn.  
 Il est possible de la rallonger mais aussi de la raccourcir.  
 Pour des raisons de performances de l'Arduino, la durée choisie sera arrondie à une durée proche qui permettra de faire les calculs sans impacter les performances du routeur.
@@ -200,7 +201,7 @@ inline constexpr TemperatureSensing temperatureSensing{ 4,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } };
 ```
-Le nombre *4* en 1<sup>er</sup> paramètre est la *pin* que l'utilisateur aura choisi pour le bus OneWire.
+Le nombre *4* en 1ᵉʳ paramètre est la *pin* que l'utilisateur aura choisi pour le bus OneWire.
 
 ___
 **_Note_**
@@ -209,7 +210,7 @@ Sur Internet vous trouverez tous les détails concernant la topologie utilisable
 ___
 
 ## Configuration de la gestion des Heures Creuses (dual tariff)
-Il est possible de confier la gestion des Heures Creuses au le routeur.  
+Il est possible de confier la gestion des Heures Creuses au routeur.  
 Cela permet par exemple de limiter la chauffe en marche forcée afin de ne pas trop chauffer l'eau dans l'optique d'utiliser le surplus le lendemain matin.  
 Cette limite peut être en durée ou en température (nécessite d'utiliser un capteur de température Dallas DS18B20).
 
@@ -219,7 +220,7 @@ Ensuite, il conviendra de relier *directement* une *pin* choisie au contact sec 
 ___
 **__ATTENTION__**
 Il faut relier **directement**, une paire *pin/masse* avec les bornes *C1/C2* du compteur.  
-Il NE doit PAS y avoir de 230V sur ce circuit !
+Il NE doit PAS y avoir de 230 V sur ce circuit !
 ___
 
 ### Configuration logicielle
@@ -242,13 +243,13 @@ Enfin, on définira les modalités de fonctionnement pendant la période d'Heure
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } };
 ```
 Il est possible de définir une configuration pour chaque charge indépendamment l'une des autres.
-Le 1<sup>er</sup> paramètre détermine la temporisation de démarrage par rapport au début de la période d'Heures Creuses ou la fin de cette période  :
+Le 1ᵉʳ paramètre détermine la temporisation de démarrage par rapport au début de la période d'Heures Creuses ou la fin de cette période  :
 - si le nombre est positif et inférieur à 24, il s'agit du nombre d'heures,
-- si le nombre est négatif supérieur à -24, il s'agit du nombre d'heures par rapport à la fin des Heures Creuses
+- si le nombre est négatif supérieur à −24, il s'agit du nombre d'heures par rapport à la fin des Heures Creuses
 - si le nombre est positif et supérieur à 24, il s'agit du nombre de minutes,
-- si le nombre est négatif inférieur à -24, il s'agit du nombre de minutes par rapport à la fin des Heures Creuses
+- si le nombre est négatif inférieur à −24, il s'agit du nombre de minutes par rapport à la fin des Heures Creuses
 
-Le 2<sup>ème</sup> paramètre détermine la durée de la marche forcée :
+Le 2ᵉ paramètre détermine la durée de la marche forcée :
 - si le nombre est inférieur à 24, il s'agit du nombre d'heures,
 - si le nombre est supérieur à 24, il s'agit du nombre de minutes.
 
@@ -261,7 +262,7 @@ Prenons quelques exemples pour mieux comprendre (avec début d'HC à 23:00, jusq
 Dans le cas où l'on désire une durée *infinie* (donc jusqu'à la fin de la période d'HC), il faudra écrire par exemple :
 - ```{ -3, UINT16_MAX }``` signifie démarrage **3 heures AVANT** la fin de période (à 4 h du matin) avec marche forcée jusqu'à la fin de période d'HC.
 
-Dans un système comprenant 2 sorties (```NO_OF_DUMPLOADS``` aura alors une valeur de 2), si l'on souhaite une marche forcée uniquement sur la 2<sup>ème</sup> sortie, on écrira :
+Dans un système comprenant 2 sorties (```NO_OF_DUMPLOADS``` aura alors une valeur de 2), si l'on souhaite une marche forcée uniquement sur la 2ᵉ sortie, on écrira :
 ```cpp
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
                                                               { -3, 2 } };
@@ -288,7 +289,7 @@ inline constexpr uint8_t rotationPin{ 10 };
 
 ## Configuration de la marche forcée
 Il est possible de déclencher la marche forcée (certains routeurs appellent cette fonction *Boost*) via une *pin*.  
-On peut y relier un micro-interrupteur, une minuterie (ATTENTION, PAS de 230V sur cette ligne), ou n'importe quel autre contact sec.
+On peut y relier un micro-interrupteur, une minuterie (ATTENTION, PAS de 230 V sur cette ligne), ou n'importe quel autre contact sec.
 
 Cette fonctionnalité s'active via la ligne :
 ```cpp
@@ -302,7 +303,7 @@ inline constexpr uint8_t forcePin{ 11 };
 ## Arrêt du routage
 Il peut être utile de stopper le routage lors d'une absence de plusieurs jours.  
 Cela est d'autant plus intéressant si la *pin* de commande est reliée à un contact sec lui-même télécommandable à distance et/ou via une routine Alexa ou similaire.  
-De cette facon, il est possible de stopper le routage pendant une absence et le remettre en route par exemple la veille ou l'avant-veille, histoire d'avoir de l'eau chaude (gratuite) au retour.
+De cette façon, il est possible de stopper le routage pendant une absence et le remettre en route par exemple la veille ou l'avant-veille, histoire d'avoir de l'eau chaude (gratuite) au retour.
 
 Cette fonctionnalité s'active via la ligne :
 ```cpp
