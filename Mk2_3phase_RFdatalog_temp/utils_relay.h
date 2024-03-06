@@ -377,7 +377,7 @@ template< uint8_t N, uint8_t D > void RelayEngine< N, D >::inc_duration() const
     relay[--idx].inc_duration();
   } while (idx);
 
-  if (settle_change > 0)
+  if (settle_change)
   {
     --settle_change;
   }
