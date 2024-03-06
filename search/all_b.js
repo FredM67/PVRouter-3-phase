@@ -8,7 +8,7 @@ var searchData=
   ['nextlogicalloadtobeadded_189',['nextLogicalLoadToBeAdded',['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded():&#160;processing.cpp'],['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded() __attribute__((always_inline)):&#160;processing.cpp']]],
   ['nextlogicalloadtoberemoved_190',['nextLogicalLoadToBeRemoved',['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved():&#160;processing.cpp'],['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved() __attribute__((always_inline)):&#160;processing.cpp']]],
   ['no_5fof_5fdumploads_191',['NO_OF_DUMPLOADS',['../config_8h.html#aa2458020f21db854d8f2fe0e500dcd05',1,'config.h']]],
-  ['no_5fof_5fphases_192',['NO_OF_PHASES',['../config_8h.html#ac17be2735ad17e6198cd2a24eb39eb91',1,'config.h']]],
+  ['no_5fof_5fphases_192',['NO_OF_PHASES',['../config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91',1,'config_system.h']]],
   ['nodeid_193',['nodeID',['../config_8h.html#a60f522aaa42faf22b9ce5d66e6e45346',1,'config.h']]],
   ['normal_194',['NORMAL',['../types_8h.html#aae913bd32d3b848f4a5ba5b9d32e9a1fa1e23852820b9154316c7c06e2b7ba051',1,'types.h']]]
 ];
