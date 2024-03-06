@@ -215,7 +215,7 @@ Cette limite peut être en durée ou en température (nécessite d'utiliser un c
 
 ### Configuration matérielle
 Il faudra décâbler la commande du contacteur Jour/Nuit, il ne servira plus à rien.  
-Ensuite, il conviendra de relier *directement* une *pin* choisie au relais incorporé dans le compteur (bornes C1 et C2).
+Ensuite, il conviendra de relier *directement* une *pin* choisie au contact sec incorporé dans le compteur (bornes C1 et C2).
 ___
 **__ATTENTION__**
 Il faut relier **directement**, une paire *pin/masse* avec les bornes *C1/C2* du compteur.  
