@@ -35,7 +35,6 @@
 //--------------------------------------------------------------------------------------------------
 // constants which must be set individually for each system
 //
-inline constexpr uint8_t NO_OF_PHASES{ 3 };    /**< number of phases of the main supply. */
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 }; /**< number of dump loads connected to the diverter */
 
 #ifdef EMONESP

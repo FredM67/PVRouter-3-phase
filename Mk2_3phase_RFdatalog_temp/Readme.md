@@ -19,6 +19,9 @@ Ce programme doit être utilisé avec l’IDE Arduino et/ou d’autres IDE de d�
   - [Configuration de la gestion des Heures Creuses (dual tariff)](#configuration-de-la-gestion-des-heures-creuses-dual-tariff)
     - [Configuration matérielle](#configuration-matérielle)
     - [Configuration logicielle](#configuration-logicielle)
+  - [Rotation des priorités](#rotation-des-priorités)
+  - [Configuration de la marche forcée](#configuration-de-la-marche-forcée)
+  - [Arrêt du routage](#arrêt-du-routage)
 
 # Utilisation avec Arduino IDE
 
@@ -259,6 +262,52 @@ Dans un système comprenant 2 sorties (```NO_OF_DUMPLOADS``` aura alors une vale
 ```cpp
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
                                                               { -3, 2 } };
+```
+
+## Rotation des priorités
+Lorsqu'on alimente un chauffe-eau triphasé, il peut être judicieux de permuter les priorités de mise en route de chaque résistance toutes les 24 h.  
+Ainsi, en moyenne sur plusieurs semaines, chaque résistance aura fonctionné à peu près la même durée.  
+
+Une fois n'est pas coutume, l'activation de cette fonction possède 2 modes :
+- **automatique**, on spécifiera alors
+```cpp
+inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::AUTO };
+```
+- **manuel**, on écrira alors
+```cpp
+inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
+```
+En mode **automatique**, la rotation se fait automatiquement toutes les 24 h.  
+Em mode **manuel**, il faudra définir en plus la *pin* qui permettra de déclencher une rotation :
+```cpp
+inline constexpr uint8_t rotationPin{ 10 };
+```
+
+## Configuration de la marche forcée
+Il est possible de déclencher la marche forcée (certains routeurs appellent cette fonction *Boost*) via une *pin*.  
+On peut y relier un micro-interrupteur, une minuterie (ATTENTION, PAS de 230V sur cette ligne), ou n'importe quel autre contact sec.
+
+Cette fonctionnalité s'active via la ligne :
+```cpp
+inline constexpr bool OVERRIDE_PIN_PRESENT{ true };
+```
+Il faudra aussi choisir le *pin* sur laquelle est relié le contact sec :
+```cpp
+inline constexpr uint8_t forcePin{ 11 };
+```
+
+## Arrêt du routage
+Il peut être utile de stopper le routage lors d'une absence de plusieurs jours.  
+Cela est d'autant plus intéressant si la *pin* de commande est reliée à un contact sec lui-même télécommandable à distance et/ou via une routine Alexa ou similaire.  
+De cette facon, il est possible de stopper le routage pendant une absence et le remettre en route par exemple la veille ou l'avant-veille, histoire d'avoir de l'eau chaude (gratuite) au retour.
+
+Cette fonctionnalité s'active via la ligne :
+```cpp
+inline constexpr bool DIVERSION_PIN_PRESENT{ true };
+```
+Il faudra aussi choisir le *pin* sur laquelle est relié le contact sec :
+```cpp
+inline constexpr uint8_t diversionPin{ 12 };
 ```
 
 *doc non finie*
