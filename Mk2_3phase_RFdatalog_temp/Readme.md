@@ -309,7 +309,7 @@ Cette fonctionnalité s'active via la ligne :
 ```cpp
 inline constexpr bool DIVERSION_PIN_PRESENT{ true };
 ```
-Il faudra aussi choisir le *pin* sur laquelle est relié le contact sec :
+Il faudra aussi choisir la *pin* sur laquelle est relié le contact sec :
 ```cpp
 inline constexpr uint8_t diversionPin{ 12 };
 ```
