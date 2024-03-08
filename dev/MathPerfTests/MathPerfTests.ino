@@ -67,6 +67,7 @@ public:
 
     ema_ema_raw = ema_ema_raw - ema_ema + ema;
     ema_ema = ema_ema_raw >> round_up_to_power_of_2(A);
+
   }
 
   auto getAverage() const
@@ -76,7 +77,7 @@ public:
 
   auto getAverageD() const
   {
-    return (ema << 1) - ema_ema;
+    return ema << 1 - ema_ema;
   }
 
 private:
