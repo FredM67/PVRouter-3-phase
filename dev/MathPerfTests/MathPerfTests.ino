@@ -77,7 +77,7 @@ public:
 
   auto getAverageD() const
   {
-    return ema << 1 - ema_ema;
+    return (ema << 1) - ema_ema;
   }
 
 private:
