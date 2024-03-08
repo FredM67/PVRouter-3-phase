@@ -115,14 +115,14 @@ Pour chaque relais, il faut définir 5 paramètres :
 - numéro de **pin** sur laquelle est branché le relais
 - **seuil de surplus** avant mise en route (par défaut **1000 W**)
 - **seuil d'import** avant arrêt (par défaut **200 W**)
-- **durée de fonctionnement minimale** en minutes (par défaut **5 mn**)
-- **durée d'arrêt minimale** en minutes (par défaut **5 mn**).
+- **durée de fonctionnement minimale** en minutes (par défaut **5 min**)
+- **durée d'arrêt minimale** en minutes (par défaut **5 min**).
 
 Exemple :
 ```cpp
 inline constexpr RelayEngine relays{ { { 4, 1000, 200, 10, 10 } } };
 ```
-Cette ligne définit ainsi un relais câblé sur la *pin* **4**, qui se déclenchera à partir de **1000 W** de surplus, et qui s'arrêtera à partir de **200 W** d'import et dont le temps de fonctionnement mais aussi d'arrêt seront de **10 mn**.
+Cette ligne définit ainsi un relais câblé sur la *pin* **4**, qui se déclenchera à partir de **1000 W** de surplus, et qui s'arrêtera à partir de **200 W** d'import et dont le temps de fonctionnement mais aussi d'arrêt seront de **10 min**.
 
 Si plusieurs relais sont présents, on listera tout simplement les configurations de chaque relais de cette façon :
 ```cpp
@@ -134,11 +134,11 @@ Dans tous les cas, les consignes de durée de fonctionnement et d'arrêt seront 
 
 ### Principe de fonctionnement
 Les valeurs de surplus ainsi que d'import sont calculées selon une moyenne mobile pondérée exponentiellement (**EWMA** pour **E**xponentially **W**eighted **M**oving **A**verage).  
-Par défaut, cette moyenne prend en compte une fenêtre d'environ 10 mn.  
+Par défaut, cette moyenne prend en compte une fenêtre d'environ 10 min.  
 Il est possible de la rallonger mais aussi de la raccourcir.  
 Pour des raisons de performances de l'Arduino, la durée choisie sera arrondie à une durée proche qui permettra de faire les calculs sans impacter les performances du routeur.
 
-Si l'utilisateur souhaite plutôt une fenêtre de 15 mn, il suffira d'écrire :
+Si l'utilisateur souhaite plutôt une fenêtre de 15 min, il suffira d'écrire :
 ```cpp
 inline constexpr RelayEngine relays{ 15_i, { { 3, 1000, 200, 1, 1 } } };
 ```
@@ -257,7 +257,7 @@ Prenons quelques exemples pour mieux comprendre (avec début d'HC à 23:00, jusq
 - ```{ -3, 2 }``` signifie démarrage **3 heures AVANT** la fin de période (à 4 h du matin), pour une durée de 2 h.
 - ```{ 3, 2 }``` signifie démarrage **3 heures APRÈS** la début de période (à 2 h du matin), pour une durée de 2 h.
 - ```{ -150, 2 }``` signifie démarrage **150 minutes AVANT** la fin de période (à 4:30), pour une durée de 2 h.
-- ```{ 3, 180 }``` signifie démarrage **3 heures APRÈS** la début de période (à 2 h du matin), pour une durée de 180 mn.
+- ```{ 3, 180 }``` signifie démarrage **3 heures APRÈS** la début de période (à 2 h du matin), pour une durée de 180 min.
 
 Dans le cas où l'on désire une durée *infinie* (donc jusqu'à la fin de la période d'HC), il faudra écrire par exemple :
 - ```{ -3, UINT16_MAX }``` signifie démarrage **3 heures AVANT** la fin de période (à 4 h du matin) avec marche forcée jusqu'à la fin de période d'HC.
