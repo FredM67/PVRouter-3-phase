@@ -73,18 +73,28 @@ class EWMA_average
 public:
   void addValue(int32_t input)
   {
-    w = w - x + input;
-    x = w >> round_up_to_power_of_2(A);
+    ema_raw = ema_raw - ema + input;
+    ema = ema_raw >> round_up_to_power_of_2(A);
+
+    ema_ema_raw = ema_ema_raw - ema_ema + ema;
+    ema_ema = ema_ema_raw >> round_up_to_power_of_2(A);
   }
 
-  auto getAverage() const
+  auto getAverageS() const
   {
-    return x;
+    return ema;
+  }
+
+  auto getAverageD() const
+  {
+    return (ema << 1) - ema_ema;
   }
 
 private:
-  int32_t w{ 0 };
-  int32_t x{ 0 };
+  int32_t ema_ema_raw{ 0 };
+  int32_t ema_ema{ 0 };
+  int32_t ema_raw{ 0 };
+  int32_t ema{ 0 };
 };
 
 #endif

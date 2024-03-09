@@ -67,10 +67,9 @@ public:
 
     ema_ema_raw = ema_ema_raw - ema_ema + ema;
     ema_ema = ema_ema_raw >> round_up_to_power_of_2(A);
-
   }
 
-  auto getAverage() const
+  auto getAverageS() const
   {
     return ema;
   }
@@ -159,7 +158,7 @@ void loop()
       Serial.print(" | ");
       Serial.print(input_data[i]);
       Serial.print(" | ");
-      Serial.print(ewma_average.getAverage());
+      Serial.print(ewma_average.getAverageS());
       Serial.print(" | ");
       Serial.println(ewma_average.getAverageD());
 
@@ -174,7 +173,7 @@ void loop()
 
     Serial.print(sliding_Average.getAverage());
     Serial.print(" - ");
-    Serial.print(ewma_average.getAverage());
+    Serial.print(ewma_average.getAverageS());
     Serial.print(" - ");
     Serial.print(ewma_average.getAverageD());
     Serial.print(" - ");

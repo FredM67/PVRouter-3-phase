@@ -286,7 +286,7 @@ public:
    */
   inline static auto get_average()
   {
-    return ewma_average.getAverage();
+    return ewma_average.getAverageS();
   }
 
   /**
@@ -313,13 +313,13 @@ public:
       return;
     }
 
-    if (ewma_average.getAverage() > 0)
+    if (ewma_average.getAverageS() > 0)
     {
       // Currently importing, try to turn OFF some relays
       uint8_t idx{ N };
       do
       {
-        if (relay[--idx].proceed_relay(ewma_average.getAverage()))
+        if (relay[--idx].proceed_relay(ewma_average.getAverageS()))
         {
           settle_change = 60;
           return;
@@ -332,7 +332,7 @@ public:
       uint8_t idx{ 0 };
       do
       {
-        if (relay[idx].proceed_relay(ewma_average.getAverage()))
+        if (relay[idx].proceed_relay(ewma_average.getAverageS()))
         {
           settle_change = 60;
           return;
