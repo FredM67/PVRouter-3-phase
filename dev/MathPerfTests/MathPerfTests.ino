@@ -4,7 +4,7 @@
 #include "movingAvg.h"
 
 const int nb_of_interation_per_pass = 500;
-const int nb_of_pass = 10;
+const int nb_of_pass = 1;
 
 unsigned long initial_time = 0;
 unsigned long final_time = 0;
@@ -39,52 +39,88 @@ volatile boolean bool_1 = 0;
 volatile boolean bool_2 = 0;
 volatile boolean bool_3 = 0;
 
-constexpr uint8_t round_up_to_power_of_2(uint16_t v) {
+volatile int16_t input_data[nb_of_interation_per_pass];
+
+constexpr uint8_t round_up_to_power_of_2(uint16_t v)
+{
   if (__builtin_popcount(v) == 1) { return __builtin_ctz(v) - 1; }
 
   uint8_t next_pow_of_2{ 0 };
 
-  while (v) {
+  while (v)
+  {
     v >>= 1;
     ++next_pow_of_2;
   }
 
-  return --next_pow_of_2;
+  return next_pow_of_2;
 }
 
 template< uint8_t A = 10 >
-class EWMA_average {
+class EWMA_average
+{
 public:
-  void addValue(int32_t input) {
-    w = w - x + input;
-    x = w >> round_up_to_power_of_2(A);
+  void addValue(int32_t input)
+  {
+    ema_raw = ema_raw - ema + input;
+    ema = ema_raw >> round_up_to_power_of_2(A);
+
+    ema_ema_raw = ema_ema_raw - ema_ema + ema;
+    ema_ema = ema_ema_raw >> round_up_to_power_of_2(A);
   }
 
-  auto getAverage() const {
-    return x;
+  auto getAverageS() const
+  {
+    return ema;
+  }
+
+  auto getAverageD() const
+  {
+    return (ema << 1) - ema_ema;
   }
 
 private:
-  int32_t w{ 0 };
-  int32_t x{ 0 };
+  int32_t ema_ema_raw{ 0 };
+  int32_t ema_ema{ 0 };
+  int32_t ema_raw{ 0 };
+  int32_t ema{ 0 };
 };
 
 movingAvg< int32_t, 10, 12 > sliding_Average;
-EWMA_average<120> ewma_average;
+EWMA_average< 120 > ewma_average;
 
-void setup() {
+constexpr auto alpha = round_up_to_power_of_2(120);
 
+void setup()
+{
   Serial.begin(115200);
   Serial.println("Setup ***");
 }
 
-void loop() {
+void pause()
+{
+  byte done = false;
+  byte dummyByte;
 
-  for (int j = 0; j < nb_of_pass; j++) {
+  while (done != true)
+  {
+    if (Serial.available() > 0)
+    {
+      dummyByte = Serial.read();  // to 'consume' the incoming byte
+      if (dummyByte == 'g') done++;
+    }
+  }
+}
+
+void loop()
+{
+  for (int j = 0; j < nb_of_pass; j++)
+  {
 
     // STEP 1: We first calculate the time taken to run a dummy FOR loop to measure the overhead cause by the execution of the loop.
     initial_time = micros();
-    for (int i = 0; i < nb_of_interation_per_pass; i++) {
+    for (int i = 0; i < nb_of_interation_per_pass; i++)
+    {
       dummy++;  // A dummy instruction is introduced here. If not, the compiler is smart enough to just skip the loop entirely...
     }
     final_time = micros();
@@ -92,18 +128,39 @@ void loop() {
     dummy = 0;
 
     // STEP 2 (optional): Pick some relevant random numbers to test the command under random conditions. Make sure to pick numbers appropriate for your command (e.g. no negative number for the command "sqrt()")
-    randomSeed(micros() * analogRead(0));
-    long_1 = random(-36000, 36000);
+    //randomSeed(micros() * analogRead(0));
+    //long_1 = random(-36000, 36000);
+
+    for (int i = 0; i < nb_of_interation_per_pass; i++)
+    {
+      if (i < 1)
+        input_data[i] = 0;
+      else if (i < 125)
+        input_data[i] = 500;
+      else if (i < 250)
+        input_data[i] = 1000;
+      else /* if (i < 375) */
+        input_data[i] = -500;
+      // else
+      //   input_data[i] = 500;
+    }
 
     // STEP 3: Calculation of the time taken to run the dummy FOR loop and the command to test.
     initial_time = micros();
-    for (int i = 0; i < nb_of_interation_per_pass; i++) {
+    for (int i = 0; i < nb_of_interation_per_pass; i++)
+    {
       dummy++;  // The dummy instruction is also performed here so that we can remove the effect of the dummy FOR loop accurately.
                 // **************** PUT YOUR COMMAND TO TEST HERE ********************
-      long_1 = sin(i) * 1000;
+      //sliding_Average.addValue(long_1);
+      ewma_average.addValue(input_data[i]);
 
-      sliding_Average.addValue(long_1);
-      ewma_average.addValue(long_1);
+      Serial.print(i);
+      Serial.print(" | ");
+      Serial.print(input_data[i]);
+      Serial.print(" | ");
+      Serial.print(ewma_average.getAverageS());
+      Serial.print(" | ");
+      Serial.println(ewma_average.getAverageD());
 
       // **************** PUT YOUR COMMAND TO TEST HERE ********************
     }
@@ -116,7 +173,9 @@ void loop() {
 
     Serial.print(sliding_Average.getAverage());
     Serial.print(" - ");
-    Serial.print(ewma_average.getAverage());
+    Serial.print(ewma_average.getAverageS());
+    Serial.print(" - ");
+    Serial.print(ewma_average.getAverageD());
     Serial.print(" - ");
     Serial.print(j);
     Serial.print(". ");
@@ -135,10 +194,11 @@ void loop() {
   //}
   //Serial.println();
   duration_sum = 0;
-  delay(2000);
+  pause();
 }
 
-void print_result(float value_to_print) {
+void print_result(float value_to_print)
+{
   Serial.print("Time to execute command: ");
   Serial.print("\t");
   Serial.print(value_to_print, 3);
