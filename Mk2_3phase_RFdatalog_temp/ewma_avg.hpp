@@ -74,10 +74,10 @@ public:
   void addValue(int32_t input)
   {
     ema_raw = ema_raw - ema + input;
-    ema = ema_raw >> round_up_to_power_of_2(A);
+    ema = ema_raw >> (round_up_to_power_of_2(A) - 1);
 
     ema_ema_raw = ema_ema_raw - ema_ema + ema;
-    ema_ema = ema_ema_raw >> round_up_to_power_of_2(A);
+    ema_ema = ema_ema_raw >> (round_up_to_power_of_2(A) - 1);
   }
 
   auto getAverageS() const
