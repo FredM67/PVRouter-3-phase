@@ -195,8 +195,8 @@ private:
   T _sub_ar[VALUES_PER_MINUTE]{};
   T _ar[DURATION_IN_MINUTES]{};
 
-  static constexpr float invD{ 1.0F / VALUES_PER_MINUTE };
-  static constexpr float invN{ 1.0F / DURATION_IN_MINUTES };
+  static constexpr float invD{ 1.0 / VALUES_PER_MINUTE };
+  static constexpr float invN{ 1.0 / DURATION_IN_MINUTES };
 };
 
 #endif

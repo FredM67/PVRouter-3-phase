@@ -19,10 +19,15 @@
 			"name": "6-channel raw sampler",
 			"path": "dev/RawSamplesTool_6chan"
 		},
+		{
+			"name": "MathPerfTests",
+			"path": "dev/MathPerfTests"
+		}
 	],
 	"settings": {
 		"files.associations": {
-			"xtr1common": "cpp"
+			"xtr1common": "cpp",
+			"new": "cpp"
 		}
 	}
 }
