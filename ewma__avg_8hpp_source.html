@@ -99,10 +99,10 @@ $(function() {
 <div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db">   74</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db">addValue</a>(int32_t input)</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  {</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    ema_raw = ema_raw - ema + input;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    ema = ema_raw &gt;&gt; <a class="code" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5">round_up_to_power_of_2</a>(A);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    ema = ema_raw &gt;&gt; (<a class="code" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5">round_up_to_power_of_2</a>(A) - 1);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    ema_ema_raw = ema_ema_raw - ema_ema + ema;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    ema_ema = ema_ema_raw &gt;&gt; <a class="code" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5">round_up_to_power_of_2</a>(A);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    ema_ema = ema_ema_raw &gt;&gt; (<a class="code" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5">round_up_to_power_of_2</a>(A) - 1);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  }</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
 <div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c">   83</a></span>&#160;  <span class="keyword">auto</span> <a class="code" href="classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c">getAverageS</a>()<span class="keyword"> const</span></div>
