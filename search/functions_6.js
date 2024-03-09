@@ -1,16 +1,19 @@
 var searchData=
 [
-  ['get_5faverage_444',['get_average',['../classrelayOutput.html#a4a5d8bdcfdacb2b91880cd1a510124a4',1,'relayOutput']]],
-  ['get_5fimportthreshold_445',['get_importThreshold',['../classrelayOutput.html#ac17e09bffcaea6cf872135a2bb88f502',1,'relayOutput']]],
-  ['get_5fminoff_446',['get_minOFF',['../classrelayOutput.html#a63a662c2535d687a111835e83c416204',1,'relayOutput']]],
-  ['get_5fminon_447',['get_minON',['../classrelayOutput.html#a893fa5439460d6bbbaeb1b4fcadd4bec',1,'relayOutput']]],
-  ['get_5fpin_448',['get_pin',['../classrelayOutput.html#acacb00540f208a3000f2f6d8b05f35c8',1,'relayOutput::get_pin()'],['../classTemperatureSensing.html#aed6d4373de91a9d842e4f2f6ccbc93be',1,'TemperatureSensing::get_pin() const']]],
-  ['get_5fsize_449',['get_size',['../classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90',1,'TemperatureSensing']]],
-  ['get_5fsurplusthreshold_450',['get_surplusThreshold',['../classrelayOutput.html#a65b71555314d24f62e1f6576f0836796',1,'relayOutput']]],
-  ['getaverage_451',['getAverage',['../classEWMA__average.html#a6fbbe5221e07dccf5bb8af302c9c59f1',1,'EWMA_average::getAverage()'],['../classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae',1,'movingAvg::getAverage()']]],
-  ['getduration_452',['getDuration',['../classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2',1,'pairForceLoad']]],
-  ['getelement_453',['getElement',['../classmovingAvg.html#afaea648c9898a00cdbf8991971279861',1,'movingAvg']]],
-  ['getpinstate_454',['getPinState',['../utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649',1,'utils_pins.h']]],
-  ['getsize_455',['getSize',['../classmovingAvg.html#a588664a30754acc54ac30962e5a5e303',1,'movingAvg']]],
-  ['getstartoffset_456',['getStartOffset',['../classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f',1,'pairForceLoad']]]
+  ['get_5faverage_461',['get_average',['../classRelayEngine.html#a2c586921b020480449159786461195aa',1,'RelayEngine']]],
+  ['get_5fimportthreshold_462',['get_importThreshold',['../classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e',1,'relayOutput']]],
+  ['get_5fminoff_463',['get_minOFF',['../classrelayOutput.html#a3b3ccb243e3e2c287249e0f0e079f554',1,'relayOutput']]],
+  ['get_5fminon_464',['get_minON',['../classrelayOutput.html#aefe2af3c49240ec8fc219a26f37c8bb8',1,'relayOutput']]],
+  ['get_5fpin_465',['get_pin',['../classrelayOutput.html#ac9bf2670034f07cc718b4a9b7c513155',1,'relayOutput::get_pin()'],['../classTemperatureSensing.html#aed6d4373de91a9d842e4f2f6ccbc93be',1,'TemperatureSensing::get_pin()']]],
+  ['get_5frelay_466',['get_relay',['../classRelayEngine.html#a353c01f8e0416eb2b147f09e47657811',1,'RelayEngine']]],
+  ['get_5fsize_467',['get_size',['../classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3',1,'RelayEngine::get_size()'],['../classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90',1,'TemperatureSensing::get_size()']]],
+  ['get_5fsurplusthreshold_468',['get_surplusThreshold',['../classrelayOutput.html#a53d146f5a123d31cae6146e8fb4c038a',1,'relayOutput']]],
+  ['getaverage_469',['getAverage',['../classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae',1,'movingAvg']]],
+  ['getaveraged_470',['getAverageD',['../classEWMA__average.html#a8caa754acdd5f485f7cd2a183cee1286',1,'EWMA_average']]],
+  ['getaverages_471',['getAverageS',['../classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c',1,'EWMA_average']]],
+  ['getduration_472',['getDuration',['../classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2',1,'pairForceLoad']]],
+  ['getelement_473',['getElement',['../classmovingAvg.html#afaea648c9898a00cdbf8991971279861',1,'movingAvg']]],
+  ['getpinstate_474',['getPinState',['../utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649',1,'utils_pins.h']]],
+  ['getsize_475',['getSize',['../classmovingAvg.html#a588664a30754acc54ac30962e5a5e303',1,'movingAvg']]],
+  ['getstartoffset_476',['getStartOffset',['../classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f',1,'pairForceLoad']]]
 ];

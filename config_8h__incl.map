@@ -1,12 +1,12 @@
 <map id="Mk2_3phase_RFdatalog_temp/config.h" name="Mk2_3phase_RFdatalog_temp/config.h">
-<area shape="rect" id="node1" title="Configuration values to be set by the end&#45;user." alt="" coords="1259,5,1436,47"/>
-<area shape="rect" id="node2" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="1007,169,1135,196"/>
-<area shape="rect" id="node28" href="$debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="1129,95,1203,121"/>
-<area shape="rect" id="node29" href="$types_8h.html" title="Some basics classes/types." alt="" coords="1461,169,1532,196"/>
-<area shape="rect" id="node31" href="$utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="1353,95,1481,121"/>
-<area shape="rect" id="node32" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="1228,95,1328,121"/>
-<area shape="rect" id="node35" href="$utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="1556,169,1659,196"/>
-<area shape="rect" id="node3" title=" " alt="" coords="1331,244,1415,271"/>
+<area shape="rect" id="node1" title="Configuration values to be set by the end&#45;user." alt="" coords="701,5,879,47"/>
+<area shape="rect" id="node2" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="1259,169,1387,196"/>
+<area shape="rect" id="node28" href="$debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="627,95,702,121"/>
+<area shape="rect" id="node29" href="$types_8h.html" title="Some basics classes/types." alt="" coords="665,169,736,196"/>
+<area shape="rect" id="node31" href="$utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="777,95,905,121"/>
+<area shape="rect" id="node32" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="943,95,1043,121"/>
+<area shape="rect" id="node36" href="$utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="539,169,641,196"/>
+<area shape="rect" id="node3" title=" " alt="" coords="817,244,901,271"/>
 <area shape="rect" id="node4" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1117,244,1237,271"/>
 <area shape="rect" id="node5" href="$conditional_8hpp.html" title=" " alt="" coords="5,326,201,353"/>
 <area shape="rect" id="node6" href="$enable__if_8hpp.html" title=" " alt="" coords="225,319,365,360"/>
@@ -31,7 +31,8 @@
 <area shape="rect" id="node13" href="$declval_8hpp.html" title=" " alt="" coords="580,483,677,509"/>
 <area shape="rect" id="node19" href="$remove__cv_8hpp.html" title=" " alt="" coords="1271,483,1392,509"/>
 <area shape="rect" id="node25" href="$type__identity_8hpp.html" title=" " alt="" coords="1729,483,1864,509"/>
-<area shape="rect" id="node30" href="$constants_8h.html" title="Some constants." alt="" coords="1503,244,1600,271"/>
-<area shape="rect" id="node33" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="1159,169,1266,196"/>
-<area shape="rect" id="node34" href="$utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="1290,169,1386,196"/>
+<area shape="rect" id="node30" href="$constants_8h.html" title="Some constants." alt="" coords="597,244,695,271"/>
+<area shape="rect" id="node33" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="1078,169,1185,196"/>
+<area shape="rect" id="node34" href="$ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="932,169,1053,196"/>
+<area shape="rect" id="node35" href="$utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="811,169,907,196"/>
 </map>

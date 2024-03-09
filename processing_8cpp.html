@@ -85,19 +85,19 @@ Include dependency graph for processing.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="processing_8cpp__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2processing_8cpp" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2processing_8cpp" id="aMk2__3phase__RFdatalog__temp_2processing_8cpp">
-<area shape="rect" title="Implements the processing engine." alt="" coords="864,5,1041,47"/>
-<area shape="rect" title=" " alt="" coords="1000,393,1084,420"/>
-<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="1029,95,1132,121"/>
-<area shape="rect" href="utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="869,319,965,345"/>
-<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="1157,95,1250,121"/>
-<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="901,95,1005,121"/>
-<area shape="rect" href="config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="1155,169,1228,196"/>
-<area shape="rect" href="config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="1119,319,1247,345"/>
-<area shape="rect" href="debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="1279,244,1354,271"/>
-<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="1272,319,1343,345"/>
-<area shape="rect" href="utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="901,244,1029,271"/>
-<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="1053,244,1153,271"/>
-<area shape="rect" href="utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="1367,319,1469,345"/>
+<area shape="rect" title="Implements the processing engine." alt="" coords="499,5,676,47"/>
+<area shape="rect" title=" " alt="" coords="763,393,847,420"/>
+<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="664,95,767,121"/>
+<area shape="rect" href="utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="678,319,774,345"/>
+<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="791,95,885,121"/>
+<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="535,95,639,121"/>
+<area shape="rect" href="config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="739,169,812,196"/>
+<area shape="rect" href="config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="894,319,1022,345"/>
+<area shape="rect" href="debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="738,244,813,271"/>
+<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="799,319,869,345"/>
+<area shape="rect" href="utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="535,244,663,271"/>
+<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="939,244,1039,271"/>
+<area shape="rect" href="utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="551,319,653,345"/>
 <area shape="rect" href="type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1117,393,1237,420"/>
 <area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="5,475,201,502"/>
 <area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="225,468,365,509"/>
@@ -122,8 +122,9 @@ Include dependency graph for processing.cpp:</div>
 <area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="580,632,677,659"/>
 <area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="1271,632,1392,659"/>
 <area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="1729,632,1864,659"/>
-<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="1264,393,1361,420"/>
-<area shape="rect" href="movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="989,319,1095,345"/>
+<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="583,393,680,420"/>
+<area shape="rect" href="movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="1193,319,1299,345"/>
+<area shape="rect" href="ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="1047,319,1168,345"/>
 </map>
 </div>
 </div>
@@ -143,12 +144,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#a5c26bb614416d9b5288ef3e5e00bf5b2">initThreshold</a> (const bool lower)</td></tr>
 <tr class="memdesc:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">set default threshold at compile time so the variable can be read-only  <a href="processing_8cpp.html#a5c26bb614416d9b5288ef3e5e00bf5b2">More...</a><br /></td></tr>
 <tr class="separator:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8e7b88bb4b21554d23b57676a45e034e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e">nextLogicalLoadToBeAdded</a> ()</td></tr>
-<tr class="memdesc:ga8e7b88bb4b21554d23b57676a45e034e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be added (be aware of the order)  <a href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e">More...</a><br /></td></tr>
-<tr class="separator:ga8e7b88bb4b21554d23b57676a45e034e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabfb25288a79335282af6922e833d3c35"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35">nextLogicalLoadToBeRemoved</a> ()</td></tr>
-<tr class="memdesc:gabfb25288a79335282af6922e833d3c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be removed (be aware of the reverse-order)  <a href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35">More...</a><br /></td></tr>
-<tr class="separator:gabfb25288a79335282af6922e833d3c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6885cce1d1da17efc43834dadf023b61"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga6885cce1d1da17efc43834dadf023b61">nextLogicalLoadToBeAdded</a> () __attribute__((optimize(&quot;-O3&quot;)))</td></tr>
+<tr class="memdesc:ga6885cce1d1da17efc43834dadf023b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be added (be aware of the order)  <a href="group__TimeCritical.html#ga6885cce1d1da17efc43834dadf023b61">More...</a><br /></td></tr>
+<tr class="separator:ga6885cce1d1da17efc43834dadf023b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa8eb0f10cc0d8952e13bca76e7875621"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaa8eb0f10cc0d8952e13bca76e7875621">nextLogicalLoadToBeRemoved</a> () __attribute__((optimize(&quot;-O3&quot;)))</td></tr>
+<tr class="memdesc:gaa8eb0f10cc0d8952e13bca76e7875621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be removed (be aware of the reverse-order)  <a href="group__TimeCritical.html#gaa8eb0f10cc0d8952e13bca76e7875621">More...</a><br /></td></tr>
+<tr class="separator:gaa8eb0f10cc0d8952e13bca76e7875621"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2b3b1d496e37e5f29af6a766743dc8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b">printParamsForSelectedOutputMode</a> ()</td></tr>
 <tr class="memdesc:aa2b3b1d496e37e5f29af6a766743dc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the settings used for the selected output mode.  <a href="processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b">More...</a><br /></td></tr>
 <tr class="separator:aa2b3b1d496e37e5f29af6a766743dc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,9 +162,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gafe8420bd47cd08c6d0327d4dbed06414"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">processCurrentRawSample</a> (const uint8_t phase, const int16_t rawSample)</td></tr>
 <tr class="memdesc:gafe8420bd47cd08c6d0327d4dbed06414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the calculation for the actual current raw sample for the specific phase.  <a href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">More...</a><br /></td></tr>
 <tr class="separator:gafe8420bd47cd08c6d0327d4dbed06414"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaabf10592d01250ef862370d26c5a382b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b">processDataLogging</a> ()</td></tr>
-<tr class="memdesc:gaabf10592d01250ef862370d26c5a382b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process with data logging.  <a href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b">More...</a><br /></td></tr>
-<tr class="separator:gaabf10592d01250ef862370d26c5a382b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga66a807366f984e34aacec09333ae7772"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga66a807366f984e34aacec09333ae7772">processDataLogging</a> () __attribute__((optimize(&quot;-O3&quot;)))</td></tr>
+<tr class="memdesc:ga66a807366f984e34aacec09333ae7772"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process with data logging.  <a href="group__TimeCritical.html#ga66a807366f984e34aacec09333ae7772">More...</a><br /></td></tr>
+<tr class="separator:ga66a807366f984e34aacec09333ae7772"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1">processLatestContribution</a> (const uint8_t phase)</td></tr>
 <tr class="memdesc:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the lastest contribution after each phase specific new cycle additional processing is performed after each main cycle based on phase 0.  <a href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1">More...</a><br /></td></tr>
 <tr class="separator:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -299,9 +300,10 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="processing_8cpp_a65d7d37eebe737ce9985aafedb2cb061_cgraph.png" border="0" usemap="#aprocessing_8cpp_a65d7d37eebe737ce9985aafedb2cb061_cgraph" alt=""/></div>
 <map name="aprocessing_8cpp_a65d7d37eebe737ce9985aafedb2cb061_cgraph" id="aprocessing_8cpp_a65d7d37eebe737ce9985aafedb2cb061_cgraph">
-<area shape="rect" title="Initializes the optional pins." alt="" coords="5,5,165,32"/>
-<area shape="rect" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="213,5,301,32"/>
-<area shape="rect" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="349,5,428,32"/>
+<area shape="rect" title="Initializes the optional pins." alt="" coords="5,31,165,57"/>
+<area shape="rect" href="classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339" title=" " alt="" coords="213,5,408,32"/>
+<area shape="rect" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="267,56,355,83"/>
+<area shape="rect" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="456,56,535,83"/>
 </map>
 </div>
 <div class="dynheader">
@@ -414,7 +416,7 @@ Here is the caller graph for this function:</div>
 
 <p>Print the settings used for the selected output mode. </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00794">794</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00797">797</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -445,7 +447,7 @@ Here is the caller graph for this function:</div>
 
 <p>update the control ports for each of the physical loads </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00195">195</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00194">194</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

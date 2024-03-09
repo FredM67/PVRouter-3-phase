@@ -1,16 +1,17 @@
 <map id="Mk2_3phase_RFdatalog_temp/type_traits/remove_cv.hpp" name="Mk2_3phase_RFdatalog_temp/type_traits/remove_cv.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="388,5,579,61"/>
-<area shape="rect" id="node2" href="$is__floating__point_8hpp.html" title=" " alt="" coords="131,109,308,165"/>
-<area shape="rect" id="node16" href="$is__integral_8hpp.html" title=" " alt="" coords="332,109,509,165"/>
-<area shape="rect" id="node17" href="$is__signed_8hpp.html" title=" " alt="" coords="459,213,636,269"/>
-<area shape="rect" id="node18" href="$is__unsigned_8hpp.html" title=" " alt="" coords="660,213,837,269"/>
-<area shape="rect" id="node3" href="$is__enum_8hpp.html" title=" " alt="" coords="205,213,383,269"/>
-<area shape="rect" id="node4" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="332,317,509,359"/>
+<area shape="rect" id="node1" title=" " alt="" coords="477,5,668,61"/>
+<area shape="rect" id="node2" href="$is__floating__point_8hpp.html" title=" " alt="" coords="220,109,397,165"/>
+<area shape="rect" id="node17" href="$is__integral_8hpp.html" title=" " alt="" coords="421,109,599,165"/>
+<area shape="rect" id="node18" href="$is__signed_8hpp.html" title=" " alt="" coords="548,213,725,269"/>
+<area shape="rect" id="node19" href="$is__unsigned_8hpp.html" title=" " alt="" coords="749,213,927,269"/>
+<area shape="rect" id="node3" href="$is__enum_8hpp.html" title=" " alt="" coords="295,213,472,269"/>
+<area shape="rect" id="node4" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="421,317,599,359"/>
 <area shape="rect" id="node5" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="232,407,409,448"/>
-<area shape="rect" id="node15" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="433,407,611,448"/>
+<area shape="rect" id="node14" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="460,496,637,537"/>
+<area shape="rect" id="node15" href="$ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="485,407,663,448"/>
+<area shape="rect" id="node16" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="687,407,864,448"/>
 <area shape="rect" id="node6" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="359,585,536,627"/>
 <area shape="rect" id="node13" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="5,675,183,716"/>
-<area shape="rect" id="node14" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="420,496,597,537"/>
 <area shape="rect" id="node7" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="661,675,839,716"/>
 <area shape="rect" id="node8" href="$main_8cpp.html" title="Main code." alt="" coords="535,853,712,895"/>
 <area shape="rect" id="node10" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="259,675,436,716"/>

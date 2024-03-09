@@ -4,8 +4,8 @@
 <area shape="rect" id="node4" href="$group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="228,56,408,83"/>
 <area shape="rect" id="node6" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="221,107,415,133"/>
 <area shape="rect" id="node7" href="$processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="247,157,389,184"/>
-<area shape="rect" id="node3" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="473,5,673,32"/>
-<area shape="rect" id="node5" href="$group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="463,56,684,83"/>
+<area shape="rect" id="node3" href="$group__TimeCritical.html#ga6885cce1d1da17efc43834dadf023b61" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="473,5,673,32"/>
+<area shape="rect" id="node5" href="$group__TimeCritical.html#gaa8eb0f10cc0d8952e13bca76e7875621" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="463,56,684,83"/>
 <area shape="rect" id="node8" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="526,107,621,133"/>
 <area shape="rect" id="node9" href="$utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="529,157,618,184"/>
 </map>

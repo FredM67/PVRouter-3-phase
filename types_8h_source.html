@@ -127,17 +127,38 @@ $(function() {
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// _TYPES_H</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">class</span>... Ts &gt;</div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="types_8h.html#a23913965d671d9cb03004085740837b9">   92</a></span>&#160;constexpr uint8_t <a class="code" href="types_8h.html#a23913965d671d9cb03004085740837b9">ival</a>(Ts... Vs)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;{</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordtype">char</span> vals[<span class="keyword">sizeof</span>...(Vs)] = { Vs... };</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  uint8_t result = 0;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <span class="keyword">sizeof</span>...(Vs); i++)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    result *= 10;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    result += vals[i] - <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">template</span>&lt; <span class="keywordtype">char</span>... Vs &gt;</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="types_8h.html#a0534976344c6645fff642acfbfdd4981">  105</a></span>&#160;constexpr <a class="code" href="structintegral__constant.html">integral_constant</a>&lt; uint8_t, <a class="code" href="types_8h.html#a23913965d671d9cb03004085740837b9">ival</a>(Vs...) &gt; <span class="keyword">operator</span><span class="stringliteral">&quot;&quot;</span>_i()</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;{</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// _TYPES_H</span></div>
 <div class="ttc" id="aclassPayloadTx__struct_html"><div class="ttname"><a href="classPayloadTx__struct.html">PayloadTx_struct</a></div><div class="ttdoc">container for datalogging</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00061">types.h:62</a></div></div>
 <div class="ttc" id="aclassPayloadTx__struct_html_a057a8416a916513fd1c0667dbf08713f"><div class="ttname"><a href="classPayloadTx__struct.html#a057a8416a916513fd1c0667dbf08713f">PayloadTx_struct::Vrms_L_x100</a></div><div class="ttdeci">int16_t Vrms_L_x100[N]</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00066">types.h:66</a></div></div>
 <div class="ttc" id="aclassPayloadTx__struct_html_a13cbb9a2141427b379764c105825815f"><div class="ttname"><a href="classPayloadTx__struct.html#a13cbb9a2141427b379764c105825815f">PayloadTx_struct::power_L</a></div><div class="ttdeci">int16_t power_L[N]</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00065">types.h:65</a></div></div>
 <div class="ttc" id="aclassPayloadTx__struct_html_a1ae46c4aad3871fe7007f2860424a15b"><div class="ttname"><a href="classPayloadTx__struct.html#a1ae46c4aad3871fe7007f2860424a15b">PayloadTx_struct::temperature_x100</a></div><div class="ttdeci">int16_t temperature_x100[S]</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00067">types.h:67</a></div></div>
 <div class="ttc" id="aclassPayloadTx__struct_html_ab3001f04334464b35b7dd263bd08b1a0"><div class="ttname"><a href="classPayloadTx__struct.html#ab3001f04334464b35b7dd263bd08b1a0">PayloadTx_struct::power</a></div><div class="ttdeci">int16_t power</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00064">types.h:64</a></div></div>
 <div class="ttc" id="aconstants_8h_html"><div class="ttname"><a href="constants_8h.html">constants.h</a></div><div class="ttdoc">Some constants.</div></div>
+<div class="ttc" id="astructintegral__constant_html"><div class="ttname"><a href="structintegral__constant.html">integral_constant</a></div><div class="ttdef"><b>Definition:</b> <a href="integral__constant_8hpp_source.html#l00008">integral_constant.hpp:9</a></div></div>
 <div class="ttc" id="atypes_8h_html_a06b890c4a964752df814257dc1f13073"><div class="ttname"><a href="types_8h.html#a06b890c4a964752df814257dc1f13073">RotationModes</a></div><div class="ttdeci">RotationModes</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00048">types.h:49</a></div></div>
 <div class="ttc" id="atypes_8h_html_a06b890c4a964752df814257dc1f13073a88559a0cfd8250c9d65970cc145c92d4"><div class="ttname"><a href="types_8h.html#a06b890c4a964752df814257dc1f13073a88559a0cfd8250c9d65970cc145c92d4">RotationModes::OFF</a></div><div class="ttdeci">@ OFF</div></div>
 <div class="ttc" id="atypes_8h_html_a06b890c4a964752df814257dc1f13073acdbc895d08b5d92db04174533a8548f7"><div class="ttname"><a href="types_8h.html#a06b890c4a964752df814257dc1f13073acdbc895d08b5d92db04174533a8548f7">RotationModes::PIN</a></div><div class="ttdeci">@ PIN</div></div>
 <div class="ttc" id="atypes_8h_html_a06b890c4a964752df814257dc1f13073ae1f2d5134ed2543d38a0de9751cf75d9"><div class="ttname"><a href="types_8h.html#a06b890c4a964752df814257dc1f13073ae1f2d5134ed2543d38a0de9751cf75d9">RotationModes::AUTO</a></div><div class="ttdeci">@ AUTO</div></div>
+<div class="ttc" id="atypes_8h_html_a23913965d671d9cb03004085740837b9"><div class="ttname"><a href="types_8h.html#a23913965d671d9cb03004085740837b9">ival</a></div><div class="ttdeci">constexpr uint8_t ival(Ts... Vs)</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00092">types.h:92</a></div></div>
 <div class="ttc" id="atypes_8h_html_a297c9a15e28f6c3824b7a33453238136"><div class="ttname"><a href="types_8h.html#a297c9a15e28f6c3824b7a33453238136">Polarities</a></div><div class="ttdeci">Polarities</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00023">types.h:24</a></div></div>
 <div class="ttc" id="atypes_8h_html_a297c9a15e28f6c3824b7a33453238136a50546bf973283065b6ccf09faf7a580a"><div class="ttname"><a href="types_8h.html#a297c9a15e28f6c3824b7a33453238136a50546bf973283065b6ccf09faf7a580a">Polarities::NEGATIVE</a></div><div class="ttdeci">@ NEGATIVE</div></div>
 <div class="ttc" id="atypes_8h_html_a297c9a15e28f6c3824b7a33453238136aab6c31432785221bae58327ef5f6ea58"><div class="ttname"><a href="types_8h.html#a297c9a15e28f6c3824b7a33453238136aab6c31432785221bae58327ef5f6ea58">Polarities::POSITIVE</a></div><div class="ttdeci">@ POSITIVE</div></div>

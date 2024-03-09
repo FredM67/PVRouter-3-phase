@@ -72,14 +72,16 @@ $(function() {
 <p>Exponentially Weighted Moving Average.  
  <a href="classEWMA__average.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a208b9b3d82809466b4d90aedb3c7e4db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db">addValue</a> (int32_t input)</td></tr>
 <tr class="separator:a208b9b3d82809466b4d90aedb3c7e4db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fbbe5221e07dccf5bb8af302c9c59f1"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html#a6fbbe5221e07dccf5bb8af302c9c59f1">getAverage</a> () const</td></tr>
-<tr class="separator:a6fbbe5221e07dccf5bb8af302c9c59f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8caa754acdd5f485f7cd2a183cee1286"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html#a8caa754acdd5f485f7cd2a183cee1286">getAverageD</a> () const</td></tr>
+<tr class="separator:a8caa754acdd5f485f7cd2a183cee1286"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9343d2edcd78461e66118196e76fa2c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c">getAverageS</a> () const</td></tr>
+<tr class="separator:ad9343d2edcd78461e66118196e76fa2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;uint8_t A = 10&gt;<br />
@@ -102,7 +104,7 @@ class EWMA_average&lt; A &gt;</h3>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>long Output value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00055">55</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00071">71</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a208b9b3d82809466b4d90aedb3c7e4db"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a208b9b3d82809466b4d90aedb3c7e4db">&#9670;&nbsp;</a></span>addValue()</h2>
@@ -130,21 +132,21 @@ template&lt;uint8_t A = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00058">58</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00074">74</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph.png" border="0" usemap="#aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph" alt=""/></div>
 <map name="aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph" id="aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph">
 <area shape="rect" title=" " alt="" coords="5,5,197,32"/>
-<area shape="rect" href="movingAvg_8h.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="245,5,429,32"/>
+<area shape="rect" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="245,5,429,32"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a6fbbe5221e07dccf5bb8af302c9c59f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fbbe5221e07dccf5bb8af302c9c59f1">&#9670;&nbsp;</a></span>getAverage()</h2>
+<a id="a8caa754acdd5f485f7cd2a183cee1286"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8caa754acdd5f485f7cd2a183cee1286">&#9670;&nbsp;</a></span>getAverageD()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -155,7 +157,7 @@ template&lt;uint8_t A = 10&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::getAverage </td>
+          <td class="memname">auto <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::getAverageD </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -168,12 +170,41 @@ template&lt;uint8_t A = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="movingAvg_8h_source.html#l00064">64</a> of file <a class="el" href="movingAvg_8h_source.html">movingAvg.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00088">88</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad9343d2edcd78461e66118196e76fa2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9343d2edcd78461e66118196e76fa2c">&#9670;&nbsp;</a></span>getAverageS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t A = 10&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::getAverageS </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00083">83</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Mk2_3phase_RFdatalog_temp/<a class="el" href="movingAvg_8h_source.html">movingAvg.h</a></li>
+<li>Mk2_3phase_RFdatalog_temp/<a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

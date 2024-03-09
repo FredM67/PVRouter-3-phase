@@ -1,24 +1,24 @@
 <map id="loop" name="loop">
-<area shape="rect" id="node1" title="Main processor." alt="" coords="5,296,56,323"/>
-<area shape="rect" id="node2" href="$main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Check the diversion state." alt="" coords="355,62,513,88"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="375,11,493,38"/>
-<area shape="rect" id="node5" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="593,380,747,421"/>
-<area shape="rect" id="node6" href="$classrelayOutput.html#a846e06596d608a445715f36f4f000d4d" title="Increment the duration of the current state." alt="" coords="105,179,291,206"/>
-<area shape="rect" id="node7" href="$classrelayOutput.html#a16e526b1e0a9c02d3d6aa9725c6a83d7" title="Proceed with the relay." alt="" coords="119,230,277,272"/>
-<area shape="rect" id="node8" href="$main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="104,113,292,154"/>
-<area shape="rect" id="node12" href="$classTemperatureSensing.html#a7fef01650aa12d8a4ff2b3ca26bd0803" title="Read temperature of a specific device." alt="" coords="121,348,275,389"/>
-<area shape="rect" id="node13" href="$classTemperatureSensing.html#ab40e9df6930615d4c700780b6174e14f" title="Request temperature for all sensors." alt="" coords="114,413,282,454"/>
-<area shape="rect" id="node14" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="147,479,249,506"/>
-<area shape="rect" id="node20" href="$utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf" title="Toggle the specified pin." alt="" coords="157,530,239,556"/>
-<area shape="rect" id="node22" href="$classrelayOutput.html#a89822cf10797dfca1f05e81ff6157f8d" title=" " alt="" coords="122,581,274,622"/>
-<area shape="rect" id="node3" href="$utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="621,87,719,114"/>
-<area shape="rect" id="node9" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="340,164,528,205"/>
-<area shape="rect" id="node10" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="605,200,735,227"/>
-<area shape="rect" id="node11" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="812,200,943,227"/>
-<area shape="rect" id="node15" href="$utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096" title="Write on Serial in EmonESP format." alt="" coords="367,362,501,388"/>
-<area shape="rect" id="node16" href="$utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5" title="Prints data logs to the Serial output in Json format." alt="" coords="366,412,502,439"/>
-<area shape="rect" id="node17" href="$utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="366,514,502,540"/>
-<area shape="rect" id="node19" href="$utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="381,463,487,490"/>
-<area shape="rect" id="node18" href="$classrelayOutput.html#a4a5d8bdcfdacb2b91880cd1a510124a4" title=" " alt="" coords="576,514,764,540"/>
-<area shape="rect" id="node21" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="401,564,467,591"/>
+<area shape="rect" id="node1" title="Main processor." alt="" coords="5,297,56,323"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Check the diversion state." alt="" coords="357,62,516,89"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="377,11,496,38"/>
+<area shape="rect" id="node5" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="597,380,752,421"/>
+<area shape="rect" id="node6" href="$classRelayEngine.html#af26e077793c68b64aa712ebf72f96232" title=" " alt="" coords="104,179,295,206"/>
+<area shape="rect" id="node7" href="$classRelayEngine.html#a2891986bc989d9c35301711f674bc523" title="Proceed all relays in increasing order (surplus) or decreasing order (import)" alt="" coords="118,231,281,272"/>
+<area shape="rect" id="node8" href="$main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="105,113,293,155"/>
+<area shape="rect" id="node12" href="$classTemperatureSensing.html#a7fef01650aa12d8a4ff2b3ca26bd0803" title="Read temperature of a specific device." alt="" coords="122,348,277,389"/>
+<area shape="rect" id="node13" href="$classTemperatureSensing.html#ab40e9df6930615d4c700780b6174e14f" title="Request temperature for all sensors." alt="" coords="115,413,283,455"/>
+<area shape="rect" id="node14" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="149,479,250,506"/>
+<area shape="rect" id="node20" href="$utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf" title="Toggle the specified pin." alt="" coords="158,530,241,557"/>
+<area shape="rect" id="node22" href="$classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287" title="Update the sliding average." alt="" coords="121,581,277,623"/>
+<area shape="rect" id="node3" href="$utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="626,87,723,114"/>
+<area shape="rect" id="node9" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="343,164,531,205"/>
+<area shape="rect" id="node10" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="610,201,739,227"/>
+<area shape="rect" id="node11" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="819,201,949,227"/>
+<area shape="rect" id="node15" href="$utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096" title="Write on Serial in EmonESP format." alt="" coords="370,362,503,389"/>
+<area shape="rect" id="node16" href="$utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5" title="Prints data logs to the Serial output in Json format." alt="" coords="369,413,505,439"/>
+<area shape="rect" id="node17" href="$utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="369,514,505,541"/>
+<area shape="rect" id="node19" href="$utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="383,463,490,490"/>
+<area shape="rect" id="node18" href="$classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="579,514,771,541"/>
+<area shape="rect" id="node21" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="403,565,470,591"/>
 </map>
