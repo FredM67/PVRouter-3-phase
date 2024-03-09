@@ -289,6 +289,11 @@ public:
     return ewma_average.getAverageS();
   }
 
+  inline static auto get_averageD()
+  {
+    return ewma_average.getAverageD();
+  }
+
   /**
    * @brief Update the sliding average
    * 

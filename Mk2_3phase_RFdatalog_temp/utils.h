@@ -265,6 +265,8 @@ inline void printForSerialText()
   {
     Serial.print(F("/"));
     Serial.print(relays.get_average());
+    Serial.print(F("/"));
+    Serial.print(relays.get_averageD());
   }
 
   for (phase = 0; phase < NO_OF_PHASES; ++phase)
