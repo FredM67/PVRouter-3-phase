@@ -144,12 +144,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#a5c26bb614416d9b5288ef3e5e00bf5b2">initThreshold</a> (const bool lower)</td></tr>
 <tr class="memdesc:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">set default threshold at compile time so the variable can be read-only  <a href="processing_8cpp.html#a5c26bb614416d9b5288ef3e5e00bf5b2">More...</a><br /></td></tr>
 <tr class="separator:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6885cce1d1da17efc43834dadf023b61"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga6885cce1d1da17efc43834dadf023b61">nextLogicalLoadToBeAdded</a> () __attribute__((optimize(&quot;-O3&quot;)))</td></tr>
-<tr class="memdesc:ga6885cce1d1da17efc43834dadf023b61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be added (be aware of the order)  <a href="group__TimeCritical.html#ga6885cce1d1da17efc43834dadf023b61">More...</a><br /></td></tr>
-<tr class="separator:ga6885cce1d1da17efc43834dadf023b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa8eb0f10cc0d8952e13bca76e7875621"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaa8eb0f10cc0d8952e13bca76e7875621">nextLogicalLoadToBeRemoved</a> () __attribute__((optimize(&quot;-O3&quot;)))</td></tr>
-<tr class="memdesc:gaa8eb0f10cc0d8952e13bca76e7875621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be removed (be aware of the reverse-order)  <a href="group__TimeCritical.html#gaa8eb0f10cc0d8952e13bca76e7875621">More...</a><br /></td></tr>
-<tr class="separator:gaa8eb0f10cc0d8952e13bca76e7875621"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8e7b88bb4b21554d23b57676a45e034e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e">nextLogicalLoadToBeAdded</a> ()</td></tr>
+<tr class="memdesc:ga8e7b88bb4b21554d23b57676a45e034e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be added (be aware of the order)  <a href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e">More...</a><br /></td></tr>
+<tr class="separator:ga8e7b88bb4b21554d23b57676a45e034e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabfb25288a79335282af6922e833d3c35"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35">nextLogicalLoadToBeRemoved</a> ()</td></tr>
+<tr class="memdesc:gabfb25288a79335282af6922e833d3c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be removed (be aware of the reverse-order)  <a href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35">More...</a><br /></td></tr>
+<tr class="separator:gabfb25288a79335282af6922e833d3c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2b3b1d496e37e5f29af6a766743dc8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b">printParamsForSelectedOutputMode</a> ()</td></tr>
 <tr class="memdesc:aa2b3b1d496e37e5f29af6a766743dc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the settings used for the selected output mode.  <a href="processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b">More...</a><br /></td></tr>
 <tr class="separator:aa2b3b1d496e37e5f29af6a766743dc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,9 +162,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gafe8420bd47cd08c6d0327d4dbed06414"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">processCurrentRawSample</a> (const uint8_t phase, const int16_t rawSample)</td></tr>
 <tr class="memdesc:gafe8420bd47cd08c6d0327d4dbed06414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the calculation for the actual current raw sample for the specific phase.  <a href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">More...</a><br /></td></tr>
 <tr class="separator:gafe8420bd47cd08c6d0327d4dbed06414"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga66a807366f984e34aacec09333ae7772"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga66a807366f984e34aacec09333ae7772">processDataLogging</a> () __attribute__((optimize(&quot;-O3&quot;)))</td></tr>
-<tr class="memdesc:ga66a807366f984e34aacec09333ae7772"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process with data logging.  <a href="group__TimeCritical.html#ga66a807366f984e34aacec09333ae7772">More...</a><br /></td></tr>
-<tr class="separator:ga66a807366f984e34aacec09333ae7772"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaabf10592d01250ef862370d26c5a382b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b">processDataLogging</a> ()</td></tr>
+<tr class="memdesc:gaabf10592d01250ef862370d26c5a382b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process with data logging.  <a href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b">More...</a><br /></td></tr>
+<tr class="separator:gaabf10592d01250ef862370d26c5a382b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1">processLatestContribution</a> (const uint8_t phase)</td></tr>
 <tr class="memdesc:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the latest contribution after each phase specific new cycle additional processing is performed after each main cycle based on phase 0.  <a href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1">More...</a><br /></td></tr>
 <tr class="separator:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -416,7 +416,7 @@ Here is the caller graph for this function:</div>
 
 <p>Print the settings used for the selected output mode. </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00792">792</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00797">797</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

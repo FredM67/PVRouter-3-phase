@@ -3,7 +3,7 @@
 <area shape="rect" id="node2" href="$main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Check the diversion state." alt="" coords="357,62,516,89"/>
 <area shape="rect" id="node4" href="$main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="377,11,496,38"/>
 <area shape="rect" id="node5" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="597,380,752,421"/>
-<area shape="rect" id="node6" href="$classRelayEngine.html#af26e077793c68b64aa712ebf72f96232" title="Increment the duration&#39;s state of each relay." alt="" coords="104,179,295,206"/>
+<area shape="rect" id="node6" href="$classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc" title="Increment the duration&#39;s state of each relay." alt="" coords="104,179,295,206"/>
 <area shape="rect" id="node7" href="$classRelayEngine.html#a2891986bc989d9c35301711f674bc523" title="Proceed all relays in increasing order (surplus) or decreasing order (import)" alt="" coords="118,231,281,272"/>
 <area shape="rect" id="node8" href="$main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="105,113,293,155"/>
 <area shape="rect" id="node12" href="$classTemperatureSensing.html#a7fef01650aa12d8a4ff2b3ca26bd0803" title="Read temperature of a specific device." alt="" coords="122,348,277,389"/>

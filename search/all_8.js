@@ -3,7 +3,7 @@ var searchData=
   ['i_5fdcoffset_5fi_5fnom_126',['i_DCoffset_I_nom',['../processing_8cpp.html#a14cff0127f52c57f50fe52f2ed2ab093',1,'processing.cpp']]],
   ['i_5fsamplesetsduringthisdatalogperiod_127',['i_sampleSetsDuringThisDatalogPeriod',['../processing_8cpp.html#ab652ee1e3280fde59df6719af6e884d0',1,'processing.cpp']]],
   ['importthreshold_128',['importThreshold',['../classrelayOutput.html#a4ef45ace133c038e9e6fca3c9ed20d05',1,'relayOutput']]],
-  ['inc_5fduration_129',['inc_duration',['../classRelayEngine.html#af26e077793c68b64aa712ebf72f96232',1,'RelayEngine::inc_duration()'],['../classrelayOutput.html#ad34639fdac60c7ef36bbb763f97ab9f1',1,'relayOutput::inc_duration()']]],
+  ['inc_5fduration_129',['inc_duration',['../classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc',1,'RelayEngine::inc_duration()'],['../classrelayOutput.html#ad34639fdac60c7ef36bbb763f97ab9f1',1,'relayOutput::inc_duration()']]],
   ['initialdelay_130',['initialDelay',['../processing_8h.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'processing.h']]],
   ['initializeoptionalpins_131',['initializeOptionalPins',['../processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp'],['../processing_8h.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp']]],
   ['initializepins_132',['initializePins',['../classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339',1,'RelayEngine']]],

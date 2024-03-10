@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['inc_5fduration_524',['inc_duration',['../classrelayOutput.html#ad34639fdac60c7ef36bbb763f97ab9f1',1,'relayOutput::inc_duration()'],['../classRelayEngine.html#af26e077793c68b64aa712ebf72f96232',1,'RelayEngine::inc_duration()']]],
+  ['inc_5fduration_524',['inc_duration',['../classrelayOutput.html#ad34639fdac60c7ef36bbb763f97ab9f1',1,'relayOutput::inc_duration()'],['../classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc',1,'RelayEngine::inc_duration()']]],
   ['initializeoptionalpins_525',['initializeOptionalPins',['../processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp'],['../processing_8h.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp']]],
   ['initializepins_526',['initializePins',['../classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339',1,'RelayEngine']]],
   ['initializeprocessing_527',['initializeProcessing',['../processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp'],['../processing_8h.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp']]],

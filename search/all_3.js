@@ -14,7 +14,7 @@ var searchData=
   ['conditional_3c_20is_5ffloating_5fpoint_3c_20t_20_3e_3a_3avalue_2c_20t_2c_20int32_5ft_20_3e_42',['conditional&lt; is_floating_point&lt; T &gt;::value, T, int32_t &gt;',['../structconditional.html',1,'']]],
   ['config_2eh_43',['config.h',['../config_8h.html',1,'']]],
   ['config_5fsystem_2eh_44',['config_system.h',['../config__system_8h.html',1,'']]],
-  ['confirmpolarity_45',['confirmPolarity',['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(const uint8_t phase):&#160;processing.cpp'],['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(uint8_t phase) __attribute__((always_inline)):&#160;processing.cpp']]],
+  ['confirmpolarity_45',['confirmPolarity',['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(const uint8_t phase):&#160;processing.cpp'],['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(uint8_t phase):&#160;processing.cpp']]],
   ['constants_2eh_46',['constants.h',['../constants_8h.html',1,'']]],
   ['convert_5ftemperature_47',['CONVERT_TEMPERATURE',['../constants_8h.html#a0fc0867cb8eb64709ec9326821f0657c',1,'constants.h']]],
   ['copyof_5fcountloadon_48',['copyOf_countLoadON',['../processing_8h.html#afe6a94d476e5100c87c30c68c87e7276',1,'processing.h']]],
