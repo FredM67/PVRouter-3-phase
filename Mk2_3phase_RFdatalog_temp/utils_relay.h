@@ -28,6 +28,7 @@
 /**
  * @brief Relay diversion config and engine
  * 
+ * @ingroup RelayDiversion
  */
 class relayOutput
 {
@@ -248,6 +249,8 @@ private:
  * 
  * @tparam D The duration in minutes of the sliding average
  * @tparam N The number of relays to be used. This parameter is deduced automatically.
+ * 
+ * @ingroup RelayDiversion
  */
 template< uint8_t N, uint8_t D = 10 >
 class RelayEngine
