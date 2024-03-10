@@ -20,6 +20,11 @@
 #include "ewma_avg.hpp"
 #include "utils_pins.h"
 
+/*!
+ *  @defgroup Relay diversion feature
+ *  Functions used for the relay diversion
+ */
+
 /**
  * @brief Relay diversion config and engine
  * 

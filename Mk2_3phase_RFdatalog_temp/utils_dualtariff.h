@@ -14,6 +14,11 @@
 
 #include <Arduino.h>
 
+/*!
+ *  @defgroup Dual tariff feature
+ *  Functions used for the dual tariff feature
+ */
+
 /** @brief Config parameters for overriding a load
  *  @details This class allows the user to define when and how long a load will be forced at
  *           full power during off-peak period.

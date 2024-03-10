@@ -14,6 +14,11 @@
 
 #include "config.h"
 
+/*!
+ *  @defgroup Dual tariff feature
+ *  Functions used for the dual tariff feature
+ */
+
 /**
  * @brief Template class for Load-Overriding
  * @details The array is initialized at compile time so it can be read-only and

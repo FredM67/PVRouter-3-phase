@@ -17,7 +17,7 @@
 #include "utils_pins.h"
 
 /*!
- *  @defgroup TimeCritical Time critical functions Group
+ *  @defgroup TimeCritical Time critical functions
  *  Functions used by the ISR
  */
 
