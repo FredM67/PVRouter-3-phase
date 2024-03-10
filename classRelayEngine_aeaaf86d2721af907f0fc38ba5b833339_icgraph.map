@@ -1,5 +1,5 @@
 <map id="RelayEngine::initializePins" name="RelayEngine::initializePins">
-<area shape="rect" id="node1" title=" " alt="" coords="320,5,515,32"/>
+<area shape="rect" id="node1" title="Initialize the pins used by the relays." alt="" coords="320,5,515,32"/>
 <area shape="rect" id="node2" href="$processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061" title="Initializes the optional pins." alt="" coords="112,5,272,32"/>
 <area shape="rect" id="node3" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
 </map>

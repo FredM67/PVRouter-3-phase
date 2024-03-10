@@ -228,135 +228,134 @@ $(function() {
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  {</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  }</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a926eff34f40ee3e7d7132ba4cb693d40">  260</a></span>&#160;  constexpr <a class="code" href="classRelayEngine.html#a926eff34f40ee3e7d7132ba4cb693d40">RelayEngine</a>(<a class="code" href="structintegral__constant.html">integral_constant&lt; uint8_t, D &gt;</a> ic, <span class="keyword">const</span> <a class="code" href="classrelayOutput.html">relayOutput</a> (&amp;ref)[N])</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    : relay(ref)</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;  {</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  }</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00266"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3">  266</a></span>&#160;  constexpr <span class="keyword">auto</span> <a class="code" href="classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3">get_size</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="keyword">  </span>{</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keywordflow">return</span> N;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;  }</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
-<div class="line"><a name="l00277"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a353c01f8e0416eb2b147f09e47657811">  277</a></span>&#160;  constexpr <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="classRelayEngine.html#a353c01f8e0416eb2b147f09e47657811">get_relay</a>(uint8_t idx)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="keyword">  </span>{</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keywordflow">return</span> relay[idx];</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;  }</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
-<div class="line"><a name="l00287"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a2c586921b020480449159786461195aa">  287</a></span>&#160;  <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">auto</span> <a class="code" href="classRelayEngine.html#a2c586921b020480449159786461195aa">get_average</a>()</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  {</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">return</span> ewma_average.getAverageS();</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  }</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
-<div class="line"><a name="l00297"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287">  297</a></span>&#160;  <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287">update_average</a>(int16_t currentPower)</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;  {</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    ewma_average.addValue(currentPower);</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;  }</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#af26e077793c68b64aa712ebf72f96232">inc_duration</a>() const __attribute__((optimize(&quot;-O3&quot;)));</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
-<div class="line"><a name="l00308"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a2891986bc989d9c35301711f674bc523">  308</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#a2891986bc989d9c35301711f674bc523">proceed_relays</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="keyword">  </span>{</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <span class="keywordflow">if</span> (settle_change != 0)</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    {</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;      <span class="comment">// A relay has been toggle less than a minute ago, wait until changes take effect</span></div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;      <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    }</div>
+<div class="line"><a name="l00264"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a926eff34f40ee3e7d7132ba4cb693d40">  264</a></span>&#160;  constexpr <a class="code" href="classRelayEngine.html#a926eff34f40ee3e7d7132ba4cb693d40">RelayEngine</a>(<a class="code" href="structintegral__constant.html">integral_constant&lt; uint8_t, D &gt;</a> ic, <span class="keyword">const</span> <a class="code" href="classrelayOutput.html">relayOutput</a> (&amp;ref)[N])</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    : relay(ref)</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;  {</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;  }</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3">  274</a></span>&#160;  constexpr <span class="keyword">auto</span> <a class="code" href="classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3">get_size</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="keyword">  </span>{</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="keywordflow">return</span> N;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  }</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
+<div class="line"><a name="l00285"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a353c01f8e0416eb2b147f09e47657811">  285</a></span>&#160;  constexpr <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code" href="classRelayEngine.html#a353c01f8e0416eb2b147f09e47657811">get_relay</a>(uint8_t idx)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="keyword">  </span>{</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keywordflow">return</span> relay[idx];</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  }</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00295"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a2c586921b020480449159786461195aa">  295</a></span>&#160;  <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">auto</span> <a class="code" href="classRelayEngine.html#a2c586921b020480449159786461195aa">get_average</a>()</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;  {</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="keywordflow">return</span> ewma_average.getAverageS();</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;  }</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
+<div class="line"><a name="l00305"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287">  305</a></span>&#160;  <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287">update_average</a>(int16_t currentPower)</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;  {</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    ewma_average.addValue(currentPower);</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;  }</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; </div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#af26e077793c68b64aa712ebf72f96232">inc_duration</a>() const __attribute__((optimize(&quot;-O3&quot;)));</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160; </div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordflow">if</span> (ewma_average.getAverageS() &gt; 0)</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    {</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;      <span class="comment">// Currently importing, try to turn OFF some relays</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;      uint8_t idx{ N };</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;      <span class="keywordflow">do</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;      {</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        <span class="keywordflow">if</span> (relay[--idx].proceed_relay(ewma_average.getAverageS()))</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        {</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;          settle_change = 60;</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;          <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        }</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;      } <span class="keywordflow">while</span> (idx);</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    }</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    {</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;      <span class="comment">// Remaining surplus, try to turn ON more relays</span></div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;      uint8_t idx{ 0 };</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;      <span class="keywordflow">do</span></div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;      {</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        <span class="keywordflow">if</span> (relay[idx].proceed_relay(ewma_average.getAverageS()))</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        {</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;          settle_change = 60;</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;          <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        }</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;      } <span class="keywordflow">while</span> (++idx &lt; N);</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    }</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;  }</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
-<div class="line"><a name="l00344"></a><span class="lineno"><a class="line" href="classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339">  344</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339">initializePins</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="keyword">  </span>{</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    uint8_t idx{ N };</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keywordflow">do</span></div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    {</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;      pinMode(relay[--idx].get_pin(), OUTPUT);</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;      delay(100);</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    } <span class="keywordflow">while</span> (idx);</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;  }</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160; </div>
-<div class="line"><a name="l00358"></a><span class="lineno"><a class="line" href="classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a">  358</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a">printConfiguration</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="keyword">  </span>{</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;\t*** Relay(s) configuration ***&quot;</span>));</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\t\tSliding average: &quot;</span>));</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    Serial.println(D);</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160; </div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; N; ++i)</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    {</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;      relay[i].<a class="code" href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a">printRelayConfiguration</a>(i);</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    }</div>
+<div class="line"><a name="l00320"></a><span class="lineno"><a class="line" href="classRelayEngine.html#a2891986bc989d9c35301711f674bc523">  320</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#a2891986bc989d9c35301711f674bc523">proceed_relays</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="keyword">  </span>{</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keywordflow">if</span> (settle_change != 0)</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    {</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;      <span class="comment">// A relay has been toggle less than a minute ago, wait until changes take effect</span></div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;      <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    }</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keywordflow">if</span> (ewma_average.getAverageS() &gt; 0)</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    {</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;      <span class="comment">// Currently importing, try to turn OFF some relays</span></div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;      uint8_t idx{ N };</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;      <span class="keywordflow">do</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;      {</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="keywordflow">if</span> (relay[--idx].proceed_relay(ewma_average.getAverageS()))</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        {</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;          settle_change = 60;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;          <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        }</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;      } <span class="keywordflow">while</span> (idx);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    }</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    {</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;      <span class="comment">// Remaining surplus, try to turn ON more relays</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;      uint8_t idx{ 0 };</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;      <span class="keywordflow">do</span></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;      {</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        <span class="keywordflow">if</span> (relay[idx].proceed_relay(ewma_average.getAverageS()))</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        {</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;          settle_change = 60;</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;          <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        }</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;      } <span class="keywordflow">while</span> (++idx &lt; N);</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    }</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  }</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
+<div class="line"><a name="l00360"></a><span class="lineno"><a class="line" href="classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339">  360</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339">initializePins</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="keyword">  </span>{</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    uint8_t idx{ N };</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    <span class="keywordflow">do</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    {</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;      pinMode(relay[--idx].get_pin(), OUTPUT);</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;      delay(100);</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    } <span class="keywordflow">while</span> (idx);</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;  }</div>
 <div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;  <span class="keyword">const</span> <a class="code" href="classrelayOutput.html">relayOutput</a> relay[N]; </div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;  <span class="keyword">mutable</span> uint8_t settle_change{ 60 }; </div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;  <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code" href="classEWMA__average.html">EWMA_average</a>&lt; D * 60 / <a class="code" href="config__system_8h.html#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> &gt; ewma_average; </div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;};</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
-<div class="line"><a name="l00378"></a><span class="lineno"><a class="line" href="classRelayEngine.html#af26e077793c68b64aa712ebf72f96232">  378</a></span>&#160;<span class="keyword">template</span>&lt; u<span class="keywordtype">int</span>8_t N, u<span class="keywordtype">int</span>8_t D &gt; <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#af26e077793c68b64aa712ebf72f96232">RelayEngine&lt; N, D &gt;::inc_duration</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;  uint8_t idx{ N };</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;  <span class="keywordflow">do</span></div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;  {</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    relay[--idx].inc_duration();</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;  } <span class="keywordflow">while</span> (idx);</div>
+<div class="line"><a name="l00374"></a><span class="lineno"><a class="line" href="classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a">  374</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a">printConfiguration</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="keyword">  </span>{</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;\t*** Relay(s) configuration ***&quot;</span>));</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\t\tSliding average: &quot;</span>));</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    Serial.println(D);</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; N; ++i)</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    {</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;      relay[i].<a class="code" href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a">printRelayConfiguration</a>(i);</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    }</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;  }</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;  <span class="keywordflow">if</span> (settle_change)</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;  {</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    --settle_change;</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;  }</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;}</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160; </div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// _UTILS_RELAY_H</span></div>
-<div class="ttc" id="aclassEWMA__average_html"><div class="ttname"><a href="classEWMA__average.html">EWMA_average</a></div><div class="ttdoc">Exponentially Weighted Moving Average.</div><div class="ttdef"><b>Definition:</b> <a href="ewma__avg_8hpp_source.html#l00071">ewma_avg.hpp:72</a></div></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;  <span class="keyword">const</span> <a class="code" href="classrelayOutput.html">relayOutput</a> relay[N]; </div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;  <span class="keyword">mutable</span> uint8_t settle_change{ 60 }; </div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;  <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code" href="classEWMA__average.html">EWMA_average</a>&lt; D * 60 / <a class="code" href="config__system_8h.html#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> &gt; ewma_average; </div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;};</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
+<div class="line"><a name="l00394"></a><span class="lineno"><a class="line" href="classRelayEngine.html#af26e077793c68b64aa712ebf72f96232">  394</a></span>&#160;<span class="keyword">template</span>&lt; u<span class="keywordtype">int</span>8_t N, u<span class="keywordtype">int</span>8_t D &gt; <span class="keywordtype">void</span> <a class="code" href="classRelayEngine.html#af26e077793c68b64aa712ebf72f96232">RelayEngine&lt; N, D &gt;::inc_duration</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;  uint8_t idx{ N };</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;  <span class="keywordflow">do</span></div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;  {</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    relay[--idx].inc_duration();</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  } <span class="keywordflow">while</span> (idx);</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160; </div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;  <span class="keywordflow">if</span> (settle_change)</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;  {</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    --settle_change;</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;  }</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;}</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// _UTILS_RELAY_H</span></div>
+<div class="ttc" id="aclassEWMA__average_html"><div class="ttname"><a href="classEWMA__average.html">EWMA_average</a></div><div class="ttdoc">Exponentially Weighted Moving Average.</div><div class="ttdef"><b>Definition:</b> <a href="ewma__avg_8hpp_source.html#l00077">ewma_avg.hpp:78</a></div></div>
 <div class="ttc" id="aclassRelayEngine_html"><div class="ttname"><a href="classRelayEngine.html">RelayEngine</a></div><div class="ttdoc">This class implements the relay management engine.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00248">utils_relay.h:249</a></div></div>
-<div class="ttc" id="aclassRelayEngine_html_a1ed9500ebf4f6d7afb519c377fab42d3"><div class="ttname"><a href="classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3">RelayEngine::get_size</a></div><div class="ttdeci">constexpr auto get_size() const</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00266">utils_relay.h:266</a></div></div>
-<div class="ttc" id="aclassRelayEngine_html_a2891986bc989d9c35301711f674bc523"><div class="ttname"><a href="classRelayEngine.html#a2891986bc989d9c35301711f674bc523">RelayEngine::proceed_relays</a></div><div class="ttdeci">void proceed_relays() const</div><div class="ttdoc">Proceed all relays in increasing order (surplus) or decreasing order (import)</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00308">utils_relay.h:308</a></div></div>
-<div class="ttc" id="aclassRelayEngine_html_a2c586921b020480449159786461195aa"><div class="ttname"><a href="classRelayEngine.html#a2c586921b020480449159786461195aa">RelayEngine::get_average</a></div><div class="ttdeci">static auto get_average()</div><div class="ttdoc">Get the current average.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00287">utils_relay.h:287</a></div></div>
-<div class="ttc" id="aclassRelayEngine_html_a2c8796258ac6cd4006a55c236c383287"><div class="ttname"><a href="classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287">RelayEngine::update_average</a></div><div class="ttdeci">static void update_average(int16_t currentPower)</div><div class="ttdoc">Update the sliding average.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00297">utils_relay.h:297</a></div></div>
-<div class="ttc" id="aclassRelayEngine_html_a353c01f8e0416eb2b147f09e47657811"><div class="ttname"><a href="classRelayEngine.html#a353c01f8e0416eb2b147f09e47657811">RelayEngine::get_relay</a></div><div class="ttdeci">constexpr const auto &amp; get_relay(uint8_t idx) const</div><div class="ttdoc">Get the relay object.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00277">utils_relay.h:277</a></div></div>
-<div class="ttc" id="aclassRelayEngine_html_a926eff34f40ee3e7d7132ba4cb693d40"><div class="ttname"><a href="classRelayEngine.html#a926eff34f40ee3e7d7132ba4cb693d40">RelayEngine::RelayEngine</a></div><div class="ttdeci">constexpr RelayEngine(integral_constant&lt; uint8_t, D &gt; ic, const relayOutput(&amp;ref)[N])</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00260">utils_relay.h:260</a></div></div>
+<div class="ttc" id="aclassRelayEngine_html_a1ed9500ebf4f6d7afb519c377fab42d3"><div class="ttname"><a href="classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3">RelayEngine::get_size</a></div><div class="ttdeci">constexpr auto get_size() const</div><div class="ttdoc">Get the number of relays.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00274">utils_relay.h:274</a></div></div>
+<div class="ttc" id="aclassRelayEngine_html_a2891986bc989d9c35301711f674bc523"><div class="ttname"><a href="classRelayEngine.html#a2891986bc989d9c35301711f674bc523">RelayEngine::proceed_relays</a></div><div class="ttdeci">void proceed_relays() const</div><div class="ttdoc">Proceed all relays in increasing order (surplus) or decreasing order (import)</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00320">utils_relay.h:320</a></div></div>
+<div class="ttc" id="aclassRelayEngine_html_a2c586921b020480449159786461195aa"><div class="ttname"><a href="classRelayEngine.html#a2c586921b020480449159786461195aa">RelayEngine::get_average</a></div><div class="ttdeci">static auto get_average()</div><div class="ttdoc">Get the current average.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00295">utils_relay.h:295</a></div></div>
+<div class="ttc" id="aclassRelayEngine_html_a2c8796258ac6cd4006a55c236c383287"><div class="ttname"><a href="classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287">RelayEngine::update_average</a></div><div class="ttdeci">static void update_average(int16_t currentPower)</div><div class="ttdoc">Update the sliding average.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00305">utils_relay.h:305</a></div></div>
+<div class="ttc" id="aclassRelayEngine_html_a353c01f8e0416eb2b147f09e47657811"><div class="ttname"><a href="classRelayEngine.html#a353c01f8e0416eb2b147f09e47657811">RelayEngine::get_relay</a></div><div class="ttdeci">constexpr const auto &amp; get_relay(uint8_t idx) const</div><div class="ttdoc">Get the relay object.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00285">utils_relay.h:285</a></div></div>
+<div class="ttc" id="aclassRelayEngine_html_a926eff34f40ee3e7d7132ba4cb693d40"><div class="ttname"><a href="classRelayEngine.html#a926eff34f40ee3e7d7132ba4cb693d40">RelayEngine::RelayEngine</a></div><div class="ttdeci">constexpr RelayEngine(integral_constant&lt; uint8_t, D &gt; ic, const relayOutput(&amp;ref)[N])</div><div class="ttdoc">Construct a list of relays with a custom sliding average.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00264">utils_relay.h:264</a></div></div>
 <div class="ttc" id="aclassRelayEngine_html_aa834d2148c13bbf4c63f949033746ecd"><div class="ttname"><a href="classRelayEngine.html#aa834d2148c13bbf4c63f949033746ecd">RelayEngine::RelayEngine</a></div><div class="ttdeci">constexpr RelayEngine(const relayOutput(&amp;ref)[N])</div><div class="ttdoc">Construct a list of relays.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00255">utils_relay.h:255</a></div></div>
-<div class="ttc" id="aclassRelayEngine_html_ab3ff0ac83bf3a665174f0ea373974e3a"><div class="ttname"><a href="classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a">RelayEngine::printConfiguration</a></div><div class="ttdeci">void printConfiguration() const</div><div class="ttdoc">Print the configuration of each relay.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00358">utils_relay.h:358</a></div></div>
-<div class="ttc" id="aclassRelayEngine_html_aeaaf86d2721af907f0fc38ba5b833339"><div class="ttname"><a href="classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339">RelayEngine::initializePins</a></div><div class="ttdeci">void initializePins() const</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00344">utils_relay.h:344</a></div></div>
-<div class="ttc" id="aclassRelayEngine_html_af26e077793c68b64aa712ebf72f96232"><div class="ttname"><a href="classRelayEngine.html#af26e077793c68b64aa712ebf72f96232">RelayEngine::inc_duration</a></div><div class="ttdeci">void inc_duration() const __attribute__((optimize(&quot;-O3&quot;)))</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00378">utils_relay.h:378</a></div></div>
+<div class="ttc" id="aclassRelayEngine_html_ab3ff0ac83bf3a665174f0ea373974e3a"><div class="ttname"><a href="classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a">RelayEngine::printConfiguration</a></div><div class="ttdeci">void printConfiguration() const</div><div class="ttdoc">Print the configuration of each relay.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00374">utils_relay.h:374</a></div></div>
+<div class="ttc" id="aclassRelayEngine_html_aeaaf86d2721af907f0fc38ba5b833339"><div class="ttname"><a href="classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339">RelayEngine::initializePins</a></div><div class="ttdeci">void initializePins() const</div><div class="ttdoc">Initialize the pins used by the relays.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00360">utils_relay.h:360</a></div></div>
+<div class="ttc" id="aclassRelayEngine_html_af26e077793c68b64aa712ebf72f96232"><div class="ttname"><a href="classRelayEngine.html#af26e077793c68b64aa712ebf72f96232">RelayEngine::inc_duration</a></div><div class="ttdeci">void inc_duration() const __attribute__((optimize(&quot;-O3&quot;)))</div><div class="ttdoc">Increment the duration's state of each relay.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00394">utils_relay.h:394</a></div></div>
 <div class="ttc" id="aclassrelayOutput_html"><div class="ttname"><a href="classrelayOutput.html">relayOutput</a></div><div class="ttdoc">Relay diversion config and engine.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00027">utils_relay.h:28</a></div></div>
 <div class="ttc" id="aclassrelayOutput_html_a1e14c420e720e082a327e2341906cb18"><div class="ttname"><a href="classrelayOutput.html#a1e14c420e720e082a327e2341906cb18">relayOutput::relayOutput</a></div><div class="ttdeci">constexpr relayOutput()=delete</div></div>
 <div class="ttc" id="aclassrelayOutput_html_a3b3ccb243e3e2c287249e0f0e079f554"><div class="ttname"><a href="classrelayOutput.html#a3b3ccb243e3e2c287249e0f0e079f554">relayOutput::get_minOFF</a></div><div class="ttdeci">constexpr auto get_minOFF() const</div><div class="ttdoc">Get the minimum OFF-time.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00113">utils_relay.h:113</a></div></div>
 <div class="ttc" id="aclassrelayOutput_html_a53d146f5a123d31cae6146e8fb4c038a"><div class="ttname"><a href="classrelayOutput.html#a53d146f5a123d31cae6146e8fb4c038a">relayOutput::get_surplusThreshold</a></div><div class="ttdeci">constexpr auto get_surplusThreshold() const</div><div class="ttdoc">Get the surplus threshold which will turns ON the relay.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00083">utils_relay.h:83</a></div></div>
 <div class="ttc" id="aclassrelayOutput_html_a5e22ca8a5617edf8219898f2c1ba22bf"><div class="ttname"><a href="classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf">relayOutput::proceed_relay</a></div><div class="ttdeci">bool proceed_relay(const int32_t currentAvgPower) const</div><div class="ttdoc">Proceed with the relay.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00146">utils_relay.h:146</a></div></div>
-<div class="ttc" id="aclassrelayOutput_html_a6c37604b74d578740144dedb3d38096e"><div class="ttname"><a href="classrelayOutput.html#a6c37604b74d578740144dedb3d38096e">relayOutput::relayOutput</a></div><div class="ttdeci">constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)</div><div class="ttdoc">Construct a new relay Config object.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00063">utils_relay.h:63</a></div></div>
-<div class="ttc" id="aclassrelayOutput_html_a8ec4f8ef291d95028b40b11f2238e1b0"><div class="ttname"><a href="classrelayOutput.html#a8ec4f8ef291d95028b40b11f2238e1b0">relayOutput::relayOutput</a></div><div class="ttdeci">constexpr relayOutput(const uint8_t _relay_pin)</div><div class="ttdoc">Construct a new relay Config object.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00037">utils_relay.h:37</a></div></div>
+<div class="ttc" id="aclassrelayOutput_html_a6c37604b74d578740144dedb3d38096e"><div class="ttname"><a href="classrelayOutput.html#a6c37604b74d578740144dedb3d38096e">relayOutput::relayOutput</a></div><div class="ttdeci">constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)</div><div class="ttdoc">Construct a new relay Config object with custom parameters.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00063">utils_relay.h:63</a></div></div>
+<div class="ttc" id="aclassrelayOutput_html_a8ec4f8ef291d95028b40b11f2238e1b0"><div class="ttname"><a href="classrelayOutput.html#a8ec4f8ef291d95028b40b11f2238e1b0">relayOutput::relayOutput</a></div><div class="ttdeci">constexpr relayOutput(const uint8_t _relay_pin)</div><div class="ttdoc">Construct a new relay Config object with default parameters.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00037">utils_relay.h:37</a></div></div>
 <div class="ttc" id="aclassrelayOutput_html_aa5e29e98a79b0a99ca429b2d3c80969e"><div class="ttname"><a href="classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e">relayOutput::get_importThreshold</a></div><div class="ttdeci">constexpr auto get_importThreshold() const</div><div class="ttdoc">Get the import threshold which will turns OFF the relay.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00093">utils_relay.h:93</a></div></div>
 <div class="ttc" id="aclassrelayOutput_html_aa900099d8298cde7d15e3e2dd804df4a"><div class="ttname"><a href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a">relayOutput::printRelayConfiguration</a></div><div class="ttdeci">void printRelayConfiguration(uint8_t idx) const</div><div class="ttdoc">Print the configuration of the current relay-diversion.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00164">utils_relay.h:164</a></div></div>
-<div class="ttc" id="aclassrelayOutput_html_aaaea9886591a4fc044da5922bb90e746"><div class="ttname"><a href="classrelayOutput.html#aaaea9886591a4fc044da5922bb90e746">relayOutput::relayOutput</a></div><div class="ttdeci">constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)</div><div class="ttdoc">Construct a new relay Config object.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00049">utils_relay.h:49</a></div></div>
+<div class="ttc" id="aclassrelayOutput_html_aaaea9886591a4fc044da5922bb90e746"><div class="ttname"><a href="classrelayOutput.html#aaaea9886591a4fc044da5922bb90e746">relayOutput::relayOutput</a></div><div class="ttdeci">constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)</div><div class="ttdoc">Construct a new relay Config object with default/custom parameters.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00049">utils_relay.h:49</a></div></div>
 <div class="ttc" id="aclassrelayOutput_html_ab6905bae7d7204139b695ca089defb20"><div class="ttname"><a href="classrelayOutput.html#ab6905bae7d7204139b695ca089defb20">relayOutput::isRelayON</a></div><div class="ttdeci">auto isRelayON() const</div><div class="ttdoc">Return the state.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00123">utils_relay.h:123</a></div></div>
 <div class="ttc" id="aclassrelayOutput_html_ac9bf2670034f07cc718b4a9b7c513155"><div class="ttname"><a href="classrelayOutput.html#ac9bf2670034f07cc718b4a9b7c513155">relayOutput::get_pin</a></div><div class="ttdeci">constexpr auto get_pin() const</div><div class="ttdoc">Get the control pin of the relay.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00073">utils_relay.h:73</a></div></div>
 <div class="ttc" id="aclassrelayOutput_html_ad34639fdac60c7ef36bbb763f97ab9f1"><div class="ttname"><a href="classrelayOutput.html#ad34639fdac60c7ef36bbb763f97ab9f1">relayOutput::inc_duration</a></div><div class="ttdeci">void inc_duration() const</div><div class="ttdoc">Increment the duration of the current state.</div><div class="ttdef"><b>Definition:</b> <a href="utils__relay_8h_source.html#l00133">utils_relay.h:133</a></div></div>

@@ -4,5 +4,5 @@
 <area shape="rect" id="node3" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="201,56,267,83"/>
 <area shape="rect" id="node4" href="$classTemperatureSensing.html#aed6d4373de91a9d842e4f2f6ccbc93be" title="Get the pin of the sensor(s)" alt="" coords="157,107,311,149"/>
 <area shape="rect" id="node5" href="$classRelayEngine.html#a353c01f8e0416eb2b147f09e47657811" title="Get the relay object." alt="" coords="148,173,320,200"/>
-<area shape="rect" id="node6" href="$classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title=" " alt="" coords="151,224,317,251"/>
+<area shape="rect" id="node6" href="$classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title="Get the number of relays." alt="" coords="151,224,317,251"/>
 </map>

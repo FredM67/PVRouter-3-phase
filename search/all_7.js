@@ -11,9 +11,10 @@ var searchData=
   ['getaverage_96',['getAverage',['../classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae',1,'movingAvg']]],
   ['getaveraged_97',['getAverageD',['../classEWMA__average.html#a8caa754acdd5f485f7cd2a183cee1286',1,'EWMA_average']]],
   ['getaverages_98',['getAverageS',['../classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c',1,'EWMA_average']]],
-  ['getduration_99',['getDuration',['../classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2',1,'pairForceLoad']]],
-  ['getelement_100',['getElement',['../classmovingAvg.html#afaea648c9898a00cdbf8991971279861',1,'movingAvg']]],
-  ['getpinstate_101',['getPinState',['../utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649',1,'utils_pins.h']]],
-  ['getsize_102',['getSize',['../classmovingAvg.html#a588664a30754acc54ac30962e5a5e303',1,'movingAvg']]],
-  ['getstartoffset_103',['getStartOffset',['../classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f',1,'pairForceLoad']]]
+  ['getaveraget_99',['getAverageT',['../classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be',1,'EWMA_average']]],
+  ['getduration_100',['getDuration',['../classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2',1,'pairForceLoad']]],
+  ['getelement_101',['getElement',['../classmovingAvg.html#afaea648c9898a00cdbf8991971279861',1,'movingAvg']]],
+  ['getpinstate_102',['getPinState',['../utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649',1,'utils_pins.h']]],
+  ['getsize_103',['getSize',['../classmovingAvg.html#a588664a30754acc54ac30962e5a5e303',1,'movingAvg']]],
+  ['getstartoffset_104',['getStartOffset',['../classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f',1,'pairForceLoad']]]
 ];

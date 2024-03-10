@@ -79,13 +79,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1e14c420e720e082a327e2341906cb18"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a1e14c420e720e082a327e2341906cb18">relayOutput</a> ()=delete</td></tr>
 <tr class="separator:a1e14c420e720e082a327e2341906cb18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ec4f8ef291d95028b40b11f2238e1b0"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a8ec4f8ef291d95028b40b11f2238e1b0">relayOutput</a> (const uint8_t _relay_pin)</td></tr>
-<tr class="memdesc:a8ec4f8ef291d95028b40b11f2238e1b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object.  <a href="classrelayOutput.html#a8ec4f8ef291d95028b40b11f2238e1b0">More...</a><br /></td></tr>
+<tr class="memdesc:a8ec4f8ef291d95028b40b11f2238e1b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object with default parameters.  <a href="classrelayOutput.html#a8ec4f8ef291d95028b40b11f2238e1b0">More...</a><br /></td></tr>
 <tr class="separator:a8ec4f8ef291d95028b40b11f2238e1b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaea9886591a4fc044da5922bb90e746"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#aaaea9886591a4fc044da5922bb90e746">relayOutput</a> (uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)</td></tr>
-<tr class="memdesc:aaaea9886591a4fc044da5922bb90e746"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object.  <a href="classrelayOutput.html#aaaea9886591a4fc044da5922bb90e746">More...</a><br /></td></tr>
+<tr class="memdesc:aaaea9886591a4fc044da5922bb90e746"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object with default/custom parameters.  <a href="classrelayOutput.html#aaaea9886591a4fc044da5922bb90e746">More...</a><br /></td></tr>
 <tr class="separator:aaaea9886591a4fc044da5922bb90e746"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c37604b74d578740144dedb3d38096e"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a6c37604b74d578740144dedb3d38096e">relayOutput</a> (uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, <a class="el" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> _minON, <a class="el" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> _minOFF)</td></tr>
-<tr class="memdesc:a6c37604b74d578740144dedb3d38096e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object.  <a href="classrelayOutput.html#a6c37604b74d578740144dedb3d38096e">More...</a><br /></td></tr>
+<tr class="memdesc:a6c37604b74d578740144dedb3d38096e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object with custom parameters.  <a href="classrelayOutput.html#a6c37604b74d578740144dedb3d38096e">More...</a><br /></td></tr>
 <tr class="separator:a6c37604b74d578740144dedb3d38096e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5e29e98a79b0a99ca429b2d3c80969e"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e">get_importThreshold</a> () const</td></tr>
 <tr class="memdesc:aa5e29e98a79b0a99ca429b2d3c80969e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the import threshold which will turns OFF the relay.  <a href="classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e">More...</a><br /></td></tr>
@@ -169,7 +169,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new relay Config object. </p>
+<p>Construct a new relay Config object with default parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">_relay_pin</td><td>Control pin for the relay </td></tr>
@@ -221,7 +221,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new relay Config object. </p>
+<p>Construct a new relay Config object with default/custom parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">_relay_pin</td><td>Control pin for the relay </td></tr>
@@ -287,7 +287,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new relay Config object. </p>
+<p>Construct a new relay Config object with custom parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">_relay_pin</td><td>Control pin for the relay </td></tr>

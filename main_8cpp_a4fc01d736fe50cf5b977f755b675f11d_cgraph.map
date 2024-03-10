@@ -6,7 +6,7 @@
 <area shape="rect" id="node13" href="$classTemperatureSensing.html#af739aa9acd846f3ac2da655d9ba8e1a8" title="Initialize the Dallas sensors." alt="" coords="112,247,296,289"/>
 <area shape="rect" id="node15" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="139,313,269,340"/>
 <area shape="rect" id="node16" href="$utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="135,389,273,416"/>
-<area shape="rect" id="node4" href="$classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339" title=" " alt="" coords="375,5,569,32"/>
+<area shape="rect" id="node4" href="$classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339" title="Initialize the pins used by the relays." alt="" coords="375,5,569,32"/>
 <area shape="rect" id="node5" href="$utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="428,56,516,83"/>
 <area shape="rect" id="node6" href="$utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="739,81,818,108"/>
 <area shape="rect" id="node8" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="439,157,505,184"/>
