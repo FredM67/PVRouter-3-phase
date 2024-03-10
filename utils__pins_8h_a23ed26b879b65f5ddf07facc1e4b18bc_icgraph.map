@@ -1,0 +1,13 @@
+<map id="bit_set" name="bit_set">
+<area shape="rect" id="node1" title="Set the specified bit to 1." alt="" coords="647,107,713,133"/>
+<area shape="rect" id="node2" href="$validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="439,5,599,32"/>
+<area shape="rect" id="node3" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="471,56,566,83"/>
+<area shape="rect" id="node4" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="445,107,593,133"/>
+<area shape="rect" id="node6" href="$utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="477,157,560,184"/>
+<area shape="rect" id="node10" href="$utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf" title="Toggle the specified pin." alt="" coords="477,220,560,247"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="272,93,331,120"/>
+<area shape="rect" id="node7" href="$utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7" title="Set the Pin state for the specified pin." alt="" coords="253,144,349,171"/>
+<area shape="rect" id="node8" href="$classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="212,195,391,221"/>
+<area shape="rect" id="node9" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="5,187,164,229"/>
+<area shape="rect" id="node11" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="276,245,327,272"/>
+</map>

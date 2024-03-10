@@ -73,13 +73,13 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright © 2014-2023, Benoit BLANCHON</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// MIT License</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">once</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="remove__reference_8hpp.html">&quot;remove_reference.hpp&quot;</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="remove__reference_8hpp.html">remove_reference.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// A meta-function that returns true if Derived inherits from TBase is an</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// integral type.</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">typename</span> TBase, <span class="keyword">typename</span> TDerived &gt;</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classis__base__of.html">   11</a></span>&#160;<span class="keyword">class</span> <a class="code" href="classis__base__of.html">is_base_of</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classis__base__of.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="classis__base__of.html">is_base_of</a></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">protected</span>:  <span class="comment">// &lt;- to avoid GCC&#39;s &quot;all member functions in class are private&quot;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classis__base__of.html#adab6b4c853b8211344b11836e36a6ceb">   14</a></span>&#160;  <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classis__base__of.html#adab6b4c853b8211344b11836e36a6ceb">probe</a>(<span class="keyword">const</span> TBase*);</div>
@@ -87,10 +87,16 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classis__base__of.html#af5099c0b8b7ac33766bbc071e8df525b">   18</a></span>&#160;  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code" href="classis__base__of.html#af5099c0b8b7ac33766bbc071e8df525b">value</a> =</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">sizeof</span>(probe(<span class="keyword">reinterpret_cast</span>&lt; <span class="keyword">typename</span> <a class="code" href="structremove__reference.html">remove_reference</a>&lt; TDerived &gt;::type* &gt;(</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">sizeof</span>(<a class="code" href="classis__base__of.html#adab6b4c853b8211344b11836e36a6ceb">probe</a>(<span class="keyword">reinterpret_cast&lt;</span> typename <a class="code" href="structremove__reference.html#a30f490ee1919861a173b5b68c4921ea5">remove_reference&lt; TDerived &gt;::type</a>* <span class="keyword">&gt;</span>(</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;      0)))</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    == <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>);</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
+<div class="ttc" id="aclassis__base__of_html"><div class="ttname"><a href="classis__base__of.html">is_base_of</a></div><div class="ttdef"><b>Definition:</b> <a href="is__base__of_8hpp_source.html#l00011">is_base_of.hpp:12</a></div></div>
+<div class="ttc" id="aclassis__base__of_html_adab6b4c853b8211344b11836e36a6ceb"><div class="ttname"><a href="classis__base__of.html#adab6b4c853b8211344b11836e36a6ceb">is_base_of::probe</a></div><div class="ttdeci">static int probe(const TBase *)</div></div>
+<div class="ttc" id="aclassis__base__of_html_aef38e5fe99248c8e7cb3a8126ea7102c"><div class="ttname"><a href="classis__base__of.html#aef38e5fe99248c8e7cb3a8126ea7102c">is_base_of::probe</a></div><div class="ttdeci">static char probe(...)</div></div>
+<div class="ttc" id="aclassis__base__of_html_af5099c0b8b7ac33766bbc071e8df525b"><div class="ttname"><a href="classis__base__of.html#af5099c0b8b7ac33766bbc071e8df525b">is_base_of::value</a></div><div class="ttdeci">static const bool value</div><div class="ttdef"><b>Definition:</b> <a href="is__base__of_8hpp_source.html#l00018">is_base_of.hpp:18</a></div></div>
+<div class="ttc" id="aremove__reference_8hpp_html"><div class="ttname"><a href="remove__reference_8hpp.html">remove_reference.hpp</a></div></div>
+<div class="ttc" id="astructremove__reference_html_a30f490ee1919861a173b5b68c4921ea5"><div class="ttname"><a href="structremove__reference.html#a30f490ee1919861a173b5b68c4921ea5">remove_reference::type</a></div><div class="ttdeci">T type</div><div class="ttdef"><b>Definition:</b> <a href="remove__reference_8hpp_source.html#l00011">remove_reference.hpp:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

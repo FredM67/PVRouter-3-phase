@@ -69,208 +69,182 @@ $(function() {
 <div class="title">movingAvg.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="movingAvg_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * @file movingAvg.h</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> * @author Frédéric Metrich (frederic.metrich@live.fr)</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * @brief Code for sliding-window average</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * @version 0.1</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * @date 2023-06-14</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * @copyright Copyright (c) 2023</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">MOVINGAVG_H</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">MOVINGAVG_H</span></div>
+<a href="movingAvg_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef MOVINGAVG_H</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define MOVINGAVG_H</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">Arduino</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="type__traits_8hpp.html" title="Some useful but missing stl functions templates.">&quot;type_traits.hpp&quot;</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="type__traits_8hpp.html">type_traits.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"> * @brief Template class for implementing a sliding average</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * @tparam T Type of values to be stored</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> * @tparam DURATION_IN_MINUTES Size of main array</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"> * @tparam VALUES_PER_MINUTE Size of sub array</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @note</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> *    Since the Arduino RAM is tiny, we need to store a few values as possible.</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> *    Suppose, you want a sliding window of 10 minutes and receive a value every 5 seconds.</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> *    With one single array, 10 x 12 values would be necessary to store.</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> *    Using 2 arrays, one to store incoming values over 1 minute and one to store values every minutes,</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> *    we need only 12 + 10 values.</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> *    How it works :</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> *      - the average is calculated over 1 minute with incoming values</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> *      - this sub-average is added to the main array</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> *      - the average is calculated on the main array</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"> *    Drawback of this method: the average is updated only every minutes !</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">typename</span> T, uint8_t DURATION_IN_MINUTES = 10, uint8_t VALUES_PER_MINUTE = 10 &gt;</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classmovingAvg.html">   40</a></span>&#160;<span class="keyword">class</span> <a class="code" href="classmovingAvg.html">movingAvg</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">typename</span> T, u<span class="keywordtype">int</span>8_t DURATION_IN_MINUTES = 10, u<span class="keywordtype">int</span>8_t VALUES_PER_MINUTE = 10 &gt;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classmovingAvg.html">   40</a></span>&#160;<span class="keyword">class </span><a class="code" href="classmovingAvg.html">movingAvg</a></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="comment">/**</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">   * @brief Reset everything</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">   * </span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7">   47</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7">clear</a>()</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    _idx = 0;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">_idx</a> = 0;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code" href="structis__floating__point.html">is_floating_point</a>&lt; T &gt;::value)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">if</span> constexpr (<a class="code" href="structis__floating__point.html">is_floating_point&lt; T &gt;::value</a>)</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      _sum = 0.0F;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a> = 0.0F;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      _sum = 0;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a> = 0;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    uint8_t i{ DURATION_IN_MINUTES };</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">do</span> {</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      --i;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code" href="structis__floating__point.html">is_floating_point</a>&lt; T &gt;::value)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      <span class="keywordflow">if</span> constexpr (<a class="code" href="structis__floating__point.html">is_floating_point&lt; T &gt;::value</a>)</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        _ar[i] = 0.0F;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <a class="code" href="classmovingAvg.html#a7ba8ffe8844a85b80b73730f7d678a21">_ar</a>[i] = 0.0F;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      }</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;      {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        _ar[i] = 0;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="classmovingAvg.html#a7ba8ffe8844a85b80b73730f7d678a21">_ar</a>[i] = 0;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      }</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    } <span class="keywordflow">while</span> (i);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="classmovingAvg.html#a98ab84acfc83c305cbf6f94905ba0e70">_clear_sub</a><a class="code" href="classmovingAvg.html#a98ab84acfc83c305cbf6f94905ba0e70">(</a><a class="code" href="classmovingAvg.html#a98ab84acfc83c305cbf6f94905ba0e70">)</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="classmovingAvg.html#a98ab84acfc83c305cbf6f94905ba0e70">_clear_sub</a>();</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  }</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="comment">/**</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">   * @brief Add a value</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">   * </span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">   * @param _value Value to be added</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">   */</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classmovingAvg.html#aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5">   81</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classmovingAvg.html#aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5">addValue</a>(<span class="keyword">const</span> T&amp; _value)</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    _sub_sum -= _sub_ar[_sub_idx];</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    _sub_ar[_sub_idx] = _value;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    _sub_sum += _value;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    ++_sub_idx;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">_sub_sum</a> -= <a class="code" href="classmovingAvg.html#af89056944638f6227b66e8bcd0a5b6ff">_sub_ar</a>[<a class="code" href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">_sub_idx</a>];</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="classmovingAvg.html#af89056944638f6227b66e8bcd0a5b6ff">_sub_ar</a>[<a class="code" href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">_sub_idx</a>] = _value;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">_sub_sum</a> += _value;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    ++<a class="code" href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">_sub_idx</a>;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">if</span> (_sub_idx == VALUES_PER_MINUTE)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">_sub_idx</a> == VALUES_PER_MINUTE)</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      _sub_idx = 0;  <span class="comment">// faster than %</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      <a class="code" href="classmovingAvg.html#a9c6172f2908bce1a00fb585c5bbf6db3">_addValue</a><a class="code" href="classmovingAvg.html#a9c6172f2908bce1a00fb585c5bbf6db3">(</a><a class="code" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">_getAverage</a><a class="code" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">(</a><a class="code" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">)</a><a class="code" href="classmovingAvg.html#a9c6172f2908bce1a00fb585c5bbf6db3">)</a>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      <a class="code" href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">_sub_idx</a> = 0;  <span class="comment">// faster than %</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      <a class="code" href="classmovingAvg.html#a9c6172f2908bce1a00fb585c5bbf6db3">_addValue</a>(<a class="code" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">_getAverage</a>());</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  }</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
 <div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="classmovingAvg.html#aac85cf80e40b547a203818d10ba30618">   95</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classmovingAvg.html#aac85cf80e40b547a203818d10ba30618">fillValue</a>(<span class="keyword">const</span> T&amp; _value)</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    _idx = 0;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    _sum = DURATION_IN_MINUTES * _value;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">_idx</a> = 0;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a> = DURATION_IN_MINUTES * _value;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    uint8_t i{ DURATION_IN_MINUTES };</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">do</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      _ar[--i] = _value;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      <a class="code" href="classmovingAvg.html#a7ba8ffe8844a85b80b73730f7d678a21">_ar</a>[--i] = _value;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    } <span class="keywordflow">while</span> (i);</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  }</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="comment">/**</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">   * @brief Get the sliding average</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">   * </span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">   * @return auto The sliding average</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">   * </span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">   * @note This value is updated every minute, except for the special case of a duration of</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">   *   ONE minute. In this case, it is updated for each new input value.</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">   */</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae">  115</a></span>&#160;  <span class="keyword">auto</span> <a class="code" href="classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae">getAverage</a>() <span class="keyword">const</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (DURATION_IN_MINUTES == 1)</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">_getAverage</a><a class="code" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">(</a><a class="code" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">)</a>;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (DURATION_IN_MINUTES == 2)</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      <span class="keywordflow">return</span> _sum &gt;&gt; 1;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (DURATION_IN_MINUTES == 4)</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="keywordflow">return</span> _sum &gt;&gt; 2;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (DURATION_IN_MINUTES == 8)</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      <span class="keywordflow">return</span> _sum &gt;&gt; 3;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (DURATION_IN_MINUTES == 16)</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      <span class="keywordflow">return</span> _sum &gt;&gt; 4;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (DURATION_IN_MINUTES == 32)</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;      <span class="keywordflow">return</span> _sum &gt;&gt; 5;</div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae">  115</a></span>&#160;  <span class="keyword">auto</span> <a class="code" href="classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae">getAverage</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">  </span>{</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">if</span> constexpr (DURATION_IN_MINUTES == 1)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">_getAverage</a>();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> constexpr (DURATION_IN_MINUTES == 2)</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a> &gt;&gt; 1;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> constexpr (DURATION_IN_MINUTES == 4)</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a> &gt;&gt; 2;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> constexpr (DURATION_IN_MINUTES == 8)</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a> &gt;&gt; 3;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> constexpr (DURATION_IN_MINUTES == 16)</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a> &gt;&gt; 4;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> constexpr (DURATION_IN_MINUTES == 32)</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a> &gt;&gt; 5;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;      <span class="keywordflow">return</span> _sum * invN;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a> * <a class="code" href="classmovingAvg.html#a0e1f0a7ac814e034e56d79d226e310c2">invN</a>;</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  }</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classmovingAvg.html#afaea648c9898a00cdbf8991971279861">  133</a></span>&#160;  <span class="keyword">auto</span> <a class="code" href="classmovingAvg.html#afaea648c9898a00cdbf8991971279861">getElement</a>(uint8_t idx) <span class="keyword">const</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  {</div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classmovingAvg.html#afaea648c9898a00cdbf8991971279861">  133</a></span>&#160;  <span class="keyword">auto</span> <a class="code" href="classmovingAvg.html#afaea648c9898a00cdbf8991971279861">getElement</a>(uint8_t idx)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">  </span>{</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">if</span> (idx &gt;= DURATION_IN_MINUTES)</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code" href="structis__floating__point.html">is_floating_point</a>&lt; T &gt;::value)</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      <span class="keywordflow">if</span> constexpr (<a class="code" href="structis__floating__point.html">is_floating_point&lt; T &gt;::value</a>)</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">return</span> 0.0F;</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;      <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keywordflow">return</span> (T)0;</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    }</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordflow">return</span> _ar[idx];</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classmovingAvg.html#a7ba8ffe8844a85b80b73730f7d678a21">_ar</a>[idx];</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  }</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a588664a30754acc54ac30962e5a5e303">  146</a></span>&#160;  <span class="keyword">constexpr</span> <a class="code" href="classmovingAvg.html#a588664a30754acc54ac30962e5a5e303">uint8_t</a> <a class="code" href="classmovingAvg.html#a588664a30754acc54ac30962e5a5e303">getSize</a>() <span class="keyword">const</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  {</div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a588664a30754acc54ac30962e5a5e303">  146</a></span>&#160;  constexpr uint8_t <a class="code" href="classmovingAvg.html#a588664a30754acc54ac30962e5a5e303">getSize</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="keyword">  </span>{</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordflow">return</span> DURATION_IN_MINUTES;</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  }</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a98ab84acfc83c305cbf6f94905ba0e70">  152</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classmovingAvg.html#a98ab84acfc83c305cbf6f94905ba0e70">_clear_sub</a>()</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  {</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    _sub_idx = 0;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <a class="code" href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">_sub_idx</a> = 0;</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (is_floating_point&lt; T &gt;::value)</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      _sub_sum = 0.0F;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> constexpr (<a class="code" href="structis__floating__point.html">is_floating_point&lt; T &gt;::value</a>)</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">_sub_sum</a> = 0.0F;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;      _sub_sum = 0;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;      <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">_sub_sum</a> = 0;</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    uint8_t i{ VALUES_PER_MINUTE };</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordflow">do</span> {</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;      --i;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;      <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (is_floating_point&lt; T &gt;::value)</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        _sub_ar[i] = 0.0F;</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;      <span class="keywordflow">if</span> constexpr (<a class="code" href="structis__floating__point.html">is_floating_point&lt; T &gt;::value</a>)</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <a class="code" href="classmovingAvg.html#af89056944638f6227b66e8bcd0a5b6ff">_sub_ar</a>[i] = 0.0F;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        _sub_ar[i] = 0;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <a class="code" href="classmovingAvg.html#af89056944638f6227b66e8bcd0a5b6ff">_sub_ar</a>[i] = 0;</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    } <span class="keywordflow">while</span> (i);</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  }</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
 <div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a9c6172f2908bce1a00fb585c5bbf6db3">  171</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classmovingAvg.html#a9c6172f2908bce1a00fb585c5bbf6db3">_addValue</a>(<span class="keyword">const</span> T&amp; _value)</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  {</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    _sum -= _ar[_idx];</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    _ar[_idx] = _value;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    _sum += _value;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    ++_idx;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a> -= <a class="code" href="classmovingAvg.html#a7ba8ffe8844a85b80b73730f7d678a21">_ar</a>[<a class="code" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">_idx</a>];</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <a class="code" href="classmovingAvg.html#a7ba8ffe8844a85b80b73730f7d678a21">_ar</a>[<a class="code" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">_idx</a>] = _value;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a> += _value;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    ++<a class="code" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">_idx</a>;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">if</span> (_idx == DURATION_IN_MINUTES)</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">_idx</a> == DURATION_IN_MINUTES)</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    {</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;      _idx = 0;  <span class="comment">// faster than %</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;      <a class="code" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">_idx</a> = 0;  <span class="comment">// faster than %</span></div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    }</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  }</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
-<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">  184</a></span>&#160;  <span class="keyword">auto</span> <a class="code" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">_getAverage</a>() <span class="keyword">const</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  {</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">return</span> _sub_sum * invD;</div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">  184</a></span>&#160;  <span class="keyword">auto</span> <a class="code" href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">_getAverage</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="keyword">  </span>{</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">_sub_sum</a> * <a class="code" href="classmovingAvg.html#af7dba67998ceb6b0ddba4ee0d0d637e5">invD</a>;</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  }</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">  190</a></span>&#160;  <a class="code" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">uint8_t</a> <a class="code" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">_idx</a>{ 0 };</div>
-<div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">  191</a></span>&#160;  <a class="code" href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">uint8_t</a> <a class="code" href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">_sub_idx</a>{ 0 };</div>
-<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">  192</a></span>&#160;  <span class="keyword">typename</span> <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">conditional</a>&lt; <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">is_floating_point</a>&lt; <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">T</a> &gt;::<a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">value</a>, <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">T</a>, <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">int32_t</a> &gt;::<a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">type</a> <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a>{ 0 };</div>
-<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">  193</a></span>&#160;  <span class="keyword">typename</span> <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">conditional</a>&lt; <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">is_floating_point</a>&lt; <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">T</a> &gt;::<a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">value</a>, <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">T</a>, <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">int32_t</a> &gt;::<a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">type</a> <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">_sub_sum</a>{ 0 };</div>
+<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">  190</a></span>&#160;  uint8_t <a class="code" href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">_idx</a>{ 0 };</div>
+<div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">  191</a></span>&#160;  uint8_t <a class="code" href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">_sub_idx</a>{ 0 };</div>
+<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">  192</a></span>&#160;  <span class="keyword">typename</span> <a class="code" href="structconditional.html">conditional&lt; is_floating_point&lt; T &gt;::value</a>, T, int32_t &gt;::type <a class="code" href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">_sum</a>{ 0 };</div>
+<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">  193</a></span>&#160;  <span class="keyword">typename</span> <a class="code" href="structconditional.html">conditional&lt; is_floating_point&lt; T &gt;::value</a>, T, int32_t &gt;::type <a class="code" href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">_sub_sum</a>{ 0 };</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
 <div class="line"><a name="l00195"></a><span class="lineno"><a class="line" href="classmovingAvg.html#af89056944638f6227b66e8bcd0a5b6ff">  195</a></span>&#160;  T <a class="code" href="classmovingAvg.html#af89056944638f6227b66e8bcd0a5b6ff">_sub_ar</a>[VALUES_PER_MINUTE]{};</div>
 <div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a7ba8ffe8844a85b80b73730f7d678a21">  196</a></span>&#160;  T <a class="code" href="classmovingAvg.html#a7ba8ffe8844a85b80b73730f7d678a21">_ar</a>[DURATION_IN_MINUTES]{};</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="classmovingAvg.html#af7dba67998ceb6b0ddba4ee0d0d637e5">  198</a></span>&#160;  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code" href="classmovingAvg.html#af7dba67998ceb6b0ddba4ee0d0d637e5">invD</a>{ 1.0 / VALUES_PER_MINUTE };</div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a0e1f0a7ac814e034e56d79d226e310c2">  199</a></span>&#160;  <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code" href="classmovingAvg.html#a0e1f0a7ac814e034e56d79d226e310c2">invN</a>{ 1.0 / DURATION_IN_MINUTES };</div>
+<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="classmovingAvg.html#af7dba67998ceb6b0ddba4ee0d0d637e5">  198</a></span>&#160;  <span class="keyword">static</span> constexpr <span class="keywordtype">float</span> <a class="code" href="classmovingAvg.html#af7dba67998ceb6b0ddba4ee0d0d637e5">invD</a>{ 1.0 / VALUES_PER_MINUTE };</div>
+<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="classmovingAvg.html#a0e1f0a7ac814e034e56d79d226e310c2">  199</a></span>&#160;  <span class="keyword">static</span> constexpr <span class="keywordtype">float</span> <a class="code" href="classmovingAvg.html#a0e1f0a7ac814e034e56d79d226e310c2">invN</a>{ 1.0 / DURATION_IN_MINUTES };</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;};</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclassmovingAvg_html"><div class="ttname"><a href="classmovingAvg.html">movingAvg</a></div><div class="ttdoc">Template class for implementing a sliding average.</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00040">movingAvg.h:41</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_a0e1f0a7ac814e034e56d79d226e310c2"><div class="ttname"><a href="classmovingAvg.html#a0e1f0a7ac814e034e56d79d226e310c2">movingAvg::invN</a></div><div class="ttdeci">static constexpr float invN</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00199">movingAvg.h:199</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_a1758ed1a32e88b25e6da81e424bedde5"><div class="ttname"><a href="classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5">movingAvg::_sum</a></div><div class="ttdeci">conditional&lt; is_floating_point&lt; T &gt;::value, T, int32_t &gt;::type _sum</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00192">movingAvg.h:192</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_a1dcbea2038fad2497a67aecbf8605aae"><div class="ttname"><a href="classmovingAvg.html#a1dcbea2038fad2497a67aecbf8605aae">movingAvg::getAverage</a></div><div class="ttdeci">auto getAverage() const</div><div class="ttdoc">Get the sliding average.</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00115">movingAvg.h:115</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_a588664a30754acc54ac30962e5a5e303"><div class="ttname"><a href="classmovingAvg.html#a588664a30754acc54ac30962e5a5e303">movingAvg::getSize</a></div><div class="ttdeci">constexpr uint8_t getSize() const</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00146">movingAvg.h:146</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_a7b53f63753604f621089be059ad0dc57"><div class="ttname"><a href="classmovingAvg.html#a7b53f63753604f621089be059ad0dc57">movingAvg::_sub_sum</a></div><div class="ttdeci">conditional&lt; is_floating_point&lt; T &gt;::value, T, int32_t &gt;::type _sub_sum</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00193">movingAvg.h:193</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_a7ba8ffe8844a85b80b73730f7d678a21"><div class="ttname"><a href="classmovingAvg.html#a7ba8ffe8844a85b80b73730f7d678a21">movingAvg::_ar</a></div><div class="ttdeci">T _ar[DURATION_IN_MINUTES]</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00196">movingAvg.h:196</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_a98ab84acfc83c305cbf6f94905ba0e70"><div class="ttname"><a href="classmovingAvg.html#a98ab84acfc83c305cbf6f94905ba0e70">movingAvg::_clear_sub</a></div><div class="ttdeci">void _clear_sub()</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00152">movingAvg.h:152</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_a9c6172f2908bce1a00fb585c5bbf6db3"><div class="ttname"><a href="classmovingAvg.html#a9c6172f2908bce1a00fb585c5bbf6db3">movingAvg::_addValue</a></div><div class="ttdeci">void _addValue(const T &amp;_value)</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00171">movingAvg.h:171</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5"><div class="ttname"><a href="classmovingAvg.html#aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5">movingAvg::addValue</a></div><div class="ttdeci">void addValue(const T &amp;_value)</div><div class="ttdoc">Add a value.</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00081">movingAvg.h:81</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_aac85cf80e40b547a203818d10ba30618"><div class="ttname"><a href="classmovingAvg.html#aac85cf80e40b547a203818d10ba30618">movingAvg::fillValue</a></div><div class="ttdeci">void fillValue(const T &amp;_value)</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00095">movingAvg.h:95</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_ab263afc31f1c583a23ebe301e31371e4"><div class="ttname"><a href="classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4">movingAvg::_sub_idx</a></div><div class="ttdeci">uint8_t _sub_idx</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00191">movingAvg.h:191</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_ad15b4d1288dd658d6f9eea1ec0879139"><div class="ttname"><a href="classmovingAvg.html#ad15b4d1288dd658d6f9eea1ec0879139">movingAvg::_idx</a></div><div class="ttdeci">uint8_t _idx</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00190">movingAvg.h:190</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_adc157cfdb883805b88f3979cebb72de7"><div class="ttname"><a href="classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7">movingAvg::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Reset everything.</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00047">movingAvg.h:47</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_aefebb67b75394eec209f617d8b1b357c"><div class="ttname"><a href="classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c">movingAvg::_getAverage</a></div><div class="ttdeci">auto _getAverage() const</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00184">movingAvg.h:184</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_af7dba67998ceb6b0ddba4ee0d0d637e5"><div class="ttname"><a href="classmovingAvg.html#af7dba67998ceb6b0ddba4ee0d0d637e5">movingAvg::invD</a></div><div class="ttdeci">static constexpr float invD</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00198">movingAvg.h:198</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_af89056944638f6227b66e8bcd0a5b6ff"><div class="ttname"><a href="classmovingAvg.html#af89056944638f6227b66e8bcd0a5b6ff">movingAvg::_sub_ar</a></div><div class="ttdeci">T _sub_ar[VALUES_PER_MINUTE]</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00195">movingAvg.h:195</a></div></div>
+<div class="ttc" id="aclassmovingAvg_html_afaea648c9898a00cdbf8991971279861"><div class="ttname"><a href="classmovingAvg.html#afaea648c9898a00cdbf8991971279861">movingAvg::getElement</a></div><div class="ttdeci">auto getElement(uint8_t idx) const</div><div class="ttdef"><b>Definition:</b> <a href="movingAvg_8h_source.html#l00133">movingAvg.h:133</a></div></div>
+<div class="ttc" id="astructconditional_html"><div class="ttname"><a href="structconditional.html">conditional</a></div><div class="ttdef"><b>Definition:</b> <a href="conditional_8hpp_source.html#l00008">conditional.hpp:9</a></div></div>
+<div class="ttc" id="astructis__floating__point_html"><div class="ttname"><a href="structis__floating__point.html">is_floating_point</a></div><div class="ttdef"><b>Definition:</b> <a href="is__floating__point_8hpp_source.html#l00012">is_floating_point.hpp:16</a></div></div>
+<div class="ttc" id="atype__traits_8hpp_html"><div class="ttname"><a href="type__traits_8hpp.html">type_traits.hpp</a></div><div class="ttdoc">Some useful but missing stl functions templates.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

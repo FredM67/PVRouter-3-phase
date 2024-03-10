@@ -1,5 +1,9 @@
 <map id="sendResults" name="sendResults">
-<area shape="rect" id="node1" title="Prints data logs to the Serial output in text or json format." alt="" coords="5,31,107,57"/>
+<area shape="rect" id="node1" title="Prints data logs to the Serial output in text or json format." alt="" coords="5,81,107,108"/>
 <area shape="rect" id="node2" href="$utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096" title="Write on Serial in EmonESP format." alt="" coords="156,5,289,32"/>
-<area shape="rect" id="node3" href="$utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="155,56,291,83"/>
+<area shape="rect" id="node4" href="$utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5" title="Prints data logs to the Serial output in Json format." alt="" coords="155,56,291,83"/>
+<area shape="rect" id="node5" href="$utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="155,107,291,133"/>
+<area shape="rect" id="node7" href="$utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="169,157,276,184"/>
+<area shape="rect" id="node3" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="357,45,512,86"/>
+<area shape="rect" id="node6" href="$classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="339,111,531,137"/>
 </map>

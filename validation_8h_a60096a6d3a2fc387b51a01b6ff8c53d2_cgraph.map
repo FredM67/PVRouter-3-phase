@@ -1,0 +1,5 @@
+<map id="check_relay_pins" name="check_relay_pins">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,140,57"/>
+<area shape="rect" id="node2" href="$classRelayEngine.html#a353c01f8e0416eb2b147f09e47657811" title="Get the relay object." alt="" coords="188,5,360,32"/>
+<area shape="rect" id="node3" href="$classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title="Get the number of relays." alt="" coords="191,56,357,83"/>
+</map>

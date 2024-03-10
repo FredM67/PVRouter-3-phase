@@ -1,0 +1,4 @@
+<map id="forceFullPower" name="forceFullPower">
+<area shape="rect" id="node1" title="This function set all 3 loads to full power." alt="" coords="5,5,124,32"/>
+<area shape="rect" id="node2" href="$utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="172,5,269,32"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="setPinOFF" name="setPinOFF">
+<area shape="rect" id="node1" title="Set the Pin state to OFF for the specified pin." alt="" coords="444,56,532,83"/>
+<area shape="rect" id="node2" href="$processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061" title="Initializes the optional pins." alt="" coords="224,5,384,32"/>
+<area shape="rect" id="node4" href="$utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7" title="Set the Pin state for the specified pin." alt="" coords="256,56,352,83"/>
+<area shape="rect" id="node5" href="$classrelayOutput.html#a788868018f39545aa8178198f36b4e06" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="212,107,396,133"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="55,5,114,32"/>
+<area shape="rect" id="node6" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="5,99,164,141"/>
+</map>

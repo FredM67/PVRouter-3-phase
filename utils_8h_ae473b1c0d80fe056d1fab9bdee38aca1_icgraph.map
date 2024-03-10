@@ -1,7 +1,8 @@
 <map id="logLoadPriorities" name="logLoadPriorities">
-<area shape="rect" id="node1" title="Prints the load priorities to the Serial output." alt="" coords="419,70,549,97"/>
-<area shape="rect" id="node2" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="241,45,371,71"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="277,95,335,122"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="5,5,193,47"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="5,71,193,112"/>
+<area shape="rect" id="node1" title="Prints the load priorities to the Serial output." alt="" coords="753,38,884,65"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="576,13,705,39"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="611,63,670,90"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="104,5,292,47"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="340,35,528,76"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,13,56,39"/>
 </map>

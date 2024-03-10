@@ -1,8 +1,17 @@
 <map id="processRawSamples" name="processRawSamples">
-<area shape="rect" id="node1" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="5,81,161,108"/>
-<area shape="rect" id="node2" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="209,81,377,108"/>
-<area shape="rect" id="node3" href="$group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="430,5,614,32"/>
-<area shape="rect" id="node4" href="$group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="432,56,612,83"/>
-<area shape="rect" id="node5" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="425,107,619,133"/>
-<area shape="rect" id="node6" href="$processing_8h.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="451,157,593,184"/>
+<area shape="rect" id="node1" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="5,107,161,133"/>
+<area shape="rect" id="node2" href="$group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf" title="Process the start of a new &#45;ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="209,19,384,45"/>
+<area shape="rect" id="node3" href="$group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="215,69,378,96"/>
+<area shape="rect" id="node6" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="213,132,381,159"/>
+<area shape="rect" id="node15" href="$group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Process the startup period for the router." alt="" coords="236,183,357,209"/>
+<area shape="rect" id="node4" href="$group__TimeCritical.html#ga66a807366f984e34aacec09333ae7772" title="Process with data logging." alt="" coords="451,5,606,32"/>
+<area shape="rect" id="node5" href="$group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase specific new cycle additional processing is performe..." alt="" coords="433,56,625,83"/>
+<area shape="rect" id="node7" href="$group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="437,107,621,133"/>
+<area shape="rect" id="node9" href="$group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="439,157,619,184"/>
+<area shape="rect" id="node11" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="432,208,625,235"/>
+<area shape="rect" id="node12" href="$processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="458,259,599,285"/>
+<area shape="rect" id="node8" href="$group__TimeCritical.html#ga6885cce1d1da17efc43834dadf023b61" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="684,107,884,133"/>
+<area shape="rect" id="node10" href="$group__TimeCritical.html#gaa8eb0f10cc0d8952e13bca76e7875621" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="673,157,895,184"/>
+<area shape="rect" id="node13" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="737,233,831,260"/>
+<area shape="rect" id="node14" href="$utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="739,284,829,311"/>
 </map>

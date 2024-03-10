@@ -69,173 +69,114 @@ $(function() {
 <div class="title">utils_pins.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="utils__pins_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * @file utils_pins.h</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> * @author Frédéric Metrich (frederic.metrich@live.fr)</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * @brief Some utility functions for pins manipulation</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> * @version 0.1</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * @date 2023-05-05</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * @copyright Copyright (c) 2023</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">__UTILS_PINS_H__</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">__UTILS_PINS_H__</span></div>
+<a href="utils__pins_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef __UTILS_PINS_H__</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define __UTILS_PINS_H__</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">Arduino</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf">togglePin</a>(<span class="keyword">const</span> uint8_t pin) <span class="keyword">__attribute__</span>((always_inline));</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf">togglePin</a>(<span class="keyword">const</span> uint8_t pin) __attribute__((always_inline));</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6">setPinON</a>(<span class="keyword">const</span> uint8_t pin) <span class="keyword">__attribute__</span>((always_inline));</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3">setPinsON</a>(<span class="keyword">const</span> uint16_t pins) <span class="keyword">__attribute__</span>((always_inline));</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6">setPinON</a>(<span class="keyword">const</span> uint8_t pin) __attribute__((always_inline));</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3">setPinsON</a>(<span class="keyword">const</span> <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> pins) __attribute__((always_inline));</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d">setPinOFF</a>(<span class="keyword">const</span> uint8_t pin) <span class="keyword">__attribute__</span>((always_inline));</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd">setPinsOFF</a>(<span class="keyword">const</span> uint16_t pins) <span class="keyword">__attribute__</span>((always_inline));</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d">setPinOFF</a>(<span class="keyword">const</span> uint8_t pin) __attribute__((always_inline));</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd">setPinsOFF</a>(<span class="keyword">const</span> <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> pins) __attribute__((always_inline));</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649">getPinState</a>(<span class="keyword">const</span> uint8_t pin) <span class="keyword">__attribute__</span>((always_inline));</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649">getPinState</a>(<span class="keyword">const</span> uint8_t pin) __attribute__((always_inline));</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * @brief Set the specified bit to 1</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"> * @tparam T Type of the variable</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment"> * @param _dest Integer variable to modify</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment"> * @param bit Bit to set in _dest</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">   34</a></span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">typename</span> T &gt; <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(T&amp; _dest, <span class="keyword">const</span> uint8_t bit)</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">   34</a></span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">typename</span> T &gt; constexpr <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(T&amp; _dest, <span class="keyword">const</span> uint8_t bit)</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  _dest |= (T)0x01 &lt;&lt; bit;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> * @brief Read the specified bit</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> * @tparam T Type of the variable</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * @param _src Integer variable to read</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * @param bit Bit to read in _src</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> * @return constexpr uint8_t </span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">   47</a></span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">typename</span> T &gt; <span class="keyword">constexpr</span> <a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">uint8_t</a> <a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(<span class="keyword">const</span> <a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">T</a>&amp; <a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">_src</a>, <span class="keyword">const</span> <a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">uint8_t</a> <a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit</a>)</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">   47</a></span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">typename</span> T &gt; constexpr uint8_t <a class="code" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(<span class="keyword">const</span> T&amp; _src, <span class="keyword">const</span> uint8_t bit)</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordflow">return</span> (_src &gt;&gt; bit) &amp; (T)0x01;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> * @brief Clear the specified bit</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"> * @tparam T Type of the variable</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment"> * @param _dest Integer variable to modify</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment"> * @param bit Bit to clear in _src</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment"> * @return constexpr uint8_t </span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">   60</a></span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">typename</span> T &gt; <span class="keyword">constexpr</span> <a class="code" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">uint8_t</a> <a class="code" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">bit_clear</a>(<a class="code" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">T</a>&amp; <a class="code" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">_dest</a>, <span class="keyword">const</span> <a class="code" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">uint8_t</a> <a class="code" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">bit</a>)</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">   60</a></span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">typename</span> T &gt; constexpr uint8_t <a class="code" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">bit_clear</a>(T&amp; _dest, <span class="keyword">const</span> uint8_t bit)</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;{</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordflow">return</span> _dest &amp;= ~((T)0x01 &lt;&lt; bit);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"> * @brief Toggle the specified pin</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf">   69</a></span>&#160;<span class="keywordtype">void</span> <span class="keyword">constexpr</span> <a class="code" href="utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf">togglePin</a>(<span class="keyword">const</span> uint8_t pin)</div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf">   69</a></span>&#160;<span class="keywordtype">void</span> constexpr <a class="code" href="utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf">togglePin</a>(<span class="keyword">const</span> uint8_t pin)</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordflow">if</span> (pin &lt; 8)</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    bit_set(PIND, pin);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(PIND, pin);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  }</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    bit_set(PINB, pin - 8);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(PINB, pin - 8);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  }</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment"> * @brief Set the Pin state for the specified pin</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment"> * @param pin pin to change [2..13]</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment"> * @param bState state to be set</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7">   87</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7">setPinState</a>(<span class="keyword">const</span> uint8_t pin, <span class="keyword">const</span> <span class="keywordtype">bool</span> bState)</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7">   87</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7">setPinState</a>(<span class="keyword">const</span> uint8_t pin, <span class="keyword">const</span> <span class="keywordtype">bool</span> bState)</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;{</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keywordflow">if</span> (bState)</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    setPinON(pin);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6">setPinON</a>(pin);</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  }</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    setPinOFF(pin);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d">setPinOFF</a>(pin);</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  }</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment"> * @brief Set the Pin state to ON for the specified pin</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment"> * @param pin pin to change [2..13]</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6">  104</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6">setPinON</a>(<span class="keyword">const</span> uint8_t pin)</div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6">  104</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6">setPinON</a>(<span class="keyword">const</span> uint8_t pin)</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;{</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keywordflow">if</span> (pin &lt; 8)</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    bit_set(PORTD, pin);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(PORTD, pin);</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  }</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    bit_set(PORTB, pin - 8);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <a class="code" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a>(PORTB, pin - 8);</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  }</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment"> * @brief Set the Pins state to ON</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment"> * @param pins The pins to change</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3">  121</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3">setPinsON</a>(<span class="keyword">const</span> uint16_t pins)</div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3">  121</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3">setPinsON</a>(<span class="keyword">const</span> <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> pins)</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;{</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  PORTD |= lowByte(pins);</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  PORTB |= highByte(pins);</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment"> * @brief Set the Pin state to OFF for the specified pin</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment"> * @param pin pin to change [2..13]</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d">  132</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d">setPinOFF</a>(<span class="keyword">const</span> uint8_t pin)</div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d">  132</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d">setPinOFF</a>(<span class="keyword">const</span> uint8_t pin)</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;{</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="keywordflow">if</span> (pin &lt; 8)</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  {</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    bit_clear(PORTD, pin);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <a class="code" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">bit_clear</a>(PORTD, pin);</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  }</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  {</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    bit_clear(PORTB, pin - 8);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <a class="code" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">bit_clear</a>(PORTB, pin - 8);</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  }</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment"> * @brief Set the Pins state to OFF</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment"> * @param pins The pins to change</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd">  149</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd">setPinsOFF</a>(<span class="keyword">const</span> uint16_t pins)</div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd">  149</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd">setPinsOFF</a>(<span class="keyword">const</span> <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> pins)</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;{</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  PORTD &amp;= ~lowByte(pins);</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  PORTB &amp;= ~highByte(pins);</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment"> * @brief Get the Pin State</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment"> * @param pin The pin to read</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment"> * @return true if HIGH</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment"> * @return false if LOW</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649">  162</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649">getPinState</a>(<span class="keyword">const</span> uint8_t pin)</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;{</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  <span class="keywordflow">return</span> (pin &lt; 8) ? bitRead(PIND, pin) : bitRead(PINB, pin - 8);</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;}</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span>  <span class="comment">// __UTILS_PINS_H__</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// __UTILS_PINS_H__</span></div>
+<div class="ttc" id="aconfig__system_8h_html_a3180c835bce68b1c59f64f4055088cca"><div class="ttname"><a href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a></div><div class="ttdeci">constexpr uint16_t</div><div class="ttdef"><b>Definition:</b> <a href="config__system_8h_source.html#l00030">config_system.h:30</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_a23ed26b879b65f5ddf07facc1e4b18bc"><div class="ttname"><a href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a></div><div class="ttdeci">constexpr void bit_set(T &amp;_dest, const uint8_t bit)</div><div class="ttdoc">Set the specified bit to 1.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00034">utils_pins.h:34</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_a7195575c2ba8a186bd9758e4e2a141fd"><div class="ttname"><a href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd">setPinsOFF</a></div><div class="ttdeci">void setPinsOFF(const uint16_t pins) __attribute__((always_inline))</div><div class="ttdoc">Set the Pins state to OFF.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00149">utils_pins.h:149</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_a85a0c8419c44c8bea7565ae9b4a782a7"><div class="ttname"><a href="utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7">setPinState</a></div><div class="ttdeci">constexpr void setPinState(const uint8_t pin, const bool bState)</div><div class="ttdoc">Set the Pin state for the specified pin.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00087">utils_pins.h:87</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_a8919ecb358f2772a1b57cc566ae38edf"><div class="ttname"><a href="utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf">togglePin</a></div><div class="ttdeci">constexpr void togglePin(const uint8_t pin) __attribute__((always_inline))</div><div class="ttdoc">Toggle the specified pin.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00069">utils_pins.h:69</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_abaa54130a12679d0dcc0e7578e0e4d37"><div class="ttname"><a href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a></div><div class="ttdeci">constexpr uint8_t bit_read(const T &amp;_src, const uint8_t bit)</div><div class="ttdoc">Read the specified bit.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00047">utils_pins.h:47</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_ac55bbc1bc996c72b6c33525fd84b45e6"><div class="ttname"><a href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6">setPinON</a></div><div class="ttdeci">constexpr void setPinON(const uint8_t pin) __attribute__((always_inline))</div><div class="ttdoc">Set the Pin state to ON for the specified pin.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00104">utils_pins.h:104</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_ad738c44fbe6076c3298fa7a65c697649"><div class="ttname"><a href="utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649">getPinState</a></div><div class="ttdeci">bool getPinState(const uint8_t pin) __attribute__((always_inline))</div><div class="ttdoc">Get the Pin State.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00162">utils_pins.h:162</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_ada7e18750d04838130ee63030dcf185d"><div class="ttname"><a href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d">setPinOFF</a></div><div class="ttdeci">constexpr void setPinOFF(const uint8_t pin) __attribute__((always_inline))</div><div class="ttdoc">Set the Pin state to OFF for the specified pin.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00132">utils_pins.h:132</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_ae60db4342d45f22fa3bf5b297cf95bf3"><div class="ttname"><a href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3">setPinsON</a></div><div class="ttdeci">void setPinsON(const uint16_t pins) __attribute__((always_inline))</div><div class="ttdoc">Set the Pins state to ON.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00121">utils_pins.h:121</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_aeae4199ba44e9e5de9d228a6b6a8133e"><div class="ttname"><a href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">bit_clear</a></div><div class="ttdeci">constexpr uint8_t bit_clear(T &amp;_dest, const uint8_t bit)</div><div class="ttdoc">Clear the specified bit.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00060">utils_pins.h:60</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

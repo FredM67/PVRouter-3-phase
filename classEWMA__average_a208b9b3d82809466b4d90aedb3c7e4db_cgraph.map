@@ -1,0 +1,4 @@
+<map id="EWMA_average::addValue" name="EWMA_average::addValue">
+<area shape="rect" id="node1" title="Add a new value and actualize the EMA, DEMA and TEMA." alt="" coords="5,5,197,32"/>
+<area shape="rect" id="node2" href="$ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="245,5,429,32"/>
+</map>

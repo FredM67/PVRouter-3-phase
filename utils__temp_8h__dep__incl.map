@@ -2,10 +2,10 @@
 <area shape="rect" id="node1" title="Some utility functions for temperature sensor(s)" alt="" coords="48,5,225,47"/>
 <area shape="rect" id="node2" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="237,95,415,136"/>
 <area shape="rect" id="node7" href="$utils_8h.html" title="Some utility functions." alt="" coords="36,273,213,315"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title="Main code." alt="" coords="415,363,592,404"/>
-<area shape="rect" id="node4" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="439,184,616,225"/>
-<area shape="rect" id="node6" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="237,184,415,225"/>
-<area shape="rect" id="node8" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="541,273,719,315"/>
-<area shape="rect" id="node9" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="36,184,213,225"/>
+<area shape="rect" id="node3" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="439,184,616,225"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="Main code." alt="" coords="415,363,592,404"/>
+<area shape="rect" id="node6" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="36,184,213,225"/>
+<area shape="rect" id="node8" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="237,184,415,225"/>
+<area shape="rect" id="node9" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="541,273,719,315"/>
 <area shape="rect" id="node5" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="237,273,415,315"/>
 </map>
