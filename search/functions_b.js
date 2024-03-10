@@ -2,7 +2,7 @@ var searchData=
 [
   ['pairforceload_500',['pairForceLoad',['../classpairForceLoad.html#a96434eb9cf78c7cfd4dd4720563a55d2',1,'pairForceLoad::pairForceLoad(int16_t _iStartOffset)'],['../classpairForceLoad.html#afda1e45c16180c8ebdb2f195799bc1e4',1,'pairForceLoad::pairForceLoad()=default'],['../classpairForceLoad.html#a872c2432415f0ca697cd219e791da168',1,'pairForceLoad::pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration)']]],
   ['printconfiguration_501',['printConfiguration',['../classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a',1,'RelayEngine::printConfiguration()'],['../utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee',1,'printConfiguration():&#160;utils.h']]],
-  ['printdualtariffconfiguration_502',['printDualTariffConfiguration',['../dualtariff_8h.html#a4378fe99f16f9f2a6990ac70c27783a2',1,'dualtariff.h']]],
+  ['printdualtariffconfiguration_502',['printDualTariffConfiguration',['../group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2',1,'dualtariff.h']]],
   ['printforemonesp_503',['printForEmonESP',['../utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096',1,'utils.h']]],
   ['printforserialjson_504',['printForSerialJson',['../utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5',1,'utils.h']]],
   ['printforserialtext_505',['printForSerialText',['../utils_8h.html#ae46d07fd4694c49e10360b5d79163443',1,'utils.h']]],

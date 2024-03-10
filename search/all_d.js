@@ -16,7 +16,7 @@ var searchData=
   ['power_227',['power',['../classPayloadTx__struct.html#ab3001f04334464b35b7dd263bd08b1a0',1,'PayloadTx_struct']]],
   ['power_5fl_228',['power_L',['../classPayloadTx__struct.html#a13cbb9a2141427b379764c105825815f',1,'PayloadTx_struct']]],
   ['printconfiguration_229',['printConfiguration',['../classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a',1,'RelayEngine::printConfiguration()'],['../utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee',1,'printConfiguration():&#160;utils.h']]],
-  ['printdualtariffconfiguration_230',['printDualTariffConfiguration',['../dualtariff_8h.html#a4378fe99f16f9f2a6990ac70c27783a2',1,'dualtariff.h']]],
+  ['printdualtariffconfiguration_230',['printDualTariffConfiguration',['../group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2',1,'dualtariff.h']]],
   ['printforemonesp_231',['printForEmonESP',['../utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096',1,'utils.h']]],
   ['printforserialjson_232',['printForSerialJson',['../utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5',1,'utils.h']]],
   ['printforserialtext_233',['printForSerialText',['../utils_8h.html#ae46d07fd4694c49e10360b5d79163443',1,'utils.h']]],

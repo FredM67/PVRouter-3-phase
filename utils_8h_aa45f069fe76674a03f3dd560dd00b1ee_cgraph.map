@@ -1,7 +1,7 @@
 <map id="printConfiguration" name="printConfiguration">
 <area shape="rect" id="node1" title="Print the configuration during start." alt="" coords="5,157,144,184"/>
 <area shape="rect" id="node2" href="$classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a" title="Print the configuration of each relay." alt="" coords="206,107,434,133"/>
-<area shape="rect" id="node9" href="$dualtariff_8h.html#a4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="219,157,421,184"/>
+<area shape="rect" id="node9" href="$group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="219,157,421,184"/>
 <area shape="rect" id="node10" href="$processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="192,208,448,235"/>
 <area shape="rect" id="node3" href="$classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="496,107,757,133"/>
 <area shape="rect" id="node4" href="$classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e" title="Get the import threshold which will turns OFF the relay." alt="" coords="805,5,1048,32"/>
