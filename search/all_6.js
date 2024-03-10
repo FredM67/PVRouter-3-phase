@@ -12,10 +12,9 @@ var searchData=
   ['f_5fupperthreshold_5fdefault_81',['f_upperThreshold_default',['../processing_8cpp.html#ac5d95ffd4d4d32b7bc1e27f802500fb4',1,'processing.cpp']]],
   ['f_5fvoltagecal_82',['f_voltageCal',['../calibration_8h.html#a4c3b8983185a9bc5d78bcd2cccbac15d',1,'calibration.h']]],
   ['false_5ftype_83',['false_type',['../integral__constant_8hpp.html#a40f5dcd7f02f795c4ae997d5709bd73c',1,'integral_constant.hpp']]],
-  ['feature_84',['feature',['../group__RF.html',1,'']]],
-  ['fillvalue_85',['fillValue',['../classmovingAvg.html#aac85cf80e40b547a203818d10ba30618',1,'movingAvg']]],
-  ['forcefullpower_86',['forceFullPower',['../main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef',1,'main.cpp']]],
-  ['forcepin_87',['forcePin',['../config_8h.html#a45c16ccf5033dc4696f17daf792c7130',1,'config.h']]],
-  ['freeram_88',['freeRam',['../utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0',1,'utils.h']]],
-  ['freq_89',['FREQ',['../config_8h.html#a1b04ec1cde4d3032f558ed8ad05930a4',1,'config.h']]]
+  ['fillvalue_84',['fillValue',['../classmovingAvg.html#aac85cf80e40b547a203818d10ba30618',1,'movingAvg']]],
+  ['forcefullpower_85',['forceFullPower',['../main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef',1,'main.cpp']]],
+  ['forcepin_86',['forcePin',['../config_8h.html#a45c16ccf5033dc4696f17daf792c7130',1,'config.h']]],
+  ['freeram_87',['freeRam',['../utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0',1,'utils.h']]],
+  ['freq_88',['FREQ',['../config_8h.html#a1b04ec1cde4d3032f558ed8ad05930a4',1,'config.h']]]
 ];

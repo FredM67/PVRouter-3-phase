@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['read_5fscratchpad_259',['READ_SCRATCHPAD',['../constants_8h.html#a4efcca8a8902b210fd176b46753964f1',1,'constants.h']]],
-  ['readtemperature_260',['readTemperature',['../classTemperatureSensing.html#a7fef01650aa12d8a4ff2b3ca26bd0803',1,'TemperatureSensing']]],
+  ['read_5fscratchpad_258',['READ_SCRATCHPAD',['../constants_8h.html#a4efcca8a8902b210fd176b46753964f1',1,'constants.h']]],
+  ['readtemperature_259',['readTemperature',['../classTemperatureSensing.html#a7fef01650aa12d8a4ff2b3ca26bd0803',1,'TemperatureSensing']]],
+  ['relay_20diversion_20feature_260',['Relay diversion feature',['../group__RelayDiversion.html',1,'']]],
   ['relay_5fdiversion_261',['RELAY_DIVERSION',['../config_8h.html#a200f51c8bd47e8b14cdc6522f2223742',1,'config.h']]],
   ['relayengine_262',['RelayEngine',['../classRelayEngine.html',1,'RelayEngine&lt; N, D &gt;'],['../classRelayEngine.html#a926eff34f40ee3e7d7132ba4cb693d40',1,'RelayEngine::RelayEngine(integral_constant&lt; uint8_t, D &gt; ic, const relayOutput(&amp;ref)[N])'],['../classRelayEngine.html#aa834d2148c13bbf4c63f949033746ecd',1,'RelayEngine::RelayEngine(const relayOutput(&amp;ref)[N])']]],
   ['relayoutput_263',['relayOutput',['../classrelayOutput.html',1,'relayOutput'],['../classrelayOutput.html#a6c37604b74d578740144dedb3d38096e',1,'relayOutput::relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)'],['../classrelayOutput.html#aaaea9886591a4fc044da5922bb90e746',1,'relayOutput::relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)'],['../classrelayOutput.html#a8ec4f8ef291d95028b40b11f2238e1b0',1,'relayOutput::relayOutput(const uint8_t _relay_pin)'],['../classrelayOutput.html#a1e14c420e720e082a327e2341906cb18',1,'relayOutput::relayOutput()=delete']]],
@@ -19,12 +20,13 @@ var searchData=
   ['remove_5freference_3c_20t_20_26_20_3e_275',['remove_reference&lt; T &amp; &gt;',['../structremove__reference_3_01T_01_6_01_4.html',1,'']]],
   ['requesttemperatures_276',['requestTemperatures',['../classTemperatureSensing.html#ab40e9df6930615d4c700780b6174e14f',1,'TemperatureSensing']]],
   ['required_5fexport_5fin_5fwatts_277',['REQUIRED_EXPORT_IN_WATTS',['../config__system_8h.html#a0d838172b50bebc493c09edb7b7606d5',1,'config_system.h']]],
-  ['rf69_5fcompat_278',['RF69_COMPAT',['../config_8h.html#ac7df154e6d284322427bec4d2dfc0dda',1,'config.h']]],
-  ['rf_5fchip_5fpresent_279',['RF_CHIP_PRESENT',['../utils__rf_8h.html#ad6f3853697d5006eed405d11cc04c2a1',1,'utils_rf.h']]],
-  ['rg_5fforceload_280',['rg_ForceLoad',['../config_8h.html#a281368464ae362f565124959a02d2888',1,'config.h']]],
-  ['rg_5foffsetforce_281',['rg_OffsetForce',['../dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4',1,'dualtariff.h']]],
-  ['rotation_5fafter_5fcycles_282',['ROTATION_AFTER_CYCLES',['../config_8h.html#a5f05a671d6f0503882cc818f2a55493e',1,'config.h']]],
-  ['rotationmodes_283',['RotationModes',['../types_8h.html#a06b890c4a964752df814257dc1f13073',1,'RotationModes():&#160;types.h'],['../config_8h.html#a0e46594bb69d18074193e096a4470dce',1,'RotationModes():&#160;config.h']]],
-  ['rotationpin_284',['rotationPin',['../config_8h.html#af668b2a5b07a913bd673318dc30654bb',1,'config.h']]],
-  ['round_5fup_5fto_5fpower_5fof_5f2_285',['round_up_to_power_of_2',['../ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5',1,'ewma_avg.hpp']]]
+  ['rf_20feature_278',['RF feature',['../group__RF.html',1,'']]],
+  ['rf69_5fcompat_279',['RF69_COMPAT',['../config_8h.html#ac7df154e6d284322427bec4d2dfc0dda',1,'config.h']]],
+  ['rf_5fchip_5fpresent_280',['RF_CHIP_PRESENT',['../utils__rf_8h.html#ad6f3853697d5006eed405d11cc04c2a1',1,'utils_rf.h']]],
+  ['rg_5fforceload_281',['rg_ForceLoad',['../config_8h.html#a281368464ae362f565124959a02d2888',1,'config.h']]],
+  ['rg_5foffsetforce_282',['rg_OffsetForce',['../dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4',1,'dualtariff.h']]],
+  ['rotation_5fafter_5fcycles_283',['ROTATION_AFTER_CYCLES',['../config_8h.html#a5f05a671d6f0503882cc818f2a55493e',1,'config.h']]],
+  ['rotationmodes_284',['RotationModes',['../types_8h.html#a06b890c4a964752df814257dc1f13073',1,'RotationModes():&#160;types.h'],['../config_8h.html#a0e46594bb69d18074193e096a4470dce',1,'RotationModes():&#160;config.h']]],
+  ['rotationpin_285',['rotationPin',['../config_8h.html#af668b2a5b07a913bd673318dc30654bb',1,'config.h']]],
+  ['round_5fup_5fto_5fpower_5fof_5f2_286',['round_up_to_power_of_2',['../ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5',1,'ewma_avg.hpp']]]
 ];

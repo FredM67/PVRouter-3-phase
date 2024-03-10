@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['send_5frf_5fdata_286',['send_rf_data',['../utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf',1,'utils_rf.h']]],
-  ['sendresults_287',['sendResults',['../utils_8h.html#ade56d6fce22a518b8feff1a150461f94',1,'utils.h']]],
-  ['sensing_20feature_288',['sensing feature',['../group__Temperature.html',1,'']]],
+  ['send_5frf_5fdata_287',['send_rf_data',['../utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf',1,'utils_rf.h']]],
+  ['sendresults_288',['sendResults',['../utils_8h.html#ade56d6fce22a518b8feff1a150461f94',1,'utils.h']]],
   ['sensori_289',['sensorI',['../processing_8h.html#a8843ac58fa4e38e3bec429fac0f8de41',1,'processing.h']]],
   ['sensorv_290',['sensorV',['../processing_8h.html#a84dbfaffb1c8ccc490804b5f976d7933',1,'processing.h']]],
   ['serialprint_291',['SERIALPRINT',['../config_8h.html#a1e2bd592f53e63c8c0323f2f54483420',1,'config.h']]],
