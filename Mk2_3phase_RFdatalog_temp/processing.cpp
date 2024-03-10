@@ -16,11 +16,6 @@
 #include "processing.h"
 #include "utils_pins.h"
 
-/*!
- *  @defgroup TimeCritical Time critical functions
- *  Functions used by the ISR
- */
-
 int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
 
 // Define operating limits for the LP filters which identify DC offset in the voltage

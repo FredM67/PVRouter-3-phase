@@ -16,11 +16,6 @@
 
 #include "constants.h"
 
-/*!
- *  @defgroup TemperatureSensing Temperature sensing feature
- *  Functions used for the temperature sensing
- */
-
 #ifdef TEMP_ENABLED
 inline constexpr bool TEMP_SENSOR_PRESENT{ true }; /**< set it to 'true' if temperature sensing is needed */
 #include <OneWire.h>                               // for temperature sensing

@@ -157,6 +157,32 @@
  * @copyright Copyright (c) 2024
  *
  */
+
+/*!
+ *  @defgroup TimeCritical Time critical functions
+ *  Functions used by the ISR
+ */
+
+/*!
+ *  @defgroup RelayDiversion Relay diversion feature
+ *  Functions used for the relay diversion
+ */
+
+/*!
+ *  @defgroup TemperatureSensing Temperature sensing feature
+ *  Functions used for the temperature sensing
+ */
+
+/*!
+ *  @defgroup DualTariff Dual tariff feature
+ *  Functions used for the dual tariff feature
+ */
+
+/*!
+ *  @defgroup RF RF feature
+ *  Functions used for the RF feature
+ */
+
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
 static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/main/Mk2_3phase_RFdatalog_temp/Readme.md");
 

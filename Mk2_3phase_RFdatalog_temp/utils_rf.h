@@ -12,11 +12,6 @@
 #ifndef _UTILS_RF_H
 #define _UTILS_RF_H
 
-/*!
- *  @defgroup RF RF feature
- *  Functions used for the RF feature
- */
-
 #ifdef RF_PRESENT
 #include <JeeLib.h>
 
