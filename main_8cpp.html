@@ -144,9 +144,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a5157f7f79cf8c75c2d7b41d8ed47a7ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef">forceFullPower</a> ()</td></tr>
 <tr class="memdesc:a5157f7f79cf8c75c2d7b41d8ed47a7ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function set all 3 loads to full power.  <a href="main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef">More...</a><br /></td></tr>
 <tr class="separator:a5157f7f79cf8c75c2d7b41d8ed47a7ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05c2e5b588ced1cd7312f5b0edc5b295"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295">ISR</a> (ADC_vect)</td></tr>
-<tr class="memdesc:a05c2e5b588ced1cd7312f5b0edc5b295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Service Routine - Interrupt-Driven Analog Conversion.  <a href="main_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295">More...</a><br /></td></tr>
-<tr class="separator:a05c2e5b588ced1cd7312f5b0edc5b295"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga05c2e5b588ced1cd7312f5b0edc5b295"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295">ISR</a> (ADC_vect)</td></tr>
+<tr class="memdesc:ga05c2e5b588ced1cd7312f5b0edc5b295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Service Routine - Interrupt-Driven Analog Conversion.  <a href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295">More...</a><br /></td></tr>
+<tr class="separator:ga05c2e5b588ced1cd7312f5b0edc5b295"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
 <tr class="memdesc:afe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main processor.  <a href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f">More...</a><br /></td></tr>
 <tr class="separator:afe461d27b9c48d5921c00d521181f12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,7 +189,7 @@ Functions</h2></td></tr>
 
 <p>Check the diversion state. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00168">168</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00170">170</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -231,7 +231,7 @@ Here is the caller graph for this function:</div>
 <dd>
 false </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00135">135</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00137">137</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -248,69 +248,6 @@ Here is the caller graph for this function:</div>
 <map name="amain_8cpp_a5157f7f79cf8c75c2d7b41d8ed47a7ef_icgraph" id="amain_8cpp_a5157f7f79cf8c75c2d7b41d8ed47a7ef_icgraph">
 <area shape="rect" title="This function set all 3 loads to full power." alt="" coords="104,5,223,32"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a05c2e5b588ced1cd7312f5b0edc5b295"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05c2e5b588ced1cd7312f5b0edc5b295">&#9670;&nbsp;</a></span>ISR()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ISR </td>
-          <td>(</td>
-          <td class="paramtype">ADC_vect&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Interrupt Service Routine - Interrupt-Driven Analog Conversion. </p>
-<p>An Interrupt Service Routine is now defined which instructs the ADC to perform a conversion for each of the voltage and current sensors in turn.</p>
-<p>This Interrupt Service Routine is for use when the ADC is in the free-running mode. It is executed whenever an ADC conversion has finished, approx every 104 µs. In free-running mode, the ADC has already started its next conversion by the time that the ISR is executed. The ISR therefore needs to "look ahead".</p>
-<p>At the end of conversion Type N, conversion Type N+1 will start automatically. The ISR which runs at this point therefore needs to capture the results of conversion Type N, and set up the conditions for conversion Type N+2, and so on.</p>
-<p>By means of various helper functions, all of the time-critical activities are processed within the ISR.</p>
-<p>The main code is notified by means of a flag when fresh copies of loggable data are available.</p>
-<p>Keep in mind, when writing an Interrupt Service Routine (ISR):</p><ul>
-<li>Keep it short</li>
-<li>Don't use delay()</li>
-<li>Don't do serial prints</li>
-<li>Make variables shared with the main code volatile</li>
-<li>Variables shared with main code may need to be protected by "critical sections"</li>
-<li>Don't try to turn interrupts off or on </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00075">75</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8cpp_a05c2e5b588ced1cd7312f5b0edc5b295_cgraph.png" border="0" usemap="#amain_8cpp_a05c2e5b588ced1cd7312f5b0edc5b295_cgraph" alt=""/></div>
-<map name="amain_8cpp_a05c2e5b588ced1cd7312f5b0edc5b295_cgraph" id="amain_8cpp_a05c2e5b588ced1cd7312f5b0edc5b295_cgraph">
-<area shape="rect" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,56,48,83"/>
-<area shape="rect" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414" title="Process the calculation for the actual current raw sample for the specific phase." alt="" coords="97,31,294,57"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,81,295,108"/>
-<area shape="rect" href="group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542" title="This routine prevents a zero&#45;crossing point from being declared until a certain number of consecutive..." alt="" coords="360,5,481,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga81f4cbdafdfc13103fdfa34a136cd6fd" title="Process with the polarity for the actual voltage sample for the specific phase." alt="" coords="359,56,482,83"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,107,499,133"/>
-<area shape="rect" href="group__TimeCritical.html#gaed3b88c01657f322f7b985574a3427fd" title="Process the calculation for the current voltage sample for the specific phase." alt="" coords="360,157,481,184"/>
-<area shape="rect" href="group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf" title="Process the start of a new &#45;ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="547,19,721,45"/>
-<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="553,69,715,96"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="550,132,718,159"/>
-<area shape="rect" href="group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Process the startup period for the router." alt="" coords="573,183,695,209"/>
-<area shape="rect" href="group__TimeCritical.html#ga66a807366f984e34aacec09333ae7772" title="Process with data logging." alt="" coords="789,5,943,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase specific new cycle additional processing is performe..." alt="" coords="770,56,962,83"/>
-<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="774,107,958,133"/>
-<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="776,157,956,184"/>
-<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="769,208,963,235"/>
-<area shape="rect" href="processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="795,259,937,285"/>
-<area shape="rect" href="group__TimeCritical.html#ga6885cce1d1da17efc43834dadf023b61" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="1021,107,1221,133"/>
-<area shape="rect" href="group__TimeCritical.html#gaa8eb0f10cc0d8952e13bca76e7875621" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="1011,157,1232,184"/>
-<area shape="rect" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="1074,233,1169,260"/>
-<area shape="rect" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="1077,284,1166,311"/>
 </map>
 </div>
 
@@ -334,7 +271,7 @@ Here is the call graph for this function:</div>
 <p>Main processor. </p>
 <p>None of the workload in <a class="el" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor.">loop()</a> is time-critical. All the processing of ADC data is done within the ISR. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00351">351</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00353">353</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -395,7 +332,7 @@ Here is the call graph for this function:</div>
 <dd>
 false if on-peak tariff is active </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00269">269</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00271">271</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -447,7 +384,7 @@ Here is the caller graph for this function:</div>
 <dd>
 false if low tariff (off-peak period) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00213">213</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00215">215</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -489,7 +426,7 @@ Here is the caller graph for this function:</div>
 
 <p>Proceed load priority rotation. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00192">192</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00194">194</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -531,7 +468,7 @@ Here is the caller graph for this function:</div>
 <p>Called once during startup. </p>
 <p>This function initializes a couple of variables we cannot init at compile time and sets a couple of parameters for runtime. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00318">318</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00320">320</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
