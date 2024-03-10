@@ -14,11 +14,6 @@
 
 #include "config.h"
 
-/*!
- *  @defgroup DualTariff Dual tariff feature
- *  Functions used for the dual tariff feature
- */
-
 /**
  * @brief Template class for Load-Overriding
  * @details The array is initialized at compile time so it can be read-only and
@@ -26,6 +21,8 @@
  *
  * @tparam N # of loads
  * @tparam D
+ * 
+ * @ingroup DualTariff
  */
 template< uint8_t N, uint8_t OffPeakDuration = 8 >
 class _rg_OffsetForce
@@ -70,6 +67,7 @@ inline constexpr auto rg_OffsetForce{ _rg_OffsetForce< NO_OF_DUMPLOADS, ul_OFF_P
 /**
  * @brief Print the settings for off-peak period
  *
+ * @ingroup DualTariff
  */
 inline void printDualTariffConfiguration()
 {
