@@ -310,11 +310,15 @@ public:
     ewma_average.addValue(currentPower);
   }
 
-  /**
+/**
    * @brief Increment the duration's state of each relay
    * 
    */
+#if defined(__DOXYGEN__)
+  void inc_duration() const;
+#else
   void inc_duration() const __attribute__((optimize("-O3")));
+#endif
 
   /**
    * @brief Proceed all relays in increasing order (surplus) or decreasing order (import)

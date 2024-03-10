@@ -570,6 +570,9 @@ void processMinusHalfCycle(const uint8_t phase)
   }
 }
 
+#if !defined(__DOXYGEN__)
+uint8_t nextLogicalLoadToBeAdded() __attribute__((optimize("-O3")));
+#endif
 /**
  * @brief Retrieve the next load that could be added (be aware of the order)
  *
@@ -577,7 +580,6 @@ void processMinusHalfCycle(const uint8_t phase)
  *
  * @ingroup TimeCritical
  */
-uint8_t nextLogicalLoadToBeAdded() __attribute__((optimize("-O3")));
 uint8_t nextLogicalLoadToBeAdded()
 {
   for (uint8_t index = 0; index < NO_OF_DUMPLOADS; ++index)
@@ -591,6 +593,9 @@ uint8_t nextLogicalLoadToBeAdded()
   return (NO_OF_DUMPLOADS);
 }
 
+#if !defined(__DOXYGEN__)
+uint8_t nextLogicalLoadToBeRemoved() __attribute__((optimize("-O3")));
+#endif
 /**
  * @brief Retrieve the next load that could be removed (be aware of the reverse-order)
  *
@@ -598,7 +603,6 @@ uint8_t nextLogicalLoadToBeAdded()
  *
  * @ingroup TimeCritical
  */
-uint8_t nextLogicalLoadToBeRemoved() __attribute__((optimize("-O3")));
 uint8_t nextLogicalLoadToBeRemoved()
 {
   uint8_t index{ NO_OF_DUMPLOADS };
@@ -639,6 +643,9 @@ void processLatestContribution(const uint8_t phase)
   //
 }
 
+#if !defined(__DOXYGEN__)
+void processDataLogging() __attribute__((optimize("-O3")));
+#endif
 /**
  * @brief Process with data logging.
  * @details At the end of each datalogging period, copies are made of the relevant variables
@@ -647,8 +654,6 @@ void processLatestContribution(const uint8_t phase)
  *
  * @ingroup TimeCritical
  */
-void processDataLogging() __attribute__((optimize("-O3")));
-
 void processDataLogging()
 {
   if (++n_cycleCountForDatalogging < DATALOG_PERIOD_IN_MAINS_CYCLES)
