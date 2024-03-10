@@ -46,6 +46,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 
 /**
  * @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
+ * 
  * @details An Interrupt Service Routine is now defined which instructs the ADC to perform a conversion
  *          for each of the voltage and current sensors in turn.
  *
@@ -71,6 +72,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
  *            - Variables shared with main code may need to be protected by "critical sections"
  *            - Don't try to turn interrupts off or on
  *
+ * @ingroup TimeCritical
  */
 ISR(ADC_vect)
 {
@@ -425,7 +427,7 @@ void loop()
 
         tx_data.temperature_x100[idx] = tmp;
       } while (idx);
-      
+
       temperatureSensing.requestTemperatures();  // for use next time around
     }
 
