@@ -100,7 +100,7 @@ public:
   /**
    * @brief Read temperature of a specific device
    *
-   * @param deviceAddress The address of the device
+   * @param idx The index of the device
    * @return int16_t Temperature * 100
    */
   int16_t readTemperature(const uint8_t idx)
