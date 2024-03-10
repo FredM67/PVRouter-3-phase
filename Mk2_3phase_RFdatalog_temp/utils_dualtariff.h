@@ -15,7 +15,7 @@
 #include <Arduino.h>
 
 /*!
- *  @defgroup Dual tariff feature
+ *  @defgroup DualTariff Dual tariff feature
  *  Functions used for the dual tariff feature
  */
 

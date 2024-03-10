@@ -21,7 +21,7 @@
 #include "utils_pins.h"
 
 /*!
- *  @defgroup Relay diversion feature
+ *  @defgroup RelayDiversion Relay diversion feature
  *  Functions used for the relay diversion
  */
 

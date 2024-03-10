@@ -17,7 +17,7 @@
 #include "constants.h"
 
 /*!
- *  @defgroup Temperature sensing feature
+ *  @defgroup TemperatureSensing Temperature sensing feature
  *  Functions used for the temperature sensing
  */
 

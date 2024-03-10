@@ -13,7 +13,7 @@
 #define _UTILS_RF_H
 
 /*!
- *  @defgroup RF feature
+ *  @defgroup RF RF feature
  *  Functions used for the RF feature
  */
 
