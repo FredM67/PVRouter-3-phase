@@ -1,5 +1,0 @@
-<map id="printForSerialText" name="printForSerialText">
-<area shape="rect" id="node1" title="Prints data logs to the Serial output in text format." alt="" coords="5,35,141,61"/>
-<area shape="rect" id="node2" href="$classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="189,5,381,32"/>
-<area shape="rect" id="node3" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="208,57,363,98"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="TemperatureSensing::initTemperatureSensors" name="TemperatureSensing::initTemperatureSensors">
-<area shape="rect" id="node1" title="Initialize the Dallas sensors." alt="" coords="112,5,296,47"/>
-<area shape="rect" id="node2" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,13,64,39"/>
-</map>

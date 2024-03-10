@@ -73,22 +73,19 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright © 2014-2023, Benoit BLANCHON</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// MIT License</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">once</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// A meta-function that return the type T without the const modifier</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">typename</span> T &gt;</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="structremove__const.html">    9</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structremove__const.html">remove_const</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="structremove__const.html">    9</a></span>&#160;<span class="keyword">struct</span> <a class="code" href="structremove__const.html">remove_const</a></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
 <div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="structremove__const.html#a9f0ed27650a6d0c46dbbcee3d241b8dc">   11</a></span>&#160;  <span class="keyword">typedef</span> T <a class="code" href="structremove__const.html#a9f0ed27650a6d0c46dbbcee3d241b8dc">type</a>;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;};</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">template</span>&lt; <span class="keyword">typename</span> T &gt;</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="structremove__const_3_01const_01T_01_4.html">   14</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structremove__const.html">remove_const</a>&lt; const T &gt;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="structremove__const_3_01const_01T_01_4.html">   14</a></span>&#160;<span class="keyword">struct</span> <a class="code" href="structremove__const.html">remove_const</a>&lt; <span class="keyword">const</span> T &gt;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="structremove__const_3_01const_01T_01_4.html#a4d3920ff9b5818aca708f1d3897937f9">   16</a></span>&#160;  <span class="keyword">typedef</span> T <a class="code" href="structremove__const_3_01const_01T_01_4.html#a4d3920ff9b5818aca708f1d3897937f9">type</a>;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;};</div>
-<div class="ttc" id="astructremove__const_3_01const_01T_01_4_html_a4d3920ff9b5818aca708f1d3897937f9"><div class="ttname"><a href="structremove__const_3_01const_01T_01_4.html#a4d3920ff9b5818aca708f1d3897937f9">remove_const&lt; const T &gt;::type</a></div><div class="ttdeci">T type</div><div class="ttdef"><b>Definition:</b> <a href="remove__const_8hpp_source.html#l00016">remove_const.hpp:16</a></div></div>
-<div class="ttc" id="astructremove__const_html"><div class="ttname"><a href="structremove__const.html">remove_const</a></div><div class="ttdef"><b>Definition:</b> <a href="remove__const_8hpp_source.html#l00009">remove_const.hpp:10</a></div></div>
-<div class="ttc" id="astructremove__const_html_a9f0ed27650a6d0c46dbbcee3d241b8dc"><div class="ttname"><a href="structremove__const.html#a9f0ed27650a6d0c46dbbcee3d241b8dc">remove_const::type</a></div><div class="ttdeci">T type</div><div class="ttdef"><b>Definition:</b> <a href="remove__const_8hpp_source.html#l00011">remove_const.hpp:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

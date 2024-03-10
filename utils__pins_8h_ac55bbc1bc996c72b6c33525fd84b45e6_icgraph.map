@@ -1,6 +1,0 @@
-<map id="setPinON" name="setPinON">
-<area shape="rect" id="node1" title="Set the Pin state to ON for the specified pin." alt="" coords="439,31,521,57"/>
-<area shape="rect" id="node2" href="$utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7" title="Set the Pin state for the specified pin." alt="" coords="253,5,349,32"/>
-<area shape="rect" id="node3" href="$classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="212,56,391,83"/>
-<area shape="rect" id="node4" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="5,49,164,90"/>
-</map>

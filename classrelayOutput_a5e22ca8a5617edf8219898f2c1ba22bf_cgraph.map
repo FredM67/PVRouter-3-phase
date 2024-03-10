@@ -1,9 +1,5 @@
 <map id="relayOutput::proceed_relay" name="relayOutput::proceed_relay">
 <area shape="rect" id="node1" title="Proceed with the relay." alt="" coords="5,23,164,65"/>
 <area shape="rect" id="node2" href="$classrelayOutput.html#a788868018f39545aa8178198f36b4e06" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="212,5,396,32"/>
-<area shape="rect" id="node5" href="$classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="215,56,393,83"/>
-<area shape="rect" id="node3" href="$utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="444,5,532,32"/>
-<area shape="rect" id="node4" href="$utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="580,5,659,32"/>
-<area shape="rect" id="node6" href="$utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="447,56,529,83"/>
-<area shape="rect" id="node7" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="586,56,653,83"/>
+<area shape="rect" id="node3" href="$classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="215,56,393,83"/>
 </map>

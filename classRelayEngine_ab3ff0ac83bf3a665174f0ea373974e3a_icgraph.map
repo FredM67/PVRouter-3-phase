@@ -1,5 +1,0 @@
-<map id="RelayEngine::printConfiguration" name="RelayEngine::printConfiguration">
-<area shape="rect" id="node1" title="Print the configuration of each relay." alt="" coords="299,5,527,32"/>
-<area shape="rect" id="node2" href="$utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,32"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
-</map>

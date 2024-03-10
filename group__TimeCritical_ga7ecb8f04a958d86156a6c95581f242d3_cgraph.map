@@ -1,4 +1,0 @@
-<map id="proceedLowEnergyLevel" name="proceedLowEnergyLevel">
-<area shape="rect" id="node1" title="Process the case of low energy level, some action may be required." alt="" coords="5,5,185,32"/>
-<area shape="rect" id="node2" href="$group__TimeCritical.html#gaa8eb0f10cc0d8952e13bca76e7875621" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="233,5,455,32"/>
-</map>

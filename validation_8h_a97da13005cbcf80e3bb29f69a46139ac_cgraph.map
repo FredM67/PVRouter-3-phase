@@ -1,5 +1,0 @@
-<map id="check_load_priorities" name="check_load_priorities">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,165,57"/>
-<area shape="rect" id="node2" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="213,5,288,32"/>
-<area shape="rect" id="node3" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="217,56,284,83"/>
-</map>

@@ -1,5 +1,6 @@
 <map id="RelayEngine&lt; N, D &gt;" name="RelayEngine&lt; N, D &gt;">
-<area shape="rect" id="node1" title="This class implements the relay management engine." alt="" coords="148,109,309,136"/>
-<area shape="rect" id="node2" href="$classEWMA__average.html" title=" " alt="" coords="5,5,255,47"/>
-<area shape="rect" id="node3" href="$classrelayOutput.html" title="Relay diversion config and engine." alt="" coords="279,13,378,39"/>
+<area shape="rect" id="node1" title="This class implements the relay management engine." alt="" coords="149,213,311,240"/>
+<area shape="rect" id="node2" href="$classEWMA__average.html" title=" " alt="" coords="5,109,255,151"/>
+<area shape="rect" id="node3" href="$classEWMA__average.html" title="Exponentially Weighted Moving Average." alt="" coords="49,5,211,32"/>
+<area shape="rect" id="node4" href="$classrelayOutput.html" title="Relay diversion config and engine." alt="" coords="279,117,378,143"/>
 </map>
