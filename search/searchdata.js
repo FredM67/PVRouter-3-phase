@@ -9,7 +9,7 @@ var indexSectionsWithContent =
   6: "lopr",
   7: "alnop",
   8: "bcdefprst",
-  9: "t",
+  9: "dfst",
   10: "a"
 };
 

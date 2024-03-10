@@ -75,39 +75,39 @@ $(function() {
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classpairForceLoad.html">   27</a></span>&#160;<span class="keyword">class </span><a class="code" href="classpairForceLoad.html">pairForceLoad</a></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classpairForceLoad.html#afda1e45c16180c8ebdb2f195799bc1e4">   30</a></span>&#160;  constexpr <a class="code" href="classpairForceLoad.html#afda1e45c16180c8ebdb2f195799bc1e4">pairForceLoad</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classpairForceLoad.html#a96434eb9cf78c7cfd4dd4720563a55d2">   31</a></span>&#160;  <span class="keyword">explicit</span> constexpr <a class="code" href="classpairForceLoad.html#a96434eb9cf78c7cfd4dd4720563a55d2">pairForceLoad</a>(int16_t _iStartOffset)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    : iStartOffset(_iStartOffset), uiDuration(UINT16_MAX)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  }</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classpairForceLoad.html#a872c2432415f0ca697cd219e791da168">   35</a></span>&#160;  constexpr <a class="code" href="classpairForceLoad.html#a872c2432415f0ca697cd219e791da168">pairForceLoad</a>(int16_t _iStartOffset, <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> _uiDuration)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    : iStartOffset(_iStartOffset), uiDuration(_uiDuration)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">   40</a></span>&#160;  constexpr int16_t <a class="code" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">  </span>{</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">return</span> iStartOffset;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classpairForceLoad.html">   32</a></span>&#160;<span class="keyword">class </span><a class="code" href="classpairForceLoad.html">pairForceLoad</a></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classpairForceLoad.html#afda1e45c16180c8ebdb2f195799bc1e4">   35</a></span>&#160;  constexpr <a class="code" href="classpairForceLoad.html#afda1e45c16180c8ebdb2f195799bc1e4">pairForceLoad</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classpairForceLoad.html#a96434eb9cf78c7cfd4dd4720563a55d2">   36</a></span>&#160;  <span class="keyword">explicit</span> constexpr <a class="code" href="classpairForceLoad.html#a96434eb9cf78c7cfd4dd4720563a55d2">pairForceLoad</a>(int16_t _iStartOffset)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    : iStartOffset(_iStartOffset), uiDuration(UINT16_MAX)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  }</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classpairForceLoad.html#a872c2432415f0ca697cd219e791da168">   40</a></span>&#160;  constexpr <a class="code" href="classpairForceLoad.html#a872c2432415f0ca697cd219e791da168">pairForceLoad</a>(int16_t _iStartOffset, <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> _uiDuration)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    : iStartOffset(_iStartOffset), uiDuration(_uiDuration)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  {</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  }</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">   44</a></span>&#160;  constexpr <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> <a class="code" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">  </span>{</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> uiDuration;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  int16_t iStartOffset{ 0 };         </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> uiDuration{ UINT16_MAX }; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">   45</a></span>&#160;  constexpr int16_t <a class="code" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">  </span>{</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> iStartOffset;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  }</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">   49</a></span>&#160;  constexpr <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> <a class="code" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">  </span>{</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> uiDuration;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  }</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// __UTILS_DUALTARIFF_H__</span></div>
-<div class="ttc" id="aclasspairForceLoad_html"><div class="ttname"><a href="classpairForceLoad.html">pairForceLoad</a></div><div class="ttdoc">Config parameters for overriding a load.</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00027">utils_dualtariff.h:28</a></div></div>
-<div class="ttc" id="aclasspairForceLoad_html_a0b4b18f7af62c643c8672d77c365b0d2"><div class="ttname"><a href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">pairForceLoad::getDuration</a></div><div class="ttdeci">constexpr uint16_t getDuration() const</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00044">utils_dualtariff.h:44</a></div></div>
-<div class="ttc" id="aclasspairForceLoad_html_a2f5ce15b46ef76b58c197106b37c097f"><div class="ttname"><a href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">pairForceLoad::getStartOffset</a></div><div class="ttdeci">constexpr int16_t getStartOffset() const</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00040">utils_dualtariff.h:40</a></div></div>
-<div class="ttc" id="aclasspairForceLoad_html_a872c2432415f0ca697cd219e791da168"><div class="ttname"><a href="classpairForceLoad.html#a872c2432415f0ca697cd219e791da168">pairForceLoad::pairForceLoad</a></div><div class="ttdeci">constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration)</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00035">utils_dualtariff.h:35</a></div></div>
-<div class="ttc" id="aclasspairForceLoad_html_a96434eb9cf78c7cfd4dd4720563a55d2"><div class="ttname"><a href="classpairForceLoad.html#a96434eb9cf78c7cfd4dd4720563a55d2">pairForceLoad::pairForceLoad</a></div><div class="ttdeci">constexpr pairForceLoad(int16_t _iStartOffset)</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00031">utils_dualtariff.h:31</a></div></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  int16_t iStartOffset{ 0 };         </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> uiDuration{ UINT16_MAX }; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// __UTILS_DUALTARIFF_H__</span></div>
+<div class="ttc" id="aclasspairForceLoad_html"><div class="ttname"><a href="classpairForceLoad.html">pairForceLoad</a></div><div class="ttdoc">Config parameters for overriding a load.</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00032">utils_dualtariff.h:33</a></div></div>
+<div class="ttc" id="aclasspairForceLoad_html_a0b4b18f7af62c643c8672d77c365b0d2"><div class="ttname"><a href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">pairForceLoad::getDuration</a></div><div class="ttdeci">constexpr uint16_t getDuration() const</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00049">utils_dualtariff.h:49</a></div></div>
+<div class="ttc" id="aclasspairForceLoad_html_a2f5ce15b46ef76b58c197106b37c097f"><div class="ttname"><a href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">pairForceLoad::getStartOffset</a></div><div class="ttdeci">constexpr int16_t getStartOffset() const</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00045">utils_dualtariff.h:45</a></div></div>
+<div class="ttc" id="aclasspairForceLoad_html_a872c2432415f0ca697cd219e791da168"><div class="ttname"><a href="classpairForceLoad.html#a872c2432415f0ca697cd219e791da168">pairForceLoad::pairForceLoad</a></div><div class="ttdeci">constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration)</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00040">utils_dualtariff.h:40</a></div></div>
+<div class="ttc" id="aclasspairForceLoad_html_a96434eb9cf78c7cfd4dd4720563a55d2"><div class="ttname"><a href="classpairForceLoad.html#a96434eb9cf78c7cfd4dd4720563a55d2">pairForceLoad::pairForceLoad</a></div><div class="ttdeci">constexpr pairForceLoad(int16_t _iStartOffset)</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00036">utils_dualtariff.h:36</a></div></div>
 <div class="ttc" id="aclasspairForceLoad_html_afda1e45c16180c8ebdb2f195799bc1e4"><div class="ttname"><a href="classpairForceLoad.html#afda1e45c16180c8ebdb2f195799bc1e4">pairForceLoad::pairForceLoad</a></div><div class="ttdeci">constexpr pairForceLoad()=default</div></div>
 <div class="ttc" id="aconfig__system_8h_html_a3180c835bce68b1c59f64f4055088cca"><div class="ttname"><a href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a></div><div class="ttdeci">constexpr uint16_t</div><div class="ttdef"><b>Definition:</b> <a href="config__system_8h_source.html#l00030">config_system.h:30</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
