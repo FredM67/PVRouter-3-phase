@@ -64,6 +64,8 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classTemperatureSensing-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">TemperatureSensing&lt; N &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__TemperatureSensing.html">Temperature sensing feature</a></div></div>  </div>
@@ -74,10 +76,24 @@ $(function() {
  <a href="classTemperatureSensing.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for TemperatureSensing&lt; N &gt;:</div>
+<div class="dyncontent">
+<div class="center"><img src="classTemperatureSensing__coll__graph.png" border="0" usemap="#aTemperatureSensing_3_01N_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="aTemperatureSensing_3_01N_01_4_coll__map" id="aTemperatureSensing_3_01N_01_4_coll__map">
+<area shape="rect" title="This class implements the temperature sensing feature." alt="" coords="5,109,200,136"/>
+<area shape="rect" href="structTemperatureSensing_1_1DeviceAddress.html" title=" " alt="" coords="19,5,186,47"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTemperatureSensing_1_1DeviceAddress.html">DeviceAddress</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a224556f099404a746b61c14e25545ef8"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8">TemperatureSensing</a> (uint8_t pin, const DeviceAddress(&amp;ref)[N])</td></tr>
+<tr class="memitem:a224556f099404a746b61c14e25545ef8"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8">TemperatureSensing</a> (uint8_t pin, const <a class="el" href="structTemperatureSensing_1_1DeviceAddress.html">DeviceAddress</a>(&amp;ref)[N])</td></tr>
 <tr class="memdesc:a224556f099404a746b61c14e25545ef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Temperature Sensing object.  <a href="classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8">More...</a><br /></td></tr>
 <tr class="separator:a224556f099404a746b61c14e25545ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed6d4373de91a9d842e4f2f6ccbc93be"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTemperatureSensing.html#aed6d4373de91a9d842e4f2f6ccbc93be">get_pin</a> () const</td></tr>
@@ -95,6 +111,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab40e9df6930615d4c700780b6174e14f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTemperatureSensing.html#ab40e9df6930615d4c700780b6174e14f">requestTemperatures</a> ()</td></tr>
 <tr class="memdesc:ab40e9df6930615d4c700780b6174e14f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request temperature for all sensors.  <a href="classTemperatureSensing.html#ab40e9df6930615d4c700780b6174e14f">More...</a><br /></td></tr>
 <tr class="separator:ab40e9df6930615d4c700780b6174e14f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:a89c7e0a0d9d1ce58b1583f591701d2c4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTemperatureSensing.html#a89c7e0a0d9d1ce58b1583f591701d2c4">ScratchPad</a> = uint8_t[9]</td></tr>
+<tr class="separator:a89c7e0a0d9d1ce58b1583f591701d2c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a2bd6eab63a275b8b5bc372189c59cec5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structTemperatureSensing_1_1DeviceAddress.html">DeviceAddress</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">sensorAddrs</a> [N]</td></tr>
+<tr class="separator:a2bd6eab63a275b8b5bc372189c59cec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a9a904dfc27f7a5b9465f9c5a1f5875"><td class="memItemLeft" align="right" valign="top">const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">sensorPin</a></td></tr>
+<tr class="separator:a6a9a904dfc27f7a5b9465f9c5a1f5875"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;uint8_t N&gt;<br />
@@ -109,7 +137,34 @@ class TemperatureSensing&lt; N &gt;</h3>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00039">39</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a89c7e0a0d9d1ce58b1583f591701d2c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89c7e0a0d9d1ce58b1583f591701d2c4">&#9670;&nbsp;</a></span>ScratchPad</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classTemperatureSensing.html">TemperatureSensing</a>&lt; N &gt;::<a class="el" href="classTemperatureSensing.html#a89c7e0a0d9d1ce58b1583f591701d2c4">ScratchPad</a> =  uint8_t[9]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00041">41</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a224556f099404a746b61c14e25545ef8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a224556f099404a746b61c14e25545ef8">&#9670;&nbsp;</a></span>TemperatureSensing()</h2>
 
@@ -130,7 +185,7 @@ template&lt;uint8_t N&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const DeviceAddress(&amp;)&#160;</td>
+          <td class="paramtype">const <a class="el" href="structTemperatureSensing_1_1DeviceAddress.html">DeviceAddress</a>(&amp;)&#160;</td>
           <td class="paramname"><em>ref</em>[N]&#160;</td>
         </tr>
         <tr>
@@ -382,6 +437,61 @@ Here is the caller graph for this function:</div>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,13,64,39"/>
 </map>
 </div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a2bd6eab63a275b8b5bc372189c59cec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bd6eab63a275b8b5bc372189c59cec5">&#9670;&nbsp;</a></span>sensorAddrs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structTemperatureSensing_1_1DeviceAddress.html">DeviceAddress</a> <a class="el" href="classTemperatureSensing.html">TemperatureSensing</a>&lt; N &gt;::sensorAddrs[N]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Array of sensors </p>
+
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00152">152</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+
+</div>
+</div>
+<a id="a6a9a904dfc27f7a5b9465f9c5a1f5875"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a9a904dfc27f7a5b9465f9c5a1f5875">&#9670;&nbsp;</a></span>sensorPin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t <a class="el" href="classTemperatureSensing.html">TemperatureSensing</a>&lt; N &gt;::sensorPin</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>The pin of the sensor(s) </p>
+
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00150">150</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
 
 </div>
 </div>

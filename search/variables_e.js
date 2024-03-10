@@ -1,10 +1,11 @@
 var searchData=
 [
-  ['temp_5frange_5fhigh_641',['TEMP_RANGE_HIGH',['../constants_8h.html#ae66df05f0d2fda508e164431349b3b8c',1,'constants.h']]],
-  ['temp_5frange_5flow_642',['TEMP_RANGE_LOW',['../constants_8h.html#a17dd5c5d43fb9926ea7e525ff1813f96',1,'constants.h']]],
-  ['temp_5fsensor_5fpresent_643',['TEMP_SENSOR_PRESENT',['../utils__temp_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083',1,'utils_temp.h']]],
-  ['temperature_5fx100_644',['temperature_x100',['../classPayloadTx__struct.html#a1ae46c4aad3871fe7007f2860424a15b',1,'PayloadTx_struct']]],
-  ['temperaturesensing_645',['temperatureSensing',['../config_8h.html#a412759f741ec4a38f90e75adfe997b58',1,'config.h']]],
-  ['tempsensorpin_646',['tempSensorPin',['../config_8h.html#a8437eec6f152492cefbba0cae0681e27',1,'config.h']]],
-  ['tx_5fdata_647',['tx_data',['../processing_8h.html#adbf5049da054af687e1e15842d883533',1,'processing.h']]]
+  ['sensoraddrs_705',['sensorAddrs',['../classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5',1,'TemperatureSensing']]],
+  ['sensori_706',['sensorI',['../processing_8h.html#a8843ac58fa4e38e3bec429fac0f8de41',1,'processing.h']]],
+  ['sensorpin_707',['sensorPin',['../classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875',1,'TemperatureSensing']]],
+  ['sensorv_708',['sensorV',['../processing_8h.html#a84dbfaffb1c8ccc490804b5f976d7933',1,'processing.h']]],
+  ['settle_5fchange_709',['settle_change',['../classRelayEngine.html#a62a753c9ea9c15e35211398fb155a971',1,'RelayEngine']]],
+  ['startupperiod_710',['startUpPeriod',['../processing_8h.html#a0d30025137b8f9bfe6d4e9c832db76b4',1,'processing.h']]],
+  ['supply_5ffrequency_711',['SUPPLY_FREQUENCY',['../config__system_8h.html#ad62846ca1d96695a32041f6dd809401e',1,'config_system.h']]],
+  ['surplusthreshold_712',['surplusThreshold',['../classrelayOutput.html#a5149cd72bf3d2ad09b5c8cf217db3e08',1,'relayOutput']]]
 ];

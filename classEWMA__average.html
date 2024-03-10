@@ -63,6 +63,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classEWMA__average-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">EWMA_average&lt; A &gt; Class Template Reference</div>  </div>
@@ -88,6 +89,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8f68c3f411360bfd79ef732a313616be"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be">getAverageT</a> () const</td></tr>
 <tr class="memdesc:a8f68c3f411360bfd79ef732a313616be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the TEMA.  <a href="classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be">More...</a><br /></td></tr>
 <tr class="separator:a8f68c3f411360bfd79ef732a313616be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a65fb7d357a350ee9716c20219c3333fc"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html#a65fb7d357a350ee9716c20219c3333fc">ema</a> { 0 }</td></tr>
+<tr class="separator:a65fb7d357a350ee9716c20219c3333fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7a139fbc13ba0785cb580ba686a8363"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html#ae7a139fbc13ba0785cb580ba686a8363">ema_ema</a> { 0 }</td></tr>
+<tr class="separator:ae7a139fbc13ba0785cb580ba686a8363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5219d8dba50d05dffa44893de21fed9f"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html#a5219d8dba50d05dffa44893de21fed9f">ema_ema_ema</a> { 0 }</td></tr>
+<tr class="separator:a5219d8dba50d05dffa44893de21fed9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a3bae04667592466cd5cc53223b3d67"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html#a7a3bae04667592466cd5cc53223b3d67">ema_ema_ema_raw</a> { 0 }</td></tr>
+<tr class="separator:a7a3bae04667592466cd5cc53223b3d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98361417bbb5ad1fa219184f9d76e27e"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html#a98361417bbb5ad1fa219184f9d76e27e">ema_ema_raw</a> { 0 }</td></tr>
+<tr class="separator:a98361417bbb5ad1fa219184f9d76e27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0839eb3ff16d2e4c67e8055535b3f9b"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html#ac0839eb3ff16d2e4c67e8055535b3f9b">ema_raw</a> { 0 }</td></tr>
+<tr class="separator:ac0839eb3ff16d2e4c67e8055535b3f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;uint8_t A = 10&gt;<br />
@@ -252,6 +268,163 @@ template&lt;uint8_t A = 10&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>auto The TEMA value </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00122">122</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a65fb7d357a350ee9716c20219c3333fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65fb7d357a350ee9716c20219c3333fc">&#9670;&nbsp;</a></span>ema</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t A = 10&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::ema { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00133">133</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae7a139fbc13ba0785cb580ba686a8363"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7a139fbc13ba0785cb580ba686a8363">&#9670;&nbsp;</a></span>ema_ema</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t A = 10&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::ema_ema { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00131">131</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5219d8dba50d05dffa44893de21fed9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5219d8dba50d05dffa44893de21fed9f">&#9670;&nbsp;</a></span>ema_ema_ema</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t A = 10&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::ema_ema_ema { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00129">129</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7a3bae04667592466cd5cc53223b3d67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a3bae04667592466cd5cc53223b3d67">&#9670;&nbsp;</a></span>ema_ema_ema_raw</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t A = 10&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::ema_ema_ema_raw { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00128">128</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a98361417bbb5ad1fa219184f9d76e27e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98361417bbb5ad1fa219184f9d76e27e">&#9670;&nbsp;</a></span>ema_ema_raw</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t A = 10&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::ema_ema_raw { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00130">130</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac0839eb3ff16d2e4c67e8055535b3f9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0839eb3ff16d2e4c67e8055535b3f9b">&#9670;&nbsp;</a></span>ema_raw</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t A = 10&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::ema_raw { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00132">132</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>

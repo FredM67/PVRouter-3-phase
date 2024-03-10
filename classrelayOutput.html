@@ -63,6 +63,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classrelayOutput-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">relayOutput Class Reference<div class="ingroups"><a class="el" href="group__RelayDiversion.html">Relay diversion feature</a></div></div>  </div>
@@ -114,6 +116,32 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5e22ca8a5617edf8219898f2c1ba22bf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf">proceed_relay</a> (const int32_t currentAvgPower) const</td></tr>
 <tr class="memdesc:a5e22ca8a5617edf8219898f2c1ba22bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed with the relay.  <a href="classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf">More...</a><br /></td></tr>
 <tr class="separator:a5e22ca8a5617edf8219898f2c1ba22bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a788868018f39545aa8178198f36b4e06"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a788868018f39545aa8178198f36b4e06">try_turnOFF</a> () const</td></tr>
+<tr class="memdesc:a788868018f39545aa8178198f36b4e06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turn OFF the relay if the 'time' condition is met.  <a href="classrelayOutput.html#a788868018f39545aa8178198f36b4e06">More...</a><br /></td></tr>
+<tr class="separator:a788868018f39545aa8178198f36b4e06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3aec33d184f1fd0d17abc1b41300bdf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf">try_turnON</a> () const</td></tr>
+<tr class="memdesc:ae3aec33d184f1fd0d17abc1b41300bdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turn ON the relay if the 'time' condition is met.  <a href="classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf">More...</a><br /></td></tr>
+<tr class="separator:ae3aec33d184f1fd0d17abc1b41300bdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a9da57bd903102fb1ed765fe94a6c352c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a9da57bd903102fb1ed765fe94a6c352c">duration</a> { 0 }</td></tr>
+<tr class="separator:a9da57bd903102fb1ed765fe94a6c352c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef45ace133c038e9e6fca3c9ed20d05"><td class="memItemLeft" align="right" valign="top">const int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a4ef45ace133c038e9e6fca3c9ed20d05">importThreshold</a> { 200 }</td></tr>
+<tr class="separator:a4ef45ace133c038e9e6fca3c9ed20d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdf09f94d1891f24a200a6bece01b449"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#acdf09f94d1891f24a200a6bece01b449">minOFF</a> { 5 * 60 }</td></tr>
+<tr class="separator:acdf09f94d1891f24a200a6bece01b449"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa128ef24702813df92dc95a7e9da05e0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#aa128ef24702813df92dc95a7e9da05e0">minON</a> { 5 * 60 }</td></tr>
+<tr class="separator:aa128ef24702813df92dc95a7e9da05e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a536df28c34f0ad3ca86b73bfc1505355"><td class="memItemLeft" align="right" valign="top">const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a536df28c34f0ad3ca86b73bfc1505355">relay_pin</a> { 0xff }</td></tr>
+<tr class="separator:a536df28c34f0ad3ca86b73bfc1505355"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74d185ffeecb49b68552e419748f5773"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a74d185ffeecb49b68552e419748f5773">relayIsON</a> { false }</td></tr>
+<tr class="separator:a74d185ffeecb49b68552e419748f5773"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5149cd72bf3d2ad09b5c8cf217db3e08"><td class="memItemLeft" align="right" valign="top">const int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrelayOutput.html#a5149cd72bf3d2ad09b5c8cf217db3e08">surplusThreshold</a> { -1000 }</td></tr>
+<tr class="separator:a5149cd72bf3d2ad09b5c8cf217db3e08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Relay diversion config and engine. </p>
@@ -656,6 +684,294 @@ Here is the caller graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>bool True if state has changed </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00152">152</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classrelayOutput_a5e22ca8a5617edf8219898f2c1ba22bf_cgraph.png" border="0" usemap="#aclassrelayOutput_a5e22ca8a5617edf8219898f2c1ba22bf_cgraph" alt=""/></div>
+<map name="aclassrelayOutput_a5e22ca8a5617edf8219898f2c1ba22bf_cgraph" id="aclassrelayOutput_a5e22ca8a5617edf8219898f2c1ba22bf_cgraph">
+<area shape="rect" title="Proceed with the relay." alt="" coords="5,23,164,65"/>
+<area shape="rect" href="classrelayOutput.html#a788868018f39545aa8178198f36b4e06" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="212,5,396,32"/>
+<area shape="rect" href="classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="215,56,393,83"/>
+<area shape="rect" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="444,5,532,32"/>
+<area shape="rect" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="580,5,659,32"/>
+<area shape="rect" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="447,56,529,83"/>
+<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="586,56,653,83"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a788868018f39545aa8178198f36b4e06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a788868018f39545aa8178198f36b4e06">&#9670;&nbsp;</a></span>try_turnOFF()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool relayOutput::try_turnOFF </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Turn OFF the relay if the 'time' condition is met. </p>
+<dl class="section return"><dt>Returns</dt><dd>bool True if state has changed </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00219">219</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classrelayOutput_a788868018f39545aa8178198f36b4e06_cgraph.png" border="0" usemap="#aclassrelayOutput_a788868018f39545aa8178198f36b4e06_cgraph" alt=""/></div>
+<map name="aclassrelayOutput_a788868018f39545aa8178198f36b4e06_cgraph" id="aclassrelayOutput_a788868018f39545aa8178198f36b4e06_cgraph">
+<area shape="rect" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="5,5,189,32"/>
+<area shape="rect" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="237,5,325,32"/>
+<area shape="rect" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="373,5,452,32"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classrelayOutput_a788868018f39545aa8178198f36b4e06_icgraph.png" border="0" usemap="#aclassrelayOutput_a788868018f39545aa8178198f36b4e06_icgraph" alt=""/></div>
+<map name="aclassrelayOutput_a788868018f39545aa8178198f36b4e06_icgraph" id="aclassrelayOutput_a788868018f39545aa8178198f36b4e06_icgraph">
+<area shape="rect" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="212,13,396,39"/>
+<area shape="rect" href="classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="5,5,164,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae3aec33d184f1fd0d17abc1b41300bdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3aec33d184f1fd0d17abc1b41300bdf">&#9670;&nbsp;</a></span>try_turnON()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool relayOutput::try_turnON </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Turn ON the relay if the 'time' condition is met. </p>
+<dl class="section return"><dt>Returns</dt><dd>bool True if state has changed </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00197">197</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_cgraph.png" border="0" usemap="#aclassrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_cgraph" alt=""/></div>
+<map name="aclassrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_cgraph" id="aclassrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_cgraph">
+<area shape="rect" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="5,5,184,32"/>
+<area shape="rect" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="232,5,315,32"/>
+<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="363,5,429,32"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_icgraph.png" border="0" usemap="#aclassrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_icgraph" alt=""/></div>
+<map name="aclassrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_icgraph" id="aclassrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_icgraph">
+<area shape="rect" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="212,13,391,39"/>
+<area shape="rect" href="classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="5,5,164,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a9da57bd903102fb1ed765fe94a6c352c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9da57bd903102fb1ed765fe94a6c352c">&#9670;&nbsp;</a></span>duration</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> relayOutput::duration { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Duration of the current state </p>
+
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00243">243</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+
+</div>
+</div>
+<a id="a4ef45ace133c038e9e6fca3c9ed20d05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ef45ace133c038e9e6fca3c9ed20d05">&#9670;&nbsp;</a></span>importThreshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int16_t relayOutput::importThreshold { 200 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Import threshold to turn relay OFF </p>
+
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00239">239</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+
+</div>
+</div>
+<a id="acdf09f94d1891f24a200a6bece01b449"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf09f94d1891f24a200a6bece01b449">&#9670;&nbsp;</a></span>minOFF</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> relayOutput::minOFF { 5 * 60 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Minimum duration in seconds the relay is turned OFF </p>
+
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00241">241</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+
+</div>
+</div>
+<a id="aa128ef24702813df92dc95a7e9da05e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa128ef24702813df92dc95a7e9da05e0">&#9670;&nbsp;</a></span>minON</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> relayOutput::minON { 5 * 60 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Minimum duration in seconds the relay is turned ON </p>
+
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00240">240</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+
+</div>
+</div>
+<a id="a536df28c34f0ad3ca86b73bfc1505355"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a536df28c34f0ad3ca86b73bfc1505355">&#9670;&nbsp;</a></span>relay_pin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t relayOutput::relay_pin { 0xff }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pin associated with the relay </p>
+
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00237">237</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+
+</div>
+</div>
+<a id="a74d185ffeecb49b68552e419748f5773"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74d185ffeecb49b68552e419748f5773">&#9670;&nbsp;</a></span>relayIsON</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool relayOutput::relayIsON { false }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>True if the relay is ON </p>
+
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00244">244</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+
+</div>
+</div>
+<a id="a5149cd72bf3d2ad09b5c8cf217db3e08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5149cd72bf3d2ad09b5c8cf217db3e08">&#9670;&nbsp;</a></span>surplusThreshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int16_t relayOutput::surplusThreshold { -1000 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Surplus threshold to turn relay ON </p>
+
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00238">238</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>

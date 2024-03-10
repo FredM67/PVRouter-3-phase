@@ -1,0 +1,4 @@
+<map id="relayOutput::try_turnON" name="relayOutput::try_turnON">
+<area shape="rect" id="node1" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="212,13,391,39"/>
+<area shape="rect" id="node2" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="5,5,164,47"/>
+</map>
