@@ -16,6 +16,12 @@
  * The parameter decides how important the current observation is in the calculation of the EWMA.
  * The higher the value of alpha, the more closely the EWMA tracks the original time series.
  * 
+ * Computation of DEMA (Double EMA) with half-alpha has been added to get a better response of the average,
+ * especially when "peak inputs" are recorded.
+ *
+ * Computation of TEMA (Triple EMA) with quarter-alpha has been added to get a even better response of the average,
+ * especially when "peak inputs" are recorded. This seems to be the "optimal" solution.
+ * 
  * @section note Note
  * This class is implemented in way to use only integer math.
  * This comes with some restrictions on the alpha parameter, but the benefit of full integer math wins
@@ -71,26 +77,56 @@ template< uint8_t A = 10 >
 class EWMA_average
 {
 public:
+  /**
+   * @brief Add a new value and actualize the EMA, DEMA and TEMA
+   * 
+   * @param input The new value
+   */
   void addValue(int32_t input)
   {
     ema_raw = ema_raw - ema + input;
-    ema = ema_raw >> (round_up_to_power_of_2(A) - 1);
+    ema = ema_raw >> round_up_to_power_of_2(A);
 
     ema_ema_raw = ema_ema_raw - ema_ema + ema;
     ema_ema = ema_ema_raw >> (round_up_to_power_of_2(A) - 1);
+
+    ema_ema_ema_raw = ema_ema_ema_raw - ema_ema_ema + ema_ema;
+    ema_ema_ema = ema_ema_ema_raw >> (round_up_to_power_of_2(A) - 2);
   }
 
+  /**
+   * @brief Get the EMA
+   * 
+   * @return auto The EMA value
+   */
   auto getAverageS() const
   {
     return ema;
   }
 
+  /**
+   * @brief Get the DEMA
+   * 
+   * @return auto The DEMA value
+   */
   auto getAverageD() const
   {
     return (ema << 1) - ema_ema;
   }
 
+  /**
+   * @brief Get the TEMA
+   * 
+   * @return auto The TEMA value
+   */
+  auto getAverageT() const
+  {
+    return 3 * (ema - ema_ema) + ema_ema_ema;
+  }
+
 private:
+  int32_t ema_ema_ema_raw{ 0 };
+  int32_t ema_ema_ema{ 0 };
   int32_t ema_ema_raw{ 0 };
   int32_t ema_ema{ 0 };
   int32_t ema_raw{ 0 };

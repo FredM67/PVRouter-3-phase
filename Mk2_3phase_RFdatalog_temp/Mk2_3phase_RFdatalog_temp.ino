@@ -140,9 +140,21 @@
  * - heavy refactoring (again)
  * - stl add-ons
  * - add relay-output feature
+ * 
+ * __February 2024: changes:__
+ * - refactoring of 'temperature feature'
+ * - refactoring of 'relay feature'
+ * - new sliding average (EWMA)
+ * - more documentation
+ * 
+ * __March 2024: changes:__
+ * - multi-relay feature
+ * - add DEMA and TEMA sliding average
+ * - some tiny fixes
+ * - even more documentation
  *  
  * @author Fred Metrich
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2024
  *
  */
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
