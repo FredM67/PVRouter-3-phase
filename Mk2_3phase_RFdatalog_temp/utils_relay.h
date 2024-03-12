@@ -14,6 +14,7 @@
 
 #include "types.h"
 #include "type_traits.hpp"
+#include "type_traits.hpp"
 
 #include "config_system.h"
 #include "movingAvg.h"
@@ -23,6 +24,7 @@
 /**
  * @brief Relay diversion config and engine
  * 
+ * @ingroup RelayDiversion
  */
 class relayOutput
 {
@@ -30,7 +32,7 @@ public:
   constexpr relayOutput() = delete;
 
   /**
-   * @brief Construct a new relay Config object
+   * @brief Construct a new relay Config object with default parameters
    * 
    * @param _relay_pin Control pin for the relay
    */
@@ -40,7 +42,7 @@ public:
   }
 
   /**
-   * @brief Construct a new relay Config object
+   * @brief Construct a new relay Config object with default/custom parameters
    * 
    * @param _relay_pin Control pin for the relay
    * @param _surplusThreshold Surplus threshold to turn relay ON
@@ -52,7 +54,7 @@ public:
   }
 
   /**
-   * @brief Construct a new relay Config object
+   * @brief Construct a new relay Config object with custom parameters
    * 
    * @param _relay_pin Control pin for the relay
    * @param _surplusThreshold Surplus threshold to turn relay ON
@@ -242,7 +244,9 @@ private:
  * @brief This class implements the relay management engine
  * 
  * @tparam D The duration in minutes of the sliding average
- * @tparam N The number of relays to be used
+ * @tparam N The number of relays to be used. This parameter is deduced automatically.
+ * 
+ * @ingroup RelayDiversion
  */
 template< uint8_t N, uint8_t D = 10 >
 class RelayEngine
@@ -257,12 +261,20 @@ public:
   {
   }
 
+  /**
+   * @brief Construct a list of relays with a custom sliding average
+   * 
+   */
   constexpr RelayEngine(integral_constant< uint8_t, D > ic, const relayOutput (&ref)[N])
     : relay(ref)
   {
   }
 
-
+  /**
+   * @brief Get the number of relays
+   * 
+   * @return constexpr auto The number of relays
+   */
   constexpr auto get_size() const
   {
     return N;
@@ -286,12 +298,7 @@ public:
    */
   inline static auto get_average()
   {
-    return ewma_average.getAverageS();
-  }
-
-  inline static auto get_averageD()
-  {
-    return ewma_average.getAverageD();
+    return ewma_average.getAverageT();
   }
 
   /**
@@ -304,7 +311,15 @@ public:
     ewma_average.addValue(currentPower);
   }
 
+/**
+   * @brief Increment the duration's state of each relay
+   * 
+   */
+#if defined(__DOXYGEN__)
+  void inc_duration() const;
+#else
   void inc_duration() const __attribute__((optimize("-O3")));
+#endif
 
   /**
    * @brief Proceed all relays in increasing order (surplus) or decreasing order (import)
@@ -346,6 +361,10 @@ public:
     }
   }
 
+  /**
+   * @brief Initialize the pins used by the relays
+   * 
+   */
   void initializePins() const
   {
     uint8_t idx{ N };

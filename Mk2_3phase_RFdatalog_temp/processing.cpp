@@ -16,11 +16,6 @@
 #include "processing.h"
 #include "utils_pins.h"
 
-/*!
- *  @defgroup TimeCritical Time critical functions Group
- *  Functions used by the ISR
- */
-
 int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
 
 // Define operating limits for the LP filters which identify DC offset in the voltage
@@ -412,7 +407,7 @@ void processStartUp(const uint8_t phase)
 void proceedHighEnergyLevel()
 {
   bool bOK_toAddLoad{ true };
-  auto tempLoad{ nextLogicalLoadToBeAdded() };
+  const auto tempLoad{ nextLogicalLoadToBeAdded() };
 
   if (tempLoad >= NO_OF_DUMPLOADS)
   {
@@ -453,7 +448,7 @@ void proceedHighEnergyLevel()
 void proceedLowEnergyLevel()
 {
   bool bOK_toRemoveLoad{ true };
-  auto tempLoad{ nextLogicalLoadToBeRemoved() };
+  const auto tempLoad{ nextLogicalLoadToBeRemoved() };
 
   if (tempLoad >= NO_OF_DUMPLOADS)
   {
@@ -575,10 +570,13 @@ void processMinusHalfCycle(const uint8_t phase)
   }
 }
 
+#if !defined(__DOXYGEN__)
+uint8_t nextLogicalLoadToBeAdded() __attribute__((optimize("-O3")));
+#endif
 /**
  * @brief Retrieve the next load that could be added (be aware of the order)
  *
- * @return The load number if successfull, NO_OF_DUMPLOADS in case of failure
+ * @return The load number if successful, NO_OF_DUMPLOADS in case of failure
  *
  * @ingroup TimeCritical
  */
@@ -596,6 +594,9 @@ uint8_t nextLogicalLoadToBeAdded()
   return (NO_OF_DUMPLOADS);
 }
 
+#if !defined(__DOXYGEN__)
+uint8_t nextLogicalLoadToBeRemoved() __attribute__((optimize("-O3")));
+#endif
 /**
  * @brief Retrieve the next load that could be removed (be aware of the reverse-order)
  *
@@ -620,7 +621,7 @@ uint8_t nextLogicalLoadToBeRemoved()
 }
 
 /**
- * @brief Process the lastest contribution after each phase specific new cycle
+ * @brief Process the latest contribution after each phase specific new cycle
  *        additional processing is performed after each main cycle based on phase 0.
  *
  * @param phase the phase number [0..NO_OF_PHASES[
@@ -644,6 +645,9 @@ void processLatestContribution(const uint8_t phase)
   //
 }
 
+#if !defined(__DOXYGEN__)
+void processDataLogging() __attribute__((optimize("-O3")));
+#endif
 /**
  * @brief Process with data logging.
  * @details At the end of each datalogging period, copies are made of the relevant variables

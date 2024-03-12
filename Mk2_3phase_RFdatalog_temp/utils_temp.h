@@ -27,6 +27,8 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if tem
  * @brief This class implements the temperature sensing feature
  * 
  * @tparam N Number of sensors, automatically deduced
+ * 
+ * @ingroup TemperatureSensing
  */
 template< uint8_t N >
 class TemperatureSensing
@@ -98,7 +100,7 @@ public:
   /**
    * @brief Read temperature of a specific device
    *
-   * @param deviceAddress The address of the device
+   * @param idx The index of the device
    * @return int16_t Temperature * 100
    */
   int16_t readTemperature(const uint8_t idx)

@@ -62,6 +62,20 @@ void processRawSamples(uint8_t phase);
 
 void processVoltage(uint8_t phase);
 
+#if defined(__DOXYGEN__)
+inline void processStartUp(uint8_t phase);
+inline void processStartNewCycle();
+inline void processPlusHalfCycle(uint8_t phase);
+inline void processMinusHalfCycle(uint8_t phase);
+inline void processVoltage(uint8_t phase);
+inline void processPolarity(uint8_t phase, int16_t rawSample);
+inline void confirmPolarity(uint8_t phase);
+inline void proceedLowEnergyLevel();
+inline void proceedHighEnergyLevel();
+inline uint8_t nextLogicalLoadToBeAdded();
+inline uint8_t nextLogicalLoadToBeRemoved();
+inline void processLatestContribution(uint8_t phase);
+#else
 inline void processStartUp(uint8_t phase) __attribute__((always_inline));
 inline void processStartNewCycle() __attribute__((always_inline));
 inline void processPlusHalfCycle(uint8_t phase) __attribute__((always_inline));
@@ -74,6 +88,7 @@ inline void proceedHighEnergyLevel() __attribute__((always_inline));
 inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline));
 inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline));
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
+#endif
 
 void processDataLogging();
 
