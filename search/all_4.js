@@ -12,7 +12,7 @@ var searchData=
   ['declval_2ehpp_64',['declval.hpp',['../declval_8hpp.html',1,'']]],
   ['device_5fdisconnected_5fc_65',['DEVICE_DISCONNECTED_C',['../constants_8h.html#afdaf08501000ecdba738310facc056dd',1,'constants.h']]],
   ['device_5fdisconnected_5fraw_66',['DEVICE_DISCONNECTED_RAW',['../constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83',1,'constants.h']]],
-  ['deviceaddress_67',['DeviceAddress',['../structTemperatureSensing_1_1DeviceAddress.html',1,'TemperatureSensing']]],
+  ['deviceaddress_67',['DeviceAddress',['../structDeviceAddress.html',1,'']]],
   ['diversion_5fpin_5fpresent_68',['DIVERSION_PIN_PRESENT',['../config_8h.html#af4fafac7a898d0c42cf814b9ab893d8c',1,'config.h']]],
   ['diversionpin_69',['diversionPin',['../config_8h.html#a7356f13f5bd190e1c4617b7143e4416d',1,'config.h']]],
   ['dual_20tariff_20feature_70',['Dual tariff feature',['../group__DualTariff.html',1,'']]],

@@ -5,7 +5,7 @@ var searchData=
   ['temp_5fsensor_5fpresent_337',['TEMP_SENSOR_PRESENT',['../utils__temp_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083',1,'utils_temp.h']]],
   ['temperature_20sensing_20feature_338',['Temperature sensing feature',['../group__TemperatureSensing.html',1,'']]],
   ['temperature_5fx100_339',['temperature_x100',['../classPayloadTx__struct.html#a1ae46c4aad3871fe7007f2860424a15b',1,'PayloadTx_struct']]],
-  ['temperaturesensing_340',['TemperatureSensing',['../classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8',1,'TemperatureSensing::TemperatureSensing()'],['../classTemperatureSensing.html',1,'TemperatureSensing&lt; N &gt;']]],
+  ['temperaturesensing_340',['TemperatureSensing',['../classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3',1,'TemperatureSensing::TemperatureSensing()'],['../classTemperatureSensing.html',1,'TemperatureSensing&lt; N &gt;'],['../classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8',1,'TemperatureSensing::TemperatureSensing()']]],
   ['temperaturesensing_341',['temperatureSensing',['../config_8h.html#a412759f741ec4a38f90e75adfe997b58',1,'config.h']]],
   ['tempsensorpin_342',['tempSensorPin',['../config_8h.html#a8437eec6f152492cefbba0cae0681e27',1,'config.h']]],
   ['textify_343',['TEXTIFY',['../debug_8h.html#a94253da7c896b6bad6f37138776820b4',1,'debug.h']]],
