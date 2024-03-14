@@ -277,8 +277,10 @@ inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
 ```
 
 ## Rotation des priorités
-Lorsqu'on alimente un chauffe-eau triphasé, il peut être judicieux de permuter les priorités de mise en route de chaque résistance toutes les 24 h.  
-Ainsi, en moyenne sur plusieurs semaines, chaque résistance aura fonctionné à peu près la même durée.  
+La rotation des priorités est utile lors de l'alimentation d'un chauffe-eau triphasé.  
+Elle permet d'équilibrer la durée de fonctionnement des différentes résistances sur une période prolongée.
+
+Mais elle peut aussi être intéressante si on veut permuter les priorités de deux appareils chaque jour (deux chauffe-eau, ...).
 
 Une fois n'est pas coutume, l'activation de cette fonction possède 2 modes :
 - **automatique**, on spécifiera alors
@@ -290,34 +292,34 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::AUTO };
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
 ```
 En mode **automatique**, la rotation se fait automatiquement toutes les 24 h.  
-Em mode **manuel**, il faudra définir en plus la *pin* qui permettra de déclencher une rotation :
+Em mode **manuel**, vous devez également définir la *pin* qui déclenchera la rotation :
 ```cpp
 inline constexpr uint8_t rotationPin{ 10 };
 ```
 
 ## Configuration de la marche forcée
 Il est possible de déclencher la marche forcée (certains routeurs appellent cette fonction *Boost*) via une *pin*.  
-On peut y relier un micro-interrupteur, une minuterie (ATTENTION, PAS de 230 V sur cette ligne), ou n'importe quel autre contact sec.
+On peut y relier un micro-interrupteur, une minuterie (ATTENTION, PAS de 230 V sur cette ligne), ou tout autre contact sec.
 
-Cette fonctionnalité s'active via la ligne :
+Pour activer cette fonctionnalité, utilisez le code suivant :
 ```cpp
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };
 ```
-Il faudra aussi choisir le *pin* sur laquelle est relié le contact sec :
+Vous devez également spécifier la pin à laquelle le contact sec est connecté :
 ```cpp
 inline constexpr uint8_t forcePin{ 11 };
 ```
 
 ## Arrêt du routage
-Il peut être utile de stopper le routage lors d'une absence de plusieurs jours.  
-Cela est d'autant plus intéressant si la *pin* de commande est reliée à un contact sec lui-même télécommandable à distance et/ou via une routine Alexa ou similaire.  
-De cette façon, il est possible de stopper le routage pendant une absence et le remettre en route par exemple la veille ou l'avant-veille, histoire d'avoir de l'eau chaude (gratuite) au retour.
+Il peut être pratique de désactiver le routage lors d'une absence prolongée.  
+Cette fonctionnalité est particulièrement utile si la *pin* de commande est connectée à un contact sec qui peut être contrôlé à distance, par exemple via une routine Alexa ou similaire.  
+Ainsi, vous pouvez désactiver le routage pendant votre absence et le réactiver un ou deux jours avant votre retour, afin de disposer d'eau chaude (gratuite) à votre arrivée.
 
-Cette fonctionnalité s'active via la ligne :
+Pour activer cette fonctionnalité, utilisez le code suivant :
 ```cpp
 inline constexpr bool DIVERSION_PIN_PRESENT{ true };
 ```
-Il faudra aussi choisir la *pin* sur laquelle est relié le contact sec :
+Vous devez également spécifier la pin à laquelle le contact sec est connecté :
 ```cpp
 inline constexpr uint8_t diversionPin{ 12 };
 ```
