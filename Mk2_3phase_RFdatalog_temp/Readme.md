@@ -131,7 +131,7 @@ inline constexpr RelayEngine relays{ { { 4, 1000, 200, 10, 10 },
                                        { 3, 1500, 250, 5, 15 } } };
 ```
 Les relais sont activés dans l'ordre de la liste, et désactivés dans l'ordre inverse.  
-Dans tous les cas, durées minimales de fonctionnement et d'arrêt sont toujours respectées.
+Dans tous les cas, les durées minimales de fonctionnement et d'arrêt sont toujours respectées.
 
 ### Principe de fonctionnement
 Les seuils de surplus et d'import sont calculés en utilisant une moyenne mobile pondérée exponentiellement (EWMA), dans notre cas précis, il s'agit d'une modification d'une moyenne mobile triple exponentiellement pondérée (TEMA).  
@@ -191,7 +191,7 @@ Activez la ligne suivante en supprimant le commentaire :
 #define TEMP_ENABLED
 ```
 
-Si la bibliothèque OneWire n'est pas installée, installez-la via le menu **Outils** => **Gérer les bibliothèques…**.  
+Si la bibliothèque *OneWire* n'est pas installée, installez-la via le menu **Outils** => **Gérer les bibliothèques…**.  
 Recherchez "Onewire" et installez "**OneWire** par Jim Studt, …" en version **2.3.7** ou plus récente.
 
 #### Avec Visual Studio Code et PlatformIO
@@ -263,14 +263,14 @@ Le deuxième paramètre détermine la durée de la marche forcée :
 
 Exemples pour mieux comprendre (avec début d'HC à 23:00, jusqu'à 7:00 soit 8 h de durée) :
 - ```{ -3, 2 }``` : démarrage **3 heures AVANT** la fin de période (à 4 h du matin), pour une durée de 2 h.
-- ```{ 3, 2 }``` : démarrage **3 heures APRÈS** la début de période (à 2 h du matin), pour une durée de 2 h.
+- ```{ 3, 2 }``` : démarrage **3 heures APRÈS** le début de période (à 2 h du matin), pour une durée de 2 h.
 - ```{ -150, 2 }``` : démarrage **150 minutes AVANT** la fin de période (à 4:30), pour une durée de 2 h.
-- ```{ 3, 180 }``` : démarrage **3 heures APRÈS** la début de période (à 2 h du matin), pour une durée de 180 min.
+- ```{ 3, 180 }``` : démarrage **3 heures APRÈS** le début de période (à 2 h du matin), pour une durée de 180 min.
 
 Pour une durée *infinie* (donc jusqu'à la fin de la période d'HC), utilisez ```UINT16_MAX``` comme deuxième paramètre :
 - ```{ -3, UINT16_MAX }``` : démarrage **3 heures AVANT** la fin de période (à 4 h du matin) avec marche forcée jusqu'à la fin de période d'HC.
 
-Si votre système comprenant 2 sorties (```NO_OF_DUMPLOADS``` aura alors une valeur de 2), et que vous souhaitez une marche forcée uniquement sur la 2ᵉ sortie, écrivez :
+Si votre système est constitué 2 sorties (```NO_OF_DUMPLOADS``` aura alors une valeur de 2), et que vous souhaitez une marche forcée uniquement sur la 2ᵉ sortie, écrivez :
 ```cpp
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
                                                               { -3, 2 } };
@@ -305,7 +305,7 @@ Pour activer cette fonctionnalité, utilisez le code suivant :
 ```cpp
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };
 ```
-Vous devez également spécifier la pin à laquelle le contact sec est connecté :
+Vous devez également spécifier la *pin* à laquelle le contact sec est connecté :
 ```cpp
 inline constexpr uint8_t forcePin{ 11 };
 ```
@@ -319,7 +319,7 @@ Pour activer cette fonctionnalité, utilisez le code suivant :
 ```cpp
 inline constexpr bool DIVERSION_PIN_PRESENT{ true };
 ```
-Vous devez également spécifier la pin à laquelle le contact sec est connecté :
+Vous devez également spécifier la *pin* à laquelle le contact sec est connecté :
 ```cpp
 inline constexpr uint8_t diversionPin{ 12 };
 ```
