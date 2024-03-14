@@ -232,18 +232,18 @@ void updatePortsStates()
  */
 void updatePhysicalLoadStates()
 {
-  uint8_t i{ 0 };
-
   if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
   {
     if (b_reOrderLoads)
     {
       const auto temp{ loadPrioritiesAndState[0] };
-      for (i = 0; i < NO_OF_DUMPLOADS - 1; ++i)
+      uint8_t i{ NO_OF_DUMPLOADS - 1 };
+      do
       {
-        loadPrioritiesAndState[i] = loadPrioritiesAndState[i + 1];
-      }
-      loadPrioritiesAndState[i] = temp;
+        loadPrioritiesAndState[i] = loadPrioritiesAndState[i - 1];
+        --i;
+      } while (i);
+      loadPrioritiesAndState[0] = temp;
 
       b_reOrderLoads = false;
     }
@@ -262,11 +262,13 @@ void updatePhysicalLoadStates()
   }
 
   const bool bDiversionOff{ b_diversionOff };
-  for (i = 0; i < NO_OF_DUMPLOADS; ++i)
+  uint8_t i{ NO_OF_DUMPLOADS };
+  do
   {
+    --i;
     const auto iLoad{ loadPrioritiesAndState[i] & loadStateMask };
     physicalLoadState[iLoad] = !bDiversionOff && (b_overrideLoadOn[iLoad] || (loadPrioritiesAndState[i] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
-  }
+  } while (i);
 }
 
 /**
@@ -334,9 +336,7 @@ void confirmPolarity(const uint8_t phase)
     return;
   }
 
-  ++count[phase];
-
-  if (count[phase] > PERSISTENCE_FOR_POLARITY_CHANGE)
+  if (++count[phase] > PERSISTENCE_FOR_POLARITY_CHANGE)
   {
     count[phase] = 0;
     polarityConfirmed[phase] = polarityOfMostRecentSampleV[phase];
@@ -608,8 +608,7 @@ uint8_t nextLogicalLoadToBeRemoved()
   uint8_t index{ NO_OF_DUMPLOADS };
   do
   {
-    --index;
-    if (loadPrioritiesAndState[index] & loadStateOnBit)
+    if (loadPrioritiesAndState[--index] & loadStateOnBit)
     {
       return (index);
     }
@@ -732,10 +731,12 @@ void processPlusHalfCycle(const uint8_t phase)
 void processRawSamples(const uint8_t phase)
 {
   // The raw V and I samples are processed in "phase pairs"
+  const auto &lastPolarity{ polarityConfirmedOfLastSampleV[phase] };
+
   if (Polarities::POSITIVE == polarityConfirmed[phase])
   {
     // the polarity of this sample is positive
-    if (Polarities::POSITIVE != polarityConfirmedOfLastSampleV[phase])
+    if (Polarities::POSITIVE != lastPolarity)
     {
       // This is the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
       if (beyondStartUpPeriod)
@@ -759,13 +760,13 @@ void processRawSamples(const uint8_t phase)
   else
   {
     // the polarity of this sample is negative
-    if (Polarities::NEGATIVE != polarityConfirmedOfLastSampleV[phase])
+    if (Polarities::NEGATIVE != lastPolarity)
     {
       // This is the start of a new -ve half cycle (just after the zero-crossing point)
       processMinusHalfCycle(phase);
     }
   }
-}  // end of processRawSamples()
+}
 
 /**
  * @brief Process the current voltage raw sample for the specific phase

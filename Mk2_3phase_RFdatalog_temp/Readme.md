@@ -191,8 +191,8 @@ Activez la ligne suivante en supprimant le commentaire :
 #define TEMP_ENABLED
 ```
 
-Si la bibliothèque OneWire n'est pas installée, installez-la via le menu **Outils** => **Gérer les bibliothèques...**.  
-Recherchez "Onewire" et installez "**OneWire** par Jim Studt, ..." en version **2.3.7** ou plus récente.
+Si la bibliothèque OneWire n'est pas installée, installez-la via le menu **Outils** => **Gérer les bibliothèques…**.  
+Recherchez "Onewire" et installez "**OneWire** par Jim Studt, …" en version **2.3.7** ou plus récente.
 
 #### Avec Visual Studio Code et PlatformIO
 Sélectionnez la configuration "**env:temperature (Mk2_3phase_RFdatalog_temp)**".
@@ -280,7 +280,7 @@ inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
 La rotation des priorités est utile lors de l'alimentation d'un chauffe-eau triphasé.  
 Elle permet d'équilibrer la durée de fonctionnement des différentes résistances sur une période prolongée.
 
-Mais elle peut aussi être intéressante si on veut permuter les priorités de deux appareils chaque jour (deux chauffe-eau, ...).
+Mais elle peut aussi être intéressante si on veut permuter les priorités de deux appareils chaque jour (deux chauffe-eau, …).
 
 Une fois n'est pas coutume, l'activation de cette fonction possède 2 modes :
 - **automatique**, on spécifiera alors
