@@ -1,6 +1,6 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](Readme.en.md)
 
-Ce programme doit être utilisé avec l’IDE Arduino et/ou d’autres IDE de développement comme VSCode + PlatformIO.
+Ce programme est conçu pour être utilisé avec l'IDE Arduino et/ou d'autres IDE de développement comme VSCode + PlatformIO.
 
 - [Utilisation avec Arduino IDE](#utilisation-avec-arduino-ide)
 - [Utilisation avec Visual Studio Code](#utilisation-avec-visual-studio-code)
@@ -25,25 +25,19 @@ Ce programme doit être utilisé avec l’IDE Arduino et/ou d’autres IDE de d�
 
 # Utilisation avec Arduino IDE
 
-Vous devrez télécharger et installer la version la plus récente de l'[Arduino IDE](https://www.arduino.cc/en/software).
+Pour utiliser ce programme avec l'IDE Arduino, vous devez télécharger et installer la dernière version de l'IDE Arduino. Choisissez la version "standard", PAS la version du Microsoft Store. Optez pour la version "Win 10 et plus récent, 64 bits" ou la version "MSI installer".
 
-Téléchargez la version « standard », PAS la version du Microsoft Store.
-Procurez-vous la version « Win 10 et plus récent, 64 bits » ou la version « MSI installer ».
+Comme le code est optimisé avec l'une des dernières normes C++, vous devez modifier un fichier de configuration pour activer C++17. Vous trouverez le fichier '**platform.txt**' dans le chemin d'installation de l'IDE Arduino.
 
-Étant donné que le code est optimisé avec l'une des dernières normes de C++, vous devrez modifier un fichier de configuration pour activer C++17.
+Pour **Windows**, vous trouverez généralement le fichier dans '**C:\Program Files (x86)\Arduino\hardware\arduino\avr**' et/ou dans '**%LOCALAPPDATA%\Arduino15\packages\arduino\hardware\avr\x.y.z**' où **'x.y.z**' est la version du package Arduino AVR Boards.
 
-Veuillez rechercher le fichier '**platform.txt**' situé dans le chemin d’installation de l’IDE Arduino.
+Vous pouvez également exécuter cette commande dans Powershell : `Get-Childitem –Path C:\ -Include platform.txt -Recurse -ErrorAction SilentlyContinue`. Cela peut prendre quelques secondes/minutes jusqu'à ce que le fichier soit trouvé.
 
-Pour **Windows**, typiquement, vous trouverez le fichier dans '**C:\Program Files (x86)\Arduino\hardware\arduino\avr**' et/ou dans '**%LOCALAPPDATA%\Arduino15\packages\arduino\hardware\avr\x.y.z**' où 'x.y.z' est la version du package **Arduino AVR Boards**.
+Pour **Linux**, si vous utilisez le package AppImage, vous trouverez ce fichier dans '~/.arduino15/packages/arduino/hardware/avr/1.8.6'. Vous pouvez exécuter `find / -name platform.txt 2>/dev/null` au cas où l'emplacement aurait changé.
 
-Vous pouvez aussi taper cette commande dans unPowershell : `Get-Childitem –Path C:\ -Include platform.txt -Recurse -ErrorAction SilentlyContinue`. Cela peut prendre quelques secondes/minutes jusqu’à ce que le fichier soit trouvé.
+Ouvrez le fichier dans n'importe quel éditeur de texte (vous aurez besoin des droits d'administrateur) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. C'est tout !
 
-Pour **Linux**, si vous utilisez le paquetAppImage, vous trouverez ce fichier dans '**~/.arduino15/packages/arduino/hardware/avr/1.8.6**'.  
-Vous pouvez exécuter `find / -name platform.txt 2>/dev/null` au cas où l’emplacement aurait été modifié.
-
-Modifiez le fichier dans n’importe quel éditeur de texte (vous aurez besoin des **droits d’administrateur**) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. Voilà !	
-
-Si votre Arduino IDE a été ouvert, veuillez fermer toutes les instances et l’ouvrir à nouveau.	
+Si votre IDE Arduino était ouvert, veuillez fermer toutes les instances et le rouvrir.
 
 # Utilisation avec Visual Studio Code
 
