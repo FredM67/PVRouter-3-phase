@@ -107,7 +107,7 @@ Les sorties relais tout-ou-rien permettent d'alimenter des appareils qui contien
 
 Il faudra activer la fonctionalité comme ceci :
 ```cpp
-inline constexpr bool RELAY_DIVERSION{ false };
+inline constexpr bool RELAY_DIVERSION{ true };
 ```
 
 Pour chaque relais, il faut définir 5 paramètres :
