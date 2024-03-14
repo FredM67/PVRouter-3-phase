@@ -146,6 +146,17 @@ ___
 Attention au suffixe '**_i**' après le nombre *15* !
 ___
 
+Les relais configurés dans le système sont gérés par un système similaire à une machine à états.
+Chaque seconde, le système augmente la durée de l'état actuel de chaque relais et procède avec tous les relais en fonction de la puissance moyenne actuelle :
+- si la puissance moyenne actuelle est supérieure au seuil d'import, elle essaie d'éteindre certains relais.
+- si la puissance moyenne actuelle est supérieure au seuil de surplus, elle essaie d'allumer plus de relais.
+
+Les relais sont traités dans l'ordre croissant pour le surplus et dans l'ordre décroissant pour l'importation.
+
+Pour chaque relais, la transition ou le changement d'état est géré de la manière suivante :
+- si le relais est *OFF* et que la puissance moyenne actuelle est inférieure au seuil de surplus, le relais essaie de passer à l'état *ON*. Cette transition est soumise à la condition que le relais ait été *OFF* pendant au moins la durée *minOFF*.
+- si le relais est *ON* et que la puissance moyenne actuelle est supérieure au seuil d'importation, le relais essaie de passer à l'état *OFF*. Cette transition est soumise à la condition que le relais ait été *ON* pendant au moins la durée *minON*.
+
 ### Diagramme de fonctionnement
 À venir...
 
