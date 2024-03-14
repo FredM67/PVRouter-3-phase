@@ -105,6 +105,11 @@ inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ## Configuration des sorties relais tout-ou-rien
 Les sorties relais tout-ou-rien permettent d'alimenter des appareils qui contiennent de l'électronique (pompe à chaleur …).
 
+Il faudra activer la fonctionalité comme ceci :
+```cpp
+inline constexpr bool RELAY_DIVERSION{ false };
+```
+
 Pour chaque relais, il faut définir 5 paramètres :
 - numéro de **pin** sur laquelle est branché le relais
 - **seuil de surplus** avant mise en route (par défaut **1000 W**)
