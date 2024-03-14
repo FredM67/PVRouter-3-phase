@@ -12,8 +12,9 @@ Ce programme est conçu pour être utilisé avec l'IDE Arduino et/ou d'autres ID
     - [Principe de fonctionnement](#principe-de-fonctionnement)
   - [Configuration du Watchdog](#configuration-du-watchdog)
   - [Configuration du ou des capteurs de température](#configuration-du-ou-des-capteurs-de-température)
-    - [Avec l'Arduino IDE](#avec-larduino-ide)
-    - [Avec Visual Studio Code et PlatformIO](#avec-visual-studio-code-et-platformio)
+    - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité)
+      - [Avec l'Arduino IDE](#avec-larduino-ide)
+      - [Avec Visual Studio Code et PlatformIO](#avec-visual-studio-code-et-platformio)
     - [Configuration du ou des capteurs (commun aux 2 cas précédents)](#configuration-du-ou-des-capteurs-commun-aux-2-cas-précédents)
   - [Configuration de la gestion des Heures Creuses (dual tariff)](#configuration-de-la-gestion-des-heures-creuses-dual-tariff)
     - [Configuration matérielle](#configuration-matérielle)
@@ -83,14 +84,16 @@ Ces valeurs par défaut doivent être déterminées pour assurer un fonctionneme
 
 # Configuration du programme
 
-D'une manière générale, la configuration d'une fonctionnalité nécessite 2 changements au moins :
-- activation de la fonctionnalité en question
-- configuration de la fonctionnalité en question
+La configuration d'une fonctionnalité suit généralement deux étapes :
+- Activation de la fonctionnalité
+- Configuration des paramètres de la fonctionnalité
 
-La pertinence de l'ensemble est validée lors de la compilation. Ainsi, si par mégarde, une *pin* est allouée 2 fois par exemple, le compilateur émettra une erreur.
+La cohérence de la configuration est vérifiée lors de la compilation. Par exemple, si une *pin* est allouée deux fois par erreur, le compilateur générera une erreur.
 
 ## Configuration des sorties TRIAC
-Il faudra dans un 1ᵉʳ temps définir le nombre de sorties TRIAC.
+
+La première étape consiste à définir le nombre de sorties TRIAC :
+
 ```cpp
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
 ```
@@ -109,30 +112,30 @@ Il faudra activer la fonctionnalité comme ceci :
 inline constexpr bool RELAY_DIVERSION{ true };
 ```
 
-Pour chaque relais, il faut définir 5 paramètres :
-- numéro de **pin** sur laquelle est branché le relais
-- **seuil de surplus** avant mise en route (par défaut **1000 W**)
-- **seuil d'import** avant arrêt (par défaut **200 W**)
-- **durée de fonctionnement minimale** en minutes (par défaut **5 min**)
-- **durée d'arrêt minimale** en minutes (par défaut **5 min**).
+Chaque relais nécessite la définition de cinq paramètres :
+- le numéro de **pin** sur laquelle est branché le relais
+- le **seuil de surplus** avant mise en route (par défaut **1000 W**)
+- le **seuil d'import** avant arrêt (par défaut **200 W**)
+- la **durée de fonctionnement minimale** en minutes (par défaut **5 min**)
+- la **durée d'arrêt minimale** en minutes (par défaut **5 min**).
 
-Exemple :
+Exemple de configuration d'un relais :
 ```cpp
 inline constexpr RelayEngine relays{ { { 4, 1000, 200, 10, 10 } } };
 ```
-Cette ligne définit ainsi un relais câblé sur la *pin* **4**, qui se déclenchera à partir de **1000 W** de surplus, et qui s'arrêtera à partir de **200 W** d'import et dont le temps de fonctionnement mais aussi d'arrêt seront de **10 min**.
+Dans cet exemple, le relais est connecté sur la *pin* **4**, il se déclenchera à partir de **1000 W** de surplus, s'arrêtera à partir de **200 W** d'import, et a une durée minimale de fonctionnement et d'arrêt de **10 min**.
 
-Si plusieurs relais sont présents, on listera tout simplement les configurations de chaque relais de cette façon :
+Pour configurer plusieurs relais, listez simplement les configurations de chaque relais :
 ```cpp
 inline constexpr RelayEngine relays{ { { 4, 1000, 200, 10, 10 },
                                        { 3, 1500, 250, 5, 15 } } };
 ```
-Les relais seront mis en route dans le même ordre que dans la liste. L'ordre d'arrêt sera l'inverse.  
-Dans tous les cas, les consignes de durée de fonctionnement et d'arrêt seront respectées.
+Les relais sont activés dans l'ordre de la liste, et désactivés dans l'ordre inverse.  
+Dans tous les cas, durées minimales de fonctionnement et d'arrêt sont toujours respectées.
 
 ### Principe de fonctionnement
-Les valeurs de surplus ainsi que d'import sont calculées selon une moyenne mobile pondérée exponentiellement (**EWMA** pour **E**xponentially **W**eighted **M**oving **A**verage).  
-Par défaut, cette moyenne prend en compte une fenêtre d'environ 10 min.  
+Les seuils de surplus et d'import sont calculés en utilisant une moyenne mobile pondérée exponentiellement (EWMA), dans notre cas précis, il s'agit d'une modification d'une moyenne mobile triple exponentiellement pondérée (TEMA).  
+Par défaut, cette moyenne est calculée sur une fenêtre d'environ **10 min**. Vous pouvez ajuster cette durée pour l'adapter à vos besoins.  
 Il est possible de la rallonger mais aussi de la raccourcir.  
 Pour des raisons de performances de l'Arduino, la durée choisie sera arrondie à une durée proche qui permettra de faire les calculs sans impacter les performances du routeur.
 
@@ -174,40 +177,39 @@ inline constexpr uint8_t watchDogPin{ 9 };
 
 ## Configuration du ou des capteurs de température
 Il est possible de brancher un ou plusieurs capteurs de température Dallas DS18B20.  
-Ces capteurs peuvent être utilisés de façon purement informative mais aussi pour le contrôle de la marche forcée.
+Ces capteurs peuvent servir à des fins informatives ou pour contrôler le mode de fonctionnement forcé.
 
 Pour activer cette fonctionnalité, il faudra procéder différemment selon que l'on utilise l'Arduino IDE ou Visual Studio Code avec l'extension PlatformIO.
 
-### Avec l'Arduino IDE
-If faudra activer la ligne :
-```cpp
-//#define TEMP_ENABLED
-```
-en supprimant le commentaire, comme ceci :
+### Activation de la fonctionnalité
+
+Pour activer cette fonctionnalité, la procédure diffère selon que vous utilisez l'Arduino IDE ou Visual Studio Code avec l'extension PlatformIO.
+
+#### Avec l'Arduino IDE
+Activez la ligne suivante en supprimant le commentaire :
 ```cpp
 #define TEMP_ENABLED
 ```
 
-Si la bibliothèque *OneWire* n'est pas encore installée, il faudra procéder à son installation :
-- Menu **Outils**=>**Gérer les bibliothèques...**
-- Taper "Onewire" dans le champ de recherche
-- Installer "**OneWire** par Jim Studt, ..." en version **2.3.7** ou plus récente.
+Si la bibliothèque OneWire n'est pas installée, installez-la via le menu **Outils** => **Gérer les bibliothèques...**.  
+Recherchez "Onewire" et installez "**OneWire** par Jim Studt, ..." en version **2.3.7** ou plus récente.
 
-### Avec Visual Studio Code et PlatformIO
-Dans ce cas, il faudra sélectionner la configuration "**env:temperature (Mk2_3phase_RFdatalog_temp)**".
+#### Avec Visual Studio Code et PlatformIO
+Sélectionnez la configuration "**env:temperature (Mk2_3phase_RFdatalog_temp)**".
 
 ### Configuration du ou des capteurs (commun aux 2 cas précédents)
-Pour configurer le ou les capteurs, il faudra saisir leur·s adresse·s.  
-Pour cela, il faudra utiliser un programme qui permettra de scanner les capteurs connectés. Ce genre de programme est disponible un peu partout sur Internet mais aussi parmi les croquis d'exemple fournis avec l'Arduino IDE.  
-Il est conseillé de noter l'adresse de chaque capteur sur une étiquette adhésive que l'on collera sur le câble du capteur correspondant.
+Pour configurer les capteurs, vous devez entrer leurs adresses.  
+Utilisez un programme pour scanner les capteurs connectés.  
+Vous pouvez trouver de tels programmes sur Internet ou parmi les exemples fournis avec l'Arduino IDE.  
+Il est recommandé de coller une étiquette avec l'adresse de chaque capteur sur son câble.
 
-Les adresses seront alors saisies de la façon suivante :
+Entrez les adresses comme suit :
 ```cpp
 inline constexpr TemperatureSensing temperatureSensing{ 4,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } };
 ```
-Le nombre *4* en 1ᵉʳ paramètre est la *pin* que l'utilisateur aura choisi pour le bus OneWire.
+Le nombre *4* en premier paramètre est la *pin* que l'utilisateur aura choisi pour le bus *OneWire*.
 
 ___
 **_Note_**
@@ -221,8 +223,8 @@ Cela permet par exemple de limiter la chauffe en marche forcée afin de ne pas t
 Cette limite peut être en durée ou en température (nécessite d'utiliser un capteur de température Dallas DS18B20).
 
 ### Configuration matérielle
-Il faudra décâbler la commande du contacteur Jour/Nuit, il ne servira plus à rien.  
-Ensuite, il conviendra de relier *directement* une *pin* choisie au contact sec incorporé dans le compteur (bornes C1 et C2).
+Décâblez la commande du contacteur Jour/Nuit, qui n'est plus nécessaire.  
+Reliez directement une *pin* choisie au contact sec du compteur (bornes *C1* et *C2*).
 ___
 **__ATTENTION__**
 Il faut relier **directement**, une paire *pin/masse* avec les bornes *C1/C2* du compteur.  
@@ -230,16 +232,16 @@ Il NE doit PAS y avoir de 230 V sur ce circuit !
 ___
 
 ### Configuration logicielle
-Cette fonctionnalité s'active via la ligne :
+Activez la fonctionnalité comme suit :
 ```cpp
 inline constexpr bool DUAL_TARIFF{ true };
 ```
-Il faudra aussi choisir le *pin* sur laquelle est relié le compteur :
+Configurez la *pin* sur laquelle est relié le compteur :
 ```cpp
 inline constexpr uint8_t dualTariffPin{ 3 };
 ```
 
-Il faudra aussi la durée en *heures* de la période d'Heures Creuses (pour l'instant, une seule période est supportée par jour)  :
+Configurez la durée en *heures* de la période d'Heures Creuses (pour l'instant, une seule période est supportée par jour) :
 ```cpp
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };
 ```
@@ -249,26 +251,26 @@ Enfin, on définira les modalités de fonctionnement pendant la période d'Heure
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } };
 ```
 Il est possible de définir une configuration pour chaque charge indépendamment l'une des autres.
-Le 1ᵉʳ paramètre détermine la temporisation de démarrage par rapport au début de la période d'Heures Creuses ou la fin de cette période  :
+Le premier paramètre de *rg_ForceLoad* détermine la temporisation de démarrage par rapport au début ou à la fin des Heures Creuses :
 - si le nombre est positif et inférieur à 24, il s'agit du nombre d'heures,
 - si le nombre est négatif supérieur à −24, il s'agit du nombre d'heures par rapport à la fin des Heures Creuses
 - si le nombre est positif et supérieur à 24, il s'agit du nombre de minutes,
 - si le nombre est négatif inférieur à −24, il s'agit du nombre de minutes par rapport à la fin des Heures Creuses
 
-Le 2ᵉ paramètre détermine la durée de la marche forcée :
+Le deuxième paramètre détermine la durée de la marche forcée :
 - si le nombre est inférieur à 24, il s'agit du nombre d'heures,
 - si le nombre est supérieur à 24, il s'agit du nombre de minutes.
 
-Prenons quelques exemples pour mieux comprendre (avec début d'HC à 23:00, jusqu'à 7:00 soit 8 h de durée) :
-- ```{ -3, 2 }``` signifie démarrage **3 heures AVANT** la fin de période (à 4 h du matin), pour une durée de 2 h.
-- ```{ 3, 2 }``` signifie démarrage **3 heures APRÈS** la début de période (à 2 h du matin), pour une durée de 2 h.
-- ```{ -150, 2 }``` signifie démarrage **150 minutes AVANT** la fin de période (à 4:30), pour une durée de 2 h.
-- ```{ 3, 180 }``` signifie démarrage **3 heures APRÈS** la début de période (à 2 h du matin), pour une durée de 180 min.
+Exemples pour mieux comprendre (avec début d'HC à 23:00, jusqu'à 7:00 soit 8 h de durée) :
+- ```{ -3, 2 }``` : démarrage **3 heures AVANT** la fin de période (à 4 h du matin), pour une durée de 2 h.
+- ```{ 3, 2 }``` : démarrage **3 heures APRÈS** la début de période (à 2 h du matin), pour une durée de 2 h.
+- ```{ -150, 2 }``` : démarrage **150 minutes AVANT** la fin de période (à 4:30), pour une durée de 2 h.
+- ```{ 3, 180 }``` : démarrage **3 heures APRÈS** la début de période (à 2 h du matin), pour une durée de 180 min.
 
-Dans le cas où l'on désire une durée *infinie* (donc jusqu'à la fin de la période d'HC), il faudra écrire par exemple :
-- ```{ -3, UINT16_MAX }``` signifie démarrage **3 heures AVANT** la fin de période (à 4 h du matin) avec marche forcée jusqu'à la fin de période d'HC.
+Pour une durée *infinie* (donc jusqu'à la fin de la période d'HC), utilisez ```UINT16_MAX``` comme deuxième paramètre :
+- ```{ -3, UINT16_MAX }``` : démarrage **3 heures AVANT** la fin de période (à 4 h du matin) avec marche forcée jusqu'à la fin de période d'HC.
 
-Dans un système comprenant 2 sorties (```NO_OF_DUMPLOADS``` aura alors une valeur de 2), si l'on souhaite une marche forcée uniquement sur la 2ᵉ sortie, on écrira :
+Si votre système comprenant 2 sorties (```NO_OF_DUMPLOADS``` aura alors une valeur de 2), et que vous souhaitez une marche forcée uniquement sur la 2ᵉ sortie, écrivez :
 ```cpp
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
                                                               { -3, 2 } };
