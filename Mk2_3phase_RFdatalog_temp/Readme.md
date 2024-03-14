@@ -10,7 +10,6 @@ Ce programme est conçu pour être utilisé avec l'IDE Arduino et/ou d'autres ID
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
   - [Configuration des sorties relais tout-ou-rien](#configuration-des-sorties-relais-tout-ou-rien)
     - [Principe de fonctionnement](#principe-de-fonctionnement)
-    - [Diagramme de fonctionnement](#diagramme-de-fonctionnement)
   - [Configuration du Watchdog](#configuration-du-watchdog)
   - [Configuration du ou des capteurs de température](#configuration-du-ou-des-capteurs-de-température)
     - [Avec l'Arduino IDE](#avec-larduino-ide)
@@ -105,7 +104,7 @@ inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ## Configuration des sorties relais tout-ou-rien
 Les sorties relais tout-ou-rien permettent d'alimenter des appareils qui contiennent de l'électronique (pompe à chaleur …).
 
-Il faudra activer la fonctionalité comme ceci :
+Il faudra activer la fonctionnalité comme ceci :
 ```cpp
 inline constexpr bool RELAY_DIVERSION{ true };
 ```
@@ -156,9 +155,6 @@ Les relais sont traités dans l'ordre croissant pour le surplus et dans l'ordre 
 Pour chaque relais, la transition ou le changement d'état est géré de la manière suivante :
 - si le relais est *OFF* et que la puissance moyenne actuelle est inférieure au seuil de surplus, le relais essaie de passer à l'état *ON*. Cette transition est soumise à la condition que le relais ait été *OFF* pendant au moins la durée *minOFF*.
 - si le relais est *ON* et que la puissance moyenne actuelle est supérieure au seuil d'importation, le relais essaie de passer à l'état *OFF*. Cette transition est soumise à la condition que le relais ait été *ON* pendant au moins la durée *minON*.
-
-### Diagramme de fonctionnement
-À venir...
 
 ## Configuration du Watchdog
 Un chien de garde, en anglais *watchdog*, est un circuit électronique ou un logiciel utilisé en électronique numérique pour s'assurer qu'un automate ou un ordinateur ne reste pas bloqué à une étape particulière du traitement qu'il effectue.
