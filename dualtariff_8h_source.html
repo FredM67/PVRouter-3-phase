@@ -80,87 +80,87 @@ $(function() {
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class__rg__OffsetForce.html#aa397559f69858d9b3ea69c37cd429c1b">   31</a></span>&#160;  constexpr <a class="code" href="class__rg__OffsetForce.html#aa397559f69858d9b3ea69c37cd429c1b">_rg_OffsetForce</a>()</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    : <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>()</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    constexpr <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> uiPeakDurationInSec{ OffPeakDuration * 3600 };</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">// calculates offsets for force start and stop of each load</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">for</span> (uint8_t i = 0; i != N; ++i)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">bool</span> bOffsetInMinutes{ <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a>() &gt; 24 || <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a>() &lt; -24 };</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">bool</span> bDurationInMinutes{ <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a>() &gt; 24 &amp;&amp; UINT16_MAX != <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a>() };</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i][0] = ((<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a>() &gt;= 0) ? 0 : uiPeakDurationInSec) + <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a>() * (bOffsetInMinutes ? 60ul : 3600ul);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i][0] *= 1000ul;  <span class="comment">// convert in milli-seconds</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keywordflow">if</span> (UINT8_MAX == <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getDuration())</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i][1] = <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a>();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;      {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i][1] = <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i][0] + <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a>() * (bDurationInMinutes ? 60ul : 3600ul) * 1000ul;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;      }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  }</div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class__rg__OffsetForce.html#abec1fd8872455fda405f381b7ac2a57d">   54</a></span>&#160;  <span class="keyword">const</span> uint32_t (&amp;<span class="keyword">operator</span>[](uint8_t i) <span class="keyword">const</span>)[2]</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i];</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">   60</a></span>&#160;  uint32_t <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[N][2];</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;};</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="dualtariff_8h.html#a9b220149c714c37067af68c2056d9316">   63</a></span>&#160;<span class="keyword">inline</span> uint32_t <a class="code" href="dualtariff_8h.html#a9b220149c714c37067af68c2056d9316">ul_TimeOffPeak</a>; </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4">   65</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">auto</span> <a class="code" href="dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4">rg_OffsetForce</a>{ <a class="code" href="class__rg__OffsetForce.html">_rg_OffsetForce&lt; NO_OF_DUMPLOADS, ul_OFF_PEAK_DURATION &gt;</a>() }; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2">   72</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2">printDualTariffConfiguration</a>()</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;\tDuration of off-peak period is &quot;</span>));</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  Serial.print(<a class="code" href="config_8h.html#abd1baf11732956aa199473daae453926">ul_OFF_PEAK_DURATION</a>);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  Serial.println(F(<span class="stringliteral">&quot; hours.&quot;</span>));</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;\tTemperature threshold is &quot;</span>));</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  Serial.print(<a class="code" href="config_8h.html#ac2e4a2c6acb5689b056d49896672c30c">iTemperatureThreshold</a>);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;°C.&quot;</span>));</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>; ++i)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\tLoad #&quot;</span>));</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    Serial.print(i + 1);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;:&quot;</span>));</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\t\tStart &quot;</span>));</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getStartOffset() &gt;= 0)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      Serial.print(<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getStartOffset());</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      Serial.print(F(<span class="stringliteral">&quot; hours/minutes after begin of off-peak period &quot;</span>));</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      Serial.print(-<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getStartOffset());</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      Serial.print(F(<span class="stringliteral">&quot; hours/minutes before the end of off-peak period &quot;</span>));</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getDuration() == UINT16_MAX)</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      Serial.println(F(<span class="stringliteral">&quot;till the end of the period.&quot;</span>));</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      Serial.print(F(<span class="stringliteral">&quot;for a duration of &quot;</span>));</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      Serial.print(<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getDuration());</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      Serial.println(F(<span class="stringliteral">&quot; hour/minute(s).&quot;</span>));</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\t\tCalculated offset in seconds: &quot;</span>));</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    Serial.println(<a class="code" href="dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4">rg_OffsetForce</a>[i][0] * 0.001F);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\t\tCalculated duration in seconds: &quot;</span>));</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    Serial.println(<a class="code" href="dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4">rg_OffsetForce</a>[i][1] * 0.001F);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  }</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// _OFFPEAK_H</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    constexpr <a class="code" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a> uiPeakDurationInSec{ OffPeakDuration * 3600 };</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="comment">// calculates offsets for force start and stop of each load</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">for</span> (uint8_t i = 0; i != N; ++i)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">bool</span> bOffsetInMinutes{ <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a>() &gt; 24 || <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a>() &lt; -24 };</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">bool</span> bDurationInMinutes{ <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a>() &gt; 24 &amp;&amp; UINT16_MAX != <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a>() };</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i][0] = ((<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a>() &gt;= 0) ? 0 : uiPeakDurationInSec) + <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">getStartOffset</a>() * (bOffsetInMinutes ? 60ul : 3600ul);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i][0] *= 1000ul;  <span class="comment">// convert in milli-seconds</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keywordflow">if</span> (UINT8_MAX == <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getDuration())</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i][1] = <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;      {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i][1] = <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i][0] + <a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].<a class="code" href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">getDuration</a>() * (bDurationInMinutes ? 60ul : 3600ul) * 1000ul;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  }</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="class__rg__OffsetForce.html#a80ba25f717cc77b60d200b3abf671c56">   53</a></span>&#160;  <span class="keyword">const</span> <span class="keyword">auto</span> (&amp;<a class="code" href="class__rg__OffsetForce.html#a80ba25f717cc77b60d200b3abf671c56">operator[]</a>(uint8_t i) <span class="keyword">const</span>)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[i];</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">   59</a></span>&#160;  uint32_t <a class="code" href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg</a>[N][2]{};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="dualtariff_8h.html#a9b220149c714c37067af68c2056d9316">   62</a></span>&#160;<span class="keyword">inline</span> uint32_t <a class="code" href="dualtariff_8h.html#a9b220149c714c37067af68c2056d9316">ul_TimeOffPeak</a>; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4">   64</a></span>&#160;<span class="keyword">inline</span> constexpr <span class="keyword">auto</span> <a class="code" href="dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4">rg_OffsetForce</a>{ <a class="code" href="class__rg__OffsetForce.html">_rg_OffsetForce&lt; NO_OF_DUMPLOADS, ul_OFF_PEAK_DURATION &gt;</a>() }; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2">   71</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2">printDualTariffConfiguration</a>()</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;\tDuration of off-peak period is &quot;</span>));</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  Serial.print(<a class="code" href="config_8h.html#abd1baf11732956aa199473daae453926">ul_OFF_PEAK_DURATION</a>);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  Serial.println(F(<span class="stringliteral">&quot; hours.&quot;</span>));</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  Serial.print(F(<span class="stringliteral">&quot;\tTemperature threshold is &quot;</span>));</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  Serial.print(<a class="code" href="config_8h.html#ac2e4a2c6acb5689b056d49896672c30c">iTemperatureThreshold</a>);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  Serial.println(F(<span class="stringliteral">&quot;°C.&quot;</span>));</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>; ++i)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\tLoad #&quot;</span>));</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    Serial.print(i + 1);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    Serial.println(F(<span class="stringliteral">&quot;:&quot;</span>));</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\t\tStart &quot;</span>));</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getStartOffset() &gt;= 0)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      Serial.print(<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getStartOffset());</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      Serial.print(F(<span class="stringliteral">&quot; hours/minutes after begin of off-peak period &quot;</span>));</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      Serial.print(-<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getStartOffset());</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      Serial.print(F(<span class="stringliteral">&quot; hours/minutes before the end of off-peak period &quot;</span>));</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getDuration() == UINT16_MAX)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      Serial.println(F(<span class="stringliteral">&quot;till the end of the period.&quot;</span>));</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      Serial.print(F(<span class="stringliteral">&quot;for a duration of &quot;</span>));</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      Serial.print(<a class="code" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a>[i].getDuration());</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      Serial.println(F(<span class="stringliteral">&quot; hour/minute(s).&quot;</span>));</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\t\tCalculated offset in seconds: &quot;</span>));</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    Serial.println(<a class="code" href="dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4">rg_OffsetForce</a>[i][0] * 0.001F);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    Serial.print(F(<span class="stringliteral">&quot;\t\tCalculated duration in seconds: &quot;</span>));</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    Serial.println(<a class="code" href="dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4">rg_OffsetForce</a>[i][1] * 0.001F);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// _OFFPEAK_H</span></div>
 <div class="ttc" id="aclass__rg__OffsetForce_html"><div class="ttname"><a href="class__rg__OffsetForce.html">_rg_OffsetForce</a></div><div class="ttdoc">Template class for Load-Overriding.</div><div class="ttdef"><b>Definition:</b> <a href="dualtariff_8h_source.html#l00028">dualtariff.h:29</a></div></div>
+<div class="ttc" id="aclass__rg__OffsetForce_html_a80ba25f717cc77b60d200b3abf671c56"><div class="ttname"><a href="class__rg__OffsetForce.html#a80ba25f717cc77b60d200b3abf671c56">_rg_OffsetForce::operator[]</a></div><div class="ttdeci">const auto &amp; operator[](uint8_t i) const</div><div class="ttdef"><b>Definition:</b> <a href="dualtariff_8h_source.html#l00053">dualtariff.h:53</a></div></div>
 <div class="ttc" id="aclass__rg__OffsetForce_html_aa397559f69858d9b3ea69c37cd429c1b"><div class="ttname"><a href="class__rg__OffsetForce.html#aa397559f69858d9b3ea69c37cd429c1b">_rg_OffsetForce::_rg_OffsetForce</a></div><div class="ttdeci">constexpr _rg_OffsetForce()</div><div class="ttdef"><b>Definition:</b> <a href="dualtariff_8h_source.html#l00031">dualtariff.h:31</a></div></div>
-<div class="ttc" id="aclass__rg__OffsetForce_html_aef30b9be45f0a2e12e8a720aba7e93e6"><div class="ttname"><a href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg_OffsetForce::_rg</a></div><div class="ttdeci">uint32_t _rg[N][2]</div><div class="ttdef"><b>Definition:</b> <a href="dualtariff_8h_source.html#l00060">dualtariff.h:60</a></div></div>
+<div class="ttc" id="aclass__rg__OffsetForce_html_aef30b9be45f0a2e12e8a720aba7e93e6"><div class="ttname"><a href="class__rg__OffsetForce.html#aef30b9be45f0a2e12e8a720aba7e93e6">_rg_OffsetForce::_rg</a></div><div class="ttdeci">uint32_t _rg[N][2]</div><div class="ttdef"><b>Definition:</b> <a href="dualtariff_8h_source.html#l00059">dualtariff.h:59</a></div></div>
 <div class="ttc" id="aclasspairForceLoad_html_a0b4b18f7af62c643c8672d77c365b0d2"><div class="ttname"><a href="classpairForceLoad.html#a0b4b18f7af62c643c8672d77c365b0d2">pairForceLoad::getDuration</a></div><div class="ttdeci">constexpr uint16_t getDuration() const</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00044">utils_dualtariff.h:44</a></div></div>
 <div class="ttc" id="aclasspairForceLoad_html_a2f5ce15b46ef76b58c197106b37c097f"><div class="ttname"><a href="classpairForceLoad.html#a2f5ce15b46ef76b58c197106b37c097f">pairForceLoad::getStartOffset</a></div><div class="ttdeci">constexpr int16_t getStartOffset() const</div><div class="ttdef"><b>Definition:</b> <a href="utils__dualtariff_8h_source.html#l00040">utils_dualtariff.h:40</a></div></div>
 <div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div><div class="ttdoc">Configuration values to be set by the end-user.</div></div>
@@ -169,9 +169,9 @@ $(function() {
 <div class="ttc" id="aconfig_8h_html_abd1baf11732956aa199473daae453926"><div class="ttname"><a href="config_8h.html#abd1baf11732956aa199473daae453926">ul_OFF_PEAK_DURATION</a></div><div class="ttdeci">constexpr uint8_t ul_OFF_PEAK_DURATION</div><div class="ttdef"><b>Definition:</b> <a href="config_8h_source.html#l00088">config.h:88</a></div></div>
 <div class="ttc" id="aconfig_8h_html_ac2e4a2c6acb5689b056d49896672c30c"><div class="ttname"><a href="config_8h.html#ac2e4a2c6acb5689b056d49896672c30c">iTemperatureThreshold</a></div><div class="ttdeci">constexpr int16_t iTemperatureThreshold</div><div class="ttdef"><b>Definition:</b> <a href="config_8h_source.html#l00091">config.h:91</a></div></div>
 <div class="ttc" id="aconfig__system_8h_html_a3180c835bce68b1c59f64f4055088cca"><div class="ttname"><a href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a></div><div class="ttdeci">constexpr uint16_t</div><div class="ttdef"><b>Definition:</b> <a href="config__system_8h_source.html#l00030">config_system.h:30</a></div></div>
-<div class="ttc" id="adualtariff_8h_html_a9b220149c714c37067af68c2056d9316"><div class="ttname"><a href="dualtariff_8h.html#a9b220149c714c37067af68c2056d9316">ul_TimeOffPeak</a></div><div class="ttdeci">uint32_t ul_TimeOffPeak</div><div class="ttdef"><b>Definition:</b> <a href="dualtariff_8h_source.html#l00063">dualtariff.h:63</a></div></div>
-<div class="ttc" id="adualtariff_8h_html_ab30c3e5dcd33bc810290f64f0e41f3c4"><div class="ttname"><a href="dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4">rg_OffsetForce</a></div><div class="ttdeci">constexpr auto rg_OffsetForce</div><div class="ttdef"><b>Definition:</b> <a href="dualtariff_8h_source.html#l00065">dualtariff.h:65</a></div></div>
-<div class="ttc" id="agroup__DualTariff_html_ga4378fe99f16f9f2a6990ac70c27783a2"><div class="ttname"><a href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2">printDualTariffConfiguration</a></div><div class="ttdeci">void printDualTariffConfiguration()</div><div class="ttdoc">Print the settings for off-peak period.</div><div class="ttdef"><b>Definition:</b> <a href="dualtariff_8h_source.html#l00072">dualtariff.h:72</a></div></div>
+<div class="ttc" id="adualtariff_8h_html_a9b220149c714c37067af68c2056d9316"><div class="ttname"><a href="dualtariff_8h.html#a9b220149c714c37067af68c2056d9316">ul_TimeOffPeak</a></div><div class="ttdeci">uint32_t ul_TimeOffPeak</div><div class="ttdef"><b>Definition:</b> <a href="dualtariff_8h_source.html#l00062">dualtariff.h:62</a></div></div>
+<div class="ttc" id="adualtariff_8h_html_ab30c3e5dcd33bc810290f64f0e41f3c4"><div class="ttname"><a href="dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4">rg_OffsetForce</a></div><div class="ttdeci">constexpr auto rg_OffsetForce</div><div class="ttdef"><b>Definition:</b> <a href="dualtariff_8h_source.html#l00064">dualtariff.h:64</a></div></div>
+<div class="ttc" id="agroup__DualTariff_html_ga4378fe99f16f9f2a6990ac70c27783a2"><div class="ttname"><a href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2">printDualTariffConfiguration</a></div><div class="ttdeci">void printDualTariffConfiguration()</div><div class="ttdoc">Print the settings for off-peak period.</div><div class="ttdef"><b>Definition:</b> <a href="dualtariff_8h_source.html#l00071">dualtariff.h:71</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
