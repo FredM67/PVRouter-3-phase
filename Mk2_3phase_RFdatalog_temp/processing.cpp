@@ -182,6 +182,9 @@ void initializeOptionalPins()
   }
 }
 
+#if !defined(__DOXYGEN__)
+void updatePortsStates() __attribute__((optimize("-O3")));
+#endif
 /**
  * @brief update the control ports for each of the physical loads
  *
@@ -262,13 +265,13 @@ void updatePhysicalLoadStates()
   }
 
   const bool bDiversionOff{ b_diversionOff };
-  uint8_t i{ NO_OF_DUMPLOADS };
+  uint8_t idx{ NO_OF_DUMPLOADS };
   do
   {
-    --i;
-    const auto iLoad{ loadPrioritiesAndState[i] & loadStateMask };
-    physicalLoadState[iLoad] = !bDiversionOff && (b_overrideLoadOn[iLoad] || (loadPrioritiesAndState[i] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
-  } while (i);
+    --idx;
+    const auto iLoad{ loadPrioritiesAndState[idx] & loadStateMask };
+    physicalLoadState[iLoad] = !bDiversionOff && (b_overrideLoadOn[iLoad] || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
+  } while (idx);
 }
 
 /**

@@ -143,7 +143,7 @@ public:
     return _ar[idx];
   }
 
-  constexpr uint8_t getSize() const
+  [[nodiscard]] constexpr uint8_t getSize() const
   {
     return DURATION_IN_MINUTES;
   }

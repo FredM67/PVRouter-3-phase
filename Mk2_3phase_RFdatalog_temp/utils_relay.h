@@ -36,7 +36,7 @@ public:
    * @param _relay_pin Control pin for the relay
    */
   explicit constexpr relayOutput(const uint8_t _relay_pin)
-    : relay_pin(_relay_pin)
+    : relay_pin{_relay_pin}
   {
   }
 
@@ -48,7 +48,7 @@ public:
    * @param _importThreshold Import threshold to turn relay OFF
    */
   constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)
-    : relay_pin(_relay_pin), surplusThreshold(-abs(_surplusThreshold)), importThreshold(abs(_importThreshold))
+    : relay_pin{_relay_pin}, surplusThreshold{-abs(_surplusThreshold)}, importThreshold{abs(_importThreshold)}
   {
   }
 
@@ -62,7 +62,7 @@ public:
    * @param _minOFF Minimum duration in minutes to leave relay OFF
    */
   constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
-    : relay_pin(_relay_pin), surplusThreshold(-abs(_surplusThreshold)), importThreshold(abs(_importThreshold)), minON(_minON * 60), minOFF(_minOFF * 60)
+    : relay_pin{_relay_pin}, surplusThreshold{-abs(_surplusThreshold)}, importThreshold{abs(_importThreshold)}, minON{_minON * 60}, minOFF{_minOFF * 60}
   {
   }
 
@@ -151,7 +151,7 @@ public:
     {
       return try_turnON();
     }
-    else if (currentAvgPower > importThreshold)
+    if (currentAvgPower > importThreshold)
     {
       return try_turnOFF();
     }
@@ -255,7 +255,7 @@ public:
    * @brief Construct a list of relays
    * 
    */
-  constexpr RelayEngine(const relayOutput (&ref)[N])
+  explicit constexpr RelayEngine(const relayOutput (&ref)[N])
     : relay(ref)
   {
   }

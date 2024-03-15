@@ -29,7 +29,6 @@ class _rg_OffsetForce
 {
 public:
   constexpr _rg_OffsetForce()
-    : _rg()
   {
     constexpr uint16_t uiPeakDurationInSec{ OffPeakDuration * 3600 };
     // calculates offsets for force start and stop of each load
@@ -51,13 +50,13 @@ public:
       }
     }
   }
-  const uint32_t (&operator[](uint8_t i) const)[2]
+  const auto (&operator[](uint8_t i) const)
   {
     return _rg[i];
   }
 
 private:
-  uint32_t _rg[N][2];
+  uint32_t _rg[N][2]{};
 };
 
 inline uint32_t ul_TimeOffPeak; /**< 'timestamp' for start of off-peak period */
