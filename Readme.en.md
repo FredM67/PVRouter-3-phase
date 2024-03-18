@@ -1,14 +1,24 @@
-<p align="center">
-  <a href="https://github.com/FredM67/PVRouter-3-phase/">Français</a> |
-  <span>English</span>
-</p>
+<div align = center>
+
+[![GitHub issues](https://img.shields.io/github/issues/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/issues)
+[![GitHub forks](https://img.shields.io/github/forks/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/network)
+[![GitHub stars](https://img.shields.io/github/stars/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/stargazers)
+[![CodeQL](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml)
+[![Doxygen](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml)
+<br/>
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
+<br/>
+<br/>
+  [![en](https://img.shields.io/badge/lang-en-red.svg)](Readme.en.md)
+  [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](Readme.md)
+</div>
 
 # PVRouter (3-phase version)
 
 My version of the 3-phase Mk2PVRouter firmware (see <http://www.mk2pvrouter.co.uk>).
 
-Robin Emley already proposes a 3 phase PV-router (<https://www.mk2pvrouter.co.uk/3-phase-version.html>).
-It supports up to 7 resistive output loads, which are completely independent.
+Robin Emley already proposes a 3 phase PV-router (<https://www.mk2pvrouter.co.uk/3-phase-version.html>).  
+It supports up to 12 resistive output loads, which are completely independent.
 
 ---
 **_NOTE:_** For a single phase version, please see [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
@@ -36,6 +46,10 @@ It supports up to 7 resistive output loads, which are completely independent.
   - [Heater with ACI 3-phase thermostat (without neutral wire)](#heater-with-aci-3-phase-thermostat-without-neutral-wire)
   - [Alternatives WITHOUT neutral wire](#alternatives-without-neutral-wire)
     - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat-1)
+  - [Support](#support)
+  - [Roadmap](#roadmap)
+  - [Contributing](#contributing)
+  - [Authors and acknowledgment](#authors-and-acknowledgment)
 
 ## Photo Gallery
 
@@ -163,7 +177,7 @@ In a balanced situation, you don't need any neutral wire. To switch off the devi
 
 For that, I've "recycled" a peak/off peak 3-phase relay but you can use any 3-phase relay. It doesn't matter on which phase the command coil is connected, but it must be permanent (not through the router).
 
-![Heater with mechanical thermostat](../../img/Heater_mechanical.png)  
+![Heater with mechanical thermostat](img/Heater_mechanical.png)  
 *Figure: Wiring diagram*
 
 ## Heater with ACI single phase thermostat
@@ -172,7 +186,7 @@ In this case, it's somehow the same situation as before.
 You don't need to buy a 3-phase kit to convert your single phase heater.
 The ACI pcb must be connected to a permanent phase. It will then control any 3-phase relay.
 
-![Heater with ACI single phase thermostat](../../img/Heater_ACI_Mono.png)  
+![Heater with ACI single phase thermostat](img/Heater_ACI_Mono.png)  
 *Figure: Wiring diagram*
 
 ## Heater with ACI 3-phase thermostat (without neutral wire)
@@ -191,7 +205,7 @@ The remaining connected phase is the one in the middle of the power connector.
 
 The ACI pcb must be connected to 3 permanent phases.
 
-![Heater with ACI 3-phase thermostat](../../img/Heater_ACI_Tri.png)  
+![Heater with ACI 3-phase thermostat](img/Heater_ACI_Tri.png)  
 *Figure: Wiring diagram*
 
 ## Alternatives WITHOUT neutral wire
@@ -216,10 +230,36 @@ In **red**, security switch (see the 'S' on each pole) : all 3 phases are switch
 
 In **green**, only 2 phases are switched off, L2 et L3. ***It is IMPORTANT that the phase L1, not switched by the thermostat, DOES NOT pass through the triac***.
 
-![Mechanical thermostat](../../img/Thermostat.png)  
+![Mechanical thermostat](img/Thermostat.png)  
 *Figure: An example of a thermostat*
 
 ---
 
-![Heater with mechanical thermostat](../../img/Heater_mechanical-No_neutral.png)  
+![Heater with mechanical thermostat](img/Heater_mechanical-No_neutral.png)  
 *Figure: Wiring diagram*
+
+## Support
+
+This project is maintained by [@FredM67](https://github.com/FredM67). Please understand that we won't be able to provide individual support via email. We also believe that help is much more valuable if it's shared publicly, so that more people can benefit from it.
+
+| Type                                   | Platforms                                                                     |
+| -------------------------------------- | ----------------------------------------------------------------------------- |
+| ?? **Bug Reports**                     | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
+| ?? **Docs Issue**                      | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
+| ?? **Feature Requests**                | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
+| ?? **Report a security vulnerability** | See [SECURITY.md](SECURITY.md)                                                |
+| ?? **General Questions**               | [GitHub Discussions](https://github.com/FredM67/PVRouter-3-phase/discussions) |
+
+## Roadmap
+
+No changes are currently planned.
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Authors and acknowledgment
+
+- **Fr�d�ric Metrich** - _Initial work_ - [FredM67](https://github.com/FredM67)
+
+See also the list of [contributors](https://github.com/FredM67/PVRouter-3-phase/graphs/contributors) who participated in this project.

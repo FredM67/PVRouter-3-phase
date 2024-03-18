@@ -14,6 +14,17 @@
 
 #include <Arduino.h>
 
+#if defined(__DOXYGEN__)
+inline constexpr void togglePin(const uint8_t pin);
+
+inline constexpr void setPinON(const uint8_t pin);
+inline void setPinsON(const uint16_t pins);
+
+inline constexpr void setPinOFF(const uint8_t pin);
+inline void setPinsOFF(const uint16_t pins);
+
+inline bool getPinState(const uint8_t pin);
+#else
 inline constexpr void togglePin(const uint8_t pin) __attribute__((always_inline));
 
 inline constexpr void setPinON(const uint8_t pin) __attribute__((always_inline));
@@ -23,6 +34,7 @@ inline constexpr void setPinOFF(const uint8_t pin) __attribute__((always_inline)
 inline void setPinsOFF(const uint16_t pins) __attribute__((always_inline));
 
 inline bool getPinState(const uint8_t pin) __attribute__((always_inline));
+#endif
 
 /**
  * @brief Set the specified bit to 1

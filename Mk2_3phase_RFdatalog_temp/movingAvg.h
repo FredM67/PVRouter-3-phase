@@ -52,12 +52,10 @@ public:
     if constexpr (is_floating_point< T >::value)
     {
       _sum = 0.0F;
-      _sub_sum = 0.0F;
     }
     else
     {
       _sum = 0;
-      _sub_sum = 0;
     }
 
     uint8_t i{ DURATION_IN_MINUTES };
@@ -66,14 +64,14 @@ public:
       if constexpr (is_floating_point< T >::value)
       {
         _ar[i] = 0.0F;
-        _sub_ar[i] = 0.0F;
       }
       else
       {
         _ar[i] = 0;
-        _sub_ar[i] = 0;
       }
     } while (i);
+
+    _clear_sub();
   }
 
   /**
@@ -146,7 +144,7 @@ public:
     return _ar[idx];
   }
 
-  constexpr uint8_t getSize() const
+  [[nodiscard]] constexpr uint8_t getSize() const
   {
     return DURATION_IN_MINUTES;
   }
