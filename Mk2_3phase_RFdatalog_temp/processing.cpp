@@ -16,14 +16,14 @@
 #include "processing.h"
 #include "utils_pins.h"
 
-int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
-
 // Define operating limits for the LP filters which identify DC offset in the voltage
 // sample streams. By limiting the output range, these filters always should start up
 // correctly.
 constexpr int32_t l_DCoffset_V_min{ (512L - 100L) * 256L }; /**< mid-point of ADC minus a working margin */
 constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
 constexpr int16_t i_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
+
+int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
 
 constexpr uint32_t WORKING_ZONE_IN_JOULES{ 3600UL }; /**< number of joule for 1Wh */
 
