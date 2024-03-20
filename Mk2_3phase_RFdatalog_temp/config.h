@@ -83,8 +83,8 @@ inline constexpr uint8_t watchDogPin{ 0xff };   /**< watch dog LED */
 
 inline constexpr uint8_t tempSensorPin{ 0xff }; /**< for 3-phase PCB, sensor pin */
 
-inline constexpr RelayEngine relays{ { { 8, 1000, 200, 1, 1 },
-                                       { 9, 1000, 200, 1, 1 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */
+inline constexpr RelayEngine relays{ { { 8, 1000, 200, 5, 5 },
+                                       { 9, 3000, 200, 30, 15 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
