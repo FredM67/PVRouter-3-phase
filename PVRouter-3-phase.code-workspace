@@ -9,7 +9,7 @@
 		},
 		{
 			"name": "Router program",
-			"path": "Mk2_3phase_RFdatalog_temp"
+			"path": "runtime"
 		},
 		{
 			"name": "Transformer checker",
