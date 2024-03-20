@@ -15,6 +15,7 @@
 #include <Arduino.h>
 
 #include "constants.h"
+#include "type_traits.hpp"
 
 // -------------------------------
 // definitions of enumerated types

@@ -20,22 +20,24 @@
 #include "ewma_avg.hpp"
 #include "utils_pins.h"
 
+#include "debug.h"
+
 /**
  * @brief Relay diversion config and engine
  * 
  * @ingroup RelayDiversion
  */
-class relayOutput
+class RelayOutput
 {
 public:
-  constexpr relayOutput() = delete;
+  constexpr RelayOutput() = delete;
 
   /**
    * @brief Construct a new relay Config object with default parameters
    * 
    * @param _relay_pin Control pin for the relay
    */
-  explicit constexpr relayOutput(const uint8_t _relay_pin)
+  explicit constexpr RelayOutput(const uint8_t _relay_pin)
     : relay_pin{_relay_pin}
   {
   }
@@ -47,7 +49,7 @@ public:
    * @param _surplusThreshold Surplus threshold to turn relay ON
    * @param _importThreshold Import threshold to turn relay OFF
    */
-  constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)
+  constexpr RelayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)
     : relay_pin{_relay_pin}, surplusThreshold{-abs(_surplusThreshold)}, importThreshold{abs(_importThreshold)}
   {
   }
@@ -61,7 +63,7 @@ public:
    * @param _minON Minimum duration in minutes to leave relay ON
    * @param _minOFF Minimum duration in minutes to leave relay OFF
    */
-  constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
+  constexpr RelayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
     : relay_pin{_relay_pin}, surplusThreshold{-abs(_surplusThreshold)}, importThreshold{abs(_importThreshold)}, minON{_minON * 60}, minOFF{_minOFF * 60}
   {
   }
@@ -255,7 +257,7 @@ public:
    * @brief Construct a list of relays
    * 
    */
-  explicit constexpr RelayEngine(const relayOutput (&ref)[N])
+  explicit constexpr RelayEngine(const RelayOutput (&ref)[N])
     : relay(ref)
   {
   }
@@ -264,7 +266,7 @@ public:
    * @brief Construct a list of relays with a custom sliding average
    * 
    */
-  constexpr RelayEngine(integral_constant< uint8_t, D > ic, const relayOutput (&ref)[N])
+  constexpr RelayEngine(integral_constant< uint8_t, D > ic, const RelayOutput (&ref)[N])
     : relay(ref)
   {
   }
@@ -391,7 +393,7 @@ public:
   }
 
 private:
-  const relayOutput relay[N]; /**< Array of relays */
+  const RelayOutput relay[N]; /**< Array of relays */
 
   mutable uint8_t settle_change{ 60 }; /**< Delay in seconds until next change occurs */
 
