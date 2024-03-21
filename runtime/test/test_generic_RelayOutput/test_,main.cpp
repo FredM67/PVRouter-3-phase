@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <unity.h>
 
 #include "utils_relay.h"

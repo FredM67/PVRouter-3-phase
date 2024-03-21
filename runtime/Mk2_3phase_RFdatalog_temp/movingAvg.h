@@ -12,8 +12,6 @@
 #ifndef MOVINGAVG_H
 #define MOVINGAVG_H
 
-#include <Arduino.h>
-
 #include "type_traits.hpp"
 
 /**
