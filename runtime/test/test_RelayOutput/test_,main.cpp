@@ -3,8 +3,6 @@
 
 #include "utils_relay.h"
 
-static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/main/runtime/Mk2_3phase_RFdatalog_temp/Readme.md");
-
 RelayOutput* RelayOutputTest;
 
 void setUp(void) {
@@ -43,16 +41,28 @@ void test_proceed_relay(void) {
     TEST_ASSERT_EQUAL(false, RelayOutputTest->proceed_relay(150));
     TEST_ASSERT_EQUAL(false, RelayOutputTest->isRelayON());
 
-    for(uint16_t _time = 0; _time < RelayOutputTest->get_minOFF(); ++_time) {
+    // We simulate the time passing (min OFF minus 1 second)
+    for(uint16_t _time = 1; _time < RelayOutputTest->get_minOFF(); ++_time) {
         RelayOutputTest->inc_duration();
     }
+
+    TEST_ASSERT_EQUAL(false, RelayOutputTest->proceed_relay(-1500));
+    TEST_ASSERT_EQUAL(false, RelayOutputTest->isRelayON());
+
+    RelayOutputTest->inc_duration();
 
     TEST_ASSERT_EQUAL(true, RelayOutputTest->proceed_relay(-1500));
     TEST_ASSERT_EQUAL(true, RelayOutputTest->isRelayON());
 
-    for(uint16_t _time = 0; _time < RelayOutputTest->get_minON(); ++_time) {
+    // We simulate the time passing (min ON minus 1 second)
+    for(uint16_t _time = 1; _time < RelayOutputTest->get_minON(); ++_time) {
         RelayOutputTest->inc_duration();
     }
+
+    TEST_ASSERT_EQUAL(false, RelayOutputTest->proceed_relay(250));
+    TEST_ASSERT_EQUAL(true, RelayOutputTest->isRelayON());
+
+    RelayOutputTest->inc_duration();
 
     TEST_ASSERT_EQUAL(true, RelayOutputTest->proceed_relay(250));
     TEST_ASSERT_EQUAL(false, RelayOutputTest->isRelayON());

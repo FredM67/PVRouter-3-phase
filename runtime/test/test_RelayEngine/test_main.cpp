@@ -4,7 +4,7 @@
 #include "utils_relay.h"
 
 // Assuming you have a RelayOutput array defined somewhere
-const RelayOutput relayArray[2]{ { 5, 1000, 200, 5, 5 }, { 6, 1000, 200, 5, 5 } };
+const RelayOutput relayArray[2]{ { 5, 1000, 200, 5, 5 }, { 6, 2000, 100, 5, 5 } };
 
 RelayEngine< 2 >* relayEngineTest;
 
