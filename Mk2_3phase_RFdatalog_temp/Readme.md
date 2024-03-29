@@ -35,6 +35,8 @@ Vous pouvez également exécuter cette commande dans Powershell : `Get-Childite
 
 Pour **Linux**, si vous utilisez le package AppImage, vous trouverez ce fichier dans '~/.arduino15/packages/arduino/hardware/avr/1.8.6'. Vous pouvez exécuter `find / -name platform.txt 2>/dev/null` au cas où l'emplacement aurait changé.
 
+Pour **MacOSX**, ce fichier se trouve dans '/Users/[user]/Library/Arduino15/packages/arduino/hardware/avr/1.8.6'.
+
 Ouvrez le fichier dans n'importe quel éditeur de texte (vous aurez besoin des droits d'administrateur) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. C'est tout !
 
 Si votre IDE Arduino était ouvert, veuillez fermer toutes les instances et le rouvrir.
