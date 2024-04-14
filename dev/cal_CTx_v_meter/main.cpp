@@ -127,7 +127,7 @@ constexpr int16_t ADCDuration{ 104 };  // Time in microseconds for one ADC conve
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.043950F, 0.045235F, 0.042788F };
+inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.042196F, 0.043512F, 0.040156F };
 
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the
 // current waveform. The algorithm interpolates between the most recent pair
