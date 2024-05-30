@@ -339,6 +339,10 @@ void setup()
     temperatureSensing.initTemperatureSensors();
   }
 
+  tft.initR(INITR_MINI160x80_PLUGIN);  // Init ST7735S mini display
+  tft.fillScreen(ST77XX_BLACK);
+  tft.setRotation(3);
+
   DBUG(F(">>free RAM = "));
   DBUGLN(freeRam());  // a useful value to keep an eye on
   DBUGLN(F("----"));
