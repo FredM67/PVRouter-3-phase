@@ -13,7 +13,7 @@
 #define _CONFIG_H
 
 //--------------------------------------------------------------------------------------------------
-//#define TEMP_ENABLED  /**< this line must be commented out if the temperature sensor is not present */
+#define TEMP_ENABLED  /**< this line must be commented out if the temperature sensor is not present */
 //#define RF_PRESENT  /**< this line must be commented out if the RFM12B module is not present */
 
 // Output messages
@@ -50,7 +50,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set
 #endif
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
-inline constexpr bool RELAY_DIVERSION{ true };      /**< set it to 'true' if a relay is used for diversion */
+inline constexpr bool RELAY_DIVERSION{ true };       /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
 // ----------- Pinout assignments -----------
@@ -81,8 +81,6 @@ inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load prio
 inline constexpr uint8_t forcePin{ 0xff };      /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t watchDogPin{ 0xff };   /**< watch dog LED */
 
-inline constexpr uint8_t tempSensorPin{ 0xff }; /**< for 3-phase PCB, sensor pin */
-
 inline constexpr RelayEngine relays{ { { 7, 1000, 200, 1, 1 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
@@ -90,9 +88,8 @@ inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< 
 
 inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
 
-inline constexpr TemperatureSensing temperatureSensing{ 0xff,
-                                                        { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
-                                                          { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } }; /**< list of temperature sensor Addresses */
+inline constexpr TemperatureSensing temperatureSensing{ 12,
+                                                        { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 } } }; /**< list of temperature sensor Addresses */
 
 inline constexpr uint32_t ROTATION_AFTER_CYCLES{ 8UL * 3600UL * SUPPLY_FREQUENCY }; /**< rotates load priorities after this period of inactivity */
 
