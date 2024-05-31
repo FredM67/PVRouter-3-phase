@@ -9,16 +9,16 @@
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 <br/>
 <br/>
-  [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/FredM67/PVRouter-3-phase/blob/main/Readme.md)
-  [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/FredM67/PVRouter-3-phase/blob/main/Readme.fr.md)
+  [![en](https://img.shields.io/badge/lang-en-red.svg)](Readme.en.md)
+  [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](Readme.md)
 </div>
 
-# PVRouter (3-phase version)
+# PVRouter (version triphasée)
 
 My version of the 3-phase Mk2PVRouter firmware (see <http://www.mk2pvrouter.co.uk>).
 
-Robin Emley already proposes a 3 phase PV-router (<https://www.mk2pvrouter.co.uk/3-phase-version.html>).  
-It supports up to 12 resistive output loads, which are completely independent.
+Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.uk/3-phase-version.html).  
+Il prend en charge jusqu'à 12 sorties pour charges résistives, qui sont complètement indépendantes.
 
 ---
 **_NOTE:_** For a single phase version, please see [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
@@ -59,20 +59,17 @@ It supports up to 12 resistive output loads, which are completely independent.
 
 [Here](../../schematics/3phase_Mainboard.pdf) the schematic of the mainboard.
 
-## Implementation documentation
+## Documentation de développement
 
-You can start reading the documentation here [3-phase diverter](https://fredm67.github.io/PVRouter-3-phase/html/index.html).
+Vous pouvez commencer à lire la documentation ici [3-phase routeur](https://fredm67.github.io/PVRouter-3-phase/) (en anglais).
 
-## End-user documentation
+## Documentation de l’utilisateur final
 
-### Overview
+### Aperçu
 
-Goal was to modify/optimize the sketch for the "special" case of a 3-phase water heater. A 3-phase water heater is composed in fact of 3 independent heating elements. Most of the time, such a heater can be connected in mono, or 3-phase WYE or 3-phase Delta.
-When connected in WYE (without varistor), there's no need of a neutral wire because the system is equally distributed, so at any time, there's no current flowing to the neutral.
+L’objectif était de modifier/optimiser le programme pour le cas « spécial » d’un chauffe-eau triphasé. Un chauffe-eau triphasé est composé en fait de 3 éléments de chauffage indépendants. La plupart du temps, un tel chauffe-eau peut être connecté en monophasé, en triphasé étoile (WYE) ou triphasé triangle (Delta). Lorsqu’il est connecté en étoile, il n’y a pas besoin de fil de neutre parce que le système est équilibré, donc à tout moment, il n’y a pas de courant qui circule vers le neutre.
 
-If a diverter is used, the neutral wire must be connected.
-
-Added functionalities:
+Fonctionnalités ajoutées :
 
 - load priorities management (configurable)
 - off-peak period detection (configurable)
@@ -102,27 +99,27 @@ Support has been added to force full power on specific loads. Each load can be f
 
 In my variant, that's used to switch the heater one during off-peak period if not enough surplus has been routed during the day. Here, to optimize the behavior, a temp-sensor will be used to check the temperature of the water and decide to switch on or not during night.
 
-### Temperature sensor
+### Capteur de température
 
-For the moment, just reading. It'll be used to optimize force full power, to make the right decision during night.
+Il peut être utilisé pour optimiser le fonctionnement de la marche forcée, pour prendre la bonne décision pendant la nuit.
 
 ### Enphase zero-export profile
 
 When zero-export settings is enabled, the PV system curtails power production if the production of the system exceeds the consumption needs of the site. This ensures zero feed into the grid.
 
-As a side effect, the diverter won't see at any time surplus of energy.  
-So the idea is to apply a certain offset to the energy measured by the diverter.
-As it is already commented in the code, after setting a negative value to *REQUIRED_EXPORT_IN_WATTS*, the diverter will act as a PV generator.  
-If you set a value of -20, each time the diverter measures the energy flowing, it'll add *-20* to the measurements.  
+Comme effet secondaire, le routeur ne verra pas à aucun moment un surplus d’énergie.  
+L’idée est donc d’appliquer un certain décalage à l’énergie mesurée par le routeur.
+Comme il est déjà commenté dans le code, après l'assignation d’une valeur négative à *REQUIRED_EXPORT_IN_WATTS*, le routeur agira comme un générateur PV.  
+Si vous définissez une valeur de *-20*, chaque fois que le routeur mesure le flux d’énergie, il ajoutera *-20* aux mesures.  
 
 So, now let see what happen in a couple of cases:
 
-- measured value is **positive** (energy import = no surplus), after adding *-20*, it stays positive, the diverter doesn't do anything. By a value between -20 and 0, the diverter won't do anything either.
-- measured value is **around zero**. In this situation, the "zero export profile" limitation is active.  
-After adding *-20*, we get a negative value that will make the diverter start diverting energy to the water heater.  
-Now, there's a sort of chain reaction. The Envoy detects more consumption, decides to raise production.  
-On the next measurement, the diverter measures again a value around zero, add again *-20*, and diverts even more energy.  
-When production (and surplus) gets to the maximum possible, the measured value will stay around zero+ and the system is stable.
+- la valeur mesurée est **positive** (importation d’énergie = pas d’excédent), après avoir ajouté *-20*, cela reste positif, le routeur ne fait rien. Pour une valeur comprise entre -20 et 0, le déviateur ne fera rien non plus.
+- la valeur mesurée est **autour de zéro**. Dans cette situation, la limitation du "profil zéro exportation" est active.  
+Après l’ajout de *-20*, nous obtenons une valeur négative, ce qui déclenchera le détournement d’énergie vers le chauffe-eau.  
+Ensuite, il y a une sorte de réaction en chaîne. L’Envoy détecte plus de consommation, décide d’augmenter la production.  
+À la mesure suivante, le routeur mesure à nouveau une valeur autour de zéro, ajoute à nouveau -20, et détourne encore plus d’énergie.  
+Lorsque la production (et l’excédent) arrive au maximum possible, la valeur mesurée restera autour de zéro+ et le système deviendra stable.
 
 This has been tested in real by Amorim. Depending of each situation, it might be necessary to tweak this value of *-20* to a bigger or smaller value.
 
@@ -242,13 +239,13 @@ In **green**, only 2 phases are switched off, L2 et L3. ***It is IMPORTANT that 
 
 This project is maintained by [@FredM67](https://github.com/FredM67). Please understand that we won't be able to provide individual support via email. We also believe that help is much more valuable if it's shared publicly, so that more people can benefit from it.
 
-| Type                                   | Platforms                                                                     |
-| -------------------------------------- | ----------------------------------------------------------------------------- |
-| ?? **Bug Reports**                     | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
-| ?? **Docs Issue**                      | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
-| ?? **Feature Requests**                | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
-| ?? **Report a security vulnerability** | See [SECURITY.md](SECURITY.md)                                                |
-| ?? **General Questions**               | [GitHub Discussions](https://github.com/FredM67/PVRouter-3-phase/discussions) |
+| Type                                  | Platforms                                                                     |
+| ------------------------------------- | ----------------------------------------------------------------------------- |
+| 🚨 **Bug Reports**                     | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
+| 📚 **Docs Issue**                      | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
+| 🎁 **Feature Requests**                | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
+| 🛡 **Report a security vulnerability** | See [SECURITY.md](SECURITY.md)                                                |
+| 💬 **General Questions**               | [GitHub Discussions](https://github.com/FredM67/PVRouter-3-phase/discussions) |
 
 ## Roadmap
 

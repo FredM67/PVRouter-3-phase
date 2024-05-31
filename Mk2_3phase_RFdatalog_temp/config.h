@@ -35,7 +35,6 @@
 //--------------------------------------------------------------------------------------------------
 // constants which must be set individually for each system
 //
-inline constexpr uint8_t NO_OF_PHASES{ 3 };    /**< number of phases of the main supply. */
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< number of dump loads connected to the diverter */
 
 #ifdef EMONESP
@@ -76,14 +75,13 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 };         /*
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities and states at startup */
 
 // Set the value to 0xff when the pin is not needed (feature deactivated)
-inline constexpr uint8_t relayPin{ 0xff };      /**< for 3-phase PCB, relay trigger */
 inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
 inline constexpr uint8_t diversionPin{ 0xff };  /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load priority rotation */
 inline constexpr uint8_t forcePin{ 0xff };      /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t watchDogPin{ 4 };      /**< watch dog LED */
 
-inline constexpr relayOutput relay_Output{ relayPin, 1000, 200, 1, 1 }; /**< config for relay diversion, see class definition for defaults and advanced options */
+inline constexpr RelayEngine relays{ { { 0xff, 1000, 200, 1, 1 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */

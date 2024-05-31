@@ -119,7 +119,7 @@ inline void printConfiguration()
   {
     DBUGLN(F("is present"));
 
-    relay_Output.printRelayConfiguration();
+    relays.printConfiguration();
   }
   else
   {
@@ -264,7 +264,7 @@ inline void printForSerialText()
   if constexpr (RELAY_DIVERSION)
   {
     Serial.print(F("/"));
-    Serial.print(relay_Output.get_average());
+    Serial.print(relays.get_average());
   }
 
   for (phase = 0; phase < NO_OF_PHASES; ++phase)
