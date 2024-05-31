@@ -24,6 +24,7 @@
 #include <Adafruit_ST7735.h>  // Hardware-specific library for ST7735
 #include <Adafruit_ST7789.h>  // Hardware-specific library for ST7789
 #include <SPI.h>
+#include <Fonts/FreeSansBold24pt7b.h>
 
 #define TFT_CS 10
 #define TFT_RST 8
@@ -261,26 +262,12 @@ inline void printForSerialJson()
   Serial.println(F(")"));
 }
 
-void testdrawtext(char *text, uint16_t color)
-{
-  tft.setCursor(0, 0);
-  tft.setTextColor(color);
-  tft.setTextWrap(true);
-  tft.print(text);
-}
-
 /**
  * @brief Prints data logs to the Serial output in text format
  *
  */
 inline void printForSerialText()
 {
-  tft.fillScreen(ST77XX_BLACK);
-  tft.setCursor(0, 0);
-  tft.setTextSize(3);
-  tft.print(tx_data.Vrms_L_x100[0] * 0.01F);
-  //testdrawtext("35\xF8\x43", ST77XX_WHITE);
-
   uint8_t phase{ 0 };
 
   Serial.print(copyOf_energyInBucket_main * invSUPPLY_FREQUENCY);
@@ -317,6 +304,17 @@ inline void printForSerialText()
       {
         continue;
       }
+
+      tft.fillScreen(ST77XX_BLACK);
+
+      tft.setTextColor(tx_data.temperature_x100[0] > 4500 ? ST77XX_GREEN : ST7735_RED);
+      tft.setCursor(10, 52);
+      tft.print(tx_data.temperature_x100[0] * 0.01F, 1);
+      const auto curr_x = tft.getCursorX();
+      const auto curr_y = tft.getCursorY();
+      tft.drawCircle(curr_x + 6, curr_y - 28, 4, ST7735_WHITE);
+      tft.setTextColor(ST7735_WHITE);
+      tft.print(F(" C"));
 
       Serial.print(F(", T"));
       Serial.print(idx + 1);

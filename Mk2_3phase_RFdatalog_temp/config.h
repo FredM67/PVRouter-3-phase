@@ -88,7 +88,7 @@ inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< 
 
 inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
 
-inline constexpr TemperatureSensing temperatureSensing{ 12,
+inline constexpr TemperatureSensing temperatureSensing{ 4,
                                                         { { 0x28, 0xAA, 0x16, 0xA7, 0x16, 0x13, 0x02, 0xDC } } }; /**< list of temperature sensor Addresses */
 
 inline constexpr uint32_t ROTATION_AFTER_CYCLES{ 8UL * 3600UL * SUPPLY_FREQUENCY }; /**< rotates load priorities after this period of inactivity */
