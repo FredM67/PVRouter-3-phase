@@ -13,7 +13,7 @@
 #define _CONFIG_H
 
 //--------------------------------------------------------------------------------------------------
-//#define TEMP_ENABLED /**< this line must be commented out if the temperature sensor is not present */
+#define TEMP_ENABLED /**< this line must be commented out if the temperature sensor is not present */
 //#define RF_PRESENT  /**< this line must be commented out if the RFM12B module is not present */
 
 // Output messages
@@ -50,7 +50,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set
 #endif
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ true }; /**< set it to 'true' if there's a watch led */
-inline constexpr bool RELAY_DIVERSION{ false };     /**< set it to 'true' if a relay is used for diversion */
+inline constexpr bool RELAY_DIVERSION{ true };     /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };         /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
 // ----------- Pinout assignments -----------
@@ -81,7 +81,7 @@ inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load prio
 inline constexpr uint8_t forcePin{ 0xff };      /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t watchDogPin{ 4 };      /**< watch dog LED */
 
-inline constexpr RelayEngine relays{ { { 0xff, 1000, 200, 1, 1 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */
+inline constexpr RelayEngine relays{ { { 8, 1200, 1000, 10, 5 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
