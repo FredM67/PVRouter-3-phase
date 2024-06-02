@@ -38,7 +38,7 @@ jobs:
         pip install --upgrade platformio
     # It is important to first install the libraries before compiling, since otherwise compilation might fail to find the just-installed libraries
     - name: Install platformIO libraries
-      run: pio lib install
+      run: pio pkg install --project-dir Mk2_3phase_RFdatalog_temp
     - name: Run PlatformIO
       run: |
         pio run --project-dir Mk2_3phase_RFdatalog_temp
