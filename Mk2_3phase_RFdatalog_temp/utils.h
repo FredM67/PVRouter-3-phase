@@ -312,7 +312,8 @@ inline void printForSerialText()
         // Skip refresh if the temp didn't change
         tft.fillScreen(ST77XX_BLACK);
 
-        tft.setTextColor(tx_data.temperature_x100[0] > 5500 ? ST77XX_GREEN : ST7735_RED);
+        tft.setTextColor(tx_data.temperature_x100[0] > 5500 ? ST77XX_GREEN : tx_data.temperature_x100[0] < 4500 ? ST7735_RED
+                                                                                                                : ST7735_ORANGE);
         tft.setCursor(10, 52);
         tft.print(tx_data.temperature_x100[0] * 0.01F, 1);
         tft.drawCircle(tft.getCursorX() + 6, tft.getCursorY() - 28, 4, ST7735_WHITE);
