@@ -37,11 +37,11 @@ public:
   {
   }
 
-  constexpr int16_t getStartOffset() const
+  [[nodiscard]] constexpr int16_t getStartOffset() const
   {
     return iStartOffset;
   }
-  constexpr uint16_t getDuration() const
+  [[nodiscard]] constexpr uint16_t getDuration() const
   {
     return uiDuration;
   }

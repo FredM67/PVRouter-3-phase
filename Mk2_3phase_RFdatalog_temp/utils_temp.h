@@ -24,6 +24,18 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if tem
 #endif
 
 /**
+ * @struct DeviceAddress
+ * @brief Structure representing the address of a device.
+ *
+ * This structure is used to store the unique address of a device, such as a DS18B20 temperature sensor.
+ * The address is an array of 8 bytes, typically represented in hexadecimal.
+ */
+struct DeviceAddress
+{
+  uint8_t addr[8]; /**< The address of the device as an array of 8 bytes. */
+};
+
+/**
  * @brief This class implements the temperature sensing feature
  * 
  * @tparam N Number of sensors, automatically deduced
@@ -35,12 +47,9 @@ class TemperatureSensing
 {
   using ScratchPad = uint8_t[9];
 
-  struct DeviceAddress
-  {
-    uint8_t addr[8];
-  };
-
 public:
+  constexpr TemperatureSensing() = delete;
+
   /**
    * @brief Construct a new Temperature Sensing object
    * 

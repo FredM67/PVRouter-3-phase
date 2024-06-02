@@ -9,7 +9,7 @@
  *      Robin Emley (calypso_rae on Open Energy Monitor Forum)
  *      December 2012
  */
- 
+
 #define POSITIVE 1
 #define NEGATIVE 0
 #define ON 0  // the external trigger device is active low
@@ -33,16 +33,16 @@ byte sensorPin_I3 = 5;
 
 long cycleCount = 0;
 int samplesRecorded = 0;
-float cyclesPerSecond = 50; // use float to ensure accurate maths
+float cyclesPerSecond = 50;  // use float to ensure accurate maths
 
-byte polarityNow; 
+byte polarityNow;
 boolean beyondStartUpPhase = false;
 byte currentStateOfTriac;
 
-int lastSample_V1;     // stored value from the previous loop (HP filter is for voltage samples only)         
-float lastFiltered_V1;  //  voltage values after HP-filtering to remove the DC offset
-byte polarityOfLastSample_V1; // for zero-crossing detection
-  
+int lastSample_V1;             // stored value from the previous loop (HP filter is for voltage samples only)
+float lastFiltered_V1;         //  voltage values after HP-filtering to remove the DC offset
+byte polarityOfLastSample_V1;  // for zero-crossing detection
+
 boolean recordingNow;
 boolean recordingComplete;
 byte cycleNumberBeingRecorded;
@@ -50,36 +50,35 @@ byte noOfCyclesToBeRecorded;
 
 unsigned long recordingMayStartAt;
 boolean firstLoop = true;
-int settlingDelay = 5; // <<---  settling time (seconds) for HPF 
+int settlingDelay = 5;  // <<---  settling time (seconds) for HPF
 
 char blankLine[82];
 char newLine[82];
-int storedSample_V1[50]; 
-int storedSample_V2[50]; 
+int storedSample_V1[50];
+int storedSample_V2[50];
 int storedSample_V3[50];
 int storedSample_I1[50];
 int storedSample_I2[50];
 int storedSample_I3[50];
 
 void setup()
-{  
+{
   delay(3000);
   Serial.begin(9600);
- 
+
   // initialise each character of the display line
   blankLine[0] = '|';
   blankLine[80] = '|';
-  
+
   for (int i = 1; i < 80; i++)
   {
     blankLine[i] = ' ';
   }
-  
+
   blankLine[40] = '.';
-  
+
   Serial.print(">>free RAM = ");
   Serial.println(freeRam());  // a useful value to keep an eye on
-
 }
 
 
@@ -96,74 +95,85 @@ void setup()
  *  At the start of the following cycle, the data collected during the 
  *  previous cycle data is sent to the Serial window.  
  */
-void loop() // each iteration of loop is for one pair of measurements only
+void loop()  // each iteration of loop is for one pair of measurements only
 {
-  if(firstLoop)
+  if (firstLoop)
   {
     unsigned long timeNow = millis();
-    Serial.print ("millis() now = ");
-    Serial.println (timeNow);
-    
+    Serial.print("millis() now = ");
+    Serial.println(timeNow);
+
     recordingMayStartAt = timeNow + (settlingDelay * 1000);
-    Serial.print ("recordingMayStartAt ");
-    Serial.println (recordingMayStartAt);
-    
+    Serial.print("recordingMayStartAt ");
+    Serial.println(recordingMayStartAt);
+
     recordingNow = false;
     firstLoop = false;
     recordingComplete = false;
     noOfCyclesToBeRecorded = 1;
     cycleNumberBeingRecorded = 0;
-    samplesRecorded = 0;    
+    samplesRecorded = 0;
   }
-  
-  int sample_V1 = analogRead(sensorPin_V1);                 //Read in raw voltage signal
-  int sample_I1 = analogRead(sensorPin_I1);                 //Read in raw current signal
-  int sample_V2 = analogRead(sensorPin_V2);                 //Read in raw voltage signal
-  int sample_I2 = analogRead(sensorPin_I2);                 //Read in raw current signal
-  int sample_V3 = analogRead(sensorPin_V3);                 //Read in raw current signal
-  int sample_I3 = analogRead(sensorPin_I3);                 //Read in raw current signal
 
-  float filtered_V1 = 0.996*(lastFiltered_V1 + sample_V1 - lastSample_V1); 
+  int sample_V1 = analogRead(sensorPin_V1);  //Read in raw voltage signal
+  int sample_I1 = analogRead(sensorPin_I1);  //Read in raw current signal
+  int sample_V2 = analogRead(sensorPin_V2);  //Read in raw voltage signal
+  int sample_I2 = analogRead(sensorPin_I2);  //Read in raw current signal
+  int sample_V3 = analogRead(sensorPin_V3);  //Read in raw current signal
+  int sample_I3 = analogRead(sensorPin_I3);  //Read in raw current signal
+
+  float filtered_V1 = 0.996 * (lastFiltered_V1 + sample_V1 - lastSample_V1);
 
   byte polarityOfThisSample_V1;
-  if(filtered_V1 > 0)
+  if (filtered_V1 > 0)
   {
     polarityOfThisSample_V1 = POSITIVE;
-    
-    if (polarityOfLastSample_V1 != POSITIVE) 
+
+    if (polarityOfLastSample_V1 != POSITIVE)
     {
       // This is the start of a new mains cycle
-      cycleCount++; 
-         
-      if (recordingNow == true) {
-        if (cycleNumberBeingRecorded >= noOfCyclesToBeRecorded) {
-          Serial.print ("No of cycles recorded = ");
-          Serial.println (cycleNumberBeingRecorded);      
-          dispatch_recorded_data(); } 
-        else {
-          cycleNumberBeingRecorded++; } }    
+      cycleCount++;
 
-      else
-      if((cycleCount % 50) == 1) {  
-        unsigned long timeNow = millis();   
-        if (timeNow > recordingMayStartAt) {
-           recordingNow = true;
-           cycleNumberBeingRecorded++; } 
-        else  {
-          Serial.println((int)(recordingMayStartAt - timeNow) / 1000); } }    
-    } // end of specific processing for first +ve reading in each mains cycle
-    
-  } // end of specific processing of +ve cycles
+      if (recordingNow == true)
+      {
+        if (cycleNumberBeingRecorded >= noOfCyclesToBeRecorded)
+        {
+          Serial.print("No of cycles recorded = ");
+          Serial.println(cycleNumberBeingRecorded);
+          dispatch_recorded_data();
+        }
+        else
+        {
+          cycleNumberBeingRecorded++;
+        }
+      }
+
+      else if ((cycleCount % 50) == 1)
+      {
+        unsigned long timeNow = millis();
+        if (timeNow > recordingMayStartAt)
+        {
+          recordingNow = true;
+          cycleNumberBeingRecorded++;
+        }
+        else
+        {
+          Serial.println((int)(recordingMayStartAt - timeNow) / 1000);
+        }
+      }
+    }  // end of specific processing for first +ve reading in each mains cycle
+
+  }  // end of specific processing of +ve cycles
   else
   {
-    polarityOfThisSample_V1 = NEGATIVE; 
-    
-    if (polarityOfLastSample_V1 != NEGATIVE) 
+    polarityOfThisSample_V1 = NEGATIVE;
+
+    if (polarityOfLastSample_V1 != NEGATIVE)
     {
       // at the start of a new negative half cycle
     }
   }
-  
+
   if (recordingNow == true)
   {
     storedSample_V1[samplesRecorded] = sample_V1;
@@ -172,19 +182,19 @@ void loop() // each iteration of loop is for one pair of measurements only
     storedSample_I1[samplesRecorded] = sample_I1;
     storedSample_I2[samplesRecorded] = sample_I2;
     storedSample_I3[samplesRecorded] = sample_I3;
-    samplesRecorded++;
+    ++samplesRecorded;
   }
-    
-  polarityOfLastSample_V1 = polarityOfThisSample_V1;  
-  lastSample_V1 = sample_V1;                       
-  lastFiltered_V1 = filtered_V1;                  
-} // end of loop()
+
+  polarityOfLastSample_V1 = polarityOfThisSample_V1;
+  lastSample_V1 = sample_V1;
+  lastFiltered_V1 = filtered_V1;
+}  // end of loop()
 
 
 void dispatch_recorded_data()
-{      
+{
   // display raw samples via the Serial Monitor
-  // ------------------------------------------ 
+  // ------------------------------------------
 
   Serial.print("cycleCount ");
   Serial.print(cycleCount);
@@ -200,102 +210,113 @@ void dispatch_recorded_data()
   int V3, I3;
   int min_V3 = 1023, min_I3 = 1023;
   int max_V3 = 0, max_I3 = 0;
-      
-  for (int index = 0; index < samplesRecorded; index++) 
+
+  for (int index = 0; index < samplesRecorded; index++)
   {
     strcpy(newLine, blankLine);
-    V1 = storedSample_V1[index]; 
-    I1 = storedSample_I1[index]; 
-    V2 = storedSample_V2[index]; 
-    I2 = storedSample_I2[index]; 
-    V3 = storedSample_V3[index]; 
-    I3 = storedSample_I3[index]; 
- 
-    if (V1 < min_V1){min_V1 = V1;}
-    if (V1 > max_V1){max_V1 = V1;}
-    if (I1 < min_I1){min_I1 = I1;}
-    if (I1 > max_I1){max_I1 = I1;}
-    
-    if (V2 < min_V2){min_V2 = V2;}
-    if (V2 > max_V2){max_V2 = V2;}
-    if (I2 < min_I2){min_I2 = I2;}
-    if (I2 > max_I2){max_I2 = I2;}
-    
-    if (V3 < min_V3){min_V3 = V3;}
-    if (V3 > max_V3){max_V3 = V3;}
-    if (I3 < min_I3){min_I3 = I3;}
-    if (I3 > max_I3){max_I3 = I3;}
-    
-    newLine[map(V1, 0, 1023, 0, 80)] = '0'; 
-    newLine[map(I1, 0, 1023, 0, 80)] = '1'; 
-    newLine[map(V2, 0, 1023, 0, 80)] = '2'; 
-    newLine[map(I2, 0, 1023, 0, 80)] = '3'; 
-    newLine[map(V3, 0, 1023, 0, 80)] = '4'; 
-    newLine[map(I3, 0, 1023, 0, 80)] = '5'; 
-              
-    if ((index % 1) == 0) // change this to "% 1" for full resolution
+    V1 = storedSample_V1[index];
+    I1 = storedSample_I1[index];
+    V2 = storedSample_V2[index];
+    I2 = storedSample_I2[index];
+    V3 = storedSample_V3[index];
+    I3 = storedSample_I3[index];
+
+    if (V1 < min_V1) { min_V1 = V1; }
+    if (V1 > max_V1) { max_V1 = V1; }
+    if (I1 < min_I1) { min_I1 = I1; }
+    if (I1 > max_I1) { max_I1 = I1; }
+
+    if (V2 < min_V2) { min_V2 = V2; }
+    if (V2 > max_V2) { max_V2 = V2; }
+    if (I2 < min_I2) { min_I2 = I2; }
+    if (I2 > max_I2) { max_I2 = I2; }
+
+    if (V3 < min_V3) { min_V3 = V3; }
+    if (V3 > max_V3) { max_V3 = V3; }
+    if (I3 < min_I3) { min_I3 = I3; }
+    if (I3 > max_I3) { max_I3 = I3; }
+
+    newLine[map(V1, 0, 1023, 0, 80)] = '0';
+    newLine[map(I1, 0, 1023, 0, 80)] = '1';
+    newLine[map(V2, 0, 1023, 0, 80)] = '2';
+    newLine[map(I2, 0, 1023, 0, 80)] = '3';
+    newLine[map(V3, 0, 1023, 0, 80)] = '4';
+    newLine[map(I3, 0, 1023, 0, 80)] = '5';
+
+    if ((index % 1) == 0)  // change this to "% 1" for full resolution
     {
       Serial.println(newLine);
     }
   }
-    
-  Serial.print("min_V1 ");  Serial.print(min_V1);
-  Serial.print(",  max_V1 ");  Serial.print(max_V1);
-  Serial.print(",  min_I1 ");  Serial.print(min_I1);
-  Serial.print(",  max_I1 ");  Serial.println(max_I1);
-  
-  Serial.print("min_V2 ");  Serial.print(min_V2);
-  Serial.print(",  max_V2 ");  Serial.print(max_V2);
-  Serial.print(",  min_I2 ");  Serial.print(min_I2);
-  Serial.print(",  max_I2 ");  Serial.println(max_I2);
-  
-  Serial.print("min_V3 ");  Serial.print(min_V3);
-  Serial.print(",  max_V3 ");  Serial.print(max_V3);
-  Serial.print(",  min_I3 ");  Serial.print(min_I3);
-  Serial.print(",  max_I3 ");  Serial.println(max_I3);
-  
-  
+
+  Serial.print("min_V1 ");
+  Serial.print(min_V1);
+  Serial.print(",  max_V1 ");
+  Serial.print(max_V1);
+  Serial.print(",  min_I1 ");
+  Serial.print(min_I1);
+  Serial.print(",  max_I1 ");
+  Serial.println(max_I1);
+
+  Serial.print("min_V2 ");
+  Serial.print(min_V2);
+  Serial.print(",  max_V2 ");
+  Serial.print(max_V2);
+  Serial.print(",  min_I2 ");
+  Serial.print(min_I2);
+  Serial.print(",  max_I2 ");
+  Serial.println(max_I2);
+
+  Serial.print("min_V3 ");
+  Serial.print(min_V3);
+  Serial.print(",  max_V3 ");
+  Serial.print(max_V3);
+  Serial.print(",  min_I3 ");
+  Serial.print(min_I3);
+  Serial.print(",  max_I3 ");
+  Serial.println(max_I3);
+
+
   Serial.println();
   Serial.println();
-      
-  // despatch raw samples via the Serial Monitor 
-  // ------------------------------------------- 
-      
+
+  // despatch raw samples via the Serial Monitor
+  // -------------------------------------------
+
   Serial.println("Raw data from stored cycle: <Vsample>,<Isample>[cr]");
   Serial.print(samplesRecorded);
   Serial.println(", <<< No of sample pairs");
 
-  for (int index = 0; index < samplesRecorded; index++) 
+  for (int index = 0; index < samplesRecorded; index++)
   {
-    Serial.print (storedSample_V1[index]); 
-    Serial.print(','); 
-    Serial.println (storedSample_I1[index]);  
+    Serial.print(storedSample_V1[index]);
+    Serial.print(',');
+    Serial.println(storedSample_I1[index]);
   }
 
   recordingNow = false;
   firstLoop = true;
   pause();
-}      
+}
 
 void pause()
 {
   byte done = false;
   byte dummyByte;
-   
+
   while (done != true)
   {
     if (Serial.available() > 0)
     {
-      dummyByte = Serial.read(); // to 'consume' the incoming byte
+      dummyByte = Serial.read();  // to 'consume' the incoming byte
       if (dummyByte == 'g') done++;
     }
-  }    
+  }
 }
 
-int freeRam () {
-  extern int __heap_start, *__brkval; 
-  int v; 
-  return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval); 
+int freeRam()
+{
+  extern int __heap_start, *__brkval;
+  int v;
+  return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
 }
-
-
