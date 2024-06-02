@@ -305,16 +305,21 @@ inline void printForSerialText()
         continue;
       }
 
-      tft.fillScreen(ST77XX_BLACK);
+      static int16_t temp_previous{ 0 };
 
-      tft.setTextColor(tx_data.temperature_x100[0] > 4500 ? ST77XX_GREEN : ST7735_RED);
-      tft.setCursor(10, 52);
-      tft.print(tx_data.temperature_x100[0] * 0.01F, 1);
-      const auto curr_x = tft.getCursorX();
-      const auto curr_y = tft.getCursorY();
-      tft.drawCircle(curr_x + 6, curr_y - 28, 4, ST7735_WHITE);
-      tft.setTextColor(ST7735_WHITE);
-      tft.print(F(" C"));
+      if (temp_previous != tx_data.temperature_x100[0])
+      {
+        // Skip refresh if the temp didn't change
+        tft.fillScreen(ST77XX_BLACK);
+
+        tft.setTextColor(tx_data.temperature_x100[0] > 5500 ? ST77XX_GREEN : ST7735_RED);
+        tft.setCursor(10, 52);
+        tft.print(tx_data.temperature_x100[0] * 0.01F, 1);
+        tft.drawCircle(tft.getCursorX() + 6, tft.getCursorY() - 28, 4, ST7735_WHITE);
+        tft.setTextColor(ST7735_WHITE);
+        tft.print(F(" C"));
+        temp_previous = tx_data.temperature_x100[0];
+      }
 
       Serial.print(F(", T"));
       Serial.print(idx + 1);

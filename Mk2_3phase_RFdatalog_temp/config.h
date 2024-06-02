@@ -44,9 +44,9 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN }; /**< man
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                     /**< managed through EmonESP */
 #else
 inline constexpr bool EMONESP_CONTROL{ false };
-inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
+inline constexpr bool DIVERSION_PIN_PRESENT{ true };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */
-inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set it to 'true' if there's a override pin */
+inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                    /**< set it to 'true' if there's a override pin */
 #endif
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
@@ -76,9 +76,9 @@ inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 }; /**< 
 
 // Set the value to 0xff when the pin is not needed (feature deactivated)
 inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
-inline constexpr uint8_t diversionPin{ 0xff };  /**< if LOW, set diversion on standby */
+inline constexpr uint8_t diversionPin{ 2 };  /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load priority rotation */
-inline constexpr uint8_t forcePin{ 0xff };      /**< for 3-phase PCB, force pin */
+inline constexpr uint8_t forcePin{ 3 };      /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t watchDogPin{ 0xff };   /**< watch dog LED */
 
 inline constexpr RelayEngine relays{ { { 7, 1000, 200, 1, 1 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */

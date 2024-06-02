@@ -302,10 +302,13 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
   {
     const auto pinState{ getPinState(forcePin) };
 
-    for (auto &bOverrideLoad : b_overrideLoadOn)
-    {
-      bOverrideLoad = !pinState;
-    }
+    // for (auto &bOverrideLoad : b_overrideLoadOn)
+    // {
+    //   bOverrideLoad = !pinState;
+    // }
+
+    // Override only load #1
+    b_overrideLoadOn[0] = !pinState;
   }
 
   return false;
