@@ -31,7 +31,7 @@ static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too lo
 static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == 0xff), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
 static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == 0xff), "******** Wrong pin value for diversion command. Please check your config.h ! ********");
 static_assert((PRIORITY_ROTATION == RotationModes::PIN) ^ (rotationPin == 0xff), "******** Wrong pin value for rotation command. Please check your config.h ! ********");
-static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == 0xff), "******** Wrong pin value for override command. Please check your config.h ! ********");
+// static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == 0xff), "******** Wrong pin value for override command. Please check your config.h ! ********");
 static_assert(WATCHDOG_PIN_PRESENT ^ (watchDogPin == 0xff), "******** Wrong pin value for watchdog. Please check your config.h ! ********");
 
 static_assert(DUAL_TARIFF ^ (dualTariffPin == 0xff), "******** Wrong pin value for dual tariff. Please check your config.h ! ********");
@@ -69,13 +69,13 @@ check_pins()
     bit_set(used_pins, rotationPin);
   }
 
-  if (forcePin != 0xff)
-  {
-    if (bit_read(used_pins, forcePin))
-      return 0;
+  // if (forcePin != 0xff)
+  // {
+  //   if (bit_read(used_pins, forcePin))
+  //     return 0;
 
-    bit_set(used_pins, forcePin);
-  }
+  //   bit_set(used_pins, forcePin);
+  // }
 
   if (watchDogPin != 0xff)
   {

@@ -112,7 +112,7 @@ public:
    * @param idx The index of the device
    * @return int16_t Temperature * 100
    */
-  int16_t readTemperature(const uint8_t idx)
+  int16_t readTemperature(const uint8_t idx) const
   {
     static ScratchPad buf;
 

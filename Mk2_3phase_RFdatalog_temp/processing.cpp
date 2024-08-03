@@ -154,7 +154,9 @@ void initializeOptionalPins()
 
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    pinMode(forcePin, INPUT_PULLUP);  // set as input & enable the internal pullup resistor
+    pinMode(forcePin[0], INPUT_PULLUP);  // set as input & enable the internal pullup resistor
+    delay(100);                       // allow time to settle
+    pinMode(forcePin[1], INPUT_PULLUP);  // set as input & enable the internal pullup resistor
     delay(100);                       // allow time to settle
   }
 
@@ -239,8 +241,9 @@ void updatePhysicalLoadStates()
   {
     if (b_reOrderLoads)
     {
+      // Only output #1 and #2 are rotated
       const auto temp{ loadPrioritiesAndState[0] };
-      uint8_t i{ NO_OF_DUMPLOADS - 1 };
+      uint8_t i{ NO_OF_DUMPLOADS - 2 };
       do
       {
         loadPrioritiesAndState[i] = loadPrioritiesAndState[i - 1];

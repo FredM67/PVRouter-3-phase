@@ -138,24 +138,28 @@ bool forceFullPower()
 {
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    const auto pinState{ getPinState(forcePin) };
+    bool has_override{ false };
+
+    uint8_t idx{ 1 };
+    do
+    {
+      const auto pinState{ getPinState(forcePin[idx]) };
 
 #ifdef ENABLE_DEBUG
-    static uint8_t previousState{ HIGH };
-    if (previousState != pinState)
-    {
-      DBUGLN(!pinState ? F("Trigger override!") : F("End override!"));
-    }
+      static uint8_t previousState{ HIGH };
+      if (previousState != pinState)
+      {
+        DBUGLN(!pinState ? F("Trigger override!") : F("End override!"));
+      }
 
-    previousState = pinState;
+      previousState = pinState;
 #endif
 
-    for (auto &bOverrideLoad : b_overrideLoadOn)
-    {
-      bOverrideLoad = !pinState;
-    }
+      b_overrideLoadOn[idx] = !pinState;
+      has_override |= !pinState;
+    } while (idx--);
 
-    return !pinState;
+    return has_override;
   }
   else
   {
@@ -298,17 +302,38 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
     }
   }
 
-  if constexpr (OVERRIDE_PIN_PRESENT)
-  {
-    const auto pinState{ getPinState(forcePin) };
+  return false;
+}
 
-    for (auto &bOverrideLoad : b_overrideLoadOn)
+bool proceedLoadTemperatureOverriding(const uint8_t idx)
+{
+  if constexpr (TEMP_SENSOR_PRESENT)
+  {
+    const auto currentTemperature_x100{ temperatureSensing.readTemperature(idx) };
+
+    if (currentTemperature_x100 > iTemperatureThreshold * 100)
     {
-      bOverrideLoad = !pinState;
+      // Current temperature is over the threshold, we do not override the load
+      return false;
     }
   }
 
-  return false;
+  const auto pinState{ getPinState(forceTempPin[idx]) };
+#ifdef ENABLE_DEBUG
+  static uint8_t previousState{ HIGH };
+  if (previousState != pinState)
+  {
+    DBUG(!pinState ? F("Trigger temperature override for load #") : F("End temperature override for load #"));
+    DBUG(idx + 1);
+    DBUGLN(F("!"));
+  }
+
+  previousState = pinState;
+#endif
+
+  b_overrideLoadOn[idx] = !pinState;
+
+  return !pinState;
 }
 
 /**
