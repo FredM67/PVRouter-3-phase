@@ -65,7 +65,7 @@ public:
    * @brief Request temperature for all sensors
    *
    */
-  void requestTemperatures()
+  void requestTemperatures() const
   {
 #ifdef TEMP_ENABLED
     oneWire.reset();
@@ -75,10 +75,25 @@ public:
   }
 
   /**
+   * @brief Check if the conversion is complete
+   * 
+   * @return true 
+   * @return false 
+   */
+  bool isConversionComplete() const
+  {
+#ifdef TEMP_ENABLED
+    return oneWire.read_bit() == 1;
+#else
+    return false;
+#endif
+  }
+
+  /**
    * @brief Initialize the Dallas sensors
    *
    */
-  void initTemperatureSensors()
+  void initTemperatureSensors() const
   {
 #ifdef TEMP_ENABLED
     oneWire.begin(sensorPin);
@@ -117,6 +132,8 @@ public:
     static ScratchPad buf;
 
 #ifdef TEMP_ENABLED
+    // send the reset command and fail fast
+
     if (!oneWire.reset())
     {
       return DEVICE_DISCONNECTED_RAW;
@@ -124,6 +141,19 @@ public:
     oneWire.select(sensorAddrs[idx].addr);
     oneWire.write(READ_SCRATCHPAD);
 
+    // Read all registers in a simple loop
+    // byte 0: temperature LSB
+    // byte 1: temperature MSB
+    // byte 2: high alarm temp
+    // byte 3: low alarm temp
+    // byte 4: DS18S20: store for crc
+    //         DS18B20 & DS1822: configuration register
+    // byte 5: internal use & crc
+    // byte 6: DS18S20: COUNT_REMAIN
+    //         DS18B20 & DS1822: store for crc
+    // byte 7: DS18S20: COUNT_PER_C
+    //         DS18B20 & DS1822: store for crc
+    // byte 8: SCRATCHPAD_CRC
     for (auto &buf_elem : buf)
     {
       buf_elem = oneWire.read();
