@@ -134,35 +134,28 @@ ISR(ADC_vect)
  * @return true if loads are forced
  * @return false
  */
-bool forceFullPower()
+bool forceFullPower(const uint8_t idx)
 {
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    bool has_override{ false };
-
-    uint8_t idx{ 1 };
-    do
-    {
-      const auto pinState{ getPinState(forcePin[idx]) };
+    const auto pinState{ getPinState(forcePin[idx]) };
 
 #ifdef ENABLE_DEBUG
-      static uint8_t previousState[2]{ HIGH, HIGH };
-      if (previousState[idx] != pinState)
-      {
-        DBUG(F("Load #"));
-        DBUG(idx);
-        DBUG(F(" - "));
-        DBUGLN(!pinState ? F("Trigger override!") : F("End override!"));
-      }
+    static uint8_t previousState[2]{ HIGH, HIGH };
+    if (previousState[idx] != pinState)
+    {
+      DBUG(F("Load #"));
+      DBUG(idx + 1);
+      DBUG(F(" - "));
+      DBUGLN(!pinState ? F("Trigger override!") : F("End override!"));
+    }
 
-      previousState[idx] = pinState;
+    previousState[idx] = pinState;
 #endif
 
-      b_overrideLoadOn[idx] = !pinState;
-      has_override |= !pinState;
-    } while (idx--);
+    b_overrideLoadOn[idx] = !pinState;
 
-    return has_override;
+    return b_overrideLoadOn[idx];
   }
   else
   {
@@ -310,28 +303,25 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
 
 bool proceedLoadTemperatureOverriding(const uint8_t idx)
 {
-  if constexpr (TEMP_SENSOR_PRESENT)
-  {
-    const auto currentTemperature_x100{ tx_data.temperature_x100[idx] };
+  const auto currentTemperature_x100{ tx_data.temperature_x100[idx] };
 
-    if (currentTemperature_x100 > iTemperatureThreshold * 100)
-    {
-      // Current temperature is over the threshold, we do not override the load
-      return false;
-    }
+  if (!b_overrideLoadOn[idx] && currentTemperature_x100 > iTemperatureThreshold * 100)
+  {
+    // Current temperature is over the threshold, we do not override the load
+    return false;
   }
 
   const auto pinState{ getPinState(forceTempPin[idx]) };
 #ifdef ENABLE_DEBUG
-  static uint8_t previousState{ HIGH };
-  if (previousState != pinState)
+  static uint8_t previousState[2]{ HIGH, HIGH };
+  if (previousState[idx] != pinState)
   {
     DBUG(!pinState ? F("Trigger temperature override for load #") : F("End temperature override for load #"));
     DBUG(idx + 1);
     DBUGLN(F("!"));
   }
 
-  previousState = pinState;
+  previousState[idx] = pinState;
 #endif
 
   b_overrideLoadOn[idx] = !pinState;
@@ -382,7 +372,6 @@ void loop()
 {
   static uint8_t perSecondTimer{ 0 };
   static bool bOffPeak{ false };
-  static int16_t iTemperature_x100{ 0 };
 
   if (b_newMainsCycle)  // flag is set after every pair of ADC conversions
   {
@@ -400,9 +389,14 @@ void loop()
 
       checkDiversionOnOff();
 
-      if (!forceFullPower())
+      if (!proceedLoadTemperatureOverriding(0))
       {
-        bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100);  // called every second
+        forceFullPower(0);
+      }
+
+      if (!proceedLoadTemperatureOverriding(1))
+      {
+        forceFullPower(1);
       }
 
       if constexpr (RELAY_DIVERSION)

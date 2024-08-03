@@ -70,7 +70,7 @@ public:
 #ifdef TEMP_ENABLED
     oneWire.reset();
     oneWire.skip();
-    oneWire.write(CONVERT_TEMPERATURE, 1);
+    oneWire.write(CONVERT_TEMPERATURE);
 #endif
   }
 
@@ -98,7 +98,9 @@ public:
 #ifdef TEMP_ENABLED
     oneWire.begin(sensorPin);
     requestTemperatures();
-    delay(1000);
+    while (!isConversionComplete())
+      yield();
+    delay(100);
 #endif
   }
 
