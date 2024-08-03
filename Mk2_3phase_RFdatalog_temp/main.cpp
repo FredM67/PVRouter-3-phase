@@ -312,7 +312,7 @@ bool proceedLoadTemperatureOverriding(const uint8_t idx)
 {
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    const auto currentTemperature_x100{ temperatureSensing.readTemperature(idx) };
+    const auto currentTemperature_x100{ tx_data.temperature_x100[idx] };
 
     if (currentTemperature_x100 > iTemperatureThreshold * 100)
     {
