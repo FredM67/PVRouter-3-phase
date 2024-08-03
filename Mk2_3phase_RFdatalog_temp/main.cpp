@@ -146,13 +146,16 @@ bool forceFullPower()
       const auto pinState{ getPinState(forcePin[idx]) };
 
 #ifdef ENABLE_DEBUG
-      static uint8_t previousState{ HIGH };
-      if (previousState != pinState)
+      static uint8_t previousState[2]{ HIGH, HIGH };
+      if (previousState[idx] != pinState)
       {
+        DBUG(F("Load #"));
+        DBUG(idx);
+        DBUG(F(" - "));
         DBUGLN(!pinState ? F("Trigger override!") : F("End override!"));
       }
 
-      previousState = pinState;
+      previousState[idx] = pinState;
 #endif
 
       b_overrideLoadOn[idx] = !pinState;
@@ -349,20 +352,20 @@ void setup()
   DEBUG_PORT.begin(9600);
   Serial.begin(9600);  // initialize Serial interface, Do NOT set greater than 9600
 
-  // On start, always display config info in the serial monitor
-  printConfiguration();
-
   // initializes all loads to OFF at startup
   initializeProcessing();
 
   initializeOptionalPins();
 
-  logLoadPriorities();
-
   if constexpr (TEMP_SENSOR_PRESENT)
   {
     temperatureSensing.initTemperatureSensors();
   }
+
+  // On start, always display config info in the serial monitor
+  printConfiguration();
+
+  logLoadPriorities();
 
   DBUG(F(">>free RAM = "));
   DBUGLN(freeRam());  // a useful value to keep an eye on

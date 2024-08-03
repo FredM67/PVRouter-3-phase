@@ -87,6 +87,13 @@ inline void printConfiguration()
   if constexpr (TEMP_SENSOR_PRESENT)
   {
     DBUGLN(F("is present"));
+    DBUG(F("\t# of temp sensors: "));
+    DBUGLN(temperatureSensing.get_size());
+    DBUG(F("\tInitial reading: "));
+    DBUG(F("\t\tSensor 1: "));
+    DBUGLN(temperatureSensing.readTemperature(0));
+    DBUG(F("\t\tSensor 2: "));
+    DBUGLN(temperatureSensing.readTemperature(1));
   }
   else
   {

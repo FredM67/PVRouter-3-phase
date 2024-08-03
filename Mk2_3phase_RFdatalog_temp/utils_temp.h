@@ -70,7 +70,7 @@ public:
 #ifdef TEMP_ENABLED
     oneWire.reset();
     oneWire.skip();
-    oneWire.write(CONVERT_TEMPERATURE);
+    oneWire.write(CONVERT_TEMPERATURE, 1);
 #endif
   }
 
@@ -78,11 +78,12 @@ public:
    * @brief Initialize the Dallas sensors
    *
    */
-  void initTemperatureSensors()
+  void initTemperatureSensors() const
   {
 #ifdef TEMP_ENABLED
     oneWire.begin(sensorPin);
     requestTemperatures();
+    delay(1000);
 #endif
   }
 

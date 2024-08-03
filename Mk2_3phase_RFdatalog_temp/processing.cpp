@@ -19,9 +19,9 @@
 // Define operating limits for the LP filters which identify DC offset in the voltage
 // sample streams. By limiting the output range, these filters always should start up
 // correctly.
-constexpr int32_t l_DCoffset_V_min{ (512L - 100L) * 256L }; /**< mid-point of ADC minus a working margin */
-constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
-constexpr int16_t i_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
+constexpr int32_t l_DCoffset_V_min{ (511L - 100L) * 256L }; /**< mid-point of ADC minus a working margin */
+constexpr int32_t l_DCoffset_V_max{ (511L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
+constexpr int16_t i_DCoffset_I_nom{ 511L };                 /**< nominal mid-point value of ADC @ x1 scale */
 
 int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
 
@@ -59,7 +59,7 @@ float f_upperEnergyThreshold;        /**< dynamic upper threshold */
 // for improved control of multiple loads
 bool b_recentTransition{ false };                 /**< a load state has been recently toggled */
 uint8_t postTransitionCount;                      /**< counts the number of cycle since last transition */
-constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 3 }; /**< allows each transition to take effect */
+constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 2 }; /**< allows each transition to take effect */
 // constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
 uint8_t activeLoad{ NO_OF_DUMPLOADS }; /**< current active load */
 
@@ -154,10 +154,14 @@ void initializeOptionalPins()
 
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    pinMode(forcePin[0], INPUT_PULLUP);  // set as input & enable the internal pullup resistor
-    delay(100);                       // allow time to settle
-    pinMode(forcePin[1], INPUT_PULLUP);  // set as input & enable the internal pullup resistor
-    delay(100);                       // allow time to settle
+    pinMode(forcePin[0], INPUT_PULLUP);      // set as input & enable the internal pullup resistor
+    delay(100);                              // allow time to settle
+    pinMode(forcePin[1], INPUT_PULLUP);      // set as input & enable the internal pullup resistor
+    delay(100);                              // allow time to settle
+    pinMode(forceTempPin[0], INPUT_PULLUP);  // set as input & enable the internal pullup resistor
+    delay(100);                              // allow time to settle
+    pinMode(forceTempPin[1], INPUT_PULLUP);  // set as input & enable the internal pullup resistor
+    delay(100);                              // allow time to settle
   }
 
   if constexpr (PRIORITY_ROTATION == RotationModes::PIN)
