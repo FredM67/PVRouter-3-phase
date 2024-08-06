@@ -46,6 +46,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 
 /**
  * @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
+ * 
  * @details An Interrupt Service Routine is now defined which instructs the ADC to perform a conversion
  *          for each of the voltage and current sensors in turn.
  *
@@ -71,6 +72,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
  *            - Variables shared with main code may need to be protected by "critical sections"
  *            - Don't try to turn interrupts off or on
  *
+ * @ingroup TimeCritical
  */
 ISR(ADC_vect)
 {
@@ -334,7 +336,7 @@ void setup()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    initTemperatureSensors();
+    temperatureSensing.initTemperatureSensors();
   }
 
   DBUG(F(">>free RAM = "));
@@ -377,8 +379,8 @@ void loop()
 
       if constexpr (RELAY_DIVERSION)
       {
-        relay_Output.inc_duration();
-        relay_Output.proceed_relay();
+        relays.inc_duration();
+        relays.proceed_relays();
       }
     }
   }
@@ -407,15 +409,15 @@ void loop()
 
     if constexpr (RELAY_DIVERSION)
     {
-      relay_Output.update_average(tx_data.power);
+      relays.update_average(tx_data.power);
     }
 
     if constexpr (TEMP_SENSOR_PRESENT)
     {
-      for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+      uint8_t idx{ temperatureSensing.get_size() };
+      do
       {
-        static int16_t tmp;
-        tmp = readTemperature(sensorAddrs[idx]);
+        auto tmp = temperatureSensing.readTemperature(--idx);
 
         // if read temperature is 85 and the delta with previous is greater than 5, skip the value
         if (8500 == tmp && (abs(tmp - tx_data.temperature_x100[idx]) > 500))
@@ -424,8 +426,9 @@ void loop()
         }
 
         tx_data.temperature_x100[idx] = tmp;
-      }
-      requestTemperatures();  // for use next time around
+      } while (idx);
+
+      temperatureSensing.requestTemperatures();  // for use next time around
     }
 
     sendResults(bOffPeak);

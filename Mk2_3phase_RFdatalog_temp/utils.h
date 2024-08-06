@@ -119,7 +119,7 @@ inline void printConfiguration()
   {
     DBUGLN(F("is present"));
 
-    relayOutput<>::printRelayConfiguration(relay_Output);
+    relays.printConfiguration();
   }
   else
   {
@@ -173,12 +173,12 @@ inline void printForEmonESP(const bool bOffPeak)
     Serial.print(F(",L"));
     Serial.print(idx + 1);
     Serial.print(F(":"));
-    Serial.print((copyOf_countLoadON[idx] * 100) / DATALOG_PERIOD_IN_MAINS_CYCLES);
+    Serial.print((copyOf_countLoadON[idx] * 100) * invDATALOG_PERIOD_IN_MAINS_CYCLES);
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {  // Current temperature
-    for (idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+    for (idx = 0; idx < temperatureSensing.get_size(); ++idx)
     {
       if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
           || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
@@ -189,7 +189,7 @@ inline void printForEmonESP(const bool bOffPeak)
       Serial.print(F(",T"));
       Serial.print(idx + 1);
       Serial.print(F(":"));
-      Serial.print((float)tx_data.temperature_x100[idx] / 100);
+      Serial.print(tx_data.temperature_x100[idx] * 0.01F);
     }
   }
 
@@ -210,7 +210,7 @@ inline void printForSerialJson()
 {
   uint8_t phase{ 0 };
 
-  Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
+  Serial.print(copyOf_energyInBucket_main * invSUPPLY_FREQUENCY);
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
 
@@ -226,17 +226,23 @@ inline void printForSerialJson()
     Serial.print(F(", V"));
     Serial.print(phase + 1);
     Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
+    Serial.print((float)tx_data.Vrms_L_x100[phase] * 0.01F);
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+    for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
     {
+      if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
+          || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
+      {
+        continue;
+      }
+
       Serial.print(F(", T"));
       Serial.print(idx + 1);
       Serial.print(F(":"));
-      Serial.print((float)tx_data.temperature_x100[idx] / 100);
+      Serial.print((float)tx_data.temperature_x100[idx] * 0.01F);
     }
   }
 
@@ -251,14 +257,14 @@ inline void printForSerialText()
 {
   uint8_t phase{ 0 };
 
-  Serial.print(copyOf_energyInBucket_main / SUPPLY_FREQUENCY);
+  Serial.print(copyOf_energyInBucket_main * invSUPPLY_FREQUENCY);
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
 
   if constexpr (RELAY_DIVERSION)
   {
     Serial.print(F("/"));
-    Serial.print(relay_Output.get_average());
+    Serial.print(relays.get_average());
   }
 
   for (phase = 0; phase < NO_OF_PHASES; ++phase)
@@ -273,17 +279,23 @@ inline void printForSerialText()
     Serial.print(F(", V"));
     Serial.print(phase + 1);
     Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_x100[phase] / 100);
+    Serial.print((float)tx_data.Vrms_L_x100[phase] * 0.01F);
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    for (uint8_t idx = 0; idx < size(tx_data.temperature_x100); ++idx)
+    for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
     {
+      if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
+          || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
+      {
+        continue;
+      }
+
       Serial.print(F(", T"));
       Serial.print(idx + 1);
       Serial.print(F(":"));
-      Serial.print((float)tx_data.temperature_x100[idx] / 100);
+      Serial.print((float)tx_data.temperature_x100[idx] * 0.01F);
     }
   }
 
@@ -301,67 +313,67 @@ inline void printForSerialText()
   Serial.println(F(")"));
 }
 
-  /**
+/**
  * @brief Prints data logs to the Serial output in text or json format
  *
  * @param bOffPeak true if off-peak tariff is active
  */
-  inline void sendResults(bool bOffPeak)
-  {
-    static bool startup{ true };
+inline void sendResults(bool bOffPeak)
+{
+  static bool startup{ true };
 
-    if (startup)
-    {
-      startup = false;
-      return;  // reject the first datalogging which is incomplete !
-    }
+  if (startup)
+  {
+    startup = false;
+    return;  // reject the first datalogging which is incomplete !
+  }
 
 #ifdef RF_PRESENT
-    send_rf_data();  // *SEND RF DATA*
+  send_rf_data();  // *SEND RF DATA*
 #endif
 
 #if defined SERIALOUT
-    printForSerialJson();
+  printForSerialJson();
 #endif  // if defined SERIALOUT
 
-    if constexpr (EMONESP_CONTROL)
-    {
-      printForEmonESP(bOffPeak);
-    }
-
-#if defined SERIALPRINT && !defined EMONESP
-    printForSerialText();
-#endif  // if defined SERIALPRINT && !defined EMONESP
+  if constexpr (EMONESP_CONTROL)
+  {
+    printForEmonESP(bOffPeak);
   }
 
-  /**
+#if defined SERIALPRINT && !defined EMONESP
+  printForSerialText();
+#endif  // if defined SERIALPRINT && !defined EMONESP
+}
+
+/**
  * @brief Prints the load priorities to the Serial output.
  *
  */
-  inline void logLoadPriorities()
-  {
+inline void logLoadPriorities()
+{
 #ifdef ENABLE_DEBUG
 
-    DBUGLN(F("Load Priorities: "));
-    for (const auto& loadPrioAndState : loadPrioritiesAndState)
-    {
-      DBUG(F("\tload "));
-      DBUGLN(loadPrioAndState);
-    }
-
-#endif
+  DBUGLN(F("Load Priorities: "));
+  for (const auto& loadPrioAndState : loadPrioritiesAndState)
+  {
+    DBUG(F("\tload "));
+    DBUGLN(loadPrioAndState);
   }
 
-  /**
+#endif
+}
+
+/**
  * @brief Get the available RAM during setup
  *
  * @return int The amount of free RAM
  */
-  inline int freeRam()
-  {
-    extern int __heap_start, *__brkval;
-    int v;
-    return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
-  }
+inline int freeRam()
+{
+  extern int __heap_start, *__brkval;
+  int v;
+  return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
+}
 
 #endif  // _UTILS_H

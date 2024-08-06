@@ -3,3 +3,4 @@ c_cpp_properties.json
 inols*
 logs
 docs/.$*.drawio.*
+*.res.txt

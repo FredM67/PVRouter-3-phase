@@ -35,7 +35,6 @@
 //--------------------------------------------------------------------------------------------------
 // constants which must be set individually for each system
 //
-inline constexpr uint8_t NO_OF_PHASES{ 3 };    /**< number of phases of the main supply. */
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< number of dump loads connected to the diverter */
 
 #ifdef EMONESP
@@ -76,27 +75,25 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 };         /*
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities and states at startup */
 
 // Set the value to 0xff when the pin is not needed (feature deactivated)
-inline constexpr uint8_t relayPin{ 3 };      /**< for 3-phase PCB, relay trigger */
 inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
 inline constexpr uint8_t diversionPin{ 0xff };  /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load priority rotation */
 inline constexpr uint8_t forcePin{ 0xff };      /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t watchDogPin{ 0xff };   /**< watch dog LED */
 
-inline constexpr uint8_t tempSensorPin{ 0xff }; /**< for 3-phase PCB, sensor pin */
-
-inline constexpr relayOutput relay_Output{ relayPin, 700, 50, 0, 0 }; /**< config for relay diversion, see class definition for defaults and advanced options */
+inline constexpr RelayEngine relays{ { { 3, 700, 50, 0, 0 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
 
 inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
 
-inline constexpr DeviceAddress sensorAddrs[]{ { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
-                                              { 0x28, 0xED, 0x5B, 0x6A, 0x09, 0x00, 0x00, 0x9D },
-                                              { 0x28, 0xDB, 0x6D, 0x6A, 0x09, 0x00, 0x00, 0xDA },
-                                              { 0x28, 0x59, 0x1F, 0x6A, 0x09, 0x00, 0x00, 0xB0 },
-                                              { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } }; /**< list of temperature sensor Addresses */
+inline constexpr TemperatureSensing temperatureSensing{ 0xff,
+                                                        { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
+                                                          { 0x28, 0xED, 0x5B, 0x6A, 0x09, 0x00, 0x00, 0x9D },
+                                                          { 0x28, 0xDB, 0x6D, 0x6A, 0x09, 0x00, 0x00, 0xDA },
+                                                          { 0x28, 0x59, 0x1F, 0x6A, 0x09, 0x00, 0x00, 0xB0 },
+                                                          { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } }; /**< list of temperature sensor Addresses */
 
 inline constexpr uint32_t ROTATION_AFTER_CYCLES{ 8UL * 3600UL * SUPPLY_FREQUENCY }; /**< rotates load priorities after this period of inactivity */
 
