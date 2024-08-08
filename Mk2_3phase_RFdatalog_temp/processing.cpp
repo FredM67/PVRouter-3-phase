@@ -246,8 +246,8 @@ void updatePhysicalLoadStates()
     if (b_reOrderLoads)
     {
       // Only output #1 and #2 are rotated
-      const auto temp{ loadPrioritiesAndState[0] };
       uint8_t i{ NO_OF_DUMPLOADS - 2 };
+      const auto temp{ loadPrioritiesAndState[i] };
       do
       {
         loadPrioritiesAndState[i] = loadPrioritiesAndState[i - 1];
