@@ -311,6 +311,16 @@ bool proceedLoadTemperatureOverriding(const uint8_t idx)
     return false;
   }
 
+  if constexpr (PRIORITY_ROTATION == RotationModes::AUTO)
+  {
+    if (ROTATION_AFTER_CYCLES < absenceOfDivertedEnergyCount)
+    {
+      proceedRotation();
+
+      absenceOfDivertedEnergyCount = 0;
+    }
+  }
+
   const auto pinState{ getPinState(forceTempPin[idx]) };
 #ifdef ENABLE_DEBUG
   static uint8_t previousState[2]{ HIGH, HIGH };
