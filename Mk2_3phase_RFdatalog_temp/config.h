@@ -50,7 +50,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set
 #endif
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
-inline constexpr bool RELAY_DIVERSION{ true };      /**< set it to 'true' if a relay is used for diversion */
+inline constexpr bool RELAY_DIVERSION{ true };       /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
 // ----------- Pinout assignments -----------
@@ -81,7 +81,7 @@ inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load prio
 inline constexpr uint8_t forcePin{ 0xff };      /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t watchDogPin{ 0xff };   /**< watch dog LED */
 
-inline constexpr RelayEngine relays{ { { 3, 700, 50, 0, 0 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */
+inline constexpr RelayEngine relays{ { { 3, 1300, 1500, 30, 30 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
