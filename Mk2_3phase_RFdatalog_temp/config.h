@@ -71,7 +71,7 @@ inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if th
 // D12 is MISO
 // D13 is SCK
 
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 }; /**< load priorities and states at startup */
 
 // Set the value to 0xff when the pin is not needed (feature deactivated)
@@ -90,9 +90,6 @@ inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature thre
 
 inline constexpr TemperatureSensing temperatureSensing{ 0xff,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
-                                                          { 0x28, 0xED, 0x5B, 0x6A, 0x09, 0x00, 0x00, 0x9D },
-                                                          { 0x28, 0xDB, 0x6D, 0x6A, 0x09, 0x00, 0x00, 0xDA },
-                                                          { 0x28, 0x59, 0x1F, 0x6A, 0x09, 0x00, 0x00, 0xB0 },
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } }; /**< list of temperature sensor Addresses */
 
 inline constexpr uint32_t ROTATION_AFTER_CYCLES{ 8UL * 3600UL * SUPPLY_FREQUENCY }; /**< rotates load priorities after this period of inactivity */
