@@ -7,7 +7,7 @@
                 <mxCell id="nm547ZjQrcTAWtDK7rr3-17" value="&lt;b style=&quot;font-size: 12px&quot;&gt;Pour tout autre branchement plus complexe, merci de consulter&lt;br&gt;&lt;/b&gt;https://github.com/FredM67/PVRouter-3-phase/tree/master/lang/fr-fr&lt;b style=&quot;font-size: 12px&quot;&gt;&lt;br&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="80" y="80" width="530" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="_YcDlDGD7Q-Z-5NjXwbV-32" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa6800;strokeColor=#C73500;fontColor=#ffffff;" parent="1" vertex="1">
+                <mxCell id="_YcDlDGD7Q-Z-5NjXwbV-32" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#3c963c;strokeColor=#000000;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="213" y="820" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="_YcDlDGD7Q-Z-5NjXwbV-33" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.transmission.terminal_3_phase;pointerEvents=1;" parent="1" vertex="1">
@@ -111,7 +111,7 @@
                 <mxCell id="LaMMDNBPQCh3xhoEPbLG-22" value="" style="ellipse;whiteSpace=wrap;html=1;dashed=1;strokeWidth=3;" parent="1" vertex="1">
                     <mxGeometry x="460" y="960" width="89" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="LaMMDNBPQCh3xhoEPbLG-23" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa6800;strokeColor=#C73500;fontColor=#ffffff;" parent="1" vertex="1">
+                <mxCell id="LaMMDNBPQCh3xhoEPbLG-23" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#3c963c;strokeColor=#000000;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="704" y="790" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="LaMMDNBPQCh3xhoEPbLG-24" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.transmission.terminal_3_phase;pointerEvents=1;" parent="1" vertex="1">
@@ -237,7 +237,7 @@
                 <mxCell id="LaMMDNBPQCh3xhoEPbLG-63" value="Carte ACI monophasée &lt;b&gt;&lt;font color=&quot;#ff0000&quot;&gt;KITABLE&lt;br&gt;&lt;/font&gt;&lt;/b&gt;contacteur Jour/Nuit optionnel&lt;b&gt;&lt;font color=&quot;#ff0000&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/b&gt;" style="text;html=1;strokeColor=default;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=20;perimeterSpacing=2;shadow=1;" parent="1" vertex="1">
                     <mxGeometry x="33.25" y="1765" width="370" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="u1M8npFr7R6jaQxEBKVy-1" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#C73500;fontColor=#ffffff;" parent="1" vertex="1">
+                <mxCell id="u1M8npFr7R6jaQxEBKVy-1" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="557" y="1353" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="u1M8npFr7R6jaQxEBKVy-2" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.transmission.terminal_3_phase;pointerEvents=1;" parent="1" vertex="1">
@@ -302,13 +302,13 @@
                         <mxPoint x="35" y="1754" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="u1M8npFr7R6jaQxEBKVy-18" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#C73500;fontColor=#ffffff;" parent="1" vertex="1">
+                <mxCell id="u1M8npFr7R6jaQxEBKVy-18" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="644" y="1353" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="u1M8npFr7R6jaQxEBKVy-19" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.transmission.terminal_3_phase;pointerEvents=1;" parent="1" vertex="1">
                     <mxGeometry x="652.5" y="1378" width="43" height="10" as="geometry"/>
                 </mxCell>
-                <mxCell id="u1M8npFr7R6jaQxEBKVy-20" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#3399FF;strokeColor=#C73500;fontColor=#ffffff;" parent="1" vertex="1">
+                <mxCell id="u1M8npFr7R6jaQxEBKVy-20" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#3399FF;strokeColor=#000000;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="726" y="1353" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="u1M8npFr7R6jaQxEBKVy-21" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.transmission.terminal_3_phase;pointerEvents=1;" parent="1" vertex="1">
@@ -397,7 +397,7 @@
                 <mxCell id="LaMMDNBPQCh3xhoEPbLG-65" value="&lt;font style=&quot;font-size: 15px&quot;&gt;Les fils DOIVENT être en &lt;b&gt;&lt;u&gt;&lt;font color=&quot;#ff0000&quot;&gt;2.5mm&lt;sup&gt;2&lt;/sup&gt;&lt;/font&gt;&lt;/u&gt;&lt;/b&gt; de section&lt;br&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;" parent="1" vertex="1">
                     <mxGeometry x="253.38" y="2280" width="320" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="_YcDlDGD7Q-Z-5NjXwbV-3" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa6800;strokeColor=#C73500;fontColor=#ffffff;" parent="1" vertex="1">
+                <mxCell id="_YcDlDGD7Q-Z-5NjXwbV-3" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#3c963c;strokeColor=#000000;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="288.25" y="1906" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="_YcDlDGD7Q-Z-5NjXwbV-4" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.transmission.terminal_3_phase;pointerEvents=1;" parent="1" vertex="1">
@@ -520,7 +520,7 @@
                 <mxCell id="CvgcHjDcvQ_hEu3kHmvQ-8" value="&lt;font style=&quot;font-size: 15px&quot;&gt;Les fils DOIVENT être en&amp;nbsp;&lt;b&gt;&lt;u&gt;&lt;font color=&quot;#ff0000&quot;&gt;2.5mm&lt;sup&gt;2&lt;/sup&gt;&lt;/font&gt;&lt;/u&gt;&lt;/b&gt;&amp;nbsp;de section&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;" parent="1" vertex="1">
                     <mxGeometry x="488.25" y="1700" width="243.5" height="46" as="geometry"/>
                 </mxCell>
-                <mxCell id="CvgcHjDcvQ_hEu3kHmvQ-9" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#C73500;fontColor=#ffffff;" parent="1" vertex="1">
+                <mxCell id="CvgcHjDcvQ_hEu3kHmvQ-9" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="188.75" y="1356" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="CvgcHjDcvQ_hEu3kHmvQ-10" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.transmission.terminal_3_phase;pointerEvents=1;" parent="1" vertex="1">
@@ -563,13 +563,13 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="CvgcHjDcvQ_hEu3kHmvQ-19" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#C73500;fontColor=#ffffff;" parent="1" vertex="1">
+                <mxCell id="CvgcHjDcvQ_hEu3kHmvQ-19" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFFFF;strokeColor=#000000;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="257.25" y="1356" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="CvgcHjDcvQ_hEu3kHmvQ-20" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.transmission.terminal_3_phase;pointerEvents=1;" parent="1" vertex="1">
                     <mxGeometry x="265.75" y="1381" width="43" height="10" as="geometry"/>
                 </mxCell>
-                <mxCell id="CvgcHjDcvQ_hEu3kHmvQ-21" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#3399FF;strokeColor=#C73500;fontColor=#ffffff;" parent="1" vertex="1">
+                <mxCell id="CvgcHjDcvQ_hEu3kHmvQ-21" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#3399FF;strokeColor=#000000;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="324.25" y="1356" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="CvgcHjDcvQ_hEu3kHmvQ-22" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.transmission.terminal_3_phase;pointerEvents=1;" parent="1" vertex="1">
@@ -886,7 +886,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="OMVNz5JzUHLs8D__XO7g-11" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa6800;strokeColor=#C73500;fontColor=#ffffff;" parent="1" vertex="1">
+                <mxCell id="OMVNz5JzUHLs8D__XO7g-11" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#3c963c;strokeColor=#000000;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="690.5" y="1906" width="60" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="OMVNz5JzUHLs8D__XO7g-12" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;shape=mxgraph.electrical.transmission.terminal_3_phase;pointerEvents=1;" parent="1" vertex="1">
