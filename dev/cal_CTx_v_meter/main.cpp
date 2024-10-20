@@ -62,9 +62,9 @@ int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
 // Define operating limits for the LP filters which identify DC offset in the voltage
 // sample streams. By limiting the output range, these filters always should start up
 // correctly.
-constexpr int32_t l_DCoffset_V_min{ (512L - 100L) << 8 }; /**< mid-point of ADC minus a working margin */
-constexpr int32_t l_DCoffset_V_max{ (512L + 100L) << 8 }; /**< mid-point of ADC plus a working margin */
-constexpr int16_t i_DCoffset_I_nom{ 512L };               /**< nominal mid-point value of ADC @ x1 scale */
+constexpr int32_t l_DCoffset_V_min{ (511L - 100L) << 8 }; /**< mid-point of ADC minus a working margin */
+constexpr int32_t l_DCoffset_V_max{ (511L + 100L) << 8 }; /**< mid-point of ADC plus a working margin */
+constexpr int16_t i_DCoffset_I_nom{ 511L };               /**< nominal mid-point value of ADC @ x1 scale */
 
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
 constexpr float f_capacityOfEnergyBucket_main{ (float)(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
@@ -127,7 +127,7 @@ constexpr int16_t ADCDuration{ 104 };  // Time in microseconds for one ADC conve
 // powerCal is the RECIPR0CAL of the power conversion rate. A good value
 // to start with is therefore 1/20 = 0.05 (Watts per ADC-step squared)
 //
-inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.050000F, 0.050000F, 0.050000F };
+inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.043260F, 0.044167F, 0.042843F };
 
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the
 // current waveform. The algorithm interpolates between the most recent pair

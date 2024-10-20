@@ -86,7 +86,18 @@ inline void printConfiguration()
   DBUG(F("Temperature capability "));
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    DBUGLN(F("is present"));
+    DBUG(F("is present on pin:"));
+    DBUGLN(temperatureSensing.get_pin());
+    DBUG(F("\t# of temp sensors: "));
+    DBUGLN(temperatureSensing.get_size());
+    for(uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
+    {
+      DBUG(F("\t\tSensor "));
+      DBUG(idx + 1);
+      DBUG(F(": "));
+      DBUG(F("\tInitial reading: "));
+      DBUGLN(temperatureSensing.readTemperature(idx));
+    }
   }
   else
   {

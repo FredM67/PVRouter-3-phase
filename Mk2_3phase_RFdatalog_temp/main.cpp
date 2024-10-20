@@ -298,17 +298,44 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
     }
   }
 
-  if constexpr (OVERRIDE_PIN_PRESENT)
-  {
-    const auto pinState{ getPinState(forcePin) };
+  return false;
+}
 
-    for (auto &bOverrideLoad : b_overrideLoadOn)
+bool proceedLoadTemperatureOverriding()
+{
+  const auto currentTemperature_x100{ tx_data.temperature_x100[0] };
+
+  if (!b_overrideLoadOn && currentTemperature_x100 > iTemperatureThreshold * 100)
+  {
+    // Current temperature is over the threshold, we do not override the load
+    return false;
+  }
+
+  if constexpr (PRIORITY_ROTATION == RotationModes::AUTO)
+  {
+    if (ROTATION_AFTER_CYCLES < absenceOfDivertedEnergyCount)
     {
-      bOverrideLoad = !pinState;
+      proceedRotation();
+
+      absenceOfDivertedEnergyCount = 0;
     }
   }
 
-  return false;
+  const auto pinState{ getPinState(forceTempPin) };
+#ifdef ENABLE_DEBUG
+  static uint8_t previousState{ HIGH };
+  if (previousState != pinState)
+  {
+    DBUGLN(!pinState ? F("Trigger temperature override !") : F("End temperature override !"));
+  }
+
+  previousState = pinState;
+#endif
+
+  for( auto& b_overrideLoad : b_overrideLoadOn )
+    b_overrideLoad = !pinState;
+
+  return !pinState;
 }
 
 /**
@@ -324,20 +351,20 @@ void setup()
   DEBUG_PORT.begin(9600);
   Serial.begin(9600);  // initialize Serial interface, Do NOT set greater than 9600
 
-  // On start, always display config info in the serial monitor
-  printConfiguration();
-
   // initializes all loads to OFF at startup
   initializeProcessing();
 
   initializeOptionalPins();
 
-  logLoadPriorities();
-
   if constexpr (TEMP_SENSOR_PRESENT)
   {
     temperatureSensing.initTemperatureSensors();
   }
+
+  // On start, always display config info in the serial monitor
+  printConfiguration();
+
+  logLoadPriorities();
 
   DBUG(F(">>free RAM = "));
   DBUGLN(freeRam());  // a useful value to keep an eye on
@@ -354,7 +381,6 @@ void loop()
 {
   static uint8_t perSecondTimer{ 0 };
   static bool bOffPeak{ false };
-  static int16_t iTemperature_x100{ 0 };
 
   if (b_newMainsCycle)  // flag is set after every pair of ADC conversions
   {
@@ -372,9 +398,9 @@ void loop()
 
       checkDiversionOnOff();
 
-      if (!forceFullPower())
+      if (!proceedLoadTemperatureOverriding())
       {
-        bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100);  // called every second
+        forceFullPower();
       }
 
       if constexpr (RELAY_DIVERSION)
