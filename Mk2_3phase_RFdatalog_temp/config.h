@@ -44,7 +44,7 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN }; /**< man
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                     /**< managed through EmonESP */
 #else
 inline constexpr bool EMONESP_CONTROL{ false };
-inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
+inline constexpr bool DIVERSION_PIN_PRESENT{ true };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                    /**< set it to 'true' if there's a override pin */
 #endif
@@ -76,7 +76,7 @@ inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 }; /**< 
 
 // Set the value to 0xff when the pin is not needed (feature deactivated)
 inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
-inline constexpr uint8_t diversionPin{ 0xff };  /**< if LOW, set diversion on standby */
+inline constexpr uint8_t diversionPin{ 9 };  /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load priority rotation */
 inline constexpr uint8_t forcePin{ 7, };      /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t forceTempPin{ 8 };      /**< for 3-phase PCB, force pin */
