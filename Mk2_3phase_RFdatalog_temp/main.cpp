@@ -305,7 +305,7 @@ bool proceedLoadTemperatureOverriding()
 {
   const auto currentTemperature_x100{ tx_data.temperature_x100[0] };
 
-  if (!b_overrideLoadOn && currentTemperature_x100 > iTemperatureThreshold * 100)
+  if (!b_overrideLoadOn[0] && currentTemperature_x100 > iTemperatureThreshold * 100)
   {
     // Current temperature is over the threshold, we do not override the load
     return false;
