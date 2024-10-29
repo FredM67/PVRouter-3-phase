@@ -1,17 +1,17 @@
 <map id="Mk2_3phase_RFdatalog_temp/main.cpp" name="Mk2_3phase_RFdatalog_temp/main.cpp">
-<area shape="rect" id="node1" title="Main code." alt="" coords="1439,5,1616,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="1523,468,1607,495"/>
-<area shape="rect" id="node3" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="1492,244,1565,271"/>
-<area shape="rect" id="node30" href="$types_8h.html" title="Some basics classes/types." alt="" coords="1819,393,1889,420"/>
-<area shape="rect" id="node33" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="1189,319,1289,345"/>
-<area shape="rect" id="node38" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="1361,95,1464,121"/>
-<area shape="rect" id="node39" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="1501,169,1605,196"/>
-<area shape="rect" id="node40" href="$utils_8h.html" title="Some utility functions." alt="" coords="1839,95,1901,121"/>
-<area shape="rect" id="node44" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="1277,169,1375,196"/>
-<area shape="rect" id="node4" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="1443,393,1571,420"/>
-<area shape="rect" id="node29" href="$debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="1466,319,1541,345"/>
-<area shape="rect" id="node32" href="$utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="1565,319,1693,345"/>
-<area shape="rect" id="node37" href="$utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="1819,319,1921,345"/>
+<area shape="rect" id="node1" title="Main code." alt="" coords="1499,5,1676,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="1491,468,1575,495"/>
+<area shape="rect" id="node3" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="1596,244,1669,271"/>
+<area shape="rect" id="node30" href="$types_8h.html" title="Some basics classes/types." alt="" coords="1715,393,1785,420"/>
+<area shape="rect" id="node33" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="1252,319,1352,345"/>
+<area shape="rect" id="node38" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="1709,169,1812,196"/>
+<area shape="rect" id="node39" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="1581,169,1685,196"/>
+<area shape="rect" id="node40" href="$utils_8h.html" title="Some utility functions." alt="" coords="1852,95,1915,121"/>
+<area shape="rect" id="node44" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="1407,169,1506,196"/>
+<area shape="rect" id="node4" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="962,393,1090,420"/>
+<area shape="rect" id="node29" href="$debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="1478,319,1553,345"/>
+<area shape="rect" id="node32" href="$utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="1577,319,1705,345"/>
+<area shape="rect" id="node37" href="$utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="1780,319,1883,345"/>
 <area shape="rect" id="node5" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1117,468,1237,495"/>
 <area shape="rect" id="node6" href="$conditional_8hpp.html" title=" " alt="" coords="5,550,201,577"/>
 <area shape="rect" id="node7" href="$enable__if_8hpp.html" title=" " alt="" coords="225,543,365,584"/>
@@ -36,11 +36,11 @@
 <area shape="rect" id="node14" href="$declval_8hpp.html" title=" " alt="" coords="580,707,677,733"/>
 <area shape="rect" id="node20" href="$remove__cv_8hpp.html" title=" " alt="" coords="1271,707,1392,733"/>
 <area shape="rect" id="node26" href="$type__identity_8hpp.html" title=" " alt="" coords="1729,707,1864,733"/>
-<area shape="rect" id="node31" href="$constants_8h.html" title="Some constants." alt="" coords="1879,468,1976,495"/>
-<area shape="rect" id="node34" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="1193,393,1299,420"/>
-<area shape="rect" id="node35" href="$ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="1047,393,1168,420"/>
-<area shape="rect" id="node36" href="$utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="1323,393,1419,420"/>
-<area shape="rect" id="node41" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="1679,169,1773,196"/>
-<area shape="rect" id="node42" href="$utils__rf_8h.html" title="Some utility functions for the RF chip." alt="" coords="1795,244,1873,271"/>
-<area shape="rect" id="node43" title=" " alt="" coords="1945,319,2019,345"/>
+<area shape="rect" id="node31" href="$constants_8h.html" title="Some constants." alt="" coords="1783,468,1880,495"/>
+<area shape="rect" id="node34" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="1311,393,1418,420"/>
+<area shape="rect" id="node35" href="$ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="1165,393,1287,420"/>
+<area shape="rect" id="node36" href="$utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="1442,393,1538,420"/>
+<area shape="rect" id="node41" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="1837,169,1930,196"/>
+<area shape="rect" id="node42" href="$utils__rf_8h.html" title="Some utility functions for the RF chip." alt="" coords="1901,244,1980,271"/>
+<area shape="rect" id="node43" title=" " alt="" coords="1907,319,1980,345"/>
 </map>
