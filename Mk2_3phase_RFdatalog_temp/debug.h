@@ -9,8 +9,8 @@
  * 
  */
 
-#ifndef _DEBUG_H
-#define _DEBUG_H
+#ifndef DEBUG_H
+#define DEBUG_H
 
 // #define ENABLE_DEBUG
 // #define DEBUG_PORT Serial
@@ -101,4 +101,4 @@ inline SoftwareSerial mySerial(2, 3);  // RX, TX
 
 #endif  // ARDUINO
 
-#endif  // _DEBUG_H
+#endif  // DEBUG_H
