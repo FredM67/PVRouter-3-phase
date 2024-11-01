@@ -70,8 +70,8 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="utils__pins_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef __UTILS_PINS_H__</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define __UTILS_PINS_H__</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef UTILS_PINS</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define UTILS_PINS</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
@@ -177,7 +177,7 @@ $(function() {
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  <span class="keywordflow">return</span> (pin &lt; 8) ? bitRead(PIND, pin) : bitRead(PINB, pin - 8);</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;}</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// __UTILS_PINS_H__</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* UTILS_PINS */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aconfig__system_8h_html_a3180c835bce68b1c59f64f4055088cca"><div class="ttname"><a href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a></div><div class="ttdeci">constexpr uint16_t</div><div class="ttdef"><b>Definition:</b> <a href="config__system_8h_source.html#l00032">config_system.h:32</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_a23ed26b879b65f5ddf07facc1e4b18bc"><div class="ttname"><a href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a></div><div class="ttdeci">constexpr void bit_set(T &amp;_dest, const uint8_t bit)</div><div class="ttdoc">Set the specified bit to 1.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00046">utils_pins.h:46</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_a7195575c2ba8a186bd9758e4e2a141fd"><div class="ttname"><a href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd">setPinsOFF</a></div><div class="ttdeci">void setPinsOFF(const uint16_t pins)</div><div class="ttdoc">Set the Pins state to OFF.</div><div class="ttdef"><b>Definition:</b> <a href="utils__pins_8h_source.html#l00161">utils_pins.h:161</a></div></div>
