@@ -42,8 +42,7 @@ static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && DIVERSION_PIN_PRESEN
 
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
 
-constexpr uint16_t
-check_pins()
+constexpr uint16_t check_pins()
 {
   uint16_t used_pins{ 0 };
 

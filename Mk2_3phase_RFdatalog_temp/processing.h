@@ -40,7 +40,7 @@ inline volatile bool b_diversionOff{ false };               /**< async trigger t
 inline volatile int32_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES];   /**< copy of cumulative power per phase */
 inline volatile int32_t copyOf_sum_Vsquared[NO_OF_PHASES];         /**< copy of for summation of V^2 values during datalog period */
 inline volatile float copyOf_energyInBucket_main;                  /**< copy of main energy bucket (over all phases) */
-inline volatile uint8_t copyOf_lowestNoOfSampleSetsPerMainsCycle;  /**<  */
+inline volatile uint8_t copyOf_lowestNoOfSampleSetsPerMainsCycle;  /**< copy of a mechanism to check the integrity of this code structure */
 inline volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
 inline volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];      /**< copy of number of cycle the load was ON (over 1 datalog period) */
 
