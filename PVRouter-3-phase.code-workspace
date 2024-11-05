@@ -12,6 +12,10 @@
 			"path": "Mk2_3phase_RFdatalog_temp"
 		},
 		{
+			"name": "CT Analyzer free-running",
+			"path": "dev/RST_3phase_free_dev"
+		},
+		{
 			"name": "Transformer checker",
 			"path": "dev/Transformer_Checker"
 		},
@@ -22,7 +26,7 @@
 		{
 			"name": "MathPerfTests",
 			"path": "dev/MathPerfTests"
-		}
+		},
 	],
 	"settings": {
 		"files.associations": {
