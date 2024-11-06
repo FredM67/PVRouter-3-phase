@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef _CONFIG_H
-#define _CONFIG_H
+#ifndef CONFIG_H
+#define CONFIG_H
 
 //--------------------------------------------------------------------------------------------------
 //#define TEMP_ENABLED  /**< this line must be commented out if the temperature sensor is not present */
@@ -114,4 +114,4 @@ inline constexpr int UNO{ 1 };            /**< for when the processor contains t
 
 #endif  // RF_PRESENT
 
-#endif  // _CONFIG_H
+#endif  // CONFIG_H

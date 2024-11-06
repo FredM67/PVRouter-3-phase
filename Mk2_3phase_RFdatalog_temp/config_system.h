@@ -9,8 +9,8 @@
  * 
  */
 
-#ifndef __CONFIG_SYSTEM_H__
-#define __CONFIG_SYSTEM_H__
+#ifndef CONFIG_SYSTEM_H
+#define CONFIG_SYSTEM_H
 
 #include <Arduino.h>
 
@@ -36,4 +36,4 @@ inline constexpr float invSUPPLY_FREQUENCY{ 1.0F / SUPPLY_FREQUENCY };
 inline constexpr float invDATALOG_PERIOD_IN_MAINS_CYCLES{ 1.0F / DATALOG_PERIOD_IN_MAINS_CYCLES };
 //--------------------------------------------------------------------------------------------------
 
-#endif  // __CONFIG_SYSTEM_H__
+#endif  // CONFIG_SYSTEM_H

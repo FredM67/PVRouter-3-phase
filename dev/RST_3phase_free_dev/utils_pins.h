@@ -4,9 +4,9 @@
  * @brief Some utility functions for pins manipulation
  * @version 0.1
  * @date 2023-05-05
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef UTILS_PINS
@@ -14,17 +14,6 @@
 
 #include <Arduino.h>
 
-#if defined(__DOXYGEN__)
-inline constexpr void togglePin(const uint8_t pin);
-
-inline constexpr void setPinON(const uint8_t pin);
-inline void setPinsON(const uint16_t pins);
-
-inline constexpr void setPinOFF(const uint8_t pin);
-inline void setPinsOFF(const uint16_t pins);
-
-inline bool getPinState(const uint8_t pin);
-#else
 inline constexpr void togglePin(const uint8_t pin) __attribute__((always_inline));
 
 inline constexpr void setPinON(const uint8_t pin) __attribute__((always_inline));
@@ -34,44 +23,46 @@ inline constexpr void setPinOFF(const uint8_t pin) __attribute__((always_inline)
 inline void setPinsOFF(const uint16_t pins) __attribute__((always_inline));
 
 inline bool getPinState(const uint8_t pin) __attribute__((always_inline));
-#endif
 
 /**
  * @brief Set the specified bit to 1
- * 
+ *
  * @tparam T Type of the variable
  * @param _dest Integer variable to modify
  * @param bit Bit to set in _dest
  */
-template< typename T > constexpr void bit_set(T& _dest, const uint8_t bit)
+template <typename T>
+constexpr void bit_set(T &_dest, const uint8_t bit)
 {
-  _dest |= (T)0x01 << bit;
+    _dest |= (T)0x01 << bit;
 }
 
 /**
  * @brief Read the specified bit
- * 
+ *
  * @tparam T Type of the variable
  * @param _src Integer variable to read
  * @param bit Bit to read in _src
- * @return constexpr uint8_t 
+ * @return constexpr uint8_t
  */
-template< typename T > constexpr uint8_t bit_read(const T& _src, const uint8_t bit)
+template <typename T>
+constexpr uint8_t bit_read(const T &_src, const uint8_t bit)
 {
-  return (_src >> bit) & (T)0x01;
+    return (_src >> bit) & (T)0x01;
 }
 
 /**
  * @brief Clear the specified bit
- * 
+ *
  * @tparam T Type of the variable
  * @param _dest Integer variable to modify
  * @param bit Bit to clear in _src
- * @return constexpr uint8_t 
+ * @return constexpr uint8_t
  */
-template< typename T > constexpr uint8_t bit_clear(T& _dest, const uint8_t bit)
+template <typename T>
+constexpr uint8_t bit_clear(T &_dest, const uint8_t bit)
 {
-  return _dest &= ~((T)0x01 << bit);
+    return _dest &= ~((T)0x01 << bit);
 }
 
 /**
@@ -80,14 +71,14 @@ template< typename T > constexpr uint8_t bit_clear(T& _dest, const uint8_t bit)
  */
 void constexpr togglePin(const uint8_t pin)
 {
-  if (pin < 8)
-  {
-    bit_set(PIND, pin);
-  }
-  else
-  {
-    bit_set(PINB, pin - 8);
-  }
+    if (pin < 8)
+    {
+        bit_set(PIND, pin);
+    }
+    else
+    {
+        bit_set(PINB, pin - 8);
+    }
 }
 
 /**
@@ -98,14 +89,14 @@ void constexpr togglePin(const uint8_t pin)
  */
 inline constexpr void setPinState(const uint8_t pin, const bool bState)
 {
-  if (bState)
-  {
-    setPinON(pin);
-  }
-  else
-  {
-    setPinOFF(pin);
-  }
+    if (bState)
+    {
+        setPinON(pin);
+    }
+    else
+    {
+        setPinOFF(pin);
+    }
 }
 
 /**
@@ -115,14 +106,14 @@ inline constexpr void setPinState(const uint8_t pin, const bool bState)
  */
 inline constexpr void setPinON(const uint8_t pin)
 {
-  if (pin < 8)
-  {
-    bit_set(PORTD, pin);
-  }
-  else
-  {
-    bit_set(PORTB, pin - 8);
-  }
+    if (pin < 8)
+    {
+        bit_set(PORTD, pin);
+    }
+    else
+    {
+        bit_set(PORTB, pin - 8);
+    }
 }
 
 /**
@@ -132,8 +123,8 @@ inline constexpr void setPinON(const uint8_t pin)
  */
 inline void setPinsON(const uint16_t pins)
 {
-  PORTD |= lowByte(pins);
-  PORTB |= highByte(pins);
+    PORTD |= lowByte(pins);
+    PORTB |= highByte(pins);
 }
 
 /**
@@ -143,14 +134,14 @@ inline void setPinsON(const uint16_t pins)
  */
 inline constexpr void setPinOFF(const uint8_t pin)
 {
-  if (pin < 8)
-  {
-    bit_clear(PORTD, pin);
-  }
-  else
-  {
-    bit_clear(PORTB, pin - 8);
-  }
+    if (pin < 8)
+    {
+        bit_clear(PORTD, pin);
+    }
+    else
+    {
+        bit_clear(PORTB, pin - 8);
+    }
 }
 
 /**
@@ -160,8 +151,8 @@ inline constexpr void setPinOFF(const uint8_t pin)
  */
 inline void setPinsOFF(const uint16_t pins)
 {
-  PORTD &= ~lowByte(pins);
-  PORTB &= ~highByte(pins);
+    PORTD &= ~lowByte(pins);
+    PORTB &= ~highByte(pins);
 }
 
 /**
@@ -173,7 +164,7 @@ inline void setPinsOFF(const uint16_t pins)
  */
 inline bool getPinState(const uint8_t pin)
 {
-  return (pin < 8) ? bitRead(PIND, pin) : bitRead(PINB, pin - 8);
+    return (pin < 8) ? bitRead(PIND, pin) : bitRead(PINB, pin - 8);
 }
 
 #endif /* UTILS_PINS */
