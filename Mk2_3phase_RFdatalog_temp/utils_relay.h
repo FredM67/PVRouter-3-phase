@@ -9,11 +9,12 @@
  * 
  */
 
-#ifndef _UTILS_RELAY_H
-#define _UTILS_RELAY_H
+#ifndef UTILS_RELAY_H
+#define UTILS_RELAY_H
 
 #include "types.h"
 #include "type_traits.hpp"
+#include "debug.h"
 
 #include "config_system.h"
 #include "movingAvg.h"
@@ -36,7 +37,7 @@ public:
    * @param _relay_pin Control pin for the relay
    */
   explicit constexpr relayOutput(const uint8_t _relay_pin)
-    : relay_pin{_relay_pin}
+    : relay_pin{ _relay_pin }
   {
   }
 
@@ -48,7 +49,7 @@ public:
    * @param _importThreshold Import threshold to turn relay OFF
    */
   constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)
-    : relay_pin{_relay_pin}, surplusThreshold{-abs(_surplusThreshold)}, importThreshold{abs(_importThreshold)}
+    : relay_pin{ _relay_pin }, surplusThreshold{ -abs(_surplusThreshold) }, importThreshold{ abs(_importThreshold) }
   {
   }
 
@@ -62,7 +63,7 @@ public:
    * @param _minOFF Minimum duration in minutes to leave relay OFF
    */
   constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
-    : relay_pin{_relay_pin}, surplusThreshold{-abs(_surplusThreshold)}, importThreshold{abs(_importThreshold)}, minON{_minON * 60}, minOFF{_minOFF * 60}
+    : relay_pin{ _relay_pin }, surplusThreshold{ -abs(_surplusThreshold) }, importThreshold{ abs(_importThreshold) }, minON{ _minON * 60 }, minOFF{ _minOFF * 60 }
   {
   }
 
@@ -97,7 +98,7 @@ public:
   }
 
   /**
-   * @brief Get the minimum ON-time
+   * @brief Get the minimum ON-time in seconds
    * 
    * @return constexpr auto 
    */
@@ -107,7 +108,7 @@ public:
   }
 
   /**
-   * @brief Get the minimum OFF-time
+   * @brief Get the minimum OFF-time in seconds
    * 
    * @return constexpr auto 
    */
@@ -412,4 +413,4 @@ template< uint8_t N, uint8_t D > void RelayEngine< N, D >::inc_duration() const
   }
 }
 
-#endif  // _UTILS_RELAY_H
+#endif /* UTILS_RELAY_H */

@@ -9,8 +9,8 @@
  * 
  */
 
-#ifndef UTILS_PINS
-#define UTILS_PINS
+#ifndef UTILS_PINS_H
+#define UTILS_PINS_H
 
 #include <Arduino.h>
 
@@ -176,4 +176,4 @@ inline bool getPinState(const uint8_t pin)
   return (pin < 8) ? bitRead(PIND, pin) : bitRead(PINB, pin - 8);
 }
 
-#endif /* UTILS_PINS */
+#endif  // UTILS_PINS_H

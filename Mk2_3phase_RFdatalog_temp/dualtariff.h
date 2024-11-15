@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef DUALTARIFF
-#define DUALTARIFF
+#ifndef DUALTARIFF_H
+#define DUALTARIFF_H
 
 #include "config.h"
 
@@ -112,4 +112,4 @@ inline void printDualTariffConfiguration()
   }
 }
 
-#endif /* DUALTARIFF */
+#endif /* DUALTARIFF_H */

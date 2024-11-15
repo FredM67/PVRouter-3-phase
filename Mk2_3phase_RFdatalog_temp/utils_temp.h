@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef _UTILS_TEMP_H
-#define _UTILS_TEMP_H
+#ifndef UTILS_TEMP_H
+#define UTILS_TEMP_H
 
 #include <Arduino.h>
 
@@ -160,4 +160,4 @@ private:
 #endif
 };
 
-#endif  // _UTILS_TEMP_H
+#endif  // UTILS_TEMP_H
