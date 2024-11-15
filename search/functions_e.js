@@ -1,7 +1,27 @@
 var searchData=
 [
-  ['temperaturesensing_581',['TemperatureSensing',['../classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3',1,'TemperatureSensing::TemperatureSensing()=delete'],['../classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8',1,'TemperatureSensing::TemperatureSensing(uint8_t pin, const DeviceAddress(&amp;ref)[N])']]],
-  ['togglepin_582',['togglePin',['../utils__pins_8h.html#a8919ecb358f2772a1b57cc566ae38edf',1,'utils_pins.h']]],
-  ['try_5fturnoff_583',['try_turnOFF',['../classrelayOutput.html#a788868018f39545aa8178198f36b4e06',1,'relayOutput']]],
-  ['try_5fturnon_584',['try_turnON',['../classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf',1,'relayOutput']]]
+  ['teardown_0',['tearDown',['../test__utils__pins_2test__main_8cpp.html#a9909011e5fea0c018842eec4d93d0662',1,'tearDown(void):&#160;test_main.cpp'],['../test__utils__relay_2test__main_8cpp.html#a9909011e5fea0c018842eec4d93d0662',1,'tearDown(void):&#160;test_main.cpp']]],
+  ['temperaturesensing_1',['TemperatureSensing',['../classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8',1,'TemperatureSensing::TemperatureSensing(uint8_t pin, const DeviceAddress(&amp;ref)[N])'],['../classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3',1,'TemperatureSensing::TemperatureSensing()=delete']]],
+  ['test_5fget_5fimportthreshold_2',['test_get_importThreshold',['../test__utils__relay_2test__main_8cpp.html#ac3626c3c3160b7747b4498dc2a89a2c2',1,'test_main.cpp']]],
+  ['test_5fget_5fminoff_3',['test_get_minOFF',['../test__utils__relay_2test__main_8cpp.html#a2ca6f0e1c608f826ebb390448a05359f',1,'test_main.cpp']]],
+  ['test_5fget_5fminon_4',['test_get_minON',['../test__utils__relay_2test__main_8cpp.html#a81c99a4a3d744813957238f89817677d',1,'test_main.cpp']]],
+  ['test_5fget_5fpin_5',['test_get_pin',['../test__utils__relay_2test__main_8cpp.html#a24abc86405ef4b56feae244413cc774b',1,'test_main.cpp']]],
+  ['test_5fget_5fsize_6',['test_get_size',['../test__utils__relay_2test__main_8cpp.html#a7d6176baab9bdbb57c4734c5b2a2a796',1,'test_main.cpp']]],
+  ['test_5fget_5fsurplusthreshold_7',['test_get_surplusThreshold',['../test__utils__relay_2test__main_8cpp.html#aa71e6d7e93c3e3d1e39f3af24bdec669',1,'test_main.cpp']]],
+  ['test_5fisrelayon_8',['test_isRelayON',['../test__utils__relay_2test__main_8cpp.html#a547e6803dac1c47448c5352ea4d4d709',1,'test_main.cpp']]],
+  ['test_5fproceed_5frelay_9',['test_proceed_relay',['../test__utils__relay_2test__main_8cpp.html#a3a66d68362fb0728716ed1357b2793db',1,'test_main.cpp']]],
+  ['test_5frelay_5finitialization_10',['test_relay_initialization',['../test__utils__relay_2test__main_8cpp.html#acf18f50974498226d414b44788f59752',1,'test_main.cpp']]],
+  ['test_5frelay_5finitialization_5fwith_5fnegative_5fthresholds_11',['test_relay_initialization_with_negative_thresholds',['../test__utils__relay_2test__main_8cpp.html#af6ddac18c62df593b1a20bb447f953a4',1,'test_main.cpp']]],
+  ['test_5frelay_5finitialization_5fwith_5fpositive_5fthresholds_12',['test_relay_initialization_with_positive_thresholds',['../test__utils__relay_2test__main_8cpp.html#ab5b1d70e0be648ef2951a655bf828574',1,'test_main.cpp']]],
+  ['test_5frelay_5fturnoff_13',['test_relay_turnOFF',['../test__utils__relay_2test__main_8cpp.html#a776e2d19e503b9fb8284ad2dc612d8bd',1,'test_main.cpp']]],
+  ['test_5frelay_5fturnon_14',['test_relay_turnON',['../test__utils__relay_2test__main_8cpp.html#ae6db4852c231fa9a5eb8396264c55486',1,'test_main.cpp']]],
+  ['test_5fsetpinoff_15',['test_setPinOFF',['../test__utils__pins_2test__main_8cpp.html#ad88b28b663dbedb3135d1eabb5ca3cb1',1,'test_main.cpp']]],
+  ['test_5fsetpinon_16',['test_setPinON',['../test__utils__pins_2test__main_8cpp.html#a149130da05b40aff690713378ab38eac',1,'test_main.cpp']]],
+  ['test_5fsetpinsoff_17',['test_setPinsOFF',['../test__utils__pins_2test__main_8cpp.html#a7478e236a47b20e4bd8950e6ac92350a',1,'test_main.cpp']]],
+  ['test_5fsetpinson_18',['test_setPinsON',['../test__utils__pins_2test__main_8cpp.html#a660695f67f59859460015d186d7a2587',1,'test_main.cpp']]],
+  ['test_5fsetpinstate_19',['test_setPinState',['../test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965',1,'test_main.cpp']]],
+  ['test_5ftogglepin_20',['test_togglePin',['../test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8',1,'test_main.cpp']]],
+  ['togglepin_21',['togglePin',['../utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977',1,'utils_pins.h']]],
+  ['try_5fturnoff_22',['try_turnOFF',['../classrelayOutput.html#a788868018f39545aa8178198f36b4e06',1,'relayOutput']]],
+  ['try_5fturnon_23',['try_turnON',['../classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf',1,'relayOutput']]]
 ];

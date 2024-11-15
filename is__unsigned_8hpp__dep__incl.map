@@ -1,16 +1,18 @@
 <map id="Mk2_3phase_RFdatalog_temp/type_traits/is_unsigned.hpp" name="Mk2_3phase_RFdatalog_temp/type_traits/is_unsigned.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="287,5,464,61"/>
-<area shape="rect" id="node2" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="287,109,464,151"/>
-<area shape="rect" id="node3" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="97,199,275,240"/>
-<area shape="rect" id="node12" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="319,288,496,329"/>
-<area shape="rect" id="node13" href="$ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="351,199,528,240"/>
-<area shape="rect" id="node14" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="552,199,729,240"/>
-<area shape="rect" id="node4" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="259,377,436,419"/>
-<area shape="rect" id="node11" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="5,467,183,508"/>
-<area shape="rect" id="node5" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="259,467,436,508"/>
-<area shape="rect" id="node6" href="$main_8cpp.html" title="Main code." alt="" coords="269,645,447,687"/>
-<area shape="rect" id="node9" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="460,467,637,508"/>
-<area shape="rect" id="node10" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="661,467,839,508"/>
-<area shape="rect" id="node7" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="535,556,712,597"/>
-<area shape="rect" id="node8" href="$utils_8h.html" title="Some utility functions." alt="" coords="333,556,511,597"/>
+<area shape="rect" id="node1" title=" " alt="" coords="436,5,613,60"/>
+<area shape="rect" id="node2" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="436,108,613,148"/>
+<area shape="rect" id="node3" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="183,196,360,236"/>
+<area shape="rect" id="node12" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="452,284,629,324"/>
+<area shape="rect" id="node14" href="$ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="436,196,613,236"/>
+<area shape="rect" id="node15" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="637,196,815,236"/>
+<area shape="rect" id="node16" href="$types_8h.html" title="Some basics classes/types." alt="" coords="839,196,1016,236"/>
+<area shape="rect" id="node4" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="259,379,436,419"/>
+<area shape="rect" id="node11" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="5,475,183,515"/>
+<area shape="rect" id="node5" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="661,475,839,515"/>
+<area shape="rect" id="node6" href="$main_8cpp.html" title="Main code." alt="" coords="359,651,536,691"/>
+<area shape="rect" id="node9" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="460,475,637,515"/>
+<area shape="rect" id="node10" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="259,475,436,515"/>
+<area shape="rect" id="node7" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="560,563,737,603"/>
+<area shape="rect" id="node8" href="$utils_8h.html" title="Some utility functions." alt="" coords="359,563,536,603"/>
+<area shape="rect" id="node13" href="$test__utils__relay_2test__main_8cpp.html" title=" " alt="" coords="461,372,655,427"/>
 </map>

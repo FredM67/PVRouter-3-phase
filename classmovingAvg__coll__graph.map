@@ -1,5 +1,5 @@
 <map id="movingAvg&lt; T, DURATION_IN_MINUTES, VALUES_PER_MINUTE &gt;" name="movingAvg&lt; T, DURATION_IN_MINUTES, VALUES_PER_MINUTE &gt;">
-<area shape="rect" id="node1" title="Template class for implementing a sliding average." alt="" coords="5,257,205,313"/>
-<area shape="rect" id="node2" href="$structconditional.html" title=" " alt="" coords="17,124,193,180"/>
-<area shape="rect" id="node3" href="$structconditional.html" title=" " alt="" coords="18,5,193,47"/>
+<area shape="rect" id="node1" title="Template class for implementing a sliding average." alt="" coords="5,255,205,309"/>
+<area shape="rect" id="node2" href="$structconditional.html" title=" " alt="" coords="17,123,193,177"/>
+<area shape="rect" id="node3" href="$structconditional.html" title=" " alt="" coords="18,5,193,45"/>
 </map>

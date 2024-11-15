@@ -1,5 +1,5 @@
 <map id="bit_read" name="bit_read">
-<area shape="rect" id="node1" title="Read the specified bit." alt="" coords="213,31,288,57"/>
-<area shape="rect" id="node2" href="$validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="5,5,165,32"/>
-<area shape="rect" id="node3" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="38,56,133,83"/>
+<area shape="rect" id="node1" title="Read the specified bit." alt="" coords="213,31,288,56"/>
+<area shape="rect" id="node2" href="$validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="5,5,165,31"/>
+<area shape="rect" id="node3" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="38,55,133,80"/>
 </map>

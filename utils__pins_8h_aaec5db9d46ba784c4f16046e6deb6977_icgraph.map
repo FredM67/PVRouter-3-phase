@@ -1,0 +1,6 @@
+<map id="togglePin" name="togglePin">
+<area shape="rect" id="node1" title="Toggle the specified pin." alt="" coords="267,31,349,56"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="136,5,187,31"/>
+<area shape="rect" id="node3" href="$test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8" title=" " alt="" coords="104,55,219,80"/>
+<area shape="rect" id="node4" href="$test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,55,56,80"/>
+</map>

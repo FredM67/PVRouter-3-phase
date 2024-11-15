@@ -1,0 +1,4 @@
+<map id="test_relay_turnON" name="test_relay_turnON">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,145,31"/>
+<area shape="rect" id="node2" href="$classRelayEngine.html#a981b20422ed19d2aa87d042c583173ee" title="Get the relay object." alt="" coords="193,5,365,31"/>
+</map>

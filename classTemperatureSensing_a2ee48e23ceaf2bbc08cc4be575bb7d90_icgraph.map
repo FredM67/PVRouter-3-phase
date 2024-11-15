@@ -1,8 +1,8 @@
 <map id="TemperatureSensing::get_size" name="TemperatureSensing::get_size">
-<area shape="rect" id="node1" title="Get the number of sensors." alt="" coords="437,45,592,86"/>
-<area shape="rect" id="node2" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,27,56,54"/>
-<area shape="rect" id="node3" href="$utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096" title="Write on Serial in EmonESP format." alt="" coords="255,27,388,54"/>
-<area shape="rect" id="node5" href="$utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5" title="Prints data logs to the Serial output in Json format." alt="" coords="253,78,389,104"/>
-<area shape="rect" id="node6" href="$utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="253,128,389,155"/>
-<area shape="rect" id="node4" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="104,52,205,79"/>
+<area shape="rect" id="node1" title="Get the number of sensors." alt="" coords="437,46,592,86"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,26,56,52"/>
+<area shape="rect" id="node3" href="$utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096" title="Write on Serial in EmonESP format." alt="" coords="255,28,388,53"/>
+<area shape="rect" id="node5" href="$utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5" title="Prints data logs to the Serial output in Json format." alt="" coords="253,77,389,102"/>
+<area shape="rect" id="node6" href="$utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="253,126,389,152"/>
+<area shape="rect" id="node4" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="104,52,205,77"/>
 </map>

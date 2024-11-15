@@ -1,6 +1,6 @@
 <map id="TemperatureSensing::requestTemperatures" name="TemperatureSensing::requestTemperatures">
-<area shape="rect" id="node1" title="Request temperature for all sensors." alt="" coords="344,35,512,76"/>
-<area shape="rect" id="node2" href="$classTemperatureSensing.html#af739aa9acd846f3ac2da655d9ba8e1a8" title="Initialize the Dallas sensors." alt="" coords="112,5,296,47"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="179,71,229,98"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,13,64,39"/>
+<area shape="rect" id="node1" title="Request temperature for all sensors." alt="" coords="344,35,512,75"/>
+<area shape="rect" id="node2" href="$classTemperatureSensing.html#af739aa9acd846f3ac2da655d9ba8e1a8" title="Initialize the Dallas sensors." alt="" coords="112,5,296,45"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="179,70,229,95"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,13,64,38"/>
 </map>

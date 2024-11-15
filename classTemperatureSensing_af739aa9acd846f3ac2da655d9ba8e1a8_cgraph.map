@@ -1,4 +1,4 @@
 <map id="TemperatureSensing::initTemperatureSensors" name="TemperatureSensing::initTemperatureSensors">
-<area shape="rect" id="node1" title="Initialize the Dallas sensors." alt="" coords="5,5,189,47"/>
-<area shape="rect" id="node2" href="$classTemperatureSensing.html#ab40e9df6930615d4c700780b6174e14f" title="Request temperature for all sensors." alt="" coords="237,5,405,47"/>
+<area shape="rect" id="node1" title="Initialize the Dallas sensors." alt="" coords="5,5,189,45"/>
+<area shape="rect" id="node2" href="$classTemperatureSensing.html#ab40e9df6930615d4c700780b6174e14f" title="Request temperature for all sensors." alt="" coords="237,5,405,45"/>
 </map>

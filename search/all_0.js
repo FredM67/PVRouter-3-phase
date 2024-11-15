@@ -9,6 +9,6 @@ var searchData=
   ['_5frg_5foffsetforce_6',['_rg_OffsetForce',['../class__rg__OffsetForce.html',1,'_rg_OffsetForce&lt; N, OffPeakDuration &gt;'],['../class__rg__OffsetForce.html#aa397559f69858d9b3ea69c37cd429c1b',1,'_rg_OffsetForce::_rg_OffsetForce()']]],
   ['_5fsub_5far_7',['_sub_ar',['../classmovingAvg.html#af89056944638f6227b66e8bcd0a5b6ff',1,'movingAvg']]],
   ['_5fsub_5fidx_8',['_sub_idx',['../classmovingAvg.html#ab263afc31f1c583a23ebe301e31371e4',1,'movingAvg']]],
-  ['_5fsub_5fsum_9',['_sub_sum',['../classmovingAvg.html#a7b53f63753604f621089be059ad0dc57',1,'movingAvg']]],
-  ['_5fsum_10',['_sum',['../classmovingAvg.html#a1758ed1a32e88b25e6da81e424bedde5',1,'movingAvg']]]
+  ['_5fsub_5fsum_9',['_sub_sum',['../classmovingAvg.html#ad30a542956bea882b1e3536656f9681e',1,'movingAvg']]],
+  ['_5fsum_10',['_sum',['../classmovingAvg.html#a1ac1e136a4072bd4a760db4809c9896c',1,'movingAvg']]]
 ];

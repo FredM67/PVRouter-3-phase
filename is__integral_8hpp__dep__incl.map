@@ -1,17 +1,19 @@
 <map id="Mk2_3phase_RFdatalog_temp/type_traits/is_integral.hpp" name="Mk2_3phase_RFdatalog_temp/type_traits/is_integral.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="321,5,499,61"/>
-<area shape="rect" id="node2" href="$is__enum_8hpp.html" title=" " alt="" coords="385,109,563,165"/>
-<area shape="rect" id="node3" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="321,213,499,255"/>
-<area shape="rect" id="node4" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="132,303,309,344"/>
-<area shape="rect" id="node13" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="360,392,537,433"/>
-<area shape="rect" id="node14" href="$ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="385,303,563,344"/>
-<area shape="rect" id="node15" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="587,303,764,344"/>
-<area shape="rect" id="node5" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="259,481,436,523"/>
-<area shape="rect" id="node12" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="5,571,183,612"/>
-<area shape="rect" id="node6" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="259,571,436,612"/>
-<area shape="rect" id="node7" href="$main_8cpp.html" title="Main code." alt="" coords="269,749,447,791"/>
-<area shape="rect" id="node10" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="460,571,637,612"/>
-<area shape="rect" id="node11" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="661,571,839,612"/>
-<area shape="rect" id="node8" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="535,660,712,701"/>
-<area shape="rect" id="node9" href="$utils_8h.html" title="Some utility functions." alt="" coords="333,660,511,701"/>
+<area shape="rect" id="node1" title=" " alt="" coords="436,5,613,60"/>
+<area shape="rect" id="node2" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="436,211,613,251"/>
+<area shape="rect" id="node17" href="$is__enum_8hpp.html" title=" " alt="" coords="500,108,677,163"/>
+<area shape="rect" id="node3" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="183,299,360,339"/>
+<area shape="rect" id="node12" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="452,387,629,427"/>
+<area shape="rect" id="node14" href="$ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="436,299,613,339"/>
+<area shape="rect" id="node15" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="637,299,815,339"/>
+<area shape="rect" id="node16" href="$types_8h.html" title="Some basics classes/types." alt="" coords="839,299,1016,339"/>
+<area shape="rect" id="node4" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="259,482,436,522"/>
+<area shape="rect" id="node11" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="5,577,183,617"/>
+<area shape="rect" id="node5" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="661,577,839,617"/>
+<area shape="rect" id="node6" href="$main_8cpp.html" title="Main code." alt="" coords="359,753,536,793"/>
+<area shape="rect" id="node9" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="460,577,637,617"/>
+<area shape="rect" id="node10" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="259,577,436,617"/>
+<area shape="rect" id="node7" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="560,665,737,705"/>
+<area shape="rect" id="node8" href="$utils_8h.html" title="Some utility functions." alt="" coords="359,665,536,705"/>
+<area shape="rect" id="node13" href="$test__utils__relay_2test__main_8cpp.html" title=" " alt="" coords="461,475,655,529"/>
 </map>

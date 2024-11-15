@@ -1,0 +1,21 @@
+<map id="loop" name="loop">
+<area shape="rect" id="node1" title=" " alt="" coords="5,291,56,316"/>
+<area shape="rect" id="node2" href="$test__utils__relay_2test__main_8cpp.html#ac3626c3c3160b7747b4498dc2a89a2c2" title=" " alt="" coords="375,192,564,217"/>
+<area shape="rect" id="node4" href="$test__utils__relay_2test__main_8cpp.html#a2ca6f0e1c608f826ebb390448a05359f" title=" " alt="" coords="403,241,536,267"/>
+<area shape="rect" id="node5" href="$test__utils__relay_2test__main_8cpp.html#a81c99a4a3d744813957238f89817677d" title=" " alt="" coords="406,291,533,316"/>
+<area shape="rect" id="node6" href="$test__utils__relay_2test__main_8cpp.html#a24abc86405ef4b56feae244413cc774b" title=" " alt="" coords="151,341,253,367"/>
+<area shape="rect" id="node7" href="$test__utils__relay_2test__main_8cpp.html#a7d6176baab9bdbb57c4734c5b2a2a796" title=" " alt="" coords="148,391,256,416"/>
+<area shape="rect" id="node9" href="$test__utils__relay_2test__main_8cpp.html#aa71e6d7e93c3e3d1e39f3af24bdec669" title=" " alt="" coords="105,5,299,31"/>
+<area shape="rect" id="node10" href="$test__utils__relay_2test__main_8cpp.html#a547e6803dac1c47448c5352ea4d4d709" title=" " alt="" coords="141,67,263,92"/>
+<area shape="rect" id="node11" href="$test__utils__relay_2test__main_8cpp.html#a3a66d68362fb0728716ed1357b2793db" title=" " alt="" coords="129,139,275,164"/>
+<area shape="rect" id="node14" href="$test__utils__relay_2test__main_8cpp.html#acf18f50974498226d414b44788f59752" title=" " alt="" coords="115,440,289,465"/>
+<area shape="rect" id="node18" href="$test__utils__relay_2test__main_8cpp.html#af6ddac18c62df593b1a20bb447f953a4" title=" " alt="" coords="104,490,300,530"/>
+<area shape="rect" id="node19" href="$test__utils__relay_2test__main_8cpp.html#ab5b1d70e0be648ef2951a655bf828574" title=" " alt="" coords="107,554,297,594"/>
+<area shape="rect" id="node3" href="$classRelayEngine.html#a981b20422ed19d2aa87d042c583173ee" title="Get the relay object." alt="" coords="639,168,811,193"/>
+<area shape="rect" id="node8" href="$classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title="Get the number of relays." alt="" coords="387,392,552,417"/>
+<area shape="rect" id="node12" href="$test__utils__relay_2test__main_8cpp.html#a776e2d19e503b9fb8284ad2dc612d8bd" title=" " alt="" coords="396,93,543,119"/>
+<area shape="rect" id="node13" href="$test__utils__relay_2test__main_8cpp.html#ae6db4852c231fa9a5eb8396264c55486" title=" " alt="" coords="399,143,539,168"/>
+<area shape="rect" id="node15" href="$classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e" title="Get the import threshold which will turns OFF the relay." alt="" coords="348,448,591,473"/>
+<area shape="rect" id="node16" href="$classrelayOutput.html#ac9bf2670034f07cc718b4a9b7c513155" title="Get the control pin of the relay." alt="" coords="392,497,547,523"/>
+<area shape="rect" id="node17" href="$classrelayOutput.html#a53d146f5a123d31cae6146e8fb4c038a" title="Get the surplus threshold which will turns ON the relay." alt="" coords="378,547,561,587"/>
+</map>

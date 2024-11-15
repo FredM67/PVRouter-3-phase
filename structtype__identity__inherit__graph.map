@@ -1,19 +1,19 @@
 <map id="type_identity&lt; T &gt;" name="type_identity&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,318,152,345"/>
-<area shape="rect" id="node2" href="$structtype__identity.html" title=" " alt="" coords="357,71,540,112"/>
-<area shape="rect" id="node5" href="$structtype__identity.html" title=" " alt="" coords="357,201,540,243"/>
-<area shape="rect" id="node8" href="$structtype__identity.html" title=" " alt="" coords="357,311,540,352"/>
-<area shape="rect" id="node11" href="$structtype__identity.html" title=" " alt="" coords="357,397,540,439"/>
-<area shape="rect" id="node14" href="$structtype__identity.html" title=" " alt="" coords="357,551,540,592"/>
-<area shape="rect" id="node3" href="$structmake__unsigned_3_01signed_01long_01_4.html" title=" " alt="" coords="597,5,780,47"/>
-<area shape="rect" id="node4" href="$structmake__unsigned_3_01unsigned_01long_01_4.html" title=" " alt="" coords="589,71,788,112"/>
-<area shape="rect" id="node6" href="$structmake__unsigned_3_01signed_01long_01long_01_4.html" title=" " alt="" coords="597,136,780,177"/>
-<area shape="rect" id="node7" href="$structmake__unsigned_3_01unsigned_01long_01long_01_4.html" title=" " alt="" coords="589,201,788,243"/>
-<area shape="rect" id="node9" href="$structmake__unsigned_3_01signed_01int_01_4.html" title=" " alt="" coords="597,267,780,308"/>
-<area shape="rect" id="node10" href="$structmake__unsigned_3_01unsigned_01int_01_4.html" title=" " alt="" coords="589,332,788,373"/>
-<area shape="rect" id="node12" href="$structmake__unsigned_3_01signed_01short_01_4.html" title=" " alt="" coords="597,397,780,439"/>
-<area shape="rect" id="node13" href="$structmake__unsigned_3_01unsigned_01short_01_4.html" title=" " alt="" coords="589,463,788,504"/>
-<area shape="rect" id="node15" href="$structmake__unsigned_3_01char_01_4.html" title=" " alt="" coords="597,529,780,555"/>
-<area shape="rect" id="node16" href="$structmake__unsigned_3_01signed_01char_01_4.html" title=" " alt="" coords="597,580,780,621"/>
-<area shape="rect" id="node17" href="$structmake__unsigned_3_01unsigned_01char_01_4.html" title=" " alt="" coords="589,645,788,687"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,363,152,388"/>
+<area shape="rect" id="node2" href="$structtype__identity.html" title=" " alt="" coords="357,87,540,127"/>
+<area shape="rect" id="node6" href="$structtype__identity.html" title=" " alt="" coords="357,247,540,287"/>
+<area shape="rect" id="node9" href="$structtype__identity.html" title=" " alt="" coords="357,355,540,395"/>
+<area shape="rect" id="node12" href="$structtype__identity.html" title=" " alt="" coords="357,439,540,479"/>
+<area shape="rect" id="node15" href="$structtype__identity.html" title=" " alt="" coords="357,567,540,607"/>
+<area shape="rect" id="node3" href="$structmake__unsigned_3_01char_01_4.html" title=" " alt="" coords="597,5,780,31"/>
+<area shape="rect" id="node4" href="$structmake__unsigned_3_01signed_01char_01_4.html" title=" " alt="" coords="597,55,780,95"/>
+<area shape="rect" id="node5" href="$structmake__unsigned_3_01unsigned_01char_01_4.html" title=" " alt="" coords="589,119,788,159"/>
+<area shape="rect" id="node7" href="$structmake__unsigned_3_01signed_01int_01_4.html" title=" " alt="" coords="597,183,780,223"/>
+<area shape="rect" id="node8" href="$structmake__unsigned_3_01unsigned_01int_01_4.html" title=" " alt="" coords="589,247,788,287"/>
+<area shape="rect" id="node10" href="$structmake__unsigned_3_01signed_01long_01_4.html" title=" " alt="" coords="597,311,780,351"/>
+<area shape="rect" id="node11" href="$structmake__unsigned_3_01unsigned_01long_01_4.html" title=" " alt="" coords="589,375,788,415"/>
+<area shape="rect" id="node13" href="$structmake__unsigned_3_01signed_01long_01long_01_4.html" title=" " alt="" coords="597,439,780,479"/>
+<area shape="rect" id="node14" href="$structmake__unsigned_3_01unsigned_01long_01long_01_4.html" title=" " alt="" coords="589,503,788,543"/>
+<area shape="rect" id="node16" href="$structmake__unsigned_3_01signed_01short_01_4.html" title=" " alt="" coords="597,567,780,607"/>
+<area shape="rect" id="node17" href="$structmake__unsigned_3_01unsigned_01short_01_4.html" title=" " alt="" coords="589,631,788,671"/>
 </map>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['type_5fidentity_2ehpp_478',['type_identity.hpp',['../type__identity_8hpp.html',1,'']]],
-  ['type_5ftraits_2ehpp_479',['type_traits.hpp',['../type__traits_8hpp.html',1,'']]],
-  ['types_2eh_480',['types.h',['../types_8h.html',1,'']]]
+  ['remove_5fconst_2ehpp_0',['remove_const.hpp',['../remove__const_8hpp.html',1,'']]],
+  ['remove_5fcv_2ehpp_1',['remove_cv.hpp',['../remove__cv_8hpp.html',1,'']]],
+  ['remove_5freference_2ehpp_2',['remove_reference.hpp',['../remove__reference_8hpp.html',1,'']]]
 ];

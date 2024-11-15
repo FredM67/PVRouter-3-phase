@@ -1,7 +1,11 @@
 <map id="relayOutput::get_importThreshold" name="relayOutput::get_importThreshold">
-<area shape="rect" id="node1" title="Get the import threshold which will turns OFF the relay." alt="" coords="884,5,1127,32"/>
-<area shape="rect" id="node2" href="$classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="575,5,836,32"/>
-<area shape="rect" id="node3" href="$classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a" title="Print the configuration of each relay." alt="" coords="299,5,527,32"/>
-<area shape="rect" id="node4" href="$utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,32"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,32"/>
+<area shape="rect" id="node1" title="Get the import threshold which will turns OFF the relay." alt="" coords="884,84,1127,109"/>
+<area shape="rect" id="node2" href="$classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="575,5,836,31"/>
+<area shape="rect" id="node6" href="$test__utils__relay_2test__main_8cpp.html#acf18f50974498226d414b44788f59752" title=" " alt="" coords="618,55,793,80"/>
+<area shape="rect" id="node8" href="$test__utils__relay_2test__main_8cpp.html#af6ddac18c62df593b1a20bb447f953a4" title=" " alt="" coords="607,105,803,145"/>
+<area shape="rect" id="node9" href="$test__utils__relay_2test__main_8cpp.html#ab5b1d70e0be648ef2951a655bf828574" title=" " alt="" coords="610,169,801,209"/>
+<area shape="rect" id="node3" href="$classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a" title="Print the configuration of each relay." alt="" coords="299,5,527,31"/>
+<area shape="rect" id="node4" href="$utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,31"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,31"/>
+<area shape="rect" id="node7" href="$test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="387,112,438,137"/>
 </map>

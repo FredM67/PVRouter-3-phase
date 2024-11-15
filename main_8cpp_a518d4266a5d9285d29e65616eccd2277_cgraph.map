@@ -1,6 +1,6 @@
 <map id="proceedLoadPrioritiesAndOverridingDualTariff" name="proceedLoadPrioritiesAndOverridingDualTariff">
-<area shape="rect" id="node1" title="Proceed load priority in combination with dual tariff." alt="" coords="5,23,193,65"/>
-<area shape="rect" id="node2" href="$utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="257,5,355,32"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="241,56,371,83"/>
-<area shape="rect" id="node4" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="419,56,549,83"/>
+<area shape="rect" id="node1" title="Proceed load priority in combination with dual tariff." alt="" coords="5,23,193,63"/>
+<area shape="rect" id="node2" href="$utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="257,5,355,31"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="241,55,371,80"/>
+<area shape="rect" id="node4" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="419,55,549,80"/>
 </map>

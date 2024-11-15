@@ -1,12 +1,12 @@
 <map id="printConfiguration" name="printConfiguration">
-<area shape="rect" id="node1" title="Print the configuration during start." alt="" coords="5,157,144,184"/>
-<area shape="rect" id="node2" href="$classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a" title="Print the configuration of each relay." alt="" coords="206,107,434,133"/>
-<area shape="rect" id="node9" href="$group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="219,157,421,184"/>
-<area shape="rect" id="node10" href="$processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="192,208,448,235"/>
-<area shape="rect" id="node3" href="$classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="496,107,757,133"/>
-<area shape="rect" id="node4" href="$classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e" title="Get the import threshold which will turns OFF the relay." alt="" coords="805,5,1048,32"/>
-<area shape="rect" id="node5" href="$classrelayOutput.html#a3b3ccb243e3e2c287249e0f0e079f554" title="Get the minimum OFF&#45;time." alt="" coords="833,56,1020,83"/>
-<area shape="rect" id="node6" href="$classrelayOutput.html#aefe2af3c49240ec8fc219a26f37c8bb8" title="Get the minimum ON&#45;time." alt="" coords="837,107,1017,133"/>
-<area shape="rect" id="node7" href="$classrelayOutput.html#ac9bf2670034f07cc718b4a9b7c513155" title="Get the control pin of the relay." alt="" coords="849,157,1004,184"/>
-<area shape="rect" id="node8" href="$classrelayOutput.html#a53d146f5a123d31cae6146e8fb4c038a" title="Get the surplus threshold which will turns ON the relay." alt="" coords="835,209,1018,250"/>
+<area shape="rect" id="node1" title="Print the configuration during start." alt="" coords="5,153,144,179"/>
+<area shape="rect" id="node2" href="$classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a" title="Print the configuration of each relay." alt="" coords="206,104,434,129"/>
+<area shape="rect" id="node9" href="$group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="219,153,421,179"/>
+<area shape="rect" id="node10" href="$processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="192,203,448,228"/>
+<area shape="rect" id="node3" href="$classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="496,104,757,129"/>
+<area shape="rect" id="node4" href="$classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e" title="Get the import threshold which will turns OFF the relay." alt="" coords="805,5,1048,31"/>
+<area shape="rect" id="node5" href="$classrelayOutput.html#a3b3ccb243e3e2c287249e0f0e079f554" title="Get the minimum OFF&#45;time in seconds." alt="" coords="833,55,1020,80"/>
+<area shape="rect" id="node6" href="$classrelayOutput.html#aefe2af3c49240ec8fc219a26f37c8bb8" title="Get the minimum ON&#45;time in seconds." alt="" coords="837,104,1017,129"/>
+<area shape="rect" id="node7" href="$classrelayOutput.html#ac9bf2670034f07cc718b4a9b7c513155" title="Get the control pin of the relay." alt="" coords="849,153,1004,179"/>
+<area shape="rect" id="node8" href="$classrelayOutput.html#a53d146f5a123d31cae6146e8fb4c038a" title="Get the surplus threshold which will turns ON the relay." alt="" coords="835,203,1018,243"/>
 </map>
