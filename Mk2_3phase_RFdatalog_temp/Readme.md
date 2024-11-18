@@ -5,6 +5,7 @@ Ce programme est conçu pour être utilisé avec l'IDE Arduino et/ou d'autres ID
 - [Utilisation avec Arduino IDE](#utilisation-avec-arduino-ide)
 - [Utilisation avec Visual Studio Code](#utilisation-avec-visual-studio-code)
 - [Aperçu rapide des fichiers](#aperçu-rapide-des-fichiers)
+- [Documentation de développement](#documentation-de-développement)
 - [Étalonnage du routeur](#étalonnage-du-routeur)
 - [Configuration du programme](#configuration-du-programme)
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
@@ -48,32 +49,38 @@ L'ensemble du projet a été conçu pour être utilisé de façon optimale avec 
 
 # Aperçu rapide des fichiers
 
-- **Mk2_3phase_RFdatalog_temp.ino** : Ce fichier est nécessaire pour l’IDE Arduino
-- **calibration.h** : contient les paramètres d’étalonnage
-- **config.h** : les préférences de l’utilisateur sont stockées ici (affectation des broches, fonctionnalités …)
-- **config_system.h** : constantes système rarement modifiées
-- **constants.h** : quelques constantes — *ne pas modifier*
-- **debug.h** : Quelques macros pour la sortie série et le débogage
-- **dualtariff.h** : définitions de la fonction double tarif
-- **main.cpp** : code source principal
-- **main.h** : prototypes de fonctions
-- **movingAvg.h** : code source pour la moyenne glissante
-- **processing.cpp** : code source du moteur de traitement
-- **processing.h** : prototypes de fonctions du moteur de traitement
-- **Readme.fr.md** : ce fichier
-- **types.h** : définitions des types …
-- **type_traits.h** : quelques trucs STL qui ne sont pas encore disponibles dans le paquet avr
-- **type_traits** : contient des patrons STL manquants
-- **utils_relay.h** : code source de la fonctionnalité *diversion par relais*
-- **utils_rf.h** : code source de la fonction *RF*
-- **utils_temp.h** : code source de la fonctionnalité *Température*
-- **utils.h** : fonctions d’aide et trucs divers
-- **validation.h** : validation des paramètres, ce code n’est exécuté qu’au moment de la compilation !
-- **platformio.ini** : paramètres PlatformIO
-- **inject_sketch_name.py** : script d'aide pour PlatformIO
-- **Doxyfile** : paramètre pour Doxygen (documentation du code)
+- **Mk2_3phase_RFdatalog_temp.ino** : Ce fichier est nécessaire pour l’IDE Arduino
+- **calibration.h** : contient les paramètres d’étalonnage
+- **config.h** : les préférences de l’utilisateur sont stockées ici (affectation des broches, fonctionnalités …)
+- **config_system.h** : constantes système rarement modifiées
+- **constants.h** : quelques constantes — *ne pas modifier*
+- **debug.h** : Quelques macros pour la sortie série et le débogage
+- **dualtariff.h** : définitions de la fonction double tarif
+- **ewma_avg.h** : fonctions de calcul de moyenne EWMA
+- **main.cpp** : code source principal
+- **movingAvg.h** : code source pour la moyenne glissante
+- **processing.cpp** : code source du moteur de traitement
+- **processing.h** : prototypes de fonctions du moteur de traitement
+- **Readme.md** : ce fichier
+- **types.h** : définitions des types …
+- **type_traits.h** : quelques trucs STL qui ne sont pas encore disponibles dans le paquet avr
+- **type_traits** : contient des patrons STL manquants
+- **utils_dualtariff.h** : code source de la fonctionnalité *gestion Heures Creuses*
+- **utils_pins.h** : quelques fonctions d'accès direct aux entrées/sorties du micro-contrôleur
+- **utils_relay.h** : code source de la fonctionnalité *diversion par relais*
+- **utils_rf.h** : code source de la fonction *RF*
+- **utils_temp.h** : code source de la fonctionnalité *Température*
+- **utils.h** : fonctions d’aide et trucs divers
+- **validation.h** : validation des paramètres, ce code n’est exécuté qu’au moment de la compilation !
+- **platformio.ini** : paramètres PlatformIO
+- **inject_sketch_name.py** : script d'aide pour PlatformIO
+- **Doxyfile** : paramètre pour Doxygen (documentation du code)
 
 L’utilisateur final ne doit éditer QUE les fichiers **calibration.h** et **config.h**.
+
+# Documentation de développement
+
+Vous pouvez commencer à lire la documentation ici [3-phase routeur](https://fredm67.github.io/PVRouter-3-phase/) (en anglais).
 
 # Étalonnage du routeur
 Les valeurs d'étalonnage se trouvent dans le fichier **calibration.h**.
@@ -172,7 +179,7 @@ Il faudra activer la fonctionnalité comme ceci :
 ```cpp
 inline constexpr bool WATCHDOG_PIN_PRESENT{ true };
 ```
-et définir la *pin* utilisée, dans l'exemple la *9* :
+et définir la *pin* utilisée, dans l'exemple la *9* :
 ```cpp
 inline constexpr uint8_t watchDogPin{ 9 };
 ```
@@ -243,7 +250,7 @@ Configurez la *pin* sur laquelle est relié le compteur :
 inline constexpr uint8_t dualTariffPin{ 3 };
 ```
 
-Configurez la durée en *heures* de la période d'Heures Creuses (pour l'instant, une seule période est supportée par jour) :
+Configurez la durée en *heures* de la période d'Heures Creuses (pour l'instant, une seule période est supportée par jour) :
 ```cpp
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };
 ```
@@ -263,14 +270,14 @@ Le deuxième paramètre détermine la durée de la marche forcée :
 - si le nombre est inférieur à 24, il s'agit du nombre d'heures,
 - si le nombre est supérieur à 24, il s'agit du nombre de minutes.
 
-Exemples pour mieux comprendre (avec début d'HC à 23:00, jusqu'à 7:00 soit 8 h de durée) :
-- ```{ -3, 2 }``` : démarrage **3 heures AVANT** la fin de période (à 4 h du matin), pour une durée de 2 h.
-- ```{ 3, 2 }``` : démarrage **3 heures APRÈS** le début de période (à 2 h du matin), pour une durée de 2 h.
-- ```{ -150, 2 }``` : démarrage **150 minutes AVANT** la fin de période (à 4:30), pour une durée de 2 h.
-- ```{ 3, 180 }``` : démarrage **3 heures APRÈS** le début de période (à 2 h du matin), pour une durée de 180 min.
+Exemples pour mieux comprendre (avec début d'HC à 23:00, jusqu'à 7:00 soit 8 h de durée) :
+- ```{ -3, 2 }``` : démarrage **3 heures AVANT** la fin de période (à 4 h du matin), pour une durée de 2 h.
+- ```{ 3, 2 }``` : démarrage **3 heures APRÈS** le début de période (à 2 h du matin), pour une durée de 2 h.
+- ```{ -150, 2 }``` : démarrage **150 minutes AVANT** la fin de période (à 4:30), pour une durée de 2 h.
+- ```{ 3, 180 }``` : démarrage **3 heures APRÈS** le début de période (à 2 h du matin), pour une durée de 180 min.
 
 Pour une durée *infinie* (donc jusqu'à la fin de la période d'HC), utilisez ```UINT16_MAX``` comme deuxième paramètre :
-- ```{ -3, UINT16_MAX }``` : démarrage **3 heures AVANT** la fin de période (à 4 h du matin) avec marche forcée jusqu'à la fin de période d'HC.
+- ```{ -3, UINT16_MAX }``` : démarrage **3 heures AVANT** la fin de période (à 4 h du matin) avec marche forcée jusqu'à la fin de période d'HC.
 
 Si votre système est constitué 2 sorties (```NO_OF_DUMPLOADS``` aura alors une valeur de 2), et que vous souhaitez une marche forcée uniquement sur la 2ᵉ sortie, écrivez :
 ```cpp

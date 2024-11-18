@@ -43,7 +43,7 @@ You'll need to install additional extension(s). The most popular and used extens
 - **movingAvg.h** : source code for sliding-window average
 - **processing.cpp** : source code for the processing engine
 - **processing.h** : functions prototype of the processing engine
-- **Readme.md** : this file
+- **Readme.en.md** : this file
 - **types.h** : definitions of types, ...
 - **type_traits.h** : some STL stuff not yet available in the avr-package
 - **type_traits** : folder containing some missing STL helpers
