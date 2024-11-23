@@ -150,6 +150,9 @@ constexpr int16_t i_phaseCal{ 256 }; /**< to avoid the need for floating-point m
 // close to unity.
 inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F }; /**< compared with Sentron PAC 4200 */
 
+inline constexpr float lpf_gain{ 0 }; /**< setting this to 0 disables this extra processing */
+inline constexpr float alpha{ 0.002 };
+
 /**
    @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
    @details An Interrupt Service Routine is now defined which instructs the ADC to perform a conversion
@@ -251,14 +254,23 @@ ISR(ADC_vect)
 */
 void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
 {
+  // extra items for an LPF to improve the processing of data samples from CT1
+  static int32_t lpf_long[NO_OF_PHASES]{};  // new LPF, for offsetting the behaviour of CTx as a HPF
+
   // remove most of the DC offset from the current sample (the precise value does not matter)
-  const int32_t sampleIminusDC = (static_cast< int32_t >(rawSample - i_DCoffset_I_nom)) << 8;
+  int32_t sampleIminusDC = (static_cast< int32_t >(rawSample - i_DCoffset_I_nom)) << 8;
   //
   // phase-shift the voltage waveform so that it aligns with the grid current waveform
-  const int32_t phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) * i_phaseCal) >> 8);
+  //const int32_t phaseShiftedSampleVminusDC = l_lastSampleVminusDC[phase] + (((l_sampleVminusDC[phase] - l_lastSampleVminusDC[phase]) * i_phaseCal) >> 8);
+
+    // extra filtering to offset the HPF effect of CTx
+  const int32_t last_lpf_long{ lpf_long[phase] };
+  lpf_long[phase] += alpha * (sampleIminusDC - last_lpf_long);
+  sampleIminusDC += (lpf_gain * lpf_long[phase]);
+
   //
   // calculate the "real power" in this sample pair and add to the accumulated sum
-  const int32_t filtV_div4 = phaseShiftedSampleVminusDC >> 2;  // reduce to 16-bits (now x64, or 2^6)
+  const int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
   const int32_t filtI_div4 = sampleIminusDC >> 2;              // reduce to 16-bits (now x64, or 2^6)
   int32_t instP = filtV_div4 * filtI_div4;                     // 32-bits (now x4096, or 2^12)
   instP >>= 12;                                                // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
