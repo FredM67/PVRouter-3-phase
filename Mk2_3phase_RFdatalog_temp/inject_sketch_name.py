@@ -4,18 +4,13 @@ from pathlib import Path
 import subprocess
 from subprocess import check_output, CalledProcessError
 
-def get_git_revision_short_hash() -> str:
-  try:
-    return subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'],shell=True).decode('utf-8').strip()
-  except CalledProcessError:
-    return "N/A"
-
-def get_git_current_branch() -> str:
-  try:  
-    return subprocess.check_output(['git', 'branch', '--show-current'],shell=True).decode('utf-8').strip()
-  except CalledProcessError:
-    return "N/A"
-
+def get_git_info(command: str) -> str:
+    try:
+        return subprocess.check_output(command, shell=True).decode('utf-8').strip()
+    except subprocess.CalledProcessError:
+        return "N/A"
+      
+# Get the project path
 Import("env")
 proj_path = env["PROJECT_DIR"]
 
@@ -28,6 +23,6 @@ tz_dt = datetime.now().replace(microsecond=0).astimezone().isoformat(' ')
 env.Append(CPPDEFINES=[
   ("PROJECT_PATH", macro_value),
   ("CURRENT_TIME", "\\\"" + tz_dt + "\\\""),
-  ("BRANCH_NAME", r"\"" + get_git_current_branch() + r"\""),
-  ("COMMIT_HASH", r"\"" + get_git_revision_short_hash() + r"\"")
+  ("BRANCH_NAME", r"\"" + get_git_info('git branch --show-current') + r"\""),
+  ("COMMIT_HASH", r"\"" + get_git_info('git rev-parse --short HEAD') + r"\"")
 ])
