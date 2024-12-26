@@ -80,7 +80,7 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:aecdd48955dfb72b90880aafdec94e2db"><td class="memItemLeft" align="right" valign="top">static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structis__enum.html#aecdd48955dfb72b90880aafdec94e2db">value</a> = <a class="el" href="structis__convertible.html">is_convertible</a>&lt; T, int &gt;::value &amp;&amp; !<a class="el" href="structis__class.html">is_class</a>&lt; T &gt;::value &amp;&amp; !<a class="el" href="structis__integral.html">is_integral</a>&lt; T &gt;::value &amp;&amp; !<a class="el" href="structis__floating__point.html">is_floating_point</a>&lt; T &gt;::value</td></tr>
+<tr class="memitem:aecdd48955dfb72b90880aafdec94e2db"><td class="memItemLeft" align="right" valign="top">static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structis__enum.html#aecdd48955dfb72b90880aafdec94e2db">value</a></td></tr>
 <tr class="separator:aecdd48955dfb72b90880aafdec94e2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -100,7 +100,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const bool <a class="el" href="structis__enum.html">is_enum</a>&lt; T &gt;::value = <a class="el" href="structis__convertible.html">is_convertible</a>&lt; T, int &gt;::value &amp;&amp; !<a class="el" href="structis__class.html">is_class</a>&lt; T &gt;::value &amp;&amp; !<a class="el" href="structis__integral.html">is_integral</a>&lt; T &gt;::value &amp;&amp; !<a class="el" href="structis__floating__point.html">is_floating_point</a>&lt; T &gt;::value</td>
+          <td class="memname">const bool <a class="el" href="structis__enum.html">is_enum</a>&lt; T &gt;::value</td>
         </tr>
       </table>
   </td>
@@ -109,8 +109,15 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="is__enum_8hpp_source.html#l00016">16</a> of file <a class="el" href="is__enum_8hpp_source.html">is_enum.hpp</a>.</p>
+<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code hl_struct" href="structis__convertible.html">is_convertible&lt;T, long long&gt;::value</a> &amp;&amp;</div>
+<div class="line">                            !<a class="code hl_struct" href="structis__class.html">is_class&lt;T&gt;::value</a> &amp;&amp; !<a class="code hl_struct" href="structis__integral.html">is_integral&lt;T&gt;::value</a> &amp;&amp;</div>
+<div class="line">                            !<a class="code hl_struct" href="structis__floating__point.html">is_floating_point&lt;T&gt;::value</a></div>
+<div class="ttc" id="astructis__class_html"><div class="ttname"><a href="structis__class.html">is_class</a></div><div class="ttdef"><b>Definition:</b> <a href="is__class_8hpp_source.html#l00010">is_class.hpp:10</a></div></div>
+<div class="ttc" id="astructis__convertible_html"><div class="ttname"><a href="structis__convertible.html">is_convertible</a></div><div class="ttdef"><b>Definition:</b> <a href="is__convertible_8hpp_source.html#l00022">is_convertible.hpp:23</a></div></div>
+<div class="ttc" id="astructis__floating__point_html"><div class="ttname"><a href="structis__floating__point.html">is_floating_point</a></div><div class="ttdef"><b>Definition:</b> <a href="is__floating__point_8hpp_source.html#l00012">is_floating_point.hpp:15</a></div></div>
+<div class="ttc" id="astructis__integral_html"><div class="ttname"><a href="structis__integral.html">is_integral</a></div><div class="ttdef"><b>Definition:</b> <a href="is__integral_8hpp_source.html#l00013">is_integral.hpp:25</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="is__enum_8hpp_source.html#l00015">15</a> of file <a class="el" href="is__enum_8hpp_source.html">is_enum.hpp</a>.</p>
 
 </div>
 </div>

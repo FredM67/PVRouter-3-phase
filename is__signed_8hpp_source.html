@@ -77,7 +77,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="is__signed_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// ArduinoJson - https://arduinojson.org</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Copyright © 2014-2023, Benoit BLANCHON</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Copyright © 2014-2024, Benoit BLANCHON</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">// MIT License</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#pragma once</span></div>
@@ -89,19 +89,20 @@ $(function() {
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">// clang-format off</span></div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="structis__signed.html">   13</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structis__signed.html">is_signed</a> : <a class="code hl_struct" href="structintegral__constant.html">integral_constant</a>&lt;bool,</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    is_same&lt;typename remove_cv&lt;T&gt;::type, char&gt;::value ||</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    is_same&lt;typename remove_cv&lt;T&gt;::type, signed char&gt;::value ||</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    is_same&lt;typename remove_cv&lt;T&gt;::type, signed short&gt;::value ||</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    is_same&lt;typename remove_cv&lt;T&gt;::type, signed int&gt;::value ||</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    is_same&lt;typename remove_cv&lt;T&gt;::type, signed long&gt;::value ||</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    is_same&lt;typename remove_cv&lt;T&gt;::type, signed long long&gt;::value ||</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    is_same&lt;typename remove_cv&lt;T&gt;::type, float&gt;::value ||</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    is_same&lt;typename remove_cv&lt;T&gt;::type, double&gt;::value&gt; {};</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    is_same&lt;remove_cv_t&lt;T&gt;, char&gt;::value ||</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    is_same&lt;remove_cv_t&lt;T&gt;, signed char&gt;::value ||</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    is_same&lt;remove_cv_t&lt;T&gt;, signed short&gt;::value ||</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    is_same&lt;remove_cv_t&lt;T&gt;, signed int&gt;::value ||</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    is_same&lt;remove_cv_t&lt;T&gt;, signed long&gt;::value ||</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    is_same&lt;remove_cv_t&lt;T&gt;, signed long long&gt;::value ||</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    is_same&lt;remove_cv_t&lt;T&gt;, float&gt;::value ||</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    is_same&lt;remove_cv_t&lt;T&gt;, double&gt;::value&gt; {};</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// clang-format on</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="ttc" id="aintegral__constant_8hpp_html"><div class="ttname"><a href="integral__constant_8hpp.html">integral_constant.hpp</a></div></div>
 <div class="ttc" id="ais__same_8hpp_html"><div class="ttname"><a href="is__same_8hpp.html">is_same.hpp</a></div></div>
 <div class="ttc" id="aremove__cv_8hpp_html"><div class="ttname"><a href="remove__cv_8hpp.html">remove_cv.hpp</a></div></div>
-<div class="ttc" id="astructintegral__constant_html"><div class="ttname"><a href="structintegral__constant.html">integral_constant</a></div><div class="ttdef"><b>Definition:</b> <a href="integral__constant_8hpp_source.html#l00008">integral_constant.hpp:9</a></div></div>
+<div class="ttc" id="astructintegral__constant_html"><div class="ttname"><a href="structintegral__constant.html">integral_constant</a></div><div class="ttdef"><b>Definition:</b> <a href="integral__constant_8hpp_source.html#l00008">integral_constant.hpp:8</a></div></div>
 <div class="ttc" id="astructis__signed_html"><div class="ttname"><a href="structis__signed.html">is_signed</a></div><div class="ttdef"><b>Definition:</b> <a href="is__signed_8hpp_source.html#l00013">is_signed.hpp:21</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
