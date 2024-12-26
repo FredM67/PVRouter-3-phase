@@ -1,5 +1,5 @@
 // ArduinoJson - https://arduinojson.org
-// Copyright © 2014-2023, Benoit BLANCHON
+// Copyright © 2014-2024, Benoit BLANCHON
 // MIT License
 
 #pragma once
@@ -11,7 +11,8 @@
 #include "is_same.hpp"
 
 template< typename T >
-struct is_enum
-{
-  static const bool value = is_convertible< T, int >::value && !is_class< T >::value && !is_integral< T >::value && !is_floating_point< T >::value;
+struct is_enum {
+  static const bool value = is_convertible<T, long long>::value &&
+                            !is_class<T>::value && !is_integral<T>::value &&
+                            !is_floating_point<T>::value;
 };

@@ -1,5 +1,5 @@
 // ArduinoJson - https://arduinojson.org
-// Copyright © 2014-2023, Benoit BLANCHON
+// Copyright © 2014-2024, Benoit BLANCHON
 // MIT License
 
 #pragma once
@@ -25,7 +25,7 @@ protected:  // <- to avoid GCC's "all member functions in class are private"
   static int probe(To);
   static char probe(...);
 
-  static From& from_;
+  static const From& from_;
 
  public:
   static const bool value = sizeof(probe(from_)) == sizeof(int);
