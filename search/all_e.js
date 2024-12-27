@@ -1,7 +1,7 @@
 var searchData=
 [
   ['read_5fscratchpad_0',['READ_SCRATCHPAD',['../constants_8h.html#a4efcca8a8902b210fd176b46753964f1',1,'constants.h']]],
-  ['readtemperature_1',['readTemperature',['../classTemperatureSensing.html#a7fef01650aa12d8a4ff2b3ca26bd0803',1,'TemperatureSensing']]],
+  ['readtemperature_1',['readTemperature',['../classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe',1,'TemperatureSensing']]],
   ['relay_2',['relay',['../classRelayEngine.html#a4771d7ed435411f4fd06dc480c1b1508',1,'RelayEngine']]],
   ['relay_20diversion_20feature_3',['Relay diversion feature',['../group__RelayDiversion.html',1,'']]],
   ['relay_5fdiversion_4',['RELAY_DIVERSION',['../config_8h.html#a200f51c8bd47e8b14cdc6522f2223742',1,'config.h']]],
@@ -24,7 +24,7 @@ var searchData=
   ['remove_5freference_2ehpp_21',['remove_reference.hpp',['../remove__reference_8hpp.html',1,'']]],
   ['remove_5freference_3c_20t_20_26_20_3e_22',['remove_reference&lt; T &amp; &gt;',['../structremove__reference_3_01T_01_6_01_4.html',1,'']]],
   ['remove_5freference_5ft_23',['remove_reference_t',['../remove__reference_8hpp.html#a5993e4587ccd2777e95893329360358a',1,'remove_reference.hpp']]],
-  ['requesttemperatures_24',['requestTemperatures',['../classTemperatureSensing.html#ab40e9df6930615d4c700780b6174e14f',1,'TemperatureSensing']]],
+  ['requesttemperatures_24',['requestTemperatures',['../classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80',1,'TemperatureSensing']]],
   ['required_5fexport_5fin_5fwatts_25',['REQUIRED_EXPORT_IN_WATTS',['../config__system_8h.html#a0d838172b50bebc493c09edb7b7606d5',1,'config_system.h']]],
   ['return_5ftype_26',['return_type',['../structfunction__traits_3_01ReturnType_07_5_08_07Arg1_08_4.html#a4c2084ccfc7dd29bb786e0ba1919634a',1,'function_traits&lt; ReturnType(*)(Arg1)&gt;::return_type()'],['../structfunction__traits_3_01ReturnType_07_5_08_07Arg1_00_01Arg2_08_4.html#a778047bd9bc56ee7031acdabd836c3c5',1,'function_traits&lt; ReturnType(*)(Arg1, Arg2)&gt;::return_type()']]],
   ['rf_20feature_27',['RF feature',['../group__RF.html',1,'']]],
