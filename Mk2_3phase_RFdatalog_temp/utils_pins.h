@@ -173,7 +173,7 @@ inline void setPinsOFF(const uint16_t pins)
  */
 inline bool getPinState(const uint8_t pin)
 {
-  return (pin < 8) ? bitRead(PIND, pin) : bitRead(PINB, pin - 8);
+  return (pin < 8) ? bit_read(PIND, pin) : bit_read(PINB, pin - 8);
 }
 
 #endif  // UTILS_PINS_H

@@ -90,7 +90,7 @@ constexpr uint16_t check_pins()
     if (loadPin == 0xff)
       return 0;
 
-    if (bitRead(used_pins, loadPin))
+    if (bit_read(used_pins, loadPin))
       return 0;
 
     bit_set(used_pins, loadPin);
@@ -104,7 +104,7 @@ constexpr uint16_t check_pins()
 
       if (relayPin != 0xff)
       {
-        if (bitRead(used_pins, relayPin))
+        if (bit_read(used_pins, relayPin))
           return 0;
 
         bit_set(used_pins, relayPin);
