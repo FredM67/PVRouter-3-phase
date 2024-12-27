@@ -1,5 +1,11 @@
 <map id="bit_read" name="bit_read">
-<area shape="rect" id="node1" title="Read the specified bit." alt="" coords="213,31,288,56"/>
-<area shape="rect" id="node2" href="$validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="5,5,165,31"/>
-<area shape="rect" id="node3" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="38,55,133,80"/>
+<area shape="rect" id="node1" title="Read the specified bit." alt="" coords="784,55,859,80"/>
+<area shape="rect" id="node2" href="$validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="576,5,736,31"/>
+<area shape="rect" id="node3" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="609,55,703,80"/>
+<area shape="rect" id="node4" href="$utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="607,104,705,129"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Check the diversion state." alt="" coords="119,28,277,53"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="375,79,493,104"/>
+<area shape="rect" id="node8" href="$main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="104,129,292,169"/>
+<area shape="rect" id="node9" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="340,179,528,219"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,79,56,104"/>
 </map>
