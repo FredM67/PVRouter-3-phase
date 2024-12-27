@@ -28,7 +28,8 @@ inline constexpr uint8_t SUPPLY_FREQUENCY{ 50 }; /**< number of cycles/s of the 
 
 inline constexpr uint32_t WORKING_ZONE_IN_JOULES{ 3600UL }; /**< number of joule for 1Wh */
 
-inline constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{ 5 };                                                                                                                                                    /**< Period of datalogging in seconds */
+inline constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{ 5 }; /**< Period of datalogging in seconds */
+
 inline constexpr typename conditional< DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY >= UINT8_MAX, uint16_t, uint8_t >::type DATALOG_PERIOD_IN_MAINS_CYCLES{ DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY }; /**< Period of datalogging in cycles */
 
 // Computes inverse value at compile time to use '*' instead of '/'

@@ -12,6 +12,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+#include <Arduino.h>
+
 // Dallas DS18B20 commands
 inline constexpr uint8_t CONVERT_TEMPERATURE{ 0x44 };
 inline constexpr uint8_t READ_SCRATCHPAD{ 0xBE };
