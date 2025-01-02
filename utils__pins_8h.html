@@ -127,9 +127,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a23ed26b879b65f5ddf07facc1e4b18bc"><td class="memTemplItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a> (T &amp;_dest, const uint8_t bit)</td></tr>
 <tr class="memdesc:a23ed26b879b65f5ddf07facc1e4b18bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the specified bit to 1.  <br /></td></tr>
 <tr class="separator:a23ed26b879b65f5ddf07facc1e4b18bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad738c44fbe6076c3298fa7a65c697649"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649">getPinState</a> (const uint8_t pin)</td></tr>
-<tr class="memdesc:ad738c44fbe6076c3298fa7a65c697649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Pin State.  <br /></td></tr>
-<tr class="separator:ad738c44fbe6076c3298fa7a65c697649"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a410a7bdd300104398ce91797bd936cdb"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb">getPinState</a> (const uint8_t pin)</td></tr>
+<tr class="memdesc:a410a7bdd300104398ce91797bd936cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Pin State.  <br /></td></tr>
+<tr class="separator:a410a7bdd300104398ce91797bd936cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada7e18750d04838130ee63030dcf185d"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d">setPinOFF</a> (const uint8_t pin)</td></tr>
 <tr class="memdesc:ada7e18750d04838130ee63030dcf185d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Pin state to OFF for the specified pin.  <br /></td></tr>
 <tr class="separator:ada7e18750d04838130ee63030dcf185d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -293,7 +293,7 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="Read the specified bit." alt="" coords="784,55,859,80"/>
 <area shape="rect" href="validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="576,5,736,31"/>
 <area shape="rect" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="609,55,703,80"/>
-<area shape="rect" href="utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="607,104,705,129"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="607,104,705,129"/>
 <area shape="rect" href="main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Check the diversion state." alt="" coords="119,28,277,53"/>
 <area shape="rect" href="main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="375,79,493,104"/>
 <area shape="rect" href="main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="104,129,292,169"/>
@@ -381,8 +381,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ad738c44fbe6076c3298fa7a65c697649" name="ad738c44fbe6076c3298fa7a65c697649"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad738c44fbe6076c3298fa7a65c697649">&#9670;&#160;</a></span>getPinState()</h2>
+<a id="a410a7bdd300104398ce91797bd936cdb" name="a410a7bdd300104398ce91797bd936cdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a410a7bdd300104398ce91797bd936cdb">&#9670;&#160;</a></span>getPinState()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -391,7 +391,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool getPinState </td>
+          <td class="memname">constexpr bool getPinState </td>
           <td>(</td>
           <td class="paramtype">const uint8_t&#160;</td>
           <td class="paramname"><em>pin</em></td><td>)</td>
@@ -400,7 +400,7 @@ Here is the caller graph for this function:</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -420,8 +420,8 @@ false if LOW </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="utils__pins_8h_ad738c44fbe6076c3298fa7a65c697649_cgraph.png" border="0" usemap="#autils__pins_8h_ad738c44fbe6076c3298fa7a65c697649_cgraph" alt=""/></div>
-<map name="autils__pins_8h_ad738c44fbe6076c3298fa7a65c697649_cgraph" id="autils__pins_8h_ad738c44fbe6076c3298fa7a65c697649_cgraph">
+<div class="center"><img src="utils__pins_8h_a410a7bdd300104398ce91797bd936cdb_cgraph.png" border="0" usemap="#autils__pins_8h_a410a7bdd300104398ce91797bd936cdb_cgraph" alt=""/></div>
+<map name="autils__pins_8h_a410a7bdd300104398ce91797bd936cdb_cgraph" id="autils__pins_8h_a410a7bdd300104398ce91797bd936cdb_cgraph">
 <area shape="rect" title="Get the Pin State." alt="" coords="5,5,103,31"/>
 <area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="151,5,225,31"/>
 </map>
@@ -429,8 +429,8 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="utils__pins_8h_ad738c44fbe6076c3298fa7a65c697649_icgraph.png" border="0" usemap="#autils__pins_8h_ad738c44fbe6076c3298fa7a65c697649_icgraph" alt=""/></div>
-<map name="autils__pins_8h_ad738c44fbe6076c3298fa7a65c697649_icgraph" id="autils__pins_8h_ad738c44fbe6076c3298fa7a65c697649_icgraph">
+<div class="center"><img src="utils__pins_8h_a410a7bdd300104398ce91797bd936cdb_icgraph.png" border="0" usemap="#autils__pins_8h_a410a7bdd300104398ce91797bd936cdb_icgraph" alt=""/></div>
+<map name="autils__pins_8h_a410a7bdd300104398ce91797bd936cdb_icgraph" id="autils__pins_8h_a410a7bdd300104398ce91797bd936cdb_icgraph">
 <area shape="rect" title="Get the Pin State." alt="" coords="576,81,673,107"/>
 <area shape="rect" href="main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Check the diversion state." alt="" coords="119,5,277,31"/>
 <area shape="rect" href="main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="375,56,493,81"/>

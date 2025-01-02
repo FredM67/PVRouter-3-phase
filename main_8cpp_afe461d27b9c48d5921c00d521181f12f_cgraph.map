@@ -11,7 +11,7 @@
 <area shape="rect" id="node15" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="149,471,250,497"/>
 <area shape="rect" id="node21" href="$utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="158,521,241,546"/>
 <area shape="rect" id="node23" href="$classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287" title="Update the sliding average." alt="" coords="121,571,277,611"/>
-<area shape="rect" id="node3" href="$utils__pins_8h.html#ad738c44fbe6076c3298fa7a65c697649" title="Get the Pin State." alt="" coords="626,87,723,113"/>
+<area shape="rect" id="node3" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="626,87,723,113"/>
 <area shape="rect" id="node4" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="847,87,921,113"/>
 <area shape="rect" id="node10" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="343,163,531,203"/>
 <area shape="rect" id="node11" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="610,198,739,223"/>
