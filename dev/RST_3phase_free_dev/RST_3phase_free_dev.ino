@@ -44,7 +44,7 @@ constexpr uint8_t MAINS_CYCLES_PER_SECOND{ 50 };
 
 constexpr uint8_t NO_OF_PHASES{ 3 }; /**< number of phases of the main supply. */
 
-const byte outputForTrigger = 4;  // active high
+const byte outputForTrigger = 5;  // active high
 
 // analogue input pins
 byte sensorV[NO_OF_PHASES]{ 0, 2, 4 };
