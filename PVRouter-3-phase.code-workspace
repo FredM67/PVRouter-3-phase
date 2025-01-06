@@ -31,7 +31,8 @@
 	"settings": {
 		"files.associations": {
 			"xtr1common": "cpp",
-			"new": "cpp"
+			"new": "cpp",
+			"cstddef": "cpp"
 		}
 	}
 }
