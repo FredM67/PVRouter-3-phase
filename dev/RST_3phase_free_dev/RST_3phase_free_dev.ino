@@ -65,9 +65,9 @@ int32_t lpf_long = 512;  // new LPF, for offsetting the behaviour of CT1 as a HP
 // They are matched to the physical behaviour of the YHDC SCT-013-000 CT
 // and the CT1 samples being 3x104us apart (free-running mode)
 //
-constexpr float lpf_gain{ 16 };        // <- setting this to 0 disables this extra processing
+constexpr float lpf_gain{ 12 };  // <- setting this to 0 disables this extra processing
 // const float lpf_gain = 0;  // <- setting this to 0 disables this extra processing
-constexpr float alpha{ 0.001 };           //
+constexpr float alpha{ 0.002 };  //
 
 // for interaction between the main processor and the ISRs
 volatile bool newCycle{ false };
@@ -327,7 +327,7 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
         if (timeNow > recordingMayStartAt)
         {
           recordingNow = true;
-          cycleNumberBeingRecorded++;
+          ++cycleNumberBeingRecorded;
         }
         else
         {
@@ -341,6 +341,19 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
     if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1))
     {
       setPinON(outputForTrigger);  // triac will fire at the next ZC point
+      storedSample_V1[samplesRecorded] = 999;
+      storedSample_I1[samplesRecorded] = 999;
+      storedSample_I1_from_ADC[samplesRecorded] = 999;
+      ++samplesRecorded;
+    }
+    // check to see whether the trigger device can now be reliably disarmed
+    if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 2))
+    {
+      setPinOFF(outputForTrigger);  // triac will release at the next ZC point
+      storedSample_V1[samplesRecorded] = 0;
+      storedSample_I1[samplesRecorded] = 0;
+      storedSample_I1_from_ADC[samplesRecorded] = 0;
+      ++samplesRecorded;
     }
   }     // end of specific processing of +ve cycles
   else  // the polarity of this sample is negative
@@ -361,13 +374,12 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
       {
         DCoffset_V_long = DCoffset_V_max;
       }
-
     }  // end of processing that is specific to the first Vsample in each -ve half cycle
-    // still processing samples where the voltage is NEGATIVE ...
-    // check to see whether the trigger device can now be reliably armed
+       // still processing samples where the voltage is NEGATIVE ...
+    // check to see whether the trigger device can now be reliably disarmed
     if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1))
     {
-      setPinOFF(outputForTrigger);  // triac will release at the next ZC point
+      //setPinOFF(outputForTrigger);  // triac will release at the next ZC point
     }
   }  // end of processing that is specific to samples where the voltage is negative
   //
@@ -383,13 +395,13 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
     storedSample_I1_from_ADC[samplesRecorded] = sample_I1;
   }
 
-  int32_t sampleI1minusDC_long = ((int32_t)(sample_I1 - DCoffsetI_nominal)) << 12;
+  int32_t sampleI1minusDC_long = ((int32_t)(sample_I1 - DCoffsetI_nominal)) << 10;
 
   const int32_t last_lpf_long = lpf_long;
   lpf_long = last_lpf_long + alpha * (sampleI1minusDC_long - last_lpf_long);
   sampleI1minusDC_long += (lpf_gain * lpf_long);
 
-  sample_I1 = (sampleI1minusDC_long >> 12) + DCoffsetI_nominal;
+  sample_I1 = (sampleI1minusDC_long >> 10) + DCoffsetI_nominal;
   //
   if (recordingNow)
   {
@@ -446,6 +458,17 @@ void dispatch_recorded_data()
     I1 = storedSample_I1[index];
     I1_from_ADC = storedSample_I1_from_ADC[index];
 
+    if (V == 999)
+    {
+      Serial.println("Trigger ON");
+      continue;
+    }
+    else if (V == 0)
+    {
+      Serial.println("Trigger OFF");
+      continue;
+    }
+
     if (V < min_V)
     {
       min_V = V;
@@ -472,7 +495,7 @@ void dispatch_recorded_data()
       max_I1_from_ADC = I1_from_ADC;
     }
 
-    newLine[map(V, 0, 1023, 0, 80)] = 'v';
+    newLine[map(V, 0, 1023, 0, 80)] = 'V';
 
     int halfRange = 200;
     int lowerLimit = 512 - halfRange;
@@ -482,7 +505,7 @@ void dispatch_recorded_data()
       newLine[map(I1, lowerLimit, upperLimit, 0, 80)] = '1';  // <-- raw sample scale
     }
 
-    if ((index % 2) == 0)  // change this to "% 1" for full resolution
+    if ((index % 1) == 0)  // change this to "% 1" for full resolution
     {
       Serial.println(newLine);
     }
