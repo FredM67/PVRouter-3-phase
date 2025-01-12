@@ -150,10 +150,13 @@ bool forceFullPower()
     previousState = pinState;
 #endif
 
-    for (auto &bOverrideLoad : b_overrideLoadOn)
-    {
-      bOverrideLoad = !pinState;
-    }
+    // for (auto &bOverrideLoad : b_overrideLoadOn)
+    // {
+    //   bOverrideLoad = !pinState;
+    // }
+
+    // Override only load #1
+    b_overrideLoadOn[0] = !pinState;
 
     return !pinState;
   }
