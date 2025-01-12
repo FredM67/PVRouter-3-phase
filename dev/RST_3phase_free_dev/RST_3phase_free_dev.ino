@@ -341,9 +341,9 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
     if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1))
     {
       setPinON(outputForTrigger);  // triac will fire at the next ZC point
-      storedSample_V1[samplesRecorded] = 999;
-      storedSample_I1[samplesRecorded] = 999;
-      storedSample_I1_from_ADC[samplesRecorded] = 999;
+      storedSample_V1[samplesRecorded] = 99999;
+      storedSample_I1[samplesRecorded] = 99999;
+      storedSample_I1_from_ADC[samplesRecorded] = 99999;
       ++samplesRecorded;
     }
     // check to see whether the trigger device can now be reliably disarmed
