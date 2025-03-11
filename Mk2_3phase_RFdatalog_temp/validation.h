@@ -42,6 +42,10 @@ static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && DIVERSION_PIN_PRESEN
 
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
 
+static_assert(NO_OF_DUMPLOADS > 0, "Number of dump loads must be greater than 0");
+static_assert(iTemperatureThreshold > 0, "Temperature threshold must be greater than 0");
+static_assert(iTemperatureThreshold <= 100, "Temperature threshold must be lower than 100");
+
 constexpr uint16_t check_pins()
 {
   uint16_t used_pins{ 0 };
