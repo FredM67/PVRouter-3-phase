@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <unity.h>
 
-#include <FastDivision.h>  // Include the header file for the functions to test
+#include "FastDivision.h"  // Include the header file for the functions to test
 
 void setUp(void)
 {

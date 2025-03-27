@@ -12,7 +12,7 @@
 #ifndef _UTILS_H
 #define _UTILS_H
 
-#include <FastDivision.h>
+#include "FastDivision.h"
 
 #include "calibration.h"
 #include "constants.h"
