@@ -316,9 +316,35 @@ inline void printForSerialText()
   Serial.println(F(")"));
 }
 
+/**
+ * @brief Sends telemetry data using the TeleInfo class.
+ *
+ * This function collects various telemetry data (e.g., power, voltage, temperature, etc.)
+ * and sends it in a structured format using the `TeleInfo` class. The data is sent as a
+ * telemetry frame, which starts with a frame initialization, includes multiple data points,
+ * and ends with a frame finalization.
+ *
+ * The function supports conditional features such as relay diversion, temperature sensing,
+ * and different supply frequencies (50 Hz or 60 Hz).
+ *
+ * @details
+ * - **Power Data**: Sends the total power grid data.
+ * - **Relay Data**: If relay diversion is enabled (`RELAY_DIVERSION`), sends the average relay data.
+ * - **Voltage Data**: Sends the voltage data for each phase.
+ * - **Temperature Data**: If temperature sensing is enabled (`TEMP_SENSOR_PRESENT`), sends valid temperature readings.
+ * - **Absence of Diverted Energy Count**:
+ *   - For 50 Hz: Uses `divu5` and `divu10` to calculate the value.
+ *   - For 60 Hz: Uses `divu60` to calculate the value.
+ *   - A `static_assert` ensures that the supply frequency is either 50 or 60 Hz.
+ *
+ * @note The function uses compile-time constants (`constexpr`) to include or exclude specific features.
+ *       Invalid temperature readings (e.g., `OUTOFRANGE_TEMPERATURE` or `DEVICE_DISCONNECTED_RAW`) are skipped.
+ *
+ * @throws static_assert If `SUPPLY_FREQUENCY` is not 50 or 60 Hz.
+ */
 void sendTelemetryData()
 {
-  TeleInfo teleInfo;
+  static TeleInfo teleInfo;
 
   teleInfo.startFrame();  // Start a new telemetry frame
 
@@ -351,11 +377,11 @@ void sendTelemetryData()
 
   if constexpr (SUPPLY_FREQUENCY == 50)
   {
-    teleInfo.send("NoED", static_cast< int16_t >(divu50(absenceOfDivertedEnergyCount)));  // Send absence of diverted energy count for 50Hz
+    teleInfo.send("N", static_cast< int16_t >(divu5(divu10(absenceOfDivertedEnergyCount))));  // Send absence of diverted energy count for 50Hz
   }
   else if constexpr (SUPPLY_FREQUENCY == 60)
   {
-    teleInfo.send("NoED", static_cast< int16_t >(divu60(absenceOfDivertedEnergyCount)));  // Send absence of diverted energy count for 60Hz
+    teleInfo.send("N", static_cast< int16_t >(divu60(absenceOfDivertedEnergyCount)));  // Send absence of diverted energy count for 60Hz
   }
   else
   {

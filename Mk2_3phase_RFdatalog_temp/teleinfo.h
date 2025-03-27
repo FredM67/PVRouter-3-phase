@@ -38,12 +38,17 @@ inline static constexpr size_t lineSize(size_t tagLen, size_t valueLen)
  *
  * The buffer size is calculated as follows:
  * - 1 byte for the start-of-text (STX) character.
- * - 1 line for the "P" tag (signed 5 digits).
- * - 1 line for the "R" tag (signed 5 digits) if `RELAY_DIVERSION` is enabled.
- * - Multiple lines for temperature tags ("T1" to "Tn", 4 digits each) if `TEMP_SENSOR_PRESENT` is enabled.
- * - 1 line for the "D" tag (unsigned 4 digits).
- * - 1 line for the "E" tag (unsigned 5 digits).
- * - 1 line for the "V1" tag (unsigned 5 digits).
+ * - 1 line for the "P" tag (signed 6 digits).
+ * - For multi-phase systems (`NO_OF_PHASES > 1`):
+ *   - `NO_OF_PHASES` lines for the "R" tag (signed 6 digits each).
+ *   - `NO_OF_PHASES` lines for the "V1" tag (unsigned 5 digits each).
+ * - For single-phase systems:
+ *   - 1 line for the "D" tag (unsigned 4 digits).
+ *   - 1 line for the "E" tag (unsigned 5 digits).
+ * - If relay diversion is enabled (`RELAY_DIVERSION`):
+ *   - 1 line for the "R" tag (signed 6 digits).
+ * - If temperature sensors are present (`TEMP_SENSOR_PRESENT`):
+ *   - `temperatureSensing.get_size()` lines for temperature tags ("T1" to "Tn", 4 digits each).
  * - 1 line for the "N" tag (unsigned 5 digits).
  * - 1 byte for the end-of-text (ETX) character.
  */
@@ -51,11 +56,22 @@ inline static constexpr size_t calcBufferSize()
 {
   size_t size = 1;  // STX
 
-  size += lineSize(1, 6);  // P (signed 5 digits)
+  size += lineSize(1, 6);  // P (signed 6 digits)
+
+  if constexpr (NO_OF_PHASES > 1)
+  {
+    size += NO_OF_PHASES * lineSize(2, 6);  // R (signed 6 digits)
+    size += NO_OF_PHASES * lineSize(2, 5);  // V1 (unsigned 5 digits)
+  }
+  else
+  {
+    size += lineSize(1, 4);  // D (unsigned 4 digits)
+    size += lineSize(1, 5);  // E (unsigned 5 digits)
+  }
 
   if constexpr (RELAY_DIVERSION)
   {
-    size += lineSize(1, 6);  // R (signed 5 digits)
+    size += lineSize(1, 6);  // R (signed 6 digits)
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
@@ -63,9 +79,6 @@ inline static constexpr size_t calcBufferSize()
     size += temperatureSensing.get_size() * lineSize(2, 4);  // T1-Tn (4 digits)
   }
 
-  size += lineSize(1, 4);  // D (unsigned 4 digits)
-  size += lineSize(1, 5);  // E (unsigned 5 digits)
-  size += lineSize(2, 5);  // V1 (unsigned 5 digits)
   size += lineSize(1, 5);  // N (unsigned 5 digits)
 
   size += 1;  // ETX

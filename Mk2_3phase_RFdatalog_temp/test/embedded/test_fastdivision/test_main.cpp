@@ -70,47 +70,38 @@ void test_divu10(void)
 void test_divu15(void)
 {
   // Basic cases
-  TEST_ASSERT_EQUAL(1, divu15(15));   // 15 / 15 = 1
-  TEST_ASSERT_EQUAL(2, divu15(30));   // 30 / 15 = 2
-  TEST_ASSERT_EQUAL(0, divu15(0));    // 0 / 15 = 0
-  TEST_ASSERT_EQUAL(6, divu15(90));   // 90 / 15 = 6
-  TEST_ASSERT_EQUAL(10, divu15(150)); // 150 / 15 = 10
+  TEST_ASSERT_EQUAL(1, divu15(15));    // 15 / 15 = 1
+  TEST_ASSERT_EQUAL(2, divu15(30));    // 30 / 15 = 2
+  TEST_ASSERT_EQUAL(0, divu15(0));     // 0 / 15 = 0
+  TEST_ASSERT_EQUAL(6, divu15(90));    // 90 / 15 = 6
+  TEST_ASSERT_EQUAL(10, divu15(150));  // 150 / 15 = 10
 
   // Edge cases
-  TEST_ASSERT_EQUAL(0, divu15(1));    // 1 / 15 = 0
-  TEST_ASSERT_EQUAL(0, divu15(14));   // 14 / 15 = 0
-  TEST_ASSERT_EQUAL(1, divu15(16));   // 16 / 15 = 1
-  TEST_ASSERT_EQUAL(1, divu15(29));   // 29 / 15 = 1
-  TEST_ASSERT_EQUAL(2, divu15(31));   // 31 / 15 = 2
+  TEST_ASSERT_EQUAL(0, divu15(1));   // 1 / 15 = 0
+  TEST_ASSERT_EQUAL(0, divu15(14));  // 14 / 15 = 0
+  TEST_ASSERT_EQUAL(1, divu15(16));  // 16 / 15 = 1
+  TEST_ASSERT_EQUAL(1, divu15(29));  // 29 / 15 = 1
+  TEST_ASSERT_EQUAL(2, divu15(31));  // 31 / 15 = 2
 
   // Large values
-  TEST_ASSERT_EQUAL(66, divu15(1000));    // 1000 / 15 = 66
-  TEST_ASSERT_EQUAL(4369, divu15(65535)); // 65535 / 15 = 4369 (max 16-bit unsigned value)
+  TEST_ASSERT_EQUAL(66, divu15(1000));     // 1000 / 15 = 66
+  TEST_ASSERT_EQUAL(4369, divu15(65535));  // 65535 / 15 = 4369 (max 16-bit unsigned value)
 
   // Random values
-  TEST_ASSERT_EQUAL(16, divu15(240));    // 240 / 15 = 16
-  TEST_ASSERT_EQUAL(82, divu15(1234));   // 1234 / 15 = 82
-  TEST_ASSERT_EQUAL(28, divu15(425));    // 425 / 15 = 28
-}
-
-// Test for divu50
-void test_divu50(void)
-{
-  TEST_ASSERT_EQUAL(1, divu50(50));   // 50 / 50 = 1
-  TEST_ASSERT_EQUAL(2, divu50(100));  // 100 / 50 = 2
-  TEST_ASSERT_EQUAL(0, divu50(0));    // 0 / 50 = 0
-  TEST_ASSERT_EQUAL(4, divu50(249));  // 249 / 50 = 4
+  TEST_ASSERT_EQUAL(16, divu15(240));   // 240 / 15 = 16
+  TEST_ASSERT_EQUAL(82, divu15(1234));  // 1234 / 15 = 82
+  TEST_ASSERT_EQUAL(28, divu15(425));   // 425 / 15 = 28
 }
 
 // Test for divu60
 void test_divu60(void)
 {
   // Basic cases
-  TEST_ASSERT_EQUAL(1, divu60(60));   // 60 / 60 = 1
-  TEST_ASSERT_EQUAL(2, divu60(120));  // 120 / 60 = 2
-  TEST_ASSERT_EQUAL(0, divu60(0));    // 0 / 60 = 0
-  TEST_ASSERT_EQUAL(5, divu60(300));  // 300 / 60 = 5
-  TEST_ASSERT_EQUAL(10, divu60(600)); // 600 / 60 = 10
+  TEST_ASSERT_EQUAL(1, divu60(60));    // 60 / 60 = 1
+  TEST_ASSERT_EQUAL(2, divu60(120));   // 120 / 60 = 2
+  TEST_ASSERT_EQUAL(0, divu60(0));     // 0 / 60 = 0
+  TEST_ASSERT_EQUAL(5, divu60(300));   // 300 / 60 = 5
+  TEST_ASSERT_EQUAL(10, divu60(600));  // 600 / 60 = 10
 
   // Edge cases
   TEST_ASSERT_EQUAL(0, divu60(1));    // 1 / 60 = 0
@@ -120,8 +111,8 @@ void test_divu60(void)
   TEST_ASSERT_EQUAL(2, divu60(121));  // 121 / 60 = 2
 
   // Large values
-  TEST_ASSERT_EQUAL(16, divu60(1000));    // 1000 / 60 = 16
-  TEST_ASSERT_EQUAL(1092, divu60(65535)); // 65535 / 60 = 1092 (max 16-bit unsigned value)
+  TEST_ASSERT_EQUAL(16, divu60(1000));     // 1000 / 60 = 16
+  TEST_ASSERT_EQUAL(1092, divu60(65535));  // 65535 / 60 = 1092 (max 16-bit unsigned value)
 
   // Random values
   TEST_ASSERT_EQUAL(4, divu60(240));    // 240 / 60 = 4
@@ -148,8 +139,6 @@ void loop()
     delay(100);
     RUN_TEST(test_divu15);
     delay(100);
-    // RUN_TEST(test_divu50);
-    // delay(100);
     RUN_TEST(test_divu60);
     delay(100);
     ++i;
