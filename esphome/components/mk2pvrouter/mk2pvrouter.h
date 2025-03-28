@@ -18,7 +18,7 @@ static const uint16_t MAX_BUF_SIZE = 2048;
 class Mk2PVRouterListener {
  public:
   std::string tag;
-  virtual void publish_val(const std::string &val){};
+  virtual void publish_val(const std::string &val) {};
 };
 class Mk2PVRouter : public PollingComponent, public uart::UARTDevice {
  public:
