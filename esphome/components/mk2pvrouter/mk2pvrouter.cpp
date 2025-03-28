@@ -114,31 +114,14 @@ void Mk2PVRouter::loop()
       /* Each frame is composed of multiple groups starting by 0xa(Line Feed) and ending by
        * 0xd ('\r').
        *
-       * Historical mode: each group contains tag, data and a CRC separated by 0x20 (Space)
-       * 0xa | Tag | 0x20 | Data | 0x20 | CRC | 0xd
-       *     ^^^^^^^^^^^^^^^^^^^^
-       * Checksum is computed on the above in historical mode.
-       *
-       * Standard mode: each group contains tag, data and a CRC separated by 0x9 (\t)
+       * Each group contains tag, data and a CRC separated by 0x9 (\t)
        * 0xa | Tag | 0x9 | Data | 0x9 | CRC | 0xd
        *     ^^^^^^^^^^^^^^^^^^^^^^^^^
        * Checksum is computed on the above in standard mode.
        *
-       * Note that some Tags may have a timestamp in Standard mode. In this case
-       * the group would looks like this:
-       * 0xa | Tag | 0x9 | Timestamp | 0x9 | Data | 0x9 | CRC | 0xd
-       *
-       * The DATE tag is a special case. The group looks like this
-       * 0xa | Tag | 0x9 | Timestamp | 0x9 | 0x9 | CRC | 0xd
-       *
        */
       while ((buf_finger = static_cast< char * >(memchr(buf_finger, (int)0xa, buf_index_ - 1))) && ((buf_finger - buf_) < buf_index_))
       {  // NOLINT(clang-diagnostic-sign-compare)
-        /*
-         * Make sure timesamp is nullified between each tag as some tags don't
-         * have a timestamp
-         */
-        timestamp_[0] = '\0';
         /* Point to the first char of the group after 0xa */
         buf_finger += 1;
 
@@ -163,24 +146,6 @@ void Mk2PVRouter::loop()
 
         /* Advance buf_finger to after the tag and the separator. */
         buf_finger += field_len + 1;
-
-        /*
-         * If there is two separators and the tag is not equal to "DATE" or
-         * historical mode is not in use (separator_ != 0x20), it means there is a
-         * timestamp to read first.
-         */
-        if (std::count(buf_finger, grp_end, separator_) == 2 && strcmp(tag_, "DATE") != 0 && separator_ != 0x20)
-        {
-          field_len = get_field(timestamp_, buf_finger, grp_end, separator_, MAX_TIMESTAMP_SIZE);
-          if (!field_len || field_len >= MAX_TIMESTAMP_SIZE)
-          {
-            ESP_LOGE(TAG, "Invalid timestamp for tag %s", timestamp_);
-            continue;
-          }
-
-          /* Advance buf_finger to after the first data and the separator. */
-          buf_finger += field_len + 1;
-        }
 
         field_len = get_field(val_, buf_finger, grp_end, separator_, MAX_VAL_SIZE);
         if (!field_len || field_len >= MAX_VAL_SIZE)
