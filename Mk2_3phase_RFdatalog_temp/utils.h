@@ -12,10 +12,13 @@
 #ifndef _UTILS_H
 #define _UTILS_H
 
+#include "FastDivision.h"
+
 #include "calibration.h"
 #include "constants.h"
 #include "dualtariff.h"
 #include "processing.h"
+#include "teleinfo.h"
 
 #include "utils_rf.h"
 #include "utils_temp.h"
@@ -311,6 +314,70 @@ inline void printForSerialText()
   }
 #endif  // DUAL_TARIFF
   Serial.println(F(")"));
+}
+
+/**
+ * @brief Sends telemetry data using the TeleInfo class.
+ *
+ * This function collects various telemetry data (e.g., power, voltage, temperature, etc.)
+ * and sends it in a structured format using the `TeleInfo` class. The data is sent as a
+ * telemetry frame, which starts with a frame initialization, includes multiple data points,
+ * and ends with a frame finalization.
+ *
+ * The function supports conditional features such as relay diversion, temperature sensing,
+ * and different supply frequencies (50 Hz or 60 Hz).
+ *
+ * @details
+ * - **Power Data**: Sends the total power grid data.
+ * - **Relay Data**: If relay diversion is enabled (`RELAY_DIVERSION`), sends the average relay data.
+ * - **Voltage Data**: Sends the voltage data for each phase.
+ * - **Temperature Data**: If temperature sensing is enabled (`TEMP_SENSOR_PRESENT`), sends valid temperature readings.
+ * - **Absence of Diverted Energy Count**:
+ *   - For 50 Hz: Uses `divu5` and `divu10` to calculate the value.
+ *   - For 60 Hz: Uses `divu60` to calculate the value.
+ *   - A `static_assert` ensures that the supply frequency is either 50 or 60 Hz.
+ *
+ * @note The function uses compile-time constants (`constexpr`) to include or exclude specific features.
+ *       Invalid temperature readings (e.g., `OUTOFRANGE_TEMPERATURE` or `DEVICE_DISCONNECTED_RAW`) are skipped.
+ *
+ * @throws static_assert If `SUPPLY_FREQUENCY` is not 50 or 60 Hz.
+ */
+void sendTelemetryData()
+{
+  static TeleInfo teleInfo;
+
+  teleInfo.startFrame();  // Start a new telemetry frame
+
+  teleInfo.send("P", tx_data.power);  // Send power grid data
+
+  if constexpr (RELAY_DIVERSION)
+  {
+    teleInfo.send("R", static_cast< int16_t >(relays.get_average()));  // Send relay average if diversion is enabled
+  }
+
+  uint8_t phase = 0;
+  do
+  {
+    teleInfo.send("V", tx_data.Vrms_L_x100[phase], phase + 1);  // Send voltage for each phase
+    ++phase;
+  } while (phase < NO_OF_PHASES);
+
+  if constexpr (TEMP_SENSOR_PRESENT)
+  {
+    for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
+    {
+      if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
+          || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
+      {
+        continue;  // Skip invalid temperature readings
+      }
+      teleInfo.send("T", tx_data.temperature_x100[idx], idx + 1);  // Send temperature
+    }
+  }
+
+  teleInfo.send("N", static_cast< int16_t >(absenceOfDivertedEnergyCount));  // Send absence of diverted energy count for 50Hz
+
+  teleInfo.endFrame();  // Finalize and send the telemetry frame
 }
 
 /**

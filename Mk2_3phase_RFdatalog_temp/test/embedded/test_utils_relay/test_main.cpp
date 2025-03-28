@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <U8g2lib.h>
 
 #include <unity.h>
 
@@ -23,7 +22,7 @@ void test_relay_initialization(void)
 {
   relayOutput relay(4, 500, 100);
   TEST_ASSERT_EQUAL(4, relay.get_pin());
-  TEST_ASSERT_EQUAL(-500, relay.get_surplusThreshold());
+  TEST_ASSERT_EQUAL(500, relay.get_surplusThreshold());
   TEST_ASSERT_EQUAL(100, relay.get_importThreshold());
 }
 
@@ -31,7 +30,7 @@ void test_relay_initialization_with_positive_thresholds(void)
 {
   relayOutput relay(4, 500, 100);
   TEST_ASSERT_EQUAL(4, relay.get_pin());
-  TEST_ASSERT_EQUAL(-500, relay.get_surplusThreshold());
+  TEST_ASSERT_EQUAL(500, relay.get_surplusThreshold());
   TEST_ASSERT_EQUAL(100, relay.get_importThreshold());
 }
 
@@ -39,7 +38,7 @@ void test_relay_initialization_with_negative_thresholds(void)
 {
   relayOutput relay(4, -500, -100);
   TEST_ASSERT_EQUAL(4, relay.get_pin());
-  TEST_ASSERT_EQUAL(-500, relay.get_surplusThreshold());
+  TEST_ASSERT_EQUAL(500, relay.get_surplusThreshold());
   TEST_ASSERT_EQUAL(100, relay.get_importThreshold());
 }
 

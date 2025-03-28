@@ -290,7 +290,7 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
   }
   else if constexpr (PRIORITY_ROTATION == RotationModes::AUTO)
   {
-    if (ROTATION_AFTER_CYCLES < absenceOfDivertedEnergyCount)
+    if (ROTATION_AFTER_SECONDS < absenceOfDivertedEnergyCount)
     {
       proceedRotation();
 
@@ -364,6 +364,11 @@ void loop()
     if (perSecondTimer >= SUPPLY_FREQUENCY)
     {
       perSecondTimer = 0;
+
+      if (EDD_isIdle)
+      {
+        ++absenceOfDivertedEnergyCount;
+      }
 
       if constexpr (WATCHDOG_PIN_PRESENT)
       {

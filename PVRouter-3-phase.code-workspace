@@ -32,7 +32,23 @@
 		"files.associations": {
 			"xtr1common": "cpp",
 			"new": "cpp",
-			"cstddef": "cpp"
+			"cstddef": "cpp",
+			"compare": "cpp",
+			"concepts": "cpp",
+			"cstdint": "cpp",
+			"cstdio": "cpp",
+			"cstdlib": "cpp",
+			"cstring": "cpp",
+			"cwchar": "cpp",
+			"exception": "cpp",
+			"initializer_list": "cpp",
+			"limits": "cpp",
+			"tuple": "cpp",
+			"type_traits": "cpp",
+			"utility": "cpp",
+			"vector": "cpp",
+			"xmemory": "cpp",
+			"xutility": "cpp"
 		}
 	}
 }
