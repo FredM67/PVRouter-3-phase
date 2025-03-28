@@ -1,14 +1,14 @@
 var searchData=
 [
-  ['i_0',['i',['../test__utils__pins_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d',1,'test_main.cpp']]],
+  ['i_0',['i',['../test__fastdivision_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d',1,'i():&#160;test_main.cpp'],['../test__utils__pins_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d',1,'i():&#160;test_main.cpp']]],
   ['i_5fdcoffset_5fi_5fnom_1',['i_DCoffset_I_nom',['../processing_8cpp.html#a14cff0127f52c57f50fe52f2ed2ab093',1,'processing.cpp']]],
   ['i_5fsamplesetsduringthisdatalogperiod_2',['i_sampleSetsDuringThisDatalogPeriod',['../processing_8cpp.html#ab652ee1e3280fde59df6719af6e884d0',1,'processing.cpp']]],
   ['importthreshold_3',['importThreshold',['../classrelayOutput.html#a4ef45ace133c038e9e6fca3c9ed20d05',1,'relayOutput']]],
   ['inc_5fduration_4',['inc_duration',['../classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc',1,'RelayEngine::inc_duration()'],['../classrelayOutput.html#ad34639fdac60c7ef36bbb763f97ab9f1',1,'relayOutput::inc_duration()']]],
   ['initialdelay_5',['initialDelay',['../processing_8h.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'processing.h']]],
-  ['initializeoptionalpins_6',['initializeOptionalPins',['../processing_8h.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp'],['../processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp']]],
+  ['initializeoptionalpins_6',['initializeOptionalPins',['../processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp'],['../processing_8h.html#a65d7d37eebe737ce9985aafedb2cb061',1,'initializeOptionalPins():&#160;processing.cpp']]],
   ['initializepins_7',['initializePins',['../classRelayEngine.html#aeaaf86d2721af907f0fc38ba5b833339',1,'RelayEngine']]],
-  ['initializeprocessing_8',['initializeProcessing',['../processing_8h.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp'],['../processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp']]],
+  ['initializeprocessing_8',['initializeProcessing',['../processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp'],['../processing_8h.html#adeeaa08a0a50d8535fdf2c8a92d4aebc',1,'initializeProcessing():&#160;processing.cpp']]],
   ['inittemperaturesensors_9',['initTemperatureSensors',['../classTemperatureSensing.html#a61b759a6c7b9cfddcdfa075f27988fde',1,'TemperatureSensing']]],
   ['initthreshold_10',['initThreshold',['../processing_8cpp.html#a5c26bb614416d9b5288ef3e5e00bf5b2',1,'processing.cpp']]],
   ['integral_5fconstant_11',['integral_constant',['../structintegral__constant.html',1,'']]],

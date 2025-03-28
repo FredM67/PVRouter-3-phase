@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['i_0',['i',['../test__utils__pins_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d',1,'test_main.cpp']]],
+  ['i_0',['i',['../test__fastdivision_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d',1,'i():&#160;test_main.cpp'],['../test__utils__pins_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d',1,'i():&#160;test_main.cpp']]],
   ['i_5fdcoffset_5fi_5fnom_1',['i_DCoffset_I_nom',['../processing_8cpp.html#a14cff0127f52c57f50fe52f2ed2ab093',1,'processing.cpp']]],
   ['i_5fsamplesetsduringthisdatalogperiod_2',['i_sampleSetsDuringThisDatalogPeriod',['../processing_8cpp.html#ab652ee1e3280fde59df6719af6e884d0',1,'processing.cpp']]],
   ['importthreshold_3',['importThreshold',['../classrelayOutput.html#a4ef45ace133c038e9e6fca3c9ed20d05',1,'relayOutput']]],

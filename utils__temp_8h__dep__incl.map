@@ -1,11 +1,12 @@
 <map id="Mk2_3phase_RFdatalog_temp/utils_temp.h" name="Mk2_3phase_RFdatalog_temp/utils_temp.h">
-<area shape="rect" id="node1" title="Some utility functions for temperature sensor(s)" alt="" coords="67,5,244,45"/>
-<area shape="rect" id="node2" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="331,93,508,133"/>
-<area shape="rect" id="node6" href="$utils_8h.html" title="Some utility functions." alt="" coords="104,269,282,309"/>
-<area shape="rect" id="node3" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="432,181,610,221"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="Main code." alt="" coords="432,357,610,397"/>
-<area shape="rect" id="node7" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="231,181,408,221"/>
-<area shape="rect" id="node8" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="30,181,207,221"/>
-<area shape="rect" id="node9" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="559,269,736,309"/>
-<area shape="rect" id="node5" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="306,269,483,309"/>
+<area shape="rect" id="node1" title="Some utility functions for temperature sensor(s)" alt="" coords="171,5,348,45"/>
+<area shape="rect" id="node2" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="436,93,614,133"/>
+<area shape="rect" id="node6" href="$utils_8h.html" title="Some utility functions." alt="" coords="272,269,450,309"/>
+<area shape="rect" id="node3" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="235,181,412,221"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="Main code." alt="" coords="600,357,778,397"/>
+<area shape="rect" id="node7" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="436,181,614,221"/>
+<area shape="rect" id="node8" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="638,181,815,221"/>
+<area shape="rect" id="node9" href="$teleinfo_8h.html" title=" " alt="" coords="34,181,211,221"/>
+<area shape="rect" id="node10" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="727,269,904,309"/>
+<area shape="rect" id="node5" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="474,269,651,309"/>
 </map>

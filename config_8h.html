@@ -138,13 +138,14 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="config_8h__dep__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2config_8hdep" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2config_8hdep" id="aMk2__3phase__RFdatalog__temp_2config_8hdep">
-<area shape="rect" title="Configuration values to be set by the end&#45;user." alt="" coords="408,5,585,45"/>
-<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="5,93,183,133"/>
-<area shape="rect" href="main_8cpp.html" title="Main code." alt="" coords="408,269,585,309"/>
-<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="207,93,384,133"/>
-<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="408,93,585,133"/>
-<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="535,181,712,221"/>
-<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="80,181,257,221"/>
+<area shape="rect" title="Configuration values to be set by the end&#45;user." alt="" coords="508,5,685,45"/>
+<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="207,93,384,133"/>
+<area shape="rect" href="main_8cpp.html" title="Main code." alt="" coords="609,269,787,309"/>
+<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="408,93,585,133"/>
+<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="609,93,787,133"/>
+<area shape="rect" href="teleinfo_8h.html" title=" " alt="" coords="5,93,183,133"/>
+<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="736,181,913,221"/>
+<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="483,181,660,221"/>
 <area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="281,181,459,221"/>
 </map>
 </div>
@@ -196,8 +197,8 @@ Variables</h2></td></tr>
 <tr class="separator:a4c7a62222eb839f193a1ea1b83b0acc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a281368464ae362f565124959a02d2888"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpairForceLoad.html">pairForceLoad</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a281368464ae362f565124959a02d2888">rg_ForceLoad</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { { -3, 2 } }</td></tr>
 <tr class="separator:a281368464ae362f565124959a02d2888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f05a671d6f0503882cc818f2a55493e"><td class="memItemLeft" align="right" valign="top">constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a5f05a671d6f0503882cc818f2a55493e">ROTATION_AFTER_CYCLES</a> { 8UL * 3600UL * <a class="el" href="config__system_8h.html#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> }</td></tr>
-<tr class="separator:a5f05a671d6f0503882cc818f2a55493e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31c1d96ed6ba0d5d3fa8172b1191f8db"><td class="memItemLeft" align="right" valign="top">constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a31c1d96ed6ba0d5d3fa8172b1191f8db">ROTATION_AFTER_SECONDS</a> { 8UL * 3600UL }</td></tr>
+<tr class="separator:a31c1d96ed6ba0d5d3fa8172b1191f8db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e46594bb69d18074193e096a4470dce"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a0e46594bb69d18074193e096a4470dce">RotationModes</a> { <a class="el" href="types_8h.html#a06b890c4a964752df814257dc1f13073a88559a0cfd8250c9d65970cc145c92d4">RotationModes::OFF</a> }</td></tr>
 <tr class="separator:a0e46594bb69d18074193e096a4470dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af668b2a5b07a913bd673318dc30654bb"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#af668b2a5b07a913bd673318dc30654bb">rotationPin</a> { 0xff }</td></tr>
@@ -688,8 +689,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a5f05a671d6f0503882cc818f2a55493e" name="a5f05a671d6f0503882cc818f2a55493e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f05a671d6f0503882cc818f2a55493e">&#9670;&#160;</a></span>ROTATION_AFTER_CYCLES</h2>
+<a id="a31c1d96ed6ba0d5d3fa8172b1191f8db" name="a31c1d96ed6ba0d5d3fa8172b1191f8db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31c1d96ed6ba0d5d3fa8172b1191f8db">&#9670;&#160;</a></span>ROTATION_AFTER_SECONDS</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -698,7 +699,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr uint32_t ROTATION_AFTER_CYCLES { 8UL * 3600UL * <a class="el" href="config__system_8h.html#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> }</td>
+          <td class="memname">constexpr uint32_t ROTATION_AFTER_SECONDS { 8UL * 3600UL }</td>
         </tr>
       </table>
   </td>

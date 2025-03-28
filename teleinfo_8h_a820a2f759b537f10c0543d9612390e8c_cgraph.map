@@ -1,0 +1,6 @@
+<map id="calcBufferSize" name="calcBufferSize">
+<area shape="rect" id="node1" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="5,70,120,95"/>
+<area shape="rect" id="node2" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="168,5,323,45"/>
+<area shape="rect" id="node3" href="$teleinfo_8h.html#aa9a3eeacd11602f3385056e620652bb7" title="Calculates the size of a single telemetry line in the frame." alt="" coords="209,70,282,95"/>
+<area shape="rect" id="node4" href="$types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="221,119,269,145"/>
+</map>

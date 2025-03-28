@@ -1,0 +1,4 @@
+<map id="TeleInfo::send" name="TeleInfo::send">
+<area shape="rect" id="node1" title="Sends a telemetry value as an integer." alt="" coords="203,5,315,31"/>
+<area shape="rect" id="node2" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="5,5,155,31"/>
+</map>

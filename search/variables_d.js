@@ -10,7 +10,7 @@ var searchData=
   ['rf_5fchip_5fpresent_7',['RF_CHIP_PRESENT',['../utils__rf_8h.html#ad6f3853697d5006eed405d11cc04c2a1',1,'utils_rf.h']]],
   ['rg_5fforceload_8',['rg_ForceLoad',['../config_8h.html#a281368464ae362f565124959a02d2888',1,'config.h']]],
   ['rg_5foffsetforce_9',['rg_OffsetForce',['../dualtariff_8h.html#ab30c3e5dcd33bc810290f64f0e41f3c4',1,'dualtariff.h']]],
-  ['rotation_5fafter_5fcycles_10',['ROTATION_AFTER_CYCLES',['../config_8h.html#a5f05a671d6f0503882cc818f2a55493e',1,'config.h']]],
+  ['rotation_5fafter_5fseconds_10',['ROTATION_AFTER_SECONDS',['../config_8h.html#a31c1d96ed6ba0d5d3fa8172b1191f8db',1,'config.h']]],
   ['rotationmodes_11',['RotationModes',['../config_8h.html#a0e46594bb69d18074193e096a4470dce',1,'config.h']]],
   ['rotationpin_12',['rotationPin',['../config_8h.html#af668b2a5b07a913bd673318dc30654bb',1,'config.h']]]
 ];

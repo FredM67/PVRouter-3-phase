@@ -8,5 +8,6 @@ var searchData=
   ['copyof_5fsamplesetsduringthisdatalogperiod_5',['copyOf_sampleSetsDuringThisDatalogPeriod',['../processing_8h.html#a9c678dbfc10669e957e7d5a2519ba30d',1,'processing.h']]],
   ['copyof_5fsum_5fvsquared_6',['copyOf_sum_Vsquared',['../processing_8h.html#a952240da797ea106fa52eec5f8e2b1d9',1,'processing.h']]],
   ['copyof_5fsump_5fatsupplypoint_7',['copyOf_sumP_atSupplyPoint',['../processing_8h.html#a92487f63c679b2125aa51fddd1549836',1,'processing.h']]],
-  ['countloadon_8',['countLoadON',['../processing_8cpp.html#a2f61fd181a2806e678e5473eaad03891',1,'processing.cpp']]]
+  ['countloadon_8',['countLoadON',['../processing_8cpp.html#a2f61fd181a2806e678e5473eaad03891',1,'processing.cpp']]],
+  ['cr_9',['CR',['../classTeleInfo.html#a710390df1d82afc54addcd2edb3405ae',1,'TeleInfo']]]
 ];

@@ -1,0 +1,5 @@
+<map id="TeleInfo::calculateChecksum" name="TeleInfo::calculateChecksum">
+<area shape="rect" id="node1" title="Calculates the checksum for a portion of the buffer." alt="" coords="363,5,571,31"/>
+<area shape="rect" id="node2" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="203,5,315,31"/>
+<area shape="rect" id="node3" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="5,5,155,31"/>
+</map>

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['operator_22_22_5fi_0',['operator&quot;&quot;_i',['../types_8h.html#a0534976344c6645fff642acfbfdd4981',1,'types.h']]],
-  ['operator_5b_5d_1',['operator[]',['../class__rg__OffsetForce.html#a3b0155bd2675cd0dccfa7ee5c9f11867',1,'_rg_OffsetForce']]]
+  ['nextlogicalloadtobeadded_0',['nextLogicalLoadToBeAdded',['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded():&#160;processing.cpp'],['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded():&#160;processing.cpp']]],
+  ['nextlogicalloadtoberemoved_1',['nextLogicalLoadToBeRemoved',['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved():&#160;processing.cpp'],['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved():&#160;processing.cpp']]]
 ];

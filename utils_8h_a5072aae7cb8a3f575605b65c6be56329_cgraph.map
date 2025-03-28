@@ -1,0 +1,10 @@
+<map id="sendTelemetryData" name="sendTelemetryData">
+<area shape="rect" id="node1" title="Sends telemetry data using the TeleInfo class." alt="" coords="5,112,155,137"/>
+<area shape="rect" id="node2" href="$classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="225,5,372,31"/>
+<area shape="rect" id="node3" href="$classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="203,55,395,80"/>
+<area shape="rect" id="node4" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="221,105,376,145"/>
+<area shape="rect" id="node5" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="243,169,355,195"/>
+<area shape="rect" id="node8" href="$classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="223,219,375,244"/>
+<area shape="rect" id="node6" href="$classTeleInfo.html#a6b27a06e0b134203f413af0b2d5c41c0" title="Calculates the checksum for a portion of the buffer." alt="" coords="443,144,651,169"/>
+<area shape="rect" id="node7" href="$classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="479,193,615,219"/>
+</map>

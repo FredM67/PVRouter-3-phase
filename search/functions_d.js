@@ -1,13 +1,8 @@
 var searchData=
 [
-  ['send_5frf_5fdata_0',['send_rf_data',['../utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf',1,'utils_rf.h']]],
-  ['sendresults_1',['sendResults',['../utils_8h.html#ade56d6fce22a518b8feff1a150461f94',1,'utils.h']]],
-  ['setpinoff_2',['setPinOFF',['../utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d',1,'utils_pins.h']]],
-  ['setpinon_3',['setPinON',['../utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6',1,'utils_pins.h']]],
-  ['setpinsoff_4',['setPinsOFF',['../utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd',1,'utils_pins.h']]],
-  ['setpinson_5',['setPinsON',['../utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3',1,'utils_pins.h']]],
-  ['setpinstate_6',['setPinState',['../utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7',1,'utils_pins.h']]],
-  ['setup_7',['setup',['../main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;main.cpp'],['../test__utils__pins_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;test_main.cpp'],['../test__utils__relay_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;test_main.cpp']]],
-  ['setup_8',['setUp',['../test__utils__pins_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp'],['../test__utils__relay_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp']]],
-  ['size_9',['size',['../types_8h.html#a694147b7171ec0b06bc8880dc100e756',1,'size(const _Tp(&amp;)[_Nm]) noexcept:&#160;types.h'],['../types_8h.html#a598e71b269336fef3370d0420348332d',1,'size(const _Tp(&amp;)[0]) noexcept:&#160;types.h']]]
+  ['readtemperature_0',['readTemperature',['../classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe',1,'TemperatureSensing']]],
+  ['relayengine_1',['RelayEngine',['../classRelayEngine.html#aa834d2148c13bbf4c63f949033746ecd',1,'RelayEngine::RelayEngine(const relayOutput(&amp;ref)[N])'],['../classRelayEngine.html#a926eff34f40ee3e7d7132ba4cb693d40',1,'RelayEngine::RelayEngine(integral_constant&lt; uint8_t, D &gt; ic, const relayOutput(&amp;ref)[N])']]],
+  ['relayoutput_2',['relayOutput',['../classrelayOutput.html#a1e14c420e720e082a327e2341906cb18',1,'relayOutput::relayOutput()=delete'],['../classrelayOutput.html#a8ec4f8ef291d95028b40b11f2238e1b0',1,'relayOutput::relayOutput(const uint8_t _relay_pin)'],['../classrelayOutput.html#aaaea9886591a4fc044da5922bb90e746',1,'relayOutput::relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)'],['../classrelayOutput.html#a6c37604b74d578740144dedb3d38096e',1,'relayOutput::relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)']]],
+  ['requesttemperatures_3',['requestTemperatures',['../classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80',1,'TemperatureSensing']]],
+  ['round_5fup_5fto_5fpower_5fof_5f2_4',['round_up_to_power_of_2',['../ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5',1,'ewma_avg.hpp']]]
 ];

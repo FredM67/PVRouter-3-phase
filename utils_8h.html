@@ -82,10 +82,12 @@ $(function() {
 
 <p>Some utility functions.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="calibration_8h_source.html">calibration.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="FastDivision_8h_source.html">FastDivision.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="calibration_8h_source.html">calibration.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="constants_8h_source.html">constants.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="dualtariff_8h_source.html">dualtariff.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="processing_8h_source.html">processing.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="utils__rf_8h_source.html">utils_rf.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -93,50 +95,52 @@ Include dependency graph for utils.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils_8h__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2utils_8h" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2utils_8h" id="aMk2__3phase__RFdatalog__temp_2utils_8h">
-<area shape="rect" title="Some utility functions." alt="" coords="125,5,302,45"/>
-<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="101,93,203,119"/>
-<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="94,387,191,412"/>
-<area shape="rect" href="utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="43,240,146,265"/>
-<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="228,93,321,119"/>
-<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="345,93,449,119"/>
-<area shape="rect" href="utils__rf_8h.html" title="Some utility functions for the RF chip." alt="" coords="474,93,553,119"/>
-<area shape="rect" href="config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="238,167,311,192"/>
-<area shape="rect" href="config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="320,313,448,339"/>
-<area shape="rect" href="debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="221,313,296,339"/>
-<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="473,313,543,339"/>
-<area shape="rect" href="utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="216,387,344,412"/>
-<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="483,240,583,265"/>
-<area shape="rect" title=" " alt="" coords="101,467,185,493"/>
-<area shape="rect" href="type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1220,387,1340,412"/>
-<area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="2646,467,2842,493"/>
-<area shape="rect" href="decay_8hpp.html" title=" " alt="" coords="209,467,370,493"/>
-<area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="394,460,534,500"/>
-<area shape="rect" href="function__traits_8hpp.html" title=" " alt="" coords="559,460,708,500"/>
-<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="1704,695,1851,735"/>
-<area shape="rect" href="is__array_8hpp.html" title=" " alt="" coords="733,467,907,493"/>
-<area shape="rect" href="is__base__of_8hpp.html" title=" " alt="" coords="983,460,1129,500"/>
-<area shape="rect" href="remove__reference_8hpp.html" title=" " alt="" coords="551,548,721,573"/>
-<area shape="rect" href="is__class_8hpp.html" title=" " alt="" coords="745,548,919,573"/>
-<area shape="rect" href="is__const_8hpp.html" title=" " alt="" coords="2237,621,2414,647"/>
-<area shape="rect" href="is__convertible_8hpp.html" title=" " alt="" coords="943,548,1158,573"/>
-<area shape="rect" href="is__enum_8hpp.html" title=" " alt="" coords="1255,467,1433,493"/>
-<area shape="rect" href="is__floating__point_8hpp.html" title=" " alt="" coords="1233,548,1391,573"/>
-<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="1439,621,1543,647"/>
-<area shape="rect" href="is__integral_8hpp.html" title=" " alt="" coords="1415,548,1534,573"/>
-<area shape="rect" href="is__pointer_8hpp.html" title=" " alt="" coords="1815,621,2001,647"/>
-<area shape="rect" href="is__signed_8hpp.html" title=" " alt="" coords="1610,548,1795,573"/>
-<area shape="rect" href="is__unsigned_8hpp.html" title=" " alt="" coords="1819,548,2021,573"/>
-<area shape="rect" href="make__unsigned_8hpp.html" title=" " alt="" coords="1935,467,2161,493"/>
-<area shape="rect" href="remove__const_8hpp.html" title=" " alt="" coords="2287,460,2433,500"/>
-<area shape="rect" href="void__t_8hpp.html" title=" " alt="" coords="2458,467,2622,493"/>
-<area shape="rect" title=" " alt="" coords="352,548,427,573"/>
-<area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="893,621,990,647"/>
-<area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="1567,621,1689,647"/>
-<area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="2026,621,2161,647"/>
-<area shape="rect" href="movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="765,313,872,339"/>
-<area shape="rect" href="ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="619,313,741,339"/>
-<area shape="rect" href="utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="503,387,599,412"/>
-<area shape="rect" title=" " alt="" coords="477,167,550,192"/>
+<area shape="rect" title="Some utility functions." alt="" coords="2469,5,2647,45"/>
+<area shape="rect" href="FastDivision_8h.html" title=" " alt="" coords="2735,167,2848,192"/>
+<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="2377,93,2480,119"/>
+<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="2511,387,2608,412"/>
+<area shape="rect" href="utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="2556,240,2659,265"/>
+<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="2131,93,2225,119"/>
+<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="2249,93,2353,119"/>
+<area shape="rect" href="teleinfo_8h.html" title=" " alt="" coords="2556,93,2640,119"/>
+<area shape="rect" href="utils__rf_8h.html" title="Some utility functions for the RF chip." alt="" coords="2833,93,2912,119"/>
+<area shape="rect" title=" " alt="" coords="2604,467,2688,493"/>
+<area shape="rect" href="config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="2285,167,2359,192"/>
+<area shape="rect" href="config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="1779,313,1907,339"/>
+<area shape="rect" href="debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="2355,313,2430,339"/>
+<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="2260,313,2331,339"/>
+<area shape="rect" href="utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="2358,387,2486,412"/>
+<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="2141,240,2241,265"/>
+<area shape="rect" href="type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1574,387,1694,412"/>
+<area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="5,467,201,493"/>
+<area shape="rect" href="decay_8hpp.html" title=" " alt="" coords="225,467,387,493"/>
+<area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="411,460,551,500"/>
+<area shape="rect" href="function__traits_8hpp.html" title=" " alt="" coords="575,460,725,500"/>
+<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="1677,695,1823,735"/>
+<area shape="rect" href="is__array_8hpp.html" title=" " alt="" coords="749,467,924,493"/>
+<area shape="rect" href="is__base__of_8hpp.html" title=" " alt="" coords="1000,460,1145,500"/>
+<area shape="rect" href="remove__reference_8hpp.html" title=" " alt="" coords="548,548,717,573"/>
+<area shape="rect" href="is__class_8hpp.html" title=" " alt="" coords="741,548,916,573"/>
+<area shape="rect" href="is__const_8hpp.html" title=" " alt="" coords="2209,621,2387,647"/>
+<area shape="rect" href="is__convertible_8hpp.html" title=" " alt="" coords="940,548,1155,573"/>
+<area shape="rect" href="is__enum_8hpp.html" title=" " alt="" coords="1271,467,1450,493"/>
+<area shape="rect" href="is__floating__point_8hpp.html" title=" " alt="" coords="1230,548,1387,573"/>
+<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="1411,621,1515,647"/>
+<area shape="rect" href="is__integral_8hpp.html" title=" " alt="" coords="1412,548,1531,573"/>
+<area shape="rect" href="is__pointer_8hpp.html" title=" " alt="" coords="1787,621,1974,647"/>
+<area shape="rect" href="is__signed_8hpp.html" title=" " alt="" coords="1607,548,1792,573"/>
+<area shape="rect" href="is__unsigned_8hpp.html" title=" " alt="" coords="1816,548,2017,573"/>
+<area shape="rect" href="make__unsigned_8hpp.html" title=" " alt="" coords="1893,467,2119,493"/>
+<area shape="rect" href="remove__const_8hpp.html" title=" " alt="" coords="2245,460,2391,500"/>
+<area shape="rect" href="void__t_8hpp.html" title=" " alt="" coords="2416,467,2580,493"/>
+<area shape="rect" title=" " alt="" coords="369,548,443,573"/>
+<area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="889,621,987,647"/>
+<area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="1540,621,1661,647"/>
+<area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="1999,621,2133,647"/>
+<area shape="rect" href="movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="2078,313,2185,339"/>
+<area shape="rect" href="ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="1932,313,2053,339"/>
+<area shape="rect" href="utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="2178,387,2274,412"/>
+<area shape="rect" title=" " alt="" coords="2872,167,2945,192"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -183,6 +187,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ade56d6fce22a518b8feff1a150461f94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94">sendResults</a> (bool bOffPeak)</td></tr>
 <tr class="memdesc:ade56d6fce22a518b8feff1a150461f94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints data logs to the Serial output in text or json format.  <br /></td></tr>
 <tr class="separator:ade56d6fce22a518b8feff1a150461f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5072aae7cb8a3f575605b65c6be56329"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329">sendTelemetryData</a> ()</td></tr>
+<tr class="memdesc:a5072aae7cb8a3f575605b65c6be56329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends telemetry data using the <a class="el" href="classTeleInfo.html" title="A class for managing and sending telemetry information in a specific frame format.">TeleInfo</a> class.  <br /></td></tr>
+<tr class="separator:a5072aae7cb8a3f575605b65c6be56329"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Some utility functions. </p>
@@ -262,7 +269,7 @@ Functions</h2></td></tr>
 <p>Get the available RAM during setup. </p>
 <dl class="section return"><dt>Returns</dt><dd>int The amount of free RAM </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00372">372</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00439">439</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -300,7 +307,7 @@ Here is the caller graph for this function:</div>
 
 <p>Prints the load priorities to the Serial output. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00353">353</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00420">420</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -342,7 +349,7 @@ Here is the caller graph for this function:</div>
 
 <p>Print the configuration during start. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00027">27</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00030">30</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -404,7 +411,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00154">154</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00157">157</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -452,7 +459,7 @@ Here is the caller graph for this function:</div>
 
 <p>Prints data logs to the Serial output in Json format. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00209">209</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00212">212</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -500,7 +507,7 @@ Here is the caller graph for this function:</div>
 
 <p>Prints data logs to the Serial output in text format. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00256">256</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00259">259</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -556,7 +563,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00321">321</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00388">388</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -578,6 +585,63 @@ Here is the caller graph for this function:</div>
 <map name="autils_8h_ade56d6fce22a518b8feff1a150461f94_icgraph" id="autils_8h_ade56d6fce22a518b8feff1a150461f94_icgraph">
 <area shape="rect" title="Prints data logs to the Serial output in text or json format." alt="" coords="104,5,205,31"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a5072aae7cb8a3f575605b65c6be56329" name="a5072aae7cb8a3f575605b65c6be56329"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5072aae7cb8a3f575605b65c6be56329">&#9670;&#160;</a></span>sendTelemetryData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void sendTelemetryData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sends telemetry data using the <a class="el" href="classTeleInfo.html" title="A class for managing and sending telemetry information in a specific frame format.">TeleInfo</a> class. </p>
+<p>This function collects various telemetry data (e.g., power, voltage, temperature, etc.) and sends it in a structured format using the <code><a class="el" href="classTeleInfo.html" title="A class for managing and sending telemetry information in a specific frame format.">TeleInfo</a></code> class. The data is sent as a telemetry frame, which starts with a frame initialization, includes multiple data points, and ends with a frame finalization.</p>
+<p>The function supports conditional features such as relay diversion, temperature sensing, and different supply frequencies (50 Hz or 60 Hz).</p>
+<ul>
+<li><b>Power Data</b>: Sends the total power grid data.</li>
+<li><b>Relay Data</b>: If relay diversion is enabled (<code>RELAY_DIVERSION</code>), sends the average relay data.</li>
+<li><b>Voltage Data</b>: Sends the voltage data for each phase.</li>
+<li><b>Temperature Data</b>: If temperature sensing is enabled (<code>TEMP_SENSOR_PRESENT</code>), sends valid temperature readings.</li>
+<li><b>Absence of Diverted Energy Count</b>:<ul>
+<li>For 50 Hz: Uses <code>divu5</code> and <code>divu10</code> to calculate the value.</li>
+<li>For 60 Hz: Uses <code>divu60</code> to calculate the value.</li>
+<li>A <code>static_assert</code> ensures that the supply frequency is either 50 or 60 Hz.</li>
+</ul>
+</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>The function uses compile-time constants (<code>constexpr</code>) to include or exclude specific features. Invalid temperature readings (e.g., <code>OUTOFRANGE_TEMPERATURE</code> or <code>DEVICE_DISCONNECTED_RAW</code>) are skipped.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">static_assert</td><td>If <code>SUPPLY_FREQUENCY</code> is not 50 or 60 Hz. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00345">345</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="utils_8h_a5072aae7cb8a3f575605b65c6be56329_cgraph.png" border="0" usemap="#autils_8h_a5072aae7cb8a3f575605b65c6be56329_cgraph" alt=""/></div>
+<map name="autils_8h_a5072aae7cb8a3f575605b65c6be56329_cgraph" id="autils_8h_a5072aae7cb8a3f575605b65c6be56329_cgraph">
+<area shape="rect" title="Sends telemetry data using the TeleInfo class." alt="" coords="5,112,155,137"/>
+<area shape="rect" href="classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="225,5,372,31"/>
+<area shape="rect" href="classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="203,55,395,80"/>
+<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="221,105,376,145"/>
+<area shape="rect" href="classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="243,169,355,195"/>
+<area shape="rect" href="classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="223,219,375,244"/>
+<area shape="rect" href="classTeleInfo.html#a6b27a06e0b134203f413af0b2d5c41c0" title="Calculates the checksum for a portion of the buffer." alt="" coords="443,144,651,169"/>
+<area shape="rect" href="classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="479,193,615,219"/>
 </map>
 </div>
 

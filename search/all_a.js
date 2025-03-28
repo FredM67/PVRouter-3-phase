@@ -16,7 +16,7 @@ var searchData=
   ['make_5funsigned_3c_20unsigned_20short_20_3e_13',['make_unsigned&lt; unsigned short &gt;',['../structmake__unsigned_3_01unsigned_01short_01_4.html',1,'']]],
   ['make_5funsigned_5ft_14',['make_unsigned_t',['../make__unsigned_8hpp.html#aabeda2fce2dea6fa29533488400dd386',1,'make_unsigned.hpp']]],
   ['make_5fvoid_15',['make_void',['../structmake__void.html',1,'']]],
-  ['max_5fblinks_16',['max_blinks',['../test__utils__pins_2test__main_8cpp.html#a7a73978df916cacd1d18bb2cd811e56c',1,'test_main.cpp']]],
+  ['max_5fblinks_16',['max_blinks',['../test__fastdivision_2test__main_8cpp.html#a7a73978df916cacd1d18bb2cd811e56c',1,'max_blinks():&#160;test_main.cpp'],['../test__utils__pins_2test__main_8cpp.html#a7a73978df916cacd1d18bb2cd811e56c',1,'max_blinks():&#160;test_main.cpp']]],
   ['minoff_17',['minOFF',['../classrelayOutput.html#acdf09f94d1891f24a200a6bece01b449',1,'relayOutput']]],
   ['minon_18',['minON',['../classrelayOutput.html#aa128ef24702813df92dc95a7e9da05e0',1,'relayOutput']]],
   ['mk2_5f3phase_5frfdatalog_5ftemp_2eino_19',['Mk2_3phase_RFdatalog_temp.ino',['../Mk2__3phase__RFdatalog__temp_8ino.html',1,'']]],

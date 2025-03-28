@@ -1,0 +1,4 @@
+<map id="TeleInfo::endFrame" name="TeleInfo::endFrame">
+<area shape="rect" id="node1" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="203,5,349,31"/>
+<area shape="rect" id="node2" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="5,5,155,31"/>
+</map>
