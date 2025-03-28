@@ -27,12 +27,13 @@ inline constexpr uint16_t initialDelay{ 3000 };  /**< in milli-seconds, to allow
 inline constexpr uint16_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow LP filter to settle */
 
 // for interaction between the main processor and the ISR
-inline volatile uint32_t absenceOfDivertedEnergyCount{ 0 }; /**< number of main cycles without diverted energy */
+inline volatile uint16_t absenceOfDivertedEnergyCount{ 0 }; /**< number of main cycles without diverted energy */
 inline volatile bool b_datalogEventPending{ false };        /**< async trigger to signal datalog is available */
 inline volatile bool b_newMainsCycle{ false };              /**< async trigger to signal start of new main cycle based on first phase */
 inline volatile bool b_overrideLoadOn[NO_OF_DUMPLOADS];     /**< async trigger to force specific load(s) to ON */
 inline volatile bool b_reOrderLoads{ false };               /**< async trigger for loads re-ordering */
 inline volatile bool b_diversionOff{ false };               /**< async trigger to stop diversion */
+inline volatile bool EDD_isIdle{ true };                    /**< energy diversion detection */
 
 // since there's no real locking feature for shared variables, a couple of data
 // generated from inside the ISR are copied from time to time to be passed to the

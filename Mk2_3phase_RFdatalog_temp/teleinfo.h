@@ -93,8 +93,8 @@ inline static constexpr size_t calcBufferSize()
 class TeleInfo
 {
 private:
-  static const char STX = 0x02; /**< Start of Text character. */
-  static const char ETX = 0x03; /**< End of Text character. */
+  static const char STX = 0x02; /**< Start of Frame character. */
+  static const char ETX = 0x03; /**< End of Frame character. */
   static const char LF = 0x0A;  /**< Line Feed character. */
   static const char CR = 0x0D;  /**< Carriage Return character. */
   static const char TAB = 0x09; /**< Tab character. */
@@ -137,8 +137,6 @@ private:
    */
   void writeTag(const char* tag, uint8_t index)
   {
-    buffer[bufferPos++] = LF;
-
     const char* ptr = tag;
     while (*ptr) buffer[bufferPos++] = *ptr++;
 
@@ -168,14 +166,19 @@ public:
    */
   void send(const char* tag, int16_t value, uint8_t index = 0)
   {
-    uint8_t startPos = bufferPos;
+    buffer[bufferPos++] = LF;
+
+    const uint8_t startPos{ bufferPos };
 
     writeTag(tag, index);
     auto str = itoa(value, buffer + bufferPos, 10);
     bufferPos += strlen(str);  // Advance bufferPos by the length of the written string
     buffer[bufferPos++] = TAB;
 
-    calculateChecksum(startPos, bufferPos);
+    const auto crc{ calculateChecksum(startPos, bufferPos) };
+    buffer[bufferPos++] = crc;
+    
+    buffer[bufferPos++] = CR;
   }
 
   /**

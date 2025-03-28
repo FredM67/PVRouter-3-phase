@@ -253,10 +253,11 @@ void updatePhysicalLoadStates()
     {
       if (0x00 == (loadPrioritiesAndState[0] & loadStateOnBit))
       {
-        ++absenceOfDivertedEnergyCount;
+        EDD_isIdle = true;
       }
       else
       {
+        EDD_isIdle = false;
         absenceOfDivertedEnergyCount = 0;
       }
     }

@@ -375,18 +375,7 @@ void sendTelemetryData()
     }
   }
 
-  if constexpr (SUPPLY_FREQUENCY == 50)
-  {
-    teleInfo.send("N", static_cast< int16_t >(divu5(divu10(absenceOfDivertedEnergyCount))));  // Send absence of diverted energy count for 50Hz
-  }
-  else if constexpr (SUPPLY_FREQUENCY == 60)
-  {
-    teleInfo.send("N", static_cast< int16_t >(divu60(absenceOfDivertedEnergyCount)));  // Send absence of diverted energy count for 60Hz
-  }
-  else
-  {
-    static_assert(SUPPLY_FREQUENCY == 50 || SUPPLY_FREQUENCY == 60, "SUPPLY_FREQUENCY must be either 50 or 60");
-  }
+  teleInfo.send("N", static_cast< int16_t >(absenceOfDivertedEnergyCount));  // Send absence of diverted energy count for 50Hz
 
   teleInfo.endFrame();  // Finalize and send the telemetry frame
 }
