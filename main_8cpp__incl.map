@@ -1,50 +1,50 @@
 <map id="Mk2_3phase_RFdatalog_temp/main.cpp" name="Mk2_3phase_RFdatalog_temp/main.cpp">
-<area shape="rect" id="node1" title="Main code." alt="" coords="1948,5,2125,45"/>
-<area shape="rect" id="node2" title=" " alt="" coords="2600,541,2684,566"/>
-<area shape="rect" id="node3" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="2059,240,2132,265"/>
-<area shape="rect" id="node32" href="$types_8h.html" title="Some basics classes/types." alt="" coords="1565,387,1636,412"/>
-<area shape="rect" id="node35" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="1853,313,1953,339"/>
-<area shape="rect" id="node40" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="1905,167,2008,192"/>
-<area shape="rect" id="node41" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="2033,167,2137,192"/>
-<area shape="rect" id="node42" href="$utils_8h.html" title="Some utility functions." alt="" coords="2383,93,2445,119"/>
-<area shape="rect" id="node48" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="2278,167,2377,192"/>
-<area shape="rect" id="node4" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="2087,387,2215,412"/>
-<area shape="rect" id="node31" href="$debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="1989,387,2063,412"/>
-<area shape="rect" id="node34" href="$utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="2193,460,2321,485"/>
-<area shape="rect" id="node39" href="$utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="2423,313,2525,339"/>
-<area shape="rect" id="node5" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1533,460,1653,485"/>
-<area shape="rect" id="node6" href="$conditional_8hpp.html" title=" " alt="" coords="5,541,201,566"/>
-<area shape="rect" id="node7" href="$decay_8hpp.html" title=" " alt="" coords="225,541,387,566"/>
-<area shape="rect" id="node9" href="$enable__if_8hpp.html" title=" " alt="" coords="411,533,551,573"/>
-<area shape="rect" id="node10" href="$function__traits_8hpp.html" title=" " alt="" coords="575,533,725,573"/>
-<area shape="rect" id="node11" href="$integral__constant_8hpp.html" title=" " alt="" coords="1673,768,1819,808"/>
-<area shape="rect" id="node12" href="$is__array_8hpp.html" title=" " alt="" coords="749,541,924,566"/>
-<area shape="rect" id="node13" href="$is__base__of_8hpp.html" title=" " alt="" coords="1000,533,1145,573"/>
-<area shape="rect" id="node14" href="$remove__reference_8hpp.html" title=" " alt="" coords="544,621,713,647"/>
-<area shape="rect" id="node15" href="$is__class_8hpp.html" title=" " alt="" coords="737,621,912,647"/>
-<area shape="rect" id="node17" href="$is__const_8hpp.html" title=" " alt="" coords="2205,695,2383,720"/>
-<area shape="rect" id="node18" href="$is__convertible_8hpp.html" title=" " alt="" coords="936,621,1151,647"/>
-<area shape="rect" id="node19" href="$is__enum_8hpp.html" title=" " alt="" coords="1271,541,1450,566"/>
-<area shape="rect" id="node20" href="$is__floating__point_8hpp.html" title=" " alt="" coords="1226,621,1383,647"/>
-<area shape="rect" id="node21" href="$is__same_8hpp.html" title=" " alt="" coords="1407,695,1511,720"/>
-<area shape="rect" id="node23" href="$is__integral_8hpp.html" title=" " alt="" coords="1408,621,1527,647"/>
-<area shape="rect" id="node24" href="$is__pointer_8hpp.html" title=" " alt="" coords="1783,695,1970,720"/>
-<area shape="rect" id="node25" href="$is__signed_8hpp.html" title=" " alt="" coords="1603,621,1788,647"/>
-<area shape="rect" id="node26" href="$is__unsigned_8hpp.html" title=" " alt="" coords="1812,621,2013,647"/>
-<area shape="rect" id="node27" href="$make__unsigned_8hpp.html" title=" " alt="" coords="1889,541,2115,566"/>
-<area shape="rect" id="node29" href="$remove__const_8hpp.html" title=" " alt="" coords="2241,533,2387,573"/>
-<area shape="rect" id="node30" href="$void__t_8hpp.html" title=" " alt="" coords="2412,541,2576,566"/>
-<area shape="rect" id="node8" title=" " alt="" coords="347,621,422,647"/>
-<area shape="rect" id="node16" href="$declval_8hpp.html" title=" " alt="" coords="885,695,983,720"/>
-<area shape="rect" id="node22" href="$remove__cv_8hpp.html" title=" " alt="" coords="1536,695,1657,720"/>
-<area shape="rect" id="node28" href="$type__identity_8hpp.html" title=" " alt="" coords="1995,695,2129,720"/>
-<area shape="rect" id="node33" href="$constants_8h.html" title="Some constants." alt="" coords="2409,460,2507,485"/>
-<area shape="rect" id="node36" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="1711,387,1818,412"/>
-<area shape="rect" id="node37" href="$ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="1843,387,1964,412"/>
-<area shape="rect" id="node38" href="$utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="2290,387,2386,412"/>
-<area shape="rect" id="node43" href="$FastDivision_8h.html" title=" " alt="" coords="2657,240,2771,265"/>
-<area shape="rect" id="node44" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="2161,167,2254,192"/>
-<area shape="rect" id="node45" href="$teleinfo_8h.html" title=" " alt="" coords="2553,167,2637,192"/>
-<area shape="rect" id="node46" href="$utils__rf_8h.html" title="Some utility functions for the RF chip." alt="" coords="2503,240,2581,265"/>
-<area shape="rect" id="node47" title=" " alt="" coords="2549,313,2623,339"/>
+<area shape="rect" id="node1" title="Main code." alt="" coords="859,5,1036,45"/>
+<area shape="rect" id="node2" title=" " alt="" coords="232,541,316,566"/>
+<area shape="rect" id="node3" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="611,240,684,265"/>
+<area shape="rect" id="node32" href="$types_8h.html" title="Some basics classes/types." alt="" coords="720,387,791,412"/>
+<area shape="rect" id="node35" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="957,313,1057,339"/>
+<area shape="rect" id="node40" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="764,167,867,192"/>
+<area shape="rect" id="node41" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="585,167,689,192"/>
+<area shape="rect" id="node42" href="$utils_8h.html" title="Some utility functions." alt="" coords="483,93,545,119"/>
+<area shape="rect" id="node48" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="942,167,1041,192"/>
+<area shape="rect" id="node4" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="469,387,597,412"/>
+<area shape="rect" id="node31" href="$debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="621,387,695,412"/>
+<area shape="rect" id="node34" href="$utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="367,460,495,485"/>
+<area shape="rect" id="node39" href="$utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="195,313,297,339"/>
+<area shape="rect" id="node5" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1351,460,1471,485"/>
+<area shape="rect" id="node6" href="$conditional_8hpp.html" title=" " alt="" coords="2649,541,2845,566"/>
+<area shape="rect" id="node7" href="$decay_8hpp.html" title=" " alt="" coords="340,541,501,566"/>
+<area shape="rect" id="node9" href="$enable__if_8hpp.html" title=" " alt="" coords="724,533,864,573"/>
+<area shape="rect" id="node10" href="$function__traits_8hpp.html" title=" " alt="" coords="889,533,1038,573"/>
+<area shape="rect" id="node11" href="$integral__constant_8hpp.html" title=" " alt="" coords="1230,768,1377,808"/>
+<area shape="rect" id="node12" href="$is__array_8hpp.html" title=" " alt="" coords="525,541,700,566"/>
+<area shape="rect" id="node13" href="$is__base__of_8hpp.html" title=" " alt="" coords="2120,533,2265,573"/>
+<area shape="rect" id="node14" href="$remove__reference_8hpp.html" title=" " alt="" coords="2088,621,2257,647"/>
+<area shape="rect" id="node15" href="$is__class_8hpp.html" title=" " alt="" coords="1428,621,1603,647"/>
+<area shape="rect" id="node17" href="$is__const_8hpp.html" title=" " alt="" coords="2019,695,2196,720"/>
+<area shape="rect" id="node18" href="$is__convertible_8hpp.html" title=" " alt="" coords="1627,621,1841,647"/>
+<area shape="rect" id="node19" href="$is__enum_8hpp.html" title=" " alt="" coords="1163,541,1342,566"/>
+<area shape="rect" id="node20" href="$is__floating__point_8hpp.html" title=" " alt="" coords="618,621,775,647"/>
+<area shape="rect" id="node21" href="$is__same_8hpp.html" title=" " alt="" coords="846,695,950,720"/>
+<area shape="rect" id="node23" href="$is__integral_8hpp.html" title=" " alt="" coords="851,621,969,647"/>
+<area shape="rect" id="node24" href="$is__pointer_8hpp.html" title=" " alt="" coords="1591,695,1778,720"/>
+<area shape="rect" id="node25" href="$is__signed_8hpp.html" title=" " alt="" coords="993,621,1179,647"/>
+<area shape="rect" id="node26" href="$is__unsigned_8hpp.html" title=" " alt="" coords="1203,621,1404,647"/>
+<area shape="rect" id="node27" href="$make__unsigned_8hpp.html" title=" " alt="" coords="1717,541,1943,566"/>
+<area shape="rect" id="node29" href="$remove__const_8hpp.html" title=" " alt="" coords="2290,533,2437,573"/>
+<area shape="rect" id="node30" href="$void__t_8hpp.html" title=" " alt="" coords="2461,541,2625,566"/>
+<area shape="rect" id="node8" title=" " alt="" coords="426,621,501,647"/>
+<area shape="rect" id="node16" href="$declval_8hpp.html" title=" " alt="" coords="1468,695,1565,720"/>
+<area shape="rect" id="node22" href="$remove__cv_8hpp.html" title=" " alt="" coords="1025,695,1147,720"/>
+<area shape="rect" id="node28" href="$type__identity_8hpp.html" title=" " alt="" coords="1807,695,1941,720"/>
+<area shape="rect" id="node33" href="$constants_8h.html" title="Some constants." alt="" coords="245,460,343,485"/>
+<area shape="rect" id="node36" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="815,387,922,412"/>
+<area shape="rect" id="node37" href="$ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="947,387,1068,412"/>
+<area shape="rect" id="node38" href="$utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="1093,387,1189,412"/>
+<area shape="rect" id="node43" href="$FastDivision_8h.html" title=" " alt="" coords="5,240,119,265"/>
+<area shape="rect" id="node44" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="467,167,561,192"/>
+<area shape="rect" id="node45" href="$teleinfo_8h.html" title=" " alt="" coords="359,167,443,192"/>
+<area shape="rect" id="node46" href="$utils__rf_8h.html" title="Some utility functions for the RF chip." alt="" coords="744,240,823,265"/>
+<area shape="rect" id="node47" title=" " alt="" coords="747,313,820,339"/>
 </map>

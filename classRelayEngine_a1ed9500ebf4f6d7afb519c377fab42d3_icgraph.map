@@ -1,7 +1,8 @@
 <map id="RelayEngine::get_size" name="RelayEngine::get_size">
-<area shape="rect" id="node1" title="Get the number of relays." alt="" coords="287,55,452,80"/>
-<area shape="rect" id="node2" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="124,5,219,31"/>
-<area shape="rect" id="node3" href="$validation_8h.html#a60096a6d3a2fc387b51a01b6ff8c53d2" title=" " alt="" coords="104,55,239,80"/>
-<area shape="rect" id="node4" href="$test__utils__relay_2test__main_8cpp.html#a7d6176baab9bdbb57c4734c5b2a2a796" title=" " alt="" coords="117,104,225,129"/>
-<area shape="rect" id="node5" href="$test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,104,56,129"/>
+<area shape="rect" id="node1" title="Get the number of relays." alt="" coords="287,80,452,105"/>
+<area shape="rect" id="node2" href="$teleinfo_8h.html#a820a2f759b537f10c0543d9612390e8c" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="114,5,229,31"/>
+<area shape="rect" id="node3" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="124,55,219,80"/>
+<area shape="rect" id="node4" href="$validation_8h.html#a60096a6d3a2fc387b51a01b6ff8c53d2" title=" " alt="" coords="104,104,239,129"/>
+<area shape="rect" id="node5" href="$test__utils__relay_2test__main_8cpp.html#a7d6176baab9bdbb57c4734c5b2a2a796" title=" " alt="" coords="117,153,225,179"/>
+<area shape="rect" id="node6" href="$test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,153,56,179"/>
 </map>
