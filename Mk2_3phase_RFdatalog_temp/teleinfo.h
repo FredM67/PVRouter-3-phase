@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 
+#include "config_system.h"
 #include "config.h"
 
 /**
@@ -54,7 +55,7 @@ inline static constexpr size_t lineSize(size_t tagLen, size_t valueLen)
  */
 inline static constexpr size_t calcBufferSize()
 {
-  size_t size = 1;  // STX
+  size_t size{ 1 };  // STX
 
   size += lineSize(1, 6);  // P (signed 6 digits)
 
@@ -71,7 +72,8 @@ inline static constexpr size_t calcBufferSize()
 
   if constexpr (RELAY_DIVERSION)
   {
-    size += lineSize(1, 6);  // R (signed 6 digits)
+    size += lineSize(1, 6);                      // R (signed 6 digits)
+    size += relays.get_size() * lineSize(2, 1);  // R1-Rn (1 (ON), 0 (OFF))
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
@@ -93,11 +95,11 @@ inline static constexpr size_t calcBufferSize()
 class TeleInfo
 {
 private:
-  static const char STX = 0x02; /**< Start of Frame character. */
-  static const char ETX = 0x03; /**< End of Frame character. */
-  static const char LF = 0x0A;  /**< Line Feed character. */
-  static const char CR = 0x0D;  /**< Carriage Return character. */
-  static const char TAB = 0x09; /**< Tab character. */
+  static const char STX{ 0x02 }; /**< Start of Frame character. */
+  static const char ETX{ 0x03 }; /**< End of Frame character. */
+  static const char LF{ 0x0A };  /**< Line Feed character. */
+  static const char CR{ 0x0D };  /**< Carriage Return character. */
+  static const char TAB{ 0x09 }; /**< Tab character. */
 
   char buffer[calcBufferSize()]; /**< Buffer to store the frame data. Adjust size as needed. */
   uint8_t bufferPos;             /**< Current position in the buffer. */
@@ -108,10 +110,10 @@ private:
    * @param endPos The ending position in the buffer.
    * @return The calculated checksum as a single byte.
    */
-  uint8_t calculateChecksum(uint8_t startPos, uint8_t endPos)
+  uint8_t calculateChecksum(uint8_t startPos, uint8_t endPos) const
   {
-    uint8_t sum = 0;
-    uint8_t i = startPos;
+    uint8_t sum{ 0 };
+    uint8_t i{ startPos };
 
     // Process 4 bytes at a time (loop unrolling)
     for (; i + 3 < endPos; i += 4)
@@ -137,7 +139,7 @@ private:
    */
   void writeTag(const char* tag, uint8_t index)
   {
-    const char* ptr = tag;
+    const char* ptr{ tag };
     while (*ptr) buffer[bufferPos++] = *ptr++;
 
     // If an index is provided, append it to the tag
@@ -177,7 +179,7 @@ public:
 
     const auto crc{ calculateChecksum(startPos, bufferPos) };
     buffer[bufferPos++] = crc;
-    
+
     buffer[bufferPos++] = CR;
   }
 
