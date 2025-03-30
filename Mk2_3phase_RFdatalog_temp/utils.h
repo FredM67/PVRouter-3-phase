@@ -306,6 +306,7 @@ inline void printForSerialText()
 void sendTelemetryData()
 {
   static TeleInfo teleInfo;
+  uint8_t idx = 0;
 
   teleInfo.startFrame();  // Start a new telemetry frame
 
@@ -314,9 +315,15 @@ void sendTelemetryData()
   if constexpr (RELAY_DIVERSION)
   {
     teleInfo.send("R", static_cast< int16_t >(relays.get_average()));  // Send relay average if diversion is enabled
+
+    idx = 0;
+    do
+    {
+      teleInfo.send("R", relays.get_relay(idx).isRelayON());  // Send diverted energy count for each relay
+    } while (++idx < relays.get_size());
   }
 
-  uint8_t idx = 0;
+  idx = 0;
   do
   {
     teleInfo.send("V", tx_data.Vrms_L_x100[idx], idx + 1);  // Send voltage for each phase
