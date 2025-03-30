@@ -9,8 +9,8 @@
  *
  */
 
-#ifndef _PROCESSING_H
-#define _PROCESSING_H
+#ifndef PROCESSING_H
+#define PROCESSING_H
 
 #include "config.h"
 
@@ -93,4 +93,4 @@ inline void processLatestContribution(uint8_t phase) __attribute__((always_inlin
 
 void processDataLogging();
 
-#endif  // _PROCESSING_H
+#endif /* PROCESSING_H */

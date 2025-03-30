@@ -14,14 +14,8 @@
 
 //--------------------------------------------------------------------------------------------------
 //#define TEMP_ENABLED  /**< this line must be commented out if the temperature sensor is not present */
-//#define RF_PRESENT  /**< this line must be commented out if the RFM12B module is not present */
-
-// Output messages
-//#define EMONESP  /**< Uncomment if an ESP WiFi module is used
-
+//#define RF_PRESENT  /**< this line must be commented out if the RFM12B module is not present */#define ENABLE_DEBUG /**< enable this line to include debugging print statements */
 #define ENABLE_DEBUG /**< enable this line to include debugging print statements */
-#define SERIALPRINT  /**< include 'human-friendly' print statement for commissioning - comment this line to exclude. */
-//#define SERIALOUT /**< Uncomment if a wired serial connection is used */
 //--------------------------------------------------------------------------------------------------
 
 #include "config_system.h"
@@ -31,6 +25,9 @@
 #include "utils_dualtariff.h"
 #include "utils_relay.h"
 #include "utils_temp.h"
+
+// constexpr variable to set the serial output type
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
 
 //--------------------------------------------------------------------------------------------------
 // constants which must be set individually for each system

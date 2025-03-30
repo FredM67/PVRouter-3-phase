@@ -142,11 +142,22 @@ inline void printConfiguration()
 #endif
 
   DBUG(F("Datalogging capability "));
-#ifdef SERIALPRINT
-  DBUGLN(F("is present"));
-#else
-  DBUGLN(F("is NOT present"));
-#endif
+  if constexpr(SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
+  {
+    DBUGLN(F("in Human-readable format"));
+  }
+  else if constexpr(SERIAL_OUTPUT_TYPE == SerialOutputType::IoT)
+  {
+    DBUGLN(F("in IoT format"));
+  }
+  else if constexpr(SERIAL_OUTPUT_TYPE == SerialOutputType::EmonCMS)
+  {
+    DBUGLN(F("in EmonCMS format"));
+  }
+  else
+  {
+    DBUGLN(F("is NOT present"));
+  }
 }
 
 /**
@@ -154,7 +165,7 @@ inline void printConfiguration()
  * 
  * @param bOffPeak state of on/off-peak period
  */
-inline void printForEmonESP(const bool bOffPeak)
+inline void printForEmonCMS(const bool bOffPeak)
 {
   uint8_t idx{ 0 };
 
@@ -176,7 +187,7 @@ inline void printForEmonESP(const bool bOffPeak)
     Serial.print(F(",L"));
     Serial.print(idx + 1);
     Serial.print(F(":"));
-    Serial.print((copyOf_countLoadON[idx] * 100) * invDATALOG_PERIOD_IN_MAINS_CYCLES);
+    Serial.print(copyOf_countLoadON[idx] * 100 * invDATALOG_PERIOD_IN_MAINS_CYCLES);
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
@@ -203,53 +214,6 @@ inline void printForEmonESP(const bool bOffPeak)
     Serial.print(bOffPeak ? "low" : "high");
   }
   Serial.println(F(""));
-}
-
-/**
- * @brief Prints data logs to the Serial output in Json format
- *
- */
-inline void printForSerialJson()
-{
-  uint8_t phase{ 0 };
-
-  Serial.print(copyOf_energyInBucket_main * invSUPPLY_FREQUENCY);
-  Serial.print(F(", P:"));
-  Serial.print(tx_data.power);
-
-  for (phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    Serial.print(F(", P"));
-    Serial.print(phase + 1);
-    Serial.print(F(":"));
-    Serial.print(tx_data.power_L[phase]);
-  }
-  for (phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    Serial.print(F(", V"));
-    Serial.print(phase + 1);
-    Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_x100[phase] * 0.01F);
-  }
-
-  if constexpr (TEMP_SENSOR_PRESENT)
-  {
-    for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
-    {
-      if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
-          || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
-      {
-        continue;
-      }
-
-      Serial.print(F(", T"));
-      Serial.print(idx + 1);
-      Serial.print(F(":"));
-      Serial.print((float)tx_data.temperature_x100[idx] * 0.01F);
-    }
-  }
-
-  Serial.println(F(")"));
 }
 
 /**
@@ -332,10 +296,7 @@ inline void printForSerialText()
  * - **Relay Data**: If relay diversion is enabled (`RELAY_DIVERSION`), sends the average relay data.
  * - **Voltage Data**: Sends the voltage data for each phase.
  * - **Temperature Data**: If temperature sensing is enabled (`TEMP_SENSOR_PRESENT`), sends valid temperature readings.
- * - **Absence of Diverted Energy Count**:
- *   - For 50 Hz: Uses `divu5` and `divu10` to calculate the value.
- *   - For 60 Hz: Uses `divu60` to calculate the value.
- *   - A `static_assert` ensures that the supply frequency is either 50 or 60 Hz.
+ * - **Absence of Diverted Energy Count**: The amount of seconds without diverting energy.
  *
  * @note The function uses compile-time constants (`constexpr`) to include or exclude specific features.
  *       Invalid temperature readings (e.g., `OUTOFRANGE_TEMPERATURE` or `DEVICE_DISCONNECTED_RAW`) are skipped.
@@ -355,13 +316,18 @@ void sendTelemetryData()
     teleInfo.send("R", static_cast< int16_t >(relays.get_average()));  // Send relay average if diversion is enabled
   }
 
-  uint8_t phase = 0;
+  uint8_t idx = 0;
   do
   {
-    teleInfo.send("V", tx_data.Vrms_L_x100[phase], phase + 1);  // Send voltage for each phase
-    ++phase;
-  } while (phase < NO_OF_PHASES);
+    teleInfo.send("V", tx_data.Vrms_L_x100[idx], idx + 1);  // Send voltage for each phase
+  } while (++idx < NO_OF_PHASES);
 
+  idx = 0;
+  do
+  {
+    teleInfo.send("L", copyOf_countLoadON[idx] * 100 * invDATALOG_PERIOD_IN_MAINS_CYCLES, idx + 1);  // Send load ON count for each load
+  } while (++idx < NO_OF_DUMPLOADS);
+  
   if constexpr (TEMP_SENSOR_PRESENT)
   {
     for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
@@ -399,18 +365,18 @@ inline void sendResults(bool bOffPeak)
   send_rf_data();  // *SEND RF DATA*
 #endif
 
-#if defined SERIALOUT
-  printForSerialJson();
-#endif  // if defined SERIALOUT
-
-  if constexpr (EMONESP_CONTROL)
+  if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
   {
-    printForEmonESP(bOffPeak);
+    printForSerialText();
   }
-
-#if defined SERIALPRINT && !defined EMONESP
-  printForSerialText();
-#endif  // if defined SERIALPRINT && !defined EMONESP
+  else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::IoT)
+  {
+    sendTelemetryData();
+  }
+  else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::EmonCMS)
+  {
+    printForEmonCMS(bOffPeak);
+  }
 }
 
 /**

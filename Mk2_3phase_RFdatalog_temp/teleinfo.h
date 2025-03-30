@@ -41,13 +41,13 @@ inline static constexpr size_t lineSize(size_t tagLen, size_t valueLen)
  * - 1 byte for the start-of-text (STX) character.
  * - 1 line for the "P" tag (signed 6 digits).
  * - For multi-phase systems (`NO_OF_PHASES > 1`):
- *   - `NO_OF_PHASES` lines for the "R" tag (signed 6 digits each).
- *   - `NO_OF_PHASES` lines for the "V1" tag (unsigned 5 digits each).
+ *   - `NO_OF_PHASES` lines for the "Vn" tag (unsigned 5 digits each).
  * - For single-phase systems:
  *   - 1 line for the "D" tag (unsigned 4 digits).
  *   - 1 line for the "E" tag (unsigned 5 digits).
  * - If relay diversion is enabled (`RELAY_DIVERSION`):
  *   - 1 line for the "R" tag (signed 6 digits).
+ *   - `relays.get_size()` lines for relay states ("R1" to "Rn", 1 digit each).
  * - If temperature sensors are present (`TEMP_SENSOR_PRESENT`):
  *   - `temperatureSensing.get_size()` lines for temperature tags ("T1" to "Tn", 4 digits each).
  * - 1 line for the "N" tag (unsigned 5 digits).
@@ -61,7 +61,6 @@ inline static constexpr size_t calcBufferSize()
 
   if constexpr (NO_OF_PHASES > 1)
   {
-    size += NO_OF_PHASES * lineSize(2, 6);  // R (signed 6 digits)
     size += NO_OF_PHASES * lineSize(2, 5);  // V1 (unsigned 5 digits)
   }
   else
@@ -69,6 +68,8 @@ inline static constexpr size_t calcBufferSize()
     size += lineSize(1, 4);  // D (unsigned 4 digits)
     size += lineSize(1, 5);  // E (unsigned 5 digits)
   }
+
+  size += NO_OF_DUMPLOADS * lineSize(2, 3);  // L1-Ln (unsigned 3 digits)
 
   if constexpr (RELAY_DIVERSION)
   {

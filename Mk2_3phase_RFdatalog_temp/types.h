@@ -21,6 +21,15 @@
 // -------------------------------
 // definitions of enumerated types
 
+//--------------------------------------------------------------------------------------------------
+// Enum for serial output types
+enum class SerialOutputType
+{
+  HumanReadable, /**< Human-readable output for commissioning */
+  IoT,           /**< Output for HomeAssistant or similar */
+  EmonCMS        /**< Output in EmonCMS format */
+};
+
 /** Polarities */
 enum class Polarities : uint8_t
 {

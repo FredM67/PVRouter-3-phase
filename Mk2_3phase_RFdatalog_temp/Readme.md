@@ -8,6 +8,7 @@ Ce programme est conçu pour être utilisé avec l'IDE Arduino et/ou d'autres ID
 - [Documentation de développement](#documentation-de-développement)
 - [Étalonnage du routeur](#étalonnage-du-routeur)
 - [Configuration du programme](#configuration-du-programme)
+  - [Type de sortie série](#type-de-sortie-série)
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
   - [Configuration des sorties relais tout-ou-rien](#configuration-des-sorties-relais-tout-ou-rien)
     - [Principe de fonctionnement](#principe-de-fonctionnement)
@@ -62,6 +63,7 @@ L'ensemble du projet a été conçu pour être utilisé de façon optimale avec 
 - **processing.cpp** : code source du moteur de traitement
 - **processing.h** : prototypes de fonctions du moteur de traitement
 - **Readme.md** : ce fichier
+- **teleinfo.h**: code source de la fonctionnalité *Télémétrie IoT*
 - **types.h** : définitions des types …
 - **type_traits.h** : quelques trucs STL qui ne sont pas encore disponibles dans le paquet avr
 - **type_traits** : contient des patrons STL manquants
@@ -98,6 +100,20 @@ La configuration d'une fonctionnalité suit généralement deux étapes :
 - Configuration des paramètres de la fonctionnalité
 
 La cohérence de la configuration est vérifiée lors de la compilation. Par exemple, si une *pin* est allouée deux fois par erreur, le compilateur générera une erreur.
+
+## Type de sortie série
+
+Le type de sortie série peut être configuré pour s'adapter à différents besoins. Trois options sont disponibles :
+
+- **HumanReadable** : Sortie lisible par un humain, idéale pour le débogage ou la mise en service.
+- **IoT** : Sortie formatée pour des plateformes IoT comme HomeAssistant.
+- **EmonCMS** : Sortie compatible avec le format attendu par EmonCMS.
+
+Pour configurer le type de sortie série, modifiez la constante suivante dans le fichier **config.h** :
+```cpp
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
+```
+Remplacez `HumanReadable` par `IoT` ou `EmonCMS` selon vos besoins.
 
 ## Configuration des sorties TRIAC
 
