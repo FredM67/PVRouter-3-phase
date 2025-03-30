@@ -1,0 +1,4 @@
+<map id="printForEmonCMS" name="printForEmonCMS">
+<area shape="rect" id="node1" title="Write on Serial in EmonESP format." alt="" coords="5,13,144,38"/>
+<area shape="rect" id="node2" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="192,5,347,45"/>
+</map>

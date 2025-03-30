@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['pin_0',['PIN',['../types_8h.html#a06b890c4a964752df814257dc1f13073acdbc895d08b5d92db04174533a8548f7',1,'types.h']]],
-  ['positive_1',['POSITIVE',['../types_8h.html#a297c9a15e28f6c3824b7a33453238136aab6c31432785221bae58327ef5f6ea58',1,'types.h']]]
+  ['load_5foff_0',['LOAD_OFF',['../types_8h.html#aa689e963b2305ff62d412abb6ebf7244a8f99352268add095fefd3881ea0a06de',1,'types.h']]],
+  ['load_5fon_1',['LOAD_ON',['../types_8h.html#aa689e963b2305ff62d412abb6ebf7244a9c23d2669d8e4741a50b2db484750152',1,'types.h']]]
 ];

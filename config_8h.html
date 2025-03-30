@@ -160,8 +160,6 @@ Macros</h2></td></tr>
 <tr class="separator:a1b04ec1cde4d3032f558ed8ad05930a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7df154e6d284322427bec4d2dfc0dda"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#ac7df154e6d284322427bec4d2dfc0dda">RF69_COMPAT</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:ac7df154e6d284322427bec4d2dfc0dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e2bd592f53e63c8c0323f2f54483420"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a1e2bd592f53e63c8c0323f2f54483420">SERIALPRINT</a></td></tr>
-<tr class="separator:a1e2bd592f53e63c8c0323f2f54483420"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -203,6 +201,8 @@ Variables</h2></td></tr>
 <tr class="separator:a0e46594bb69d18074193e096a4470dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af668b2a5b07a913bd673318dc30654bb"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#af668b2a5b07a913bd673318dc30654bb">rotationPin</a> { 0xff }</td></tr>
 <tr class="separator:af668b2a5b07a913bd673318dc30654bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8647e43a79ff20a858c1e3e3a76deadc"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="types_8h.html#a79eb4203772befbcfd761524de448ac7">SerialOutputType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a8647e43a79ff20a858c1e3e3a76deadc">SERIAL_OUTPUT_TYPE</a> = <a class="el" href="types_8h.html#a79eb4203772befbcfd761524de448ac7ae04f919664e727f5d94594a506d9e8b3">SerialOutputType::HumanReadable</a></td></tr>
+<tr class="separator:a8647e43a79ff20a858c1e3e3a76deadc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a412759f741ec4a38f90e75adfe997b58"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classTemperatureSensing.html">TemperatureSensing</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a412759f741ec4a38f90e75adfe997b58">temperatureSensing</a></td></tr>
 <tr class="separator:a412759f741ec4a38f90e75adfe997b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd1baf11732956aa199473daae453926"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#abd1baf11732956aa199473daae453926">ul_OFF_PEAK_DURATION</a> { 8 }</td></tr>
@@ -236,7 +236,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>enable this line to include debugging print statements </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00022">22</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00018">18</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -252,7 +252,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00109">109</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00106">106</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -268,24 +268,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00106">106</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
-
-</div>
-</div>
-<a id="a1e2bd592f53e63c8c0323f2f54483420" name="a1e2bd592f53e63c8c0323f2f54483420"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e2bd592f53e63c8c0323f2f54483420">&#9670;&#160;</a></span>SERIALPRINT</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SERIALPRINT</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>include 'human-friendly' print statement for commissioning - comment this line to exclude. </p>
-
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00023">23</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00103">103</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -311,7 +294,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if you want to control diversion ON/OFF </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00047">47</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00044">44</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -336,7 +319,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>if LOW, set diversion on standby </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00079">79</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00076">76</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -361,7 +344,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00054">54</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00051">51</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -386,7 +369,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>for 3-phase PCB, off-peak trigger </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00078">78</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00075">75</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -410,7 +393,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00046">46</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00043">43</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -435,7 +418,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>for 3-phase PCB, force pin </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00081">81</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00078">78</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -460,7 +443,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>the temperature threshold to stop overriding in °C </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00089">89</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00086">86</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -485,7 +468,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>load priorities and states at startup </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00075">75</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00072">72</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -510,7 +493,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>wireless network group - needs to be same for all nodes </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00112">112</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00109">109</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -535,7 +518,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>number of dump loads connected to the diverter </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00038">38</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00035">35</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -560,7 +543,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>RFM12B node ID </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00111">111</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00108">108</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -585,7 +568,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if there's a override pin </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00049">49</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00046">46</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -610,7 +593,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00074">74</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00071">71</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -635,7 +618,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if a relay is used for diversion </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00053">53</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00050">50</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -660,7 +643,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>config for relay diversion, see class definition for defaults and advanced options </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00084">84</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00081">81</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -685,7 +668,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>force config for load #1 ONLY for dual tariff </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00087">87</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00084">84</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -710,7 +693,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>rotates load priorities after this period of inactivity </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00098">98</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00095">95</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -735,7 +718,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00048">48</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00045">45</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -760,7 +743,31 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>if LOW, trigger a load priority rotation </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00080">80</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00077">77</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+</div>
+</div>
+<a id="a8647e43a79ff20a858c1e3e3a76deadc" name="a8647e43a79ff20a858c1e3e3a76deadc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8647e43a79ff20a858c1e3e3a76deadc">&#9670;&#160;</a></span>SERIAL_OUTPUT_TYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="types_8h.html#a79eb4203772befbcfd761524de448ac7">SerialOutputType</a> SERIAL_OUTPUT_TYPE = <a class="el" href="types_8h.html#a79eb4203772befbcfd761524de448ac7ae04f919664e727f5d94594a506d9e8b3">SerialOutputType::HumanReadable</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00030">30</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -791,7 +798,7 @@ Variables</h2></td></tr>
 <div class="line">                                                          { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } }</div>
 </div><!-- fragment --><p>list of temperature sensor Addresses </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00091">91</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00088">88</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -816,7 +823,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>Duration of the off-peak period in hours </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00086">86</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00083">83</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -841,7 +848,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>for when the processor contains the UNO bootloader. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00113">113</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00110">110</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -866,7 +873,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if there's a watch led </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00052">52</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00049">49</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -891,7 +898,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>watch dog LED </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00082">82</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00079">79</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>

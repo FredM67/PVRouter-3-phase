@@ -187,8 +187,7 @@ Functions</h2></td></tr>
 <li>1 byte for the start-of-text (STX) character.</li>
 <li>1 line for the "P" tag (signed 6 digits).</li>
 <li>For multi-phase systems (<code>NO_OF_PHASES &gt; 1</code>):<ul>
-<li><code>NO_OF_PHASES</code> lines for the "R" tag (signed 6 digits each).</li>
-<li><code>NO_OF_PHASES</code> lines for the "V1" tag (unsigned 5 digits each).</li>
+<li><code>NO_OF_PHASES</code> lines for the "Vn" tag (unsigned 5 digits each).</li>
 </ul>
 </li>
 <li>For single-phase systems:<ul>
@@ -198,6 +197,7 @@ Functions</h2></td></tr>
 </li>
 <li>If relay diversion is enabled (<code>RELAY_DIVERSION</code>):<ul>
 <li>1 line for the "R" tag (signed 6 digits).</li>
+<li><code>relays.get_size()</code> lines for relay states ("R1" to "Rn", 1 digit each).</li>
 </ul>
 </li>
 <li>If temperature sensors are present (<code>TEMP_SENSOR_PRESENT</code>):<ul>

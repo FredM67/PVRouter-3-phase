@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['load_5foff_0',['LOAD_OFF',['../types_8h.html#aa689e963b2305ff62d412abb6ebf7244a8f99352268add095fefd3881ea0a06de',1,'types.h']]],
-  ['load_5fon_1',['LOAD_ON',['../types_8h.html#aa689e963b2305ff62d412abb6ebf7244a9c23d2669d8e4741a50b2db484750152',1,'types.h']]]
+  ['emoncms_0',['EmonCMS',['../types_8h.html#a79eb4203772befbcfd761524de448ac7a12a98065399b87c87e6435d76799d9dc',1,'types.h']]]
 ];

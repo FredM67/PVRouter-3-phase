@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['serialprint_0',['SERIALPRINT',['../config_8h.html#a1e2bd592f53e63c8c0323f2f54483420',1,'config.h']]]
+  ['textify_0',['TEXTIFY',['../debug_8h.html#a94253da7c896b6bad6f37138776820b4',1,'debug.h']]]
 ];

@@ -175,12 +175,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aa45f069fe76674a03f3dd560dd00b1ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee">printConfiguration</a> ()</td></tr>
 <tr class="memdesc:aa45f069fe76674a03f3dd560dd00b1ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the configuration during start.  <br /></td></tr>
 <tr class="separator:aa45f069fe76674a03f3dd560dd00b1ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2e12eea4bb766ba5ddc1799aa342096"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096">printForEmonESP</a> (const bool bOffPeak)</td></tr>
-<tr class="memdesc:ac2e12eea4bb766ba5ddc1799aa342096"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write on Serial in EmonESP format.  <br /></td></tr>
-<tr class="separator:ac2e12eea4bb766ba5ddc1799aa342096"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e85b03079f1fbb8df1d5553f2431ac5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5">printForSerialJson</a> ()</td></tr>
-<tr class="memdesc:a2e85b03079f1fbb8df1d5553f2431ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints data logs to the Serial output in Json format.  <br /></td></tr>
-<tr class="separator:a2e85b03079f1fbb8df1d5553f2431ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a988b25d4a6361b7cc751a212af170665"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a988b25d4a6361b7cc751a212af170665">printForEmonCMS</a> (const bool bOffPeak)</td></tr>
+<tr class="memdesc:a988b25d4a6361b7cc751a212af170665"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write on Serial in EmonESP format.  <br /></td></tr>
+<tr class="separator:a988b25d4a6361b7cc751a212af170665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae46d07fd4694c49e10360b5d79163443"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#ae46d07fd4694c49e10360b5d79163443">printForSerialText</a> ()</td></tr>
 <tr class="memdesc:ae46d07fd4694c49e10360b5d79163443"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints data logs to the Serial output in text format.  <br /></td></tr>
 <tr class="separator:ae46d07fd4694c49e10360b5d79163443"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -269,7 +266,7 @@ Functions</h2></td></tr>
 <p>Get the available RAM during setup. </p>
 <dl class="section return"><dt>Returns</dt><dd>int The amount of free RAM </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00439">439</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00405">405</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -307,7 +304,7 @@ Here is the caller graph for this function:</div>
 
 <p>Prints the load priorities to the Serial output. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00420">420</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00386">386</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -379,8 +376,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ac2e12eea4bb766ba5ddc1799aa342096" name="ac2e12eea4bb766ba5ddc1799aa342096"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2e12eea4bb766ba5ddc1799aa342096">&#9670;&#160;</a></span>printForEmonESP()</h2>
+<a id="a988b25d4a6361b7cc751a212af170665" name="a988b25d4a6361b7cc751a212af170665"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a988b25d4a6361b7cc751a212af170665">&#9670;&#160;</a></span>printForEmonCMS()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -389,7 +386,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void printForEmonESP </td>
+          <td class="memname">void printForEmonCMS </td>
           <td>(</td>
           <td class="paramtype">const bool&#160;</td>
           <td class="paramname"><em>bOffPeak</em></td><td>)</td>
@@ -411,70 +408,22 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00157">157</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00168">168</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="utils_8h_ac2e12eea4bb766ba5ddc1799aa342096_cgraph.png" border="0" usemap="#autils_8h_ac2e12eea4bb766ba5ddc1799aa342096_cgraph" alt=""/></div>
-<map name="autils_8h_ac2e12eea4bb766ba5ddc1799aa342096_cgraph" id="autils_8h_ac2e12eea4bb766ba5ddc1799aa342096_cgraph">
-<area shape="rect" title="Write on Serial in EmonESP format." alt="" coords="5,13,139,38"/>
-<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="187,5,341,45"/>
+<div class="center"><img src="utils_8h_a988b25d4a6361b7cc751a212af170665_cgraph.png" border="0" usemap="#autils_8h_a988b25d4a6361b7cc751a212af170665_cgraph" alt=""/></div>
+<map name="autils_8h_a988b25d4a6361b7cc751a212af170665_cgraph" id="autils_8h_a988b25d4a6361b7cc751a212af170665_cgraph">
+<area shape="rect" title="Write on Serial in EmonESP format." alt="" coords="5,13,144,38"/>
+<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="192,5,347,45"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="utils_8h_ac2e12eea4bb766ba5ddc1799aa342096_icgraph.png" border="0" usemap="#autils_8h_ac2e12eea4bb766ba5ddc1799aa342096_icgraph" alt=""/></div>
-<map name="autils_8h_ac2e12eea4bb766ba5ddc1799aa342096_icgraph" id="autils_8h_ac2e12eea4bb766ba5ddc1799aa342096_icgraph">
-<area shape="rect" title="Write on Serial in EmonESP format." alt="" coords="253,5,387,31"/>
-<area shape="rect" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="104,5,205,31"/>
-<area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a2e85b03079f1fbb8df1d5553f2431ac5" name="a2e85b03079f1fbb8df1d5553f2431ac5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e85b03079f1fbb8df1d5553f2431ac5">&#9670;&#160;</a></span>printForSerialJson()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void printForSerialJson </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Prints data logs to the Serial output in Json format. </p>
-
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00212">212</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="utils_8h_a2e85b03079f1fbb8df1d5553f2431ac5_cgraph.png" border="0" usemap="#autils_8h_a2e85b03079f1fbb8df1d5553f2431ac5_cgraph" alt=""/></div>
-<map name="autils_8h_a2e85b03079f1fbb8df1d5553f2431ac5_cgraph" id="autils_8h_a2e85b03079f1fbb8df1d5553f2431ac5_cgraph">
-<area shape="rect" title="Prints data logs to the Serial output in Json format." alt="" coords="5,13,141,38"/>
-<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="189,5,344,45"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="utils_8h_a2e85b03079f1fbb8df1d5553f2431ac5_icgraph.png" border="0" usemap="#autils_8h_a2e85b03079f1fbb8df1d5553f2431ac5_icgraph" alt=""/></div>
-<map name="autils_8h_a2e85b03079f1fbb8df1d5553f2431ac5_icgraph" id="autils_8h_a2e85b03079f1fbb8df1d5553f2431ac5_icgraph">
-<area shape="rect" title="Prints data logs to the Serial output in Json format." alt="" coords="253,5,389,31"/>
+<div class="center"><img src="utils_8h_a988b25d4a6361b7cc751a212af170665_icgraph.png" border="0" usemap="#autils_8h_a988b25d4a6361b7cc751a212af170665_icgraph" alt=""/></div>
+<map name="autils_8h_a988b25d4a6361b7cc751a212af170665_icgraph" id="autils_8h_a988b25d4a6361b7cc751a212af170665_icgraph">
+<area shape="rect" title="Write on Serial in EmonESP format." alt="" coords="253,5,392,31"/>
 <area shape="rect" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="104,5,205,31"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
 </map>
@@ -507,7 +456,7 @@ Here is the caller graph for this function:</div>
 
 <p>Prints data logs to the Serial output in text format. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00259">259</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00223">223</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -563,19 +512,24 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00388">388</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00354">354</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils_8h_ade56d6fce22a518b8feff1a150461f94_cgraph.png" border="0" usemap="#autils_8h_ade56d6fce22a518b8feff1a150461f94_cgraph" alt=""/></div>
 <map name="autils_8h_ade56d6fce22a518b8feff1a150461f94_cgraph" id="autils_8h_ade56d6fce22a518b8feff1a150461f94_cgraph">
-<area shape="rect" title="Prints data logs to the Serial output in text or json format." alt="" coords="5,80,107,105"/>
-<area shape="rect" href="utils_8h.html#ac2e12eea4bb766ba5ddc1799aa342096" title="Write on Serial in EmonESP format." alt="" coords="156,5,289,31"/>
-<area shape="rect" href="utils_8h.html#a2e85b03079f1fbb8df1d5553f2431ac5" title="Prints data logs to the Serial output in Json format." alt="" coords="155,55,291,80"/>
-<area shape="rect" href="utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="155,104,291,129"/>
-<area shape="rect" href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="169,153,276,179"/>
-<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="357,43,512,83"/>
-<area shape="rect" href="classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="339,108,531,133"/>
+<area shape="rect" title="Prints data logs to the Serial output in text or json format." alt="" coords="5,94,107,119"/>
+<area shape="rect" href="utils_8h.html#a988b25d4a6361b7cc751a212af170665" title="Write on Serial in EmonESP format." alt="" coords="160,15,299,41"/>
+<area shape="rect" href="utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="161,69,297,94"/>
+<area shape="rect" href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="176,167,283,193"/>
+<area shape="rect" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="155,118,304,143"/>
+<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="371,5,525,45"/>
+<area shape="rect" href="classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="352,70,544,95"/>
+<area shape="rect" href="classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="375,119,521,145"/>
+<area shape="rect" href="classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="392,169,504,194"/>
+<area shape="rect" href="classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="372,218,524,243"/>
+<area shape="rect" href="classTeleInfo.html#a1f42b9e6aa9c3169b3ec469149e693a1" title="Calculates the checksum for a portion of the buffer." alt="" coords="592,143,800,169"/>
+<area shape="rect" href="classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="628,193,764,218"/>
 </map>
 </div>
 <div class="dynheader">
@@ -613,12 +567,7 @@ Here is the caller graph for this function:</div>
 <li><b>Relay Data</b>: If relay diversion is enabled (<code>RELAY_DIVERSION</code>), sends the average relay data.</li>
 <li><b>Voltage Data</b>: Sends the voltage data for each phase.</li>
 <li><b>Temperature Data</b>: If temperature sensing is enabled (<code>TEMP_SENSOR_PRESENT</code>), sends valid temperature readings.</li>
-<li><b>Absence of Diverted Energy Count</b>:<ul>
-<li>For 50 Hz: Uses <code>divu5</code> and <code>divu10</code> to calculate the value.</li>
-<li>For 60 Hz: Uses <code>divu60</code> to calculate the value.</li>
-<li>A <code>static_assert</code> ensures that the supply frequency is either 50 or 60 Hz.</li>
-</ul>
-</li>
+<li><b>Absence of Diverted Energy Count</b>: The amount of seconds without diverting energy.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>The function uses compile-time constants (<code>constexpr</code>) to include or exclude specific features. Invalid temperature readings (e.g., <code>OUTOFRANGE_TEMPERATURE</code> or <code>DEVICE_DISCONNECTED_RAW</code>) are skipped.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
@@ -628,7 +577,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00345">345</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00306">306</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -642,6 +591,16 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="223,219,375,244"/>
 <area shape="rect" href="classTeleInfo.html#a1f42b9e6aa9c3169b3ec469149e693a1" title="Calculates the checksum for a portion of the buffer." alt="" coords="443,144,651,169"/>
 <area shape="rect" href="classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="479,193,615,219"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="utils_8h_a5072aae7cb8a3f575605b65c6be56329_icgraph.png" border="0" usemap="#autils_8h_a5072aae7cb8a3f575605b65c6be56329_icgraph" alt=""/></div>
+<map name="autils_8h_a5072aae7cb8a3f575605b65c6be56329_icgraph" id="autils_8h_a5072aae7cb8a3f575605b65c6be56329_icgraph">
+<area shape="rect" title="Sends telemetry data using the TeleInfo class." alt="" coords="253,5,403,31"/>
+<area shape="rect" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="104,5,205,31"/>
+<area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
 </map>
 </div>
 
