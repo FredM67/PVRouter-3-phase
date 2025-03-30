@@ -2,29 +2,31 @@
 <area shape="rect" id="node1" title="Main processor." alt="" coords="5,371,56,396"/>
 <area shape="rect" id="node2" href="$main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Check the diversion state." alt="" coords="357,55,516,80"/>
 <area shape="rect" id="node5" href="$main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="377,5,496,31"/>
-<area shape="rect" id="node6" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="597,334,752,374"/>
+<area shape="rect" id="node6" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="597,314,752,354"/>
 <area shape="rect" id="node7" href="$classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc" title="Increment the duration&#39;s state of each relay." alt="" coords="104,371,295,396"/>
 <area shape="rect" id="node8" href="$classRelayEngine.html#a2891986bc989d9c35301711f674bc523" title="Proceed all relays in increasing order (surplus) or decreasing order (import)" alt="" coords="118,421,281,461"/>
 <area shape="rect" id="node9" href="$main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="105,181,293,221"/>
 <area shape="rect" id="node13" href="$classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe" title="Read temperature of a specific device." alt="" coords="122,485,277,525"/>
 <area shape="rect" id="node14" href="$classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80" title="Request temperature for all sensors." alt="" coords="115,549,283,589"/>
 <area shape="rect" id="node15" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="149,321,250,347"/>
-<area shape="rect" id="node26" href="$utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="158,613,241,639"/>
-<area shape="rect" id="node28" href="$classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287" title="Update the sliding average." alt="" coords="121,663,277,703"/>
+<area shape="rect" id="node28" href="$utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="158,613,241,639"/>
+<area shape="rect" id="node30" href="$classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287" title="Update the sliding average." alt="" coords="121,663,277,703"/>
 <area shape="rect" id="node3" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="626,80,723,105"/>
 <area shape="rect" id="node4" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="885,80,960,105"/>
 <area shape="rect" id="node10" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="343,155,531,195"/>
-<area shape="rect" id="node11" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="610,192,739,217"/>
-<area shape="rect" id="node12" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="857,192,988,217"/>
+<area shape="rect" id="node11" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="610,191,739,216"/>
+<area shape="rect" id="node12" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="857,191,988,216"/>
 <area shape="rect" id="node16" href="$utils_8h.html#a988b25d4a6361b7cc751a212af170665" title="Write on Serial in EmonESP format." alt="" coords="367,321,506,347"/>
 <area shape="rect" id="node17" href="$utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="369,420,505,445"/>
 <area shape="rect" id="node19" href="$utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="383,371,490,396"/>
-<area shape="rect" id="node20" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="362,469,511,495"/>
-<area shape="rect" id="node18" href="$classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="579,420,771,445"/>
-<area shape="rect" id="node21" href="$classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="601,469,748,495"/>
-<area shape="rect" id="node22" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="619,519,731,544"/>
-<area shape="rect" id="node25" href="$classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="599,568,751,593"/>
-<area shape="rect" id="node23" href="$classTeleInfo.html#a1f42b9e6aa9c3169b3ec469149e693a1" title="Calculates the checksum for a portion of the buffer." alt="" coords="819,493,1027,519"/>
-<area shape="rect" id="node24" href="$classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="855,543,991,568"/>
-<area shape="rect" id="node27" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="403,613,470,639"/>
+<area shape="rect" id="node20" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="362,473,511,499"/>
+<area shape="rect" id="node18" href="$classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="579,379,771,404"/>
+<area shape="rect" id="node21" href="$classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="601,527,748,552"/>
+<area shape="rect" id="node22" href="$classRelayEngine.html#a981b20422ed19d2aa87d042c583173ee" title="Get the relay object." alt="" coords="589,576,761,601"/>
+<area shape="rect" id="node23" href="$classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title="Get the number of relays." alt="" coords="592,625,757,651"/>
+<area shape="rect" id="node24" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="619,428,731,453"/>
+<area shape="rect" id="node27" href="$classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="599,477,751,503"/>
+<area shape="rect" id="node25" href="$classTeleInfo.html#a1f42b9e6aa9c3169b3ec469149e693a1" title="Calculates the checksum for a portion of the buffer." alt="" coords="819,404,1027,429"/>
+<area shape="rect" id="node26" href="$classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="855,453,991,479"/>
+<area shape="rect" id="node29" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="403,613,470,639"/>
 </map>
