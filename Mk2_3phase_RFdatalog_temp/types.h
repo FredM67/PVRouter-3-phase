@@ -22,7 +22,7 @@
 // definitions of enumerated types
 
 //--------------------------------------------------------------------------------------------------
-// Enum for serial output types
+/** Enum for serial output types */
 enum class SerialOutputType
 {
   HumanReadable, /**< Human-readable output for commissioning */

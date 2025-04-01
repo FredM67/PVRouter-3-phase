@@ -61,7 +61,10 @@ inline static constexpr size_t calcBufferSize()
 
   if constexpr (NO_OF_PHASES > 1)
   {
-    size += NO_OF_PHASES * lineSize(2, 5);  // V1 (unsigned 5 digits)
+    size += NO_OF_PHASES * lineSize(2, 6);  // R (signed 6 digits)
+    size += NO_OF_PHASES * lineSize(1, 5);  // V1 (unsigned 5 digits)
+
+	size += NO_OF_DUMPLOADS * lineSize(2, 3);  // L1-Ln (unsigned 3 digits)
   }
   else
   {
@@ -69,7 +72,6 @@ inline static constexpr size_t calcBufferSize()
     size += lineSize(1, 5);  // E (unsigned 5 digits)
   }
 
-  size += NO_OF_DUMPLOADS * lineSize(2, 3);  // L1-Ln (unsigned 3 digits)
 
   if constexpr (RELAY_DIVERSION)
   {
@@ -83,6 +85,9 @@ inline static constexpr size_t calcBufferSize()
   }
 
   size += lineSize(1, 5);  // N (unsigned 5 digits)
+
+  size += lineSize(4, 2);
+  size += lineSize(1, 5);
 
   size += 1;  // ETX
 

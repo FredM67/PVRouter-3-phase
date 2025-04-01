@@ -26,25 +26,17 @@
 #include "utils_relay.h"
 #include "utils_temp.h"
 
-// constexpr variable to set the serial output type
-inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable; /**< constexpr variable to set the serial output type */
 
 //--------------------------------------------------------------------------------------------------
 // constants which must be set individually for each system
 //
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 }; /**< number of dump loads connected to the diverter */
 
-#ifdef EMONESP
-inline constexpr bool EMONESP_CONTROL{ true };
-inline constexpr bool DIVERSION_PIN_PRESENT{ true };                    /**< managed through EmonESP */
-inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN }; /**< managed through EmonESP */
-inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                     /**< managed through EmonESP */
-#else
 inline constexpr bool EMONESP_CONTROL{ false };
 inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */
 inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set it to 'true' if there's a override pin */
-#endif
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
 inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
