@@ -89,6 +89,8 @@ inline void proceedHighEnergyLevel() __attribute__((always_inline));
 inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline));
 inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline));
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
+
+inline void updatePowerAndVoltageData() __attribute__((always_inline));
 #endif
 
 void processDataLogging();

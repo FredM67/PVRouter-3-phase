@@ -1,7 +1,19 @@
 /**
  * @file main.cpp
  * @author Frédéric Metrich (frederic.metrich@live.fr)
- * @brief Main code
+ * @brief Main code for the PVRouter 3-phase project.
+ *
+ * This file contains the main logic for the PVRouter, including the setup and loop functions,
+ * as well as interrupt service routines (ISRs) and utility functions for managing load priorities,
+ * temperature sensing, and telemetry data.
+ *
+ * @details
+ * - **Interrupt-Driven Analog Conversion**: Uses an ISR to process ADC data for voltage and current sensors.
+ * - **Load Management**: Includes functions for load priority rotation, forced full power, and dual tariff handling.
+ * - **Telemetry**: Sends telemetry data in various formats (e.g., IoT, EmonCMS).
+ * - **Temperature Sensing**: Supports DS18B20 sensors for temperature monitoring.
+ * - **Watchdog**: Toggles a pin to indicate system activity.
+ *
  * @version 0.1
  * @date 2023-02-15
  *
@@ -118,8 +130,7 @@ ISR(ADC_vect)
 /**
  * @brief This function set all 3 loads to full power.
  *
- * @return true if loads are forced
- * @return false
+ * @return true if loads are forced, false otherwise.
  */
 bool forceFullPower()
 {
@@ -151,8 +162,7 @@ bool forceFullPower()
 }
 
 /**
- * @brief Check the diversion state
- * 
+ * @brief Checks and updates the diversion state based on the diversion pin.
  */
 void checkDiversionOnOff()
 {
@@ -300,9 +310,8 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
 
 /**
  * @brief Called once during startup.
- * @details This function initializes a couple of variables we cannot init at compile time and
- *          sets a couple of parameters for runtime.
- *
+ * @details Initializes variables, configures pins, and prints system configuration to the Serial Monitor.
+ *          Also initializes optional features like temperature sensing and load priorities.
  */
 void setup()
 {
@@ -332,10 +341,36 @@ void setup()
 }
 
 /**
- * @brief Main processor.
- * @details None of the workload in loop() is time-critical.
- *          All the processing of ADC data is done within the ISR.
+ * @brief Updates power and voltage data for all phases.
  *
+ * @details This function calculates the power and voltage for each phase based on the
+ * accumulated data during the datalogging period. It also updates the total power.
+ */
+void updatePowerAndVoltageData()
+{
+  tx_data.power = 0;
+  for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
+  {
+    tx_data.power_L[phase] = copyOf_sumP_atSupplyPoint[phase] / copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
+    tx_data.power_L[phase] *= -1;
+
+    tx_data.power += tx_data.power_L[phase];
+
+    if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
+    {
+      tx_data.Vrms_L_x100[phase] = static_cast<int32_t>((100 << 2) * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+    }
+    else
+    {
+      tx_data.Vrms_L_x100[phase] = static_cast<int32_t>(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+    }
+  }
+}
+
+/**
+ * @brief Main processor.
+ * @details Handles non-time-critical tasks such as load management, telemetry updates, and temperature sensing.
+ *          Processes ADC data through flags set by the ISR.
  */
 void loop()
 {
@@ -381,23 +416,7 @@ void loop()
   {
     b_datalogEventPending = false;
 
-    tx_data.power = 0;
-    for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
-    {
-      tx_data.power_L[phase] = copyOf_sumP_atSupplyPoint[phase] / copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
-      tx_data.power_L[phase] *= -1;
-
-      tx_data.power += tx_data.power_L[phase];
-
-      if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
-      {
-        tx_data.Vrms_L_x100[phase] = static_cast< int32_t >((100 << 2) * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
-      }
-      else
-      {
-        tx_data.Vrms_L_x100[phase] = static_cast< int32_t >(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
-      }
-    }
+    updatePowerAndVoltageData();
 
     if constexpr (RELAY_DIVERSION)
     {
