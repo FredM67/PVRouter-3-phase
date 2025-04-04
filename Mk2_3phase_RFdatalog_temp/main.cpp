@@ -36,6 +36,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 #include "utils.h"
 #include "utils_relay.h"
 #include "validation.h"
+#include "main.h"
 
 // --------------  general global variables -----------------
 //

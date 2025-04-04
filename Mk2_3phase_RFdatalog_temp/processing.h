@@ -90,13 +90,6 @@ inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline));
 inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline));
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
 
-inline void updatePowerAndVoltageData() __attribute__((always_inline));
-inline void processTemperatureData() __attribute__((always_inline));
-inline void handlePerSecondTasks() __attribute__((always_inline));
-inline bool proceedLoadPrioritiesAndOverriding(const int16_t& currentTemperature_x100) __attribute__((always_inline));
-inline bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t& currentTemperature_x100) __attribute__((always_inline));
-inline void sendResults(bool bOffPeak) __attribute__((always_inline));
-
 #endif
 
 void processDataLogging();
