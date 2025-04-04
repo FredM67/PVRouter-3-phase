@@ -344,7 +344,7 @@ void setup()
  * @brief Updates power and voltage data for all phases.
  *
  * @details This function calculates the power and voltage for each phase based on the
- * accumulated data during the datalogging period. It also updates the total power.
+ *          accumulated data during the datalogging period. It also updates the total power.
  */
 void updatePowerAndVoltageData()
 {
@@ -367,6 +367,22 @@ void updatePowerAndVoltageData()
   }
 }
 
+/**
+ * @brief Processes temperature data from DS18B20 sensors.
+ * 
+ * @details This function reads temperature values from all connected DS18B20 sensors, filters out invalid readings, 
+ *          and updates the telemetry data structure with valid temperature values. Invalid readings are identified 
+ *          as 85.00°C (encoded as 8500) with a delta greater than 5.00°C (encoded as 500) from the previous reading. 
+ *          After processing, it requests new temperature measurements for the next cycle.
+ * 
+ * @note This function assumes that temperature values are stored as integers multiplied by 100 for precision.
+ * 
+ * @pre The `temperatureSensing` object must be initialized and configured with the connected DS18B20 sensors.
+ * 
+ * @post The `tx_data.temperature_x100` array is updated with the latest valid temperature readings.
+ * 
+ * @ingroup TemperatureProcessing
+ */
 void processTemperatureData()
 {
   uint8_t idx{ temperatureSensing.get_size() };
