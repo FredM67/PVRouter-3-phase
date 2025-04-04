@@ -1,6 +1,6 @@
 <map id="RelayEngine::get_size" name="RelayEngine::get_size">
 <area shape="rect" id="node1" title="Get the number of relays." alt="" coords="451,104,616,129"/>
-<area shape="rect" id="node2" href="$teleinfo_8h.html#a820a2f759b537f10c0543d9612390e8c" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="271,5,385,31"/>
+<area shape="rect" id="node2" href="$group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="271,5,385,31"/>
 <area shape="rect" id="node3" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="281,55,375,80"/>
 <area shape="rect" id="node4" href="$validation_8h.html#a60096a6d3a2fc387b51a01b6ff8c53d2" title=" " alt="" coords="261,104,395,129"/>
 <area shape="rect" id="node5" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="253,153,403,179"/>

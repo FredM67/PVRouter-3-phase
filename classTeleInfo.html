@@ -75,11 +75,11 @@ $(function() {
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classTeleInfo-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">TeleInfo Class Reference</div></div>
+  <div class="headertitle"><div class="title">TeleInfo Class Reference<div class="ingroups"><a class="el" href="group__Telemetry.html">Telemetry feature</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>A class for managing and sending telemetry information in a specific frame format.  
+<p>A class for managing and sending telemetry information in a structured frame format.  
  <a href="classTeleInfo.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>&gt;</code></p>
@@ -107,7 +107,7 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a78162488f195d2bcaeab241c03e35f21"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTeleInfo.html#a78162488f195d2bcaeab241c03e35f21">buffer</a> [<a class="el" href="teleinfo_8h.html#a820a2f759b537f10c0543d9612390e8c">calcBufferSize</a>()]</td></tr>
+<tr class="memitem:a78162488f195d2bcaeab241c03e35f21"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTeleInfo.html#a78162488f195d2bcaeab241c03e35f21">buffer</a> [<a class="el" href="group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c">calcBufferSize</a>()]</td></tr>
 <tr class="separator:a78162488f195d2bcaeab241c03e35f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a0247ece933354556a11d540fbd6d43"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTeleInfo.html#a2a0247ece933354556a11d540fbd6d43">bufferPos</a></td></tr>
 <tr class="separator:a2a0247ece933354556a11d540fbd6d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,9 +126,16 @@ Static Private Attributes</h2></td></tr>
 <tr class="separator:a2c8ee1a70a66831c451104fde3e76301"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A class for managing and sending telemetry information in a specific frame format. </p>
+<div class="textblock"><p>A class for managing and sending telemetry information in a structured frame format. </p>
+<p>The <code><a class="el" href="classTeleInfo.html" title="A class for managing and sending telemetry information in a structured frame format.">TeleInfo</a></code> class is responsible for creating and sending telemetry frames that include various data points such as power, voltage, temperature, and relay states. The frames are formatted with tags, values, and checksums to ensure data integrity.</p>
+<ul>
+<li><b>Frame Structure</b>: Each frame starts with a Start-of-Text (STX) character and ends with an End-of-Text (ETX) character. Data points are added as lines, each containing a tag, value, and checksum.</li>
+<li><b>Checksum Calculation</b>: A checksum is calculated for each line to ensure data integrity.</li>
+<li><b>Conditional Features</b>: The class supports optional features such as relay diversion and temperature sensing, which are included or excluded at compile time based on configuration constants.</li>
+<li><b>Buffer Management</b>: A buffer is used to store the frame data before sending it over the Serial interface. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00101">101</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00122">122</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a1f42b9e6aa9c3169b3ec469149e693a1" name="a1f42b9e6aa9c3169b3ec469149e693a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1f42b9e6aa9c3169b3ec469149e693a1">&#9670;&#160;</a></span>calculateChecksum()</h2>
@@ -174,7 +181,7 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The calculated checksum as a single byte. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00119">119</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00140">140</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -215,7 +222,7 @@ Here is the caller graph for this function:</div>
 
 <p>Finalizes the frame by adding the end character and sending the buffer over Serial. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00195">195</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00216">216</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -279,7 +286,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00175">175</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00196">196</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -329,7 +336,7 @@ Here is the caller graph for this function:</div>
 
 <p>Initializes a new frame by resetting the buffer and adding the start character. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00164">164</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00185">185</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -386,7 +393,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00146">146</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00167">167</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -413,7 +420,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char TeleInfo::buffer[<a class="el" href="teleinfo_8h.html#a820a2f759b537f10c0543d9612390e8c">calcBufferSize</a>()]</td>
+          <td class="memname">char TeleInfo::buffer[<a class="el" href="group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c">calcBufferSize</a>()]</td>
         </tr>
       </table>
   </td>
@@ -424,7 +431,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Buffer to store the frame data. Adjust size as needed. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00110">110</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00131">131</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -449,7 +456,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Current position in the buffer. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00111">111</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00132">132</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -474,7 +481,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Carriage Return character. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00107">107</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00128">128</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -499,7 +506,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>End of Frame character. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00105">105</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00126">126</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -524,7 +531,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Line Feed character. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00106">106</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00127">127</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -549,7 +556,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Start of Frame character. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00104">104</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00125">125</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -574,7 +581,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Tab character. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00108">108</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00129">129</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>

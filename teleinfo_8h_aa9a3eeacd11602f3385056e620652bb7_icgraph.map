@@ -1,4 +1,0 @@
-<map id="lineSize" name="lineSize">
-<area shape="rect" id="node1" title="Calculates the size of a single telemetry line in the frame." alt="" coords="168,5,241,31"/>
-<area shape="rect" id="node2" href="$teleinfo_8h.html#a820a2f759b537f10c0543d9612390e8c" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="5,5,120,31"/>
-</map>

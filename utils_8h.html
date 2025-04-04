@@ -185,7 +185,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ade56d6fce22a518b8feff1a150461f94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints data logs to the Serial output in text or json format.  <br /></td></tr>
 <tr class="separator:ade56d6fce22a518b8feff1a150461f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5072aae7cb8a3f575605b65c6be56329"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329">sendTelemetryData</a> ()</td></tr>
-<tr class="memdesc:a5072aae7cb8a3f575605b65c6be56329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends telemetry data using the <a class="el" href="classTeleInfo.html" title="A class for managing and sending telemetry information in a specific frame format.">TeleInfo</a> class.  <br /></td></tr>
+<tr class="memdesc:a5072aae7cb8a3f575605b65c6be56329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends telemetry data using the <a class="el" href="classTeleInfo.html" title="A class for managing and sending telemetry information in a structured frame format.">TeleInfo</a> class.  <br /></td></tr>
 <tr class="separator:a5072aae7cb8a3f575605b65c6be56329"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -561,8 +561,8 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Sends telemetry data using the <a class="el" href="classTeleInfo.html" title="A class for managing and sending telemetry information in a specific frame format.">TeleInfo</a> class. </p>
-<p>This function collects various telemetry data (e.g., power, voltage, temperature, etc.) and sends it in a structured format using the <code><a class="el" href="classTeleInfo.html" title="A class for managing and sending telemetry information in a specific frame format.">TeleInfo</a></code> class. The data is sent as a telemetry frame, which starts with a frame initialization, includes multiple data points, and ends with a frame finalization.</p>
+<p>Sends telemetry data using the <a class="el" href="classTeleInfo.html" title="A class for managing and sending telemetry information in a structured frame format.">TeleInfo</a> class. </p>
+<p>This function collects various telemetry data (e.g., power, voltage, temperature, etc.) and sends it in a structured format using the <code><a class="el" href="classTeleInfo.html" title="A class for managing and sending telemetry information in a structured frame format.">TeleInfo</a></code> class. The data is sent as a telemetry frame, which starts with a frame initialization, includes multiple data points, and ends with a frame finalization.</p>
 <p>The function supports conditional features such as relay diversion, temperature sensing, and different supply frequencies (50 Hz or 60 Hz).</p>
 <ul>
 <li><b>Power Data</b>: Sends the total power grid data.</li>

@@ -2,6 +2,6 @@
 <area shape="rect" id="node1" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="5,92,120,117"/>
 <area shape="rect" id="node2" href="$classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title="Get the number of relays." alt="" coords="168,5,333,31"/>
 <area shape="rect" id="node3" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="173,55,328,95"/>
-<area shape="rect" id="node4" href="$teleinfo_8h.html#aa9a3eeacd11602f3385056e620652bb7" title="Calculates the size of a single telemetry line in the frame." alt="" coords="214,120,287,145"/>
+<area shape="rect" id="node4" href="$group__Telemetry.html#gaa9a3eeacd11602f3385056e620652bb7" title="Calculates the size of a single telemetry line in the frame." alt="" coords="214,120,287,145"/>
 <area shape="rect" id="node5" href="$types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="227,169,275,195"/>
 </map>

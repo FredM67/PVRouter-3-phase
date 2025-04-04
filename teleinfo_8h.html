@@ -144,152 +144,18 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTeleInfo.html">TeleInfo</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class for managing and sending telemetry information in a specific frame format.  <a href="classTeleInfo.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class for managing and sending telemetry information in a structured frame format.  <a href="classTeleInfo.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a820a2f759b537f10c0543d9612390e8c"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="teleinfo_8h.html#a820a2f759b537f10c0543d9612390e8c">calcBufferSize</a> ()</td></tr>
-<tr class="memdesc:a820a2f759b537f10c0543d9612390e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the total buffer size required for the telemetry frame.  <br /></td></tr>
-<tr class="separator:a820a2f759b537f10c0543d9612390e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9a3eeacd11602f3385056e620652bb7"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="teleinfo_8h.html#aa9a3eeacd11602f3385056e620652bb7">lineSize</a> (size_t tagLen, size_t valueLen)</td></tr>
-<tr class="memdesc:aa9a3eeacd11602f3385056e620652bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the size of a single telemetry line in the frame.  <br /></td></tr>
-<tr class="separator:aa9a3eeacd11602f3385056e620652bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga820a2f759b537f10c0543d9612390e8c"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c">calcBufferSize</a> ()</td></tr>
+<tr class="memdesc:ga820a2f759b537f10c0543d9612390e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the total buffer size required for the telemetry frame.  <br /></td></tr>
+<tr class="separator:ga820a2f759b537f10c0543d9612390e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa9a3eeacd11602f3385056e620652bb7"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Telemetry.html#gaa9a3eeacd11602f3385056e620652bb7">lineSize</a> (size_t tagLen, size_t valueLen)</td></tr>
+<tr class="memdesc:gaa9a3eeacd11602f3385056e620652bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the size of a single telemetry line in the frame.  <br /></td></tr>
+<tr class="separator:gaa9a3eeacd11602f3385056e620652bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a820a2f759b537f10c0543d9612390e8c" name="a820a2f759b537f10c0543d9612390e8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a820a2f759b537f10c0543d9612390e8c">&#9670;&#160;</a></span>calcBufferSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static constexpr size_t calcBufferSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Calculates the total buffer size required for the telemetry frame. </p>
-<p>This function computes the size of the buffer needed to store the entire telemetry frame, including all tags, values, and formatting characters. The calculation takes into account the presence of optional features such as relay diversion and temperature sensing.</p>
-<dl class="section return"><dt>Returns</dt><dd>The total buffer size as a compile-time constant.</dd></dl>
-<p>The buffer size is calculated as follows:</p><ul>
-<li>1 byte for the start-of-text (STX) character.</li>
-<li>1 line for the "P" tag (signed 6 digits).</li>
-<li>For multi-phase systems (<code>NO_OF_PHASES &gt; 1</code>):<ul>
-<li><code>NO_OF_PHASES</code> lines for the "Vn" tag (unsigned 5 digits each).</li>
-</ul>
-</li>
-<li>For single-phase systems:<ul>
-<li>1 line for the "D" tag (unsigned 4 digits).</li>
-<li>1 line for the "E" tag (unsigned 5 digits).</li>
-</ul>
-</li>
-<li>If relay diversion is enabled (<code>RELAY_DIVERSION</code>):<ul>
-<li>1 line for the "R" tag (signed 6 digits).</li>
-<li><code>relays.get_size()</code> lines for relay states ("R1" to "Rn", 1 digit each).</li>
-</ul>
-</li>
-<li>If temperature sensors are present (<code>TEMP_SENSOR_PRESENT</code>):<ul>
-<li><code>temperatureSensing.get_size()</code> lines for temperature tags ("T1" to "Tn", 4 digits each).</li>
-</ul>
-</li>
-<li>1 line for the "N" tag (unsigned 5 digits).</li>
-<li>1 byte for the end-of-text (ETX) character. </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00056">56</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="teleinfo_8h_a820a2f759b537f10c0543d9612390e8c_cgraph.png" border="0" usemap="#ateleinfo_8h_a820a2f759b537f10c0543d9612390e8c_cgraph" alt=""/></div>
-<map name="ateleinfo_8h_a820a2f759b537f10c0543d9612390e8c_cgraph" id="ateleinfo_8h_a820a2f759b537f10c0543d9612390e8c_cgraph">
-<area shape="rect" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="5,92,120,117"/>
-<area shape="rect" href="classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title="Get the number of relays." alt="" coords="168,5,333,31"/>
-<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="173,55,328,95"/>
-<area shape="rect" href="teleinfo_8h.html#aa9a3eeacd11602f3385056e620652bb7" title="Calculates the size of a single telemetry line in the frame." alt="" coords="214,120,287,145"/>
-<area shape="rect" href="types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="227,169,275,195"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aa9a3eeacd11602f3385056e620652bb7" name="aa9a3eeacd11602f3385056e620652bb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9a3eeacd11602f3385056e620652bb7">&#9670;&#160;</a></span>lineSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static constexpr size_t lineSize </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>tagLen</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>valueLen</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Calculates the size of a single telemetry line in the frame. </p>
-<p>This function computes the size of a single line in the telemetry frame, including the tag, value, and formatting characters. Each line consists of:</p><ul>
-<li>1 byte for the Line Feed (LF) character.</li>
-<li><code>tagLen</code> bytes for the tag.</li>
-<li>1 byte for the Tab (TAB) character separating the tag and value.</li>
-<li><code>valueLen</code> bytes for the value.</li>
-<li>1 byte for the Tab (TAB) character separating the value and checksum.</li>
-<li>1 byte for the checksum.</li>
-<li>1 byte for the Carriage Return (CR) character.</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tagLen</td><td>The length of the tag in bytes. </td></tr>
-    <tr><td class="paramname">valueLen</td><td>The length of the value in bytes. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The total size of the line in bytes. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00026">26</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="teleinfo_8h_aa9a3eeacd11602f3385056e620652bb7_icgraph.png" border="0" usemap="#ateleinfo_8h_aa9a3eeacd11602f3385056e620652bb7_icgraph" alt=""/></div>
-<map name="ateleinfo_8h_aa9a3eeacd11602f3385056e620652bb7_icgraph" id="ateleinfo_8h_aa9a3eeacd11602f3385056e620652bb7_icgraph">
-<area shape="rect" title="Calculates the size of a single telemetry line in the frame." alt="" coords="168,5,241,31"/>
-<area shape="rect" href="teleinfo_8h.html#a820a2f759b537f10c0543d9612390e8c" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="5,5,120,31"/>
-</map>
-</div>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
