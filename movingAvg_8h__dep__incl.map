@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title="Code for sliding&#45;window average." alt="" coords="839,5,1016,45"/>
 <area shape="rect" id="node2" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="839,93,1016,133"/>
 <area shape="rect" id="node3" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="609,189,787,229"/>
-<area shape="rect" id="node5" href="$main_8cpp.html" title="Main code." alt="" coords="597,460,775,500"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="597,460,775,500"/>
 <area shape="rect" id="node12" href="$test__utils__relay_2test__main_8cpp.html" title=" " alt="" coords="965,181,1159,236"/>
 <area shape="rect" id="node4" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="609,284,787,324"/>
 <area shape="rect" id="node8" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="408,284,585,324"/>

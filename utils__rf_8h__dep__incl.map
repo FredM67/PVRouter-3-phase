@@ -2,5 +2,5 @@
 <area shape="rect" id="node1" title="Some utility functions for the RF chip." alt="" coords="105,5,283,45"/>
 <area shape="rect" id="node2" href="$utils_8h.html" title="Some utility functions." alt="" coords="5,93,183,133"/>
 <area shape="rect" id="node4" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="207,93,384,133"/>
-<area shape="rect" id="node3" href="$main_8cpp.html" title="Main code." alt="" coords="105,181,283,221"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="105,181,283,221"/>
 </map>

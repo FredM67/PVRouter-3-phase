@@ -5,7 +5,7 @@
 <area shape="rect" id="node10" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="863,284,1040,324"/>
 <area shape="rect" id="node11" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="779,93,956,133"/>
 <area shape="rect" id="node3" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="609,284,787,324"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="Main code." alt="" coords="708,460,885,500"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="708,460,885,500"/>
 <area shape="rect" id="node7" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="408,284,585,324"/>
 <area shape="rect" id="node8" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="207,284,384,324"/>
 <area shape="rect" id="node5" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="551,372,728,412"/>

@@ -11,7 +11,7 @@
 <area shape="rect" id="node12" href="$teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="207,577,384,617"/>
 <area shape="rect" id="node13" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="5,577,183,617"/>
 <area shape="rect" id="node6" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="460,577,637,617"/>
-<area shape="rect" id="node7" href="$main_8cpp.html" title="Main code." alt="" coords="535,753,712,793"/>
+<area shape="rect" id="node7" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="535,753,712,793"/>
 <area shape="rect" id="node10" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="661,577,839,617"/>
 <area shape="rect" id="node11" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="863,577,1040,617"/>
 <area shape="rect" id="node8" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="736,665,913,705"/>

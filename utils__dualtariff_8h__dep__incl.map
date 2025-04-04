@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title="Some utility functions for dual tariff feature." alt="" coords="508,5,685,45"/>
 <area shape="rect" id="node2" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="508,93,685,133"/>
 <area shape="rect" id="node3" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="207,181,384,221"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="Main code." alt="" coords="609,357,787,397"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="609,357,787,397"/>
 <area shape="rect" id="node7" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="408,181,585,221"/>
 <area shape="rect" id="node8" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="609,181,787,221"/>
 <area shape="rect" id="node9" href="$teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="5,181,183,221"/>

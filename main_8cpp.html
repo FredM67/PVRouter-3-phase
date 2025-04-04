@@ -79,7 +79,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Main code.  
+<p>Main code for the PVRouter 3-phase project.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="config_8h_source.html">config.h</a>&quot;</code><br />
@@ -94,7 +94,7 @@ Include dependency graph for main.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2main_8cpp" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2main_8cpp" id="aMk2__3phase__RFdatalog__temp_2main_8cpp">
-<area shape="rect" title="Main code." alt="" coords="859,5,1036,45"/>
+<area shape="rect" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="859,5,1036,45"/>
 <area shape="rect" title=" " alt="" coords="232,541,316,566"/>
 <area shape="rect" href="config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="611,240,684,265"/>
 <area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="720,387,791,412"/>
@@ -150,7 +150,7 @@ Include dependency graph for main.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a31f3d562faae6b598324b56299d74f7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a31f3d562faae6b598324b56299d74f7d">checkDiversionOnOff</a> ()</td></tr>
-<tr class="memdesc:a31f3d562faae6b598324b56299d74f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the diversion state.  <br /></td></tr>
+<tr class="memdesc:a31f3d562faae6b598324b56299d74f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks and updates the diversion state based on the diversion pin.  <br /></td></tr>
 <tr class="separator:a31f3d562faae6b598324b56299d74f7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5157f7f79cf8c75c2d7b41d8ed47a7ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef">forceFullPower</a> ()</td></tr>
 <tr class="memdesc:a5157f7f79cf8c75c2d7b41d8ed47a7ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function set all 3 loads to full power.  <br /></td></tr>
@@ -173,10 +173,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
 <tr class="memdesc:a4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once during startup.  <br /></td></tr>
 <tr class="separator:a4fc01d736fe50cf5b977f755b675f11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09f681954987d95f85831ca82365f987"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a09f681954987d95f85831ca82365f987">updatePowerAndVoltageData</a> ()</td></tr>
+<tr class="memdesc:a09f681954987d95f85831ca82365f987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates power and voltage data for all phases.  <br /></td></tr>
+<tr class="separator:a09f681954987d95f85831ca82365f987"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Main code. </p>
+<div class="textblock"><p>Main code for the PVRouter 3-phase project. </p>
 <dl class="section author"><dt>Author</dt><dd>Frédéric Metrich (<a href="#" onclick="location.href='mai'+'lto:'+'fre'+'de'+'ric'+'.m'+'etr'+'ic'+'h@l'+'iv'+'e.f'+'r'; return false;">frede<span class="obfuscator">.nosp@m.</span>ric.<span class="obfuscator">.nosp@m.</span>metri<span class="obfuscator">.nosp@m.</span>ch@l<span class="obfuscator">.nosp@m.</span>ive.f<span class="obfuscator">.nosp@m.</span>r</a>) </dd></dl>
+<p>This file contains the main logic for the PVRouter, including the setup and loop functions, as well as interrupt service routines (ISRs) and utility functions for managing load priorities, temperature sensing, and telemetry data.</p>
+<ul>
+<li><b>Interrupt-Driven Analog Conversion</b>: Uses an ISR to process ADC data for voltage and current sensors.</li>
+<li><b>Load Management</b>: Includes functions for load priority rotation, forced full power, and dual tariff handling.</li>
+<li><b>Telemetry</b>: Sends telemetry data in various formats (e.g., IoT, EmonCMS).</li>
+<li><b>Temperature Sensing</b>: Supports DS18B20 sensors for temperature monitoring.</li>
+<li><b>Watchdog</b>: Toggles a pin to indicate system activity.</li>
+</ul>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2023-02-15</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023 </dd></dl>
@@ -198,15 +209,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Check the diversion state. </p>
+<p>Checks and updates the diversion state based on the diversion pin. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00157">157</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00167">167</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a31f3d562faae6b598324b56299d74f7d_cgraph.png" border="0" usemap="#amain_8cpp_a31f3d562faae6b598324b56299d74f7d_cgraph" alt=""/></div>
 <map name="amain_8cpp_a31f3d562faae6b598324b56299d74f7d_cgraph" id="amain_8cpp_a31f3d562faae6b598324b56299d74f7d_cgraph">
-<area shape="rect" title="Check the diversion state." alt="" coords="5,5,164,31"/>
+<area shape="rect" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="5,5,164,31"/>
 <area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="212,5,309,31"/>
 <area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="357,5,432,31"/>
 </map>
@@ -216,7 +227,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a31f3d562faae6b598324b56299d74f7d_icgraph.png" border="0" usemap="#amain_8cpp_a31f3d562faae6b598324b56299d74f7d_icgraph" alt=""/></div>
 <map name="amain_8cpp_a31f3d562faae6b598324b56299d74f7d_icgraph" id="amain_8cpp_a31f3d562faae6b598324b56299d74f7d_icgraph">
-<area shape="rect" title="Check the diversion state." alt="" coords="104,5,263,31"/>
+<area shape="rect" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="104,5,263,31"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
 </map>
 </div>
@@ -239,11 +250,9 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>This function set all 3 loads to full power. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if loads are forced </dd>
-<dd>
-false </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if loads are forced, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00124">124</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00135">135</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -282,44 +291,45 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Main processor. </p>
-<p>None of the workload in <a class="el" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor.">loop()</a> is time-critical. All the processing of ADC data is done within the ISR. </p>
+<p>Handles non-time-critical tasks such as load management, telemetry updates, and temperature sensing. Processes ADC data through flags set by the ISR. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00340">340</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00375">375</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_afe461d27b9c48d5921c00d521181f12f_cgraph.png" border="0" usemap="#amain_8cpp_afe461d27b9c48d5921c00d521181f12f_cgraph" alt=""/></div>
 <map name="amain_8cpp_afe461d27b9c48d5921c00d521181f12f_cgraph" id="amain_8cpp_afe461d27b9c48d5921c00d521181f12f_cgraph">
-<area shape="rect" title="Main processor." alt="" coords="5,371,56,396"/>
-<area shape="rect" href="main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Check the diversion state." alt="" coords="357,55,516,80"/>
-<area shape="rect" href="main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="377,5,496,31"/>
-<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="597,314,752,354"/>
-<area shape="rect" href="classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc" title="Increment the duration&#39;s state of each relay." alt="" coords="104,371,295,396"/>
-<area shape="rect" href="classRelayEngine.html#a2891986bc989d9c35301711f674bc523" title="Proceed all relays in increasing order (surplus) or decreasing order (import)." alt="" coords="118,421,281,461"/>
-<area shape="rect" href="main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="105,181,293,221"/>
-<area shape="rect" href="classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe" title="Reads the temperature of a specific sensor." alt="" coords="122,485,277,525"/>
-<area shape="rect" href="classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80" title="Request temperature for all sensors." alt="" coords="115,549,283,589"/>
-<area shape="rect" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="149,321,250,347"/>
-<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="158,613,241,639"/>
-<area shape="rect" href="classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287" title="Update the sliding average." alt="" coords="121,663,277,703"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="626,80,723,105"/>
-<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="885,80,960,105"/>
-<area shape="rect" href="main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="343,155,531,195"/>
-<area shape="rect" href="main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="610,191,739,216"/>
-<area shape="rect" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="857,191,988,216"/>
-<area shape="rect" href="utils_8h.html#a988b25d4a6361b7cc751a212af170665" title="Write on Serial in EmonESP format." alt="" coords="367,321,506,347"/>
-<area shape="rect" href="utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="369,420,505,445"/>
-<area shape="rect" href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="383,371,490,396"/>
-<area shape="rect" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="362,473,511,499"/>
-<area shape="rect" href="classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="579,379,771,404"/>
-<area shape="rect" href="classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="601,527,748,552"/>
-<area shape="rect" href="classRelayEngine.html#a981b20422ed19d2aa87d042c583173ee" title="Get the relay object." alt="" coords="589,576,761,601"/>
-<area shape="rect" href="classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title="Get the number of relays." alt="" coords="592,625,757,651"/>
-<area shape="rect" href="classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="619,428,731,453"/>
-<area shape="rect" href="classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="599,477,751,503"/>
-<area shape="rect" href="classTeleInfo.html#a1f42b9e6aa9c3169b3ec469149e693a1" title="Calculates the checksum for a portion of the buffer." alt="" coords="819,404,1027,429"/>
-<area shape="rect" href="classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="855,453,991,479"/>
-<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="403,613,470,639"/>
+<area shape="rect" title="Main processor." alt="" coords="5,400,56,425"/>
+<area shape="rect" href="main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="379,55,537,80"/>
+<area shape="rect" href="main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="399,5,517,31"/>
+<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="619,314,773,354"/>
+<area shape="rect" href="classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc" title="Increment the duration&#39;s state of each relay." alt="" coords="115,371,305,396"/>
+<area shape="rect" href="classRelayEngine.html#a2891986bc989d9c35301711f674bc523" title="Proceed all relays in increasing order (surplus) or decreasing order (import)." alt="" coords="129,421,291,461"/>
+<area shape="rect" href="main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="116,181,304,221"/>
+<area shape="rect" href="classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe" title="Reads the temperature of a specific sensor." alt="" coords="133,485,287,525"/>
+<area shape="rect" href="classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80" title="Request temperature for all sensors." alt="" coords="126,549,294,589"/>
+<area shape="rect" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="159,321,261,347"/>
+<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="169,613,251,639"/>
+<area shape="rect" href="classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287" title="Update the sliding average." alt="" coords="132,663,288,703"/>
+<area shape="rect" href="main_8cpp.html#a09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="104,728,316,753"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="647,80,745,105"/>
+<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="907,80,981,105"/>
+<area shape="rect" href="main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="364,155,552,195"/>
+<area shape="rect" href="main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="631,191,761,216"/>
+<area shape="rect" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="879,191,1009,216"/>
+<area shape="rect" href="utils_8h.html#a988b25d4a6361b7cc751a212af170665" title="Write on Serial in EmonESP format." alt="" coords="389,321,527,347"/>
+<area shape="rect" href="utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="390,420,526,445"/>
+<area shape="rect" href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="405,371,511,396"/>
+<area shape="rect" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="383,473,533,499"/>
+<area shape="rect" href="classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="600,379,792,404"/>
+<area shape="rect" href="classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="623,527,769,552"/>
+<area shape="rect" href="classRelayEngine.html#a981b20422ed19d2aa87d042c583173ee" title="Get the relay object." alt="" coords="610,576,782,601"/>
+<area shape="rect" href="classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title="Get the number of relays." alt="" coords="613,625,779,651"/>
+<area shape="rect" href="classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="640,428,752,453"/>
+<area shape="rect" href="classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="620,477,772,503"/>
+<area shape="rect" href="classTeleInfo.html#a1f42b9e6aa9c3169b3ec469149e693a1" title="Calculates the checksum for a portion of the buffer." alt="" coords="840,404,1048,429"/>
+<area shape="rect" href="classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="876,453,1012,479"/>
+<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="425,613,491,639"/>
 </map>
 </div>
 
@@ -353,7 +363,7 @@ Here is the call graph for this function:</div>
 <dd>
 false if on-peak tariff is active </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00258">258</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00268">268</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -406,7 +416,7 @@ Here is the caller graph for this function:</div>
 <dd>
 false if low tariff (off-peak period) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00202">202</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00212">212</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -449,7 +459,7 @@ Here is the caller graph for this function:</div>
 
 <p>Proceed load priority rotation. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00181">181</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00191">191</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -489,9 +499,9 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Called once during startup. </p>
-<p>This function initializes a couple of variables we cannot init at compile time and sets a couple of parameters for runtime. </p>
+<p>Initializes variables, configures pins, and prints system configuration to the Serial Monitor. Also initializes optional features like temperature sensing and load priorities. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00307">307</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00316">316</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -522,6 +532,37 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classrelayOutput.html#aefe2af3c49240ec8fc219a26f37c8bb8" title="Get the minimum ON&#45;time in seconds." alt="" coords="989,369,1169,395"/>
 <area shape="rect" href="classrelayOutput.html#ac9bf2670034f07cc718b4a9b7c513155" title="Get the control pin of the relay." alt="" coords="1001,419,1156,444"/>
 <area shape="rect" href="classrelayOutput.html#a53d146f5a123d31cae6146e8fb4c038a" title="Get the surplus threshold which will turns ON the relay." alt="" coords="987,469,1170,509"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a09f681954987d95f85831ca82365f987" name="a09f681954987d95f85831ca82365f987"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09f681954987d95f85831ca82365f987">&#9670;&#160;</a></span>updatePowerAndVoltageData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void updatePowerAndVoltageData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates power and voltage data for all phases. </p>
+<p>This function calculates the power and voltage for each phase based on the accumulated data during the datalogging period. It also updates the total power. </p>
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00349">349</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_a09f681954987d95f85831ca82365f987_icgraph.png" border="0" usemap="#amain_8cpp_a09f681954987d95f85831ca82365f987_icgraph" alt=""/></div>
+<map name="amain_8cpp_a09f681954987d95f85831ca82365f987_icgraph" id="amain_8cpp_a09f681954987d95f85831ca82365f987_icgraph">
+<area shape="rect" title="Updates power and voltage data for all phases." alt="" coords="104,5,316,31"/>
+<area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
 </map>
 </div>
 
