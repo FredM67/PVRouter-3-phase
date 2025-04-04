@@ -1,3 +1,24 @@
+/**
+ * @file teleinfo.h
+ * @author your name (you@domain.com)
+ * @brief Manages telemetry data and frame formatting.
+ *
+ * This file defines the `TeleInfo` class, which is responsible for creating and sending
+ * telemetry frames. It includes functions for calculating buffer sizes, formatting data,
+ * and ensuring data integrity with checksums.
+ *
+ * @details
+ * - **Frame Structure**: Frames start with a Start-of-Text (STX) character and end with an
+ *   End-of-Text (ETX) character.
+ * - **Checksum**: Ensures data integrity for each line in the frame.
+ * - **Conditional Features**: Supports optional features like relay diversion and temperature sensing.
+ *
+ * @version 0.1
+ * @date 2025-04-04
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
 #ifndef TELEINFO_H
 #define TELEINFO_H
 
