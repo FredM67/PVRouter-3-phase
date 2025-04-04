@@ -38,7 +38,7 @@ var searchData=
   ['test_5fsetpinstate_35',['test_setPinState',['../test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965',1,'test_main.cpp']]],
   ['test_5ftogglepin_36',['test_togglePin',['../test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8',1,'test_main.cpp']]],
   ['textify_37',['TEXTIFY',['../debug_8h.html#a94253da7c896b6bad6f37138776820b4',1,'debug.h']]],
-  ['time_20critical_20functions_38',['Time critical functions',['../group__TimeCritical.html',1,'']]],
+  ['time_2dcritical_20functions_38',['Time-critical functions',['../group__TimeCritical.html',1,'']]],
   ['togglepin_39',['togglePin',['../utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977',1,'utils_pins.h']]],
   ['true_5ftype_40',['true_type',['../integral__constant_8hpp.html#aa4e9c28fa52ab73ef48e5cbed20c66fd',1,'integral_constant.hpp']]],
   ['try_5fturnoff_41',['try_turnOFF',['../classrelayOutput.html#a788868018f39545aa8178198f36b4e06',1,'relayOutput']]],

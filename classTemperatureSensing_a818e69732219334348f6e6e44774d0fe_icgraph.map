@@ -1,5 +1,5 @@
 <map id="TemperatureSensing::readTemperature" name="TemperatureSensing::readTemperature">
 <area shape="rect" id="node1" title="Reads the temperature of a specific sensor." alt="" coords="337,5,492,45"/>
-<area shape="rect" id="node2" href="$main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title=" " alt="" coords="104,13,289,38"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title="Processes temperature data from DS18B20 sensors." alt="" coords="104,13,289,38"/>
 <area shape="rect" id="node3" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,13,56,38"/>
 </map>

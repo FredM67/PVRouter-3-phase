@@ -1,5 +1,5 @@
 <map id="processTemperatureData" name="processTemperatureData">
-<area shape="rect" id="node1" title=" " alt="" coords="5,77,191,102"/>
+<area shape="rect" id="node1" title="Processes temperature data from DS18B20 sensors." alt="" coords="5,77,191,102"/>
 <area shape="rect" id="node2" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="245,5,400,45"/>
 <area shape="rect" id="node3" href="$classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe" title="Reads the temperature of a specific sensor." alt="" coords="245,69,400,109"/>
 <area shape="rect" id="node4" href="$classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80" title="Request temperature for all sensors." alt="" coords="239,133,407,173"/>

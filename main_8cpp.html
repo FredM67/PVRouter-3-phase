@@ -174,6 +174,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a9b9428fd01019319970f27b88bb1cf33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed load priority rotation.  <br /></td></tr>
 <tr class="separator:a9b9428fd01019319970f27b88bb1cf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90dc0c3192649d64ae885b62e6afa6e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4">processTemperatureData</a> ()</td></tr>
+<tr class="memdesc:a90dc0c3192649d64ae885b62e6afa6e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes temperature data from DS18B20 sensors.  <br /></td></tr>
 <tr class="separator:a90dc0c3192649d64ae885b62e6afa6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
 <tr class="memdesc:a4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once during startup.  <br /></td></tr>
@@ -324,7 +325,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00402">402</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00418">418</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -375,7 +376,7 @@ Here is the caller graph for this function:</div>
 <p>Main processor. </p>
 <p>Handles non-time-critical tasks such as load management, telemetry updates, and temperature sensing. Processes ADC data through flags set by the ISR. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00433">433</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00449">449</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -383,7 +384,7 @@ Here is the call graph for this function:</div>
 <map name="amain_8cpp_afe461d27b9c48d5921c00d521181f12f_cgraph" id="amain_8cpp_afe461d27b9c48d5921c00d521181f12f_cgraph">
 <area shape="rect" title="Main processor." alt="" coords="5,537,56,563"/>
 <area shape="rect" href="main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="125,161,295,187"/>
-<area shape="rect" href="main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title=" " alt="" coords="117,423,303,448"/>
+<area shape="rect" href="main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title="Processes temperature data from DS18B20 sensors." alt="" coords="117,423,303,448"/>
 <area shape="rect" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="159,537,261,563"/>
 <area shape="rect" href="classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287" title="Update the sliding average." alt="" coords="132,587,288,627"/>
 <area shape="rect" href="main_8cpp.html#a09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="104,652,316,677"/>
@@ -585,13 +586,19 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00370">370</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p>Processes temperature data from DS18B20 sensors. </p>
+<p>This function reads temperature values from all connected DS18B20 sensors, filters out invalid readings, and updates the telemetry data structure with valid temperature values. Invalid readings are identified as 85.00°C (encoded as 8500) with a delta greater than 5.00°C (encoded as 500) from the previous reading. After processing, it requests new temperature measurements for the next cycle.</p>
+<dl class="section note"><dt>Note</dt><dd>This function assumes that temperature values are stored as integers multiplied by 100 for precision.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <code>temperatureSensing</code> object must be initialized and configured with the connected DS18B20 sensors.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The <code>tx_data.temperature_x100</code> array is updated with the latest valid temperature readings. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00386">386</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_cgraph.png" border="0" usemap="#amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_cgraph" alt=""/></div>
 <map name="amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_cgraph" id="amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_cgraph">
-<area shape="rect" title=" " alt="" coords="5,77,191,102"/>
+<area shape="rect" title="Processes temperature data from DS18B20 sensors." alt="" coords="5,77,191,102"/>
 <area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="245,5,400,45"/>
 <area shape="rect" href="classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe" title="Reads the temperature of a specific sensor." alt="" coords="245,69,400,109"/>
 <area shape="rect" href="classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80" title="Request temperature for all sensors." alt="" coords="239,133,407,173"/>
@@ -602,7 +609,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph.png" border="0" usemap="#amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph" alt=""/></div>
 <map name="amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph" id="amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph">
-<area shape="rect" title=" " alt="" coords="104,5,289,31"/>
+<area shape="rect" title="Processes temperature data from DS18B20 sensors." alt="" coords="104,5,289,31"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
 </map>
 </div>

@@ -3,7 +3,7 @@
 <area shape="rect" id="node2" href="$group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="355,5,469,31"/>
 <area shape="rect" id="node3" href="$utils_8h.html#a988b25d4a6361b7cc751a212af170665" title="Write on Serial in EmonESP format." alt="" coords="343,55,481,80"/>
 <area shape="rect" id="node6" href="$utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="344,104,480,129"/>
-<area shape="rect" id="node7" href="$main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title=" " alt="" coords="104,179,289,204"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title="Processes temperature data from DS18B20 sensors." alt="" coords="104,179,289,204"/>
 <area shape="rect" id="node8" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="337,153,487,179"/>
 <area shape="rect" id="node4" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="146,129,247,155"/>
 <area shape="rect" id="node5" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,155,56,180"/>

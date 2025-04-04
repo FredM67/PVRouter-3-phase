@@ -1,7 +1,7 @@
 <map id="loop" name="loop">
 <area shape="rect" id="node1" title="Main processor." alt="" coords="5,537,56,563"/>
 <area shape="rect" id="node2" href="$main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="125,161,295,187"/>
-<area shape="rect" id="node15" href="$main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title=" " alt="" coords="117,423,303,448"/>
+<area shape="rect" id="node15" href="$main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title="Processes temperature data from DS18B20 sensors." alt="" coords="117,423,303,448"/>
 <area shape="rect" id="node19" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="159,537,261,563"/>
 <area shape="rect" id="node32" href="$classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287" title="Update the sliding average." alt="" coords="132,587,288,627"/>
 <area shape="rect" id="node33" href="$main_8cpp.html#a09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="104,652,316,677"/>
