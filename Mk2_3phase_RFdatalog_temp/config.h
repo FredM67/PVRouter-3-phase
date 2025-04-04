@@ -42,23 +42,26 @@ inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if th
 inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 
-// ----------- Pinout assignments -----------
+// ----------- Pinout Assignments -----------
 //
-// ANALOG pins are all reserved and hard-wired on the PCB
+// ANALOG pins:
+// - All analog pins are reserved and hard-wired on the PCB.
 //
 // DIGITAL pins:
-// D0 & D1 are reserved for the Serial i/f
-// - RFM12B -------------------------------
-// D2 is for the RFM12B if present
-// D10 is for the RFM12B if present
-// D11 is for the RFM12B if present
-// D12 is for the RFM12B if present
-// D13 is for the RFM12B if present
-// - SPI ----------------------------------
-// D10 is SC
-// D11 is MOSI
-// D12 is MISO
-// D13 is SCK
+// - D0 & D1: Reserved for the Serial interface.
+//
+// RFM12B Module (if present):
+// - D2: Used for the RFM12B module.
+// - D10: Used for the RFM12B module.
+// - D11: Used for the RFM12B module.
+// - D12: Used for the RFM12B module.
+// - D13: Used for the RFM12B module.
+//
+// SPI Interface:
+// - D10: Chip Select (CS).
+// - D11: Master Out Slave In (MOSI).
+// - D12: Master In Slave Out (MISO).
+// - D13: Serial Clock (SCK).
 
 inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 }; /**< load priorities and states at startup */
