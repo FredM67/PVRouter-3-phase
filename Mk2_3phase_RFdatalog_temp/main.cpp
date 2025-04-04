@@ -209,7 +209,7 @@ void proceedRotation()
  * @return true if high tariff (on-peak period)
  * @return false if low tariff (off-peak period)
  */
-bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperature_x100)
+bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t& currentTemperature_x100)
 {
   constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
   static bool pinOffPeakState{ HIGH };
@@ -265,7 +265,7 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t currentTemperatu
  * @return true if off-peak tariff is active
  * @return false if on-peak tariff is active
  */
-bool proceedLoadPrioritiesAndOverriding(const int16_t currentTemperature_x100)
+bool proceedLoadPrioritiesAndOverriding(const int16_t& currentTemperature_x100)
 {
   if constexpr (DUAL_TARIFF)
   {
@@ -358,12 +358,70 @@ void updatePowerAndVoltageData()
 
     if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
     {
-      tx_data.Vrms_L_x100[phase] = static_cast<int32_t>((100 << 2) * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      tx_data.Vrms_L_x100[phase] = static_cast< int32_t >((100 << 2) * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
     }
     else
     {
-      tx_data.Vrms_L_x100[phase] = static_cast<int32_t>(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      tx_data.Vrms_L_x100[phase] = static_cast< int32_t >(100 * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
     }
+  }
+}
+
+void processTemperatureData()
+{
+  uint8_t idx{ temperatureSensing.get_size() };
+  do
+  {
+    auto tmp = temperatureSensing.readTemperature(--idx);
+
+    // if read temperature is 85 and the delta with previous is greater than 5, skip the value
+    if (8500 == tmp && (abs(tmp - tx_data.temperature_x100[idx]) > 500))
+    {
+      tmp = DEVICE_DISCONNECTED_RAW;
+    }
+
+    tx_data.temperature_x100[idx] = tmp;
+  } while (idx);
+
+  temperatureSensing.requestTemperatures();  // for use next time around
+}
+
+/**
+ * @brief Handles tasks that need to be executed every second.
+ *
+ * @details This function performs various tasks that are triggered once per second, including:
+ * - Incrementing the absence of diverted energy count if no energy is being diverted.
+ * - Toggling the watchdog pin if the feature is enabled.
+ * - Checking and updating the diversion state.
+ * - Managing load priorities and overriding based on the current temperature.
+ * - Updating relay durations and proceeding with relay state transitions if relay diversion is enabled.
+ *
+ * @param bOffPeak Reference to the off-peak state flag.
+ * @param iTemperature_x100 Current temperature multiplied by 100 (default to 0 if temperature sensing is disabled).
+ */
+void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
+{
+  if (EDD_isIdle)
+  {
+    ++absenceOfDivertedEnergyCount;
+  }
+
+  if constexpr (WATCHDOG_PIN_PRESENT)
+  {
+    togglePin(watchDogPin);
+  }
+
+  checkDiversionOnOff();
+
+  if (!forceFullPower())
+  {
+    bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100);  // called every second
+  }
+
+  if constexpr (RELAY_DIVERSION)
+  {
+    relays.inc_duration();
+    relays.proceed_relays();
   }
 }
 
@@ -386,29 +444,7 @@ void loop()
     if (perSecondTimer >= SUPPLY_FREQUENCY)
     {
       perSecondTimer = 0;
-
-      if (EDD_isIdle)
-      {
-        ++absenceOfDivertedEnergyCount;
-      }
-
-      if constexpr (WATCHDOG_PIN_PRESENT)
-      {
-        togglePin(watchDogPin);
-      }
-
-      checkDiversionOnOff();
-
-      if (!forceFullPower())
-      {
-        bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100);  // called every second
-      }
-
-      if constexpr (RELAY_DIVERSION)
-      {
-        relays.inc_duration();
-        relays.proceed_relays();
-      }
+      handlePerSecondTasks(bOffPeak, iTemperature_x100);
     }
   }
 
@@ -425,21 +461,7 @@ void loop()
 
     if constexpr (TEMP_SENSOR_PRESENT)
     {
-      uint8_t idx{ temperatureSensing.get_size() };
-      do
-      {
-        auto tmp = temperatureSensing.readTemperature(--idx);
-
-        // if read temperature is 85 and the delta with previous is greater than 5, skip the value
-        if (8500 == tmp && (abs(tmp - tx_data.temperature_x100[idx]) > 500))
-        {
-          tmp = DEVICE_DISCONNECTED_RAW;
-        }
-
-        tx_data.temperature_x100[idx] = tmp;
-      } while (idx);
-
-      temperatureSensing.requestTemperatures();  // for use next time around
+      processTemperatureData();
     }
 
     sendResults(bOffPeak);
