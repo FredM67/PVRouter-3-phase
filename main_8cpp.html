@@ -155,21 +155,26 @@ Functions</h2></td></tr>
 <tr class="memitem:a5157f7f79cf8c75c2d7b41d8ed47a7ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef">forceFullPower</a> ()</td></tr>
 <tr class="memdesc:a5157f7f79cf8c75c2d7b41d8ed47a7ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function set all 3 loads to full power.  <br /></td></tr>
 <tr class="separator:a5157f7f79cf8c75c2d7b41d8ed47a7ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a143b5ab1cc611c04c761240ce5687fdd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd">handlePerSecondTasks</a> (bool &amp;bOffPeak, int16_t &amp;iTemperature_x100)</td></tr>
+<tr class="memdesc:a143b5ab1cc611c04c761240ce5687fdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles tasks that need to be executed every second.  <br /></td></tr>
+<tr class="separator:a143b5ab1cc611c04c761240ce5687fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga05c2e5b588ced1cd7312f5b0edc5b295"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295">ISR</a> (ADC_vect)</td></tr>
 <tr class="memdesc:ga05c2e5b588ced1cd7312f5b0edc5b295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Service Routine - Interrupt-Driven Analog Conversion.  <br /></td></tr>
 <tr class="separator:ga05c2e5b588ced1cd7312f5b0edc5b295"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
 <tr class="memdesc:afe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main processor.  <br /></td></tr>
 <tr class="separator:afe461d27b9c48d5921c00d521181f12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0f1d282805a9e6027f2a84720d60d0b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b">proceedLoadPrioritiesAndOverriding</a> (const int16_t currentTemperature_x100)</td></tr>
-<tr class="memdesc:aa0f1d282805a9e6027f2a84720d60d0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function changes the value of the load priorities.  <br /></td></tr>
-<tr class="separator:aa0f1d282805a9e6027f2a84720d60d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a518d4266a5d9285d29e65616eccd2277"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a518d4266a5d9285d29e65616eccd2277">proceedLoadPrioritiesAndOverridingDualTariff</a> (const int16_t currentTemperature_x100)</td></tr>
-<tr class="memdesc:a518d4266a5d9285d29e65616eccd2277"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed load priority in combination with dual tariff.  <br /></td></tr>
-<tr class="separator:a518d4266a5d9285d29e65616eccd2277"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4774b22349c58cef345ad396aecc868"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ab4774b22349c58cef345ad396aecc868">proceedLoadPrioritiesAndOverriding</a> (const int16_t &amp;currentTemperature_x100)</td></tr>
+<tr class="memdesc:ab4774b22349c58cef345ad396aecc868"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function changes the value of the load priorities.  <br /></td></tr>
+<tr class="separator:ab4774b22349c58cef345ad396aecc868"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b2ee7cd0a5810e272e1ffb0b5daf0ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a2b2ee7cd0a5810e272e1ffb0b5daf0ae">proceedLoadPrioritiesAndOverridingDualTariff</a> (const int16_t &amp;currentTemperature_x100)</td></tr>
+<tr class="memdesc:a2b2ee7cd0a5810e272e1ffb0b5daf0ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed load priority in combination with dual tariff.  <br /></td></tr>
+<tr class="separator:a2b2ee7cd0a5810e272e1ffb0b5daf0ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b9428fd01019319970f27b88bb1cf33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33">proceedRotation</a> ()</td></tr>
 <tr class="memdesc:a9b9428fd01019319970f27b88bb1cf33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed load priority rotation.  <br /></td></tr>
 <tr class="separator:a9b9428fd01019319970f27b88bb1cf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90dc0c3192649d64ae885b62e6afa6e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4">processTemperatureData</a> ()</td></tr>
+<tr class="separator:a90dc0c3192649d64ae885b62e6afa6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
 <tr class="memdesc:a4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once during startup.  <br /></td></tr>
 <tr class="separator:a4fc01d736fe50cf5b977f755b675f11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -227,7 +232,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a31f3d562faae6b598324b56299d74f7d_icgraph.png" border="0" usemap="#amain_8cpp_a31f3d562faae6b598324b56299d74f7d_icgraph" alt=""/></div>
 <map name="amain_8cpp_a31f3d562faae6b598324b56299d74f7d_icgraph" id="amain_8cpp_a31f3d562faae6b598324b56299d74f7d_icgraph">
-<area shape="rect" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="104,5,263,31"/>
+<area shape="rect" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="323,5,481,31"/>
+<area shape="rect" href="main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,5,275,31"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
 </map>
 </div>
@@ -268,7 +274,83 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a5157f7f79cf8c75c2d7b41d8ed47a7ef_icgraph.png" border="0" usemap="#amain_8cpp_a5157f7f79cf8c75c2d7b41d8ed47a7ef_icgraph" alt=""/></div>
 <map name="amain_8cpp_a5157f7f79cf8c75c2d7b41d8ed47a7ef_icgraph" id="amain_8cpp_a5157f7f79cf8c75c2d7b41d8ed47a7ef_icgraph">
-<area shape="rect" title="This function set all 3 loads to full power." alt="" coords="104,5,223,31"/>
+<area shape="rect" title="This function set all 3 loads to full power." alt="" coords="323,5,441,31"/>
+<area shape="rect" href="main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,5,275,31"/>
+<area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a143b5ab1cc611c04c761240ce5687fdd" name="a143b5ab1cc611c04c761240ce5687fdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a143b5ab1cc611c04c761240ce5687fdd">&#9670;&#160;</a></span>handlePerSecondTasks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void handlePerSecondTasks </td>
+          <td>(</td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>bOffPeak</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int16_t &amp;&#160;</td>
+          <td class="paramname"><em>iTemperature_x100</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles tasks that need to be executed every second. </p>
+<p>This function performs various tasks that are triggered once per second, including:</p><ul>
+<li>Incrementing the absence of diverted energy count if no energy is being diverted.</li>
+<li>Toggling the watchdog pin if the feature is enabled.</li>
+<li>Checking and updating the diversion state.</li>
+<li>Managing load priorities and overriding based on the current temperature.</li>
+<li>Updating relay durations and proceeding with relay state transitions if relay diversion is enabled.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bOffPeak</td><td>Reference to the off-peak state flag. </td></tr>
+    <tr><td class="paramname">iTemperature_x100</td><td>Current temperature multiplied by 100 (default to 0 if temperature sensing is disabled). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00402">402</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_a143b5ab1cc611c04c761240ce5687fdd_cgraph.png" border="0" usemap="#amain_8cpp_a143b5ab1cc611c04c761240ce5687fdd_cgraph" alt=""/></div>
+<map name="amain_8cpp_a143b5ab1cc611c04c761240ce5687fdd_cgraph" id="amain_8cpp_a143b5ab1cc611c04c761240ce5687fdd_cgraph">
+<area shape="rect" title="Handles tasks that need to be executed every second." alt="" coords="5,133,176,159"/>
+<area shape="rect" href="main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="477,5,636,31"/>
+<area shape="rect" href="main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="497,56,616,81"/>
+<area shape="rect" href="classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc" title="Increment the duration&#39;s state of each relay." alt="" coords="224,104,415,129"/>
+<area shape="rect" href="classRelayEngine.html#a2891986bc989d9c35301711f674bc523" title="Proceed all relays in increasing order (surplus) or decreasing order (import)." alt="" coords="238,154,401,194"/>
+<area shape="rect" href="main_8cpp.html#ab4774b22349c58cef345ad396aecc868" title="This function changes the value of the load priorities." alt="" coords="225,218,413,258"/>
+<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="278,283,361,308"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="715,83,812,108"/>
+<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="904,83,979,108"/>
+<area shape="rect" href="main_8cpp.html#a2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Proceed load priority in combination with dual tariff." alt="" coords="463,161,651,201"/>
+<area shape="rect" href="main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="699,196,828,221"/>
+<area shape="rect" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="876,196,1007,221"/>
+<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="523,283,590,308"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_a143b5ab1cc611c04c761240ce5687fdd_icgraph.png" border="0" usemap="#amain_8cpp_a143b5ab1cc611c04c761240ce5687fdd_icgraph" alt=""/></div>
+<map name="amain_8cpp_a143b5ab1cc611c04c761240ce5687fdd_icgraph" id="amain_8cpp_a143b5ab1cc611c04c761240ce5687fdd_icgraph">
+<area shape="rect" title="Handles tasks that need to be executed every second." alt="" coords="104,5,275,31"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
 </map>
 </div>
@@ -293,50 +375,52 @@ Here is the caller graph for this function:</div>
 <p>Main processor. </p>
 <p>Handles non-time-critical tasks such as load management, telemetry updates, and temperature sensing. Processes ADC data through flags set by the ISR. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00375">375</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00433">433</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_afe461d27b9c48d5921c00d521181f12f_cgraph.png" border="0" usemap="#amain_8cpp_afe461d27b9c48d5921c00d521181f12f_cgraph" alt=""/></div>
 <map name="amain_8cpp_afe461d27b9c48d5921c00d521181f12f_cgraph" id="amain_8cpp_afe461d27b9c48d5921c00d521181f12f_cgraph">
-<area shape="rect" title="Main processor." alt="" coords="5,400,56,425"/>
-<area shape="rect" href="main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="379,55,537,80"/>
-<area shape="rect" href="main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="399,5,517,31"/>
-<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="619,314,773,354"/>
-<area shape="rect" href="classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc" title="Increment the duration&#39;s state of each relay." alt="" coords="115,371,305,396"/>
-<area shape="rect" href="classRelayEngine.html#a2891986bc989d9c35301711f674bc523" title="Proceed all relays in increasing order (surplus) or decreasing order (import)." alt="" coords="129,421,291,461"/>
-<area shape="rect" href="main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="116,181,304,221"/>
-<area shape="rect" href="classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe" title="Reads the temperature of a specific sensor." alt="" coords="133,485,287,525"/>
-<area shape="rect" href="classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80" title="Request temperature for all sensors." alt="" coords="126,549,294,589"/>
-<area shape="rect" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="159,321,261,347"/>
-<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="169,613,251,639"/>
-<area shape="rect" href="classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287" title="Update the sliding average." alt="" coords="132,663,288,703"/>
-<area shape="rect" href="main_8cpp.html#a09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="104,728,316,753"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="647,80,745,105"/>
-<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="907,80,981,105"/>
-<area shape="rect" href="main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="364,155,552,195"/>
-<area shape="rect" href="main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="631,191,761,216"/>
-<area shape="rect" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="879,191,1009,216"/>
-<area shape="rect" href="utils_8h.html#a988b25d4a6361b7cc751a212af170665" title="Write on Serial in EmonESP format." alt="" coords="389,321,527,347"/>
-<area shape="rect" href="utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="390,420,526,445"/>
-<area shape="rect" href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="405,371,511,396"/>
-<area shape="rect" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="383,473,533,499"/>
-<area shape="rect" href="classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="600,379,792,404"/>
-<area shape="rect" href="classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="623,527,769,552"/>
-<area shape="rect" href="classRelayEngine.html#a981b20422ed19d2aa87d042c583173ee" title="Get the relay object." alt="" coords="610,576,782,601"/>
-<area shape="rect" href="classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title="Get the number of relays." alt="" coords="613,625,779,651"/>
-<area shape="rect" href="classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="640,428,752,453"/>
-<area shape="rect" href="classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="620,477,772,503"/>
-<area shape="rect" href="classTeleInfo.html#a1f42b9e6aa9c3169b3ec469149e693a1" title="Calculates the checksum for a portion of the buffer." alt="" coords="840,404,1048,429"/>
-<area shape="rect" href="classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="876,453,1012,479"/>
-<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="425,613,491,639"/>
+<area shape="rect" title="Main processor." alt="" coords="5,537,56,563"/>
+<area shape="rect" href="main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="125,161,295,187"/>
+<area shape="rect" href="main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title=" " alt="" coords="117,423,303,448"/>
+<area shape="rect" href="utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="159,537,261,563"/>
+<area shape="rect" href="classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287" title="Update the sliding average." alt="" coords="132,587,288,627"/>
+<area shape="rect" href="main_8cpp.html#a09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="104,652,316,677"/>
+<area shape="rect" href="main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="619,5,778,31"/>
+<area shape="rect" href="main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="639,56,758,81"/>
+<area shape="rect" href="classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc" title="Increment the duration&#39;s state of each relay." alt="" coords="364,104,555,129"/>
+<area shape="rect" href="classRelayEngine.html#a2891986bc989d9c35301711f674bc523" title="Proceed all relays in increasing order (surplus) or decreasing order (import)." alt="" coords="378,154,541,194"/>
+<area shape="rect" href="main_8cpp.html#ab4774b22349c58cef345ad396aecc868" title="This function changes the value of the load priorities." alt="" coords="365,218,553,258"/>
+<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="418,283,501,308"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="898,83,995,108"/>
+<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="1127,83,1201,108"/>
+<area shape="rect" href="main_8cpp.html#a2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Proceed load priority in combination with dual tariff." alt="" coords="605,161,793,201"/>
+<area shape="rect" href="main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="882,196,1011,221"/>
+<area shape="rect" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="1099,196,1229,221"/>
+<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="665,283,732,308"/>
+<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="621,497,776,537"/>
+<area shape="rect" href="classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe" title="Reads the temperature of a specific sensor." alt="" coords="382,383,537,423"/>
+<area shape="rect" href="classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80" title="Request temperature for all sensors." alt="" coords="375,447,543,487"/>
+<area shape="rect" href="utils_8h.html#a988b25d4a6361b7cc751a212af170665" title="Write on Serial in EmonESP format." alt="" coords="390,512,529,537"/>
+<area shape="rect" href="utils_8h.html#ae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="391,561,527,587"/>
+<area shape="rect" href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="406,611,513,636"/>
+<area shape="rect" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="385,660,534,685"/>
+<area shape="rect" href="classRelayEngine.html#a2c586921b020480449159786461195aa" title="Get the current average." alt="" coords="603,561,795,587"/>
+<area shape="rect" href="classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="625,611,772,636"/>
+<area shape="rect" href="classRelayEngine.html#a981b20422ed19d2aa87d042c583173ee" title="Get the relay object." alt="" coords="613,660,785,685"/>
+<area shape="rect" href="classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title="Get the number of relays." alt="" coords="616,709,781,735"/>
+<area shape="rect" href="classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="643,759,755,784"/>
+<area shape="rect" href="classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="623,808,775,833"/>
+<area shape="rect" href="classTeleInfo.html#a1f42b9e6aa9c3169b3ec469149e693a1" title="Calculates the checksum for a portion of the buffer." alt="" coords="843,733,1051,759"/>
+<area shape="rect" href="classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="879,783,1015,808"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="aa0f1d282805a9e6027f2a84720d60d0b" name="aa0f1d282805a9e6027f2a84720d60d0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0f1d282805a9e6027f2a84720d60d0b">&#9670;&#160;</a></span>proceedLoadPrioritiesAndOverriding()</h2>
+<a id="ab4774b22349c58cef345ad396aecc868" name="ab4774b22349c58cef345ad396aecc868"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4774b22349c58cef345ad396aecc868">&#9670;&#160;</a></span>proceedLoadPrioritiesAndOverriding()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -344,7 +428,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">bool proceedLoadPrioritiesAndOverriding </td>
           <td>(</td>
-          <td class="paramtype">const int16_t&#160;</td>
+          <td class="paramtype">const int16_t &amp;&#160;</td>
           <td class="paramname"><em>currentTemperature_x100</em></td><td>)</td>
           <td></td>
         </tr>
@@ -367,11 +451,11 @@ false if on-peak tariff is active </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_aa0f1d282805a9e6027f2a84720d60d0b_cgraph.png" border="0" usemap="#amain_8cpp_aa0f1d282805a9e6027f2a84720d60d0b_cgraph" alt=""/></div>
-<map name="amain_8cpp_aa0f1d282805a9e6027f2a84720d60d0b_cgraph" id="amain_8cpp_aa0f1d282805a9e6027f2a84720d60d0b_cgraph">
+<div class="center"><img src="main_8cpp_ab4774b22349c58cef345ad396aecc868_cgraph.png" border="0" usemap="#amain_8cpp_ab4774b22349c58cef345ad396aecc868_cgraph" alt=""/></div>
+<map name="amain_8cpp_ab4774b22349c58cef345ad396aecc868_cgraph" id="amain_8cpp_ab4774b22349c58cef345ad396aecc868_cgraph">
 <area shape="rect" title="This function changes the value of the load priorities." alt="" coords="5,25,193,65"/>
 <area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="493,5,591,31"/>
-<area shape="rect" href="main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="241,25,429,65"/>
+<area shape="rect" href="main_8cpp.html#a2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Proceed load priority in combination with dual tariff." alt="" coords="241,25,429,65"/>
 <area shape="rect" href="main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="477,59,607,84"/>
 <area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="683,5,757,31"/>
 <area shape="rect" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="655,59,785,84"/>
@@ -380,17 +464,18 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_aa0f1d282805a9e6027f2a84720d60d0b_icgraph.png" border="0" usemap="#amain_8cpp_aa0f1d282805a9e6027f2a84720d60d0b_icgraph" alt=""/></div>
-<map name="amain_8cpp_aa0f1d282805a9e6027f2a84720d60d0b_icgraph" id="amain_8cpp_aa0f1d282805a9e6027f2a84720d60d0b_icgraph">
-<area shape="rect" title="This function changes the value of the load priorities." alt="" coords="104,5,292,45"/>
+<div class="center"><img src="main_8cpp_ab4774b22349c58cef345ad396aecc868_icgraph.png" border="0" usemap="#amain_8cpp_ab4774b22349c58cef345ad396aecc868_icgraph" alt=""/></div>
+<map name="amain_8cpp_ab4774b22349c58cef345ad396aecc868_icgraph" id="amain_8cpp_ab4774b22349c58cef345ad396aecc868_icgraph">
+<area shape="rect" title="This function changes the value of the load priorities." alt="" coords="323,5,511,45"/>
+<area shape="rect" href="main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,13,275,38"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,13,56,38"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a518d4266a5d9285d29e65616eccd2277" name="a518d4266a5d9285d29e65616eccd2277"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a518d4266a5d9285d29e65616eccd2277">&#9670;&#160;</a></span>proceedLoadPrioritiesAndOverridingDualTariff()</h2>
+<a id="a2b2ee7cd0a5810e272e1ffb0b5daf0ae" name="a2b2ee7cd0a5810e272e1ffb0b5daf0ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b2ee7cd0a5810e272e1ffb0b5daf0ae">&#9670;&#160;</a></span>proceedLoadPrioritiesAndOverridingDualTariff()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -398,7 +483,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">bool proceedLoadPrioritiesAndOverridingDualTariff </td>
           <td>(</td>
-          <td class="paramtype">const int16_t&#160;</td>
+          <td class="paramtype">const int16_t &amp;&#160;</td>
           <td class="paramname"><em>currentTemperature_x100</em></td><td>)</td>
           <td></td>
         </tr>
@@ -420,8 +505,8 @@ false if low tariff (off-peak period) </dd></dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a518d4266a5d9285d29e65616eccd2277_cgraph.png" border="0" usemap="#amain_8cpp_a518d4266a5d9285d29e65616eccd2277_cgraph" alt=""/></div>
-<map name="amain_8cpp_a518d4266a5d9285d29e65616eccd2277_cgraph" id="amain_8cpp_a518d4266a5d9285d29e65616eccd2277_cgraph">
+<div class="center"><img src="main_8cpp_a2b2ee7cd0a5810e272e1ffb0b5daf0ae_cgraph.png" border="0" usemap="#amain_8cpp_a2b2ee7cd0a5810e272e1ffb0b5daf0ae_cgraph" alt=""/></div>
+<map name="amain_8cpp_a2b2ee7cd0a5810e272e1ffb0b5daf0ae_cgraph" id="amain_8cpp_a2b2ee7cd0a5810e272e1ffb0b5daf0ae_cgraph">
 <area shape="rect" title="Proceed load priority in combination with dual tariff." alt="" coords="5,23,193,63"/>
 <area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="257,5,355,31"/>
 <area shape="rect" href="main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="241,55,371,80"/>
@@ -432,10 +517,11 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8cpp_a518d4266a5d9285d29e65616eccd2277_icgraph.png" border="0" usemap="#amain_8cpp_a518d4266a5d9285d29e65616eccd2277_icgraph" alt=""/></div>
-<map name="amain_8cpp_a518d4266a5d9285d29e65616eccd2277_icgraph" id="amain_8cpp_a518d4266a5d9285d29e65616eccd2277_icgraph">
-<area shape="rect" title="Proceed load priority in combination with dual tariff." alt="" coords="340,5,528,45"/>
-<area shape="rect" href="main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="104,5,292,45"/>
+<div class="center"><img src="main_8cpp_a2b2ee7cd0a5810e272e1ffb0b5daf0ae_icgraph.png" border="0" usemap="#amain_8cpp_a2b2ee7cd0a5810e272e1ffb0b5daf0ae_icgraph" alt=""/></div>
+<map name="amain_8cpp_a2b2ee7cd0a5810e272e1ffb0b5daf0ae_icgraph" id="amain_8cpp_a2b2ee7cd0a5810e272e1ffb0b5daf0ae_icgraph">
+<area shape="rect" title="Proceed load priority in combination with dual tariff." alt="" coords="559,5,747,45"/>
+<area shape="rect" href="main_8cpp.html#ab4774b22349c58cef345ad396aecc868" title="This function changes the value of the load priorities." alt="" coords="323,5,511,45"/>
+<area shape="rect" href="main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,13,275,38"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,13,56,38"/>
 </map>
 </div>
@@ -474,10 +560,50 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_a9b9428fd01019319970f27b88bb1cf33_icgraph.png" border="0" usemap="#amain_8cpp_a9b9428fd01019319970f27b88bb1cf33_icgraph" alt=""/></div>
 <map name="amain_8cpp_a9b9428fd01019319970f27b88bb1cf33_icgraph" id="amain_8cpp_a9b9428fd01019319970f27b88bb1cf33_icgraph">
-<area shape="rect" title="Proceed load priority rotation." alt="" coords="576,13,705,38"/>
-<area shape="rect" href="main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="104,5,292,45"/>
-<area shape="rect" href="main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="340,33,528,73"/>
+<area shape="rect" title="Proceed load priority rotation." alt="" coords="795,13,924,38"/>
+<area shape="rect" href="main_8cpp.html#ab4774b22349c58cef345ad396aecc868" title="This function changes the value of the load priorities." alt="" coords="323,5,511,45"/>
+<area shape="rect" href="main_8cpp.html#a2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Proceed load priority in combination with dual tariff." alt="" coords="559,33,747,73"/>
+<area shape="rect" href="main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,13,275,38"/>
 <area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,13,56,38"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a90dc0c3192649d64ae885b62e6afa6e4" name="a90dc0c3192649d64ae885b62e6afa6e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90dc0c3192649d64ae885b62e6afa6e4">&#9670;&#160;</a></span>processTemperatureData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processTemperatureData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00370">370</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_cgraph.png" border="0" usemap="#amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_cgraph" alt=""/></div>
+<map name="amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_cgraph" id="amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_cgraph">
+<area shape="rect" title=" " alt="" coords="5,77,191,102"/>
+<area shape="rect" href="classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="245,5,400,45"/>
+<area shape="rect" href="classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe" title="Reads the temperature of a specific sensor." alt="" coords="245,69,400,109"/>
+<area shape="rect" href="classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80" title="Request temperature for all sensors." alt="" coords="239,133,407,173"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph.png" border="0" usemap="#amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph" alt=""/></div>
+<map name="amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph" id="amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph">
+<area shape="rect" title=" " alt="" coords="104,5,289,31"/>
+<area shape="rect" href="main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
 </map>
 </div>
 

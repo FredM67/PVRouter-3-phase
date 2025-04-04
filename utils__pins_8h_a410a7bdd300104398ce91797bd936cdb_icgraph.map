@@ -1,8 +1,9 @@
 <map id="getPinState" name="getPinState">
-<area shape="rect" id="node1" title="Get the Pin State." alt="" coords="576,81,673,107"/>
-<area shape="rect" id="node2" href="$main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="119,5,277,31"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="375,56,493,81"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="104,106,292,146"/>
-<area shape="rect" id="node6" href="$main_8cpp.html#a518d4266a5d9285d29e65616eccd2277" title="Proceed load priority in combination with dual tariff." alt="" coords="340,157,528,197"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,56,56,81"/>
+<area shape="rect" id="node1" title="Get the Pin State." alt="" coords="795,81,892,107"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="337,5,496,31"/>
+<area shape="rect" id="node5" href="$main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="593,56,712,81"/>
+<area shape="rect" id="node6" href="$main_8cpp.html#ab4774b22349c58cef345ad396aecc868" title="This function changes the value of the load priorities." alt="" coords="323,106,511,146"/>
+<area shape="rect" id="node7" href="$main_8cpp.html#a2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Proceed load priority in combination with dual tariff." alt="" coords="559,157,747,197"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,56,275,81"/>
+<area shape="rect" id="node4" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,56,56,81"/>
 </map>

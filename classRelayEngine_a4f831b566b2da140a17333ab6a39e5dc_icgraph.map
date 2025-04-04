@@ -1,4 +1,5 @@
 <map id="RelayEngine::inc_duration" name="RelayEngine::inc_duration">
-<area shape="rect" id="node1" title="Increment the duration&#39;s state of each relay." alt="" coords="104,5,295,31"/>
-<area shape="rect" id="node2" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
+<area shape="rect" id="node1" title="Increment the duration&#39;s state of each relay." alt="" coords="323,5,513,31"/>
+<area shape="rect" id="node2" href="$main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,5,275,31"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
 </map>
