@@ -153,8 +153,13 @@
  * - some tiny fixes
  * - even more documentation
  *  
+ * __April 2025: changes:__
+ * - add telemetry feature for HomeAssistant connectivity
+ * - some tiny fixes
+ * - even more documentation
+ *  
  * @author Fred Metrich
- * @copyright Copyright (c) 2024
+ * @copyright Copyright (c) 2025
  *
  */
 
@@ -181,6 +186,11 @@
 /*!
  *  @defgroup RF RF feature
  *  Functions used for the RF feature
+ */
+
+ /*!
+ *  @defgroup Telemetry Telemetry feature
+ *  Functions used for the telemetry feature
  */
 
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
