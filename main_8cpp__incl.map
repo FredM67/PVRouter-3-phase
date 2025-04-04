@@ -11,7 +11,7 @@
 <area shape="rect" id="node4" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="469,387,597,412"/>
 <area shape="rect" id="node31" href="$debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="621,387,695,412"/>
 <area shape="rect" id="node34" href="$utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="367,460,495,485"/>
-<area shape="rect" id="node39" href="$utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="195,313,297,339"/>
+<area shape="rect" id="node39" href="$utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="195,313,297,339"/>
 <area shape="rect" id="node5" href="$type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1351,460,1471,485"/>
 <area shape="rect" id="node6" href="$conditional_8hpp.html" title=" " alt="" coords="2649,541,2845,566"/>
 <area shape="rect" id="node7" href="$decay_8hpp.html" title=" " alt="" coords="340,541,501,566"/>
@@ -44,7 +44,7 @@
 <area shape="rect" id="node38" href="$utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="1093,387,1189,412"/>
 <area shape="rect" id="node43" href="$FastDivision_8h.html" title=" " alt="" coords="5,240,119,265"/>
 <area shape="rect" id="node44" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="467,167,561,192"/>
-<area shape="rect" id="node45" href="$teleinfo_8h.html" title=" " alt="" coords="359,167,443,192"/>
+<area shape="rect" id="node45" href="$teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="359,167,443,192"/>
 <area shape="rect" id="node46" href="$utils__rf_8h.html" title="Some utility functions for the RF chip." alt="" coords="744,240,823,265"/>
 <area shape="rect" id="node47" title=" " alt="" coords="747,313,820,339"/>
 </map>

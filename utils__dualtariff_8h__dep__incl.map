@@ -5,7 +5,7 @@
 <area shape="rect" id="node4" href="$main_8cpp.html" title="Main code." alt="" coords="609,357,787,397"/>
 <area shape="rect" id="node7" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="408,181,585,221"/>
 <area shape="rect" id="node8" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="609,181,787,221"/>
-<area shape="rect" id="node9" href="$teleinfo_8h.html" title=" " alt="" coords="5,181,183,221"/>
+<area shape="rect" id="node9" href="$teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="5,181,183,221"/>
 <area shape="rect" id="node10" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="736,269,913,309"/>
 <area shape="rect" id="node5" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="483,269,660,309"/>
 <area shape="rect" id="node6" href="$utils_8h.html" title="Some utility functions." alt="" coords="281,269,459,309"/>

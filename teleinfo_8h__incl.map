@@ -1,5 +1,5 @@
 <map id="Mk2_3phase_RFdatalog_temp/teleinfo.h" name="Mk2_3phase_RFdatalog_temp/teleinfo.h">
-<area shape="rect" id="node1" title=" " alt="" coords="2333,5,2511,45"/>
+<area shape="rect" id="node1" title="Manages telemetry data and frame formatting." alt="" coords="2333,5,2511,45"/>
 <area shape="rect" id="node2" title=" " alt="" coords="2624,394,2708,419"/>
 <area shape="rect" id="node3" href="$config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="1826,240,1954,265"/>
 <area shape="rect" id="node30" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="2385,93,2459,119"/>
@@ -33,7 +33,7 @@
 <area shape="rect" id="node32" href="$types_8h.html" title="Some basics classes/types." alt="" coords="2356,240,2427,265"/>
 <area shape="rect" id="node34" href="$utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="2571,167,2699,192"/>
 <area shape="rect" id="node35" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="2191,167,2291,192"/>
-<area shape="rect" id="node39" href="$utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="2551,240,2653,265"/>
+<area shape="rect" id="node39" href="$utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="2551,240,2653,265"/>
 <area shape="rect" id="node33" href="$constants_8h.html" title="Some constants." alt="" coords="2505,313,2603,339"/>
 <area shape="rect" id="node36" href="$movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="2079,240,2186,265"/>
 <area shape="rect" id="node37" href="$ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="2211,240,2332,265"/>

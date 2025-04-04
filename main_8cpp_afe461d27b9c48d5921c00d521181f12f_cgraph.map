@@ -6,7 +6,7 @@
 <area shape="rect" id="node7" href="$classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc" title="Increment the duration&#39;s state of each relay." alt="" coords="104,371,295,396"/>
 <area shape="rect" id="node8" href="$classRelayEngine.html#a2891986bc989d9c35301711f674bc523" title="Proceed all relays in increasing order (surplus) or decreasing order (import)." alt="" coords="118,421,281,461"/>
 <area shape="rect" id="node9" href="$main_8cpp.html#aa0f1d282805a9e6027f2a84720d60d0b" title="This function changes the value of the load priorities." alt="" coords="105,181,293,221"/>
-<area shape="rect" id="node13" href="$classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe" title="Read temperature of a specific device." alt="" coords="122,485,277,525"/>
+<area shape="rect" id="node13" href="$classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe" title="Reads the temperature of a specific sensor." alt="" coords="122,485,277,525"/>
 <area shape="rect" id="node14" href="$classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80" title="Request temperature for all sensors." alt="" coords="115,549,283,589"/>
 <area shape="rect" id="node15" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="149,321,250,347"/>
 <area shape="rect" id="node28" href="$utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="158,613,241,639"/>

@@ -10,6 +10,6 @@
 <area shape="rect" id="node7" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="930,299,1107,339"/>
 <area shape="rect" id="node10" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="729,299,906,339"/>
 <area shape="rect" id="node11" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="326,299,503,339"/>
-<area shape="rect" id="node12" href="$teleinfo_8h.html" title=" " alt="" coords="527,299,705,339"/>
+<area shape="rect" id="node12" href="$teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="527,299,705,339"/>
 <area shape="rect" id="node9" href="$utils_8h.html" title="Some utility functions." alt="" coords="527,387,705,427"/>
 </map>

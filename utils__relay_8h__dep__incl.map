@@ -6,7 +6,7 @@
 <area shape="rect" id="node3" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="609,196,787,236"/>
 <area shape="rect" id="node7" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="408,196,585,236"/>
 <area shape="rect" id="node8" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="5,196,183,236"/>
-<area shape="rect" id="node9" href="$teleinfo_8h.html" title=" " alt="" coords="207,196,384,236"/>
+<area shape="rect" id="node9" href="$teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="207,196,384,236"/>
 <area shape="rect" id="node10" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="661,284,839,324"/>
 <area shape="rect" id="node5" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="408,284,585,324"/>
 <area shape="rect" id="node6" href="$utils_8h.html" title="Some utility functions." alt="" coords="207,284,384,324"/>

@@ -1,4 +1,4 @@
 <map id="TemperatureSensing&lt; N &gt;" name="TemperatureSensing&lt; N &gt;">
-<area shape="rect" id="node1" title="This class implements the temperature sensing feature." alt="" coords="5,93,200,119"/>
+<area shape="rect" id="node1" title="Implements temperature sensing functionality for multiple sensors." alt="" coords="5,93,200,119"/>
 <area shape="rect" id="node2" href="$structDeviceAddress.html" title="Structure representing the address of a device." alt="" coords="43,5,162,31"/>
 </map>

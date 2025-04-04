@@ -3,10 +3,10 @@
 <area shape="rect" id="node2" href="$FastDivision_8h.html" title=" " alt="" coords="2629,167,2743,192"/>
 <area shape="rect" id="node4" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="2155,93,2257,119"/>
 <area shape="rect" id="node35" href="$constants_8h.html" title="Some constants." alt="" coords="2520,387,2617,412"/>
-<area shape="rect" id="node41" href="$utils__temp_8h.html" title="Some utility functions for temperature sensor(s)" alt="" coords="2579,240,2681,265"/>
+<area shape="rect" id="node41" href="$utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="2579,240,2681,265"/>
 <area shape="rect" id="node42" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="2282,93,2375,119"/>
 <area shape="rect" id="node43" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="2399,93,2503,119"/>
-<area shape="rect" id="node44" href="$teleinfo_8h.html" title=" " alt="" coords="1911,93,1995,119"/>
+<area shape="rect" id="node44" href="$teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="1911,93,1995,119"/>
 <area shape="rect" id="node45" href="$utils__rf_8h.html" title="Some utility functions for the RF chip." alt="" coords="2723,93,2801,119"/>
 <area shape="rect" id="node3" title=" " alt="" coords="2527,467,2611,493"/>
 <area shape="rect" id="node5" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="2289,167,2363,192"/>

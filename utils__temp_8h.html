@@ -80,7 +80,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Some utility functions for temperature sensor(s)  
+<p>Provides utilities for managing temperature sensors.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="constants_8h_source.html">constants.h</a>&quot;</code><br />
@@ -89,7 +89,7 @@ Include dependency graph for utils_temp.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__temp_8h__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2utils__temp_8h" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2utils__temp_8h" id="aMk2__3phase__RFdatalog__temp_2utils__temp_8h">
-<area shape="rect" title="Some utility functions for temperature sensor(s)" alt="" coords="5,5,183,45"/>
+<area shape="rect" title="Provides utilities for managing temperature sensors." alt="" coords="5,5,183,45"/>
 <area shape="rect" title=" " alt="" coords="52,167,136,192"/>
 <area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="89,93,187,119"/>
 </map>
@@ -99,14 +99,14 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__temp_8h__dep__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2utils__temp_8hdep" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2utils__temp_8hdep" id="aMk2__3phase__RFdatalog__temp_2utils__temp_8hdep">
-<area shape="rect" title="Some utility functions for temperature sensor(s)" alt="" coords="171,5,348,45"/>
+<area shape="rect" title="Provides utilities for managing temperature sensors." alt="" coords="171,5,348,45"/>
 <area shape="rect" href="config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="436,93,614,133"/>
 <area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="272,269,450,309"/>
 <area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="235,181,412,221"/>
 <area shape="rect" href="main_8cpp.html" title="Main code." alt="" coords="600,357,778,397"/>
 <area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="436,181,614,221"/>
 <area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="638,181,815,221"/>
-<area shape="rect" href="teleinfo_8h.html" title=" " alt="" coords="34,181,211,221"/>
+<area shape="rect" href="teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="34,181,211,221"/>
 <area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="727,269,904,309"/>
 <area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="474,269,651,309"/>
 </map>
@@ -120,7 +120,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure representing the address of a device.  <a href="structDeviceAddress.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTemperatureSensing.html">TemperatureSensing&lt; N &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class implements the temperature sensing feature.  <a href="classTemperatureSensing.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements temperature sensing functionality for multiple sensors.  <a href="classTemperatureSensing.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -129,8 +129,14 @@ Variables</h2></td></tr>
 <tr class="separator:abe9c0a80c3e6d59aaa13ce3e193a5083"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Some utility functions for temperature sensor(s) </p>
+<div class="textblock"><p>Provides utilities for managing temperature sensors. </p>
 <dl class="section author"><dt>Author</dt><dd>Frédéric Metrich (<a href="#" onclick="location.href='mai'+'lto:'+'fre'+'de'+'ric'+'.m'+'etr'+'ic'+'h@l'+'iv'+'e.f'+'r'; return false;">frede<span class="obfuscator">.nosp@m.</span>ric.<span class="obfuscator">.nosp@m.</span>metri<span class="obfuscator">.nosp@m.</span>ch@l<span class="obfuscator">.nosp@m.</span>ive.f<span class="obfuscator">.nosp@m.</span>r</a>) </dd></dl>
+<p>This file defines the <code><a class="el" href="classTemperatureSensing.html" title="Implements temperature sensing functionality for multiple sensors.">TemperatureSensing</a></code> class, which handles temperature sensing using DS18B20 sensors. It includes functions for initializing sensors, reading temperatures, and managing sensor addresses.</p>
+<ul>
+<li><b>Sensor Initialization</b>: Initializes the OneWire bus and requests temperature readings.</li>
+<li><b>Temperature Reading</b>: Reads and validates temperature data from sensors.</li>
+<li><b>Error Handling</b>: Handles disconnected or out-of-range sensors.</li>
+</ul>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2023-02-09</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
@@ -158,7 +164,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if temperature sensing is needed </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00023">23</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00033">33</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
 
 </div>
 </div>
