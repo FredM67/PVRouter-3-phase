@@ -311,8 +311,18 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t& currentTemperature_x100)
 
 /**
  * @brief Called once during startup.
- * @details Initializes variables, configures pins, and prints system configuration to the Serial Monitor.
- *          Also initializes optional features like temperature sensing and load priorities.
+ *
+ * This function initializes the system, configures pins, and prints system configuration
+ * to the Serial Monitor. It also initializes optional features like temperature sensing
+ * and load priorities.
+ *
+ * @details
+ * - Delays startup to allow time to open the Serial Monitor.
+ * - Initializes the Serial interface and debug port.
+ * - Displays configuration information.
+ * - Initializes all loads to OFF at startup.
+ * - Logs load priorities and initializes temperature sensors if present.
+ * - Prints available free RAM for debugging purposes.
  */
 void setup()
 {
@@ -342,8 +352,13 @@ void setup()
 /**
  * @brief Updates power and voltage data for all phases.
  *
- * @details This function calculates the power and voltage for each phase based on the
- *          accumulated data during the datalogging period. It also updates the total power.
+ * This function calculates the power and voltage for each phase based on the
+ * accumulated data during the datalogging period. It also updates the total power.
+ *
+ * @details
+ * - Computes the power for each phase using the accumulated power data and calibration factors.
+ * - Calculates the RMS voltage for each phase using the accumulated voltage squared data.
+ * - Updates the total power by summing the power of all phases.
  */
 void updatePowerAndVoltageData()
 {
