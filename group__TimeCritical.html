@@ -81,59 +81,62 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gadc681bbd6c00b6c808ad999bc0e49542"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542">confirmPolarity</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:gadc681bbd6c00b6c808ad999bc0e49542"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine prevents a zero-crossing point from being declared until a certain number of consecutive samples in the 'other' half of the waveform have been encountered.  <br /></td></tr>
+<tr class="memdesc:gadc681bbd6c00b6c808ad999bc0e49542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confirms the polarity of the current voltage sample for a specific phase.  <br /></td></tr>
 <tr class="separator:gadc681bbd6c00b6c808ad999bc0e49542"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga05c2e5b588ced1cd7312f5b0edc5b295"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295">ISR</a> (ADC_vect)</td></tr>
 <tr class="memdesc:ga05c2e5b588ced1cd7312f5b0edc5b295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt Service Routine - Interrupt-Driven Analog Conversion.  <br /></td></tr>
 <tr class="separator:ga05c2e5b588ced1cd7312f5b0edc5b295"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8e7b88bb4b21554d23b57676a45e034e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e">nextLogicalLoadToBeAdded</a> ()</td></tr>
-<tr class="memdesc:ga8e7b88bb4b21554d23b57676a45e034e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be added (be aware of the order)  <br /></td></tr>
+<tr class="memdesc:ga8e7b88bb4b21554d23b57676a45e034e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next logical load that could be added.  <br /></td></tr>
 <tr class="separator:ga8e7b88bb4b21554d23b57676a45e034e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabfb25288a79335282af6922e833d3c35"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35">nextLogicalLoadToBeRemoved</a> ()</td></tr>
-<tr class="memdesc:gabfb25288a79335282af6922e833d3c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be removed (be aware of the reverse-order)  <br /></td></tr>
+<tr class="memdesc:gabfb25288a79335282af6922e833d3c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next logical load that could be removed (in reverse order).  <br /></td></tr>
 <tr class="separator:gabfb25288a79335282af6922e833d3c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaef29df3a6c44ea8477b816cbdf3005f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3">proceedHighEnergyLevel</a> ()</td></tr>
-<tr class="memdesc:gaef29df3a6c44ea8477b816cbdf3005f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the case of high energy level, some action may be required.  <br /></td></tr>
+<tr class="memdesc:gaef29df3a6c44ea8477b816cbdf3005f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the case when the energy level is high, potentially adding a load.  <br /></td></tr>
 <tr class="separator:gaef29df3a6c44ea8477b816cbdf3005f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7ecb8f04a958d86156a6c95581f242d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3">proceedLowEnergyLevel</a> ()</td></tr>
-<tr class="memdesc:ga7ecb8f04a958d86156a6c95581f242d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the case of low energy level, some action may be required.  <br /></td></tr>
+<tr class="memdesc:ga7ecb8f04a958d86156a6c95581f242d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the case when the energy level is low, potentially removing a load.  <br /></td></tr>
 <tr class="separator:ga7ecb8f04a958d86156a6c95581f242d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafe8420bd47cd08c6d0327d4dbed06414"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">processCurrentRawSample</a> (const uint8_t phase, const int16_t rawSample)</td></tr>
-<tr class="memdesc:gafe8420bd47cd08c6d0327d4dbed06414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the calculation for the actual current raw sample for the specific phase.  <br /></td></tr>
+<tr class="memdesc:gafe8420bd47cd08c6d0327d4dbed06414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the current raw sample for the specified phase.  <br /></td></tr>
 <tr class="separator:gafe8420bd47cd08c6d0327d4dbed06414"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaabf10592d01250ef862370d26c5a382b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b">processDataLogging</a> ()</td></tr>
-<tr class="memdesc:gaabf10592d01250ef862370d26c5a382b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process with data logging.  <br /></td></tr>
+<tr class="memdesc:gaabf10592d01250ef862370d26c5a382b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process data logging at the end of each logging period.  <br /></td></tr>
 <tr class="separator:gaabf10592d01250ef862370d26c5a382b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1">processLatestContribution</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the latest contribution after each phase specific new cycle additional processing is performed after each main cycle based on phase 0.  <br /></td></tr>
+<tr class="memdesc:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the latest contribution after each phase-specific new cycle.  <br /></td></tr>
 <tr class="separator:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7449a97209a4b56151de6fc5197a9daf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf">processMinusHalfCycle</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:ga7449a97209a4b56151de6fc5197a9daf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the start of a new -ve half cycle, for this phase, just after the zero-crossing point.  <br /></td></tr>
+<tr class="memdesc:ga7449a97209a4b56151de6fc5197a9daf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the start of a new negative half cycle for the specified phase.  <br /></td></tr>
 <tr class="separator:ga7449a97209a4b56151de6fc5197a9daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaab63947d9b9f7f49dbb62a8ceada3d30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30">processPlusHalfCycle</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:gaab63947d9b9f7f49dbb62a8ceada3d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point.  <br /></td></tr>
+<tr class="memdesc:gaab63947d9b9f7f49dbb62a8ceada3d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the start of a new positive half cycle for the specified phase.  <br /></td></tr>
 <tr class="separator:gaab63947d9b9f7f49dbb62a8ceada3d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga81f4cbdafdfc13103fdfa34a136cd6fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga81f4cbdafdfc13103fdfa34a136cd6fd">processPolarity</a> (const uint8_t phase, const int16_t rawSample)</td></tr>
-<tr class="memdesc:ga81f4cbdafdfc13103fdfa34a136cd6fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process with the polarity for the actual voltage sample for the specific phase.  <br /></td></tr>
+<tr class="memdesc:ga81f4cbdafdfc13103fdfa34a136cd6fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the polarity of the current voltage sample for a specific phase.  <br /></td></tr>
 <tr class="separator:ga81f4cbdafdfc13103fdfa34a136cd6fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8cff922940989b7edaa8bd0347f9becc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc">processRawSamples</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:ga8cff922940989b7edaa8bd0347f9becc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine is called by the ISR when a pair of V &amp; I sample becomes available.  <br /></td></tr>
+<tr class="memdesc:ga8cff922940989b7edaa8bd0347f9becc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes raw voltage and current samples for the specified phase.  <br /></td></tr>
 <tr class="separator:ga8cff922940989b7edaa8bd0347f9becc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5a8b9dce34e44a69a46344e8ee1c0dd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6">processStartNewCycle</a> ()</td></tr>
-<tr class="memdesc:ga5a8b9dce34e44a69a46344e8ee1c0dd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0.  <br /></td></tr>
+<tr class="memdesc:ga5a8b9dce34e44a69a46344e8ee1c0dd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the start of a new mains cycle on phase 0.  <br /></td></tr>
 <tr class="separator:ga5a8b9dce34e44a69a46344e8ee1c0dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4bd9766ebd8acc09da5413f6d613f123"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123">processStartUp</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:ga4bd9766ebd8acc09da5413f6d613f123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the startup period for the router.  <br /></td></tr>
+<tr class="memdesc:ga4bd9766ebd8acc09da5413f6d613f123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the startup period for the router.  <br /></td></tr>
 <tr class="separator:ga4bd9766ebd8acc09da5413f6d613f123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaed3b88c01657f322f7b985574a3427fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaed3b88c01657f322f7b985574a3427fd">processVoltage</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:gaed3b88c01657f322f7b985574a3427fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the calculation for the current voltage sample for the specific phase.  <br /></td></tr>
+<tr class="memdesc:gaed3b88c01657f322f7b985574a3427fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the current voltage sample for the specified phase.  <br /></td></tr>
 <tr class="separator:gaed3b88c01657f322f7b985574a3427fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7b45c0ceb64e191cb1f053c28f02cee6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6">processVoltageRawSample</a> (const uint8_t phase, const int16_t rawSample)</td></tr>
-<tr class="memdesc:ga7b45c0ceb64e191cb1f053c28f02cee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the current voltage raw sample for the specific phase.  <br /></td></tr>
+<tr class="memdesc:ga7b45c0ceb64e191cb1f053c28f02cee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the current voltage raw sample for the specified phase.  <br /></td></tr>
 <tr class="separator:ga7b45c0ceb64e191cb1f053c28f02cee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1950a35c4c210dae480943adca0a3c88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88">updatePhysicalLoadStates</a> ()</td></tr>
-<tr class="memdesc:ga1950a35c4c210dae480943adca0a3c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides the link between the logical and physical loads.  <br /></td></tr>
+<tr class="memdesc:ga1950a35c4c210dae480943adca0a3c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the physical load states based on logical load priorities and states.  <br /></td></tr>
 <tr class="separator:ga1950a35c4c210dae480943adca0a3c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44ac46a7ff4e0717bd668d5907b38249"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249">updatePortsStates</a> ()</td></tr>
+<tr class="memdesc:ga44ac46a7ff4e0717bd668d5907b38249"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the control ports for each of the physical loads.  <br /></td></tr>
+<tr class="separator:ga44ac46a7ff4e0717bd668d5907b38249"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions used by the ISR. </p>
@@ -164,22 +167,28 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>This routine prevents a zero-crossing point from being declared until a certain number of consecutive samples in the 'other' half of the waveform have been encountered. </p>
+<p>Confirms the polarity of the current voltage sample for a specific phase. </p>
+<p>This routine prevents a zero-crossing point from being declared until a certain number of consecutive samples in the 'other' half of the waveform have been encountered.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">phase</td><td>the phase number [0..NO_OF_PHASES[ </td></tr>
+    <tr><td class="paramname">phase</td><td>The phase number [0..NO_OF_PHASES[.</td></tr>
   </table>
   </dd>
 </dl>
+<ul>
+<li>If the polarity of the most recent sample matches the last confirmed polarity, the persistence counter is reset.</li>
+<li>If the polarity differs, the persistence counter is incremented.</li>
+<li>Once the persistence counter exceeds a predefined threshold, the polarity is confirmed. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00365">365</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00463">463</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gadc681bbd6c00b6c808ad999bc0e49542_icgraph.png" border="0" usemap="#agroup__TimeCritical_gadc681bbd6c00b6c808ad999bc0e49542_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gadc681bbd6c00b6c808ad999bc0e49542_icgraph" id="agroup__TimeCritical_gadc681bbd6c00b6c808ad999bc0e49542_icgraph">
-<area shape="rect" title="This routine prevents a zero&#45;crossing point from being declared until a certain number of consecutive..." alt="" coords="343,5,464,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Confirms the polarity of the current voltage sample for a specific phase." alt="" coords="343,5,464,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -224,24 +233,24 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="group__TimeCritical_ga05c2e5b588ced1cd7312f5b0edc5b295_cgraph.png" border="0" usemap="#agroup__TimeCritical_ga05c2e5b588ced1cd7312f5b0edc5b295_cgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga05c2e5b588ced1cd7312f5b0edc5b295_cgraph" id="agroup__TimeCritical_ga05c2e5b588ced1cd7312f5b0edc5b295_cgraph">
 <area shape="rect" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,57,48,83"/>
-<area shape="rect" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414" title="Process the calculation for the actual current raw sample for the specific phase." alt="" coords="97,32,294,57"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,81,295,107"/>
-<area shape="rect" href="group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542" title="This routine prevents a zero&#45;crossing point from being declared until a certain number of consecutive..." alt="" coords="360,7,481,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga81f4cbdafdfc13103fdfa34a136cd6fd" title="Process with the polarity for the actual voltage sample for the specific phase." alt="" coords="359,56,482,81"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,105,499,131"/>
-<area shape="rect" href="group__TimeCritical.html#gaed3b88c01657f322f7b985574a3427fd" title="Process the calculation for the current voltage sample for the specific phase." alt="" coords="360,155,481,180"/>
-<area shape="rect" href="group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf" title="Process the start of a new &#45;ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="547,19,721,44"/>
-<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="553,68,715,93"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="550,129,718,155"/>
-<area shape="rect" href="group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Process the startup period for the router." alt="" coords="573,179,695,204"/>
-<area shape="rect" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process with data logging." alt="" coords="789,5,943,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase specific new cycle additional processing is performe..." alt="" coords="770,55,962,80"/>
-<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="774,104,958,129"/>
-<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="776,153,956,179"/>
-<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="769,203,963,228"/>
-<area shape="rect" href="processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="795,252,937,277"/>
-<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="1021,104,1221,129"/>
-<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="1011,153,1232,179"/>
+<area shape="rect" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414" title="Processes the current raw sample for the specified phase." alt="" coords="97,32,294,57"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,81,295,107"/>
+<area shape="rect" href="group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542" title="Confirms the polarity of the current voltage sample for a specific phase." alt="" coords="360,7,481,32"/>
+<area shape="rect" href="group__TimeCritical.html#ga81f4cbdafdfc13103fdfa34a136cd6fd" title="Processes the polarity of the current voltage sample for a specific phase." alt="" coords="359,56,482,81"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,105,499,131"/>
+<area shape="rect" href="group__TimeCritical.html#gaed3b88c01657f322f7b985574a3427fd" title="Processes the current voltage sample for the specified phase." alt="" coords="360,155,481,180"/>
+<area shape="rect" href="group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf" title="Processes the start of a new negative half cycle for the specified phase." alt="" coords="547,19,721,44"/>
+<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="553,68,715,93"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="550,129,718,155"/>
+<area shape="rect" href="group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Processes the startup period for the router." alt="" coords="573,179,695,204"/>
+<area shape="rect" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process data logging at the end of each logging period." alt="" coords="789,5,943,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase&#45;specific new cycle." alt="" coords="770,55,962,80"/>
+<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="774,104,958,129"/>
+<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="776,153,956,179"/>
+<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="769,203,963,228"/>
+<area shape="rect" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="795,252,937,277"/>
+<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="1021,104,1221,129"/>
+<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="1011,153,1232,179"/>
 <area shape="rect" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="1074,227,1169,252"/>
 <area shape="rect" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="1077,276,1166,301"/>
 </map>
@@ -272,20 +281,21 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Retrieve the next load that could be added (be aware of the order) </p>
-<dl class="section return"><dt>Returns</dt><dd>The load number if successful, NO_OF_DUMPLOADS in case of failure </dd></dl>
+<p>Retrieve the next logical load that could be added. </p>
+<p>This function identifies the next logical load that can be added based on the current load priorities and states. It iterates through the load priorities to find the first load that is currently OFF.</p>
+<dl class="section return"><dt>Returns</dt><dd>The load number if a suitable load is found, or <code>NO_OF_DUMPLOADS</code> if no load can be added. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00616">616</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00767">767</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga8e7b88bb4b21554d23b57676a45e034e_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga8e7b88bb4b21554d23b57676a45e034e_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga8e7b88bb4b21554d23b57676a45e034e_icgraph" id="agroup__TimeCritical_ga8e7b88bb4b21554d23b57676a45e034e_icgraph">
-<area shape="rect" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="995,5,1195,31"/>
-<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="763,5,947,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Retrieve the next logical load that could be added." alt="" coords="995,5,1195,31"/>
+<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="763,5,947,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -315,20 +325,21 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Retrieve the next load that could be removed (be aware of the reverse-order) </p>
-<dl class="section return"><dt>Returns</dt><dd>The load number if successful, NO_OF_DUMPLOADS in case of failure </dd></dl>
+<p>Retrieve the next logical load that could be removed (in reverse order). </p>
+<p>This function identifies the next logical load that can be removed based on the current load priorities and states. It iterates through the load priorities in reverse order to find the first load that is currently ON.</p>
+<dl class="section return"><dt>Returns</dt><dd>The load number if a suitable load is found, or <code>NO_OF_DUMPLOADS</code> if no load can be removed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00636">636</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00792">792</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gabfb25288a79335282af6922e833d3c35_icgraph.png" border="0" usemap="#agroup__TimeCritical_gabfb25288a79335282af6922e833d3c35_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gabfb25288a79335282af6922e833d3c35_icgraph" id="agroup__TimeCritical_gabfb25288a79335282af6922e833d3c35_icgraph">
-<area shape="rect" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="991,5,1212,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="763,5,943,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="991,5,1212,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="763,5,943,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -358,16 +369,22 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Process the case of high energy level, some action may be required. </p>
+<p>Handles the case when the energy level is high, potentially adding a load. </p>
+<p>This function determines if a new load can be added based on the current energy level and recent transitions. It updates the logical load states and thresholds accordingly.</p>
+<ul>
+<li>Identifies the next logical load to be added.</li>
+<li>Ensures that only the active load can be switched during the post-transition period.</li>
+<li>Updates the upper energy threshold and logical load states if a load is added. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00443">443</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00568">568</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_cgraph.png" border="0" usemap="#agroup__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_cgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_cgraph" id="agroup__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_cgraph">
-<area shape="rect" title="Process the case of high energy level, some action may be required." alt="" coords="5,5,189,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="237,5,437,31"/>
+<area shape="rect" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="5,5,189,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="237,5,437,31"/>
 </map>
 </div>
 <div class="dynheader">
@@ -375,10 +392,10 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_icgraph.png" border="0" usemap="#agroup__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_icgraph" id="agroup__TimeCritical_gaef29df3a6c44ea8477b816cbdf3005f3_icgraph">
-<area shape="rect" title="Process the case of high energy level, some action may be required." alt="" coords="763,5,947,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="763,5,947,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -408,16 +425,22 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Process the case of low energy level, some action may be required. </p>
+<p>Handles the case when the energy level is low, potentially removing a load. </p>
+<p>This function determines if a load can be removed based on the current energy level and recent transitions. It updates the logical load states and thresholds accordingly.</p>
+<ul>
+<li>Identifies the next logical load to be removed.</li>
+<li>Ensures that only the active load can be switched during the post-transition period.</li>
+<li>Updates the lower energy threshold and logical load states if a load is removed. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00484">484</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00617">617</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_cgraph.png" border="0" usemap="#agroup__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_cgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_cgraph" id="agroup__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_cgraph">
-<area shape="rect" title="Process the case of low energy level, some action may be required." alt="" coords="5,5,185,31"/>
-<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="233,5,455,31"/>
+<area shape="rect" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="5,5,185,31"/>
+<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="233,5,455,31"/>
 </map>
 </div>
 <div class="dynheader">
@@ -425,10 +448,10 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_icgraph" id="agroup__TimeCritical_ga7ecb8f04a958d86156a6c95581f242d3_icgraph">
-<area shape="rect" title="Process the case of low energy level, some action may be required." alt="" coords="763,5,943,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="763,5,943,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -461,22 +484,28 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Process the calculation for the actual current raw sample for the specific phase. </p>
+<p>Processes the current raw sample for the specified phase. </p>
+<p>This function processes the raw current sample for a specific phase by applying filtering to remove DC offset, compensating for the high-pass filter effect of current transformers (CTs), and calculating the instantaneous power.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">phase</td><td>the phase number [0..NO_OF_PHASES[ </td></tr>
-    <tr><td class="paramname">rawSample</td><td>the current sample for the specified phase </td></tr>
+    <tr><td class="paramname">phase</td><td>The phase number [0..NO_OF_PHASES[. </td></tr>
+    <tr><td class="paramname">rawSample</td><td>The current raw sample for the specified phase.</td></tr>
   </table>
   </dd>
 </dl>
+<ul>
+<li>The DC offset is removed from the raw sample.</li>
+<li>Additional filtering is applied to offset the high-pass filter effect of CTs.</li>
+<li>The instantaneous power is calculated and accumulated for the phase. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00334">334</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00424">424</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gafe8420bd47cd08c6d0327d4dbed06414_icgraph.png" border="0" usemap="#agroup__TimeCritical_gafe8420bd47cd08c6d0327d4dbed06414_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gafe8420bd47cd08c6d0327d4dbed06414_icgraph" id="agroup__TimeCritical_gafe8420bd47cd08c6d0327d4dbed06414_icgraph">
-<area shape="rect" title="Process the calculation for the actual current raw sample for the specific phase." alt="" coords="96,5,293,31"/>
+<area shape="rect" title="Processes the current raw sample for the specified phase." alt="" coords="96,5,293,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -506,19 +535,25 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Process with data logging. </p>
-<p>At the end of each datalogging period, copies are made of the relevant variables for use by the main code. These variable are then reset for use during the next datalogging period. </p>
+<p>Process data logging at the end of each logging period. </p>
+<p>This function handles the data logging process by copying relevant variables for use by the main code and resetting them for the next logging period.</p>
+<ul>
+<li>Copies cumulative power and voltage squared values for each phase.</li>
+<li>Copies load ON counts and other diagnostic variables.</li>
+<li>Resets variables for the next data logging period.</li>
+<li>Signals the main processor that logging data is available after the startup period. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00683">683</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00853">853</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gaabf10592d01250ef862370d26c5a382b_icgraph.png" border="0" usemap="#agroup__TimeCritical_gaabf10592d01250ef862370d26c5a382b_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gaabf10592d01250ef862370d26c5a382b_icgraph" id="agroup__TimeCritical_gaabf10592d01250ef862370d26c5a382b_icgraph">
-<area shape="rect" title="Process with data logging." alt="" coords="757,5,912,31"/>
-<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="547,5,709,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Process data logging at the end of each logging period." alt="" coords="757,5,912,31"/>
+<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="547,5,709,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -549,24 +584,30 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Process the latest contribution after each phase specific new cycle additional processing is performed after each main cycle based on phase 0. </p>
+<p>Process the latest contribution after each phase-specific new cycle. </p>
+<p>This function calculates and updates the energy contribution for the specified phase after each new cycle. It ensures that the energy bucket is updated with the latest power measurements and applies necessary adjustments.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">phase</td><td>the phase number [0..NO_OF_PHASES[ </td></tr>
+    <tr><td class="paramname">phase</td><td>The phase number [0..NO_OF_PHASES[.</td></tr>
   </table>
   </dd>
 </dl>
+<ul>
+<li>Adds the latest energy contribution to the main energy bucket.</li>
+<li>Applies adjustments for required export energy on phase 0.</li>
+<li>Signals a new mains cycle for phase 0. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00658">658</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00822">822</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga21380cdbe3f783dad431ff1a912cbaa1_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga21380cdbe3f783dad431ff1a912cbaa1_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga21380cdbe3f783dad431ff1a912cbaa1_icgraph" id="agroup__TimeCritical_ga21380cdbe3f783dad431ff1a912cbaa1_icgraph">
-<area shape="rect" title="Process the latest contribution after each phase specific new cycle additional processing is performe..." alt="" coords="757,5,949,31"/>
-<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="547,5,709,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Process the latest contribution after each phase&#45;specific new cycle." alt="" coords="757,5,949,31"/>
+<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="547,5,709,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -597,23 +638,28 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Process the start of a new -ve half cycle, for this phase, just after the zero-crossing point. </p>
+<p>Processes the start of a new negative half cycle for the specified phase. </p>
+<p>This function is called just after the zero-crossing point of a negative half cycle. It updates the low-pass filter (LPF) for removing the DC component from the voltage signal and ensures the LPF output remains within defined limits.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">phase</td><td>the phase number [0..NO_OF_PHASES[ </td></tr>
+    <tr><td class="paramname">phase</td><td>The phase number [0..NO_OF_PHASES[.</td></tr>
   </table>
   </dd>
 </dl>
+<ul>
+<li>Updates the low-pass filter for DC offset removal using the cumulative voltage deltas.</li>
+<li>Ensures the LPF output remains within the defined minimum and maximum range. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00585">585</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00731">731</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga7449a97209a4b56151de6fc5197a9daf_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga7449a97209a4b56151de6fc5197a9daf_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga7449a97209a4b56151de6fc5197a9daf_icgraph" id="agroup__TimeCritical_ga7449a97209a4b56151de6fc5197a9daf_icgraph">
-<area shape="rect" title="Process the start of a new &#45;ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="547,5,721,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Processes the start of a new negative half cycle for the specified phase." alt="" coords="547,5,721,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -644,23 +690,30 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point. </p>
+<p>Process the start of a new positive half cycle for the specified phase. </p>
+<p>This function is called just after the zero-crossing point of a positive half cycle. It processes the latest energy contribution, updates performance metrics, and handles data logging for phase 0.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">phase</td><td>the phase number [0..NO_OF_PHASES[ </td></tr>
+    <tr><td class="paramname">phase</td><td>The phase number [0..NO_OF_PHASES[.</td></tr>
   </table>
   </dd>
 </dl>
+<ul>
+<li>Processes the latest energy contribution for the specified phase.</li>
+<li>Updates the minimum number of ADC sample sets per mains cycle for phase 0.</li>
+<li>Handles data logging at the end of the logging period for phase 0.</li>
+<li>Resets cumulative power and sample count for the phase. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00730">730</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00910">910</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gaab63947d9b9f7f49dbb62a8ceada3d30_cgraph.png" border="0" usemap="#agroup__TimeCritical_gaab63947d9b9f7f49dbb62a8ceada3d30_cgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gaab63947d9b9f7f49dbb62a8ceada3d30_cgraph" id="agroup__TimeCritical_gaab63947d9b9f7f49dbb62a8ceada3d30_cgraph">
-<area shape="rect" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="5,31,168,56"/>
-<area shape="rect" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process with data logging." alt="" coords="235,5,389,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase specific new cycle additional processing is performe..." alt="" coords="216,55,408,80"/>
+<area shape="rect" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="5,31,168,56"/>
+<area shape="rect" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process data logging at the end of each logging period." alt="" coords="235,5,389,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase&#45;specific new cycle." alt="" coords="216,55,408,80"/>
 </map>
 </div>
 <div class="dynheader">
@@ -668,9 +721,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gaab63947d9b9f7f49dbb62a8ceada3d30_icgraph.png" border="0" usemap="#agroup__TimeCritical_gaab63947d9b9f7f49dbb62a8ceada3d30_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gaab63947d9b9f7f49dbb62a8ceada3d30_icgraph" id="agroup__TimeCritical_gaab63947d9b9f7f49dbb62a8ceada3d30_icgraph">
-<area shape="rect" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="547,5,709,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="547,5,709,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -711,23 +764,28 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Process with the polarity for the actual voltage sample for the specific phase. </p>
+<p>Processes the polarity of the current voltage sample for a specific phase. </p>
+<p>This function removes the DC offset from the raw voltage sample and determines the polarity (positive or negative) of the sample. The polarity is stored for use in zero-crossing detection and other processing tasks.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">phase</td><td>the phase number [0..NO_OF_PHASES[ </td></tr>
-    <tr><td class="paramname">rawSample</td><td>the current sample for the specified phase </td></tr>
+    <tr><td class="paramname">phase</td><td>The phase number [0..NO_OF_PHASES[. </td></tr>
+    <tr><td class="paramname">rawSample</td><td>The current raw voltage sample for the specified phase.</td></tr>
   </table>
   </dd>
 </dl>
+<ul>
+<li>The DC offset is subtracted from the raw sample using a low-pass filter (LPF).</li>
+<li>The polarity is determined based on whether the filtered sample is greater than or less than zero. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00318">318</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00399">399</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga81f4cbdafdfc13103fdfa34a136cd6fd_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga81f4cbdafdfc13103fdfa34a136cd6fd_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga81f4cbdafdfc13103fdfa34a136cd6fd_icgraph" id="agroup__TimeCritical_ga81f4cbdafdfc13103fdfa34a136cd6fd_icgraph">
-<area shape="rect" title="Process with the polarity for the actual voltage sample for the specific phase." alt="" coords="343,5,465,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Processes the polarity of the current voltage sample for a specific phase." alt="" coords="343,5,465,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -750,33 +808,39 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>This routine is called by the ISR when a pair of V &amp; I sample becomes available. </p>
+<p>Processes raw voltage and current samples for the specified phase. </p>
+<p>This routine is called by the ISR when a pair of voltage and current samples becomes available. It handles the processing of raw samples, including polarity detection, zero-crossing handling, and half-cycle processing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">phase</td><td>the phase number [0..NO_OF_PHASES[ </td></tr>
+    <tr><td class="paramname">phase</td><td>The phase number [0..NO_OF_PHASES[.</td></tr>
   </table>
   </dd>
 </dl>
+<ul>
+<li>Determines the polarity of the current sample and handles transitions between positive and negative half cycles.</li>
+<li>Processes the start of new positive and negative half cycles.</li>
+<li>For phase 0, it triggers the start of a new mains cycle and handles startup logic. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00758">758</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00948">948</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga8cff922940989b7edaa8bd0347f9becc_cgraph.png" border="0" usemap="#agroup__TimeCritical_ga8cff922940989b7edaa8bd0347f9becc_cgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga8cff922940989b7edaa8bd0347f9becc_cgraph" id="agroup__TimeCritical_ga8cff922940989b7edaa8bd0347f9becc_cgraph">
-<area shape="rect" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="5,105,161,131"/>
-<area shape="rect" href="group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf" title="Process the start of a new &#45;ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="209,19,384,44"/>
-<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="215,68,378,93"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="213,129,381,155"/>
-<area shape="rect" href="group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Process the startup period for the router." alt="" coords="236,179,357,204"/>
-<area shape="rect" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process with data logging." alt="" coords="451,5,606,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase specific new cycle additional processing is performe..." alt="" coords="433,55,625,80"/>
-<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="437,104,621,129"/>
-<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="439,153,619,179"/>
-<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="432,203,625,228"/>
-<area shape="rect" href="processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="458,252,599,277"/>
-<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="684,104,884,129"/>
-<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="673,153,895,179"/>
+<area shape="rect" title="Processes raw voltage and current samples for the specified phase." alt="" coords="5,105,161,131"/>
+<area shape="rect" href="group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf" title="Processes the start of a new negative half cycle for the specified phase." alt="" coords="209,19,384,44"/>
+<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="215,68,378,93"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="213,129,381,155"/>
+<area shape="rect" href="group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Processes the startup period for the router." alt="" coords="236,179,357,204"/>
+<area shape="rect" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process data logging at the end of each logging period." alt="" coords="451,5,606,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase&#45;specific new cycle." alt="" coords="433,55,625,80"/>
+<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="437,104,621,129"/>
+<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="439,153,619,179"/>
+<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="432,203,625,228"/>
+<area shape="rect" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="458,252,599,277"/>
+<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="684,104,884,129"/>
+<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="673,153,895,179"/>
 <area shape="rect" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="737,227,831,252"/>
 <area shape="rect" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="739,276,829,301"/>
 </map>
@@ -786,8 +850,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga8cff922940989b7edaa8bd0347f9becc_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga8cff922940989b7edaa8bd0347f9becc_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga8cff922940989b7edaa8bd0347f9becc_icgraph" id="agroup__TimeCritical_ga8cff922940989b7edaa8bd0347f9becc_icgraph">
-<area shape="rect" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -817,26 +881,28 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0. </p>
-<p>Changing the state of the loads is a 3-part process:</p><ul>
-<li>change the LOGICAL load states as necessary to maintain the energy level</li>
-<li>update the PHYSICAL load states according to the logical -&gt; physical mapping</li>
-<li>update the driver lines for each of the loads. </li>
+<p>Processes the start of a new mains cycle on phase 0. </p>
+<p>This function is executed once per 20ms (for 50Hz), shortly after the start of each new mains cycle on phase 0. It manages the energy level and load states, ensuring proper operation of the system.</p>
+<ul>
+<li>Handles recent transitions and updates the post-transition counter.</li>
+<li>Adjusts energy thresholds and determines whether to add or remove loads.</li>
+<li>Updates the physical load states and control ports.</li>
+<li>Ensures the energy bucket level remains within defined limits. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00530">530</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00668">668</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga5a8b9dce34e44a69a46344e8ee1c0dd6_cgraph.png" border="0" usemap="#agroup__TimeCritical_ga5a8b9dce34e44a69a46344e8ee1c0dd6_cgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga5a8b9dce34e44a69a46344e8ee1c0dd6_cgraph" id="agroup__TimeCritical_ga5a8b9dce34e44a69a46344e8ee1c0dd6_cgraph">
-<area shape="rect" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="5,80,173,105"/>
-<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="226,5,410,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="228,55,408,80"/>
-<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="221,104,415,129"/>
-<area shape="rect" href="processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="247,153,389,179"/>
-<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="473,5,673,31"/>
-<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="463,55,684,80"/>
+<area shape="rect" title="Processes the start of a new mains cycle on phase 0." alt="" coords="5,80,173,105"/>
+<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="226,5,410,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="228,55,408,80"/>
+<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="221,104,415,129"/>
+<area shape="rect" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="247,153,389,179"/>
+<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="473,5,673,31"/>
+<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="463,55,684,80"/>
 <area shape="rect" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="526,104,621,129"/>
 <area shape="rect" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="529,153,618,179"/>
 </map>
@@ -846,9 +912,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga5a8b9dce34e44a69a46344e8ee1c0dd6_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga5a8b9dce34e44a69a46344e8ee1c0dd6_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga5a8b9dce34e44a69a46344e8ee1c0dd6_icgraph" id="agroup__TimeCritical_ga5a8b9dce34e44a69a46344e8ee1c0dd6_icgraph">
-<area shape="rect" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -879,23 +945,28 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Process the startup period for the router. </p>
+<p>Processes the startup period for the router. </p>
+<p>This function handles the initial startup period, allowing the DC-blocking filters to settle before normal operation begins. It ensures that the system is stable before processing energy and load states.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">phase</td><td>the phase number [0..NO_OF_PHASES[ </td></tr>
+    <tr><td class="paramname">phase</td><td>The phase number [0..NO_OF_PHASES[.</td></tr>
   </table>
   </dd>
 </dl>
+<ul>
+<li>During the startup period, the function waits until the filters have settled.</li>
+<li>Once the startup period is over, it resets key variables and flags to prepare for normal operation. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00419">419</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00536">536</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga4bd9766ebd8acc09da5413f6d613f123_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga4bd9766ebd8acc09da5413f6d613f123_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga4bd9766ebd8acc09da5413f6d613f123_icgraph" id="agroup__TimeCritical_ga4bd9766ebd8acc09da5413f6d613f123_icgraph">
-<area shape="rect" title="Process the startup period for the router." alt="" coords="547,5,668,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Processes the startup period for the router." alt="" coords="547,5,668,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -926,22 +997,29 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Process the calculation for the current voltage sample for the specific phase. </p>
+<p>Processes the current voltage sample for the specified phase. </p>
+<p>This function processes the voltage sample for a specific phase by calculating the cumulative voltage squared (V²) for RMS calculations, updating the low-pass filter for DC offset removal, and preparing for zero-crossing detection.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">phase</td><td>the phase number [0..NO_OF_PHASES[ </td></tr>
+    <tr><td class="paramname">phase</td><td>The phase number [0..NO_OF_PHASES[.</td></tr>
   </table>
   </dd>
 </dl>
+<ul>
+<li>The voltage squared (V²) is calculated and accumulated for RMS calculations.</li>
+<li>The low-pass filter is updated to remove the DC offset from the voltage signal.</li>
+<li>The polarity of the last confirmed sample is stored for zero-crossing detection.</li>
+<li>The number of samples during the current mains cycle is incremented. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00389">389</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00497">497</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_gaed3b88c01657f322f7b985574a3427fd_icgraph.png" border="0" usemap="#agroup__TimeCritical_gaed3b88c01657f322f7b985574a3427fd_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_gaed3b88c01657f322f7b985574a3427fd_icgraph" id="agroup__TimeCritical_gaed3b88c01657f322f7b985574a3427fd_icgraph">
-<area shape="rect" title="Process the calculation for the current voltage sample for the specific phase." alt="" coords="343,5,464,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Processes the current voltage sample for the specified phase." alt="" coords="343,5,464,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -974,38 +1052,44 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Process the current voltage raw sample for the specific phase. </p>
+<p>Processes the current voltage raw sample for the specified phase. </p>
+<p>This function processes the raw voltage sample for a specific phase by handling polarity detection, zero-crossing confirmation, and voltage processing. It ensures that the voltage sample is properly filtered and analyzed for further processing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">phase</td><td>the phase number [0..NO_OF_PHASES[ </td></tr>
-    <tr><td class="paramname">rawSample</td><td>the current sample for the specified phase </td></tr>
+    <tr><td class="paramname">phase</td><td>The phase number [0..NO_OF_PHASES[. </td></tr>
+    <tr><td class="paramname">rawSample</td><td>The current raw voltage sample for the specified phase.</td></tr>
   </table>
   </dd>
 </dl>
+<ul>
+<li>Determines and confirms the polarity of the raw voltage sample.</li>
+<li>Handles zero-crossing detection and processes raw samples for the phase.</li>
+<li>Updates voltage-related metrics and increments the sample set count for phase 0. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00806">806</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l01005">1005</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga7b45c0ceb64e191cb1f053c28f02cee6_cgraph.png" border="0" usemap="#agroup__TimeCritical_ga7b45c0ceb64e191cb1f053c28f02cee6_cgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga7b45c0ceb64e191cb1f053c28f02cee6_cgraph" id="agroup__TimeCritical_ga7b45c0ceb64e191cb1f053c28f02cee6_cgraph">
-<area shape="rect" title="Process the current voltage raw sample for the specific phase." alt="" coords="5,81,204,107"/>
-<area shape="rect" href="group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542" title="This routine prevents a zero&#45;crossing point from being declared until a certain number of consecutive..." alt="" coords="269,7,391,32"/>
-<area shape="rect" href="group__TimeCritical.html#ga81f4cbdafdfc13103fdfa34a136cd6fd" title="Process with the polarity for the actual voltage sample for the specific phase." alt="" coords="269,56,391,81"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="252,105,408,131"/>
-<area shape="rect" href="group__TimeCritical.html#gaed3b88c01657f322f7b985574a3427fd" title="Process the calculation for the current voltage sample for the specific phase." alt="" coords="269,155,391,180"/>
-<area shape="rect" href="group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf" title="Process the start of a new &#45;ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="456,19,631,44"/>
-<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new +ve half cycle, for this phase, just after the zero&#45;crossing point." alt="" coords="462,68,625,93"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="459,129,627,155"/>
-<area shape="rect" href="group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Process the startup period for the router." alt="" coords="483,179,604,204"/>
-<area shape="rect" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process with data logging." alt="" coords="698,5,853,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase specific new cycle additional processing is performe..." alt="" coords="679,55,871,80"/>
-<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Process the case of high energy level, some action may be required." alt="" coords="683,104,867,129"/>
-<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Process the case of low energy level, some action may be required." alt="" coords="685,153,865,179"/>
-<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="679,203,872,228"/>
-<area shape="rect" href="processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="705,252,846,277"/>
-<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next load that could be added (be aware of the order)" alt="" coords="931,104,1131,129"/>
-<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next load that could be removed (be aware of the reverse&#45;order)" alt="" coords="920,153,1141,179"/>
+<area shape="rect" title="Processes the current voltage raw sample for the specified phase." alt="" coords="5,81,204,107"/>
+<area shape="rect" href="group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542" title="Confirms the polarity of the current voltage sample for a specific phase." alt="" coords="269,7,391,32"/>
+<area shape="rect" href="group__TimeCritical.html#ga81f4cbdafdfc13103fdfa34a136cd6fd" title="Processes the polarity of the current voltage sample for a specific phase." alt="" coords="269,56,391,81"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="252,105,408,131"/>
+<area shape="rect" href="group__TimeCritical.html#gaed3b88c01657f322f7b985574a3427fd" title="Processes the current voltage sample for the specified phase." alt="" coords="269,155,391,180"/>
+<area shape="rect" href="group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf" title="Processes the start of a new negative half cycle for the specified phase." alt="" coords="456,19,631,44"/>
+<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="462,68,625,93"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="459,129,627,155"/>
+<area shape="rect" href="group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Processes the startup period for the router." alt="" coords="483,179,604,204"/>
+<area shape="rect" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process data logging at the end of each logging period." alt="" coords="698,5,853,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase&#45;specific new cycle." alt="" coords="679,55,871,80"/>
+<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="683,104,867,129"/>
+<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="685,153,865,179"/>
+<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="679,203,872,228"/>
+<area shape="rect" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="705,252,846,277"/>
+<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="931,104,1131,129"/>
+<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="920,153,1141,179"/>
 <area shape="rect" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="983,227,1078,252"/>
 <area shape="rect" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="986,276,1075,301"/>
 </map>
@@ -1015,7 +1099,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga7b45c0ceb64e191cb1f053c28f02cee6_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga7b45c0ceb64e191cb1f053c28f02cee6_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga7b45c0ceb64e191cb1f053c28f02cee6_icgraph" id="agroup__TimeCritical_ga7b45c0ceb64e191cb1f053c28f02cee6_icgraph">
-<area shape="rect" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
@@ -1037,21 +1121,80 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>This function provides the link between the logical and physical loads. </p>
+<p>Updates the physical load states based on logical load priorities and states. </p>
+<p>This function maps the logical load states to the physical load states. It ensures that the physical loads are updated according to the logical priorities and states. The function also handles priority rotation if enabled.</p>
 <p>The array, logicalLoadState[], contains the on/off state of all logical loads, with element 0 being for the one with the highest priority. The array, physicalLoadState[], contains the on/off state of all physical loads.</p>
 <p>The lowest 7 bits of element is the load number as defined in 'physicalLoadState'. The highest bit of each 'loadPrioritiesAndState' determines if the load is ON or OFF. The order of each element in 'loadPrioritiesAndState' determines the load priority. 'loadPrioritiesAndState[i] &amp; loadStateMask' will extract the load number at position 'i' 'loadPrioritiesAndState[i] &amp; loadStateOnBit' will extract the load state at position 'i'</p>
-<p>Any other mapping relationships could be configured here. </p>
+<p>Any other mapping relationships could be configured here.</p>
+<dl class="section note"><dt>Note</dt><dd>This function is called during each cycle to ensure the physical load states are synchronized with the logical load states. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00268">268</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00340">340</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__TimeCritical_ga1950a35c4c210dae480943adca0a3c88_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga1950a35c4c210dae480943adca0a3c88_icgraph" alt=""/></div>
 <map name="agroup__TimeCritical_ga1950a35c4c210dae480943adca0a3c88_icgraph" id="agroup__TimeCritical_ga1950a35c4c210dae480943adca0a3c88_icgraph">
-<area shape="rect" title="This function provides the link between the logical and physical loads." alt="" coords="763,5,956,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" title="Updates the physical load states based on logical load priorities and states." alt="" coords="763,5,956,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ga44ac46a7ff4e0717bd668d5907b38249" name="ga44ac46a7ff4e0717bd668d5907b38249"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga44ac46a7ff4e0717bd668d5907b38249">&#9670;&#160;</a></span>updatePortsStates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void updatePortsStates </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the control ports for each of the physical loads. </p>
+<p>This function determines the ON/OFF state of each physical load and updates the corresponding control ports. It ensures that the correct pins are set to their respective states based on the load's current status.</p>
+<ul>
+<li>If a load is OFF, its corresponding pin is added to the <code>pinsOFF</code> mask.</li>
+<li>If a load is ON, its corresponding pin is added to the <code>pinsON</code> mask.</li>
+<li>Finally, the pins are updated using <code>setPinsOFF</code> and <code>setPinsON</code> functions. </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00288">288</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__TimeCritical_ga44ac46a7ff4e0717bd668d5907b38249_cgraph.png" border="0" usemap="#agroup__TimeCritical_ga44ac46a7ff4e0717bd668d5907b38249_cgraph" alt=""/></div>
+<map name="agroup__TimeCritical_ga44ac46a7ff4e0717bd668d5907b38249_cgraph" id="agroup__TimeCritical_ga44ac46a7ff4e0717bd668d5907b38249_cgraph">
+<area shape="rect" title="Updates the control ports for each of the physical loads." alt="" coords="5,31,147,56"/>
+<area shape="rect" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="195,5,289,31"/>
+<area shape="rect" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="197,55,287,80"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__TimeCritical_ga44ac46a7ff4e0717bd668d5907b38249_icgraph.png" border="0" usemap="#agroup__TimeCritical_ga44ac46a7ff4e0717bd668d5907b38249_icgraph" alt=""/></div>
+<map name="agroup__TimeCritical_ga44ac46a7ff4e0717bd668d5907b38249_icgraph" id="agroup__TimeCritical_ga44ac46a7ff4e0717bd668d5907b38249_icgraph">
+<area shape="rect" title="Updates the control ports for each of the physical loads." alt="" coords="763,5,904,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
+<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
 <area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>

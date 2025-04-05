@@ -1,5 +1,5 @@
-<map id="proceedHighEnergyLevel" name="proceedHighEnergyLevel">
-<area shape="rect" id="node1" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="763,5,947,31"/>
+<map id="updatePortsStates" name="updatePortsStates">
+<area shape="rect" id="node1" title="Updates the control ports for each of the physical loads." alt="" coords="763,5,904,31"/>
 <area shape="rect" id="node2" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
 <area shape="rect" id="node3" href="$group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,5,499,31"/>
 <area shape="rect" id="node4" href="$group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>

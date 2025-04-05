@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title="Get the relay object." alt="" coords="551,280,723,305"/>
 <area shape="rect" id="node2" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="381,5,475,31"/>
 <area shape="rect" id="node3" href="$validation_8h.html#a60096a6d3a2fc387b51a01b6ff8c53d2" title=" " alt="" coords="361,55,495,80"/>
-<area shape="rect" id="node4" href="$processing_8cpp.html#ac599ad38730b3cb0276687ba6cbfaf1e" title=" " alt="" coords="371,104,485,129"/>
+<area shape="rect" id="node4" href="$processing_8cpp.html#ac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="371,104,485,129"/>
 <area shape="rect" id="node7" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="353,153,503,179"/>
 <area shape="rect" id="node10" href="$test__utils__relay_2test__main_8cpp.html#ac3626c3c3160b7747b4498dc2a89a2c2" title=" " alt="" coords="114,204,303,229"/>
 <area shape="rect" id="node12" href="$test__utils__relay_2test__main_8cpp.html#a2ca6f0e1c608f826ebb390448a05359f" title=" " alt="" coords="142,255,275,280"/>
@@ -12,7 +12,7 @@
 <area shape="rect" id="node16" href="$test__utils__relay_2test__main_8cpp.html#a547e6803dac1c47448c5352ea4d4d709" title=" " alt="" coords="367,457,489,483"/>
 <area shape="rect" id="node17" href="$test__utils__relay_2test__main_8cpp.html#a776e2d19e503b9fb8284ad2dc612d8bd" title=" " alt="" coords="355,507,501,532"/>
 <area shape="rect" id="node19" href="$test__utils__relay_2test__main_8cpp.html#ae6db4852c231fa9a5eb8396264c55486" title=" " alt="" coords="358,556,498,581"/>
-<area shape="rect" id="node5" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="135,104,283,129"/>
+<area shape="rect" id="node5" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="135,104,283,129"/>
 <area shape="rect" id="node6" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,104,64,129"/>
 <area shape="rect" id="node8" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="158,153,259,179"/>
 <area shape="rect" id="node9" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="9,153,60,179"/>

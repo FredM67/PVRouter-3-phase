@@ -2,9 +2,9 @@
 <area shape="rect" id="node1" title="Set the specified bit to 1." alt="" coords="745,155,812,180"/>
 <area shape="rect" id="node2" href="$validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="537,5,697,31"/>
 <area shape="rect" id="node3" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="570,55,665,80"/>
-<area shape="rect" id="node4" href="$processing_8cpp.html#a8995e5745b217d64477574abf086acc7" title=" " alt="" coords="566,104,669,129"/>
-<area shape="rect" id="node5" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="326,155,474,180"/>
-<area shape="rect" id="node7" href="$processing_8cpp.html#ac599ad38730b3cb0276687ba6cbfaf1e" title=" " alt="" coords="560,205,675,231"/>
+<area shape="rect" id="node4" href="$processing_8cpp.html#a8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="566,104,669,129"/>
+<area shape="rect" id="node5" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="326,155,474,180"/>
+<area shape="rect" id="node7" href="$processing_8cpp.html#ac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="560,205,675,231"/>
 <area shape="rect" id="node8" href="$utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="576,255,659,280"/>
 <area shape="rect" id="node15" href="$utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="576,368,659,393"/>
 <area shape="rect" id="node6" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="154,155,213,180"/>

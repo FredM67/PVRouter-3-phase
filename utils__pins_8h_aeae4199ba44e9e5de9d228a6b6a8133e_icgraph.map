@@ -1,6 +1,6 @@
 <map id="bit_clear" name="bit_clear">
 <area shape="rect" id="node1" title="Clear the specified bit." alt="" coords="739,56,817,81"/>
-<area shape="rect" id="node2" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="543,19,691,44"/>
+<area shape="rect" id="node2" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="543,19,691,44"/>
 <area shape="rect" id="node4" href="$utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="573,80,661,105"/>
 <area shape="rect" id="node3" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="373,5,432,31"/>
 <area shape="rect" id="node5" href="$utils__pins_8h.html#a505180a01641b0a5b17a0f2376f9b586" title="Set the Pin state for the specified pin." alt="" coords="355,55,451,80"/>

@@ -327,7 +327,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00417">417</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00432">432</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -378,7 +378,7 @@ Here is the caller graph for this function:</div>
 <p>Main processor. </p>
 <p>Handles non-time-critical tasks such as load management, telemetry updates, and temperature sensing. Processes ADC data through flags set by the ISR. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00448">448</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00463">463</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -594,7 +594,7 @@ Here is the caller graph for this function:</div>
 <dl class="section pre"><dt>Precondition</dt><dd>The <code>temperatureSensing</code> object must be initialized and configured with the connected DS18B20 sensors.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The <code>tx_data.temperature_x100</code> array is updated with the latest valid temperature readings. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00385">385</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00400">400</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -634,9 +634,17 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Called once during startup. </p>
-<p>Initializes variables, configures pins, and prints system configuration to the Serial Monitor. Also initializes optional features like temperature sensing and load priorities. </p>
+<p>This function initializes the system, configures pins, and prints system configuration to the Serial Monitor. It also initializes optional features like temperature sensing and load priorities.</p>
+<ul>
+<li>Delays startup to allow time to open the Serial Monitor.</li>
+<li>Initializes the Serial interface and debug port.</li>
+<li>Displays configuration information.</li>
+<li>Initializes all loads to OFF at startup.</li>
+<li>Logs load priorities and initializes temperature sensors if present.</li>
+<li>Prints available free RAM for debugging purposes. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00317">317</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00327">327</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -644,15 +652,15 @@ Here is the call graph for this function:</div>
 <map name="amain_8cpp_a4fc01d736fe50cf5b977f755b675f11d_cgraph" id="amain_8cpp_a4fc01d736fe50cf5b977f755b675f11d_cgraph">
 <area shape="rect" title="Called once during startup." alt="" coords="5,385,64,411"/>
 <area shape="rect" href="utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0" title="Get the available RAM during setup." alt="" coords="165,203,243,228"/>
-<area shape="rect" href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="130,252,278,277"/>
+<area shape="rect" href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="130,252,278,277"/>
 <area shape="rect" href="classTemperatureSensing.html#a61b759a6c7b9cfddcdfa075f27988fde" title="Initialize the Dallas sensors." alt="" coords="112,378,296,418"/>
 <area shape="rect" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="139,443,269,468"/>
 <area shape="rect" href="utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="135,492,273,517"/>
 <area shape="rect" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="433,301,511,327"/>
 <area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="745,153,812,179"/>
-<area shape="rect" href="processing_8cpp.html#a8995e5745b217d64477574abf086acc7" title=" " alt="" coords="421,104,523,129"/>
-<area shape="rect" href="processing_8cpp.html#ac599ad38730b3cb0276687ba6cbfaf1e" title=" " alt="" coords="415,55,529,80"/>
-<area shape="rect" href="processing_8cpp.html#aa8804d52f2d7f9724daca5bb40aff66f" title=" " alt="" coords="415,153,529,179"/>
+<area shape="rect" href="processing_8cpp.html#a8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="421,104,523,129"/>
+<area shape="rect" href="processing_8cpp.html#ac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="415,55,529,80"/>
+<area shape="rect" href="processing_8cpp.html#aa8804d52f2d7f9724daca5bb40aff66f" title="Initializes all elements of a given array to a specified value." alt="" coords="415,153,529,179"/>
 <area shape="rect" href="utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873" title="Set the pins as INPUT_PULLUP." alt="" coords="393,203,551,228"/>
 <area shape="rect" href="utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e" title="Set the pins as OUTPUT." alt="" coords="407,252,537,277"/>
 <area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="741,104,816,129"/>
@@ -689,9 +697,14 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Updates power and voltage data for all phases. </p>
-<p>This function calculates the power and voltage for each phase based on the accumulated data during the datalogging period. It also updates the total power. </p>
+<p>This function calculates the power and voltage for each phase based on the accumulated data during the datalogging period. It also updates the total power.</p>
+<ul>
+<li>Computes the power for each phase using the accumulated power data and calibration factors.</li>
+<li>Calculates the RMS voltage for each phase using the accumulated voltage squared data.</li>
+<li>Updates the total power by summing the power of all phases. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00348">348</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00363">363</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

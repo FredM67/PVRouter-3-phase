@@ -142,75 +142,78 @@ Include dependency graph for processing.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:gadc681bbd6c00b6c808ad999bc0e49542"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542">confirmPolarity</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:gadc681bbd6c00b6c808ad999bc0e49542"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine prevents a zero-crossing point from being declared until a certain number of consecutive samples in the 'other' half of the waveform have been encountered.  <br /></td></tr>
+<tr class="memdesc:gadc681bbd6c00b6c808ad999bc0e49542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confirms the polarity of the current voltage sample for a specific phase.  <br /></td></tr>
 <tr class="separator:gadc681bbd6c00b6c808ad999bc0e49542"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8995e5745b217d64477574abf086acc7"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#a8995e5745b217d64477574abf086acc7">getInputPins</a> ()</td></tr>
+<tr class="memdesc:a8995e5745b217d64477574abf086acc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the input pins configuration.  <br /></td></tr>
 <tr class="separator:a8995e5745b217d64477574abf086acc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac599ad38730b3cb0276687ba6cbfaf1e"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="config__system_8h.html#a3180c835bce68b1c59f64f4055088cca">uint16_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#ac599ad38730b3cb0276687ba6cbfaf1e">getOutputPins</a> ()</td></tr>
+<tr class="memdesc:ac599ad38730b3cb0276687ba6cbfaf1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the output pins configuration.  <br /></td></tr>
 <tr class="separator:ac599ad38730b3cb0276687ba6cbfaf1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8804d52f2d7f9724daca5bb40aff66f"><td class="memTemplParams" colspan="2">template&lt;size_t N&gt; </td></tr>
 <tr class="memitem:aa8804d52f2d7f9724daca5bb40aff66f"><td class="memTemplItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#aa8804d52f2d7f9724daca5bb40aff66f">initializeArray</a> (int32_t(&amp;array)[N], int32_t value)</td></tr>
+<tr class="memdesc:aa8804d52f2d7f9724daca5bb40aff66f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes all elements of a given array to a specified value.  <br /></td></tr>
 <tr class="separator:aa8804d52f2d7f9724daca5bb40aff66f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adeeaa08a0a50d8535fdf2c8a92d4aebc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc">initializeProcessing</a> ()</td></tr>
-<tr class="memdesc:adeeaa08a0a50d8535fdf2c8a92d4aebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the ports and load states for processing.  <br /></td></tr>
+<tr class="memdesc:adeeaa08a0a50d8535fdf2c8a92d4aebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the processing engine, including ports, load states, and ADC setup.  <br /></td></tr>
 <tr class="separator:adeeaa08a0a50d8535fdf2c8a92d4aebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#a5c26bb614416d9b5288ef3e5e00bf5b2">initThreshold</a> (const bool lower)</td></tr>
 <tr class="memdesc:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">set default threshold at compile time so the variable can be read-only  <br /></td></tr>
 <tr class="separator:a5c26bb614416d9b5288ef3e5e00bf5b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8e7b88bb4b21554d23b57676a45e034e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e">nextLogicalLoadToBeAdded</a> ()</td></tr>
-<tr class="memdesc:ga8e7b88bb4b21554d23b57676a45e034e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be added (be aware of the order)  <br /></td></tr>
+<tr class="memdesc:ga8e7b88bb4b21554d23b57676a45e034e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next logical load that could be added.  <br /></td></tr>
 <tr class="separator:ga8e7b88bb4b21554d23b57676a45e034e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabfb25288a79335282af6922e833d3c35"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35">nextLogicalLoadToBeRemoved</a> ()</td></tr>
-<tr class="memdesc:gabfb25288a79335282af6922e833d3c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next load that could be removed (be aware of the reverse-order)  <br /></td></tr>
+<tr class="memdesc:gabfb25288a79335282af6922e833d3c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next logical load that could be removed (in reverse order).  <br /></td></tr>
 <tr class="separator:gabfb25288a79335282af6922e833d3c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2b3b1d496e37e5f29af6a766743dc8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b">printParamsForSelectedOutputMode</a> ()</td></tr>
 <tr class="memdesc:aa2b3b1d496e37e5f29af6a766743dc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the settings used for the selected output mode.  <br /></td></tr>
 <tr class="separator:aa2b3b1d496e37e5f29af6a766743dc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaef29df3a6c44ea8477b816cbdf3005f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3">proceedHighEnergyLevel</a> ()</td></tr>
-<tr class="memdesc:gaef29df3a6c44ea8477b816cbdf3005f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the case of high energy level, some action may be required.  <br /></td></tr>
+<tr class="memdesc:gaef29df3a6c44ea8477b816cbdf3005f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the case when the energy level is high, potentially adding a load.  <br /></td></tr>
 <tr class="separator:gaef29df3a6c44ea8477b816cbdf3005f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7ecb8f04a958d86156a6c95581f242d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3">proceedLowEnergyLevel</a> ()</td></tr>
-<tr class="memdesc:ga7ecb8f04a958d86156a6c95581f242d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the case of low energy level, some action may be required.  <br /></td></tr>
+<tr class="memdesc:ga7ecb8f04a958d86156a6c95581f242d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the case when the energy level is low, potentially removing a load.  <br /></td></tr>
 <tr class="separator:ga7ecb8f04a958d86156a6c95581f242d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafe8420bd47cd08c6d0327d4dbed06414"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gafe8420bd47cd08c6d0327d4dbed06414">processCurrentRawSample</a> (const uint8_t phase, const int16_t rawSample)</td></tr>
-<tr class="memdesc:gafe8420bd47cd08c6d0327d4dbed06414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the calculation for the actual current raw sample for the specific phase.  <br /></td></tr>
+<tr class="memdesc:gafe8420bd47cd08c6d0327d4dbed06414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the current raw sample for the specified phase.  <br /></td></tr>
 <tr class="separator:gafe8420bd47cd08c6d0327d4dbed06414"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaabf10592d01250ef862370d26c5a382b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b">processDataLogging</a> ()</td></tr>
-<tr class="memdesc:gaabf10592d01250ef862370d26c5a382b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process with data logging.  <br /></td></tr>
+<tr class="memdesc:gaabf10592d01250ef862370d26c5a382b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process data logging at the end of each logging period.  <br /></td></tr>
 <tr class="separator:gaabf10592d01250ef862370d26c5a382b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1">processLatestContribution</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the latest contribution after each phase specific new cycle additional processing is performed after each main cycle based on phase 0.  <br /></td></tr>
+<tr class="memdesc:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the latest contribution after each phase-specific new cycle.  <br /></td></tr>
 <tr class="separator:ga21380cdbe3f783dad431ff1a912cbaa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7449a97209a4b56151de6fc5197a9daf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf">processMinusHalfCycle</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:ga7449a97209a4b56151de6fc5197a9daf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the start of a new -ve half cycle, for this phase, just after the zero-crossing point.  <br /></td></tr>
+<tr class="memdesc:ga7449a97209a4b56151de6fc5197a9daf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the start of a new negative half cycle for the specified phase.  <br /></td></tr>
 <tr class="separator:ga7449a97209a4b56151de6fc5197a9daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaab63947d9b9f7f49dbb62a8ceada3d30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30">processPlusHalfCycle</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:gaab63947d9b9f7f49dbb62a8ceada3d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the start of a new +ve half cycle, for this phase, just after the zero-crossing point.  <br /></td></tr>
+<tr class="memdesc:gaab63947d9b9f7f49dbb62a8ceada3d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the start of a new positive half cycle for the specified phase.  <br /></td></tr>
 <tr class="separator:gaab63947d9b9f7f49dbb62a8ceada3d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga81f4cbdafdfc13103fdfa34a136cd6fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga81f4cbdafdfc13103fdfa34a136cd6fd">processPolarity</a> (const uint8_t phase, const int16_t rawSample)</td></tr>
-<tr class="memdesc:ga81f4cbdafdfc13103fdfa34a136cd6fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process with the polarity for the actual voltage sample for the specific phase.  <br /></td></tr>
+<tr class="memdesc:ga81f4cbdafdfc13103fdfa34a136cd6fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the polarity of the current voltage sample for a specific phase.  <br /></td></tr>
 <tr class="separator:ga81f4cbdafdfc13103fdfa34a136cd6fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8cff922940989b7edaa8bd0347f9becc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc">processRawSamples</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:ga8cff922940989b7edaa8bd0347f9becc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This routine is called by the ISR when a pair of V &amp; I sample becomes available.  <br /></td></tr>
+<tr class="memdesc:ga8cff922940989b7edaa8bd0347f9becc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes raw voltage and current samples for the specified phase.  <br /></td></tr>
 <tr class="separator:ga8cff922940989b7edaa8bd0347f9becc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5a8b9dce34e44a69a46344e8ee1c0dd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6">processStartNewCycle</a> ()</td></tr>
-<tr class="memdesc:ga5a8b9dce34e44a69a46344e8ee1c0dd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0.  <br /></td></tr>
+<tr class="memdesc:ga5a8b9dce34e44a69a46344e8ee1c0dd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the start of a new mains cycle on phase 0.  <br /></td></tr>
 <tr class="separator:ga5a8b9dce34e44a69a46344e8ee1c0dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4bd9766ebd8acc09da5413f6d613f123"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123">processStartUp</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:ga4bd9766ebd8acc09da5413f6d613f123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the startup period for the router.  <br /></td></tr>
+<tr class="memdesc:ga4bd9766ebd8acc09da5413f6d613f123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the startup period for the router.  <br /></td></tr>
 <tr class="separator:ga4bd9766ebd8acc09da5413f6d613f123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaed3b88c01657f322f7b985574a3427fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaed3b88c01657f322f7b985574a3427fd">processVoltage</a> (const uint8_t phase)</td></tr>
-<tr class="memdesc:gaed3b88c01657f322f7b985574a3427fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the calculation for the current voltage sample for the specific phase.  <br /></td></tr>
+<tr class="memdesc:gaed3b88c01657f322f7b985574a3427fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the current voltage sample for the specified phase.  <br /></td></tr>
 <tr class="separator:gaed3b88c01657f322f7b985574a3427fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7b45c0ceb64e191cb1f053c28f02cee6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6">processVoltageRawSample</a> (const uint8_t phase, const int16_t rawSample)</td></tr>
-<tr class="memdesc:ga7b45c0ceb64e191cb1f053c28f02cee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the current voltage raw sample for the specific phase.  <br /></td></tr>
+<tr class="memdesc:ga7b45c0ceb64e191cb1f053c28f02cee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the current voltage raw sample for the specified phase.  <br /></td></tr>
 <tr class="separator:ga7b45c0ceb64e191cb1f053c28f02cee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1950a35c4c210dae480943adca0a3c88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88">updatePhysicalLoadStates</a> ()</td></tr>
-<tr class="memdesc:ga1950a35c4c210dae480943adca0a3c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function provides the link between the logical and physical loads.  <br /></td></tr>
+<tr class="memdesc:ga1950a35c4c210dae480943adca0a3c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the physical load states based on logical load priorities and states.  <br /></td></tr>
 <tr class="separator:ga1950a35c4c210dae480943adca0a3c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44ac46a7ff4e0717bd668d5907b38249"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249">updatePortsStates</a> ()</td></tr>
-<tr class="memdesc:a44ac46a7ff4e0717bd668d5907b38249"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the control ports for each of the physical loads  <br /></td></tr>
-<tr class="separator:a44ac46a7ff4e0717bd668d5907b38249"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga44ac46a7ff4e0717bd668d5907b38249"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249">updatePortsStates</a> ()</td></tr>
+<tr class="memdesc:ga44ac46a7ff4e0717bd668d5907b38249"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the control ports for each of the physical loads.  <br /></td></tr>
+<tr class="separator:ga44ac46a7ff4e0717bd668d5907b38249"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -311,13 +314,18 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00138">138</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p>Retrieves the input pins configuration. </p>
+<p>This function determines which pins are configured as input pins based on the current hardware setup. It ensures that no pin is configured multiple times and handles special cases like the dual tariff, diversion, rotation, and force pins.</p>
+<dl class="section return"><dt>Returns</dt><dd>A 16-bit value representing the configured input pins. Returns 0 if an invalid configuration is detected.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is marked as <code>constexpr</code> and can be evaluated at compile time. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00183">183</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="processing_8cpp_a8995e5745b217d64477574abf086acc7_cgraph.png" border="0" usemap="#aprocessing_8cpp_a8995e5745b217d64477574abf086acc7_cgraph" alt=""/></div>
 <map name="aprocessing_8cpp_a8995e5745b217d64477574abf086acc7_cgraph" id="aprocessing_8cpp_a8995e5745b217d64477574abf086acc7_cgraph">
-<area shape="rect" title=" " alt="" coords="5,31,108,56"/>
+<area shape="rect" title="Retrieves the input pins configuration." alt="" coords="5,31,108,56"/>
 <area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="156,5,231,31"/>
 <area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="160,55,227,80"/>
 </map>
@@ -327,8 +335,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="processing_8cpp_a8995e5745b217d64477574abf086acc7_icgraph.png" border="0" usemap="#aprocessing_8cpp_a8995e5745b217d64477574abf086acc7_icgraph" alt=""/></div>
 <map name="aprocessing_8cpp_a8995e5745b217d64477574abf086acc7_icgraph" id="aprocessing_8cpp_a8995e5745b217d64477574abf086acc7_icgraph">
-<area shape="rect" title=" " alt="" coords="308,5,411,31"/>
-<area shape="rect" href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="112,5,260,31"/>
+<area shape="rect" title="Retrieves the input pins configuration." alt="" coords="308,5,411,31"/>
+<area shape="rect" href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="112,5,260,31"/>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,31"/>
 </map>
 </div>
@@ -358,13 +366,18 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00096">96</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p>Retrieves the output pins configuration. </p>
+<p>This function determines which pins are configured as output pins based on the current hardware setup. It ensures that no pin is configured multiple times and handles special cases like the watchdog pin.</p>
+<dl class="section return"><dt>Returns</dt><dd>A 16-bit value representing the configured output pins. Returns 0 if an invalid configuration is detected.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is marked as <code>constexpr</code> and can be evaluated at compile time. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00126">126</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="processing_8cpp_ac599ad38730b3cb0276687ba6cbfaf1e_cgraph.png" border="0" usemap="#aprocessing_8cpp_ac599ad38730b3cb0276687ba6cbfaf1e_cgraph" alt=""/></div>
 <map name="aprocessing_8cpp_ac599ad38730b3cb0276687ba6cbfaf1e_cgraph" id="aprocessing_8cpp_ac599ad38730b3cb0276687ba6cbfaf1e_cgraph">
-<area shape="rect" title=" " alt="" coords="5,80,120,105"/>
+<area shape="rect" title="Retrieves the output pins configuration." alt="" coords="5,80,120,105"/>
 <area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="217,5,291,31"/>
 <area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="221,55,287,80"/>
 <area shape="rect" href="classRelayEngine.html#a981b20422ed19d2aa87d042c583173ee" title="Get the relay object." alt="" coords="168,104,340,129"/>
@@ -376,8 +389,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="processing_8cpp_ac599ad38730b3cb0276687ba6cbfaf1e_icgraph.png" border="0" usemap="#aprocessing_8cpp_ac599ad38730b3cb0276687ba6cbfaf1e_icgraph" alt=""/></div>
 <map name="aprocessing_8cpp_ac599ad38730b3cb0276687ba6cbfaf1e_icgraph" id="aprocessing_8cpp_ac599ad38730b3cb0276687ba6cbfaf1e_icgraph">
-<area shape="rect" title=" " alt="" coords="308,5,423,31"/>
-<area shape="rect" href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="112,5,260,31"/>
+<area shape="rect" title="Retrieves the output pins configuration." alt="" coords="308,5,423,31"/>
+<area shape="rect" href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="112,5,260,31"/>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,31"/>
 </map>
 </div>
@@ -420,14 +433,31 @@ template&lt;size_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00088">88</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p>Initializes all elements of a given array to a specified value. </p>
+<p>This function is a compile-time constant expression (<code>constexpr</code>) that allows initializing arrays of any size with a specific value. It is particularly useful in embedded systems where predictable initialization is required.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">N</td><td>The size of the array (deduced automatically). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">array</td><td>A reference to the array to be initialized. </td></tr>
+    <tr><td class="paramname">value</td><td>The value to assign to each element of the array.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The function can be evaluated at compile time if all inputs are known at compile time. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00104">104</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="processing_8cpp_aa8804d52f2d7f9724daca5bb40aff66f_icgraph.png" border="0" usemap="#aprocessing_8cpp_aa8804d52f2d7f9724daca5bb40aff66f_icgraph" alt=""/></div>
 <map name="aprocessing_8cpp_aa8804d52f2d7f9724daca5bb40aff66f_icgraph" id="aprocessing_8cpp_aa8804d52f2d7f9724daca5bb40aff66f_icgraph">
-<area shape="rect" title=" " alt="" coords="308,5,421,31"/>
-<area shape="rect" href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="112,5,260,31"/>
+<area shape="rect" title="Initializes all elements of a given array to a specified value." alt="" coords="308,5,421,31"/>
+<area shape="rect" href="processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="112,5,260,31"/>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,31"/>
 </map>
 </div>
@@ -449,20 +479,27 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes the ports and load states for processing. </p>
+<p>Initializes the processing engine, including ports, load states, and ADC setup. </p>
+<p>This function performs the following tasks:</p><ul>
+<li>Initializes the DC offset array for voltage samples.</li>
+<li>Configures the input and output pins based on the hardware setup.</li>
+<li>Sets up the ADC in free-running mode with interrupts enabled.</li>
+<li>Prepares the system for processing energy and load states.</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>This function must be called during system initialization to ensure proper operation. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00181">181</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00235">235</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="processing_8cpp_adeeaa08a0a50d8535fdf2c8a92d4aebc_cgraph.png" border="0" usemap="#aprocessing_8cpp_adeeaa08a0a50d8535fdf2c8a92d4aebc_cgraph" alt=""/></div>
 <map name="aprocessing_8cpp_adeeaa08a0a50d8535fdf2c8a92d4aebc_cgraph" id="aprocessing_8cpp_adeeaa08a0a50d8535fdf2c8a92d4aebc_cgraph">
-<area shape="rect" title="Initializes the ports and load states for processing." alt="" coords="5,156,153,181"/>
+<area shape="rect" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="5,156,153,181"/>
 <area shape="rect" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="241,5,320,31"/>
 <area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="461,57,527,83"/>
-<area shape="rect" href="processing_8cpp.html#a8995e5745b217d64477574abf086acc7" title=" " alt="" coords="229,107,332,132"/>
-<area shape="rect" href="processing_8cpp.html#ac599ad38730b3cb0276687ba6cbfaf1e" title=" " alt="" coords="223,156,338,181"/>
-<area shape="rect" href="processing_8cpp.html#aa8804d52f2d7f9724daca5bb40aff66f" title=" " alt="" coords="224,205,337,231"/>
+<area shape="rect" href="processing_8cpp.html#a8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="229,107,332,132"/>
+<area shape="rect" href="processing_8cpp.html#ac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="223,156,338,181"/>
+<area shape="rect" href="processing_8cpp.html#aa8804d52f2d7f9724daca5bb40aff66f" title="Initializes all elements of a given array to a specified value." alt="" coords="224,205,337,231"/>
 <area shape="rect" href="utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873" title="Set the pins as INPUT_PULLUP." alt="" coords="201,255,360,280"/>
 <area shape="rect" href="utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e" title="Set the pins as OUTPUT." alt="" coords="216,304,345,329"/>
 <area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="457,107,531,132"/>
@@ -475,7 +512,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="processing_8cpp_adeeaa08a0a50d8535fdf2c8a92d4aebc_icgraph.png" border="0" usemap="#aprocessing_8cpp_adeeaa08a0a50d8535fdf2c8a92d4aebc_icgraph" alt=""/></div>
 <map name="aprocessing_8cpp_adeeaa08a0a50d8535fdf2c8a92d4aebc_icgraph" id="aprocessing_8cpp_adeeaa08a0a50d8535fdf2c8a92d4aebc_icgraph">
-<area shape="rect" title="Initializes the ports and load states for processing." alt="" coords="112,5,260,31"/>
+<area shape="rect" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="112,5,260,31"/>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,31"/>
 </map>
 </div>
@@ -535,8 +572,13 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Print the settings used for the selected output mode. </p>
+<p>This function displays the relevant configuration parameters for the currently selected output mode. It provides details about the energy bucket capacity, thresholds, and mode-specific settings.</p>
+<ul>
+<li>For the "normal" mode, it displays the energy bucket capacity and thresholds.</li>
+<li>For the "anti-flicker" mode, it also displays the offset of energy thresholds. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00825">825</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l01033">1033</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -545,57 +587,6 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="Print the settings used for the selected output mode." alt="" coords="299,5,555,31"/>
 <area shape="rect" href="utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,31"/>
 <area shape="rect" href="main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,31"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a44ac46a7ff4e0717bd668d5907b38249" name="a44ac46a7ff4e0717bd668d5907b38249"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44ac46a7ff4e0717bd668d5907b38249">&#9670;&#160;</a></span>updatePortsStates()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void updatePortsStates </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>update the control ports for each of the physical loads </p>
-
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00224">224</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="processing_8cpp_a44ac46a7ff4e0717bd668d5907b38249_cgraph.png" border="0" usemap="#aprocessing_8cpp_a44ac46a7ff4e0717bd668d5907b38249_cgraph" alt=""/></div>
-<map name="aprocessing_8cpp_a44ac46a7ff4e0717bd668d5907b38249_cgraph" id="aprocessing_8cpp_a44ac46a7ff4e0717bd668d5907b38249_cgraph">
-<area shape="rect" title="update the control ports for each of the physical loads" alt="" coords="5,31,147,56"/>
-<area shape="rect" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="195,5,289,31"/>
-<area shape="rect" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="197,55,287,80"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="processing_8cpp_a44ac46a7ff4e0717bd668d5907b38249_icgraph.png" border="0" usemap="#aprocessing_8cpp_a44ac46a7ff4e0717bd668d5907b38249_icgraph" alt=""/></div>
-<map name="aprocessing_8cpp_a44ac46a7ff4e0717bd668d5907b38249_icgraph" id="aprocessing_8cpp_a44ac46a7ff4e0717bd668d5907b38249_icgraph">
-<area shape="rect" title="update the control ports for each of the physical loads" alt="" coords="763,5,904,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0." alt="" coords="547,5,715,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="This routine is called by the ISR when a pair of V &amp; I sample becomes available." alt="" coords="343,5,499,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Process the current voltage raw sample for the specific phase." alt="" coords="96,5,295,31"/>
-<area shape="rect" href="group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
 </map>
 </div>
 

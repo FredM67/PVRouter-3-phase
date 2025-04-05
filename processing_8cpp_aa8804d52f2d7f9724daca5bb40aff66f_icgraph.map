@@ -1,5 +1,5 @@
 <map id="initializeArray" name="initializeArray">
-<area shape="rect" id="node1" title=" " alt="" coords="308,5,421,31"/>
-<area shape="rect" id="node2" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="112,5,260,31"/>
+<area shape="rect" id="node1" title="Initializes all elements of a given array to a specified value." alt="" coords="308,5,421,31"/>
+<area shape="rect" id="node2" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="112,5,260,31"/>
 <area shape="rect" id="node3" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,31"/>
 </map>
