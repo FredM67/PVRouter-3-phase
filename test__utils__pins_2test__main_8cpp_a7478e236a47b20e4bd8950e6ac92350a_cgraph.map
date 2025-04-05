@@ -1,4 +1,5 @@
 <map id="test_setPinsOFF" name="test_setPinsOFF">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,132,31"/>
-<area shape="rect" id="node2" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="180,5,275,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,132,31"/>
+<area shape="rect" id="Node000002" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="180,5,275,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,15,167,15,167,21,132,21"/>
 </map>

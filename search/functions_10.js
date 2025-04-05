@@ -1,7 +1,7 @@
 var searchData=
 [
   ['teardown_0',['tearDown',['../test__fastdivision_2test__main_8cpp.html#a9909011e5fea0c018842eec4d93d0662',1,'tearDown(void):&#160;test_main.cpp'],['../test__utils__pins_2test__main_8cpp.html#a9909011e5fea0c018842eec4d93d0662',1,'tearDown(void):&#160;test_main.cpp'],['../test__utils__relay_2test__main_8cpp.html#a9909011e5fea0c018842eec4d93d0662',1,'tearDown(void):&#160;test_main.cpp']]],
-  ['temperaturesensing_1',['TemperatureSensing',['../classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8',1,'TemperatureSensing::TemperatureSensing(uint8_t pin, const DeviceAddress(&amp;ref)[N])'],['../classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3',1,'TemperatureSensing::TemperatureSensing()=delete']]],
+  ['temperaturesensing_1',['TemperatureSensing',['../classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3',1,'TemperatureSensing::TemperatureSensing()=delete'],['../classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8',1,'TemperatureSensing::TemperatureSensing(uint8_t pin, const DeviceAddress(&amp;ref)[N])']]],
   ['test_5fdivu10_2',['test_divu10',['../test__fastdivision_2test__main_8cpp.html#add26b4937d71129bbf3385d311ef28be',1,'test_main.cpp']]],
   ['test_5fdivu15_3',['test_divu15',['../test__fastdivision_2test__main_8cpp.html#a8c99a54f3d3d888024e54970e0117883',1,'test_main.cpp']]],
   ['test_5fdivu5_4',['test_divu5',['../test__fastdivision_2test__main_8cpp.html#a52d9eddf128916a86b18d9e02a47d4d6',1,'test_main.cpp']]],

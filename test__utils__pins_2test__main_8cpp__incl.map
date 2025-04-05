@@ -1,6 +1,10 @@
 <map id="Mk2_3phase_RFdatalog_temp/test/embedded/test_utils_pins/test_main.cpp" name="Mk2_3phase_RFdatalog_temp/test/embedded/test_utils_pins/test_main.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,200,60"/>
-<area shape="rect" id="node2" title=" " alt="" coords="78,181,162,207"/>
-<area shape="rect" id="node3" title=" " alt="" coords="70,108,135,133"/>
-<area shape="rect" id="node4" href="$utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="160,108,256,133"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,200,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="78,181,162,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,61,60,96,56,114,60,132,74,154,92,171,89,175,70,157,55,134,51,114,55,94,76,59"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="70,108,135,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="105,60,105,94,100,94,100,60"/>
+<area shape="rect" id="Node000004" href="$utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="160,108,256,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="137,58,185,97,181,101,133,62"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="196,135,147,175,143,170,192,131"/>
 </map>

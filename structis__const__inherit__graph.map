@@ -1,4 +1,11 @@
 <map id="is_const&lt; T &gt;" name="is_const&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,79,119,104"/>
-<area shape="rect" id="node2" href="$structintegral__constant.html" title=" " alt="" coords="17,5,107,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="25,285,138,311"/>
+<area shape="rect" id="Node000005" href="$structis__const_3_01const_01T_01_4.html" title=" " alt="" coords="5,373,157,399"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="84,325,84,373,79,373,79,325"/>
+<area shape="rect" id="Node000002" href="$structintegral__constant.html" title=" " alt="" coords="36,211,127,236"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,250,84,285,79,285,79,250"/>
+<area shape="rect" id="Node000003" href="$structintegral__constant.html" title=" " alt="" coords="8,108,155,148"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="84,162,84,210,79,210,79,162"/>
+<area shape="rect" id="Node000004" href="$structintegral__constant.html" title=" " alt="" coords="8,5,155,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="84,59,84,108,79,108,79,59"/>
 </map>

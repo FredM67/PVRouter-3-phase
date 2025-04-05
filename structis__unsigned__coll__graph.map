@@ -1,5 +1,7 @@
 <map id="is_unsigned&lt; T &gt;" name="is_unsigned&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="881,139,1019,165"/>
-<area shape="rect" id="node2" href="$structintegral__constant.html" title=" " alt="" coords="505,66,832,238"/>
-<area shape="rect" id="node3" href="$structintegral__constant.html" title=" " alt="" coords="5,132,152,172"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="881,139,1019,165"/>
+<area shape="rect" id="Node000002" href="$structintegral__constant.html" title=" " alt="" coords="505,66,832,238"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="846,149,881,149,881,155,846,155"/>
+<area shape="rect" id="Node000003" href="$structintegral__constant.html" title=" " alt="" coords="5,132,152,172"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="166,149,505,149,505,155,166,155"/>
 </map>

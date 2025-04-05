@@ -1,0 +1,7 @@
+<map id="getOutputPins" name="getOutputPins">
+<area shape="rect" id="Node000001" title="Retrieves the output pins configuration." alt="" coords="5,31,120,56"/>
+<area shape="rect" id="Node000002" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="168,5,243,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,31,154,24,155,30,121,36"/>
+<area shape="rect" id="Node000003" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="172,55,239,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="121,50,159,57,158,62,120,56"/>
+</map>

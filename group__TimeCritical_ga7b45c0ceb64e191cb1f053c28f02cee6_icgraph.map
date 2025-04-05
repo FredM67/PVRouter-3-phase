@@ -1,4 +1,5 @@
 <map id="processVoltageRawSample" name="processVoltageRawSample">
-<area shape="rect" id="node1" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
-<area shape="rect" id="node2" href="$group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
+<area shape="rect" id="Node000001" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,295,31"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,5,48,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,21,49,21,49,15,82,15"/>
 </map>

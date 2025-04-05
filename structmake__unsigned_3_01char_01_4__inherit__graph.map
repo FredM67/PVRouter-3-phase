@@ -1,5 +1,9 @@
 <map id="make_unsigned&lt; char &gt;" name="make_unsigned&lt; char &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,183,188,208"/>
-<area shape="rect" id="node2" href="$structtype__identity.html" title=" " alt="" coords="5,93,188,133"/>
-<area shape="rect" id="node3" href="$structtype__identity.html" title=" " alt="" coords="23,5,170,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="104,196,287,221"/>
+<area shape="rect" id="Node000002" href="$structtype__identity.html" title=" " alt="" coords="5,93,188,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,141,185,194,181,198,125,145"/>
+<area shape="rect" id="Node000003" href="$structtype__identity.html" title=" " alt="" coords="23,5,170,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="99,44,99,93,94,93,94,44"/>
+<area shape="rect" id="Node000004" href="$structmake__unsigned.html" title=" " alt="" coords="213,101,375,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="274,137,209,198,206,194,270,134"/>
 </map>

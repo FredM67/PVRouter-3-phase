@@ -1,6 +1,9 @@
 <map id="Mk2_3phase_RFdatalog_temp/dualtariff.h" name="Mk2_3phase_RFdatalog_temp/dualtariff.h">
-<area shape="rect" id="node1" title="Classes/types needed for dual&#45;tariff support." alt="" coords="105,5,283,45"/>
-<area shape="rect" id="node2" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="5,93,183,133"/>
-<area shape="rect" id="node3" href="$utils_8h.html" title="Some utility functions." alt="" coords="207,93,384,133"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="207,181,384,221"/>
+<area shape="rect" id="Node000001" title="Classes/types needed for dual&#45;tariff support." alt="" coords="105,5,283,45"/>
+<area shape="rect" id="Node000002" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="5,93,183,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,56,118,95,114,91,160,52"/>
+<area shape="rect" id="Node000003" href="$utils_8h.html" title="Some utility functions." alt="" coords="207,93,384,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="229,52,275,91,271,95,225,56"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="207,181,384,221"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="298,147,298,181,293,181,293,147"/>
 </map>

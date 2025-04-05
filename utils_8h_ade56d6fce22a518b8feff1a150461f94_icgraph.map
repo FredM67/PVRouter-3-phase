@@ -1,4 +1,5 @@
 <map id="sendResults" name="sendResults">
-<area shape="rect" id="node1" title="Prints data logs to the Serial output in text or json format." alt="" coords="104,5,205,31"/>
-<area shape="rect" id="node2" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
+<area shape="rect" id="Node000001" title="Prints data logs to the Serial output in text or json format." alt="" coords="104,5,205,31"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,21,56,21,56,15,90,15"/>
 </map>

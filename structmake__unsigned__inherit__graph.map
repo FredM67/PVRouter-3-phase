@@ -1,0 +1,25 @@
+<map id="make_unsigned&lt; T &gt;" name="make_unsigned&lt; T &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,329,168,354"/>
+<area shape="rect" id="Node000002" href="$structmake__unsigned_3_01char_01_4.html" title=" " alt="" coords="381,15,564,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,314,94,261,111,193,124,158,141,124,163,93,190,66,234,40,283,25,333,17,381,16,381,21,334,23,284,30,236,45,194,70,167,96,146,127,129,160,116,195,99,262,92,315"/>
+<area shape="rect" id="Node000003" href="$structmake__unsigned_3_01signed_01char_01_4.html" title=" " alt="" coords="381,65,564,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="91,314,103,275,123,227,151,179,170,158,190,139,235,113,284,96,334,86,381,81,381,87,334,91,285,101,237,118,194,143,173,162,156,182,128,230,108,277,96,316"/>
+<area shape="rect" id="Node000004" href="$structmake__unsigned_3_01signed_01int_01_4.html" title=" " alt="" coords="381,129,564,169"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="99,315,135,262,161,234,191,211,236,188,286,171,335,159,381,152,382,158,336,165,287,176,239,193,193,216,165,238,140,265,104,318"/>
+<area shape="rect" id="Node000005" href="$structmake__unsigned_3_01signed_01long_01_4.html" title=" " alt="" coords="381,193,564,233"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="114,319,150,296,191,275,288,244,380,224,382,229,289,249,193,280,152,300,117,323"/>
+<area shape="rect" id="Node000006" href="$structmake__unsigned_3_01signed_01long_01long_01_4.html" title=" " alt="" coords="381,257,564,297"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="166,323,192,319,381,288,382,293,192,324,166,329"/>
+<area shape="rect" id="Node000007" href="$structmake__unsigned_3_01signed_01short_01_4.html" title=" " alt="" coords="381,321,564,361"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="182,339,381,339,381,344,182,344"/>
+<area shape="rect" id="Node000008" href="$structmake__unsigned_3_01unsigned_01char_01_4.html" title=" " alt="" coords="373,385,572,425"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="166,354,192,359,373,388,373,393,192,364,166,359"/>
+<area shape="rect" id="Node000009" href="$structmake__unsigned_3_01unsigned_01int_01_4.html" title=" " alt="" coords="373,449,572,489"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="117,360,152,383,193,404,284,434,374,453,373,458,283,439,191,409,149,388,114,364"/>
+<area shape="rect" id="Node000010" href="$structmake__unsigned_3_01unsigned_01long_01_4.html" title=" " alt="" coords="373,513,572,553"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="103,365,139,419,164,447,193,470,236,492,282,507,329,518,373,525,372,531,328,524,281,513,234,496,191,474,160,450,135,422,98,367"/>
+<area shape="rect" id="Node000011" href="$structmake__unsigned_3_01unsigned_01long_01long_01_4.html" title=" " alt="" coords="373,577,572,617"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="96,367,108,406,127,454,155,502,173,524,194,542,235,566,281,582,328,592,373,597,373,602,327,597,279,587,233,571,190,546,169,527,151,505,122,457,103,408,91,368"/>
+<area shape="rect" id="Node000012" href="$structmake__unsigned_3_01unsigned_01short_01_4.html" title=" " alt="" coords="373,641,572,681"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="92,367,99,421,116,489,129,524,146,558,167,589,194,615,234,640,280,656,328,664,373,666,373,672,327,669,279,661,232,645,190,619,163,592,141,561,124,526,110,490,94,422,87,368"/>
+</map>

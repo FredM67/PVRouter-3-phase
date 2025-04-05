@@ -1,11 +1,19 @@
 <map id="processStartNewCycle" name="processStartNewCycle">
-<area shape="rect" id="node1" title="Processes the start of a new mains cycle on phase 0." alt="" coords="5,80,173,105"/>
-<area shape="rect" id="node2" href="$group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="226,5,410,31"/>
-<area shape="rect" id="node4" href="$group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="228,55,408,80"/>
-<area shape="rect" id="node6" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="221,104,415,129"/>
-<area shape="rect" id="node7" href="$group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="247,153,389,179"/>
-<area shape="rect" id="node3" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="473,5,673,31"/>
-<area shape="rect" id="node5" href="$group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="463,55,684,80"/>
-<area shape="rect" id="node8" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="526,104,621,129"/>
-<area shape="rect" id="node9" href="$utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="529,153,618,179"/>
+<area shape="rect" id="Node000001" title="Processes the start of a new mains cycle on phase 0." alt="" coords="5,80,173,105"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="226,5,410,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,77,220,39,247,32,249,37,222,45,121,82"/>
+<area shape="rect" id="Node000004" href="$group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="228,55,408,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="173,81,214,76,214,81,174,86"/>
+<area shape="rect" id="Node000006" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="221,104,415,129"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="174,99,208,102,207,108,173,104"/>
+<area shape="rect" id="Node000007" href="$group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="247,153,389,179"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="123,103,222,138,253,147,252,152,221,143,122,108"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="473,5,673,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="410,15,459,15,459,21,410,21"/>
+<area shape="rect" id="Node000005" href="$group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="463,55,684,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="408,65,449,65,449,70,408,70"/>
+<area shape="rect" id="Node000008" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="526,104,621,129"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="384,151,512,126,513,131,385,156"/>
+<area shape="rect" id="Node000009" href="$utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="529,153,618,179"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="389,163,515,163,515,169,389,169"/>
 </map>

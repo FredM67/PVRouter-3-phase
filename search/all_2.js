@@ -1,17 +1,13 @@
 var searchData=
 [
-  ['b_5fdatalogeventpending_0',['b_datalogEventPending',['../processing_8h.html#ab76a3cdd049ea024d204d62770405dc9',1,'processing.h']]],
-  ['b_5fdiversionoff_1',['b_diversionOff',['../processing_8h.html#abbcd9c205506eb70e668fc430b531d4d',1,'processing.h']]],
-  ['b_5fnewmainscycle_2',['b_newMainsCycle',['../processing_8h.html#aa3dd7bd843acabd72f702af584c0511d',1,'processing.h']]],
-  ['b_5foverrideloadon_3',['b_overrideLoadOn',['../processing_8h.html#aa1d0d82b79554d3f491238534b2dc4c3',1,'processing.h']]],
-  ['b_5frecenttransition_4',['b_recentTransition',['../processing_8cpp.html#a94046779c01c48ac04dcf44818c600ad',1,'processing.cpp']]],
-  ['b_5freorderloads_5',['b_reOrderLoads',['../processing_8h.html#a4be9b67cfa7c4e48c63817d06f3d293c',1,'processing.h']]],
-  ['beyondstartupperiod_6',['beyondStartUpPeriod',['../processing_8cpp.html#aaecb72fa3ab0755ac124b5fa6ffa1c6f',1,'processing.cpp']]],
-  ['bit_5fclear_7',['bit_clear',['../utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e',1,'utils_pins.h']]],
-  ['bit_5fread_8',['bit_read',['../utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37',1,'utils_pins.h']]],
-  ['bit_5fset_9',['bit_set',['../utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc',1,'utils_pins.h']]],
-  ['bool_5fconstant_10',['bool_constant',['../integral__constant_8hpp.html#ac5c90336c94cb0db8abdd10603a3c7cc',1,'integral_constant.hpp']]],
-  ['branch_5fname_11',['BRANCH_NAME',['../utils_8h.html#a2372128ceadf4346a0a2fe0995e719aa',1,'utils.h']]],
-  ['buffer_12',['buffer',['../classTeleInfo.html#a78162488f195d2bcaeab241c03e35f21',1,'TeleInfo']]],
-  ['bufferpos_13',['bufferPos',['../classTeleInfo.html#a2a0247ece933354556a11d540fbd6d43',1,'TeleInfo']]]
+  ['a_203_20phase_20photovoltaic_20router_20diverter_0',['A 3-phase photovoltaic router/diverter',['../index.html',1,'']]],
+  ['absenceofdivertedenergycount_1',['absenceOfDivertedEnergyCount',['../processing_8h.html#af88e818728a46ad55b898b6561331bb7',1,'processing.h']]],
+  ['activeload_2',['activeLoad',['../processing_8cpp.html#ae3ad049e6ee90e4eacc823d1387f02e0',1,'processing.cpp']]],
+  ['addr_3',['addr',['../structDeviceAddress.html#ae90422657105a8cff63931e274f2d391',1,'DeviceAddress']]],
+  ['addvalue_4',['addValue',['../classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db',1,'EWMA_average::addValue()'],['../classmovingAvg.html#aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5',1,'movingAvg::addValue()']]],
+  ['alpha_5',['alpha',['../calibration_8h.html#a19b3d4f09bab83f43bd3a3ed5295bddb',1,'calibration.h']]],
+  ['anti_5fflicker_6',['ANTI_FLICKER',['../types_8h.html#aae913bd32d3b848f4a5ba5b9d32e9a1fa086599a6d23b3982c7ebfeb833fdd6c0',1,'types.h']]],
+  ['arg1_5ftype_7',['arg1_type',['../structfunction__traits_3_01ReturnType_07_5_08_07Arg1_08_4.html#a38f967cfcb5daa4bbad2bd62e6a81940',1,'function_traits&lt; ReturnType(*)(Arg1)&gt;::arg1_type'],['../structfunction__traits_3_01ReturnType_07_5_08_07Arg1_00_01Arg2_08_4.html#a4deb6f7e70bf678c274b69f6e0d70138',1,'function_traits&lt; ReturnType(*)(Arg1, Arg2)&gt;::arg1_type']]],
+  ['arg2_5ftype_8',['arg2_type',['../structfunction__traits_3_01ReturnType_07_5_08_07Arg1_00_01Arg2_08_4.html#a63022e1fee5060dd3a47065b6cb75599',1,'function_traits&lt; ReturnType(*)(Arg1, Arg2)&gt;']]],
+  ['auto_9',['AUTO',['../types_8h.html#a06b890c4a964752df814257dc1f13073ae1f2d5134ed2543d38a0de9751cf75d9',1,'types.h']]]
 ];

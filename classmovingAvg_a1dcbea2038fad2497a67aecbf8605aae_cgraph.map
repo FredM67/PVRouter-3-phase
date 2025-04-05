@@ -1,4 +1,5 @@
 <map id="movingAvg::getAverage" name="movingAvg::getAverage">
-<area shape="rect" id="node1" title="Get the sliding average." alt="" coords="5,5,183,31"/>
-<area shape="rect" id="node2" href="$classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c" title=" " alt="" coords="231,5,415,31"/>
+<area shape="rect" id="Node000001" title="Get the sliding average." alt="" coords="5,5,183,31"/>
+<area shape="rect" id="Node000002" href="$classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c" title=" " alt="" coords="231,5,415,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,15,217,15,217,21,183,21"/>
 </map>

@@ -1,7 +1,5 @@
 <map id="relayOutput::get_minON" name="relayOutput::get_minON">
-<area shape="rect" id="node1" title="Get the minimum ON&#45;time in seconds." alt="" coords="884,5,1064,31"/>
-<area shape="rect" id="node2" href="$classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="575,5,836,31"/>
-<area shape="rect" id="node3" href="$classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a" title="Print the configuration of each relay." alt="" coords="299,5,527,31"/>
-<area shape="rect" id="node4" href="$utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,31"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,31"/>
+<area shape="rect" id="Node000001" title="Get the minimum ON&#45;time in seconds." alt="" coords="315,5,495,31"/>
+<area shape="rect" id="Node000002" href="$classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="5,5,267,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="301,21,267,21,267,15,301,15"/>
 </map>

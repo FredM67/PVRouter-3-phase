@@ -1,4 +1,5 @@
 <map id="proceedHighEnergyLevel" name="proceedHighEnergyLevel">
-<area shape="rect" id="node1" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="5,5,189,31"/>
-<area shape="rect" id="node2" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="237,5,437,31"/>
+<area shape="rect" id="Node000001" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="5,5,189,31"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="237,5,437,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,15,224,15,224,21,189,21"/>
 </map>

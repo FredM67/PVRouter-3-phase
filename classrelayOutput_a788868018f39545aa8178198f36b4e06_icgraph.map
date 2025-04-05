@@ -1,4 +1,5 @@
 <map id="relayOutput::try_turnOFF" name="relayOutput::try_turnOFF">
-<area shape="rect" id="node1" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="212,13,396,38"/>
-<area shape="rect" id="node2" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="5,5,164,45"/>
+<area shape="rect" id="Node000001" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="212,13,396,38"/>
+<area shape="rect" id="Node000002" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="5,5,164,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,28,164,28,164,23,198,23"/>
 </map>

@@ -1,5 +1,8 @@
 <map id="Mk2_3phase_RFdatalog_temp/utils_temp.h" name="Mk2_3phase_RFdatalog_temp/utils_temp.h">
-<area shape="rect" id="node1" title="Provides utilities for managing temperature sensors." alt="" coords="5,5,183,45"/>
-<area shape="rect" id="node2" title=" " alt="" coords="52,167,136,192"/>
-<area shape="rect" id="node3" href="$constants_8h.html" title="Some constants." alt="" coords="89,93,187,119"/>
+<area shape="rect" id="Node000001" title="Provides utilities for managing temperature sensors." alt="" coords="5,5,183,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="52,167,136,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,46,81,80,79,118,88,153,83,154,74,119,75,79,84,45"/>
+<area shape="rect" id="Node000003" href="$constants_8h.html" title="Some constants." alt="" coords="89,93,187,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,44,127,80,122,83,102,47"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="133,120,111,156,106,154,128,118"/>
 </map>

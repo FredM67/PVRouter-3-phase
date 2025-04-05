@@ -1,4 +1,5 @@
 <map id="movingAvg::_clear_sub" name="movingAvg::_clear_sub">
-<area shape="rect" id="node1" title=" " alt="" coords="188,5,360,31"/>
-<area shape="rect" id="node2" href="$classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7" title="Reset everything." alt="" coords="5,5,140,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="188,5,360,31"/>
+<area shape="rect" id="Node000002" href="$classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7" title="Reset everything." alt="" coords="5,5,140,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,21,141,21,141,15,174,15"/>
 </map>

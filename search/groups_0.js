@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dual_20tariff_20feature_0',['Dual tariff feature',['../group__DualTariff.html',1,'']]]
+  ['critical_20functions_0',['Time-critical functions',['../group__TimeCritical.html',1,'']]]
 ];

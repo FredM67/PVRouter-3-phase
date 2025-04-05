@@ -1,10 +1,17 @@
 <map id="setPinsON" name="setPinsON">
-<area shape="rect" id="node1" title="Set the Pins state to ON." alt="" coords="952,31,1041,56"/>
-<area shape="rect" id="node2" href="$test__utils__pins_2test__main_8cpp.html#a660695f67f59859460015d186d7a2587" title=" " alt="" coords="773,5,894,31"/>
-<area shape="rect" id="node4" href="$group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="763,55,904,80"/>
-<area shape="rect" id="node3" href="$test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="605,5,656,31"/>
-<area shape="rect" id="node5" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,55,715,80"/>
-<area shape="rect" id="node6" href="$group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,55,499,80"/>
-<area shape="rect" id="node7" href="$group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,55,295,80"/>
-<area shape="rect" id="node8" href="$group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,55,48,80"/>
+<area shape="rect" id="Node000001" title="Set the Pins state to ON." alt="" coords="952,31,1041,56"/>
+<area shape="rect" id="Node000002" href="$test__utils__pins_2test__main_8cpp.html#a660695f67f59859460015d186d7a2587" title=" " alt="" coords="773,5,894,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="938,37,894,30,895,25,939,32"/>
+<area shape="rect" id="Node000004" href="$group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="763,55,904,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="939,54,905,60,904,54,938,49"/>
+<area shape="rect" id="Node000003" href="$test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="605,5,656,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="759,21,656,21,656,15,759,15"/>
+<area shape="rect" id="Node000005" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,55,715,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="749,70,715,70,715,65,749,65"/>
+<area shape="rect" id="Node000006" href="$group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="343,55,499,80"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="533,70,499,70,499,65,533,65"/>
+<area shape="rect" id="Node000007" href="$group__TimeCritical.html#ga7b45c0ceb64e191cb1f053c28f02cee6" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,55,295,80"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="329,70,295,70,295,65,329,65"/>
+<area shape="rect" id="Node000008" href="$group__TimeCritical.html#ga05c2e5b588ced1cd7312f5b0edc5b295" title="Interrupt Service Routine &#45; Interrupt&#45;Driven Analog Conversion." alt="" coords="5,55,48,80"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="82,70,49,70,49,65,82,65"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="round_up_to_power_of_2" name="round_up_to_power_of_2">
-<area shape="rect" id="node1" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="245,5,429,31"/>
-<area shape="rect" id="node2" href="$classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and actualize the EMA, DEMA and TEMA." alt="" coords="5,5,197,31"/>
+<area shape="rect" id="Node000001" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="245,5,429,31"/>
+<area shape="rect" id="Node000002" href="$classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and actualize the EMA, DEMA and TEMA." alt="" coords="5,5,197,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,21,198,21,198,15,231,15"/>
 </map>

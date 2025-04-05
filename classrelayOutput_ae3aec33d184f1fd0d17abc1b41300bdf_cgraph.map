@@ -1,5 +1,7 @@
 <map id="relayOutput::try_turnON" name="relayOutput::try_turnON">
-<area shape="rect" id="node1" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="5,5,184,31"/>
-<area shape="rect" id="node2" href="$utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="232,5,315,31"/>
-<area shape="rect" id="node3" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="363,5,429,31"/>
+<area shape="rect" id="Node000001" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="5,5,184,31"/>
+<area shape="rect" id="Node000002" href="$utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="232,5,315,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,15,218,15,218,21,185,21"/>
+<area shape="rect" id="Node000003" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="363,5,429,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="315,15,349,15,349,21,315,21"/>
 </map>

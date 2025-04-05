@@ -1,0 +1,22 @@
+<map id="initializeProcessing" name="initializeProcessing">
+<area shape="rect" id="Node000001" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="5,156,153,181"/>
+<area shape="rect" id="Node000002" href="$utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="241,5,320,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,154,134,104,165,74,200,48,227,33,230,38,203,52,169,78,137,108,93,158"/>
+<area shape="rect" id="Node000003" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="412,107,479,132"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="94,154,139,120,169,104,201,91,245,82,280,80,360,91,399,100,398,106,360,97,280,86,245,87,202,97,171,109,142,125,97,158"/>
+<area shape="rect" id="Node000004" href="$group__Initialization.html#ga8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="229,156,332,181"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="154,166,215,166,215,171,154,171"/>
+<area shape="rect" id="Node000006" href="$group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="223,107,338,132"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="131,153,214,133,215,138,132,159"/>
+<area shape="rect" id="Node000007" href="$group__Initialization.html#gaa8804d52f2d7f9724daca5bb40aff66f" title="Initializes all elements of a given array to a specified value." alt="" coords="224,205,337,231"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="132,179,215,199,214,205,131,184"/>
+<area shape="rect" id="Node000008" href="$utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873" title="Set the pins as INPUT_PULLUP." alt="" coords="201,255,360,280"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="100,179,145,210,202,241,219,248,217,253,200,246,142,214,97,184"/>
+<area shape="rect" id="Node000009" href="$utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e" title="Set the pins as OUTPUT." alt="" coords="216,304,345,329"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="92,180,136,233,167,264,203,290,214,296,212,301,200,295,164,268,132,237,88,183"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="323,153,398,131,399,136,324,159"/>
+<area shape="rect" id="Node000005" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="408,156,483,181"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="332,166,394,166,394,171,332,171"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="338,117,398,117,398,122,338,122"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="324,129,396,151,394,156,323,135"/>
+</map>

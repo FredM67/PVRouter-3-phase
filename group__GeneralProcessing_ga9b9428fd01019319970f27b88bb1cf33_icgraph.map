@@ -1,7 +1,12 @@
 <map id="proceedRotation" name="proceedRotation">
-<area shape="rect" id="node1" title="Proceeds with load priority rotation." alt="" coords="795,13,924,38"/>
-<area shape="rect" id="node2" href="$group__GeneralProcessing.html#gab4774b22349c58cef345ad396aecc868" title="Handles load priorities and overriding logic." alt="" coords="323,5,511,45"/>
-<area shape="rect" id="node5" href="$group__GeneralProcessing.html#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="559,33,747,73"/>
-<area shape="rect" id="node3" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,13,275,38"/>
-<area shape="rect" id="node4" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,13,56,38"/>
+<area shape="rect" id="Node000001" title="Proceeds with load priority rotation." alt="" coords="795,13,924,38"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#gab4774b22349c58cef345ad396aecc868" title="Handles load priorities and overriding logic." alt="" coords="323,5,511,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="781,25,747,24,559,24,511,25,511,20,559,19,747,19,781,20"/>
+<area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="559,33,747,73"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="782,39,747,43,747,38,781,33"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,13,275,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="309,28,275,28,275,23,309,23"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,13,56,38"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="90,28,57,28,57,23,90,23"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="545,43,511,39,511,34,545,38"/>
 </map>

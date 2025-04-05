@@ -1,5 +1,7 @@
 <map id="is_integral&lt; T &gt;" name="is_integral&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="977,257,1105,282"/>
-<area shape="rect" id="node2" href="$structintegral__constant.html" title=" " alt="" coords="553,125,928,414"/>
-<area shape="rect" id="node3" href="$structintegral__constant.html" title=" " alt="" coords="5,249,152,289"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="977,257,1105,282"/>
+<area shape="rect" id="Node000002" href="$structintegral__constant.html" title=" " alt="" coords="553,125,928,414"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="942,267,977,267,977,272,942,272"/>
+<area shape="rect" id="Node000003" href="$structintegral__constant.html" title=" " alt="" coords="5,249,152,289"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="166,267,553,267,553,272,166,272"/>
 </map>

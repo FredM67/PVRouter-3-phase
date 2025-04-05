@@ -1,4 +1,13 @@
 <map id="is_array&lt; T &gt;" name="is_array&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,79,117,104"/>
-<area shape="rect" id="node2" href="$structintegral__constant.html" title=" " alt="" coords="16,5,107,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="87,285,199,311"/>
+<area shape="rect" id="Node000005" href="$structis__array_3_01T_0fN_0e_4.html" title=" " alt="" coords="5,373,133,399"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="126,323,82,375,78,371,122,319"/>
+<area shape="rect" id="Node000006" href="$structis__array_3_01T_0f_0e_4.html" title=" " alt="" coords="158,373,277,399"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="164,319,177,333,210,371,206,375,173,336,160,323"/>
+<area shape="rect" id="Node000002" href="$structintegral__constant.html" title=" " alt="" coords="97,211,188,236"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,250,145,285,140,285,140,250"/>
+<area shape="rect" id="Node000003" href="$structintegral__constant.html" title=" " alt="" coords="69,108,216,148"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="145,162,145,210,140,210,140,162"/>
+<area shape="rect" id="Node000004" href="$structintegral__constant.html" title=" " alt="" coords="69,5,216,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="145,59,145,108,140,108,140,59"/>
 </map>

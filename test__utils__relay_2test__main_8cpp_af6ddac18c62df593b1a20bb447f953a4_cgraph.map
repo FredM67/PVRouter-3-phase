@@ -1,6 +1,9 @@
 <map id="test_relay_initialization_with_negative_thresholds" name="test_relay_initialization_with_negative_thresholds">
-<area shape="rect" id="node1" title=" " alt="" coords="5,47,201,87"/>
-<area shape="rect" id="node2" href="$classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e" title="Get the import threshold which will turns OFF the relay." alt="" coords="249,5,492,31"/>
-<area shape="rect" id="node3" href="$classrelayOutput.html#ac9bf2670034f07cc718b4a9b7c513155" title="Get the control pin of the relay." alt="" coords="293,55,448,80"/>
-<area shape="rect" id="node4" href="$classrelayOutput.html#a53d146f5a123d31cae6146e8fb4c038a" title="Get the surplus threshold which will turns ON the relay." alt="" coords="279,105,462,145"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,47,201,87"/>
+<area shape="rect" id="Node000002" href="$classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e" title="Get the import threshold which will turns OFF the relay." alt="" coords="249,5,492,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="201,47,287,31,288,36,202,52"/>
+<area shape="rect" id="Node000003" href="$classrelayOutput.html#ac9bf2670034f07cc718b4a9b7c513155" title="Get the control pin of the relay." alt="" coords="293,55,448,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="201,65,280,65,280,70,201,70"/>
+<area shape="rect" id="Node000004" href="$classrelayOutput.html#a53d146f5a123d31cae6146e8fb4c038a" title="Get the surplus threshold which will turns ON the relay." alt="" coords="279,105,462,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="198,85,266,100,265,105,197,90"/>
 </map>

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['datalog_5fperiod_5fin_5fmains_5fcycles_0',['DATALOG_PERIOD_IN_MAINS_CYCLES',['../config__system_8h.html#a3ef16ef0bdae79862eafe58c00e3063b',1,'config_system.h']]],
+  ['datalog_5fperiod_5fin_5fmains_5fcycles_0',['DATALOG_PERIOD_IN_MAINS_CYCLES',['../config__system_8h.html#a7c1cf10ab9159ed3521c644de82a8508',1,'config_system.h']]],
   ['datalog_5fperiod_5fin_5fseconds_1',['DATALOG_PERIOD_IN_SECONDS',['../config__system_8h.html#aa1ffffd0033bb88a0611cc09daef8d20',1,'config_system.h']]],
   ['device_5fdisconnected_5fc_2',['DEVICE_DISCONNECTED_C',['../constants_8h.html#afdaf08501000ecdba738310facc056dd',1,'constants.h']]],
   ['device_5fdisconnected_5fraw_3',['DEVICE_DISCONNECTED_RAW',['../constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83',1,'constants.h']]],

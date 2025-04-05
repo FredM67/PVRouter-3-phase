@@ -1,5 +1,7 @@
 <map id="test_setPinON" name="test_setPinON">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,120,31"/>
-<area shape="rect" id="node2" href="$utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="168,5,251,31"/>
-<area shape="rect" id="node3" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="299,5,365,31"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,120,31"/>
+<area shape="rect" id="Node000002" href="$utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="168,5,251,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,15,154,15,154,21,120,21"/>
+<area shape="rect" id="Node000003" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="299,5,365,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="251,15,285,15,285,21,251,21"/>
 </map>

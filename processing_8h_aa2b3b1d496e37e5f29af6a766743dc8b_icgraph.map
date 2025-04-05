@@ -1,5 +1,7 @@
 <map id="printParamsForSelectedOutputMode" name="printParamsForSelectedOutputMode">
-<area shape="rect" id="node1" title="Print the settings used for the selected output mode." alt="" coords="299,5,555,31"/>
-<area shape="rect" id="node2" href="$utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,31"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,31"/>
+<area shape="rect" id="Node000001" title="Print the settings used for the selected output mode." alt="" coords="299,5,555,31"/>
+<area shape="rect" id="Node000002" href="$utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="112,5,251,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="285,21,251,21,251,15,285,15"/>
+<area shape="rect" id="Node000003" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="98,21,64,21,64,15,98,15"/>
 </map>
