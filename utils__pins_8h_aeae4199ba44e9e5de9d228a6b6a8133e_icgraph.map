@@ -1,13 +1,12 @@
 <map id="bit_clear" name="bit_clear">
 <area shape="rect" id="node1" title="Clear the specified bit." alt="" coords="739,56,817,81"/>
-<area shape="rect" id="node2" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="543,5,691,31"/>
+<area shape="rect" id="node2" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the ports and load states for processing." alt="" coords="543,19,691,44"/>
 <area shape="rect" id="node4" href="$utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="573,80,661,105"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="154,5,213,31"/>
-<area shape="rect" id="node5" href="$processing_8cpp.html#a65d7d37eebe737ce9985aafedb2cb061" title="Initializes the optional pins." alt="" coords="323,31,483,56"/>
-<area shape="rect" id="node6" href="$utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7" title="Set the Pin state for the specified pin." alt="" coords="355,80,451,105"/>
-<area shape="rect" id="node9" href="$test__utils__pins_2test__main_8cpp.html#ad88b28b663dbedb3135d1eabb5ca3cb1" title=" " alt="" coords="123,129,243,155"/>
-<area shape="rect" id="node10" href="$classrelayOutput.html#a788868018f39545aa8178198f36b4e06" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="311,184,495,209"/>
-<area shape="rect" id="node7" href="$test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="119,80,247,105"/>
-<area shape="rect" id="node8" href="$test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,105,56,131"/>
-<area shape="rect" id="node11" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="104,179,263,219"/>
+<area shape="rect" id="node3" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="373,5,432,31"/>
+<area shape="rect" id="node5" href="$utils__pins_8h.html#a505180a01641b0a5b17a0f2376f9b586" title="Set the Pin state for the specified pin." alt="" coords="355,55,451,80"/>
+<area shape="rect" id="node8" href="$test__utils__pins_2test__main_8cpp.html#ad88b28b663dbedb3135d1eabb5ca3cb1" title=" " alt="" coords="123,104,243,129"/>
+<area shape="rect" id="node9" href="$classrelayOutput.html#a788868018f39545aa8178198f36b4e06" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="311,159,495,184"/>
+<area shape="rect" id="node6" href="$test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="119,55,247,80"/>
+<area shape="rect" id="node7" href="$test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,80,56,105"/>
+<area shape="rect" id="node10" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="104,154,263,194"/>
 </map>

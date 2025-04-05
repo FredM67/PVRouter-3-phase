@@ -1,9 +1,13 @@
 <map id="initializeProcessing" name="initializeProcessing">
-<area shape="rect" id="node1" title="Initializes the ports and load states for processing." alt="" coords="5,80,153,105"/>
-<area shape="rect" id="node2" href="$utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="259,5,337,31"/>
-<area shape="rect" id="node3" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="265,55,331,80"/>
-<area shape="rect" id="node4" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="This function provides the link between the logical and physical loads." alt="" coords="201,104,395,129"/>
-<area shape="rect" id="node5" href="$processing_8cpp.html#a44ac46a7ff4e0717bd668d5907b38249" title="update the control ports for each of the physical loads" alt="" coords="227,153,369,179"/>
-<area shape="rect" id="node6" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="443,128,537,153"/>
-<area shape="rect" id="node7" href="$utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="445,177,535,203"/>
+<area shape="rect" id="node1" title="Initializes the ports and load states for processing." alt="" coords="5,156,153,181"/>
+<area shape="rect" id="node2" href="$utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="241,5,320,31"/>
+<area shape="rect" id="node3" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="461,57,527,83"/>
+<area shape="rect" id="node4" href="$processing_8cpp.html#a8995e5745b217d64477574abf086acc7" title=" " alt="" coords="229,107,332,132"/>
+<area shape="rect" id="node6" href="$processing_8cpp.html#ac599ad38730b3cb0276687ba6cbfaf1e" title=" " alt="" coords="223,156,338,181"/>
+<area shape="rect" id="node9" href="$processing_8cpp.html#aa8804d52f2d7f9724daca5bb40aff66f" title=" " alt="" coords="224,205,337,231"/>
+<area shape="rect" id="node10" href="$utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873" title="Set the pins as INPUT_PULLUP." alt="" coords="201,255,360,280"/>
+<area shape="rect" id="node11" href="$utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e" title="Set the pins as OUTPUT." alt="" coords="216,304,345,329"/>
+<area shape="rect" id="node5" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="457,107,531,132"/>
+<area shape="rect" id="node7" href="$classRelayEngine.html#a981b20422ed19d2aa87d042c583173ee" title="Get the relay object." alt="" coords="408,156,580,181"/>
+<area shape="rect" id="node8" href="$classRelayEngine.html#a1ed9500ebf4f6d7afb519c377fab42d3" title="Get the number of relays." alt="" coords="411,205,577,231"/>
 </map>
