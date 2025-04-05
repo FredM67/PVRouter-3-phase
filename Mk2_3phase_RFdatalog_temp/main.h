@@ -1,7 +1,12 @@
 /**
  * @file main.h
  * @author your name (you@domain.com)
- * @brief 
+ * @brief Header file for the main application.
+ *
+ * This file contains declarations for core functions used in the main application.
+ * It includes inline functions for power and voltage updates, temperature processing,
+ * and load priority management.
+ *
  * @version 0.1
  * @date 2025-04-04
  * 
