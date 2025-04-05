@@ -327,8 +327,6 @@ void setup()
   // initializes all loads to OFF at startup
   initializeProcessing();
 
-  initializeOptionalPins();
-
   logLoadPriorities();
 
   if constexpr (TEMP_SENSOR_PRESENT)

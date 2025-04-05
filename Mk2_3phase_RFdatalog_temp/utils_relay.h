@@ -395,22 +395,6 @@ public:
   }
 
   /**
-   * @brief Initialize the pins used by the relays.
-   * 
-   * @details This method sets the pin mode for each relay to `OUTPUT` and introduces a small
-   * delay between each initialization to ensure stability.
-   */
-  void initializePins() const
-  {
-    uint8_t idx{ N };
-    do
-    {
-      pinMode(relay[--idx].get_pin(), OUTPUT);
-      delay(100);
-    } while (idx);
-  }
-
-  /**
    * @brief Print the configuration of each relay.
    * 
    * @details This method outputs the configuration of all relays, including their pin assignments,

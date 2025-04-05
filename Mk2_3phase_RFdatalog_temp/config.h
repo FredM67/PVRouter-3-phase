@@ -26,7 +26,7 @@
 #include "utils_relay.h"
 #include "utils_temp.h"
 
-inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable; /**< constexpr variable to set the serial output type */
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT; /**< constexpr variable to set the serial output type */
 
 //--------------------------------------------------------------------------------------------------
 // constants which must be set individually for each system

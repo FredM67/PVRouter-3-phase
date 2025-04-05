@@ -30,7 +30,7 @@ inline constexpr uint16_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow
 inline volatile uint16_t absenceOfDivertedEnergyCount{ 0 }; /**< number of main cycles without diverted energy */
 inline volatile bool b_datalogEventPending{ false };        /**< async trigger to signal datalog is available */
 inline volatile bool b_newMainsCycle{ false };              /**< async trigger to signal start of new main cycle based on first phase */
-inline volatile bool b_overrideLoadOn[NO_OF_DUMPLOADS];     /**< async trigger to force specific load(s) to ON */
+inline volatile bool b_overrideLoadOn[NO_OF_DUMPLOADS]{};     /**< async trigger to force specific load(s) to ON */
 inline volatile bool b_reOrderLoads{ false };               /**< async trigger for loads re-ordering */
 inline volatile bool b_diversionOff{ false };               /**< async trigger to stop diversion */
 inline volatile bool EDD_isIdle{ true };                    /**< energy diversion detection */
@@ -51,19 +51,15 @@ inline PayloadTx_struct< NO_OF_PHASES, temperatureSensing.get_size() > tx_data; 
 inline PayloadTx_struct< NO_OF_PHASES > tx_data; /**< logging data */
 #endif
 
-void initializeProcessing();
-void initializeOptionalPins();
 void updatePhysicalLoadStates();
-void updatePortsStates();
 void printParamsForSelectedOutputMode();
 
-void processCurrentRawSample(uint8_t phase, int16_t rawSample);
-void processVoltageRawSample(uint8_t phase, int16_t rawSample);
-void processRawSamples(uint8_t phase);
-
-void processVoltage(uint8_t phase);
+void processCurrentRawSample(const uint8_t phase, const int16_t rawSample);
+void processVoltageRawSample(const uint8_t phase, const int16_t rawSample);
+void processRawSamples(const uint8_t phase);
 
 #if defined(__DOXYGEN__)
+void initializeProcessing();
 inline void processStartUp(uint8_t phase);
 inline void processStartNewCycle();
 inline void processPlusHalfCycle(uint8_t phase);
@@ -76,22 +72,24 @@ inline void proceedHighEnergyLevel();
 inline uint8_t nextLogicalLoadToBeAdded();
 inline uint8_t nextLogicalLoadToBeRemoved();
 inline void processLatestContribution(uint8_t phase);
+inline void processDataLogging();
+inline void updatePortsStates();
 #else
+void initializeProcessing() __attribute__((optimize("-O3")));
 inline void processStartUp(uint8_t phase) __attribute__((always_inline));
 inline void processStartNewCycle() __attribute__((always_inline));
 inline void processPlusHalfCycle(uint8_t phase) __attribute__((always_inline));
 inline void processMinusHalfCycle(uint8_t phase) __attribute__((always_inline));
-inline void processVoltage(uint8_t phase) __attribute__((always_inline));
+inline void processVoltage(uint8_t phase) __attribute__((always_inline));;
 inline void processPolarity(uint8_t phase, int16_t rawSample) __attribute__((always_inline));
 inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
 inline void proceedLowEnergyLevel() __attribute__((always_inline));
 inline void proceedHighEnergyLevel() __attribute__((always_inline));
-inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline));
-inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline));
+inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline, optimize("-O3")));
+inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline, optimize("-O3")));
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
-
+inline void processDataLogging() __attribute__((always_inline, optimize("-O3")));
+inline void updatePortsStates() __attribute__((optimize("-O3")));
 #endif
-
-void processDataLogging();
 
 #endif /* PROCESSING_H */

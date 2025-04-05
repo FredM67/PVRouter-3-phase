@@ -79,10 +79,100 @@ Polarities polarityOfMostRecentSampleV[NO_OF_PHASES];    /**< for zero-crossing 
 Polarities polarityConfirmed[NO_OF_PHASES];              /**< for zero-crossing detection */
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing detection */
 
-LoadStates physicalLoadState[NO_OF_DUMPLOADS]; /**< Physical state of the loads */
-uint16_t countLoadON[NO_OF_DUMPLOADS];         /**< Number of cycle the load was ON (over 1 datalog period) */
+LoadStates physicalLoadState[NO_OF_DUMPLOADS]{}; /**< Physical state of the loads */
+uint16_t countLoadON[NO_OF_DUMPLOADS];           /**< Number of cycle the load was ON (over 1 datalog period) */
 
 bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle */
+
+template< size_t N >
+constexpr void initializeArray(int32_t (&array)[N], int32_t value)
+{
+  for (size_t i = 0; i < N; ++i)
+  {
+    array[i] = value;
+  }
+}
+
+constexpr uint16_t getOutputPins()
+{
+  uint16_t output_pins{ 0 };
+
+  if (watchDogPin != 0xff)
+  {
+    if (bit_read(output_pins, watchDogPin))
+      return 0;
+
+    bit_set(output_pins, watchDogPin);
+  }
+
+  for (const auto &loadPin : physicalLoadPin)
+  {
+    if (loadPin == 0xff)
+      return 0;
+
+    if (bit_read(output_pins, loadPin))
+      return 0;
+
+    bit_set(output_pins, loadPin);
+  }
+
+  if constexpr (RELAY_DIVERSION)
+  {
+    for (uint8_t idx = 0; idx < relays.get_size(); ++idx)
+    {
+      const auto relayPin = relays.get_relay(idx).get_pin();
+
+      if (relayPin != 0xff)
+      {
+        if (bit_read(output_pins, relayPin))
+          return 0;
+
+        bit_set(output_pins, relayPin);
+      }
+    }
+  }
+
+  return output_pins;
+}
+
+constexpr uint16_t getInputPins()
+{
+  uint16_t input_pins{ 0 };
+
+  if (dualTariffPin != 0xff)
+  {
+    if (bit_read(input_pins, dualTariffPin))
+      return 0;
+
+    bit_set(input_pins, dualTariffPin);
+  }
+
+  if (diversionPin != 0xff)
+  {
+    if (bit_read(input_pins, diversionPin))
+      return 0;
+
+    bit_set(input_pins, diversionPin);
+  }
+
+  if (rotationPin != 0xff)
+  {
+    if (bit_read(input_pins, rotationPin))
+      return 0;
+
+    bit_set(input_pins, rotationPin);
+  }
+
+  if (forcePin != 0xff)
+  {
+    if (bit_read(input_pins, forcePin))
+      return 0;
+
+    bit_set(input_pins, forcePin);
+  }
+
+  return input_pins;
+}
 
 /**
  * @brief Initializes the ports and load states for processing
@@ -90,24 +180,15 @@ bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle 
  */
 void initializeProcessing()
 {
+  initializeArray(l_DCoffset_V, 512L * 256L);  // nominal mid-point value of ADC @ x256 scale
+
+  setPinsAsOutput(getOutputPins());  // set the output pins as OUTPUT
+  setPinsAsInputPullup(getInputPins());  // set the input pins as INPUT_PULLUP
+
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
     loadPrioritiesAndState[i] = loadPrioritiesAtStartup[i];
-    pinMode(physicalLoadPin[i], OUTPUT);  // driver pin for Load #n
     loadPrioritiesAndState[i] &= loadStateMask;
-  }
-  updatePhysicalLoadStates();  // allows the logical-to-physical mapping to be changed
-
-  updatePortsStates();  // updates output pin states
-
-  for (auto &DCoffset_V : l_DCoffset_V)
-  {
-    DCoffset_V = 512L * 256L;  // nominal mid-point value of ADC @ x256 scale
-  }
-
-  for (auto &bOverrideLoad : b_overrideLoadOn)
-  {
-    bOverrideLoad = false;
   }
 
   // First stop the ADC
@@ -136,53 +217,6 @@ void initializeProcessing()
   sei();  // Enable Global Interrupts
 }
 
-/**
- * @brief Initializes the optional pins
- *
- */
-void initializeOptionalPins()
-{
-  if constexpr (DUAL_TARIFF)
-  {
-    pinMode(dualTariffPin, INPUT_PULLUP);  // set as input & enable the internal pullup resistor
-    delay(100);                            // allow time to settle
-
-    ul_TimeOffPeak = millis();
-  }
-
-  if constexpr (OVERRIDE_PIN_PRESENT)
-  {
-    pinMode(forcePin, INPUT_PULLUP);  // set as input & enable the internal pullup resistor
-    delay(100);                       // allow time to settle
-  }
-
-  if constexpr (PRIORITY_ROTATION == RotationModes::PIN)
-  {
-    pinMode(rotationPin, INPUT_PULLUP);  // set as input & enable the internal pullup resistor
-    delay(100);                          // allow time to settle
-  }
-
-  if constexpr (DIVERSION_PIN_PRESENT)
-  {
-    pinMode(diversionPin, INPUT_PULLUP);  // set as input & enable the internal pullup resistor
-    delay(100);                           // allow time to settle
-  }
-
-  if constexpr (RELAY_DIVERSION)
-  {
-    relays.initializePins();
-  }
-
-  if constexpr (WATCHDOG_PIN_PRESENT)
-  {
-    pinMode(watchDogPin, OUTPUT);  // set as output
-    setPinOFF(watchDogPin);        // set to off
-  }
-}
-
-#if !defined(__DOXYGEN__)
-void updatePortsStates() __attribute__((optimize("-O3")));
-#endif
 /**
  * @brief update the control ports for each of the physical loads
  *
@@ -572,9 +606,6 @@ void processMinusHalfCycle(const uint8_t phase)
   }
 }
 
-#if !defined(__DOXYGEN__)
-uint8_t nextLogicalLoadToBeAdded() __attribute__((optimize("-O3")));
-#endif
 /**
  * @brief Retrieve the next load that could be added (be aware of the order)
  *
@@ -595,9 +626,6 @@ uint8_t nextLogicalLoadToBeAdded()
   return (NO_OF_DUMPLOADS);
 }
 
-#if !defined(__DOXYGEN__)
-uint8_t nextLogicalLoadToBeRemoved() __attribute__((optimize("-O3")));
-#endif
 /**
  * @brief Retrieve the next load that could be removed (be aware of the reverse-order)
  *
@@ -644,9 +672,6 @@ void processLatestContribution(const uint8_t phase)
   //
 }
 
-#if !defined(__DOXYGEN__)
-void processDataLogging() __attribute__((optimize("-O3")));
-#endif
 /**
  * @brief Process with data logging.
  * @details At the end of each datalogging period, copies are made of the relevant variables

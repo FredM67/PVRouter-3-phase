@@ -27,6 +27,9 @@
 #include "config_system.h"
 #include "config.h"
 
+#if !defined(__DOXYGEN__)
+#endif
+
 /**
  * @brief Calculates the size of a single telemetry line in the frame.
  *
