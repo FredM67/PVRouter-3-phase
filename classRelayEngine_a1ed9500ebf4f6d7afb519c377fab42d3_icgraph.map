@@ -9,6 +9,6 @@
 <area shape="rect" id="node6" href="$processing_8cpp.html#adeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="112,153,260,179"/>
 <area shape="rect" id="node7" href="$main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,153,64,179"/>
 <area shape="rect" id="node9" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="135,203,237,228"/>
-<area shape="rect" id="node10" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="9,203,60,228"/>
+<area shape="rect" id="node10" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="9,203,60,228"/>
 <area shape="rect" id="node12" href="$test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="161,252,211,277"/>
 </map>

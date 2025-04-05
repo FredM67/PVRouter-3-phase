@@ -6,7 +6,7 @@ var searchData=
   ['check_5fload_5fpriorities_3',['check_load_priorities',['../validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac',1,'validation.h']]],
   ['check_5fpins_4',['check_pins',['../validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc',1,'validation.h']]],
   ['check_5frelay_5fpins_5',['check_relay_pins',['../validation_8h.html#a60096a6d3a2fc387b51a01b6ff8c53d2',1,'validation.h']]],
-  ['checkdiversiononoff_6',['checkDiversionOnOff',['../main_8cpp.html#a31f3d562faae6b598324b56299d74f7d',1,'main.cpp']]],
+  ['checkdiversiononoff_6',['checkDiversionOnOff',['../group__GeneralProcessing.html#ga31f3d562faae6b598324b56299d74f7d',1,'main.cpp']]],
   ['clear_7',['clear',['../classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7',1,'movingAvg']]],
   ['commit_5fhash_8',['COMMIT_HASH',['../utils_8h.html#a2c55f8693f5917de9217fba7c72ce663',1,'utils.h']]],
   ['conditional_9',['conditional',['../structconditional.html',1,'']]],

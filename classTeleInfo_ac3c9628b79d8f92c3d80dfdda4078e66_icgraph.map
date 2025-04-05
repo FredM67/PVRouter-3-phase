@@ -2,5 +2,5 @@
 <area shape="rect" id="node1" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="451,5,603,31"/>
 <area shape="rect" id="node2" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="253,5,403,31"/>
 <area shape="rect" id="node3" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="104,5,205,31"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,5,56,31"/>
+<area shape="rect" id="node4" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
 </map>

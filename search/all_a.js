@@ -18,6 +18,6 @@ var searchData=
   ['loadstateonbit_15',['loadStateOnBit',['../types_8h.html#a9e72b6e05ef972b4929a13596b0ceec6',1,'types.h']]],
   ['loadstates_16',['LoadStates',['../types_8h.html#aa689e963b2305ff62d412abb6ebf7244',1,'types.h']]],
   ['logloadpriorities_17',['logLoadPriorities',['../utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1',1,'utils.h']]],
-  ['loop_18',['loop',['../main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;main.cpp'],['../test__fastdivision_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp']]],
+  ['loop_18',['loop',['../group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;main.cpp'],['../test__fastdivision_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp']]],
   ['lpf_5fgain_19',['lpf_gain',['../calibration_8h.html#a74d2e520152cb559bdb6e18153dcb5e4',1,'calibration.h']]]
 ];

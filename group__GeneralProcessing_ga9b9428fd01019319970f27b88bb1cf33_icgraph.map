@@ -1,0 +1,7 @@
+<map id="proceedRotation" name="proceedRotation">
+<area shape="rect" id="node1" title="Proceeds with load priority rotation." alt="" coords="795,13,924,38"/>
+<area shape="rect" id="node2" href="$group__GeneralProcessing.html#gab4774b22349c58cef345ad396aecc868" title="Handles load priorities and overriding logic." alt="" coords="323,5,511,45"/>
+<area shape="rect" id="node5" href="$group__GeneralProcessing.html#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="559,33,747,73"/>
+<area shape="rect" id="node3" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,13,275,38"/>
+<area shape="rect" id="node4" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,13,56,38"/>
+</map>

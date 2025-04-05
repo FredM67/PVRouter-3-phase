@@ -14,7 +14,7 @@
 <area shape="rect" id="node10" href="$test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="119,204,247,229"/>
 <area shape="rect" id="node11" href="$test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,253,56,279"/>
 <area shape="rect" id="node14" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="104,303,263,343"/>
-<area shape="rect" id="node16" href="$main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="315,368,485,393"/>
+<area shape="rect" id="node16" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="315,368,485,393"/>
 <area shape="rect" id="node18" href="$test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8" title=" " alt="" coords="343,417,457,443"/>
-<area shape="rect" id="node17" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="158,368,209,393"/>
+<area shape="rect" id="node17" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="158,368,209,393"/>
 </map>

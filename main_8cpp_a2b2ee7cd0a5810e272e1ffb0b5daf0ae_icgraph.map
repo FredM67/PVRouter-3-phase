@@ -1,6 +1,0 @@
-<map id="proceedLoadPrioritiesAndOverridingDualTariff" name="proceedLoadPrioritiesAndOverridingDualTariff">
-<area shape="rect" id="node1" title="Proceed load priority in combination with dual tariff." alt="" coords="559,5,747,45"/>
-<area shape="rect" id="node2" href="$main_8cpp.html#ab4774b22349c58cef345ad396aecc868" title="This function changes the value of the load priorities." alt="" coords="323,5,511,45"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,13,275,38"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,13,56,38"/>
-</map>

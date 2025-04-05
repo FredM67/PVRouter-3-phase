@@ -1,20 +1,20 @@
 <map id="loop" name="loop">
-<area shape="rect" id="node1" title="Main processor." alt="" coords="5,537,56,563"/>
-<area shape="rect" id="node2" href="$main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="125,161,295,187"/>
+<area shape="rect" id="node1" title="Main processor loop." alt="" coords="5,537,56,563"/>
+<area shape="rect" id="node2" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="125,161,295,187"/>
 <area shape="rect" id="node15" href="$main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title="Processes temperature data from DS18B20 sensors." alt="" coords="117,423,303,448"/>
 <area shape="rect" id="node19" href="$utils_8h.html#ade56d6fce22a518b8feff1a150461f94" title="Prints data logs to the Serial output in text or json format." alt="" coords="159,537,261,563"/>
 <area shape="rect" id="node32" href="$classRelayEngine.html#a2c8796258ac6cd4006a55c236c383287" title="Update the sliding average." alt="" coords="132,587,288,627"/>
-<area shape="rect" id="node33" href="$main_8cpp.html#a09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="104,652,316,677"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="619,5,778,31"/>
-<area shape="rect" id="node6" href="$main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="639,56,758,81"/>
+<area shape="rect" id="node33" href="$group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="104,652,316,677"/>
+<area shape="rect" id="node3" href="$group__GeneralProcessing.html#ga31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="619,5,778,31"/>
+<area shape="rect" id="node6" href="$group__GeneralProcessing.html#ga5157f7f79cf8c75c2d7b41d8ed47a7ef" title="Forces all loads to full power if the override pin is active." alt="" coords="639,56,758,81"/>
 <area shape="rect" id="node7" href="$classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc" title="Increment the duration&#39;s state of each relay." alt="" coords="364,104,555,129"/>
 <area shape="rect" id="node8" href="$classRelayEngine.html#a2891986bc989d9c35301711f674bc523" title="Proceed all relays in increasing order (surplus) or decreasing order (import)." alt="" coords="378,154,541,194"/>
-<area shape="rect" id="node9" href="$main_8cpp.html#ab4774b22349c58cef345ad396aecc868" title="This function changes the value of the load priorities." alt="" coords="365,218,553,258"/>
+<area shape="rect" id="node9" href="$group__GeneralProcessing.html#gab4774b22349c58cef345ad396aecc868" title="Handles load priorities and overriding logic." alt="" coords="365,218,553,258"/>
 <area shape="rect" id="node13" href="$utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="418,283,501,308"/>
 <area shape="rect" id="node4" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="898,83,995,108"/>
 <area shape="rect" id="node5" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="1127,83,1201,108"/>
-<area shape="rect" id="node10" href="$main_8cpp.html#a2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Proceed load priority in combination with dual tariff." alt="" coords="605,161,793,201"/>
-<area shape="rect" id="node11" href="$main_8cpp.html#a9b9428fd01019319970f27b88bb1cf33" title="Proceed load priority rotation." alt="" coords="882,196,1011,221"/>
+<area shape="rect" id="node10" href="$group__GeneralProcessing.html#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="605,161,793,201"/>
+<area shape="rect" id="node11" href="$group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="882,196,1011,221"/>
 <area shape="rect" id="node12" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="1099,196,1229,221"/>
 <area shape="rect" id="node14" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="665,283,732,308"/>
 <area shape="rect" id="node16" href="$classTemperatureSensing.html#a2ee48e23ceaf2bbc08cc4be575bb7d90" title="Get the number of sensors." alt="" coords="621,497,776,537"/>

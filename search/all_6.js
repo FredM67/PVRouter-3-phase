@@ -14,7 +14,7 @@ var searchData=
   ['false_5ftype_11',['false_type',['../integral__constant_8hpp.html#ad15d3ff5d80b8c8c22e9ce862353ba55',1,'integral_constant.hpp']]],
   ['fastdivision_2eh_12',['FastDivision.h',['../FastDivision_8h.html',1,'']]],
   ['fillvalue_13',['fillValue',['../classmovingAvg.html#aac85cf80e40b547a203818d10ba30618',1,'movingAvg']]],
-  ['forcefullpower_14',['forceFullPower',['../main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef',1,'main.cpp']]],
+  ['forcefullpower_14',['forceFullPower',['../group__GeneralProcessing.html#ga5157f7f79cf8c75c2d7b41d8ed47a7ef',1,'main.cpp']]],
   ['forcepin_15',['forcePin',['../config_8h.html#a45c16ccf5033dc4696f17daf792c7130',1,'config.h']]],
   ['freeram_16',['freeRam',['../utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0',1,'utils.h']]],
   ['freq_17',['FREQ',['../config_8h.html#a1b04ec1cde4d3032f558ed8ad05930a4',1,'config.h']]],

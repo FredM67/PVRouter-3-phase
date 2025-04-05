@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['telemetry_20feature_0',['Telemetry feature',['../group__Telemetry.html',1,'']]],
-  ['temperature_20sensing_20feature_1',['Temperature sensing feature',['../group__TemperatureSensing.html',1,'']]],
-  ['time_2dcritical_20functions_2',['Time-critical functions',['../group__TimeCritical.html',1,'']]]
+  ['relay_20diversion_20feature_0',['Relay diversion feature',['../group__RelayDiversion.html',1,'']]],
+  ['rf_20feature_1',['RF feature',['../group__RF.html',1,'']]]
 ];

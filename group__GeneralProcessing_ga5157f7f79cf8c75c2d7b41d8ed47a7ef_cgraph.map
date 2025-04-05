@@ -1,5 +1,5 @@
 <map id="forceFullPower" name="forceFullPower">
-<area shape="rect" id="node1" title="This function set all 3 loads to full power." alt="" coords="5,5,124,31"/>
+<area shape="rect" id="node1" title="Forces all loads to full power if the override pin is active." alt="" coords="5,5,124,31"/>
 <area shape="rect" id="node2" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="172,5,269,31"/>
 <area shape="rect" id="node3" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="317,5,392,31"/>
 </map>

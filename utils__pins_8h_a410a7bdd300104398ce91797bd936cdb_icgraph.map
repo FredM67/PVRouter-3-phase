@@ -1,9 +1,9 @@
 <map id="getPinState" name="getPinState">
 <area shape="rect" id="node1" title="Get the Pin State." alt="" coords="795,81,892,107"/>
-<area shape="rect" id="node2" href="$main_8cpp.html#a31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="337,5,496,31"/>
-<area shape="rect" id="node5" href="$main_8cpp.html#a5157f7f79cf8c75c2d7b41d8ed47a7ef" title="This function set all 3 loads to full power." alt="" coords="593,56,712,81"/>
-<area shape="rect" id="node6" href="$main_8cpp.html#ab4774b22349c58cef345ad396aecc868" title="This function changes the value of the load priorities." alt="" coords="323,106,511,146"/>
-<area shape="rect" id="node7" href="$main_8cpp.html#a2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Proceed load priority in combination with dual tariff." alt="" coords="559,157,747,197"/>
-<area shape="rect" id="node3" href="$main_8cpp.html#a143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,56,275,81"/>
-<area shape="rect" id="node4" href="$main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Main processor." alt="" coords="5,56,56,81"/>
+<area shape="rect" id="node2" href="$group__GeneralProcessing.html#ga31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="337,5,496,31"/>
+<area shape="rect" id="node5" href="$group__GeneralProcessing.html#ga5157f7f79cf8c75c2d7b41d8ed47a7ef" title="Forces all loads to full power if the override pin is active." alt="" coords="593,56,712,81"/>
+<area shape="rect" id="node6" href="$group__GeneralProcessing.html#gab4774b22349c58cef345ad396aecc868" title="Handles load priorities and overriding logic." alt="" coords="323,106,511,146"/>
+<area shape="rect" id="node7" href="$group__GeneralProcessing.html#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="559,157,747,197"/>
+<area shape="rect" id="node3" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,56,275,81"/>
+<area shape="rect" id="node4" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,56,56,81"/>
 </map>
