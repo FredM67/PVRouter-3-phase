@@ -2,7 +2,7 @@ var searchData=
 [
   ['send_0',['send',['../classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345',1,'TeleInfo']]],
   ['send_5frf_5fdata_1',['send_rf_data',['../utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf',1,'utils_rf.h']]],
-  ['sendresults_2',['sendResults',['../utils_8h.html#ade56d6fce22a518b8feff1a150461f94',1,'utils.h']]],
+  ['sendresults_2',['sendResults',['../group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94',1,'utils.h']]],
   ['sendtelemetrydata_3',['sendTelemetryData',['../utils_8h.html#a5072aae7cb8a3f575605b65c6be56329',1,'utils.h']]],
   ['setpinoff_4',['setPinOFF',['../utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d',1,'utils_pins.h']]],
   ['setpinon_5',['setPinON',['../utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6',1,'utils_pins.h']]],

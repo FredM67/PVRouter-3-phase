@@ -108,6 +108,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa9a3eeacd11602f3385056e620652bb7" id="r_gaa9a3eeacd11602f3385056e620652bb7"><td class="memItemLeft" align="right" valign="top">static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaa9a3eeacd11602f3385056e620652bb7">lineSize</a> (size_t tagLen, size_t valueLen)</td></tr>
 <tr class="memdesc:gaa9a3eeacd11602f3385056e620652bb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the size of a single telemetry line in the frame.  <br /></td></tr>
 <tr class="separator:gaa9a3eeacd11602f3385056e620652bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga988b25d4a6361b7cc751a212af170665" id="r_ga988b25d4a6361b7cc751a212af170665"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga988b25d4a6361b7cc751a212af170665">printForEmonCMS</a> (const bool bOffPeak)</td></tr>
+<tr class="memdesc:ga988b25d4a6361b7cc751a212af170665"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write telemetry data to Serial in EmonCMS format.  <br /></td></tr>
+<tr class="separator:ga988b25d4a6361b7cc751a212af170665"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae46d07fd4694c49e10360b5d79163443" id="r_gae46d07fd4694c49e10360b5d79163443"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gae46d07fd4694c49e10360b5d79163443">printForSerialText</a> ()</td></tr>
+<tr class="memdesc:gae46d07fd4694c49e10360b5d79163443"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints data logs to the Serial output in text format.  <br /></td></tr>
+<tr class="separator:gae46d07fd4694c49e10360b5d79163443"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions used for data logging and external system communication. </p>
@@ -236,6 +242,107 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="Calculates the size of a single telemetry line in the frame." alt="" coords="168,5,241,31"/>
 <area shape="rect" href="group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="5,5,120,31"/>
 <area shape="poly" title=" " alt="" coords="154,21,120,21,120,15,154,15"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ga988b25d4a6361b7cc751a212af170665" name="ga988b25d4a6361b7cc751a212af170665"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga988b25d4a6361b7cc751a212af170665">&#9670;&#160;</a></span>printForEmonCMS()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printForEmonCMS </td>
+          <td>(</td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>bOffPeak</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write telemetry data to Serial in EmonCMS format. </p>
+<p>This function outputs telemetry data in a format compatible with EmonCMS, including power, voltage, load states, temperature, and tariff information.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bOffPeak</td><td>Indicates whether the system is in an off-peak tariff period.</td></tr>
+  </table>
+  </dd>
+</dl>
+<ul>
+<li>Outputs total power and phase-specific power.</li>
+<li>Includes load ON percentages for each load.</li>
+<li>Outputs temperature data if temperature sensing is enabled.</li>
+<li>Includes tariff information if dual tariff is enabled. </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00190">190</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__Telemetry_ga988b25d4a6361b7cc751a212af170665_icgraph.png" border="0" usemap="#agroup__Telemetry_ga988b25d4a6361b7cc751a212af170665_icgraph" alt=""/></div>
+<map name="agroup__Telemetry_ga988b25d4a6361b7cc751a212af170665_icgraph" id="agroup__Telemetry_ga988b25d4a6361b7cc751a212af170665_icgraph">
+<area shape="rect" title="Write telemetry data to Serial in EmonCMS format." alt="" coords="253,5,392,31"/>
+<area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="104,5,205,31"/>
+<area shape="poly" title=" " alt="" coords="240,21,205,21,205,15,240,15"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
+<area shape="poly" title=" " alt="" coords="90,21,56,21,56,15,90,15"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="gae46d07fd4694c49e10360b5d79163443" name="gae46d07fd4694c49e10360b5d79163443"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae46d07fd4694c49e10360b5d79163443">&#9670;&#160;</a></span>printForSerialText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printForSerialText </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prints data logs to the Serial output in text format. </p>
+<p>This function outputs telemetry data in a human-readable text format to the Serial output. It includes information about power, voltage, temperature, and system performance metrics.</p>
+<ul>
+<li>Prints total power, phase-specific power, and RMS voltage for each phase.</li>
+<li>Includes temperature data if temperature sensing is enabled.</li>
+<li>Outputs additional system metrics like the number of sample sets and absence of diverted energy count. </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00254">254</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__Telemetry_gae46d07fd4694c49e10360b5d79163443_icgraph.png" border="0" usemap="#agroup__Telemetry_gae46d07fd4694c49e10360b5d79163443_icgraph" alt=""/></div>
+<map name="agroup__Telemetry_gae46d07fd4694c49e10360b5d79163443_icgraph" id="agroup__Telemetry_gae46d07fd4694c49e10360b5d79163443_icgraph">
+<area shape="rect" title="Prints data logs to the Serial output in text format." alt="" coords="253,5,389,31"/>
+<area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="104,5,205,31"/>
+<area shape="poly" title=" " alt="" coords="240,21,206,21,206,15,240,15"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
+<area shape="poly" title=" " alt="" coords="90,21,56,21,56,15,90,15"/>
 </map>
 </div>
 

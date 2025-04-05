@@ -108,6 +108,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gadeeaa08a0a50d8535fdf2c8a92d4aebc" id="r_gadeeaa08a0a50d8535fdf2c8a92d4aebc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gadeeaa08a0a50d8535fdf2c8a92d4aebc">initializeProcessing</a> ()</td></tr>
 <tr class="memdesc:gadeeaa08a0a50d8535fdf2c8a92d4aebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the processing engine, including ports, load states, and ADC setup.  <br /></td></tr>
 <tr class="separator:gadeeaa08a0a50d8535fdf2c8a92d4aebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa45f069fe76674a03f3dd560dd00b1ee" id="r_gaa45f069fe76674a03f3dd560dd00b1ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gaa45f069fe76674a03f3dd560dd00b1ee">printConfiguration</a> ()</td></tr>
+<tr class="memdesc:gaa45f069fe76674a03f3dd560dd00b1ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the configuration during startup.  <br /></td></tr>
+<tr class="separator:gaa45f069fe76674a03f3dd560dd00b1ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4fc01d736fe50cf5b977f755b675f11d" id="r_ga4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
 <tr class="memdesc:ga4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once during startup.  <br /></td></tr>
 <tr class="separator:ga4fc01d736fe50cf5b977f755b675f11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -360,6 +363,64 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="gaa45f069fe76674a03f3dd560dd00b1ee" name="gaa45f069fe76674a03f3dd560dd00b1ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa45f069fe76674a03f3dd560dd00b1ee">&#9670;&#160;</a></span>printConfiguration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printConfiguration </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Print the configuration during startup. </p>
+<p>This function outputs the system configuration to the Serial output during startup. It includes details about the sketch, build information, electrical settings, and enabled features.</p>
+<ul>
+<li>Prints the sketch ID, branch name, commit hash, and build date/time.</li>
+<li>Outputs electrical settings such as power calibration, voltage calibration, and phase calibration.</li>
+<li>Displays enabled features like temperature sensing, dual tariff, load rotation, relay diversion, and RF communication.</li>
+<li>Logs the selected datalogging format (Human-readable, IoT, or EmonCMS). </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00041">41</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__Initialization_gaa45f069fe76674a03f3dd560dd00b1ee_cgraph.png" border="0" usemap="#agroup__Initialization_gaa45f069fe76674a03f3dd560dd00b1ee_cgraph" alt=""/></div>
+<map name="agroup__Initialization_gaa45f069fe76674a03f3dd560dd00b1ee_cgraph" id="agroup__Initialization_gaa45f069fe76674a03f3dd560dd00b1ee_cgraph">
+<area shape="rect" title="Print the configuration during startup." alt="" coords="5,31,144,56"/>
+<area shape="rect" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="219,5,421,31"/>
+<area shape="poly" title=" " alt="" coords="144,34,205,27,206,32,145,39"/>
+<area shape="rect" href="processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="192,55,448,80"/>
+<area shape="poly" title=" " alt="" coords="145,47,179,51,178,56,144,53"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__Initialization_gaa45f069fe76674a03f3dd560dd00b1ee_icgraph.png" border="0" usemap="#agroup__Initialization_gaa45f069fe76674a03f3dd560dd00b1ee_icgraph" alt=""/></div>
+<map name="agroup__Initialization_gaa45f069fe76674a03f3dd560dd00b1ee_icgraph" id="agroup__Initialization_gaa45f069fe76674a03f3dd560dd00b1ee_icgraph">
+<area shape="rect" title="Print the configuration during startup." alt="" coords="112,5,251,31"/>
+<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,64,31"/>
+<area shape="poly" title=" " alt="" coords="98,21,64,21,64,15,98,15"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ga4fc01d736fe50cf5b977f755b675f11d" name="ga4fc01d736fe50cf5b977f755b675f11d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga4fc01d736fe50cf5b977f755b675f11d">&#9670;&#160;</a></span>setup()</h2>
 
@@ -397,9 +458,9 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="52,204,111,168,132,158,135,163,113,172,55,209"/>
 <area shape="rect" href="group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="112,181,260,207"/>
 <area shape="poly" title=" " alt="" coords="64,212,98,206,99,211,65,217"/>
-<area shape="rect" href="utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="121,231,251,256"/>
+<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="121,231,251,256"/>
 <area shape="poly" title=" " alt="" coords="65,221,107,228,106,233,64,227"/>
-<area shape="rect" href="utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="117,353,255,379"/>
+<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="117,353,255,379"/>
 <area shape="poly" title=" " alt="" coords="51,230,164,342,160,346,47,234"/>
 <area shape="rect" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="397,304,475,329"/>
 <area shape="poly" title=" " alt="" coords="239,204,262,217,278,236,286,256,293,274,310,290,345,306,383,313,382,319,344,311,306,295,289,277,281,258,274,239,258,221,237,209"/>

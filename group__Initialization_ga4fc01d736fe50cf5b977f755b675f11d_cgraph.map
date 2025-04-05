@@ -4,9 +4,9 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="52,204,111,168,132,158,135,163,113,172,55,209"/>
 <area shape="rect" id="Node000003" href="$group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="112,181,260,207"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="64,212,98,206,99,211,65,217"/>
-<area shape="rect" id="Node000012" href="$utils_8h.html#ae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="121,231,251,256"/>
+<area shape="rect" id="Node000012" href="$group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="121,231,251,256"/>
 <area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="65,221,107,228,106,233,64,227"/>
-<area shape="rect" id="Node000013" href="$utils_8h.html#aa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during start." alt="" coords="117,353,255,379"/>
+<area shape="rect" id="Node000013" href="$group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="117,353,255,379"/>
 <area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="51,230,164,342,160,346,47,234"/>
 <area shape="rect" id="Node000004" href="$utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="397,304,475,329"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="239,204,262,217,278,236,286,256,293,274,310,290,345,306,383,313,382,319,344,311,306,295,289,277,281,258,274,239,258,221,237,209"/>
