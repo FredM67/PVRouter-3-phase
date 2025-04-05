@@ -245,6 +245,20 @@
  * - They ensure the system operates correctly and adapts to changing conditions.
  */
 
+/**
+ * @defgroup Initialization Initialization
+ * @brief Functions and classes responsible for system setup and configuration.
+ *
+ * This group includes functions and classes that handle the initialization of
+ * hardware components, system parameters, and other configurations required
+ * for the proper operation of the system.
+ *
+ * @details
+ * - Ensures that all components are properly configured before the system starts.
+ * - Includes setup routines for relays, pins, ADCs, and other peripherals.
+ * - Provides default configurations and validations to ensure system stability.
+ */
+
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
 static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/main/Mk2_3phase_RFdatalog_temp/Readme.md");
 
