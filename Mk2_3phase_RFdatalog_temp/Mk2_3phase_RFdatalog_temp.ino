@@ -231,6 +231,20 @@
  *  @note The telemetry feature ensures that the system's performance and status can be monitored remotely.
  */
 
+ /**
+ * @defgroup GeneralProcessing General Processing
+ * @brief Functions and routines that handle general system processing tasks.
+ *
+ * This group includes functions that are not time-critical but are essential
+ * for the overall operation of the system. These tasks include monitoring
+ * system states, managing load priorities, and handling diversion logic.
+ *
+ * @details
+ * - Functions in this group are typically called from the main loop or other
+ *   non-interrupt contexts.
+ * - They ensure the system operates correctly and adapts to changing conditions.
+ */
+
 static_assert(__cplusplus >= 201703L, "**** Please define 'gnu++17' in 'platform.txt' ! ****");
 static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVRouter-3-phase/blob/main/Mk2_3phase_RFdatalog_temp/Readme.md");
 

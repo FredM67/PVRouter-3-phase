@@ -129,9 +129,20 @@ ISR(ADC_vect)
 }  // end of ISR
 
 /**
- * @brief This function set all 3 loads to full power.
+ * @brief Forces all loads to full power if the override pin is active.
  *
- * @return true if loads are forced, false otherwise.
+ * This function checks the state of the override pin and forces all loads to full power
+ * if the pin is active. It also logs changes in the override state for debugging purposes
+ * if enabled.
+ *
+ * @details
+ * - If the override pin is LOW, all loads are forced to full power.
+ * - If the override pin is HIGH, normal load behavior is restored.
+ * - Debug messages are printed when the override state changes (if debugging is enabled).
+ *
+ * @return true if loads are forced to full power, false otherwise.
+ *
+ * @ingroup GeneralProcessing
  */
 bool forceFullPower()
 {
@@ -164,6 +175,17 @@ bool forceFullPower()
 
 /**
  * @brief Checks and updates the diversion state based on the diversion pin.
+ *
+ * This function monitors the state of the diversion pin and updates the global
+ * `b_diversionOff` flag accordingly. It also logs changes in the diversion state
+ * for debugging purposes if enabled.
+ *
+ * @details
+ * - If the diversion pin is LOW, the diversion is considered OFF.
+ * - If the diversion pin is HIGH, the diversion is considered ON.
+ * - Debug messages are printed when the diversion state changes (if debugging is enabled).
+ *
+ * @ingroup GeneralProcessing
  */
 void checkDiversionOnOff()
 {
@@ -186,8 +208,17 @@ void checkDiversionOnOff()
 }
 
 /**
- * @brief Proceed load priority rotation
- * 
+ * @brief Proceeds with load priority rotation.
+ *
+ * This function triggers the rotation of load priorities and waits until the rotation
+ * is completed. It ensures that the new load priorities are logged after the rotation.
+ *
+ * @details
+ * - Sets the `b_reOrderLoads` flag to initiate the rotation process.
+ * - Waits in a loop until the rotation is completed by the ISR.
+ * - Logs the updated load priorities after the rotation.
+ *
+ * @ingroup GeneralProcessing
  */
 void proceedRotation()
 {
@@ -204,11 +235,21 @@ void proceedRotation()
 }
 
 /**
- * @brief Proceed load priority in combination with dual tariff
- * 
- * @param currentTemperature_x100 current temperature x 100 (default to 0 if deactivated)
- * @return true if high tariff (on-peak period)
- * @return false if low tariff (off-peak period)
+ * @brief Handles load priorities and overriding during dual tariff periods.
+ *
+ * This function manages load priorities and overriding logic based on the dual tariff state
+ * and the current temperature. It ensures proper load behavior during off-peak and on-peak periods.
+ *
+ * @param currentTemperature_x100 Current temperature multiplied by 100 (default to 0 if deactivated).
+ * @return true if the system is in a high tariff (on-peak) period.
+ * @return false if the system is in a low tariff (off-peak) period.
+ *
+ * @details
+ * - Detects transitions between off-peak and on-peak periods using the dual tariff pin.
+ * - During off-peak periods, manages load priorities and overrides based on elapsed time and temperature.
+ * - Logs transitions between tariff periods for debugging purposes.
+ *
+ * @ingroup GeneralProcessing
  */
 bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t& currentTemperature_x100)
 {
@@ -258,13 +299,22 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t& currentTemperat
 }
 
 /**
- * @brief This function changes the value of the load priorities.
- * @details Since we don't have access to a clock, we detect the offPeak start from the main energy meter.
- *          Additionally, when off-peak period starts, we rotate the load priorities for the next day.
+ * @brief Handles load priorities and overriding logic.
  *
- * @param currentTemperature_x100 current temperature x 100 (default to 0 if deactivated)
- * @return true if off-peak tariff is active
- * @return false if on-peak tariff is active
+ * This function manages load priorities and overriding behavior based on the system configuration.
+ * It supports dual tariff handling, priority rotation, and manual override functionality.
+ *
+ * @param currentTemperature_x100 Current temperature multiplied by 100 (default to 0 if deactivated).
+ * @return true if the system is in a high tariff (on-peak) period.
+ * @return false if the system is in a low tariff (off-peak) period.
+ *
+ * @details
+ * - If dual tariff is enabled, it delegates to `proceedLoadPrioritiesAndOverridingDualTariff`.
+ * - If EmonESP control is enabled, it handles load rotation based on the rotation pin state.
+ * - If priority rotation is set to auto, it rotates priorities after a defined period of inactivity.
+ * - If the override pin is present, it forces all loads to full power when activated.
+ *
+ * @ingroup GeneralProcessing
  */
 bool proceedLoadPrioritiesAndOverriding(const int16_t& currentTemperature_x100)
 {
@@ -323,6 +373,8 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t& currentTemperature_x100)
  * - Initializes all loads to OFF at startup.
  * - Logs load priorities and initializes temperature sensors if present.
  * - Prints available free RAM for debugging purposes.
+ * 
+ * @ingroup Initialization
  */
 void setup()
 {
@@ -359,6 +411,8 @@ void setup()
  * - Computes the power for each phase using the accumulated power data and calibration factors.
  * - Calculates the RMS voltage for each phase using the accumulated voltage squared data.
  * - Updates the total power by summing the power of all phases.
+ *
+ * @ingroup GeneralProcessing
  */
 void updatePowerAndVoltageData()
 {
@@ -419,15 +473,20 @@ void processTemperatureData()
 /**
  * @brief Handles tasks that need to be executed every second.
  *
- * @details This function performs various tasks that are triggered once per second, including:
- * - Incrementing the absence of diverted energy count if no energy is being diverted.
- * - Toggling the watchdog pin if the feature is enabled.
- * - Checking and updating the diversion state.
- * - Managing load priorities and overriding based on the current temperature.
- * - Updating relay durations and proceeding with relay state transitions if relay diversion is enabled.
+ * This function performs various tasks that are triggered once per second, ensuring
+ * proper system operation and load management.
+ *
+ * @details
+ * - Increments the absence of diverted energy count if no energy is being diverted.
+ * - Toggles the watchdog pin if the feature is enabled.
+ * - Checks and updates the diversion state.
+ * - Manages load priorities and overriding based on the current temperature.
+ * - Updates relay durations and proceeds with relay state transitions if relay diversion is enabled.
  *
  * @param bOffPeak Reference to the off-peak state flag.
  * @param iTemperature_x100 Current temperature multiplied by 100 (default to 0 if temperature sensing is disabled).
+ *
+ * @ingroup GeneralProcessing
  */
 void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
 {
@@ -456,9 +515,19 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
 }
 
 /**
- * @brief Main processor.
- * @details Handles non-time-critical tasks such as load management, telemetry updates, and temperature sensing.
- *          Processes ADC data through flags set by the ISR.
+ * @brief Main processor loop.
+ *
+ * This function handles non-time-critical tasks such as load management, telemetry updates,
+ * and temperature sensing. It processes ADC data through flags set by the ISR and ensures
+ * proper system operation.
+ *
+ * @details
+ * - Executes tasks triggered by the `b_newMainsCycle` flag, which is set after every pair of ADC conversions.
+ * - Handles per-second tasks such as load priority management and diversion state updates.
+ * - Processes data logging events and updates power, voltage, and temperature data.
+ * - Sends telemetry results and updates relay states if relay diversion is enabled.
+ *
+ * @ingroup GeneralProcessing
  */
 void loop()
 {
