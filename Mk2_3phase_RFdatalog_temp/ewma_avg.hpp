@@ -60,27 +60,34 @@ constexpr uint8_t round_up_to_power_of_2(uint16_t v)
 }
 
 /**
- * @brief Exponentially Weighted Moving Average
- * 
- * @details The smoothing factor is the approximate amount of values taken to calculate the average.
- *          Since the Arduino is very slow and does not provide any dedicated math co-processor,
- *          the smoothing factor will be rounded to the previous power of 2. Ie 120 will be rounded to 64.
- *          This allows to perform all the calculations with integer math, which is much faster !
- * 
- * @note    Because of the 'sign extension', the sign is copied into lower bits.
- * 
- * @tparam A Smoothing factor
- * @param input Input value
- * @return long Output value
+ * @class EWMA_average
+ * @brief Implements an Exponentially Weighted Moving Average (EWMA).
+ *
+ * The `EWMA_average` class calculates the Exponentially Weighted Moving Average (EMA),
+ * Double EMA (DEMA), and Triple EMA (TEMA) for a given input series. It uses integer
+ * math for efficiency, making it suitable for systems with limited computational power.
+ *
+ * @tparam A The smoothing factor, which determines the weight of recent values in the average.
+ *
+ * @details
+ * - The smoothing factor is rounded to the nearest power of 2 for faster integer calculations.
+ * - EMA provides a smoothed average of the input series.
+ * - DEMA and TEMA offer improved responsiveness, especially for peak inputs.
+ * - The class is optimized for use in embedded systems like Arduino.
+ *
+ * @ingroup GeneralProcessing
  */
 template< uint8_t A = 10 >
 class EWMA_average
 {
 public:
   /**
-   * @brief Add a new value and actualize the EMA, DEMA and TEMA
-   * 
-   * @param input The new value
+   * @brief Add a new value and update the EMA, DEMA, and TEMA.
+   *
+   * This method processes a new input value and updates the Exponentially Weighted
+   * Moving Average (EMA), Double EMA (DEMA), and Triple EMA (TEMA).
+   *
+   * @param input The new input value to process.
    */
   void addValue(int32_t input)
   {
@@ -95,9 +102,9 @@ public:
   }
 
   /**
-   * @brief Get the EMA
-   * 
-   * @return auto The EMA value
+   * @brief Get the Exponentially Weighted Moving Average (EMA).
+   *
+   * @return auto The EMA value.
    */
   auto getAverageS() const
   {
@@ -105,9 +112,9 @@ public:
   }
 
   /**
-   * @brief Get the DEMA
-   * 
-   * @return auto The DEMA value
+   * @brief Get the Double Exponentially Weighted Moving Average (DEMA).
+   *
+   * @return auto The DEMA value.
    */
   auto getAverageD() const
   {
@@ -115,9 +122,9 @@ public:
   }
 
   /**
-   * @brief Get the TEMA
-   * 
-   * @return auto The TEMA value
+   * @brief Get the Triple Exponentially Weighted Moving Average (TEMA).
+   *
+   * @return auto The TEMA value.
    */
   auto getAverageT() const
   {
@@ -125,12 +132,12 @@ public:
   }
 
 private:
-  int32_t ema_ema_ema_raw{ 0 };
-  int32_t ema_ema_ema{ 0 };
-  int32_t ema_ema_raw{ 0 };
-  int32_t ema_ema{ 0 };
-  int32_t ema_raw{ 0 };
-  int32_t ema{ 0 };
+  int32_t ema_ema_ema_raw{ 0 }; /**< Raw value for TEMA calculation. */
+  int32_t ema_ema_ema{ 0 };     /**< TEMA value. */
+  int32_t ema_ema_raw{ 0 };     /**< Raw value for DEMA calculation. */
+  int32_t ema_ema{ 0 };         /**< DEMA value. */
+  int32_t ema_raw{ 0 };         /**< Raw value for EMA calculation. */
+  int32_t ema{ 0 };             /**< EMA value. */
 };
 
 #endif /* EWMA_AVG_H */
