@@ -133,4 +133,4 @@ private:
   int32_t ema{ 0 };
 };
 
-#endif
+#endif /* EWMA_AVG_H */
