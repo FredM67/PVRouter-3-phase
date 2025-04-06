@@ -1,5 +1,5 @@
 <map id="EWMA_average&lt; A &gt;" name="EWMA_average&lt; A &gt;">
-<area shape="rect" id="Node000001" title="Exponentially Weighted Moving Average." alt="" coords="49,5,211,31"/>
+<area shape="rect" id="Node000001" title="Implements an Exponentially Weighted Moving Average (EWMA)." alt="" coords="49,5,211,31"/>
 <area shape="rect" id="Node000002" href="$classEWMA__average.html" title=" " alt="" coords="5,108,255,148"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,45,133,108,127,108,127,45"/>
 </map>

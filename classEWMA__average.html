@@ -88,11 +88,11 @@ $(function(){ initResizable(false); });
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classEWMA__average-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">EWMA_average&lt; A &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">EWMA_average&lt; A &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__GeneralProcessing.html">General Processing</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Exponentially Weighted Moving Average.  
+<p>Implements an Exponentially Weighted Moving Average (EWMA).  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>&gt;</code></p>
@@ -101,7 +101,7 @@ Inheritance diagram for EWMA_average&lt; A &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classEWMA__average__inherit__graph.png" border="0" usemap="#aEWMA__average_3_01A_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="aEWMA__average_3_01A_01_4_inherit__map" id="aEWMA__average_3_01A_01_4_inherit__map">
-<area shape="rect" title="Exponentially Weighted Moving Average." alt="" coords="49,5,211,31"/>
+<area shape="rect" title="Implements an Exponentially Weighted Moving Average (EWMA)." alt="" coords="49,5,211,31"/>
 <area shape="rect" href="classEWMA__average.html" title=" " alt="" coords="5,108,255,148"/>
 <area shape="poly" title=" " alt="" coords="133,45,133,108,127,108,127,45"/>
 </map>
@@ -110,16 +110,16 @@ Inheritance diagram for EWMA_average&lt; A &gt;:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a208b9b3d82809466b4d90aedb3c7e4db" id="r_a208b9b3d82809466b4d90aedb3c7e4db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a208b9b3d82809466b4d90aedb3c7e4db">addValue</a> (int32_t input)</td></tr>
-<tr class="memdesc:a208b9b3d82809466b4d90aedb3c7e4db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new value and actualize the EMA, DEMA and TEMA.  <br /></td></tr>
+<tr class="memdesc:a208b9b3d82809466b4d90aedb3c7e4db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new value and update the EMA, DEMA, and TEMA.  <br /></td></tr>
 <tr class="separator:a208b9b3d82809466b4d90aedb3c7e4db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8caa754acdd5f485f7cd2a183cee1286" id="r_a8caa754acdd5f485f7cd2a183cee1286"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8caa754acdd5f485f7cd2a183cee1286">getAverageD</a> () const</td></tr>
-<tr class="memdesc:a8caa754acdd5f485f7cd2a183cee1286"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the DEMA.  <br /></td></tr>
+<tr class="memdesc:a8caa754acdd5f485f7cd2a183cee1286"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Double Exponentially Weighted Moving Average (DEMA).  <br /></td></tr>
 <tr class="separator:a8caa754acdd5f485f7cd2a183cee1286"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9343d2edcd78461e66118196e76fa2c" id="r_ad9343d2edcd78461e66118196e76fa2c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9343d2edcd78461e66118196e76fa2c">getAverageS</a> () const</td></tr>
-<tr class="memdesc:ad9343d2edcd78461e66118196e76fa2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the EMA.  <br /></td></tr>
+<tr class="memdesc:ad9343d2edcd78461e66118196e76fa2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Exponentially Weighted Moving Average (EMA).  <br /></td></tr>
 <tr class="separator:ad9343d2edcd78461e66118196e76fa2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f68c3f411360bfd79ef732a313616be" id="r_a8f68c3f411360bfd79ef732a313616be"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f68c3f411360bfd79ef732a313616be">getAverageT</a> () const</td></tr>
-<tr class="memdesc:a8f68c3f411360bfd79ef732a313616be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the TEMA.  <br /></td></tr>
+<tr class="memdesc:a8f68c3f411360bfd79ef732a313616be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Triple Exponentially Weighted Moving Average (TEMA).  <br /></td></tr>
 <tr class="separator:a8f68c3f411360bfd79ef732a313616be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -139,24 +139,22 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;uint8_t A = 10&gt;<br />
-class EWMA_average&lt; A &gt;</div><p>Exponentially Weighted Moving Average. </p>
-<p>The smoothing factor is the approximate amount of values taken to calculate the average. Since the Arduino is very slow and does not provide any dedicated math co-processor, the smoothing factor will be rounded to the previous power of 2. Ie 120 will be rounded to 64. This allows to perform all the calculations with integer math, which is much faster !</p>
-<dl class="section note"><dt>Note</dt><dd>Because of the 'sign extension', the sign is copied into lower bits.</dd></dl>
+class EWMA_average&lt; A &gt;</div><p>Implements an Exponentially Weighted Moving Average (EWMA). </p>
+<p>The <code><a class="el" href="classEWMA__average.html" title="Implements an Exponentially Weighted Moving Average (EWMA).">EWMA_average</a></code> class calculates the Exponentially Weighted Moving Average (EMA), Double EMA (DEMA), and Triple EMA (TEMA) for a given input series. It uses integer math for efficiency, making it suitable for systems with limited computational power.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">A</td><td>Smoothing factor </td></tr>
+    <tr><td class="paramname">A</td><td>The smoothing factor, which determines the weight of recent values in the average.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">input</td><td>Input value </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>long Output value </dd></dl>
+<ul>
+<li>The smoothing factor is rounded to the nearest power of 2 for faster integer calculations.</li>
+<li>EMA provides a smoothed average of the input series.</li>
+<li>DEMA and TEMA offer improved responsiveness, especially for peak inputs.</li>
+<li>The class is optimized for use in embedded systems like Arduino. </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00077">77</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00081">81</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a208b9b3d82809466b4d90aedb3c7e4db" name="a208b9b3d82809466b4d90aedb3c7e4db"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a208b9b3d82809466b4d90aedb3c7e4db">&#9670;&#160;</a></span>addValue()</h2>
@@ -183,21 +181,22 @@ template&lt;uint8_t A = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Add a new value and actualize the EMA, DEMA and TEMA. </p>
+<p>Add a new value and update the EMA, DEMA, and TEMA. </p>
+<p>This method processes a new input value and updates the Exponentially Weighted Moving Average (EMA), Double EMA (DEMA), and Triple EMA (TEMA).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">input</td><td>The new value </td></tr>
+    <tr><td class="paramname">input</td><td>The new input value to process. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00085">85</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00092">92</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph.png" border="0" usemap="#aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph" alt=""/></div>
 <map name="aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph" id="aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph">
-<area shape="rect" title="Add a new value and actualize the EMA, DEMA and TEMA." alt="" coords="5,5,197,31"/>
+<area shape="rect" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="5,5,197,31"/>
 <area shape="rect" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="245,5,429,31"/>
 <area shape="poly" title=" " alt="" coords="198,15,232,15,232,21,198,21"/>
 </map>
@@ -230,10 +229,10 @@ template&lt;uint8_t A = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the DEMA. </p>
-<dl class="section return"><dt>Returns</dt><dd>auto The DEMA value </dd></dl>
+<p>Get the Double Exponentially Weighted Moving Average (DEMA). </p>
+<dl class="section return"><dt>Returns</dt><dd>auto The DEMA value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00112">112</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00119">119</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>
@@ -262,10 +261,10 @@ template&lt;uint8_t A = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the EMA. </p>
-<dl class="section return"><dt>Returns</dt><dd>auto The EMA value </dd></dl>
+<p>Get the Exponentially Weighted Moving Average (EMA). </p>
+<dl class="section return"><dt>Returns</dt><dd>auto The EMA value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00102">102</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00109">109</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>
@@ -294,10 +293,10 @@ template&lt;uint8_t A = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the TEMA. </p>
-<dl class="section return"><dt>Returns</dt><dd>auto The TEMA value </dd></dl>
+<p>Get the Triple Exponentially Weighted Moving Average (TEMA). </p>
+<dl class="section return"><dt>Returns</dt><dd>auto The TEMA value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00122">122</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00129">129</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>
@@ -323,8 +322,9 @@ template&lt;uint8_t A = 10&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>EMA value. </p>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00133">133</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00140">140</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>
@@ -349,8 +349,9 @@ template&lt;uint8_t A = 10&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>DEMA value. </p>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00131">131</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00138">138</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>
@@ -375,8 +376,9 @@ template&lt;uint8_t A = 10&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>TEMA value. </p>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00129">129</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00136">136</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>
@@ -401,8 +403,9 @@ template&lt;uint8_t A = 10&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Raw value for TEMA calculation. </p>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00128">128</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00135">135</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>
@@ -427,8 +430,9 @@ template&lt;uint8_t A = 10&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Raw value for DEMA calculation. </p>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00130">130</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00137">137</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>
@@ -453,8 +457,9 @@ template&lt;uint8_t A = 10&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Raw value for EMA calculation. </p>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00132">132</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00139">139</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>
