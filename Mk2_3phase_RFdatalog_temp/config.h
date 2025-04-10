@@ -13,7 +13,6 @@
 #define CONFIG_H
 
 //--------------------------------------------------------------------------------------------------
-//#define TEMP_ENABLED  /**< this line must be commented out if the temperature sensor is not present */
 //#define RF_PRESENT  /**< this line must be commented out if the RFM12B module is not present */#define ENABLE_DEBUG /**< enable this line to include debugging print statements */
 #define ENABLE_DEBUG /**< enable this line to include debugging print statements */
 //--------------------------------------------------------------------------------------------------
@@ -24,7 +23,6 @@
 
 #include "utils_dualtariff.h"
 #include "utils_relay.h"
-#include "utils_temp.h"
 
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT; /**< constexpr variable to set the serial output type */
 
@@ -41,6 +39,9 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
 inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
+inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
+
+#include "utils_temp.h"
 
 // ----------- Pinout Assignments -----------
 //

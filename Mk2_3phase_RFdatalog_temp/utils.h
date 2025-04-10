@@ -9,8 +9,11 @@
  *
  */
 
-#ifndef _UTILS_H
-#define _UTILS_H
+#ifndef UTILS_H
+#define UTILS_H
+
+#include <Arduino.h>
+#include <ArduinoJson.h>
 
 #include "FastDivision.h"
 
@@ -380,6 +383,9 @@ void sendTelemetryData()
   }
 
   teleInfo.send("N", static_cast< int16_t >(absenceOfDivertedEnergyCount));  // Send absence of diverted energy count for 50Hz
+
+  teleInfo.send("S", copyOf_sampleSetsDuringThisDatalogPeriod);
+  teleInfo.send("S_MC", copyOf_lowestNoOfSampleSetsPerMainsCycle);
 
   teleInfo.endFrame();  // Finalize and send the telemetry frame
 }

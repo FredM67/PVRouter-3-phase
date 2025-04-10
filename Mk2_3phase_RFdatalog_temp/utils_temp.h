@@ -25,13 +25,13 @@
 #include <Arduino.h>
 
 #include "constants.h"
+#include "config.h"
 
-#ifdef TEMP_ENABLED
-inline constexpr bool TEMP_SENSOR_PRESENT{ true }; /**< set it to 'true' if temperature sensing is needed */
+#if TEMP_SENSOR_PRESENT
 #include <OneWire.h>                               // for temperature sensing
-#else
-inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
 #endif
+
+class OneWire;
 
 /**
  * @struct DeviceAddress
@@ -49,6 +49,38 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if tem
 struct DeviceAddress
 {
   uint8_t addr[8]; /**< The address of the device as an array of 8 bytes. */
+};
+
+// Mock class for OneWire
+/// @cond DOXYGEN_EXCLUDE
+class MockOneWire
+{
+public:
+  // Mock constructor
+  MockOneWire() {}
+
+  void begin(uint8_t pin) {}
+
+  bool reset()
+  {
+    return true;
+  }
+
+  void skip() {}
+
+  void select(const uint8_t* addr) {}
+
+  void write(uint8_t command) {}
+
+  uint8_t read()
+  {
+    return 0x00;
+  }
+
+  uint8_t crc8(const uint8_t* data, uint8_t len)
+  {
+    return 0x00;
+  }
 };
 
 /**
@@ -117,11 +149,12 @@ public:
    */
   void requestTemperatures() const
   {
-#ifdef TEMP_ENABLED
+    if constexpr (TEMP_SENSOR_PRESENT)
+    {
     oneWire.reset();
     oneWire.skip();
     oneWire.write(CONVERT_TEMPERATURE);
-#endif
+    }
   }
 
   /**
@@ -138,10 +171,11 @@ public:
    */
   void initTemperatureSensors() const
   {
-#ifdef TEMP_ENABLED
+    if constexpr (TEMP_SENSOR_PRESENT)
+    {
     oneWire.begin(sensorPin);
     requestTemperatures();
-#endif
+    }
   }
 
   /**
@@ -189,7 +223,8 @@ public:
   {
     static ScratchPad buf;
 
-#ifdef TEMP_ENABLED
+    if constexpr (TEMP_SENSOR_PRESENT)
+    {
     if (!oneWire.reset())
     {
       return DEVICE_DISCONNECTED_RAW;
@@ -210,7 +245,7 @@ public:
     {
       return DEVICE_DISCONNECTED_RAW;
     }
-#endif
+    }
 
     // result is temperature x16, multiply by 6.25 to convert to temperature x100
     int16_t result = (buf[1] << 8) | buf[0];
@@ -228,9 +263,7 @@ private:
 
   const DeviceAddress sensorAddrs[N]; /**< Array of sensors */
 
-#ifdef TEMP_ENABLED
-  static inline OneWire oneWire; /**< For temperature sensing */
-#endif
+  static inline conditional< TEMP_SENSOR_PRESENT, OneWire, MockOneWire >::type oneWire; /**< For temperature sensing */
 };
 
 #endif /* UTILS_TEMP_H */

@@ -90,9 +90,13 @@ void constexpr togglePin(const uint8_t pin)
   {
     bit_set(PIND, pin);
   }
-  else
+  else if (pin < 14)
   {
     bit_set(PINB, pin - 8);
+  }
+  else
+  {
+    bit_set(PINC, pin - 14);
   }
 }
 
@@ -102,7 +106,7 @@ void constexpr togglePin(const uint8_t pin)
  * @param pin pin to change [2..13]
  * @param bState state to be set
  */
-inline void setPinState(const uint8_t pin, const bool bState)
+inline constexpr void setPinState(const uint8_t pin, const bool bState)
 {
   if (bState)
   {
@@ -125,9 +129,13 @@ inline constexpr void setPinON(const uint8_t pin)
   {
     bit_set(PORTD, pin);
   }
-  else
+  else if (pin < 14)
   {
     bit_set(PORTB, pin - 8);
+  }
+  else
+  {
+    bit_set(PORTC, pin - 14);
   }
 }
 
@@ -153,9 +161,13 @@ inline constexpr void setPinOFF(const uint8_t pin)
   {
     bit_clear(PORTD, pin);
   }
-  else
+  else if (pin < 14)
   {
     bit_clear(PORTB, pin - 8);
+  }
+  else
+  {
+    bit_clear(PORTC, pin - 14);
   }
 }
 
@@ -179,7 +191,8 @@ inline void setPinsOFF(const uint16_t pins)
  */
 inline constexpr bool getPinState(const uint8_t pin)
 {
-  return (pin < 8) ? bit_read(PIND, pin) : bit_read(PINB, pin - 8);
+  return (pin < 8) ? bit_read(PIND, pin) : (pin < 14) ? bit_read(PINB, pin - 8)
+                                                      : bit_read(PINC, pin - 14);
 }
 
 /**
