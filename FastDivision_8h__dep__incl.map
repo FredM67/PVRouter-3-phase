@@ -1,9 +1,11 @@
 <map id="Mk2_3phase_RFdatalog_temp/FastDivision.h" name="Mk2_3phase_RFdatalog_temp/FastDivision.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="124,5,301,45"/>
-<area shape="rect" id="Node000002" href="$test__fastdivision_2test__main_8cpp.html" title=" " alt="" coords="5,93,207,148"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,56,138,95,134,91,179,52"/>
-<area shape="rect" id="Node000003" href="$utils_8h.html" title="Some utility functions." alt="" coords="231,101,408,141"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="246,52,300,99,296,103,243,56"/>
-<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="231,196,408,236"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="322,154,322,196,317,196,317,154"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="219,5,396,45"/>
+<area shape="rect" id="Node000002" href="$FastDivision_8cpp.html" title=" " alt="" coords="5,101,183,141"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="253,53,138,103,136,98,250,48"/>
+<area shape="rect" id="Node000003" href="$test__fastdivision_2test__main_8cpp.html" title=" " alt="" coords="207,93,408,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="310,59,310,93,305,93,305,59"/>
+<area shape="rect" id="Node000004" href="$utils_8h.html" title="Some utility functions." alt="" coords="432,101,609,141"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="364,48,479,98,476,103,362,53"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="432,196,609,236"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="523,154,523,196,518,196,518,154"/>
 </map>

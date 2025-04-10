@@ -150,7 +150,8 @@ Functions</h2></td></tr>
 <li>1 byte for the start-of-text (STX) character.</li>
 <li>1 line for the "P" tag (signed 6 digits).</li>
 <li>For multi-phase systems (<code>NO_OF_PHASES &gt; 1</code>):<ul>
-<li><code>NO_OF_PHASES</code> lines for the "Vn" tag (unsigned 5 digits each).</li>
+<li><code>NO_OF_PHASES</code> lines for the "R" tag (signed 6 digits each).</li>
+<li><code>NO_OF_PHASES</code> lines for the "V1" tag (unsigned 5 digits each).</li>
 </ul>
 </li>
 <li>For single-phase systems:<ul>
@@ -160,7 +161,6 @@ Functions</h2></td></tr>
 </li>
 <li>If relay diversion is enabled (<code>RELAY_DIVERSION</code>):<ul>
 <li>1 line for the "R" tag (signed 6 digits).</li>
-<li><code>relays.get_size()</code> lines for relay states ("R1" to "Rn", 1 digit each).</li>
 </ul>
 </li>
 <li>If temperature sensors are present (<code>TEMP_SENSOR_PRESENT</code>):<ul>
@@ -171,7 +171,7 @@ Functions</h2></td></tr>
 <li>1 byte for the end-of-text (ETX) character. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00084">84</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00081">81</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -233,7 +233,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The total size of the line in bytes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00052">52</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00049">49</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -285,7 +285,7 @@ Here is the caller graph for this function:</div>
 <li>Includes tariff information if dual tariff is enabled. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00190">190</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00193">193</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -332,7 +332,7 @@ Here is the caller graph for this function:</div>
 <li>Outputs additional system metrics like the number of sample sets and absence of diverted energy count. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00254">254</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00257">257</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

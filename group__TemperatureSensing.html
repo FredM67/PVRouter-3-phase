@@ -85,8 +85,7 @@ $(function(){ initResizable(false); });
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">Temperature sensing feature</div></div>
 </div><!--header-->
 <div class="contents">
@@ -99,54 +98,11 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structDeviceAddress.html">DeviceAddress</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure representing the address of a device.  <a href="structDeviceAddress.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTemperatureSensing.html">TemperatureSensing&lt; N &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements temperature sensing functionality for multiple sensors.  <a href="classTemperatureSensing.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga89c7e0a0d9d1ce58b1583f591701d2c4" id="r_ga89c7e0a0d9d1ce58b1583f591701d2c4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga89c7e0a0d9d1ce58b1583f591701d2c4">TemperatureSensing&lt; N &gt;::ScratchPad</a> = uint8_t[9]</td></tr>
-<tr class="memdesc:ga89c7e0a0d9d1ce58b1583f591701d2c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a buffer for storing sensor data.  <br /></td></tr>
-<tr class="separator:ga89c7e0a0d9d1ce58b1583f591701d2c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions used for temperature monitoring and processing. </p>
 <p>This group contains functions that handle temperature sensing using DS18B20 sensors. It includes reading temperature data, filtering invalid readings, and updating telemetry with valid temperature values. The temperature data can also influence load diversion decisions.</p>
 <dl class="section note"><dt>Note</dt><dd>The system supports multiple sensors and stores temperature values as integers multiplied by 100 for precision. </dd></dl>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="ga89c7e0a0d9d1ce58b1583f591701d2c4" name="ga89c7e0a0d9d1ce58b1583f591701d2c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga89c7e0a0d9d1ce58b1583f591701d2c4">&#9670;&#160;</a></span>ScratchPad</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classTemperatureSensing.html">TemperatureSensing</a>&lt; N &gt;::ScratchPad = uint8_t[9]</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Represents a buffer for storing sensor data. </p>
-<p>The <code><a class="el" href="#ga89c7e0a0d9d1ce58b1583f591701d2c4" title="Represents a buffer for storing sensor data.">ScratchPad</a></code> type alias is used to define a buffer of 9 bytes, which is typically used to store data read from a DS18B20 temperature sensor's scratchpad memory.</p>
-<ul>
-<li>The scratchpad memory contains temperature data, configuration settings, and a CRC byte.</li>
-<li>This buffer is used during temperature reading and validation processes. </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00087">87</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

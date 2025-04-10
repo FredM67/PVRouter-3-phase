@@ -12,6 +12,5 @@ var searchData=
   ['loadprioritiesandstate_9',['loadPrioritiesAndState',['../processing_8h.html#a49958eb014b70dfb9d8cb9ded3564ef7',1,'processing.h']]],
   ['loadprioritiesatstartup_10',['loadPrioritiesAtStartup',['../config_8h.html#a00662b40b4d1afe819f2bdb6ad0ed191',1,'config.h']]],
   ['loadstatemask_11',['loadStateMask',['../types_8h.html#a9679e65b07cf301abc92aadaef35b3a8',1,'types.h']]],
-  ['loadstateonbit_12',['loadStateOnBit',['../types_8h.html#a9e72b6e05ef972b4929a13596b0ceec6',1,'types.h']]],
-  ['lpf_5fgain_13',['lpf_gain',['../calibration_8h.html#a74d2e520152cb559bdb6e18153dcb5e4',1,'calibration.h']]]
+  ['loadstateonbit_12',['loadStateOnBit',['../types_8h.html#a9e72b6e05ef972b4929a13596b0ceec6',1,'types.h']]]
 ];
