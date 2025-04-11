@@ -11,7 +11,7 @@ var searchData=
   ['bit_5fread_8',['bit_read',['../utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37',1,'utils_pins.h']]],
   ['bit_5fset_9',['bit_set',['../utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc',1,'utils_pins.h']]],
   ['bool_5fconstant_10',['bool_constant',['../integral__constant_8hpp.html#ac5c90336c94cb0db8abdd10603a3c7cc',1,'integral_constant.hpp']]],
-  ['branch_5fname_11',['BRANCH_NAME',['../utils_8h.html#a2372128ceadf4346a0a2fe0995e719aa',1,'BRANCH_NAME:&#160;utils.h'],['../version_8h.html#a2372128ceadf4346a0a2fe0995e719aa',1,'BRANCH_NAME:&#160;version.h']]],
+  ['branch_5fname_11',['BRANCH_NAME',['../version_8h.html#a2372128ceadf4346a0a2fe0995e719aa',1,'version.h']]],
   ['buffer_12',['buffer',['../classTeleInfo.html#a78162488f195d2bcaeab241c03e35f21',1,'TeleInfo']]],
   ['bufferpos_13',['bufferPos',['../classTeleInfo.html#a2a0247ece933354556a11d540fbd6d43',1,'TeleInfo']]]
 ];
