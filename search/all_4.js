@@ -8,7 +8,7 @@ var searchData=
   ['check_5frelay_5fpins_5',['check_relay_pins',['../validation_8h.html#a60096a6d3a2fc387b51a01b6ff8c53d2',1,'validation.h']]],
   ['checkdiversiononoff_6',['checkDiversionOnOff',['../group__GeneralProcessing.html#ga31f3d562faae6b598324b56299d74f7d',1,'main.cpp']]],
   ['clear_7',['clear',['../classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7',1,'movingAvg']]],
-  ['commit_5fhash_8',['COMMIT_HASH',['../utils_8h.html#a2c55f8693f5917de9217fba7c72ce663',1,'utils.h']]],
+  ['commit_5fhash_8',['COMMIT_HASH',['../utils_8h.html#a2c55f8693f5917de9217fba7c72ce663',1,'COMMIT_HASH:&#160;utils.h'],['../version_8h.html#a2c55f8693f5917de9217fba7c72ce663',1,'COMMIT_HASH:&#160;version.h']]],
   ['conditional_9',['conditional',['../structconditional.html',1,'']]],
   ['conditional_2ehpp_10',['conditional.hpp',['../conditional_8hpp.html',1,'']]],
   ['conditional_3c_20false_2c_20truetype_2c_20falsetype_20_3e_11',['conditional&lt; false, TrueType, FalseType &gt;',['../structconditional_3_01false_00_01TrueType_00_01FalseType_01_4.html',1,'']]],
@@ -27,5 +27,6 @@ var searchData=
   ['copyof_5fsump_5fatsupplypoint_24',['copyOf_sumP_atSupplyPoint',['../processing_8h.html#a92487f63c679b2125aa51fddd1549836',1,'processing.h']]],
   ['countloadon_25',['countLoadON',['../processing_8cpp.html#a2f61fd181a2806e678e5473eaad03891',1,'processing.cpp']]],
   ['cr_26',['CR',['../classTeleInfo.html#a710390df1d82afc54addcd2edb3405ae',1,'TeleInfo']]],
-  ['critical_20functions_27',['Time-critical functions',['../group__TimeCritical.html',1,'']]]
+  ['critical_20functions_27',['Time-critical functions',['../group__TimeCritical.html',1,'']]],
+  ['current_5ftime_28',['CURRENT_TIME',['../version_8h.html#a61eabc8e73414cfe55910effa8bcc4ef',1,'version.h']]]
 ];
