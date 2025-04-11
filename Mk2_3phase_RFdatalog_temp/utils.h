@@ -26,6 +26,8 @@
 #include "utils_rf.h"
 #include "utils_temp.h"
 
+#include "version.h"
+
 /**
  * @brief Print the configuration during startup.
  *

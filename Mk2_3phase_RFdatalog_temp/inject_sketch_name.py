@@ -4,25 +4,45 @@ from pathlib import Path
 import subprocess
 from subprocess import check_output, CalledProcessError
 
-def get_git_info(command: str) -> str:
-    try:
-        return subprocess.check_output(command, shell=True).decode('utf-8').strip()
-    except subprocess.CalledProcessError:
-        return "N/A"
-      
-# Get the project path
+def get_git_revision_short_hash() -> str:
+  try:
+    return subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'],shell=True).decode('utf-8').strip()
+  except CalledProcessError:
+    return "N/A"
+
+def get_git_current_branch() -> str:
+  try:  
+    return subprocess.check_output(['git', 'branch', '--show-current'],shell=True).decode('utf-8').strip()
+  except CalledProcessError:
+    return "N/A"
+
+def write_version_h(file_path, project_path, current_time, branch_name, commit_hash):
+    content = f"""\
+#ifndef VERSION_H
+#define VERSION_H
+
+#define PROJECT_PATH "{project_path}"
+#define CURRENT_TIME "{current_time}"
+#define BRANCH_NAME "{branch_name}"
+#define COMMIT_HASH "{commit_hash}"
+
+#endif // VERSION_H
+"""
+    # Only write to the file if the content has changed
+    if not os.path.exists(file_path) or open(file_path).read() != content:
+        with open(file_path, "w") as f:
+            f.write(content)
+
 Import("env")
-proj_path = env["PROJECT_DIR"]
 
-proj_path = os.path.join(proj_path, "dummy")
+# Get project directory and other values
+proj_path = os.path.basename(env["PROJECT_DIR"])
+current_time = datetime.now().replace(microsecond=0).astimezone().isoformat(' ')
+branch_name = get_git_current_branch()
+commit_hash = get_git_revision_short_hash()
 
-macro_value = r"\"" + os.path.split(os.path.dirname(proj_path))[1] + r"\""
+# Path to the version.h file
+version_h_path = os.path.join(env["PROJECT_DIR"], "version.h")
 
-tz_dt = datetime.now().replace(microsecond=0).astimezone().isoformat(' ')
-
-env.Append(CPPDEFINES=[
-  ("PROJECT_PATH", macro_value),
-  ("CURRENT_TIME", "\\\"" + tz_dt + "\\\""),
-  ("BRANCH_NAME", r"\"" + get_git_info('git branch --show-current') + r"\""),
-  ("COMMIT_HASH", r"\"" + get_git_info('git rev-parse --short HEAD') + r"\"")
-])
+# Write the values to version.h
+write_version_h(version_h_path, proj_path, current_time, branch_name, commit_hash)

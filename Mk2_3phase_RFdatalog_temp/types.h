@@ -74,7 +74,7 @@ template< uint8_t N = 3, uint8_t S = 0 > class PayloadTx_struct
 public:
   int16_t power;               /**< main power, import = +ve, to match OEM convention */
   int16_t power_L[N];          /**< power for phase #, import = +ve, to match OEM convention */
-  int16_t Vrms_L_x100[N];      /**< average voltage over datalogging period (in 100th of Volt)*/
+  uint16_t Vrms_L_x100[N];      /**< average voltage over datalogging period (in 100th of Volt)*/
   int16_t temperature_x100[S]; /**< temperature in 100th of °C */
 };
 

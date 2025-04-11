@@ -51,12 +51,10 @@ inline PayloadTx_struct< NO_OF_PHASES, temperatureSensing.get_size() > tx_data; 
 inline PayloadTx_struct< NO_OF_PHASES > tx_data; /**< logging data */
 #endif
 
-void updatePhysicalLoadStates();
 void printParamsForSelectedOutputMode();
 
 void processCurrentRawSample(const uint8_t phase, const int16_t rawSample);
 void processVoltageRawSample(const uint8_t phase, const int16_t rawSample);
-void processRawSamples(const uint8_t phase);
 
 #if defined(__DOXYGEN__)
 void initializeProcessing();
@@ -64,6 +62,7 @@ inline void processStartUp(uint8_t phase);
 inline void processStartNewCycle();
 inline void processPlusHalfCycle(uint8_t phase);
 inline void processMinusHalfCycle(uint8_t phase);
+inline void processRawSamples(const uint8_t phase);
 inline void processVoltage(uint8_t phase);
 inline void processPolarity(uint8_t phase, int16_t rawSample);
 inline void confirmPolarity(uint8_t phase);
@@ -74,12 +73,14 @@ inline uint8_t nextLogicalLoadToBeRemoved();
 inline void processLatestContribution(uint8_t phase);
 inline void processDataLogging();
 inline void updatePortsStates();
+inline void updatePhysicalLoadStates();
 #else
 void initializeProcessing() __attribute__((optimize("-O3")));
 inline void processStartUp(uint8_t phase) __attribute__((always_inline));
 inline void processStartNewCycle() __attribute__((always_inline));
 inline void processPlusHalfCycle(uint8_t phase) __attribute__((always_inline));
 inline void processMinusHalfCycle(uint8_t phase) __attribute__((always_inline));
+inline void processRawSamples(const uint8_t phase) __attribute__((always_inline));
 inline void processVoltage(uint8_t phase) __attribute__((always_inline));;
 inline void processPolarity(uint8_t phase, int16_t rawSample) __attribute__((always_inline));
 inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
@@ -90,6 +91,7 @@ inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline, optimi
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
 inline void processDataLogging() __attribute__((always_inline, optimize("-O3")));
 inline void updatePortsStates() __attribute__((optimize("-O3")));
+inline void updatePhysicalLoadStates() __attribute__((always_inline));
 #endif
 
 #endif /* PROCESSING_H */

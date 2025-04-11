@@ -1051,3 +1051,87 @@ void printParamsForSelectedOutputMode()
   DBUG(F("\tf_upperEnergyThreshold   = "));
   DBUGLN(f_upperThreshold_default);
 }
+
+/**
+ * @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
+ * 
+ * @details An Interrupt Service Routine is now defined which instructs the ADC to perform a conversion
+ *          for each of the voltage and current sensors in turn.
+ *
+ *          This Interrupt Service Routine is for use when the ADC is in the free-running mode.
+ *          It is executed whenever an ADC conversion has finished, approx every 104 µs. In
+ *          free-running mode, the ADC has already started its next conversion by the time that
+ *          the ISR is executed. The ISR therefore needs to "look ahead".
+ *
+ *          At the end of conversion Type N, conversion Type N+1 will start automatically. The ISR
+ *          which runs at this point therefore needs to capture the results of conversion Type N,
+ *          and set up the conditions for conversion Type N+2, and so on.
+ *
+ *          By means of various helper functions, all of the time-critical activities are processed
+ *          within the ISR.
+ *
+ *          The main code is notified by means of a flag when fresh copies of loggable data are available.
+ *
+ *          Keep in mind, when writing an Interrupt Service Routine (ISR):
+ *            - Keep it short
+ *            - Don't use delay()
+ *            - Don't do serial prints
+ *            - Make variables shared with the main code volatile
+ *            - Variables shared with main code may need to be protected by "critical sections"
+ *            - Don't try to turn interrupts off or on
+ *
+ * @ingroup TimeCritical
+ */
+ISR(ADC_vect)
+{
+  static uint8_t sample_index{ 0 };
+  int16_t rawSample;
+
+  switch (sample_index)
+  {
+    case 0:
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L1)
+      ADMUX = bit(REFS0) + sensorV[1];  // the conversion for I1 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processVoltageRawSample(0, rawSample);
+      break;
+    case 1:
+      rawSample = ADC;                  // store the ADC value (this one is for Current L1)
+      ADMUX = bit(REFS0) + sensorI[1];  // the conversion for V2 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processCurrentRawSample(0, rawSample);
+      break;
+    case 2:
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L2)
+      ADMUX = bit(REFS0) + sensorV[2];  // the conversion for I2 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processVoltageRawSample(1, rawSample);
+      break;
+    case 3:
+      rawSample = ADC;                  // store the ADC value (this one is for Current L2)
+      ADMUX = bit(REFS0) + sensorI[2];  // the conversion for V3 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processCurrentRawSample(1, rawSample);
+      break;
+    case 4:
+      rawSample = ADC;                  // store the ADC value (this one is for Voltage L3)
+      ADMUX = bit(REFS0) + sensorV[0];  // the conversion for I3 is already under way
+      ++sample_index;                   // increment the control flag
+      //
+      processVoltageRawSample(2, rawSample);
+      break;
+    case 5:
+      rawSample = ADC;                  // store the ADC value (this one is for Current L3)
+      ADMUX = bit(REFS0) + sensorI[0];  // the conversion for V1 is already under way
+      sample_index = 0;                 // reset the control flag
+      //
+      processCurrentRawSample(2, rawSample);
+      break;
+    default:
+      sample_index = 0;  // to prevent lockup (should never get here)
+  }
+}  // end of ISR
