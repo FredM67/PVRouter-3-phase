@@ -570,7 +570,7 @@ void proceedHighEnergyLevel()
   bool bOK_toAddLoad{ true };
   const auto tempLoad{ nextLogicalLoadToBeAdded() };
 
-  if (tempLoad >= NO_OF_DUMPLOADS)
+  if (tempLoad == NO_OF_DUMPLOADS)
   {
     return;
   }
@@ -619,7 +619,7 @@ void proceedLowEnergyLevel()
   bool bOK_toRemoveLoad{ true };
   const auto tempLoad{ nextLogicalLoadToBeRemoved() };
 
-  if (tempLoad >= NO_OF_DUMPLOADS)
+  if (tempLoad == NO_OF_DUMPLOADS)
   {
     return;
   }
