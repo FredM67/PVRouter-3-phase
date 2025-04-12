@@ -52,8 +52,8 @@ enum class LoadStates : uint8_t
 };
 // enum loadStates {LOAD_ON, LOAD_OFF}; /**< for use if loads are active low (original PCB) */
 
-inline constexpr uint8_t loadStateMask{ 0x7FU };           /**< bit mask for masking load state */
-inline constexpr uint8_t loadStateOnBit{ ~loadStateMask }; /**< bit mask for load state ON */
+inline constexpr uint8_t loadStateMask{ 0x7FU };                      /**< bit mask for masking load state */
+inline constexpr uint8_t loadStateOnBit{ (uint8_t)(~loadStateMask) }; /**< bit mask for load state ON */
 
 /** Rotation modes */
 enum class RotationModes : uint8_t
