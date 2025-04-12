@@ -478,7 +478,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>  <span class="keywordtype">bool</span> bOK_toAddLoad{ <span class="keyword">true</span> };</div>
 <div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>  <span class="keyword">const</span> <span class="keyword">auto</span> tempLoad{ <a class="code hl_function" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e">nextLogicalLoadToBeAdded</a>() };</div>
 <div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span> </div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>  <span class="keywordflow">if</span> (tempLoad &gt;= <a class="code hl_variable" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>)</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>  <span class="keywordflow">if</span> (tempLoad == <a class="code hl_variable" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>)</div>
 <div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>  {</div>
 <div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>    <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>  }</div>
@@ -516,7 +516,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>  <span class="keywordtype">bool</span> bOK_toRemoveLoad{ <span class="keyword">true</span> };</div>
 <div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>  <span class="keyword">const</span> <span class="keyword">auto</span> tempLoad{ <a class="code hl_function" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35">nextLogicalLoadToBeRemoved</a>() };</div>
 <div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span> </div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>  <span class="keywordflow">if</span> (tempLoad &gt;= <a class="code hl_variable" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>)</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>  <span class="keywordflow">if</span> (tempLoad == <a class="code hl_variable" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>)</div>
 <div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>  {</div>
 <div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>    <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>  }</div>
