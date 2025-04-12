@@ -52,8 +52,8 @@ enum class LoadStates : uint8_t
 };
 // enum loadStates {LOAD_ON, LOAD_OFF}; /**< for use if loads are active low (original PCB) */
 
-inline constexpr uint8_t loadStateOnBit{ 0x80U }; /**< bit mask for load state ON */
-inline constexpr uint8_t loadStateMask{ 0x7FU };  /**< bit mask for masking load state */
+inline constexpr uint8_t loadStateMask{ 0x7FU };           /**< bit mask for masking load state */
+inline constexpr uint8_t loadStateOnBit{ ~loadStateMask }; /**< bit mask for load state ON */
 
 /** Rotation modes */
 enum class RotationModes : uint8_t
@@ -74,7 +74,7 @@ template< uint8_t N = 3, uint8_t S = 0 > class PayloadTx_struct
 public:
   int16_t power;               /**< main power, import = +ve, to match OEM convention */
   int16_t power_L[N];          /**< power for phase #, import = +ve, to match OEM convention */
-  uint16_t Vrms_L_x100[N];      /**< average voltage over datalogging period (in 100th of Volt)*/
+  uint16_t Vrms_L_x100[N];     /**< average voltage over datalogging period (in 100th of Volt)*/
   int16_t temperature_x100[S]; /**< temperature in 100th of °C */
 };
 
