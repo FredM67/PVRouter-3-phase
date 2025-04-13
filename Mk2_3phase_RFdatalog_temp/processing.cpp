@@ -23,7 +23,7 @@ constexpr int32_t l_DCoffset_V_min{ (512L - 100L) * 256L }; /**< mid-point of AD
 constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
 constexpr int16_t i_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
 
-int32_t l_DCoffset_V[NO_OF_PHASES]; /**< <--- for LPF */
+int32_t l_DCoffset_V[NO_OF_PHASES]{}; /**< <--- for LPF */
 
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
 constexpr float f_capacityOfEnergyBucket_main{ static_cast< float >(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
@@ -50,37 +50,37 @@ constexpr auto initThreshold(const bool lower)
 constexpr float f_lowerThreshold_default{ initThreshold(true) };  /**< lower default threshold set accordingly to the output mode */
 constexpr float f_upperThreshold_default{ initThreshold(false) }; /**< upper default threshold set accordingly to the output mode */
 
-float f_energyInBucket_main{ 0.0F }; /**< main energy bucket (over all phases) */
-float f_lowerEnergyThreshold;        /**< dynamic lower threshold */
-float f_upperEnergyThreshold;        /**< dynamic upper threshold */
+float f_energyInBucket_main{ 0.0F };  /**< main energy bucket (over all phases) */
+float f_lowerEnergyThreshold{ 0.0F }; /**< dynamic lower threshold */
+float f_upperEnergyThreshold{ 0.0F }; /**< dynamic upper threshold */
 
 // for improved control of multiple loads
 bool b_recentTransition{ false };                 /**< a load state has been recently toggled */
-uint8_t postTransitionCount;                      /**< counts the number of cycle since last transition */
+uint8_t postTransitionCount{ 0 };                 /**< counts the number of cycle since last transition */
 constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 3 }; /**< allows each transition to take effect */
 // constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
 uint8_t activeLoad{ NO_OF_DUMPLOADS }; /**< current active load */
 
-int32_t l_sumP[NO_OF_PHASES];                /**< cumulative power per phase */
-int32_t l_sampleVminusDC[NO_OF_PHASES];      /**< current raw voltage sample filtered */
-int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]; /**< for the LPF which determines DC offset (voltage) */
-int32_t l_sumP_atSupplyPoint[NO_OF_PHASES];  /**< for summation of 'real power' values during datalog period */
-int32_t l_sum_Vsquared[NO_OF_PHASES];        /**< for summation of V^2 values during datalog period */
+int32_t l_sumP[NO_OF_PHASES]{};                /**< cumulative power per phase */
+int32_t l_sampleVminusDC[NO_OF_PHASES]{};      /**< current raw voltage sample filtered */
+int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]{}; /**< for the LPF which determines DC offset (voltage) */
+int32_t l_sumP_atSupplyPoint[NO_OF_PHASES]{};  /**< for summation of 'real power' values during datalog period */
+int32_t l_sum_Vsquared[NO_OF_PHASES]{};        /**< for summation of V^2 values during datalog period */
 
-uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]; /**< number of sample sets for each phase during each mains cycle */
-uint16_t i_sampleSetsDuringThisDatalogPeriod;        /**< number of sample sets during each datalogging period */
+uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]{}; /**< number of sample sets for each phase during each mains cycle */
+uint16_t i_sampleSetsDuringThisDatalogPeriod{ 0 };     /**< number of sample sets during each datalogging period */
 
 remove_cv< remove_reference< decltype(DATALOG_PERIOD_IN_MAINS_CYCLES) >::type >::type n_cycleCountForDatalogging{ 0 }; /**< for counting how often datalog is updated */
 
-uint8_t n_lowestNoOfSampleSetsPerMainsCycle; /**< For a mechanism to check the integrity of this code structure */
+uint8_t n_lowestNoOfSampleSetsPerMainsCycle{ 0 }; /**< For a mechanism to check the integrity of this code structure */
 
 // For an enhanced polarity detection mechanism, which includes a persistence check
-Polarities polarityOfMostRecentSampleV[NO_OF_PHASES];    /**< for zero-crossing detection */
-Polarities polarityConfirmed[NO_OF_PHASES];              /**< for zero-crossing detection */
-Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]; /**< for zero-crossing detection */
+Polarities polarityOfMostRecentSampleV[NO_OF_PHASES]{};    /**< for zero-crossing detection */
+Polarities polarityConfirmed[NO_OF_PHASES]{};              /**< for zero-crossing detection */
+Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]{}; /**< for zero-crossing detection */
 
 LoadStates physicalLoadState[NO_OF_DUMPLOADS]{}; /**< Physical state of the loads */
-uint16_t countLoadON[NO_OF_DUMPLOADS];           /**< Number of cycle the load was ON (over 1 datalog period) */
+uint16_t countLoadON[NO_OF_DUMPLOADS]{};         /**< Number of cycle the load was ON (over 1 datalog period) */
 
 bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle */
 
