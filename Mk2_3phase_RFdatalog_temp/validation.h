@@ -38,7 +38,7 @@ static_assert(DUAL_TARIFF ^ (dualTariffPin == unused_pin), "******** Wrong pin v
 static_assert(!DUAL_TARIFF | (ul_OFF_PEAK_DURATION == 0), "******** Off-peak duration cannot be zero. Please check your config.h ! ********");
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION > 12)), "******** Off-peak duration cannot last more than 12 hours. Please check your config.h ! ********");
 
-static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && DIVERSION_PIN_PRESENT && (PRIORITY_ROTATION == RotationModes::PIN) && OVERRIDE_PIN_PRESENT), "******** Wrong configuration. Please check your config.h ! ********");
+static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && (PRIORITY_ROTATION == RotationModes::PIN) && OVERRIDE_PIN_PRESENT), "******** Wrong configuration. Please check your config.h ! ********");
 
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
 

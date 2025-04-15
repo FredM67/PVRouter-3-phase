@@ -17,31 +17,31 @@
 inline constexpr uint8_t unused_pin{ 0xff }; /**< unused pin */
 
 #if defined(__DOXYGEN__)
-inline constexpr void togglePin(const uint8_t pin);
+inline constexpr void togglePin(uint8_t pin);
 
-inline constexpr void setPinON(const uint8_t pin);
-inline void setPinsON(const uint16_t pins);
+inline constexpr void setPinON(uint8_t pin);
+inline void setPinsON(uint16_t pins);
 
-inline constexpr void setPinOFF(const uint8_t pin);
-inline void setPinsOFF(const uint16_t pins);
+inline constexpr void setPinOFF(uint8_t pin);
+inline void setPinsOFF(uint16_t pins);
 
-inline constexpr bool getPinState(const uint8_t pin);
+inline constexpr bool getPinState(uint8_t pin);
 
-inline void setPinsAsOutput(const uint16_t pins);
-inline void setPinsAsInputPullup(const uint16_t pins);
+inline void setPinsAsOutput(uint16_t pins);
+inline void setPinsAsInputPullup(uint16_t pins);
 #else
-inline constexpr void togglePin(const uint8_t pin) __attribute__((always_inline));
+inline constexpr void togglePin(uint8_t pin) __attribute__((always_inline));
 
-inline constexpr void setPinON(const uint8_t pin) __attribute__((always_inline));
-inline void setPinsON(const uint16_t pins) __attribute__((always_inline));
+inline constexpr void setPinON(uint8_t pin) __attribute__((always_inline));
+inline void setPinsON(uint16_t pins) __attribute__((always_inline));
 
-inline constexpr void setPinOFF(const uint8_t pin) __attribute__((always_inline));
-inline void setPinsOFF(const uint16_t pins) __attribute__((always_inline));
+inline constexpr void setPinOFF(uint8_t pin) __attribute__((always_inline));
+inline void setPinsOFF(uint16_t pins) __attribute__((always_inline));
 
-inline constexpr bool getPinState(const uint8_t pin) __attribute__((always_inline));
+inline constexpr bool getPinState(uint8_t pin) __attribute__((always_inline));
 
-inline void setPinsAsOutput(const uint16_t pins) __attribute__((always_inline));
-inline void setPinsAsInputPullup(const uint16_t pins) __attribute__((always_inline));
+inline void setPinsAsOutput(uint16_t pins) __attribute__((always_inline));
+inline void setPinsAsInputPullup(uint16_t pins) __attribute__((always_inline));
 #endif
 
 /**
