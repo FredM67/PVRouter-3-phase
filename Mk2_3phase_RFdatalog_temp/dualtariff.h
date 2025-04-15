@@ -50,7 +50,7 @@ public:
       }
     }
   }
-  const auto (&operator[](uint8_t i) const)
+  const auto(&operator[](uint8_t i) const)
   {
     return _rg[i];
   }

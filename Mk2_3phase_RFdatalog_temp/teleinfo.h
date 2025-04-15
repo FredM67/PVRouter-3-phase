@@ -148,8 +148,8 @@ private:
   static const char CR{ 0x0D };  /**< Carriage Return character. */
   static const char TAB{ 0x09 }; /**< Tab character. */
 
-  char buffer[calcBufferSize()]; /**< Buffer to store the frame data. Adjust size as needed. */
-  uint8_t bufferPos;             /**< Current position in the buffer. */
+  char buffer[calcBufferSize()]{}; /**< Buffer to store the frame data. Adjust size as needed. */
+  uint8_t bufferPos{ 0 };          /**< Current position in the buffer. */
 
   /**
    * @brief Calculates the checksum for a portion of the buffer.
@@ -157,7 +157,7 @@ private:
    * @param endPos The ending position in the buffer.
    * @return The calculated checksum as a single byte.
    */
-  uint8_t calculateChecksum(uint8_t startPos, uint8_t endPos) const
+  [[nodiscard]] uint8_t calculateChecksum(uint8_t startPos, uint8_t endPos) const
   {
     uint8_t sum{ 0 };
     auto* ptr = buffer + startPos;

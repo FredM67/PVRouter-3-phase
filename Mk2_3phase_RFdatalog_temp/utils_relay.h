@@ -242,7 +242,7 @@ private:
   }
 
 private:
-  const uint8_t relay_pin{ 0xff };         /**< Pin associated with the relay */
+  const uint8_t relay_pin{ unused_pin };   /**< Pin associated with the relay */
   const int16_t surplusThreshold{ -1000 }; /**< Surplus threshold to turn relay ON */
   const int16_t importThreshold{ 200 };    /**< Import threshold to turn relay OFF */
   const uint16_t minON{ 5 * 60 };          /**< Minimum duration in seconds the relay is turned ON */

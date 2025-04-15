@@ -167,7 +167,7 @@ void proceedRotation()
  *
  * @ingroup GeneralProcessing
  */
-bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t& currentTemperature_x100)
+bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t &currentTemperature_x100)
 {
   constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
   static bool pinOffPeakState{ HIGH };
@@ -232,7 +232,7 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t& currentTemperat
  *
  * @ingroup GeneralProcessing
  */
-bool proceedLoadPrioritiesAndOverriding(const int16_t& currentTemperature_x100)
+bool proceedLoadPrioritiesAndOverriding(const int16_t &currentTemperature_x100)
 {
   if constexpr (DUAL_TARIFF)
   {

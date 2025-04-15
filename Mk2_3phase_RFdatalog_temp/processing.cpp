@@ -127,23 +127,20 @@ constexpr uint16_t getOutputPins()
 {
   uint16_t output_pins{ 0 };
 
-  if (watchDogPin != 0xff)
+  for (const auto &loadPin : physicalLoadPin)
+  {
+    if (bit_read(output_pins, loadPin))
+      return 0;
+
+    bit_set(output_pins, loadPin);
+  }
+
+  if constexpr (WATCHDOG_PIN_PRESENT)
   {
     if (bit_read(output_pins, watchDogPin))
       return 0;
 
     bit_set(output_pins, watchDogPin);
-  }
-
-  for (const auto &loadPin : physicalLoadPin)
-  {
-    if (loadPin == 0xff)
-      return 0;
-
-    if (bit_read(output_pins, loadPin))
-      return 0;
-
-    bit_set(output_pins, loadPin);
   }
 
   if constexpr (RELAY_DIVERSION)
@@ -152,13 +149,10 @@ constexpr uint16_t getOutputPins()
     {
       const auto relayPin = relays.get_relay(idx).get_pin();
 
-      if (relayPin != 0xff)
-      {
-        if (bit_read(output_pins, relayPin))
-          return 0;
+      if (bit_read(output_pins, relayPin))
+        return 0;
 
-        bit_set(output_pins, relayPin);
-      }
+      bit_set(output_pins, relayPin);
     }
   }
 
@@ -184,7 +178,7 @@ constexpr uint16_t getInputPins()
 {
   uint16_t input_pins{ 0 };
 
-  if (dualTariffPin != 0xff)
+  if constexpr (DUAL_TARIFF)
   {
     if (bit_read(input_pins, dualTariffPin))
       return 0;
@@ -192,7 +186,7 @@ constexpr uint16_t getInputPins()
     bit_set(input_pins, dualTariffPin);
   }
 
-  if (diversionPin != 0xff)
+  if constexpr (DIVERSION_PIN_PRESENT)
   {
     if (bit_read(input_pins, diversionPin))
       return 0;
@@ -200,7 +194,7 @@ constexpr uint16_t getInputPins()
     bit_set(input_pins, diversionPin);
   }
 
-  if (rotationPin != 0xff)
+  if constexpr (PRIORITY_ROTATION == RotationModes::PIN)
   {
     if (bit_read(input_pins, rotationPin))
       return 0;
@@ -208,7 +202,7 @@ constexpr uint16_t getInputPins()
     bit_set(input_pins, rotationPin);
   }
 
-  if (forcePin != 0xff)
+  if constexpr (OVERRIDE_PIN_PRESENT)
   {
     if (bit_read(input_pins, forcePin))
       return 0;

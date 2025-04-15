@@ -28,7 +28,7 @@
 #include "config.h"
 
 #if TEMP_SENSOR_PRESENT
-#include <OneWire.h>                               // for temperature sensing
+#include <OneWire.h>  // for temperature sensing
 #endif
 
 class OneWire;
@@ -48,7 +48,7 @@ class OneWire;
  */
 struct DeviceAddress
 {
-  uint8_t addr[8]; /**< The address of the device as an array of 8 bytes. */
+  uint8_t addr[8]{}; /**< The address of the device as an array of 8 bytes. */
 };
 
 // Mock class for OneWire
@@ -57,7 +57,7 @@ class MockOneWire
 {
 public:
   // Mock constructor
-  MockOneWire() {}
+  MockOneWire() = default;
 
   void begin(uint8_t pin) {}
 
@@ -151,9 +151,9 @@ public:
   {
     if constexpr (TEMP_SENSOR_PRESENT)
     {
-    oneWire.reset();
-    oneWire.skip();
-    oneWire.write(CONVERT_TEMPERATURE);
+      oneWire.reset();
+      oneWire.skip();
+      oneWire.write(CONVERT_TEMPERATURE);
     }
   }
 
@@ -173,8 +173,8 @@ public:
   {
     if constexpr (TEMP_SENSOR_PRESENT)
     {
-    oneWire.begin(sensorPin);
-    requestTemperatures();
+      oneWire.begin(sensorPin);
+      requestTemperatures();
     }
   }
 
@@ -219,32 +219,32 @@ public:
    * - Reads the scratchpad memory of the sensor to retrieve temperature data.
    * - Validates the data using CRC and checks for out-of-range values.
    */
-  int16_t readTemperature(const uint8_t idx) const
+  [[nodiscard]] int16_t readTemperature(const uint8_t idx) const
   {
     static ScratchPad buf;
 
     if constexpr (TEMP_SENSOR_PRESENT)
     {
-    if (!oneWire.reset())
-    {
-      return DEVICE_DISCONNECTED_RAW;
-    }
-    oneWire.select(sensorAddrs[idx].addr);
-    oneWire.write(READ_SCRATCHPAD);
+      if (!oneWire.reset())
+      {
+        return DEVICE_DISCONNECTED_RAW;
+      }
+      oneWire.select(sensorAddrs[idx].addr);
+      oneWire.write(READ_SCRATCHPAD);
 
-    for (auto &buf_elem : buf)
-    {
-      buf_elem = oneWire.read();
-    }
+      for (auto& buf_elem : buf)
+      {
+        buf_elem = oneWire.read();
+      }
 
-    if (!oneWire.reset())
-    {
-      return DEVICE_DISCONNECTED_RAW;
-    }
-    if (oneWire.crc8(buf, 8) != buf[8])
-    {
-      return DEVICE_DISCONNECTED_RAW;
-    }
+      if (!oneWire.reset())
+      {
+        return DEVICE_DISCONNECTED_RAW;
+      }
+      if (oneWire.crc8(buf, 8) != buf[8])
+      {
+        return DEVICE_DISCONNECTED_RAW;
+      }
     }
 
     // result is temperature x16, multiply by 6.25 to convert to temperature x100
@@ -259,7 +259,7 @@ public:
   }
 
 private:
-  const uint8_t sensorPin; /**< The pin of the sensor(s) */
+  const uint8_t sensorPin{ unused_pin }; /**< The pin of the sensor(s) */
 
   const DeviceAddress sensorAddrs[N]; /**< Array of sensors */
 

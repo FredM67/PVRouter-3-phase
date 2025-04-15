@@ -28,13 +28,13 @@
 
 static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too long and will lead to overflow ! ****");
 
-static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == 0xff), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
-static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == 0xff), "******** Wrong pin value for diversion command. Please check your config.h ! ********");
-static_assert((PRIORITY_ROTATION == RotationModes::PIN) ^ (rotationPin == 0xff), "******** Wrong pin value for rotation command. Please check your config.h ! ********");
-static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == 0xff), "******** Wrong pin value for override command. Please check your config.h ! ********");
-static_assert(WATCHDOG_PIN_PRESENT ^ (watchDogPin == 0xff), "******** Wrong pin value for watchdog. Please check your config.h ! ********");
+static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == unused_pin), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
+static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == unused_pin), "******** Wrong pin value for diversion command. Please check your config.h ! ********");
+static_assert((PRIORITY_ROTATION == RotationModes::PIN) ^ (rotationPin == unused_pin), "******** Wrong pin value for rotation command. Please check your config.h ! ********");
+static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == unused_pin), "******** Wrong pin value for override command. Please check your config.h ! ********");
+static_assert(WATCHDOG_PIN_PRESENT ^ (watchDogPin == unused_pin), "******** Wrong pin value for watchdog. Please check your config.h ! ********");
 
-static_assert(DUAL_TARIFF ^ (dualTariffPin == 0xff), "******** Wrong pin value for dual tariff. Please check your config.h ! ********");
+static_assert(DUAL_TARIFF ^ (dualTariffPin == unused_pin), "******** Wrong pin value for dual tariff. Please check your config.h ! ********");
 static_assert(!DUAL_TARIFF | (ul_OFF_PEAK_DURATION == 0), "******** Off-peak duration cannot be zero. Please check your config.h ! ********");
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION > 12)), "******** Off-peak duration cannot last more than 12 hours. Please check your config.h ! ********");
 
@@ -52,11 +52,11 @@ constexpr uint16_t check_pins()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    if (temperatureSensing.get_pin() != 0xff)
+    if (temperatureSensing.get_pin() != unused_pin)
       bit_set(used_pins, temperatureSensing.get_pin());
   }
 
-  if (diversionPin != 0xff)
+  if (diversionPin != unused_pin)
   {
     if (bit_read(used_pins, diversionPin))
       return 0;
@@ -64,7 +64,7 @@ constexpr uint16_t check_pins()
     bit_set(used_pins, diversionPin);
   }
 
-  if (rotationPin != 0xff)
+  if (rotationPin != unused_pin)
   {
     if (bit_read(used_pins, rotationPin))
       return 0;
@@ -72,7 +72,7 @@ constexpr uint16_t check_pins()
     bit_set(used_pins, rotationPin);
   }
 
-  if (forcePin != 0xff)
+  if (forcePin != unused_pin)
   {
     if (bit_read(used_pins, forcePin))
       return 0;
@@ -80,7 +80,7 @@ constexpr uint16_t check_pins()
     bit_set(used_pins, forcePin);
   }
 
-  if (watchDogPin != 0xff)
+  if (watchDogPin != unused_pin)
   {
     if (bit_read(used_pins, watchDogPin))
       return 0;
@@ -91,7 +91,7 @@ constexpr uint16_t check_pins()
   //physicalLoadPin for the TRIACS
   for (const auto &loadPin : physicalLoadPin)
   {
-    if (loadPin == 0xff)
+    if (loadPin == unused_pin)
       return 0;
 
     if (bit_read(used_pins, loadPin))
@@ -106,7 +106,7 @@ constexpr uint16_t check_pins()
     {
       const auto relayPin = relays.get_relay(idx).get_pin();
 
-      if (relayPin != 0xff)
+      if (relayPin != unused_pin)
       {
         if (bit_read(used_pins, relayPin))
           return 0;
@@ -129,11 +129,11 @@ constexpr uint16_t check_relay_pins()
 
     if constexpr (RELAY_DIVERSION)
     {
-      pins_ok &= (relayPin != 0xff);
+      pins_ok &= (relayPin != unused_pin);
     }
     else
     {
-      pins_ok &= (relayPin == 0xff);
+      pins_ok &= (relayPin == unused_pin);
     }
   }
 

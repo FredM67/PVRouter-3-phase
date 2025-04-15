@@ -67,21 +67,21 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if te
 inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 }; /**< load priorities and states at startup */
 
-// Set the value to 0xff when the pin is not needed (feature deactivated)
-inline constexpr uint8_t dualTariffPin{ 0xff }; /**< for 3-phase PCB, off-peak trigger */
-inline constexpr uint8_t diversionPin{ 0xff };  /**< if LOW, set diversion on standby */
-inline constexpr uint8_t rotationPin{ 0xff };   /**< if LOW, trigger a load priority rotation */
-inline constexpr uint8_t forcePin{ 0xff };      /**< for 3-phase PCB, force pin */
-inline constexpr uint8_t watchDogPin{ 0xff };   /**< watch dog LED */
+// Set the value to 'unused_pin' when the pin is not needed (feature deactivated)
+inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
+inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, set diversion on standby */
+inline constexpr uint8_t rotationPin{ unused_pin };   /**< if LOW, trigger a load priority rotation */
+inline constexpr uint8_t forcePin{ unused_pin };      /**< for 3-phase PCB, force pin */
+inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
 
-inline constexpr RelayEngine relays{ { { 0xff, 1000, 200, 1, 1 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */
+inline constexpr RelayEngine relays{ { { unused_pin, 1000, 200, 1, 1 } } }; /**< config for relay diversion, see class definition for defaults and advanced options */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
 
 inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
 
-inline constexpr TemperatureSensing temperatureSensing{ 0xff,
+inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
                                                           { 0x28, 0xED, 0x5B, 0x6A, 0x09, 0x00, 0x00, 0x9D },
                                                           { 0x28, 0xDB, 0x6D, 0x6A, 0x09, 0x00, 0x00, 0xDA },

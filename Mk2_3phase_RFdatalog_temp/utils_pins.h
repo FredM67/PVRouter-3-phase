@@ -14,6 +14,8 @@
 
 #include <Arduino.h>
 
+inline constexpr uint8_t unused_pin{ 0xff }; /**< unused pin */
+
 #if defined(__DOXYGEN__)
 inline constexpr void togglePin(const uint8_t pin);
 

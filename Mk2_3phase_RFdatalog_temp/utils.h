@@ -158,15 +158,15 @@ inline void printConfiguration()
 #endif
 
   DBUG(F("Datalogging capability "));
-  if constexpr(SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
+  if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
   {
     DBUGLN(F("in Human-readable format"));
   }
-  else if constexpr(SERIAL_OUTPUT_TYPE == SerialOutputType::IoT)
+  else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::IoT)
   {
     DBUGLN(F("in IoT format"));
   }
-  else if constexpr(SERIAL_OUTPUT_TYPE == SerialOutputType::EmonCMS)
+  else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::EmonCMS)
   {
     DBUGLN(F("in EmonCMS format"));
   }
@@ -370,7 +370,7 @@ void sendTelemetryData()
   {
     teleInfo.send("L", copyOf_countLoadON[idx] * 100 * invDATALOG_PERIOD_IN_MAINS_CYCLES, idx + 1);  // Send load ON count for each load
   } while (++idx < NO_OF_DUMPLOADS);
-  
+
   if constexpr (TEMP_SENSOR_PRESENT)
   {
     for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
