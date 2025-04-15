@@ -98,16 +98,44 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">extern</span> uint16_t <a class="code hl_function" href="FastDivision_8h.html#a606046ac14bb90c70153682a6bd92419">divu10</a>(uint16_t n) __attribute__((noinline));  <span class="comment">//29 cycles</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="FastDivision_8h.html#a6c8240c996fc4e54259686eb2fcb6958">    8</a></span><span class="preprocessor">#define divu8(n) ((uint16_t)((uint16_t)n &gt;&gt; 3))                </span><span class="comment">//These are done as #defines as no improvement can be made.</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="FastDivision_8h.html#a9e9c475345eba1bfc447646b1285a7d9">    9</a></span><span class="preprocessor">#define divu4(n) ((uint16_t)((uint16_t)n &gt;&gt; 2))                </span><span class="comment">//These are done as #defines as no improvement can be made.</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="FastDivision_8h.html#a72192e5d69e1a15b9bc651ede495ae7d">   10</a></span><span class="preprocessor">#define divu2(n) ((uint16_t)((uint16_t)n &gt;&gt; 1))                </span><span class="comment">//These are done as #defines as no improvement can be made.</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="FastDivision_8h.html#a83439cafdc43aac6f9547c02a7c26db1">   11</a></span><span class="preprocessor">#define divu1(n) ((uint16_t)((uint16_t)n))                     </span><span class="comment">//These are done as #defines as no improvement can be made.</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="FastDivision_8h.html#a9d8e8674f8953bda0cf3dfd481d298fe">divmod10</a>(uint32_t in, uint32_t &amp;div, uint8_t &amp;mod) __attribute__((noinline));</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#endif </span><span class="comment">/* FASTDIVISION_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="FastDivision_8h.html#a9de45a7c76d6a1f1887e51646717145e">    9</a></span><span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="FastDivision_8h.html#a9de45a7c76d6a1f1887e51646717145e">divu8</a>(uint16_t n)</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keywordflow">return</span> n &gt;&gt; 3;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
+</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="FastDivision_8h.html#af8e7e73d42cc8822e1cc702dc4ee9e47">   14</a></span><span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="FastDivision_8h.html#af8e7e73d42cc8822e1cc702dc4ee9e47">divu4</a>(uint16_t n)</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <span class="keywordflow">return</span> n &gt;&gt; 2;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="FastDivision_8h.html#af6ee560bcf53b38e7ff6d6c79ff511c1">   19</a></span><span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="FastDivision_8h.html#af6ee560bcf53b38e7ff6d6c79ff511c1">divu2</a>(uint16_t n)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keywordflow">return</span> n &gt;&gt; 1;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="FastDivision_8h.html#a856802529674be529d84048a0ec6806a">   24</a></span><span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="FastDivision_8h.html#a856802529674be529d84048a0ec6806a">divu1</a>(uint16_t n)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keywordflow">return</span> n;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">extern</span> <span class="keywordtype">void</span> <a class="code hl_function" href="FastDivision_8h.html#a9d8e8674f8953bda0cf3dfd481d298fe">divmod10</a>(uint32_t in, uint32_t &amp;div, uint8_t &amp;mod) __attribute__((noinline));</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#endif </span><span class="comment">/* FASTDIVISION_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aFastDivision_8h_html_a606046ac14bb90c70153682a6bd92419"><div class="ttname"><a href="FastDivision_8h.html#a606046ac14bb90c70153682a6bd92419">divu10</a></div><div class="ttdeci">uint16_t divu10(uint16_t n) __attribute__((noinline))</div><div class="ttdef"><b>Definition</b> <a href="FastDivision_8cpp_source.html#l00003">FastDivision.cpp:3</a></div></div>
+<div class="ttc" id="aFastDivision_8h_html_a856802529674be529d84048a0ec6806a"><div class="ttname"><a href="FastDivision_8h.html#a856802529674be529d84048a0ec6806a">divu1</a></div><div class="ttdeci">constexpr auto divu1(uint16_t n)</div><div class="ttdef"><b>Definition</b> <a href="#l00024">FastDivision.h:24</a></div></div>
 <div class="ttc" id="aFastDivision_8h_html_a9d8e8674f8953bda0cf3dfd481d298fe"><div class="ttname"><a href="FastDivision_8h.html#a9d8e8674f8953bda0cf3dfd481d298fe">divmod10</a></div><div class="ttdeci">void divmod10(uint32_t in, uint32_t &amp;div, uint8_t &amp;mod) __attribute__((noinline))</div><div class="ttdef"><b>Definition</b> <a href="FastDivision_8cpp_source.html#l00041">FastDivision.cpp:41</a></div></div>
+<div class="ttc" id="aFastDivision_8h_html_a9de45a7c76d6a1f1887e51646717145e"><div class="ttname"><a href="FastDivision_8h.html#a9de45a7c76d6a1f1887e51646717145e">divu8</a></div><div class="ttdeci">constexpr auto divu8(uint16_t n)</div><div class="ttdef"><b>Definition</b> <a href="#l00009">FastDivision.h:9</a></div></div>
+<div class="ttc" id="aFastDivision_8h_html_af6ee560bcf53b38e7ff6d6c79ff511c1"><div class="ttname"><a href="FastDivision_8h.html#af6ee560bcf53b38e7ff6d6c79ff511c1">divu2</a></div><div class="ttdeci">constexpr auto divu2(uint16_t n)</div><div class="ttdef"><b>Definition</b> <a href="#l00019">FastDivision.h:19</a></div></div>
+<div class="ttc" id="aFastDivision_8h_html_af8e7e73d42cc8822e1cc702dc4ee9e47"><div class="ttname"><a href="FastDivision_8h.html#af8e7e73d42cc8822e1cc702dc4ee9e47">divu4</a></div><div class="ttdeci">constexpr auto divu4(uint16_t n)</div><div class="ttdef"><b>Definition</b> <a href="#l00014">FastDivision.h:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

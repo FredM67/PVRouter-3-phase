@@ -102,7 +102,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="config_8h.html">config.h</a>&quot;</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#if TEMP_SENSOR_PRESENT</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;OneWire.h&gt;</span>                               <span class="comment">// for temperature sensing</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;OneWire.h&gt;</span>  <span class="comment">// for temperature sensing</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">class </span>OneWire;</div>
@@ -110,7 +110,7 @@ $(function(){ initResizable(false); });
 <div class="foldopen" id="foldopen00049" data-start="{" data-end="};">
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structDeviceAddress.html">   49</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structDeviceAddress.html">DeviceAddress</a></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">   51</a></span>  uint8_t <a class="code hl_variable" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">addr</a>[8]; </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">   51</a></span>  uint8_t <a class="code hl_variable" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">addr</a>[8]{}; </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
 </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
@@ -119,7 +119,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="comment">// Mock constructor</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  MockOneWire() {}</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  MockOneWire() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keywordtype">void</span> begin(uint8_t pin) {}</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
@@ -162,9 +162,9 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="keyword">  </span>{</div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a>)</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    {</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    oneWire.reset();</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    oneWire.skip();</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    oneWire.write(<a class="code hl_variable" href="constants_8h.html#a0fc0867cb8eb64709ec9326821f0657c">CONVERT_TEMPERATURE</a>);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>      oneWire.reset();</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>      oneWire.skip();</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>      oneWire.write(<a class="code hl_variable" href="constants_8h.html#a0fc0867cb8eb64709ec9326821f0657c">CONVERT_TEMPERATURE</a>);</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    }</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>  }</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span></div>
@@ -172,8 +172,8 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="keyword">  </span>{</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a>)</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    {</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    oneWire.begin(sensorPin);</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    requestTemperatures();</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>      oneWire.begin(sensorPin);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>      requestTemperatures();</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>  }</div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span></div>
@@ -187,32 +187,32 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordflow">return</span> sensorPin;</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>  }</div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span></div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  int16_t readTemperature(<span class="keyword">const</span> uint8_t idx)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  [[nodiscard]] int16_t readTemperature(<span class="keyword">const</span> uint8_t idx)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="keyword">  </span>{</div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keyword">static</span> ScratchPad buf;</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a>)</div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    {</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordflow">if</span> (!oneWire.reset())</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    {</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>      <span class="keywordflow">return</span> <a class="code hl_variable" href="constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a>;</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    }</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    oneWire.select(sensorAddrs[idx].addr);</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    oneWire.write(<a class="code hl_variable" href="constants_8h.html#a4efcca8a8902b210fd176b46753964f1">READ_SCRATCHPAD</a>);</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>      <span class="keywordflow">if</span> (!oneWire.reset())</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>      {</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a>;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>      }</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>      oneWire.select(sensorAddrs[idx].addr);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>      oneWire.write(<a class="code hl_variable" href="constants_8h.html#a4efcca8a8902b210fd176b46753964f1">READ_SCRATCHPAD</a>);</div>
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;buf_elem : buf)</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    {</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>      buf_elem = oneWire.read();</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    }</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; buf_elem : buf)</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>      {</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        buf_elem = oneWire.read();</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>      }</div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordflow">if</span> (!oneWire.reset())</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    {</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>      <span class="keywordflow">return</span> <a class="code hl_variable" href="constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a>;</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    }</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keywordflow">if</span> (oneWire.crc8(buf, 8) != buf[8])</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    {</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>      <span class="keywordflow">return</span> <a class="code hl_variable" href="constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a>;</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    }</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>      <span class="keywordflow">if</span> (!oneWire.reset())</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>      {</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a>;</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>      }</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>      <span class="keywordflow">if</span> (oneWire.crc8(buf, 8) != buf[8])</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>      {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a>;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>      }</div>
 <div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    }</div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
 <div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="comment">// result is temperature x16, multiply by 6.25 to convert to temperature x100</span></div>
@@ -227,7 +227,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>  }</div>
 <div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>  <span class="keyword">const</span> uint8_t sensorPin; </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>  <span class="keyword">const</span> uint8_t sensorPin{ <a class="code hl_variable" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }; </div>
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>  <span class="keyword">const</span> DeviceAddress sensorAddrs[N]; </div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
@@ -246,6 +246,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="astructDeviceAddress_html"><div class="ttname"><a href="structDeviceAddress.html">DeviceAddress</a></div><div class="ttdoc">Structure representing the address of a device.</div><div class="ttdef"><b>Definition</b> <a href="#l00049">utils_temp.h:50</a></div></div>
 <div class="ttc" id="astructDeviceAddress_html_ae90422657105a8cff63931e274f2d391"><div class="ttname"><a href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">DeviceAddress::addr</a></div><div class="ttdeci">uint8_t addr[8]</div><div class="ttdef"><b>Definition</b> <a href="#l00051">utils_temp.h:51</a></div></div>
 <div class="ttc" id="astructconditional_html_a387cc6b4b4b1b239205beb8e63e77c27"><div class="ttname"><a href="structconditional.html#a387cc6b4b4b1b239205beb8e63e77c27">conditional::type</a></div><div class="ttdeci">TrueType type</div><div class="ttdef"><b>Definition</b> <a href="conditional_8hpp_source.html#l00009">conditional.hpp:9</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_af56aa6e64828c1a87b646a7e02fc5ded"><div class="ttname"><a href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a></div><div class="ttdeci">constexpr uint8_t unused_pin</div><div class="ttdef"><b>Definition</b> <a href="utils__pins_8h_source.html#l00017">utils_pins.h:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

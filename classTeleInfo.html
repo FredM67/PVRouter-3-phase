@@ -122,9 +122,9 @@ Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a78162488f195d2bcaeab241c03e35f21" id="r_a78162488f195d2bcaeab241c03e35f21"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78162488f195d2bcaeab241c03e35f21">buffer</a> [<a class="el" href="group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c">calcBufferSize</a>()]</td></tr>
+<tr class="memitem:a78162488f195d2bcaeab241c03e35f21" id="r_a78162488f195d2bcaeab241c03e35f21"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78162488f195d2bcaeab241c03e35f21">buffer</a> [<a class="el" href="group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c">calcBufferSize</a>()] {}</td></tr>
 <tr class="separator:a78162488f195d2bcaeab241c03e35f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a0247ece933354556a11d540fbd6d43" id="r_a2a0247ece933354556a11d540fbd6d43"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a0247ece933354556a11d540fbd6d43">bufferPos</a></td></tr>
+<tr class="memitem:a2a0247ece933354556a11d540fbd6d43" id="r_a2a0247ece933354556a11d540fbd6d43"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a0247ece933354556a11d540fbd6d43">bufferPos</a> { 0 }</td></tr>
 <tr class="separator:a2a0247ece933354556a11d540fbd6d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
@@ -174,7 +174,7 @@ Static Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -432,7 +432,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char TeleInfo::buffer[<a class="el" href="group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c">calcBufferSize</a>()]</td>
+          <td class="memname">char TeleInfo::buffer[<a class="el" href="group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c">calcBufferSize</a>()] {}</td>
         </tr>
       </table>
   </td>
@@ -457,7 +457,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t TeleInfo::bufferPos</td>
+          <td class="memname">uint8_t TeleInfo::bufferPos { 0 }</td>
         </tr>
       </table>
   </td>
