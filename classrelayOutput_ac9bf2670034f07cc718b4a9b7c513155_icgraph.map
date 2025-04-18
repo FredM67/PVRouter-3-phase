@@ -2,13 +2,13 @@
 <area shape="rect" id="Node000001" title="Get the control pin of the relay." alt="" coords="413,84,568,109"/>
 <area shape="rect" id="Node000002" href="$classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="104,5,365,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="451,80,410,61,365,45,320,33,321,28,366,39,412,56,453,75"/>
-<area shape="rect" id="Node000003" href="$test__utils__relay_2test__main_8cpp.html#acf18f50974498226d414b44788f59752" title=" " alt="" coords="147,55,322,80"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__utils__relay_2test__main_8cpp.html#acf18f50974498226d414b44788f59752" title=" " alt="" coords="147,55,322,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="400,89,322,80,322,75,400,84"/>
-<area shape="rect" id="Node000005" href="$test__utils__relay_2test__main_8cpp.html#af6ddac18c62df593b1a20bb447f953a4" title=" " alt="" coords="137,105,333,145"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__utils__relay_2test__main_8cpp.html#af6ddac18c62df593b1a20bb447f953a4" title=" " alt="" coords="137,105,333,145"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="400,109,333,117,333,111,400,104"/>
-<area shape="rect" id="Node000006" href="$test__utils__relay_2test__main_8cpp.html#ab5b1d70e0be648ef2951a655bf828574" title=" " alt="" coords="139,169,330,209"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__utils__relay_2test__main_8cpp.html#ab5b1d70e0be648ef2951a655bf828574" title=" " alt="" coords="139,169,330,209"/>
 <area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="456,118,414,139,366,159,328,171,326,166,364,154,412,134,454,113"/>
-<area shape="rect" id="Node000004" href="$test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,112,56,137"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,112,56,137"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="141,86,105,95,57,115,55,110,103,90,140,80"/>
 <area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="123,127,56,127,56,122,123,122"/>
 <area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="130,168,103,159,55,139,57,134,105,154,131,162"/>

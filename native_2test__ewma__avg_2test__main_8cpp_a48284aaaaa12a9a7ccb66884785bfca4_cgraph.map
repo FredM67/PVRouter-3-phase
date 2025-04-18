@@ -1,0 +1,13 @@
+<map id="test_single_value_update" name="test_single_value_update">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,80,193,105"/>
+<area shape="rect" id="Node000002" href="$classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="253,5,445,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,77,241,39,272,31,273,36,242,45,134,82"/>
+<area shape="rect" id="Node000004" href="$classEWMA__average.html#a8caa754acdd5f485f7cd2a183cee1286" title="Get the Double Exponentially Weighted Moving Average (DEMA)." alt="" coords="241,55,457,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="193,81,227,77,228,82,194,86"/>
+<area shape="rect" id="Node000005" href="$classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="242,104,457,129"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="194,99,228,102,228,108,193,104"/>
+<area shape="rect" id="Node000006" href="$classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="242,153,457,179"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="136,103,242,138,278,148,276,153,241,143,134,108"/>
+<area shape="rect" id="Node000003" href="$ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="505,5,689,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="446,15,492,15,492,21,446,21"/>
+</map>

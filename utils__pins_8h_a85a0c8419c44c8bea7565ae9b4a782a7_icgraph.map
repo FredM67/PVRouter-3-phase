@@ -1,7 +1,7 @@
 <map id="setPinState" name="setPinState">
 <area shape="rect" id="Node000001" title="Set the Pin state for the specified pin." alt="" coords="280,5,376,31"/>
-<area shape="rect" id="Node000002" href="$test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="104,5,232,31"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="104,5,232,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="266,21,233,21,233,15,266,15"/>
-<area shape="rect" id="Node000003" href="$test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,31"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,21,57,21,57,15,90,15"/>
 </map>

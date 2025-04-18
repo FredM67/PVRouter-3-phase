@@ -1,0 +1,9 @@
+<map id="test_initial_values" name="test_initial_values">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,147,80"/>
+<area shape="rect" id="Node000002" href="$classEWMA__average.html#a8caa754acdd5f485f7cd2a183cee1286" title="Get the Double Exponentially Weighted Moving Average (DEMA)." alt="" coords="195,5,411,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,52,230,31,231,36,136,57"/>
+<area shape="rect" id="Node000003" href="$classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="195,55,410,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,65,182,65,182,70,147,70"/>
+<area shape="rect" id="Node000004" href="$classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="195,104,410,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="136,77,231,98,230,104,134,83"/>
+</map>

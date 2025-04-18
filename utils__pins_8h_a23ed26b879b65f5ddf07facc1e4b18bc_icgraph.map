@@ -20,20 +20,20 @@
 <area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="548,205,455,183,456,177,549,200"/>
 <area shape="rect" id="Node000009" href="$utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7" title="Set the Pin state for the specified pin." alt="" coords="352,204,448,229"/>
 <area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="562,257,448,230,449,225,563,252"/>
-<area shape="rect" id="Node000012" href="$test__utils__pins_2test__main_8cpp.html#a149130da05b40aff690713378ab38eac" title=" " alt="" coords="126,253,241,279"/>
+<area shape="rect" id="Node000012" href="$embedded_2test__utils__pins_2test__main_8cpp.html#a149130da05b40aff690713378ab38eac" title=" " alt="" coords="126,253,241,279"/>
 <area shape="poly" id="edge13_Node000008_Node000012" title=" " alt="" coords="562,270,241,269,241,264,562,265"/>
 <area shape="rect" id="Node000013" href="$classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="311,308,489,333"/>
 <area shape="poly" id="edge15_Node000008_Node000013" title=" " alt="" coords="563,283,453,311,452,305,562,278"/>
-<area shape="rect" id="Node000010" href="$test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="119,204,247,229"/>
+<area shape="rect" id="Node000010" href="$embedded_2test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="119,204,247,229"/>
 <area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="338,219,247,219,247,214,338,214"/>
-<area shape="rect" id="Node000011" href="$test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,253,56,279"/>
+<area shape="rect" id="Node000011" href="$embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,253,56,279"/>
 <area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="127,236,105,243,57,260,56,255,103,238,125,231"/>
 <area shape="poly" id="edge14_Node000012_Node000011" title=" " alt="" coords="112,269,56,269,56,263,112,263"/>
 <area shape="rect" id="Node000014" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="104,303,263,343"/>
 <area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="297,325,263,325,263,320,297,319"/>
 <area shape="rect" id="Node000016" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="315,368,485,393"/>
 <area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="562,383,486,383,486,378,562,378"/>
-<area shape="rect" id="Node000018" href="$test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8" title=" " alt="" coords="343,417,457,443"/>
+<area shape="rect" id="Node000018" href="$embedded_2test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8" title=" " alt="" coords="343,417,457,443"/>
 <area shape="poly" id="edge20_Node000015_Node000018" title=" " alt="" coords="563,396,457,420,456,415,562,390"/>
 <area shape="rect" id="Node000017" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="158,368,209,393"/>
 <area shape="poly" id="edge19_Node000016_Node000017" title=" " alt="" coords="301,383,209,383,209,378,301,378"/>

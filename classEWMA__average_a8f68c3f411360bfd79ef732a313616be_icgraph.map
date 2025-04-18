@@ -1,0 +1,19 @@
+<map id="EWMA_average::getAverageT" name="EWMA_average::getAverageT">
+<area shape="rect" id="Node000001" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="344,120,559,145"/>
+<area shape="rect" id="Node000002" href="$native_2test__ewma__avg_2test__main_8cpp.html#a18905b27ca58963be912f77201ddf421" title=" " alt="" coords="131,5,273,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="419,114,362,80,295,46,258,33,260,28,297,41,365,75,421,110"/>
+<area shape="rect" id="Node000004" href="$native_2test__ewma__avg_2test__main_8cpp.html#a4c3833a15e1ae16f4281c3efb4c2d4c7" title=" " alt="" coords="127,55,277,95"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="382,120,277,95,278,90,383,114"/>
+<area shape="rect" id="Node000005" href="$native_2test__ewma__avg_2test__main_8cpp.html#afe24287193f7ca9a9a217c3f8c5a6098" title=" " alt="" coords="126,120,278,145"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="330,135,278,135,278,130,330,130"/>
+<area shape="rect" id="Node000006" href="$native_2test__ewma__avg_2test__main_8cpp.html#a015d975403ec04c63a5e402886c25464" title=" " alt="" coords="127,169,277,195"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="374,151,268,172,267,167,373,145"/>
+<area shape="rect" id="Node000007" href="$native_2test__ewma__avg_2test__main_8cpp.html#a48284aaaaa12a9a7ccb66884785bfca4" title=" " alt="" coords="108,219,296,244"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="416,154,360,182,297,209,257,221,255,216,295,203,358,177,413,149"/>
+<area shape="rect" id="Node000003" href="$native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,120,60,145"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,38,109,46,88,63,69,83,43,121,39,118,65,80,84,59,107,41,120,34"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="131,102,61,126,59,121,129,97"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="112,135,60,135,60,130,112,130"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="139,168,107,159,59,144,61,139,109,154,140,163"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="123,216,107,208,69,178,42,147,46,144,72,174,109,204,126,212"/>
+</map>

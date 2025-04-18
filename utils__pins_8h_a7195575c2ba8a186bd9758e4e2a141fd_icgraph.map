@@ -1,10 +1,10 @@
 <map id="setPinsOFF" name="setPinsOFF">
 <area shape="rect" id="Node000001" title="Set the Pins state to OFF." alt="" coords="952,31,1047,56"/>
-<area shape="rect" id="Node000002" href="$test__utils__pins_2test__main_8cpp.html#a7478e236a47b20e4bd8950e6ac92350a" title=" " alt="" coords="770,5,897,31"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__utils__pins_2test__main_8cpp.html#a7478e236a47b20e4bd8950e6ac92350a" title=" " alt="" coords="770,5,897,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="938,37,897,30,897,25,938,31"/>
 <area shape="rect" id="Node000004" href="$group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="763,55,904,80"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="938,55,905,60,904,54,938,49"/>
-<area shape="rect" id="Node000003" href="$test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="605,5,656,31"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="605,5,656,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="756,21,656,21,656,15,756,15"/>
 <area shape="rect" id="Node000005" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,55,715,80"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="749,70,715,70,715,65,749,65"/>

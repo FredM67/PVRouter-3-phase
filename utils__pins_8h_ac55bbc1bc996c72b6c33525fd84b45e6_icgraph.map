@@ -2,13 +2,13 @@
 <area shape="rect" id="Node000001" title="Set the Pin state to ON for the specified pin." alt="" coords="537,56,620,81"/>
 <area shape="rect" id="Node000002" href="$utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7" title="Set the Pin state for the specified pin." alt="" coords="352,5,448,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="523,56,445,33,447,28,525,51"/>
-<area shape="rect" id="Node000005" href="$test__utils__pins_2test__main_8cpp.html#a149130da05b40aff690713378ab38eac" title=" " alt="" coords="126,55,241,80"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__utils__pins_2test__main_8cpp.html#a149130da05b40aff690713378ab38eac" title=" " alt="" coords="126,55,241,80"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="524,71,241,70,241,65,524,66"/>
 <area shape="rect" id="Node000006" href="$classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="311,109,489,135"/>
 <area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="525,87,444,112,443,107,523,82"/>
-<area shape="rect" id="Node000003" href="$test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="119,5,247,31"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="119,5,247,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="338,21,247,21,247,15,338,15"/>
-<area shape="rect" id="Node000004" href="$test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,31,56,56"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,31,56,56"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="107,33,56,42,56,37,106,28"/>
 <area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="112,59,56,50,57,45,112,54"/>
 <area shape="rect" id="Node000007" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="104,105,263,145"/>
