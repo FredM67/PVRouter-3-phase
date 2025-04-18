@@ -34,8 +34,6 @@
 #ifndef EWMA_AVG_H
 #define EWMA_AVG_H
 
-#include <Arduino.h>
-
 #include "type_traits.hpp"
 
 /**
