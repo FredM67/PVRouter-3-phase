@@ -1,10 +1,11 @@
+
 #include <unity.h>
 #include "ewma_avg.hpp"  // Include the EWMA_average class
 
 // 120 should be for around 10 minutes of data (period in minutes * 60 / datalog period in seconds)
 void test_initial_values()
 {
-  EWMA_average< 120 > avg;                         // Initialize with default smoothing factor
+  EWMA_average< 120 > avg;                        // Initialize with default smoothing factor
   TEST_ASSERT_EQUAL_INT32(0, avg.getAverageS());  // EMA should start at 0
   TEST_ASSERT_EQUAL_INT32(0, avg.getAverageD());  // DEMA should start at 0
   TEST_ASSERT_EQUAL_INT32(0, avg.getAverageT());  // TEMA should start at 0
@@ -47,7 +48,7 @@ void test_reset_behavior()
   EWMA_average< 120 > avg;
   avg.addValue(100);
   avg.addValue(200);
-  avg = EWMA_average< 120 >();                     // Reset by reinitializing
+  avg = EWMA_average< 120 >();                    // Reset by reinitializing
   TEST_ASSERT_EQUAL_INT32(0, avg.getAverageS());  // EMA should reset to 0
   TEST_ASSERT_EQUAL_INT32(0, avg.getAverageD());  // DEMA should reset to 0
   TEST_ASSERT_EQUAL_INT32(0, avg.getAverageT());  // TEMA should reset to 0
