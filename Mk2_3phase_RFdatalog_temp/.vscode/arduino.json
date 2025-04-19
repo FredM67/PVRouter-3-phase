@@ -1,5 +1,0 @@
-{
-    "board": "arduino:avr:uno",
-    "sketch": "Mk2_3phase_RFdatalog_temp.ino",
-    "output": "../build"
-}
