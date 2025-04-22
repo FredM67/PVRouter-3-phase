@@ -1,6 +1,6 @@
 <map id="sendResults" name="sendResults">
 <area shape="rect" id="Node000001" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="5,80,107,105"/>
-<area shape="rect" id="Node000002" href="$group__Telemetry.html#ga988b25d4a6361b7cc751a212af170665" title="Write telemetry data to Serial in EmonCMS format." alt="" coords="160,5,299,31"/>
+<area shape="rect" id="Node000002" href="$group__Telemetry.html#ga85be36240113e579b00e944d4dbcd91a" title="Write telemetry data to Serial in JSON format." alt="" coords="177,5,281,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,78,154,40,171,33,173,38,156,44,80,82"/>
 <area shape="rect" id="Node000003" href="$group__Telemetry.html#gae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="161,55,297,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,83,147,77,148,82,107,88"/>

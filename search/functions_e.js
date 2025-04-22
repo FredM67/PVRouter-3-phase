@@ -3,7 +3,7 @@ var searchData=
   ['pairforceload_0',['pairForceLoad',['../classpairForceLoad.html#afda1e45c16180c8ebdb2f195799bc1e4',1,'pairForceLoad::pairForceLoad()=default'],['../classpairForceLoad.html#a96434eb9cf78c7cfd4dd4720563a55d2',1,'pairForceLoad::pairForceLoad(int16_t _iStartOffset)'],['../classpairForceLoad.html#a872c2432415f0ca697cd219e791da168',1,'pairForceLoad::pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration)']]],
   ['printconfiguration_1',['printConfiguration',['../classRelayEngine.html#ab3ff0ac83bf3a665174f0ea373974e3a',1,'RelayEngine::printConfiguration()'],['../group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee',1,'printConfiguration():&#160;utils.h']]],
   ['printdualtariffconfiguration_2',['printDualTariffConfiguration',['../group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2',1,'dualtariff.h']]],
-  ['printforemoncms_3',['printForEmonCMS',['../group__Telemetry.html#ga988b25d4a6361b7cc751a212af170665',1,'utils.h']]],
+  ['printforjson_3',['printForJSON',['../group__Telemetry.html#ga85be36240113e579b00e944d4dbcd91a',1,'utils.h']]],
   ['printforserialtext_4',['printForSerialText',['../group__Telemetry.html#gae46d07fd4694c49e10360b5d79163443',1,'utils.h']]],
   ['printparamsforselectedoutputmode_5',['printParamsForSelectedOutputMode',['../processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b',1,'printParamsForSelectedOutputMode():&#160;processing.cpp'],['../processing_8h.html#aa2b3b1d496e37e5f29af6a766743dc8b',1,'printParamsForSelectedOutputMode():&#160;processing.cpp']]],
   ['printrelayconfiguration_6',['printRelayConfiguration',['../classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a',1,'relayOutput']]],
