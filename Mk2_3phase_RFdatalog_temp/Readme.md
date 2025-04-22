@@ -107,13 +107,13 @@ Le type de sortie série peut être configuré pour s'adapter à différents bes
 
 - **HumanReadable** : Sortie lisible par un humain, idéale pour le débogage ou la mise en service.
 - **IoT** : Sortie formatée pour des plateformes IoT comme HomeAssistant.
-- **EmonCMS** : Sortie compatible avec le format attendu par EmonCMS.
+- **JSON** : Sortie formatée pour des plateformes comme EmonCMS (JSON).
 
 Pour configurer le type de sortie série, modifiez la constante suivante dans le fichier **config.h** :
 ```cpp
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
 ```
-Remplacez `HumanReadable` par `IoT` ou `EmonCMS` selon vos besoins.
+Remplacez `HumanReadable` par `IoT` ou `JSON` selon vos besoins.
 
 ## Configuration des sorties TRIAC
 

@@ -10,7 +10,7 @@
  * @details
  * - **Interrupt-Driven Analog Conversion**: Uses an ISR to process ADC data for voltage and current sensors.
  * - **Load Management**: Includes functions for load priority rotation, forced full power, and dual tariff handling.
- * - **Telemetry**: Sends telemetry data in various formats (e.g., IoT, EmonCMS).
+ * - **Telemetry**: Sends telemetry data in various formats (e.g., IoT, JSON).
  * - **Temperature Sensing**: Supports DS18B20 sensors for temperature monitoring.
  * - **Watchdog**: Toggles a pin to indicate system activity.
  *
