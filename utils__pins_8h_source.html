@@ -236,42 +236,52 @@ $(function(){ initResizable(false); });
 <div class="foldopen" id="foldopen00194" data-start="{" data-end="}">
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb">  194</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb">getPinState</a>(<span class="keyword">const</span> uint8_t pin)</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>{</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>  <span class="keywordflow">return</span> (pin &lt; 8) ? <a class="code hl_function" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(PIND, pin) : (pin &lt; 14) ? <a class="code hl_function" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(PINB, pin - 8)</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>                                                      : <a class="code hl_function" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(PINC, pin - 14);</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>}</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>  <span class="keywordflow">if</span> (pin &lt; 8)</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>  {</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(PIND, pin);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>  }</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pin &lt; 14)</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(PINB, pin - 8);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>  }</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>  <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a>(PINC, pin - 14);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>  }</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>}</div>
 </div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span></div>
-<div class="foldopen" id="foldopen00205" data-start="{" data-end="}">
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e">  205</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e">setPinsAsOutput</a>(<span class="keyword">const</span> uint16_t pins)</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>{</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>  DDRD |= lowByte(pins);</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>  DDRB |= highByte(pins);</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>}</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span></div>
+<div class="foldopen" id="foldopen00215" data-start="{" data-end="}">
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e">  215</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e">setPinsAsOutput</a>(<span class="keyword">const</span> uint16_t pins)</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>{</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>  DDRD |= lowByte(pins);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>  DDRB |= highByte(pins);</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>}</div>
 </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span></div>
-<div class="foldopen" id="foldopen00216" data-start="{" data-end="}">
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873">  216</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873">setPinsAsInputPullup</a>(<span class="keyword">const</span> uint16_t pins)</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>{</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>  <span class="comment">// Set pins as input</span></div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>  DDRD &amp;= ~lowByte(pins);</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>  DDRB &amp;= ~highByte(pins);</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  <span class="comment">// Enable pull-up resistors</span></div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>  PORTD |= lowByte(pins);</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>  PORTB |= highByte(pins);</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>}</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span></div>
+<div class="foldopen" id="foldopen00226" data-start="{" data-end="}">
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno"><a class="line" href="utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873">  226</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873">setPinsAsInputPullup</a>(<span class="keyword">const</span> uint16_t pins)</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>{</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>  <span class="comment">// Set pins as input</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>  DDRD &amp;= ~lowByte(pins);</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>  DDRB &amp;= ~highByte(pins);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>  <span class="comment">// Enable pull-up resistors</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>  PORTD |= lowByte(pins);</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>  PORTB |= highByte(pins);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>}</div>
 </div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="preprocessor">#endif </span><span class="comment">/* UTILS_PINS_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="preprocessor">#endif </span><span class="comment">/* UTILS_PINS_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="autils__pins_8h_html_a23ed26b879b65f5ddf07facc1e4b18bc"><div class="ttname"><a href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a></div><div class="ttdeci">constexpr void bit_set(T &amp;_dest, const uint8_t bit)</div><div class="ttdoc">Set the specified bit to 1.</div><div class="ttdef"><b>Definition</b> <a href="#l00054">utils_pins.h:54</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_a410a7bdd300104398ce91797bd936cdb"><div class="ttname"><a href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb">getPinState</a></div><div class="ttdeci">constexpr bool getPinState(uint8_t pin)</div><div class="ttdoc">Get the Pin State.</div><div class="ttdef"><b>Definition</b> <a href="#l00194">utils_pins.h:194</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_a7195575c2ba8a186bd9758e4e2a141fd"><div class="ttname"><a href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd">setPinsOFF</a></div><div class="ttdeci">void setPinsOFF(uint16_t pins)</div><div class="ttdoc">Set the Pins state to OFF.</div><div class="ttdef"><b>Definition</b> <a href="#l00181">utils_pins.h:181</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_a85a0c8419c44c8bea7565ae9b4a782a7"><div class="ttname"><a href="utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7">setPinState</a></div><div class="ttdeci">constexpr void setPinState(const uint8_t pin, const bool bState)</div><div class="ttdoc">Set the Pin state for the specified pin.</div><div class="ttdef"><b>Definition</b> <a href="#l00111">utils_pins.h:111</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_aaec5db9d46ba784c4f16046e6deb6977"><div class="ttname"><a href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977">togglePin</a></div><div class="ttdeci">constexpr void togglePin(uint8_t pin)</div><div class="ttdoc">Toggle the specified pin.</div><div class="ttdef"><b>Definition</b> <a href="#l00089">utils_pins.h:89</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_abaa54130a12679d0dcc0e7578e0e4d37"><div class="ttname"><a href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a></div><div class="ttdeci">constexpr uint8_t bit_read(const T &amp;_src, const uint8_t bit)</div><div class="ttdoc">Read the specified bit.</div><div class="ttdef"><b>Definition</b> <a href="#l00067">utils_pins.h:67</a></div></div>
-<div class="ttc" id="autils__pins_8h_html_ac106ac6266d5d7a5328ea0c63778a873"><div class="ttname"><a href="utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873">setPinsAsInputPullup</a></div><div class="ttdeci">void setPinsAsInputPullup(uint16_t pins)</div><div class="ttdoc">Set the pins as INPUT_PULLUP.</div><div class="ttdef"><b>Definition</b> <a href="#l00216">utils_pins.h:216</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_ac106ac6266d5d7a5328ea0c63778a873"><div class="ttname"><a href="utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873">setPinsAsInputPullup</a></div><div class="ttdeci">void setPinsAsInputPullup(uint16_t pins)</div><div class="ttdoc">Set the pins as INPUT_PULLUP.</div><div class="ttdef"><b>Definition</b> <a href="#l00226">utils_pins.h:226</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_ac55bbc1bc996c72b6c33525fd84b45e6"><div class="ttname"><a href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6">setPinON</a></div><div class="ttdeci">constexpr void setPinON(uint8_t pin)</div><div class="ttdoc">Set the Pin state to ON for the specified pin.</div><div class="ttdef"><b>Definition</b> <a href="#l00128">utils_pins.h:128</a></div></div>
-<div class="ttc" id="autils__pins_8h_html_ad448cf4026a22a8190ea178a02702b2e"><div class="ttname"><a href="utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e">setPinsAsOutput</a></div><div class="ttdeci">void setPinsAsOutput(uint16_t pins)</div><div class="ttdoc">Set the pins as OUTPUT.</div><div class="ttdef"><b>Definition</b> <a href="#l00205">utils_pins.h:205</a></div></div>
+<div class="ttc" id="autils__pins_8h_html_ad448cf4026a22a8190ea178a02702b2e"><div class="ttname"><a href="utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e">setPinsAsOutput</a></div><div class="ttdeci">void setPinsAsOutput(uint16_t pins)</div><div class="ttdoc">Set the pins as OUTPUT.</div><div class="ttdef"><b>Definition</b> <a href="#l00215">utils_pins.h:215</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_ada7e18750d04838130ee63030dcf185d"><div class="ttname"><a href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d">setPinOFF</a></div><div class="ttdeci">constexpr void setPinOFF(uint8_t pin)</div><div class="ttdoc">Set the Pin state to OFF for the specified pin.</div><div class="ttdef"><b>Definition</b> <a href="#l00160">utils_pins.h:160</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_ae60db4342d45f22fa3bf5b297cf95bf3"><div class="ttname"><a href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3">setPinsON</a></div><div class="ttdeci">void setPinsON(uint16_t pins)</div><div class="ttdoc">Set the Pins state to ON.</div><div class="ttdef"><b>Definition</b> <a href="#l00149">utils_pins.h:149</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_aeae4199ba44e9e5de9d228a6b6a8133e"><div class="ttname"><a href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e">bit_clear</a></div><div class="ttdeci">constexpr uint8_t bit_clear(T &amp;_dest, const uint8_t bit)</div><div class="ttdoc">Clear the specified bit.</div><div class="ttdef"><b>Definition</b> <a href="#l00080">utils_pins.h:80</a></div></div>

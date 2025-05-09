@@ -88,6 +88,8 @@ $(function(){ initResizable(false); });
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
+  <div class="summary">
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">calibration.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -234,6 +236,20 @@ This graph shows which files directly or indirectly include this file:</div>
 </div>
 </div>
 <p><a href="calibration_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a19b3d4f09bab83f43bd3a3ed5295bddb" id="r_a19b3d4f09bab83f43bd3a3ed5295bddb"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19b3d4f09bab83f43bd3a3ed5295bddb">alpha</a> { 0.002 }</td></tr>
+<tr class="separator:a19b3d4f09bab83f43bd3a3ed5295bddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d63b22231b730d0f9d9fd4971a0fd35" id="r_a1d63b22231b730d0f9d9fd4971a0fd35"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d63b22231b730d0f9d9fd4971a0fd35">f_phaseCal</a> { 1 }</td></tr>
+<tr class="separator:a1d63b22231b730d0f9d9fd4971a0fd35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa04530439c9232df689568f4a6cd64d9" id="r_aa04530439c9232df689568f4a6cd64d9"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a> [<a class="el" href="config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>] { 0.05000F, 0.05000F, 0.05000F }</td></tr>
+<tr class="separator:aa04530439c9232df689568f4a6cd64d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c3b8983185a9bc5d78bcd2cccbac15d" id="r_a4c3b8983185a9bc5d78bcd2cccbac15d"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c3b8983185a9bc5d78bcd2cccbac15d">f_voltageCal</a> [<a class="el" href="config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>] { 0.8151F, 0.8184F, 0.8195F }</td></tr>
+<tr class="separator:a4c3b8983185a9bc5d78bcd2cccbac15d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74d2e520152cb559bdb6e18153dcb5e4" id="r_a74d2e520152cb559bdb6e18153dcb5e4"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74d2e520152cb559bdb6e18153dcb5e4">lpf_gain</a> { 0 }</td></tr>
+<tr class="separator:a74d2e520152cb559bdb6e18153dcb5e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Calibration values definition. </p>
 <dl class="section author"><dt>Author</dt><dd>Frédéric Metrich (<a href="#" onclick="location.href='mai'+'lto:'+'fre'+'de'+'ric'+'.m'+'etr'+'ic'+'h@l'+'iv'+'e.f'+'r'; return false;">frede<span class="obfuscator">.nosp@m.</span>ric.<span class="obfuscator">.nosp@m.</span>metri<span class="obfuscator">.nosp@m.</span>ch@l<span class="obfuscator">.nosp@m.</span>ive.f<span class="obfuscator">.nosp@m.</span>r</a>) </dd></dl>
@@ -242,7 +258,131 @@ This graph shows which files directly or indirectly include this file:</div>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="calibration_8h_source.html">calibration.h</a>.</p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Variable Documentation</h2>
+<a id="a19b3d4f09bab83f43bd3a3ed5295bddb" name="a19b3d4f09bab83f43bd3a3ed5295bddb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19b3d4f09bab83f43bd3a3ed5295bddb">&#9670;&#160;</a></span>alpha</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float alpha { 0.002 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="calibration_8h_source.html#l00054">54</a> of file <a class="el" href="calibration_8h_source.html">calibration.h</a>.</p>
+
+</div>
+</div>
+<a id="a1d63b22231b730d0f9d9fd4971a0fd35" name="a1d63b22231b730d0f9d9fd4971a0fd35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d63b22231b730d0f9d9fd4971a0fd35">&#9670;&#160;</a></span>f_phaseCal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float f_phaseCal { 1 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Nominal values only </p>
+
+<p class="definition">Definition at line <a class="el" href="calibration_8h_source.html#l00046">46</a> of file <a class="el" href="calibration_8h_source.html">calibration.h</a>.</p>
+
+</div>
+</div>
+<a id="aa04530439c9232df689568f4a6cd64d9" name="aa04530439c9232df689568f4a6cd64d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa04530439c9232df689568f4a6cd64d9">&#9670;&#160;</a></span>f_powerCal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float f_powerCal[<a class="el" href="config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>] { 0.05000F, 0.05000F, 0.05000F }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="calibration_8h_source.html#l00034">34</a> of file <a class="el" href="calibration_8h_source.html">calibration.h</a>.</p>
+
+</div>
+</div>
+<a id="a4c3b8983185a9bc5d78bcd2cccbac15d" name="a4c3b8983185a9bc5d78bcd2cccbac15d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c3b8983185a9bc5d78bcd2cccbac15d">&#9670;&#160;</a></span>f_voltageCal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float f_voltageCal[<a class="el" href="config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>] { 0.8151F, 0.8184F, 0.8195F }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>compared with Sentron PAC 4200 </p>
+
+<p class="definition">Definition at line <a class="el" href="calibration_8h_source.html#l00051">51</a> of file <a class="el" href="calibration_8h_source.html">calibration.h</a>.</p>
+
+</div>
+</div>
+<a id="a74d2e520152cb559bdb6e18153dcb5e4" name="a74d2e520152cb559bdb6e18153dcb5e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74d2e520152cb559bdb6e18153dcb5e4">&#9670;&#160;</a></span>lpf_gain</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float lpf_gain { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>setting this to 0 disables this extra processing </p>
+
+<p class="definition">Definition at line <a class="el" href="calibration_8h_source.html#l00053">53</a> of file <a class="el" href="calibration_8h_source.html">calibration.h</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
