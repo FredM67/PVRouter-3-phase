@@ -193,8 +193,18 @@ inline void setPinsOFF(const uint16_t pins)
  */
 inline constexpr bool getPinState(const uint8_t pin)
 {
-  return (pin < 8) ? bit_read(PIND, pin) : (pin < 14) ? bit_read(PINB, pin - 8)
-                                                      : bit_read(PINC, pin - 14);
+  if (pin < 8)
+  {
+    return bit_read(PIND, pin);
+  }
+  else if (pin < 14)
+  {
+    return bit_read(PINB, pin - 8);
+  }
+  else
+  {
+    return bit_read(PINC, pin - 14);
+  }
 }
 
 /**

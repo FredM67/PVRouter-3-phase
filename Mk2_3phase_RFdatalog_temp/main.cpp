@@ -297,7 +297,7 @@ void setup()
   delay(initialDelay);  // allows time to open the Serial Monitor
 
   DEBUG_PORT.begin(9600);
-  Serial.begin(9600);  // initialize Serial interface, Do NOT set greater than 9600
+  Serial.begin(9600, SERIAL_OUTPUT_TYPE == SerialOutputType::IoT ? SERIAL_7E1 : SERIAL_8N1);  // initialize Serial interface, Do NOT set greater than 9600
 
   // On start, always display config info in the serial monitor
   printConfiguration();

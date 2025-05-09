@@ -181,7 +181,7 @@ private:
     while (*ptr) buffer[bufferPos++] = *ptr++;
 
     // If an index is provided, append it to the tag
-    if (index > 0)
+    if (index != 0)
     {
       buffer[bufferPos++] = '0' + index;  // Convert index to a character
     }
