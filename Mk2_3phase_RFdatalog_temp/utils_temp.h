@@ -59,7 +59,7 @@ public:
   // Mock constructor
   MockOneWire() = default;
 
-  void begin(uint8_t pin) {}
+  void begin(uint8_t) {}
 
   bool reset()
   {
@@ -68,20 +68,21 @@ public:
 
   void skip() {}
 
-  void select(const uint8_t* addr) {}
+  void select(const uint8_t*) {}
 
-  void write(uint8_t command) {}
+  void write(uint8_t) {}
 
   uint8_t read()
   {
     return 0x00;
   }
 
-  uint8_t crc8(const uint8_t* data, uint8_t len)
+  uint8_t crc8(const uint8_t*, uint8_t)
   {
     return 0x00;
   }
 };
+/// @endcond
 
 /**
  * @class TemperatureSensing
