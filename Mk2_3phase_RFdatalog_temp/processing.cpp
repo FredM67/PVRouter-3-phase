@@ -15,6 +15,7 @@
 #include "dualtariff.h"
 #include "processing.h"
 #include "utils_pins.h"
+#include "shared_var.h"
 
 // Define operating limits for the LP filters which identify DC offset in the voltage
 // sample streams. By limiting the output range, these filters always should start up
@@ -335,7 +336,7 @@ void updatePhysicalLoadStates()
 {
   if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
   {
-    if (b_reOrderLoads)
+    if (Shared::b_reOrderLoads)
     {
       uint8_t i{ NO_OF_DUMPLOADS - 1 };
       const auto temp{ loadPrioritiesAndState[i] };
@@ -346,30 +347,30 @@ void updatePhysicalLoadStates()
       } while (i);
       loadPrioritiesAndState[0] = temp;
 
-      b_reOrderLoads = false;
+      Shared::b_reOrderLoads = false;
     }
 
     if constexpr (!DUAL_TARIFF)
     {
       if (0x00 == (loadPrioritiesAndState[0] & loadStateOnBit))
       {
-        EDD_isIdle = true;
+        Shared::EDD_isIdle = true;
       }
       else
       {
-        EDD_isIdle = false;
-        absenceOfDivertedEnergyCount = 0;
+        Shared::EDD_isIdle = false;
+        Shared::absenceOfDivertedEnergyCountInSeconds = 0;
       }
     }
   }
 
-  const bool bDiversionOff{ b_diversionOff };
+  const bool bDiversionEnabled{ Shared::b_diversionEnabled };
   uint8_t idx{ NO_OF_DUMPLOADS };
   do
   {
     --idx;
     const auto iLoad{ loadPrioritiesAndState[idx] & loadStateMask };
-    physicalLoadState[iLoad] = !bDiversionOff && (b_overrideLoadOn[iLoad] || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
+    physicalLoadState[iLoad] = bDiversionEnabled && (Shared::b_overrideLoadOn[iLoad] || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   } while (idx);
 }
 
@@ -823,7 +824,7 @@ void processLatestContribution(const uint8_t phase)
   if (0 == phase)
   {
     f_energyInBucket_main -= REQUIRED_EXPORT_IN_WATTS;  // energy scale is Joules x 50
-    b_newMainsCycle = true;                             //  a 50 Hz 'tick' for use by the main code
+    Shared::b_newMainsCycle = true;                             //  a 50 Hz 'tick' for use by the main code
   }
   // Applying max and min limits to the main accumulator's level
   // is deferred until after the energy related decisions have been taken
@@ -857,10 +858,10 @@ void processDataLogging()
   do
   {
     --phase;
-    copyOf_sumP_atSupplyPoint[phase] = l_sumP_atSupplyPoint[phase];
+    Shared::copyOf_sumP_atSupplyPoint[phase] = l_sumP_atSupplyPoint[phase];
     l_sumP_atSupplyPoint[phase] = 0;
 
-    copyOf_sum_Vsquared[phase] = l_sum_Vsquared[phase];
+    Shared::copyOf_sum_Vsquared[phase] = l_sum_Vsquared[phase];
     l_sum_Vsquared[phase] = 0;
   } while (phase);
 
@@ -868,20 +869,20 @@ void processDataLogging()
   do
   {
     --i;
-    copyOf_countLoadON[i] = countLoadON[i];
+    Shared::copyOf_countLoadON[i] = countLoadON[i];
     countLoadON[i] = 0;
   } while (i);
 
-  copyOf_sampleSetsDuringThisDatalogPeriod = i_sampleSetsDuringThisDatalogPeriod;  // (for diags only)
-  copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle;  // (for diags only)
-  copyOf_energyInBucket_main = f_energyInBucket_main;                              // (for diags only)
+  Shared::copyOf_sampleSetsDuringThisDatalogPeriod = i_sampleSetsDuringThisDatalogPeriod;  // (for diags only)
+  Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle;  // (for diags only)
+  Shared::copyOf_energyInBucket_main = f_energyInBucket_main;                              // (for diags only)
 
   n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
   i_sampleSetsDuringThisDatalogPeriod = 0;
 
   // signal the main processor that logging data are available
   // we skip the period from start to running stable
-  b_datalogEventPending = beyondStartUpPeriod;
+  Shared::b_datalogEventPending = beyondStartUpPeriod;
 }
 
 /**

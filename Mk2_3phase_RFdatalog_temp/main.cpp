@@ -32,6 +32,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 
 #include "calibration.h"
 #include "processing.h"
+#include "shared_var.h"
 #include "types.h"
 #include "utils.h"
 #include "utils_relay.h"
@@ -76,7 +77,7 @@ bool forceFullPower()
     previousState = pinState;
 #endif
 
-    for (auto &bOverrideLoad : b_overrideLoadOn)
+    for (auto &bOverrideLoad : Shared::b_overrideLoadOn)
     {
       bOverrideLoad = !pinState;
     }
@@ -119,7 +120,7 @@ void checkDiversionOnOff()
     previousState = pinState;
 #endif
 
-    b_diversionOff = !pinState;
+    Shared::b_diversionEnabled = pinState;
   }
 }
 
@@ -138,13 +139,13 @@ void checkDiversionOnOff()
  */
 void proceedRotation()
 {
-  b_reOrderLoads = true;
+  Shared::b_reOrderLoads = true;
 
   // waits till the priorities have been rotated from inside the ISR
   do
   {
     delay(10);
-  } while (b_reOrderLoads);
+  } while (Shared::b_reOrderLoads);
 
   // prints the (new) load priorities
   logLoadPriorities();
@@ -195,11 +196,11 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t &currentTemperat
       // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
       if (!pinOffPeakState && !pinNewState && (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
       {
-        b_overrideLoadOn[i] = !pinState || (currentTemperature_x100 <= iTemperatureThreshold_x100);
+        Shared::b_overrideLoadOn[i] = !pinState || (currentTemperature_x100 <= iTemperatureThreshold_x100);
       }
       else
       {
-        b_overrideLoadOn[i] = !pinState;
+        Shared::b_overrideLoadOn[i] = !pinState;
       }
     }
   }
@@ -254,11 +255,11 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t &currentTemperature_x100)
   }
   else if constexpr (PRIORITY_ROTATION == RotationModes::AUTO)
   {
-    if (ROTATION_AFTER_SECONDS < absenceOfDivertedEnergyCount)
+    if (ROTATION_AFTER_SECONDS < Shared::absenceOfDivertedEnergyCountInSeconds)
     {
       proceedRotation();
 
-      absenceOfDivertedEnergyCount = 0;
+      Shared::absenceOfDivertedEnergyCountInSeconds = 0;
     }
   }
 
@@ -266,7 +267,7 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t &currentTemperature_x100)
   {
     const auto pinState{ getPinState(forcePin) };
 
-    for (auto &bOverrideLoad : b_overrideLoadOn)
+    for (auto &bOverrideLoad : Shared::b_overrideLoadOn)
     {
       bOverrideLoad = !pinState;
     }
@@ -335,18 +336,18 @@ void updatePowerAndVoltageData()
   tx_data.power = 0;
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
   {
-    tx_data.power_L[phase] = copyOf_sumP_atSupplyPoint[phase] / copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
+    tx_data.power_L[phase] = Shared::copyOf_sumP_atSupplyPoint[phase] / Shared::copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
     tx_data.power_L[phase] *= -1;
 
     tx_data.power += tx_data.power_L[phase];
 
     if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
     {
-      tx_data.Vrms_L_x100[phase] = static_cast< uint32_t >((100U << 2) * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      tx_data.Vrms_L_x100[phase] = static_cast< uint32_t >((100U << 2) * f_voltageCal[phase] * sqrt(Shared::copyOf_sum_Vsquared[phase] / Shared::copyOf_sampleSetsDuringThisDatalogPeriod));
     }
     else
     {
-      tx_data.Vrms_L_x100[phase] = static_cast< uint32_t >(100U * f_voltageCal[phase] * sqrt(copyOf_sum_Vsquared[phase] / copyOf_sampleSetsDuringThisDatalogPeriod));
+      tx_data.Vrms_L_x100[phase] = static_cast< uint32_t >(100U * f_voltageCal[phase] * sqrt(Shared::copyOf_sum_Vsquared[phase] / Shared::copyOf_sampleSetsDuringThisDatalogPeriod));
     }
   }
 }
@@ -406,9 +407,9 @@ void processTemperatureData()
  */
 void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
 {
-  if (EDD_isIdle)
+  if (Shared::EDD_isIdle)
   {
-    ++absenceOfDivertedEnergyCount;
+    ++Shared::absenceOfDivertedEnergyCountInSeconds;
   }
 
   if constexpr (WATCHDOG_PIN_PRESENT)
@@ -451,9 +452,9 @@ void loop()
   static bool bOffPeak{ false };
   static int16_t iTemperature_x100{ 0 };
 
-  if (b_newMainsCycle)  // flag is set after every pair of ADC conversions
+  if (Shared::b_newMainsCycle)  // flag is set after every pair of ADC conversions
   {
-    b_newMainsCycle = false;  // reset the flag
+    Shared::b_newMainsCycle = false;  // reset the flag
     ++perSecondTimer;
 
     if (perSecondTimer >= SUPPLY_FREQUENCY)
@@ -463,9 +464,9 @@ void loop()
     }
   }
 
-  if (b_datalogEventPending)
+  if (Shared::b_datalogEventPending)
   {
-    b_datalogEventPending = false;
+    Shared::b_datalogEventPending = false;
 
     updatePowerAndVoltageData();
 

@@ -21,6 +21,7 @@
 #include "constants.h"
 #include "dualtariff.h"
 #include "processing.h"
+#include "shared_var.h"
 #include "teleinfo.h"
 
 #include "utils_rf.h"
@@ -270,7 +271,7 @@ inline void printForSerialText()
 {
   uint8_t phase{ 0 };
 
-  Serial.print(copyOf_energyInBucket_main * invSUPPLY_FREQUENCY);
+  Serial.print(Shared::copyOf_energyInBucket_main * invSUPPLY_FREQUENCY);
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
 
@@ -313,14 +314,14 @@ inline void printForSerialText()
   }
 
   Serial.print(F(", (minSampleSets/MC "));
-  Serial.print(copyOf_lowestNoOfSampleSetsPerMainsCycle);
+  Serial.print(Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle);
   Serial.print(F(", #ofSampleSets "));
-  Serial.print(copyOf_sampleSetsDuringThisDatalogPeriod);
+  Serial.print(Shared::copyOf_sampleSetsDuringThisDatalogPeriod);
 #ifndef DUAL_TARIFF
   if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
   {
     Serial.print(F(", NoED "));
-    Serial.print(absenceOfDivertedEnergyCount);
+    Serial.print(Shared::absenceOfDivertedEnergyCountInSeconds);
   }
 #endif  // DUAL_TARIFF
   Serial.println(F(")"));
@@ -378,7 +379,7 @@ void sendTelemetryData()
   idx = 0;
   do
   {
-    teleInfo.send("L", copyOf_countLoadON[idx] * 100 * invDATALOG_PERIOD_IN_MAINS_CYCLES, idx + 1);  // Send load ON count for each load
+    teleInfo.send("D", Shared::copyOf_countLoadON[idx] * 100 * invDATALOG_PERIOD_IN_MAINS_CYCLES, idx + 1);  // Send load ON count for each load
   } while (++idx < NO_OF_DUMPLOADS);
 
   if constexpr (TEMP_SENSOR_PRESENT)
@@ -394,10 +395,10 @@ void sendTelemetryData()
     }
   }
 
-  teleInfo.send("N", static_cast< int16_t >(absenceOfDivertedEnergyCount));  // Send absence of diverted energy count for 50Hz
+  teleInfo.send("N", static_cast< int16_t >(Shared::absenceOfDivertedEnergyCountInSeconds));  // Send absence of diverted energy count for 50Hz
 
-  teleInfo.send("S", copyOf_sampleSetsDuringThisDatalogPeriod);
-  teleInfo.send("S_MC", copyOf_lowestNoOfSampleSetsPerMainsCycle);
+  teleInfo.send("S", Shared::copyOf_sampleSetsDuringThisDatalogPeriod);
+  teleInfo.send("S_MC", Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle);
 
   teleInfo.endFrame();  // Finalize and send the telemetry frame
 }
