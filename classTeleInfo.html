@@ -101,31 +101,39 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a37b1447161869bf3ecc2faed134b7eee" id="r_a37b1447161869bf3ecc2faed134b7eee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37b1447161869bf3ecc2faed134b7eee">endFrame</a> ()</td></tr>
-<tr class="memdesc:a37b1447161869bf3ecc2faed134b7eee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalizes the frame by adding the end character and sending the buffer over Serial.  <br /></td></tr>
-<tr class="separator:a37b1447161869bf3ecc2faed134b7eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f418a8ad0164f7b10956c9186cdb345" id="r_a4f418a8ad0164f7b10956c9186cdb345"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f418a8ad0164f7b10956c9186cdb345">send</a> (const char *tag, int16_t value, uint8_t index=0)</td></tr>
+<tr class="memitem:a325bd0eb8b64d08322771887018ae87b" id="r_a325bd0eb8b64d08322771887018ae87b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a325bd0eb8b64d08322771887018ae87b">__attribute__</a> ((always_inline)) void endFrame()</td></tr>
+<tr class="memdesc:a325bd0eb8b64d08322771887018ae87b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalizes the frame by adding the end character and sending the buffer over Serial.  <br /></td></tr>
+<tr class="separator:a325bd0eb8b64d08322771887018ae87b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89efb490be059858bf58cfbb2f80bdd2" id="r_a89efb490be059858bf58cfbb2f80bdd2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89efb490be059858bf58cfbb2f80bdd2">__attribute__</a> ((always_inline)) void startFrame()</td></tr>
+<tr class="memdesc:a89efb490be059858bf58cfbb2f80bdd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new frame by resetting the buffer and adding the start character.  <br /></td></tr>
+<tr class="separator:a89efb490be059858bf58cfbb2f80bdd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f418a8ad0164f7b10956c9186cdb345" id="r_a4f418a8ad0164f7b10956c9186cdb345"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f418a8ad0164f7b10956c9186cdb345">send</a> (const char *tag, int16_t value, uint8_t <a class="el" href="#a058beaf679f9391e36e9135d06cbadcc">index</a>=0)</td></tr>
 <tr class="memdesc:a4f418a8ad0164f7b10956c9186cdb345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a telemetry value as an integer.  <br /></td></tr>
 <tr class="separator:a4f418a8ad0164f7b10956c9186cdb345"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3c9628b79d8f92c3d80dfdda4078e66" id="r_ac3c9628b79d8f92c3d80dfdda4078e66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3c9628b79d8f92c3d80dfdda4078e66">startFrame</a> ()</td></tr>
-<tr class="memdesc:ac3c9628b79d8f92c3d80dfdda4078e66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new frame by resetting the buffer and adding the start character.  <br /></td></tr>
-<tr class="separator:ac3c9628b79d8f92c3d80dfdda4078e66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a1f42b9e6aa9c3169b3ec469149e693a1" id="r_a1f42b9e6aa9c3169b3ec469149e693a1"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f42b9e6aa9c3169b3ec469149e693a1">calculateChecksum</a> (uint8_t startPos, uint8_t endPos) const</td></tr>
-<tr class="memdesc:a1f42b9e6aa9c3169b3ec469149e693a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the checksum for a portion of the buffer.  <br /></td></tr>
-<tr class="separator:a1f42b9e6aa9c3169b3ec469149e693a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3553828cf429c6a22eec47c1b4e0458" id="r_aa3553828cf429c6a22eec47c1b4e0458"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3553828cf429c6a22eec47c1b4e0458">writeTag</a> (const char *tag, uint8_t index)</td></tr>
-<tr class="memdesc:aa3553828cf429c6a22eec47c1b4e0458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a tag to the buffer.  <br /></td></tr>
-<tr class="separator:aa3553828cf429c6a22eec47c1b4e0458"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ee81610c2c6cfda2537716cb2f610d6" id="r_a7ee81610c2c6cfda2537716cb2f610d6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ee81610c2c6cfda2537716cb2f610d6">__attribute__</a> ((always_inline)) void writeTag(const char *tag</td></tr>
+<tr class="memdesc:a7ee81610c2c6cfda2537716cb2f610d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a tag to the buffer.  <br /></td></tr>
+<tr class="separator:a7ee81610c2c6cfda2537716cb2f610d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5db3eab02a4cc17cc5dc12bc081e3d58" id="r_a5db3eab02a4cc17cc5dc12bc081e3d58"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5db3eab02a4cc17cc5dc12bc081e3d58">calculateChecksum</a> (size_t startPos, size_t endPos) const</td></tr>
+<tr class="memdesc:a5db3eab02a4cc17cc5dc12bc081e3d58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the checksum for a portion of the buffer.  <br /></td></tr>
+<tr class="separator:a5db3eab02a4cc17cc5dc12bc081e3d58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadf7df151538d68d5d02d6d70401d1c8" id="r_aadf7df151538d68d5d02d6d70401d1c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aadf7df151538d68d5d02d6d70401d1c8">if</a> (<a class="el" href="#a058beaf679f9391e36e9135d06cbadcc">index</a> !=0)</td></tr>
+<tr class="separator:aadf7df151538d68d5d02d6d70401d1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a2a567f1572c3ba295b6f4eb18791083c" id="r_a2a567f1572c3ba295b6f4eb18791083c"><td class="memItemLeft" align="right" valign="top">while ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a567f1572c3ba295b6f4eb18791083c">buffer</a> [<a class="el" href="#a5f170f38af512a75cd3fd08146465d9f">bufferPos</a>++] = *ptr++</td></tr>
+<tr class="separator:a2a567f1572c3ba295b6f4eb18791083c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15656be8c67cfde0bb672e80fc85fbd1" id="r_a15656be8c67cfde0bb672e80fc85fbd1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a15656be8c67cfde0bb672e80fc85fbd1">buffer</a> [<a class="el" href="#a5f170f38af512a75cd3fd08146465d9f">bufferPos</a>++] = <a class="el" href="#a2c8ee1a70a66831c451104fde3e76301">TAB</a></td></tr>
+<tr class="separator:a15656be8c67cfde0bb672e80fc85fbd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78162488f195d2bcaeab241c03e35f21" id="r_a78162488f195d2bcaeab241c03e35f21"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78162488f195d2bcaeab241c03e35f21">buffer</a> [<a class="el" href="group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c">calcBufferSize</a>()] {}</td></tr>
 <tr class="separator:a78162488f195d2bcaeab241c03e35f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a0247ece933354556a11d540fbd6d43" id="r_a2a0247ece933354556a11d540fbd6d43"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a0247ece933354556a11d540fbd6d43">bufferPos</a> { 0 }</td></tr>
-<tr class="separator:a2a0247ece933354556a11d540fbd6d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f170f38af512a75cd3fd08146465d9f" id="r_a5f170f38af512a75cd3fd08146465d9f"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f170f38af512a75cd3fd08146465d9f">bufferPos</a> { 0 }</td></tr>
+<tr class="separator:a5f170f38af512a75cd3fd08146465d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a058beaf679f9391e36e9135d06cbadcc" id="r_a058beaf679f9391e36e9135d06cbadcc"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a058beaf679f9391e36e9135d06cbadcc">index</a></td></tr>
+<tr class="separator:a058beaf679f9391e36e9135d06cbadcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -147,13 +155,105 @@ Static Private Attributes</h2></td></tr>
 <li><b>Frame Structure</b>: Each frame starts with a Start-of-Text (STX) character and ends with an End-of-Text (ETX) character. Data points are added as lines, each containing a tag, value, and checksum.</li>
 <li><b>Checksum Calculation</b>: A checksum is calculated for each line to ensure data integrity.</li>
 <li><b>Conditional Features</b>: The class supports optional features such as relay diversion and temperature sensing, which are included or excluded at compile time based on configuration constants.</li>
-<li><b>Buffer Management</b>: A buffer is used to store the frame data before sending it over the Serial interface. </li>
+<li><b>Buffer Management</b>: A buffer is used to store the frame data before sending it over the Serial interface.</li>
+<li><b>Serial Configuration</b>: Uses Serial with 9600 baud, 7 data bits, 1 stop bit, and even parity. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00142">142</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00154">154</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1f42b9e6aa9c3169b3ec469149e693a1" name="a1f42b9e6aa9c3169b3ec469149e693a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f42b9e6aa9c3169b3ec469149e693a1">&#9670;&#160;</a></span>calculateChecksum()</h2>
+<a id="a325bd0eb8b64d08322771887018ae87b" name="a325bd0eb8b64d08322771887018ae87b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a325bd0eb8b64d08322771887018ae87b">&#9670;&#160;</a></span>__attribute__() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TeleInfo::__attribute__ </td>
+          <td>(</td>
+          <td class="paramtype">(always_inline)</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finalizes the frame by adding the end character and sending the buffer over Serial. </p>
+
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00249">249</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+
+</div>
+</div>
+<a id="a89efb490be059858bf58cfbb2f80bdd2" name="a89efb490be059858bf58cfbb2f80bdd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89efb490be059858bf58cfbb2f80bdd2">&#9670;&#160;</a></span>__attribute__() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TeleInfo::__attribute__ </td>
+          <td>(</td>
+          <td class="paramtype">(always_inline)</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes a new frame by resetting the buffer and adding the start character. </p>
+
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00218">218</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+
+</div>
+</div>
+<a id="a7ee81610c2c6cfda2537716cb2f610d6" name="a7ee81610c2c6cfda2537716cb2f610d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ee81610c2c6cfda2537716cb2f610d6">&#9670;&#160;</a></span>__attribute__() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TeleInfo::__attribute__ </td>
+          <td>(</td>
+          <td class="paramtype">(always_inline)</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes a tag to the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>The tag to write. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5db3eab02a4cc17cc5dc12bc081e3d58" name="a5db3eab02a4cc17cc5dc12bc081e3d58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5db3eab02a4cc17cc5dc12bc081e3d58">&#9670;&#160;</a></span>calculateChecksum()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,12 +264,12 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">uint8_t TeleInfo::calculateChecksum </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>startPos</em></span>, </td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>startPos</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>endPos</em></span>&#160;) const</td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>endPos</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -189,12 +289,12 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The calculated checksum as a single byte. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00160">160</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00172">172</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classTeleInfo_a1f42b9e6aa9c3169b3ec469149e693a1_icgraph.png" border="0" usemap="#aclassTeleInfo_a1f42b9e6aa9c3169b3ec469149e693a1_icgraph" alt=""/></div>
-<map name="aclassTeleInfo_a1f42b9e6aa9c3169b3ec469149e693a1_icgraph" id="aclassTeleInfo_a1f42b9e6aa9c3169b3ec469149e693a1_icgraph">
+<div class="center"><img src="classTeleInfo_a5db3eab02a4cc17cc5dc12bc081e3d58_icgraph.png" border="0" usemap="#aclassTeleInfo_a5db3eab02a4cc17cc5dc12bc081e3d58_icgraph" alt=""/></div>
+<map name="aclassTeleInfo_a5db3eab02a4cc17cc5dc12bc081e3d58_icgraph" id="aclassTeleInfo_a5db3eab02a4cc17cc5dc12bc081e3d58_icgraph">
 <area shape="rect" title="Calculates the checksum for a portion of the buffer." alt="" coords="611,5,819,31"/>
 <area shape="rect" href="classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="451,5,563,31"/>
 <area shape="poly" title=" " alt="" coords="596,21,563,21,563,15,596,15"/>
@@ -209,8 +309,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a37b1447161869bf3ecc2faed134b7eee" name="a37b1447161869bf3ecc2faed134b7eee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37b1447161869bf3ecc2faed134b7eee">&#9670;&#160;</a></span>endFrame()</h2>
+<a id="aadf7df151538d68d5d02d6d70401d1c8" name="aadf7df151538d68d5d02d6d70401d1c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadf7df151538d68d5d02d6d70401d1c8">&#9670;&#160;</a></span>if()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,36 +319,20 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void TeleInfo::endFrame </td>
+          <td class="memname">TeleInfo::if </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#a058beaf679f9391e36e9135d06cbadcc">index</a> !</td>          <td class="paramname"><span class="paramname"><em></em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel private">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Finalizes the frame by adding the end character and sending the buffer over Serial. </p>
-
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00227">227</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classTeleInfo_a37b1447161869bf3ecc2faed134b7eee_icgraph.png" border="0" usemap="#aclassTeleInfo_a37b1447161869bf3ecc2faed134b7eee_icgraph" alt=""/></div>
-<map name="aclassTeleInfo_a37b1447161869bf3ecc2faed134b7eee_icgraph" id="aclassTeleInfo_a37b1447161869bf3ecc2faed134b7eee_icgraph">
-<area shape="rect" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="451,5,597,31"/>
-<area shape="rect" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="253,5,403,31"/>
-<area shape="poly" title=" " alt="" coords="437,21,403,21,403,15,437,15"/>
-<area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="104,5,205,31"/>
-<area shape="poly" title=" " alt="" coords="240,21,206,21,206,15,240,15"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
-<area shape="poly" title=" " alt="" coords="90,21,56,21,56,15,90,15"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00206">206</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -293,17 +377,15 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00207">207</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00229">229</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classTeleInfo_a4f418a8ad0164f7b10956c9186cdb345_cgraph.png" border="0" usemap="#aclassTeleInfo_a4f418a8ad0164f7b10956c9186cdb345_cgraph" alt=""/></div>
 <map name="aclassTeleInfo_a4f418a8ad0164f7b10956c9186cdb345_cgraph" id="aclassTeleInfo_a4f418a8ad0164f7b10956c9186cdb345_cgraph">
-<area shape="rect" title="Sends a telemetry value as an integer." alt="" coords="5,31,117,56"/>
-<area shape="rect" href="classTeleInfo.html#a1f42b9e6aa9c3169b3ec469149e693a1" title="Calculates the checksum for a portion of the buffer." alt="" coords="165,5,373,31"/>
-<area shape="poly" title=" " alt="" coords="117,34,151,30,152,35,118,39"/>
-<area shape="rect" href="classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="201,55,337,80"/>
-<area shape="poly" title=" " alt="" coords="118,47,188,55,187,61,117,52"/>
+<area shape="rect" title="Sends a telemetry value as an integer." alt="" coords="5,5,117,31"/>
+<area shape="rect" href="classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="165,5,373,31"/>
+<area shape="poly" title=" " alt="" coords="118,15,152,15,152,21,118,21"/>
 </map>
 </div>
 <div class="dynheader">
@@ -323,107 +405,57 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ac3c9628b79d8f92c3d80dfdda4078e66" name="ac3c9628b79d8f92c3d80dfdda4078e66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3c9628b79d8f92c3d80dfdda4078e66">&#9670;&#160;</a></span>startFrame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TeleInfo::startFrame </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Initializes a new frame by resetting the buffer and adding the start character. </p>
-
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00196">196</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classTeleInfo_ac3c9628b79d8f92c3d80dfdda4078e66_icgraph.png" border="0" usemap="#aclassTeleInfo_ac3c9628b79d8f92c3d80dfdda4078e66_icgraph" alt=""/></div>
-<map name="aclassTeleInfo_ac3c9628b79d8f92c3d80dfdda4078e66_icgraph" id="aclassTeleInfo_ac3c9628b79d8f92c3d80dfdda4078e66_icgraph">
-<area shape="rect" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="451,5,603,31"/>
-<area shape="rect" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="253,5,403,31"/>
-<area shape="poly" title=" " alt="" coords="436,21,403,21,403,15,436,15"/>
-<area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="104,5,205,31"/>
-<area shape="poly" title=" " alt="" coords="240,21,206,21,206,15,240,15"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
-<area shape="poly" title=" " alt="" coords="90,21,56,21,56,15,90,15"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aa3553828cf429c6a22eec47c1b4e0458" name="aa3553828cf429c6a22eec47c1b4e0458"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3553828cf429c6a22eec47c1b4e0458">&#9670;&#160;</a></span>writeTag()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TeleInfo::writeTag </td>
-          <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>tag</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Writes a tag to the buffer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>The tag to write. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00178">178</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classTeleInfo_aa3553828cf429c6a22eec47c1b4e0458_icgraph.png" border="0" usemap="#aclassTeleInfo_aa3553828cf429c6a22eec47c1b4e0458_icgraph" alt=""/></div>
-<map name="aclassTeleInfo_aa3553828cf429c6a22eec47c1b4e0458_icgraph" id="aclassTeleInfo_aa3553828cf429c6a22eec47c1b4e0458_icgraph">
-<area shape="rect" title="Writes a tag to the buffer." alt="" coords="611,5,747,31"/>
-<area shape="rect" href="classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="451,5,563,31"/>
-<area shape="poly" title=" " alt="" coords="597,21,563,21,563,15,597,15"/>
-<area shape="rect" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="253,5,403,31"/>
-<area shape="poly" title=" " alt="" coords="437,21,403,21,403,15,437,15"/>
-<area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="104,5,205,31"/>
-<area shape="poly" title=" " alt="" coords="240,21,206,21,206,15,240,15"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
-<area shape="poly" title=" " alt="" coords="90,21,56,21,56,15,90,15"/>
-</map>
-</div>
-
-</div>
-</div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a2a567f1572c3ba295b6f4eb18791083c" name="a2a567f1572c3ba295b6f4eb18791083c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a567f1572c3ba295b6f4eb18791083c">&#9670;&#160;</a></span>buffer <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">while ptr TeleInfo::buffer[<a class="el" href="#a5f170f38af512a75cd3fd08146465d9f">bufferPos</a>++] = *ptr++</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00203">203</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+
+</div>
+</div>
+<a id="a15656be8c67cfde0bb672e80fc85fbd1" name="a15656be8c67cfde0bb672e80fc85fbd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15656be8c67cfde0bb672e80fc85fbd1">&#9670;&#160;</a></span>buffer <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TeleInfo::buffer[<a class="el" href="#a5f170f38af512a75cd3fd08146465d9f">bufferPos</a>++] = <a class="el" href="#a2c8ee1a70a66831c451104fde3e76301">TAB</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00211">211</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+
+</div>
+</div>
 <a id="a78162488f195d2bcaeab241c03e35f21" name="a78162488f195d2bcaeab241c03e35f21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78162488f195d2bcaeab241c03e35f21">&#9670;&#160;</a></span>buffer</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a78162488f195d2bcaeab241c03e35f21">&#9670;&#160;</a></span>buffer <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -443,12 +475,12 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Buffer to store the frame data. Adjust size as needed. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00151">151</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00163">163</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
-<a id="a2a0247ece933354556a11d540fbd6d43" name="a2a0247ece933354556a11d540fbd6d43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a0247ece933354556a11d540fbd6d43">&#9670;&#160;</a></span>bufferPos</h2>
+<a id="a5f170f38af512a75cd3fd08146465d9f" name="a5f170f38af512a75cd3fd08146465d9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f170f38af512a75cd3fd08146465d9f">&#9670;&#160;</a></span>bufferPos</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -457,7 +489,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t TeleInfo::bufferPos { 0 }</td>
+          <td class="memname">size_t TeleInfo::bufferPos { 0 }</td>
         </tr>
       </table>
   </td>
@@ -468,7 +500,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Current position in the buffer. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00152">152</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00164">164</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -493,7 +525,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Carriage Return character. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00148">148</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00160">160</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -518,7 +550,33 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>End of Frame character. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00146">146</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00158">158</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+
+</div>
+</div>
+<a id="a058beaf679f9391e36e9135d06cbadcc" name="a058beaf679f9391e36e9135d06cbadcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a058beaf679f9391e36e9135d06cbadcc">&#9670;&#160;</a></span>index</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t TeleInfo::index</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">    <span class="keyword">auto</span>* ptr{ tag }</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00200">200</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -543,7 +601,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Line Feed character. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00147">147</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00159">159</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -568,7 +626,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Start of Frame character. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00145">145</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00157">157</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>
@@ -593,7 +651,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Tab character. </p>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00149">149</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00161">161</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 
 </div>
 </div>

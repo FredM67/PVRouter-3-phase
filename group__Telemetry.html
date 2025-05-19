@@ -144,34 +144,36 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Calculates the total buffer size required for the telemetry frame. </p>
-<p>This function computes the size of the buffer needed to store the entire telemetry frame, including all tags, values, and formatting characters. The calculation takes into account the presence of optional features such as relay diversion and temperature sensing.</p>
+<p>This function computes the size of the buffer needed to store the entire telemetry frame, including all tags, values, and formatting characters. The calculation takes into account the presence of optional features and system configuration.</p>
 <dl class="section return"><dt>Returns</dt><dd>The total buffer size as a compile-time constant.</dd></dl>
 <p>The buffer size is calculated as follows:</p><ul>
 <li>1 byte for the start-of-text (STX) character.</li>
-<li>1 line for the "P" tag (signed 6 digits).</li>
-<li>For multi-phase systems (<code>NO_OF_PHASES &gt; 1</code>):<ul>
-<li><code>NO_OF_PHASES</code> lines for the "R" tag (signed 6 digits each).</li>
-<li><code>NO_OF_PHASES</code> lines for the "V1" tag (unsigned 5 digits each).</li>
+<li>1 line for the "P" tag (signed 6 digits) - power measurement.</li>
 </ul>
-</li>
-<li>For single-phase systems:<ul>
-<li>1 line for the "D" tag (unsigned 4 digits).</li>
-<li>1 line for the "E" tag (unsigned 5 digits).</li>
+<p>For multi-phase systems (<code>NO_OF_PHASES &gt; 1</code>):</p><ul>
+<li><code>NO_OF_PHASES</code> lines for the "V1" to "Vn" tags (unsigned 5 digits each) - voltage measurements.</li>
+<li><code>NO_OF_DUMPLOADS</code> lines for the "D1" to "Dn" tags (unsigned 3 digits each) - diversion rates.</li>
 </ul>
-</li>
-<li>If relay diversion is enabled (<code>RELAY_DIVERSION</code>):<ul>
-<li>1 line for the "R" tag (signed 6 digits).</li>
+<p>For single-phase systems:</p><ul>
+<li>1 line for the "V" tag (unsigned 5 digits) - voltage measurement.</li>
+<li>1 line for the "D" tag (unsigned 4 digits) - diverted power.</li>
+<li>1 line for the "E" tag (unsigned 5 digits) - diverted energy.</li>
 </ul>
-</li>
-<li>If temperature sensors are present (<code>TEMP_SENSOR_PRESENT</code>):<ul>
-<li><code>temperatureSensing.get_size()</code> lines for temperature tags ("T1" to "Tn", 4 digits each).</li>
+<p>If relay diversion is enabled (<code>RELAY_DIVERSION</code>):</p><ul>
+<li>1 line for the "R" tag (signed 6 digits) - mean power for relay diversion.</li>
+<li><code>relays.get_size()</code> lines for the "R1" to "Rn" tags (1 digit each) - relay states.</li>
 </ul>
-</li>
-<li>1 line for the "N" tag (unsigned 5 digits).</li>
+<p>If temperature sensors are present (<code>TEMP_SENSOR_PRESENT</code>):</p><ul>
+<li><code>temperatureSensing.get_size()</code> lines for the "T1" to "Tn" tags (4 digits each) - temperature readings.</li>
+</ul>
+<p>Common for all configurations:</p><ul>
+<li>1 line for the "N" tag (unsigned 5 digits) - absence of diverted energy count.</li>
+<li>1 line for the "S_MC" tag (unsigned 2 digits) - sample sets per mains cycle.</li>
+<li>1 line for the "S" tag (unsigned 5 digits) - sample count.</li>
 <li>1 byte for the end-of-text (ETX) character. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00081">81</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="teleinfo_8h_source.html#l00091">91</a> of file <a class="el" href="teleinfo_8h_source.html">teleinfo.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -285,7 +287,7 @@ Here is the caller graph for this function:</div>
 <li>Includes tariff information if dual tariff is enabled. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00195">195</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00196">196</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -332,7 +334,7 @@ Here is the caller graph for this function:</div>
 <li>Outputs additional system metrics like the number of sample sets and absence of diverted energy count. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00269">269</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00270">270</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

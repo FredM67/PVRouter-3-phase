@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['linesize_0',['lineSize',['../group__Telemetry.html#gaa9a3eeacd11602f3385056e620652bb7',1,'teleinfo.h']]],
-  ['logloadpriorities_1',['logLoadPriorities',['../group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1',1,'utils.h']]],
-  ['loop_2',['loop',['../group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;main.cpp'],['../embedded_2test__fastdivision_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp']]]
+  ['main_0',['main',['../native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'test_main.cpp']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['edd_5fisidle_0',['EDD_isIdle',['../processing_8h.html#ab7440586f7eaa4fc369f0def8b523ea0',1,'processing.h']]],
+  ['edd_5fisidle_0',['EDD_isIdle',['../namespaceShared.html#a22b78da6f9a6cfa024b0b6ff5c102b17',1,'Shared']]],
   ['ema_1',['ema',['../classEWMA__average.html#a65fb7d357a350ee9716c20219c3333fc',1,'EWMA_average']]],
   ['ema_5fema_2',['ema_ema',['../classEWMA__average.html#ae7a139fbc13ba0785cb580ba686a8363',1,'EWMA_average']]],
   ['ema_5fema_5fema_3',['ema_ema_ema',['../classEWMA__average.html#a5219d8dba50d05dffa44893de21fed9f',1,'EWMA_average']]],

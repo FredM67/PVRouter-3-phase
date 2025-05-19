@@ -22,10 +22,11 @@ var searchData=
   ['settle_5fchange_19',['settle_change',['../classRelayEngine.html#a62a753c9ea9c15e35211398fb155a971',1,'RelayEngine']]],
   ['setup_20',['setUp',['../embedded_2test__fastdivision_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp'],['../embedded_2test__utils__pins_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp'],['../embedded_2test__utils__relay_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp']]],
   ['setup_21',['setup',['../group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;main.cpp'],['../embedded_2test__fastdivision_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;test_main.cpp'],['../embedded_2test__utils__pins_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;test_main.cpp'],['../embedded_2test__utils__relay_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;test_main.cpp']]],
-  ['size_22',['size',['../types_8h.html#a694147b7171ec0b06bc8880dc100e756',1,'size(const _Tp(&amp;)[_Nm]) noexcept:&#160;types.h'],['../types_8h.html#a598e71b269336fef3370d0420348332d',1,'size(const _Tp(&amp;)[0]) noexcept:&#160;types.h']]],
-  ['startframe_23',['startFrame',['../classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66',1,'TeleInfo']]],
-  ['startupperiod_24',['startUpPeriod',['../processing_8h.html#a0d30025137b8f9bfe6d4e9c832db76b4',1,'processing.h']]],
-  ['stx_25',['STX',['../classTeleInfo.html#a526fdfd73a773da14b949e6bfac72a6e',1,'TeleInfo']]],
-  ['supply_5ffrequency_26',['SUPPLY_FREQUENCY',['../config__system_8h.html#ad62846ca1d96695a32041f6dd809401e',1,'config_system.h']]],
-  ['surplusthreshold_27',['surplusThreshold',['../classrelayOutput.html#a5149cd72bf3d2ad09b5c8cf217db3e08',1,'relayOutput']]]
+  ['shared_22',['Shared',['../namespaceShared.html',1,'']]],
+  ['shared_5fvar_2eh_23',['shared_var.h',['../shared__var_8h.html',1,'']]],
+  ['size_24',['size',['../types_8h.html#a694147b7171ec0b06bc8880dc100e756',1,'size(const _Tp(&amp;)[_Nm]) noexcept:&#160;types.h'],['../types_8h.html#a598e71b269336fef3370d0420348332d',1,'size(const _Tp(&amp;)[0]) noexcept:&#160;types.h']]],
+  ['startupperiod_25',['startUpPeriod',['../processing_8h.html#a0d30025137b8f9bfe6d4e9c832db76b4',1,'processing.h']]],
+  ['stx_26',['STX',['../classTeleInfo.html#a526fdfd73a773da14b949e6bfac72a6e',1,'TeleInfo']]],
+  ['supply_5ffrequency_27',['SUPPLY_FREQUENCY',['../config__system_8h.html#ad62846ca1d96695a32041f6dd809401e',1,'config_system.h']]],
+  ['surplusthreshold_28',['surplusThreshold',['../classrelayOutput.html#a5149cd72bf3d2ad09b5c8cf217db3e08',1,'relayOutput']]]
 ];

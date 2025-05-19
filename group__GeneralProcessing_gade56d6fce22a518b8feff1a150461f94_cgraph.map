@@ -8,14 +8,8 @@
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="107,97,163,105,162,110,106,102"/>
 <area shape="rect" id="Node000005" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="155,153,304,179"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="82,103,156,138,176,146,174,151,154,143,80,108"/>
-<area shape="rect" id="Node000006" href="$classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character and sending the buffer over Serial." alt="" coords="355,104,501,129"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="280,151,362,130,364,135,282,156"/>
-<area shape="rect" id="Node000007" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="372,153,484,179"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="304,163,358,163,358,169,304,169"/>
-<area shape="rect" id="Node000010" href="$classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="352,203,504,228"/>
-<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="282,176,364,197,362,202,280,181"/>
-<area shape="rect" id="Node000008" href="$classTeleInfo.html#a1f42b9e6aa9c3169b3ec469149e693a1" title="Calculates the checksum for a portion of the buffer." alt="" coords="552,129,760,155"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="484,157,538,152,538,157,485,163"/>
-<area shape="rect" id="Node000009" href="$classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="588,179,724,204"/>
-<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="485,170,575,180,574,185,484,175"/>
+<area shape="rect" id="Node000006" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="352,153,464,179"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="304,163,338,163,338,169,304,169"/>
+<area shape="rect" id="Node000007" href="$classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="512,153,720,179"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="464,163,498,163,498,169,464,169"/>
 </map>
