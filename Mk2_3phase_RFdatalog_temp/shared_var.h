@@ -13,7 +13,6 @@ inline volatile bool b_overrideLoadOn[NO_OF_DUMPLOADS]{}; /**< async trigger to 
 inline volatile bool b_reOrderLoads{ false };             /**< async trigger for loads re-ordering */
 inline volatile bool b_diversionEnabled{ true };          /**< async trigger to stop diversion */
 
-inline volatile bool EDD_isIdle{ true };                             /**< energy diversion detection */
 inline volatile uint16_t absenceOfDivertedEnergyCountInSeconds{ 0 }; /**< number of seconds without diverted energy */
 
 // since there's no real locking feature for shared variables, a couple of data

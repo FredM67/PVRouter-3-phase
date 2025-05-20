@@ -407,11 +407,6 @@ void processTemperatureData()
  */
 void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
 {
-  if (Shared::EDD_isIdle)
-  {
-    ++Shared::absenceOfDivertedEnergyCountInSeconds;
-  }
-
   if constexpr (WATCHDOG_PIN_PRESENT)
   {
     togglePin(watchDogPin);
