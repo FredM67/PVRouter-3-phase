@@ -35,6 +35,8 @@ constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1F };
 
 constexpr OutputModes outputMode{ OutputModes::NORMAL }; /**< Output mode to be used */
 
+bool b_diversionStarted{ false }; /**< Tracks whether diversion has started */
+
 /**
  * @brief set default threshold at compile time so the variable can be read-only
  *
@@ -82,6 +84,10 @@ Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]{}; /**< for zero-crossin
 
 LoadStates physicalLoadState[NO_OF_DUMPLOADS]{}; /**< Physical state of the loads */
 uint16_t countLoadON[NO_OF_DUMPLOADS]{};         /**< Number of cycle the load was ON (over 1 datalog period) */
+
+uint32_t absenceOfDivertedEnergyCountInMC{ 0 }; /**< number of main cycles without diverted energy */
+
+uint8_t perSecondCounter{ 0 }; /**< for counting  every second inside the ISR */
 
 bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle */
 
@@ -348,19 +354,6 @@ void updatePhysicalLoadStates()
       loadPrioritiesAndState[0] = temp;
 
       Shared::b_reOrderLoads = false;
-    }
-
-    if constexpr (!DUAL_TARIFF)
-    {
-      if (0x00 == (loadPrioritiesAndState[0] & loadStateOnBit))
-      {
-        Shared::EDD_isIdle = true;
-      }
-      else
-      {
-        Shared::EDD_isIdle = false;
-        Shared::absenceOfDivertedEnergyCountInSeconds = 0;
-      }
     }
   }
 
@@ -694,6 +687,15 @@ void processStartNewCycle()
 
   updatePortsStates();  // update the control ports for each of the physical loads
 
+  if (loadPrioritiesAndState[0] & loadStateOnBit)
+  {
+    absenceOfDivertedEnergyCountInMC = 0;
+  }
+  else
+  {
+    ++absenceOfDivertedEnergyCountInMC;
+  }
+
   // Now that the energy-related decisions have been taken, min and max limits can now
   // be applied  to the level of the energy bucket. This is to ensure correct operation
   // when conditions change, i.e. when import changes to export, and vice versa.
@@ -823,8 +825,40 @@ void processLatestContribution(const uint8_t phase)
   // apply any adjustment that is required.
   if (0 == phase)
   {
-    f_energyInBucket_main -= REQUIRED_EXPORT_IN_WATTS;  // energy scale is Joules x 50
-    Shared::b_newMainsCycle = true;                             //  a 50 Hz 'tick' for use by the main code
+    // If diversion hasn't started yet, use start threshold, otherwise use regular offset
+    if (!b_diversionStarted)
+    {
+      f_energyInBucket_main -= DIVERSION_START_THRESHOLD_WATTS;
+
+      // Check if we've exceeded the threshold to start diversion
+      if (f_energyInBucket_main > f_upperThreshold_default)
+      {
+        b_diversionStarted = true;
+        // Once started, we divert all surplus according to the configured fixed offset
+      }
+    }
+    else
+    {
+      // When diversion is already started, apply normal export offset if configured
+      // Comment or remove this if you want to divert ALL surplus once started
+      f_energyInBucket_main -= REQUIRED_EXPORT_IN_WATTS;
+    }
+
+    if (++perSecondCounter == SUPPLY_FREQUENCY)
+    {
+      perSecondCounter = 0;
+
+      if (absenceOfDivertedEnergyCountInMC > SUPPLY_FREQUENCY)
+      {
+        ++Shared::absenceOfDivertedEnergyCountInSeconds;
+        // Reset diversion state if we've had no diversion for a full second
+        b_diversionStarted = false;
+      }
+      else
+        Shared::absenceOfDivertedEnergyCountInSeconds = 0;
+    }
+
+    Shared::b_newMainsCycle = true;  //  a 50 Hz 'tick' for use by the main code
   }
   // Applying max and min limits to the main accumulator's level
   // is deferred until after the energy related decisions have been taken
