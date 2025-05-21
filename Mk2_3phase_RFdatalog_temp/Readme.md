@@ -32,6 +32,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
     - [Fonctionnalités additionnelles recommandées](#fonctionnalités-additionnelles-recommandées)
     - [Installation des sondes de température](#installation-des-sondes-de-température)
   - [Liaison avec Home Assistant](#liaison-avec-homeassistant)
+  - [Liaison avec Home Assistant](#liaison-avec-homeassistant-1)
 
 # Utilisation avec Arduino IDE
 
@@ -362,7 +363,7 @@ inline constexpr uint8_t diversionPin{ 12 };
 
 # Configuration avec la carte d’extension ESP32
 
-La carte d’extension ESP32 permet une intégration simple et fiable entre le Mk2PVRouter et un ESP32 pour le contrôle à distance via Home Assistant. Cette section détaille comment configurer correctement le Mk2PVRouter lorsque vous utilisez cette carte d’extension.
+La carte d’extension ESP32 permet une intégration simple et fiable entre le Mk2PVRouter et un ESP32 pour le contrôle à distance via Home Assistant. Cette section détaille comment configurer correctement le Mk2PVRouter lorsque vous utilisez cette carte d’extension.
 
 ## Correspondance des broches
 Lorsque vous utilisez la carte d’extension ESP32, les connexions entre le Mk2PVRouter et l’ESP32 sont prédéfinies comme suit :
@@ -403,7 +404,7 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };  // Désactivé car géré p
 ```
 
 > [!NOTE]
-> La configuration de la sortie série sur `SerialOutputType::IoT` n’est pas strictement obligatoire pour le fonctionnement du routeur. Cependant, elle est nécessaire si vous souhaitez exploiter les données du routeur dans Home Assistant (puissance instantanée, statistiques, etc.). Sans cette configuration, seules les fonctions de contrôle (marche forcée, arrêt routage) seront disponibles dans Home Assistant.
+> La configuration de la sortie série sur `SerialOutputType::IoT` n’est pas strictement obligatoire pour le fonctionnement du routeur. Cependant, elle est nécessaire si vous souhaitez exploiter les données du routeur dans Home Assistant (puissance instantanée, statistiques, etc.). Sans cette configuration, seules les fonctions de contrôle (marche forcée, arrêt routage) seront disponibles dans Home Assistant.
 
 ### Fonctionnalités additionnelles recommandées
 Pour une intégration encore plus complète, vous pouvez également ajouter ces fonctionnalités :
@@ -431,4 +432,11 @@ Une fois votre MkPVRouter configuré avec la carte d’extension ESP32, vous pou
 - Surveiller les températures en temps réel
 - Créer des scénarios d’automatisation avancés combinant les données de production solaire et les températures
 
-Pour plus de détails sur la configuration d’ESPHome et l’intégration avec Home Assistant, consultez la documentation disponible dans le dépôt ESPHome correspondant.
+## Liaison avec Home Assistant
+Une fois votre MkPVRouter configuré avec la carte d’extension ESP32, vous pourrez :
+- Contrôler à distance l’activation/désactivation du routage (idéal pendant les absences)
+- Déclencher une marche forcée à distance
+- Surveiller les températures en temps réel
+- Créer des scénarios d’automatisation avancés combinant les données de production solaire et les températures
+
+Pour plus de détails sur la configuration d’ESPHome et l’intégration avec Home Assistant, consultez la [documentation détaillée disponible dans ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Ce guide complet vous explique pas à pas comment configurer votre ESP32 avec ESPHome pour exploiter au maximum les fonctionnalités de votre PVRouter dans Home Assistant.
