@@ -32,7 +32,6 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
     - [Fonctionnalités additionnelles recommandées](#fonctionnalités-additionnelles-recommandées)
     - [Installation des sondes de température](#installation-des-sondes-de-température)
   - [Liaison avec Home Assistant](#liaison-avec-homeassistant)
-  - [Liaison avec Home Assistant](#liaison-avec-homeassistant-1)
 
 # Utilisation avec Arduino IDE
 
@@ -424,13 +423,6 @@ L'utilisation de l’ESP32 pour gérer les sondes de température présente plus
 - Visualisation des températures directement dans Home Assistant
 - Possibilité de créer des automatisations basées sur les températures
 - Configuration plus flexible des sondes sans avoir à reprogrammer le Mk2PVRouter
-
-## Liaison avec Home Assistant
-Une fois votre MkPVRouter configuré avec la carte d’extension ESP32, vous pourrez :
-- Contrôler à distance l’activation/désactivation du routage (idéal pendant les absences)
-- Déclencher une marche forcée à distance
-- Surveiller les températures en temps réel
-- Créer des scénarios d’automatisation avancés combinant les données de production solaire et les températures
 
 ## Liaison avec Home Assistant
 Une fois votre MkPVRouter configuré avec la carte d’extension ESP32, vous pourrez :
