@@ -353,7 +353,7 @@ inline void printForSerialText()
 void sendTelemetryData()
 {
   static TeleInfo teleInfo;
-  uint8_t idx = 0;
+  uint8_t idx{ 0 };
 
   teleInfo.startFrame();  // Start a new telemetry frame
 
