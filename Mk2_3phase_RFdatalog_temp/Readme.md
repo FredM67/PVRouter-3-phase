@@ -426,7 +426,7 @@ L'utilisation de l’ESP32 pour gérer les sondes de température présente plus
 - Configuration plus flexible des sondes sans avoir à reprogrammer le Mk2PVRouter
 
 ## Liaison avec Home Assistant
-Une fois votre MkPVRouter configuré avec la carte d’extension ESP32, vous pourrez :
+Une fois votre MkPVRouter configuré avec la carte d’extension ESP32, vous pourrez :
 - Contrôler à distance l’activation/désactivation du routage (idéal pendant les absences)
 - Déclencher une marche forcée à distance
 - Surveiller les températures en temps réel
@@ -447,6 +447,8 @@ Dans ce cas :
   
 Assurez-vous notamment que les numéros de pins utilisés dans chaque configuration correspondent exactement à vos connexions physiques. N’oubliez pas d’utiliser des adaptateurs de niveau logique si nécessaire entre le Mk2PVRouter (5 V) et l’ESP32 (3.3 V).
 
-Pour les sondes de température, vous pouvez les connecter directement à l’ESP32 en utilisant une broche GPIO de votre choix, que vous configurerez ensuite dans ESPHome. **N'oubliez pas d’ajouter une résistance pull-up de 4,7 kΩ entre la ligne de données (DQ) et l’alimentation +3,3 V** pour assurer le bon fonctionnement du bus 1-Wire.
+Pour les sondes de température, vous pouvez les connecter directement à l’ESP32 en utilisant une broche `GPIO` de votre choix, que vous configurerez ensuite dans ESPHome. **N'oubliez pas d’ajouter une résistance pull-up de 4,7 kΩ entre la ligne de données (DQ) et l’alimentation +3,3 V** pour assurer le bon fonctionnement du bus 1-Wire.
 
-[!NOTE] Même sans la carte d’extension, toutes les fonctionnalités d’intégration avec Home Assistant restent accessibles, à condition que votre câblage et vos configurations logicielles soient correctement réalisés.
+[!NOTE] Même sans la carte d’extension, toutes les fonctionnalités d’intégration avec Home Assistant restent accessibles, à condition que votre câblage et vos configurations logicielles soient correctement réalisés.
+
+Pour plus de détails sur la configuration d’ESPHome et l’intégration avec Home Assistant, consultez la [documentation détaillée disponible dans ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Ce guide complet vous explique pas à pas comment configurer votre ESP32 avec ESPHome pour exploiter au maximum les fonctionnalités de votre PVRouter dans Home Assistant.
