@@ -32,6 +32,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
     - [Fonctionnalités additionnelles recommandées](#fonctionnalités-additionnelles-recommandées)
     - [Installation des sondes de température](#installation-des-sondes-de-température)
   - [Liaison avec Home Assistant](#liaison-avec-homeassistant)
+- [Configuration sans carte d’extension](#configuration-sans-carte-dextension)
 
 # Utilisation avec Arduino IDE
 
@@ -432,3 +433,20 @@ Une fois votre MkPVRouter configuré avec la carte d’extension ESP32, vous pou
 - Créer des scénarios d’automatisation avancés combinant les données de production solaire et les températures
 
 Pour plus de détails sur la configuration d’ESPHome et l’intégration avec Home Assistant, consultez la [documentation détaillée disponible dans ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Ce guide complet vous explique pas à pas comment configurer votre ESP32 avec ESPHome pour exploiter au maximum les fonctionnalités de votre PVRouter dans Home Assistant.
+
+# Configuration sans carte d’extension
+
+[!IMPORTANT] Si vous ne disposez pas de la carte d’extension spécifique ni du PCB carte-mère approprié (ces deux éléments n’étant pas disponibles pour l’instant), vous pouvez toujours réaliser l’intégration par vos propres moyens.
+
+Dans ce cas :
+- Aucune connexion n’est prédéfinie entre l’ESP32 et le Mk2PVRouter
+- Vous devrez réaliser votre propre câblage selon vos besoins
+- Veillez à configurer de façon cohérente :
+  - Le programme du routeur (fichier config.h)
+  - La configuration ESPHome sur l’ESP32
+  
+Assurez-vous notamment que les numéros de pins utilisés dans chaque configuration correspondent exactement à vos connexions physiques. N’oubliez pas d’utiliser des adaptateurs de niveau logique si nécessaire entre le Mk2PVRouter (5 V) et l’ESP32 (3.3 V).
+
+Pour les sondes de température, vous pouvez les connecter directement à l’ESP32 en utilisant une broche GPIO de votre choix, que vous configurerez ensuite dans ESPHome. **N'oubliez pas d’ajouter une résistance pull-up de 4,7 kΩ entre la ligne de données (DQ) et l’alimentation +3,3 V** pour assurer le bon fonctionnement du bus 1-Wire.
+
+[!NOTE] Même sans la carte d’extension, toutes les fonctionnalités d’intégration avec Home Assistant restent accessibles, à condition que votre câblage et vos configurations logicielles soient correctement réalisés.
