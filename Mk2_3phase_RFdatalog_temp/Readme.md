@@ -356,6 +356,8 @@ inline constexpr uint8_t diversionPin{ 12 };
 
 # Configuration avancée du programme
 
+Ces paramètres se trouvent dans le fichier `config_system.h`.
+
 ## Paramètre `DIVERSION_START_THRESHOLD_WATTS`
 Le paramètre `DIVERSION_START_THRESHOLD_WATTS` définit un seuil de surplus avant tout routage vers les charges configurées sur le routeur. Elle est principalement destinée aux installations avec batteries de stockage.   
 Par défaut, cette valeur est réglée à 0 W.  
