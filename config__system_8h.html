@@ -239,6 +239,8 @@ Variables</h2></td></tr>
 <tr class="separator:a7c1cf10ab9159ed3521c644de82a8508"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1ffffd0033bb88a0611cc09daef8d20" id="r_aa1ffffd0033bb88a0611cc09daef8d20"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> { 5 }</td></tr>
 <tr class="separator:aa1ffffd0033bb88a0611cc09daef8d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4f06eff3ac0554f92ab6f977dac4ede" id="r_ae4f06eff3ac0554f92ab6f977dac4ede"><td class="memItemLeft" align="right" valign="top">constexpr int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae4f06eff3ac0554f92ab6f977dac4ede">DIVERSION_START_THRESHOLD_WATTS</a> { 0 }</td></tr>
+<tr class="separator:ae4f06eff3ac0554f92ab6f977dac4ede"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a5d5712de1dbf5858d70eece9831150" id="r_a4a5d5712de1dbf5858d70eece9831150"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a5d5712de1dbf5858d70eece9831150">invDATALOG_PERIOD_IN_MAINS_CYCLES</a> { 1.0F / <a class="el" href="#a7c1cf10ab9159ed3521c644de82a8508">DATALOG_PERIOD_IN_MAINS_CYCLES</a> }</td></tr>
 <tr class="separator:a4a5d5712de1dbf5858d70eece9831150"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67f74c9ab3b5742314d978837b857777" id="r_a67f74c9ab3b5742314d978837b857777"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a67f74c9ab3b5742314d978837b857777">invSUPPLY_FREQUENCY</a> { 1.0F / <a class="el" href="#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> }</td></tr>
@@ -282,7 +284,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>Period of datalogging in cycles </p>
 
-<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00033">33</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00034">34</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
 
 </div>
 </div>
@@ -307,7 +309,32 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>Period of datalogging in seconds </p>
 
-<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00031">31</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00032">32</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
+
+</div>
+</div>
+<a id="ae4f06eff3ac0554f92ab6f977dac4ede" name="ae4f06eff3ac0554f92ab6f977dac4ede"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4f06eff3ac0554f92ab6f977dac4ede">&#9670;&#160;</a></span>DIVERSION_START_THRESHOLD_WATTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int16_t DIVERSION_START_THRESHOLD_WATTS { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Adjust value as needed - this means 50W surplus is needed to start diversion </p>
+
+<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00024">24</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
 
 </div>
 </div>
@@ -331,7 +358,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00037">37</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00038">38</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
 
 </div>
 </div>
@@ -355,7 +382,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00036">36</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00037">37</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
 
 </div>
 </div>
@@ -430,7 +457,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>number of cycles/s of the grid power supply </p>
 
-<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00027">27</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00028">28</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
 
 </div>
 </div>
@@ -455,7 +482,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>number of joule for 1Wh </p>
 
-<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00029">29</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__system_8h_source.html#l00030">30</a> of file <a class="el" href="config__system_8h_source.html">config_system.h</a>.</p>
 
 </div>
 </div>
