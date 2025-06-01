@@ -20,7 +20,8 @@ inline constexpr uint8_t NO_OF_PHASES{ 3 }; /**< number of phases of the main su
 
 //--------------------------------------------------------------------------------------------------
 // for users with zero-export profile, this value will be negative
-inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 20 }; /**< when set to a negative value, this acts as a PV generator */
+inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ 20 };       /**< when set to a negative value, this acts as a PV generator */
+inline constexpr int16_t DIVERSION_START_THRESHOLD_WATTS{ 0 }; /**< Adjust value as needed - this means 50W surplus is needed to start diversion */
 
 //--------------------------------------------------------------------------------------------------
 // other system constants, should match most of installations
