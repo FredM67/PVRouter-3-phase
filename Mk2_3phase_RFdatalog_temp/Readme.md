@@ -489,3 +489,4 @@ Pour plus de détails sur la configuration d’ESPHome et l’intégration avec 
 # Contribuer
 Les contributions sont les bienvenues ! Veuillez soumettre des problèmes, des demandes de fonctionnalités et des pull requests via GitHub.
 
+*doc non finie*
