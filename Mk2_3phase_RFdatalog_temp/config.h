@@ -63,6 +63,20 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if te
 // - D11: Master Out Slave In (MOSI).
 // - D12: Master In Slave Out (MISO).
 // - D13: Serial Clock (SCK).
+//
+// Expansion Board:
+// Digital Input Pins (D10-D13) are wired to the expansion board and it's intended 
+// to configure them as digital inputs
+// They allow external control from Home Assistant for functions such as:
+//   * Forced operation mode
+//   * Diversion enable/disable
+//   * Priority rotation triggering
+//   * Manual load control
+//
+// D3 is wired to the expansion board too and is intended for taking control of the temperature sensor.
+//
+// Note: When using these pins for Home Assistant integration, ensure the ESP32
+// counterpart is properly configured to send the appropriate signals.
 
 inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 }; /**< load priorities and states at startup */
