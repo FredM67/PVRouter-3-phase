@@ -157,6 +157,9 @@
  * - add telemetry feature for HomeAssistant connectivity
  * - some tiny fixes
  * - even more documentation
+ * 
+ * __May 2025: changes:__
+ * - add delayed start of the diversion
  *  
  * @author Fred Metrich
  * @copyright Copyright (c) 2025
@@ -231,7 +234,7 @@
  *  @note The telemetry feature ensures that the system's performance and status can be monitored remotely.
  */
 
- /**
+/**
  * @defgroup GeneralProcessing General Processing
  * @brief Functions and routines that handle general system processing tasks.
  *
