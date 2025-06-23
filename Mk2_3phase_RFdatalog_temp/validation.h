@@ -35,7 +35,7 @@ static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == unused_pin), "******** Wrong p
 static_assert(WATCHDOG_PIN_PRESENT ^ (watchDogPin == unused_pin), "******** Wrong pin value for watchdog. Please check your config.h ! ********");
 
 static_assert(DUAL_TARIFF ^ (dualTariffPin == unused_pin), "******** Wrong pin value for dual tariff. Please check your config.h ! ********");
-static_assert(!DUAL_TARIFF | (ul_OFF_PEAK_DURATION == 0), "******** Off-peak duration cannot be zero. Please check your config.h ! ********");
+static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION == 0)), "******** Off-peak duration cannot be zero. Please check your config.h ! ********");
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION > 12)), "******** Off-peak duration cannot last more than 12 hours. Please check your config.h ! ********");
 
 static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && (PRIORITY_ROTATION == RotationModes::PIN) && OVERRIDE_PIN_PRESENT), "******** Wrong configuration. Please check your config.h ! ********");
