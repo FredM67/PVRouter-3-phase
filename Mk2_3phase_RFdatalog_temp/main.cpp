@@ -189,7 +189,7 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t &currentTemperat
   else
   {
     const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
-    const auto pinState{ getPinState(forcePin) };
+    const auto pinState{ OVERRIDE_PIN_PRESENT ? getPinState(forcePin) : HIGH };
 
     for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
