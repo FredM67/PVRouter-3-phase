@@ -31,8 +31,6 @@
 #include <OneWire.h>  // for temperature sensing
 #endif
 
-class OneWire;
-
 /**
  * @struct DeviceAddress
  * @brief Structure representing the address of a device.
@@ -83,6 +81,14 @@ public:
   }
 };
 /// @endcond
+
+// Include the real OneWire library if needed
+#if TEMP_SENSOR_PRESENT
+#include <OneWire.h>  // for temperature sensing
+using OneWireType = OneWire;  // Use the real implementation
+#else
+using OneWireType = MockOneWire;  // Use the mock implementation
+#endif
 
 /**
  * @class TemperatureSensing
@@ -264,7 +270,7 @@ private:
 
   const DeviceAddress sensorAddrs[N]; /**< Array of sensors */
 
-  static inline conditional< TEMP_SENSOR_PRESENT, OneWire, MockOneWire >::type oneWire; /**< For temperature sensing */
+  static inline OneWireType oneWire; /**< For temperature sensing */
 };
 
 #endif /* UTILS_TEMP_H */
