@@ -56,6 +56,11 @@ Pour **MacOSX**, ce fichier se trouve dans '/Users/[user]/Library/Arduino15/pack
 Ouvrez le fichier dans n’importe quel éditeur de texte (vous aurez besoin des droits d’administrateur) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. C’est tout !
 
 Si votre IDE Arduino était ouvert, veuillez fermer toutes les instances et le rouvrir.
+___
+> [!WARNING]
+> En cas d'utilisation de la libraire **ArduinoJson**, il faudra impérativement installer une version **6.x**.
+> La version 7.x, certes plus actuelle, est devenue trop lourde pour un Atmega328P.
+___
 
 # Utilisation avec Visual Studio Code
 
