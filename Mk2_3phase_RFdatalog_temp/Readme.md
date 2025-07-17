@@ -2,8 +2,8 @@
 
 Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autres IDE de développement comme VSCode + PlatformIO.
 
-- [Utilisation avec Arduino IDE](#utilisation-avec-arduino-ide)
 - [Utilisation avec Visual Studio Code](#utilisation-avec-visual-studio-code)
+- [Utilisation avec Arduino IDE](#utilisation-avec-arduino-ide)
 - [Aperçu rapide des fichiers](#aperçu-rapide-des-fichiers)
 - [Documentation de développement](#documentation-de-développement)
 - [Étalonnage du routeur](#étalonnage-du-routeur)
@@ -39,6 +39,11 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
 - [Dépannage](#dépannage)
 - [Contribuer](#contribuer)
 
+# Utilisation avec Visual Studio Code (recommandé)
+
+Vous devrez installer des extensions supplémentaires. Les extensions les plus populaires et les plus utilisées pour ce travail sont '*Platform IO*' et '*Arduino*'.  
+L’ensemble du projet a été conçu pour être utilisé de façon optimale avec *Platform IO*.
+
 # Utilisation avec Arduino IDE
 
 Pour utiliser ce programme avec l’IDE Arduino, vous devez télécharger et installer la dernière version de l’IDE Arduino. Choisissez la version "standard", PAS la version du Microsoft Store. Optez pour la version "Win 10 et plus récent, 64 bits" ou la version "MSI installer".
@@ -58,14 +63,9 @@ Ouvrez le fichier dans n’importe quel éditeur de texte (vous aurez besoin des
 Si votre IDE Arduino était ouvert, veuillez fermer toutes les instances et le rouvrir.
 ___
 > [!WARNING]
-> En cas d'utilisation de la libraire **ArduinoJson**, il faudra impérativement installer une version **6.x**.
+> En cas d’utilisation de la libraire **ArduinoJson**, il faudra impérativement installer une version **6.x**.
 > La version 7.x, certes plus actuelle, est devenue trop lourde pour un Atmega328P.
 ___
-
-# Utilisation avec Visual Studio Code
-
-Vous devrez installer des extensions supplémentaires. Les extensions les plus populaires et les plus utilisées pour ce travail sont '*Arduino*' et '*Platform IO*'.  
-L'ensemble du projet a été conçu pour être utilisé de façon optimale avec *Platform IO*.
 
 # Aperçu rapide des fichiers
 
@@ -379,20 +379,20 @@ Ces paramètres se trouvent dans le fichier `config_system.h`.
 Le paramètre `DIVERSION_START_THRESHOLD_WATTS` définit un seuil de surplus avant tout routage vers les charges configurées sur le routeur. Elle est principalement destinée aux installations avec batteries de stockage.   
 Par défaut, cette valeur est réglée à 0 W.  
 En réglant ce paramètre à 50 W par exemple, le routeur ne démarrera le routage qu'à partir du moment où 50 W de surplus sera disponible. Une fois le routage démarré, la totalité du surplus sera routé.  
-Cette fonctionnalité permet d'établir une hiérarchie claire dans l'utilisation de l'énergie produite, en privilégiant le stockage d'énergie sur la consommation immédiate. Vous pouvez ajuster cette valeur selon la réactivité du système de charge des batteries et vos priorités d'utilisation de l'énergie.
+Cette fonctionnalité permet d'établir une hiérarchie claire dans l’utilisation de l'énergie produite, en privilégiant le stockage d'énergie sur la consommation immédiate. Vous pouvez ajuster cette valeur selon la réactivité du système de charge des batteries et vos priorités d’utilisation de l'énergie.
 
 > [!IMPORTANT]
 > Ce paramètre concerne uniquement la condition de démarrage du routage.
 > Une fois le seuil atteint et le routage démarré, la **totalité** du surplus devient disponible pour les charges.
 
 ## Paramètre `REQUIRED_EXPORT_IN_WATTS`
-Le paramètre `REQUIRED_EXPORT_IN_WATTS` détermine la quantité minimale d'énergie que le système doit réserver pour l'exportation ou l'importation vers le réseau électrique avant de dévier le surplus vers les charges contrôlées.  
+Le paramètre `REQUIRED_EXPORT_IN_WATTS` détermine la quantité minimale d'énergie que le système doit réserver pour l’exportation ou l’importation vers le réseau électrique avant de dévier le surplus vers les charges contrôlées.  
 Par défaut réglé à 0 W, ce paramètre peut être utilisé pour garantir une exportation constante vers le réseau, par exemple pour respecter des accords de revente d'électricité.  
-Une valeur négative obligera le routeur à consommer cette puissance depuis le réseau. Cela peut être utile voire nécessaire pour les installations configurées en *zéro injection* afin d'amorcer la production solaire.
+Une valeur négative obligera le routeur à consommer cette puissance depuis le réseau. Cela peut être utile voire nécessaire pour les installations configurées en *zéro injection* afin d’amorcer la production solaire.
 
 > [!IMPORTANT]
 > Contrairement au premier paramètre, celui-ci représente un décalage permanent qui est continuellement soustrait du surplus disponible.
-> Si réglé à 20 W par exemple, le système réservera **toujours** 20 W pour l'exportation, indépendamment des autres conditions.
+> Si réglé à 20 W par exemple, le système réservera **toujours** 20 W pour l’exportation, indépendamment des autres conditions.
 
 # Configuration avec la carte d’extension ESP32
 
@@ -453,7 +453,7 @@ Pour l’installation des sondes de température :
 - Connectez vos sondes DS18B20 directement via les connecteurs dédiés sur la carte mère du Mk2PVRouter
 - Configurez les sondes dans ESPHome (aucune configuration n’est nécessaire côté Mk2PVRouter)
 
-L'utilisation de l’ESP32 pour gérer les sondes de température présente plusieurs avantages :
+L’utilisation de l’ESP32 pour gérer les sondes de température présente plusieurs avantages :
 - Visualisation des températures directement dans Home Assistant
 - Possibilité de créer des automatisations basées sur les températures
 - Configuration plus flexible des sondes sans avoir à reprogrammer le Mk2PVRouter
@@ -480,7 +480,7 @@ Dans ce cas :
   
 Assurez-vous notamment que les numéros de pins utilisés dans chaque configuration correspondent exactement à vos connexions physiques. N’oubliez pas d’utiliser des adaptateurs de niveau logique si nécessaire entre le Mk2PVRouter (5 V) et l’ESP32 (3.3 V).
 
-Pour les sondes de température, vous pouvez les connecter directement à l’ESP32 en utilisant une broche `GPIO` de votre choix, que vous configurerez ensuite dans ESPHome. **N'oubliez pas d’ajouter une résistance pull-up de 4,7 kΩ entre la ligne de données (DQ) et l’alimentation +3,3 V** pour assurer le bon fonctionnement du bus 1-Wire.
+Pour les sondes de température, vous pouvez les connecter directement à l’ESP32 en utilisant une broche `GPIO` de votre choix, que vous configurerez ensuite dans ESPHome. **N’oubliez pas d’ajouter une résistance pull-up de 4,7 kΩ entre la ligne de données (DQ) et l’alimentation +3,3 V** pour assurer le bon fonctionnement du bus 1-Wire.
 
 [!NOTE] Même sans la carte d’extension, toutes les fonctionnalités d’intégration avec Home Assistant restent accessibles, à condition que votre câblage et vos configurations logicielles soient correctement réalisés.
 
@@ -489,7 +489,7 @@ Pour plus de détails sur la configuration d’ESPHome et l’intégration avec 
 # Dépannage
 - Assurez-vous que toutes les bibliothèques requises sont installées.
 - Vérifiez la configuration correcte des pins et des paramètres.
-- Consultez la sortie série pour les messages d'erreur.
+- Consultez la sortie série pour les messages d’erreur.
 
 # Contribuer
 Les contributions sont les bienvenues ! Veuillez soumettre des problèmes, des demandes de fonctionnalités et des pull requests via GitHub.
