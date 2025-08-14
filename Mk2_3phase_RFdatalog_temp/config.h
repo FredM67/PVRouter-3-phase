@@ -65,7 +65,7 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if te
 // - D13: Serial Clock (SCK).
 //
 // Expansion Board:
-// Digital Input Pins (D10-D13) are wired to the expansion board and it's intended 
+// Digital Input Pins (D10-D13) are wired to the expansion board and it's intended
 // to configure them as digital inputs
 // They allow external control from Home Assistant for functions such as:
 //   * Forced operation mode

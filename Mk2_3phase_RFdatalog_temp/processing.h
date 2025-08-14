@@ -62,7 +62,7 @@ inline void processStartNewCycle() __attribute__((always_inline));
 inline void processPlusHalfCycle(uint8_t phase) __attribute__((always_inline));
 inline void processMinusHalfCycle(uint8_t phase) __attribute__((always_inline));
 inline void processRawSamples(const uint8_t phase) __attribute__((always_inline));
-inline void processVoltage(uint8_t phase) __attribute__((always_inline));;
+inline void processVoltage(uint8_t phase) __attribute__((always_inline));
 inline void processPolarity(uint8_t phase, int16_t rawSample) __attribute__((always_inline));
 inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
 inline void proceedLowEnergyLevel() __attribute__((always_inline));

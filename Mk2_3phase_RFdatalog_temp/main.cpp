@@ -240,7 +240,7 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t &currentTemperature_x100)
     return proceedLoadPrioritiesAndOverridingDualTariff(currentTemperature_x100);
   }
 
-  if constexpr (EMONESP_CONTROL)
+  if constexpr ((PRIORITY_ROTATION == RotationModes::PIN) || (EMONESP_CONTROL))
   {
     static uint8_t pinRotationState{ HIGH };
     const auto pinNewState{ getPinState(rotationPin) };
