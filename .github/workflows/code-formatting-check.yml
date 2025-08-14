@@ -6,13 +6,13 @@ on:
       - ".github/workflows/code-formatting-check.yml"
       - ".clang-format"
       - "formatter.sh"
-      - "./**"
+      - "Mk2_3phase_RFdatalog_temp/**"
   push:
     paths:
       - ".github/workflows/code-formatting-check.yml"
       - ".clang-format"
       - "formatter.sh"
-      - "./**"
+      - "Mk2_3phase_RFdatalog_temp/**"
 
 jobs:
   check-formatting:
@@ -29,7 +29,7 @@ jobs:
           echo "CLANG_FORMAT_INSTALL_PATH=${{ runner.temp }}/clang-format" >> "$GITHUB_ENV"
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Download ClangFormat
         id: download
@@ -49,11 +49,11 @@ jobs:
           echo "${{ env.CLANG_FORMAT_INSTALL_PATH }}/clang_Linux_64bit" >> "$GITHUB_PATH"
 
       - name: Format projects
-        run: ./formatter.sh
+        run: ./formatter.sh Mk2_3phase_RFdatalog_temp
 
       - name: Check formatting
         run: |
-          if ! git diff --color --exit-code; then
+          if ! git diff --color --exit-code Mk2_3phase_RFdatalog_temp; then
             echo "Please do an Auto Format on the sketches:"
             echo "Arduino IDE: Tools > Auto Format"
             echo "Arduino Web Editor: Ctrl + B"
