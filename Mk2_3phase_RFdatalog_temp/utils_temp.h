@@ -84,7 +84,7 @@ public:
 
 // Include the real OneWire library if needed
 #if TEMP_SENSOR_PRESENT
-#include <OneWire.h>  // for temperature sensing
+#include <OneWire.h>          // for temperature sensing
 using OneWireType = OneWire;  // Use the real implementation
 #else
 using OneWireType = MockOneWire;  // Use the mock implementation
