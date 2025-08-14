@@ -153,7 +153,7 @@ void loop()
   RUN_TEST(test_relay_initialization);
   RUN_TEST(test_relay_initialization_with_positive_thresholds);
   RUN_TEST(test_relay_initialization_with_negative_thresholds);
-  
+
   RUN_TEST(test_get_size);
 
   RUN_TEST(test_get_pin);
