@@ -27,7 +27,7 @@ enum class SerialOutputType
 {
   HumanReadable, /**< Human-readable output for commissioning */
   IoT,           /**< Output for HomeAssistant or similar */
-  JSON        /**< Output in JSON format */
+  JSON           /**< Output in JSON format */
 };
 
 /** Polarities */
