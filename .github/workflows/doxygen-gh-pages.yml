@@ -11,6 +11,8 @@ on:
   
 jobs:
   deploy:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: DenverCoder1/doxygen-github-pages-action@v2.0.0
