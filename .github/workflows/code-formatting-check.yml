@@ -1,3 +1,5 @@
+permissions:
+  contents: read
 name: Code Formatting Check
 
 on:
