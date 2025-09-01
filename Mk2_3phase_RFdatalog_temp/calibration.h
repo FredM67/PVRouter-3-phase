@@ -54,4 +54,4 @@ inline constexpr float lpf_gain{ 0 }; /**< setting this to 0 disables this extra
 inline constexpr float alpha{ 0.002 };
 //--------------------------------------------------------------------------------------------------
 
-#endif  // CALIBRATION_H
+#endif /* CALIBRATION_H */
