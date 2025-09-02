@@ -26,6 +26,8 @@
  * 
  */
 
+static_assert(SUPPLY_FREQUENCY == 50 || SUPPLY_FREQUENCY == 60, "******** SUPPLY_FREQUENCY must be 50 or 60 Hz ! ********");
+
 static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too long and will lead to overflow ! ****");
 
 static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == unused_pin), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
@@ -45,6 +47,19 @@ static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIO
 static_assert(NO_OF_DUMPLOADS > 0, "Number of dump loads must be greater than 0");
 static_assert(iTemperatureThreshold > 0, "Temperature threshold must be greater than 0");
 static_assert(iTemperatureThreshold <= 100, "Temperature threshold must be lower than 100");
+
+static_assert(REQUIRED_EXPORT_IN_WATTS >= -32768 && REQUIRED_EXPORT_IN_WATTS <= 32767, "******** REQUIRED_EXPORT_IN_WATTS out of range ! ********");
+static_assert(DIVERSION_START_THRESHOLD_WATTS >= 0 && DIVERSION_START_THRESHOLD_WATTS <= 32767, "******** DIVERSION_START_THRESHOLD_WATTS must be positive ! ********");
+
+static_assert(sizeof(physicalLoadPin) / sizeof(physicalLoadPin[0]) == NO_OF_DUMPLOADS, "******** physicalLoadPin array size mismatch ! ********");
+static_assert(sizeof(loadPrioritiesAtStartup) / sizeof(loadPrioritiesAtStartup[0]) == NO_OF_DUMPLOADS, "******** loadPrioritiesAtStartup array size mismatch ! ********");
+static_assert(sizeof(rg_ForceLoad) / sizeof(rg_ForceLoad[0]) == NO_OF_DUMPLOADS, "******** rg_ForceLoad array size mismatch ! ********");
+
+static_assert(ROTATION_AFTER_SECONDS > 0, "******** ROTATION_AFTER_SECONDS must be greater than 0 ! ********");
+static_assert(ROTATION_AFTER_SECONDS <= 86400UL, "******** ROTATION_AFTER_SECONDS cannot exceed 24 hours ! ********");
+
+static_assert(!TEMP_SENSOR_PRESENT || (temperatureSensing.get_size() > 0), "******** No temperature sensors configured but TEMP_SENSOR_PRESENT is true ! ********");
+static_assert(TEMP_RANGE_LOW < TEMP_RANGE_HIGH, "******** Invalid temperature range ! ********");
 
 constexpr uint16_t check_pins()
 {
@@ -166,5 +181,10 @@ static_assert((check_pins() & B00000011) == 0, "******** Pins 0 & 1 are reserved
 static_assert((check_pins() & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
 static_assert(!(RF_CHIP_PRESENT && ((check_pins() & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
 static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
+
+#ifdef RF_PRESENT
+static_assert((nodeID >= 1 && nodeID <= 30), "******** RF nodeID must be between 1 and 30 ! ********");
+static_assert(networkGroup >= 1 && networkGroup <= 250, "******** RF networkGroup must be between 1 and 250 ! ********");
+#endif
 
 #endif /* VALIDATION_H */
