@@ -464,33 +464,6 @@ template< uint8_t N, uint8_t D > void RelayEngine< N, D >::inc_duration() const
   }
 }
 
-/**
- * @brief Helper function to create RelayEngine with automatic deduction
- * 
- * @tparam D The EWMA filter delay in minutes (compile-time constant)
- * @tparam N Number of relays (automatically deduced from array size)
- * @param relays Array of relay configurations
- * @return constexpr auto RelayEngine with automatically deduced template parameters
- */
-template< uint8_t D, uint8_t N >
-constexpr auto make_RelayEngine(integral_constant< uint8_t, D >, const relayOutput (&relays)[N])
-{
-  return RelayEngine< N, D >{ integral_constant< uint8_t, D >{}, relays };
-}
-
-/**
- * @brief Helper function to create RelayEngine with automatic deduction (default 10 minutes)
- * 
- * @tparam N Number of relays (automatically deduced from array size)
- * @param relays Array of relay configurations
- * @return constexpr auto RelayEngine with automatically deduced template parameters
- */
-template< uint8_t N >
-constexpr auto make_RelayEngine(const relayOutput (&relays)[N])
-{
-  return RelayEngine< N, 10 >{ relays };
-}
-
 // Deduction guides for automatic template parameter deduction
 template< uint8_t N >
 RelayEngine(const relayOutput (&)[N]) -> RelayEngine< N, 10 >;
