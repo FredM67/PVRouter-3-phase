@@ -106,10 +106,14 @@ def compare_tema_implementations():
     x = np.arange(3)
     width = 0.35
     
-    plt.bar(x - width/2, alphas_multi, width, label='Multi-α (Production)', 
-            color=['#FF6B6B', '#4ECDC4', '#45B7D1'], alpha=0.8)
-    plt.bar(x + width/2, alphas_std, width, label='Standard', 
-            color=['#FFA07A', '#98D8C8', '#87CEEB'], alpha=0.8)
+    # Use same colors as in the main plot for consistency
+    # EMA: #4ECDC4, DEMA: #45B7D1, TEMA: #2E86C1
+    filter_colors = ['#4ECDC4', '#45B7D1', '#2E86C1']  # Same for both implementations
+    
+    bars1 = plt.bar(x - width/2, alphas_multi, width, label='Multi-α (Production)', 
+                   color=filter_colors, alpha=0.9, edgecolor='#1B4F72', linewidth=1.5)
+    bars2 = plt.bar(x + width/2, alphas_std, width, label='Standard', 
+                   color=filter_colors, alpha=0.6, edgecolor='#1B4F72', linewidth=1.5, hatch='//')
     
     plt.title('Alpha Values: Why Multi-Alpha is Better')
     plt.ylabel('Alpha (Responsiveness)')
@@ -118,10 +122,18 @@ def compare_tema_implementations():
     plt.legend()
     plt.grid(True, alpha=0.3, axis='y')
     
-    # Add annotations
+    # Add filter level annotations above bars
+    filter_labels = ['EMA\n(1st stage)', 'DEMA\n(2nd stage)', 'TEMA\n(3rd stage)']
+    for i, label in enumerate(filter_labels):
+        plt.text(i, max(max(alphas_multi), max(alphas_std)) * 1.1, label, 
+                ha='center', va='bottom', fontsize=9, style='italic', color='gray')
+    
+    # Add value annotations with better formatting
     for i, (multi, std) in enumerate(zip(alphas_multi, alphas_std)):
-        plt.text(i - width/2, multi + 0.001, f'{multi:.4f}', ha='center', va='bottom', fontsize=9)
-        plt.text(i + width/2, std + 0.001, f'{std:.4f}', ha='center', va='bottom', fontsize=9)
+        plt.text(i - width/2, multi + max(alphas_multi) * 0.02, f'{multi:.4f}', 
+                ha='center', va='bottom', fontsize=8, fontweight='bold', color='#1B4F72')
+        plt.text(i + width/2, std + max(alphas_std) * 0.02, f'{std:.4f}', 
+                ha='center', va='bottom', fontsize=8, fontweight='bold', color='#1B4F72')
     
     plt.tight_layout()
     plt.savefig('../plots/tema_implementation_comparison.png', dpi=300, bbox_inches='tight')
