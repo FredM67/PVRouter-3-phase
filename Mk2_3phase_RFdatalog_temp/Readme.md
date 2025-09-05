@@ -2,7 +2,7 @@
 
 Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autres IDE de développement comme VSCode + PlatformIO.
 
-- [Utilisation avec Visual Studio Code](#utilisation-avec-visual-studio-code)
+- [Utilisation avec Visual Studio Code (recommandé)](#utilisation-avec-visual-studio-code-recommandé)
 - [Utilisation avec Arduino IDE](#utilisation-avec-arduino-ide)
 - [Aperçu rapide des fichiers](#aperçu-rapide-des-fichiers)
 - [Documentation de développement](#documentation-de-développement)
@@ -183,13 +183,15 @@ Par défaut, cette moyenne est calculée sur une fenêtre d’environ **10 min*
 Il est possible de la rallonger mais aussi de la raccourcir.  
 Pour des raisons de performances de l’Arduino, la durée choisie sera arrondie à une durée proche qui permettra de faire les calculs sans impacter les performances du routeur.
 
+La durée de la fenêtre temporelle est contrôlée par le paramètre `RELAY_FILTER_DELAY` dans le fichier de configuration.
+
 Si l’utilisateur souhaite plutôt une fenêtre de 15 min, il suffira d’écrire :
 ```cpp
-inline constexpr RelayEngine relays{ 15_i, { { 3, 1000, 200, 1, 1 } } };
+inline constexpr RelayEngine relays{ MINUTES(15), { { 3, 1000, 200, 1, 1 } } };
 ```
 ___
 > [!NOTE]
-> Attention au suffixe '**_i**' après le nombre *15* !
+> La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n'est nécessaire !
 ___
 
 Les relais configurés dans le système sont gérés par un système similaire à une machine à états.

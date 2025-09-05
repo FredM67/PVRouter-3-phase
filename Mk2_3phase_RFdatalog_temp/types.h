@@ -118,4 +118,12 @@ constexpr integral_constant< uint8_t, ival(Vs...) > operator""_i()
   return {};
 }
 
+/**
+ * @brief Macro to convert compile-time constant to integral_constant
+ * 
+ * This allows clean syntax for creating integral_constant from constexpr values
+ * Usage: MINUTES(RELAY_FILTER_DELAY_MINUTES) instead of RELAY_FILTER_DELAY_MINUTES"_i"
+ */
+#define MINUTES(value) integral_constant< uint8_t, (value) >{}
+
 #endif  // TYPES_H
