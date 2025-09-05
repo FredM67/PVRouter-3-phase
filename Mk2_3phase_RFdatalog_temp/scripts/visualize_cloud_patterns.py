@@ -251,7 +251,7 @@ def create_visualization(scenarios, data_source=""):
         axes = [axes]
     
     fig.suptitle(f'PV Router Cloud Pattern Analysis {data_source}\nTEMA Filter Optimization for Relay Control', 
-                 fontsize=16, fontweight='bold')
+                 fontsize=16, fontweight='bold', y=0.98)
     
     colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57']
     delay_values = [1, 2, 3, 4, 5]
@@ -364,7 +364,7 @@ def create_switching_analysis(scenarios, data_source=""):
     ax.set_xlabel('Cloud Scenarios')
     ax.set_ylabel('Number of Relay Switches')
     ax.set_title(f'Relay Switching Frequency Analysis {data_source}\n(Lower is Better - More Stable)', 
-                fontsize=14, fontweight='bold')
+                fontsize=14, fontweight='bold', pad=20)
     ax.set_xticks(x)
     ax.set_xticklabels(scenario_names)
     ax.legend(title='RELAY_FILTER_DELAY_MINUTES')

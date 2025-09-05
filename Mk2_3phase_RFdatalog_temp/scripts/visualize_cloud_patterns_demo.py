@@ -146,7 +146,7 @@ def create_cloud_visualization():
     
     fig, axes = plt.subplots(2, 1, figsize=(15, 12))
     fig.suptitle('PV Router Cloud Pattern Analysis\nTEMA Filter Optimization for Relay Control', 
-                 fontsize=16, fontweight='bold')
+                 fontsize=16, fontweight='bold', y=0.98)
     
     colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57']
     delay_values = [1, 2, 3, 4, 5]
@@ -217,6 +217,7 @@ def create_cloud_visualization():
             ax.axvspan(5, 15, alpha=0.1, color='orange', label='Cloud Events')
     
     plt.tight_layout()
+    plt.subplots_adjust(top=0.92)  # Make room for suptitle
     
     # Save the plot
     output_file = 'cloud_pattern_analysis.png'
@@ -283,6 +284,7 @@ def create_switching_analysis():
             verticalalignment='top', bbox=props)
     
     plt.tight_layout()
+    plt.subplots_adjust(top=0.88)  # Make room for title
     
     summary_file = 'relay_switching_summary.png'
     plt.savefig(summary_file, dpi=300, bbox_inches='tight', 
