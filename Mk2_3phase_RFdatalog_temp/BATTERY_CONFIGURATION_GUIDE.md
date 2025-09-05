@@ -46,6 +46,91 @@ relayOutput(pin, 1000, 50, 5, 5)  // Encore pire !
 - Le relais se rallume
 - **Résultat : Relais qui claquette !** 
 
+## Exemples Visuels : Comportement des Systèmes Batterie
+
+Les graphiques suivants démontrent pourquoi les configurations de relais traditionnelles échouent avec les systèmes batterie et comment les seuils négatifs résolvent le problème. Ces simulations montrent des scénarios réalistes de fin de journée avec production solaire déclinante.
+
+### Graphique Comparatif : Seuils Positifs vs Négatifs
+
+![Seuils Import Positifs vs Négatifs](battery_import_vs_surplus_thresholds.png)
+
+**Ce graphique démontre :**
+- **Graphique du haut (CASSÉ)** : Seuil d'import 0W
+  - Le relais s'allume mais **ne s'éteint JAMAIS**
+  - La batterie compense les déficits → Puissance réseau ≈ 0W en permanence
+  - Impossible de détecter l'import → Relais reste allumé 100% du temps
+  
+- **Graphique du bas (FONCTIONNE)** : Seuil d'import négatif -50W
+  - Le relais cycle correctement : 1 commutation, 24% du temps
+  - Surveille le surplus réel avant compensation batterie
+  - Fonctionne car non affecté par le comportement de la batterie
+
+**Éléments visibles sur chaque graphique :**
+- 🟡 **Production solaire** : Déclin de 2,5kW en fin de journée
+- 🔴 **Consommation maison** : 350W constant
+- 🔵 **Bilan net (avant relais)** : Solaire - consommation
+- 🟣 **Bilan net (après relais)** : Après charge relais 1kW
+- 🟠 **Sortie batterie** : Compense les déficits
+- ⚫ **Puissance réseau** : Ce que voit le compteur
+- 🟢/🔴 **Arrière-plan** : Vert = relais ON, Rouge = relais OFF
+
+**Fonctionnalités de Visualisation Améliorées :**
+- **Lignes Balance Nette :** Les lignes vertes épaisses montrent la métrique clé (solaire - maison) avant et après charges relais
+- **Fonds État Relais :** Fond vert = relais ON, fond rose = relais OFF pour un statut parfaitement clair
+- **Pourquoi Seuils Zéro/Positifs Échouent :** La batterie empêche détection import réseau, relais ne s'éteint jamais ou oscille constamment
+- **Pourquoi Seuils Négatifs Fonctionnent :** Le système surveille directement le surplus, assurant priorité charge batterie
+
+**Observations Clés :**
+- **Panneau Haut (❌ Seuil Zéro) :** Le relais s'allume quand surplus dépasse 1000W mais **ne s'éteint jamais** même quand production solaire chute sous consommation maison. Compensation batterie empêche détection import.
+- **Panneau Milieu (❌ Seuil Positif) :** Montre claquement relais car batterie lutte contre détection import, créant fonctionnement instable.
+- **Panneau Bas (✅ Seuil Négatif) :** Démontre fonctionnement correct relais qui répond aux changements surplus que batterie ne peut cacher.
+
+### Graphique 2 : Analyse Détaillée Événement Nuageux (17:00-17:45)
+
+![Analyse Événement Nuageux](cloud_event_analysis.png)
+
+**Vue Focalisée :** Ce graphique zoome sur événement nuageux pour montrer moment précis où :
+- **Configuration Problème :** Relais reste ON malgré nuage réduisant surplus disponible
+- **Configuration Solution :** Relais s'éteint correctement quand surplus chute sous seuil 50W
+
+### Graphique 3 : Comportement Système Multi-Relais (17:30-19:00)
+
+![Système Multi-Relais](multi_relay_battery_system.png)
+
+**Délestage Progressif :** Montre comment plusieurs relais avec seuils négatifs différents créent gestion charge intelligente :
+- **Pompe à Chaleur (3kW) :** S'éteint en premier quand surplus < 70W
+- **Pompe Piscine (2kW) :** S'éteint quand surplus < 50W  
+- **Chauffe-eau (1kW) :** S'éteint en dernier quand surplus < 30W
+
+### Patterns Comportement Monde Réel
+
+**Ce que Utilisateurs Expérimentent Réellement :**
+
+1. **Avec Seuils Zéro/Positifs :**
+   - Relais s'allument pendant bon soleil ✓
+   - Relais ne s'éteignent jamais ou claquettent ❌
+   - Batterie compensant constamment pour charge relais
+   - Cyclage batterie élevé, durée vie batterie réduite
+   - Gestion énergie médiocre
+
+2. **Avec Seuils Négatifs :**
+   - Relais s'allument pendant bon soleil ✓
+   - Relais s'éteignent quand surplus insuffisant ✓
+   - Priorisation charge intelligente
+   - Batterie utilisée efficacement pour charges essentielles
+   - Gestion énergie optimale
+
+### Insight Technique : Pourquoi Seuils Négatifs Fonctionnent
+
+Les graphiques montrent clairement que **systèmes batterie maintiennent équilibre réseau mais ne peuvent cacher changements surplus** :
+
+- **Puissance Réseau :** Reste près 0W grâce compensation batterie
+- **Production Solaire :** Varie avec météo et heure du jour
+- **Surplus Net :** Changements détectables et exploitables
+- **Logique Relais :** Surveille surplus, pas import réseau
+
+**Principe Physique :** Compensation batterie affecte point mesure réseau mais ne peut altérer équilibre énergétique fondamental qui détermine surplus disponible.
+
 ## La Solution Correcte : Seuil d'Import Négatif
 
 ### Configuration Compatible Batterie
