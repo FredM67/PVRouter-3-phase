@@ -129,283 +129,387 @@ This section contains advanced analysis tools and technical documentation for:
 
 # Program configuration
 
-All preferences are found in the **config.h** file.
+The configuration of a feature generally follows two steps:
+- Feature activation
+- Feature parameter configuration
+
+Configuration consistency is checked during compilation. For example, if a *pin* is accidentally allocated twice, the compiler will generate an error.
 
 ## Serial output type
 
-The program can output different types of information on the serial link. It's recommended to start with the default choice ('SERIALOUT_NORMAL') and only change it if the need arises.
+The serial output type can be configured to suit different needs. Three options are available:
 
+- **HumanReadable** : Human-readable output, ideal for debugging or commissioning.
+- **IoT** : Formatted output for IoT platforms like Home Assistant.
+- **JSON** : Formatted output for platforms like EmonCMS (JSON).
+
+To configure the serial output type, modify the following constant in the **config.h** file:
 ```cpp
-#define SERIALOUT_NORMAL
-//#define SERIALOUT_DIVERSION
-//#define SERIALOUT_SUMONLY
-//#define SERIALOUT_NONE
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
 ```
-
-To change the output type, comment (by adding '//' at the beginning of the line) the current line and uncomment the desired line (by removing '//' at the beginning of the line).
+Replace `HumanReadable` with `IoT` or `JSON` according to your needs.
 
 ## TRIAC output configuration
 
-By default, the program is configured to work with 3-phase loads using triacs. This is the most common usage.
+The first step is to define the number of TRIAC outputs:
 
 ```cpp
-constexpr load_t loads[NO_OF_DUMPLOADS]{
-  { /*capacity*/ 3000, /*load*/ outputPins.physicalLoadPin(1) },
-  { /*capacity*/ 2000, /*load*/ outputPins.physicalLoadPin(2) },
-  { /*capacity*/ 1000, /*load*/ outputPins.physicalLoadPin(3) } };
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
+```
+
+Then, you need to assign the corresponding *pins* as well as the priority order at startup.
+```cpp
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ```
 
 ## On/off relay output configuration
+On/off relay outputs allow powering devices that contain electronics (heat pump ...).
 
-The program can also work with on/off relays. For this configuration, you need to replace the `loads` variable definition with a `relaysConfig` definition:
-
+You need to activate the feature like this:
 ```cpp
-constexpr RelayEngine relaysConfig{
-  // Relay delay in 100ms units:
-  12,  // 1.2s delay
-  // Relay configurations:
-  Relay{ 1000, outputPins.relayPin(1) },  // water heater 1000W
-  Relay{ 2000, outputPins.relayPin(2) },  // secondary load 2000W
-  Relay{ 3000, outputPins.relayPin(3) }   // additional load 3000W
-};
+inline constexpr bool RELAY_DIVERSION{ true };
 ```
 
-The first parameter is the delay between each relay activation/deactivation. This delay is expressed in units of 100 milliseconds (12 = 1.2 seconds).
+Each relay requires the definition of five parameters:
+- the **pin** number to which the relay is connected
+- the **surplus threshold** before startup (default **1000 W**)
+- the **import threshold** before shutdown (default **200 W**)
+- the **minimum operating duration** in minutes (default **5 min**)
+- the **minimum shutdown duration** in minutes (default **5 min**).
 
-Then, for each relay, you specify its power and the pin it's connected to.
+Example relay configuration:
+```cpp
+inline constexpr RelayEngine relays{ { { 4, 1000, 200, 10, 10 } } };
+```
+In this example, the relay is connected to *pin* **4**, it will trigger from **1000 W** surplus, stop from **200 W** import, and has a minimum operating and shutdown duration of **10 min**.
 
-> **Battery installations:** For optimal relay configuration with battery systems, consult the **[Battery System Configuration Guide](BATTERY_CONFIGURATION_GUIDE.en.md)** [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](BATTERY_CONFIGURATION_GUIDE.md)
+To configure multiple relays, simply list the configurations for each relay:
+```cpp
+inline constexpr RelayEngine relays{ { { 4, 1000, 200, 10, 10 },
+                                       { 3, 1500, 250, 5, 15 } } };
+```
+Relays are activated in list order, and deactivated in reverse order.  
+In all cases, minimum operating and shutdown durations are always respected.
 
 ### Operating principle
+Surplus and import thresholds are calculated using an exponentially weighted moving average (EWMA), in our specific case, it's a modification of a triple exponentially weighted moving average (TEMA).  
+By default, this average is calculated over a window of approximately **10 min**. You can adjust this duration to suit your needs.  
+It's possible to lengthen it but also to shorten it.  
+For Arduino performance reasons, the chosen duration will be rounded to a close duration that allows calculations without impacting router performance.
 
-With this system, the router will only start relays when the available excess power reaches exactly the relay power. The router tries to reach the relay power by accumulating the excess power. Once the relay is started, the power consumed by the relay is subtracted from the calculations.
+The time window duration is controlled by the `RELAY_FILTER_DELAY` parameter in the configuration file.
 
-For example, with the configuration above:
-- If the available power is between 1000W and 2999W → only the first relay (1000W) will be started
-- If the available power is between 3000W and 4999W → the first relay (1000W) and the second relay (2000W) will be started
-- If the available power is 6000W or more → all three relays will be started
+If the user prefers a 15 min window, simply write:
+```cpp
+inline constexpr RelayEngine relays{ MINUTES(15), { { 3, 1000, 200, 1, 1 } } };
+```
+___
+> [!NOTE]
+> The `MINUTES()` macro automatically converts the value to a template parameter. No special suffix is needed!
+___
 
-To minimize relay wear due to frequent switching, the relay system integrates available energy. A relay is only started when the accumulated energy is sufficient to run the relay for a defined duration.
+Relays configured in the system are managed by a system similar to a state machine.
+Every second, the system increases the duration of the current state of each relay and proceeds with all relays based on the current average power:
+- if the current average power is above the import threshold, it tries to turn off some relays.
+- if the current average power is above the surplus threshold, it tries to turn on more relays.
 
-The delay is an additional security measure to prevent relays from switching too quickly when the available power is close to the relay power threshold.
+Relays are processed in ascending order for surplus and in descending order for import.
 
-This system optimizes energy usage by starting the most appropriate relays according to available excess power.
+For each relay, the transition or state change is managed as follows:
+- if the relay is *OFF* and the current average power is below the surplus threshold, the relay tries to switch to *ON* state. This transition is subject to the condition that the relay has been *OFF* for at least the *minOFF* duration.
+- if the relay is *ON* and the current average power is above the import threshold, the relay tries to switch to *OFF* state. This transition is subject to the condition that the relay has been *ON* for at least the *minON* duration.
 
+> [!NOTE]
 ## Watchdog configuration
+A watchdog is an electronic circuit or software used in digital electronics to ensure that an automaton or computer does not remain stuck at a particular stage of the processing it performs.
 
-By default, the watchdog is enabled and configured for 8 seconds. If the program crashes or gets stuck, the system will automatically restart after 8 seconds.
+This is achieved using an LED that blinks at a frequency of 1 Hz, i.e., every second.  
+Thus, the user knows whether their router is powered on, and if this LED stops blinking, it means the Arduino is stuck (a case never encountered yet!).  
+A simple press of the *Reset* button will restart the system without unplugging anything.
 
+You need to activate the feature like this:
 ```cpp
-#define ENABLE_WATCHDOG ///< Enable the internal watchdog
+inline constexpr bool WATCHDOG_PIN_PRESENT{ true };
 ```
-
-To disable the watchdog, comment this line:
-
+and define the *pin* used, in the example pin *9*:
 ```cpp
-//#define ENABLE_WATCHDOG ///< Enable the internal watchdog
+inline constexpr uint8_t watchDogPin{ 9 };
 ```
-
-> [!WARNING]
-> Disabling the watchdog may cause the router to remain blocked indefinitely in case of a software problem. It's recommended to keep it enabled unless you have specific reasons to disable it.
 
 ## Temperature sensor(s) configuration
+It's possible to connect one or more Dallas DS18B20 temperature sensors.  
+These sensors can serve informational purposes or to control forced operation mode.
 
-The router can monitor temperature and stop routing to protect against overheating.
+To activate this feature, you need to proceed differently depending on whether you use the Arduino IDE or Visual Studio Code with the PlatformIO extension.
 
-The functionality is disabled by default and must be explicitly enabled.
+By default, output `D3` is used for the temperature sensor output and already has a pull-up.  
+If you want to use another pin, you'll need to add a *pull-up* to the used pin.
 
 ### Feature activation
 
+To activate this feature, the procedure differs depending on whether you use the Arduino IDE or Visual Studio Code with the PlatformIO extension.
+
 #### With Arduino IDE
-
-To activate the temperature functionality, uncomment the corresponding line in the **config.h** file:
-
+Activate the following line by removing the comment:
 ```cpp
 #define TEMP_ENABLED
 ```
 
-#### With Visual Studio Code and PlatformIO
+If the *OneWire* library is not installed, install it via the **Tools** => **Manage Libraries...** menu.  
+Search for "Onewire" and install "**OneWire** by Jim Studt, ..." version **2.3.7** or newer.
 
-With Visual Studio Code and PlatformIO, you also need to add the necessary library in the **platformio.ini** file in the `lib_deps` section.
+#### With Visual Studio Code and PlatformIO
+Select the "**env:temperature (Mk2_3phase_RFdatalog_temp)**" configuration.
 
 ### Sensor configuration (common to both cases above)
+To configure the sensors, you must enter their addresses.  
+Use a program to scan connected sensors.  
+You can find such programs on the Internet or among the examples provided with the Arduino IDE.  
+It's recommended to stick a label with each sensor's address on its cable.
 
-Once the functionality is activated, you need to configure the sensor(s) in the **config.h** file:
-
+Enter the addresses as follows:
 ```cpp
-inline constexpr Temp_sensor temp_sensors[MAX_SENSORS]{
-  { "Dissipator", DS18B20, 0x28, 0x0D, 0x01, 0x75, 0x91, 0x0D, 0x02, 0xC4, 50.0 }  // ,
-  //  { "Outdoor", DS18B20, 0x28, 0x0D, 0x01, 0x75, 0x91, 0x0D, 0x02, 0xC4, 60.0 }
-};
+inline constexpr TemperatureSensing temperatureSensing{ 4,
+                                                        { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
+                                                          { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } };
 ```
+The number *4* as first parameter is the *pin* that the user will have chosen for the *OneWire* bus.
 
-For each sensor, you need to specify:
-- A name (in quotes)
-- The sensor type (DS18B20)
-- The unique address of the sensor (8 bytes in hexadecimal)
-- The trigger temperature in degrees Celsius
-
-To find the unique address of your sensor(s), you can use a simple sketch to scan and display available sensors.
+___
+> [!NOTE]
+> Multiple sensors can be connected to the same cable.
+> On the Internet you'll find all the details regarding the topology usable with this type of sensors.
+___
 
 ## Off-peak hours management configuration (dual tariff)
-
-The router can be configured to work with a dual tariff system, prioritizing certain loads during off-peak hours.
-
-This feature allows modifying load priorities or activating specific loads only during off-peak periods.
+It's possible to entrust off-peak hours management to the router.  
+This allows, for example, limiting heating in forced mode to avoid overheating the water with the intention of using the surplus the next morning.  
+This limit can be in duration or temperature (requires using a Dallas DS18B20 temperature sensor).
 
 ### Hardware configuration
-
-You need to connect a signal from your meter (or a contact indicating off-peak hours) to one of the digital pins of the Arduino.
+Disconnect the Day/Night contactor control, which is no longer necessary.  
+Connect directly a chosen *pin* to the dry contact of the meter (*C1* and *C2* terminals).
+___
+> [!WARNING]
+> You must connect **directly**, a *pin/ground* pair with the *C1/C2* terminals of the meter.
+> There must NOT be 230 V on this circuit!
+___
 
 ### Software configuration
-
-In the **config.h** file, enable the functionality and configure the pin:
-
+Activate the feature as follows:
 ```cpp
-#define DUAL_TARIFF ///< Enable dual tariff functionality
-
-inline constexpr uint8_t dualTariffPin{ 2 }; ///< Arduino pin for dual tariff signal
+inline constexpr bool DUAL_TARIFF{ true };
+```
+Configure the *pin* to which the meter is connected:
+```cpp
+inline constexpr uint8_t dualTariffPin{ 3 };
 ```
 
-Then you can define specific behaviors for each tariff period in your load or relay configuration.
+Configure the duration in *hours* of the off-peak period (for now, only one period is supported per day):
+```cpp
+inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };
+```
+
+Finally, define the operating modes during the off-peak period:
+```cpp
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } };
+```
+It's possible to define a configuration for each load independently of the others.
+The first parameter of *rg_ForceLoad* determines the startup delay relative to the beginning or end of off-peak hours:
+- if the number is positive and less than 24, it's the number of hours,
+- if the number is negative greater than −24, it's the number of hours relative to the end of off-peak hours
+- if the number is positive and greater than 24, it's the number of minutes,
+- if the number is negative less than −24, it's the number of minutes relative to the end of off-peak hours
+
+The second parameter determines the forced operation duration:
+- if the number is less than 24, it's the number of hours,
+- if the number is greater than 24, it's the number of minutes.
+
+Examples for better understanding (with off-peak start at 23:00, until 7:00, i.e., 8 h duration):
+- ```{ -3, 2 }``` : startup **3 hours BEFORE** period end (at 4 AM), for a duration of 2 h.
+- ```{ 3, 2 }``` : startup **3 hours AFTER** period start (at 2 AM), for a duration of 2 h.
+- ```{ -150, 2 }``` : startup **150 minutes BEFORE** period end (at 4:30), for a duration of 2 h.
+- ```{ 3, 180 }``` : startup **3 hours AFTER** period start (at 2 AM), for a duration of 180 min.
+
+For *infinite* duration (so until the end of the off-peak period), use ```UINT16_MAX``` as second parameter:
+- ```{ -3, UINT16_MAX }``` : startup **3 hours BEFORE** period end (at 4 AM) with forced operation until the end of off-peak period.
+
+If your system consists of 2 outputs (```NO_OF_DUMPLOADS``` will then have a value of 2), and you want forced operation only on the 2nd output, write:
+```cpp
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
+                                                              { -3, 2 } };
+```
 
 ## Priority rotation
+Priority rotation is useful when powering a three-phase water heater.  
+It allows balancing the operating duration of different resistors over an extended period.
 
-The router can automatically rotate load priorities to balance wear on different devices.
+But it can also be interesting if you want to swap the priorities of two devices each day (two water heaters, ...).
 
-To activate this feature:
-
+For once, activating this function has 2 modes:
+- **automatic**, you'll then specify
 ```cpp
-#define PRIORITY_ROTATION ///< Enable load priority rotation
-inline constexpr uint8_t PRIORITY_ROTATION_DURATION{ 1 }; ///< Duration in hours
+inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::AUTO };
+```
+- **manual**, you'll then write
+```cpp
+inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
+```
+In **automatic** mode, rotation happens automatically every 24 h.  
+In **manual** mode, you must also define the *pin* that will trigger rotation:
+```cpp
+inline constexpr uint8_t rotationPin{ 10 };
 ```
 
 ## Forced operation configuration
+It's possible to trigger forced operation (some routers call this function *Boost*) via a *pin*.  
+You can connect a micro-switch, a timer (ATTENTION, NO 230 V on this line), or any other dry contact.
 
-The router can be configured to allow manual forcing of certain loads.
-
+To activate this feature, use the following code:
 ```cpp
-#define FORCE_PIN_DUMP_LOAD ///< Enable manual forcing of loads
-inline constexpr uint8_t forcePin{ 2 }; ///< Arduino pin for forced operation
+inline constexpr bool OVERRIDE_PIN_PRESENT{ true };
 ```
-
-When the pin is activated (connected to ground), the first load will be forced on regardless of available power.
+You must also specify the *pin* to which the dry contact is connected:
+```cpp
+inline constexpr uint8_t forcePin{ 11 };
+```
 
 ## Routing stop
+It can be convenient to disable routing during a prolonged absence.  
+This feature is particularly useful if the control *pin* is connected to a dry contact that can be controlled remotely, for example via an Alexa routine or similar.  
+Thus, you can disable routing during your absence and reactivate it one or two days before your return, to have (free) hot water upon your arrival.
 
-You can configure a pin to completely stop routing:
-
+To activate this feature, use the following code:
 ```cpp
-#define STOP_PIN ///< Enable routing stop functionality
-inline constexpr uint8_t stopPin{ 3 }; ///< Arduino pin to stop routing
+inline constexpr bool DIVERSION_PIN_PRESENT{ true };
 ```
-
-When this pin is activated, the router will stop all diversion until the pin is deactivated.
+You must also specify the *pin* to which the dry contact is connected:
+```cpp
+inline constexpr uint8_t diversionPin{ 12 };
+```
 
 # Advanced program configuration
 
+These parameters are found in the `config_system.h` file.
+
 ## `DIVERSION_START_THRESHOLD_WATTS` parameter
+The `DIVERSION_START_THRESHOLD_WATTS` parameter defines a surplus threshold before any routing to loads configured on the router. It's mainly intended for installations with storage batteries.   
+By default, this value is set to 0 W.  
+By setting this parameter to 50 W for example, the router will only start routing when 50 W of surplus is available. Once routing has started, the entire surplus will be routed.  
+This feature allows establishing a clear hierarchy in the use of produced energy, prioritizing energy storage over immediate consumption. You can adjust this value according to the battery charging system's responsiveness and your energy use priorities.
 
-This parameter defines the minimum power threshold before the router starts diverting energy.
-
-```cpp
-inline constexpr int16_t DIVERSION_START_THRESHOLD_WATTS{ 20 };
-```
+> [!IMPORTANT]
+> This parameter only concerns the routing startup condition.
+> Once the threshold is reached and routing has started, the **entire** surplus becomes available for loads.
 
 ## `REQUIRED_EXPORT_IN_WATTS` parameter
+The `REQUIRED_EXPORT_IN_WATTS` parameter determines the minimum amount of energy that the system must reserve for export or import to the electrical grid before diverting surplus to controlled loads.  
+Set to 0 W by default, this parameter can be used to guarantee constant export to the grid, for example to comply with electricity resale agreements.  
+A negative value will force the router to consume this power from the grid. This can be useful or even necessary for installations configured in *zero injection* to initiate solar production.
 
-This parameter defines the minimum export power that the router tries to maintain toward the grid.
-
-```cpp
-inline constexpr auto REQUIRED_EXPORT_IN_WATTS{ 0 };
-```
-
-A positive value means the router will try to maintain an export to the grid.
-A negative value means the router will accept some import from the grid before stopping diversion.
+> [!IMPORTANT]
+> Unlike the first parameter, this one represents a permanent offset that is continuously subtracted from available surplus.
+> If set to 20 W for example, the system will **always** reserve 20 W for export, regardless of other conditions.
 
 # Configuration with ESP32 extension board
 
-The router can be used with an ESP32 extension board for enhanced connectivity features.
+The ESP32 extension board allows simple and reliable integration between the Mk2PVRouter and an ESP32 for remote control via Home Assistant. This section details how to properly configure the Mk2PVRouter when using this extension board.
 
 ## Pin mapping
+When using the ESP32 extension board, the connections between the Mk2PVRouter and ESP32 are predefined as follows:
 
-The pin correspondence between Arduino and ESP32 is defined in the **config.h** file:
-
-```cpp
-inline constexpr OutputPins outputPins{
-  // Arduino pins
-  .triac_1 = 5,
-  .triac_2 = 6,
-  .triac_3 = 3,
-  .relay_1 = 7,
-  .relay_2 = 8,
-  .relay_3 = 9,
-  // ESP32 pins (when used)
-  .esp32_relay_1 = 16,
-  .esp32_relay_2 = 17,
-  .esp32_relay_3 = 18
-};
-```
+| ESP32  | Mk2PVRouter | Function                              |
+| ------ | ----------- | ------------------------------------- |
+| GPIO12 | D12         | Digital Input/Output - Free use       |
+| GPIO13 | D11         | Digital Input/Output - Free use       |
+| GPIO14 | D13         | Digital Input/Output - Free use       |
+| GPIO27 | D10         | Digital Input/Output - Free use       |
+| GPIO5  | DS18B20     | 1-Wire bus for temperature probes     |
 
 ## `TEMP` bridge configuration
-
-On the ESP32 board, you'll find a bridge marked 'TEMP'. This bridge must be configured according to your needs:
-- **Open** (default): DS18B20 temperature sensors are powered by the ESP32
-- **Closed**: DS18B20 temperature sensors are powered by the Arduino
+**Important** : If you want the ESP32 to control temperature probes (recommended for Home Assistant integration), **the `TEMP` bridge on the router motherboard must not be soldered**.
+- **`TEMP` bridge not soldered** : ESP32 controls temperature probes via GPIO5.
+- **`TEMP` bridge soldered** : Mk2PVRouter controls temperature probes via D3.
 
 ## Recommended configuration
+For optimal use with Home Assistant, it's recommended to activate at minimum the following functions:
 
 ### Recommended basic configuration
-
-For optimal use with the ESP32 extension board:
-
 ```cpp
-#define ESP32_PORTAL         ///< Enable ESP32 web portal
-#define ENABLE_DEBUG         ///< Enable debugging for development
+// Serial output type for IoT integration
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
+
+// Essential recommended functions
+inline constexpr bool DIVERSION_PIN_PRESENT{ true };    // Routing stop
+inline constexpr bool OVERRIDE_PIN_PRESENT{ true };     // Forced operation
+
+// Pin configuration according to extension board mapping
+inline constexpr uint8_t diversionPin{ 12 };     // D12 - routing stop
+inline constexpr uint8_t forcePin{ 11 };         // D11 - forced operation
+
+// Temperature sensor configuration
+// IMPORTANT: Disable temperature management in Mk2PVRouter
+// if ESP32 manages probes (TEMP bridge not soldered)
+inline constexpr bool TEMP_SENSOR_PRESENT{ false };  // Disabled as managed by ESP32
 ```
 
-### Recommended additional features
+> [!NOTE]
+> Configuring serial output to `SerialOutputType::IoT` is not strictly mandatory for router operation. However, it's necessary if you want to exploit router data in Home Assistant (instantaneous power, statistics, etc.). Without this configuration, only control functions (forced operation, routing stop) will be available in Home Assistant.
 
+### Recommended additional features
+For even more complete integration, you can also add these features:
 ```cpp
-#define TEMP_ENABLED         ///< Enable temperature monitoring
-#define DUAL_TARIFF          ///< Enable dual tariff if needed
+// Priority rotation via pin (optional)
+inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
+inline constexpr uint8_t rotationPin{ 10 };      // D10 - priority rotation
 ```
 
 ### Temperature probe installation
+For temperature probe installation:
+- Ensure the `TEMP` bridge is **not** soldered on the router motherboard
+- Connect your DS18B20 probes directly via the dedicated connectors on the Mk2PVRouter motherboard
+- Configure probes in ESPHome (no configuration needed on Mk2PVRouter side)
 
-When using DS18B20 probes with the ESP32 board:
-1. Keep the 'TEMP' bridge **open** (default position)
-2. Connect the probes to the dedicated connector on the ESP32 board
-3. The probes will be powered by the ESP32's 3.3V
+Using the ESP32 to manage temperature probes has several advantages:
+- Temperature visualization directly in Home Assistant
+- Ability to create temperature-based automations
+- More flexible probe configuration without having to reprogram the Mk2PVRouter
 
 ## Home Assistant integration
+Once your MkPVRouter is configured with the ESP32 extension board, you'll be able to:
+- Remotely control routing activation/deactivation (ideal during absences)
+- Trigger forced operation remotely
+- Monitor temperatures in real time
+- Create advanced automation scenarios combining solar production data and temperatures
 
-The ESP32 extension enables integration with Home Assistant for monitoring and control.
-
-Detailed configuration will be available in dedicated documentation.
+For more details on ESPHome configuration and Home Assistant integration, consult the [detailed documentation available in this gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). This complete guide explains step by step how to configure your ESP32 with ESPHome to maximize your PVRouter's features in Home Assistant.
 
 # Configuration without extension board
 
-The router can operate without the ESP32 extension board, using only the Arduino's capabilities.
+[!IMPORTANT] If you don't have the specific extension board or the appropriate motherboard PCB (these two elements not being available for now), you can still achieve integration by your own means.
 
-In this case, all relay controls are done directly by the Arduino's digital pins.
+In this case:
+- No connection is predefined between ESP32 and Mk2PVRouter
+- You'll need to create your own wiring according to your needs
+- Make sure to configure coherently:
+  - The router program (config.h file)
+  - ESPHome configuration on ESP32
+  
+Ensure particularly that pin numbers used in each configuration correspond exactly to your physical connections. Don't forget to use logic level adapters if necessary between Mk2PVRouter (5 V) and ESP32 (3.3 V).
+
+For temperature probes, you can connect them directly to ESP32 using a `GPIO` pin of your choice, which you'll then configure in ESPHome. **Don't forget to add a 4.7 kΩ pull-up resistor between the data line (DQ) and +3.3 V power supply** to ensure proper 1-Wire bus operation.
+
+[!NOTE] Even without the extension board, all Home Assistant integration features remain accessible, provided your wiring and software configurations are correctly implemented.
+
+For more details on ESPHome configuration and Home Assistant integration, consult the [detailed documentation available in this gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). This complete guide explains step by step how to configure your ESP32 with ESPHome to maximize your PVRouter's features in Home Assistant.
 
 # Troubleshooting
-
-Common problems and their solutions:
-
-1. **The router doesn't divert**: Check calibration values in **calibration.h**
-2. **Erratic operation**: Verify power supply stability and grounding
-3. **Relays don't activate**: Check relay configuration and pin assignments
-4. **Temperature sensors not detected**: Verify wiring and sensor addresses
-
-For more detailed troubleshooting, consult the [online documentation](https://fredm67.github.io/Mk2PVRouter-3-phase/).
+- Ensure all required libraries are installed.
+- Verify correct configuration of pins and parameters.
+- Check serial output for error messages.
 
 # Contributing
+Contributions are welcome! Please submit issues, feature requests, and pull requests via GitHub.
 
-Contributions are welcome! Please read the [CONTRIBUTING.md](../CONTRIBUTING.md) file for guidelines on how to contribute to this project.
-
-For questions or discussions, you can:
-- Open an issue on GitHub
-- Participate in discussions on the project forum
-- Consult the [development documentation](https://fredm67.github.io/Mk2PVRouter-3-phase/)
+*unfinished doc*
