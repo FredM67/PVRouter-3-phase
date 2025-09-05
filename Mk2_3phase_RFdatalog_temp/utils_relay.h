@@ -169,7 +169,7 @@ public:
     {
       return try_turnON();
     }
-    
+
     // Handle both positive and negative import thresholds
     if (importThreshold >= 0)
     {
@@ -187,7 +187,7 @@ public:
         return try_turnOFF();
       }
     }
-    
+
     return false;
   }
 

@@ -84,7 +84,7 @@ public:
  * @tparam _Tp elements type
  * @tparam _Nm dimension
  */
-template< typename _Tp, size_t _Nm > constexpr size_t size(const _Tp (&/*__array*/)[_Nm]) noexcept
+template< typename _Tp, size_t _Nm > constexpr size_t size(const _Tp (& /*__array*/)[_Nm]) noexcept
 {
   return _Nm;
 }
@@ -94,7 +94,7 @@ template< typename _Tp, size_t _Nm > constexpr size_t size(const _Tp (&/*__array
  * 
  * @tparam _Tp elements type
  */
-template< typename _Tp > constexpr size_t size(const _Tp (&/*__array*/)[0]) noexcept
+template< typename _Tp > constexpr size_t size(const _Tp (& /*__array*/)[0]) noexcept
 {
   return 0;
 }
@@ -124,6 +124,7 @@ constexpr integral_constant< uint8_t, ival(Vs...) > operator""_i()
  * This allows clean syntax for creating integral_constant from constexpr values
  * Usage: MINUTES(RELAY_FILTER_DELAY_MINUTES) instead of RELAY_FILTER_DELAY_MINUTES"_i"
  */
-#define MINUTES(value) integral_constant< uint8_t, (value) >{}
+#define MINUTES(value) \
+  integral_constant< uint8_t, (value) > {}
 
 #endif  // TYPES_H
