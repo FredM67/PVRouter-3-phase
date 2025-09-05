@@ -1,9 +1,6 @@
 # Battery System Configuration Guide
 
-[![fr](https://img.shields.io/badge/lang-fr-blue.svg)](BATTERY_CO**Realistic 2-Relay Configuration:**
-- 🔴 **Heat Pump (2500W)** : -100W threshold = STARTS at 100W surplus, 20min minimum ON/OFF
-- 🔵 **Pool Pump (1000W)** : -50W threshold = STARTS at 50W surplus (flexible operation)
-- ⚡ **Water Heater** : Controlled by PV router triac (not external relay)URATION_GUIDE.md)
+[![fr](https://img.shields.io/badge/lang-fr-blue.svg)](BATTERY_CONFIGURATION_GUIDE.md)
 
 ## The Real Problem with Battery Systems
 
@@ -174,6 +171,28 @@ relayOutput(pin, 1000, -20, 5, 5)
 - ☀️ **Surplus > 1000W** → Relay turns ON
 - ☁️ **Surplus drops < 20W** → Relay turns OFF
 - ✅ **Battery can't prevent this** - we're monitoring surplus, not import!
+
+### Threshold Selection Guide
+
+| Installation Type | Recommended Negative Threshold | Reasoning |
+|-------------------|-------------------------------|-----------|
+| **Small loads** (< 1kW) | `-10W to -30W` | Small margin for measurement noise |
+| **Medium loads** (1-3kW) | `-20W to -50W` | Balanced approach |
+| **Large loads** (> 3kW) | `-50W to -100W` | Larger margin for big systems |
+| **Very noisy measurements** | `-100W` | For systems with poor measurement accuracy |
+
+## Configuration Examples
+
+### Battery X + Pool Pump (1.5kW)
+```cpp
+relayOutput(4, 1500, -30, 10, 5)
+//          ^   ^    ^   ^   ^
+//          |   |    |   |   └─ Min OFF: 5 minutes
+//          |   |    |   └─ Min ON: 10 minutes (pump protection)
+//          |   |    └─ Turn OFF when surplus < 30W
+//          |   └─ Turn ON when surplus > 1500W (pump power)
+//          └─ Control pin
+```
 
 ### Threshold Selection Guidelines
 
