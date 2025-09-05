@@ -387,6 +387,9 @@ Cette fonctionnalité permet d'établir une hiérarchie claire dans l’utilisat
 > Ce paramètre concerne uniquement la condition de démarrage du routage.
 > Une fois le seuil atteint et le routage démarré, la **totalité** du surplus devient disponible pour les charges.
 
+> [!NOTE]
+> **Installations avec batteries :** Pour une configuration optimale des relais avec systèmes de batteries, consultez le **[Guide de Configuration pour Systèmes Batterie](BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](BATTERY_CONFIGURATION_GUIDE.en.md)
+
 ## Paramètre `REQUIRED_EXPORT_IN_WATTS`
 Le paramètre `REQUIRED_EXPORT_IN_WATTS` détermine la quantité minimale d'énergie que le système doit réserver pour l’exportation ou l’importation vers le réseau électrique avant de dévier le surplus vers les charges contrôlées.  
 Par défaut réglé à 0 W, ce paramètre peut être utilisé pour garantir une exportation constante vers le réseau, par exemple pour respecter des accords de revente d'électricité.  

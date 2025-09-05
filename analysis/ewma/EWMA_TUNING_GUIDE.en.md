@@ -27,7 +27,7 @@ New configuration parameters have been added to `config.h`:
 inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 2 };  /**< EWMA filter delay in minutes */
 ```
 
-For battery systems, see `BATTERY_CONFIGURATION_GUIDE.md` for proper threshold configuration.
+For battery systems, see `../../Mk2_3phase_RFdatalog_temp/BATTERY_CONFIGURATION_GUIDE.en.md` for proper threshold configuration.
 
 ## Tuning Guidelines
 
@@ -83,7 +83,7 @@ inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 5 }; // Maximum stability
 ```
 
 ### For Battery Systems 🔋 **NEW**
-See `BATTERY_CONFIGURATION_GUIDE.md` for detailed configuration guidance.
+See `../../Mk2_3phase_RFdatalog_temp/BATTERY_CONFIGURATION_GUIDE.en.md` for detailed configuration guidance.
 ```cpp
 // Example: Proper import threshold for battery systems
 relayOutput(pin, 1000, 50, 5, 5)  // 50W import threshold instead of 0W

@@ -27,7 +27,7 @@ De nouveaux paramètres de configuration ont été ajoutés à `config.h` :
 inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 2 };  /**< Délai du filtre EWMA en minutes */
 ```
 
-Pour les systèmes à batterie, voir `BATTERY_CONFIGURATION_GUIDE.md` pour la configuration appropriée des seuils.
+Pour les systèmes à batterie, voir `../../Mk2_3phase_RFdatalog_temp/BATTERY_CONFIGURATION_GUIDE.md` pour la configuration appropriée des seuils.
 
 ## Directives de Réglage
 
