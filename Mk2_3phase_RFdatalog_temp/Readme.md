@@ -115,7 +115,7 @@ Ces valeurs par défaut doivent être déterminées pour assurer un fonctionneme
 
 # Documentation d'analyse et outils
 
-📊 **[Outils d'Analyse et Documentation Technique](analysis/README.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](analysis/README.en.md)
+📊 **[Outils d'Analyse et Documentation Technique](../analysis/README.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](../analysis/README.en.md)
 
 Cette section contient des outils d'analyse avancés et de la documentation technique pour :
 

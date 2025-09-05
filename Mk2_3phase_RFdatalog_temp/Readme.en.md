@@ -116,7 +116,7 @@ These default values must be determined to ensure optimal router operation.
 
 # Analysis documentation and tools
 
-📊 **[Analysis Tools and Technical Documentation](analysis/README.en.md)** [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](analysis/README.md)
+📊 **[Analysis Tools and Technical Documentation](../analysis/README.en.md)** [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](../analysis/README.md)
 
 This section contains advanced analysis tools and technical documentation for:
 
