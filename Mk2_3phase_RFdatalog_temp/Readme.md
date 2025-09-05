@@ -219,6 +219,9 @@ Pour chaque relais, la transition ou le changement d’état est géré de la ma
 - si le relais est *OFF* et que la puissance moyenne actuelle est inférieure au seuil de surplus, le relais essaie de passer à l’état *ON*. Cette transition est soumise à la condition que le relais ait été *OFF* pendant au moins la durée *minOFF*.
 - si le relais est *ON* et que la puissance moyenne actuelle est supérieure au seuil d’importation, le relais essaie de passer à l’état *OFF*. Cette transition est soumise à la condition que le relais ait été *ON* pendant au moins la durée *minON*.
 
+> [!NOTE]
+> **Installations avec batteries :** Pour une configuration optimale des relais avec systèmes de batteries, consultez le **[Guide de Configuration pour Systèmes Batterie](BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](BATTERY_CONFIGURATION_GUIDE.en.md)
+
 ## Configuration du Watchdog
 Un chien de garde, en anglais *watchdog*, est un circuit électronique ou un logiciel utilisé en électronique numérique pour s’assurer qu’un automate ou un ordinateur ne reste pas bloqué à une étape particulière du traitement qu’il effectue.
 
@@ -400,9 +403,6 @@ Cette fonctionnalité permet d'établir une hiérarchie claire dans l’utilisat
 > [!IMPORTANT]
 > Ce paramètre concerne uniquement la condition de démarrage du routage.
 > Une fois le seuil atteint et le routage démarré, la **totalité** du surplus devient disponible pour les charges.
-
-> [!NOTE]
-> **Installations avec batteries :** Pour une configuration optimale des relais avec systèmes de batteries, consultez le **[Guide de Configuration pour Systèmes Batterie](BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](BATTERY_CONFIGURATION_GUIDE.en.md)
 
 ## Paramètre `REQUIRED_EXPORT_IN_WATTS`
 Le paramètre `REQUIRED_EXPORT_IN_WATTS` détermine la quantité minimale d'énergie que le système doit réserver pour l’exportation ou l’importation vers le réseau électrique avant de dévier le surplus vers les charges contrôlées.  
