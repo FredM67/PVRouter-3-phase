@@ -1,6 +1,12 @@
 # Guide de Configuration pour Systèmes Batterie
 
-[![en](https://img.shields.io/badge/lang-en-red.svg)](BATTERY_CONFIGURATION_GUIDE.en.md)
+[![en](https://img.shields.io/badge/lang-en-red.sv**Con**Configuration 2 Relais Réaliste :**
+- 🔴 **Pompe à Chaleur (2500W)** : Seuil -100W = DÉMARRE à 100W surplus, 20min minimum ON/OFF
+- 🔵 **Pompe Piscine (1000W)** : Seuil -50W = DÉMARRE à 50W surplus (fonctionnement flexible)
+- ⚡ **Chauffe-eau** : Contrôlé par triac du routeur PV (non par relais externe)ration 2 Relais Réaliste :**
+- 🔴 **Pompe à Chaleur (2500W)** : Seuil -100W = DÉMARRE à 100W surplus, 20min minimum ON/OFF
+- 🔵 **Pompe Piscine (1000W)** : Seuil -50W = DÉMARRE à 50W surplus (fonctionnement flexible)
+- ⚡ **Chauffe-eau** : Contrôlé par triac du routeur PV (non par relais externe)BATTERY_CONFIGURATION_GUIDE.en.md)
 
 ## Le Vrai Problème avec les Systèmes Batterie
 
@@ -93,14 +99,36 @@ Les graphiques suivants démontrent pourquoi les configurations de relais tradit
 - **Configuration Problème :** Relais reste ON malgré nuage réduisant surplus disponible
 - **Configuration Solution :** Relais s'éteint correctement quand surplus chute sous seuil 50W
 
-### Graphique 3 : Comportement Système Multi-Relais (17:30-19:00)
+### Graphique 3 : Système 2 Relais - Pompe à Chaleur & Pompe Piscine (17:30-19:00)
 
 ![Système Multi-Relais](multi_relay_battery_system.png)
 
-**Délestage Progressif :** Montre comment plusieurs relais avec seuils négatifs différents créent gestion charge intelligente :
-- **Pompe à Chaleur (3kW) :** S'éteint en premier quand surplus < 70W
-- **Pompe Piscine (2kW) :** S'éteint quand surplus < 50W  
-- **Chauffe-eau (1kW) :** S'éteint en dernier quand surplus < 30W
+**Visualisation Ultra-Optimisée :** Échelle logarithmique avec lignes de seuils POSITIVES (50W, 100W surplus) correspondant aux seuils négatifs d'import (-50W, -100W). Zone négative ultra-minimale (-10W) pour maximiser visibilité zone positive critique.
+
+**Configuration 2 Relais Réaliste :**
+- � **Pompe à Chaleur (3000W)** : Seuil -100W (priorité haute)
+- � **Pompe Piscine (1500W)** : Seuil -50W (priorité basse)
+- ⚡ **Chauffe-eau** : Contrôlé par triac du routeur PV (non par relais externe)
+
+**Résultats Comparatifs :**
+
+| Métrique | Système Fonctionnel | Système Cassé | Différence |
+|----------|---------------------|----------------|------------|
+| **Commutations Totales** | 4 cycles | 0 cycles | ∞ |
+| **Consommation Énergie** | 1933 Wh | 5250 Wh | **+172%** |
+| **Gestion Charge** | Progressive intelligente | Toutes charges collées ON | Critique |
+
+**Gestion Progressive Intelligente :**
+- **17:30-17:45** : Surplus élevé, **les deux relais s'allument** (démonstration complète)
+- **17:50-18:10** : Pompe à chaleur fonctionne 20min puis s'éteint (minimum ON respecté)
+- **17:30-18:56** : Pompe piscine continue 66min avec surplus modéré
+- **18:56-19:00** : Toutes charges éteintes, priorité charge batterie
+
+**Impact Seuils Cassés (0W) :**
+- ❌ **Toutes charges collées ON** : Les deux relais restent ON pendant 90min complètes
+- ❌ **5.25 kWh consommés** : 172% plus énergie batterie que nécessaire
+- ❌ **3.3 kWh gaspillés** : Épuisement prématuré batterie
+- ❌ **Aucune priorisation** : Impossible distinguer charges critiques/non-critiques
 
 ### Patterns Comportement Monde Réel
 

@@ -1,6 +1,9 @@
 # Battery System Configuration Guide
 
-[![fr](https://img.shields.io/badge/lang-fr-blue.svg)](BATTERY_CONFIGURATION_GUIDE.md)
+[![fr](https://img.shields.io/badge/lang-fr-blue.svg)](BATTERY_CO**Realistic 2-Relay Configuration:**
+- 🔴 **Heat Pump (2500W)** : -100W threshold = STARTS at 100W surplus, 20min minimum ON/OFF
+- 🔵 **Pool Pump (1000W)** : -50W threshold = STARTS at 50W surplus (flexible operation)
+- ⚡ **Water Heater** : Controlled by PV router triac (not external relay)URATION_GUIDE.md)
 
 ## The Real Problem with Battery Systems
 
@@ -97,20 +100,36 @@ The following graphs demonstrate why traditional relay configurations fail with 
 
 **Focused View:** This graph demonstrates how EWMA filtering dramatically improves system stability during variable solar conditions, preventing relay chattering while maintaining responsive operation.
 
-### Graph 3: Multi-Relay System Behavior (17:30-19:00)
+### Graph 3: 2-Relay System - Heat Pump & Pool Pump (17:30-19:00)
 
 ![Multi-Relay System](multi_relay_battery_system.png)
 
-**Comprehensive Multi-Load Management:**
-- **Net Balance Tracking:** Before (dashed) and after (solid) all relay loads clearly displayed  
-- **Priority-Based Operation:** Water heater (priority 1), pool pump (priority 2), car charger (priority 3)
-- **Colored State Backgrounds:** Each relay has distinct background colors when active
-- **Real-Time Statistics:** Runtime, switching count, and energy consumption automatically calculated
-- **Intelligent Load Shedding:** Loads automatically turn off during cloud events to preserve battery charging
+**Ultra-Optimized Visualization:** Logarithmic scale with POSITIVE threshold lines (50W, 100W surplus) corresponding to negative import thresholds (-50W, -100W). Ultra-minimal negative range (-10W) to maximize critical positive zone visibility.
 
-**Progressive Load Management:** This graph demonstrates how the system intelligently manages multiple high-power loads throughout the day while ensuring battery charging always takes priority over load operation.
-- **Pool Pump (2kW):** Turns OFF when surplus < 50W  
-- **Water Heater (1kW):** Turns OFF last when surplus < 30W
+**Realistic 2-Relay Configuration:**
+- � **Heat Pump (3000W)** : -100W threshold (high priority)
+- � **Pool Pump (1500W)** : -50W threshold (low priority)
+- ⚡ **Water Heater** : Controlled by PV router triac (not external relay)
+
+**Comparative Results:**
+
+| Metric | Working System | Broken System | Difference |
+|--------|----------------|---------------|------------|
+| **Total Switches** | 4 cycles | 0 cycles | ∞ |
+| **Energy Consumption** | 1933 Wh | 5250 Wh | **+172%** |
+| **Load Management** | Progressive intelligent | All loads stuck ON | Critical |
+
+**Intelligent Progressive Management:**
+- **17:30-17:45** : High surplus, **both relays turn ON** (complete demonstration)
+- **17:45-18:14** : Heat pump runs 29min then turns off (minimum ON time respected)
+- **18:00-18:56** : Pool pump continues 56min with moderate surplus
+- **18:56-19:00** : All loads off, battery charging priority
+
+**Impact of Broken Thresholds (0W):**
+- ❌ **All loads stuck ON** : Both relays remain ON for full 90 minutes
+- ❌ **5.25 kWh consumed** : 172% more battery energy than necessary
+- ❌ **3.3 kWh wasted** : Premature battery depletion
+- ❌ **No prioritization** : Impossible to distinguish critical/non-critical loads
 
 ### Real-World Behavior Patterns
 
