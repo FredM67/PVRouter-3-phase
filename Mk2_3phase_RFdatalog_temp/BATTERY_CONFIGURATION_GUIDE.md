@@ -1,12 +1,6 @@
 # Guide de Configuration pour Systèmes Batterie
 
-[![en](https://img.shields.io/badge/lang-en-red.sv**Con**Configuration 2 Relais Réaliste :**
-- 🔴 **Pompe à Chaleur (2500W)** : Seuil -100W = DÉMARRE à 100W surplus, 20min minimum ON/OFF
-- 🔵 **Pompe Piscine (1000W)** : Seuil -50W = DÉMARRE à 50W surplus (fonctionnement flexible)
-- ⚡ **Chauffe-eau** : Contrôlé par triac du routeur PV (non par relais externe)ration 2 Relais Réaliste :**
-- 🔴 **Pompe à Chaleur (2500W)** : Seuil -100W = DÉMARRE à 100W surplus, 20min minimum ON/OFF
-- 🔵 **Pompe Piscine (1000W)** : Seuil -50W = DÉMARRE à 50W surplus (fonctionnement flexible)
-- ⚡ **Chauffe-eau** : Contrôlé par triac du routeur PV (non par relais externe)BATTERY_CONFIGURATION_GUIDE.en.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](BATTERY_CONFIGURATION_GUIDE.en.md)
 
 ## Le Vrai Problème avec les Systèmes Batterie
 
@@ -106,8 +100,8 @@ Les graphiques suivants démontrent pourquoi les configurations de relais tradit
 **Visualisation Ultra-Optimisée :** Échelle logarithmique avec lignes de seuils POSITIVES (50W, 100W surplus) correspondant aux seuils négatifs d'import (-50W, -100W). Zone négative ultra-minimale (-10W) pour maximiser visibilité zone positive critique.
 
 **Configuration 2 Relais Réaliste :**
-- � **Pompe à Chaleur (3000W)** : Seuil -100W (priorité haute)
-- � **Pompe Piscine (1500W)** : Seuil -50W (priorité basse)
+- 🔴 **Pompe à Chaleur (2500W)** : Seuil -100W (priorité haute)
+- 🔵 **Pompe Piscine (1000W)** : Seuil -50W (priorité basse)
 - ⚡ **Chauffe-eau** : Contrôlé par triac du routeur PV (non par relais externe)
 
 **Résultats Comparatifs :**
@@ -194,7 +188,7 @@ relayOutput(4, 1500, -30, 10, 5)
 //          |   |    |   |   └─ Min OFF : 5 minutes
 //          |   |    |   └─ Min ON : 10 minutes (protection pompe)
 //          |   |    └─ Éteindre quand surplus < 30W
-//          |   └─ Allumer quand surplus > 1500W (puissance pompe)
+//          |   └─ Allumer quand surplus > 1000W (puissance pompe)
 //          └─ Pin de contrôle
 ```
 
@@ -216,7 +210,7 @@ relayOutput(6, 3000, -100, 5, 5)
 //          |   |    |     | └─ Temporisation standard
 //          |   |    |     └─ Temporisation standard  
 //          |   |    └─ Éteindre quand surplus < 100W (marge sûre)
-//          |   └─ Allumer quand surplus > 3000W
+//          |   └─ Allumer quand surplus > 2500W
 //          └─ Pin de contrôle
 ```
 
