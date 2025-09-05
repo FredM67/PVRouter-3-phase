@@ -4,7 +4,7 @@
 
 ## The Real Problem with Battery Systems
 
-When a PV Router is used with battery systems (Tesla Powerwall, Sonnen, etc.), customers often experience relays that **never turn OFF**. The root cause is the fundamental physics of how battery systems maintain grid balance.
+When a PV Router is used with battery systems, customers often experience relays that **never turn OFF**. The root cause is the fundamental physics of how battery systems maintain grid balance.
 
 ## Understanding the Issue
 

@@ -4,7 +4,7 @@
 
 ## Le Vrai Problème avec les Systèmes Batterie
 
-Quand un Routeur PV est utilisé avec des systèmes batterie (Tesla Powerwall, Sonnen, etc.), les clients expérimentent souvent des relais qui **ne s'éteignent jamais**. La cause racine est la physique fondamentale de comment les systèmes batterie maintiennent l'équilibre du réseau.
+Quand un Routeur PV est utilisé avec des systèmes batterie, les clients expérimentent souvent des relais qui **ne s'éteignent jamais**. La cause racine est la physique fondamentale de comment les systèmes batterie maintiennent l'équilibre du réseau.
 
 ## Comprendre le Problème
 
