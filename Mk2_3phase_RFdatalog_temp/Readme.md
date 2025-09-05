@@ -7,6 +7,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
 - [Aperçu rapide des fichiers](#aperçu-rapide-des-fichiers)
 - [Documentation de développement](#documentation-de-développement)
 - [Étalonnage du routeur](#étalonnage-du-routeur)
+- [Documentation d'analyse et outils](#documentation-danalyse-et-outils)
 - [Configuration du programme](#configuration-du-programme)
   - [Type de sortie série](#type-de-sortie-série)
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
@@ -111,6 +112,19 @@ inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
 ```
 
 Ces valeurs par défaut doivent être déterminées pour assurer un fonctionnement optimal du routeur.
+
+# Documentation d'analyse et outils
+
+📊 **[Outils d'Analyse et Documentation Technique](analysis/README.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](analysis/README.en.md)
+
+Cette section contient des outils d'analyse avancés et de la documentation technique pour :
+
+- **🔄 Filtrage EWMA/TEMA** : Analyse de l'immunité aux nuages et optimisation des filtres
+- **📈 Analyse de performance** : Scripts de visualisation et benchmarks
+- **⚙️ Guide de réglage** : Documentation pour l'optimisation des paramètres
+- **📊 Graphiques techniques** : Comparaisons visuelles des algorithmes de filtrage
+
+> **Utilisateurs avancés :** Ces outils vous aideront à comprendre et optimiser le comportement du routeur PV, notamment pour les installations avec variabilité de production solaire ou systèmes de batteries.
 
 # Configuration du programme
 
