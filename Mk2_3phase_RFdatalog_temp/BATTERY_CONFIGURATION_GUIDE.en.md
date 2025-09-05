@@ -74,7 +74,7 @@ relayOutput(pin, 1000, -20, 5, 5)
 
 ## Example Configurations
 
-### Tesla Powerwall + Pool Pump (1.5kW)
+### Battery X + Pool Pump (1.5kW)
 ```cpp
 relayOutput(4, 1500, -30, 10, 5)
 //          ^   ^    ^   ^   ^
@@ -85,7 +85,7 @@ relayOutput(4, 1500, -30, 10, 5)
 //          └─ Control pin
 ```
 
-### Sonnen Battery + Water Heating (2kW)
+### Battery Y + Water Heating (2kW)
 ```cpp
 relayOutput(5, 2000, -50, 15, 10)
 //          ^   ^    ^    ^   ^
