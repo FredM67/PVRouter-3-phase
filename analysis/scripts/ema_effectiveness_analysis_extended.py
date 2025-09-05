@@ -4,11 +4,13 @@
 Analyse de l'Efficacité EMA/DEMA/TEMA - Version Étendue
 ======================================================
 
-Ce script compare l'efficacité des différents filtres de moyenne mobile exponentielle
+Ce script compare l'efficacité des différents filtres de moyenne mobile exponenti    fig.suptitle('EMA vs DEMA vs TEMA Effectiveness Analysis - Extended Timeline\n' + 
+                 'Multi-Alpha (Production) vs Standard (Official) Implementations', 
+                 fontsize=16, fontweight='bold', y=0.98)e
 utilisés dans le projet PVRouter pour l'immunité aux nuages.
 
-Filtres analysés :
-- EMA Simple : Filtre de base, réactif mais sensible au bruit
+Filtres analysés :    fig.suptitle('Relay Switching Analysis - Extended Timeline\nCloud Immunity for PV Router Control', 
+                 fontsize=16, fontweight='bold', y=0.98) EMA Simple : Filtre de base, réactif mais sensible au bruit
 - DEMA Standard : Double EMA avec même alpha pour tous les niveaux
 - TEMA Multi-Alpha : Triple EMA avec alphas différents (implémentation de production)
 - TEMA Standard : Triple EMA avec même alpha pour tous les niveaux
@@ -244,7 +246,7 @@ def create_comparison_plots():
     
     fig.suptitle('EMA vs DEMA vs TEMA Effectiveness Analysis - Extended Timeline\\n' + 
                  'Multi-Alpha (Production) vs Standard (Official) Implementations', 
-                 fontsize=16, fontweight='bold')
+                 fontsize=16, fontweight='bold', y=0.98)
     
     colors = {
         'input': '#333333',
@@ -321,6 +323,7 @@ def create_comparison_plots():
                       linewidth=1, label='Relay Threshold')
     
     plt.tight_layout()
+    plt.subplots_adjust(top=0.92)  # Make room for suptitle
     return fig
 
 def create_relay_switching_analysis():
@@ -328,7 +331,7 @@ def create_relay_switching_analysis():
     
     fig, axes = plt.subplots(2, 1, figsize=(15, 10))
     fig.suptitle('Relay Switching Analysis - Extended Timeline\\nCloud Immunity for PV Router Control', 
-                 fontsize=16, fontweight='bold')
+                 fontsize=16, fontweight='bold', y=0.98)
     
     A = 24  # 2 minutes
     
@@ -416,6 +419,7 @@ def create_relay_switching_analysis():
              bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
     
     plt.tight_layout()
+    plt.subplots_adjust(top=0.92)  # Make room for suptitle
     return fig
 
 def main():

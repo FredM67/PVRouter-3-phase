@@ -27,12 +27,16 @@ def compare_tema_implementations():
     multi_ema_raw = multi_ema = 0
     multi_ema_ema_raw = multi_ema_ema = 0
     multi_ema_ema_ema_raw = multi_ema_ema_ema = 0
+    multi_ema_results = []
+    multi_dema_results = []
     multi_tema_results = []
     
     # Standard TEMA (official formula)
     std_ema_raw = std_ema = 0
     std_ema_ema_raw = std_ema_ema = 0
     std_ema_ema_ema_raw = std_ema_ema_ema = 0
+    std_ema_results = []
+    std_dema_results = []
     std_tema_results = []
     
     for sample in cloud_data:
@@ -46,7 +50,10 @@ def compare_tema_implementations():
         multi_ema_ema_ema_raw = multi_ema_ema_ema_raw - multi_ema_ema_ema + multi_ema_ema
         multi_ema_ema_ema = int(multi_ema_ema_ema_raw >> (shift_base - 2))  # 4x faster
         
+        multi_dema = (multi_ema << 1) - multi_ema_ema  # DEMA = 2*EMA - EMA_EMA
         multi_tema = 3 * (multi_ema - multi_ema_ema) + multi_ema_ema_ema
+        multi_ema_results.append(multi_ema)
+        multi_dema_results.append(multi_dema)
         multi_tema_results.append(multi_tema)
         
         # Standard implementation (same alpha for all levels)
@@ -59,7 +66,10 @@ def compare_tema_implementations():
         std_ema_ema_ema_raw = std_ema_ema_ema_raw - std_ema_ema_ema + std_ema_ema
         std_ema_ema_ema = int(std_ema_ema_ema_raw >> shift_base)  # Same alpha
         
+        std_dema = (std_ema << 1) - std_ema_ema  # DEMA = 2*EMA - EMA_EMA
         std_tema = 3 * (std_ema - std_ema_ema) + std_ema_ema_ema
+        std_ema_results.append(std_ema)
+        std_dema_results.append(std_dema)
         std_tema_results.append(std_tema)
     
     # Create plot
@@ -67,12 +77,21 @@ def compare_tema_implementations():
     
     plt.subplot(2, 1, 1)
     plt.plot(time_axis, cloud_data, 'k-', linewidth=2, label='Raw Power', alpha=0.7)
-    plt.plot(time_axis, multi_tema_results, 'b-', linewidth=3, label='Multi-α TEMA (Production)')
-    plt.plot(time_axis, std_tema_results, 'r--', linewidth=2, label='Standard TEMA')
+    
+    # Multi-alpha results (production implementation)
+    plt.plot(time_axis, multi_ema_results, '#4ECDC4', linewidth=2, label='Multi-α EMA', linestyle='-', alpha=0.8)
+    plt.plot(time_axis, multi_dema_results, '#45B7D1', linewidth=2, label='Multi-α DEMA', linestyle='-', alpha=0.9)
+    plt.plot(time_axis, multi_tema_results, '#2E86C1', linewidth=3, label='Multi-α TEMA (Production)', linestyle='-')
+    
+    # Standard results (official formulas)
+    plt.plot(time_axis, std_ema_results, '#FFA07A', linewidth=1.5, label='Standard EMA', linestyle='--', alpha=0.7)
+    plt.plot(time_axis, std_dema_results, '#98D8C8', linewidth=1.5, label='Standard DEMA', linestyle='--', alpha=0.8)
+    plt.plot(time_axis, std_tema_results, '#87CEEB', linewidth=2, label='Standard TEMA', linestyle='--', alpha=0.8)
+    
     plt.axhline(y=1000, color='orange', linestyle=':', alpha=0.7, label='Relay Threshold')
-    plt.title('TEMA Comparison: Multi-Alpha vs Standard Implementation\nExtended Timeline Shows Stabilization')
+    plt.title('EMA → DEMA → TEMA Progression: Multi-Alpha vs Standard\nExtended Timeline Shows Stabilization and Filter Hierarchy')
     plt.ylabel('Power (W)')
-    plt.legend()
+    plt.legend(loc='upper right', fontsize=9)
     plt.grid(True, alpha=0.3)
     
     # Add stabilization period highlighting
@@ -94,8 +113,8 @@ def compare_tema_implementations():
     
     plt.title('Alpha Values: Why Multi-Alpha is Better')
     plt.ylabel('Alpha (Responsiveness)')
-    plt.xlabel('EMA Level')
-    plt.xticks(x, ['EMA', 'EMA_EMA', 'EMA_EMA_EMA'])
+    plt.xlabel('Filter Level')
+    plt.xticks(x, ['EMA', 'DEMA', 'TEMA'])
     plt.legend()
     plt.grid(True, alpha=0.3, axis='y')
     
