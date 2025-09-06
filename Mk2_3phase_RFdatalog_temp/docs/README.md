@@ -23,10 +23,10 @@ This directory contains technical documentation about the PVRouter's software ar
 
 ### System Overview
 ```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+┌─────────────────┐     ┌──────────────────┐    ┌─────────────────┐
 │   ADC Inputs    │───▶│  Processing      │───▶│  Load Control   │
-│  (V/I sensors)  │    │     Engine       │    │   (TRIACs)      │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
+│  (V/I sensors)  │     │     Engine       │    │   (TRIACs)      │
+└─────────────────┘     └──────────────────┘    └─────────────────┘
                               │
                               ▼
                        ┌──────────────────┐
