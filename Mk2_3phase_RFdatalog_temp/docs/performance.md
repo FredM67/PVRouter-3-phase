@@ -230,12 +230,15 @@ volatile bool flags[6];                             // 6 bytes
 - **Performance**: Same as Uno
 - **Suitability**: ✅ Overkill but allows many expansions
 
-### ESP32
-- **Clock**: 240MHz  
-- **RAM**: 320KB (<1% used)
-- **Flash**: 4MB (<1% used)
-- **Performance**: 15x faster processing
-- **Suitability**: ✅ Ideal for WiFi integration and advanced features
+### SAMD21 (Future Platform)
+- **Clock**: 48MHz  
+- **RAM**: 32KB (~25% used)
+- **Flash**: 256KB (~35% used)
+- **ADC**: 12-bit with superior noise characteristics and much faster conversion
+- **Sampling Rate**: >100kHz (10x+ faster than Uno's 9.6kHz)
+- **Performance**: 3x faster CPU + 10x+ faster ADC = dramatically improved capabilities
+- **Language**: Planned rewrite in Rust for memory safety and performance
+- **Suitability**: ✅ Future platform for next-generation PVRouter
 
 ## Performance Recommendations
 
@@ -245,9 +248,13 @@ volatile bool flags[6];                             // 6 bytes
 - Use compile-time optimizations
 
 ### For High-Performance Requirements
-- Consider ESP32 for WiFi and advanced algorithms
-- Implement predictive load switching
-- Add real-time clock for time-based scheduling
+- Future SAMD21 + Rust implementation will provide:
+  - Dramatically superior ADC performance (>10x sampling rate)
+  - Much lower ADC noise for better power measurement accuracy
+  - Memory safety guarantees from Rust's ownership system
+  - Zero-cost abstractions for optimal performance
+  - Advanced compile-time error checking
+- Ideal for installations requiring maximum precision and reliability
 
 ### For Large Installations
 - Use Arduino Mega for >8 loads

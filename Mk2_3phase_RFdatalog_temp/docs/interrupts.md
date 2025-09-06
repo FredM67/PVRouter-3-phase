@@ -283,10 +283,13 @@ ISR(ADC_vect) {
 - **Differential inputs** for better noise immunity
 - **Higher sample rates** for better harmonic analysis
 
-### Multi-Core Processing
-- **ESP32 dual-core** for dedicated ISR processing
-- **Core affinity** for interrupt handling
-- **Lock-free communication** between cores
+### SAMD21 + Rust Migration
+- **SAMD21 microcontroller** with superior 12-bit ADC (low noise)
+- **Rust implementation** for memory safety and zero-cost abstractions
+- **Higher processing power** for advanced algorithms
+- **More memory** for complex signal processing
+- **Better real-time performance** with dedicated ADC subsystem
+- **Compile-time guarantees** for interrupt safety and data races prevention
 
 ### Advanced Signal Processing
 - **FFT analysis** for harmonic content

@@ -176,6 +176,6 @@ pio run --target size
 4. **Use static analysis tools** to detect potential issues
 
 ### Future Considerations
-- **ESP32 migration**: 520KB RAM, 4MB Flash available
+- **SAMD21 migration**: 32KB RAM, 256KB Flash, superior 12-bit ADC
 - **Code modularity**: Prepare for larger memory spaces
 - **Dynamic features**: Consider memory pools for expansion
