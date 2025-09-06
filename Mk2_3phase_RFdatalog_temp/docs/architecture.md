@@ -34,13 +34,13 @@ The PVRouter is designed as a real-time embedded system with the following core 
 │                                                                 │
 │  ┌──────────────────────────────────────────────────────────┐   │
 │  │              Core Processing Engine                      │   │
-│  │                (processing.cpp/.h)                      │   │
+│  │                (processing.cpp/.h)                       │   │
 │  │                                                          │   │
-│  │  • Real power calculation (V × I × cos φ)               │   │
-│  │  • Energy bucket management                             │   │
-│  │  • Load priority algorithms                             │   │
-│  │  • Polarity detection & confirmation                    │   │
-│  │  • Data aggregation for logging                         │   │
+│  │  • Real power calculation (V × I × cos φ)                │   │
+│  │  • Energy bucket management                              │   │
+│  │  • Load priority algorithms                              │   │
+│  │  • Polarity detection & confirmation                     │   │
+│  │  • Data aggregation for logging                          │   │
 │  └──────────────────────────────────────────────────────────┘   │
 │                              │                                  │
 │                              ▼                                  │
