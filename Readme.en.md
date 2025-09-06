@@ -29,6 +29,7 @@ It supports up to 12 resistive output loads, which are completely independent.
   - [Photo Gallery](#photo-gallery)
   - [Schematic of the mainboard](#schematic-of-the-mainboard)
   - [Implementation documentation](#implementation-documentation)
+  - [Analysis and Tools Documentation](#analysis-and-tools-documentation)
   - [End-user documentation](#end-user-documentation)
     - [Overview](#overview)
     - [Load priorities management](#load-priorities-management)
@@ -62,6 +63,19 @@ It supports up to 12 resistive output loads, which are completely independent.
 ## Implementation documentation
 
 You can start reading the documentation here [3-phase diverter](https://fredm67.github.io/PVRouter-3-phase/html/index.html).
+
+## Analysis and Tools Documentation
+
+📊 **[Analysis Tools and Technical Documentation](analysis/README.en.md)** [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](analysis/README.md)
+
+This section contains advanced analysis tools and technical documentation for:
+
+- **🔄 EWMA/TEMA Filtering**: Cloud immunity analysis and filter optimization
+- **📈 Performance Analysis**: Visualization scripts and benchmarks
+- **⚙️ Tuning Guide**: Documentation for parameter optimization
+- **📊 Technical Charts**: Visual comparisons of filtering algorithms
+
+> **Advanced Users:** These tools will help you understand and optimize PV router behavior, especially for installations with variable solar production or battery systems.
 
 ## End-user documentation
 

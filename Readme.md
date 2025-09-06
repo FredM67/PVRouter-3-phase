@@ -30,6 +30,7 @@ Il prend en charge jusqu'à 12 sorties pour charges résistives, qui sont compl�
   - [Gallerie photo](#gallerie-photo)
   - [Schéma de la carte-mère](#schéma-de-la-carte-mère)
   - [Documentation de développement](#documentation-de-développement)
+  - [Documentation d'analyse et outils](#documentation-danalyse-et-outils)
   - [Documentation de l’utilisateur final](#documentation-de-lutilisateur-final)
     - [Aperçu](#aperçu)
     - [Gestion des priorités de charge](#gestion-des-priorités-de-charge)
@@ -71,6 +72,19 @@ Vous trouverez [ici](schematics/3phase_Mainboard.pdf) le schéma de la carte-mè
 ## Documentation de développement
 
 Vous pouvez commencer à lire la documentation ici [3-phase routeur](https://fredm67.github.io/PVRouter-3-phase/) (en anglais).
+
+## Documentation d'analyse et outils
+
+📊 **[Outils d'Analyse et Documentation Technique](analysis/README.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](analysis/README.en.md)
+
+Cette section contient des outils d'analyse avancés et de la documentation technique pour :
+
+- **🔄 Filtrage EWMA/TEMA** : Analyse de l'immunité aux nuages et optimisation des filtres
+- **📈 Analyse de performance** : Scripts de visualisation et benchmarks
+- **⚙️ Guide de réglage** : Documentation pour l'optimisation des paramètres
+- **📊 Graphiques techniques** : Comparaisons visuelles des algorithmes de filtrage
+
+> **Utilisateurs avancés :** Ces outils vous aideront à comprendre et optimiser le comportement du routeur PV, notamment pour les installations avec variabilité de production solaire ou systèmes de batteries.
 
 ## Documentation de l’utilisateur final
 

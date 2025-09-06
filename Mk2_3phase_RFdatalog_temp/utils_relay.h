@@ -17,7 +17,6 @@
 #include "debug.h"
 
 #include "config_system.h"
-#include "movingAvg.h"
 #include "ewma_avg.hpp"
 #include "utils_pins.h"
 
@@ -57,11 +56,14 @@ public:
    * @brief Construct a new relay Config object with default/custom parameters
    * 
    * @param _relay_pin Control pin for the relay
-   * @param _surplusThreshold Surplus threshold to turn relay ON
+   * @param _surplusThreshold Surplus threshold to turn relay ON (positive value, e.g., 1000)
    * @param _importThreshold Import threshold to turn relay OFF
+   *        - Positive values: turn OFF when importing > threshold (normal installations)
+   *        - Negative values: turn OFF when surplus < abs(threshold) (battery systems)
+   *        - Zero: turn OFF when importing > 0W (problematic with batteries)
    */
   constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)
-    : relay_pin{ _relay_pin }, surplusThreshold{ -abs(_surplusThreshold) }, importThreshold{ abs(_importThreshold) }
+    : relay_pin{ _relay_pin }, surplusThreshold{ -abs(_surplusThreshold) }, importThreshold{ _importThreshold }
   {
   }
 
@@ -69,13 +71,16 @@ public:
    * @brief Construct a new relay Config object with custom parameters
    * 
    * @param _relay_pin Control pin for the relay
-   * @param _surplusThreshold Surplus threshold to turn relay ON
+   * @param _surplusThreshold Surplus threshold to turn relay ON (positive value, e.g., 1000)
    * @param _importThreshold Import threshold to turn relay OFF
+   *        - Positive values: turn OFF when importing > threshold (normal installations)
+   *        - Negative values: turn OFF when surplus < abs(threshold) (battery systems)
+   *        - Zero: turn OFF when importing > 0W (problematic with batteries)
    * @param _minON Minimum duration in minutes to leave relay ON
    * @param _minOFF Minimum duration in minutes to leave relay OFF
    */
   constexpr relayOutput(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
-    : relay_pin{ _relay_pin }, surplusThreshold{ -abs(_surplusThreshold) }, importThreshold{ abs(_importThreshold) }, minON{ _minON * 60 }, minOFF{ _minOFF * 60 }
+    : relay_pin{ _relay_pin }, surplusThreshold{ -abs(_surplusThreshold) }, importThreshold{ _importThreshold }, minON{ _minON * 60 }, minOFF{ _minOFF * 60 }
   {
   }
 
@@ -164,10 +169,25 @@ public:
     {
       return try_turnON();
     }
-    if (currentAvgPower > importThreshold)
+
+    // Handle both positive and negative import thresholds
+    if (importThreshold >= 0)
     {
-      return try_turnOFF();
+      // Positive threshold: turn OFF when importing > threshold (normal mode)
+      if (currentAvgPower > importThreshold)
+      {
+        return try_turnOFF();
+      }
     }
+    else
+    {
+      // Negative threshold: turn OFF when surplus < abs(threshold) (battery mode)
+      if (currentAvgPower > importThreshold)  // importThreshold is negative, so this checks surplus < abs(threshold)
+      {
+        return try_turnOFF();
+      }
+    }
+
     return false;
   }
 
@@ -187,7 +207,17 @@ public:
     Serial.println(get_surplusThreshold());
 
     Serial.print(F("\t\tImport threshold: "));
-    Serial.println(get_importThreshold());
+    Serial.print(get_importThreshold());
+    if (get_importThreshold() >= 0)
+    {
+      Serial.println(F(" (import mode)"));
+    }
+    else
+    {
+      Serial.print(F(" (surplus mode: turn OFF when surplus < "));
+      Serial.print(-get_importThreshold());
+      Serial.println(F("W)"));
+    }
 
     Serial.print(F("\t\tMinimum working time in minutes: "));
     Serial.println(get_minON() / 60);
@@ -244,7 +274,7 @@ private:
 private:
   const uint8_t relay_pin{ unused_pin };   /**< Pin associated with the relay */
   const int16_t surplusThreshold{ -1000 }; /**< Surplus threshold to turn relay ON */
-  const int16_t importThreshold{ 200 };    /**< Import threshold to turn relay OFF */
+  const int16_t importThreshold{ 200 };    /**< Import threshold to turn relay OFF (positive = import mode, negative = surplus mode) */
   const uint16_t minON{ 5 * 60 };          /**< Minimum duration in seconds the relay is turned ON */
   const uint16_t minOFF{ 5 * 60 };         /**< Minimum duration in seconds the relay is turned OFF */
 
@@ -326,7 +356,7 @@ public:
    */
   inline static auto get_average()
   {
-    return ewma_average.getAverageS();
+    return ewma_average.getAverageT();  // Use TEMA for better cloud immunity
   }
 
   /**
@@ -366,13 +396,13 @@ public:
       return;
     }
 
-    if (ewma_average.getAverageS() > 0)
+    if (ewma_average.getAverageT() > 0)
     {
       // Currently importing, try to turn OFF some relays
       uint8_t idx{ N };
       do
       {
-        if (relay[--idx].proceed_relay(ewma_average.getAverageS()))
+        if (relay[--idx].proceed_relay(ewma_average.getAverageT()))
         {
           settle_change = 60;
           return;
@@ -385,7 +415,7 @@ public:
       uint8_t idx{ 0 };
       do
       {
-        if (relay[idx].proceed_relay(ewma_average.getAverageS()))
+        if (relay[idx].proceed_relay(ewma_average.getAverageT()))
         {
           settle_change = 60;
           return;
@@ -433,5 +463,12 @@ template< uint8_t N, uint8_t D > void RelayEngine< N, D >::inc_duration() const
     --settle_change;
   }
 }
+
+// Deduction guides for automatic template parameter deduction
+template< uint8_t N >
+RelayEngine(const relayOutput (&)[N]) -> RelayEngine< N, 10 >;
+
+template< uint8_t N, uint8_t D >
+RelayEngine(integral_constant< uint8_t, D >, const relayOutput (&)[N]) -> RelayEngine< N, D >;
 
 #endif /* UTILS_RELAY_H */

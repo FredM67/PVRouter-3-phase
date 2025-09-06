@@ -41,6 +41,16 @@
  * 
  * @param v The input number
  * @return constexpr uint8_t The next power of two
+ * 
+ * @note This function is used to optimize the EWMA calculation by using bit-shifting instead of division.
+ *       For cloud immunity tuning:
+ *       - Larger values = more filtering, better cloud immunity, slower response
+ *       - Smaller values = less filtering, faster response, more sensitive to clouds
+ *       
+ *       Recommended values for relay control:
+ *       - Clear sky regions: A = 60-120 (1-2 minutes smoothing)
+ *       - Mixed conditions: A = 120-240 (2-4 minutes smoothing) 
+ *       - Very cloudy: A = 240-480 (4-8 minutes smoothing)
  */
 constexpr uint8_t round_up_to_power_of_2(uint16_t v)
 {
@@ -72,6 +82,24 @@ constexpr uint8_t round_up_to_power_of_2(uint16_t v)
  * - EMA provides a smoothed average of the input series.
  * - DEMA and TEMA offer improved responsiveness, especially for peak inputs.
  * - The class is optimized for use in embedded systems like Arduino.
+ * 
+ * @section cloud_immunity Cloud Immunity Tuning
+ * For PV router applications, cloud immunity is crucial to prevent relay chattering:
+ * 
+ * **TEMA (getAverageT()) is recommended for relay control** as it provides:
+ * - Best immunity to brief cloud shadows (5-60 seconds)
+ * - Good responsiveness to genuine load changes
+ * - Optimal balance for most installations
+ * 
+ * **Filter Comparison:**
+ * - EMA (getAverageS()): Basic smoothing, most responsive, least cloud immunity
+ * - DEMA (getAverageD()): Better cloud immunity, good responsiveness  
+ * - TEMA (getAverageT()): Best cloud immunity, excellent responsiveness to real changes
+ * 
+ * **Tuning Guidelines:**
+ * - Template parameter A should be: `delay_minutes * 60 / sample_period_seconds`
+ * - For 5-second sampling: A = delay_minutes * 12
+ * - Recommended delays: 1-3 minutes for most installations
  *
  * @ingroup GeneralProcessing
  */

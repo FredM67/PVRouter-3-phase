@@ -4,3 +4,49 @@ inols*
 logs
 docs/.$*.drawio.*
 *.res.txt
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Analysis temporary files
+analysis/temp/
+*.tmp
+*.bak
+
+# Generated plots (keep versioned ones in analysis/plots/)
+temp_*.png
+test_*.png
