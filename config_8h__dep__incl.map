@@ -1,5 +1,5 @@
 <map id="Mk2_3phase_RFdatalog_temp/config.h" name="Mk2_3phase_RFdatalog_temp/config.h">
-<area shape="rect" id="Node000001" title="Configuration values to be set by the end&#45;user." alt="" coords="508,5,685,45"/>
+<area shape="rect" id="Node000001" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="508,5,685,45"/>
 <area shape="rect" id="Node000002" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="811,93,988,133"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="677,47,834,91,832,96,676,52"/>
 <area shape="rect" id="Node000003" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="773,269,951,309"/>

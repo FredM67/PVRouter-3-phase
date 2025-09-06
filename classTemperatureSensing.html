@@ -125,8 +125,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a61b759a6c7b9cfddcdfa075f27988fde" id="r_a61b759a6c7b9cfddcdfa075f27988fde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61b759a6c7b9cfddcdfa075f27988fde">initTemperatureSensors</a> () const</td></tr>
 <tr class="memdesc:a61b759a6c7b9cfddcdfa075f27988fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the Dallas temperature sensors.  <br /></td></tr>
 <tr class="separator:a61b759a6c7b9cfddcdfa075f27988fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf6ef8da2035e84feb3047bdc98ee9b1" id="r_acf6ef8da2035e84feb3047bdc98ee9b1"><td class="memTemplParams" colspan="2">template&lt;uint8_t IDX&gt; </td></tr>
+<tr class="memitem:acf6ef8da2035e84feb3047bdc98ee9b1"><td class="memTemplItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#acf6ef8da2035e84feb3047bdc98ee9b1">readTemperature</a> () const</td></tr>
+<tr class="memdesc:acf6ef8da2035e84feb3047bdc98ee9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read temperature from a specific sensor (compile-time bounds checking).  <br /></td></tr>
+<tr class="separator:acf6ef8da2035e84feb3047bdc98ee9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a818e69732219334348f6e6e44774d0fe" id="r_a818e69732219334348f6e6e44774d0fe"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a818e69732219334348f6e6e44774d0fe">readTemperature</a> (const uint8_t idx) const</td></tr>
-<tr class="memdesc:a818e69732219334348f6e6e44774d0fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the temperature of a specific sensor.  <br /></td></tr>
+<tr class="memdesc:a818e69732219334348f6e6e44774d0fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the temperature of a specific sensor (runtime bounds checking).  <br /></td></tr>
 <tr class="separator:a818e69732219334348f6e6e44774d0fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10629740380a6f688ac5c70346a94c80" id="r_a10629740380a6f688ac5c70346a94c80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10629740380a6f688ac5c70346a94c80">requestTemperatures</a> () const</td></tr>
 <tr class="memdesc:a10629740380a6f688ac5c70346a94c80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request temperature conversion for all sensors.  <br /></td></tr>
@@ -359,8 +363,67 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="acf6ef8da2035e84feb3047bdc98ee9b1" name="acf6ef8da2035e84feb3047bdc98ee9b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf6ef8da2035e84feb3047bdc98ee9b1">&#9670;&#160;</a></span>readTemperature() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N&gt; </div>
+<div class="memtemplate">
+template&lt;uint8_t IDX&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int16_t <a class="el" href="classTemperatureSensing.html">TemperatureSensing</a>&lt; N &gt;::readTemperature </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read temperature from a specific sensor (compile-time bounds checking). </p>
+<p>This template version provides compile-time bounds checking for constant sensor indices. Use this version when the sensor index is known at compile time for better safety.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">IDX</td><td>The sensor index (must be &lt; N) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int16_t The temperature in hundredths of a degree Celsius (e.g., 2500 = 25.00°C). Returns <code>DEVICE_DISCONNECTED_RAW</code> if the sensor is disconnected or CRC validation fails. Returns <code>OUTOFRANGE_TEMPERATURE</code> if the temperature is out of the defined range. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00225">225</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classTemperatureSensing_acf6ef8da2035e84feb3047bdc98ee9b1_cgraph.png" border="0" usemap="#aclassTemperatureSensing_acf6ef8da2035e84feb3047bdc98ee9b1_cgraph" alt=""/></div>
+<map name="aclassTemperatureSensing_acf6ef8da2035e84feb3047bdc98ee9b1_cgraph" id="aclassTemperatureSensing_acf6ef8da2035e84feb3047bdc98ee9b1_cgraph">
+<area shape="rect" title="Read temperature from a specific sensor (compile&#45;time bounds checking)." alt="" coords="5,29,160,69"/>
+<area shape="poly" title=" " alt="" coords="53,29,52,20,56,11,67,5,83,3,101,6,111,13,108,17,99,11,83,8,68,10,60,14,57,21,59,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classTemperatureSensing_acf6ef8da2035e84feb3047bdc98ee9b1_icgraph.png" border="0" usemap="#aclassTemperatureSensing_acf6ef8da2035e84feb3047bdc98ee9b1_icgraph" alt=""/></div>
+<map name="aclassTemperatureSensing_acf6ef8da2035e84feb3047bdc98ee9b1_icgraph" id="aclassTemperatureSensing_acf6ef8da2035e84feb3047bdc98ee9b1_icgraph">
+<area shape="rect" title="Read temperature from a specific sensor (compile&#45;time bounds checking)." alt="" coords="5,29,160,69"/>
+<area shape="poly" title=" " alt="" coords="108,17,99,11,83,8,68,10,60,14,57,21,59,28,53,29,52,20,56,11,67,5,83,3,101,6,111,13"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a818e69732219334348f6e6e44774d0fe" name="a818e69732219334348f6e6e44774d0fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a818e69732219334348f6e6e44774d0fe">&#9670;&#160;</a></span>readTemperature()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a818e69732219334348f6e6e44774d0fe">&#9670;&#160;</a></span>readTemperature() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -384,8 +447,8 @@ template&lt;uint8_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Reads the temperature of a specific sensor. </p>
-<p>This method reads the temperature data from a specific sensor connected to the OneWire bus. It validates the data using CRC and ensures the temperature is within the acceptable range.</p>
+<p>Reads the temperature of a specific sensor (runtime bounds checking). </p>
+<p>This method reads the temperature data from a specific sensor connected to the OneWire bus. It validates the data using CRC and ensures the temperature is within the acceptable range. Includes runtime bounds checking for safety when the index is not known at compile time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index of the sensor to read. </td></tr>
@@ -399,7 +462,7 @@ template&lt;uint8_t N&gt; </div>
 <li>Validates the data using CRC and checks for out-of-range values. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00229">229</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00248">248</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
 
 </div>
 </div>
@@ -474,7 +537,7 @@ template&lt;uint8_t N&gt; </div>
 </div><div class="memdoc">
 <p>For temperature sensing </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00273">273</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00297">297</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
 
 </div>
 </div>
@@ -501,7 +564,7 @@ template&lt;uint8_t N&gt; </div>
 </div><div class="memdoc">
 <p>Array of sensors </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00271">271</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00295">295</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
 
 </div>
 </div>
@@ -528,7 +591,7 @@ template&lt;uint8_t N&gt; </div>
 </div><div class="memdoc">
 <p>The pin of the sensor(s) </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00269">269</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00293">293</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
 
 </div>
 </div>

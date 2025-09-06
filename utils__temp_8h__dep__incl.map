@@ -1,6 +1,6 @@
 <map id="Mk2_3phase_RFdatalog_temp/utils_temp.h" name="Mk2_3phase_RFdatalog_temp/utils_temp.h">
 <area shape="rect" id="Node000001" title="Provides utilities for managing temperature sensors." alt="" coords="434,5,612,45"/>
-<area shape="rect" id="Node000002" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="434,93,612,133"/>
+<area shape="rect" id="Node000002" href="$config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="434,93,612,133"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="517,59,518,93,513,93,512,59"/>
 <area shape="rect" id="Node000006" href="$utils_8h.html" title="Some utility functions." alt="" coords="270,269,448,309"/>
 <area shape="poly" id="edge20_Node000001_Node000006" title=" " alt="" coords="421,46,309,69,189,100,133,118,84,138,46,160,21,183,12,198,8,212,10,224,15,234,38,252,75,266,120,275,170,281,270,286,270,292,170,287,119,280,73,271,36,257,11,237,5,225,3,211,7,196,17,180,43,156,82,133,131,113,187,95,308,63,420,41"/>

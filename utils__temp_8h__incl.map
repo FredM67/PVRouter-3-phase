@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,48,114,68,70,96,52,113,37,132,28,154,25,178,25,254,31,323,43,380,38,381,26,323,19,254,19,178,23,152,33,130,48,109,67,92,111,63,158,43"/>
 <area shape="rect" id="Node000003" href="$constants_8h.html" title="Some constants." alt="" coords="111,313,208,339"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,47,179,100,163,133,151,167,146,203,146,239,156,300,150,300,141,239,141,202,146,166,158,131,175,97,208,44"/>
-<area shape="rect" id="Node000004" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="289,93,363,119"/>
+<area shape="rect" id="Node000004" href="$config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="289,93,363,119"/>
 <area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="243,43,295,83,292,88,240,48"/>
 <area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="144,341,76,388,73,384,141,337"/>
 <area shape="poly" id="edge75_Node000004_Node000001" title=" " alt="" coords="316,95,267,56,270,51,319,91"/>

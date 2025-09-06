@@ -1,6 +1,6 @@
 <map id="Mk2_3phase_RFdatalog_temp/debug.h" name="Mk2_3phase_RFdatalog_temp/debug.h">
 <area shape="rect" id="Node000001" title="Some macro for the Serial Output and Debugging." alt="" coords="713,5,891,45"/>
-<area shape="rect" id="Node000002" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="609,189,787,229"/>
+<area shape="rect" id="Node000002" href="$config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="609,189,787,229"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="787,59,711,190,706,187,782,56"/>
 <area shape="rect" id="Node000012" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="799,93,976,133"/>
 <area shape="poly" id="edge22_Node000001_Node000012" title=" " alt="" coords="832,53,870,91,867,95,829,57"/>

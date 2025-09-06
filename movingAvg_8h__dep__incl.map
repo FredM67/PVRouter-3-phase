@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Code for sliding&#45;window average." alt="" coords="1040,5,1217,45"/>
 <area shape="rect" id="Node000002" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="1040,93,1217,133"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1131,59,1131,93,1126,93,1126,59"/>
-<area shape="rect" id="Node000003" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="609,189,787,229"/>
+<area shape="rect" id="Node000003" href="$config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="609,189,787,229"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1029,139,786,191,784,186,1027,134"/>
 <area shape="rect" id="Node000005" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="799,460,976,500"/>
 <area shape="poly" id="edge23_Node000002_Node000005" title=" " alt="" coords="1136,147,1139,203,1135,273,1128,311,1117,348,1102,382,1080,414,1058,434,1033,450,977,470,975,465,1030,445,1055,430,1076,410,1097,380,1112,346,1123,310,1129,273,1133,203,1130,147"/>

@@ -10,7 +10,7 @@
 <area shape="poly" id="edge32_Node000001_Node000017" title=" " alt="" coords="695,56,636,95,633,91,692,51"/>
 <area shape="rect" id="Node000018" href="$types_8h.html" title="Some basics classes/types." alt="" coords="317,93,494,133"/>
 <area shape="poly" id="edge34_Node000001_Node000018" title=" " alt="" coords="649,51,478,96,476,91,648,46"/>
-<area shape="rect" id="Node000003" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="647,291,825,331"/>
+<area shape="rect" id="Node000003" href="$config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="647,291,825,331"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="843,146,750,292,746,290,838,144"/>
 <area shape="rect" id="Node000010" href="$teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="950,387,1127,427"/>
 <area shape="poly" id="edge23_Node000002_Node000010" title=" " alt="" coords="860,148,859,189,864,239,877,291,888,315,902,337,933,365,970,384,968,389,930,369,898,340,883,317,872,292,859,240,854,189,854,148"/>

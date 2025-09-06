@@ -1,7 +1,7 @@
 var searchData=
 [
   ['read_5fscratchpad_0',['READ_SCRATCHPAD',['../constants_8h.html#a4efcca8a8902b210fd176b46753964f1',1,'constants.h']]],
-  ['readtemperature_1',['readTemperature',['../classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe',1,'TemperatureSensing']]],
+  ['readtemperature_1',['readTemperature',['../classTemperatureSensing.html#acf6ef8da2035e84feb3047bdc98ee9b1',1,'TemperatureSensing::readTemperature() const'],['../classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe',1,'TemperatureSensing::readTemperature(const uint8_t idx) const']]],
   ['relay_2',['relay',['../classRelayEngine.html#a4771d7ed435411f4fd06dc480c1b1508',1,'RelayEngine']]],
   ['relay_20diversion_20feature_3',['Relay diversion feature',['../group__RelayDiversion.html',1,'']]],
   ['relay_5fdiversion_4',['RELAY_DIVERSION',['../config_8h.html#a200f51c8bd47e8b14cdc6522f2223742',1,'config.h']]],

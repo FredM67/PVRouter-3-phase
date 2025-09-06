@@ -1,6 +1,6 @@
 <map id="Mk2_3phase_RFdatalog_temp/config_system.h" name="Mk2_3phase_RFdatalog_temp/config_system.h">
 <area shape="rect" id="Node000001" title="Basic configuration values to be set by the end&#45;user." alt="" coords="767,5,944,45"/>
-<area shape="rect" id="Node000002" href="$config_8h.html" title="Configuration values to be set by the end&#45;user." alt="" coords="623,189,800,229"/>
+<area shape="rect" id="Node000002" href="$config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="623,189,800,229"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="834,58,728,190,724,187,830,55"/>
 <area shape="rect" id="Node000009" href="$teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="5,284,183,324"/>
 <area shape="poly" id="edge22_Node000001_Node000009" title=" " alt="" coords="792,53,147,286,145,281,790,48"/>
