@@ -204,16 +204,6 @@ volatile bool flags[6];                             // 6 bytes
 
 **Limit**: ~16 loads before ISR time exceeds budget on Arduino Uno
 
-### Adding More Phases
-
-| Phase Count | RAM Impact | Flash Impact | ADC Load |
-|-------------|------------|--------------|----------|
-| 3 phases (current) | Baseline | Baseline | 6 channels |
-| 6 phases | +150 bytes | +800 bytes | 12 channels |
-| 9 phases | +300 bytes | +1.5KB | 18 channels |
-
-**Limit**: 8 ADC channels on Arduino Uno (4 phases maximum)
-
 ### Adding More Sensors
 
 | Sensor Count | RAM Impact | Flash Impact | Conversion Time |

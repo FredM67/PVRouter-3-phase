@@ -90,7 +90,7 @@ static_assert(NO_OF_DUMPLOADS <= 6, "Too many dump loads");
 static_assert(NO_OF_PHASES == 3, "Only 3-phase operation supported");
 ```
 
-### Runtime Bounds Checking
+### Compile-Time Bounds Checking
 Template-based bounds checking for array access:
 ```cpp
 template<uint8_t IDX>
@@ -152,7 +152,7 @@ pio run --target size
 ### Scalability Limits
 
 #### Maximum Dump Loads
-- **Theoretical**: 6 loads (constrained by available pins)
+- **Practical limit**: ~8-10 loads (constrained by available digital pins on Arduino Uno)
 - **Memory**: Each load adds ~8 bytes RAM
 - **Performance**: Processing time scales linearly
 

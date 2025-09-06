@@ -131,8 +131,8 @@ private:
  * Detailed description of the file's purpose and functionality.
  */
 
-#ifndef FILENAME_H
-#define FILENAME_H
+#ifndef CONTRIBUTING_H
+#define CONTRIBUTING_H
 
 // Include order:
 // 1. Standard library
@@ -147,7 +147,7 @@ private:
 
 // Implementation...
 
-#endif  // FILENAME_H
+#endif /* CONTRIBUTING_H */
 ```
 
 ## Safety Requirements
