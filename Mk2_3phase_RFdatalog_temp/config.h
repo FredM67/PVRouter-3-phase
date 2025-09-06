@@ -1,19 +1,28 @@
 /**
- * @file config.h
- * @author Frédéric Metrich (frederic.metrich@live.fr)
- * @brief Configuration values to be set by the end-user
- * @version 0.5
- * @date 2023-02-09
- *
- * @copyright Copyright (c) 2023
- *
+ * @file config.h - Basic Three-Phase Configuration Example
+ * @brief Standard three-phase PVRouter setup with 2 dump loads
+ * 
+ * This configuration is suitable for:
+ * - Standard three-phase electrical installation
+ * - Two resistive dump loads (e.g., water heater elements)
+ * - Basic monitoring without additional sensors
+ * - Human-readable serial output for commissioning
+ * 
+ * Hardware requirements:
+ * - 3-phase PVRouter PCB
+ * - 3 current transformers (one per phase)
+ * - 3 voltage sensing circuits (one per phase) 
+ * - 2 TRIAC outputs for dump loads
+ * 
+ * @version 1.0
+ * @date 2024-09-06
  */
 
 #ifndef CONFIG_H
 #define CONFIG_H
 
 //--------------------------------------------------------------------------------------------------
-//#define RF_PRESENT  /**< this line must be commented out if the RFM12B module is not present */#define ENABLE_DEBUG /**< enable this line to include debugging print statements */
+//#define RF_PRESENT  /**< this line must be commented out if the RFM12B module is not present */
 #define ENABLE_DEBUG /**< enable this line to include debugging print statements */
 //--------------------------------------------------------------------------------------------------
 
@@ -24,13 +33,15 @@
 #include "utils_dualtariff.h"
 #include "utils_relay.h"
 
-inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT; /**< constexpr variable to set the serial output type */
+// Serial output type - Human readable for initial setup and commissioning
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
 
 //--------------------------------------------------------------------------------------------------
-// constants which must be set individually for each system
+// Basic Configuration
 //
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 }; /**< number of dump loads connected to the diverter */
 
+// Feature toggles - Basic setup without advanced features
 inline constexpr bool EMONESP_CONTROL{ false };
 inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */

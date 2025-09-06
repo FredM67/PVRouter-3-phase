@@ -211,10 +211,29 @@ public:
   }
 
   /**
-   * @brief Reads the temperature of a specific sensor.
+   * @brief Read temperature from a specific sensor (compile-time bounds checking).
+   *
+   * This template version provides compile-time bounds checking for constant sensor indices.
+   * Use this version when the sensor index is known at compile time for better safety.
+   *
+   * @tparam IDX The sensor index (must be < N)
+   * @return int16_t The temperature in hundredths of a degree Celsius (e.g., 2500 = 25.00°C).
+   *         Returns `DEVICE_DISCONNECTED_RAW` if the sensor is disconnected or CRC validation fails.
+   *         Returns `OUTOFRANGE_TEMPERATURE` if the temperature is out of the defined range.
+   */
+  template< uint8_t IDX >
+  [[nodiscard]] int16_t readTemperature() const
+  {
+    static_assert(IDX < N, "Sensor index out of bounds! Check your sensor configuration.");
+    return readTemperature(IDX);
+  }
+
+  /**
+   * @brief Reads the temperature of a specific sensor (runtime bounds checking).
    *
    * This method reads the temperature data from a specific sensor connected to the OneWire bus.
    * It validates the data using CRC and ensures the temperature is within the acceptable range.
+   * Includes runtime bounds checking for safety when the index is not known at compile time.
    *
    * @param idx The index of the sensor to read.
    * @return int16_t The temperature in hundredths of a degree Celsius (e.g., 2500 = 25.00°C).
@@ -252,6 +271,11 @@ public:
       {
         return DEVICE_DISCONNECTED_RAW;
       }
+    }
+    else
+    {
+      // Suppress unused parameter warning when temperature sensing is disabled
+      (void)idx;
     }
 
     // result is temperature x16, multiply by 6.25 to convert to temperature x100
