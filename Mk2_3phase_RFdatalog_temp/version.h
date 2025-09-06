@@ -6,4 +6,4 @@
 #define BRANCH_NAME "N/A"
 #define COMMIT_HASH "N/A"
 
-#endif // VERSION_H
+#endif  // VERSION_H
