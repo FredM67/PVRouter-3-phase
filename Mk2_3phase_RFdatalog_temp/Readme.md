@@ -10,6 +10,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
   - [Documentation technique](#documentation-technique)
 - [Documentation de développement](#documentation-de-développement)
 - [Étalonnage du routeur](#étalonnage-du-routeur)
+- [Documentation d'analyse et outils](#documentation-danalyse-et-outils)
 - [Configuration du programme](#configuration-du-programme)
   - [Type de sortie série](#type-de-sortie-série)
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
@@ -118,6 +119,19 @@ inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
 
 Ces valeurs par défaut doivent être déterminées pour assurer un fonctionnement optimal du routeur.
 
+# Documentation d'analyse et outils
+
+📊 **[Outils d'Analyse et Documentation Technique](../analysis/README.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](../analysis/README.en.md)
+
+Cette section contient des outils d'analyse avancés et de la documentation technique pour :
+
+- **🔄 Filtrage EWMA/TEMA** : Analyse de l'immunité aux nuages et optimisation des filtres
+- **📈 Analyse de performance** : Scripts de visualisation et benchmarks
+- **⚙️ Guide de réglage** : Documentation pour l'optimisation des paramètres
+- **📊 Graphiques techniques** : Comparaisons visuelles des algorithmes de filtrage
+
+> **Utilisateurs avancés :** Ces outils vous aideront à comprendre et optimiser le comportement du routeur PV, notamment pour les installations avec variabilité de production solaire ou systèmes de batteries.
+
 # Configuration du programme
 
 La configuration d’une fonctionnalité suit généralement deux étapes :
@@ -189,13 +203,15 @@ Par défaut, cette moyenne est calculée sur une fenêtre d’environ **10 min*
 Il est possible de la rallonger mais aussi de la raccourcir.  
 Pour des raisons de performances de l’Arduino, la durée choisie sera arrondie à une durée proche qui permettra de faire les calculs sans impacter les performances du routeur.
 
+La durée de la fenêtre temporelle est contrôlée par le paramètre `RELAY_FILTER_DELAY` dans le fichier de configuration.
+
 Si l’utilisateur souhaite plutôt une fenêtre de 15 min, il suffira d’écrire :
 ```cpp
-inline constexpr RelayEngine relays{ 15_i, { { 3, 1000, 200, 1, 1 } } };
+inline constexpr RelayEngine relays{ MINUTES(15), { { 3, 1000, 200, 1, 1 } } };
 ```
 ___
 > [!NOTE]
-> Attention au suffixe '**_i**' après le nombre *15* !
+> La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n'est nécessaire !
 ___
 
 Les relais configurés dans le système sont gérés par un système similaire à une machine à états.
@@ -208,6 +224,9 @@ Les relais sont traités dans l’ordre croissant pour le surplus et dans l’or
 Pour chaque relais, la transition ou le changement d’état est géré de la manière suivante :
 - si le relais est *OFF* et que la puissance moyenne actuelle est inférieure au seuil de surplus, le relais essaie de passer à l’état *ON*. Cette transition est soumise à la condition que le relais ait été *OFF* pendant au moins la durée *minOFF*.
 - si le relais est *ON* et que la puissance moyenne actuelle est supérieure au seuil d’importation, le relais essaie de passer à l’état *OFF*. Cette transition est soumise à la condition que le relais ait été *ON* pendant au moins la durée *minON*.
+
+> [!NOTE]
+> **Installations avec batteries :** Pour une configuration optimale des relais avec systèmes de batteries, consultez le **[Guide de Configuration pour Systèmes Batterie](BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](BATTERY_CONFIGURATION_GUIDE.en.md)
 
 ## Configuration du Watchdog
 Un chien de garde, en anglais *watchdog*, est un circuit électronique ou un logiciel utilisé en électronique numérique pour s’assurer qu’un automate ou un ordinateur ne reste pas bloqué à une étape particulière du traitement qu’il effectue.
