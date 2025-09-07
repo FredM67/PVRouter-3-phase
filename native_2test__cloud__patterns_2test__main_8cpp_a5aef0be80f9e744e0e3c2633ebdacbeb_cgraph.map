@@ -1,0 +1,15 @@
+<map id="test_morning_fog_clearing_pattern" name="test_morning_fog_clearing_pattern">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,27,200,67"/>
+<area shape="rect" id="Node000002" href="$native_2test__cloud__patterns_2test__main_8cpp.html#aabbf8b855685c51c7c77196ce629d623" title=" " alt="" coords="248,5,415,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,32,234,28,235,33,201,37"/>
+<area shape="rect" id="Node000003" href="$native_2test__cloud__patterns_2test__main_8cpp.html#a535e60ae6578d39884821943c733eb0e" title=" " alt="" coords="259,55,403,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="201,57,246,62,245,68,200,62"/>
+<area shape="rect" id="Node000004" href="$classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="474,13,666,39"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="403,58,494,39,495,44,404,63"/>
+<area shape="rect" id="Node000006" href="$classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="463,63,677,88"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="403,73,449,73,449,78,403,78"/>
+<area shape="rect" id="Node000007" href="$classTestRelay.html#a7ea2d6fc7b8d6c182ee40430b3817a14" title=" " alt="" coords="498,113,642,153"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="404,90,485,110,484,115,403,95"/>
+<area shape="rect" id="Node000005" href="$native_2test__ewma__benchmark_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="725,13,909,39"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="666,23,711,23,711,29,666,29"/>
+</map>

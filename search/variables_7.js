@@ -4,7 +4,7 @@ var searchData=
   ['i_5fdcoffset_5fi_5fnom_1',['i_DCoffset_I_nom',['../processing_8cpp.html#a14cff0127f52c57f50fe52f2ed2ab093',1,'processing.cpp']]],
   ['i_5fsamplesetsduringthisdatalogperiod_2',['i_sampleSetsDuringThisDatalogPeriod',['../processing_8cpp.html#ab652ee1e3280fde59df6719af6e884d0',1,'processing.cpp']]],
   ['importthreshold_3',['importThreshold',['../classrelayOutput.html#a4ef45ace133c038e9e6fca3c9ed20d05',1,'relayOutput']]],
-  ['index_4',['index',['../classTeleInfo.html#a058beaf679f9391e36e9135d06cbadcc',1,'TeleInfo']]],
+  ['index_4',['index',['../classTeleInfo.html#a058beaf679f9391e36e9135d06cbadcc',1,'TeleInfo::index'],['../classSimpleMovingAverage.html#a3c9ae2689659c13b19eb4061b4f118f5',1,'SimpleMovingAverage::index']]],
   ['initialdelay_5',['initialDelay',['../processing_8h.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'processing.h']]],
   ['invd_6',['invD',['../classmovingAvg.html#af7dba67998ceb6b0ddba4ee0d0d637e5',1,'movingAvg']]],
   ['invdatalog_5fperiod_5fin_5fmains_5fcycles_7',['invDATALOG_PERIOD_IN_MAINS_CYCLES',['../config__system_8h.html#a4a5d5712de1dbf5858d70eece9831150',1,'config_system.h']]],

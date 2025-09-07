@@ -13,5 +13,6 @@ var searchData=
   ['make_5funsigned_3c_20unsigned_20long_20long_20_3e_10',['make_unsigned&lt; unsigned long long &gt;',['../structmake__unsigned_3_01unsigned_01long_01long_01_4.html',1,'']]],
   ['make_5funsigned_3c_20unsigned_20short_20_3e_11',['make_unsigned&lt; unsigned short &gt;',['../structmake__unsigned_3_01unsigned_01short_01_4.html',1,'']]],
   ['make_5fvoid_12',['make_void',['../structmake__void.html',1,'']]],
-  ['movingavg_13',['movingAvg',['../classmovingAvg.html',1,'']]]
+  ['mockrelayoutput_13',['MockRelayOutput',['../classMockRelayOutput.html',1,'']]],
+  ['movingavg_14',['movingAvg',['../classmovingAvg.html',1,'']]]
 ];

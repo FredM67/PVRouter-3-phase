@@ -94,17 +94,20 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;unity.h&gt;</code><br />
+<code>#include &lt;cstdio&gt;</code><br />
 <code>#include &quot;<a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for test_main.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="native_2test__ewma__avg_2test__main_8cpp__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2test_2native_2test__ewma__avg_2test__main_8cpp" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2test_2native_2test__ewma__avg_2test__main_8cpp" id="aMk2__3phase__RFdatalog__temp_2test_2native_2test__ewma__avg_2test__main_8cpp">
-<area shape="rect" title=" " alt="" coords="1329,5,1525,60"/>
-<area shape="rect" title=" " alt="" coords="1336,108,1401,133"/>
-<area shape="poly" title=" " alt="" coords="1412,62,1386,98,1382,95,1407,59"/>
+<area shape="rect" title=" " alt="" coords="1272,5,1468,60"/>
+<area shape="rect" title=" " alt="" coords="1249,108,1315,133"/>
+<area shape="poly" title=" " alt="" coords="1345,62,1305,100,1302,96,1341,58"/>
+<area shape="rect" title=" " alt="" coords="1339,108,1401,133"/>
+<area shape="poly" title=" " alt="" coords="1373,60,1373,94,1367,94,1367,60"/>
 <area shape="rect" href="ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="1425,108,1547,133"/>
-<area shape="poly" title=" " alt="" coords="1447,59,1473,95,1468,98,1443,62"/>
+<area shape="poly" title=" " alt="" coords="1407,58,1460,97,1457,102,1404,62"/>
 <area shape="rect" href="type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1426,181,1546,207"/>
 <area shape="poly" title=" " alt="" coords="1489,134,1489,168,1483,168,1483,134"/>
 <area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="5,262,201,287"/>
@@ -189,12 +192,14 @@ Include dependency graph for test_main.cpp:</div>
 Functions</h2></td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7b9f7b0cc475bb6df342f4a32f22d79" id="r_ad7b9f7b0cc475bb6df342f4a32f22d79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7b9f7b0cc475bb6df342f4a32f22d79">test_convergence_behavior</a> ()</td></tr>
+<tr class="separator:ad7b9f7b0cc475bb6df342f4a32f22d79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18905b27ca58963be912f77201ddf421" id="r_a18905b27ca58963be912f77201ddf421"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18905b27ca58963be912f77201ddf421">test_initial_values</a> ()</td></tr>
 <tr class="separator:a18905b27ca58963be912f77201ddf421"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48ab1db89c49f63ba36c2ad6b2650fe5" id="r_a48ab1db89c49f63ba36c2ad6b2650fe5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48ab1db89c49f63ba36c2ad6b2650fe5">test_large_value_response</a> ()</td></tr>
+<tr class="separator:a48ab1db89c49f63ba36c2ad6b2650fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c3833a15e1ae16f4281c3efb4c2d4c7" id="r_a4c3833a15e1ae16f4281c3efb4c2d4c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c3833a15e1ae16f4281c3efb4c2d4c7">test_multiple_value_updates</a> ()</td></tr>
 <tr class="separator:a4c3833a15e1ae16f4281c3efb4c2d4c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe24287193f7ca9a9a217c3f8c5a6098" id="r_afe24287193f7ca9a9a217c3f8c5a6098"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe24287193f7ca9a9a217c3f8c5a6098">test_peak_response</a> ()</td></tr>
-<tr class="separator:afe24287193f7ca9a9a217c3f8c5a6098"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a015d975403ec04c63a5e402886c25464" id="r_a015d975403ec04c63a5e402886c25464"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a015d975403ec04c63a5e402886c25464">test_reset_behavior</a> ()</td></tr>
 <tr class="separator:a015d975403ec04c63a5e402886c25464"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48284aaaaa12a9a7ccb66884785bfca4" id="r_a48284aaaaa12a9a7ccb66884785bfca4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48284aaaaa12a9a7ccb66884785bfca4">test_single_value_update</a> ()</td></tr>
@@ -216,48 +221,98 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00057">57</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00082">82</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="native_2test__ewma__avg_2test__main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.png" border="0" usemap="#anative_2test__ewma__avg_2test__main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph" alt=""/></div>
 <map name="anative_2test__ewma__avg_2test__main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph" id="anative_2test__ewma__avg_2test__main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph">
-<area shape="rect" title=" " alt="" coords="5,112,60,137"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a18905b27ca58963be912f77201ddf421" title=" " alt="" coords="131,5,273,31"/>
-<area shape="poly" title=" " alt="" coords="40,110,66,75,85,56,107,40,119,33,121,38,109,44,89,60,70,79,44,114"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a4c3833a15e1ae16f4281c3efb4c2d4c7" title=" " alt="" coords="127,105,277,145"/>
-<area shape="poly" title=" " alt="" coords="60,122,113,122,113,127,60,127"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#afe24287193f7ca9a9a217c3f8c5a6098" title=" " alt="" coords="126,169,278,195"/>
-<area shape="poly" title=" " alt="" coords="61,135,109,154,136,163,135,168,107,159,59,139"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a015d975403ec04c63a5e402886c25464" title=" " alt="" coords="127,219,277,244"/>
-<area shape="poly" title=" " alt="" coords="44,136,70,171,89,189,109,205,121,211,119,216,107,210,85,193,66,174,40,139"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a48284aaaaa12a9a7ccb66884785bfca4" title=" " alt="" coords="108,55,296,80"/>
-<area shape="poly" title=" " alt="" coords="59,110,107,90,135,81,136,86,109,95,61,115"/>
-<area shape="rect" href="classEWMA__average.html#a8caa754acdd5f485f7cd2a183cee1286" title="Get the Double Exponentially Weighted Moving Average (DEMA)." alt="" coords="344,55,560,80"/>
-<area shape="poly" title=" " alt="" coords="268,28,374,49,373,55,267,33"/>
-<area shape="rect" href="classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="345,104,559,129"/>
-<area shape="poly" title=" " alt="" coords="272,28,297,40,313,52,322,65,331,78,345,89,362,97,359,102,343,94,327,81,318,68,309,56,295,44,270,33"/>
-<area shape="rect" href="classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="345,153,559,179"/>
-<area shape="poly" title=" " alt="" coords="274,27,298,40,309,52,317,65,322,91,328,116,335,127,346,139,354,145,351,149,342,143,330,131,323,118,317,92,312,67,305,55,294,44,272,31"/>
-<area shape="poly" title=" " alt="" coords="277,104,343,89,380,80,381,86,345,94,278,110"/>
-<area shape="poly" title=" " alt="" coords="277,120,331,118,331,123,278,125"/>
-<area shape="poly" title=" " alt="" coords="278,134,362,148,361,154,277,140"/>
-<area shape="rect" href="classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="356,203,548,228"/>
-<area shape="poly" title=" " alt="" coords="270,142,297,154,321,172,345,189,364,196,362,201,343,194,318,177,295,159,268,147"/>
-<area shape="rect" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="608,203,792,228"/>
-<area shape="poly" title=" " alt="" coords="548,213,594,213,594,218,548,218"/>
-<area shape="poly" title=" " alt="" coords="270,167,294,155,310,139,317,123,326,105,342,89,353,83,356,88,346,93,330,109,322,125,314,142,298,159,272,172"/>
-<area shape="poly" title=" " alt="" coords="251,167,295,154,343,138,375,130,377,135,345,143,297,159,253,172"/>
-<area shape="poly" title=" " alt="" coords="278,174,331,171,331,176,278,180"/>
-<area shape="poly" title=" " alt="" coords="279,189,343,198,343,203,278,195"/>
-<area shape="poly" title=" " alt="" coords="276,217,294,205,306,192,313,178,317,149,322,119,329,104,342,89,348,85,351,89,346,93,334,107,327,120,322,149,318,180,311,195,298,209,279,221"/>
-<area shape="poly" title=" " alt="" coords="273,216,294,205,310,190,317,173,326,155,342,139,352,133,355,137,346,143,330,158,322,175,314,193,298,209,275,221"/>
-<area shape="poly" title=" " alt="" coords="254,216,295,205,343,189,379,179,380,185,345,194,297,210,256,221"/>
-<area shape="poly" title=" " alt="" coords="277,224,342,220,343,225,278,229"/>
-<area shape="poly" title=" " alt="" coords="296,65,330,65,330,70,296,70"/>
-<area shape="poly" title=" " alt="" coords="268,77,374,99,373,104,267,83"/>
-<area shape="poly" title=" " alt="" coords="268,78,297,90,313,103,322,115,331,127,345,138,363,146,360,151,343,143,327,131,318,118,309,106,295,95,266,83"/>
-<area shape="poly" title=" " alt="" coords="276,78,298,91,309,103,316,116,322,142,328,167,335,178,346,189,352,194,349,198,342,193,330,181,323,168,317,143,311,118,305,106,294,95,273,82"/>
+<area shape="rect" title=" " alt="" coords="5,133,60,159"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#ad7b9f7b0cc475bb6df342f4a32f22d79" title=" " alt="" coords="108,5,309,31"/>
+<area shape="poly" title=" " alt="" coords="37,132,62,87,82,61,106,40,116,34,119,39,110,44,86,65,67,90,42,134"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a18905b27ca58963be912f77201ddf421" title=" " alt="" coords="138,268,279,293"/>
+<area shape="poly" title=" " alt="" coords="41,158,66,206,85,232,110,255,126,264,124,268,106,259,81,236,61,208,37,160"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a48ab1db89c49f63ba36c2ad6b2650fe5" title=" " alt="" coords="111,104,307,129"/>
+<area shape="poly" title=" " alt="" coords="60,139,119,129,119,134,61,144"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a4c3833a15e1ae16f4281c3efb4c2d4c7" title=" " alt="" coords="133,154,284,194"/>
+<area shape="poly" title=" " alt="" coords="61,148,120,157,119,162,60,153"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a015d975403ec04c63a5e402886c25464" title=" " alt="" coords="133,219,284,244"/>
+<area shape="poly" title=" " alt="" coords="48,157,75,181,109,204,129,212,127,217,107,208,72,185,45,161"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a48284aaaaa12a9a7ccb66884785bfca4" title=" " alt="" coords="115,55,303,80"/>
+<area shape="poly" title=" " alt="" coords="46,131,73,109,107,89,125,82,127,87,109,94,76,114,49,135"/>
+<area shape="rect" href="classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="369,71,561,96"/>
+<area shape="poly" title=" " alt="" coords="264,28,310,39,405,65,404,70,309,45,263,33"/>
+<area shape="rect" href="classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="358,120,573,145"/>
+<area shape="poly" title=" " alt="" coords="288,28,311,40,327,56,336,74,344,90,359,105,372,112,369,117,356,109,339,93,331,76,323,59,308,44,286,33"/>
+<area shape="rect" href="native_2test__cloud__patterns_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="373,13,557,39"/>
+<area shape="poly" title=" " alt="" coords="310,18,360,20,360,25,310,24"/>
+<area shape="rect" href="native_2test__ewma__benchmark_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="621,71,805,96"/>
+<area shape="poly" title=" " alt="" coords="562,81,608,81,608,86,562,86"/>
+<area shape="poly" title=" " alt="" coords="278,270,308,255,319,243,325,231,331,206,336,180,344,167,356,155,362,150,365,154,359,159,348,170,341,182,336,207,330,233,323,246,311,259,281,275"/>
+<area shape="rect" href="classEWMA__average.html#a8caa754acdd5f485f7cd2a183cee1286" title="Get the Double Exponentially Weighted Moving Average (DEMA)." alt="" coords="357,219,573,244"/>
+<area shape="poly" title=" " alt="" coords="275,265,385,244,386,249,276,271"/>
+<area shape="rect" href="classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="358,169,573,195"/>
+<area shape="poly" title=" " alt="" coords="279,267,308,254,322,243,331,230,340,217,356,205,373,197,375,202,359,210,344,221,335,234,326,247,311,259,281,272"/>
+<area shape="poly" title=" " alt="" coords="306,101,355,95,356,100,307,107"/>
+<area shape="poly" title=" " alt="" coords="307,120,344,122,344,128,307,125"/>
+<area shape="poly" title=" " alt="" coords="285,127,311,140,327,156,336,174,343,190,359,205,369,211,366,216,356,209,339,193,331,176,323,159,308,144,283,132"/>
+<area shape="poly" title=" " alt="" coords="262,127,310,139,358,154,395,164,394,169,357,159,309,145,261,132"/>
+<area shape="poly" title=" " alt="" coords="277,151,308,138,332,121,356,105,376,97,378,102,359,110,335,126,311,143,279,156"/>
+<area shape="poly" title=" " alt="" coords="284,159,372,145,373,150,285,165"/>
+<area shape="poly" title=" " alt="" coords="285,188,358,205,395,213,394,218,357,210,284,193"/>
+<area shape="poly" title=" " alt="" coords="284,174,344,176,344,181,284,179"/>
+<area shape="poly" title=" " alt="" coords="283,218,308,204,319,193,325,181,331,156,337,130,344,117,356,105,362,100,366,105,359,109,348,121,342,132,336,157,330,183,323,196,311,208,285,223"/>
+<area shape="poly" title=" " alt="" coords="279,216,308,204,322,192,331,180,340,167,356,154,370,148,372,153,359,159,344,170,335,183,326,196,311,208,281,221"/>
+<area shape="poly" title=" " alt="" coords="284,229,343,229,343,234,284,234"/>
+<area shape="poly" title=" " alt="" coords="275,216,385,195,386,200,276,221"/>
+<area shape="poly" title=" " alt="" coords="303,71,356,74,355,79,303,76"/>
+<area shape="poly" title=" " alt="" coords="267,78,310,89,358,105,394,114,392,119,357,110,309,94,266,83"/>
+<area shape="poly" title=" " alt="" coords="288,52,372,38,373,44,288,57"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ad7b9f7b0cc475bb6df342f4a32f22d79" name="ad7b9f7b0cc475bb6df342f4a32f22d79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7b9f7b0cc475bb6df342f4a32f22d79">&#9670;&#160;</a></span>test_convergence_behavior()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void test_convergence_behavior </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00051">51</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="native_2test__ewma__avg_2test__main_8cpp_ad7b9f7b0cc475bb6df342f4a32f22d79_cgraph.png" border="0" usemap="#anative_2test__ewma__avg_2test__main_8cpp_ad7b9f7b0cc475bb6df342f4a32f22d79_cgraph" alt=""/></div>
+<map name="anative_2test__ewma__avg_2test__main_8cpp_ad7b9f7b0cc475bb6df342f4a32f22d79_cgraph" id="anative_2test__ewma__avg_2test__main_8cpp_ad7b9f7b0cc475bb6df342f4a32f22d79_cgraph">
+<area shape="rect" title=" " alt="" coords="5,55,207,80"/>
+<area shape="rect" href="classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="266,5,458,31"/>
+<area shape="poly" title=" " alt="" coords="172,52,282,31,283,36,173,57"/>
+<area shape="rect" href="classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="255,55,469,80"/>
+<area shape="poly" title=" " alt="" coords="207,65,241,65,241,70,207,70"/>
+<area shape="rect" href="native_2test__cloud__patterns_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="270,104,454,129"/>
+<area shape="poly" title=" " alt="" coords="173,77,283,99,282,104,172,83"/>
+<area shape="rect" href="native_2test__ewma__benchmark_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="517,5,701,31"/>
+<area shape="poly" title=" " alt="" coords="458,15,503,15,503,21,458,21"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="native_2test__ewma__avg_2test__main_8cpp_ad7b9f7b0cc475bb6df342f4a32f22d79_icgraph.png" border="0" usemap="#anative_2test__ewma__avg_2test__main_8cpp_ad7b9f7b0cc475bb6df342f4a32f22d79_icgraph" alt=""/></div>
+<map name="anative_2test__ewma__avg_2test__main_8cpp_ad7b9f7b0cc475bb6df342f4a32f22d79_icgraph" id="anative_2test__ewma__avg_2test__main_8cpp_ad7b9f7b0cc475bb6df342f4a32f22d79_icgraph">
+<area shape="rect" title=" " alt="" coords="108,5,309,31"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
 </map>
 </div>
 
@@ -278,7 +333,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00006">6</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00007">7</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -306,6 +361,53 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a48ab1db89c49f63ba36c2ad6b2650fe5" name="a48ab1db89c49f63ba36c2ad6b2650fe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48ab1db89c49f63ba36c2ad6b2650fe5">&#9670;&#160;</a></span>test_large_value_response()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void test_large_value_response </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00036">36</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="native_2test__ewma__avg_2test__main_8cpp_a48ab1db89c49f63ba36c2ad6b2650fe5_cgraph.png" border="0" usemap="#anative_2test__ewma__avg_2test__main_8cpp_a48ab1db89c49f63ba36c2ad6b2650fe5_cgraph" alt=""/></div>
+<map name="anative_2test__ewma__avg_2test__main_8cpp_a48ab1db89c49f63ba36c2ad6b2650fe5_cgraph" id="anative_2test__ewma__avg_2test__main_8cpp_a48ab1db89c49f63ba36c2ad6b2650fe5_cgraph">
+<area shape="rect" title=" " alt="" coords="5,80,201,105"/>
+<area shape="rect" href="classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="261,5,453,31"/>
+<area shape="poly" title=" " alt="" coords="137,77,249,39,280,31,281,36,250,45,138,82"/>
+<area shape="rect" href="classEWMA__average.html#a8caa754acdd5f485f7cd2a183cee1286" title="Get the Double Exponentially Weighted Moving Average (DEMA)." alt="" coords="249,55,465,80"/>
+<area shape="poly" title=" " alt="" coords="201,80,235,77,236,82,202,86"/>
+<area shape="rect" href="classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="250,104,465,129"/>
+<area shape="poly" title=" " alt="" coords="202,99,236,103,236,108,201,105"/>
+<area shape="rect" href="classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="250,153,465,179"/>
+<area shape="poly" title=" " alt="" coords="141,103,250,138,286,147,284,153,249,143,139,108"/>
+<area shape="rect" href="native_2test__ewma__benchmark_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="513,5,697,31"/>
+<area shape="poly" title=" " alt="" coords="454,15,500,15,500,21,454,21"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="native_2test__ewma__avg_2test__main_8cpp_a48ab1db89c49f63ba36c2ad6b2650fe5_icgraph.png" border="0" usemap="#anative_2test__ewma__avg_2test__main_8cpp_a48ab1db89c49f63ba36c2ad6b2650fe5_icgraph" alt=""/></div>
+<map name="anative_2test__ewma__avg_2test__main_8cpp_a48ab1db89c49f63ba36c2ad6b2650fe5_icgraph" id="anative_2test__ewma__avg_2test__main_8cpp_a48ab1db89c49f63ba36c2ad6b2650fe5_icgraph">
+<area shape="rect" title=" " alt="" coords="108,5,304,31"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,31"/>
+<area shape="poly" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a4c3833a15e1ae16f4281c3efb4c2d4c7" name="a4c3833a15e1ae16f4281c3efb4c2d4c7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4c3833a15e1ae16f4281c3efb4c2d4c7">&#9670;&#160;</a></span>test_multiple_value_updates()</h2>
 
@@ -321,7 +423,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00023">23</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00025">25</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -336,7 +438,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="157,98,191,101,191,107,156,103"/>
 <area shape="rect" href="classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="205,153,419,179"/>
 <area shape="poly" title=" " alt="" coords="129,110,205,138,238,147,237,153,203,143,127,115"/>
-<area shape="rect" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="468,5,652,31"/>
+<area shape="rect" href="native_2test__ewma__benchmark_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="468,5,652,31"/>
 <area shape="poly" title=" " alt="" coords="408,15,454,15,454,21,408,21"/>
 </map>
 </div>
@@ -348,53 +450,6 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title=" " alt="" coords="108,5,259,45"/>
 <area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,13,60,38"/>
 <area shape="poly" title=" " alt="" coords="94,28,60,28,60,23,94,23"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="afe24287193f7ca9a9a217c3f8c5a6098" name="afe24287193f7ca9a9a217c3f8c5a6098"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe24287193f7ca9a9a217c3f8c5a6098">&#9670;&#160;</a></span>test_peak_response()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void test_peak_response </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00036">36</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="native_2test__ewma__avg_2test__main_8cpp_afe24287193f7ca9a9a217c3f8c5a6098_cgraph.png" border="0" usemap="#anative_2test__ewma__avg_2test__main_8cpp_afe24287193f7ca9a9a217c3f8c5a6098_cgraph" alt=""/></div>
-<map name="anative_2test__ewma__avg_2test__main_8cpp_afe24287193f7ca9a9a217c3f8c5a6098_cgraph" id="anative_2test__ewma__avg_2test__main_8cpp_afe24287193f7ca9a9a217c3f8c5a6098_cgraph">
-<area shape="rect" title=" " alt="" coords="5,80,157,105"/>
-<area shape="rect" href="classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="217,5,409,31"/>
-<area shape="poly" title=" " alt="" coords="109,77,204,39,233,31,235,36,206,45,111,82"/>
-<area shape="rect" href="classEWMA__average.html#a8caa754acdd5f485f7cd2a183cee1286" title="Get the Double Exponentially Weighted Moving Average (DEMA)." alt="" coords="205,55,421,80"/>
-<area shape="poly" title=" " alt="" coords="157,82,191,78,192,83,158,87"/>
-<area shape="rect" href="classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="206,104,421,129"/>
-<area shape="poly" title=" " alt="" coords="158,98,193,102,192,107,157,103"/>
-<area shape="rect" href="classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="206,153,421,179"/>
-<area shape="poly" title=" " alt="" coords="113,103,206,138,239,147,238,153,205,143,111,108"/>
-<area shape="rect" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="469,5,653,31"/>
-<area shape="poly" title=" " alt="" coords="410,15,456,15,456,21,410,21"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="native_2test__ewma__avg_2test__main_8cpp_afe24287193f7ca9a9a217c3f8c5a6098_icgraph.png" border="0" usemap="#anative_2test__ewma__avg_2test__main_8cpp_afe24287193f7ca9a9a217c3f8c5a6098_icgraph" alt=""/></div>
-<map name="anative_2test__ewma__avg_2test__main_8cpp_afe24287193f7ca9a9a217c3f8c5a6098_icgraph" id="anative_2test__ewma__avg_2test__main_8cpp_afe24287193f7ca9a9a217c3f8c5a6098_icgraph">
-<area shape="rect" title=" " alt="" coords="108,5,260,31"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,5,60,31"/>
-<area shape="poly" title=" " alt="" coords="94,21,60,21,60,15,94,15"/>
 </map>
 </div>
 
@@ -415,7 +470,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00046">46</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00071">71</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -430,7 +485,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="157,98,191,101,191,107,156,103"/>
 <area shape="rect" href="classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="205,153,419,179"/>
 <area shape="poly" title=" " alt="" coords="112,103,205,138,238,147,237,153,203,143,110,108"/>
-<area shape="rect" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="468,5,652,31"/>
+<area shape="rect" href="native_2test__ewma__benchmark_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="468,5,652,31"/>
 <area shape="poly" title=" " alt="" coords="408,15,454,15,454,21,408,21"/>
 </map>
 </div>
@@ -462,23 +517,21 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00014">14</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html#l00015">15</a> of file <a class="el" href="native_2test__ewma__avg_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="native_2test__ewma__avg_2test__main_8cpp_a48284aaaaa12a9a7ccb66884785bfca4_cgraph.png" border="0" usemap="#anative_2test__ewma__avg_2test__main_8cpp_a48284aaaaa12a9a7ccb66884785bfca4_cgraph" alt=""/></div>
 <map name="anative_2test__ewma__avg_2test__main_8cpp_a48284aaaaa12a9a7ccb66884785bfca4_cgraph" id="anative_2test__ewma__avg_2test__main_8cpp_a48284aaaaa12a9a7ccb66884785bfca4_cgraph">
-<area shape="rect" title=" " alt="" coords="5,80,193,105"/>
+<area shape="rect" title=" " alt="" coords="5,55,193,80"/>
 <area shape="rect" href="classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="253,5,445,31"/>
-<area shape="poly" title=" " alt="" coords="132,77,241,39,272,31,273,36,242,45,134,82"/>
-<area shape="rect" href="classEWMA__average.html#a8caa754acdd5f485f7cd2a183cee1286" title="Get the Double Exponentially Weighted Moving Average (DEMA)." alt="" coords="241,55,457,80"/>
-<area shape="poly" title=" " alt="" coords="193,81,227,77,228,82,194,86"/>
-<area shape="rect" href="classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="242,104,457,129"/>
-<area shape="poly" title=" " alt="" coords="194,99,228,102,228,108,193,104"/>
-<area shape="rect" href="classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="242,153,457,179"/>
-<area shape="poly" title=" " alt="" coords="136,103,242,138,278,148,276,153,241,143,134,108"/>
-<area shape="rect" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="505,5,689,31"/>
-<area shape="poly" title=" " alt="" coords="446,15,492,15,492,21,446,21"/>
+<area shape="poly" title=" " alt="" coords="164,52,270,31,271,36,165,57"/>
+<area shape="rect" href="classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="241,55,456,80"/>
+<area shape="poly" title=" " alt="" coords="194,65,228,65,228,70,194,70"/>
+<area shape="rect" href="native_2test__cloud__patterns_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="257,104,441,129"/>
+<area shape="poly" title=" " alt="" coords="165,77,271,99,270,104,164,83"/>
+<area shape="rect" href="native_2test__ewma__benchmark_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="504,5,688,31"/>
+<area shape="poly" title=" " alt="" coords="445,15,490,15,490,21,445,21"/>
 </map>
 </div>
 <div class="dynheader">

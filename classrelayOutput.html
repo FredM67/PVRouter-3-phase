@@ -174,7 +174,7 @@ Private Attributes</h2></td></tr>
 <li><b>State Management</b>: The class tracks the relay's current state and the duration of its current state. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00041">41</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00040">40</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1e14c420e720e082a327e2341906cb18" name="a1e14c420e720e082a327e2341906cb18"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1e14c420e720e082a327e2341906cb18">&#9670;&#160;</a></span>relayOutput() <span class="overload">[1/4]</span></h2>
@@ -232,7 +232,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00051">51</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00050">50</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -272,13 +272,18 @@ Private Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">_relay_pin</td><td>Control pin for the relay </td></tr>
-    <tr><td class="paramname">_surplusThreshold</td><td>Surplus threshold to turn relay ON </td></tr>
-    <tr><td class="paramname">_importThreshold</td><td>Import threshold to turn relay OFF </td></tr>
+    <tr><td class="paramname">_surplusThreshold</td><td>Surplus threshold to turn relay ON (positive value, e.g., 1000) </td></tr>
+    <tr><td class="paramname">_importThreshold</td><td>Import threshold to turn relay OFF<ul>
+<li>Positive values: turn OFF when importing &gt; threshold (normal installations)</li>
+<li>Negative values: turn OFF when surplus &lt; abs(threshold) (battery systems)</li>
+<li>Zero: turn OFF when importing &gt; 0W (problematic with batteries) </li>
+</ul>
+</td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00063">63</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00065">65</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -328,15 +333,20 @@ Private Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">_relay_pin</td><td>Control pin for the relay </td></tr>
-    <tr><td class="paramname">_surplusThreshold</td><td>Surplus threshold to turn relay ON </td></tr>
-    <tr><td class="paramname">_importThreshold</td><td>Import threshold to turn relay OFF </td></tr>
+    <tr><td class="paramname">_surplusThreshold</td><td>Surplus threshold to turn relay ON (positive value, e.g., 1000) </td></tr>
+    <tr><td class="paramname">_importThreshold</td><td>Import threshold to turn relay OFF<ul>
+<li>Positive values: turn OFF when importing &gt; threshold (normal installations)</li>
+<li>Negative values: turn OFF when surplus &lt; abs(threshold) (battery systems)</li>
+<li>Zero: turn OFF when importing &gt; 0W (problematic with batteries) </li>
+</ul>
+</td></tr>
     <tr><td class="paramname">_minON</td><td>Minimum duration in minutes to leave relay ON </td></tr>
     <tr><td class="paramname">_minOFF</td><td>Minimum duration in minutes to leave relay OFF </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00077">77</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00082">82</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -367,7 +377,7 @@ Private Attributes</h2></td></tr>
 <p>Get the import threshold which will turns OFF the relay. </p>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00107">107</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00112">112</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -417,7 +427,7 @@ Here is the caller graph for this function:</div>
 <p>Get the minimum OFF-time in seconds. </p>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00127">127</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00132">132</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -457,7 +467,7 @@ Here is the caller graph for this function:</div>
 <p>Get the minimum ON-time in seconds. </p>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00117">117</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00122">122</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -497,7 +507,7 @@ Here is the caller graph for this function:</div>
 <p>Get the control pin of the relay. </p>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00087">87</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00092">92</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -547,7 +557,7 @@ Here is the caller graph for this function:</div>
 <p>Get the surplus threshold which will turns ON the relay. </p>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00097">97</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00102">102</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -597,7 +607,7 @@ Here is the caller graph for this function:</div>
 <p>Increment the duration of the current state. </p>
 <p>This function must be called every second. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00147">147</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00152">152</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -627,7 +637,7 @@ Here is the caller graph for this function:</div>
 <p>Return the state. </p>
 <dl class="section return"><dt>Returns</dt><dd>auto </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00137">137</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00142">142</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -656,7 +666,7 @@ Here is the caller graph for this function:</div>
 
 <p>Print the configuration of the current relay-diversion. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00178">178</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00198">198</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -704,7 +714,7 @@ Here is the call graph for this function:</div>
 <p>Proceed with the relay. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool True if state has changed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00160">160</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00165">165</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -754,7 +764,7 @@ Here is the call graph for this function:</div>
 <p>Turn OFF the relay if the 'time' condition is met. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool True if state has changed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00227">227</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00257">257</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -806,7 +816,7 @@ Here is the caller graph for this function:</div>
 <p>Turn ON the relay if the 'time' condition is met. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool True if state has changed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00205">205</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00235">235</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -854,7 +864,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Duration of the current state </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00251">251</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00281">281</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -877,9 +887,9 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Import threshold to turn relay OFF </p>
+<p>Import threshold to turn relay OFF (positive = import mode, negative = surplus mode) </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00247">247</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00277">277</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -904,7 +914,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Minimum duration in seconds the relay is turned OFF </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00249">249</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00279">279</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -929,7 +939,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Minimum duration in seconds the relay is turned ON </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00248">248</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00278">278</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -954,7 +964,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Pin associated with the relay </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00245">245</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00275">275</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -979,7 +989,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>True if the relay is ON </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00252">252</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00282">282</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -1004,7 +1014,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Surplus threshold to turn relay ON </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00246">246</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00276">276</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>

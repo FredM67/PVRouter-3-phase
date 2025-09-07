@@ -1,0 +1,10 @@
+<map id="round_up_to_power_of_2" name="round_up_to_power_of_2">
+<area shape="rect" id="Node000001" title=" " alt="" coords="357,31,541,56"/>
+<area shape="rect" id="Node000002" href="$native_2test__ewma__avg_2test__main_8cpp.html#ad7b9f7b0cc475bb6df342f4a32f22d79" title=" " alt="" coords="108,5,309,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="343,35,309,31,310,26,344,30"/>
+<area shape="rect" id="Node000004" href="$native_2test__ewma__avg_2test__main_8cpp.html#a48284aaaaa12a9a7ccb66884785bfca4" title=" " alt="" coords="115,55,303,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="344,57,303,61,303,55,343,51"/>
+<area shape="rect" id="Node000003" href="$native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,31,60,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="107,35,61,42,60,37,106,30"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="102,55,60,50,61,44,103,50"/>
+</map>

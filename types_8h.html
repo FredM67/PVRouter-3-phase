@@ -90,6 +90,7 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -245,6 +246,12 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">container for datalogging  <a href="classPayloadTx__struct.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a1ff3cad1c24da56b3ff84a8c39db99d7" id="r_a1ff3cad1c24da56b3ff84a8c39db99d7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ff3cad1c24da56b3ff84a8c39db99d7">MINUTES</a>(value)</td></tr>
+<tr class="memdesc:a1ff3cad1c24da56b3ff84a8c39db99d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to convert compile-time constant to <a class="el" href="structintegral__constant.html">integral_constant</a>.  <br /></td></tr>
+<tr class="separator:a1ff3cad1c24da56b3ff84a8c39db99d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:aa689e963b2305ff62d412abb6ebf7244" id="r_aa689e963b2305ff62d412abb6ebf7244"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa689e963b2305ff62d412abb6ebf7244">LoadStates</a> : uint8_t { <a class="el" href="#aa689e963b2305ff62d412abb6ebf7244a8f99352268add095fefd3881ea0a06de">LOAD_OFF</a>
@@ -302,7 +309,32 @@ Variables</h2></td></tr>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="types_8h_source.html">types.h</a>.</p>
-</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a1ff3cad1c24da56b3ff84a8c39db99d7" name="a1ff3cad1c24da56b3ff84a8c39db99d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ff3cad1c24da56b3ff84a8c39db99d7">&#9670;&#160;</a></span>MINUTES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MINUTES</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">  <a class="code hl_struct" href="structintegral__constant.html">integral_constant</a>&lt; uint8_t, (value) &gt; {}</div>
+<div class="ttc" id="astructintegral__constant_html"><div class="ttname"><a href="structintegral__constant.html">integral_constant</a></div><div class="ttdef"><b>Definition</b> <a href="integral__constant_8hpp_source.html#l00008">integral_constant.hpp:8</a></div></div>
+</div><!-- fragment -->
+<p>Macro to convert compile-time constant to <a class="el" href="structintegral__constant.html">integral_constant</a>. </p>
+<p>This allows clean syntax for creating <a class="el" href="structintegral__constant.html">integral_constant</a> from constexpr values Usage: <a class="el" href="#a1ff3cad1c24da56b3ff84a8c39db99d7" title="Macro to convert compile-time constant to integral_constant.">MINUTES(RELAY_FILTER_DELAY_MINUTES)</a> instead of RELAY_FILTER_DELAY_MINUTES"_i" </p>
+
+<p class="definition">Definition at line <a class="el" href="types_8h_source.html#l00127">127</a> of file <a class="el" href="types_8h_source.html">types.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="aa689e963b2305ff62d412abb6ebf7244" name="aa689e963b2305ff62d412abb6ebf7244"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa689e963b2305ff62d412abb6ebf7244">&#9670;&#160;</a></span>LoadStates</h2>
 

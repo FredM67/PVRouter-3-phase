@@ -291,32 +291,19 @@ Note</h1>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>constexpr uint8_t The next power of two </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>constexpr uint8_t The next power of two</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is used to optimize the EWMA calculation by using bit-shifting instead of division. For cloud immunity tuning:<ul>
+<li>Larger values = more filtering, better cloud immunity, slower response</li>
+<li>Smaller values = less filtering, faster response, more sensitive to clouds</li>
+</ul>
+</dd></dl>
+<p>Recommended values for relay control:</p><ul>
+<li>Clear sky regions: A = 60-120 (1-2 minutes smoothing)</li>
+<li>Mixed conditions: A = 120-240 (2-4 minutes smoothing)</li>
+<li>Very cloudy: A = 240-480 (4-8 minutes smoothing) </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00045">45</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="ewma__avg_8hpp_ab2d65d6104cd09368e1b72bb4342cae5_icgraph.png" border="0" usemap="#aewma__avg_8hpp_ab2d65d6104cd09368e1b72bb4342cae5_icgraph" alt=""/></div>
-<map name="aewma__avg_8hpp_ab2d65d6104cd09368e1b72bb4342cae5_icgraph" id="aewma__avg_8hpp_ab2d65d6104cd09368e1b72bb4342cae5_icgraph">
-<area shape="rect" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="584,95,768,121"/>
-<area shape="rect" href="classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="344,95,536,121"/>
-<area shape="poly" title=" " alt="" coords="570,111,536,111,536,105,570,105"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a4c3833a15e1ae16f4281c3efb4c2d4c7" title=" " alt="" coords="127,5,277,45"/>
-<area shape="poly" title=" " alt="" coords="389,93,295,60,261,48,263,43,297,55,391,88"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#afe24287193f7ca9a9a217c3f8c5a6098" title=" " alt="" coords="126,70,278,95"/>
-<area shape="poly" title=" " alt="" coords="330,99,278,93,279,88,331,94"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a015d975403ec04c63a5e402886c25464" title=" " alt="" coords="127,119,277,145"/>
-<area shape="poly" title=" " alt="" coords="331,122,278,127,277,122,330,116"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a48284aaaaa12a9a7ccb66884785bfca4" title=" " alt="" coords="108,169,296,194"/>
-<area shape="poly" title=" " alt="" coords="391,128,297,159,253,171,251,166,295,153,389,123"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,95,60,121"/>
-<area shape="poly" title=" " alt="" coords="124,53,109,60,52,97,49,93,107,55,122,48"/>
-<area shape="poly" title=" " alt="" coords="113,99,60,107,60,101,112,93"/>
-<area shape="poly" title=" " alt="" coords="113,122,60,114,61,109,114,117"/>
-<area shape="poly" title=" " alt="" coords="129,167,107,158,76,141,49,123,52,119,78,137,109,154,131,162"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00055">55</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 
 </div>
 </div>

@@ -19,5 +19,6 @@ var searchData=
   ['loadstates_16',['LoadStates',['../types_8h.html#aa689e963b2305ff62d412abb6ebf7244',1,'types.h']]],
   ['logloadpriorities_17',['logLoadPriorities',['../group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1',1,'utils.h']]],
   ['loop_18',['loop',['../group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;main.cpp'],['../embedded_2test__fastdivision_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp']]],
-  ['lpf_5fgain_19',['lpf_gain',['../calibration_8h.html#a74d2e520152cb559bdb6e18153dcb5e4',1,'calibration.h']]]
+  ['low_19',['LOW',['../native_2test__negative__threshold_2test__main_8cpp.html#ab811d8c6ff3a505312d3276590444289',1,'test_main.cpp']]],
+  ['lpf_5fgain_20',['lpf_gain',['../calibration_8h.html#a74d2e520152cb559bdb6e18153dcb5e4',1,'calibration.h']]]
 ];

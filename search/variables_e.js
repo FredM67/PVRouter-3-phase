@@ -8,6 +8,7 @@ var searchData=
   ['settle_5fchange_5',['settle_change',['../classRelayEngine.html#a62a753c9ea9c15e35211398fb155a971',1,'RelayEngine']]],
   ['startupperiod_6',['startUpPeriod',['../processing_8h.html#a0d30025137b8f9bfe6d4e9c832db76b4',1,'processing.h']]],
   ['stx_7',['STX',['../classTeleInfo.html#a526fdfd73a773da14b949e6bfac72a6e',1,'TeleInfo']]],
-  ['supply_5ffrequency_8',['SUPPLY_FREQUENCY',['../config__system_8h.html#ad62846ca1d96695a32041f6dd809401e',1,'config_system.h']]],
-  ['surplusthreshold_9',['surplusThreshold',['../classrelayOutput.html#a5149cd72bf3d2ad09b5c8cf217db3e08',1,'relayOutput']]]
+  ['sum_8',['sum',['../classSimpleMovingAverage.html#acf2f2ea3e6a1046a36fb334ffad876ba',1,'SimpleMovingAverage']]],
+  ['supply_5ffrequency_9',['SUPPLY_FREQUENCY',['../config__system_8h.html#ad62846ca1d96695a32041f6dd809401e',1,'config_system.h']]],
+  ['surplusthreshold_10',['surplusThreshold',['../classrelayOutput.html#a5149cd72bf3d2ad09b5c8cf217db3e08',1,'relayOutput']]]
 ];

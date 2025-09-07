@@ -1,5 +1,27 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structintegral__constant.html" title=" " alt="" coords="5,5,216,89"/>
-<area shape="rect" id="Node000001" href="$structis__floating__point.html" title=" " alt="" coords="264,35,431,60"/>
-<area shape="poly" id="edge19_Node000000_Node000001" title=" " alt="" coords="230,45,264,45,264,50,230,50"/>
+<area shape="rect" id="Node000000" href="$structintegral__constant.html" title=" " alt="" coords="5,195,153,235"/>
+<area shape="rect" id="Node000001" href="$structis__array_3_01T_0fN_0e_4.html" title=" " alt="" coords="213,153,341,179"/>
+<area shape="poly" id="edge5_Node000000_Node000001" title=" " alt="" coords="166,191,225,176,226,181,167,196"/>
+<area shape="rect" id="Node000003" href="$structis__array_3_01T_0f_0e_4.html" title=" " alt="" coords="218,203,337,228"/>
+<area shape="poly" id="edge6_Node000000_Node000003" title=" " alt="" coords="167,213,218,213,218,218,167,218"/>
+<area shape="rect" id="Node000004" href="$structis__const_3_01const_01T_01_4.html" title=" " alt="" coords="201,5,353,31"/>
+<area shape="poly" id="edge7_Node000000_Node000004" title=" " alt="" coords="116,185,151,147,166,118,172,92,179,66,200,40,217,29,220,33,203,44,184,69,177,93,171,120,156,150,120,189"/>
+<area shape="rect" id="Node000005" href="$structis__pointer_3_01T_01_5_01_4.html" title=" " alt="" coords="210,55,345,80"/>
+<area shape="poly" id="edge8_Node000000_Node000005" title=" " alt="" coords="113,184,151,147,173,116,183,103,200,89,222,78,224,83,203,94,187,107,178,120,155,150,116,188"/>
+<area shape="rect" id="Node000006" href="$structis__same_3_01T_00_01T_01_4.html" title=" " alt="" coords="212,104,343,129"/>
+<area shape="poly" id="edge9_Node000000_Node000006" title=" " alt="" coords="119,185,157,161,200,138,229,127,231,132,202,143,160,166,122,190"/>
+<area shape="rect" id="Node000007" href="$structis__array.html" title=" " alt="" coords="221,400,333,425"/>
+<area shape="poly" id="edge10_Node000000_Node000007" title=" " alt="" coords="97,247,139,317,168,355,203,387,223,398,220,402,200,391,164,358,134,320,93,249"/>
+<area shape="rect" id="Node000008" href="$structis__const.html" title=" " alt="" coords="221,252,334,277"/>
+<area shape="poly" id="edge11_Node000000_Node000008" title=" " alt="" coords="167,234,226,249,225,255,166,240"/>
+<area shape="rect" id="Node000009" href="$structis__pointer.html" title=" " alt="" coords="215,301,339,327"/>
+<area shape="poly" id="edge12_Node000000_Node000009" title=" " alt="" coords="122,241,160,265,202,288,231,299,229,304,200,292,157,270,119,245"/>
+<area shape="rect" id="Node000010" href="$structis__same.html" title=" " alt="" coords="211,351,343,376"/>
+<area shape="poly" id="edge13_Node000000_Node000010" title=" " alt="" coords="105,244,148,292,174,316,203,337,226,348,224,353,200,342,171,320,144,296,101,248"/>
+<area shape="rect" id="Node000002" href="$structintegral__constant.html" title=" " alt="" coords="6,97,153,137"/>
+<area shape="poly" id="edge14_Node000002_Node000001" title=" " alt="" coords="167,136,226,151,225,156,165,141"/>
+<area shape="poly" id="edge15_Node000002_Node000003" title=" " alt="" coords="122,142,160,166,202,189,231,200,229,205,200,194,157,171,119,147"/>
+<area shape="poly" id="edge16_Node000002_Node000004" title=" " alt="" coords="119,87,157,62,200,40,229,28,231,33,202,44,160,67,122,91"/>
+<area shape="poly" id="edge17_Node000002_Node000005" title=" " alt="" coords="165,93,225,78,226,83,167,98"/>
+<area shape="poly" id="edge18_Node000002_Node000006" title=" " alt="" coords="167,114,212,114,212,119,167,119"/>
 </map>

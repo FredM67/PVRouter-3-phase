@@ -176,7 +176,7 @@ class RelayEngine&lt; N, D &gt;</div><p>Manages a collection of relays and their
 <li><b>Initialization</b>: Provides methods to initialize relay pins and print their configuration. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00278">278</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00308">308</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa834d2148c13bbf4c63f949033746ecd" name="aa834d2148c13bbf4c63f949033746ecd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa834d2148c13bbf4c63f949033746ecd">&#9670;&#160;</a></span>RelayEngine() <span class="overload">[1/2]</span></h2>
@@ -205,7 +205,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 
 <p>Construct a list of relays. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00285">285</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00315">315</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -247,7 +247,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00296">296</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00326">326</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -280,7 +280,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 <p>Get the current average. </p>
 <dl class="section return"><dt>Returns</dt><dd>auto The current average </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00327">327</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00357">357</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -318,7 +318,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>constexpr const auto&amp; The relay object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00317">317</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00347">347</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -350,7 +350,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 <p>Get the number of relays. </p>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto The number of relays </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00306">306</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00336">336</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -374,7 +374,7 @@ template&lt;uint8_t N, uint8_t D&gt; </div>
 <p>Increment the duration's state of each relay. </p>
 <p>This method updates the duration of the current state for each relay and decreases the delay (<code>settle_change</code>) until the next state change is allowed. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00423">423</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00453">453</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -406,7 +406,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 <p>Print the configuration of each relay. </p>
 <p>This method outputs the configuration of all relays, including their pin assignments, thresholds, and minimum ON/OFF durations, to the Serial interface. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00403">403</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00433">433</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -438,7 +438,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 <p>Proceed all relays in increasing order (surplus) or decreasing order (import). </p>
 <p>This method adjusts the state of the relays based on the current average power. If surplus power is available, it tries to turn ON relays in increasing order. If power is being imported, it tries to turn OFF relays in decreasing order. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00361">361</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00391">391</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -475,7 +475,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00337">337</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00367">367</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -503,7 +503,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </div><div class="memdoc">
 <p>EWMA average </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00420">420</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00450">450</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -530,7 +530,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </div><div class="memdoc">
 <p>Array of relays </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00416">416</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00446">446</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -557,7 +557,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </div><div class="memdoc">
 <p>Delay in seconds until next change occurs </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00418">418</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00448">448</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>

@@ -20,13 +20,15 @@ var searchData=
   ['setpinson_17',['setPinsON',['../utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3',1,'utils_pins.h']]],
   ['setpinstate_18',['setPinState',['../utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7',1,'utils_pins.h']]],
   ['settle_5fchange_19',['settle_change',['../classRelayEngine.html#a62a753c9ea9c15e35211398fb155a971',1,'RelayEngine']]],
-  ['setup_20',['setUp',['../embedded_2test__fastdivision_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp'],['../embedded_2test__utils__pins_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp'],['../embedded_2test__utils__relay_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp']]],
+  ['setup_20',['setUp',['../embedded_2test__fastdivision_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp'],['../embedded_2test__utils__pins_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp'],['../embedded_2test__utils__relay_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp'],['../native_2test__cloud__patterns_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp'],['../native_2test__ewma__benchmark_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp'],['../native_2test__negative__threshold_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836',1,'setUp(void):&#160;test_main.cpp']]],
   ['setup_21',['setup',['../group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;main.cpp'],['../embedded_2test__fastdivision_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;test_main.cpp'],['../embedded_2test__utils__pins_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;test_main.cpp'],['../embedded_2test__utils__relay_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'setup():&#160;test_main.cpp']]],
   ['shared_22',['Shared',['../namespaceShared.html',1,'']]],
   ['shared_5fvar_2eh_23',['shared_var.h',['../shared__var_8h.html',1,'']]],
-  ['size_24',['size',['../types_8h.html#a694147b7171ec0b06bc8880dc100e756',1,'size(const _Tp(&amp;)[_Nm]) noexcept:&#160;types.h'],['../types_8h.html#a598e71b269336fef3370d0420348332d',1,'size(const _Tp(&amp;)[0]) noexcept:&#160;types.h']]],
-  ['startupperiod_25',['startUpPeriod',['../processing_8h.html#a0d30025137b8f9bfe6d4e9c832db76b4',1,'processing.h']]],
-  ['stx_26',['STX',['../classTeleInfo.html#a526fdfd73a773da14b949e6bfac72a6e',1,'TeleInfo']]],
-  ['supply_5ffrequency_27',['SUPPLY_FREQUENCY',['../config__system_8h.html#ad62846ca1d96695a32041f6dd809401e',1,'config_system.h']]],
-  ['surplusthreshold_28',['surplusThreshold',['../classrelayOutput.html#a5149cd72bf3d2ad09b5c8cf217db3e08',1,'relayOutput']]]
+  ['simplemovingaverage_24',['SimpleMovingAverage',['../classSimpleMovingAverage.html',1,'SimpleMovingAverage'],['../classSimpleMovingAverage.html#a0c4f0cb309eee327df810e1067a8bdb9',1,'SimpleMovingAverage::SimpleMovingAverage()']]],
+  ['size_25',['size',['../types_8h.html#a694147b7171ec0b06bc8880dc100e756',1,'size(const _Tp(&amp;)[_Nm]) noexcept:&#160;types.h'],['../types_8h.html#a598e71b269336fef3370d0420348332d',1,'size(const _Tp(&amp;)[0]) noexcept:&#160;types.h']]],
+  ['startupperiod_26',['startUpPeriod',['../processing_8h.html#a0d30025137b8f9bfe6d4e9c832db76b4',1,'processing.h']]],
+  ['stx_27',['STX',['../classTeleInfo.html#a526fdfd73a773da14b949e6bfac72a6e',1,'TeleInfo']]],
+  ['sum_28',['sum',['../classSimpleMovingAverage.html#acf2f2ea3e6a1046a36fb334ffad876ba',1,'SimpleMovingAverage']]],
+  ['supply_5ffrequency_29',['SUPPLY_FREQUENCY',['../config__system_8h.html#ad62846ca1d96695a32041f6dd809401e',1,'config_system.h']]],
+  ['surplusthreshold_30',['surplusThreshold',['../classrelayOutput.html#a5149cd72bf3d2ad09b5c8cf217db3e08',1,'relayOutput']]]
 ];

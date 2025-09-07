@@ -115,7 +115,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <a class="code hl_function" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6">setPinON</a>(LED_BUILTIN);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  delay(100);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  TEST_ASSERT_EQUAL(HIGH, digitalRead(LED_BUILTIN));</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  TEST_ASSERT_EQUAL(<a class="code hl_define" href="native_2test__negative__threshold_2test__main_8cpp.html#a5bb885982ff66a2e0a0a45a8ee9c35e2">HIGH</a>, digitalRead(LED_BUILTIN));</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
 </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
@@ -124,22 +124,22 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <a class="code hl_function" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d">setPinOFF</a>(LED_BUILTIN);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  delay(100);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  TEST_ASSERT_EQUAL(LOW, digitalRead(LED_BUILTIN));</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  TEST_ASSERT_EQUAL(<a class="code hl_define" href="native_2test__negative__threshold_2test__main_8cpp.html#ab811d8c6ff3a505312d3276590444289">LOW</a>, digitalRead(LED_BUILTIN));</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
 </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="embedded_2test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8">   30</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="embedded_2test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8">test_togglePin</a>(<span class="keywordtype">void</span>)</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>{</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  digitalWrite(LED_BUILTIN, HIGH);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  digitalWrite(LED_BUILTIN, <a class="code hl_define" href="native_2test__negative__threshold_2test__main_8cpp.html#a5bb885982ff66a2e0a0a45a8ee9c35e2">HIGH</a>);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  delay(100);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  <a class="code hl_function" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977">togglePin</a>(LED_BUILTIN);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  delay(100);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  TEST_ASSERT_EQUAL(LOW, digitalRead(LED_BUILTIN));</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  TEST_ASSERT_EQUAL(<a class="code hl_define" href="native_2test__negative__threshold_2test__main_8cpp.html#ab811d8c6ff3a505312d3276590444289">LOW</a>, digitalRead(LED_BUILTIN));</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <a class="code hl_function" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977">togglePin</a>(LED_BUILTIN);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  delay(100);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  TEST_ASSERT_EQUAL(HIGH, digitalRead(LED_BUILTIN));</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  TEST_ASSERT_EQUAL(<a class="code hl_define" href="native_2test__negative__threshold_2test__main_8cpp.html#a5bb885982ff66a2e0a0a45a8ee9c35e2">HIGH</a>, digitalRead(LED_BUILTIN));</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
 </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
@@ -148,10 +148,10 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <a class="code hl_function" href="utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7">setPinState</a>(LED_BUILTIN, <span class="keyword">true</span>);</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  delay(100);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  TEST_ASSERT_EQUAL(HIGH, digitalRead(LED_BUILTIN));</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  TEST_ASSERT_EQUAL(<a class="code hl_define" href="native_2test__negative__threshold_2test__main_8cpp.html#a5bb885982ff66a2e0a0a45a8ee9c35e2">HIGH</a>, digitalRead(LED_BUILTIN));</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <a class="code hl_function" href="utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7">setPinState</a>(LED_BUILTIN, <span class="keyword">false</span>);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  delay(100);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  TEST_ASSERT_EQUAL(LOW, digitalRead(LED_BUILTIN));</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  TEST_ASSERT_EQUAL(<a class="code hl_define" href="native_2test__negative__threshold_2test__main_8cpp.html#ab811d8c6ff3a505312d3276590444289">LOW</a>, digitalRead(LED_BUILTIN));</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
 </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
@@ -165,7 +165,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keywordflow">for</span> (uint8_t pin = 2; pin &lt; 14; ++pin)</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    TEST_ASSERT_EQUAL(HIGH, digitalRead(pin));</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    TEST_ASSERT_EQUAL(<a class="code hl_define" href="native_2test__negative__threshold_2test__main_8cpp.html#a5bb885982ff66a2e0a0a45a8ee9c35e2">HIGH</a>, digitalRead(pin));</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  }</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
 </div>
@@ -180,7 +180,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keywordflow">for</span> (uint8_t pin = 2; pin &lt; 14; ++pin)</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    TEST_ASSERT_EQUAL(LOW, digitalRead(pin));</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    TEST_ASSERT_EQUAL(<a class="code hl_define" href="native_2test__negative__threshold_2test__main_8cpp.html#ab811d8c6ff3a505312d3276590444289">LOW</a>, digitalRead(pin));</div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  }</div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
 </div>
@@ -240,6 +240,8 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aembedded_2test__utils__pins_2test__main_8cpp_html_a7478e236a47b20e4bd8950e6ac92350a"><div class="ttname"><a href="embedded_2test__utils__pins_2test__main_8cpp.html#a7478e236a47b20e4bd8950e6ac92350a">test_setPinsOFF</a></div><div class="ttdeci">void test_setPinsOFF(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00066">test_main.cpp:66</a></div></div>
 <div class="ttc" id="aembedded_2test__utils__pins_2test__main_8cpp_html_abd1c12218f5c492bdeb765dfc01a1965"><div class="ttname"><a href="embedded_2test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965">test_setPinState</a></div><div class="ttdeci">void test_setPinState(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00043">test_main.cpp:43</a></div></div>
 <div class="ttc" id="aembedded_2test__utils__pins_2test__main_8cpp_html_ad88b28b663dbedb3135d1eabb5ca3cb1"><div class="ttname"><a href="embedded_2test__utils__pins_2test__main_8cpp.html#ad88b28b663dbedb3135d1eabb5ca3cb1">test_setPinOFF</a></div><div class="ttdeci">void test_setPinOFF(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00023">test_main.cpp:23</a></div></div>
+<div class="ttc" id="anative_2test__negative__threshold_2test__main_8cpp_html_a5bb885982ff66a2e0a0a45a8ee9c35e2"><div class="ttname"><a href="native_2test__negative__threshold_2test__main_8cpp.html#a5bb885982ff66a2e0a0a45a8ee9c35e2">HIGH</a></div><div class="ttdeci">#define HIGH</div><div class="ttdef"><b>Definition</b> <a href="native_2test__negative__threshold_2test__main_8cpp_source.html#l00006">test_main.cpp:6</a></div></div>
+<div class="ttc" id="anative_2test__negative__threshold_2test__main_8cpp_html_ab811d8c6ff3a505312d3276590444289"><div class="ttname"><a href="native_2test__negative__threshold_2test__main_8cpp.html#ab811d8c6ff3a505312d3276590444289">LOW</a></div><div class="ttdeci">#define LOW</div><div class="ttdef"><b>Definition</b> <a href="native_2test__negative__threshold_2test__main_8cpp_source.html#l00007">test_main.cpp:7</a></div></div>
 <div class="ttc" id="autils__pins_8h_html"><div class="ttname"><a href="utils__pins_8h.html">utils_pins.h</a></div><div class="ttdoc">Some utility functions for pins manipulation.</div></div>
 <div class="ttc" id="autils__pins_8h_html_a7195575c2ba8a186bd9758e4e2a141fd"><div class="ttname"><a href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd">setPinsOFF</a></div><div class="ttdeci">void setPinsOFF(uint16_t pins)</div><div class="ttdoc">Set the Pins state to OFF.</div><div class="ttdef"><b>Definition</b> <a href="utils__pins_8h_source.html#l00181">utils_pins.h:181</a></div></div>
 <div class="ttc" id="autils__pins_8h_html_a85a0c8419c44c8bea7565ae9b4a782a7"><div class="ttname"><a href="utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7">setPinState</a></div><div class="ttdeci">constexpr void setPinState(const uint8_t pin, const bool bState)</div><div class="ttdoc">Set the Pin state for the specified pin.</div><div class="ttdef"><b>Definition</b> <a href="utils__pins_8h_source.html#l00111">utils_pins.h:111</a></div></div>

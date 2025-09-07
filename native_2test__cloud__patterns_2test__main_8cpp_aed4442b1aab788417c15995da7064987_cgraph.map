@@ -1,0 +1,15 @@
+<map id="test_battery_system_pattern" name="test_battery_system_pattern">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,27,161,67"/>
+<area shape="rect" id="Node000002" href="$native_2test__cloud__patterns_2test__main_8cpp.html#aabbf8b855685c51c7c77196ce629d623" title=" " alt="" coords="209,5,376,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,34,195,29,196,34,162,39"/>
+<area shape="rect" id="Node000003" href="$native_2test__cloud__patterns_2test__main_8cpp.html#a535e60ae6578d39884821943c733eb0e" title=" " alt="" coords="221,55,365,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,55,207,61,207,67,161,60"/>
+<area shape="rect" id="Node000004" href="$classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="435,13,627,39"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="364,58,456,39,457,44,365,63"/>
+<area shape="rect" id="Node000006" href="$classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="424,63,639,88"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="365,73,410,73,410,78,365,78"/>
+<area shape="rect" id="Node000007" href="$classTestRelay.html#a7ea2d6fc7b8d6c182ee40430b3817a14" title=" " alt="" coords="459,113,603,153"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="365,90,447,110,445,115,364,95"/>
+<area shape="rect" id="Node000005" href="$native_2test__ewma__benchmark_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="687,13,871,39"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="628,23,673,23,673,29,628,29"/>
+</map>
