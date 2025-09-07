@@ -1,16 +1,34 @@
-[![en](https://img.shields.io/badge/lang-en-red.svg)](Readme.en.md)
+[![en](https### Documentation technique
+Le dossier **[docs/](docs/)** contient la documentation technique détaillée :
+- **[Architecture logicielle](docs/architecture.md)** - Conception et organisation des modules
+- **[Performances](docs/performance.md)** - Analyses de timing et optimisations
+
+## Table des matièreshields.io/badge/lang-en-red.svg)](Readme.en.md)
+
+Ce programme est conçu pour être utilisé avec l'IDE Arduino et/ou d'autres IDE de développement comme VSCode + PlatformIO.
+
+## 🚀 Démarrage rapide
+
+### Configurations prêtes à l'emploi
+Consultez le dossier **[examples/](examples/)** pour des configurations complètes et testées :
+- **[Configuration de base tri-phasé](examples/basic-three-phase/)** - Setup standard avec 2 charges
+- **[Intégration Home Assistant](examples/home-assistant-integration/)** - Configuration complète avec ESP32
+- **[Diversion par relais](examples/relay-diversion/)** - Contrôle de pompes à chaleur et charges électroniques
+
+### Documentation technique
+Le dossier **[docs/](docs/)** contient la documentation technique détaillée :
+- **[Architecture logicielle](docs/architecture.md)** - Conception et organisation des modules
+- **[Performances](docs/performance.md)** - Analyses de timing et optimisations
+
+- [Utilisation avec Visual Studio Code](#utilisation-avec-visual-studio-code)](https://img.shields.io/badge/lang-en-red.svg)](Readme.en.md)
 
 Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autres IDE de développement comme VSCode + PlatformIO.
 
-# Table des matières
-- [Table des matières](#table-des-matières)
-- [Utilisation avec Visual Studio Code (recommandé)](#utilisation-avec-visual-studio-code-recommandé)
+- [Utilisation avec Visual Studio Code](#utilisation-avec-visual-studio-code)
 - [Utilisation avec Arduino IDE](#utilisation-avec-arduino-ide)
 - [Aperçu rapide des fichiers](#aperçu-rapide-des-fichiers)
-  - [Documentation technique](#documentation-technique)
 - [Documentation de développement](#documentation-de-développement)
 - [Étalonnage du routeur](#étalonnage-du-routeur)
-- [Documentation d'analyse et outils](#documentation-danalyse-et-outils)
 - [Configuration du programme](#configuration-du-programme)
   - [Type de sortie série](#type-de-sortie-série)
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
@@ -19,6 +37,8 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
   - [Configuration du Watchdog](#configuration-du-watchdog)
   - [Configuration du ou des capteurs de température](#configuration-du-ou-des-capteurs-de-température)
     - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité)
+      - [Avec l’Arduino IDE](#avec-larduino-ide)
+      - [Avec Visual Studio Code et PlatformIO](#avec-visual-studio-code-et-platformio)
     - [Configuration du ou des capteurs (commun aux 2 cas précédents)](#configuration-du-ou-des-capteurs-commun-aux-2-cas-précédents)
   - [Configuration de la gestion des Heures Creuses (dual tariff)](#configuration-de-la-gestion-des-heures-creuses-dual-tariff)
     - [Configuration matérielle](#configuration-matérielle)
@@ -101,11 +121,6 @@ ___
 
 L’utilisateur final ne doit éditer QUE les fichiers **calibration.h** et **config.h**.
 
-## Documentation technique
-Le dossier **[docs/](docs/)** contient la documentation technique détaillée :
-- **[Architecture logicielle](docs/architecture.md)** - Conception et organisation des modules
-- **[Performances](docs/performance.md)** - Analyses de timing et optimisations
-
 # Documentation de développement
 
 Vous pouvez commencer à lire la documentation ici [3-phase routeur](https://fredm67.github.io/Mk2PVRouter-3-phase/) (en anglais).
@@ -118,19 +133,6 @@ inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
 ```
 
 Ces valeurs par défaut doivent être déterminées pour assurer un fonctionnement optimal du routeur.
-
-# Documentation d'analyse et outils
-
-📊 **[Outils d'Analyse et Documentation Technique](../analysis/README.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](../analysis/README.en.md)
-
-Cette section contient des outils d'analyse avancés et de la documentation technique pour :
-
-- **🔄 Filtrage EWMA/TEMA** : Analyse de l'immunité aux nuages et optimisation des filtres
-- **📈 Analyse de performance** : Scripts de visualisation et benchmarks
-- **⚙️ Guide de réglage** : Documentation pour l'optimisation des paramètres
-- **📊 Graphiques techniques** : Comparaisons visuelles des algorithmes de filtrage
-
-> **Utilisateurs avancés :** Ces outils vous aideront à comprendre et optimiser le comportement du routeur PV, notamment pour les installations avec variabilité de production solaire ou systèmes de batteries.
 
 # Configuration du programme
 
@@ -203,15 +205,13 @@ Par défaut, cette moyenne est calculée sur une fenêtre d’environ **10 min*
 Il est possible de la rallonger mais aussi de la raccourcir.  
 Pour des raisons de performances de l’Arduino, la durée choisie sera arrondie à une durée proche qui permettra de faire les calculs sans impacter les performances du routeur.
 
-La durée de la fenêtre temporelle est contrôlée par le paramètre `RELAY_FILTER_DELAY` dans le fichier de configuration.
-
 Si l’utilisateur souhaite plutôt une fenêtre de 15 min, il suffira d’écrire :
 ```cpp
-inline constexpr RelayEngine relays{ MINUTES(15), { { 3, 1000, 200, 1, 1 } } };
+inline constexpr RelayEngine relays{ 15_i, { { 3, 1000, 200, 1, 1 } } };
 ```
 ___
 > [!NOTE]
-> La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n'est nécessaire !
+> Attention au suffixe '**_i**' après le nombre *15* !
 ___
 
 Les relais configurés dans le système sont gérés par un système similaire à une machine à états.
@@ -224,9 +224,6 @@ Les relais sont traités dans l’ordre croissant pour le surplus et dans l’or
 Pour chaque relais, la transition ou le changement d’état est géré de la manière suivante :
 - si le relais est *OFF* et que la puissance moyenne actuelle est inférieure au seuil de surplus, le relais essaie de passer à l’état *ON*. Cette transition est soumise à la condition que le relais ait été *OFF* pendant au moins la durée *minOFF*.
 - si le relais est *ON* et que la puissance moyenne actuelle est supérieure au seuil d’importation, le relais essaie de passer à l’état *OFF*. Cette transition est soumise à la condition que le relais ait été *ON* pendant au moins la durée *minON*.
-
-> [!NOTE]
-> **Installations avec batteries :** Pour une configuration optimale des relais avec systèmes de batteries, consultez le **[Guide de Configuration pour Systèmes Batterie](BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](BATTERY_CONFIGURATION_GUIDE.en.md)
 
 ## Configuration du Watchdog
 Un chien de garde, en anglais *watchdog*, est un circuit électronique ou un logiciel utilisé en électronique numérique pour s’assurer qu’un automate ou un ordinateur ne reste pas bloqué à une étape particulière du traitement qu’il effectue.
@@ -518,3 +515,5 @@ Pour plus de détails sur la configuration d’ESPHome et l’intégration avec 
 
 # Contribuer
 Les contributions sont les bienvenues ! Veuillez soumettre des problèmes, des demandes de fonctionnalités et des pull requests via GitHub.
+
+*doc non finie*
