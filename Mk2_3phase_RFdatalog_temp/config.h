@@ -74,6 +74,7 @@ inline constexpr bool DUAL_TARIFF{ false };         /**< set it to 'true' if the
 inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
 
 #include "utils_temp.h"
+#include "utils_override.h"
 
 // ----------- Pinout Assignments -----------
 //
@@ -119,6 +120,11 @@ inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, set diversion
 inline constexpr uint8_t rotationPin{ unused_pin };   /**< if LOW, trigger a load priority rotation */
 inline constexpr uint8_t forcePin{ 3 };      /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
+
+inline constexpr OverridePins overridePins{
+    {{2, {1, 3}}, 
+     {4, {5}}}
+};
 
 // Relay configuration with tunable EWMA filter
 // For battery systems, use negative import threshold (turn OFF when surplus < abs(threshold))
