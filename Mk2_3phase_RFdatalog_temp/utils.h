@@ -232,7 +232,7 @@ inline void printForJSON(const bool bOffPeak)
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {  // Current temperature
-    for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
+    for (uint8_t idx = 0; idx < temperatureSensing.size(); ++idx)
     {
       if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
           || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
@@ -298,7 +298,7 @@ inline void printForSerialText()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
+    for (uint8_t idx = 0; idx < temperatureSensing.size(); ++idx)
     {
       if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
           || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
@@ -367,7 +367,7 @@ void sendTelemetryData()
     do
     {
       teleInfo.send("R", relays.get_relay(idx).isRelayON());  // Send diverted energy count for each relay
-    } while (++idx < relays.get_size());
+    } while (++idx < relays.size());
   }
 
   idx = 0;
@@ -384,7 +384,7 @@ void sendTelemetryData()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
+    for (uint8_t idx = 0; idx < temperatureSensing.size(); ++idx)
     {
       if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
           || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))

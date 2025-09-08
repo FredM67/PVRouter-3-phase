@@ -75,10 +75,10 @@ inline static constexpr size_t lineSize(size_t tagLen, size_t valueLen)
  * 
  * If relay diversion is enabled (`RELAY_DIVERSION`):
  * - 1 line for the "R" tag (signed 6 digits) - mean power for relay diversion.
- * - `relays.get_size()` lines for the "R1" to "Rn" tags (1 digit each) - relay states.
+ * - `relays.size()` lines for the "R1" to "Rn" tags (1 digit each) - relay states.
  * 
  * If temperature sensors are present (`TEMP_SENSOR_PRESENT`):
- * - `temperatureSensing.get_size()` lines for the "T1" to "Tn" tags (4 digits each) - temperature readings.
+ * - `temperatureSensing.size()` lines for the "T1" to "Tn" tags (4 digits each) - temperature readings.
  * 
  * Common for all configurations:
  * - 1 line for the "N" tag (unsigned 5 digits) - absence of diverted energy count.
@@ -110,13 +110,13 @@ inline static constexpr size_t calcBufferSize()
 
   if constexpr (RELAY_DIVERSION)
   {
-    size += lineSize(1, 6);                      // R (signed 6 digits) - mean power for relay diversion
-    size += relays.get_size() * lineSize(2, 1);  // R1-Rn (1 (ON), 0 (OFF)) - relay state
+    size += lineSize(1, 6);                  // R (signed 6 digits) - mean power for relay diversion
+    size += relays.size() * lineSize(2, 1);  // R1-Rn (1 (ON), 0 (OFF)) - relay state
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    size += temperatureSensing.get_size() * lineSize(2, 4);  // T1-Tn (4 digits) - temperature
+    size += temperatureSensing.size() * lineSize(2, 4);  // T1-Tn (4 digits) - temperature
   }
 
   size += lineSize(1, 5);  // N (unsigned 5 digits) - absence of diverted energy count

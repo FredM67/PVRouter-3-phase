@@ -138,7 +138,7 @@ void test_proceed_relay(void)
 
 void test_get_size(void)
 {
-  TEST_ASSERT_EQUAL(2, relays.get_size());
+  TEST_ASSERT_EQUAL(2, relays.size());
 }
 
 void setup()

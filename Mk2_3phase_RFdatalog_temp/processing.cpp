@@ -152,7 +152,7 @@ constexpr uint16_t getOutputPins()
 
   if constexpr (RELAY_DIVERSION)
   {
-    for (uint8_t idx = 0; idx < relays.get_size(); ++idx)
+    for (uint8_t idx = 0; idx < relays.size(); ++idx)
     {
       const auto relayPin = relays.get_relay(idx).get_pin();
 

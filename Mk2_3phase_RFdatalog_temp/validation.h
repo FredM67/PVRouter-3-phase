@@ -58,7 +58,7 @@ static_assert(sizeof(rg_ForceLoad) / sizeof(rg_ForceLoad[0]) == NO_OF_DUMPLOADS,
 static_assert(ROTATION_AFTER_SECONDS > 0, "******** ROTATION_AFTER_SECONDS must be greater than 0 ! ********");
 static_assert(ROTATION_AFTER_SECONDS <= 86400UL, "******** ROTATION_AFTER_SECONDS cannot exceed 24 hours ! ********");
 
-static_assert(!TEMP_SENSOR_PRESENT || (temperatureSensing.get_size() > 0), "******** No temperature sensors configured but TEMP_SENSOR_PRESENT is true ! ********");
+static_assert(!TEMP_SENSOR_PRESENT || (temperatureSensing.size() > 0), "******** No temperature sensors configured but TEMP_SENSOR_PRESENT is true ! ********");
 static_assert(TEMP_RANGE_LOW < TEMP_RANGE_HIGH, "******** Invalid temperature range ! ********");
 
 constexpr uint16_t check_pins()
@@ -117,7 +117,7 @@ constexpr uint16_t check_pins()
 
   if constexpr (RELAY_DIVERSION)
   {
-    for (uint8_t idx = 0; idx < relays.get_size(); ++idx)
+    for (uint8_t idx = 0; idx < relays.size(); ++idx)
     {
       const auto relayPin = relays.get_relay(idx).get_pin();
 
@@ -138,7 +138,7 @@ constexpr uint16_t check_relay_pins()
 {
   bool pins_ok{ true };
 
-  for (uint8_t idx = 0; idx < relays.get_size(); ++idx)
+  for (uint8_t idx = 0; idx < relays.size(); ++idx)
   {
     const auto relayPin = relays.get_relay(idx).get_pin();
 

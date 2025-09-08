@@ -370,7 +370,7 @@ void updatePowerAndVoltageData()
  */
 void processTemperatureData()
 {
-  uint8_t idx{ temperatureSensing.get_size() };
+  uint8_t idx{ temperatureSensing.size() };
   do
   {
     auto tmp = temperatureSensing.readTemperature(--idx);

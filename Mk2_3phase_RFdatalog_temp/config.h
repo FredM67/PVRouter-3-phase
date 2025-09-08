@@ -45,36 +45,15 @@ inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 }; /**< number of dump loads connect
 inline constexpr bool EMONESP_CONTROL{ false };
 inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */
-inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                    /**< set it to 'true' if there's a override pin */
+inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                     /**< set it to 'true' if there's a override pin */
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
 inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
-
-//--------------------------------------------------------------------------------------------------
-// EWMA Filter Tuning for Cloud Immunity
-//
-// The RELAY_FILTER_DELAY parameter controls how aggressively the EWMA filter smooths
-// power measurements before making relay decisions. This directly affects cloud immunity vs responsiveness.
-//
-// 🌤️ Quick Reference by Climate:
-// - Clear sky regions (desert, dry):     1 minute  (fast response, minimal clouds)
-// - Mixed conditions (most locations):   2 minutes (recommended default)
-// - Frequently cloudy (coastal):         3 minutes (enhanced stability)
-// - Very cloudy (mountain, tropical):    4 minutes (maximum stability)
-//
-// 🧪 Scientific Tuning:
-// Run cloud pattern analysis tests to determine optimal setting for your climate:
-//   cd Mk2_3phase_RFdatalog_temp && pio test -e native --filter="test_cloud_patterns" -v
-//
-// 📖 Full guide: docs/Cloud_Pattern_Tuning_Guide.md
-//--------------------------------------------------------------------------------------------------
-inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minutes for relay control */
 
 inline constexpr bool DUAL_TARIFF{ false };         /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
 
 #include "utils_temp.h"
-#include "utils_override.h"
 
 // ----------- Pinout Assignments -----------
 //
@@ -118,13 +97,28 @@ inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 }; /**< 
 inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
 inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ unused_pin };   /**< if LOW, trigger a load priority rotation */
-inline constexpr uint8_t forcePin{ 3 };      /**< for 3-phase PCB, force pin */
+inline constexpr uint8_t forcePin{ 3 };               /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
 
-inline constexpr OverridePins overridePins{
-    {{2, {1, 3}}, 
-     {4, {5}}}
-};
+//--------------------------------------------------------------------------------------------------
+// EWMA Filter Tuning for Cloud Immunity
+//
+// The RELAY_FILTER_DELAY parameter controls how aggressively the EWMA filter smooths
+// power measurements before making relay decisions. This directly affects cloud immunity vs responsiveness.
+//
+// 🌤️ Quick Reference by Climate:
+// - Clear sky regions (desert, dry):     1 minute  (fast response, minimal clouds)
+// - Mixed conditions (most locations):   2 minutes (recommended default)
+// - Frequently cloudy (coastal):         3 minutes (enhanced stability)
+// - Very cloudy (mountain, tropical):    4 minutes (maximum stability)
+//
+// 🧪 Scientific Tuning:
+// Run cloud pattern analysis tests to determine optimal setting for your climate:
+//   cd Mk2_3phase_RFdatalog_temp && pio test -e native --filter="test_cloud_patterns" -v
+//
+// 📖 Full guide: docs/Cloud_Pattern_Tuning_Guide.md
+//--------------------------------------------------------------------------------------------------
+inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minutes for relay control */
 
 // Relay configuration with tunable EWMA filter
 // For battery systems, use negative import threshold (turn OFF when surplus < abs(threshold))
@@ -132,6 +126,13 @@ inline constexpr OverridePins overridePins{
 //   Normal installation:  { pin, 1000, 200, 5, 5 }   // Turn OFF when importing > 200W
 //   Battery installation: { pin, 1000, -50, 5, 5 }   // Turn OFF when surplus < 50W
 inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { unused_pin, 1000, 200, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
+
+#include "utils_override.h"
+
+inline constexpr OverridePins overridePins{
+  { { 2, { 1, 3 } },
+    { 4, { 5 } } }
+};
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
