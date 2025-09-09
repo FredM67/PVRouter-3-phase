@@ -22,7 +22,7 @@ jobs:
 
     env:
       # See: https://github.com/arduino/arduino-ide/blob/main/arduino-ide-extension/package.json
-      CLANG_FORMAT_VERSION: 18.1.3
+      CLANG_FORMAT_VERSION: 15.0.0
 
     steps:
       - name: Set environment variables
