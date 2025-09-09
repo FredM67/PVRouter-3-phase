@@ -48,7 +48,7 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                     /**< set it to 'true' if there's a override pin */
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
-inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
+inline constexpr bool RELAY_DIVERSION{ true };      /**< set it to 'true' if a relay is used for diversion */
 
 inline constexpr bool DUAL_TARIFF{ false };         /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
@@ -125,14 +125,12 @@ inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minu
 // Examples:
 //   Normal installation:  { pin, 1000, 200, 5, 5 }   // Turn OFF when importing > 200W
 //   Battery installation: { pin, 1000, -50, 5, 5 }   // Turn OFF when surplus < 50W
-inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { unused_pin, 1000, 200, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
+inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 8, 1000, 200, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
 
 #include "utils_override.h"
 
-inline constexpr OverridePins overridePins{
-  { { 2, { 1, 3 } },
-    { 4, { 5 } } }
-};
+inline constexpr OverridePins overridePins{ { { 2, { 1, LOAD(1) } },
+                                              { 4, { LOAD(0), RELAY(0) } } } }; /**< list of override pin/loads-relays pairs */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */

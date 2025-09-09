@@ -34,6 +34,28 @@
 #include "config.h"
 
 /**
+ * @brief Returns the pin number for a given load index at compile time.
+ * @param loadNum The load index (0-based).
+ * @return The pin number for the load.
+ */
+constexpr uint8_t LOAD(uint8_t loadNum)
+{
+  return physicalLoadPin[loadNum];
+}
+
+
+/**
+ * @brief Returns the pin number for a given relay index at compile time.
+ * @param relayNum The relay index (0-based).
+ * @return The pin number for the relay.
+ */
+constexpr uint8_t RELAY(uint8_t relayNum)
+{
+  static_assert(RELAY_DIVERSION, "RELAY_DIVERSION must be true to use RELAY()");
+  return relays.get_relay(relayNum).get_pin();
+}
+
+/**
  * @brief Helper to convert indices to a bitmask at compile-time.
  * @tparam Indices List of indices to set in the bitmask.
  * @return Bitmask with bits set at the specified indices.
