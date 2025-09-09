@@ -127,7 +127,7 @@ Cela garantit que les résultats d'analyse reflètent directement les performanc
 
 📖 **Documentation disponible en deux langues / Documentation available in two languages:**
 
-| 🇫🇷 **Français** (Principal) | � **English** |
+| 🇫🇷 **Français** (Principal) | 🌐 **English** |
 |-------------------------------|------------------|
 | [README.md](README.md) | [README.en.md](README.en.md) |
 | [TEMA_ANALYSIS_README.md](ewma/TEMA_ANALYSIS_README.md) | [TEMA_ANALYSIS_README.en.md](ewma/TEMA_ANALYSIS_README.en.md) |

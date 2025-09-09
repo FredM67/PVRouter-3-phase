@@ -5,16 +5,17 @@
 #pragma once
 
 template< bool Condition, class TrueType, class FalseType >
-struct conditional {
+struct conditional
+{
   using type = TrueType;
 };
 
 template< class TrueType, class FalseType >
-struct conditional<false, TrueType, FalseType> {
+struct conditional< false, TrueType, FalseType >
+{
   using type = FalseType;
 };
 
-template <bool Condition, class TrueType, class FalseType>
+template< bool Condition, class TrueType, class FalseType >
 using conditional_t =
-    typename conditional<Condition, TrueType, FalseType>::type;
-
+  typename conditional< Condition, TrueType, FalseType >::type;

@@ -11,8 +11,7 @@
 #include "is_same.hpp"
 
 template< typename T >
-struct is_enum {
-  static const bool value = is_convertible<T, long long>::value &&
-                            !is_class<T>::value && !is_integral<T>::value &&
-                            !is_floating_point<T>::value;
+struct is_enum
+{
+  static const bool value = is_convertible< T, long long >::value && !is_class< T >::value && !is_integral< T >::value && !is_floating_point< T >::value;
 };
