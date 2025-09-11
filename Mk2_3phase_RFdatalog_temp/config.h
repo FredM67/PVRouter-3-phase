@@ -39,7 +39,7 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanRe
 //--------------------------------------------------------------------------------------------------
 // Basic Configuration
 //
-inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 }; /**< number of dump loads connected to the diverter */
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< number of dump loads connected to the diverter */
 
 // Feature toggles - Basic setup without advanced features
 inline constexpr bool EMONESP_CONTROL{ false };
@@ -90,8 +90,8 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if tem
 // Note: When using these pins for Home Assistant integration, ensure the ESP32
 // counterpart is properly configured to send the appropriate signals.
 
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
-inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 }; /**< load priorities and states at startup */
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities and states at startup */
 
 // Set the value to 'unused_pin' when the pin is not needed (feature deactivated)
 inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
@@ -125,13 +125,17 @@ inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minu
 // Examples:
 //   Normal installation:  { pin, 1000, 200, 5, 5 }   // Turn OFF when importing > 200W
 //   Battery installation: { pin, 1000, -50, 5, 5 }   // Turn OFF when surplus < 50W
-inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 8, 1000, 200, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
+inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 8, 100, 200, 1, 1 }, { 9, 300, 400, 1, 1 }, { 10, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
 
 #include "utils_override.h"
 
-inline constexpr OverridePins overridePins{ { { 2, ALL_LOADS() },
-                                              { 3, { 1, LOAD(1) } },
-                                              { 4, { LOAD(0), RELAY(0) } } } }; /**< list of override pin/loads-relays pairs */
+inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },
+                                              { 4, { LOAD(1), RELAY(1) } },
+                                              { 11, ALL_LOADS() },
+                                              { 12, { 5, LOAD(1), LOAD(2) } },
+                                              { 13, { RELAY(0), 9, RELAY(2) } },
+                                              { 14, ALL_RELAYS() },
+                                              { 15, ALL_LOADS_AND_RELAYS() } } }; /**< list of override pin/loads-relays pairs */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */

@@ -146,6 +146,18 @@ inline void printConfiguration()
     DBUGLN(F("is NOT present"));
   }
 
+  DBUG(F("Override feature "));
+  if constexpr (OVERRIDE_PIN_PRESENT)
+  {
+    DBUGLN(F("is present"));
+
+    overridePins.printOverrideConfig();
+  }
+  else
+  {
+    DBUGLN(F("is NOT present"));
+  }
+
   DBUG(F("RF capability "));
 #ifdef RF_PRESENT
   DBUG(F("IS present, Freq = "));

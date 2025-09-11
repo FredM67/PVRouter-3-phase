@@ -302,7 +302,7 @@ public:
      *
      * This method outputs the pin number and associated bitmask for each entry.
      */
-  void printStatus() const
+  void printOverrideConfig() const
   {
     Serial.println(F("[OverridePins] Configured pins and bitmasks:"));
     for (uint8_t i = 0; i < N; ++i)
