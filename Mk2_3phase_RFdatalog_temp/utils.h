@@ -139,7 +139,7 @@ inline void printConfiguration()
   {
     DBUGLN(F("is present"));
 
-    relays.printConfiguration();
+    relays.printRelayEngineConfiguration();
   }
   else
   {

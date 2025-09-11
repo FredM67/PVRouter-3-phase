@@ -117,7 +117,7 @@ constexpr uint16_t indicesToBitmask()
  * @tparam MaxIndices Maximum number of indices supported.
  */
 template< uint8_t MaxIndices >
-struct IndexList
+struct PinList
 {
   static_assert((!RELAY_DIVERSION && MaxIndices <= NO_OF_DUMPLOADS) || RELAY_DIVERSION,
                 "You specified too many loads, must be <= NO_OF_DUMPLOADS (relay diversion OFF)");
@@ -130,21 +130,21 @@ struct IndexList
   /**
    * @brief Default constructor. Initializes with zero indices.
    */
-  constexpr IndexList()
+  constexpr PinList()
     : indices{}, count(0) {}
 
   /**
-   * @brief Constructor from bitmask. Sets indices from bits set in bitmask.
-   * @param bitmask Bitmask value.
-   */
-  constexpr IndexList(uint16_t bitmask)
+ * @brief Constructor from bitmask. Sets pin numbers from bits set in bitmask.
+ * @param bitmask Bitmask value.
+ */
+  constexpr PinList(uint16_t bitmask)
     : indices{}, count(0)
   {
-    for (uint8_t i = 0; i < MaxIndices; ++i)
+    for (uint8_t pin = 0; pin < 16 && count < MaxIndices; ++pin)
     {
-      if (bitmask & (1U << i))
+      if (bitmask & (1U << pin))
       {
-        indices[count++] = i;
+        indices[count++] = pin;  // Store the pin number
       }
     }
   }
@@ -154,7 +154,7 @@ struct IndexList
    * @param args List of indices.
    */
   template< typename... Args >
-  constexpr IndexList(Args... args)
+  constexpr PinList(Args... args)
     : indices{ static_cast< uint8_t >(args)... }, count(sizeof...(args)) {}
 
   /**
@@ -180,14 +180,14 @@ template< uint8_t MaxIndices >
 struct KeyIndexPair
 {
   uint8_t pin;
-  IndexList< MaxIndices > indexList;
+  PinList< MaxIndices > indexList;
 
   /**
    * @brief Constructor.
    * @param k Pin value.
    * @param list Index list.
    */
-  constexpr KeyIndexPair(uint8_t k, const IndexList< MaxIndices >& list)
+  constexpr KeyIndexPair(uint8_t k, const PinList< MaxIndices >& list)
     : pin(k), indexList(list) {}
 
   /**
@@ -304,12 +304,12 @@ public:
      */
   void printOverrideConfig() const
   {
-    Serial.println(F("[OverridePins] Configured pins and bitmasks:"));
+    Serial.println(F("*** Override Pins Configuration ***"));
     for (uint8_t i = 0; i < N; ++i)
     {
-      Serial.print(F("  Pin: "));
+      Serial.print(F("\tPin: "));
       Serial.print(entries_[i].pin);
-      Serial.print(F("  Bitmask: 0b"));
+      Serial.print(F("\tBitmask: 0b"));
       Serial.println(entries_[i].bitmask, BIN);
     }
   }
