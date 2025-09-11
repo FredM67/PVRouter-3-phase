@@ -34,12 +34,6 @@
 #include "config.h"
 #include "type_traits.hpp"
 
-/*
-inline constexpr OverridePins overridePins{ { { 2, ALL_LOADS() },
-                                              { 3, { 1, LOAD(1) } },
-                                              { 4, { LOAD(0), RELAY(0) } } } };
-*/
-
 /**
  * @brief Returns the pin number for a given load index at compile time.
  * @param loadNum The load index (0-based).
@@ -49,7 +43,6 @@ constexpr uint8_t LOAD(uint8_t loadNum)
 {
   return physicalLoadPin[loadNum];
 }
-
 
 /**
  * @brief Returns the pin number for a given relay index at compile time.
@@ -62,6 +55,13 @@ constexpr uint8_t RELAY(uint8_t relayNum)
   return relays.get_relay(relayNum).get_pin();
 }
 
+/**
+ * @brief Returns a bitmask representing all load pins.
+ *
+ * This helper is used to configure an override pin to control all loads at once.
+ *
+ * @return Bitmask with all load pins set.
+ */
 constexpr uint16_t ALL_LOADS()
 {
   uint16_t mask{ 0 };
@@ -72,6 +72,13 @@ constexpr uint16_t ALL_LOADS()
   return mask;
 }
 
+/**
+ * @brief Returns a bitmask representing all relay pins.
+ *
+ * This helper is used to configure an override pin to control all relays at once.
+ *
+ * @return Bitmask with all relay pins set.
+ */
 constexpr uint16_t ALL_RELAYS()
 {
   uint16_t mask{ 0 };
@@ -82,7 +89,13 @@ constexpr uint16_t ALL_RELAYS()
   return mask;
 }
 
-// Returns bitmask for all loads and relays
+/**
+ * @brief Returns a bitmask representing all loads and all relays.
+ *
+ * This helper is used to configure an override pin to control the entire system (all loads and relays).
+ *
+ * @return Bitmask with all load and relay pins set.
+ */
 constexpr uint16_t ALL_LOADS_AND_RELAYS()
 {
   return ALL_LOADS() | ALL_RELAYS();
