@@ -399,7 +399,7 @@ Exemples :
 // Méthode classique : liste d’indices ou macros LOAD/RELAY
 inline constexpr OverridePins overridePins{
   {
-    { 2, { 1, LOAD(1) } },       // Pin 2 active la charge connectée à la pin 1 et la charge #1
+    { 2, { 1, LOAD(1) } },       // Pin 2 active la charge ou le relais connecté·e à la pin 1 et la charge #1
     { 4, { LOAD(0), RELAY(0) } } // Pin 4 active le charge #0 et le relais #0
   }
 };
@@ -407,8 +407,8 @@ inline constexpr OverridePins overridePins{
 // Méthode avancée : bitmask pour tous les loads ou tous les relais
 inline constexpr OverridePins overridePins{
   {
-    { 2, ALL_LOADS() },          // Pin 2 active toutes les charges
-    { 3, ALL_RELAYS() },         // Pin 3 active tous les relais
+    { 2, ALL_LOADS() },           // Pin 2 active toutes les charges
+    { 3, ALL_RELAYS() },          // Pin 3 active tous les relais
     { 4, ALL_LOADS_AND_RELAYS() } // Pin 4 active tout le système
   }
 };
