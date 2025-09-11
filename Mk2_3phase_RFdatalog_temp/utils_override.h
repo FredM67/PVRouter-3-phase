@@ -34,6 +34,12 @@
 #include "config.h"
 #include "type_traits.hpp"
 
+/*
+inline constexpr OverridePins overridePins{ { { 2, ALL_LOADS() },
+                                              { 3, { 1, LOAD(1) } },
+                                              { 4, { LOAD(0), RELAY(0) } } } };
+*/
+
 /**
  * @brief Returns the pin number for a given load index at compile time.
  * @param loadNum The load index (0-based).
@@ -182,16 +188,27 @@ struct KeyIndexPair
 };
 
 /**
- * @brief Main class for managing override pins and their associated bitmasks.
- * @tparam N Number of pin-index pairs.
- * @tparam MaxIndices Maximum number of indices supported.
+ * @class OverridePins
+ * @brief Manages override pins and their associated bitmasks for forced operation.
+ *
+ * This class provides compile-time mapping between override pins and the loads/relays they control.
+ * Each pin can be associated with a set of indices (loads/relays), represented as a bitmask.
+ *
+ * @tparam N Number of pin-index pairs (entries).
+ * @tparam MaxIndices Maximum number of indices supported (loads + relays).
  */
 template< uint8_t N, uint8_t MaxIndices = NO_OF_DUMPLOADS + relays.size() >
 class OverridePins
 {
 private:
   /**
-   * @brief Structure representing a pin and its bitmask.
+   * @struct Entry
+   * @brief Internal structure representing a pin and its associated bitmask.
+   *
+   * @var Entry::pin
+   * Pin number for override control.
+   * @var Entry::bitmask
+   * Bitmask representing the indices (loads/relays) controlled by this pin.
    */
   struct Entry
   {
@@ -203,9 +220,10 @@ private:
 
 public:
   /**
-     * @brief Constructor. Initializes entries from pin-index pairs.
-     * @param pairs Array of pin-index pairs.
-     */
+   * @brief Constructor. Initializes the override pin mapping from pin-index pairs.
+   *
+   * @param pairs Array of pin-index pairs, each specifying a pin and its associated indices.
+   */
   constexpr OverridePins(const KeyIndexPair< MaxIndices > (&pairs)[N])
     : entries_{}  // default initialize
   {
@@ -221,8 +239,8 @@ public:
   }
 
   /**
-     * @brief Returns the number of pin-index pairs.
-     * @return Number of pairs.
+     * @brief Returns the number of override pin entries.
+     * @return Number of pin-index pairs (entries).
      */
   constexpr uint8_t size() const
   {
@@ -230,8 +248,8 @@ public:
   }
 
   /**
-     * @brief Returns the pin at the specified index.
-     * @param index Index in the array.
+     * @brief Returns the pin number at the specified entry index.
+     * @param index Index in the entries array.
      * @return Pin value, or 0 if out of bounds.
      */
   constexpr uint8_t getPin(uint8_t index) const
@@ -240,8 +258,8 @@ public:
   }
 
   /**
-     * @brief Returns the bitmask at the specified index.
-     * @param index Index in the array.
+     * @brief Returns the bitmask for the specified entry index.
+     * @param index Index in the entries array.
      * @return Bitmask, or 0 if out of bounds.
      */
   constexpr uint16_t getBitmask(uint8_t index) const
@@ -250,10 +268,10 @@ public:
   }
 
   /**
-   * @brief Finds the bitmask for a given pin.
-   * @param pin Pin value to search for.
-   * @return Bitmask for the pin, or 0 if not found.
-   */
+     * @brief Finds the bitmask associated with a given pin number.
+     * @param pin Pin value to search for.
+     * @return Bitmask for the pin, or 0 if not found.
+     */
   constexpr uint16_t findBitmask(uint8_t pin) const
   {
     for (uint8_t i = 0; i < N; ++i)
@@ -267,8 +285,10 @@ public:
   }
 
   /**
-   * @brief Print the configured override pins and their bitmasks to Serial during startup.
-   */
+     * @brief Print the configured override pins and their bitmasks to Serial during startup.
+     *
+     * This method outputs the pin number and associated bitmask for each entry.
+     */
   void printStatus() const
   {
     Serial.println(F("[OverridePins] Configured pins and bitmasks:"));
