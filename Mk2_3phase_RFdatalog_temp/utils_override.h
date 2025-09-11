@@ -115,6 +115,22 @@ struct IndexList
     : indices{}, count(0) {}
 
   /**
+   * @brief Constructor from bitmask. Sets indices from bits set in bitmask.
+   * @param bitmask Bitmask value.
+   */
+  constexpr IndexList(uint16_t bitmask)
+    : indices{}, count(0)
+  {
+    for (uint8_t i = 0; i < MaxIndices; ++i)
+    {
+      if (bitmask & (1U << i))
+      {
+        indices[count++] = i;
+      }
+    }
+  }
+
+  /**
    * @brief Variadic constructor. Initializes with provided indices.
    * @param args List of indices.
    */

@@ -323,7 +323,7 @@ public:
    * @param ic Integral constant representing the sliding average duration.
    * @param ref Array of relay configurations.
    */
-  constexpr RelayEngine(integral_constant< uint8_t, D > ic, const relayOutput (&ref)[N])
+  constexpr RelayEngine(integral_constant< uint8_t, D > /* ic */, const relayOutput (&ref)[N])
     : relay(ref)
   {
   }
