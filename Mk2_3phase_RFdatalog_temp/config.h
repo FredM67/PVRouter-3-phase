@@ -129,7 +129,8 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 8, 1000, 2
 
 #include "utils_override.h"
 
-inline constexpr OverridePins overridePins{ { { 2, { 1, LOAD(1) } },
+inline constexpr OverridePins overridePins{ { { 2, ALL_LOADS() },
+                                              { 3, { 1, LOAD(1) } },
                                               { 4, { LOAD(0), RELAY(0) } } } }; /**< list of override pin/loads-relays pairs */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */

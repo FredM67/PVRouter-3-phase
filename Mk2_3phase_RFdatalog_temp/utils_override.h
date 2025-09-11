@@ -32,6 +32,7 @@
 #define UTILS_OVERRIDE_H
 
 #include "config.h"
+#include "type_traits.hpp"
 
 /**
  * @brief Returns the pin number for a given load index at compile time.
@@ -53,6 +54,32 @@ constexpr uint8_t RELAY(uint8_t relayNum)
 {
   static_assert(RELAY_DIVERSION, "RELAY_DIVERSION must be true to use RELAY()");
   return relays.get_relay(relayNum).get_pin();
+}
+
+constexpr uint16_t ALL_LOADS()
+{
+  uint16_t mask{ 0 };
+  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  {
+    bit_set(mask, physicalLoadPin[i]);
+  }
+  return mask;
+}
+
+constexpr uint16_t ALL_RELAYS()
+{
+  uint16_t mask{ 0 };
+  for (uint8_t i = 0; i < relays.size(); ++i)
+  {
+    bit_set(mask, relays.get_relay(i).get_pin());
+  }
+  return mask;
+}
+
+// Returns bitmask for all loads and relays
+constexpr uint16_t ALL_LOADS_AND_RELAYS()
+{
+  return ALL_LOADS() | ALL_RELAYS();
 }
 
 /**
@@ -143,7 +170,7 @@ struct KeyIndexPair
  * @tparam N Number of pin-index pairs.
  * @tparam MaxIndices Maximum number of indices supported.
  */
-template< uint8_t N, uint8_t MaxIndices = NO_OF_DUMPLOADS >
+template< uint8_t N, uint8_t MaxIndices = NO_OF_DUMPLOADS + relays.size() >
 class OverridePins
 {
 private:
