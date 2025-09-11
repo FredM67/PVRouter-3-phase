@@ -3,7 +3,7 @@
  * @brief Compile-time utilities for managing override pins and index-to-bitmask mapping.
  *
  * This header provides types and functions for representing and manipulating sets of override pins
- * and their associated indices, all at compile time. It enables efficient bitmask computation and
+ * and their associated pins, all at compile time. It enables efficient bitmask computation and
  * static configuration of pin mappings for embedded systems, such as PVRouter.
  *
  * Pin features:
@@ -101,93 +101,97 @@ constexpr uint16_t ALL_LOADS_AND_RELAYS()
   return ALL_LOADS() | ALL_RELAYS();
 }
 
+// Valid pins: 2-13, so valid mask is 0b11111111111100
+constexpr uint16_t validPinMask{ 0b11111111111100 };
+
 /**
- * @brief Helper to convert indices to a bitmask at compile-time.
- * @tparam Indices List of indices to set in the bitmask.
- * @return Bitmask with bits set at the specified indices.
+ * @brief Helper to convert pins to a bitmask at compile-time.
+ * @tparam Pins List of pins to set in the bitmask.
+ * @return Bitmask with bits set at the specified pins.
  */
-template< uint8_t... Indices >
+template< uint8_t... Pins >
 constexpr uint16_t indicesToBitmask()
 {
-  return ((1U << Indices) | ...);
+  return ((1U << Pins) | ...);
 }
 
 /**
- * @brief Wrapper for a list of indices, constructible from variadic arguments.
- * @tparam MaxIndices Maximum number of indices supported.
+ * @brief Wrapper for a list of pins, constructible from variadic arguments.
+ * @tparam MaxPins Maximum number of pins supported.
  */
-template< uint8_t MaxIndices >
+template< uint8_t MaxPins >
 struct PinList
 {
-  static_assert((!RELAY_DIVERSION && MaxIndices <= NO_OF_DUMPLOADS) || RELAY_DIVERSION,
+  static_assert((!RELAY_DIVERSION && MaxPins <= NO_OF_DUMPLOADS) || RELAY_DIVERSION,
                 "You specified too many loads, must be <= NO_OF_DUMPLOADS (relay diversion OFF)");
-  static_assert((RELAY_DIVERSION && MaxIndices <= NO_OF_DUMPLOADS + relays.size()) || !RELAY_DIVERSION,
+  static_assert((RELAY_DIVERSION && MaxPins <= NO_OF_DUMPLOADS + relays.size()) || !RELAY_DIVERSION,
                 "You specified too many loads, must be <= NO_OF_DUMPLOADS + relays.size() (relay diversion ON)");
 
-  uint8_t indices[MaxIndices];
+  uint8_t pins[MaxPins];
   uint8_t count;
 
   /**
-   * @brief Default constructor. Initializes with zero indices.
+   * @brief Default constructor. Initializes with zero pins.
    */
   constexpr PinList()
-    : indices{}, count(0) {}
+    : pins{}, count(0) {}
 
   /**
  * @brief Constructor from bitmask. Sets pin numbers from bits set in bitmask.
  * @param bitmask Bitmask value.
  */
   constexpr PinList(uint16_t bitmask)
-    : indices{}, count(0)
+    : pins{}, count(0)
   {
-    for (uint8_t pin = 0; pin < 16 && count < MaxIndices; ++pin)
+    for (uint8_t pin = 0; pin < 16 && count < MaxPins; ++pin)
     {
       if (bitmask & (1U << pin))
       {
-        indices[count++] = pin;  // Store the pin number
+        pins[count++] = pin;  // Store the pin number
       }
     }
   }
 
   /**
-   * @brief Variadic constructor. Initializes with provided indices.
-   * @param args List of indices.
+   * @brief Variadic constructor. Initializes with provided pins.
+   * @param args List of pins.
    */
   template< typename... Args >
   constexpr PinList(Args... args)
-    : indices{ static_cast< uint8_t >(args)... }, count(sizeof...(args)) {}
+    : pins{ static_cast< uint8_t >(args)... }, count(sizeof...(args)) {}
 
   /**
    * @brief Converts the index list to a bitmask.
-   * @return Bitmask with bits set at the specified indices.
+   * @return Bitmask with bits set at the specified pins.
    */
   constexpr uint16_t toBitmask() const
   {
     uint16_t result = 0;
     for (uint8_t i = 0; i < count; ++i)
     {
-      result |= (1U << indices[i]);
+      result |= (1U << pins[i]);
     }
+
     return result;
   }
 };
 
 /**
  * @brief Structure holding a pin and its associated index list.
- * @tparam MaxIndices Maximum number of indices supported.
+ * @tparam MaxPins Maximum number of pins supported.
  */
-template< uint8_t MaxIndices >
+template< uint8_t MaxPins >
 struct KeyIndexPair
 {
   uint8_t pin;
-  PinList< MaxIndices > indexList;
+  PinList< MaxPins > indexList;
 
   /**
    * @brief Constructor.
    * @param k Pin value.
    * @param list Index list.
    */
-  constexpr KeyIndexPair(uint8_t k, const PinList< MaxIndices >& list)
+  constexpr KeyIndexPair(uint8_t k, const PinList< MaxPins >& list)
     : pin(k), indexList(list) {}
 
   /**
@@ -205,12 +209,12 @@ struct KeyIndexPair
  * @brief Manages override pins and their associated bitmasks for forced operation.
  *
  * This class provides compile-time mapping between override pins and the loads/relays they control.
- * Each pin can be associated with a set of indices (loads/relays), represented as a bitmask.
+ * Each pin can be associated with a set of pins (loads/relays), represented as a bitmask.
  *
  * @tparam N Number of pin-index pairs (entries).
- * @tparam MaxIndices Maximum number of indices supported (loads + relays).
+ * @tparam MaxPins Maximum number of pins supported (loads + relays).
  */
-template< uint8_t N, uint8_t MaxIndices = NO_OF_DUMPLOADS + relays.size() >
+template< uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size() >
 class OverridePins
 {
 private:
@@ -221,12 +225,12 @@ private:
    * @var Entry::pin
    * Pin number for override control.
    * @var Entry::bitmask
-   * Bitmask representing the indices (loads/relays) controlled by this pin.
+   * Bitmask representing the pins (loads/relays) controlled by this pin.
    */
   struct Entry
   {
     uint8_t pin;      /**< Pin value. */
-    uint16_t bitmask; /**< Bitmask for indices. */
+    uint16_t bitmask; /**< Bitmask for pins. */
   };
 
   const Entry entries_[N]; /**< Array of entries for all pin-index pairs. */
@@ -235,9 +239,9 @@ public:
   /**
    * @brief Constructor. Initializes the override pin mapping from pin-index pairs.
    *
-   * @param pairs Array of pin-index pairs, each specifying a pin and its associated indices.
+   * @param pairs Array of pin-index pairs, each specifying a pin and its associated pins.
    */
-  constexpr OverridePins(const KeyIndexPair< MaxIndices > (&pairs)[N])
+  constexpr OverridePins(const KeyIndexPair< MaxPins > (&pairs)[N])
     : entries_{}  // default initialize
   {
     Entry temp[N]{};
@@ -319,8 +323,8 @@ public:
  * @brief Deduction guide for OverridePins template.
  * Allows template argument deduction from constructor arguments.
  */
-template< uint8_t MaxIndices, uint8_t N >
-OverridePins(const KeyIndexPair< MaxIndices > (&)[N])
-  -> OverridePins< N, MaxIndices >;
+template< uint8_t MaxPins, uint8_t N >
+OverridePins(const KeyIndexPair< MaxPins > (&)[N])
+  -> OverridePins< N, MaxPins >;
 
 #endif /* UTILS_OVERRIDE_H */

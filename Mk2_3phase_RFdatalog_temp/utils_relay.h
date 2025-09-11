@@ -197,16 +197,16 @@ public:
    */
   void printRelayConfiguration(uint8_t idx) const
   {
-    Serial.print(F("\t\tRelay configuration: #"));
+    Serial.print(F("\tRelay configuration: #"));
     Serial.println(idx + 1);
 
-    Serial.print(F("\t\t\tPin is "));
+    Serial.print(F("\t\tPin is "));
     Serial.println(get_pin());
 
-    Serial.print(F("\t\t\tSurplus threshold: "));
+    Serial.print(F("\t\tSurplus threshold: "));
     Serial.println(get_surplusThreshold());
 
-    Serial.print(F("\t\t\tImport threshold: "));
+    Serial.print(F("\t\tImport threshold: "));
     Serial.print(get_importThreshold());
     if (get_importThreshold() >= 0)
     {
@@ -219,10 +219,10 @@ public:
       Serial.println(F("W)"));
     }
 
-    Serial.print(F("\t\t\tMinimum working time in minutes: "));
+    Serial.print(F("\t\tMinimum working time in minutes: "));
     Serial.println(get_minON() / 60);
 
-    Serial.print(F("\t\t\tMinimum stop time in minutes: "));
+    Serial.print(F("\t\tMinimum stop time in minutes: "));
     Serial.println(get_minOFF() / 60);
   }
 
@@ -433,7 +433,7 @@ public:
   void printRelayEngineConfiguration() const
   {
     Serial.println(F("*** Relay(s) configuration ***"));
-    Serial.print(F("\t\tSliding average: "));
+    Serial.print(F("\tSliding average: "));
     Serial.println(D);
 
     for (uint8_t i = 0; i < N; ++i)

@@ -51,7 +51,8 @@
 			"xutility": "cpp",
 			"istream": "cpp",
 			"memory": "cpp",
-			"xlocnum": "cpp"
+			"xlocnum": "cpp",
+			"xlocale": "cpp"
 		}
 	}
 }
