@@ -7,11 +7,11 @@
 namespace Shared
 {
 // for interaction between the main processor and the ISR
-inline volatile bool b_datalogEventPending{ false };      /**< async trigger to signal datalog is available */
-inline volatile bool b_newMainsCycle{ false };            /**< async trigger to signal start of new main cycle based on first phase */
-inline volatile bool b_reOrderLoads{ false };             /**< async trigger for loads re-ordering */
-inline volatile bool b_diversionEnabled{ true };          /**< async trigger to stop diversion */
-inline volatile uint16_t overrideBitmask{ 0 };            /**< combined bitmask of all active override pins */
+inline volatile bool b_datalogEventPending{ false }; /**< async trigger to signal datalog is available */
+inline volatile bool b_newMainsCycle{ false };       /**< async trigger to signal start of new main cycle based on first phase */
+inline volatile bool b_reOrderLoads{ false };        /**< async trigger for loads re-ordering */
+inline volatile bool b_diversionEnabled{ true };     /**< async trigger to stop diversion */
+inline volatile uint16_t overrideBitmask{ 0 };       /**< combined bitmask of all active override pins */
 
 inline volatile uint16_t absenceOfDivertedEnergyCountInSeconds{ 0 }; /**< number of seconds without diverted energy */
 

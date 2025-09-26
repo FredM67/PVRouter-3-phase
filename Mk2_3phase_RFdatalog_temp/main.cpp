@@ -72,12 +72,12 @@ uint16_t getDualTariffForcingBitmask(const int16_t currentTemperature_x100)
   constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
   static bool pinOffPeakState{ HIGH };
   const auto pinNewState{ getPinState(dualTariffPin) };
-  
+
   // Check if we're in off-peak period and within forcing time windows
   if (!pinOffPeakState && !pinNewState)
   {
     const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
-    
+
     uint16_t forcingBitmask = 0;
     for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
     {
@@ -119,7 +119,7 @@ uint16_t getDualTariffForcingBitmask(const int16_t currentTemperature_x100)
 uint16_t getOverrideBitmask(const int16_t currentTemperature_x100)
 {
   uint16_t overrideBitmask = 0;
-  
+
   // Add external override pins
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
@@ -128,15 +128,15 @@ uint16_t getOverrideBitmask(const int16_t currentTemperature_x100)
     {
       const uint8_t pin = overridePins.getPin(i);
       const auto pinState = getPinState(pin);
-      
-      if (!pinState) // Pin is LOW (active)
+
+      if (!pinState)  // Pin is LOW (active)
       {
         const uint16_t bitmask = overridePins.getBitmask(i);
         overrideBitmask |= bitmask;
       }
     }
   }
-  
+
   // Add dual tariff forcing - OR operation handles precedence automatically
   // If a bit is already set by external override, OR won't change it
   // If a bit is not set, OR will apply dual tariff forcing
@@ -240,7 +240,7 @@ bool proceedDualTariffLogic()
       proceedRotation();
     }
   }
-  
+
   // end of off-peak period
   if (!pinOffPeakState && pinNewState)
   {
@@ -275,7 +275,7 @@ bool proceedLoadPriorities(const int16_t &currentTemperature_x100)
 {
   // Suppress unused parameter warning when DUAL_TARIFF is disabled
   (void)currentTemperature_x100;
-  
+
   if constexpr (DUAL_TARIFF)
   {
     return proceedDualTariffLogic();
