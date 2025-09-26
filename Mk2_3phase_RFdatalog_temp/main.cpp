@@ -83,18 +83,22 @@ uint16_t getDualTariffForcingBitmask(const int16_t currentTemperature_x100)
   const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
 
   uint16_t forcingBitmask = 0;
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  uint8_t i{ NO_OF_DUMPLOADS };
+  do
   {
-    // for each load, if within the 'force period'
-    if ((ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
+    --i;
+    // Skip if not within the 'force period'
+    if ((ulElapsedTime < rg_OffsetForce[i][0]) || (ulElapsedTime >= rg_OffsetForce[i][1]))
     {
-      // Force load ON if temperature condition is met
-      if (currentTemperature_x100 <= iTemperatureThreshold_x100)
-      {
-        forcingBitmask |= (1U << physicalLoadPin[i]);
-      }
+      continue;
     }
-  }
+
+    // Force load ON if temperature condition is met
+    if (currentTemperature_x100 <= iTemperatureThreshold_x100)
+    {
+      bit_set(forcingBitmask, physicalLoadPin[i]);
+    }
+  } while (i);
 
   return forcingBitmask;
 }
