@@ -73,28 +73,30 @@ uint16_t getDualTariffForcingBitmask(const int16_t currentTemperature_x100)
   static bool pinOffPeakState{ HIGH };
   const auto pinNewState{ getPinState(dualTariffPin) };
 
-  // Check if we're in off-peak period and within forcing time windows
-  if (!pinOffPeakState && !pinNewState)
+  // Return early if we're not in off-peak period
+  if (pinOffPeakState || pinNewState)
   {
-    const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
-
-    uint16_t forcingBitmask = 0;
-    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-    {
-      // for each load, if within the 'force period'
-      if ((ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
-      {
-        // Force load ON if temperature condition is met
-        if (currentTemperature_x100 <= iTemperatureThreshold_x100)
-        {
-          forcingBitmask |= (1U << physicalLoadPin[i]);
-        }
-      }
-    }
-    return forcingBitmask;
+    return 0;
   }
 
-  return 0;
+  // We're in off-peak period - check forcing time windows
+  const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
+
+  uint16_t forcingBitmask = 0;
+  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  {
+    // for each load, if within the 'force period'
+    if ((ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
+    {
+      // Force load ON if temperature condition is met
+      if (currentTemperature_x100 <= iTemperatureThreshold_x100)
+      {
+        forcingBitmask |= (1U << physicalLoadPin[i]);
+      }
+    }
+  }
+
+  return forcingBitmask;
 }
 
 /**
