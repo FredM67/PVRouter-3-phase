@@ -11,6 +11,7 @@
 
 #include <Arduino.h>
 
+#include "config.h"
 #include "calibration.h"
 #include "dualtariff.h"
 #include "processing.h"
@@ -211,10 +212,15 @@ constexpr uint16_t getInputPins()
 
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    if (bit_read(input_pins, forcePin))
-      return 0;
+    // Add all configured override pins
+    for (uint8_t i = 0; i < overridePins.size(); ++i)
+    {
+      const uint8_t pin = overridePins.getPin(i);
+      if (bit_read(input_pins, pin))
+        return 0;
 
-    bit_set(input_pins, forcePin);
+      bit_set(input_pins, pin);
+    }
   }
 
   return input_pins;
@@ -276,12 +282,13 @@ void initializeProcessing()
  * @brief Updates the control ports for each of the physical loads.
  *
  * This function determines the ON/OFF state of each physical load and updates
- * the corresponding control ports. It ensures that the correct pins are set
- * to their respective states based on the load's current status.
+ * the corresponding control ports. It applies override bitmask directly to force
+ * specific pins ON when override pins are active.
  *
  * @details
  * - If a load is OFF, its corresponding pin is added to the `pinsOFF` mask.
  * - If a load is ON, its corresponding pin is added to the `pinsON` mask.
+ * - Override bitmask is applied directly to `pinsON` for immediate pin activation.
  * - Finally, the pins are updated using `setPinsOFF` and `setPinsON` functions.
  *
  * @ingroup TimeCritical
@@ -309,6 +316,9 @@ void updatePortsStates()
       pinsON |= bit(physicalLoadPin[i]);
     }
   } while (i);
+
+  // Apply override bitmask directly to pinsON
+  pinsON |= Shared::overrideBitmask;
 
   setPinsOFF(pinsOFF);
   setPinsON(pinsON);
@@ -363,7 +373,8 @@ void updatePhysicalLoadStates()
   {
     --idx;
     const auto iLoad{ loadPrioritiesAndState[idx] & loadStateMask };
-    physicalLoadState[iLoad] = bDiversionEnabled && (Shared::b_overrideLoadOn[iLoad] || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
+    const bool bOverrideActive = Shared::overrideBitmask & (1U << physicalLoadPin[iLoad]);
+    physicalLoadState[iLoad] = bDiversionEnabled && (bOverrideActive || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   } while (idx);
 }
 

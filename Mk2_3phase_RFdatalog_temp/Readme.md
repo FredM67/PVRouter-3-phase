@@ -28,7 +28,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
     - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité-1)
     - [Définition des OverridePins](#définition-des-overridepins)
     - [Utilisation](#utilisation)
-    - [Avancé : Association directe](#avancé-association-directe)
+    - [Exemples de configuration](#exemples-de-configuration)
   - [Arrêt du routage](#arrêt-du-routage)
 - [Configuration avancée du programme](#configuration-avancée-du-programme)
   - [Paramètre `DIVERSION_START_THRESHOLD_WATTS`](#paramètre-diversion_start_threshold_watts)
@@ -434,10 +434,24 @@ Plusieurs pins peuvent piloter des groupes différents ou partiellement recoupé
 - Une minuterie sur une autre pin pour forcer tous les relais pendant 30 minutes
 - Un automate domotique qui active plusieurs charges selon la demande
 
-### Avancé : Association directe
+### Exemples de configuration
 
-Vous pouvez associer chaque pin à n’importe quel groupe de charges ou relais, en mélangeant numéros de charges et/ou relais selon vos besoins.  
-La structure supporte aussi bien les installations simples (une pin, une charge) que complexes (plusieurs pins, groupes mixtes).
+**Configuration simple :**
+```cpp
+// Pin 3 active la charge #0 et le relais #0
+// Pin 4 active toutes les charges
+inline constexpr OverridePins overridePins{ { { 3, { LOAD(0), RELAY(0) } },
+                                              { 4, ALL_LOADS() } } };
+```
+
+**Configuration avancée :**
+```cpp
+// Configuration flexible avec groupes personnalisés
+inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },     // Pin 3: charge #1 + relais #1
+                                              { 4, ALL_LOADS() },              // Pin 4: toutes les charges
+                                              { 11, { 1, LOAD(1), LOAD(2) } },  // Pin 11: charges spécifiques
+                                              { 12, ALL_LOADS_AND_RELAYS() } } }; // Pin 12: tout le système
+```
 
 ## Arrêt du routage
 Il peut être pratique de désactiver le routage lors d’une absence prolongée.  
@@ -508,9 +522,11 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
 inline constexpr bool DIVERSION_PIN_PRESENT{ true };    // Arrêt du routage
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };     // Marche forcée
 
-// Configuration des pins selon la correspondance de la carte d’extension
+// Pin configuration selon la correspondance de la carte d'extension
 inline constexpr uint8_t diversionPin{ 12 };     // D12 - arrêt du routage
-inline constexpr uint8_t forcePin{ 11 };         // D11 - marche forcée
+
+// Configuration de la marche forcée flexible
+inline constexpr OverridePins overridePins{ { { 11, ALL_LOADS_AND_RELAYS() } } }; // D11 - marche forcée
 
 // Configuration pour les sondes de température
 // IMPORTANT: Désactiver la gestion de température dans le Mk2PVRouter

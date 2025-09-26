@@ -97,7 +97,6 @@ inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /*
 inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
 inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ unused_pin };   /**< if LOW, trigger a load priority rotation */
-inline constexpr uint8_t forcePin{ 3 };               /**< for 3-phase PCB, force pin */
 inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
 
 //--------------------------------------------------------------------------------------------------
@@ -130,12 +129,10 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 8, 100, 20
 #include "utils_override.h"
 
 inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },
-                                              { 4, { LOAD(1), RELAY(1) } },
-                                              { 11, ALL_LOADS() },
-                                              { 12, { 1, LOAD(1), LOAD(2) } },
-                                              { 13, { RELAY(0), 9, RELAY(2) } },
-                                              { 14, ALL_RELAYS() },
-                                              { 15, ALL_LOADS_AND_RELAYS() } } }; /**< list of override pin/loads-relays pairs */
+                                              { 4, ALL_LOADS() },
+                                              { 11, { 1, LOAD(1), LOAD(2) } },
+                                              { 12, { RELAY(0), 9, RELAY(2) } },
+                                              { 13, ALL_LOADS_AND_RELAYS() } } }; /**< list of override pin/loads-relays pairs */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */

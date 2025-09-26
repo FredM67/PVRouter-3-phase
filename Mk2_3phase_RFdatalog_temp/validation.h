@@ -33,7 +33,6 @@ static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too lo
 static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == unused_pin), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
 static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == unused_pin), "******** Wrong pin value for diversion command. Please check your config.h ! ********");
 static_assert((PRIORITY_ROTATION == RotationModes::PIN) ^ (rotationPin == unused_pin), "******** Wrong pin value for rotation command. Please check your config.h ! ********");
-static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == unused_pin), "******** Wrong pin value for override command. Please check your config.h ! ********");
 static_assert(WATCHDOG_PIN_PRESENT ^ (watchDogPin == unused_pin), "******** Wrong pin value for watchdog. Please check your config.h ! ********");
 
 static_assert(DUAL_TARIFF ^ (dualTariffPin == unused_pin), "******** Wrong pin value for dual tariff. Please check your config.h ! ********");
@@ -87,12 +86,20 @@ constexpr uint16_t check_pins()
     bit_set(used_pins, rotationPin);
   }
 
-  if (forcePin != unused_pin)
+  // Check override pins from the flexible override system
+  if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    if (bit_read(used_pins, forcePin))
-      return 0;
+    for (uint8_t i = 0; i < overridePins.size(); ++i)
+    {
+      const uint8_t pin = overridePins.getPin(i);
+      if (pin != unused_pin)
+      {
+        if (bit_read(used_pins, pin))
+          return 0;
 
-    bit_set(used_pins, forcePin);
+        bit_set(used_pins, pin);
+      }
+    }
   }
 
   if (watchDogPin != unused_pin)

@@ -46,48 +46,103 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 //
 
 /**
- * @brief Forces all loads to full power if the override pin is active.
+ * @brief Calculates the dual tariff forcing bitmask based on current conditions.
  *
- * This function checks the state of the override pin and forces all loads to full power
- * if the pin is active. It also logs changes in the override state for debugging purposes
- * if enabled.
+ * This function determines which loads should be forced ON during off-peak periods
+ * based on elapsed time since off-peak start, configured time windows, and temperature conditions.
+ *
+ * @param currentTemperature_x100 Current temperature multiplied by 100.
+ * @return Bitmask of loads that should be forced ON due to dual tariff conditions, 0 if none.
  *
  * @details
- * - If the override pin is LOW, all loads are forced to full power.
- * - If the override pin is HIGH, normal load behavior is restored.
- * - Debug messages are printed when the override state changes (if debugging is enabled).
+ * - Only applies during off-peak periods (both pins must be LOW).
+ * - Each load has its own time window defined in rg_OffsetForce.
+ * - Temperature must be at or below the threshold for forcing to activate.
+ * - Uses static variables to track dual tariff pin state changes.
  *
- * @return true if loads are forced to full power, false otherwise.
+ * @ingroup DualTariff
+ */
+uint16_t getDualTariffForcingBitmask(const int16_t currentTemperature_x100)
+{
+  if constexpr (!DUAL_TARIFF)
+  {
+    return 0;
+  }
+
+  constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
+  static bool pinOffPeakState{ HIGH };
+  const auto pinNewState{ getPinState(dualTariffPin) };
+  
+  // Check if we're in off-peak period and within forcing time windows
+  if (!pinOffPeakState && !pinNewState)
+  {
+    const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
+    
+    uint16_t forcingBitmask = 0;
+    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+    {
+      // for each load, if within the 'force period'
+      if ((ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
+      {
+        // Force load ON if temperature condition is met
+        if (currentTemperature_x100 <= iTemperatureThreshold_x100)
+        {
+          forcingBitmask |= (1U << physicalLoadPin[i]);
+        }
+      }
+    }
+    return forcingBitmask;
+  }
+
+  return 0;
+}
+
+/**
+ * @brief Gets the combined bitmask of all active override pins and dual tariff forcing.
+ *
+ * This function calculates the complete override bitmask by combining external override pins
+ * with dual tariff automatic forcing. The bitwise OR operation automatically handles precedence
+ * where external overrides take priority over dual tariff forcing for the same pins.
+ *
+ * @param currentTemperature_x100 Current temperature multiplied by 100 (used for dual tariff logic).
+ * @return Combined bitmask of all active overrides (external pins + dual tariff), 0 if no overrides are active.
+ *
+ * @details
+ * - First checks all configured external override pins and sets corresponding bits.
+ * - Then applies dual tariff forcing using bitwise OR operation.
+ * - OR operation ensures external overrides take precedence (1|x = 1).
+ * - For pins without external overrides (0|x = x), dual tariff forcing is applied.
+ * - Function is called atomically to prevent race conditions with ISR.
  *
  * @ingroup GeneralProcessing
  */
-bool forceFullPower()
+uint16_t getOverrideBitmask(const int16_t currentTemperature_x100)
 {
+  uint16_t overrideBitmask = 0;
+  
+  // Add external override pins
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    const auto pinState{ getPinState(forcePin) };
-
-#ifdef ENABLE_DEBUG
-    static uint8_t previousState{ HIGH };
-    if (previousState != pinState)
+    // Check each configured override pin and combine their bitmasks
+    for (uint8_t i = 0; i < overridePins.size(); ++i)
     {
-      DBUGLN(!pinState ? F("Trigger override!") : F("End override!"));
+      const uint8_t pin = overridePins.getPin(i);
+      const auto pinState = getPinState(pin);
+      
+      if (!pinState) // Pin is LOW (active)
+      {
+        const uint16_t bitmask = overridePins.getBitmask(i);
+        overrideBitmask |= bitmask;
+      }
     }
-
-    previousState = pinState;
-#endif
-
-    for (auto &bOverrideLoad : Shared::b_overrideLoadOn)
-    {
-      bOverrideLoad = !pinState;
-    }
-
-    return !pinState;
   }
-  else
-  {
-    return false;
-  }
+  
+  // Add dual tariff forcing - OR operation handles precedence automatically
+  // If a bit is already set by external override, OR won't change it
+  // If a bit is not set, OR will apply dual tariff forcing
+  overrideBitmask |= getDualTariffForcingBitmask(currentTemperature_x100);
+
+  return overrideBitmask;
 }
 
 /**
@@ -152,25 +207,24 @@ void proceedRotation()
 }
 
 /**
- * @brief Handles load priorities and overriding during dual tariff periods.
+ * @brief Handles dual tariff state transitions and priority rotation during off-peak periods.
  *
- * This function manages load priorities and overriding logic based on the dual tariff state
- * and the current temperature. It ensures proper load behavior during off-peak and on-peak periods.
+ * This function manages dual tariff state detection and triggers priority rotation
+ * when transitioning to off-peak periods. The actual load forcing is handled in getOverrideBitmask().
  *
- * @param currentTemperature_x100 Current temperature multiplied by 100 (default to 0 if deactivated).
  * @return true if the system is in a high tariff (on-peak) period.
  * @return false if the system is in a low tariff (off-peak) period.
  *
  * @details
  * - Detects transitions between off-peak and on-peak periods using the dual tariff pin.
- * - During off-peak periods, manages load priorities and overrides based on elapsed time and temperature.
+ * - Triggers automatic priority rotation when entering off-peak period.
  * - Logs transitions between tariff periods for debugging purposes.
+ * - Load forcing logic (including temperature conditions) is handled atomically in getOverrideBitmask().
  *
  * @ingroup GeneralProcessing
  */
-bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t &currentTemperature_x100)
+bool proceedDualTariffLogic()
 {
-  constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
   static bool pinOffPeakState{ HIGH };
   const auto pinNewState{ getPinState(dualTariffPin) };
 
@@ -186,24 +240,7 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t &currentTemperat
       proceedRotation();
     }
   }
-  else
-  {
-    const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
-    const auto pinState{ OVERRIDE_PIN_PRESENT ? getPinState(forcePin) : HIGH };
-
-    for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-    {
-      // for each load, if we're inside off-peak period and within the 'force period', trigger the ISR to turn the load ON
-      if (!pinOffPeakState && !pinNewState && (ulElapsedTime >= rg_OffsetForce[i][0]) && (ulElapsedTime < rg_OffsetForce[i][1]))
-      {
-        Shared::b_overrideLoadOn[i] = !pinState || (currentTemperature_x100 <= iTemperatureThreshold_x100);
-      }
-      else
-      {
-        Shared::b_overrideLoadOn[i] = !pinState;
-      }
-    }
-  }
+  
   // end of off-peak period
   if (!pinOffPeakState && pinNewState)
   {
@@ -216,28 +253,32 @@ bool proceedLoadPrioritiesAndOverridingDualTariff(const int16_t &currentTemperat
 }
 
 /**
- * @brief Handles load priorities and overriding logic.
+ * @brief Handles load priority rotation and dual tariff state transitions.
  *
- * This function manages load priorities and overriding behavior based on the system configuration.
- * It supports dual tariff handling, priority rotation, and manual override functionality.
+ * This function manages load priority rotation behavior and dual tariff state detection
+ * based on the system configuration. It supports priority rotation via pin control, 
+ * EmonESP control, or automatic rotation. Override logic is handled in getOverrideBitmask().
  *
  * @param currentTemperature_x100 Current temperature multiplied by 100 (default to 0 if deactivated).
- * @return true if the system is in a high tariff (on-peak) period.
- * @return false if the system is in a low tariff (off-peak) period.
+ * @return true if the system is in a high tariff (on-peak) period (only for dual tariff mode).
+ * @return false if the system is in a low tariff (off-peak) period or not in dual tariff mode.
  *
  * @details
- * - If dual tariff is enabled, it delegates to `proceedLoadPrioritiesAndOverridingDualTariff`.
+ * - If dual tariff is enabled, it delegates to `proceedDualTariffLogic` for state transitions.
  * - If EmonESP control is enabled, it handles load rotation based on the rotation pin state.
  * - If priority rotation is set to auto, it rotates priorities after a defined period of inactivity.
- * - If the override pin is present, it forces all loads to full power when activated.
+ * - Override logic (external pins + dual tariff forcing) is handled atomically in getOverrideBitmask().
  *
  * @ingroup GeneralProcessing
  */
-bool proceedLoadPrioritiesAndOverriding(const int16_t &currentTemperature_x100)
+bool proceedLoadPriorities(const int16_t &currentTemperature_x100)
 {
+  // Suppress unused parameter warning when DUAL_TARIFF is disabled
+  (void)currentTemperature_x100;
+  
   if constexpr (DUAL_TARIFF)
   {
-    return proceedLoadPrioritiesAndOverridingDualTariff(currentTemperature_x100);
+    return proceedDualTariffLogic();
   }
 
   if constexpr ((PRIORITY_ROTATION == RotationModes::PIN) || (EMONESP_CONTROL))
@@ -260,16 +301,6 @@ bool proceedLoadPrioritiesAndOverriding(const int16_t &currentTemperature_x100)
       proceedRotation();
 
       Shared::absenceOfDivertedEnergyCountInSeconds = 0;
-    }
-  }
-
-  if constexpr (OVERRIDE_PIN_PRESENT)
-  {
-    const auto pinState{ getPinState(forcePin) };
-
-    for (auto &bOverrideLoad : Shared::b_overrideLoadOn)
-    {
-      bOverrideLoad = !pinState;
     }
   }
 
@@ -414,9 +445,13 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
 
   checkDiversionOnOff();
 
-  if (!forceFullPower())
+  // Get complete override bitmask atomically (external pins + dual tariff forcing)
+  Shared::overrideBitmask = getOverrideBitmask(iTemperature_x100);
+
+  // Only process priority logic if no override pins are active
+  if (!Shared::overrideBitmask)
   {
-    bOffPeak = proceedLoadPrioritiesAndOverriding(iTemperature_x100);  // called every second
+    bOffPeak = proceedLoadPriorities(iTemperature_x100);
   }
 
   if constexpr (RELAY_DIVERSION)
