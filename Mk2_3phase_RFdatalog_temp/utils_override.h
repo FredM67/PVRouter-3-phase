@@ -105,6 +105,22 @@ constexpr uint16_t ALL_LOADS_AND_RELAYS()
 constexpr uint16_t validPinMask{ 0b11111111111100 };
 
 /**
+ * @brief Compile-time validation function for pin values.
+ * @tparam Pins List of pins to validate.
+ * @return true if all pins are valid, false otherwise.
+ */
+template< uint8_t... Pins >
+constexpr bool are_pins_valid() {
+  return ((validPinMask & (1U << Pins)) && ...);
+}
+
+/**
+ * @brief Helper macro to validate pins at compile time.
+ * Usage: VALIDATE_PINS(2, 3, 5) will cause a compile error if any pin is invalid.
+ */
+#define VALIDATE_PINS(...) static_assert(are_pins_valid<__VA_ARGS__>(), "Invalid pin(s) specified")
+
+/**
  * @brief Helper to convert pins to a bitmask at compile-time.
  * @tparam Pins List of pins to set in the bitmask.
  * @return Bitmask with bits set at the specified pins.
@@ -137,9 +153,9 @@ struct PinList
     : pins{}, count(0) {}
 
   /**
- * @brief Constructor from bitmask. Sets pin numbers from bits set in bitmask.
- * @param bitmask Bitmask value.
- */
+   * @brief Constructor from bitmask. Sets pin numbers from bits set in bitmask.
+   * @param bitmask Bitmask value.
+   */
   constexpr PinList(uint16_t bitmask)
     : pins{}, count(0)
   {
@@ -161,7 +177,7 @@ struct PinList
     : pins{ static_cast< uint8_t >(args)... }, count(sizeof...(args)) {}
 
   /**
-   * @brief Converts the index list to a bitmask.
+   * @brief Converts the pin list to a bitmask.
    * @return Bitmask with bits set at the specified pins.
    */
   constexpr uint16_t toBitmask() const
@@ -171,7 +187,6 @@ struct PinList
     {
       result |= (1U << pins[i]);
     }
-
     return result;
   }
 };

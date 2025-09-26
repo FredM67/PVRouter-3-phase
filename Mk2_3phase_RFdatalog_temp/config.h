@@ -132,7 +132,7 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 8, 100, 20
 inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },
                                               { 4, { LOAD(1), RELAY(1) } },
                                               { 11, ALL_LOADS() },
-                                              { 12, { 5, LOAD(1), LOAD(2) } },
+                                              { 12, { 1, LOAD(1), LOAD(2) } },
                                               { 13, { RELAY(0), 9, RELAY(2) } },
                                               { 14, ALL_RELAYS() },
                                               { 15, ALL_LOADS_AND_RELAYS() } } }; /**< list of override pin/loads-relays pairs */
