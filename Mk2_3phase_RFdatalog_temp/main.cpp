@@ -130,17 +130,18 @@ uint16_t getOverrideBitmask(const int16_t currentTemperature_x100)
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
     // Check each configured override pin and combine their bitmasks
-    for (uint8_t i = 0; i < overridePins.size(); ++i)
+    uint8_t i{ overridePins.size() };
+    do
     {
+      --i;
       const uint8_t pin = overridePins.getPin(i);
       const auto pinState = getPinState(pin);
 
       if (!pinState)  // Pin is LOW (active)
       {
-        const uint16_t bitmask = overridePins.getBitmask(i);
-        overrideBitmask |= bitmask;
+        overrideBitmask |= overridePins.getBitmask(i);
       }
-    }
+    } while (i);
   }
 
   // Add dual tariff forcing - OR operation handles precedence automatically
@@ -371,8 +372,10 @@ void setup()
 void updatePowerAndVoltageData()
 {
   tx_data.power = 0;
-  for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
+  uint8_t phase{ NO_OF_PHASES };
+  do
   {
+    --phase;
     tx_data.power_L[phase] = Shared::copyOf_sumP_atSupplyPoint[phase] / Shared::copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
     tx_data.power_L[phase] *= -1;
 
@@ -386,7 +389,7 @@ void updatePowerAndVoltageData()
     {
       tx_data.Vrms_L_x100[phase] = static_cast< uint32_t >(100U * f_voltageCal[phase] * sqrt(Shared::copyOf_sum_Vsquared[phase] / Shared::copyOf_sampleSetsDuringThisDatalogPeriod));
     }
-  }
+  } while (phase);
 }
 
 /**

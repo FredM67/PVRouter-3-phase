@@ -246,11 +246,13 @@ void initializeProcessing()
   setPinsAsOutput(getOutputPins());      // set the output pins as OUTPUT
   setPinsAsInputPullup(getInputPins());  // set the input pins as INPUT_PULLUP
 
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  uint8_t i{ NO_OF_DUMPLOADS };
+  do
   {
+    --i;
     loadPrioritiesAndState[i] = loadPrioritiesAtStartup[i];
     loadPrioritiesAndState[i] &= loadStateMask;
-  }
+  } while (i);
 
   // First stop the ADC
   bit_clear(ADCSRA, ADEN);
