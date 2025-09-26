@@ -110,7 +110,8 @@ constexpr uint16_t validPinMask{ 0b11111111111100 };
  * @return true if all pins are valid, false otherwise.
  */
 template< uint8_t... Pins >
-constexpr bool are_pins_valid() {
+constexpr bool are_pins_valid()
+{
   return ((validPinMask & (1U << Pins)) && ...);
 }
 
@@ -118,7 +119,7 @@ constexpr bool are_pins_valid() {
  * @brief Helper macro to validate pins at compile time.
  * Usage: VALIDATE_PINS(2, 3, 5) will cause a compile error if any pin is invalid.
  */
-#define VALIDATE_PINS(...) static_assert(are_pins_valid<__VA_ARGS__>(), "Invalid pin(s) specified")
+#define VALIDATE_PINS(...) static_assert(are_pins_valid< __VA_ARGS__ >(), "Invalid pin(s) specified")
 
 /**
  * @brief Helper to convert pins to a bitmask at compile-time.
