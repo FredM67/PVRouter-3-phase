@@ -82,6 +82,10 @@ inline static constexpr size_t lineSize(size_t tagLen, size_t valueLen)
  * 
  * Common for all configurations:
  * - 1 line for the "N" tag (unsigned 5 digits) - absence of diverted energy count.
+ * 
+ * If dual tariff is enabled (`DUAL_TARIFF`):
+ * - 1 line for the "TA" tag (1 digit) - tariff state (0=high/on-peak, 1=low/off-peak).
+ * 
  * - 1 line for the "S_MC" tag (unsigned 2 digits) - sample sets per mains cycle.
  * - 1 line for the "S" tag (unsigned 5 digits) - sample count.
  * - 1 byte for the end-of-text (ETX) character.
@@ -120,6 +124,11 @@ inline static constexpr size_t calcBufferSize()
   }
 
   size += lineSize(1, 5);  // N (unsigned 5 digits) - absence of diverted energy count
+
+  if constexpr (DUAL_TARIFF)
+  {
+    size += lineSize(2, 1);  // TA (1 digit) - tariff state (0=high/on-peak, 1=low/off-peak)
+  }
 
   size += lineSize(4, 2);  // S_MC (unsigned 2 digits) - sample sets per mains cycle
   size += lineSize(1, 5);  // S (unsigned 5 digits) - sample count
