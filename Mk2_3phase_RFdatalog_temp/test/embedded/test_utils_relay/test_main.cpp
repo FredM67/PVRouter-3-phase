@@ -138,78 +138,78 @@ void test_relay_turnOFF(void)
 void test_relay_override_turnON(void)
 {
   const auto& my_relay{ relays.get_relay(1) };
-  
+
   // Ensure relay is OFF initially
   TEST_ASSERT_FALSE(my_relay.isRelayON());
-  
+
   // Test override with insufficient surplus (would normally not turn ON)
   const auto insufficient_surplus{ -my_relay.get_surplusThreshold() + 100 };
-  
+
   // Test at half the minimum OFF time - should still be blocked
   for (uint8_t timer = 0; timer < my_relay.get_minOFF() / 2; ++timer)
   {
     my_relay.inc_duration();
   }
-  
+
   uint16_t overrideBitmask = (1U << my_relay.get_pin());
   TEST_ASSERT_FALSE(my_relay.proceed_relay(insufficient_surplus, overrideBitmask));
   TEST_ASSERT_FALSE(my_relay.isRelayON());
-  TEST_ASSERT_EQUAL(0, overrideBitmask & (1U << my_relay.get_pin())); // Bit cleared
-  
+  TEST_ASSERT_EQUAL(0, overrideBitmask & (1U << my_relay.get_pin()));  // Bit cleared
+
   // Increment to just before minimum OFF time is reached
   for (uint8_t timer = my_relay.get_minOFF() / 2; timer < my_relay.get_minOFF() - 1; ++timer)
   {
     my_relay.inc_duration();
   }
-  
+
   overrideBitmask = (1U << my_relay.get_pin());
   TEST_ASSERT_FALSE(my_relay.proceed_relay(insufficient_surplus, overrideBitmask));
   TEST_ASSERT_FALSE(my_relay.isRelayON());
-  TEST_ASSERT_EQUAL(0, overrideBitmask & (1U << my_relay.get_pin())); // Bit cleared
-  
+  TEST_ASSERT_EQUAL(0, overrideBitmask & (1U << my_relay.get_pin()));  // Bit cleared
+
   // Increment one more time - now minimum OFF time is reached
   my_relay.inc_duration();
-  
+
   overrideBitmask = (1U << my_relay.get_pin());
   TEST_ASSERT_TRUE(my_relay.proceed_relay(insufficient_surplus, overrideBitmask));
   TEST_ASSERT_TRUE(my_relay.isRelayON());
-  TEST_ASSERT_EQUAL(0, overrideBitmask & (1U << my_relay.get_pin())); // Bit cleared
+  TEST_ASSERT_EQUAL(0, overrideBitmask & (1U << my_relay.get_pin()));  // Bit cleared
 }
 
 void test_relay_override_minimum_ON_time(void)
 {
   const auto& my_relay{ relays.get_relay(1) };
-  
+
   // Relay should be ON from previous test
   TEST_ASSERT_TRUE(my_relay.isRelayON());
-  
+
   // Test that relay respects minimum ON time even after override is released
-  const auto high_import{ my_relay.get_importThreshold() + 100 }; // High import should turn OFF relay
-  uint16_t overrideBitmask = 0; // No override active anymore
-  
+  const auto high_import{ my_relay.get_importThreshold() + 100 };  // High import should turn OFF relay
+  uint16_t overrideBitmask = 0;                                    // No override active anymore
+
   // Test at half the minimum ON time - should NOT turn OFF yet
   for (uint8_t timer = 0; timer < my_relay.get_minON() / 2; ++timer)
   {
     my_relay.inc_duration();
   }
-  
+
   TEST_ASSERT_FALSE(my_relay.proceed_relay(high_import, overrideBitmask));
-  TEST_ASSERT_TRUE(my_relay.isRelayON()); // Should stay ON
-  
+  TEST_ASSERT_TRUE(my_relay.isRelayON());  // Should stay ON
+
   // Test just before minimum ON time is reached
   for (uint8_t timer = my_relay.get_minON() / 2; timer < my_relay.get_minON() - 1; ++timer)
   {
     my_relay.inc_duration();
   }
-  
+
   TEST_ASSERT_FALSE(my_relay.proceed_relay(high_import, overrideBitmask));
-  TEST_ASSERT_TRUE(my_relay.isRelayON()); // Should still stay ON
-  
+  TEST_ASSERT_TRUE(my_relay.isRelayON());  // Should still stay ON
+
   // Increment one more time - now minimum ON time is reached
   my_relay.inc_duration();
-  
+
   TEST_ASSERT_TRUE(my_relay.proceed_relay(high_import, overrideBitmask));
-  TEST_ASSERT_FALSE(my_relay.isRelayON()); // Now it can turn OFF
+  TEST_ASSERT_FALSE(my_relay.isRelayON());  // Now it can turn OFF
 }
 
 void test_proceed_relay(void)
