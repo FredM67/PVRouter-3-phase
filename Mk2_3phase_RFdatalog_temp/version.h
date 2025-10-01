@@ -6,4 +6,4 @@
 #define BRANCH_NAME "feature/flexible_override"
 #define COMMIT_HASH "cb882bc0"
 
-#endif // VERSION_H
+#endif  // VERSION_H

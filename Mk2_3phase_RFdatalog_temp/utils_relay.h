@@ -172,7 +172,7 @@ public:
     // Turn ON if surplus threshold is met OR if override is active
     if (currentAvgPower < surplusThreshold || isOverrideActive)
     {
-      bit_clear(overrideBitmask, relay_pin); // Clear override bit if it was set
+      bit_clear(overrideBitmask, relay_pin);  // Clear override bit if it was set
       return try_turnON();
     }
 
@@ -387,7 +387,7 @@ public:
   void inc_duration() const __attribute__((optimize("-O3")));
 #endif
 
-    /**
+  /**
    * @brief Proceed all relays in increasing order (surplus) or decreasing order (import).
    * 
    * @param overrideBitmask Reference to override bitmask - relay bits will be cleared after processing
