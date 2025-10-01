@@ -455,18 +455,22 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
   checkDiversionOnOff();
 
   // Get complete override bitmask atomically (external pins + dual tariff forcing)
-  Shared::overrideBitmask = getOverrideBitmask(iTemperature_x100);
+  uint16_t privateOverrideBitmask = getOverrideBitmask(iTemperature_x100);
+  
+  if constexpr (RELAY_DIVERSION)
+  {
+    relays.inc_duration();
+    // Pass private bitmask to relay engine, it will filter out relay pins that can be controlled
+    relays.proceed_relays(privateOverrideBitmask);
+  }
+  
+  // Copy the filtered bitmask (only triac/load pins) to shared version
+  Shared::overrideBitmask = privateOverrideBitmask;
 
   // Only process priority logic if no override pins are active
   if (!Shared::overrideBitmask)
   {
     bOffPeak = proceedLoadPriorities(iTemperature_x100);
-  }
-
-  if constexpr (RELAY_DIVERSION)
-  {
-    relays.inc_duration();
-    relays.proceed_relays();
   }
 }
 
