@@ -393,7 +393,7 @@ void sendTelemetryData(const bool bOffPeak)
     do
     {
       --idx;
-      teleInfo.send("R", relays.get_relay(idx).isRelayON());  // Send diverted energy count for each relay
+      teleInfo.send("R", relays.get_relay(idx).isRelayON());  // Send state of each relay
     } while (idx);
   }
 
