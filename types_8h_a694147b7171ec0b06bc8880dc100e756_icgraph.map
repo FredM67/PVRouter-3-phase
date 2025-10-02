@@ -1,5 +1,9 @@
 <map id="size" name="size">
-<area shape="rect" id="Node000001" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="168,5,216,31"/>
-<area shape="rect" id="Node000002" href="$group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="5,5,120,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,21,120,21,120,15,154,15"/>
+<area shape="rect" id="Node000001" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="461,13,509,38"/>
+<area shape="rect" id="Node000002" href="$group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="299,13,413,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="447,28,414,28,414,23,447,23"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__teleinfo_2test__main_8cpp.html#adbba05e6b6fe49aa390a5882639a6dec" title=" " alt="" coords="104,5,251,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="285,28,251,28,251,23,285,23"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__teleinfo_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,13,56,38"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="90,28,56,28,56,23,90,23"/>
 </map>

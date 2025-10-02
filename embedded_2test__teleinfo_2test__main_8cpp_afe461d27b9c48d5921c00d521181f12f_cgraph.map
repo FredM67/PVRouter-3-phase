@@ -1,0 +1,31 @@
+<map id="loop" name="loop">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,191,56,217"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__teleinfo_2test__main_8cpp.html#adbba05e6b6fe49aa390a5882639a6dec" title=" " alt="" coords="127,5,274,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="33,190,55,130,75,94,102,62,118,50,122,54,106,66,80,97,60,132,38,192"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a1679b9193726b3b8d6607e5e2c4435a5" title=" " alt="" coords="345,69,528,94"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="35,190,59,147,79,124,103,106,158,83,218,70,277,65,332,66,332,71,277,70,218,75,160,88,105,110,82,128,64,150,40,193"/>
+<area shape="rect" id="Node000007" href="$embedded_2test__teleinfo_2test__main_8cpp.html#af4b9ef88d9c0c3bdb7f0d12e28e2c68a" title=" " alt="" coords="128,120,273,160"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="55,190,103,170,123,162,125,167,105,174,57,195"/>
+<area shape="rect" id="Node000010" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a0f0c6baf6642826749c0a045161a89fe" title=" " alt="" coords="129,184,272,224"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="56,201,116,201,116,207,56,207"/>
+<area shape="rect" id="Node000011" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a741eff8cb38e09139ecd6eeb0ffc9c78" title=" " alt="" coords="104,249,297,274"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="57,213,105,233,133,242,132,248,103,239,55,218"/>
+<area shape="rect" id="Node000012" href="$embedded_2test__teleinfo_2test__main_8cpp.html#aa23742a5e9c73d0216ba3d7ac475746f" title=" " alt="" coords="131,299,270,339"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="42,215,68,249,106,283,120,292,117,296,102,287,64,253,38,218"/>
+<area shape="rect" id="Node000013" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a365c05d0400045836d05ecfeb560eda5" title=" " alt="" coords="118,363,283,403"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="37,216,58,280,78,317,106,349,111,353,108,357,102,353,74,320,54,282,32,218"/>
+<area shape="rect" id="Node000003" href="$group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="379,15,494,41"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="275,23,365,25,365,30,275,29"/>
+<area shape="rect" id="Node000004" href="$group__Telemetry.html#gaa9a3eeacd11602f3385056e620652bb7" title="Calculates the size of a single telemetry line in the frame." alt="" coords="643,65,717,90"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="495,37,630,65,629,70,494,42"/>
+<area shape="rect" id="Node000005" href="$types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="656,15,704,41"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="494,25,642,25,642,31,494,31"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="528,77,630,75,630,81,528,82"/>
+<area shape="rect" id="Node000008" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="381,249,493,274"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="270,158,299,170,359,204,409,238,406,243,356,208,296,174,268,163"/>
+<area shape="rect" id="Node000009" href="$classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="576,249,784,274"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="493,259,563,259,563,264,493,264"/>
+<area shape="poly" id="edge11_Node000010_Node000008" title=" " alt="" coords="273,219,371,243,370,248,271,224"/>
+<area shape="poly" id="edge14_Node000012_Node000008" title=" " alt="" coords="269,299,370,275,371,280,271,305"/>
+<area shape="poly" id="edge16_Node000013_Node000008" title=" " alt="" coords="268,360,296,348,356,314,406,280,409,284,359,319,299,353,270,365"/>
+</map>
