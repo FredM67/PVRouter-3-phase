@@ -49,8 +49,8 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                     /**< set
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
 inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
-inline constexpr bool DUAL_TARIFF{ false };         /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
-inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
+inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
+inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
 
 #include "utils_temp.h"
 
@@ -127,11 +127,17 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 8, 100, 20
 
 #include "utils_override.h"
 
-inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },
-                                              { 4, ALL_LOADS() },
-                                              { 11, { 1, LOAD(1), LOAD(2) } },
-                                              { 12, { RELAY(0), 9, RELAY(2) } },
-                                              { 13, ALL_LOADS_AND_RELAYS() } } }; /**< list of override pin/loads-relays pairs */
+// This is an example of override pin configuration.
+// You can modify the pin numbers and associated loads/relays as needed.
+// Ensure that the pins used do not conflict with other functionalities in your setup.
+// This example does not make any sense, that's just to show how to use the class OverridePins
+// inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },
+//                                               { 4, ALL_LOADS() },
+//                                               { 11, { 1, LOAD(1), LOAD(2) } },
+//                                               { 12, { RELAY(0), 9, RELAY(2) } },
+//                                               { 13, ALL_LOADS_AND_RELAYS() } } }; /**< list of override pin/loads-relays pairs */
+
+inline constexpr OverridePins overridePins{ { { 4, ALL_LOADS() } } }; /**< list of override pin/loads-relays pairs */
 
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */

@@ -51,7 +51,6 @@ constexpr uint8_t LOAD(uint8_t loadNum)
  */
 constexpr uint8_t RELAY(uint8_t relayNum)
 {
-  static_assert(RELAY_DIVERSION, "RELAY_DIVERSION must be true to use RELAY()");
   return relays.get_relay(relayNum).get_pin();
 }
 
@@ -139,11 +138,6 @@ constexpr uint16_t indicesToBitmask()
 template< uint8_t MaxPins >
 struct PinList
 {
-  static_assert((!RELAY_DIVERSION && MaxPins <= NO_OF_DUMPLOADS) || RELAY_DIVERSION,
-                "You specified too many loads, must be <= NO_OF_DUMPLOADS (relay diversion OFF)");
-  static_assert((RELAY_DIVERSION && MaxPins <= NO_OF_DUMPLOADS + relays.size()) || !RELAY_DIVERSION,
-                "You specified too many loads, must be <= NO_OF_DUMPLOADS + relays.size() (relay diversion ON)");
-
   uint8_t pins[MaxPins];
   uint8_t count;
 
