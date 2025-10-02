@@ -20,4 +20,3 @@ struct is_signed : integral_constant<bool,
     is_same<remove_cv_t<T>, float>::value ||
     is_same<remove_cv_t<T>, double>::value> {};
 // clang-format on
-

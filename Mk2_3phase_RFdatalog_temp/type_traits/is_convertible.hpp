@@ -27,7 +27,7 @@ protected:  // <- to avoid GCC's "all member functions in class are private"
 
   static const From& from_;
 
- public:
+public:
   static const bool value = sizeof(probe(from_)) == sizeof(int);
 };
 #ifdef _MSC_VER

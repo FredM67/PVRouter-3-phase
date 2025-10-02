@@ -139,7 +139,19 @@ inline void printConfiguration()
   {
     DBUGLN(F("is present"));
 
-    relays.printConfiguration();
+    relays.printRelayEngineConfiguration();
+  }
+  else
+  {
+    DBUGLN(F("is NOT present"));
+  }
+
+  DBUG(F("Override feature "));
+  if constexpr (OVERRIDE_PIN_PRESENT)
+  {
+    DBUGLN(F("is present"));
+
+    overridePins.printOverrideConfig();
   }
   else
   {
@@ -232,7 +244,7 @@ inline void printForJSON(const bool bOffPeak)
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {  // Current temperature
-    for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
+    for (uint8_t idx = 0; idx < temperatureSensing.size(); ++idx)
     {
       if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
           || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
@@ -298,7 +310,7 @@ inline void printForSerialText()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
+    for (uint8_t idx = 0; idx < temperatureSensing.size(); ++idx)
     {
       if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
           || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
@@ -336,13 +348,16 @@ inline void printForSerialText()
  * and ends with a frame finalization.
  *
  * The function supports conditional features such as relay diversion, temperature sensing,
- * and different supply frequencies (50 Hz or 60 Hz).
+ * dual tariff information, and different supply frequencies (50 Hz or 60 Hz).
+ *
+ * @param bOffPeak Indicates whether the system is in an off-peak tariff period.
  *
  * @details
  * - **Power Data**: Sends the total power grid data.
  * - **Relay Data**: If relay diversion is enabled (`RELAY_DIVERSION`), sends the average relay data.
  * - **Voltage Data**: Sends the voltage data for each phase.
  * - **Temperature Data**: If temperature sensing is enabled (`TEMP_SENSOR_PRESENT`), sends valid temperature readings.
+ * - **Dual Tariff Data**: If dual tariff is enabled (`DUAL_TARIFF`), sends the current tariff state.
  * - **Absence of Diverted Energy Count**: The amount of seconds without diverting energy.
  *
  * @note The function uses compile-time constants (`constexpr`) to include or exclude specific features.
@@ -350,7 +365,7 @@ inline void printForSerialText()
  *
  * @throws static_assert If `SUPPLY_FREQUENCY` is not 50 or 60 Hz.
  */
-void sendTelemetryData()
+void sendTelemetryData(const bool bOffPeak)
 {
   static TeleInfo teleInfo;
   uint8_t idx{ 0 };
@@ -367,7 +382,7 @@ void sendTelemetryData()
     do
     {
       teleInfo.send("R", relays.get_relay(idx).isRelayON());  // Send diverted energy count for each relay
-    } while (++idx < relays.get_size());
+    } while (++idx < relays.size());
   }
 
   idx = 0;
@@ -384,7 +399,7 @@ void sendTelemetryData()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    for (uint8_t idx = 0; idx < temperatureSensing.get_size(); ++idx)
+    for (uint8_t idx = 0; idx < temperatureSensing.size(); ++idx)
     {
       if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
           || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
@@ -396,6 +411,11 @@ void sendTelemetryData()
   }
 
   teleInfo.send("N", static_cast< int16_t >(Shared::absenceOfDivertedEnergyCountInSeconds));  // Send absence of diverted energy count for 50Hz
+
+  if constexpr (DUAL_TARIFF)
+  {
+    teleInfo.send("TA", static_cast< int16_t >(bOffPeak ? 1 : 0));  // Send current tariff state (0=high/on-peak, 1=low/off-peak)
+  }
 
   teleInfo.send("S", Shared::copyOf_sampleSetsDuringThisDatalogPeriod);
   teleInfo.send("S_MC", Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle);
@@ -440,7 +460,7 @@ inline void sendResults(bool bOffPeak)
   }
   else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::IoT)
   {
-    sendTelemetryData();
+    sendTelemetryData(bOffPeak);
   }
   else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::JSON)
   {

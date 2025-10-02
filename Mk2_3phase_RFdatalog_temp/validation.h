@@ -33,7 +33,6 @@ static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too lo
 static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == unused_pin), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
 static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == unused_pin), "******** Wrong pin value for diversion command. Please check your config.h ! ********");
 static_assert((PRIORITY_ROTATION == RotationModes::PIN) ^ (rotationPin == unused_pin), "******** Wrong pin value for rotation command. Please check your config.h ! ********");
-static_assert(OVERRIDE_PIN_PRESENT ^ (forcePin == unused_pin), "******** Wrong pin value for override command. Please check your config.h ! ********");
 static_assert(WATCHDOG_PIN_PRESENT ^ (watchDogPin == unused_pin), "******** Wrong pin value for watchdog. Please check your config.h ! ********");
 
 static_assert(DUAL_TARIFF ^ (dualTariffPin == unused_pin), "******** Wrong pin value for dual tariff. Please check your config.h ! ********");
@@ -58,7 +57,7 @@ static_assert(sizeof(rg_ForceLoad) / sizeof(rg_ForceLoad[0]) == NO_OF_DUMPLOADS,
 static_assert(ROTATION_AFTER_SECONDS > 0, "******** ROTATION_AFTER_SECONDS must be greater than 0 ! ********");
 static_assert(ROTATION_AFTER_SECONDS <= 86400UL, "******** ROTATION_AFTER_SECONDS cannot exceed 24 hours ! ********");
 
-static_assert(!TEMP_SENSOR_PRESENT || (temperatureSensing.get_size() > 0), "******** No temperature sensors configured but TEMP_SENSOR_PRESENT is true ! ********");
+static_assert(!TEMP_SENSOR_PRESENT || (temperatureSensing.size() > 0), "******** No temperature sensors configured but TEMP_SENSOR_PRESENT is true ! ********");
 static_assert(TEMP_RANGE_LOW < TEMP_RANGE_HIGH, "******** Invalid temperature range ! ********");
 
 constexpr uint16_t check_pins()
@@ -87,12 +86,20 @@ constexpr uint16_t check_pins()
     bit_set(used_pins, rotationPin);
   }
 
-  if (forcePin != unused_pin)
+  // Check override pins from the flexible override system
+  if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    if (bit_read(used_pins, forcePin))
-      return 0;
+    for (uint8_t i = 0; i < overridePins.size(); ++i)
+    {
+      const uint8_t pin = overridePins.getPin(i);
+      if (pin != unused_pin)
+      {
+        if (bit_read(used_pins, pin))
+          return 0;
 
-    bit_set(used_pins, forcePin);
+        bit_set(used_pins, pin);
+      }
+    }
   }
 
   if (watchDogPin != unused_pin)
@@ -117,7 +124,7 @@ constexpr uint16_t check_pins()
 
   if constexpr (RELAY_DIVERSION)
   {
-    for (uint8_t idx = 0; idx < relays.get_size(); ++idx)
+    for (uint8_t idx = 0; idx < relays.size(); ++idx)
     {
       const auto relayPin = relays.get_relay(idx).get_pin();
 
@@ -132,27 +139,6 @@ constexpr uint16_t check_pins()
   }
 
   return used_pins;
-}
-
-constexpr uint16_t check_relay_pins()
-{
-  bool pins_ok{ true };
-
-  for (uint8_t idx = 0; idx < relays.get_size(); ++idx)
-  {
-    const auto relayPin = relays.get_relay(idx).get_pin();
-
-    if constexpr (RELAY_DIVERSION)
-    {
-      pins_ok &= (relayPin != unused_pin);
-    }
-    else
-    {
-      pins_ok &= (relayPin == unused_pin);
-    }
-  }
-
-  return pins_ok;
 }
 
 constexpr bool check_load_priorities()
@@ -173,6 +159,27 @@ constexpr bool check_load_priorities()
 
   // check if we have all prio between 0 and (NO_OF_DUMPLOADS - 1)
   return _sum == ((NO_OF_DUMPLOADS * (NO_OF_DUMPLOADS - 1)) >> 1);
+}
+
+constexpr uint16_t check_relay_pins()
+{
+  bool pins_ok{ true };
+
+  for (uint8_t idx = 0; idx < relays.size(); ++idx)
+  {
+    const auto relayPin = relays.get_relay(idx).get_pin();
+
+    if constexpr (RELAY_DIVERSION)
+    {
+      pins_ok &= (relayPin != unused_pin);
+    }
+    else
+    {
+      pins_ok &= (relayPin == unused_pin);
+    }
+  }
+
+  return pins_ok;
 }
 
 static_assert(check_load_priorities(), "******** Load Priorities wrong ! Please check your config ! ********");

@@ -18,4 +18,3 @@ struct is_unsigned : integral_constant<bool,
     is_same<remove_cv_t<T>, unsigned long long>::value ||
     is_same<remove_cv_t<T>, bool>::value> {};
 // clang-format on
-

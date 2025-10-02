@@ -24,4 +24,3 @@ struct is_integral : integral_constant<bool,
     is_same<remove_cv_t<T>, char>::value ||
     is_same<remove_cv_t<T>, bool>::value> {};
 // clang-format on
-

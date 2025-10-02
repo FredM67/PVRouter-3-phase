@@ -27,7 +27,7 @@ inline constexpr uint16_t initialDelay{ 3000 };  /**< in milli-seconds, to allow
 inline constexpr uint16_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow LP filter to settle */
 
 #ifdef TEMP_ENABLED
-inline PayloadTx_struct< NO_OF_PHASES, temperatureSensing.get_size() > tx_data; /**< logging data */
+inline PayloadTx_struct< NO_OF_PHASES, temperatureSensing.size() > tx_data; /**< logging data */
 #else
 inline PayloadTx_struct< NO_OF_PHASES > tx_data; /**< logging data */
 #endif

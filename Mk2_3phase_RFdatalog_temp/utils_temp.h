@@ -193,7 +193,7 @@ public:
    *
    * @return constexpr auto The number of sensors.
    */
-  constexpr auto get_size() const
+  constexpr auto size() const
   {
     return N;
   }

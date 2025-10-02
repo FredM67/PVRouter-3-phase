@@ -24,7 +24,11 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
     - [Configuration matérielle](#configuration-matérielle)
     - [Configuration logicielle](#configuration-logicielle)
   - [Rotation des priorités](#rotation-des-priorités)
-  - [Configuration de la marche forcée](#configuration-de-la-marche-forcée)
+  - [Configuration de la marche forcée (nouveau)](#configuration-de-la-marche-forcée-nouveau)
+    - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité-1)
+    - [Définition des OverridePins](#définition-des-overridepins)
+    - [Utilisation](#utilisation)
+    - [Exemples de configuration](#exemples-de-configuration)
   - [Arrêt du routage](#arrêt-du-routage)
 - [Configuration avancée du programme](#configuration-avancée-du-programme)
   - [Paramètre `DIVERSION_START_THRESHOLD_WATTS`](#paramètre-diversion_start_threshold_watts)
@@ -226,7 +230,7 @@ Pour chaque relais, la transition ou le changement d’état est géré de la ma
 - si le relais est *ON* et que la puissance moyenne actuelle est supérieure au seuil d’importation, le relais essaie de passer à l’état *OFF*. Cette transition est soumise à la condition que le relais ait été *ON* pendant au moins la durée *minON*.
 
 > [!NOTE]
-> **Installations avec batteries :** Pour une configuration optimale des relais avec systèmes de batteries, consultez le **[Guide de Configuration pour Systèmes Batterie](BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](BATTERY_CONFIGURATION_GUIDE.en.md)
+> **Installations avec batteries :** Pour une configuration optimale des relais avec systèmes de batteries, consultez le **[Guide de Configuration pour Systèmes Batterie](docs/BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](docs/BATTERY_CONFIGURATION_GUIDE.en.md)
 
 ## Configuration du Watchdog
 Un chien de garde, en anglais *watchdog*, est un circuit électronique ou un logiciel utilisé en électronique numérique pour s’assurer qu’un automate ou un ordinateur ne reste pas bloqué à une étape particulière du traitement qu’il effectue.
@@ -369,17 +373,84 @@ Em mode **manuel**, vous devez également définir la *pin* qui déclenchera la 
 inline constexpr uint8_t rotationPin{ 10 };
 ```
 
-## Configuration de la marche forcée
-Il est possible de déclencher la marche forcée (certains routeurs appellent cette fonction *Boost*) via une *pin*.  
-On peut y relier un micro-interrupteur, une minuterie (ATTENTION, PAS de 230 V sur cette ligne), ou tout autre contact sec.
+## Configuration de la marche forcée (nouveau)
 
-Pour activer cette fonctionnalité, utilisez le code suivant :
+La marche forcée (*Boost*) peut désormais être déclenchée via une ou plusieurs *pins*, avec une association flexible entre chaque pin et les charges (dump loads) ou relais à activer. Cette fonctionnalité permet :
+
+- D’activer la marche forcée depuis plusieurs emplacements ou dispositifs
+- De cibler précisément une ou plusieurs charges ou relais pour chaque pin
+- De grouper plusieurs charges/relais sous une même commande
+
+### Activation de la fonctionnalité
+
+Activez la fonctionnalité dans votre configuration :
 ```cpp
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };
 ```
-Vous devez également spécifier la *pin* à laquelle le contact sec est connecté :
+
+### Définition des OverridePins
+
+La structure `OverridePins` permet d’associer chaque pin à une ou plusieurs charges ou relais, ou à des groupes prédéfinis (par exemple « toutes les charges », « tous les relais », ou « tout le système »).
+
+Chaque entrée du tableau correspond à une pin, suivie d’une liste ou d’une fonction spéciale qui permet d’activer un ou plusieurs groupes de charges ou relais lors de la marche forcée.
+
+Exemples :
 ```cpp
-inline constexpr uint8_t forcePin{ 11 };
+// Méthode classique : liste d’indices ou macros LOAD/RELAY
+inline constexpr OverridePins overridePins{
+  {
+    { 2, { 1, LOAD(1) } },       // Pin 2 active la charge ou le relais connecté·e à la pin 1 et la charge #1
+    { 4, { LOAD(0), RELAY(0) } } // Pin 4 active le charge #0 et le relais #0
+  }
+};
+
+// Méthode avancée : bitmask pour tous les loads ou tous les relais
+inline constexpr OverridePins overridePins{
+  {
+    { 2, ALL_LOADS() },           // Pin 2 active toutes les charges
+    { 3, ALL_RELAYS() },          // Pin 3 active tous les relais
+    { 4, ALL_LOADS_AND_RELAYS() } // Pin 4 active tout le système
+  }
+};
+```
+- `LOAD(n)` : référence le numéro de la charge (résistance pilotée, 0 → charge #1)
+- `RELAY(n)` : référence le numéro de relais (sortie relais tout-ou-rien, 0 → relais #1)
+- `ALL_LOADS()` : toutes les charges
+- `ALL_RELAYS()` : tous les relais
+- `ALL_LOADS_AND_RELAYS()` : tout le système (charges et relais)
+
+**Groupement :**  
+Plusieurs charges ou relais peuvent être groupés sous une même pin, soit en les listant, soit en utilisant les fonctions spéciales pour tout activer d’un coup.
+Plusieurs pins peuvent piloter des groupes différents ou partiellement recoupés.
+
+### Utilisation
+
+- Reliez chaque pin configurée à un contact sec (interrupteur, minuterie, automate, etc.)
+- Lorsqu’un contact est fermé, toutes les charges/relais associées à cette pin passent en marche forcée
+- Dès que tous les contacts sont ouverts, la marche forcée est désactivée
+
+**Exemples d’usage :**
+- Un bouton dans la salle de bain pour forcer le chauffe-eau uniquement
+- Une minuterie sur une autre pin pour forcer tous les relais pendant 30 minutes
+- Un automate domotique qui active plusieurs charges selon la demande
+
+### Exemples de configuration
+
+**Configuration simple :**
+```cpp
+// Pin 3 active la charge #0 et le relais #0
+// Pin 4 active toutes les charges
+inline constexpr OverridePins overridePins{ { { 3, { LOAD(0), RELAY(0) } },
+                                              { 4, ALL_LOADS() } } };
+```
+
+**Configuration avancée :**
+```cpp
+// Configuration flexible avec groupes personnalisés
+inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },     // Pin 3: charge #1 + relais #1
+                                              { 4, ALL_LOADS() },              // Pin 4: toutes les charges
+                                              { 11, { 1, LOAD(1), LOAD(2) } },  // Pin 11: charges spécifiques
+                                              { 12, ALL_LOADS_AND_RELAYS() } } }; // Pin 12: tout le système
 ```
 
 ## Arrêt du routage
@@ -451,9 +522,11 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
 inline constexpr bool DIVERSION_PIN_PRESENT{ true };    // Arrêt du routage
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };     // Marche forcée
 
-// Configuration des pins selon la correspondance de la carte d’extension
+// Pin configuration selon la correspondance de la carte d'extension
 inline constexpr uint8_t diversionPin{ 12 };     // D12 - arrêt du routage
-inline constexpr uint8_t forcePin{ 11 };         // D11 - marche forcée
+
+// Configuration de la marche forcée flexible
+inline constexpr OverridePins overridePins{ { { 11, ALL_LOADS_AND_RELAYS() } } }; // D11 - marche forcée
 
 // Configuration pour les sondes de température
 // IMPORTANT: Désactiver la gestion de température dans le Mk2PVRouter

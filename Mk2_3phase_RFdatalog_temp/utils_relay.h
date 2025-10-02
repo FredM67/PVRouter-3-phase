@@ -160,13 +160,19 @@ public:
   /**
    * @brief Proceed with the relay
    * 
+   * @param currentAvgPower Current average power
+   * @param overrideBitmask Reference to override bitmask
    * @return bool True if state has changed
    */
-  bool proceed_relay(const int32_t currentAvgPower) const
+  bool proceed_relay(const int32_t currentAvgPower, uint16_t& overrideBitmask) const
   {
+    const bool isOverrideActive = bit_read(overrideBitmask, relay_pin);
+
     // To avoid changing sign, surplus is a negative value
-    if (currentAvgPower < surplusThreshold)
+    // Turn ON if surplus threshold is met OR if override is active
+    if (currentAvgPower < surplusThreshold || isOverrideActive)
     {
+      bit_clear(overrideBitmask, relay_pin);  // Clear override bit if it was set
       return try_turnON();
     }
 
@@ -333,7 +339,7 @@ public:
    * 
    * @return constexpr auto The number of relays
    */
-  constexpr auto get_size() const
+  constexpr auto size() const
   {
     return N;
   }
@@ -384,11 +390,14 @@ public:
   /**
    * @brief Proceed all relays in increasing order (surplus) or decreasing order (import).
    * 
+   * @param overrideBitmask Reference to override bitmask - relay bits will be cleared after processing
+   * 
    * @details This method adjusts the state of the relays based on the current average power.
    * If surplus power is available, it tries to turn ON relays in increasing order. If power
    * is being imported, it tries to turn OFF relays in decreasing order.
+   * Override bits for individual relays are handled and cleared during processing.
    */
-  void proceed_relays() const
+  void proceed_relays(uint16_t& overrideBitmask) const
   {
     if (settle_change != 0)
     {
@@ -402,7 +411,7 @@ public:
       uint8_t idx{ N };
       do
       {
-        if (relay[--idx].proceed_relay(ewma_average.getAverageT()))
+        if (relay[--idx].proceed_relay(ewma_average.getAverageT(), overrideBitmask))
         {
           settle_change = 60;
           return;
@@ -415,7 +424,7 @@ public:
       uint8_t idx{ 0 };
       do
       {
-        if (relay[idx].proceed_relay(ewma_average.getAverageT()))
+        if (relay[idx].proceed_relay(ewma_average.getAverageT(), overrideBitmask))
         {
           settle_change = 60;
           return;
@@ -430,10 +439,10 @@ public:
    * @details This method outputs the configuration of all relays, including their pin assignments,
    * thresholds, and minimum ON/OFF durations, to the Serial interface.
    */
-  void printConfiguration() const
+  void printRelayEngineConfiguration() const
   {
-    Serial.println(F("\t*** Relay(s) configuration ***"));
-    Serial.print(F("\t\tSliding average: "));
+    Serial.println(F("*** Relay(s) configuration ***"));
+    Serial.print(F("\tSliding average: "));
     Serial.println(D);
 
     for (uint8_t i = 0; i < N; ++i)

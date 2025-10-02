@@ -17,47 +17,14 @@ on:
       - "Mk2_3phase_RFdatalog_temp/**"
 
 jobs:
-  check-formatting:
+  formatting-check:
+    name: Formatting Check
     runs-on: ubuntu-latest
-
-    env:
-      # See: https://github.com/arduino/arduino-ide/blob/main/arduino-ide-extension/package.json
-      CLANG_FORMAT_VERSION: 14.0.0
-
     steps:
-      - name: Set environment variables
-        run: |
-          # See: https://docs.github.com/actions/using-workflows/workflow-commands-for-github-actions#setting-an-environment-variable
-          echo "CLANG_FORMAT_INSTALL_PATH=${{ runner.temp }}/clang-format" >> "$GITHUB_ENV"
-
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Download ClangFormat
-        id: download
-        uses: MrOctopus/download-asset-action@main
-        with:
-          repository: arduino/clang-static-binaries
-          tag: ${{ env.CLANG_FORMAT_VERSION }}
-          asset: clang-format_${{ env.CLANG_FORMAT_VERSION }}_Linux_64bit.tar.bz2
-          target: ${{ env.CLANG_FORMAT_INSTALL_PATH }}
-
-      - name: Install ClangFormat
-        run: |
-          cd "${{ env.CLANG_FORMAT_INSTALL_PATH }}"
-          tar --extract --file="${{ steps.download.outputs.name }}"
-          # Add installation to PATH:
-          # See: https://docs.github.com/actions/using-workflows/workflow-commands-for-github-actions#adding-a-system-path
-          echo "${{ env.CLANG_FORMAT_INSTALL_PATH }}/clang_Linux_64bit" >> "$GITHUB_PATH"
-
-      - name: Format projects
-        run: ./formatter.sh Mk2_3phase_RFdatalog_temp
-
-      - name: Check formatting
-        run: |
-          if ! git diff --color --exit-code Mk2_3phase_RFdatalog_temp; then
-            echo "Please do an Auto Format on the sketches:"
-            echo "Arduino IDE: Tools > Auto Format"
-            echo "Arduino Web Editor: Ctrl + B"
-            exit 1
-          fi
+    - uses: actions/checkout@v4
+    - name: Run clang-format style check for C/C++/Protobuf programs.
+      uses: jidicula/clang-format-action@v4.15.0
+      with:
+        clang-format-version: '18'
+        check-path: 'Mk2_3phase_RFdatalog_temp'
+        fallback-style: 'Mozilla' # optional

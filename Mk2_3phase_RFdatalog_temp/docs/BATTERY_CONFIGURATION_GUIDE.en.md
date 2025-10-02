@@ -145,8 +145,8 @@ The following graphs demonstrate why traditional relay configurations fail with 
 **Ultra-Optimized Visualization:** Logarithmic scale with POSITIVE threshold lines (50W, 100W surplus) corresponding to negative import thresholds (-50W, -100W). Ultra-minimal negative range (-10W) to maximize critical positive zone visibility.
 
 **Realistic 2-Relay Configuration:**
-- � **Heat Pump (3000W)** : -100W threshold (high priority)
-- � **Pool Pump (1500W)** : -50W threshold (low priority)
+- 🔴 **Heat Pump (3000W)** : -100W threshold (high priority)
+- 🔵 **Pool Pump (1500W)** : -50W threshold (low priority)
 - ⚡ **Water Heater** : Controlled by PV router triac (not external relay)
 
 **Comparative Results:**

@@ -14,6 +14,11 @@
  *
  * @section history History
  *
+ * __September 2025: changes:__
+ * - major refactoring of override system with flexible OverridePins template
+ * - improved dual tariff integration with automatic load forcing
+ * - comprehensive documentation updates for new override architecture
+ *
  * __May 2025: changes:__
  * - add delayed start of the diversion
  *

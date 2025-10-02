@@ -2,7 +2,7 @@
 
 [![Français](https://img.shields.io/badge/🇫🇷%20Langue-Français-blue?style=for-the-badge)](README.md) [![English](https://img.shields.io/badge/🌍%20Language-English-red?style=for-the-badge)](README.en.md)
 
-[🇫🇷 Français](README.md) | **� English**
+[🇫🇷 Français](README.md) | **🌐 English**
 
 ---
 
@@ -130,7 +130,7 @@ This ensures that analysis results directly reflect real-world performance.
 
 📖 **Documentation available in two languages / Documentation disponible en deux langues:**
 
-| 🇫🇷 **Français** | � **English** (This version) |
+| 🇫🇷 **Français** | 🌐 **English** (This version) |
 |-------------------|----------------------------------|
 | [README.md](README.md) | [README.en.md](README.en.md) |
 | [TEMA_ANALYSIS_README.md](ewma/TEMA_ANALYSIS_README.md) | [TEMA_ANALYSIS_README.en.md](ewma/TEMA_ANALYSIS_README.en.md) |

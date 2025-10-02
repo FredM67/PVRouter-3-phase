@@ -41,8 +41,6 @@ It supports up to 12 resistive output loads, which are completely independent.
 - [Use cases](#use-cases)
   - [Requirements](#requirements)
   - [Heater with mechanical thermostat](#heater-with-mechanical-thermostat)
-      - [Migrate from single-phase to 3-phase (with neutral wire)](#migrate-from-single-phase-to-3-phase-with-neutral-wire)
-      - [Wiring](#wiring)
   - [Heater with ACI single phase thermostat](#heater-with-aci-single-phase-thermostat)
   - [Heater with ACI 3-phase thermostat (without neutral wire)](#heater-with-aci-3-phase-thermostat-without-neutral-wire)
   - [Alternatives WITHOUT neutral wire](#alternatives-without-neutral-wire)
@@ -274,6 +272,6 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Authors and acknowledgment
 
-- **Fr�d�ric Metrich** - _Initial work_ - [FredM67](https://github.com/FredM67)
+- **Frédéric Metrich** - _Initial work_ - [FredM67](https://github.com/FredM67)
 
 See also the list of [contributors](https://github.com/FredM67/PVRouter-3-phase/graphs/contributors) who participated in this project.

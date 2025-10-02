@@ -362,18 +362,61 @@ In **manual** mode, you must also define the *pin* that will trigger rotation:
 inline constexpr uint8_t rotationPin{ 10 };
 ```
 
-## Forced operation configuration
-It's possible to trigger forced operation (some routers call this function *Boost*) via a *pin*.  
-You can connect a micro-switch, a timer (ATTENTION, NO 230 V on this line), or any other dry contact.
+## Forced operation configuration (New Flexible System)
 
-To activate this feature, use the following code:
+The forced operation (*Boost*) can now be triggered via one or more *pins*, with flexible association between each pin and the loads (dump loads) or relays to activate. This feature allows:
+
+- Activating forced operation from multiple locations or devices
+- Precisely targeting one or more loads or relays for each pin  
+- Grouping multiple loads/relays under the same command
+
+### Feature activation
+
+Activate the feature in your configuration:
 ```cpp
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };
 ```
-You must also specify the *pin* to which the dry contact is connected:
+
+### OverridePins definition
+
+The `OverridePins` structure allows associating each pin with one or more loads or relays, or with predefined groups (e.g., "all loads", "all relays", or "entire system").
+
+Each entry in the array corresponds to a pin, followed by a list or special function that activates one or more groups of loads or relays during forced operation.
+
+**Simple configuration:**
 ```cpp
-inline constexpr uint8_t forcePin{ 11 };
+// Pin 3 activates load #0 and relay #0
+// Pin 4 activates all loads
+inline constexpr OverridePins overridePins{ { { 3, { LOAD(0), RELAY(0) } },
+                                              { 4, ALL_LOADS() } } };
 ```
+
+**Advanced configuration:**
+```cpp
+// Flexible configuration with custom groups
+inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },     // Pin 3: load #1 + relay #1
+                                              { 4, ALL_LOADS() },              // Pin 4: all loads
+                                              { 11, { 1, LOAD(1), LOAD(2) } },  // Pin 11: specific loads
+                                              { 12, ALL_LOADS_AND_RELAYS() } } }; // Pin 12: entire system
+```
+
+**Available macros:**
+- `LOAD(n)` : references load number (resistor controlled, 0 → load #1)
+- `RELAY(n)` : references relay number (on/off relay output, 0 → relay #1)  
+- `ALL_LOADS()` : all loads
+- `ALL_RELAYS()` : all relays
+- `ALL_LOADS_AND_RELAYS()` : entire system (loads and relays)
+
+### Usage
+
+- Connect each configured pin to a dry contact (switch, timer, automaton, etc.)
+- When a contact is closed, all loads/relays associated with that pin enter forced operation
+- As soon as all contacts are open, forced operation is deactivated
+
+**Usage examples:**
+- A button in the bathroom to force only the water heater
+- A timer on another pin to force all relays for 30 minutes
+- A home automation system that activates multiple loads according to demand
 
 ## Routing stop
 It can be convenient to disable routing during a prolonged absence.  
@@ -446,7 +489,9 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ true };     // Forced operation
 
 // Pin configuration according to extension board mapping
 inline constexpr uint8_t diversionPin{ 12 };     // D12 - routing stop
-inline constexpr uint8_t forcePin{ 11 };         // D11 - forced operation
+
+// Flexible forced operation configuration  
+inline constexpr OverridePins overridePins{ { { 11, ALL_LOADS_AND_RELAYS() } } }; // D11 - forced operation
 
 // Temperature sensor configuration
 // IMPORTANT: Disable temperature management in Mk2PVRouter
