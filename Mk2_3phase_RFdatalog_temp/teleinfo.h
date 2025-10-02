@@ -102,6 +102,8 @@ inline static constexpr size_t calcBufferSize()
   {
     size += NO_OF_PHASES * lineSize(2, 5);  // V1-Vn (unsigned 5 digits) - voltage
 
+    size += NO_OF_PHASES * lineSize(2, 6);  // P1-Pn (signed 6 digits) - instant power
+
     size += NO_OF_DUMPLOADS * lineSize(2, 3);  // D1-Dn (unsigned 3 digits) - diversion rate
   }
   else

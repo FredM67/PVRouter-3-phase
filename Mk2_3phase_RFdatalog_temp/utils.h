@@ -374,28 +374,35 @@ void sendTelemetryData(const bool bOffPeak)
 
   teleInfo.send("P", tx_data.power);  // Send power grid data
 
+  if constexpr (NO_OF_PHASES > 1)
+  {
+    idx = NO_OF_PHASES;
+    do
+    {
+      --idx;
+      teleInfo.send("P", tx_data.power_L[idx], idx + 1);      // Send power for each phase
+      teleInfo.send("V", tx_data.Vrms_L_x100[idx], idx + 1);  // Send voltage for each phase
+    } while (idx);
+  }
+
   if constexpr (RELAY_DIVERSION)
   {
     teleInfo.send("R", static_cast< int16_t >(relays.get_average()));  // Send relay average if diversion is enabled
 
-    idx = 0;
+    idx = relays.size();
     do
     {
+      --idx;
       teleInfo.send("R", relays.get_relay(idx).isRelayON());  // Send diverted energy count for each relay
-    } while (++idx < relays.size());
+    } while (idx);
   }
 
-  idx = 0;
+  idx = NO_OF_DUMPLOADS;
   do
   {
-    teleInfo.send("V", tx_data.Vrms_L_x100[idx], idx + 1);  // Send voltage for each phase
-  } while (++idx < NO_OF_PHASES);
-
-  idx = 0;
-  do
-  {
+    --idx;
     teleInfo.send("D", Shared::copyOf_countLoadON[idx] * 100 * invDATALOG_PERIOD_IN_MAINS_CYCLES, idx + 1);  // Send load ON count for each load
-  } while (++idx < NO_OF_DUMPLOADS);
+  } while (idx);
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
