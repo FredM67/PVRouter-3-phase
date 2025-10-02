@@ -461,7 +461,7 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
   {
     relays.inc_duration();
     // Pass private bitmask to relay engine, it will filter out relay pins that can be controlled
-    relays.proceed_relays(privateOverrideBitmask);
+    relays.proceed_relays(privateOverrideBitmask, Shared::b_diversionEnabled);
   }
 
   // Copy the filtered bitmask (only triac/load pins) to shared version
