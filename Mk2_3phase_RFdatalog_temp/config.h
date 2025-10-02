@@ -123,7 +123,10 @@ inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minu
 // Examples:
 //   Normal installation:  { pin, 1000, 200, 5, 5 }   // Turn OFF when importing > 200W
 //   Battery installation: { pin, 1000, -50, 5, 5 }   // Turn OFF when surplus < 50W
-inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 8, 100, 200, 1, 1 }, { 9, 300, 400, 1, 1 }, { 10, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
+inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
+                                     { { unused_pin, 100, 200, 1, 1 },
+                                       { unused_pin, 300, 400, 1, 1 },
+                                       { unused_pin, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
 
 #include "utils_override.h"
 

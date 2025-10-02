@@ -161,11 +161,33 @@ constexpr bool check_load_priorities()
   return _sum == ((NO_OF_DUMPLOADS * (NO_OF_DUMPLOADS - 1)) >> 1);
 }
 
+constexpr uint16_t check_relay_pins()
+{
+  bool pins_ok{ true };
+
+  for (uint8_t idx = 0; idx < relays.size(); ++idx)
+  {
+    const auto relayPin = relays.get_relay(idx).get_pin();
+
+    if constexpr (RELAY_DIVERSION)
+    {
+      pins_ok &= (relayPin != unused_pin);
+    }
+    else
+    {
+      pins_ok &= (relayPin == unused_pin);
+    }
+  }
+
+  return pins_ok;
+}
+
 static_assert(check_load_priorities(), "******** Load Priorities wrong ! Please check your config ! ********");
 static_assert(check_pins(), "******** Duplicate pin definition ! Please check your config ! ********");
 static_assert((check_pins() & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
 static_assert((check_pins() & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
 static_assert(!(RF_CHIP_PRESENT && ((check_pins() & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
+static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
 
 #ifdef RF_PRESENT
 static_assert((nodeID >= 1 && nodeID <= 30), "******** RF nodeID must be between 1 and 30 ! ********");
