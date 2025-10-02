@@ -124,18 +124,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a981b20422ed19d2aa87d042c583173ee" id="r_a981b20422ed19d2aa87d042c583173ee"><td class="memItemLeft" align="right" valign="top">constexpr const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a981b20422ed19d2aa87d042c583173ee">get_relay</a> (uint8_t idx) const</td></tr>
 <tr class="memdesc:a981b20422ed19d2aa87d042c583173ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the relay object.  <br /></td></tr>
 <tr class="separator:a981b20422ed19d2aa87d042c583173ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ed9500ebf4f6d7afb519c377fab42d3" id="r_a1ed9500ebf4f6d7afb519c377fab42d3"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ed9500ebf4f6d7afb519c377fab42d3">get_size</a> () const</td></tr>
-<tr class="memdesc:a1ed9500ebf4f6d7afb519c377fab42d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of relays.  <br /></td></tr>
-<tr class="separator:a1ed9500ebf4f6d7afb519c377fab42d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f831b566b2da140a17333ab6a39e5dc" id="r_a4f831b566b2da140a17333ab6a39e5dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f831b566b2da140a17333ab6a39e5dc">inc_duration</a> () const</td></tr>
 <tr class="memdesc:a4f831b566b2da140a17333ab6a39e5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment the duration's state of each relay.  <br /></td></tr>
 <tr class="separator:a4f831b566b2da140a17333ab6a39e5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3ff0ac83bf3a665174f0ea373974e3a" id="r_ab3ff0ac83bf3a665174f0ea373974e3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3ff0ac83bf3a665174f0ea373974e3a">printConfiguration</a> () const</td></tr>
-<tr class="memdesc:ab3ff0ac83bf3a665174f0ea373974e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the configuration of each relay.  <br /></td></tr>
-<tr class="separator:ab3ff0ac83bf3a665174f0ea373974e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2891986bc989d9c35301711f674bc523" id="r_a2891986bc989d9c35301711f674bc523"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2891986bc989d9c35301711f674bc523">proceed_relays</a> () const</td></tr>
-<tr class="memdesc:a2891986bc989d9c35301711f674bc523"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed all relays in increasing order (surplus) or decreasing order (import).  <br /></td></tr>
-<tr class="separator:a2891986bc989d9c35301711f674bc523"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae27586afc10fc74876b2d647d05536ba" id="r_ae27586afc10fc74876b2d647d05536ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae27586afc10fc74876b2d647d05536ba">printRelayEngineConfiguration</a> () const</td></tr>
+<tr class="memdesc:ae27586afc10fc74876b2d647d05536ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the configuration of each relay.  <br /></td></tr>
+<tr class="separator:ae27586afc10fc74876b2d647d05536ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafbb71f0ee0320bd8023d12573607ff5" id="r_aafbb71f0ee0320bd8023d12573607ff5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafbb71f0ee0320bd8023d12573607ff5">proceed_relays</a> (uint16_t &amp;overrideBitmask) const</td></tr>
+<tr class="memdesc:aafbb71f0ee0320bd8023d12573607ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed all relays in increasing order (surplus) or decreasing order (import).  <br /></td></tr>
+<tr class="separator:aafbb71f0ee0320bd8023d12573607ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa92cbba2dda5fcbda87efb068162c4bc" id="r_aa92cbba2dda5fcbda87efb068162c4bc"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa92cbba2dda5fcbda87efb068162c4bc">size</a> () const</td></tr>
+<tr class="memdesc:aa92cbba2dda5fcbda87efb068162c4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of relays.  <br /></td></tr>
+<tr class="separator:aa92cbba2dda5fcbda87efb068162c4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -176,7 +176,7 @@ class RelayEngine&lt; N, D &gt;</div><p>Manages a collection of relays and their
 <li><b>Initialization</b>: Provides methods to initialize relay pins and print their configuration. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00308">308</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00314">314</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa834d2148c13bbf4c63f949033746ecd" name="aa834d2148c13bbf4c63f949033746ecd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa834d2148c13bbf4c63f949033746ecd">&#9670;&#160;</a></span>RelayEngine() <span class="overload">[1/2]</span></h2>
@@ -205,7 +205,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 
 <p>Construct a list of relays. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00315">315</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00321">321</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -247,7 +247,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00326">326</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00332">332</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -280,7 +280,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 <p>Get the current average. </p>
 <dl class="section return"><dt>Returns</dt><dd>auto The current average </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00357">357</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00363">363</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -318,39 +318,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>constexpr const auto&amp; The relay object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00347">347</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="a1ed9500ebf4f6d7afb519c377fab42d3" name="a1ed9500ebf4f6d7afb519c377fab42d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ed9500ebf4f6d7afb519c377fab42d3">&#9670;&#160;</a></span>get_size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t D = 10&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::get_size </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the number of relays. </p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr auto The number of relays </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00336">336</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00353">353</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -374,12 +342,12 @@ template&lt;uint8_t N, uint8_t D&gt; </div>
 <p>Increment the duration's state of each relay. </p>
 <p>This method updates the duration of the current state for each relay and decreases the delay (<code>settle_change</code>) until the next state change is allowed. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00453">453</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00462">462</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
-<a id="ab3ff0ac83bf3a665174f0ea373974e3a" name="ab3ff0ac83bf3a665174f0ea373974e3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3ff0ac83bf3a665174f0ea373974e3a">&#9670;&#160;</a></span>printConfiguration()</h2>
+<a id="ae27586afc10fc74876b2d647d05536ba" name="ae27586afc10fc74876b2d647d05536ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae27586afc10fc74876b2d647d05536ba">&#9670;&#160;</a></span>printRelayEngineConfiguration()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -390,7 +358,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::printConfiguration </td>
+          <td class="memname">void <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::printRelayEngineConfiguration </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -406,12 +374,12 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 <p>Print the configuration of each relay. </p>
 <p>This method outputs the configuration of all relays, including their pin assignments, thresholds, and minimum ON/OFF durations, to the Serial interface. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00433">433</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00442">442</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
-<a id="a2891986bc989d9c35301711f674bc523" name="a2891986bc989d9c35301711f674bc523"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2891986bc989d9c35301711f674bc523">&#9670;&#160;</a></span>proceed_relays()</h2>
+<a id="aafbb71f0ee0320bd8023d12573607ff5" name="aafbb71f0ee0320bd8023d12573607ff5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafbb71f0ee0320bd8023d12573607ff5">&#9670;&#160;</a></span>proceed_relays()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -424,7 +392,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::proceed_relays </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">uint16_t &amp;</td>          <td class="paramname"><span class="paramname"><em>overrideBitmask</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -436,9 +404,47 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </div><div class="memdoc">
 
 <p>Proceed all relays in increasing order (surplus) or decreasing order (import). </p>
-<p>This method adjusts the state of the relays based on the current average power. If surplus power is available, it tries to turn ON relays in increasing order. If power is being imported, it tries to turn OFF relays in decreasing order. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">overrideBitmask</td><td>Reference to override bitmask - relay bits will be cleared after processing</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method adjusts the state of the relays based on the current average power. If surplus power is available, it tries to turn ON relays in increasing order. If power is being imported, it tries to turn OFF relays in decreasing order. Override bits for individual relays are handled and cleared during processing. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00391">391</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00400">400</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+
+</div>
+</div>
+<a id="aa92cbba2dda5fcbda87efb068162c4bc" name="aa92cbba2dda5fcbda87efb068162c4bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa92cbba2dda5fcbda87efb068162c4bc">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N, uint8_t D = 10&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the number of relays. </p>
+<dl class="section return"><dt>Returns</dt><dd>constexpr auto The number of relays </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00342">342</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -475,7 +481,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00367">367</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00373">373</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -503,7 +509,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </div><div class="memdoc">
 <p>EWMA average </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00450">450</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00459">459</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -530,7 +536,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </div><div class="memdoc">
 <p>Array of relays </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00446">446</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00455">455</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -557,7 +563,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </div><div class="memdoc">
 <p>Delay in seconds until next change occurs </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00448">448</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00457">457</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>

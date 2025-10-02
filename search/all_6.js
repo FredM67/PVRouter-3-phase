@@ -12,10 +12,12 @@ var searchData=
   ['enable_5fif_2ehpp_9',['enable_if.hpp',['../enable__if_8hpp.html',1,'']]],
   ['enable_5fif_3c_20true_2c_20t_20_3e_10',['enable_if&lt; true, T &gt;',['../structenable__if_3_01true_00_01T_01_4.html',1,'']]],
   ['enable_5fif_5ft_11',['enable_if_t',['../enable__if_8hpp.html#ad200422dfbdeb88f7af4779a72cdcf67',1,'enable_if.hpp']]],
-  ['escapequote_12',['ESCAPEQUOTE',['../debug_8h.html#a7b7a44cc02c6f75a1755e473ba0fd12a',1,'debug.h']]],
-  ['etx_13',['ETX',['../classTeleInfo.html#aa03518019927460cd7735213630004d9',1,'TeleInfo']]],
-  ['ewma_5faverage_14',['EWMA_average',['../classEWMA__average.html',1,'']]],
-  ['ewma_5faverage_15',['ewma_average',['../classRelayEngine.html#a03a84f65f56f7e8bce137c967dfe7ebf',1,'RelayEngine']]],
-  ['ewma_5faverage_3c_2010_20_2a60_2fdatalog_5fperiod_5fin_5fseconds_20_3e_16',['EWMA_average&lt; 10 *60/DATALOG_PERIOD_IN_SECONDS &gt;',['../classEWMA__average.html',1,'']]],
-  ['ewma_5favg_2ehpp_17',['ewma_avg.hpp',['../ewma__avg_8hpp.html',1,'']]]
+  ['entries_5f_12',['entries_',['../classOverridePins.html#a8bf6bcf16da2e94200cc419a72c48b2b',1,'OverridePins']]],
+  ['entry_13',['Entry',['../structOverridePins_1_1Entry.html',1,'OverridePins']]],
+  ['escapequote_14',['ESCAPEQUOTE',['../debug_8h.html#a7b7a44cc02c6f75a1755e473ba0fd12a',1,'debug.h']]],
+  ['etx_15',['ETX',['../classTeleInfo.html#aa03518019927460cd7735213630004d9',1,'TeleInfo']]],
+  ['ewma_5faverage_16',['EWMA_average',['../classEWMA__average.html',1,'']]],
+  ['ewma_5faverage_17',['ewma_average',['../classRelayEngine.html#a03a84f65f56f7e8bce137c967dfe7ebf',1,'RelayEngine']]],
+  ['ewma_5faverage_3c_2010_20_2a60_2fdatalog_5fperiod_5fin_5fseconds_20_3e_18',['EWMA_average&lt; 10 *60/DATALOG_PERIOD_IN_SECONDS &gt;',['../classEWMA__average.html',1,'']]],
+  ['ewma_5favg_2ehpp_19',['ewma_avg.hpp',['../ewma__avg_8hpp.html',1,'']]]
 ];

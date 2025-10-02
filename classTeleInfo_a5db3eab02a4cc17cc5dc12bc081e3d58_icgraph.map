@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Calculates the checksum for a portion of the buffer." alt="" coords="611,5,819,31"/>
 <area shape="rect" id="Node000002" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="451,5,563,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="596,21,563,21,563,15,596,15"/>
-<area shape="rect" id="Node000003" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="253,5,403,31"/>
+<area shape="rect" id="Node000003" href="$utils_8h.html#a1907e04bd551745d6acdaaf198bda73a" title="Sends telemetry data using the TeleInfo class." alt="" coords="253,5,403,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="437,21,403,21,403,15,437,15"/>
 <area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="104,5,205,31"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="240,21,206,21,206,15,240,15"/>

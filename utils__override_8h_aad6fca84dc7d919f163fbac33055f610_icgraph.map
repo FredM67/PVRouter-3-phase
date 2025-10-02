@@ -1,0 +1,5 @@
+<map id="ALL_LOADS" name="ALL_LOADS">
+<area shape="rect" id="Node000001" title="Returns a bitmask representing all load pins." alt="" coords="241,5,337,31"/>
+<area shape="rect" id="Node000002" href="$utils__override_8h.html#afb09a204576614ed4b449d126cb43e89" title="Returns a bitmask representing all loads and all relays." alt="" coords="5,5,193,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="228,21,194,21,194,15,228,15"/>
+</map>

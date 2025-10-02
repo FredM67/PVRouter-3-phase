@@ -4,12 +4,14 @@ var searchData=
   ['persistence_5ffor_5fpolarity_5fchange_1',['PERSISTENCE_FOR_POLARITY_CHANGE',['../processing_8h.html#a2a52b2459c1ca802c59cfa96e71885ba',1,'processing.h']]],
   ['physicalloadpin_2',['physicalLoadPin',['../config_8h.html#a4cfb4b5cc5504c54511b565a29906efc',1,'config.h']]],
   ['physicalloadstate_3',['physicalLoadState',['../processing_8cpp.html#a6299bc3dd04b3fec6de87101e9e02d1f',1,'processing.cpp']]],
-  ['polarityconfirmed_4',['polarityConfirmed',['../processing_8cpp.html#a86686555f56c1d92d7fe1c06d044a2ec',1,'processing.cpp']]],
-  ['polarityconfirmedoflastsamplev_5',['polarityConfirmedOfLastSampleV',['../processing_8cpp.html#a043c3df0e6f259a7c11e6bbc89500c66',1,'processing.cpp']]],
-  ['polarityofmostrecentsamplev_6',['polarityOfMostRecentSampleV',['../processing_8cpp.html#ab499bc63170b1994691a7e84f99c7927',1,'processing.cpp']]],
-  ['post_5ftransition_5fmax_5fcount_7',['POST_TRANSITION_MAX_COUNT',['../processing_8cpp.html#a555d557c5b47a027b823b11a814f8693',1,'processing.cpp']]],
-  ['posttransitioncount_8',['postTransitionCount',['../processing_8cpp.html#aefaf5733efee19a73b7cbcb1159ff61f',1,'processing.cpp']]],
-  ['power_9',['power',['../classPayloadTx__struct.html#ab3001f04334464b35b7dd263bd08b1a0',1,'PayloadTx_struct']]],
-  ['power_5fdata_10',['power_data',['../structCloudPattern.html#a6e483bc66b8f192de91c55b34c126ef6',1,'CloudPattern']]],
-  ['power_5fl_11',['power_L',['../classPayloadTx__struct.html#a13cbb9a2141427b379764c105825815f',1,'PayloadTx_struct']]]
+  ['pin_4',['pin',['../structKeyIndexPair.html#ad99107e417f163e8a49b3a54752b7015',1,'KeyIndexPair::pin'],['../structOverridePins_1_1Entry.html#af6abc3fcd7be77b566472184d496709c',1,'OverridePins::Entry::pin']]],
+  ['pins_5',['pins',['../structPinList.html#a09ea8a2e34b56426168cd7ccea38e9c2',1,'PinList']]],
+  ['polarityconfirmed_6',['polarityConfirmed',['../processing_8cpp.html#a86686555f56c1d92d7fe1c06d044a2ec',1,'processing.cpp']]],
+  ['polarityconfirmedoflastsamplev_7',['polarityConfirmedOfLastSampleV',['../processing_8cpp.html#a043c3df0e6f259a7c11e6bbc89500c66',1,'processing.cpp']]],
+  ['polarityofmostrecentsamplev_8',['polarityOfMostRecentSampleV',['../processing_8cpp.html#ab499bc63170b1994691a7e84f99c7927',1,'processing.cpp']]],
+  ['post_5ftransition_5fmax_5fcount_9',['POST_TRANSITION_MAX_COUNT',['../processing_8cpp.html#a555d557c5b47a027b823b11a814f8693',1,'processing.cpp']]],
+  ['posttransitioncount_10',['postTransitionCount',['../processing_8cpp.html#aefaf5733efee19a73b7cbcb1159ff61f',1,'processing.cpp']]],
+  ['power_11',['power',['../classPayloadTx__struct.html#ab3001f04334464b35b7dd263bd08b1a0',1,'PayloadTx_struct']]],
+  ['power_5fdata_12',['power_data',['../structCloudPattern.html#a6e483bc66b8f192de91c55b34c126ef6',1,'CloudPattern']]],
+  ['power_5fl_13',['power_L',['../classPayloadTx__struct.html#a13cbb9a2141427b379764c105825815f',1,'PayloadTx_struct']]]
 ];

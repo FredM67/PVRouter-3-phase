@@ -102,6 +102,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga09f688031c566f173bdfe18e65b0770a" id="r_ga09f688031c566f173bdfe18e65b0770a"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga09f688031c566f173bdfe18e65b0770a">getDualTariffForcingBitmask</a> (const int16_t currentTemperature_x100)</td></tr>
+<tr class="memdesc:ga09f688031c566f173bdfe18e65b0770a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the dual tariff forcing bitmask based on current conditions.  <br /></td></tr>
+<tr class="separator:ga09f688031c566f173bdfe18e65b0770a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4378fe99f16f9f2a6990ac70c27783a2" id="r_ga4378fe99f16f9f2a6990ac70c27783a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga4378fe99f16f9f2a6990ac70c27783a2">printDualTariffConfiguration</a> ()</td></tr>
 <tr class="memdesc:ga4378fe99f16f9f2a6990ac70c27783a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the settings for off-peak period.  <br /></td></tr>
 <tr class="separator:ga4378fe99f16f9f2a6990ac70c27783a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,6 +114,69 @@ Functions</h2></td></tr>
 <p>This group includes functions that detect and handle changes between off-peak and on-peak tariff periods. It adjusts load priorities and diversion strategies based on the current tariff state. Features like forced load operation during off-peak periods are also supported.</p>
 <dl class="section note"><dt>Note</dt><dd>The dual tariff feature helps optimize energy usage and cost savings by prioritizing energy diversion during off-peak periods. </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga09f688031c566f173bdfe18e65b0770a" name="ga09f688031c566f173bdfe18e65b0770a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga09f688031c566f173bdfe18e65b0770a">&#9670;&#160;</a></span>getDualTariffForcingBitmask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t getDualTariffForcingBitmask </td>
+          <td>(</td>
+          <td class="paramtype">const int16_t</td>          <td class="paramname"><span class="paramname"><em>currentTemperature_x100</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the dual tariff forcing bitmask based on current conditions. </p>
+<p>This function determines which loads should be forced ON during off-peak periods based on elapsed time since off-peak start, configured time windows, and temperature conditions.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">currentTemperature_x100</td><td>Current temperature multiplied by 100. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Bitmask of loads that should be forced ON due to dual tariff conditions, 0 if none.</dd></dl>
+<ul>
+<li>Only applies during off-peak periods (both pins must be LOW).</li>
+<li>Each load has its own time window defined in rg_OffsetForce.</li>
+<li>Temperature must be at or below the threshold for forcing to activate.</li>
+<li>Uses static variables to track dual tariff pin state changes. </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00065">65</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__DualTariff_ga09f688031c566f173bdfe18e65b0770a_cgraph.png" border="0" usemap="#agroup__DualTariff_ga09f688031c566f173bdfe18e65b0770a_cgraph" alt=""/></div>
+<map name="agroup__DualTariff_ga09f688031c566f173bdfe18e65b0770a_cgraph" id="agroup__DualTariff_ga09f688031c566f173bdfe18e65b0770a_cgraph">
+<area shape="rect" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="5,31,212,56"/>
+<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="275,5,342,31"/>
+<area shape="poly" title=" " alt="" coords="209,28,261,21,262,27,210,33"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="260,55,357,80"/>
+<area shape="poly" title=" " alt="" coords="212,53,247,57,246,63,212,58"/>
+<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="405,55,480,80"/>
+<area shape="poly" title=" " alt="" coords="357,65,391,65,391,70,357,70"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__DualTariff_ga09f688031c566f173bdfe18e65b0770a_icgraph.png" border="0" usemap="#agroup__DualTariff_ga09f688031c566f173bdfe18e65b0770a_icgraph" alt=""/></div>
+<map name="agroup__DualTariff_ga09f688031c566f173bdfe18e65b0770a_icgraph" id="agroup__DualTariff_ga09f688031c566f173bdfe18e65b0770a_icgraph">
+<area shape="rect" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="524,5,731,31"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing." alt="" coords="323,5,476,31"/>
+<area shape="poly" title=" " alt="" coords="510,21,476,21,476,15,510,15"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,5,275,31"/>
+<area shape="poly" title=" " alt="" coords="309,21,275,21,275,15,309,15"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
+<area shape="poly" title=" " alt="" coords="90,21,57,21,57,15,90,15"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ga4378fe99f16f9f2a6990ac70c27783a2" name="ga4378fe99f16f9f2a6990ac70c27783a2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga4378fe99f16f9f2a6990ac70c27783a2">&#9670;&#160;</a></span>printDualTariffConfiguration()</h2>
 

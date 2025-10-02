@@ -1,0 +1,9 @@
+<map id="getDualTariffForcingBitmask" name="getDualTariffForcingBitmask">
+<area shape="rect" id="Node000001" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="5,31,212,56"/>
+<area shape="rect" id="Node000002" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="275,5,342,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,28,261,21,262,27,210,33"/>
+<area shape="rect" id="Node000003" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="260,55,357,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,53,247,57,246,63,212,58"/>
+<area shape="rect" id="Node000004" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="405,55,480,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="357,65,391,65,391,70,357,70"/>
+</map>

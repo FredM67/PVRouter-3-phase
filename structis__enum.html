@@ -95,7 +95,7 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:aecdd48955dfb72b90880aafdec94e2db" id="r_aecdd48955dfb72b90880aafdec94e2db"><td class="memItemLeft" align="right" valign="top">static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aecdd48955dfb72b90880aafdec94e2db">value</a></td></tr>
+<tr class="memitem:aecdd48955dfb72b90880aafdec94e2db" id="r_aecdd48955dfb72b90880aafdec94e2db"><td class="memItemLeft" align="right" valign="top">static const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aecdd48955dfb72b90880aafdec94e2db">value</a> = <a class="el" href="structis__convertible.html">is_convertible</a>&lt; T, long long &gt;::value &amp;&amp; !<a class="el" href="structis__class.html">is_class</a>&lt; T &gt;::value &amp;&amp; !<a class="el" href="structis__integral.html">is_integral</a>&lt; T &gt;::value &amp;&amp; !<a class="el" href="structis__floating__point.html">is_floating_point</a>&lt; T &gt;::value</td></tr>
 <tr class="separator:aecdd48955dfb72b90880aafdec94e2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -115,7 +115,7 @@ template&lt;typename T&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const bool <a class="el" href="structis__enum.html">is_enum</a>&lt; T &gt;::value</td>
+          <td class="memname">const bool <a class="el" href="structis__enum.html">is_enum</a>&lt; T &gt;::value = <a class="el" href="structis__convertible.html">is_convertible</a>&lt; T, long long &gt;::value &amp;&amp; !<a class="el" href="structis__class.html">is_class</a>&lt; T &gt;::value &amp;&amp; !<a class="el" href="structis__integral.html">is_integral</a>&lt; T &gt;::value &amp;&amp; !<a class="el" href="structis__floating__point.html">is_floating_point</a>&lt; T &gt;::value</td>
         </tr>
       </table>
   </td>
@@ -124,14 +124,8 @@ template&lt;typename T&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code hl_variable" href="structis__convertible.html#ae961431c0a8dc3506828194f8ec1c684">is_convertible&lt;T, long long&gt;::value</a> &amp;&amp;</div>
-<div class="line">                            !<a class="code hl_variable" href="structis__class.html#a8e480c366229d83043464856beaef26f">is_class&lt;T&gt;::value</a> &amp;&amp; !<a class="code hl_variable" href="structintegral__constant.html#a898163d4533374f6993a6c2e2116443a">is_integral&lt;T&gt;::value</a> &amp;&amp;</div>
-<div class="line">                            !<a class="code hl_variable" href="structintegral__constant.html#a898163d4533374f6993a6c2e2116443a">is_floating_point&lt;T&gt;::value</a></div>
-<div class="ttc" id="astructintegral__constant_html_a898163d4533374f6993a6c2e2116443a"><div class="ttname"><a href="structintegral__constant.html#a898163d4533374f6993a6c2e2116443a">integral_constant&lt; bool, is_same&lt; remove_cv_t&lt; T &gt;, signed char &gt;::value||is_same&lt; remove_cv_t&lt; T &gt;, unsigned char &gt;::value||is_same&lt; remove_cv_t&lt; T &gt;, signed short &gt;::value||is_same&lt; remove_cv_t&lt; T &gt;, unsigned short &gt;::value||is_same&lt; remove_cv_t&lt; T &gt;, signed int &gt;::value||is_same&lt; remove_cv_t&lt; T &gt;, unsigned int &gt;::value||is_same&lt; remove_cv_t&lt; T &gt;, signed long &gt;::value||is_same&lt; remove_cv_t&lt; T &gt;, unsigned long &gt;::value||is_same&lt; remove_cv_t&lt; T &gt;, signed long long &gt;::value||is_same&lt; remove_cv_t&lt; T &gt;, unsigned long long &gt;::value||is_same&lt; remove_cv_t&lt; T &gt;, char &gt;::value||is_same&lt; remove_cv_t&lt; T &gt;, bool &gt;::value &gt;::value</a></div><div class="ttdeci">static const bool value</div><div class="ttdef"><b>Definition</b> <a href="integral__constant_8hpp_source.html#l00009">integral_constant.hpp:9</a></div></div>
-<div class="ttc" id="astructis__class_html_a8e480c366229d83043464856beaef26f"><div class="ttname"><a href="structis__class.html#a8e480c366229d83043464856beaef26f">is_class::value</a></div><div class="ttdeci">static const bool value</div><div class="ttdef"><b>Definition</b> <a href="is__class_8hpp_source.html#l00018">is_class.hpp:18</a></div></div>
-<div class="ttc" id="astructis__convertible_html_ae961431c0a8dc3506828194f8ec1c684"><div class="ttname"><a href="structis__convertible.html#ae961431c0a8dc3506828194f8ec1c684">is_convertible::value</a></div><div class="ttdeci">static const bool value</div><div class="ttdef"><b>Definition</b> <a href="is__convertible_8hpp_source.html#l00031">is_convertible.hpp:31</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="is__enum_8hpp_source.html#l00015">15</a> of file <a class="el" href="is__enum_8hpp_source.html">is_enum.hpp</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="is__enum_8hpp_source.html#l00016">16</a> of file <a class="el" href="is__enum_8hpp_source.html">is_enum.hpp</a>.</p>
 
 </div>
 </div>

@@ -105,9 +105,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga31f3d562faae6b598324b56299d74f7d" id="r_ga31f3d562faae6b598324b56299d74f7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga31f3d562faae6b598324b56299d74f7d">checkDiversionOnOff</a> ()</td></tr>
 <tr class="memdesc:ga31f3d562faae6b598324b56299d74f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks and updates the diversion state based on the diversion pin.  <br /></td></tr>
 <tr class="separator:ga31f3d562faae6b598324b56299d74f7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga5157f7f79cf8c75c2d7b41d8ed47a7ef" id="r_ga5157f7f79cf8c75c2d7b41d8ed47a7ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga5157f7f79cf8c75c2d7b41d8ed47a7ef">forceFullPower</a> ()</td></tr>
-<tr class="memdesc:ga5157f7f79cf8c75c2d7b41d8ed47a7ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces all loads to full power if the override pin is active.  <br /></td></tr>
-<tr class="separator:ga5157f7f79cf8c75c2d7b41d8ed47a7ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga749bd64aa252249f5d9c98668ef3200e" id="r_ga749bd64aa252249f5d9c98668ef3200e"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga749bd64aa252249f5d9c98668ef3200e">getOverrideBitmask</a> (const int16_t currentTemperature_x100)</td></tr>
+<tr class="memdesc:ga749bd64aa252249f5d9c98668ef3200e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the combined bitmask of all active override pins and dual tariff forcing.  <br /></td></tr>
+<tr class="separator:ga749bd64aa252249f5d9c98668ef3200e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga143b5ab1cc611c04c761240ce5687fdd" id="r_ga143b5ab1cc611c04c761240ce5687fdd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga143b5ab1cc611c04c761240ce5687fdd">handlePerSecondTasks</a> (bool &amp;bOffPeak, int16_t &amp;iTemperature_x100)</td></tr>
 <tr class="memdesc:ga143b5ab1cc611c04c761240ce5687fdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles tasks that need to be executed every second.  <br /></td></tr>
 <tr class="separator:ga143b5ab1cc611c04c761240ce5687fdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,12 +117,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gafe461d27b9c48d5921c00d521181f12f" id="r_gafe461d27b9c48d5921c00d521181f12f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gafe461d27b9c48d5921c00d521181f12f">loop</a> ()</td></tr>
 <tr class="memdesc:gafe461d27b9c48d5921c00d521181f12f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main processor loop.  <br /></td></tr>
 <tr class="separator:gafe461d27b9c48d5921c00d521181f12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab4774b22349c58cef345ad396aecc868" id="r_gab4774b22349c58cef345ad396aecc868"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gab4774b22349c58cef345ad396aecc868">proceedLoadPrioritiesAndOverriding</a> (const int16_t &amp;currentTemperature_x100)</td></tr>
-<tr class="memdesc:gab4774b22349c58cef345ad396aecc868"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles load priorities and overriding logic.  <br /></td></tr>
-<tr class="separator:gab4774b22349c58cef345ad396aecc868"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" id="r_ga2b2ee7cd0a5810e272e1ffb0b5daf0ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae">proceedLoadPrioritiesAndOverridingDualTariff</a> (const int16_t &amp;currentTemperature_x100)</td></tr>
-<tr class="memdesc:ga2b2ee7cd0a5810e272e1ffb0b5daf0ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles load priorities and overriding during dual tariff periods.  <br /></td></tr>
-<tr class="separator:ga2b2ee7cd0a5810e272e1ffb0b5daf0ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6cceee9dcc5819acbee76f71dad833f7" id="r_ga6cceee9dcc5819acbee76f71dad833f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga6cceee9dcc5819acbee76f71dad833f7">proceedDualTariffLogic</a> ()</td></tr>
+<tr class="memdesc:ga6cceee9dcc5819acbee76f71dad833f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles dual tariff state transitions and priority rotation during off-peak periods.  <br /></td></tr>
+<tr class="separator:ga6cceee9dcc5819acbee76f71dad833f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7018b73a8d20b89d8c80be9b8f9fa09f" id="r_ga7018b73a8d20b89d8c80be9b8f9fa09f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga7018b73a8d20b89d8c80be9b8f9fa09f">proceedLoadPriorities</a> (const int16_t &amp;currentTemperature_x100)</td></tr>
+<tr class="memdesc:ga7018b73a8d20b89d8c80be9b8f9fa09f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles load priority rotation and dual tariff state transitions.  <br /></td></tr>
+<tr class="separator:ga7018b73a8d20b89d8c80be9b8f9fa09f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9b9428fd01019319970f27b88bb1cf33" id="r_ga9b9428fd01019319970f27b88bb1cf33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga9b9428fd01019319970f27b88bb1cf33">proceedRotation</a> ()</td></tr>
 <tr class="memdesc:ga9b9428fd01019319970f27b88bb1cf33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceeds with load priority rotation.  <br /></td></tr>
 <tr class="separator:ga9b9428fd01019319970f27b88bb1cf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,7 +164,7 @@ Functions</h2></td></tr>
 <li>Debug messages are printed when the diversion state changes (if debugging is enabled). </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00107">107</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00169">169</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -192,49 +192,62 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ga5157f7f79cf8c75c2d7b41d8ed47a7ef" name="ga5157f7f79cf8c75c2d7b41d8ed47a7ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga5157f7f79cf8c75c2d7b41d8ed47a7ef">&#9670;&#160;</a></span>forceFullPower()</h2>
+<a id="ga749bd64aa252249f5d9c98668ef3200e" name="ga749bd64aa252249f5d9c98668ef3200e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga749bd64aa252249f5d9c98668ef3200e">&#9670;&#160;</a></span>getOverrideBitmask()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool forceFullPower </td>
+          <td class="memname">uint16_t getOverrideBitmask </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">const int16_t</td>          <td class="paramname"><span class="paramname"><em>currentTemperature_x100</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Forces all loads to full power if the override pin is active. </p>
-<p>This function checks the state of the override pin and forces all loads to full power if the pin is active. It also logs changes in the override state for debugging purposes if enabled.</p>
+<p>Gets the combined bitmask of all active override pins and dual tariff forcing. </p>
+<p>This function calculates the complete override bitmask by combining external override pins with dual tariff automatic forcing. The bitwise OR operation automatically handles precedence where external overrides take priority over dual tariff forcing for the same pins.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">currentTemperature_x100</td><td>Current temperature multiplied by 100 (used for dual tariff logic). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Combined bitmask of all active overrides (external pins + dual tariff), 0 if no overrides are active.</dd></dl>
 <ul>
-<li>If the override pin is LOW, all loads are forced to full power.</li>
-<li>If the override pin is HIGH, normal load behavior is restored.</li>
-<li>Debug messages are printed when the override state changes (if debugging is enabled).</li>
+<li>First checks all configured external override pins and sets corresponding bits.</li>
+<li>Then applies dual tariff forcing using bitwise OR operation.</li>
+<li>OR operation ensures external overrides take precedence (1|x = 1).</li>
+<li>For pins without external overrides (0|x = x), dual tariff forcing is applied.</li>
+<li>Function is called atomically to prevent race conditions with ISR. </li>
 </ul>
-<dl class="section return"><dt>Returns</dt><dd>true if loads are forced to full power, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00064">64</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00125">125</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__GeneralProcessing_ga5157f7f79cf8c75c2d7b41d8ed47a7ef_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga5157f7f79cf8c75c2d7b41d8ed47a7ef_cgraph" alt=""/></div>
-<map name="agroup__GeneralProcessing_ga5157f7f79cf8c75c2d7b41d8ed47a7ef_cgraph" id="agroup__GeneralProcessing_ga5157f7f79cf8c75c2d7b41d8ed47a7ef_cgraph">
-<area shape="rect" title="Forces all loads to full power if the override pin is active." alt="" coords="5,5,124,31"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="172,5,269,31"/>
-<area shape="poly" title=" " alt="" coords="124,15,158,15,158,21,124,21"/>
-<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="317,5,392,31"/>
-<area shape="poly" title=" " alt="" coords="269,15,303,15,303,21,269,21"/>
+<div class="center"><img src="group__GeneralProcessing_ga749bd64aa252249f5d9c98668ef3200e_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga749bd64aa252249f5d9c98668ef3200e_cgraph" alt=""/></div>
+<map name="agroup__GeneralProcessing_ga749bd64aa252249f5d9c98668ef3200e_cgraph" id="agroup__GeneralProcessing_ga749bd64aa252249f5d9c98668ef3200e_cgraph">
+<area shape="rect" title="Gets the combined bitmask of all active override pins and dual tariff forcing." alt="" coords="5,31,159,56"/>
+<area shape="rect" href="group__DualTariff.html#ga09f688031c566f173bdfe18e65b0770a" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="207,5,413,31"/>
+<area shape="poly" title=" " alt="" coords="159,32,193,28,193,34,159,37"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="461,55,559,80"/>
+<area shape="poly" title=" " alt="" coords="159,45,447,61,447,67,159,50"/>
+<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="477,5,543,31"/>
+<area shape="poly" title=" " alt="" coords="413,15,463,15,463,21,413,21"/>
+<area shape="poly" title=" " alt="" coords="363,28,449,50,447,55,362,33"/>
+<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="607,55,681,80"/>
+<area shape="poly" title=" " alt="" coords="559,65,593,65,593,70,559,70"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__GeneralProcessing_ga5157f7f79cf8c75c2d7b41d8ed47a7ef_icgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga5157f7f79cf8c75c2d7b41d8ed47a7ef_icgraph" alt=""/></div>
-<map name="agroup__GeneralProcessing_ga5157f7f79cf8c75c2d7b41d8ed47a7ef_icgraph" id="agroup__GeneralProcessing_ga5157f7f79cf8c75c2d7b41d8ed47a7ef_icgraph">
-<area shape="rect" title="Forces all loads to full power if the override pin is active." alt="" coords="323,5,441,31"/>
+<div class="center"><img src="group__GeneralProcessing_ga749bd64aa252249f5d9c98668ef3200e_icgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga749bd64aa252249f5d9c98668ef3200e_icgraph" alt=""/></div>
+<map name="agroup__GeneralProcessing_ga749bd64aa252249f5d9c98668ef3200e_icgraph" id="agroup__GeneralProcessing_ga749bd64aa252249f5d9c98668ef3200e_icgraph">
+<area shape="rect" title="Gets the combined bitmask of all active override pins and dual tariff forcing." alt="" coords="323,5,476,31"/>
 <area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,5,275,31"/>
 <area shape="poly" title=" " alt="" coords="309,21,275,21,275,15,309,15"/>
 <area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
@@ -280,37 +293,41 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00408">408</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00448">448</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__GeneralProcessing_ga143b5ab1cc611c04c761240ce5687fdd_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga143b5ab1cc611c04c761240ce5687fdd_cgraph" alt=""/></div>
 <map name="agroup__GeneralProcessing_ga143b5ab1cc611c04c761240ce5687fdd_cgraph" id="agroup__GeneralProcessing_ga143b5ab1cc611c04c761240ce5687fdd_cgraph">
-<area shape="rect" title="Handles tasks that need to be executed every second." alt="" coords="5,129,176,155"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="475,5,633,31"/>
-<area shape="poly" title=" " alt="" coords="106,127,156,93,189,74,223,59,283,42,346,30,461,18,461,23,347,35,285,47,225,65,191,79,159,97,109,131"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga5157f7f79cf8c75c2d7b41d8ed47a7ef" title="Forces all loads to full power if the override pin is active." alt="" coords="259,75,377,100"/>
-<area shape="poly" title=" " alt="" coords="143,127,251,101,252,106,145,132"/>
-<area shape="rect" href="group__GeneralProcessing.html#gab4774b22349c58cef345ad396aecc868" title="Handles load priorities and overriding logic." alt="" coords="224,150,412,190"/>
-<area shape="poly" title=" " alt="" coords="177,150,211,154,210,159,176,155"/>
-<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="277,240,359,265"/>
-<area shape="poly" title=" " alt="" coords="119,152,280,232,278,236,117,157"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="712,81,809,107"/>
-<area shape="poly" title=" " alt="" coords="594,28,649,47,716,74,715,79,647,53,592,33"/>
-<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="901,81,976,107"/>
-<area shape="poly" title=" " alt="" coords="809,91,888,91,888,97,809,97"/>
-<area shape="poly" title=" " alt="" coords="378,86,698,90,698,96,378,91"/>
-<area shape="poly" title=" " alt="" coords="412,150,460,142,698,102,699,107,460,147,413,156"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="460,157,648,197"/>
-<area shape="poly" title=" " alt="" coords="412,170,446,171,446,176,412,175"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="696,192,825,217"/>
-<area shape="poly" title=" " alt="" coords="379,187,460,206,513,211,554,211,648,206,682,205,682,210,648,211,554,216,512,216,460,211,378,193"/>
-<area shape="poly" title=" " alt="" coords="604,154,714,110,716,115,606,159"/>
-<area shape="poly" title=" " alt="" coords="649,187,683,191,682,197,648,192"/>
-<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="873,192,1004,217"/>
-<area shape="poly" title=" " alt="" coords="826,202,860,202,860,207,826,207"/>
-<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="521,272,587,297"/>
-<area shape="poly" title=" " alt="" coords="360,256,507,276,507,281,359,261"/>
+<area shape="rect" title="Handles tasks that need to be executed every second." alt="" coords="5,107,176,132"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="459,132,617,157"/>
+<area shape="poly" title=" " alt="" coords="176,121,445,137,445,142,176,127"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing." alt="" coords="229,81,382,107"/>
+<area shape="poly" title=" " alt="" coords="176,107,215,102,216,107,177,112"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga7018b73a8d20b89d8c80be9b8f9fa09f" title="Handles load priority rotation and dual tariff state transitions." alt="" coords="224,208,387,233"/>
+<area shape="poly" title=" " alt="" coords="120,130,266,200,264,204,118,135"/>
+<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="264,7,347,32"/>
+<area shape="poly" title=" " alt="" coords="118,104,263,36,266,40,120,109"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="705,132,803,157"/>
+<area shape="poly" title=" " alt="" coords="618,142,691,142,691,147,618,147"/>
+<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="895,132,969,157"/>
+<area shape="poly" title=" " alt="" coords="803,142,881,142,881,147,803,147"/>
+<area shape="poly" title=" " alt="" coords="382,94,504,101,642,117,692,127,691,132,641,122,504,107,382,99"/>
+<area shape="rect" href="group__DualTariff.html#ga09f688031c566f173bdfe18e65b0770a" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="435,31,641,56"/>
+<area shape="poly" title=" " alt="" coords="364,79,465,56,467,62,365,84"/>
+<area shape="poly" title=" " alt="" coords="589,54,642,73,687,97,726,122,723,126,684,101,640,78,588,59"/>
+<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="721,5,787,31"/>
+<area shape="poly" title=" " alt="" coords="641,29,707,21,708,26,642,34"/>
+<area shape="poly" title=" " alt="" coords="386,207,641,166,691,156,692,161,642,171,387,212"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="453,233,623,259"/>
+<area shape="poly" title=" " alt="" coords="387,227,439,233,438,238,387,232"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="689,259,819,284"/>
+<area shape="poly" title=" " alt="" coords="332,231,379,252,435,269,498,277,561,280,676,277,676,282,561,286,497,282,434,274,377,257,330,236"/>
+<area shape="poly" title=" " alt="" coords="588,231,640,212,684,188,723,163,726,167,687,192,642,216,589,236"/>
+<area shape="poly" title=" " alt="" coords="624,253,675,259,675,265,623,259"/>
+<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="867,259,997,284"/>
+<area shape="poly" title=" " alt="" coords="819,269,853,269,853,274,819,274"/>
+<area shape="poly" title=" " alt="" coords="347,16,435,15,707,15,707,21,435,21,347,21"/>
 </map>
 </div>
 <div class="dynheader">
@@ -356,26 +373,26 @@ Here is the caller graph for this function:</div>
 <li>This function is only active when debugging is enabled (<code>ENABLE_DEBUG</code>). </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00464">464</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00484">484</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__GeneralProcessing_gae473b1c0d80fe056d1fab9bdee38aca1_icgraph.png" border="0" usemap="#agroup__GeneralProcessing_gae473b1c0d80fe056d1fab9bdee38aca1_icgraph" alt=""/></div>
 <map name="agroup__GeneralProcessing_gae473b1c0d80fe056d1fab9bdee38aca1_icgraph" id="agroup__GeneralProcessing_gae473b1c0d80fe056d1fab9bdee38aca1_icgraph">
-<area shape="rect" title="Prints the load priorities to the Serial output." alt="" coords="972,37,1103,62"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="795,11,924,37"/>
-<area shape="poly" title=" " alt="" coords="958,41,924,36,925,31,959,35"/>
-<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="830,61,889,86"/>
-<area shape="poly" title=" " alt="" coords="959,63,889,72,888,67,958,57"/>
-<area shape="rect" href="group__GeneralProcessing.html#gab4774b22349c58cef345ad396aecc868" title="Handles load priorities and overriding logic." alt="" coords="323,5,511,45"/>
-<area shape="poly" title=" " alt="" coords="781,25,747,24,559,24,511,25,511,20,559,19,747,19,781,19"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="559,33,747,73"/>
-<area shape="poly" title=" " alt="" coords="782,38,747,43,747,37,781,32"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,13,275,38"/>
-<area shape="poly" title=" " alt="" coords="309,28,275,28,275,23,309,23"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,13,56,38"/>
-<area shape="poly" title=" " alt="" coords="90,28,57,28,57,23,90,23"/>
-<area shape="poly" title=" " alt="" coords="545,43,511,39,511,34,545,38"/>
+<area shape="rect" title="Prints the load priorities to the Serial output." alt="" coords="929,56,1060,81"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="752,31,881,56"/>
+<area shape="poly" title=" " alt="" coords="915,60,881,55,882,50,916,55"/>
+<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="787,80,846,105"/>
+<area shape="poly" title=" " alt="" coords="916,82,846,91,846,86,915,77"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="533,5,704,31"/>
+<area shape="poly" title=" " alt="" coords="738,36,704,32,704,26,739,31"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga7018b73a8d20b89d8c80be9b8f9fa09f" title="Handles load priority rotation and dual tariff state transitions." alt="" coords="323,31,485,56"/>
+<area shape="poly" title=" " alt="" coords="738,46,486,46,486,41,738,41"/>
+<area shape="poly" title=" " alt="" coords="520,32,486,36,485,31,519,27"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,31,275,56"/>
+<area shape="poly" title=" " alt="" coords="309,46,275,46,275,41,309,41"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,31,56,56"/>
+<area shape="poly" title=" " alt="" coords="90,46,57,46,57,41,90,41"/>
 </map>
 </div>
 
@@ -405,192 +422,191 @@ Here is the caller graph for this function:</div>
 <li>Sends telemetry results and updates relay states if relay diversion is enabled. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00444">444</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00492">492</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__GeneralProcessing_gafe461d27b9c48d5921c00d521181f12f_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_gafe461d27b9c48d5921c00d521181f12f_cgraph" alt=""/></div>
 <map name="agroup__GeneralProcessing_gafe461d27b9c48d5921c00d521181f12f_cgraph" id="agroup__GeneralProcessing_gafe461d27b9c48d5921c00d521181f12f_cgraph">
-<area shape="rect" title="Main processor loop." alt="" coords="5,288,56,313"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="125,156,295,181"/>
-<area shape="poly" title=" " alt="" coords="48,285,179,187,182,192,51,290"/>
-<area shape="rect" href="main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title="Processes temperature data from DS18B20 sensors." alt="" coords="117,263,303,288"/>
-<area shape="poly" title=" " alt="" coords="56,295,107,287,107,293,57,300"/>
-<area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="159,312,261,337"/>
-<area shape="poly" title=" " alt="" coords="57,301,146,313,145,319,56,307"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="104,361,316,387"/>
-<area shape="poly" title=" " alt="" coords="49,311,75,329,105,346,129,355,127,360,103,351,72,334,46,316"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="615,5,773,31"/>
-<area shape="poly" title=" " alt="" coords="234,154,292,125,363,95,492,58,610,31,611,36,493,63,365,101,294,130,236,158"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga5157f7f79cf8c75c2d7b41d8ed47a7ef" title="Forces all loads to full power if the override pin is active." alt="" coords="635,55,753,80"/>
-<area shape="poly" title=" " alt="" coords="271,153,620,80,621,85,272,159"/>
-<area shape="rect" href="group__GeneralProcessing.html#gab4774b22349c58cef345ad396aecc868" title="Handles load priorities and overriding logic." alt="" coords="364,149,552,189"/>
-<area shape="poly" title=" " alt="" coords="295,166,350,166,350,171,295,171"/>
-<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="417,213,499,239"/>
-<area shape="poly" title=" " alt="" coords="266,179,404,211,403,216,265,184"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="891,80,989,105"/>
-<area shape="poly" title=" " alt="" coords="748,28,789,39,891,73,889,78,787,45,746,33"/>
-<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="1120,80,1195,105"/>
-<area shape="poly" title=" " alt="" coords="989,90,1106,90,1106,95,989,95"/>
-<area shape="poly" title=" " alt="" coords="754,71,878,84,877,89,753,76"/>
-<area shape="poly" title=" " alt="" coords="552,149,600,141,877,99,878,104,600,146,553,154"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="600,155,788,195"/>
-<area shape="poly" title=" " alt="" coords="552,169,586,170,586,175,552,174"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="875,192,1005,217"/>
-<area shape="poly" title=" " alt="" coords="519,186,600,205,669,211,738,213,861,209,862,214,738,218,669,216,600,210,518,191"/>
-<area shape="poly" title=" " alt="" coords="753,153,887,107,889,112,755,158"/>
-<area shape="poly" title=" " alt="" coords="788,184,862,193,862,198,788,189"/>
-<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="1092,192,1223,217"/>
-<area shape="poly" title=" " alt="" coords="1005,202,1078,202,1078,207,1005,207"/>
-<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="661,271,727,296"/>
-<area shape="poly" title=" " alt="" coords="500,233,648,270,647,275,499,238"/>
-<area shape="rect" href="group__Telemetry.html#ga85be36240113e579b00e944d4dbcd91a" title="Write telemetry data to Serial in JSON format." alt="" coords="406,263,510,288"/>
-<area shape="poly" title=" " alt="" coords="260,312,392,286,393,291,262,317"/>
-<area shape="rect" href="group__Telemetry.html#gae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="390,312,526,337"/>
-<area shape="poly" title=" " alt="" coords="261,322,376,322,376,327,261,327"/>
-<area shape="rect" href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="405,361,511,387"/>
-<area shape="poly" title=" " alt="" coords="262,332,392,358,391,363,260,337"/>
-<area shape="rect" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="383,411,533,436"/>
-<area shape="poly" title=" " alt="" coords="262,327,290,335,317,346,333,359,342,372,351,385,365,397,378,403,375,408,363,402,347,389,338,375,329,363,315,351,288,340,260,333"/>
-<area shape="rect" href="classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="638,411,750,436"/>
-<area shape="poly" title=" " alt="" coords="533,421,624,421,624,426,533,426"/>
-<area shape="rect" href="classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="836,411,1044,436"/>
-<area shape="poly" title=" " alt="" coords="751,421,822,421,822,426,751,426"/>
+<area shape="rect" title="Main processor loop." alt="" coords="5,309,56,335"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="125,183,295,208"/>
+<area shape="poly" title=" " alt="" coords="49,307,178,214,181,218,52,311"/>
+<area shape="rect" href="main_8cpp.html#a90dc0c3192649d64ae885b62e6afa6e4" title="Processes temperature data from DS18B20 sensors." alt="" coords="117,284,303,309"/>
+<area shape="poly" title=" " alt="" coords="56,316,107,309,107,314,57,321"/>
+<area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="159,333,261,359"/>
+<area shape="poly" title=" " alt="" coords="57,323,146,335,145,340,56,328"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="104,383,316,408"/>
+<area shape="poly" title=" " alt="" coords="49,333,74,352,105,369,124,376,123,381,103,374,71,356,45,337"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="599,5,757,31"/>
+<area shape="poly" title=" " alt="" coords="225,180,283,137,322,113,363,92,419,70,477,53,585,29,586,34,478,58,420,75,365,96,325,117,286,141,228,185"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing." alt="" coords="369,107,522,132"/>
+<area shape="poly" title=" " alt="" coords="249,180,391,134,393,139,251,185"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga7018b73a8d20b89d8c80be9b8f9fa09f" title="Handles load priority rotation and dual tariff state transitions." alt="" coords="364,183,527,208"/>
+<area shape="poly" title=" " alt="" coords="296,193,350,193,350,198,296,198"/>
+<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="637,309,719,335"/>
+<area shape="poly" title=" " alt="" coords="272,205,390,233,527,269,630,302,628,307,526,274,389,238,270,211"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="885,107,982,132"/>
+<area shape="poly" title=" " alt="" coords="725,28,782,48,896,98,894,103,780,52,724,33"/>
+<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="1113,107,1188,132"/>
+<area shape="poly" title=" " alt="" coords="982,117,1100,117,1100,122,982,122"/>
+<area shape="poly" title=" " alt="" coords="498,104,574,91,678,85,782,91,871,104,871,109,781,97,678,90,575,97,499,109"/>
+<area shape="rect" href="group__DualTariff.html#ga09f688031c566f173bdfe18e65b0770a" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="575,107,781,132"/>
+<area shape="poly" title=" " alt="" coords="523,117,561,117,561,122,523,122"/>
+<area shape="poly" title=" " alt="" coords="781,117,871,117,871,122,781,122"/>
+<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="900,296,967,321"/>
+<area shape="poly" title=" " alt="" coords="701,130,741,157,783,193,798,211,807,226,816,241,831,256,859,275,888,289,886,294,856,279,828,260,812,244,802,229,793,214,779,197,737,162,698,134"/>
+<area shape="poly" title=" " alt="" coords="526,180,781,141,871,126,872,132,782,146,527,186"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="593,208,763,233"/>
+<area shape="poly" title=" " alt="" coords="527,202,579,207,578,213,527,207"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="869,221,998,247"/>
+<area shape="poly" title=" " alt="" coords="480,206,575,242,648,251,723,252,854,243,855,248,723,258,648,256,574,247,478,211"/>
+<area shape="poly" title=" " alt="" coords="724,205,780,186,894,136,896,140,782,191,725,210"/>
+<area shape="poly" title=" " alt="" coords="764,222,855,227,855,233,763,228"/>
+<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="1085,221,1216,247"/>
+<area shape="poly" title=" " alt="" coords="998,231,1072,231,1072,237,998,237"/>
+<area shape="poly" title=" " alt="" coords="719,317,886,308,886,314,720,323"/>
+<area shape="rect" href="group__Telemetry.html#ga85be36240113e579b00e944d4dbcd91a" title="Write telemetry data to Serial in JSON format." alt="" coords="393,284,497,309"/>
+<area shape="poly" title=" " alt="" coords="260,333,379,308,380,313,261,338"/>
+<area shape="rect" href="group__Telemetry.html#gae46d07fd4694c49e10360b5d79163443" title="Prints data logs to the Serial output in text format." alt="" coords="377,333,513,359"/>
+<area shape="poly" title=" " alt="" coords="261,343,364,343,364,349,261,349"/>
+<area shape="rect" href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="392,383,499,408"/>
+<area shape="poly" title=" " alt="" coords="261,354,379,379,378,384,260,359"/>
+<area shape="rect" href="utils_8h.html#a1907e04bd551745d6acdaaf198bda73a" title="Sends telemetry data using the TeleInfo class." alt="" coords="371,432,520,457"/>
+<area shape="poly" title=" " alt="" coords="262,350,290,357,317,369,333,381,342,394,351,407,365,418,377,424,374,429,363,423,347,410,338,397,329,385,315,374,288,362,260,355"/>
+<area shape="rect" href="classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="622,432,734,457"/>
+<area shape="poly" title=" " alt="" coords="520,442,608,442,608,447,520,447"/>
+<area shape="rect" href="classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="829,432,1037,457"/>
+<area shape="poly" title=" " alt="" coords="734,442,815,442,815,447,734,447"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="gab4774b22349c58cef345ad396aecc868" name="gab4774b22349c58cef345ad396aecc868"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab4774b22349c58cef345ad396aecc868">&#9670;&#160;</a></span>proceedLoadPrioritiesAndOverriding()</h2>
+<a id="ga6cceee9dcc5819acbee76f71dad833f7" name="ga6cceee9dcc5819acbee76f71dad833f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6cceee9dcc5819acbee76f71dad833f7">&#9670;&#160;</a></span>proceedDualTariffLogic()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool proceedLoadPrioritiesAndOverriding </td>
+          <td class="memname">bool proceedDualTariffLogic </td>
           <td>(</td>
-          <td class="paramtype">const int16_t &amp;</td>          <td class="paramname"><span class="paramname"><em>currentTemperature_x100</em></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Handles load priorities and overriding logic. </p>
-<p>This function manages load priorities and overriding behavior based on the system configuration. It supports dual tariff handling, priority rotation, and manual override functionality.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">currentTemperature_x100</td><td>Current temperature multiplied by 100 (default to 0 if deactivated). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the system is in a high tariff (on-peak) period. </dd>
-<dd>
-false if the system is in a low tariff (off-peak) period.</dd></dl>
-<ul>
-<li>If dual tariff is enabled, it delegates to <code>proceedLoadPrioritiesAndOverridingDualTariff</code>.</li>
-<li>If EmonESP control is enabled, it handles load rotation based on the rotation pin state.</li>
-<li>If priority rotation is set to auto, it rotates priorities after a defined period of inactivity.</li>
-<li>If the override pin is present, it forces all loads to full power when activated. </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00236">236</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__GeneralProcessing_gab4774b22349c58cef345ad396aecc868_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_gab4774b22349c58cef345ad396aecc868_cgraph" alt=""/></div>
-<map name="agroup__GeneralProcessing_gab4774b22349c58cef345ad396aecc868_cgraph" id="agroup__GeneralProcessing_gab4774b22349c58cef345ad396aecc868_cgraph">
-<area shape="rect" title="Handles load priorities and overriding logic." alt="" coords="5,25,193,65"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="493,5,591,31"/>
-<area shape="poly" title=" " alt="" coords="174,22,241,10,294,6,335,6,429,10,480,12,480,17,429,15,335,11,294,11,242,15,175,27"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="241,25,429,65"/>
-<area shape="poly" title=" " alt="" coords="194,42,227,42,227,47,194,47"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="477,59,607,84"/>
-<area shape="poly" title=" " alt="" coords="175,62,242,74,294,78,335,78,429,74,464,73,464,78,429,79,335,84,294,84,241,79,174,67"/>
-<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="683,5,757,31"/>
-<area shape="poly" title=" " alt="" coords="591,15,669,15,669,21,591,21"/>
-<area shape="poly" title=" " alt="" coords="429,30,479,23,480,29,430,35"/>
-<area shape="poly" title=" " alt="" coords="430,54,464,59,463,64,429,59"/>
-<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="655,59,785,84"/>
-<area shape="poly" title=" " alt="" coords="607,69,641,69,641,74,607,74"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__GeneralProcessing_gab4774b22349c58cef345ad396aecc868_icgraph.png" border="0" usemap="#agroup__GeneralProcessing_gab4774b22349c58cef345ad396aecc868_icgraph" alt=""/></div>
-<map name="agroup__GeneralProcessing_gab4774b22349c58cef345ad396aecc868_icgraph" id="agroup__GeneralProcessing_gab4774b22349c58cef345ad396aecc868_icgraph">
-<area shape="rect" title="Handles load priorities and overriding logic." alt="" coords="323,5,511,45"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,13,275,38"/>
-<area shape="poly" title=" " alt="" coords="309,28,275,28,275,23,309,23"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,13,56,38"/>
-<area shape="poly" title=" " alt="" coords="90,28,57,28,57,23,90,23"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" name="ga2b2ee7cd0a5810e272e1ffb0b5daf0ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae">&#9670;&#160;</a></span>proceedLoadPrioritiesAndOverridingDualTariff()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool proceedLoadPrioritiesAndOverridingDualTariff </td>
-          <td>(</td>
-          <td class="paramtype">const int16_t &amp;</td>          <td class="paramname"><span class="paramname"><em>currentTemperature_x100</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Handles load priorities and overriding during dual tariff periods. </p>
-<p>This function manages load priorities and overriding logic based on the dual tariff state and the current temperature. It ensures proper load behavior during off-peak and on-peak periods.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">currentTemperature_x100</td><td>Current temperature multiplied by 100 (default to 0 if deactivated). </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Handles dual tariff state transitions and priority rotation during off-peak periods. </p>
+<p>This function manages dual tariff state detection and triggers priority rotation when transitioning to off-peak periods. The actual load forcing is handled in <a class="el" href="#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing.">getOverrideBitmask()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>true if the system is in a high tariff (on-peak) period. </dd>
 <dd>
 false if the system is in a low tariff (off-peak) period.</dd></dl>
 <ul>
 <li>Detects transitions between off-peak and on-peak periods using the dual tariff pin.</li>
-<li>During off-peak periods, manages load priorities and overrides based on elapsed time and temperature.</li>
-<li>Logs transitions between tariff periods for debugging purposes. </li>
+<li>Triggers automatic priority rotation when entering off-peak period.</li>
+<li>Logs transitions between tariff periods for debugging purposes.</li>
+<li>Load forcing logic (including temperature conditions) is handled atomically in <a class="el" href="#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing.">getOverrideBitmask()</a>. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00171">171</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00233">233</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__GeneralProcessing_ga2b2ee7cd0a5810e272e1ffb0b5daf0ae_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga2b2ee7cd0a5810e272e1ffb0b5daf0ae_cgraph" alt=""/></div>
-<map name="agroup__GeneralProcessing_ga2b2ee7cd0a5810e272e1ffb0b5daf0ae_cgraph" id="agroup__GeneralProcessing_ga2b2ee7cd0a5810e272e1ffb0b5daf0ae_cgraph">
-<area shape="rect" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="5,23,193,63"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="257,5,355,31"/>
-<area shape="poly" title=" " alt="" coords="193,29,243,23,244,28,194,34"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="241,55,371,80"/>
-<area shape="poly" title=" " alt="" coords="194,52,228,56,227,61,193,57"/>
-<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="447,5,521,31"/>
-<area shape="poly" title=" " alt="" coords="355,15,433,15,433,21,355,21"/>
-<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="419,55,549,80"/>
-<area shape="poly" title=" " alt="" coords="371,65,405,65,405,70,371,70"/>
+<div class="center"><img src="group__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_cgraph" alt=""/></div>
+<map name="agroup__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_cgraph" id="agroup__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_cgraph">
+<area shape="rect" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="5,31,176,56"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="240,5,337,31"/>
+<area shape="poly" title=" " alt="" coords="176,30,226,23,227,29,177,35"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="224,55,353,80"/>
+<area shape="poly" title=" " alt="" coords="177,51,211,55,210,61,176,56"/>
+<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="429,5,504,31"/>
+<area shape="poly" title=" " alt="" coords="337,15,416,15,416,21,337,21"/>
+<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="401,55,532,80"/>
+<area shape="poly" title=" " alt="" coords="354,65,388,65,388,70,354,70"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__GeneralProcessing_ga2b2ee7cd0a5810e272e1ffb0b5daf0ae_icgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga2b2ee7cd0a5810e272e1ffb0b5daf0ae_icgraph" alt=""/></div>
-<map name="agroup__GeneralProcessing_ga2b2ee7cd0a5810e272e1ffb0b5daf0ae_icgraph" id="agroup__GeneralProcessing_ga2b2ee7cd0a5810e272e1ffb0b5daf0ae_icgraph">
-<area shape="rect" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="559,5,747,45"/>
-<area shape="rect" href="group__GeneralProcessing.html#gab4774b22349c58cef345ad396aecc868" title="Handles load priorities and overriding logic." alt="" coords="323,5,511,45"/>
-<area shape="poly" title=" " alt="" coords="545,28,511,28,511,23,545,23"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,13,275,38"/>
-<area shape="poly" title=" " alt="" coords="309,28,275,28,275,23,309,23"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,13,56,38"/>
-<area shape="poly" title=" " alt="" coords="90,28,57,28,57,23,90,23"/>
+<div class="center"><img src="group__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_icgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_icgraph" alt=""/></div>
+<map name="agroup__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_icgraph" id="agroup__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_icgraph">
+<area shape="rect" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="533,5,704,31"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga7018b73a8d20b89d8c80be9b8f9fa09f" title="Handles load priority rotation and dual tariff state transitions." alt="" coords="323,5,485,31"/>
+<area shape="poly" title=" " alt="" coords="519,21,486,21,486,15,519,15"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,5,275,31"/>
+<area shape="poly" title=" " alt="" coords="309,21,275,21,275,15,309,15"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
+<area shape="poly" title=" " alt="" coords="90,21,57,21,57,15,90,15"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ga7018b73a8d20b89d8c80be9b8f9fa09f" name="ga7018b73a8d20b89d8c80be9b8f9fa09f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7018b73a8d20b89d8c80be9b8f9fa09f">&#9670;&#160;</a></span>proceedLoadPriorities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool proceedLoadPriorities </td>
+          <td>(</td>
+          <td class="paramtype">const int16_t &amp;</td>          <td class="paramname"><span class="paramname"><em>currentTemperature_x100</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles load priority rotation and dual tariff state transitions. </p>
+<p>This function manages load priority rotation behavior and dual tariff state detection based on the system configuration. It supports priority rotation via pin control, EmonESP control, or automatic rotation. Override logic is handled in <a class="el" href="#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing.">getOverrideBitmask()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">currentTemperature_x100</td><td>Current temperature multiplied by 100 (default to 0 if deactivated). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the system is in a high tariff (on-peak) period (only for dual tariff mode). </dd>
+<dd>
+false if the system is in a low tariff (off-peak) period or not in dual tariff mode.</dd></dl>
+<ul>
+<li>If dual tariff is enabled, it delegates to <code>proceedDualTariffLogic</code> for state transitions.</li>
+<li>If EmonESP control is enabled, it handles load rotation based on the rotation pin state.</li>
+<li>If priority rotation is set to auto, it rotates priorities after a defined period of inactivity.</li>
+<li>Override logic (external pins + dual tariff forcing) is handled atomically in <a class="el" href="#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing.">getOverrideBitmask()</a>. </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00281">281</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__GeneralProcessing_ga7018b73a8d20b89d8c80be9b8f9fa09f_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga7018b73a8d20b89d8c80be9b8f9fa09f_cgraph" alt=""/></div>
+<map name="agroup__GeneralProcessing_ga7018b73a8d20b89d8c80be9b8f9fa09f_cgraph" id="agroup__GeneralProcessing_ga7018b73a8d20b89d8c80be9b8f9fa09f_cgraph">
+<area shape="rect" title="Handles load priority rotation and dual tariff state transitions." alt="" coords="5,29,168,55"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="451,5,548,31"/>
+<area shape="poly" title=" " alt="" coords="140,27,216,14,301,11,387,14,437,14,437,20,387,19,301,16,216,19,140,32"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="216,29,387,55"/>
+<area shape="poly" title=" " alt="" coords="168,39,202,39,202,45,168,45"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="435,55,564,80"/>
+<area shape="poly" title=" " alt="" coords="140,52,216,65,323,70,421,69,421,74,323,75,216,70,140,57"/>
+<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="640,5,715,31"/>
+<area shape="poly" title=" " alt="" coords="548,15,626,15,626,21,548,21"/>
+<area shape="poly" title=" " alt="" coords="387,29,437,23,437,28,388,34"/>
+<area shape="poly" title=" " alt="" coords="388,50,422,55,421,60,387,56"/>
+<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="612,55,743,80"/>
+<area shape="poly" title=" " alt="" coords="564,65,598,65,598,70,564,70"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__GeneralProcessing_ga7018b73a8d20b89d8c80be9b8f9fa09f_icgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga7018b73a8d20b89d8c80be9b8f9fa09f_icgraph" alt=""/></div>
+<map name="agroup__GeneralProcessing_ga7018b73a8d20b89d8c80be9b8f9fa09f_icgraph" id="agroup__GeneralProcessing_ga7018b73a8d20b89d8c80be9b8f9fa09f_icgraph">
+<area shape="rect" title="Handles load priority rotation and dual tariff state transitions." alt="" coords="323,5,485,31"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,5,275,31"/>
+<area shape="poly" title=" " alt="" coords="309,21,275,21,275,15,309,15"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
+<area shape="poly" title=" " alt="" coords="90,21,57,21,57,15,90,15"/>
 </map>
 </div>
 
@@ -619,7 +635,7 @@ Here is the caller graph for this function:</div>
 <li>Logs the updated load priorities after the rotation. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00140">140</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00202">202</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -635,16 +651,16 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__GeneralProcessing_ga9b9428fd01019319970f27b88bb1cf33_icgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga9b9428fd01019319970f27b88bb1cf33_icgraph" alt=""/></div>
 <map name="agroup__GeneralProcessing_ga9b9428fd01019319970f27b88bb1cf33_icgraph" id="agroup__GeneralProcessing_ga9b9428fd01019319970f27b88bb1cf33_icgraph">
-<area shape="rect" title="Proceeds with load priority rotation." alt="" coords="795,13,924,38"/>
-<area shape="rect" href="group__GeneralProcessing.html#gab4774b22349c58cef345ad396aecc868" title="Handles load priorities and overriding logic." alt="" coords="323,5,511,45"/>
-<area shape="poly" title=" " alt="" coords="781,25,747,24,559,24,511,25,511,20,559,19,747,19,781,20"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="559,33,747,73"/>
-<area shape="poly" title=" " alt="" coords="782,39,747,43,747,38,781,33"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,13,275,38"/>
-<area shape="poly" title=" " alt="" coords="309,28,275,28,275,23,309,23"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,13,56,38"/>
-<area shape="poly" title=" " alt="" coords="90,28,57,28,57,23,90,23"/>
-<area shape="poly" title=" " alt="" coords="545,43,511,39,511,34,545,38"/>
+<area shape="rect" title="Proceeds with load priority rotation." alt="" coords="752,31,881,56"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="533,5,704,31"/>
+<area shape="poly" title=" " alt="" coords="738,36,704,32,704,26,739,31"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga7018b73a8d20b89d8c80be9b8f9fa09f" title="Handles load priority rotation and dual tariff state transitions." alt="" coords="323,31,485,56"/>
+<area shape="poly" title=" " alt="" coords="738,46,486,46,486,41,738,41"/>
+<area shape="poly" title=" " alt="" coords="520,32,486,36,485,31,519,27"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,31,275,56"/>
+<area shape="poly" title=" " alt="" coords="309,46,275,46,275,41,309,41"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,31,56,56"/>
+<area shape="poly" title=" " alt="" coords="90,46,57,46,57,41,90,41"/>
 </map>
 </div>
 
@@ -687,7 +703,7 @@ Here is the caller graph for this function:</div>
 <li>Skips the first datalogging event during startup to avoid incomplete data. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00423">423</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00443">443</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -700,7 +716,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="106,83,147,77,148,82,107,88"/>
 <area shape="rect" href="utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="176,104,283,129"/>
 <area shape="poly" title=" " alt="" coords="107,97,163,105,162,110,106,102"/>
-<area shape="rect" href="utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="155,153,304,179"/>
+<area shape="rect" href="utils_8h.html#a1907e04bd551745d6acdaaf198bda73a" title="Sends telemetry data using the TeleInfo class." alt="" coords="155,153,304,179"/>
 <area shape="poly" title=" " alt="" coords="82,103,156,138,176,146,174,151,154,143,80,108"/>
 <area shape="rect" href="classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="352,153,464,179"/>
 <area shape="poly" title=" " alt="" coords="304,163,338,163,338,169,304,169"/>
@@ -744,7 +760,7 @@ Here is the caller graph for this function:</div>
 <li>Updates the total power by summing the power of all phases. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00334">334</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00372">372</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

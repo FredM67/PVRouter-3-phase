@@ -1,0 +1,9 @@
+<map id="getDualTariffForcingBitmask" name="getDualTariffForcingBitmask">
+<area shape="rect" id="Node000001" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="524,5,731,31"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing." alt="" coords="323,5,476,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="510,21,476,21,476,15,510,15"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,5,275,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="309,21,275,21,275,15,309,15"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="90,21,57,21,57,15,90,15"/>
+</map>

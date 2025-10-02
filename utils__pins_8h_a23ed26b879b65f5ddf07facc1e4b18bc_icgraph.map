@@ -1,41 +1,53 @@
 <map id="bit_set" name="bit_set">
-<area shape="rect" id="Node000001" title="Set the specified bit to 1." alt="" coords="745,155,812,180"/>
-<area shape="rect" id="Node000002" href="$validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="537,5,697,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="765,143,739,93,719,66,696,44,676,33,679,28,699,40,723,63,743,90,770,141"/>
-<area shape="rect" id="Node000003" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="570,55,665,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="756,146,729,119,696,94,664,80,666,75,699,89,733,114,760,142"/>
-<area shape="rect" id="Node000004" href="$group__Initialization.html#ga8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="566,104,669,129"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="731,155,658,132,659,127,733,150"/>
-<area shape="rect" id="Node000005" href="$group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="326,155,474,180"/>
-<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="732,170,474,170,474,165,732,165"/>
-<area shape="rect" id="Node000007" href="$group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="560,205,675,231"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="733,184,659,208,658,203,731,179"/>
-<area shape="rect" id="Node000008" href="$utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="576,255,659,280"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="759,193,732,219,699,244,660,261,658,256,696,240,729,215,756,189"/>
-<area shape="rect" id="Node000015" href="$utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="576,368,659,393"/>
-<area shape="poly" id="edge17_Node000001_Node000015" title=" " alt="" coords="765,193,736,240,699,293,633,370,629,366,695,290,732,237,761,190"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="553,134,456,157,454,152,552,129"/>
-<area shape="rect" id="Node000006" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="154,155,213,180"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="312,170,213,170,213,165,312,165"/>
-<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="548,205,455,183,456,177,549,200"/>
-<area shape="rect" id="Node000009" href="$utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7" title="Set the Pin state for the specified pin." alt="" coords="352,204,448,229"/>
-<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="562,257,448,230,449,225,563,252"/>
-<area shape="rect" id="Node000012" href="$embedded_2test__utils__pins_2test__main_8cpp.html#a149130da05b40aff690713378ab38eac" title=" " alt="" coords="126,253,241,279"/>
-<area shape="poly" id="edge13_Node000008_Node000012" title=" " alt="" coords="562,270,241,269,241,264,562,265"/>
-<area shape="rect" id="Node000013" href="$classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="311,308,489,333"/>
-<area shape="poly" id="edge15_Node000008_Node000013" title=" " alt="" coords="563,283,453,311,452,305,562,278"/>
-<area shape="rect" id="Node000010" href="$embedded_2test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="119,204,247,229"/>
-<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="338,219,247,219,247,214,338,214"/>
-<area shape="rect" id="Node000011" href="$embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,253,56,279"/>
-<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="127,236,105,243,57,260,56,255,103,238,125,231"/>
-<area shape="poly" id="edge14_Node000012_Node000011" title=" " alt="" coords="112,269,56,269,56,263,112,263"/>
-<area shape="rect" id="Node000014" href="$classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="104,303,263,343"/>
-<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="297,325,263,325,263,320,297,319"/>
-<area shape="rect" id="Node000016" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="315,368,485,393"/>
-<area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="562,383,486,383,486,378,562,378"/>
-<area shape="rect" id="Node000018" href="$embedded_2test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8" title=" " alt="" coords="343,417,457,443"/>
-<area shape="poly" id="edge20_Node000015_Node000018" title=" " alt="" coords="563,396,457,420,456,415,562,390"/>
-<area shape="rect" id="Node000017" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="158,368,209,393"/>
-<area shape="poly" id="edge19_Node000016_Node000017" title=" " alt="" coords="301,383,209,383,209,378,301,378"/>
-<area shape="poly" id="edge21_Node000018_Node000011" title=" " alt="" coords="329,445,276,449,217,446,157,434,129,423,102,408,73,379,52,343,39,307,32,279,37,278,44,306,57,341,77,376,106,404,131,418,159,429,218,441,276,443,329,440"/>
+<area shape="rect" id="Node000001" title="Set the specified bit to 1." alt="" coords="813,228,880,253"/>
+<area shape="rect" id="Node000002" href="$utils__override_8h.html#aad6fca84dc7d919f163fbac33055f610" title="Returns a bitmask representing all load pins." alt="" coords="614,5,710,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="840,215,833,176,819,130,796,83,781,62,764,44,738,30,710,22,711,17,740,25,767,40,786,59,801,81,824,128,838,175,845,214"/>
+<area shape="rect" id="Node000004" href="$utils__override_8h.html#a96133cb9774beb9fe8c665849fb35fd1" title="Returns a bitmask representing all relay pins." alt="" coords="611,55,713,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="836,216,811,153,791,121,764,93,739,80,712,73,714,68,741,75,767,89,795,117,816,151,841,214"/>
+<area shape="rect" id="Node000005" href="$validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="582,104,742,129"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="830,217,803,178,784,159,764,143,741,132,743,127,767,138,788,155,807,175,834,214"/>
+<area shape="rect" id="Node000006" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="615,153,709,179"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="816,222,764,192,709,176,710,171,766,188,819,218"/>
+<area shape="rect" id="Node000007" href="$group__DualTariff.html#ga09f688031c566f173bdfe18e65b0770a" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="559,203,765,228"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="799,237,754,231,755,225,800,232"/>
+<area shape="rect" id="Node000011" href="$group__Initialization.html#ga8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="611,405,713,431"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="840,267,814,328,794,360,767,388,742,403,715,413,713,408,740,398,764,384,789,357,810,325,835,265"/>
+<area shape="rect" id="Node000012" href="$group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="343,432,491,457"/>
+<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="835,267,807,307,788,327,767,344,738,360,713,370,666,379,618,383,559,397,512,416,460,434,458,429,510,412,558,391,617,378,666,373,711,365,736,355,764,340,785,323,803,303,830,264"/>
+<area shape="rect" id="Node000014" href="$group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="605,455,719,480"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="845,267,838,307,824,355,801,404,786,426,767,445,745,459,720,466,719,461,743,454,764,441,782,423,797,401,819,353,833,306,840,266"/>
+<area shape="rect" id="Node000015" href="$utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="621,304,703,329"/>
+<area shape="poly" id="edge17_Node000001_Node000015" title=" " alt="" coords="814,263,766,287,705,309,703,303,764,282,812,258"/>
+<area shape="rect" id="Node000022" href="$utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="375,223,458,248"/>
+<area shape="poly" id="edge25_Node000001_Node000022" title=" " alt="" coords="800,243,559,242,458,239,458,234,559,237,800,238"/>
+<area shape="rect" id="Node000003" href="$utils__override_8h.html#afb09a204576614ed4b449d126cb43e89" title="Returns a bitmask representing all loads and all relays." alt="" coords="323,31,511,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="601,27,511,36,511,31,600,22"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="597,64,511,55,511,50,598,58"/>
+<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing." alt="" coords="340,173,493,199"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="545,204,493,198,494,192,545,199"/>
+<area shape="rect" id="Node000009" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,173,275,199"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="326,189,275,189,275,183,326,183"/>
+<area shape="rect" id="Node000010" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,173,56,199"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="90,189,57,189,57,183,90,183"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="597,428,491,439,490,434,597,422"/>
+<area shape="rect" id="Node000013" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="160,436,219,461"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="329,449,219,451,219,445,329,444"/>
+<area shape="poly" id="edge15_Node000014_Node000012" title=" " alt="" coords="591,463,491,454,491,449,591,458"/>
+<area shape="rect" id="Node000016" href="$utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7" title="Set the Pin state for the specified pin." alt="" coords="369,272,465,297"/>
+<area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="606,312,464,293,465,288,607,307"/>
+<area shape="rect" id="Node000019" href="$embedded_2test__utils__pins_2test__main_8cpp.html#a149130da05b40aff690713378ab38eac" title=" " alt="" coords="132,321,247,347"/>
+<area shape="poly" id="edge21_Node000015_Node000019" title=" " alt="" coords="607,321,247,335,247,329,607,316"/>
+<area shape="rect" id="Node000020" href="$classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="327,376,506,401"/>
+<area shape="poly" id="edge23_Node000015_Node000020" title=" " alt="" coords="608,335,462,378,460,373,607,330"/>
+<area shape="rect" id="Node000017" href="$embedded_2test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="125,272,253,297"/>
+<area shape="poly" id="edge19_Node000016_Node000017" title=" " alt="" coords="355,287,253,287,253,282,355,282"/>
+<area shape="rect" id="Node000018" href="$embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,272,56,297"/>
+<area shape="poly" id="edge20_Node000017_Node000018" title=" " alt="" coords="111,287,56,287,56,282,111,282"/>
+<area shape="poly" id="edge22_Node000019_Node000018" title=" " alt="" coords="128,320,103,313,56,296,57,291,105,307,130,315"/>
+<area shape="rect" id="Node000021" href="$classrelayOutput.html#a5f44e026c5f12422859d19b57a4aef54" title="Proceed with the relay." alt="" coords="110,371,269,411"/>
+<area shape="poly" id="edge24_Node000020_Node000021" title=" " alt="" coords="314,393,269,393,269,388,313,387"/>
+<area shape="poly" id="edge26_Node000022_Node000009" title=" " alt="" coords="361,226,248,201,249,196,362,221"/>
+<area shape="rect" id="Node000023" href="$embedded_2test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8" title=" " alt="" coords="132,223,247,248"/>
+<area shape="poly" id="edge27_Node000022_Node000023" title=" " alt="" coords="362,238,247,238,247,233,362,233"/>
+<area shape="poly" id="edge28_Node000023_Node000018" title=" " alt="" coords="130,254,105,262,57,278,56,273,103,257,128,249"/>
 </map>

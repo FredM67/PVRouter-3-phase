@@ -1,0 +1,9 @@
+<map id="proceedDualTariffLogic" name="proceedDualTariffLogic">
+<area shape="rect" id="Node000001" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="533,5,704,31"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#ga7018b73a8d20b89d8c80be9b8f9fa09f" title="Handles load priority rotation and dual tariff state transitions." alt="" coords="323,5,485,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="519,21,486,21,486,15,519,15"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,5,275,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="309,21,275,21,275,15,309,15"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="90,21,57,21,57,15,90,15"/>
+</map>

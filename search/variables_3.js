@@ -7,7 +7,7 @@ var searchData=
   ['copyof_5fsamplesetsduringthisdatalogperiod_4',['copyOf_sampleSetsDuringThisDatalogPeriod',['../namespaceShared.html#a8bb9a3d2e934908bf745655312a7e416',1,'Shared']]],
   ['copyof_5fsum_5fvsquared_5',['copyOf_sum_Vsquared',['../namespaceShared.html#a2d53fd161fb4cb35eb17c66a2bd4a3b4',1,'Shared']]],
   ['copyof_5fsump_5fatsupplypoint_6',['copyOf_sumP_atSupplyPoint',['../namespaceShared.html#a97382a0bf73f64b26260a5829cdb7611',1,'Shared']]],
-  ['count_7',['count',['../classSimpleMovingAverage.html#aa6bcfc698a9b761632d194975e234230',1,'SimpleMovingAverage']]],
+  ['count_7',['count',['../classSimpleMovingAverage.html#aa6bcfc698a9b761632d194975e234230',1,'SimpleMovingAverage::count'],['../structPinList.html#a7969ec092ecd8e3ca47f5ca63a3d4e54',1,'PinList::count']]],
   ['countloadon_8',['countLoadON',['../processing_8cpp.html#a2f61fd181a2806e678e5473eaad03891',1,'processing.cpp']]],
   ['cr_9',['CR',['../classTeleInfo.html#a710390df1d82afc54addcd2edb3405ae',1,'TeleInfo']]]
 ];

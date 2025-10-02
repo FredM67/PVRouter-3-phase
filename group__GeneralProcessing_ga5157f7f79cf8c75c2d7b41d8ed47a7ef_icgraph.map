@@ -1,7 +1,0 @@
-<map id="forceFullPower" name="forceFullPower">
-<area shape="rect" id="Node000001" title="Forces all loads to full power if the override pin is active." alt="" coords="323,5,441,31"/>
-<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,5,275,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="309,21,275,21,275,15,309,15"/>
-<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,56,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,21,57,21,57,15,90,15"/>
-</map>

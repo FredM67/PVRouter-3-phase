@@ -119,9 +119,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aed6d4373de91a9d842e4f2f6ccbc93be" id="r_aed6d4373de91a9d842e4f2f6ccbc93be"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed6d4373de91a9d842e4f2f6ccbc93be">get_pin</a> () const</td></tr>
 <tr class="memdesc:aed6d4373de91a9d842e4f2f6ccbc93be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the pin of the sensor(s).  <br /></td></tr>
 <tr class="separator:aed6d4373de91a9d842e4f2f6ccbc93be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ee48e23ceaf2bbc08cc4be575bb7d90" id="r_a2ee48e23ceaf2bbc08cc4be575bb7d90"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ee48e23ceaf2bbc08cc4be575bb7d90">get_size</a> () const</td></tr>
-<tr class="memdesc:a2ee48e23ceaf2bbc08cc4be575bb7d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of sensors.  <br /></td></tr>
-<tr class="separator:a2ee48e23ceaf2bbc08cc4be575bb7d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61b759a6c7b9cfddcdfa075f27988fde" id="r_a61b759a6c7b9cfddcdfa075f27988fde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61b759a6c7b9cfddcdfa075f27988fde">initTemperatureSensors</a> () const</td></tr>
 <tr class="memdesc:a61b759a6c7b9cfddcdfa075f27988fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the Dallas temperature sensors.  <br /></td></tr>
 <tr class="separator:a61b759a6c7b9cfddcdfa075f27988fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,6 +132,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a10629740380a6f688ac5c70346a94c80" id="r_a10629740380a6f688ac5c70346a94c80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10629740380a6f688ac5c70346a94c80">requestTemperatures</a> () const</td></tr>
 <tr class="memdesc:a10629740380a6f688ac5c70346a94c80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request temperature conversion for all sensors.  <br /></td></tr>
 <tr class="separator:a10629740380a6f688ac5c70346a94c80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9d0df044ed65e49c7ad1a5fed1c5b76" id="r_ac9d0df044ed65e49c7ad1a5fed1c5b76"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9d0df044ed65e49c7ad1a5fed1c5b76">size</a> () const</td></tr>
+<tr class="memdesc:ac9d0df044ed65e49c7ad1a5fed1c5b76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of sensors.  <br /></td></tr>
+<tr class="separator:ac9d0df044ed65e49c7ad1a5fed1c5b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
@@ -280,39 +280,6 @@ template&lt;uint8_t N&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>constexpr auto The pin number. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00208">208</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
-
-</div>
-</div>
-<a id="a2ee48e23ceaf2bbc08cc4be575bb7d90" name="a2ee48e23ceaf2bbc08cc4be575bb7d90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ee48e23ceaf2bbc08cc4be575bb7d90">&#9670;&#160;</a></span>get_size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto <a class="el" href="classTemperatureSensing.html">TemperatureSensing</a>&lt; N &gt;::get_size </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the number of sensors. </p>
-<p>This method returns the number of temperature sensors connected to the system. It provides a compile-time constant value representing the total number of sensors.</p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr auto The number of sensors. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00196">196</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
 
 </div>
 </div>
@@ -510,6 +477,39 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="223,28,190,28,190,23,223,23"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="ac9d0df044ed65e49c7ad1a5fed1c5b76" name="ac9d0df044ed65e49c7ad1a5fed1c5b76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d0df044ed65e49c7ad1a5fed1c5b76">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classTemperatureSensing.html">TemperatureSensing</a>&lt; N &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the number of sensors. </p>
+<p>This method returns the number of temperature sensors connected to the system. It provides a compile-time constant value representing the total number of sensors.</p>
+<dl class="section return"><dt>Returns</dt><dd>constexpr auto The number of sensors. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00196">196</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
 
 </div>
 </div>

@@ -135,9 +135,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa900099d8298cde7d15e3e2dd804df4a" id="r_aa900099d8298cde7d15e3e2dd804df4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa900099d8298cde7d15e3e2dd804df4a">printRelayConfiguration</a> (uint8_t idx) const</td></tr>
 <tr class="memdesc:aa900099d8298cde7d15e3e2dd804df4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the configuration of the current relay-diversion.  <br /></td></tr>
 <tr class="separator:aa900099d8298cde7d15e3e2dd804df4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e22ca8a5617edf8219898f2c1ba22bf" id="r_a5e22ca8a5617edf8219898f2c1ba22bf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e22ca8a5617edf8219898f2c1ba22bf">proceed_relay</a> (const int32_t currentAvgPower) const</td></tr>
-<tr class="memdesc:a5e22ca8a5617edf8219898f2c1ba22bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed with the relay.  <br /></td></tr>
-<tr class="separator:a5e22ca8a5617edf8219898f2c1ba22bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f44e026c5f12422859d19b57a4aef54" id="r_a5f44e026c5f12422859d19b57a4aef54"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f44e026c5f12422859d19b57a4aef54">proceed_relay</a> (const int32_t currentAvgPower, uint16_t &amp;overrideBitmask) const</td></tr>
+<tr class="memdesc:a5f44e026c5f12422859d19b57a4aef54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed with the relay.  <br /></td></tr>
+<tr class="separator:a5f44e026c5f12422859d19b57a4aef54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -666,7 +666,7 @@ Here is the caller graph for this function:</div>
 
 <p>Print the configuration of the current relay-diversion. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00198">198</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00204">204</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -688,8 +688,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a5e22ca8a5617edf8219898f2c1ba22bf" name="a5e22ca8a5617edf8219898f2c1ba22bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e22ca8a5617edf8219898f2c1ba22bf">&#9670;&#160;</a></span>proceed_relay()</h2>
+<a id="a5f44e026c5f12422859d19b57a4aef54" name="a5f44e026c5f12422859d19b57a4aef54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f44e026c5f12422859d19b57a4aef54">&#9670;&#160;</a></span>proceed_relay()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -700,8 +700,12 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">bool relayOutput::proceed_relay </td>
           <td>(</td>
-          <td class="paramtype">const int32_t</td>          <td class="paramname"><span class="paramname"><em>currentAvgPower</em></span></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const int32_t</td>          <td class="paramname"><span class="paramname"><em>currentAvgPower</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t &amp;</td>          <td class="paramname"><span class="paramname"><em>overrideBitmask</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -712,27 +716,37 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Proceed with the relay. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">currentAvgPower</td><td>Current average power </td></tr>
+    <tr><td class="paramname">overrideBitmask</td><td>Reference to override bitmask </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>bool True if state has changed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00165">165</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00167">167</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classrelayOutput_a5e22ca8a5617edf8219898f2c1ba22bf_cgraph.png" border="0" usemap="#aclassrelayOutput_a5e22ca8a5617edf8219898f2c1ba22bf_cgraph" alt=""/></div>
-<map name="aclassrelayOutput_a5e22ca8a5617edf8219898f2c1ba22bf_cgraph" id="aclassrelayOutput_a5e22ca8a5617edf8219898f2c1ba22bf_cgraph">
-<area shape="rect" title="Proceed with the relay." alt="" coords="5,23,164,63"/>
-<area shape="rect" href="classrelayOutput.html#a788868018f39545aa8178198f36b4e06" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="212,5,396,31"/>
-<area shape="poly" title=" " alt="" coords="164,32,198,28,199,33,165,37"/>
-<area shape="rect" href="classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="215,55,393,80"/>
-<area shape="poly" title=" " alt="" coords="165,49,202,53,201,59,164,55"/>
-<area shape="rect" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="444,5,532,31"/>
-<area shape="poly" title=" " alt="" coords="397,15,430,15,430,21,397,21"/>
-<area shape="rect" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="580,5,659,31"/>
-<area shape="poly" title=" " alt="" coords="532,15,566,15,566,21,532,21"/>
-<area shape="rect" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="447,55,529,80"/>
-<area shape="poly" title=" " alt="" coords="393,65,433,65,433,70,393,70"/>
-<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="586,55,653,80"/>
-<area shape="poly" title=" " alt="" coords="529,65,572,65,572,70,529,70"/>
+<div class="center"><img src="classrelayOutput_a5f44e026c5f12422859d19b57a4aef54_cgraph.png" border="0" usemap="#aclassrelayOutput_a5f44e026c5f12422859d19b57a4aef54_cgraph" alt=""/></div>
+<map name="aclassrelayOutput_a5f44e026c5f12422859d19b57a4aef54_cgraph" id="aclassrelayOutput_a5f44e026c5f12422859d19b57a4aef54_cgraph">
+<area shape="rect" title="Proceed with the relay." alt="" coords="5,44,164,84"/>
+<area shape="rect" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="580,52,659,77"/>
+<area shape="poly" title=" " alt="" coords="124,42,165,24,211,11,260,5,310,3,408,10,497,27,567,45,566,50,496,32,407,16,310,8,261,10,213,16,167,29,126,47"/>
+<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="267,26,341,52"/>
+<area shape="poly" title=" " alt="" coords="164,53,253,42,253,47,165,58"/>
+<area shape="rect" href="classrelayOutput.html#a788868018f39545aa8178198f36b4e06" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="212,76,396,101"/>
+<area shape="poly" title=" " alt="" coords="165,70,199,74,198,79,164,76"/>
+<area shape="rect" href="classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="215,125,393,150"/>
+<area shape="poly" title=" " alt="" coords="134,82,213,111,238,119,237,124,211,116,132,87"/>
+<area shape="rect" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="444,52,532,77"/>
+<area shape="poly" title=" " alt="" coords="396,74,430,69,431,74,397,79"/>
+<area shape="poly" title=" " alt="" coords="532,62,566,62,566,67,532,67"/>
+<area shape="rect" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="447,125,529,150"/>
+<area shape="poly" title=" " alt="" coords="393,135,433,135,433,140,393,140"/>
+<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="586,125,653,150"/>
+<area shape="poly" title=" " alt="" coords="529,135,572,135,572,140,529,140"/>
 </map>
 </div>
 
@@ -764,7 +778,7 @@ Here is the call graph for this function:</div>
 <p>Turn OFF the relay if the 'time' condition is met. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool True if state has changed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00257">257</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00263">263</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -783,7 +797,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classrelayOutput_a788868018f39545aa8178198f36b4e06_icgraph.png" border="0" usemap="#aclassrelayOutput_a788868018f39545aa8178198f36b4e06_icgraph" alt=""/></div>
 <map name="aclassrelayOutput_a788868018f39545aa8178198f36b4e06_icgraph" id="aclassrelayOutput_a788868018f39545aa8178198f36b4e06_icgraph">
 <area shape="rect" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="212,13,396,38"/>
-<area shape="rect" href="classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="5,5,164,45"/>
+<area shape="rect" href="classrelayOutput.html#a5f44e026c5f12422859d19b57a4aef54" title="Proceed with the relay." alt="" coords="5,5,164,45"/>
 <area shape="poly" title=" " alt="" coords="198,28,164,28,164,23,198,23"/>
 </map>
 </div>
@@ -816,7 +830,7 @@ Here is the caller graph for this function:</div>
 <p>Turn ON the relay if the 'time' condition is met. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool True if state has changed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00235">235</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00241">241</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -835,7 +849,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_icgraph.png" border="0" usemap="#aclassrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_icgraph" alt=""/></div>
 <map name="aclassrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_icgraph" id="aclassrelayOutput_ae3aec33d184f1fd0d17abc1b41300bdf_icgraph">
 <area shape="rect" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="212,13,391,38"/>
-<area shape="rect" href="classrelayOutput.html#a5e22ca8a5617edf8219898f2c1ba22bf" title="Proceed with the relay." alt="" coords="5,5,164,45"/>
+<area shape="rect" href="classrelayOutput.html#a5f44e026c5f12422859d19b57a4aef54" title="Proceed with the relay." alt="" coords="5,5,164,45"/>
 <area shape="poly" title=" " alt="" coords="198,28,164,28,164,23,198,23"/>
 </map>
 </div>
@@ -864,7 +878,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Duration of the current state </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00281">281</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00287">287</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -889,7 +903,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Import threshold to turn relay OFF (positive = import mode, negative = surplus mode) </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00277">277</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00283">283</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -914,7 +928,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Minimum duration in seconds the relay is turned OFF </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00279">279</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00285">285</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -939,7 +953,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Minimum duration in seconds the relay is turned ON </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00278">278</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00284">284</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -964,7 +978,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Pin associated with the relay </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00275">275</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00281">281</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -989,7 +1003,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>True if the relay is ON </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00282">282</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00288">288</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>
@@ -1014,7 +1028,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Surplus threshold to turn relay ON </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00276">276</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00282">282</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>

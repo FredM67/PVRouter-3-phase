@@ -1,0 +1,18 @@
+<map id="relayOutput::proceed_relay" name="relayOutput::proceed_relay">
+<area shape="rect" id="Node000001" title="Proceed with the relay." alt="" coords="5,44,164,84"/>
+<area shape="rect" id="Node000002" href="$utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="580,52,659,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,42,165,24,211,11,260,5,310,3,408,10,497,27,567,45,566,50,496,32,407,16,310,8,261,10,213,16,167,29,126,47"/>
+<area shape="rect" id="Node000003" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="267,26,341,52"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,53,253,42,253,47,165,58"/>
+<area shape="rect" id="Node000004" href="$classrelayOutput.html#a788868018f39545aa8178198f36b4e06" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="212,76,396,101"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,70,199,74,198,79,164,76"/>
+<area shape="rect" id="Node000006" href="$classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="215,125,393,150"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="134,82,213,111,238,119,237,124,211,116,132,87"/>
+<area shape="rect" id="Node000005" href="$utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="444,52,532,77"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="396,74,430,69,431,74,397,79"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="532,62,566,62,566,67,532,67"/>
+<area shape="rect" id="Node000007" href="$utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="447,125,529,150"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="393,135,433,135,433,140,393,140"/>
+<area shape="rect" id="Node000008" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="586,125,653,150"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="529,135,572,135,572,140,529,140"/>
+</map>

@@ -1,18 +1,21 @@
 <map id="getPinState" name="getPinState">
-<area shape="rect" id="Node000001" title="Get the Pin State." alt="" coords="795,81,892,107"/>
-<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#ga31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="337,5,496,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="811,76,780,59,746,46,682,31,615,23,496,18,496,12,616,17,682,26,747,41,782,55,813,72"/>
-<area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#ga5157f7f79cf8c75c2d7b41d8ed47a7ef" title="Forces all loads to full power if the override pin is active." alt="" coords="593,56,712,81"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="781,88,712,79,713,74,782,83"/>
-<area shape="rect" id="Node000006" href="$group__GeneralProcessing.html#gab4774b22349c58cef345ad396aecc868" title="Handles load priorities and overriding logic." alt="" coords="323,106,511,146"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="781,101,511,122,511,116,781,96"/>
-<area shape="rect" id="Node000007" href="$group__GeneralProcessing.html#ga2b2ee7cd0a5810e272e1ffb0b5daf0ae" title="Handles load priorities and overriding during dual tariff periods." alt="" coords="559,157,747,197"/>
-<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="804,115,748,140,704,159,702,154,746,136,802,110"/>
-<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,56,275,81"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="346,36,248,59,246,53,345,31"/>
-<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,56,56,81"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="90,71,57,71,57,66,90,66"/>
-<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="579,71,275,71,275,66,579,66"/>
-<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="323,105,240,84,241,79,324,100"/>
-<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="545,156,510,149,511,143,546,151"/>
+<area shape="rect" id="Node000001" title="Get the Pin State." alt="" coords="788,95,885,121"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#ga31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="325,7,483,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="813,87,780,58,739,35,674,17,606,9,541,9,484,12,483,7,541,3,607,4,675,12,741,30,783,54,816,83"/>
+<area shape="rect" id="Node000005" href="$group__DualTariff.html#ga09f688031c566f173bdfe18e65b0770a" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="533,45,740,70"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="774,95,687,73,688,68,775,90"/>
+<area shape="rect" id="Node000006" href="$group__GeneralProcessing.html#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing." alt="" coords="327,82,481,107"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="774,109,481,100,481,94,774,104"/>
+<area shape="rect" id="Node000007" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="551,146,722,171"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="775,126,688,149,687,144,774,121"/>
+<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#ga7018b73a8d20b89d8c80be9b8f9fa09f" title="Handles load priority rotation and dual tariff state transitions." alt="" coords="323,146,485,171"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="817,133,784,163,763,176,741,187,701,197,660,203,577,201,502,189,443,174,444,169,503,184,578,196,659,197,700,192,739,182,761,172,781,158,814,129"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,82,275,107"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="354,40,228,85,226,80,352,35"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,82,56,107"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="90,97,57,97,57,92,90,92"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="544,75,481,85,480,80,543,70"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="314,97,275,97,275,92,314,92"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="537,161,485,161,485,156,537,156"/>
+<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="346,145,232,110,234,105,348,139"/>
 </map>

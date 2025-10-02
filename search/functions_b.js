@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['nextlogicalloadtobeadded_0',['nextLogicalLoadToBeAdded',['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded():&#160;processing.cpp'],['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded():&#160;processing.cpp']]],
-  ['nextlogicalloadtoberemoved_1',['nextLogicalLoadToBeRemoved',['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved():&#160;processing.cpp'],['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved():&#160;processing.cpp']]]
+  ['main_0',['main',['../native_2test__cloud__patterns_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;test_main.cpp'],['../native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;test_main.cpp'],['../native_2test__ewma__benchmark_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;test_main.cpp'],['../native_2test__negative__threshold_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;test_main.cpp']]],
+  ['mockrelayoutput_1',['MockRelayOutput',['../classMockRelayOutput.html#a72371d60f1a610abf29457a02717074c',1,'MockRelayOutput']]]
 ];

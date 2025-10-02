@@ -6,7 +6,7 @@
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,83,147,77,148,82,107,88"/>
 <area shape="rect" id="Node000004" href="$utils__rf_8h.html#ab5bc929f5a874ed02b16ed1d620d71cf" title="Send the logging data through RF." alt="" coords="176,104,283,129"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="107,97,163,105,162,110,106,102"/>
-<area shape="rect" id="Node000005" href="$utils_8h.html#a5072aae7cb8a3f575605b65c6be56329" title="Sends telemetry data using the TeleInfo class." alt="" coords="155,153,304,179"/>
+<area shape="rect" id="Node000005" href="$utils_8h.html#a1907e04bd551745d6acdaaf198bda73a" title="Sends telemetry data using the TeleInfo class." alt="" coords="155,153,304,179"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="82,103,156,138,176,146,174,151,154,143,80,108"/>
 <area shape="rect" id="Node000006" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="352,153,464,179"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="304,163,338,163,338,169,304,169"/>

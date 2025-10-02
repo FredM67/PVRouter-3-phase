@@ -100,8 +100,6 @@ Variables</h2></td></tr>
 <tr class="separator:af59586fb6962aed8ab71cf3cfa4f667b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb0c8d5068e7da50d773ea26d9f27393" id="r_aeb0c8d5068e7da50d773ea26d9f27393"><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb0c8d5068e7da50d773ea26d9f27393">b_newMainsCycle</a> { false }</td></tr>
 <tr class="separator:aeb0c8d5068e7da50d773ea26d9f27393"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a684edaedc6359c7efd4da38bdbf9e63b" id="r_a684edaedc6359c7efd4da38bdbf9e63b"><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a684edaedc6359c7efd4da38bdbf9e63b">b_overrideLoadOn</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] {}</td></tr>
-<tr class="separator:a684edaedc6359c7efd4da38bdbf9e63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f67189a95af3a6a995c5abf8e246285" id="r_a7f67189a95af3a6a995c5abf8e246285"><td class="memItemLeft" align="right" valign="top">volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f67189a95af3a6a995c5abf8e246285">b_reOrderLoads</a> { false }</td></tr>
 <tr class="separator:a7f67189a95af3a6a995c5abf8e246285"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab50c7218bb7e19f8f89a62d6f7d67637" id="r_ab50c7218bb7e19f8f89a62d6f7d67637"><td class="memItemLeft" align="right" valign="top">volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab50c7218bb7e19f8f89a62d6f7d67637">copyOf_countLoadON</a> [<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>]</td></tr>
@@ -116,6 +114,8 @@ Variables</h2></td></tr>
 <tr class="separator:a2d53fd161fb4cb35eb17c66a2bd4a3b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97382a0bf73f64b26260a5829cdb7611" id="r_a97382a0bf73f64b26260a5829cdb7611"><td class="memItemLeft" align="right" valign="top">volatile int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97382a0bf73f64b26260a5829cdb7611">copyOf_sumP_atSupplyPoint</a> [<a class="el" href="config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>]</td></tr>
 <tr class="separator:a97382a0bf73f64b26260a5829cdb7611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38126cc810d708912b24db61be1fc5c1" id="r_a38126cc810d708912b24db61be1fc5c1"><td class="memItemLeft" align="right" valign="top">volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38126cc810d708912b24db61be1fc5c1">overrideBitmask</a> { 0 }</td></tr>
+<tr class="separator:a38126cc810d708912b24db61be1fc5c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="ae10f34dba364ce75e88b0c261bc6dab8" name="ae10f34dba364ce75e88b0c261bc6dab8"></a>
@@ -189,7 +189,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>async trigger to stop diversion </p>
 
-<p class="definition">Definition at line <a class="el" href="shared__var_8h_source.html#l00014">14</a> of file <a class="el" href="shared__var_8h_source.html">shared_var.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="shared__var_8h_source.html#l00013">13</a> of file <a class="el" href="shared__var_8h_source.html">shared_var.h</a>.</p>
 
 </div>
 </div>
@@ -218,31 +218,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a684edaedc6359c7efd4da38bdbf9e63b" name="a684edaedc6359c7efd4da38bdbf9e63b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a684edaedc6359c7efd4da38bdbf9e63b">&#9670;&#160;</a></span>b_overrideLoadOn</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">volatile bool Shared::b_overrideLoadOn[<a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>async trigger to force specific load(s) to ON </p>
-
-<p class="definition">Definition at line <a class="el" href="shared__var_8h_source.html#l00012">12</a> of file <a class="el" href="shared__var_8h_source.html">shared_var.h</a>.</p>
-
-</div>
-</div>
 <a id="a7f67189a95af3a6a995c5abf8e246285" name="a7f67189a95af3a6a995c5abf8e246285"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7f67189a95af3a6a995c5abf8e246285">&#9670;&#160;</a></span>b_reOrderLoads</h2>
 
@@ -264,7 +239,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>async trigger for loads re-ordering </p>
 
-<p class="definition">Definition at line <a class="el" href="shared__var_8h_source.html#l00013">13</a> of file <a class="el" href="shared__var_8h_source.html">shared_var.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="shared__var_8h_source.html#l00012">12</a> of file <a class="el" href="shared__var_8h_source.html">shared_var.h</a>.</p>
 
 </div>
 </div>
@@ -415,6 +390,31 @@ Variables</h2></td></tr>
 <p>copy of cumulative power per phase </p>
 
 <p class="definition">Definition at line <a class="el" href="shared__var_8h_source.html#l00021">21</a> of file <a class="el" href="shared__var_8h_source.html">shared_var.h</a>.</p>
+
+</div>
+</div>
+<a id="a38126cc810d708912b24db61be1fc5c1" name="a38126cc810d708912b24db61be1fc5c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38126cc810d708912b24db61be1fc5c1">&#9670;&#160;</a></span>overrideBitmask</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint16_t Shared::overrideBitmask { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>combined bitmask of all active override pins </p>
+
+<p class="definition">Definition at line <a class="el" href="shared__var_8h_source.html#l00014">14</a> of file <a class="el" href="shared__var_8h_source.html">shared_var.h</a>.</p>
 
 </div>
 </div>

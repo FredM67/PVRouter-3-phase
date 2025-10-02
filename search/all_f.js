@@ -1,13 +1,16 @@
 var searchData=
 [
-  ['off_0',['OFF',['../types_8h.html#a06b890c4a964752df814257dc1f13073a88559a0cfd8250c9d65970cc145c92d4',1,'types.h']]],
-  ['onewire_1',['oneWire',['../classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27',1,'TemperatureSensing']]],
-  ['onewiretype_2',['OneWireType',['../utils__temp_8h.html#a698ac5c761360db9f6c814f9799d5ed1',1,'utils_temp.h']]],
-  ['operator_22_22_5fi_3',['operator&quot;&quot;_i',['../types_8h.html#a0534976344c6645fff642acfbfdd4981',1,'types.h']]],
-  ['operator_5b_5d_4',['operator[]',['../class__rg__OffsetForce.html#a3b0155bd2675cd0dccfa7ee5c9f11867',1,'_rg_OffsetForce']]],
-  ['outofrange_5ftemperature_5',['OUTOFRANGE_TEMPERATURE',['../constants_8h.html#a8b4582476cecd5c6149546816236ffa7',1,'constants.h']]],
-  ['outputmode_6',['outputMode',['../processing_8cpp.html#a14c0bd4df597ffb07f73e5a3581238b9',1,'processing.cpp']]],
-  ['outputmodes_7',['OutputModes',['../types_8h.html#aae913bd32d3b848f4a5ba5b9d32e9a1f',1,'types.h']]],
-  ['outputtype_5ft_8',['outputType_t',['../native_2test__negative__threshold_2test__main_8cpp.html#a4479e1aeba174423954f851e2c53cf03',1,'test_main.cpp']]],
-  ['override_5fpin_5fpresent_9',['OVERRIDE_PIN_PRESENT',['../config_8h.html#a3113411238215d7011c4c5ac3680a973',1,'config.h']]]
+  ['n_5fcyclecountfordatalogging_0',['n_cycleCountForDatalogging',['../processing_8cpp.html#a553f28df1683f35eefa78b35ad0e2d13',1,'processing.cpp']]],
+  ['n_5flowestnoofsamplesetspermainscycle_1',['n_lowestNoOfSampleSetsPerMainsCycle',['../processing_8cpp.html#a0beef0d593bc73e25d415c64444255e5',1,'processing.cpp']]],
+  ['n_5fsamplesduringthismainscycle_2',['n_samplesDuringThisMainsCycle',['../processing_8cpp.html#a9a22740c3a35433eaeae0fa7177d93a1',1,'processing.cpp']]],
+  ['name_3',['name',['../structCloudPattern.html#a46f3230d212cf483ab0becfbf933d246',1,'CloudPattern']]],
+  ['negative_4',['NEGATIVE',['../types_8h.html#a297c9a15e28f6c3824b7a33453238136a50546bf973283065b6ccf09faf7a580a',1,'types.h']]],
+  ['networkgroup_5',['networkGroup',['../config_8h.html#a2195a98d46c91f74fcde7cb8ed2350d0',1,'config.h']]],
+  ['nextlogicalloadtobeadded_6',['nextLogicalLoadToBeAdded',['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded():&#160;processing.cpp'],['../group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e',1,'nextLogicalLoadToBeAdded():&#160;processing.cpp']]],
+  ['nextlogicalloadtoberemoved_7',['nextLogicalLoadToBeRemoved',['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved():&#160;processing.cpp'],['../group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35',1,'nextLogicalLoadToBeRemoved():&#160;processing.cpp']]],
+  ['no_5fof_5fdumploads_8',['NO_OF_DUMPLOADS',['../config_8h.html#aa2458020f21db854d8f2fe0e500dcd05',1,'config.h']]],
+  ['no_5fof_5fphases_9',['NO_OF_PHASES',['../config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91',1,'config_system.h']]],
+  ['nodeid_10',['nodeID',['../config_8h.html#a60f522aaa42faf22b9ce5d66e6e45346',1,'config.h']]],
+  ['normal_11',['NORMAL',['../types_8h.html#aae913bd32d3b848f4a5ba5b9d32e9a1fa1e23852820b9154316c7c06e2b7ba051',1,'types.h']]],
+  ['note_12',['Note',['../ewma__avg_8hpp.html#note',1,'']]]
 ];

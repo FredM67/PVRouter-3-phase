@@ -7,6 +7,7 @@ var searchData=
   ['ema_5fema_5fraw_4',['ema_ema_raw',['../classEWMA__average.html#a98361417bbb5ad1fa219184f9d76e27e',1,'EWMA_average']]],
   ['ema_5fraw_5',['ema_raw',['../classEWMA__average.html#ac0839eb3ff16d2e4c67e8055535b3f9b',1,'EWMA_average']]],
   ['emonesp_5fcontrol_6',['EMONESP_CONTROL',['../config_8h.html#a8cdbe058763c4b2524b45836e8f12689',1,'config.h']]],
-  ['etx_7',['ETX',['../classTeleInfo.html#aa03518019927460cd7735213630004d9',1,'TeleInfo']]],
-  ['ewma_5faverage_8',['ewma_average',['../classRelayEngine.html#a03a84f65f56f7e8bce137c967dfe7ebf',1,'RelayEngine']]]
+  ['entries_5f_7',['entries_',['../classOverridePins.html#a8bf6bcf16da2e94200cc419a72c48b2b',1,'OverridePins']]],
+  ['etx_8',['ETX',['../classTeleInfo.html#aa03518019927460cd7735213630004d9',1,'TeleInfo']]],
+  ['ewma_5faverage_9',['ewma_average',['../classRelayEngine.html#a03a84f65f56f7e8bce137c967dfe7ebf',1,'RelayEngine']]]
 ];
