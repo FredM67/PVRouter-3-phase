@@ -232,6 +232,17 @@ public:
     Serial.println(get_minOFF() / 60);
   }
 
+  /**
+   * @brief Force the relay OFF when diversion is disabled
+   * 
+   * @return bool True if state has changed
+   * @details This method attempts to turn OFF the relay, respecting the minimum ON time constraint
+   */
+  bool forceOFF() const
+  {
+    return try_turnOFF();
+  }
+
 private:
   /**
    * @brief Turn ON the relay if the 'time' condition is met
@@ -391,17 +402,35 @@ public:
    * @brief Proceed all relays in increasing order (surplus) or decreasing order (import).
    * 
    * @param overrideBitmask Reference to override bitmask - relay bits will be cleared after processing
+   * @param diversionEnabled Whether diversion is enabled - if false, all relays will be turned OFF
    * 
    * @details This method adjusts the state of the relays based on the current average power.
    * If surplus power is available, it tries to turn ON relays in increasing order. If power
    * is being imported, it tries to turn OFF relays in decreasing order.
    * Override bits for individual relays are handled and cleared during processing.
+   * When diversion is disabled, all relays are forced OFF (respecting minimum ON time constraints).
    */
-  void proceed_relays(uint16_t& overrideBitmask) const
+  void proceed_relays(uint16_t& overrideBitmask, bool diversionEnabled = true) const
   {
     if (settle_change != 0)
     {
       // A relay has been toggle less than a minute ago, wait until changes take effect
+      return;
+    }
+
+    // If diversion is disabled, force all relays OFF
+    if (!diversionEnabled)
+    {
+      bool anyChanges{ false };
+      uint8_t idx{ N };
+      do
+      {
+        anyChanges |= relay[--idx].forceOFF();
+      } while (idx);
+
+      if (anyChanges)
+        settle_change = 60;
+
       return;
     }
 
