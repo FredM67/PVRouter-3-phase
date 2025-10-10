@@ -15,26 +15,6 @@
 #include "calibration.h"
 #include "dualtariff.h"
 #include "processing.h"
-
-// ADC optimization: circular linked list for channels (private implementation)
-#define _ADMUX (1 << REFS0)
-
-/**
- * @brief ADC channel context for circular linked list optimization
- * 
- * This structure replaces the switch-case logic in the ADC ISR with a more
- * efficient circular linked list approach. Minimal memory footprint.
- * 
- * Based on florentbr's optimization suggestion #1 for reducing ISR overhead.
- * 
- * @ingroup TimeCritical
- */
-struct adc_ctx_t
-{
-  struct adc_ctx_t *next; /**< pointer to next context in circular list */
-  uint8_t index;          /**< channel index (0-5 for V1,I1,V2,I2,V3,I3) */
-  uint8_t admux;          /**< ADMUX register value for this channel */
-};
 #include "utils_pins.h"
 #include "shared_var.h"
 
@@ -1144,6 +1124,25 @@ void printParamsForSelectedOutputMode()
  *
  * @ingroup TimeCritical
  */
+
+// ADC optimization: circular linked list for channels (private implementation)
+#define _ADMUX (1 << REFS0)
+
+/**
+ * @brief ADC channel context for circular linked list optimization
+ * 
+ * This structure replaces the switch-case logic in the ADC ISR with a more
+ * efficient circular linked list approach. Minimal memory footprint.
+ * 
+ * Based on florentbr's optimization suggestion #1 for reducing ISR overhead.
+ * 
+ * @ingroup TimeCritical
+ */
+struct adc_ctx_t {
+    struct adc_ctx_t* next;  /**< pointer to next context in circular list */
+    uint8_t index;           /**< channel index (0-5 for V1,I1,V2,I2,V3,I3) */
+    uint8_t admux;           /**< ADMUX register value for this channel */
+};
 
 // ADC optimization: circular linked list for channel management
 static adc_ctx_t _channels[6] = {
