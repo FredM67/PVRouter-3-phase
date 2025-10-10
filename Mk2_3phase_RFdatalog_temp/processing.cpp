@@ -15,6 +15,26 @@
 #include "calibration.h"
 #include "dualtariff.h"
 #include "processing.h"
+
+// ADC optimization: circular linked list for channels (private implementation)
+#define _ADMUX (1 << REFS0)
+
+/**
+ * @brief ADC channel context for circular linked list optimization
+ * 
+ * This structure replaces the switch-case logic in the ADC ISR with a more
+ * efficient circular linked list approach. Minimal memory footprint.
+ * 
+ * Based on florentbr's optimization suggestion #1 for reducing ISR overhead.
+ * 
+ * @ingroup TimeCritical
+ */
+struct adc_ctx_t
+{
+  struct adc_ctx_t *next; /**< pointer to next context in circular list */
+  uint8_t index;          /**< channel index (0-5 for V1,I1,V2,I2,V3,I3) */
+  uint8_t admux;          /**< ADMUX register value for this channel */
+};
 #include "utils_pins.h"
 #include "shared_var.h"
 
@@ -1124,56 +1144,34 @@ void printParamsForSelectedOutputMode()
  *
  * @ingroup TimeCritical
  */
+
+// ADC optimization: circular linked list for channel management
+static adc_ctx_t _channels[6] = {
+  { .next = &_channels[1], .index = 0, .admux = _ADMUX | sensorV[1] },  // V1 -> setup for V2
+  { .next = &_channels[2], .index = 1, .admux = _ADMUX | sensorI[1] },  // I1 -> setup for I2
+  { .next = &_channels[3], .index = 2, .admux = _ADMUX | sensorV[2] },  // V2 -> setup for V3
+  { .next = &_channels[4], .index = 3, .admux = _ADMUX | sensorI[2] },  // I2 -> setup for I3
+  { .next = &_channels[5], .index = 4, .admux = _ADMUX | sensorV[0] },  // V3 -> setup for V1
+  { .next = &_channels[0], .index = 5, .admux = _ADMUX | sensorI[0] }   // I3 -> setup for I1
+};
+
+static adc_ctx_t *_ctx = &_channels[0];
+
 ISR(ADC_vect)
 {
-  static uint8_t sample_index{ 0 };
-  int16_t rawSample;
+  uint16_t adc_raw = ADC;
 
-  switch (sample_index)
-  {
-    case 0:
-      rawSample = ADC;                  // store the ADC value (this one is for Voltage L1)
-      ADMUX = bit(REFS0) + sensorV[1];  // the conversion for I1 is already under way
-      ++sample_index;                   // increment the control flag
-      //
-      processVoltageRawSample(0, rawSample);
-      break;
-    case 1:
-      rawSample = ADC;                  // store the ADC value (this one is for Current L1)
-      ADMUX = bit(REFS0) + sensorI[1];  // the conversion for V2 is already under way
-      ++sample_index;                   // increment the control flag
-      //
-      processCurrentRawSample(0, rawSample);
-      break;
-    case 2:
-      rawSample = ADC;                  // store the ADC value (this one is for Voltage L2)
-      ADMUX = bit(REFS0) + sensorV[2];  // the conversion for I2 is already under way
-      ++sample_index;                   // increment the control flag
-      //
-      processVoltageRawSample(1, rawSample);
-      break;
-    case 3:
-      rawSample = ADC;                  // store the ADC value (this one is for Current L2)
-      ADMUX = bit(REFS0) + sensorI[2];  // the conversion for V3 is already under way
-      ++sample_index;                   // increment the control flag
-      //
-      processCurrentRawSample(1, rawSample);
-      break;
-    case 4:
-      rawSample = ADC;                  // store the ADC value (this one is for Voltage L3)
-      ADMUX = bit(REFS0) + sensorV[0];  // the conversion for I3 is already under way
-      ++sample_index;                   // increment the control flag
-      //
-      processVoltageRawSample(2, rawSample);
-      break;
-    case 5:
-      rawSample = ADC;                  // store the ADC value (this one is for Current L3)
-      ADMUX = bit(REFS0) + sensorI[0];  // the conversion for V1 is already under way
-      sample_index = 0;                 // reset the control flag
-      //
-      processCurrentRawSample(2, rawSample);
-      break;
-    default:
-      sample_index = 0;  // to prevent lockup (should never get here)
+  ADMUX = _ctx->admux;
+
+  if ((_ctx->index & 1) == 0)
+  {  // even=voltage, odd=current
+    // process voltage channel
+    processVoltageRawSample(_ctx->index >> 1, adc_raw);
   }
+  else {
+    // process current channel
+    processCurrentRawSample(_ctx->index >> 1, adc_raw);
+  }
+
+  _ctx = _ctx->next;
 }  // end of ISR
