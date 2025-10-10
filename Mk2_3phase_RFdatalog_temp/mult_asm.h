@@ -43,7 +43,7 @@
 static inline __attribute__((always_inline)) void mult16x16_to32(int32_t& result, int16_t a, int16_t b)
 {
 #ifdef __AVR__
-  asm volatile (
+  asm volatile(
     "clr r26                \n\t"  // Clear temporary register
     "mul %A1, %A2           \n\t"  // a_lo * b_lo
     "movw %A0, r0           \n\t"  // Store low 16 bits
@@ -60,12 +60,11 @@ static inline __attribute__((always_inline)) void mult16x16_to32(int32_t& result
     "adc %C0, r1            \n\t"
     "adc %D0, r26           \n\t"
     "clr r1                 \n\t"  // Restore r1 to zero
-    : "=&r" (result)
-    : "a" (a), "a" (b)
-    : "r26"
-  );
+    : "=&r"(result)
+    : "a"(a), "a"(b)
+    : "r26");
 #else
-  result = static_cast<int32_t>(a) * b;
+  result = static_cast< int32_t >(a) * b;
 #endif
 }
 
@@ -91,7 +90,7 @@ static inline __attribute__((always_inline)) void mult16x16_to32(int32_t& result
 static inline __attribute__((always_inline)) void mult16x8_q8(int16_t& result, int16_t value, uint8_t fraction)
 {
 #ifdef __AVR__
-  asm volatile (
+  asm volatile(
     "mulsu %B[val], %[frac]  \n\t"  // value_hi * fraction (signed*unsigned)
     "movw %A[ret], r0        \n\t"  // Store result
     "mul %A[val], %[frac]    \n\t"  // value_lo * fraction
@@ -99,11 +98,10 @@ static inline __attribute__((always_inline)) void mult16x8_q8(int16_t& result, i
     "adc %A[ret], r1         \n\t"  // Add with carry (rounding)
     "clr r1                  \n\t"  // Restore r1 to zero
     "adc %B[ret], r1         \n\t"  // Propagate carry
-    : [ret] "=&r" (result)
-    : [val] "a" (value), [frac] "a" (fraction)
-  );
+    : [ret] "=&r"(result)
+    : [val] "a"(value), [frac] "a"(fraction));
 #else
-  result = static_cast<int16_t>((static_cast<int32_t>(value) * fraction + 0x80) >> 8);
+  result = static_cast< int16_t >((static_cast< int32_t >(value) * fraction + 0x80) >> 8);
 #endif
 }
 
@@ -121,7 +119,7 @@ static inline __attribute__((always_inline)) void mult16x8_q8(int16_t& result, i
  */
 constexpr uint8_t float_to_q8(float frac)
 {
-  return static_cast<uint8_t>(frac * 256.0f + 0.5f);
+  return static_cast< uint8_t >(frac * 256.0f + 0.5f);
 }
 
 /**
@@ -137,7 +135,7 @@ constexpr uint8_t float_to_q8(float frac)
  */
 constexpr float q8_to_float(uint8_t q8_val)
 {
-  return static_cast<float>(q8_val) / 256.0f;
+  return static_cast< float >(q8_val) / 256.0f;
 }
 
 #endif /* MULT_ASM_H */
