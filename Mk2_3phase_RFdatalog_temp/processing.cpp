@@ -17,6 +17,7 @@
 #include "processing.h"
 #include "utils_pins.h"
 #include "shared_var.h"
+#include "mult_asm.h"
 
 // Define operating limits for the LP filters which identify DC offset in the voltage
 // sample streams. By limiting the output range, these filters always should start up
@@ -438,8 +439,9 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   // calculate the "real power" in this sample pair and add to the accumulated sum
   const int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
   const int32_t filtI_div4 = sampleIminusDC >> 2;           // reduce to 16-bits (now x64, or 2^6)
-  int32_t instP = filtV_div4 * filtI_div4;                  // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                                             // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+  int32_t instP;
+  mult16x16_to32(instP, filtV_div4, filtI_div4);  // 32-bits (now x4096, or 2^12)
+  instP >>= 12;                                   // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
   l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
   l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
@@ -499,7 +501,8 @@ void processVoltage(const uint8_t phase)
 {
   // for the Vrms calculation (for datalogging only)
   const int32_t filtV_div4{ l_sampleVminusDC[phase] >> 2 };  // reduce to 16-bits (now x64, or 2^6)
-  int32_t inst_Vsquared{ filtV_div4 * filtV_div4 };          // 32-bits (now x4096, or 2^12)
+  int32_t inst_Vsquared;
+  mult16x16_to32(inst_Vsquared, filtV_div4, filtV_div4);  // 32-bits (now x4096, or 2^12)
 
   if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
   {
