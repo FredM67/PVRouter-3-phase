@@ -405,7 +405,8 @@ void test_performance_mult16x16_to32(void)
       Serial.print((float)std_time / asm_time, 2);
       Serial.println(F("x faster"));
     }
-    else {
+    else
+    {
       Serial.print(F("⚠ Standard is "));
       Serial.print((float)asm_time / std_time, 2);
       Serial.println(F("x faster"));
@@ -508,7 +509,8 @@ void test_performance_mult16x8_q8(void)
       Serial.print((float)std_time / asm_time, 2);
       Serial.println(F("x faster"));
     }
-    else {
+    else
+    {
       Serial.print(F("⚠ Standard is "));
       Serial.print((float)asm_time / std_time, 2);
       Serial.println(F("x faster"));
@@ -633,7 +635,8 @@ void test_performance_isr_simulation(void)
       Serial.print(time_saved_per_sample, 2);
       Serial.println(F(" µs"));
     }
-    else {
+    else
+    {
       Serial.print(F("⚠ Standard ISR is "));
       Serial.print((float)asm_time / std_time, 2);
       Serial.println(F("x faster"));
