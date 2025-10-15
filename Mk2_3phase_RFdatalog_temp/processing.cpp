@@ -21,11 +21,17 @@
 // Define operating limits for the LP filters which identify DC offset in the voltage
 // sample streams. By limiting the output range, these filters always should start up
 // correctly.
-constexpr int32_t l_DCoffset_V_min{ (512L - 100L) * 256L }; /**< mid-point of ADC minus a working margin */
-constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
-constexpr int16_t i_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
+// Note: With ADLAR=1, ADC result is in high byte (left-aligned in uint16_t)
+//       For 10-bit ADC: result is ADC[9:0] in bits [15:6], bits [5:0] are zero
+//       Mid-point (512 << 6) = 0x8000 in uint16_t representation
+//       DC offset uses Q16.16 format for efficient EMA filtering
+//       Margin: 100 << 6 = 6400 (0x1900) in ADC units, which is 0x19000000 in Q16.16
+constexpr uint32_t l_DCoffset_V_nom{ (512UL << 6) << 16 };                      /**< nominal mid-point in Q16.16: (512 << 6) << 16 */
+constexpr uint32_t l_DCoffset_V_min{ l_DCoffset_V_nom - ((100UL << 6) << 16) }; /**< mid-point minus margin (Q16.16) */
+constexpr uint32_t l_DCoffset_V_max{ l_DCoffset_V_nom + ((100UL << 6) << 16) }; /**< mid-point plus margin (Q16.16) */
+constexpr uint16_t i_DCoffset_I_nom{ 512U << 6 };                               /**< nominal mid-point of ADC left-aligned: 512 << 6 */
 
-int32_t l_DCoffset_V[NO_OF_PHASES]{}; /**< <--- for LPF */
+uint32_t l_DCoffset_V[NO_OF_PHASES]{}; /**< DC offset in Q16.16 format for EMA filter */
 
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
 constexpr float f_capacityOfEnergyBucket_main{ static_cast< float >(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
@@ -66,7 +72,7 @@ constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 3 }; /**< allows each transition to
 uint8_t activeLoad{ NO_OF_DUMPLOADS }; /**< current active load */
 
 int32_t l_sumP[NO_OF_PHASES]{};                /**< cumulative power per phase */
-int32_t l_sampleVminusDC[NO_OF_PHASES]{};      /**< current raw voltage sample filtered */
+int16_t l_sampleVminusDC[NO_OF_PHASES]{};      /**< current raw voltage sample filtered (left-aligned ADC) */
 int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]{}; /**< for the LPF which determines DC offset (voltage) */
 int32_t l_sumP_atSupplyPoint[NO_OF_PHASES]{};  /**< for summation of 'real power' values during datalog period */
 int32_t l_sum_Vsquared[NO_OF_PHASES]{};        /**< for summation of V^2 values during datalog period */
@@ -110,6 +116,22 @@ bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle 
  */
 template< size_t N >
 constexpr void initializeArray(int32_t (&array)[N], int32_t value)
+{
+  for (size_t i = 0; i < N; ++i)
+  {
+    array[i] = value;
+  }
+}
+
+/**
+ * @brief Initialize an array of uint32_t values
+ * @tparam N Size of the array
+ * @param array Reference to the array to initialize
+ * @param value The value to set for all elements
+ * @ingroup Initialization
+ */
+template< size_t N >
+constexpr void initializeArray(uint32_t (&array)[N], uint32_t value)
 {
   for (size_t i = 0; i < N; ++i)
   {
@@ -241,7 +263,9 @@ constexpr uint16_t getInputPins()
  */
 void initializeProcessing()
 {
-  initializeArray(l_DCoffset_V, 512L * 256L);  // nominal mid-point value of ADC @ x256 scale
+  // Initialize DC offset in Q16.16 format: (0x8000 << 16) for left-aligned ADC
+  // 0x8000 is the mid-point of a left-aligned 10-bit ADC result
+  initializeArray(l_DCoffset_V, static_cast< uint32_t >(0x8000UL << 16));
 
   setPinsAsOutput(getOutputPins());      // set the output pins as OUTPUT
   setPinsAsInputPullup(getInputPins());  // set the input pins as INPUT_PULLUP
@@ -259,6 +283,9 @@ void initializeProcessing()
 
   // Activate free-running mode
   ADCSRB = 0x00;
+
+  // Enable left-aligned ADC result (ADLAR=1) for efficient fixed-point math
+  bit_set(ADMUX, ADLAR);
 
   // Set up the ADC to be free-running
   bit_set(ADCSRA, ADPS0);  // Set the ADC's clock to system clock / 128
@@ -399,9 +426,24 @@ void updatePhysicalLoadStates()
  */
 void processPolarity(const uint8_t phase, const int16_t rawSample)
 {
-  // remove DC offset from each raw voltage sample by subtracting the accurate value
-  // as determined by its associated LP filter.
-  l_sampleVminusDC[phase] = (static_cast< int32_t >(rawSample) << 8) - l_DCoffset_V[phase];
+  // With left-aligned ADC and Q16.16 bias, simply subtract the integer part
+  // rawSample is already left-aligned (16-bit), extract bias from Q16.16 (upper 16 bits)
+  l_sampleVminusDC[phase] = rawSample - static_cast< int16_t >(l_DCoffset_V[phase] >> 16);
+
+  // Update DC offset using EMA with alpha=1/65536: Q16.16 += error
+  // This is just one addition - the alpha is cancelled by the Q16.16 format!
+  l_DCoffset_V[phase] += l_sampleVminusDC[phase];
+
+  // Clamp DC offset to valid range
+  if (l_DCoffset_V[phase] < l_DCoffset_V_min)
+  {
+    l_DCoffset_V[phase] = l_DCoffset_V_min;
+  }
+  else if (l_DCoffset_V[phase] > l_DCoffset_V_max)
+  {
+    l_DCoffset_V[phase] = l_DCoffset_V_max;
+  }
+
   polarityOfMostRecentSampleV[phase] = (l_sampleVminusDC[phase] > 0) ? Polarities::POSITIVE : Polarities::NEGATIVE;
 }
 
@@ -427,19 +469,19 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   // extra items for an LPF to improve the processing of data samples from CT1
   static int32_t lpf_long[NO_OF_PHASES]{};  // new LPF, for offsetting the behaviour of CTx as a HPF
 
-  // remove most of the DC offset from the current sample (the precise value does not matter)
-  int32_t sampleIminusDC = (static_cast< int32_t >(rawSample - i_DCoffset_I_nom)) << 8;
+  // With left-aligned ADC, rawSample is already 16-bit left-aligned
+  // Remove DC offset (nominal center point)
+  int16_t sampleIminusDC = rawSample - i_DCoffset_I_nom;
 
   // extra filtering to offset the HPF effect of CTx
   const int32_t last_lpf_long{ lpf_long[phase] };
-  lpf_long[phase] += alpha * (sampleIminusDC - last_lpf_long);
-  sampleIminusDC += (lpf_gain * lpf_long[phase]);
+  lpf_long[phase] += alpha * (static_cast< int32_t >(sampleIminusDC) - last_lpf_long);
+  sampleIminusDC += static_cast< int16_t >(lpf_gain * lpf_long[phase]);
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
-  const int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
-  const int32_t filtI_div4 = sampleIminusDC >> 2;           // reduce to 16-bits (now x64, or 2^6)
-  int32_t instP = filtV_div4 * filtI_div4;                  // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                                             // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+  // With left-aligned ADC, V*I gives 32-bit result, drop lower 8 bits for 24-bit result
+  int32_t instP = static_cast< int32_t >(l_sampleVminusDC[phase]) * sampleIminusDC;
+  instP >>= 8;  // Drop lower 8 bits - efficient shift for left-aligned values
 
   l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
   l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
@@ -740,26 +782,10 @@ void processStartNewCycle()
  */
 void processMinusHalfCycle(const uint8_t phase)
 {
-  // This is a convenient point to update the Low Pass Filter for removing the DC
-  // component from the phase that is being processed.
-  // The portion which is fed back into the integrator is approximately one percent
-  // of the average offset of all the SampleVs in the previous mains cycle.
-  //
-  l_DCoffset_V[phase] += (l_cumVdeltasThisCycle[phase] >> 12);
+  // Note: DC offset is now updated per-sample in processPolarity() using EMA filter
+  // with alpha=1/65536 in Q16.16 format. No need for per-cycle update.
+  // l_cumVdeltasThisCycle is no longer needed but kept for now for compatibility.
   l_cumVdeltasThisCycle[phase] = 0;
-
-  // To ensure that this LP filter will always start up correctly when 240V AC is
-  // available, its output value needs to be prevented from drifting beyond the likely range
-  // of the voltage signal.
-  //
-  if (l_DCoffset_V[phase] < l_DCoffset_V_min)
-  {
-    l_DCoffset_V[phase] = l_DCoffset_V_min;
-  }
-  else if (l_DCoffset_V[phase] > l_DCoffset_V_max)
-  {
-    l_DCoffset_V[phase] = l_DCoffset_V_max;
-  }
 }
 
 /**
@@ -1126,7 +1152,8 @@ void printParamsForSelectedOutputMode()
  */
 
 // ADC optimization: circular linked list for channels (private implementation)
-#define _ADMUX (1 << REFS0)
+// ADLAR=1 enables left-aligned ADC for efficient fixed-point math
+constexpr uint8_t _ADMUX{ (1 << REFS0) | (1 << ADLAR) };
 
 /**
  * @brief ADC channel context for circular linked list optimization
@@ -1138,10 +1165,11 @@ void printParamsForSelectedOutputMode()
  * 
  * @ingroup TimeCritical
  */
-struct adc_ctx_t {
-    struct adc_ctx_t* next;  /**< pointer to next context in circular list */
-    uint8_t index;           /**< channel index (0-5 for V1,I1,V2,I2,V3,I3) */
-    uint8_t admux;           /**< ADMUX register value for this channel */
+struct adc_ctx_t
+{
+  struct adc_ctx_t *next; /**< pointer to next context in circular list */
+  uint8_t index;          /**< channel index (0-5 for V1,I1,V2,I2,V3,I3) */
+  uint8_t admux;          /**< ADMUX register value for this channel */
 };
 
 // ADC optimization: circular linked list for channel management
