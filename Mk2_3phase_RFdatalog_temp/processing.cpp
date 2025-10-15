@@ -1195,7 +1195,8 @@ ISR(ADC_vect)
     // process voltage channel
     processVoltageRawSample(_ctx->index >> 1, adc_raw);
   }
-  else {
+  else
+  {
     // process current channel
     processCurrentRawSample(_ctx->index >> 1, adc_raw);
   }
