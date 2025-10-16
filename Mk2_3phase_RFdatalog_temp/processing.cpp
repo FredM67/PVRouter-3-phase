@@ -101,37 +101,38 @@ bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle 
 /**
  * @brief Initializes all elements of a given array to a specified value.
  *
- * This function is a compile-time constant expression (`constexpr`) that allows
- * initializing arrays of any size with a specific value. It is particularly useful
- * in embedded systems where predictable initialization is required.
+ * This template function provides a type-safe and efficient way to initialize
+ * arrays of any type and size with a specific value. Being a `constexpr` function,
+ * it can be evaluated at compile time when all inputs are compile-time constants,
+ * or at runtime when needed.
  *
- * @tparam N The size of the array (deduced automatically).
- * @param array A reference to the array to be initialized.
- * @param value The value to assign to each element of the array.
+ * This utility is particularly useful in embedded systems where:
+ * - Predictable and uniform initialization is required
+ * - Type safety is important to prevent initialization errors
+ * - The array size is automatically deduced, avoiding size mismatch errors
  *
- * @note The function can be evaluated at compile time if all inputs are known
- *       at compile time.
+ * @tparam T The type of the array elements (automatically deduced from the array)
+ * @tparam N The number of elements in the array (automatically deduced)
+ * 
+ * @param[in,out] array Reference to the array to be initialized. All elements will be
+ *                      overwritten with the specified value.
+ * @param[in] value The value to assign to each element of the array. The type must be
+ *                  compatible with the array element type.
+ *
+ * @note This function is marked `constexpr`, allowing compile-time evaluation when
+ *       both the array and value are compile-time constants. When used with runtime
+ *       values, it executes as a regular function.
+ *
+ * @par Example Usage:
+ * @code
+ * uint32_t offsets[NO_OF_PHASES];
+ * initializeArray(offsets, static_cast<uint32_t>(0x8000UL << 16));
+ * @endcode
  *
  * @ingroup Initialization
  */
-template< size_t N >
-constexpr void initializeArray(int32_t (&array)[N], int32_t value)
-{
-  for (size_t i = 0; i < N; ++i)
-  {
-    array[i] = value;
-  }
-}
-
-/**
- * @brief Initialize an array of uint32_t values
- * @tparam N Size of the array
- * @param array Reference to the array to initialize
- * @param value The value to set for all elements
- * @ingroup Initialization
- */
-template< size_t N >
-constexpr void initializeArray(uint32_t (&array)[N], uint32_t value)
+template< typename T, size_t N >
+constexpr void initializeArray(T (&array)[N], T value)
 {
   for (size_t i = 0; i < N; ++i)
   {
