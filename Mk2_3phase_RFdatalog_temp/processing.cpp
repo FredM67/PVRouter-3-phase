@@ -1189,8 +1189,6 @@ ISR(ADC_vect)
 {
   uint16_t adc_raw = ADC;
 
-  ADMUX = _ctx->admux;
-
   if ((_ctx->index & 1) == 0)
   {  // even=voltage, odd=current
     // process voltage channel
@@ -1203,4 +1201,8 @@ ISR(ADC_vect)
   }
 
   _ctx = _ctx->next;
+
+  // Set ADMUX at the end of the interrupt to ensure at least 128 CPU cycles
+  // have passed since the trigger event (ATmega328p datasheet requirement)
+  ADMUX = _ctx->admux;
 }  // end of ISR
