@@ -1200,9 +1200,9 @@ ISR(ADC_vect)
     processCurrentRawSample(_ctx->index >> 1, adc_raw);
   }
 
-  _ctx = _ctx->next;
-
   // Set ADMUX at the end of the interrupt to ensure at least 128 CPU cycles
   // have passed since the trigger event (ATmega328p datasheet requirement)
   ADMUX = _ctx->admux;
+
+  _ctx = _ctx->next;
 }  // end of ISR
