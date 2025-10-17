@@ -40,7 +40,7 @@
  * 
  * @ingroup TimeCritical
  */
-static inline __attribute__((always_inline)) void mult16x16_to32(int32_t& result, int16_t a, int16_t b)
+static inline __attribute__((always_inline)) void multS16x16_to32(int32_t& result, int16_t a, int16_t b)
 {
 #ifdef __AVR__
   asm volatile(
@@ -65,6 +65,32 @@ static inline __attribute__((always_inline)) void mult16x16_to32(int32_t& result
     : "r26");
 #else
   result = static_cast< int32_t >(a) * b;
+#endif
+}
+
+static inline __attribute__((always_inline)) void multU16x16_to32(uint32_t& result, uint16_t a, uint16_t b)
+{
+#ifdef __AVR__
+  asm volatile(
+    "clr r26 \n\t"
+    "mul %A1, %A2 \n\t"
+    "movw %A0, r0 \n\t"
+    "mul %B1, %B2 \n\t"
+    "movw %C0, r0 \n\t"
+    "mul %B2, %A1 \n\t"
+    "add %B0, r0 \n\t"
+    "adc %C0, r1 \n\t"
+    "adc %D0, r26 \n\t"
+    "mul %B1, %A2 \n\t"
+    "add %B0, r0 \n\t"
+    "adc %C0, r1 \n\t"
+    "adc %D0, r26 \n\t"
+    "clr r1 \n\t"
+    : "=&r"(result)
+    : "a"(a), "a"(b)
+    : "r26");
+#else
+  result = static_cast< uint32_t >(a) * b;
 #endif
 }
 

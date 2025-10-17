@@ -32,50 +32,102 @@ void tearDown(void)
 }
 
 /**
- * @brief Test basic functionality of mult16x16_to32
+ * @brief Test basic functionality of multS16x16_to32
  */
-void test_mult16x16_to32_basic(void)
+void test_multS16x16_to32_basic(void)
 {
   int32_t result;
 
   // Test positive × positive
-  mult16x16_to32(result, 2, 3);
+  multS16x16_to32(result, 2, 3);
   TEST_ASSERT_EQUAL(6, result);
 
-  mult16x16_to32(result, 100, 100);
+  multS16x16_to32(result, 100, 100);
   TEST_ASSERT_EQUAL(10000, result);
 
   // Test positive × negative
-  mult16x16_to32(result, 2, -3);
+  multS16x16_to32(result, 2, -3);
   TEST_ASSERT_EQUAL(-6, result);
 
-  mult16x16_to32(result, 100, -100);
+  multS16x16_to32(result, 100, -100);
   TEST_ASSERT_EQUAL(-10000, result);
 
   // Test negative × negative
-  mult16x16_to32(result, -2, -3);
+  multS16x16_to32(result, -2, -3);
   TEST_ASSERT_EQUAL(6, result);
 
   // Test edge cases
-  mult16x16_to32(result, 0, 1000);
+  multS16x16_to32(result, 0, 1000);
   TEST_ASSERT_EQUAL(0, result);
 
-  mult16x16_to32(result, 1000, 0);
+  multS16x16_to32(result, 1000, 0);
   TEST_ASSERT_EQUAL(0, result);
 
   // Test maximum values (be careful of overflow)
-  mult16x16_to32(result, 32767, 1);
+  multS16x16_to32(result, 32767, 1);
   TEST_ASSERT_EQUAL(32767, result);
 
-  mult16x16_to32(result, -32768, 1);
+  multS16x16_to32(result, -32768, 1);
   TEST_ASSERT_EQUAL(-32768, result);
 
   // Test larger multiplications
-  mult16x16_to32(result, 1000, 1000);
+  multS16x16_to32(result, 1000, 1000);
   TEST_ASSERT_EQUAL(1000000, result);
 
-  mult16x16_to32(result, -1000, 1000);
+  multS16x16_to32(result, -1000, 1000);
   TEST_ASSERT_EQUAL(-1000000, result);
+}
+
+/**
+ * @brief Test basic functionality of multU16x16_to32 (unsigned)
+ */
+void test_multU16x16_to32_basic(void)
+{
+  uint32_t result;
+
+  // Test basic unsigned multiplication
+  multU16x16_to32(result, 2, 3);
+  TEST_ASSERT_EQUAL_UINT32(6, result);
+
+  multU16x16_to32(result, 100, 100);
+  TEST_ASSERT_EQUAL_UINT32(10000, result);
+
+  multU16x16_to32(result, 1000, 1000);
+  TEST_ASSERT_EQUAL_UINT32(1000000, result);
+
+  // Test edge cases
+  multU16x16_to32(result, 0, 1000);
+  TEST_ASSERT_EQUAL_UINT32(0, result);
+
+  multU16x16_to32(result, 1000, 0);
+  TEST_ASSERT_EQUAL_UINT32(0, result);
+
+  multU16x16_to32(result, 1, 65535);
+  TEST_ASSERT_EQUAL_UINT32(65535, result);
+
+  multU16x16_to32(result, 65535, 1);
+  TEST_ASSERT_EQUAL_UINT32(65535, result);
+
+  // Test maximum values (65535 * 65535)
+  multU16x16_to32(result, 65535, 65535);
+  TEST_ASSERT_EQUAL_UINT32(4294836225UL, result);  // 65535² = 4,294,836,225
+
+  // Test typical ADC values (like voltage sample squared for V²)
+  multU16x16_to32(result, 32768, 32768);
+  TEST_ASSERT_EQUAL_UINT32(1073741824UL, result);  // 32768² = 1,073,741,824
+
+  multU16x16_to32(result, 1648, 1648);
+  TEST_ASSERT_EQUAL_UINT32(2715904, result);  // Typical V sample squared
+
+  // Test various powers of 2
+  multU16x16_to32(result, 256, 256);
+  TEST_ASSERT_EQUAL_UINT32(65536, result);
+
+  multU16x16_to32(result, 512, 512);
+  TEST_ASSERT_EQUAL_UINT32(262144, result);
+
+  multU16x16_to32(result, 1024, 1024);
+  TEST_ASSERT_EQUAL_UINT32(1048576, result);
 }
 
 /**
@@ -178,47 +230,47 @@ void test_edge_cases(void)
   int32_t result32;
   int16_t result16;
 
-  // Test mult16x16_to32 with values near 16-bit limits
-  mult16x16_to32(result32, 32767, 2);
+  // Test multS16x16_to32 with values near 16-bit limits
+  multS16x16_to32(result32, 32767, 2);
   TEST_ASSERT_EQUAL(65534, result32);
 
-  mult16x16_to32(result32, -32768, 2);
+  multS16x16_to32(result32, -32768, 2);
   TEST_ASSERT_EQUAL(-65536, result32);
 
-  mult16x16_to32(result32, -32640, 257);
+  multS16x16_to32(result32, -32640, 257);
   TEST_ASSERT_EQUAL(-8388480, result32);
 
   // Test maximum positive * maximum positive (largest positive result)
-  mult16x16_to32(result32, 32767, 32767);
+  multS16x16_to32(result32, 32767, 32767);
   TEST_ASSERT_EQUAL(1073676289L, result32);  // 32767² = 1,073,676,289
 
   // Test maximum negative * maximum negative (largest positive result)
-  mult16x16_to32(result32, -32768, -32768);
+  multS16x16_to32(result32, -32768, -32768);
   TEST_ASSERT_EQUAL(1073741824L, result32);  // (-32768)² = 1,073,741,824
 
   // Test maximum positive * maximum negative (most negative result)
-  mult16x16_to32(result32, 32767, -32768);
+  multS16x16_to32(result32, 32767, -32768);
   TEST_ASSERT_EQUAL(-1073709056L, result32);  // 32767 * (-32768) = -1,073,709,056
 
   // Test maximum negative * maximum positive (same as above)
-  mult16x16_to32(result32, -32768, 32767);
+  multS16x16_to32(result32, -32768, 32767);
   TEST_ASSERT_EQUAL(-1073709056L, result32);
 
   // Test one value at limit, other small
-  mult16x16_to32(result32, 32767, -1);
+  multS16x16_to32(result32, 32767, -1);
   TEST_ASSERT_EQUAL(-32767, result32);
 
-  mult16x16_to32(result32, -32768, -1);
+  multS16x16_to32(result32, -32768, -1);
   TEST_ASSERT_EQUAL(32768, result32);
 
   // Test typical ADC range values (like in PVRouter ISR)
-  mult16x16_to32(result32, 1648, 512);  // Typical voltage * current
+  multS16x16_to32(result32, 1648, 512);  // Typical voltage * current
   TEST_ASSERT_EQUAL(843776, result32);
 
-  mult16x16_to32(result32, -1648, 512);  // Negative voltage
+  multS16x16_to32(result32, -1648, 512);  // Negative voltage
   TEST_ASSERT_EQUAL(-843776, result32);
 
-  mult16x16_to32(result32, 1648, -512);  // Negative current
+  multS16x16_to32(result32, 1648, -512);  // Negative current
   TEST_ASSERT_EQUAL(-843776, result32);
 
   // Test mult16x8_q8 with extreme values
@@ -288,20 +340,36 @@ void test_edge_cases(void)
 void test_assembly_vs_standard(void)
 {
   int32_t asm_result, std_result;
+  uint32_t asm_result_u, std_result_u;
   int16_t asm_result16, std_result16;
 
-  // Test values
+  // Test values for signed multiplication
   int16_t test_vals[] = { 100, -200, 1000, -1500, 32767, -32768 };
   uint8_t test_fracs[] = { 64, 128, 192, 255 };  // 0.25, 0.5, 0.75, ~1.0
 
-  // Compare mult16x16_to32 results
+  // Compare multS16x16_to32 results
   for (uint8_t i = 0; i < 6; i++)
   {
     for (uint8_t j = 0; j < 6; j++)
     {
-      mult16x16_to32(asm_result, test_vals[i], test_vals[j]);
+      multS16x16_to32(asm_result, test_vals[i], test_vals[j]);
       std_result = (int32_t)test_vals[i] * test_vals[j];
       TEST_ASSERT_EQUAL(std_result, asm_result);
+    }
+  }
+
+  // Test values for unsigned multiplication
+  uint16_t test_vals_u[] = { 0, 1, 100, 1000, 32767, 32768, 65535 };
+  const uint8_t num_vals_u = sizeof(test_vals_u) / sizeof(test_vals_u[0]);
+
+  // Compare multU16x16_to32 results
+  for (uint8_t i = 0; i < num_vals_u; i++)
+  {
+    for (uint8_t j = 0; j < num_vals_u; j++)
+    {
+      multU16x16_to32(asm_result_u, test_vals_u[i], test_vals_u[j]);
+      std_result_u = (uint32_t)test_vals_u[i] * test_vals_u[j];
+      TEST_ASSERT_EQUAL_UINT32(std_result_u, asm_result_u);
     }
   }
 
@@ -320,7 +388,7 @@ void test_assembly_vs_standard(void)
 /**
  * @brief Performance comparison between assembly and standard multiplication
  */
-void test_performance_mult16x16_to32(void)
+void test_performance_multS16x16_to32(void)
 {
   const uint16_t iterations = 1000;
   int32_t result;
@@ -335,7 +403,7 @@ void test_performance_mult16x16_to32(void)
   // Warm up
   for (uint8_t k = 0; k < 10; k++)
   {
-    mult16x16_to32(result, test_vals[k % num_vals], test_vals[(k + 1) % num_vals]);
+    multS16x16_to32(result, test_vals[k % num_vals], test_vals[(k + 1) % num_vals]);
   }
 
   // Performance test for assembly multiplication
@@ -347,7 +415,7 @@ void test_performance_mult16x16_to32(void)
     {
       for (uint8_t k = 0; k < num_vals; k++)
       {
-        mult16x16_to32(result, test_vals[j], test_vals[k]);
+        multS16x16_to32(result, test_vals[j], test_vals[k]);
         *volatile_result = result;  // Force storage
       }
     }
@@ -382,7 +450,7 @@ void test_performance_mult16x16_to32(void)
   uint32_t total_ops = (uint32_t)iterations * num_vals * num_vals;
 
   // Report results
-  Serial.println(F("--- mult16x16_to32 Performance Results ---"));
+  Serial.println(F("--- multS16x16_to32 Performance Results ---"));
   Serial.print(F("Operations: "));
   Serial.println(total_ops);
   Serial.print(F("Assembly time: "));
@@ -416,6 +484,106 @@ void test_performance_mult16x16_to32(void)
   // The test passes if assembly is reasonably competitive with standard
   // Function call overhead may make assembly slower in micro-benchmarks
   // but should be faster in real-world usage (ISR context)
+  TEST_ASSERT_TRUE(asm_time <= std_time * 10);  // Allow 10x slower for function overhead
+}
+
+/**
+ * @brief Performance comparison for unsigned multiplication (multU16x16_to32)
+ */
+void test_performance_multU16x16_to32(void)
+{
+  const uint16_t iterations = 1000;
+  uint32_t result;
+
+  // Test data - unsigned values typical for ADC and V² calculations
+  uint16_t test_vals[] = { 0, 100, 1000, 16384, 32768, 49152, 65535 };
+  const uint8_t num_vals = sizeof(test_vals) / sizeof(test_vals[0]);
+
+  // Use volatile pointer to force storage without arithmetic overhead
+  volatile uint32_t* volatile_result = &result;
+
+  // Warm up
+  for (uint8_t k = 0; k < 10; k++)
+  {
+    multU16x16_to32(result, test_vals[k % num_vals], test_vals[(k + 1) % num_vals]);
+  }
+
+  // Performance test for assembly multiplication
+  unsigned long start_time = micros();
+
+  for (uint16_t i = 0; i < iterations; i++)
+  {
+    for (uint8_t j = 0; j < num_vals; j++)
+    {
+      for (uint8_t k = 0; k < num_vals; k++)
+      {
+        multU16x16_to32(result, test_vals[j], test_vals[k]);
+        *volatile_result = result;  // Force storage
+      }
+    }
+  }
+
+  unsigned long asm_time = micros() - start_time;
+
+  // Warm up standard multiplication
+  for (uint8_t k = 0; k < 10; k++)
+  {
+    result = (uint32_t)test_vals[k % num_vals] * test_vals[(k + 1) % num_vals];
+  }
+
+  // Performance test for standard multiplication
+  start_time = micros();
+
+  for (uint16_t i = 0; i < iterations; i++)
+  {
+    for (uint8_t j = 0; j < num_vals; j++)
+    {
+      for (uint8_t k = 0; k < num_vals; k++)
+      {
+        result = (uint32_t)test_vals[j] * test_vals[k];
+        *volatile_result = result;  // Force storage
+      }
+    }
+  }
+
+  unsigned long std_time = micros() - start_time;
+
+  // Calculate total operations
+  uint32_t total_ops = (uint32_t)iterations * num_vals * num_vals;
+
+  // Report results
+  Serial.println(F("--- multU16x16_to32 Performance Results ---"));
+  Serial.print(F("Operations: "));
+  Serial.println(total_ops);
+  Serial.print(F("Assembly time: "));
+  Serial.print(asm_time);
+  Serial.println(F(" µs"));
+  Serial.print(F("Standard time: "));
+  Serial.print(std_time);
+  Serial.println(F(" µs"));
+
+  if (asm_time > 0 && std_time > 0)
+  {
+    Serial.print(F("Assembly ops/µs: "));
+    Serial.println((float)total_ops / asm_time, 2);
+    Serial.print(F("Standard ops/µs: "));
+    Serial.println((float)total_ops / std_time, 2);
+
+    if (asm_time < std_time)
+    {
+      Serial.print(F("✓ Assembly is "));
+      Serial.print((float)std_time / asm_time, 2);
+      Serial.println(F("x faster"));
+    }
+    else
+    {
+      Serial.print(F("⚠ Standard is "));
+      Serial.print((float)asm_time / std_time, 2);
+      Serial.println(F("x faster"));
+    }
+  }
+
+  // The test passes if assembly is reasonably competitive with standard
   TEST_ASSERT_TRUE(asm_time <= std_time * 10);  // Allow 10x slower for function overhead
 }
 
@@ -546,8 +714,8 @@ void test_performance_isr_simulation(void)
   {
     int32_t power, vsquared;
     int16_t filter_delta;
-    mult16x16_to32(power, voltage_samples[k % num_samples], current_samples[k % num_samples]);
-    mult16x16_to32(vsquared, voltage_samples[k % num_samples], voltage_samples[k % num_samples]);
+    multS16x16_to32(power, voltage_samples[k % num_samples], current_samples[k % num_samples]);
+    multS16x16_to32(vsquared, voltage_samples[k % num_samples], voltage_samples[k % num_samples]);
     mult16x8_q8(filter_delta, prev_current[k % num_samples] - current_samples[k % num_samples], filter_factor);
   }
 
@@ -562,8 +730,8 @@ void test_performance_isr_simulation(void)
     int32_t instant_power, voltage_squared;
     int16_t filter_delta;
 
-    mult16x16_to32(instant_power, voltage_samples[idx], current_samples[idx]);
-    mult16x16_to32(voltage_squared, voltage_samples[idx], voltage_samples[idx]);
+    multS16x16_to32(instant_power, voltage_samples[idx], current_samples[idx]);
+    multS16x16_to32(voltage_squared, voltage_samples[idx], voltage_samples[idx]);
     mult16x8_q8(filter_delta, prev_current[idx] - current_samples[idx], filter_factor);
 
     power_sum += instant_power;
@@ -662,7 +830,9 @@ void loop()
   if (i < max_blinks)
   {
     // Functional tests
-    RUN_TEST(test_mult16x16_to32_basic);
+    RUN_TEST(test_multS16x16_to32_basic);
+    delay(100);
+    RUN_TEST(test_multU16x16_to32_basic);
     delay(100);
     RUN_TEST(test_mult16x8_q8_basic);
     delay(100);
@@ -680,7 +850,9 @@ void loop()
     Serial.println(F("========================================"));
     Serial.println(F("Performance Tests"));
     Serial.println(F("========================================"));
-    RUN_TEST(test_performance_mult16x16_to32);
+    RUN_TEST(test_performance_multS16x16_to32);
+    delay(200);
+    RUN_TEST(test_performance_multU16x16_to32);
     delay(200);
     RUN_TEST(test_performance_mult16x8_q8);
     delay(200);

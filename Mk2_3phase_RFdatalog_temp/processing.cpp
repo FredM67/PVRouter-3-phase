@@ -66,7 +66,7 @@ int16_t i_sampleVminusDC[NO_OF_PHASES]{}; /**< current raw voltage sample filter
 uint32_t l_filterDC_V[NO_OF_PHASES]{};    /**< for the LPF which determines DC offset (voltage) */
 
 int32_t l_sumP_atSupplyPoint[NO_OF_PHASES]{}; /**< for summation of 'real power' values during datalog period */
-int32_t l_sum_Vsquared[NO_OF_PHASES]{};       /**< for summation of V^2 values during datalog period */
+uint32_t l_sum_Vsquared[NO_OF_PHASES]{};      /**< for summation of V^2 values during datalog period */
 
 uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]{}; /**< number of sample sets for each phase during each mains cycle */
 uint16_t i_sampleSetsDuringThisDatalogPeriod{ 0 };     /**< number of sample sets during each datalogging period */
@@ -469,8 +469,8 @@ void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
   // With left-aligned ADC, V*I gives 32-bit result, drop lower 8 bits for 24-bit result
   // Using optimized assembly multiplication for ~3x speedup in ISR
   int32_t instP;
-  mult16x16_to32(instP, i_sampleVminusDC[phase], sampleIminusDC);  // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                                                    // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+  multS16x16_to32(instP, i_sampleVminusDC[phase], sampleIminusDC);  // 32-bits (now x4096, or 2^12)
+  instP >>= 12;                                                     // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
   //TODO: optimization, scale to x4 (instP >>= 8) to avoid multiple shifts
 
@@ -532,9 +532,11 @@ void processVoltage(const uint8_t phase)
 {
   // for the Vrms calculation (for datalogging only)
   // Using optimized assembly multiplication for ~3x speedup in ISR
-  int32_t inst_Vsquared;
-  mult16x16_to32(inst_Vsquared, i_sampleVminusDC[phase], i_sampleVminusDC[phase]);  // 32-bits left aligned (now x4096, or 2^12)
+  int32_t inst_Vsquared_signed;
+  multS16x16_to32(inst_Vsquared_signed, i_sampleVminusDC[phase], i_sampleVminusDC[phase]);
+  uint32_t inst_Vsquared = static_cast< uint32_t >(inst_Vsquared_signed);
 
+  // Shift strategy verified safe by unit tests for all datalog periods and voltages
   if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
   {
     inst_Vsquared >>= 16;  // scaling is now x1/16 (V_ADC x V_ADC)
