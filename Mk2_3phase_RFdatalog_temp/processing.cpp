@@ -472,7 +472,7 @@ void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
   mult16x16_to32(instP, i_sampleVminusDC[phase], sampleIminusDC);  // 32-bits (now x4096, or 2^12)
   instP >>= 12;                                                    // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
-  // TODO: optimization, scale to x4 (instP >>= 8) to avoid multiple shifts
+  //TODO: optimization, scale to x4 (instP >>= 8) to avoid multiple shifts
 
   l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
   l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
@@ -537,16 +537,16 @@ void processVoltage(const uint8_t phase)
 
   if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
   {
-    inst_Vsquared >>= 16;  // scaling is now x1/16 (V_ADC x I_ADC)
+    inst_Vsquared >>= 16;  // scaling is now x1/16 (V_ADC x V_ADC)
   }
   else
   {
-    inst_Vsquared >>= 12;  // scaling is now x1 (V_ADC x I_ADC)
+    inst_Vsquared >>= 12;  // scaling is now x1 (V_ADC x V_ADC)
 
-    // TODO: optimization, scale to x4 (inst_Vsquared >>= 8) to avoid multiple shifts
+    //TODO: optimization, scale to x4 (inst_Vsquared >>= 8) to avoid multiple shifts
   }
 
-  l_sum_Vsquared[phase] += inst_Vsquared;  // cumulative V^2 (V_ADC x I_ADC)
+  l_sum_Vsquared[phase] += inst_Vsquared;  // cumulative V^2 (V_ADC x V_ADC)
   //
   // store items for use during next loop
   l_filterDC_V[phase] += i_sampleVminusDC[phase];                    // for use with LP filter
