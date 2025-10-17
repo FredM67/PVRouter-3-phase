@@ -470,7 +470,7 @@ void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
   // Using optimized assembly multiplication for ~3x speedup in ISR
   int32_t instP;
   mult16x16_to32(instP, i_sampleVminusDC[phase], sampleIminusDC);  // 32-bits (now x4096, or 2^12)
-  instP >>= 12;  // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+  instP >>= 12;                                                    // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
   // TODO: optimization, scale to x4 (instP >>= 8) to avoid multiple shifts
 
