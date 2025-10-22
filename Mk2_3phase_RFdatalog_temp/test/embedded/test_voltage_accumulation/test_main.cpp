@@ -1,8 +1,12 @@
 /**
  * @file test_main.cpp
- * @brief Unity tests for voltage accumulation overflow analysis
+ * @brief Unity tests for voltage accumulation overflow analysis with 14-bit optimization
  * @author Frederic Metrich
  * @date 2025-10-17
+ * 
+ * Tests the optimized voltage accumulation strategy where samples are reduced to 14-bits
+ * before multiplication, then shifted by 8 (for ≤10s periods) or 12 (for >10s periods).
+ * This is more efficient on 8-bit MCU as shifting by 8 bits is a single byte operation.
  */
 
 #include <Arduino.h>
@@ -51,9 +55,11 @@ void test_voltage_accumulation(uint8_t period, uint8_t shift, float vrms, bool e
       float angle = 2.0f * PI * SUPPLY_FREQUENCY * time_us / 1e6f;
       uint16_t adc = simulateADC(vpeak * sin(angle));
       int16_t sample = (adc | 32U) - ADC_MIDPOINT_ALIGNED;
+      // Optimization: reduce to 14-bits before multiplication (more efficient on 8-bit MCU)
+      int16_t sample_div4 = sample >> 2;  // reduce to 14-bits (now x16, or 2^4)
       int32_t vsq_signed;
-      multS16x16_to32(vsq_signed, sample, sample);
-      uint32_t vsq = static_cast< uint32_t >(vsq_signed);  // V² is always positive
+      multS16x16_to32(vsq_signed, sample_div4, sample_div4);  // 32-bits (now x256, or 2^8)
+      uint32_t vsq = static_cast< uint32_t >(vsq_signed);     // V² is always positive
       vsq >>= shift;
       sum_vsq += vsq;
       if (sum_vsq > max_acc) max_acc = sum_vsq;
@@ -91,9 +97,11 @@ void test_voltage_accumulation(uint8_t period, uint8_t shift, float vrms, bool e
       float angle = 2.0f * PI * SUPPLY_FREQUENCY * time_us / 1e6f;
       uint16_t adc = simulateADC(vpeak * sin(angle));
       int16_t sample = (adc | 32U) - ADC_MIDPOINT_ALIGNED;
+      // Optimization: reduce to 14-bits before multiplication (more efficient on 8-bit MCU)
+      int16_t sample_div4 = sample >> 2;  // reduce to 14-bits (now x16, or 2^4)
       int32_t vsq_signed;
-      multS16x16_to32(vsq_signed, sample, sample);
-      uint32_t vsq = static_cast< uint32_t >(vsq_signed);  // V² is always positive
+      multS16x16_to32(vsq_signed, sample_div4, sample_div4);  // 32-bits (now x256, or 2^8)
+      uint32_t vsq = static_cast< uint32_t >(vsq_signed);     // V² is always positive
       vsq >>= shift;
       sum_vsq += vsq;
       if (sum_vsq > max_acc) max_acc = sum_vsq;
@@ -119,39 +127,34 @@ void test_voltage_accumulation(uint8_t period, uint8_t shift, float vrms, bool e
 void setUp(void) {}
 void tearDown(void) {}
 
-void test_5s_shift12_230V(void)
-{
-  test_voltage_accumulation(5, 12, 230.0f, false, "5s, >>12, 230V");
-}
-
 void test_5s_shift8_230V(void)
 {
-  test_voltage_accumulation(5, 8, 230.0f, false, "5s, >>8 (TODO), 230V");
+  test_voltage_accumulation(5, 8, 230.0f, false, "5s, >>8, 230V");
 }
 
-void test_5s_shift12_253V(void)
+void test_5s_shift8_253V(void)
 {
-  test_voltage_accumulation(5, 12, 253.0f, false, "5s, >>12, 253V");
+  test_voltage_accumulation(5, 8, 253.0f, false, "5s, >>8, 253V");
 }
 
-void test_10s_shift12_230V(void)
+void test_10s_shift8_230V(void)
 {
-  test_voltage_accumulation(10, 12, 230.0f, false, "10s, >>12, 230V");
+  test_voltage_accumulation(10, 8, 230.0f, false, "10s, >>8, 230V");
 }
 
-void test_20s_shift16_230V(void)
+void test_20s_shift12_230V(void)
 {
-  test_voltage_accumulation(20, 16, 230.0f, false, "20s, >>16, 230V");
+  test_voltage_accumulation(20, 12, 230.0f, false, "20s, >>12, 230V");
 }
 
-void test_20s_shift12_overflow(void)
+void test_20s_shift8_overflow(void)
 {
-  test_voltage_accumulation< true >(20, 12, 230.0f, true, "20s, >>12 OVERFLOW");
+  test_voltage_accumulation< true >(20, 8, 230.0f, true, "20s, >>8 OVERFLOW");
 }
 
-void test_40s_shift16_253V(void)
+void test_40s_shift12_253V(void)
 {
-  test_voltage_accumulation(40, 16, 253.0f, false, "40s (max), >>16, 253V");
+  test_voltage_accumulation(40, 12, 253.0f, false, "40s (max), >>12, 253V");
 }
 
 void setup()
@@ -176,34 +179,29 @@ void loop()
 {
   if (i == 0)
   {
-    Serial.println(F("--- Current Implementation (should PASS) ---"));
-    RUN_TEST(test_5s_shift12_230V);
-    delay(100);
-    RUN_TEST(test_5s_shift12_253V);
-    delay(100);
-    RUN_TEST(test_10s_shift12_230V);
-    delay(100);
-    RUN_TEST(test_20s_shift16_230V);
-    delay(100);
-    RUN_TEST(test_40s_shift16_253V);
-    delay(100);
-
-    Serial.println(F(""));
-    Serial.println(F("--- TODO Suggestion (>>8 shift) ---"));
+    Serial.println(F("--- Optimized Implementation (14-bit pre-shift) ---"));
     RUN_TEST(test_5s_shift8_230V);
     delay(100);
+    RUN_TEST(test_5s_shift8_253V);
+    delay(100);
+    RUN_TEST(test_10s_shift8_230V);
+    delay(100);
+    RUN_TEST(test_20s_shift12_230V);
+    delay(100);
+    RUN_TEST(test_40s_shift12_253V);
+    delay(100);
 
     Serial.println(F(""));
-    Serial.println(F("--- Overflow Demo (should FAIL) ---"));
-    RUN_TEST(test_20s_shift12_overflow);
+    Serial.println(F("--- Overflow Demo (should FAIL with >>8 for 20s) ---"));
+    RUN_TEST(test_20s_shift8_overflow);
     delay(100);
 
     Serial.println(F(""));
     Serial.println(F("=== CONCLUSIONS ==="));
-    Serial.println(F("1. Current code (>>12 for <=10s, >>16 for >10s) is SAFE"));
-    Serial.println(F("2. TODO suggestion (>>8) provides marginal benefit"));
-    Serial.println(F("3. Using >>12 for long periods WILL OVERFLOW"));
-    Serial.println(F("4. Recommendation: KEEP current implementation!"));
+    Serial.println(F("1. Optimized code (>>8 for <=10s, >>12 for >10s) is SAFE"));
+    Serial.println(F("2. Reduces to 14-bits before multiplication for efficiency"));
+    Serial.println(F("3. Fewer shift operations: >>8 and >>12 instead of >>12 and >>16"));
+    Serial.println(F("4. More efficient on 8-bit MCU (shifts by 8 bits are cheap)"));
     Serial.println(F(""));
 
     UNITY_END();

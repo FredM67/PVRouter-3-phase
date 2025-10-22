@@ -466,13 +466,14 @@ void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
   }
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
-  // With left-aligned ADC, V*I gives 32-bit result, drop lower 8 bits for 24-bit result
+  // Reduce to 14-bits (x16 scale) before multiplication for efficiency on 8-bit MCU
+  const int16_t filtV_div4{ i_sampleVminusDC[phase] >> 2 };  // reduce to 14-bits (now x16, or 2^4)
+  const int16_t filtI_div4{ sampleIminusDC >> 2 };           // reduce to 14-bits (now x16, or 2^4)
+
   // Using optimized assembly multiplication for ~3x speedup in ISR
   int32_t instP;
-  multS16x16_to32(instP, i_sampleVminusDC[phase], sampleIminusDC);  // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                                                     // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
-
-  //TODO: optimization, scale to x4 (instP >>= 8) to avoid multiple shifts
+  multS16x16_to32(instP, filtV_div4, filtI_div4);  // 32-bits (now x256, or 2^8)
+  instP >>= 8;                                     // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
   l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
   l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
@@ -531,21 +532,22 @@ void confirmPolarity(const uint8_t phase)
 void processVoltage(const uint8_t phase)
 {
   // for the Vrms calculation (for datalogging only)
+  // Reduce to 14-bits (x16 scale) before multiplication for efficiency on 8-bit MCU
+  const int16_t filtV_div4{ i_sampleVminusDC[phase] >> 2 };  // reduce to 14-bits (now x16, or 2^4)
+
   // Using optimized assembly multiplication for ~3x speedup in ISR
   int32_t inst_Vsquared_signed;
-  multS16x16_to32(inst_Vsquared_signed, i_sampleVminusDC[phase], i_sampleVminusDC[phase]);
+  multS16x16_to32(inst_Vsquared_signed, filtV_div4, filtV_div4);
   uint32_t inst_Vsquared = static_cast< uint32_t >(inst_Vsquared_signed);
 
   // Shift strategy verified safe by unit tests for all datalog periods and voltages
   if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
   {
-    inst_Vsquared >>= 16;  // scaling is now x1/16 (V_ADC x V_ADC)
+    inst_Vsquared >>= 12;  // scaling is now x1/16 (V_ADC x V_ADC)
   }
   else
   {
-    inst_Vsquared >>= 12;  // scaling is now x1 (V_ADC x V_ADC)
-
-    //TODO: optimization, scale to x4 (inst_Vsquared >>= 8) to avoid multiple shifts
+    inst_Vsquared >>= 8;  // scaling is now x1 (V_ADC x V_ADC)
   }
 
   l_sum_Vsquared[phase] += inst_Vsquared;  // cumulative V^2 (V_ADC x V_ADC)
