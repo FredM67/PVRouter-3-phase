@@ -361,7 +361,7 @@ void updatePhysicalLoadStates()
   {
     if (Shared::b_reOrderLoads)
     {
-      uint8_t i{ static_cast<uint8_t>(NO_OF_DUMPLOADS - 1) };
+      uint8_t i{ static_cast< uint8_t >(NO_OF_DUMPLOADS - 1) };
       const auto temp{ loadPrioritiesAndState[i] };
       do
       {
