@@ -352,11 +352,16 @@ void updatePortsStates()
  */
 void updatePhysicalLoadStates()
 {
+  if constexpr (NO_OF_DUMPLOADS == 0)
+  {
+    return;
+  }
+
   if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
   {
     if (Shared::b_reOrderLoads)
     {
-      uint8_t i{ NO_OF_DUMPLOADS - 1 };
+      uint8_t i{ static_cast<uint8_t>(NO_OF_DUMPLOADS - 1) };
       const auto temp{ loadPrioritiesAndState[i] };
       do
       {
