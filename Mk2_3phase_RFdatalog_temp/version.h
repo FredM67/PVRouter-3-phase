@@ -6,4 +6,4 @@
 #define BRANCH_NAME "Add-remote-loads-support"
 #define COMMIT_HASH "98554710"
 
-#endif // VERSION_H
+#endif  // VERSION_H
