@@ -53,6 +53,7 @@
 			"memory": "cpp",
 			"xlocnum": "cpp",
 			"xlocale": "cpp"
-		}
+		},
+		"powershell.cwd": "Router program"
 	}
 }

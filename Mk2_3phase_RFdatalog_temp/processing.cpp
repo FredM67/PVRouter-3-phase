@@ -254,6 +254,30 @@ void initializeProcessing()
     loadPrioritiesAndState[i] &= loadStateMask;
   } while (i);
 
+#if defined(RF_PRESENT) && (defined(ENABLE_RF_DATALOGGING) || defined(ENABLE_REMOTE_LOADS))
+  // Initialize shared RF module
+  if (initialize_rf())
+  {
+    DBUGLN(F("RF module initialized"));
+  }
+  else
+  {
+    DBUGLN(F("RF module initialization FAILED"));
+  }
+#endif
+
+#ifdef ENABLE_REMOTE_LOADS
+  // Initialize remote load support
+  if (initializeRemoteLoads())
+  {
+    DBUGLN(F("Remote loads initialized"));
+  }
+  else
+  {
+    DBUGLN(F("Remote loads initialization FAILED"));
+  }
+#endif
+
   // First stop the ADC
   bit_clear(ADCSRA, ADEN);
 
@@ -383,6 +407,18 @@ void updatePhysicalLoadStates()
     const bool bOverrideActive = Shared::overrideBitmask & (1U << physicalLoadPin[iLoad]);
     physicalLoadState[iLoad] = bDiversionEnabled && (bOverrideActive || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   } while (idx);
+
+#ifdef ENABLE_REMOTE_LOADS
+  // Map physical load states to remote load states
+  // Remote loads are the last NO_OF_REMOTE_LOADS entries in physicalLoadState
+  for (uint8_t i = 0; i < NO_OF_REMOTE_LOADS; ++i)
+  {
+    remoteLoadState[i] = physicalLoadState[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS + i];
+  }
+
+  // Send remote load states via RF
+  updateRemoteLoads();
+#endif
 }
 
 /**

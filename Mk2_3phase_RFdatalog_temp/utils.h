@@ -29,6 +29,13 @@
 
 #include "version.h"
 
+// Telemetry data structure (used for both RF transmission and serial output)
+#ifdef TEMP_ENABLED
+inline PayloadTx_struct< NO_OF_PHASES, temperatureSensing.size() > tx_data; /**< Telemetry data */
+#else
+inline PayloadTx_struct< NO_OF_PHASES > tx_data; /**< Telemetry data */
+#endif
+
 /**
  * @brief Print the configuration during startup.
  *
@@ -159,13 +166,27 @@ inline void printConfiguration()
   }
 
   DBUG(F("RF capability "));
-#ifdef RF_PRESENT
+#if defined(RF_PRESENT) && (defined(ENABLE_RF_DATALOGGING) || defined(ENABLE_REMOTE_LOADS))
   DBUG(F("IS present, Freq = "));
-  if (FREQ == RF12_433MHZ)
+  if (SharedRF::FREQUENCY == RF69_433MHZ)
     DBUGLN(F("433 MHz"));
-  else if (FREQ == RF12_868MHZ)
+  else if (SharedRF::FREQUENCY == RF69_868MHZ)
     DBUGLN(F("868 MHz"));
-  rf12_initialize(nodeID, FREQ, networkGroup);  // initialize RF
+  else if (SharedRF::FREQUENCY == RF69_915MHZ)
+    DBUGLN(F("915 MHz"));
+
+  DBUG(F("  Network ID: "));
+  DBUGLN(SharedRF::NETWORK_ID);
+  DBUG(F("  Node ID: "));
+  DBUGLN(SharedRF::THIS_NODE_ID);
+#ifdef ENABLE_RF_DATALOGGING
+  DBUG(F("  Data logging to Gateway ID: "));
+  DBUGLN(SharedRF::GATEWAY_ID);
+#endif
+#ifdef ENABLE_REMOTE_LOADS
+  DBUG(F("  Remote loads to Node ID: "));
+  DBUGLN(SharedRF::REMOTE_LOAD_ID);
+#endif
 #else
   DBUGLN(F("is NOT present"));
 #endif
@@ -457,8 +478,8 @@ inline void sendResults(bool bOffPeak)
     return;  // reject the first datalogging which is incomplete !
   }
 
-#ifdef RF_PRESENT
-  send_rf_data();  // *SEND RF DATA*
+#ifdef ENABLE_RF_DATALOGGING
+  send_rf_data(tx_data);  // *SEND RF DATA*
 #endif
 
   if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)

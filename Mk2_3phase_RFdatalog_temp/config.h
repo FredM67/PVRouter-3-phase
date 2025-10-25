@@ -22,7 +22,15 @@
 #define CONFIG_H
 
 //--------------------------------------------------------------------------------------------------
-//#define RF_PRESENT  /**< this line must be commented out if the RFM12B module is not present */
+// RF Module Configuration
+// Uncomment the features you need:
+//
+//#define RF_PRESENT           /**< Enable RFM69 RF module (required for any RF features) */
+//#define ENABLE_RF_DATALOGGING   /**< Enable RF data logging to gateway */
+//#define ENABLE_REMOTE_LOADS     /**< Enable remote load control via RF */
+//
+// Note: At least one of ENABLE_RF_DATALOGGING or ENABLE_REMOTE_LOADS must be defined if RF_PRESENT is defined
+//--------------------------------------------------------------------------------------------------
 #define ENABLE_DEBUG /**< enable this line to include debugging print statements */
 //--------------------------------------------------------------------------------------------------
 
@@ -33,13 +41,24 @@
 #include "utils_dualtariff.h"
 #include "utils_relay.h"
 
+// Validate RF configuration
+#if defined(ENABLE_RF_DATALOGGING) || defined(ENABLE_REMOTE_LOADS)
+#ifndef RF_PRESENT
+#error "RF_PRESENT must be defined when using ENABLE_RF_DATALOGGING or ENABLE_REMOTE_LOADS"
+#endif
+#endif
+
 // Serial output type - Human readable for initial setup and commissioning
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
 
 //--------------------------------------------------------------------------------------------------
 // Basic Configuration
 //
-inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< number of dump loads connected to the diverter */
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (local + remote) */
+
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 }; /**< number of remote loads controlled via RF */
+// NO_OF_LOCAL_LOADS is calculated automatically as (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS)
+inline constexpr uint8_t NO_OF_LOCAL_LOADS{ NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS }; /**< number of physical local loads */
 
 // Feature toggles - Basic setup without advanced features
 inline constexpr bool EMONESP_CONTROL{ false };
@@ -52,6 +71,7 @@ inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a 
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
 
+#include "remote_loads.h"
 #include "utils_temp.h"
 
 // ----------- Pinout Assignments -----------
@@ -154,20 +174,20 @@ inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
 inline constexpr uint32_t ROTATION_AFTER_SECONDS{ 8UL * 3600UL }; /**< rotates load priorities after this period of inactivity */
 
 /* --------------------------------------
-   RF configuration (for the RFM12B module)
-   frequency options are RF12_433MHZ, RF12_868MHZ or RF12_915MHZ
+   RF configuration (RFM69 module)
+   
+   RF features can be used independently or together:
+   
+   1. RF Data Logging (ENABLE_RF_DATALOGGING):
+      - Sends power/voltage data to a gateway/base station for monitoring
+      - Configured in utils_rf.h (SharedRF::GATEWAY_ID)
+      
+   2. Remote Load Control (ENABLE_REMOTE_LOADS):
+      - Sends load ON/OFF commands to remote TRIAC/SSR units
+      - Configured in remote_loads.h (SharedRF::REMOTE_LOAD_ID)
+      
+   Both features share the same RFM69 module and send to different node IDs.
+   Configuration (frequency, network ID, power) is in utils_rf.h
 */
-#ifdef RF_PRESENT
-
-#define RF69_COMPAT 0  // for the RFM12B
-// #define RF69_COMPAT 1 // for the RF69
-
-#define FREQ RF12_868MHZ
-
-inline constexpr int nodeID{ 10 };        /**<  RFM12B node ID */
-inline constexpr int networkGroup{ 210 }; /**< wireless network group - needs to be same for all nodes */
-inline constexpr int UNO{ 1 };            /**< for when the processor contains the UNO bootloader. */
-
-#endif  // RF_PRESENT
 
 #endif  // CONFIG_H

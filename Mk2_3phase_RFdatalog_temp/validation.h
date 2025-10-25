@@ -44,6 +44,7 @@ static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && (PRIORITY_ROTATION =
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
 
 static_assert(NO_OF_DUMPLOADS > 0, "Number of dump loads must be greater than 0");
+static_assert(NO_OF_DUMPLOADS >= NO_OF_REMOTE_LOADS, "NO_OF_DUMPLOADS must be >= NO_OF_REMOTE_LOADS");
 static_assert(iTemperatureThreshold > 0, "Temperature threshold must be greater than 0");
 static_assert(iTemperatureThreshold <= 100, "Temperature threshold must be lower than 100");
 
@@ -189,9 +190,9 @@ static_assert((check_pins() & 0xC000) == 0, "******** Pins 14 and/or 15 do not e
 static_assert(!(RF_CHIP_PRESENT && ((check_pins() & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
 static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
 
-#ifdef RF_PRESENT
-static_assert((nodeID >= 1 && nodeID <= 30), "******** RF nodeID must be between 1 and 30 ! ********");
-static_assert(networkGroup >= 1 && networkGroup <= 250, "******** RF networkGroup must be between 1 and 250 ! ********");
+#if defined(RF_PRESENT) && (defined(ENABLE_RF_DATALOGGING) || defined(ENABLE_REMOTE_LOADS))
+static_assert((SharedRF::THIS_NODE_ID >= 1 && SharedRF::THIS_NODE_ID <= 30), "******** RF node ID must be between 1 and 30 ! ********");
+static_assert(SharedRF::NETWORK_ID >= 1 && SharedRF::NETWORK_ID <= 250, "******** RF network ID must be between 1 and 250 ! ********");
 #endif
 
 #endif /* VALIDATION_H */
