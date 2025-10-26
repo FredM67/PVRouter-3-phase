@@ -35,15 +35,15 @@
 #include <SPI.h>
 
 // RF Configuration - must match transmitter
-#define FREQUENCY RF69_433MHZ  // RF69_433MHZ, RF69_868MHZ, or RF69_915MHZ
+#define FREQUENCY RF69_868MHZ  // RF69_433MHZ, RF69_868MHZ, or RF69_915MHZ
 #define IS_RFM69HW false       // true for RFM69HW/HCW, false for RFM69W/CW
 
-const uint8_t TX_NODE_ID = 10;      // Node ID of transmitter
-const uint8_t MY_NODE_ID = 15;      // This receiver's node ID
-const uint8_t NETWORK_ID = 100;     // Network ID (1-255, must match transmitter)
+const uint8_t TX_NODE_ID = 10;   // Node ID of transmitter (SharedRF::THIS_NODE_ID)
+const uint8_t MY_NODE_ID = 15;   // This receiver's node ID (SharedRF::REMOTE_LOAD_ID)
+const uint8_t NETWORK_ID = 210;  // Network ID (1-255, must match transmitter)
 
 // Load Configuration
-const uint8_t NO_OF_LOADS = 2;  // Number of loads controlled by this unit
+const uint8_t NO_OF_LOADS = 2;                   // Number of loads controlled by this unit
 const uint8_t loadPins[NO_OF_LOADS] = { 5, 6 };  // Output pins for loads (active HIGH)
 
 // Status LED Configuration (optional)
@@ -51,7 +51,7 @@ const uint8_t STATUS_LED_PIN = 4;  // Combined status LED (or split to two separ
 const bool STATUS_LED_PRESENT = true;
 
 // Timing Configuration
-const unsigned long RF_TIMEOUT_MS = 500;  // Lost RF link after this many milliseconds
+const unsigned long RF_TIMEOUT_MS = 500;          // Lost RF link after this many milliseconds
 const unsigned long WATCHDOG_INTERVAL_MS = 1000;  // Toggle watchdog this often
 
 // Data structure for received commands (must match transmitter)
@@ -88,14 +88,14 @@ void setup()
     pinMode(loadPins[i], OUTPUT);
     digitalWrite(loadPins[i], LOW);  // Loads OFF initially
   }
-  
+
   // Configure status LED if present
   if (STATUS_LED_PRESENT)
   {
     pinMode(STATUS_LED_PIN, OUTPUT);
     digitalWrite(STATUS_LED_PIN, LOW);  // Start with LED off (RF lost)
   }
-  
+
   // Initialize serial for debugging
   Serial.begin(9600);
   Serial.println();
@@ -112,27 +112,27 @@ void setup()
   Serial.print(F("Number of loads: "));
   Serial.println(NO_OF_LOADS);
   Serial.println(F("---------------------------------------"));
-  
+
   // Initialize RF module
   if (!radio.initialize(FREQUENCY, MY_NODE_ID, NETWORK_ID))
   {
     Serial.println(F("RFM69 initialization FAILED!"));
-    while (1); // Halt
+    while (1);  // Halt
   }
-  
+
   // Optional: set high power mode for RFM69HW
   if (IS_RFM69HW)
   {
     radio.setHighPower();
   }
-  
+
   // Optional: enable encryption (must match transmitter)
   // radio.encrypt("sampleEncryptKey");
-  
+
   Serial.println(F("RF module initialized"));
   Serial.println(F("Waiting for commands..."));
   Serial.println();
-  
+
   lastMessageTime = millis();
 }
 
@@ -148,26 +148,26 @@ void loop()
     if (radio.SENDERID == TX_NODE_ID && radio.DATALEN == sizeof(receivedData))
     {
       // Copy received data
-      memcpy(&receivedData, (void*)radio.DATA, sizeof(receivedData));
-      
+      memcpy(&receivedData, (void *)radio.DATA, sizeof(receivedData));
+
       // Send ACK if requested
       if (radio.ACKRequested())
       {
         radio.sendACK();
       }
-      
+
       // Update loads based on received bitmask
       updateLoads(receivedData.loadBitmask);
-      
+
       // Update RF status
       lastMessageTime = millis();
-      
+
       if (rfStatus != RF_OK)
       {
         rfStatus = RF_OK;
         Serial.println(F("RF link restored"));
       }
-      
+
       // Debug output
       Serial.print(F("Received: 0b"));
       Serial.print(receivedData.loadBitmask, BIN);
@@ -183,7 +183,7 @@ void loop()
       Serial.println();
     }
   }
-  
+
   // Check for RF timeout
   if ((millis() - lastMessageTime) > RF_TIMEOUT_MS)
   {
@@ -191,7 +191,7 @@ void loop()
     {
       rfStatus = RF_LOST;
       Serial.println(F("RF link LOST - turning all loads OFF"));
-      
+
       // Safety: Turn all loads OFF when RF link is lost
       for (uint8_t i = 0; i < NO_OF_LOADS; ++i)
       {
@@ -199,10 +199,10 @@ void loop()
       }
     }
   }
-  
+
   // Update status LED
   updateStatusLED();
-  
+
   // Toggle watchdog
   if ((millis() - lastWatchdogToggle) > WATCHDOG_INTERVAL_MS)
   {
@@ -231,7 +231,7 @@ void updateLoads(uint8_t bitmask)
 void updateStatusLED()
 {
   if (!STATUS_LED_PRESENT) return;
-  
+
   if (rfStatus == RF_OK)
   {
     // RF OK - LED on steady (or green if using bi-color LED)
