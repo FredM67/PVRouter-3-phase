@@ -495,10 +495,10 @@ void loop()
   static bool bOffPeak{ false };
   static int16_t iTemperature_x100{ 0 };
 
-  if constexpr (ENABLE_REMOTE_LOADS)
-  {  // Process any pending RF transmissions (called outside ISR to avoid blocking)
-    processRemoteLoadTransmissions();
-  }
+#ifdef ENABLE_REMOTE_LOADS
+  // Process any pending RF transmissions (called outside ISR to avoid blocking)
+  processRemoteLoadTransmissions();
+#endif
 
   if (Shared::b_newMainsCycle)  // flag is set after every pair of ADC conversions
   {

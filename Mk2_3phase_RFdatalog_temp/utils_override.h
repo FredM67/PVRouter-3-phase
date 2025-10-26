@@ -37,11 +37,18 @@
 /**
  * @brief Returns the pin number for a given load index at compile time.
  * @param loadNum The load index (0-based).
- * @return The pin number for the load.
+ * @return The pin number for the load (local loads only, remote loads return unused_pin).
+ * @note Remote loads (index >= NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS) have no physical pin.
  */
 constexpr uint8_t LOAD(uint8_t loadNum)
 {
-  return physicalLoadPin[loadNum];
+  constexpr uint8_t numLocalLoads = NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS;
+  if (loadNum < numLocalLoads)
+  {
+    return physicalLoadPin[loadNum];
+  }
+  // Remote loads have no physical pin on the main controller
+  return unused_pin;
 }
 
 /**
@@ -58,13 +65,14 @@ constexpr uint8_t RELAY(uint8_t relayNum)
  * @brief Returns a bitmask representing all load pins.
  *
  * This helper is used to configure an override pin to control all loads at once.
+ * Note: Only includes LOCAL loads (physical pins), not remote loads.
  *
- * @return Bitmask with all load pins set.
+ * @return Bitmask with all local load pins set.
  */
 constexpr uint16_t ALL_LOADS()
 {
   uint16_t mask{ 0 };
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  for (uint8_t i = 0; i < (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS); ++i)
   {
     bit_set(mask, physicalLoadPin[i]);
   }

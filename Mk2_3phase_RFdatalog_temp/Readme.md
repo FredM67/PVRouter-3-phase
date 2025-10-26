@@ -166,17 +166,29 @@ Remplacez `HumanReadable` par `IoT` ou `JSON` selon vos besoins.
 
 ## Configuration des sorties TRIAC
 
-La première étape consiste à définir le nombre de sorties TRIAC :
+La première étape consiste à définir le nombre de sorties TRIAC :
 
 ```cpp
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
 ```
 
-Ensuite, il faudra assigner les *pins* correspondantes ainsi que l’ordre des priorités au démarrage.
+Ensuite, il faudra assigner les *pins* correspondantes **uniquement pour les charges locales** ainsi que l'ordre des priorités au démarrage.
 ```cpp
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };
+// Pins pour les charges LOCALES uniquement (les charges distantes sont contrôlées via RF)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// Optionnel : LEDs d'état pour les charges distantes
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ unused_pin, unused_pin };
+
+// Ordre de priorités au démarrage (0 = priorité la plus haute, s'applique à TOUTES les charges)
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ```
+
+**Important :** 
+- `physicalLoadPin` ne contient que les pins des charges **locales** (TRIACs connectés directement)
+- Les charges **distantes** n'ont pas de pin physique sur le contrôleur principal (elles sont contrôlées via RF)
+- `remoteLoadStatusLED` permet optionnellement d'ajouter des LEDs d'état pour visualiser l'état des charges distantes
+- `loadPrioritiesAtStartup` définit l'ordre de priorité pour **toutes** les charges (locales + distantes). Les priorités 0 à (nombre de charges locales - 1) contrôlent les charges locales, les priorités suivantes contrôlent les charges distantes.
 
 ## Configuration des sorties relais tout-ou-rien
 Les sorties relais tout-ou-rien permettent d’alimenter des appareils qui contiennent de l’électronique (pompe à chaleur …).
@@ -279,6 +291,12 @@ Définissez le nombre total de charges (locales + distantes) :
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total : 3 charges
 inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Dont 2 charges distantes
                                                        // Charges locales : 3 - 2 = 1
+
+// Pin pour la charge locale (TRIAC)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// LEDs optionnelles pour indiquer l'état des charges distantes
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ 8, 9 };  // D8 et D9
 ```
 
 **Priorités :**

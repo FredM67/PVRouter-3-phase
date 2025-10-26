@@ -69,24 +69,6 @@ inline constexpr bool RELAY_DIVERSION{ false };     /**< set it to 'true' if a r
 inline constexpr bool DUAL_TARIFF{ false };         /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
 
-#ifdef RF_PRESENT
-inline constexpr bool RF_PRESENT{ true }; /**< set it to 'true' if RF module is present */
-#else
-inline constexpr bool RF_PRESENT{ false }; /**< set it to 'false' if RF module is NOT present */
-#endif
-
-#ifdef ENABLE_RF_DATALOGGING
-inline constexpr bool ENABLE_RF_DATALOGGING{ true }; /**< set it to 'true' to enable RF data logging */
-#else
-inline constexpr bool ENABLE_RF_DATALOGGING{ false }; /**< set it to 'false' to disable RF data logging */
-#endif
-
-#ifdef ENABLE_REMOTE_LOADS
-inline constexpr bool ENABLE_REMOTE_LOADS{ true }; /**< set it to 'true' to enable remote load control */
-#else
-inline constexpr bool ENABLE_REMOTE_LOADS{ false }; /**< set it to 'false' to disable remote load control */
-#endif
-
 #include "remote_loads.h"
 #include "utils_temp.h"
 
@@ -125,8 +107,15 @@ inline constexpr bool ENABLE_REMOTE_LOADS{ false }; /**< set it to 'false' to di
 // Note: When using these pins for Home Assistant integration, ensure the ESP32
 // counterpart is properly configured to send the appropriate signals.
 
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
-inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities and states at startup */
+// Physical pin assignments for LOCAL loads only (remote loads are controlled via RF)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 }; /**< Pins for local TRIAC outputs */
+
+// Optional status LED pins for REMOTE loads (set to unused_pin if not needed)
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ unused_pin, unused_pin }; /**< Optional LEDs to show remote load status */
+
+// Load priority order at startup (0 = highest priority, applies to ALL loads: local + remote)
+// In this example: priority 0 = local load #0, priority 1 = remote load #0, priority 2 = remote load #1
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
 
 // Set the value to 'unused_pin' when the pin is not needed (feature deactivated)
 inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */

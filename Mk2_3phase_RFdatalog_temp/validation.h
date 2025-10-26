@@ -51,7 +51,8 @@ static_assert(iTemperatureThreshold <= 100, "Temperature threshold must be lower
 static_assert(REQUIRED_EXPORT_IN_WATTS >= -32768 && REQUIRED_EXPORT_IN_WATTS <= 32767, "******** REQUIRED_EXPORT_IN_WATTS out of range ! ********");
 static_assert(DIVERSION_START_THRESHOLD_WATTS >= 0 && DIVERSION_START_THRESHOLD_WATTS <= 32767, "******** DIVERSION_START_THRESHOLD_WATTS must be positive ! ********");
 
-static_assert(sizeof(physicalLoadPin) / sizeof(physicalLoadPin[0]) == NO_OF_DUMPLOADS, "******** physicalLoadPin array size mismatch ! ********");
+static_assert(sizeof(physicalLoadPin) / sizeof(physicalLoadPin[0]) == (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS), "******** physicalLoadPin array size mismatch (should be for local loads only) ! ********");
+static_assert(sizeof(remoteLoadStatusLED) / sizeof(remoteLoadStatusLED[0]) == NO_OF_REMOTE_LOADS, "******** remoteLoadStatusLED array size mismatch ! ********");
 static_assert(sizeof(loadPrioritiesAtStartup) / sizeof(loadPrioritiesAtStartup[0]) == NO_OF_DUMPLOADS, "******** loadPrioritiesAtStartup array size mismatch ! ********");
 static_assert(sizeof(rg_ForceLoad) / sizeof(rg_ForceLoad[0]) == NO_OF_DUMPLOADS, "******** rg_ForceLoad array size mismatch ! ********");
 
@@ -111,7 +112,7 @@ constexpr uint16_t check_pins()
     bit_set(used_pins, watchDogPin);
   }
 
-  //physicalLoadPin for the TRIACS
+  //physicalLoadPin for the local TRIACS
   for (const auto &loadPin : physicalLoadPin)
   {
     if (loadPin == unused_pin)
@@ -121,6 +122,21 @@ constexpr uint16_t check_pins()
       return 0;
 
     bit_set(used_pins, loadPin);
+  }
+
+  // Optional status LED pins for remote loads
+  if constexpr (NO_OF_REMOTE_LOADS > 0)
+  {
+    for (const auto &ledPin : remoteLoadStatusLED)
+    {
+      if (ledPin != unused_pin)
+      {
+        if (bit_read(used_pins, ledPin))
+          return 0;
+
+        bit_set(used_pins, ledPin);
+      }
+    }
   }
 
   if constexpr (RELAY_DIVERSION)

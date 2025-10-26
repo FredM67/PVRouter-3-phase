@@ -161,11 +161,23 @@ The first step is to define the number of TRIAC outputs:
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
 ```
 
-Then, you need to assign the corresponding *pins* as well as the priority order at startup.
+Then, you need to assign the corresponding *pins* **for local loads only** as well as the priority order at startup.
 ```cpp
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };
+// Pins for LOCAL loads only (remote loads are controlled via RF)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// Optional: Status LEDs for remote loads
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ unused_pin, unused_pin };
+
+// Priority order at startup (0 = highest priority, applies to ALL loads)
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ```
+
+**Important:** 
+- `physicalLoadPin` contains only the pins for **local** loads (TRIACs directly connected)
+- **Remote** loads have no physical pin on the main controller (they are controlled via RF)
+- `remoteLoadStatusLED` optionally allows adding status LEDs to visualize the state of remote loads
+- `loadPrioritiesAtStartup` defines the priority order for **all** loads (local + remote). Priorities 0 to (number of local loads - 1) control local loads, subsequent priorities control remote loads.
 
 ## On/off relay output configuration
 On/off relay outputs allow powering devices that contain electronics (heat pump ...).
@@ -268,6 +280,12 @@ Define total number of loads (local + remote):
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total: 3 loads
 inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Including 2 remote loads
                                                        // Local loads: 3 - 2 = 1
+
+// Pin for the local load (TRIAC)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// Optional LEDs to indicate remote load status
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ 8, 9 };  // D8 and D9
 ```
 
 **Priorities:**

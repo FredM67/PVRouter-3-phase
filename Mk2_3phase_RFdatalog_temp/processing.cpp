@@ -135,12 +135,28 @@ constexpr uint16_t getOutputPins()
 {
   uint16_t output_pins{ 0 };
 
+  // Local load pins
   for (const auto &loadPin : physicalLoadPin)
   {
     if (bit_read(output_pins, loadPin))
       return 0;
 
     bit_set(output_pins, loadPin);
+  }
+
+  // Remote load status LED pins (optional)
+  if constexpr (NO_OF_REMOTE_LOADS > 0)
+  {
+    for (const auto &ledPin : remoteLoadStatusLED)
+    {
+      if (ledPin != unused_pin)
+      {
+        if (bit_read(output_pins, ledPin))
+          return 0;
+
+        bit_set(output_pins, ledPin);
+      }
+    }
   }
 
   if constexpr (WATCHDOG_PIN_PRESENT)
@@ -324,24 +340,46 @@ void updatePortsStates()
   uint16_t pinsON{ 0 };
   uint16_t pinsOFF{ 0 };
 
-  uint8_t i{ NO_OF_DUMPLOADS };
+  // Update LOCAL loads only (remote loads are handled via RF in remote_loads.h)
+  constexpr uint8_t numLocalLoads = NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS;
+  uint8_t i{ numLocalLoads };
 
   do
   {
     --i;
-    // update the local load's state.
+    // update the local load's state
     if (LoadStates::LOAD_OFF == physicalLoadState[i])
     {
-      // setPinOFF(physicalLoadPin[i]);
       pinsOFF |= bit(physicalLoadPin[i]);
     }
     else
     {
       ++countLoadON[i];
-      // setPinON(physicalLoadPin[i]);
       pinsON |= bit(physicalLoadPin[i]);
     }
   } while (i);
+
+  // Update optional status LEDs for remote loads
+  if constexpr (NO_OF_REMOTE_LOADS > 0)
+  {
+    for (uint8_t remoteIdx = 0; remoteIdx < NO_OF_REMOTE_LOADS; ++remoteIdx)
+    {
+      const uint8_t loadIdx = numLocalLoads + remoteIdx;
+      const uint8_t ledPin = remoteLoadStatusLED[remoteIdx];
+
+      if (ledPin != unused_pin)
+      {
+        if (LoadStates::LOAD_OFF == physicalLoadState[loadIdx])
+        {
+          pinsOFF |= bit(ledPin);
+        }
+        else
+        {
+          pinsON |= bit(ledPin);
+        }
+      }
+    }
+  }
 
   // Apply override bitmask directly to pinsON
   pinsON |= Shared::overrideBitmask;
@@ -415,9 +453,7 @@ void updatePhysicalLoadStates()
   {
     remoteLoadState[i] = physicalLoadState[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS + i];
   }
-
-  // Send remote load states via RF
-  updateRemoteLoads();
+  // Note: updateRemoteLoads() is called after updatePortsStates() in processStartNewCycle()
 #endif
 }
 
@@ -740,6 +776,11 @@ void processStartNewCycle()
   updatePhysicalLoadStates();  // allows the logical-to-physical mapping to be changed
 
   updatePortsStates();  // update the control ports for each of the physical loads
+
+#ifdef ENABLE_REMOTE_LOADS
+  // Update remote loads AFTER local physical ports are updated
+  updateRemoteLoads();
+#endif
 
   if (loadPrioritiesAndState[0] & loadStateOnBit)
   {
