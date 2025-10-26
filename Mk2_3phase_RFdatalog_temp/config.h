@@ -71,6 +71,24 @@ inline constexpr bool RELAY_DIVERSION{ false };     /**< set it to 'true' if a r
 inline constexpr bool DUAL_TARIFF{ false };         /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
 
+#ifdef RF_PRESENT
+inline constexpr bool RF_PRESENT{ true }; /**< set it to 'true' if RF module is present */
+#else
+inline constexpr bool RF_PRESENT{ false }; /**< set it to 'false' if RF module is NOT present */
+#endif
+
+#ifdef ENABLE_RF_DATALOGGING
+inline constexpr bool ENABLE_RF_DATALOGGING{ true }; /**< set it to 'true' to enable RF data logging */
+#else
+inline constexpr bool ENABLE_RF_DATALOGGING{ false }; /**< set it to 'false' to disable RF data logging */
+#endif
+
+#ifdef ENABLE_REMOTE_LOADS
+inline constexpr bool ENABLE_REMOTE_LOADS{ true }; /**< set it to 'true' to enable remote load control */
+#else
+inline constexpr bool ENABLE_REMOTE_LOADS{ false }; /**< set it to 'false' to disable remote load control */
+#endif
+
 #include "remote_loads.h"
 #include "utils_temp.h"
 

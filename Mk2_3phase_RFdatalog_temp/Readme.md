@@ -16,13 +16,19 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
   - [Configuration des sorties relais tout-ou-rien](#configuration-des-sorties-relais-tout-ou-rien)
     - [Principe de fonctionnement](#principe-de-fonctionnement)
+  - [Configuration du module RF et des charges distantes](#configuration-du-module-rf-et-des-charges-distantes)
+    - [Matériel requis](#matériel-requis)
+    - [Configuration logicielle](#configuration-logicielle)
+    - [Configuration du récepteur distant](#configuration-du-récepteur-distant)
   - [Configuration du Watchdog](#configuration-du-watchdog)
   - [Configuration du ou des capteurs de température](#configuration-du-ou-des-capteurs-de-température)
     - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité)
+      - [Avec l’Arduino IDE](#avec-larduino-ide)
+      - [Avec Visual Studio Code et PlatformIO](#avec-visual-studio-code-et-platformio)
     - [Configuration du ou des capteurs (commun aux 2 cas précédents)](#configuration-du-ou-des-capteurs-commun-aux-2-cas-précédents)
   - [Configuration de la gestion des Heures Creuses (dual tariff)](#configuration-de-la-gestion-des-heures-creuses-dual-tariff)
     - [Configuration matérielle](#configuration-matérielle)
-    - [Configuration logicielle](#configuration-logicielle)
+    - [Configuration logicielle](#configuration-logicielle-1)
   - [Rotation des priorités](#rotation-des-priorités)
   - [Configuration de la marche forcée (nouveau)](#configuration-de-la-marche-forcée-nouveau)
     - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité-1)
@@ -231,6 +237,116 @@ Pour chaque relais, la transition ou le changement d’état est géré de la ma
 
 > [!NOTE]
 > **Installations avec batteries :** Pour une configuration optimale des relais avec systèmes de batteries, consultez le **[Guide de Configuration pour Systèmes Batterie](docs/BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](docs/BATTERY_CONFIGURATION_GUIDE.en.md)
+
+## Configuration du module RF et des charges distantes
+
+Le routeur peut contrôler des charges distantes via un module RF RFM69. Cette fonctionnalité permet de piloter des résistances ou des relais situés dans un autre emplacement, sans câblage supplémentaire.
+
+### Matériel requis
+
+**Pour l'émetteur (routeur principal) :**
+- Module RFM69W/CW ou RFM69HW/HCW (868 MHz pour l'Europe, 915 MHz pour l'Amérique du Nord)
+- Antenne appropriée pour la fréquence choisie
+- Connexion SPI standard (D10=CS, D2=IRQ)
+
+**Pour le récepteur distant :**
+- Arduino UNO ou compatible
+- Module RFM69 (même modèle que l'émetteur)
+- TRIAC ou SSR pour commander les charges
+- LEDs optionnelles pour indication d'état (D5=verte watchdog, D7=rouge perte RF)
+
+### Configuration logicielle
+
+**Activation des fonctionnalités RF :**
+
+Le module RF peut être utilisé pour deux fonctionnalités indépendantes :
+
+1. **Télémétrie RF** (`ENABLE_RF_DATALOGGING`) : Envoi des données de puissance/tension vers une passerelle
+2. **Charges distantes** (`ENABLE_REMOTE_LOADS`) : Contrôle de charges via RF
+
+Pour activer le module RF avec contrôle de charges distantes, décommentez dans **config.h** :
+
+```cpp
+#define RF_PRESENT                /**< Active le module RFM69 (requis pour toute fonction RF) */
+#define ENABLE_REMOTE_LOADS       /**< Active le contrôle de charges distantes via RF */
+```
+
+**Configuration des charges :**
+
+Définissez le nombre total de charges (locales + distantes) :
+
+```cpp
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total : 3 charges
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Dont 2 charges distantes
+// NO_OF_LOCAL_LOADS sera automatiquement calculé : 3 - 2 = 1 charge locale
+```
+
+**Priorités :**
+
+Les charges distantes ont **toujours** une priorité inférieure aux charges locales. Dans l'exemple ci-dessus :
+- Charge locale #0 (physicalLoadPin[0]) : priorité la plus haute
+- Charge distante #0 : priorité moyenne  
+- Charge distante #1 : priorité la plus basse
+
+**Configuration RF (dans utils_rf.h) :**
+
+Les paramètres par défaut sont :
+- Fréquence : 868 MHz (Europe)
+- ID réseau : 210
+- ID émetteur : 10
+- ID récepteur : 15
+
+Pour modifier ces paramètres, éditez **utils_rf.h** :
+
+```cpp
+inline constexpr uint8_t THIS_NODE_ID{ 10 };        // ID de cet émetteur
+inline constexpr uint8_t GATEWAY_ID{ 1 };           // ID de la passerelle (télémétrie)
+inline constexpr uint8_t REMOTE_LOAD_ID{ 15 };     // ID du récepteur de charges
+inline constexpr uint8_t NETWORK_ID{ 210 };        // ID du réseau (1-255)
+```
+
+### Configuration du récepteur distant
+
+Le sketch **RemoteLoadReceiver** est fourni dans le dossier `RemoteLoadReceiver/`.
+
+**Configuration minimale (dans config.h du récepteur) :**
+
+```cpp
+// Configuration RF - doit correspondre à l'émetteur
+inline constexpr uint8_t TX_NODE_ID{ 10 };          // ID de l'émetteur
+inline constexpr uint8_t MY_NODE_ID{ 15 };          // ID de ce récepteur
+inline constexpr uint8_t NETWORK_ID{ 210 };         // ID réseau
+
+// Configuration des charges
+inline constexpr uint8_t NO_OF_LOADS{ 2 };                    // Nombre de charges sur ce récepteur
+inline constexpr uint8_t loadPins[NO_OF_LOADS]{ 4, 3 };       // Pins des sorties TRIAC/SSR
+
+// LEDs d'état (optionnel)
+inline constexpr uint8_t GREEN_LED_PIN{ 5 };        // LED verte : watchdog 1 Hz
+inline constexpr uint8_t RED_LED_PIN{ 7 };          // LED rouge : perte liaison RF (clignotement rapide)
+inline constexpr bool STATUS_LEDS_PRESENT{ true };  // Activer les LEDs
+```
+
+**Sécurité :**
+
+Le récepteur désactive automatiquement **toutes les charges** si aucun message n'est reçu pendant plus de 500 ms. Cela garantit la sécurité en cas de perte de liaison RF.
+
+**Test de la liaison :**
+
+Une fois configurés et téléversés, les deux Arduino communiquent automatiquement :
+- L'émetteur envoie l'état des charges toutes les ~100 ms (5 cycles secteur à 50 Hz)
+- Le récepteur affiche les commandes reçues sur le port série
+- La LED verte clignote à 1 Hz (système actif)
+- La LED rouge clignote rapidement si la liaison RF est perdue
+
+**Diagnostic :**
+
+Sur le moniteur série du récepteur, vous devriez voir :
+```
+Received: 0b01 (RSSI: -45) - Loads: 0:ON 1:OFF
+```
+
+Un RSSI entre -30 et -70 indique une bonne qualité de signal. Au-delà de -80, la liaison devient instable.
 
 ## Configuration du Watchdog
 Un chien de garde, en anglais *watchdog*, est un circuit électronique ou un logiciel utilisé en électronique numérique pour s’assurer qu’un automate ou un ordinateur ne reste pas bloqué à une étape particulière du traitement qu’il effectue.
