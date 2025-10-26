@@ -267,7 +267,7 @@ Define total number of loads (local + remote):
 ```cpp
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total: 3 loads
 inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Including 2 remote loads
-// NO_OF_LOCAL_LOADS will be automatically calculated: 3 - 2 = 1 local load
+                                                       // Local loads: 3 - 2 = 1
 ```
 
 **Priorities:**

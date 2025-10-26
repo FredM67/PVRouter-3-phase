@@ -278,7 +278,7 @@ Définissez le nombre total de charges (locales + distantes) :
 ```cpp
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total : 3 charges
 inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Dont 2 charges distantes
-// NO_OF_LOCAL_LOADS sera automatiquement calculé : 3 - 2 = 1 charge locale
+                                                       // Charges locales : 3 - 2 = 1
 ```
 
 **Priorités :**

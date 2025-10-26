@@ -57,8 +57,6 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanRe
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (local + remote) */
 
 inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 }; /**< number of remote loads controlled via RF */
-// NO_OF_LOCAL_LOADS is calculated automatically as (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS)
-inline constexpr uint8_t NO_OF_LOCAL_LOADS{ NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS }; /**< number of physical local loads */
 
 // Feature toggles - Basic setup without advanced features
 inline constexpr bool EMONESP_CONTROL{ false };
