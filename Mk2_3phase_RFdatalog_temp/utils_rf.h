@@ -33,8 +33,12 @@ inline constexpr uint8_t THIS_NODE_ID{ 10 };       /**< This transmitter's node 
 inline constexpr uint8_t GATEWAY_ID{ 1 };      /**< Gateway/receiver for data logging */
 inline constexpr uint8_t REMOTE_LOAD_ID{ 15 }; /**< Remote load receiver node ID */
 
-inline RFM69 radio{ 10, 2, IS_RFM69HW }; /**< Shared RFM69 instance (SS=D10, IRQ=D2) */
-inline bool initialized{ false };        /**< Track initialization state */
+// Pin configuration for RFM69 module
+inline constexpr uint8_t RF_CS_PIN{ 10 }; /**< SPI Chip Select pin */
+inline constexpr uint8_t RF_IRQ_PIN{ 2 }; /**< Interrupt pin */
+
+inline RFM69 radio{ RF_CS_PIN, RF_IRQ_PIN, IS_RFM69HW }; /**< Shared RFM69 instance */
+inline bool initialized{ false };                        /**< Track initialization state */
 }
 
 /**

@@ -62,8 +62,12 @@ struct RemoteLoadPayload
 
 RemoteLoadPayload receivedData;
 
+// Pin configuration for RFM69 module
+inline constexpr uint8_t RF_CS_PIN{ 10 }; /**< SPI Chip Select pin */
+inline constexpr uint8_t RF_IRQ_PIN{ 2 }; /**< Interrupt pin */
+
 // RFM69 radio instance (SS=D10, IRQ=D2, isRFM69HW)
-RFM69 radio(10, 2, IS_RFM69HW);
+inline RFM69 radio{ RF_CS_PIN, RF_IRQ_PIN, IS_RFM69HW };
 
 // State tracking
 enum RfStatus

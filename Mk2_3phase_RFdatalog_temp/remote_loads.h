@@ -53,9 +53,10 @@ struct RemoteLoadPayload
  */
 namespace RemoteLoadRF
 {
-inline RemoteLoadPayload tx_remote_data;   /**< Transmission payload */
-inline uint8_t cyclesSinceLastUpdate{ 0 }; /**< Counter for refresh messages */
-inline uint8_t previousBitmask{ 0 };       /**< Previous state for change detection */
+inline RemoteLoadPayload tx_remote_data;           /**< Transmission payload */
+inline uint8_t cyclesSinceLastUpdate{ 0 };         /**< Counter for refresh messages */
+inline uint8_t previousBitmask{ 0 };               /**< Previous state for change detection */
+inline volatile bool pendingTransmission{ false }; /**< Flag: RF transmission needed (set in ISR, cleared in main loop) */
 }
 
 /**
@@ -104,9 +105,9 @@ inline void sendRemoteLoadData()
 }
 
 /**
- * @brief Update remote load states and transmit if necessary
- * @details Should be called once per mains cycle from the main processing loop.
- *          Transmits immediately on state change, otherwise sends refresh every N cycles.
+ * @brief Update remote load states and mark for transmission if necessary
+ * @details Should be called once per mains cycle from the ISR.
+ *          Sets a flag to transmit, actual RF send happens in main loop.
  * 
  * @note Call this function during the negative half-cycle processing,
  *       after local loads have been updated
@@ -128,8 +129,8 @@ inline void updateRemoteLoads()
   // Check if state has changed
   if (currentBitmask != RemoteLoadRF::previousBitmask)
   {
-    // State changed - send immediately
-    sendRemoteLoadData();
+    // State changed - mark for immediate transmission (handled in main loop)
+    RemoteLoadRF::pendingTransmission = true;
     RemoteLoadRF::previousBitmask = currentBitmask;
     RemoteLoadRF::cyclesSinceLastUpdate = 0;
   }
@@ -139,9 +140,23 @@ inline void updateRemoteLoads()
     RemoteLoadRF::cyclesSinceLastUpdate++;
     if (RemoteLoadRF::cyclesSinceLastUpdate >= REMOTE_REFRESH_CYCLES)
     {
-      sendRemoteLoadData();
+      RemoteLoadRF::pendingTransmission = true;
       RemoteLoadRF::cyclesSinceLastUpdate = 0;
     }
+  }
+}
+
+/**
+ * @brief Process pending RF transmissions
+ * @details Call this from the main loop to handle RF transmissions outside ISR context.
+ *          This prevents blocking the ISR with RF communication delays.
+ */
+inline void processRemoteLoadTransmissions()
+{
+  if (RemoteLoadRF::pendingTransmission)
+  {
+    RemoteLoadRF::pendingTransmission = false;
+    sendRemoteLoadData();
   }
 }
 

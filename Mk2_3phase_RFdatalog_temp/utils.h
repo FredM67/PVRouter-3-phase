@@ -63,6 +63,9 @@ inline void printConfiguration()
 #ifndef COMMIT_HASH
 #define COMMIT_HASH ("N/A")
 #endif
+#ifndef BUILD_ENV
+#define BUILD_ENV ("N/A")
+#endif
 
   DBUGLN();
   DBUGLN();
@@ -74,6 +77,9 @@ inline void printConfiguration()
   DBUG(F(BRANCH_NAME));
   DBUG(F("', commit "));
   DBUGLN(F(COMMIT_HASH));
+
+  DBUG(F("Build environment: "));
+  DBUGLN(F(BUILD_ENV));
 
   DBUG(F("Build on "));
 #ifdef CURRENT_TIME

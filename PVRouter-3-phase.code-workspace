@@ -12,6 +12,10 @@
 			"path": "Mk2_3phase_RFdatalog_temp"
 		},
 		{
+			"name": "Remote Load Receiver",
+			"path": "RemoteLoadReceiver"
+		},
+		{
 			"name": "CT Analyzer free-running",
 			"path": "dev/RST_3phase_free_dev"
 		},
