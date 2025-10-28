@@ -701,7 +701,8 @@ Pour plus de détails sur la configuration d’ESPHome et l’intégration avec 
 
 # Configuration sans carte d’extension
 
-[!IMPORTANT] Si vous ne disposez pas de la carte d’extension spécifique ni du PCB carte-mère approprié (ces deux éléments n’étant pas disponibles pour l’instant), vous pouvez toujours réaliser l’intégration par vos propres moyens.
+> [!IMPORTANT]
+> Si vous ne disposez pas de la carte d’extension spécifique ni du PCB carte-mère approprié (ces deux éléments n’étant pas disponibles pour l’instant), vous pouvez toujours réaliser l’intégration par vos propres moyens.
 
 Dans ce cas :
 - Aucune connexion n’est prédéfinie entre l’ESP32 et le Mk2PVRouter
@@ -714,7 +715,8 @@ Assurez-vous notamment que les numéros de pins utilisés dans chaque configurat
 
 Pour les sondes de température, vous pouvez les connecter directement à l’ESP32 en utilisant une broche `GPIO` de votre choix, que vous configurerez ensuite dans ESPHome. **N’oubliez pas d’ajouter une résistance pull-up de 4,7 kΩ entre la ligne de données (DQ) et l’alimentation +3,3 V** pour assurer le bon fonctionnement du bus 1-Wire.
 
-[!NOTE] Même sans la carte d’extension, toutes les fonctionnalités d’intégration avec Home Assistant restent accessibles, à condition que votre câblage et vos configurations logicielles soient correctement réalisés.
+> [!NOTE]
+> Même sans la carte d’extension, toutes les fonctionnalités d’intégration avec Home Assistant restent accessibles, à condition que votre câblage et vos configurations logicielles soient correctement réalisés.
 
 Pour plus de détails sur la configuration d’ESPHome et l’intégration avec Home Assistant, consultez la [documentation détaillée disponible dans ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Ce guide complet vous explique pas à pas comment configurer votre ESP32 avec ESPHome pour exploiter au maximum les fonctionnalités de votre PVRouter dans Home Assistant.
 

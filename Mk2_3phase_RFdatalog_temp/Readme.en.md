@@ -16,7 +16,7 @@ This program is designed to be used with the Arduino IDE and/or other developmen
     - [Operating principle](#operating-principle)
   - [RF module and remote loads configuration](#rf-module-and-remote-loads-configuration)
     - [Required hardware](#required-hardware)
-    - [Software configuration](#software-configuration-1)
+    - [Software configuration](#software-configuration)
     - [Remote receiver configuration](#remote-receiver-configuration)
   - [Watchdog configuration](#watchdog-configuration)
   - [Temperature sensor(s) configuration](#temperature-sensors-configuration)
@@ -26,9 +26,12 @@ This program is designed to be used with the Arduino IDE and/or other developmen
     - [Sensor configuration (common to both cases above)](#sensor-configuration-common-to-both-cases-above)
   - [Off-peak hours management configuration (dual tariff)](#off-peak-hours-management-configuration-dual-tariff)
     - [Hardware configuration](#hardware-configuration)
-    - [Software configuration](#software-configuration)
+    - [Software configuration](#software-configuration-1)
   - [Priority rotation](#priority-rotation)
-  - [Forced operation configuration](#forced-operation-configuration)
+  - [Forced operation configuration (New Flexible System)](#forced-operation-configuration-new-flexible-system)
+    - [Feature activation](#feature-activation-1)
+    - [OverridePins definition](#overridepins-definition)
+    - [Usage](#usage)
   - [Routing stop](#routing-stop)
 - [Advanced program configuration](#advanced-program-configuration)
   - [`DIVERSION_START_THRESHOLD_WATTS` parameter](#diversion_start_threshold_watts-parameter)
@@ -666,7 +669,8 @@ For more details on ESPHome configuration and Home Assistant integration, consul
 
 # Configuration without extension board
 
-[!IMPORTANT] If you don't have the specific extension board or the appropriate motherboard PCB (these two elements not being available for now), you can still achieve integration by your own means.
+> [!IMPORTANT]
+> If you don't have the specific extension board or the appropriate motherboard PCB (these two elements not being available for now), you can still achieve integration by your own means.
 
 In this case:
 - No connection is predefined between ESP32 and Mk2PVRouter
@@ -679,7 +683,8 @@ Ensure particularly that pin numbers used in each configuration correspond exact
 
 For temperature probes, you can connect them directly to ESP32 using a `GPIO` pin of your choice, which you'll then configure in ESPHome. **Don't forget to add a 4.7 kΩ pull-up resistor between the data line (DQ) and +3.3 V power supply** to ensure proper 1-Wire bus operation.
 
-[!NOTE] Even without the extension board, all Home Assistant integration features remain accessible, provided your wiring and software configurations are correctly implemented.
+> [!NOTE]
+> Even without the extension board, all Home Assistant integration features remain accessible, provided your wiring and software configurations are correctly implemented.
 
 For more details on ESPHome configuration and Home Assistant integration, consult the [detailed documentation available in this gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). This complete guide explains step by step how to configure your ESP32 with ESPHome to maximize your PVRouter's features in Home Assistant.
 
