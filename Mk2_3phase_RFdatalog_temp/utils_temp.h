@@ -27,9 +27,7 @@
 #include "constants.h"
 #include "config.h"
 
-#if TEMP_SENSOR_PRESENT
 #include <OneWire.h>  // for temperature sensing
-#endif
 
 /**
  * @struct DeviceAddress
@@ -48,47 +46,6 @@ struct DeviceAddress
 {
   uint8_t addr[8]{}; /**< The address of the device as an array of 8 bytes. */
 };
-
-// Mock class for OneWire
-/// @cond DOXYGEN_EXCLUDE
-class MockOneWire
-{
-public:
-  // Mock constructor
-  MockOneWire() = default;
-
-  void begin(uint8_t) {}
-
-  bool reset()
-  {
-    return true;
-  }
-
-  void skip() {}
-
-  void select(const uint8_t*) {}
-
-  void write(uint8_t) {}
-
-  uint8_t read()
-  {
-    return 0x00;
-  }
-
-  uint8_t crc8(const uint8_t*, uint8_t)
-  {
-    return 0x00;
-  }
-};
-/// @endcond
-
-// Include the real OneWire library if needed
-#if TEMP_SENSOR_PRESENT
-#include <OneWire.h>          // for temperature sensing
-using OneWireType = OneWire;  // Use the real implementation
-#else
-using OneWireType = MockOneWire;  // Use the mock implementation
-#endif
 
 /**
  * @class TemperatureSensing
@@ -247,10 +204,16 @@ public:
    */
   [[nodiscard]] int16_t readTemperature(const uint8_t idx) const
   {
-    static ScratchPad buf;
-
-    if constexpr (TEMP_SENSOR_PRESENT)
+    if constexpr (!TEMP_SENSOR_PRESENT)
     {
+      // Suppress unused parameter warning when temperature sensing is disabled
+      (void)idx;
+      return 0;
+    }
+    else
+    {
+      static ScratchPad buf;
+
       if (!oneWire.reset())
       {
         return DEVICE_DISCONNECTED_RAW;
@@ -271,22 +234,17 @@ public:
       {
         return DEVICE_DISCONNECTED_RAW;
       }
-    }
-    else
-    {
-      // Suppress unused parameter warning when temperature sensing is disabled
-      (void)idx;
-    }
 
-    // result is temperature x16, multiply by 6.25 to convert to temperature x100
-    int16_t result = (buf[1] << 8) | buf[0];
-    result = (result * 6) + (result >> 2);
-    if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
-    {
-      return OUTOFRANGE_TEMPERATURE;  // return value ('Out of range')
-    }
+      // result is temperature x16, multiply by 6.25 to convert to temperature x100
+      int16_t result = (buf[1] << 8) | buf[0];
+      result = (result * 6) + (result >> 2);
+      if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
+      {
+        return OUTOFRANGE_TEMPERATURE;  // return value ('Out of range')
+      }
 
-    return result;
+      return result;
+    }
   }
 
 private:
@@ -294,7 +252,7 @@ private:
 
   const DeviceAddress sensorAddrs[N]; /**< Array of sensors */
 
-  static inline OneWireType oneWire; /**< For temperature sensing */
+  static inline OneWire oneWire; /**< For temperature sensing */
 };
 
 #endif /* UTILS_TEMP_H */

@@ -19,18 +19,16 @@ inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB,
 inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
 // ------------------------------------------
 
-inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]; /**< load priorities */
+inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]; /**< load priorities and states (local loads only) */
+
+#ifdef RF_PRESENT
+#include "remote_loads.h"
+#endif
 
 inline constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{ 1 }; /**< allows polarity changes to be confirmed */
 
 inline constexpr uint16_t initialDelay{ 3000 };  /**< in milli-seconds, to allow time to open the Serial monitor */
 inline constexpr uint16_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow LP filter to settle */
-
-#ifdef TEMP_ENABLED
-inline PayloadTx_struct< NO_OF_PHASES, temperatureSensing.size() > tx_data; /**< logging data */
-#else
-inline PayloadTx_struct< NO_OF_PHASES > tx_data; /**< logging data */
-#endif
 
 void printParamsForSelectedOutputMode();
 

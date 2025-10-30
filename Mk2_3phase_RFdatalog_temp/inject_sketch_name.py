@@ -16,7 +16,7 @@ def get_git_current_branch() -> str:
   except CalledProcessError:
     return "N/A"
 
-def write_version_h(file_path, project_path, current_time, branch_name, commit_hash):
+def write_version_h(file_path, project_path, current_time, branch_name, commit_hash, build_env):
     content = f"""\
 #ifndef VERSION_H
 #define VERSION_H
@@ -25,6 +25,7 @@ def write_version_h(file_path, project_path, current_time, branch_name, commit_h
 #define CURRENT_TIME "{current_time}"
 #define BRANCH_NAME "{branch_name}"
 #define COMMIT_HASH "{commit_hash}"
+#define BUILD_ENV "{build_env}"
 
 #endif // VERSION_H
 """
@@ -40,9 +41,10 @@ proj_path = os.path.basename(env["PROJECT_DIR"])
 current_time = datetime.now().replace(microsecond=0).astimezone().isoformat(' ')
 branch_name = get_git_current_branch()
 commit_hash = get_git_revision_short_hash()
+build_env = env["PIOENV"]
 
 # Path to the version.h file
 version_h_path = os.path.join(env["PROJECT_DIR"], "version.h")
 
 # Write the values to version.h
-write_version_h(version_h_path, proj_path, current_time, branch_name, commit_hash)
+write_version_h(version_h_path, proj_path, current_time, branch_name, commit_hash, build_env)

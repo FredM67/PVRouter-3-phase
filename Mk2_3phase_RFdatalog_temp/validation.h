@@ -44,13 +44,15 @@ static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && (PRIORITY_ROTATION =
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
 
 static_assert(NO_OF_DUMPLOADS > 0, "Number of dump loads must be greater than 0");
+static_assert(NO_OF_DUMPLOADS >= NO_OF_REMOTE_LOADS, "NO_OF_DUMPLOADS must be >= NO_OF_REMOTE_LOADS");
 static_assert(iTemperatureThreshold > 0, "Temperature threshold must be greater than 0");
 static_assert(iTemperatureThreshold <= 100, "Temperature threshold must be lower than 100");
 
 static_assert(REQUIRED_EXPORT_IN_WATTS >= -32768 && REQUIRED_EXPORT_IN_WATTS <= 32767, "******** REQUIRED_EXPORT_IN_WATTS out of range ! ********");
 static_assert(DIVERSION_START_THRESHOLD_WATTS >= 0 && DIVERSION_START_THRESHOLD_WATTS <= 32767, "******** DIVERSION_START_THRESHOLD_WATTS must be positive ! ********");
 
-static_assert(sizeof(physicalLoadPin) / sizeof(physicalLoadPin[0]) == NO_OF_DUMPLOADS, "******** physicalLoadPin array size mismatch ! ********");
+static_assert(sizeof(physicalLoadPin) / sizeof(physicalLoadPin[0]) == (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS), "******** physicalLoadPin array size mismatch (should be for local loads only) ! ********");
+static_assert(sizeof(remoteLoadStatusLED) / sizeof(remoteLoadStatusLED[0]) == NO_OF_REMOTE_LOADS, "******** remoteLoadStatusLED array size mismatch ! ********");
 static_assert(sizeof(loadPrioritiesAtStartup) / sizeof(loadPrioritiesAtStartup[0]) == NO_OF_DUMPLOADS, "******** loadPrioritiesAtStartup array size mismatch ! ********");
 static_assert(sizeof(rg_ForceLoad) / sizeof(rg_ForceLoad[0]) == NO_OF_DUMPLOADS, "******** rg_ForceLoad array size mismatch ! ********");
 
@@ -110,7 +112,7 @@ constexpr uint16_t check_pins()
     bit_set(used_pins, watchDogPin);
   }
 
-  //physicalLoadPin for the TRIACS
+  //physicalLoadPin for the local TRIACS
   for (const auto &loadPin : physicalLoadPin)
   {
     if (loadPin == unused_pin)
@@ -120,6 +122,21 @@ constexpr uint16_t check_pins()
       return 0;
 
     bit_set(used_pins, loadPin);
+  }
+
+  // Optional status LED pins for remote loads
+  if constexpr (NO_OF_REMOTE_LOADS > 0)
+  {
+    for (const auto &ledPin : remoteLoadStatusLED)
+    {
+      if (ledPin != unused_pin)
+      {
+        if (bit_read(used_pins, ledPin))
+          return 0;
+
+        bit_set(used_pins, ledPin);
+      }
+    }
   }
 
   if constexpr (RELAY_DIVERSION)
@@ -186,12 +203,10 @@ static_assert(check_load_priorities(), "******** Load Priorities wrong ! Please 
 static_assert(check_pins(), "******** Duplicate pin definition ! Please check your config ! ********");
 static_assert((check_pins() & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
 static_assert((check_pins() & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
-static_assert(!(RF_CHIP_PRESENT && ((check_pins() & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
 static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
 
-#ifdef RF_PRESENT
-static_assert((nodeID >= 1 && nodeID <= 30), "******** RF nodeID must be between 1 and 30 ! ********");
-static_assert(networkGroup >= 1 && networkGroup <= 250, "******** RF networkGroup must be between 1 and 250 ! ********");
-#endif
+static_assert(!(RF_CHIP_PRESENT && ((check_pins() & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
+static_assert(!(RF_CHIP_PRESENT && (SharedRF::ROUTER_NODE_ID < 1 || SharedRF::ROUTER_NODE_ID > 30)), "******** RF node ID must be between 1 and 30 ! ********");
+static_assert(!(RF_CHIP_PRESENT && (SharedRF::NETWORK_ID < 1 || SharedRF::NETWORK_ID > 250)), "******** RF network ID must be between 1 and 250 ! ********");
 
 #endif /* VALIDATION_H */
