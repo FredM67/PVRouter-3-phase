@@ -203,12 +203,10 @@ static_assert(check_load_priorities(), "******** Load Priorities wrong ! Please 
 static_assert(check_pins(), "******** Duplicate pin definition ! Please check your config ! ********");
 static_assert((check_pins() & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
 static_assert((check_pins() & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
-static_assert(!(RF_CHIP_PRESENT && ((check_pins() & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
 static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
 
-#if defined(RF_PRESENT) && (defined(ENABLE_RF_DATALOGGING) || defined(ENABLE_REMOTE_LOADS))
-static_assert((SharedRF::THIS_NODE_ID >= 1 && SharedRF::THIS_NODE_ID <= 30), "******** RF node ID must be between 1 and 30 ! ********");
-static_assert(SharedRF::NETWORK_ID >= 1 && SharedRF::NETWORK_ID <= 250, "******** RF network ID must be between 1 and 250 ! ********");
-#endif
+static_assert(!(RF_CHIP_PRESENT && ((check_pins() & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
+static_assert(!(RF_CHIP_PRESENT && (SharedRF::THIS_NODE_ID < 1 || SharedRF::THIS_NODE_ID > 30)), "******** RF node ID must be between 1 and 30 ! ********");
+static_assert(!(RF_CHIP_PRESENT && (SharedRF::NETWORK_ID < 1 || SharedRF::NETWORK_ID > 250)), "******** RF network ID must be between 1 and 250 ! ********");
 
 #endif /* VALIDATION_H */

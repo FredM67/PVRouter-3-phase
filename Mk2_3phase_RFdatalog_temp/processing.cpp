@@ -270,29 +270,31 @@ void initializeProcessing()
     loadPrioritiesAndState[i] &= loadStateMask;
   } while (i);
 
-#if defined(RF_PRESENT) && (defined(ENABLE_RF_DATALOGGING) || defined(ENABLE_REMOTE_LOADS))
-  // Initialize shared RF module
-  if (initialize_rf())
+  if constexpr (RF_CHIP_PRESENT)
   {
-    DBUGLN(F("RF module initialized"));
+    // Initialize shared RF module
+    if (initialize_rf())
+    {
+      DBUGLN(F("RF module initialized"));
+    }
+    else
+    {
+      DBUGLN(F("RF module initialization FAILED"));
+    }
   }
-  else
-  {
-    DBUGLN(F("RF module initialization FAILED"));
-  }
-#endif
 
-#ifdef ENABLE_REMOTE_LOADS
-  // Initialize remote load support
-  if (initializeRemoteLoads())
+  if constexpr (REMOTE_LOADS_PRESENT)
   {
-    DBUGLN(F("Remote loads initialized"));
+    // Initialize remote load support
+    if (initializeRemoteLoads())
+    {
+      DBUGLN(F("Remote loads initialized"));
+    }
+    else
+    {
+      DBUGLN(F("Remote loads initialization FAILED"));
+    }
   }
-  else
-  {
-    DBUGLN(F("Remote loads initialization FAILED"));
-  }
-#endif
 
   // First stop the ADC
   bit_clear(ADCSRA, ADEN);
@@ -446,15 +448,16 @@ void updatePhysicalLoadStates()
     physicalLoadState[iLoad] = bDiversionEnabled && (bOverrideActive || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   } while (idx);
 
-#ifdef ENABLE_REMOTE_LOADS
-  // Map physical load states to remote load states
-  // Remote loads are the last NO_OF_REMOTE_LOADS entries in physicalLoadState
-  for (uint8_t i = 0; i < NO_OF_REMOTE_LOADS; ++i)
+  if constexpr (REMOTE_LOADS_PRESENT)
   {
-    remoteLoadState[i] = physicalLoadState[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS + i];
+    // Map physical load states to remote load states
+    // Remote loads are the last NO_OF_REMOTE_LOADS entries in physicalLoadState
+    for (uint8_t i = 0; i < NO_OF_REMOTE_LOADS; ++i)
+    {
+      remoteLoadState[i] = physicalLoadState[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS + i];
+    }
+    // Note: updateRemoteLoads() is called after updatePortsStates() in processStartNewCycle()
   }
-  // Note: updateRemoteLoads() is called after updatePortsStates() in processStartNewCycle()
-#endif
 }
 
 /**
@@ -777,10 +780,11 @@ void processStartNewCycle()
 
   updatePortsStates();  // update the control ports for each of the physical loads
 
-#ifdef ENABLE_REMOTE_LOADS
-  // Update remote loads AFTER local physical ports are updated
-  updateRemoteLoads();
-#endif
+  if constexpr (REMOTE_LOADS_PRESENT)
+  {
+    // Update remote loads AFTER local physical ports are updated
+    updateRemoteLoads();
+  }
 
   if (loadPrioritiesAndState[0] & loadStateOnBit)
   {

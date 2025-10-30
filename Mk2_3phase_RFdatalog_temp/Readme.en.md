@@ -290,14 +290,14 @@ The router can control remote loads via an RFM69 RF module. This feature allows 
 
 The RF module can be used for two independent features:
 
-1. **RF Telemetry** (`ENABLE_RF_DATALOGGING`): Sends power/voltage data to a gateway
-2. **Remote Loads** (`ENABLE_REMOTE_LOADS`): Load control via RF
+1. **RF Telemetry** (`RF_LOGGING_PRESENT`): Sends power/voltage data to a gateway
+2. **Remote Loads** (`REMOTE_LOADS_PRESENT`): Load control via RF
 
-To activate the RF module with remote load control, uncomment in **config.h**:
+To enable the RF module with remote load control, configure in **config.h**:
 
 ```cpp
-#define RF_PRESENT                /**< Enable RFM69 module (required for any RF feature) */
-#define ENABLE_REMOTE_LOADS       /**< Enable remote load control via RF */
+inline constexpr bool RF_LOGGING_PRESENT{ false };       // RF telemetry (optional)
+inline constexpr bool REMOTE_LOADS_PRESENT{ true };      // Remote loads (if NO_OF_REMOTE_LOADS > 0, will be automatically true)
 ```
 
 **Load configuration:**

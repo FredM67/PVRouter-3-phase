@@ -164,21 +164,4 @@ inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
 
 inline constexpr uint32_t ROTATION_AFTER_SECONDS{ 8UL * 3600UL }; /**< rotates load priorities after this period of inactivity */
 
-/* --------------------------------------
-   RF configuration (RFM69 module)
-   
-   RF features can be used independently or together:
-   
-   1. RF Data Logging (ENABLE_RF_DATALOGGING):
-      - Sends power/voltage data to a gateway/base station for monitoring
-      - Configured in utils_rf.h (SharedRF::GATEWAY_ID)
-      
-   2. Remote Load Control (ENABLE_REMOTE_LOADS):
-      - Sends load ON/OFF commands to remote TRIAC/SSR units
-      - Configured in remote_loads.h (SharedRF::REMOTE_LOAD_ID)
-      
-   Both features share the same RFM69 module and send to different node IDs.
-   Configuration (frequency, network ID, power) is in utils_rf.h
-*/
-
 #endif  // CONFIG_H

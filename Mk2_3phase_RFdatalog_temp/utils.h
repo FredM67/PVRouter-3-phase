@@ -172,30 +172,37 @@ inline void printConfiguration()
   }
 
   DBUG(F("RF capability "));
-#if defined(RF_PRESENT) && (defined(ENABLE_RF_DATALOGGING) || defined(ENABLE_REMOTE_LOADS))
-  DBUG(F("IS present, Freq = "));
-  if (SharedRF::FREQUENCY == RF69_433MHZ)
-    DBUGLN(F("433 MHz"));
-  else if (SharedRF::FREQUENCY == RF69_868MHZ)
-    DBUGLN(F("868 MHz"));
-  else if (SharedRF::FREQUENCY == RF69_915MHZ)
-    DBUGLN(F("915 MHz"));
+  if constexpr (RF_CHIP_PRESENT)
+  {
+    DBUG(F("IS present, Freq = "));
+    if constexpr (SharedRF::FREQUENCY == RF69_433MHZ)
+      DBUGLN(F("433 MHz"));
+    else if constexpr (SharedRF::FREQUENCY == RF69_868MHZ)
+      DBUGLN(F("868 MHz"));
+    else if constexpr (SharedRF::FREQUENCY == RF69_915MHZ)
+      DBUGLN(F("915 MHz"));
 
-  DBUG(F("  Network ID: "));
-  DBUGLN(SharedRF::NETWORK_ID);
-  DBUG(F("  Node ID: "));
-  DBUGLN(SharedRF::THIS_NODE_ID);
-#ifdef ENABLE_RF_DATALOGGING
-  DBUG(F("  Data logging to Gateway ID: "));
-  DBUGLN(SharedRF::GATEWAY_ID);
-#endif
-#ifdef ENABLE_REMOTE_LOADS
-  DBUG(F("  Remote loads to Node ID: "));
-  DBUGLN(SharedRF::REMOTE_LOAD_ID);
-#endif
-#else
-  DBUGLN(F("is NOT present"));
-#endif
+    DBUG(F("  Network ID: "));
+    DBUGLN(SharedRF::NETWORK_ID);
+    DBUG(F("  Node ID: "));
+    DBUGLN(SharedRF::THIS_NODE_ID);
+
+    if constexpr (RF_LOGGING_PRESENT)
+    {
+      DBUG(F("  Data logging to Gateway ID: "));
+      DBUGLN(SharedRF::GATEWAY_ID);
+    }
+
+    if constexpr (REMOTE_LOADS_PRESENT)
+    {
+      DBUG(F("  Remote loads to Node ID: "));
+      DBUGLN(SharedRF::REMOTE_LOAD_ID);
+    }
+  }
+  else
+  {
+    DBUGLN(F("is NOT present"));
+  }
 
   DBUG(F("Datalogging capability "));
   if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
@@ -484,9 +491,10 @@ inline void sendResults(bool bOffPeak)
     return;  // reject the first datalogging which is incomplete !
   }
 
-#ifdef ENABLE_RF_DATALOGGING
-  send_rf_data(tx_data);  // *SEND RF DATA*
-#endif
+  if constexpr (RF_LOGGING_PRESENT)
+  {
+    send_rf_data(tx_data);  // *SEND RF DATA*
+  }
 
   if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
   {

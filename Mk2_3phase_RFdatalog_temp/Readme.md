@@ -301,14 +301,14 @@ Le routeur peut contrôler des charges distantes via un module RF RFM69. Cette f
 
 Le module RF peut être utilisé pour deux fonctionnalités indépendantes :
 
-1. **Télémétrie RF** (`ENABLE_RF_DATALOGGING`) : Envoi des données de puissance/tension vers une passerelle
-2. **Charges distantes** (`ENABLE_REMOTE_LOADS`) : Contrôle de charges via RF
+1. **Télémétrie RF** (`RF_LOGGING_PRESENT`) : Envoi des données de puissance/tension vers une passerelle
+2. **Charges distantes** (`REMOTE_LOADS_PRESENT`) : Contrôle de charges via RF
 
-Pour activer le module RF avec contrôle de charges distantes, décommentez dans **config.h** :
+Pour activer le module RF avec contrôle de charges distantes, configurez dans **config.h** :
 
 ```cpp
-#define RF_PRESENT                /**< Active le module RFM69 (requis pour toute fonction RF) */
-#define ENABLE_REMOTE_LOADS       /**< Active le contrôle de charges distantes via RF */
+inline constexpr bool RF_LOGGING_PRESENT{ false };       // Télémétrie RF (optionnel)
+inline constexpr bool REMOTE_LOADS_PRESENT{ true };      // Charges distantes (si NO_OF_REMOTE_LOADS > 0, sera automatiquement true)
 ```
 
 **Configuration des charges :**
