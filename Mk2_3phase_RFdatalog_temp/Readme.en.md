@@ -323,34 +323,34 @@ Remote loads **always** have lower priority than local loads. In the example abo
 - Remote load #0: medium priority
 - Remote load #1: lowest priority
 
-**RF configuration (in utils_rf.h):**
+**RF configuration (in config_rf.h):**
 
 Default parameters are:
 - Frequency: 868 MHz (Europe)
 - Network ID: 210
-- Transmitter ID: 10
-- Receiver ID: 15
+- Router ID: 10
+- Remote unit ID: 15
 
-To modify these parameters, edit **utils_rf.h**:
+To modify these parameters, edit **config_rf.h**:
 
 ```cpp
-inline constexpr uint8_t THIS_NODE_ID{ 10 };        // ID of this transmitter
-inline constexpr uint8_t GATEWAY_ID{ 1 };           // Gateway ID (telemetry)
-inline constexpr uint8_t REMOTE_LOAD_ID{ 15 };     // Load receiver ID
-inline constexpr uint8_t NETWORK_ID{ 210 };        // Network ID (1-255)
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // Router (this device) ID
+inline constexpr uint8_t GATEWAY_ID{ 1 };       // Gateway ID (telemetry)
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // Remote unit ID
+inline constexpr uint8_t NETWORK_ID{ 210 };     // Network ID (1-255)
 ```
 
 ### Remote receiver configuration
 
 The **RemoteLoadReceiver** sketch is provided in the `RemoteLoadReceiver/` folder.
 
-**Minimum configuration (in receiver's config.h):**
+**Minimum configuration (in receiver's config_rf.h):**
 
 ```cpp
-// RF Configuration - must match transmitter
-inline constexpr uint8_t TX_NODE_ID{ 10 };          // Transmitter ID
-inline constexpr uint8_t MY_NODE_ID{ 15 };          // This receiver's ID  
-inline constexpr uint8_t NETWORK_ID{ 210 };         // Network ID
+// RF Configuration - must match router
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // Router ID
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // This remote unit's ID
+inline constexpr uint8_t NETWORK_ID{ 210 };     // Network ID
 
 // Load configuration
 inline constexpr uint8_t NO_OF_LOADS{ 2 };                    // Number of loads on this receiver

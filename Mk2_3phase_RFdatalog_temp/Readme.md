@@ -334,34 +334,34 @@ Les charges distantes ont **toujours** une priorité inférieure aux charges loc
 - Charge distante #0 : priorité moyenne  
 - Charge distante #1 : priorité la plus basse
 
-**Configuration RF (dans utils_rf.h) :**
+**Configuration RF (dans config_rf.h) :**
 
 Les paramètres par défaut sont :
 - Fréquence : 868 MHz (Europe)
 - ID réseau : 210
-- ID émetteur : 10
-- ID récepteur : 15
+- ID routeur : 10
+- ID unité distante : 15
 
-Pour modifier ces paramètres, éditez **utils_rf.h** :
+Pour modifier ces paramètres, éditez **config_rf.h** :
 
 ```cpp
-inline constexpr uint8_t THIS_NODE_ID{ 10 };        // ID de cet émetteur
-inline constexpr uint8_t GATEWAY_ID{ 1 };           // ID de la passerelle (télémétrie)
-inline constexpr uint8_t REMOTE_LOAD_ID{ 15 };     // ID du récepteur de charges
-inline constexpr uint8_t NETWORK_ID{ 210 };        // ID du réseau (1-255)
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // ID du routeur (cet appareil)
+inline constexpr uint8_t GATEWAY_ID{ 1 };       // ID de la passerelle (télémétrie)
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // ID de l'unité distante
+inline constexpr uint8_t NETWORK_ID{ 210 };     // ID du réseau (1-255)
 ```
 
 ### Configuration du récepteur distant
 
 Le sketch **RemoteLoadReceiver** est fourni dans le dossier `RemoteLoadReceiver/`.
 
-**Configuration minimale (dans config.h du récepteur) :**
+**Configuration minimale (dans config_rf.h du récepteur) :**
 
 ```cpp
-// Configuration RF - doit correspondre à l'émetteur
-inline constexpr uint8_t TX_NODE_ID{ 10 };          // ID de l'émetteur
-inline constexpr uint8_t MY_NODE_ID{ 15 };          // ID de ce récepteur
-inline constexpr uint8_t NETWORK_ID{ 210 };         // ID réseau
+// Configuration RF - doit correspondre au routeur
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // ID du routeur
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // ID de cette unité distante
+inline constexpr uint8_t NETWORK_ID{ 210 };     // ID réseau
 
 // Configuration des charges
 inline constexpr uint8_t NO_OF_LOADS{ 2 };                    // Nombre de charges sur ce récepteur

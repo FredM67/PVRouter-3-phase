@@ -97,7 +97,7 @@ inline void sendRemoteLoadData()
 {
   if constexpr (RF_LOGGING_PRESENT || REMOTE_LOADS_PRESENT)
     // Send to remote load receiver using shared radio
-    SharedRF::radio.send(SharedRF::REMOTE_LOAD_ID,
+    SharedRF::radio.send(SharedRF::REMOTE_NODE_ID,
                          &RemoteLoadRF::tx_remote_data,
                          sizeof(RemoteLoadRF::tx_remote_data),
                          false);  // false = don't request ACK (faster, less blocking)

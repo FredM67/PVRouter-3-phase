@@ -206,7 +206,7 @@ static_assert((check_pins() & 0xC000) == 0, "******** Pins 14 and/or 15 do not e
 static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
 
 static_assert(!(RF_CHIP_PRESENT && ((check_pins() & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
-static_assert(!(RF_CHIP_PRESENT && (SharedRF::THIS_NODE_ID < 1 || SharedRF::THIS_NODE_ID > 30)), "******** RF node ID must be between 1 and 30 ! ********");
+static_assert(!(RF_CHIP_PRESENT && (SharedRF::ROUTER_NODE_ID < 1 || SharedRF::ROUTER_NODE_ID > 30)), "******** RF node ID must be between 1 and 30 ! ********");
 static_assert(!(RF_CHIP_PRESENT && (SharedRF::NETWORK_ID < 1 || SharedRF::NETWORK_ID > 250)), "******** RF network ID must be between 1 and 250 ! ********");
 
 #endif /* VALIDATION_H */

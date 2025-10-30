@@ -19,7 +19,12 @@ uint8_t previousLoadBitmask{ 0xFF };  // Initialize to invalid value to force fi
 RemoteLoadPayload receivedData;
 
 // RFM69 radio instance (SS=D10, IRQ=D2, isRFM69HW)
-RFM69 radio{ RF_CS_PIN, RF_IRQ_PIN, IS_RFM69HW };
+#include <Arduino.h>
+#include <RFM69.h>
+#include "config.h"
+
+// RFM69 radio instance
+RFM69 radio(RFConfig::RF_CS_PIN, RFConfig::RF_IRQ_PIN, RFConfig::IS_RFM69HW);
 
 void initializeReceiver()
 {
@@ -46,18 +51,18 @@ void initializeReceiver()
   Serial.println(F("Remote Load Receiver v2.0 (RFM69)"));
   Serial.println(F("Based on remoteUnit_fasterControl_1"));
   Serial.println(F("======================================="));
-  Serial.print(F("Listening to Node ID: "));
-  Serial.println(TX_NODE_ID);
+  Serial.print(F("Listening to Router ID: "));
+  Serial.println(RFConfig::ROUTER_NODE_ID);
   Serial.print(F("My Node ID: "));
-  Serial.println(MY_NODE_ID);
+  Serial.println(RFConfig::REMOTE_NODE_ID);
   Serial.print(F("Network ID: "));
-  Serial.println(NETWORK_ID);
+  Serial.println(RFConfig::NETWORK_ID);
   Serial.print(F("Number of loads: "));
   Serial.println(NO_OF_LOADS);
   Serial.println(F("---------------------------------------"));
 
   // Initialize RF module
-  if (!radio.initialize(FREQUENCY, MY_NODE_ID, NETWORK_ID))
+  if (!radio.initialize(RFConfig::FREQUENCY, RFConfig::REMOTE_NODE_ID, RFConfig::NETWORK_ID))
   {
     Serial.println(F("RFM69 initialization FAILED!"));
     while (1);  // Halt
@@ -123,8 +128,8 @@ void processRfMessages()
   // Check for incoming RF data
   if (radio.receiveDone())
   {
-    // Valid packet received - check if it's from the expected transmitter and correct size
-    if (radio.SENDERID == TX_NODE_ID && radio.DATALEN == sizeof(receivedData))
+    // Only process messages from the expected transmitter
+    if (radio.SENDERID == RFConfig::ROUTER_NODE_ID)
     {
       // Copy received data
       memcpy(&receivedData, (void *)radio.DATA, sizeof(receivedData));

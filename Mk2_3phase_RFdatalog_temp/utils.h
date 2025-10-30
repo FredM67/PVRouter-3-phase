@@ -185,7 +185,7 @@ inline void printConfiguration()
     DBUG(F("  Network ID: "));
     DBUGLN(SharedRF::NETWORK_ID);
     DBUG(F("  Node ID: "));
-    DBUGLN(SharedRF::THIS_NODE_ID);
+    DBUGLN(SharedRF::ROUTER_NODE_ID);
 
     if constexpr (RF_LOGGING_PRESENT)
     {
@@ -196,7 +196,7 @@ inline void printConfiguration()
     if constexpr (REMOTE_LOADS_PRESENT)
     {
       DBUG(F("  Remote loads to Node ID: "));
-      DBUGLN(SharedRF::REMOTE_LOAD_ID);
+      DBUGLN(SharedRF::REMOTE_NODE_ID);
     }
   }
   else

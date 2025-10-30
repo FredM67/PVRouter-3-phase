@@ -73,16 +73,23 @@ GND         <--->    Cathode (-) via 220Ω resistor
 
 ## Configuration
 
-Edit these constants in `RemoteLoadReceiver.ino`:
+Edit these constants in `config_rf.h`:
 
 ```cpp
-// RF Configuration - MUST match transmitter
-#define RF_FREQ RF12_433MHZ      // or RF12_868MHZ, RF12_915MHZ
-const uint8_t TX_NODE_ID = 10;   // Transmitter's node ID
-const uint8_t MY_NODE_ID = 15;   // This receiver's unique ID
-const uint8_t NETWORK_GROUP = 210; // Must match transmitter
+// RF Configuration - MUST match router
+namespace RFConfig
+{
+  inline constexpr uint8_t FREQUENCY{ RF69_868MHZ };  // or RF69_433MHZ, RF69_915MHZ
+  inline constexpr uint8_t ROUTER_NODE_ID{ 10 };      // Router's node ID
+  inline constexpr uint8_t REMOTE_NODE_ID{ 15 };      // This remote unit's unique ID
+  inline constexpr uint8_t NETWORK_ID{ 210 };         // Must match router
+  inline constexpr bool IS_RFM69HW{ false };          // true for RFM69HW/HCW
+}
+```
 
-// Load Configuration
+Edit load configuration in `config.h`:
+
+```cpp
 const uint8_t NO_OF_LOADS = 2;   // Number of loads (max 8)
 const uint8_t loadPins[NO_OF_LOADS] = { 5, 6 }; // Arduino pins
 ```
@@ -103,7 +110,7 @@ const uint8_t loadPins[NO_OF_LOADS] = { 5, 6 }; // Arduino pins
 Remote Load Receiver v1.0
 Based on remoteUnit_fasterControl_1
 =======================================
-Listening to Node ID: 10
+Listening to Router ID: 10
 My Node ID: 15
 Network Group: 210
 Number of loads: 2
@@ -163,13 +170,13 @@ You can have multiple receivers on the same network:
 
 **Receiver 1:**
 ```cpp
-const uint8_t MY_NODE_ID = 15;  // Unique ID
+const uint8_t REMOTE_NODE_ID = 15;  // Unique ID
 const uint8_t NO_OF_LOADS = 2;
 ```
 
 **Receiver 2:**
 ```cpp
-const uint8_t MY_NODE_ID = 16;  // Different ID
+const uint8_t REMOTE_NODE_ID = 16;  // Different ID
 const uint8_t NO_OF_LOADS = 2;
 ```
 

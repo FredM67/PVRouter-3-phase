@@ -9,34 +9,25 @@
  *
  * @details Provides shared RFM69 radio instance and data logging functionality.
  *          Can be used standalone for data logging or together with remote loads.
+ *          RF configuration is centralized in config_rf.h
  */
 
 #ifndef _UTILS_RF_H
 #define _UTILS_RF_H
 
 #include "config.h"
+#include "config_rf.h"
 
 #include <RFM69.h>
 #include <SPI.h>
 
 inline constexpr bool RF_CHIP_PRESENT{ REMOTE_LOADS_PRESENT || RF_LOGGING_PRESENT };
 
-// Shared RFM69 Configuration
+// Shared RFM69 instance and state
 namespace SharedRF
 {
-inline constexpr uint8_t FREQUENCY{ RF69_868MHZ }; /**< RF69_433MHZ, RF69_868MHZ, or RF69_915MHZ */
-inline constexpr uint8_t NETWORK_ID{ 210 };        /**< Network ID (must match all nodes) */
-inline constexpr bool IS_RFM69HW{ false };         /**< true for RFM69HW, false for RFM69W */
-inline constexpr uint8_t POWER_LEVEL{ 31 };        /**< TX power: 0-31 */
-inline constexpr uint8_t THIS_NODE_ID{ 10 };       /**< This transmitter's node ID */
-
-// Destination node IDs
-inline constexpr uint8_t GATEWAY_ID{ 1 };      /**< Gateway/receiver for data logging */
-inline constexpr uint8_t REMOTE_LOAD_ID{ 15 }; /**< Remote load receiver node ID */
-
-// Pin configuration for RFM69 module
-inline constexpr uint8_t RF_CS_PIN{ 10 }; /**< SPI Chip Select pin */
-inline constexpr uint8_t RF_IRQ_PIN{ 2 }; /**< Interrupt pin */
+// Import RF configuration from config_rf.h
+using namespace RFConfig;
 
 inline RFM69 radio{ RF_CS_PIN, RF_IRQ_PIN, IS_RFM69HW }; /**< Shared RFM69 instance */
 inline bool initialized{ false };                        /**< Track initialization state */
@@ -59,7 +50,7 @@ inline bool initialize_rf()
   }
 
   if (!SharedRF::radio.initialize(SharedRF::FREQUENCY,
-                                  SharedRF::THIS_NODE_ID,
+                                  SharedRF::ROUTER_NODE_ID,
                                   SharedRF::NETWORK_ID))
   {
     return false;

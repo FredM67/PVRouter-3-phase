@@ -12,15 +12,10 @@
 #define CONFIG_H
 
 #include <Arduino.h>
-#include <RFM69.h>
+#include "config_rf.h"
 
-// RF Configuration - must match transmitter
-#define FREQUENCY RF69_868MHZ  // RF69_433MHZ, RF69_868MHZ, or RF69_915MHZ
-#define IS_RFM69HW false       // true for RFM69HW/HCW, false for RFM69W/CW
-
-inline constexpr uint8_t TX_NODE_ID{ 10 };   /**< Node ID of transmitter (SharedRF::THIS_NODE_ID) */
-inline constexpr uint8_t MY_NODE_ID{ 15 };   /**< This receiver's node ID (SharedRF::REMOTE_LOAD_ID) */
-inline constexpr uint8_t NETWORK_ID{ 210 };  /**< Network ID (1-255, must match transmitter) */
+// Import RF configuration
+using namespace RFConfig;
 
 // Load Configuration
 inline constexpr uint8_t NO_OF_LOADS{ 2 };                   /**< Number of loads controlled by this unit */
