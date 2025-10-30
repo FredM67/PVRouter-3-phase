@@ -70,6 +70,31 @@ For **MacOSX**, this file is located in '/Users/[user]/Library/Arduino15/package
 Open the file in any text editor (you'll need administrator rights) and replace the parameter '**-std=gnu++11**' with '**-std=gnu++17**'. That's it!
 
 If your Arduino IDE was open, please close all instances and reopen it.
+
+## Required libraries for Arduino IDE
+
+This project requires the installation of the following libraries via the Arduino IDE's **Library Manager** (menu **Tools** → **Manage Libraries…**) :
+
+### Required libraries
+- **OneWire** by Jim Studt et al. (version 2.3.7 or higher)
+  - Used for DS18B20 temperature sensors
+  - Installed even if no sensor is used (unused code will be eliminated by the linker)
+
+- **RFM69** by Felix Rusu, LowPowerLab (version 1.5.3 or higher)
+  - Used for RF communication (telemetry and remote loads)
+  - Installed even if RF module is not present (unused code will be eliminated by the linker)
+
+- **ArduinoJson** by Benoit Blanchon (version **6.x only**, NOT 7.x)
+  - Used for serial output in JSON format (in `utils.h`)
+  - Version 7.x is too large for an ATmega328P
+
+- **SPI** (included with Arduino IDE)
+  - Used for communication with the RFM69 module
+
+### Important note
+All libraries are always included in the source code. However, only the code actually used by your configuration will be present in the final firmware. This simplifies code maintenance while preserving firmware size.
+
+**With PlatformIO**: All dependencies are managed automatically via the `platformio.ini` file. No manual installation is required.
 ___
 > [!WARNING]
 > When using the **ArduinoJson** library, you must install a version **6.x**.

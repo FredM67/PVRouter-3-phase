@@ -6,6 +6,9 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
 - [Table des matières](#table-des-matières)
 - [Utilisation avec Visual Studio Code (recommandé)](#utilisation-avec-visual-studio-code-recommandé)
 - [Utilisation avec Arduino IDE](#utilisation-avec-arduino-ide)
+  - [Bibliothèques requises pour l'Arduino IDE](#bibliothèques-requises-pour-larduino-ide)
+    - [Bibliothèques obligatoires](#bibliothèques-obligatoires)
+    - [Note importante](#note-importante)
 - [Aperçu rapide des fichiers](#aperçu-rapide-des-fichiers)
   - [Documentation technique](#documentation-technique)
 - [Documentation de développement](#documentation-de-développement)
@@ -73,9 +76,34 @@ Pour **MacOSX**, ce fichier se trouve dans '/Users/[user]/Library/Arduino15/pack
 Ouvrez le fichier dans n’importe quel éditeur de texte (vous aurez besoin des droits d’administrateur) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. C’est tout !
 
 Si votre IDE Arduino était ouvert, veuillez fermer toutes les instances et le rouvrir.
+
+## Bibliothèques requises pour l'Arduino IDE
+
+Ce projet nécessite l'installation des bibliothèques suivantes via le **Gestionnaire de bibliothèques** de l'Arduino IDE (menu **Outils** → **Gérer les bibliothèques…**) :
+
+### Bibliothèques obligatoires
+- **OneWire** par Jim Studt et al. (version 2.3.7 ou supérieure)
+  - Utilisée pour les capteurs de température DS18B20
+  - Installée même si aucun capteur n'est utilisé (le code non utilisé sera éliminé par le linker)
+
+- **RFM69** par Felix Rusu, LowPowerLab (version 1.5.3 ou supérieure)
+  - Utilisée pour la communication RF (télémétrie et charges distantes)
+  - Installée même si le module RF n'est pas présent (le code non utilisé sera éliminé par le linker)
+
+- **ArduinoJson** par Benoit Blanchon (version **6.x uniquement**, PAS la 7.x)
+  - Utilisée pour la sortie série en format JSON (dans `utils.h`)
+  - La version 7.x est trop volumineuse pour un ATmega328P
+
+- **SPI** (incluse avec l'Arduino IDE)
+  - Utilisée pour la communication avec le module RFM69
+
+### Note importante
+Toutes les bibliothèques sont toujours incluses dans le code source. Cependant, seul le code réellement utilisé par votre configuration sera présent dans le firmware final. Cela simplifie la maintenance du code tout en préservant la taille du firmware.
+
+**Avec PlatformIO** : Toutes les dépendances sont gérées automatiquement via le fichier `platformio.ini`. Aucune installation manuelle n'est nécessaire.
 ___
 > [!WARNING]
-> En cas d’utilisation de la libraire **ArduinoJson**, il faudra impérativement installer une version **6.x**.
+> En cas d'utilisation de la libraire **ArduinoJson**, il faudra impérativement installer une version **6.x**.
 > La version 7.x, certes plus actuelle, est devenue trop lourde pour un Atmega328P.
 ___
 

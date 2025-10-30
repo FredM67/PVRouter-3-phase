@@ -95,13 +95,12 @@ inline bool initializeRemoteLoads()
  */
 inline void sendRemoteLoadData()
 {
-#if defined(RF_PRESENT) && defined(ENABLE_REMOTE_LOADS)
+  if constexpr( RF_LOGGING_PRESENT || REMOTE_LOADS_PRESENT)
   // Send to remote load receiver using shared radio
   SharedRF::radio.send(SharedRF::REMOTE_LOAD_ID,
                        &RemoteLoadRF::tx_remote_data,
                        sizeof(RemoteLoadRF::tx_remote_data),
                        false);  // false = don't request ACK (faster, less blocking)
-#endif
 }
 
 /**

@@ -22,31 +22,12 @@
 #define CONFIG_H
 
 //--------------------------------------------------------------------------------------------------
-// RF Module Configuration
-// Uncomment the features you need:
-//
-//#define RF_PRESENT           /**< Enable RFM69 RF module (required for any RF features) */
-//#define ENABLE_RF_DATALOGGING   /**< Enable RF data logging to gateway */
-//#define ENABLE_REMOTE_LOADS     /**< Enable remote load control via RF */
-//
-// Note: At least one of ENABLE_RF_DATALOGGING or ENABLE_REMOTE_LOADS must be defined if RF_PRESENT is defined
-//--------------------------------------------------------------------------------------------------
 #define ENABLE_DEBUG /**< enable this line to include debugging print statements */
 //--------------------------------------------------------------------------------------------------
 
 #include "config_system.h"
 #include "debug.h"
 #include "types.h"
-
-#include "utils_dualtariff.h"
-#include "utils_relay.h"
-
-// Validate RF configuration
-#if defined(ENABLE_RF_DATALOGGING) || defined(ENABLE_REMOTE_LOADS)
-#ifndef RF_PRESENT
-#error "RF_PRESENT must be defined when using ENABLE_RF_DATALOGGING or ENABLE_REMOTE_LOADS"
-#endif
-#endif
 
 // Serial output type - Human readable for initial setup and commissioning
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
@@ -67,8 +48,13 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set
 inline constexpr bool WATCHDOG_PIN_PRESENT{ true }; /**< set it to 'true' if there's a watch led */
 inline constexpr bool RELAY_DIVERSION{ false };     /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };         /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
-inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
+inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
+inline constexpr bool RF_LOGGING_PRESENT{ false };  /**< set it to 'true' if RF data logging is needed */
 
+inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 ? true : false }; /**< set it to 'true' if remote load control via RF is needed */
+
+#include "utils_dualtariff.h"
+#include "utils_relay.h"
 #include "remote_loads.h"
 #include "utils_temp.h"
 

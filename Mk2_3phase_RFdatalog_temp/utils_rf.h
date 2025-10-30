@@ -14,11 +14,12 @@
 #ifndef _UTILS_RF_H
 #define _UTILS_RF_H
 
-#if defined(RF_PRESENT) && (defined(ENABLE_RF_DATALOGGING) || defined(ENABLE_REMOTE_LOADS))
+#include "config.h"
+
 #include <RFM69.h>
 #include <SPI.h>
 
-inline constexpr bool RF_CHIP_PRESENT{ true };
+inline constexpr bool RF_CHIP_PRESENT{ REMOTE_LOADS_PRESENT || RF_LOGGING_PRESENT };
 
 // Shared RFM69 Configuration
 namespace SharedRF
@@ -47,6 +48,11 @@ inline bool initialized{ false };                        /**< Track initializati
  */
 inline bool initialize_rf()
 {
+  if constexpr (!RF_CHIP_PRESENT)
+  {
+    return false;
+  }
+
   if (SharedRF::initialized)
   {
     return true;
@@ -70,7 +76,6 @@ inline bool initialize_rf()
   return true;
 }
 
-#ifdef ENABLE_RF_DATALOGGING
 /**
  * @brief Send RF data to gateway
  * @param data Reference to the telemetry data to send
@@ -78,12 +83,14 @@ inline bool initialize_rf()
  *          Initializes RF module if not already done.
  *          Uses fire-and-forget mode (no ACK) for better performance.
  */
-#ifdef TEMP_ENABLED
-inline void send_rf_data(const PayloadTx_struct< NO_OF_PHASES, temperatureSensing.size() >& data)
-#else
-inline void send_rf_data(const PayloadTx_struct< NO_OF_PHASES >& data)
-#endif
+template< typename PayloadType >
+inline void send_rf_data(const PayloadType& data)
 {
+  if constexpr (!RF_LOGGING_PRESENT)
+  {
+    return;
+  }
+
   if (!SharedRF::initialized)
   {
     if (!initialize_rf())
@@ -95,10 +102,5 @@ inline void send_rf_data(const PayloadTx_struct< NO_OF_PHASES >& data)
   // Send data to gateway without ACK (fire and forget for performance)
   SharedRF::radio.send(SharedRF::GATEWAY_ID, (const void*)&data, sizeof(data), false);
 }
-#endif  // ENABLE_RF_DATALOGGING
-
-#else
-inline constexpr bool RF_CHIP_PRESENT{ false };
-#endif  // RF_PRESENT && (ENABLE_RF_DATALOGGING || ENABLE_REMOTE_LOADS)
 
 #endif  // _UTILS_RF_H
