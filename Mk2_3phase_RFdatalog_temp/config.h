@@ -48,7 +48,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set
 inline constexpr bool WATCHDOG_PIN_PRESENT{ true }; /**< set it to 'true' if there's a watch led */
 inline constexpr bool RELAY_DIVERSION{ false };     /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };         /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
-inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
+inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
 inline constexpr bool RF_LOGGING_PRESENT{ false };  /**< set it to 'true' if RF data logging is needed */
 
 inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 ? true : false }; /**< set it to 'true' if remote load control via RF is needed */
