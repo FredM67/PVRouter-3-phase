@@ -84,6 +84,7 @@ Polarities polarityConfirmed[NO_OF_PHASES]{};              /**< for zero-crossin
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]{}; /**< for zero-crossing detection */
 
 LoadStates physicalLoadState[NO_OF_DUMPLOADS]{}; /**< Physical state of the loads */
+LoadStates remoteLoadState[NO_OF_REMOTE_LOADS]{};   /**< State array for remote loads */
 uint16_t countLoadON[NO_OF_DUMPLOADS]{};         /**< Number of cycle the load was ON (over 1 datalog period) */
 
 uint32_t absenceOfDivertedEnergyCountInMC{ 0 }; /**< number of main cycles without diverted energy */
@@ -275,15 +276,7 @@ void initializeProcessing()
 
   if constexpr (REMOTE_LOADS_PRESENT)
   {
-    // Initialize remote load support
-    if (initializeRemoteLoads())
-    {
-      DBUGLN(F("Remote loads initialized"));
-    }
-    else
-    {
-      DBUGLN(F("Remote loads initialization FAILED"));
-    }
+    DBUGLN(F("Remote loads initialized"));
   }
 
   // First stop the ADC
@@ -464,7 +457,7 @@ void updatePhysicalLoadStates()
         remoteLoadState[remoteIdx++] = physicalLoadState[i];
       }
     }
-    // Note: updateRemoteLoads() is called after updatePortsStates() in processStartNewCycle()
+    // Note: RemoteLoadManager::updateLoads() is called after updatePortsStates() in processStartNewCycle()
   }
 }
 
@@ -791,7 +784,7 @@ void processStartNewCycle()
   if constexpr (REMOTE_LOADS_PRESENT)
   {
     // Update remote loads AFTER local physical ports are updated
-    updateRemoteLoads();
+    remoteLoadManager.updateLoads(remoteLoadState);
   }
 
   if (loadPrioritiesAndState[0] & loadStateOnBit)

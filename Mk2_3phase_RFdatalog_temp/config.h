@@ -53,11 +53,6 @@ inline constexpr bool RF_LOGGING_PRESENT{ false };  /**< set it to 'true' if RF 
 
 inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 ? true : false }; /**< set it to 'true' if remote load control via RF is needed */
 
-#include "utils_dualtariff.h"
-#include "utils_relay.h"
-#include "remote_loads.h"
-#include "utils_temp.h"
-
 // ----------- Pinout Assignments -----------
 //
 // ANALOG pins:
@@ -119,6 +114,11 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
 // Priority 0 = highest, can be reordered at runtime via rotation
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
 
+#include "utils_dualtariff.h"
+#include "utils_relay.h"
+#include "utils_temp.h"
+#include "remote_loads.h"
+
 // Set the value to 'unused_pin' when the pin is not needed (feature deactivated)
 inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
 inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, set diversion on standby */
@@ -154,6 +154,14 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
                                      { { unused_pin, 100, 200, 1, 1 },
                                        { unused_pin, 300, 400, 1, 1 },
                                        { unused_pin, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
+
+// Remote load support
+#include "remote_loads.h"
+
+// Remote load manager - specify node ID for each remote unit
+// Unit numbers in REMOTE_LOAD(unit, led) must match array indices (1-based)
+inline constexpr RemoteLoadManager remoteLoadManager{ { { SharedRF::REMOTE_NODE_ID + 0 },  // Unit 1
+                                                        { SharedRF::REMOTE_NODE_ID + 1 } } }; // Unit 2
 
 #include "utils_override.h"
 

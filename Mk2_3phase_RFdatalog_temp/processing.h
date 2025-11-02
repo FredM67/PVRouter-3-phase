@@ -21,10 +21,6 @@ inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB,
 
 inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]; /**< load priorities and states (local loads only) */
 
-#ifdef RF_PRESENT
-#include "remote_loads.h"
-#endif
-
 inline constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{ 1 }; /**< allows polarity changes to be confirmed */
 
 inline constexpr uint16_t initialDelay{ 3000 };  /**< in milli-seconds, to allow time to open the Serial monitor */

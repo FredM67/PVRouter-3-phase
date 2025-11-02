@@ -16,7 +16,7 @@
  *          The system sends:
  *          - State changes immediately (within same mains cycle)
  *          - Refresh messages every 5 mains cycles if state unchanged
- *          - Compact bitmask format (1 bit per remote load)
+ *          - Compact bitmask format (1 bit per remote load per unit)
  *          
  *          Only compiled when ENABLE_REMOTE_LOADS is defined.
  */
@@ -28,158 +28,156 @@
 
 #include "config_system.h"
 #include "types.h"
+#include "type_traits.hpp"
 #include "config.h"
 
 // Configuration for remote loads
-// Note: NO_OF_REMOTE_LOADS is defined in config.h by the user
 inline constexpr uint8_t REMOTE_REFRESH_CYCLES{ 5 }; /**< send refresh every N mains cycles */
 
 #include "utils_rf.h"  // For shared RF configuration
 
 /**
- * @brief Compact payload structure for remote load control
- * @details Uses a single byte bitmask to control up to 8 remote loads.
- *          Bit 0 = Remote Load 0, Bit 1 = Remote Load 1, etc.
- *          1 = Load ON, 0 = Load OFF
+ * @brief State tracking for a single remote unit
  */
-struct RemoteLoadPayload
+struct RemoteUnitState
 {
-  uint8_t loadBitmask{ 0 }; /**< bitmask of remote load states (bit 0 = load 0, etc.) */
+  uint8_t tx_data{ 0 };                       /**< Transmission payload: bitmask of remote load states (bit 0 = load 0, etc.) */
+  uint8_t cyclesSinceLastUpdate{ 0 };         /**< Counter for refresh messages */
+  uint8_t previousBitmask{ 0 };               /**< Previous state for change detection */
+  volatile bool pendingTransmission{ false }; /**< Flag: RF transmission needed (set in ISR, cleared in main loop) */
 };
 
 /**
- * @brief RF configuration for remote load communication
- * @details Uses shared RF radio instance from utils_rf.h
+ * @brief Configuration for a single remote unit
  */
-namespace RemoteLoadRF
+struct RemoteUnit
 {
-inline RemoteLoadPayload tx_remote_data;           /**< Transmission payload */
-inline uint8_t cyclesSinceLastUpdate{ 0 };         /**< Counter for refresh messages */
-inline uint8_t previousBitmask{ 0 };               /**< Previous state for change detection */
-inline volatile bool pendingTransmission{ false }; /**< Flag: RF transmission needed (set in ISR, cleared in main loop) */
-}
+  uint8_t nodeId; /**< RF node ID for this unit */
+};
 
 /**
- * @brief Array to track logical state of each remote load
- * @details Each element corresponds to a remote load.
- *          These are managed by the main load priority system.
+ * @class RemoteLoadManager
+ * @brief Manages RF communication for multiple remote load units
+ *
+ * @tparam N The number of remote units (receivers) to manage
+ *
+ * @details
+ * - Each unit has its own RF node ID and independent bitmask
+ * - Supports up to 8 loads per unit
+ * - Template parameter allows compile-time optimization for actual number of units
  */
-inline LoadStates remoteLoadState[NO_OF_REMOTE_LOADS];
-
-/**
- * @brief Initialize RF module for remote load communication
- * @details Call this once during setup(), initializes RFM69 module
- * 
- * @return true if initialization successful, false otherwise
- */
-inline bool initializeRemoteLoads()
+template< uint8_t N >
+class RemoteLoadManager
 {
-  // Initialize all remote loads to OFF
-  for (uint8_t i = 0; i < NO_OF_REMOTE_LOADS; ++i)
+private:
+  // Helper to extract node IDs using C++17 fold expressions
+  template< size_t... Is >
+  constexpr RemoteLoadManager(const RemoteUnit (&units)[N], index_sequence<Is...>)
+    : nodeIds{ units[Is].nodeId... }
   {
-    remoteLoadState[i] = LoadStates::LOAD_OFF;
   }
 
-  RemoteLoadRF::tx_remote_data.loadBitmask = 0;
-  RemoteLoadRF::previousBitmask = 0;
-  RemoteLoadRF::cyclesSinceLastUpdate = 0;
-
-  // RF initialization is handled by initialize_rf() in processing.cpp
-  return true;
-}
-
-/**
- * @brief Transmit remote load data via RF
- * @details Uses shared RFM69 radio instance to send data to receiver.
- *          Non-blocking operation without ACK for performance.
- */
-inline void sendRemoteLoadData()
-{
-  if constexpr (RF_LOGGING_PRESENT || REMOTE_LOADS_PRESENT)
-    // Send to remote load receiver using shared radio
-    SharedRF::radio.send(SharedRF::REMOTE_NODE_ID,
-                         &RemoteLoadRF::tx_remote_data,
-                         sizeof(RemoteLoadRF::tx_remote_data),
-                         false);  // false = don't request ACK (faster, less blocking)
-}
-
-/**
- * @brief Update remote load states and mark for transmission if necessary
- * @details Should be called once per mains cycle from the ISR.
- *          Sets a flag to transmit, actual RF send happens in main loop.
- * 
- * @note Call this function during the negative half-cycle processing,
- *       after local loads have been updated
- */
-inline void updateRemoteLoads()
-{
-  // Build bitmask from current remote load states
-  uint8_t currentBitmask = 0;
-  for (uint8_t i = 0; i < NO_OF_REMOTE_LOADS; ++i)
+public:
+  /**
+   * @brief Construct a new Remote Load Manager
+   * @param units Array of remote unit configurations
+   */
+  constexpr RemoteLoadManager(const RemoteUnit (&units)[N])
+    : RemoteLoadManager(units, make_index_sequence<N>{})
   {
-    if (remoteLoadState[i] == LoadStates::LOAD_ON)
+  }
+
+  /**
+   * @brief Update remote load states and mark units for transmission
+   * @details Called once per mains cycle from ISR
+   * @param loadStates Array of load states (indexed by remote load, not unit)
+   */
+  void updateLoads(const LoadStates* loadStates)
+  {
+    if constexpr (!REMOTE_LOADS_PRESENT)
     {
-      currentBitmask |= (1 << i);
+      (void)loadStates;
+      return;
     }
-  }
 
-  RemoteLoadRF::tx_remote_data.loadBitmask = currentBitmask;
+    // Build bitmasks per unit by scanning physicalLoadPin array
+    uint8_t unitBitmasks[N]{ 0 };
+    uint8_t loadCounts[N]{ 0 };
 
-  // Check if state has changed
-  if (currentBitmask != RemoteLoadRF::previousBitmask)
-  {
-    // State changed - mark for immediate transmission (handled in main loop)
-    RemoteLoadRF::pendingTransmission = true;
-    RemoteLoadRF::previousBitmask = currentBitmask;
-    RemoteLoadRF::cyclesSinceLastUpdate = 0;
-  }
-  else
-  {
-    // State unchanged - send refresh periodically
-    RemoteLoadRF::cyclesSinceLastUpdate++;
-    if (RemoteLoadRF::cyclesSinceLastUpdate >= REMOTE_REFRESH_CYCLES)
+    uint8_t remoteIdx = 0;
+    uint8_t idx = NO_OF_DUMPLOADS;
+    do
     {
-      RemoteLoadRF::pendingTransmission = true;
-      RemoteLoadRF::cyclesSinceLastUpdate = 0;
-    }
-  }
-}
+      --idx;
+      const uint8_t loadType = (physicalLoadPin[idx] & loadTypeMask) >> loadTypeShift;
+      if (loadType == 0 || loadType > N)
+        continue;
 
-/**
- * @brief Process pending RF transmissions
- * @details Call this from the main loop to handle RF transmissions outside ISR context.
- *          This prevents blocking the ISR with RF communication delays.
- */
-inline void processRemoteLoadTransmissions()
-{
-  if (RemoteLoadRF::pendingTransmission)
+      const uint8_t unitIdx = loadType - 1;
+      if (loadStates[remoteIdx++] == LoadStates::LOAD_ON)
+        unitBitmasks[unitIdx] |= bit(loadCounts[unitIdx]);
+      loadCounts[unitIdx]++;
+    } while (idx);
+
+    // Update each unit and check for changes
+    uint8_t i = N;
+    do
+    {
+      --i;
+      auto& unit = unitStates[i];
+      unit.tx_data = unitBitmasks[i];
+
+      if (unit.tx_data != unit.previousBitmask)
+      {
+        unit.pendingTransmission = true;
+        unit.previousBitmask = unit.tx_data;
+        unit.cyclesSinceLastUpdate = 0;
+      }
+      else if (++unit.cyclesSinceLastUpdate >= REMOTE_REFRESH_CYCLES)
+      {
+        unit.pendingTransmission = true;
+        unit.cyclesSinceLastUpdate = 0;
+      }
+    } while (i);
+  }
+
+  /**
+   * @brief Process pending RF transmissions for all units
+   * @details Call from main loop to handle RF transmissions outside ISR context
+   */
+  void processTransmissions() const
   {
-    RemoteLoadRF::pendingTransmission = false;
-    sendRemoteLoadData();
+    if constexpr (!REMOTE_LOADS_PRESENT)
+      return;
+
+    uint8_t i = N;
+    do
+    {
+      --i;
+      auto& unit = unitStates[i];
+      if (unit.pendingTransmission)
+      {
+        unit.pendingTransmission = false;
+        SharedRF::radio.send(nodeIds[i],
+                             &unit.tx_data,
+                             sizeof(unit.tx_data),
+                             false);
+      }
+    } while (i);
   }
-}
 
-/**
- * @brief Get the number of remote loads configured
- * @return Number of remote loads
- */
-inline constexpr uint8_t getRemoteLoadCount()
-{
-  return NO_OF_REMOTE_LOADS;
-}
-
-/**
- * @brief Check if a remote load is currently ON
- * @param loadIndex Index of the remote load (0 to NO_OF_REMOTE_LOADS-1)
- * @return true if load is ON, false otherwise
- */
-inline bool isRemoteLoadOn(uint8_t loadIndex)
-{
-  if (loadIndex < NO_OF_REMOTE_LOADS)
+  /**
+   * @brief Get the number of remote units
+   * @return constexpr auto Number of units
+   */
+  constexpr auto size() const
   {
-    return (remoteLoadState[loadIndex] == LoadStates::LOAD_ON);
+    return N;
   }
-  return false;
-}
+
+private:
+  const uint8_t nodeIds[N];                    /**< Array of RF node IDs */
+  static inline RemoteUnitState unitStates[N]; /**< State tracking for each unit */
+};
 
 #endif  // REMOTE_LOADS_H

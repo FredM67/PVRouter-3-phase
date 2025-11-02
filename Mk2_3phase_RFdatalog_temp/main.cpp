@@ -497,7 +497,7 @@ void loop()
 
 #ifdef ENABLE_REMOTE_LOADS
   // Process any pending RF transmissions (called outside ISR to avoid blocking)
-  processRemoteLoadTransmissions();
+  remoteLoadManager.processTransmissions();
 #endif
 
   if (Shared::b_newMainsCycle)  // flag is set after every pair of ADC conversions
