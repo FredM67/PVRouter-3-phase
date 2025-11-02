@@ -119,7 +119,7 @@ constexpr uint16_t validPinMask{ 0b11111111111100 };
 template< uint8_t... Pins >
 constexpr bool are_pins_valid()
 {
-  return ((validPinMask & (1U << Pins)) && ...);
+  return (bit_read(validPinMask, Pins) && ...);
 }
 
 /**
@@ -136,7 +136,9 @@ constexpr bool are_pins_valid()
 template< uint8_t... Pins >
 constexpr uint16_t indicesToBitmask()
 {
-  return ((1U << Pins) | ...);
+  uint16_t result = 0;
+  (bit_set(result, Pins), ...);
+  return result;
 }
 
 /**
@@ -164,7 +166,7 @@ struct PinList
   {
     for (uint8_t pin = 0; pin < 16 && count < MaxPins; ++pin)
     {
-      if (bitmask & (1U << pin))
+      if (bit_read(bitmask, pin))
       {
         pins[count++] = pin;  // Store the pin number
       }
@@ -188,7 +190,7 @@ struct PinList
     uint16_t result = 0;
     for (uint8_t i = 0; i < count; ++i)
     {
-      result |= (1U << pins[i]);
+      bit_set(result, pins[i]);
     }
     return result;
   }

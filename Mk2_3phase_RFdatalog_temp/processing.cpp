@@ -83,9 +83,9 @@ Polarities polarityOfMostRecentSampleV[NO_OF_PHASES]{};    /**< for zero-crossin
 Polarities polarityConfirmed[NO_OF_PHASES]{};              /**< for zero-crossing detection */
 Polarities polarityConfirmedOfLastSampleV[NO_OF_PHASES]{}; /**< for zero-crossing detection */
 
-LoadStates physicalLoadState[NO_OF_DUMPLOADS]{}; /**< Physical state of the loads */
-LoadStates remoteLoadState[NO_OF_REMOTE_LOADS]{};   /**< State array for remote loads */
-uint16_t countLoadON[NO_OF_DUMPLOADS]{};         /**< Number of cycle the load was ON (over 1 datalog period) */
+LoadStates physicalLoadState[NO_OF_DUMPLOADS]{};  /**< Physical state of the loads */
+LoadStates remoteLoadState[NO_OF_REMOTE_LOADS]{}; /**< State array for remote loads */
+uint16_t countLoadON[NO_OF_DUMPLOADS]{};          /**< Number of cycle the load was ON (over 1 datalog period) */
 
 uint32_t absenceOfDivertedEnergyCountInMC{ 0 }; /**< number of main cycles without diverted energy */
 
@@ -140,7 +140,7 @@ constexpr uint16_t getOutputPins()
   for (const auto &loadEntry : physicalLoadPin)
   {
     const uint8_t pin = loadEntry & loadPinMask;
-    
+
     if (pin != 0)  // Valid pin configured
     {
       if (bit_read(output_pins, pin))
@@ -340,12 +340,12 @@ void updatePortsStates()
       // LOCAL load: bits 0-5 contain physical pin number
       if (LoadStates::LOAD_OFF == state)
       {
-        pinsOFF |= bit(pin);
+        bit_set(pinsOFF, pin);
       }
       else
       {
         ++countLoadON[i];
-        pinsON |= bit(pin);
+        bit_set(pinsON, pin);
       }
     }
     else
@@ -356,11 +356,11 @@ void updatePortsStates()
       {
         if (LoadStates::LOAD_OFF == state)
         {
-          pinsOFF |= bit(pin);
+          bit_set(pinsOFF, pin);
         }
         else
         {
-          pinsON |= bit(pin);
+          bit_set(pinsON, pin);
         }
       }
     }
@@ -427,18 +427,18 @@ void updatePhysicalLoadStates()
   {
     --idx;
     const auto iLoad{ loadPrioritiesAndState[idx] & loadStateMask };
-    
+
     // Check override only for local loads (remote loads don't have override support)
     const uint8_t loadEntry = physicalLoadPin[iLoad];
     const uint8_t loadType = (loadEntry & loadTypeMask) >> loadTypeShift;
     const uint8_t pin = loadEntry & loadPinMask;
-    
+
     bool bOverrideActive = false;
     if (loadType == 0 && pin != 0)  // Local load with valid pin
     {
-      bOverrideActive = Shared::overrideBitmask & (1U << pin);
+      bOverrideActive = bit_read(Shared::overrideBitmask, pin);
     }
-    
+
     physicalLoadState[iLoad] = bDiversionEnabled && (bOverrideActive || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   } while (idx);
 
@@ -451,7 +451,7 @@ void updatePhysicalLoadStates()
     {
       const uint8_t loadEntry = physicalLoadPin[i];
       const uint8_t loadType = (loadEntry & loadTypeMask) >> loadTypeShift;
-      
+
       if (loadType != 0)  // Remote load (type 1, 2, or 3)
       {
         remoteLoadState[remoteIdx++] = physicalLoadState[i];

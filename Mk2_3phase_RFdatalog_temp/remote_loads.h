@@ -72,7 +72,7 @@ class RemoteLoadManager
 private:
   // Helper to extract node IDs using C++17 fold expressions
   template< size_t... Is >
-  constexpr RemoteLoadManager(const RemoteUnit (&units)[N], index_sequence<Is...>)
+  constexpr RemoteLoadManager(const RemoteUnit (&units)[N], index_sequence< Is... >)
     : nodeIds{ units[Is].nodeId... }
   {
   }
@@ -83,7 +83,7 @@ public:
    * @param units Array of remote unit configurations
    */
   constexpr RemoteLoadManager(const RemoteUnit (&units)[N])
-    : RemoteLoadManager(units, make_index_sequence<N>{})
+    : RemoteLoadManager(units, make_index_sequence< N >{})
   {
   }
 
@@ -115,7 +115,7 @@ public:
 
       const uint8_t unitIdx = loadType - 1;
       if (loadStates[remoteIdx++] == LoadStates::LOAD_ON)
-        unitBitmasks[unitIdx] |= bit(loadCounts[unitIdx]);
+        bit_set(unitBitmasks[unitIdx], loadCounts[unitIdx]);
       loadCounts[unitIdx]++;
     } while (idx);
 

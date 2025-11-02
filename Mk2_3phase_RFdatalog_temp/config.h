@@ -35,9 +35,9 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanRe
 //--------------------------------------------------------------------------------------------------
 // Basic Configuration
 //
-inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (local + remote) */
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 4 }; /**< TOTAL number of dump loads (local + remote) */
 
-inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 }; /**< number of remote loads controlled via RF */
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 3 }; /**< number of remote loads controlled via RF */
 
 // Feature toggles - Basic setup without advanced features
 inline constexpr bool EMONESP_CONTROL{ false };
@@ -107,17 +107,23 @@ inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 ? true : fal
 inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
   LOCAL_LOAD(5),      // Load 0: Local on pin 5
   REMOTE_LOAD(1, 6),  // Load 1: Remote unit 1, LED on pin 6
-  REMOTE_LOAD(2, 7)   // Load 2: Remote unit 2, LED on pin 7
+  REMOTE_LOAD(2, 7),  // Load 2: Remote unit 2, LED on pin 7
+  REMOTE_LOAD(1, 0)   // Load 1: Remote unit 1, no LED
 }; /**< Unified load configuration (local + remote) */
 
 // Load priority order at startup (just indices into physicalLoadPin array)
 // Priority 0 = highest, can be reordered at runtime via rotation
-inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2, 3 }; /**< load priorities at startup (0=highest) */
 
 #include "utils_dualtariff.h"
 #include "utils_relay.h"
 #include "utils_temp.h"
 #include "remote_loads.h"
+
+// Remote load manager - specify node ID for each remote unit
+// Unit numbers in REMOTE_LOAD(unit, led) must match array indices (1-based)
+inline constexpr RemoteLoadManager remoteLoadManager{ { { SharedRF::REMOTE_NODE_ID + 0 },      // Unit 1
+                                                        { SharedRF::REMOTE_NODE_ID + 1 } } };  // Unit 2
 
 // Set the value to 'unused_pin' when the pin is not needed (feature deactivated)
 inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
@@ -154,14 +160,6 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
                                      { { unused_pin, 100, 200, 1, 1 },
                                        { unused_pin, 300, 400, 1, 1 },
                                        { unused_pin, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
-
-// Remote load support
-#include "remote_loads.h"
-
-// Remote load manager - specify node ID for each remote unit
-// Unit numbers in REMOTE_LOAD(unit, led) must match array indices (1-based)
-inline constexpr RemoteLoadManager remoteLoadManager{ { { SharedRF::REMOTE_NODE_ID + 0 },  // Unit 1
-                                                        { SharedRF::REMOTE_NODE_ID + 1 } } }; // Unit 2
 
 #include "utils_override.h"
 
