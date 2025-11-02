@@ -183,29 +183,188 @@ Replace `HumanReadable` with `IoT` or `JSON` according to your needs.
 
 ## TRIAC output configuration
 
-The first step is to define the number of TRIAC outputs:
+First step is to define the number of TRIAC outputs:
 
 ```cpp
-inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };        // Total loads (local + remote)
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 0 };     // Number of remote loads (0 if none)
 ```
 
-Then, you need to assign the corresponding *pins* **for local loads only** as well as the priority order at startup.
+Then configure all loads in a single array with helper macros:
+
 ```cpp
-// Pins for LOCAL loads only (remote loads are controlled via RF)
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+// Unified configuration for all loads
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+  LOCAL_LOAD(5),       // Load 0: local on pin D5
+  LOCAL_LOAD(6)        // Load 1: local on pin D6
+};
 
-// Optional: Status LEDs for remote loads
-inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ unused_pin, unused_pin };
-
-// Priority order at startup (0 = highest priority, applies to ALL loads)
+// Priority order at startup (0 = highest priority)
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ```
 
-**Important:** 
-- `physicalLoadPin` contains only the pins for **local** loads (TRIACs directly connected)
-- **Remote** loads have no physical pin on the main controller (they are controlled via RF)
-- `remoteLoadStatusLED` optionally allows adding status LEDs to visualize the state of remote loads
-- `loadPrioritiesAtStartup` defines the priority order for **all** loads (local + remote). Priorities 0 to (number of local loads - 1) control local loads, subsequent priorities control remote loads.
+**With remote loads:**
+
+```cpp
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // 1 local + 2 remote
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };
+
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+  LOCAL_LOAD(5),       // Load 0: local on pin D5
+  REMOTE_LOAD(1, 6),   // Load 1: remote unit 1, LED on D6
+  REMOTE_LOAD(1, 0)    // Load 2: remote unit 1, no LED
+};
+
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 };
+```
+
+## RF module and remote loads configuration
+
+The router can control remote loads via an RFM69 RF module. This feature allows controlling resistors or relays located in another location, without additional wiring.
+
+### Required hardware
+
+**For transmitter (main router):**
+- RFM69W/CW or RFM69HW/HCW module (868 MHz for Europe, 915 MHz for North America)
+- Appropriate antenna for chosen frequency
+- Standard SPI connection (D10=CS, D2=IRQ)
+
+**For remote receiver:**
+- Arduino UNO or compatible
+- RFM69 module (same model as transmitter)
+- TRIAC or SSR to control loads
+- Optional status LEDs (D5=green watchdog, D7=red RF loss)
+
+### Software configuration
+
+**Activating RF features:**
+
+The RF module can be used for two independent features:
+
+1. **RF Telemetry** (`RF_LOGGING_PRESENT`): Sends power/voltage data to a gateway
+2. **Remote Loads** (`REMOTE_LOADS_PRESENT`): Load control via RF
+
+To enable the RF module with remote load control, configure in **config.h**:
+
+```cpp
+inline constexpr bool RF_LOGGING_PRESENT{ false };       // RF telemetry (optional)
+inline constexpr bool REMOTE_LOADS_PRESENT{ true };      // Remote loads (if NO_OF_REMOTE_LOADS > 0, will be automatically true)
+```
+
+**Load configuration:**
+
+Define total number of loads (local + remote):
+
+```cpp
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total: 3 loads
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Including 2 remote loads
+                                                       // Local loads: 3 - 2 = 1
+
+// Unified load configuration with helper macros
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+  LOCAL_LOAD(5),       // Load 0: local on pin D5
+  REMOTE_LOAD(1, 6),   // Load 1: remote unit 1, LED on D6
+  REMOTE_LOAD(1, 0)    // Load 2: remote unit 1, no LED
+};
+
+// Load priorities (indices into physicalLoadPin)
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 };
+// 0 = highest priority, 2 = lowest priority
+// You can configure any order: local and remote loads can have any priority
+```
+
+**Remote load manager:**
+
+Declare the manager for each remote unit:
+
+```cpp
+#include "remote_loads.h"
+
+// One entry for each remote unit
+inline constexpr RemoteLoadManager remoteLoadManager{ { 
+  { SharedRF::REMOTE_NODE_ID + 0 }   // Unit 1 = ID 15
+} };
+```
+
+**RF Configuration (in config_rf.h):**
+
+Default parameters are:
+- Frequency: 868 MHz (Europe)
+- Network ID: 210
+- Router ID: 10
+- First remote unit ID: 15
+
+To modify these parameters, edit **config_rf.h**:
+
+```cpp
+namespace RFConfig
+{
+  inline constexpr uint8_t FREQUENCY{ RF69_868MHZ };  // or RF69_433MHZ, RF69_915MHZ
+  inline constexpr uint8_t NETWORK_ID{ 210 };         // Network ID (1-255)
+  inline constexpr uint8_t ROUTER_NODE_ID{ 10 };      // Router ID (this device)
+  inline constexpr uint8_t REMOTE_NODE_ID{ 15 };      // 1st remote unit ID
+  inline constexpr uint8_t GATEWAY_ID{ 1 };           // Gateway ID (telemetry)
+}
+```
+
+### Remote receiver configuration
+
+The **RemoteLoadReceiver** sketch is provided in the `RemoteLoadReceiver/` folder.
+
+**RF configuration (in receiver's config_rf.h):**
+
+```cpp
+namespace RFConfig
+{
+  inline constexpr uint8_t FREQUENCY{ RF69_868MHZ };  // Must match router
+  inline constexpr uint8_t NETWORK_ID{ 210 };         // Must match router
+  inline constexpr uint8_t ROUTER_NODE_ID{ 10 };      // Must match router
+  inline constexpr uint8_t REMOTE_NODE_ID{ 15 };      // Unique ID for this unit (15, 16, 17...)
+}
+```
+
+**Load configuration (in receiver's config.h):**
+
+```cpp
+inline constexpr uint8_t NO_OF_LOADS{ 2 };            // Number of loads on this receiver
+inline constexpr uint8_t loadPins[NO_OF_LOADS]{ 4, 3 }; // TRIAC/SSR output pins
+
+// Status LEDs (optional)
+inline constexpr uint8_t GREEN_LED_PIN{ 5 };           // Green LED: 1 Hz watchdog
+inline constexpr uint8_t RED_LED_PIN{ 7 };             // Red LED: RF link lost
+inline constexpr bool STATUS_LEDS_PRESENT{ true };     // Enable LEDs
+```
+
+**Safety:**
+
+The receiver automatically disables **all loads** if no message is received for more than 500 ms. This ensures safety in case of RF link loss.
+
+**Link testing:**
+
+Once configured and uploaded, both Arduinos communicate automatically:
+- The transmitter sends load states every ~100 ms (5 mains cycles at 50 Hz)
+- The receiver displays received commands on the serial port
+- The green LED blinks at 1 Hz (system active)
+- The red LED blinks rapidly if RF link is lost
+
+**Diagnostics:**
+
+On the receiver's serial monitor, you should see:
+```
+Received: 0b01 (RSSI: -45) - Loads: 0:ON 1:OFF
+```
+
+**RSSI (Received Signal Strength Indicator) interpretation:**
+- **-30 to -50 dBm**: 🟢 Excellent signal, very stable link
+- **-50 to -70 dBm**: 🟡 Good to fair signal, reliable operation
+- **-70 to -80 dBm**: 🟠 Weak signal, link starts becoming unstable
+- **-80 to -90 dBm**: 🔴 Very weak signal, frequent packet losses
+- **Beyond -90 dBm**: ⛔ Critical signal, unreliable link
+
+For weak signals (< -70 dBm), improve range by:
+- Using external antennas matched to the frequency (868 MHz)
+- Repositioning modules to avoid metallic obstacles
+- Checking for interference (WiFi, other RF devices)
 
 ## On/off relay output configuration
 On/off relay outputs allow powering devices that contain electronics (heat pump ...).
@@ -267,6 +426,11 @@ For each relay, the transition or state change is managed as follows:
 > [!NOTE]
 > **Battery installations:** For optimal relay configuration with battery systems, consult the **[Battery Configuration Guide](docs/BATTERY_CONFIGURATION_GUIDE.en.md)** [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](docs/BATTERY_CONFIGURATION_GUIDE.md)
 
+## Watchdog configuration
+A watchdog is an electronic circuit or software used in digital electronics to ensure that an automaton or computer does not remain stuck at a particular stage of the processing it performs.
+
+## Watchdog configuration
+
 ## RF module and remote loads configuration
 
 The router can control remote loads via an RFM69 RF module. This feature allows controlling resistors or relays located in another location, without additional wiring.
@@ -309,57 +473,79 @@ inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total: 3 loads
 inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Including 2 remote loads
                                                        // Local loads: 3 - 2 = 1
 
-// Pin for the local load (TRIAC)
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+// Unified load configuration with helper macros
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+  LOCAL_LOAD(5),       // Load 0: local on pin D5
+  REMOTE_LOAD(1, 6),   // Load 1: remote unit 1, LED on D6
+  REMOTE_LOAD(1, 0)    // Load 2: remote unit 1, no LED
+};
 
-// Optional LEDs to indicate remote load status
-inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ 8, 9 };  // D8 and D9
+// Load priorities (indices into physicalLoadPin)
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 };
+// 0 = highest priority, 2 = lowest priority
+// You can configure any order: local and remote loads can have any priority
 ```
 
-**Priorities:**
+**Remote load manager:**
 
-Remote loads **always** have lower priority than local loads. In the example above:
-- Local load #0 (physicalLoadPin[0]): highest priority
-- Remote load #0: medium priority
-- Remote load #1: lowest priority
+Declare the manager for each remote unit:
 
-**RF configuration (in config_rf.h):**
+```cpp
+#include "remote_loads.h"
+
+// One entry for each remote unit
+inline constexpr RemoteLoadManager remoteLoadManager{ { 
+  { SharedRF::REMOTE_NODE_ID + 0 }   // Unit 1 = ID 15
+} };
+```
+
+**RF Configuration (in config_rf.h):**
 
 Default parameters are:
 - Frequency: 868 MHz (Europe)
 - Network ID: 210
 - Router ID: 10
-- Remote unit ID: 15
+- First remote unit ID: 15
 
 To modify these parameters, edit **config_rf.h**:
 
 ```cpp
-inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // Router (this device) ID
-inline constexpr uint8_t GATEWAY_ID{ 1 };       // Gateway ID (telemetry)
-inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // Remote unit ID
-inline constexpr uint8_t NETWORK_ID{ 210 };     // Network ID (1-255)
+namespace RFConfig
+{
+  inline constexpr uint8_t FREQUENCY{ RF69_868MHZ };  // or RF69_433MHZ, RF69_915MHZ
+  inline constexpr uint8_t NETWORK_ID{ 210 };         // Network ID (1-255)
+  inline constexpr uint8_t ROUTER_NODE_ID{ 10 };      // Router ID (this device)
+  inline constexpr uint8_t REMOTE_NODE_ID{ 15 };      // 1st remote unit ID
+  inline constexpr uint8_t GATEWAY_ID{ 1 };           // Gateway ID (telemetry)
+}
 ```
 
 ### Remote receiver configuration
 
 The **RemoteLoadReceiver** sketch is provided in the `RemoteLoadReceiver/` folder.
 
-**Minimum configuration (in receiver's config_rf.h):**
+**RF configuration (in receiver's config_rf.h):**
 
 ```cpp
-// RF Configuration - must match router
-inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // Router ID
-inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // This remote unit's ID
-inline constexpr uint8_t NETWORK_ID{ 210 };     // Network ID
+namespace RFConfig
+{
+  inline constexpr uint8_t FREQUENCY{ RF69_868MHZ };  // Must match router
+  inline constexpr uint8_t NETWORK_ID{ 210 };         // Must match router
+  inline constexpr uint8_t ROUTER_NODE_ID{ 10 };      // Must match router
+  inline constexpr uint8_t REMOTE_NODE_ID{ 15 };      // Unique ID for this unit (15, 16, 17...)
+}
+```
 
-// Load configuration
-inline constexpr uint8_t NO_OF_LOADS{ 2 };                    // Number of loads on this receiver
-inline constexpr uint8_t loadPins[NO_OF_LOADS]{ 4, 3 };       // TRIAC/SSR output pins
+**Load configuration (in receiver's config.h):**
+
+```cpp
+inline constexpr uint8_t NO_OF_LOADS{ 2 };            // Number of loads on this receiver
+inline constexpr uint8_t loadPins[NO_OF_LOADS]{ 4, 3 }; // TRIAC/SSR output pins
 
 // Status LEDs (optional)
-inline constexpr uint8_t GREEN_LED_PIN{ 5 };        // Green LED: 1 Hz watchdog
-inline constexpr uint8_t RED_LED_PIN{ 7 };          // Red LED: RF link lost (fast blink)
-inline constexpr bool STATUS_LEDS_PRESENT{ true };  // Enable LEDs
+inline constexpr uint8_t GREEN_LED_PIN{ 5 };           // Green LED: 1 Hz watchdog
+inline constexpr uint8_t RED_LED_PIN{ 7 };             // Red LED: RF link lost
+inline constexpr bool STATUS_LEDS_PRESENT{ true };     // Enable LEDs
 ```
 
 **Safety:**
@@ -381,7 +567,17 @@ On the receiver's serial monitor, you should see:
 Received: 0b01 (RSSI: -45) - Loads: 0:ON 1:OFF
 ```
 
-An RSSI between -30 and -70 indicates good signal quality. Beyond -80, the link becomes unstable.
+**RSSI (Received Signal Strength Indicator) interpretation:**
+- **-30 to -50 dBm**: 🟢 Excellent signal, very stable link
+- **-50 to -70 dBm**: 🟡 Good to fair signal, reliable operation
+- **-70 to -80 dBm**: 🟠 Weak signal, link starts becoming unstable
+- **-80 to -90 dBm**: 🔴 Very weak signal, frequent packet losses
+- **Beyond -90 dBm**: ⛔ Critical signal, unreliable link
+
+For weak signals (< -70 dBm), improve range by:
+- Using external antennas matched to the frequency (868 MHz)
+- Repositioning modules to avoid metallic obstacles
+- Checking for interference (WiFi, other RF devices)
 
 ## Watchdog configuration
 A watchdog is an electronic circuit or software used in digital electronics to ensure that an automaton or computer does not remain stuck at a particular stage of the processing it performs.
