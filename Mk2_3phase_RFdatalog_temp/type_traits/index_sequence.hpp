@@ -21,18 +21,18 @@ struct index_sequence
 };
 
 template< size_t N, size_t... Is >
-struct make_index_sequence_helper : make_index_sequence_helper<N - 1, N - 1, Is...>
+struct make_index_sequence_helper : make_index_sequence_helper< N - 1, N - 1, Is... >
 {
 };
 
 template< size_t... Is >
-struct make_index_sequence_helper<0, Is...>
+struct make_index_sequence_helper< 0, Is... >
 {
-  using type = index_sequence<Is...>;
+  using type = index_sequence< Is... >;
 };
 
 template< size_t N >
-using make_index_sequence = typename make_index_sequence_helper<N>::type;
+using make_index_sequence = typename make_index_sequence_helper< N >::type;
 
 
 #endif /* BE7CCE5A_221C_4B30_946B_296B3429EFB8 */
