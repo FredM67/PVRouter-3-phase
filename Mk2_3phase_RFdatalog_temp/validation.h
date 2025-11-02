@@ -115,7 +115,7 @@ constexpr uint16_t check_pins()
   for (const auto &loadEntry : physicalLoadPin)
   {
     const uint8_t pin = loadEntry & loadPinMask;
-    
+
     if (pin == 0)  // Pin 0 means no pin (valid for remote loads without LED)
       continue;
 

@@ -58,15 +58,16 @@ inline constexpr uint8_t loadStateOnBit{ (uint8_t)(~loadStateMask) }; /**< bit m
 // Unified load encoding in physicalLoadPin[] array:
 // Bits 6-7: Load type (00=local, 01=remote unit 1, 10=remote unit 2, 11=remote unit 3)
 // Bits 0-5: For local loads = physical pin number; for remote loads = optional status LED pin (0 = no LED)
-inline constexpr uint8_t loadTypeMask{ 0xC0U };     /**< bits 6-7: load type */
-inline constexpr uint8_t loadPinMask{ 0x3FU };      /**< bits 0-5: pin number or LED pin */
-inline constexpr uint8_t loadTypeShift{ 6 };        /**< shift amount for load type bits */
+inline constexpr uint8_t loadTypeMask{ 0xC0U }; /**< bits 6-7: load type */
+inline constexpr uint8_t loadPinMask{ 0x3FU };  /**< bits 0-5: pin number or LED pin */
+inline constexpr uint8_t loadTypeShift{ 6 };    /**< shift amount for load type bits */
 
 /**
  * @brief Helper to create local load entry for physicalLoadPin array
  * @param pin Physical pin number for local TRIAC control
  */
-constexpr uint8_t LOCAL_LOAD(uint8_t pin) {
+constexpr uint8_t LOCAL_LOAD(uint8_t pin)
+{
   return pin & loadPinMask;  // Type = 0 (local), bits 0-5 = pin
 }
 
@@ -75,7 +76,8 @@ constexpr uint8_t LOCAL_LOAD(uint8_t pin) {
  * @param unit Remote unit number (1-3)
  * @param ledPin Optional status LED pin (0 = no LED)
  */
-constexpr uint8_t REMOTE_LOAD(uint8_t unit, uint8_t ledPin = 0) {
+constexpr uint8_t REMOTE_LOAD(uint8_t unit, uint8_t ledPin = 0)
+{
   return ((unit << loadTypeShift) & loadTypeMask) | (ledPin & loadPinMask);
 }
 
