@@ -93,14 +93,30 @@ inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 ? true : fal
 // Note: When using these pins for Home Assistant integration, ensure the ESP32
 // counterpart is properly configured to send the appropriate signals.
 
-// Physical pin assignments for LOCAL loads only (remote loads are controlled via RF)
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 }; /**< Pins for local TRIAC outputs */
+// Unified physical load configuration (local + remote loads)
+// Each entry encodes:
+//   Bits 6-7: Load type (00=local, 01=remote unit 1, 10=remote unit 2, 11=remote unit 3)
+//   Bits 0-5: For LOCAL loads: physical pin number
+//             For REMOTE loads: optional status LED pin (0 = no LED)
+//
+// Use helper macros for clarity:
+//   LOCAL_LOAD(pin)         - Local load on specified pin
+//   REMOTE_LOAD(unit, led)  - Remote load on unit (1-3) with optional LED pin
+//
+// Example:
+//   physicalLoadPin[] = {
+//     LOCAL_LOAD(5),        // Local load on pin 5
+//     REMOTE_LOAD(1, 6),    // Remote unit 1, LED on pin 6
+//     REMOTE_LOAD(2, 0)     // Remote unit 2, no LED
+//   };
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+  LOCAL_LOAD(5),      // Load 0: Local on pin 5
+  REMOTE_LOAD(1, 6),  // Load 1: Remote unit 1, LED on pin 6
+  REMOTE_LOAD(2, 7)   // Load 2: Remote unit 2, LED on pin 7
+}; /**< Unified load configuration (local + remote) */
 
-// Optional status LED pins for REMOTE loads (set to unused_pin if not needed)
-inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ unused_pin, unused_pin }; /**< Optional LEDs to show remote load status */
-
-// Load priority order at startup (0 = highest priority, applies to ALL loads: local + remote)
-// In this example: priority 0 = local load #0, priority 1 = remote load #0, priority 2 = remote load #1
+// Load priority order at startup (just indices into physicalLoadPin array)
+// Priority 0 = highest, can be reordered at runtime via rotation
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
 
 // Set the value to 'unused_pin' when the pin is not needed (feature deactivated)

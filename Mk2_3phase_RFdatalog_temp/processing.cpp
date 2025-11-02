@@ -135,27 +135,17 @@ constexpr uint16_t getOutputPins()
 {
   uint16_t output_pins{ 0 };
 
-  // Local load pins
-  for (const auto &loadPin : physicalLoadPin)
+  // Process all loads from unified physicalLoadPin array
+  for (const auto &loadEntry : physicalLoadPin)
   {
-    if (bit_read(output_pins, loadPin))
-      return 0;
-
-    bit_set(output_pins, loadPin);
-  }
-
-  // Remote load status LED pins (optional)
-  if constexpr (NO_OF_REMOTE_LOADS > 0)
-  {
-    for (const auto &ledPin : remoteLoadStatusLED)
+    const uint8_t pin = loadEntry & loadPinMask;
+    
+    if (pin != 0)  // Valid pin configured
     {
-      if (ledPin != unused_pin)
-      {
-        if (bit_read(output_pins, ledPin))
-          return 0;
+      if (bit_read(output_pins, pin))
+        return 0;  // Duplicate pin!
 
-        bit_set(output_pins, ledPin);
-      }
+      bit_set(output_pins, pin);
     }
   }
 
@@ -342,46 +332,46 @@ void updatePortsStates()
   uint16_t pinsON{ 0 };
   uint16_t pinsOFF{ 0 };
 
-  // Update LOCAL loads only (remote loads are handled via RF in remote_loads.h)
-  constexpr uint8_t numLocalLoads = NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS;
-  uint8_t i{ numLocalLoads };
-
+  // Process ALL loads (local + remote) using unified physicalLoadPin array
+  uint8_t i{ NO_OF_DUMPLOADS };
   do
   {
     --i;
-    // update the local load's state
-    if (LoadStates::LOAD_OFF == physicalLoadState[i])
+    const uint8_t loadEntry = physicalLoadPin[i];
+    const uint8_t loadType = (loadEntry & loadTypeMask) >> loadTypeShift;
+    const uint8_t pin = loadEntry & loadPinMask;
+    const LoadStates state = physicalLoadState[i];
+
+    if (loadType == 0)
     {
-      pinsOFF |= bit(physicalLoadPin[i]);
+      // LOCAL load: bits 0-5 contain physical pin number
+      if (LoadStates::LOAD_OFF == state)
+      {
+        pinsOFF |= bit(pin);
+      }
+      else
+      {
+        ++countLoadON[i];
+        pinsON |= bit(pin);
+      }
     }
     else
     {
-      ++countLoadON[i];
-      pinsON |= bit(physicalLoadPin[i]);
-    }
-  } while (i);
-
-  // Update optional status LEDs for remote loads
-  if constexpr (NO_OF_REMOTE_LOADS > 0)
-  {
-    for (uint8_t remoteIdx = 0; remoteIdx < NO_OF_REMOTE_LOADS; ++remoteIdx)
-    {
-      const uint8_t loadIdx = numLocalLoads + remoteIdx;
-      const uint8_t ledPin = remoteLoadStatusLED[remoteIdx];
-
-      if (ledPin != unused_pin)
+      // REMOTE load: bits 0-5 contain optional status LED pin
+      // Actual remote control happens in updateRemoteLoads()
+      if (pin != 0)  // Only update if LED pin configured
       {
-        if (LoadStates::LOAD_OFF == physicalLoadState[loadIdx])
+        if (LoadStates::LOAD_OFF == state)
         {
-          pinsOFF |= bit(ledPin);
+          pinsOFF |= bit(pin);
         }
         else
         {
-          pinsON |= bit(ledPin);
+          pinsON |= bit(pin);
         }
       }
     }
-  }
+  } while (i);
 
   // Apply override bitmask directly to pinsON
   pinsON |= Shared::overrideBitmask;
@@ -444,17 +434,35 @@ void updatePhysicalLoadStates()
   {
     --idx;
     const auto iLoad{ loadPrioritiesAndState[idx] & loadStateMask };
-    const bool bOverrideActive = Shared::overrideBitmask & (1U << physicalLoadPin[iLoad]);
+    
+    // Check override only for local loads (remote loads don't have override support)
+    const uint8_t loadEntry = physicalLoadPin[iLoad];
+    const uint8_t loadType = (loadEntry & loadTypeMask) >> loadTypeShift;
+    const uint8_t pin = loadEntry & loadPinMask;
+    
+    bool bOverrideActive = false;
+    if (loadType == 0 && pin != 0)  // Local load with valid pin
+    {
+      bOverrideActive = Shared::overrideBitmask & (1U << pin);
+    }
+    
     physicalLoadState[iLoad] = bDiversionEnabled && (bOverrideActive || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   } while (idx);
 
   if constexpr (REMOTE_LOADS_PRESENT)
   {
     // Map physical load states to remote load states
-    // Remote loads are the last NO_OF_REMOTE_LOADS entries in physicalLoadState
-    for (uint8_t i = 0; i < NO_OF_REMOTE_LOADS; ++i)
+    // Scan physicalLoadPin array to find remote loads and map them
+    uint8_t remoteIdx = 0;
+    for (uint8_t i = 0; i < NO_OF_DUMPLOADS && remoteIdx < NO_OF_REMOTE_LOADS; ++i)
     {
-      remoteLoadState[i] = physicalLoadState[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS + i];
+      const uint8_t loadEntry = physicalLoadPin[i];
+      const uint8_t loadType = (loadEntry & loadTypeMask) >> loadTypeShift;
+      
+      if (loadType != 0)  // Remote load (type 1, 2, or 3)
+      {
+        remoteLoadState[remoteIdx++] = physicalLoadState[i];
+      }
     }
     // Note: updateRemoteLoads() is called after updatePortsStates() in processStartNewCycle()
   }
