@@ -440,6 +440,12 @@ void processTemperatureData()
  * - Manages load priorities and overriding based on the current temperature.
  * - Updates relay durations and proceeds with relay state transitions if relay diversion is enabled.
  *
+ * @note Override pins are checked at 1 Hz (once per second) for debouncing and to minimize
+ *       ISR communication overhead. This means override pin changes have a latency of 0-1 second
+ *       before taking effect. This is acceptable since override pins are typically used for
+ *       manual control or scheduled operations (e.g., dual tariff forcing) rather than
+ *       time-critical automatic control.
+ *
  * @param bOffPeak Reference to the off-peak state flag.
  * @param iTemperature_x100 Current temperature multiplied by 100 (default to 0 if temperature sensing is disabled).
  *
@@ -455,6 +461,7 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
   checkDiversionOnOff();
 
   // Get complete override bitmask atomically (external pins + dual tariff forcing)
+  // This is checked once per second for debouncing and to avoid excessive ISR updates
   uint16_t privateOverrideBitmask = getOverrideBitmask(iTemperature_x100);
 
   if constexpr (RELAY_DIVERSION)
