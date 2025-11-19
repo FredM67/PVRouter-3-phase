@@ -82,7 +82,7 @@ uint16_t getDualTariffForcingBitmask(const int16_t currentTemperature_x100)
   // We're in off-peak period - check forcing time windows
   const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
 
-  uint16_t forcingBitmask = 0;
+  uint16_t forcingBitmask{ 0 };
   uint8_t i{ NO_OF_DUMPLOADS };
   do
   {
@@ -124,7 +124,7 @@ uint16_t getDualTariffForcingBitmask(const int16_t currentTemperature_x100)
  */
 uint16_t getOverrideBitmask(const int16_t currentTemperature_x100)
 {
-  uint16_t overrideBitmask = 0;
+  uint16_t overrideBitmask{ 0 };
 
   // Add external override pins
   if constexpr (OVERRIDE_PIN_PRESENT)
@@ -462,7 +462,7 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
 
   // Get complete override bitmask atomically (external pins + dual tariff forcing)
   // This is checked once per second for debouncing and to avoid excessive ISR updates
-  uint16_t privateOverrideBitmask = getOverrideBitmask(iTemperature_x100);
+  uint16_t privateOverrideBitmask{ getOverrideBitmask(iTemperature_x100) };
 
   if constexpr (RELAY_DIVERSION)
   {

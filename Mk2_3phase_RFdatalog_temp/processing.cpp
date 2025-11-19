@@ -364,8 +364,10 @@ void updatePortsStates()
   // Update optional status LEDs for remote loads
   if constexpr (NO_OF_REMOTE_LOADS > 0)
   {
-    for (uint8_t remoteIdx = 0; remoteIdx < NO_OF_REMOTE_LOADS; ++remoteIdx)
+    uint8_t remoteIdx{ NO_OF_REMOTE_LOADS };
+    do
     {
+      --remoteIdx;
       const uint8_t loadIdx = numLocalLoads + remoteIdx;
       const uint8_t ledPin = remoteLoadStatusLED[remoteIdx];
 
@@ -380,7 +382,7 @@ void updatePortsStates()
           pinsON |= bit(ledPin);
         }
       }
-    }
+    } while (remoteIdx);
   }
 
   // Apply override bitmask directly to pinsON
@@ -452,10 +454,12 @@ void updatePhysicalLoadStates()
   {
     // Map physical load states to remote load states
     // Remote loads are the last NO_OF_REMOTE_LOADS entries in physicalLoadState
-    for (uint8_t i = 0; i < NO_OF_REMOTE_LOADS; ++i)
+    uint8_t i{ NO_OF_REMOTE_LOADS };
+    do
     {
+      --i;
       remoteLoadState[i] = physicalLoadState[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS + i];
-    }
+    } while (i);
     // Note: updateRemoteLoads() is called after updatePortsStates() in processStartNewCycle()
   }
 }
@@ -508,7 +512,7 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   static int32_t lpf_long[NO_OF_PHASES]{};  // new LPF, for offsetting the behaviour of CTx as a HPF
 
   // remove most of the DC offset from the current sample (the precise value does not matter)
-  int32_t sampleIminusDC = (static_cast< int32_t >(rawSample - i_DCoffset_I_nom)) << 8;
+  int32_t sampleIminusDC{ (static_cast< int32_t >(rawSample - i_DCoffset_I_nom)) << 8 };
 
   // extra filtering to offset the HPF effect of CTx
   const int32_t last_lpf_long{ lpf_long[phase] };
@@ -516,10 +520,10 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   sampleIminusDC += (lpf_gain * lpf_long[phase]);
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
-  const int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
-  const int32_t filtI_div4 = sampleIminusDC >> 2;           // reduce to 16-bits (now x64, or 2^6)
-  int32_t instP = filtV_div4 * filtI_div4;                  // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                                             // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+  const int32_t filtV_div4{ l_sampleVminusDC[phase] >> 2 };  // reduce to 16-bits (now x64, or 2^6)
+  const int32_t filtI_div4{ sampleIminusDC >> 2 };           // reduce to 16-bits (now x64, or 2^6)
+  int32_t instP{ filtV_div4 * filtI_div4 };                  // 32-bits (now x4096, or 2^12)
+  instP >>= 12;                                              // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
   l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
   l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)

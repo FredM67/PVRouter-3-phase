@@ -185,7 +185,7 @@ struct PinList
    */
   constexpr uint16_t toBitmask() const
   {
-    uint16_t result = 0;
+    uint16_t result{ 0 };
     for (uint8_t i = 0; i < count; ++i)
     {
       result |= (1U << pins[i]);

@@ -114,7 +114,7 @@ inline void sendRemoteLoadData()
 inline void updateRemoteLoads()
 {
   // Build bitmask from current remote load states
-  uint8_t currentBitmask = 0;
+  uint8_t currentBitmask{ 0 };
   for (uint8_t i = 0; i < NO_OF_REMOTE_LOADS; ++i)
   {
     if (remoteLoadState[i] == LoadStates::LOAD_ON)

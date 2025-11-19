@@ -236,7 +236,7 @@ public:
       }
 
       // result is temperature x16, multiply by 6.25 to convert to temperature x100
-      int16_t result = (buf[1] << 8) | buf[0];
+      int16_t result{ (buf[1] << 8) | buf[0] };
       result = (result * 6) + (result >> 2);
       if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
       {
