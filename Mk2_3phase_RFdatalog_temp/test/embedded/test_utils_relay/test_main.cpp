@@ -85,7 +85,7 @@ void test_relay_turnON(void)
 
   /* The relay is OFF, test the "TurnON" case */
   const auto surplus{ -my_relay.get_surplusThreshold() - 1 };
-  uint16_t overrideBitmask = 0;  // No override active
+  uint16_t overrideBitmask{ 0 };  // No override active
 
   TEST_ASSERT_FALSE(my_relay.proceed_relay(surplus, overrideBitmask));
   delay(100);
@@ -114,7 +114,7 @@ void test_relay_turnOFF(void)
 
   /* The relay is ON, test the "TurnOFF" case */
   const auto consum{ my_relay.get_importThreshold() + 1 };
-  uint16_t overrideBitmask = 0;  // No override active
+  uint16_t overrideBitmask{ 0 };  // No override active
 
   TEST_ASSERT_FALSE(my_relay.proceed_relay(consum, overrideBitmask));
   delay(100);
@@ -151,7 +151,7 @@ void test_relay_override_turnON(void)
     my_relay.inc_duration();
   }
 
-  uint16_t overrideBitmask = (1U << my_relay.get_pin());
+  uint16_t overrideBitmask{ (1U << my_relay.get_pin()) };
   TEST_ASSERT_FALSE(my_relay.proceed_relay(insufficient_surplus, overrideBitmask));
   TEST_ASSERT_FALSE(my_relay.isRelayON());
   TEST_ASSERT_EQUAL(0, overrideBitmask & (1U << my_relay.get_pin()));  // Bit cleared

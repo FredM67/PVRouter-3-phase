@@ -32,12 +32,12 @@ public:
   // Core relay logic for negative threshold testing
   bool proceed_relay(int32_t power_value)
   {
-    bool new_state = m_relay_state;
+    bool new_state{ m_relay_state };
 
     if (m_import_threshold < 0)
     {
       // Battery scenario: negative threshold means we want surplus above abs(threshold)
-      int32_t required_surplus = -m_import_threshold;
+      int32_t required_surplus{ -m_import_threshold };
       if (!m_relay_state && power_value >= required_surplus)
       {
         new_state = true;  // Turn on when surplus exceeds threshold
@@ -182,7 +182,7 @@ void test_state_transitions_with_debug()
   printf("DEBUG: Threshold=-40W (need 40W+ surplus), Hysteresis=20W\n");
 
   // Track state changes
-  bool prev_state = false;
+  bool prev_state{ false };
   int32_t test_values[] = { -20, 0, 20, 35, 45, 30, 25, 15 };
   const char* descriptions[] = {
     "Import 20W", "Zero", "Surplus 20W", "Surplus 35W",
@@ -191,7 +191,7 @@ void test_state_transitions_with_debug()
 
   for (int i = 0; i < 8; i++)
   {
-    bool new_state = relay.proceed_relay(test_values[i]);
+    bool new_state{ relay.proceed_relay(test_values[i]) };
     printf("DEBUG: Power=%dW, State=%s, Description=%s\n",
            (int)test_values[i], new_state ? "ON" : "OFF", descriptions[i]);
 

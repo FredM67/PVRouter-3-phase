@@ -54,6 +54,21 @@ It supports up to 12 resistive output loads, which are completely independent.
 
 [Here](Gallery.md) a couple of pictures of assembled routers.
 
+## Required libraries
+
+This project requires the installation of external libraries, depending on your development environment:
+
+### With Arduino IDE
+You must manually install the following libraries via the **Library Manager**:
+- **OneWire** (version 2.3.7+) - For DS18B20 temperature sensors
+- **RFM69** (version 1.5.3+) - For RF communication
+- **ArduinoJson** (version 6.x only, NOT 7.x) - For JSON output
+
+### With PlatformIO (recommended)
+All dependencies are managed automatically via the `platformio.ini` file. No manual installation is required.
+
+**Note:** All libraries are included in the source code, but only the code actually used by your configuration will be present in the final firmware.
+
 ## Schematic of the mainboard
 
 [Here](../../schematics/3phase_Mainboard.pdf) the schematic of the mainboard.

@@ -126,8 +126,8 @@ void setup()
   UNITY_BEGIN();  // Start Unity test framework
 }
 
-uint8_t i = 0;
-uint8_t max_blinks = 1;
+uint8_t i{ 0 };
+uint8_t max_blinks{ 1 };
 
 void loop()
 {
