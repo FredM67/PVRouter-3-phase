@@ -1,10 +1,14 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-#define PROJECT_PATH "Mk2_3phase_RFdatalog_temp"
-#define CURRENT_TIME "2025-11-19 16:42:33+01:00"
-#define BRANCH_NAME "Add-remote-loads-support"
-#define COMMIT_HASH "c5254d88"
-#define BUILD_ENV "basic"
+// This file is auto-generated during PlatformIO build by inject_sketch_name.py
+// The values below are placeholders for Arduino IDE users
+// When building with PlatformIO, these will be replaced with actual build info
 
-#endif // VERSION_H
+#define PROJECT_PATH "Mk2_3phase_RFdatalog_temp"
+#define CURRENT_TIME "YYYY-MM-DD HH:MM:SS+TZ"
+#define BRANCH_NAME "unknown"
+#define COMMIT_HASH "00000000"
+#define BUILD_ENV "arduino"
+
+#endif  // VERSION_H

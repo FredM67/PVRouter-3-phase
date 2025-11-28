@@ -1,1 +1,1 @@
-version.h export-ignore
+# version.h now contains template values, safe to export
