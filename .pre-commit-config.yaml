@@ -7,3 +7,13 @@ repos:
     hooks:
       - id: clang-format
         types_or: [c, c++]
+
+  # Local hooks for project-specific tasks
+  - repo: local
+    hooks:
+      - id: update-file-metadata
+        name: Update @date and @copyright fields
+        entry: scripts/hooks/update-metadata.sh
+        language: script
+        types_or: [c, c++]
+        pass_filenames: true

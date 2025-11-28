@@ -4,9 +4,37 @@ This directory contains utility scripts for the PVRouter-3-phase project.
 
 ## Git Hooks
 
-### Installation
+This project provides **two methods** for managing git hooks. Choose the one that fits your workflow:
 
-After cloning the repository, run the hook installation script:
+### Method 1: Pre-commit Framework (Recommended)
+
+Uses the industry-standard [pre-commit](https://pre-commit.com/) framework.
+
+**Setup:**
+```bash
+# Install pre-commit (one-time setup)
+pip install pre-commit
+
+# Install the hooks
+pre-commit install
+```
+
+**Features:**
+- Automatic clang-format on staged files
+- Automatic @date and @copyright updates
+- Managed by `.pre-commit-config.yaml`
+- Part of a larger ecosystem of hooks
+
+**Update hooks:**
+```bash
+pre-commit autoupdate
+```
+
+### Method 2: Manual Hook Installation
+
+Simple bash-based hooks without external dependencies.
+
+**Setup:**
 
 **Linux/macOS/Git Bash:**
 ```bash
@@ -18,24 +46,27 @@ After cloning the repository, run the hook installation script:
 scripts\install-hooks.bat
 ```
 
-### Available Hooks
+**Features:**
+- No Python dependencies
+- Self-contained bash scripts
+- Same functionality as Method 1
 
-#### pre-commit
+---
 
-Automatically runs before each commit to:
+## What the Pre-commit Hook Does
 
-1. **Format code** with clang-format (if installed)
+Regardless of which method you choose, the pre-commit hook performs:
+
+1. **Code Formatting** (clang-format)
    - Uses the `.clang-format` configuration in the project root
    - Formats all staged `.cpp` and `.h` files
    - Skips gracefully if clang-format is not available
 
-2. **Update file metadata**
+2. **Metadata Updates**
    - Updates `@date` fields to the current date (YYYY-MM-DD format)
    - Updates `@copyright` year ranges to include the current year
 
-### Installing clang-format (Optional)
-
-While optional, clang-format is highly recommended for consistent code formatting.
+## Installing clang-format (Optional but Recommended)
 
 **MSYS2 (recommended for this project):**
 ```bash
@@ -57,14 +88,12 @@ sudo apt install clang-format
 brew install clang-format
 ```
 
-### Manual Hook Updates
-
-If you update hooks in `scripts/git-hooks/`, re-run the installation script to update your local `.git/hooks/` directory.
-
 ## Hook Development
 
-To modify or add new hooks:
+### For pre-commit framework:
+1. Edit `.pre-commit-config.yaml` in the project root
+2. Update local scripts in `scripts/hooks/`
 
-1. Edit or create hook files in `scripts/git-hooks/`
-2. Test the hook by running the install script and making a commit
-3. Commit your changes to `scripts/git-hooks/` to share with the team
+### For manual hooks:
+1. Edit hook files in `scripts/git-hooks/`
+2. Re-run the installation script to update your local `.git/hooks/`
