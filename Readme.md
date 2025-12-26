@@ -17,7 +17,7 @@
 
 Ma version du firmware Mk2PVRouter en 3 phases (voir http://www.mk2pvrouter.co.uk).
 
-Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.uk/3-phase-version.html).  
+Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.uk/3-phase-version.html).
 Il prend en charge jusqu'à 12 sorties pour charges résistives, qui sont complètement indépendantes.
 
 ---
@@ -100,7 +100,7 @@ Fonctionnalités ajoutées :
 - capteur de température (juste la lecture pour le moment)
 - enregistrement de données optimisé (RF)
 - sortie série en JSON ou TXT
-  
+
 Le programme original a dû être entièrement retravaillé et re-structuré pour permettre la lecture de la température. Dans le programme d’origine, l’ISR ne fait que lire et convertir les données analogiques, et le traitement se fait dans la boucle *loop*. Cela ne fonctionnera pas avec un capteur de température en raison de ses performances lentes. Il déstabiliserait l’ensemble du système, des données de courant / tension seraient perdues, ...
 
 Maintenant, tout le traitement critique en termes de temps se fait à l’intérieur de l’ISR, les autres tâches comme la journalisation des données (RF), la sortie série, la lecture de la température sont faites à l’intérieur de la boucle *loop()*. L’ISR et le processeur principal communiquent entre eux par le biais d'« événements ».
@@ -142,18 +142,18 @@ Il peut être utilisé pour optimiser le fonctionnement de la marche forcée, po
 
 Lorsque le profil zéro-export est activé, le système PV réduit la production d’énergie si la production du système dépasse les besoins de consommation du site. Cela garantit zéro injection dans le réseau.
 
-Comme effet secondaire, le routeur ne verra pas à aucun moment un surplus d’énergie.  
+Comme effet secondaire, le routeur ne verra pas à aucun moment un surplus d’énergie.
 L’idée est donc d’appliquer un certain décalage à l’énergie mesurée par le routeur.
-Comme il est déjà commenté dans le code, après l'assignation d’une valeur négative à *REQUIRED_EXPORT_IN_WATTS*, le routeur agira comme un générateur PV.  
-Si vous définissez une valeur de *-20*, chaque fois que le routeur mesure le flux d’énergie, il ajoutera *-20* aux mesures.  
+Comme il est déjà commenté dans le code, après l'assignation d’une valeur négative à *REQUIRED_EXPORT_IN_WATTS*, le routeur agira comme un générateur PV.
+Si vous définissez une valeur de *-20*, chaque fois que le routeur mesure le flux d’énergie, il ajoutera *-20* aux mesures.
 
 Alors, maintenant voyons ce qui se passe dans différents cas:
 
 - la valeur mesurée est **positive** (importation d’énergie = pas d’excédent), après avoir ajouté *-20*, cela reste positif, le routeur ne fait rien. Pour une valeur comprise entre -20 et 0, le déviateur ne fera rien non plus.
-- la valeur mesurée est **autour de zéro**. Dans cette situation, la limitation du "profil zéro exportation" est active.  
-Après l’ajout de *-20*, nous obtenons une valeur négative, ce qui déclenchera le détournement d’énergie vers le chauffe-eau.  
-Ensuite, il y a une sorte de réaction en chaîne. L’Envoy détecte plus de consommation, décide d’augmenter la production.  
-À la mesure suivante, le routeur mesure à nouveau une valeur autour de zéro, ajoute à nouveau -20, et détourne encore plus d’énergie.  
+- la valeur mesurée est **autour de zéro**. Dans cette situation, la limitation du "profil zéro exportation" est active.
+Après l’ajout de *-20*, nous obtenons une valeur négative, ce qui déclenchera le détournement d’énergie vers le chauffe-eau.
+Ensuite, il y a une sorte de réaction en chaîne. L’Envoy détecte plus de consommation, décide d’augmenter la production.
+À la mesure suivante, le routeur mesure à nouveau une valeur autour de zéro, ajoute à nouveau -20, et détourne encore plus d’énergie.
 Lorsque la production (et l’excédent) arrive au maximum possible, la valeur mesurée restera autour de zéro+ et le système deviendra stable.
 
 Cela a été testé en situation réelle par Amorim. Selon chaque situation, il peut être nécessaire de modifier cette valeur de *-20* à une valeur plus grande ou plus petite.
@@ -178,7 +178,7 @@ Votre chauffe-eau DOIT supporter le câblage en triphasé (c'est-à-dire il doit
 ---
 **_Avertissement de sécurité_**
 
-Pour modifier le câblage existant, l’accès à la tension du réseau 240V est nécessaire.  
+Pour modifier le câblage existant, l’accès à la tension du réseau 240V est nécessaire.
 Soyez sûr de savoir ce que vous entreprenez. Au besoin, faîtes appel à un électricien qualifié.
 
 ---
@@ -209,14 +209,14 @@ Dans une situation entièrement équilibrée en triphasé, vous n’avez pas bes
 
 Pour cela, j’ai « recyclé » un commutateur HC/HP triphasé, mais vous pouvez utiliser n’importe quel relais triphasé. La bobine de commande doit être connectée à une alimentation "permanente" (et non à travers le routeur) contrôlée par le thermostat.
 
-![Chauffe-eau avec thermostat mécanique](img/Heater_mechanical.png)  
+![Chauffe-eau avec thermostat mécanique](img/Heater_mechanical.png)
 *Figure: Diagramme de câblage*
 
 ### Chauffe-eau avec thermostat ACI monophasé
 
 Dans ce cas, c’est en quelque sorte la même situation qu’avant. Vous n’avez pas besoin d’acheter un kit ACI en triphasé pour convertir votre chauffe-eau monophasé. La carte ACI doit être connectée à une phase permanente. Elle contrôlera ensuite n’importe quel relais en triphasé.
 
-![Chauffe-eau avec thermostat ACI monophasé](img/Heater_ACI_Mono.png)  
+![Chauffe-eau avec thermostat ACI monophasé](img/Heater_ACI_Mono.png)
 *Figure : Diagramme de câblage*
 
 ### Chauffe-eau avec thermostat ACI triphasé (SANS neutre)
@@ -234,7 +234,7 @@ La phase non coupée est celle qui correspond au fil du milieu sur le connecteur
 
 La carte ACI doit être reliée à 3 phases permanentes.
 
-![Chauffe-eau avec thermostat ACI triphasé](img/Heater_ACI_Tri.png)  
+![Chauffe-eau avec thermostat ACI triphasé](img/Heater_ACI_Tri.png)
 *Figure : Diagramme de câblage*
 
 ### Alternatives SANS neutre
@@ -259,12 +259,12 @@ En **rouge**, coupure de sécurité (remarquez le 'S' sur chaque contact) : les 
 
 En **vert**, seules 2 phases sont coupées, L2 et L3. ***Il est très IMPORTANT que la phase L1, non coupée par le thermostat, ne passe pas par un triac***.
 
-![Thermostat mécanique](img/Thermostat.png)  
+![Thermostat mécanique](img/Thermostat.png)
 *Figure: Exemple de thermostat*
 
 ---
 
-![Chauffe-eau avec thermostat mécanique](img/Heater_mechanical-No_neutral.png)  
+![Chauffe-eau avec thermostat mécanique](img/Heater_mechanical-No_neutral.png)
 *Figure: Diagramme de câblage*
 
 ## Support

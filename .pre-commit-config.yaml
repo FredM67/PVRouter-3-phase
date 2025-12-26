@@ -1,9 +1,33 @@
 ---
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
+# See CONTRIBUTING.md for installation instructions
+
+ci:
+  autoupdate_commit_msg: 'ci(pre-commit): autoupdate hooks'
+  autoupdate_schedule: quarterly
+
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: no-commit-to-branch
+        args:
+          - --branch=main
+      - id: end-of-file-fixer
+        exclude: ^(.*/)?\.vscode/|\.drawio$
+      - id: trailing-whitespace
+        exclude: ^(.*/)?\.vscode/|\.drawio$
+      - id: check-yaml
+        exclude: ^(\.clang-format|(.*/)?\.vscode/)
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+        exclude: ^(.*/)?\.vscode/|\.drawio$
+
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v13.0.1
+    rev: v18.1.8
     hooks:
       - id: clang-format
         types_or: [c, c++]
