@@ -21,7 +21,7 @@
  *
  * @tparam N # of loads
  * @tparam D
- * 
+ *
  * @ingroup DualTariff
  */
 template< uint8_t N, uint8_t OffPeakDuration = 8 >

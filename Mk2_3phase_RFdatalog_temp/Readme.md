@@ -49,7 +49,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
 
 # Utilisation avec Visual Studio Code (recommandé)
 
-Vous devrez installer des extensions supplémentaires. Les extensions les plus populaires et les plus utilisées pour ce travail sont '*Platform IO*' et '*Arduino*'.  
+Vous devrez installer des extensions supplémentaires. Les extensions les plus populaires et les plus utilisées pour ce travail sont '*Platform IO*' et '*Arduino*'.
 L’ensemble du projet a été conçu pour être utilisé de façon optimale avec *Platform IO*.
 
 # Utilisation avec Arduino IDE
@@ -200,13 +200,13 @@ Pour configurer plusieurs relais, listez simplement les configurations de chaque
 inline constexpr RelayEngine relays{ { { 4, 1000, 200, 10, 10 },
                                        { 3, 1500, 250, 5, 15 } } };
 ```
-Les relais sont activés dans l’ordre de la liste, et désactivés dans l’ordre inverse.  
+Les relais sont activés dans l’ordre de la liste, et désactivés dans l’ordre inverse.
 Dans tous les cas, les durées minimales de fonctionnement et d’arrêt sont toujours respectées.
 
 ### Principe de fonctionnement
-Les seuils de surplus et d’import sont calculés en utilisant une moyenne mobile pondérée exponentiellement (EWMA), dans notre cas précis, il s’agit d’une modification d’une moyenne mobile triple exponentiellement pondérée (TEMA).  
-Par défaut, cette moyenne est calculée sur une fenêtre d’environ **10 min**. Vous pouvez ajuster cette durée pour l’adapter à vos besoins.  
-Il est possible de la rallonger mais aussi de la raccourcir.  
+Les seuils de surplus et d’import sont calculés en utilisant une moyenne mobile pondérée exponentiellement (EWMA), dans notre cas précis, il s’agit d’une modification d’une moyenne mobile triple exponentiellement pondérée (TEMA).
+Par défaut, cette moyenne est calculée sur une fenêtre d’environ **10 min**. Vous pouvez ajuster cette durée pour l’adapter à vos besoins.
+Il est possible de la rallonger mais aussi de la raccourcir.
 Pour des raisons de performances de l’Arduino, la durée choisie sera arrondie à une durée proche qui permettra de faire les calculs sans impacter les performances du routeur.
 
 La durée de la fenêtre temporelle est contrôlée par le paramètre `RELAY_FILTER_DELAY` dans le fichier de configuration.
@@ -237,8 +237,8 @@ Pour chaque relais, la transition ou le changement d’état est géré de la ma
 ## Configuration du Watchdog
 Un chien de garde, en anglais *watchdog*, est un circuit électronique ou un logiciel utilisé en électronique numérique pour s’assurer qu’un automate ou un ordinateur ne reste pas bloqué à une étape particulière du traitement qu’il effectue.
 
-Ceci est réalisé à l’aide d’une LED qui clignote à la fréquence de 1 Hz, soit toutes les secondes.  
-Ainsi, l’utilisateur sait d’une part si son routeur est allumé, et si jamais cette LED ne clignote plus, c’est que l’Arduino s’est bloqué (cas encore jamais rencontré !).  
+Ceci est réalisé à l’aide d’une LED qui clignote à la fréquence de 1 Hz, soit toutes les secondes.
+Ainsi, l’utilisateur sait d’une part si son routeur est allumé, et si jamais cette LED ne clignote plus, c’est que l’Arduino s’est bloqué (cas encore jamais rencontré !).
 Un simple appui sur le bouton *Reset* permettra de redémarrage le système sans rien débrancher.
 
 Il faudra activer la fonctionnalité comme ceci :
@@ -251,12 +251,12 @@ inline constexpr uint8_t watchDogPin{ 9 };
 ```
 
 ## Configuration du ou des capteurs de température
-Il est possible de brancher un ou plusieurs capteurs de température Dallas DS18B20.  
+Il est possible de brancher un ou plusieurs capteurs de température Dallas DS18B20.
 Ces capteurs peuvent servir à des fins informatives ou pour contrôler le mode de fonctionnement forcé.
 
 Pour activer cette fonctionnalité, il faudra procéder différemment selon que l’on utilise l’Arduino IDE ou Visual Studio Code avec l’extension PlatformIO.
 
-Par défaut, la sortie `D3` est utilisée pour la sortie du capteur de température et dispose déjà d’un pull-up.  
+Par défaut, la sortie `D3` est utilisée pour la sortie du capteur de température et dispose déjà d’un pull-up.
 Si vous souhaitez utiliser une autre pin, il faudra rajouter un *pull-up* sur la pin utilisée.
 
 ### Activation de la fonctionnalité
@@ -269,16 +269,16 @@ Activez la ligne suivante en supprimant le commentaire :
 #define TEMP_ENABLED
 ```
 
-Si la bibliothèque *OneWire* n’est pas installée, installez-la via le menu **Outils** => **Gérer les bibliothèques…**.  
+Si la bibliothèque *OneWire* n’est pas installée, installez-la via le menu **Outils** => **Gérer les bibliothèques…**.
 Recherchez "Onewire" et installez "**OneWire** par Jim Studt, …" en version **2.3.7** ou plus récente.
 
 #### Avec Visual Studio Code et PlatformIO
 Sélectionnez la configuration "**env:temperature (Mk2_3phase_RFdatalog_temp)**".
 
 ### Configuration du ou des capteurs (commun aux 2 cas précédents)
-Pour configurer les capteurs, vous devez entrer leurs adresses.  
-Utilisez un programme pour scanner les capteurs connectés.  
-Vous pouvez trouver de tels programmes sur Internet ou parmi les exemples fournis avec l’Arduino IDE.  
+Pour configurer les capteurs, vous devez entrer leurs adresses.
+Utilisez un programme pour scanner les capteurs connectés.
+Vous pouvez trouver de tels programmes sur Internet ou parmi les exemples fournis avec l’Arduino IDE.
 Il est recommandé de coller une étiquette avec l’adresse de chaque capteur sur son câble.
 
 Entrez les adresses comme suit :
@@ -296,12 +296,12 @@ ___
 ___
 
 ## Configuration de la gestion des Heures Creuses (dual tariff)
-Il est possible de confier la gestion des Heures Creuses au routeur.  
-Cela permet par exemple de limiter la chauffe en marche forcée afin de ne pas trop chauffer l’eau dans l’optique d’utiliser le surplus le lendemain matin.  
+Il est possible de confier la gestion des Heures Creuses au routeur.
+Cela permet par exemple de limiter la chauffe en marche forcée afin de ne pas trop chauffer l’eau dans l’optique d’utiliser le surplus le lendemain matin.
 Cette limite peut être en durée ou en température (nécessite d’utiliser un capteur de température Dallas DS18B20).
 
 ### Configuration matérielle
-Décâblez la commande du contacteur Jour/Nuit, qui n’est plus nécessaire.  
+Décâblez la commande du contacteur Jour/Nuit, qui n’est plus nécessaire.
 Reliez directement une *pin* choisie au contact sec du compteur (bornes *C1* et *C2*).
 ___
 > [!WARNING]
@@ -355,7 +355,7 @@ inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
 ```
 
 ## Rotation des priorités
-La rotation des priorités est utile lors de l’alimentation d’un chauffe-eau triphasé.  
+La rotation des priorités est utile lors de l’alimentation d’un chauffe-eau triphasé.
 Elle permet d’équilibrer la durée de fonctionnement des différentes résistances sur une période prolongée.
 
 Mais elle peut aussi être intéressante si on veut permuter les priorités de deux appareils chaque jour (deux chauffe-eau, …).
@@ -369,7 +369,7 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::AUTO };
 ```cpp
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
 ```
-En mode **automatique**, la rotation se fait automatiquement toutes les 24 h.  
+En mode **automatique**, la rotation se fait automatiquement toutes les 24 h.
 Em mode **manuel**, vous devez également définir la *pin* qui déclenchera la rotation :
 ```cpp
 inline constexpr uint8_t rotationPin{ 10 };
@@ -421,7 +421,7 @@ inline constexpr OverridePins overridePins{
 - `ALL_RELAYS()` : tous les relais
 - `ALL_LOADS_AND_RELAYS()` : tout le système (charges et relais)
 
-**Groupement :**  
+**Groupement :**
 Plusieurs charges ou relais peuvent être groupés sous une même pin, soit en les listant, soit en utilisant les fonctions spéciales pour tout activer d’un coup.
 Plusieurs pins peuvent piloter des groupes différents ou partiellement recoupés.
 
@@ -456,8 +456,8 @@ inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },     
 ```
 
 ## Arrêt du routage
-Il peut être pratique de désactiver le routage lors d’une absence prolongée.  
-Cette fonctionnalité est particulièrement utile si la *pin* de commande est connectée à un contact sec qui peut être contrôlé à distance, par exemple via une routine Alexa ou similaire.  
+Il peut être pratique de désactiver le routage lors d’une absence prolongée.
+Cette fonctionnalité est particulièrement utile si la *pin* de commande est connectée à un contact sec qui peut être contrôlé à distance, par exemple via une routine Alexa ou similaire.
 Ainsi, vous pouvez désactiver le routage pendant votre absence et le réactiver un ou deux jours avant votre retour, afin de disposer d’eau chaude (gratuite) à votre arrivée.
 
 Pour activer cette fonctionnalité, utilisez le code suivant :
@@ -474,9 +474,9 @@ inline constexpr uint8_t diversionPin{ 12 };
 Ces paramètres se trouvent dans le fichier `config_system.h`.
 
 ## Paramètre `DIVERSION_START_THRESHOLD_WATTS`
-Le paramètre `DIVERSION_START_THRESHOLD_WATTS` définit un seuil de surplus avant tout routage vers les charges configurées sur le routeur. Elle est principalement destinée aux installations avec batteries de stockage.   
-Par défaut, cette valeur est réglée à 0 W.  
-En réglant ce paramètre à 50 W par exemple, le routeur ne démarrera le routage qu'à partir du moment où 50 W de surplus sera disponible. Une fois le routage démarré, la totalité du surplus sera routé.  
+Le paramètre `DIVERSION_START_THRESHOLD_WATTS` définit un seuil de surplus avant tout routage vers les charges configurées sur le routeur. Elle est principalement destinée aux installations avec batteries de stockage.
+Par défaut, cette valeur est réglée à 0 W.
+En réglant ce paramètre à 50 W par exemple, le routeur ne démarrera le routage qu'à partir du moment où 50 W de surplus sera disponible. Une fois le routage démarré, la totalité du surplus sera routé.
 Cette fonctionnalité permet d'établir une hiérarchie claire dans l’utilisation de l'énergie produite, en privilégiant le stockage d'énergie sur la consommation immédiate. Vous pouvez ajuster cette valeur selon la réactivité du système de charge des batteries et vos priorités d’utilisation de l'énergie.
 
 > [!IMPORTANT]
@@ -484,8 +484,8 @@ Cette fonctionnalité permet d'établir une hiérarchie claire dans l’utilisat
 > Une fois le seuil atteint et le routage démarré, la **totalité** du surplus devient disponible pour les charges.
 
 ## Paramètre `REQUIRED_EXPORT_IN_WATTS`
-Le paramètre `REQUIRED_EXPORT_IN_WATTS` détermine la quantité minimale d'énergie que le système doit réserver pour l’exportation ou l’importation vers le réseau électrique avant de dévier le surplus vers les charges contrôlées.  
-Par défaut réglé à 0 W, ce paramètre peut être utilisé pour garantir une exportation constante vers le réseau, par exemple pour respecter des accords de revente d'électricité.  
+Le paramètre `REQUIRED_EXPORT_IN_WATTS` détermine la quantité minimale d'énergie que le système doit réserver pour l’exportation ou l’importation vers le réseau électrique avant de dévier le surplus vers les charges contrôlées.
+Par défaut réglé à 0 W, ce paramètre peut être utilisé pour garantir une exportation constante vers le réseau, par exemple pour respecter des accords de revente d'électricité.
 Une valeur négative obligera le routeur à consommer cette puissance depuis le réseau. Cela peut être utile voire nécessaire pour les installations configurées en *zéro injection* afin d’amorcer la production solaire.
 
 > [!IMPORTANT]
@@ -578,7 +578,7 @@ Dans ce cas :
 - Veillez à configurer de façon cohérente :
   - Le programme du routeur (fichier config.h)
   - La configuration ESPHome sur l’ESP32
-  
+
 Assurez-vous notamment que les numéros de pins utilisés dans chaque configuration correspondent exactement à vos connexions physiques. N’oubliez pas d’utiliser des adaptateurs de niveau logique si nécessaire entre le Mk2PVRouter (5 V) et l’ESP32 (3.3 V).
 
 Pour les sondes de température, vous pouvez les connecter directement à l’ESP32 en utilisant une broche `GPIO` de votre choix, que vous configurerez ensuite dans ESPHome. **N’oubliez pas d’ajouter une résistance pull-up de 4,7 kΩ entre la ligne de données (DQ) et l’alimentation +3,3 V** pour assurer le bon fonctionnement du bus 1-Wire.

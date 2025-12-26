@@ -59,7 +59,7 @@ This directory contains tools to help you optimize the `RELAY_FILTER_DELAY_MINUT
 
 ### Climate-Based Recommendations
 - **Clear sky regions (1-2 min):** Fast response, minimal clouds
-- **Mixed conditions (2-3 min):** Balanced stability and responsiveness  
+- **Mixed conditions (2-3 min):** Balanced stability and responsiveness
 - **Cloudy regions (3-4 min):** Enhanced stability during frequent clouds
 - **Very unstable (4-5 min):** Maximum stability for challenging conditions
 

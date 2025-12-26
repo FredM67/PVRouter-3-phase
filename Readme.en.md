@@ -17,7 +17,7 @@
 
 My version of the 3-phase Mk2PVRouter firmware (see <http://www.mk2pvrouter.co.uk>).
 
-Robin Emley already proposes a 3 phase PV-router (<https://www.mk2pvrouter.co.uk/3-phase-version.html>).  
+Robin Emley already proposes a 3 phase PV-router (<https://www.mk2pvrouter.co.uk/3-phase-version.html>).
 It supports up to 12 resistive output loads, which are completely independent.
 
 ---
@@ -122,18 +122,18 @@ For the moment, just reading. It'll be used to optimize force full power, to mak
 
 When zero-export settings is enabled, the PV system curtails power production if the production of the system exceeds the consumption needs of the site. This ensures zero feed into the grid.
 
-As a side effect, the diverter won't see at any time surplus of energy.  
+As a side effect, the diverter won't see at any time surplus of energy.
 So the idea is to apply a certain offset to the energy measured by the diverter.
-As it is already commented in the code, after setting a negative value to *REQUIRED_EXPORT_IN_WATTS*, the diverter will act as a PV generator.  
-If you set a value of -20, each time the diverter measures the energy flowing, it'll add *-20* to the measurements.  
+As it is already commented in the code, after setting a negative value to *REQUIRED_EXPORT_IN_WATTS*, the diverter will act as a PV generator.
+If you set a value of -20, each time the diverter measures the energy flowing, it'll add *-20* to the measurements.
 
 So, now let see what happen in a couple of cases:
 
 - measured value is **positive** (energy import = no surplus), after adding *-20*, it stays positive, the diverter doesn't do anything. By a value between -20 and 0, the diverter won't do anything either.
-- measured value is **around zero**. In this situation, the "zero export profile" limitation is active.  
-After adding *-20*, we get a negative value that will make the diverter start diverting energy to the water heater.  
-Now, there's a sort of chain reaction. The Envoy detects more consumption, decides to raise production.  
-On the next measurement, the diverter measures again a value around zero, add again *-20*, and diverts even more energy.  
+- measured value is **around zero**. In this situation, the "zero export profile" limitation is active.
+After adding *-20*, we get a negative value that will make the diverter start diverting energy to the water heater.
+Now, there's a sort of chain reaction. The Envoy detects more consumption, decides to raise production.
+On the next measurement, the diverter measures again a value around zero, add again *-20*, and diverts even more energy.
 When production (and surplus) gets to the maximum possible, the measured value will stay around zero+ and the system is stable.
 
 This has been tested in real by Amorim. Depending of each situation, it might be necessary to tweak this value of *-20* to a bigger or smaller value.
@@ -158,7 +158,7 @@ To change your single-phase water heater to 3-phase, it MUST support 3-phase wir
 ---
 **_Safety Warning_**
 
-To modify the existing wiring, access to 240V mains voltage is required.  
+To modify the existing wiring, access to 240V mains voltage is required.
 Please take great care, and do not undertake this stage unless you feel confident to do so.
 
 ---
@@ -174,7 +174,7 @@ With this solution, you'll control each heating element separately.
 
 ---
 
-You'll have to separate all 3 heating elements, and probably add a new wire for each of them. Sometime, the elements are connected together with a sort of metallic "star". There's one for the (single) phase, and one for the neutral wire. You only need to remove one of them, the one for neutral must stay wired.  
+You'll have to separate all 3 heating elements, and probably add a new wire for each of them. Sometime, the elements are connected together with a sort of metallic "star". There's one for the (single) phase, and one for the neutral wire. You only need to remove one of them, the one for neutral must stay wired.
 
 #### Wiring
 
@@ -189,7 +189,7 @@ In a balanced situation, you don't need any neutral wire. To switch off the devi
 
 For that, I've "recycled" a peak/off peak 3-phase relay but you can use any 3-phase relay. It doesn't matter on which phase the command coil is connected, but it must be permanent (not through the router).
 
-![Heater with mechanical thermostat](img/Heater_mechanical.png)  
+![Heater with mechanical thermostat](img/Heater_mechanical.png)
 *Figure: Wiring diagram*
 
 ## Heater with ACI single phase thermostat
@@ -198,7 +198,7 @@ In this case, it's somehow the same situation as before.
 You don't need to buy a 3-phase kit to convert your single phase heater.
 The ACI pcb must be connected to a permanent phase. It will then control any 3-phase relay.
 
-![Heater with ACI single phase thermostat](img/Heater_ACI_Mono.png)  
+![Heater with ACI single phase thermostat](img/Heater_ACI_Mono.png)
 *Figure: Wiring diagram*
 
 ## Heater with ACI 3-phase thermostat (without neutral wire)
@@ -217,7 +217,7 @@ The remaining connected phase is the one in the middle of the power connector.
 
 The ACI pcb must be connected to 3 permanent phases.
 
-![Heater with ACI 3-phase thermostat](img/Heater_ACI_Tri.png)  
+![Heater with ACI 3-phase thermostat](img/Heater_ACI_Tri.png)
 *Figure: Wiring diagram*
 
 ## Alternatives WITHOUT neutral wire
@@ -242,12 +242,12 @@ In **red**, security switch (see the 'S' on each pole) : all 3 phases are switch
 
 In **green**, only 2 phases are switched off, L2 et L3. ***It is IMPORTANT that the phase L1, not switched by the thermostat, DOES NOT pass through the triac***.
 
-![Mechanical thermostat](img/Thermostat.png)  
+![Mechanical thermostat](img/Thermostat.png)
 *Figure: An example of a thermostat*
 
 ---
 
-![Heater with mechanical thermostat](img/Heater_mechanical-No_neutral.png)  
+![Heater with mechanical thermostat](img/Heater_mechanical-No_neutral.png)
 *Figure: Wiring diagram*
 
 ## Support
