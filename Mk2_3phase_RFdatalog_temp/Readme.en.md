@@ -24,7 +24,10 @@ This program is designed to be used with the Arduino IDE and/or other developmen
     - [Hardware configuration](#hardware-configuration)
     - [Software configuration](#software-configuration)
   - [Priority rotation](#priority-rotation)
-  - [Forced operation configuration](#forced-operation-configuration)
+  - [Forced operation configuration (New Flexible System)](#forced-operation-configuration-new-flexible-system)
+    - [Feature activation](#feature-activation-1)
+    - [OverridePins definition](#overridepins-definition)
+    - [Usage](#usage)
   - [Routing stop](#routing-stop)
 - [Advanced program configuration](#advanced-program-configuration)
   - [`DIVERSION_START_THRESHOLD_WATTS` parameter](#diversion_start_threshold_watts-parameter)
@@ -43,7 +46,7 @@ This program is designed to be used with the Arduino IDE and/or other developmen
 
 # Use with Visual Studio Code (recommended)
 
-You'll need to install additional extensions. The most popular and used extensions for this job are '*Platform IO*' and '*Arduino*'.  
+You'll need to install additional extensions. The most popular and used extensions for this job are '*Platform IO*' and '*Arduino*'.
 The entire project has been designed to be used optimally with *Platform IO*.
 
 # Use with Arduino IDE
@@ -189,13 +192,13 @@ To configure multiple relays, simply list the configurations for each relay:
 inline constexpr RelayEngine relays{ { { 4, 1000, 200, 10, 10 },
                                        { 3, 1500, 250, 5, 15 } } };
 ```
-Relays are activated in list order, and deactivated in reverse order.  
+Relays are activated in list order, and deactivated in reverse order.
 In all cases, minimum operating and shutdown durations are always respected.
 
 ### Operating principle
-Surplus and import thresholds are calculated using an exponentially weighted moving average (EWMA), in our specific case, it's a modification of a triple exponentially weighted moving average (TEMA).  
-By default, this average is calculated over a window of approximately **10 min**. You can adjust this duration to suit your needs.  
-It's possible to lengthen it but also to shorten it.  
+Surplus and import thresholds are calculated using an exponentially weighted moving average (EWMA), in our specific case, it's a modification of a triple exponentially weighted moving average (TEMA).
+By default, this average is calculated over a window of approximately **10 min**. You can adjust this duration to suit your needs.
+It's possible to lengthen it but also to shorten it.
 For Arduino performance reasons, the chosen duration will be rounded to a close duration that allows calculations without impacting router performance.
 
 The time window duration is controlled by the `RELAY_FILTER_DELAY` parameter in the configuration file.
@@ -224,8 +227,8 @@ For each relay, the transition or state change is managed as follows:
 ## Watchdog configuration
 A watchdog is an electronic circuit or software used in digital electronics to ensure that an automaton or computer does not remain stuck at a particular stage of the processing it performs.
 
-This is achieved using an LED that blinks at a frequency of 1 Hz, i.e., every second.  
-Thus, the user knows whether their router is powered on, and if this LED stops blinking, it means the Arduino is stuck (a case never encountered yet!).  
+This is achieved using an LED that blinks at a frequency of 1 Hz, i.e., every second.
+Thus, the user knows whether their router is powered on, and if this LED stops blinking, it means the Arduino is stuck (a case never encountered yet!).
 A simple press of the *Reset* button will restart the system without unplugging anything.
 
 You need to activate the feature like this:
@@ -238,12 +241,12 @@ inline constexpr uint8_t watchDogPin{ 9 };
 ```
 
 ## Temperature sensor(s) configuration
-It's possible to connect one or more Dallas DS18B20 temperature sensors.  
+It's possible to connect one or more Dallas DS18B20 temperature sensors.
 These sensors can serve informational purposes or to control forced operation mode.
 
 To activate this feature, you need to proceed differently depending on whether you use the Arduino IDE or Visual Studio Code with the PlatformIO extension.
 
-By default, output `D3` is used for the temperature sensor output and already has a pull-up.  
+By default, output `D3` is used for the temperature sensor output and already has a pull-up.
 If you want to use another pin, you'll need to add a *pull-up* to the used pin.
 
 ### Feature activation
@@ -256,16 +259,16 @@ Activate the following line by removing the comment:
 #define TEMP_ENABLED
 ```
 
-If the *OneWire* library is not installed, install it via the **Tools** => **Manage Libraries...** menu.  
+If the *OneWire* library is not installed, install it via the **Tools** => **Manage Libraries...** menu.
 Search for "Onewire" and install "**OneWire** by Jim Studt, ..." version **2.3.7** or newer.
 
 #### With Visual Studio Code and PlatformIO
 Select the "**env:temperature (Mk2_3phase_RFdatalog_temp)**" configuration.
 
 ### Sensor configuration (common to both cases above)
-To configure the sensors, you must enter their addresses.  
-Use a program to scan connected sensors.  
-You can find such programs on the Internet or among the examples provided with the Arduino IDE.  
+To configure the sensors, you must enter their addresses.
+Use a program to scan connected sensors.
+You can find such programs on the Internet or among the examples provided with the Arduino IDE.
 It's recommended to stick a label with each sensor's address on its cable.
 
 Enter the addresses as follows:
@@ -283,12 +286,12 @@ ___
 ___
 
 ## Off-peak hours management configuration (dual tariff)
-It's possible to entrust off-peak hours management to the router.  
-This allows, for example, limiting heating in forced mode to avoid overheating the water with the intention of using the surplus the next morning.  
+It's possible to entrust off-peak hours management to the router.
+This allows, for example, limiting heating in forced mode to avoid overheating the water with the intention of using the surplus the next morning.
 This limit can be in duration or temperature (requires using a Dallas DS18B20 temperature sensor).
 
 ### Hardware configuration
-Disconnect the Day/Night contactor control, which is no longer necessary.  
+Disconnect the Day/Night contactor control, which is no longer necessary.
 Connect directly a chosen *pin* to the dry contact of the meter (*C1* and *C2* terminals).
 ___
 > [!WARNING]
@@ -342,7 +345,7 @@ inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
 ```
 
 ## Priority rotation
-Priority rotation is useful when powering a three-phase water heater.  
+Priority rotation is useful when powering a three-phase water heater.
 It allows balancing the operating duration of different resistors over an extended period.
 
 But it can also be interesting if you want to swap the priorities of two devices each day (two water heaters, ...).
@@ -356,7 +359,7 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::AUTO };
 ```cpp
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
 ```
-In **automatic** mode, rotation happens automatically every 24 h.  
+In **automatic** mode, rotation happens automatically every 24 h.
 In **manual** mode, you must also define the *pin* that will trigger rotation:
 ```cpp
 inline constexpr uint8_t rotationPin{ 10 };
@@ -367,7 +370,7 @@ inline constexpr uint8_t rotationPin{ 10 };
 The forced operation (*Boost*) can now be triggered via one or more *pins*, with flexible association between each pin and the loads (dump loads) or relays to activate. This feature allows:
 
 - Activating forced operation from multiple locations or devices
-- Precisely targeting one or more loads or relays for each pin  
+- Precisely targeting one or more loads or relays for each pin
 - Grouping multiple loads/relays under the same command
 
 ### Feature activation
@@ -402,7 +405,7 @@ inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },     
 
 **Available macros:**
 - `LOAD(n)` : references load number (resistor controlled, 0 → load #1)
-- `RELAY(n)` : references relay number (on/off relay output, 0 → relay #1)  
+- `RELAY(n)` : references relay number (on/off relay output, 0 → relay #1)
 - `ALL_LOADS()` : all loads
 - `ALL_RELAYS()` : all relays
 - `ALL_LOADS_AND_RELAYS()` : entire system (loads and relays)
@@ -419,8 +422,8 @@ inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },     
 - A home automation system that activates multiple loads according to demand
 
 ## Routing stop
-It can be convenient to disable routing during a prolonged absence.  
-This feature is particularly useful if the control *pin* is connected to a dry contact that can be controlled remotely, for example via an Alexa routine or similar.  
+It can be convenient to disable routing during a prolonged absence.
+This feature is particularly useful if the control *pin* is connected to a dry contact that can be controlled remotely, for example via an Alexa routine or similar.
 Thus, you can disable routing during your absence and reactivate it one or two days before your return, to have (free) hot water upon your arrival.
 
 To activate this feature, use the following code:
@@ -437,9 +440,9 @@ inline constexpr uint8_t diversionPin{ 12 };
 These parameters are found in the `config_system.h` file.
 
 ## `DIVERSION_START_THRESHOLD_WATTS` parameter
-The `DIVERSION_START_THRESHOLD_WATTS` parameter defines a surplus threshold before any routing to loads configured on the router. It's mainly intended for installations with storage batteries.   
-By default, this value is set to 0 W.  
-By setting this parameter to 50 W for example, the router will only start routing when 50 W of surplus is available. Once routing has started, the entire surplus will be routed.  
+The `DIVERSION_START_THRESHOLD_WATTS` parameter defines a surplus threshold before any routing to loads configured on the router. It's mainly intended for installations with storage batteries.
+By default, this value is set to 0 W.
+By setting this parameter to 50 W for example, the router will only start routing when 50 W of surplus is available. Once routing has started, the entire surplus will be routed.
 This feature allows establishing a clear hierarchy in the use of produced energy, prioritizing energy storage over immediate consumption. You can adjust this value according to the battery charging system's responsiveness and your energy use priorities.
 
 > [!IMPORTANT]
@@ -447,8 +450,8 @@ This feature allows establishing a clear hierarchy in the use of produced energy
 > Once the threshold is reached and routing has started, the **entire** surplus becomes available for loads.
 
 ## `REQUIRED_EXPORT_IN_WATTS` parameter
-The `REQUIRED_EXPORT_IN_WATTS` parameter determines the minimum amount of energy that the system must reserve for export or import to the electrical grid before diverting surplus to controlled loads.  
-Set to 0 W by default, this parameter can be used to guarantee constant export to the grid, for example to comply with electricity resale agreements.  
+The `REQUIRED_EXPORT_IN_WATTS` parameter determines the minimum amount of energy that the system must reserve for export or import to the electrical grid before diverting surplus to controlled loads.
+Set to 0 W by default, this parameter can be used to guarantee constant export to the grid, for example to comply with electricity resale agreements.
 A negative value will force the router to consume this power from the grid. This can be useful or even necessary for installations configured in *zero injection* to initiate solar production.
 
 > [!IMPORTANT]
@@ -490,7 +493,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ true };     // Forced operation
 // Pin configuration according to extension board mapping
 inline constexpr uint8_t diversionPin{ 12 };     // D12 - routing stop
 
-// Flexible forced operation configuration  
+// Flexible forced operation configuration
 inline constexpr OverridePins overridePins{ { { 11, ALL_LOADS_AND_RELAYS() } } }; // D11 - forced operation
 
 // Temperature sensor configuration
@@ -532,7 +535,8 @@ For more details on ESPHome configuration and Home Assistant integration, consul
 
 # Configuration without extension board
 
-[!IMPORTANT] If you don't have the specific extension board or the appropriate motherboard PCB (these two elements not being available for now), you can still achieve integration by your own means.
+> [!IMPORTANT]
+> If you don't have the specific extension board or the appropriate motherboard PCB (these two elements not being available for now), you can still achieve integration by your own means.
 
 In this case:
 - No connection is predefined between ESP32 and Mk2PVRouter
@@ -540,12 +544,13 @@ In this case:
 - Make sure to configure coherently:
   - The router program (config.h file)
   - ESPHome configuration on ESP32
-  
+
 Ensure particularly that pin numbers used in each configuration correspond exactly to your physical connections. Don't forget to use logic level adapters if necessary between Mk2PVRouter (5 V) and ESP32 (3.3 V).
 
 For temperature probes, you can connect them directly to ESP32 using a `GPIO` pin of your choice, which you'll then configure in ESPHome. **Don't forget to add a 4.7 kΩ pull-up resistor between the data line (DQ) and +3.3 V power supply** to ensure proper 1-Wire bus operation.
 
-[!NOTE] Even without the extension board, all Home Assistant integration features remain accessible, provided your wiring and software configurations are correctly implemented.
+> [!NOTE]
+> Even without the extension board, all Home Assistant integration features remain accessible, provided your wiring and software configurations are correctly implemented.
 
 For more details on ESPHome configuration and Home Assistant integration, consult the [detailed documentation available in this gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). This complete guide explains step by step how to configure your ESP32 with ESPHome to maximize your PVRouter's features in Home Assistant.
 

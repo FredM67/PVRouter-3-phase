@@ -8,7 +8,7 @@ on:
     - 'Mk2_3phase_RFdatalog_temp/**'
     - Doxyfile
   workflow_dispatch:
-  
+
 jobs:
   deploy:
     permissions:

@@ -374,11 +374,16 @@ void updatePortsStates()
  */
 void updatePhysicalLoadStates()
 {
+  if constexpr (NO_OF_DUMPLOADS == 0)
+  {
+    return;
+  }
+
   if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
   {
     if (Shared::b_reOrderLoads)
     {
-      uint8_t i{ NO_OF_DUMPLOADS - 1 };
+      uint8_t i{ static_cast< uint8_t >(NO_OF_DUMPLOADS - 1) };
       const auto temp{ loadPrioritiesAndState[i] };
       do
       {
@@ -1122,7 +1127,7 @@ void printParamsForSelectedOutputMode()
 
 /**
  * @brief Interrupt Service Routine - Interrupt-Driven Analog Conversion.
- * 
+ *
  * @details An Interrupt Service Routine is now defined which instructs the ADC to perform a conversion
  *          for each of the voltage and current sensors in turn.
  *

@@ -14,19 +14,19 @@ The primary interrupt that drives the entire system:
 ```cpp
 ISR(ADC_vect) {
   static uint8_t sample_index = 0;
-  
+
   // Read ADC value
   int rawSample = ADC;
-  
+
   // Process voltage/current samples
   processAdcSample(sample_index, rawSample);
-  
+
   // Increment sample index
   sample_index++;
   if (sample_index >= (NO_OF_PHASES * 2)) {
     sample_index = 0;
   }
-  
+
   // Setup next ADC conversion
   setupNextAdcConversion(sample_index);
 }
@@ -108,7 +108,7 @@ ISR(ADC_vect) {
   // ✅ GOOD: Essential processing only
   rawSample = ADC;
   processRawSample(rawSample);
-  
+
   // ❌ BAD: Avoid in ISR
   // Serial.print("Sample: ");
   // digitalWrite(LED_PIN, HIGH);
@@ -208,12 +208,12 @@ volatile uint32_t isrOverruns = 0;
 
 ISR(ADC_vect) {
   static bool isrActive = false;
-  
+
   if (isrActive) {
     isrOverruns++;  // Count overruns
     return;         // Skip this cycle
   }
-  
+
   isrActive = true;
   // Normal processing
   isrActive = false;
@@ -236,9 +236,9 @@ if (isrOverruns > MAX_OVERRUNS) {
 #ifdef DEBUG_TIMING
 ISR(ADC_vect) {
   PORTB |= (1 << DEBUG_PIN);  // Set pin high
-  
+
   // ISR processing here
-  
+
   PORTB &= ~(1 << DEBUG_PIN); // Set pin low
 }
 // Measure pulse width with oscilloscope
@@ -252,9 +252,9 @@ volatile uint32_t isrCycles = 0;
 
 ISR(ADC_vect) {
   uint32_t start = micros();
-  
+
   // ISR processing
-  
+
   isrCycles = micros() - start;
 }
 ```
