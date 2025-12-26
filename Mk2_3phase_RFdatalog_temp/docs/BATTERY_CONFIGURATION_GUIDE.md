@@ -66,7 +66,7 @@ relayOutput(pin, 1000, 200, 5, 5)
 // Le client essaie de mettre un contrôle serré
 relayOutput(pin, 1000, 0, 5, 5)   // ❌ PROBLÈME !
 //                ^    ^
-//                |    └─ Seuil d'import : 0W  
+//                |    └─ Seuil d'import : 0W
 //                └─ Seuil de surplus : 1000W
 ```
 
@@ -81,9 +81,9 @@ relayOutput(pin, 1000, 0, 5, 5)   // ❌ PROBLÈME !
 relayOutput(pin, 1000, 50, 5, 5)  // Encore pire !
 ```
 - Le relais s'éteint quand import > 50W
-- La batterie se décharge immédiatement pour ramener le réseau à 0W  
+- La batterie se décharge immédiatement pour ramener le réseau à 0W
 - Le relais se rallume
-- **Résultat : Relais qui claquette !** 
+- **Résultat : Relais qui claquette !**
 
 ## Exemples Visuels : Comportement des Systèmes Batterie
 
@@ -98,7 +98,7 @@ Les graphiques suivants démontrent pourquoi les configurations de relais tradit
   - Le relais s'allume mais **ne s'éteint JAMAIS**
   - La batterie compense les déficits → Puissance réseau ≈ 0W en permanence
   - Impossible de détecter l'import → Relais reste allumé 100% du temps
-  
+
 - **Graphique du bas (FONCTIONNE)** : Seuil d'import négatif -50W
   - Le relais cycle correctement : 1 commutation, 24% du temps
   - Surveille le surplus réel avant compensation batterie
@@ -247,7 +247,7 @@ relayOutput(5, 2000, -50, 15, 10)
 relayOutput(6, 3000, -100, 5, 5)
 //          ^   ^    ^     ^ ^
 //          |   |    |     | └─ Temporisation standard
-//          |   |    |     └─ Temporisation standard  
+//          |   |    |     └─ Temporisation standard
 //          |   |    └─ Éteindre quand surplus < 100W (marge sûre)
 //          |   └─ Allumer quand surplus > 2500W
 //          └─ Pin de contrôle
@@ -312,7 +312,7 @@ else
 // Ancien (problématique)
 relayOutput(pin, 1000, 0, 5, 5)     // Ne s'éteint jamais avec batterie
 
-// Nouveau (fonctionne avec batterie)  
+// Nouveau (fonctionne avec batterie)
 relayOutput(pin, 1000, -20, 5, 5)   // S'éteint quand surplus < 20W
 ```
 

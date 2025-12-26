@@ -201,7 +201,7 @@ void calibrateDCOffsets() {
   const uint16_t CALIBRATION_SAMPLES = 1000;
   long sumV[NO_OF_PHASES] = {0};
   long sumI[NO_OF_PHASES] = {0};
-  
+
   // Collect samples with loads off
   for (uint16_t i = 0; i < CALIBRATION_SAMPLES; ++i) {
     for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase) {
@@ -210,7 +210,7 @@ void calibrateDCOffsets() {
     }
     delay(1);
   }
-  
+
   // Calculate averages
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase) {
     dcOffset_V[phase] = sumV[phase] / CALIBRATION_SAMPLES;
@@ -226,7 +226,7 @@ void calibratePhase() {
   // Apply known resistive load
   // Measure phase difference
   // Calculate correction factor
-  
+
   float phaseError = calculatePhaseError();
   phaseCorrectionFactor = cos(phaseError);
 }
@@ -259,7 +259,7 @@ float tempCompFactor = 1.0 + TEMP_COEFF * (currentTemp - REFERENCE_TEMP);
 calibratedValue = rawValue * calibrationFactor * tempCompFactor;
 
 // Phase compensation
-float phaseCorrectedI = current * cos(phaseError) + 
+float phaseCorrectedI = current * cos(phaseError) +
                        current_delayed * sin(phaseError);
 ```
 
@@ -323,10 +323,10 @@ struct PowerHealth {
 
 void updatePowerHealth() {
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase) {
-    powerHealth.voltageInRange[phase] = 
+    powerHealth.voltageInRange[phase] =
       (rmsVoltage[phase] > MIN_VOLTAGE) && (rmsVoltage[phase] < MAX_VOLTAGE);
-    
-    powerHealth.powerFactorValid[phase] = 
+
+    powerHealth.powerFactorValid[phase] =
       (powerFactor[phase] >= -1.0) && (powerFactor[phase] <= 1.0);
   }
 }

@@ -4,9 +4,9 @@
  * @brief Some useful but missing stl functions templates
  * @version 0.1
  * @date 2023-06-14
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 // ArduinoJson - https://arduinojson.org

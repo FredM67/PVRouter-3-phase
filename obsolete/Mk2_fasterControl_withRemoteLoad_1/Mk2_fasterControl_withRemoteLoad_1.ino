@@ -1,16 +1,16 @@
 /* Mk2_fasterControl_withRemoteLoad_1.ino
  *
  *  (initially released as Mk2_bothDisplays_1 in March 2014)
- * This sketch is for diverting suplus PV power to a dump load using a triac or  
- * Solid State Relay. It is based on the Mk2i PV Router code that I have posted in on  
- * the OpenEnergyMonitor forum.  The original version, and other related material, 
+ * This sketch is for diverting suplus PV power to a dump load using a triac or
+ * Solid State Relay. It is based on the Mk2i PV Router code that I have posted in on
+ * the OpenEnergyMonitor forum.  The original version, and other related material,
  * can be found on my Summary Page at www.openenergymonitor.org/emon/node/1757
  *
- * In this latest version, the pin-allocations have been changed to suit my 
- * PCB-based hardware for the Mk2 PV Router.  The integral voltage sensor is 
- * fed from one of the secondary coils of the transformer.  Current is measured 
- * via Current Transformers at the CT1 and CT1 ports.  
- * 
+ * In this latest version, the pin-allocations have been changed to suit my
+ * PCB-based hardware for the Mk2 PV Router.  The integral voltage sensor is
+ * fed from one of the secondary coils of the transformer.  Current is measured
+ * via Current Transformers at the CT1 and CT1 ports.
+ *
  * CT1 is for 'grid' current, to be measured at the grid supply point.
  * CT2 is for the load current, so that diverted energy can be recorded
  *
@@ -29,74 +29,74 @@
  *
  * December 2014: renamed as Mk2_bothDisplays_3a, with some typographical errors fixed.
  *
- * January 2016: renamed as Mk2_bothDisplays_3b, with a minor change in the ISR to 
+ * January 2016: renamed as Mk2_bothDisplays_3b, with a minor change in the ISR to
  *   remove a timing uncertainty.
  *
  * January 2016: updated to Mk2_bothDisplays_3c:
- *   The variables to store the ADC results are now declared as "volatile" to remove 
+ *   The variables to store the ADC results are now declared as "volatile" to remove
  *   any possibility of incorrect operation due to optimisation by the compiler.
  *
  * February 2016: updated to Mk2_bothDisplays_4, with these changes:
- * - improvements to the start-up logic.  The start of normal operation is now 
+ * - improvements to the start-up logic.  The start of normal operation is now
  *    synchronised with the start of a new mains cycle.
  * - reduce the amount of feedback in the Low Pass Filter for removing the DC content
- *     from the Vsample stream. This resolves an anomaly which has been present since 
- *     the start of this project.  Although the amount of feedback has previously been 
+ *     from the Vsample stream. This resolves an anomaly which has been present since
+ *     the start of this project.  Although the amount of feedback has previously been
  *     excessive, this anomaly has had minimal effect on the system's overall behaviour.
  * - removal of the unhelpful "triggerNeedsToBeArmed" mechanism
  * - tidying of the "confirmPolarity" logic to make its behaviour more clear
- * - SWEETZONE_IN_JOULES changed to WORKING_RANGE_IN_JOULES 
+ * - SWEETZONE_IN_JOULES changed to WORKING_RANGE_IN_JOULES
  * - change "triac" to "load" wherever appropriate
  *
  * November 2019: updated to Mk2_fasterControl_1 with these changes:
  * - Half way through each mains cycle, a prediction is made of the likely energy level at the
- *   end of the cycle.  That predicted value allows the triac to be switched at the +ve going 
- *   zero-crossing point rather than waiting for a further 10 ms.  These changes allow for 
+ *   end of the cycle.  That predicted value allows the triac to be switched at the +ve going
+ *   zero-crossing point rather than waiting for a further 10 ms.  These changes allow for
  *   faster switching of the load.
  * - The range of the energy bucket has been reduced to one tenth of its former value. This
  *   allows the unit's operation to commence more rapidly whenever surplus power is available.
- * - controlMode is no longer selectable, the unit's operation being effectively hard-coded 
- *   as "Normal" rather than Anti-flicker. 
+ * - controlMode is no longer selectable, the unit's operation being effectively hard-coded
+ *   as "Normal" rather than Anti-flicker.
  * - Port D3 now supports an indicator which shows when the level in the energy bucket
  *   reaches either end of its range.  While the unit is actively diverting surplus power,
- *   it is vital that the level in the reduced capacity energy bucket remains within its 
+ *   it is vital that the level in the reduced capacity energy bucket remains within its
  *   permitted range, hence the addition of this indicator.
- *   
+ *
  * February 2020: updated to Mk2_fasterControl_twoLoads_1 with these changes:
- * - the energy overflow indicator has been disabled to free up port D3 
+ * - the energy overflow indicator has been disabled to free up port D3
  * - port D3 now supports a second load
- * 
+ *
  * February 2020: updated to Mk2_fasterControl_twoLoads_2 with these changes:
  * - improved multi-load control logic to prevent the primary load from being disturbed by
  *   the lower priority one.  This logic now mirrors that in the Mk2_multiLoad_wired_n line.
- * 
+ *
  * March 2021: updated to Mk2_fasterControl_withRF_1 with these changes:
- * - addition of datalogging by RF 
+ * - addition of datalogging by RF
  * - removal of the option for standard display hardware (which is incompatible with RF)
- * 
+ *
  * March 2021: updated to Mk2_fasterControl_2 with these changes:
  * - extra filtering added to offset the HPF effect of CT1.  This allows the energy state in
- *   10 ms time to be predicted with more confidence.  Specifically, it is no longer necessary 
+ *   10 ms time to be predicted with more confidence.  Specifically, it is no longer necessary
  *   to include a 30% boost factor after each change of load state.
- *   
+ *
  * June 2021: updated to Mk2_fasterControl_withRF_3 with these changes:
- * - to reflect the performance of recently manufactured YHDC SCT_013_000 CTs, 
+ * - to reflect the performance of recently manufactured YHDC SCT_013_000 CTs,
  *   the value of the parameter lpf_gain has been reduced from 12 to 8.
  *
  * July  2022: updated to Mk2_fasterControl_withRF_4, with this change:
  * - the datalogging accumulators for grid power, diverted power and Vsquared have been rescaled
- * to 1/16 of their previous values to avoid the risk of overflowing during a 10-second 
- * datalogging period.   
- * 
- * September 2022: updated to Mk2_fasterControl_withRemoteLoad_1 with these changes:  
+ * to 1/16 of their previous values to avoid the risk of overflowing during a 10-second
+ * datalogging period.
+ *
+ * September 2022: updated to Mk2_fasterControl_withRemoteLoad_1 with these changes:
  * - remove all code for datalogging
- * - add code to support a remote load via RF control. A one-integer on/off instruction can be sent every 
- *   mains cycle with a refresh message being sent every 5 mains cycles if the required state of 
+ * - add code to support a remote load via RF control. A one-integer on/off instruction can be sent every
+ *   mains cycle with a refresh message being sent every 5 mains cycles if the required state of
  *   the load has not changed. For use with the receiver sketch, remoteUnit_fasterControl_n.
  * - increase the hardware timer duriation from 125 us to 150 us (just to reduce the workload)
- *   
+ *
  *       Robin Emley
- *       
+ *
  *      www.Mk2PVrouter.co.uk
  */
 
@@ -827,7 +827,7 @@ void allGeneralProcessing()
       {
         /* Determining whether any of the loads need to be changed is is a 3-stage process:
          * - change the LOGICAL load states as necessary to maintain the energy level
-         * - update the PHYSICAL load states according to the logical -> physical mapping 
+         * - update the PHYSICAL load states according to the logical -> physical mapping
          * - update the driver lines for each of the loads.
          */
 
@@ -967,9 +967,9 @@ void allGeneralProcessing()
 
 void confirmPolarity()
 {
-  /* This routine prevents a zero-crossing point from being declared until 
-   * a certain number of consecutive samples in the 'other' half of the 
-   * waveform have been encountered.  
+  /* This routine prevents a zero-crossing point from being declared until
+   * a certain number of consecutive samples in the 'other' half of the
+   * waveform have been encountered.
    */
   static byte count = 0;
   if (polarityOfMostRecentVsample != polarityConfirmedOfLastSampleV)
@@ -1025,14 +1025,14 @@ byte nextLogicalLoadToBeRemoved()
 
 void updatePhysicalLoadStates()
 /*
- * This function provides the link between the logical and physical loads.  The 
- * array, logicalLoadState[], contains the on/off state of all logical loads, with 
- * element 0 being for the one with the highest priority.  The array, 
- * physicalLoadState[], contains the on/off state of all physical loads. 
- * 
+ * This function provides the link between the logical and physical loads.  The
+ * array, logicalLoadState[], contains the on/off state of all logical loads, with
+ * element 0 being for the one with the highest priority.  The array,
+ * physicalLoadState[], contains the on/off state of all physical loads.
+ *
  * The association between the physical and logical loads is 1:1.  By default, numerical
- * equivalence is maintained, so logical(N) maps to physical(N).  If physical load 1 is set 
- * to have priority, rather than physical load 0, the logical-to-physical association for 
+ * equivalence is maintained, so logical(N) maps to physical(N).  If physical load 1 is set
+ * to have priority, rather than physical load 0, the logical-to-physical association for
  * loads 0 and 1 are swapped.
  *
  * Any other mapping relaionships could be configured here.

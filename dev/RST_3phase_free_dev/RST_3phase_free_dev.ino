@@ -355,7 +355,7 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
       storedSample_I1_from_ADC[samplesRecorded] = 0;
       ++samplesRecorded;
     }
-  }     // end of specific processing of +ve cycles
+  }  // end of specific processing of +ve cycles
   else  // the polarity of this sample is negative
   {
     if (polarityOfLastVsample != NEGATIVE)
@@ -375,7 +375,7 @@ void allGeneralProcessing()  // each iteration is for one set of data samples
         DCoffset_V_long = DCoffset_V_max;
       }
     }  // end of processing that is specific to the first Vsample in each -ve half cycle
-       // still processing samples where the voltage is NEGATIVE ...
+    // still processing samples where the voltage is NEGATIVE ...
     // check to see whether the trigger device can now be reliably disarmed
     if ((sampleSetsDuringThisHalfMainsCycle == 3) && (cycleNumberBeingRecorded == 1))
     {

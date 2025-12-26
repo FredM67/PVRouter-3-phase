@@ -60,7 +60,7 @@ Mains Cycle (50Hz): 20ms
 ```cpp
 // Critical shared data between ISR and main loop
 volatile int32_t copyOf_sumP_atSupplyPoint[3];      // 12 bytes
-volatile int32_t copyOf_sum_Vsquared[3];            // 12 bytes  
+volatile int32_t copyOf_sum_Vsquared[3];            // 12 bytes
 volatile float copyOf_energyInBucket_main;          // 4 bytes
 volatile uint16_t copyOf_countLoadON[2];            // 4 bytes
 volatile bool flags[6];                             // 6 bytes
@@ -223,7 +223,7 @@ volatile bool flags[6];                             // 6 bytes
 - **Performance**: Baseline
 - **Suitability**: ✅ Excellent for standard installations
 
-### Arduino Mega (ATmega2560)  
+### Arduino Mega (ATmega2560)
 - **Clock**: 16MHz
 - **RAM**: 8KB (6.7% used)
 - **Flash**: 256KB (3.5% used)
@@ -231,7 +231,7 @@ volatile bool flags[6];                             // 6 bytes
 - **Suitability**: ✅ Overkill but allows many expansions
 
 ### SAMD21 (Future Platform)
-- **Clock**: 48MHz  
+- **Clock**: 48MHz
 - **RAM**: 32KB (~25% used)
 - **Flash**: 256KB (~35% used)
 - **ADC**: 12-bit with superior noise characteristics and much faster conversion
