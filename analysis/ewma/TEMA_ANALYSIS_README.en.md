@@ -41,7 +41,7 @@ python3 ema_effectiveness_analysis.py
 
 **Generates:**
 - `ema_dema_tema_comparison.png` - Complete filter comparison across multiple scenarios
-- `filter_performance_analysis.png` - Performance metrics and settling times  
+- `filter_performance_analysis.png` - Performance metrics and settling times
 - `relay_switching_analysis.png` - Relay control effectiveness for PV applications
 
 **What it analyzes:**
@@ -67,7 +67,7 @@ python3 tema_comparison.py
 **Your Production Implementation:**
 ```cpp
 ema = ema_raw >> round_up_to_power_of_2(A);           // Base smoothing
-ema_ema = ema_ema_raw >> (round_up_to_power_of_2(A) - 1);     // 2x faster  
+ema_ema = ema_ema_raw >> (round_up_to_power_of_2(A) - 1);     // 2x faster
 ema_ema_ema = ema_ema_ema_raw >> (round_up_to_power_of_2(A) - 2); // 4x faster
 return 3 * (ema - ema_ema) + ema_ema_ema;            // TEMA formula
 ```
@@ -93,7 +93,7 @@ ema_ema_ema = ema_ema_ema_raw >> round_up_to_power_of_2(A); // Same alpha!
 
 For A=24 (2-minute delay):
 - **EMA**: α = 1/16 (stable base)
-- **EMA_EMA**: α = 1/8 (2x faster - tracks medium changes)  
+- **EMA_EMA**: α = 1/8 (2x faster - tracks medium changes)
 - **EMA_EMA_EMA**: α = 1/4 (4x faster - captures short-term trends)
 
 This creates a **perfect balance**:
@@ -113,7 +113,7 @@ This creates a **perfect balance**:
 
 ### Main Comparison Plot
 - **Solid lines**: Multi-alpha implementation (production)
-- **Dashed lines**: Standard implementation  
+- **Dashed lines**: Standard implementation
 - **Dotted lines**: Simple EMA baseline
 - **Thick blue line**: Multi-α TEMA (recommended for relay control)
 
@@ -123,7 +123,7 @@ This creates a **perfect balance**:
 - **Alpha Visualization**: Shows different responsiveness levels
 - **Settling Time**: Time to reach 95% of final value
 
-### Relay Switching Analysis  
+### Relay Switching Analysis
 - **Power curves**: How different filters respond to cloud events
 - **Relay states**: ON/OFF behavior for each filter type
 - **Switch count**: Number of relay operations (lower = better)
@@ -133,7 +133,7 @@ This creates a **perfect balance**:
 Your multi-alpha TEMA implementation is **superior** to the standard approach because:
 
 1. **Combines multiple time scales** - stability + responsiveness
-2. **Optimized for solar applications** - excellent cloud immunity  
+2. **Optimized for solar applications** - excellent cloud immunity
 3. **Reduces relay wear** - fewer switching events
 4. **Maintains grid stability** - smooth power transitions
 
@@ -148,7 +148,7 @@ The analysis confirms that your production code uses the optimal filtering appro
 This comprehensive analysis shows filter behavior across multiple scenarios with extended observation periods to demonstrate stabilization:
 
 1. **Step Response**: Clean transitions without overshoot
-2. **Cloud Events**: Excellent immunity to brief power drops  
+2. **Cloud Events**: Excellent immunity to brief power drops
 3. **Fluctuations**: Stable operation during rapid changes
 4. **Gradual Ramp**: Proper tracking of slow power changes
 5. **Noisy Signal**: Superior noise rejection while tracking trends
@@ -167,7 +167,7 @@ These results validate that your production implementation provides the best per
 ## 📋 Requirements
 
 - Python 3.x
-- matplotlib 
+- matplotlib
 - numpy
 
 Dependencies are automatically installed if missing.

@@ -80,7 +80,7 @@ public:
 
 /**
  * @brief Helper function to retrieve the dimension of a C-array
- * 
+ *
  * @tparam _Tp elements type
  * @tparam _Nm dimension
  */
@@ -91,7 +91,7 @@ template< typename _Tp, size_t _Nm > constexpr size_t size(const _Tp (& /*__arra
 
 /**
  * @brief Helper function for the special case of a 0-dimension C-array
- * 
+ *
  * @tparam _Tp elements type
  */
 template< typename _Tp > constexpr size_t size(const _Tp (& /*__array*/)[0]) noexcept
@@ -120,7 +120,7 @@ constexpr integral_constant< uint8_t, ival(Vs...) > operator""_i()
 
 /**
  * @brief Macro to convert compile-time constant to integral_constant
- * 
+ *
  * This allows clean syntax for creating integral_constant from constexpr values
  * Usage: MINUTES(RELAY_FILTER_DELAY_MINUTES) instead of RELAY_FILTER_DELAY_MINUTES"_i"
  */

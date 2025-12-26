@@ -127,7 +127,7 @@ private:
  * @brief Brief description
  * @author Your Name (your.email@domain.com)
  * @date YYYY-MM-DD
- * 
+ *
  * Detailed description of the file's purpose and functionality.
  */
 
@@ -165,7 +165,7 @@ ISR(ADC_vect) {
   // ✅ Good: Essential operations only
   rawSample = ADC;
   processRawSample(rawSample);
-  
+
   // ❌ Forbidden in ISR:
   // Serial.print()    - Blocking I/O
   // delay()           - Blocking delay
@@ -183,19 +183,19 @@ void activateLoad(uint8_t loadIndex) {
     logError("Invalid load index");
     return;
   }
-  
+
   // Check system state
   if (systemInFaultState()) {
     logError("Cannot activate load - system fault");
     return;
   }
-  
+
   // Check power limits
   if (getCurrentPower() > MAX_SAFE_POWER) {
     logError("Power limit exceeded");
     return;
   }
-  
+
   // Proceed with activation
   setLoadState(loadIndex, LoadState::ON);
 }
@@ -211,10 +211,10 @@ void test_powerCalculation() {
   float voltage = 230.0;  // RMS voltage
   float current = 10.0;   // RMS current
   float expectedPower = 2300.0;  // Expected power
-  
+
   // Test calculation
   float calculatedPower = calculatePower(voltage, current);
-  
+
   // Verify result within tolerance
   assert(abs(calculatedPower - expectedPower) < 0.1);
 }

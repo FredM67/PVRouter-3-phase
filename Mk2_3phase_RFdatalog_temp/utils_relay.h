@@ -4,9 +4,9 @@
  * @brief Some utility functions for the relay output feature
  * @version 0.1
  * @date 2023-03-31
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef UTILS_RELAY_H
@@ -44,7 +44,7 @@ public:
 
   /**
    * @brief Construct a new relay Config object with default parameters
-   * 
+   *
    * @param _relay_pin Control pin for the relay
    */
   explicit constexpr relayOutput(const uint8_t _relay_pin)
@@ -54,7 +54,7 @@ public:
 
   /**
    * @brief Construct a new relay Config object with default/custom parameters
-   * 
+   *
    * @param _relay_pin Control pin for the relay
    * @param _surplusThreshold Surplus threshold to turn relay ON (positive value, e.g., 1000)
    * @param _importThreshold Import threshold to turn relay OFF
@@ -69,7 +69,7 @@ public:
 
   /**
    * @brief Construct a new relay Config object with custom parameters
-   * 
+   *
    * @param _relay_pin Control pin for the relay
    * @param _surplusThreshold Surplus threshold to turn relay ON (positive value, e.g., 1000)
    * @param _importThreshold Import threshold to turn relay OFF
@@ -86,8 +86,8 @@ public:
 
   /**
    * @brief Get the control pin of the relay
-   * 
-   * @return constexpr auto 
+   *
+   * @return constexpr auto
    */
   constexpr auto get_pin() const
   {
@@ -96,8 +96,8 @@ public:
 
   /**
    * @brief Get the surplus threshold which will turns ON the relay
-   * 
-   * @return constexpr auto 
+   *
+   * @return constexpr auto
    */
   constexpr auto get_surplusThreshold() const
   {
@@ -106,8 +106,8 @@ public:
 
   /**
    * @brief Get the import threshold which will turns OFF the relay
-   * 
-   * @return constexpr auto 
+   *
+   * @return constexpr auto
    */
   constexpr auto get_importThreshold() const
   {
@@ -116,8 +116,8 @@ public:
 
   /**
    * @brief Get the minimum ON-time in seconds
-   * 
-   * @return constexpr auto 
+   *
+   * @return constexpr auto
    */
   constexpr auto get_minON() const
   {
@@ -126,8 +126,8 @@ public:
 
   /**
    * @brief Get the minimum OFF-time in seconds
-   * 
-   * @return constexpr auto 
+   *
+   * @return constexpr auto
    */
   constexpr auto get_minOFF() const
   {
@@ -136,8 +136,8 @@ public:
 
   /**
    * @brief Return the state
-   * 
-   * @return auto 
+   *
+   * @return auto
    */
   auto isRelayON() const
   {
@@ -147,7 +147,7 @@ public:
   /**
    * @brief Increment the duration of the current state
    * @details This function must be called every second.
-   * 
+   *
    */
   void inc_duration() const
   {
@@ -159,7 +159,7 @@ public:
 
   /**
    * @brief Proceed with the relay
-   * 
+   *
    * @param currentAvgPower Current average power
    * @param overrideBitmask Reference to override bitmask
    * @return bool True if state has changed
@@ -199,7 +199,7 @@ public:
 
   /**
    * @brief Print the configuration of the current relay-diversion
-   * 
+   *
    */
   void printRelayConfiguration(uint8_t idx) const
   {
@@ -235,7 +235,7 @@ public:
 private:
   /**
    * @brief Turn ON the relay if the 'time' condition is met
-   * 
+   *
    * @return bool True if state has changed
    */
   bool try_turnON() const
@@ -257,7 +257,7 @@ private:
 
   /**
    * @brief Turn OFF the relay if the 'time' condition is met
-   * 
+   *
    * @return bool True if state has changed
    */
   bool try_turnOFF() const
@@ -316,7 +316,7 @@ class RelayEngine
 public:
   /**
    * @brief Construct a list of relays
-   * 
+   *
    */
   explicit constexpr RelayEngine(const relayOutput (&ref)[N])
     : relay(ref)
@@ -325,7 +325,7 @@ public:
 
   /**
    * @brief Construct a list of relays with a custom sliding average.
-   * 
+   *
    * @param ic Integral constant representing the sliding average duration.
    * @param ref Array of relay configurations.
    */
@@ -336,7 +336,7 @@ public:
 
   /**
    * @brief Get the number of relays
-   * 
+   *
    * @return constexpr auto The number of relays
    */
   constexpr auto size() const
@@ -346,7 +346,7 @@ public:
 
   /**
    * @brief Get the relay object
-   * 
+   *
    * @tparam idx The index of the relay
    * @return constexpr const auto& The relay object
    */
@@ -357,7 +357,7 @@ public:
 
   /**
    * @brief Get the current average
-   * 
+   *
    * @return auto The current average
    */
   inline static auto get_average()
@@ -367,7 +367,7 @@ public:
 
   /**
    * @brief Update the sliding average
-   * 
+   *
    * @param currentPower Current power at the grid
    */
   inline static void update_average(int16_t currentPower)
@@ -377,7 +377,7 @@ public:
 
   /**
    * @brief Increment the duration's state of each relay.
-   * 
+   *
    * @details This method updates the duration of the current state for each relay and decreases
    * the delay (`settle_change`) until the next state change is allowed.
    */
@@ -389,9 +389,9 @@ public:
 
   /**
    * @brief Proceed all relays in increasing order (surplus) or decreasing order (import).
-   * 
+   *
    * @param overrideBitmask Reference to override bitmask - relay bits will be cleared after processing
-   * 
+   *
    * @details This method adjusts the state of the relays based on the current average power.
    * If surplus power is available, it tries to turn ON relays in increasing order. If power
    * is being imported, it tries to turn OFF relays in decreasing order.
@@ -435,7 +435,7 @@ public:
 
   /**
    * @brief Print the configuration of each relay.
-   * 
+   *
    * @details This method outputs the configuration of all relays, including their pin assignments,
    * thresholds, and minimum ON/OFF durations, to the Serial interface.
    */
