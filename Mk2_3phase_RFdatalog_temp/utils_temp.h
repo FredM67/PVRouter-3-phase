@@ -187,7 +187,7 @@ public:
 
   /**
    * @brief Get the number of sensors.
-   * 
+   *
    * This method returns the number of temperature sensors connected to the system.
    * It provides a compile-time constant value representing the total number of sensors.
    *

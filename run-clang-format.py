@@ -130,7 +130,7 @@ def run_clang_format_diff(args, file):
             original = f.readlines()
     except IOError as exc:
         raise DiffError(str(exc))
-    
+
     if args.in_place:
         invocation = [args.clang_format_executable, '-i', file]
     else:
@@ -406,4 +406,3 @@ def main():
 
 if __name__ == '__main__':
     sys.exit(main())
-    
