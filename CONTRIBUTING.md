@@ -18,6 +18,22 @@ To get an overview of the project, read the [README](README.md). Here are some r
 - [Collaborating with pull requests](https://docs.github.com/en/github/collaborating-with-pull-requests)
 
 
+## Branching Strategy
+
+This project uses a two-branch workflow:
+
+| Branch | Purpose | Description |
+|--------|---------|-------------|
+| `main` | Stable releases | Production-ready code that users download |
+| `dev` | Development | Active development and testing |
+
+**Workflow:**
+1. Create feature branches from `dev`
+2. Submit pull requests to merge into `dev`
+3. After testing in `dev`, changes are merged to `main` for release
+
+> **Note:** Direct commits to `main` and `dev` are blocked by pre-commit hooks. Always work in feature branches.
+
 ## Getting started
 
 To navigate our codebase with confidence, see [the introduction to working in the docs repository](/contributing/working-in-docs-repository.md) :confetti_ball:. For more information on how we write our markdown files, see [the GitHub Markdown reference](contributing/content-markup-reference.md).
@@ -125,7 +141,7 @@ If you need to commit without running hooks (not recommended):
 git commit --no-verify
 ```
 
-> **Note:** The `no-commit-to-branch` hook prevents direct commits to `main`. Create a feature branch for your changes.
+> **Note:** The `no-commit-to-branch` hook prevents direct commits to `main` and `dev`. Always create a feature branch for your changes (typically branching from `dev`).
 
 ### Commit your update
 
