@@ -89,8 +89,8 @@ void setup()
   UNITY_BEGIN();  // IMPORTANT LINE!
 }
 
-uint8_t i = 0;
-uint8_t max_blinks = 2;
+uint8_t i{ 0 };
+uint8_t max_blinks{ 2 };
 
 void loop()
 {

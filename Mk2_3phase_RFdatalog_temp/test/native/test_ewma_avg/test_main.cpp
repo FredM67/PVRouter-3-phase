@@ -16,7 +16,7 @@ void test_single_value_update()
 {
   EWMA_average< 64 > avg;
   avg.addValue(64);
-  int32_t result = avg.getAverageS();
+  int32_t result{ avg.getAverageS() };
   printf("DEBUG: alpha=64, round_up_to_power_of_2(64)=%d, input=64, result=%d\n",
          round_up_to_power_of_2(64), (int)result);
   TEST_ASSERT_EQUAL_INT32(2, result);  // Corrected expectation based on actual behavior
@@ -39,9 +39,9 @@ void test_large_value_response()
   avg.addValue(64);    // Add baseline value (EMA = 2)
   avg.addValue(3200);  // Add a large peak value (50x larger -> adds 100 to average)
 
-  int32_t ema = avg.getAverageS();
-  int32_t dema = avg.getAverageD();
-  int32_t tema = avg.getAverageT();
+  int32_t ema{ avg.getAverageS() };
+  int32_t dema{ avg.getAverageD() };
+  int32_t tema{ avg.getAverageT() };
 
   TEST_ASSERT_GREATER_THAN(2, ema);      // EMA should increase from 2
   TEST_ASSERT_GREATER_THAN(dema, tema);  // DEMA should be greater than TEMA (faster response)
@@ -58,7 +58,7 @@ void test_convergence_behavior()
     avg.addValue(40);  // 40/4 = 10 when fully converged
   }
 
-  int32_t ema = avg.getAverageS();
+  int32_t ema{ avg.getAverageS() };
   printf("DEBUG: alpha=8, round_up_to_power_of_2(8)=%d, input=40 x15, ema=%d\n",
          round_up_to_power_of_2(8), (int)ema);
 

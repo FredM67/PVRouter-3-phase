@@ -22,7 +22,6 @@
 #define CONFIG_H
 
 //--------------------------------------------------------------------------------------------------
-//#define RF_PRESENT  /**< this line must be commented out if the RFM12B module is not present */
 #define ENABLE_DEBUG /**< enable this line to include debugging print statements */
 //--------------------------------------------------------------------------------------------------
 
@@ -30,28 +29,33 @@
 #include "debug.h"
 #include "types.h"
 
-#include "utils_dualtariff.h"
-#include "utils_relay.h"
-
 // Serial output type - Human readable for initial setup and commissioning
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
 
 //--------------------------------------------------------------------------------------------------
 // Basic Configuration
 //
-inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< number of dump loads connected to the diverter */
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (local + remote) */
+
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 }; /**< number of remote loads controlled via RF */
 
 // Feature toggles - Basic setup without advanced features
 inline constexpr bool EMONESP_CONTROL{ false };
 inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */
-inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                     /**< set it to 'true' if there's a override pin */
+inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set it to 'true' if there's a override pin */
 
-inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
-inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
-inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
-inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
+inline constexpr bool WATCHDOG_PIN_PRESENT{ true }; /**< set it to 'true' if there's a watch led */
+inline constexpr bool RELAY_DIVERSION{ false };     /**< set it to 'true' if a relay is used for diversion */
+inline constexpr bool DUAL_TARIFF{ false };         /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
+inline constexpr bool TEMP_SENSOR_PRESENT{ false }; /**< set it to 'true' if temperature sensing is needed */
+inline constexpr bool RF_LOGGING_PRESENT{ false };  /**< set it to 'true' if RF data logging is needed */
 
+inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 ? true : false }; /**< set it to 'true' if remote load control via RF is needed */
+
+#include "utils_dualtariff.h"
+#include "utils_relay.h"
+#include "remote_loads.h"
 #include "utils_temp.h"
 
 // ----------- Pinout Assignments -----------
@@ -89,14 +93,21 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if te
 // Note: When using these pins for Home Assistant integration, ensure the ESP32
 // counterpart is properly configured to send the appropriate signals.
 
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
-inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities and states at startup */
+// Physical pin assignments for LOCAL loads only (remote loads are controlled via RF)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 }; /**< Pins for local TRIAC outputs */
+
+// Optional status LED pins for REMOTE loads (set to unused_pin if not needed)
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ unused_pin, unused_pin }; /**< Optional LEDs to show remote load status */
+
+// Load priority order at startup (0 = highest priority, applies to ALL loads: local + remote)
+// In this example: priority 0 = local load #0, priority 1 = remote load #0, priority 2 = remote load #1
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
 
 // Set the value to 'unused_pin' when the pin is not needed (feature deactivated)
 inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
 inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, set diversion on standby */
 inline constexpr uint8_t rotationPin{ unused_pin };   /**< if LOW, trigger a load priority rotation */
-inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
+inline constexpr uint8_t watchDogPin{ 9 };            /**< watch dog LED */
 
 //--------------------------------------------------------------------------------------------------
 // EWMA Filter Tuning for Cloud Immunity
@@ -152,22 +163,5 @@ inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } }; /**< list of temperature sensor Addresses */
 
 inline constexpr uint32_t ROTATION_AFTER_SECONDS{ 8UL * 3600UL }; /**< rotates load priorities after this period of inactivity */
-
-/* --------------------------------------
-   RF configuration (for the RFM12B module)
-   frequency options are RF12_433MHZ, RF12_868MHZ or RF12_915MHZ
-*/
-#ifdef RF_PRESENT
-
-#define RF69_COMPAT 0  // for the RFM12B
-// #define RF69_COMPAT 1 // for the RF69
-
-#define FREQ RF12_868MHZ
-
-inline constexpr int nodeID{ 10 };        /**<  RFM12B node ID */
-inline constexpr int networkGroup{ 210 }; /**< wireless network group - needs to be same for all nodes */
-inline constexpr int UNO{ 1 };            /**< for when the processor contains the UNO bootloader. */
-
-#endif  // RF_PRESENT
 
 #endif  // CONFIG_H

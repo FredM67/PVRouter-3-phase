@@ -6,6 +6,9 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
 - [Table des matières](#table-des-matières)
 - [Utilisation avec Visual Studio Code (recommandé)](#utilisation-avec-visual-studio-code-recommandé)
 - [Utilisation avec Arduino IDE](#utilisation-avec-arduino-ide)
+  - [Bibliothèques requises pour l'Arduino IDE](#bibliothèques-requises-pour-larduino-ide)
+    - [Bibliothèques obligatoires](#bibliothèques-obligatoires)
+    - [Note importante](#note-importante)
 - [Aperçu rapide des fichiers](#aperçu-rapide-des-fichiers)
   - [Documentation technique](#documentation-technique)
 - [Documentation de développement](#documentation-de-développement)
@@ -16,6 +19,10 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
   - [Configuration des sorties relais tout-ou-rien](#configuration-des-sorties-relais-tout-ou-rien)
     - [Principe de fonctionnement](#principe-de-fonctionnement)
+  - [Configuration du module RF et des charges distantes](#configuration-du-module-rf-et-des-charges-distantes)
+    - [Matériel requis](#matériel-requis)
+    - [Configuration logicielle](#configuration-logicielle)
+    - [Configuration du récepteur distant](#configuration-du-récepteur-distant)
   - [Configuration du Watchdog](#configuration-du-watchdog)
   - [Configuration du ou des capteurs de température](#configuration-du-ou-des-capteurs-de-température)
     - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité)
@@ -24,7 +31,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
     - [Configuration du ou des capteurs (commun aux 2 cas précédents)](#configuration-du-ou-des-capteurs-commun-aux-2-cas-précédents)
   - [Configuration de la gestion des Heures Creuses (dual tariff)](#configuration-de-la-gestion-des-heures-creuses-dual-tariff)
     - [Configuration matérielle](#configuration-matérielle)
-    - [Configuration logicielle](#configuration-logicielle)
+    - [Configuration logicielle](#configuration-logicielle-1)
   - [Rotation des priorités](#rotation-des-priorités)
   - [Configuration de la marche forcée (nouveau)](#configuration-de-la-marche-forcée-nouveau)
     - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité-1)
@@ -69,9 +76,34 @@ Pour **MacOSX**, ce fichier se trouve dans '/Users/[user]/Library/Arduino15/pack
 Ouvrez le fichier dans n’importe quel éditeur de texte (vous aurez besoin des droits d’administrateur) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. C’est tout !
 
 Si votre IDE Arduino était ouvert, veuillez fermer toutes les instances et le rouvrir.
+
+## Bibliothèques requises pour l'Arduino IDE
+
+Ce projet nécessite l'installation des bibliothèques suivantes via le **Gestionnaire de bibliothèques** de l'Arduino IDE (menu **Outils** → **Gérer les bibliothèques…**) :
+
+### Bibliothèques obligatoires
+- **OneWire** par Jim Studt et al. (version 2.3.7 ou supérieure)
+  - Utilisée pour les capteurs de température DS18B20
+  - Installée même si aucun capteur n'est utilisé (le code non utilisé sera éliminé par le linker)
+
+- **RFM69** par Felix Rusu, LowPowerLab (version 1.5.3 ou supérieure)
+  - Utilisée pour la communication RF (télémétrie et charges distantes)
+  - Installée même si le module RF n'est pas présent (le code non utilisé sera éliminé par le linker)
+
+- **ArduinoJson** par Benoit Blanchon (version **6.x uniquement**, PAS la 7.x)
+  - Utilisée pour la sortie série en format JSON (dans `utils.h`)
+  - La version 7.x est trop volumineuse pour un ATmega328P
+
+- **SPI** (incluse avec l'Arduino IDE)
+  - Utilisée pour la communication avec le module RFM69
+
+### Note importante
+Toutes les bibliothèques sont toujours incluses dans le code source. Cependant, seul le code réellement utilisé par votre configuration sera présent dans le firmware final. Cela simplifie la maintenance du code tout en préservant la taille du firmware.
+
+**Avec PlatformIO** : Toutes les dépendances sont gérées automatiquement via le fichier `platformio.ini`. Aucune installation manuelle n'est nécessaire.
 ___
 > [!WARNING]
-> En cas d’utilisation de la libraire **ArduinoJson**, il faudra impérativement installer une version **6.x**.
+> En cas d'utilisation de la libraire **ArduinoJson**, il faudra impérativement installer une version **6.x**.
 > La version 7.x, certes plus actuelle, est devenue trop lourde pour un Atmega328P.
 ___
 
@@ -162,17 +194,29 @@ Remplacez `HumanReadable` par `IoT` ou `JSON` selon vos besoins.
 
 ## Configuration des sorties TRIAC
 
-La première étape consiste à définir le nombre de sorties TRIAC :
+La première étape consiste à définir le nombre de sorties TRIAC :
 
 ```cpp
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
 ```
 
-Ensuite, il faudra assigner les *pins* correspondantes ainsi que l’ordre des priorités au démarrage.
+Ensuite, il faudra assigner les *pins* correspondantes **uniquement pour les charges locales** ainsi que l'ordre des priorités au démarrage.
 ```cpp
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };
+// Pins pour les charges LOCALES uniquement (les charges distantes sont contrôlées via RF)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// Optionnel : LEDs d'état pour les charges distantes
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ unused_pin, unused_pin };
+
+// Ordre de priorités au démarrage (0 = priorité la plus haute, s'applique à TOUTES les charges)
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ```
+
+**Important :** 
+- `physicalLoadPin` ne contient que les pins des charges **locales** (TRIACs connectés directement)
+- Les charges **distantes** n'ont pas de pin physique sur le contrôleur principal (elles sont contrôlées via RF)
+- `remoteLoadStatusLED` permet optionnellement d'ajouter des LEDs d'état pour visualiser l'état des charges distantes
+- `loadPrioritiesAtStartup` définit l'ordre de priorité pour **toutes** les charges (locales + distantes). Les priorités 0 à (nombre de charges locales - 1) contrôlent les charges locales, les priorités suivantes contrôlent les charges distantes.
 
 ## Configuration des sorties relais tout-ou-rien
 Les sorties relais tout-ou-rien permettent d’alimenter des appareils qui contiennent de l’électronique (pompe à chaleur …).
@@ -233,6 +277,122 @@ Pour chaque relais, la transition ou le changement d’état est géré de la ma
 
 > [!NOTE]
 > **Installations avec batteries :** Pour une configuration optimale des relais avec systèmes de batteries, consultez le **[Guide de Configuration pour Systèmes Batterie](docs/BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](docs/BATTERY_CONFIGURATION_GUIDE.en.md)
+
+## Configuration du module RF et des charges distantes
+
+Le routeur peut contrôler des charges distantes via un module RF RFM69. Cette fonctionnalité permet de piloter des résistances ou des relais situés dans un autre emplacement, sans câblage supplémentaire.
+
+### Matériel requis
+
+**Pour l'émetteur (routeur principal) :**
+- Module RFM69W/CW ou RFM69HW/HCW (868 MHz pour l'Europe, 915 MHz pour l'Amérique du Nord)
+- Antenne appropriée pour la fréquence choisie
+- Connexion SPI standard (D10=CS, D2=IRQ)
+
+**Pour le récepteur distant :**
+- Arduino UNO ou compatible
+- Module RFM69 (même modèle que l'émetteur)
+- TRIAC ou SSR pour commander les charges
+- LEDs optionnelles pour indication d'état (D5=verte watchdog, D7=rouge perte RF)
+
+### Configuration logicielle
+
+**Activation des fonctionnalités RF :**
+
+Le module RF peut être utilisé pour deux fonctionnalités indépendantes :
+
+1. **Télémétrie RF** (`RF_LOGGING_PRESENT`) : Envoi des données de puissance/tension vers une passerelle
+2. **Charges distantes** (`REMOTE_LOADS_PRESENT`) : Contrôle de charges via RF
+
+Pour activer le module RF avec contrôle de charges distantes, configurez dans **config.h** :
+
+```cpp
+inline constexpr bool RF_LOGGING_PRESENT{ false };       // Télémétrie RF (optionnel)
+inline constexpr bool REMOTE_LOADS_PRESENT{ true };      // Charges distantes (si NO_OF_REMOTE_LOADS > 0, sera automatiquement true)
+```
+
+**Configuration des charges :**
+
+Définissez le nombre total de charges (locales + distantes) :
+
+```cpp
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total : 3 charges
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Dont 2 charges distantes
+                                                       // Charges locales : 3 - 2 = 1
+
+// Pin pour la charge locale (TRIAC)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// LEDs optionnelles pour indiquer l'état des charges distantes
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ 8, 9 };  // D8 et D9
+```
+
+**Priorités :**
+
+Les charges distantes ont **toujours** une priorité inférieure aux charges locales. Dans l'exemple ci-dessus :
+- Charge locale #0 (physicalLoadPin[0]) : priorité la plus haute
+- Charge distante #0 : priorité moyenne  
+- Charge distante #1 : priorité la plus basse
+
+**Configuration RF (dans config_rf.h) :**
+
+Les paramètres par défaut sont :
+- Fréquence : 868 MHz (Europe)
+- ID réseau : 210
+- ID routeur : 10
+- ID unité distante : 15
+
+Pour modifier ces paramètres, éditez **config_rf.h** :
+
+```cpp
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // ID du routeur (cet appareil)
+inline constexpr uint8_t GATEWAY_ID{ 1 };       // ID de la passerelle (télémétrie)
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // ID de l'unité distante
+inline constexpr uint8_t NETWORK_ID{ 210 };     // ID du réseau (1-255)
+```
+
+### Configuration du récepteur distant
+
+Le sketch **RemoteLoadReceiver** est fourni dans le dossier `RemoteLoadReceiver/`.
+
+**Configuration minimale (dans config_rf.h du récepteur) :**
+
+```cpp
+// Configuration RF - doit correspondre au routeur
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // ID du routeur
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // ID de cette unité distante
+inline constexpr uint8_t NETWORK_ID{ 210 };     // ID réseau
+
+// Configuration des charges
+inline constexpr uint8_t NO_OF_LOADS{ 2 };                    // Nombre de charges sur ce récepteur
+inline constexpr uint8_t loadPins[NO_OF_LOADS]{ 4, 3 };       // Pins des sorties TRIAC/SSR
+
+// LEDs d'état (optionnel)
+inline constexpr uint8_t GREEN_LED_PIN{ 5 };        // LED verte : watchdog 1 Hz
+inline constexpr uint8_t RED_LED_PIN{ 7 };          // LED rouge : perte liaison RF (clignotement rapide)
+inline constexpr bool STATUS_LEDS_PRESENT{ true };  // Activer les LEDs
+```
+
+**Sécurité :**
+
+Le récepteur désactive automatiquement **toutes les charges** si aucun message n'est reçu pendant plus de 500 ms. Cela garantit la sécurité en cas de perte de liaison RF.
+
+**Test de la liaison :**
+
+Une fois configurés et téléversés, les deux Arduino communiquent automatiquement :
+- L'émetteur envoie l'état des charges toutes les ~100 ms (5 cycles secteur à 50 Hz)
+- Le récepteur affiche les commandes reçues sur le port série
+- La LED verte clignote à 1 Hz (système actif)
+- La LED rouge clignote rapidement si la liaison RF est perdue
+
+**Diagnostic :**
+
+Sur le moniteur série du récepteur, vous devriez voir :
+```
+Received: 0b01 (RSSI: -45) - Loads: 0:ON 1:OFF
+```
+
+Un RSSI entre -30 et -70 indique une bonne qualité de signal. Au-delà de -80, la liaison devient instable.
 
 ## Configuration du Watchdog
 Un chien de garde, en anglais *watchdog*, est un circuit électronique ou un logiciel utilisé en électronique numérique pour s’assurer qu’un automate ou un ordinateur ne reste pas bloqué à une étape particulière du traitement qu’il effectue.

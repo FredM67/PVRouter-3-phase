@@ -102,8 +102,8 @@ template< typename _Tp > constexpr size_t size(const _Tp (& /*__array*/)[0]) noe
 template< class... Ts >
 constexpr uint8_t ival(Ts... Vs)
 {
-  char vals[sizeof...(Vs)] = { Vs... };
-  uint8_t result = 0;
+  char vals[sizeof...(Vs)]{ Vs... };
+  uint8_t result{ 0 };
   for (uint8_t i = 0; i < sizeof...(Vs); i++)
   {
     result *= 10;
