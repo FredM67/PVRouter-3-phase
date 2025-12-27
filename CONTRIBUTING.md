@@ -24,15 +24,62 @@ This project uses a two-branch workflow:
 
 | Branch | Purpose | Description |
 |--------|---------|-------------|
-| `main` | Stable releases | Production-ready code that users download |
+| `main` | Stable releases | Production-ready code that users download (default branch) |
 | `dev` | Development | Active development and testing |
 
-**Workflow:**
-1. Create feature branches from `dev`
-2. Submit pull requests to merge into `dev`
-3. After testing in `dev`, changes are merged to `main` for release
-
 > **Note:** Direct commits to `main` and `dev` are blocked by pre-commit hooks. Always work in feature branches.
+
+### Daily Development Workflow
+
+**Starting a new feature:**
+
+```bash
+# Switch to dev and update
+git checkout dev
+git pull origin dev
+
+# Create feature branch
+git checkout -b feature/my-feature-name
+```
+
+**Working on your feature:**
+
+```bash
+# Make changes, commit as usual
+git add .
+git commit -m "feat: description of changes"
+
+# Push your feature branch
+git push -u origin feature/my-feature-name
+```
+
+**Creating a Pull Request:**
+
+```bash
+# Create PR targeting dev branch
+gh pr create --base dev --title "feat: my feature"
+
+# Or use GitHub UI and change base branch from 'main' to 'dev'
+```
+
+### Release Workflow
+
+**When ready to release stable code to users:**
+
+```bash
+# Switch to main branch
+git checkout main
+git pull origin main
+
+# Merge dev into main
+git merge dev
+
+# Tag the release
+git tag v1.x.x
+git push origin main --tags
+```
+
+After merging to `main`, users will get the latest stable release when they clone or download the repository.
 
 ## Getting started
 
