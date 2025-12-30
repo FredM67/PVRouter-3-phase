@@ -61,6 +61,21 @@ Il prend en charge jusqu'à 12 sorties pour charges résistives, qui sont compl�
     - **RawSamplesTool_6chan** : permet de tester les 6 canaux de mesure.
 - autres dossiers : contiennent des fichiers divers et variés relatifs au site.
 
+## Bibliothèques requises
+
+Ce projet nécessite l'installation de bibliothèques externes, selon votre environnement de développement :
+
+### Avec l'Arduino IDE
+Vous devez installer manuellement les bibliothèques suivantes via le **Gestionnaire de bibliothèques** :
+- **OneWire** (version 2.3.7+) - Pour les capteurs de température DS18B20
+- **RFM69** (version 1.5.3+) - Pour la communication RF
+- **ArduinoJson** (version 6.x uniquement, PAS la 7.x) - Pour la sortie JSON
+
+### Avec PlatformIO (recommandé)
+Toutes les dépendances sont gérées automatiquement via le fichier `platformio.ini`. Aucune installation manuelle n'est nécessaire.
+
+**Note :** Toutes les bibliothèques sont incluses dans le code source, mais seul le code réellement utilisé par votre configuration sera présent dans le firmware final.
+
 ## Gallerie photo
 
 Vous trouverez quelques [photos](Gallery.md) de routeurs assemblés.

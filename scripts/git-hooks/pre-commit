@@ -1,0 +1,82 @@
+#!/bin/bash
+#
+# Pre-commit hook to automatically:
+# 1. Format C++ source files with clang-format (if available)
+# 2. Update @date and @copyright fields in file headers
+#
+# This hook:
+# - Runs clang-format on all staged .cpp and .h files
+# - Updates @date to current date (YYYY-MM-DD format)
+# - Updates @copyright year to include current year
+#   - Single year (2021) becomes a range (2021-2025)
+#   - Existing range (2021-2023) extends to current year (2021-2025)
+#
+
+CURRENT_DATE=$(date +%Y-%m-%d)
+CURRENT_YEAR=$(date +%Y)
+
+# Check if clang-format is available
+CLANG_FORMAT=""
+if command -v clang-format &> /dev/null; then
+  CLANG_FORMAT="clang-format"
+elif command -v clang-format-18 &> /dev/null; then
+  CLANG_FORMAT="clang-format-18"
+elif command -v clang-format-17 &> /dev/null; then
+  CLANG_FORMAT="clang-format-17"
+elif command -v clang-format-16 &> /dev/null; then
+  CLANG_FORMAT="clang-format-16"
+elif command -v clang-format-15 &> /dev/null; then
+  CLANG_FORMAT="clang-format-15"
+fi
+
+# Get all staged C++ source files (added, copied, or modified)
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(cpp|h)$')
+
+if [ -z "$STAGED_FILES" ]; then
+  # No C++ files to process
+  exit 0
+fi
+
+# Step 1: Run clang-format if available
+if [ -n "$CLANG_FORMAT" ]; then
+  echo "Running clang-format on staged files..."
+  for file in $STAGED_FILES; do
+    if [ -f "$file" ]; then
+      $CLANG_FORMAT -i -style=file "$file"
+      git add "$file"
+      echo "  Formatted: $file"
+    fi
+  done
+else
+  echo "Warning: clang-format not found - skipping code formatting"
+  echo "  Install clang-format to enable automatic formatting"
+fi
+
+# Step 2: Update @date and @copyright fields
+echo "Updating @date and @copyright fields in modified files..."
+
+for file in $STAGED_FILES; do
+  if [ -f "$file" ]; then
+    # Check if file contains @date or @copyright fields
+    if grep -q '@date\|@copyright' "$file"; then
+
+      # Update @date field with current date
+      sed -i "s/@date [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}/@date $CURRENT_DATE/" "$file"
+
+      # Update copyright year
+      # Case 1: Single year (e.g., "Copyright (c) 2021") -> add current year as range
+      sed -i "s/@copyright Copyright (c) \([0-9]\{4\}\)$/@copyright Copyright (c) \1-$CURRENT_YEAR/" "$file"
+
+      # Case 2: Year range (e.g., "Copyright (c) 2021-2023") -> update end year
+      sed -i "s/@copyright Copyright (c) \([0-9]\{4\}\)-[0-9]\{4\}/@copyright Copyright (c) \1-$CURRENT_YEAR/" "$file"
+
+      # Re-stage the modified file
+      git add "$file"
+
+      echo "  Updated metadata: $file"
+    fi
+  fi
+done
+
+echo "Pre-commit checks completed successfully."
+exit 0

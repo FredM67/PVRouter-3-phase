@@ -143,29 +143,29 @@ void test_performance_comparison()
   volatile int32_t test_value = 1000;
 
   // Benchmark EMA operations
-  double ema_time = benchmark_operation([&]()
+  double ema_time{ benchmark_operation([&]()
+                                       {
+                                         ema.addValue(test_value);
+                                         dummy_result = ema.getAverageS();
+                                       }) };
+
+  double dema_time{ benchmark_operation([&]()
                                         {
                                           ema.addValue(test_value);
-                                          dummy_result = ema.getAverageS();
-                                        });
+                                          dummy_result = ema.getAverageD();
+                                        }) };
 
-  double dema_time = benchmark_operation([&]()
-                                         {
-                                           ema.addValue(test_value);
-                                           dummy_result = ema.getAverageD();
-                                         });
-
-  double tema_time = benchmark_operation([&]()
-                                         {
-                                           ema.addValue(test_value);
-                                           dummy_result = ema.getAverageT();
-                                         });
-
-  double sma_time = benchmark_operation([&]()
+  double tema_time{ benchmark_operation([&]()
                                         {
-                                          sma.addValue(test_value);
-                                          dummy_result = sma.getAverage();
-                                        });
+                                          ema.addValue(test_value);
+                                          dummy_result = ema.getAverageT();
+                                        }) };
+
+  double sma_time{ benchmark_operation([&]()
+                                       {
+                                         sma.addValue(test_value);
+                                         dummy_result = sma.getAverage();
+                                       }) };
 
   printf("EMA (Single):        %8.2f ns/op\n", ema_time);
   printf("DEMA (Double):       %8.2f ns/op\n", dema_time);
@@ -203,37 +203,37 @@ void test_cloud_immunity_simulation()
   printf("Processing %zu power measurements...\n", cloud_data.size());
   printf("Time,Input,EMA_Fast,DEMA_Med,TEMA_Med,EMA_Slow\n");
 
-  int relay_changes_ema_fast = 0;
-  int relay_changes_dema_med = 0;
-  int relay_changes_tema_med = 0;
-  int relay_changes_ema_slow = 0;
+  int relay_changes_ema_fast{ 0 };
+  int relay_changes_dema_med{ 0 };
+  int relay_changes_tema_med{ 0 };
+  int relay_changes_ema_slow{ 0 };
 
-  bool prev_relay_ema_fast = false;
-  bool prev_relay_dema_med = false;
-  bool prev_relay_tema_med = false;
-  bool prev_relay_ema_slow = false;
+  bool prev_relay_ema_fast{ false };
+  bool prev_relay_dema_med{ false };
+  bool prev_relay_tema_med{ false };
+  bool prev_relay_ema_slow{ false };
 
   const int32_t RELAY_THRESHOLD = 500;  // 500W threshold for relay
 
   for (size_t i = 0; i < cloud_data.size(); i++)
   {
-    int32_t input = cloud_data[i];
+    int32_t input{ cloud_data[i] };
 
     // Feed to all filters
     ema_fast.addValue(input);
     ema_med.addValue(input);
     ema_slow.addValue(input);
 
-    int32_t ema_fast_val = ema_fast.getAverageS();
-    int32_t dema_med_val = ema_med.getAverageD();
-    int32_t tema_med_val = ema_med.getAverageT();
-    int32_t ema_slow_val = ema_slow.getAverageS();
+    int32_t ema_fast_val{ ema_fast.getAverageS() };
+    int32_t dema_med_val{ ema_med.getAverageD() };
+    int32_t tema_med_val{ ema_med.getAverageT() };
+    int32_t ema_slow_val{ ema_slow.getAverageS() };
 
     // Count relay state changes
-    bool relay_ema_fast = ema_fast_val > RELAY_THRESHOLD;
-    bool relay_dema_med = dema_med_val > RELAY_THRESHOLD;
-    bool relay_tema_med = tema_med_val > RELAY_THRESHOLD;
-    bool relay_ema_slow = ema_slow_val > RELAY_THRESHOLD;
+    bool relay_ema_fast{ ema_fast_val > RELAY_THRESHOLD };
+    bool relay_dema_med{ dema_med_val > RELAY_THRESHOLD };
+    bool relay_tema_med{ tema_med_val > RELAY_THRESHOLD };
+    bool relay_ema_slow{ ema_slow_val > RELAY_THRESHOLD };
 
     if (relay_ema_fast != prev_relay_ema_fast) relay_changes_ema_fast++;
     if (relay_dema_med != prev_relay_dema_med) relay_changes_dema_med++;
@@ -281,7 +281,7 @@ void test_responsiveness_comparison()
 
   for (size_t i = 0; i < step_data.size(); i++)
   {
-    int32_t input = step_data[i];
+    int32_t input{ step_data[i] };
 
     ema.addValue(input);
     dema.addValue(input);

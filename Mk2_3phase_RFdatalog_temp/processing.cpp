@@ -3,9 +3,9 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2021-10-04
+ * @date 2025-11-28
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2021-2025
  *
  */
 
@@ -17,6 +17,11 @@
 #include "processing.h"
 #include "utils_pins.h"
 #include "shared_var.h"
+
+// analogue input pins
+inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
+inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
+// ------------------------------------------
 
 // Define operating limits for the LP filters which identify DC offset in the voltage
 // sample streams. By limiting the output range, these filters always should start up
@@ -135,12 +140,28 @@ constexpr uint16_t getOutputPins()
 {
   uint16_t output_pins{ 0 };
 
+  // Local load pins
   for (const auto &loadPin : physicalLoadPin)
   {
     if (bit_read(output_pins, loadPin))
       return 0;
 
     bit_set(output_pins, loadPin);
+  }
+
+  // Remote load status LED pins (optional)
+  if constexpr (NO_OF_REMOTE_LOADS > 0)
+  {
+    for (const auto &ledPin : remoteLoadStatusLED)
+    {
+      if (ledPin != unused_pin)
+      {
+        if (bit_read(output_pins, ledPin))
+          return 0;
+
+        bit_set(output_pins, ledPin);
+      }
+    }
   }
 
   if constexpr (WATCHDOG_PIN_PRESENT)
@@ -254,6 +275,32 @@ void initializeProcessing()
     loadPrioritiesAndState[i] &= loadStateMask;
   } while (i);
 
+  if constexpr (RF_CHIP_PRESENT)
+  {
+    // Initialize shared RF module
+    if (initialize_rf())
+    {
+      DBUGLN(F("RF module initialized"));
+    }
+    else
+    {
+      DBUGLN(F("RF module initialization FAILED"));
+    }
+  }
+
+  if constexpr (REMOTE_LOADS_PRESENT)
+  {
+    // Initialize remote load support
+    if (initializeRemoteLoads())
+    {
+      DBUGLN(F("Remote loads initialized"));
+    }
+    else
+    {
+      DBUGLN(F("Remote loads initialization FAILED"));
+    }
+  }
+
   // First stop the ADC
   bit_clear(ADCSRA, ADEN);
 
@@ -300,24 +347,48 @@ void updatePortsStates()
   uint16_t pinsON{ 0 };
   uint16_t pinsOFF{ 0 };
 
-  uint8_t i{ NO_OF_DUMPLOADS };
+  // Update LOCAL loads only (remote loads are handled via RF in remote_loads.h)
+  constexpr uint8_t numLocalLoads = NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS;
+  uint8_t i{ numLocalLoads };
 
   do
   {
     --i;
-    // update the local load's state.
+    // update the local load's state
     if (LoadStates::LOAD_OFF == physicalLoadState[i])
     {
-      // setPinOFF(physicalLoadPin[i]);
       pinsOFF |= bit(physicalLoadPin[i]);
     }
     else
     {
       ++countLoadON[i];
-      // setPinON(physicalLoadPin[i]);
       pinsON |= bit(physicalLoadPin[i]);
     }
   } while (i);
+
+  // Update optional status LEDs for remote loads
+  if constexpr (NO_OF_REMOTE_LOADS > 0)
+  {
+    uint8_t remoteIdx{ NO_OF_REMOTE_LOADS };
+    do
+    {
+      --remoteIdx;
+      const uint8_t loadIdx = numLocalLoads + remoteIdx;
+      const uint8_t ledPin = remoteLoadStatusLED[remoteIdx];
+
+      if (ledPin != unused_pin)
+      {
+        if (LoadStates::LOAD_OFF == physicalLoadState[loadIdx])
+        {
+          pinsOFF |= bit(ledPin);
+        }
+        else
+        {
+          pinsON |= bit(ledPin);
+        }
+      }
+    } while (remoteIdx);
+  }
 
   // Apply override bitmask directly to pinsON
   pinsON |= Shared::overrideBitmask;
@@ -383,6 +454,19 @@ void updatePhysicalLoadStates()
     const bool bOverrideActive = Shared::overrideBitmask & (1U << physicalLoadPin[iLoad]);
     physicalLoadState[iLoad] = bDiversionEnabled && (bOverrideActive || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   } while (idx);
+
+  if constexpr (REMOTE_LOADS_PRESENT)
+  {
+    // Map physical load states to remote load states
+    // Remote loads are the last NO_OF_REMOTE_LOADS entries in physicalLoadState
+    uint8_t i{ NO_OF_REMOTE_LOADS };
+    do
+    {
+      --i;
+      remoteLoadState[i] = physicalLoadState[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS + i];
+    } while (i);
+    // Note: updateRemoteLoads() is called after updatePortsStates() in processStartNewCycle()
+  }
 }
 
 /**
@@ -433,7 +517,7 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   static int32_t lpf_long[NO_OF_PHASES]{};  // new LPF, for offsetting the behaviour of CTx as a HPF
 
   // remove most of the DC offset from the current sample (the precise value does not matter)
-  int32_t sampleIminusDC = (static_cast< int32_t >(rawSample - i_DCoffset_I_nom)) << 8;
+  int32_t sampleIminusDC{ (static_cast< int32_t >(rawSample - i_DCoffset_I_nom)) << 8 };
 
   // extra filtering to offset the HPF effect of CTx
   const int32_t last_lpf_long{ lpf_long[phase] };
@@ -441,10 +525,10 @@ void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
   sampleIminusDC += (lpf_gain * lpf_long[phase]);
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
-  const int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
-  const int32_t filtI_div4 = sampleIminusDC >> 2;           // reduce to 16-bits (now x64, or 2^6)
-  int32_t instP = filtV_div4 * filtI_div4;                  // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                                             // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+  const int32_t filtV_div4{ l_sampleVminusDC[phase] >> 2 };  // reduce to 16-bits (now x64, or 2^6)
+  const int32_t filtI_div4{ sampleIminusDC >> 2 };           // reduce to 16-bits (now x64, or 2^6)
+  int32_t instP{ filtV_div4 * filtI_div4 };                  // 32-bits (now x4096, or 2^12)
+  instP >>= 12;                                              // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
   l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
   l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
@@ -704,6 +788,12 @@ void processStartNewCycle()
   updatePhysicalLoadStates();  // allows the logical-to-physical mapping to be changed
 
   updatePortsStates();  // update the control ports for each of the physical loads
+
+  if constexpr (REMOTE_LOADS_PRESENT)
+  {
+    // Update remote loads AFTER local physical ports are updated
+    updateRemoteLoads();
+  }
 
   if (loadPrioritiesAndState[0] & loadStateOnBit)
   {

@@ -82,7 +82,7 @@ uint16_t getDualTariffForcingBitmask(const int16_t currentTemperature_x100)
   // We're in off-peak period - check forcing time windows
   const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
 
-  uint16_t forcingBitmask = 0;
+  uint16_t forcingBitmask{ 0 };
   uint8_t i{ NO_OF_DUMPLOADS };
   do
   {
@@ -124,7 +124,7 @@ uint16_t getDualTariffForcingBitmask(const int16_t currentTemperature_x100)
  */
 uint16_t getOverrideBitmask(const int16_t currentTemperature_x100)
 {
-  uint16_t overrideBitmask = 0;
+  uint16_t overrideBitmask{ 0 };
 
   // Add external override pins
   if constexpr (OVERRIDE_PIN_PRESENT)
@@ -440,6 +440,12 @@ void processTemperatureData()
  * - Manages load priorities and overriding based on the current temperature.
  * - Updates relay durations and proceeds with relay state transitions if relay diversion is enabled.
  *
+ * @note Override pins are checked at 1 Hz (once per second) for debouncing and to minimize
+ *       ISR communication overhead. This means override pin changes have a latency of 0-1 second
+ *       before taking effect. This is acceptable since override pins are typically used for
+ *       manual control or scheduled operations (e.g., dual tariff forcing) rather than
+ *       time-critical automatic control.
+ *
  * @param bOffPeak Reference to the off-peak state flag.
  * @param iTemperature_x100 Current temperature multiplied by 100 (default to 0 if temperature sensing is disabled).
  *
@@ -455,7 +461,8 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
   checkDiversionOnOff();
 
   // Get complete override bitmask atomically (external pins + dual tariff forcing)
-  uint16_t privateOverrideBitmask = getOverrideBitmask(iTemperature_x100);
+  // This is checked once per second for debouncing and to avoid excessive ISR updates
+  uint16_t privateOverrideBitmask{ getOverrideBitmask(iTemperature_x100) };
 
   if constexpr (RELAY_DIVERSION)
   {
@@ -494,6 +501,11 @@ void loop()
   static uint8_t perSecondTimer{ 0 };
   static bool bOffPeak{ false };
   static int16_t iTemperature_x100{ 0 };
+
+#ifdef ENABLE_REMOTE_LOADS
+  // Process any pending RF transmissions (called outside ISR to avoid blocking)
+  processRemoteLoadTransmissions();
+#endif
 
   if (Shared::b_newMainsCycle)  // flag is set after every pair of ADC conversions
   {

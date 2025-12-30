@@ -14,6 +14,10 @@ This program is designed to be used with the Arduino IDE and/or other developmen
   - [TRIAC output configuration](#triac-output-configuration)
   - [On/off relay output configuration](#onoff-relay-output-configuration)
     - [Operating principle](#operating-principle)
+  - [RF module and remote loads configuration](#rf-module-and-remote-loads-configuration)
+    - [Required hardware](#required-hardware)
+    - [Software configuration](#software-configuration)
+    - [Remote receiver configuration](#remote-receiver-configuration)
   - [Watchdog configuration](#watchdog-configuration)
   - [Temperature sensor(s) configuration](#temperature-sensors-configuration)
     - [Feature activation](#feature-activation)
@@ -22,7 +26,7 @@ This program is designed to be used with the Arduino IDE and/or other developmen
     - [Sensor configuration (common to both cases above)](#sensor-configuration-common-to-both-cases-above)
   - [Off-peak hours management configuration (dual tariff)](#off-peak-hours-management-configuration-dual-tariff)
     - [Hardware configuration](#hardware-configuration)
-    - [Software configuration](#software-configuration)
+    - [Software configuration](#software-configuration-1)
   - [Priority rotation](#priority-rotation)
   - [Forced operation configuration (New Flexible System)](#forced-operation-configuration-new-flexible-system)
     - [Feature activation](#feature-activation-1)
@@ -66,6 +70,31 @@ For **MacOSX**, this file is located in '/Users/[user]/Library/Arduino15/package
 Open the file in any text editor (you'll need administrator rights) and replace the parameter '**-std=gnu++11**' with '**-std=gnu++17**'. That's it!
 
 If your Arduino IDE was open, please close all instances and reopen it.
+
+## Required libraries for Arduino IDE
+
+This project requires the installation of the following libraries via the Arduino IDE's **Library Manager** (menu **Tools** → **Manage Libraries…**) :
+
+### Required libraries
+- **OneWire** by Jim Studt et al. (version 2.3.7 or higher)
+  - Used for DS18B20 temperature sensors
+  - Installed even if no sensor is used (unused code will be eliminated by the linker)
+
+- **RFM69** by Felix Rusu, LowPowerLab (version 1.5.3 or higher)
+  - Used for RF communication (telemetry and remote loads)
+  - Installed even if RF module is not present (unused code will be eliminated by the linker)
+
+- **ArduinoJson** by Benoit Blanchon (version **6.x only**, NOT 7.x)
+  - Used for serial output in JSON format (in `utils.h`)
+  - Version 7.x is too large for an ATmega328P
+
+- **SPI** (included with Arduino IDE)
+  - Used for communication with the RFM69 module
+
+### Important note
+All libraries are always included in the source code. However, only the code actually used by your configuration will be present in the final firmware. This simplifies code maintenance while preserving firmware size.
+
+**With PlatformIO**: All dependencies are managed automatically via the `platformio.ini` file. No manual installation is required.
 ___
 > [!WARNING]
 > When using the **ArduinoJson** library, you must install a version **6.x**.
@@ -160,11 +189,23 @@ The first step is to define the number of TRIAC outputs:
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
 ```
 
-Then, you need to assign the corresponding *pins* as well as the priority order at startup.
+Then, you need to assign the corresponding *pins* **for local loads only** as well as the priority order at startup.
 ```cpp
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };
+// Pins for LOCAL loads only (remote loads are controlled via RF)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// Optional: Status LEDs for remote loads
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ unused_pin, unused_pin };
+
+// Priority order at startup (0 = highest priority, applies to ALL loads)
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ```
+
+**Important:** 
+- `physicalLoadPin` contains only the pins for **local** loads (TRIACs directly connected)
+- **Remote** loads have no physical pin on the main controller (they are controlled via RF)
+- `remoteLoadStatusLED` optionally allows adding status LEDs to visualize the state of remote loads
+- `loadPrioritiesAtStartup` defines the priority order for **all** loads (local + remote). Priorities 0 to (number of local loads - 1) control local loads, subsequent priorities control remote loads.
 
 ## On/off relay output configuration
 On/off relay outputs allow powering devices that contain electronics (heat pump ...).
@@ -224,6 +265,124 @@ For each relay, the transition or state change is managed as follows:
 - if the relay is *ON* and the current average power is above the import threshold, the relay tries to switch to *OFF* state. This transition is subject to the condition that the relay has been *ON* for at least the *minON* duration.
 
 > [!NOTE]
+> **Battery installations:** For optimal relay configuration with battery systems, consult the **[Battery Configuration Guide](docs/BATTERY_CONFIGURATION_GUIDE.en.md)** [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](docs/BATTERY_CONFIGURATION_GUIDE.md)
+
+## RF module and remote loads configuration
+
+The router can control remote loads via an RFM69 RF module. This feature allows controlling resistors or relays located in another location, without additional wiring.
+
+### Required hardware
+
+**For transmitter (main router):**
+- RFM69W/CW or RFM69HW/HCW module (868 MHz for Europe, 915 MHz for North America)
+- Appropriate antenna for chosen frequency
+- Standard SPI connection (D10=CS, D2=IRQ)
+
+**For remote receiver:**
+- Arduino UNO or compatible
+- RFM69 module (same model as transmitter)
+- TRIAC or SSR to control loads
+- Optional status LEDs (D5=green watchdog, D7=red RF loss)
+
+### Software configuration
+
+**Activating RF features:**
+
+The RF module can be used for two independent features:
+
+1. **RF Telemetry** (`RF_LOGGING_PRESENT`): Sends power/voltage data to a gateway
+2. **Remote Loads** (`REMOTE_LOADS_PRESENT`): Load control via RF
+
+To enable the RF module with remote load control, configure in **config.h**:
+
+```cpp
+inline constexpr bool RF_LOGGING_PRESENT{ false };       // RF telemetry (optional)
+inline constexpr bool REMOTE_LOADS_PRESENT{ true };      // Remote loads (if NO_OF_REMOTE_LOADS > 0, will be automatically true)
+```
+
+**Load configuration:**
+
+Define total number of loads (local + remote):
+
+```cpp
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total: 3 loads
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Including 2 remote loads
+                                                       // Local loads: 3 - 2 = 1
+
+// Pin for the local load (TRIAC)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// Optional LEDs to indicate remote load status
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ 8, 9 };  // D8 and D9
+```
+
+**Priorities:**
+
+Remote loads **always** have lower priority than local loads. In the example above:
+- Local load #0 (physicalLoadPin[0]): highest priority
+- Remote load #0: medium priority
+- Remote load #1: lowest priority
+
+**RF configuration (in config_rf.h):**
+
+Default parameters are:
+- Frequency: 868 MHz (Europe)
+- Network ID: 210
+- Router ID: 10
+- Remote unit ID: 15
+
+To modify these parameters, edit **config_rf.h**:
+
+```cpp
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // Router (this device) ID
+inline constexpr uint8_t GATEWAY_ID{ 1 };       // Gateway ID (telemetry)
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // Remote unit ID
+inline constexpr uint8_t NETWORK_ID{ 210 };     // Network ID (1-255)
+```
+
+### Remote receiver configuration
+
+The **RemoteLoadReceiver** sketch is provided in the `RemoteLoadReceiver/` folder.
+
+**Minimum configuration (in receiver's config_rf.h):**
+
+```cpp
+// RF Configuration - must match router
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // Router ID
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // This remote unit's ID
+inline constexpr uint8_t NETWORK_ID{ 210 };     // Network ID
+
+// Load configuration
+inline constexpr uint8_t NO_OF_LOADS{ 2 };                    // Number of loads on this receiver
+inline constexpr uint8_t loadPins[NO_OF_LOADS]{ 4, 3 };       // TRIAC/SSR output pins
+
+// Status LEDs (optional)
+inline constexpr uint8_t GREEN_LED_PIN{ 5 };        // Green LED: 1 Hz watchdog
+inline constexpr uint8_t RED_LED_PIN{ 7 };          // Red LED: RF link lost (fast blink)
+inline constexpr bool STATUS_LEDS_PRESENT{ true };  // Enable LEDs
+```
+
+**Safety:**
+
+The receiver automatically turns OFF **all loads** if no message is received for more than 500 ms. This ensures safety in case of RF link loss.
+
+**Link testing:**
+
+Once configured and uploaded, both Arduinos communicate automatically:
+- Transmitter sends load states every ~100 ms (5 mains cycles at 50 Hz)
+- Receiver displays received commands on serial port
+- Green LED blinks at 1 Hz (system alive)
+- Red LED blinks rapidly if RF link is lost
+
+**Diagnostics:**
+
+On the receiver's serial monitor, you should see:
+```
+Received: 0b01 (RSSI: -45) - Loads: 0:ON 1:OFF
+```
+
+An RSSI between -30 and -70 indicates good signal quality. Beyond -80, the link becomes unstable.
+
 ## Watchdog configuration
 A watchdog is an electronic circuit or software used in digital electronics to ensure that an automaton or computer does not remain stuck at a particular stage of the processing it performs.
 

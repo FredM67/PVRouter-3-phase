@@ -14,9 +14,18 @@
  *
  * @section history History
  *
+ * __October 2025: changes:__
+ * - remote load support via RFM69 RF module for wireless control of heating elements
+ * - centralized RF configuration in config_rf.h with shared radio instance
+ * - replaced all RF preprocessor directives with if constexpr for better type safety
+ * - removed preprocessor conditionals for library includes (relies on dead code elimination)
+ * - improved remote load architecture with separate receiver implementation
+ * - instant power telemetry support for real-time monitoring
+ *
  * __September 2025: changes:__
  * - major refactoring of override system with flexible OverridePins template
  * - improved dual tariff integration with automatic load forcing
+ * - relay configuration enhancements with battery system support (negative thresholds)
  * - comprehensive documentation updates for new override architecture
  *
  * __May 2025: changes:__
