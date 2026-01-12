@@ -18,14 +18,22 @@ This program is designed to be used with the Arduino IDE and/or other developmen
   - [Temperature sensor(s) configuration](#temperature-sensors-configuration)
     - [Feature activation](#feature-activation)
     - [Sensor configuration (common to both cases above)](#sensor-configuration-common-to-both-cases-above)
-  - [Off-peak hours management configuration (dual tariff)](#off-peak-hours-management-configuration-dual-tariff)
+  - [Off-peak hours management and scheduled boost (dual tariff)](#off-peak-hours-management-and-scheduled-boost-dual-tariff)
     - [Hardware configuration](#hardware-configuration)
     - [Software configuration](#software-configuration)
+    - [Scheduled boost configuration (rg\_ForceLoad)](#scheduled-boost-configuration-rg_forceload)
+    - [Visual examples](#visual-examples)
+    - [Multiple loads configuration](#multiple-loads-configuration)
+    - [Quick reference](#quick-reference)
   - [Priority rotation](#priority-rotation)
-  - [Boost configuration (New Flexible System)](#boost-configuration-new-flexible-system)
-    - [Feature activation](#feature-activation-1)
-    - [OverridePins definition](#overridepins-definition)
-    - [Usage](#usage)
+  - [Manual boost (pin-triggered)](#manual-boost-pin-triggered)
+    - [How it works](#how-it-works)
+    - [When to use manual boost](#when-to-use-manual-boost)
+    - [Configuration](#configuration)
+    - [Targeting loads and relays](#targeting-loads-and-relays)
+    - [Configuration examples](#configuration-examples)
+    - [Wiring](#wiring)
+    - [Practical examples](#practical-examples)
   - [Routing stop](#routing-stop)
 - [Advanced program configuration](#advanced-program-configuration)
   - [`DIVERSION_START_THRESHOLD_WATTS` parameter](#diversion_start_threshold_watts-parameter)
@@ -283,64 +291,168 @@ ___
 > On the Internet you'll find all the details regarding the topology usable with this type of sensors.
 ___
 
-## Off-peak hours management configuration (dual tariff)
-It's possible to entrust off-peak hours management to the router.
-This allows, for example, limiting heating in forced mode to avoid overheating the water with the intention of using the surplus the next morning.
-This limit can be in duration or temperature (requires using a Dallas DS18B20 temperature sensor).
+## Off-peak hours management and scheduled boost (dual tariff)
+
+This feature allows the router to automatically manage heating during off-peak electricity periods. It's useful for:
+- Heating water at night when electricity is cheaper
+- Ensuring hot water is available in the morning if solar surplus was insufficient during the day
+- Limiting heating duration to avoid overheating (optionally using a temperature sensor)
 
 ### Hardware configuration
+
 Disconnect the Day/Night contactor control, which is no longer necessary.
 Connect directly a chosen *pin* to the dry contact of the meter (*C1* and *C2* terminals).
-___
+
 > [!WARNING]
 > You must connect **directly**, a *pin/ground* pair with the *C1/C2* terminals of the meter.
 > There must NOT be 230 V on this circuit!
-___
 
 ### Software configuration
-Activate the feature as follows:
+
+**Step 1:** Activate the feature:
 ```cpp
 inline constexpr bool DUAL_TARIFF{ true };
 ```
-Configure the *pin* to which the meter is connected:
+
+**Step 2:** Configure the *pin* connected to the meter:
 ```cpp
 inline constexpr uint8_t dualTariffPin{ 3 };
 ```
 
-Configure the duration in *hours* of the off-peak period (for now, only one period is supported per day):
+**Step 3:** Set the off-peak period duration in hours (currently, only one period per day is supported):
 ```cpp
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };
 ```
 
-Finally, define the operating modes during the off-peak period:
+**Step 4:** Configure the scheduled boost timing for each load.
+
+### Scheduled boost configuration (rg_ForceLoad)
+
+The `rg_ForceLoad` array defines **when** and **how long** each load should be boosted during the off-peak period.
+
 ```cpp
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } };
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { START_TIME, DURATION } };
 ```
-It's possible to define a configuration for each load independently of the others.
-The first parameter of *rg_ForceLoad* determines the startup delay relative to the beginning or end of off-peak hours:
-- if the number is positive and less than 24, it's the number of hours,
-- if the number is negative greater than −24, it's the number of hours relative to the end of off-peak hours
-- if the number is positive and greater than 24, it's the number of minutes,
-- if the number is negative less than −24, it's the number of minutes relative to the end of off-peak hours
 
-The second parameter determines the boost duration:
-- if the number is less than 24, it's the number of hours,
-- if the number is greater than 24, it's the number of minutes.
+Each load has two parameters: `{ START_TIME, DURATION }`
 
-Examples for better understanding (with off-peak start at 23:00, until 7:00, i.e., 8 h duration):
-- ```{ -3, 2 }``` : startup **3 hours BEFORE** period end (at 4 AM), for a duration of 2 h.
-- ```{ 3, 2 }``` : startup **3 hours AFTER** period start (at 2 AM), for a duration of 2 h.
-- ```{ -150, 2 }``` : startup **150 minutes BEFORE** period end (at 4:30), for a duration of 2 h.
-- ```{ 3, 180 }``` : startup **3 hours AFTER** period start (at 2 AM), for a duration of 180 min.
+#### Understanding the timeline
 
-For *infinite* duration (so until the end of the off-peak period), use ```UINT16_MAX``` as second parameter:
-- ```{ -3, UINT16_MAX }``` : startup **3 hours BEFORE** period end (at 4 AM) with boost until the end of off-peak period.
+```
+Off-peak period example: 23:00 to 07:00 (8 hours)
 
-If your system consists of 2 outputs (```NO_OF_DUMPLOADS``` will then have a value of 2), and you want boost only on the 2nd output, write:
+        23:00                                           07:00
+          |================== OFF-PEAK ==================|
+          |                                              |
+     START ──────────────────────────────────────────► END
+          │                                              │
+          │  Positive values                             │
+          │  count from here ───►                        │
+          │                                              │
+          │                        ◄─── Negative values  │
+          │                             count from here  │
+```
+
+#### Parameter 1: START_TIME (when to start)
+
+| Value | Meaning | Example (off-peak 23:00-07:00) |
+|-------|---------|-------------------------------|
+| `0` | **Disabled** - no boost for this load | - |
+| `1` to `23` | Hours **after** off-peak START | `3` = start at 02:00 (23:00 + 3h) |
+| `-1` to `-23` | Hours **before** off-peak END | `-3` = start at 04:00 (07:00 - 3h) |
+| `24` or more | Minutes **after** off-peak START | `90` = start at 00:30 (23:00 + 90min) |
+| `-24` or less | Minutes **before** off-peak END | `-90` = start at 05:30 (07:00 - 90min) |
+
+> [!NOTE]
+> **Why 24?** The value 24 is used as a threshold to distinguish between hours and minutes.
+> Values from 1-23 are interpreted as hours, values 24+ are interpreted as minutes.
+
+#### Parameter 2: DURATION (how long to boost)
+
+| Value | Meaning |
+|-------|---------|
+| `0` | **Disabled** - no boost |
+| `1` to `23` | Duration in **hours** |
+| `24` or more | Duration in **minutes** |
+| `UINT16_MAX` | Until the **end** of off-peak period |
+
+> [!IMPORTANT]
+> **Boost always stops when the off-peak period ends**, regardless of the configured duration.
+> If you set a duration that would extend past the end of off-peak, the boost will be cut short.
+
+### Visual examples
+
+All examples assume off-peak period from **23:00 to 07:00** (8 hours):
+
+**Example 1:** `{ -3, 2 }` - Start 3 hours before end, run for 2 hours
+```
+23:00                              04:00    06:00    07:00
+  |====================================|======|========|
+                                       |BOOST |
+                                       └──2h──┘
+```
+Result: Boost runs from **04:00 to 06:00**
+
+**Example 2:** `{ 2, 3 }` - Start 2 hours after start, run for 3 hours
+```
+23:00    01:00          04:00                        07:00
+  |========|=============|==============================|
+           |────BOOST────|
+           └─────3h──────┘
+```
+Result: Boost runs from **01:00 to 04:00**
+
+**Example 3:** `{ -90, 120 }` - Start 90 minutes before end, duration of 120 minutes (but limited)
+```
+23:00                              05:30    07:00
+  |====================================|======|
+                                       |BOOST | ← stops here (off-peak ends)
+                                       └─90min─┘
+```
+Result: Boost runs from **05:30 to 07:00** (stops at end of off-peak, not 07:30)
+
+> [!NOTE]
+> **Boost always stops at the end of the off-peak period**, even if the configured duration is longer.
+> In this example, only 90 minutes of boost occur instead of the configured 120 minutes.
+
+**Example 4:** `{ 1, UINT16_MAX }` - Start 1 hour after start, run until end
+```
+23:00    00:00                                       07:00
+  |========|=========================================|
+           |──────────────BOOST──────────────────────|
+```
+Result: Boost runs from **00:00 to 07:00**
+
+### Multiple loads configuration
+
+Each load can have its own boost schedule. Use `{ 0, 0 }` to disable boost for a specific load.
+
+**Example:** 2 loads, boost only the second one:
 ```cpp
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
-                                                              { -3, 2 } };
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{
+    { 0, 0 },      // Load #1: no scheduled boost
+    { -3, 2 }      // Load #2: boost 3h before end, for 2h
+};
 ```
+
+**Example:** 3 loads with different schedules:
+```cpp
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{
+    { -4, 2 },         // Load #1: 04:00-06:00 (last resort, if water still cold)
+    { -2, UINT16_MAX }, // Load #2: 05:00-07:00 (top-up before morning)
+    { 0, 0 }           // Load #3: no scheduled boost
+};
+```
+
+### Quick reference
+
+| Want to... | Use this |
+|------------|----------|
+| Disable boost | `{ 0, 0 }` |
+| Start 2h after off-peak begins, run 3h | `{ 2, 3 }` |
+| Start 3h before off-peak ends, run 2h | `{ -3, 2 }` |
+| Start 90min after off-peak begins, run 2h | `{ 90, 2 }` |
+| Start 90min before off-peak ends, run until end | `{ -90, UINT16_MAX }` |
 
 ## Priority rotation
 Priority rotation is useful when powering a three-phase water heater.
@@ -363,61 +475,127 @@ In **manual** mode, you must also define the *pin* that will trigger rotation:
 inline constexpr uint8_t rotationPin{ 10 };
 ```
 
-## Boost configuration (New Flexible System)
+## Manual boost (pin-triggered)
 
-Boost can now be triggered via one or more *pins*, with flexible association between each pin and the loads (dump loads) or relays to activate. This feature allows:
+Unlike [scheduled boost](#scheduled-boost-configuration-rg_forceload) which runs automatically during off-peak hours, **manual boost** lets you trigger heating on-demand using physical switches, buttons, timers, or home automation systems.
 
-- Activating boost from multiple locations or devices
-- Precisely targeting one or more loads or relays for each pin
-- Grouping multiple loads/relays under the same command
+### How it works
 
-### Feature activation
+```
+┌─────────────────┐
+│  Physical pin   │──── When contact closes ───► Loads/relays turn ON at full power
+│  (dry contact)  │──── When contact opens  ───► Normal router operation resumes
+└─────────────────┘
+```
 
-Activate the feature in your configuration:
+### When to use manual boost
+
+- **Bathroom button**: Quickly heat water before a shower
+- **External timer**: Boost all loads for 30 minutes at a specific time
+- **Home automation**: Trigger boost via Alexa, Home Assistant, or similar
+- **Emergency heating**: Override normal operation when more hot water is needed
+
+### Configuration
+
+**Step 1:** Enable the feature:
 ```cpp
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };
 ```
 
-### OverridePins definition
-
-The `OverridePins` structure allows associating each pin with one or more loads or relays, or with predefined groups (e.g., "all loads", "all relays", or "entire system").
-
-Each entry in the array corresponds to a pin, followed by a list or special function that activates one or more groups of loads or relays during boost.
-
-**Simple configuration:**
+**Step 2:** Define which pin(s) control which load(s):
 ```cpp
-// Pin 3 activates load #0 and relay #0
-// Pin 4 activates all loads
-inline constexpr OverridePins overridePins{ { { 3, { LOAD(0), RELAY(0) } },
-                                              { 4, ALL_LOADS() } } };
+inline constexpr OverridePins overridePins{ { { PIN, TARGETS } } };
 ```
 
-**Advanced configuration:**
+### Targeting loads and relays
+
+There are **two ways** to specify which loads/relays to activate:
+
+#### Method 1: By index using macros (recommended)
+
+| Macro | Description |
+|-------|-------------|
+| `LOAD(n)` | Load by index (0 = first load, 1 = second, etc.) |
+| `RELAY(n)` | Relay by index (0 = first relay, 1 = second, etc.) |
+| `ALL_LOADS()` | All configured loads |
+| `ALL_RELAYS()` | All configured relays |
+| `ALL_LOADS_AND_RELAYS()` | Everything |
+
+#### Method 2: By physical pin number
+
+You can also use the **physical pin number** directly. This activates whatever load or relay is connected to that pin.
+
 ```cpp
-// Flexible configuration with custom groups
-inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },     // Pin 3: load #1 + relay #1
-                                              { 4, ALL_LOADS() },              // Pin 4: all loads
-                                              { 11, { 1, LOAD(1), LOAD(2) } },  // Pin 11: specific loads
-                                              { 12, ALL_LOADS_AND_RELAYS() } } }; // Pin 12: entire system
+{ 3, { 5 } }    // Pin D3 triggers: activates load/relay on pin 5
+{ 3, { 5, 7 } } // Pin D3 triggers: activates loads/relays on pins 5 and 7
 ```
 
-**Available macros:**
-- `LOAD(n)` : references load number (resistor controlled, 0 → load #1)
-- `RELAY(n)` : references relay number (on/off relay output, 0 → relay #1)
-- `ALL_LOADS()` : all loads
-- `ALL_RELAYS()` : all relays
-- `ALL_LOADS_AND_RELAYS()` : entire system (loads and relays)
+#### Mixing both methods
 
-### Usage
+You can combine both methods in the same configuration:
 
-- Connect each configured pin to a dry contact (switch, timer, automaton, etc.)
-- When a contact is closed, all loads/relays associated with that pin enter boost mode
-- As soon as all contacts are open, boost is deactivated
+```cpp
+{ 3, { 5, LOAD(1) } }  // Pin D3: activates pin 5 AND load #1
+```
 
-**Usage examples:**
-- A button in the bathroom to force only the water heater
-- A timer on another pin to force all relays for 30 minutes
-- A home automation system that activates multiple loads according to demand
+### Configuration examples
+
+**Simple:** One button controls everything
+```cpp
+inline constexpr OverridePins overridePins{ {
+    { 11, ALL_LOADS_AND_RELAYS() }    // Pin D11: boost entire system
+} };
+```
+
+**Using macros:** Target by load/relay index
+```cpp
+inline constexpr OverridePins overridePins{ {
+    { 3, { LOAD(0) } },               // Pin D3: boost load #0 (first load)
+    { 4, { RELAY(0), RELAY(1) } }     // Pin D4: boost relays #0 and #1
+} };
+```
+
+**Using pin numbers:** Target by physical pin
+```cpp
+inline constexpr OverridePins overridePins{ {
+    { 3, { 5 } },                     // Pin D3: boost whatever is on pin 5
+    { 4, { 5, 7 } }                   // Pin D4: boost pins 5 and 7
+} };
+```
+
+**Mixed approach:** Combining both methods
+```cpp
+inline constexpr OverridePins overridePins{ {
+    { 3, { 5, LOAD(1) } },            // Pin D3: pin 5 + load #1
+    { 4, ALL_LOADS() },               // Pin D4: all loads
+    { 11, { LOAD(1), LOAD(2) } },     // Pin D11: loads #1 and #2
+    { 12, ALL_LOADS_AND_RELAYS() }    // Pin D12: entire system
+} };
+```
+
+### Wiring
+
+Connect each configured pin to a **dry contact** (voltage-free switch):
+
+```
+Arduino pin ────┬──── Switch/Button ────┬──── GND
+                │                       │
+           (internal pullup)       (closes circuit)
+```
+
+- **Contact closed** = boost active (loads at full power)
+- **Contact open** = normal router operation
+
+> [!NOTE]
+> Pins are configured with internal pull-up resistors. No external resistors needed.
+
+### Practical examples
+
+| Setup | Configuration | Result |
+|-------|---------------|--------|
+| Bathroom boost button | `{ 3, { LOAD(0) } }` | Press button → water heater runs at 100% |
+| 30-min timer | `{ 4, ALL_LOADS() }` | Timer closes contact → all loads boost for timer duration |
+| Smart home integration | `{ 11, ALL_LOADS_AND_RELAYS() }` | ESP32/relay module triggers full system boost |
 
 ## Routing stop
 It can be convenient to disable routing during a prolonged absence.
