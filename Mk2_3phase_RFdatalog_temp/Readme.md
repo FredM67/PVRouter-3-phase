@@ -417,7 +417,7 @@ Résultat : Le boost fonctionne de **01:00 à 04:00**
 23:00                              05:30    07:00
   |====================================|======|
                                        |BOOST | ← s’arrête ici (fin des HC)
-                                       └─90min─┘
+                                       └90 min┘
 ```
 Résultat : Le boost fonctionne de **05:30 à 07:00** (s’arrête à la fin des HC, pas à 07:30)
 
