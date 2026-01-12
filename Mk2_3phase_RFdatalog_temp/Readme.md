@@ -10,7 +10,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
   - [Documentation technique](#documentation-technique)
 - [Documentation de développement](#documentation-de-développement)
 - [Étalonnage du routeur](#étalonnage-du-routeur)
-- [Documentation d'analyse et outils](#documentation-danalyse-et-outils)
+- [Documentation d’analyse et outils](#documentation-danalyse-et-outils)
 - [Configuration du programme](#configuration-du-programme)
   - [Type de sortie série](#type-de-sortie-série)
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
@@ -19,14 +19,12 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
   - [Configuration du Watchdog](#configuration-du-watchdog)
   - [Configuration du ou des capteurs de température](#configuration-du-ou-des-capteurs-de-température)
     - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité)
-      - [Avec l’Arduino IDE](#avec-larduino-ide)
-      - [Avec Visual Studio Code et PlatformIO](#avec-visual-studio-code-et-platformio)
     - [Configuration du ou des capteurs (commun aux 2 cas précédents)](#configuration-du-ou-des-capteurs-commun-aux-2-cas-précédents)
   - [Configuration de la gestion des Heures Creuses (dual tariff)](#configuration-de-la-gestion-des-heures-creuses-dual-tariff)
     - [Configuration matérielle](#configuration-matérielle)
     - [Configuration logicielle](#configuration-logicielle)
   - [Rotation des priorités](#rotation-des-priorités)
-  - [Configuration de la marche forcée (nouveau)](#configuration-de-la-marche-forcée-nouveau)
+  - [Configuration de la boost (nouveau)](#configuration-de-la-boost-nouveau)
     - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité-1)
     - [Définition des OverridePins](#définition-des-overridepins)
     - [Utilisation](#utilisation)
@@ -49,24 +47,24 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
 
 # Utilisation avec Visual Studio Code (recommandé)
 
-Vous devrez installer des extensions supplémentaires. Les extensions les plus populaires et les plus utilisées pour ce travail sont '*Platform IO*' et '*Arduino*'.
+Vous devrez installer des extensions supplémentaires. Les extensions les plus populaires et les plus utilisées pour ce travail sont ’*Platform IO*’ et ’*Arduino*’.
 L’ensemble du projet a été conçu pour être utilisé de façon optimale avec *Platform IO*.
 
 # Utilisation avec Arduino IDE
 
 Pour utiliser ce programme avec l’IDE Arduino, vous devez télécharger et installer la dernière version de l’IDE Arduino. Choisissez la version "standard", PAS la version du Microsoft Store. Optez pour la version "Win 10 et plus récent, 64 bits" ou la version "MSI installer".
 
-Comme le code est optimisé avec l’une des dernières normes C++, vous devez modifier un fichier de configuration pour activer C++17. Vous trouverez le fichier '**platform.txt**' dans le chemin d’installation de l’IDE Arduino.
+Comme le code est optimisé avec l’une des dernières normes C++, vous devez modifier un fichier de configuration pour activer C++17. Vous trouverez le fichier ’**platform.txt**’ dans le chemin d’installation de l’IDE Arduino.
 
-Pour **Windows**, vous trouverez généralement le fichier dans '**C:\Program Files (x86)\Arduino\hardware\arduino\avr**' et/ou dans '**%LOCALAPPDATA%\Arduino15\packages\arduino\hardware\avr\x.y.z**' où **'x.y.z**' est la version du package Arduino AVR Boards.
+Pour **Windows**, vous trouverez généralement le fichier dans ’**C:\Program Files (x86)\Arduino\hardware\arduino\avr**’ et/ou dans ’**%LOCALAPPDATA%\Arduino15\packages\arduino\hardware\avr\x.y.z**’ où **’x.y.z**’ est la version du package Arduino AVR Boards.
 
 Vous pouvez également exécuter cette commande dans Powershell : `Get-Childitem –Path C:\ -Include platform.txt -Recurse -ErrorAction SilentlyContinue`. Cela peut prendre quelques secondes/minutes jusqu’à ce que le fichier soit trouvé.
 
-Pour **Linux**, si vous utilisez le package AppImage, vous trouverez ce fichier dans '~/.arduino15/packages/arduino/hardware/avr/1.8.6'. Vous pouvez exécuter `find / -name platform.txt 2>/dev/null` au cas où l’emplacement aurait changé.
+Pour **Linux**, si vous utilisez le package AppImage, vous trouverez ce fichier dans ’~/.arduino15/packages/arduino/hardware/avr/1.8.6’. Vous pouvez exécuter `find / -name platform.txt 2>/dev/null` au cas où l’emplacement aurait changé.
 
-Pour **MacOSX**, ce fichier se trouve dans '/Users/[user]/Library/Arduino15/packages/arduino/hardware/avr/1.8.6'.
+Pour **MacOSX**, ce fichier se trouve dans ’/Users/[user]/Library/Arduino15/packages/arduino/hardware/avr/1.8.6’.
 
-Ouvrez le fichier dans n’importe quel éditeur de texte (vous aurez besoin des droits d’administrateur) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. C’est tout !
+Ouvrez le fichier dans n’importe quel éditeur de texte (vous aurez besoin des droits d’administrateur) et remplacez le paramètre ’**-std=gnu++11**’ par ’**-std=gnu++17**’. C’est tout !
 
 Si votre IDE Arduino était ouvert, veuillez fermer toutes les instances et le rouvrir.
 ___
@@ -125,15 +123,15 @@ inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
 
 Ces valeurs par défaut doivent être déterminées pour assurer un fonctionnement optimal du routeur.
 
-# Documentation d'analyse et outils
+# Documentation d’analyse et outils
 
-📊 **[Outils d'Analyse et Documentation Technique](../analysis/README.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](../analysis/README.en.md)
+📊 **[Outils d’Analyse et Documentation Technique](../analysis/README.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](../analysis/README.en.md)
 
-Cette section contient des outils d'analyse avancés et de la documentation technique pour :
+Cette section contient des outils d’analyse avancés et de la documentation technique pour :
 
-- **🔄 Filtrage EWMA/TEMA** : Analyse de l'immunité aux nuages et optimisation des filtres
+- **🔄 Filtrage EWMA/TEMA** : Analyse de l’immunité aux nuages et optimisation des filtres
 - **📈 Analyse de performance** : Scripts de visualisation et benchmarks
-- **⚙️ Guide de réglage** : Documentation pour l'optimisation des paramètres
+- **⚙️ Guide de réglage** : Documentation pour l’optimisation des paramètres
 - **📊 Graphiques techniques** : Comparaisons visuelles des algorithmes de filtrage
 
 > **Utilisateurs avancés :** Ces outils vous aideront à comprendre et optimiser le comportement du routeur PV, notamment pour les installations avec variabilité de production solaire ou systèmes de batteries.
@@ -217,7 +215,7 @@ inline constexpr RelayEngine relays{ MINUTES(15), { { 3, 1000, 200, 1, 1 } } };
 ```
 ___
 > [!NOTE]
-> La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n'est nécessaire !
+> La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n’est nécessaire !
 ___
 
 Les relais configurés dans le système sont gérés par un système similaire à une machine à états.
@@ -252,7 +250,7 @@ inline constexpr uint8_t watchDogPin{ 9 };
 
 ## Configuration du ou des capteurs de température
 Il est possible de brancher un ou plusieurs capteurs de température Dallas DS18B20.
-Ces capteurs peuvent servir à des fins informatives ou pour contrôler le mode de fonctionnement forcé.
+Ces capteurs peuvent servir à des fins informatives ou pour contrôler le mode boost.
 
 Pour activer cette fonctionnalité, il faudra procéder différemment selon que l’on utilise l’Arduino IDE ou Visual Studio Code avec l’extension PlatformIO.
 
@@ -297,7 +295,7 @@ ___
 
 ## Configuration de la gestion des Heures Creuses (dual tariff)
 Il est possible de confier la gestion des Heures Creuses au routeur.
-Cela permet par exemple de limiter la chauffe en marche forcée afin de ne pas trop chauffer l’eau dans l’optique d’utiliser le surplus le lendemain matin.
+Cela permet par exemple de limiter la chauffe en mode boost afin de ne pas trop chauffer l’eau dans l’optique d’utiliser le surplus le lendemain matin.
 Cette limite peut être en durée ou en température (nécessite d’utiliser un capteur de température Dallas DS18B20).
 
 ### Configuration matérielle
@@ -335,7 +333,7 @@ Le premier paramètre de *rg_ForceLoad* détermine la temporisation de démarrag
 - si le nombre est positif et supérieur à 24, il s’agit du nombre de minutes,
 - si le nombre est négatif inférieur à −24, il s’agit du nombre de minutes par rapport à la fin des Heures Creuses
 
-Le deuxième paramètre détermine la durée de la marche forcée :
+Le deuxième paramètre détermine la durée de la boost :
 - si le nombre est inférieur à 24, il s’agit du nombre d’heures,
 - si le nombre est supérieur à 24, il s’agit du nombre de minutes.
 
@@ -346,9 +344,9 @@ Exemples pour mieux comprendre (avec début d’HC à 23:00, jusqu’à 7:00 soi
 - ```{ 3, 180 }``` : démarrage **3 heures APRÈS** le début de période (à 2 h du matin), pour une durée de 180 min.
 
 Pour une durée *infinie* (donc jusqu’à la fin de la période d’HC), utilisez ```UINT16_MAX``` comme deuxième paramètre :
-- ```{ -3, UINT16_MAX }``` : démarrage **3 heures AVANT** la fin de période (à 4 h du matin) avec marche forcée jusqu’à la fin de période d’HC.
+- ```{ -3, UINT16_MAX }``` : démarrage **3 heures AVANT** la fin de période (à 4 h du matin) avec boost jusqu’à la fin de période d’HC.
 
-Si votre système est constitué 2 sorties (```NO_OF_DUMPLOADS``` aura alors une valeur de 2), et que vous souhaitez une marche forcée uniquement sur la 2ᵉ sortie, écrivez :
+Si votre système est constitué 2 sorties (```NO_OF_DUMPLOADS``` aura alors une valeur de 2), et que vous souhaitez une boost uniquement sur la 2ᵉ sortie, écrivez :
 ```cpp
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
                                                               { -3, 2 } };
@@ -375,11 +373,11 @@ Em mode **manuel**, vous devez également définir la *pin* qui déclenchera la 
 inline constexpr uint8_t rotationPin{ 10 };
 ```
 
-## Configuration de la marche forcée (nouveau)
+## Configuration de la boost (nouveau)
 
-La marche forcée (*Boost*) peut désormais être déclenchée via une ou plusieurs *pins*, avec une association flexible entre chaque pin et les charges (dump loads) ou relais à activer. Cette fonctionnalité permet :
+La boost (*Boost*) peut désormais être déclenchée via une ou plusieurs *pins*, avec une association flexible entre chaque pin et les charges (dump loads) ou relais à activer. Cette fonctionnalité permet :
 
-- D’activer la marche forcée depuis plusieurs emplacements ou dispositifs
+- D’activer la boost depuis plusieurs emplacements ou dispositifs
 - De cibler précisément une ou plusieurs charges ou relais pour chaque pin
 - De grouper plusieurs charges/relais sous une même commande
 
@@ -394,7 +392,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ true };
 
 La structure `OverridePins` permet d’associer chaque pin à une ou plusieurs charges ou relais, ou à des groupes prédéfinis (par exemple « toutes les charges », « tous les relais », ou « tout le système »).
 
-Chaque entrée du tableau correspond à une pin, suivie d’une liste ou d’une fonction spéciale qui permet d’activer un ou plusieurs groupes de charges ou relais lors de la marche forcée.
+Chaque entrée du tableau correspond à une pin, suivie d’une liste ou d’une fonction spéciale qui permet d’activer un ou plusieurs groupes de charges ou relais lors du boost.
 
 Exemples :
 ```cpp
@@ -428,8 +426,8 @@ Plusieurs pins peuvent piloter des groupes différents ou partiellement recoupé
 ### Utilisation
 
 - Reliez chaque pin configurée à un contact sec (interrupteur, minuterie, automate, etc.)
-- Lorsqu’un contact est fermé, toutes les charges/relais associées à cette pin passent en marche forcée
-- Dès que tous les contacts sont ouverts, la marche forcée est désactivée
+- Lorsqu’un contact est fermé, toutes les charges/relais associées à cette pin passent en mode boost
+- Dès que tous les contacts sont ouverts, le boost est désactivé
 
 **Exemples d’usage :**
 - Un bouton dans la salle de bain pour forcer le chauffe-eau uniquement
@@ -476,16 +474,16 @@ Ces paramètres se trouvent dans le fichier `config_system.h`.
 ## Paramètre `DIVERSION_START_THRESHOLD_WATTS`
 Le paramètre `DIVERSION_START_THRESHOLD_WATTS` définit un seuil de surplus avant tout routage vers les charges configurées sur le routeur. Elle est principalement destinée aux installations avec batteries de stockage.
 Par défaut, cette valeur est réglée à 0 W.
-En réglant ce paramètre à 50 W par exemple, le routeur ne démarrera le routage qu'à partir du moment où 50 W de surplus sera disponible. Une fois le routage démarré, la totalité du surplus sera routé.
-Cette fonctionnalité permet d'établir une hiérarchie claire dans l’utilisation de l'énergie produite, en privilégiant le stockage d'énergie sur la consommation immédiate. Vous pouvez ajuster cette valeur selon la réactivité du système de charge des batteries et vos priorités d’utilisation de l'énergie.
+En réglant ce paramètre à 50 W par exemple, le routeur ne démarrera le routage qu’à partir du moment où 50 W de surplus sera disponible. Une fois le routage démarré, la totalité du surplus sera routé.
+Cette fonctionnalité permet d’établir une hiérarchie claire dans l’utilisation de l’énergie produite, en privilégiant le stockage d’énergie sur la consommation immédiate. Vous pouvez ajuster cette valeur selon la réactivité du système de charge des batteries et vos priorités d’utilisation de l’énergie.
 
 > [!IMPORTANT]
 > Ce paramètre concerne uniquement la condition de démarrage du routage.
 > Une fois le seuil atteint et le routage démarré, la **totalité** du surplus devient disponible pour les charges.
 
 ## Paramètre `REQUIRED_EXPORT_IN_WATTS`
-Le paramètre `REQUIRED_EXPORT_IN_WATTS` détermine la quantité minimale d'énergie que le système doit réserver pour l’exportation ou l’importation vers le réseau électrique avant de dévier le surplus vers les charges contrôlées.
-Par défaut réglé à 0 W, ce paramètre peut être utilisé pour garantir une exportation constante vers le réseau, par exemple pour respecter des accords de revente d'électricité.
+Le paramètre `REQUIRED_EXPORT_IN_WATTS` détermine la quantité minimale d’énergie que le système doit réserver pour l’exportation ou l’importation vers le réseau électrique avant de dévier le surplus vers les charges contrôlées.
+Par défaut réglé à 0 W, ce paramètre peut être utilisé pour garantir une exportation constante vers le réseau, par exemple pour respecter des accords de revente d’électricité.
 Une valeur négative obligera le routeur à consommer cette puissance depuis le réseau. Cela peut être utile voire nécessaire pour les installations configurées en *zéro injection* afin d’amorcer la production solaire.
 
 > [!IMPORTANT]
@@ -522,13 +520,13 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
 
 // Fonctions essentielles recommandées
 inline constexpr bool DIVERSION_PIN_PRESENT{ true };    // Arrêt du routage
-inline constexpr bool OVERRIDE_PIN_PRESENT{ true };     // Marche forcée
+inline constexpr bool OVERRIDE_PIN_PRESENT{ true };     // Boost
 
-// Pin configuration selon la correspondance de la carte d'extension
+// Pin configuration selon la correspondance de la carte d’extension
 inline constexpr uint8_t diversionPin{ 12 };     // D12 - arrêt du routage
 
-// Configuration de la marche forcée flexible
-inline constexpr OverridePins overridePins{ { { 11, ALL_LOADS_AND_RELAYS() } } }; // D11 - marche forcée
+// Configuration du boost flexible
+inline constexpr OverridePins overridePins{ { { 11, ALL_LOADS_AND_RELAYS() } } }; // D11 - boost
 
 // Configuration pour les sondes de température
 // IMPORTANT: Désactiver la gestion de température dans le Mk2PVRouter
@@ -537,7 +535,7 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };  // Désactivé car géré p
 ```
 
 > [!NOTE]
-> La configuration de la sortie série sur `SerialOutputType::IoT` n’est pas strictement obligatoire pour le fonctionnement du routeur. Cependant, elle est nécessaire si vous souhaitez exploiter les données du routeur dans Home Assistant (puissance instantanée, statistiques, etc.). Sans cette configuration, seules les fonctions de contrôle (marche forcée, arrêt routage) seront disponibles dans Home Assistant.
+> La configuration de la sortie série sur `SerialOutputType::IoT` n’est pas strictement obligatoire pour le fonctionnement du routeur. Cependant, elle est nécessaire si vous souhaitez exploiter les données du routeur dans Home Assistant (puissance instantanée, statistiques, etc.). Sans cette configuration, seules les fonctions de contrôle (boost, arrêt routage) seront disponibles dans Home Assistant.
 
 ### Fonctionnalités additionnelles recommandées
 Pour une intégration encore plus complète, vous pouvez également ajouter ces fonctionnalités :
@@ -561,7 +559,7 @@ L’utilisation de l’ESP32 pour gérer les sondes de température présente pl
 ## Liaison avec Home Assistant
 Une fois votre MkPVRouter configuré avec la carte d’extension ESP32, vous pourrez :
 - Contrôler à distance l’activation/désactivation du routage (idéal pendant les absences)
-- Déclencher une marche forcée à distance
+- Déclencher un boost à distance
 - Surveiller les températures en temps réel
 - Créer des scénarios d’automatisation avancés combinant les données de production solaire et les températures
 
