@@ -17,14 +17,12 @@ This program is designed to be used with the Arduino IDE and/or other developmen
   - [Watchdog configuration](#watchdog-configuration)
   - [Temperature sensor(s) configuration](#temperature-sensors-configuration)
     - [Feature activation](#feature-activation)
-      - [With Arduino IDE](#with-arduino-ide)
-      - [With Visual Studio Code and PlatformIO](#with-visual-studio-code-and-platformio)
     - [Sensor configuration (common to both cases above)](#sensor-configuration-common-to-both-cases-above)
   - [Off-peak hours management configuration (dual tariff)](#off-peak-hours-management-configuration-dual-tariff)
     - [Hardware configuration](#hardware-configuration)
     - [Software configuration](#software-configuration)
   - [Priority rotation](#priority-rotation)
-  - [Forced operation configuration (New Flexible System)](#forced-operation-configuration-new-flexible-system)
+  - [Boost configuration (New Flexible System)](#boost-configuration-new-flexible-system)
     - [Feature activation](#feature-activation-1)
     - [OverridePins definition](#overridepins-definition)
     - [Usage](#usage)
@@ -242,7 +240,7 @@ inline constexpr uint8_t watchDogPin{ 9 };
 
 ## Temperature sensor(s) configuration
 It's possible to connect one or more Dallas DS18B20 temperature sensors.
-These sensors can serve informational purposes or to control forced operation mode.
+These sensors can serve informational purposes or to control boost mode.
 
 To activate this feature, you need to proceed differently depending on whether you use the Arduino IDE or Visual Studio Code with the PlatformIO extension.
 
@@ -325,7 +323,7 @@ The first parameter of *rg_ForceLoad* determines the startup delay relative to t
 - if the number is positive and greater than 24, it's the number of minutes,
 - if the number is negative less than −24, it's the number of minutes relative to the end of off-peak hours
 
-The second parameter determines the forced operation duration:
+The second parameter determines the boost duration:
 - if the number is less than 24, it's the number of hours,
 - if the number is greater than 24, it's the number of minutes.
 
@@ -336,9 +334,9 @@ Examples for better understanding (with off-peak start at 23:00, until 7:00, i.e
 - ```{ 3, 180 }``` : startup **3 hours AFTER** period start (at 2 AM), for a duration of 180 min.
 
 For *infinite* duration (so until the end of the off-peak period), use ```UINT16_MAX``` as second parameter:
-- ```{ -3, UINT16_MAX }``` : startup **3 hours BEFORE** period end (at 4 AM) with forced operation until the end of off-peak period.
+- ```{ -3, UINT16_MAX }``` : startup **3 hours BEFORE** period end (at 4 AM) with boost until the end of off-peak period.
 
-If your system consists of 2 outputs (```NO_OF_DUMPLOADS``` will then have a value of 2), and you want forced operation only on the 2nd output, write:
+If your system consists of 2 outputs (```NO_OF_DUMPLOADS``` will then have a value of 2), and you want boost only on the 2nd output, write:
 ```cpp
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { 0, 0 },
                                                               { -3, 2 } };
@@ -365,11 +363,11 @@ In **manual** mode, you must also define the *pin* that will trigger rotation:
 inline constexpr uint8_t rotationPin{ 10 };
 ```
 
-## Forced operation configuration (New Flexible System)
+## Boost configuration (New Flexible System)
 
-The forced operation (*Boost*) can now be triggered via one or more *pins*, with flexible association between each pin and the loads (dump loads) or relays to activate. This feature allows:
+Boost can now be triggered via one or more *pins*, with flexible association between each pin and the loads (dump loads) or relays to activate. This feature allows:
 
-- Activating forced operation from multiple locations or devices
+- Activating boost from multiple locations or devices
 - Precisely targeting one or more loads or relays for each pin
 - Grouping multiple loads/relays under the same command
 
@@ -384,7 +382,7 @@ inline constexpr bool OVERRIDE_PIN_PRESENT{ true };
 
 The `OverridePins` structure allows associating each pin with one or more loads or relays, or with predefined groups (e.g., "all loads", "all relays", or "entire system").
 
-Each entry in the array corresponds to a pin, followed by a list or special function that activates one or more groups of loads or relays during forced operation.
+Each entry in the array corresponds to a pin, followed by a list or special function that activates one or more groups of loads or relays during boost.
 
 **Simple configuration:**
 ```cpp
@@ -413,8 +411,8 @@ inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },     
 ### Usage
 
 - Connect each configured pin to a dry contact (switch, timer, automaton, etc.)
-- When a contact is closed, all loads/relays associated with that pin enter forced operation
-- As soon as all contacts are open, forced operation is deactivated
+- When a contact is closed, all loads/relays associated with that pin enter boost mode
+- As soon as all contacts are open, boost is deactivated
 
 **Usage examples:**
 - A button in the bathroom to force only the water heater
@@ -488,13 +486,13 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
 
 // Essential recommended functions
 inline constexpr bool DIVERSION_PIN_PRESENT{ true };    // Routing stop
-inline constexpr bool OVERRIDE_PIN_PRESENT{ true };     // Forced operation
+inline constexpr bool OVERRIDE_PIN_PRESENT{ true };     // Boost
 
 // Pin configuration according to extension board mapping
 inline constexpr uint8_t diversionPin{ 12 };     // D12 - routing stop
 
-// Flexible forced operation configuration
-inline constexpr OverridePins overridePins{ { { 11, ALL_LOADS_AND_RELAYS() } } }; // D11 - forced operation
+// Flexible boost configuration
+inline constexpr OverridePins overridePins{ { { 11, ALL_LOADS_AND_RELAYS() } } }; // D11 - boost
 
 // Temperature sensor configuration
 // IMPORTANT: Disable temperature management in Mk2PVRouter
@@ -503,7 +501,7 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };  // Disabled as managed by E
 ```
 
 > [!NOTE]
-> Configuring serial output to `SerialOutputType::IoT` is not strictly mandatory for router operation. However, it's necessary if you want to exploit router data in Home Assistant (instantaneous power, statistics, etc.). Without this configuration, only control functions (forced operation, routing stop) will be available in Home Assistant.
+> Configuring serial output to `SerialOutputType::IoT` is not strictly mandatory for router operation. However, it's necessary if you want to exploit router data in Home Assistant (instantaneous power, statistics, etc.). Without this configuration, only control functions (boost, routing stop) will be available in Home Assistant.
 
 ### Recommended additional features
 For even more complete integration, you can also add these features:
@@ -527,7 +525,7 @@ Using the ESP32 to manage temperature probes has several advantages:
 ## Home Assistant integration
 Once your MkPVRouter is configured with the ESP32 extension board, you'll be able to:
 - Remotely control routing activation/deactivation (ideal during absences)
-- Trigger forced operation remotely
+- Trigger boost remotely
 - Monitor temperatures in real time
 - Create advanced automation scenarios combining solar production data and temperatures
 

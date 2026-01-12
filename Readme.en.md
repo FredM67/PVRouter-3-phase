@@ -34,7 +34,7 @@ It supports up to 12 resistive output loads, which are completely independent.
     - [Overview](#overview)
     - [Load priorities management](#load-priorities-management)
     - [Off-peak period detection](#off-peak-period-detection)
-    - [Force full power](#force-full-power)
+    - [Boost](#boost)
     - [Temperature sensor](#temperature-sensor)
     - [Enphase zero-export profile](#enphase-zero-export-profile)
 - [How to wire the router](#how-to-wire-the-router)
@@ -88,7 +88,7 @@ Added functionalities:
 
 - load priorities management (configurable)
 - off-peak period detection (configurable)
-- force full power
+- boost
 - temperature sensor (just reading for the moment)
 - optimized (RF) data logging
 - serial output in JSON or TXT
@@ -108,15 +108,15 @@ Each day, the load priorities are rotated, so over many days, all the heating el
 
 Depending on the country, some energy meters provide a switch/relay which toggles on at the beginning of the off-peak period. It is intended to control a relay. If you wire it to a free digital pin of the router (in my case D3), you can detect off-peak/peak period.
 
-### Force full power
+### Boost
 
-Support has been added to force full power on specific loads. Each load can be forced independently from each other, start time and duration can be set individually.
+Support has been added to boost specific loads. Each load can be boosted independently from each other, start time and duration can be set individually.
 
 In my variant, that's used to switch the heater one during off-peak period if not enough surplus has been routed during the day. Here, to optimize the behavior, a temp-sensor will be used to check the temperature of the water and decide to switch on or not during night.
 
 ### Temperature sensor
 
-For the moment, just reading. It'll be used to optimize force full power, to make the right decision during night.
+For the moment, just reading. It'll be used to optimize boost, to make the right decision during night.
 
 ### Enphase zero-export profile
 
