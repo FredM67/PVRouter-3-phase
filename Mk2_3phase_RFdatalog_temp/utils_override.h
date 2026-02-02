@@ -24,7 +24,7 @@
  *
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @version 0.2
- * @date 2026-01-29
+ * @date 2026-02-02
  * @copyright Copyright (c) 2025-2026
  */
 
@@ -147,7 +147,7 @@ struct PinList
    */
   constexpr uint16_t toLocalBitmask() const
   {
-    uint16_t result = 0;
+    uint16_t result{ 0 };
     for (uint8_t i = 0; i < count; ++i)
     {
       if (pins[i] < REMOTE_PIN_BASE)

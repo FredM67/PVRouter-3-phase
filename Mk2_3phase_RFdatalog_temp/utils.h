@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-01-29
+ * @date 2026-02-02
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -174,7 +174,23 @@ inline void printConfiguration()
       DBUGLN(F("868 MHz"));
     else if constexpr (SharedRF::FREQUENCY == RF69_915MHZ)
       DBUGLN(F("915 MHz"));
-    // RF initialization is handled in processing.cpp
+
+    DBUG(F("  Network ID: "));
+    DBUGLN(SharedRF::NETWORK_ID);
+    DBUG(F("  Node ID: "));
+    DBUGLN(SharedRF::ROUTER_NODE_ID);
+
+    if constexpr (RF_LOGGING_PRESENT)
+    {
+      DBUG(F("  Data logging to Gateway ID: "));
+      DBUGLN(SharedRF::GATEWAY_ID);
+    }
+
+    if constexpr (REMOTE_LOADS_PRESENT)
+    {
+      DBUG(F("  Remote loads to Node ID: "));
+      DBUGLN(SharedRF::REMOTE_NODE_ID);
+    }
   }
   else
   {

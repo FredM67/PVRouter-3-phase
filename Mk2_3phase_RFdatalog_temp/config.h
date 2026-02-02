@@ -15,7 +15,7 @@
  * - 2 TRIAC outputs for dump loads
  *
  * @version 1.0
- * @date 2026-01-29
+ * @date 2026-02-02
  */
 
 #ifndef CONFIG_H
@@ -28,9 +28,6 @@
 #include "config_system.h"
 #include "debug.h"
 #include "types.h"
-
-#include "utils_dualtariff.h"
-#include "utils_relay.h"
 
 // Serial output type - Human readable for initial setup and commissioning
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
@@ -56,6 +53,8 @@ inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF
 
 inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 }; /**< automatically true if remote loads configured */
 
+#include "utils_dualtariff.h"
+#include "utils_relay.h"
 #include "remote_loads.h"
 #include "utils_temp.h"
 

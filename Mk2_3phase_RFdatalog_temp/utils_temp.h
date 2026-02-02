@@ -13,9 +13,9 @@
  * - **Error Handling**: Handles disconnected or out-of-range sensors.
  *
  * @version 0.1
- * @date 2023-02-09
+ * @date 2026-02-02
  *
- * @copyright Copyright (c) 2024
+ * @copyright Copyright (c) 2024-2026
  *
  */
 
@@ -26,10 +26,6 @@
 
 #include "constants.h"
 #include "config.h"
-
-#if TEMP_SENSOR_PRESENT
-#include <OneWire.h>  // for temperature sensing
-#endif
 
 /**
  * @struct DeviceAddress
@@ -247,10 +243,16 @@ public:
    */
   [[nodiscard]] int16_t readTemperature(const uint8_t idx) const
   {
-    static ScratchPad buf;
-
-    if constexpr (TEMP_SENSOR_PRESENT)
+    if constexpr (!TEMP_SENSOR_PRESENT)
     {
+      // Suppress unused parameter warning when temperature sensing is disabled
+      (void)idx;
+      return 0;
+    }
+    else
+    {
+      static ScratchPad buf;
+
       if (!oneWire.reset())
       {
         return DEVICE_DISCONNECTED_RAW;
@@ -271,22 +273,17 @@ public:
       {
         return DEVICE_DISCONNECTED_RAW;
       }
-    }
-    else
-    {
-      // Suppress unused parameter warning when temperature sensing is disabled
-      (void)idx;
-    }
 
-    // result is temperature x16, multiply by 6.25 to convert to temperature x100
-    int16_t result = (buf[1] << 8) | buf[0];
-    result = (result * 6) + (result >> 2);
-    if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
-    {
-      return OUTOFRANGE_TEMPERATURE;  // return value ('Out of range')
-    }
+      // result is temperature x16, multiply by 6.25 to convert to temperature x100
+      int16_t result{ (buf[1] << 8) | buf[0] };
+      result = (result * 6) + (result >> 2);
+      if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
+      {
+        return OUTOFRANGE_TEMPERATURE;  // return value ('Out of range')
+      }
 
-    return result;
+      return result;
+    }
   }
 
 private:
