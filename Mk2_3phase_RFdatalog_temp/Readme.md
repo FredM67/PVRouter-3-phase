@@ -6,6 +6,9 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
 - [Table des matières](#table-des-matières)
 - [Utilisation avec Visual Studio Code (recommandé)](#utilisation-avec-visual-studio-code-recommandé)
 - [Utilisation avec Arduino IDE](#utilisation-avec-arduino-ide)
+  - [Bibliothèques requises pour l’Arduino IDE](#bibliothèques-requises-pour-larduino-ide)
+    - [Bibliothèques obligatoires](#bibliothèques-obligatoires)
+    - [Note importante](#note-importante)
 - [Aperçu rapide des fichiers](#aperçu-rapide-des-fichiers)
   - [Documentation technique](#documentation-technique)
 - [Documentation de développement](#documentation-de-développement)
@@ -16,21 +19,17 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
   - [Configuration des sorties relais tout-ou-rien](#configuration-des-sorties-relais-tout-ou-rien)
     - [Principe de fonctionnement](#principe-de-fonctionnement)
-  - [Module RF et charges distantes](#module-rf-et-charges-distantes)
+  - [Configuration du module RF et des charges distantes](#configuration-du-module-rf-et-des-charges-distantes)
     - [Matériel requis](#matériel-requis)
-    - [Configuration logicielle](#configuration-logicielle-1)
+    - [Configuration logicielle](#configuration-logicielle)
     - [Configuration du récepteur distant](#configuration-du-récepteur-distant)
-  - [Configuration du Watchdog](#configuration-duwatchdog)
-  - [Module RF et charges distantes](#module-rf-et-charges-distantes)
-    - [Matériel requis](#matériel-requis)
-    - [Configuration logicielle](#configuration-logicielle-1)
-    - [Configuration du récepteur distant](#configuration-du-récepteur-distant)
+  - [Configuration du Watchdog](#configuration-du-watchdog)
   - [Configuration du ou des capteurs de température](#configuration-du-ou-des-capteurs-de-température)
     - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité)
     - [Configuration du ou des capteurs (commun aux 2 cas précédents)](#configuration-du-ou-des-capteurs-commun-aux-2-cas-précédents)
   - [Gestion des Heures Creuses et boost programmé (dual tariff)](#gestion-des-heures-creuses-et-boost-programmé-dual-tariff)
     - [Configuration matérielle](#configuration-matérielle)
-    - [Configuration logicielle](#configuration-logicielle)
+    - [Configuration logicielle](#configuration-logicielle-1)
     - [Configuration du boost programmé (rg\_ForceLoad)](#configuration-du-boost-programmé-rg_forceload)
     - [Exemples visuels](#exemples-visuels)
     - [Configuration pour plusieurs charges](#configuration-pour-plusieurs-charges)
@@ -55,7 +54,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
     - [Configuration de base recommandée](#configuration-de-base-recommandée)
     - [Fonctionnalités additionnelles recommandées](#fonctionnalités-additionnelles-recommandées)
     - [Installation des sondes de température](#installation-des-sondes-de-température)
-  - [Liaison avec Home Assistant](#liaison-avec-home-assistant)
+  - [Liaison avec Home Assistant](#liaison-avec-homeassistant)
 - [Configuration sans carte d’extension](#configuration-sans-carte-dextension)
 - [Dépannage](#dépannage)
 - [Contribuer](#contribuer)
@@ -69,19 +68,44 @@ L’ensemble du projet a été conçu pour être utilisé de façon optimale ave
 
 Pour utiliser ce programme avec l’IDE Arduino, vous devez télécharger et installer la dernière version de l’IDE Arduino. Choisissez la version « standard », PAS la version du Microsoft Store. Optez pour la version « Win 10 et plus récent, 64 bits » ou la version « MSI installer ».
 
-Comme le code est optimisé avec l’une des dernières normes C++, vous devez modifier un fichier de configuration pour activer C++17. Vous trouverez le fichier ’**platform.txt**’ dans le chemin d’installation de l’IDE Arduino.
+Comme le code est optimisé avec l’une des dernières normes C++, vous devez modifier un fichier de configuration pour activer C++17. Vous trouverez le fichier '**platform.txt**' dans le chemin d’installation de l’IDE Arduino.
 
-Pour **Windows**, vous trouverez généralement le fichier dans ’**C:\Program Files (x86)\Arduino\hardware\arduino\avr**’ et/ou dans ’**%LOCALAPPDATA%\Arduino15\packages\arduino\hardware\avr\x.y.z**’ où **’x.y.z**’ est la version du package Arduino AVR Boards.
+Pour **Windows**, vous trouverez généralement le fichier dans '**C:\Program Files (x86)\Arduino\hardware\arduino\avr**' et/ou dans '**%LOCALAPPDATA%\Arduino15\packages\arduino\hardware\avr\x.y.z**' où **'x.y.z**' est la version du package Arduino AVR Boards.
 
 Vous pouvez également exécuter cette commande dans Powershell : `Get-Childitem –Path C:\ -Include platform.txt -Recurse -ErrorAction SilentlyContinue`. Cela peut prendre quelques secondes/minutes jusqu’à ce que le fichier soit trouvé.
 
-Pour **Linux**, si vous utilisez le package AppImage, vous trouverez ce fichier dans ’~/.arduino15/packages/arduino/hardware/avr/1.8.6’. Vous pouvez exécuter `find / -name platform.txt 2>/dev/null` au cas où l’emplacement aurait changé.
+Pour **Linux**, si vous utilisez le package AppImage, vous trouverez ce fichier dans '~/.arduino15/packages/arduino/hardware/avr/1.8.6'. Vous pouvez exécuter `find / -name platform.txt 2>/dev/null` au cas où l’emplacement aurait changé.
 
-Pour **MacOSX**, ce fichier se trouve dans ’/Users/[user]/Library/Arduino15/packages/arduino/hardware/avr/1.8.6’.
+Pour **MacOSX**, ce fichier se trouve dans '/Users/[user]/Library/Arduino15/packages/arduino/hardware/avr/1.8.6'.
 
-Ouvrez le fichier dans n’importe quel éditeur de texte (vous aurez besoin des droits d’administrateur) et remplacez le paramètre ’**-std=gnu++11**’ par ’**-std=gnu++17**’. C’est tout !
+Ouvrez le fichier dans n’importe quel éditeur de texte (vous aurez besoin des droits d’administrateur) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. C’est tout !
 
 Si votre IDE Arduino était ouvert, veuillez fermer toutes les instances et le rouvrir.
+
+## Bibliothèques requises pour l’Arduino IDE
+
+Ce projet nécessite l’installation des bibliothèques suivantes via le **Gestionnaire de bibliothèques** de l’Arduino IDE (menu **Outils** → **Gérer les bibliothèques…**) :
+
+### Bibliothèques obligatoires
+- **OneWire** par Jim Studt et al. (version 2.3.7 ou supérieure)
+  - Utilisée pour les capteurs de température DS18B20
+  - Installée même si aucun capteur n’est utilisé (le code non utilisé sera éliminé par le linker)
+
+- **RFM69** par Felix Rusu, LowPowerLab (version 1.5.3 ou supérieure)
+  - Utilisée pour la communication RF (télémétrie et charges distantes)
+  - Installée même si le module RF n’est pas présent (le code non utilisé sera éliminé par le linker)
+
+- **ArduinoJson** par Benoit Blanchon (version **6.x uniquement**, PAS la 7.x)
+  - Utilisée pour la sortie série en format JSON (dans `utils.h`)
+  - La version 7.x est trop volumineuse pour un ATmega328P
+
+- **SPI** (incluse avec l’Arduino IDE)
+  - Utilisée pour la communication avec le module RFM69
+
+### Note importante
+Toutes les bibliothèques sont toujours incluses dans le code source. Cependant, seul le code réellement utilisé par votre configuration sera présent dans le firmware final. Cela simplifie la maintenance du code tout en préservant la taille du firmware.
+
+**Avec PlatformIO** : Toutes les dépendances sont gérées automatiquement via le fichier `platformio.ini`. Aucune installation manuelle n’est nécessaire.
 ___
 > [!WARNING]
 > En cas d’utilisation de la libraire **ArduinoJson**, il faudra impérativement installer une version **6.x**.
@@ -122,8 +146,8 @@ L’utilisateur final ne doit éditer QUE les fichiers **calibration.h** et **co
 
 ## Documentation technique
 Le dossier **[docs/](docs/)** contient la documentation technique détaillée :
-- **[Architecture logicielle](docs/architecture.md)** – Conception et organisation des modules
-- **[Performances](docs/performance.md)** – Analyses de timing et optimisations
+- **[Architecture logicielle](docs/architecture.md)** - Conception et organisation des modules
+- **[Performances](docs/performance.md)** - Analyses de timing et optimisations
 
 # Documentation de développement
 
@@ -164,7 +188,7 @@ La cohérence de la configuration est vérifiée lors de la compilation. Par exe
 Le type de sortie série peut être configuré pour s’adapter à différents besoins. Trois options sont disponibles :
 
 - **HumanReadable** : Sortie lisible par un humain, idéale pour le débogage ou la mise en service.
-- **IoT** : Sortie formatée pour des plateformes IoT comme Home Assistant.
+- **IoT** : Sortie formatée pour des plateformes IoT comme Home Assistant.
 - **JSON** : Sortie formatée pour des plateformes comme EmonCMS (JSON).
 
 Pour configurer le type de sortie série, modifiez la constante suivante dans le fichier **config.h** :
@@ -181,14 +205,28 @@ La première étape consiste à définir le nombre de sorties TRIAC :
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
 ```
 
-Ensuite, il faudra assigner les *pins* correspondantes ainsi que l’ordre des priorités au démarrage.
+Ensuite, il faudra assigner les *pins* correspondantes **uniquement pour les charges locales** ainsi que l’ordre des priorités au démarrage.
 ```cpp
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 1 };  // 1 charge distante (contrôlée via RF)
+
+// Pins pour les charges LOCALES uniquement (les charges distantes sont contrôlées via RF)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// Optionnel : LEDs d'état pour les charges distantes
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ unused_pin };
+
+// Ordre de priorités au démarrage (0 = priorité la plus haute, s'applique à TOUTES les charges)
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ```
 
+**Important :** 
+- `physicalLoadPin` ne contient que les pins des charges **locales** (TRIACs connectés directement)
+- Les charges **distantes** n’ont pas de pin physique sur le contrôleur principal (elles sont contrôlées via RF)
+- `remoteLoadStatusLED` permet optionnellement d’ajouter des LEDs d’état pour visualiser l’état des charges distantes
+- `loadPrioritiesAtStartup` définit l’ordre de priorité pour **toutes** les charges (locales + distantes). Les priorités 0 à (nombre de charges locales - 1) contrôlent les charges locales, les priorités suivantes contrôlent les charges distantes.
+
 ## Configuration des sorties relais tout-ou-rien
-Les sorties relais tout-ou-rien permettent d’alimenter des appareils qui contiennent de l’électronique (pompe à chaleur…).
+Les sorties relais tout-ou-rien permettent d’alimenter des appareils qui contiennent de l’électronique (pompe à chaleur …).
 
 Il faudra activer la fonctionnalité comme ceci :
 ```cpp
@@ -197,7 +235,7 @@ inline constexpr bool RELAY_DIVERSION{ true };
 
 Chaque relais nécessite la définition de cinq paramètres :
 - le numéro de **pin** sur laquelle est branché le relais
-- le **seuil de surplus** avant mise en route (par défaut **1 000 W**)
+- le **seuil de surplus** avant mise en route (par défaut **1000 W**)
 - le **seuil d’import** avant arrêt (par défaut **200 W**)
 - la **durée de fonctionnement minimale** en minutes (par défaut **5 min**)
 - la **durée d’arrêt minimale** en minutes (par défaut **5 min**).
@@ -230,7 +268,7 @@ inline constexpr RelayEngine relays{ MINUTES(15), { { 3, 1000, 200, 1, 1 } } };
 ```
 ___
 > [!NOTE]
-> La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n’est nécessaire !
+> La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n’est nécessaire !
 ___
 
 Les relais configurés dans le système sont gérés par un système similaire à une machine à états.
@@ -247,90 +285,94 @@ Pour chaque relais, la transition ou le changement d’état est géré de la ma
 > [!NOTE]
 > **Installations avec batteries :** Pour une configuration optimale des relais avec systèmes de batteries, consultez le **[Guide de Configuration pour Systèmes Batterie](docs/BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](docs/BATTERY_CONFIGURATION_GUIDE.en.md)
 
-## Module RF et charges distantes
+## Configuration du module RF et des charges distantes
 
-Le routeur peut contrôler des charges distantes via un module RF RFM69. Cette fonctionnalité permet de piloter des résistances ou relais situés dans un autre endroit, sans câblage supplémentaire.
+Le routeur peut contrôler des charges distantes via un module RF RFM69. Cette fonctionnalité permet de piloter des résistances ou des relais situés dans un autre emplacement, sans câblage supplémentaire.
 
 ### Matériel requis
 
-**Pour l'émetteur (routeur principal) :**
-- Module RFM69W/CW ou RFM69HW/HCW (868 MHz pour l'Europe, 915 MHz pour l'Amérique du Nord)
-- Antenne adaptée à la fréquence choisie
+**Pour l’émetteur (routeur principal) :**
+- Module RFM69W/CW ou RFM69HW/HCW (868 MHz pour l’Europe, 915 MHz pour l’Amérique du Nord)
+- Antenne appropriée pour la fréquence choisie
 - Connexion SPI standard (D10=CS, D2=IRQ)
 
-**Pour le récepteur distant :**
+**Pour le récepteur distant :**
 - Arduino UNO ou compatible
-- Module RFM69 (même modèle que l'émetteur)
-- TRIAC ou SSR pour contrôler les charges
-- LEDs de statut optionnelles (D5=vert watchdog, D7=rouge perte RF)
+- Module RFM69 (même modèle que l’émetteur)
+- TRIAC ou SSR pour commander les charges
+- LEDs optionnelles pour indication d’état (D5=verte watchdog, D7=rouge perte RF)
 
 ### Configuration logicielle
 
-**Activation des fonctionnalités RF :**
+**Activation des fonctionnalités RF :**
 
-Le module RF peut être utilisé pour deux fonctionnalités indépendantes :
+Le module RF peut être utilisé pour deux fonctionnalités indépendantes :
 
-1. **Télémétrie RF** (`ENABLE_RF_DATALOGGING`) : Envoi des données puissance/tension vers une passerelle
-2. **Charges distantes** (`ENABLE_REMOTE_LOADS`) : Contrôle de charges via RF
+1. **Télémétrie RF** (`RF_LOGGING_PRESENT`) : Envoi des données de puissance/tension vers une passerelle
+2. **Charges distantes** (`REMOTE_LOADS_PRESENT`) : Contrôle de charges via RF
 
-Pour activer le module RF avec le contrôle de charges distantes, utilisez l'environnement de build `remote_loads` dans PlatformIO, ou ajoutez les flags de compilation :
+Pour activer le module RF avec contrôle de charges distantes, configurez dans **config.h** :
 
-```ini
-build_src_flags =
-    -DRF_PRESENT
-    -DENABLE_REMOTE_LOADS
+```cpp
+inline constexpr bool RF_LOGGING_PRESENT{ false };       // Télémétrie RF (optionnel)
+inline constexpr bool REMOTE_LOADS_PRESENT{ true };      // Charges distantes (si NO_OF_REMOTE_LOADS > 0, sera automatiquement true)
 ```
 
-**Configuration des charges :**
+**Configuration des charges :**
 
-Définissez le nombre total de charges (locales + distantes) dans **config.h** :
+Définissez le nombre total de charges (locales + distantes) :
 
 ```cpp
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total : 3 charges
 inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Dont 2 charges distantes
-// NO_OF_LOCAL_LOADS sera calculé automatiquement : 3 - 2 = 1 charge locale
+                                                       // Charges locales : 3 - 2 = 1
+
+// Pin pour la charge locale (TRIAC)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// LEDs optionnelles pour indiquer l’état des charges distantes
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ 8, 9 };  // D8 et D9
 ```
 
-**Priorités :**
+**Priorités :**
 
-Les charges distantes ont **toujours** une priorité inférieure aux charges locales. Dans l'exemple ci-dessus :
-- Charge locale #0 (physicalLoadPin[0]) : priorité la plus haute
-- Charge distante #0 : priorité moyenne
-- Charge distante #1 : priorité la plus basse
+Les charges distantes ont **toujours** une priorité inférieure aux charges locales. Dans l’exemple ci-dessus :
+- Charge locale #0 (physicalLoadPin[0]) : priorité la plus haute
+- Charge distante #0 : priorité moyenne  
+- Charge distante #1 : priorité la plus basse
 
-**Configuration RF (dans config_rf.h) :**
+**Configuration RF (dans config_rf.h) :**
 
-Les paramètres par défaut sont :
-- Fréquence : 868 MHz (Europe)
-- Network ID : 210
-- ID émetteur : 10
-- ID récepteur : 15
+Les paramètres par défaut sont :
+- Fréquence : 868 MHz (Europe)
+- ID réseau : 210
+- ID routeur : 10
+- ID unité distante : 15
 
-Pour modifier ces paramètres, éditez **config_rf.h** :
+Pour modifier ces paramètres, éditez **config_rf.h** :
 
 ```cpp
-inline constexpr uint8_t FREQUENCY{ RF69_868MHZ };  // Fréquence RF
-inline constexpr uint8_t ROUTER_NODE_ID{ 10 };     // ID de cet émetteur
-inline constexpr uint8_t GATEWAY_ID{ 1 };          // ID passerelle (télémétrie)
-inline constexpr uint8_t REMOTE_NODE_ID{ 15 };     // ID récepteur charges
-inline constexpr uint8_t NETWORK_ID{ 210 };        // ID réseau (1-255)
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // ID du routeur (cet appareil)
+inline constexpr uint8_t GATEWAY_ID{ 1 };       // ID de la passerelle (télémétrie)
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // ID de l’unité distante
+inline constexpr uint8_t NETWORK_ID{ 210 };     // ID du réseau (1-255)
 ```
 
 ### Configuration du récepteur distant
 
 Le sketch **RemoteLoadReceiver** est fourni dans le dossier `RemoteLoadReceiver/`.
 
-**Configuration minimale (dans config.h du récepteur) :**
+**Configuration minimale (dans config_rf.h du récepteur) :**
 
 ```cpp
-// Configuration RF - doit correspondre à l'émetteur
-inline constexpr uint8_t TX_NODE_ID{ 10 };          // ID de l'émetteur
-inline constexpr uint8_t MY_NODE_ID{ 15 };          // ID de ce récepteur
-inline constexpr uint8_t NETWORK_ID{ 210 };         // ID réseau
+// Configuration RF - doit correspondre au routeur
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // ID du routeur
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // ID de cette unité distante
+inline constexpr uint8_t NETWORK_ID{ 210 };     // ID réseau
 
 // Configuration des charges
 inline constexpr uint8_t NO_OF_LOADS{ 2 };                    // Nombre de charges sur ce récepteur
-inline constexpr uint8_t loadPins[NO_OF_LOADS]{ 4, 3 };       // Broches de sortie TRIAC/SSR
+inline constexpr uint8_t loadPins[NO_OF_LOADS]{ 4, 3 };       // Pins des sorties TRIAC/SSR
 
 // LEDs de statut (optionnel)
 inline constexpr uint8_t GREEN_LED_PIN{ 5 };        // LED verte : watchdog 1 Hz
@@ -338,41 +380,41 @@ inline constexpr uint8_t RED_LED_PIN{ 7 };          // LED rouge : perte liaison
 inline constexpr bool STATUS_LEDS_PRESENT{ true };  // Activer les LEDs
 ```
 
-**Sécurité :**
+**Sécurité :**
 
-Le récepteur éteint automatiquement **toutes les charges** si aucun message n'est reçu pendant plus de 500 ms. Cela garantit la sécurité en cas de perte de liaison RF.
+Le récepteur désactive automatiquement **toutes les charges** si aucun message n’est reçu pendant plus de 500 ms. Cela garantit la sécurité en cas de perte de liaison RF.
 
-**Test de la liaison :**
+**Test de la liaison :**
 
-Une fois configurés et téléversés, les deux Arduinos communiquent automatiquement :
-- L'émetteur envoie les états des charges toutes les ~100 ms (5 cycles secteur à 50 Hz)
+Une fois configurés et téléversés, les deux Arduino communiquent automatiquement :
+- L’émetteur envoie l’état des charges toutes les ~100 ms (5 cycles secteur à 50 Hz)
 - Le récepteur affiche les commandes reçues sur le port série
 - La LED verte clignote à 1 Hz (système actif)
 - La LED rouge clignote rapidement si la liaison RF est perdue
 
-**Diagnostics :**
+**Diagnostic :**
 
-Sur le moniteur série du récepteur, vous devriez voir :
+Sur le moniteur série du récepteur, vous devriez voir :
 ```
 Received: 0b01 (RSSI: -45) - Loads: 0:ON 1:OFF
 ```
 
 Un RSSI entre -30 et -70 indique une bonne qualité de signal. Au-delà de -80, la liaison devient instable.
 
-## Configuration du Watchdog
+## Configuration du Watchdog
 Un chien de garde, en anglais *watchdog*, est un circuit électronique ou un logiciel utilisé en électronique numérique pour s’assurer qu’un automate ou un ordinateur ne reste pas bloqué à une étape particulière du traitement qu’il effectue.
 
-Ceci est réalisé à l’aide d’une LED qui clignote à la fréquence de 1 Hz, soit toutes les secondes.
+Ceci est réalisé à l’aide d’une LED qui clignote à la fréquence de 1 Hz, soit toutes les secondes.
 Ainsi, l’utilisateur sait d’une part si son routeur est allumé, et si jamais cette LED ne clignote plus, c’est que l’Arduino s’est bloqué (cas encore jamais rencontré !).
 Un simple appui sur le bouton *Reset* permettra de redémarrage le système sans rien débrancher.
 
 Il faudra activer la fonctionnalité comme ceci :
 ```cpp
-inline constexpr bool WATCHDOG_PIN_PRESENT{ true };
+inline constexpr bool WATCHDOG_PIN_PRESENT{ true };
 ```
 et définir la *pin* utilisée, dans l’exemple la *9* :
 ```cpp
-inline constexpr uint8_t WatchDogPin{ 9 };
+inline constexpr uint8_t watchDogPin{ 9 };
 ```
 
 ## Configuration du ou des capteurs de température
@@ -560,17 +602,17 @@ Chaque charge peut avoir sa propre programmation de boost. Utilisez `{ 0, 0 }` p
 **Exemple :** 2 charges, boost uniquement sur la deuxième :
 ```cpp
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{
-    { 0, 0 },      // Charge #1 : pas de boost programmé
-    { -3, 2 }      // Charge #2 : boost 3h avant la fin, pendant 2h
+    { 0, 0 },      // Charge #1 : pas de boost programmé
+    { -3, 2 }      // Charge #2 : boost 3h avant la fin, pendant 2h
 };
 ```
 
 **Exemple :** 3 charges avec des programmations différentes :
 ```cpp
 inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{
-    { -4, 2 },          // Charge #1 : 03:00-05:00 (dernier recours, si l’eau est encore froide)
-    { -2, UINT16_MAX }, // Charge #2 : 05:00-07:00 (complément avant le matin)
-    { 0, 0 }            // Charge #3 : pas de boost programmé
+    { -4, 2 },          // Charge #1 : 03:00-05:00 (dernier recours, si l’eau est encore froide)
+    { -2, UINT16_MAX }, // Charge #2 : 05:00-07:00 (complément avant le matin)
+    { 0, 0 }            // Charge #3 : pas de boost programmé
 };
 ```
 
@@ -645,9 +687,13 @@ Il existe **deux méthodes** pour spécifier quelles charges/relais activer :
 
 | Macro | Description |
 |-------|-------------|
-| `LOAD(n)` | Charge par index (0 = première charge, 1 = deuxième, etc.) |
+| `LOAD(n)` | Charge par index (0 = première charge, 1 = deuxième, etc. - locales puis distantes) |
+| `LOCAL_LOAD(n)` | Charge locale par index (0 = première charge locale) |
+| `REMOTE_LOAD(n)` | Charge distante par index (0 = première charge distante) |
 | `RELAY(n)` | Relais par index (0 = premier relais, 1 = deuxième, etc.) |
-| `ALL_LOADS()` | Toutes les charges configurées |
+| `ALL_LOADS()` | Toutes les charges configurées (locales + distantes) |
+| `ALL_LOCAL_LOADS()` | Toutes les charges locales uniquement |
+| `ALL_REMOTE_LOADS()` | Toutes les charges distantes uniquement |
 | `ALL_RELAYS()` | Tous les relais configurés |
 | `ALL_LOADS_AND_RELAYS()` | Tout le système |
 
@@ -656,8 +702,8 @@ Il existe **deux méthodes** pour spécifier quelles charges/relais activer :
 Vous pouvez aussi utiliser directement le **numéro de pin physique**. Cela active la charge ou le relais connecté à cette pin.
 
 ```cpp
-{ 3, { 5 } }    // La pin D3 déclenche : active la charge/relais sur la pin 5
-{ 3, { 5, 7 } } // La pin D3 déclenche : active les charges/relais sur les pins 5 et 7
+{ 3, { 5 } }    // La pin D3 déclenche : active la charge/relais sur la pin 5
+{ 3, { 5, 7 } } // La pin D3 déclenche : active les charges/relais sur les pins 5 et 7
 ```
 
 #### Combiner les deux méthodes
@@ -665,7 +711,7 @@ Vous pouvez aussi utiliser directement le **numéro de pin physique**. Cela acti
 Vous pouvez mélanger les deux méthodes dans la même configuration :
 
 ```cpp
-{ 3, { 5, LOAD(1) } }  // Pin D3 : active la pin 5 ET la charge #1
+{ 3, { 5, LOAD(1) } }  // Pin D3 : active la pin 5 ET la charge #1
 ```
 
 ### Exemples de configuration
@@ -673,33 +719,33 @@ Vous pouvez mélanger les deux méthodes dans la même configuration :
 **Simple :** Un bouton contrôle tout
 ```cpp
 inline constexpr OverridePins overridePins{ {
-    { 11, ALL_LOADS_AND_RELAYS() }    // Pin D11 : boost de tout le système
+    { 11, ALL_LOADS_AND_RELAYS() }    // Pin D11 : boost de tout le système
 } };
 ```
 
 **Avec les macros :** Cibler par index de charge/relais
 ```cpp
 inline constexpr OverridePins overridePins{ {
-    { 3, { LOAD(0) } },               // Pin D3 : boost de la charge #0 (première charge)
-    { 4, { RELAY(0), RELAY(1) } }     // Pin D4 : boost des relais #0 et #1
+    { 3, { LOAD(0) } },               // Pin D3 : boost de la charge #0 (première charge)
+    { 4, { RELAY(0), RELAY(1) } }     // Pin D4 : boost des relais #0 et #1
 } };
 ```
 
 **Avec les numéros de pins :** Cibler par pin physique
 ```cpp
 inline constexpr OverridePins overridePins{ {
-    { 3, { 5 } },                     // Pin D3 : boost de ce qui est sur la pin 5
-    { 4, { 5, 7 } }                   // Pin D4 : boost des pins 5 et 7
+    { 3, { 5 } },                     // Pin D3 : boost de ce qui est sur la pin 5
+    { 4, { 5, 7 } }                   // Pin D4 : boost des pins 5 et 7
 } };
 ```
 
 **Approche mixte :** Combiner les deux méthodes
 ```cpp
 inline constexpr OverridePins overridePins{ {
-    { 3, { 5, LOAD(1) } },            // Pin D3 : pin 5 + charge #1
-    { 4, ALL_LOADS() },               // Pin D4 : toutes les charges
-    { 11, { LOAD(1), LOAD(2) } },     // Pin D11 : charges #1 et #2
-    { 12, ALL_LOADS_AND_RELAYS() }    // Pin D12 : tout le système
+    { 3, { 5, LOAD(1) } },            // Pin D3 : pin 5 + charge #1
+    { 4, ALL_LOADS() },               // Pin D4 : toutes les charges
+    { 11, { LOAD(1), LOAD(2) } },     // Pin D11 : charges #1 et #2
+    { 12, ALL_LOADS_AND_RELAYS() }    // Pin D12 : tout le système
 } };
 ```
 
@@ -766,7 +812,7 @@ Une valeur négative obligera le routeur à consommer cette puissance depuis le 
 
 # Configuration avec la carte d’extension ESP32
 
-La carte d’extension ESP32 permet une intégration simple et fiable entre le Mk2PVRouter et un ESP32 pour le contrôle à distance via Home Assistant. Cette section détaille comment configurer correctement le Mk2PVRouter lorsque vous utilisez cette carte d’extension.
+La carte d’extension ESP32 permet une intégration simple et fiable entre le Mk2PVRouter et un ESP32 pour le contrôle à distance via Home Assistant. Cette section détaille comment configurer correctement le Mk2PVRouter lorsque vous utilisez cette carte d’extension.
 
 ## Correspondance des broches
 Lorsque vous utilisez la carte d’extension ESP32, les connexions entre le Mk2PVRouter et l’ESP32 sont prédéfinies comme suit :
@@ -785,7 +831,7 @@ Lorsque vous utilisez la carte d’extension ESP32, les connexions entre le Mk2P
 - **Pont `TEMP` soudé** : Le Mk2PVRouter contrôle les sondes de température via D3.
 
 ## Configuration recommandée
-Pour une utilisation optimale avec Home Assistant, il est recommandé d’activer au minimum les fonctions suivantes :
+Pour une utilisation optimale avec Home Assistant, il est recommandé d’activer au minimum les fonctions suivantes :
 
 ### Configuration de base recommandée
 ```cpp
@@ -826,18 +872,18 @@ Pour l’installation des sondes de température :
 - Configurez les sondes dans ESPHome (aucune configuration n’est nécessaire côté Mk2PVRouter)
 
 L’utilisation de l’ESP32 pour gérer les sondes de température présente plusieurs avantages :
-- Visualisation des températures directement dans Home Assistant
+- Visualisation des températures directement dans Home Assistant
 - Possibilité de créer des automatisations basées sur les températures
 - Configuration plus flexible des sondes sans avoir à reprogrammer le Mk2PVRouter
 
-## Liaison avec Home Assistant
+## Liaison avec Home Assistant
 Une fois votre MkPVRouter configuré avec la carte d’extension ESP32, vous pourrez :
 - Contrôler à distance l’activation/désactivation du routage (idéal pendant les absences)
 - Déclencher un boost à distance
 - Surveiller les températures en temps réel
 - Créer des scénarios d’automatisation avancés combinant les données de production solaire et les températures
 
-Pour plus de détails sur la configuration d’ESPHome et l’intégration avec Home Assistant, consultez la [documentation détaillée disponible dans ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Ce guide complet vous explique pas à pas comment configurer votre ESP32 avec ESPHome pour exploiter au maximum les fonctionnalités de votre PVRouter dans Home Assistant.
+Pour plus de détails sur la configuration d’ESPHome et l’intégration avec Home Assistant, consultez la [documentation détaillée disponible dans ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Ce guide complet vous explique pas à pas comment configurer votre ESP32 avec ESPHome pour exploiter au maximum les fonctionnalités de votre PVRouter dans Home Assistant.
 
 # Configuration sans carte d’extension
 
@@ -853,12 +899,12 @@ Dans ce cas :
 
 Assurez-vous notamment que les numéros de pins utilisés dans chaque configuration correspondent exactement à vos connexions physiques. N’oubliez pas d’utiliser des adaptateurs de niveau logique si nécessaire entre le Mk2PVRouter (5 V) et l’ESP32 (3.3 V).
 
-Pour les sondes de température, vous pouvez les connecter directement à l’ESP32 en utilisant une broche `GPIO` de votre choix, que vous configurerez ensuite dans ESPHome. **N’oubliez pas d’ajouter une résistance pull-up de 4,7 kΩ entre la ligne de données (DQ) et l’alimentation +3,3 V** pour assurer le bon fonctionnement du bus 1-Wire.
+Pour les sondes de température, vous pouvez les connecter directement à l’ESP32 en utilisant une broche `GPIO` de votre choix, que vous configurerez ensuite dans ESPHome. **N’oubliez pas d’ajouter une résistance pull-up de 4,7 kΩ entre la ligne de données (DQ) et l’alimentation +3,3 V** pour assurer le bon fonctionnement du bus 1-Wire.
 
 > [!NOTE]
-> Même sans la carte d’extension, toutes les fonctionnalités d’intégration avec Home Assistant restent accessibles, à condition que votre câblage et vos configurations logicielles soient correctement réalisés.
+> Même sans la carte d’extension, toutes les fonctionnalités d’intégration avec Home Assistant restent accessibles, à condition que votre câblage et vos configurations logicielles soient correctement réalisés.
 
-Pour plus de détails sur la configuration d’ESPHome et l’intégration avec Home Assistant, consultez la [documentation détaillée disponible dans ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Ce guide complet vous explique pas à pas comment configurer votre ESP32 avec ESPHome pour exploiter au maximum les fonctionnalités de votre PVRouter dans Home Assistant.
+Pour plus de détails sur la configuration d’ESPHome et l’intégration avec Home Assistant, consultez la [documentation détaillée disponible dans ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Ce guide complet vous explique pas à pas comment configurer votre ESP32 avec ESPHome pour exploiter au maximum les fonctionnalités de votre PVRouter dans Home Assistant.
 
 # Dépannage
 - Assurez-vous que toutes les bibliothèques requises sont installées.

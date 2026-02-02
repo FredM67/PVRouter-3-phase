@@ -5,6 +5,9 @@ This program is designed to be used with the Arduino IDE and/or other developmen
 
 - [Use with Visual Studio Code (recommended)](#use-with-visual-studio-code-recommended)
 - [Use with Arduino IDE](#use-with-arduino-ide)
+  - [Required libraries for Arduino IDE](#required-libraries-for-arduino-ide)
+    - [Required libraries](#required-libraries)
+    - [Important note](#important-note)
 - [Quick overview of files](#quick-overview-of-files)
 - [Development documentation](#development-documentation)
 - [Router calibration](#router-calibration)
@@ -16,7 +19,7 @@ This program is designed to be used with the Arduino IDE and/or other developmen
     - [Operating principle](#operating-principle)
   - [RF module and remote loads configuration](#rf-module-and-remote-loads-configuration)
     - [Required hardware](#required-hardware)
-    - [Software configuration](#software-configuration-1)
+    - [Software configuration](#software-configuration)
     - [Remote receiver configuration](#remote-receiver-configuration)
   - [Watchdog configuration](#watchdog-configuration)
   - [Temperature sensor(s) configuration](#temperature-sensors-configuration)
@@ -24,7 +27,7 @@ This program is designed to be used with the Arduino IDE and/or other developmen
     - [Sensor configuration (common to both cases above)](#sensor-configuration-common-to-both-cases-above)
   - [Off-peak hours management and scheduled boost (dual tariff)](#off-peak-hours-management-and-scheduled-boost-dual-tariff)
     - [Hardware configuration](#hardware-configuration)
-    - [Software configuration](#software-configuration)
+    - [Software configuration](#software-configuration-1)
     - [Scheduled boost configuration (rg\_ForceLoad)](#scheduled-boost-configuration-rg_forceload)
     - [Visual examples](#visual-examples)
     - [Multiple loads configuration](#multiple-loads-configuration)
@@ -76,6 +79,31 @@ For **MacOSX**, this file is located in '/Users/[user]/Library/Arduino15/package
 Open the file in any text editor (you'll need administrator rights) and replace the parameter '**-std=gnu++11**' with '**-std=gnu++17**'. That's it!
 
 If your Arduino IDE was open, please close all instances and reopen it.
+
+## Required libraries for Arduino IDE
+
+This project requires the installation of the following libraries via the Arduino IDE's **Library Manager** (menu **Tools** → **Manage Libraries…**) :
+
+### Required libraries
+- **OneWire** by Jim Studt et al. (version 2.3.7 or higher)
+  - Used for DS18B20 temperature sensors
+  - Installed even if no sensor is used (unused code will be eliminated by the linker)
+
+- **RFM69** by Felix Rusu, LowPowerLab (version 1.5.3 or higher)
+  - Used for RF communication (telemetry and remote loads)
+  - Installed even if RF module is not present (unused code will be eliminated by the linker)
+
+- **ArduinoJson** by Benoit Blanchon (version **6.x only**, NOT 7.x)
+  - Used for serial output in JSON format (in `utils.h`)
+  - Version 7.x is too large for an ATmega328P
+
+- **SPI** (included with Arduino IDE)
+  - Used for communication with the RFM69 module
+
+### Important note
+All libraries are always included in the source code. However, only the code actually used by your configuration will be present in the final firmware. This simplifies code maintenance while preserving firmware size.
+
+**With PlatformIO**: All dependencies are managed automatically via the `platformio.ini` file. No manual installation is required.
 ___
 > [!WARNING]
 > When using the **ArduinoJson** library, you must install a version **6.x**.
@@ -170,11 +198,25 @@ The first step is to define the number of TRIAC outputs:
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
 ```
 
-Then, you need to assign the corresponding *pins* as well as the priority order at startup.
+Then, you need to assign the corresponding *pins* **for local loads only** as well as the priority order at startup.
 ```cpp
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 7 };
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 1 };  // 1 remote load (controlled via RF)
+
+// Pins for LOCAL loads only (remote loads are controlled via RF)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// Optional: Status LEDs for remote loads
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ unused_pin };
+
+// Priority order at startup (0 = highest priority, applies to ALL loads)
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ```
+
+**Important:** 
+- `physicalLoadPin` contains only the pins for **local** loads (TRIACs directly connected)
+- **Remote** loads have no physical pin on the main controller (they are controlled via RF)
+- `remoteLoadStatusLED` optionally allows adding status LEDs to visualize the state of remote loads
+- `loadPrioritiesAtStartup` defines the priority order for **all** loads (local + remote). Priorities 0 to (number of local loads - 1) control local loads, subsequent priorities control remote loads.
 
 ## On/off relay output configuration
 On/off relay outputs allow powering devices that contain electronics (heat pump ...).
@@ -259,25 +301,30 @@ The router can control remote loads via an RFM69 RF module. This feature allows 
 
 The RF module can be used for two independent features:
 
-1. **RF Telemetry** (`ENABLE_RF_DATALOGGING`): Sends power/voltage data to a gateway
-2. **Remote Loads** (`ENABLE_REMOTE_LOADS`): Load control via RF
+1. **RF Telemetry** (`RF_LOGGING_PRESENT`): Sends power/voltage data to a gateway
+2. **Remote Loads** (`REMOTE_LOADS_PRESENT`): Load control via RF
 
-To activate the RF module with remote load control, use the `remote_loads` build environment in PlatformIO, or add build flags:
+To enable the RF module with remote load control, configure in **config.h**:
 
-```ini
-build_src_flags =
-    -DRF_PRESENT
-    -DENABLE_REMOTE_LOADS
+```cpp
+inline constexpr bool RF_LOGGING_PRESENT{ false };       // RF telemetry (optional)
+inline constexpr bool REMOTE_LOADS_PRESENT{ true };      // Remote loads (if NO_OF_REMOTE_LOADS > 0, will be automatically true)
 ```
 
 **Load configuration:**
 
-Define total number of loads (local + remote) in **config.h**:
+Define total number of loads (local + remote):
 
 ```cpp
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total: 3 loads
 inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Including 2 remote loads
-// NO_OF_LOCAL_LOADS will be automatically calculated: 3 - 2 = 1 local load
+                                                       // Local loads: 3 - 2 = 1
+
+// Pin for the local load (TRIAC)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
+
+// Optional LEDs to indicate remote load status
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ 8, 9 };  // D8 and D9
 ```
 
 **Priorities:**
@@ -292,30 +339,29 @@ Remote loads **always** have lower priority than local loads. In the example abo
 Default parameters are:
 - Frequency: 868 MHz (Europe)
 - Network ID: 210
-- Transmitter ID: 10
-- Receiver ID: 15
+- Router ID: 10
+- Remote unit ID: 15
 
 To modify these parameters, edit **config_rf.h**:
 
 ```cpp
-inline constexpr uint8_t FREQUENCY{ RF69_868MHZ };  // RF frequency
-inline constexpr uint8_t ROUTER_NODE_ID{ 10 };     // ID of this transmitter
-inline constexpr uint8_t GATEWAY_ID{ 1 };          // Gateway ID (telemetry)
-inline constexpr uint8_t REMOTE_NODE_ID{ 15 };     // Load receiver ID
-inline constexpr uint8_t NETWORK_ID{ 210 };        // Network ID (1-255)
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // Router (this device) ID
+inline constexpr uint8_t GATEWAY_ID{ 1 };       // Gateway ID (telemetry)
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // Remote unit ID
+inline constexpr uint8_t NETWORK_ID{ 210 };     // Network ID (1-255)
 ```
 
 ### Remote receiver configuration
 
 The **RemoteLoadReceiver** sketch is provided in the `RemoteLoadReceiver/` folder.
 
-**Minimum configuration (in receiver's config.h):**
+**Minimum configuration (in receiver's config_rf.h):**
 
 ```cpp
-// RF Configuration - must match transmitter
-inline constexpr uint8_t TX_NODE_ID{ 10 };          // Transmitter ID
-inline constexpr uint8_t MY_NODE_ID{ 15 };          // This receiver's ID
-inline constexpr uint8_t NETWORK_ID{ 210 };         // Network ID
+// RF Configuration - must match router
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // Router ID
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // This remote unit's ID
+inline constexpr uint8_t NETWORK_ID{ 210 };     // Network ID
 
 // Load configuration
 inline constexpr uint8_t NO_OF_LOADS{ 2 };                    // Number of loads on this receiver
@@ -633,9 +679,13 @@ There are **two ways** to specify which loads/relays to activate:
 
 | Macro | Description |
 |-------|-------------|
-| `LOAD(n)` | Load by index (0 = first load, 1 = second, etc.) |
+| `LOAD(n)` | Load by index (0 = first load, 1 = second, etc. - local then remote) |
+| `LOCAL_LOAD(n)` | Local load by index (0 = first local load) |
+| `REMOTE_LOAD(n)` | Remote load by index (0 = first remote load) |
 | `RELAY(n)` | Relay by index (0 = first relay, 1 = second, etc.) |
-| `ALL_LOADS()` | All configured loads |
+| `ALL_LOADS()` | All configured loads (local + remote) |
+| `ALL_LOCAL_LOADS()` | All local loads only |
+| `ALL_REMOTE_LOADS()` | All remote loads only |
 | `ALL_RELAYS()` | All configured relays |
 | `ALL_LOADS_AND_RELAYS()` | Everything |
 
