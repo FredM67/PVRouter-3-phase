@@ -2,13 +2,14 @@
  * @file receiver.cpp
  * @brief Implementation of Remote Load Receiver functions
  * @version 2.0
- * @date 2026-01-30
+ * @date 2026-03-02
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  *
  * @copyright Copyright (c) 2025-2026
  */
 
 #include "config.h"
+#include "version.h"
 #include "utils_pins.h"  // Fast direct port manipulation
 
 // Global state variables
@@ -85,8 +86,22 @@ void initializeReceiver()
   Serial.begin(9600);
   Serial.println();
   Serial.println(F("======================================="));
-  Serial.println(F("Remote Load Receiver v2.0 (RFM69)"));
-  Serial.println(F("Based on remoteUnit_fasterControl_1"));
+  Serial.print(F("Sketch ID: "));
+  Serial.println(F(PROJECT_PATH));
+  Serial.print(F("From branch '"));
+  Serial.print(F(BRANCH_NAME));
+  Serial.print(F("', commit "));
+  Serial.println(F(COMMIT_HASH));
+  Serial.print(F("Build environment: "));
+  Serial.println(F(BUILD_ENV));
+  Serial.print(F("Build on "));
+#ifdef CURRENT_TIME
+  Serial.println(F(CURRENT_TIME));
+#else
+  Serial.print(F(__DATE__));
+  Serial.print(F(" "));
+  Serial.println(F(__TIME__));
+#endif
   Serial.println(F("======================================="));
   Serial.print(F("Listening to Router ID: "));
   Serial.println(RFConfig::ROUTER_NODE_ID);
