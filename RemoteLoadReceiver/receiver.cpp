@@ -2,13 +2,12 @@
  * @file receiver.cpp
  * @brief Implementation of Remote Load Receiver functions
  * @version 2.0
- * @date 2026-03-02
+ * @date 2026-03-05
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  *
  * @copyright Copyright (c) 2025-2026
  */
 
-#include "config.h"
 #include "version.h"
 #include "utils_pins.h"  // Fast direct port manipulation
 
@@ -22,6 +21,7 @@ RemoteLoadPayload receivedData;
 // RFM69 radio instance (SS=D10, IRQ=D2, isRFM69HW)
 #include <Arduino.h>
 #include <RFM69.h>
+
 #include "config.h"
 
 // RFM69 radio instance

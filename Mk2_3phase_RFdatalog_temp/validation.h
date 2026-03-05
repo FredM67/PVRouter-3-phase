@@ -3,9 +3,9 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Compile-time validations
  * @version 0.1
- * @date 2023-02-09
+ * @date 2026-03-05
  * 
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023-2026
  * 
  */
 
@@ -45,6 +45,7 @@ static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIO
 
 static_assert(NO_OF_DUMPLOADS > 0, "Number of dump loads must be greater than 0");
 static_assert(NO_OF_DUMPLOADS >= NO_OF_REMOTE_LOADS, "NO_OF_DUMPLOADS must be >= NO_OF_REMOTE_LOADS");
+static_assert(NO_OF_REMOTE_LOADS <= 8, "******** Remote load bitmask is uint8_t, max 8 remote loads supported ! ********");
 static_assert(iTemperatureThreshold > 0, "Temperature threshold must be greater than 0");
 static_assert(iTemperatureThreshold <= 100, "Temperature threshold must be lower than 100");
 
