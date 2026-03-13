@@ -68,7 +68,7 @@ relayOutput(pin, 1000, 200, 5, 5)
 // Customer tries to set tight control
 relayOutput(pin, 1000, 0, 5, 5)   // ❌ PROBLEM!
 //                ^    ^
-//                |    └─ Import threshold: 0W  
+//                |    └─ Import threshold: 0W
 //                └─ Surplus threshold: 1000W
 ```
 
@@ -83,9 +83,9 @@ relayOutput(pin, 1000, 0, 5, 5)   // ❌ PROBLEM!
 relayOutput(pin, 1000, 50, 5, 5)  // Even worse!
 ```
 - Relay turns OFF when import > 50W
-- Battery immediately discharges to bring grid back to 0W  
+- Battery immediately discharges to bring grid back to 0W
 - Relay turns ON again
-- **Result: Relay chattering!** 
+- **Result: Relay chattering!**
 
 ## Visual Examples: Battery System Behavior
 
@@ -100,7 +100,7 @@ The following graphs demonstrate why traditional relay configurations fail with 
   - Relay turns on but **NEVER turns off**
   - Battery compensates deficits → Grid power ≈ 0W permanently
   - Impossible to detect imports → Relay stays on 100% of time
-  
+
 - **Bottom Graph (WORKS)**: -50W Import Threshold (Negative)
   - Relay cycles correctly: 1 switch, 24% of time
   - Monitors actual surplus before battery compensation
@@ -273,7 +273,7 @@ relayOutput(5, 2000, -50, 15, 10)
 relayOutput(6, 3000, -100, 5, 5)
 //          ^   ^    ^     ^ ^
 //          |   |    |     | └─ Standard timing
-//          |   |    |     └─ Standard timing  
+//          |   |    |     └─ Standard timing
 //          |   |    └─ Turn OFF when surplus < 100W (safe margin)
 //          |   └─ Turn ON when surplus > 3000W
 //          └─ Control pin
@@ -338,7 +338,7 @@ else
 // Old (problematic)
 relayOutput(pin, 1000, 0, 5, 5)     // Never turns OFF with battery
 
-// New (works with battery)  
+// New (works with battery)
 relayOutput(pin, 1000, -20, 5, 5)   // Turns OFF when surplus < 20W
 ```
 

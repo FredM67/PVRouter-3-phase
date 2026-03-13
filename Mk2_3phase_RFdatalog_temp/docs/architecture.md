@@ -16,7 +16,7 @@ The PVRouter is designed as a real-time embedded system with the following core 
 
 ```
                     PVRouter Software Architecture
-                    
+
 ┌─────────────────────────────────────────────────────────────────┐
 │                        Application Layer                        │
 ├─────────────────────────────────────────────────────────────────┤
@@ -79,7 +79,7 @@ The PVRouter is designed as a real-time embedded system with the following core 
 
 **Key functions**:
 - `processCurrentRawSample()` - Process current sensor ADC samples
-- `processVoltageRawSample()` - Process voltage sensor ADC samples  
+- `processVoltageRawSample()` - Process voltage sensor ADC samples
 - `processRawSamples()` - Main ADC sample processing
 - `updatePhysicalLoadStates()` - Control TRIAC outputs
 - `processDataLogging()` - Aggregate data for logging
@@ -135,7 +135,7 @@ Load switching decisions → TRIAC control → Physical load changes
 Temperature reading → Sensor validation → Data storage
      ↓
 User input processing → Control logic → State updates
-     ↓  
+     ↓
 Data logging → Serial output → Telemetry transmission
 ```
 
@@ -214,7 +214,7 @@ Data logging → Serial output → Telemetry transmission
 3. **Communication protocols**: Add new utils_*.h modules
 4. **Control algorithms**: Extend processing engine
 
-### Hardware Adaptations  
+### Hardware Adaptations
 1. **Different microcontrollers**: Modify pin definitions
 2. **Additional phases**: Extend NO_OF_PHASES constant
 3. **Different ADC resolution**: Adjust calibration factors

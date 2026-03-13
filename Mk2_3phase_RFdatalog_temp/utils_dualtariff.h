@@ -4,9 +4,9 @@
  * @brief Some utility functions for dual tariff feature
  * @version 0.1
  * @date 2023-05-01
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef UTILS_DUALTARIFF_H

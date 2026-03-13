@@ -111,7 +111,7 @@ Watch for these indicators:
 - System seems "nervous" or unstable
 - Frequent switching sounds from relay contacts
 
-### Need to Decrease Delay  
+### Need to Decrease Delay
 - System responds slowly to load changes
 - Takes too long to start diversion after solar increase
 - Sluggish response to consumption changes

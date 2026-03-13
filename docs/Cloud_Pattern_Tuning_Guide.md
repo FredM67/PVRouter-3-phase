@@ -82,7 +82,7 @@ inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 4 };
 - **Typical Result**: 1-2 minute delays work well
 - **Climate Match**: Spring/fall conditions in temperate regions
 
-### Heavy Cloud Bank Pattern  
+### Heavy Cloud Bank Pattern
 - **Scenario**: Dense cloud formation passing over
 - **Typical Result**: 2-3 minute delays recommended
 - **Climate Match**: Weather fronts, storm systems
@@ -115,19 +115,19 @@ inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 4 };
 inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 2 }; // Adjust based on your climate
 
 // Relay turns OFF when importing > 200W (normal behavior)
-inline constexpr RelayEngine< 1, RELAY_FILTER_DELAY_MINUTES > relays{ 
-  { { unused_pin, 1000, 200, 1, 1 } } 
+inline constexpr RelayEngine< 1, RELAY_FILTER_DELAY_MINUTES > relays{
+  { { unused_pin, 1000, 200, 1, 1 } }
 };
 ```
 
 ### Battery System Installation
 ```cpp
-// config.h  
+// config.h
 inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 2 }; // 2-3 minutes recommended
 
 // Relay turns OFF when surplus < 100W (battery-friendly)
-inline constexpr RelayEngine< 1, RELAY_FILTER_DELAY_MINUTES > relays{ 
-  { { unused_pin, 1000, -100, 1, 1 } } 
+inline constexpr RelayEngine< 1, RELAY_FILTER_DELAY_MINUTES > relays{
+  { { unused_pin, 1000, -100, 1, 1 } }
 };
 ```
 

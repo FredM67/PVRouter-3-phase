@@ -17,6 +17,7 @@
 // analogue input pins
 inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
 inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
+
 // ------------------------------------------
 
 inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]; /**< load priorities */
@@ -41,11 +42,13 @@ void processVoltageRawSample(const uint8_t phase, const int16_t rawSample);
 void initializeProcessing();
 inline void processStartUp(uint8_t phase);
 inline void processStartNewCycle();
+inline void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample);
+inline void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample);
 inline void processPlusHalfCycle(uint8_t phase);
 inline void processMinusHalfCycle(uint8_t phase);
 inline void processRawSamples(const uint8_t phase);
 inline void processVoltage(uint8_t phase);
-inline void processPolarity(uint8_t phase, int16_t rawSample);
+inline void processPolarity(uint8_t phase, uint16_t rawSample);
 inline void confirmPolarity(uint8_t phase);
 inline void proceedLowEnergyLevel();
 inline void proceedHighEnergyLevel();
@@ -59,11 +62,13 @@ inline void updatePhysicalLoadStates();
 void initializeProcessing() __attribute__((optimize("-O3")));
 inline void processStartUp(uint8_t phase) __attribute__((always_inline));
 inline void processStartNewCycle() __attribute__((always_inline));
+inline void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample) __attribute__((always_inline));
+inline void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample) __attribute__((always_inline));
 inline void processPlusHalfCycle(uint8_t phase) __attribute__((always_inline));
 inline void processMinusHalfCycle(uint8_t phase) __attribute__((always_inline));
 inline void processRawSamples(const uint8_t phase) __attribute__((always_inline));
 inline void processVoltage(uint8_t phase) __attribute__((always_inline));
-inline void processPolarity(uint8_t phase, int16_t rawSample) __attribute__((always_inline));
+inline void processPolarity(uint8_t phase, uint16_t rawSample) __attribute__((always_inline));
 inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
 inline void proceedLowEnergyLevel() __attribute__((always_inline));
 inline void proceedHighEnergyLevel() __attribute__((always_inline));

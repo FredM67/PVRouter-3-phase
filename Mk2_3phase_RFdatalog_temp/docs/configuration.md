@@ -48,13 +48,13 @@ static_assert(NO_OF_DUMPLOADS <= 6, "Maximum 6 dump loads supported");
 static_assert(NO_OF_PHASES == 3, "Only 3-phase operation supported");
 
 // Validate pin assignments
-static_assert(VOLTAGE_SENSOR_PIN != CURRENT_SENSOR_PIN, 
+static_assert(VOLTAGE_SENSOR_PIN != CURRENT_SENSOR_PIN,
               "Voltage and current pins must be different");
 
 // Validate timing constraints
-static_assert(DATALOG_PERIOD_IN_SECONDS >= 5, 
+static_assert(DATALOG_PERIOD_IN_SECONDS >= 5,
               "Datalog period must be at least 5 seconds");
-static_assert(DATALOG_PERIOD_IN_SECONDS <= 300, 
+static_assert(DATALOG_PERIOD_IN_SECONDS <= 300,
               "Datalog period must not exceed 5 minutes");
 ```
 
@@ -70,7 +70,7 @@ constexpr auto getLoadConfig() {
 // Type-safe sensor access
 template<uint8_t SENSOR_ID>
 constexpr float readTemperature() {
-  static_assert(SENSOR_ID < TEMPERATURE_SENSORS_COUNT, 
+  static_assert(SENSOR_ID < TEMPERATURE_SENSORS_COUNT,
                 "Temperature sensor index out of bounds");
   // Implementation...
 }
@@ -80,13 +80,13 @@ constexpr float readTemperature() {
 ```cpp
 // Feature-dependent validation
 #ifdef TEMP_ENABLED
-  static_assert(TEMPERATURE_SENSORS_COUNT > 0, 
+  static_assert(TEMPERATURE_SENSORS_COUNT > 0,
                 "Temperature feature enabled but no sensors configured");
   static_assert(TEMPERATURE_SENSORS_COUNT <= MAX_TEMPERATURE_SENSORS,
                 "Too many temperature sensors configured");
-  
+
   // Validate sensor addresses
-  static_assert(sizeof(temperatureSensors) == 
+  static_assert(sizeof(temperatureSensors) ==
                 TEMPERATURE_SENSORS_COUNT * sizeof(DeviceAddress),
                 "Temperature sensor array size mismatch");
 #endif
@@ -105,12 +105,12 @@ constexpr float readTemperature() {
 template<uint8_t PIN>
 constexpr bool isPinUsed() {
   bool used = false;
-  
+
   // Check against all configured pins
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i) {
     if (loadPriority[i].pin == PIN) used = true;
   }
-  
+
 #ifdef TEMP_ENABLED
   if (PIN_TEMP_SENSOR == PIN) used = true;
 #endif
@@ -132,18 +132,18 @@ static_assert(!isPinUsed<PIN_VOLTAGE_SENSOR_1>(), "Pin conflict detected");
 template<uint8_t LOAD_INDEX>
 constexpr bool validateLoadConfig() {
   constexpr auto config = loadPriority[LOAD_INDEX];
-  
+
   // Check pin validity
   static_assert(config.pin >= 2 && config.pin <= 13, "Invalid pin number");
-  
+
   // Check power rating
   static_assert(config.nominalPower > 0, "Load power must be positive");
   static_assert(config.nominalPower <= 10000, "Load power too high (>10kW)");
-  
+
   // Check load type
   static_assert(config.type == LoadType::TRIAC || config.type == LoadType::RELAY,
                 "Invalid load type");
-  
+
   return true;
 }
 
@@ -164,7 +164,7 @@ static_assert(sizeof(powerReadings) <= 100, "Power readings structure too large"
 static_assert(sizeof(loadState) <= 50, "Load state structure too large");
 
 // Validate stack usage estimates
-constexpr size_t ESTIMATED_STACK_USAGE = 
+constexpr size_t ESTIMATED_STACK_USAGE =
   sizeof(int) * 10 +           // Local variables
   sizeof(void*) * 5 +          // Function calls
   64;                          // Safety margin
@@ -246,7 +246,7 @@ CONFIG_ASSERT(POWERVAL_DIVIDER > 0,
 ```cpp
 // Generate configuration summary at compile time
 constexpr const char* generateConfigSummary() {
-  return 
+  return
     "Configuration Summary:\n"
     "- Dump Loads: " STR(NO_OF_DUMPLOADS) "\n"
     "- Temperature Sensors: " STR(TEMPERATURE_SENSORS_COUNT) "\n"
@@ -266,7 +266,7 @@ constexpr const char* generateConfigSummary() {
   #ifndef SERIALOUT_ON
     #error "EmonESP control requires serial output to be enabled"
   #endif
-  
+
   #if SERIAL_OUTPUT_TYPE != SerialOutputType::EmonTX
     #error "EmonESP control requires EmonTX serial output format"
   #endif
@@ -305,13 +305,13 @@ static_assert(!(ACTIVE_FEATURES & FEATURE_TEMP) || (PIN_TEMP_SENSOR != 0),
 ```cpp
 bool validateRuntimeConfig() {
   bool valid = true;
-  
+
   // Check hardware presence
   if (!checkADCFunctionality()) {
     Serial.println("ERROR: ADC not functioning");
     valid = false;
   }
-  
+
   // Validate calibration values
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase) {
     if (voltageCal[phase] == 0 || currentCal[phase] == 0) {
@@ -319,7 +319,7 @@ bool validateRuntimeConfig() {
       valid = false;
     }
   }
-  
+
   // Check pin availability
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i) {
     if (!isPinAvailable(loadPriority[i].pin)) {
@@ -327,7 +327,7 @@ bool validateRuntimeConfig() {
       valid = false;
     }
   }
-  
+
   return valid;
 }
 ```
@@ -336,7 +336,7 @@ bool validateRuntimeConfig() {
 ```cpp
 void performConfigurationSelfTest() {
   Serial.println("Configuration Self-Test:");
-  
+
   // Test all configured loads
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i) {
     Serial.print("Testing load ");
@@ -344,7 +344,7 @@ void performConfigurationSelfTest() {
     testLoad(i);
     Serial.println(" - OK");
   }
-  
+
   // Test temperature sensors
 #ifdef TEMP_ENABLED
   for (uint8_t i = 0; i < TEMPERATURE_SENSORS_COUNT; ++i) {
@@ -355,7 +355,7 @@ void performConfigurationSelfTest() {
     }
   }
 #endif
-  
+
   Serial.println("Configuration test complete");
 }
 ```

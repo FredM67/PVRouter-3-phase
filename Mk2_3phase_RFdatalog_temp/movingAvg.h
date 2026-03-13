@@ -4,9 +4,9 @@
  * @brief Code for sliding-window average
  * @version 0.1
  * @date 2023-06-14
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef MOVINGAVG_H
@@ -18,11 +18,11 @@
 
 /**
  * @brief Template class for implementing a sliding average
- * 
+ *
  * @tparam T Type of values to be stored
  * @tparam DURATION_IN_MINUTES Size of main array
  * @tparam VALUES_PER_MINUTE Size of sub array
- * 
+ *
  * @note
  *    Since the Arduino RAM is tiny, we need to store a few values as possible.
  *    Suppose, you want a sliding window of 10 minutes and receive a value every 5 seconds.
@@ -33,7 +33,7 @@
  *      - the average is calculated over 1 minute with incoming values
  *      - this sub-average is added to the main array
  *      - the average is calculated on the main array
- * 
+ *
  *    Drawback of this method: the average is updated only every minutes !
  */
 template< typename T, uint8_t DURATION_IN_MINUTES = 10, uint8_t VALUES_PER_MINUTE = 10 >
@@ -42,7 +42,7 @@ class movingAvg
 public:
   /**
    * @brief Reset everything
-   * 
+   *
    */
   void clear()
   {
@@ -75,7 +75,7 @@ public:
 
   /**
    * @brief Add a value
-   * 
+   *
    * @param _value Value to be added
    */
   void addValue(const T& _value)
@@ -106,9 +106,9 @@ public:
 
   /**
    * @brief Get the sliding average
-   * 
+   *
    * @return auto The sliding average
-   * 
+   *
    * @note This value is updated every minute, except for the special case of a duration of
    *   ONE minute. In this case, it is updated for each new input value.
    */

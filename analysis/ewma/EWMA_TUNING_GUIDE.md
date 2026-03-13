@@ -77,7 +77,7 @@ alpha_ema_ema_ema = 1/4 // 4x plus rapide
 - Le système semble "nerveux" ou instable
 - Sons fréquents de commutation des contacts de relais
 
-### Besoin de Diminuer le Délai  
+### Besoin de Diminuer le Délai
 - Le système répond lentement aux changements de charge
 - Prend trop de temps pour commencer la diversion après une augmentation solaire
 - Réponse lente aux changements de consommation

@@ -17,9 +17,9 @@
  *
  * @version 0.1
  * @date 2025-04-04
- * 
+ *
  * @copyright Copyright (c) 2025
- * 
+ *
  */
 #ifndef TELEINFO_H
 #define TELEINFO_H
@@ -43,7 +43,7 @@
  * @param tagLen The length of the tag in bytes.
  * @param valueLen The length of the value in bytes.
  * @return The total size of the line in bytes.
- * 
+ *
  * @ingroup Telemetry
  */
 inline static constexpr size_t lineSize(size_t tagLen, size_t valueLen)
@@ -63,33 +63,33 @@ inline static constexpr size_t lineSize(size_t tagLen, size_t valueLen)
  * The buffer size is calculated as follows:
  * - 1 byte for the start-of-text (STX) character.
  * - 1 line for the "P" tag (signed 6 digits) - power measurement.
- * 
+ *
  * For multi-phase systems (`NO_OF_PHASES > 1`):
  * - `NO_OF_PHASES` lines for the "V1" to "Vn" tags (unsigned 5 digits each) - voltage measurements.
  * - `NO_OF_DUMPLOADS` lines for the "D1" to "Dn" tags (unsigned 3 digits each) - diversion rates.
- * 
+ *
  * For single-phase systems:
  * - 1 line for the "V" tag (unsigned 5 digits) - voltage measurement.
  * - 1 line for the "D" tag (unsigned 4 digits) - diverted power.
  * - 1 line for the "E" tag (unsigned 5 digits) - diverted energy.
- * 
+ *
  * If relay diversion is enabled (`RELAY_DIVERSION`):
  * - 1 line for the "R" tag (signed 6 digits) - mean power for relay diversion.
  * - `relays.size()` lines for the "R1" to "Rn" tags (1 digit each) - relay states.
- * 
+ *
  * If temperature sensors are present (`TEMP_SENSOR_PRESENT`):
  * - `temperatureSensing.size()` lines for the "T1" to "Tn" tags (4 digits each) - temperature readings.
- * 
+ *
  * Common for all configurations:
  * - 1 line for the "N" tag (unsigned 5 digits) - absence of diverted energy count.
- * 
+ *
  * If dual tariff is enabled (`DUAL_TARIFF`):
  * - 1 line for the "TA" tag (1 digit) - tariff state (0=high/on-peak, 1=low/off-peak).
- * 
+ *
  * - 1 line for the "S_MC" tag (unsigned 2 digits) - sample sets per mains cycle.
  * - 1 line for the "S" tag (unsigned 5 digits) - sample count.
  * - 1 byte for the end-of-text (ETX) character.
- * 
+ *
  * @ingroup Telemetry
  */
 inline static constexpr size_t calcBufferSize()

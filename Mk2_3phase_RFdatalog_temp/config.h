@@ -1,19 +1,19 @@
 /**
  * @file config.h - Basic Three-Phase Configuration Example
  * @brief Standard three-phase PVRouter setup with 2 dump loads
- * 
+ *
  * This configuration is suitable for:
  * - Standard three-phase electrical installation
  * - Two resistive dump loads (e.g., water heater elements)
  * - Basic monitoring without additional sensors
  * - Human-readable serial output for commissioning
- * 
+ *
  * Hardware requirements:
  * - 3-phase PVRouter PCB
  * - 3 current transformers (one per phase)
- * - 3 voltage sensing circuits (one per phase) 
+ * - 3 voltage sensing circuits (one per phase)
  * - 2 TRIAC outputs for dump loads
- * 
+ *
  * @version 1.0
  * @date 2024-09-06
  */

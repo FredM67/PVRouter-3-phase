@@ -4,31 +4,31 @@
  * @brief This file implements an Exponentially Weighted Moving Average template class
  * @version 0.1
  * @date 2024-02-27
- * 
+ *
  * @section description Description
  * The Exponentially Weighted Moving Average (EWMA) is a quantitative or statistical measure used to model or describe a time series.
  * The EWMA is widely used in finance, the main applications being technical analysis and volatility modeling.
- * 
+ *
  * The moving average is designed as such that older observations are given lower weights.
  * The weights fall exponentially as the data point gets older – hence the name exponentially weighted.
- * 
+ *
  * The only decision a user of the EWMA must make is the parameter alpha.
  * The parameter decides how important the current observation is in the calculation of the EWMA.
  * The higher the value of alpha, the more closely the EWMA tracks the original time series.
- * 
+ *
  * Computation of DEMA (Double EMA) with half-alpha has been added to get a better response of the average,
  * especially when "peak inputs" are recorded.
  *
  * Computation of TEMA (Triple EMA) with quarter-alpha has been added to get a even better response of the average,
  * especially when "peak inputs" are recorded. This seems to be the "optimal" solution.
- * 
+ *
  * @section note Note
  * This class is implemented in way to use only integer math.
  * This comes with some restrictions on the alpha parameter, but the benefit of full integer math wins
  * on the side-drawback.
  *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 
 #ifndef EWMA_AVG_H
@@ -38,18 +38,18 @@
 
 /**
  * @brief Helper compile-time function to retrieve the previous power of 2 of the given number (120 => 64 => 6)
- * 
+ *
  * @param v The input number
  * @return constexpr uint8_t The next power of two
- * 
+ *
  * @note This function is used to optimize the EWMA calculation by using bit-shifting instead of division.
  *       For cloud immunity tuning:
  *       - Larger values = more filtering, better cloud immunity, slower response
  *       - Smaller values = less filtering, faster response, more sensitive to clouds
- *       
+ *
  *       Recommended values for relay control:
  *       - Clear sky regions: A = 60-120 (1-2 minutes smoothing)
- *       - Mixed conditions: A = 120-240 (2-4 minutes smoothing) 
+ *       - Mixed conditions: A = 120-240 (2-4 minutes smoothing)
  *       - Very cloudy: A = 240-480 (4-8 minutes smoothing)
  */
 constexpr uint8_t round_up_to_power_of_2(uint16_t v)
@@ -82,20 +82,20 @@ constexpr uint8_t round_up_to_power_of_2(uint16_t v)
  * - EMA provides a smoothed average of the input series.
  * - DEMA and TEMA offer improved responsiveness, especially for peak inputs.
  * - The class is optimized for use in embedded systems like Arduino.
- * 
+ *
  * @section cloud_immunity Cloud Immunity Tuning
  * For PV router applications, cloud immunity is crucial to prevent relay chattering:
- * 
+ *
  * **TEMA (getAverageT()) is recommended for relay control** as it provides:
  * - Best immunity to brief cloud shadows (5-60 seconds)
  * - Good responsiveness to genuine load changes
  * - Optimal balance for most installations
- * 
+ *
  * **Filter Comparison:**
  * - EMA (getAverageS()): Basic smoothing, most responsive, least cloud immunity
- * - DEMA (getAverageD()): Better cloud immunity, good responsiveness  
+ * - DEMA (getAverageD()): Better cloud immunity, good responsiveness
  * - TEMA (getAverageT()): Best cloud immunity, excellent responsiveness to real changes
- * 
+ *
  * **Tuning Guidelines:**
  * - Template parameter A should be: `delay_minutes * 60 / sample_period_seconds`
  * - For 5-second sampling: A = delay_minutes * 12

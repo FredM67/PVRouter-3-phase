@@ -4,9 +4,9 @@
  * @brief Basic configuration values to be set by the end-user
  * @version 0.1
  * @date 2023-05-05
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 #ifndef CONFIG_SYSTEM_H

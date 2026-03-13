@@ -38,12 +38,14 @@ volatile boolean bool_1 = 0;
 volatile boolean bool_2 = 0;
 volatile boolean bool_3 = 0;
 
-constexpr uint8_t round_up_to_power_of_2(uint16_t v) {
+constexpr uint8_t round_up_to_power_of_2(uint16_t v)
+{
   if (__builtin_popcount(v) == 1) { return __builtin_ctz(v) - 1; }
 
   uint8_t next_pow_of_2{ 0 };
 
-  while (v) {
+  while (v)
+  {
     v >>= 1;
     ++next_pow_of_2;
   }
@@ -52,19 +54,23 @@ constexpr uint8_t round_up_to_power_of_2(uint16_t v) {
 }
 
 template< uint8_t A = 10 >
-class EWMA_average {
+class EWMA_average
+{
 public:
   void addValue(int32_t input) __attribute__((optimize("-Os")));
 
-  auto getAverageS() const {
+  auto getAverageS() const
+  {
     return ema;
   }
 
-  auto getAverageD() const {
+  auto getAverageD() const
+  {
     return (ema << 1) - ema_ema;
   }
 
-  auto getAverageT() const {
+  auto getAverageT() const
+  {
     return 3 * (ema - ema_ema) + ema_ema_ema;
   }
 
@@ -77,7 +83,8 @@ private:
   int32_t ema{ 0 };
 };
 
-template< uint8_t A> void EWMA_average<A>::addValue(int32_t input) {
+template< uint8_t A > void EWMA_average< A >::addValue(int32_t input)
+{
   ema_raw = ema_raw - ema + input;
   ema = ema_raw >> (round_up_to_power_of_2(A));
 
@@ -92,17 +99,21 @@ movingAvg< int32_t, 10, 12 > sliding_Average;
 EWMA_average< 120 > ewma_average;
 constexpr uint8_t alpha{ round_up_to_power_of_2(120) };
 
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   Serial.println("Setup ***");
 }
 
-void pause() {
+void pause()
+{
   byte done = false;
   byte dummyByte;
 
-  while (done != true) {
-    if (Serial.available() > 0) {
+  while (done != true)
+  {
+    if (Serial.available() > 0)
+    {
       dummyByte = Serial.read();  // to 'consume' the incoming byte
       if (dummyByte == 'g') done++;
     }
@@ -151,12 +162,15 @@ void pause() {
 //   pause();
 // }
 
-void loop() {
-  for (int j = 0; j < nb_of_pass; j++) {
+void loop()
+{
+  for (int j = 0; j < nb_of_pass; j++)
+  {
 
     // STEP 1: We first calculate the time taken to run a dummy FOR loop to measure the overhead cause by the execution of the loop.
     initial_time = micros();
-    for (int i = 0; i < nb_of_interation_per_pass; i++) {
+    for (int i = 0; i < nb_of_interation_per_pass; i++)
+    {
       dummy++;  // A dummy instruction is introduced here. If not, the compiler is smart enough to just skip the loop entirely...
     }
     final_time = micros();
@@ -170,12 +184,13 @@ void loop() {
 
     // STEP 3: Calculation of the time taken to run the dummy FOR loop and the command to test.
     initial_time = micros();
-    for (int i = 0; i < nb_of_interation_per_pass; i++) {
+    for (int i = 0; i < nb_of_interation_per_pass; i++)
+    {
       dummy++;  // The dummy instruction is also performed here so that we can remove the effect of the dummy FOR loop accurately.
       // **************** PUT YOUR COMMAND TO TEST HERE ********************
       ewma_average.addValue(i);  // Target command example
       long_2 = ewma_average.getAverageD();
-                                 // **************** PUT YOUR COMMAND TO TEST HERE ********************
+      // **************** PUT YOUR COMMAND TO TEST HERE ********************
     }
     final_time = micros();
 
@@ -198,7 +213,8 @@ void loop() {
   delay(2000);
 }
 
-void print_result(float value_to_print) {
+void print_result(float value_to_print)
+{
   Serial.print("Time to execute command: ");
   Serial.print("\t");
   Serial.print(value_to_print, 3);

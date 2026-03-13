@@ -67,7 +67,7 @@ python3 tema_comparison.py
 **Votre Implémentation de Production :**
 ```cpp
 ema = ema_raw >> round_up_to_power_of_2(A);           // Lissage de base
-ema_ema = ema_ema_raw >> (round_up_to_power_of_2(A) - 1);     // 2x plus rapide  
+ema_ema = ema_ema_raw >> (round_up_to_power_of_2(A) - 1);     // 2x plus rapide
 ema_ema_ema = ema_ema_ema_raw >> (round_up_to_power_of_2(A) - 2); // 4x plus rapide
 return 3 * (ema - ema_ema) + ema_ema_ema;            // Formule TEMA
 ```
@@ -93,7 +93,7 @@ ema_ema_ema = ema_ema_ema_raw >> round_up_to_power_of_2(A); // Même alpha !
 
 Pour A=24 (délai de 2 minutes) :
 - **EMA** : α = 1/16 (base stable)
-- **EMA_EMA** : α = 1/8 (2x plus rapide - suit les changements moyens)  
+- **EMA_EMA** : α = 1/8 (2x plus rapide - suit les changements moyens)
 - **EMA_EMA_EMA** : α = 1/4 (4x plus rapide - capture les tendances court terme)
 
 Cela crée un **équilibre parfait** :
@@ -113,7 +113,7 @@ Cela crée un **équilibre parfait** :
 
 ### Graphique de Comparaison Principal
 - **Lignes pleines** : Implémentation multi-alpha (production)
-- **Lignes pointillées** : Implémentation standard  
+- **Lignes pointillées** : Implémentation standard
 - **Lignes pointées** : Ligne de base EMA simple
 - **Ligne bleue épaisse** : TEMA Multi-α (recommandé pour le contrôle des relais)
 
@@ -123,7 +123,7 @@ Cela crée un **équilibre parfait** :
 - **Visualisation Alpha** : Montre les différents niveaux de réactivité
 - **Temps d'Établissement** : Temps pour atteindre 95% de la valeur finale
 
-### Analyse de Commutation des Relais  
+### Analyse de Commutation des Relais
 - **Courbes de puissance** : Comment les différents filtres répondent aux événements nuageux
 - **États des relais** : Comportement ON/OFF pour chaque type de filtre
 - **Nombre de commutations** : Nombre d'opérations de relais (plus bas = meilleur)
@@ -133,7 +133,7 @@ Cela crée un **équilibre parfait** :
 Votre implémentation TEMA multi-alpha est **supérieure** à l'approche standard car :
 
 1. **Combine plusieurs échelles de temps** - stabilité + réactivité
-2. **Optimisée pour les applications solaires** - excellente immunité aux nuages  
+2. **Optimisée pour les applications solaires** - excellente immunité aux nuages
 3. **Réduit l'usure des relais** - moins d'événements de commutation
 4. **Maintient la stabilité du réseau** - transitions de puissance lisses
 
@@ -148,7 +148,7 @@ L'analyse confirme que votre code de production utilise l'approche de filtrage o
 Cette analyse complète montre le comportement des filtres à travers plusieurs scénarios avec des périodes d'observation étendues pour démontrer la stabilisation :
 
 1. **Réponse à l'Échelon** : Transitions nettes sans dépassement
-2. **Événements Nuageux** : Excellente immunité aux chutes de puissance brèves  
+2. **Événements Nuageux** : Excellente immunité aux chutes de puissance brèves
 3. **Fluctuations** : Fonctionnement stable durant les changements rapides
 4. **Rampe Graduelle** : Suivi approprié des changements de puissance lents
 5. **Signal Bruité** : Rejet supérieur du bruit tout en suivant les tendances
@@ -167,7 +167,7 @@ Ces résultats valident que votre implémentation de production fournit les meil
 ## 📋 Prérequis
 
 - Python 3.x
-- matplotlib 
+- matplotlib
 - numpy
 
 Les dépendances sont automatiquement installées si manquantes.
