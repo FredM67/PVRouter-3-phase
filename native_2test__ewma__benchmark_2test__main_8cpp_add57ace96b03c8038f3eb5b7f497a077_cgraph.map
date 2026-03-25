@@ -1,0 +1,9 @@
+<map id="test_alpha_parameter_effects" name="test_alpha_parameter_effects">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,171,63"/>
+<area shape="rect" id="Node000002" href="$classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="230,5,422,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,32,216,27,217,32,171,37"/>
+<area shape="rect" id="Node000004" href="$classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="219,55,433,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="171,49,205,52,205,58,171,54"/>
+<area shape="rect" id="Node000003" href="$native_2test__ewma__benchmark_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="481,5,665,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="422,15,467,15,467,21,422,21"/>
+</map>

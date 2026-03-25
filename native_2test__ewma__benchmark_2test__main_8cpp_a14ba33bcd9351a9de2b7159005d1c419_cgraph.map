@@ -1,0 +1,19 @@
+<map id="test_performance_comparison" name="test_performance_comparison">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,177,225,203"/>
+<area shape="rect" id="Node000002" href="$classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="285,5,477,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,175,182,111,224,73,272,41,290,33,292,38,275,46,227,77,186,115,128,179"/>
+<area shape="rect" id="Node000004" href="$classSimpleMovingAverage.html#aa5d3ce5ccb1c77af5eb613c53461b74c" title=" " alt="" coords="297,55,465,95"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="137,175,197,141,272,105,292,97,294,102,274,110,199,146,139,179"/>
+<area shape="rect" id="Node000005" href="$native_2test__ewma__benchmark_2test__main_8cpp.html#a00954f16079075db489bc0cd28d3a97f" title=" " alt="" coords="299,120,463,145"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="175,175,308,146,309,151,176,180"/>
+<area shape="rect" id="Node000006" href="$classSimpleMovingAverage.html#a6a4f8d720e272bb2727f18d862bc2a12" title=" " alt="" coords="297,170,465,210"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="226,187,284,187,284,193,226,193"/>
+<area shape="rect" id="Node000007" href="$classEWMA__average.html#a8caa754acdd5f485f7cd2a183cee1286" title="Get the Double Exponentially Weighted Moving Average (DEMA)." alt="" coords="273,235,489,260"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="176,200,309,229,308,234,175,205"/>
+<area shape="rect" id="Node000008" href="$classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="274,284,489,309"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="139,200,198,234,274,269,303,278,301,283,272,274,196,239,136,205"/>
+<area shape="rect" id="Node000009" href="$classEWMA__average.html#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="274,333,489,359"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="130,201,188,258,229,291,275,318,294,326,292,331,272,323,226,295,185,262,126,205"/>
+<area shape="rect" id="Node000003" href="$native_2test__ewma__benchmark_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="537,5,721,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="478,15,524,15,524,21,478,21"/>
+</map>
