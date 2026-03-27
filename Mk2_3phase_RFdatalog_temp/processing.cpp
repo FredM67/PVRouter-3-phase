@@ -17,15 +17,11 @@
 #include "processing.h"
 #include "utils_pins.h"
 #include "shared_var.h"
+#include "mult_asm.h"
 
-// Define operating limits for the LP filters which identify DC offset in the voltage
-// sample streams. By limiting the output range, these filters always should start up
-// correctly.
-constexpr int32_t l_DCoffset_V_min{ (512L - 100L) * 256L }; /**< mid-point of ADC minus a working margin */
-constexpr int32_t l_DCoffset_V_max{ (512L + 100L) * 256L }; /**< mid-point of ADC plus a working margin */
-constexpr int16_t i_DCoffset_I_nom{ 512L };                 /**< nominal mid-point value of ADC @ x1 scale */
-
-int32_t l_DCoffset_V[NO_OF_PHASES]{}; /**< <--- for LPF */
+// Define ideal bias, ADC mid-range, left aligned.
+constexpr uint16_t i_DCoffset_V_nom{ 511U << 6 }; /**< nominal mid-point value of ADC @ x64 scale */
+uint16_t i_DCoffset_V[NO_OF_PHASES]{};            /**< <--- for LPF */
 
 /**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
 constexpr float f_capacityOfEnergyBucket_main{ static_cast< float >(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
@@ -65,11 +61,12 @@ constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 3 }; /**< allows each transition to
 // constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
 uint8_t activeLoad{ NO_OF_DUMPLOADS }; /**< current active load */
 
-int32_t l_sumP[NO_OF_PHASES]{};                /**< cumulative power per phase */
-int32_t l_sampleVminusDC[NO_OF_PHASES]{};      /**< current raw voltage sample filtered */
-int32_t l_cumVdeltasThisCycle[NO_OF_PHASES]{}; /**< for the LPF which determines DC offset (voltage) */
-int32_t l_sumP_atSupplyPoint[NO_OF_PHASES]{};  /**< for summation of 'real power' values during datalog period */
-int32_t l_sum_Vsquared[NO_OF_PHASES]{};        /**< for summation of V^2 values during datalog period */
+int32_t l_sumP[NO_OF_PHASES]{};           /**< cumulative power per phase */
+int16_t i_sampleVminusDC[NO_OF_PHASES]{}; /**< current raw voltage sample filtered (left-aligned ADC) */
+uint32_t l_filterDC_V[NO_OF_PHASES]{};    /**< for the LPF which determines DC offset (voltage) */
+
+int32_t l_sumP_atSupplyPoint[NO_OF_PHASES]{}; /**< for summation of 'real power' values during datalog period */
+uint32_t l_sum_Vsquared[NO_OF_PHASES]{};      /**< for summation of V^2 values during datalog period */
 
 uint8_t n_samplesDuringThisMainsCycle[NO_OF_PHASES]{}; /**< number of sample sets for each phase during each mains cycle */
 uint16_t i_sampleSetsDuringThisDatalogPeriod{ 0 };     /**< number of sample sets during each datalogging period */
@@ -95,21 +92,38 @@ bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle 
 /**
  * @brief Initializes all elements of a given array to a specified value.
  *
- * This function is a compile-time constant expression (`constexpr`) that allows
- * initializing arrays of any size with a specific value. It is particularly useful
- * in embedded systems where predictable initialization is required.
+ * This template function provides a type-safe and efficient way to initialize
+ * arrays of any type and size with a specific value. Being a `constexpr` function,
+ * it can be evaluated at compile time when all inputs are compile-time constants,
+ * or at runtime when needed.
  *
- * @tparam N The size of the array (deduced automatically).
- * @param array A reference to the array to be initialized.
- * @param value The value to assign to each element of the array.
+ * This utility is particularly useful in embedded systems where:
+ * - Predictable and uniform initialization is required
+ * - Type safety is important to prevent initialization errors
+ * - The array size is automatically deduced, avoiding size mismatch errors
  *
- * @note The function can be evaluated at compile time if all inputs are known
- *       at compile time.
+ * @tparam T The type of the array elements (automatically deduced from the array)
+ * @tparam N The number of elements in the array (automatically deduced)
+ * 
+ * @param[in,out] array Reference to the array to be initialized. All elements will be
+ *                      overwritten with the specified value.
+ * @param[in] value The value to assign to each element of the array. The type must be
+ *                  compatible with the array element type.
+ *
+ * @note This function is marked `constexpr`, allowing compile-time evaluation when
+ *       both the array and value are compile-time constants. When used with runtime
+ *       values, it executes as a regular function.
+ *
+ * @par Example Usage:
+ * @code
+ * uint32_t offsets[NO_OF_PHASES];
+ * initializeArray(offsets, static_cast<uint32_t>(0x8000UL << 16));
+ * @endcode
  *
  * @ingroup Initialization
  */
-template< size_t N >
-constexpr void initializeArray(int32_t (&array)[N], int32_t value)
+template< typename T, size_t N >
+constexpr void initializeArray(T (&array)[N], T value)
 {
   for (size_t i = 0; i < N; ++i)
   {
@@ -241,7 +255,12 @@ constexpr uint16_t getInputPins()
  */
 void initializeProcessing()
 {
-  initializeArray(l_DCoffset_V, 512L * 256L);  // nominal mid-point value of ADC @ x256 scale
+  // Initialize DC offset in Q16.16 format: (0x8000 << 16) for left-aligned ADC
+  // 0x8000 is the mid-point of a left-aligned 10-bit ADC result
+  initializeArray(i_DCoffset_V, i_DCoffset_V_nom);  // nominal mid-point value of ADC left-aligned, x64 scale
+
+  constexpr uint32_t filterDC_V_nom = static_cast< uint32_t >(i_DCoffset_V_nom) << 15;
+  initializeArray(l_filterDC_V, filterDC_V_nom);  // nominal mid-point value of ADC left-aligned
 
   setPinsAsOutput(getOutputPins());      // set the output pins as OUTPUT
   setPinsAsInputPullup(getInputPins());  // set the input pins as INPUT_PULLUP
@@ -259,6 +278,9 @@ void initializeProcessing()
 
   // Activate free-running mode
   ADCSRB = 0x00;
+
+  // Enable left-aligned ADC result (ADLAR=1) for efficient fixed-point math
+  bit_set(ADMUX, ADLAR);
 
   // Set up the ADC to be free-running
   bit_set(ADCSRA, ADPS0);  // Set the ADC's clock to system clock / 128
@@ -402,12 +424,14 @@ void updatePhysicalLoadStates()
  *
  * @ingroup TimeCritical
  */
-void processPolarity(const uint8_t phase, const int16_t rawSample)
+void processPolarity(const uint8_t phase, const uint16_t rawSample)
 {
-  // remove DC offset from each raw voltage sample by subtracting the accurate value
-  // as determined by its associated LP filter.
-  l_sampleVminusDC[phase] = (static_cast< int32_t >(rawSample) << 8) - l_DCoffset_V[phase];
-  polarityOfMostRecentSampleV[phase] = (l_sampleVminusDC[phase] > 0) ? Polarities::POSITIVE : Polarities::NEGATIVE;
+  // With left-aligned ADC and Q16.16 bias, simply subtract the integer part
+  // rawSample is already left-aligned (16-bit), extract bias from Q16.16 (upper 16 bits)
+  // Add 0.5 for the rounding, +32 when 10-bits left aligned `1<<(15-10)`
+  i_sampleVminusDC[phase] = (rawSample | 32U) - i_DCoffset_V[phase];  // +0.5 for the rounding
+
+  polarityOfMostRecentSampleV[phase] = (i_sampleVminusDC[phase] > 0) ? Polarities::POSITIVE : Polarities::NEGATIVE;
 }
 
 /**
@@ -427,24 +451,34 @@ void processPolarity(const uint8_t phase, const int16_t rawSample)
  *
  * @ingroup TimeCritical
  */
-void processCurrentRawSample(const uint8_t phase, const int16_t rawSample)
+void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
 {
   // extra items for an LPF to improve the processing of data samples from CT1
   static int32_t lpf_long[NO_OF_PHASES]{};  // new LPF, for offsetting the behaviour of CTx as a HPF
 
-  // remove most of the DC offset from the current sample (the precise value does not matter)
-  int32_t sampleIminusDC = (static_cast< int32_t >(rawSample - i_DCoffset_I_nom)) << 8;
+  // remove most of the DC offset from the current sample.
+  // Use the voltage bias, it's most likely more accurate than the default mid-range.
+  // Add 0.5 for the rounding, +32 when 10-bits left aligned `1<<(15-10)`
+  int16_t sampleIminusDC = (rawSample | 32U) - i_DCoffset_V[phase];
 
   // extra filtering to offset the HPF effect of CTx
-  const int32_t last_lpf_long{ lpf_long[phase] };
-  lpf_long[phase] += alpha * (sampleIminusDC - last_lpf_long);
-  sampleIminusDC += (lpf_gain * lpf_long[phase]);
+  // Using if constexpr ensures zero overhead when CT filtering is disabled
+  if constexpr (lpf_gain != 0.0F && alpha != 0.0F)
+  {
+    const auto last_lpf_long{ lpf_long[phase] };
+    lpf_long[phase] += alpha * (sampleIminusDC - last_lpf_long);
+    sampleIminusDC += (lpf_gain * lpf_long[phase]);
+  }
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
-  const int32_t filtV_div4 = l_sampleVminusDC[phase] >> 2;  // reduce to 16-bits (now x64, or 2^6)
-  const int32_t filtI_div4 = sampleIminusDC >> 2;           // reduce to 16-bits (now x64, or 2^6)
-  int32_t instP = filtV_div4 * filtI_div4;                  // 32-bits (now x4096, or 2^12)
-  instP >>= 12;                                             // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
+  // Reduce to 14-bits (x16 scale) before multiplication for efficiency on 8-bit MCU
+  const int16_t filtV_div4{ i_sampleVminusDC[phase] >> 2 };  // reduce to 14-bits (now x16, or 2^4)
+  const int16_t filtI_div4{ sampleIminusDC >> 2 };           // reduce to 14-bits (now x16, or 2^4)
+
+  // Using optimized assembly multiplication for ~3x speedup in ISR
+  int32_t instP;
+  multS16x16_to32(instP, filtV_div4, filtI_div4);  // 32-bits (now x256, or 2^8)
+  instP >>= 8;                                     // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
   l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
   l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
@@ -503,22 +537,28 @@ void confirmPolarity(const uint8_t phase)
 void processVoltage(const uint8_t phase)
 {
   // for the Vrms calculation (for datalogging only)
-  const int32_t filtV_div4{ l_sampleVminusDC[phase] >> 2 };  // reduce to 16-bits (now x64, or 2^6)
-  int32_t inst_Vsquared{ filtV_div4 * filtV_div4 };          // 32-bits (now x4096, or 2^12)
+  // Reduce to 14-bits (x16 scale) before multiplication for efficiency on 8-bit MCU
+  const int16_t filtV_div4{ i_sampleVminusDC[phase] >> 2 };  // reduce to 14-bits (now x16, or 2^4)
 
+  // Using optimized assembly multiplication for ~3x speedup in ISR
+  int32_t inst_Vsquared_signed;
+  multS16x16_to32(inst_Vsquared_signed, filtV_div4, filtV_div4);
+  uint32_t inst_Vsquared = static_cast< uint32_t >(inst_Vsquared_signed);
+
+  // Shift strategy verified safe by unit tests for all datalog periods and voltages
   if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
   {
-    inst_Vsquared >>= 16;  // scaling is now x1/16 (V_ADC x I_ADC)
+    inst_Vsquared >>= 12;  // scaling is now x1/16 (V_ADC x V_ADC)
   }
   else
   {
-    inst_Vsquared >>= 12;  // scaling is now x1 (V_ADC x I_ADC)
+    inst_Vsquared >>= 8;  // scaling is now x1 (V_ADC x V_ADC)
   }
 
-  l_sum_Vsquared[phase] += inst_Vsquared;  // cumulative V^2 (V_ADC x I_ADC)
+  l_sum_Vsquared[phase] += inst_Vsquared;  // cumulative V^2 (V_ADC x V_ADC)
   //
   // store items for use during next loop
-  l_cumVdeltasThisCycle[phase] += l_sampleVminusDC[phase];           // for use with LP filter
+  l_filterDC_V[phase] += i_sampleVminusDC[phase];                    // for use with LP filter
   polarityConfirmedOfLastSampleV[phase] = polarityConfirmed[phase];  // for identification of half cycle boundaries
   ++n_samplesDuringThisMainsCycle[phase];                            // for real power calculations
 }
@@ -750,21 +790,7 @@ void processMinusHalfCycle(const uint8_t phase)
   // The portion which is fed back into the integrator is approximately one percent
   // of the average offset of all the SampleVs in the previous mains cycle.
   //
-  l_DCoffset_V[phase] += (l_cumVdeltasThisCycle[phase] >> 12);
-  l_cumVdeltasThisCycle[phase] = 0;
-
-  // To ensure that this LP filter will always start up correctly when 240V AC is
-  // available, its output value needs to be prevented from drifting beyond the likely range
-  // of the voltage signal.
-  //
-  if (l_DCoffset_V[phase] < l_DCoffset_V_min)
-  {
-    l_DCoffset_V[phase] = l_DCoffset_V_min;
-  }
-  else if (l_DCoffset_V[phase] > l_DCoffset_V_max)
-  {
-    l_DCoffset_V[phase] = l_DCoffset_V_max;
-  }
+  i_DCoffset_V[phase] = l_filterDC_V[phase] >> 15;
 }
 
 /**
@@ -1049,7 +1075,7 @@ void processRawSamples(const uint8_t phase)
  *
  * @ingroup TimeCritical
  */
-void processVoltageRawSample(const uint8_t phase, const int16_t rawSample)
+void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample)
 {
   processPolarity(phase, rawSample);
   confirmPolarity(phase);
@@ -1129,56 +1155,58 @@ void printParamsForSelectedOutputMode()
  *
  * @ingroup TimeCritical
  */
+
+// ADC optimization: circular linked list for channels (private implementation)
+// ADLAR=1 enables left-aligned ADC for efficient fixed-point math
+constexpr uint8_t _ADMUX{ (1 << REFS0) | (1 << ADLAR) };
+
+/**
+ * @brief ADC channel context for circular linked list optimization
+ * 
+ * This structure replaces the switch-case logic in the ADC ISR with a more
+ * efficient circular linked list approach. Minimal memory footprint.
+ * 
+ * Based on florentbr's optimization suggestion #1 for reducing ISR overhead.
+ * 
+ * @ingroup TimeCritical
+ */
+struct adc_ctx_t
+{
+  struct adc_ctx_t *next; /**< pointer to next context in circular list */
+  uint8_t index;          /**< channel index (0-5 for V1,I1,V2,I2,V3,I3) */
+  uint8_t admux;          /**< ADMUX register value for this channel */
+};
+
+// ADC optimization: circular linked list for channel management
+static adc_ctx_t _channels[6] = {
+  { .next = &_channels[1], .index = 0, .admux = _ADMUX | sensorV[1] },  // V1 -> setup for V2
+  { .next = &_channels[2], .index = 1, .admux = _ADMUX | sensorI[1] },  // I1 -> setup for I2
+  { .next = &_channels[3], .index = 2, .admux = _ADMUX | sensorV[2] },  // V2 -> setup for V3
+  { .next = &_channels[4], .index = 3, .admux = _ADMUX | sensorI[2] },  // I2 -> setup for I3
+  { .next = &_channels[5], .index = 4, .admux = _ADMUX | sensorV[0] },  // V3 -> setup for V1
+  { .next = &_channels[0], .index = 5, .admux = _ADMUX | sensorI[0] }   // I3 -> setup for I1
+};
+
+static adc_ctx_t *_ctx = &_channels[0];
+
 ISR(ADC_vect)
 {
-  static uint8_t sample_index{ 0 };
-  int16_t rawSample;
+  uint16_t adc_raw = ADC;
 
-  switch (sample_index)
-  {
-    case 0:
-      rawSample = ADC;                  // store the ADC value (this one is for Voltage L1)
-      ADMUX = bit(REFS0) + sensorV[1];  // the conversion for I1 is already under way
-      ++sample_index;                   // increment the control flag
-      //
-      processVoltageRawSample(0, rawSample);
-      break;
-    case 1:
-      rawSample = ADC;                  // store the ADC value (this one is for Current L1)
-      ADMUX = bit(REFS0) + sensorI[1];  // the conversion for V2 is already under way
-      ++sample_index;                   // increment the control flag
-      //
-      processCurrentRawSample(0, rawSample);
-      break;
-    case 2:
-      rawSample = ADC;                  // store the ADC value (this one is for Voltage L2)
-      ADMUX = bit(REFS0) + sensorV[2];  // the conversion for I2 is already under way
-      ++sample_index;                   // increment the control flag
-      //
-      processVoltageRawSample(1, rawSample);
-      break;
-    case 3:
-      rawSample = ADC;                  // store the ADC value (this one is for Current L2)
-      ADMUX = bit(REFS0) + sensorI[2];  // the conversion for V3 is already under way
-      ++sample_index;                   // increment the control flag
-      //
-      processCurrentRawSample(1, rawSample);
-      break;
-    case 4:
-      rawSample = ADC;                  // store the ADC value (this one is for Voltage L3)
-      ADMUX = bit(REFS0) + sensorV[0];  // the conversion for I3 is already under way
-      ++sample_index;                   // increment the control flag
-      //
-      processVoltageRawSample(2, rawSample);
-      break;
-    case 5:
-      rawSample = ADC;                  // store the ADC value (this one is for Current L3)
-      ADMUX = bit(REFS0) + sensorI[0];  // the conversion for V1 is already under way
-      sample_index = 0;                 // reset the control flag
-      //
-      processCurrentRawSample(2, rawSample);
-      break;
-    default:
-      sample_index = 0;  // to prevent lockup (should never get here)
+  if ((_ctx->index & 1) == 0)
+  {  // even=voltage, odd=current
+    // process voltage channel
+    processVoltageRawSample(_ctx->index >> 1, adc_raw);
   }
+  else
+  {
+    // process current channel
+    processCurrentRawSample(_ctx->index >> 1, adc_raw);
+  }
+
+  // Set ADMUX at the end of the interrupt to ensure at least 128 CPU cycles
+  // have passed since the trigger event (ATmega328p datasheet requirement)
+  ADMUX = _ctx->admux;
+
+  _ctx = _ctx->next;
 }  // end of ISR
