@@ -236,8 +236,78 @@ Pour chaque relais, la transition ou le changement d’état est géré de la ma
 - si le relais est *OFF* et que la puissance moyenne actuelle est inférieure au seuil de surplus, le relais essaie de passer à l’état *ON*. Cette transition est soumise à la condition que le relais ait été *OFF* pendant au moins la durée *minOFF*.
 - si le relais est *ON* et que la puissance moyenne actuelle est supérieure au seuil d’importation, le relais essaie de passer à l’état *OFF*. Cette transition est soumise à la condition que le relais ait été *ON* pendant au moins la durée *minON*.
 
+#### Vue d’ensemble visuelle
+
+**Zones de seuil sur l’axe de puissance :**
+
+```
+← surplus (export vers le réseau)                    import depuis le réseau →
+───────────────────────────────────────────────────────────────────────────
+         │                         │                         │
+  seuilSurplus                    0 W                 seuilImport
+  (ex. −1000 W)                                       (ex. +200 W)
+         │                                                   │
+         ▼  relais éligible à la mise en ON                  ▼  relais éligible à la mise en OFF
+    (si relais est OFF)                                  (si relais est ON)
+         │←────────────────── zone stable ─────────────────►│
+                    (le relais conserve son état actuel)
+```
+
+La puissance réseau filtrée par la moyenne EWMA est comparée en permanence aux deux seuils :
+- En dessous du `seuilSurplus` → le relais est éligible pour passer **ON** (sous réserve de `minOFF`)
+- Au-dessus du `seuilImport` → le relais est éligible pour passer **OFF** (sous réserve de `minON`)
+- Entre les deux seuils → le relais **maintient** son état actuel
+
+**Minuteries de durée minimale :**
+
+```
+ Puissance (W)
+
+ −1200 ─┬ surplus solaire > 1000 W         production solaire en baisse
+        │                       ┌──────────────────────────────────────
+  −600  │                       │
+     0  ┴───────────────────────┴────────────────────  temps →
+  +300                                     └──────────────────── import
+
+ Relais :
+  OFF ────────────────┐                              ┌──────────
+                      │◄────── minON doit s’écouler ►│
+  ON                  └──────────────────────────────┘
+                      ↑                            ↑
+                mise en ON                    mise en OFF
+           (surplus atteint ET            (import dépassé ET
+            minOFF écoulé)                 minON écoulé)
+```
+
 > [!NOTE]
-> **Installations avec batteries :** Pour une configuration optimale des relais avec systèmes de batteries, consultez le **[Guide de Configuration pour Systèmes Batterie](docs/BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](docs/BATTERY_CONFIGURATION_GUIDE.en.md)
+> Après **tout** changement d’état d’un relais, une **période de stabilisation de 60 secondes** est appliquée à l’ensemble du système avant que le prochain relais puisse changer d’état. Cela évite les basculements en cascade rapides lorsque la puissance fluctue près d’un seuil.
+
+**Ordre de traitement multi-relais (exemple : 3 relais, seuils 1000 W / 1500 W / 2000 W) :**
+
+```
+ Surplus solaire croissant :
+
+   Essai relais 0 en premier → mise en ON si seuil atteint ET minOFF écoulé
+     Si relais 0 ne peut pas basculer (déjà ON, ou minOFF pas encore écoulé) :
+     └─► Essai relais 1 ensuite
+           Si relais 1 ne peut pas basculer :
+           └─► Essai relais 2 en dernier
+
+ Import croissant / production solaire décroissante :
+
+   Essai relais 2 en premier → mise en OFF si seuil atteint ET minON écoulé
+     Si relais 2 ne peut pas basculer (déjà OFF, ou minON pas encore écoulé) :
+     └─► Essai relais 1 ensuite
+           Si relais 1 ne peut pas basculer :
+           └─► Essai relais 0 en dernier
+```
+
+À chaque passe, le système parcourt tous les relais dans l’ordre et s’arrête dès qu’**un relais change d’état avec succès** — ce qui déclenche la période de stabilisation de 60 secondes. Les relais qui ne peuvent pas basculer (durée minimale pas encore écoulée, ou déjà dans l’état cible) sont simplement ignorés.
+
+Le système ne trie **pas** automatiquement les relais par seuil — il suit simplement l’ordre de déclaration dans le tableau de configuration. C’est à l’utilisateur de déclarer les relais dans un ordre pertinent (par ex. `seuilSurplus` croissant) pour obtenir le comportement de priorité souhaité.
+
+> [!TIP]
+> Pour les installations avec un **système de stockage par batteries**, le `seuilImport` positif standard ne fonctionnera pas correctement, car la batterie empêche l’import réseau d’augmenter. Utilisez un `seuilImport` **négatif** à la place (ex. `−50`). Une valeur négative signifie « passer en OFF quand le surplus tombe en dessous de X watts ». Consultez le **[Guide de Configuration pour Systèmes Batterie](docs/BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](docs/BATTERY_CONFIGURATION_GUIDE.en.md) pour tous les détails et graphiques.
 
 ## Configuration du Watchdog
 Un chien de garde, en anglais *watchdog*, est un circuit électronique ou un logiciel utilisé en électronique numérique pour s’assurer qu’un automate ou un ordinateur ne reste pas bloqué à une étape particulière du traitement qu’il effectue.
@@ -350,8 +420,8 @@ Chaque charge a deux paramètres : `{ HEURE_DEBUT, DUREE }`
 ```
 Exemple de période HC : 23:00 à 07:00 (8 heures)
 
-        23:00                                           07:00
-          |================== HEURES CREUSES =============|
+        23:00                                          07:00
+          |================== HEURES CREUSES ============|
           |                                              |
      DEBUT ──────────────────────────────────────────► FIN
           │                                              │

@@ -229,7 +229,79 @@ For each relay, the transition or state change is managed as follows:
 - if the relay is *OFF* and the current average power is below the surplus threshold, the relay tries to switch to *ON* state. This transition is subject to the condition that the relay has been *OFF* for at least the *minOFF* duration.
 - if the relay is *ON* and the current average power is above the import threshold, the relay tries to switch to *OFF* state. This transition is subject to the condition that the relay has been *ON* for at least the *minON* duration.
 
+#### Visual overview
+
+**Threshold zones on the power axis:**
+
+```
+← surplus (exporting to grid)                      importing from grid →
+─────────────────────────────────────────────────────────────────────────
+         │                         │                         │
+ surplusThreshold                 0 W               importThreshold
+  (e.g. −1000 W)                                    (e.g. +200 W)
+         │                                                   │
+         ▼  relay eligible to turn ON                        ▼  relay eligible to turn OFF
+    (if relay is OFF)                                   (if relay is ON)
+         │←──────────────── stable zone ───────────────────►│
+                    (relay keeps its current state)
+```
+
+The EWMA-filtered grid power is compared against both thresholds continuously:
+- Below `surplusThreshold` → relay is eligible to switch **ON** (subject to `minOFF`)
+- Above `importThreshold` → relay is eligible to switch **OFF** (subject to `minON`)
+- Between the two thresholds → relay **holds** its current state
+
+**Minimum duration timers:**
+
+```
+ Power (W)
+
+ −1200 ─┐ solar surplus > 1000 W             solar production fades
+        │                         ┌──────────────────────────────
+  −600  │                         │
+     0  ┴─────────────────────────┴─────────────────────  time →
+  +300                                               ╭───── import
+
+ Relay:
+  OFF ──────────────────┐                            ┌──────────
+                        │◄────── minON must elapse ─►│
+  ON                    └────────────────────────────┘
+                        ↑                            ↑
+                   turns ON                     turns OFF
+              (surplus met AND              (import exceeded AND
+               minOFF elapsed)               minON elapsed)
+```
+
 > [!NOTE]
+> After **any** relay changes state, a **60-second settle period** is enforced system-wide before the next relay may change state. This prevents rapid cascading toggles when power fluctuates near a threshold.
+
+**Multi-relay ordering (example: 3 relays, thresholds 1000 W / 1500 W / 2000 W):**
+
+```
+ Solar surplus grows:
+
+   Try relay 0 first → turns ON if threshold met AND minOFF elapsed
+     If relay 0 cannot switch (already ON, or minOFF not yet elapsed):
+     └─► Try relay 1 next
+           If relay 1 cannot switch:
+           └─► Try relay 2 last
+
+ Import rises / solar fades:
+
+   Try relay 2 first → turns OFF if threshold met AND minON elapsed
+     If relay 2 cannot switch (already OFF, or minON not yet elapsed):
+     └─► Try relay 1 next
+           If relay 1 cannot switch:
+           └─► Try relay 0 last
+```
+
+In each pass, the system iterates through all relays in order and stops as soon as **one relay successfully changes state** — that triggers the 60-second cooldown. Relays that cannot switch (minimum duration not yet elapsed, or already in the target state) are simply skipped.
+
+The system does **not** automatically sort relays by threshold — it simply follows the declaration order in the configuration array. It is up to the user to declare relays in a meaningful order (e.g. increasing `surplusThreshold`) to achieve the desired priority behaviour.
+
+> [!TIP]
+> For installations with a **battery storage system**, the standard positive `importThreshold` will not work correctly, because the battery prevents grid import from rising. Use a **negative** `importThreshold` instead (e.g. `−50`). A negative value means "turn OFF when surplus drops below X watts". See the [Battery Configuration Guide](docs/BATTERY_CONFIGURATION_GUIDE.en.md) for full details and graphs.
+
 ## Watchdog configuration
 A watchdog is an electronic circuit or software used in digital electronics to ensure that an automaton or computer does not remain stuck at a particular stage of the processing it performs.
 
