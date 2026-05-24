@@ -6,8 +6,6 @@ Read our [Code of Conduct](./CODE_OF_CONDUCT.md) to keep our community approacha
 
 In this guide you will get an overview of the contribution workflow from opening an issue, creating a PR, reviewing, and merging the PR.
 
-Use the table of contents icon <img src="./assets/images/table-of-contents.png" width="25" height="25" /> on the top left corner of this document to get to a specific section of this guide quickly.
-
 ## New contributor guide
 
 To get an overview of the project, read the [README](README.md). Here are some resources to help you get started with open source contributions:
@@ -17,6 +15,69 @@ To get an overview of the project, read the [README](README.md). Here are some r
 - [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow)
 - [Collaborating with pull requests](https://docs.github.com/en/github/collaborating-with-pull-requests)
 
+
+## Branching Strategy
+
+This project uses a two-branch workflow:
+
+| Branch | Purpose | Description |
+|--------|---------|-------------|
+| `main` | Stable releases | Production-ready code that users download (default branch) |
+| `dev` | Development | Active development and testing |
+
+> **Note:** Direct commits to `main` and `dev` are blocked by pre-commit hooks. Always work in feature branches.
+
+### Daily Development Workflow
+
+**Starting a new feature:**
+
+```bash
+# Switch to dev and update
+git checkout dev
+git pull origin dev
+
+# Create feature branch
+git checkout -b feature/my-feature-name
+```
+
+**Working on your feature:**
+
+```bash
+# Make changes, commit as usual
+git add .
+git commit -m "feat: description of changes"
+
+# Push your feature branch
+git push -u origin feature/my-feature-name
+```
+
+**Creating a Pull Request:**
+
+```bash
+# Create PR targeting dev branch
+gh pr create --base dev --title "feat: my feature"
+
+# Or use GitHub UI and change base branch from 'main' to 'dev'
+```
+
+### Release Workflow
+
+**When ready to release stable code to users:**
+
+```bash
+# Switch to main branch
+git checkout main
+git pull origin main
+
+# Merge dev into main
+git merge dev
+
+# Tag the release
+git tag v1.x.x
+git push origin main --tags
+```
+
+After merging to `main`, users will get the latest stable release when they clone or download the repository.
 
 ## Getting started
 
@@ -39,8 +100,6 @@ Scan through our [existing issues](https://github.com/github/docs/issues) to fin
 #### Make changes in the UI
 
 Click **Make a contribution** at the bottom of any docs page to make small changes such as a typo, sentence fix, or a broken link. This takes you to the `.md` file where you can make your changes and [create a pull request](#pull-request) for a review.
-
- <img src="./assets/images/contribution_cta.png" width="300" height="150" />
 
 #### Make changes in a codespace
 
@@ -125,7 +184,7 @@ If you need to commit without running hooks (not recommended):
 git commit --no-verify
 ```
 
-> **Note:** The `no-commit-to-branch` hook prevents direct commits to `main`. Create a feature branch for your changes.
+> **Note:** The `no-commit-to-branch` hook prevents direct commits to `main` and `dev`. Always create a feature branch for your changes (typically branching from `dev`).
 
 ### Commit your update
 
