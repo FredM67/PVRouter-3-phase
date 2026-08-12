@@ -99,126 +99,88 @@ $(function(){ initResizable(false); });
 
 <p>Compile-time utilities for managing override pins and index-to-bitmask mapping.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="config_8h_source.html">config.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="type__traits_8hpp_source.html">type_traits.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="type__traits_8hpp_source.html">type_traits.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for utils_override.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__override_8h__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2utils__override_8h" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2utils__override_8h" id="aMk2__3phase__RFdatalog__temp_2utils__override_8h">
-<area shape="rect" title="Compile&#45;time utilities for managing override pins and index&#45;to&#45;bitmask mapping." alt="" coords="260,5,437,45"/>
-<area shape="rect" href="config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="312,93,385,119"/>
-<area shape="poly" title=" " alt="" coords="343,46,343,79,338,79,338,45"/>
-<area shape="rect" href="type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="850,313,970,339"/>
-<area shape="poly" title=" " alt="" coords="425,43,516,71,627,112,742,168,797,201,849,238,878,268,900,300,895,303,874,272,846,242,794,205,739,172,624,117,515,76,423,48"/>
-<area shape="poly" title=" " alt="" coords="353,93,355,59,360,59,358,93"/>
-<area shape="rect" href="config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="361,240,489,265"/>
-<area shape="poly" title=" " alt="" coords="357,118,415,227,410,229,353,120"/>
-<area shape="rect" href="debug_8h.html" title="Some macro for the Serial Output and Debugging." alt="" coords="761,240,835,265"/>
-<area shape="poly" title=" " alt="" coords="386,112,479,133,589,164,683,198,761,232,759,237,681,203,588,169,478,138,385,117"/>
-<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="215,240,285,265"/>
-<area shape="poly" title=" " alt="" coords="342,121,307,168,267,229,262,227,302,165,338,117"/>
-<area shape="rect" href="utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="259,313,387,339"/>
-<area shape="poly" title=" " alt="" coords="350,119,329,299,324,299,345,119"/>
-<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="476,167,576,192"/>
-<area shape="poly" title=" " alt="" coords="378,116,486,159,484,164,376,121"/>
-<area shape="rect" href="utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="128,167,231,192"/>
-<area shape="poly" title=" " alt="" coords="316,121,213,163,211,158,314,116"/>
-<area shape="rect" title=" " alt="" coords="7,394,91,419"/>
-<area shape="poly" title=" " alt="" coords="427,266,422,303,415,323,401,341,365,367,331,381,298,387,265,387,195,381,155,382,111,389,97,393,96,388,109,384,155,377,195,376,266,381,298,381,330,376,363,362,397,337,410,321,417,302,422,266"/>
-<area shape="poly" title=" " alt="" coords="489,261,837,311,836,317,489,266"/>
-<area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="2209,394,2405,419"/>
-<area shape="poly" title=" " alt="" coords="971,325,1174,327,1477,336,1834,353,2018,367,2198,384,2236,389,2235,394,2198,389,2017,372,1833,359,1477,341,1174,333,971,330"/>
-<area shape="rect" href="decay_8hpp.html" title=" " alt="" coords="1261,394,1423,419"/>
-<area shape="poly" title=" " alt="" coords="971,335,1250,384,1274,389,1273,394,1250,389,970,340"/>
-<area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="167,387,307,427"/>
-<area shape="poly" title=" " alt="" coords="850,334,621,352,474,368,321,389,320,384,473,363,621,347,850,328"/>
-<area shape="rect" href="function__traits_8hpp.html" title=" " alt="" coords="331,387,481,427"/>
-<area shape="poly" title=" " alt="" coords="850,338,692,359,500,389,495,390,494,385,499,384,691,354,850,332"/>
-<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="659,621,806,661"/>
-<area shape="poly" title=" " alt="" coords="970,325,1149,327,1375,335,1484,342,1579,353,1649,367,1673,375,1688,385,1694,395,1695,405,1689,427,1673,512,1657,544,1624,576,1606,584,1578,592,1500,605,1276,624,1025,636,820,641,820,636,1025,630,1276,619,1499,600,1577,586,1604,579,1620,571,1652,541,1668,510,1683,426,1689,405,1689,397,1684,389,1671,380,1648,372,1578,358,1484,348,1375,340,1149,332,970,330"/>
-<area shape="rect" href="is__array_8hpp.html" title=" " alt="" coords="1063,394,1237,419"/>
-<area shape="poly" title=" " alt="" coords="946,336,1103,387,1101,392,944,341"/>
-<area shape="rect" href="is__base__of_8hpp.html" title=" " alt="" coords="2429,387,2575,427"/>
-<area shape="poly" title=" " alt="" coords="970,326,1666,342,2092,359,2274,371,2416,384,2416,389,2274,376,2092,365,1666,347,970,331"/>
-<area shape="rect" href="remove__reference_8hpp.html" title=" " alt="" coords="2108,475,2277,500"/>
-<area shape="poly" title=" " alt="" coords="970,325,1148,327,1384,335,1615,353,1710,366,1782,384,1799,393,1811,404,1823,415,1839,424,1903,446,1970,462,2095,479,2094,484,1969,467,1902,451,1837,429,1819,419,1808,408,1796,398,1780,389,1709,372,1615,358,1384,340,1148,332,970,330"/>
-<area shape="rect" href="is__class_8hpp.html" title=" " alt="" coords="868,475,1043,500"/>
-<area shape="poly" title=" " alt="" coords="916,338,951,460,946,462,911,339"/>
-<area shape="rect" href="is__const_8hpp.html" title=" " alt="" coords="1749,548,1927,573"/>
-<area shape="poly" title=" " alt="" coords="971,326,1156,331,1393,342,1609,359,1687,371,1731,384,1770,417,1799,457,1820,499,1833,534,1828,536,1815,501,1794,460,1766,420,1729,389,1686,376,1609,364,1393,347,1155,337,970,331"/>
-<area shape="rect" href="is__convertible_8hpp.html" title=" " alt="" coords="1067,475,1281,500"/>
-<area shape="poly" title=" " alt="" coords="920,337,955,379,980,403,1007,424,1059,450,1111,468,1109,473,1057,455,1005,429,976,407,951,383,916,341"/>
-<area shape="rect" href="is__enum_8hpp.html" title=" " alt="" coords="707,394,886,419"/>
-<area shape="poly" title=" " alt="" coords="895,341,826,388,823,384,892,337"/>
-<area shape="rect" href="is__floating__point_8hpp.html" title=" " alt="" coords="491,475,649,500"/>
-<area shape="poly" title=" " alt="" coords="850,338,768,356,725,370,683,389,656,406,631,426,591,466,587,462,627,422,653,402,681,384,723,365,767,351,849,333"/>
-<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="518,548,622,573"/>
-<area shape="poly" title=" " alt="" coords="850,336,743,355,683,370,624,389,546,426,506,451,482,476,478,485,479,494,488,512,507,527,529,540,526,544,504,531,484,515,473,496,473,485,477,473,503,447,544,421,622,384,681,364,742,349,849,331"/>
-<area shape="rect" href="is__integral_8hpp.html" title=" " alt="" coords="673,475,792,500"/>
-<area shape="poly" title=" " alt="" coords="851,338,759,358,721,372,697,388,691,406,694,425,703,445,715,462,711,465,698,447,689,427,686,405,693,385,718,367,758,353,849,333"/>
-<area shape="rect" href="is__pointer_8hpp.html" title=" " alt="" coords="1177,548,1363,573"/>
-<area shape="poly" title=" " alt="" coords="930,336,1002,385,1027,406,1053,424,1088,436,1122,439,1184,433,1213,432,1241,435,1269,448,1296,473,1303,489,1303,506,1289,537,1284,535,1297,504,1298,490,1292,476,1266,452,1240,440,1213,437,1184,439,1122,444,1087,441,1050,429,1023,411,999,389,927,341"/>
-<area shape="rect" href="is__signed_8hpp.html" title=" " alt="" coords="5,475,191,500"/>
-<area shape="poly" title=" " alt="" coords="850,331,678,337,461,348,264,365,194,376,155,389,138,404,125,423,107,462,102,460,120,420,134,400,153,384,193,371,263,360,460,343,678,332,850,326"/>
-<area shape="rect" href="is__unsigned_8hpp.html" title=" " alt="" coords="215,475,416,500"/>
-<area shape="poly" title=" " alt="" coords="850,332,786,337,710,347,629,364,551,389,534,398,523,408,494,429,433,455,375,474,373,468,431,450,491,424,519,404,531,394,549,384,628,359,709,342,786,331,850,326"/>
-<area shape="rect" href="make__unsigned_8hpp.html" title=" " alt="" coords="1447,394,1674,419"/>
-<area shape="poly" title=" " alt="" coords="971,331,1177,353,1436,384,1474,389,1473,395,1435,389,1176,358,970,336"/>
-<area shape="rect" href="remove__const_8hpp.html" title=" " alt="" coords="1850,387,1997,427"/>
-<area shape="poly" title=" " alt="" coords="970,326,1122,330,1335,340,1581,357,1832,384,1837,385,1836,390,1831,389,1581,363,1335,345,1121,335,970,331"/>
-<area shape="rect" href="void__t_8hpp.html" title=" " alt="" coords="2021,394,2185,419"/>
-<area shape="poly" title=" " alt="" coords="970,325,1147,328,1404,337,1704,354,1858,367,2009,384,2040,389,2039,394,2008,389,1858,373,1704,360,1404,342,1147,333,970,330"/>
-<area shape="rect" title=" " alt="" coords="1357,475,1431,500"/>
-<area shape="poly" title=" " alt="" coords="1352,418,1381,462,1376,464,1347,421"/>
-<area shape="poly" title=" " alt="" coords="1186,417,1346,468,1344,473,1185,422"/>
-<area shape="poly" title=" " alt="" coords="2430,429,2251,474,2250,469,2428,424"/>
-<area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="956,548,1053,573"/>
-<area shape="poly" title=" " alt="" coords="966,499,991,535,987,538,961,502"/>
-<area shape="poly" title=" " alt="" coords="1749,574,1730,576,1214,614,820,638,820,633,1214,609,1730,571,1749,569"/>
-<area shape="poly" title=" " alt="" coords="1148,502,1046,545,1044,540,1146,498"/>
-<area shape="poly" title=" " alt="" coords="821,417,921,466,919,471,819,422"/>
-<area shape="poly" title=" " alt="" coords="852,417,1107,469,1105,475,851,422"/>
-<area shape="poly" title=" " alt="" coords="765,422,617,473,615,468,763,417"/>
-<area shape="poly" title=" " alt="" coords="805,419,816,458,816,481,807,502,779,520,736,535,636,554,635,549,735,530,777,516,803,498,811,480,811,458,800,420"/>
-<area shape="poly" title=" " alt="" coords="789,421,753,466,749,462,785,418"/>
-<area shape="poly" title=" " alt="" coords="584,498,636,546,704,610,701,614,632,550,580,502"/>
-<area shape="poly" title=" " alt="" coords="573,500,573,534,567,534,567,500"/>
-<area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="368,548,489,573"/>
-<area shape="poly" title=" " alt="" coords="548,502,465,544,463,539,546,498"/>
-<area shape="poly" title=" " alt="" coords="595,571,682,613,680,618,593,576"/>
-<area shape="poly" title=" " alt="" coords="735,500,735,607,730,607,730,500"/>
-<area shape="poly" title=" " alt="" coords="708,502,610,545,608,540,705,498"/>
-<area shape="poly" title=" " alt="" coords="684,503,492,547,490,542,683,497"/>
-<area shape="poly" title=" " alt="" coords="1192,576,820,630,819,625,1191,571"/>
-<area shape="poly" title=" " alt="" coords="125,498,215,533,331,571,414,590,498,606,646,628,645,633,497,611,412,595,329,576,213,538,123,503"/>
-<area shape="poly" title=" " alt="" coords="179,497,502,545,505,546,504,551,502,551,178,503"/>
-<area shape="poly" title=" " alt="" coords="152,497,363,542,361,548,151,503"/>
-<area shape="poly" title=" " alt="" coords="320,499,331,536,342,555,357,571,378,583,407,593,481,611,566,623,646,631,646,637,566,628,480,616,405,598,376,588,354,575,338,558,326,538,315,501"/>
-<area shape="poly" title=" " alt="" coords="357,497,517,542,515,547,356,503"/>
-<area shape="poly" title=" " alt="" coords="335,498,400,538,397,543,332,502"/>
-<area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="1475,548,1609,573"/>
-<area shape="poly" title=" " alt="" coords="1562,420,1548,535,1542,534,1557,419"/>
-<area shape="poly" title=" " alt="" coords="1475,571,820,634,820,629,1474,566"/>
-<area shape="poly" title=" " alt="" coords="247,267,228,303,214,323,197,341,151,371,103,392,101,387,148,366,194,337,210,319,224,300,243,265"/>
-<area shape="poly" title=" " alt="" coords="286,256,349,263,836,314,836,320,348,268,285,261"/>
-<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="87,313,184,339"/>
-<area shape="poly" title=" " alt="" coords="233,268,167,308,164,304,230,263"/>
-<area shape="poly" title=" " alt="" coords="124,341,74,386,70,383,121,337"/>
-<area shape="poly" title=" " alt="" coords="282,341,111,389,99,393,98,387,109,384,280,336"/>
-<area shape="poly" title=" " alt="" coords="511,194,454,234,451,230,508,190"/>
-<area shape="poly" title=" " alt="" coords="535,191,563,227,582,247,605,263,662,288,723,305,783,316,837,321,836,326,782,321,722,311,660,293,602,268,579,251,558,231,531,194"/>
-<area shape="poly" title=" " alt="" coords="570,189,748,236,747,241,569,195"/>
-<area shape="poly" title=" " alt="" coords="482,195,299,241,298,236,481,189"/>
-<area shape="rect" href="ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="615,240,736,265"/>
-<area shape="poly" title=" " alt="" coords="551,190,640,232,637,236,549,194"/>
-<area shape="rect" href="utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="470,313,566,339"/>
-<area shape="poly" title=" " alt="" coords="528,193,522,300,517,299,523,192"/>
-<area shape="poly" title=" " alt="" coords="714,263,860,307,858,312,712,268"/>
-<area shape="poly" title=" " alt="" coords="470,337,444,341,276,361,203,371,111,389,97,393,95,388,109,384,202,366,276,356,443,336,469,332"/>
-<area shape="poly" title=" " alt="" coords="213,164,315,122,317,127,215,169"/>
-<area shape="poly" title=" " alt="" coords="169,194,124,244,98,278,76,315,63,348,55,381,50,379,58,347,72,312,94,275,120,240,165,191"/>
-<area shape="poly" title=" " alt="" coords="178,193,145,301,140,299,173,192"/>
+<area shape="rect" title="Compile&#45;time utilities for managing override pins and index&#45;to&#45;bitmask mapping." alt="" coords="1397,5,1575,45"/>
+<area shape="rect" href="type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1426,93,1546,119"/>
+<area shape="poly" title=" " alt="" coords="1489,46,1489,79,1483,79,1483,46"/>
+<area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="5,174,201,199"/>
+<area shape="poly" title=" " alt="" coords="1426,110,1224,113,925,121,573,139,391,152,213,169,176,174,175,169,212,164,390,147,572,134,925,116,1224,108,1425,105"/>
+<area shape="rect" href="decay_8hpp.html" title=" " alt="" coords="763,174,924,199"/>
+<area shape="poly" title=" " alt="" coords="1426,115,1210,135,937,169,910,174,909,169,936,164,1209,130,1425,109"/>
+<area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="424,167,564,207"/>
+<area shape="poly" title=" " alt="" coords="1426,111,1278,114,1070,124,828,141,578,169,577,164,828,136,1070,118,1278,109,1425,105"/>
+<area shape="rect" href="function__traits_8hpp.html" title=" " alt="" coords="589,167,738,207"/>
+<area shape="poly" title=" " alt="" coords="1426,112,1135,129,944,146,752,169,751,169,751,164,751,164,944,141,1134,124,1426,107"/>
+<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="1751,401,1898,441"/>
+<area shape="poly" title=" " alt="" coords="1546,105,1716,108,1929,117,2032,124,2120,134,2186,147,2209,156,2222,165,2241,188,2254,212,2262,235,2265,259,2262,283,2254,307,2241,331,2223,355,2202,371,2172,385,2091,404,1999,415,1912,421,1912,415,1999,410,2091,399,2170,380,2199,367,2219,351,2236,328,2249,305,2256,282,2259,259,2257,236,2249,214,2237,191,2219,169,2206,160,2185,153,2119,140,2031,129,1929,122,1716,113,1546,110"/>
+<area shape="rect" href="is__array_8hpp.html" title=" " alt="" coords="225,174,400,199"/>
+<area shape="poly" title=" " alt="" coords="1426,111,1252,114,1001,123,709,141,412,169,380,174,379,169,411,164,709,135,1001,118,1252,109,1426,105"/>
+<area shape="rect" href="is__base__of_8hpp.html" title=" " alt="" coords="948,167,1093,207"/>
+<area shape="poly" title=" " alt="" coords="1426,119,1113,169,1107,170,1106,165,1112,164,1425,113"/>
+<area shape="rect" href="remove__reference_8hpp.html" title=" " alt="" coords="583,255,752,280"/>
+<area shape="poly" title=" " alt="" coords="1426,111,1366,115,1296,125,1222,142,1151,169,1138,178,1130,189,1121,199,1107,209,977,230,766,257,765,252,976,225,1105,204,1118,195,1126,185,1135,174,1149,164,1220,137,1295,119,1366,110,1426,105"/>
+<area shape="rect" href="is__class_8hpp.html" title=" " alt="" coords="776,255,951,280"/>
+<area shape="poly" title=" " alt="" coords="1426,114,1319,131,1259,147,1202,169,1187,178,1177,189,1167,199,1151,209,1115,222,1065,234,951,255,950,250,1063,229,1113,216,1149,204,1164,195,1173,185,1184,174,1199,164,1257,142,1318,126,1425,109"/>
+<area shape="rect" href="is__const_8hpp.html" title=" " alt="" coords="2284,328,2461,353"/>
+<area shape="poly" title=" " alt="" coords="1547,106,1723,112,1948,123,2151,140,2224,151,2266,164,2304,197,2333,237,2354,279,2368,314,2363,316,2350,281,2329,240,2300,200,2263,169,2223,156,2151,145,1947,128,1723,117,1546,111"/>
+<area shape="rect" href="is__convertible_8hpp.html" title=" " alt="" coords="975,255,1189,280"/>
+<area shape="poly" title=" " alt="" coords="1427,120,1345,138,1259,169,1230,188,1202,209,1121,251,1119,246,1199,204,1227,183,1257,164,1344,133,1425,114"/>
+<area shape="rect" href="is__enum_8hpp.html" title=" " alt="" coords="1270,174,1449,199"/>
+<area shape="poly" title=" " alt="" coords="1469,121,1391,169,1388,164,1466,117"/>
+<area shape="rect" href="is__floating__point_8hpp.html" title=" " alt="" coords="1265,255,1422,280"/>
+<area shape="poly" title=" " alt="" coords="1489,119,1484,161,1476,186,1463,208,1433,234,1399,252,1397,247,1430,230,1459,205,1471,184,1478,160,1483,119"/>
+<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="1486,328,1590,353"/>
+<area shape="poly" title=" " alt="" coords="1499,117,1541,173,1564,212,1581,254,1583,267,1581,281,1572,301,1560,319,1555,316,1567,298,1575,279,1578,267,1575,255,1559,214,1537,176,1494,120"/>
+<area shape="rect" href="is__integral_8hpp.html" title=" " alt="" coords="1447,255,1565,280"/>
+<area shape="poly" title=" " alt="" coords="1493,118,1507,166,1511,205,1510,241,1505,241,1505,206,1502,167,1488,120"/>
+<area shape="rect" href="is__pointer_8hpp.html" title=" " alt="" coords="1862,328,2049,353"/>
+<area shape="poly" title=" " alt="" coords="1547,116,1683,142,1847,178,1991,217,2040,236,2067,253,2073,265,2073,276,2060,296,2035,313,2007,326,2004,321,2033,308,2056,292,2068,275,2067,266,2063,256,2038,240,1989,222,1846,183,1682,147,1546,121"/>
+<area shape="rect" href="is__signed_8hpp.html" title=" " alt="" coords="1641,255,1827,280"/>
+<area shape="poly" title=" " alt="" coords="1521,116,1571,136,1623,164,1675,204,1716,243,1712,247,1672,208,1621,169,1568,141,1519,121"/>
+<area shape="rect" href="is__unsigned_8hpp.html" title=" " alt="" coords="1851,255,2052,280"/>
+<area shape="poly" title=" " alt="" coords="1522,116,1667,164,1908,248,1906,253,1665,169,1520,121"/>
+<area shape="rect" href="make__unsigned_8hpp.html" title=" " alt="" coords="1982,174,2209,199"/>
+<area shape="poly" title=" " alt="" coords="1547,112,1964,164,2004,169,2003,175,1963,169,1546,117"/>
+<area shape="rect" href="remove__const_8hpp.html" title=" " alt="" coords="2334,167,2481,207"/>
+<area shape="poly" title=" " alt="" coords="1546,106,1875,122,2094,139,2316,164,2321,165,2320,170,2315,169,2093,144,1875,127,1546,112"/>
+<area shape="rect" href="void__t_8hpp.html" title=" " alt="" coords="2505,174,2669,199"/>
+<area shape="poly" title=" " alt="" coords="1546,105,1710,109,1945,119,2217,136,2493,164,2524,169,2523,174,2492,169,2216,141,1944,124,1710,115,1546,111"/>
+<area shape="rect" title=" " alt="" coords="387,255,462,280"/>
+<area shape="poly" title=" " alt="" coords="788,202,750,209,476,260,475,254,750,204,787,197"/>
+<area shape="poly" title=" " alt="" coords="331,197,399,245,396,249,328,202"/>
+<area shape="poly" title=" " alt="" coords="948,207,937,209,733,254,732,249,936,204,947,202"/>
+<area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="924,328,1021,353"/>
+<area shape="poly" title=" " alt="" coords="882,278,945,318,942,323,879,282"/>
+<area shape="poly" title=" " alt="" coords="2293,356,1912,410,1912,405,2293,351"/>
+<area shape="poly" title=" " alt="" coords="1066,282,1004,323,1001,318,1063,278"/>
+<area shape="poly" title=" " alt="" coords="1288,202,950,255,949,250,1287,197"/>
+<area shape="poly" title=" " alt="" coords="1320,202,1136,254,1135,248,1318,197"/>
+<area shape="poly" title=" " alt="" coords="1360,200,1351,242,1346,241,1354,199"/>
+<area shape="poly" title=" " alt="" coords="1328,202,1296,216,1266,235,1256,246,1250,256,1249,267,1255,278,1268,289,1289,299,1345,315,1410,326,1472,332,1472,338,1409,331,1344,320,1287,304,1265,294,1251,282,1244,268,1245,255,1251,242,1263,231,1293,212,1326,197"/>
+<area shape="poly" title=" " alt="" coords="1382,197,1473,246,1471,250,1380,202"/>
+<area shape="poly" title=" " alt="" coords="1357,278,1402,315,1431,334,1463,351,1533,375,1605,393,1676,405,1738,412,1737,417,1675,410,1604,398,1531,380,1461,356,1429,339,1398,319,1354,282"/>
+<area shape="poly" title=" " alt="" coords="1376,278,1494,321,1493,326,1374,283"/>
+<area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="1615,328,1736,353"/>
+<area shape="poly" title=" " alt="" coords="1397,277,1609,322,1608,328,1396,283"/>
+<area shape="poly" title=" " alt="" coords="1580,351,1744,395,1742,400,1579,356"/>
+<area shape="poly" title=" " alt="" coords="1497,282,1485,297,1474,316,1470,335,1476,352,1492,365,1517,376,1584,394,1662,406,1738,413,1738,418,1662,412,1583,400,1515,381,1490,369,1472,355,1465,335,1469,314,1480,295,1493,279"/>
+<area shape="poly" title=" " alt="" coords="1514,279,1530,315,1525,317,1509,281"/>
+<area shape="poly" title=" " alt="" coords="1534,278,1636,320,1634,325,1532,282"/>
+<area shape="poly" title=" " alt="" coords="1937,356,1869,397,1866,392,1935,351"/>
+<area shape="poly" title=" " alt="" coords="1743,279,1809,388,1804,391,1739,281"/>
+<area shape="poly" title=" " alt="" coords="1703,283,1584,326,1582,321,1702,278"/>
+<area shape="poly" title=" " alt="" coords="1726,282,1695,319,1691,316,1722,279"/>
+<area shape="poly" title=" " alt="" coords="1920,282,1884,301,1867,314,1852,330,1837,358,1830,388,1825,387,1832,356,1848,326,1863,310,1881,297,1918,278"/>
+<area shape="poly" title=" " alt="" coords="1884,283,1604,331,1603,331,1602,325,1603,325,1884,277"/>
+<area shape="poly" title=" " alt="" coords="1908,283,1734,327,1733,322,1906,277"/>
+<area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="2073,328,2208,353"/>
+<area shape="poly" title=" " alt="" coords="2101,199,2136,314,2131,316,2096,200"/>
+<area shape="poly" title=" " alt="" coords="2095,356,1912,401,1911,396,2094,351"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -226,42 +188,45 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__override_8h__dep__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2utils__override_8hdep" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2utils__override_8hdep" id="aMk2__3phase__RFdatalog__temp_2utils__override_8hdep">
-<area shape="rect" title="Compile&#45;time utilities for managing override pins and index&#45;to&#45;bitmask mapping." alt="" coords="290,5,467,45"/>
-<area shape="rect" href="config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="290,93,467,133"/>
-<area shape="poly" title=" " alt="" coords="373,59,374,93,368,93,367,59"/>
-<area shape="poly" title=" " alt="" coords="385,80,384,46,389,46,390,80"/>
-<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="946,181,1123,221"/>
-<area shape="poly" title=" " alt="" coords="481,123,687,147,927,179,946,182,945,187,926,184,687,152,481,128"/>
-<area shape="rect" href="main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="491,372,669,412"/>
-<area shape="poly" title=" " alt="" coords="277,128,152,150,99,165,64,183,32,216,12,251,8,269,10,286,16,304,28,322,50,334,92,344,215,362,360,375,491,384,491,389,360,381,214,368,91,350,48,339,25,326,11,307,4,288,3,268,7,249,28,213,61,179,97,160,151,145,276,123"/>
-<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="801,277,978,317"/>
-<area shape="poly" title=" " alt="" coords="481,111,592,114,712,124,768,133,817,144,857,160,885,180,898,203,903,229,897,277,892,276,897,229,893,204,881,183,854,165,815,149,767,138,711,129,592,119,481,116"/>
-<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="491,181,669,221"/>
-<area shape="poly" title=" " alt="" coords="437,136,537,179,535,184,435,141"/>
-<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="693,181,870,221"/>
-<area shape="poly" title=" " alt="" coords="481,134,694,179,693,184,480,139"/>
-<area shape="rect" href="teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="89,181,266,221"/>
-<area shape="poly" title=" " alt="" coords="323,141,223,184,220,179,321,136"/>
-<area shape="rect" href="utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="290,181,467,221"/>
-<area shape="poly" title=" " alt="" coords="373,147,374,181,368,181,367,147"/>
-<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="38,277,215,317"/>
-<area shape="poly" title=" " alt="" coords="277,126,216,135,158,147,109,163,91,173,79,183,74,194,72,205,78,230,92,254,109,275,105,278,88,257,73,232,66,205,69,192,75,180,88,168,107,158,156,142,216,130,276,121"/>
-<area shape="poly" title=" " alt="" coords="1035,236,1022,283,1010,306,992,326,969,340,936,352,852,370,758,382,669,389,669,384,757,377,851,365,934,347,966,335,989,322,1006,303,1017,281,1029,234"/>
-<area shape="poly" title=" " alt="" coords="995,231,920,279,917,274,992,227"/>
-<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="491,277,669,317"/>
-<area shape="poly" title=" " alt="" coords="933,226,669,280,668,275,932,221"/>
-<area shape="poly" title=" " alt="" coords="583,330,583,372,577,372,577,330"/>
-<area shape="poly" title=" " alt="" coords="656,223,828,274,826,279,655,228"/>
-<area shape="poly" title=" " alt="" coords="583,235,583,277,577,277,577,235"/>
-<area shape="poly" title=" " alt="" coords="763,234,728,279,683,326,649,353,615,374,612,370,646,348,680,322,724,276,759,231"/>
-<area shape="poly" title=" " alt="" coords="815,228,869,275,866,279,812,232"/>
-<area shape="poly" title=" " alt="" coords="729,230,622,279,620,274,727,225"/>
-<area shape="poly" title=" " alt="" coords="272,222,499,274,498,279,271,227"/>
-<area shape="rect" href="embedded_2test__teleinfo_2test__main_8cpp.html" title=" " alt="" coords="240,269,435,324"/>
-<area shape="poly" title=" " alt="" coords="223,226,294,267,291,272,220,231"/>
-<area shape="poly" title=" " alt="" coords="385,168,384,134,389,134,390,168"/>
-<area shape="poly" title=" " alt="" coords="433,225,540,274,538,279,431,230"/>
-<area shape="poly" title=" " alt="" coords="211,317,229,321,492,373,491,378,228,327,210,323"/>
+<area shape="rect" title="Compile&#45;time utilities for managing override pins and index&#45;to&#45;bitmask mapping." alt="" coords="179,5,357,45"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html" title="Native unit tests for utils_override.h." alt="" coords="51,93,266,148"/>
+<area shape="poly" title=" " alt="" coords="237,56,191,95,188,91,234,52"/>
+<area shape="rect" href="utils__override__helpers_8h.html" title="Config&#45;dependent helper functions for override pin configuration." alt="" coords="290,93,467,148"/>
+<area shape="poly" title=" " alt="" coords="302,52,349,91,346,95,299,56"/>
+<area shape="rect" href="config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="290,196,467,236"/>
+<area shape="poly" title=" " alt="" coords="381,162,381,196,376,196,376,162"/>
+<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="946,284,1123,324"/>
+<area shape="poly" title=" " alt="" coords="481,226,687,249,927,281,946,284,945,290,926,287,687,255,481,231"/>
+<area shape="rect" href="main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="491,475,669,515"/>
+<area shape="poly" title=" " alt="" coords="277,231,152,253,99,268,64,286,32,319,12,354,8,371,10,389,16,407,28,425,50,436,92,447,215,465,360,478,491,486,491,492,360,483,214,470,91,452,48,441,25,429,11,409,4,390,3,371,7,352,28,315,61,282,97,263,151,248,276,226"/>
+<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="801,379,978,419"/>
+<area shape="poly" title=" " alt="" coords="481,213,592,216,712,226,768,235,817,247,857,262,885,282,898,305,903,332,897,379,892,379,897,332,893,307,881,286,854,267,815,252,767,240,711,232,592,222,481,219"/>
+<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="491,284,669,324"/>
+<area shape="poly" title=" " alt="" coords="437,239,537,282,535,286,435,244"/>
+<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="693,284,870,324"/>
+<area shape="poly" title=" " alt="" coords="481,236,694,281,693,287,480,241"/>
+<area shape="rect" href="teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="89,284,266,324"/>
+<area shape="poly" title=" " alt="" coords="323,244,223,286,220,282,321,239"/>
+<area shape="rect" href="utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="290,284,467,324"/>
+<area shape="poly" title=" " alt="" coords="373,249,374,284,368,284,367,250"/>
+<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="38,379,215,419"/>
+<area shape="poly" title=" " alt="" coords="277,229,216,238,158,250,109,266,91,275,79,286,74,296,72,308,78,332,92,357,109,377,105,381,88,360,73,334,66,308,69,295,75,282,88,271,107,261,156,245,216,232,276,224"/>
+<area shape="poly" title=" " alt="" coords="1035,338,1022,385,1010,409,992,429,969,443,936,455,852,473,758,485,669,492,669,487,757,480,851,468,934,450,966,438,989,425,1006,406,1017,383,1029,337"/>
+<area shape="poly" title=" " alt="" coords="995,334,920,382,917,377,992,329"/>
+<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="491,379,669,419"/>
+<area shape="poly" title=" " alt="" coords="933,329,669,382,668,377,932,324"/>
+<area shape="poly" title=" " alt="" coords="583,433,583,475,577,475,577,433"/>
+<area shape="poly" title=" " alt="" coords="656,325,828,377,826,382,655,331"/>
+<area shape="poly" title=" " alt="" coords="583,338,583,379,577,379,577,338"/>
+<area shape="poly" title=" " alt="" coords="763,337,728,382,683,429,649,455,615,477,612,472,646,451,680,425,724,378,759,333"/>
+<area shape="poly" title=" " alt="" coords="815,331,869,377,866,381,812,335"/>
+<area shape="poly" title=" " alt="" coords="729,332,622,382,620,377,727,327"/>
+<area shape="poly" title=" " alt="" coords="272,324,499,377,498,382,271,330"/>
+<area shape="rect" href="embedded_2test__teleinfo_2test__main_8cpp.html" title=" " alt="" coords="240,372,435,427"/>
+<area shape="poly" title=" " alt="" coords="223,329,294,370,291,374,220,333"/>
+<area shape="poly" title=" " alt="" coords="385,271,384,236,389,236,390,270"/>
+<area shape="poly" title=" " alt="" coords="433,327,540,377,538,382,431,332"/>
+<area shape="poly" title=" " alt="" coords="211,420,229,424,492,475,491,481,228,429,210,425"/>
 </map>
 </div>
 </div>
@@ -290,15 +255,6 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aad6fca84dc7d919f163fbac33055f610" id="r_aad6fca84dc7d919f163fbac33055f610"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad6fca84dc7d919f163fbac33055f610">ALL_LOADS</a> ()</td></tr>
-<tr class="memdesc:aad6fca84dc7d919f163fbac33055f610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a bitmask representing all load pins.  <br /></td></tr>
-<tr class="separator:aad6fca84dc7d919f163fbac33055f610"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb09a204576614ed4b449d126cb43e89" id="r_afb09a204576614ed4b449d126cb43e89"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb09a204576614ed4b449d126cb43e89">ALL_LOADS_AND_RELAYS</a> ()</td></tr>
-<tr class="memdesc:afb09a204576614ed4b449d126cb43e89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a bitmask representing all loads and all relays.  <br /></td></tr>
-<tr class="separator:afb09a204576614ed4b449d126cb43e89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96133cb9774beb9fe8c665849fb35fd1" id="r_a96133cb9774beb9fe8c665849fb35fd1"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96133cb9774beb9fe8c665849fb35fd1">ALL_RELAYS</a> ()</td></tr>
-<tr class="memdesc:a96133cb9774beb9fe8c665849fb35fd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a bitmask representing all relay pins.  <br /></td></tr>
-<tr class="separator:a96133cb9774beb9fe8c665849fb35fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e15c4d8fe7154a837f77741fbcbd389" id="r_a7e15c4d8fe7154a837f77741fbcbd389"><td class="memTemplParams" colspan="2">template&lt;uint8_t... Pins&gt; </td></tr>
 <tr class="memitem:a7e15c4d8fe7154a837f77741fbcbd389"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a7e15c4d8fe7154a837f77741fbcbd389">are_pins_valid</a> ()</td></tr>
 <tr class="memdesc:a7e15c4d8fe7154a837f77741fbcbd389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time validation function for pin values.  <br /></td></tr>
@@ -307,16 +263,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a9a09d443a71a667af9bf10c44cc6cd15"><td class="memTemplItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9a09d443a71a667af9bf10c44cc6cd15">indicesToBitmask</a> ()</td></tr>
 <tr class="memdesc:a9a09d443a71a667af9bf10c44cc6cd15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to convert pins to a bitmask at compile-time.  <br /></td></tr>
 <tr class="separator:a9a09d443a71a667af9bf10c44cc6cd15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3ada13405f7827c8b4255eba95e4081" id="r_ab3ada13405f7827c8b4255eba95e4081"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3ada13405f7827c8b4255eba95e4081">LOAD</a> (uint8_t loadNum)</td></tr>
-<tr class="memdesc:ab3ada13405f7827c8b4255eba95e4081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pin number for a given load index at compile time.  <br /></td></tr>
-<tr class="separator:ab3ada13405f7827c8b4255eba95e4081"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac32e3f7086c9295456b867e1e2bddc98" id="r_ac32e3f7086c9295456b867e1e2bddc98"><td class="memTemplParams" colspan="2">template&lt;uint8_t MaxPins, uint8_t N&gt; </td></tr>
 <tr class="memitem:ac32e3f7086c9295456b867e1e2bddc98"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ac32e3f7086c9295456b867e1e2bddc98">OverridePins</a> (const <a class="el" href="structKeyIndexPair.html">KeyIndexPair</a>&lt; MaxPins &gt;(&amp;)[N]) -&gt; OverridePins&lt; N, MaxPins &gt;</td></tr>
 <tr class="memdesc:ac32e3f7086c9295456b867e1e2bddc98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction guide for <a class="el" href="classOverridePins.html" title="Manages override pins and their associated bitmasks for forced operation.">OverridePins</a> template. Allows template argument deduction from constructor arguments.  <br /></td></tr>
 <tr class="separator:ac32e3f7086c9295456b867e1e2bddc98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af938bff3e4a7e562544bedbbb09bffc3" id="r_af938bff3e4a7e562544bedbbb09bffc3"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af938bff3e4a7e562544bedbbb09bffc3">RELAY</a> (uint8_t relayNum)</td></tr>
-<tr class="memdesc:af938bff3e4a7e562544bedbbb09bffc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pin number for a given relay index at compile time.  <br /></td></tr>
-<tr class="separator:af938bff3e4a7e562544bedbbb09bffc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -338,12 +288,12 @@ Variables</h2></td></tr>
 <div class="line">    {4, {5}}</div>
 <div class="line">};</div>
 <div class="line"><span class="keyword">constexpr</span> <a class="code hl_class" href="classOverridePins.html">OverridePins&lt;3, 8&gt;</a> pins{pairs};</div>
-<div class="ttc" id="aclassOverridePins_html"><div class="ttname"><a href="classOverridePins.html">OverridePins</a></div><div class="ttdoc">Manages override pins and their associated bitmasks for forced operation.</div><div class="ttdef"><b>Definition</b> <a href="utils__override_8h_source.html#l00228">utils_override.h:229</a></div></div>
+<div class="ttc" id="aclassOverridePins_html"><div class="ttname"><a href="classOverridePins.html">OverridePins</a></div><div class="ttdoc">Manages override pins and their associated bitmasks for forced operation.</div><div class="ttdef"><b>Definition</b> <a href="utils__override_8h_source.html#l00161">utils_override.h:162</a></div></div>
 <div class="ttc" id="aconfig_8h_html_a82927030c9074aa56f0f3d9a1b625956"><div class="ttname"><a href="config_8h.html#a82927030c9074aa56f0f3d9a1b625956">overridePins</a></div><div class="ttdeci">constexpr OverridePins overridePins</div><div class="ttdef"><b>Definition</b> <a href="config_8h_source.html#l00143">config.h:143</a></div></div>
 </div><!-- fragment --><dl class="section author"><dt>Author</dt><dd>Frédéric Metrich (<a href="#" onclick="location.href='mai'+'lto:'+'fre'+'de'+'ric'+'.m'+'etr'+'ic'+'h@l'+'iv'+'e.f'+'r'; return false;">frede<span class="obfuscator">.nosp@m.</span>ric.<span class="obfuscator">.nosp@m.</span>metri<span class="obfuscator">.nosp@m.</span>ch@l<span class="obfuscator">.nosp@m.</span>ive.f<span class="obfuscator">.nosp@m.</span>r</a>) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2025-09-08 </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2026-01-29 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025-2026 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
@@ -362,163 +312,15 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><span class="keyword">static_assert</span>(<a class="code hl_function" href="#a7e15c4d8fe7154a837f77741fbcbd389">are_pins_valid&lt; __VA_ARGS__ &gt;</a>(), <span class="stringliteral">&quot;Invalid pin(s) specified&quot;</span>)</div>
-<div class="ttc" id="autils__override_8h_html_a7e15c4d8fe7154a837f77741fbcbd389"><div class="ttname"><a href="#a7e15c4d8fe7154a837f77741fbcbd389">are_pins_valid</a></div><div class="ttdeci">constexpr bool are_pins_valid()</div><div class="ttdoc">Compile-time validation function for pin values.</div><div class="ttdef"><b>Definition</b> <a href="utils__override_8h_source.html#l00112">utils_override.h:112</a></div></div>
+<div class="ttc" id="autils__override_8h_html_a7e15c4d8fe7154a837f77741fbcbd389"><div class="ttname"><a href="#a7e15c4d8fe7154a837f77741fbcbd389">are_pins_valid</a></div><div class="ttdeci">constexpr bool are_pins_valid()</div><div class="ttdoc">Compile-time validation function for pin values.</div><div class="ttdef"><b>Definition</b> <a href="utils__override_8h_source.html#l00045">utils_override.h:45</a></div></div>
 </div><!-- fragment -->
 <p>Helper macro to validate pins at compile time. Usage: <a class="el" href="#ad58f45427bd6d7a8d10c3d4eebad89f4" title="Helper macro to validate pins at compile time. Usage: VALIDATE_PINS(2, 3, 5) will cause a compile err...">VALIDATE_PINS(2, 3, 5)</a> will cause a compile error if any pin is invalid. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00121">121</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00054">54</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="aad6fca84dc7d919f163fbac33055f610" name="aad6fca84dc7d919f163fbac33055f610"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad6fca84dc7d919f163fbac33055f610">&#9670;&#160;</a></span>ALL_LOADS()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t ALL_LOADS </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a bitmask representing all load pins. </p>
-<p>This helper is used to configure an override pin to control all loads at once.</p>
-<dl class="section return"><dt>Returns</dt><dd>Bitmask with all load pins set. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00064">64</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="utils__override_8h_aad6fca84dc7d919f163fbac33055f610_cgraph.png" border="0" usemap="#autils__override_8h_aad6fca84dc7d919f163fbac33055f610_cgraph" alt=""/></div>
-<map name="autils__override_8h_aad6fca84dc7d919f163fbac33055f610_cgraph" id="autils__override_8h_aad6fca84dc7d919f163fbac33055f610_cgraph">
-<area shape="rect" title="Returns a bitmask representing all load pins." alt="" coords="5,5,101,31"/>
-<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="149,5,216,31"/>
-<area shape="poly" title=" " alt="" coords="101,15,136,15,136,21,101,21"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="utils__override_8h_aad6fca84dc7d919f163fbac33055f610_icgraph.png" border="0" usemap="#autils__override_8h_aad6fca84dc7d919f163fbac33055f610_icgraph" alt=""/></div>
-<map name="autils__override_8h_aad6fca84dc7d919f163fbac33055f610_icgraph" id="autils__override_8h_aad6fca84dc7d919f163fbac33055f610_icgraph">
-<area shape="rect" title="Returns a bitmask representing all load pins." alt="" coords="241,5,337,31"/>
-<area shape="rect" href="utils__override_8h.html#afb09a204576614ed4b449d126cb43e89" title="Returns a bitmask representing all loads and all relays." alt="" coords="5,5,193,31"/>
-<area shape="poly" title=" " alt="" coords="228,21,194,21,194,15,228,15"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="afb09a204576614ed4b449d126cb43e89" name="afb09a204576614ed4b449d126cb43e89"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb09a204576614ed4b449d126cb43e89">&#9670;&#160;</a></span>ALL_LOADS_AND_RELAYS()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t ALL_LOADS_AND_RELAYS </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a bitmask representing all loads and all relays. </p>
-<p>This helper is used to configure an override pin to control the entire system (all loads and relays).</p>
-<dl class="section return"><dt>Returns</dt><dd>Bitmask with all load and relay pins set. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00098">98</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="utils__override_8h_afb09a204576614ed4b449d126cb43e89_cgraph.png" border="0" usemap="#autils__override_8h_afb09a204576614ed4b449d126cb43e89_cgraph" alt=""/></div>
-<map name="autils__override_8h_afb09a204576614ed4b449d126cb43e89_cgraph" id="autils__override_8h_afb09a204576614ed4b449d126cb43e89_cgraph">
-<area shape="rect" title="Returns a bitmask representing all loads and all relays." alt="" coords="5,31,193,56"/>
-<area shape="rect" href="utils__override_8h.html#aad6fca84dc7d919f163fbac33055f610" title="Returns a bitmask representing all load pins." alt="" coords="244,5,340,31"/>
-<area shape="poly" title=" " alt="" coords="193,28,230,23,231,29,194,34"/>
-<area shape="rect" href="utils__override_8h.html#a96133cb9774beb9fe8c665849fb35fd1" title="Returns a bitmask representing all relay pins." alt="" coords="241,55,343,80"/>
-<area shape="poly" title=" " alt="" coords="194,52,228,57,227,62,193,58"/>
-<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="391,31,457,56"/>
-<area shape="poly" title=" " alt="" coords="341,25,378,32,377,37,340,30"/>
-<area shape="poly" title=" " alt="" coords="342,56,377,49,378,54,343,61"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a96133cb9774beb9fe8c665849fb35fd1" name="a96133cb9774beb9fe8c665849fb35fd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96133cb9774beb9fe8c665849fb35fd1">&#9670;&#160;</a></span>ALL_RELAYS()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t ALL_RELAYS </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a bitmask representing all relay pins. </p>
-<p>This helper is used to configure an override pin to control all relays at once.</p>
-<dl class="section return"><dt>Returns</dt><dd>Bitmask with all relay pins set. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00081">81</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="utils__override_8h_a96133cb9774beb9fe8c665849fb35fd1_cgraph.png" border="0" usemap="#autils__override_8h_a96133cb9774beb9fe8c665849fb35fd1_cgraph" alt=""/></div>
-<map name="autils__override_8h_a96133cb9774beb9fe8c665849fb35fd1_cgraph" id="autils__override_8h_a96133cb9774beb9fe8c665849fb35fd1_cgraph">
-<area shape="rect" title="Returns a bitmask representing all relay pins." alt="" coords="5,5,107,31"/>
-<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="155,5,221,31"/>
-<area shape="poly" title=" " alt="" coords="107,15,141,15,141,21,107,21"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="utils__override_8h_a96133cb9774beb9fe8c665849fb35fd1_icgraph.png" border="0" usemap="#autils__override_8h_a96133cb9774beb9fe8c665849fb35fd1_icgraph" alt=""/></div>
-<map name="autils__override_8h_a96133cb9774beb9fe8c665849fb35fd1_icgraph" id="autils__override_8h_a96133cb9774beb9fe8c665849fb35fd1_icgraph">
-<area shape="rect" title="Returns a bitmask representing all relay pins." alt="" coords="241,5,343,31"/>
-<area shape="rect" href="utils__override_8h.html#afb09a204576614ed4b449d126cb43e89" title="Returns a bitmask representing all loads and all relays." alt="" coords="5,5,193,31"/>
-<area shape="poly" title=" " alt="" coords="228,21,194,21,194,15,228,15"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="a7e15c4d8fe7154a837f77741fbcbd389" name="a7e15c4d8fe7154a837f77741fbcbd389"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7e15c4d8fe7154a837f77741fbcbd389">&#9670;&#160;</a></span>are_pins_valid()</h2>
 
@@ -553,7 +355,28 @@ template&lt;uint8_t... Pins&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if all pins are valid, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00112">112</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00045">45</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="utils__override_8h_a7e15c4d8fe7154a837f77741fbcbd389_icgraph.png" border="0" usemap="#autils__override_8h_a7e15c4d8fe7154a837f77741fbcbd389_icgraph" alt=""/></div>
+<map name="autils__override_8h_a7e15c4d8fe7154a837f77741fbcbd389_icgraph" id="autils__override_8h_a7e15c4d8fe7154a837f77741fbcbd389_icgraph">
+<area shape="rect" title="Compile&#45;time validation function for pin values." alt="" coords="357,109,473,134"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html#a2b0f8b74a8714570ae521fcf2adad273" title=" " alt="" coords="135,5,283,45"/>
+<area shape="poly" title=" " alt="" coords="384,103,348,81,308,60,279,48,281,43,310,55,351,76,387,99"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html#aa177cbe04a9a7a223de6221d27da11f0" title=" " alt="" coords="135,69,283,109"/>
+<area shape="poly" title=" " alt="" coords="343,113,283,103,283,98,344,108"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html#ac5b6cb02a41493d9ae1096c074550226" title=" " alt="" coords="135,133,283,173"/>
+<area shape="poly" title=" " alt="" coords="344,135,283,145,283,139,343,130"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html#a0118855f1a277fd244d2014adf53f3cc" title=" " alt="" coords="108,197,309,237"/>
+<area shape="poly" title=" " alt="" coords="387,144,351,166,310,188,281,200,279,195,308,183,348,162,384,139"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,109,60,134"/>
+<area shape="poly" title=" " alt="" coords="123,53,109,60,75,85,48,110,44,106,71,81,107,55,120,48"/>
+<area shape="poly" title=" " alt="" coords="121,108,61,119,60,114,120,103"/>
+<area shape="poly" title=" " alt="" coords="120,140,60,129,61,124,121,135"/>
+<area shape="poly" title=" " alt="" coords="119,194,107,188,71,162,44,136,48,132,75,158,109,183,122,189"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -591,43 +414,28 @@ template&lt;uint8_t... Pins&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Bitmask with bits set at the specified pins. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00129">129</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
-
+<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00062">62</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="utils__override_8h_a9a09d443a71a667af9bf10c44cc6cd15_icgraph.png" border="0" usemap="#autils__override_8h_a9a09d443a71a667af9bf10c44cc6cd15_icgraph" alt=""/></div>
+<map name="autils__override_8h_a9a09d443a71a667af9bf10c44cc6cd15_icgraph" id="autils__override_8h_a9a09d443a71a667af9bf10c44cc6cd15_icgraph">
+<area shape="rect" title="Helper to convert pins to a bitmask at compile&#45;time." alt="" coords="324,109,460,134"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html#af1aa500d1d2712cf4b23a79d26db545f" title=" " alt="" coords="108,5,276,45"/>
+<area shape="poly" title=" " alt="" coords="357,104,275,60,247,48,250,43,277,55,360,99"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html#a6108f2c793c23620f4d18be854adf556" title=" " alt="" coords="108,69,276,109"/>
+<area shape="poly" title=" " alt="" coords="310,111,276,105,277,100,311,106"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html#acb1fcaa9f1728c3f83d7602e9fba4caa" title=" " alt="" coords="108,133,276,173"/>
+<area shape="poly" title=" " alt="" coords="311,137,277,143,276,137,310,132"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html#a6f7e0b865591668495ae601f09483920" title=" " alt="" coords="108,197,276,237"/>
+<area shape="poly" title=" " alt="" coords="360,143,277,188,250,200,247,195,275,183,357,139"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,109,60,134"/>
+<area shape="poly" title=" " alt="" coords="120,54,109,60,75,85,48,110,44,107,71,81,107,55,118,49"/>
+<area shape="poly" title=" " alt="" coords="95,112,61,119,60,113,94,106"/>
+<area shape="poly" title=" " alt="" coords="94,136,60,129,61,124,95,131"/>
+<area shape="poly" title=" " alt="" coords="118,194,107,188,71,162,44,136,48,132,75,158,109,183,120,189"/>
+</map>
 </div>
-</div>
-<a id="ab3ada13405f7827c8b4255eba95e4081" name="ab3ada13405f7827c8b4255eba95e4081"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3ada13405f7827c8b4255eba95e4081">&#9670;&#160;</a></span>LOAD()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t LOAD </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>loadNum</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the pin number for a given load index at compile time. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">loadNum</td><td>The load index (0-based). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The pin number for the load. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00042">42</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
 
 </div>
 </div>
@@ -652,42 +460,6 @@ template&lt;uint8_t MaxPins, uint8_t N&gt; </div>
 
 </div>
 </div>
-<a id="af938bff3e4a7e562544bedbbb09bffc3" name="af938bff3e4a7e562544bedbbb09bffc3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af938bff3e4a7e562544bedbbb09bffc3">&#9670;&#160;</a></span>RELAY()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t RELAY </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>relayNum</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the pin number for a given relay index at compile time. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">relayNum</td><td>The relay index (0-based). </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The pin number for the relay. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00052">52</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
-
-</div>
-</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="a66fecdc5caac536e248b718581cd50f1" name="a66fecdc5caac536e248b718581cd50f1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66fecdc5caac536e248b718581cd50f1">&#9670;&#160;</a></span>validPinMask</h2>
@@ -709,7 +481,7 @@ template&lt;uint8_t MaxPins, uint8_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00104">104</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00037">37</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
 
 </div>
 </div>

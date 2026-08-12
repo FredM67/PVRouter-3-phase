@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['iot_0',['IoT',['../types_8h.html#a79eb4203772befbcfd761524de448ac7a589f8ced60a13f2f4c7e11c7b0875efa',1,'types.h']]]
+  ['json_0',['JSON',['../types_8h.html#a79eb4203772befbcfd761524de448ac7a0ecd11c1d7a287401d148a23bbd7a2f8',1,'types.h']]]
 ];

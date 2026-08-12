@@ -1,0 +1,12 @@
+<map id="wait_for_relay_change_allowed" name="wait_for_relay_change_allowed">
+<area shape="rect" id="Node000001" title=" " alt="" coords="565,37,735,77"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__utils__relay_2test__main_8cpp.html#a40ed4b1bd02117d8f9419eb540a56926" title=" " alt="" coords="300,5,517,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="552,47,517,42,518,37,552,42"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__utils__relay_2test__main_8cpp.html#adc3852c989ff4f6c1938516c73c04dd9" title=" " alt="" coords="303,69,515,109"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="552,73,515,78,514,73,551,68"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__utils__relay_2test__main_8cpp.html#a0de13c98a5b1f28cb2991de56f6451fe" title=" " alt="" coords="104,45,252,70"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="287,45,252,50,252,44,286,40"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,45,56,70"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="90,60,56,60,56,55,90,55"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="288,75,252,70,253,65,289,70"/>
+</map>

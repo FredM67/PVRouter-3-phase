@@ -1,7 +1,16 @@
 <map id="divu10" name="divu10">
-<area shape="rect" id="Node000001" title=" " alt="" coords="251,5,317,31"/>
-<area shape="rect" id="Node000002" href="$embedded_2test__fastdivision_2test__main_8cpp.html#add26b4937d71129bbf3385d311ef28be" title=" " alt="" coords="104,5,203,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="237,21,203,21,203,15,237,15"/>
-<area shape="rect" id="Node000003" href="$embedded_2test__fastdivision_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,5,56,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,21,56,21,56,15,90,15"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="340,80,407,105"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__fastdivision_2test__main_8cpp.html#a3f4ada5a04b915bafdb311a9bc2cbdbd" title=" " alt="" coords="129,5,267,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="343,74,291,44,259,33,260,28,293,40,345,70"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__fastdivision_2test__main_8cpp.html#ab9e5bbc1d30a59e2268d2e8e69e98f4c" title=" " alt="" coords="107,55,289,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="326,89,286,83,286,77,327,83"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__fastdivision_2test__main_8cpp.html#a9a9b1ca88d5f489853ebfc842b894e5c" title=" " alt="" coords="104,104,292,129"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="327,102,291,107,290,101,326,96"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__fastdivision_2test__main_8cpp.html#aa7f4e3e3bb74bee8e57c6a5230070fde" title=" " alt="" coords="121,154,275,194"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="343,115,293,143,261,156,259,152,291,138,340,111"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__fastdivision_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,80,56,105"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,37,105,44,74,62,49,82,45,78,71,58,103,40,121,32"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="101,85,57,92,56,86,100,79"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="96,105,56,99,57,94,97,99"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="121,151,103,143,48,108,50,103,105,138,123,146"/>
 </map>

@@ -18,13 +18,13 @@
 <area shape="poly" id="edge17_Node000002_Node000013" title=" " alt="" coords="272,205,390,233,527,269,630,302,628,307,526,274,389,238,270,211"/>
 <area shape="rect" id="Node000004" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="885,107,982,132"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="725,28,782,48,896,98,894,103,780,52,724,33"/>
-<area shape="rect" id="Node000005" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="1113,107,1188,132"/>
+<area shape="rect" id="Node000005" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="1113,107,1188,132"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="982,117,1100,117,1100,122,982,122"/>
 <area shape="poly" id="edge9_Node000006_Node000004" title=" " alt="" coords="498,104,574,91,678,85,782,91,871,104,871,109,781,97,678,90,575,97,499,109"/>
 <area shape="rect" id="Node000007" href="$group__DualTariff.html#ga09f688031c566f173bdfe18e65b0770a" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="575,107,781,132"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="523,117,561,117,561,122,523,122"/>
 <area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="781,117,871,117,871,122,781,122"/>
-<area shape="rect" id="Node000008" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="900,296,967,321"/>
+<area shape="rect" id="Node000008" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="900,296,967,321"/>
 <area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="701,130,741,157,783,193,798,211,807,226,816,241,831,256,859,275,888,289,886,294,856,279,828,260,812,244,802,229,793,214,779,197,737,162,698,134"/>
 <area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="526,180,781,141,871,126,872,132,782,146,527,186"/>
 <area shape="rect" id="Node000010" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="593,208,763,233"/>

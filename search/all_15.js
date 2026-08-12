@@ -10,10 +10,12 @@ var searchData=
   ['updateportsstates_7',['updatePortsStates',['../group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249',1,'updatePortsStates():&#160;processing.cpp'],['../group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249',1,'updatePortsStates():&#160;processing.cpp']]],
   ['updatepowerandvoltagedata_8',['updatePowerAndVoltageData',['../group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987',1,'main.cpp']]],
   ['utils_2eh_9',['utils.h',['../utils_8h.html',1,'']]],
-  ['utils_5fdualtariff_2eh_10',['utils_dualtariff.h',['../utils__dualtariff_8h.html',1,'']]],
-  ['utils_5foverride_2eh_11',['utils_override.h',['../utils__override_8h.html',1,'']]],
-  ['utils_5fpins_2eh_12',['utils_pins.h',['../utils__pins_8h.html',1,'']]],
-  ['utils_5frelay_2eh_13',['utils_relay.h',['../utils__relay_8h.html',1,'']]],
-  ['utils_5frf_2eh_14',['utils_rf.h',['../utils__rf_8h.html',1,'']]],
-  ['utils_5ftemp_2eh_15',['utils_temp.h',['../utils__temp_8h.html',1,'']]]
+  ['utils_5fbits_2eh_10',['utils_bits.h',['../utils__bits_8h.html',1,'']]],
+  ['utils_5fdualtariff_2eh_11',['utils_dualtariff.h',['../utils__dualtariff_8h.html',1,'']]],
+  ['utils_5foverride_2eh_12',['utils_override.h',['../utils__override_8h.html',1,'']]],
+  ['utils_5foverride_5fhelpers_2eh_13',['utils_override_helpers.h',['../utils__override__helpers_8h.html',1,'']]],
+  ['utils_5fpins_2eh_14',['utils_pins.h',['../utils__pins_8h.html',1,'']]],
+  ['utils_5frelay_2eh_15',['utils_relay.h',['../utils__relay_8h.html',1,'']]],
+  ['utils_5frf_2eh_16',['utils_rf.h',['../utils__rf_8h.html',1,'']]],
+  ['utils_5ftemp_2eh_17',['utils_temp.h',['../utils__temp_8h.html',1,'']]]
 ];

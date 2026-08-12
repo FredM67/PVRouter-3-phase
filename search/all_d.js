@@ -10,7 +10,7 @@ var searchData=
   ['l_5fsump_5fatsupplypoint_7',['l_sumP_atSupplyPoint',['../processing_8cpp.html#adce365deed551463ed7943d910302043',1,'processing.cpp']]],
   ['lf_8',['LF',['../classTeleInfo.html#aeec05fe102a1a828b17f646d23f33752',1,'TeleInfo']]],
   ['linesize_9',['lineSize',['../group__Telemetry.html#gaa9a3eeacd11602f3385056e620652bb7',1,'teleinfo.h']]],
-  ['load_10',['LOAD',['../utils__override_8h.html#ab3ada13405f7827c8b4255eba95e4081',1,'utils_override.h']]],
+  ['load_10',['LOAD',['../utils__override__helpers_8h.html#ab3ada13405f7827c8b4255eba95e4081',1,'utils_override_helpers.h']]],
   ['load_5foff_11',['LOAD_OFF',['../types_8h.html#aa689e963b2305ff62d412abb6ebf7244a8f99352268add095fefd3881ea0a06de',1,'types.h']]],
   ['load_5fon_12',['LOAD_ON',['../types_8h.html#aa689e963b2305ff62d412abb6ebf7244a9c23d2669d8e4741a50b2db484750152',1,'types.h']]],
   ['loadprioritiesandstate_13',['loadPrioritiesAndState',['../processing_8h.html#a49958eb014b70dfb9d8cb9ded3564ef7',1,'processing.h']]],
@@ -20,6 +20,5 @@ var searchData=
   ['loadstates_17',['LoadStates',['../types_8h.html#aa689e963b2305ff62d412abb6ebf7244',1,'types.h']]],
   ['logloadpriorities_18',['logLoadPriorities',['../group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1',1,'utils.h']]],
   ['loop_19',['loop',['../group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;main.cpp'],['../embedded_2test__fastdivision_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__teleinfo_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp']]],
-  ['low_20',['LOW',['../native_2test__negative__threshold_2test__main_8cpp.html#ab811d8c6ff3a505312d3276590444289',1,'test_main.cpp']]],
-  ['lpf_5fgain_21',['lpf_gain',['../calibration_8h.html#a74d2e520152cb559bdb6e18153dcb5e4',1,'calibration.h']]]
+  ['lpf_5fgain_20',['lpf_gain',['../calibration_8h.html#a74d2e520152cb559bdb6e18153dcb5e4',1,'calibration.h']]]
 ];

@@ -128,9 +128,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae6ab65669669d5056460428e568c4345" id="r_ae6ab65669669d5056460428e568c4345"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6ab65669669d5056460428e568c4345">getPin</a> (uint8_t index) const</td></tr>
 <tr class="memdesc:ae6ab65669669d5056460428e568c4345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pin number at the specified entry index.  <br /></td></tr>
 <tr class="separator:ae6ab65669669d5056460428e568c4345"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c86c4fc44859fe72ed5e98d39d07254" id="r_a3c86c4fc44859fe72ed5e98d39d07254"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c86c4fc44859fe72ed5e98d39d07254">printOverrideConfig</a> () const</td></tr>
-<tr class="memdesc:a3c86c4fc44859fe72ed5e98d39d07254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the configured override pins and their bitmasks to Serial during startup.  <br /></td></tr>
-<tr class="separator:a3c86c4fc44859fe72ed5e98d39d07254"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9418492133ce96da02bfa84a32d0e1f8" id="r_a9418492133ce96da02bfa84a32d0e1f8"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9418492133ce96da02bfa84a32d0e1f8">size</a> () const</td></tr>
 <tr class="memdesc:a9418492133ce96da02bfa84a32d0e1f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of override pin entries.  <br /></td></tr>
 <tr class="separator:a9418492133ce96da02bfa84a32d0e1f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,18 +138,18 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a8bf6bcf16da2e94200cc419a72c48b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt;<br />
+<div class="textblock"><div class="compoundTemplParams">template&lt;uint8_t N, uint8_t MaxPins = 16&gt;<br />
 class OverridePins&lt; N, MaxPins &gt;</div><p>Manages override pins and their associated bitmasks for forced operation. </p>
 <p>This class provides compile-time mapping between override pins and the loads/relays they control. Each pin can be associated with a set of pins (loads/relays), represented as a bitmask.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">N</td><td>Number of pin-index pairs (entries). </td></tr>
-    <tr><td class="paramname">MaxPins</td><td>Maximum number of pins supported (loads + relays). </td></tr>
+    <tr><td class="paramname">MaxPins</td><td>Maximum number of pins supported (loads + relays). Default is 16 (enough for most configurations). </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00228">228</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00161">161</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4d137946dc0dc6f9e5ef77877fddd41b" name="a4d137946dc0dc6f9e5ef77877fddd41b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d137946dc0dc6f9e5ef77877fddd41b">&#9670;&#160;</a></span>OverridePins()</h2>
@@ -160,7 +157,7 @@ class OverridePins&lt; N, MaxPins &gt;</div><p>Manages override pins and their a
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </div>
+template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -187,7 +184,7 @@ template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </d
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00254">254</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00187">187</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
 
 </div>
 </div>
@@ -198,7 +195,7 @@ template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </d
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </div>
+template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -226,7 +223,7 @@ template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </d
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Bitmask for the pin, or 0 if not found. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00302">302</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00235">235</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
 
 </div>
 </div>
@@ -236,7 +233,7 @@ template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </d
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </div>
+template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -264,7 +261,7 @@ template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </d
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Bitmask, or 0 if out of bounds. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00292">292</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00225">225</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
 
 </div>
 </div>
@@ -274,7 +271,7 @@ template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </d
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </div>
+template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -302,39 +299,7 @@ template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </d
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pin value, or 0 if out of bounds. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00282">282</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
-
-</div>
-</div>
-<a id="a3c86c4fc44859fe72ed5e98d39d07254" name="a3c86c4fc44859fe72ed5e98d39d07254"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c86c4fc44859fe72ed5e98d39d07254">&#9670;&#160;</a></span>printOverrideConfig()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classOverridePins.html">OverridePins</a>&lt; N, MaxPins &gt;::printOverrideConfig </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Print the configured override pins and their bitmasks to Serial during startup. </p>
-<p>This method outputs the pin number and associated bitmask for each entry. </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00319">319</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00215">215</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
 
 </div>
 </div>
@@ -344,7 +309,7 @@ template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </d
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </div>
+template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -366,7 +331,7 @@ template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </d
 <p>Returns the number of override pin entries. </p>
 <dl class="section return"><dt>Returns</dt><dd>Number of pin-index pairs (entries). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00272">272</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00205">205</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
 
 </div>
 </div>
@@ -377,7 +342,7 @@ template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </d
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </div>
+template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -394,7 +359,7 @@ template&lt;uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size()&gt; </d
 </div><div class="memdoc">
 <p>Array of entries for all pin-index pairs. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00246">246</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00179">179</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
 
 </div>
 </div>

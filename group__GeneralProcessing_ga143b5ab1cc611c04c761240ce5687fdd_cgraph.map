@@ -10,13 +10,13 @@
 <area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="118,104,263,36,266,40,120,109"/>
 <area shape="rect" id="Node000003" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="705,132,803,157"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="618,142,691,142,691,147,618,147"/>
-<area shape="rect" id="Node000004" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="895,132,969,157"/>
+<area shape="rect" id="Node000004" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="895,132,969,157"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="803,142,881,142,881,147,803,147"/>
 <area shape="poly" id="edge8_Node000005_Node000003" title=" " alt="" coords="382,94,504,101,642,117,692,127,691,132,641,122,504,107,382,99"/>
 <area shape="rect" id="Node000006" href="$group__DualTariff.html#ga09f688031c566f173bdfe18e65b0770a" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="435,31,641,56"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="364,79,465,56,467,62,365,84"/>
 <area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="589,54,642,73,687,97,726,122,723,126,684,101,640,78,588,59"/>
-<area shape="rect" id="Node000007" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="721,5,787,31"/>
+<area shape="rect" id="Node000007" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="721,5,787,31"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="641,29,707,21,708,26,642,34"/>
 <area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="386,207,641,166,691,156,692,161,642,171,387,212"/>
 <area shape="rect" id="Node000009" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="453,233,623,259"/>

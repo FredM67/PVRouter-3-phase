@@ -1,26 +1,16 @@
 <map id="EWMA_average::getAverageD" name="EWMA_average::getAverageD">
-<area shape="rect" id="Node000001" title="Get the Double Exponentially Weighted Moving Average (DEMA)." alt="" coords="376,185,592,210"/>
-<area shape="rect" id="Node000002" href="$native_2test__ewma__benchmark_2test__main_8cpp.html#af0551722e81935f5bcf50348e86032e5" title=" " alt="" coords="139,5,297,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="461,176,405,118,367,87,327,60,297,46,299,41,329,55,370,82,408,114,465,172"/>
-<area shape="rect" id="Node000004" href="$native_2test__ewma__avg_2test__main_8cpp.html#a18905b27ca58963be912f77201ddf421" title=" " alt="" coords="147,185,289,210"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="362,200,289,200,289,195,362,195"/>
-<area shape="rect" id="Node000006" href="$native_2test__ewma__avg_2test__main_8cpp.html#a48ab1db89c49f63ba36c2ad6b2650fe5" title=" " alt="" coords="120,234,316,259"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="402,215,288,237,287,231,401,210"/>
-<area shape="rect" id="Node000007" href="$native_2test__ewma__avg_2test__main_8cpp.html#a4c3833a15e1ae16f4281c3efb4c2d4c7" title=" " alt="" coords="143,284,293,324"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="448,219,392,246,329,273,291,286,289,281,327,268,390,241,445,214"/>
-<area shape="rect" id="Node000008" href="$native_2test__ewma__benchmark_2test__main_8cpp.html#a14ba33bcd9351a9de2b7159005d1c419" title=" " alt="" coords="108,70,328,95"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="452,179,395,144,327,110,287,98,289,93,329,106,398,139,455,174"/>
-<area shape="rect" id="Node000009" href="$native_2test__ewma__avg_2test__main_8cpp.html#a015d975403ec04c63a5e402886c25464" title=" " alt="" coords="143,349,293,374"/>
-<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="465,223,409,281,371,312,329,338,295,352,293,347,327,334,368,308,405,277,462,219"/>
-<area shape="rect" id="Node000010" href="$native_2test__ewma__benchmark_2test__main_8cpp.html#a52d960ee7ebed5e0c04f9219733d403d" title=" " alt="" coords="141,120,295,160"/>
-<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="410,184,295,159,296,154,411,179"/>
-<area shape="rect" id="Node000003" href="$native_2test__ewma__benchmark_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,70,60,95"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="135,52,109,60,61,76,59,71,107,55,133,47"/>
-<area shape="rect" id="Node000005" href="$native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,262,60,287"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="135,214,109,224,76,243,50,264,47,260,73,239,107,219,133,209"/>
-<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="121,264,61,273,60,268,120,259"/>
-<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="129,293,60,282,61,276,129,287"/>
-<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="94,85,60,85,60,80,94,80"/>
-<area shape="poly" id="edge12_Node000009_Node000005" title=" " alt="" coords="129,347,107,338,71,314,44,289,48,286,74,310,109,334,131,342"/>
-<area shape="poly" id="edge14_Node000010_Node000003" title=" " alt="" coords="137,118,107,109,60,94,61,89,109,104,138,113"/>
+<area shape="rect" id="Node000001" title="Get the Double Exponentially Weighted Moving Average (DEMA)." alt="" coords="352,84,568,109"/>
+<area shape="rect" id="Node000002" href="$native_2test__ewma__avg_2test__main_8cpp.html#a18905b27ca58963be912f77201ddf421" title=" " alt="" coords="135,5,277,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="412,82,303,45,262,33,263,28,305,39,413,76"/>
+<area shape="rect" id="Node000004" href="$native_2test__ewma__avg_2test__main_8cpp.html#a48ab1db89c49f63ba36c2ad6b2650fe5" title=" " alt="" coords="108,55,304,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="338,85,304,81,305,76,339,80"/>
+<area shape="rect" id="Node000005" href="$native_2test__ewma__avg_2test__main_8cpp.html#a4c3833a15e1ae16f4281c3efb4c2d4c7" title=" " alt="" coords="131,105,281,145"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="339,113,282,119,281,114,338,107"/>
+<area shape="rect" id="Node000006" href="$native_2test__ewma__avg_2test__main_8cpp.html#a015d975403ec04c63a5e402886c25464" title=" " alt="" coords="131,169,281,195"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="417,117,305,159,261,172,260,167,303,154,415,112"/>
+<area shape="rect" id="Node000003" href="$native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,84,60,109"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="126,37,109,44,76,65,49,86,46,82,73,60,107,40,124,32"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="118,85,61,95,60,90,117,80"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="116,113,60,104,61,98,117,108"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="126,167,107,159,72,136,45,112,48,108,75,132,109,154,128,163"/>
 </map>

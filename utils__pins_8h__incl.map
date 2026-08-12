@@ -1,5 +1,9 @@
 <map id="Mk2_3phase_RFdatalog_temp/utils_pins.h" name="Mk2_3phase_RFdatalog_temp/utils_pins.h">
-<area shape="rect" id="Node000001" title="Some utility functions for pins manipulation." alt="" coords="5,5,183,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="52,93,136,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,46,97,79,91,79,91,46"/>
+<area shape="rect" id="Node000001" title="Some utility functions for pins manipulation." alt="" coords="15,5,192,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,89,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,47,66,84,61,80,88,44"/>
+<area shape="rect" id="Node000003" href="$utils__bits_8h.html" title="Bit manipulation utility functions." alt="" coords="114,93,207,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,44,146,80,142,84,115,47"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="125,167,196,192"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="163,119,163,153,158,153,158,119"/>
 </map>

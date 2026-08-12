@@ -1,0 +1,13 @@
+<map id="divmod10" name="divmod10">
+<area shape="rect" id="Node000001" title=" " alt="" coords="312,63,399,88"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__fastdivision_2test__main_8cpp.html#a5925d1dbe0def38358b7768748f75b3c" title=" " alt="" coords="104,5,264,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="306,61,263,46,225,33,227,28,265,41,307,56"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__fastdivision_2test__main_8cpp.html#a62aa658e5819adddc90f1799d9043cbf" title=" " alt="" coords="105,55,263,95"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="298,78,264,78,264,73,298,73"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__fastdivision_2test__main_8cpp.html#a0b110eeec7dd5ec9d6071e03d93b7248" title=" " alt="" coords="107,119,261,159"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="308,95,239,122,237,117,307,90"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__fastdivision_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,63,56,88"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="128,38,105,46,57,66,55,61,103,41,126,33"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="91,78,56,78,56,73,91,73"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="119,117,103,110,56,89,58,84,105,105,121,112"/>
+</map>

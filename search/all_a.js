@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['i_0',['i',['../embedded_2test__fastdivision_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d',1,'i:&#160;test_main.cpp'],['../embedded_2test__utils__pins_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d',1,'i:&#160;test_main.cpp']]],
+  ['i_0',['i',['../embedded_2test__utils__pins_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d',1,'test_main.cpp']]],
   ['i_5fdcoffset_5fi_5fnom_1',['i_DCoffset_I_nom',['../processing_8cpp.html#a14cff0127f52c57f50fe52f2ed2ab093',1,'processing.cpp']]],
   ['i_5fsamplesetsduringthisdatalogperiod_2',['i_sampleSetsDuringThisDatalogPeriod',['../processing_8cpp.html#ab652ee1e3280fde59df6719af6e884d0',1,'processing.cpp']]],
   ['if_3',['if',['../classTeleInfo.html#aadf7df151538d68d5d02d6d70401d1c8',1,'TeleInfo']]],
   ['immunity_20tuning_4',['Cloud Immunity Tuning',['../classEWMA__average.html#cloud_immunity',1,'']]],
   ['importthreshold_5',['importThreshold',['../classrelayOutput.html#a4ef45ace133c038e9e6fca3c9ed20d05',1,'relayOutput']]],
   ['inc_5fduration_6',['inc_duration',['../classrelayOutput.html#ad34639fdac60c7ef36bbb763f97ab9f1',1,'relayOutput::inc_duration()'],['../classRelayEngine.html#a4f831b566b2da140a17333ab6a39e5dc',1,'RelayEngine::inc_duration()']]],
-  ['index_7',['index',['../classTeleInfo.html#a058beaf679f9391e36e9135d06cbadcc',1,'TeleInfo::index'],['../classSimpleMovingAverage.html#a3c9ae2689659c13b19eb4061b4f118f5',1,'SimpleMovingAverage::index']]],
+  ['index_7',['index',['../classTeleInfo.html#a058beaf679f9391e36e9135d06cbadcc',1,'TeleInfo']]],
   ['indexlist_8',['indexList',['../structKeyIndexPair.html#a8d1e4f39df3f10428d32496d32a7b525',1,'KeyIndexPair']]],
   ['indicestobitmask_9',['indicesToBitmask',['../utils__override_8h.html#a9a09d443a71a667af9bf10c44cc6cd15',1,'utils_override.h']]],
   ['initialdelay_10',['initialDelay',['../processing_8h.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'processing.h']]],

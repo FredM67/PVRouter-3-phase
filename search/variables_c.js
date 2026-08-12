@@ -12,6 +12,5 @@ var searchData=
   ['post_5ftransition_5fmax_5fcount_9',['POST_TRANSITION_MAX_COUNT',['../processing_8cpp.html#a555d557c5b47a027b823b11a814f8693',1,'processing.cpp']]],
   ['posttransitioncount_10',['postTransitionCount',['../processing_8cpp.html#aefaf5733efee19a73b7cbcb1159ff61f',1,'processing.cpp']]],
   ['power_11',['power',['../classPayloadTx__struct.html#ab3001f04334464b35b7dd263bd08b1a0',1,'PayloadTx_struct']]],
-  ['power_5fdata_12',['power_data',['../structCloudPattern.html#a6e483bc66b8f192de91c55b34c126ef6',1,'CloudPattern']]],
-  ['power_5fl_13',['power_L',['../classPayloadTx__struct.html#a13cbb9a2141427b379764c105825815f',1,'PayloadTx_struct']]]
+  ['power_5fl_12',['power_L',['../classPayloadTx__struct.html#a13cbb9a2141427b379764c105825815f',1,'PayloadTx_struct']]]
 ];

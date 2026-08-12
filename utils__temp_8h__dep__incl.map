@@ -1,38 +1,35 @@
 <map id="Mk2_3phase_RFdatalog_temp/utils_temp.h" name="Mk2_3phase_RFdatalog_temp/utils_temp.h">
-<area shape="rect" id="Node000001" title="Provides utilities for managing temperature sensors." alt="" coords="613,5,791,45"/>
-<area shape="rect" id="Node000002" href="$config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="613,93,791,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="696,59,697,93,692,93,691,59"/>
-<area shape="rect" id="Node000006" href="$utils_8h.html" title="Some utility functions." alt="" coords="676,277,853,317"/>
-<area shape="poly" id="edge24_Node000001_Node000006" title=" " alt="" coords="805,32,883,47,967,74,1007,93,1045,117,1078,146,1107,180,1116,197,1120,212,1118,227,1111,239,1086,260,1049,274,1003,285,953,292,854,298,853,293,952,287,1002,280,1047,269,1084,255,1107,236,1113,225,1114,213,1111,199,1102,183,1075,149,1041,121,1004,98,965,79,882,52,804,37"/>
-<area shape="poly" id="edge21_Node000002_Node000001" title=" " alt="" coords="708,80,707,46,712,46,713,80"/>
-<area shape="rect" id="Node000003" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="713,181,891,221"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="736,140,782,179,778,183,733,144"/>
-<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="259,372,436,412"/>
-<area shape="poly" id="edge10_Node000002_Node000004" title=" " alt="" coords="600,117,500,122,395,132,346,141,304,152,270,166,248,183,235,206,233,231,239,257,252,283,289,332,327,370,323,373,285,335,247,285,234,258,228,231,230,204,244,180,268,161,302,147,345,136,394,127,500,116,600,112"/>
-<area shape="rect" id="Node000005" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="395,277,572,317"/>
-<area shape="poly" id="edge11_Node000002_Node000005" title=" " alt="" coords="601,128,546,148,522,163,501,183,489,205,483,230,483,276,478,276,478,229,484,203,497,180,519,159,544,143,599,123"/>
-<area shape="rect" id="Node000007" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="512,181,689,221"/>
-<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="671,144,625,183,621,179,667,140"/>
-<area shape="rect" id="Node000008" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="259,181,436,221"/>
-<area shape="poly" id="edge12_Node000002_Node000008" title=" " alt="" coords="612,139,426,184,424,179,610,134"/>
-<area shape="rect" id="Node000009" href="$teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="1168,181,1345,221"/>
-<area shape="poly" id="edge16_Node000002_Node000009" title=" " alt="" coords="805,128,1168,184,1167,189,804,133"/>
-<area shape="rect" id="Node000011" href="$utils__override_8h.html" title="Compile&#45;time utilities for managing override pins and index&#45;to&#45;bitmask mapping." alt="" coords="915,181,1092,221"/>
-<area shape="poly" id="edge19_Node000002_Node000011" title=" " alt="" coords="774,135,930,179,929,184,773,140"/>
-<area shape="rect" id="Node000012" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="5,277,183,317"/>
-<area shape="poly" id="edge22_Node000002_Node000012" title=" " alt="" coords="600,123,494,131,379,144,275,161,234,172,203,184,173,204,146,229,108,278,104,275,142,226,169,200,201,179,232,167,274,156,379,138,494,126,599,118"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="748,229,665,272,626,300,609,313,584,326,510,355,437,375,435,370,508,350,582,322,606,309,622,296,662,267,745,225"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="725,228,548,279,547,274,724,223"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="792,235,775,278,770,276,787,233"/>
-<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="668,322,432,375,431,369,667,317"/>
-<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="568,232,509,279,505,275,565,228"/>
-<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="647,226,733,274,730,279,644,230"/>
-<area shape="poly" id="edge13_Node000008_Node000004" title=" " alt="" coords="350,235,350,371,345,371,345,235"/>
-<area shape="poly" id="edge14_Node000008_Node000005" title=" " alt="" coords="387,227,457,274,454,279,384,231"/>
-<area shape="poly" id="edge15_Node000008_Node000006" title=" " alt="" coords="445,222,681,274,680,279,444,227"/>
-<area shape="poly" id="edge18_Node000009_Node000006" title=" " alt="" coords="1155,225,854,281,853,276,1154,219"/>
-<area shape="rect" id="Node000010" href="$embedded_2test__teleinfo_2test__main_8cpp.html" title=" " alt="" coords="1159,269,1354,324"/>
-<area shape="poly" id="edge17_Node000009_Node000010" title=" " alt="" coords="1259,235,1259,269,1254,269,1254,235"/>
-<area shape="poly" id="edge20_Node000011_Node000002" title=" " alt="" coords="931,180,775,136,776,131,933,175"/>
-<area shape="poly" id="edge23_Node000012_Node000004" title=" " alt="" coords="159,319,297,369,295,374,157,324"/>
+<area shape="rect" id="Node000001" title="Provides utilities for managing temperature sensors." alt="" coords="357,5,534,45"/>
+<area shape="rect" id="Node000002" href="$config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="357,93,534,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="440,59,441,93,435,93,434,59"/>
+<area shape="rect" id="Node000006" href="$utils_8h.html" title="Some utility functions." alt="" coords="445,277,622,317"/>
+<area shape="poly" id="edge22_Node000001_Node000006" title=" " alt="" coords="549,32,627,47,710,74,751,93,788,117,822,146,850,180,875,220,881,244,878,252,870,257,845,260,759,258,702,261,636,272,606,279,605,274,634,267,701,255,759,252,845,255,868,252,874,249,876,243,870,222,846,183,818,149,785,121,748,98,708,79,626,52,548,37"/>
+<area shape="poly" id="edge19_Node000002_Node000001" title=" " alt="" coords="452,80,451,46,456,46,457,80"/>
+<area shape="rect" id="Node000003" href="$calibration_8h.html" title="Calibration values definition." alt="" coords="54,181,232,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="367,140,210,184,209,179,365,135"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="318,372,496,412"/>
+<area shape="poly" id="edge10_Node000002_Node000004" title=" " alt="" coords="343,119,253,124,158,135,77,154,48,168,28,183,15,202,9,220,9,236,15,252,27,267,43,281,87,307,141,329,202,348,319,374,318,379,200,353,139,334,84,312,40,286,23,271,11,255,4,238,4,219,10,200,24,180,45,163,76,149,157,130,252,119,343,114"/>
+<area shape="rect" id="Node000005" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="189,277,366,317"/>
+<area shape="poly" id="edge11_Node000002_Node000005" title=" " alt="" coords="344,120,257,126,168,137,92,156,64,168,45,183,35,202,36,218,48,233,67,246,124,267,189,281,188,286,123,272,65,250,44,236,31,220,29,201,41,180,61,164,90,151,167,132,257,120,343,114"/>
+<area shape="rect" id="Node000007" href="$dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="256,181,433,221"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="414,144,368,183,365,179,411,140"/>
+<area shape="rect" id="Node000008" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="457,181,634,221"/>
+<area shape="poly" id="edge12_Node000002_Node000008" title=" " alt="" coords="480,140,525,179,522,183,476,144"/>
+<area shape="rect" id="Node000009" href="$teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="658,181,836,221"/>
+<area shape="poly" id="edge16_Node000002_Node000009" title=" " alt="" coords="526,135,682,179,680,184,524,140"/>
+<area shape="rect" id="Node000011" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="866,277,1044,317"/>
+<area shape="poly" id="edge20_Node000002_Node000011" title=" " alt="" coords="548,121,718,144,795,160,850,179,880,200,907,226,945,275,941,278,903,229,877,204,847,184,794,165,717,149,547,127"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="147,234,155,280,165,303,180,322,210,346,245,363,282,375,319,383,318,388,281,380,243,368,207,350,176,326,161,305,150,282,141,235"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="183,227,252,274,249,279,180,231"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="236,222,455,274,454,279,234,227"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="499,327,434,374,431,370,496,323"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="325,234,293,278,289,275,321,231"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="396,225,497,274,494,279,394,230"/>
+<area shape="poly" id="edge13_Node000008_Node000004" title=" " alt="" coords="485,230,458,248,436,271,423,296,415,323,409,372,404,372,409,322,418,294,432,268,455,244,482,226"/>
+<area shape="poly" id="edge14_Node000008_Node000005" title=" " alt="" coords="479,228,333,279,331,274,478,223"/>
+<area shape="poly" id="edge15_Node000008_Node000006" title=" " alt="" coords="544,235,539,277,533,276,539,235"/>
+<area shape="poly" id="edge18_Node000009_Node000006" title=" " alt="" coords="692,229,578,279,576,274,690,224"/>
+<area shape="rect" id="Node000010" href="$embedded_2test__teleinfo_2test__main_8cpp.html" title=" " alt="" coords="647,269,842,324"/>
+<area shape="poly" id="edge17_Node000009_Node000010" title=" " alt="" coords="749,235,748,269,742,269,743,235"/>
+<area shape="poly" id="edge21_Node000011_Node000004" title=" " alt="" coords="873,322,854,327,663,360,496,383,496,377,662,355,853,321,872,317"/>
 </map>

@@ -98,14 +98,19 @@ $(function(){ initResizable(false); });
 <p>Some utility functions for pins manipulation.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="utils__bits_8h_source.html">utils_bits.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for utils_pins.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__pins_8h__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2utils__pins_8h" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2utils__pins_8h" id="aMk2__3phase__RFdatalog__temp_2utils__pins_8h">
-<area shape="rect" title="Some utility functions for pins manipulation." alt="" coords="5,5,183,45"/>
-<area shape="rect" title=" " alt="" coords="52,93,136,119"/>
-<area shape="poly" title=" " alt="" coords="97,46,97,79,91,79,91,46"/>
+<area shape="rect" title="Some utility functions for pins manipulation." alt="" coords="15,5,192,45"/>
+<area shape="rect" title=" " alt="" coords="5,93,89,119"/>
+<area shape="poly" title=" " alt="" coords="92,47,66,84,61,80,88,44"/>
+<area shape="rect" href="utils__bits_8h.html" title="Bit manipulation utility functions." alt="" coords="114,93,207,119"/>
+<area shape="poly" title=" " alt="" coords="119,44,146,80,142,84,115,47"/>
+<area shape="rect" title=" " alt="" coords="125,167,196,192"/>
+<area shape="poly" title=" " alt="" coords="163,119,163,153,158,153,158,119"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -113,54 +118,51 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__pins_8h__dep__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2utils__pins_8hdep" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2utils__pins_8hdep" id="aMk2__3phase__RFdatalog__temp_2utils__pins_8hdep">
-<area shape="rect" title="Some utility functions for pins manipulation." alt="" coords="417,5,595,45"/>
-<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="989,394,1167,434"/>
-<area shape="poly" title=" " alt="" coords="609,36,832,68,967,93,1105,122,1238,157,1355,198,1406,221,1449,244,1484,270,1510,297,1518,319,1509,340,1486,358,1453,373,1364,394,1262,407,1167,413,1167,408,1261,401,1363,389,1451,368,1484,354,1505,337,1513,319,1505,300,1480,274,1446,249,1403,225,1353,203,1236,162,1104,127,966,98,831,74,608,41"/>
-<area shape="rect" href="embedded_2test__utils__pins_2test__main_8cpp.html" title=" " alt="" coords="274,93,469,148"/>
-<area shape="poly" title=" " alt="" coords="469,55,411,95,408,91,466,51"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html" title=" " alt="" coords="543,196,738,251"/>
-<area shape="poly" title=" " alt="" coords="405,44,318,66,285,79,264,95,256,108,253,121,256,133,264,146,281,161,308,173,379,193,462,206,543,214,543,219,461,211,378,198,306,178,279,165,260,150,251,135,248,121,251,106,260,92,282,75,317,60,403,39"/>
-<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="657,101,835,141"/>
-<area shape="poly" title=" " alt="" coords="568,48,698,98,697,103,566,53"/>
+<area shape="rect" title="Some utility functions for pins manipulation." alt="" coords="661,5,839,45"/>
+<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="1064,394,1241,434"/>
+<area shape="poly" title=" " alt="" coords="853,44,959,75,1018,97,1078,125,1136,158,1191,197,1239,244,1279,297,1285,313,1284,328,1278,343,1267,356,1237,378,1203,396,1200,391,1234,374,1263,352,1273,340,1279,327,1280,314,1274,300,1235,247,1187,202,1133,162,1076,129,1016,102,957,80,851,49"/>
+<area shape="rect" href="embedded_2test__utils__pins_2test__main_8cpp.html" title=" " alt="" coords="1367,93,1562,148"/>
+<area shape="poly" title=" " alt="" coords="852,32,1081,54,1215,71,1349,91,1367,94,1366,99,1348,96,1214,76,1080,60,852,37"/>
+<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html" title=" " alt="" coords="442,196,637,251"/>
+<area shape="poly" title=" " alt="" coords="706,55,650,95,600,148,560,198,556,194,596,144,647,91,703,50"/>
+<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="661,101,839,141"/>
+<area shape="poly" title=" " alt="" coords="753,59,753,101,747,101,747,59"/>
 <area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="5,299,183,339"/>
-<area shape="poly" title=" " alt="" coords="510,60,504,105,496,128,483,150,452,182,417,210,378,235,338,255,257,286,183,305,182,300,255,281,336,250,376,230,414,206,448,178,479,146,491,126,499,104,504,59"/>
-<area shape="poly" title=" " alt="" coords="718,152,670,198,667,194,715,148"/>
-<area shape="rect" href="config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="763,203,940,243"/>
-<area shape="poly" title=" " alt="" coords="778,148,833,201,830,205,774,152"/>
-<area shape="rect" href="main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="579,489,756,529"/>
-<area shape="poly" title=" " alt="" coords="848,129,1057,156,1176,175,1291,199,1393,227,1435,242,1470,259,1496,277,1513,297,1518,318,1510,340,1489,363,1461,383,1425,402,1384,418,1286,446,1176,468,1060,484,946,496,756,508,756,502,945,490,1059,479,1175,462,1285,441,1382,413,1423,397,1458,379,1486,359,1505,337,1512,318,1508,299,1492,281,1467,264,1433,247,1391,232,1290,204,1175,180,1056,161,848,135"/>
-<area shape="poly" title=" " alt="" coords="954,239,1008,261,1033,277,1055,297,1069,320,1077,346,1082,393,1076,394,1072,347,1064,322,1051,300,1030,281,1006,265,952,244"/>
-<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="1317,299,1495,339"/>
-<area shape="poly" title=" " alt="" coords="954,238,1306,296,1318,298,1317,303,1306,301,953,243"/>
-<area shape="poly" title=" " alt="" coords="772,249,750,253,653,259,492,265,333,278,277,288,258,294,248,301,225,335,217,369,225,404,248,440,269,456,301,469,387,489,486,499,578,504,578,510,485,505,386,494,299,474,266,460,244,443,220,406,212,370,220,333,244,297,256,289,276,282,333,272,491,260,653,254,750,248,771,244"/>
-<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="863,299,1040,339"/>
-<area shape="poly" title=" " alt="" coords="883,251,933,297,929,301,880,255"/>
-<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="460,299,637,339"/>
-<area shape="poly" title=" " alt="" coords="778,250,611,301,609,296,776,245"/>
+<area shape="poly" title=" " alt="" coords="694,53,594,96,136,301,134,296,592,91,692,48"/>
+<area shape="poly" title=" " alt="" coords="699,149,595,198,593,194,697,144"/>
+<area shape="rect" href="config_8h.html" title="Standard three&#45;phase PVRouter setup with 2 dump loads." alt="" coords="661,203,839,243"/>
+<area shape="poly" title=" " alt="" coords="753,155,753,203,747,203,747,155"/>
+<area shape="rect" href="main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="597,489,775,529"/>
+<area shape="poly" title=" " alt="" coords="853,120,958,132,1016,144,1076,161,1134,184,1188,213,1238,251,1279,297,1284,308,1284,318,1279,339,1279,396,1274,420,1256,443,1231,455,1186,466,1058,483,909,497,775,506,775,500,909,491,1058,478,1185,460,1229,450,1252,439,1269,417,1274,395,1274,338,1279,317,1279,309,1274,300,1234,255,1186,218,1132,189,1074,166,1015,149,957,138,852,126"/>
+<area shape="poly" title=" " alt="" coords="853,222,964,226,1084,238,1140,247,1189,260,1229,276,1256,297,1264,311,1265,325,1259,339,1250,352,1222,376,1191,396,1189,392,1219,372,1246,349,1255,336,1259,324,1259,312,1252,300,1226,281,1188,265,1139,253,1083,243,964,232,852,227"/>
+<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="460,299,637,339"/>
+<area shape="poly" title=" " alt="" coords="698,252,590,301,588,296,696,247"/>
+<area shape="poly" title=" " alt="" coords="670,249,649,253,609,257,557,258,437,258,377,261,322,268,278,280,261,289,248,300,225,335,217,370,225,404,248,440,270,457,304,471,347,482,395,490,500,501,597,505,597,510,500,506,395,495,346,487,302,476,268,461,244,443,220,406,212,370,220,333,244,297,258,285,276,275,321,262,376,256,436,253,557,253,608,252,648,248,668,244"/>
+<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="1064,299,1241,339"/>
+<area shape="poly" title=" " alt="" coords="845,244,1072,296,1071,301,844,249"/>
+<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="863,299,1040,339"/>
+<area shape="poly" title=" " alt="" coords="804,247,912,296,910,301,802,252"/>
 <area shape="rect" href="teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="259,299,436,339"/>
-<area shape="poly" title=" " alt="" coords="769,249,751,253,599,279,448,301,437,303,436,298,447,296,599,274,749,248,768,244"/>
-<area shape="rect" href="utils__override_8h.html" title="Compile&#45;time utilities for managing override pins and index&#45;to&#45;bitmask mapping." alt="" coords="1116,299,1293,339"/>
-<area shape="poly" title=" " alt="" coords="929,244,1127,296,1125,301,928,249"/>
+<area shape="poly" title=" " alt="" coords="666,249,649,253,436,301,435,296,648,248,664,244"/>
 <area shape="rect" href="utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="661,299,839,339"/>
-<area shape="poly" title=" " alt="" coords="815,254,765,301,761,297,811,250"/>
-<area shape="poly" title=" " alt="" coords="772,249,750,253,597,274,477,281,356,286,202,301,183,304,183,299,202,296,356,281,476,276,597,268,750,248,771,244"/>
-<area shape="poly" title=" " alt="" coords="1327,345,1145,397,1144,391,1326,340"/>
-<area shape="poly" title=" " alt="" coords="1369,349,1285,398,1233,423,1180,444,1068,473,953,492,846,503,757,509,756,503,846,498,953,487,1067,468,1179,439,1231,419,1282,394,1366,344"/>
-<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="624,394,801,434"/>
-<area shape="poly" title=" " alt="" coords="1304,342,1026,380,802,406,801,401,1025,375,1303,336"/>
-<area shape="poly" title=" " alt="" coords="700,448,679,490,674,488,695,445"/>
-<area shape="poly" title=" " alt="" coords="989,345,1054,392,1051,396,986,349"/>
-<area shape="poly" title=" " alt="" coords="891,346,762,396,760,391,889,341"/>
-<area shape="poly" title=" " alt="" coords="651,336,990,395,989,400,650,342"/>
-<area shape="poly" title=" " alt="" coords="565,350,586,394,614,440,652,487,647,491,609,443,582,396,560,352"/>
-<area shape="poly" title=" " alt="" coords="595,343,681,392,678,396,592,348"/>
-<area shape="poly" title=" " alt="" coords="435,339,640,391,638,397,434,345"/>
+<area shape="poly" title=" " alt="" coords="744,257,745,299,740,299,739,257"/>
+<area shape="poly" title=" " alt="" coords="670,249,649,253,524,272,426,280,328,287,202,301,183,304,183,299,202,296,327,282,426,275,523,267,648,248,669,244"/>
+<area shape="poly" title=" " alt="" coords="651,336,1064,398,1063,403,650,342"/>
+<area shape="poly" title=" " alt="" coords="570,349,632,440,671,488,667,491,628,443,565,352"/>
+<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="643,394,820,434"/>
+<area shape="poly" title=" " alt="" coords="599,342,696,392,693,396,596,347"/>
+<area shape="poly" title=" " alt="" coords="719,448,698,490,693,488,714,445"/>
+<area shape="poly" title=" " alt="" coords="1155,352,1155,394,1150,394,1150,352"/>
+<area shape="poly" title=" " alt="" coords="1055,344,817,397,816,391,1054,339"/>
+<area shape="poly" title=" " alt="" coords="1006,342,1113,392,1111,396,1003,347"/>
+<area shape="poly" title=" " alt="" coords="930,351,888,398,834,444,787,471,741,492,738,487,785,466,831,439,884,394,926,348"/>
+<area shape="poly" title=" " alt="" coords="895,347,777,396,775,391,893,342"/>
+<area shape="poly" title=" " alt="" coords="439,339,654,391,653,397,438,345"/>
 <area shape="rect" href="embedded_2test__teleinfo_2test__main_8cpp.html" title=" " alt="" coords="258,387,453,441"/>
 <area shape="poly" title=" " alt="" coords="353,352,356,386,350,387,347,352"/>
-<area shape="poly" title=" " alt="" coords="1127,298,930,246,931,241,1128,293"/>
-<area shape="poly" title=" " alt="" coords="787,288,836,241,840,245,790,292"/>
-<area shape="poly" title=" " alt="" coords="740,352,723,395,718,393,735,350"/>
-<area shape="poly" title=" " alt="" coords="114,349,151,397,176,420,203,439,232,451,272,461,371,479,480,492,579,500,578,505,479,497,370,484,271,467,231,456,201,444,172,424,147,400,110,352"/>
+<area shape="poly" title=" " alt="" coords="756,285,755,243,760,243,761,285"/>
+<area shape="poly" title=" " alt="" coords="746,352,738,394,732,393,741,351"/>
+<area shape="poly" title=" " alt="" coords="114,349,151,397,176,420,203,439,234,451,275,462,380,480,494,492,597,500,597,506,494,498,379,485,274,467,232,456,201,444,172,424,147,400,110,352"/>
 </map>
 </div>
 </div>
@@ -168,18 +170,6 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aeae4199ba44e9e5de9d228a6b6a8133e" id="r_aeae4199ba44e9e5de9d228a6b6a8133e"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
-<tr class="memitem:aeae4199ba44e9e5de9d228a6b6a8133e"><td class="memTemplItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aeae4199ba44e9e5de9d228a6b6a8133e">bit_clear</a> (T &amp;_dest, const uint8_t bit)</td></tr>
-<tr class="memdesc:aeae4199ba44e9e5de9d228a6b6a8133e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the specified bit.  <br /></td></tr>
-<tr class="separator:aeae4199ba44e9e5de9d228a6b6a8133e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaa54130a12679d0dcc0e7578e0e4d37" id="r_abaa54130a12679d0dcc0e7578e0e4d37"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
-<tr class="memitem:abaa54130a12679d0dcc0e7578e0e4d37"><td class="memTemplItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#abaa54130a12679d0dcc0e7578e0e4d37">bit_read</a> (const T &amp;_src, const uint8_t bit)</td></tr>
-<tr class="memdesc:abaa54130a12679d0dcc0e7578e0e4d37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the specified bit.  <br /></td></tr>
-<tr class="separator:abaa54130a12679d0dcc0e7578e0e4d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23ed26b879b65f5ddf07facc1e4b18bc" id="r_a23ed26b879b65f5ddf07facc1e4b18bc"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
-<tr class="memitem:a23ed26b879b65f5ddf07facc1e4b18bc"><td class="memTemplItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a23ed26b879b65f5ddf07facc1e4b18bc">bit_set</a> (T &amp;_dest, const uint8_t bit)</td></tr>
-<tr class="memdesc:a23ed26b879b65f5ddf07facc1e4b18bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the specified bit to 1.  <br /></td></tr>
-<tr class="separator:a23ed26b879b65f5ddf07facc1e4b18bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a410a7bdd300104398ce91797bd936cdb" id="r_a410a7bdd300104398ce91797bd936cdb"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a410a7bdd300104398ce91797bd936cdb">getPinState</a> (const uint8_t pin)</td></tr>
 <tr class="memdesc:a410a7bdd300104398ce91797bd936cdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Pin State.  <br /></td></tr>
 <tr class="separator:a410a7bdd300104398ce91797bd936cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -217,286 +207,11 @@ Variables</h2></td></tr>
 <div class="textblock"><p>Some utility functions for pins manipulation. </p>
 <dl class="section author"><dt>Author</dt><dd>Frédéric Metrich (<a href="#" onclick="location.href='mai'+'lto:'+'fre'+'de'+'ric'+'.m'+'etr'+'ic'+'h@l'+'iv'+'e.f'+'r'; return false;">frede<span class="obfuscator">.nosp@m.</span>ric.<span class="obfuscator">.nosp@m.</span>metri<span class="obfuscator">.nosp@m.</span>ch@l<span class="obfuscator">.nosp@m.</span>ive.f<span class="obfuscator">.nosp@m.</span>r</a>) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2023-05-05</dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2026-01-29</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023-2026 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="aeae4199ba44e9e5de9d228a6b6a8133e" name="aeae4199ba44e9e5de9d228a6b6a8133e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeae4199ba44e9e5de9d228a6b6a8133e">&#9670;&#160;</a></span>bit_clear()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t bit_clear </td>
-          <td>(</td>
-          <td class="paramtype">T &amp;</td>          <td class="paramname"><span class="paramname"><em>_dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>bit</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Clear the specified bit. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>Type of the variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">_dest</td><td>Integer variable to modify </td></tr>
-    <tr><td class="paramname">bit</td><td>Bit to clear in _src </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>constexpr uint8_t </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00080">80</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="utils__pins_8h_aeae4199ba44e9e5de9d228a6b6a8133e_icgraph.png" border="0" usemap="#autils__pins_8h_aeae4199ba44e9e5de9d228a6b6a8133e_icgraph" alt=""/></div>
-<map name="autils__pins_8h_aeae4199ba44e9e5de9d228a6b6a8133e_icgraph" id="autils__pins_8h_aeae4199ba44e9e5de9d228a6b6a8133e_icgraph">
-<area shape="rect" title="Clear the specified bit." alt="" coords="739,56,817,81"/>
-<area shape="rect" href="group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="543,5,691,31"/>
-<area shape="poly" title=" " alt="" coords="725,55,657,33,659,28,726,50"/>
-<area shape="rect" href="classrelayOutput.html#a5f44e026c5f12422859d19b57a4aef54" title="Proceed with the relay." alt="" coords="104,71,263,111"/>
-<area shape="poly" title=" " alt="" coords="725,73,263,91,263,86,724,68"/>
-<area shape="rect" href="utils__pins_8h.html#ada7e18750d04838130ee63030dcf185d" title="Set the Pin state to OFF for the specified pin." alt="" coords="573,131,661,156"/>
-<area shape="poly" title=" " alt="" coords="738,90,646,133,644,128,736,85"/>
-<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="373,5,432,31"/>
-<area shape="poly" title=" " alt="" coords="529,21,432,21,432,15,529,15"/>
-<area shape="rect" href="utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7" title="Set the Pin state for the specified pin." alt="" coords="355,156,451,181"/>
-<area shape="poly" title=" " alt="" coords="559,153,451,166,450,160,559,147"/>
-<area shape="rect" href="embedded_2test__utils__pins_2test__main_8cpp.html#ad88b28b663dbedb3135d1eabb5ca3cb1" title=" " alt="" coords="123,207,243,232"/>
-<area shape="poly" title=" " alt="" coords="580,165,540,182,495,197,429,209,361,217,244,223,244,217,361,212,428,204,494,191,538,177,578,160"/>
-<area shape="rect" href="classrelayOutput.html#a788868018f39545aa8178198f36b4e06" title="Turn OFF the relay if the &#39;time&#39; condition is met." alt="" coords="311,107,495,132"/>
-<area shape="poly" title=" " alt="" coords="558,140,494,132,495,127,559,134"/>
-<area shape="rect" href="embedded_2test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="119,157,247,183"/>
-<area shape="poly" title=" " alt="" coords="341,172,248,172,248,167,341,166"/>
-<area shape="rect" href="embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,183,56,208"/>
-<area shape="poly" title=" " alt="" coords="107,185,56,194,56,189,106,180"/>
-<area shape="poly" title=" " alt="" coords="109,210,56,202,57,197,110,205"/>
-<area shape="poly" title=" " alt="" coords="296,108,262,104,263,99,297,103"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="abaa54130a12679d0dcc0e7578e0e4d37" name="abaa54130a12679d0dcc0e7578e0e4d37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abaa54130a12679d0dcc0e7578e0e4d37">&#9670;&#160;</a></span>bit_read()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t bit_read </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;</td>          <td class="paramname"><span class="paramname"><em>_src</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>bit</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Read the specified bit. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>Type of the variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">_src</td><td>Integer variable to read </td></tr>
-    <tr><td class="paramname">bit</td><td>Bit to read in _src </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>constexpr uint8_t </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00067">67</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="utils__pins_8h_abaa54130a12679d0dcc0e7578e0e4d37_icgraph.png" border="0" usemap="#autils__pins_8h_abaa54130a12679d0dcc0e7578e0e4d37_icgraph" alt=""/></div>
-<map name="autils__pins_8h_abaa54130a12679d0dcc0e7578e0e4d37_icgraph" id="autils__pins_8h_abaa54130a12679d0dcc0e7578e0e4d37_icgraph">
-<area shape="rect" title="Read the specified bit." alt="" coords="996,129,1071,155"/>
-<area shape="rect" href="validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="788,5,948,31"/>
-<area shape="poly" title=" " alt="" coords="1015,119,986,81,968,61,947,44,925,33,927,28,949,40,971,57,990,77,1020,116"/>
-<area shape="rect" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="821,55,915,80"/>
-<area shape="poly" title=" " alt="" coords="1001,124,947,94,914,82,916,77,949,89,1003,119"/>
-<area shape="rect" href="group__Initialization.html#ga8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="817,104,919,129"/>
-<area shape="poly" title=" " alt="" coords="982,137,919,127,920,122,983,132"/>
-<area shape="rect" href="group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="811,153,925,179"/>
-<area shape="poly" title=" " alt="" coords="983,152,926,160,925,155,982,147"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="819,204,917,229"/>
-<area shape="poly" title=" " alt="" coords="1002,164,949,192,913,206,911,201,947,188,999,159"/>
-<area shape="rect" href="classrelayOutput.html#a5f44e026c5f12422859d19b57a4aef54" title="Proceed with the relay." alt="" coords="789,254,947,294"/>
-<area shape="poly" title=" " alt="" coords="1018,168,989,206,950,243,927,256,924,252,946,239,985,202,1014,165"/>
-<area shape="rect" href="group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="563,103,711,128"/>
-<area shape="poly" title=" " alt="" coords="803,119,711,118,711,113,803,114"/>
-<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="375,103,433,128"/>
-<area shape="poly" title=" " alt="" coords="549,118,434,118,434,113,549,113"/>
-<area shape="poly" title=" " alt="" coords="796,153,695,131,696,125,798,148"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga31f3d562faae6b598324b56299d74f7d" title="Checks and updates the diversion state based on the diversion pin." alt="" coords="325,179,483,204"/>
-<area shape="poly" title=" " alt="" coords="805,205,740,194,604,188,484,190,484,184,605,182,740,189,806,199"/>
-<area shape="rect" href="group__DualTariff.html#ga09f688031c566f173bdfe18e65b0770a" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="533,204,740,229"/>
-<area shape="poly" title=" " alt="" coords="806,219,740,219,740,214,806,214"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing." alt="" coords="327,241,481,267"/>
-<area shape="poly" title=" " alt="" coords="806,233,740,243,603,254,481,257,481,251,602,248,740,238,805,227"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="551,305,722,331"/>
-<area shape="poly" title=" " alt="" coords="807,236,789,244,775,255,766,266,756,277,741,288,695,308,693,303,739,284,753,273,762,262,772,251,787,240,805,231"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga7018b73a8d20b89d8c80be9b8f9fa09f" title="Handles load priority rotation and dual tariff state transitions." alt="" coords="323,305,485,331"/>
-<area shape="poly" title=" " alt="" coords="808,232,790,244,779,256,773,269,768,296,762,322,755,334,741,346,702,364,660,374,617,376,573,372,493,355,433,333,435,328,495,350,574,367,617,370,659,368,701,359,739,341,751,331,758,320,763,294,768,267,775,253,786,240,805,228"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,241,275,267"/>
-<area shape="poly" title=" " alt="" coords="347,210,235,244,233,239,346,205"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,241,56,267"/>
-<area shape="poly" title=" " alt="" coords="90,257,57,257,57,251,90,251"/>
-<area shape="poly" title=" " alt="" coords="544,234,481,244,480,239,543,229"/>
-<area shape="poly" title=" " alt="" coords="314,257,275,257,275,251,314,251"/>
-<area shape="poly" title=" " alt="" coords="537,321,485,321,485,315,537,315"/>
-<area shape="poly" title=" " alt="" coords="346,304,232,269,234,264,348,299"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a23ed26b879b65f5ddf07facc1e4b18bc" name="a23ed26b879b65f5ddf07facc1e4b18bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23ed26b879b65f5ddf07facc1e4b18bc">&#9670;&#160;</a></span>bit_set()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bit_set </td>
-          <td>(</td>
-          <td class="paramtype">T &amp;</td>          <td class="paramname"><span class="paramname"><em>_dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>bit</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set the specified bit to 1. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>Type of the variable </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">_dest</td><td>Integer variable to modify </td></tr>
-    <tr><td class="paramname">bit</td><td>Bit to set in _dest </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00054">54</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="utils__pins_8h_a23ed26b879b65f5ddf07facc1e4b18bc_icgraph.png" border="0" usemap="#autils__pins_8h_a23ed26b879b65f5ddf07facc1e4b18bc_icgraph" alt=""/></div>
-<map name="autils__pins_8h_a23ed26b879b65f5ddf07facc1e4b18bc_icgraph" id="autils__pins_8h_a23ed26b879b65f5ddf07facc1e4b18bc_icgraph">
-<area shape="rect" title="Set the specified bit to 1." alt="" coords="813,228,880,253"/>
-<area shape="rect" href="utils__override_8h.html#aad6fca84dc7d919f163fbac33055f610" title="Returns a bitmask representing all load pins." alt="" coords="614,5,710,31"/>
-<area shape="poly" title=" " alt="" coords="840,215,833,176,819,130,796,83,781,62,764,44,738,30,710,22,711,17,740,25,767,40,786,59,801,81,824,128,838,175,845,214"/>
-<area shape="rect" href="utils__override_8h.html#a96133cb9774beb9fe8c665849fb35fd1" title="Returns a bitmask representing all relay pins." alt="" coords="611,55,713,80"/>
-<area shape="poly" title=" " alt="" coords="836,216,811,153,791,121,764,93,739,80,712,73,714,68,741,75,767,89,795,117,816,151,841,214"/>
-<area shape="rect" href="validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="582,104,742,129"/>
-<area shape="poly" title=" " alt="" coords="830,217,803,178,784,159,764,143,741,132,743,127,767,138,788,155,807,175,834,214"/>
-<area shape="rect" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="615,153,709,179"/>
-<area shape="poly" title=" " alt="" coords="816,222,764,192,709,176,710,171,766,188,819,218"/>
-<area shape="rect" href="group__DualTariff.html#ga09f688031c566f173bdfe18e65b0770a" title="Calculates the dual tariff forcing bitmask based on current conditions." alt="" coords="559,203,765,228"/>
-<area shape="poly" title=" " alt="" coords="799,237,754,231,755,225,800,232"/>
-<area shape="rect" href="group__Initialization.html#ga8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="611,405,713,431"/>
-<area shape="poly" title=" " alt="" coords="840,267,814,328,794,360,767,388,742,403,715,413,713,408,740,398,764,384,789,357,810,325,835,265"/>
-<area shape="rect" href="group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="343,432,491,457"/>
-<area shape="poly" title=" " alt="" coords="835,267,807,307,788,327,767,344,738,360,713,370,666,379,618,383,559,397,512,416,460,434,458,429,510,412,558,391,617,378,666,373,711,365,736,355,764,340,785,323,803,303,830,264"/>
-<area shape="rect" href="group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="605,455,719,480"/>
-<area shape="poly" title=" " alt="" coords="845,267,838,307,824,355,801,404,786,426,767,445,745,459,720,466,719,461,743,454,764,441,782,423,797,401,819,353,833,306,840,266"/>
-<area shape="rect" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="621,304,703,329"/>
-<area shape="poly" title=" " alt="" coords="814,263,766,287,705,309,703,303,764,282,812,258"/>
-<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="375,223,458,248"/>
-<area shape="poly" title=" " alt="" coords="800,243,559,242,458,239,458,234,559,237,800,238"/>
-<area shape="rect" href="utils__override_8h.html#afb09a204576614ed4b449d126cb43e89" title="Returns a bitmask representing all loads and all relays." alt="" coords="323,31,511,56"/>
-<area shape="poly" title=" " alt="" coords="601,27,511,36,511,31,600,22"/>
-<area shape="poly" title=" " alt="" coords="597,64,511,55,511,50,598,58"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga749bd64aa252249f5d9c98668ef3200e" title="Gets the combined bitmask of all active override pins and dual tariff forcing." alt="" coords="340,173,493,199"/>
-<area shape="poly" title=" " alt="" coords="545,204,493,198,494,192,545,199"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="104,173,275,199"/>
-<area shape="poly" title=" " alt="" coords="326,189,275,189,275,183,326,183"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,173,56,199"/>
-<area shape="poly" title=" " alt="" coords="90,189,57,189,57,183,90,183"/>
-<area shape="poly" title=" " alt="" coords="597,428,491,439,490,434,597,422"/>
-<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="160,436,219,461"/>
-<area shape="poly" title=" " alt="" coords="329,449,219,451,219,445,329,444"/>
-<area shape="poly" title=" " alt="" coords="591,463,491,454,491,449,591,458"/>
-<area shape="rect" href="utils__pins_8h.html#a85a0c8419c44c8bea7565ae9b4a782a7" title="Set the Pin state for the specified pin." alt="" coords="369,272,465,297"/>
-<area shape="poly" title=" " alt="" coords="606,312,464,293,465,288,607,307"/>
-<area shape="rect" href="embedded_2test__utils__pins_2test__main_8cpp.html#a149130da05b40aff690713378ab38eac" title=" " alt="" coords="132,321,247,347"/>
-<area shape="poly" title=" " alt="" coords="607,321,247,335,247,329,607,316"/>
-<area shape="rect" href="classrelayOutput.html#ae3aec33d184f1fd0d17abc1b41300bdf" title="Turn ON the relay if the &#39;time&#39; condition is met." alt="" coords="327,376,506,401"/>
-<area shape="poly" title=" " alt="" coords="608,335,462,378,460,373,607,330"/>
-<area shape="rect" href="embedded_2test__utils__pins_2test__main_8cpp.html#abd1c12218f5c492bdeb765dfc01a1965" title=" " alt="" coords="125,272,253,297"/>
-<area shape="poly" title=" " alt="" coords="355,287,253,287,253,282,355,282"/>
-<area shape="rect" href="embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,272,56,297"/>
-<area shape="poly" title=" " alt="" coords="111,287,56,287,56,282,111,282"/>
-<area shape="poly" title=" " alt="" coords="128,320,103,313,56,296,57,291,105,307,130,315"/>
-<area shape="rect" href="classrelayOutput.html#a5f44e026c5f12422859d19b57a4aef54" title="Proceed with the relay." alt="" coords="110,371,269,411"/>
-<area shape="poly" title=" " alt="" coords="314,393,269,393,269,388,313,387"/>
-<area shape="poly" title=" " alt="" coords="361,226,248,201,249,196,362,221"/>
-<area shape="rect" href="embedded_2test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8" title=" " alt="" coords="132,223,247,248"/>
-<area shape="poly" title=" " alt="" coords="362,238,247,238,247,233,362,233"/>
-<area shape="poly" title=" " alt="" coords="130,254,105,262,57,278,56,273,103,257,128,249"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="a410a7bdd300104398ce91797bd936cdb" name="a410a7bdd300104398ce91797bd936cdb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a410a7bdd300104398ce91797bd936cdb">&#9670;&#160;</a></span>getPinState()</h2>
 
@@ -531,14 +246,14 @@ Here is the caller graph for this function:</div>
 <dd>
 false if LOW </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00194">194</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00158">158</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__pins_8h_a410a7bdd300104398ce91797bd936cdb_cgraph.png" border="0" usemap="#autils__pins_8h_a410a7bdd300104398ce91797bd936cdb_cgraph" alt=""/></div>
 <map name="autils__pins_8h_a410a7bdd300104398ce91797bd936cdb_cgraph" id="autils__pins_8h_a410a7bdd300104398ce91797bd936cdb_cgraph">
 <area shape="rect" title="Get the Pin State." alt="" coords="5,5,103,31"/>
-<area shape="rect" href="utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="151,5,225,31"/>
+<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="151,5,225,31"/>
 <area shape="poly" title=" " alt="" coords="103,15,137,15,137,21,103,21"/>
 </map>
 </div>
@@ -602,14 +317,14 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00160">160</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00124">124</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__pins_8h_ada7e18750d04838130ee63030dcf185d_cgraph.png" border="0" usemap="#autils__pins_8h_ada7e18750d04838130ee63030dcf185d_cgraph" alt=""/></div>
 <map name="autils__pins_8h_ada7e18750d04838130ee63030dcf185d_cgraph" id="autils__pins_8h_ada7e18750d04838130ee63030dcf185d_cgraph">
 <area shape="rect" title="Set the Pin state to OFF for the specified pin." alt="" coords="5,5,93,31"/>
-<area shape="rect" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="141,5,220,31"/>
+<area shape="rect" href="utils__bits_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="141,5,220,31"/>
 <area shape="poly" title=" " alt="" coords="94,15,128,15,128,21,94,21"/>
 </map>
 </div>
@@ -668,14 +383,14 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00128">128</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00092">92</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__pins_8h_ac55bbc1bc996c72b6c33525fd84b45e6_cgraph.png" border="0" usemap="#autils__pins_8h_ac55bbc1bc996c72b6c33525fd84b45e6_cgraph" alt=""/></div>
 <map name="autils__pins_8h_ac55bbc1bc996c72b6c33525fd84b45e6_cgraph" id="autils__pins_8h_ac55bbc1bc996c72b6c33525fd84b45e6_cgraph">
 <area shape="rect" title="Set the Pin state to ON for the specified pin." alt="" coords="5,5,88,31"/>
-<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="136,5,203,31"/>
+<area shape="rect" href="utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="136,5,203,31"/>
 <area shape="poly" title=" " alt="" coords="89,15,122,15,122,21,89,21"/>
 </map>
 </div>
@@ -734,7 +449,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00226">226</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00190">190</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -781,7 +496,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00215">215</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00179">179</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -828,7 +543,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00181">181</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00145">145</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -885,7 +600,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00149">149</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00113">113</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -947,7 +662,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00111">111</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00075">75</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -958,9 +673,9 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="101,32,135,26,136,31,102,37"/>
 <area shape="rect" href="utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="152,55,235,80"/>
 <area shape="poly" title=" " alt="" coords="102,49,139,55,138,61,101,54"/>
-<area shape="rect" href="utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="285,5,364,31"/>
+<area shape="rect" href="utils__bits_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="285,5,364,31"/>
 <area shape="poly" title=" " alt="" coords="238,15,272,15,272,21,238,21"/>
-<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="291,55,358,80"/>
+<area shape="rect" href="utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="291,55,358,80"/>
 <area shape="poly" title=" " alt="" coords="235,65,278,65,278,70,235,70"/>
 </map>
 </div>
@@ -1004,14 +719,14 @@ Here is the caller graph for this function:</div>
 
 <p>Toggle the specified pin. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00089">89</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00053">53</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="utils__pins_8h_aaec5db9d46ba784c4f16046e6deb6977_cgraph.png" border="0" usemap="#autils__pins_8h_aaec5db9d46ba784c4f16046e6deb6977_cgraph" alt=""/></div>
 <map name="autils__pins_8h_aaec5db9d46ba784c4f16046e6deb6977_cgraph" id="autils__pins_8h_aaec5db9d46ba784c4f16046e6deb6977_cgraph">
 <area shape="rect" title="Toggle the specified pin." alt="" coords="5,5,88,31"/>
-<area shape="rect" href="utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="136,5,203,31"/>
+<area shape="rect" href="utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="136,5,203,31"/>
 <area shape="poly" title=" " alt="" coords="89,15,122,15,122,21,89,21"/>
 </map>
 </div>
@@ -1056,7 +771,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>unused pin </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00017">17</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__pins_8h_source.html#l00019">19</a> of file <a class="el" href="utils__pins_8h_source.html">utils_pins.h</a>.</p>
 
 </div>
 </div>

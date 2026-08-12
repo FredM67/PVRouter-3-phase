@@ -8,9 +8,9 @@
 <area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="65,221,107,228,106,233,64,227"/>
 <area shape="rect" id="Node000013" href="$group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="117,353,255,379"/>
 <area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="51,230,164,342,160,346,47,234"/>
-<area shape="rect" id="Node000004" href="$utils__pins_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="397,304,475,329"/>
+<area shape="rect" id="Node000004" href="$utils__bits_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="397,304,475,329"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="239,204,262,217,278,236,286,256,293,274,310,290,345,306,383,313,382,319,344,311,306,295,289,277,281,258,274,239,258,221,237,209"/>
-<area shape="rect" id="Node000005" href="$utils__pins_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="616,55,683,80"/>
+<area shape="rect" id="Node000005" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="616,55,683,80"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="229,179,259,168,283,154,307,142,378,121,434,112,491,105,563,90,602,79,604,84,565,95,492,110,435,117,379,127,309,147,285,159,261,172,231,184"/>
 <area shape="rect" id="Node000006" href="$group__Initialization.html#ga8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="385,55,487,80"/>
 <area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="239,179,258,168,274,151,281,133,289,115,306,97,337,81,370,72,372,77,339,86,310,101,294,118,286,135,278,154,262,172,241,184"/>
@@ -23,7 +23,7 @@
 <area shape="rect" id="Node000011" href="$utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e" title="Set the pins as OUTPUT." alt="" coords="371,255,501,280"/>
 <area shape="poly" id="edge13_Node000003_Node000011" title=" " alt="" coords="228,204,261,217,285,230,309,241,359,254,357,259,307,246,283,234,259,222,226,209"/>
 <area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="488,65,602,65,602,70,488,70"/>
-<area shape="rect" id="Node000007" href="$utils__pins_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="612,5,687,31"/>
+<area shape="rect" id="Node000007" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="612,5,687,31"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="487,56,563,41,598,31,600,36,565,46,488,62"/>
 <area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="494,26,565,41,603,51,602,56,563,46,493,31"/>
 <area shape="poly" id="edge9_Node000008_Node000007" title=" " alt="" coords="494,15,598,15,598,21,494,21"/>

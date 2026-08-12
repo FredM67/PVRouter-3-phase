@@ -1,11 +1,10 @@
 <map id="test_single_value_update" name="test_single_value_update">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,193,80"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,56,193,81"/>
 <area shape="rect" id="Node000002" href="$classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="253,5,445,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,52,270,31,271,36,165,57"/>
-<area shape="rect" id="Node000004" href="$classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="241,55,456,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="194,65,228,65,228,70,194,70"/>
-<area shape="rect" id="Node000005" href="$native_2test__cloud__patterns_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="257,104,441,129"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="165,77,271,99,270,104,164,83"/>
-<area shape="rect" id="Node000003" href="$native_2test__ewma__benchmark_2test__main_8cpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title=" " alt="" coords="504,5,688,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="445,15,490,15,490,21,445,21"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,53,272,31,273,36,163,58"/>
+<area shape="rect" id="Node000003" href="$ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="504,31,688,56"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="193,61,490,46,490,51,194,67"/>
+<area shape="rect" id="Node000004" href="$classEWMA__average.html#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA)." alt="" coords="241,107,456,132"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="163,79,273,101,272,107,162,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="445,25,490,30,490,35,445,30"/>
 </map>

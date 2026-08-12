@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rf69_5fcompat_0',['RF69_COMPAT',['../config_8h.html#ac7df154e6d284322427bec4d2dfc0dda',1,'config.h']]]
+  ['validate_5fpins_0',['VALIDATE_PINS',['../utils__override_8h.html#ad58f45427bd6d7a8d10c3d4eebad89f4',1,'utils_override.h']]]
 ];
