@@ -3,9 +3,9 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2021-10-04
+ * @date 2026-09-21
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2021-2026
  *
  */
 
@@ -772,24 +772,25 @@ void processStartNewCycle()
  * @brief Processes the start of a new negative half cycle for the specified phase.
  *
  * This function is called just after the zero-crossing point of a negative half cycle.
- * It updates the low-pass filter (LPF) for removing the DC component from the voltage
- * signal and ensures the LPF output remains within defined limits.
+ * It refreshes the DC offset used to remove the DC component from the voltage signal.
  *
  * @param phase The phase number [0..NO_OF_PHASES[.
  *
  * @details
- * - Updates the low-pass filter for DC offset removal using the cumulative voltage deltas.
- * - Ensures the LPF output remains within the defined minimum and maximum range.
+ * - @c l_filterDC_V is a Q17.15 integrator: @c processVoltage() adds every
+ *   @c i_sampleVminusDC to it, so each sample feeds back with a gain of 1/32768.
+ * - Here the integrator is simply rescaled to the x64 (left-aligned ADC) domain to
+ *   give the offset applied to the following cycle.
+ * - The integrator is free-running: it is never reset, and is not clamped. Its time
+ *   constant is long enough that a plausible offset drift is tracked smoothly, while
+ *   a stuck or disconnected VT settles to that input instead of to a fixed limit.
+ *   See @c test/native/test_dc_offset_filter for the tracking and step-response cases.
  *
  * @ingroup TimeCritical
  */
 void processMinusHalfCycle(const uint8_t phase)
 {
-  // This is a convenient point to update the Low Pass Filter for removing the DC
-  // component from the phase that is being processed.
-  // The portion which is fed back into the integrator is approximately one percent
-  // of the average offset of all the SampleVs in the previous mains cycle.
-  //
+  // This is a convenient point to refresh the DC offset for the phase being processed.
   i_DCoffset_V[phase] = l_filterDC_V[phase] >> 15;
 }
 

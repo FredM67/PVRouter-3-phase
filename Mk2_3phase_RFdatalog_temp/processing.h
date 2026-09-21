@@ -3,9 +3,9 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Public functions/variables of processing engine
  * @version 0.1
- * @date 2021-10-04
+ * @date 2026-09-21
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2021-2026
  *
  */
 
@@ -34,9 +34,6 @@ inline PayloadTx_struct< NO_OF_PHASES > tx_data; /**< logging data */
 #endif
 
 void printParamsForSelectedOutputMode();
-
-void processCurrentRawSample(const uint8_t phase, const int16_t rawSample);
-void processVoltageRawSample(const uint8_t phase, const int16_t rawSample);
 
 #if defined(__DOXYGEN__)
 void initializeProcessing();
