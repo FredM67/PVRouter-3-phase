@@ -18,6 +18,31 @@ constexpr uint8_t SUPPLY_FREQUENCY = 50;
 constexpr float SAMPLE_PERIOD_US = 624.0f;
 constexpr uint16_t ADC_MIDPOINT_ALIGNED = 32768;
 
+/**
+ * @brief Print a 64-bit value on AVR, where Serial.print() tops out at 32 bits
+ *
+ * Splits the value around 1e9 so the decimal digits stay intact; without this a
+ * value above UINT32_MAX is silently truncated and reads as a much smaller number.
+ */
+void printU64(uint64_t value)
+{
+  if (value <= UINT32_MAX)
+  {
+    Serial.print(static_cast< uint32_t >(value));
+    return;
+  }
+
+  const uint32_t upper{ static_cast< uint32_t >(value / 1000000000ULL) };
+  const uint32_t lower{ static_cast< uint32_t >(value % 1000000000ULL) };
+
+  Serial.print(upper);
+  for (uint32_t decade = 100000000UL; decade > 1; decade /= 10)
+  {
+    if (lower < decade) Serial.print('0');
+  }
+  Serial.print(lower);
+}
+
 uint16_t simulateADC(float voltage_inst)
 {
   float adc = (voltage_inst / 400.0f) * 1024.0f + 512.0f;
@@ -70,19 +95,23 @@ void test_voltage_accumulation(uint8_t period, uint8_t shift, float vrms, bool e
     Serial.print(F(": samples="));
     Serial.print(samples);
     Serial.print(F(", max="));
-    Serial.print((unsigned long)max_acc);
+    printU64(max_acc);
     Serial.print(F(" vs UINT32_MAX="));
-    Serial.println((unsigned long)UINT32_MAX);
+    Serial.println(UINT32_MAX);
+
+    // Unity's *_UINT64 assertions are compiled out on AVR (they expand to an
+    // unconditional "64-bit Support Disabled" failure), so compare here and
+    // assert on the resulting bool. The uint64_t arithmetic itself is fine.
+    const bool overflows{ max_acc > static_cast< uint64_t >(UINT32_MAX) };
 
     if (expect_overflow)
     {
-      // For the overflow test, we expect max_acc > UINT32_MAX would have wrapped
-      // So we just verify it's a large value indicating we would overflow with uint32_t
-      TEST_ASSERT_GREATER_THAN_UINT64(UINT32_MAX, max_acc);
+      // Accumulator exceeds UINT32_MAX, i.e. a uint32_t accumulator would wrap here
+      TEST_ASSERT_TRUE_MESSAGE(overflows, "expected uint32_t overflow, but the sum still fits");
     }
     else
     {
-      TEST_ASSERT_LESS_THAN_UINT32(UINT32_MAX, max_acc);
+      TEST_ASSERT_FALSE_MESSAGE(overflows, "unexpected uint32_t overflow");
     }
   }
   else
