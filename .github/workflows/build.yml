@@ -46,11 +46,20 @@ jobs:
       - name: Install PlatformIO libraries
         run: pio pkg install --project-dir ${{ env.PROJECT_DIR }}
 
-  # Build job: compiles firmware for embedded targets
+  # Build job: compiles firmware for embedded targets.
+  # One entry per user-selectable environment - `pio run` alone only builds
+  # `default_envs` (basic), which let the rf environment break unnoticed.
   build:
-    name: Build Firmware
+    name: Build Firmware (${{ matrix.environment }})
     needs: setup
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        environment:
+          - basic
+          - emonesp
+          - rf
     steps:
       - uses: actions/checkout@v7
         with:
@@ -72,8 +81,8 @@ jobs:
       - name: Install PlatformIO
         run: pip install --upgrade platformio
 
-      - name: Build firmware
-        run: pio run --project-dir ${{ env.PROJECT_DIR }}
+      - name: Build firmware (${{ matrix.environment }})
+        run: pio run --project-dir ${{ env.PROJECT_DIR }} -e ${{ matrix.environment }}
 
   # Native test jobs: runs each native test separately
   test-native:
