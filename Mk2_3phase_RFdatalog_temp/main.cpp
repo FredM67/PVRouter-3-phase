@@ -15,9 +15,9 @@
  * - **Watchdog**: Toggles a pin to indicate system activity.
  *
  * @version 0.1
- * @date 2023-02-15
+ * @date 2026-09-21
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023-2026
  *
  */
 
@@ -461,7 +461,7 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
   {
     relays.inc_duration();
     // Pass private bitmask to relay engine, it will filter out relay pins that can be controlled
-    relays.proceed_relays(privateOverrideBitmask);
+    relays.proceed_relays(privateOverrideBitmask, Shared::b_diversionEnabled);
   }
 
   // Copy the filtered bitmask (only triac/load pins) to shared version

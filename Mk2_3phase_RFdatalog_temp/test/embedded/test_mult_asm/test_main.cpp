@@ -2,7 +2,7 @@
  * @file test_main.cpp
  * @brief Unity-based unit tests for assembly multiplication functions
  * @version 0.1
- * @date 2025-10-09
+ * @date 2026-09-21
  *
  * This file contains comprehensive unit tests for the assembly-optimized
  * multiplication functions using the Unity testing framework.
@@ -39,42 +39,42 @@ void test_multS16x16_to32_basic(void)
   int32_t result;
 
   // Test positive × positive
-  multS16x16_to32(result, 2, 3);
+  multS16x16_to32(result, static_cast< int16_t >(2), static_cast< int16_t >(3));
   TEST_ASSERT_EQUAL(6, result);
 
-  multS16x16_to32(result, 100, 100);
+  multS16x16_to32(result, static_cast< int16_t >(100), static_cast< int16_t >(100));
   TEST_ASSERT_EQUAL(10000, result);
 
   // Test positive × negative
-  multS16x16_to32(result, 2, -3);
+  multS16x16_to32(result, static_cast< int16_t >(2), static_cast< int16_t >(-3));
   TEST_ASSERT_EQUAL(-6, result);
 
-  multS16x16_to32(result, 100, -100);
+  multS16x16_to32(result, static_cast< int16_t >(100), static_cast< int16_t >(-100));
   TEST_ASSERT_EQUAL(-10000, result);
 
   // Test negative × negative
-  multS16x16_to32(result, -2, -3);
+  multS16x16_to32(result, static_cast< int16_t >(-2), static_cast< int16_t >(-3));
   TEST_ASSERT_EQUAL(6, result);
 
   // Test edge cases
-  multS16x16_to32(result, 0, 1000);
+  multS16x16_to32(result, static_cast< int16_t >(0), static_cast< int16_t >(1000));
   TEST_ASSERT_EQUAL(0, result);
 
-  multS16x16_to32(result, 1000, 0);
+  multS16x16_to32(result, static_cast< int16_t >(1000), static_cast< int16_t >(0));
   TEST_ASSERT_EQUAL(0, result);
 
   // Test maximum values (be careful of overflow)
-  multS16x16_to32(result, 32767, 1);
+  multS16x16_to32(result, static_cast< int16_t >(32767), static_cast< int16_t >(1));
   TEST_ASSERT_EQUAL(32767, result);
 
-  multS16x16_to32(result, -32768, 1);
+  multS16x16_to32(result, static_cast< int16_t >(-32768), static_cast< int16_t >(1));
   TEST_ASSERT_EQUAL(-32768, result);
 
   // Test larger multiplications
-  multS16x16_to32(result, 1000, 1000);
+  multS16x16_to32(result, static_cast< int16_t >(1000), static_cast< int16_t >(1000));
   TEST_ASSERT_EQUAL(1000000, result);
 
-  multS16x16_to32(result, -1000, 1000);
+  multS16x16_to32(result, static_cast< int16_t >(-1000), static_cast< int16_t >(1000));
   TEST_ASSERT_EQUAL(-1000000, result);
 }
 
@@ -86,47 +86,47 @@ void test_multU16x16_to32_basic(void)
   uint32_t result;
 
   // Test basic unsigned multiplication
-  multU16x16_to32(result, 2, 3);
+  multU16x16_to32(result, static_cast< uint16_t >(2), static_cast< uint16_t >(3));
   TEST_ASSERT_EQUAL_UINT32(6, result);
 
-  multU16x16_to32(result, 100, 100);
+  multU16x16_to32(result, static_cast< uint16_t >(100), static_cast< uint16_t >(100));
   TEST_ASSERT_EQUAL_UINT32(10000, result);
 
-  multU16x16_to32(result, 1000, 1000);
+  multU16x16_to32(result, static_cast< uint16_t >(1000), static_cast< uint16_t >(1000));
   TEST_ASSERT_EQUAL_UINT32(1000000, result);
 
   // Test edge cases
-  multU16x16_to32(result, 0, 1000);
+  multU16x16_to32(result, static_cast< uint16_t >(0), static_cast< uint16_t >(1000));
   TEST_ASSERT_EQUAL_UINT32(0, result);
 
-  multU16x16_to32(result, 1000, 0);
+  multU16x16_to32(result, static_cast< uint16_t >(1000), static_cast< uint16_t >(0));
   TEST_ASSERT_EQUAL_UINT32(0, result);
 
-  multU16x16_to32(result, 1, 65535);
+  multU16x16_to32(result, static_cast< uint16_t >(1), static_cast< uint16_t >(65535));
   TEST_ASSERT_EQUAL_UINT32(65535, result);
 
-  multU16x16_to32(result, 65535, 1);
+  multU16x16_to32(result, static_cast< uint16_t >(65535), static_cast< uint16_t >(1));
   TEST_ASSERT_EQUAL_UINT32(65535, result);
 
   // Test maximum values (65535 * 65535)
-  multU16x16_to32(result, 65535, 65535);
+  multU16x16_to32(result, static_cast< uint16_t >(65535), static_cast< uint16_t >(65535));
   TEST_ASSERT_EQUAL_UINT32(4294836225UL, result);  // 65535² = 4,294,836,225
 
   // Test typical ADC values (like voltage sample squared for V²)
-  multU16x16_to32(result, 32768, 32768);
+  multU16x16_to32(result, static_cast< uint16_t >(32768), static_cast< uint16_t >(32768));
   TEST_ASSERT_EQUAL_UINT32(1073741824UL, result);  // 32768² = 1,073,741,824
 
-  multU16x16_to32(result, 1648, 1648);
+  multU16x16_to32(result, static_cast< uint16_t >(1648), static_cast< uint16_t >(1648));
   TEST_ASSERT_EQUAL_UINT32(2715904, result);  // Typical V sample squared
 
   // Test various powers of 2
-  multU16x16_to32(result, 256, 256);
+  multU16x16_to32(result, static_cast< uint16_t >(256), static_cast< uint16_t >(256));
   TEST_ASSERT_EQUAL_UINT32(65536, result);
 
-  multU16x16_to32(result, 512, 512);
+  multU16x16_to32(result, static_cast< uint16_t >(512), static_cast< uint16_t >(512));
   TEST_ASSERT_EQUAL_UINT32(262144, result);
 
-  multU16x16_to32(result, 1024, 1024);
+  multU16x16_to32(result, static_cast< uint16_t >(1024), static_cast< uint16_t >(1024));
   TEST_ASSERT_EQUAL_UINT32(1048576, result);
 }
 
@@ -144,37 +144,37 @@ void test_mult16x8_q8_basic(void)
   uint8_t three_quarters = float_to_q8(0.75f);  // 192
 
   // Test basic fractions
-  mult16x8_q8(result, 100, half);
+  mult16x8_q8(result, static_cast< int16_t >(100), half);
   TEST_ASSERT_EQUAL(50, result);  // 100 * 0.5 = 50
 
-  mult16x8_q8(result, 100, quarter);
+  mult16x8_q8(result, static_cast< int16_t >(100), quarter);
   TEST_ASSERT_EQUAL(25, result);  // 100 * 0.25 = 25
 
-  mult16x8_q8(result, 100, three_quarters);
+  mult16x8_q8(result, static_cast< int16_t >(100), three_quarters);
   TEST_ASSERT_EQUAL(75, result);  // 100 * 0.75 = 75
 
-  mult16x8_q8(result, 100, full);
+  mult16x8_q8(result, static_cast< int16_t >(100), full);
   TEST_ASSERT_EQUAL(100, result);  // 100 * ~1.0 ≈ 100
 
   // Test negative values
-  mult16x8_q8(result, -100, half);
+  mult16x8_q8(result, static_cast< int16_t >(-100), half);
   TEST_ASSERT_EQUAL(-50, result);
 
-  mult16x8_q8(result, -100, quarter);
+  mult16x8_q8(result, static_cast< int16_t >(-100), quarter);
   TEST_ASSERT_EQUAL(-25, result);
 
   // Test edge cases
-  mult16x8_q8(result, 100, 0);
+  mult16x8_q8(result, static_cast< int16_t >(100), static_cast< uint8_t >(0));
   TEST_ASSERT_EQUAL(0, result);
 
-  mult16x8_q8(result, 0, half);
+  mult16x8_q8(result, static_cast< int16_t >(0), half);
   TEST_ASSERT_EQUAL(0, result);
 
   // Test maximum values
-  mult16x8_q8(result, 32767, half);
+  mult16x8_q8(result, static_cast< int16_t >(32767), half);
   TEST_ASSERT_EQUAL(16384, result);  // 32767 * 0.5 ≈ 16383
 
-  mult16x8_q8(result, -32768, half);
+  mult16x8_q8(result, static_cast< int16_t >(-32768), half);
   TEST_ASSERT_EQUAL(-16384, result);  // -32768 * 0.5 = -16384
 }
 
@@ -207,18 +207,18 @@ void test_mult16x8_q8_rounding(void)
 
   // Test rounding with values that should round up
   // 100 * (127/256) = 49.609... should round to 50
-  mult16x8_q8(result, 100, 127);
+  mult16x8_q8(result, static_cast< int16_t >(100), static_cast< uint8_t >(127));
   TEST_ASSERT_EQUAL(50, result);
 
   // 100 * (129/256) = 50.390... should round to 50
-  mult16x8_q8(result, 100, 129);
+  mult16x8_q8(result, static_cast< int16_t >(100), static_cast< uint8_t >(129));
   TEST_ASSERT_EQUAL(50, result);
 
   // Test exact values
-  mult16x8_q8(result, 256, 128);  // 256 * 0.5 = 128
+  mult16x8_q8(result, static_cast< int16_t >(256), static_cast< uint8_t >(128));  // 256 * 0.5 = 128
   TEST_ASSERT_EQUAL(128, result);
 
-  mult16x8_q8(result, 512, 64);  // 512 * 0.25 = 128
+  mult16x8_q8(result, static_cast< int16_t >(512), static_cast< uint8_t >(64));  // 512 * 0.25 = 128
   TEST_ASSERT_EQUAL(128, result);
 }
 
@@ -231,106 +231,106 @@ void test_edge_cases(void)
   int16_t result16;
 
   // Test multS16x16_to32 with values near 16-bit limits
-  multS16x16_to32(result32, 32767, 2);
+  multS16x16_to32(result32, static_cast< int16_t >(32767), static_cast< int16_t >(2));
   TEST_ASSERT_EQUAL(65534, result32);
 
-  multS16x16_to32(result32, -32768, 2);
+  multS16x16_to32(result32, static_cast< int16_t >(-32768), static_cast< int16_t >(2));
   TEST_ASSERT_EQUAL(-65536, result32);
 
-  multS16x16_to32(result32, -32640, 257);
+  multS16x16_to32(result32, static_cast< int16_t >(-32640), static_cast< int16_t >(257));
   TEST_ASSERT_EQUAL(-8388480, result32);
 
   // Test maximum positive * maximum positive (largest positive result)
-  multS16x16_to32(result32, 32767, 32767);
+  multS16x16_to32(result32, static_cast< int16_t >(32767), static_cast< int16_t >(32767));
   TEST_ASSERT_EQUAL(1073676289L, result32);  // 32767² = 1,073,676,289
 
   // Test maximum negative * maximum negative (largest positive result)
-  multS16x16_to32(result32, -32768, -32768);
+  multS16x16_to32(result32, static_cast< int16_t >(-32768), static_cast< int16_t >(-32768));
   TEST_ASSERT_EQUAL(1073741824L, result32);  // (-32768)² = 1,073,741,824
 
   // Test maximum positive * maximum negative (most negative result)
-  multS16x16_to32(result32, 32767, -32768);
+  multS16x16_to32(result32, static_cast< int16_t >(32767), static_cast< int16_t >(-32768));
   TEST_ASSERT_EQUAL(-1073709056L, result32);  // 32767 * (-32768) = -1,073,709,056
 
   // Test maximum negative * maximum positive (same as above)
-  multS16x16_to32(result32, -32768, 32767);
+  multS16x16_to32(result32, static_cast< int16_t >(-32768), static_cast< int16_t >(32767));
   TEST_ASSERT_EQUAL(-1073709056L, result32);
 
   // Test one value at limit, other small
-  multS16x16_to32(result32, 32767, -1);
+  multS16x16_to32(result32, static_cast< int16_t >(32767), static_cast< int16_t >(-1));
   TEST_ASSERT_EQUAL(-32767, result32);
 
-  multS16x16_to32(result32, -32768, -1);
+  multS16x16_to32(result32, static_cast< int16_t >(-32768), static_cast< int16_t >(-1));
   TEST_ASSERT_EQUAL(32768, result32);
 
   // Test typical ADC range values (like in PVRouter ISR)
-  multS16x16_to32(result32, 1648, 512);  // Typical voltage * current
+  multS16x16_to32(result32, static_cast< int16_t >(1648), static_cast< int16_t >(512));  // Typical voltage * current
   TEST_ASSERT_EQUAL(843776, result32);
 
-  multS16x16_to32(result32, -1648, 512);  // Negative voltage
+  multS16x16_to32(result32, static_cast< int16_t >(-1648), static_cast< int16_t >(512));  // Negative voltage
   TEST_ASSERT_EQUAL(-843776, result32);
 
-  multS16x16_to32(result32, 1648, -512);  // Negative current
+  multS16x16_to32(result32, static_cast< int16_t >(1648), static_cast< int16_t >(-512));  // Negative current
   TEST_ASSERT_EQUAL(-843776, result32);
 
   // Test mult16x8_q8 with extreme values
-  mult16x8_q8(result16, 32767, 255);   // Maximum positive * maximum fraction
+  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(255));   // Maximum positive * maximum fraction
   TEST_ASSERT_EQUAL(32639, result16);  // Should be close to 32767
 
-  mult16x8_q8(result16, -32768, 255);   // Maximum negative * maximum fraction
+  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(255));   // Maximum negative * maximum fraction
   TEST_ASSERT_EQUAL(-32640, result16);  // Should be close to -32768
 
   // Test boundary values with different fractions
-  mult16x8_q8(result16, 32767, 1);   // Maximum positive * minimum fraction
+  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(1));   // Maximum positive * minimum fraction
   TEST_ASSERT_EQUAL(128, result16);  // 32767 * (1/256) ≈ 128
 
-  mult16x8_q8(result16, -32768, 1);   // Maximum negative * minimum fraction
+  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(1));   // Maximum negative * minimum fraction
   TEST_ASSERT_EQUAL(-128, result16);  // -32768 * (1/256) = -128
 
-  mult16x8_q8(result16, 32767, 128);   // Maximum positive * 0.5
+  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(128));   // Maximum positive * 0.5
   TEST_ASSERT_EQUAL(16384, result16);  // 32767 * 0.5 ≈ 16384
 
-  mult16x8_q8(result16, -32768, 128);   // Maximum negative * 0.5
+  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(128));   // Maximum negative * 0.5
   TEST_ASSERT_EQUAL(-16384, result16);  // -32768 * 0.5 = -16384
 
   // Test zero multiplication edge cases
-  mult16x8_q8(result16, 32767, 0);  // Maximum positive * zero
+  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(0));  // Maximum positive * zero
   TEST_ASSERT_EQUAL(0, result16);
 
-  mult16x8_q8(result16, -32768, 0);  // Maximum negative * zero
+  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(0));  // Maximum negative * zero
   TEST_ASSERT_EQUAL(0, result16);
 
-  mult16x8_q8(result16, 0, 255);  // Zero * maximum fraction
+  mult16x8_q8(result16, static_cast< int16_t >(0), static_cast< uint8_t >(255));  // Zero * maximum fraction
   TEST_ASSERT_EQUAL(0, result16);
 
   // Test very small fractions with different values
-  mult16x8_q8(result16, 1000, 1);  // 1000 * (1/256) ≈ 4
+  mult16x8_q8(result16, static_cast< int16_t >(1000), static_cast< uint8_t >(1));  // 1000 * (1/256) ≈ 4
   TEST_ASSERT_EQUAL(4, result16);
 
-  mult16x8_q8(result16, 1000, 2);  // 1000 * (2/256) ≈ 8
+  mult16x8_q8(result16, static_cast< int16_t >(1000), static_cast< uint8_t >(2));  // 1000 * (2/256) ≈ 8
   TEST_ASSERT_EQUAL(8, result16);
 
-  mult16x8_q8(result16, 256, 1);  // 256 * (1/256) = 1
+  mult16x8_q8(result16, static_cast< int16_t >(256), static_cast< uint8_t >(1));  // 256 * (1/256) = 1
   TEST_ASSERT_EQUAL(1, result16);
 
-  mult16x8_q8(result16, 128, 1);  // 128 * (1/256) = 0.5 → rounds to 1
+  mult16x8_q8(result16, static_cast< int16_t >(128), static_cast< uint8_t >(1));  // 128 * (1/256) = 0.5 → rounds to 1
   TEST_ASSERT_EQUAL(1, result16);
 
-  mult16x8_q8(result16, 127, 1);  // 127 * (1/256) = 0.496... → rounds to 0
+  mult16x8_q8(result16, static_cast< int16_t >(127), static_cast< uint8_t >(1));  // 127 * (1/256) = 0.496... → rounds to 0
   TEST_ASSERT_EQUAL(0, result16);
 
   // Test typical filter values (like in PVRouter)
-  mult16x8_q8(result16, 1000, float_to_q8(0.004f));  // Typical EWMA factor
+  mult16x8_q8(result16, static_cast< int16_t >(1000), float_to_q8(0.004f));  // Typical EWMA factor
   TEST_ASSERT_EQUAL(4, result16);                    // 1000 * 0.004 = 4
 
-  mult16x8_q8(result16, -500, float_to_q8(0.004f));  // Negative with small factor
+  mult16x8_q8(result16, static_cast< int16_t >(-500), float_to_q8(0.004f));  // Negative with small factor
   TEST_ASSERT_EQUAL(-2, result16);                   // -500 * 0.004 = -2
 
   // Test near-overflow scenarios (values that could cause intermediate overflow)
-  mult16x8_q8(result16, 30000, 200);   // Large value * large fraction
+  mult16x8_q8(result16, static_cast< int16_t >(30000), static_cast< uint8_t >(200));   // Large value * large fraction
   TEST_ASSERT_EQUAL(23438, result16);  // 30000 * (200/256) = 23437.5 → 23438 (rounds up)
 
-  mult16x8_q8(result16, -30000, 200);   // Large negative * large fraction
+  mult16x8_q8(result16, static_cast< int16_t >(-30000), static_cast< uint8_t >(200));   // Large negative * large fraction
   TEST_ASSERT_EQUAL(-23437, result16);  // -30000 * (200/256) = -23437.5 → -23438
 }
 
@@ -716,7 +716,7 @@ void test_performance_isr_simulation(void)
     int16_t filter_delta;
     multS16x16_to32(power, voltage_samples[k % num_samples], current_samples[k % num_samples]);
     multS16x16_to32(vsquared, voltage_samples[k % num_samples], voltage_samples[k % num_samples]);
-    mult16x8_q8(filter_delta, prev_current[k % num_samples] - current_samples[k % num_samples], filter_factor);
+    mult16x8_q8(filter_delta, static_cast< int16_t >(prev_current[k % num_samples] - current_samples[k % num_samples]), filter_factor);
   }
 
   // Performance test for assembly-optimized ISR simulation
@@ -732,7 +732,7 @@ void test_performance_isr_simulation(void)
 
     multS16x16_to32(instant_power, voltage_samples[idx], current_samples[idx]);
     multS16x16_to32(voltage_squared, voltage_samples[idx], voltage_samples[idx]);
-    mult16x8_q8(filter_delta, prev_current[idx] - current_samples[idx], filter_factor);
+    mult16x8_q8(filter_delta, static_cast< int16_t >(prev_current[idx] - current_samples[idx]), filter_factor);
 
     power_sum += instant_power;
     voltage_squared_sum += voltage_squared;

@@ -655,6 +655,251 @@ void test_duration_overflow(void)
   RUN_TEST(test_duration_overflow_wrap_would_block_relay);
 }
 
+// ============================================================================
+// forceOFF tests
+// ============================================================================
+
+// Use D=4 to create a separate EWMA instance
+constexpr RelayEngine< 1, 4 > forceOffTestRelays{ integral_constant< uint8_t, 4 >{},
+                                                  { { 4, 500, 100, 1, 1 } } };
+
+void test_forceOFF_when_already_off(void)
+{
+  // forceOFF on a relay that's already OFF should return false (no change)
+  const auto& relay = forceOffTestRelays.get_relay(0);
+
+  TEST_ASSERT_FALSE(relay.isRelayON());
+  TEST_ASSERT_FALSE(relay.forceOFF());
+  TEST_ASSERT_FALSE(relay.isRelayON());
+}
+
+void test_forceOFF_respects_minON_time(void)
+{
+  // First turn the relay ON
+  const auto& relay = forceOffTestRelays.get_relay(0);
+
+  // Wait for minOFF to elapse
+  for (uint8_t i = 0; i < 60; ++i)
+  {
+    relay.inc_duration();
+  }
+
+  // Turn ON the relay
+  uint16_t overrideBitmask = 0;
+  const int32_t surplus = -600;
+  TEST_ASSERT_TRUE(relay.proceed_relay(surplus, overrideBitmask));
+  TEST_ASSERT_TRUE(relay.isRelayON());
+
+  // Try forceOFF immediately - should fail (minON not met)
+  TEST_ASSERT_FALSE(relay.forceOFF());
+  TEST_ASSERT_TRUE(relay.isRelayON());
+
+  // Wait half of minON
+  for (uint8_t i = 0; i < 30; ++i)
+  {
+    relay.inc_duration();
+  }
+
+  // Still should fail
+  TEST_ASSERT_FALSE(relay.forceOFF());
+  TEST_ASSERT_TRUE(relay.isRelayON());
+}
+
+void test_forceOFF_succeeds_after_minON(void)
+{
+  const auto& relay = forceOffTestRelays.get_relay(0);
+
+  // Relay is ON from previous test
+  TEST_ASSERT_TRUE(relay.isRelayON());
+
+  // Wait for remaining minON time (30 more seconds)
+  for (uint8_t i = 0; i < 30; ++i)
+  {
+    relay.inc_duration();
+  }
+
+  // Now forceOFF should succeed
+  TEST_ASSERT_TRUE(relay.forceOFF());
+  TEST_ASSERT_FALSE(relay.isRelayON());
+}
+
+void test_forceOFF(void)
+{
+  RUN_TEST(test_forceOFF_when_already_off);
+  delay(100);
+  RUN_TEST(test_forceOFF_respects_minON_time);
+  delay(100);
+  RUN_TEST(test_forceOFF_succeeds_after_minON);
+}
+
+// ============================================================================
+// Diversion disabled tests (proceed_relays with diversionEnabled=false)
+// ============================================================================
+
+// Use D=5 to create a separate EWMA instance
+constexpr RelayEngine< 2, 5 > diversionTestRelays{ integral_constant< uint8_t, 5 >{},
+                                                   { { 5, 500, 100, 1, 1 },
+                                                     { 6, 800, 150, 1, 1 } } };
+
+void test_diversion_disabled_forces_relays_off(void)
+{
+  // First turn on both relays
+  const auto& relay0 = diversionTestRelays.get_relay(0);
+  const auto& relay1 = diversionTestRelays.get_relay(1);
+
+  // Wait for initial settle_change and minOFF to elapse
+  for (uint8_t i = 0; i < 60; ++i)
+  {
+    diversionTestRelays.inc_duration();
+  }
+
+  // Feed surplus to EWMA
+  for (uint8_t i = 0; i < 50; ++i)
+  {
+    diversionTestRelays.update_average(-600);
+  }
+
+  // Turn on relay 0
+  uint16_t overrideBitmask = 0;
+  diversionTestRelays.proceed_relays(overrideBitmask);
+  TEST_ASSERT_TRUE(relay0.isRelayON());
+
+  // Wait for settle_change
+  for (uint8_t i = 0; i < 60; ++i)
+  {
+    diversionTestRelays.inc_duration();
+  }
+
+  // Feed more surplus
+  for (uint8_t i = 0; i < 50; ++i)
+  {
+    diversionTestRelays.update_average(-1000);
+  }
+
+  // Turn on relay 1
+  overrideBitmask = 0;
+  diversionTestRelays.proceed_relays(overrideBitmask);
+  TEST_ASSERT_TRUE(relay0.isRelayON());
+  TEST_ASSERT_TRUE(relay1.isRelayON());
+
+  // Wait for settle_change and minON to elapse
+  for (uint8_t i = 0; i < 60; ++i)
+  {
+    diversionTestRelays.inc_duration();
+  }
+
+  // Now disable diversion - both relays should turn OFF
+  overrideBitmask = 0;
+  diversionTestRelays.proceed_relays(overrideBitmask, false);
+
+  TEST_ASSERT_FALSE(relay0.isRelayON());
+  TEST_ASSERT_FALSE(relay1.isRelayON());
+}
+
+void test_diversion_disabled_respects_minON(void)
+{
+  // Turn relays back on, then try to force off before minON
+  const auto& relay0 = diversionTestRelays.get_relay(0);
+
+  // Wait for settle_change and minOFF
+  for (uint8_t i = 0; i < 60; ++i)
+  {
+    diversionTestRelays.inc_duration();
+  }
+
+  // Feed surplus
+  for (uint8_t i = 0; i < 50; ++i)
+  {
+    diversionTestRelays.update_average(-600);
+  }
+
+  // Turn on relay 0
+  uint16_t overrideBitmask = 0;
+  diversionTestRelays.proceed_relays(overrideBitmask);
+  TEST_ASSERT_TRUE(relay0.isRelayON());
+
+  // Immediately try to disable diversion (settle_change is 60, so it will be blocked)
+  // First wait for settle_change but NOT minON
+  // Actually settle_change blocks proceed_relays entirely, so we need to wait
+  // Try immediately - should be blocked by settle_change
+  overrideBitmask = 0;
+  diversionTestRelays.proceed_relays(overrideBitmask, false);
+  TEST_ASSERT_TRUE(relay0.isRelayON());  // Still ON due to settle_change
+
+  // Wait for settle_change but only half of minON
+  for (uint8_t i = 0; i < 30; ++i)
+  {
+    diversionTestRelays.inc_duration();
+  }
+
+  // Still blocked by settle_change (60s total)
+  overrideBitmask = 0;
+  diversionTestRelays.proceed_relays(overrideBitmask, false);
+  TEST_ASSERT_TRUE(relay0.isRelayON());
+
+  // Wait remaining settle_change time (30 more = 60 total = minON)
+  for (uint8_t i = 0; i < 30; ++i)
+  {
+    diversionTestRelays.inc_duration();
+  }
+
+  // Now settle_change is 0 and minON is met, should turn off
+  overrideBitmask = 0;
+  diversionTestRelays.proceed_relays(overrideBitmask, false);
+  TEST_ASSERT_FALSE(relay0.isRelayON());
+}
+
+void test_diversion_disabled_sets_settle_change(void)
+{
+  // After forcing relays off, settle_change should be set to 60
+  const auto& relay0 = diversionTestRelays.get_relay(0);
+
+  // Turn relay back on
+  for (uint8_t i = 0; i < 60; ++i)
+  {
+    diversionTestRelays.inc_duration();
+  }
+
+  for (uint8_t i = 0; i < 50; ++i)
+  {
+    diversionTestRelays.update_average(-600);
+  }
+
+  uint16_t overrideBitmask = 0;
+  diversionTestRelays.proceed_relays(overrideBitmask);
+  TEST_ASSERT_TRUE(relay0.isRelayON());
+
+  // Wait for settle_change and minON
+  for (uint8_t i = 0; i < 60; ++i)
+  {
+    diversionTestRelays.inc_duration();
+  }
+
+  // Disable diversion
+  overrideBitmask = 0;
+  diversionTestRelays.proceed_relays(overrideBitmask, false);
+  TEST_ASSERT_FALSE(relay0.isRelayON());
+
+  // Re-enable diversion immediately - should be blocked by settle_change
+  for (uint8_t i = 0; i < 50; ++i)
+  {
+    diversionTestRelays.update_average(-600);
+  }
+
+  overrideBitmask = 0;
+  diversionTestRelays.proceed_relays(overrideBitmask, true);
+  TEST_ASSERT_FALSE(relay0.isRelayON());  // Still OFF due to settle_change
+}
+
+void test_diversion_disabled(void)
+{
+  RUN_TEST(test_diversion_disabled_forces_relays_off);
+  delay(100);
+  RUN_TEST(test_diversion_disabled_respects_minON);
+  delay(100);
+  RUN_TEST(test_diversion_disabled_sets_settle_change);
+}
+
 void setup()
 {
   delay(1000);
@@ -687,6 +932,10 @@ void loop()
   RUN_TEST(test_relay_ordering);
 
   RUN_TEST(test_duration_overflow);
+
+  RUN_TEST(test_forceOFF);
+
+  RUN_TEST(test_diversion_disabled);
 
   UNITY_END();  // stop unit testing
 }

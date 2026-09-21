@@ -3,9 +3,9 @@
  * @author Based on florentbr's suggestions and avrfreertos optimizations
  * @brief Assembly-optimized multiplication functions for AVR microcontrollers
  * @version 0.1
- * @date 2025-10-09
+ * @date 2026-09-21
  *
- * @copyright Copyright (c) 2025
+ * @copyright Copyright (c) 2025-2026
  *
  * This file contains highly optimized assembly multiplication functions for
  * time-critical operations on AVR microcontrollers. These functions eliminate
@@ -21,6 +21,8 @@
 #define MULT_ASM_H
 
 #include <stdint.h>
+
+#include "type_traits/is_same.hpp"
 
 /**
  * @brief Optimized 16×16→32 signed multiplication with assembly
@@ -40,8 +42,12 @@
  * 
  * @ingroup TimeCritical
  */
-static inline __attribute__((always_inline)) void multS16x16_to32(int32_t& result, int16_t a, int16_t b)
+template< typename A, typename B >
+static inline __attribute__((always_inline)) void multS16x16_to32(int32_t& result, A a, B b)
 {
+  static_assert(is_same_v< A, int16_t >, "First argument must be int16_t");
+  static_assert(is_same_v< B, int16_t >, "Second argument must be int16_t");
+
 #ifdef __AVR__
   asm volatile(
     "clr r26                \n\t"  // Clear temporary register
@@ -68,24 +74,46 @@ static inline __attribute__((always_inline)) void multS16x16_to32(int32_t& resul
 #endif
 }
 
-static inline __attribute__((always_inline)) void multU16x16_to32(uint32_t& result, uint16_t a, uint16_t b)
+/**
+ * @brief Optimized 16×16→32 unsigned multiplication with assembly
+ *
+ * This function performs an unsigned 16-bit × 16-bit multiplication returning
+ * a 32-bit result using hand-optimized AVR assembly. It's significantly
+ * faster than GCC's library multiplication functions.
+ *
+ * @param result Reference to uint32_t variable to store the result
+ * @param a First 16-bit unsigned value
+ * @param b Second 16-bit unsigned value
+ *
+ * @note On AVR: ~15-20 cycles vs ~50+ cycles for library calls
+ * @note Fallback available for non-AVR platforms
+ * @note Based on avrfreertos and OpenMusicLabs techniques
+ * @note Function provides type checking and debugging support
+ *
+ * @ingroup TimeCritical
+ */
+template< typename A, typename B >
+static inline __attribute__((always_inline)) void multU16x16_to32(uint32_t& result, A a, B b)
 {
+  static_assert(is_same_v< A, uint16_t >, "First argument must be uint16_t");
+  static_assert(is_same_v< B, uint16_t >, "Second argument must be uint16_t");
+
 #ifdef __AVR__
   asm volatile(
-    "clr r26 \n\t"
-    "mul %A1, %A2 \n\t"
-    "movw %A0, r0 \n\t"
-    "mul %B1, %B2 \n\t"
-    "movw %C0, r0 \n\t"
-    "mul %B2, %A1 \n\t"
-    "add %B0, r0 \n\t"
-    "adc %C0, r1 \n\t"
-    "adc %D0, r26 \n\t"
-    "mul %B1, %A2 \n\t"
-    "add %B0, r0 \n\t"
-    "adc %C0, r1 \n\t"
-    "adc %D0, r26 \n\t"
-    "clr r1 \n\t"
+    "clr r26                \n\t"  // Clear temporary register
+    "mul %A1, %A2           \n\t"  // a_lo * b_lo
+    "movw %A0, r0           \n\t"  // Store low 16 bits
+    "mul %B1, %B2           \n\t"  // a_hi * b_hi
+    "movw %C0, r0           \n\t"  // Store high 16 bits
+    "mul %B2, %A1           \n\t"  // b_hi * a_lo
+    "add %B0, r0            \n\t"  // Add partial result
+    "adc %C0, r1            \n\t"
+    "adc %D0, r26           \n\t"
+    "mul %B1, %A2           \n\t"  // a_hi * b_lo
+    "add %B0, r0            \n\t"  // Add partial result
+    "adc %C0, r1            \n\t"
+    "adc %D0, r26           \n\t"
+    "clr r1                 \n\t"  // Restore r1 to zero
     : "=&r"(result)
     : "a"(a), "a"(b)
     : "r26");
@@ -113,8 +141,12 @@ static inline __attribute__((always_inline)) void multU16x16_to32(uint32_t& resu
  * 
  * @ingroup TimeCritical
  */
-static inline __attribute__((always_inline)) void mult16x8_q8(int16_t& result, int16_t value, uint8_t fraction)
+template< typename V, typename F >
+static inline __attribute__((always_inline)) void mult16x8_q8(int16_t& result, V value, F fraction)
 {
+  static_assert(is_same_v< V, int16_t >, "Value argument must be int16_t");
+  static_assert(is_same_v< F, uint8_t >, "Fraction argument must be uint8_t");
+
 #ifdef __AVR__
   asm volatile(
     "mulsu %B[val], %[frac]  \n\t"  // value_hi * fraction (signed*unsigned)
