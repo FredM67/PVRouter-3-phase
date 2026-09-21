@@ -2,7 +2,7 @@
  * @file test_main.cpp
  * @brief Unity tests for voltage accumulation overflow analysis with 14-bit optimization
  * @author Frederic Metrich
- * @date 2025-10-17
+ * @date 2026-09-21
  * 
  * Tests the optimized voltage accumulation strategy where samples are reduced to 14-bits
  * before multiplication, then shifted by 8 (for ≤10s periods) or 12 (for >10s periods).
@@ -192,7 +192,9 @@ void loop()
     delay(100);
 
     Serial.println(F(""));
-    Serial.println(F("--- Overflow Demo (should FAIL with >>8 for 20s) ---"));
+    // NOTE: avoid the words "FAIL"/"OK" in diagnostic output - the Wokwi CI harness
+    // is run with --fail-text "FAIL" / --expect-text "OK" and matches them anywhere.
+    Serial.println(F("--- Overflow Demo (>>8 for 20s is expected to overflow) ---"));
     RUN_TEST(test_20s_shift8_overflow);
     delay(100);
 
