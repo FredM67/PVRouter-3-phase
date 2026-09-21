@@ -21,7 +21,7 @@ jobs:
     name: Setup Environment
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: 'true'
 
@@ -31,7 +31,7 @@ jobs:
           python-version: '>=3.11'
 
       - name: Cache PlatformIO
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/pip
@@ -52,7 +52,7 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: 'true'
 
@@ -62,7 +62,7 @@ jobs:
           python-version: '>=3.11'
 
       - name: Restore PlatformIO cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/pip
@@ -211,7 +211,7 @@ jobs:
 
       - name: Upload test artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.test }}-output
           path: |
