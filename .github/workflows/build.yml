@@ -21,7 +21,7 @@ jobs:
     name: Setup Environment
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: 'true'
 
@@ -31,7 +31,7 @@ jobs:
           python-version: '>=3.11'
 
       - name: Cache PlatformIO
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/pip
@@ -52,7 +52,7 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: 'true'
 
@@ -62,7 +62,7 @@ jobs:
           python-version: '>=3.11'
 
       - name: Restore PlatformIO cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/pip
@@ -87,17 +87,17 @@ jobs:
           - test_ewma_avg
           - test_utils_override
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: 'true'
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '>=3.11'
 
       - name: Restore PlatformIO cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/pip
@@ -120,22 +120,22 @@ jobs:
       matrix:
         test:
           - test_fastdivision
-          - test_mult_asm
           - test_utils_pins
           - test_utils_relay
           - test_teleinfo
+          - test_mult_asm
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: 'true'
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '>=3.11'
 
       - name: Restore PlatformIO cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.cache/pip
@@ -172,21 +172,14 @@ jobs:
           # Convert Unity test output to JUnit XML format
           python3 << 'EOF'
           import re
-          import sys
           from xml.etree.ElementTree import Element, SubElement, tostring
           from xml.dom import minidom
 
           with open('wokwi-output.txt', 'r', encoding='utf-8', errors='ignore') as f:
               content = f.read()
 
-          # Parse Unity output
-          test_pattern = r'([^:]+):(\d+):([^:]+):(PASS|FAIL)'
-          summary_pattern = r'(\d+) Tests (\d+) Failures (\d+) Ignored'
+          tests = re.findall(r'([^:]+):(\d+):([^:]+):(PASS|FAIL)', content)
 
-          tests = re.findall(test_pattern, content)
-          summary = re.search(summary_pattern, content)
-
-          # Build JUnit XML
           testsuites = Element('testsuites')
           testsuite = SubElement(testsuites, 'testsuite')
           testsuite.set('name', '${{ matrix.test }}')
@@ -204,7 +197,6 @@ jobs:
 
           testsuite.set('failures', str(failures))
 
-          # Pretty print
           xml_str = minidom.parseString(tostring(testsuites)).toprettyxml(indent="  ")
           with open('test-results.xml', 'w') as f:
               f.write(xml_str)
@@ -212,7 +204,7 @@ jobs:
 
       - name: Publish test results
         if: always()
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v3
         with:
           name: ${{ matrix.test }}
           path: test-results.xml
@@ -220,7 +212,7 @@ jobs:
 
       - name: Upload test artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.test }}-output
           path: |
