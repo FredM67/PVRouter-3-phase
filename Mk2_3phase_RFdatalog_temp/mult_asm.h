@@ -3,7 +3,7 @@
  * @author Based on florentbr's suggestions and avrfreertos optimizations
  * @brief Assembly-optimized multiplication functions for AVR microcontrollers
  * @version 0.1
- * @date 2026-09-21
+ * @date 2026-01-30
  *
  * @copyright Copyright (c) 2025-2026
  *

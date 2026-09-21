@@ -2,7 +2,7 @@
  * @file receiver.cpp
  * @brief Implementation of Remote Load Receiver functions
  * @version 2.0
- * @date 2026-09-21
+ * @date 2026-01-30
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  *
  * @copyright Copyright (c) 2025-2026

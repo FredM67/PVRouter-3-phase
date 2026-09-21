@@ -2,7 +2,7 @@
  * @file config_rf.h
  * @brief RF module configuration for Remote Load Receiver
  * @version 1.0
- * @date 2026-09-21
+ * @date 2026-01-30
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  *
  * @copyright Copyright (c) 2025-2026

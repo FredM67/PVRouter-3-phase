@@ -2,7 +2,7 @@
  * @file test_main.cpp
  * @brief Performance benchmarks for assembly multiplication functions
  * @version 0.1
- * @date 2026-09-21
+ * @date 2026-01-30
  *
  * This file contains performance benchmarks for the assembly-optimized
  * multiplication functions. These tests should only be run on real hardware,
