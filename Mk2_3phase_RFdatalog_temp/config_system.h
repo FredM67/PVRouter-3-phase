@@ -3,16 +3,14 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Basic configuration values to be set by the end-user
  * @version 0.1
- * @date 2023-05-05
+ * @date 2026-01-28
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023-2026
  *
  */
 
 #ifndef CONFIG_SYSTEM_H
 #define CONFIG_SYSTEM_H
-
-#include <Arduino.h>
 
 #include "type_traits.hpp"
 

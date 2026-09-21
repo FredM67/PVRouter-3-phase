@@ -14,6 +14,7 @@ repos:
       - id: no-commit-to-branch
         args:
           - --branch=main
+          - --branch=dev
       - id: end-of-file-fixer
         exclude: ^(.*/)?\.vscode/|\.drawio$
       - id: trailing-whitespace
