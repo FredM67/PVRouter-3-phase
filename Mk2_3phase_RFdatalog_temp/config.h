@@ -15,7 +15,7 @@
  * - 2 TRIAC outputs for dump loads
  *
  * @version 1.0
- * @date 2026-02-02
+ * @date 2026-09-21
  */
 
 #ifndef CONFIG_H
@@ -37,13 +37,13 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanRe
 //
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (local + remote) */
 
-inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 }; /**< number of remote loads controlled via RF (0 = disabled) */
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 0 }; /**< number of remote loads controlled via RF (0 = disabled) */
 
 // Feature toggles - Basic setup without advanced features
 inline constexpr bool EMONESP_CONTROL{ false };
 inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */
-inline constexpr bool OVERRIDE_PIN_PRESENT{ false };                    /**< set it to 'true' if there's a override pin */
+inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                     /**< set it to 'true' if there's a override pin */
 
 inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if there's a watch led */
 inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
@@ -94,11 +94,11 @@ inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 }; /**< auto
 // counterpart is properly configured to send the appropriate signals.
 
 // Physical pin assignments for LOCAL loads only (remote loads are controlled via RF)
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 }; /**< Pins for local TRIAC outputs */
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5, 6, 7 }; /**< Pins for local TRIAC outputs */
 
 // Optional status LED pins for REMOTE loads (set to unused_pin if not needed)
 // Note: Array size must match NO_OF_REMOTE_LOADS
-inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS > 0 ? NO_OF_REMOTE_LOADS : 1]{ unused_pin, unused_pin }; /**< Optional LEDs to show remote load status */
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS > 0 ? NO_OF_REMOTE_LOADS : 1]{ unused_pin }; /**< Optional LEDs to show remote load status */
 
 // Load priority order at startup (array index = priority, 0 = highest)
 // Load indices: 0 to (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS - 1) are local loads,
@@ -167,11 +167,10 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
 //     { 8, { LOAD(0), LOAD(1), LOAD(2), LOAD(3) } },       // Using LOAD() for any load index
 //     { 9, ALL_LOADS_AND_RELAYS() } } };                   // All loads and relays
 
-inline constexpr OverridePins overridePins{ { { 3, ALL_LOADS() },
-                                              { 4, ALL_REMOTE_LOADS() } } }; /**< list of override pin/loads-relays pairs */
+inline constexpr OverridePins overridePins{ { { 4, ALL_LOADS() } } }; /**< list of override pin/loads-relays pairs */
 
-inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };             /**< Duration of the off-peak period in hours */
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{}; /**< force config for each load for dual tariff */
+inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
+inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
 
 inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
 

@@ -15,7 +15,7 @@
  * - **Watchdog**: Toggles a pin to indicate system activity.
  *
  * @version 0.1
- * @date 2026-02-02
+ * @date 2026-09-21
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -486,7 +486,7 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
   {
     relays.inc_duration();
     // Pass local bitmask to relay engine, it will filter out relay pins that can be controlled
-    relays.proceed_relays(privateOverrideMasks.local);
+    relays.proceed_relays(privateOverrideMasks.local, Shared::b_diversionEnabled);
   }
 
   // Copy the bitmasks to shared versions for ISR access

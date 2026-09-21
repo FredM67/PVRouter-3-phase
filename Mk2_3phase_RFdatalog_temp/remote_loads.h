@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Support for remotely controlled loads via RF using RFM69
  * @version 2.0
- * @date 2026-01-29
+ * @date 2026-09-21
  *
  * @copyright Copyright (c) 2025-2026
  *
@@ -17,8 +17,9 @@
  *          - State changes immediately (within same mains cycle)
  *          - Refresh messages every 5 mains cycles if state unchanged
  *          - Compact bitmask format (1 bit per remote load)
- *          
- *          Only compiled when ENABLE_REMOTE_LOADS is defined.
+ *
+ *          Active when NO_OF_REMOTE_LOADS is non-zero in config.h; otherwise the
+ *          whole RF path, radio instance included, is dropped by the linker.
  */
 
 #ifndef REMOTE_LOADS_H
@@ -69,7 +70,7 @@ inline LoadStates remoteLoadState[NO_OF_REMOTE_LOADS];
 /**
  * @brief Initialize RF module for remote load communication
  * @details Call this once during setup(), initializes RFM69 module
- * 
+ *
  * @return true if initialization successful, false otherwise
  */
 inline bool initializeRemoteLoads()
@@ -95,19 +96,21 @@ inline bool initializeRemoteLoads()
  */
 inline void sendRemoteLoadData()
 {
-  if constexpr (RF_LOGGING_PRESENT || REMOTE_LOADS_PRESENT)
+  if constexpr (REMOTE_LOADS_PRESENT)
+  {
     // Send to remote load receiver using shared radio
-    SharedRF::radio.send(SharedRF::REMOTE_NODE_ID,
-                         &RemoteLoadRF::tx_remote_data,
-                         sizeof(RemoteLoadRF::tx_remote_data),
-                         false);  // false = don't request ACK (faster, less blocking)
+    SharedRF::radio().send(SharedRF::REMOTE_NODE_ID,
+                           &RemoteLoadRF::tx_remote_data,
+                           sizeof(RemoteLoadRF::tx_remote_data),
+                           false);  // false = don't request ACK (faster, less blocking)
+  }
 }
 
 /**
  * @brief Update remote load states and mark for transmission if necessary
  * @details Should be called once per mains cycle from the ISR.
  *          Sets a flag to transmit, actual RF send happens in main loop.
- * 
+ *
  * @note Call this function during the negative half-cycle processing,
  *       after local loads have been updated
  */
