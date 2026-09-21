@@ -86,6 +86,8 @@ jobs:
         test:
           - test_ewma_avg
           - test_utils_override
+          - test_dc_offset_filter
+          - test_power_rms_comparison
     steps:
       - uses: actions/checkout@v7
         with:
@@ -124,6 +126,7 @@ jobs:
           - test_utils_relay
           - test_teleinfo
           - test_mult_asm
+          - test_voltage_accumulation
     steps:
       - uses: actions/checkout@v7
         with:

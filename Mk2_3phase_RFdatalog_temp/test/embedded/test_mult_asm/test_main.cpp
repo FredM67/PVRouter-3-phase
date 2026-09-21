@@ -2,7 +2,7 @@
  * @file test_main.cpp
  * @brief Unity-based unit tests for assembly multiplication functions
  * @version 0.1
- * @date 2026-01-30
+ * @date 2026-09-21
  *
  * This file contains comprehensive unit tests for the assembly-optimized
  * multiplication functions using the Unity testing framework.
@@ -21,137 +21,6 @@
 // Global volatile to prevent optimization without affecting timing
 volatile uint8_t g_optimizer_defeat = 0;
 
-// ============================================================================
-// Test data structures for data-driven testing
-// ============================================================================
-
-// Test case for signed 16x16->32 multiplication
-struct TestCaseS16x16
-{
-  int16_t a;
-  int16_t b;
-  int32_t expected;
-};
-
-// Test case for unsigned 16x16->32 multiplication
-struct TestCaseU16x16
-{
-  uint16_t a;
-  uint16_t b;
-  uint32_t expected;
-};
-
-// Test case for Q8 fractional multiplication
-struct TestCaseQ8
-{
-  int16_t value;
-  uint8_t fraction;
-  int16_t expected;
-};
-
-// ============================================================================
-// Test data arrays
-// ============================================================================
-
-// Signed multiplication test cases
-const TestCaseS16x16 testDataS16x16[] = {
-  // Basic positive × positive
-  { 2, 3, 6 },
-  { 100, 100, 10000 },
-  { 1000, 1000, 1000000 },
-  // Positive × negative
-  { 2, -3, -6 },
-  { 100, -100, -10000 },
-  { -1000, 1000, -1000000 },
-  // Negative × negative
-  { -2, -3, 6 },
-  // Zero cases
-  { 0, 1000, 0 },
-  { 1000, 0, 0 },
-  // Maximum/minimum values
-  { 32767, 1, 32767 },
-  { -32768, 1, -32768 },
-  { 32767, 2, 65534 },
-  { -32768, 2, -65536 },
-  { 32767, -1, -32767 },
-  { -32768, -1, 32768 },
-  // Squared values (max positive/negative)
-  { 32767, 32767, 1073676289L },
-  { -32768, -32768, 1073741824L },
-  { 32767, -32768, -1073709056L },
-  { -32768, 32767, -1073709056L },
-  // Typical ADC range values
-  { 1648, 512, 843776 },
-  { -1648, 512, -843776 },
-  { 1648, -512, -843776 },
-  { -32640, 257, -8388480 },
-};
-const uint8_t numTestsS16x16 = sizeof(testDataS16x16) / sizeof(testDataS16x16[0]);
-
-// Unsigned multiplication test cases
-const TestCaseU16x16 testDataU16x16[] = {
-  // Basic multiplication
-  { 2, 3, 6 },
-  { 100, 100, 10000 },
-  { 1000, 1000, 1000000 },
-  // Zero cases
-  { 0, 1000, 0 },
-  { 1000, 0, 0 },
-  // Boundary values
-  { 1, 65535, 65535 },
-  { 65535, 1, 65535 },
-  // Maximum value (65535²)
-  { 65535, 65535, 4294836225UL },
-  // Typical ADC values
-  { 32768, 32768, 1073741824UL },
-  { 1648, 1648, 2715904 },
-  // Powers of 2
-  { 256, 256, 65536 },
-  { 512, 512, 262144 },
-  { 1024, 1024, 1048576 },
-};
-const uint8_t numTestsU16x16 = sizeof(testDataU16x16) / sizeof(testDataU16x16[0]);
-
-// Q8 fractional multiplication test cases
-const TestCaseQ8 testDataQ8[] = {
-  // Basic fractions (128=0.5, 64=0.25, 192=0.75, 255≈1.0)
-  { 100, 128, 50 },   // 100 * 0.5 = 50
-  { 100, 64, 25 },    // 100 * 0.25 = 25
-  { 100, 192, 75 },   // 100 * 0.75 = 75
-  { 100, 255, 100 },  // 100 * ~1.0 ≈ 100
-  // Negative values
-  { -100, 128, -50 },
-  { -100, 64, -25 },
-  // Zero cases
-  { 100, 0, 0 },
-  { 0, 128, 0 },
-  { 32767, 0, 0 },
-  { -32768, 0, 0 },
-  { 0, 255, 0 },
-  // Maximum values
-  { 32767, 128, 16384 },
-  { -32768, 128, -16384 },
-  { 32767, 255, 32639 },
-  { -32768, 255, -32640 },
-  { 32767, 1, 128 },
-  { -32768, 1, -128 },
-  // Rounding tests
-  { 100, 127, 50 },   // 49.609... rounds to 50
-  { 100, 129, 50 },   // 50.390... rounds to 50
-  { 256, 128, 128 },  // Exact: 256 * 0.5 = 128
-  { 512, 64, 128 },   // Exact: 512 * 0.25 = 128
-  // Small fractions
-  { 1000, 1, 4 },  // 1000 * (1/256) ≈ 4
-  { 1000, 2, 8 },  // 1000 * (2/256) ≈ 8
-  { 256, 1, 1 },   // 256 * (1/256) = 1
-  { 128, 1, 1 },   // 128 * (1/256) = 0.5 → rounds to 1
-  { 127, 1, 0 },   // 127 * (1/256) = 0.496... → rounds to 0
-  // Near-overflow scenarios
-  { 30000, 200, 23438 },    // Large value * large fraction
-  { -30000, 200, -23437 },  // Large negative * large fraction
-};
-const uint8_t numTestsQ8 = sizeof(testDataQ8) / sizeof(testDataQ8[0]);
-
 void setUp(void)
 {
   // Set up code here (if needed)
@@ -169,11 +38,44 @@ void test_multS16x16_to32_basic(void)
 {
   int32_t result;
 
-  for (uint8_t i = 0; i < numTestsS16x16; ++i)
-  {
-    multS16x16_to32(result, testDataS16x16[i].a, testDataS16x16[i].b);
-    TEST_ASSERT_EQUAL_MESSAGE(testDataS16x16[i].expected, result, "Failed at test index");
-  }
+  // Test positive × positive
+  multS16x16_to32(result, static_cast< int16_t >(2), static_cast< int16_t >(3));
+  TEST_ASSERT_EQUAL(6, result);
+
+  multS16x16_to32(result, static_cast< int16_t >(100), static_cast< int16_t >(100));
+  TEST_ASSERT_EQUAL(10000, result);
+
+  // Test positive × negative
+  multS16x16_to32(result, static_cast< int16_t >(2), static_cast< int16_t >(-3));
+  TEST_ASSERT_EQUAL(-6, result);
+
+  multS16x16_to32(result, static_cast< int16_t >(100), static_cast< int16_t >(-100));
+  TEST_ASSERT_EQUAL(-10000, result);
+
+  // Test negative × negative
+  multS16x16_to32(result, static_cast< int16_t >(-2), static_cast< int16_t >(-3));
+  TEST_ASSERT_EQUAL(6, result);
+
+  // Test edge cases
+  multS16x16_to32(result, static_cast< int16_t >(0), static_cast< int16_t >(1000));
+  TEST_ASSERT_EQUAL(0, result);
+
+  multS16x16_to32(result, static_cast< int16_t >(1000), static_cast< int16_t >(0));
+  TEST_ASSERT_EQUAL(0, result);
+
+  // Test maximum values (be careful of overflow)
+  multS16x16_to32(result, static_cast< int16_t >(32767), static_cast< int16_t >(1));
+  TEST_ASSERT_EQUAL(32767, result);
+
+  multS16x16_to32(result, static_cast< int16_t >(-32768), static_cast< int16_t >(1));
+  TEST_ASSERT_EQUAL(-32768, result);
+
+  // Test larger multiplications
+  multS16x16_to32(result, static_cast< int16_t >(1000), static_cast< int16_t >(1000));
+  TEST_ASSERT_EQUAL(1000000, result);
+
+  multS16x16_to32(result, static_cast< int16_t >(-1000), static_cast< int16_t >(1000));
+  TEST_ASSERT_EQUAL(-1000000, result);
 }
 
 /**
@@ -183,11 +85,49 @@ void test_multU16x16_to32_basic(void)
 {
   uint32_t result;
 
-  for (uint8_t i = 0; i < numTestsU16x16; ++i)
-  {
-    multU16x16_to32(result, testDataU16x16[i].a, testDataU16x16[i].b);
-    TEST_ASSERT_EQUAL_UINT32_MESSAGE(testDataU16x16[i].expected, result, "Failed at test index");
-  }
+  // Test basic unsigned multiplication
+  multU16x16_to32(result, static_cast< uint16_t >(2), static_cast< uint16_t >(3));
+  TEST_ASSERT_EQUAL_UINT32(6, result);
+
+  multU16x16_to32(result, static_cast< uint16_t >(100), static_cast< uint16_t >(100));
+  TEST_ASSERT_EQUAL_UINT32(10000, result);
+
+  multU16x16_to32(result, static_cast< uint16_t >(1000), static_cast< uint16_t >(1000));
+  TEST_ASSERT_EQUAL_UINT32(1000000, result);
+
+  // Test edge cases
+  multU16x16_to32(result, static_cast< uint16_t >(0), static_cast< uint16_t >(1000));
+  TEST_ASSERT_EQUAL_UINT32(0, result);
+
+  multU16x16_to32(result, static_cast< uint16_t >(1000), static_cast< uint16_t >(0));
+  TEST_ASSERT_EQUAL_UINT32(0, result);
+
+  multU16x16_to32(result, static_cast< uint16_t >(1), static_cast< uint16_t >(65535));
+  TEST_ASSERT_EQUAL_UINT32(65535, result);
+
+  multU16x16_to32(result, static_cast< uint16_t >(65535), static_cast< uint16_t >(1));
+  TEST_ASSERT_EQUAL_UINT32(65535, result);
+
+  // Test maximum values (65535 * 65535)
+  multU16x16_to32(result, static_cast< uint16_t >(65535), static_cast< uint16_t >(65535));
+  TEST_ASSERT_EQUAL_UINT32(4294836225UL, result);  // 65535² = 4,294,836,225
+
+  // Test typical ADC values (like voltage sample squared for V²)
+  multU16x16_to32(result, static_cast< uint16_t >(32768), static_cast< uint16_t >(32768));
+  TEST_ASSERT_EQUAL_UINT32(1073741824UL, result);  // 32768² = 1,073,741,824
+
+  multU16x16_to32(result, static_cast< uint16_t >(1648), static_cast< uint16_t >(1648));
+  TEST_ASSERT_EQUAL_UINT32(2715904, result);  // Typical V sample squared
+
+  // Test various powers of 2
+  multU16x16_to32(result, static_cast< uint16_t >(256), static_cast< uint16_t >(256));
+  TEST_ASSERT_EQUAL_UINT32(65536, result);
+
+  multU16x16_to32(result, static_cast< uint16_t >(512), static_cast< uint16_t >(512));
+  TEST_ASSERT_EQUAL_UINT32(262144, result);
+
+  multU16x16_to32(result, static_cast< uint16_t >(1024), static_cast< uint16_t >(1024));
+  TEST_ASSERT_EQUAL_UINT32(1048576, result);
 }
 
 /**
@@ -197,11 +137,45 @@ void test_mult16x8_q8_basic(void)
 {
   int16_t result;
 
-  for (uint8_t i = 0; i < numTestsQ8; ++i)
-  {
-    mult16x8_q8(result, testDataQ8[i].value, testDataQ8[i].fraction);
-    TEST_ASSERT_EQUAL_MESSAGE(testDataQ8[i].expected, result, "Failed at test index");
-  }
+  // Test Q8 fractional values
+  uint8_t half = float_to_q8(0.5f);             // 128
+  uint8_t quarter = float_to_q8(0.25f);         // 64
+  uint8_t full = float_to_q8(1.0f);             // 255 (close to 1.0)
+  uint8_t three_quarters = float_to_q8(0.75f);  // 192
+
+  // Test basic fractions
+  mult16x8_q8(result, static_cast< int16_t >(100), half);
+  TEST_ASSERT_EQUAL(50, result);  // 100 * 0.5 = 50
+
+  mult16x8_q8(result, static_cast< int16_t >(100), quarter);
+  TEST_ASSERT_EQUAL(25, result);  // 100 * 0.25 = 25
+
+  mult16x8_q8(result, static_cast< int16_t >(100), three_quarters);
+  TEST_ASSERT_EQUAL(75, result);  // 100 * 0.75 = 75
+
+  mult16x8_q8(result, static_cast< int16_t >(100), full);
+  TEST_ASSERT_EQUAL(100, result);  // 100 * ~1.0 ≈ 100
+
+  // Test negative values
+  mult16x8_q8(result, static_cast< int16_t >(-100), half);
+  TEST_ASSERT_EQUAL(-50, result);
+
+  mult16x8_q8(result, static_cast< int16_t >(-100), quarter);
+  TEST_ASSERT_EQUAL(-25, result);
+
+  // Test edge cases
+  mult16x8_q8(result, static_cast< int16_t >(100), static_cast< uint8_t >(0));
+  TEST_ASSERT_EQUAL(0, result);
+
+  mult16x8_q8(result, static_cast< int16_t >(0), half);
+  TEST_ASSERT_EQUAL(0, result);
+
+  // Test maximum values
+  mult16x8_q8(result, static_cast< int16_t >(32767), half);
+  TEST_ASSERT_EQUAL(16384, result);  // 32767 * 0.5 ≈ 16383
+
+  mult16x8_q8(result, static_cast< int16_t >(-32768), half);
+  TEST_ASSERT_EQUAL(-16384, result);  // -32768 * 0.5 = -16384
 }
 
 /**
@@ -224,6 +198,141 @@ void test_q8_conversion_helpers(void)
   TEST_ASSERT_FLOAT_WITHIN(0.01f, 0.996f, q8_to_float(255));  // 255/256 ≈ 0.996
 }
 
+/**
+ * @brief Test rounding behavior of mult16x8_q8
+ */
+void test_mult16x8_q8_rounding(void)
+{
+  int16_t result;
+
+  // Test rounding with values that should round up
+  // 100 * (127/256) = 49.609... should round to 50
+  mult16x8_q8(result, static_cast< int16_t >(100), static_cast< uint8_t >(127));
+  TEST_ASSERT_EQUAL(50, result);
+
+  // 100 * (129/256) = 50.390... should round to 50
+  mult16x8_q8(result, static_cast< int16_t >(100), static_cast< uint8_t >(129));
+  TEST_ASSERT_EQUAL(50, result);
+
+  // Test exact values
+  mult16x8_q8(result, static_cast< int16_t >(256), static_cast< uint8_t >(128));  // 256 * 0.5 = 128
+  TEST_ASSERT_EQUAL(128, result);
+
+  mult16x8_q8(result, static_cast< int16_t >(512), static_cast< uint8_t >(64));  // 512 * 0.25 = 128
+  TEST_ASSERT_EQUAL(128, result);
+}
+
+/**
+ * @brief Test edge cases and potential overflow scenarios
+ */
+void test_edge_cases(void)
+{
+  int32_t result32;
+  int16_t result16;
+
+  // Test multS16x16_to32 with values near 16-bit limits
+  multS16x16_to32(result32, static_cast< int16_t >(32767), static_cast< int16_t >(2));
+  TEST_ASSERT_EQUAL(65534, result32);
+
+  multS16x16_to32(result32, static_cast< int16_t >(-32768), static_cast< int16_t >(2));
+  TEST_ASSERT_EQUAL(-65536, result32);
+
+  multS16x16_to32(result32, static_cast< int16_t >(-32640), static_cast< int16_t >(257));
+  TEST_ASSERT_EQUAL(-8388480, result32);
+
+  // Test maximum positive * maximum positive (largest positive result)
+  multS16x16_to32(result32, static_cast< int16_t >(32767), static_cast< int16_t >(32767));
+  TEST_ASSERT_EQUAL(1073676289L, result32);  // 32767² = 1,073,676,289
+
+  // Test maximum negative * maximum negative (largest positive result)
+  multS16x16_to32(result32, static_cast< int16_t >(-32768), static_cast< int16_t >(-32768));
+  TEST_ASSERT_EQUAL(1073741824L, result32);  // (-32768)² = 1,073,741,824
+
+  // Test maximum positive * maximum negative (most negative result)
+  multS16x16_to32(result32, static_cast< int16_t >(32767), static_cast< int16_t >(-32768));
+  TEST_ASSERT_EQUAL(-1073709056L, result32);  // 32767 * (-32768) = -1,073,709,056
+
+  // Test maximum negative * maximum positive (same as above)
+  multS16x16_to32(result32, static_cast< int16_t >(-32768), static_cast< int16_t >(32767));
+  TEST_ASSERT_EQUAL(-1073709056L, result32);
+
+  // Test one value at limit, other small
+  multS16x16_to32(result32, static_cast< int16_t >(32767), static_cast< int16_t >(-1));
+  TEST_ASSERT_EQUAL(-32767, result32);
+
+  multS16x16_to32(result32, static_cast< int16_t >(-32768), static_cast< int16_t >(-1));
+  TEST_ASSERT_EQUAL(32768, result32);
+
+  // Test typical ADC range values (like in PVRouter ISR)
+  multS16x16_to32(result32, static_cast< int16_t >(1648), static_cast< int16_t >(512));  // Typical voltage * current
+  TEST_ASSERT_EQUAL(843776, result32);
+
+  multS16x16_to32(result32, static_cast< int16_t >(-1648), static_cast< int16_t >(512));  // Negative voltage
+  TEST_ASSERT_EQUAL(-843776, result32);
+
+  multS16x16_to32(result32, static_cast< int16_t >(1648), static_cast< int16_t >(-512));  // Negative current
+  TEST_ASSERT_EQUAL(-843776, result32);
+
+  // Test mult16x8_q8 with extreme values
+  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(255));  // Maximum positive * maximum fraction
+  TEST_ASSERT_EQUAL(32639, result16);                                                 // Should be close to 32767
+
+  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(255));  // Maximum negative * maximum fraction
+  TEST_ASSERT_EQUAL(-32640, result16);                                                 // Should be close to -32768
+
+  // Test boundary values with different fractions
+  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(1));  // Maximum positive * minimum fraction
+  TEST_ASSERT_EQUAL(128, result16);                                                 // 32767 * (1/256) ≈ 128
+
+  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(1));  // Maximum negative * minimum fraction
+  TEST_ASSERT_EQUAL(-128, result16);                                                 // -32768 * (1/256) = -128
+
+  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(128));  // Maximum positive * 0.5
+  TEST_ASSERT_EQUAL(16384, result16);                                                 // 32767 * 0.5 ≈ 16384
+
+  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(128));  // Maximum negative * 0.5
+  TEST_ASSERT_EQUAL(-16384, result16);                                                 // -32768 * 0.5 = -16384
+
+  // Test zero multiplication edge cases
+  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(0));  // Maximum positive * zero
+  TEST_ASSERT_EQUAL(0, result16);
+
+  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(0));  // Maximum negative * zero
+  TEST_ASSERT_EQUAL(0, result16);
+
+  mult16x8_q8(result16, static_cast< int16_t >(0), static_cast< uint8_t >(255));  // Zero * maximum fraction
+  TEST_ASSERT_EQUAL(0, result16);
+
+  // Test very small fractions with different values
+  mult16x8_q8(result16, static_cast< int16_t >(1000), static_cast< uint8_t >(1));  // 1000 * (1/256) ≈ 4
+  TEST_ASSERT_EQUAL(4, result16);
+
+  mult16x8_q8(result16, static_cast< int16_t >(1000), static_cast< uint8_t >(2));  // 1000 * (2/256) ≈ 8
+  TEST_ASSERT_EQUAL(8, result16);
+
+  mult16x8_q8(result16, static_cast< int16_t >(256), static_cast< uint8_t >(1));  // 256 * (1/256) = 1
+  TEST_ASSERT_EQUAL(1, result16);
+
+  mult16x8_q8(result16, static_cast< int16_t >(128), static_cast< uint8_t >(1));  // 128 * (1/256) = 0.5 → rounds to 1
+  TEST_ASSERT_EQUAL(1, result16);
+
+  mult16x8_q8(result16, static_cast< int16_t >(127), static_cast< uint8_t >(1));  // 127 * (1/256) = 0.496... → rounds to 0
+  TEST_ASSERT_EQUAL(0, result16);
+
+  // Test typical filter values (like in PVRouter)
+  mult16x8_q8(result16, static_cast< int16_t >(1000), float_to_q8(0.004f));  // Typical EWMA factor
+  TEST_ASSERT_EQUAL(4, result16);                                            // 1000 * 0.004 = 4
+
+  mult16x8_q8(result16, static_cast< int16_t >(-500), float_to_q8(0.004f));  // Negative with small factor
+  TEST_ASSERT_EQUAL(-2, result16);                                           // -500 * 0.004 = -2
+
+  // Test near-overflow scenarios (values that could cause intermediate overflow)
+  mult16x8_q8(result16, static_cast< int16_t >(30000), static_cast< uint8_t >(200));  // Large value * large fraction
+  TEST_ASSERT_EQUAL(23438, result16);                                                 // 30000 * (200/256) = 23437.5 → 23438 (rounds up)
+
+  mult16x8_q8(result16, static_cast< int16_t >(-30000), static_cast< uint8_t >(200));  // Large negative * large fraction
+  TEST_ASSERT_EQUAL(-23437, result16);                                                 // -30000 * (200/256) = -23437.5 → -23438
+}
 
 /**
  * @brief Compare assembly results with standard multiplication
@@ -276,6 +385,437 @@ void test_assembly_vs_standard(void)
   }
 }
 
+/**
+ * @brief Performance comparison between assembly and standard multiplication
+ */
+void test_performance_multS16x16_to32(void)
+{
+  const uint16_t iterations = 1000;
+  int32_t result;
+
+  // Test data - use various values to prevent compiler optimizations
+  int16_t test_vals[] = { 100, -200, 1000, -1500, 32767, -32768 };
+  const uint8_t num_vals = sizeof(test_vals) / sizeof(test_vals[0]);
+
+  // Use volatile pointer to force storage without arithmetic overhead
+  volatile int32_t* volatile_result = &result;
+
+  // Warm up
+  for (uint8_t k = 0; k < 10; k++)
+  {
+    multS16x16_to32(result, test_vals[k % num_vals], test_vals[(k + 1) % num_vals]);
+  }
+
+  // Performance test for assembly multiplication
+  unsigned long start_time = micros();
+
+  for (uint16_t i = 0; i < iterations; i++)
+  {
+    for (uint8_t j = 0; j < num_vals; j++)
+    {
+      for (uint8_t k = 0; k < num_vals; k++)
+      {
+        multS16x16_to32(result, test_vals[j], test_vals[k]);
+        *volatile_result = result;  // Force storage
+      }
+    }
+  }
+
+  unsigned long asm_time = micros() - start_time;
+
+  // Warm up standard multiplication
+  for (uint8_t k = 0; k < 10; k++)
+  {
+    result = (int32_t)test_vals[k % num_vals] * test_vals[(k + 1) % num_vals];
+  }
+
+  // Performance test for standard multiplication
+  start_time = micros();
+
+  for (uint16_t i = 0; i < iterations; i++)
+  {
+    for (uint8_t j = 0; j < num_vals; j++)
+    {
+      for (uint8_t k = 0; k < num_vals; k++)
+      {
+        result = (int32_t)test_vals[j] * test_vals[k];
+        *volatile_result = result;  // Force storage
+      }
+    }
+  }
+
+  unsigned long std_time = micros() - start_time;
+
+  // Calculate total operations
+  uint32_t total_ops = (uint32_t)iterations * num_vals * num_vals;
+
+  // Report results
+  Serial.println(F("--- multS16x16_to32 Performance Results ---"));
+  Serial.print(F("Operations: "));
+  Serial.println(total_ops);
+  Serial.print(F("Assembly time: "));
+  Serial.print(asm_time);
+  Serial.println(F(" µs"));
+  Serial.print(F("Standard time: "));
+  Serial.print(std_time);
+  Serial.println(F(" µs"));
+
+  if (asm_time > 0 && std_time > 0)
+  {
+    Serial.print(F("Assembly ops/µs: "));
+    Serial.println((float)total_ops / asm_time, 2);
+    Serial.print(F("Standard ops/µs: "));
+    Serial.println((float)total_ops / std_time, 2);
+
+    if (asm_time < std_time)
+    {
+      Serial.print(F("✓ Assembly is "));
+      Serial.print((float)std_time / asm_time, 2);
+      Serial.println(F("x faster"));
+    }
+    else
+    {
+      Serial.print(F("⚠ Standard is "));
+      Serial.print((float)asm_time / std_time, 2);
+      Serial.println(F("x faster"));
+    }
+  }
+
+  // The test passes if assembly is reasonably competitive with standard
+  // Function call overhead may make assembly slower in micro-benchmarks
+  // but should be faster in real-world usage (ISR context)
+  TEST_ASSERT_TRUE(asm_time <= std_time * 10);  // Allow 10x slower for function overhead
+}
+
+/**
+ * @brief Performance comparison for unsigned multiplication (multU16x16_to32)
+ */
+void test_performance_multU16x16_to32(void)
+{
+  const uint16_t iterations = 1000;
+  uint32_t result;
+
+  // Test data - unsigned values typical for ADC and V² calculations
+  uint16_t test_vals[] = { 0, 100, 1000, 16384, 32768, 49152, 65535 };
+  const uint8_t num_vals = sizeof(test_vals) / sizeof(test_vals[0]);
+
+  // Use volatile pointer to force storage without arithmetic overhead
+  volatile uint32_t* volatile_result = &result;
+
+  // Warm up
+  for (uint8_t k = 0; k < 10; k++)
+  {
+    multU16x16_to32(result, test_vals[k % num_vals], test_vals[(k + 1) % num_vals]);
+  }
+
+  // Performance test for assembly multiplication
+  unsigned long start_time = micros();
+
+  for (uint16_t i = 0; i < iterations; i++)
+  {
+    for (uint8_t j = 0; j < num_vals; j++)
+    {
+      for (uint8_t k = 0; k < num_vals; k++)
+      {
+        multU16x16_to32(result, test_vals[j], test_vals[k]);
+        *volatile_result = result;  // Force storage
+      }
+    }
+  }
+
+  unsigned long asm_time = micros() - start_time;
+
+  // Warm up standard multiplication
+  for (uint8_t k = 0; k < 10; k++)
+  {
+    result = (uint32_t)test_vals[k % num_vals] * test_vals[(k + 1) % num_vals];
+  }
+
+  // Performance test for standard multiplication
+  start_time = micros();
+
+  for (uint16_t i = 0; i < iterations; i++)
+  {
+    for (uint8_t j = 0; j < num_vals; j++)
+    {
+      for (uint8_t k = 0; k < num_vals; k++)
+      {
+        result = (uint32_t)test_vals[j] * test_vals[k];
+        *volatile_result = result;  // Force storage
+      }
+    }
+  }
+
+  unsigned long std_time = micros() - start_time;
+
+  // Calculate total operations
+  uint32_t total_ops = (uint32_t)iterations * num_vals * num_vals;
+
+  // Report results
+  Serial.println(F("--- multU16x16_to32 Performance Results ---"));
+  Serial.print(F("Operations: "));
+  Serial.println(total_ops);
+  Serial.print(F("Assembly time: "));
+  Serial.print(asm_time);
+  Serial.println(F(" µs"));
+  Serial.print(F("Standard time: "));
+  Serial.print(std_time);
+  Serial.println(F(" µs"));
+
+  if (asm_time > 0 && std_time > 0)
+  {
+    Serial.print(F("Assembly ops/µs: "));
+    Serial.println((float)total_ops / asm_time, 2);
+    Serial.print(F("Standard ops/µs: "));
+    Serial.println((float)total_ops / std_time, 2);
+
+    if (asm_time < std_time)
+    {
+      Serial.print(F("✓ Assembly is "));
+      Serial.print((float)std_time / asm_time, 2);
+      Serial.println(F("x faster"));
+    }
+    else
+    {
+      Serial.print(F("⚠ Standard is "));
+      Serial.print((float)asm_time / std_time, 2);
+      Serial.println(F("x faster"));
+    }
+  }
+
+  // The test passes if assembly is reasonably competitive with standard
+  TEST_ASSERT_TRUE(asm_time <= std_time * 10);  // Allow 10x slower for function overhead
+}
+
+/**
+ * @brief Performance comparison for Q8 fractional multiplication
+ */
+void test_performance_mult16x8_q8(void)
+{
+  const uint16_t iterations = 1000;
+  int16_t result;
+
+  // Test data
+  int16_t test_vals[] = { 100, -200, 1000, -1500, 32767, -32768 };
+  uint8_t test_fracs[] = { 32, 64, 96, 128, 160, 192, 224, 255 };  // Various Q8 fractions
+  const uint8_t num_vals = sizeof(test_vals) / sizeof(test_vals[0]);
+  const uint8_t num_fracs = sizeof(test_fracs) / sizeof(test_fracs[0]);
+
+  // Use volatile pointer to force storage without arithmetic overhead
+  volatile int16_t* volatile_result = &result;
+
+  // Warm up
+  for (uint8_t k = 0; k < 10; k++)
+  {
+    mult16x8_q8(result, test_vals[k % num_vals], test_fracs[k % num_fracs]);
+  }
+
+  // Performance test for assembly Q8 multiplication
+  unsigned long start_time = micros();
+
+  for (uint16_t i = 0; i < iterations; i++)
+  {
+    for (uint8_t j = 0; j < num_vals; j++)
+    {
+      for (uint8_t k = 0; k < num_fracs; k++)
+      {
+        mult16x8_q8(result, test_vals[j], test_fracs[k]);
+        *volatile_result = result;  // Force storage
+      }
+    }
+  }
+
+  unsigned long asm_time = micros() - start_time;
+
+  // Warm up standard Q8 multiplication
+  for (uint8_t k = 0; k < 10; k++)
+  {
+    result = ((int32_t)test_vals[k % num_vals] * test_fracs[k % num_fracs] + 0x80) >> 8;
+  }
+
+  // Performance test for standard Q8 multiplication
+  start_time = micros();
+
+  for (uint16_t i = 0; i < iterations; i++)
+  {
+    for (uint8_t j = 0; j < num_vals; j++)
+    {
+      for (uint8_t k = 0; k < num_fracs; k++)
+      {
+        result = ((int32_t)test_vals[j] * test_fracs[k] + 0x80) >> 8;
+        *volatile_result = result;  // Force storage
+      }
+    }
+  }
+
+  unsigned long std_time = micros() - start_time;
+
+  // Calculate total operations
+  uint32_t total_ops = (uint32_t)iterations * num_vals * num_fracs;
+
+  // Report results
+  Serial.println(F("--- mult16x8_q8 Performance Results ---"));
+  Serial.print(F("Operations: "));
+  Serial.println(total_ops);
+  Serial.print(F("Assembly time: "));
+  Serial.print(asm_time);
+  Serial.println(F(" µs"));
+  Serial.print(F("Standard time: "));
+  Serial.print(std_time);
+  Serial.println(F(" µs"));
+
+  if (asm_time > 0 && std_time > 0)
+  {
+    Serial.print(F("Assembly ops/µs: "));
+    Serial.println((float)total_ops / asm_time, 2);
+    Serial.print(F("Standard ops/µs: "));
+    Serial.println((float)total_ops / std_time, 2);
+
+    if (asm_time < std_time)
+    {
+      Serial.print(F("✓ Assembly is "));
+      Serial.print((float)std_time / asm_time, 2);
+      Serial.println(F("x faster"));
+    }
+    else
+    {
+      Serial.print(F("⚠ Standard is "));
+      Serial.print((float)asm_time / std_time, 2);
+      Serial.println(F("x faster"));
+    }
+  }
+
+  // The test passes if assembly is reasonably competitive with standard
+  // Function call overhead may make assembly slower in micro-benchmarks
+  // but should be faster in real-world usage (ISR context)
+  TEST_ASSERT_TRUE(asm_time <= std_time * 10);  // Allow 10x slower for function overhead
+}
+
+/**
+ * @brief ISR-like performance test simulating real-world usage
+ */
+void test_performance_isr_simulation(void)
+{
+  const uint16_t samples = 1000;
+  volatile int32_t power_sum = 0;
+  volatile int32_t voltage_squared_sum = 0;
+  volatile int16_t filtered_current = 0;
+
+  // Simulate typical ISR values
+  int16_t voltage_samples[] = { 1650, 1648, 1645, 1640, 1630, 1615, 1595, 1570 };
+  int16_t current_samples[] = { 512, 510, 505, 498, 485, 468, 445, 415 };
+  int16_t prev_current[] = { 515, 512, 508, 500, 488, 470, 448, 420 };
+  uint8_t filter_factor = float_to_q8(0.004f);  // Typical EWMA factor
+
+  const uint8_t num_samples = sizeof(voltage_samples) / sizeof(voltage_samples[0]);
+
+  // Warm up
+  for (uint8_t k = 0; k < 10; k++)
+  {
+    int32_t power, vsquared;
+    int16_t filter_delta;
+    multS16x16_to32(power, voltage_samples[k % num_samples], current_samples[k % num_samples]);
+    multS16x16_to32(vsquared, voltage_samples[k % num_samples], voltage_samples[k % num_samples]);
+    mult16x8_q8(filter_delta, static_cast< int16_t >(prev_current[k % num_samples] - current_samples[k % num_samples]), filter_factor);
+  }
+
+  // Performance test for assembly-optimized ISR simulation
+  unsigned long start_time = micros();
+
+  for (uint16_t i = 0; i < samples; i++)
+  {
+    uint8_t idx = i % num_samples;
+
+    // Typical ISR operations using assembly functions
+    int32_t instant_power, voltage_squared;
+    int16_t filter_delta;
+
+    multS16x16_to32(instant_power, voltage_samples[idx], current_samples[idx]);
+    multS16x16_to32(voltage_squared, voltage_samples[idx], voltage_samples[idx]);
+    mult16x8_q8(filter_delta, static_cast< int16_t >(prev_current[idx] - current_samples[idx]), filter_factor);
+
+    power_sum += instant_power;
+    voltage_squared_sum += voltage_squared;
+    filtered_current += filter_delta;
+  }
+
+  unsigned long asm_time = micros() - start_time;
+
+  // Reset for standard test
+  power_sum = 0;
+  voltage_squared_sum = 0;
+  filtered_current = 0;
+
+  // Warm up standard operations
+  for (uint8_t k = 0; k < 10; k++)
+  {
+    int32_t power = (int32_t)voltage_samples[k % num_samples] * current_samples[k % num_samples];
+    int32_t vsquared = (int32_t)voltage_samples[k % num_samples] * voltage_samples[k % num_samples];
+    int16_t filter_delta = ((int32_t)(prev_current[k % num_samples] - current_samples[k % num_samples]) * filter_factor + 0x80) >> 8;
+  }
+
+  // Performance test for standard C ISR simulation
+  start_time = micros();
+
+  for (uint16_t i = 0; i < samples; i++)
+  {
+    uint8_t idx = i % num_samples;
+
+    // Typical ISR operations using standard C
+    int32_t instant_power = (int32_t)voltage_samples[idx] * current_samples[idx];
+    int32_t voltage_squared = (int32_t)voltage_samples[idx] * voltage_samples[idx];
+    int16_t filter_delta = ((int32_t)(prev_current[idx] - current_samples[idx]) * filter_factor + 0x80) >> 8;
+
+    power_sum += instant_power;
+    voltage_squared_sum += voltage_squared;
+    filtered_current += filter_delta;
+  }
+
+  unsigned long std_time = micros() - start_time;
+
+  // Report results
+  Serial.println(F("--- ISR Simulation Performance Results ---"));
+  Serial.print(F("Samples processed: "));
+  Serial.println(samples);
+  Serial.print(F("Assembly ISR time: "));
+  Serial.print(asm_time);
+  Serial.println(F(" µs"));
+  Serial.print(F("Standard ISR time: "));
+  Serial.print(std_time);
+  Serial.println(F(" µs"));
+
+  if (asm_time > 0 && std_time > 0)
+  {
+    Serial.print(F("Assembly samples/µs: "));
+    Serial.println((float)samples / asm_time, 2);
+    Serial.print(F("Standard samples/µs: "));
+    Serial.println((float)samples / std_time, 2);
+
+    if (asm_time < std_time)
+    {
+      Serial.print(F("✓ Assembly ISR is "));
+      Serial.print((float)std_time / asm_time, 2);
+      Serial.println(F("x faster"));
+
+      // Calculate time savings per ISR call
+      float time_saved_per_sample = (float)(std_time - asm_time) / samples;
+      Serial.print(F("Time saved per ISR: "));
+      Serial.print(time_saved_per_sample, 2);
+      Serial.println(F(" µs"));
+    }
+    else
+    {
+      Serial.print(F("⚠ Standard ISR is "));
+      Serial.print((float)asm_time / std_time, 2);
+      Serial.println(F("x faster"));
+    }
+  }
+
+  // The ISR test is more realistic - functions are inlined in real usage
+  // Allow assembly to be up to 2x slower due to function call overhead in test
+  TEST_ASSERT_TRUE(asm_time <= std_time * 2);
+}
+
 void setup()
 {
   delay(1000);    // Wait for Serial to initialize
@@ -298,8 +838,26 @@ void loop()
     delay(100);
     RUN_TEST(test_q8_conversion_helpers);
     delay(100);
+    RUN_TEST(test_mult16x8_q8_rounding);
+    delay(100);
+    RUN_TEST(test_edge_cases);
+    delay(100);
     RUN_TEST(test_assembly_vs_standard);
     delay(100);
+
+    // Performance tests
+    Serial.println(F(""));
+    Serial.println(F("========================================"));
+    Serial.println(F("Performance Tests"));
+    Serial.println(F("========================================"));
+    RUN_TEST(test_performance_multS16x16_to32);
+    delay(200);
+    RUN_TEST(test_performance_multU16x16_to32);
+    delay(200);
+    RUN_TEST(test_performance_mult16x8_q8);
+    delay(200);
+    RUN_TEST(test_performance_isr_simulation);
+    delay(200);
 
     ++i;
   }
