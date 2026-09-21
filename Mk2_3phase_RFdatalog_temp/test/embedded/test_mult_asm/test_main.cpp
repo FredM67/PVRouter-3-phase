@@ -274,24 +274,24 @@ void test_edge_cases(void)
   TEST_ASSERT_EQUAL(-843776, result32);
 
   // Test mult16x8_q8 with extreme values
-  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(255));   // Maximum positive * maximum fraction
-  TEST_ASSERT_EQUAL(32639, result16);  // Should be close to 32767
+  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(255));  // Maximum positive * maximum fraction
+  TEST_ASSERT_EQUAL(32639, result16);                                                 // Should be close to 32767
 
-  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(255));   // Maximum negative * maximum fraction
-  TEST_ASSERT_EQUAL(-32640, result16);  // Should be close to -32768
+  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(255));  // Maximum negative * maximum fraction
+  TEST_ASSERT_EQUAL(-32640, result16);                                                 // Should be close to -32768
 
   // Test boundary values with different fractions
-  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(1));   // Maximum positive * minimum fraction
-  TEST_ASSERT_EQUAL(128, result16);  // 32767 * (1/256) ≈ 128
+  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(1));  // Maximum positive * minimum fraction
+  TEST_ASSERT_EQUAL(128, result16);                                                 // 32767 * (1/256) ≈ 128
 
-  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(1));   // Maximum negative * minimum fraction
-  TEST_ASSERT_EQUAL(-128, result16);  // -32768 * (1/256) = -128
+  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(1));  // Maximum negative * minimum fraction
+  TEST_ASSERT_EQUAL(-128, result16);                                                 // -32768 * (1/256) = -128
 
-  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(128));   // Maximum positive * 0.5
-  TEST_ASSERT_EQUAL(16384, result16);  // 32767 * 0.5 ≈ 16384
+  mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(128));  // Maximum positive * 0.5
+  TEST_ASSERT_EQUAL(16384, result16);                                                 // 32767 * 0.5 ≈ 16384
 
-  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(128));   // Maximum negative * 0.5
-  TEST_ASSERT_EQUAL(-16384, result16);  // -32768 * 0.5 = -16384
+  mult16x8_q8(result16, static_cast< int16_t >(-32768), static_cast< uint8_t >(128));  // Maximum negative * 0.5
+  TEST_ASSERT_EQUAL(-16384, result16);                                                 // -32768 * 0.5 = -16384
 
   // Test zero multiplication edge cases
   mult16x8_q8(result16, static_cast< int16_t >(32767), static_cast< uint8_t >(0));  // Maximum positive * zero
@@ -321,17 +321,17 @@ void test_edge_cases(void)
 
   // Test typical filter values (like in PVRouter)
   mult16x8_q8(result16, static_cast< int16_t >(1000), float_to_q8(0.004f));  // Typical EWMA factor
-  TEST_ASSERT_EQUAL(4, result16);                    // 1000 * 0.004 = 4
+  TEST_ASSERT_EQUAL(4, result16);                                            // 1000 * 0.004 = 4
 
   mult16x8_q8(result16, static_cast< int16_t >(-500), float_to_q8(0.004f));  // Negative with small factor
-  TEST_ASSERT_EQUAL(-2, result16);                   // -500 * 0.004 = -2
+  TEST_ASSERT_EQUAL(-2, result16);                                           // -500 * 0.004 = -2
 
   // Test near-overflow scenarios (values that could cause intermediate overflow)
-  mult16x8_q8(result16, static_cast< int16_t >(30000), static_cast< uint8_t >(200));   // Large value * large fraction
-  TEST_ASSERT_EQUAL(23438, result16);  // 30000 * (200/256) = 23437.5 → 23438 (rounds up)
+  mult16x8_q8(result16, static_cast< int16_t >(30000), static_cast< uint8_t >(200));  // Large value * large fraction
+  TEST_ASSERT_EQUAL(23438, result16);                                                 // 30000 * (200/256) = 23437.5 → 23438 (rounds up)
 
-  mult16x8_q8(result16, static_cast< int16_t >(-30000), static_cast< uint8_t >(200));   // Large negative * large fraction
-  TEST_ASSERT_EQUAL(-23437, result16);  // -30000 * (200/256) = -23437.5 → -23438
+  mult16x8_q8(result16, static_cast< int16_t >(-30000), static_cast< uint8_t >(200));  // Large negative * large fraction
+  TEST_ASSERT_EQUAL(-23437, result16);                                                 // -30000 * (200/256) = -23437.5 → -23438
 }
 
 /**
