@@ -129,6 +129,13 @@ This project uses [pre-commit](https://pre-commit.com/) to ensure code quality b
 - Fix trailing whitespace and end-of-file issues
 - Validate YAML syntax
 - Prevent accidental commits to the `main` branch
+- Refresh the `@date` / `@copyright` fields of Doxygen file headers
+  (`scripts/hooks/update-metadata.sh`)
+
+The metadata hook only stamps a file when the change touches something other
+than those two lines, so a file that was merely re-saved does not turn into a
+one-line date bump in the diff. It is skipped on pre-commit.ci, where the date
+would reflect the CI run rather than the edit.
 
 #### Installation
 
