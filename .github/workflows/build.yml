@@ -1,48 +1,219 @@
-# This is a basic workflow to help you get started with Actions
+# CI workflow for PVRouter-3-phase
+# Runs build and tests on push/PR to main and dev branches
 
 name: CI
 permissions:
   contents: read
+  checks: write
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
-    branches: [ main ]
+    branches: [ main, dev ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, dev ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+env:
+  PROJECT_DIR: Mk2_3phase_RFdatalog_temp
+
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  # Setup job: installs dependencies and populates cache
+  setup:
+    name: Setup Environment
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: actions/checkout@v6
-      with:
-        submodules: 'true'
-    - uses: actions/cache@v5
-      with:
-        path: |
-          ~/.cache/pip
-          ~/.platformio/.cache
-        key: ${{ runner.os }}-pio
-    - name: Set up Python
-      uses: actions/setup-python@v6
-      with:
-        python-version: '>=3.11'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-    - name: Install PlatformIO Core
-      run: |
-        pip install --upgrade platformio
-    # It is important to first install the libraries before compiling, since otherwise compilation might fail to find the just-installed libraries
-    - name: Install platformIO libraries
-      run: pio pkg install --project-dir Mk2_3phase_RFdatalog_temp
-    - name: Run PlatformIO
-      run: |
-        pio run --project-dir Mk2_3phase_RFdatalog_temp
+      - uses: actions/checkout@v7
+        with:
+          submodules: 'true'
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '>=3.11'
+
+      - name: Cache PlatformIO
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio
+          key: ${{ runner.os }}-pio-${{ hashFiles('**/platformio.ini') }}
+
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade platformio
+
+      - name: Install PlatformIO libraries
+        run: pio pkg install --project-dir ${{ env.PROJECT_DIR }}
+
+  # Build job: compiles firmware for embedded targets
+  build:
+    name: Build Firmware
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: 'true'
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '>=3.11'
+
+      - name: Restore PlatformIO cache
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio
+          key: ${{ runner.os }}-pio-${{ hashFiles('**/platformio.ini') }}
+
+      - name: Install PlatformIO
+        run: pip install --upgrade platformio
+
+      - name: Build firmware
+        run: pio run --project-dir ${{ env.PROJECT_DIR }}
+
+  # Native test jobs: runs each native test separately
+  test-native:
+    name: Native (${{ matrix.test }})
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        test:
+          - test_ewma_avg
+          - test_utils_override
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: 'true'
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '>=3.11'
+
+      - name: Restore PlatformIO cache
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio
+          key: ${{ runner.os }}-pio-${{ hashFiles('**/platformio.ini') }}
+
+      - name: Install PlatformIO
+        run: pip install --upgrade platformio
+
+      - name: Run ${{ matrix.test }}
+        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e native -f "*${{ matrix.test }}*"
+
+  # Embedded test jobs: runs each test in Wokwi simulator
+  test-embedded:
+    name: Embedded (${{ matrix.test }})
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        test:
+          - test_fastdivision
+          - test_utils_pins
+          - test_utils_relay
+          - test_teleinfo
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: 'true'
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '>=3.11'
+
+      - name: Restore PlatformIO cache
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio
+          key: ${{ runner.os }}-pio-${{ hashFiles('**/platformio.ini') }}
+
+      - name: Install PlatformIO
+        run: pip install --upgrade platformio
+
+      - name: Install Wokwi CLI
+        run: |
+          curl -L https://wokwi.com/ci/install.sh | sh
+          echo "$HOME/bin" >> $GITHUB_PATH
+          echo "$HOME/.wokwi/bin" >> $GITHUB_PATH
+
+      - name: Build test firmware
+        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e uno -f "*${{ matrix.test }}*" --without-uploading --without-testing
+
+      - name: Run ${{ matrix.test }} in Wokwi
+        env:
+          WOKWI_CLI_TOKEN: ${{ secrets.WOKWI_CLI_TOKEN }}
+        run: |
+          wokwi-cli --timeout 60000 \
+            --expect-text "OK" \
+            --fail-text "FAIL" \
+            --diagram-file ../diagram.json \
+            --elf ${{ env.PROJECT_DIR }}/.pio/build/uno/firmware.elf \
+            --serial-log-file wokwi-output.txt \
+            ${{ env.PROJECT_DIR }}/test/embedded/${{ matrix.test }}
+
+      - name: Convert Unity output to JUnit XML
+        if: always()
+        run: |
+          # Convert Unity test output to JUnit XML format
+          python3 << 'EOF'
+          import re
+          from xml.etree.ElementTree import Element, SubElement, tostring
+          from xml.dom import minidom
+
+          with open('wokwi-output.txt', 'r', encoding='utf-8', errors='ignore') as f:
+              content = f.read()
+
+          tests = re.findall(r'([^:]+):(\d+):([^:]+):(PASS|FAIL)', content)
+
+          testsuites = Element('testsuites')
+          testsuite = SubElement(testsuites, 'testsuite')
+          testsuite.set('name', '${{ matrix.test }}')
+          testsuite.set('tests', str(len(tests)))
+
+          failures = 0
+          for file, line, name, result in tests:
+              testcase = SubElement(testsuite, 'testcase')
+              testcase.set('name', name)
+              testcase.set('classname', file.split('/')[-1])
+              if result == 'FAIL':
+                  failures += 1
+                  failure = SubElement(testcase, 'failure')
+                  failure.set('message', f'Test failed at {file}:{line}')
+
+          testsuite.set('failures', str(failures))
+
+          xml_str = minidom.parseString(tostring(testsuites)).toprettyxml(indent="  ")
+          with open('test-results.xml', 'w') as f:
+              f.write(xml_str)
+          EOF
+
+      - name: Publish test results
+        if: always()
+        uses: dorny/test-reporter@v3
+        with:
+          name: ${{ matrix.test }}
+          path: test-results.xml
+          reporter: java-junit
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.test }}-output
+          path: |
+            wokwi-output.txt
+            test-results.xml

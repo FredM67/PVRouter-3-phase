@@ -15,7 +15,7 @@
  * - 2 TRIAC outputs for dump loads
  *
  * @version 1.0
- * @date 2024-09-06
+ * @date 2026-01-28
  */
 
 #ifndef CONFIG_H
@@ -128,7 +128,7 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
                                        { unused_pin, 300, 400, 1, 1 },
                                        { unused_pin, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
 
-#include "utils_override.h"
+#include "utils_override_helpers.h"  // Provides LOAD(), RELAY(), ALL_LOADS(), ALL_RELAYS(), ALL_LOADS_AND_RELAYS()
 
 // This is an example of override pin configuration.
 // You can modify the pin numbers and associated loads/relays as needed.

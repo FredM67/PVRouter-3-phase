@@ -24,81 +24,14 @@
  *
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @version 0.1
- * @date 2025-09-08
- * @copyright Copyright (c) 2025
+ * @date 2026-01-29
+ * @copyright Copyright (c) 2025-2026
  */
 
 #ifndef UTILS_OVERRIDE_H
 #define UTILS_OVERRIDE_H
 
-#include "config.h"
 #include "type_traits.hpp"
-
-/**
- * @brief Returns the pin number for a given load index at compile time.
- * @param loadNum The load index (0-based).
- * @return The pin number for the load.
- */
-constexpr uint8_t LOAD(uint8_t loadNum)
-{
-  return physicalLoadPin[loadNum];
-}
-
-/**
- * @brief Returns the pin number for a given relay index at compile time.
- * @param relayNum The relay index (0-based).
- * @return The pin number for the relay.
- */
-constexpr uint8_t RELAY(uint8_t relayNum)
-{
-  return relays.get_relay(relayNum).get_pin();
-}
-
-/**
- * @brief Returns a bitmask representing all load pins.
- *
- * This helper is used to configure an override pin to control all loads at once.
- *
- * @return Bitmask with all load pins set.
- */
-constexpr uint16_t ALL_LOADS()
-{
-  uint16_t mask{ 0 };
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    bit_set(mask, physicalLoadPin[i]);
-  }
-  return mask;
-}
-
-/**
- * @brief Returns a bitmask representing all relay pins.
- *
- * This helper is used to configure an override pin to control all relays at once.
- *
- * @return Bitmask with all relay pins set.
- */
-constexpr uint16_t ALL_RELAYS()
-{
-  uint16_t mask{ 0 };
-  for (uint8_t i = 0; i < relays.size(); ++i)
-  {
-    bit_set(mask, relays.get_relay(i).get_pin());
-  }
-  return mask;
-}
-
-/**
- * @brief Returns a bitmask representing all loads and all relays.
- *
- * This helper is used to configure an override pin to control the entire system (all loads and relays).
- *
- * @return Bitmask with all load and relay pins set.
- */
-constexpr uint16_t ALL_LOADS_AND_RELAYS()
-{
-  return ALL_LOADS() | ALL_RELAYS();
-}
 
 // Valid pins: 2-13, so valid mask is 0b11111111111100
 constexpr uint16_t validPinMask{ 0b11111111111100 };
@@ -222,9 +155,9 @@ struct KeyIndexPair
  * Each pin can be associated with a set of pins (loads/relays), represented as a bitmask.
  *
  * @tparam N Number of pin-index pairs (entries).
- * @tparam MaxPins Maximum number of pins supported (loads + relays).
+ * @tparam MaxPins Maximum number of pins supported (loads + relays). Default is 16 (enough for most configurations).
  */
-template< uint8_t N, uint8_t MaxPins = NO_OF_DUMPLOADS + relays.size() >
+template< uint8_t N, uint8_t MaxPins = 16 >
 class OverridePins
 {
 private:
@@ -311,6 +244,7 @@ public:
     return 0;
   }
 
+#ifdef ARDUINO
   /**
      * @brief Print the configured override pins and their bitmasks to Serial during startup.
      *
@@ -327,6 +261,7 @@ public:
       Serial.println(entries_[i].bitmask, BIN);
     }
   }
+#endif
 };
 
 /**

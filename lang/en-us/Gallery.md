@@ -20,13 +20,13 @@ A couple of my realizations... other coming...
 
 [<img alt="In/Outputs on the main enclosure" src="../../img/d395ef4b-2886-42bc-bf0d-46881865aba8.jpg" width="25%">](../../img/d395ef4b-2886-42bc-bf0d-46881865aba8.jpg "In/Outputs on the main enclosure") [<img alt="Inside the main enclosure" src="../../img/b5a37129-8ef5-4b52-9db6-86991e1d2f7e.jpg" width="25%">](../../img/b5a37129-8ef5-4b52-9db6-86991e1d2f7e.jpg "Inside the main enclosure") [<img alt="The split box" src="../../img/3e970a16-3d55-4a36-852a-2b2628096997.jpg" width="25%">](../../img/3e970a16-3d55-4a36-852a-2b2628096997.jpg "The split box") [<img alt="Inside the split box" src="../../img/4e9bc2a4-d0be-4040-9475-e14ed643a81f.jpg" width="25%">](../../img/4e9bc2a4-d0be-4040-9475-e14ed643a81f.jpg "Inside the split box")
 
-## 3-phase router, 3 outputs, 2 of them can be controlled via Internet (ON/OFF and forcing)
+## 3-phase router, 3 outputs, 2 of them can be controlled via Internet (ON/OFF and boost)
 
 [<img alt="Global view" src="../../img/ef52c81c-a295-45f7-bca3-10eb83e562a4.jpg" width="50%">](../../img/ef52c81c-a295-45f7-bca3-10eb83e562a4.jpg "Global view")
 
 [<img alt="Inside the enclosure" src="../../img/087771a1-7ec3-4b7a-a278-35999f6821ce.jpg" width="25%">](../../img/087771a1-7ec3-4b7a-a278-35999f6821ce.jpg "Inside the enclosure") [<img alt="Router side" src="../../img/85be2be7-bddf-4039-a8d4-92ca197cbb45.jpg" width="25%">](../../img/85be2be7-bddf-4039-a8d4-92ca197cbb45.jpg "Router side") [<img alt="Smart-Relay side" src="../../img/819f9d70-4cc6-4b29-9f21-2e0b1ef3fdeb.jpg" width="25%">](../../img/819f9d70-4cc6-4b29-9f21-2e0b1ef3fdeb.jpg "Smart-Relay side")
 
-## 3-phase router, 6 outputs, all can be controlled via Internet (forcing and priority inversion)
+## 3-phase router, 6 outputs, all can be controlled via Internet (boost and priority inversion)
 
 [<img alt="Global view" src="../../img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg" width="50%">](../../img/67a14e30-d1ed-40c5-9e4e-aacd2ed93499.jpg "Global view")
 
