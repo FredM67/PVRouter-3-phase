@@ -36,8 +36,19 @@ constexpr int32_t l_midPointOfEnergyBucket_main{ l_capacityOfEnergyBucket_main /
 /**< threshold in anti-flicker mode - must not exceed 0.4 */
 constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1F };
 
-/**< power calibration in fixed point, built at compile time from f_powerCal */
-constexpr auto powerCalFixed{ Energy::toFixed(f_powerCal) };
+// Expected number of sample sets per mains cycle. One ADC conversion takes 13 ADC clocks
+// at F_CPU / 128 (104 us at 16 MHz); a sample set is one V and one I conversion per phase.
+constexpr uint8_t ADC_CLOCKS_PER_CONVERSION{ 13 };
+constexpr uint8_t ADC_PRESCALER{ 128 };
+constexpr uint32_t SAMPLE_SET_PERIOD_US{ 2UL * NO_OF_PHASES * ADC_CLOCKS_PER_CONVERSION * ADC_PRESCALER / (F_CPU / 1000000UL) }; /**< 624 us */
+constexpr uint8_t SAMPLE_SETS_PER_CYCLE{ 1000000UL / (SUPPLY_FREQUENCY * SAMPLE_SET_PERIOD_US) };                                /**< 32 at 50 Hz, 26 at 60 Hz */
+constexpr uint8_t SAMPLE_SETS_MARGIN{ 6 };                                                                                       /**< covers crossing jitter and frequency drift */
+constexpr uint8_t N_MIN{ SAMPLE_SETS_PER_CYCLE - SAMPLE_SETS_MARGIN };
+constexpr uint8_t N_MAX{ SAMPLE_SETS_PER_CYCLE + SAMPLE_SETS_MARGIN };
+
+/**< power calibration over n, in fixed point, for every expected n: no division in the ISR */
+const Energy::PerSampleCalibration< N_MIN, N_MAX, NO_OF_PHASES > powerCalPerSample PROGMEM{ Energy::toFixedPerSample< N_MIN, N_MAX >(f_powerCal) };
+constexpr uint8_t powerCalPerSampleShift{ Energy::toFixedPerSample< N_MIN, N_MAX >(f_powerCal).shift };
 
 constexpr OutputModes outputMode{ OutputModes::NORMAL }; /**< Output mode to be used */
 
@@ -977,7 +988,19 @@ void processLatestContribution(const uint8_t phase)
 {
   // for efficiency, the energy scale is Joules * SUPPLY_FREQUENCY, in integer fixed point
   // add the latest energy contribution to the main energy accumulator
-  l_energyInBucket_main += Energy::contribution(l_sumP[phase] / n_samplesDuringThisMainsCycle[phase], powerCalFixed.value[phase], powerCalFixed.shift);
+  // (sumP / n) x cal == sumP x (cal / n): cal / n comes from the table, so there is no division
+  const uint8_t n{ n_samplesDuringThisMainsCycle[phase] };
+  int32_t sumP{ l_sumP[phase] };
+  uint8_t index{ static_cast< uint8_t >(n - N_MIN) };
+
+  if ((n < N_MIN) || (n > N_MAX))
+  {
+    // unexpected cycle length (start-up, missing phase): rescale the sum to N_MIN samples
+    sumP = (sumP / n) * N_MIN;
+    index = 0;
+  }
+
+  l_energyInBucket_main += Energy::contribution(sumP, pgm_read_word(&powerCalPerSample.value[phase][index]), powerCalPerSampleShift);
 
   // apply any adjustment that is required.
   if (0 == phase)

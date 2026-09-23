@@ -32,13 +32,23 @@ namespace Energy
 inline constexpr uint8_t FRACTION_BITS{ 4 }; /**< fractional bits of a bucket unit */
 
 /**
- * @brief Largest shift that keeps every calibration value within 16 bits.
- *
- * @param cal The power calibration values, one per phase.
- * @return The shift, i.e. the number of fractional bits of the fixed-point values.
+ * @brief Largest shift that keeps a value within 16 bits once scaled by 2^shift.
+ */
+constexpr uint8_t shiftFor(const float largest)
+{
+  uint8_t shift{ 0 };
+  while ((shift < 31) && (largest * static_cast< float >(1UL << (shift + 1)) <= 65535.0F))
+  {
+    ++shift;
+  }
+  return shift;
+}
+
+/**
+ * @brief Largest of the calibration values.
  */
 template< uint8_t N >
-constexpr uint8_t calibrationShift(const float (&cal)[N])
+constexpr float largestOf(const float (&cal)[N])
 {
   float largest{ 0.0F };
   for (const auto value : cal)
@@ -48,13 +58,19 @@ constexpr uint8_t calibrationShift(const float (&cal)[N])
       largest = value;
     }
   }
+  return largest;
+}
 
-  uint8_t shift{ 0 };
-  while ((shift < 31) && (largest * static_cast< float >(1UL << (shift + 1)) <= 65535.0F))
-  {
-    ++shift;
-  }
-  return shift;
+/**
+ * @brief Largest shift that keeps every calibration value within 16 bits.
+ *
+ * @param cal The power calibration values, one per phase.
+ * @return The shift, i.e. the number of fractional bits of the fixed-point values.
+ */
+template< uint8_t N >
+constexpr uint8_t calibrationShift(const float (&cal)[N])
+{
+  return shiftFor(largestOf(cal));
 }
 
 /**
@@ -93,6 +109,48 @@ constexpr FixedCalibration< N > toFixed(const float (&cal)[N])
   for (uint8_t phase = 0; phase < N; ++phase)
   {
     table.value[phase] = toFixed(cal[phase], table.shift);
+  }
+  return table;
+}
+
+/**
+ * @brief cal / n for every phase and every expected sample count n, in fixed point.
+ *
+ * @details One cycle's contribution is (sumP / n) x cal = sumP x (cal / n). With this
+ *          table the ISR multiplies sumP directly, with no division - and without the
+ *          truncation of that division either.
+ *
+ * @tparam NMin Smallest expected number of sample sets per mains cycle.
+ * @tparam NMax Largest expected number of sample sets per mains cycle (<= 64, so that
+ *              sumP stays within the 24 bits contribution() expects).
+ * @tparam N Number of phases.
+ */
+template< uint8_t NMin, uint8_t NMax, uint8_t N >
+struct PerSampleCalibration
+{
+  uint16_t value[N][NMax - NMin + 1]; /**< round(cal / n x 2^shift), indexed [phase][n - NMin] */
+  uint8_t shift;                      /**< shared by the whole table */
+};
+
+/**
+ * @brief Build the per-sample calibration table at compile time.
+ *
+ * @param cal The power calibration values, one per phase.
+ */
+template< uint8_t NMin, uint8_t NMax, uint8_t N >
+constexpr PerSampleCalibration< NMin, NMax, N > toFixedPerSample(const float (&cal)[N])
+{
+  static_assert((NMin >= 1) && (NMin <= NMax), "empty range of sample counts");
+  static_assert(NMax <= 64, "sumP must stay within 24 bits: at most 64 sample sets per cycle");
+
+  PerSampleCalibration< NMin, NMax, N > table{};
+  table.shift = shiftFor(largestOf(cal) / NMin);  // the largest entry: largest cal, smallest n
+  for (uint8_t phase = 0; phase < N; ++phase)
+  {
+    for (uint8_t n = NMin; n <= NMax; ++n)
+    {
+      table.value[phase][n - NMin] = toFixed(cal[phase] / n, table.shift);
+    }
   }
   return table;
 }
