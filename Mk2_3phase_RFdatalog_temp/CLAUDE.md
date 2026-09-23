@@ -97,8 +97,8 @@ test/
 │   └── test_utils_pins/
 └── native/       # Cross-platform tests (run on host)
     ├── test_ewma_avg/
-    ├── test_cloud_patterns/
-    └── test_negative_threshold/
+    ├── test_remote_loads/
+    └── test_utils_override/
 ```
 
 ## Dependencies
