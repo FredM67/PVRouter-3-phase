@@ -189,7 +189,7 @@ inline void printConfiguration()
     if constexpr (REMOTE_LOADS_PRESENT)
     {
       DBUG(F("  Remote loads to Node ID: "));
-      for (int idx = 0; idx < static_cast< int >(NO_OF_REMOTE_UNITS); ++idx)
+      for (uint8_t idx = 0; idx != NO_OF_REMOTE_UNITS; ++idx)
       {
         DBUG(SharedRF::REMOTE_NODE_ID[idx]);
         DBUG(' ');

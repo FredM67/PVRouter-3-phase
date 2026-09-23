@@ -227,8 +227,7 @@ constexpr bool check_load_map()
  */
 constexpr bool check_remote_node_ids()
 {
-  // signed loop counters, so that the bounds do not read as tautological when no unit is configured
-  for (int i = 0; i < static_cast< int >(NO_OF_REMOTE_UNITS); ++i)
+  for (uint8_t i = 0; i != NO_OF_REMOTE_UNITS; ++i)
   {
     if ((RFConfig::REMOTE_NODE_ID[i] < 1) || (RFConfig::REMOTE_NODE_ID[i] > 30))
       return false;
@@ -236,7 +235,7 @@ constexpr bool check_remote_node_ids()
     if (RFConfig::REMOTE_NODE_ID[i] == RFConfig::ROUTER_NODE_ID)
       return false;
 
-    for (int j = 0; j < i; ++j)
+    for (uint8_t j = 0; j < i; ++j)
     {
       if (RFConfig::REMOTE_NODE_ID[i] == RFConfig::REMOTE_NODE_ID[j])
         return false;
@@ -250,7 +249,7 @@ static_assert(check_load_map(), "******** Wrong load map ! Each local load needs
 static_assert(Load::countUnits(physicalLoadPin) <= MAX_REMOTE_UNITS, "******** Too many remote units ! Please check physicalLoadPin in your config.h ! ********");
 static_assert(Load::maxLoadsPerUnit(physicalLoadPin) <= MAX_LOADS_PER_UNIT, "******** Too many loads on a single remote unit (one payload byte per unit) ! ********");
 static_assert(NO_OF_REMOTE_LOADS <= MAX_LOADS_PER_UNIT, "******** Too many remote loads (the override bitmask holds 8 of them) ! ********");
-static_assert(static_cast< int >(sizeof(RFConfig::REMOTE_NODE_ID) / sizeof(RFConfig::REMOTE_NODE_ID[0])) >= static_cast< int >(NO_OF_REMOTE_UNITS), "******** REMOTE_NODE_ID needs one entry per remote unit ! Please check your config_rf.h ! ********");
+static_assert(sizeof(RFConfig::REMOTE_NODE_ID) >= NO_OF_REMOTE_UNITS * sizeof(RFConfig::REMOTE_NODE_ID[0]), "******** REMOTE_NODE_ID needs one entry per remote unit ! Please check your config_rf.h ! ********");
 static_assert(!REMOTE_LOADS_PRESENT || check_remote_node_ids(), "******** Remote node IDs must be unique, differ from the router and lie between 1 and 30 ! ********");
 
 static_assert(check_load_priorities(), "******** Load Priorities wrong ! Please check your config ! ********");

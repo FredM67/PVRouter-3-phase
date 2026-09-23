@@ -53,7 +53,7 @@ inline void processRemoteLoadTransmissions()
 {
   if constexpr (REMOTE_LOADS_PRESENT)
   {
-    for (uint8_t idx = 0; idx < NO_OF_REMOTE_UNITS; ++idx)
+    for (uint8_t idx = 0; idx != NO_OF_REMOTE_UNITS; ++idx)
     {
       uint8_t payload{ 0 };
       bool due{ false };

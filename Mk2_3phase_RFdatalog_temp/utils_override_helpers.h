@@ -91,7 +91,7 @@ constexpr uint32_t ALL_LOCAL_LOADS()
 constexpr uint32_t ALL_REMOTE_LOADS()
 {
   uint32_t mask{ 0 };
-  for (uint8_t i = 0; i < NO_OF_REMOTE_LOADS; ++i)
+  for (uint8_t i = 0; i != NO_OF_REMOTE_LOADS; ++i)
   {
     bit_set(mask, 16 + i);  // Set bit 16+i for remote load i
   }
