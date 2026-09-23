@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Compile-time validations
  * @version 0.1
- * @date 2026-01-29
+ * @date 2026-09-23
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -44,15 +44,13 @@ static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && (PRIORITY_ROTATION =
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
 
 static_assert(NO_OF_DUMPLOADS > 0, "Number of dump loads must be greater than 0");
-static_assert(NO_OF_DUMPLOADS >= NO_OF_REMOTE_LOADS, "NO_OF_DUMPLOADS must be >= NO_OF_REMOTE_LOADS");
 static_assert(iTemperatureThreshold > 0, "Temperature threshold must be greater than 0");
 static_assert(iTemperatureThreshold <= 100, "Temperature threshold must be lower than 100");
 
 static_assert(REQUIRED_EXPORT_IN_WATTS >= -32768 && REQUIRED_EXPORT_IN_WATTS <= 32767, "******** REQUIRED_EXPORT_IN_WATTS out of range ! ********");
 static_assert(DIVERSION_START_THRESHOLD_WATTS >= 0 && DIVERSION_START_THRESHOLD_WATTS <= 32767, "******** DIVERSION_START_THRESHOLD_WATTS must be positive ! ********");
 
-static_assert(sizeof(physicalLoadPin) / sizeof(physicalLoadPin[0]) == (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS), "******** physicalLoadPin array size mismatch (should be for local loads only) ! ********");
-static_assert(NO_OF_REMOTE_LOADS == 0 || sizeof(remoteLoadStatusLED) / sizeof(remoteLoadStatusLED[0]) == NO_OF_REMOTE_LOADS, "******** remoteLoadStatusLED array size mismatch ! ********");
+static_assert(sizeof(physicalLoadPin) / sizeof(physicalLoadPin[0]) == NO_OF_DUMPLOADS, "******** physicalLoadPin array size mismatch (one entry per dump load) ! ********");
 static_assert(sizeof(loadPrioritiesAtStartup) / sizeof(loadPrioritiesAtStartup[0]) == NO_OF_DUMPLOADS, "******** loadPrioritiesAtStartup array size mismatch ! ********");
 static_assert(sizeof(rg_ForceLoad) / sizeof(rg_ForceLoad[0]) == NO_OF_DUMPLOADS, "******** rg_ForceLoad array size mismatch ! ********");
 
@@ -112,31 +110,25 @@ constexpr uint16_t check_pins()
     bit_set(used_pins, watchDogPin);
   }
 
-  //physicalLoadPin for the local TRIACS
-  for (const auto &loadPin : physicalLoadPin)
+  // physicalLoadPin: the local TRIACs, plus the optional status LED of each remote load
+  for (const auto &loadEntry : physicalLoadPin)
   {
-    if (loadPin == unused_pin)
+    const uint8_t pin{ Load::pinOf(loadEntry) };
+
+    // A remote load may legitimately have no status LED.
+    // Note that a local entry left at 'unused_pin' (0xFF) decodes as unit 3 / pin 63,
+    // which check_load_map() rejects - the pin field alone cannot carry that sentinel.
+    if (!Load::isLocal(loadEntry) && (pin == 0))
+      continue;
+
+    // out of range for the bitmask - check_load_map() reports what is actually wrong
+    if (pin > 15)
       return 0;
 
-    if (bit_read(used_pins, loadPin))
+    if (bit_read(used_pins, pin))
       return 0;
 
-    bit_set(used_pins, loadPin);
-  }
-
-  // Optional status LED pins for remote loads
-  if constexpr (NO_OF_REMOTE_LOADS > 0)
-  {
-    for (const auto &ledPin : remoteLoadStatusLED)
-    {
-      if (ledPin != unused_pin)
-      {
-        if (bit_read(used_pins, ledPin))
-          return 0;
-
-        bit_set(used_pins, ledPin);
-      }
-    }
+    bit_set(used_pins, pin);
   }
 
   if constexpr (RELAY_DIVERSION)
@@ -198,6 +190,68 @@ constexpr uint16_t check_relay_pins()
 
   return pins_ok;
 }
+
+/**
+ * @brief Check that every entry of the load map is well-formed
+ *
+ * @details A local entry must name a real, usable digital pin (2..13). This is what catches
+ *          an entry left at @c unused_pin (0xFF): the packed encoding has no room for that
+ *          sentinel, so 0xFF decodes as unit 3 with a status LED on pin 63, and the load would
+ *          silently become a remote one. A remote entry may have no status LED (pin field 0),
+ *          but if it has one, that pin must be usable too.
+ */
+constexpr bool check_load_map()
+{
+  for (const auto &loadEntry : physicalLoadPin)
+  {
+    const uint8_t pin{ Load::pinOf(loadEntry) };
+
+    if (Load::isLocal(loadEntry))
+    {
+      // pins 0 & 1 are the serial interface, 14 and above do not exist
+      if ((pin < 2) || (pin > 13))
+        return false;
+    }
+    else if (pin != 0)
+    {
+      if ((pin < 2) || (pin > 13))
+        return false;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * @brief Check the node ID of each configured remote unit (range and uniqueness)
+ */
+constexpr bool check_remote_node_ids()
+{
+  // signed loop counters, so that the bounds do not read as tautological when no unit is configured
+  for (int i = 0; i < static_cast< int >(NO_OF_REMOTE_UNITS); ++i)
+  {
+    if ((RFConfig::REMOTE_NODE_ID[i] < 1) || (RFConfig::REMOTE_NODE_ID[i] > 30))
+      return false;
+
+    if (RFConfig::REMOTE_NODE_ID[i] == RFConfig::ROUTER_NODE_ID)
+      return false;
+
+    for (int j = 0; j < i; ++j)
+    {
+      if (RFConfig::REMOTE_NODE_ID[i] == RFConfig::REMOTE_NODE_ID[j])
+        return false;
+    }
+  }
+
+  return true;
+}
+
+static_assert(check_load_map(), "******** Wrong load map ! Each local load needs a pin in 2..13. Please check physicalLoadPin in your config.h ! ********");
+static_assert(Load::countUnits(physicalLoadPin) <= MAX_REMOTE_UNITS, "******** Too many remote units ! Please check physicalLoadPin in your config.h ! ********");
+static_assert(Load::maxLoadsPerUnit(physicalLoadPin) <= MAX_LOADS_PER_UNIT, "******** Too many loads on a single remote unit (one payload byte per unit) ! ********");
+static_assert(NO_OF_REMOTE_LOADS <= MAX_LOADS_PER_UNIT, "******** Too many remote loads (the override bitmask holds 8 of them) ! ********");
+static_assert(static_cast< int >(sizeof(RFConfig::REMOTE_NODE_ID) / sizeof(RFConfig::REMOTE_NODE_ID[0])) >= static_cast< int >(NO_OF_REMOTE_UNITS), "******** REMOTE_NODE_ID needs one entry per remote unit ! Please check your config_rf.h ! ********");
+static_assert(!REMOTE_LOADS_PRESENT || check_remote_node_ids(), "******** Remote node IDs must be unique, differ from the router and lie between 1 and 30 ! ********");
 
 static_assert(check_load_priorities(), "******** Load Priorities wrong ! Please check your config ! ********");
 static_assert(check_pins(), "******** Duplicate pin definition ! Please check your config ! ********");

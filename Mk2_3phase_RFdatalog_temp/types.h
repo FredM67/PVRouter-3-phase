@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some basics classes/types
  * @version 0.1
- * @date 2026-02-02
+ * @date 2026-09-23
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -17,6 +17,7 @@
 #include "type_traits.hpp"
 
 #include "constants.h"
+#include "load_map.h"  // LoadStates and the packed load-map encoding
 
 // -------------------------------
 // definitions of enumerated types
@@ -44,13 +45,7 @@ enum class OutputModes : uint8_t
   NORMAL        /**< Normal mode */
 };
 
-/** Load state (for use if loads are active high (Rev 2 PCB)) */
-enum class LoadStates : uint8_t
-{
-  LOAD_OFF, /**< load is OFF */
-  LOAD_ON   /**< load is ON */
-};
-// enum loadStates {LOAD_ON, LOAD_OFF}; /**< for use if loads are active low (original PCB) */
+// LoadStates lives in load_map.h, so that the load-map logic stays Arduino-free.
 
 inline constexpr uint8_t loadStateMask{ 0x7FU };                      /**< bit mask for masking load state */
 inline constexpr uint8_t loadStateOnBit{ (uint8_t)(~loadStateMask) }; /**< bit mask for load state ON */
