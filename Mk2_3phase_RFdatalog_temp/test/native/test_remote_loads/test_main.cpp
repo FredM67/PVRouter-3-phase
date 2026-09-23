@@ -2,7 +2,8 @@
  * @file test_main.cpp
  * @brief Native unit tests for load_map.h and remote_loads_core.h
  *
- * Tests the packed load-map encoding and the per-unit bitmask builder.
+ * Tests the packed load-map encoding, the per-unit bitmask builder, the override
+ * pins derived from the map, the config checks and the send loop.
  * No config.h, no Arduino, no stubs - just the real headers.
  */
 
@@ -10,6 +11,7 @@
 
 #include "load_map.h"           // Real header - pure C++
 #include "remote_loads_core.h"  // Real header - pure C++
+#include "utils_override.h"     // Real header - pure C++
 
 void setUp(void) {}
 void tearDown(void) {}
@@ -458,6 +460,259 @@ void test_out_of_range_accessors_are_safe(void)
 }
 
 // ============================================================================
+// Override pins - the map seen through the override subsystem
+// ============================================================================
+
+void test_overridePinOf_local_is_the_physical_pin(void)
+{
+  constexpr uint8_t map[]{ Load::local(5), Load::remote(1), Load::local(7) };
+
+  static_assert(overridePinOf(map, 0) == 5, "a local load keeps its pin");
+
+  TEST_ASSERT_EQUAL_UINT8(5, overridePinOf(map, 0));
+  TEST_ASSERT_EQUAL_UINT8(7, overridePinOf(map, 2));
+}
+
+void test_overridePinOf_remote_is_a_virtual_pin(void)
+{
+  // the virtual pin counts remote loads across every unit, in map order
+  constexpr uint8_t map[]{ Load::remote(2), Load::local(5), Load::remote(1), Load::remote(2) };
+
+  TEST_ASSERT_EQUAL_UINT8(REMOTE_PIN_BASE + 0, overridePinOf(map, 0));
+  TEST_ASSERT_EQUAL_UINT8(5, overridePinOf(map, 1));
+  TEST_ASSERT_EQUAL_UINT8(REMOTE_PIN_BASE + 1, overridePinOf(map, 2));
+  TEST_ASSERT_EQUAL_UINT8(REMOTE_PIN_BASE + 2, overridePinOf(map, 3));
+}
+
+void test_load_masks_of_a_mixed_map(void)
+{
+  constexpr uint8_t map[]{ Load::local(5), Load::remote(1), Load::local(7), Load::remote(2) };
+
+  TEST_ASSERT_EQUAL_HEX32((1UL << 5) | (1UL << 7), localLoadsMask(map));
+  TEST_ASSERT_EQUAL_HEX32((1UL << 16) | (1UL << 17), remoteLoadsMask(map));
+}
+
+void test_load_masks_of_an_all_local_map(void)
+{
+  constexpr uint8_t map[]{ Load::local(5), Load::local(6) };
+
+  TEST_ASSERT_EQUAL_HEX32((1UL << 5) | (1UL << 6), localLoadsMask(map));
+  TEST_ASSERT_EQUAL_HEX32(0, remoteLoadsMask(map));
+}
+
+void test_masks_feed_the_override_config(void)
+{
+  // what ALL_LOADS() and LOAD(n) hand to OverridePins in config.h
+  constexpr uint8_t map[]{ Load::local(5), Load::remote(1), Load::remote(2), Load::local(6) };
+  constexpr OverridePins pins{
+    { KeyIndexPair< 8 >{ 4, localLoadsMask(map) | remoteLoadsMask(map) },
+      KeyIndexPair< 8 >{ 3, { overridePinOf(map, 2) } } }
+  };
+
+  TEST_ASSERT_EQUAL_HEX16((1U << 5) | (1U << 6), pins.getLocalBitmask(0));
+  TEST_ASSERT_EQUAL_HEX8(0b11, pins.getRemoteBitmask(0));
+
+  // load 2 is the second remote load, whichever unit it sits on
+  TEST_ASSERT_EQUAL_HEX16(0, pins.getLocalBitmask(1));
+  TEST_ASSERT_EQUAL_HEX8(0b10, pins.getRemoteBitmask(1));
+}
+
+// ============================================================================
+// Load map validation (validation.h asserts on these)
+// ============================================================================
+
+void test_isValidMap_accepts_a_mixed_map(void)
+{
+  constexpr uint8_t map[]{ Load::local(2), Load::local(13), Load::remote(1), Load::remote(3, 9) };
+
+  static_assert(Load::isValidMap(map), "a well-formed map must pass");
+  TEST_ASSERT_TRUE(Load::isValidMap(map));
+}
+
+void test_isValidMap_rejects_unusable_local_pins(void)
+{
+  constexpr uint8_t serialRx[]{ Load::local(0) };
+  constexpr uint8_t serialTx[]{ Load::local(1) };
+  constexpr uint8_t missing[]{ Load::local(14) };
+
+  TEST_ASSERT_FALSE(Load::isValidMap(serialRx));
+  TEST_ASSERT_FALSE(Load::isValidMap(serialTx));
+  TEST_ASSERT_FALSE(Load::isValidMap(missing));
+}
+
+void test_isValidMap_rejects_the_unused_pin_sentinel(void)
+{
+  // unused_pin is 0xFF, which decodes as unit 3 with a status LED on pin 63
+  constexpr uint8_t map[]{ Load::local(5), 0xFF };
+
+  static_assert(!Load::isValidMap(map), "the unused_pin sentinel must be caught");
+  TEST_ASSERT_FALSE(Load::isValidMap(map));
+}
+
+void test_isValidMap_checks_a_remote_status_led(void)
+{
+  constexpr uint8_t noLed[]{ Load::remote(1) };
+  constexpr uint8_t ledOnSerial[]{ Load::remote(1, 1) };
+  constexpr uint8_t ledOk[]{ Load::remote(1, 8) };
+
+  TEST_ASSERT_TRUE(Load::isValidMap(noLed));
+  TEST_ASSERT_FALSE(Load::isValidMap(ledOnSerial));
+  TEST_ASSERT_TRUE(Load::isValidMap(ledOk));
+}
+
+// ============================================================================
+// Node ID validation (validation.h asserts on this)
+// ============================================================================
+
+void test_node_ids_accepts_distinct_ids(void)
+{
+  constexpr uint8_t ids[]{ 15, 16, 17 };
+
+  static_assert(areValidNodeIds(ids, 3, 10), "distinct in-range IDs must pass");
+  TEST_ASSERT_TRUE(areValidNodeIds(ids, 3, 10));
+  TEST_ASSERT_TRUE(areValidNodeIds(ids, 0, 10));  // no remote unit: nothing to check
+}
+
+void test_node_ids_rejects_a_duplicate(void)
+{
+  constexpr uint8_t ids[]{ 15, 15, 17 };
+
+  TEST_ASSERT_FALSE(areValidNodeIds(ids, 2, 10));
+  TEST_ASSERT_TRUE(areValidNodeIds(ids, 1, 10));  // entries past the last unit are ignored
+}
+
+void test_node_ids_rejects_the_router_id(void)
+{
+  constexpr uint8_t ids[]{ 15, 10 };
+
+  TEST_ASSERT_FALSE(areValidNodeIds(ids, 2, 10));
+}
+
+void test_node_ids_rejects_out_of_range(void)
+{
+  constexpr uint8_t zero[]{ 0 };
+  constexpr uint8_t tooHigh[]{ 31 };
+  constexpr uint8_t bounds[]{ 1, 30 };
+
+  TEST_ASSERT_FALSE(areValidNodeIds(zero, 1, 10));
+  TEST_ASSERT_FALSE(areValidNodeIds(tooHigh, 1, 10));
+  TEST_ASSERT_TRUE(areValidNodeIds(bounds, 2, 10));
+}
+
+void test_node_ids_rejects_a_short_table(void)
+{
+  constexpr uint8_t ids[]{ 15 };
+
+  TEST_ASSERT_FALSE(areValidNodeIds(ids, 2, 10));
+}
+
+// ============================================================================
+// Sending - the radio replaced by a recorder
+// ============================================================================
+
+/** @brief Stands in for RFM69::send(): records who would have been sent what. */
+struct RecordingRadio
+{
+  uint8_t nodeId[8]{};
+  uint8_t payload[8]{};
+  uint8_t count{ 0 };
+
+  void operator()(uint8_t id, uint8_t data)
+  {
+    if (count < 8)
+    {
+      nodeId[count] = id;
+      payload[count] = data;
+    }
+    ++count;
+  }
+};
+
+static constexpr uint8_t sendMap[]{ Load::local(5), Load::remote(1), Load::remote(2), Load::remote(1) };
+static constexpr uint8_t sendIds[]{ 15, 16, 17 };
+
+void test_sendPending_addresses_each_unit_by_its_node_id(void)
+{
+  RemoteLoadCore< 2 > core;
+  RecordingRadio radio;
+  LoadStates states[4];
+
+  setStates(states, 0b1100);  // unit 1: loads 1 (off) and 3 (on) -> 0b10 ; unit 2: load 2 (on) -> 0b1
+  cycle(core, sendMap, states);
+  core.sendPending(sendIds, radio);
+
+  TEST_ASSERT_EQUAL_UINT8(2, radio.count);
+  TEST_ASSERT_EQUAL_UINT8(15, radio.nodeId[0]);
+  TEST_ASSERT_EQUAL_HEX8(0b10, radio.payload[0]);
+  TEST_ASSERT_EQUAL_UINT8(16, radio.nodeId[1]);
+  TEST_ASSERT_EQUAL_HEX8(0b1, radio.payload[1]);
+}
+
+void test_sendPending_drains_what_it_sends(void)
+{
+  RemoteLoadCore< 2 > core;
+  RecordingRadio radio;
+  LoadStates states[4];
+
+  setStates(states, 0b1100);
+  cycle(core, sendMap, states);
+  core.sendPending(sendIds, radio);
+  core.sendPending(sendIds, radio);  // nothing new since
+
+  TEST_ASSERT_EQUAL_UINT8(2, radio.count);
+}
+
+void test_sendPending_only_addresses_the_unit_that_changed(void)
+{
+  RemoteLoadCore< 2 > core;
+  RecordingRadio radio;
+  LoadStates states[4];
+
+  setStates(states, 0b1100);
+  cycle(core, sendMap, states);
+  core.sendPending(sendIds, RecordingRadio{});  // flush the first cycle
+
+  setStates(states, 0b1000);  // only load 2 (unit 2) switches off
+  cycle(core, sendMap, states);
+  core.sendPending(sendIds, radio);
+
+  TEST_ASSERT_EQUAL_UINT8(1, radio.count);
+  TEST_ASSERT_EQUAL_UINT8(16, radio.nodeId[0]);
+  TEST_ASSERT_EQUAL_HEX8(0, radio.payload[0]);
+}
+
+void test_sendPending_refreshes_every_unit(void)
+{
+  RemoteLoadCore< 2 > core;
+  RecordingRadio radio;
+  LoadStates states[4];
+
+  setStates(states, 0b1100);
+  cycle(core, sendMap, states);
+  core.sendPending(sendIds, RecordingRadio{});
+
+  for (uint8_t i = 0; i < REMOTE_REFRESH_CYCLES; ++i)
+  {
+    cycle(core, sendMap, states);
+  }
+  core.sendPending(sendIds, radio);
+
+  TEST_ASSERT_EQUAL_UINT8(2, radio.count);
+  TEST_ASSERT_EQUAL_UINT8(15, radio.nodeId[0]);
+  TEST_ASSERT_EQUAL_UINT8(16, radio.nodeId[1]);
+}
+
+void test_sendPending_without_units_never_sends(void)
+{
+  RemoteLoadCore< 0 > core;
+  RecordingRadio radio;
+
+  core.sendPending(sendIds, radio);
+
+  TEST_ASSERT_EQUAL_UINT8(0, radio.count);
+}
+
+// ============================================================================
 
 int main(int, char **)
 {
@@ -503,6 +758,29 @@ int main(int, char **)
   RUN_TEST(test_reset_clears_every_unit);
   RUN_TEST(test_a_unit_beyond_the_core_is_ignored);
   RUN_TEST(test_out_of_range_accessors_are_safe);
+
+  RUN_TEST(test_overridePinOf_local_is_the_physical_pin);
+  RUN_TEST(test_overridePinOf_remote_is_a_virtual_pin);
+  RUN_TEST(test_load_masks_of_a_mixed_map);
+  RUN_TEST(test_load_masks_of_an_all_local_map);
+  RUN_TEST(test_masks_feed_the_override_config);
+
+  RUN_TEST(test_isValidMap_accepts_a_mixed_map);
+  RUN_TEST(test_isValidMap_rejects_unusable_local_pins);
+  RUN_TEST(test_isValidMap_rejects_the_unused_pin_sentinel);
+  RUN_TEST(test_isValidMap_checks_a_remote_status_led);
+
+  RUN_TEST(test_node_ids_accepts_distinct_ids);
+  RUN_TEST(test_node_ids_rejects_a_duplicate);
+  RUN_TEST(test_node_ids_rejects_the_router_id);
+  RUN_TEST(test_node_ids_rejects_out_of_range);
+  RUN_TEST(test_node_ids_rejects_a_short_table);
+
+  RUN_TEST(test_sendPending_addresses_each_unit_by_its_node_id);
+  RUN_TEST(test_sendPending_drains_what_it_sends);
+  RUN_TEST(test_sendPending_only_addresses_the_unit_that_changed);
+  RUN_TEST(test_sendPending_refreshes_every_unit);
+  RUN_TEST(test_sendPending_without_units_never_sends);
 
   return UNITY_END();
 }
