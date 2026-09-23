@@ -108,6 +108,7 @@ jobs:
           - test_utils_override
           - test_dc_offset_filter
           - test_power_rms_comparison
+          - test_remote_loads
     steps:
       - uses: actions/checkout@v7
         with:

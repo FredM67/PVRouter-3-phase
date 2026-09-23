@@ -8,9 +8,12 @@
  * IMPORTANT: This file must be included AFTER physicalLoadPin[], relays,
  * NO_OF_DUMPLOADS, NO_OF_REMOTE_LOADS, and RELAY_DIVERSION are defined in config.h.
  *
+ * physicalLoadPin[] holds one packed entry per dump load (see load_map.h); local and
+ * remote loads may be interleaved in any order.
+ *
  * @author Frederic Metrich (frederic.metrich@live.fr)
  * @version 0.2
- * @date 2026-01-29
+ * @date 2026-09-23
  * @copyright Copyright (c) 2025-2026
  */
 
@@ -20,41 +23,35 @@
 #include "utils_override.h"
 
 /**
+ * @brief Returns the pin number for any load (local or remote).
+ * @param loadNum The load index into physicalLoadPin[] (0-based).
+ * @return Physical pin for local loads, virtual pin (>= REMOTE_PIN_BASE) for remote loads.
+ */
+constexpr uint8_t LOAD(uint8_t loadNum)
+{
+  return overridePinOf(physicalLoadPin, loadNum);
+}
+
+/**
  * @brief Returns the physical pin number for a LOCAL load.
- * @param loadNum The local load index (0-based).
+ * @param loadNum The load index into physicalLoadPin[] (0-based).
  * @return The pin number for the local load.
+ * @note Kept for readability at the call site; identical to LOAD() for a local load.
  */
 constexpr uint8_t LOCAL_LOAD(uint8_t loadNum)
 {
-  return physicalLoadPin[loadNum];
+  return Load::pinOf(physicalLoadPin[loadNum]);
 }
 
 /**
  * @brief Returns the virtual pin number for a REMOTE load.
- * @param loadNum The remote load index (0-based).
+ * @param loadNum The remote load ordinal (0-based), counting remote loads only
+ *                in ascending physicalLoadPin[] order.
  * @return The virtual pin number (>= REMOTE_PIN_BASE).
  */
 constexpr uint8_t REMOTE_LOAD(uint8_t loadNum)
 {
   return REMOTE_PIN_BASE + loadNum;
-}
-
-/**
- * @brief Returns the pin number for any load (local or remote).
- * @param loadNum The load index (0-based, local loads first, then remote).
- * @return Physical pin for local loads, virtual pin for remote loads.
- */
-constexpr uint8_t LOAD(uint8_t loadNum)
-{
-  constexpr uint8_t numLocalLoads = NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS;
-  if (loadNum < numLocalLoads)
-  {
-    return physicalLoadPin[loadNum];
-  }
-  else
-  {
-    return REMOTE_PIN_BASE + (loadNum - numLocalLoads);
-  }
 }
 
 /**
@@ -74,12 +71,7 @@ constexpr uint8_t RELAY(uint8_t relayNum)
  */
 constexpr uint32_t ALL_LOCAL_LOADS()
 {
-  uint32_t mask{ 0 };
-  for (uint8_t i = 0; i < (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS); ++i)
-  {
-    bit_set(mask, physicalLoadPin[i]);
-  }
-  return mask;
+  return localLoadsMask(physicalLoadPin);
 }
 
 /**
@@ -88,12 +80,7 @@ constexpr uint32_t ALL_LOCAL_LOADS()
  */
 constexpr uint32_t ALL_REMOTE_LOADS()
 {
-  uint32_t mask{ 0 };
-  for (uint8_t i = 0; i < NO_OF_REMOTE_LOADS; ++i)
-  {
-    bit_set(mask, 16 + i);  // Set bit 16+i for remote load i
-  }
-  return mask;
+  return remoteLoadsMask(physicalLoadPin);
 }
 
 /**

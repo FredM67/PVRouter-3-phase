@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-02-02
+ * @date 2026-09-23
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -189,7 +189,12 @@ inline void printConfiguration()
     if constexpr (REMOTE_LOADS_PRESENT)
     {
       DBUG(F("  Remote loads to Node ID: "));
-      DBUGLN(SharedRF::REMOTE_NODE_ID);
+      for (uint8_t idx = 0; idx != NO_OF_REMOTE_UNITS; ++idx)
+      {
+        DBUG(SharedRF::REMOTE_NODE_ID[idx]);
+        DBUG(' ');
+      }
+      DBUGLN();
     }
   }
   else

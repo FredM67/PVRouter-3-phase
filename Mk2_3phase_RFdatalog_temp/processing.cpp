@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-09-21
+ * @date 2026-09-23
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -154,28 +154,18 @@ constexpr uint16_t getOutputPins()
 {
   uint16_t output_pins{ 0 };
 
-  // Local load pins
-  for (const auto &loadPin : physicalLoadPin)
+  // Local TRIAC pins, plus the optional status LED of each remote load
+  for (const auto &loadEntry : physicalLoadPin)
   {
-    if (bit_read(output_pins, loadPin))
+    const uint8_t pin{ Load::pinOf(loadEntry) };
+
+    if (!Load::isLocal(loadEntry) && (pin == 0))
+      continue;  // remote load without a status LED
+
+    if (bit_read(output_pins, pin))
       return 0;
 
-    bit_set(output_pins, loadPin);
-  }
-
-  // Remote load status LED pins (optional)
-  if constexpr (NO_OF_REMOTE_LOADS > 0)
-  {
-    for (const auto &ledPin : remoteLoadStatusLED)
-    {
-      if (ledPin != unused_pin)
-      {
-        if (bit_read(output_pins, ledPin))
-          return 0;
-
-        bit_set(output_pins, ledPin);
-      }
-    }
+    bit_set(output_pins, pin);
   }
 
   if constexpr (WATCHDOG_PIN_PRESENT)
@@ -309,15 +299,8 @@ void initializeProcessing()
 
   if constexpr (REMOTE_LOADS_PRESENT)
   {
-    // Initialize remote load support
-    if (initializeRemoteLoads())
-    {
-      DBUGLN(F("Remote loads initialized"));
-    }
-    else
-    {
-      DBUGLN(F("Remote loads initialization FAILED"));
-    }
+    remoteLoads.reset();
+    DBUGLN(F("Remote loads initialized"));
   }
 
   // First stop the ADC
@@ -369,51 +352,36 @@ void updatePortsStates()
   uint16_t pinsON{ 0 };
   uint16_t pinsOFF{ 0 };
 
-  // Update LOCAL loads only (remote loads are handled via RF in remote_loads.h)
-  constexpr uint8_t numLocalLoads = NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS;
-
-  if constexpr (numLocalLoads > 0)
+  // One pass over the load map. A local load drives its TRIAC pin; a remote load is
+  // driven over RF and only drives its optional status LED here, if it has one.
+  uint8_t i{ NO_OF_DUMPLOADS };
+  do
   {
-    uint8_t i{ numLocalLoads };
-    do
-    {
-      --i;
-      // update the local load's state
-      if (LoadStates::LOAD_OFF == physicalLoadState[i])
-      {
-        pinsOFF |= bit(physicalLoadPin[i]);
-      }
-      else
-      {
-        ++countLoadON[i];
-        pinsON |= bit(physicalLoadPin[i]);
-      }
-    } while (i);
-  }
+    --i;
 
-  // Update optional status LEDs for remote loads
-  if constexpr (NO_OF_REMOTE_LOADS > 0)
-  {
-    uint8_t remoteIdx{ NO_OF_REMOTE_LOADS };
-    do
-    {
-      --remoteIdx;
-      const uint8_t loadIdx = numLocalLoads + remoteIdx;
-      const uint8_t ledPin = remoteLoadStatusLED[remoteIdx];
+    const uint8_t loadEntry{ physicalLoadPin[i] };
+    // with an all-local map both of these fold away at compile time, leaving the original code
+    const uint8_t pin{ REMOTE_LOADS_PRESENT ? Load::pinOf(loadEntry) : loadEntry };
+    const bool bDrivesAPin{ !REMOTE_LOADS_PRESENT || Load::isLocal(loadEntry) || (pin != 0) };
 
-      if (ledPin != unused_pin)
+    if (LoadStates::LOAD_OFF == physicalLoadState[i])
+    {
+      if (bDrivesAPin)
       {
-        if (LoadStates::LOAD_OFF == physicalLoadState[loadIdx])
-        {
-          pinsOFF |= bit(ledPin);
-        }
-        else
-        {
-          pinsON |= bit(ledPin);
-        }
+        pinsOFF |= bit(pin);
       }
-    } while (remoteIdx);
-  }
+    }
+    else
+    {
+      // count ON-cycles on the load's *state*, so remote loads are datalogged too
+      ++countLoadON[i];
+
+      if (bDrivesAPin)
+      {
+        pinsON |= bit(pin);
+      }
+    }
+  } while (i);
 
   // Apply override bitmask directly to pinsON
   pinsON |= Shared::overrideBitmask;
@@ -470,43 +438,26 @@ void updatePhysicalLoadStates()
     }
   }
 
-  constexpr uint8_t numLocalLoads = NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS;
   const bool bDiversionEnabled{ Shared::b_diversionEnabled };
   uint8_t idx{ NO_OF_DUMPLOADS };
   do
   {
     --idx;
     const auto iLoad{ loadPrioritiesAndState[idx] & loadStateMask };
+    const uint8_t loadEntry{ physicalLoadPin[iLoad] };
 
-    // Check override based on load type (local vs remote)
-    bool bOverrideActive;
-    if (iLoad < numLocalLoads)
-    {
-      // Local load: check physical pin in local override bitmask
-      bOverrideActive = Shared::overrideBitmask & (1U << physicalLoadPin[iLoad]);
-    }
-    else
-    {
-      // Remote load: check remote index in remote override bitmask
-      const uint8_t remoteIndex = iLoad - numLocalLoads;
-      bOverrideActive = Shared::remoteOverrideBitmask & (1U << remoteIndex);
-    }
+    // Check override based on load type (local vs remote).
+    // With an all-local map the whole test folds down to the local branch.
+    const bool bOverrideActive{
+      (!REMOTE_LOADS_PRESENT || Load::isLocal(loadEntry))
+        // Local load: check physical pin in local override bitmask
+        ? (Shared::overrideBitmask & (1U << Load::pinOf(loadEntry))) != 0
+        // Remote load: check its ordinal in the remote override bitmask
+        : (Shared::remoteOverrideBitmask & (1U << Load::remoteOrdinal(physicalLoadPin, iLoad))) != 0
+    };
 
     physicalLoadState[iLoad] = bDiversionEnabled && (bOverrideActive || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   } while (idx);
-
-  if constexpr (REMOTE_LOADS_PRESENT)
-  {
-    // Map physical load states to remote load states
-    // Remote loads are the last NO_OF_REMOTE_LOADS entries in physicalLoadState
-    uint8_t i{ NO_OF_REMOTE_LOADS };
-    do
-    {
-      --i;
-      remoteLoadState[i] = physicalLoadState[numLocalLoads + i];
-    } while (i);
-    // Note: updateRemoteLoads() is called after updatePortsStates() in processStartNewCycle()
-  }
 }
 
 /**
@@ -849,8 +800,9 @@ void processStartNewCycle()
 
   if constexpr (REMOTE_LOADS_PRESENT)
   {
-    // Update remote loads AFTER local physical ports are updated
-    updateRemoteLoads();
+    // Rebuild the RF payloads AFTER local physical ports are updated.
+    // The actual transmission happens in loop(), never here.
+    remoteLoads.updateLoads< physicalLoadPin >(physicalLoadState);
   }
 
   if (loadPrioritiesAndState[0] & loadStateOnBit)

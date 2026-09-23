@@ -205,25 +205,27 @@ La première étape consiste à définir le nombre de sorties TRIAC :
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 2 };
 ```
 
-Ensuite, il faudra assigner les *pins* correspondantes **uniquement pour les charges locales** ainsi que l’ordre des priorités au démarrage.
+Ensuite, il faudra décrire chaque charge dans la **table des charges**, ainsi que l'ordre des priorités au démarrage.
+
 ```cpp
-inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 1 };  // 1 charge distante (contrôlée via RF)
-
-// Pins pour les charges LOCALES uniquement (les charges distantes sont contrôlées via RF)
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
-
-// Optionnel : LEDs d'état pour les charges distantes
-inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ unused_pin };
+// Une entrée par charge, dans n'importe quel ordre. Chaque entrée indique QUI pilote la charge :
+//   Load::local(pin)           - pilotée par le routeur lui-même, sur cette pin numérique
+//   Load::remote(unit)         - pilotée par l'unité distante 'unit' (1..3), par RF
+//   Load::remote(unit, ledPin) - idem, avec en plus une LED d'état sur le routeur
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+  Load::local(5),  // charge 0 : TRIAC sur D5
+  Load::local(6)   // charge 1 : TRIAC sur D6
+};
 
 // Ordre de priorités au démarrage (0 = priorité la plus haute, s'applique à TOUTES les charges)
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1 };
 ```
 
-**Important :**
-- `physicalLoadPin` ne contient que les pins des charges **locales** (TRIACs connectés directement)
-- Les charges **distantes** n’ont pas de pin physique sur le contrôleur principal (elles sont contrôlées via RF)
-- `remoteLoadStatusLED` permet optionnellement d’ajouter des LEDs d’état pour visualiser l’état des charges distantes
-- `loadPrioritiesAtStartup` définit l’ordre de priorité pour **toutes** les charges (locales + distantes). Les priorités 0 à (nombre de charges locales - 1) contrôlent les charges locales, les priorités suivantes contrôlent les charges distantes.
+**Important :**
+- `physicalLoadPin` contient **toutes** les charges, locales comme distantes — une entrée par charge, soit `NO_OF_DUMPLOADS` entrées
+- les charges locales et distantes peuvent être déclarées dans **n'importe quel ordre** ; `NO_OF_REMOTE_LOADS` et `NO_OF_REMOTE_UNITS` sont déduits de la table par le compilateur et ne doivent jamais être modifiés à la main
+- une charge **distante** n'a pas de pin TRIAC sur le routeur ; le second argument optionnel de `Load::remote()` ajoute une LED d'état permettant de visualiser son état localement
+- `loadPrioritiesAtStartup` définit l'ordre de priorité de **toutes** les charges et indexe la table : la priorité *p* en position *i* signifie « la charge *i* a la priorité *p* »
 
 ## Configuration des sorties relais tout-ou-rien
 Les sorties relais tout-ou-rien permettent d’alimenter des appareils qui contiennent de l’électronique (pompe à chaleur …).
@@ -359,88 +361,103 @@ Le système ne trie **pas** automatiquement les relais par seuil — il suit sim
 
 Le routeur peut contrôler des charges distantes via un module RF RFM69. Cette fonctionnalité permet de piloter des résistances ou des relais situés dans un autre emplacement, sans câblage supplémentaire.
 
+Jusqu'à **trois unités distantes** peuvent être pilotées, chacune étant un Arduino séparé, à son propre emplacement, et portant jusqu'à **8 charges**. Le routeur envoie un octet par unité, un bit par charge.
+
 ### Matériel requis
 
-**Pour l’émetteur (routeur principal) :**
-- Module RFM69W/CW ou RFM69HW/HCW (868 MHz pour l’Europe, 915 MHz pour l’Amérique du Nord)
+**Pour l'émetteur (routeur principal) :**
+- Module RFM69W/CW ou RFM69HW/HCW (868 MHz pour l'Europe, 915 MHz pour l'Amérique du Nord)
 - Antenne appropriée pour la fréquence choisie
 - Connexion SPI standard (D10=CS, D2=IRQ)
 
-**Pour le récepteur distant :**
+**Pour chaque récepteur distant :**
 - Arduino UNO ou compatible
-- Module RFM69 (même modèle que l’émetteur)
+- Module RFM69 (même modèle que l'émetteur)
 - TRIAC ou SSR pour commander les charges
-- LEDs optionnelles pour indication d’état (D5=verte watchdog, D7=rouge perte RF)
+- LEDs optionnelles pour indication d'état (D5=verte watchdog, D7=rouge perte RF)
 
 ### Configuration logicielle
 
-**Activation des fonctionnalités RF :**
+**Activation des fonctionnalités RF :**
 
-Le module RF peut être utilisé pour deux fonctionnalités indépendantes :
+Le module RF peut être utilisé pour deux fonctionnalités indépendantes :
 
-1. **Télémétrie RF** (`RF_LOGGING_PRESENT`) : Envoi des données de puissance/tension vers une passerelle
-2. **Charges distantes** (`REMOTE_LOADS_PRESENT`) : Contrôle de charges via RF
+1. **Télémétrie RF** (`RF_LOGGING_PRESENT`) : Envoi des données de puissance/tension vers une passerelle
+2. **Charges distantes** (`REMOTE_LOADS_PRESENT`) : Contrôle de charges via RF
 
-Pour activer le module RF avec contrôle de charges distantes, configurez dans **config.h** :
+La télémétrie RF s'active dans **config.h** :
 
 ```cpp
 inline constexpr bool RF_LOGGING_PRESENT{ false };       // Télémétrie RF (optionnel)
-inline constexpr bool REMOTE_LOADS_PRESENT{ true };      // Charges distantes (si NO_OF_REMOTE_LOADS > 0, sera automatiquement true)
 ```
 
-**Configuration des charges :**
+Le contrôle des charges distantes n'a pas d'interrupteur propre : dès que la table des charges contient au moins une entrée distante, `REMOTE_LOADS_PRESENT` devient vrai et le module RF est compilé.
 
-Définissez le nombre total de charges (locales + distantes) :
+**Configuration des charges :**
+
+Déclarez le nombre total de charges, puis indiquez qui pilote chacune d'elles :
 
 ```cpp
-inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 };        // Total : 3 charges
-inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 2 };     // Dont 2 charges distantes
-                                                       // Charges locales : 3 - 2 = 1
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 4 };  // Total : 4 charges
 
-// Pin pour la charge locale (TRIAC)
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5 };
-
-// LEDs optionnelles pour indiquer l’état des charges distantes
-inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS]{ 8, 9 };  // D8 et D9
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+  Load::local(5),      // charge 0 : TRIAC local sur D5
+  Load::remote(1, 8),  // charge 1 : unité distante 1, LED d'état sur D8
+  Load::remote(2, 9),  // charge 2 : unité distante 2, LED d'état sur D9
+  Load::remote(1)      // charge 3 : unité distante 1, sans LED d'état
+};
 ```
 
-**Priorités :**
+Le compilateur en déduit le reste :
 
-Les charges distantes ont **toujours** une priorité inférieure aux charges locales. Dans l’exemple ci-dessus :
-- Charge locale #0 (physicalLoadPin[0]) : priorité la plus haute
-- Charge distante #0 : priorité moyenne
-- Charge distante #1 : priorité la plus basse
+| Constante déduite | Valeur ici | Signification |
+|---|---|---|
+| `NO_OF_REMOTE_LOADS` | 3 | nombre d'entrées distantes dans la table (8 au maximum) |
+| `NO_OF_REMOTE_UNITS` | 2 | numéro d'unité le plus élevé utilisé (3 au maximum) |
+| `REMOTE_LOADS_PRESENT` | `true` | au moins une entrée distante |
 
-**Configuration RF (dans config_rf.h) :**
+Chaque unité distante reçoit un seul octet, **un bit par charge, dans l'ordre croissant de la table**. L'unité 1 ci-dessus reçoit donc le bit 0 pour la charge 1 et le bit 1 pour la charge 3 ; l'unité 2 reçoit le bit 0 pour la charge 2. Côté récepteur, `loadPins[0]` correspond au bit 0, `loadPins[1]` au bit 1, et ainsi de suite.
 
-Les paramètres par défaut sont :
-- Fréquence : 868 MHz (Europe)
-- ID réseau : 210
-- ID routeur : 10
-- ID unité distante : 15
+**Priorités :**
 
-Pour modifier ces paramètres, éditez **config_rf.h** :
+Charges locales et distantes partagent une seule liste de priorités et une seule rotation. Il n'y a plus de règle imposant aux charges distantes d'être en dernier — `loadPrioritiesAtStartup` donne l'ordre, quel que soit le mélange :
 
 ```cpp
-inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // ID du routeur (cet appareil)
-inline constexpr uint8_t GATEWAY_ID{ 1 };       // ID de la passerelle (télémétrie)
-inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // ID de l’unité distante
-inline constexpr uint8_t NETWORK_ID{ 210 };     // ID du réseau (1-255)
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2, 3 };
 ```
+
+**Configuration RF (dans config_rf.h) :**
+
+Les paramètres par défaut sont :
+- Fréquence : 868 MHz (Europe)
+- ID réseau : 210
+- ID routeur : 10
+- ID des unités distantes : 15, 16, 17
+
+Pour modifier ces paramètres, éditez **config_rf.h** :
+
+```cpp
+inline constexpr uint8_t ROUTER_NODE_ID{ 10 };            // ID du routeur (cet appareil)
+inline constexpr uint8_t GATEWAY_ID{ 1 };                 // ID de la passerelle (télémétrie)
+inline constexpr uint8_t REMOTE_NODE_ID[]{ 15, 16, 17 };  // Un ID par unité distante, l'unité 1 en premier
+inline constexpr uint8_t NETWORK_ID{ 210 };               // ID du réseau (1-255)
+```
+
+`REMOTE_NODE_ID[0]` est l'adresse de l'unité 1, `REMOTE_NODE_ID[1]` celle de l'unité 2, etc. Ces ID doivent être compris entre 1 et 30, distincts entre eux et différents de `ROUTER_NODE_ID` ; le compilateur le vérifie.
 
 ### Configuration du récepteur distant
 
-Le sketch **RemoteLoadReceiver** est fourni dans le dossier `RemoteLoadReceiver/`.
+Le sketch **RemoteLoadReceiver** est fourni dans le dossier `RemoteLoadReceiver/`. Il n'a besoin d'aucune modification pour gérer plusieurs unités : compilez-le et téléversez-le une fois par unité, en ne changeant que `REMOTE_NODE_ID` et la liste des charges.
 
-**Configuration minimale (dans config_rf.h du récepteur) :**
+**Configuration minimale (dans config_rf.h du récepteur) :**
 
 ```cpp
 // Configuration RF - doit correspondre au routeur
 inline constexpr uint8_t ROUTER_NODE_ID{ 10 };  // ID du routeur
-inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // ID de cette unité distante
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // ID de cette unité : le REMOTE_NODE_ID[unité - 1] du routeur
 inline constexpr uint8_t NETWORK_ID{ 210 };     // ID réseau
 
-// Configuration des charges
+// Configuration des charges - une entrée par bit de la trame, le bit 0 en premier
 inline constexpr uint8_t NO_OF_LOADS{ 2 };                    // Nombre de charges sur ce récepteur
 inline constexpr uint8_t loadPins[NO_OF_LOADS]{ 4, 3 };       // Pins des sorties TRIAC/SSR
 
@@ -450,19 +467,20 @@ inline constexpr uint8_t RED_LED_PIN{ 7 };          // LED rouge : perte liaison
 inline constexpr bool STATUS_LEDS_PRESENT{ true };  // Activer les LEDs
 ```
 
-**Sécurité :**
+**Sécurité :**
 
-Le récepteur désactive automatiquement **toutes les charges** si aucun message n’est reçu pendant plus de 500 ms. Cela garantit la sécurité en cas de perte de liaison RF.
+Le récepteur désactive automatiquement **toutes les charges** si aucun message n'est reçu pendant plus de 500 ms. Cela garantit la sécurité en cas de perte de liaison RF.
 
-**Test de la liaison :**
+**Test de la liaison :**
 
-Une fois configurés et téléversés, les deux Arduino communiquent automatiquement :
-- L’émetteur envoie l’état des charges toutes les ~100 ms (5 cycles secteur à 50 Hz)
+Une fois configurés et téléversés, le routeur et ses unités communiquent automatiquement :
+- Le routeur envoie l'état d'une unité dès qu'il change, et le rafraîchit sinon tous les 5 cycles secteur (~100 ms à 50 Hz) afin qu'un récepteur ayant manqué une trame, ou allumé tardivement, se remette à jour
+- Chaque unité est adressée séparément : un changement ne concernant que l'unité 2 ne génère aucun trafic vers l'unité 1
 - Le récepteur affiche les commandes reçues sur le port série
 - La LED verte clignote à 1 Hz (système actif)
 - La LED rouge clignote rapidement si la liaison RF est perdue
 
-**Diagnostic :**
+**Diagnostic :**
 
 Sur le moniteur série du récepteur, vous devriez voir :
 ```
