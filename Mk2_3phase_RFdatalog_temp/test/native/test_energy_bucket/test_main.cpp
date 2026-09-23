@@ -104,17 +104,6 @@ void test_typical_set_quantisation_error(void)
   }
 }
 
-void test_fixed_table_for_a_typical_calibration(void)
-{
-  // the whole table is built at compile time: the ISR indexes it by phase
-  constexpr auto table{ Energy::toFixed(typicalCal) };
-
-  TEST_ASSERT_EQUAL_UINT8(20, table.shift);
-  TEST_ASSERT_EQUAL_UINT16(44403, table.value[0]);
-  TEST_ASSERT_EQUAL_UINT16(45564, table.value[1]);
-  TEST_ASSERT_EQUAL_UINT16(45056, table.value[2]);
-}
-
 void test_valid_calibration_accepts_realistic_values(void)
 {
   constexpr bool valid{ Energy::isValidCalibration(typicalCal) };  // must be constexpr
@@ -288,14 +277,15 @@ void test_per_sample_agrees_with_the_division_path(void)
   // truncation of that division (< 1 raw unit, i.e. < 1 bucket unit), their two
   // roundings, and their two calibration quantisations (which may point opposite ways)
   constexpr auto table{ Energy::toFixedPerSample< N_MIN_50HZ, N_MAX_50HZ >(typicalCal) };
-  constexpr auto fixed{ Energy::toFixed(typicalCal) };
+  constexpr uint8_t shift{ Energy::calibrationShift(typicalCal) };
+  constexpr uint16_t calFixed{ Energy::toFixed(typicalCal[0], shift) };
 
   for (uint8_t n = N_MIN_50HZ; n <= N_MAX_50HZ; ++n)
   {
     for (int32_t sumP = -static_cast< int32_t >(n) * FULL_SCALE; sumP <= static_cast< int32_t >(n) * FULL_SCALE; sumP += 77777)
     {
       const int32_t direct{ Energy::contribution(sumP, table.value[0][n - N_MIN_50HZ], table.shift) };
-      const int32_t divided{ Energy::contribution(sumP / n, fixed.value[0], fixed.shift) };
+      const int32_t divided{ Energy::contribution(sumP / n, calFixed, shift) };
 
       TEST_ASSERT_TRUE_MESSAGE(fabs(static_cast< double >(direct - divided)) <= 2.0 + fabs(static_cast< double >(divided)) * 6e-5, "the per-sample and division paths disagree");
     }
@@ -392,7 +382,6 @@ int main(int, char **)
   RUN_TEST(test_toFixed_rounds_to_nearest);
   RUN_TEST(test_quantisation_error_is_negligible);
   RUN_TEST(test_typical_set_quantisation_error);
-  RUN_TEST(test_fixed_table_for_a_typical_calibration);
   RUN_TEST(test_valid_calibration_accepts_realistic_values);
   RUN_TEST(test_valid_calibration_rejects_zero_negative_and_huge_values);
 

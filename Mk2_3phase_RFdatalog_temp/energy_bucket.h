@@ -87,33 +87,6 @@ constexpr uint16_t toFixed(const float cal, const uint8_t shift)
 }
 
 /**
- * @brief The calibration values of every phase, in fixed point, with their shared shift.
- */
-template< uint8_t N >
-struct FixedCalibration
-{
-  uint16_t value[N]; /**< round(cal x 2^shift), one per phase */
-  uint8_t shift;     /**< shared by all phases */
-};
-
-/**
- * @brief Build the fixed-point calibration table at compile time.
- *
- * @param cal The power calibration values, one per phase.
- */
-template< uint8_t N >
-constexpr FixedCalibration< N > toFixed(const float (&cal)[N])
-{
-  FixedCalibration< N > table{};
-  table.shift = calibrationShift(cal);
-  for (uint8_t phase = 0; phase < N; ++phase)
-  {
-    table.value[phase] = toFixed(cal[phase], table.shift);
-  }
-  return table;
-}
-
-/**
  * @brief cal / n for every phase and every expected sample count n, in fixed point.
  *
  * @details One cycle's contribution is (sumP / n) x cal = sumP x (cal / n). With this
