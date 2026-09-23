@@ -802,7 +802,7 @@ void processStartNewCycle()
   {
     // Rebuild the RF payloads AFTER local physical ports are updated.
     // The actual transmission happens in loop(), never here.
-    remoteLoads.updateLoads(physicalLoadPin, physicalLoadState);
+    remoteLoads.updateLoads< physicalLoadPin >(physicalLoadState);
   }
 
   if (loadPrioritiesAndState[0] & loadStateOnBit)

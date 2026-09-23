@@ -20,11 +20,11 @@ void tearDown(void) {}
 // Helpers
 // ============================================================================
 
-/** @brief Run one mains cycle: feed the map and the states to the core. */
-template< uint8_t NumUnits, uint8_t NumLoads >
-static void cycle(RemoteLoadCore< NumUnits > &core, const uint8_t (&map)[NumLoads], const LoadStates (&states)[NumLoads])
+/** @brief Run one mains cycle: feed the states to the core, for the given map. */
+template< const auto &Map, uint8_t NumUnits, uint8_t NumLoads >
+static void cycle(RemoteLoadCore< NumUnits > &core, const LoadStates (&states)[NumLoads])
 {
-  core.updateLoads(map, states);
+  core.template updateLoads< Map >(states);
 }
 
 /** @brief Claim a unit's payload if a transmission is due, else return -1. */
@@ -137,7 +137,7 @@ void test_single_unit_payload(void)
   RemoteLoadCore< 1 > core;
 
   setStates(states, 0b101);
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_EQUAL_HEX8(0b101, core.payloadOf(0));
 }
@@ -148,7 +148,7 @@ void test_local_loads_are_ignored(void)
   LoadStates states[3]{ LoadStates::LOAD_ON, LoadStates::LOAD_OFF, LoadStates::LOAD_ON };
   RemoteLoadCore< 1 > core;
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_EQUAL_HEX8(0, core.payloadOf(0));
 }
@@ -161,7 +161,7 @@ void test_two_units_are_independent(void)
 
   // load 0 (unit 1, bit 0) and load 3 (unit 2, bit 1) are ON
   setStates(states, 0b1001);
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_EQUAL_HEX8(0b01, core.payloadOf(0));
   TEST_ASSERT_EQUAL_HEX8(0b10, core.payloadOf(1));
@@ -174,7 +174,7 @@ void test_three_units_one_load_each(void)
   RemoteLoadCore< 3 > core;
 
   setStates(states, 0b101);
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_EQUAL_HEX8(1, core.payloadOf(0));
   TEST_ASSERT_EQUAL_HEX8(0, core.payloadOf(1));
@@ -190,7 +190,7 @@ void test_interleaved_map(void)
 
   // everything ON: unit 1 holds loads 1 and 3, unit 2 holds load 2
   setStates(states, 0b1111);
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_EQUAL_HEX8(0b11, core.payloadOf(0));
   TEST_ASSERT_EQUAL_HEX8(0b01, core.payloadOf(1));
@@ -207,11 +207,11 @@ void test_first_load_of_a_unit_is_bit_zero(void)
   RemoteLoadCore< 1 > core;
 
   setStates(states, 0b001);
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_EQUAL_HEX8(0b001, core.payloadOf(0));
 
   setStates(states, 0b100);
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_EQUAL_HEX8(0b100, core.payloadOf(0));
 }
 
@@ -223,11 +223,11 @@ void test_eight_loads_on_one_unit(void)
   RemoteLoadCore< 1 > core;
 
   setStates(states, 0x80);
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_EQUAL_HEX8(0x80, core.payloadOf(0));
 
   setStates(states, 0xFF);
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_EQUAL_HEX8(0xFF, core.payloadOf(0));
 }
 
@@ -239,7 +239,7 @@ void test_index_alignment_with_a_leading_local_load(void)
   LoadStates states[3]{ LoadStates::LOAD_OFF, LoadStates::LOAD_ON, LoadStates::LOAD_OFF };
   RemoteLoadCore< 1 > core;
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_EQUAL_HEX8(0b01, core.payloadOf(0));
 }
@@ -254,7 +254,7 @@ void test_change_flags_a_transmission(void)
   LoadStates states[1]{ LoadStates::LOAD_ON };
   RemoteLoadCore< 1 > core;
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_TRUE(core.isPending(0));
   TEST_ASSERT_EQUAL(1, drain(core, 0));
@@ -266,7 +266,7 @@ void test_draining_clears_the_flag(void)
   LoadStates states[1]{ LoadStates::LOAD_ON };
   RemoteLoadCore< 1 > core;
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_EQUAL(1, drain(core, 0));
   TEST_ASSERT_FALSE(core.isPending(0));
@@ -279,10 +279,10 @@ void test_unchanged_state_does_not_flag(void)
   LoadStates states[1]{ LoadStates::LOAD_ON };
   RemoteLoadCore< 1 > core;
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_EQUAL(1, drain(core, 0));
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_FALSE(core.isPending(0));
 }
 
@@ -293,11 +293,11 @@ void test_payload_tracks_the_latest_state_even_if_unsent(void)
   RemoteLoadCore< 1 > core;
 
   setStates(states, 0b01);
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   // never drained
   setStates(states, 0b10);
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_EQUAL_HEX8(0b10, core.payloadOf(0));
   TEST_ASSERT_EQUAL(0b10, drain(core, 0));
@@ -309,13 +309,13 @@ void test_a_change_on_one_unit_does_not_flag_the_other(void)
   LoadStates states[2]{};
   RemoteLoadCore< 2 > core;
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
   // both start at 0, which matches the initial previousBitmask: nothing to send
   TEST_ASSERT_FALSE(core.isPending(0));
   TEST_ASSERT_FALSE(core.isPending(1));
 
   setStates(states, 0b01);
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_TRUE(core.isPending(0));
   TEST_ASSERT_FALSE(core.isPending(1));
@@ -331,16 +331,16 @@ void test_refresh_fires_on_the_fifth_unchanged_cycle(void)
   LoadStates states[1]{ LoadStates::LOAD_ON };
   RemoteLoadCore< 1 > core;
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_EQUAL(1, drain(core, 0));
 
   for (uint8_t i = 1; i < REMOTE_REFRESH_CYCLES; ++i)
   {
-    cycle(core, map, states);
+    cycle< map >(core, states);
     TEST_ASSERT_FALSE(core.isPending(0));
   }
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_TRUE(core.isPending(0));
   TEST_ASSERT_EQUAL(1, drain(core, 0));
 }
@@ -353,13 +353,13 @@ void test_refresh_counter_restarts_after_a_refresh(void)
 
   for (uint8_t i = 0; i < 2 * REMOTE_REFRESH_CYCLES + 1; ++i)
   {
-    cycle(core, map, states);
+    cycle< map >(core, states);
     uint8_t payload{ 0 };
     core.takePending(0, payload);
   }
 
   // two full refresh periods elapsed without the counter running away
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_FALSE(core.isPending(0));
 }
 
@@ -369,22 +369,22 @@ void test_a_change_restarts_the_refresh_counter(void)
   LoadStates states[1]{ LoadStates::LOAD_ON };
   RemoteLoadCore< 1 > core;
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_EQUAL(1, drain(core, 0));
 
   // three quiet cycles
   for (uint8_t i = 1; i < 4; ++i)
   {
-    cycle(core, map, states);
+    cycle< map >(core, states);
   }
 
   // a change, which resets the counter
   states[0] = LoadStates::LOAD_OFF;
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_EQUAL(0, drain(core, 0));
 
   // the refresh must now be a full period away, not one cycle away
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_FALSE(core.isPending(0));
 }
 
@@ -400,7 +400,7 @@ void test_all_off_still_refreshes(void)
 
   for (uint8_t i = 0; i < REMOTE_REFRESH_CYCLES; ++i)
   {
-    cycle(core, map, states);
+    cycle< map >(core, states);
   }
 
   TEST_ASSERT_TRUE(core.isPending(0));
@@ -413,7 +413,7 @@ void test_no_unit_configured_is_a_no_op(void)
   LoadStates states[2]{ LoadStates::LOAD_ON, LoadStates::LOAD_ON };
   RemoteLoadCore< 0 > core;
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_EQUAL(0, RemoteLoadCore< 0 >::size());
   TEST_ASSERT_FALSE(core.isPending(0));
@@ -426,7 +426,7 @@ void test_reset_clears_every_unit(void)
   LoadStates states[2]{ LoadStates::LOAD_ON, LoadStates::LOAD_ON };
   RemoteLoadCore< 2 > core;
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
   TEST_ASSERT_TRUE(core.isPending(0));
 
   core.reset();
@@ -444,7 +444,7 @@ void test_a_unit_beyond_the_core_is_ignored(void)
   LoadStates states[3]{ LoadStates::LOAD_ON, LoadStates::LOAD_ON, LoadStates::LOAD_ON };
   RemoteLoadCore< 2 > core;
 
-  cycle(core, map, states);
+  cycle< map >(core, states);
 
   TEST_ASSERT_EQUAL_HEX8(1, core.payloadOf(0));
   TEST_ASSERT_EQUAL_HEX8(1, core.payloadOf(1));
@@ -465,7 +465,7 @@ void test_out_of_range_accessors_are_safe(void)
 
 void test_overridePinOf_local_is_the_physical_pin(void)
 {
-  constexpr uint8_t map[]{ Load::local(5), Load::remote(1), Load::local(7) };
+  static constexpr uint8_t map[]{ Load::local(5), Load::remote(1), Load::local(7) };
 
   static_assert(overridePinOf(map, 0) == 5, "a local load keeps its pin");
 
@@ -476,7 +476,7 @@ void test_overridePinOf_local_is_the_physical_pin(void)
 void test_overridePinOf_remote_is_a_virtual_pin(void)
 {
   // the virtual pin counts remote loads across every unit, in map order
-  constexpr uint8_t map[]{ Load::remote(2), Load::local(5), Load::remote(1), Load::remote(2) };
+  static constexpr uint8_t map[]{ Load::remote(2), Load::local(5), Load::remote(1), Load::remote(2) };
 
   TEST_ASSERT_EQUAL_UINT8(REMOTE_PIN_BASE + 0, overridePinOf(map, 0));
   TEST_ASSERT_EQUAL_UINT8(5, overridePinOf(map, 1));
@@ -486,7 +486,7 @@ void test_overridePinOf_remote_is_a_virtual_pin(void)
 
 void test_load_masks_of_a_mixed_map(void)
 {
-  constexpr uint8_t map[]{ Load::local(5), Load::remote(1), Load::local(7), Load::remote(2) };
+  static constexpr uint8_t map[]{ Load::local(5), Load::remote(1), Load::local(7), Load::remote(2) };
 
   TEST_ASSERT_EQUAL_HEX32((1UL << 5) | (1UL << 7), localLoadsMask(map));
   TEST_ASSERT_EQUAL_HEX32((1UL << 16) | (1UL << 17), remoteLoadsMask(map));
@@ -494,7 +494,7 @@ void test_load_masks_of_a_mixed_map(void)
 
 void test_load_masks_of_an_all_local_map(void)
 {
-  constexpr uint8_t map[]{ Load::local(5), Load::local(6) };
+  static constexpr uint8_t map[]{ Load::local(5), Load::local(6) };
 
   TEST_ASSERT_EQUAL_HEX32((1UL << 5) | (1UL << 6), localLoadsMask(map));
   TEST_ASSERT_EQUAL_HEX32(0, remoteLoadsMask(map));
@@ -503,7 +503,7 @@ void test_load_masks_of_an_all_local_map(void)
 void test_masks_feed_the_override_config(void)
 {
   // what ALL_LOADS() and LOAD(n) hand to OverridePins in config.h
-  constexpr uint8_t map[]{ Load::local(5), Load::remote(1), Load::remote(2), Load::local(6) };
+  static constexpr uint8_t map[]{ Load::local(5), Load::remote(1), Load::remote(2), Load::local(6) };
   constexpr OverridePins pins{
     { KeyIndexPair< 8 >{ 4, localLoadsMask(map) | remoteLoadsMask(map) },
       KeyIndexPair< 8 >{ 3, { overridePinOf(map, 2) } } }
@@ -523,7 +523,7 @@ void test_masks_feed_the_override_config(void)
 
 void test_isValidMap_accepts_a_mixed_map(void)
 {
-  constexpr uint8_t map[]{ Load::local(2), Load::local(13), Load::remote(1), Load::remote(3, 9) };
+  static constexpr uint8_t map[]{ Load::local(2), Load::local(13), Load::remote(1), Load::remote(3, 9) };
 
   static_assert(Load::isValidMap(map), "a well-formed map must pass");
   TEST_ASSERT_TRUE(Load::isValidMap(map));
@@ -531,9 +531,9 @@ void test_isValidMap_accepts_a_mixed_map(void)
 
 void test_isValidMap_rejects_unusable_local_pins(void)
 {
-  constexpr uint8_t serialRx[]{ Load::local(0) };
-  constexpr uint8_t serialTx[]{ Load::local(1) };
-  constexpr uint8_t missing[]{ Load::local(14) };
+  static constexpr uint8_t serialRx[]{ Load::local(0) };
+  static constexpr uint8_t serialTx[]{ Load::local(1) };
+  static constexpr uint8_t missing[]{ Load::local(14) };
 
   TEST_ASSERT_FALSE(Load::isValidMap(serialRx));
   TEST_ASSERT_FALSE(Load::isValidMap(serialTx));
@@ -543,7 +543,7 @@ void test_isValidMap_rejects_unusable_local_pins(void)
 void test_isValidMap_rejects_the_unused_pin_sentinel(void)
 {
   // unused_pin is 0xFF, which decodes as unit 3 with a status LED on pin 63
-  constexpr uint8_t map[]{ Load::local(5), 0xFF };
+  static constexpr uint8_t map[]{ Load::local(5), 0xFF };
 
   static_assert(!Load::isValidMap(map), "the unused_pin sentinel must be caught");
   TEST_ASSERT_FALSE(Load::isValidMap(map));
@@ -551,9 +551,9 @@ void test_isValidMap_rejects_the_unused_pin_sentinel(void)
 
 void test_isValidMap_checks_a_remote_status_led(void)
 {
-  constexpr uint8_t noLed[]{ Load::remote(1) };
-  constexpr uint8_t ledOnSerial[]{ Load::remote(1, 1) };
-  constexpr uint8_t ledOk[]{ Load::remote(1, 8) };
+  static constexpr uint8_t noLed[]{ Load::remote(1) };
+  static constexpr uint8_t ledOnSerial[]{ Load::remote(1, 1) };
+  static constexpr uint8_t ledOk[]{ Load::remote(1, 8) };
 
   TEST_ASSERT_TRUE(Load::isValidMap(noLed));
   TEST_ASSERT_FALSE(Load::isValidMap(ledOnSerial));
@@ -566,7 +566,7 @@ void test_isValidMap_checks_a_remote_status_led(void)
 
 void test_node_ids_accepts_distinct_ids(void)
 {
-  constexpr uint8_t ids[]{ 15, 16, 17 };
+  static constexpr uint8_t ids[]{ 15, 16, 17 };
 
   static_assert(areValidNodeIds(ids, 3, 10), "distinct in-range IDs must pass");
   TEST_ASSERT_TRUE(areValidNodeIds(ids, 3, 10));
@@ -575,7 +575,7 @@ void test_node_ids_accepts_distinct_ids(void)
 
 void test_node_ids_rejects_a_duplicate(void)
 {
-  constexpr uint8_t ids[]{ 15, 15, 17 };
+  static constexpr uint8_t ids[]{ 15, 15, 17 };
 
   TEST_ASSERT_FALSE(areValidNodeIds(ids, 2, 10));
   TEST_ASSERT_TRUE(areValidNodeIds(ids, 1, 10));  // entries past the last unit are ignored
@@ -583,16 +583,16 @@ void test_node_ids_rejects_a_duplicate(void)
 
 void test_node_ids_rejects_the_router_id(void)
 {
-  constexpr uint8_t ids[]{ 15, 10 };
+  static constexpr uint8_t ids[]{ 15, 10 };
 
   TEST_ASSERT_FALSE(areValidNodeIds(ids, 2, 10));
 }
 
 void test_node_ids_rejects_out_of_range(void)
 {
-  constexpr uint8_t zero[]{ 0 };
-  constexpr uint8_t tooHigh[]{ 31 };
-  constexpr uint8_t bounds[]{ 1, 30 };
+  static constexpr uint8_t zero[]{ 0 };
+  static constexpr uint8_t tooHigh[]{ 31 };
+  static constexpr uint8_t bounds[]{ 1, 30 };
 
   TEST_ASSERT_FALSE(areValidNodeIds(zero, 1, 10));
   TEST_ASSERT_FALSE(areValidNodeIds(tooHigh, 1, 10));
@@ -601,7 +601,7 @@ void test_node_ids_rejects_out_of_range(void)
 
 void test_node_ids_rejects_a_short_table(void)
 {
-  constexpr uint8_t ids[]{ 15 };
+  static constexpr uint8_t ids[]{ 15 };
 
   TEST_ASSERT_FALSE(areValidNodeIds(ids, 2, 10));
 }
@@ -638,7 +638,7 @@ void test_sendPending_addresses_each_unit_by_its_node_id(void)
   LoadStates states[4];
 
   setStates(states, 0b1100);  // unit 1: loads 1 (off) and 3 (on) -> 0b10 ; unit 2: load 2 (on) -> 0b1
-  cycle(core, sendMap, states);
+  cycle< sendMap >(core, states);
   core.sendPending(sendIds, radio);
 
   TEST_ASSERT_EQUAL_UINT8(2, radio.count);
@@ -655,7 +655,7 @@ void test_sendPending_drains_what_it_sends(void)
   LoadStates states[4];
 
   setStates(states, 0b1100);
-  cycle(core, sendMap, states);
+  cycle< sendMap >(core, states);
   core.sendPending(sendIds, radio);
   core.sendPending(sendIds, radio);  // nothing new since
 
@@ -669,11 +669,11 @@ void test_sendPending_only_addresses_the_unit_that_changed(void)
   LoadStates states[4];
 
   setStates(states, 0b1100);
-  cycle(core, sendMap, states);
+  cycle< sendMap >(core, states);
   core.sendPending(sendIds, RecordingRadio{});  // flush the first cycle
 
   setStates(states, 0b1000);  // only load 2 (unit 2) switches off
-  cycle(core, sendMap, states);
+  cycle< sendMap >(core, states);
   core.sendPending(sendIds, radio);
 
   TEST_ASSERT_EQUAL_UINT8(1, radio.count);
@@ -688,12 +688,12 @@ void test_sendPending_refreshes_every_unit(void)
   LoadStates states[4];
 
   setStates(states, 0b1100);
-  cycle(core, sendMap, states);
+  cycle< sendMap >(core, states);
   core.sendPending(sendIds, RecordingRadio{});
 
   for (uint8_t i = 0; i < REMOTE_REFRESH_CYCLES; ++i)
   {
-    cycle(core, sendMap, states);
+    cycle< sendMap >(core, states);
   }
   core.sendPending(sendIds, radio);
 

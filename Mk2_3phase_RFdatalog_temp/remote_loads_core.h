@@ -21,7 +21,7 @@
  *          or was powered up late - converges within 100 ms.
  *
  * @note This header has no Arduino dependency (its whole include closure is
- *       @c <stdint.h>, @c utils_bits.h and @c load_map.h) so it can be exercised
+ *       @c <stdint.h> and @c load_map.h) so it can be exercised
  *       by the native test suite.
  */
 
@@ -30,7 +30,6 @@
 
 #include <stdint.h>
 
-#include "utils_bits.h"
 #include "load_map.h"
 
 inline constexpr uint8_t REMOTE_REFRESH_CYCLES{ 5 }; /**< send a refresh every N mains cycles */
@@ -86,10 +85,10 @@ struct RemoteUnitState
  *
  * @tparam NumUnits Number of remote units, 0 to MAX_REMOTE_UNITS.
  *
- * @details The load map is passed in by reference-to-array rather than read from the
- *          @c physicalLoadPin[] global, which is what makes this class testable on the
- *          host. It costs nothing: there is a single call site, the map is a
- *          @c constexpr global, and @c NumLoads is a template argument.
+ * @details The load map is a template argument of updateLoads() rather than read from
+ *          the @c physicalLoadPin[] global: the tests pass maps of their own, and the
+ *          compiler resolves every load's unit and payload bit, so the ISR only tests
+ *          states and ORs bits.
  *
  *          The default constructor is @c constexpr and every member carries a
  *          brace-or-equal initialiser, so an instance at namespace scope is
@@ -114,40 +113,22 @@ public:
    * @details Called once per mains cycle, from the ADC ISR. Local entries of the map
    *          are skipped, as is any entry naming a unit beyond @c NumUnits.
    *
-   * @param loadMap The packed load map.
+   *          The map is a template argument, so the unit and the payload bit of every
+   *          load are resolved at compile time: what is left at run time is, per remote
+   *          load, one state test and one OR into a register.
+   *
+   * @tparam Map The packed load map; must have static storage (a namespace-scope
+   *             or @c static @c constexpr array).
    * @param loadStates The current state of each load, in the same index space.
    */
-  template< uint8_t NumLoads >
-  void updateLoads(const uint8_t (&loadMap)[NumLoads], const LoadStates (&loadStates)[NumLoads])
+  template< const auto &Map, uint8_t NumLoads >
+  void updateLoads(const LoadStates (&loadStates)[NumLoads])
   {
+    static_assert(sizeof(Map) == NumLoads, "one load state per entry of the load map");
+
     if constexpr (NumUnits > 0)
     {
-      uint8_t bitmask[NumUnits]{};
-      uint8_t nextBit[NumUnits]{};
-
-      for (uint8_t i = 0; i < NumLoads; ++i)
-      {
-        const uint8_t unit{ Load::unitOf(loadMap[i]) };
-
-        if ((unit == 0) || (unit > NumUnits))
-        {
-          continue;  // local load, or a unit we do not talk to
-        }
-
-        const uint8_t idx{ static_cast< uint8_t >(unit - 1) };
-
-        if (loadStates[i] == LoadStates::LOAD_ON)
-        {
-          bit_set(bitmask[idx], nextBit[idx]);
-        }
-
-        ++nextBit[idx];
-      }
-
-      for (uint8_t idx = 0; idx < NumUnits; ++idx)
-      {
-        schedule(idx, bitmask[idx]);
-      }
+      updateUnit< Map, 1 >(loadStates);
     }
   }
 
@@ -164,7 +145,7 @@ public:
    * @param payload Receives the bitmask to transmit.
    * @return true if a transmission is due.
    */
-  bool takePending(uint8_t unitIdx, uint8_t& payload)
+  bool takePending(uint8_t unitIdx, uint8_t &payload)
   {
     if ((unitIdx >= NumUnits) || !unitStates[unitIdx].pendingTransmission)
     {
@@ -188,7 +169,7 @@ public:
    * @param send Callable as @c send(uint8_t nodeId, uint8_t payload).
    */
   template< uint8_t NumIds, typename Send >
-  void sendPending(const uint8_t (&nodeIds)[NumIds], Send&& send)
+  void sendPending(const uint8_t (&nodeIds)[NumIds], Send &&send)
   {
     static_assert(NumIds >= NumUnits, "one node ID per remote unit");
 
@@ -226,11 +207,53 @@ public:
 
 private:
   /**
+   * @brief Build and schedule the payload of @p Unit, then of every unit after it.
+   */
+  template< const auto &Map, uint8_t Unit, uint8_t NumLoads >
+  void updateUnit(const LoadStates (&loadStates)[NumLoads])
+  {
+    schedule(Unit - 1, bitmaskOf< Map, Unit, 0 >(loadStates));
+
+    if constexpr (Unit < NumUnits)
+    {
+      updateUnit< Map, Unit + 1 >(loadStates);
+    }
+  }
+
+  /**
+   * @brief Payload of @p Unit, from map entry @p I onwards.
+   */
+  template< const auto &Map, uint8_t Unit, uint8_t I, uint8_t NumLoads >
+  static uint8_t bitmaskOf(const LoadStates (&loadStates)[NumLoads])
+  {
+    if constexpr (I == NumLoads)
+    {
+      return 0;
+    }
+    else
+    {
+      uint8_t bitmask{ bitmaskOf< Map, Unit, I + 1 >(loadStates) };
+
+      if constexpr (Load::unitOf(Map[I]) == Unit)
+      {
+        constexpr uint8_t bit{ static_cast< uint8_t >(1U << Load::bitOf(Map, I)) };
+
+        if (loadStates[I] == LoadStates::LOAD_ON)
+        {
+          bitmask |= bit;
+        }
+      }
+
+      return bitmask;
+    }
+  }
+
+  /**
    * @brief Record a unit's freshly computed payload and decide whether to send it.
    */
   void schedule(uint8_t unitIdx, uint8_t bitmask)
   {
-    auto& unit{ unitStates[unitIdx] };
+    auto &unit{ unitStates[unitIdx] };
 
     unit.tx_data = bitmask;
 
