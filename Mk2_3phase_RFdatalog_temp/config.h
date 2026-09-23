@@ -15,14 +15,13 @@
  * - 2 TRIAC outputs for dump loads
  *
  * @version 1.0
- * @date 2026-01-28
+ * @date 2026-09-21
  */
 
 #ifndef CONFIG_H
 #define CONFIG_H
 
 //--------------------------------------------------------------------------------------------------
-//#define RF_PRESENT  /**< this line must be commented out if the RFM12B module is not present */
 #define ENABLE_DEBUG /**< enable this line to include debugging print statements */
 //--------------------------------------------------------------------------------------------------
 
@@ -30,16 +29,15 @@
 #include "debug.h"
 #include "types.h"
 
-#include "utils_dualtariff.h"
-#include "utils_relay.h"
-
 // Serial output type - Human readable for initial setup and commissioning
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
 
 //--------------------------------------------------------------------------------------------------
 // Basic Configuration
 //
-inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< number of dump loads connected to the diverter */
+inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (local + remote) */
+
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 0 }; /**< number of remote loads controlled via RF (0 = disabled) */
 
 // Feature toggles - Basic setup without advanced features
 inline constexpr bool EMONESP_CONTROL{ false };
@@ -51,7 +49,13 @@ inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if th
 inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
+inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF data logging is needed */
 
+inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 }; /**< automatically true if remote loads configured */
+
+#include "utils_dualtariff.h"
+#include "utils_relay.h"
+#include "remote_loads.h"
 #include "utils_temp.h"
 
 // ----------- Pinout Assignments -----------
@@ -89,8 +93,17 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if te
 // Note: When using these pins for Home Assistant integration, ensure the ESP32
 // counterpart is properly configured to send the appropriate signals.
 
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{ 5, 6, 7 };         /**< for 3-phase PCB, Load #1/#2/#3 (Rev 2 PCB) */
-inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities and states at startup */
+// Physical pin assignments for LOCAL loads only (remote loads are controlled via RF)
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5, 6, 7 }; /**< Pins for local TRIAC outputs */
+
+// Optional status LED pins for REMOTE loads (set to unused_pin if not needed)
+// Note: Array size must match NO_OF_REMOTE_LOADS
+inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS > 0 ? NO_OF_REMOTE_LOADS : 1]{ unused_pin }; /**< Optional LEDs to show remote load status */
+
+// Load priority order at startup (array index = priority, 0 = highest)
+// Load indices: 0 to (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS - 1) are local loads,
+//               (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS) to (NO_OF_DUMPLOADS - 1) are remote loads
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
 
 // Set the value to 'unused_pin' when the pin is not needed (feature deactivated)
 inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
@@ -133,12 +146,26 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
 // This is an example of override pin configuration.
 // You can modify the pin numbers and associated loads/relays as needed.
 // Ensure that the pins used do not conflict with other functionalities in your setup.
-// This example does not make any sense, that's just to show how to use the class OverridePins
-// inline constexpr OverridePins overridePins{ { { 3, { RELAY(1), LOAD(1) } },
-//                                               { 4, ALL_LOADS() },
-//                                               { 11, { 1, LOAD(1), LOAD(2) } },
-//                                               { 12, { RELAY(0), 9, RELAY(2) } },
-//                                               { 13, ALL_LOADS_AND_RELAYS() } } }; /**< list of override pin/loads-relays pairs */
+//
+// Helper functions available:
+//   LOCAL_LOAD(n)     - Returns physical pin for local load n
+//   REMOTE_LOAD(n)    - Returns virtual pin for remote load n (>= 128)
+//   LOAD(n)           - Returns pin for any load (physical for local, virtual for remote)
+//   ALL_LOCAL_LOADS() - uint32_t bitmask, lower 16 bits for local load pins
+//   ALL_REMOTE_LOADS()- uint32_t bitmask, upper 16 bits for remote loads (bit 16 = remote 0)
+//   ALL_LOADS()       - uint32_t combining local (lower 16 bits) and remote (upper 16 bits)
+//   RELAY(n)          - Returns pin for relay n
+//   ALL_RELAYS()      - uint32_t bitmask, lower 16 bits for relay pins
+//   ALL_LOADS_AND_RELAYS() - uint32_t combining all loads and relays
+//
+// Example configurations:
+// inline constexpr OverridePins overridePins{
+//   { { 4, ALL_LOADS() },                                  // Control all loads (local + remote)
+//     { 5, ALL_LOCAL_LOADS() },                            // Control only local loads
+//     { 6, ALL_REMOTE_LOADS() },                           // Control only remote loads
+//     { 7, { LOCAL_LOAD(0), REMOTE_LOAD(1) } },            // Mixed: local load 0 + remote load 1
+//     { 8, { LOAD(0), LOAD(1), LOAD(2), LOAD(3) } },       // Using LOAD() for any load index
+//     { 9, ALL_LOADS_AND_RELAYS() } } };                   // All loads and relays
 
 inline constexpr OverridePins overridePins{ { { 4, ALL_LOADS() } } }; /**< list of override pin/loads-relays pairs */
 
@@ -152,22 +179,5 @@ inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } }; /**< list of temperature sensor Addresses */
 
 inline constexpr uint32_t ROTATION_AFTER_SECONDS{ 8UL * 3600UL }; /**< rotates load priorities after this period of inactivity */
-
-/* --------------------------------------
-   RF configuration (for the RFM12B module)
-   frequency options are RF12_433MHZ, RF12_868MHZ or RF12_915MHZ
-*/
-#ifdef RF_PRESENT
-
-#define RF69_COMPAT 0  // for the RFM12B
-// #define RF69_COMPAT 1 // for the RF69
-
-#define FREQ RF12_868MHZ
-
-inline constexpr int nodeID{ 10 };        /**<  RFM12B node ID */
-inline constexpr int networkGroup{ 210 }; /**< wireless network group - needs to be same for all nodes */
-inline constexpr int UNO{ 1 };            /**< for when the processor contains the UNO bootloader. */
-
-#endif  // RF_PRESENT
 
 #endif  // CONFIG_H

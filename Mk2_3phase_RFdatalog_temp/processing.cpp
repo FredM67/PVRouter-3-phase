@@ -19,6 +19,11 @@
 #include "shared_var.h"
 #include "mult_asm.h"
 
+// analogue input pins
+inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
+inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
+// ------------------------------------------
+
 // Define ideal bias, ADC mid-range, left aligned.
 constexpr uint16_t i_DCoffset_V_nom{ 511U << 6 }; /**< nominal mid-point value of ADC @ x64 scale */
 uint16_t i_DCoffset_V[NO_OF_PHASES]{};            /**< <--- for LPF */
@@ -104,7 +109,7 @@ bool beyondStartUpPeriod{ false }; /**< start-up delay, allows things to settle 
  *
  * @tparam T The type of the array elements (automatically deduced from the array)
  * @tparam N The number of elements in the array (automatically deduced)
- * 
+ *
  * @param[in,out] array Reference to the array to be initialized. All elements will be
  *                      overwritten with the specified value.
  * @param[in] value The value to assign to each element of the array. The type must be
@@ -149,12 +154,28 @@ constexpr uint16_t getOutputPins()
 {
   uint16_t output_pins{ 0 };
 
+  // Local load pins
   for (const auto &loadPin : physicalLoadPin)
   {
     if (bit_read(output_pins, loadPin))
       return 0;
 
     bit_set(output_pins, loadPin);
+  }
+
+  // Remote load status LED pins (optional)
+  if constexpr (NO_OF_REMOTE_LOADS > 0)
+  {
+    for (const auto &ledPin : remoteLoadStatusLED)
+    {
+      if (ledPin != unused_pin)
+      {
+        if (bit_read(output_pins, ledPin))
+          return 0;
+
+        bit_set(output_pins, ledPin);
+      }
+    }
   }
 
   if constexpr (WATCHDOG_PIN_PRESENT)
@@ -273,6 +294,32 @@ void initializeProcessing()
     loadPrioritiesAndState[i] &= loadStateMask;
   } while (i);
 
+  if constexpr (RF_CHIP_PRESENT)
+  {
+    // Initialize shared RF module
+    if (initialize_rf())
+    {
+      DBUGLN(F("RF module initialized"));
+    }
+    else
+    {
+      DBUGLN(F("RF module initialization FAILED"));
+    }
+  }
+
+  if constexpr (REMOTE_LOADS_PRESENT)
+  {
+    // Initialize remote load support
+    if (initializeRemoteLoads())
+    {
+      DBUGLN(F("Remote loads initialized"));
+    }
+    else
+    {
+      DBUGLN(F("Remote loads initialization FAILED"));
+    }
+  }
+
   // First stop the ADC
   bit_clear(ADCSRA, ADEN);
 
@@ -322,24 +369,51 @@ void updatePortsStates()
   uint16_t pinsON{ 0 };
   uint16_t pinsOFF{ 0 };
 
-  uint8_t i{ NO_OF_DUMPLOADS };
+  // Update LOCAL loads only (remote loads are handled via RF in remote_loads.h)
+  constexpr uint8_t numLocalLoads = NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS;
 
-  do
+  if constexpr (numLocalLoads > 0)
   {
-    --i;
-    // update the local load's state.
-    if (LoadStates::LOAD_OFF == physicalLoadState[i])
+    uint8_t i{ numLocalLoads };
+    do
     {
-      // setPinOFF(physicalLoadPin[i]);
-      pinsOFF |= bit(physicalLoadPin[i]);
-    }
-    else
+      --i;
+      // update the local load's state
+      if (LoadStates::LOAD_OFF == physicalLoadState[i])
+      {
+        pinsOFF |= bit(physicalLoadPin[i]);
+      }
+      else
+      {
+        ++countLoadON[i];
+        pinsON |= bit(physicalLoadPin[i]);
+      }
+    } while (i);
+  }
+
+  // Update optional status LEDs for remote loads
+  if constexpr (NO_OF_REMOTE_LOADS > 0)
+  {
+    uint8_t remoteIdx{ NO_OF_REMOTE_LOADS };
+    do
     {
-      ++countLoadON[i];
-      // setPinON(physicalLoadPin[i]);
-      pinsON |= bit(physicalLoadPin[i]);
-    }
-  } while (i);
+      --remoteIdx;
+      const uint8_t loadIdx = numLocalLoads + remoteIdx;
+      const uint8_t ledPin = remoteLoadStatusLED[remoteIdx];
+
+      if (ledPin != unused_pin)
+      {
+        if (LoadStates::LOAD_OFF == physicalLoadState[loadIdx])
+        {
+          pinsOFF |= bit(ledPin);
+        }
+        else
+        {
+          pinsON |= bit(ledPin);
+        }
+      }
+    } while (remoteIdx);
+  }
 
   // Apply override bitmask directly to pinsON
   pinsON |= Shared::overrideBitmask;
@@ -396,15 +470,43 @@ void updatePhysicalLoadStates()
     }
   }
 
+  constexpr uint8_t numLocalLoads = NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS;
   const bool bDiversionEnabled{ Shared::b_diversionEnabled };
   uint8_t idx{ NO_OF_DUMPLOADS };
   do
   {
     --idx;
     const auto iLoad{ loadPrioritiesAndState[idx] & loadStateMask };
-    const bool bOverrideActive = Shared::overrideBitmask & (1U << physicalLoadPin[iLoad]);
+
+    // Check override based on load type (local vs remote)
+    bool bOverrideActive;
+    if (iLoad < numLocalLoads)
+    {
+      // Local load: check physical pin in local override bitmask
+      bOverrideActive = Shared::overrideBitmask & (1U << physicalLoadPin[iLoad]);
+    }
+    else
+    {
+      // Remote load: check remote index in remote override bitmask
+      const uint8_t remoteIndex = iLoad - numLocalLoads;
+      bOverrideActive = Shared::remoteOverrideBitmask & (1U << remoteIndex);
+    }
+
     physicalLoadState[iLoad] = bDiversionEnabled && (bOverrideActive || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   } while (idx);
+
+  if constexpr (REMOTE_LOADS_PRESENT)
+  {
+    // Map physical load states to remote load states
+    // Remote loads are the last NO_OF_REMOTE_LOADS entries in physicalLoadState
+    uint8_t i{ NO_OF_REMOTE_LOADS };
+    do
+    {
+      --i;
+      remoteLoadState[i] = physicalLoadState[numLocalLoads + i];
+    } while (i);
+    // Note: updateRemoteLoads() is called after updatePortsStates() in processStartNewCycle()
+  }
 }
 
 /**
@@ -744,6 +846,12 @@ void processStartNewCycle()
   updatePhysicalLoadStates();  // allows the logical-to-physical mapping to be changed
 
   updatePortsStates();  // update the control ports for each of the physical loads
+
+  if constexpr (REMOTE_LOADS_PRESENT)
+  {
+    // Update remote loads AFTER local physical ports are updated
+    updateRemoteLoads();
+  }
 
   if (loadPrioritiesAndState[0] & loadStateOnBit)
   {
@@ -1163,12 +1271,12 @@ constexpr uint8_t _ADMUX{ (1 << REFS0) | (1 << ADLAR) };
 
 /**
  * @brief ADC channel context for circular linked list optimization
- * 
+ *
  * This structure replaces the switch-case logic in the ADC ISR with a more
  * efficient circular linked list approach. Minimal memory footprint.
- * 
+ *
  * Based on florentbr's optimization suggestion #1 for reducing ISR overhead.
- * 
+ *
  * @ingroup TimeCritical
  */
 struct adc_ctx_t

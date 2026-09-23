@@ -1,5 +1,6 @@
 # CI workflow for PVRouter-3-phase
-# Runs build and tests on push/PR to main and dev branches
+# Runs build and tests on all branches and PRs
+# Skips CI for documentation-only changes
 
 name: CI
 permissions:
@@ -8,9 +9,19 @@ permissions:
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [ '**' ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'LICENSE'
+      - '.gitignore'
   pull_request:
     branches: [ main, dev ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'LICENSE'
+      - '.gitignore'
 
 env:
   PROJECT_DIR: Mk2_3phase_RFdatalog_temp

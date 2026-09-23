@@ -3,9 +3,9 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2023-02-09
+ * @date 2026-02-02
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023-2026
  *
  */
 
@@ -56,6 +56,9 @@ inline void printConfiguration()
 #ifndef COMMIT_HASH
 #define COMMIT_HASH ("N/A")
 #endif
+#ifndef BUILD_ENV
+#define BUILD_ENV ("N/A")
+#endif
 
   DBUGLN();
   DBUGLN();
@@ -67,6 +70,9 @@ inline void printConfiguration()
   DBUG(F(BRANCH_NAME));
   DBUG(F("', commit "));
   DBUGLN(F(COMMIT_HASH));
+
+  DBUG(F("Build environment: "));
+  DBUGLN(F(BUILD_ENV));
 
   DBUG(F("Build on "));
 #ifdef CURRENT_TIME
@@ -159,16 +165,37 @@ inline void printConfiguration()
   }
 
   DBUG(F("RF capability "));
-#ifdef RF_PRESENT
-  DBUG(F("IS present, Freq = "));
-  if (FREQ == RF12_433MHZ)
-    DBUGLN(F("433 MHz"));
-  else if (FREQ == RF12_868MHZ)
-    DBUGLN(F("868 MHz"));
-  rf12_initialize(nodeID, FREQ, networkGroup);  // initialize RF
-#else
-  DBUGLN(F("is NOT present"));
-#endif
+  if constexpr (RF_CHIP_PRESENT)
+  {
+    DBUG(F("IS present, Freq = "));
+    if constexpr (SharedRF::FREQUENCY == RF69_433MHZ)
+      DBUGLN(F("433 MHz"));
+    else if constexpr (SharedRF::FREQUENCY == RF69_868MHZ)
+      DBUGLN(F("868 MHz"));
+    else if constexpr (SharedRF::FREQUENCY == RF69_915MHZ)
+      DBUGLN(F("915 MHz"));
+
+    DBUG(F("  Network ID: "));
+    DBUGLN(SharedRF::NETWORK_ID);
+    DBUG(F("  Node ID: "));
+    DBUGLN(SharedRF::ROUTER_NODE_ID);
+
+    if constexpr (RF_LOGGING_PRESENT)
+    {
+      DBUG(F("  Data logging to Gateway ID: "));
+      DBUGLN(SharedRF::GATEWAY_ID);
+    }
+
+    if constexpr (REMOTE_LOADS_PRESENT)
+    {
+      DBUG(F("  Remote loads to Node ID: "));
+      DBUGLN(SharedRF::REMOTE_NODE_ID);
+    }
+  }
+  else
+  {
+    DBUGLN(F("is NOT present"));
+  }
 
   DBUG(F("Datalogging capability "));
   if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
@@ -457,9 +484,10 @@ inline void sendResults(bool bOffPeak)
     return;  // reject the first datalogging which is incomplete !
   }
 
-#ifdef RF_PRESENT
-  send_rf_data();  // *SEND RF DATA*
-#endif
+  if constexpr (RF_LOGGING_PRESENT)
+  {
+    send_rf_data(tx_data);  // *SEND RF DATA*
+  }
 
   if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
   {
