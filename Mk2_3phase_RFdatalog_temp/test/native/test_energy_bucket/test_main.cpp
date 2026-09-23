@@ -223,8 +223,8 @@ void test_no_drift_over_one_minute(void)
 // ============================================================================
 
 // sample sets per mains cycle: ~32 at 50 Hz, ~26.7 at 60 Hz, with margin
-static constexpr uint8_t N_MIN_50HZ{ 26 };
-static constexpr uint8_t N_MAX_50HZ{ 38 };
+static constexpr uint8_t N_MIN_50HZ{ 28 };
+static constexpr uint8_t N_MAX_50HZ{ 36 };
 
 /** @brief The exact energy of one cycle: no truncating division, in bucket units. */
 static double exactReference(int32_t sumP, uint8_t n, float cal)
@@ -307,7 +307,7 @@ void test_per_sample_fallback_for_an_unexpected_cycle_length(void)
   // n outside the table (start-up, missing phase): the ISR rescales the sum to NMin
   // samples, (sumP / n) x NMin, and uses the NMin entry - same shift, no second path
   constexpr auto table{ Energy::toFixedPerSample< N_MIN_50HZ, N_MAX_50HZ >(typicalCal) };
-  static constexpr uint8_t unexpected[]{ 1, 5, 20, 25, 39, 64, 100, 255 };
+  static constexpr uint8_t unexpected[]{ 1, 5, 20, 27, 37, 64, 100, 255 };
 
   for (const uint8_t n : unexpected)
   {

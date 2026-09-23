@@ -42,7 +42,7 @@ constexpr uint8_t ADC_CLOCKS_PER_CONVERSION{ 13 };
 constexpr uint8_t ADC_PRESCALER{ 128 };
 constexpr uint32_t SAMPLE_SET_PERIOD_US{ 2UL * NO_OF_PHASES * ADC_CLOCKS_PER_CONVERSION * ADC_PRESCALER / (F_CPU / 1000000UL) }; /**< 624 us */
 constexpr uint8_t SAMPLE_SETS_PER_CYCLE{ 1000000UL / (SUPPLY_FREQUENCY * SAMPLE_SET_PERIOD_US) };                                /**< 32 at 50 Hz, 26 at 60 Hz */
-constexpr uint8_t SAMPLE_SETS_MARGIN{ 6 };                                                                                       /**< covers crossing jitter and frequency drift */
+constexpr uint8_t SAMPLE_SETS_MARGIN{ 4 };                                                                                       /**< covers crossing jitter and frequency drift */
 constexpr uint8_t N_MIN{ SAMPLE_SETS_PER_CYCLE - SAMPLE_SETS_MARGIN };
 constexpr uint8_t N_MAX{ SAMPLE_SETS_PER_CYCLE + SAMPLE_SETS_MARGIN };
 
