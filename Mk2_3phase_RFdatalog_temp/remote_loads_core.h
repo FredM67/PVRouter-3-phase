@@ -36,6 +36,41 @@
 inline constexpr uint8_t REMOTE_REFRESH_CYCLES{ 5 }; /**< send a refresh every N mains cycles */
 
 /**
+ * @brief Check the node IDs of the first @p numUnits remote units.
+ *
+ * @details Each must lie in 1..30, differ from the router's own ID, and be unique.
+ *
+ * @param nodeIds Node ID table, unit 1 first.
+ * @param numUnits Number of units actually addressed.
+ * @param routerId Node ID of the router itself.
+ */
+template< uint8_t NumIds >
+constexpr bool areValidNodeIds(const uint8_t (&nodeIds)[NumIds], uint8_t numUnits, uint8_t routerId)
+{
+  if (numUnits > NumIds)
+  {
+    return false;
+  }
+
+  for (uint8_t i = 0; i != numUnits; ++i)
+  {
+    if ((nodeIds[i] < 1) || (nodeIds[i] > 30) || (nodeIds[i] == routerId))
+    {
+      return false;
+    }
+
+    for (uint8_t j = 0; j < i; ++j)
+    {
+      if (nodeIds[i] == nodeIds[j])
+      {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+/**
  * @brief Transmission bookkeeping for one remote unit.
  */
 struct RemoteUnitState
@@ -140,6 +175,32 @@ public:
     payload = unitStates[unitIdx].tx_data;
 
     return true;
+  }
+
+  /**
+   * @brief Hand every pending payload to @p send, addressed to its unit's node ID.
+   *
+   * @details Unit @em n (index @em n-1) goes to @c nodeIds[n-1]. The radio stays out
+   *          of this class: the firmware passes a lambda around @c RFM69::send(),
+   *          the native tests one that records what would have been sent.
+   *
+   * @param nodeIds Node ID table, unit 1 first; at least @c NumUnits entries.
+   * @param send Callable as @c send(uint8_t nodeId, uint8_t payload).
+   */
+  template< uint8_t NumIds, typename Send >
+  void sendPending(const uint8_t (&nodeIds)[NumIds], Send&& send)
+  {
+    static_assert(NumIds >= NumUnits, "one node ID per remote unit");
+
+    for (uint8_t idx = 0; idx != NumUnits; ++idx)
+    {
+      uint8_t payload{ 0 };
+
+      if (takePending(idx, payload))
+      {
+        send(nodeIds[idx], payload);
+      }
+    }
   }
 
   /** @brief Current payload of a unit, whether or not it has been sent. */

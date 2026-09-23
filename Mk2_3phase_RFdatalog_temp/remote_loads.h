@@ -49,16 +49,11 @@ inline void processRemoteLoadTransmissions()
 {
   if constexpr (REMOTE_LOADS_PRESENT)
   {
-    for (uint8_t idx = 0; idx != NO_OF_REMOTE_UNITS; ++idx)
-    {
-      uint8_t payload{ 0 };
-
-      if (remoteLoads.takePending(idx, payload))
-      {
-        // fire and forget - no ACK, so the main loop is never blocked waiting on a reply
-        SharedRF::radio().send(RFConfig::REMOTE_NODE_ID[idx], &payload, sizeof(payload), false);
-      }
-    }
+    remoteLoads.sendPending(RFConfig::REMOTE_NODE_ID, [](uint8_t nodeId, uint8_t payload)
+                            {
+                              // fire and forget - no ACK, so the main loop is never blocked waiting on a reply
+                              SharedRF::radio().send(nodeId, &payload, sizeof(payload), false);
+                            });
   }
 }
 

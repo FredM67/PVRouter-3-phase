@@ -111,15 +111,15 @@ OverrideMasks getDualTariffForcingBitmask(const int16_t currentTemperature_x100)
     // Force load ON if temperature condition is met
     if (currentTemperature_x100 <= iTemperatureThreshold_x100)
     {
-      const uint8_t loadEntry{ physicalLoadPin[i] };
+      const uint8_t pin{ overridePinOf(physicalLoadPin, i) };
 
-      if (Load::isLocal(loadEntry))
+      if (pin < REMOTE_PIN_BASE)
       {
-        bit_set(forcing.local, Load::pinOf(loadEntry));
+        bit_set(forcing.local, pin);
       }
       else
       {
-        bit_set(forcing.remote, Load::remoteOrdinal(physicalLoadPin, i));
+        bit_set(forcing.remote, pin - REMOTE_PIN_BASE);
       }
     }
   } while (i);

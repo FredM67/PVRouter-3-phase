@@ -184,6 +184,36 @@ constexpr uint8_t bitOf(const uint8_t (&map)[N], uint8_t loadNum)
   }
   return bit;
 }
+
+/**
+ * @brief Check that every entry of a load map designates a usable pin.
+ *
+ * @details A local load needs a real TRIAC pin, 2..13 (0 and 1 are the serial
+ *          interface, 14 and above do not exist). A remote load needs no pin, but its
+ *          optional status LED, when present, obeys the same range.
+ *
+ *          This is also what catches an entry left at @c unused_pin: 0xFF decodes as
+ *          unit 3 / pin 63, which is out of range.
+ */
+template< uint8_t N >
+constexpr bool isValidMap(const uint8_t (&map)[N])
+{
+  for (const auto &entry : map)
+  {
+    const uint8_t pin{ pinOf(entry) };
+
+    if (!isLocal(entry) && (pin == 0))
+    {
+      continue;  // remote load without status LED
+    }
+
+    if ((pin < 2) || (pin > 13))
+    {
+      return false;
+    }
+  }
+  return true;
+}
 }  // namespace Load
 
 #endif  // LOAD_MAP_H

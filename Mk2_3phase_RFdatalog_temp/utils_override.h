@@ -24,7 +24,7 @@
  *
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @version 0.2
- * @date 2026-02-02
+ * @date 2026-09-23
  * @copyright Copyright (c) 2025-2026
  */
 
@@ -33,12 +33,63 @@
 
 #include "type_traits.hpp"
 
+#include "utils_bits.h"
+#include "load_map.h"
+
 /**
  * @brief Base value for virtual pins representing remote loads.
  * @details Values >= REMOTE_PIN_BASE are virtual pins for remote loads.
  *          REMOTE_LOAD(0) returns 128, REMOTE_LOAD(1) returns 129, etc.
  */
 inline constexpr uint8_t REMOTE_PIN_BASE{ 128 };
+
+/**
+ * @brief Override pin of a load: its physical pin if local, a virtual pin if remote.
+ *
+ * @details The virtual pin is REMOTE_PIN_BASE + the load's rank among the remote
+ *          loads, which is also its bit in the remote override bitmask.
+ *
+ * @param loadMap The packed load map.
+ * @param loadNum Index into the map.
+ */
+template< uint8_t N >
+constexpr uint8_t overridePinOf(const uint8_t (&loadMap)[N], uint8_t loadNum)
+{
+  return Load::isLocal(loadMap[loadNum])
+           ? Load::pinOf(loadMap[loadNum])
+           : static_cast< uint8_t >(REMOTE_PIN_BASE + Load::remoteOrdinal(loadMap, loadNum));
+}
+
+/**
+ * @brief Bitmask of the pins of every local load (lower 16 bits).
+ */
+template< uint8_t N >
+constexpr uint32_t localLoadsMask(const uint8_t (&loadMap)[N])
+{
+  uint32_t mask{ 0 };
+  for (const auto& entry : loadMap)
+  {
+    if (Load::isLocal(entry))
+    {
+      bit_set(mask, Load::pinOf(entry));
+    }
+  }
+  return mask;
+}
+
+/**
+ * @brief Bitmask of every remote load (bit 16 + remote rank).
+ */
+template< uint8_t N >
+constexpr uint32_t remoteLoadsMask(const uint8_t (&loadMap)[N])
+{
+  uint32_t mask{ 0 };
+  for (uint8_t i = 0; i != Load::countRemoteLoads(loadMap); ++i)
+  {
+    bit_set(mask, 16 + i);
+  }
+  return mask;
+}
 
 // Valid pins: 2-13, so valid mask is 0b11111111111100
 constexpr uint16_t validPinMask{ 0b11111111111100 };

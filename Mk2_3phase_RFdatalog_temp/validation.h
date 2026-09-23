@@ -117,11 +117,11 @@ constexpr uint16_t check_pins()
 
     // A remote load may legitimately have no status LED.
     // Note that a local entry left at 'unused_pin' (0xFF) decodes as unit 3 / pin 63,
-    // which check_load_map() rejects - the pin field alone cannot carry that sentinel.
+    // which Load::isValidMap() rejects - the pin field alone cannot carry that sentinel.
     if (!Load::isLocal(loadEntry) && (pin == 0))
       continue;
 
-    // out of range for the bitmask - check_load_map() reports what is actually wrong
+    // out of range for the bitmask - Load::isValidMap() reports what is actually wrong
     if (pin > 15)
       return 0;
 
@@ -191,66 +191,12 @@ constexpr uint16_t check_relay_pins()
   return pins_ok;
 }
 
-/**
- * @brief Check that every entry of the load map is well-formed
- *
- * @details A local entry must name a real, usable digital pin (2..13). This is what catches
- *          an entry left at @c unused_pin (0xFF): the packed encoding has no room for that
- *          sentinel, so 0xFF decodes as unit 3 with a status LED on pin 63, and the load would
- *          silently become a remote one. A remote entry may have no status LED (pin field 0),
- *          but if it has one, that pin must be usable too.
- */
-constexpr bool check_load_map()
-{
-  for (const auto &loadEntry : physicalLoadPin)
-  {
-    const uint8_t pin{ Load::pinOf(loadEntry) };
-
-    if (Load::isLocal(loadEntry))
-    {
-      // pins 0 & 1 are the serial interface, 14 and above do not exist
-      if ((pin < 2) || (pin > 13))
-        return false;
-    }
-    else if (pin != 0)
-    {
-      if ((pin < 2) || (pin > 13))
-        return false;
-    }
-  }
-
-  return true;
-}
-
-/**
- * @brief Check the node ID of each configured remote unit (range and uniqueness)
- */
-constexpr bool check_remote_node_ids()
-{
-  for (uint8_t i = 0; i != NO_OF_REMOTE_UNITS; ++i)
-  {
-    if ((RFConfig::REMOTE_NODE_ID[i] < 1) || (RFConfig::REMOTE_NODE_ID[i] > 30))
-      return false;
-
-    if (RFConfig::REMOTE_NODE_ID[i] == RFConfig::ROUTER_NODE_ID)
-      return false;
-
-    for (uint8_t j = 0; j < i; ++j)
-    {
-      if (RFConfig::REMOTE_NODE_ID[i] == RFConfig::REMOTE_NODE_ID[j])
-        return false;
-    }
-  }
-
-  return true;
-}
-
-static_assert(check_load_map(), "******** Wrong load map ! Each local load needs a pin in 2..13. Please check physicalLoadPin in your config.h ! ********");
+static_assert(Load::isValidMap(physicalLoadPin), "******** Wrong load map ! Each local load needs a pin in 2..13. Please check physicalLoadPin in your config.h ! ********");
 static_assert(Load::countUnits(physicalLoadPin) <= MAX_REMOTE_UNITS, "******** Too many remote units ! Please check physicalLoadPin in your config.h ! ********");
 static_assert(Load::maxLoadsPerUnit(physicalLoadPin) <= MAX_LOADS_PER_UNIT, "******** Too many loads on a single remote unit (one payload byte per unit) ! ********");
 static_assert(NO_OF_REMOTE_LOADS <= MAX_LOADS_PER_UNIT, "******** Too many remote loads (the override bitmask holds 8 of them) ! ********");
 static_assert(sizeof(RFConfig::REMOTE_NODE_ID) >= NO_OF_REMOTE_UNITS * sizeof(RFConfig::REMOTE_NODE_ID[0]), "******** REMOTE_NODE_ID needs one entry per remote unit ! Please check your config_rf.h ! ********");
-static_assert(!REMOTE_LOADS_PRESENT || check_remote_node_ids(), "******** Remote node IDs must be unique, differ from the router and lie between 1 and 30 ! ********");
+static_assert(areValidNodeIds(RFConfig::REMOTE_NODE_ID, NO_OF_REMOTE_UNITS, RFConfig::ROUTER_NODE_ID), "******** Remote node IDs must be unique, differ from the router and lie between 1 and 30 ! ********");
 
 static_assert(check_load_priorities(), "******** Load Priorities wrong ! Please check your config ! ********");
 static_assert(check_pins(), "******** Duplicate pin definition ! Please check your config ! ********");

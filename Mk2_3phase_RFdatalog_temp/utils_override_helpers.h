@@ -29,9 +29,7 @@
  */
 constexpr uint8_t LOAD(uint8_t loadNum)
 {
-  return Load::isLocal(physicalLoadPin[loadNum])
-           ? Load::pinOf(physicalLoadPin[loadNum])
-           : static_cast< uint8_t >(REMOTE_PIN_BASE + Load::remoteOrdinal(physicalLoadPin, loadNum));
+  return overridePinOf(physicalLoadPin, loadNum);
 }
 
 /**
@@ -73,15 +71,7 @@ constexpr uint8_t RELAY(uint8_t relayNum)
  */
 constexpr uint32_t ALL_LOCAL_LOADS()
 {
-  uint32_t mask{ 0 };
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
-  {
-    if (Load::isLocal(physicalLoadPin[i]))
-    {
-      bit_set(mask, Load::pinOf(physicalLoadPin[i]));
-    }
-  }
-  return mask;
+  return localLoadsMask(physicalLoadPin);
 }
 
 /**
@@ -90,12 +80,7 @@ constexpr uint32_t ALL_LOCAL_LOADS()
  */
 constexpr uint32_t ALL_REMOTE_LOADS()
 {
-  uint32_t mask{ 0 };
-  for (uint8_t i = 0; i != NO_OF_REMOTE_LOADS; ++i)
-  {
-    bit_set(mask, 16 + i);  // Set bit 16+i for remote load i
-  }
-  return mask;
+  return remoteLoadsMask(physicalLoadPin);
 }
 
 /**
