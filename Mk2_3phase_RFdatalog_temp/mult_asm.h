@@ -3,7 +3,7 @@
  * @author Based on florentbr's suggestions and avrfreertos optimizations
  * @brief Assembly-optimized multiplication functions for AVR microcontrollers
  * @version 0.1
- * @date 2026-01-30
+ * @date 2026-09-23
  *
  * @copyright Copyright (c) 2025-2026
  *
@@ -26,20 +26,20 @@
 
 /**
  * @brief Optimized 16×16→32 signed multiplication with assembly
- * 
+ *
  * This function performs a signed 16-bit × 16-bit multiplication returning
  * a 32-bit result using hand-optimized AVR assembly. It's significantly
  * faster than GCC's library multiplication functions.
- * 
+ *
  * @param result Reference to int32_t variable to store the result
  * @param a First 16-bit signed value
- * @param b Second 16-bit signed value  
- * 
+ * @param b Second 16-bit signed value
+ *
  * @note On AVR: ~15-20 cycles vs ~50+ cycles for library calls
  * @note Fallback available for non-AVR platforms
  * @note Based on avrfreertos and OpenMusicLabs techniques
  * @note Function provides type checking and debugging support
- * 
+ *
  * @ingroup TimeCritical
  */
 template< typename A, typename B >
@@ -123,22 +123,82 @@ static inline __attribute__((always_inline)) void multU16x16_to32(uint32_t& resu
 }
 
 /**
+ * @brief Optimized 24×16→40 unsigned multiplication, returning bits 8..39
+ *
+ * Computes (a × b) >> 8 without a 64-bit multiply (which would call __muldi3).
+ * Used by the integer energy bucket, where the product of an average power
+ * (up to 2^18) and a 16-bit calibration constant needs ~35 bits.
+ *
+ * @param result Reference to uint32_t variable to store (a × b) >> 8
+ * @param a Unsigned value, only its low 24 bits are used (must be < 2^24)
+ * @param b 16-bit unsigned value
+ *
+ * @note On AVR: 6 hardware multiplies, ~30 cycles
+ * @note The low byte of the product is dropped, not rounded
+ * @note Fallback available for non-AVR platforms
+ *
+ * @ingroup TimeCritical
+ */
+template< typename A, typename B >
+static inline __attribute__((always_inline)) void multU24x16_to32_hi8(uint32_t& result, A a, B b)
+{
+  static_assert(is_same_v< A, uint32_t >, "First argument must be uint32_t (24 bits used)");
+  static_assert(is_same_v< B, uint16_t >, "Second argument must be uint16_t");
+
+#ifdef __AVR__
+  // Byte k of the result is byte k+1 of the product; product byte 0 is dropped.
+  asm volatile(
+    "clr r26                \n\t"  // Clear temporary register
+    "mul %A1, %A2           \n\t"  // a0 * b0 -> product bytes 0-1
+    "mov %A0, r1            \n\t"  // keep byte 1 only
+    "clr %B0                \n\t"
+    "clr %C0                \n\t"
+    "clr %D0                \n\t"
+    "mul %A1, %B2           \n\t"  // a0 * b1 -> product bytes 1-2
+    "add %A0, r0            \n\t"
+    "adc %B0, r1            \n\t"
+    "adc %C0, r26           \n\t"
+    "mul %B1, %A2           \n\t"  // a1 * b0 -> product bytes 1-2
+    "add %A0, r0            \n\t"
+    "adc %B0, r1            \n\t"
+    "adc %C0, r26           \n\t"
+    "mul %B1, %B2           \n\t"  // a1 * b1 -> product bytes 2-3
+    "add %B0, r0            \n\t"
+    "adc %C0, r1            \n\t"
+    "adc %D0, r26           \n\t"
+    "mul %C1, %A2           \n\t"  // a2 * b0 -> product bytes 2-3
+    "add %B0, r0            \n\t"
+    "adc %C0, r1            \n\t"
+    "adc %D0, r26           \n\t"
+    "mul %C1, %B2           \n\t"  // a2 * b1 -> product bytes 3-4
+    "add %C0, r0            \n\t"
+    "adc %D0, r1            \n\t"  // no carry out: a < 2^24, b < 2^16
+    "clr r1                 \n\t"  // Restore r1 to zero
+    : "=&r"(result)
+    : "r"(a), "r"(b)
+    : "r26");
+#else
+  result = static_cast< uint32_t >((static_cast< uint64_t >(a) * b) >> 8);
+#endif
+}
+
+/**
  * @brief Optimized 16×8→16 signed multiplication with Q8 fractional
- * 
+ *
  * This function performs a signed 16-bit × unsigned 8-bit Q8 fractional
  * multiplication with rounding, returning a 16-bit result. The 8-bit value
  * is treated as a fraction (Q8 format: 8 fractional bits).
- * 
+ *
  * @param result Reference to int16_t variable to store the result
  * @param value 16-bit signed value
  * @param fraction 8-bit unsigned fraction (Q8 format: 0.0 to 0.996)
- * 
+ *
  * @note On AVR: ~9 cycles with built-in rounding
  * @note Q8 format: fraction = 256 * actual_fraction
  * @note Example: fraction=128 represents 0.5, fraction=64 represents 0.25
  * @note Based on avrfreertos and OpenMusicLabs techniques
  * @note Function provides type checking and debugging support
- * 
+ *
  * @ingroup TimeCritical
  */
 template< typename V, typename F >
@@ -165,13 +225,13 @@ static inline __attribute__((always_inline)) void mult16x8_q8(int16_t& result, V
 
 /**
  * @brief Convert floating-point fraction to Q8 format
- * 
+ *
  * Helper function to convert a floating-point fraction (0.0 to 1.0)
  * to the Q8 format used by mult16x8_q8().
- * 
+ *
  * @param frac Floating-point fraction (0.0 to 1.0)
  * @return Q8 format value (0 to 255)
- * 
+ *
  * @note This is typically used at compile time with constexpr
  * @note Example: float_to_q8(0.5) returns 128
  */
@@ -182,13 +242,13 @@ constexpr uint8_t float_to_q8(float frac)
 
 /**
  * @brief Convert Q8 format back to floating-point
- * 
+ *
  * Helper function to convert Q8 format back to floating-point
  * for debugging and testing purposes.
- * 
+ *
  * @param q8_val Q8 format value (0 to 255)
  * @return Floating-point fraction (0.0 to ~1.0)
- * 
+ *
  * @note Primarily for testing and debugging
  */
 constexpr float q8_to_float(uint8_t q8_val)
