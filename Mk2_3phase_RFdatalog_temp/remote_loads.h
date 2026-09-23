@@ -42,10 +42,6 @@
  * @details Call this from the main loop to handle RF transmissions outside ISR context.
  *          This prevents blocking the ISR with RF communication delays.
  *
- *          The pending flags are written by the ISR, so each is claimed inside a short
- *          interrupts-off window. @c cli() carries a memory barrier, which is what keeps
- *          the compiler from caching the flag across the window.
- *
  * @note Declared here but only usable once @c remoteLoads is declared (end of config.h);
  *       it is a template-free inline function, so that is resolved at the call site.
  */
@@ -56,16 +52,8 @@ inline void processRemoteLoadTransmissions()
     for (uint8_t idx = 0; idx != NO_OF_REMOTE_UNITS; ++idx)
     {
       uint8_t payload{ 0 };
-      bool due{ false };
 
-      {
-        const uint8_t sreg{ SREG };
-        cli();
-        due = remoteLoads.takePending(idx, payload);
-        SREG = sreg;
-      }
-
-      if (due)
+      if (remoteLoads.takePending(idx, payload))
       {
         // fire and forget - no ACK, so the main loop is never blocked waiting on a reply
         SharedRF::radio().send(RFConfig::REMOTE_NODE_ID[idx], &payload, sizeof(payload), false);

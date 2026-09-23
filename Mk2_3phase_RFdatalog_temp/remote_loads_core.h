@@ -40,10 +40,10 @@ inline constexpr uint8_t REMOTE_REFRESH_CYCLES{ 5 }; /**< send a refresh every N
  */
 struct RemoteUnitState
 {
-  uint8_t tx_data{ 0 };               /**< payload to be sent: bitmask of this unit's loads */
-  uint8_t cyclesSinceLastUpdate{ 0 }; /**< mains cycles elapsed since the last transmission */
-  uint8_t previousBitmask{ 0 };       /**< last transmitted payload, for change detection */
-  bool pendingTransmission{ false };  /**< a send is due; set in the ISR, cleared in loop() */
+  uint8_t tx_data{ 0 };                       /**< payload to be sent: bitmask of this unit's loads */
+  uint8_t cyclesSinceLastUpdate{ 0 };         /**< mains cycles elapsed since the last transmission */
+  uint8_t previousBitmask{ 0 };               /**< last transmitted payload, for change detection */
+  volatile bool pendingTransmission{ false }; /**< a send is due; set in the ISR, cleared in loop() */
 };
 
 /**
@@ -120,8 +120,10 @@ public:
    * @brief Claim a pending transmission for one unit.
    *
    * @details Clears the pending flag, so a second call returns false until the state
-   *          changes again or the refresh period elapses. The caller must serialise
-   *          this against the ISR.
+   *          changes again or the refresh period elapses. Safe to call from loop()
+   *          without disabling interrupts: flag and payload are single bytes, and if
+   *          the ISR updates them in between, the newer payload is sent and the flag
+   *          stays set, so at worst the same byte goes out twice.
    *
    * @param unitIdx Zero-based unit index (unit number - 1).
    * @param payload Receives the bitmask to transmit.
