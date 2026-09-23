@@ -104,6 +104,37 @@ void test_typical_set_quantisation_error(void)
   }
 }
 
+void test_fixed_table_for_a_typical_calibration(void)
+{
+  // the whole table is built at compile time: the ISR indexes it by phase
+  constexpr auto table{ Energy::toFixed(typicalCal) };
+
+  TEST_ASSERT_EQUAL_UINT8(20, table.shift);
+  TEST_ASSERT_EQUAL_UINT16(44403, table.value[0]);
+  TEST_ASSERT_EQUAL_UINT16(45564, table.value[1]);
+  TEST_ASSERT_EQUAL_UINT16(45056, table.value[2]);
+}
+
+void test_valid_calibration_accepts_realistic_values(void)
+{
+  constexpr bool valid{ Energy::isValidCalibration(typicalCal) };  // must be constexpr
+
+  TEST_ASSERT_TRUE(valid);
+  TEST_ASSERT_TRUE(Energy::isValidCalibration(largeCal));
+  TEST_ASSERT_TRUE(Energy::isValidCalibration(smallCal));
+}
+
+void test_valid_calibration_rejects_zero_negative_and_huge_values(void)
+{
+  static constexpr float withZero[]{ 0.05F, 0.0F, 0.05F };
+  static constexpr float withNegative[]{ 0.05F, -0.05F, 0.05F };
+  static constexpr float huge[]{ 10.0F, 10.0F, 10.0F };  // leaves too few fractional bits
+
+  TEST_ASSERT_FALSE(Energy::isValidCalibration(withZero));
+  TEST_ASSERT_FALSE(Energy::isValidCalibration(withNegative));
+  TEST_ASSERT_FALSE(Energy::isValidCalibration(huge));
+}
+
 // ============================================================================
 // Contribution of one cycle, against the float reference
 // ============================================================================
@@ -220,6 +251,9 @@ int main(int, char **)
   RUN_TEST(test_toFixed_rounds_to_nearest);
   RUN_TEST(test_quantisation_error_is_negligible);
   RUN_TEST(test_typical_set_quantisation_error);
+  RUN_TEST(test_fixed_table_for_a_typical_calibration);
+  RUN_TEST(test_valid_calibration_accepts_realistic_values);
+  RUN_TEST(test_valid_calibration_rejects_zero_negative_and_huge_values);
 
   RUN_TEST(test_contribution_matches_the_reference_for_a_typical_calibration);
   RUN_TEST(test_contribution_matches_the_reference_for_extreme_calibrations);

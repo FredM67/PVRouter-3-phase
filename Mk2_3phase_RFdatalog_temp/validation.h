@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Compile-time validations
  * @version 0.1
- * @date 2026-01-29
+ * @date 2026-09-23
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -17,6 +17,8 @@
 #include "utils_rf.h"
 
 #include "config.h"
+#include "calibration.h"
+#include "energy_bucket.h"
 
 /**
  * @note All these checks are done by the compiler.
@@ -29,6 +31,8 @@
 static_assert(SUPPLY_FREQUENCY == 50 || SUPPLY_FREQUENCY == 60, "******** SUPPLY_FREQUENCY must be 50 or 60 Hz ! ********");
 
 static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too long and will lead to overflow ! ****");
+
+static_assert(Energy::isValidCalibration(f_powerCal), "******** Wrong power calibration ! Each value of f_powerCal must be positive and below 8. Please check your calibration.h ! ********");
 
 static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == unused_pin), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
 static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == unused_pin), "******** Wrong pin value for diversion command. Please check your config.h ! ********");

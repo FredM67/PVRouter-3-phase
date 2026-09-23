@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-09-21
+ * @date 2026-09-23
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -18,6 +18,7 @@
 #include "utils_pins.h"
 #include "shared_var.h"
 #include "mult_asm.h"
+#include "energy_bucket.h"
 
 // analogue input pins
 inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
@@ -28,12 +29,15 @@ inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB,
 constexpr uint16_t i_DCoffset_V_nom{ 511U << 6 }; /**< nominal mid-point value of ADC @ x64 scale */
 uint16_t i_DCoffset_V[NO_OF_PHASES]{};            /**< <--- for LPF */
 
-/**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY */
-constexpr float f_capacityOfEnergyBucket_main{ static_cast< float >(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
+/**< main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY * 2^Energy::FRACTION_BITS */
+constexpr int32_t l_capacityOfEnergyBucket_main{ Energy::fromWatts(WORKING_ZONE_IN_JOULES * SUPPLY_FREQUENCY) };
 /**< for resetting flexible thresholds */
-constexpr float f_midPointOfEnergyBucket_main{ f_capacityOfEnergyBucket_main * 0.5F };
+constexpr int32_t l_midPointOfEnergyBucket_main{ l_capacityOfEnergyBucket_main / 2 };
 /**< threshold in anti-flicker mode - must not exceed 0.4 */
 constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1F };
+
+/**< power calibration in fixed point, built at compile time from f_powerCal */
+constexpr auto powerCalFixed{ Energy::toFixed(f_powerCal) };
 
 constexpr OutputModes outputMode{ OutputModes::NORMAL }; /**< Output mode to be used */
 
@@ -45,19 +49,19 @@ bool b_diversionStarted{ false }; /**< Tracks whether diversion has started */
  * @param lower True to set the lower threshold, false for higher
  * @return the corresponding threshold
  */
-constexpr auto initThreshold(const bool lower)
+constexpr int32_t initThreshold(const bool lower)
 {
-  return lower
-           ? f_capacityOfEnergyBucket_main * (0.5F - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0.0F))
-           : f_capacityOfEnergyBucket_main * (0.5F + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0.0F));
+  return static_cast< int32_t >(lower
+                                  ? l_capacityOfEnergyBucket_main * (0.5F - ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0.0F))
+                                  : l_capacityOfEnergyBucket_main * (0.5F + ((OutputModes::ANTI_FLICKER == outputMode) ? f_offsetOfEnergyThresholdsInAFmode : 0.0F)));
 }
 
-constexpr float f_lowerThreshold_default{ initThreshold(true) };  /**< lower default threshold set accordingly to the output mode */
-constexpr float f_upperThreshold_default{ initThreshold(false) }; /**< upper default threshold set accordingly to the output mode */
+constexpr int32_t l_lowerThreshold_default{ initThreshold(true) };  /**< lower default threshold set accordingly to the output mode */
+constexpr int32_t l_upperThreshold_default{ initThreshold(false) }; /**< upper default threshold set accordingly to the output mode */
 
-float f_energyInBucket_main{ 0.0F };  /**< main energy bucket (over all phases) */
-float f_lowerEnergyThreshold{ 0.0F }; /**< dynamic lower threshold */
-float f_upperEnergyThreshold{ 0.0F }; /**< dynamic upper threshold */
+int32_t l_energyInBucket_main{ 0 };  /**< main energy bucket (over all phases) */
+int32_t l_lowerEnergyThreshold{ 0 }; /**< dynamic lower threshold */
+int32_t l_upperEnergyThreshold{ 0 }; /**< dynamic upper threshold */
 
 // for improved control of multiple loads
 bool b_recentTransition{ false };                 /**< a load state has been recently toggled */
@@ -727,12 +731,12 @@ void proceedHighEnergyLevel()
   if (b_recentTransition)
   {
     // During the post-transition period, any increase in the energy level is noted.
-    f_upperEnergyThreshold = f_energyInBucket_main;
+    l_upperEnergyThreshold = l_energyInBucket_main;
 
     // the energy thresholds must remain within range
-    if (f_upperEnergyThreshold > f_capacityOfEnergyBucket_main)
+    if (l_upperEnergyThreshold > l_capacityOfEnergyBucket_main)
     {
-      f_upperEnergyThreshold = f_capacityOfEnergyBucket_main;
+      l_upperEnergyThreshold = l_capacityOfEnergyBucket_main;
     }
 
     // Only the active load may be switched during this period. All other loads must
@@ -776,12 +780,12 @@ void proceedLowEnergyLevel()
   if (b_recentTransition)
   {
     // During the post-transition period, any decrease in the energy level is noted.
-    f_lowerEnergyThreshold = f_energyInBucket_main;
+    l_lowerEnergyThreshold = l_energyInBucket_main;
 
     // the energy thresholds must remain within range
-    if (f_lowerEnergyThreshold < 0)
+    if (l_lowerEnergyThreshold < 0)
     {
-      f_lowerEnergyThreshold = 0;
+      l_lowerEnergyThreshold = 0;
     }
 
     // Only the active load may be switched during this period. All other loads must
@@ -822,11 +826,11 @@ void processStartNewCycle()
   // for optimization, the next line is equivalent to the two lines above
   b_recentTransition &= (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
 
-  if (f_energyInBucket_main > f_midPointOfEnergyBucket_main)
+  if (l_energyInBucket_main > l_midPointOfEnergyBucket_main)
   {
     // the energy state is in the upper half of the working range
-    f_lowerEnergyThreshold = f_lowerThreshold_default;  // reset the "opposite" threshold
-    if (f_energyInBucket_main > f_upperEnergyThreshold)
+    l_lowerEnergyThreshold = l_lowerThreshold_default;  // reset the "opposite" threshold
+    if (l_energyInBucket_main > l_upperEnergyThreshold)
     {
       // Because the energy level is high, some action may be required
       proceedHighEnergyLevel();
@@ -835,8 +839,8 @@ void processStartNewCycle()
   else
   {
     // the energy state is in the lower half of the working range
-    f_upperEnergyThreshold = f_upperThreshold_default;  // reset the "opposite" threshold
-    if (f_energyInBucket_main < f_lowerEnergyThreshold)
+    l_upperEnergyThreshold = l_upperThreshold_default;  // reset the "opposite" threshold
+    if (l_energyInBucket_main < l_lowerEnergyThreshold)
     {
       // Because the energy level is low, some action may be required
       proceedLowEnergyLevel();
@@ -866,13 +870,13 @@ void processStartNewCycle()
   // be applied  to the level of the energy bucket. This is to ensure correct operation
   // when conditions change, i.e. when import changes to export, and vice versa.
   //
-  if (f_energyInBucket_main > f_capacityOfEnergyBucket_main)
+  if (l_energyInBucket_main > l_capacityOfEnergyBucket_main)
   {
-    f_energyInBucket_main = f_capacityOfEnergyBucket_main;
+    l_energyInBucket_main = l_capacityOfEnergyBucket_main;
   }
-  else if (f_energyInBucket_main < 0)
+  else if (l_energyInBucket_main < 0)
   {
-    f_energyInBucket_main = 0;
+    l_energyInBucket_main = 0;
   }
 }
 
@@ -971,9 +975,9 @@ uint8_t nextLogicalLoadToBeRemoved()
  */
 void processLatestContribution(const uint8_t phase)
 {
-  // for efficiency, the energy scale is Joules * SUPPLY_FREQUENCY
+  // for efficiency, the energy scale is Joules * SUPPLY_FREQUENCY, in integer fixed point
   // add the latest energy contribution to the main energy accumulator
-  f_energyInBucket_main += (l_sumP[phase] / n_samplesDuringThisMainsCycle[phase]) * f_powerCal[phase];
+  l_energyInBucket_main += Energy::contribution(l_sumP[phase] / n_samplesDuringThisMainsCycle[phase], powerCalFixed.value[phase], powerCalFixed.shift);
 
   // apply any adjustment that is required.
   if (0 == phase)
@@ -981,10 +985,10 @@ void processLatestContribution(const uint8_t phase)
     // If diversion hasn't started yet, use start threshold, otherwise use regular offset
     if (!b_diversionStarted)
     {
-      f_energyInBucket_main -= DIVERSION_START_THRESHOLD_WATTS;
+      l_energyInBucket_main -= Energy::fromWatts(DIVERSION_START_THRESHOLD_WATTS);
 
       // Check if we've exceeded the threshold to start diversion
-      if (f_energyInBucket_main > f_upperThreshold_default)
+      if (l_energyInBucket_main > l_upperThreshold_default)
       {
         b_diversionStarted = true;
         // Once started, we divert all surplus according to the configured fixed offset
@@ -994,7 +998,7 @@ void processLatestContribution(const uint8_t phase)
     {
       // When diversion is already started, apply normal export offset if configured
       // Comment or remove this if you want to divert ALL surplus once started
-      f_energyInBucket_main -= REQUIRED_EXPORT_IN_WATTS;
+      l_energyInBucket_main -= Energy::fromWatts(REQUIRED_EXPORT_IN_WATTS);
     }
 
     if (++perSecondCounter == SUPPLY_FREQUENCY)
@@ -1062,7 +1066,7 @@ void processDataLogging()
 
   Shared::copyOf_sampleSetsDuringThisDatalogPeriod = i_sampleSetsDuringThisDatalogPeriod;  // (for diags only)
   Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle = n_lowestNoOfSampleSetsPerMainsCycle;  // (for diags only)
-  Shared::copyOf_energyInBucket_main = f_energyInBucket_main;                              // (for diags only)
+  Shared::copyOf_energyInBucket_main = l_energyInBucket_main;                              // (for diags only)
 
   n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
   i_sampleSetsDuringThisDatalogPeriod = 0;
@@ -1226,12 +1230,12 @@ void printParamsForSelectedOutputMode()
     DBUG(F("\toffsetOfEnergyThresholds  = "));
     DBUGLN(f_offsetOfEnergyThresholdsInAFmode);
   }
-  DBUG(F("\tf_capacityOfEnergyBucket_main = "));
-  DBUGLN(f_capacityOfEnergyBucket_main);
-  DBUG(F("\tf_lowerEnergyThreshold   = "));
-  DBUGLN(f_lowerThreshold_default);
-  DBUG(F("\tf_upperEnergyThreshold   = "));
-  DBUGLN(f_upperThreshold_default);
+  DBUG(F("\tl_capacityOfEnergyBucket_main = "));
+  DBUGLN(l_capacityOfEnergyBucket_main);
+  DBUG(F("\tl_lowerEnergyThreshold   = "));
+  DBUGLN(l_lowerThreshold_default);
+  DBUG(F("\tl_upperEnergyThreshold   = "));
+  DBUGLN(l_upperThreshold_default);
 }
 
 /**

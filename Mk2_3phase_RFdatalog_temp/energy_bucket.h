@@ -71,6 +71,54 @@ constexpr uint16_t toFixed(const float cal, const uint8_t shift)
 }
 
 /**
+ * @brief The calibration values of every phase, in fixed point, with their shared shift.
+ */
+template< uint8_t N >
+struct FixedCalibration
+{
+  uint16_t value[N]; /**< round(cal x 2^shift), one per phase */
+  uint8_t shift;     /**< shared by all phases */
+};
+
+/**
+ * @brief Build the fixed-point calibration table at compile time.
+ *
+ * @param cal The power calibration values, one per phase.
+ */
+template< uint8_t N >
+constexpr FixedCalibration< N > toFixed(const float (&cal)[N])
+{
+  FixedCalibration< N > table{};
+  table.shift = calibrationShift(cal);
+  for (uint8_t phase = 0; phase < N; ++phase)
+  {
+    table.value[phase] = toFixed(cal[phase], table.shift);
+  }
+  return table;
+}
+
+/**
+ * @brief Check that the calibration values can be represented.
+ *
+ * @details Every value must be positive, and the largest must leave enough fractional
+ *          bits for contribution(): shift >= FRACTION_BITS + 9, i.e. values below ~8.
+ *
+ * @param cal The power calibration values, one per phase.
+ */
+template< uint8_t N >
+constexpr bool isValidCalibration(const float (&cal)[N])
+{
+  for (const auto value : cal)
+  {
+    if (!(value > 0.0F))
+    {
+      return false;
+    }
+  }
+  return calibrationShift(cal) >= FRACTION_BITS + 9;
+}
+
+/**
  * @brief Contribution of one mains cycle of one phase to the bucket.
  *
  * @param averagePower The phase's average power over the cycle, in V_ADC x I_ADC units
