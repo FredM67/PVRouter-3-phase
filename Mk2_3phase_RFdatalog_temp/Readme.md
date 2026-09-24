@@ -47,15 +47,13 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
 - [Configuration avancée du programme](#configuration-avancée-du-programme)
   - [Paramètre `DIVERSION_START_THRESHOLD_WATTS`](#paramètre-diversion_start_threshold_watts)
   - [Paramètre `REQUIRED_EXPORT_IN_WATTS`](#paramètre-required_export_in_watts)
-- [Configuration avec la carte d’extension ESP32](#configuration-avec-la-carte-dextension-esp32)
-  - [Correspondance des broches](#correspondance-des-broches)
-  - [Configuration du pont `TEMP`](#configuration-du-pont-temp)
+- [Configuration avec le module mk2Wifi](#configuration-avec-le-module-mk2wifi)
+  - [Liaisons entre le routeur et le module](#liaisons-entre-le-routeur-et-le-module)
+  - [Choix des broches D5–D9](#choix-des-broches-d5d9)
+  - [Cavalier `TEMP`](#cavalier-temp)
   - [Configuration recommandée](#configuration-recommandée)
-    - [Configuration de base recommandée](#configuration-de-base-recommandée)
-    - [Fonctionnalités additionnelles recommandées](#fonctionnalités-additionnelles-recommandées)
-    - [Installation des sondes de température](#installation-des-sondes-de-température)
   - [Liaison avec Home Assistant](#liaison-avec-homeassistant)
-- [Configuration sans carte d’extension](#configuration-sans-carte-dextension)
+- [Configuration sans module mk2Wifi](#configuration-sans-module-mk2wifi)
 - [Dépannage](#dépannage)
 - [Contribuer](#contribuer)
 
@@ -880,101 +878,92 @@ Une valeur négative obligera le routeur à consommer cette puissance depuis le 
 > Contrairement au premier paramètre, celui-ci représente un décalage permanent qui est continuellement soustrait du surplus disponible.
 > Si réglé à 20 W par exemple, le système réservera **toujours** 20 W pour l’exportation, indépendamment des autres conditions.
 
-# Configuration avec la carte d’extension ESP32
+# Configuration avec le module mk2Wifi
 
-La carte d’extension ESP32 permet une intégration simple et fiable entre le Mk2PVRouter et un ESP32 pour le contrôle à distance via Home Assistant. Cette section détaille comment configurer correctement le Mk2PVRouter lorsque vous utilisez cette carte d’extension.
+Le module **mk2Wifi** relie un **ESP32-C6** (WiFi 6, Bluetooth LE, Zigbee, Thread) au Mk2PVRouter, pour la supervision et le contrôle à distance depuis Home Assistant via ESPHome. Il se branche sur les connecteurs `UART_EXT` et `TRIG_EXT` de la carte mère et remplace l’ancienne carte d’extension ESP32.
 
-## Correspondance des broches
-Lorsque vous utilisez la carte d’extension ESP32, les connexions entre le Mk2PVRouter et l’ESP32 sont prédéfinies comme suit :
+Le matériel, son installation et le dépannage sont documentés sur les [pages mk2Wifi](https://fredm67.github.io/Mk2PVRouter/mk2wifi/presentation-mk2wifi/), et la configuration ESPHome dans [ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Cette section ne traite que du côté routeur.
 
-| ESP32  | Mk2PVRouter | Fonction                              |
-| ------ | ----------- | ------------------------------------- |
-| GPIO12 | D12         | Entrée/Sortie numérique - Usage libre |
-| GPIO13 | D11         | Entrée/Sortie numérique - Usage libre |
-| GPIO14 | D13         | Entrée/Sortie numérique - Usage libre |
-| GPIO27 | D10         | Entrée/Sortie numérique - Usage libre |
-| GPIO5  | DS18B20     | Bus 1-Wire pour sondes de température |
+> [!CAUTION]
+> Ne branchez jamais l’USB-C du module lorsqu’il est enfiché sur la carte mère : les deux alimentations 5 V ne sont pas isolées.
 
-## Configuration du pont `TEMP`
-**Important** : Si vous souhaitez que l’ESP32 contrôle les sondes de température (recommandé pour l’intégration avec Home Assistant), **le pont `TEMP` sur la carte mère du routeur ne doit pas être soudé**.
-- **Pont `TEMP` non soudé** : L’ESP32 contrôle les sondes de température via GPIO5.
-- **Pont `TEMP` soudé** : Le Mk2PVRouter contrôle les sondes de température via D3.
+> [!IMPORTANT]
+> Le cavalier **V sel.** de la carte mère doit être en position **3,3 V** (3–centre) : l’ESP32-C6 ne tolère pas 5 V sur ses GPIO.
 
-## Configuration recommandée
-Pour une utilisation optimale avec Home Assistant, il est recommandé d’activer au minimum les fonctions suivantes :
+## Liaisons entre le routeur et le module
+| Liaison                | Routeur                | ESP32-C6                              | Remarques                                                                           |
+| ---------------------- | ---------------------- | ------------------------------------- | ----------------------------------------------------------------------------------- |
+| Série                  | TX / RX                | GPIO17 (U0RXD) / GPIO16 (U0TXD)       | 9600 bauds, 7E1 en mode `SerialOutputType::IoT`                                     |
+| Sondes de température  | Bus DS18B20            | GPIO23                                | Selon le cavalier `TEMP`                                                            |
+| E/S numériques         | D5 / D6 / D7 / D8 / D9 | GPIO0 / GPIO5 / GPIO4 / GPIO3 / GPIO1 | Via 1 kΩ, chacune par un pont de soudure sur le module (**ouvert** par défaut)      |
 
-### Configuration de base recommandée
-```cpp
-// Type de sortie série pour l’intégration IoT
-inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
+## Choix des broches D5–D9
+L’attribution des fonctions aux broches est entièrement libre : toute fonction du routeur commandée par une entrée (arrêt du routage, boost, rotation des priorités…) peut être placée sur n’importe laquelle des broches D5 à D9, à condition que le `config.h` du routeur et le YAML ESPHome utilisent les mêmes broches. Sur le module, ne fermez que les ponts de soudure des broches réellement utilisées.
 
-// Fonctions essentielles recommandées
-inline constexpr bool DIVERSION_PIN_PRESENT{ true };    // Arrêt du routage
-inline constexpr bool OVERRIDE_PIN_PRESENT{ true };     // Boost
+> [!WARNING]
+> D5 à D9 sont aussi des broches du routeur : par défaut, les charges TRIAC utilisent **D5, D6 et D7** (`physicalLoadPin`). Ne fermez que les ponts des broches libres dans votre configuration. Le compilateur refuse une broche attribuée deux fois dans `config.h`, mais il ne peut pas savoir quels ponts sont fermés sur le module.
 
-// Pin configuration selon la correspondance de la carte d’extension
-inline constexpr uint8_t diversionPin{ 12 };     // D12 - arrêt du routage
+## Cavalier `TEMP`
+Le cavalier `TEMP` de la carte mère détermine qui lit les sondes DS18B20 :
+- **3–centre** : l’ESP32-C6 les gère (recommandé pour Home Assistant). Désactivez alors la gestion des températures côté routeur : `TEMP_SENSOR_PRESENT{ false }`.
+- autre position : le routeur les lit, comme décrit dans la section sur les capteurs de température.
 
-// Configuration du boost flexible
-inline constexpr OverridePins overridePins{ { { 11, ALL_LOADS_AND_RELAYS() } } }; // D11 - boost
-
-// Configuration pour les sondes de température
-// IMPORTANT: Désactiver la gestion de température dans le Mk2PVRouter
-// si l’ESP32 gère les sondes (pont TEMP non soudé)
-inline constexpr bool TEMP_SENSOR_PRESENT{ false };  // Désactivé car géré par l’ESP32
-```
-
-> [!NOTE]
-> La configuration de la sortie série sur `SerialOutputType::IoT` n’est pas strictement obligatoire pour le fonctionnement du routeur. Cependant, elle est nécessaire si vous souhaitez exploiter les données du routeur dans Home Assistant (puissance instantanée, statistiques, etc.). Sans cette configuration, seules les fonctions de contrôle (boost, arrêt routage) seront disponibles dans Home Assistant.
-
-### Fonctionnalités additionnelles recommandées
-Pour une intégration encore plus complète, vous pouvez également ajouter ces fonctionnalités :
-```cpp
-// Rotation des priorités via pin (optionnel)
-inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
-inline constexpr uint8_t rotationPin{ 10 };      // D10 - rotation des priorités
-```
-
-### Installation des sondes de température
-Pour l’installation des sondes de température :
-- Assurez-vous que le pont `TEMP` n’est **pas** soudé sur la carte mère du routeur
-- Connectez vos sondes DS18B20 directement via les connecteurs dédiés sur la carte mère du Mk2PVRouter
-- Configurez les sondes dans ESPHome (aucune configuration n’est nécessaire côté Mk2PVRouter)
-
-L’utilisation de l’ESP32 pour gérer les sondes de température présente plusieurs avantages :
+Confier les sondes à l’ESP32-C6 présente plusieurs avantages :
 - Visualisation des températures directement dans Home Assistant
 - Possibilité de créer des automatisations basées sur les températures
 - Configuration plus flexible des sondes sans avoir à reprogrammer le Mk2PVRouter
 
+## Configuration recommandée
+L’exemple suivant correspond au YAML du gist : **D8** pour l’arrêt du routage, **D9** pour le boost. Fermez les ponts de soudure D8 et D9 sur le module.
+
+```cpp
+// Sortie série pour Home Assistant (9600 bauds, 7E1)
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
+
+// Arrêt du routage sur D8
+inline constexpr bool DIVERSION_PIN_PRESENT{ true };
+inline constexpr uint8_t diversionPin{ 8 };
+
+// Boost sur D9
+inline constexpr bool OVERRIDE_PIN_PRESENT{ true };
+inline constexpr OverridePins overridePins{ { { 9, ALL_LOADS_AND_RELAYS() } } };
+
+// Sondes gérées par l’ESP32-C6 (cavalier TEMP en 3–centre)
+inline constexpr bool TEMP_SENSOR_PRESENT{ false };
+```
+
+> [!NOTE]
+> La configuration de la sortie série sur `SerialOutputType::IoT` n’est pas strictement obligatoire pour le fonctionnement du routeur. Cependant, elle est nécessaire si vous souhaitez exploiter les données du routeur dans Home Assistant (puissance instantanée, statistiques, etc.). Sans cette configuration, seules les fonctions de contrôle (boost, arrêt routage) seront disponibles dans Home Assistant.
+
+S’il vous reste des broches libres, d’autres fonctions peuvent être ajoutées de la même façon, par exemple la rotation des priorités :
+```cpp
+inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
+inline constexpr uint8_t rotationPin{ 7 };  // seulement si D7 n’est pas utilisée par une charge
+```
+
 ## Liaison avec Home Assistant
-Une fois votre MkPVRouter configuré avec la carte d’extension ESP32, vous pourrez :
+Une fois votre Mk2PVRouter configuré avec le module mk2Wifi, vous pourrez :
 - Contrôler à distance l’activation/désactivation du routage (idéal pendant les absences)
 - Déclencher un boost à distance
 - Surveiller les températures en temps réel
 - Créer des scénarios d’automatisation avancés combinant les données de production solaire et les températures
 
-Pour plus de détails sur la configuration d’ESPHome et l’intégration avec Home Assistant, consultez la [documentation détaillée disponible dans ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Ce guide complet vous explique pas à pas comment configurer votre ESP32 avec ESPHome pour exploiter au maximum les fonctionnalités de votre PVRouter dans Home Assistant.
+# Configuration sans module mk2Wifi
 
-# Configuration sans carte d’extension
-
-> [!IMPORTANT]
-> Si vous ne disposez pas de la carte d’extension spécifique ni du PCB carte-mère approprié (ces deux éléments n’étant pas disponibles pour l’instant), vous pouvez toujours réaliser l’intégration par vos propres moyens.
-
-Dans ce cas :
+Sans le module mk2Wifi, vous pouvez toujours relier n’importe quel ESP32 au routeur par votre propre câblage :
 - Aucune connexion n’est prédéfinie entre l’ESP32 et le Mk2PVRouter
-- Vous devrez réaliser votre propre câblage selon vos besoins
 - Veillez à configurer de façon cohérente :
-  - Le programme du routeur (fichier config.h)
+  - Le programme du routeur (fichier `config.h`)
   - La configuration ESPHome sur l’ESP32
 
-Assurez-vous notamment que les numéros de pins utilisés dans chaque configuration correspondent exactement à vos connexions physiques. N’oubliez pas d’utiliser des adaptateurs de niveau logique si nécessaire entre le Mk2PVRouter (5 V) et l’ESP32 (3.3 V).
+Assurez-vous notamment que les numéros de pins utilisés dans chaque configuration correspondent exactement à vos connexions physiques. N’oubliez pas d’utiliser des adaptateurs de niveau logique si nécessaire entre le Mk2PVRouter (5 V) et l’ESP32 (3.3 V).
 
-Pour les sondes de température, vous pouvez les connecter directement à l’ESP32 en utilisant une broche `GPIO` de votre choix, que vous configurerez ensuite dans ESPHome. **N’oubliez pas d’ajouter une résistance pull-up de 4,7 kΩ entre la ligne de données (DQ) et l’alimentation +3,3 V** pour assurer le bon fonctionnement du bus 1-Wire.
+Pour les sondes de température, vous pouvez les connecter directement à l’ESP32 en utilisant une broche `GPIO` de votre choix, que vous configurerez ensuite dans ESPHome. **N’oubliez pas d’ajouter une résistance pull-up de 4,7 kΩ entre la ligne de données (DQ) et l’alimentation +3,3 V** pour assurer le bon fonctionnement du bus 1-Wire.
 
 > [!NOTE]
-> Même sans la carte d’extension, toutes les fonctionnalités d’intégration avec Home Assistant restent accessibles, à condition que votre câblage et vos configurations logicielles soient correctement réalisés.
+> Même sans le module, toutes les fonctionnalités d’intégration avec Home Assistant restent accessibles, à condition que votre câblage et vos configurations logicielles soient correctement réalisés.
 
-Pour plus de détails sur la configuration d’ESPHome et l’intégration avec Home Assistant, consultez la [documentation détaillée disponible dans ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Ce guide complet vous explique pas à pas comment configurer votre ESP32 avec ESPHome pour exploiter au maximum les fonctionnalités de votre PVRouter dans Home Assistant.
+Le [gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99) décrit pas à pas la configuration ESPHome, y compris un exemple de câblage manuel.
 
 # Dépannage
 - Assurez-vous que toutes les bibliothèques requises sont installées.
