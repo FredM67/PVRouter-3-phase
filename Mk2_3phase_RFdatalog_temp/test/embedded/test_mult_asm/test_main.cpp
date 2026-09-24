@@ -2,11 +2,11 @@
  * @file test_main.cpp
  * @brief Unity-based unit tests for assembly multiplication functions
  * @version 0.1
- * @date 2026-09-21
+ * @date 2026-09-23
  *
  * This file contains comprehensive unit tests for the assembly-optimized
  * multiplication functions using the Unity testing framework.
- * 
+ *
  * Based on:
  * - florentbr's optimization suggestions for PVRouter
  * - avrfreertos multiplication optimizations by feilipu
@@ -128,6 +128,60 @@ void test_multU16x16_to32_basic(void)
 
   multU16x16_to32(result, static_cast< uint16_t >(1024), static_cast< uint16_t >(1024));
   TEST_ASSERT_EQUAL_UINT32(1048576, result);
+}
+
+/**
+ * @brief Test multU24x16_to32_hi8: (a x b) >> 8, a on 24 bits (energy bucket, #120)
+ */
+void test_multU24x16_to32_hi8_basic(void)
+{
+  uint32_t result;
+
+  // the low byte is dropped
+  multU24x16_to32_hi8(result, 1UL, static_cast< uint16_t >(1));
+  TEST_ASSERT_EQUAL_UINT32(0, result);
+
+  multU24x16_to32_hi8(result, 255UL, static_cast< uint16_t >(1));
+  TEST_ASSERT_EQUAL_UINT32(0, result);
+
+  multU24x16_to32_hi8(result, 256UL, static_cast< uint16_t >(1));
+  TEST_ASSERT_EQUAL_UINT32(1, result);
+
+  multU24x16_to32_hi8(result, 0UL, static_cast< uint16_t >(65535));
+  TEST_ASSERT_EQUAL_UINT32(0, result);
+
+  multU24x16_to32_hi8(result, 1000UL, static_cast< uint16_t >(1000));
+  TEST_ASSERT_EQUAL_UINT32(3906, result);  // 1,000,000 >> 8
+
+  // full-scale average power x typical Q20 calibration values
+  multU24x16_to32_hi8(result, 262144UL, static_cast< uint16_t >(52429));
+  TEST_ASSERT_EQUAL_UINT32(53687296UL, result);
+
+  multU24x16_to32_hi8(result, 262144UL, static_cast< uint16_t >(44403));
+  TEST_ASSERT_EQUAL_UINT32(45468672UL, result);
+
+  // every partial product carries
+  multU24x16_to32_hi8(result, 0xFFFFFFUL, static_cast< uint16_t >(0xFFFF));
+  TEST_ASSERT_EQUAL_UINT32(4294901504UL, result);
+
+  multU24x16_to32_hi8(result, 0x123456UL, static_cast< uint16_t >(0xABCD));
+  TEST_ASSERT_EQUAL_UINT32(204966234UL, result);
+
+  multU24x16_to32_hi8(result, 0x800000UL, static_cast< uint16_t >(0x8000));
+  TEST_ASSERT_EQUAL_UINT32(1073741824UL, result);
+
+  multU24x16_to32_hi8(result, 12345UL, static_cast< uint16_t >(54321));
+  TEST_ASSERT_EQUAL_UINT32(2619502UL, result);
+
+  // sweep against the 64-bit reference
+  for (uint32_t a = 1; a < 0x1000000UL; a = a * 3 + 7)
+  {
+    for (uint32_t b = 1; b < 0x10000UL; b = b * 5 + 3)
+    {
+      multU24x16_to32_hi8(result, a, static_cast< uint16_t >(b));
+      TEST_ASSERT_EQUAL_UINT32(static_cast< uint32_t >((static_cast< uint64_t >(a) * b) >> 8), result);
+    }
+  }
 }
 
 /**
@@ -833,6 +887,8 @@ void loop()
     RUN_TEST(test_multS16x16_to32_basic);
     delay(100);
     RUN_TEST(test_multU16x16_to32_basic);
+    delay(100);
+    RUN_TEST(test_multU24x16_to32_hi8_basic);
     delay(100);
     RUN_TEST(test_mult16x8_q8_basic);
     delay(100);

@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-02-02
+ * @date 2026-09-23
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -20,6 +20,7 @@
 #include "calibration.h"
 #include "constants.h"
 #include "dualtariff.h"
+#include "energy_bucket.h"
 #include "processing.h"
 #include "shared_var.h"
 #include "teleinfo.h"
@@ -310,7 +311,7 @@ inline void printForSerialText()
 {
   uint8_t phase{ 0 };
 
-  Serial.print(Shared::copyOf_energyInBucket_main * invSUPPLY_FREQUENCY);
+  Serial.print(static_cast< float >(Shared::copyOf_energyInBucket_main) * (invSUPPLY_FREQUENCY / (1 << Energy::FRACTION_BITS)));
   Serial.print(F(", P:"));
   Serial.print(tx_data.power);
 

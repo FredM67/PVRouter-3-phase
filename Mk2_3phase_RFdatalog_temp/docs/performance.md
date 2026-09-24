@@ -20,7 +20,7 @@ The PVRouter achieves excellent performance characteristics for a real-time embe
 |-----------|-------------|----------|-------|
 | ADC sample processing | 25μs | 35μs | Per sample (V or I) |
 | Power calculation | 15μs | 25μs | 16-bit integer math |
-| Energy bucket update | 8μs | 12μs | Simple addition |
+| Energy bucket update | 8μs | 12μs | Integer multiply by a compile-time `cal / n` table, no division or float (~125 cycles) |
 | Load state decision | 5μs | 10μs | Threshold comparison |
 | **Total ISR time** | **53μs** | **82μs** | **Well within 104μs budget** |
 
@@ -61,7 +61,7 @@ Mains Cycle (50Hz): 20ms
 // Critical shared data between ISR and main loop
 volatile int32_t copyOf_sumP_atSupplyPoint[3];      // 12 bytes
 volatile int32_t copyOf_sum_Vsquared[3];            // 12 bytes
-volatile float copyOf_energyInBucket_main;          // 4 bytes
+volatile int32_t copyOf_energyInBucket_main;        // 4 bytes (fixed point, see energy_bucket.h)
 volatile uint16_t copyOf_countLoadON[2];            // 4 bytes
 volatile bool flags[6];                             // 6 bytes
 // Total: ~40 bytes for shared state

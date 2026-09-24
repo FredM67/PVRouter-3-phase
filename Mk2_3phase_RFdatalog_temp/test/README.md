@@ -7,6 +7,7 @@ Unit tests for PVRouter-3-phase firmware.
 ```
 test/
 ├── native/           # Run on host PC (no hardware required)
+│   ├── test_energy_bucket/
 │   ├── test_ewma_avg/
 │   └── test_utils_override/
 └── embedded/         # Run on Arduino or Wokwi simulator
@@ -37,6 +38,7 @@ pio test -e uno -f "*test_utils_relay*"
 
 | Test | Purpose |
 |------|---------|
+| [test_energy_bucket](native/test_energy_bucket/) | Integer energy bucket, checked against the float and exact references |
 | [test_ewma_avg](native/test_ewma_avg/) | EWMA filter for cloud immunity |
 | [test_utils_override](native/test_utils_override/) | Override pin system (local + remote loads) |
 
