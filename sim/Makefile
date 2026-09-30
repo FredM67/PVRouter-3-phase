@@ -20,7 +20,7 @@ FW_RF  ?= ../Mk2_3phase_RFdatalog_temp/.pio/build/rf/firmware.elf
 SCN    ?= scenarios/surplus_step.scn
 OUT    ?= out
 # remote units running the receiver firmware in scenarios/rf (node IDs of configs/remote_loads.patch)
-RX_NODES ?= 15
+RX_NODES ?= 15 16
 RX_DIR   ?= $(OUT)/receivers
 RX_ARGS   = $(foreach n,$(RX_NODES),-r $(n)=$(RX_DIR)/receiver-$(n).elf)
 

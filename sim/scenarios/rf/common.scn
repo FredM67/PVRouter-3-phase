@@ -1,5 +1,6 @@
-# Router with two local loads and one remote load (configs/remote_loads.patch):
-# the third load sits on remote unit 15, bit 0 of its payload.
+# Router with two local loads and two remote units (configs/remote_loads.patch):
+# the third load on unit 1 (node 15), the fourth on unit 2 (node 16), bit 0 of
+# each unit's payload.
 mains 50 230
 vcal 0.8151 0.8184 0.8195
 pcal 0.05 0.05 0.05
@@ -9,6 +10,7 @@ load 5 1 2000
 load 6 2 2000
 # remote <node> <bit> <phase> <W>
 remote 15 0 3 2000
+remote 16 0 1 2000
 # with the RemoteLoadReceiver firmware (grid_sim -r): its loadPins, bit 0 first
 receiver_pins 4 3
 

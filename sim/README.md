@@ -47,7 +47,7 @@ simavr comes from the PlatformIO package `platformio/tool-simavr` (installed by 
 
 ### Remote loads
 
-The scenarios in `scenarios/rf` need a firmware with remote loads: the `rf` environment, with `configs/remote_loads.patch` applied to `config.h` (the third load moves to remote unit 15).
+The scenarios in `scenarios/rf` need a firmware with remote loads: the `rf` environment, with `configs/remote_loads.patch` applied to `config.h` (a fourth load is added: loads 3 and 4 go to remote units 1 and 2, RF nodes 15 and 16).
 
 ```bash
 git apply --unidiff-zero sim/configs/remote_loads.patch

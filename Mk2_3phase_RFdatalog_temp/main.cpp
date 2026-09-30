@@ -46,14 +46,29 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 //
 
 /**
- * @brief Calculates the dual tariff forcing bitmask based on current conditions.
+ * @struct OverrideMasks
+ * @brief Holds both local and remote override bitmasks.
+ *
+ * @var OverrideMasks::local
+ * Bitmask for local loads and relays (physical pins 2-13).
+ * @var OverrideMasks::remote
+ * Bitmask for remote loads (bit n = remote load n, n being the remote ordinal).
+ */
+struct OverrideMasks
+{
+  uint16_t local;
+  uint8_t remote;
+};
+
+/**
+ * @brief Calculates the dual tariff forcing bitmasks based on current conditions.
  *
  * This function determines which loads should be forced ON during off-peak periods
  * based on elapsed time since off-peak start, configured time windows, and temperature conditions.
  *
  * @param bOffPeak true if the system is in an off-peak period (as tracked by proceedDualTariffLogic()).
  * @param currentTemperature_x100 Current temperature multiplied by 100.
- * @return Bitmask of loads that should be forced ON due to dual tariff conditions, 0 if none.
+ * @return Bitmasks of loads that should be forced ON due to dual tariff conditions, 0 if none.
  *
  * @details
  * - Only applies during off-peak periods.
@@ -63,11 +78,11 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
  *
  * @ingroup DualTariff
  */
-uint16_t getDualTariffForcingBitmask(const bool bOffPeak, const int16_t currentTemperature_x100)
+OverrideMasks getDualTariffForcingBitmask(const bool bOffPeak, const int16_t currentTemperature_x100)
 {
   if constexpr (!DUAL_TARIFF)
   {
-    return 0;
+    return { 0, 0 };
   }
 
   constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
@@ -75,13 +90,13 @@ uint16_t getDualTariffForcingBitmask(const bool bOffPeak, const int16_t currentT
   // Return early if we're not in off-peak period
   if (!bOffPeak)
   {
-    return 0;
+    return { 0, 0 };
   }
 
   // We're in off-peak period - check forcing time windows
   const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
 
-  uint16_t forcingBitmask = 0;
+  OverrideMasks forcing{ 0, 0 };
   uint8_t i{ NO_OF_DUMPLOADS };
   do
   {
@@ -95,27 +110,21 @@ uint16_t getDualTariffForcingBitmask(const bool bOffPeak, const int16_t currentT
     // Force load ON if temperature condition is met
     if (currentTemperature_x100 <= iTemperatureThreshold_x100)
     {
-      bit_set(forcingBitmask, physicalLoadPin[i]);
+      const uint8_t pin{ overridePinOf(physicalLoadPin, i) };
+
+      if (pin < REMOTE_PIN_BASE)
+      {
+        bit_set(forcing.local, pin);
+      }
+      else
+      {
+        bit_set(forcing.remote, pin - REMOTE_PIN_BASE);
+      }
     }
   } while (i);
 
-  return forcingBitmask;
+  return forcing;
 }
-
-/**
- * @struct OverrideMasks
- * @brief Holds both local and remote override bitmasks.
- *
- * @var OverrideMasks::local
- * Bitmask for local loads and relays (physical pins 2-13).
- * @var OverrideMasks::remote
- * Bitmask for remote loads (bit n = remote load n).
- */
-struct OverrideMasks
-{
-  uint16_t local;
-  uint8_t remote;
-};
 
 /**
  * @brief Gets the combined bitmasks of all active override pins and dual tariff forcing.
@@ -133,7 +142,7 @@ struct OverrideMasks
  * - First checks all configured external override pins and sets corresponding bits.
  * - Local bitmask controls physical pins (loads/relays on pins 2-13).
  * - Remote bitmask controls remote loads (bit n = remote load n).
- * - Then applies dual tariff forcing using bitwise OR operation (local only).
+ * - Then applies dual tariff forcing using bitwise OR operation (local and remote).
  * - OR operation ensures external overrides take precedence (1|x = 1).
  * - Function is called atomically to prevent race conditions with ISR.
  *
@@ -165,8 +174,9 @@ OverrideMasks getOverrideBitmask(const bool bOffPeak, const int16_t currentTempe
   // Add dual tariff forcing - OR operation handles precedence automatically
   // If a bit is already set by external override, OR won't change it
   // If a bit is not set, OR will apply dual tariff forcing
-  // Note: Dual tariff only applies to local loads
-  masks.local |= getDualTariffForcingBitmask(bOffPeak, currentTemperature_x100);
+  const auto forcing{ getDualTariffForcingBitmask(bOffPeak, currentTemperature_x100) };
+  masks.local |= forcing.local;
+  masks.remote |= forcing.remote;
 
   return masks;
 }

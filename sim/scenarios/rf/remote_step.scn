@@ -1,24 +1,31 @@
-# Surplus steps with the lowest-priority load on a remote unit: it comes in by RF
-# once both local loads are on, and the router still holds the grid at the
-# configured export.
+# Surplus steps with the two lowest-priority loads on remote units: each comes in
+# by RF once the loads before it are on, and the router still holds the grid at
+# the configured export.
 include common.scn
-duration 60
+duration 75
 
 at 0   -200 -200 -200
 at 15  -200 -200 -200
-at 15  1600 1600 1600   # 4800 W surplus: local loads on, remote load partly
-at 45  1600 1600 1600
-at 45  -200 -200 -200   # surplus gone
+at 15  1600 1600 1600   # 4800 W surplus: local loads on, unit 1 partly
+at 40  1600 1600 1600
+at 40  2400 2400 2400   # 7200 W surplus: unit 1 on, unit 2 partly
+at 60  2400 2400 2400
+at 60  -200 -200 -200   # surplus gone
 
 expect 14 remote 15 0 off
-expect 40 pin 5 on
-expect 40 pin 6 on
-expect 55 pin 5 off
-expect 55 pin 6 off
-expect 55 remote 15 0 off
-expect 25 45 grid_avg -120 80
+expect 35 pin 5 on
+expect 35 pin 6 on
+expect 35 remote 16 0 off
+expect 55 remote 15 0 on
+expect 70 pin 5 off
+expect 70 pin 6 off
+expect 70 remote 15 0 off
+expect 70 remote 16 0 off
+expect 25 40 grid_avg -120 80
+expect 45 60 grid_avg -120 80
 # a refresh every 5 mains cycles (100 ms); printing the datalog does not delay it
 # (serial_output.h). The receiver's link timeout is 500 ms.
 expect rf_max_gap 15 0.15
+expect rf_max_gap 16 0.15
 expect min_sample_sets 30
 expect misfiled_samples 0

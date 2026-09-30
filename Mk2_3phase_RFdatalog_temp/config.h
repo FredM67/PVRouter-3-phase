@@ -15,7 +15,7 @@
  * - 2 TRIAC outputs for dump loads
  *
  * @version 1.0
- * @date 2026-09-21
+ * @date 2026-09-23
  */
 
 #ifndef CONFIG_H
@@ -37,7 +37,37 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanRe
 //
 inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (local + remote) */
 
-inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 0 }; /**< number of remote loads controlled via RF (0 = disabled) */
+// ----------- Load map -----------
+//
+// One entry per dump load, in any order. Each entry says who drives the load:
+//   Load::local(pin)           - driven by the router itself, on that digital pin
+//   Load::remote(unit)         - driven by remote unit 'unit' (1..3), over RF
+//   Load::remote(unit, ledPin) - same, plus a status LED on the router
+//
+// See the pinout notes further down for which pins are available.
+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+  Load::local(5),
+  Load::local(6),
+  Load::local(7)
+}; /**< the load map: one packed entry per dump load */
+
+// Derived from the load map above - never edit these by hand.
+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ Load::countRemoteLoads(physicalLoadPin) }; /**< number of loads controlled via RF */
+inline constexpr uint8_t NO_OF_REMOTE_UNITS{ Load::countUnits(physicalLoadPin) };       /**< number of remote units to talk to */
+inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 };                  /**< automatically true if remote loads configured */
+
+#include "remote_loads_core.h"
+
+/**
+ * @brief The one and only remote-load controller.
+ *
+ * @details Declared non-const on purpose: it holds the per-unit transmission state.
+ *          @c RemoteLoadCore has a @c constexpr default constructor and brace-or-equal
+ *          member initialisers, so this object is constant-initialized. It therefore
+ *          lands in @c .bss with no entry in @c .init_array, and @c --gc-sections drops
+ *          it outright when no remote unit is configured.
+ */
+inline RemoteLoadCore< NO_OF_REMOTE_UNITS > remoteLoads{};
 
 // Feature toggles - Basic setup without advanced features
 inline constexpr bool EMONESP_CONTROL{ false };
@@ -51,11 +81,8 @@ inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if th
 inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
 inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF data logging is needed */
 
-inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 }; /**< automatically true if remote loads configured */
-
 #include "utils_dualtariff.h"
 #include "utils_relay.h"
-#include "remote_loads.h"
 #include "utils_temp.h"
 
 // ----------- Pinout Assignments -----------
@@ -93,16 +120,8 @@ inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 }; /**< auto
 // Note: When using these pins for Home Assistant integration, ensure the ESP32
 // counterpart is properly configured to send the appropriate signals.
 
-// Physical pin assignments for LOCAL loads only (remote loads are controlled via RF)
-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5, 6, 7 }; /**< Pins for local TRIAC outputs */
-
-// Optional status LED pins for REMOTE loads (set to unused_pin if not needed)
-// Note: Array size must match NO_OF_REMOTE_LOADS
-inline constexpr uint8_t remoteLoadStatusLED[NO_OF_REMOTE_LOADS > 0 ? NO_OF_REMOTE_LOADS : 1]{ unused_pin }; /**< Optional LEDs to show remote load status */
-
 // Load priority order at startup (array index = priority, 0 = highest)
-// Load indices: 0 to (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS - 1) are local loads,
-//               (NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS) to (NO_OF_DUMPLOADS - 1) are remote loads
+// Load indices refer to physicalLoadPin[] above, local and remote loads alike.
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
 
 // Set the value to 'unused_pin' when the pin is not needed (feature deactivated)
@@ -148,9 +167,11 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
 // Ensure that the pins used do not conflict with other functionalities in your setup.
 //
 // Helper functions available:
-//   LOCAL_LOAD(n)     - Returns physical pin for local load n
-//   REMOTE_LOAD(n)    - Returns virtual pin for remote load n (>= 128)
-//   LOAD(n)           - Returns pin for any load (physical for local, virtual for remote)
+//   LOAD(n)           - Returns the pin for load n of physicalLoadPin[] (physical if the
+//                       load is local, virtual >= REMOTE_PIN_BASE if it is remote)
+//   LOCAL_LOAD(n)     - Same as LOAD(n), for a load known to be local
+//   REMOTE_LOAD(n)    - Returns the virtual pin for the n-th REMOTE load (>= 128).
+//                       n counts remote loads only, in physicalLoadPin[] order.
 //   ALL_LOCAL_LOADS() - uint32_t bitmask, lower 16 bits for local load pins
 //   ALL_REMOTE_LOADS()- uint32_t bitmask, upper 16 bits for remote loads (bit 16 = remote 0)
 //   ALL_LOADS()       - uint32_t combining local (lower 16 bits) and remote (upper 16 bits)
@@ -163,7 +184,7 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
 //   { { 4, ALL_LOADS() },                                  // Control all loads (local + remote)
 //     { 5, ALL_LOCAL_LOADS() },                            // Control only local loads
 //     { 6, ALL_REMOTE_LOADS() },                           // Control only remote loads
-//     { 7, { LOCAL_LOAD(0), REMOTE_LOAD(1) } },            // Mixed: local load 0 + remote load 1
+//     { 7, { LOAD(0), REMOTE_LOAD(1) } },                  // Mixed: load 0 + the 2nd remote load
 //     { 8, { LOAD(0), LOAD(1), LOAD(2), LOAD(3) } },       // Using LOAD() for any load index
 //     { 9, ALL_LOADS_AND_RELAYS() } } };                   // All loads and relays
 
@@ -179,5 +200,7 @@ inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } }; /**< list of temperature sensor Addresses */
 
 inline constexpr uint32_t ROTATION_AFTER_SECONDS{ 8UL * 3600UL }; /**< rotates load priorities after this period of inactivity */
+
+#include "remote_loads.h"  // the RF shell; needs remoteLoads and the RF feature flags above
 
 #endif  // CONFIG_H
