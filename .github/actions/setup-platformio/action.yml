@@ -1,0 +1,26 @@
+name: Set up PlatformIO
+description: Installs Python and PlatformIO Core, and restores the PlatformIO package cache
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v7
+      with:
+        python-version: '>=3.11'
+
+    # Toolchains and platforms live in ~/.platformio; restore-keys lets a
+    # platformio.ini change start from the previous cache instead of from scratch.
+    - name: Cache PlatformIO
+      uses: actions/cache@v6
+      with:
+        path: |
+          ~/.cache/pip
+          ~/.platformio
+        key: ${{ runner.os }}-pio-${{ hashFiles('**/platformio.ini') }}
+        restore-keys: |
+          ${{ runner.os }}-pio-
+
+    - name: Install PlatformIO
+      shell: bash
+      run: pip install --upgrade platformio

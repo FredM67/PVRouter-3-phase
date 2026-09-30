@@ -10,11 +10,16 @@ on:
       - "formatter.sh"
       - "Mk2_3phase_RFdatalog_temp/**"
   push:
+    branches: [ main, dev ]
     paths:
       - ".github/workflows/code-formatting-check.yml"
       - ".clang-format"
       - "formatter.sh"
       - "Mk2_3phase_RFdatalog_temp/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   formatting-check:
