@@ -519,6 +519,9 @@ void loop()
   static bool bOffPeak{ false };
   static int16_t iTemperature_x100{ 0 };
 
+  // Write the datalog output in progress, as far as the serial buffer allows (never waits)
+  SerialOutput::poll();
+
   // Process any pending RF transmissions (called outside ISR to avoid blocking)
   if constexpr (REMOTE_LOADS_PRESENT)
   {

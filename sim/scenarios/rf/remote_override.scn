@@ -10,6 +10,6 @@ expect 10 pin 5 on
 expect 10 pin 6 on
 expect 10 remote 15 0 on
 expect 19 remote 15 0 on
-# a refresh every 5 mains cycles (100 ms), delayed while the main loop prints the
-# datalog: within the receiver's 500 ms link timeout
-expect rf_max_gap 15 0.25
+# a refresh every 5 mains cycles (100 ms); printing the datalog does not delay it
+# (serial_output.h). The receiver's link timeout is 500 ms.
+expect rf_max_gap 15 0.15
