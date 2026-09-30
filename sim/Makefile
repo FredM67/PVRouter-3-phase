@@ -69,7 +69,7 @@ check-rf: grid_sim $(FW_RF) $(if $(RX_NODES),receivers)
 	$(call scenarios,$(RF_SCENARIOS),$(RX_ARGS) $(FW_RF),rf-)
 
 receivers:
-	./build_receivers.sh $(RX_DIR) $(RX_NODES)
+	bash build_receivers.sh $(RX_DIR) $(RX_NODES)
 
 clean:
 	rm -rf grid_sim *.o $(OUT)
