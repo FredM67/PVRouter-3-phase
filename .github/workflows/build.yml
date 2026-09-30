@@ -120,8 +120,12 @@ jobs:
 
       - uses: ./.github/actions/setup-platformio
 
+      # src_dir = ./ puts .pio/libdeps in PlatformIO's project checksum: installing the
+      # libraries of another environment would wipe every build, the basic one included
       - name: Build firmware (basic)
-        run: pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+        run: |
+          pio pkg install --project-dir ${{ env.PROJECT_DIR }} -e basic -e rf
+          pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
 
       # the same grid, with the third load on a remote unit driven over RF
       - name: Build firmware (remote loads)
