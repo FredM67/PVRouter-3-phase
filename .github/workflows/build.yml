@@ -129,6 +129,17 @@ jobs:
       - name: Run grid scenarios
         run: make -C sim check
 
+      # the same grid, with the third load on a remote unit driven over RF
+      - name: Build firmware (remote loads)
+        if: ${{ !cancelled() }}
+        run: |
+          git apply --unidiff-zero sim/configs/remote_loads.patch
+          pio run --project-dir ${{ env.PROJECT_DIR }} -e rf
+
+      - name: Run RF scenarios
+        if: ${{ !cancelled() }}
+        run: make -C sim check-rf
+
       - name: Report grid scenarios
         if: always()
         run: |

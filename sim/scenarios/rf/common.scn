@@ -1,0 +1,13 @@
+# Router with two local loads and one remote load (configs/remote_loads.patch):
+# the third load sits on remote unit 15, bit 0 of its payload.
+mains 50 230
+vcal 0.8151 0.8184 0.8195
+pcal 0.05 0.05 0.05
+
+# load <pin> <phase> <W>
+load 5 1 2000
+load 6 2 2000
+# remote <node> <bit> <phase> <W>
+remote 15 0 3 2000
+
+input 4 1    # override pin released (active low)

@@ -10,8 +10,13 @@
  * Loads are driven through zero-crossing triac drivers: a pin change only takes
  * effect at the next zero crossing of the load's own phase.
  *
+ * An RFM69 radio model sits on the SPI bus (chip select D10). Remote loads are
+ * driven by an ideal receiver: each frame sent to their node sets them from the
+ * payload's bits once it has been sent, and they drop out when no frame arrives
+ * within the receiver's link timeout, like RemoteLoadReceiver does.
+ *
  * Measured: ADC conversion period, ADC ISR duration (cycle-exact), load switching,
- * grid import/export energy, and the firmware's own serial output.
+ * RF frames, grid import/export energy, and the firmware's own serial output.
  *
  * Usage: grid_sim [-q] [-t trace.csv] [-e events.csv] firmware.elf scenario.scn
  *
@@ -32,6 +37,7 @@
 #include "avr_adc.h"
 #include "avr_ioport.h"
 #include "avr_uart.h"
+#include "rfm69.h"
 #include "sim_avr.h"
 #include "sim_elf.h"
 #include "sim_interrupts.h"
@@ -48,6 +54,10 @@
 #define MAX_POINTS 512
 #define MAX_EXPECTS 128
 #define MAX_INPUTS 16
+#define MAX_RF_NODES 8
+
+#define RF_CS_PORT 'B' /* D10 */
+#define RF_CS_BIT 2
 
 /* ------------------------------------------------------------------------- */
 /* scenario                                                                    */
@@ -60,19 +70,20 @@ typedef struct
 
 typedef enum
 {
-  EXPECT_PIN,      /* expect <t> pin <p> on|off */
+  EXPECT_PIN,      /* expect <t> pin <p> on|off   or   expect <t> remote <node> <bit> on|off */
   EXPECT_GRID_AVG, /* expect <t0> <t1> grid_avg <min> <max>  (W, import > 0, all phases) */
   EXPECT_ISR_MAX,  /* expect isr_max <cycles> */
   EXPECT_MIN_SETS, /* expect min_sample_sets <n>  (lowest value reported by the firmware) */
   EXPECT_OVERRUNS, /* expect isr_overruns <n>  (ISR calls longer than one conversion, at most) */
   EXPECT_MISFILED, /* expect misfiled_samples <n>  (conversions filed under the wrong channel, at most) */
+  EXPECT_RF_GAP,   /* expect rf_max_gap <node> <s>  (longest silence towards a node, once it got a frame) */
 } expect_kind_t;
 
 typedef struct
 {
   expect_kind_t kind;
   double t0, t1;
-  int pin, state;
+  int pin, node, bit, state;
   double lo, hi;
   int line;
   /* evaluation */
@@ -88,8 +99,9 @@ typedef struct
 
 typedef struct
 {
-  int pin;
-  int phase; /* 0-based */
+  int pin;       /* local load: output pin */
+  int node, bit; /* remote load: node ID (0 for a local load) and bit of the payload */
+  int phase;     /* 0-based */
   double watts;
   /* pin state, as driven by the firmware */
   int state, prev_state;
@@ -117,9 +129,11 @@ static struct
   int no_of_expects;
   input_t inputs[MAX_INPUTS];
   int no_of_inputs;
+  double rf_timeout;
   char name[PATH_MAX];
 } scn = {
   .duration = 60.0,
+  .rf_timeout = 0.5,
   .frequency = 50.0,
   .vrms = 230.0,
   .vcal = { 0.8151, 0.8184, 0.8195 },
@@ -196,6 +210,21 @@ static void parse_scenario(const char *path, int depth)
       if (ok)
         ++scn.no_of_loads;
     }
+    else if (!strcmp(cmd, "remote"))
+    {
+      if (scn.no_of_loads == MAX_LOADS)
+        die("%s:%d: too many loads", path, lineno);
+      load_t *l = &scn.loads[scn.no_of_loads];
+      ok = sscanf(args, "%d %d %d %lf", &l->node, &l->bit, &l->phase, &l->watts) == 4 && l->node >= 1
+           && l->node <= 1023 && l->bit >= 0 && l->bit <= 7 && l->phase >= 1 && l->phase <= NO_OF_PHASES;
+      l->pin = -1;
+      l->phase -= 1;
+      l->first_on = -1.0;
+      if (ok)
+        ++scn.no_of_loads;
+    }
+    else if (!strcmp(cmd, "rf_timeout"))
+      ok = sscanf(args, "%lf", &scn.rf_timeout) == 1 && scn.rf_timeout > 0;
     else if (!strcmp(cmd, "input"))
     {
       if (scn.no_of_inputs == MAX_INPUTS)
@@ -232,9 +261,19 @@ static void parse_scenario(const char *path, int depth)
         e->kind = EXPECT_OVERRUNS;
       else if (sscanf(args, " misfiled_samples %lf", &e->hi) == 1)
         e->kind = EXPECT_MISFILED;
+      else if (sscanf(args, " rf_max_gap %d %lf", &e->node, &e->hi) == 2)
+        e->kind = EXPECT_RF_GAP;
       else if (sscanf(args, "%lf pin %d %31s", &t, &e->pin, a) == 3 && (!strcmp(a, "on") || !strcmp(a, "off")))
       {
         e->kind = EXPECT_PIN;
+        e->t0 = t;
+        e->state = !strcmp(a, "on");
+      }
+      else if (sscanf(args, "%lf remote %d %d %31s", &t, &e->node, &e->bit, a) == 4
+               && (!strcmp(a, "on") || !strcmp(a, "off")))
+      {
+        e->kind = EXPECT_PIN;
+        e->pin = -1;
         e->t0 = t;
         e->state = !strcmp(a, "on");
       }
@@ -325,6 +364,29 @@ static struct
   int datalog_lines;
   int min_sets, max_sets;
 } serial = { .min_sets = INT_MAX, .max_sets = INT_MIN };
+
+static struct
+{
+  rfm69_t chip;
+  struct rf_node
+  {
+    int id;
+    unsigned long frames;
+    double first, last, max_gap, air_time;
+    unsigned links_lost;
+  } nodes[MAX_RF_NODES];
+  int no_of_nodes;
+} rf;
+
+static const char *load_name(const load_t *l)
+{
+  static char name[16];
+  if (l->node)
+    snprintf(name, sizeof name, "R%d.%d", l->node, l->bit);
+  else
+    snprintf(name, sizeof name, "D%d", l->pin);
+  return name;
+}
 
 /* pin state at a given cycle, from the last change of that pin */
 static int load_state_at(const load_t *l, avr_cycle_count_t cycle)
@@ -524,18 +586,17 @@ static void isr_hook(struct avr_irq_t *irq, uint32_t value, void *param)
   }
 }
 
-static void pin_hook(struct avr_irq_t *irq, uint32_t value, void *param)
+/* the input of a load's power stage changes: an output pin, or a remote receiver */
+static void set_load_state(load_t *l, int value)
 {
-  (void)irq;
-  load_t *l = param;
   value = !!value;
-  if ((int)value == l->state)
+  if (value == l->state)
     return;
 
   update_grid();
 
   l->prev_state = l->state;
-  l->state = (int)value;
+  l->state = value;
   l->changed_at = avr->cycle;
   if (value)
   {
@@ -544,7 +605,84 @@ static void pin_hook(struct avr_irq_t *irq, uint32_t value, void *param)
       l->first_on = now();
   }
   if (events_file)
-    fprintf(events_file, "%.6f,D%d,%s\n", now(), l->pin, value ? "ON" : "OFF");
+    fprintf(events_file, "%.6f,%s,%s\n", now(), load_name(l), value ? "ON" : "OFF");
+}
+
+static void pin_hook(struct avr_irq_t *irq, uint32_t value, void *param)
+{
+  (void)irq;
+  set_load_state(param, (int)value);
+}
+
+static struct rf_node *rf_node(int id)
+{
+  for (int i = 0; i < rf.no_of_nodes; ++i)
+    if (rf.nodes[i].id == id)
+      return &rf.nodes[i];
+  if (rf.no_of_nodes == MAX_RF_NODES)
+    return NULL;
+  struct rf_node *n = &rf.nodes[rf.no_of_nodes++];
+  n->id = id;
+  return n;
+}
+
+/* the receiver has heard nothing for its link timeout: all its loads off */
+static avr_cycle_count_t rf_link_lost(avr_t *avr_, avr_cycle_count_t when, void *param)
+{
+  (void)avr_;
+  (void)when;
+  struct rf_node *n = param;
+  ++n->links_lost;
+  update_grid();
+  for (int i = 0; i < scn.no_of_loads; ++i)
+    if (scn.loads[i].node == n->id)
+      set_load_state(&scn.loads[i], 0);
+  if (events_file)
+    fprintf(events_file, "%.6f,RF%d,LINK LOST\n", now(), n->id);
+  return 0;
+}
+
+/* a frame has been sent: the receiver of its target node applies it */
+static void rf_frame(const rfm69_frame_t *f, void *param)
+{
+  (void)param;
+  if (events_file)
+  {
+    fprintf(events_file, "%.6f,RF%d,", (double)f->start / F_CPU, f->target);
+    for (int i = 0; i < f->len; ++i)
+      fprintf(events_file, "%02X", f->payload[i]);
+    fprintf(events_file, "\n");
+  }
+
+  struct rf_node *n = rf_node(f->target);
+  if (!n)
+    return;
+  const double t = now();
+  if (n->frames++)
+  {
+    if (t - n->last > n->max_gap)
+      n->max_gap = t - n->last;
+  }
+  else
+    n->first = t;
+  n->last = t;
+  n->air_time += (double)(f->end - f->start) / F_CPU;
+
+  if (!f->len)
+    return;
+  update_grid();
+  int drives_loads = 0;
+  for (int i = 0; i < scn.no_of_loads; ++i)
+    if (scn.loads[i].node == f->target)
+    {
+      set_load_state(&scn.loads[i], (f->payload[0] >> scn.loads[i].bit) & 1);
+      drives_loads = 1;
+    }
+  if (drives_loads)
+  {
+    avr_cycle_timer_cancel(avr, rf_link_lost, n);
+    avr_cycle_timer_register(avr, (avr_cycle_count_t)(scn.rf_timeout * F_CPU), rf_link_lost, n);
+  }
 }
 
 static void serial_line(const char *line)
@@ -604,8 +742,11 @@ static void check_timed_expects(void)
     e->done = 1;
     int state = -1;
     for (int j = 0; j < scn.no_of_loads; ++j)
-      if (scn.loads[j].pin == e->pin)
-        state = scn.loads[j].state;
+    {
+      const load_t *l = &scn.loads[j];
+      if (e->pin >= 0 ? l->pin == e->pin : (l->node == e->node && l->bit == e->bit))
+        state = l->state;
+    }
     e->measured = state;
     e->passed = (state == e->state);
   }
@@ -625,7 +766,10 @@ static int report_expects(void)
     switch (e->kind)
     {
       case EXPECT_PIN:
-        snprintf(what, sizeof what, "at %.1f s, D%d %s", e->t0, e->pin, e->state ? "ON" : "OFF");
+        if (e->pin >= 0)
+          snprintf(what, sizeof what, "at %.1f s, D%d %s", e->t0, e->pin, e->state ? "ON" : "OFF");
+        else
+          snprintf(what, sizeof what, "at %.1f s, R%d.%d %s", e->t0, e->node, e->bit, e->state ? "ON" : "OFF");
         if (!e->done)
           e->passed = 0, snprintf(what + strlen(what), sizeof what - strlen(what), "  (not reached)");
         break;
@@ -649,6 +793,18 @@ static int report_expects(void)
         snprintf(what, sizeof what, "samples filed under the wrong channel at most %.0f: %llu", e->hi,
                  (unsigned long long)adc.misfiled);
         break;
+      case EXPECT_RF_GAP:
+        {
+          const struct rf_node *n = NULL;
+          for (int j = 0; j < rf.no_of_nodes; ++j)
+            if (rf.nodes[j].id == e->node)
+              n = &rf.nodes[j];
+          /* the silence since the last frame counts too */
+          e->measured = n ? fmax(n->max_gap, now() - n->last) : -1;
+          e->passed = n && e->measured <= e->hi;
+          snprintf(what, sizeof what, "RF frames to node %d at most %.3f s apart: %.3f s", e->node, e->hi, e->measured);
+          break;
+        }
       case EXPECT_MIN_SETS:
         e->passed = serial.datalog_lines && serial.min_sets >= e->lo;
         snprintf(what, sizeof what, "min sample sets per mains cycle at least %.0f: %d", e->lo,
@@ -729,8 +885,11 @@ int main(int argc, char *argv[])
   for (int i = 0; i < scn.no_of_loads; ++i)
   {
     load_t *l = &scn.loads[i];
-    avr_irq_register_notify(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ(port_of(l->pin)), bit_of(l->pin)), pin_hook, l);
+    if (!l->node)
+      avr_irq_register_notify(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ(port_of(l->pin)), bit_of(l->pin)), pin_hook,
+                              l);
   }
+  rfm69_init(&rf.chip, avr, RF_CS_PORT, RF_CS_BIT, rf_frame, NULL);
 
   if (trace_path)
   {
@@ -780,7 +939,7 @@ int main(int argc, char *argv[])
   for (int i = 0; i < scn.no_of_loads; ++i)
   {
     const load_t *l = &scn.loads[i];
-    printf("Load D%-2d  L%d %5.0f W: %4u switch-ons, on %5.1f %%, %7.2f Wh, first on at %s", l->pin, l->phase + 1,
+    printf("Load %-5s L%d %5.0f W: %4u switch-ons, on %5.1f %%, %7.2f Wh, first on at %s", load_name(l), l->phase + 1,
            l->watts, l->switches, 100.0 * l->on_time / now(), l->energy_wh, l->first_on < 0 ? "never" : "");
     if (l->first_on >= 0)
       printf("%.3f s", l->first_on);
@@ -789,6 +948,17 @@ int main(int argc, char *argv[])
       printf("          switching latency average %.2f ms, max %.2f ms, %u of %u at a rising zero crossing\n",
              1e3 * l->latency_sum / l->transitions, 1e3 * l->latency_max, l->at_positive_zc, l->transitions);
   }
+  for (int i = 0; i < rf.no_of_nodes; ++i)
+  {
+    const struct rf_node *n = &rf.nodes[i];
+    printf("RF        node %d: %lu frames from %.3f s, at most %.3f s apart, %.2f ms on air each", n->id, n->frames,
+           n->first, n->max_gap, 1e3 * n->air_time / n->frames);
+    if (n->links_lost)
+      printf(", link lost %u times", n->links_lost);
+    printf("\n");
+  }
+  if (rf.chip.bad_frames)
+    printf("RF        %lu malformed or aborted frames\n", rf.chip.bad_frames);
   printf("Grid      import %.2f Wh, export %.2f Wh (L1 %.2f/%.2f, L2 %.2f/%.2f, L3 %.2f/%.2f)\n", grid.import_wh,
          grid.export_wh, grid.phase_import_wh[0], grid.phase_export_wh[0], grid.phase_import_wh[1],
          grid.phase_export_wh[1], grid.phase_import_wh[2], grid.phase_export_wh[2]);
