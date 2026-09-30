@@ -16,9 +16,9 @@
  *   1 stop bit, and even parity.
  *
  * @version 0.1
- * @date 2025-04-04
+ * @date 2026-09-30
  *
- * @copyright Copyright (c) 2025
+ * @copyright Copyright (c) 2025-2026
  *
  */
 #ifndef TELEINFO_H
@@ -157,7 +157,7 @@ inline static constexpr size_t calcBufferSize()
  *   and temperature sensing, which are included or excluded at compile time based on
  *   configuration constants.
  * - **Buffer Management**: A buffer is used to store the frame data before sending it over
- *   the Serial interface.
+ *   the Serial interface, a part at a time with writeNext(), so sending never waits.
  * - **Serial Configuration**: Uses Serial with 9600 baud, 7 data bits, 1 stop bit, and even parity.
  *
  * @ingroup Telemetry
@@ -173,6 +173,7 @@ private:
 
   char buffer[calcBufferSize()]{}; /**< Buffer to store the frame data. Adjust size as needed. */
   size_t bufferPos{ 0 };           /**< Current position in the buffer. */
+  size_t sentPos{ 0 };             /**< Part of the finished frame already written out. */
 
   /**
    * @brief Calculates the checksum for a portion of the buffer.
@@ -255,12 +256,31 @@ public:
   }
 
   /**
-   * @brief Finalizes the frame by adding the end character and sending the buffer over Serial.
+   * @brief Finalizes the frame by adding the end character.
+   * @details The frame is then written out by writeNext(), a part at a time.
    */
   __attribute__((always_inline)) void endFrame()
   {
     buffer[bufferPos++] = ETX;
-    Serial.write(buffer, bufferPos);
+    sentPos = 0;
+  }
+
+  /**
+   * @brief Writes the next part of the finished frame.
+   * @param out Where to write.
+   * @param maxLength Maximum number of characters to write.
+   * @return true while some of the frame is left to write.
+   */
+  bool writeNext(Print& out, uint8_t maxLength)
+  {
+    size_t length{ bufferPos - sentPos };
+    if (length > maxLength)
+    {
+      length = maxLength;
+    }
+    out.write(buffer + sentPos, length);
+    sentPos += length;
+    return sentPos < bufferPos;
   }
 };
 

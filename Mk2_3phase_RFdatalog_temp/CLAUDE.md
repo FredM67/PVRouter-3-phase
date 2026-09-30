@@ -63,7 +63,6 @@ pio check
 
 - **No malloc/dynamic allocation** - all memory statically allocated
 - Use `constexpr` for compile-time constants
-- ArduinoJson must be **v6.x** (v7 too heavy for ATmega328P)
 
 ### Code Style
 
@@ -103,6 +102,6 @@ test/
 
 ## Dependencies
 
-- **ArduinoJson 6.x** (NOT v7)
+- **ArduinoJson 6.x** (NOT v7): only for the embedded test `test_serial_output`, the firmware writes its JSON itself
 - **OneWire 2.3.8+** (for DS18B20 sensors)
 - **JeeLib** (optional, for RF support)

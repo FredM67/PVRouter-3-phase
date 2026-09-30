@@ -3,9 +3,9 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some macro for the Serial Output and Debugging
  * @version 0.1
- * @date 2023-03-19
+ * @date 2026-09-30
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023-2026
  *
  */
 
@@ -19,6 +19,8 @@
 #define ESCAPEQUOTE(A) TEXTIFY(A)
 
 #ifdef ARDUINO
+
+#include "serial_output.h"
 
 #ifndef DEBUG_USE_PRINT_P
 #if defined(ESP8266)
@@ -37,18 +39,21 @@
 
 #define DEBUG_BEGIN(speed) DEBUG_PORT.begin(speed)
 
+// A datalog output still in progress is written first: a debug message never lands
+// in the middle of a datalog line or telemetry frame (see serial_output.h).
 #if DEBUG_USE_PRINT_P
 // Serial.printf_P needs Git version of Arduino Core
-#define DBUGF(format, ...) DEBUG_PORT.printf_P(PSTR(format "\n"), ##__VA_ARGS__)
+#define DBUGF(format, ...) (SerialOutput::complete(), DEBUG_PORT.printf_P(PSTR(format "\n"), ##__VA_ARGS__))
 #else
-#define DBUGF(format, ...) DEBUG_PORT.printf(format "\n", ##__VA_ARGS__)
+#define DBUGF(format, ...) (SerialOutput::complete(), DEBUG_PORT.printf(format "\n", ##__VA_ARGS__))
 #endif
 
-#define DBUG(...) DEBUG_PORT.print(__VA_ARGS__)
-#define DBUGLN(...) DEBUG_PORT.println(__VA_ARGS__)
+#define DBUG(...) (SerialOutput::complete(), DEBUG_PORT.print(__VA_ARGS__))
+#define DBUGLN(...) (SerialOutput::complete(), DEBUG_PORT.println(__VA_ARGS__))
 #define DBUGVAR(x, ...) \
   do \
   { \
+    SerialOutput::complete(); \
     DEBUG_PORT.print(F(ESCAPEQUOTE(x) " = ")); \
     DEBUG_PORT.println(x, ##__VA_ARGS__); \
   } while (false)
