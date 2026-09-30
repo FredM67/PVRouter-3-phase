@@ -2,17 +2,24 @@
 #
 #   make                build grid_sim
 #   make check          run every scenario against the firmware, fail on any expectation
-#   make check-rf       run scenarios/rf against the remote-loads firmware
+#   make check-rf       run scenarios/rf against the remote-loads firmware, with the
+#                       RemoteLoadReceiver firmware on each remote unit (RX_NODES)
+#   make check-rf RX_NODES=    the same with ideal receivers
 #   make run SCN=scenarios/surplus_step.scn    run one scenario, serial output shown
 #
 # The firmware is built separately: (cd ../Mk2_3phase_RFdatalog_temp && pio run -e basic)
 # The remote-loads firmware is the rf environment with configs/remote_loads.patch applied.
+# The receiver firmware is built by build_receivers.sh (needs pio), once per node ID.
 
 SIMAVR ?= $(HOME)/.platformio/packages/tool-simavr
 FW     ?= ../Mk2_3phase_RFdatalog_temp/.pio/build/basic/firmware.elf
 FW_RF  ?= ../Mk2_3phase_RFdatalog_temp/.pio/build/rf/firmware.elf
 SCN    ?= scenarios/surplus_step.scn
 OUT    ?= out
+# remote units running the receiver firmware in scenarios/rf (node IDs of configs/remote_loads.patch)
+RX_NODES ?= 15
+RX_DIR   ?= $(OUT)/receivers
+RX_ARGS   = $(foreach n,$(RX_NODES),-r $(n)=$(RX_DIR)/receiver-$(n).elf)
 
 CFLAGS  ?= -O2 -g
 CFLAGS  += -std=gnu11 -I$(SIMAVR)/include/simavr
@@ -58,10 +65,13 @@ run: grid_sim $(FW)
 check: grid_sim $(FW)
 	$(call scenarios,$(SCENARIOS),$(FW),)
 
-check-rf: grid_sim $(FW_RF)
-	$(call scenarios,$(RF_SCENARIOS),$(FW_RF),rf-)
+check-rf: grid_sim $(FW_RF) $(if $(RX_NODES),receivers)
+	$(call scenarios,$(RF_SCENARIOS),$(RX_ARGS) $(FW_RF),rf-)
+
+receivers:
+	./build_receivers.sh $(RX_DIR) $(RX_NODES)
 
 clean:
 	rm -rf grid_sim *.o $(OUT)
 
-.PHONY: run check check-rf clean
+.PHONY: run check check-rf receivers clean

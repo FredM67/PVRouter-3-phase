@@ -56,8 +56,14 @@
 #define MAX_INPUTS 16
 #define MAX_RF_NODES 8
 
+#define MAX_RECEIVERS 8
+#define MAX_RECEIVER_PINS 8
+#define MAX_RF_DROPS 16
+
 #define RF_CS_PORT 'B' /* D10 */
 #define RF_CS_BIT 2
+#define RF_IRQ_PORT 'D' /* D2, INT0 */
+#define RF_IRQ_BIT 2
 
 /* ------------------------------------------------------------------------- */
 /* scenario                                                                    */
@@ -77,6 +83,7 @@ typedef enum
   EXPECT_OVERRUNS, /* expect isr_overruns <n>  (ISR calls longer than one conversion, at most) */
   EXPECT_MISFILED, /* expect misfiled_samples <n>  (conversions filed under the wrong channel, at most) */
   EXPECT_RF_GAP,   /* expect rf_max_gap <node> <s>  (longest silence towards a node, once it got a frame) */
+  EXPECT_RF_LOST,  /* expect rf_links_lost <node> <min> <max>  (times the node's receiver lost the link) */
 } expect_kind_t;
 
 typedef struct
@@ -96,6 +103,12 @@ typedef struct
   int pin;
   int value;
 } input_t;
+
+typedef struct
+{
+  double t0, t1;
+  int node; /* 0: every node */
+} rf_drop_t;
 
 typedef struct
 {
@@ -129,7 +142,12 @@ static struct
   int no_of_expects;
   input_t inputs[MAX_INPUTS];
   int no_of_inputs;
-  double rf_timeout;
+  double rf_timeout;                    /* ideal receivers only: the firmware has its own */
+  int receiver_pins[MAX_RECEIVER_PINS]; /* receiver firmware: output pin of each payload bit */
+  int no_of_receiver_pins;
+  rf_drop_t rf_drops[MAX_RF_DROPS]; /* frames lost in these windows */
+  int no_of_rf_drops;
+  double rf_loss; /* share of frames lost at random, in % */
   char name[PATH_MAX];
 } scn = {
   .duration = 60.0,
@@ -225,6 +243,30 @@ static void parse_scenario(const char *path, int depth)
     }
     else if (!strcmp(cmd, "rf_timeout"))
       ok = sscanf(args, "%lf", &scn.rf_timeout) == 1 && scn.rf_timeout > 0;
+    else if (!strcmp(cmd, "receiver_pins"))
+    {
+      int pin, n;
+      scn.no_of_receiver_pins = 0;
+      for (const char *p = args; sscanf(p, "%d%n", &pin, &n) == 1; p += n)
+      {
+        ok = ok && pin >= 0 && pin <= 13 && scn.no_of_receiver_pins < MAX_RECEIVER_PINS;
+        if (ok)
+          scn.receiver_pins[scn.no_of_receiver_pins++] = pin;
+      }
+      ok = ok && scn.no_of_receiver_pins;
+    }
+    else if (!strcmp(cmd, "rf_drop"))
+    {
+      if (scn.no_of_rf_drops == MAX_RF_DROPS)
+        die("%s:%d: too many rf_drop windows", path, lineno);
+      rf_drop_t *d = &scn.rf_drops[scn.no_of_rf_drops];
+      d->node = 0;
+      ok = sscanf(args, "%lf %lf %d", &d->t0, &d->t1, &d->node) >= 2 && d->t1 > d->t0 && d->node >= 0;
+      if (ok)
+        ++scn.no_of_rf_drops;
+    }
+    else if (!strcmp(cmd, "rf_loss"))
+      ok = sscanf(args, "%lf", &scn.rf_loss) == 1 && scn.rf_loss >= 0 && scn.rf_loss <= 100;
     else if (!strcmp(cmd, "input"))
     {
       if (scn.no_of_inputs == MAX_INPUTS)
@@ -263,6 +305,8 @@ static void parse_scenario(const char *path, int depth)
         e->kind = EXPECT_MISFILED;
       else if (sscanf(args, " rf_max_gap %d %lf", &e->node, &e->hi) == 2)
         e->kind = EXPECT_RF_GAP;
+      else if (sscanf(args, " rf_links_lost %d %lf %lf", &e->node, &e->lo, &e->hi) == 3 && e->hi >= e->lo)
+        e->kind = EXPECT_RF_LOST;
       else if (sscanf(args, "%lf pin %d %31s", &t, &e->pin, a) == 3 && (!strcmp(a, "on") || !strcmp(a, "off")))
       {
         e->kind = EXPECT_PIN;
@@ -365,18 +409,42 @@ static struct
   int min_sets, max_sets;
 } serial = { .min_sets = INT_MAX, .max_sets = INT_MIN };
 
+/* a remote unit running the receiver firmware in its own simulated AVR */
+typedef struct
+{
+  int node;
+  const char *elf;
+  avr_t *avr;
+  int state;
+  rfm69_t chip;
+  char line[256]; /* serial output */
+  size_t len;
+} receiver_t;
+
+static receiver_t receivers[MAX_RECEIVERS];
+static int no_of_receivers;
+
 static struct
 {
   rfm69_t chip;
   struct rf_node
   {
     int id;
-    unsigned long frames;
+    unsigned long frames, lost;
     double first, last, max_gap, air_time;
     unsigned links_lost;
   } nodes[MAX_RF_NODES];
   int no_of_nodes;
-} rf;
+  uint32_t random; /* state of the frame loss generator: the same losses on every run */
+} rf = { .random = 2463534242U };
+
+static receiver_t *receiver_of(int node)
+{
+  for (int i = 0; i < no_of_receivers; ++i)
+    if (receivers[i].node == node)
+      return &receivers[i];
+  return NULL;
+}
 
 static const char *load_name(const load_t *l)
 {
@@ -642,16 +710,37 @@ static avr_cycle_count_t rf_link_lost(avr_t *avr_, avr_cycle_count_t when, void 
   return 0;
 }
 
-/* a frame has been sent: the receiver of its target node applies it */
+/* whether a frame gets lost: in an rf_drop window, or at random (rf_loss) */
+static int rf_frame_lost(const rfm69_frame_t *f)
+{
+  const double t = (double)f->start / F_CPU;
+  for (int i = 0; i < scn.no_of_rf_drops; ++i)
+  {
+    const rf_drop_t *d = &scn.rf_drops[i];
+    if (t >= d->t0 && t < d->t1 && (!d->node || d->node == f->target))
+      return 1;
+  }
+  if (scn.rf_loss <= 0)
+    return 0;
+  /* xorshift32 */
+  rf.random ^= rf.random << 13;
+  rf.random ^= rf.random >> 17;
+  rf.random ^= rf.random << 5;
+  return rf.random < (uint32_t)(scn.rf_loss / 100.0 * UINT32_MAX);
+}
+
+/* a frame has been sent: every other radio may receive it; without a receiver
+ * firmware, the ideal receiver of its target node applies it */
 static void rf_frame(const rfm69_frame_t *f, void *param)
 {
-  (void)param;
+  const rfm69_t *sender = param;
+  const int lost = rf_frame_lost(f);
   if (events_file)
   {
     fprintf(events_file, "%.6f,RF%d,", (double)f->start / F_CPU, f->target);
     for (int i = 0; i < f->len; ++i)
       fprintf(events_file, "%02X", f->payload[i]);
-    fprintf(events_file, "\n");
+    fprintf(events_file, "%s\n", lost ? " LOST" : "");
   }
 
   struct rf_node *n = rf_node(f->target);
@@ -668,7 +757,18 @@ static void rf_frame(const rfm69_frame_t *f, void *param)
   n->last = t;
   n->air_time += (double)(f->end - f->start) / F_CPU;
 
-  if (!f->len)
+  if (lost)
+  {
+    ++n->lost;
+    return;
+  }
+  if (&rf.chip != sender)
+    rfm69_receive(&rf.chip, f);
+  for (int i = 0; i < no_of_receivers; ++i)
+    if (&receivers[i].chip != sender)
+      rfm69_receive(&receivers[i].chip, f);
+
+  if (!f->len || receiver_of(f->target))
     return;
   update_grid();
   int drives_loads = 0;
@@ -717,6 +817,41 @@ static void uart_hook(struct avr_irq_t *irq, uint32_t value, void *param)
       return;
   }
   serial.line[serial.len++] = c;
+}
+
+/* a line printed by a receiver firmware: shown, and its link losses counted */
+static void receiver_line(receiver_t *rx)
+{
+  if (strstr(rx->line, "RF link LOST"))
+  {
+    struct rf_node *n = rf_node(rx->node);
+    if (n)
+      ++n->links_lost;
+    if (events_file)
+      fprintf(events_file, "%.6f,RF%d,LINK LOST\n", now(), rx->node);
+  }
+  else if (strstr(rx->line, "RF link restored") && events_file)
+    fprintf(events_file, "%.6f,RF%d,LINK RESTORED\n", now(), rx->node);
+  if (!quiet)
+    printf("[%8.3f s] R%d| %s\n", now(), rx->node, rx->line);
+}
+
+static void receiver_uart_hook(struct avr_irq_t *irq, uint32_t value, void *param)
+{
+  (void)irq;
+  receiver_t *rx = param;
+  const char c = (char)value;
+  if (c == '\r')
+    return;
+  if (c == '\n' || rx->len == sizeof rx->line - 1)
+  {
+    rx->line[rx->len] = '\0';
+    receiver_line(rx);
+    rx->len = 0;
+    if (c == '\n')
+      return;
+  }
+  rx->line[rx->len++] = c;
 }
 
 /* ------------------------------------------------------------------------- */
@@ -805,6 +940,17 @@ static int report_expects(void)
           snprintf(what, sizeof what, "RF frames to node %d at most %.3f s apart: %.3f s", e->node, e->hi, e->measured);
           break;
         }
+      case EXPECT_RF_LOST:
+        {
+          e->measured = 0;
+          for (int j = 0; j < rf.no_of_nodes; ++j)
+            if (rf.nodes[j].id == e->node)
+              e->measured = rf.nodes[j].links_lost;
+          e->passed = e->measured >= e->lo && e->measured <= e->hi;
+          snprintf(what, sizeof what, "node %d lost the RF link %.0f to %.0f times: %.0f", e->node, e->lo, e->hi,
+                   e->measured);
+          break;
+        }
       case EXPECT_MIN_SETS:
         e->passed = serial.datalog_lines && serial.min_sets >= e->lo;
         snprintf(what, sizeof what, "min sample sets per mains cycle at least %.0f: %d", e->lo,
@@ -820,8 +966,34 @@ static int report_expects(void)
 
 static void usage(void)
 {
-  fprintf(stderr, "usage: grid_sim [-q] [-t trace.csv] [-e events.csv] firmware.elf scenario.scn\n");
+  fprintf(stderr, "usage: grid_sim [-q] [-t trace.csv] [-e events.csv] [-r node=receiver.elf]... firmware.elf "
+                  "scenario.scn\n");
   exit(2);
+}
+
+/* a simulated ATmega328P running the given firmware, its serial output sent to uart_cb */
+static avr_t *make_avr(const char *elf_path, avr_irq_notify_t uart_cb, void *uart_param)
+{
+  elf_firmware_t fw = { 0 };
+  if (elf_read_firmware(elf_path, &fw))
+    die("cannot read firmware '%s'", elf_path);
+  fw.frequency = F_CPU;
+  fw.vcc = fw.avcc = fw.aref = 5000;
+
+  avr_t *mcu = avr_make_mcu_by_name("atmega328p");
+  if (!mcu)
+    die("atmega328p not supported by this simavr");
+  avr_init(mcu);
+  mcu->log = LOG_WARNING;
+  avr_load_firmware(mcu, &fw);
+
+  /* serial output: captured here instead of simavr's console dump */
+  uint32_t flags = 0;
+  avr_ioctl(mcu, AVR_IOCTL_UART_GET_FLAGS('0'), &flags);
+  flags &= ~AVR_UART_FLAG_STDIO;
+  avr_ioctl(mcu, AVR_IOCTL_UART_SET_FLAGS('0'), &flags);
+  avr_irq_register_notify(avr_io_getirq(mcu, AVR_IOCTL_UART_GETIRQ('0'), UART_IRQ_OUTPUT), uart_cb, uart_param);
+  return mcu;
 }
 
 int main(int argc, char *argv[])
@@ -836,6 +1008,15 @@ int main(int argc, char *argv[])
       trace_path = argv[++argi];
     else if (!strcmp(argv[argi], "-e") && argi + 1 < argc)
       events_path = argv[++argi];
+    else if (!strcmp(argv[argi], "-r") && argi + 1 < argc)
+    {
+      receiver_t *rx = &receivers[no_of_receivers];
+      const char *spec = argv[++argi], *eq = strchr(spec, '=');
+      if (no_of_receivers == MAX_RECEIVERS || !eq || (rx->node = atoi(spec)) < 1 || receiver_of(rx->node))
+        usage();
+      rx->elf = eq + 1;
+      ++no_of_receivers;
+    }
     else
       usage();
   }
@@ -846,25 +1027,7 @@ int main(int argc, char *argv[])
   snprintf(scn.name, sizeof scn.name, "%s", argv[argi + 1]);
   parse_scenario(scn.name, 0);
 
-  elf_firmware_t fw = { 0 };
-  if (elf_read_firmware(elf_path, &fw))
-    die("cannot read firmware '%s'", elf_path);
-  fw.frequency = F_CPU;
-  fw.vcc = fw.avcc = fw.aref = 5000;
-
-  avr = avr_make_mcu_by_name("atmega328p");
-  if (!avr)
-    die("atmega328p not supported by this simavr");
-  avr_init(avr);
-  avr->log = LOG_WARNING;
-  avr_load_firmware(avr, &fw);
-
-  /* serial output: captured here instead of simavr's console dump */
-  uint32_t flags = 0;
-  avr_ioctl(avr, AVR_IOCTL_UART_GET_FLAGS('0'), &flags);
-  flags &= ~AVR_UART_FLAG_STDIO;
-  avr_ioctl(avr, AVR_IOCTL_UART_SET_FLAGS('0'), &flags);
-  avr_irq_register_notify(avr_io_getirq(avr, AVR_IOCTL_UART_GETIRQ('0'), UART_IRQ_OUTPUT), uart_hook, NULL);
+  avr = make_avr(elf_path, uart_hook, NULL);
 
   avr_irq_register_notify(avr_io_getirq(avr, AVR_IOCTL_ADC_GETIRQ, ADC_IRQ_OUT_TRIGGER), adc_trigger_hook, NULL);
   avr_irq_register_notify(avr_get_interrupt_irq(avr, ADC_VECTOR) + AVR_INT_IRQ_RUNNING, isr_hook, NULL);
@@ -889,7 +1052,28 @@ int main(int argc, char *argv[])
       avr_irq_register_notify(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ(port_of(l->pin)), bit_of(l->pin)), pin_hook,
                               l);
   }
-  rfm69_init(&rf.chip, avr, RF_CS_PORT, RF_CS_BIT, rf_frame, NULL);
+  rfm69_init(&rf.chip, avr, RF_CS_PORT, RF_CS_BIT, rf_frame, &rf.chip);
+
+  /* remote units running the receiver firmware: its load pins drive their remote loads */
+  for (int r = 0; r < no_of_receivers; ++r)
+  {
+    receiver_t *rx = &receivers[r];
+    rx->avr = make_avr(rx->elf, receiver_uart_hook, rx);
+    rx->state = cpu_Running;
+    rfm69_init(&rx->chip, rx->avr, RF_CS_PORT, RF_CS_BIT, rf_frame, &rx->chip);
+    rfm69_connect_dio0(&rx->chip, RF_IRQ_PORT, RF_IRQ_BIT);
+    for (int i = 0; i < scn.no_of_loads; ++i)
+    {
+      load_t *l = &scn.loads[i];
+      if (l->node != rx->node)
+        continue;
+      if (l->bit >= scn.no_of_receiver_pins)
+        die("remote load %s: no receiver pin for bit %d (receiver_pins)", load_name(l), l->bit);
+      const int pin = scn.receiver_pins[l->bit];
+      avr_irq_register_notify(avr_io_getirq(rx->avr, AVR_IOCTL_IOPORT_GETIRQ(port_of(pin)), bit_of(pin)), pin_hook,
+                              l);
+    }
+  }
 
   if (trace_path)
   {
@@ -913,6 +1097,13 @@ int main(int argc, char *argv[])
     state = avr_run(avr);
     if (state == cpu_Done || state == cpu_Crashed)
       break;
+    /* the receivers run in step with the router, same clock */
+    for (int r = 0; r < no_of_receivers; ++r)
+    {
+      receiver_t *rx = &receivers[r];
+      while (rx->avr->cycle < avr->cycle && rx->state != cpu_Done && rx->state != cpu_Crashed)
+        rx->state = avr_run(rx->avr);
+    }
     check_timed_expects();
   }
   update_grid();
@@ -953,12 +1144,23 @@ int main(int argc, char *argv[])
     const struct rf_node *n = &rf.nodes[i];
     printf("RF        node %d: %lu frames from %.3f s, at most %.3f s apart, %.2f ms on air each", n->id, n->frames,
            n->first, n->max_gap, 1e3 * n->air_time / n->frames);
+    if (n->lost)
+      printf(", %lu lost", n->lost);
     if (n->links_lost)
       printf(", link lost %u times", n->links_lost);
     printf("\n");
   }
   if (rf.chip.bad_frames)
     printf("RF        %lu malformed or aborted frames\n", rf.chip.bad_frames);
+  for (int r = 0; r < no_of_receivers; ++r)
+  {
+    const receiver_t *rx = &receivers[r];
+    printf("Receiver  node %d (%s): %lu frames received, %lu missed while not listening%s\n", rx->node, rx->elf,
+           rx->chip.rx_frames, rx->chip.rx_missed,
+           rx->state == cpu_Crashed ? ", CRASHED" : (rx->state == cpu_Done ? ", STOPPED" : ""));
+    if (rx->state == cpu_Crashed || rx->state == cpu_Done)
+      state = cpu_Crashed;
+  }
   printf("Grid      import %.2f Wh, export %.2f Wh (L1 %.2f/%.2f, L2 %.2f/%.2f, L3 %.2f/%.2f)\n", grid.import_wh,
          grid.export_wh, grid.phase_import_wh[0], grid.phase_export_wh[0], grid.phase_import_wh[1],
          grid.phase_export_wh[1], grid.phase_import_wh[2], grid.phase_export_wh[2]);

@@ -23,9 +23,13 @@
 #define REG_IRQFLAGS2 0x28
 #define REG_PREAMBLEMSB 0x2C
 #define REG_PREAMBLELSB 0x2D
+#define REG_DIOMAPPING1 0x25
 #define REG_SYNCCONFIG 0x2E
+#define REG_SYNCVALUE1 0x2F
+#define REG_SYNCVALUE2 0x30
 
 #define MODE_TX 3 /* OPMODE bits 4-2 */
+#define MODE_RX 4
 
 #define RSSI_START 0x01
 #define RSSI_DONE 0x02
@@ -33,14 +37,33 @@
 #define IRQFLAGS2_FIFONOTEMPTY 0x40
 #define IRQFLAGS2_FIFOOVERRUN 0x10
 #define IRQFLAGS2_PACKETSENT 0x08
+#define IRQFLAGS2_PAYLOADREADY 0x04
+#define DIO0_MAPPING_RX_PAYLOADREADY 0x40 /* DIOMAPPING1 bits 7-6 = 01, in RX mode */
 
 #define RSSI_IDLE_CHANNEL 0xE4 /* -114 dBm: below the library's -90 dBm carrier sense limit */
 #define CRC_BYTES 2
 #define FXOSC 32000000.0
 
+static void set_dio0(rfm69_t *rf, int level)
+{
+  if (rf->dio0)
+    avr_raise_irq(rf->dio0, level);
+}
+
+/* PayloadReady, and DIO0 with it, stay up until the FIFO is empty */
+static void payload_done(rfm69_t *rf)
+{
+  if (rf->regs[REG_IRQFLAGS2] & IRQFLAGS2_PAYLOADREADY)
+  {
+    rf->regs[REG_IRQFLAGS2] &= ~IRQFLAGS2_PAYLOADREADY;
+    set_dio0(rf, 0);
+  }
+}
+
 static void fifo_clear(rfm69_t *rf)
 {
   rf->fifo_len = rf->fifo_pos = 0;
+  payload_done(rf);
 }
 
 static avr_cycle_count_t tx_done(avr_t *avr, avr_cycle_count_t when, void *param)
@@ -74,6 +97,8 @@ static void tx_start(rfm69_t *rf)
   f->sender = rf->fifo[2] | (uint16_t)((f->ctl & 0x03) << 8);
   f->len = (uint8_t)(len - 3);
   memcpy(f->payload, rf->fifo + 4, f->len);
+  f->sync[0] = rf->regs[REG_SYNCVALUE1];
+  f->sync[1] = rf->regs[REG_SYNCVALUE2];
   fifo_clear(rf);
 
   /* preamble, sync word, length byte, packet and CRC at the programmed bit rate */
@@ -104,6 +129,10 @@ static void set_mode(rfm69_t *rf, int mode)
   }
   else if (mode == MODE_TX && old != MODE_TX && rf->fifo_len)
     tx_start(rf);
+
+  /* entering RX: the FIFO waits for the next frame */
+  if (mode == MODE_RX && old != MODE_RX)
+    fifo_clear(rf);
 }
 
 static uint8_t reg_read(rfm69_t *rf, uint8_t addr)
@@ -111,7 +140,12 @@ static uint8_t reg_read(rfm69_t *rf, uint8_t addr)
   switch (addr)
   {
     case REG_FIFO:
-      return (rf->fifo_pos < rf->fifo_len) ? rf->fifo[rf->fifo_pos++] : 0;
+      {
+        const uint8_t value = (rf->fifo_pos < rf->fifo_len) ? rf->fifo[rf->fifo_pos++] : 0;
+        if (rf->fifo_pos >= rf->fifo_len)
+          payload_done(rf);
+        return value;
+      }
     case REG_RSSICONFIG:
       return rf->regs[addr] | RSSI_DONE;
     case REG_RSSIVALUE:
@@ -202,4 +236,35 @@ void rfm69_init(rfm69_t *rf, avr_t *avr, char cs_port, int cs_bit, rfm69_frame_c
 
   avr_irq_register_notify(avr_io_getirq(avr, AVR_IOCTL_SPI_GETIRQ(0), SPI_IRQ_OUTPUT), spi_hook, rf);
   avr_irq_register_notify(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ(cs_port), cs_bit), cs_hook, rf);
+}
+
+void rfm69_connect_dio0(rfm69_t *rf, char port, int bit)
+{
+  rf->dio0 = avr_io_getirq(rf->avr, AVR_IOCTL_IOPORT_GETIRQ(port), bit);
+  set_dio0(rf, 0);
+}
+
+int rfm69_receive(rfm69_t *rf, const rfm69_frame_t *f)
+{
+  if (f->sync[0] != rf->regs[REG_SYNCVALUE1] || f->sync[1] != rf->regs[REG_SYNCVALUE2])
+    return 0; /* another network: not even noticed */
+  if (rf->mode != MODE_RX || (rf->regs[REG_IRQFLAGS2] & IRQFLAGS2_PAYLOADREADY))
+  {
+    ++rf->rx_missed; /* not listening, or the previous frame not read yet */
+    return 0;
+  }
+
+  rf->fifo[0] = (uint8_t)(f->len + 3);
+  rf->fifo[1] = (uint8_t)f->target;
+  rf->fifo[2] = (uint8_t)f->sender;
+  rf->fifo[3] = f->ctl;
+  memcpy(rf->fifo + 4, f->payload, f->len);
+  rf->fifo_len = f->len + 4;
+  rf->fifo_pos = 0;
+  ++rf->rx_frames;
+
+  rf->regs[REG_IRQFLAGS2] |= IRQFLAGS2_PAYLOADREADY;
+  if ((rf->regs[REG_DIOMAPPING1] & 0xC0) == DIO0_MAPPING_RX_PAYLOADREADY)
+    set_dio0(rf, 1);
+  return 1;
 }
