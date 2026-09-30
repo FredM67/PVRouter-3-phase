@@ -89,38 +89,14 @@ jobs:
       - name: Run native tests
         run: pio test --project-dir ${{ env.PROJECT_DIR }} -e native
 
-  # Lists the embedded tests to run in the simulator.
-  # Benchmarks (*_perf) are excluded: they measure timings, they don't assert behaviour.
-  discover-embedded:
-    name: Discover embedded tests
-    runs-on: ubuntu-latest
-    outputs:
-      tests: ${{ steps.list.outputs.tests }}
-    steps:
-      - uses: actions/checkout@v7
-
-      - id: list
-        run: |
-          tests=$(find ${{ env.PROJECT_DIR }}/test/embedded -mindepth 1 -maxdepth 1 -type d ! -empty -name 'test_*' ! -name '*_perf' -printf '%f\n' | sort | jq -R . | jq -cs .)
-          echo "Embedded tests: $tests"
-          echo "tests=$tests" >> "$GITHUB_OUTPUT"
-
-  # Embedded test jobs: runs each test in Wokwi simulator
+  # Embedded tests: every test under test/embedded runs in the simavr simulator
+  # (a bare ATmega328P at 16 MHz), benchmarks included - simavr is cycle-accurate,
+  # so their figures are reproducible. Free and unlimited, no token needed.
   test-embedded:
-    name: Embedded (${{ matrix.test }})
-    needs: discover-embedded
+    name: Embedded tests (simavr)
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      checks: write
-    # Secrets are not available to Dependabot and fork pull requests: the test
-    # firmware is still built, but the simulation steps are skipped.
-    env:
-      WOKWI_CLI_TOKEN: ${{ secrets.WOKWI_CLI_TOKEN }}
-    strategy:
-      fail-fast: false
-      matrix:
-        test: ${{ fromJSON(needs.discover-embedded.outputs.tests) }}
+    # a test that hangs before UNITY_END() would otherwise hold the runner for 6 hours
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
         with:
@@ -128,80 +104,44 @@ jobs:
 
       - uses: ./.github/actions/setup-platformio
 
-      - name: Build test firmware
-        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e uno -f "*${{ matrix.test }}*" --without-uploading --without-testing
+      - name: Run embedded tests in simavr
+        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e uno_sim
 
-      - name: Skip simulation (no Wokwi token)
-        if: env.WOKWI_CLI_TOKEN == ''
-        run: echo "::notice title=Wokwi skipped::WOKWI_CLI_TOKEN is not available to this run (Dependabot or fork pull request), ${{ matrix.test }} was built but not simulated."
-
-      - name: Install Wokwi CLI
-        if: env.WOKWI_CLI_TOKEN != ''
-        run: |
-          curl -L https://wokwi.com/ci/install.sh | sh
-          echo "$HOME/bin" >> $GITHUB_PATH
-          echo "$HOME/.wokwi/bin" >> $GITHUB_PATH
-
-      - name: Run ${{ matrix.test }} in Wokwi
-        if: env.WOKWI_CLI_TOKEN != ''
-        run: |
-          wokwi-cli --timeout 60000 \
-            --expect-text "OK" \
-            --fail-text "FAIL" \
-            --diagram-file ../diagram.json \
-            --elf ${{ env.PROJECT_DIR }}/.pio/build/uno/firmware.elf \
-            --serial-log-file wokwi-output.txt \
-            ${{ env.PROJECT_DIR }}/test/embedded/${{ matrix.test }}
-
-      - name: Convert Unity output to JUnit XML
-        if: always() && env.WOKWI_CLI_TOKEN != ''
-        run: |
-          # Convert Unity test output to JUnit XML format
-          python3 << 'EOF'
-          import re
-          from xml.etree.ElementTree import Element, SubElement, tostring
-          from xml.dom import minidom
-
-          with open('wokwi-output.txt', 'r', encoding='utf-8', errors='ignore') as f:
-              content = f.read()
-
-          tests = re.findall(r'([^:]+):(\d+):([^:]+):(PASS|FAIL)', content)
-
-          testsuites = Element('testsuites')
-          testsuite = SubElement(testsuites, 'testsuite')
-          testsuite.set('name', '${{ matrix.test }}')
-          testsuite.set('tests', str(len(tests)))
-
-          failures = 0
-          for file, line, name, result in tests:
-              testcase = SubElement(testsuite, 'testcase')
-              testcase.set('name', name)
-              testcase.set('classname', file.split('/')[-1])
-              if result == 'FAIL':
-                  failures += 1
-                  failure = SubElement(testcase, 'failure')
-                  failure.set('message', f'Test failed at {file}:{line}')
-
-          testsuite.set('failures', str(failures))
-
-          xml_str = minidom.parseString(tostring(testsuites)).toprettyxml(indent="  ")
-          with open('test-results.xml', 'w') as f:
-              f.write(xml_str)
-          EOF
-
-      - name: Publish test results
-        if: always() && env.WOKWI_CLI_TOKEN != ''
-        uses: dorny/test-reporter@v3
+  # The production firmware on a simulated 3-phase grid (sim/README.md):
+  # regulation, load priorities, ISR timing and switching instants, no hardware needed.
+  grid-sim:
+    name: Grid simulation
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
         with:
-          name: ${{ matrix.test }}
-          path: test-results.xml
-          reporter: java-junit
+          submodules: 'true'
 
-      - name: Upload test artifacts
-        if: always() && env.WOKWI_CLI_TOKEN != ''
+      - uses: ./.github/actions/setup-platformio
+
+      - name: Build firmware (basic)
+        run: pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+
+      - name: Install simavr
+        run: pio pkg install --global --tool platformio/tool-simavr
+
+      - name: Run grid scenarios
+        run: make -C sim check
+
+      - name: Report grid scenarios
+        if: always()
+        run: |
+          {
+            echo "### Grid simulation"
+            echo '```'
+            cat sim/out/*-summary.txt 2>/dev/null || echo "no summary"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload traces
+        if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ matrix.test }}-output
-          path: |
-            wokwi-output.txt
-            test-results.xml
+          name: grid-sim
+          path: sim/out/

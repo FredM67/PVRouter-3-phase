@@ -2,8 +2,8 @@
  * @file test_main.cpp
  * @brief Unity tests for voltage accumulation overflow analysis with 14-bit optimization
  * @author Frederic Metrich
- * @date 2026-09-21
- * 
+ * @date 2026-09-30
+ *
  * Tests the optimized voltage accumulation strategy where samples are reduced to 14-bits
  * before multiplication, then shifted by 8 (for ≤10s periods) or 12 (for >10s periods).
  * This is more efficient on 8-bit MCU as shifting by 8 bits is a single byte operation.
@@ -11,6 +11,8 @@
 
 #include <Arduino.h>
 #include <unity.h>
+
+#include "../halt_after_tests.h"
 #include "../../../../mult_asm.h"
 
 // System constants
@@ -53,7 +55,7 @@ uint16_t simulateADC(float voltage_inst)
 
 /**
  * @brief Generic test function for voltage accumulation with different parameters
- * 
+ *
  * @tparam use_64bit If true, uses int64_t accumulator to detect overflow beyond INT32_MAX
  * @param period Datalog period in seconds
  * @param shift Right shift amount (8, 12, or 16)
@@ -221,8 +223,8 @@ void loop()
     delay(100);
 
     Serial.println(F(""));
-    // NOTE: avoid the words "FAIL"/"OK" in diagnostic output - the Wokwi CI harness
-    // is run with --fail-text "FAIL" / --expect-text "OK" and matches them anywhere.
+    // NOTE: keep diagnostic output free of Unity-like "file:line:name:FAIL" lines -
+    // PlatformIO parses the serial output and would count them as test results.
     Serial.println(F("--- Overflow Demo (>>8 for 20s is expected to overflow) ---"));
     RUN_TEST(test_20s_shift8_overflow);
     delay(100);
@@ -236,6 +238,7 @@ void loop()
     Serial.println(F(""));
 
     UNITY_END();
+    haltAfterTests();
   }
   ++i;
 }

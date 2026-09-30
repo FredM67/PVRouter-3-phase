@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <unity.h>
 
+#include "../halt_after_tests.h"
+
 #include "teleinfo.h"
 #include "config_system.h"
 
@@ -146,4 +148,5 @@ void loop()
   Serial.println("All TeleInfo tests completed!");
 
   UNITY_END();
+  haltAfterTests();
 }

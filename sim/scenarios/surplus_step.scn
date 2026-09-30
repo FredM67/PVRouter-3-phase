@@ -1,0 +1,27 @@
+# Surplus steps: the loads come in by priority, and the router keeps the grid
+# at the configured export (REQUIRED_EXPORT_IN_WATTS = 20 W) meanwhile.
+include common.scn
+duration 60
+
+# at <t s> <surplus L1> <L2> <L3>  (W available before the router's loads, > 0 = export)
+at 0   -200 -200 -200   # house consumption only
+at 15  -200 -200 -200
+at 15   800  800  800   # 2400 W surplus: load 1 fully on, load 2 partly
+at 35   800  800  800
+at 35  1600 1600 1600   # 4800 W surplus: loads 1 and 2 on, load 3 partly
+at 50  1600 1600 1600
+at 50  -200 -200 -200   # surplus gone: everything off
+
+expect 14 pin 5 off
+expect 30 pin 5 on
+expect 45 pin 5 on
+expect 45 pin 6 on
+expect 58 pin 5 off
+expect 58 pin 6 off
+expect 58 pin 7 off
+expect 20 35 grid_avg -120 80
+expect 38 50 grid_avg -120 80
+expect min_sample_sets 30
+# ISR calls longer than one ADC conversion (104 us), where the next sample may be
+# taken on the wrong channel. dev has a handful per minute, at datalog time.
+expect isr_overruns 40

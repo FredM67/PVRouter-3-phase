@@ -2,6 +2,8 @@
 
 #include <unity.h>
 
+#include "../halt_after_tests.h"
+
 #include "utils_pins.h"
 #include "utils_relay.h"
 
@@ -938,4 +940,5 @@ void loop()
   RUN_TEST(test_diversion_disabled);
 
   UNITY_END();  // stop unit testing
+  haltAfterTests();
 }
