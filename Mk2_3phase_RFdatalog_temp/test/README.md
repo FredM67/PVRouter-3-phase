@@ -23,7 +23,10 @@ test/
 # All native tests
 pio test -e native
 
-# All embedded tests (requires hardware or Wokwi)
+# All embedded tests in the simavr simulator (Linux/WSL, no hardware needed)
+pio test -e uno_sim
+
+# All embedded tests on a connected Arduino Uno
 pio test -e uno
 
 # Specific test suite
@@ -53,5 +56,8 @@ pio test -e uno -f "*test_utils_relay*"
 ## CI Integration
 
 - **Native tests**: Run on Ubuntu in GitHub Actions
-- **Embedded tests**: Run in Wokwi simulator
+- **Embedded tests**: Run in the [simavr](https://github.com/buserror/simavr) simulator (`uno_sim` environment), benchmarks included
 - See `.github/workflows/build.yml` for configuration
+
+Every embedded test must call `haltAfterTests()` (from [`embedded/halt_after_tests.h`](embedded/halt_after_tests.h)) right after `UNITY_END()`:
+the suite then runs once, and simavr exits instead of running forever.
