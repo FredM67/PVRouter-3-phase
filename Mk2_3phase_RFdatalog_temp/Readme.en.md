@@ -45,15 +45,13 @@ This program is designed to be used with the Arduino IDE and/or other developmen
 - [Advanced program configuration](#advanced-program-configuration)
   - [`DIVERSION_START_THRESHOLD_WATTS` parameter](#diversion_start_threshold_watts-parameter)
   - [`REQUIRED_EXPORT_IN_WATTS` parameter](#required_export_in_watts-parameter)
-- [Configuration with ESP32 extension board](#configuration-with-esp32-extension-board)
-  - [Pin mapping](#pin-mapping)
-  - [`TEMP` bridge configuration](#temp-bridge-configuration)
+- [Configuration with the mk2Wifi module](#configuration-with-the-mk2wifi-module)
+  - [Connections between the router and the module](#connections-between-the-router-and-the-module)
+  - [Choosing the D5–D9 pins](#choosing-the-d5d9-pins)
+  - [`TEMP` jumper](#temp-jumper)
   - [Recommended configuration](#recommended-configuration)
-    - [Recommended basic configuration](#recommended-basic-configuration)
-    - [Recommended additional features](#recommended-additional-features)
-    - [Temperature probe installation](#temperature-probe-installation)
   - [Home Assistant integration](#home-assistant-integration)
-- [Configuration without extension board](#configuration-without-extension-board)
+- [Configuration without the mk2Wifi module](#configuration-without-the-mk2wifi-module)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 
@@ -872,101 +870,92 @@ A negative value will force the router to consume this power from the grid. This
 > Unlike the first parameter, this one represents a permanent offset that is continuously subtracted from available surplus.
 > If set to 20 W for example, the system will **always** reserve 20 W for export, regardless of other conditions.
 
-# Configuration with ESP32 extension board
+# Configuration with the mk2Wifi module
 
-The ESP32 extension board allows simple and reliable integration between the Mk2PVRouter and an ESP32 for remote control via Home Assistant. This section details how to properly configure the Mk2PVRouter when using this extension board.
+The **mk2Wifi** module connects an **ESP32-C6** (WiFi 6, Bluetooth LE, Zigbee, Thread) to the Mk2PVRouter, for monitoring and remote control from Home Assistant via ESPHome. It plugs onto the `UART_EXT` and `TRIG_EXT` connectors of the motherboard and replaces the former ESP32 extension board.
 
-## Pin mapping
-When using the ESP32 extension board, the connections between the Mk2PVRouter and ESP32 are predefined as follows:
+The hardware, its installation and troubleshooting are documented on the [mk2Wifi pages](https://fredm67.github.io/Mk2PVRouter/mk2wifi/presentation-mk2wifi/), and the ESPHome configuration in [this gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). This section only covers the router side.
 
-| ESP32  | Mk2PVRouter | Function                              |
-| ------ | ----------- | ------------------------------------- |
-| GPIO12 | D12         | Digital Input/Output - Free use       |
-| GPIO13 | D11         | Digital Input/Output - Free use       |
-| GPIO14 | D13         | Digital Input/Output - Free use       |
-| GPIO27 | D10         | Digital Input/Output - Free use       |
-| GPIO5  | DS18B20     | 1-Wire bus for temperature probes     |
+> [!CAUTION]
+> Never connect the module's USB-C while it is plugged onto the motherboard: the two 5 V supplies are not isolated.
 
-## `TEMP` bridge configuration
-**Important** : If you want the ESP32 to control temperature probes (recommended for Home Assistant integration), **the `TEMP` bridge on the router motherboard must not be soldered**.
-- **`TEMP` bridge not soldered** : ESP32 controls temperature probes via GPIO5.
-- **`TEMP` bridge soldered** : Mk2PVRouter controls temperature probes via D3.
+> [!IMPORTANT]
+> The **V sel.** jumper of the motherboard must be set to **3.3 V** (3–centre): the ESP32-C6 does not tolerate 5 V on its GPIOs.
+
+## Connections between the router and the module
+| Link               | Router                 | ESP32-C6                              | Notes                                                                     |
+| ------------------ | ---------------------- | ------------------------------------- | ------------------------------------------------------------------------- |
+| Serial             | TX / RX                | GPIO17 (U0RXD) / GPIO16 (U0TXD)       | 9600 baud, 7E1 in `SerialOutputType::IoT` mode                            |
+| Temperature probes | DS18B20 bus            | GPIO23                                | Selected by the `TEMP` jumper                                             |
+| Digital I/O        | D5 / D6 / D7 / D8 / D9 | GPIO0 / GPIO5 / GPIO4 / GPIO3 / GPIO1 | Through 1 kΩ, each via a solder jumper on the module (**open** by default) |
+
+## Choosing the D5–D9 pins
+Which function goes on which pin is entirely up to you: any router feature driven by an input pin (routing stop, boost, priority rotation…) can be put on any of D5–D9, as long as the router's `config.h` and the ESPHome YAML use the same pins. On the module, only close the solder jumpers of the pins you actually use.
+
+> [!WARNING]
+> D5–D9 are also router pins: by default, the TRIAC loads use **D5, D6 and D7** (`physicalLoadPin`). Only close the solder jumpers of pins that are free in your configuration. The compiler rejects a pin assigned twice in `config.h`, but it cannot know which jumpers are closed on the module.
+
+## `TEMP` jumper
+The `TEMP` jumper of the motherboard decides who reads the DS18B20 probes:
+- **3–centre**: the ESP32-C6 manages them (recommended for Home Assistant). Disable temperature management on the router: `TEMP_SENSOR_PRESENT{ false }`.
+- other position: the router reads them, as described in the temperature sensors section.
+
+Letting the ESP32-C6 manage the probes has several advantages:
+- Temperature visualization directly in Home Assistant
+- Ability to create temperature-based automations
+- More flexible probe configuration without having to reprogram the Mk2PVRouter
 
 ## Recommended configuration
-For optimal use with Home Assistant, it's recommended to activate at minimum the following functions:
+The following example matches the gist's YAML: **D8** for routing stop, **D9** for boost. Close the D8 and D9 solder jumpers on the module.
 
-### Recommended basic configuration
 ```cpp
-// Serial output type for IoT integration
+// Serial output for Home Assistant (9600 baud, 7E1)
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
 
-// Essential recommended functions
-inline constexpr bool DIVERSION_PIN_PRESENT{ true };    // Routing stop
-inline constexpr bool OVERRIDE_PIN_PRESENT{ true };     // Boost
+// Routing stop on D8
+inline constexpr bool DIVERSION_PIN_PRESENT{ true };
+inline constexpr uint8_t diversionPin{ 8 };
 
-// Pin configuration according to extension board mapping
-inline constexpr uint8_t diversionPin{ 12 };     // D12 - routing stop
+// Boost on D9
+inline constexpr bool OVERRIDE_PIN_PRESENT{ true };
+inline constexpr OverridePins overridePins{ { { 9, ALL_LOADS_AND_RELAYS() } } };
 
-// Flexible boost configuration
-inline constexpr OverridePins overridePins{ { { 11, ALL_LOADS_AND_RELAYS() } } }; // D11 - boost
-
-// Temperature sensor configuration
-// IMPORTANT: Disable temperature management in Mk2PVRouter
-// if ESP32 manages probes (TEMP bridge not soldered)
-inline constexpr bool TEMP_SENSOR_PRESENT{ false };  // Disabled as managed by ESP32
+// Probes managed by the ESP32-C6 (TEMP jumper on 3–centre)
+inline constexpr bool TEMP_SENSOR_PRESENT{ false };
 ```
 
 > [!NOTE]
 > Configuring serial output to `SerialOutputType::IoT` is not strictly mandatory for router operation. However, it's necessary if you want to exploit router data in Home Assistant (instantaneous power, statistics, etc.). Without this configuration, only control functions (boost, routing stop) will be available in Home Assistant.
 
-### Recommended additional features
-For even more complete integration, you can also add these features:
+If you have more free pins, other functions can be added the same way, for example priority rotation:
 ```cpp
-// Priority rotation via pin (optional)
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
-inline constexpr uint8_t rotationPin{ 10 };      // D10 - priority rotation
+inline constexpr uint8_t rotationPin{ 7 };  // only if D7 is not used by a load
 ```
 
-### Temperature probe installation
-For temperature probe installation:
-- Ensure the `TEMP` bridge is **not** soldered on the router motherboard
-- Connect your DS18B20 probes directly via the dedicated connectors on the Mk2PVRouter motherboard
-- Configure probes in ESPHome (no configuration needed on Mk2PVRouter side)
-
-Using the ESP32 to manage temperature probes has several advantages:
-- Temperature visualization directly in Home Assistant
-- Ability to create temperature-based automations
-- More flexible probe configuration without having to reprogram the Mk2PVRouter
-
 ## Home Assistant integration
-Once your MkPVRouter is configured with the ESP32 extension board, you'll be able to:
+Once your Mk2PVRouter is configured with the mk2Wifi module, you'll be able to:
 - Remotely control routing activation/deactivation (ideal during absences)
 - Trigger boost remotely
 - Monitor temperatures in real time
 - Create advanced automation scenarios combining solar production data and temperatures
 
-For more details on ESPHome configuration and Home Assistant integration, consult the [detailed documentation available in this gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). This complete guide explains step by step how to configure your ESP32 with ESPHome to maximize your PVRouter's features in Home Assistant.
+# Configuration without the mk2Wifi module
 
-# Configuration without extension board
-
-> [!IMPORTANT]
-> If you don't have the specific extension board or the appropriate motherboard PCB (these two elements not being available for now), you can still achieve integration by your own means.
-
-In this case:
-- No connection is predefined between ESP32 and Mk2PVRouter
-- You'll need to create your own wiring according to your needs
+Without the mk2Wifi module, you can still connect any ESP32 to the router with your own wiring:
+- No connection is predefined between the ESP32 and the Mk2PVRouter
 - Make sure to configure coherently:
-  - The router program (config.h file)
-  - ESPHome configuration on ESP32
+  - The router program (`config.h` file)
+  - The ESPHome configuration on the ESP32
 
-Ensure particularly that pin numbers used in each configuration correspond exactly to your physical connections. Don't forget to use logic level adapters if necessary between Mk2PVRouter (5 V) and ESP32 (3.3 V).
+Ensure particularly that the pin numbers used in each configuration correspond exactly to your physical connections. Don't forget to use logic level adapters if necessary between the Mk2PVRouter (5 V) and the ESP32 (3.3 V).
 
-For temperature probes, you can connect them directly to ESP32 using a `GPIO` pin of your choice, which you'll then configure in ESPHome. **Don't forget to add a 4.7 kΩ pull-up resistor between the data line (DQ) and +3.3 V power supply** to ensure proper 1-Wire bus operation.
+For temperature probes, you can connect them directly to the ESP32 using a `GPIO` pin of your choice, which you'll then configure in ESPHome. **Don't forget to add a 4.7 kΩ pull-up resistor between the data line (DQ) and +3.3 V power supply** to ensure proper 1-Wire bus operation.
 
 > [!NOTE]
-> Even without the extension board, all Home Assistant integration features remain accessible, provided your wiring and software configurations are correctly implemented.
+> Even without the module, all Home Assistant integration features remain accessible, provided your wiring and software configurations are correctly implemented.
 
-For more details on ESPHome configuration and Home Assistant integration, consult the [detailed documentation available in this gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). This complete guide explains step by step how to configure your ESP32 with ESPHome to maximize your PVRouter's features in Home Assistant.
+The [gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99) describes the ESPHome configuration step by step, including a manual wiring example.
 
 # Troubleshooting
 - Ensure all required libraries are installed.

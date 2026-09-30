@@ -5,9 +5,14 @@ name: Spell Check
 on:
   pull_request:
   push:
+    branches: [ main, dev ]
   schedule:
     # run every Tuesday at 3 AM UTC
     - cron: "0 3 * * 2"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   spellcheck:
@@ -19,7 +24,7 @@ jobs:
 
       # See: https://github.com/codespell-project/actions-codespell/blob/master/README.md
       - name: Spell check
-        uses: codespell-project/actions-codespell@master
+        uses: codespell-project/actions-codespell@v2.4.3
         with:
           check_filenames: true
           check_hidden: true

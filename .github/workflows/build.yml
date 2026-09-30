@@ -1,68 +1,44 @@
 # CI workflow for PVRouter-3-phase
-# Runs build and tests on all branches and PRs
+# Runs build and tests on pull requests and on the long-lived branches
 # Skips CI for documentation-only changes
 
 name: CI
 permissions:
   contents: read
-  checks: write
 
 on:
+  # Pushes to feature branches are covered by their pull request,
+  # so only the long-lived branches are built on push.
   push:
-    branches: [ '**' ]
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - 'LICENSE'
-      - '.gitignore'
-  pull_request:
     branches: [ main, dev ]
     paths-ignore:
       - '**.md'
       - 'docs/**'
       - 'LICENSE'
       - '.gitignore'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'LICENSE'
+      - '.gitignore'
+  workflow_dispatch:
+
+# A new push to a pull request supersedes its running CI.
+# Runs on main/dev are never cancelled, so every merged commit gets a result.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
   PROJECT_DIR: Mk2_3phase_RFdatalog_temp
 
 jobs:
-  # Setup job: installs dependencies and populates cache
-  setup:
-    name: Setup Environment
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          submodules: 'true'
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '>=3.11'
-
-      - name: Cache PlatformIO
-        uses: actions/cache@v6
-        with:
-          path: |
-            ~/.cache/pip
-            ~/.platformio
-          key: ${{ runner.os }}-pio-${{ hashFiles('**/platformio.ini') }}
-
-      - name: Install PlatformIO
-        run: |
-          python -m pip install --upgrade pip
-          pip install --upgrade platformio
-
-      - name: Install PlatformIO libraries
-        run: pio pkg install --project-dir ${{ env.PROJECT_DIR }}
-
   # Build job: compiles firmware for embedded targets.
   # One entry per user-selectable environment - `pio run` alone only builds
   # `default_envs` (basic), which let the rf environment break unnoticed.
   build:
     name: Build Firmware (${{ matrix.environment }})
-    needs: setup
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -76,111 +52,98 @@ jobs:
         with:
           submodules: 'true'
 
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '>=3.11'
-
-      - name: Restore PlatformIO cache
-        uses: actions/cache@v6
-        with:
-          path: |
-            ~/.cache/pip
-            ~/.platformio
-          key: ${{ runner.os }}-pio-${{ hashFiles('**/platformio.ini') }}
-
-      - name: Install PlatformIO
-        run: pip install --upgrade platformio
+      - uses: ./.github/actions/setup-platformio
 
       - name: Build firmware (${{ matrix.environment }})
         run: pio run --project-dir ${{ env.PROJECT_DIR }} -e ${{ matrix.environment }}
 
-  # Native test jobs: runs each native test separately
+      # ATmega328P budget: 32256 bytes of flash (bootloader excluded), 2048 bytes of RAM.
+      # Recorded in the job summary so refactorings can be compared against the base branch.
+      - name: Report firmware size (${{ matrix.environment }})
+        run: |
+          ELF=${{ env.PROJECT_DIR }}/.pio/build/${{ matrix.environment }}/firmware.elf
+          read -r TEXT DATA BSS _ < <(~/.platformio/packages/toolchain-atmelavr/bin/avr-size "$ELF" | tail -n 1)
+          FLASH=$((TEXT + DATA))
+          RAM=$((DATA + BSS))
+          {
+            echo "### Firmware size: \`${{ matrix.environment }}\`"
+            echo ""
+            echo "| Memory | Used | Budget | % |"
+            echo "|---|---:|---:|---:|"
+            echo "| Flash | $FLASH | 32256 | $((FLASH * 100 / 32256)) |"
+            echo "| RAM (static) | $RAM | 2048 | $((RAM * 100 / 2048)) |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # Native tests: every test under test/native runs in a single job,
+  # so a new test is picked up without editing this file.
   test-native:
-    name: Native (${{ matrix.test }})
-    needs: setup
+    name: Native tests
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        test:
-          - test_ewma_avg
-          - test_utils_override
-          - test_dc_offset_filter
-          - test_power_rms_comparison
-          - test_energy_bucket
     steps:
       - uses: actions/checkout@v7
         with:
           submodules: 'true'
 
-      - name: Set up Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: '>=3.11'
+      - uses: ./.github/actions/setup-platformio
 
-      - name: Restore PlatformIO cache
-        uses: actions/cache@v6
-        with:
-          path: |
-            ~/.cache/pip
-            ~/.platformio
-          key: ${{ runner.os }}-pio-${{ hashFiles('**/platformio.ini') }}
+      - name: Run native tests
+        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e native
 
-      - name: Install PlatformIO
-        run: pip install --upgrade platformio
+  # Lists the embedded tests to run in the simulator.
+  # Benchmarks (*_perf) are excluded: they measure timings, they don't assert behaviour.
+  discover-embedded:
+    name: Discover embedded tests
+    runs-on: ubuntu-latest
+    outputs:
+      tests: ${{ steps.list.outputs.tests }}
+    steps:
+      - uses: actions/checkout@v7
 
-      - name: Run ${{ matrix.test }}
-        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e native -f "*${{ matrix.test }}*"
+      - id: list
+        run: |
+          tests=$(find ${{ env.PROJECT_DIR }}/test/embedded -mindepth 1 -maxdepth 1 -type d ! -empty -name 'test_*' ! -name '*_perf' -printf '%f\n' | sort | jq -R . | jq -cs .)
+          echo "Embedded tests: $tests"
+          echo "tests=$tests" >> "$GITHUB_OUTPUT"
 
   # Embedded test jobs: runs each test in Wokwi simulator
   test-embedded:
     name: Embedded (${{ matrix.test }})
-    needs: setup
+    needs: discover-embedded
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+    # Secrets are not available to Dependabot and fork pull requests: the test
+    # firmware is still built, but the simulation steps are skipped.
+    env:
+      WOKWI_CLI_TOKEN: ${{ secrets.WOKWI_CLI_TOKEN }}
     strategy:
       fail-fast: false
       matrix:
-        test:
-          - test_fastdivision
-          - test_utils_pins
-          - test_utils_relay
-          - test_teleinfo
-          - test_mult_asm
-          - test_voltage_accumulation
+        test: ${{ fromJSON(needs.discover-embedded.outputs.tests) }}
     steps:
       - uses: actions/checkout@v7
         with:
           submodules: 'true'
 
-      - name: Set up Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: '>=3.11'
+      - uses: ./.github/actions/setup-platformio
 
-      - name: Restore PlatformIO cache
-        uses: actions/cache@v6
-        with:
-          path: |
-            ~/.cache/pip
-            ~/.platformio
-          key: ${{ runner.os }}-pio-${{ hashFiles('**/platformio.ini') }}
+      - name: Build test firmware
+        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e uno -f "*${{ matrix.test }}*" --without-uploading --without-testing
 
-      - name: Install PlatformIO
-        run: pip install --upgrade platformio
+      - name: Skip simulation (no Wokwi token)
+        if: env.WOKWI_CLI_TOKEN == ''
+        run: echo "::notice title=Wokwi skipped::WOKWI_CLI_TOKEN is not available to this run (Dependabot or fork pull request), ${{ matrix.test }} was built but not simulated."
 
       - name: Install Wokwi CLI
+        if: env.WOKWI_CLI_TOKEN != ''
         run: |
           curl -L https://wokwi.com/ci/install.sh | sh
           echo "$HOME/bin" >> $GITHUB_PATH
           echo "$HOME/.wokwi/bin" >> $GITHUB_PATH
 
-      - name: Build test firmware
-        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e uno -f "*${{ matrix.test }}*" --without-uploading --without-testing
-
       - name: Run ${{ matrix.test }} in Wokwi
-        env:
-          WOKWI_CLI_TOKEN: ${{ secrets.WOKWI_CLI_TOKEN }}
+        if: env.WOKWI_CLI_TOKEN != ''
         run: |
           wokwi-cli --timeout 60000 \
             --expect-text "OK" \
@@ -191,7 +154,7 @@ jobs:
             ${{ env.PROJECT_DIR }}/test/embedded/${{ matrix.test }}
 
       - name: Convert Unity output to JUnit XML
-        if: always()
+        if: always() && env.WOKWI_CLI_TOKEN != ''
         run: |
           # Convert Unity test output to JUnit XML format
           python3 << 'EOF'
@@ -227,7 +190,7 @@ jobs:
           EOF
 
       - name: Publish test results
-        if: always()
+        if: always() && env.WOKWI_CLI_TOKEN != ''
         uses: dorny/test-reporter@v3
         with:
           name: ${{ matrix.test }}
@@ -235,7 +198,7 @@ jobs:
           reporter: java-junit
 
       - name: Upload test artifacts
-        if: always()
+        if: always() && env.WOKWI_CLI_TOKEN != ''
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.test }}-output

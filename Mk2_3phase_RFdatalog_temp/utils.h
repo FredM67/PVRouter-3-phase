@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-09-23
+ * @date 2026-09-30
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -357,13 +357,11 @@ inline void printForSerialText()
   Serial.print(Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle);
   Serial.print(F(", #ofSampleSets "));
   Serial.print(Shared::copyOf_sampleSetsDuringThisDatalogPeriod);
-#ifndef DUAL_TARIFF
-  if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
+  if constexpr (!DUAL_TARIFF && PRIORITY_ROTATION != RotationModes::OFF)
   {
     Serial.print(F(", NoED "));
     Serial.print(Shared::absenceOfDivertedEnergyCountInSeconds);
   }
-#endif  // DUAL_TARIFF
   Serial.println(F(")"));
 }
 
