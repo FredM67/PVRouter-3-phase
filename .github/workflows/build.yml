@@ -120,25 +120,25 @@ jobs:
 
       - uses: ./.github/actions/setup-platformio
 
+      # src_dir = ./ puts .pio/libdeps in PlatformIO's project checksum: installing the
+      # libraries of another environment would wipe every build, the basic one included
       - name: Build firmware (basic)
-        run: pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
-
-      - name: Install simavr
-        run: pio pkg install --global --tool platformio/tool-simavr
-
-      - name: Run grid scenarios
-        run: make -C sim check
+        run: |
+          pio pkg install --project-dir ${{ env.PROJECT_DIR }} -e basic -e rf
+          pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
 
       # the same grid, with the third load on a remote unit driven over RF
       - name: Build firmware (remote loads)
-        if: ${{ !cancelled() }}
         run: |
           git apply --unidiff-zero sim/configs/remote_loads.patch
           pio run --project-dir ${{ env.PROJECT_DIR }} -e rf
 
-      - name: Run RF scenarios (with the receiver firmware)
-        if: ${{ !cancelled() }}
-        run: make -C sim check-rf
+      - name: Install simavr
+        run: pio pkg install --global --tool platformio/tool-simavr
+
+      # every scenario in parallel, the RF ones with the receiver firmware
+      - name: Run grid scenarios
+        run: make -C sim -j"$(nproc)" -k check check-rf
 
       - name: Report grid scenarios
         if: always()
