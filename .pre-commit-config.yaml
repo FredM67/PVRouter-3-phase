@@ -20,22 +20,23 @@ repos:
           - --branch=main
           - --branch=dev
       - id: end-of-file-fixer
-        exclude: ^(.*/)?\.vscode/|\.drawio$
+        exclude: ^(.*/)?\.vscode/|\.drawio$|^sim/avr_adc\.c$
       - id: trailing-whitespace
-        exclude: ^(.*/)?\.vscode/|\.drawio$
+        exclude: ^(.*/)?\.vscode/|\.drawio$|^sim/avr_adc\.c$
       - id: check-yaml
         exclude: ^(\.clang-format|(.*/)?\.vscode/)
       - id: check-added-large-files
         args: ['--maxkb=500']
       - id: mixed-line-ending
         args: ['--fix=lf']
-        exclude: ^(.*/)?\.vscode/|\.drawio$
+        exclude: ^(.*/)?\.vscode/|\.drawio$|^sim/avr_adc\.c$
 
   - repo: https://github.com/pre-commit/mirrors-clang-format
     rev: v18.1.8
     hooks:
       - id: clang-format
         types_or: [c, c++]
+        exclude: ^sim/avr_adc\.c$  # vendored from simavr, kept as upstream
 
   - repo: local
     hooks:
@@ -44,3 +45,4 @@ repos:
         entry: scripts/hooks/update-metadata.sh
         language: script
         types_or: [c, c++]
+        exclude: ^sim/avr_adc\.c$
