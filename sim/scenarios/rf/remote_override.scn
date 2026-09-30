@@ -10,6 +10,8 @@ expect 10 pin 5 on
 expect 10 pin 6 on
 expect 10 remote 15 0 on
 expect 19 remote 15 0 on
+expect 19 remote 16 0 on
 # a refresh every 5 mains cycles (100 ms), delayed while the main loop prints the
 # datalog: within the receiver's 500 ms link timeout
 expect rf_max_gap 15 0.25
+expect rf_max_gap 16 0.25

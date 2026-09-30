@@ -1,16 +1,20 @@
-Firmware for scenarios/rf: the project's config with the third load moved to
-remote unit 15 (REMOTE_NODE_ID in config_rf.h), bit 0 of its payload.
+Firmware for scenarios/rf: the project's config with the third and fourth loads
+on remote units 1 and 2 (nodes 15 and 16, REMOTE_NODE_ID in config_rf.h).
 
   git apply --unidiff-zero sim/configs/remote_loads.patch
   pio run --project-dir Mk2_3phase_RFdatalog_temp -e rf
 
 diff --git a/Mk2_3phase_RFdatalog_temp/config.h b/Mk2_3phase_RFdatalog_temp/config.h
-index 867f55fa..8438187b 100644
+index b9de73b4..0d9f74fc 100644
 --- a/Mk2_3phase_RFdatalog_temp/config.h
 +++ b/Mk2_3phase_RFdatalog_temp/config.h
-@@ -40 +40 @@ inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (
--inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 0 }; /**< number of remote loads controlled via RF (0 = disabled) */
-+inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 1 }; /**< number of remote loads controlled via RF (0 = disabled) */
-@@ -97 +97 @@ inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 }; /**< auto
--inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5, 6, 7 }; /**< Pins for local TRIAC outputs */
-+inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5, 6 }; /**< Pins for local TRIAC outputs */
+@@ -38 +38 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanRe
+-inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (local + remote) */
++inline constexpr uint8_t NO_OF_DUMPLOADS{ 4 }; /**< TOTAL number of dump loads (local + remote) */
+@@ -51 +51,2 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+-  Load::local(7)
++  Load::remote(1),
++  Load::remote(2)
+@@ -125 +126 @@ inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF
+-inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
++inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2, 3 }; /**< load priorities at startup (0=highest) */
