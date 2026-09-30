@@ -42,6 +42,7 @@
 #define ADC_MID_COUNTS 511.5           /* bias of the analog front end */
 #define ADC_MAX_SWING 510.0            /* counts, either side of the bias */
 #define NO_OF_PHASES 3
+#define ADC_SEQUENCE_SETTLING (2 * 2 * NO_OF_PHASES) /* conversions ignored after the ADC starts */
 
 #define MAX_LOADS 8
 #define MAX_POINTS 512
@@ -64,6 +65,7 @@ typedef enum
   EXPECT_ISR_MAX,  /* expect isr_max <cycles> */
   EXPECT_MIN_SETS, /* expect min_sample_sets <n>  (lowest value reported by the firmware) */
   EXPECT_OVERRUNS, /* expect isr_overruns <n>  (ISR calls longer than one conversion, at most) */
+  EXPECT_MISFILED, /* expect misfiled_samples <n>  (conversions filed under the wrong channel, at most) */
 } expect_kind_t;
 
 typedef struct
@@ -228,6 +230,8 @@ static void parse_scenario(const char *path, int depth)
         e->kind = EXPECT_MIN_SETS;
       else if (sscanf(args, " isr_overruns %lf", &e->hi) == 1)
         e->kind = EXPECT_OVERRUNS;
+      else if (sscanf(args, " misfiled_samples %lf", &e->hi) == 1)
+        e->kind = EXPECT_MISFILED;
       else if (sscanf(args, "%lf pin %d %31s", &t, &e->pin, a) == 3 && (!strcmp(a, "on") || !strcmp(a, "off")))
       {
         e->kind = EXPECT_PIN;
@@ -295,7 +299,14 @@ static struct
   uint64_t conversions;
   avr_cycle_count_t min_period, max_period;
   int clipped;
-} adc = { .min_period = UINT64_MAX };
+  /* The firmware files the conversions as V1 I1 V2 I2 V3 I3 in turn, and writes
+   * ADMUX at the end of its ISR for the conversion after next. When the ISR runs
+   * longer than one conversion, that conversion has already started on the old
+   * channel: the sample is filed under the wrong channel. */
+  int expected_src;
+  uint64_t misfiled;
+  double first_misfiled;
+} adc = { .min_period = UINT64_MAX, .expected_src = -1 };
 
 static struct
 {
@@ -450,6 +461,17 @@ static void adc_trigger_hook(struct avr_irq_t *irq, uint32_t value, void *param)
 
   if (e.mux.kind != ADC_MUX_SINGLE || e.mux.src >= 2 * NO_OF_PHASES)
     return;
+
+  /* the first two rounds fill ADMUX's two-conversion pipeline: follow the
+   * firmware's sequence from there on */
+  if (adc.conversions <= ADC_SEQUENCE_SETTLING)
+    adc.expected_src = e.mux.src;
+  else if (e.mux.src != adc.expected_src)
+  {
+    if (!adc.misfiled++)
+      adc.first_misfiled = now();
+  }
+  adc.expected_src = (adc.expected_src + 1) % (2 * NO_OF_PHASES);
 
   update_grid();
 
@@ -622,6 +644,11 @@ static int report_expects(void)
         e->passed = isr.count && isr.overruns <= e->hi;
         snprintf(what, sizeof what, "ADC ISR overruns at most %.0f: %llu", e->hi, (unsigned long long)isr.overruns);
         break;
+      case EXPECT_MISFILED:
+        e->passed = adc.conversions > ADC_SEQUENCE_SETTLING && adc.misfiled <= e->hi;
+        snprintf(what, sizeof what, "samples filed under the wrong channel at most %.0f: %llu", e->hi,
+                 (unsigned long long)adc.misfiled);
+        break;
       case EXPECT_MIN_SETS:
         e->passed = serial.datalog_lines && serial.min_sets >= e->lo;
         snprintf(what, sizeof what, "min sample sets per mains cycle at least %.0f: %d", e->lo,
@@ -739,6 +766,10 @@ int main(int argc, char *argv[])
   printf("ADC       conversion period %llu-%llu cycles (expected %d), %llu conversions%s\n",
          (unsigned long long)adc.min_period, (unsigned long long)adc.max_period, ADC_CYCLES_PER_CONVERSION,
          (unsigned long long)adc.conversions, adc.clipped ? ", CLIPPED" : "");
+  printf("ADC       %llu samples filed under the wrong channel", (unsigned long long)adc.misfiled);
+  if (adc.misfiled)
+    printf(", first at %.3f s", adc.first_misfiled);
+  printf("\n");
   if (isr.count)
     printf("ADC ISR   average %.1f cycles, max %llu cycles (%.1f us) at %.3f s, %llu of %llu calls over %d cycles\n",
            (double)isr.total / isr.count, (unsigned long long)isr.max, isr.max * 1e6 / F_CPU, isr.max_at,
