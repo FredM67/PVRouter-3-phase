@@ -2,7 +2,7 @@
  * @file test_main.cpp
  * @brief Performance benchmarks for assembly multiplication functions
  * @version 0.1
- * @date 2026-01-30
+ * @date 2026-09-30
  *
  * This file contains performance benchmarks for the assembly-optimized
  * multiplication functions. These tests should only be run on real hardware,
@@ -16,6 +16,8 @@
 
 #include <Arduino.h>
 #include <unity.h>
+
+#include "../halt_after_tests.h"
 
 #include "mult_asm.h"
 
@@ -490,6 +492,7 @@ void loop()
   else if (i == max_blinks)
   {
     UNITY_END();  // End Unity test framework
+    haltAfterTests();
     ++i;
   }
 }

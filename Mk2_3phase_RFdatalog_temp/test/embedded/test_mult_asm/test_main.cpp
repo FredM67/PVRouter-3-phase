@@ -16,6 +16,8 @@
 #include <Arduino.h>
 #include <unity.h>
 
+#include "../halt_after_tests.h"
+
 #include "mult_asm.h"
 
 // Global volatile to prevent optimization without affecting timing
@@ -920,6 +922,7 @@ void loop()
   else if (i == max_blinks)
   {
     UNITY_END();  // End Unity test framework
+    haltAfterTests();
     ++i;
   }
 }

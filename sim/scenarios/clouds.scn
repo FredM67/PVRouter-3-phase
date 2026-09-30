@@ -1,0 +1,33 @@
+# A cloudy afternoon: fast surplus ramps and dips, unbalanced across the phases.
+# The router must follow without getting stuck: grid close to the 20 W export
+# target on average, loads off once the sun is gone.
+include common.scn
+duration 90
+
+at 0     -200  -200  -200
+at 10    -200  -200  -200
+at 20    2200  1500   900   # sun comes out over 10 s
+at 30    2200  1500   900
+at 31     300   100  -100   # cloud: surplus drops within a second
+at 38     300   100  -100
+at 40    2500  1800  1200   # sun again
+at 48    2500  1800  1200
+at 49     800   400   200   # thinner cloud
+at 55     800   400   200
+at 56    2400  1700  1100
+at 70    2400  1700  1100
+at 75    -300  -300  -300   # sunset
+at 90    -300  -300  -300
+
+expect 25 pin 5 on
+expect 45 pin 5 on
+expect 45 pin 6 on
+expect 89 pin 5 off
+expect 89 pin 6 off
+expect 89 pin 7 off
+expect 22 30 grid_avg -150 100
+expect 58 70 grid_avg -150 100
+expect min_sample_sets 30
+# ISR calls longer than one ADC conversion (104 us), where the next sample may be
+# taken on the wrong channel. dev has a handful per minute, at datalog time.
+expect isr_overruns 40

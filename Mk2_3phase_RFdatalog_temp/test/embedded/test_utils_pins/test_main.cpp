@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <unity.h>
 
+#include "../halt_after_tests.h"
+
 #include "utils_pins.h"
 
 void setUp(void)
@@ -113,5 +115,6 @@ void loop()
   else if (i == max_blinks)
   {
     UNITY_END();  // stop unit testing
+    haltAfterTests();
   }
 }
