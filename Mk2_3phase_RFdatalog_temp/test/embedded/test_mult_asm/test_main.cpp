@@ -2,11 +2,11 @@
  * @file test_main.cpp
  * @brief Unity-based unit tests for assembly multiplication functions
  * @version 0.1
- * @date 2026-09-21
+ * @date 2026-09-23
  *
  * This file contains comprehensive unit tests for the assembly-optimized
  * multiplication functions using the Unity testing framework.
- * 
+ *
  * Based on:
  * - florentbr's optimization suggestions for PVRouter
  * - avrfreertos multiplication optimizations by feilipu
@@ -15,6 +15,8 @@
 
 #include <Arduino.h>
 #include <unity.h>
+
+#include "../halt_after_tests.h"
 
 #include "mult_asm.h"
 
@@ -864,6 +866,7 @@ void loop()
   else if (i == max_blinks)
   {
     UNITY_END();  // End Unity test framework
+    haltAfterTests();
     ++i;
   }
 }

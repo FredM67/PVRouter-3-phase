@@ -9,6 +9,8 @@
 #include <Arduino.h>
 #include <unity.h>
 
+#include "../halt_after_tests.h"
+
 #include "FastDivision.h"
 #include "FastDivision.cpp"  // Include implementation for linking
 
@@ -187,4 +189,5 @@ void loop()
   RUN_TEST(test_divu1);
 
   UNITY_END();
+  haltAfterTests();
 }
