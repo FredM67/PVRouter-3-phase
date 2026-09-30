@@ -1,0 +1,17 @@
+# RF blackout: no frame reaches unit 15 for 1 s. Its receiver switches its loads
+# off once its link timeout (500 ms) has passed, and back on with the next frame.
+include common.scn
+duration 20
+input 4 0    # override: every load forced on, the remote one included
+
+at 0 -200 -200 -200
+
+# rf_drop <t0> <t1> [node]: frames sent in this window are lost
+rf_drop 10 11 15
+
+expect 9.9 remote 15 0 on
+expect 10.4 remote 15 0 on     # within the timeout
+expect 10.8 remote 15 0 off    # timed out
+expect 11.2 remote 15 0 on     # frames again
+expect 19 remote 15 0 on
+expect rf_links_lost 15 1 1

@@ -7,6 +7,10 @@
  * after the air time given by the programmed bit rate. The channel always looks
  * free (RSSI -114 dBm), so the library's carrier sense never waits.
  *
+ * Receiving: rfm69_receive() puts a frame sent by another chip into the FIFO, if
+ * this one listens (RX mode) on the same network, sets PayloadReady and raises
+ * DIO0. PayloadReady and DIO0 drop once the FIFO has been read out.
+ *
  * Copyright (c) 2026 Frédéric Metrich
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -27,6 +31,7 @@ typedef struct
   uint8_t ctl;                  /* control byte: ACK flags and address bits 8-9 */
   uint8_t len;                  /* payload length */
   uint8_t payload[RFM69_FIFO_SIZE];
+  uint8_t sync[2]; /* sync word of the sender (the library puts its network ID in the second byte) */
 } rfm69_frame_t;
 
 typedef void (*rfm69_frame_cb_t)(const rfm69_frame_t *frame, void *param);
@@ -47,11 +52,20 @@ typedef struct
   rfm69_frame_t frame;
   rfm69_frame_cb_t on_frame;
   void *param;
+  /* DIO0 output, to an AVR input pin (NULL if not connected) */
+  avr_irq_t *dio0;
   /* statistics */
   unsigned long frames, bad_frames;
+  unsigned long rx_frames, rx_missed; /* frames received, and missed because the chip was not listening */
 } rfm69_t;
 
 /* connects the chip to the SPI port (unnamed on the ATmega328P), with its chip select on the given pin of the AVR */
 void rfm69_init(rfm69_t *rf, avr_t *avr, char cs_port, int cs_bit, rfm69_frame_cb_t on_frame, void *param);
+
+/* connects DIO0 (the library's interrupt line) to the given input pin of the AVR */
+void rfm69_connect_dio0(rfm69_t *rf, char port, int bit);
+
+/* a frame sent by another chip reaches this one: returns 1 if received */
+int rfm69_receive(rfm69_t *rf, const rfm69_frame_t *frame);
 
 #endif

@@ -9,5 +9,7 @@ load 5 1 2000
 load 6 2 2000
 # remote <node> <bit> <phase> <W>
 remote 15 0 3 2000
+# with the RemoteLoadReceiver firmware (grid_sim -r): its loadPins, bit 0 first
+receiver_pins 4 3
 
 input 4 1    # override pin released (active low)

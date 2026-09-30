@@ -1,0 +1,15 @@
+# Poor RF link: 20 % of the frames are lost, at random (the same ones on every run).
+# With a refresh every 100 ms and a 500 ms link timeout, the receiver keeps its
+# loads: it would take 5 frames lost in a row to lose the link.
+include common.scn
+duration 30
+input 4 0    # override: every load forced on, the remote one included
+
+at 0 -200 -200 -200
+
+rf_loss 20
+
+expect 10 remote 15 0 on
+expect 20 remote 15 0 on
+expect 29 remote 15 0 on
+expect rf_links_lost 15 0 0

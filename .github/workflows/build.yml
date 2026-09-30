@@ -136,7 +136,7 @@ jobs:
           git apply --unidiff-zero sim/configs/remote_loads.patch
           pio run --project-dir ${{ env.PROJECT_DIR }} -e rf
 
-      - name: Run RF scenarios
+      - name: Run RF scenarios (with the receiver firmware)
         if: ${{ !cancelled() }}
         run: make -C sim check-rf
 
