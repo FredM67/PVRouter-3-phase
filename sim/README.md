@@ -33,6 +33,7 @@ The firmware's serial output is shown with the simulated time.
 
 # 2. run every scenario, fail on any unmet expectation
 make check
+make -j$(nproc) check     # the same, scenarios in parallel
 
 # or one scenario, with the serial output
 make run SCN=scenarios/clouds.scn
@@ -53,6 +54,7 @@ git apply --unidiff-zero sim/configs/remote_loads.patch
 (cd Mk2_3phase_RFdatalog_temp && pio run -e rf)
 make -C sim check-rf                 # with the receiver firmware (built by build_receivers.sh)
 make -C sim check-rf RX_NODES=       # with ideal receivers
+make -C sim -j$(nproc) check check-rf    # both sets in parallel
 git checkout Mk2_3phase_RFdatalog_temp/config.h
 ```
 

@@ -7,6 +7,9 @@
 #   make check-rf RX_NODES=    the same with ideal receivers
 #   make run SCN=scenarios/surplus_step.scn    run one scenario, serial output shown
 #
+# Every scenario is a target of its own (check-<name>, check-rf-<name>): with -j$(nproc),
+# they run in parallel, and 'make -j$(nproc) check check-rf' runs both sets together.
+#
 # The firmware is built separately: (cd ../Mk2_3phase_RFdatalog_temp && pio run -e basic)
 # The remote-loads firmware is the rf environment with configs/remote_loads.patch applied.
 # The receiver firmware is built by build_receivers.sh (needs pio), once per node ID.
@@ -49,24 +52,30 @@ $(FW):
 $(FW_RF):
 	$(error firmware not found: $(FW_RF) - apply configs/remote_loads.patch, then 'pio run -e rf')
 
-# $(call scenarios,<scenario files>,<firmware>,<output prefix>)
-define scenarios
-	@mkdir -p $(OUT)
-	@failed=0; for s in $(1); do \
-	  n=$(3)$$(basename $$s .scn); \
-	  ./grid_sim -q -t $(OUT)/$$n-trace.csv -e $(OUT)/$$n-events.csv $(2) $$s | tee $(OUT)/$$n-summary.txt || failed=1; \
-	done; exit $$failed
-endef
-
 run: grid_sim $(FW)
 	@mkdir -p $(OUT)
 	./grid_sim -t $(OUT)/$(notdir $(SCN:.scn=))-trace.csv -e $(OUT)/$(notdir $(SCN:.scn=))-events.csv $(FW) $(SCN)
 
-check: grid_sim $(FW)
-	$(call scenarios,$(SCENARIOS),$(FW),)
+CHECK    := $(SCENARIOS:scenarios/%.scn=check-%)
+CHECK_RF := $(RF_SCENARIOS:scenarios/rf/%.scn=check-rf-%)
 
-check-rf: grid_sim $(FW_RF) $(if $(RX_NODES),receivers)
-	$(call scenarios,$(RF_SCENARIOS),$(RX_ARGS) $(FW_RF),rf-)
+check: $(CHECK)
+
+check-rf: $(CHECK_RF)
+
+# the summary is shown once the scenario is over: parallel runs don't mix their lines
+# $(call scenario,<firmware and receivers>,<scenario file>,<output name>)
+define scenario
+	@mkdir -p $(OUT)
+	@./grid_sim -q -t $(OUT)/$(3)-trace.csv -e $(OUT)/$(3)-events.csv $(1) $(2) > $(OUT)/$(3)-summary.txt; \
+	  status=$$?; cat $(OUT)/$(3)-summary.txt; exit $$status
+endef
+
+$(CHECK): check-%: grid_sim $(FW)
+	$(call scenario,$(FW),scenarios/$*.scn,$*)
+
+$(CHECK_RF): check-rf-%: grid_sim $(FW_RF) $(if $(RX_NODES),receivers)
+	$(call scenario,$(RX_ARGS) $(FW_RF),scenarios/rf/$*.scn,rf-$*)
 
 receivers:
 	bash build_receivers.sh $(RX_DIR) $(RX_NODES)
@@ -74,4 +83,4 @@ receivers:
 clean:
 	rm -rf grid_sim *.o $(OUT)
 
-.PHONY: run check check-rf receivers clean
+.PHONY: run check check-rf $(CHECK) $(CHECK_RF) receivers clean
