@@ -93,10 +93,6 @@ Ce projet nécessite l’installation des bibliothèques suivantes via le **Gest
   - Utilisée pour la communication RF (télémétrie et charges distantes)
   - Installée même si le module RF n’est pas présent (le code non utilisé sera éliminé par le linker)
 
-- **ArduinoJson** par Benoit Blanchon (version **6.x uniquement**, PAS la 7.x)
-  - Utilisée pour la sortie série en format JSON (dans `utils.h`)
-  - La version 7.x est trop volumineuse pour un ATmega328P
-
 - **SPI** (incluse avec l’Arduino IDE)
   - Utilisée pour la communication avec le module RFM69
 
@@ -104,11 +100,6 @@ Ce projet nécessite l’installation des bibliothèques suivantes via le **Gest
 Toutes les bibliothèques sont toujours incluses dans le code source. Cependant, seul le code réellement utilisé par votre configuration sera présent dans le firmware final. Cela simplifie la maintenance du code tout en préservant la taille du firmware.
 
 **Avec PlatformIO** : Toutes les dépendances sont gérées automatiquement via le fichier `platformio.ini`. Aucune installation manuelle n’est nécessaire.
-___
-> [!WARNING]
-> En cas d’utilisation de la libraire **ArduinoJson**, il faudra impérativement installer une version **6.x**.
-> La version 7.x, certes plus actuelle, est devenue trop lourde pour un Atmega328P.
-___
 
 # Aperçu rapide des fichiers
 

@@ -13,7 +13,6 @@
 #define UTILS_H
 
 #include <Arduino.h>
-#include <ArduinoJson.h>
 
 #include "FastDivision.h"
 
@@ -22,6 +21,7 @@
 #include "dualtariff.h"
 #include "energy_bucket.h"
 #include "processing.h"
+#include "serial_output.h"
 #include "shared_var.h"
 #include "teleinfo.h"
 
@@ -223,151 +223,196 @@ inline void printConfiguration()
 }
 
 /**
- * @brief Write telemetry data to Serial in JSON format.
+ * @brief Whether a temperature reading is valid, and so worth sending.
  *
- * This function outputs telemetry data in a format compatible with JSON, including
- * power, voltage, load states, temperature, and tariff information.
+ * @param temperature_x100 The reading, in hundredths of °C.
+ */
+inline bool isValidTemperature(int16_t temperature_x100)
+{
+  return (OUTOFRANGE_TEMPERATURE != temperature_x100) && (DEVICE_DISCONNECTED_RAW != temperature_x100);
+}
+
+inline bool datalogOffPeak{ false }; /**< tariff at the datalog being printed, for the JSON format */
+
+/**
+ * @brief One step of the datalog in JSON format.
  *
- * @param bOffPeak Indicates whether the system is in an off-peak tariff period.
+ * @details One field per step (see serial_output.h), which gives:
+ *          {"P":-25,"R":0,"P1":399,"P2":399,"P3":-823,"T1":21.37,"TA":"low"}
+ * - total mean power over the datalog period, and the relays' average if relay diversion is enabled;
+ * - mean power of each phase;
+ * - each valid temperature, if temperature sensing is enabled;
+ * - the tariff, if dual tariff is enabled.
  *
- * @details
- * - Outputs total power and phase-specific power.
- * - Includes load ON percentages for each load.
- * - Outputs temperature data if temperature sensing is enabled.
- * - Includes tariff information if dual tariff is enabled.
+ * @param out Where to write.
+ * @param step Index of the step.
+ * @return false once the line is complete.
  *
  * @ingroup Telemetry
  */
-inline void printForJSON(const bool bOffPeak)
+inline bool printJsonStep(Print& out, uint8_t step)
 {
-  ArduinoJson::StaticJsonDocument< 256 > doc;
-
-  // Total mean power over a data logging period
-  doc["P"] = tx_data.power;
-
-  if constexpr (RELAY_DIVERSION)
+  if (step == 0)
   {
-    doc["R"] = relays.get_average();
-  }
+    out.print(F("{\"P\":"));
+    out.print(tx_data.power);
 
-  if constexpr (NO_OF_PHASES == 3)
-  {
-    // Mean power for each phase over a data logging period
-    doc["P1"] = tx_data.power_L[0];
-    doc["P2"] = tx_data.power_L[1];
-    doc["P3"] = tx_data.power_L[2];
+    if constexpr (RELAY_DIVERSION)
+    {
+      out.print(F(",\"R\":"));
+      out.print(relays.get_average());
+    }
+    return true;
   }
-  else if constexpr (NO_OF_PHASES == 2)
-  {
-    // Mean power for each phase over a data logging period
-    doc["P1"] = tx_data.power_L[0];
-    doc["P2"] = tx_data.power_L[1];
-  }
-  else
-    static_assert(NO_OF_PHASES != 1, "Unsupported number of phases");
+  --step;
 
-  // Mean power for each load over a data logging period (in %)
-  //for (idx = 0; idx < NO_OF_DUMPLOADS; ++idx)
-  //{
-  //  Serial.print(F(",L"));
-  //  Serial.print(idx + 1);
-  //  Serial.print(F(":"));
-  //  Serial.print(copyOf_countLoadON[idx] * 100 * invDATALOG_PERIOD_IN_MAINS_CYCLES);
-  //}
+  if (step < NO_OF_PHASES)
+  {
+    out.print(F(",\"P"));
+    out.print(step + 1);
+    out.print(F("\":"));
+    out.print(tx_data.power_L[step]);
+    return true;
+  }
+  step -= NO_OF_PHASES;
 
   if constexpr (TEMP_SENSOR_PRESENT)
-  {  // Current temperature
-    for (uint8_t idx = 0; idx < temperatureSensing.size(); ++idx)
+  {
+    if (step < temperatureSensing.size())
     {
-      if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
-          || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
+      if (isValidTemperature(tx_data.temperature_x100[step]))
       {
-        continue;
+        out.print(F(",\"T"));
+        out.print(step + 1);
+        out.print(F("\":"));
+        SerialOutput::printHundredths(out, tx_data.temperature_x100[step]);
       }
-
-      doc[String("T") + (idx + 1)] = (float)tx_data.temperature_x100[idx] * 0.01F;
+      return true;
     }
+    step -= temperatureSensing.size();
   }
 
   if constexpr (DUAL_TARIFF)
   {
-    // Current tariff
-    doc["TA"] = bOffPeak ? "low" : "high";
-  }
-
-  serializeJson(doc, Serial);
-  Serial.println();
-}
-
-/**
- * @brief Prints data logs to the Serial output in text format.
- *
- * This function outputs telemetry data in a human-readable text format to the Serial output.
- * It includes information about power, voltage, temperature, and system performance metrics.
- *
- * @details
- * - Prints total power, phase-specific power, and RMS voltage for each phase.
- * - Includes temperature data if temperature sensing is enabled.
- * - Outputs additional system metrics like the number of sample sets and absence of diverted energy count.
- *
- * @ingroup Telemetry
- */
-inline void printForSerialText()
-{
-  uint8_t phase{ 0 };
-
-  Serial.print(static_cast< float >(Shared::copyOf_energyInBucket_main) * (invSUPPLY_FREQUENCY / (1 << Energy::FRACTION_BITS)));
-  Serial.print(F(", P:"));
-  Serial.print(tx_data.power);
-
-  if constexpr (RELAY_DIVERSION)
-  {
-    Serial.print(F("/"));
-    Serial.print(relays.get_average());
-  }
-
-  for (phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    Serial.print(F(", P"));
-    Serial.print(phase + 1);
-    Serial.print(F(":"));
-    Serial.print(tx_data.power_L[phase]);
-  }
-  for (phase = 0; phase < NO_OF_PHASES; ++phase)
-  {
-    Serial.print(F(", V"));
-    Serial.print(phase + 1);
-    Serial.print(F(":"));
-    Serial.print((float)tx_data.Vrms_L_x100[phase] * 0.01F);
-  }
-
-  if constexpr (TEMP_SENSOR_PRESENT)
-  {
-    for (uint8_t idx = 0; idx < temperatureSensing.size(); ++idx)
+    if (step == 0)
     {
-      if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
-          || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
-      {
-        continue;
-      }
-
-      Serial.print(F(", T"));
-      Serial.print(idx + 1);
-      Serial.print(F(":"));
-      Serial.print((float)tx_data.temperature_x100[idx] * 0.01F);
+      out.print(datalogOffPeak ? F(",\"TA\":\"low\"") : F(",\"TA\":\"high\""));
+      return true;
     }
   }
 
-  Serial.print(F(", (minSampleSets/MC "));
-  Serial.print(Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle);
-  Serial.print(F(", #ofSampleSets "));
-  Serial.print(Shared::copyOf_sampleSetsDuringThisDatalogPeriod);
-  if constexpr (!DUAL_TARIFF && PRIORITY_ROTATION != RotationModes::OFF)
+  out.println('}');
+  return false;
+}
+
+/**
+ * @brief One step of the datalog in text format.
+ *
+ * @details One field per step (see serial_output.h):
+ * - energy in the bucket, total power (and the relays' average if relay diversion is enabled);
+ * - power and RMS voltage of each phase;
+ * - each valid temperature, if temperature sensing is enabled;
+ * - the number of sample sets, and the absence of diverted energy count if priority rotation is automatic.
+ *
+ * @param out Where to write.
+ * @param step Index of the step.
+ * @return false once the line is complete.
+ *
+ * @ingroup Telemetry
+ */
+inline bool printTextStep(Print& out, uint8_t step)
+{
+  if (step == 0)
   {
-    Serial.print(F(", NoED "));
-    Serial.print(Shared::absenceOfDivertedEnergyCountInSeconds);
+    out.print(static_cast< float >(Shared::copyOf_energyInBucket_main) * (invSUPPLY_FREQUENCY / (1 << Energy::FRACTION_BITS)));
+    return true;
   }
-  Serial.println(F(")"));
+  if (step == 1)
+  {
+    out.print(F(", P:"));
+    out.print(tx_data.power);
+
+    if constexpr (RELAY_DIVERSION)
+    {
+      out.print(F("/"));
+      out.print(relays.get_average());
+    }
+    return true;
+  }
+  step -= 2;
+
+  if (step < NO_OF_PHASES)
+  {
+    out.print(F(", P"));
+    out.print(step + 1);
+    out.print(F(":"));
+    out.print(tx_data.power_L[step]);
+    return true;
+  }
+  step -= NO_OF_PHASES;
+
+  if (step < NO_OF_PHASES)
+  {
+    out.print(F(", V"));
+    out.print(step + 1);
+    out.print(F(":"));
+    out.print((float)tx_data.Vrms_L_x100[step] * 0.01F);
+    return true;
+  }
+  step -= NO_OF_PHASES;
+
+  if constexpr (TEMP_SENSOR_PRESENT)
+  {
+    if (step < temperatureSensing.size())
+    {
+      if (isValidTemperature(tx_data.temperature_x100[step]))
+      {
+        out.print(F(", T"));
+        out.print(step + 1);
+        out.print(F(":"));
+        out.print((float)tx_data.temperature_x100[step] * 0.01F);
+      }
+      return true;
+    }
+    step -= temperatureSensing.size();
+  }
+
+  switch (step)
+  {
+    case 0:
+      out.print(F(", (minSampleSets/MC "));
+      out.print(Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle);
+      return true;
+    case 1:
+      out.print(F(", #ofSampleSets "));
+      out.print(Shared::copyOf_sampleSetsDuringThisDatalogPeriod);
+      return true;
+    case 2:
+      if constexpr (!DUAL_TARIFF && PRIORITY_ROTATION != RotationModes::OFF)
+      {
+        out.print(F(", NoED "));
+        out.print(Shared::absenceOfDivertedEnergyCountInSeconds);
+      }
+      return true;
+    default:
+      out.println(F(")"));
+      return false;
+  }
+}
+
+inline TeleInfo teleInfo; /**< telemetry frame, in IoT format */
+
+/**
+ * @brief One step of the telemetry frame: its next part.
+ *
+ * @param out Where to write.
+ * @return false once the frame is complete.
+ *
+ * @ingroup Telemetry
+ */
+inline bool writeTeleInfoStep(Print& out, uint8_t /*step*/)
+{
+  return teleInfo.writeNext(out, SerialOutput::MAX_STEP_LENGTH);
 }
 
 /**
@@ -398,7 +443,6 @@ inline void printForSerialText()
  */
 void sendTelemetryData(const bool bOffPeak)
 {
-  static TeleInfo teleInfo;
   uint8_t idx{ 0 };
 
   teleInfo.startFrame();  // Start a new telemetry frame
@@ -458,7 +502,7 @@ void sendTelemetryData(const bool bOffPeak)
   teleInfo.send("S", Shared::copyOf_sampleSetsDuringThisDatalogPeriod);
   teleInfo.send("S_MC", Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle);
 
-  teleInfo.endFrame();  // Finalize and send the telemetry frame
+  teleInfo.endFrame();  // Finalize the telemetry frame, written out by writeTeleInfoStep()
 }
 
 /**
@@ -493,17 +537,27 @@ inline void sendResults(bool bOffPeak)
     send_rf_data(tx_data);  // *SEND RF DATA*
   }
 
+  // The output is only started here, and written by SerialOutput::poll() from the
+  // main loop. If the previous one is still in progress (it normally takes a small
+  // part of a datalog period), this one is skipped.
+  if (SerialOutput::busy())
+  {
+    return;
+  }
+
   if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
   {
-    printForSerialText();
+    SerialOutput::start(printTextStep);
   }
   else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::IoT)
   {
     sendTelemetryData(bOffPeak);
+    SerialOutput::start(writeTeleInfoStep);
   }
   else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::JSON)
   {
-    printForJSON(bOffPeak);
+    datalogOffPeak = bOffPeak;
+    SerialOutput::start(printJsonStep);
   }
 }
 
