@@ -1,0 +1,16 @@
+Firmware for scenarios/rf: the project's config with the third load moved to
+remote unit 15 (REMOTE_NODE_ID in config_rf.h), bit 0 of its payload.
+
+  git apply --unidiff-zero sim/configs/remote_loads.patch
+  pio run --project-dir Mk2_3phase_RFdatalog_temp -e rf
+
+diff --git a/Mk2_3phase_RFdatalog_temp/config.h b/Mk2_3phase_RFdatalog_temp/config.h
+index 867f55fa..8438187b 100644
+--- a/Mk2_3phase_RFdatalog_temp/config.h
++++ b/Mk2_3phase_RFdatalog_temp/config.h
+@@ -40 +40 @@ inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (
+-inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 0 }; /**< number of remote loads controlled via RF (0 = disabled) */
++inline constexpr uint8_t NO_OF_REMOTE_LOADS{ 1 }; /**< number of remote loads controlled via RF (0 = disabled) */
+@@ -97 +97 @@ inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 }; /**< auto
+-inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5, 6, 7 }; /**< Pins for local TRIAC outputs */
++inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS - NO_OF_REMOTE_LOADS]{ 5, 6 }; /**< Pins for local TRIAC outputs */
