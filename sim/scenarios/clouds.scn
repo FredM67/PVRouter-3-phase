@@ -31,3 +31,6 @@ expect min_sample_sets 30
 # ISR calls longer than one ADC conversion (104 us), where the next sample may be
 # taken on the wrong channel. dev has a handful per minute, at datalog time.
 expect isr_overruns 40
+# Conversions filed under the wrong channel (an ISR that overran ADMUX's
+# two-conversion pipeline): none allowed.
+expect misfiled_samples 0
