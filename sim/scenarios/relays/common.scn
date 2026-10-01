@@ -1,0 +1,18 @@
+# Router with three local loads and two relays (configs/relays.patch): relay 1 on D8
+# comes in at 1000 W of export, relay 2 on D9 at 2000 W, both go out above 200 W of
+# import, after at least 2 minutes ON or OFF (counted from power-up for the first switch-on).
+# The firmware decides on the grid power logged every 5 s, through a 1-minute TEMA filter,
+# and waits 1 minute after any relay change before the next one.
+mains 50 230
+vcal 0.8151 0.8184 0.8195
+pcal 0.05 0.05 0.05
+
+# load <pin> <phase> <W>: smaller than usual, so that a surplus can exceed what they absorb
+load 5 1 1000
+load 6 2 1000
+load 7 3 1000
+# relay <pin> <phase> <W>: the contacts follow the pin, with no zero-crossing latching
+relay 8 1 1500
+relay 9 2 1500
+
+input 4 1    # override pin released (active low)

@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief This file implements an Exponentially Weighted Moving Average template class
  * @version 0.1
- * @date 2024-02-27
+ * @date 2026-10-01
  *
  * @section description Description
  * The Exponentially Weighted Moving Average (EWMA) is a quantitative or statistical measure used to model or describe a time series.
@@ -27,7 +27,7 @@
  * This comes with some restrictions on the alpha parameter, but the benefit of full integer math wins
  * on the side-drawback.
  *
- * @copyright Copyright (c) 2024
+ * @copyright Copyright (c) 2024-2026
  *
  */
 
@@ -114,8 +114,12 @@ public:
    * Moving Average (EMA), Double EMA (DEMA), and Triple EMA (TEMA).
    *
    * @param input The new input value to process.
+   *
+   * @note Not inlined, even with a single caller: on AVR, inlined code reaches a static
+   *       instance's six int32 with absolute lds/sts (4 bytes per byte accessed), the
+   *       function through its this pointer with ld/st/ldd/std (2 bytes) - 78 bytes less.
    */
-  void addValue(int32_t input)
+  __attribute__((noinline)) void addValue(int32_t input)
   {
     ema_raw = ema_raw - ema + input;
     ema = ema_raw >> round_up_to_power_of_2(A);
@@ -151,8 +155,12 @@ public:
    * @brief Get the Triple Exponentially Weighted Moving Average (TEMA).
    *
    * @return auto The TEMA value.
+   *
+   * @note Not inlined: it is read in several places (relay decisions, datalog output), and
+   *       each inlined copy would read a static instance's averages with absolute lds
+   *       (4 bytes per byte), against ld/ldd through this (2 bytes) - 70 bytes less.
    */
-  auto getAverageT() const
+  __attribute__((noinline)) auto getAverageT() const
   {
     return 3 * (ema - ema_ema) + ema_ema_ema;
   }
