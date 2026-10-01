@@ -19,7 +19,7 @@ This Arduino sketch receives RF commands from the main PV Router and controls lo
    ```bash
    # Using PlatformIO
    pio run -e uno -t upload
-   
+
    # Using Arduino IDE
    # Open RemoteLoadReceiver.ino and click Upload
    ```
@@ -59,17 +59,19 @@ GND         <--->    Common ground
 
 Active HIGH: Arduino HIGH = Load ON
 
-### Status LED (Optional)
+### Status LEDs (Optional)
 
 ```
-Arduino UNO          LED
------------          ---
-D4          --->     Anode (+)
-GND         <--->    Cathode (-) via 220Ω resistor
+Arduino UNO          LEDs
+-----------          ----
+D5          --->     Green LED anode (+)
+D7          --->     Red LED anode (+)
+GND         <--->    Cathodes (-), each via a 220Ω resistor
 ```
 
-- Solid ON: RF link OK
-- Blinking: RF link lost
+- Green, slow blink (1 s on, 1 s off): the main loop is running. If it stops blinking, the firmware is stuck, and the watchdog resets the board within 1 s.
+- Red, off: RF link OK
+- Red, fast blink (~4 Hz): RF link lost, all loads OFF
 
 ## Configuration
 
@@ -98,7 +100,8 @@ const uint8_t loadPins[NO_OF_LOADS] = { 5, 6 }; // Arduino pins
 
 - ✅ **Fast response**: Updates within 20ms of receiving command
 - ✅ **Safety timeout**: Turns all loads OFF if no RF for 500ms
-- ✅ **CRC checking**: Only processes valid packets
+- ✅ **Watchdog**: Resets the board (loads OFF) if the firmware stops running for 1 s
+- ✅ **CRC checking**: Only processes valid packets of the expected length
 - ✅ **Node filtering**: Only responds to designated transmitter
 - ✅ **Status indicator**: LED shows RF link quality
 - ✅ **Serial debugging**: Verbose output for troubleshooting
