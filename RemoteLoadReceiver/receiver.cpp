@@ -18,13 +18,18 @@ RfStatus rfStatus{ RfStatus::LOST };
 unsigned long lastMessageTime{ 0 };
 unsigned long lastRedLedToggle{ 0 };
 unsigned long lastGreenLedToggle{ 0 };
-uint8_t previousLoadBitmask{ 0xFF };  // Initialize to invalid value to force first print
-RemoteLoadPayload receivedData;
 
-// RFM69 radio instance (SS=D10, IRQ=D2, isRFM69HW)
-#include <Arduino.h>
-#include <RFM69.h>
-#include "config.h"
+constexpr uint16_t buildLoadPinMask()
+{
+  uint16_t mask{ 0 };
+  for (const auto pin : loadPins)
+  {
+    mask |= bit(pin);
+  }
+  return mask;
+}
+
+inline constexpr uint16_t loadPinMask{ buildLoadPinMask() };
 
 /**
  * @brief Stops the watchdog first thing at boot
@@ -43,15 +48,6 @@ RFM69 radio(RFConfig::RF_CS_PIN, RFConfig::RF_IRQ_PIN, RFConfig::IS_RFM69HW);
 
 void initializeReceiver()
 {
-  // Build bitmask of all load pins for fast initialization
-  uint16_t loadPinMask{ 0 };
-  uint8_t i{ NO_OF_LOADS };
-  do
-  {
-    --i;
-    loadPinMask |= bit(loadPins[i]);
-  } while (i);
-
   // Configure load pins as outputs and set to OFF (fast direct port manipulation)
   setPinsAsOutput(loadPinMask);
   setPinsOFF(loadPinMask);
@@ -95,7 +91,7 @@ void initializeReceiver()
   }
 
   // Optional: set high power mode for RFM69HW
-  if (IS_RFM69HW)
+  if constexpr (RFConfig::IS_RFM69HW)
   {
     radio.setHighPower();
   }
@@ -163,13 +159,8 @@ void processRfMessages()
     return;
   }
 
-  // Copy received data (single byte, direct assignment is faster than memcpy)
-  receivedData.loadBitmask = radio.DATA[0];
-
-  // Note: ACK not used - transmitter sends with requestACK=false for faster, non-blocking operation
-
-  // Update loads based on received bitmask
-  updateLoads(receivedData.loadBitmask);
+  // No ACK: the transmitter sends with requestACK=false, so it never blocks waiting for one
+  updateLoads(radio.DATA[0]);
 
   // Update RF status
   lastMessageTime = millis();
@@ -179,25 +170,6 @@ void processRfMessages()
     rfStatus = RfStatus::OK;
     Serial.println(F("RF link restored"));
   }
-
-  // Debug output - only print if data has changed
-  // if (receivedData.loadBitmask != previousLoadBitmask)
-  // {
-  //   Serial.print(F("Received: 0b"));
-  //   Serial.print(receivedData.loadBitmask, BIN);
-  //   Serial.print(F(" (RSSI: "));
-  //   Serial.print(radio.RSSI);
-  //   Serial.print(F(") - Loads: "));
-  //   for (uint8_t i = 0; i < NO_OF_LOADS; ++i)
-  //   {
-  //     Serial.print(i);
-  //     Serial.print(F(":"));
-  //     Serial.print((receivedData.loadBitmask & (1 << i)) ? F("ON ") : F("OFF "));
-  //   }
-  //   Serial.println();
-
-  //   previousLoadBitmask = receivedData.loadBitmask;
-  // }
 }
 
 void checkRfTimeout()
@@ -218,9 +190,6 @@ void checkRfTimeout()
 
   // Safety: Turn all loads OFF when RF link is lost
   updateLoads(0);
-
-  // Reset previous bitmask so next valid message will be printed
-  previousLoadBitmask = 0xFF;
 }
 
 /**
@@ -240,11 +209,4 @@ void loop()
   processRfMessages();
   checkRfTimeout();
   updateStatusLED();
-}
-
-int freeRam()
-{
-  extern int __heap_start, *__brkval;
-  int v;
-  return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
 }

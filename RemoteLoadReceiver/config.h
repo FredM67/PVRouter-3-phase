@@ -33,10 +33,6 @@ inline constexpr unsigned long GREEN_LED_INTERVAL_MS{ 1000 }; /**< Toggle the gr
 // Red LED: OFF when RF OK, fast blink (~4Hz) when RF lost
 inline constexpr unsigned long RED_LED_INTERVAL_MS{ 125 };
 
-// Pin configuration for RFM69 module
-inline constexpr uint8_t RF_CS_PIN{ 10 }; /**< SPI Chip Select pin */
-inline constexpr uint8_t RF_IRQ_PIN{ 2 }; /**< Interrupt pin */
-
 // Data structure for received commands (must match transmitter)
 struct RemoteLoadPayload
 {
