@@ -94,6 +94,9 @@ inline void setPinState(const uint8_t pin, const bool bState)
  * @brief Set the Pin state to ON for the specified pin
  *
  * @param pin pin to change [2..13]
+ *
+ * @warning Atomic (a single sbi/cbi) only for a pin known at compile time. For a pin known at
+ *          run time it is a read-modify-write of the port: from loop(), use setPinState().
  */
 inline constexpr void setPinON(const uint8_t pin)
 {
@@ -115,6 +118,10 @@ inline constexpr void setPinON(const uint8_t pin)
  * @brief Set the Pins state to ON
  *
  * @param pins The pins to change
+ *
+ * @warning Read-modify-write of PORTD and PORTB: only safe from the ADC ISR (its sole caller),
+ *          which cannot be interrupted. From loop(), use setPinState() or togglePin(): an ISR
+ *          landing in the middle would have its load pin changes written back to the old state.
  */
 inline void setPinsON(const uint16_t pins)
 {
@@ -126,6 +133,9 @@ inline void setPinsON(const uint16_t pins)
  * @brief Set the Pin state to OFF for the specified pin
  *
  * @param pin pin to change [2..13]
+ *
+ * @warning Atomic (a single sbi/cbi) only for a pin known at compile time. For a pin known at
+ *          run time it is a read-modify-write of the port: from loop(), use setPinState().
  */
 inline constexpr void setPinOFF(const uint8_t pin)
 {
@@ -147,6 +157,10 @@ inline constexpr void setPinOFF(const uint8_t pin)
  * @brief Set the Pins state to OFF
  *
  * @param pins The pins to change
+ *
+ * @warning Read-modify-write of PORTD and PORTB: only safe from the ADC ISR (its sole caller),
+ *          which cannot be interrupted. From loop(), use setPinState() or togglePin(): an ISR
+ *          landing in the middle would have its load pin changes written back to the old state.
  */
 inline void setPinsOFF(const uint16_t pins)
 {
