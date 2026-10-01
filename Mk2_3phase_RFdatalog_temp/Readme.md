@@ -154,11 +154,12 @@ Ces valeurs par défaut doivent être déterminées pour assurer un fonctionneme
 
 L’étalonnage se fait avec le programme du routeur lui-même : les valeurs sont ainsi mesurées avec exactement le traitement avec lequel elles seront utilisées. Avec `SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable` (dans **config.h**), il affiche toutes les 5 secondes, sur le moniteur série à 9600 bauds, la puissance de chaque phase (`P1`, `P2`, `P3`, en W, positive en import) et sa tension (`V1`, `V2`, `V3`).
 
-1. Étalonnez en import (la nuit, ou PV déconnecté) : le routeur ne commute alors aucune charge, ce qui modifierait la puissance mesurée.
+1. Passez `CALIBRATION_MODE` à `true` dans **config.h** et téléversez : le routeur mesure et affiche comme d’habitude, mais ne commute plus aucune charge (triacs, relais, charges distantes, forçages), ce qui modifierait la puissance mesurée. Il l’annonce au démarrage.
 2. Mesurez la puissance sur la phase 1 avec un appareil de référence (par exemple une pince wattmétrique autour du même câble que la sonde), idéalement avec une forte charge résistive sur cette phase, comme un chauffe-eau.
 3. Comparez-la à `P1` et corrigez la valeur : nouveau `f_powerCal[0]` = ancien `f_powerCal[0]` × puissance de référence / `P1`.
 4. Recommencez pour les phases 2 et 3, téléversez à nouveau et vérifiez.
 5. Les tensions s’étalonnent de la même façon avec `f_voltageCal`, par rapport à un voltmètre. Elles ne servent qu’à l’affichage : elles n’ont aucun effet sur le routage.
+6. Remettez `CALIBRATION_MODE` à `false` et téléversez : le routeur route à nouveau.
 
 Si une phase affiche une puissance négative en import, sa sonde est montée à l’envers (ou n’est pas sur la phase de son entrée tension).
 
