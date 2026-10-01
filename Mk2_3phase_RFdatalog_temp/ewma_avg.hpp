@@ -115,8 +115,9 @@ public:
    *
    * @param input The new input value to process.
    *
-   * @note Not inlined: in a large caller such as loop(), the inlined int32 arithmetic costs
-   *       more flash than the call.
+   * @note Not inlined, even with a single caller: on AVR, inlined code reaches a static
+   *       instance's six int32 with absolute lds/sts (4 bytes per byte accessed), the
+   *       function through its this pointer with ld/st/ldd/std (2 bytes) - 78 bytes less.
    */
   __attribute__((noinline)) void addValue(int32_t input)
   {
