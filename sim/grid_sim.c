@@ -84,6 +84,9 @@ typedef enum
   EXPECT_MISFILED, /* expect misfiled_samples <n>  (conversions filed under the wrong channel, at most) */
   EXPECT_RF_GAP,   /* expect rf_max_gap <node> <s>  (longest silence towards a node, once it got a frame) */
   EXPECT_RF_LOST,  /* expect rf_links_lost <node> <min> <max>  (times the node's receiver lost the link) */
+  EXPECT_SWITCHES, /* expect switches <pin> <min> <max>  (switch-ons of a load or relay) */
+  EXPECT_MIN_ON,   /* expect min_on <pin> <s>  (shortest complete ON period, at least) */
+  EXPECT_MIN_OFF,  /* expect min_off <pin> <s>  (shortest complete OFF period between two ON ones, at least) */
 } expect_kind_t;
 
 typedef struct
@@ -116,6 +119,7 @@ typedef struct
   int node, bit; /* remote load: node ID (0 for a local load) and bit of the payload */
   int phase;     /* 0-based */
   double watts;
+  int relay; /* the contacts follow the pin at once, with no zero-crossing latching */
   /* pin state, as driven by the firmware */
   int state, prev_state;
   avr_cycle_count_t changed_at;
@@ -124,6 +128,8 @@ typedef struct
   /* statistics */
   unsigned switches;
   double on_time, energy_wh, first_on;
+  /* shortest complete ON and OFF periods (< 0: none yet), from the last change */
+  double last_change, min_on, min_off;
   /* delay from a pin change to the zero crossing where the power stage follows it */
   unsigned transitions, at_positive_zc;
   double latency_sum, latency_max;
@@ -216,7 +222,7 @@ static void parse_scenario(const char *path, int depth)
       ok = sscanf(args, "%lf %lf %lf", &scn.vcal[0], &scn.vcal[1], &scn.vcal[2]) == 3;
     else if (!strcmp(cmd, "pcal"))
       ok = sscanf(args, "%lf %lf %lf", &scn.pcal[0], &scn.pcal[1], &scn.pcal[2]) == 3;
-    else if (!strcmp(cmd, "load"))
+    else if (!strcmp(cmd, "load") || !strcmp(cmd, "relay"))
     {
       if (scn.no_of_loads == MAX_LOADS)
         die("%s:%d: too many loads", path, lineno);
@@ -224,7 +230,8 @@ static void parse_scenario(const char *path, int depth)
       ok = sscanf(args, "%d %d %lf", &l->pin, &l->phase, &l->watts) == 3 && l->pin >= 0 && l->pin <= 13
            && l->phase >= 1 && l->phase <= NO_OF_PHASES;
       l->phase -= 1;
-      l->first_on = -1.0;
+      l->first_on = l->last_change = l->min_on = l->min_off = -1.0;
+      l->relay = !strcmp(cmd, "relay");
       if (ok)
         ++scn.no_of_loads;
     }
@@ -237,7 +244,7 @@ static void parse_scenario(const char *path, int depth)
            && l->node <= 1023 && l->bit >= 0 && l->bit <= 7 && l->phase >= 1 && l->phase <= NO_OF_PHASES;
       l->pin = -1;
       l->phase -= 1;
-      l->first_on = -1.0;
+      l->first_on = l->last_change = l->min_on = l->min_off = -1.0;
       if (ok)
         ++scn.no_of_loads;
     }
@@ -307,6 +314,12 @@ static void parse_scenario(const char *path, int depth)
         e->kind = EXPECT_RF_GAP;
       else if (sscanf(args, " rf_links_lost %d %lf %lf", &e->node, &e->lo, &e->hi) == 3 && e->hi >= e->lo)
         e->kind = EXPECT_RF_LOST;
+      else if (sscanf(args, " switches %d %lf %lf", &e->pin, &e->lo, &e->hi) == 3 && e->hi >= e->lo)
+        e->kind = EXPECT_SWITCHES;
+      else if (sscanf(args, " min_on %d %lf", &e->pin, &e->lo) == 2)
+        e->kind = EXPECT_MIN_ON;
+      else if (sscanf(args, " min_off %d %lf", &e->pin, &e->lo) == 2)
+        e->kind = EXPECT_MIN_OFF;
       else if (sscanf(args, "%lf pin %d %31s", &t, &e->pin, a) == 3 && (!strcmp(a, "on") || !strcmp(a, "off")))
       {
         e->kind = EXPECT_PIN;
@@ -525,7 +538,7 @@ static void update_grid(void)
     for (int i = 0; i < scn.no_of_loads; ++i)
     {
       load_t *l = &scn.loads[i];
-      if (l->phase != k)
+      if (l->phase != k || l->relay)
         continue;
       const int conducting = load_state_at(l, zc_cycle);
       if (conducting != l->conducting)
@@ -666,11 +679,24 @@ static void set_load_state(load_t *l, int value)
   l->prev_state = l->state;
   l->state = value;
   l->changed_at = avr->cycle;
+  if (l->relay)
+    l->conducting = value;
+
+  /* the period that ends here: the OFF one before the first switch-on does not count */
+  const double t = now();
+  if (l->last_change >= 0)
+  {
+    double *shortest = value ? &l->min_off : &l->min_on;
+    if (*shortest < 0 || t - l->last_change < *shortest)
+      *shortest = t - l->last_change;
+  }
+  l->last_change = t;
+
   if (value)
   {
     ++l->switches;
     if (l->first_on < 0)
-      l->first_on = now();
+      l->first_on = t;
   }
   if (events_file)
     fprintf(events_file, "%.6f,%s,%s\n", now(), load_name(l), value ? "ON" : "OFF");
@@ -951,6 +977,34 @@ static int report_expects(void)
                    e->measured);
           break;
         }
+      case EXPECT_SWITCHES:
+      case EXPECT_MIN_ON:
+      case EXPECT_MIN_OFF:
+        {
+          const load_t *l = NULL;
+          for (int j = 0; j < scn.no_of_loads; ++j)
+            if (scn.loads[j].pin == e->pin)
+              l = &scn.loads[j];
+          if (e->kind == EXPECT_SWITCHES)
+          {
+            e->measured = l ? (double)l->switches : -1.0;
+            e->passed = l && e->measured >= e->lo && e->measured <= e->hi;
+            snprintf(what, sizeof what, "D%d switched on %.0f to %.0f times: %.0f", e->pin, e->lo, e->hi, e->measured);
+          }
+          else
+          {
+            /* no complete period: nothing to contradict the minimum */
+            const int on = e->kind == EXPECT_MIN_ON;
+            e->measured = l ? (on ? l->min_on : l->min_off) : -1;
+            e->passed = l && (e->measured < 0 || e->measured >= e->lo);
+            if (l && e->measured < 0)
+              snprintf(what, sizeof what, "D%d %s at least %g s: no complete period", e->pin, on ? "ON" : "OFF", e->lo);
+            else
+              snprintf(what, sizeof what, "D%d %s at least %g s: %.3f s", e->pin, on ? "ON" : "OFF", e->lo,
+                       e->measured);
+          }
+          break;
+        }
       case EXPECT_MIN_SETS:
         e->passed = serial.datalog_lines && serial.min_sets >= e->lo;
         snprintf(what, sizeof what, "min sample sets per mains cycle at least %.0f: %d", e->lo,
@@ -1130,11 +1184,14 @@ int main(int argc, char *argv[])
   for (int i = 0; i < scn.no_of_loads; ++i)
   {
     const load_t *l = &scn.loads[i];
-    printf("Load %-5s L%d %5.0f W: %4u switch-ons, on %5.1f %%, %7.2f Wh, first on at %s", load_name(l), l->phase + 1,
-           l->watts, l->switches, 100.0 * l->on_time / now(), l->energy_wh, l->first_on < 0 ? "never" : "");
+    printf("%s %-5s L%d %5.0f W: %4u switch-ons, on %5.1f %%, %7.2f Wh, first on at %s", l->relay ? "Relay" : "Load ",
+           load_name(l), l->phase + 1, l->watts, l->switches, 100.0 * l->on_time / now(), l->energy_wh,
+           l->first_on < 0 ? "never" : "");
     if (l->first_on >= 0)
       printf("%.3f s", l->first_on);
     printf("\n");
+    if (l->relay && (l->min_on >= 0 || l->min_off >= 0))
+      printf("          shortest ON %.1f s, shortest OFF %.1f s (complete periods; -1: none)\n", l->min_on, l->min_off);
     if (l->transitions)
       printf("          switching latency average %.2f ms, max %.2f ms, %u of %u at a rising zero crossing\n",
              1e3 * l->latency_sum / l->transitions, 1e3 * l->latency_max, l->at_positive_zc, l->transitions);
