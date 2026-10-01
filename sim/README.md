@@ -104,7 +104,7 @@ Plain text, one command per line, `#` starts a comment.
 | `rf_timeout <s>` | ideal receivers: link timeout (default 0.5 s) |
 | `rf_drop <t0> <t1> [<node>]` | frames sent in this window (to this node, or to all) are lost |
 | `rf_loss <percent>` | share of frames lost at random, over the whole run |
-| `input <pin> <0\|1>` | level of an input pin (unconnected inputs read 1, like the pull-ups) |
+| `input <pin> <0\|1> [<t>]` | level of an input pin from time t on (default 0): the latest line at or before the current time wins; unconnected inputs read 1, like the pull-ups |
 | `at <t> <L1> <L2> <L3>` | surplus per phase in W (> 0 = export) at time t; linear in between, repeat a time for a step |
 | `expect <t> pin <p> on\|off` | state of an output pin at time t |
 | `expect <t> remote <node> <bit> on\|off` | state of a remote load at time t |
