@@ -156,7 +156,9 @@ public:
    *
    * @return auto The TEMA value.
    *
-   * @note Not inlined: it is read in several places (relay decisions, datalog output).
+   * @note Not inlined: it is read in several places (relay decisions, datalog output), and
+   *       each inlined copy would read a static instance's averages with absolute lds
+   *       (4 bytes per byte), against ld/ldd through this (2 bytes) - 70 bytes less.
    */
   __attribute__((noinline)) auto getAverageT() const
   {
