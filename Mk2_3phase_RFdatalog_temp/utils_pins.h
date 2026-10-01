@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for pins manipulation
  * @version 0.1
- * @date 2026-01-29
+ * @date 2026-10-01
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -71,16 +71,22 @@ void constexpr togglePin(const uint8_t pin)
  *
  * @param pin pin to change [2..13]
  * @param bState state to be set
+ *
+ * @details For a pin only known at run time (a relay). The ADC ISR writes the load pins,
+ *          possibly on the same port, so the port must not be read-modified-written here:
+ *          the pin is toggled through PINx instead, where writing a 1 toggles that bit of
+ *          PORTx and writing a 0 leaves the others alone. Only the caller changes this pin,
+ *          so reading its state first is safe.
  */
-inline constexpr void setPinState(const uint8_t pin, const bool bState)
+inline void setPinState(const uint8_t pin, const bool bState)
 {
-  if (bState)
+  const volatile uint8_t &port{ (pin < 8) ? PORTD : ((pin < 14) ? PORTB : PORTC) };
+  volatile uint8_t &toggle{ (pin < 8) ? PIND : ((pin < 14) ? PINB : PINC) };
+  const uint8_t mask{ static_cast< uint8_t >(1U << ((pin < 8) ? pin : ((pin < 14) ? pin - 8 : pin - 14))) };
+
+  if (static_cast< bool >(port & mask) != bState)
   {
-    setPinON(pin);
-  }
-  else
-  {
-    setPinOFF(pin);
+    toggle = mask;
   }
 }
 
