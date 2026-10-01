@@ -19,6 +19,7 @@ No hardware, no sun: regulation, load priorities, ISR timing and switching insta
 | misfiled samples | conversions filed under the wrong channel: the ISR writes ADMUX for the conversion after next, so an overrun leaves one conversion on the previous channel. The first two rounds after the ADC starts are ignored |
 | min sample sets | as reported by the firmware's own datalog (32 on the real board) |
 | per load | switch-ons, time on, energy, and the **switching latency**: delay from the pin change to the zero crossing where the load follows, and whether it was a rising crossing (start of the phase's measurement window) |
+| per relay | switch-ons, time on, energy, and the shortest complete ON and OFF periods |
 | RF, per node | frames the router sent to it, the longest gap between two of them, air time per frame, frames lost, times its receiver lost the link |
 | receiver, per remote unit | frames received, frames missed because the radio was not listening |
 | grid | import / export energy, total and per phase |
@@ -73,6 +74,19 @@ Each remote unit is either:
 
 Frames get lost in `rf_drop` windows, and at random with `rf_loss`, from a fixed seed, so the same frames are lost on every run.
 
+### Relays
+
+The scenarios in `scenarios/relays` need a firmware with relay diversion: `configs/relays.patch` puts two relays on D8 and D9 (surplus thresholds 1000 and 2000 W, import threshold 200 W, 2 minutes minimum ON and OFF) with a 1-minute filter. It is built in a build directory of its own, so the `basic` firmware of `make check` stays.
+
+```bash
+git apply --unidiff-zero sim/configs/relays.patch
+(cd Mk2_3phase_RFdatalog_temp && PLATFORMIO_BUILD_DIR=.pio/build-relays pio run -e basic)
+git checkout Mk2_3phase_RFdatalog_temp/config.h
+make -C sim check-relays
+```
+
+A relay's contacts follow its pin at once. The firmware decides on the grid power of each datalog line (every 5 s) through its TEMA filter, waits 1 minute after any relay change, and holds each relay for its minimum ON or OFF time - from power-up for the first switch-on. A relay scenario therefore lasts several minutes; the minimum times are longer than the settle time, so that a firmware ignoring them fails.
+
 ## Scenarios
 
 Plain text, one command per line, `#` starts a comment.
@@ -84,6 +98,7 @@ Plain text, one command per line, `#` starts a comment.
 | `mains <Hz> <Vrms>` | grid frequency and voltage |
 | `vcal <L1> <L2> <L3>` / `pcal ...` | `f_voltageCal` / `f_powerCal` from `calibration.h` |
 | `load <pin> <phase> <W>` | a resistive load on a firmware output pin |
+| `relay <pin> <phase> <W>` | a resistive load on a relay: it follows the pin at once, with no zero-crossing latching |
 | `remote <node> <bit> <phase> <W>` | a resistive load on a remote unit, driven by bit `bit` of the frames sent to RF node `node` |
 | `receiver_pins <pin>...` | receiver firmware: the output pin of each payload bit, bit 0 first (`loadPins` in its `config.h`) |
 | `rf_timeout <s>` | ideal receivers: link timeout (default 0.5 s) |
@@ -95,20 +110,22 @@ Plain text, one command per line, `#` starts a comment.
 | `expect <t> remote <node> <bit> on\|off` | state of a remote load at time t |
 | `expect rf_max_gap <node> <s>` | frames to the node never further apart than this, from its first frame to the end |
 | `expect rf_links_lost <node> <min> <max>` | times the node's receiver lost the RF link (its loads switched off) |
+| `expect switches <pin> <min> <max>` | switch-ons of a load or relay over the run |
+| `expect min_on <pin> <s>` / `expect min_off <pin> <s>` | shortest complete ON period / OFF period between two ON ones, at least |
 | `expect <t0> <t1> grid_avg <min> <max>` | average grid power (all phases, import > 0) over a window |
 | `expect min_sample_sets <n>` | lowest sample-set count reported by the firmware |
 | `expect isr_overruns <n>` | at most n ISR calls longer than one conversion |
 | `expect misfiled_samples <n>` | at most n conversions filed under the wrong channel |
 | `expect isr_max <cycles>` | ISR duration never above this |
 
-`scenarios/common.scn` describes the hardware of the default `config.h` / `calibration.h`; the other scenarios include it. `scenarios/rf/common.scn` does the same for the remote-loads configuration.
+`scenarios/common.scn` describes the hardware of the default `config.h` / `calibration.h`; the other scenarios include it. `scenarios/rf/common.scn` and `scenarios/relays/common.scn` do the same for the remote-loads and relay configurations.
 
 ## Limits
 
-- **Firmware configuration**: the scenarios match the default `config.h` (3 local loads on D5-D7, override pin D4), and `scenarios/rf` matches `configs/remote_loads.patch`. Another configuration needs its own `common.scn`.
+- **Firmware configuration**: the scenarios match the default `config.h` (3 local loads on D5-D7, override pin D4), `scenarios/rf` matches `configs/remote_loads.patch` and `scenarios/relays` matches `configs/relays.patch`. Another configuration needs its own `common.scn`.
 - **RF**: a frame either arrives intact or is lost; no range, interference, collisions or corrupted frames. The channel always looks free to carrier sense.
 - **Ideal signals**: pure sine waves, no ADC noise, no CT phase error, no harmonics.
-- **Power stage**: an ideal zero-crossing triac driver, resistive loads.
+- **Power stage**: an ideal zero-crossing triac driver, resistive loads; relays switch at once, with no bounce.
 - **Timing**: simavr executes the real instructions with their datasheet cycle counts; peripherals are modelled, not exact.
 
 ## simavr ADC fix
