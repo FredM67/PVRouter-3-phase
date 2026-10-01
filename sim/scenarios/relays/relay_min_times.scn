@@ -2,7 +2,7 @@
 # time after a change): it stays on through an import until its minimum ON time is
 # over, then off through the returning surplus until its minimum OFF time is over.
 include common.scn
-duration 440
+duration 380
 
 at 0   -200 -200 -200
 at 30  -200 -200 -200
@@ -11,11 +11,11 @@ at 150 1500 1500 1500
 at 150 -200 -200 -200   # import
 at 260 -200 -200 -200
 at 260 1500 1500 1500   # surplus again
-at 440 1500 1500 1500
+at 380 1500 1500 1500
 
 expect 200 pin 8 on     # importing, but within its minimum ON time
 expect 330 pin 8 off    # exporting, but within its minimum OFF time
-expect 430 pin 8 on
+expect 375 pin 8 on
 # 2 minutes, counted in seconds by loop(): the pin changes within a few ms of the second
 expect min_on 8 119.9
 expect min_off 8 119.9

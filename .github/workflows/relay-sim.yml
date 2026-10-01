@@ -1,0 +1,87 @@
+# Relay diversion on the simulated grid (sim/scenarios/relays)
+# The scenarios last minutes of simulated time, so on pull requests they only run when
+# something the relays depend on changes. Every push to the long-lived branches runs them.
+
+name: Relay simulation
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [ main, dev ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'LICENSE'
+      - '.gitignore'
+  pull_request:
+    paths:
+      # relay engine, its filter and pin writes
+      - 'Mk2_3phase_RFdatalog_temp/utils_relay.h'
+      - 'Mk2_3phase_RFdatalog_temp/ewma_avg.hpp'
+      - 'Mk2_3phase_RFdatalog_temp/utils_pins.h'
+      # the power it decides on: datalog sums (ISR) and their totals (loop)
+      - 'Mk2_3phase_RFdatalog_temp/main.cpp'
+      - 'Mk2_3phase_RFdatalog_temp/main.h'
+      - 'Mk2_3phase_RFdatalog_temp/processing.cpp'
+      - 'Mk2_3phase_RFdatalog_temp/processing.h'
+      - 'Mk2_3phase_RFdatalog_temp/shared_var.h'
+      - 'Mk2_3phase_RFdatalog_temp/calibration.h'
+      # configuration, build
+      - 'Mk2_3phase_RFdatalog_temp/config*.h'
+      - 'Mk2_3phase_RFdatalog_temp/validation.h'
+      - 'Mk2_3phase_RFdatalog_temp/platformio.ini'
+      # the simulator and this workflow
+      - 'sim/**'
+      - '!sim/**.md'
+      - '.github/workflows/relay-sim.yml'
+      - '.github/actions/setup-platformio/**'
+  workflow_dispatch:
+
+# A new push to a pull request supersedes its running simulation.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  PROJECT_DIR: Mk2_3phase_RFdatalog_temp
+
+jobs:
+  grid-sim-relays:
+    name: Grid simulation (relays)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: 'true'
+
+      - uses: ./.github/actions/setup-platformio
+
+      - name: Build firmware (relays)
+        run: |
+          git apply --unidiff-zero sim/configs/relays.patch
+          PLATFORMIO_BUILD_DIR=.pio/build-relays pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+
+      - name: Install simavr
+        run: pio pkg install --global --tool platformio/tool-simavr
+
+      - name: Run relay scenarios
+        run: make -C sim -j"$(nproc)" -k check-relays
+
+      - name: Report relay scenarios
+        if: always()
+        run: |
+          {
+            echo "### Grid simulation (relays)"
+            echo '```'
+            cat sim/out/*-summary.txt 2>/dev/null || echo "no summary"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload traces
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: grid-sim-relays
+          path: sim/out/
