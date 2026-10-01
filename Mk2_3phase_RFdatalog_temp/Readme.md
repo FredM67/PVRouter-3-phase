@@ -44,6 +44,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
     - [Câblage](#câblage)
     - [Exemples pratiques](#exemples-pratiques)
   - [Arrêt du routage](#arrêt-du-routage)
+  - [Routeur à l’arrêt](#routeur-à-larrêt)
 - [Configuration avancée du programme](#configuration-avancée-du-programme)
   - [Paramètre `DIVERSION_START_THRESHOLD_WATTS`](#paramètre-diversion_start_threshold_watts)
   - [Paramètre `REQUIRED_EXPORT_IN_WATTS`](#paramètre-required_export_in_watts)
@@ -873,6 +874,18 @@ Vous devez également spécifier la *pin* à laquelle le contact sec est connect
 ```cpp
 inline constexpr uint8_t diversionPin{ 12 };
 ```
+
+Tant que la *pin* est à l’état bas, le surplus n’est plus routé, ni vers les charges à triac, ni vers les relais, ni vers les charges distantes. Les forçages restent actifs : une *pin* de forçage ou le forçage en heures creuses allume toujours ses charges et ses relais. Pour arrêter aussi les forçages, utilisez la *pin* d’arrêt du routeur ci-dessous.
+
+## Routeur à l’arrêt
+La *pin* d’arrêt du routeur éteint toutes les charges et tous les relais, forçages compris, tant qu’elle est à l’état bas. Le routeur continue de mesurer et d’envoyer ses données. Elle convient à une absence pendant laquelle rien ne doit chauffer, pas même avec le forçage en heures creuses.
+
+```cpp
+inline constexpr bool ROUTER_OFF_PIN_PRESENT{ true };
+inline constexpr uint8_t routerOffPin{ 11 };
+```
+
+Les relais respectent toujours leur durée minimale de fonctionnement avant de s’arrêter. `CALIBRATION_MODE` (voir [Étalonnage du routeur](#étalonnage-du-routeur)) donne le même état, en permanence, sans *pin*.
 
 # Configuration avancée du programme
 

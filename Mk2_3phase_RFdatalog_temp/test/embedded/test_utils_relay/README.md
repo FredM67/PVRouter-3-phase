@@ -15,7 +15,7 @@ Tests for relay control logic including timing constraints and EWMA filtering.
 | `test_settle_change_*` | Settling time behavior |
 | `test_relay_ordering_*` | Turn ON/OFF order (ascending/descending) |
 | `test_duration_overflow_*` | Duration counter overflow protection |
-| `test_forceOFF_*` | Force OFF when diversion disabled |
+| `test_forced_only_*` | Diversion disabled: a relay is ON only while forced |
 | `test_diversion_disabled_*` | Diversion control (diversionEnabled parameter) |
 
 ## Running

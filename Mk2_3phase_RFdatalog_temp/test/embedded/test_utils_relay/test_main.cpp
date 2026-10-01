@@ -156,7 +156,6 @@ void test_relay_override_turnON(void)
   uint16_t overrideBitmask = (1U << my_relay.get_pin());
   TEST_ASSERT_FALSE(my_relay.proceed_relay(insufficient_surplus, overrideBitmask));
   TEST_ASSERT_FALSE(my_relay.isRelayON());
-  TEST_ASSERT_EQUAL(0, overrideBitmask & (1U << my_relay.get_pin()));  // Bit cleared
 
   // Increment to just before minimum OFF time is reached
   for (uint8_t timer = my_relay.get_minOFF() / 2; timer < my_relay.get_minOFF() - 1; ++timer)
@@ -167,7 +166,6 @@ void test_relay_override_turnON(void)
   overrideBitmask = (1U << my_relay.get_pin());
   TEST_ASSERT_FALSE(my_relay.proceed_relay(insufficient_surplus, overrideBitmask));
   TEST_ASSERT_FALSE(my_relay.isRelayON());
-  TEST_ASSERT_EQUAL(0, overrideBitmask & (1U << my_relay.get_pin()));  // Bit cleared
 
   // Increment one more time - now minimum OFF time is reached
   my_relay.inc_duration();
@@ -175,7 +173,6 @@ void test_relay_override_turnON(void)
   overrideBitmask = (1U << my_relay.get_pin());
   TEST_ASSERT_TRUE(my_relay.proceed_relay(insufficient_surplus, overrideBitmask));
   TEST_ASSERT_TRUE(my_relay.isRelayON());
-  TEST_ASSERT_EQUAL(0, overrideBitmask & (1U << my_relay.get_pin()));  // Bit cleared
 }
 
 void test_relay_override_minimum_ON_time(void)
@@ -658,24 +655,24 @@ void test_duration_overflow(void)
 }
 
 // ============================================================================
-// forceOFF tests
+// proceed_forced_only tests (diversion disabled)
 // ============================================================================
 
 // Use D=4 to create a separate EWMA instance
 constexpr RelayEngine< 1, 4 > forceOffTestRelays{ integral_constant< uint8_t, 4 >{},
                                                   { { 4, 500, 100, 1, 1 } } };
 
-void test_forceOFF_when_already_off(void)
+void test_forced_only_when_already_off(void)
 {
-  // forceOFF on a relay that's already OFF should return false (no change)
+  // not forced, on a relay that's already OFF: no change
   const auto& relay = forceOffTestRelays.get_relay(0);
 
   TEST_ASSERT_FALSE(relay.isRelayON());
-  TEST_ASSERT_FALSE(relay.forceOFF());
+  TEST_ASSERT_FALSE(relay.proceed_forced_only(0));
   TEST_ASSERT_FALSE(relay.isRelayON());
 }
 
-void test_forceOFF_respects_minON_time(void)
+void test_forced_only_respects_minON_time(void)
 {
   // First turn the relay ON
   const auto& relay = forceOffTestRelays.get_relay(0);
@@ -692,8 +689,8 @@ void test_forceOFF_respects_minON_time(void)
   TEST_ASSERT_TRUE(relay.proceed_relay(surplus, overrideBitmask));
   TEST_ASSERT_TRUE(relay.isRelayON());
 
-  // Try forceOFF immediately - should fail (minON not met)
-  TEST_ASSERT_FALSE(relay.forceOFF());
+  // Not forced any more: OFF fails at once (minON not met)
+  TEST_ASSERT_FALSE(relay.proceed_forced_only(0));
   TEST_ASSERT_TRUE(relay.isRelayON());
 
   // Wait half of minON
@@ -703,11 +700,11 @@ void test_forceOFF_respects_minON_time(void)
   }
 
   // Still should fail
-  TEST_ASSERT_FALSE(relay.forceOFF());
+  TEST_ASSERT_FALSE(relay.proceed_forced_only(0));
   TEST_ASSERT_TRUE(relay.isRelayON());
 }
 
-void test_forceOFF_succeeds_after_minON(void)
+void test_forced_only_succeeds_after_minON(void)
 {
   const auto& relay = forceOffTestRelays.get_relay(0);
 
@@ -720,18 +717,40 @@ void test_forceOFF_succeeds_after_minON(void)
     relay.inc_duration();
   }
 
-  // Now forceOFF should succeed
-  TEST_ASSERT_TRUE(relay.forceOFF());
+  // Now turning OFF should succeed
+  TEST_ASSERT_TRUE(relay.proceed_forced_only(0));
   TEST_ASSERT_FALSE(relay.isRelayON());
 }
 
-void test_forceOFF(void)
+void test_forced_only_turns_on_when_forced(void)
 {
-  RUN_TEST(test_forceOFF_when_already_off);
+  // Diversion disabled, but the relay is forced: it turns ON once its minOFF is over
+  const auto& relay = forceOffTestRelays.get_relay(0);
+  const uint16_t forced{ static_cast< uint16_t >(1U << relay.get_pin()) };
+
+  TEST_ASSERT_FALSE(relay.isRelayON());
+  TEST_ASSERT_FALSE(relay.proceed_forced_only(forced));  // minOFF not met yet
+  TEST_ASSERT_FALSE(relay.isRelayON());
+
+  for (uint8_t i = 0; i < 60; ++i)
+  {
+    relay.inc_duration();
+  }
+
+  TEST_ASSERT_TRUE(relay.proceed_forced_only(forced));
+  TEST_ASSERT_TRUE(relay.isRelayON());
+  TEST_ASSERT_FALSE(relay.proceed_forced_only(forced));  // stays ON while forced
+}
+
+void test_forced_only(void)
+{
+  RUN_TEST(test_forced_only_when_already_off);
   delay(100);
-  RUN_TEST(test_forceOFF_respects_minON_time);
+  RUN_TEST(test_forced_only_respects_minON_time);
   delay(100);
-  RUN_TEST(test_forceOFF_succeeds_after_minON);
+  RUN_TEST(test_forced_only_succeeds_after_minON);
+  delay(100);
+  RUN_TEST(test_forced_only_turns_on_when_forced);
 }
 
 // ============================================================================
@@ -893,6 +912,28 @@ void test_diversion_disabled_sets_settle_change(void)
   TEST_ASSERT_FALSE(relay0.isRelayON());  // Still OFF due to settle_change
 }
 
+void test_diversion_disabled_keeps_forced_relay_on(void)
+{
+  // With diversion disabled, a forced relay turns ON while the other one stays OFF
+  const auto& relay0 = diversionTestRelays.get_relay(0);
+  const auto& relay1 = diversionTestRelays.get_relay(1);
+
+  // Wait for settle_change and minOFF
+  for (uint8_t i = 0; i < 60; ++i)
+  {
+    diversionTestRelays.inc_duration();
+  }
+
+  TEST_ASSERT_FALSE(relay0.isRelayON());
+  TEST_ASSERT_FALSE(relay1.isRelayON());
+
+  const uint16_t forceRelay1{ static_cast< uint16_t >(1U << relay1.get_pin()) };
+  diversionTestRelays.proceed_relays(forceRelay1, false);
+
+  TEST_ASSERT_FALSE(relay0.isRelayON());
+  TEST_ASSERT_TRUE(relay1.isRelayON());
+}
+
 void test_diversion_disabled(void)
 {
   RUN_TEST(test_diversion_disabled_forces_relays_off);
@@ -900,6 +941,8 @@ void test_diversion_disabled(void)
   RUN_TEST(test_diversion_disabled_respects_minON);
   delay(100);
   RUN_TEST(test_diversion_disabled_sets_settle_change);
+  delay(100);
+  RUN_TEST(test_diversion_disabled_keeps_forced_relay_on);
 }
 
 void setup()
@@ -935,7 +978,7 @@ void loop()
 
   RUN_TEST(test_duration_overflow);
 
-  RUN_TEST(test_forceOFF);
+  RUN_TEST(test_forced_only);
 
   RUN_TEST(test_diversion_disabled);
 
