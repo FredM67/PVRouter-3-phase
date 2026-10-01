@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for the relay output feature
  * @version 0.1
- * @date 2026-01-29
+ * @date 2026-10-01
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -173,25 +173,14 @@ public:
     if (currentAvgPower < surplusThreshold || isOverrideActive)
     {
       bit_clear(overrideBitmask, relay_pin);  // Clear override bit if it was set
-      return try_turnON();
+      return try_switch(true);
     }
 
-    // Handle both positive and negative import thresholds
-    if (importThreshold >= 0)
+    // Positive threshold: turn OFF when importing > threshold (normal mode).
+    // Negative threshold: turn OFF when surplus < abs(threshold) (battery mode).
+    if (currentAvgPower > importThreshold)
     {
-      // Positive threshold: turn OFF when importing > threshold (normal mode)
-      if (currentAvgPower > importThreshold)
-      {
-        return try_turnOFF();
-      }
-    }
-    else
-    {
-      // Negative threshold: turn OFF when surplus < abs(threshold) (battery mode)
-      if (currentAvgPower > importThreshold)  // importThreshold is negative, so this checks surplus < abs(threshold)
-      {
-        return try_turnOFF();
-      }
+      return try_switch(false);
     }
 
     return false;
@@ -234,55 +223,34 @@ public:
 
   /**
    * @brief Force the relay OFF when diversion is disabled
-   * 
+   *
    * @return bool True if state has changed
    * @details This method attempts to turn OFF the relay, respecting the minimum ON time constraint
    */
   bool forceOFF() const
   {
-    return try_turnOFF();
+    return try_switch(false);
   }
 
 private:
   /**
-   * @brief Turn ON the relay if the 'time' condition is met
+   * @brief Turn the relay ON or OFF if the 'time' condition is met
    *
+   * @param on True to turn the relay ON, false to turn it OFF
    * @return bool True if state has changed
    */
-  bool try_turnON() const
+  bool try_switch(const bool on) const
   {
-    if (relayIsON || duration < minOFF)
+    if ((relayIsON == on) || (duration < (on ? minOFF : minON)))
     {
       return false;
     }
 
-    setPinON(relay_pin);
+    setPinState(relay_pin, on);
 
-    DBUGLN(F("Relay turned ON!"));
+    DBUGLN(on ? F("Relay turned ON!") : F("Relay turned OFF!"));
 
-    relayIsON = true;
-    duration = 0;
-
-    return true;
-  }
-
-  /**
-   * @brief Turn OFF the relay if the 'time' condition is met
-   *
-   * @return bool True if state has changed
-   */
-  bool try_turnOFF() const
-  {
-    if (!relayIsON || duration < minON)
-    {
-      return false;
-    }
-
-    setPinOFF(relay_pin);
-
-    DBUGLN(F("Relay turned OFF!"));
-
-    relayIsON = false;
+    relayIsON = on;
     duration = 0;
 
     return true;
@@ -434,13 +402,15 @@ public:
       return;
     }
 
-    if (ewma_average.getAverageT() > 0)
+    const auto currentAvgPower{ ewma_average.getAverageT() };
+
+    if (currentAvgPower > 0)
     {
       // Currently importing, try to turn OFF some relays
       uint8_t idx{ N };
       do
       {
-        if (relay[--idx].proceed_relay(ewma_average.getAverageT(), overrideBitmask))
+        if (relay[--idx].proceed_relay(currentAvgPower, overrideBitmask))
         {
           settle_change = 60;
           return;
@@ -453,7 +423,7 @@ public:
       uint8_t idx{ 0 };
       do
       {
-        if (relay[idx].proceed_relay(ewma_average.getAverageT(), overrideBitmask))
+        if (relay[idx].proceed_relay(currentAvgPower, overrideBitmask))
         {
           settle_change = 60;
           return;
