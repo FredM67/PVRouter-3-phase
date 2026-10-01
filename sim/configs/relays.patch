@@ -1,0 +1,28 @@
+Firmware for scenarios/relays: the project's config with relay diversion on two relays,
+D8 and D9 (surplus thresholds 1000 and 2000 W, import threshold 200 W, 2 minutes minimum
+ON and OFF), and a 1-minute filter so that the scenarios stay short. The minimum times are
+longer than the 1-minute settle time after any relay change, so that they can be told apart.
+
+  git apply --unidiff-zero sim/configs/relays.patch
+  PLATFORMIO_BUILD_DIR=.pio/build-relays pio run --project-dir Mk2_3phase_RFdatalog_temp -e basic
+  git checkout Mk2_3phase_RFdatalog_temp/config.h
+  make -C sim check-relays
+
+The build directory of its own keeps the basic firmware of 'make check'.
+
+diff --git a/Mk2_3phase_RFdatalog_temp/config.h b/Mk2_3phase_RFdatalog_temp/config.h
+index b9de73b4..38c9a525 100644
+--- a/Mk2_3phase_RFdatalog_temp/config.h
++++ b/Mk2_3phase_RFdatalog_temp/config.h
+@@ -79 +79 @@ inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if th
+-inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
++inline constexpr bool RELAY_DIVERSION{ true };      /**< set it to 'true' if a relay is used for diversion */
+@@ -151 +151 @@ inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
+-inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minutes for relay control */
++inline constexpr uint8_t RELAY_FILTER_DELAY{ 1 }; /**< EWMA filter delay in minutes for relay control */
+@@ -159,3 +159,2 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
+-                                     { { unused_pin, 100, 200, 1, 1 },
+-                                       { unused_pin, 300, 400, 1, 1 },
+-                                       { unused_pin, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
++                                     { { 8, 1000, 200, 2, 2 },
++                                       { 9, 2000, 200, 2, 2 } } }; /**< config for relay diversion with optimized EWMA filtering */
