@@ -6,14 +6,13 @@ This Arduino sketch receives RF commands from the main PV Router and controls lo
 
 1. **Hardware Setup**
    - Arduino UNO or compatible
-   - RFM12B or RFM69 RF module (wired to SPI pins)
+   - RFM69W/CW or RFM69HW/HCW RF module (wired to SPI pins)
    - TRIAC or SSR for each load output
-   - Status LED (optional)
+   - Status LEDs (optional)
 
 2. **Configuration**
-   - Edit `RemoteLoadReceiver.ino`
-   - Set RF parameters to match transmitter
-   - Configure load pins
+   - Set the RF parameters in `config_rf.h` to match the router
+   - Configure the load pins in `config.h`
 
 3. **Upload**
    ```bash
@@ -27,33 +26,33 @@ This Arduino sketch receives RF commands from the main PV Router and controls lo
 4. **Test**
    - Open Serial Monitor (9600 baud)
    - Should see "Waiting for commands..."
-   - When transmitter sends data, you'll see load states
+   - When the router's first frame arrives, you'll see "RF link restored"
 
 ## Wiring
 
-### RFM12B Module
+### RFM69 Module
 
 ```
-Arduino UNO          RFM12B
------------          ------
+Arduino UNO          RFM69
+-----------          -----
 D10 (SS)    <--->    NSS
 D11 (MOSI)  <--->    MOSI
 D12 (MISO)  <--->    MISO
 D13 (SCK)   <--->    SCK
-D2 (IRQ)    <--->    IRQ
-3.3V        <--->    VCC    ⚠️ NOT 5V!
+D2 (IRQ)    <--->    DIO0
+3.3V        <--->    3.3V   ⚠️ NOT 5V!
 GND         <--->    GND
 ```
 
-**Important**: RFM12B operates at 3.3V. DO NOT connect to 5V!
+**Important**: the RFM69 operates at 3.3V. DO NOT connect it to 5V!
 
 ### Load Outputs
 
 ```
 Arduino UNO          TRIAC/SSR
 -----------          ---------
-D5          --->     Load 0 control input
-D6          --->     Load 1 control input
+D4          --->     Load 0 control input
+D3          --->     Load 1 control input
 GND         <--->    Common ground
 ```
 
@@ -92,8 +91,8 @@ namespace RFConfig
 Edit load configuration in `config.h`:
 
 ```cpp
-const uint8_t NO_OF_LOADS = 2;   // Number of loads (max 8)
-const uint8_t loadPins[NO_OF_LOADS] = { 5, 6 }; // Arduino pins
+inline constexpr uint8_t NO_OF_LOADS{ 2 };              // Number of loads (max 8)
+inline constexpr uint8_t loadPins[NO_OF_LOADS]{ 4, 3 }; // Arduino pins, bit 0 first
 ```
 
 ## Features
@@ -103,30 +102,27 @@ const uint8_t loadPins[NO_OF_LOADS] = { 5, 6 }; // Arduino pins
 - ✅ **Watchdog**: Resets the board (loads OFF) if the firmware stops running for 1 s
 - ✅ **CRC checking**: Only processes valid packets of the expected length
 - ✅ **Node filtering**: Only responds to designated transmitter
-- ✅ **Status indicator**: LED shows RF link quality
-- ✅ **Serial debugging**: Verbose output for troubleshooting
+- ✅ **Status indicators**: LEDs show the RF link state and that the firmware is running
+- ✅ **Serial output**: Start-up settings, RF link lost and restored
 
 ## Serial Output Example
 
 ```
 =======================================
-Remote Load Receiver v1.0
+Remote Load Receiver v2.0 (RFM69)
 Based on remoteUnit_fasterControl_1
 =======================================
 Listening to Router ID: 10
 My Node ID: 15
-Network Group: 210
+Network ID: 210
 Number of loads: 2
 ---------------------------------------
 RF module initialized
 Waiting for commands...
 
 RF link restored
-Received: 0b00000000 - Loads: 0:OFF 1:OFF
-Received: 0b00000001 - Loads: 0:ON 1:OFF
-Received: 0b00000011 - Loads: 0:ON 1:ON
-Received: 0b00000001 - Loads: 0:ON 1:OFF
-Received: 0b00000000 - Loads: 0:OFF 1:OFF
+RF link LOST - turning all loads OFF
+RF link restored
 ```
 
 ## Troubleshooting
@@ -139,13 +135,13 @@ Received: 0b00000000 - Loads: 0:OFF 1:OFF
 1. Check RF module wiring (especially VCC = 3.3V, not 5V!)
 2. Verify SPI connections (D10-D13)
 3. Check D2 → IRQ connection
-4. Verify settings match transmitter (FREQ, GROUP, NODE_ID)
+4. Verify the settings match the router (FREQUENCY, NETWORK_ID, ROUTER_NODE_ID, REMOTE_NODE_ID)
 5. Move units closer together
 6. Check antenna (10cm wire for 433MHz)
 
 ### RF link keeps dropping
 
-**Symptoms**: Alternates between "RF OK" and "RF link LOST"
+**Symptoms**: Alternates between "RF link restored" and "RF link LOST"
 
 **Solutions**:
 1. Improve antenna (use proper λ/4 wire)
@@ -153,7 +149,7 @@ Received: 0b00000000 - Loads: 0:OFF 1:OFF
 3. Reduce distance between units
 4. Check power supply stability
 5. Add 100nF capacitor near RF module VCC
-6. Try different NETWORK_GROUP (less interference)
+6. Try a different NETWORK_ID (less interference)
 
 ### Loads don't switch
 
@@ -173,17 +169,15 @@ You can have multiple receivers on the same network:
 
 **Receiver 1:**
 ```cpp
-const uint8_t REMOTE_NODE_ID = 15;  // Unique ID
-const uint8_t NO_OF_LOADS = 2;
+inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // Unique ID, in config_rf.h
 ```
 
 **Receiver 2:**
 ```cpp
-const uint8_t REMOTE_NODE_ID = 16;  // Different ID
-const uint8_t NO_OF_LOADS = 2;
+inline constexpr uint8_t REMOTE_NODE_ID{ 16 };  // Different ID, in config_rf.h
 ```
 
-**Transmitter:** Send different messages to each node ID
+**Router:** sends each remote unit its own frame, to its node ID
 
 ## Performance
 
@@ -199,7 +193,4 @@ www.Mk2PVrouter.co.uk
 
 ## Support
 
-See main documentation:
-- `QUICK_START_REMOTE_LOADS.md` - Installation guide
-- `REMOTE_LOADS_README.md` - Technical details
-- `REMOTE_LOADS_ARCHITECTURE.md` - System diagrams
+See the router documentation: [RF module and remote loads configuration](../Mk2_3phase_RFdatalog_temp/Readme.en.md#rf-module-and-remote-loads-configuration).
