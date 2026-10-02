@@ -184,6 +184,15 @@
       'sec.general',
       p,
       field(
+        'pcbVersion',
+        select(
+          () => m.pcbVersion,
+          (v) => (m.pcbVersion = v),
+          M.PCB_VERSIONS.map((x) => [x, T(`pcb.${x}`)])
+        ),
+        'pcbVersionHelp'
+      ),
+      field(
         'serialOutput',
         select(
           () => m.serialOutput,

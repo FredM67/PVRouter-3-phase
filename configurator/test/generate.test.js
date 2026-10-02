@@ -70,3 +70,9 @@ test('relay count: new relays get the README thresholds, a single relay fits on 
   m.relays.list[0].pin = 8;
   assert.match(G.configH(m), /^ {37}\{ \{ 8, 100, 200, 1, 1 \} \} \}; \/\*\*< config for relay diversion/m);
 });
+
+test('motherboard: the new board selects PcbVersion::NEW', () => {
+  const m = M.defaults();
+  m.pcbVersion = 'NEW';
+  assert.match(G.configH(m), /^inline constexpr PcbVersion PCB_VERSION\{ PcbVersion::NEW \};$/m);
+});
