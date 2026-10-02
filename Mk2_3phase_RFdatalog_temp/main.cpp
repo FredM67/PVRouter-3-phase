@@ -15,7 +15,7 @@
  * - **Watchdog**: Toggles a pin to indicate system activity.
  *
  * @version 0.1
- * @date 2026-10-01
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -195,15 +195,16 @@ bool isDiversionEnabled()
   {
     const bool pinState{ getPinState(diversionPin) };
 
-#ifdef ENABLE_DEBUG
-    static bool previousState{ HIGH };
-    if (previousState != pinState)
+    if constexpr (TEXT_OUTPUT_ENABLED)
     {
-      DBUGLN(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
-    }
+      static bool previousState{ HIGH };
+      if (previousState != pinState)
+      {
+        infoln(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
+      }
 
-    previousState = pinState;
-#endif
+      previousState = pinState;
+    }
 
     return pinState;
   }
@@ -231,15 +232,16 @@ bool isRouterOff()
   {
     const bool pinState{ getPinState(routerOffPin) };
 
-#ifdef ENABLE_DEBUG
-    static bool previousState{ HIGH };
-    if (previousState != pinState)
+    if constexpr (TEXT_OUTPUT_ENABLED)
     {
-      DBUGLN(!pinState ? F("Router OFF!") : F("Router ON!"));
-    }
+      static bool previousState{ HIGH };
+      if (previousState != pinState)
+      {
+        infoln(!pinState ? F("Router OFF!") : F("Router ON!"));
+      }
 
-    previousState = pinState;
-#endif
+      previousState = pinState;
+    }
 
     return !pinState;
   }
@@ -301,7 +303,7 @@ bool proceedDualTariffLogic()
   if (pinOffPeakState && !pinNewState)
   {
     // we start off-peak period
-    DBUGLN(F("Change to off-peak period!"));
+    infoln(F("Change to off-peak period!"));
 
     ul_TimeOffPeak = millis();
 
@@ -314,7 +316,7 @@ bool proceedDualTariffLogic()
   // end of off-peak period
   if (!pinOffPeakState && pinNewState)
   {
-    DBUGLN(F("Change to peak period!"));
+    infoln(F("Change to peak period!"));
   }
 
   pinOffPeakState = pinNewState;
@@ -326,12 +328,11 @@ bool proceedDualTariffLogic()
  * @brief Handles load priority rotation.
  *
  * This function manages load priority rotation behavior based on the system configuration.
- * It supports priority rotation via pin control, EmonESP control, or automatic rotation.
+ * It supports priority rotation via pin control or automatic rotation.
  * Override logic is handled in getOverrideBitmask().
  *
  * @details
  * - In dual tariff mode, rotation is handled by `proceedDualTariffLogic` when off-peak starts.
- * - If EmonESP control is enabled, it handles load rotation based on the rotation pin state.
  * - If priority rotation is set to auto, it rotates priorities after a defined period of inactivity.
  * - Override logic (external pins + dual tariff forcing) is handled atomically in getOverrideBitmask().
  *
@@ -344,14 +345,14 @@ void proceedLoadPriorities()
     return;
   }
 
-  if constexpr ((PRIORITY_ROTATION == RotationModes::PIN) || (EMONESP_CONTROL))
+  if constexpr (PRIORITY_ROTATION == RotationModes::PIN)
   {
     static uint8_t pinRotationState{ HIGH };
     const auto pinNewState{ getPinState(rotationPin) };
 
     if (pinRotationState && !pinNewState)
     {
-      DBUGLN(F("Trigger rotation!"));
+      infoln(F("Trigger rotation!"));
 
       proceedRotation();
     }
@@ -377,7 +378,7 @@ void proceedLoadPriorities()
  *
  * @details
  * - Delays startup to allow time to open the Serial Monitor.
- * - Initializes the Serial interface and debug port.
+ * - Initializes the Serial interface.
  * - Displays configuration information.
  * - Initializes all loads to OFF at startup.
  * - Logs load priorities and initializes temperature sensors if present.
@@ -389,10 +390,9 @@ void setup()
 {
   delay(initialDelay);  // allows time to open the Serial Monitor
 
-  DEBUG_PORT.begin(9600);
   Serial.begin(9600, SERIAL_OUTPUT_TYPE == SerialOutputType::IoT ? SERIAL_7E1 : SERIAL_8N1);  // initialize Serial interface, Do NOT set greater than 9600
 
-  // On start, always display config info in the serial monitor
+  // On start, display config info in the serial monitor (human-readable output only)
   printConfiguration();
 
   // initializes all loads to OFF at startup
@@ -408,9 +408,9 @@ void setup()
     temperatureSensing.initTemperatureSensors();
   }
 
-  DBUG(F(">>free RAM = "));
-  DBUGLN(freeRam());  // a useful value to keep an eye on
-  DBUGLN(F("----"));
+  debug(F(">>free RAM = "));
+  debugln(freeRam());  // a useful value to keep an eye on
+  infoln(F("----"));
 }
 
 /**

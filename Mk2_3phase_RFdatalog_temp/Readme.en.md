@@ -960,6 +960,8 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };
 
 > [!NOTE]
 > Configuring serial output to `SerialOutputType::IoT` is not strictly mandatory for router operation. However, it's necessary if you want to exploit router data in Home Assistant (instantaneous power, statistics, etc.). Without this configuration, only control functions (boost, routing stop) will be available in Home Assistant.
+>
+> In `IoT` (and `JSON`) mode, the router sends nothing else on the serial port: the startup banner, the configuration summary and the debug messages are only printed in `HumanReadable` mode.
 
 If you have more free pins, other functions can be added the same way, for example priority rotation:
 ```cpp

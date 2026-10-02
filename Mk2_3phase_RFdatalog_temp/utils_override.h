@@ -24,7 +24,7 @@
  *
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @version 0.2
- * @date 2026-09-23
+ * @date 2026-10-02
  * @copyright Copyright (c) 2025-2026
  */
 
@@ -35,6 +35,10 @@
 
 #include "utils_bits.h"
 #include "load_map.h"
+
+#ifdef ARDUINO
+#include "debug.h"
+#endif
 
 /**
  * @brief Base value for virtual pins representing remote loads.
@@ -405,15 +409,15 @@ public:
    */
   void printOverrideConfig() const
   {
-    Serial.println(F("*** Override Pins Configuration ***"));
+    infoln(F("*** Override Pins Configuration ***"));
     for (uint8_t i = 0; i < N; ++i)
     {
-      Serial.print(F("\tPin: "));
-      Serial.print(entries_[i].pin);
-      Serial.print(F("\tLocal: 0b"));
-      Serial.print(entries_[i].localBitmask, BIN);
-      Serial.print(F("\tRemote: 0b"));
-      Serial.println(entries_[i].remoteBitmask, BIN);
+      info(F("\tPin: "));
+      info(entries_[i].pin);
+      info(F("\tLocal: 0b"));
+      info(entries_[i].localBitmask, BIN);
+      info(F("\tRemote: 0b"));
+      infoln(entries_[i].remoteBitmask, BIN);
     }
   }
 #endif

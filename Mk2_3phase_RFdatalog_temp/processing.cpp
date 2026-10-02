@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-10-01
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -312,18 +312,18 @@ void initializeProcessing()
     // Initialize shared RF module
     if (initialize_rf())
     {
-      DBUGLN(F("RF module initialized"));
+      infoln(F("RF module initialized"));
     }
     else
     {
-      DBUGLN(F("RF module initialization FAILED"));
+      infoln(F("RF module initialization FAILED"));
     }
   }
 
   if constexpr (REMOTE_LOADS_PRESENT)
   {
     remoteLoads.reset();
-    DBUGLN(F("Remote loads initialized"));
+    infoln(F("Remote loads initialized"));
   }
 
   // First stop the ADC
@@ -1202,23 +1202,24 @@ void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample)
 void printParamsForSelectedOutputMode()
 {
   // display relevant settings for selected output mode
-  DBUG(F("Output mode:    "));
+  info(F("Output mode:    "));
   if (OutputModes::NORMAL == outputMode)
   {
-    DBUGLN(F("normal"));
+    infoln(F("normal"));
   }
   else
   {
-    DBUGLN(F("anti-flicker"));
-    DBUG(F("\toffsetOfEnergyThresholds  = "));
-    DBUGLN(f_offsetOfEnergyThresholdsInAFmode);
+    infoln(F("anti-flicker"));
+    constexpr int32_t offsetOfEnergyThresholds_x100{ SerialOutput::toDecimals(f_offsetOfEnergyThresholdsInAFmode, 2) };
+    info(F("\toffsetOfEnergyThresholds  = "));
+    infolnDecimals(offsetOfEnergyThresholds_x100, 2);
   }
-  DBUG(F("\tl_capacityOfEnergyBucket_main = "));
-  DBUGLN(l_capacityOfEnergyBucket_main);
-  DBUG(F("\tl_lowerEnergyThreshold   = "));
-  DBUGLN(l_lowerThreshold_default);
-  DBUG(F("\tl_upperEnergyThreshold   = "));
-  DBUGLN(l_upperThreshold_default);
+  info(F("\tl_capacityOfEnergyBucket_main = "));
+  infoln(l_capacityOfEnergyBucket_main);
+  info(F("\tl_lowerEnergyThreshold   = "));
+  infoln(l_lowerThreshold_default);
+  info(F("\tl_upperEnergyThreshold   = "));
+  infoln(l_upperThreshold_default);
 }
 
 /**

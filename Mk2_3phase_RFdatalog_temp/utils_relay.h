@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for the relay output feature
  * @version 0.1
- * @date 2026-10-01
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -189,33 +189,33 @@ public:
    */
   void printRelayConfiguration(uint8_t idx) const
   {
-    Serial.print(F("\tRelay configuration: #"));
-    Serial.println(idx + 1);
+    info(F("\tRelay configuration: #"));
+    infoln(idx + 1);
 
-    Serial.print(F("\t\tPin is "));
-    Serial.println(get_pin());
+    info(F("\t\tPin is "));
+    infoln(get_pin());
 
-    Serial.print(F("\t\tSurplus threshold: "));
-    Serial.println(get_surplusThreshold());
+    info(F("\t\tSurplus threshold: "));
+    infoln(get_surplusThreshold());
 
-    Serial.print(F("\t\tImport threshold: "));
-    Serial.print(get_importThreshold());
+    info(F("\t\tImport threshold: "));
+    info(get_importThreshold());
     if (get_importThreshold() >= 0)
     {
-      Serial.println(F(" (import mode)"));
+      infoln(F(" (import mode)"));
     }
     else
     {
-      Serial.print(F(" (surplus mode: turn OFF when surplus < "));
-      Serial.print(-get_importThreshold());
-      Serial.println(F("W)"));
+      info(F(" (surplus mode: turn OFF when surplus < "));
+      info(-get_importThreshold());
+      infoln(F("W)"));
     }
 
-    Serial.print(F("\t\tMinimum working time in minutes: "));
-    Serial.println(get_minON() / 60);
+    info(F("\t\tMinimum working time in minutes: "));
+    infoln(get_minON() / 60);
 
-    Serial.print(F("\t\tMinimum stop time in minutes: "));
-    Serial.println(get_minOFF() / 60);
+    info(F("\t\tMinimum stop time in minutes: "));
+    infoln(get_minOFF() / 60);
   }
 
   /**
@@ -251,7 +251,7 @@ private:
 
     setPinState(relay_pin, on);
 
-    DBUGLN(on ? F("Relay turned ON!") : F("Relay turned OFF!"));
+    infoln(on ? F("Relay turned ON!") : F("Relay turned OFF!"));
 
     relayIsON = on;
     duration = 0;
@@ -442,9 +442,9 @@ public:
    */
   void printRelayEngineConfiguration() const
   {
-    Serial.println(F("*** Relay(s) configuration ***"));
-    Serial.print(F("\tSliding average: "));
-    Serial.println(D);
+    infoln(F("*** Relay(s) configuration ***"));
+    info(F("\tSliding average: "));
+    infoln(D);
 
     for (uint8_t i = 0; i < N; ++i)
     {

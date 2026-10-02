@@ -262,16 +262,6 @@ constexpr const char* generateConfigSummary() {
 ### Hierarchical Feature Dependencies
 ```cpp
 // Define feature dependencies
-#ifdef EMONESP_CONTROL
-  #ifndef SERIALOUT_ON
-    #error "EmonESP control requires serial output to be enabled"
-  #endif
-
-  #if SERIAL_OUTPUT_TYPE != SerialOutputType::EmonTX
-    #error "EmonESP control requires EmonTX serial output format"
-  #endif
-#endif
-
 #ifdef PRIORITY_ROTATION
   #if PRIORITY_ROTATION == RotationModes::PIN
     #ifndef PRIORITY_ROTATION_PIN

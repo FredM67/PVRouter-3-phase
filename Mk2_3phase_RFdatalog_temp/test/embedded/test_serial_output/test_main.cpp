@@ -157,6 +157,76 @@ void test_printHundredths_extremes(void)
   TEST_ASSERT_EQUAL_STRING("-0.05", capture.text);
 }
 
+/* the datalog used to print voltages and temperatures with print(value_x100 * 0.01F): the same text */
+void test_printDecimals_matches_print_float(void)
+{
+  uint16_t mismatches{ 0 };
+  char message[80]{};
+  char reference[16]{};  // not a second CapturePrint: 2 kB of RAM
+
+  for (int32_t value = -5500; value <= 12500; ++value)
+  {
+    capture.clear();
+    capture.print(static_cast< float >(value) * 0.01F);
+    strlcpy(reference, capture.text, sizeof reference);
+
+    capture.clear();
+    SerialOutput::printDecimals(capture, value, 2);
+
+    if (strcmp(reference, capture.text) && !mismatches++)
+    {
+      snprintf_P(message, sizeof message, PSTR("%ld: print(float) '%s', printDecimals '%s'"), static_cast< long >(value),
+                 reference, capture.text);
+    }
+  }
+  TEST_ASSERT_EQUAL_MESSAGE(0, mismatches, message);
+}
+
+/* the captured text, compared with a string kept in flash: the test is short of RAM */
+void assertCaptured(PGM_P expected)
+{
+  char text[16];
+  strlcpy_P(text, expected, sizeof text);
+  TEST_ASSERT_EQUAL_STRING(text, capture.text);
+}
+
+void test_printDecimals_other_decimals_and_extremes(void)
+{
+  SerialOutput::printDecimals(capture, 50000, 6);
+  assertCaptured(PSTR("0.050000"));
+
+  capture.clear();
+  SerialOutput::printDecimals(capture, 81510, 5);
+  assertCaptured(PSTR("0.81510"));
+
+  capture.clear();
+  SerialOutput::printDecimals(capture, -10, 2);
+  assertCaptured(PSTR("-0.10"));
+
+  capture.clear();
+  SerialOutput::printDecimals(capture, 42, 0);
+  assertCaptured(PSTR("42"));
+
+  capture.clear();
+  SerialOutput::printDecimals(capture, INT32_MIN, 2);
+  assertCaptured(PSTR("-21474836.48"));
+}
+
+/* the calibration constants of the startup summary, converted at compile time */
+void test_toDecimals_at_compile_time(void)
+{
+  static_assert(SerialOutput::toDecimals(0.05F, 6) == 50000, "f_powerCal");
+  static_assert(SerialOutput::toDecimals(0.8151F, 5) == 81510, "f_voltageCal");
+  static_assert(SerialOutput::toDecimals(1.0F, 2) == 100, "f_phaseCal");
+  static_assert(SerialOutput::toDecimals(-0.1F, 2) == -10, "rounded away from zero");
+
+  constexpr float values[]{ 0.05F, 0.0612F };
+  constexpr auto table{ SerialOutput::toDecimals(values, 6) };
+  static_assert(table.value[0] == 50000 && table.value[1] == 61200, "array version");
+
+  TEST_PASS();
+}
+
 /* a frame written a part at a time is the same as written at once */
 void test_teleinfo_written_in_parts(void)
 {
@@ -203,6 +273,9 @@ void setup()
   RUN_TEST(test_start_while_busy_is_refused);
   RUN_TEST(test_printHundredths_matches_arduinojson);
   RUN_TEST(test_printHundredths_extremes);
+  RUN_TEST(test_printDecimals_matches_print_float);
+  RUN_TEST(test_printDecimals_other_decimals_and_extremes);
+  RUN_TEST(test_toDecimals_at_compile_time);
   RUN_TEST(test_teleinfo_written_in_parts);
 
   UNITY_END();

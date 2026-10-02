@@ -16,7 +16,6 @@ pio run
 pio run -e basic           # Production build
 pio run -e basic_debug     # Debug build with symbols
 pio run -e rf              # RF module support (RFM69)
-pio run -e emonesp         # EmonESP integration
 
 # Run tests
 pio test -e native         # Cross-platform unit tests

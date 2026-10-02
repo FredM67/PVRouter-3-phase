@@ -13,10 +13,10 @@ OFF pin is D2 (all active LOW).
 The build directory of its own keeps the basic firmware of 'make check'.
 
 diff --git a/Mk2_3phase_RFdatalog_temp/config.h b/Mk2_3phase_RFdatalog_temp/config.h
-index 4a6ff4c..a8f759b 100644
+index 971f5118..bb03f857 100644
 --- a/Mk2_3phase_RFdatalog_temp/config.h
 +++ b/Mk2_3phase_RFdatalog_temp/config.h
-@@ -78,2 +78,2 @@ inline constexpr bool EMONESP_CONTROL{ false };
+@@ -78,2 +78,2 @@ inline RemoteLoadCore< NO_OF_REMOTE_UNITS > remoteLoads{};
 -inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 -inline constexpr bool ROUTER_OFF_PIN_PRESENT{ false };                  /**< set it to 'true' if you want a pin that switches the router OFF */
 +inline constexpr bool DIVERSION_PIN_PRESENT{ true };                    /**< set it to 'true' if you want to control diversion ON/OFF */

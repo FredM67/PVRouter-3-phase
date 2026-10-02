@@ -37,22 +37,31 @@ jobs:
   # Build job: compiles firmware for embedded targets.
   # One entry per user-selectable environment - `pio run` alone only builds
   # `default_envs` (basic), which let the rf environment break unnoticed.
+  # The IoT entry is the serial output for the mk2Wifi module (config.h only, no environment
+  # of its own, since Arduino IDE users have no environments).
   build:
-    name: Build Firmware (${{ matrix.environment }})
+    name: Build Firmware (${{ matrix.environment }}${{ matrix.serial && format(', {0}', matrix.serial) || '' }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        environment:
-          - basic
-          - emonesp
-          - rf
+        include:
+          - environment: basic
+          - environment: rf
+          - environment: basic
+            serial: IoT
     steps:
       - uses: actions/checkout@v7
         with:
           submodules: 'true'
 
       - uses: ./.github/actions/setup-platformio
+
+      - name: Select the ${{ matrix.serial }} serial output
+        if: matrix.serial
+        run: |
+          sed -i 's/SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;/SERIAL_OUTPUT_TYPE = SerialOutputType::${{ matrix.serial }};/' ${{ env.PROJECT_DIR }}/config.h
+          grep -q 'SERIAL_OUTPUT_TYPE = SerialOutputType::${{ matrix.serial }};' ${{ env.PROJECT_DIR }}/config.h
 
       - name: Build firmware (${{ matrix.environment }})
         run: pio run --project-dir ${{ env.PROJECT_DIR }} -e ${{ matrix.environment }}
@@ -66,7 +75,7 @@ jobs:
           FLASH=$((TEXT + DATA))
           RAM=$((DATA + BSS))
           {
-            echo "### Firmware size: \`${{ matrix.environment }}\`"
+            echo "### Firmware size: \`${{ matrix.environment }}\`${{ matrix.serial && format(' ({0} serial output)', matrix.serial) || '' }}"
             echo ""
             echo "| Memory | Used | Budget | % |"
             echo "|---|---:|---:|---:|"

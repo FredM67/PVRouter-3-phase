@@ -4,6 +4,12 @@
 
 #include "../halt_after_tests.h"
 
+#include "types.h"
+
+// normally from config.h: the text output of utils_relay.h (debug.h) depends on them
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE{ SerialOutputType::HumanReadable };
+inline constexpr bool ENABLE_DEBUG{ false };
+
 #include "utils_pins.h"
 #include "utils_relay.h"
 
