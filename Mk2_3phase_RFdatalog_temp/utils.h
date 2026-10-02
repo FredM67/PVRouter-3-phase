@@ -90,22 +90,27 @@ inline void printConfiguration()
     INFOLN(F("*** CALIBRATION MODE: no load will ever be switched ***"));
   }
 
+  // the calibration constants, converted at compile time: no float printing code in the firmware
+  static constexpr auto powerCal_x1e6 PROGMEM{ SerialOutput::toDecimals(f_powerCal, 6) };
+  static constexpr auto voltageCal_x1e5 PROGMEM{ SerialOutput::toDecimals(f_voltageCal, 5) };
+  constexpr int32_t phaseCal_x100{ SerialOutput::toDecimals(f_phaseCal, 2) };
+
   INFOLN(F("Electrical settings"));
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
   {
     INFO(F("\tf_powerCal for L"));
     INFO(phase + 1);
     INFO(F(" =    "));
-    INFOLN(f_powerCal[phase], 6);
+    INFOLN_DECIMALS(static_cast< int32_t >(pgm_read_dword(&powerCal_x1e6.value[phase])), 6);
 
     INFO(F("\tf_voltageCal, for Vrms_L"));
     INFO(phase + 1);
     INFO(F(" =    "));
-    INFOLN(f_voltageCal[phase], 5);
+    INFOLN_DECIMALS(static_cast< int32_t >(pgm_read_dword(&voltageCal_x1e5.value[phase])), 5);
   }
 
   INFO(F("\tf_phaseCal for all phases =     "));
-  INFOLN(f_phaseCal);
+  INFOLN_DECIMALS(phaseCal_x100, 2);
 
   INFO(F("\tExport rate (Watts) = "));
   INFOLN(REQUIRED_EXPORT_IN_WATTS);
@@ -329,7 +334,7 @@ inline bool printTextStep(Print& out, uint8_t step)
 {
   if (step == 0)
   {
-    out.print(static_cast< float >(Shared::copyOf_energyInBucket_main) * (invSUPPLY_FREQUENCY / (1 << Energy::FRACTION_BITS)));
+    SerialOutput::printDecimals(out, Energy::toHundredthsOfJoule< SUPPLY_FREQUENCY >(Shared::copyOf_energyInBucket_main), 2);
     return true;
   }
   if (step == 1)
@@ -361,7 +366,7 @@ inline bool printTextStep(Print& out, uint8_t step)
     out.print(F(", V"));
     out.print(step + 1);
     out.print(F(":"));
-    out.print((float)tx_data.Vrms_L_x100[step] * 0.01F);
+    SerialOutput::printDecimals(out, tx_data.Vrms_L_x100[step], 2);
     return true;
   }
   step -= NO_OF_PHASES;
@@ -375,7 +380,7 @@ inline bool printTextStep(Print& out, uint8_t step)
         out.print(F(", T"));
         out.print(step + 1);
         out.print(F(":"));
-        out.print((float)tx_data.temperature_x100[step] * 0.01F);
+        SerialOutput::printDecimals(out, tx_data.temperature_x100[step], 2);
       }
       return true;
     }

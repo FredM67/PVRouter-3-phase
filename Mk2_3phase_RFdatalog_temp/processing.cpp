@@ -1210,8 +1210,9 @@ void printParamsForSelectedOutputMode()
   else
   {
     INFOLN(F("anti-flicker"));
+    constexpr int32_t offsetOfEnergyThresholds_x100{ SerialOutput::toDecimals(f_offsetOfEnergyThresholdsInAFmode, 2) };
     INFO(F("\toffsetOfEnergyThresholds  = "));
-    INFOLN(f_offsetOfEnergyThresholdsInAFmode);
+    INFOLN_DECIMALS(offsetOfEnergyThresholds_x100, 2);
   }
   INFO(F("\tl_capacityOfEnergyBucket_main = "));
   INFOLN(l_capacityOfEnergyBucket_main);

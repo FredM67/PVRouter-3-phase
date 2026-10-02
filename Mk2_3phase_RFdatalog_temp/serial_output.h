@@ -135,6 +135,89 @@ inline void printHundredths(Print& out, int16_t value_x100)
     out.print(hundredths % 10);
   }
 }
+
+/**
+ * @brief A float constant as an integer with the given number of decimals, rounded
+ *
+ * @details For compile time only (constexpr variables): Print::print(float) costs about 1 kB
+ *          of float code, printDecimals() only integer divisions.
+ *          toDecimals(0.05F, 6) -> 50000, printed by printDecimals(out, 50000, 6) as "0.050000".
+ *
+ * @param value the float constant
+ * @param decimals the number of decimals
+ * @return the value times 10^decimals, rounded
+ */
+constexpr int32_t toDecimals(float value, uint8_t decimals)
+{
+  for (uint8_t i = 0; i != decimals; ++i)
+  {
+    value *= 10;
+  }
+  return static_cast< int32_t >(value < 0 ? value - 0.5F : value + 0.5F);
+}
+
+/**
+ * @brief The values of a float array, as integers with the given number of decimals
+ */
+template< uint8_t N >
+struct DecimalsTable
+{
+  int32_t value[N];
+};
+
+/**
+ * @brief A float array constant as integers with the given number of decimals, rounded
+ *
+ * @param values the float array constant
+ * @param decimals the number of decimals
+ * @return the values times 10^decimals, rounded
+ */
+template< uint8_t N >
+constexpr DecimalsTable< N > toDecimals(const float (&values)[N], uint8_t decimals)
+{
+  DecimalsTable< N > table{};
+  for (uint8_t i = 0; i != N; ++i)
+  {
+    table.value[i] = toDecimals(values[i], decimals);
+  }
+  return table;
+}
+
+/**
+ * @brief Print a value given as an integer with a fixed number of decimals (see toDecimals())
+ *
+ * @details printDecimals(out, 50000, 6) -> "0.050000", printDecimals(out, -5, 2) -> "-0.05".
+ *          What Print::print(float, decimals) wrote, without its float code.
+ *
+ * @param out where to write
+ * @param value the value, times 10^decimals
+ * @param decimals the number of decimals
+ */
+__attribute__((noinline)) inline void printDecimals(Print& out, int32_t value, uint8_t decimals)
+{
+  const uint32_t magnitude{ value < 0 ? 0U - static_cast< uint32_t >(value) : static_cast< uint32_t >(value) };
+  if (value < 0)
+  {
+    out.print('-');
+  }
+
+  uint32_t divisor{ 1 };
+  for (uint8_t i = 0; i != decimals; ++i)
+  {
+    divisor *= 10;
+  }
+  out.print(magnitude / divisor);
+
+  if (!decimals)
+  {
+    return;
+  }
+  out.print('.');
+  while (divisor /= 10)
+  {
+    out.print(static_cast< char >('0' + (magnitude / divisor) % 10));
+  }
+}
 }  // namespace SerialOutput
 
 #endif  // SERIAL_OUTPUT_H

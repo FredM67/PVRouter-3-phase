@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Integer arithmetic of the energy bucket
  * @version 0.1
- * @date 2026-09-23
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2026-2026
  *
@@ -181,6 +181,33 @@ inline int32_t contribution(const int32_t averagePower, const uint16_t calFixed,
 constexpr int32_t fromWatts(const int32_t watts)
 {
   return watts * (1L << FRACTION_BITS);
+}
+
+/**
+ * @brief Greatest common divisor, to reduce fractions at compile time.
+ */
+constexpr uint16_t gcd(const uint16_t a, const uint16_t b)
+{
+  return b ? gcd(b, a % b) : a;
+}
+
+/**
+ * @brief An energy in bucket units, in hundredths of a joule (for the datalog).
+ *
+ * @details units * 100 / (SUPPLY_FREQUENCY * 2^FRACTION_BITS), with the fraction reduced at
+ *          compile time (1/8 at 50 Hz, 5/48 at 60 Hz) so that it cannot overflow, rounded half
+ *          away from zero as Print::print(float) did. No float code.
+ *
+ * @tparam SUPPLY_FREQUENCY mains frequency in Hz
+ */
+template< uint8_t SUPPLY_FREQUENCY >
+constexpr int32_t toHundredthsOfJoule(const int32_t units)
+{
+  constexpr uint16_t unitsPerJoule{ SUPPLY_FREQUENCY << FRACTION_BITS };
+  constexpr int32_t numerator{ 100 / gcd(100, unitsPerJoule) };
+  constexpr int32_t denominator{ unitsPerJoule / gcd(100, unitsPerJoule) };
+
+  return (units * numerator + (units < 0 ? -denominator / 2 : denominator / 2)) / denominator;
 }
 }  // namespace Energy
 

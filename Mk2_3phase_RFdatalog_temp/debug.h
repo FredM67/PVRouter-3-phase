@@ -50,6 +50,10 @@
 // printed whenever the output is human-readable, whatever ENABLE_DEBUG.
 #define INFO(...) TEXT_PRINT_STATEMENT(DEBUG_PORT.print(__VA_ARGS__))
 #define INFOLN(...) TEXT_PRINT_STATEMENT(DEBUG_PORT.println(__VA_ARGS__))
+// A value given as an integer with a fixed number of decimals (SerialOutput::toDecimals()),
+// so that float constants are printed without the float code of Print.
+#define INFOLN_DECIMALS(value, decimals) \
+  TEXT_PRINT_STATEMENT(SerialOutput::printDecimals(DEBUG_PORT, value, decimals); DEBUG_PORT.println())
 
 #define DEBUG_BEGIN(speed) DEBUG_PORT.begin(speed)
 
@@ -95,6 +99,7 @@
 #define DEBUG_BEGIN(speed)
 #define INFO(...)
 #define INFOLN(...)
+#define INFOLN_DECIMALS(...)
 
 #ifdef ENABLE_DEBUG
 

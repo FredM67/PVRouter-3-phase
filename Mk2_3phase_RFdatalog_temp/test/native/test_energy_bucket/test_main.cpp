@@ -369,6 +369,41 @@ void test_bucket_capacity_fits_in_32_bits(void)
   TEST_ASSERT_EQUAL_INT32(3600L * 60 * (1L << Energy::FRACTION_BITS), capacity);
 }
 
+/* the exact value, rounded half away from zero, over the whole bucket and beyond */
+template< uint8_t SUPPLY_FREQUENCY >
+void checkHundredthsOfJoule()
+{
+  const int32_t capacity{ Energy::fromWatts(3600L * SUPPLY_FREQUENCY) };
+  const double unitsPerJoule{ static_cast< double >(SUPPLY_FREQUENCY << Energy::FRACTION_BITS) };
+
+  for (int32_t units = -2 * capacity; units <= 2 * capacity; units += 7)
+  {
+    const auto expected{ static_cast< int32_t >(llround(units * 100.0 / unitsPerJoule)) };
+    if (expected != Energy::toHundredthsOfJoule< SUPPLY_FREQUENCY >(units))
+    {
+      TEST_ASSERT_EQUAL_INT32_MESSAGE(expected, Energy::toHundredthsOfJoule< SUPPLY_FREQUENCY >(units), "units");
+    }
+  }
+}
+
+void test_hundredths_of_joule_at_50Hz(void)
+{
+  static_assert(Energy::toHundredthsOfJoule< 50 >(800) == 100, "800 units = 1 J at 50 Hz");
+  static_assert(Energy::toHundredthsOfJoule< 50 >(4) == 1, "half a hundredth rounds up");
+  static_assert(Energy::toHundredthsOfJoule< 50 >(-4) == -1, "and away from zero");
+  static_assert(Energy::toHundredthsOfJoule< 50 >(3) == 0, "below half rounds down");
+
+  checkHundredthsOfJoule< 50 >();
+}
+
+void test_hundredths_of_joule_at_60Hz(void)
+{
+  static_assert(Energy::toHundredthsOfJoule< 60 >(960) == 100, "960 units = 1 J at 60 Hz");
+  static_assert(Energy::toHundredthsOfJoule< 60 >(-960) == -100, "sign symmetric");
+
+  checkHundredthsOfJoule< 60 >();
+}
+
 // ============================================================================
 
 int main(int, char **)
@@ -403,6 +438,8 @@ int main(int, char **)
 
   RUN_TEST(test_fromWatts_scales_by_the_fraction_bits);
   RUN_TEST(test_bucket_capacity_fits_in_32_bits);
+  RUN_TEST(test_hundredths_of_joule_at_50Hz);
+  RUN_TEST(test_hundredths_of_joule_at_60Hz);
 
   return UNITY_END();
 }
