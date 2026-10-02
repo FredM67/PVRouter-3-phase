@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-09-30
+ * @date 2026-10-01
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -84,6 +84,11 @@ inline void printConfiguration()
   DBUGLN(F(__TIME__));
 #endif
   DBUGLN(F("ADC mode:       free-running"));
+
+  if constexpr (CALIBRATION_MODE)
+  {
+    DBUGLN(F("*** CALIBRATION MODE: no load will ever be switched ***"));
+  }
 
   DBUGLN(F("Electrical settings"));
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)

@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-09-30
+ * @date 2026-10-01
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -399,7 +399,10 @@ void updatePortsStates()
   } while (i);
 
   // Apply override bitmask directly to pinsON
-  pinsON |= Shared::overrideBitmask;
+  if constexpr (!CALIBRATION_MODE)
+  {
+    pinsON |= Shared::overrideBitmask;
+  }
 
   setPinsOFF(pinsOFF);
   setPinsON(pinsON);
@@ -453,7 +456,7 @@ void updatePhysicalLoadStates()
     }
   }
 
-  const bool bDiversionEnabled{ Shared::b_diversionEnabled };
+  const bool bDiversionEnabled{ !CALIBRATION_MODE && Shared::b_diversionEnabled };
   uint8_t idx{ NO_OF_DUMPLOADS };
   do
   {

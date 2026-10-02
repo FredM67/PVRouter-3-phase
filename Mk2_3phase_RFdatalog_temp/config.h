@@ -15,7 +15,7 @@
  * - 2 TRIAC outputs for dump loads
  *
  * @version 1.0
- * @date 2026-09-23
+ * @date 2026-10-01
  */
 
 #ifndef CONFIG_H
@@ -31,6 +31,10 @@
 
 // Serial output type - Human readable for initial setup and commissioning
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
+
+// Calibration mode: the router measures and logs as usual, but never switches any load
+// (TRIACs, relays, remote loads, overrides). Set back to false once calibrated!
+inline constexpr bool CALIBRATION_MODE{ false };
 
 //--------------------------------------------------------------------------------------------------
 // Basic Configuration

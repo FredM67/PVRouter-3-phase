@@ -144,6 +144,16 @@ inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
 
 These default values must be determined to ensure optimal router operation.
 
+The router program itself is used for calibration, so the values are measured with exactly the processing they will be used with. With `SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable` (in **config.h**), it prints every 5 seconds, on the serial monitor at 9600 baud, the power of each phase (`P1`, `P2`, `P3`, in W, positive when importing).
+
+1. Set `CALIBRATION_MODE` to `true` in **config.h** and upload: the router then measures and logs as usual, but never switches any load (TRIACs, relays, remote loads, overrides), which would change the power being measured. It says so at start-up.
+2. Measure the power on phase 1 with a reference instrument (a clamp wattmeter around the same cable as the CT, for instance), ideally with a large resistive load on that phase, such as a water heater.
+3. Compare it with `P1`, and correct the value: new `f_powerCal[0]` = old `f_powerCal[0]` × reference power / `P1`.
+4. Repeat for phases 2 and 3, upload again and check.
+5. Set `CALIBRATION_MODE` back to `false` and upload: the router diverts again.
+
+If a phase shows a negative power while importing, its CT is the wrong way round (or not on the phase of its voltage input).
+
 # Analysis documentation and tools
 
 📊 **[Analysis Tools and Technical Documentation](../analysis/README.en.md)** [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](../analysis/README.md)
