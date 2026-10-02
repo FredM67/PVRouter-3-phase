@@ -14,7 +14,7 @@
  *          poll(), called on every pass of the main loop, only runs a step when the
  *          transmit buffer has room for it: printing never waits.
  *
- *          Text messages (INFO..., DBUG...) first call complete(), so they never land in the
+ *          Text messages (info(), debug()... in debug.h) first call complete(), so they never land in the
  *          middle of a datalog line or telemetry frame.
  *
  * @copyright Copyright (c) 2026-2026

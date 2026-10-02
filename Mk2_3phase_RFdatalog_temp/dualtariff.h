@@ -70,45 +70,46 @@ inline constexpr auto rg_OffsetForce{ _rg_OffsetForce< NO_OF_DUMPLOADS, ul_OFF_P
  */
 inline void printDualTariffConfiguration()
 {
-  INFO(F("\tDuration of off-peak period is "));
-  INFO(ul_OFF_PEAK_DURATION);
-  INFOLN(F(" hours."));
+  info(F("\tDuration of off-peak period is "));
+  info(ul_OFF_PEAK_DURATION);
+  infoln(F(" hours."));
 
-  INFO(F("\tTemperature threshold is "));
-  INFO(iTemperatureThreshold);
-  INFOLN(F("°C."));
+  info(F("\tTemperature threshold is "));
+  info(iTemperatureThreshold);
+  infoln(F("°C."));
 
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    INFO(F("\tLoad #"));
-    INFO(i + 1);
-    INFOLN(F(":"));
+    info(F("\tLoad #"));
+    info(i + 1);
+    infoln(F(":"));
 
-    INFO(F("\t\tStart "));
+    info(F("\t\tStart "));
     if (rg_ForceLoad[i].getStartOffset() >= 0)
     {
-      INFO(rg_ForceLoad[i].getStartOffset());
-      INFO(F(" hours/minutes after begin of off-peak period "));
+      info(rg_ForceLoad[i].getStartOffset());
+      info(F(" hours/minutes after begin of off-peak period "));
     }
     else
     {
-      INFO(-rg_ForceLoad[i].getStartOffset());
-      INFO(F(" hours/minutes before the end of off-peak period "));
+      info(-rg_ForceLoad[i].getStartOffset());
+      info(F(" hours/minutes before the end of off-peak period "));
     }
     if (rg_ForceLoad[i].getDuration() == UINT16_MAX)
     {
-      INFOLN(F("till the end of the period."));
+      infoln(F("till the end of the period."));
     }
     else
     {
-      INFO(F("for a duration of "));
-      INFO(rg_ForceLoad[i].getDuration());
-      INFOLN(F(" hour/minute(s)."));
+      info(F("for a duration of "));
+      info(rg_ForceLoad[i].getDuration());
+      infoln(F(" hour/minute(s)."));
     }
-    INFO(F("\t\tCalculated offset in seconds: "));
-    INFOLN(rg_OffsetForce[i][0] * 0.001F);
-    INFO(F("\t\tCalculated duration in seconds: "));
-    INFOLN(rg_OffsetForce[i][1] * 0.001F);
+    // milliseconds, printed in seconds with 2 decimals, without the float code of Print
+    info(F("\t\tCalculated offset in seconds: "));
+    infolnDecimals(static_cast< int32_t >(rg_OffsetForce[i][0] / 10), 2);
+    info(F("\t\tCalculated duration in seconds: "));
+    infolnDecimals(static_cast< int32_t >(rg_OffsetForce[i][1] / 10), 2);
   }
 }
 

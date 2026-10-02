@@ -200,7 +200,7 @@ bool isDiversionEnabled()
       static bool previousState{ HIGH };
       if (previousState != pinState)
       {
-        INFOLN(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
+        infoln(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
       }
 
       previousState = pinState;
@@ -237,7 +237,7 @@ bool isRouterOff()
       static bool previousState{ HIGH };
       if (previousState != pinState)
       {
-        INFOLN(!pinState ? F("Router OFF!") : F("Router ON!"));
+        infoln(!pinState ? F("Router OFF!") : F("Router ON!"));
       }
 
       previousState = pinState;
@@ -303,7 +303,7 @@ bool proceedDualTariffLogic()
   if (pinOffPeakState && !pinNewState)
   {
     // we start off-peak period
-    INFOLN(F("Change to off-peak period!"));
+    infoln(F("Change to off-peak period!"));
 
     ul_TimeOffPeak = millis();
 
@@ -316,7 +316,7 @@ bool proceedDualTariffLogic()
   // end of off-peak period
   if (!pinOffPeakState && pinNewState)
   {
-    INFOLN(F("Change to peak period!"));
+    infoln(F("Change to peak period!"));
   }
 
   pinOffPeakState = pinNewState;
@@ -352,7 +352,7 @@ void proceedLoadPriorities()
 
     if (pinRotationState && !pinNewState)
     {
-      INFOLN(F("Trigger rotation!"));
+      infoln(F("Trigger rotation!"));
 
       proceedRotation();
     }
@@ -408,9 +408,9 @@ void setup()
     temperatureSensing.initTemperatureSensors();
   }
 
-  DBUG(F(">>free RAM = "));
-  DBUGLN(freeRam());  // a useful value to keep an eye on
-  INFOLN(F("----"));
+  debug(F(">>free RAM = "));
+  debugln(freeRam());  // a useful value to keep an eye on
+  infoln(F("----"));
 }
 
 /**

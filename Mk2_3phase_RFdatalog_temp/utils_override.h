@@ -409,15 +409,15 @@ public:
    */
   void printOverrideConfig() const
   {
-    INFOLN(F("*** Override Pins Configuration ***"));
+    infoln(F("*** Override Pins Configuration ***"));
     for (uint8_t i = 0; i < N; ++i)
     {
-      INFO(F("\tPin: "));
-      INFO(entries_[i].pin);
-      INFO(F("\tLocal: 0b"));
-      INFO(entries_[i].localBitmask, BIN);
-      INFO(F("\tRemote: 0b"));
-      INFOLN(entries_[i].remoteBitmask, BIN);
+      info(F("\tPin: "));
+      info(entries_[i].pin);
+      info(F("\tLocal: 0b"));
+      info(entries_[i].localBitmask, BIN);
+      info(F("\tRemote: 0b"));
+      infoln(entries_[i].remoteBitmask, BIN);
     }
   }
 #endif

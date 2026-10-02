@@ -13,31 +13,31 @@ OFF pin is D2 (all active LOW).
 The build directory of its own keeps the basic firmware of 'make check'.
 
 diff --git a/Mk2_3phase_RFdatalog_temp/config.h b/Mk2_3phase_RFdatalog_temp/config.h
-index c8ae4c89..f183ef73 100644
+index 971f5118..bb03f857 100644
 --- a/Mk2_3phase_RFdatalog_temp/config.h
 +++ b/Mk2_3phase_RFdatalog_temp/config.h
-@@ -77,2 +77,2 @@ inline RemoteLoadCore< NO_OF_REMOTE_UNITS > remoteLoads{};
+@@ -78,2 +78,2 @@ inline RemoteLoadCore< NO_OF_REMOTE_UNITS > remoteLoads{};
 -inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 -inline constexpr bool ROUTER_OFF_PIN_PRESENT{ false };                  /**< set it to 'true' if you want a pin that switches the router OFF */
 +inline constexpr bool DIVERSION_PIN_PRESENT{ true };                    /**< set it to 'true' if you want to control diversion ON/OFF */
 +inline constexpr bool ROUTER_OFF_PIN_PRESENT{ true };                   /**< set it to 'true' if you want a pin that switches the router OFF */
-@@ -83 +83 @@ inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if th
+@@ -84 +84 @@ inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if th
 -inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
 +inline constexpr bool RELAY_DIVERSION{ true };      /**< set it to 'true' if a relay is used for diversion */
-@@ -133,2 +133,2 @@ inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-
+@@ -134,2 +134,2 @@ inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-
 -inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, no surplus diversion: only forced loads/relays are ON */
 -inline constexpr uint8_t routerOffPin{ unused_pin };  /**< if LOW, router OFF: every load and relay is OFF, forcing included */
 +inline constexpr uint8_t diversionPin{ 3 };           /**< if LOW, no surplus diversion: only forced loads/relays are ON */
 +inline constexpr uint8_t routerOffPin{ 2 };           /**< if LOW, router OFF: every load and relay is OFF, forcing included */
-@@ -156 +156 @@ inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
+@@ -157 +157 @@ inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
 -inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minutes for relay control */
 +inline constexpr uint8_t RELAY_FILTER_DELAY{ 1 }; /**< EWMA filter delay in minutes for relay control */
-@@ -164,3 +164,2 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
+@@ -165,3 +165,2 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
 -                                     { { unused_pin, 100, 200, 1, 1 },
 -                                       { unused_pin, 300, 400, 1, 1 },
 -                                       { unused_pin, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
 +                                     { { 8, 1000, 200, 2, 2 },
 +                                       { 9, 2000, 200, 2, 2 } } }; /**< config for relay diversion with optimized EWMA filtering */
-@@ -196 +195 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
+@@ -197 +196 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
 -inline constexpr OverridePins overridePins{ { { 4, ALL_LOADS() } } }; /**< list of override pin/loads-relays pairs */
 +inline constexpr OverridePins overridePins{ { { 4, ALL_LOADS_AND_RELAYS() } } }; /**< list of override pin/loads-relays pairs */

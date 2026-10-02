@@ -61,33 +61,33 @@ inline void printConfiguration()
 #define BUILD_ENV ("N/A")
 #endif
 
-  INFOLN();
-  INFOLN();
-  INFOLN(F("----------------------------------"));
-  INFO(F("Sketch ID: "));
-  INFOLN(F(PROJECT_PATH));
+  infoln();
+  infoln();
+  infoln(F("----------------------------------"));
+  info(F("Sketch ID: "));
+  infoln(F(PROJECT_PATH));
 
-  INFO(F("From branch '"));
-  INFO(F(BRANCH_NAME));
-  INFO(F("', commit "));
-  INFOLN(F(COMMIT_HASH));
+  info(F("From branch '"));
+  info(F(BRANCH_NAME));
+  info(F("', commit "));
+  infoln(F(COMMIT_HASH));
 
-  INFO(F("Build environment: "));
-  INFOLN(F(BUILD_ENV));
+  info(F("Build environment: "));
+  infoln(F(BUILD_ENV));
 
-  INFO(F("Build on "));
+  info(F("Build on "));
 #ifdef CURRENT_TIME
-  INFOLN(F(CURRENT_TIME));
+  infoln(F(CURRENT_TIME));
 #else
-  INFO(F(__DATE__));
-  INFO(F(" "));
-  INFOLN(F(__TIME__));
+  info(F(__DATE__));
+  info(F(" "));
+  infoln(F(__TIME__));
 #endif
-  INFOLN(F("ADC mode:       free-running"));
+  infoln(F("ADC mode:       free-running"));
 
   if constexpr (CALIBRATION_MODE)
   {
-    INFOLN(F("*** CALIBRATION MODE: no load will ever be switched ***"));
+    infoln(F("*** CALIBRATION MODE: no load will ever be switched ***"));
   }
 
   // the calibration constants, converted at compile time: no float printing code in the firmware
@@ -95,140 +95,140 @@ inline void printConfiguration()
   static constexpr auto voltageCal_x1e5 PROGMEM{ SerialOutput::toDecimals(f_voltageCal, 5) };
   constexpr int32_t phaseCal_x100{ SerialOutput::toDecimals(f_phaseCal, 2) };
 
-  INFOLN(F("Electrical settings"));
+  infoln(F("Electrical settings"));
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
   {
-    INFO(F("\tf_powerCal for L"));
-    INFO(phase + 1);
-    INFO(F(" =    "));
-    INFOLN_DECIMALS(static_cast< int32_t >(pgm_read_dword(&powerCal_x1e6.value[phase])), 6);
+    info(F("\tf_powerCal for L"));
+    info(phase + 1);
+    info(F(" =    "));
+    infolnDecimals_P(&powerCal_x1e6.value[phase], 6);
 
-    INFO(F("\tf_voltageCal, for Vrms_L"));
-    INFO(phase + 1);
-    INFO(F(" =    "));
-    INFOLN_DECIMALS(static_cast< int32_t >(pgm_read_dword(&voltageCal_x1e5.value[phase])), 5);
+    info(F("\tf_voltageCal, for Vrms_L"));
+    info(phase + 1);
+    info(F(" =    "));
+    infolnDecimals_P(&voltageCal_x1e5.value[phase], 5);
   }
 
-  INFO(F("\tf_phaseCal for all phases =     "));
-  INFOLN_DECIMALS(phaseCal_x100, 2);
+  info(F("\tf_phaseCal for all phases =     "));
+  infolnDecimals(phaseCal_x100, 2);
 
-  INFO(F("\tExport rate (Watts) = "));
-  INFOLN(REQUIRED_EXPORT_IN_WATTS);
+  info(F("\tExport rate (Watts) = "));
+  infoln(REQUIRED_EXPORT_IN_WATTS);
 
-  INFO(F("\tzero-crossing persistence (sample sets) = "));
-  INFOLN(PERSISTENCE_FOR_POLARITY_CHANGE);
+  info(F("\tzero-crossing persistence (sample sets) = "));
+  infoln(PERSISTENCE_FOR_POLARITY_CHANGE);
 
   printParamsForSelectedOutputMode();
 
-  INFO(F("Temperature capability "));
+  info(F("Temperature capability "));
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    INFOLN(F("is present"));
+    infoln(F("is present"));
   }
   else
   {
-    INFOLN(F("is NOT present"));
+    infoln(F("is NOT present"));
   }
 
-  INFO(F("Dual-tariff capability "));
+  info(F("Dual-tariff capability "));
   if constexpr (DUAL_TARIFF)
   {
-    INFOLN(F("is present"));
+    infoln(F("is present"));
     printDualTariffConfiguration();
   }
   else
   {
-    INFOLN(F("is NOT present"));
+    infoln(F("is NOT present"));
   }
 
-  INFO(F("Load rotation feature "));
+  info(F("Load rotation feature "));
   if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
   {
-    INFOLN(F("is present"));
+    infoln(F("is present"));
   }
   else
   {
-    INFOLN(F("is NOT present"));
+    infoln(F("is NOT present"));
   }
 
-  INFO(F("Relay diversion feature "));
+  info(F("Relay diversion feature "));
   if constexpr (RELAY_DIVERSION)
   {
-    INFOLN(F("is present"));
+    infoln(F("is present"));
 
     relays.printRelayEngineConfiguration();
   }
   else
   {
-    INFOLN(F("is NOT present"));
+    infoln(F("is NOT present"));
   }
 
-  INFO(F("Override feature "));
+  info(F("Override feature "));
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    INFOLN(F("is present"));
+    infoln(F("is present"));
 
     overridePins.printOverrideConfig();
   }
   else
   {
-    INFOLN(F("is NOT present"));
+    infoln(F("is NOT present"));
   }
 
-  INFO(F("RF capability "));
+  info(F("RF capability "));
   if constexpr (RF_CHIP_PRESENT)
   {
-    INFO(F("IS present, Freq = "));
+    info(F("IS present, Freq = "));
     if constexpr (SharedRF::FREQUENCY == RF69_433MHZ)
-      INFOLN(F("433 MHz"));
+      infoln(F("433 MHz"));
     else if constexpr (SharedRF::FREQUENCY == RF69_868MHZ)
-      INFOLN(F("868 MHz"));
+      infoln(F("868 MHz"));
     else if constexpr (SharedRF::FREQUENCY == RF69_915MHZ)
-      INFOLN(F("915 MHz"));
+      infoln(F("915 MHz"));
 
-    INFO(F("  Network ID: "));
-    INFOLN(SharedRF::NETWORK_ID);
-    INFO(F("  Node ID: "));
-    INFOLN(SharedRF::ROUTER_NODE_ID);
+    info(F("  Network ID: "));
+    infoln(SharedRF::NETWORK_ID);
+    info(F("  Node ID: "));
+    infoln(SharedRF::ROUTER_NODE_ID);
 
     if constexpr (RF_LOGGING_PRESENT)
     {
-      INFO(F("  Data logging to Gateway ID: "));
-      INFOLN(SharedRF::GATEWAY_ID);
+      info(F("  Data logging to Gateway ID: "));
+      infoln(SharedRF::GATEWAY_ID);
     }
 
     if constexpr (REMOTE_LOADS_PRESENT)
     {
-      INFO(F("  Remote loads to Node ID: "));
+      info(F("  Remote loads to Node ID: "));
       for (uint8_t idx = 0; idx != NO_OF_REMOTE_UNITS; ++idx)
       {
-        INFO(SharedRF::REMOTE_NODE_ID[idx]);
-        INFO(' ');
+        info(SharedRF::REMOTE_NODE_ID[idx]);
+        info(' ');
       }
-      INFOLN();
+      infoln();
     }
   }
   else
   {
-    INFOLN(F("is NOT present"));
+    infoln(F("is NOT present"));
   }
 
-  INFO(F("Datalogging capability "));
+  info(F("Datalogging capability "));
   if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
   {
-    INFOLN(F("in Human-readable format"));
+    infoln(F("in Human-readable format"));
   }
   else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::IoT)
   {
-    INFOLN(F("in IoT format"));
+    infoln(F("in IoT format"));
   }
   else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::JSON)
   {
-    INFOLN(F("in JSON format"));
+    infoln(F("in JSON format"));
   }
   else
   {
-    INFOLN(F("is NOT present"));
+    infoln(F("is NOT present"));
   }
 }
 
@@ -586,11 +586,11 @@ inline void sendResults(bool bOffPeak)
  */
 inline void logLoadPriorities()
 {
-  INFOLN(F("Load Priorities: "));
+  infoln(F("Load Priorities: "));
   for (const auto& loadPrioAndState : loadPrioritiesAndState)
   {
-    INFO(F("\tload "));
-    INFOLN(loadPrioAndState);
+    info(F("\tload "));
+    infoln(loadPrioAndState);
   }
 }
 

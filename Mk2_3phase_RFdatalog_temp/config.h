@@ -21,16 +21,17 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-//--------------------------------------------------------------------------------------------------
-#define ENABLE_DEBUG /**< enable this line to include the debug messages (the startup configuration and status messages are always printed, in human-readable output) */
-//--------------------------------------------------------------------------------------------------
-
 #include "config_system.h"
-#include "debug.h"
 #include "types.h"
 
 // Serial output type - Human readable for initial setup and commissioning
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
+
+// Debug messages (free RAM...), human-readable output only. The startup configuration and the
+// status messages do not depend on it: they are always printed in human-readable output.
+inline constexpr bool ENABLE_DEBUG{ true };
+
+#include "debug.h"  // needs SERIAL_OUTPUT_TYPE and ENABLE_DEBUG
 
 // Calibration mode: the router measures and logs as usual, but never switches any load
 // (TRIACs, relays, remote loads, overrides), as with the router OFF. Set back to false once calibrated!

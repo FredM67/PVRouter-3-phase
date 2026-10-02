@@ -312,18 +312,18 @@ void initializeProcessing()
     // Initialize shared RF module
     if (initialize_rf())
     {
-      INFOLN(F("RF module initialized"));
+      infoln(F("RF module initialized"));
     }
     else
     {
-      INFOLN(F("RF module initialization FAILED"));
+      infoln(F("RF module initialization FAILED"));
     }
   }
 
   if constexpr (REMOTE_LOADS_PRESENT)
   {
     remoteLoads.reset();
-    INFOLN(F("Remote loads initialized"));
+    infoln(F("Remote loads initialized"));
   }
 
   // First stop the ADC
@@ -1202,24 +1202,24 @@ void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample)
 void printParamsForSelectedOutputMode()
 {
   // display relevant settings for selected output mode
-  INFO(F("Output mode:    "));
+  info(F("Output mode:    "));
   if (OutputModes::NORMAL == outputMode)
   {
-    INFOLN(F("normal"));
+    infoln(F("normal"));
   }
   else
   {
-    INFOLN(F("anti-flicker"));
+    infoln(F("anti-flicker"));
     constexpr int32_t offsetOfEnergyThresholds_x100{ SerialOutput::toDecimals(f_offsetOfEnergyThresholdsInAFmode, 2) };
-    INFO(F("\toffsetOfEnergyThresholds  = "));
-    INFOLN_DECIMALS(offsetOfEnergyThresholds_x100, 2);
+    info(F("\toffsetOfEnergyThresholds  = "));
+    infolnDecimals(offsetOfEnergyThresholds_x100, 2);
   }
-  INFO(F("\tl_capacityOfEnergyBucket_main = "));
-  INFOLN(l_capacityOfEnergyBucket_main);
-  INFO(F("\tl_lowerEnergyThreshold   = "));
-  INFOLN(l_lowerThreshold_default);
-  INFO(F("\tl_upperEnergyThreshold   = "));
-  INFOLN(l_upperThreshold_default);
+  info(F("\tl_capacityOfEnergyBucket_main = "));
+  infoln(l_capacityOfEnergyBucket_main);
+  info(F("\tl_lowerEnergyThreshold   = "));
+  infoln(l_lowerThreshold_default);
+  info(F("\tl_upperEnergyThreshold   = "));
+  infoln(l_upperThreshold_default);
 }
 
 /**
