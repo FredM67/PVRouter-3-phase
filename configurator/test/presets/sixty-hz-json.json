@@ -1,0 +1,15 @@
+{
+  "serialOutput": "JSON",
+  "enableDebug": false,
+  "supplyFrequency": 60,
+  "datalogPeriod": 10,
+  "requiredExport": -50,
+  "diversionStartThreshold": 50,
+  "loads": [{ "type": "local", "pin": 5 }],
+  "priorities": [0],
+  "routerOff": { "enabled": true, "pin": 7, "wifi": false },
+  "rotation": { "mode": "AUTO", "pin": null, "wifi": false, "afterSeconds": 7200 },
+  "overrides": { "enabled": false, "list": [] },
+  "relays": { "enabled": true, "filterDelay": 1, "list": [{ "pin": 6, "surplus": 800, "import": 100, "minOn": 2, "minOff": 3 }] },
+  "dualTariff": { "enabled": false, "force": [] }
+}

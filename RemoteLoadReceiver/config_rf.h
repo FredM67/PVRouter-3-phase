@@ -2,7 +2,7 @@
  * @file config_rf.h
  * @brief RF module configuration for Remote Load Receiver
  * @version 1.0
- * @date 2026-01-30
+ * @date 2026-10-02
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  *
  * @copyright Copyright (c) 2025-2026
@@ -19,13 +19,13 @@
 /**
  * @brief RF Module Configuration
  * @details RF Network from Remote Load Unit perspective:
- * 
+ *
  *   Router (ID=10) -----> THIS Remote Load Unit (ID=15)
- * 
+ *
  *   - NETWORK_ID (210): MUST match the router's NETWORK_ID
  *   - ROUTER_NODE_ID (10): Address of the router sending commands (MUST match router's ROUTER_NODE_ID)
  *   - REMOTE_NODE_ID (15): THIS unit's unique address (MUST match router's REMOTE_NODE_ID)
- * 
+ *
  *   Example: If you have 2 remote load units:
  *     - Unit #1: REMOTE_NODE_ID = 15 (matches router's first REMOTE_NODE_ID)
  *     - Unit #2: REMOTE_NODE_ID = 16 (different ID, configured in a second router or separate config)
