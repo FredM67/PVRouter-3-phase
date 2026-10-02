@@ -1,0 +1,53 @@
+# Publishes the GitHub Pages site (gh-pages branch): the Doxygen documentation of the firmware
+# at the root, and the configurator under /configurator/.
+# Both are deployed together: the deploy replaces the whole branch, so a separate deploy of one
+# would delete the other.
+name: Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Mk2_3phase_RFdatalog_temp/**'
+      - 'configurator/**'
+      - Doxyfile
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  DOXYGEN_VERSION: 1.13.2
+
+jobs:
+  deploy:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Doxygen and Graphviz
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz
+          curl -fsSL "https://github.com/doxygen/doxygen/releases/download/Release_${DOXYGEN_VERSION//./_}/doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz" | tar -xz
+          echo "$PWD/doxygen-${DOXYGEN_VERSION}/bin" >> "$GITHUB_PATH"
+
+      - name: Generate the documentation
+        run: doxygen Doxyfile
+
+      # the tests, presets and scripts stay in the repository
+      - name: Add the configurator
+        run: |
+          mkdir -p docs/html/configurator
+          cp configurator/*.html configurator/*.css configurator/*.js docs/html/configurator/
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs/html
