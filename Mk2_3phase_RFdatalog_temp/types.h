@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some basics classes/types
  * @version 0.1
- * @date 2026-09-23
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -29,6 +29,13 @@ enum class SerialOutputType
   HumanReadable, /**< Human-readable output for commissioning */
   IoT,           /**< Output for HomeAssistant or similar */
   JSON           /**< Output in JSON format */
+};
+
+/** Motherboard generation: they do not measure the same way */
+enum class PcbVersion : uint8_t
+{
+  OLD, /**< the former 3-phase board: ADC reference AVCC (5 V) */
+  NEW  /**< the universal 3phaseDiverter board (rev. 6.0 and later): internal 1.1 V ADC reference */
 };
 
 /** Polarities */

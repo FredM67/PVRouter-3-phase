@@ -23,6 +23,10 @@
 // analogue input pins
 inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
 inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
+
+// ADC reference: AVCC (5 V) on the old board, the internal 1.1 V on the new one (buffered from AREF).
+// ADLAR=1 enables left-aligned ADC for efficient fixed-point math.
+constexpr uint8_t _ADMUX{ (PCB_VERSION == PcbVersion::NEW ? bit(REFS1) | bit(REFS0) : bit(REFS0)) | bit(ADLAR) };
 // ------------------------------------------
 
 // Define ideal bias, ADC mid-range, left aligned.
@@ -332,8 +336,8 @@ void initializeProcessing()
   // Activate free-running mode
   ADCSRB = 0x00;
 
-  // Enable left-aligned ADC result (ADLAR=1) for efficient fixed-point math
-  bit_set(ADMUX, ADLAR);
+  // Reference and left-aligned result for the first conversion too, on the first channel (V1)
+  ADMUX = _ADMUX | sensorV[0];
 
   // Set up the ADC to be free-running
   bit_set(ADCSRA, ADPS0);  // Set the ADC's clock to system clock / 128
@@ -1254,8 +1258,6 @@ void printParamsForSelectedOutputMode()
  */
 
 // ADC optimization: circular linked list for channels (private implementation)
-// ADLAR=1 enables left-aligned ADC for efficient fixed-point math
-constexpr uint8_t _ADMUX{ (1 << REFS0) | (1 << ADLAR) };
 
 /**
  * @brief ADC channel context for circular linked list optimization

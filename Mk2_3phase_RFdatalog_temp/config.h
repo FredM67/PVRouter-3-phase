@@ -24,6 +24,10 @@
 #include "config_system.h"
 #include "types.h"
 
+// Motherboard: OLD for the former 3-phase board, NEW for the universal 3phaseDiverter board
+// (rev. 6.0 and later). A wrong choice gives wrong measurements: recalibrate after a change.
+inline constexpr PcbVersion PCB_VERSION{ PcbVersion::OLD };
+
 // Serial output type - Human readable for initial setup and commissioning
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
 

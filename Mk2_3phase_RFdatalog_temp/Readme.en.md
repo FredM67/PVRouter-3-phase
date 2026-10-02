@@ -13,6 +13,7 @@ This program is designed to be used with the Arduino IDE and/or other developmen
 - [Router calibration](#router-calibration)
 - [Analysis documentation and tools](#analysis-documentation-and-tools)
 - [Program configuration](#program-configuration)
+  - [Motherboard: old or new](#motherboard-old-or-new)
   - [Serial output type](#serial-output-type)
   - [TRIAC output configuration](#triac-output-configuration)
   - [On/off relay output configuration](#onoff-relay-output-configuration)
@@ -175,6 +176,17 @@ The configuration of a feature generally follows two steps:
 - Feature parameter configuration
 
 Configuration consistency is checked during compilation. For example, if a *pin* is accidentally allocated twice, the compiler will generate an error.
+
+## Motherboard: old or new
+
+The old 3-phase board and the new universal **3phaseDiverter** board (rev. 6.0 and later) do not measure the same way: the new board uses the internal 1.1 V reference of the ATmega328P, which the firmware must switch on. Tell the firmware which board you have, in **config.h**:
+```cpp
+inline constexpr PcbVersion PCB_VERSION{ PcbVersion::OLD };  // NEW for the universal 3phaseDiverter board
+```
+The startup summary shows the choice (`Motherboard: old` or `new`).
+
+> [!IMPORTANT]
+> With the wrong choice, all the measurements are wrong. After changing it, calibrate again.
 
 ## Serial output type
 

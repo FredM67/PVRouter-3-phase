@@ -84,6 +84,7 @@ inline void printConfiguration()
   infoln(F(__TIME__));
 #endif
   infoln(F("ADC mode:       free-running"));
+  infoln(PCB_VERSION == PcbVersion::NEW ? F("Motherboard:    new (internal 1.1 V reference)") : F("Motherboard:    old (AVCC reference)"));
 
   if constexpr (CALIBRATION_MODE)
   {
