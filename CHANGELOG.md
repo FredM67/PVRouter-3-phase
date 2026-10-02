@@ -40,7 +40,7 @@ valid load maps ([#160]).
   `config_rf.h`, the remote units' files and the ESPHome YAML of the mk2Wifi module, and checks
   the choices as the compiler would (plus the mk2Wifi wiring). English and French, works offline.
   Its mk2Wifi controls are fail-safe: a broken wire or a rebooting module leaves the router
-  routing, without boost. <https://fredm67.github.io/PVRouter-3-phase/configurator/>
+  routing, without boost. <https://fredm67.github.io/Mk2PVRouter/configurateur/>
 - **New motherboard:** `PCB_VERSION` in `config.h` selects the board. `NEW` (universal
   3phaseDiverter board, rev. 6.0 and later) switches the ADC to the internal 1.1 V reference the
   board is designed for; `OLD` keeps AVCC. The startup summary shows the choice.
@@ -123,7 +123,6 @@ valid load maps ([#160]).
 
 - **Configurator CI:** its default choices must regenerate the shipped config files byte for
   byte; presets are built with PlatformIO, and their YAML checked with `esphome config`.
-- **GitHub Pages:** one workflow publishes the Doxygen documentation and the configurator.
 - **Grid simulator** (`sim/`, simavr): the production firmware runs on a simulated 3-phase grid,
   with scenarios checked in CI. It covers regulation, ISR timing and switching instants ([#169],
   [#170]), the RFM69 radio and the receiver firmware with frame loss ([#171], [#173]), relay

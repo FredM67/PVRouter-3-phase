@@ -83,7 +83,7 @@ jobs:
             echo "| RAM (static) | $RAM | 2048 | $((RAM * 100 / 2048)) |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-  # The configurator (configurator/, published on GitHub Pages): its default choices must give
+  # The configurator (configurator/, published by the Mk2PVRouter documentation): its default choices must give
   # back the shipped config files, the files it generates must build and be clang-format clean,
   # and its mk2Wifi YAML must be a valid ESPHome configuration.
   configurator:

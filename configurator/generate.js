@@ -90,7 +90,7 @@
       ' * @brief Router configuration: loads, relays, control pins and features',
       ' *',
       ' * Edit it by hand, or create it with the configurator:',
-      ' * https://fredm67.github.io/PVRouter-3-phase/configurator/',
+      ' * https://fredm67.github.io/Mk2PVRouter/configurateur/',
       ' *',
       ' * @version 1.0',
       ` * @date ${date || today()}`,

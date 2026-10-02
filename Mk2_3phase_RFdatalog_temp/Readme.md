@@ -185,7 +185,7 @@ La configuration d’une fonctionnalité suit généralement deux étapes :
 La cohérence de la configuration est vérifiée lors de la compilation. Par exemple, si une *pin* est allouée deux fois par erreur, le compilateur générera une erreur.
 
 > [!TIP]
-> Le [configurateur](https://fredm67.github.io/PVRouter-3-phase/configurator/) le fait pour vous : choisissez vos charges, relais, unités distantes, broches de commande et options, il les vérifie et écrit `config.h`, `config_system.h`, `config_rf.h`, les fichiers des unités distantes et, avec le module mk2Wifi, le YAML ESPHome. Gardez votre `calibration.h`.
+> Le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/) le fait pour vous : choisissez vos charges, relais, unités distantes, broches de commande et options, il les vérifie et écrit `config.h`, `config_system.h`, `config_rf.h`, les fichiers des unités distantes et, avec le module mk2Wifi, le YAML ESPHome. Gardez votre `calibration.h`.
 
 ## Carte-mère : ancienne ou nouvelle
 
@@ -923,7 +923,7 @@ Le module **mk2Wifi** relie un **ESP32-C6** (WiFi 6, Bluetooth LE, Zigbee, Threa
 Le matériel, son installation et le dépannage sont documentés sur les [pages mk2Wifi](https://fredm67.github.io/Mk2PVRouter/mk2wifi/presentation-mk2wifi/), et la configuration ESPHome dans [ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Cette section ne traite que du côté routeur.
 
 > [!TIP]
-> Le [configurateur](https://fredm67.github.io/PVRouter-3-phase/configurator/) écrit ensemble le `config.h` du routeur et le YAML ESPHome correspondant, et liste les ponts de soudure à fermer. Ses commandes sont sûres en cas de défaut : le module ne tire une entrée du routeur à l’état bas que pour l’état non par défaut, si bien qu’un fil coupé ou un module qui redémarre laisse le routeur router, sans marche forcée.
+> Le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/) écrit ensemble le `config.h` du routeur et le YAML ESPHome correspondant, et liste les ponts de soudure à fermer. Ses commandes sont sûres en cas de défaut : le module ne tire une entrée du routeur à l’état bas que pour l’état non par défaut, si bien qu’un fil coupé ou un module qui redémarre laisse le routeur router, sans marche forcée.
 
 > [!CAUTION]
 > Ne branchez jamais l’USB-C du module lorsqu’il est enfiché sur la carte mère : les deux alimentations 5 V ne sont pas isolées.

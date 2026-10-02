@@ -4,8 +4,10 @@ A static web page that writes the firmware configuration: `config.h`, `config_sy
 `config_rf.h` for the router, `config.h` and `config_rf.h` for each remote unit
 (`RemoteLoadReceiver`), and the ESPHome YAML for the mk2Wifi module.
 
-Online: <https://fredm67.github.io/PVRouter-3-phase/configurator/> (published from `main` by
-`.github/workflows/pages.yml`). It also works offline: open `index.html` in a browser.
+Online: <https://fredm67.github.io/Mk2PVRouter/configurateur/>, published by the documentation
+site ([Mk2PVRouter](https://github.com/FredM67/Mk2PVRouter)), from its `3-phase` submodule: the
+online configurator always matches the documented firmware (`main`). It also works offline:
+open `index.html` in a browser.
 
 No build step, no dependency: plain scripts that also load in Node for the tests.
 

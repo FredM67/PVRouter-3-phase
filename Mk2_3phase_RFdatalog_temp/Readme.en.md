@@ -178,7 +178,7 @@ The configuration of a feature generally follows two steps:
 Configuration consistency is checked during compilation. For example, if a *pin* is accidentally allocated twice, the compiler will generate an error.
 
 > [!TIP]
-> The [configurator](https://fredm67.github.io/PVRouter-3-phase/configurator/) does it for you: choose your loads, relays, remote units, control pins and options, and it checks them and writes `config.h`, `config_system.h`, `config_rf.h`, the remote units' files and, with the mk2Wifi module, the ESPHome YAML. Keep your `calibration.h`.
+> The [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/) does it for you: choose your loads, relays, remote units, control pins and options, and it checks them and writes `config.h`, `config_system.h`, `config_rf.h`, the remote units' files and, with the mk2Wifi module, the ESPHome YAML. Keep your `calibration.h`.
 
 ## Motherboard: old or new
 
@@ -917,7 +917,7 @@ The **mk2Wifi** module connects an **ESP32-C6** (WiFi 6, Bluetooth LE, Zigbee, T
 The hardware, its installation and troubleshooting are documented on the [mk2Wifi pages](https://fredm67.github.io/Mk2PVRouter/mk2wifi/presentation-mk2wifi/), and the ESPHome configuration in [this gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). This section only covers the router side.
 
 > [!TIP]
-> The [configurator](https://fredm67.github.io/PVRouter-3-phase/configurator/) writes the router's `config.h` and the matching ESPHome YAML together, and lists the solder jumpers to close. Its controls are fail-safe: the module only pulls a router input LOW for the non-default state, so a broken wire or a rebooting module leaves the router routing, without boost.
+> The [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/) writes the router's `config.h` and the matching ESPHome YAML together, and lists the solder jumpers to close. Its controls are fail-safe: the module only pulls a router input LOW for the non-default state, so a broken wire or a rebooting module leaves the router routing, without boost.
 
 > [!CAUTION]
 > Never connect the module's USB-C while it is plugged onto the motherboard: the two 5 V supplies are not isolated.
