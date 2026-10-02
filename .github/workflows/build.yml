@@ -109,7 +109,7 @@ jobs:
           arduino-cli compile --fqbn arduino:avr:uno --warnings default \
             --build-property compiler.cpp.extra_flags=-std=gnu++17 RemoteLoadReceiver
 
-  # The configurator (configurator/, published on GitHub Pages): its default choices must give
+  # The configurator (configurator/, published by the Mk2PVRouter documentation): its default choices must give
   # back the shipped config files, the files it generates must build and be clang-format clean,
   # and its mk2Wifi YAML must be a valid ESPHome configuration.
   configurator:

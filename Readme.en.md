@@ -5,7 +5,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/stargazers)
 [![CI](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/build.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/build.yml)
 [![CodeQL](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml)
-[![Pages](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/pages.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/pages.yml)
+[![Doxygen](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml)
 <br/>
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 <br/>
