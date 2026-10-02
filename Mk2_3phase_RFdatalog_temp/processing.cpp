@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-10-01
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -312,18 +312,18 @@ void initializeProcessing()
     // Initialize shared RF module
     if (initialize_rf())
     {
-      DBUGLN(F("RF module initialized"));
+      INFOLN(F("RF module initialized"));
     }
     else
     {
-      DBUGLN(F("RF module initialization FAILED"));
+      INFOLN(F("RF module initialization FAILED"));
     }
   }
 
   if constexpr (REMOTE_LOADS_PRESENT)
   {
     remoteLoads.reset();
-    DBUGLN(F("Remote loads initialized"));
+    INFOLN(F("Remote loads initialized"));
   }
 
   // First stop the ADC
@@ -1202,23 +1202,23 @@ void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample)
 void printParamsForSelectedOutputMode()
 {
   // display relevant settings for selected output mode
-  DBUG(F("Output mode:    "));
+  INFO(F("Output mode:    "));
   if (OutputModes::NORMAL == outputMode)
   {
-    DBUGLN(F("normal"));
+    INFOLN(F("normal"));
   }
   else
   {
-    DBUGLN(F("anti-flicker"));
-    DBUG(F("\toffsetOfEnergyThresholds  = "));
-    DBUGLN(f_offsetOfEnergyThresholdsInAFmode);
+    INFOLN(F("anti-flicker"));
+    INFO(F("\toffsetOfEnergyThresholds  = "));
+    INFOLN(f_offsetOfEnergyThresholdsInAFmode);
   }
-  DBUG(F("\tl_capacityOfEnergyBucket_main = "));
-  DBUGLN(l_capacityOfEnergyBucket_main);
-  DBUG(F("\tl_lowerEnergyThreshold   = "));
-  DBUGLN(l_lowerThreshold_default);
-  DBUG(F("\tl_upperEnergyThreshold   = "));
-  DBUGLN(l_upperThreshold_default);
+  INFO(F("\tl_capacityOfEnergyBucket_main = "));
+  INFOLN(l_capacityOfEnergyBucket_main);
+  INFO(F("\tl_lowerEnergyThreshold   = "));
+  INFOLN(l_lowerThreshold_default);
+  INFO(F("\tl_upperEnergyThreshold   = "));
+  INFOLN(l_upperThreshold_default);
 }
 
 /**

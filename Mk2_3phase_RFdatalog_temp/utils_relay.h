@@ -189,33 +189,33 @@ public:
    */
   void printRelayConfiguration(uint8_t idx) const
   {
-    DBUG(F("\tRelay configuration: #"));
-    DBUGLN(idx + 1);
+    INFO(F("\tRelay configuration: #"));
+    INFOLN(idx + 1);
 
-    DBUG(F("\t\tPin is "));
-    DBUGLN(get_pin());
+    INFO(F("\t\tPin is "));
+    INFOLN(get_pin());
 
-    DBUG(F("\t\tSurplus threshold: "));
-    DBUGLN(get_surplusThreshold());
+    INFO(F("\t\tSurplus threshold: "));
+    INFOLN(get_surplusThreshold());
 
-    DBUG(F("\t\tImport threshold: "));
-    DBUG(get_importThreshold());
+    INFO(F("\t\tImport threshold: "));
+    INFO(get_importThreshold());
     if (get_importThreshold() >= 0)
     {
-      DBUGLN(F(" (import mode)"));
+      INFOLN(F(" (import mode)"));
     }
     else
     {
-      DBUG(F(" (surplus mode: turn OFF when surplus < "));
-      DBUG(-get_importThreshold());
-      DBUGLN(F("W)"));
+      INFO(F(" (surplus mode: turn OFF when surplus < "));
+      INFO(-get_importThreshold());
+      INFOLN(F("W)"));
     }
 
-    DBUG(F("\t\tMinimum working time in minutes: "));
-    DBUGLN(get_minON() / 60);
+    INFO(F("\t\tMinimum working time in minutes: "));
+    INFOLN(get_minON() / 60);
 
-    DBUG(F("\t\tMinimum stop time in minutes: "));
-    DBUGLN(get_minOFF() / 60);
+    INFO(F("\t\tMinimum stop time in minutes: "));
+    INFOLN(get_minOFF() / 60);
   }
 
   /**
@@ -251,7 +251,7 @@ private:
 
     setPinState(relay_pin, on);
 
-    DBUGLN(on ? F("Relay turned ON!") : F("Relay turned OFF!"));
+    INFOLN(on ? F("Relay turned ON!") : F("Relay turned OFF!"));
 
     relayIsON = on;
     duration = 0;
@@ -442,9 +442,9 @@ public:
    */
   void printRelayEngineConfiguration() const
   {
-    DBUGLN(F("*** Relay(s) configuration ***"));
-    DBUG(F("\tSliding average: "));
-    DBUGLN(D);
+    INFOLN(F("*** Relay(s) configuration ***"));
+    INFO(F("\tSliding average: "));
+    INFOLN(D);
 
     for (uint8_t i = 0; i < N; ++i)
     {

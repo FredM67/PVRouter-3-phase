@@ -22,7 +22,7 @@
 #define CONFIG_H
 
 //--------------------------------------------------------------------------------------------------
-#define ENABLE_DEBUG /**< enable this line to include debugging print statements */
+#define ENABLE_DEBUG /**< enable this line to include the debug messages (the startup configuration and status messages are always printed, in human-readable output) */
 //--------------------------------------------------------------------------------------------------
 
 #include "config_system.h"

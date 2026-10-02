@@ -1,7 +1,7 @@
 /**
  * @file debug.h
  * @author Frédéric Metrich (frederic.metrich@live.fr)
- * @brief Some macro for the Serial Output and Debugging
+ * @brief Macros for the text output: informational messages (INFO) and debug messages (DBUG)
  * @version 0.1
  * @date 2026-10-02
  *
@@ -30,6 +30,30 @@
 #endif  // ESP8266
 #endif  // DEBUG_USE_PRINT_P
 
+// Text output only in human-readable mode: in the IoT and JSON modes, the serial port carries
+// data for another device (mk2Wifi...), which must not receive anything else.
+#define TEXT_OUTPUT_ENABLED (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
+
+// A datalog output still in progress is written first: a message never lands
+// in the middle of a datalog line or telemetry frame (see serial_output.h).
+#define TEXT_PRINT_STATEMENT(...) \
+  do \
+  { \
+    if constexpr (TEXT_OUTPUT_ENABLED) \
+    { \
+      SerialOutput::complete(); \
+      __VA_ARGS__; \
+    } \
+  } while (false)
+
+// Informational messages (startup banner, configuration, status changes):
+// printed whenever the output is human-readable, whatever ENABLE_DEBUG.
+#define INFO(...) TEXT_PRINT_STATEMENT(DEBUG_PORT.print(__VA_ARGS__))
+#define INFOLN(...) TEXT_PRINT_STATEMENT(DEBUG_PORT.println(__VA_ARGS__))
+
+#define DEBUG_BEGIN(speed) DEBUG_PORT.begin(speed)
+
+// Debug messages: only with ENABLE_DEBUG, and also only when the output is human-readable.
 #ifdef ENABLE_DEBUG
 
 // Use os_printf, works but also outputs additional dubug if not using Serial
@@ -37,38 +61,19 @@
 // DEBUG_PORT.setDebugOutput(true) #define DBUGF(format, ...)
 // os_printf(PSTR(format "\n"), ##__VA_ARGS__)
 
-#define DEBUG_BEGIN(speed) DEBUG_PORT.begin(speed)
-
-// Debug text only in human-readable mode: in the IoT and JSON modes, the serial port carries
-// data for another device (mk2Wifi...), which must not receive anything else.
-#define DEBUG_OUTPUT_ENABLED (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
-
-// A datalog output still in progress is written first: a debug message never lands
-// in the middle of a datalog line or telemetry frame (see serial_output.h).
-#define DEBUG_PRINT_STATEMENT(...) \
-  do \
-  { \
-    if constexpr (DEBUG_OUTPUT_ENABLED) \
-    { \
-      SerialOutput::complete(); \
-      __VA_ARGS__; \
-    } \
-  } while (false)
-
 #if DEBUG_USE_PRINT_P
 // Serial.printf_P needs Git version of Arduino Core
-#define DBUGF(format, ...) DEBUG_PRINT_STATEMENT(DEBUG_PORT.printf_P(PSTR(format "\n"), ##__VA_ARGS__))
+#define DBUGF(format, ...) TEXT_PRINT_STATEMENT(DEBUG_PORT.printf_P(PSTR(format "\n"), ##__VA_ARGS__))
 #else
-#define DBUGF(format, ...) DEBUG_PRINT_STATEMENT(DEBUG_PORT.printf(format "\n", ##__VA_ARGS__))
+#define DBUGF(format, ...) TEXT_PRINT_STATEMENT(DEBUG_PORT.printf(format "\n", ##__VA_ARGS__))
 #endif
 
-#define DBUG(...) DEBUG_PRINT_STATEMENT(DEBUG_PORT.print(__VA_ARGS__))
-#define DBUGLN(...) DEBUG_PRINT_STATEMENT(DEBUG_PORT.println(__VA_ARGS__))
-#define DBUGVAR(x, ...) DEBUG_PRINT_STATEMENT(DEBUG_PORT.print(F(ESCAPEQUOTE(x) " = ")); DEBUG_PORT.println(x, ##__VA_ARGS__))
+#define DBUG(...) TEXT_PRINT_STATEMENT(DEBUG_PORT.print(__VA_ARGS__))
+#define DBUGLN(...) TEXT_PRINT_STATEMENT(DEBUG_PORT.println(__VA_ARGS__))
+#define DBUGVAR(x, ...) TEXT_PRINT_STATEMENT(DEBUG_PORT.print(F(ESCAPEQUOTE(x) " = ")); DEBUG_PORT.println(x, ##__VA_ARGS__))
 
 #else  // ENABLE_DEBUG
 
-#define DEBUG_BEGIN(speed) DEBUG_PORT.begin(speed)
 #define DBUGF(...)
 #define DBUG(...)
 #define DBUGLN(...)
@@ -88,6 +93,8 @@
 #else  // ARDUINO
 
 #define DEBUG_BEGIN(speed)
+#define INFO(...)
+#define INFOLN(...)
 
 #ifdef ENABLE_DEBUG
 

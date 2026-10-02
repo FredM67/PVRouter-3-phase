@@ -70,45 +70,45 @@ inline constexpr auto rg_OffsetForce{ _rg_OffsetForce< NO_OF_DUMPLOADS, ul_OFF_P
  */
 inline void printDualTariffConfiguration()
 {
-  DBUG(F("\tDuration of off-peak period is "));
-  DBUG(ul_OFF_PEAK_DURATION);
-  DBUGLN(F(" hours."));
+  INFO(F("\tDuration of off-peak period is "));
+  INFO(ul_OFF_PEAK_DURATION);
+  INFOLN(F(" hours."));
 
-  DBUG(F("\tTemperature threshold is "));
-  DBUG(iTemperatureThreshold);
-  DBUGLN(F("°C."));
+  INFO(F("\tTemperature threshold is "));
+  INFO(iTemperatureThreshold);
+  INFOLN(F("°C."));
 
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    DBUG(F("\tLoad #"));
-    DBUG(i + 1);
-    DBUGLN(F(":"));
+    INFO(F("\tLoad #"));
+    INFO(i + 1);
+    INFOLN(F(":"));
 
-    DBUG(F("\t\tStart "));
+    INFO(F("\t\tStart "));
     if (rg_ForceLoad[i].getStartOffset() >= 0)
     {
-      DBUG(rg_ForceLoad[i].getStartOffset());
-      DBUG(F(" hours/minutes after begin of off-peak period "));
+      INFO(rg_ForceLoad[i].getStartOffset());
+      INFO(F(" hours/minutes after begin of off-peak period "));
     }
     else
     {
-      DBUG(-rg_ForceLoad[i].getStartOffset());
-      DBUG(F(" hours/minutes before the end of off-peak period "));
+      INFO(-rg_ForceLoad[i].getStartOffset());
+      INFO(F(" hours/minutes before the end of off-peak period "));
     }
     if (rg_ForceLoad[i].getDuration() == UINT16_MAX)
     {
-      DBUGLN(F("till the end of the period."));
+      INFOLN(F("till the end of the period."));
     }
     else
     {
-      DBUG(F("for a duration of "));
-      DBUG(rg_ForceLoad[i].getDuration());
-      DBUGLN(F(" hour/minute(s)."));
+      INFO(F("for a duration of "));
+      INFO(rg_ForceLoad[i].getDuration());
+      INFOLN(F(" hour/minute(s)."));
     }
-    DBUG(F("\t\tCalculated offset in seconds: "));
-    DBUGLN(rg_OffsetForce[i][0] * 0.001F);
-    DBUG(F("\t\tCalculated duration in seconds: "));
-    DBUGLN(rg_OffsetForce[i][1] * 0.001F);
+    INFO(F("\t\tCalculated offset in seconds: "));
+    INFOLN(rg_OffsetForce[i][0] * 0.001F);
+    INFO(F("\t\tCalculated duration in seconds: "));
+    INFOLN(rg_OffsetForce[i][1] * 0.001F);
   }
 }
 

@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-10-01
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -61,169 +61,169 @@ inline void printConfiguration()
 #define BUILD_ENV ("N/A")
 #endif
 
-  DBUGLN();
-  DBUGLN();
-  DBUGLN(F("----------------------------------"));
-  DBUG(F("Sketch ID: "));
-  DBUGLN(F(PROJECT_PATH));
+  INFOLN();
+  INFOLN();
+  INFOLN(F("----------------------------------"));
+  INFO(F("Sketch ID: "));
+  INFOLN(F(PROJECT_PATH));
 
-  DBUG(F("From branch '"));
-  DBUG(F(BRANCH_NAME));
-  DBUG(F("', commit "));
-  DBUGLN(F(COMMIT_HASH));
+  INFO(F("From branch '"));
+  INFO(F(BRANCH_NAME));
+  INFO(F("', commit "));
+  INFOLN(F(COMMIT_HASH));
 
-  DBUG(F("Build environment: "));
-  DBUGLN(F(BUILD_ENV));
+  INFO(F("Build environment: "));
+  INFOLN(F(BUILD_ENV));
 
-  DBUG(F("Build on "));
+  INFO(F("Build on "));
 #ifdef CURRENT_TIME
-  DBUGLN(F(CURRENT_TIME));
+  INFOLN(F(CURRENT_TIME));
 #else
-  DBUG(F(__DATE__));
-  DBUG(F(" "));
-  DBUGLN(F(__TIME__));
+  INFO(F(__DATE__));
+  INFO(F(" "));
+  INFOLN(F(__TIME__));
 #endif
-  DBUGLN(F("ADC mode:       free-running"));
+  INFOLN(F("ADC mode:       free-running"));
 
   if constexpr (CALIBRATION_MODE)
   {
-    DBUGLN(F("*** CALIBRATION MODE: no load will ever be switched ***"));
+    INFOLN(F("*** CALIBRATION MODE: no load will ever be switched ***"));
   }
 
-  DBUGLN(F("Electrical settings"));
+  INFOLN(F("Electrical settings"));
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
   {
-    DBUG(F("\tf_powerCal for L"));
-    DBUG(phase + 1);
-    DBUG(F(" =    "));
-    DBUGLN(f_powerCal[phase], 6);
+    INFO(F("\tf_powerCal for L"));
+    INFO(phase + 1);
+    INFO(F(" =    "));
+    INFOLN(f_powerCal[phase], 6);
 
-    DBUG(F("\tf_voltageCal, for Vrms_L"));
-    DBUG(phase + 1);
-    DBUG(F(" =    "));
-    DBUGLN(f_voltageCal[phase], 5);
+    INFO(F("\tf_voltageCal, for Vrms_L"));
+    INFO(phase + 1);
+    INFO(F(" =    "));
+    INFOLN(f_voltageCal[phase], 5);
   }
 
-  DBUG(F("\tf_phaseCal for all phases =     "));
-  DBUGLN(f_phaseCal);
+  INFO(F("\tf_phaseCal for all phases =     "));
+  INFOLN(f_phaseCal);
 
-  DBUG(F("\tExport rate (Watts) = "));
-  DBUGLN(REQUIRED_EXPORT_IN_WATTS);
+  INFO(F("\tExport rate (Watts) = "));
+  INFOLN(REQUIRED_EXPORT_IN_WATTS);
 
-  DBUG(F("\tzero-crossing persistence (sample sets) = "));
-  DBUGLN(PERSISTENCE_FOR_POLARITY_CHANGE);
+  INFO(F("\tzero-crossing persistence (sample sets) = "));
+  INFOLN(PERSISTENCE_FOR_POLARITY_CHANGE);
 
   printParamsForSelectedOutputMode();
 
-  DBUG(F("Temperature capability "));
+  INFO(F("Temperature capability "));
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    DBUGLN(F("is present"));
+    INFOLN(F("is present"));
   }
   else
   {
-    DBUGLN(F("is NOT present"));
+    INFOLN(F("is NOT present"));
   }
 
-  DBUG(F("Dual-tariff capability "));
+  INFO(F("Dual-tariff capability "));
   if constexpr (DUAL_TARIFF)
   {
-    DBUGLN(F("is present"));
+    INFOLN(F("is present"));
     printDualTariffConfiguration();
   }
   else
   {
-    DBUGLN(F("is NOT present"));
+    INFOLN(F("is NOT present"));
   }
 
-  DBUG(F("Load rotation feature "));
+  INFO(F("Load rotation feature "));
   if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
   {
-    DBUGLN(F("is present"));
+    INFOLN(F("is present"));
   }
   else
   {
-    DBUGLN(F("is NOT present"));
+    INFOLN(F("is NOT present"));
   }
 
-  DBUG(F("Relay diversion feature "));
+  INFO(F("Relay diversion feature "));
   if constexpr (RELAY_DIVERSION)
   {
-    DBUGLN(F("is present"));
+    INFOLN(F("is present"));
 
     relays.printRelayEngineConfiguration();
   }
   else
   {
-    DBUGLN(F("is NOT present"));
+    INFOLN(F("is NOT present"));
   }
 
-  DBUG(F("Override feature "));
+  INFO(F("Override feature "));
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    DBUGLN(F("is present"));
+    INFOLN(F("is present"));
 
     overridePins.printOverrideConfig();
   }
   else
   {
-    DBUGLN(F("is NOT present"));
+    INFOLN(F("is NOT present"));
   }
 
-  DBUG(F("RF capability "));
+  INFO(F("RF capability "));
   if constexpr (RF_CHIP_PRESENT)
   {
-    DBUG(F("IS present, Freq = "));
+    INFO(F("IS present, Freq = "));
     if constexpr (SharedRF::FREQUENCY == RF69_433MHZ)
-      DBUGLN(F("433 MHz"));
+      INFOLN(F("433 MHz"));
     else if constexpr (SharedRF::FREQUENCY == RF69_868MHZ)
-      DBUGLN(F("868 MHz"));
+      INFOLN(F("868 MHz"));
     else if constexpr (SharedRF::FREQUENCY == RF69_915MHZ)
-      DBUGLN(F("915 MHz"));
+      INFOLN(F("915 MHz"));
 
-    DBUG(F("  Network ID: "));
-    DBUGLN(SharedRF::NETWORK_ID);
-    DBUG(F("  Node ID: "));
-    DBUGLN(SharedRF::ROUTER_NODE_ID);
+    INFO(F("  Network ID: "));
+    INFOLN(SharedRF::NETWORK_ID);
+    INFO(F("  Node ID: "));
+    INFOLN(SharedRF::ROUTER_NODE_ID);
 
     if constexpr (RF_LOGGING_PRESENT)
     {
-      DBUG(F("  Data logging to Gateway ID: "));
-      DBUGLN(SharedRF::GATEWAY_ID);
+      INFO(F("  Data logging to Gateway ID: "));
+      INFOLN(SharedRF::GATEWAY_ID);
     }
 
     if constexpr (REMOTE_LOADS_PRESENT)
     {
-      DBUG(F("  Remote loads to Node ID: "));
+      INFO(F("  Remote loads to Node ID: "));
       for (uint8_t idx = 0; idx != NO_OF_REMOTE_UNITS; ++idx)
       {
-        DBUG(SharedRF::REMOTE_NODE_ID[idx]);
-        DBUG(' ');
+        INFO(SharedRF::REMOTE_NODE_ID[idx]);
+        INFO(' ');
       }
-      DBUGLN();
+      INFOLN();
     }
   }
   else
   {
-    DBUGLN(F("is NOT present"));
+    INFOLN(F("is NOT present"));
   }
 
-  DBUG(F("Datalogging capability "));
+  INFO(F("Datalogging capability "));
   if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
   {
-    DBUGLN(F("in Human-readable format"));
+    INFOLN(F("in Human-readable format"));
   }
   else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::IoT)
   {
-    DBUGLN(F("in IoT format"));
+    INFOLN(F("in IoT format"));
   }
   else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::JSON)
   {
-    DBUGLN(F("in JSON format"));
+    INFOLN(F("in JSON format"));
   }
   else
   {
-    DBUGLN(F("is NOT present"));
+    INFOLN(F("is NOT present"));
   }
 }
 
@@ -570,27 +570,23 @@ inline void sendResults(bool bOffPeak)
  * @brief Prints the load priorities to the Serial output.
  *
  * This function logs the current load priorities and states to the Serial output
- * for debugging purposes. It provides a detailed view of the load configuration
- * and their respective priorities.
+ * at startup and after each priority rotation. It provides a detailed view of the load
+ * configuration and their respective priorities.
  *
  * @details
  * - Each load's priority and state are printed in a human-readable format.
- * - This function is only active when debugging is enabled (`ENABLE_DEBUG`).
+ * - Like every text message, it is only printed in human-readable output mode.
  *
  * @ingroup GeneralProcessing
  */
 inline void logLoadPriorities()
 {
-#ifdef ENABLE_DEBUG
-
-  DBUGLN(F("Load Priorities: "));
+  INFOLN(F("Load Priorities: "));
   for (const auto& loadPrioAndState : loadPrioritiesAndState)
   {
-    DBUG(F("\tload "));
-    DBUGLN(loadPrioAndState);
+    INFO(F("\tload "));
+    INFOLN(loadPrioAndState);
   }
-
-#endif
 }
 
 /**

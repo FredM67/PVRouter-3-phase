@@ -195,15 +195,16 @@ bool isDiversionEnabled()
   {
     const bool pinState{ getPinState(diversionPin) };
 
-#ifdef ENABLE_DEBUG
-    static bool previousState{ HIGH };
-    if (previousState != pinState)
+    if constexpr (TEXT_OUTPUT_ENABLED)
     {
-      DBUGLN(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
-    }
+      static bool previousState{ HIGH };
+      if (previousState != pinState)
+      {
+        INFOLN(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
+      }
 
-    previousState = pinState;
-#endif
+      previousState = pinState;
+    }
 
     return pinState;
   }
@@ -231,15 +232,16 @@ bool isRouterOff()
   {
     const bool pinState{ getPinState(routerOffPin) };
 
-#ifdef ENABLE_DEBUG
-    static bool previousState{ HIGH };
-    if (previousState != pinState)
+    if constexpr (TEXT_OUTPUT_ENABLED)
     {
-      DBUGLN(!pinState ? F("Router OFF!") : F("Router ON!"));
-    }
+      static bool previousState{ HIGH };
+      if (previousState != pinState)
+      {
+        INFOLN(!pinState ? F("Router OFF!") : F("Router ON!"));
+      }
 
-    previousState = pinState;
-#endif
+      previousState = pinState;
+    }
 
     return !pinState;
   }
@@ -301,7 +303,7 @@ bool proceedDualTariffLogic()
   if (pinOffPeakState && !pinNewState)
   {
     // we start off-peak period
-    DBUGLN(F("Change to off-peak period!"));
+    INFOLN(F("Change to off-peak period!"));
 
     ul_TimeOffPeak = millis();
 
@@ -314,7 +316,7 @@ bool proceedDualTariffLogic()
   // end of off-peak period
   if (!pinOffPeakState && pinNewState)
   {
-    DBUGLN(F("Change to peak period!"));
+    INFOLN(F("Change to peak period!"));
   }
 
   pinOffPeakState = pinNewState;
@@ -350,7 +352,7 @@ void proceedLoadPriorities()
 
     if (pinRotationState && !pinNewState)
     {
-      DBUGLN(F("Trigger rotation!"));
+      INFOLN(F("Trigger rotation!"));
 
       proceedRotation();
     }
@@ -408,7 +410,7 @@ void setup()
 
   DBUG(F(">>free RAM = "));
   DBUGLN(freeRam());  // a useful value to keep an eye on
-  DBUGLN(F("----"));
+  INFOLN(F("----"));
 }
 
 /**

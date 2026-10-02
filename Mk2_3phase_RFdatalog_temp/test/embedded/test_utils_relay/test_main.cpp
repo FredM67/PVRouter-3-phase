@@ -4,6 +4,11 @@
 
 #include "../halt_after_tests.h"
 
+#include "types.h"
+
+// normally from config.h: the configuration printers of utils_relay.h (INFO...) depend on it
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE{ SerialOutputType::HumanReadable };
+
 #include "utils_pins.h"
 #include "utils_relay.h"
 
