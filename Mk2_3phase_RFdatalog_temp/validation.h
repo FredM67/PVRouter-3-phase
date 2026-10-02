@@ -98,6 +98,14 @@ constexpr uint16_t check_pins()
     bit_set(used_pins, rotationPin);
   }
 
+  if (dualTariffPin != unused_pin)
+  {
+    if (bit_read(used_pins, dualTariffPin))
+      return 0;
+
+    bit_set(used_pins, dualTariffPin);
+  }
+
   // Check override pins from the flexible override system
   if constexpr (OVERRIDE_PIN_PRESENT)
   {

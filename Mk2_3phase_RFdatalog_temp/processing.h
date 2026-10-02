@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Public functions/variables of processing engine
  * @version 0.1
- * @date 2026-09-21
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -21,11 +21,8 @@ inline constexpr uint8_t PERSISTENCE_FOR_POLARITY_CHANGE{ 1 }; /**< allows polar
 inline constexpr uint16_t initialDelay{ 3000 };  /**< in milli-seconds, to allow time to open the Serial monitor */
 inline constexpr uint16_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow LP filter to settle */
 
-#ifdef TEMP_ENABLED
-inline PayloadTx_struct< NO_OF_PHASES, temperatureSensing.size() > tx_data; /**< logging data */
-#else
-inline PayloadTx_struct< NO_OF_PHASES > tx_data; /**< logging data */
-#endif
+// one temperature per sensor, only with temperature sensing (TEMP_SENSOR_PRESENT is a constexpr, not a macro)
+inline PayloadTx_struct< NO_OF_PHASES, TEMP_SENSOR_PRESENT ? temperatureSensing.size() : 0 > tx_data; /**< logging data */
 
 void printParamsForSelectedOutputMode();
 
