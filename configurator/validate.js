@@ -29,6 +29,7 @@
     if (!inRange(m.requiredExport, -32768, 32767)) error('err.requiredExport', 'requiredExport');
     if (!inRange(m.diversionStartThreshold, 0, 32767)) error('err.diversionStart', 'diversionStartThreshold');
     if (!M.SERIAL_OUTPUTS.includes(m.serialOutput)) error('err.serialOutput', 'serialOutput');
+    if (!M.PCB_VERSIONS.includes(m.pcbVersion)) error('err.pcbVersion', 'pcbVersion');
     if (m.calibrationMode) warning('warn.calibration', 'calibrationMode');
 
     // ---- load map ----

@@ -29,6 +29,7 @@ test('the presets have no error', () => {
 });
 
 const CASES = [
+  ['err.pcbVersion', (m) => (m.pcbVersion = 'AVCC')],
   ['err.frequency', (m) => (m.supplyFrequency = 55)],
   ['err.datalogPeriod', (m) => (m.datalogPeriod = 41)],
   ['err.diversionStart', (m) => (m.diversionStartThreshold = -1)],

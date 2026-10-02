@@ -34,6 +34,7 @@
   const MK2WIFI_ONEWIRE_GPIO = 23;
   const MK2WIFI_UART = { tx: 16, rx: 17 };
 
+  const PCB_VERSIONS = ['OLD', 'NEW'];
   const SERIAL_OUTPUTS = ['HumanReadable', 'IoT', 'JSON'];
   const ROTATION_MODES = ['OFF', 'AUTO', 'PIN'];
   const RF_FREQUENCIES = ['RF69_433MHZ', 'RF69_868MHZ', 'RF69_915MHZ'];
@@ -45,6 +46,7 @@
       formatVersion: FORMAT_VERSION,
 
       // config.h - general
+      pcbVersion: 'OLD', // OLD: former 3-phase board, NEW: universal 3phaseDiverter board
       serialOutput: 'HumanReadable',
       enableDebug: true,
       calibrationMode: false,
@@ -237,6 +239,7 @@
     MK2WIFI_GPIO,
     MK2WIFI_ONEWIRE_GPIO,
     MK2WIFI_UART,
+    PCB_VERSIONS,
     SERIAL_OUTPUTS,
     ROTATION_MODES,
     RF_FREQUENCIES,

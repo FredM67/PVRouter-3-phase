@@ -1,4 +1,5 @@
 {
+  "pcbVersion": "NEW",
   "serialOutput": "JSON",
   "enableDebug": false,
   "supplyFrequency": 60,
