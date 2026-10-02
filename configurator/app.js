@@ -347,7 +347,10 @@
       p,
       check(
         () => r.enabled,
-        (v) => (r.enabled = v),
+        (v) => {
+          r.enabled = v;
+          if (v && !r.list.length) M.resizeRelays(m, 1);
+        },
         'relaysEnabled'
       ),
       r.enabled
@@ -360,6 +363,14 @@
                 { min: 1, max: 10 }
               ),
               'filterDelayHelp'
+            ),
+            field(
+              'relayCount',
+              num(
+                () => r.list.length,
+                (v) => M.resizeRelays(m, Math.max(1, Math.min(M.LIMITS.MAX_IOT_RELAYS, v || 1))),
+                { min: 1, max: M.LIMITS.MAX_IOT_RELAYS }
+              )
             ),
             r.list.map((x, i) =>
               row(
@@ -401,12 +412,10 @@
                     (v) => (x.minOff = v),
                     { min: 0 }
                   )
-                ),
-                r.list.length > 1 ? button('remove', () => r.list.splice(i, 1), 'small') : null
+                )
               )
             ),
             help('importHelp'),
-            button('add', () => r.list.push({ pin: null, surplus: 1000, import: 200, minOn: 5, minOff: 5 })),
           ]
         : null
     );

@@ -56,6 +56,7 @@
 
       'sec.relays': 'Relays',
       relaysEnabled: 'Relay diversion',
+      relayCount: 'Number of relays',
       filterDelay: 'Filter delay (min)',
       filterDelayHelp: 'Smooths the power before relay decisions: 1 for clear skies, 2 in most places, 3-4 when it is often cloudy.',
       relay: 'Relay',
@@ -262,6 +263,7 @@
 
       'sec.relays': 'Relais',
       relaysEnabled: 'Routage par relais',
+      relayCount: 'Nombre de relais',
       filterDelay: 'Délai du filtre (min)',
       filterDelayHelp: 'Lisse la puissance avant les décisions des relais : 1 par ciel dégagé, 2 dans la plupart des cas, 3-4 si souvent nuageux.',
       relay: 'Relais',

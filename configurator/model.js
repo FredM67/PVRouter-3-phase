@@ -222,6 +222,13 @@
     return m;
   }
 
+  // New relays start without a pin, with the thresholds of the README example
+  function resizeRelays(m, count) {
+    while (m.relays.list.length < count) m.relays.list.push({ pin: null, surplus: 1000, import: 200, minOn: 5, minOff: 5 });
+    m.relays.list.length = count;
+    return m;
+  }
+
   return {
     FORMAT_VERSION,
     LIMITS,
@@ -250,5 +257,6 @@
     parseAddress,
     crc8,
     resizeLoads,
+    resizeRelays,
   };
 });
