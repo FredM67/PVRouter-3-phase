@@ -16,7 +16,7 @@
  *   1 stop bit, and even parity.
  *
  * @version 0.1
- * @date 2026-09-30
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2025-2026
  *
@@ -78,7 +78,7 @@ inline static constexpr size_t lineSize(size_t tagLen, size_t valueLen)
  * - `relays.size()` lines for the "R1" to "Rn" tags (1 digit each) - relay states.
  *
  * If temperature sensors are present (`TEMP_SENSOR_PRESENT`):
- * - `temperatureSensing.size()` lines for the "T1" to "Tn" tags (4 digits each) - temperature readings.
+ * - `temperatureSensing.size()` lines for the "T1" to "Tn" tags (5 characters each, sign included) - temperature readings.
  *
  * Common for all configurations:
  * - 1 line for the "N" tag (unsigned 5 digits) - absence of diverted energy count.
@@ -122,7 +122,7 @@ inline static constexpr size_t calcBufferSize()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    size += temperatureSensing.size() * lineSize(2, 4);  // T1-Tn (4 digits) - temperature
+    size += temperatureSensing.size() * lineSize(2, 5);  // T1-Tn (signed, 5 characters: -55.00 to 125.00 C) - temperature
   }
 
   size += lineSize(1, 5);  // N (unsigned 5 digits) - absence of diverted energy count
@@ -223,6 +223,34 @@ private:
     buffer[bufferPos++] = TAB;
   }
 
+  /**
+   * @brief Writes a whole line: line feed, tag, value, checksum and carriage return.
+   * @param tag The tag associated with the value.
+   * @param index Appended to the tag if not 0.
+   * @param magnitude The magnitude of the value.
+   * @param negative Whether the value is negative.
+   */
+  void writeLine(const char* tag, uint8_t index, uint16_t magnitude, bool negative)
+  {
+    buffer[bufferPos++] = LF;
+
+    const auto startPos{ bufferPos };
+
+    writeTag(tag, index);
+    if (negative)
+    {
+      buffer[bufferPos++] = '-';
+    }
+    auto str = utoa(magnitude, buffer + bufferPos, 10);
+    bufferPos += strlen(str);  // Advance bufferPos by the length of the written string
+    buffer[bufferPos++] = TAB;
+
+    const auto crc{ calculateChecksum(startPos, bufferPos) };
+    buffer[bufferPos++] = crc;
+
+    buffer[bufferPos++] = CR;
+  }
+
 public:
   /**
    * @brief Initializes a new frame by resetting the buffer and adding the start character.
@@ -240,19 +268,18 @@ public:
    */
   void send(const char* tag, int16_t value, uint8_t index = 0)
   {
-    buffer[bufferPos++] = LF;
+    const auto magnitude{ value < 0 ? static_cast< uint16_t >(0U - static_cast< uint16_t >(value)) : static_cast< uint16_t >(value) };
+    writeLine(tag, index, magnitude, value < 0);
+  }
 
-    const auto startPos{ bufferPos };
-
-    writeTag(tag, index);
-    auto str = itoa(value, buffer + bufferPos, 10);
-    bufferPos += strlen(str);  // Advance bufferPos by the length of the written string
-    buffer[bufferPos++] = TAB;
-
-    const auto crc{ calculateChecksum(startPos, bufferPos) };
-    buffer[bufferPos++] = crc;
-
-    buffer[bufferPos++] = CR;
+  /**
+   * @brief Sends a telemetry value as an unsigned integer (above 32767, send() would wrap).
+   * @param tag The tag associated with the value.
+   * @param value The unsigned value to send.
+   */
+  void sendUnsigned(const char* tag, uint16_t value)
+  {
+    writeLine(tag, 0, value, false);
   }
 
   /**

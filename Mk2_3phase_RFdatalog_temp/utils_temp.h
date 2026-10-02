@@ -13,7 +13,7 @@
  * - **Error Handling**: Handles disconnected or out-of-range sensors.
  *
  * @version 0.1
- * @date 2026-02-02
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2024-2026
  *
@@ -78,13 +78,10 @@ public:
 };
 /// @endcond
 
-// Include the real OneWire library if needed
-#if TEMP_SENSOR_PRESENT
-#include <OneWire.h>          // for temperature sensing
-using OneWireType = OneWire;  // Use the real implementation
-#else
-using OneWireType = MockOneWire;  // Use the mock implementation
-#endif
+// The real OneWire bus only with temperature sensing. TEMP_SENSOR_PRESENT is a constexpr, not a
+// macro: the choice must be made in C++, an #if on it would always pick the mock.
+#include <OneWire.h>  // for temperature sensing
+using OneWireType = conditional_t< TEMP_SENSOR_PRESENT, OneWire, MockOneWire >;
 
 /**
  * @class TemperatureSensing
@@ -99,7 +96,7 @@ using OneWireType = MockOneWire;  // Use the mock implementation
  * - **Initialization**: Initializes the OneWire bus and requests temperature readings.
  * - **Temperature Reading**: Reads and validates temperature data from individual sensors.
  * - **Error Handling**: Handles disconnected or out-of-range sensors.
- * - **Compile-Time Configuration**: Uses `TEMP_ENABLED` to include or exclude temperature sensing features.
+ * - **Compile-Time Configuration**: `TEMP_SENSOR_PRESENT` selects the real OneWire bus or a mock.
  *
  * @ingroup TemperatureSensing
  */
