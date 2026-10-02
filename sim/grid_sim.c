@@ -105,6 +105,7 @@ typedef struct
 {
   int pin;
   int value;
+  double t; /* level from this time on */
 } input_t;
 
 typedef struct
@@ -279,7 +280,8 @@ static void parse_scenario(const char *path, int depth)
       if (scn.no_of_inputs == MAX_INPUTS)
         die("%s:%d: too many inputs", path, lineno);
       input_t *in = &scn.inputs[scn.no_of_inputs];
-      ok = sscanf(args, "%d %d", &in->pin, &in->value) == 2 && in->pin >= 0 && in->pin <= 13;
+      in->t = 0;
+      ok = sscanf(args, "%d %d %lf", &in->pin, &in->value, &in->t) >= 2 && in->pin >= 0 && in->pin <= 13 && in->t >= 0;
       if (ok)
         ++scn.no_of_inputs;
     }
@@ -892,6 +894,40 @@ static int bit_of(int pin)
   return (pin < 8) ? pin : pin - 8;
 }
 
+/* Drives the input pins with their levels at time t: unconnected inputs read HIGH, like the
+ * firmware's pull-ups; for each pin, the latest 'input' line at or before t wins.
+ * Returns when the next level change is due. */
+static double apply_inputs(double t)
+{
+  uint8_t ext[2] = { 0xff, 0xff }; /* PORTD, PORTB */
+  double since[14];
+  double next = INFINITY;
+
+  for (int pin = 0; pin < 14; ++pin)
+    since[pin] = -1;
+  for (int i = 0; i < scn.no_of_inputs; ++i)
+  {
+    const input_t *in = &scn.inputs[i];
+    if (in->t > t)
+    {
+      if (in->t < next)
+        next = in->t;
+      continue;
+    }
+    if (in->t < since[in->pin])
+      continue;
+    since[in->pin] = in->t;
+    uint8_t *e = &ext[port_of(in->pin) == 'B'];
+    const uint8_t mask = (uint8_t)(1U << bit_of(in->pin));
+    *e = in->value ? (*e | mask) : (*e & ~mask);
+  }
+  avr_ioport_external_t ext_d = { .name = 'D', .mask = 0xff, .value = ext[0] };
+  avr_ioport_external_t ext_b = { .name = 'B', .mask = 0xff, .value = ext[1] };
+  avr_ioctl(avr, AVR_IOCTL_IOPORT_SET_EXTERNAL('D'), &ext_d);
+  avr_ioctl(avr, AVR_IOCTL_IOPORT_SET_EXTERNAL('B'), &ext_b);
+  return next;
+}
+
 static void check_timed_expects(void)
 {
   const double t = now();
@@ -1086,18 +1122,7 @@ int main(int argc, char *argv[])
   avr_irq_register_notify(avr_io_getirq(avr, AVR_IOCTL_ADC_GETIRQ, ADC_IRQ_OUT_TRIGGER), adc_trigger_hook, NULL);
   avr_irq_register_notify(avr_get_interrupt_irq(avr, ADC_VECTOR) + AVR_INT_IRQ_RUNNING, isr_hook, NULL);
 
-  /* unconnected inputs read HIGH, like the firmware's pull-ups; then the scenario's levels */
-  uint8_t ext[2] = { 0xff, 0xff }; /* PORTD, PORTB */
-  for (int i = 0; i < scn.no_of_inputs; ++i)
-  {
-    uint8_t *e = &ext[port_of(scn.inputs[i].pin) == 'B'];
-    const uint8_t mask = (uint8_t)(1U << bit_of(scn.inputs[i].pin));
-    *e = scn.inputs[i].value ? (*e | mask) : (*e & ~mask);
-  }
-  avr_ioport_external_t ext_d = { .name = 'D', .mask = 0xff, .value = ext[0] };
-  avr_ioport_external_t ext_b = { .name = 'B', .mask = 0xff, .value = ext[1] };
-  avr_ioctl(avr, AVR_IOCTL_IOPORT_SET_EXTERNAL('D'), &ext_d);
-  avr_ioctl(avr, AVR_IOCTL_IOPORT_SET_EXTERNAL('B'), &ext_b);
+  double next_input_t = apply_inputs(0);
 
   for (int i = 0; i < scn.no_of_loads; ++i)
   {
@@ -1159,6 +1184,8 @@ int main(int argc, char *argv[])
         rx->state = avr_run(rx->avr);
     }
     check_timed_expects();
+    if (now() >= next_input_t)
+      next_input_t = apply_inputs(now());
   }
   update_grid();
 

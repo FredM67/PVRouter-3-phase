@@ -242,6 +242,14 @@ constexpr uint16_t getInputPins()
     bit_set(input_pins, diversionPin);
   }
 
+  if constexpr (ROUTER_OFF_PIN_PRESENT)
+  {
+    if (bit_read(input_pins, routerOffPin))
+      return 0;
+
+    bit_set(input_pins, routerOffPin);
+  }
+
   if constexpr (PRIORITY_ROTATION == RotationModes::PIN)
   {
     if (bit_read(input_pins, rotationPin))
@@ -351,14 +359,14 @@ void initializeProcessing()
  * @brief Updates the control ports for each of the physical loads.
  *
  * This function determines the ON/OFF state of each physical load and updates
- * the corresponding control ports. It applies override bitmask directly to force
- * specific pins ON when override pins are active.
+ * the corresponding control ports.
  *
  * @details
  * - If a load is OFF, its corresponding pin is added to the `pinsOFF` mask.
  * - If a load is ON, its corresponding pin is added to the `pinsON` mask.
- * - Override bitmask is applied directly to `pinsON` for immediate pin activation.
  * - Finally, the pins are updated using `setPinsOFF` and `setPinsON` functions.
+ * - Overrides are already part of the physical load states, and the relays are driven
+ *   by the relay engine only: no other pin is ever written here.
  *
  * @ingroup TimeCritical
  */
@@ -397,12 +405,6 @@ void updatePortsStates()
       }
     }
   } while (i);
-
-  // Apply override bitmask directly to pinsON
-  if constexpr (!CALIBRATION_MODE)
-  {
-    pinsON |= Shared::overrideBitmask;
-  }
 
   setPinsOFF(pinsOFF);
   setPinsON(pinsON);
@@ -456,7 +458,9 @@ void updatePhysicalLoadStates()
     }
   }
 
-  const bool bDiversionEnabled{ !CALIBRATION_MODE && Shared::b_diversionEnabled };
+  // Diversion OFF stops the surplus diversion only: a forced load stays ON. With the router
+  // OFF, the main loop clears the overrides and disables diversion: every load is OFF.
+  const bool bDiversionEnabled{ Shared::b_diversionEnabled };
   uint8_t idx{ NO_OF_DUMPLOADS };
   do
   {
@@ -474,7 +478,8 @@ void updatePhysicalLoadStates()
         : (Shared::remoteOverrideBitmask & (1U << Load::remoteOrdinal(physicalLoadPin, iLoad))) != 0
     };
 
-    physicalLoadState[iLoad] = bDiversionEnabled && (bOverrideActive || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
+    const bool bOn{ bOverrideActive || (bDiversionEnabled && (loadPrioritiesAndState[idx] & loadStateOnBit)) };
+    physicalLoadState[iLoad] = (!CALIBRATION_MODE && bOn) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   } while (idx);
 }
 

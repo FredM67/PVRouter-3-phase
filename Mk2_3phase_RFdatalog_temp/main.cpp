@@ -182,27 +182,21 @@ OverrideMasks getOverrideBitmask(const bool bOffPeak, const int16_t currentTempe
 }
 
 /**
- * @brief Checks and updates the diversion state based on the diversion pin.
+ * @brief Reads the diversion pin.
  *
- * This function monitors the state of the diversion pin and updates the global
- * `b_diversionOff` flag accordingly. It also logs changes in the diversion state
- * for debugging purposes if enabled.
- *
- * @details
- * - If the diversion pin is LOW, the diversion is considered OFF.
- * - If the diversion pin is HIGH, the diversion is considered ON.
- * - Debug messages are printed when the diversion state changes (if debugging is enabled).
+ * @return true unless the diversion pin is LOW. With diversion OFF, the surplus is not
+ *         diverted any more, but forced loads and relays stay ON.
  *
  * @ingroup GeneralProcessing
  */
-void checkDiversionOnOff()
+bool isDiversionEnabled()
 {
   if constexpr (DIVERSION_PIN_PRESENT)
   {
-    const auto pinState{ getPinState(diversionPin) };
+    const bool pinState{ getPinState(diversionPin) };
 
 #ifdef ENABLE_DEBUG
-    static auto previousState{ HIGH };
+    static bool previousState{ HIGH };
     if (previousState != pinState)
     {
       DBUGLN(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
@@ -211,7 +205,47 @@ void checkDiversionOnOff()
     previousState = pinState;
 #endif
 
-    Shared::b_diversionEnabled = pinState;
+    return pinState;
+  }
+  else
+  {
+    return true;
+  }
+}
+
+/**
+ * @brief Tells whether the router is OFF.
+ *
+ * @return true in calibration mode, or while the router OFF pin is LOW. With the router OFF,
+ *         every load and relay is OFF, forcing included.
+ *
+ * @ingroup GeneralProcessing
+ */
+bool isRouterOff()
+{
+  if constexpr (CALIBRATION_MODE)
+  {
+    return true;
+  }
+  else if constexpr (ROUTER_OFF_PIN_PRESENT)
+  {
+    const bool pinState{ getPinState(routerOffPin) };
+
+#ifdef ENABLE_DEBUG
+    static bool previousState{ HIGH };
+    if (previousState != pinState)
+    {
+      DBUGLN(!pinState ? F("Router OFF!") : F("Router ON!"));
+    }
+
+    previousState = pinState;
+#endif
+
+    return !pinState;
+  }
+  else
+  {
+    return false;
   }
 }
 
@@ -364,6 +398,9 @@ void setup()
   // initializes all loads to OFF at startup
   initializeProcessing();
 
+  // The control inputs are then read once per second: read them now, before the first load decision
+  Shared::b_diversionEnabled = !isRouterOff() && isDiversionEnabled();
+
   logLoadPriorities();
 
   if constexpr (TEMP_SENSOR_PRESENT)
@@ -478,8 +515,6 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
     togglePin(watchDogPin);
   }
 
-  checkDiversionOnOff();
-
   // Tariff transitions must be tracked every second, whatever the override state:
   // dual tariff forcing depends on the off-peak start timestamp set here.
   if constexpr (DUAL_TARIFF)
@@ -487,17 +522,21 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
     bOffPeak = proceedDualTariffLogic();
   }
 
+  // Router OFF: no forcing and no diversion, so every load and relay is OFF
+  const bool bRouterOff{ isRouterOff() };
+  const bool bDiversionEnabled{ !bRouterOff && isDiversionEnabled() };
+
   // Get complete override bitmasks atomically (external pins + dual tariff forcing)
-  OverrideMasks privateOverrideMasks = getOverrideBitmask(bOffPeak, iTemperature_x100);
+  const OverrideMasks privateOverrideMasks{ bRouterOff ? OverrideMasks{ 0, 0 } : getOverrideBitmask(bOffPeak, iTemperature_x100) };
 
   if constexpr (RELAY_DIVERSION)
   {
     relays.inc_duration();
-    // Pass local bitmask to relay engine, it will filter out relay pins that can be controlled
-    relays.proceed_relays(privateOverrideMasks.local, !CALIBRATION_MODE && Shared::b_diversionEnabled);
+    relays.proceed_relays(privateOverrideMasks.local, bDiversionEnabled);
   }
 
-  // Copy the bitmasks to shared versions for ISR access
+  // Copy to the shared versions for ISR access
+  Shared::b_diversionEnabled = bDiversionEnabled;
   Shared::overrideBitmask = privateOverrideMasks.local;
   Shared::remoteOverrideBitmask = privateOverrideMasks.remote;
 

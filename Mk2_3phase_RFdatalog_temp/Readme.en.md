@@ -42,6 +42,7 @@ This program is designed to be used with the Arduino IDE and/or other developmen
     - [Wiring](#wiring)
     - [Practical examples](#practical-examples)
   - [Routing stop](#routing-stop)
+  - [Router OFF](#router-off)
 - [Advanced program configuration](#advanced-program-configuration)
   - [`DIVERSION_START_THRESHOLD_WATTS` parameter](#diversion_start_threshold_watts-parameter)
   - [`REQUIRED_EXPORT_IN_WATTS` parameter](#required_export_in_watts-parameter)
@@ -867,6 +868,18 @@ You must also specify the *pin* to which the dry contact is connected:
 ```cpp
 inline constexpr uint8_t diversionPin{ 12 };
 ```
+
+While the *pin* is LOW, the surplus is no longer diverted, neither to the TRIAC loads nor to the relays nor to the remote loads. Forcing still works: an override *pin* or the dual tariff forcing still turns its loads and relays ON. To also stop forcing, use the router OFF *pin* below.
+
+## Router OFF
+The router OFF *pin* switches every load and relay OFF, forcing included, while it is LOW. The router keeps measuring and sending its data. It suits an absence during which nothing must heat, not even with the off-peak forcing.
+
+```cpp
+inline constexpr bool ROUTER_OFF_PIN_PRESENT{ true };
+inline constexpr uint8_t routerOffPin{ 11 };
+```
+
+The relays still respect their minimum ON time before going OFF. `CALIBRATION_MODE` (see [Router calibration](#router-calibration)) gives the same state, permanently, without any *pin*.
 
 # Advanced program configuration
 
