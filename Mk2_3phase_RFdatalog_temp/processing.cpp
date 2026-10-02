@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-10-01
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -267,6 +267,14 @@ constexpr uint16_t getInputPins()
     bit_set(input_pins, diversionPin);
   }
 
+  if constexpr (ROUTER_OFF_PIN_PRESENT)
+  {
+    if (bit_read(input_pins, routerOffPin))
+      return 0;
+
+    bit_set(input_pins, routerOffPin);
+  }
+
   if constexpr (PRIORITY_ROTATION == RotationModes::PIN)
   {
     if (bit_read(input_pins, rotationPin))
@@ -329,18 +337,18 @@ void initializeProcessing()
     // Initialize shared RF module
     if (initialize_rf())
     {
-      DBUGLN(F("RF module initialized"));
+      infoln(F("RF module initialized"));
     }
     else
     {
-      DBUGLN(F("RF module initialization FAILED"));
+      infoln(F("RF module initialization FAILED"));
     }
   }
 
   if constexpr (REMOTE_LOADS_PRESENT)
   {
     remoteLoads.reset();
-    DBUGLN(F("Remote loads initialized"));
+    infoln(F("Remote loads initialized"));
   }
 
   // First stop the ADC
@@ -376,14 +384,14 @@ void initializeProcessing()
  * @brief Updates the control ports for each of the physical loads.
  *
  * This function determines the ON/OFF state of each physical load and updates
- * the corresponding control ports. It applies override bitmask directly to force
- * specific pins ON when override pins are active.
+ * the corresponding control ports.
  *
  * @details
  * - If a load is OFF, its corresponding pin is added to the `pinsOFF` mask.
  * - If a load is ON, its corresponding pin is added to the `pinsON` mask.
- * - Override bitmask is applied directly to `pinsON` for immediate pin activation.
  * - Finally, the pins are updated using `setPinsOFF` and `setPinsON` functions.
+ * - Overrides are already part of the physical load states, and the relays are driven
+ *   by the relay engine only: no other pin is ever written here.
  *
  * @ingroup TimeCritical
  */
@@ -422,9 +430,6 @@ void updatePortsStates()
       }
     }
   } while (i);
-
-  // Apply override bitmask directly to pinsON
-  pinsON |= Shared::overrideBitmask;
 
   setPinsOFF(pinsOFF);
   setPinsON(pinsON);
@@ -478,6 +483,8 @@ void updatePhysicalLoadStates()
     }
   }
 
+  // Diversion OFF stops the surplus diversion only: a forced load stays ON. With the router
+  // OFF, the main loop clears the overrides and disables diversion: every load is OFF.
   const bool bDiversionEnabled{ Shared::b_diversionEnabled };
   uint8_t idx{ NO_OF_DUMPLOADS };
   do
@@ -496,7 +503,8 @@ void updatePhysicalLoadStates()
         : (Shared::remoteOverrideBitmask & (1U << Load::remoteOrdinal(physicalLoadPin, iLoad))) != 0
     };
 
-    physicalLoadState[iLoad] = bDiversionEnabled && (bOverrideActive || (loadPrioritiesAndState[idx] & loadStateOnBit)) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
+    const bool bOn{ bOverrideActive || (bDiversionEnabled && (loadPrioritiesAndState[idx] & loadStateOnBit)) };
+    physicalLoadState[iLoad] = (!CALIBRATION_MODE && bOn) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
   } while (idx);
 }
 
@@ -1293,23 +1301,24 @@ void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample)
 void printParamsForSelectedOutputMode()
 {
   // display relevant settings for selected output mode
-  DBUG(F("Output mode:    "));
+  info(F("Output mode:    "));
   if (OutputModes::NORMAL == outputMode)
   {
-    DBUGLN(F("normal"));
+    infoln(F("normal"));
   }
   else
   {
-    DBUGLN(F("anti-flicker"));
-    DBUG(F("\toffsetOfEnergyThresholds  = "));
-    DBUGLN(f_offsetOfEnergyThresholdsInAFmode);
+    infoln(F("anti-flicker"));
+    constexpr int32_t offsetOfEnergyThresholds_x100{ SerialOutput::toDecimals(f_offsetOfEnergyThresholdsInAFmode, 2) };
+    info(F("\toffsetOfEnergyThresholds  = "));
+    infolnDecimals(offsetOfEnergyThresholds_x100, 2);
   }
-  DBUG(F("\tl_capacityOfEnergyBucket_main = "));
-  DBUGLN(l_capacityOfEnergyBucket_main);
-  DBUG(F("\tl_lowerEnergyThreshold   = "));
-  DBUGLN(l_lowerThreshold_default);
-  DBUG(F("\tl_upperEnergyThreshold   = "));
-  DBUGLN(l_upperThreshold_default);
+  info(F("\tl_capacityOfEnergyBucket_main = "));
+  infoln(l_capacityOfEnergyBucket_main);
+  info(F("\tl_lowerEnergyThreshold   = "));
+  infoln(l_lowerThreshold_default);
+  info(F("\tl_upperEnergyThreshold   = "));
+  infoln(l_upperThreshold_default);
 }
 
 /**

@@ -44,6 +44,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
     - [Câblage](#câblage)
     - [Exemples pratiques](#exemples-pratiques)
   - [Arrêt du routage](#arrêt-du-routage)
+  - [Routeur à l’arrêt](#routeur-à-larrêt)
 - [Configuration avancée du programme](#configuration-avancée-du-programme)
   - [Paramètre `DIVERSION_START_THRESHOLD_WATTS`](#paramètre-diversion_start_threshold_watts)
   - [Paramètre `REQUIRED_EXPORT_IN_WATTS`](#paramètre-required_export_in_watts)
@@ -150,6 +151,16 @@ inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
 ```
 
 Ces valeurs par défaut doivent être déterminées pour assurer un fonctionnement optimal du routeur.
+
+L’étalonnage se fait avec le programme du routeur lui-même : les valeurs sont ainsi mesurées avec exactement le traitement avec lequel elles seront utilisées. Avec `SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable` (dans **config.h**), il affiche toutes les 5 secondes, sur le moniteur série à 9600 bauds, la puissance de chaque phase (`P1`, `P2`, `P3`, en W, positive en import).
+
+1. Passez `CALIBRATION_MODE` à `true` dans **config.h** et téléversez : le routeur mesure et affiche comme d’habitude, mais ne commute plus aucune charge (triacs, relais, charges distantes, forçages), ce qui modifierait la puissance mesurée. Il l’annonce au démarrage.
+2. Mesurez la puissance sur la phase 1 avec un appareil de référence (par exemple une pince wattmétrique autour du même câble que la sonde), idéalement avec une forte charge résistive sur cette phase, comme un chauffe-eau.
+3. Comparez-la à `P1` et corrigez la valeur : nouveau `f_powerCal[0]` = ancien `f_powerCal[0]` × puissance de référence / `P1`.
+4. Recommencez pour les phases 2 et 3, téléversez à nouveau et vérifiez.
+5. Remettez `CALIBRATION_MODE` à `false` et téléversez : le routeur route à nouveau.
+
+Si une phase affiche une puissance négative en import, sa sonde est montée à l’envers (ou n’est pas sur la phase de son entrée tension).
 
 # Documentation d’analyse et outils
 
@@ -864,6 +875,18 @@ Vous devez également spécifier la *pin* à laquelle le contact sec est connect
 inline constexpr uint8_t diversionPin{ 12 };
 ```
 
+Tant que la *pin* est à l’état bas, le surplus n’est plus routé, ni vers les charges à triac, ni vers les relais, ni vers les charges distantes. Les forçages restent actifs : une *pin* de forçage ou le forçage en heures creuses allume toujours ses charges et ses relais. Pour arrêter aussi les forçages, utilisez la *pin* d’arrêt du routeur ci-dessous.
+
+## Routeur à l’arrêt
+La *pin* d’arrêt du routeur éteint toutes les charges et tous les relais, forçages compris, tant qu’elle est à l’état bas. Le routeur continue de mesurer et d’envoyer ses données. Elle convient à une absence pendant laquelle rien ne doit chauffer, pas même avec le forçage en heures creuses.
+
+```cpp
+inline constexpr bool ROUTER_OFF_PIN_PRESENT{ true };
+inline constexpr uint8_t routerOffPin{ 11 };
+```
+
+Les relais respectent toujours leur durée minimale de fonctionnement avant de s’arrêter. `CALIBRATION_MODE` (voir [Étalonnage du routeur](#étalonnage-du-routeur)) donne le même état, en permanence, sans *pin*.
+
 # Configuration avancée du programme
 
 Ces paramètres se trouvent dans le fichier `config_system.h`.
@@ -943,6 +966,8 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };
 
 > [!NOTE]
 > La configuration de la sortie série sur `SerialOutputType::IoT` n’est pas strictement obligatoire pour le fonctionnement du routeur. Cependant, elle est nécessaire si vous souhaitez exploiter les données du routeur dans Home Assistant (puissance instantanée, statistiques, etc.). Sans cette configuration, seules les fonctions de contrôle (boost, arrêt routage) seront disponibles dans Home Assistant.
+>
+> En mode `IoT` (comme en mode `JSON`), le routeur n’envoie rien d’autre sur le port série : la bannière de démarrage, le résumé de la configuration et les messages de débogage ne sont affichés qu’en mode `HumanReadable`.
 
 S’il vous reste des broches libres, d’autres fonctions peuvent être ajoutées de la même façon, par exemple la rotation des priorités :
 ```cpp

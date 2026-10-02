@@ -42,6 +42,7 @@ This program is designed to be used with the Arduino IDE and/or other developmen
     - [Wiring](#wiring)
     - [Practical examples](#practical-examples)
   - [Routing stop](#routing-stop)
+  - [Router OFF](#router-off)
 - [Advanced program configuration](#advanced-program-configuration)
   - [`DIVERSION_START_THRESHOLD_WATTS` parameter](#diversion_start_threshold_watts-parameter)
   - [`REQUIRED_EXPORT_IN_WATTS` parameter](#required_export_in_watts-parameter)
@@ -143,6 +144,16 @@ inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
 ```
 
 These default values must be determined to ensure optimal router operation.
+
+The router program itself is used for calibration, so the values are measured with exactly the processing they will be used with. With `SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable` (in **config.h**), it prints every 5 seconds, on the serial monitor at 9600 baud, the power of each phase (`P1`, `P2`, `P3`, in W, positive when importing).
+
+1. Set `CALIBRATION_MODE` to `true` in **config.h** and upload: the router then measures and logs as usual, but never switches any load (TRIACs, relays, remote loads, overrides), which would change the power being measured. It says so at start-up.
+2. Measure the power on phase 1 with a reference instrument (a clamp wattmeter around the same cable as the CT, for instance), ideally with a large resistive load on that phase, such as a water heater.
+3. Compare it with `P1`, and correct the value: new `f_powerCal[0]` = old `f_powerCal[0]` × reference power / `P1`.
+4. Repeat for phases 2 and 3, upload again and check.
+5. Set `CALIBRATION_MODE` back to `false` and upload: the router diverts again.
+
+If a phase shows a negative power while importing, its CT is the wrong way round (or not on the phase of its voltage input).
 
 # Analysis documentation and tools
 
@@ -858,6 +869,18 @@ You must also specify the *pin* to which the dry contact is connected:
 inline constexpr uint8_t diversionPin{ 12 };
 ```
 
+While the *pin* is LOW, the surplus is no longer diverted, neither to the TRIAC loads nor to the relays nor to the remote loads. Forcing still works: an override *pin* or the dual tariff forcing still turns its loads and relays ON. To also stop forcing, use the router OFF *pin* below.
+
+## Router OFF
+The router OFF *pin* switches every load and relay OFF, forcing included, while it is LOW. The router keeps measuring and sending its data. It suits an absence during which nothing must heat, not even with the off-peak forcing.
+
+```cpp
+inline constexpr bool ROUTER_OFF_PIN_PRESENT{ true };
+inline constexpr uint8_t routerOffPin{ 11 };
+```
+
+The relays still respect their minimum ON time before going OFF. `CALIBRATION_MODE` (see [Router calibration](#router-calibration)) gives the same state, permanently, without any *pin*.
+
 # Advanced program configuration
 
 These parameters are found in the `config_system.h` file.
@@ -937,6 +960,8 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };
 
 > [!NOTE]
 > Configuring serial output to `SerialOutputType::IoT` is not strictly mandatory for router operation. However, it's necessary if you want to exploit router data in Home Assistant (instantaneous power, statistics, etc.). Without this configuration, only control functions (boost, routing stop) will be available in Home Assistant.
+>
+> In `IoT` (and `JSON`) mode, the router sends nothing else on the serial port: the startup banner, the configuration summary and the debug messages are only printed in `HumanReadable` mode.
 
 If you have more free pins, other functions can be added the same way, for example priority rotation:
 ```cpp

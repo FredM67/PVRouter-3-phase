@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for the relay output feature
  * @version 0.1
- * @date 2026-10-01
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -161,18 +161,15 @@ public:
    * @brief Proceed with the relay
    *
    * @param currentAvgPower Current average power
-   * @param overrideBitmask Reference to override bitmask
+   * @param overrideBitmask Override bitmask (local pins): the relay is forced ON while its bit is set
    * @return bool True if state has changed
    */
-  bool proceed_relay(const int32_t currentAvgPower, uint16_t& overrideBitmask) const
+  bool proceed_relay(const int32_t currentAvgPower, const uint16_t overrideBitmask) const
   {
-    const bool isOverrideActive = bit_read(overrideBitmask, relay_pin);
-
     // To avoid changing sign, surplus is a negative value
     // Turn ON if surplus threshold is met OR if override is active
-    if (currentAvgPower < surplusThreshold || isOverrideActive)
+    if (currentAvgPower < surplusThreshold || isForced(overrideBitmask))
     {
-      bit_clear(overrideBitmask, relay_pin);  // Clear override bit if it was set
       return try_switch(true);
     }
 
@@ -192,47 +189,53 @@ public:
    */
   void printRelayConfiguration(uint8_t idx) const
   {
-    Serial.print(F("\tRelay configuration: #"));
-    Serial.println(idx + 1);
+    info(F("\tRelay configuration: #"));
+    infoln(idx + 1);
 
-    Serial.print(F("\t\tPin is "));
-    Serial.println(get_pin());
+    info(F("\t\tPin is "));
+    infoln(get_pin());
 
-    Serial.print(F("\t\tSurplus threshold: "));
-    Serial.println(get_surplusThreshold());
+    info(F("\t\tSurplus threshold: "));
+    infoln(get_surplusThreshold());
 
-    Serial.print(F("\t\tImport threshold: "));
-    Serial.print(get_importThreshold());
+    info(F("\t\tImport threshold: "));
+    info(get_importThreshold());
     if (get_importThreshold() >= 0)
     {
-      Serial.println(F(" (import mode)"));
+      infoln(F(" (import mode)"));
     }
     else
     {
-      Serial.print(F(" (surplus mode: turn OFF when surplus < "));
-      Serial.print(-get_importThreshold());
-      Serial.println(F("W)"));
+      info(F(" (surplus mode: turn OFF when surplus < "));
+      info(-get_importThreshold());
+      infoln(F("W)"));
     }
 
-    Serial.print(F("\t\tMinimum working time in minutes: "));
-    Serial.println(get_minON() / 60);
+    info(F("\t\tMinimum working time in minutes: "));
+    infoln(get_minON() / 60);
 
-    Serial.print(F("\t\tMinimum stop time in minutes: "));
-    Serial.println(get_minOFF() / 60);
+    info(F("\t\tMinimum stop time in minutes: "));
+    infoln(get_minOFF() / 60);
   }
 
   /**
-   * @brief Force the relay OFF when diversion is disabled
+   * @brief Proceed with the relay while diversion is disabled: ON only while forced
    *
+   * @param overrideBitmask Override bitmask (local pins)
    * @return bool True if state has changed
-   * @details This method attempts to turn OFF the relay, respecting the minimum ON time constraint
+   * @details The minimum ON and OFF times still apply.
    */
-  bool forceOFF() const
+  bool proceed_forced_only(const uint16_t overrideBitmask) const
   {
-    return try_switch(false);
+    return try_switch(isForced(overrideBitmask));
   }
 
 private:
+  bool isForced(const uint16_t overrideBitmask) const
+  {
+    return bit_read(overrideBitmask, relay_pin);
+  }
+
   /**
    * @brief Turn the relay ON or OFF if the 'time' condition is met
    *
@@ -248,7 +251,7 @@ private:
 
     setPinState(relay_pin, on);
 
-    DBUGLN(on ? F("Relay turned ON!") : F("Relay turned OFF!"));
+    infoln(on ? F("Relay turned ON!") : F("Relay turned OFF!"));
 
     relayIsON = on;
     duration = 0;
@@ -369,16 +372,16 @@ public:
   /**
    * @brief Proceed all relays in increasing order (surplus) or decreasing order (import).
    *
-   * @param overrideBitmask Reference to override bitmask - relay bits will be cleared after processing
-   * @param diversionEnabled Whether diversion is enabled - if false, all relays will be turned OFF
+   * @param overrideBitmask Override bitmask (local pins): a relay is forced ON while its bit is set
+   * @param diversionEnabled Whether diversion is enabled - if false, only the forced relays are ON
    *
    * @details This method adjusts the state of the relays based on the current average power.
    * If surplus power is available, it tries to turn ON relays in increasing order. If power
    * is being imported, it tries to turn OFF relays in decreasing order.
-   * Override bits for individual relays are handled and cleared during processing.
-   * When diversion is disabled, all relays are forced OFF (respecting minimum ON time constraints).
+   * When diversion is disabled, the relays that are not forced are turned OFF.
+   * The minimum ON and OFF times, and the settle time after any change, always apply.
    */
-  void proceed_relays(uint16_t& overrideBitmask, bool diversionEnabled = true) const
+  void proceed_relays(const uint16_t overrideBitmask, const bool diversionEnabled = true) const
   {
     if (settle_change != 0)
     {
@@ -386,14 +389,13 @@ public:
       return;
     }
 
-    // If diversion is disabled, force all relays OFF
     if (!diversionEnabled)
     {
       bool anyChanges{ false };
       uint8_t idx{ N };
       do
       {
-        anyChanges |= relay[--idx].forceOFF();
+        anyChanges |= relay[--idx].proceed_forced_only(overrideBitmask);
       } while (idx);
 
       if (anyChanges)
@@ -440,9 +442,9 @@ public:
    */
   void printRelayEngineConfiguration() const
   {
-    Serial.println(F("*** Relay(s) configuration ***"));
-    Serial.print(F("\tSliding average: "));
-    Serial.println(D);
+    infoln(F("*** Relay(s) configuration ***"));
+    info(F("\tSliding average: "));
+    infoln(D);
 
     for (uint8_t i = 0; i < N; ++i)
     {

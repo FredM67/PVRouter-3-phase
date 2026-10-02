@@ -15,22 +15,27 @@
  * - 2 TRIAC outputs for dump loads
  *
  * @version 1.0
- * @date 2026-09-23
+ * @date 2026-10-02
  */
 
 #ifndef CONFIG_H
 #define CONFIG_H
 
-//--------------------------------------------------------------------------------------------------
-#define ENABLE_DEBUG /**< enable this line to include debugging print statements */
-//--------------------------------------------------------------------------------------------------
-
 #include "config_system.h"
-#include "debug.h"
 #include "types.h"
 
 // Serial output type - Human readable for initial setup and commissioning
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
+
+// Debug messages (free RAM...), human-readable output only. The startup configuration and the
+// status messages do not depend on it: they are always printed in human-readable output.
+inline constexpr bool ENABLE_DEBUG{ true };
+
+#include "debug.h"  // needs SERIAL_OUTPUT_TYPE and ENABLE_DEBUG
+
+// Calibration mode: the router measures and logs as usual, but never switches any load
+// (TRIACs, relays, remote loads, overrides), as with the router OFF. Set back to false once calibrated!
+inline constexpr bool CALIBRATION_MODE{ false };
 
 //--------------------------------------------------------------------------------------------------
 // Basic Configuration
@@ -70,8 +75,8 @@ inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 };          
 inline RemoteLoadCore< NO_OF_REMOTE_UNITS > remoteLoads{};
 
 // Feature toggles - Basic setup without advanced features
-inline constexpr bool EMONESP_CONTROL{ false };
 inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
+inline constexpr bool ROUTER_OFF_PIN_PRESENT{ false };                  /**< set it to 'true' if you want a pin that switches the router OFF */
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */
 inline constexpr bool OVERRIDE_PIN_PRESENT{ true };                     /**< set it to 'true' if there's a override pin */
 
@@ -126,7 +131,8 @@ inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /*
 
 // Set the value to 'unused_pin' when the pin is not needed (feature deactivated)
 inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
-inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, set diversion on standby */
+inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, no surplus diversion: only forced loads/relays are ON */
+inline constexpr uint8_t routerOffPin{ unused_pin };  /**< if LOW, router OFF: every load and relay is OFF, forcing included */
 inline constexpr uint8_t rotationPin{ unused_pin };   /**< if LOW, trigger a load priority rotation */
 inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
 

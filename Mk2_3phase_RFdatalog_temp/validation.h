@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Compile-time validations
  * @version 0.1
- * @date 2026-09-30
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -36,6 +36,7 @@ static_assert(Energy::isValidCalibration(f_powerCal), "******** Wrong power cali
 
 static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == unused_pin), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
 static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == unused_pin), "******** Wrong pin value for diversion command. Please check your config.h ! ********");
+static_assert(ROUTER_OFF_PIN_PRESENT ^ (routerOffPin == unused_pin), "******** Wrong pin value for router OFF command. Please check your config.h ! ********");
 static_assert((PRIORITY_ROTATION == RotationModes::PIN) ^ (rotationPin == unused_pin), "******** Wrong pin value for rotation command. Please check your config.h ! ********");
 static_assert(WATCHDOG_PIN_PRESENT ^ (watchDogPin == unused_pin), "******** Wrong pin value for watchdog. Please check your config.h ! ********");
 
@@ -43,7 +44,6 @@ static_assert(DUAL_TARIFF ^ (dualTariffPin == unused_pin), "******** Wrong pin v
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION == 0)), "******** Off-peak duration cannot be zero. Please check your config.h ! ********");
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION > 12)), "******** Off-peak duration cannot last more than 12 hours. Please check your config.h ! ********");
 
-static_assert(!EMONESP_CONTROL || (DIVERSION_PIN_PRESENT && (PRIORITY_ROTATION == RotationModes::PIN) && OVERRIDE_PIN_PRESENT), "******** Wrong configuration. Please check your config.h ! ********");
 
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
 
@@ -80,6 +80,14 @@ constexpr uint16_t check_pins()
       return 0;
 
     bit_set(used_pins, diversionPin);
+  }
+
+  if (routerOffPin != unused_pin)
+  {
+    if (bit_read(used_pins, routerOffPin))
+      return 0;
+
+    bit_set(used_pins, routerOffPin);
   }
 
   if (rotationPin != unused_pin)
@@ -174,6 +182,38 @@ constexpr bool check_load_priorities()
   return _sum == ((NO_OF_DUMPLOADS * (NO_OF_DUMPLOADS - 1)) >> 1);
 }
 
+/**
+ * @brief Overrides reach the outputs through the load states and the relay engine only,
+ *        so each override pin may only force local loads and relays.
+ */
+constexpr bool check_override_targets()
+{
+  uint16_t outputs{ 0 };
+
+  for (const auto &loadEntry : physicalLoadPin)
+  {
+    if (Load::isLocal(loadEntry))
+      bit_set(outputs, Load::pinOf(loadEntry));
+  }
+
+  if constexpr (RELAY_DIVERSION)
+  {
+    for (uint8_t idx = 0; idx < relays.size(); ++idx)
+      bit_set(outputs, relays.get_relay(idx).get_pin());
+  }
+
+  if constexpr (OVERRIDE_PIN_PRESENT)
+  {
+    for (uint8_t i = 0; i < overridePins.size(); ++i)
+    {
+      if (overridePins.getLocalBitmask(i) & ~outputs)
+        return false;
+    }
+  }
+
+  return true;
+}
+
 constexpr uint16_t check_relay_pins()
 {
   bool pins_ok{ true };
@@ -207,6 +247,7 @@ static_assert(check_pins(), "******** Duplicate pin definition ! Please check yo
 static_assert((check_pins() & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
 static_assert((check_pins() & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
 static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
+static_assert(check_override_targets(), "******** An override pin forces a pin that is neither a local load nor a relay ! Please check overridePins in your config.h ! ********");
 
 static_assert(!(RF_CHIP_PRESENT && ((check_pins() & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
 static_assert(!(RF_CHIP_PRESENT && (SharedRF::ROUTER_NODE_ID < 1 || SharedRF::ROUTER_NODE_ID > 30)), "******** RF node ID must be between 1 and 30 ! ********");

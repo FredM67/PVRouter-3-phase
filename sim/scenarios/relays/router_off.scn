@@ -1,0 +1,25 @@
+# Router OFF pin (D2) LOW while every load and relay is forced (override pin D4) and the
+# surplus is large: everything goes OFF, the triac loads at once, the relays after their
+# minimum ON time and the settle time, and stays OFF.
+include common.scn
+duration 330
+
+at 0   -200 -200 -200
+at 30  -200 -200 -200
+at 30  2000 2000 2000   # 6000 W of surplus
+at 330 2000 2000 2000
+
+input 4 0               # override: every load and relay forced, from power-up
+input 2 0 200           # router OFF
+
+expect 190 pin 5 on
+expect 190 pin 8 on
+expect 190 pin 9 on
+expect 205 pin 5 off    # router OFF: forcing ignored
+expect 205 pin 6 off
+expect 205 pin 7 off
+expect 260 pin 8 off    # after its minimum ON time
+expect 325 pin 9 off    # after its minimum ON time and the settle time
+expect 325 pin 5 off
+expect switches 8 1 1
+expect switches 9 1 1

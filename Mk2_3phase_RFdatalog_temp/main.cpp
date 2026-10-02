@@ -15,7 +15,7 @@
  * - **Watchdog**: Toggles a pin to indicate system activity.
  *
  * @version 0.1
- * @date 2026-09-30
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -182,36 +182,72 @@ OverrideMasks getOverrideBitmask(const bool bOffPeak, const int16_t currentTempe
 }
 
 /**
- * @brief Checks and updates the diversion state based on the diversion pin.
+ * @brief Reads the diversion pin.
  *
- * This function monitors the state of the diversion pin and updates the global
- * `b_diversionOff` flag accordingly. It also logs changes in the diversion state
- * for debugging purposes if enabled.
- *
- * @details
- * - If the diversion pin is LOW, the diversion is considered OFF.
- * - If the diversion pin is HIGH, the diversion is considered ON.
- * - Debug messages are printed when the diversion state changes (if debugging is enabled).
+ * @return true unless the diversion pin is LOW. With diversion OFF, the surplus is not
+ *         diverted any more, but forced loads and relays stay ON.
  *
  * @ingroup GeneralProcessing
  */
-void checkDiversionOnOff()
+bool isDiversionEnabled()
 {
   if constexpr (DIVERSION_PIN_PRESENT)
   {
-    const auto pinState{ getPinState(diversionPin) };
+    const bool pinState{ getPinState(diversionPin) };
 
-#ifdef ENABLE_DEBUG
-    static auto previousState{ HIGH };
-    if (previousState != pinState)
+    if constexpr (TEXT_OUTPUT_ENABLED)
     {
-      DBUGLN(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
+      static bool previousState{ HIGH };
+      if (previousState != pinState)
+      {
+        infoln(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
+      }
+
+      previousState = pinState;
     }
 
-    previousState = pinState;
-#endif
+    return pinState;
+  }
+  else
+  {
+    return true;
+  }
+}
 
-    Shared::b_diversionEnabled = pinState;
+/**
+ * @brief Tells whether the router is OFF.
+ *
+ * @return true in calibration mode, or while the router OFF pin is LOW. With the router OFF,
+ *         every load and relay is OFF, forcing included.
+ *
+ * @ingroup GeneralProcessing
+ */
+bool isRouterOff()
+{
+  if constexpr (CALIBRATION_MODE)
+  {
+    return true;
+  }
+  else if constexpr (ROUTER_OFF_PIN_PRESENT)
+  {
+    const bool pinState{ getPinState(routerOffPin) };
+
+    if constexpr (TEXT_OUTPUT_ENABLED)
+    {
+      static bool previousState{ HIGH };
+      if (previousState != pinState)
+      {
+        infoln(!pinState ? F("Router OFF!") : F("Router ON!"));
+      }
+
+      previousState = pinState;
+    }
+
+    return !pinState;
+  }
+  else
+  {
+    return false;
   }
 }
 
@@ -267,7 +303,7 @@ bool proceedDualTariffLogic()
   if (pinOffPeakState && !pinNewState)
   {
     // we start off-peak period
-    DBUGLN(F("Change to off-peak period!"));
+    infoln(F("Change to off-peak period!"));
 
     ul_TimeOffPeak = millis();
 
@@ -280,7 +316,7 @@ bool proceedDualTariffLogic()
   // end of off-peak period
   if (!pinOffPeakState && pinNewState)
   {
-    DBUGLN(F("Change to peak period!"));
+    infoln(F("Change to peak period!"));
   }
 
   pinOffPeakState = pinNewState;
@@ -292,12 +328,11 @@ bool proceedDualTariffLogic()
  * @brief Handles load priority rotation.
  *
  * This function manages load priority rotation behavior based on the system configuration.
- * It supports priority rotation via pin control, EmonESP control, or automatic rotation.
+ * It supports priority rotation via pin control or automatic rotation.
  * Override logic is handled in getOverrideBitmask().
  *
  * @details
  * - In dual tariff mode, rotation is handled by `proceedDualTariffLogic` when off-peak starts.
- * - If EmonESP control is enabled, it handles load rotation based on the rotation pin state.
  * - If priority rotation is set to auto, it rotates priorities after a defined period of inactivity.
  * - Override logic (external pins + dual tariff forcing) is handled atomically in getOverrideBitmask().
  *
@@ -310,14 +345,14 @@ void proceedLoadPriorities()
     return;
   }
 
-  if constexpr ((PRIORITY_ROTATION == RotationModes::PIN) || (EMONESP_CONTROL))
+  if constexpr (PRIORITY_ROTATION == RotationModes::PIN)
   {
     static uint8_t pinRotationState{ HIGH };
     const auto pinNewState{ getPinState(rotationPin) };
 
     if (pinRotationState && !pinNewState)
     {
-      DBUGLN(F("Trigger rotation!"));
+      infoln(F("Trigger rotation!"));
 
       proceedRotation();
     }
@@ -343,7 +378,7 @@ void proceedLoadPriorities()
  *
  * @details
  * - Delays startup to allow time to open the Serial Monitor.
- * - Initializes the Serial interface and debug port.
+ * - Initializes the Serial interface.
  * - Displays configuration information.
  * - Initializes all loads to OFF at startup.
  * - Logs load priorities and initializes temperature sensors if present.
@@ -355,14 +390,16 @@ void setup()
 {
   delay(initialDelay);  // allows time to open the Serial Monitor
 
-  DEBUG_PORT.begin(9600);
   Serial.begin(9600, SERIAL_OUTPUT_TYPE == SerialOutputType::IoT ? SERIAL_7E1 : SERIAL_8N1);  // initialize Serial interface, Do NOT set greater than 9600
 
-  // On start, always display config info in the serial monitor
+  // On start, display config info in the serial monitor (human-readable output only)
   printConfiguration();
 
   // initializes all loads to OFF at startup
   initializeProcessing();
+
+  // The control inputs are then read once per second: read them now, before the first load decision
+  Shared::b_diversionEnabled = !isRouterOff() && isDiversionEnabled();
 
   logLoadPriorities();
 
@@ -371,9 +408,9 @@ void setup()
     temperatureSensing.initTemperatureSensors();
   }
 
-  DBUG(F(">>free RAM = "));
-  DBUGLN(freeRam());  // a useful value to keep an eye on
-  DBUGLN(F("----"));
+  debug(F(">>free RAM = "));
+  debugln(freeRam());  // a useful value to keep an eye on
+  infoln(F("----"));
 }
 
 /**
@@ -478,8 +515,6 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
     togglePin(watchDogPin);
   }
 
-  checkDiversionOnOff();
-
   // Tariff transitions must be tracked every second, whatever the override state:
   // dual tariff forcing depends on the off-peak start timestamp set here.
   if constexpr (DUAL_TARIFF)
@@ -487,17 +522,21 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
     bOffPeak = proceedDualTariffLogic();
   }
 
+  // Router OFF: no forcing and no diversion, so every load and relay is OFF
+  const bool bRouterOff{ isRouterOff() };
+  const bool bDiversionEnabled{ !bRouterOff && isDiversionEnabled() };
+
   // Get complete override bitmasks atomically (external pins + dual tariff forcing)
-  OverrideMasks privateOverrideMasks = getOverrideBitmask(bOffPeak, iTemperature_x100);
+  const OverrideMasks privateOverrideMasks{ bRouterOff ? OverrideMasks{ 0, 0 } : getOverrideBitmask(bOffPeak, iTemperature_x100) };
 
   if constexpr (RELAY_DIVERSION)
   {
     relays.inc_duration();
-    // Pass local bitmask to relay engine, it will filter out relay pins that can be controlled
-    relays.proceed_relays(privateOverrideMasks.local, Shared::b_diversionEnabled);
+    relays.proceed_relays(privateOverrideMasks.local, bDiversionEnabled);
   }
 
-  // Copy the bitmasks to shared versions for ISR access
+  // Copy to the shared versions for ISR access
+  Shared::b_diversionEnabled = bDiversionEnabled;
   Shared::overrideBitmask = privateOverrideMasks.local;
   Shared::remoteOverrideBitmask = privateOverrideMasks.remote;
 
