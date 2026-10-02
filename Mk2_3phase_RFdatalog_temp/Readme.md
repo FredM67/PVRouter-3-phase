@@ -15,6 +15,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
 - [Étalonnage du routeur](#étalonnage-du-routeur)
 - [Documentation d’analyse et outils](#documentation-danalyse-et-outils)
 - [Configuration du programme](#configuration-du-programme)
+  - [Carte-mère : ancienne ou nouvelle](#carte-mère-ancienne-ou-nouvelle)
   - [Type de sortie série](#type-de-sortie-série)
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
   - [Configuration des sorties relais tout-ou-rien](#configuration-des-sorties-relais-tout-ou-rien)
@@ -182,6 +183,17 @@ La configuration d’une fonctionnalité suit généralement deux étapes :
 - Configuration des paramètres de la fonctionnalité
 
 La cohérence de la configuration est vérifiée lors de la compilation. Par exemple, si une *pin* est allouée deux fois par erreur, le compilateur générera une erreur.
+
+## Carte-mère : ancienne ou nouvelle
+
+L’ancienne carte triphasée et la nouvelle carte universelle **3phaseDiverter** (rév. 6.0 et suivantes) ne mesurent pas de la même façon : la nouvelle carte utilise la référence interne de 1,1 V de l’ATmega328P, que le firmware doit activer. Indiquez au firmware quelle carte vous avez, dans **config.h** :
+```cpp
+inline constexpr PcbVersion PCB_VERSION{ PcbVersion::OLD };  // NEW pour la carte universelle 3phaseDiverter
+```
+Le résumé affiché au démarrage indique le choix (`Motherboard: old` ou `new`).
+
+> [!IMPORTANT]
+> Avec un mauvais choix, toutes les mesures sont fausses. Après un changement, refaites l’étalonnage.
 
 ## Type de sortie série
 

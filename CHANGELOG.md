@@ -12,6 +12,9 @@ Changes on `dev`, not yet on `main`.
 
 If you keep your own `config.h`, check these points:
 
+- **Motherboard:** add `inline constexpr PcbVersion PCB_VERSION{ PcbVersion::OLD };` after
+  `#include "types.h"`, or `NEW` for the universal 3phaseDiverter board, then recalibrate if
+  you choose `NEW`.
 - **`ENABLE_DEBUG`** is now a setting like the others: replace `#define ENABLE_DEBUG` with
   `inline constexpr bool ENABLE_DEBUG{ true };` (or `false`). It only controls the debug
   messages now; the startup configuration is always printed in human-readable mode ([#180]).
@@ -33,6 +36,9 @@ valid load maps ([#160]).
 
 ### Added
 
+- **New motherboard:** `PCB_VERSION` in `config.h` selects the board. `NEW` (universal
+  3phaseDiverter board, rev. 6.0 and later) switches the ADC to the internal 1.1 V reference the
+  board is designed for; `OLD` keeps AVCC. The startup summary shows the choice.
 - **Remote loads over RF:** up to 8 loads on up to 3 remote units, each an Arduino with an RFM69
   running the new `RemoteLoadReceiver` firmware ([#155], [#160]). Local and remote loads are
   declared in one load map (`Load::local(pin)`, `Load::remote(unit)`), in any order, and share
