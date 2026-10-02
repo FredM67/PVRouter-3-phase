@@ -5,16 +5,16 @@ on remote units 1 and 2 (nodes 15 and 16, REMOTE_NODE_ID in config_rf.h).
   pio run --project-dir Mk2_3phase_RFdatalog_temp -e rf
 
 diff --git a/Mk2_3phase_RFdatalog_temp/config.h b/Mk2_3phase_RFdatalog_temp/config.h
-index b9de73b4..0d9f74fc 100644
+index c8ae4c89..b4f0d28a 100644
 --- a/Mk2_3phase_RFdatalog_temp/config.h
 +++ b/Mk2_3phase_RFdatalog_temp/config.h
-@@ -38 +38 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanRe
+@@ -42 +42 @@ inline constexpr bool CALIBRATION_MODE{ false };
 -inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (local + remote) */
 +inline constexpr uint8_t NO_OF_DUMPLOADS{ 4 }; /**< TOTAL number of dump loads (local + remote) */
-@@ -51 +51,2 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+@@ -55 +55,2 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
 -  Load::local(7)
 +  Load::remote(1),
 +  Load::remote(2)
-@@ -125 +126 @@ inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF
+@@ -129 +130 @@ inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF
 -inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
 +inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2, 3 }; /**< load priorities at startup (0=highest) */

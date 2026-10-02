@@ -11,7 +11,8 @@ assignees: ''
 A clear and concise description of what the bug is.
 
 **Hardware Configuration**
-- **PVRouter version**: [e.g. basic, rf, emonesp]
+- **PVRouter version**: [e.g. basic, rf]
+- **Serial output**: [HumanReadable, IoT (mk2Wifi module) or JSON]
 - **Firmware version**: [e.g. commit hash or release tag]
 - **Load configuration**: [e.g. 3-phase water heater, single-phase loads]
 - **RF module**: [if applicable: RFM12B, RFM69CW, etc.]

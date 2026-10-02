@@ -3,9 +3,9 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Classes/types needed for dual-tariff support
  * @version 0.1
- * @date 2021-10-04
+ * @date 2026-10-02
  *
- * @copyright Copyright (c) 2021
+ * @copyright Copyright (c) 2021-2026
  *
  */
 
@@ -70,45 +70,45 @@ inline constexpr auto rg_OffsetForce{ _rg_OffsetForce< NO_OF_DUMPLOADS, ul_OFF_P
  */
 inline void printDualTariffConfiguration()
 {
-  Serial.print(F("\tDuration of off-peak period is "));
-  Serial.print(ul_OFF_PEAK_DURATION);
-  Serial.println(F(" hours."));
+  DBUG(F("\tDuration of off-peak period is "));
+  DBUG(ul_OFF_PEAK_DURATION);
+  DBUGLN(F(" hours."));
 
-  Serial.print(F("\tTemperature threshold is "));
-  Serial.print(iTemperatureThreshold);
-  Serial.println(F("°C."));
+  DBUG(F("\tTemperature threshold is "));
+  DBUG(iTemperatureThreshold);
+  DBUGLN(F("°C."));
 
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {
-    Serial.print(F("\tLoad #"));
-    Serial.print(i + 1);
-    Serial.println(F(":"));
+    DBUG(F("\tLoad #"));
+    DBUG(i + 1);
+    DBUGLN(F(":"));
 
-    Serial.print(F("\t\tStart "));
+    DBUG(F("\t\tStart "));
     if (rg_ForceLoad[i].getStartOffset() >= 0)
     {
-      Serial.print(rg_ForceLoad[i].getStartOffset());
-      Serial.print(F(" hours/minutes after begin of off-peak period "));
+      DBUG(rg_ForceLoad[i].getStartOffset());
+      DBUG(F(" hours/minutes after begin of off-peak period "));
     }
     else
     {
-      Serial.print(-rg_ForceLoad[i].getStartOffset());
-      Serial.print(F(" hours/minutes before the end of off-peak period "));
+      DBUG(-rg_ForceLoad[i].getStartOffset());
+      DBUG(F(" hours/minutes before the end of off-peak period "));
     }
     if (rg_ForceLoad[i].getDuration() == UINT16_MAX)
     {
-      Serial.println(F("till the end of the period."));
+      DBUGLN(F("till the end of the period."));
     }
     else
     {
-      Serial.print(F("for a duration of "));
-      Serial.print(rg_ForceLoad[i].getDuration());
-      Serial.println(F(" hour/minute(s)."));
+      DBUG(F("for a duration of "));
+      DBUG(rg_ForceLoad[i].getDuration());
+      DBUGLN(F(" hour/minute(s)."));
     }
-    Serial.print(F("\t\tCalculated offset in seconds: "));
-    Serial.println(rg_OffsetForce[i][0] * 0.001F);
-    Serial.print(F("\t\tCalculated duration in seconds: "));
-    Serial.println(rg_OffsetForce[i][1] * 0.001F);
+    DBUG(F("\t\tCalculated offset in seconds: "));
+    DBUGLN(rg_OffsetForce[i][0] * 0.001F);
+    DBUG(F("\t\tCalculated duration in seconds: "));
+    DBUGLN(rg_OffsetForce[i][1] * 0.001F);
   }
 }
 

@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some macro for the Serial Output and Debugging
  * @version 0.1
- * @date 2026-09-30
+ * @date 2026-10-02
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -39,24 +39,32 @@
 
 #define DEBUG_BEGIN(speed) DEBUG_PORT.begin(speed)
 
+// Debug text only in human-readable mode: in the IoT and JSON modes, the serial port carries
+// data for another device (mk2Wifi...), which must not receive anything else.
+#define DEBUG_OUTPUT_ENABLED (SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable)
+
 // A datalog output still in progress is written first: a debug message never lands
 // in the middle of a datalog line or telemetry frame (see serial_output.h).
-#if DEBUG_USE_PRINT_P
-// Serial.printf_P needs Git version of Arduino Core
-#define DBUGF(format, ...) (SerialOutput::complete(), DEBUG_PORT.printf_P(PSTR(format "\n"), ##__VA_ARGS__))
-#else
-#define DBUGF(format, ...) (SerialOutput::complete(), DEBUG_PORT.printf(format "\n", ##__VA_ARGS__))
-#endif
-
-#define DBUG(...) (SerialOutput::complete(), DEBUG_PORT.print(__VA_ARGS__))
-#define DBUGLN(...) (SerialOutput::complete(), DEBUG_PORT.println(__VA_ARGS__))
-#define DBUGVAR(x, ...) \
+#define DEBUG_PRINT_STATEMENT(...) \
   do \
   { \
-    SerialOutput::complete(); \
-    DEBUG_PORT.print(F(ESCAPEQUOTE(x) " = ")); \
-    DEBUG_PORT.println(x, ##__VA_ARGS__); \
+    if constexpr (DEBUG_OUTPUT_ENABLED) \
+    { \
+      SerialOutput::complete(); \
+      __VA_ARGS__; \
+    } \
   } while (false)
+
+#if DEBUG_USE_PRINT_P
+// Serial.printf_P needs Git version of Arduino Core
+#define DBUGF(format, ...) DEBUG_PRINT_STATEMENT(DEBUG_PORT.printf_P(PSTR(format "\n"), ##__VA_ARGS__))
+#else
+#define DBUGF(format, ...) DEBUG_PRINT_STATEMENT(DEBUG_PORT.printf(format "\n", ##__VA_ARGS__))
+#endif
+
+#define DBUG(...) DEBUG_PRINT_STATEMENT(DEBUG_PORT.print(__VA_ARGS__))
+#define DBUGLN(...) DEBUG_PRINT_STATEMENT(DEBUG_PORT.println(__VA_ARGS__))
+#define DBUGVAR(x, ...) DEBUG_PRINT_STATEMENT(DEBUG_PORT.print(F(ESCAPEQUOTE(x) " = ")); DEBUG_PORT.println(x, ##__VA_ARGS__))
 
 #else  // ENABLE_DEBUG
 
@@ -73,14 +81,7 @@
 #endif
 
 #ifndef DEBUG_PORT
-#ifdef EMONESP
-#include <SoftwareSerial.h>
-inline SoftwareSerial mySerial(2, 3);  // RX, TX
-
-#define DEBUG_PORT mySerial
-#else
 #define DEBUG_PORT Serial
-#endif
 #endif
 #define DEBUG DEBUG_PORT
 

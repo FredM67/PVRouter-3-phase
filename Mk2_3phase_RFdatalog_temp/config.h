@@ -15,7 +15,7 @@
  * - 2 TRIAC outputs for dump loads
  *
  * @version 1.0
- * @date 2026-10-01
+ * @date 2026-10-02
  */
 
 #ifndef CONFIG_H
@@ -74,7 +74,6 @@ inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 };          
 inline RemoteLoadCore< NO_OF_REMOTE_UNITS > remoteLoads{};
 
 // Feature toggles - Basic setup without advanced features
-inline constexpr bool EMONESP_CONTROL{ false };
 inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr bool ROUTER_OFF_PIN_PRESENT{ false };                  /**< set it to 'true' if you want a pin that switches the router OFF */
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */
