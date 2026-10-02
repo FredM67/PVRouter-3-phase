@@ -50,6 +50,25 @@ constexpr uint8_t N_MAX{ SAMPLE_SETS_PER_CYCLE + SAMPLE_SETS_MARGIN };
 const Energy::PerSampleCalibration< N_MIN, N_MAX, NO_OF_PHASES > powerCalPerSample PROGMEM{ Energy::toFixedPerSample< N_MIN, N_MAX >(f_powerCal) };
 constexpr uint8_t powerCalPerSampleShift{ Energy::toFixedPerSample< N_MIN, N_MAX >(f_powerCal).shift };
 
+// Predictive load switching (issue #161).
+// A zero-crossing triac driver only fires at the next zero crossing of its own phase. The load
+// decision is therefore taken in the ~3.3 ms between the last negative crossing of L2 or L3 and
+// the positive crossing of L1: no load then switches in the middle of its phase's measurement
+// window. Because L1's contribution for the cycle is not in the bucket yet, the decision is
+// based on a prediction, as in Robin Emley's Mk2_fasterControl sketches.
+constexpr bool PREDICTIVE_LOAD_SWITCHING{ true };   /**< false: decide just after L1's +ve crossing, as before */
+constexpr uint8_t ARMING_DELAY_IN_SAMPLE_SETS{ 1 }; /**< sample sets between the trigger crossing and the decision */
+
+// L1's sample sets at the decision: the trigger crossing is 5/6 of a cycle after L1's +ve one
+constexpr uint8_t SAMPLE_SETS_AT_DECISION{ SAMPLE_SETS_PER_CYCLE * 5 / 6 + ARMING_DELAY_IN_SAMPLE_SETS }; /**< 27 at 50 Hz, 22 at 60 Hz */
+constexpr uint8_t NP_MIN{ SAMPLE_SETS_AT_DECISION - SAMPLE_SETS_MARGIN };
+constexpr uint8_t NP_MAX{ SAMPLE_SETS_AT_DECISION + SAMPLE_SETS_MARGIN };
+
+/**< L1's power calibration over its partial sample count at the decision, as powerCalPerSample */
+constexpr float f_powerCalL1[1]{ f_powerCal[0] };
+const Energy::PerSampleCalibration< NP_MIN, NP_MAX, 1 > powerCalPerSampleL1 PROGMEM{ Energy::toFixedPerSample< NP_MIN, NP_MAX >(f_powerCalL1) };
+constexpr uint8_t powerCalPerSampleL1Shift{ Energy::toFixedPerSample< NP_MIN, NP_MAX >(f_powerCalL1).shift };
+
 constexpr OutputModes outputMode{ OutputModes::NORMAL }; /**< Output mode to be used */
 
 bool b_diversionStarted{ false }; /**< Tracks whether diversion has started */
@@ -80,6 +99,12 @@ uint8_t postTransitionCount{ 0 };                 /**< counts the number of cycl
 constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 3 }; /**< allows each transition to take effect */
 // constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
 uint8_t activeLoad{ NO_OF_DUMPLOADS }; /**< current active load */
+
+uint8_t triggerPhase{ 1 };              /**< phase whose -ve crossing is the last one before L1's +ve crossing */
+uint8_t n_samplesSinceTrigger{ 0 };     /**< sample sets of the trigger phase since its -ve crossing */
+bool b_decisionArmed{ false };          /**< the trigger phase has crossed, the decision is counting down */
+bool b_decisionTakenThisCycle{ false }; /**< the predictive decision has been taken during this L1 cycle */
+bool b_fallbackDecisionDue{ false };    /**< no predictive decision in the last L1 cycle: decide the old way */
 
 int32_t l_sumP[NO_OF_PHASES]{};           /**< cumulative power per phase */
 int16_t i_sampleVminusDC[NO_OF_PHASES]{}; /**< current raw voltage sample filtered (left-aligned ADC) */
@@ -685,9 +710,11 @@ void processStartUp(const uint8_t phase)
  * - Ensures that only the active load can be switched during the post-transition period.
  * - Updates the upper energy threshold and logical load states if a load is added.
  *
+ * @param l_energy The bucket level the decision is based on (predicted or measured).
+ *
  * @ingroup TimeCritical
  */
-void proceedHighEnergyLevel()
+void proceedHighEnergyLevel(const int32_t l_energy)
 {
   bool bOK_toAddLoad{ true };
   const auto tempLoad{ nextLogicalLoadToBeAdded() };
@@ -701,7 +728,7 @@ void proceedHighEnergyLevel()
   if (b_recentTransition)
   {
     // During the post-transition period, any increase in the energy level is noted.
-    l_upperEnergyThreshold = l_energyInBucket_main;
+    l_upperEnergyThreshold = l_energy;
 
     // the energy thresholds must remain within range
     if (l_upperEnergyThreshold > l_capacityOfEnergyBucket_main)
@@ -734,9 +761,11 @@ void proceedHighEnergyLevel()
  * - Ensures that only the active load can be switched during the post-transition period.
  * - Updates the lower energy threshold and logical load states if a load is removed.
  *
+ * @param l_energy The bucket level the decision is based on (predicted or measured).
+ *
  * @ingroup TimeCritical
  */
-void proceedLowEnergyLevel()
+void proceedLowEnergyLevel(const int32_t l_energy)
 {
   bool bOK_toRemoveLoad{ true };
   const auto tempLoad{ nextLogicalLoadToBeRemoved() };
@@ -750,7 +779,7 @@ void proceedLowEnergyLevel()
   if (b_recentTransition)
   {
     // During the post-transition period, any decrease in the energy level is noted.
-    l_lowerEnergyThreshold = l_energyInBucket_main;
+    l_lowerEnergyThreshold = l_energy;
 
     // the energy thresholds must remain within range
     if (l_lowerEnergyThreshold < 0)
@@ -773,11 +802,15 @@ void proceedLowEnergyLevel()
 }
 
 /**
- * @brief Processes the start of a new mains cycle on phase 0.
+ * @brief Takes the load decision for the next mains cycle.
  *
- * This function is executed once per 20ms (for 50Hz), shortly after the start of each
- * new mains cycle on phase 0. It manages the energy level and load states, ensuring
- * proper operation of the system.
+ * This function is executed once per 20ms (for 50Hz). With predictive switching it runs
+ * shortly before L1's positive zero crossing, on a predicted bucket level; otherwise, or
+ * when no prediction was made during the last cycle, shortly after that crossing on the
+ * measured level. It manages the energy level and load states, ensuring proper operation
+ * of the system.
+ *
+ * @param l_energy The bucket level the decision is based on (predicted or measured).
  *
  * @details
  * - Handles recent transitions and updates the post-transition counter.
@@ -787,7 +820,7 @@ void proceedLowEnergyLevel()
  *
  * @ingroup TimeCritical
  */
-void processStartNewCycle()
+void processStartNewCycle(const int32_t l_energy)
 {
   // Restrictions apply for the period immediately after a load has been switched.
   // Here the b_recentTransition flag is checked and updated as necessary.
@@ -796,24 +829,24 @@ void processStartNewCycle()
   // for optimization, the next line is equivalent to the two lines above
   b_recentTransition &= (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
 
-  if (l_energyInBucket_main > l_midPointOfEnergyBucket_main)
+  if (l_energy > l_midPointOfEnergyBucket_main)
   {
     // the energy state is in the upper half of the working range
     l_lowerEnergyThreshold = l_lowerThreshold_default;  // reset the "opposite" threshold
-    if (l_energyInBucket_main > l_upperEnergyThreshold)
+    if (l_energy > l_upperEnergyThreshold)
     {
       // Because the energy level is high, some action may be required
-      proceedHighEnergyLevel();
+      proceedHighEnergyLevel(l_energy);
     }
   }
   else
   {
     // the energy state is in the lower half of the working range
     l_upperEnergyThreshold = l_upperThreshold_default;  // reset the "opposite" threshold
-    if (l_energyInBucket_main < l_lowerEnergyThreshold)
+    if (l_energy < l_lowerEnergyThreshold)
     {
       // Because the energy level is low, some action may be required
-      proceedLowEnergyLevel();
+      proceedLowEnergyLevel(l_energy);
     }
   }
 
@@ -1098,6 +1131,27 @@ void processPlusHalfCycle(const uint8_t phase)
 }
 
 /**
+ * @brief Predicts the bucket level at L1's next positive zero crossing.
+ *
+ * @details At that crossing, processLatestContribution() adds L1's average power over
+ *          the cycle, minus the export or start-threshold adjustment. L1's power so far
+ *          this cycle stands in for the whole cycle: sumP x (cal / n) with the partial n
+ *          is an average power, not a fraction of it. cal / n comes from a table, as in
+ *          processLatestContribution(), so there is no division.
+ *
+ * @param n L1's sample sets so far this cycle, within [NP_MIN, NP_MAX].
+ * @return The predicted bucket level.
+ *
+ * @ingroup TimeCritical
+ */
+int32_t predictEnergyInBucket(const uint8_t n)
+{
+  const int32_t l_prediction{ l_energyInBucket_main + Energy::contribution(l_sumP[0], pgm_read_word(&powerCalPerSampleL1.value[0][n - NP_MIN]), powerCalPerSampleL1Shift) };
+
+  return l_prediction - Energy::fromWatts(b_diversionStarted ? REQUIRED_EXPORT_IN_WATTS : DIVERSION_START_THRESHOLD_WATTS);
+}
+
+/**
  * @brief Processes raw voltage and current samples for the specified phase.
  *
  * This routine is called by the ISR when a pair of voltage and current samples
@@ -1110,7 +1164,9 @@ void processPlusHalfCycle(const uint8_t phase)
  * - Determines the polarity of the current sample and handles transitions between
  *   positive and negative half cycles.
  * - Processes the start of new positive and negative half cycles.
- * - For phase 0, it triggers the start of a new mains cycle and handles startup logic.
+ * - Handles startup logic, and triggers the load decision once per mains cycle: one
+ *   sample set after the trigger phase's -ve crossing on a predicted bucket level (see
+ *   PREDICTIVE_LOAD_SWITCHING), or shortly after L1's +ve crossing as a fallback.
  *
  * @ingroup TimeCritical
  */
@@ -1127,6 +1183,19 @@ void processRawSamples(const uint8_t phase)
       // This is the start of a new +ve half cycle, for this phase, just after the zero-crossing point.
       if (beyondStartUpPeriod)
       {
+        if (0 == phase)
+        {
+          // A new L1 cycle. Decide the old way if no predictive decision was taken in the last one
+          // (always the case when predictive switching is disabled).
+          b_fallbackDecisionDue = !b_decisionTakenThisCycle;
+          b_decisionTakenThisCycle = false;
+          b_decisionArmed = false;
+
+          // The trigger phase is whichever of L2 and L3 is negative right now: its -ve crossing
+          // will be the last one before L1's next +ve crossing. This also covers reversed rotation.
+          triggerPhase = (Polarities::NEGATIVE == polarityConfirmed[1]) ? 1 : 2;
+        }
+
         processPlusHalfCycle(phase);
       }
       else
@@ -1137,10 +1206,12 @@ void processRawSamples(const uint8_t phase)
 
     // still processing samples where the voltage is POSITIVE ...
     // check to see whether the trigger device can now be reliably armed
-    if ((0 == phase) && beyondStartUpPeriod && (2 == n_samplesDuringThisMainsCycle[0]))  // lower value for larger sample set
+    if ((0 == phase) && beyondStartUpPeriod && b_fallbackDecisionDue && (2 == n_samplesDuringThisMainsCycle[0]))  // lower value for larger sample set
     {
-      // This code is executed once per 20mS, shortly after the start of each new mains cycle on phase 0.
-      processStartNewCycle();
+      // Executed shortly after the start of a new mains cycle on phase 0, when no predictive
+      // decision was taken during the previous cycle.
+      b_fallbackDecisionDue = false;
+      processStartNewCycle(l_energyInBucket_main);
     }
   }
   else
@@ -1150,6 +1221,34 @@ void processRawSamples(const uint8_t phase)
     {
       // This is the start of a new -ve half cycle (just after the zero-crossing point)
       processMinusHalfCycle(phase);
+
+      if constexpr (PREDICTIVE_LOAD_SWITCHING)
+      {
+        if (beyondStartUpPeriod && (phase == triggerPhase) && !b_decisionTakenThisCycle)
+        {
+          // L1's +ve crossing is ~3.3 ms away: count down to the decision
+          n_samplesSinceTrigger = 0;
+          b_decisionArmed = true;
+        }
+      }
+    }
+  }
+
+  if constexpr (PREDICTIVE_LOAD_SWITCHING)
+  {
+    // The count starts at the trigger crossing, so the triac drivers are armed well after
+    // that crossing and well before L1's +ve one - clear of both firing windows.
+    if (b_decisionArmed && (phase == triggerPhase) && (ARMING_DELAY_IN_SAMPLE_SETS == n_samplesSinceTrigger++))
+    {
+      b_decisionArmed = false;
+
+      // an unexpected sample count (start-up, missing phase): no prediction, the fallback decides
+      const uint8_t n{ n_samplesDuringThisMainsCycle[0] };
+      if ((n >= NP_MIN) && (n <= NP_MAX))
+      {
+        b_decisionTakenThisCycle = true;
+        processStartNewCycle(predictEnergyInBucket(n));
+      }
     }
   }
 }

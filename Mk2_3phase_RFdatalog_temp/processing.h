@@ -29,7 +29,7 @@ void printParamsForSelectedOutputMode();
 #if defined(__DOXYGEN__)
 void initializeProcessing();
 inline void processStartUp(uint8_t phase);
-inline void processStartNewCycle();
+void processStartNewCycle(int32_t l_energy);
 inline void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample);
 inline void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample);
 inline void processPlusHalfCycle(uint8_t phase);
@@ -38,18 +38,20 @@ inline void processRawSamples(const uint8_t phase);
 inline void processVoltage(uint8_t phase);
 inline void processPolarity(uint8_t phase, uint16_t rawSample);
 inline void confirmPolarity(uint8_t phase);
-inline void proceedLowEnergyLevel();
-inline void proceedHighEnergyLevel();
+inline void proceedLowEnergyLevel(int32_t l_energy);
+inline void proceedHighEnergyLevel(int32_t l_energy);
 inline uint8_t nextLogicalLoadToBeAdded();
 inline uint8_t nextLogicalLoadToBeRemoved();
 inline void processLatestContribution(uint8_t phase);
+inline int32_t predictEnergyInBucket(uint8_t n);
 inline void processDataLogging();
 inline void updatePortsStates();
 inline void updatePhysicalLoadStates();
 #else
 void initializeProcessing() __attribute__((optimize("-O3")));
 inline void processStartUp(uint8_t phase) __attribute__((always_inline));
-inline void processStartNewCycle() __attribute__((always_inline));
+// two call sites (predictive and fallback decisions), once per mains cycle: not inlined
+void processStartNewCycle(int32_t l_energy) __attribute__((noinline));
 inline void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample) __attribute__((always_inline));
 inline void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample) __attribute__((always_inline));
 inline void processPlusHalfCycle(uint8_t phase) __attribute__((always_inline));
@@ -58,11 +60,12 @@ inline void processRawSamples(const uint8_t phase) __attribute__((always_inline)
 inline void processVoltage(uint8_t phase) __attribute__((always_inline));
 inline void processPolarity(uint8_t phase, uint16_t rawSample) __attribute__((always_inline));
 inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
-inline void proceedLowEnergyLevel() __attribute__((always_inline));
-inline void proceedHighEnergyLevel() __attribute__((always_inline));
+inline void proceedLowEnergyLevel(int32_t l_energy) __attribute__((always_inline));
+inline void proceedHighEnergyLevel(int32_t l_energy) __attribute__((always_inline));
 inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline, optimize("-O3")));
 inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline, optimize("-O3")));
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
+inline int32_t predictEnergyInBucket(uint8_t n) __attribute__((always_inline));
 inline void processDataLogging() __attribute__((always_inline, optimize("-O3")));
 inline void updatePortsStates() __attribute__((optimize("-O3")));
 inline void updatePhysicalLoadStates() __attribute__((always_inline));
