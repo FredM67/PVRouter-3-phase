@@ -60,3 +60,13 @@ test('files: RF and receiver files only when needed, YAML only with mk2Wifi', ()
     'mk2pvrouter.yaml',
   ]);
 });
+
+test('relay count: new relays get the README thresholds, a single relay fits on one line', () => {
+  const m = M.defaults();
+  m.relays.enabled = true;
+  M.resizeRelays(m, 4);
+  assert.deepStrictEqual(m.relays.list[3], { pin: null, surplus: 1000, import: 200, minOn: 5, minOff: 5 });
+  M.resizeRelays(m, 1);
+  m.relays.list[0].pin = 8;
+  assert.match(G.configH(m), /^ {37}\{ \{ 8, 100, 200, 1, 1 \} \} \}; \/\*\*< config for relay diversion/m);
+});
