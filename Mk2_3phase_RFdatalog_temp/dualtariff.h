@@ -40,9 +40,10 @@ public:
       _rg[i][0] = ((rg_ForceLoad[i].getStartOffset() >= 0) ? 0 : uiPeakDurationInSec) + rg_ForceLoad[i].getStartOffset() * (bOffsetInMinutes ? 60ul : 3600ul);
       _rg[i][0] *= 1000ul;  // convert in milli-seconds
 
-      if (UINT8_MAX == rg_ForceLoad[i].getDuration())
+      if (UINT16_MAX == rg_ForceLoad[i].getDuration())
       {
-        _rg[i][1] = rg_ForceLoad[i].getDuration();
+        // until the end of the off-peak period, which stops any forcing anyway
+        _rg[i][1] = UINT32_MAX;
       }
       else
       {
@@ -109,7 +110,14 @@ inline void printDualTariffConfiguration()
     info(F("\t\tCalculated offset in seconds: "));
     infolnDecimals(static_cast< int32_t >(rg_OffsetForce[i][0] / 10), 2);
     info(F("\t\tCalculated duration in seconds: "));
-    infolnDecimals(static_cast< int32_t >(rg_OffsetForce[i][1] / 10), 2);
+    if (UINT32_MAX == rg_OffsetForce[i][1])
+    {
+      infoln(F("until the end of off-peak"));
+    }
+    else
+    {
+      infolnDecimals(static_cast< int32_t >(rg_OffsetForce[i][1] / 10), 2);
+    }
   }
 }
 

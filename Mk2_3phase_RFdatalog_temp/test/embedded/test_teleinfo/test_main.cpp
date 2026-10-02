@@ -82,6 +82,65 @@ void test_teleinfo_edge_values(void)
   TEST_ASSERT_TRUE(true);
 }
 
+/* captures the frame written by writeNext() */
+class FramePrint : public Print
+{
+public:
+  char text[64]{};
+  size_t length{ 0 };
+
+  size_t write(uint8_t c) override
+  {
+    if (length < sizeof text - 1)
+    {
+      text[length++] = static_cast< char >(c);
+    }
+    return 1;
+  }
+};
+
+/* one line as the router writes it: LF tag TAB value TAB checksum CR */
+static void appendLine(char* expected, const char* tagAndValue)
+{
+  uint8_t sum{ 0 };
+  for (const char* p = tagAndValue; *p; ++p)
+  {
+    sum += *p;
+  }
+  sum += '\t';
+  const char line[]{ '\n', '\0' };
+  strcat(expected, line);
+  strcat(expected, tagAndValue);
+  const char end[]{ '\t', static_cast< char >((sum & 0x3F) + 0x20), '\r', '\0' };
+  strcat(expected, end);
+}
+
+/* the values that used to be cut or wrong: a 5-character temperature, the sample count above
+ * 32767 (long datalog periods) and an indexed relay state */
+void test_teleinfo_line_contents(void)
+{
+  TeleInfo teleinfo;
+  teleinfo.startFrame();
+  teleinfo.send("T", -5500, 1);
+  teleinfo.sendUnsigned("S", 64000);
+  teleinfo.send("R", 1, 2);
+  teleinfo.endFrame();
+
+  FramePrint out;
+  while (teleinfo.writeNext(out, 16))
+  {
+  }
+
+  char expected[64]{ '\x02' };
+  appendLine(expected, "T1\t-5500");
+  appendLine(expected, "S\t64000");
+  appendLine(expected, "R2\t1");
+  const char etx[]{ '\x03', '\0' };
+  strcat(expected, etx);
+
+  TEST_ASSERT_EQUAL_STRING(expected, out.text);
+}
+
 void test_teleinfo_multiple_frames(void)
 {
   // Test creating multiple frames in sequence
@@ -142,6 +201,7 @@ void loop()
   RUN_TEST(test_teleinfo_instantiation);
   RUN_TEST(test_teleinfo_basic_operations);
   RUN_TEST(test_teleinfo_edge_values);
+  RUN_TEST(test_teleinfo_line_contents);
   RUN_TEST(test_teleinfo_multiple_frames);
   RUN_TEST(test_teleinfo_long_sequences);
 

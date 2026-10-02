@@ -478,7 +478,7 @@ void sendTelemetryData(const bool bOffPeak)
     do
     {
       --idx;
-      teleInfo.send("R", relays.get_relay(idx).isRelayON());  // Send state of each relay
+      teleInfo.send("R", relays.get_relay(idx).isRelayON(), idx + 1);  // Send state of each relay (R1-Rn)
     } while (idx);
   }
 
@@ -509,7 +509,7 @@ void sendTelemetryData(const bool bOffPeak)
     teleInfo.send("TA", static_cast< int16_t >(bOffPeak ? 1 : 0));  // Send current tariff state (0=high/on-peak, 1=low/off-peak)
   }
 
-  teleInfo.send("S", Shared::copyOf_sampleSetsDuringThisDatalogPeriod);
+  teleInfo.sendUnsigned("S", Shared::copyOf_sampleSetsDuringThisDatalogPeriod);  // above 32767 with long datalog periods
   teleInfo.send("S_MC", Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle);
 
   teleInfo.endFrame();  // Finalize the telemetry frame, written out by writeTeleInfoStep()

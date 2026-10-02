@@ -72,6 +72,17 @@ valid load maps ([#160]).
   ([#166]).
 - **Dual tariff with remote loads:** out-of-bounds read; remote loads always datalogged 0 ([#160]).
 - **Relay pins** on the loads' port (D2-D7) could briefly write back an old load state ([#175]).
+- **Temperature sensing** read nothing: the firmware always used a mock sensor bus, and without
+  the README's `#define TEMP_ENABLED` the readings were written past the end of their array.
+  `TEMP_SENSOR_PRESENT{ true }` is now all it takes.
+- **Dual tariff boost of exactly 255 minutes** never ran (its window was 0.25 s); "until the end"
+  boosts now print as such in the startup summary.
+- **IoT output:**
+  - relay states were all sent as `R`, the tag of the relays' average power: now `R1`..`Rn`;
+  - a temperature of 100 °C or more, or -10 °C or less, overflowed the frame buffer;
+  - the sample count `S` wrapped to a negative value above 32767 (datalog periods of about 21 s
+    or more), overflowing the buffer too.
+- **`dualTariffPin`** was not checked against the other pins at compile time.
 - **`rf` build** failed on a missing library ([#154]).
 - **`RemoteLoadReceiver`:** a hang could leave a load stuck ON (now a 1 s hardware watchdog), the
   status LED kept blinking on a hung board, and malformed frames were not rejected ([#177]).
