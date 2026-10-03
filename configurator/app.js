@@ -1013,7 +1013,7 @@
     const problems = V.validate(m);
     const scroll = window.scrollY;
     document.getElementById('form').replaceChildren(
-      ...[general, loads, relays, controls, dualTariff, temperature, rf, units, mk2wifi].map((s) => s(problems)).filter(Boolean)
+      ...[general, loads, relays, controls, dualTariff, temperature, mk2wifi, rf, units].map((s) => s(problems)).filter(Boolean)
     );
     window.scrollTo(0, scroll);
     renderProblems(problems);
