@@ -58,6 +58,30 @@
     return `{ ${items.join(', ')} }`;
   }
 
+  const pinName = (p) => (p === null || p === undefined ? 'no pin' : p >= 14 ? `A${p - 14}` : `D${p}`);
+  const TARGET_NAMES = {
+    ALL_LOADS: 'all loads',
+    ALL_LOCAL_LOADS: 'all local loads',
+    ALL_REMOTE_LOADS: 'all remote loads',
+    ALL_RELAYS: 'all relays',
+    ALL_LOADS_AND_RELAYS: 'all loads and relays',
+  };
+
+  // What each override pin forces, numbered from 1 as on the page: LOAD(0) is load 1. Only when
+  // a list names loads or relays one by one; ALL_LOADS() and the like speak for themselves.
+  function overrideComments(m, overrides) {
+    if (overrides.every((o) => typeof o.targets === 'string')) return [];
+    const target = (t) => {
+      if ('relay' in t) return `relay ${t.relay + 1} (${pinName((m.relays.list[t.relay] || {}).pin)})`;
+      const load = m.loads[t.load] || {};
+      return `load ${t.load + 1} (${load.type === 'remote' ? `remote unit ${load.unit}` : pinName(load.pin)})`;
+    };
+    return [
+      '// What each override pin forces (LOAD(n) and RELAY(n) count from 0: LOAD(0) is load 1):',
+      ...overrides.map((o) => `//   ${pinName(o.pin)}: ${typeof o.targets === 'string' ? TARGET_NAMES[o.targets] : o.targets.map(target).join(', ')}`),
+    ];
+  }
+
   function rotationSeconds(s) {
     if (s % 3600 === 0) return `${s / 3600}UL * 3600UL`;
     if (s % 60 === 0) return `${s / 60}UL * 60UL`;
@@ -270,6 +294,7 @@
     );
     // OVERRIDE_PIN_PRESENT false: the list is still compiled, but never read
     const overrides = m.overrides.list.length ? m.overrides.list : [{ pin: null, targets: 'ALL_LOADS' }];
+    add(...overrideComments(m, overrides));
     add(...list('inline constexpr OverridePins overridePins{ ', overrides.map((o) => `{ ${pin(o.pin)}, ${overrideTargets(o.targets)} }`), ' };', '/**< list of override pin/loads-relays pairs */'));
     const force = forceEntries(m);
     add(
