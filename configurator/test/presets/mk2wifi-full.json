@@ -1,0 +1,29 @@
+{
+  "serialOutput": "IoT",
+  "loads": [
+    { "type": "local", "pin": 5 },
+    { "type": "local", "pin": 6 }
+  ],
+  "priorities": [1, 0],
+  "diversion": { "enabled": true, "pin": 7, "wifi": true },
+  "routerOff": { "enabled": true, "pin": 8, "wifi": true },
+  "overrides": { "enabled": true, "list": [{ "pin": 9, "wifi": true, "targets": "ALL_LOADS_AND_RELAYS" }] },
+  "relays": {
+    "enabled": true,
+    "filterDelay": 2,
+    "list": [{ "pin": 11, "surplus": 1000, "import": 200, "minOn": 5, "minOff": 5 }]
+  },
+  "dualTariff": {
+    "enabled": true,
+    "pin": 4,
+    "offPeakHours": 8,
+    "force": [{ "start": -3, "duration": 2 }, { "start": -150, "duration": 90 }],
+    "tempThreshold": 60
+  },
+  "temperature": {
+    "mode": "router",
+    "pin": 3,
+    "sensors": [{ "address": "28BE416B090000A4", "name": "Chauffe-eau" }]
+  },
+  "mk2wifi": { "enabled": true, "name": "mk2pvrouter", "friendlyName": "Mk2PVRouter", "language": "fr" }
+}
