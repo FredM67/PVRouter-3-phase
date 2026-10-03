@@ -141,7 +141,9 @@
       tempJumperRouter: 'other position',
       vselNote: 'Set the V sel. jumper of the motherboard to 3.3 V. Never plug the module’s USB-C while it is on the motherboard.',
 
-      problems: 'Problems',
+      problems: 'Checks',
+      'group.error': 'Errors ({n}): to fix before getting the files',
+      'group.warning': 'Warnings ({n}): worth checking, the files are generated anyway',
       noProblem: 'No problem found.',
       output: 'Files',
       outputBlocked: 'Fix the errors to get the files.',
@@ -353,7 +355,9 @@
       tempJumperRouter: 'autre position',
       vselNote: 'Mettre le cavalier V sel. de la carte mère sur 3,3 V. Ne jamais brancher l’USB-C du module quand il est sur la carte mère.',
 
-      problems: 'Problèmes',
+      problems: 'Vérifications',
+      'group.error': 'Erreurs ({n}) : à corriger pour obtenir les fichiers',
+      'group.warning': 'Avertissements ({n}) : à vérifier, les fichiers sont tout de même générés',
       noProblem: 'Aucun problème.',
       output: 'Fichiers',
       outputBlocked: 'Corrigez les erreurs pour obtenir les fichiers.',

@@ -911,23 +911,24 @@
 
   function renderProblems(problems) {
     const ul = document.getElementById('problems');
-    ul.replaceChildren(
-      ...(problems.length
-        ? problems.map((p) =>
-            h(
-              'li',
-              {
-                class: p.level,
-                onclick: () => {
-                  const s = document.getElementById(`sec-${sectionOf(p.field)}`);
-                  if (s) s.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                },
-              },
-              T(p.key, p.params)
-            )
-          )
-        : [h('li', { class: 'ok' }, T('noProblem'))])
-    );
+    const item = (p) =>
+      h(
+        'li',
+        {
+          class: p.level,
+          onclick: () => {
+            const s = document.getElementById(`sec-${sectionOf(p.field)}`);
+            if (s) s.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          },
+        },
+        T(p.key, p.params)
+      );
+    // errors first: they block the files, warnings do not
+    const group = (level) => {
+      const list = problems.filter((p) => p.level === level);
+      return list.length ? [h('li', { class: 'group' }, T(`group.${level}`, { n: list.length })), ...list.map(item)] : [];
+    };
+    ul.replaceChildren(...(problems.length ? [...group('error'), ...group('warning')] : [h('li', { class: 'ok' }, T('noProblem'))]));
   }
 
   function download(name, data, type) {
