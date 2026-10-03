@@ -76,3 +76,23 @@ test('motherboard: the new board selects PcbVersion::NEW', () => {
   m.pcbVersion = 'NEW';
   assert.match(G.configH(m), /^inline constexpr PcbVersion PCB_VERSION\{ PcbVersion::NEW \};$/m);
 });
+
+test('override pins: a comment says what each one forces, numbered as on the page', () => {
+  const m = M.defaults();
+  m.loads = [
+    { type: 'remote', unit: 1, led: null },
+    { type: 'local', pin: 6 },
+  ];
+  m.priorities = [0, 1];
+  m.relays.enabled = true;
+  M.resizeRelays(m, 1);
+  m.relays.list[0].pin = 8;
+  m.overrides.list = [
+    { pin: 5, wifi: false, targets: [{ load: 0 }] },
+    { pin: 9, wifi: false, targets: [{ load: 1 }, { relay: 0 }] },
+    { pin: 14, wifi: false, targets: 'ALL_REMOTE_LOADS' },
+  ];
+  const text = G.configH(m);
+  assert.match(text, /^\/\/ {3}D5: load 1 \(remote unit 1\)\n\/\/ {3}D9: load 2 \(D6\), relay 1 \(D8\)\n\/\/ {3}A0: all remote loads\ninline constexpr OverridePins/m);
+  assert.doesNotMatch(G.configH(M.defaults()), /What each override pin forces/);
+});
