@@ -1017,7 +1017,8 @@
         D.supported() ? h('button', { type: 'button', class: 'primary', title: T('saveToFolderHelp'), onclick: () => saveToFolder(files, problems) }, T('saveToFolder')) : null,
         h('button', { type: 'button', class: D.supported() ? '' : 'primary', onclick: () => download('pvrouter-config.zip', Z.zip(files), 'application/zip') }, T('downloadAll'))
       ),
-      folderStatus ? h('p', { class: `folder-status ${folderStatus.level}` }, folderStatus.text) : null,
+      // replaceChildren() would show a null as the text "null": spread an empty list instead
+      ...(folderStatus ? [h('p', { class: `folder-status ${folderStatus.level}` }, folderStatus.text)] : []),
       h('pre', null, h('code', null, f.text)),
       h(
         'div',
