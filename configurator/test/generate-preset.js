@@ -18,8 +18,12 @@ if (V.hasErrors(problems)) process.exit(1);
 
 const skip = (src) => !src.split(path.sep).includes('.pio');
 fs.cpSync(path.join(repo, 'Mk2_3phase_RFdatalog_temp'), path.join(outDir, 'Mk2_3phase_RFdatalog_temp'), { recursive: true, filter: skip });
-for (let unit = 1; unit <= M.remoteUnitsUsed(m); ++unit)
-  fs.cpSync(path.join(repo, 'RemoteLoadReceiver'), path.join(outDir, `RemoteLoadReceiver-unit${unit}`), { recursive: true, filter: skip });
+// one copy of the receiver per unit, its .ino renamed like the folder, as the page does
+for (let unit = 1; unit <= M.remoteUnitsUsed(m); ++unit) {
+  const dir = path.join(outDir, `RemoteLoadReceiver-unit${unit}`);
+  fs.cpSync(path.join(repo, 'RemoteLoadReceiver'), dir, { recursive: true, filter: skip });
+  fs.renameSync(path.join(dir, 'RemoteLoadReceiver.ino'), path.join(dir, `RemoteLoadReceiver-unit${unit}.ino`));
+}
 
 for (const f of G.files(m)) {
   fs.mkdirSync(path.dirname(path.join(outDir, f.path)), { recursive: true });

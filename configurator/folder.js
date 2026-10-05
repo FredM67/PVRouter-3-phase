@@ -50,10 +50,13 @@
     await w.close();
   }
 
-  // The receiver's files, not its folders (.pio, .vscode); its configs are written right after
-  async function copySketch(from, to) {
-    for await (const [name, handle] of from.entries())
-      if (handle.kind === 'file' && name !== 'config.h' && name !== 'config_rf.h') await writeFile(to, name, await handle.getFile());
+  // The receiver's files, not its folders (.pio, .vscode); its configs are written right after.
+  // The Arduino IDE wants the .ino named like its folder: RemoteLoadReceiver-unit1.ino.
+  async function copySketch(from, to, folder) {
+    for await (const [name, handle] of from.entries()) {
+      if (handle.kind !== 'file' || name === 'config.h' || name === 'config_rf.h') continue;
+      await writeFile(to, name === `${RECEIVER}.ino` ? `${folder}.ino` : name, await handle.getFile());
+    }
   }
 
   async function save({ place, write }) {
@@ -67,7 +70,7 @@
       else {
         dir = await place.top.getDirectoryHandle(parts[0], { create: true });
         if (!copied.has(parts[0])) {
-          await copySketch(place.receiver, dir);
+          await copySketch(place.receiver, dir, parts[0]);
           copied.add(parts[0]);
         }
       }
