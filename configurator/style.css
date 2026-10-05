@@ -358,6 +358,12 @@ pre {
   max-height: 55vh;
 }
 
+.cal-files {
+  margin: 0.25rem 0 0.5rem;
+  padding-left: 1.2rem;
+  font-size: 0.85rem;
+}
+
 pre.lines {
   min-height: 0;
 }

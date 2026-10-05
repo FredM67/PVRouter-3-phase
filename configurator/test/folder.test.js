@@ -193,3 +193,12 @@ test('remote units without the receiver sketch next to the router are refused', 
   const p = await F.prepare(root, FILES.slice(0, 2));
   assert.ok(!p.error);
 });
+
+test('without cleanup (calibration mode), the receiver copies stay', async () => {
+  const root = firmware();
+  await saveAll(root, FILES, '2026-10-05_10-00-00');
+  const p = await F.prepare(root, FILES.slice(0, 1), { cleanup: false });
+  assert.deepStrictEqual(p.stale, []);
+  await F.save(p, '2026-10-05_11-00-00');
+  assert.ok(root.items.has('RemoteLoadReceiver-unit1'));
+});

@@ -156,3 +156,20 @@ test('calibration mode: human-readable output and no YAML, the usual choice kept
   assert.match(G.configH(m), /SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;/);
   assert.ok(G.files(m).some((f) => f.path.endsWith('.yaml')));
 });
+
+test('calibration mode: config.h and the new calibration.h, nothing else', () => {
+  const m = M.defaults();
+  m.loads[2] = { type: 'remote', unit: 1, led: null };
+  m.calibrationMode = true;
+  assert.deepStrictEqual(
+    G.files(m).map((f) => f.path),
+    ['Mk2_3phase_RFdatalog_temp/config.h']
+  );
+  const text = calibrationFile();
+  Object.assign(m.calibration, { file: text, ...M.parseCalibration(text) });
+  m.calibration.power[0] = { router: 1000, meter: 1020 };
+  assert.deepStrictEqual(
+    G.files(m).map((f) => f.path),
+    ['Mk2_3phase_RFdatalog_temp/config.h', 'Mk2_3phase_RFdatalog_temp/calibration.h']
+  );
+});

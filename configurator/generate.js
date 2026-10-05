@@ -604,6 +604,10 @@
   }
 
   function files(m, date) {
+    if (m.calibrationMode) {
+      const calibration = calibrationH(m);
+      return [{ path: 'Mk2_3phase_RFdatalog_temp/config.h', text: configH(m, date) }, ...(calibration ? [{ path: 'Mk2_3phase_RFdatalog_temp/calibration.h', text: calibration }] : [])];
+    }
     const out = [
       { path: 'Mk2_3phase_RFdatalog_temp/config.h', text: configH(m, date) },
       { path: 'Mk2_3phase_RFdatalog_temp/config_system.h', text: configSystemH(m, date) },
@@ -613,9 +617,7 @@
       out.push({ path: `RemoteLoadReceiver-unit${unit}/config.h`, text: receiverConfigH(m, unit, date) });
       out.push({ path: `RemoteLoadReceiver-unit${unit}/config_rf.h`, text: receiverConfigRfH(m, unit, date) });
     }
-    if (m.mk2wifi.enabled && !m.calibrationMode) out.push({ path: `${m.mk2wifi.name || 'mk2pvrouter'}.yaml`, text: Y.yaml(m) });
-    const calibration = m.calibrationMode && calibrationH(m);
-    if (calibration) out.push({ path: 'Mk2_3phase_RFdatalog_temp/calibration.h', text: calibration });
+    if (m.mk2wifi.enabled) out.push({ path: `${m.mk2wifi.name || 'mk2pvrouter'}.yaml`, text: Y.yaml(m) });
     return out;
   }
 
