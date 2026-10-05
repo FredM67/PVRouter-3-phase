@@ -157,7 +157,7 @@ L’étalonnage se fait avec le programme du routeur lui-même : les valeurs so
 
 1. Passez `CALIBRATION_MODE` à `true` dans **config.h** et téléversez : le routeur mesure et affiche comme d’habitude, mais ne commute plus aucune charge (triacs, relais, charges distantes, forçages), ce qui modifierait la puissance mesurée. Il l’annonce au démarrage.
 2. Mesurez la puissance sur la phase 1 avec un appareil de référence (par exemple une pince wattmétrique autour du même câble que la sonde), idéalement avec une forte charge résistive sur cette phase, comme un chauffe-eau.
-3. Comparez-la à `P1` et corrigez la valeur : nouveau `f_powerCal[0]` = ancien `f_powerCal[0]` × puissance de référence / `P1`.
+3. Comparez-la à `P1` et corrigez la valeur : nouveau `f_powerCal[0]` = ancien `f_powerCal[0]` × puissance de référence / `P1`. Le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/) fait ce calcul en mode étalonnage, et peut réécrire votre **calibration.h** avec les nouvelles valeurs.
 4. Recommencez pour les phases 2 et 3, téléversez à nouveau et vérifiez.
 5. Remettez `CALIBRATION_MODE` à `false` et téléversez : le routeur route à nouveau.
 
@@ -183,6 +183,9 @@ La configuration d’une fonctionnalité suit généralement deux étapes :
 - Configuration des paramètres de la fonctionnalité
 
 La cohérence de la configuration est vérifiée lors de la compilation. Par exemple, si une *pin* est allouée deux fois par erreur, le compilateur générera une erreur.
+
+> [!TIP]
+> Le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/) le fait pour vous : choisissez vos charges, relais, unités distantes, broches de commande et options, il les vérifie et écrit `config.h`, `config_system.h`, `config_rf.h`, les fichiers des unités distantes et, avec le module mk2Wifi, le YAML ESPHome. Gardez votre `calibration.h`.
 
 ## Carte-mère : ancienne ou nouvelle
 
@@ -918,6 +921,9 @@ Une valeur négative obligera le routeur à consommer cette puissance depuis le 
 Le module **mk2Wifi** relie un **ESP32-C6** (WiFi 6, Bluetooth LE, Zigbee, Thread) au Mk2PVRouter, pour la supervision et le contrôle à distance depuis Home Assistant via ESPHome. Il se branche sur les connecteurs `UART_EXT` et `TRIG_EXT` de la carte mère et remplace l’ancienne carte d’extension ESP32.
 
 Le matériel, son installation et le dépannage sont documentés sur les [pages mk2Wifi](https://fredm67.github.io/Mk2PVRouter/mk2wifi/presentation-mk2wifi/), et la configuration ESPHome dans [ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Cette section ne traite que du côté routeur.
+
+> [!TIP]
+> Le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/) écrit ensemble le `config.h` du routeur et le YAML ESPHome correspondant, et liste les ponts de soudure à fermer. Ses commandes sont sûres en cas de défaut : le module ne tire une entrée du routeur à l’état bas que pour l’état non par défaut, si bien qu’un fil coupé ou un module qui redémarre laisse le routeur router, sans marche forcée.
 
 > [!CAUTION]
 > Ne branchez jamais l’USB-C du module lorsqu’il est enfiché sur la carte mère : les deux alimentations 5 V ne sont pas isolées.

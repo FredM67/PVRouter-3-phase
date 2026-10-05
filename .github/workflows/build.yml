@@ -83,6 +83,29 @@ jobs:
             echo "| RAM (static) | $RAM | 2048 | $((RAM * 100 / 2048)) |"
           } >> "$GITHUB_STEP_SUMMARY"
 
+  # The configurator (configurator/, published by the Mk2PVRouter documentation): its default choices must give
+  # back the shipped config files, the files it generates must build and be clang-format clean,
+  # and its mk2Wifi YAML must be a valid ESPHome configuration.
+  configurator:
+    name: Configurator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup-platformio
+
+      - name: Unit tests
+        run: node --test configurator/test/*.test.js
+
+      - name: Install clang-format and ESPHome
+        run: pip install clang-format==18.1.8 esphome
+
+      - name: Build the presets
+        run: bash configurator/test/compile-presets.sh
+
+      - name: Check the mk2Wifi YAML
+        run: bash configurator/test/check-yaml.sh
+
   # Native tests: every test under test/native runs in a single job,
   # so a new test is picked up without editing this file.
   test-native:

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PVRouter configurator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1 data-t="title">PVRouter configurator</h1>
+        <p data-t="subtitle"></p>
+      </div>
+      <nav>
+        <button type="button" id="lang"></button>
+        <button type="button" id="save" data-t="save"></button>
+        <label class="button"><span data-t="loadFile"></span><input type="file" id="load" accept=".json,application/json" hidden /></label>
+        <button type="button" id="restore" data-t="restore" data-title="restoreHelp"></button>
+        <button type="button" id="reset" data-t="reset"></button>
+      </nav>
+    </header>
+    <main>
+      <form id="form" autocomplete="off"></form>
+      <aside>
+        <section id="problems-box">
+          <h2 data-t="problems"></h2>
+          <ul id="problems"></ul>
+        </section>
+        <section id="output-box">
+          <h2 data-t="output"></h2>
+          <div id="output"></div>
+        </section>
+      </aside>
+    </main>
+    <footer>
+      <a href="https://fredm67.github.io/Mk2PVRouter/">Documentation</a> ·
+      <a href="https://github.com/FredM67/PVRouter-3-phase">PVRouter-3-phase</a> ·
+      <a href="https://github.com/FredM67/PVRouter-3-phase/blob/main/CHANGELOG.md">Changelog</a>
+    </footer>
+    <script src="model.js"></script>
+    <script src="yaml.js"></script>
+    <script src="generate.js"></script>
+    <script src="validate.js"></script>
+    <script src="i18n.js"></script>
+    <script src="zip.js"></script>
+    <script src="folder.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
