@@ -322,6 +322,7 @@ select {
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin: 0.5rem 0;
 }
@@ -346,6 +347,20 @@ pre {
 .where ul {
   margin: 0.25rem 0;
   padding-left: 1.2rem;
+}
+
+.folder-status {
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0.5rem;
+  white-space: pre-line;
+}
+
+.folder-status.ok {
+  color: var(--ok);
+}
+
+.folder-status.error {
+  color: var(--error);
 }
 
 .blocked {
