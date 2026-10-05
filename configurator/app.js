@@ -992,6 +992,7 @@
       ),
       ...block('power', 'cal.current.power', c.power, c.powerCal, r.powerCal, 5, 'W'),
       ...block('voltage', 'cal.current.voltage', c.voltage, c.voltageCal, r.voltageCal, 4, 'V'),
+      ...calibrationChecks(p),
       h('h3', null, T('cal.lines')),
       lines ? h('pre', { class: 'lines' }, h('code', null, lines.join('\n'))) : h('small', { class: 'help' }, T('cal.linesMissing')),
       changedValues ? row(button('cal.next', calibrationNextRound), h('small', { class: 'help' }, T('cal.nextHelp'))) : null,
@@ -1000,13 +1001,24 @@
     );
   }
 
-  // In calibration mode the side panel is hidden: the checks and the files come here
-  function calibrationFiles(problems) {
+  // In calibration mode the side panel is hidden: the checks come under the readings...
+  function calibrationChecks(problems) {
     const shown = problems.filter((x) => x.key !== 'warn.calibration');
+    return shown.length ? [h('ul', { class: 'problems' }, shown.map((x) => h('li', { class: x.level }, T(x.key, x.params))))] : [];
+  }
+
+  // ...and the files at the end: config.h, which turns the mode on, and the new calibration.h
+  function calibrationFiles(problems) {
     const files = G.files(m);
+    const has = (name) => files.some((f) => f.path.endsWith(`/${name}`));
     return [
       h('h3', null, T('cal.files')),
-      shown.length ? h('ul', { class: 'problems' }, shown.map((x) => h('li', { class: x.level }, T(x.key, x.params)))) : null,
+      h(
+        'ul',
+        { class: 'cal-files' },
+        h('li', null, h('code', null, 'config.h'), T('cal.colon'), T('cal.file.config')),
+        h('li', null, h('code', null, 'calibration.h'), T('cal.colon'), T(has('calibration.h') ? 'cal.file.calibration' : m.calibration.file ? 'cal.file.unchanged' : 'cal.file.none'))
+      ),
       V.hasErrors(problems)
         ? h('p', { class: 'blocked' }, T('outputBlocked'))
         : h(
@@ -1016,7 +1028,6 @@
             h('button', { type: 'button', class: D.supported() ? '' : 'primary', onclick: () => download('pvrouter-config.zip', Z.zip(files), 'application/zip') }, T('downloadAll'))
           ),
       ...statusLine(),
-      h('small', { class: 'help' }, T('cal.filesHelp', { files: files.map((f) => f.path.split('/').pop()).join(', ') })),
     ];
   }
 
@@ -1079,7 +1090,7 @@
     const root = await pickFolder();
     if (!root) return;
     try {
-      const p = await D.prepare(root, files);
+      const p = await D.prepare(root, files, { cleanup: !m.calibrationMode });
       if (p.error) return showStatus('error', p.error, { name: root.name });
       const at = stamp(new Date());
       let text = T('folder.confirm', { name: root.name, files: lines(p.write.map((f) => f.path)) });

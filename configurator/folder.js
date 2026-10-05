@@ -6,7 +6,7 @@
  * what it creates, so that the last save can be undone. Receiver copies of remote units that are
  * no longer used are moved into the backup too.
  *
- * prepare(root, files)  -> { error } or { place, write, skip, stale, units }
+ * prepare(root, files, { cleanup }) -> { error } or { place, write, skip, stale, units }
  * save(prepared, stamp) -> the backup's path
  * lastBackup(root)      -> { error } or { place, dir, name, manifest }
  * restore(backup)
@@ -72,7 +72,8 @@
     return null;
   }
 
-  async function prepare(root, files) {
+  // cleanup: false when the files are not the whole installation (calibration mode)
+  async function prepare(root, files, { cleanup = true } = {}) {
     const place = await locate(root);
     if (!place) return { error: 'folder.wrong' };
 
@@ -87,7 +88,8 @@
         place.receiver = await child(place.top, RECEIVER, 'directory');
         if (!place.receiver || !(await child(place.receiver, `${RECEIVER}.ino`, 'file'))) return { error: 'folder.noReceiver' };
       }
-      for await (const [name, handle] of place.top.entries()) if (handle.kind === 'directory' && UNIT.test(name) && !units.includes(name)) stale.push(name);
+      if (cleanup)
+        for await (const [name, handle] of place.top.entries()) if (handle.kind === 'directory' && UNIT.test(name) && !units.includes(name)) stale.push(name);
       stale = stale.sort();
     }
     return { place, write, skip, stale, units };
