@@ -67,7 +67,8 @@ test('the extracted firmware folder: everything is saved, calibration.h is kept'
   assert.strictEqual(content(root, 'Mk2_3phase_RFdatalog_temp/config.h'), 'new');
   assert.strictEqual(content(root, 'Mk2_3phase_RFdatalog_temp/config_system.h'), 'system');
   assert.strictEqual(content(root, 'Mk2_3phase_RFdatalog_temp/calibration.h'), 'mine');
-  assert.strictEqual(content(root, 'RemoteLoadReceiver-unit1/RemoteLoadReceiver.ino'), 'rx ino');
+  assert.strictEqual(content(root, 'RemoteLoadReceiver-unit1/RemoteLoadReceiver-unit1.ino'), 'rx ino');
+  assert.ok(!root.items.get('RemoteLoadReceiver-unit1').items.has('RemoteLoadReceiver.ino'));
   assert.strictEqual(content(root, 'RemoteLoadReceiver-unit1/receiver.cpp'), 'rx');
   assert.strictEqual(content(root, 'RemoteLoadReceiver-unit1/config.h'), 'unit 1');
   assert.strictEqual(content(root, 'RemoteLoadReceiver-unit1/config_rf.h'), 'unit 1 rf');

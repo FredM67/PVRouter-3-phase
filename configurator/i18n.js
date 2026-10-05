@@ -161,7 +161,7 @@
       'folder.partial': 'Saved in "{name}": {n} files. Not saved, since only the router folder was chosen: {files}. Choose the folder above it, or download them.',
       'folder.error': 'Saving failed: {error}',
       'where.router': 'into the Mk2_3phase_RFdatalog_temp folder, replacing the files of the same name. Keep your calibration.h.',
-      'where.unit': 'into a copy of the RemoteLoadReceiver folder, one per unit.',
+      'where.unit': 'into a copy of the RemoteLoadReceiver folder per unit, named RemoteLoadReceiver-unitN, with its .ino renamed the same way (the Arduino IDE wants them to match).',
       'where.yaml': 'into ESPHome (dashboard or command line), with a secrets.yaml.',
 
       // problems (validate.js)
@@ -383,7 +383,7 @@
       'folder.partial': 'Enregistré dans « {name} » : {n} fichiers. Non enregistrés, car seul le dossier du routeur a été choisi : {files}. Choisissez le dossier au-dessus, ou téléchargez-les.',
       'folder.error': 'L’enregistrement a échoué : {error}',
       'where.router': 'dans le dossier Mk2_3phase_RFdatalog_temp, à la place des fichiers du même nom. Gardez votre calibration.h.',
-      'where.unit': 'dans une copie du dossier RemoteLoadReceiver, une par unité.',
+      'where.unit': 'dans une copie du dossier RemoteLoadReceiver par unité, nommée RemoteLoadReceiver-unitN, avec son .ino renommé de la même façon (l’Arduino IDE veut qu’ils correspondent).',
       'where.yaml': 'dans ESPHome (tableau de bord ou ligne de commande), avec un secrets.yaml.',
 
       'err.frequency': 'La fréquence du réseau doit être de 50 ou 60 Hz.',
