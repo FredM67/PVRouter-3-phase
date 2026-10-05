@@ -358,6 +358,10 @@ pre {
   max-height: 55vh;
 }
 
+pre.lines {
+  min-height: 0;
+}
+
 .where {
   font-size: 0.85rem;
 }
