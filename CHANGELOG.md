@@ -72,6 +72,11 @@ valid load maps ([#160]).
 
 ### Fixed
 
+- **Remote load receiver with the Arduino IDE:** it did not build (`utils_pins.h: No such
+  file or directory`), since it took `utils_pins.h` and `utils_bits.h` from the router's folder,
+  which only PlatformIO could see. The receiver now has its own copies, checked against the
+  router's by CI, which also builds the receiver with the Arduino CLI. Its README explains the
+  Arduino IDE setup and the one-copy-per-unit layout.
 - **Stuck relay:** a relay forced by an override pin could stay ON for good after the override
   was released ([#179]).
 - **Dual tariff:** automatic forcing never triggered, and the temperature threshold was ignored
