@@ -19,7 +19,7 @@ No build step, no dependency: plain scripts that also load in Node for the tests
 | `yaml.js`     | model → the ESPHome YAML (fail-safe controls, sensors of what is sent)   |
 | `i18n.js`     | English and French texts of the page                                     |
 | `zip.js`      | "download all"                                                           |
-| `folder.js`   | "save into the firmware folder" (File System Access API: Chrome, Edge)   |
+| `folder.js`   | "save into the firmware folder" with a backup, and its undo (Chrome, Edge) |
 | `app.js`      | the page                                                                 |
 
 ## Keeping it in sync with the firmware
