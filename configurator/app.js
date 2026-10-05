@@ -48,6 +48,7 @@
   }
 
   function changed() {
+    folderStatus = null; // it described the files before this change
     try {
       localStorage.setItem(STORE, JSON.stringify({ model: m, lang }));
     } catch (e) {
@@ -988,8 +989,29 @@
       h('h3', null, T('cal.lines')),
       lines ? h('pre', null, h('code', null, lines.join('\n'))) : h('small', { class: 'help' }, T('cal.linesMissing')),
       changedValues ? row(button('cal.next', calibrationNextRound), h('small', { class: 'help' }, T('cal.nextHelp'))) : null,
+      ...calibrationFiles(p),
       h('p', { class: 'help' }, T('cal.hidden'))
     );
+  }
+
+  // In calibration mode the side panel is hidden: the checks and the files come here
+  function calibrationFiles(problems) {
+    const shown = problems.filter((x) => x.key !== 'warn.calibration');
+    const files = G.files(m);
+    return [
+      h('h3', null, T('cal.files')),
+      shown.length ? h('ul', { class: 'problems' }, shown.map((x) => h('li', { class: x.level }, T(x.key, x.params)))) : null,
+      V.hasErrors(problems)
+        ? h('p', { class: 'blocked' }, T('outputBlocked'))
+        : h(
+            'div',
+            { class: 'actions' },
+            D.supported() ? h('button', { type: 'button', class: 'primary', title: T('saveToFolderHelp'), onclick: () => saveToFolder(files) }, T('saveToFolder')) : null,
+            h('button', { type: 'button', class: D.supported() ? '' : 'primary', onclick: () => download('pvrouter-config.zip', Z.zip(files), 'application/zip') }, T('downloadAll'))
+          ),
+      ...statusLine(),
+      h('small', { class: 'help' }, T('cal.filesHelp', { files: files.map((f) => f.path.split('/').pop()).join(', ') })),
+    ];
   }
 
   // ---- problems and files ----
@@ -1037,7 +1059,8 @@
 
   function showStatus(level, key, params) {
     folderStatus = { level, text: T(key, params) };
-    renderOutput(V.validate(m));
+    if (m.calibrationMode) render(); // shown in the calibration section, the side panel is hidden
+    else renderOutput(V.validate(m));
   }
 
   const stamp = (d) => {
@@ -1165,13 +1188,13 @@
     document.title = T('title');
     document.getElementById('lang').textContent = T('language');
     const problems = V.validate(m);
-    folderStatus = null; // it described the files before this change
     const scroll = window.scrollY;
     // In calibration mode, only what calibration needs, plus the sections with an error to fix
     const all = [general, loads, relays, controls, dualTariff, temperature, mk2wifi, rf, units];
     const withError = (s) => problems.some((x) => x.level === 'error' && sectionOf(x.field) === s.name);
     const shown = m.calibrationMode ? [general, calibration, ...all.slice(1).filter(withError)] : all;
     document.getElementById('form').replaceChildren(...shown.map((s) => s(problems)).filter(Boolean));
+    document.querySelector('main').classList.toggle('calibrating', m.calibrationMode);
     window.scrollTo(0, scroll);
     renderProblems(problems);
     renderOutput(problems);

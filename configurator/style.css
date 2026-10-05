@@ -88,6 +88,16 @@ main {
   }
 }
 
+/* calibration mode: the form alone, the checks and the files are in its section */
+main.calibrating {
+  grid-template-columns: minmax(0, 60rem);
+  justify-content: center;
+}
+
+main.calibrating aside {
+  display: none;
+}
+
 aside {
   position: sticky;
   top: 1rem;
@@ -263,7 +273,8 @@ select {
   padding: 0.4rem 0.6rem;
 }
 
-#problems {
+#problems,
+.problems {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -271,7 +282,8 @@ select {
   overflow: auto;
 }
 
-#problems li {
+#problems li,
+.problems li {
   padding: 0.3rem 0.5rem;
   margin: 0.2rem 0;
   border-left: 3px solid;
@@ -279,14 +291,20 @@ select {
   cursor: pointer;
 }
 
-#problems li.error {
+#problems li.error,
+.problems li.error {
   border-color: var(--error);
   color: var(--error);
 }
 
-#problems li.warning {
+#problems li.warning,
+.problems li.warning {
   border-color: var(--warning);
   color: var(--warning);
+}
+
+.problems li {
+  cursor: default;
 }
 
 #problems li.group {
