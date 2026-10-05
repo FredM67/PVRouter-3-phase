@@ -10,11 +10,13 @@
   const G = window.PVRGenerate;
   const I = window.PVRI18n;
   const Z = window.PVRZip;
+  const D = window.PVRFolder;
 
   const STORE = 'pvrouter-configurator';
   let m = M.defaults();
   let lang = (navigator.language || 'en').toLowerCase().startsWith('fr') ? 'fr' : 'en';
   let activeFile = 0;
+  let folderStatus = null; // { level: 'ok' | 'error', text } after saving into a folder
 
   try {
     const saved = JSON.parse(localStorage.getItem(STORE) || 'null');
@@ -940,6 +942,31 @@
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
+  // Into the firmware folder picked by the user (Chrome, Edge); calibration.h is never written
+  async function saveToFolder(files, problems) {
+    let root;
+    try {
+      root = await window.showDirectoryPicker({ id: 'pvrouter-firmware', mode: 'readwrite' });
+    } catch (e) {
+      return; // cancelled
+    }
+    const show = (level, key, params) => {
+      folderStatus = { level, text: T(key, params) };
+      renderOutput(problems);
+    };
+    try {
+      const p = await D.prepare(root, files);
+      if (p.error) return show('error', p.error, { name: root.name });
+      const list = (fs) => fs.map((f) => `  ${f.path}`).join('\n');
+      if (!window.confirm(T('folder.confirm', { name: root.name, files: list(p.write) }))) return;
+      await D.save(p);
+      if (p.skip.length) show('ok', 'folder.partial', { name: root.name, n: p.write.length, files: p.skip.map((f) => f.path).join(', ') });
+      else show('ok', 'folder.done', { name: root.name, n: p.write.length });
+    } catch (e) {
+      show('error', 'folder.error', { error: e.message });
+    }
+  }
+
   function renderOutput(problems) {
     const box = document.getElementById('output');
     if (V.hasErrors(problems)) {
@@ -987,8 +1014,10 @@
         { class: 'actions' },
         copyBtn,
         h('button', { type: 'button', onclick: () => download(base(f.path), f.text, 'text/plain') }, T('download')),
-        h('button', { type: 'button', class: 'primary', onclick: () => download('pvrouter-config.zip', Z.zip(files), 'application/zip') }, T('downloadAll'))
+        D.supported() ? h('button', { type: 'button', class: 'primary', title: T('saveToFolderHelp'), onclick: () => saveToFolder(files, problems) }, T('saveToFolder')) : null,
+        h('button', { type: 'button', class: D.supported() ? '' : 'primary', onclick: () => download('pvrouter-config.zip', Z.zip(files), 'application/zip') }, T('downloadAll'))
       ),
+      folderStatus ? h('p', { class: `folder-status ${folderStatus.level}` }, folderStatus.text) : null,
       h('pre', null, h('code', null, f.text)),
       h(
         'div',
@@ -1011,6 +1040,7 @@
     document.title = T('title');
     document.getElementById('lang').textContent = T('language');
     const problems = V.validate(m);
+    folderStatus = null; // it described the files before this change
     const scroll = window.scrollY;
     document.getElementById('form').replaceChildren(
       ...[general, loads, relays, controls, dualTariff, temperature, mk2wifi, rf, units].map((s) => s(problems)).filter(Boolean)

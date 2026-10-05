@@ -152,6 +152,14 @@
       download: 'Download',
       downloadAll: 'Download all (ZIP)',
       where: 'Where the files go',
+      saveToFolder: 'Save into the firmware folder…',
+      saveToFolderHelp: 'Choose the extracted firmware folder, the one holding Mk2_3phase_RFdatalog_temp and RemoteLoadReceiver. calibration.h is never touched.',
+      'folder.wrong': '"{name}" is not the firmware folder: choose the one holding Mk2_3phase_RFdatalog_temp (or that folder itself). Nothing was written.',
+      'folder.noReceiver': 'No RemoteLoadReceiver folder next to Mk2_3phase_RFdatalog_temp in "{name}": the remote units cannot be saved. Nothing was written.',
+      'folder.confirm': 'These files will be written in "{name}", replacing those of the same name (calibration.h is kept):\n\n{files}\n\nContinue?',
+      'folder.done': 'Saved in "{name}": {n} files. Build and upload as usual.',
+      'folder.partial': 'Saved in "{name}": {n} files. Not saved, since only the router folder was chosen: {files}. Choose the folder above it, or download them.',
+      'folder.error': 'Saving failed: {error}',
       'where.router': 'into the Mk2_3phase_RFdatalog_temp folder, replacing the files of the same name. Keep your calibration.h.',
       'where.unit': 'into a copy of the RemoteLoadReceiver folder, one per unit.',
       'where.yaml': 'into ESPHome (dashboard or command line), with a secrets.yaml.',
@@ -366,6 +374,14 @@
       download: 'Télécharger',
       downloadAll: 'Tout télécharger (ZIP)',
       where: 'Où vont les fichiers',
+      saveToFolder: 'Enregistrer dans le dossier du firmware…',
+      saveToFolderHelp: 'Choisissez le dossier du firmware décompressé, celui qui contient Mk2_3phase_RFdatalog_temp et RemoteLoadReceiver. calibration.h n’est jamais modifié.',
+      'folder.wrong': '« {name} » n’est pas le dossier du firmware : choisissez celui qui contient Mk2_3phase_RFdatalog_temp (ou ce dossier lui-même). Rien n’a été écrit.',
+      'folder.noReceiver': 'Pas de dossier RemoteLoadReceiver à côté de Mk2_3phase_RFdatalog_temp dans « {name} » : impossible d’enregistrer les unités distantes. Rien n’a été écrit.',
+      'folder.confirm': 'Ces fichiers vont être écrits dans « {name} », à la place de ceux du même nom (calibration.h est conservé) :\n\n{files}\n\nContinuer ?',
+      'folder.done': 'Enregistré dans « {name} » : {n} fichiers. Compilez et téléversez comme d’habitude.',
+      'folder.partial': 'Enregistré dans « {name} » : {n} fichiers. Non enregistrés, car seul le dossier du routeur a été choisi : {files}. Choisissez le dossier au-dessus, ou téléchargez-les.',
+      'folder.error': 'L’enregistrement a échoué : {error}',
       'where.router': 'dans le dossier Mk2_3phase_RFdatalog_temp, à la place des fichiers du même nom. Gardez votre calibration.h.',
       'where.unit': 'dans une copie du dossier RemoteLoadReceiver, une par unité.',
       'where.yaml': 'dans ESPHome (tableau de bord ou ligne de commande), avec un secrets.yaml.',
@@ -437,8 +453,8 @@
     },
   };
 
-  // French typography: a no-break space before : ; ! ? (typed as a plain space above)
-  const typo = (lang, s) => (lang === 'fr' ? s.replace(/ ([:;!?])/g, ' $1') : s);
+  // French typography: a no-break space before : ; ! ? and inside « » (typed as a plain space above)
+  const typo = (lang, s) => (lang === 'fr' ? s.replace(/ ([:;!?»])/g, ' $1').replace(/« /g, '« ') : s);
 
   function t(lang, key, params) {
     const table = STRINGS[lang] || STRINGS.en;
