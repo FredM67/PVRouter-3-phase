@@ -32,6 +32,26 @@
     if (!M.PCB_VERSIONS.includes(m.pcbVersion)) error('err.pcbVersion', 'pcbVersion');
     if (m.calibrationMode) warning('warn.calibration', 'calibrationMode');
 
+    // ---- calibration helper: readings that would give a wrong correction ----
+    if (m.calibrationMode) {
+      const c = m.calibration;
+      for (const [kind, readings, current] of [
+        ['power', c.power, c.powerCal],
+        ['voltage', c.voltage, c.voltageCal],
+      ]) {
+        readings.forEach(({ router, meter }, i) => {
+          const params = { phase: i + 1 };
+          if (router === null || meter === null) return;
+          if (kind === 'power' && router <= 0) return warning('warn.calProbe', 'calibration', params);
+          if (router <= 0 || meter <= 0) return warning('warn.calReading', 'calibration', params);
+          if (!(current[i] > 0)) return warning('warn.calCurrent', 'calibration', params);
+          if (kind === 'power' && router < 300) warning('warn.calLowPower', 'calibration', params);
+          const ratio = meter / router;
+          if (ratio < 0.5 || ratio > 2) warning('warn.calRatio', 'calibration', { ...params, ratio: ratio.toFixed(2) });
+        });
+      }
+    }
+
     // ---- load map ----
     const n = m.loads.length;
     if (n < 1) error('err.noLoad', 'loads');

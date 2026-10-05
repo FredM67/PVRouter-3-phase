@@ -99,6 +99,11 @@ const CASES = [
   ['err.wifiPin', (m) => (m.mk2wifi.enabled = true) && (m.diversion = { enabled: true, pin: 3, wifi: true })],
   ['warn.wifiKeepOpen', (m) => (m.mk2wifi.enabled = true) && (m.serialOutput = 'IoT')],
   ['warn.calibration', (m) => (m.calibrationMode = true)],
+  ['warn.calProbe', (m) => (m.calibrationMode = true) && (m.calibration.power[0] = { router: -1500, meter: 1500 })],
+  ['warn.calCurrent', (m) => (m.calibrationMode = true) && (m.calibration.power[0] = { router: 1500, meter: 1500 })],
+  ['warn.calLowPower', (m) => (m.calibrationMode = true) && (m.calibration.powerCal = [0.05, 0.05, 0.05]) && (m.calibration.power[1] = { router: 100, meter: 105 })],
+  ['warn.calRatio', (m) => (m.calibrationMode = true) && (m.calibration.voltageCal = [0.8, 0.8, 0.8]) && (m.calibration.voltage[2] = { router: 100, meter: 230 })],
+  ['warn.calReading', (m) => (m.calibrationMode = true) && (m.calibration.voltage[0] = { router: 230, meter: 0 })],
 ];
 
 CASES.forEach(([key, change], i) => {

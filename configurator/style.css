@@ -349,6 +349,18 @@ pre {
   padding-left: 1.2rem;
 }
 
+output {
+  display: inline-block;
+  min-width: 6rem;
+  padding: 0.3rem 0;
+  font-family: ui-monospace, monospace;
+}
+
+output.changed {
+  color: var(--ok);
+  font-weight: 600;
+}
+
 .folder-status {
   font-size: 0.85rem;
   margin: 0.25rem 0 0.5rem;

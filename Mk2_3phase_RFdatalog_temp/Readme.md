@@ -157,7 +157,7 @@ L’étalonnage se fait avec le programme du routeur lui-même : les valeurs so
 
 1. Passez `CALIBRATION_MODE` à `true` dans **config.h** et téléversez : le routeur mesure et affiche comme d’habitude, mais ne commute plus aucune charge (triacs, relais, charges distantes, forçages), ce qui modifierait la puissance mesurée. Il l’annonce au démarrage.
 2. Mesurez la puissance sur la phase 1 avec un appareil de référence (par exemple une pince wattmétrique autour du même câble que la sonde), idéalement avec une forte charge résistive sur cette phase, comme un chauffe-eau.
-3. Comparez-la à `P1` et corrigez la valeur : nouveau `f_powerCal[0]` = ancien `f_powerCal[0]` × puissance de référence / `P1`.
+3. Comparez-la à `P1` et corrigez la valeur : nouveau `f_powerCal[0]` = ancien `f_powerCal[0]` × puissance de référence / `P1`. Le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/) fait ce calcul en mode étalonnage, et peut réécrire votre **calibration.h** avec les nouvelles valeurs.
 4. Recommencez pour les phases 2 et 3, téléversez à nouveau et vérifiez.
 5. Remettez `CALIBRATION_MODE` à `false` et téléversez : le routeur route à nouveau.
 

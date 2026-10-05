@@ -96,3 +96,50 @@ test('override pins: a comment says what each one forces, numbered as on the pag
   assert.match(text, /^\/\/ {3}D5: load 1 \(remote unit 1\)\n\/\/ {3}D9: load 2 \(D6\), relay 1 \(D8\)\n\/\/ {3}A0: all remote loads\ninline constexpr OverridePins/m);
   assert.doesNotMatch(G.configH(M.defaults()), /What each override pin forces/);
 });
+
+const calibrationFile = () => fs.readFileSync(path.join(repo, 'Mk2_3phase_RFdatalog_temp/calibration.h'), 'utf8');
+
+test('calibration: new value = current value x meter / router, phase by phase', () => {
+  const m = M.defaults();
+  Object.assign(m.calibration, { powerCal: [0.05, 0.05, 0.05], voltageCal: [0.8151, 0.8184, 0.8195] });
+  m.calibration.power[0] = { router: 2000, meter: 2100 };
+  m.calibration.voltage[2] = { router: 232, meter: 230 };
+  const r = M.calibrationResult(m);
+  assert.deepStrictEqual(
+    r.powerCal.map((v) => v.toFixed(5)),
+    ['0.05250', '0.05000', '0.05000']
+  );
+  assert.strictEqual(r.voltageCal[2].toFixed(4), '0.8124');
+  assert.deepStrictEqual(G.calibrationLines(m), [
+    'inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05250F, 0.05000F, 0.05000F };',
+    'inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8124F };',
+  ]);
+});
+
+test('calibration: the loaded calibration.h gets only the changed values', () => {
+  const m = M.defaults();
+  m.calibrationMode = true;
+  const text = calibrationFile();
+  Object.assign(m.calibration, { file: text, ...M.parseCalibration(text) });
+  assert.strictEqual(G.calibrationH(m), null, 'nothing changes without readings');
+  assert.ok(!G.files(m).some((f) => f.path.endsWith('calibration.h')));
+
+  m.calibration.power[1] = { router: 1000, meter: 1010 };
+  const out = G.calibrationH(m);
+  assert.strictEqual(out, text.replace('{ 0.05000F, 0.05000F, 0.05000F }', '{ 0.05000F, 0.05050F, 0.05000F }'));
+  assert.ok(G.files(m).some((f) => f.path === 'Mk2_3phase_RFdatalog_temp/calibration.h' && f.text === out));
+  m.calibrationMode = false;
+  assert.ok(!G.files(m).some((f) => f.path.endsWith('calibration.h')), 'only in calibration mode');
+});
+
+test('calibration: a commented-out line is not the one read or rewritten', () => {
+  const text = '// inline constexpr float f_powerCal[NO_OF_PHASES]{ 1.0F, 1.0F, 1.0F };\n' + calibrationFile();
+  assert.deepStrictEqual(M.parseCalibration(text).powerCal, [0.05, 0.05, 0.05]);
+  const m = M.defaults();
+  m.calibrationMode = true;
+  Object.assign(m.calibration, { file: text, ...M.parseCalibration(text) });
+  m.calibration.power[0] = { router: 500, meter: 1000 };
+  assert.ok(G.calibrationH(m).startsWith('// inline constexpr float f_powerCal[NO_OF_PHASES]{ 1.0F, 1.0F, 1.0F };\n'));
+  assert.match(G.calibrationH(m), /^inline constexpr float f_powerCal\[NO_OF_PHASES\]\{ 0\.10000F, 0\.05000F, 0\.05000F \};/m);
+  assert.strictEqual(M.parseCalibration('int a;'), null);
+});
