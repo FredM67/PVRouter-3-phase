@@ -174,6 +174,7 @@
       rf: 'rf',
       units: 'units',
       mk2wifi: 'mk2wifi',
+      calibration: 'calibration',
     };
     return map[head] || (head === 'pins' ? '' : 'general');
   }
@@ -194,6 +195,12 @@
         ),
         'pcbVersionHelp'
       ),
+      check(
+        () => m.calibrationMode,
+        (v) => (m.calibrationMode = v),
+        'calibrationMode',
+        'calibrationModeHelp'
+      ),
       field(
         'serialOutput',
         select(
@@ -210,12 +217,6 @@
             'enableDebugHelp'
           )
         : null,
-      check(
-        () => m.calibrationMode,
-        (v) => (m.calibrationMode = v),
-        'calibrationMode',
-        'calibrationModeHelp'
-      ),
       row(
         field(
           'supplyFrequency',
@@ -909,6 +910,88 @@
     );
   }
 
+  // ---- calibration helper (calibration mode) ----
+
+  async function loadCalibration(e) {
+    const file = e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    const text = await file.text();
+    const values = M.parseCalibration(text);
+    if (!values) return alert(T('cal.badFile', { name: file.name }));
+    Object.assign(m.calibration, { file: text, fileName: file.name, powerCal: values.powerCal, voltageCal: values.voltageCal });
+    changed();
+  }
+
+  // The router now runs with the new values: they become the current ones, for another round
+  function calibrationNextRound() {
+    const c = m.calibration;
+    const r = M.calibrationResult(m);
+    c.file = G.calibrationH(m) || c.file;
+    c.powerCal = r.powerCal;
+    c.voltageCal = r.voltageCal;
+    for (const x of [...c.power, ...c.voltage]) x.router = x.meter = null;
+    changed();
+  }
+
+  function calibration(p) {
+    const c = m.calibration;
+    const r = M.calibrationResult(m);
+    const shown = (v, decimals) => (v > 0 ? v.toFixed(decimals) : '—');
+    const block = (kind, currentKey, readings, current, result, decimals, unit) => [
+      h('h3', null, T(`cal.${kind}`)),
+      ...readings.map((x, i) =>
+        row(
+          h('strong', null, `${T('cal.phase')} ${i + 1}`),
+          field(
+            currentKey,
+            num(
+              () => current[i],
+              (v) => (current[i] = v),
+              { step: 'any', min: 0 }
+            )
+          ),
+          field(
+            `cal.router.${kind}`,
+            num(
+              () => x.router,
+              (v) => (x.router = v),
+              { step: 'any' }
+            )
+          ),
+          field(
+            `cal.meter.${kind}`,
+            num(
+              () => x.meter,
+              (v) => (x.meter = v),
+              { step: 'any' }
+            )
+          ),
+          field('cal.new', h('output', { class: result[i] !== current[i] ? 'changed' : '' }, shown(result[i], decimals)))
+        )
+      ),
+      h('small', { class: 'help' }, T(`cal.${kind}Help`, { unit })),
+    ];
+    const lines = G.calibrationLines(m);
+    const changedValues = r.powerCal.some((v, i) => v !== c.powerCal[i]) || r.voltageCal.some((v, i) => v !== c.voltageCal[i]);
+    return section(
+      'calibration',
+      'sec.calibration',
+      p,
+      h('p', { class: 'help' }, T('cal.intro')),
+      row(
+        h('label', { class: 'button' }, h('span', null, T('cal.loadFile')), h('input', { type: 'file', accept: '.h,text/plain', hidden: true, onchange: loadCalibration })),
+        h('small', { class: 'help' }, c.fileName ? T('cal.fileLoaded', { name: c.fileName }) : T('cal.noFile'))
+      ),
+      ...block('power', 'cal.current.power', c.power, c.powerCal, r.powerCal, 5, 'W'),
+      ...block('voltage', 'cal.current.voltage', c.voltage, c.voltageCal, r.voltageCal, 4, 'V'),
+      h('h3', null, T('cal.lines')),
+      lines ? h('pre', null, h('code', null, lines.join('\n'))) : h('small', { class: 'help' }, T('cal.linesMissing')),
+      changedValues ? row(button('cal.next', calibrationNextRound), h('small', { class: 'help' }, T('cal.nextHelp'))) : null,
+      h('p', { class: 'help' }, T('cal.hidden'))
+    );
+  }
+
   // ---- problems and files ----
 
   function renderProblems(problems) {
@@ -1067,6 +1150,7 @@
           'ul',
           null,
           h('li', null, h('code', null, 'Mk2_3phase_RFdatalog_temp/'), ' ', T('where.router')),
+          files.some((x) => x.path.endsWith('/calibration.h')) ? h('li', null, h('code', null, 'calibration.h'), ' ', T('where.calibration')) : null,
           M.remoteUnitsUsed(m) ? h('li', null, h('code', null, 'RemoteLoadReceiver-unitN/'), ' ', T('where.unit')) : null,
           m.mk2wifi.enabled ? h('li', null, h('code', null, '*.yaml'), ' ', T('where.yaml')) : null
         )
@@ -1083,9 +1167,11 @@
     const problems = V.validate(m);
     folderStatus = null; // it described the files before this change
     const scroll = window.scrollY;
-    document.getElementById('form').replaceChildren(
-      ...[general, loads, relays, controls, dualTariff, temperature, mk2wifi, rf, units].map((s) => s(problems)).filter(Boolean)
-    );
+    // In calibration mode, only what calibration needs, plus the sections with an error to fix
+    const all = [general, loads, relays, controls, dualTariff, temperature, mk2wifi, rf, units];
+    const withError = (s) => problems.some((x) => x.level === 'error' && sectionOf(x.field) === s.name);
+    const shown = m.calibrationMode ? [general, calibration, ...all.slice(1).filter(withError)] : all;
+    document.getElementById('form').replaceChildren(...shown.map((s) => s(problems)).filter(Boolean));
     window.scrollTo(0, scroll);
     renderProblems(problems);
     renderOutput(problems);

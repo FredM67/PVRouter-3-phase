@@ -566,6 +566,43 @@
 
   // ---- all files for a model: [{ path, text }] ----
 
+  // ---- calibration.h ----
+
+  // As calibration.h writes them: 0.05000F, 0.8151F
+  const CAL_DECIMALS = { f_powerCal: 5, f_voltageCal: 4 };
+  const calValue = (name, v) => `${v.toFixed(CAL_DECIMALS[name])}F`;
+
+  // The lines to paste into calibration.h, or null while a current value is missing
+  function calibrationLines(m) {
+    const r = M.calibrationResult(m);
+    const line = (name, values) => (values.every((v) => v > 0) ? `inline constexpr float ${name}[NO_OF_PHASES]{ ${values.map((v) => calValue(name, v)).join(', ')} };` : null);
+    const lines = [line('f_powerCal', r.powerCal), line('f_voltageCal', r.voltageCal)];
+    return lines.every(Boolean) ? lines : null;
+  }
+
+  // The user's calibration.h with the corrected values, the rest untouched; null without a
+  // loaded file or when nothing changes
+  function calibrationH(m) {
+    let text = m.calibration.file;
+    if (!text) return null;
+    const r = M.calibrationResult(m);
+    let changed = false;
+    for (const [name, values] of [
+      ['f_voltageCal', r.voltageCal],
+      ['f_powerCal', r.powerCal],
+    ]) {
+      const a = M.calibrationArray(text, name);
+      if (!a) return null;
+      // from the last token, so the positions of the others stay valid
+      for (let i = a.tokens.length - 1; i >= 0; --i) {
+        if (!(values[i] > 0) || Math.abs(values[i] - a.values[i]) < 1e-9) continue;
+        text = text.slice(0, a.tokens[i].start) + calValue(name, values[i]) + text.slice(a.tokens[i].end);
+        changed = true;
+      }
+    }
+    return changed ? text : null;
+  }
+
   function files(m, date) {
     const out = [
       { path: 'Mk2_3phase_RFdatalog_temp/config.h', text: configH(m, date) },
@@ -577,8 +614,10 @@
       out.push({ path: `RemoteLoadReceiver-unit${unit}/config_rf.h`, text: receiverConfigRfH(m, unit, date) });
     }
     if (m.mk2wifi.enabled) out.push({ path: `${m.mk2wifi.name || 'mk2pvrouter'}.yaml`, text: Y.yaml(m) });
+    const calibration = m.calibrationMode && calibrationH(m);
+    if (calibration) out.push({ path: 'Mk2_3phase_RFdatalog_temp/calibration.h', text: calibration });
     return out;
   }
 
-  return { render, configH, configSystemH, configRfH, receiverConfigH, receiverConfigRfH, files };
+  return { render, configH, configSystemH, configRfH, receiverConfigH, receiverConfigRfH, calibrationLines, calibrationH, files };
 });

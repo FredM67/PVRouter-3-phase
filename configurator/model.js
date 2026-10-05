@@ -40,6 +40,7 @@
   const RF_FREQUENCIES = ['RF69_433MHZ', 'RF69_868MHZ', 'RF69_915MHZ'];
   const OVERRIDE_GROUPS = ['ALL_LOADS', 'ALL_LOCAL_LOADS', 'ALL_REMOTE_LOADS', 'ALL_RELAYS', 'ALL_LOADS_AND_RELAYS'];
   const TEMP_MODES = ['off', 'router', 'esp'];
+  const PHASES = 3; // NO_OF_PHASES of the 3-phase firmware
 
   function defaults() {
     return {
@@ -50,6 +51,16 @@
       serialOutput: 'HumanReadable',
       enableDebug: true,
       calibrationMode: false,
+
+      // calibration helper, in calibration mode: new value = current value x meter / router
+      calibration: {
+        file: null, // the user's calibration.h, as loaded: the new values are written into it
+        fileName: '',
+        powerCal: [null, null, null], // f_powerCal the router runs with
+        voltageCal: [null, null, null], // f_voltageCal the router runs with
+        power: [0, 1, 2].map(() => ({ router: null, meter: null })), // W, P1..P3
+        voltage: [0, 1, 2].map(() => ({ router: null, meter: null })), // V, V1..V3
+      },
 
       // config_system.h
       requiredExport: 20,
@@ -157,6 +168,43 @@
     return m;
   }
 
+  // ---- calibration.h ----
+
+  // The active (not commented out) 'name[NO_OF_PHASES]{ a, b, c }' of calibration.h:
+  // { values, tokens: [{ start, end }] } with positions in the text, or null
+  function calibrationArray(text, name) {
+    const re = new RegExp(`\\b${name}\\s*\\[\\s*NO_OF_PHASES\\s*\\]\\s*\\{([^}]*)\\}`, 'g');
+    for (let r; (r = re.exec(text)); ) {
+      const lineStart = text.lastIndexOf('\n', r.index) + 1;
+      if (text.slice(lineStart, r.index).includes('//')) continue;
+      const tokens = [];
+      const listStart = r.index + r[0].indexOf('{') + 1;
+      const tokenRe = /[^,\s][^,]*?(?=\s*(,|$))/g;
+      for (let t; (t = tokenRe.exec(r[1])); ) tokens.push({ start: listStart + t.index, end: listStart + t.index + t[0].length, text: t[0] });
+      const values = tokens.map((t) => parseFloat(t.text));
+      if (values.length !== PHASES || !values.every(Number.isFinite)) return null;
+      return { values, tokens };
+    }
+    return null;
+  }
+
+  function parseCalibration(text) {
+    const power = calibrationArray(text, 'f_powerCal');
+    const voltage = calibrationArray(text, 'f_voltageCal');
+    return power && voltage ? { powerCal: power.values, voltageCal: voltage.values } : null;
+  }
+
+  // The corrected values: current x meter / router, for each phase with both readings
+  function calibrationResult(m) {
+    const c = m.calibration;
+    const fix = (current, readings) =>
+      current.map((cur, i) => {
+        const { router, meter } = readings[i];
+        return cur > 0 && router > 0 && meter > 0 ? (cur * meter) / router : cur;
+      });
+    return { powerCal: fix(c.powerCal, c.power), voltageCal: fix(c.voltageCal, c.voltage) };
+  }
+
   // ---- derived values, shared by the validator, the generator and the page ----
 
   const remoteUnitsUsed = (m) => {
@@ -245,6 +293,7 @@
     RF_FREQUENCIES,
     OVERRIDE_GROUPS,
     TEMP_MODES,
+    PHASES,
     defaults,
     normalize,
     clone,
@@ -259,6 +308,9 @@
     wifiInputs,
     parseAddress,
     crc8,
+    calibrationArray,
+    parseCalibration,
+    calibrationResult,
     resizeLoads,
     resizeRelays,
   };
