@@ -218,6 +218,8 @@
   const rfChipPresent = (m) => m.rf.logging || remoteLoadsPresent(m);
   const tempSensorPresent = (m) => m.temperature.mode === 'router';
   const overridePresent = (m) => m.overrides.enabled && m.overrides.list.length > 0;
+  // calibration reads P1..P3 on the serial monitor: human-readable, whatever the usual choice
+  const serialOutputOf = (m) => (m.calibrationMode ? 'HumanReadable' : m.serialOutput);
 
   // Router inputs that the mk2Wifi module may drive, with their default (fail-safe) role
   function controlInputs(m) {
@@ -304,6 +306,7 @@
     rfChipPresent,
     tempSensorPresent,
     overridePresent,
+    serialOutputOf,
     controlInputs,
     wifiInputs,
     parseAddress,

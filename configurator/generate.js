@@ -130,8 +130,8 @@
       '// (rev. 6.0 and later). A wrong choice gives wrong measurements: recalibrate after a change.',
       `inline constexpr PcbVersion PCB_VERSION{ PcbVersion::${m.pcbVersion} };`,
       '',
-      SERIAL_COMMENT[m.serialOutput],
-      `inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::${m.serialOutput};`,
+      SERIAL_COMMENT[M.serialOutputOf(m)],
+      `inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::${M.serialOutputOf(m)};`,
       '',
       '// Debug messages (free RAM...), human-readable output only. The startup configuration and the',
       '// status messages do not depend on it: they are always printed in human-readable output.',
@@ -613,7 +613,7 @@
       out.push({ path: `RemoteLoadReceiver-unit${unit}/config.h`, text: receiverConfigH(m, unit, date) });
       out.push({ path: `RemoteLoadReceiver-unit${unit}/config_rf.h`, text: receiverConfigRfH(m, unit, date) });
     }
-    if (m.mk2wifi.enabled) out.push({ path: `${m.mk2wifi.name || 'mk2pvrouter'}.yaml`, text: Y.yaml(m) });
+    if (m.mk2wifi.enabled && !m.calibrationMode) out.push({ path: `${m.mk2wifi.name || 'mk2pvrouter'}.yaml`, text: Y.yaml(m) });
     const calibration = m.calibrationMode && calibrationH(m);
     if (calibration) out.push({ path: 'Mk2_3phase_RFdatalog_temp/calibration.h', text: calibration });
     return out;

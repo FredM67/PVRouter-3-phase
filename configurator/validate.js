@@ -200,7 +200,7 @@
     }
 
     // ---- IoT output: one-digit TeleInfo indexes ----
-    if (m.serialOutput === 'IoT') {
+    if (M.serialOutputOf(m) === 'IoT') {
       if (n > M.LIMITS.MAX_IOT_LOADS) error('err.iotLoads', 'loads', { max: M.LIMITS.MAX_IOT_LOADS });
       if (relays.length > M.LIMITS.MAX_IOT_RELAYS) error('err.iotRelays', 'relays', { max: M.LIMITS.MAX_IOT_RELAYS });
       if (M.tempSensorPresent(m) && m.temperature.sensors.length > M.LIMITS.MAX_IOT_SENSORS) error('err.iotSensors', 'temperature', { max: M.LIMITS.MAX_IOT_SENSORS });
@@ -209,7 +209,7 @@
     // ---- mk2Wifi ----
     if (m.mk2wifi.enabled) {
       if (!/^[a-z0-9-]{1,31}$/.test(m.mk2wifi.name || '')) error('err.deviceName', 'mk2wifi');
-      if (m.serialOutput !== 'IoT') warning('warn.wifiNotIoT', 'serialOutput');
+      if (M.serialOutputOf(m) !== 'IoT' && !m.calibrationMode) warning('warn.wifiNotIoT', 'serialOutput');
       for (const c of M.wifiInputs(m)) if (!(c.pin in M.MK2WIFI_GPIO)) error('err.wifiPin', 'mk2wifi', { pin: c.pin });
       // router outputs on D5-D9: the matching jumper must stay open
       const outputs = [...byPin.entries()].filter(([p]) => p in M.MK2WIFI_GPIO && !M.wifiInputs(m).some((c) => c.pin === p)).map(([p]) => `D${p}`);

@@ -128,3 +128,12 @@ test('mk2Wifi: inputs on D5-D9 driven by the module are accepted', () => {
   });
   assert.deepStrictEqual(V.validate(m), []);
 });
+
+test('calibration mode: the IoT rules and the mk2Wifi output warning do not apply', () => {
+  const m = variant((m) => {
+    m.serialOutput = 'JSON';
+    m.mk2wifi.enabled = true;
+    m.calibrationMode = true;
+  });
+  assert.ok(!keys(m).includes('warn.wifiNotIoT'));
+});

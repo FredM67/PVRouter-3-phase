@@ -143,3 +143,16 @@ test('calibration: a commented-out line is not the one read or rewritten', () =>
   assert.match(G.calibrationH(m), /^inline constexpr float f_powerCal\[NO_OF_PHASES\]\{ 0\.10000F, 0\.05000F, 0\.05000F \};/m);
   assert.strictEqual(M.parseCalibration('int a;'), null);
 });
+
+test('calibration mode: human-readable output and no YAML, the usual choice kept', () => {
+  const m = M.defaults();
+  m.serialOutput = 'IoT';
+  m.mk2wifi.enabled = true;
+  m.calibrationMode = true;
+  assert.match(G.configH(m), /SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;/);
+  assert.ok(!G.files(m).some((f) => f.path.endsWith('.yaml')));
+  assert.strictEqual(m.serialOutput, 'IoT');
+  m.calibrationMode = false;
+  assert.match(G.configH(m), /SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;/);
+  assert.ok(G.files(m).some((f) => f.path.endsWith('.yaml')));
+});

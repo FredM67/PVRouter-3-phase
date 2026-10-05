@@ -183,6 +183,7 @@
   // ---- sections ----
 
   function general(p) {
+    const cal = m.calibrationMode;
     return section(
       'general',
       'sec.general',
@@ -202,15 +203,18 @@
         'calibrationMode',
         'calibrationModeHelp'
       ),
-      field(
-        'serialOutput',
-        select(
-          () => m.serialOutput,
-          (v) => (m.serialOutput = v),
-          M.SERIAL_OUTPUTS.map((s) => [s, T(`serial.${s}`)])
-        )
-      ),
-      m.serialOutput === 'HumanReadable'
+      // calibration: human-readable output forced, routing thresholds of no use
+      cal
+        ? null
+        : field(
+            'serialOutput',
+            select(
+              () => m.serialOutput,
+              (v) => (m.serialOutput = v),
+              M.SERIAL_OUTPUTS.map((s) => [s, T(`serial.${s}`)])
+            )
+          ),
+      !cal && m.serialOutput === 'HumanReadable'
         ? check(
             () => m.enableDebug,
             (v) => (m.enableDebug = v),
@@ -239,25 +243,27 @@
           )
         )
       ),
-      row(
-        field(
-          'requiredExport',
-          num(
-            () => m.requiredExport,
-            (v) => (m.requiredExport = v)
-          ),
-          'requiredExportHelp'
-        ),
-        field(
-          'diversionStartThreshold',
-          num(
-            () => m.diversionStartThreshold,
-            (v) => (m.diversionStartThreshold = v),
-            { min: 0 }
-          ),
-          'diversionStartThresholdHelp'
-        )
-      )
+      cal
+        ? null
+        : row(
+            field(
+              'requiredExport',
+              num(
+                () => m.requiredExport,
+                (v) => (m.requiredExport = v)
+              ),
+              'requiredExportHelp'
+            ),
+            field(
+              'diversionStartThreshold',
+              num(
+                () => m.diversionStartThreshold,
+                (v) => (m.diversionStartThreshold = v),
+                { min: 0 }
+              ),
+              'diversionStartThresholdHelp'
+            )
+          )
     );
   }
 
@@ -987,7 +993,7 @@
       ...block('power', 'cal.current.power', c.power, c.powerCal, r.powerCal, 5, 'W'),
       ...block('voltage', 'cal.current.voltage', c.voltage, c.voltageCal, r.voltageCal, 4, 'V'),
       h('h3', null, T('cal.lines')),
-      lines ? h('pre', null, h('code', null, lines.join('\n'))) : h('small', { class: 'help' }, T('cal.linesMissing')),
+      lines ? h('pre', { class: 'lines' }, h('code', null, lines.join('\n'))) : h('small', { class: 'help' }, T('cal.linesMissing')),
       changedValues ? row(button('cal.next', calibrationNextRound), h('small', { class: 'help' }, T('cal.nextHelp'))) : null,
       ...calibrationFiles(p),
       h('p', { class: 'help' }, T('cal.hidden'))
