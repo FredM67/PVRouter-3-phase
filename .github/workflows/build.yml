@@ -83,6 +83,31 @@ jobs:
             echo "| RAM (static) | $RAM | 2048 | $((RAM * 100 / 2048)) |"
           } >> "$GITHUB_STEP_SUMMARY"
 
+  # The remote load receiver as the Arduino IDE builds it: only the files of its folder, in C++17.
+  # utils_pins.h and utils_bits.h are copies of the router's, since the IDE sees nothing else.
+  receiver-arduino:
+    name: Remote Load Receiver (Arduino CLI)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: The receiver's copies match the router's files
+        run: |
+          for f in utils_pins.h utils_bits.h; do
+            diff <(grep -v '@date' Mk2_3phase_RFdatalog_temp/$f) <(grep -v '@date' RemoteLoadReceiver/$f)               || { echo "::error file=RemoteLoadReceiver/$f::out of date, copy Mk2_3phase_RFdatalog_temp/$f here"; exit 1; }
+          done
+
+      - uses: arduino/compile-sketches@v1
+        with:
+          fqbn: arduino:avr:uno
+          cli-compile-flags: |
+            - --build-property
+            - compiler.cpp.extra_flags=-std=gnu++17
+          libraries: |
+            - name: RFM69_LowPowerLab
+          sketch-paths: |
+            - RemoteLoadReceiver
+
   # Native tests: every test under test/native runs in a single job,
   # so a new test is picked up without editing this file.
   test-native:
