@@ -942,35 +942,75 @@
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
-  // Into the firmware folder picked by the user (Chrome, Edge); calibration.h is never written
-  async function saveToFolder(files, problems) {
-    let root;
+  // Into the firmware folder picked by the user (Chrome, Edge); calibration.h is never written.
+  // What a save replaces goes into configurator-backup/<stamp>/ first, so it can be undone.
+  async function pickFolder() {
     try {
-      root = await window.showDirectoryPicker({ id: 'pvrouter-firmware', mode: 'readwrite' });
+      return await window.showDirectoryPicker({ id: 'pvrouter-firmware', mode: 'readwrite' });
     } catch (e) {
-      return; // cancelled
-    }
-    const show = (level, key, params) => {
-      folderStatus = { level, text: T(key, params) };
-      renderOutput(problems);
-    };
-    try {
-      const p = await D.prepare(root, files);
-      if (p.error) return show('error', p.error, { name: root.name });
-      const list = (fs) => fs.map((f) => `  ${f.path}`).join('\n');
-      if (!window.confirm(T('folder.confirm', { name: root.name, files: list(p.write) }))) return;
-      await D.save(p);
-      if (p.skip.length) show('ok', 'folder.partial', { name: root.name, n: p.write.length, files: p.skip.map((f) => f.path).join(', ') });
-      else show('ok', 'folder.done', { name: root.name, n: p.write.length });
-    } catch (e) {
-      show('error', 'folder.error', { error: e.message });
+      return null; // cancelled
     }
   }
+
+  function showStatus(level, key, params) {
+    folderStatus = { level, text: T(key, params) };
+    renderOutput(V.validate(m));
+  }
+
+  const stamp = (d) => {
+    const two = (n) => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${two(d.getMonth() + 1)}-${two(d.getDate())}_${two(d.getHours())}-${two(d.getMinutes())}-${two(d.getSeconds())}`;
+  };
+  const lines = (paths) => paths.map((p) => `  ${p}`).join('\n');
+
+  async function saveToFolder(files) {
+    const root = await pickFolder();
+    if (!root) return;
+    try {
+      const p = await D.prepare(root, files);
+      if (p.error) return showStatus('error', p.error, { name: root.name });
+      const at = stamp(new Date());
+      let text = T('folder.confirm', { name: root.name, files: lines(p.write.map((f) => f.path)) });
+      if (p.stale.length) text += '\n\n' + T('folder.confirmStale', { folders: lines(p.stale) });
+      text += '\n\n' + T('folder.confirmBackup', { backup: `configurator-backup/${at}` });
+      if (!window.confirm(text)) return;
+      const backup = await D.save(p, at);
+      const done = { name: root.name, n: p.write.length, backup };
+      if (p.skip.length) showStatus('ok', 'folder.partial', { ...done, files: p.skip.map((f) => f.path).join(', ') });
+      else showStatus('ok', 'folder.done', done);
+    } catch (e) {
+      showStatus('error', 'folder.error', { error: e.message });
+    }
+  }
+
+  // 2026-10-05_14-30-00 -> 2026-10-05 14:30:00
+  const pretty = (s) => s.replace('_', ' ').replace(/-(\d\d)-(\d\d)$/, ':$1:$2');
+
+  async function restoreFromFolder() {
+    const root = await pickFolder();
+    if (!root) return;
+    try {
+      const b = await D.lastBackup(root);
+      if (b.error) return showStatus('error', b.error, { name: root.name });
+      const { created, removed } = b.manifest;
+      let text = T('folder.restoreConfirm', { name: root.name, date: pretty(b.name) });
+      if (created.length) text += '\n\n' + T('folder.restoreCreated', { paths: lines(created) });
+      if (removed.length) text += '\n\n' + T('folder.restoreRemoved', { paths: lines(removed) });
+      if (!window.confirm(text)) return;
+      await D.restore(b);
+      showStatus('ok', 'folder.restored', { name: root.name, date: pretty(b.name) });
+    } catch (e) {
+      showStatus('error', 'folder.error', { error: e.message });
+    }
+  }
+
+  // replaceChildren() would show a null as the text "null": an empty list instead
+  const statusLine = () => (folderStatus ? [h('p', { class: `folder-status ${folderStatus.level}` }, folderStatus.text)] : []);
 
   function renderOutput(problems) {
     const box = document.getElementById('output');
     if (V.hasErrors(problems)) {
-      box.replaceChildren(h('p', { class: 'blocked' }, T('outputBlocked')));
+      box.replaceChildren(h('p', { class: 'blocked' }, T('outputBlocked')), ...statusLine());
       return;
     }
     const files = G.files(m);
@@ -1014,11 +1054,10 @@
         { class: 'actions' },
         copyBtn,
         h('button', { type: 'button', onclick: () => download(base(f.path), f.text, 'text/plain') }, T('download')),
-        D.supported() ? h('button', { type: 'button', class: 'primary', title: T('saveToFolderHelp'), onclick: () => saveToFolder(files, problems) }, T('saveToFolder')) : null,
+        D.supported() ? h('button', { type: 'button', class: 'primary', title: T('saveToFolderHelp'), onclick: () => saveToFolder(files) }, T('saveToFolder')) : null,
         h('button', { type: 'button', class: D.supported() ? '' : 'primary', onclick: () => download('pvrouter-config.zip', Z.zip(files), 'application/zip') }, T('downloadAll'))
       ),
-      // replaceChildren() would show a null as the text "null": spread an empty list instead
-      ...(folderStatus ? [h('p', { class: `folder-status ${folderStatus.level}` }, folderStatus.text)] : []),
+      ...statusLine(),
       h('pre', null, h('code', null, f.text)),
       h(
         'div',
@@ -1038,6 +1077,7 @@
   function render() {
     document.documentElement.lang = lang;
     for (const el of document.querySelectorAll('[data-t]')) el.textContent = T(el.dataset.t);
+    for (const el of document.querySelectorAll('[data-title]')) el.title = T(el.dataset.title);
     document.title = T('title');
     document.getElementById('lang').textContent = T('language');
     const problems = V.validate(m);
@@ -1072,6 +1112,9 @@
       alert(T('loadError'));
     }
   });
+  const restoreBtn = document.getElementById('restore');
+  if (D.supported()) restoreBtn.addEventListener('click', restoreFromFolder);
+  else restoreBtn.remove();
   document.getElementById('reset').addEventListener('click', () => {
     if (!confirm(T('resetConfirm'))) return;
     m = M.defaults();
