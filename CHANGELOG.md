@@ -76,7 +76,7 @@ valid load maps ([#160]).
   file or directory`), since it took `utils_pins.h` and `utils_bits.h` from the router's folder,
   which only PlatformIO could see. The receiver now has its own copies, checked against the
   router's by CI, which also builds the receiver with the Arduino CLI. Its README explains the
-  Arduino IDE setup and the one-copy-per-unit layout.
+  Arduino IDE setup and the one-copy-per-unit layout ([#185]).
 - **Stuck relay:** a relay forced by an override pin could stay ON for good after the override
   was released ([#179]).
 - **Dual tariff:** automatic forcing never triggered, and the temperature threshold was ignored
@@ -162,3 +162,4 @@ valid load maps ([#160]).
 [#178]: https://github.com/FredM67/PVRouter-3-phase/pull/178
 [#179]: https://github.com/FredM67/PVRouter-3-phase/pull/179
 [#180]: https://github.com/FredM67/PVRouter-3-phase/pull/180
+[#185]: https://github.com/FredM67/PVRouter-3-phase/pull/185

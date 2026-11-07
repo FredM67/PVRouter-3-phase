@@ -94,7 +94,8 @@ jobs:
       - name: The receiver's copies match the router's files
         run: |
           for f in utils_pins.h utils_bits.h; do
-            diff <(grep -v '@date' Mk2_3phase_RFdatalog_temp/$f) <(grep -v '@date' RemoteLoadReceiver/$f)               || { echo "::error file=RemoteLoadReceiver/$f::out of date, copy Mk2_3phase_RFdatalog_temp/$f here"; exit 1; }
+            diff <(grep -v '@date' Mk2_3phase_RFdatalog_temp/$f) <(grep -v '@date' RemoteLoadReceiver/$f) \
+              || { echo "::error file=RemoteLoadReceiver/$f::out of date, copy Mk2_3phase_RFdatalog_temp/$f here"; exit 1; }
           done
 
       - uses: arduino/compile-sketches@v1
