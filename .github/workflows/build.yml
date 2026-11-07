@@ -123,14 +123,28 @@ jobs:
       - name: Unit tests
         run: node --test configurator/test/*.test.js
 
-      - name: Install clang-format and ESPHome
-        run: pip install clang-format==18.1.8 esphome
+      - name: Install clang-format
+        run: pip install clang-format==18.1.8
 
       - name: Build the presets
         run: bash configurator/test/compile-presets.sh
 
+      # ESPHome supports Python < 3.15 only, while setup-platformio takes the newest one:
+      # it gets its own Python, kept off the PATH, in a virtual environment.
+      - name: Set up Python for ESPHome
+        id: python-esphome
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+          update-environment: false
+
+      - name: Install ESPHome
+        run: |
+          "${{ steps.python-esphome.outputs.python-path }}" -m venv "$RUNNER_TEMP/esphome"
+          "$RUNNER_TEMP/esphome/bin/pip" install esphome
+
       - name: Check the mk2Wifi YAML
-        run: bash configurator/test/check-yaml.sh
+        run: ESPHOME="$RUNNER_TEMP/esphome/bin/esphome" bash configurator/test/check-yaml.sh
 
   # Native tests: every test under test/native runs in a single job,
   # so a new test is picked up without editing this file.
