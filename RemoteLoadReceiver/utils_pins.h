@@ -1,0 +1,221 @@
+/**
+ * @file utils_pins.h
+ * @author Frédéric Metrich (frederic.metrich@live.fr)
+ * @brief Some utility functions for pins manipulation
+ * @version 0.1
+ * @date 2026-10-05
+ *
+ * @copyright Copyright (c) 2023-2026
+ *
+ */
+
+#ifndef UTILS_PINS_H
+#define UTILS_PINS_H
+
+#include <Arduino.h>
+
+#include "utils_bits.h"
+
+inline constexpr uint8_t unused_pin{ 0xff }; /**< unused pin */
+
+#if defined(__DOXYGEN__)
+inline constexpr void togglePin(uint8_t pin);
+
+inline constexpr void setPinON(uint8_t pin);
+inline void setPinsON(uint16_t pins);
+
+inline constexpr void setPinOFF(uint8_t pin);
+inline void setPinsOFF(uint16_t pins);
+
+inline constexpr bool getPinState(uint8_t pin);
+
+inline void setPinsAsOutput(uint16_t pins);
+inline void setPinsAsInputPullup(uint16_t pins);
+#else
+inline constexpr void togglePin(uint8_t pin) __attribute__((always_inline));
+
+inline constexpr void setPinON(uint8_t pin) __attribute__((always_inline));
+inline void setPinsON(uint16_t pins) __attribute__((always_inline));
+
+inline constexpr void setPinOFF(uint8_t pin) __attribute__((always_inline));
+inline void setPinsOFF(uint16_t pins) __attribute__((always_inline));
+
+inline constexpr bool getPinState(uint8_t pin) __attribute__((always_inline));
+
+inline void setPinsAsOutput(uint16_t pins) __attribute__((always_inline));
+inline void setPinsAsInputPullup(uint16_t pins) __attribute__((always_inline));
+#endif
+
+/**
+ * @brief Toggle the specified pin
+ *
+ */
+void constexpr togglePin(const uint8_t pin)
+{
+  if (pin < 8)
+  {
+    bit_set(PIND, pin);
+  }
+  else if (pin < 14)
+  {
+    bit_set(PINB, pin - 8);
+  }
+  else
+  {
+    bit_set(PINC, pin - 14);
+  }
+}
+
+/**
+ * @brief Set the Pin state for the specified pin
+ *
+ * @param pin pin to change [2..13]
+ * @param bState state to be set
+ *
+ * @details For a pin only known at run time (a relay). The ADC ISR writes the load pins,
+ *          possibly on the same port, so the port must not be read-modified-written here:
+ *          the pin is toggled through PINx instead, where writing a 1 toggles that bit of
+ *          PORTx and writing a 0 leaves the others alone. Only the caller changes this pin,
+ *          so reading its state first is safe.
+ */
+inline void setPinState(const uint8_t pin, const bool bState)
+{
+  const volatile uint8_t &port{ (pin < 8) ? PORTD : ((pin < 14) ? PORTB : PORTC) };
+  volatile uint8_t &toggle{ (pin < 8) ? PIND : ((pin < 14) ? PINB : PINC) };
+  const uint8_t mask{ static_cast< uint8_t >(1U << ((pin < 8) ? pin : ((pin < 14) ? pin - 8 : pin - 14))) };
+
+  if (static_cast< bool >(port & mask) != bState)
+  {
+    toggle = mask;
+  }
+}
+
+/**
+ * @brief Set the Pin state to ON for the specified pin
+ *
+ * @param pin pin to change [2..13]
+ *
+ * @warning Atomic (a single sbi/cbi) only for a pin known at compile time. For a pin known at
+ *          run time it is a read-modify-write of the port: from loop(), use setPinState().
+ */
+inline constexpr void setPinON(const uint8_t pin)
+{
+  if (pin < 8)
+  {
+    bit_set(PORTD, pin);
+  }
+  else if (pin < 14)
+  {
+    bit_set(PORTB, pin - 8);
+  }
+  else
+  {
+    bit_set(PORTC, pin - 14);
+  }
+}
+
+/**
+ * @brief Set the Pins state to ON
+ *
+ * @param pins The pins to change
+ *
+ * @warning Read-modify-write of PORTD and PORTB: only safe from the ADC ISR (its sole caller),
+ *          which cannot be interrupted. From loop(), use setPinState() or togglePin(): an ISR
+ *          landing in the middle would have its load pin changes written back to the old state.
+ */
+inline void setPinsON(const uint16_t pins)
+{
+  PORTD |= lowByte(pins);
+  PORTB |= highByte(pins);
+}
+
+/**
+ * @brief Set the Pin state to OFF for the specified pin
+ *
+ * @param pin pin to change [2..13]
+ *
+ * @warning Atomic (a single sbi/cbi) only for a pin known at compile time. For a pin known at
+ *          run time it is a read-modify-write of the port: from loop(), use setPinState().
+ */
+inline constexpr void setPinOFF(const uint8_t pin)
+{
+  if (pin < 8)
+  {
+    bit_clear(PORTD, pin);
+  }
+  else if (pin < 14)
+  {
+    bit_clear(PORTB, pin - 8);
+  }
+  else
+  {
+    bit_clear(PORTC, pin - 14);
+  }
+}
+
+/**
+ * @brief Set the Pins state to OFF
+ *
+ * @param pins The pins to change
+ *
+ * @warning Read-modify-write of PORTD and PORTB: only safe from the ADC ISR (its sole caller),
+ *          which cannot be interrupted. From loop(), use setPinState() or togglePin(): an ISR
+ *          landing in the middle would have its load pin changes written back to the old state.
+ */
+inline void setPinsOFF(const uint16_t pins)
+{
+  PORTD &= ~lowByte(pins);
+  PORTB &= ~highByte(pins);
+}
+
+/**
+ * @brief Get the Pin State
+ *
+ * @param pin The pin to read
+ * @return true if HIGH
+ * @return false if LOW
+ */
+inline constexpr bool getPinState(const uint8_t pin)
+{
+  if (pin < 8)
+  {
+    return bit_read(PIND, pin);
+  }
+  else if (pin < 14)
+  {
+    return bit_read(PINB, pin - 8);
+  }
+  else
+  {
+    return bit_read(PINC, pin - 14);
+  }
+}
+
+/**
+ * @brief Set the pins as OUTPUT
+ *
+ * @param pins The pins to set as OUTPUT
+ */
+inline void setPinsAsOutput(const uint16_t pins)
+{
+  DDRD |= lowByte(pins);
+  DDRB |= highByte(pins);
+}
+
+/**
+ * @brief Set the pins as INPUT_PULLUP
+ *
+ * @param pins The pins to set as INPUT_PULLUP
+ */
+inline void setPinsAsInputPullup(const uint16_t pins)
+{
+  // Set pins as input
+  DDRD &= ~lowByte(pins);
+  DDRB &= ~highByte(pins);
+
+  // Enable pull-up resistors
+  PORTD |= lowByte(pins);
+  PORTB |= highByte(pins);
+}
+
+#endif /* UTILS_PINS_H */
