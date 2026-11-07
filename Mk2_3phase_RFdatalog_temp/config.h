@@ -1,18 +1,9 @@
 /**
- * @file config.h - Basic Three-Phase Configuration Example
- * @brief Standard three-phase PVRouter setup with 2 dump loads
+ * @file config.h
+ * @brief Router configuration: loads, relays, control pins and features
  *
- * This configuration is suitable for:
- * - Standard three-phase electrical installation
- * - Two resistive dump loads (e.g., water heater elements)
- * - Basic monitoring without additional sensors
- * - Human-readable serial output for commissioning
- *
- * Hardware requirements:
- * - 3-phase PVRouter PCB
- * - 3 current transformers (one per phase)
- * - 3 voltage sensing circuits (one per phase)
- * - 2 TRIAC outputs for dump loads
+ * Edit it by hand, or create it with the configurator:
+ * https://fredm67.github.io/Mk2PVRouter/configurateur/
  *
  * @version 1.0
  * @date 2026-10-02
@@ -78,7 +69,7 @@ inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 };          
  */
 inline RemoteLoadCore< NO_OF_REMOTE_UNITS > remoteLoads{};
 
-// Feature toggles - Basic setup without advanced features
+// Feature toggles
 inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr bool ROUTER_OFF_PIN_PRESENT{ false };                  /**< set it to 'true' if you want a pin that switches the router OFF */
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::OFF }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */
@@ -102,32 +93,18 @@ inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF
 // DIGITAL pins:
 // - D0 & D1: Reserved for the Serial interface.
 //
-// RFM12B Module (if present):
-// - D2: Used for the RFM12B module.
-// - D10: Used for the RFM12B module.
-// - D11: Used for the RFM12B module.
-// - D12: Used for the RFM12B module.
-// - D13: Used for the RFM12B module.
-//
-// SPI Interface:
+// RFM69 module (RF data logging or remote loads):
+// - D2: Interrupt (IRQ).
 // - D10: Chip Select (CS).
 // - D11: Master Out Slave In (MOSI).
 // - D12: Master In Slave Out (MISO).
 // - D13: Serial Clock (SCK).
 //
-// Expansion Board:
-// Digital Input Pins (D10-D13) are wired to the expansion board and it's intended
-// to configure them as digital inputs
-// They allow external control from Home Assistant for functions such as:
-//   * Forced operation mode
-//   * Diversion enable/disable
-//   * Priority rotation triggering
-//   * Manual load control
-//
-// D3 is wired to the expansion board too and is intended for taking control of the temperature sensor.
-//
-// Note: When using these pins for Home Assistant integration, ensure the ESP32
-// counterpart is properly configured to send the appropriate signals.
+// mk2Wifi module (ESP32-C6, Home Assistant):
+// - D5 to D9 can be wired to the module, each through a solder jumper (open by default), as
+//   inputs driven from Home Assistant: routing stop, router OFF, boost, priority rotation...
+// - Only close the jumpers of pins that are free in this configuration: by default, the loads
+//   use D5, D6 and D7.
 
 // Load priority order at startup (array index = priority, 0 = highest)
 // Load indices refer to physicalLoadPin[] above, local and remote loads alike.

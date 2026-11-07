@@ -1,0 +1,14 @@
+{
+  "serialOutput": "IoT",
+  "diversion": { "enabled": true, "pin": 8, "wifi": true },
+  "overrides": { "enabled": true, "list": [{ "pin": 9, "wifi": true, "targets": "ALL_LOADS_AND_RELAYS" }] },
+  "temperature": {
+    "mode": "esp",
+    "pin": 3,
+    "sensors": [
+      { "address": "28BE416B090000A4", "name": "Chauffe-eau milieu" },
+      { "address": "281BD76A090000B7", "name": "Chauffe-eau haut" }
+    ]
+  },
+  "mk2wifi": { "enabled": true, "name": "mk2pvrouter", "friendlyName": "Mk2PVRouter", "language": "fr" }
+}

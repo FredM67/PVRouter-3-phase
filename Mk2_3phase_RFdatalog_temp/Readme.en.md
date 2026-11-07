@@ -150,7 +150,7 @@ The router program itself is used for calibration, so the values are measured wi
 
 1. Set `CALIBRATION_MODE` to `true` in **config.h** and upload: the router then measures and logs as usual, but never switches any load (TRIACs, relays, remote loads, overrides), which would change the power being measured. It says so at start-up.
 2. Measure the power on phase 1 with a reference instrument (a clamp wattmeter around the same cable as the CT, for instance), ideally with a large resistive load on that phase, such as a water heater.
-3. Compare it with `P1`, and correct the value: new `f_powerCal[0]` = old `f_powerCal[0]` × reference power / `P1`.
+3. Compare it with `P1`, and correct the value: new `f_powerCal[0]` = old `f_powerCal[0]` × reference power / `P1`. The [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/) does this calculation in calibration mode, and can write your **calibration.h** again with the new values.
 4. Repeat for phases 2 and 3, upload again and check.
 5. Set `CALIBRATION_MODE` back to `false` and upload: the router diverts again.
 
@@ -176,6 +176,9 @@ The configuration of a feature generally follows two steps:
 - Feature parameter configuration
 
 Configuration consistency is checked during compilation. For example, if a *pin* is accidentally allocated twice, the compiler will generate an error.
+
+> [!TIP]
+> The [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/) does it for you: choose your loads, relays, remote units, control pins and options, and it checks them and writes `config.h`, `config_system.h`, `config_rf.h`, the remote units' files and, with the mk2Wifi module, the ESPHome YAML. Keep your `calibration.h`.
 
 ## Motherboard: old or new
 
@@ -912,6 +915,9 @@ A negative value will force the router to consume this power from the grid. This
 The **mk2Wifi** module connects an **ESP32-C6** (WiFi 6, Bluetooth LE, Zigbee, Thread) to the Mk2PVRouter, for monitoring and remote control from Home Assistant via ESPHome. It plugs onto the `UART_EXT` and `TRIG_EXT` connectors of the motherboard and replaces the former ESP32 extension board.
 
 The hardware, its installation and troubleshooting are documented on the [mk2Wifi pages](https://fredm67.github.io/Mk2PVRouter/mk2wifi/presentation-mk2wifi/), and the ESPHome configuration in [this gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). This section only covers the router side.
+
+> [!TIP]
+> The [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/) writes the router's `config.h` and the matching ESPHome YAML together, and lists the solder jumpers to close. Its controls are fail-safe: the module only pulls a router input LOW for the non-default state, so a broken wire or a rebooting module leaves the router routing, without boost.
 
 > [!CAUTION]
 > Never connect the module's USB-C while it is plugged onto the motherboard: the two 5 V supplies are not isolated.
