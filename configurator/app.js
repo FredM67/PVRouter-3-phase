@@ -926,7 +926,7 @@
     const text = await file.text();
     const values = M.parseCalibration(text);
     if (!values) return alert(T('cal.badFile', { name: file.name }));
-    Object.assign(m.calibration, { file: text, fileName: file.name, powerCal: values.powerCal, voltageCal: values.voltageCal });
+    Object.assign(m.calibration, { file: text, fileName: file.name, ...values });
     changed();
   }
 
@@ -935,7 +935,7 @@
     const c = m.calibration;
     const r = M.calibrationResult(m);
     c.file = G.calibrationH(m) || c.file;
-    c.powerCal = r.powerCal;
+    c[M.powerCalOf(m).key] = r.power;
     c.voltageCal = r.voltageCal;
     for (const x of [...c.power, ...c.voltage]) x.router = x.meter = null;
     changed();
@@ -945,8 +945,8 @@
     const c = m.calibration;
     const r = M.calibrationResult(m);
     const shown = (v, decimals) => (v > 0 ? v.toFixed(decimals) : '—');
-    const block = (kind, currentKey, readings, current, result, decimals, unit) => [
-      h('h3', null, T(`cal.${kind}`)),
+    const block = (kind, titleKey, currentKey, readings, current, result, decimals, unit) => [
+      h('h3', null, T(titleKey)),
       ...readings.map((x, i) =>
         row(
           h('strong', null, `${T('cal.phase')} ${i + 1}`),
@@ -978,9 +978,12 @@
         )
       ),
       h('small', { class: 'help' }, T(`cal.${kind}Help`, { unit })),
+      kind === 'power' && m.pcbVersion === 'NEW' ? h('small', { class: 'help' }, T('cal.powerHelpNew')) : null,
     ];
     const lines = G.calibrationLines(m);
-    const changedValues = r.powerCal.some((v, i) => v !== c.powerCal[i]) || r.voltageCal.some((v, i) => v !== c.voltageCal[i]);
+    const power = M.powerCalOf(m);
+    const powerCal = c[power.key];
+    const changedValues = r.power.some((v, i) => v !== powerCal[i]) || r.voltageCal.some((v, i) => v !== c.voltageCal[i]);
     return section(
       'calibration',
       'sec.calibration',
@@ -990,8 +993,8 @@
         h('label', { class: 'button' }, h('span', null, T('cal.loadFile')), h('input', { type: 'file', accept: '.h,text/plain', hidden: true, onchange: loadCalibration })),
         h('small', { class: 'help' }, c.fileName ? T('cal.fileLoaded', { name: c.fileName }) : T('cal.noFile'))
       ),
-      ...block('power', 'cal.current.power', c.power, c.powerCal, r.powerCal, 5, 'W'),
-      ...block('voltage', 'cal.current.voltage', c.voltage, c.voltageCal, r.voltageCal, 4, 'V'),
+      ...block('power', `cal.power.${m.pcbVersion}`, `cal.current.power.${m.pcbVersion}`, c.power, powerCal, r.power, power.decimals, 'W'),
+      ...block('voltage', 'cal.voltage', 'cal.current.voltage', c.voltage, c.voltageCal, r.voltageCal, 4, 'V'),
       ...calibrationChecks(p),
       h('h3', null, T('cal.lines')),
       lines ? h('pre', { class: 'lines' }, h('code', null, lines.join('\n'))) : h('small', { class: 'help' }, T('cal.linesMissing')),

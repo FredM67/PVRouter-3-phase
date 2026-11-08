@@ -568,15 +568,15 @@
 
   // ---- calibration.h ----
 
-  // As calibration.h writes them: 0.05000F, 0.8151F
-  const CAL_DECIMALS = { f_powerCal: 5, f_voltageCal: 4 };
+  // As calibration.h writes them: 1.0000F, 0.05000F, 0.8151F
+  const CAL_DECIMALS = { f_currentCal: 4, f_powerCalOldBoard: 5, f_voltageCal: 4 };
   const calValue = (name, v) => `${v.toFixed(CAL_DECIMALS[name])}F`;
 
   // The lines to paste into calibration.h, or null while a current value is missing
   function calibrationLines(m) {
     const r = M.calibrationResult(m);
     const line = (name, values) => (values.every((v) => v > 0) ? `inline constexpr float ${name}[NO_OF_PHASES]{ ${values.map((v) => calValue(name, v)).join(', ')} };` : null);
-    const lines = [line('f_powerCal', r.powerCal), line('f_voltageCal', r.voltageCal)];
+    const lines = [line(M.powerCalOf(m).name, r.power), line('f_voltageCal', r.voltageCal)];
     return lines.every(Boolean) ? lines : null;
   }
 
@@ -589,7 +589,7 @@
     let changed = false;
     for (const [name, values] of [
       ['f_voltageCal', r.voltageCal],
-      ['f_powerCal', r.powerCal],
+      [M.powerCalOf(m).name, r.power],
     ]) {
       const a = M.calibrationArray(text, name);
       if (!a) return null;

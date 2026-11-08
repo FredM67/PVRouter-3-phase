@@ -56,7 +56,8 @@
       calibration: {
         file: null, // the user's calibration.h, as loaded: the new values are written into it
         fileName: '',
-        powerCal: [null, null, null], // f_powerCal the router runs with
+        currentCal: [null, null, null], // f_currentCal the router runs with (new board)
+        powerCalOldBoard: [null, null, null], // f_powerCalOldBoard the router runs with (old board)
         voltageCal: [null, null, null], // f_voltageCal the router runs with
         power: [0, 1, 2].map(() => ({ router: null, meter: null })), // W, P1..P3
         voltage: [0, 1, 2].map(() => ({ router: null, meter: null })), // V, V1..V3
@@ -188,13 +189,23 @@
     return null;
   }
 
+  // The value calibration corrects for the power, depending on the board: on the new one, the
+  // firmware calculates f_powerCal from f_voltageCal, the CT rating and f_currentCal
+  const POWER_CALS = {
+    NEW: { name: 'f_currentCal', key: 'currentCal', decimals: 4 },
+    OLD: { name: 'f_powerCalOldBoard', key: 'powerCalOldBoard', decimals: 5 },
+  };
+  const powerCalOf = (m) => POWER_CALS[m.pcbVersion] || POWER_CALS.OLD;
+
   function parseCalibration(text) {
-    const power = calibrationArray(text, 'f_powerCal');
+    const current = calibrationArray(text, 'f_currentCal');
+    const oldBoard = calibrationArray(text, 'f_powerCalOldBoard');
     const voltage = calibrationArray(text, 'f_voltageCal');
-    return power && voltage ? { powerCal: power.values, voltageCal: voltage.values } : null;
+    return current && oldBoard && voltage ? { currentCal: current.values, powerCalOldBoard: oldBoard.values, voltageCal: voltage.values } : null;
   }
 
-  // The corrected values: current x meter / router, for each phase with both readings
+  // The corrected values: current x meter / router, for each phase with both readings.
+  // { power: the new value of powerCalOf(m), voltageCal }
   function calibrationResult(m) {
     const c = m.calibration;
     const fix = (current, readings) =>
@@ -202,7 +213,12 @@
         const { router, meter } = readings[i];
         return cur > 0 && router > 0 && meter > 0 ? (cur * meter) / router : cur;
       });
-    return { powerCal: fix(c.powerCal, c.power), voltageCal: fix(c.voltageCal, c.voltage) };
+    const voltageCal = fix(c.voltageCal, c.voltage);
+    let power = fix(c[powerCalOf(m).key], c.power);
+    // New board: f_powerCal follows f_voltageCal, so f_currentCal takes the opposite of the voltage
+    // correction. The power then changes by meter / router, and not at all without power readings.
+    if (m.pcbVersion === 'NEW') power = power.map((v, i) => (v > 0 && c.voltageCal[i] > 0 && voltageCal[i] !== c.voltageCal[i] ? (v * c.voltageCal[i]) / voltageCal[i] : v));
+    return { power, voltageCal };
   }
 
   // ---- derived values, shared by the validator, the generator and the page ----
@@ -314,6 +330,7 @@
     calibrationArray,
     parseCalibration,
     calibrationResult,
+    powerCalOf,
     resizeLoads,
     resizeRelays,
   };

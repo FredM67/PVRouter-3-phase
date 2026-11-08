@@ -36,7 +36,7 @@
     if (m.calibrationMode) {
       const c = m.calibration;
       for (const [kind, readings, current] of [
-        ['power', c.power, c.powerCal],
+        ['power', c.power, c[M.powerCalOf(m).key]],
         ['voltage', c.voltage, c.voltageCal],
       ]) {
         readings.forEach(({ router, meter }, i) => {
