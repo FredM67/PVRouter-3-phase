@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-08
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -85,6 +85,12 @@ inline void printConfiguration()
 #endif
   infoln(F("ADC mode:       free-running"));
   infoln(PCB_VERSION == PcbVersion::NEW ? F("Motherboard:    new (internal 1.1 V reference)") : F("Motherboard:    old (AVCC reference)"));
+  if constexpr (PCB_VERSION == PcbVersion::NEW)
+  {
+    constexpr int32_t adcReference_x1e3{ SerialOutput::toDecimals(f_adcReference, 3) };
+    info(F("ADC reference:  "));
+    infolnDecimals(adcReference_x1e3, 3);  // V, as measured on TP2
+  }
 
   if constexpr (CALIBRATION_MODE)
   {

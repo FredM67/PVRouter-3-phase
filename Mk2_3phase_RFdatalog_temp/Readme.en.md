@@ -138,15 +138,15 @@ The end-user should ONLY edit the **calibration.h** and **config.h** files.
 You can start reading the documentation here [3-phase router](https://fredm67.github.io/Mk2PVRouter-3-phase/) (in English).
 
 # Router calibration
-Calibration values are found in the **calibration.h** file. The value to correct for the power depends on the board chosen in **config.h**:
+Calibration values are found in the **calibration.h** file. Only the power matters for routing; the voltage (`V1`, `V2`, `V3`) is only displayed. What to set depends on the board chosen in **config.h**:
 
-- **New board** (`PcbVersion::NEW`), with voltage-output CTs (333 mV at their rated current): enter the rated current of your CTs in `f_ctRating`. The firmware calculates the power factor from it, from `f_voltageCal` and from `f_currentCal`, the correction of each phase:
+- **New board** (`PcbVersion::NEW`), with voltage-output CTs (333 mV at their rated current): the firmware calculates its factors from the design of the board, all of whose resistors are 0.1 %. Enter the internal ADC reference of your ATmega328P, measured with a multimeter on TP2 (it differs from one chip to another, between 1.0 and 1.2 V), and the rated current of your CTs:
   ```cpp
+  inline constexpr float f_adcReference{ 1.100F };
   inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };
-  inline constexpr float f_currentCal[NO_OF_PHASES]{ 1.0000F, 1.0000F, 1.0000F };
   ```
-  The power follows `f_voltageCal`, so calibrate the voltage first: new `f_voltageCal` = old `f_voltageCal` × reference voltage / router voltage (`V1`, `V2`, `V3`).
-- **Old board** (`PcbVersion::OLD`): `f_powerCalOldBoard` gives the power directly:
+  That is usually enough. To correct further, `f_powerCorrection` and `f_voltageCorrection` (1 = the calculated value) are independent of each other.
+- **Old board** (`PcbVersion::OLD`): `f_powerCalOldBoard` and `f_voltageCalOldBoard` give the factors directly:
   ```cpp
   inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
   ```
@@ -157,7 +157,7 @@ The router program itself is used for calibration, so the values are measured wi
 
 1. Set `CALIBRATION_MODE` to `true` in **config.h** and upload: the router then measures and logs as usual, but never switches any load (TRIACs, relays, remote loads, overrides), which would change the power being measured. It says so at start-up.
 2. Measure the power on phase 1 with a reference instrument (a clamp wattmeter around the same cable as the CT, for instance), ideally with a large resistive load on that phase, such as a water heater.
-3. Compare it with `P1`, and correct the value of phase 1: new value = old value × reference power / `P1`, in `f_currentCal[0]` (new board) or `f_powerCalOldBoard[0]` (old board). The [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/) does this calculation in calibration mode, and can write your **calibration.h** again with the new values.
+3. Compare it with `P1`, and correct the value of phase 1: new value = old value × reference power / `P1`, in `f_powerCorrection[0]` (new board) or `f_powerCalOldBoard[0]` (old board). The [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/) does this calculation in calibration mode, and can write your **calibration.h** again with the new values.
 4. Repeat for phases 2 and 3, upload again and check.
 5. Set `CALIBRATION_MODE` back to `false` and upload: the router diverts again.
 

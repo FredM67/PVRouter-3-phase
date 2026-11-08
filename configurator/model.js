@@ -56,9 +56,11 @@
       calibration: {
         file: null, // the user's calibration.h, as loaded: the new values are written into it
         fileName: '',
-        currentCal: [null, null, null], // f_currentCal the router runs with (new board)
-        powerCalOldBoard: [null, null, null], // f_powerCalOldBoard the router runs with (old board)
-        voltageCal: [null, null, null], // f_voltageCal the router runs with
+        // the values the router runs with, as in calibration.h
+        powerCorrection: [null, null, null], // new board
+        voltageCorrection: [null, null, null],
+        powerCalOldBoard: [null, null, null], // old board
+        voltageCalOldBoard: [null, null, null],
         power: [0, 1, 2].map(() => ({ router: null, meter: null })), // W, P1..P3
         voltage: [0, 1, 2].map(() => ({ router: null, meter: null })), // V, V1..V3
       },
@@ -189,36 +191,43 @@
     return null;
   }
 
-  // The value calibration corrects for the power, depending on the board: on the new one, the
-  // firmware calculates f_powerCal from f_voltageCal, the CT rating and f_currentCal
-  const POWER_CALS = {
-    NEW: { name: 'f_currentCal', key: 'currentCal', decimals: 4 },
-    OLD: { name: 'f_powerCalOldBoard', key: 'powerCalOldBoard', decimals: 5 },
+  // The values calibration corrects, depending on the board: on the new one, the firmware
+  // calculates f_powerCal and f_voltageCal from the design of the board, and these are corrections
+  const CAL_VALUES = {
+    NEW: {
+      power: { name: 'f_powerCorrection', key: 'powerCorrection', decimals: 4 },
+      voltage: { name: 'f_voltageCorrection', key: 'voltageCorrection', decimals: 4 },
+    },
+    OLD: {
+      power: { name: 'f_powerCalOldBoard', key: 'powerCalOldBoard', decimals: 5 },
+      voltage: { name: 'f_voltageCalOldBoard', key: 'voltageCalOldBoard', decimals: 4 },
+    },
   };
-  const powerCalOf = (m) => POWER_CALS[m.pcbVersion] || POWER_CALS.OLD;
+  const calValuesOf = (m) => CAL_VALUES[m.pcbVersion] || CAL_VALUES.OLD;
+  const CAL_NAMES = ['NEW', 'OLD'].flatMap((b) => [CAL_VALUES[b].power, CAL_VALUES[b].voltage]);
 
+  // { powerCorrection, voltageCorrection, powerCalOldBoard, voltageCalOldBoard }, or null
   function parseCalibration(text) {
-    const current = calibrationArray(text, 'f_currentCal');
-    const oldBoard = calibrationArray(text, 'f_powerCalOldBoard');
-    const voltage = calibrationArray(text, 'f_voltageCal');
-    return current && oldBoard && voltage ? { currentCal: current.values, powerCalOldBoard: oldBoard.values, voltageCal: voltage.values } : null;
+    const out = {};
+    for (const { name, key } of CAL_NAMES) {
+      const a = calibrationArray(text, name);
+      if (!a) return null;
+      out[key] = a.values;
+    }
+    return out;
   }
 
   // The corrected values: current x meter / router, for each phase with both readings.
-  // { power: the new value of powerCalOf(m), voltageCal }
+  // { power, voltage }: the new values of calValuesOf(m).power and .voltage
   function calibrationResult(m) {
     const c = m.calibration;
+    const cal = calValuesOf(m);
     const fix = (current, readings) =>
       current.map((cur, i) => {
         const { router, meter } = readings[i];
         return cur > 0 && router > 0 && meter > 0 ? (cur * meter) / router : cur;
       });
-    const voltageCal = fix(c.voltageCal, c.voltage);
-    let power = fix(c[powerCalOf(m).key], c.power);
-    // New board: f_powerCal follows f_voltageCal, so f_currentCal takes the opposite of the voltage
-    // correction. The power then changes by meter / router, and not at all without power readings.
-    if (m.pcbVersion === 'NEW') power = power.map((v, i) => (v > 0 && c.voltageCal[i] > 0 && voltageCal[i] !== c.voltageCal[i] ? (v * c.voltageCal[i]) / voltageCal[i] : v));
-    return { power, voltageCal };
+    return { power: fix(c[cal.power.key], c.power), voltage: fix(c[cal.voltage.key], c.voltage) };
   }
 
   // ---- derived values, shared by the validator, the generator and the page ----
@@ -330,7 +339,8 @@
     calibrationArray,
     parseCalibration,
     calibrationResult,
-    powerCalOf,
+    calValuesOf,
+    CAL_NAMES,
     resizeLoads,
     resizeRelays,
   };

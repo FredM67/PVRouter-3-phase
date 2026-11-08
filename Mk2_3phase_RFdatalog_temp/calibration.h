@@ -17,28 +17,28 @@
 //
 // Calibration values
 //-------------------
-// f_voltageCal converts the voltage samples into volts, f_powerCal converts the products of
-// voltage and current samples into watts. A compact explanation of each value follows.
+// The router converts its ADC samples with two factors per phase: f_voltageCal (volts per step,
+// for the voltage shown in the datalog only) and f_powerCal (watts per voltage step x current
+// step, for the power the router diverts). How you set them depends on the board in config.h.
 //
-// f_voltageCal: volts per ADC step. Theory gives about 0.895 for the new board (rev. 6.0+,
-// 1.1 V reference) and about 0.82 for the old board (5 V reference). The voltage reference of
-// each ATmega328P differs by a few percent, so compare with a reference meter and correct:
-//   new f_voltageCal = old f_voltageCal x reference voltage / router voltage
-inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8952F, 0.8952F, 0.8952F }; /**< theory for the new board, to be calibrated */
+// New board (PcbVersion::NEW, rev. 6.0+), with voltage-output CTs (333 mV at their rated
+// current): both factors are calculated from the design of the board. Enter:
+// - f_adcReference: the internal ADC reference of your ATmega328P, measured with a multimeter on
+//   TP2 (VREF). It differs from one chip to another (1.0 to 1.2 V), and the power follows its square.
+// - f_ctRating: the rated current of each CT, in A.
+// The corrections are optional, 1 = the calculated value. They are independent: the voltage one
+// only changes the voltage shown, the power one only the power.
+//   new correction = old correction x reference reading / router reading
+inline constexpr float f_adcReference{ 1.100F };                                       /**< measured on TP2, in V */
+inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };                /**< rated current of each CT, in A */
+inline constexpr float f_powerCorrection[NO_OF_PHASES]{ 1.0000F, 1.0000F, 1.0000F };   /**< correction of P1, P2, P3 */
+inline constexpr float f_voltageCorrection[NO_OF_PHASES]{ 1.0000F, 1.0000F, 1.0000F }; /**< correction of V1, V2, V3 */
 //
-// f_powerCal: watts per (voltage ADC step x current ADC step), that is, volts per step x amps
-// per step.
-//
-// New board (PcbVersion::NEW), voltage-output CTs (333 mV at their rated current):
-// f_powerCal is calculated from f_voltageCal and the rating of each CT. Calibrate the voltage
-// first, since f_powerCal follows it. Then correct the power with f_currentCal:
-//   new f_currentCal = old f_currentCal x reference power / router power
-inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };         /**< rated current of each CT, in A */
-inline constexpr float f_currentCal[NO_OF_PHASES]{ 1.0000F, 1.0000F, 1.0000F }; /**< correction of each current channel, 1 = theory */
-//
-// Old board (PcbVersion::OLD): f_powerCal is set directly. A good value to start with is 0.05.
-//   new value = old value x reference power / router power
+// Old board (PcbVersion::OLD): both factors are set directly. A good value to start with is
+// 0.05 for the power and 0.82 for the voltage.
+//   new value = old value x reference reading / router reading
 inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
+inline constexpr float f_voltageCalOldBoard[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F };
 //
 // f_phaseCal is used to alter the phase of the voltage waveform relative to the current waveform.
 // The algorithm interpolates between the most recent pair of voltage samples according to the value of f_phaseCal.
@@ -58,35 +58,48 @@ inline constexpr float alpha{ 0.002 };
 // Nothing to change below this line.
 
 /**
- * @brief Current channel of the new board, for a voltage-output CT.
+ * @brief Input stages of the new board (rev. 6.0+), at 50 Hz (60 Hz differs by 0.06 %)
  *
- * The CT feeds the ADC through C12 (10 uF) into the VREF/2 bias network (10k / 10k / 100 nF),
- * which passes 98.81 % of the CT voltage at 50 Hz (98.88 % at 60 Hz), the CT output impedance
- * being negligible against 5 kOhm. Board-to-board differences (internal reference, CT ratio)
- * go into f_currentCal.
+ * Voltage: mains -> 6 x 20k (0.1 %) -> ZMPT101K 1:1 -> 150R burden (0.1 %), loaded through C10
+ * (10 uF) by the VREF/2 bias network (10k / 10k / 100 nF): 145.73 Ohm seen by the ZMPT101K, of
+ * which 98.81 % reaches the ADC. So 145.73 x 0.9881 / 120k = 1.2000 mV at the ADC per mains volt.
+ *
+ * Current: CT -> C12 (10 uF) -> the same bias network: 98.81 % of the CT voltage reaches the ADC,
+ * the CT output impedance being negligible against 5 kOhm.
  */
-namespace CurrentChannel
+namespace Calibration
 {
-inline constexpr float ADC_REFERENCE_V{ 1.1F };  /**< internal reference, nominal */
-inline constexpr float ADC_STEPS{ 1024.0F };     /**< 10-bit ADC */
-inline constexpr float CT_OUTPUT_V{ 0.333F };    /**< CT output at its rated current, RMS */
-inline constexpr float BIAS_COUPLING{ 0.9881F }; /**< share of the CT voltage reaching the ADC */
+inline constexpr float ADC_STEPS{ 1024.0F };                /**< 10-bit ADC */
+inline constexpr float VOLTAGE_GAIN{ 1.2000e-3F };          /**< ADC volts per mains volt */
+inline constexpr float CT_OUTPUT_V{ 0.333F };               /**< CT output at its rated current, RMS */
+inline constexpr float CURRENT_COUPLING{ 0.9881F };         /**< share of the CT voltage reaching the ADC */
+inline constexpr float VOLTAGE_STAGE_CORRECTION{ 1.0000F }; /**< measured difference with the calculation, the same on every board: to be confirmed on a second board */
 
-/** Amps per current ADC step for a phase */
+/** Volts per voltage step, as calculated */
+inline constexpr float VOLTS_PER_STEP{ f_adcReference / ADC_STEPS / VOLTAGE_GAIN * VOLTAGE_STAGE_CORRECTION };
+
+/** Amps per current step of a phase, as calculated */
 constexpr float ampsPerStep(const uint8_t phase)
 {
-  return f_ctRating[phase] / CT_OUTPUT_V * ADC_REFERENCE_V / ADC_STEPS / BIAS_COUPLING * f_currentCal[phase];
+  return f_ctRating[phase] / CT_OUTPUT_V * f_adcReference / ADC_STEPS / CURRENT_COUPLING;
+}
+
+/** f_voltageCal of a phase, for the board in use */
+constexpr float voltageCal(const uint8_t phase)
+{
+  return PCB_VERSION == PcbVersion::NEW ? VOLTS_PER_STEP * f_voltageCorrection[phase] : f_voltageCalOldBoard[phase];
 }
 
 /** f_powerCal of a phase, for the board in use */
 constexpr float powerCal(const uint8_t phase)
 {
-  return PCB_VERSION == PcbVersion::NEW ? f_voltageCal[phase] * ampsPerStep(phase) : f_powerCalOldBoard[phase];
+  return PCB_VERSION == PcbVersion::NEW ? VOLTS_PER_STEP * ampsPerStep(phase) * f_powerCorrection[phase] : f_powerCalOldBoard[phase];
 }
-}  // namespace CurrentChannel
+}  // namespace Calibration
 
-static_assert(NO_OF_PHASES == 3, "f_powerCal below lists 3 phases");
+static_assert(NO_OF_PHASES == 3, "f_voltageCal and f_powerCal below list 3 phases");
 
-inline constexpr float f_powerCal[NO_OF_PHASES]{ CurrentChannel::powerCal(0), CurrentChannel::powerCal(1), CurrentChannel::powerCal(2) };
+inline constexpr float f_voltageCal[NO_OF_PHASES]{ Calibration::voltageCal(0), Calibration::voltageCal(1), Calibration::voltageCal(2) };
+inline constexpr float f_powerCal[NO_OF_PHASES]{ Calibration::powerCal(0), Calibration::powerCal(1), Calibration::powerCal(2) };
 
 #endif  // CALIBRATION_H

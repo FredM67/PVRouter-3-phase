@@ -101,7 +101,7 @@ const calibrationFile = () => fs.readFileSync(path.join(repo, 'Mk2_3phase_RFdata
 
 test('calibration, old board: new value = current value x meter / router, phase by phase', () => {
   const m = M.defaults();
-  Object.assign(m.calibration, { powerCalOldBoard: [0.05, 0.05, 0.05], voltageCal: [0.8151, 0.8184, 0.8195] });
+  Object.assign(m.calibration, { powerCalOldBoard: [0.05, 0.05, 0.05], voltageCalOldBoard: [0.8151, 0.8184, 0.8195] });
   m.calibration.power[0] = { router: 2000, meter: 2100 };
   m.calibration.voltage[2] = { router: 232, meter: 230 };
   const r = M.calibrationResult(m);
@@ -109,28 +109,24 @@ test('calibration, old board: new value = current value x meter / router, phase 
     r.power.map((v) => v.toFixed(5)),
     ['0.05250', '0.05000', '0.05000']
   );
-  assert.strictEqual(r.voltageCal[2].toFixed(4), '0.8124');
+  assert.strictEqual(r.voltage[2].toFixed(4), '0.8124');
   assert.deepStrictEqual(G.calibrationLines(m), [
     'inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05250F, 0.05000F, 0.05000F };',
-    'inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8124F };',
+    'inline constexpr float f_voltageCalOldBoard[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8124F };',
   ]);
 });
 
-test('calibration, new board: f_currentCal is corrected, and offsets a voltage correction', () => {
+test('calibration, new board: the corrections, independent of each other', () => {
   const m = M.defaults();
   m.pcbVersion = 'NEW';
-  Object.assign(m.calibration, { currentCal: [1, 1, 1], voltageCal: [0.89, 0.89, 0.89] });
-  m.calibration.power[0] = { router: 2000, meter: 2100 }; // power and voltage on phase 1
-  m.calibration.voltage[0] = { router: 232, meter: 233 };
-  m.calibration.voltage[1] = { router: 232, meter: 233 }; // voltage only on phase 2
+  Object.assign(m.calibration, { powerCorrection: [1, 1, 1], voltageCorrection: [1, 1, 1] });
+  m.calibration.power[0] = { router: 2000, meter: 2100 };
+  m.calibration.voltage[1] = { router: 232, meter: 233 };
   const r = M.calibrationResult(m);
-  // f_powerCal = f_voltageCal x ... x f_currentCal changes by meter / router: x1.05 on phase 1, x1 on phase 2
-  assert.ok(Math.abs((r.voltageCal[0] * r.power[0]) / 0.89 - 1.05) < 1e-12);
-  assert.ok(Math.abs((r.voltageCal[1] * r.power[1]) / 0.89 - 1) < 1e-12);
-  assert.strictEqual(r.power[2], 1, 'no reading, no change');
+  assert.deepStrictEqual(r.power, [1.05, 1, 1], 'a voltage reading leaves the power alone');
   assert.deepStrictEqual(G.calibrationLines(m), [
-    'inline constexpr float f_currentCal[NO_OF_PHASES]{ 1.0455F, 0.9957F, 1.0000F };',
-    'inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8938F, 0.8938F, 0.8900F };',
+    'inline constexpr float f_powerCorrection[NO_OF_PHASES]{ 1.0500F, 1.0000F, 1.0000F };',
+    'inline constexpr float f_voltageCorrection[NO_OF_PHASES]{ 1.0000F, 1.0043F, 1.0000F };',
   ]);
 });
 
@@ -147,8 +143,8 @@ test('calibration: the loaded calibration.h gets only the changed values', () =>
   assert.strictEqual(out, text.replace('f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F }', 'f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05050F, 0.05000F }'));
   assert.ok(G.files(m).some((f) => f.path === 'Mk2_3phase_RFdatalog_temp/calibration.h' && f.text === out));
 
-  m.pcbVersion = 'NEW'; // the same reading now corrects f_currentCal
-  assert.strictEqual(G.calibrationH(m), text.replace('f_currentCal[NO_OF_PHASES]{ 1.0000F, 1.0000F, 1.0000F }', 'f_currentCal[NO_OF_PHASES]{ 1.0000F, 1.0100F, 1.0000F }'));
+  m.pcbVersion = 'NEW'; // the same reading now corrects f_powerCorrection
+  assert.strictEqual(G.calibrationH(m), text.replace('f_powerCorrection[NO_OF_PHASES]{ 1.0000F, 1.0000F, 1.0000F }', 'f_powerCorrection[NO_OF_PHASES]{ 1.0000F, 1.0100F, 1.0000F }'));
   m.calibrationMode = false;
   assert.ok(!G.files(m).some((f) => f.path.endsWith('calibration.h')), 'only in calibration mode');
 });

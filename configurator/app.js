@@ -935,8 +935,9 @@
     const c = m.calibration;
     const r = M.calibrationResult(m);
     c.file = G.calibrationH(m) || c.file;
-    c[M.powerCalOf(m).key] = r.power;
-    c.voltageCal = r.voltageCal;
+    const cal = M.calValuesOf(m);
+    c[cal.power.key] = r.power;
+    c[cal.voltage.key] = r.voltage;
     for (const x of [...c.power, ...c.voltage]) x.router = x.meter = null;
     changed();
   }
@@ -978,23 +979,22 @@
         )
       ),
       h('small', { class: 'help' }, T(`cal.${kind}Help`, { unit })),
-      kind === 'power' && m.pcbVersion === 'NEW' ? h('small', { class: 'help' }, T('cal.powerHelpNew')) : null,
     ];
     const lines = G.calibrationLines(m);
-    const power = M.powerCalOf(m);
-    const powerCal = c[power.key];
-    const changedValues = r.power.some((v, i) => v !== powerCal[i]) || r.voltageCal.some((v, i) => v !== c.voltageCal[i]);
+    const cal = M.calValuesOf(m);
+    const changedValues = r.power.some((v, i) => v !== c[cal.power.key][i]) || r.voltage.some((v, i) => v !== c[cal.voltage.key][i]);
     return section(
       'calibration',
       'sec.calibration',
       p,
       h('p', { class: 'help' }, T('cal.intro')),
+      m.pcbVersion === 'NEW' ? h('p', { class: 'help' }, T('cal.newBoard')) : null,
       row(
         h('label', { class: 'button' }, h('span', null, T('cal.loadFile')), h('input', { type: 'file', accept: '.h,text/plain', hidden: true, onchange: loadCalibration })),
         h('small', { class: 'help' }, c.fileName ? T('cal.fileLoaded', { name: c.fileName }) : T('cal.noFile'))
       ),
-      ...block('power', `cal.power.${m.pcbVersion}`, `cal.current.power.${m.pcbVersion}`, c.power, powerCal, r.power, power.decimals, 'W'),
-      ...block('voltage', 'cal.voltage', 'cal.current.voltage', c.voltage, c.voltageCal, r.voltageCal, 4, 'V'),
+      ...block('power', `cal.power.${m.pcbVersion}`, `cal.current.power.${m.pcbVersion}`, c.power, c[cal.power.key], r.power, cal.power.decimals, 'W'),
+      ...block('voltage', `cal.voltage.${m.pcbVersion}`, `cal.current.voltage.${m.pcbVersion}`, c.voltage, c[cal.voltage.key], r.voltage, cal.voltage.decimals, 'V'),
       ...calibrationChecks(p),
       h('h3', null, T('cal.lines')),
       lines ? h('pre', { class: 'lines' }, h('code', null, lines.join('\n'))) : h('small', { class: 'help' }, T('cal.linesMissing')),
