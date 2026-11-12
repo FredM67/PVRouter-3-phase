@@ -147,12 +147,11 @@ Vous pouvez commencer à lire la documentation ici [3-phase routeur](https://fre
 # Étalonnage du routeur
 Les valeurs d’étalonnage se trouvent dans le fichier **calibration.h**. Seule la puissance compte pour le routage ; la tension (`V1`, `V2`, `V3`) n’est qu’affichée. Les valeurs à régler dépendent de la carte choisie dans **config.h** :
 
-- **Nouvelle carte** (`PcbVersion::NEW`), avec des sondes à sortie tension (333 mV à leur courant nominal) : le firmware calcule ses facteurs à partir de la conception de la carte, dont toutes les résistances sont à 0,1 %. Indiquez la référence interne de l’ADC de votre ATmega328P, mesurée au multimètre sur TP2 (elle varie d’une puce à l’autre, entre 1,0 et 1,2 V), et le courant nominal de vos sondes :
+- **Nouvelle carte** (`PcbVersion::NEW`), avec des sondes à sortie tension (333 mV à leur courant nominal) : le firmware calcule ses facteurs à partir de la conception de la carte, dont toutes les résistances sont à 0,1 %. Indiquez le courant nominal de vos sondes :
   ```cpp
-  inline constexpr float f_adcReference{ 1.100F };
   inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };
   ```
-  En général, cela suffit. Pour affiner, `f_powerCorrection` et `f_voltageCorrection` (1 = la valeur calculée) sont indépendants l’un de l’autre.
+  Cela suffit pour le routage : les trois phases partagent la même référence de l’ADC, elles restent donc équilibrées. Cette référence varie toutefois d’un ATmega328P à l’autre : les watts et volts affichés peuvent s’écarter de quelques pour cent. Pour les corriger, `f_powerCorrection` et `f_voltageCorrection` (1 = la valeur calculée) sont indépendants l’un de l’autre.
 - **Ancienne carte** (`PcbVersion::OLD`) : `f_powerCalOldBoard` et `f_voltageCalOldBoard` donnent directement les facteurs :
   ```cpp
   inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };

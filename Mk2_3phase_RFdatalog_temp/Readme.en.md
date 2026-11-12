@@ -140,12 +140,11 @@ You can start reading the documentation here [3-phase router](https://fredm67.gi
 # Router calibration
 Calibration values are found in the **calibration.h** file. Only the power matters for routing; the voltage (`V1`, `V2`, `V3`) is only displayed. What to set depends on the board chosen in **config.h**:
 
-- **New board** (`PcbVersion::NEW`), with voltage-output CTs (333 mV at their rated current): the firmware calculates its factors from the design of the board, all of whose resistors are 0.1 %. Enter the internal ADC reference of your ATmega328P, measured with a multimeter on TP2 (it differs from one chip to another, between 1.0 and 1.2 V), and the rated current of your CTs:
+- **New board** (`PcbVersion::NEW`), with voltage-output CTs (333 mV at their rated current): the firmware calculates its factors from the design of the board, all of whose resistors are 0.1 %. Enter the rated current of your CTs:
   ```cpp
-  inline constexpr float f_adcReference{ 1.100F };
   inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };
   ```
-  That is usually enough. To correct further, `f_powerCorrection` and `f_voltageCorrection` (1 = the calculated value) are independent of each other.
+  That is enough for routing: the three phases share the same ADC reference, so they stay balanced. That reference differs from one ATmega328P to another, though, so the watts and volts shown can be off by a few percent. To correct them, `f_powerCorrection` and `f_voltageCorrection` (1 = the calculated value) are independent of each other.
 - **Old board** (`PcbVersion::OLD`): `f_powerCalOldBoard` and `f_voltageCalOldBoard` give the factors directly:
   ```cpp
   inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
