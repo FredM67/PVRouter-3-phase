@@ -101,6 +101,7 @@ const calibrationFile = () => fs.readFileSync(path.join(repo, 'Mk2_3phase_RFdata
 
 test('calibration, old board: new value = current value x meter / router, phase by phase', () => {
   const m = M.defaults();
+  m.pcbVersion = 'OLD';
   Object.assign(m.calibration, { powerCalOldBoard: [0.05, 0.05, 0.05], voltageCalOldBoard: [0.8151, 0.8184, 0.8195] });
   m.calibration.power[0] = { router: 2000, meter: 2100 };
   m.calibration.voltage[2] = { router: 232, meter: 230 };
@@ -117,8 +118,7 @@ test('calibration, old board: new value = current value x meter / router, phase 
 });
 
 test('calibration, new board: the corrections, independent of each other', () => {
-  const m = M.defaults();
-  m.pcbVersion = 'NEW';
+  const m = M.defaults(); // the new board
   Object.assign(m.calibration, { powerCorrection: [1, 1, 1], voltageCorrection: [1, 1, 1] });
   m.calibration.power[0] = { router: 2000, meter: 2100 };
   m.calibration.voltage[1] = { router: 232, meter: 233 };
@@ -132,6 +132,7 @@ test('calibration, new board: the corrections, independent of each other', () =>
 
 test('calibration: the loaded calibration.h gets only the changed values', () => {
   const m = M.defaults();
+  m.pcbVersion = 'OLD';
   m.calibrationMode = true;
   const text = calibrationFile();
   Object.assign(m.calibration, { file: text, ...M.parseCalibration(text) });
@@ -153,6 +154,7 @@ test('calibration: a commented-out line is not the one read or rewritten', () =>
   const text = '// inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 1.0F, 1.0F, 1.0F };\n' + calibrationFile();
   assert.deepStrictEqual(M.parseCalibration(text).powerCalOldBoard, [0.05, 0.05, 0.05]);
   const m = M.defaults();
+  m.pcbVersion = 'OLD';
   m.calibrationMode = true;
   Object.assign(m.calibration, { file: text, ...M.parseCalibration(text) });
   m.calibration.power[0] = { router: 500, meter: 1000 };

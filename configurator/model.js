@@ -47,8 +47,8 @@
       formatVersion: FORMAT_VERSION,
 
       // config.h - general
-      pcbVersion: 'OLD', // OLD: former 3-phase board, NEW: universal 3phaseDiverter board
-      serialOutput: 'HumanReadable',
+      pcbVersion: 'NEW', // OLD: former 3-phase board, NEW: universal 3phaseDiverter board
+      serialOutput: 'IoT',
       enableDebug: true,
       calibrationMode: false,
 

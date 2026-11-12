@@ -19,7 +19,7 @@
 // (rev. 6.0 and later). A wrong choice gives wrong measurements: recalibrate after a change.
 inline constexpr PcbVersion PCB_VERSION{ PcbVersion::NEW };
 
-// Serial output type - Human readable for initial setup and commissioning
+// Serial output type - IoT, for the mk2Wifi module / Home Assistant (9600 baud, 7E1)
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
 
 // Debug messages (free RAM...), human-readable output only. The startup configuration and the

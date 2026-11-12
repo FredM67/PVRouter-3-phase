@@ -15,6 +15,9 @@ If you keep your own `config.h`, check these points:
 - **Motherboard:** add `inline constexpr PcbVersion PCB_VERSION{ PcbVersion::OLD };` after
   `#include "types.h"`, or `NEW` for the universal 3phaseDiverter board, then recalibrate if
   you choose `NEW`.
+- **Shipped `config.h`:** it now targets the new board with the mk2Wifi module
+  (`PcbVersion::NEW`, `SerialOutputType::IoT`), as does the configurator by default. With the
+  old board, set `PcbVersion::OLD`; for the serial monitor, `SerialOutputType::HumanReadable`.
 - **`ENABLE_DEBUG`** is now a setting like the others: replace `#define ENABLE_DEBUG` with
   `inline constexpr bool ENABLE_DEBUG{ true };` (or `false`). It only controls the debug
   messages now; the startup configuration is always printed in human-readable mode ([#180]).
