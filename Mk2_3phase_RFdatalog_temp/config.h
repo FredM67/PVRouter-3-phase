@@ -6,7 +6,7 @@
  * https://fredm67.github.io/Mk2PVRouter/configurateur/
  *
  * @version 1.0
- * @date 2026-10-02
+ * @date 2026-11-12
  */
 
 #ifndef CONFIG_H
@@ -17,10 +17,10 @@
 
 // Motherboard: OLD for the former 3-phase board, NEW for the universal 3phaseDiverter board
 // (rev. 6.0 and later). A wrong choice gives wrong measurements: recalibrate after a change.
-inline constexpr PcbVersion PCB_VERSION{ PcbVersion::OLD };
+inline constexpr PcbVersion PCB_VERSION{ PcbVersion::NEW };
 
 // Serial output type - Human readable for initial setup and commissioning
-inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
 
 // Debug messages (free RAM...), human-readable output only. The startup configuration and the
 // status messages do not depend on it: they are always printed in human-readable output.
