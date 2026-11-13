@@ -1,8 +1,8 @@
 # Where the default calibration values come from
 
 The default values of `calibration.h` suit the universal **3phaseDiverter** board (rev. 6.0 and
-later) with 333 mV voltage-output CTs. They are calculated from the design of the board; this page
-shows how, out of curiosity. You don't need it to calibrate: compare with a reference meter, and
+later) with 333 mV voltage-output CTs. They are calculated from the design of the board, then
+corrected by the calibration of a first board; this page shows how, out of curiosity. You don't need it to calibrate: compare with a reference meter, and
 new value = old value × reference reading / router reading.
 
 ## What the two factors mean
@@ -59,6 +59,13 @@ largest current).
 The old board has other input stages, and its ADC reference is AVCC, the supply voltage (5 V or
 3.3 V), not the internal 1.1 V: this calculation doesn't apply. Its values, `f_powerCalOldBoard`
 (0.05 to start) and `f_voltageCalOldBoard`, are found by calibration.
+
+## Calibration of a first board
+
+On the first board, the calibration against a reference gave 0.888065 V per step (0.8 % below the
+design) and 0.00286405 per A of CT rating (2.0 % below), the same on the three phases: these are the
+default values. Most of the difference is the internal ADC reference of that ATmega328P (see
+below), so another board may differ by a few percent, the same way on its three phases.
 
 ## How close it is
 

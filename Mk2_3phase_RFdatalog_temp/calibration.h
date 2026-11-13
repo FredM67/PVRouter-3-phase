@@ -46,12 +46,12 @@ inline constexpr float f_voltageCalOldBoard[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8
 //
 // f_powerCal is given per amp of CT rating: f_powerCal = f_powerCalPerAmp x f_ctRating, so
 // changing a CT only means entering its rating. The default values suit 333 mV voltage-output CTs;
-// they come from the design of the board (see docs/calibration.md). With a current-output CT and a
-// burden resistor R (YHDC SCT-013-000, 2000:1), f_ctRating = 666 / R: the current giving 333 mV
-// across the burden.
-inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };                      /**< rated current of each CT, in A */
-inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.0029225F, 0.0029225F, 0.0029225F }; /**< f_powerCal per A of CT rating */
-inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.8952F, 0.8952F, 0.8952F };      /**< volts per step */
+// they come from the design of the board, corrected by the calibration of a first board (see
+// docs/calibration.md). With a current-output CT and a burden resistor R (YHDC SCT-013-000,
+// 2000:1), f_ctRating = 666 / R: the current giving 333 mV across the burden.
+inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };                                /**< rated current of each CT, in A */
+inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.00286405F, 0.00286405F, 0.00286405F };        /**< f_powerCal per A of CT rating */
+inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.888065256F, 0.888065256F, 0.888065256F }; /**< volts per step */
 //
 // ---- Both boards ----
 //

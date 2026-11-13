@@ -153,13 +153,13 @@ inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.0
 inline constexpr float f_voltageCalOldBoard[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F };
 // Nouvelle carte
 inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };
-inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.0029225F, 0.0029225F, 0.0029225F };
-inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.8952F, 0.8952F, 0.8952F };
+inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.00286405F, 0.00286405F, 0.00286405F };
+inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.888065256F, 0.888065256F, 0.888065256F };
 ```
 
 Ancienne carte : les valeurs sont celles d’avant, 0,05 est un bon départ pour `f_powerCalOldBoard`. Si votre routeur est déjà étalonné, recopiez-y vos anciennes valeurs de `f_powerCal` et `f_voltageCal`.
 
-Nouvelle carte universelle (rev. 6.0 et suivantes) : le facteur de puissance est donné par ampère de calibre de sonde, indiquez le courant nominal de vos sondes dans `f_ctRating`. Les valeurs par défaut conviennent aux sondes à sortie tension 333 mV, et découlent de sa conception ([détails, en anglais](docs/calibration.md)) : avec elles, le routeur est en général précis à quelques pour cent sans étalonnage. Avec une sonde à sortie courant et une résistance de charge R, comme la YHDC SCT-013-000 (2000:1), `f_ctRating` = 666 / R, le courant qui donne 333 mV aux bornes de la résistance (30,3 avec 22 Ω).
+Nouvelle carte universelle (rev. 6.0 et suivantes) : le facteur de puissance est donné par ampère de calibre de sonde, indiquez le courant nominal de vos sondes dans `f_ctRating`. Les valeurs par défaut conviennent aux sondes à sortie tension 333 mV, et découlent de sa conception, corrigée par l’étalonnage d’une première carte ([détails, en anglais](docs/calibration.md)) : avec elles, le routeur est en général précis à quelques pour cent sans étalonnage. Avec une sonde à sortie courant et une résistance de charge R, comme la YHDC SCT-013-000 (2000:1), `f_ctRating` = 666 / R, le courant qui donne 333 mV aux bornes de la résistance (30,3 avec 22 Ω).
 
 L’étalonnage se fait avec le programme du routeur lui-même : les valeurs sont ainsi mesurées avec exactement le traitement avec lequel elles seront utilisées. Avec `SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable` (dans **config.h**), il affiche toutes les 5 secondes, sur le moniteur série à 9600 bauds, la puissance de chaque phase (`P1`, `P2`, `P3`, en W, positive en import).
 

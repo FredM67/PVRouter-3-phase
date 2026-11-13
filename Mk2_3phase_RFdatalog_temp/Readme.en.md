@@ -146,13 +146,13 @@ inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.0
 inline constexpr float f_voltageCalOldBoard[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F };
 // New board
 inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };
-inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.0029225F, 0.0029225F, 0.0029225F };
-inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.8952F, 0.8952F, 0.8952F };
+inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.00286405F, 0.00286405F, 0.00286405F };
+inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.888065256F, 0.888065256F, 0.888065256F };
 ```
 
 Old board: the values are as before; 0.05 is a good start for `f_powerCalOldBoard`. If you already calibrated your router, copy your former `f_powerCal` and `f_voltageCal` values there.
 
-New universal board (rev. 6.0 and later): the power factor is given per amp of CT rating, enter the rated current of your CTs in `f_ctRating`. The default values suit 333 mV voltage-output CTs, and come from its design ([how](docs/calibration.md)): with them, the router is usually accurate to a few percent without calibration. With a current-output CT and a burden resistor R, such as the YHDC SCT-013-000 (2000:1), `f_ctRating` = 666 / R, the current giving 333 mV across the burden (30.3 with 22 Ω).
+New universal board (rev. 6.0 and later): the power factor is given per amp of CT rating, enter the rated current of your CTs in `f_ctRating`. The default values suit 333 mV voltage-output CTs, and come from its design, corrected by the calibration of a first board ([how](docs/calibration.md)): with them, the router is usually accurate to a few percent without calibration. With a current-output CT and a burden resistor R, such as the YHDC SCT-013-000 (2000:1), `f_ctRating` = 666 / R, the current giving 333 mV across the burden (30.3 with 22 Ω).
 
 The router program itself is used for calibration, so the values are measured with exactly the processing they will be used with. With `SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable` (in **config.h**), it prints every 5 seconds, on the serial monitor at 9600 baud, the power of each phase (`P1`, `P2`, `P3`, in W, positive when importing).
 
