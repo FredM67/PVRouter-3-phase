@@ -1,0 +1,46 @@
+<map id="OldImplementation::processCurrentRawSample" name="OldImplementation::processCurrentRawSample">
+<area shape="rect" id="Node000001" title="Process current sample and calculate power (old method)" alt="" coords="377,398,573,443"/>
+<area shape="rect" id="Node000002" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a85736a7c117213a826cdc4d0007ae609" title="Test simulating cloud passing over solar panels." alt="" coords="108,5,329,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="468,382,457,311,432,221,414,173,391,127,362,85,327,48,311,36,310,31,331,44,366,81,395,124,419,171,438,219,462,310,473,384"/>
+<area shape="rect" id="Node000004" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a454c448f5ed217dc1c7f8edb564aedd2" title="Test simulating a full day solar profile." alt="" coords="132,57,304,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="466,383,451,321,426,243,407,203,385,165,359,129,327,99,306,85,304,80,331,94,363,126,390,162,412,201,431,241,457,319,471,384"/>
+<area shape="rect" id="Node000005" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#ac5693daed2ebcb52557cb5084b540c3d" title="Extended test: 10,000 cycles (~200 seconds at 50Hz)" alt="" coords="138,109,299,154"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="460,383,441,335,413,277,375,218,353,191,327,168,300,151,298,146,331,164,357,188,380,215,418,274,446,333,465,384"/>
+<area shape="rect" id="Node000006" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a640e2ff4aa1e5e84e54d125ad2b713b8" title="Test with import/export transitions (bidirectional power flow)" alt="" coords="146,178,291,223"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="452,385,402,311,367,271,328,237,292,219,291,214,330,233,371,268,406,308,458,385"/>
+<area shape="rect" id="Node000007" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#ae06e127d5c2ca96f94658228f8b228bc" title="Test instantaneous power calculation equivalence." alt="" coords="146,248,291,292"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="437,388,388,347,328,307,292,291,291,286,330,302,391,343,443,387"/>
+<area shape="rect" id="Node000008" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a23e36b42ff48e5ebc27489b69a831de3" title="CRITICAL TEST: Prove implementations are IDENTICAL over a full cycle." alt="" coords="118,316,319,344"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="413,392,328,358,292,347,291,342,330,353,418,390"/>
+<area shape="rect" id="Node000009" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a019fa0495a77ab233f0a5a3842d3c406" title="Test with multiple current amplitudes (light to heavy load)" alt="" coords="138,368,298,412"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="359,408,300,402,298,397,364,406"/>
+<area shape="rect" id="Node000010" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a271a0efe222a0259bca5162b7fcd8ec1" title="Test with random step changes in current (simulating appliance switching)" alt="" coords="128,436,308,464"/>
+<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="360,435,310,442,308,437,364,432"/>
+<area shape="rect" id="Node000011" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#ad317769dfb8f37cd71aac16a5ab01d08" title="Test with sinusoidally varying current (simulating slow load changes)" alt="" coords="141,488,296,532"/>
+<area shape="poly" id="edge17_Node000001_Node000011" title=" " alt="" coords="399,450,330,478,295,489,293,485,328,473,403,447"/>
+<area shape="rect" id="Node000012" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a8fadcb9c62a97b9e2e9e358c99a072af" title="Stress test: 50,000 cycles (~17 minutes at 50Hz)" alt="" coords="125,556,312,584"/>
+<area shape="poly" id="edge19_Node000001_Node000012" title=" " alt="" coords="445,453,394,504,363,527,330,547,303,558,300,553,328,542,360,523,391,500,441,456"/>
+<area shape="rect" id="Node000013" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#af94ea4e203a02c631058aa1bb04d4e82" title="Test multiple phases (3&#45;phase simulation)" alt="" coords="114,608,323,636"/>
+<area shape="poly" id="edge21_Node000001_Node000013" title=" " alt="" coords="456,454,405,529,370,566,330,597,304,610,302,605,328,593,367,562,401,526,452,458"/>
+<area shape="rect" id="Node000014" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#ab7f97e3521149543baa0f8dc427c7018" title="Test with varying power factor and noise." alt="" coords="144,660,293,704"/>
+<area shape="poly" id="edge23_Node000001_Node000014" title=" " alt="" coords="461,455,442,502,413,554,376,605,331,649,294,669,292,664,327,645,372,602,409,551,437,500,458,459"/>
+<area shape="rect" id="Node000015" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#af1f81a7c3b9f37fa39f26a6eb83f5cb6" title="Extended test with higher noise (±5 LSB)" alt="" coords="116,728,321,756"/>
+<area shape="poly" id="edge25_Node000001_Node000015" title=" " alt="" coords="468,456,453,516,426,587,408,623,386,658,360,691,331,719,312,730,310,725,327,714,357,687,382,655,403,621,421,585,448,515,465,460"/>
+<area shape="rect" id="Node000016" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#aab1c96fe41de940b3f9355f7c192b667" title="Extended test with realistic ADC noise (±2 LSB)" alt="" coords="148,780,288,824"/>
+<area shape="poly" id="edge27_Node000001_Node000016" title=" " alt="" coords="470,456,457,525,432,608,413,652,391,694,363,734,331,769,311,783,289,792,288,787,309,778,327,765,359,731,386,692,408,650,427,607,452,524,467,460"/>
+<area shape="rect" id="Node000003" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,407,60,434"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="110,45,110,48,92,75,78,117,56,223,43,331,37,406,32,406,38,331,51,222,73,115,88,73,106,44,113,40"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="117,90,110,98,94,122,81,157,59,247,45,340,38,406,32,406,40,340,54,246,76,155,90,119,106,95,120,85"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="123,155,110,168,87,196,70,228,57,262,48,297,38,361,36,406,31,406,33,360,43,295,52,260,65,226,83,193,106,164,125,151"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="130,222,109,237,92,256,78,278,56,327,44,372,38,406,33,406,39,371,51,325,73,276,88,253,106,233,133,217"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="130,292,109,307,85,330,66,358,42,407,37,405,61,355,81,327,106,302,133,288"/>
+<area shape="poly" id="edge12_Node000008_Node000003" title=" " alt="" coords="119,351,109,357,74,382,48,407,44,405,71,378,106,353,122,347"/>
+<area shape="poly" id="edge14_Node000009_Node000003" title=" " alt="" coords="121,408,62,418,58,414,124,404"/>
+<area shape="poly" id="edge16_Node000010_Node000003" title=" " alt="" coords="111,435,61,427,59,422,115,431"/>
+<area shape="poly" id="edge18_Node000011_Node000003" title=" " alt="" coords="125,485,106,478,74,458,51,437,49,432,78,453,109,473,130,483"/>
+<area shape="poly" id="edge20_Node000012_Node000003" title=" " alt="" coords="112,550,106,547,80,521,59,490,38,438,38,432,64,488,84,517,109,542,117,548"/>
+<area shape="poly" id="edge22_Node000013_Node000003" title=" " alt="" coords="111,601,106,597,88,579,73,558,52,512,39,469,36,437,35,432,44,467,57,510,78,555,92,576,109,593,116,599"/>
+<area shape="poly" id="edge24_Node000014_Node000003" title=" " alt="" coords="127,664,106,649,85,624,68,595,46,533,35,476,34,437,34,432,40,475,51,532,73,593,89,621,109,645,132,662"/>
+<area shape="poly" id="edge26_Node000015_Node000003" title=" " alt="" coords="107,719,106,718,91,696,77,664,56,581,41,496,35,437,35,432,46,495,61,580,82,662,95,694,110,715,112,718"/>
+<area shape="poly" id="edge28_Node000016_Node000003" title=" " alt="" coords="131,786,106,769,89,742,75,703,53,605,39,505,35,438,35,432,45,504,59,604,80,702,94,740,110,765,136,786"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="processDataLogging" name="processDataLogging">
+<area shape="rect" id="Node000001" title="Process data logging at the end of each logging period." alt="" coords="754,5,907,33"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="544,5,706,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="736,19,706,22,706,17,741,19"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="341,5,496,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="526,19,496,22,496,17,531,19"/>
+<area shape="rect" id="Node000004" href="$group__TimeCritical.html#gac1f07cd36657d61affe4642911ad27c1" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,5,293,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="323,19,294,22,293,17,328,19"/>
+<area shape="rect" id="Node000005" href="$processing_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title=" " alt="" coords="5,5,48,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="78,20,48,22,48,17,82,18"/>
+</map>

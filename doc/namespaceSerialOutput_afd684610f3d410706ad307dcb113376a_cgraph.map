@@ -1,0 +1,5 @@
+<map id="SerialOutput::poll" name="SerialOutput::poll">
+<area shape="rect" id="Node000001" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="5,5,140,33"/>
+<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="188,5,348,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,17,175,19,169,19,140,22"/>
+</map>

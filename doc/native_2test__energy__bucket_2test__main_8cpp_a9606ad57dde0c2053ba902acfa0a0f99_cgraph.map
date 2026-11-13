@@ -1,0 +1,9 @@
+<map id="test_shift_for_large_and_small_values" name="test_shift_for_large_and_small_values">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,152,68"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="200,32,371,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,43,186,45,181,46,152,48"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="419,5,552,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="371,32,406,30,401,30,372,37"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="425,57,546,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="372,54,412,62,407,62,372,59"/>
+</map>

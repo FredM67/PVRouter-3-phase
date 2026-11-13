@@ -1,0 +1,7 @@
+<map id="bench" name="bench">
+<area shape="rect" id="Node000001" title="The average and worst case of an integer function, for the CI history." alt="" coords="5,32,66,60"/>
+<area shape="rect" id="Node000002" href="$structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="114,5,239,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,38,101,33,96,35,67,43"/>
+<area shape="rect" id="Node000003" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="125,57,228,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="66,49,112,58,107,60,66,54"/>
+</map>

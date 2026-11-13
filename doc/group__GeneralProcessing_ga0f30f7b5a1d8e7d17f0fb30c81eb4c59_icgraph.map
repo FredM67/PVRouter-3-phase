@@ -1,0 +1,9 @@
+<map id="isRouterOff" name="isRouterOff">
+<area shape="rect" id="Node000001" title="Tells whether the router is OFF." alt="" coords="320,32,414,60"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,5,272,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="302,37,273,34,273,29,307,36"/>
+<area shape="rect" id="Node000004" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="159,57,216,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="308,54,217,70,216,65,302,55"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,55,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="85,21,56,22,54,17,89,18"/>
+</map>

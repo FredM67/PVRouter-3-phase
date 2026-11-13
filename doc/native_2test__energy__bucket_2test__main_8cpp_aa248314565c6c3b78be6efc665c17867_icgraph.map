@@ -1,0 +1,10 @@
+<map id="checkHundredthsOfJoule" name="checkHundredthsOfJoule">
+<area shape="rect" id="Node000001" title=" " alt="" coords="302,48,483,76"/>
+<area shape="rect" id="Node000002" href="$native_2test__energy__bucket_2test__main_8cpp.html#a16599d95b9d6625ee5c0c1d6d6772b8c" title=" " alt="" coords="108,5,254,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="287,46,255,42,254,37,292,45"/>
+<area shape="rect" id="Node000004" href="$native_2test__energy__bucket_2test__main_8cpp.html#afd864ade4545e28c109686da020326c3" title=" " alt="" coords="108,75,254,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="292,79,255,88,254,82,287,80"/>
+<area shape="rect" id="Node000003" href="$native_2test__energy__bucket_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,48,60,76"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,50,61,59,59,54,94,47"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="90,77,60,71,60,66,95,75"/>
+</map>

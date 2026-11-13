@@ -1,0 +1,5 @@
+<map id="RemoteLoadCore&lt; NumUnits &gt;" name="RemoteLoadCore&lt; NumUnits &gt;">
+<area shape="rect" id="Node000001" title="Builds and schedules the RF payloads of every remote unit." alt="" coords="5,98,234,126"/>
+<area shape="rect" id="Node000002" href="$structRemoteUnitState.html" title="Transmission bookkeeping for one remote unit." alt="" coords="53,5,186,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,47,122,99,117,97,117,50"/>
+</map>

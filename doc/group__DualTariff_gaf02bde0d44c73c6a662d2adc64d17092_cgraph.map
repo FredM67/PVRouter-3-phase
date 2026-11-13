@@ -1,0 +1,14 @@
+<map id="getDualTariffForcingBitmask" name="getDualTariffForcingBitmask">
+<area shape="rect" id="Node000001" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="5,32,211,60"/>
+<area shape="rect" id="Node000002" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="281,5,346,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="210,30,268,24,263,26,212,35"/>
+<area shape="rect" id="Node000003" href="$utils__override_8h.html#ab72aa66577de637d07a6d3bb1b809108" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="259,57,369,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="211,56,245,62,240,63,211,61"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="619,59,725,86"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="362,54,417,43,494,37,572,43,615,54,609,54,571,48,494,42,417,48,363,59"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="446,57,542,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="369,69,434,71,429,71,370,74"/>
+<area shape="rect" id="Node000006" href="$namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="417,109,571,137"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="365,83,432,105,427,105,364,88"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="545,106,604,91,609,91,546,111"/>
+</map>

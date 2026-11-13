@@ -1,0 +1,25 @@
+<map id="test_stress_50000_cycles" name="test_stress_50000_cycles">
+<area shape="rect" id="Node000001" title="Stress test: 50,000 cycles (~17 minutes at 50Hz)" alt="" coords="5,325,193,353"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="314,5,370,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,324,112,272,138,196,156,155,179,114,206,76,239,44,267,28,301,21,297,24,269,33,242,48,210,80,183,117,161,157,143,198,118,273,105,326"/>
+<area shape="rect" id="Node000003" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a2e34ec7e2024f9fd79d0b07213c0bd9d" title="Generate sinusoidal ADC value with noise." alt="" coords="241,57,443,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="102,324,117,279,144,217,184,151,210,121,239,94,248,91,245,95,242,99,214,124,189,154,149,220,122,281,107,326"/>
+<area shape="rect" id="Node000004" href="$structNewImplementation.html#afd32cfb737112b4bea40c7d356716afe" title="Process current sample and calculate power (new method)" alt="" coords="244,109,440,154"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="106,324,155,248,194,203,239,164,250,159,246,163,242,168,198,207,160,251,111,326"/>
+<area shape="rect" id="Node000005" href="$structOldImplementation.html#ae5e3e8c2357e81029656eac000c3293d" title="Process current sample and calculate power (old method)" alt="" coords="244,178,440,223"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="114,323,168,279,239,233,254,227,251,231,242,237,171,284,118,327"/>
+<area shape="rect" id="Node000006" href="$structNewImplementation.html#a8b91de1ca76a89a94e6fd701b8fc8dae" title="Update DC filter at end of half cycle (new method)" alt="" coords="255,248,428,292"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="149,323,248,295,245,299,152,327"/>
+<area shape="rect" id="Node000007" href="$structOldImplementation.html#a6dadd19982017d7486919dc56e9b9546" title="Update DC filter at end of half cycle (old method)" alt="" coords="255,317,428,362"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="192,337,242,338,237,341,194,342"/>
+<area shape="rect" id="Node000008" href="$structNewImplementation.html#a00caeab8b1d4af178ee4d49b14090207" title="Process voltage sample (new method &#45; left aligned)" alt="" coords="261,386,423,431"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="150,351,249,380,244,383,151,356"/>
+<area shape="rect" id="Node000009" href="$structOldImplementation.html#a7b6663f965ab1ddb1cf44c1458e3ed42" title="Process voltage sample (old method)" alt="" coords="264,456,420,500"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="116,351,171,395,242,441,255,448,250,449,239,445,168,399,116,356"/>
+<area shape="rect" id="Node000010" href="$structNewImplementation.html#ae74cf27602caa56a06470d06c779498a" title="Process voltage for RMS calculation (new method)" alt="" coords="261,525,423,570"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="108,351,160,427,198,472,242,510,251,517,245,517,239,515,194,475,155,430,108,356"/>
+<area shape="rect" id="Node000011" href="$structOldImplementation.html#a6500858b4a8503b4c863cea5a6fe446e" title="Process voltage for RMS calculation (old method)" alt="" coords="264,594,420,639"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="105,351,123,397,150,458,190,523,215,553,242,580,253,589,248,589,239,584,211,557,186,526,146,460,118,399,104,356"/>
+<area shape="rect" id="Node000012" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#afe721670afe144dfacafe352ece28b08" title="Convert right&#45;aligned ADC to left&#45;aligned." alt="" coords="288,663,396,690"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="103,351,116,409,140,489,158,533,181,575,209,615,242,649,276,668,270,668,239,653,205,618,176,578,153,535,135,491,111,410,102,356"/>
+</map>

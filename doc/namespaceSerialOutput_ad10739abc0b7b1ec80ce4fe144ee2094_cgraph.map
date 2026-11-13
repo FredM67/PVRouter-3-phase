@@ -1,0 +1,5 @@
+<map id="SerialOutput::start" name="SerialOutput::start">
+<area shape="rect" id="Node000001" title="Start an output, written by later calls to poll()" alt="" coords="5,5,146,33"/>
+<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c" title="Whether an output is still in progress." alt="" coords="194,5,335,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,17,181,19,176,19,146,22"/>
+</map>

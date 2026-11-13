@@ -1,0 +1,13 @@
+<map id="initialize_rf" name="initialize_rf">
+<area shape="rect" id="Node000001" title="Initialize the shared RF module." alt="" coords="446,32,541,60"/>
+<area shape="rect" id="Node000002" href="$group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="251,5,398,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="428,36,399,34,399,28,434,36"/>
+<area shape="rect" id="Node000004" href="$utils__rf_8h.html#af4688adbf4f3ed19323b79cf2fa2272b" title="Send RF data to gateway." alt="" coords="272,57,377,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="434,55,378,66,378,61,428,55"/>
+<area shape="rect" id="Node000003" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="124,5,182,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="233,20,182,22,182,17,238,19"/>
+<area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="103,57,203,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="254,71,203,74,203,69,259,71"/>
+<area shape="rect" id="Node000006" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,57,55,85"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="85,72,55,74,55,69,90,70"/>
+</map>

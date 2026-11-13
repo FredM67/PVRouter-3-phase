@@ -1,0 +1,11 @@
+<map id="Datalog::voltageCalibration" name="Datalog::voltageCalibration">
+<area shape="rect" id="Node000001" title="The voltage calibration in fixed point, for vrms(), built at compile time." alt="" coords="5,32,206,60"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="273,5,393,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,31,260,27,254,29,207,37"/>
+<area shape="rect" id="Node000003" href="$namespaceDatalog.html#a1dc0bffd09a9dedb477b5ca807afdb7e" title="Largest shift that keeps every (factor x calibration value) within 16 bits." alt="" coords="254,57,412,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="206,54,241,60,235,61,206,60"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="460,31,593,58"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="412,58,442,56,447,55,413,63"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="466,83,587,110"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="413,79,453,87,448,87,412,84"/>
+</map>

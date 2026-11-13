@@ -1,0 +1,12 @@
+<map id="Mk2_3phase_RFdatalog_temp/datalog_math.h" name="Mk2_3phase_RFdatalog_temp/datalog_math.h">
+<area shape="rect" id="Node000001" title="Integer arithmetic of the datalog: power and RMS voltage per phase." alt="" coords="188,5,365,50"/>
+<area shape="rect" id="Node000002" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="219,208,395,252"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,46,80,68,43,83,20,100,11,115,8,129,11,143,20,158,32,169,50,178,100,195,159,208,221,219,216,220,158,213,98,200,48,183,29,173,16,161,6,145,3,129,6,113,16,96,40,78,78,63,174,41"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html" title="The integer datalog arithmetic on the target: exact results, and cycle counts against the float code ..." alt="" coords="30,98,272,160"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="236,61,191,100,188,95,240,58"/>
+<area shape="rect" id="Node000004" href="$native_2test__datalog__math_2test__main_8cpp.html" title="Native unit tests for datalog_math.h." alt="" coords="296,98,510,160"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="317,57,367,97,362,98,316,62"/>
+<area shape="rect" id="Node000005" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="535,106,711,151"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="369,52,523,95,552,106,547,106,521,101,368,57"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="542,156,377,210,376,205,537,157"/>
+</map>

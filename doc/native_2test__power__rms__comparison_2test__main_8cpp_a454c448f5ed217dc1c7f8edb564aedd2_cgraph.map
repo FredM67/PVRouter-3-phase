@@ -1,0 +1,25 @@
+<map id="test_daily_solar_profile" name="test_daily_solar_profile">
+<area shape="rect" id="Node000001" title="Test simulating a full day solar profile." alt="" coords="5,325,178,353"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="299,5,354,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,324,103,272,126,196,144,155,165,114,192,76,224,44,253,28,286,20,282,24,255,33,227,48,196,80,170,117,148,157,131,198,108,273,98,326"/>
+<area shape="rect" id="Node000003" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a2e34ec7e2024f9fd79d0b07213c0bd9d" title="Generate sinusoidal ADC value with noise." alt="" coords="226,57,428,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="94,324,107,280,133,217,171,151,196,121,224,94,233,90,230,95,227,99,200,124,175,154,137,220,112,281,99,326"/>
+<area shape="rect" id="Node000004" href="$structNewImplementation.html#afd32cfb737112b4bea40c7d356716afe" title="Process current sample and calculate power (new method)" alt="" coords="229,109,425,154"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="98,324,144,248,180,203,224,164,234,159,230,164,227,168,184,207,148,251,102,326"/>
+<area shape="rect" id="Node000005" href="$structOldImplementation.html#ae5e3e8c2357e81029656eac000c3293d" title="Process current sample and calculate power (old method)" alt="" coords="229,178,425,223"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="105,323,156,279,224,233,239,228,235,231,227,237,159,284,110,326"/>
+<area shape="rect" id="Node000006" href="$structNewImplementation.html#a8b91de1ca76a89a94e6fd701b8fc8dae" title="Update DC filter at end of half cycle (new method)" alt="" coords="240,248,414,292"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="140,323,236,295,232,299,143,327"/>
+<area shape="rect" id="Node000007" href="$structOldImplementation.html#a6dadd19982017d7486919dc56e9b9546" title="Update DC filter at end of half cycle (old method)" alt="" coords="240,317,414,362"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="177,337,227,338,222,341,179,342"/>
+<area shape="rect" id="Node000008" href="$structNewImplementation.html#a00caeab8b1d4af178ee4d49b14090207" title="Process voltage sample (new method &#45; left aligned)" alt="" coords="246,386,408,431"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="140,351,236,380,232,383,142,356"/>
+<area shape="rect" id="Node000009" href="$structOldImplementation.html#a7b6663f965ab1ddb1cf44c1458e3ed42" title="Process voltage sample (old method)" alt="" coords="249,456,404,500"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="107,351,159,395,227,441,239,448,234,449,224,445,156,399,108,356"/>
+<area shape="rect" id="Node000010" href="$structNewImplementation.html#ae74cf27602caa56a06470d06c779498a" title="Process voltage for RMS calculation (new method)" alt="" coords="246,525,408,570"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="100,351,148,427,184,472,227,510,235,517,229,517,224,515,180,475,144,430,100,356"/>
+<area shape="rect" id="Node000011" href="$structOldImplementation.html#a6500858b4a8503b4c863cea5a6fe446e" title="Process voltage for RMS calculation (old method)" alt="" coords="249,594,404,639"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="97,351,114,397,139,458,177,523,200,553,227,580,238,589,233,589,224,584,197,557,172,526,134,460,109,399,97,356"/>
+<area shape="rect" id="Node000012" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#afe721670afe144dfacafe352ece28b08" title="Convert right&#45;aligned ADC to left&#45;aligned." alt="" coords="273,663,380,690"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="95,351,107,409,129,489,146,533,168,575,195,615,227,649,260,669,255,668,224,653,190,618,163,578,141,535,124,491,102,410,94,356"/>
+</map>

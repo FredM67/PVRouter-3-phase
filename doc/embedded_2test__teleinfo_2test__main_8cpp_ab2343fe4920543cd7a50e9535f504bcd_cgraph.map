@@ -1,0 +1,16 @@
+<map id="test_teleinfo_line_contents" name="test_teleinfo_line_contents">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,76,140,120"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a2a68a15b365d99047b738628d77bd56b" title=" " alt="" coords="226,5,322,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,73,187,43,213,36,209,39,189,48,122,77"/>
+<area shape="rect" id="Node000003" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="218,57,330,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="139,86,205,79,200,82,141,92"/>
+<area shape="rect" id="Node000006" href="$classTeleInfo.html#a61bb01da9590444331f8a02d39cfc7c7" title="Sends a telemetry value as an unsigned integer (above 32767, send() would wrap)." alt="" coords="188,109,360,137"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="140,104,175,110,170,111,140,109"/>
+<area shape="rect" id="Node000007" href="$classTeleInfo.html#a699a9710dfbb9c795aac33144cd2703d" title="Writes the next part of the finished frame." alt="" coords="202,161,346,189"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="123,118,189,146,211,156,206,156,187,151,122,123"/>
+<area shape="rect" id="Node000004" href="$classTeleInfo.html#a83f6500622fefb17eef340037510392e" title="Writes a whole line: line feed, tag, value, checksum and carriage return." alt="" coords="408,84,548,112"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="330,76,395,86,390,87,330,81"/>
+<area shape="rect" id="Node000005" href="$classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="596,84,804,112"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="549,95,583,98,578,98,549,100"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="360,110,395,108,390,109,361,115"/>
+</map>

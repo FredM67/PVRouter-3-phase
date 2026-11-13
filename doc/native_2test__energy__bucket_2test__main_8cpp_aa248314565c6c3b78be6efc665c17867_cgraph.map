@@ -1,0 +1,10 @@
+<map id="checkHundredthsOfJoule" name="checkHundredthsOfJoule">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,32,187,60"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#aeae61ea16953d9d9b692f8bb2c8b5f6a" title="A power in watts, in bucket units per mains cycle." alt="" coords="268,5,410,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,33,255,28,250,29,188,39"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#a993caf3ccf42a68629e46c31dc5fe885" title="An energy in bucket units, in hundredths of a joule (for the datalog)." alt="" coords="235,57,443,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="187,53,222,59,216,59,187,58"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#a7aaa5a81b4e5ecaca75d4e9f5eb9a052" title="Greatest common divisor, to reduce fractions at compile time." alt="" coords="491,57,587,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="444,69,478,71,473,71,444,74"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="505,56,499,48,503,39,517,33,539,31,563,33,577,43,572,42,561,38,539,36,518,38,507,43,504,48,509,58"/>
+</map>

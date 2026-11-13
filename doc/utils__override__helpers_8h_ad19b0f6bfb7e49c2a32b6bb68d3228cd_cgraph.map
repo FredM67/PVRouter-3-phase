@@ -1,0 +1,21 @@
+<map id="ALL_LOADS" name="ALL_LOADS">
+<area shape="rect" id="Node000001" title="Returns a bitmask representing all loads (local + remote)." alt="" coords="5,54,101,82"/>
+<area shape="rect" id="Node000002" href="$utils__override__helpers_8h.html#aacfc43b81341d59e7dd02a0eb307f6c6" title="Returns a bitmask representing all LOCAL load pins." alt="" coords="155,27,300,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,58,142,53,138,56,102,63"/>
+<area shape="rect" id="Node000007" href="$utils__override__helpers_8h.html#a56b1293dc6f12ee82283d9630b026306" title="Returns a bitmask representing all REMOTE loads." alt="" coords="149,79,306,107"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="101,72,136,78,131,80,102,77"/>
+<area shape="rect" id="Node000003" href="$utils__override_8h.html#aece58b485056402b91be81d615714b28" title="Bitmask of the pins of every local load (lower 16 bits)." alt="" coords="362,27,487,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,38,349,40,344,42,300,44"/>
+<area shape="rect" id="Node000004" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="603,79,669,107"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="484,53,591,81,585,82,484,58"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="777,54,882,82"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="478,24,531,13,594,5,662,4,729,13,765,26,798,46,793,45,763,31,728,18,662,9,594,10,531,18,479,29"/>
+<area shape="rect" id="Node000006" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="588,27,684,55"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="487,38,576,41,570,41,488,44"/>
+<area shape="rect" id="Node000008" href="$utils__override_8h.html#a13662843c76f975c9c66890fe7659d91" title="Bitmask of every remote load (bit 16 + remote rank)." alt="" coords="354,79,495,107"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="306,90,341,93,336,93,306,96"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="495,90,590,93,585,93,496,96"/>
+<area shape="rect" id="Node000009" href="$namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557" title="Number of entries of the map that are driven remotely." alt="" coords="543,131,729,159"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="484,105,565,127,559,127,484,110"/>
+<area shape="poly" id="edge10_Node000009_Node000005" title=" " alt="" coords="692,128,728,116,787,90,792,89,730,121,693,133"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="test_watts_is_faster_than_the_float_code" name="test_watts_is_faster_than_the_float_code">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,76,165,120"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="241,5,301,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,73,228,36,224,39,141,77"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8f8db11a49383eeae3eeb265450c9ff9" title=" " alt="" coords="230,57,312,85"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="164,84,217,78,212,80,166,89"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="241,109,301,137"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="165,106,228,116,223,118,165,111"/>
+<area shape="rect" id="Node000007" href="$namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="213,161,329,189"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="141,118,224,154,219,156,140,123"/>
+<area shape="rect" id="Node000003" href="$structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="377,83,502,110"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="302,30,397,75,391,76,301,35"/>
+<area shape="rect" id="Node000004" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="388,5,491,33"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="301,17,375,18,370,20,302,22"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="301,116,365,108,359,109,302,121"/>
+</map>

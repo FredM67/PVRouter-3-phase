@@ -1,0 +1,43 @@
+<map id="OldImplementation::processVoltage" name="OldImplementation::processVoltage">
+<area shape="rect" id="Node000001" title="Process voltage for RMS calculation (old method)" alt="" coords="377,358,532,403"/>
+<area shape="rect" id="Node000002" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a85736a7c117213a826cdc4d0007ae609" title="Test simulating cloud passing over solar panels." alt="" coords="108,5,329,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="448,342,438,279,418,199,402,157,382,117,357,80,327,48,311,36,310,31,331,44,361,77,387,114,407,155,423,197,444,277,453,343"/>
+<area shape="rect" id="Node000004" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a454c448f5ed217dc1c7f8edb564aedd2" title="Test simulating a full day solar profile." alt="" coords="132,57,304,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="445,342,433,288,411,222,376,155,354,125,327,99,305,85,304,80,331,94,358,121,381,152,416,219,438,287,450,343"/>
+<area shape="rect" id="Node000005" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#ac5693daed2ebcb52557cb5084b540c3d" title="Extended test: 10,000 cycles (~200 seconds at 50Hz)" alt="" coords="138,109,299,154"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="439,343,422,303,398,256,367,208,327,168,300,151,298,146,331,164,371,205,403,253,427,301,444,344"/>
+<area shape="rect" id="Node000006" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a640e2ff4aa1e5e84e54d125ad2b713b8" title="Test with import/export transitions (bidirectional power flow)" alt="" coords="146,178,291,223"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="429,345,386,290,359,262,328,237,292,219,290,214,330,233,362,258,390,287,434,345"/>
+<area shape="rect" id="Node000007" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a23e36b42ff48e5ebc27489b69a831de3" title="CRITICAL TEST: Prove implementations are IDENTICAL over a full cycle." alt="" coords="118,247,319,274"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="416,348,376,317,328,288,301,277,299,272,330,283,379,313,422,347"/>
+<area shape="rect" id="Node000008" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a019fa0495a77ab233f0a5a3842d3c406" title="Test with multiple current amplitudes (light to heavy load)" alt="" coords="138,298,298,343"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="360,358,300,343,299,338,364,356"/>
+<area shape="rect" id="Node000009" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a271a0efe222a0259bca5162b7fcd8ec1" title="Test with random step changes in current (simulating appliance switching)" alt="" coords="128,367,308,394"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="359,382,310,383,308,378,364,379"/>
+<area shape="rect" id="Node000010" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#ad317769dfb8f37cd71aac16a5ab01d08" title="Test with sinusoidally varying current (simulating slow load changes)" alt="" coords="141,418,296,463"/>
+<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="360,405,297,423,295,419,365,402"/>
+<area shape="rect" id="Node000011" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a8fadcb9c62a97b9e2e9e358c99a072af" title="Stress test: 50,000 cycles (~17 minutes at 50Hz)" alt="" coords="125,487,312,514"/>
+<area shape="poly" id="edge17_Node000001_Node000011" title=" " alt="" coords="417,415,379,448,330,478,301,488,298,484,328,473,376,444,421,411"/>
+<area shape="rect" id="Node000012" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#af94ea4e203a02c631058aa1bb04d4e82" title="Test multiple phases (3&#45;phase simulation)" alt="" coords="114,539,323,566"/>
+<area shape="poly" id="edge19_Node000001_Node000012" title=" " alt="" coords="434,414,391,475,363,504,330,528,304,540,302,536,328,524,359,500,387,471,430,418"/>
+<area shape="rect" id="Node000013" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#ab7f97e3521149543baa0f8dc427c7018" title="Test with varying power factor and noise." alt="" coords="144,590,293,635"/>
+<area shape="poly" id="edge21_Node000001_Node000013" title=" " alt="" coords="441,415,425,456,400,499,369,543,331,580,294,599,292,595,327,576,365,539,396,497,420,454,438,419"/>
+<area shape="rect" id="Node000014" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#af1f81a7c3b9f37fa39f26a6eb83f5cb6" title="Extended test with higher noise (±5 LSB)" alt="" coords="116,659,321,686"/>
+<area shape="poly" id="edge23_Node000001_Node000014" title=" " alt="" coords="448,416,436,471,413,533,379,596,356,625,331,649,313,660,310,656,327,645,352,621,374,593,408,531,431,469,445,420"/>
+<area shape="rect" id="Node000015" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#aab1c96fe41de940b3f9355f7c192b667" title="Extended test with realistic ADC noise (±2 LSB)" alt="" coords="148,710,288,755"/>
+<area shape="poly" id="edge25_Node000001_Node000015" title=" " alt="" coords="451,416,440,480,419,555,403,594,383,632,359,668,331,700,312,714,290,723,288,718,309,709,327,696,355,665,379,630,398,592,414,553,435,478,447,420"/>
+<area shape="rect" id="Node000003" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,367,60,394"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="110,45,110,48,94,72,80,108,59,202,45,299,38,366,32,366,39,298,53,201,75,107,89,70,106,44,113,40"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="117,90,110,98,96,118,83,149,62,227,47,308,38,366,33,366,41,307,57,226,78,147,91,116,106,95,119,86"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="123,156,110,168,90,191,74,217,53,274,41,327,37,366,32,366,36,326,48,272,70,215,86,188,106,164,125,151"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="130,222,109,237,82,268,62,304,40,367,35,366,57,302,78,265,106,233,133,218"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="114,283,109,288,87,306,69,327,43,367,38,365,64,324,84,302,106,284,117,279"/>
+<area shape="poly" id="edge12_Node000008_Node000003" title=" " alt="" coords="128,350,109,358,62,373,58,369,107,353,131,346"/>
+<area shape="poly" id="edge14_Node000009_Node000003" title=" " alt="" coords="111,382,61,383,59,378,114,379"/>
+<area shape="poly" id="edge16_Node000010_Node000003" title=" " alt="" coords="127,414,107,408,61,392,59,387,109,403,132,412"/>
+<area shape="poly" id="edge18_Node000011_Node000003" title=" " alt="" coords="113,481,106,477,84,459,64,437,41,398,41,392,69,434,87,455,109,473,118,479"/>
+<area shape="poly" id="edge20_Node000012_Node000003" title=" " alt="" coords="112,532,106,528,77,496,56,459,42,423,37,397,37,392,47,422,61,457,81,493,109,524,118,530"/>
+<area shape="poly" id="edge22_Node000013_Node000003" title=" " alt="" coords="127,594,106,580,87,558,72,534,50,481,38,432,35,397,35,392,43,431,55,480,76,531,91,555,109,576,132,592"/>
+<area shape="poly" id="edge24_Node000014_Node000003" title=" " alt="" coords="108,650,106,649,81,619,62,585,49,549,40,511,31,443,33,397,33,392,36,443,45,510,54,547,67,583,85,616,110,645,113,649"/>
+<area shape="poly" id="edge26_Node000015_Node000003" title=" " alt="" coords="131,717,106,700,90,675,77,640,55,551,41,460,35,398,35,392,46,459,60,550,82,638,95,673,110,696,136,716"/>
+</map>

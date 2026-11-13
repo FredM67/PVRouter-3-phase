@@ -1,0 +1,5 @@
+<map id="RemoteLoadCore::sendPending" name="RemoteLoadCore::sendPending">
+<area shape="rect" id="Node000001" title="Hand every pending payload to send, addressed to its unit&#39;s node ID." alt="" coords="5,5,230,33"/>
+<area shape="rect" id="Node000002" href="$classRemoteLoadCore.html#a319660f4fc15458ef8ddc005730fe57f" title="Claim a pending transmission for one unit." alt="" coords="278,5,499,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,17,265,19,260,19,230,22"/>
+</map>

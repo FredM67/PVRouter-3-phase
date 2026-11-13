@@ -1,0 +1,11 @@
+<map id="ALL_LOCAL_LOADS" name="ALL_LOCAL_LOADS">
+<area shape="rect" id="Node000001" title="Returns a bitmask representing all LOCAL load pins." alt="" coords="5,57,150,85"/>
+<area shape="rect" id="Node000002" href="$utils__override_8h.html#aece58b485056402b91be81d615714b28" title="Bitmask of the pins of every local load (lower 16 bits)." alt="" coords="198,57,323,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,69,184,70,179,72,150,74"/>
+<area shape="rect" id="Node000003" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="391,5,456,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="306,54,374,35,379,33,307,59"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="371,57,476,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="323,69,358,71,353,71,324,74"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="376,109,471,137"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="307,83,366,104,361,104,306,88"/>
+</map>

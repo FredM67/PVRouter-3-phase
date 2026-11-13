@@ -1,0 +1,9 @@
+<map id="Energy::toFixedPerSample" name="Energy::toFixedPerSample">
+<area shape="rect" id="Node000001" title="Build the per&#45;sample calibration table at compile time." alt="" coords="5,57,196,85"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="244,5,377,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,54,239,36,234,39,160,59"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="250,57,371,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,69,237,71,231,72,197,74"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="250,109,370,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="160,83,239,104,234,106,159,88"/>
+</map>

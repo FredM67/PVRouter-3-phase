@@ -1,0 +1,5 @@
+<map id="processRemoteLoadTransmissions" name="processRemoteLoadTransmissions">
+<area shape="rect" id="Node000001" title="Process pending RF transmissions." alt="" coords="5,5,251,33"/>
+<area shape="rect" id="Node000002" href="$namespaceSharedRF.html#a1885bc1c65805664c2ad68a37868cd57" title="Accessor for the shared RFM69 instance." alt="" coords="299,5,422,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="251,17,286,19,280,19,251,22"/>
+</map>

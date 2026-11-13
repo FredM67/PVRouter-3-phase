@@ -1,0 +1,17 @@
+<map id="test_contribution_matches_the_reference_for_a_typical_calibration" name="test_contribution_matches_the_reference_for_a_typical_calibration">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,92,215,154"/>
+<area shape="rect" id="Node000002" href="$native_2test__energy__bucket_2test__main_8cpp.html#a0f3801aa789750b4d56cf88b9996bf95" title="Every average power from &#45;FULL_SCALE to +FULL_SCALE, in uneven steps." alt="" coords="263,109,437,137"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="215,121,249,123,244,124,215,126"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="485,31,656,58"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="385,106,484,69,505,64,510,63,486,74,387,111"/>
+<area shape="rect" id="Node000006" href="$namespaceEnergy.html#a5c6a3eeab8203be8c21f0dcd70f1b1c0" title="Contribution of one mains cycle of one phase to the bucket." alt="" coords="495,83,646,110"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="437,110,482,107,477,108,438,115"/>
+<area shape="rect" id="Node000007" href="$native_2test__energy__bucket_2test__main_8cpp.html#a6daf045ca0cf4c7885ee70a055efcbf0" title="The float arithmetic being replaced, in bucket units." alt="" coords="529,135,612,162"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="437,131,516,142,511,142,437,136"/>
+<area shape="rect" id="Node000008" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="510,187,631,214"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="388,135,486,171,510,182,505,181,484,176,387,140"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="704,5,838,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="656,31,691,29,686,30,657,36"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="710,57,832,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="657,53,698,61,692,61,657,59"/>
+</map>

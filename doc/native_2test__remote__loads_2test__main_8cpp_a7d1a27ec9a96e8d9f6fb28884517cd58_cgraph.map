@@ -1,0 +1,11 @@
+<map id="test_three_units_one_load_each" name="test_three_units_one_load_each">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,76,163,120"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="287,5,342,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,73,210,43,274,27,269,30,212,48,137,77"/>
+<area shape="rect" id="Node000003" href="$classRemoteLoadCore.html#a531f661161fa83cf97e06beaccb1745b" title="Current payload of a unit, whether or not it has been sent." alt="" coords="211,57,419,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,86,197,84,192,86,164,91"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#adb9797ea49459ec57cf3641aee0d7bd6" title="Declares a load driven by a remote unit over RF." alt="" coords="261,109,368,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="163,104,248,115,243,117,163,109"/>
+<area shape="rect" id="Node000005" href="$native_2test__remote__loads_2test__main_8cpp.html#a472cbe17dbc54a8cc7f3c5dc42245204" title="Build a LoadStates array from a bit pattern, bit i = load i." alt="" coords="274,161,356,189"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="138,118,212,146,261,162,256,162,210,151,137,123"/>
+</map>

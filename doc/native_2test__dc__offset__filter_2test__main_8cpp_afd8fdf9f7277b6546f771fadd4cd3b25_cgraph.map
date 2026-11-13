@@ -1,0 +1,9 @@
+<map id="test_rounding_behavior" name="test_rounding_behavior">
+<area shape="rect" id="Node000001" title="Test rounding behavior (| 32U adds 0.5 LSB)" alt="" coords="5,57,180,85"/>
+<area shape="rect" id="Node000002" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#ab2de3e39699c1a89d01a7bbb5c1d6a8f" title="Simulate left&#45;aligned ADC reading." alt="" coords="252,5,356,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,54,239,34,235,37,153,59"/>
+<area shape="rect" id="Node000003" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a987ebf142708dd95a2accb0943517410" title="Reset filter state to nominal values." alt="" coords="260,57,348,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,69,248,70,243,72,180,74"/>
+<area shape="rect" id="Node000004" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#aa4e466dce9a4cd1a7466dba429f87e94" title="Simulate processPolarity() &#45; DC offset subtraction." alt="" coords="228,109,380,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="152,83,232,104,227,106,152,88"/>
+</map>

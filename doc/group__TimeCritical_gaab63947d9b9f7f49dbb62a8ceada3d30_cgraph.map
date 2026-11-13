@@ -1,0 +1,11 @@
+<map id="processPlusHalfCycle" name="processPlusHalfCycle">
+<area shape="rect" id="Node000001" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="5,32,167,60"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process data logging at the end of each logging period." alt="" coords="234,5,387,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,34,221,29,216,31,167,39"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase&#45;specific new cycle." alt="" coords="215,57,406,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="167,52,202,58,197,59,167,58"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#a5c6a3eeab8203be8c21f0dcd70f1b1c0" title="Contribution of one mains cycle of one phase to the bucket." alt="" coords="454,31,605,58"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="406,57,441,55,436,56,406,62"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#aeae61ea16953d9d9b692f8bb2c8b5f6a" title="A power in watts, in bucket units per mains cycle." alt="" coords="459,83,600,110"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="406,80,446,87,441,87,406,85"/>
+</map>

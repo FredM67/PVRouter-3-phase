@@ -1,0 +1,11 @@
+<map id="togglePin" name="togglePin">
+<area shape="rect" id="Node000001" title="Toggle the specified pin." alt="" coords="320,32,402,60"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,5,272,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="302,37,272,35,272,30,307,37"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8" title=" " alt="" coords="130,57,244,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="308,54,245,66,244,60,302,54"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,55,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="85,21,56,22,54,17,89,18"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,57,55,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="114,74,55,74,55,69,116,69"/>
+</map>

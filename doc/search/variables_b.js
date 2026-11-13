@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['n_5fcyclecountfordatalogging_0',['n_cycleCountForDatalogging',['../processing_8cpp.html#a553f28df1683f35eefa78b35ad0e2d13',1,'processing.cpp']]],
+  ['n_5finputs_1',['N_INPUTS',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#a998f0ee62e6dcf044ce5c958cd052c9c',1,'test_main.cpp']]],
+  ['n_5flowestnoofsamplesetspermainscycle_2',['n_lowestNoOfSampleSetsPerMainsCycle',['../processing_8cpp.html#a0beef0d593bc73e25d415c64444255e5',1,'processing.cpp']]],
+  ['n_5fmax_3',['N_MAX',['../processing_8cpp.html#aa94bca1089dcacfd14001398e745b449',1,'processing.cpp']]],
+  ['n_5fmax_5f50hz_4',['N_MAX_50HZ',['../native_2test__energy__bucket_2test__main_8cpp.html#ad868856d28e6626b847bc928f40d5bdc',1,'test_main.cpp']]],
+  ['n_5fmin_5',['N_MIN',['../processing_8cpp.html#a9b764c447c002ce136c613d2fbb59a2d',1,'processing.cpp']]],
+  ['n_5fmin_5f50hz_6',['N_MIN_50HZ',['../native_2test__energy__bucket_2test__main_8cpp.html#a3ff2da5d27c262277e3b6e07ef437ccb',1,'test_main.cpp']]],
+  ['n_5fsamples_7',['n_samples',['../structOldImplementation.html#a84ce0669bcce9751da4e532c84fa5771',1,'OldImplementation::n_samples'],['../structNewImplementation.html#a2acc489e0cc69662fa66f6dc74908768',1,'NewImplementation::n_samples']]],
+  ['n_5fsamplesduringthismainscycle_8',['n_samplesDuringThisMainsCycle',['../processing_8cpp.html#a9a22740c3a35433eaeae0fa7177d93a1',1,'processing.cpp']]],
+  ['network_5fid_9',['NETWORK_ID',['../namespaceRFConfig.html#ad0b64b090abf5796ba60eec27bc963af',1,'RFConfig']]],
+  ['new_5fboard_5fcalibration_10',['NEW_BOARD_CALIBRATION',['../calibration_8h.html#a85a92aa64b423809c04b4d6198952d0d',1,'calibration.h']]],
+  ['newboard20cal_11',['newBoard20Cal',['../native_2test__datalog__math_2test__main_8cpp.html#ad7e48fa43e90abb2e899adce011469e8',1,'test_main.cpp']]],
+  ['newboard50cal_12',['newBoard50Cal',['../native_2test__datalog__math_2test__main_8cpp.html#a08e58c673e59e0545571a0b913b527f9',1,'test_main.cpp']]],
+  ['newboardvcal_13',['newBoardVCal',['../native_2test__datalog__math_2test__main_8cpp.html#ae4c9e46dfe6a3c8855aab39e531e6560',1,'test_main.cpp']]],
+  ['newimpl_14',['newImpl',['../native_2test__power__rms__comparison_2test__main_8cpp.html#a1f8bd1f6770993e62cdf594ef84ead4a',1,'test_main.cpp']]],
+  ['newsump_15',['newSumP',['../structTestStats.html#a3c223b20c3771b43b7087688b43efb8c',1,'TestStats']]],
+  ['newsumvsq_16',['newSumVsq',['../structTestStats.html#ae03f807271adfe0881c1c33359560168',1,'TestStats']]],
+  ['next_17',['next',['../structadc__ctx__t.html#a6e4413ed3c7c8d5ccd0c032eedfcef06',1,'adc_ctx_t']]],
+  ['nextstep_18',['nextStep',['../namespaceSerialOutput.html#afb5cab8ad2b5adb1501e08e29af826fb',1,'SerialOutput']]],
+  ['no_5fof_5fdumploads_19',['NO_OF_DUMPLOADS',['../config_8h.html#aa2458020f21db854d8f2fe0e500dcd05',1,'config.h']]],
+  ['no_5fof_5fphases_20',['NO_OF_PHASES',['../config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91',1,'config_system.h']]],
+  ['no_5fof_5fremote_5floads_21',['NO_OF_REMOTE_LOADS',['../config_8h.html#af9e49b9ee7b4e089889d4d9446860da3',1,'config.h']]],
+  ['no_5fof_5fremote_5funits_22',['NO_OF_REMOTE_UNITS',['../config_8h.html#a7b86e4a3369c03fec917295508ef3a2f',1,'config.h']]],
+  ['nodeid_23',['nodeId',['../structRecordingRadio.html#a93d3263f5b9def1c64a97e650b11d576',1,'RecordingRadio']]]
+];

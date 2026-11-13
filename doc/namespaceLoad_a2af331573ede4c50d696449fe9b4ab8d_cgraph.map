@@ -1,0 +1,5 @@
+<map id="Load::bitOf" name="Load::bitOf">
+<area shape="rect" id="Node000001" title="Rank of a load among the loads of its own unit, in ascending map order." alt="" coords="5,5,98,33"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#ab4ce134e88bb49ba929ef2e5e8236bbe" title="The owning unit of the entry: 0 for a local load, 1..3 for a remote one." alt="" coords="146,5,246,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,17,133,19,128,19,98,22"/>
+</map>

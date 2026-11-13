@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['ema_0',['ema',['../classEWMA__average.html#a65fb7d357a350ee9716c20219c3333fc',1,'EWMA_average']]],
+  ['ema_5fema_1',['ema_ema',['../classEWMA__average.html#ae7a139fbc13ba0785cb580ba686a8363',1,'EWMA_average']]],
+  ['ema_5fema_5fema_2',['ema_ema_ema',['../classEWMA__average.html#a5219d8dba50d05dffa44893de21fed9f',1,'EWMA_average']]],
+  ['ema_5fema_5fema_5fraw_3',['ema_ema_ema_raw',['../classEWMA__average.html#a7a3bae04667592466cd5cc53223b3d67',1,'EWMA_average']]],
+  ['ema_5fema_5fraw_4',['ema_ema_raw',['../classEWMA__average.html#a98361417bbb5ad1fa219184f9d76e27e',1,'EWMA_average']]],
+  ['ema_5fraw_5',['ema_raw',['../classEWMA__average.html#ac0839eb3ff16d2e4c67e8055535b3f9b',1,'EWMA_average']]],
+  ['enable_5fdebug_6',['ENABLE_DEBUG',['../config_8h.html#a99a6f99ea62c46c99a1db839cdc8cc0d',1,'ENABLE_DEBUG:&#160;config.h'],['../embedded_2test__utils__relay_2test__main_8cpp.html#a99a6f99ea62c46c99a1db839cdc8cc0d',1,'ENABLE_DEBUG:&#160;test_main.cpp']]],
+  ['enable_5fif_7',['enable_if',['../structenable__if.html',1,'']]],
+  ['enable_5fif_2ehpp_8',['enable_if.hpp',['../enable__if_8hpp.html',1,'']]],
+  ['enable_5fif_3c_20true_2c_20t_20_3e_9',['enable_if&lt; true, T &gt;',['../structenable__if_3_01true_00_01T_01_4.html',1,'']]],
+  ['enable_5fif_5ft_10',['enable_if_t',['../enable__if_8hpp.html#ad200422dfbdeb88f7af4779a72cdcf67',1,'enable_if.hpp']]],
+  ['endstartuptext_11',['endStartupText',['../namespaceSerialOutput.html#afa14847acb347d3b042396e0b082d086',1,'SerialOutput']]],
+  ['energy_12',['Energy',['../namespaceEnergy.html',1,'']]],
+  ['energy_5fbucket_2eh_13',['energy_bucket.h',['../energy__bucket_8h.html',1,'']]],
+  ['entries_5f_14',['entries_',['../classOverridePins.html#a8bf6bcf16da2e94200cc419a72c48b2b',1,'OverridePins']]],
+  ['entry_15',['Entry',['../structOverridePins_1_1Entry.html',1,'OverridePins']]],
+  ['etx_16',['ETX',['../classTeleInfo.html#aa03518019927460cd7735213630004d9',1,'TeleInfo']]],
+  ['ewma_5faverage_17',['EWMA_average',['../classEWMA__average.html',1,'']]],
+  ['ewma_5faverage_18',['ewma_average',['../classRelayEngine.html#a03a84f65f56f7e8bce137c967dfe7ebf',1,'RelayEngine']]],
+  ['ewma_5faverage_3c_2010_20_2a60_2fdatalog_5fperiod_5fin_5fseconds_20_3e_19',['EWMA_average&lt; 10 *60/DATALOG_PERIOD_IN_SECONDS &gt;',['../classEWMA__average.html',1,'']]],
+  ['ewma_5favg_2ehpp_20',['ewma_avg.hpp',['../ewma__avg_8hpp.html',1,'']]],
+  ['exactreference_21',['exactReference',['../native_2test__energy__bucket_2test__main_8cpp.html#a1eb6eb8118c52d7086f05c62d72ab7d6',1,'test_main.cpp']]]
+];

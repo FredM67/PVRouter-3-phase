@@ -1,0 +1,12 @@
+<map id="SerialOutput::poll" name="SerialOutput::poll">
+<area shape="rect" id="Node000001" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="344,65,478,93"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="179,5,228,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="346,61,295,47,228,28,228,23,297,42,352,60"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="113,57,294,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="326,80,294,82,294,77,331,79"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="111,125,296,153"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="351,98,297,116,258,127,257,122,295,111,346,99"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,96,63,124"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="96,100,64,107,62,102,100,97"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="103,123,63,117,63,112,107,121"/>
+</map>

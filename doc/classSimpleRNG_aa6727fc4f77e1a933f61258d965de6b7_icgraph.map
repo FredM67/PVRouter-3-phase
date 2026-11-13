@@ -1,0 +1,5 @@
+<map id="SimpleRNG::next" name="SimpleRNG::next">
+<area shape="rect" id="Node000001" title=" " alt="" coords="192,5,324,33"/>
+<area shape="rect" id="Node000002" href="$classSimpleRNG.html#a454833ecb0cd0e5a8457405b1dd30417" title="Generate noise in range [&#45;amplitude, +amplitude]." alt="" coords="5,5,144,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,19,144,22,144,17,179,19"/>
+</map>

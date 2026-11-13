@@ -1,0 +1,12 @@
+<map id="Mk2_3phase_RFdatalog_temp/energy_bucket.h" name="Mk2_3phase_RFdatalog_temp/energy_bucket.h">
+<area shape="rect" id="Node000001" title="Integer arithmetic of the energy bucket." alt="" coords="5,5,182,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="16,174,86,201"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,48,61,159,56,158,86,52"/>
+<area shape="rect" id="Node000003" href="$mult__asm_8h.html" title="Assembly&#45;optimized multiplication functions for AVR microcontrollers." alt="" coords="88,98,187,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="105,48,126,84,120,84,105,53"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="120,128,79,166,76,162,124,124"/>
+<area shape="rect" id="Node000004" href="$is__same_8hpp.html" title=" " alt="" coords="110,174,288,201"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="149,124,181,162,176,162,148,129"/>
+<area shape="rect" id="Node000005" href="$integral__constant_8hpp.html" title=" " alt="" coords="118,249,280,277"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="201,200,201,235,197,232,197,204"/>
+</map>

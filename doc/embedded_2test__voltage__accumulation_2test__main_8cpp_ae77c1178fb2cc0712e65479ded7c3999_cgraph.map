@@ -1,0 +1,9 @@
+<map id="test_20s_shift12_230V" name="test_20s_shift12_230V">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,32,173,60"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#aeeaffbde156096f6543dce5943b0e172" title="Generic test function for voltage accumulation with different parameters." alt="" coords="221,32,418,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,43,208,45,202,46,173,48"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#a75a5aa469078dc25a3b398daf64b6e87" title="Print a 64&#45;bit value on AVR, where Serial.print() tops out at 32 bits." alt="" coords="480,5,558,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="418,30,463,27,468,26,418,35"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#aba3cb8dacee881be847bf6da66d8d71a" title=" " alt="" coords="466,57,572,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="418,56,453,63,448,62,418,61"/>
+</map>

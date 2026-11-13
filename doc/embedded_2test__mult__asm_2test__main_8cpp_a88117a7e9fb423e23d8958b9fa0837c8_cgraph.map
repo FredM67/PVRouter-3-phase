@@ -1,0 +1,5 @@
+<map id="test_mult16x8_q8_basic" name="test_mult16x8_q8_basic">
+<area shape="rect" id="Node000001" title="Test basic functionality of mult16x8_q8." alt="" coords="5,5,185,33"/>
+<area shape="rect" id="Node000002" href="$mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="233,5,326,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,17,220,19,215,19,185,22"/>
+</map>

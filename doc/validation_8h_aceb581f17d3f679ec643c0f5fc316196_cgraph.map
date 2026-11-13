@@ -1,0 +1,9 @@
+<map id="check_override_targets" name="check_override_targets">
+<area shape="rect" id="Node000001" title="Overrides reach the outputs through the load states and the relay engine only, so each override pin m..." alt="" coords="5,57,179,85"/>
+<area shape="rect" id="Node000002" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="247,5,312,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,54,234,31,230,34,146,59"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="227,57,332,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="179,69,213,71,208,72,180,74"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="232,109,327,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="145,83,220,105,215,107,144,88"/>
+</map>

@@ -1,0 +1,19 @@
+<map id="NewFilter::processPolarity" name="NewFilter::processPolarity">
+<area shape="rect" id="Node000001" title=" " alt="" coords="332,152,523,180"/>
+<area shape="rect" id="Node000002" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a4de396af4f21c6e4060f28f5d2965743" title="Verify new filter doesn&#39;t hit limits that old filter would." alt="" coords="122,5,270,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="396,143,345,105,283,65,260,53,260,48,285,60,348,100,401,142"/>
+<area shape="rect" id="Node000004" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a17576066e4c91bb03ac7733e0ac87b37" title="Compare filter response to sinusoidal AC waveform." alt="" coords="119,75,273,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="362,148,273,123,273,117,367,147"/>
+<area shape="rect" id="Node000005" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#ad835404ca9330eb976c4b1580004be7a" title="Compare old and new filter: same sample produces equivalent offset." alt="" coords="119,144,273,189"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="314,167,274,169,273,164,319,166"/>
+<area shape="rect" id="Node000006" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a2dfd2d745cae0e8753eafde9f29741c6" title="Compare filter tracking speed for step change." alt="" coords="119,213,273,258"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="362,186,274,215,272,210,367,184"/>
+<area shape="rect" id="Node000007" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#ae30f2627f5ab925c4620f05d2f974e93" title="Compare sample&#45;minus&#45;DC calculation equivalence." alt="" coords="108,283,284,327"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="401,189,348,232,285,273,261,285,259,280,283,268,345,228,396,191"/>
+<area shape="rect" id="Node000003" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,152,60,180"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,60,109,64,87,86,69,110,43,153,38,151,64,107,83,82,106,60,115,56"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="120,127,109,134,62,155,59,151,107,129,124,124"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="101,168,61,169,59,164,105,165"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="120,208,107,203,61,182,60,177,109,199,125,206"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="110,274,106,272,83,251,64,226,40,183,41,178,69,223,87,247,109,268,116,274"/>
+</map>

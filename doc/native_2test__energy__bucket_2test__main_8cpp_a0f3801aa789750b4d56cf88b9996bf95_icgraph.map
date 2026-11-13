@@ -1,0 +1,10 @@
+<map id="checkAgainstReference" name="checkAgainstReference">
+<area shape="rect" id="Node000001" title="Every average power from &#45;FULL_SCALE to +FULL_SCALE, in uneven steps." alt="" coords="365,65,539,93"/>
+<area shape="rect" id="Node000002" href="$native_2test__energy__bucket_2test__main_8cpp.html#af72c1396fe3d1230a5d9339ef4d0c16b" title=" " alt="" coords="108,5,317,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="353,62,317,57,317,52,358,61"/>
+<area shape="rect" id="Node000004" href="$native_2test__energy__bucket_2test__main_8cpp.html#a0a7fc5b3150cdce32bfb361da22a3e0d" title=" " alt="" coords="110,91,315,152"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="358,96,316,106,315,101,353,96"/>
+<area shape="rect" id="Node000003" href="$native_2test__energy__bucket_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,65,60,93"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="91,66,61,75,59,70,95,63"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="92,95,60,88,60,83,97,92"/>
+</map>

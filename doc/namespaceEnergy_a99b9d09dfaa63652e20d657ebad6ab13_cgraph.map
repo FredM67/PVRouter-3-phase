@@ -1,0 +1,9 @@
+<map id="Energy::isValidCalibration" name="Energy::isValidCalibration">
+<area shape="rect" id="Node000001" title="Check that the calibration values can be represented." alt="" coords="5,32,193,60"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="241,32,412,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,43,227,46,222,46,193,48"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="460,5,593,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="412,32,442,30,447,30,413,37"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="466,57,587,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="413,54,453,62,448,61,413,59"/>
+</map>

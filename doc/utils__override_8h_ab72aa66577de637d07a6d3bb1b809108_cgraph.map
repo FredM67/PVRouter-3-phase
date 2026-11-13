@@ -1,0 +1,10 @@
+<map id="overridePinOf" name="overridePinOf">
+<area shape="rect" id="Node000001" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="5,23,116,51"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="366,25,471,52"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,20,163,9,241,3,318,9,361,20,356,20,318,15,241,8,164,15,110,25"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="193,23,288,51"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="116,35,180,36,175,38,116,40"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="164,75,318,103"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="112,49,178,70,173,72,111,54"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="291,72,351,58,356,57,292,77"/>
+</map>

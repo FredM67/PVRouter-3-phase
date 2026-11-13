@@ -1,0 +1,11 @@
+<map id="proceedDualTariffLogic" name="proceedDualTariffLogic">
+<area shape="rect" id="Node000001" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="5,32,175,60"/>
+<area shape="rect" id="Node000002" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="239,5,335,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,32,226,27,221,28,175,37"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="223,57,351,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="175,54,210,61,204,61,175,59"/>
+<area shape="rect" id="Node000003" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="427,5,501,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="335,17,414,19,409,20,336,22"/>
+<area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="399,57,529,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="351,69,386,71,381,71,351,74"/>
+</map>

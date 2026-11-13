@@ -1,0 +1,31 @@
+<map id="Datalog::powerCalibration" name="Datalog::powerCalibration">
+<area shape="rect" id="Node000001" title="The power calibration in fixed point, for watts(), built at compile time." alt="" coords="611,190,803,218"/>
+<area shape="rect" id="Node000002" href="$native_2test__datalog__math_2test__main_8cpp.html#a1c461334033550878986251f956644ad" title=" " alt="" coords="121,5,290,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="687,176,667,146,638,111,603,78,562,51,529,38,494,28,423,17,353,15,292,18,290,13,353,9,423,12,496,23,531,33,565,47,606,73,642,107,671,143,692,177"/>
+<area shape="rect" id="Node000004" href="$native_2test__datalog__math_2test__main_8cpp.html#a578ea20110b03dfeaaa1650ede366523" title=" " alt="" coords="377,61,538,122"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="662,183,562,137,537,126,537,120,564,132,667,182"/>
+<area shape="rect" id="Node000005" href="$native_2test__datalog__math_2test__main_8cpp.html#ab5a7b02b8adb8d9557265033571b8146" title=" " alt="" coords="387,147,528,191"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="594,189,529,181,529,176,599,188"/>
+<area shape="rect" id="Node000006" href="$native_2test__datalog__math_2test__main_8cpp.html#a25f4c01ffcf91fb7c58c5ce958fed656" title=" " alt="" coords="379,216,536,261"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="593,220,537,230,536,225,598,218"/>
+<area shape="rect" id="Node000007" href="$group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="352,284,563,312"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="670,224,620,252,564,276,528,286,527,281,562,270,617,247,665,226"/>
+<area shape="rect" id="Node000009" href="$native_2test__datalog__math_2test__main_8cpp.html#a5b095c845a7e0e82675725fbf0dbcdeb" title="Largest error of watts() against the reference, over the full input range, beyond what the 16&#45;bit cal..." alt="" coords="395,347,520,375"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="684,228,631,278,565,326,511,349,510,344,562,321,628,274,679,230"/>
+<area shape="rect" id="Node000003" href="$native_2test__datalog__math_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,199,60,227"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="135,60,110,82,85,111,65,144,41,200,36,198,61,142,81,108,106,78,137,56"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="360,111,240,140,109,179,62,200,58,197,107,175,239,134,364,107"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="371,180,108,208,62,212,59,208,107,202,373,175"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="362,235,60,217,60,212,364,230"/>
+<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="181,250,230,278"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="335,283,231,270,231,264,340,281"/>
+<area shape="rect" id="Node000010" href="$native_2test__datalog__math_2test__main_8cpp.html#a52da7c35d23613031adcd8302d3d3d96" title=" " alt="" coords="112,301,300,346"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="377,350,300,340,300,335,382,349"/>
+<area shape="rect" id="Node000011" href="$native_2test__datalog__math_2test__main_8cpp.html#ad1d9ca0e83f814162007f1bb6e6774c2" title=" " alt="" coords="108,371,304,415"/>
+<area shape="poly" id="edge14_Node000009_Node000011" title=" " alt="" coords="377,372,305,383,304,378,382,370"/>
+<area shape="rect" id="Node000012" href="$native_2test__datalog__math_2test__main_8cpp.html#ab91d88e52653d6cc84fc0bec8f5e5ffe" title=" " alt="" coords="111,440,300,485"/>
+<area shape="poly" id="edge16_Node000009_Node000012" title=" " alt="" coords="414,381,305,430,274,442,272,437,303,425,409,382"/>
+<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="113,295,106,291,69,260,45,230,44,225,73,256,109,287,118,293"/>
+<area shape="poly" id="edge15_Node000011_Node000003" title=" " alt="" coords="109,362,106,360,78,328,57,291,37,230,37,225,62,289,82,325,110,356,115,362"/>
+<area shape="poly" id="edge17_Node000012_Node000003" title=" " alt="" coords="108,430,106,429,86,405,70,378,48,321,37,267,34,230,35,225,42,266,53,319,75,376,90,402,110,426,113,430"/>
+</map>

@@ -1,0 +1,22 @@
+<map id="Mk2_3phase_RFdatalog_temp/test/embedded/test_mult_asm/test_main.cpp" name="Mk2_3phase_RFdatalog_temp/test/embedded/test_mult_asm/test_main.cpp">
+<area shape="rect" id="Node000001" title="Unity&#45;based unit tests for assembly multiplication functions." alt="" coords="84,5,277,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,191,89,218"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,70,98,91,75,116,60,146,53,176,48,174,55,144,70,114,94,87,126,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="84,115,148,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="158,70,137,104,132,101,161,65"/>
+<area shape="rect" id="Node000004" href="$halt__after__tests_8h.html" title="Stops the MCU once an embedded test suite has run." alt="" coords="172,115,319,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="203,65,230,102,225,102,202,70"/>
+<area shape="rect" id="Node000007" href="$mult__asm_8h.html" title="Assembly&#45;optimized multiplication functions for AVR microcontrollers." alt="" coords="354,115,452,143"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="255,65,359,108,354,110,254,70"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="209,146,98,187,96,182,211,141"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="112,191,227,218"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="234,142,196,182,192,178,230,145"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="251,191,344,218"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="256,141,282,178,277,178,254,146"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="368,191,438,218"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="405,141,405,176,401,174,401,145"/>
+<area shape="rect" id="Node000009" href="$is__same_8hpp.html" title=" " alt="" coords="462,191,640,218"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="430,141,514,183,509,184,429,146"/>
+<area shape="rect" id="Node000010" href="$integral__constant_8hpp.html" title=" " alt="" coords="470,266,632,294"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="553,217,553,252,549,249,549,221"/>
+</map>

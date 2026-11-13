@@ -1,0 +1,5 @@
+<map id="test_startup_text_serial_settings" name="test_startup_text_serial_settings">
+<area shape="rect" id="Node000001" title="The startup text at 8N1, then 7E1 for the IoT output only (UART0 frame format in UCSR0C)" alt="" coords="111,5,286,50"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,14,63,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,29,63,30,63,25,98,27"/>
+</map>

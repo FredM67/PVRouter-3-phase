@@ -1,0 +1,28 @@
+<map id="Datalog::voltageCalibration" name="Datalog::voltageCalibration">
+<area shape="rect" id="Node000001" title="The voltage calibration in fixed point, for vrms(), built at compile time." alt="" coords="593,151,794,179"/>
+<area shape="rect" id="Node000002" href="$native_2test__datalog__math_2test__main_8cpp.html#a01e17a2fc8513f2bc000122e1021fc21" title=" " alt="" coords="108,5,286,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="657,142,606,113,544,85,478,66,410,52,287,35,286,30,411,46,480,60,546,80,609,108,663,142"/>
+<area shape="rect" id="Node000004" href="$native_2test__datalog__math_2test__main_8cpp.html#ad615f0fd21c9a28543ca5b7ac0c42280" title=" " alt="" coords="120,74,274,102"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="643,145,597,130,545,116,474,104,402,96,275,90,274,85,402,91,474,98,546,110,599,125,648,145"/>
+<area shape="rect" id="Node000005" href="$native_2test__datalog__math_2test__main_8cpp.html#a51023150d9622eab57e3ea3cc9ce3d24" title=" " alt="" coords="369,124,510,152"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="575,153,511,148,511,143,581,152"/>
+<area shape="rect" id="Node000006" href="$native_2test__datalog__math_2test__main_8cpp.html#af9b5108c4d1521ec80c69999e3f3cebd" title=" " alt="" coords="362,176,517,204"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="575,177,518,185,517,180,581,176"/>
+<area shape="rect" id="Node000007" href="$group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="334,228,545,256"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="641,184,546,218,502,230,500,225,545,213,636,185"/>
+<area shape="rect" id="Node000009" href="$native_2test__datalog__math_2test__main_8cpp.html#ae9d50cea49541d6a3b6d566e8e34dd54" title="Largest error of vrms() against the reference, from 0 to the largest ADC voltage, beyond what the 16&#45;..." alt="" coords="378,286,501,314"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="666,188,612,231,546,270,500,288,499,283,544,265,609,227,661,190"/>
+<area shape="rect" id="Node000003" href="$native_2test__datalog__math_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,150,60,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="112,61,109,64,88,85,69,108,43,150,38,148,65,105,84,81,106,60,115,56"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="135,109,109,122,57,151,53,148,106,117,139,105"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="353,146,61,165,59,159,354,141"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="346,187,60,168,60,163,348,182"/>
+<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="172,226,222,254"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="316,242,222,243,222,237,321,240"/>
+<area shape="rect" id="Node000010" href="$native_2test__datalog__math_2test__main_8cpp.html#ad30fa6b75976b4414fe06c2b879385b8" title=" " alt="" coords="108,277,286,322"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="361,300,286,302,286,297,366,299"/>
+<area shape="rect" id="Node000011" href="$native_2test__datalog__math_2test__main_8cpp.html#a22f10cd5da84e299cd5f9888b7ffe933" title=" " alt="" coords="108,347,286,391"/>
+<area shape="poly" id="edge14_Node000009_Node000011" title=" " alt="" coords="377,318,278,349,277,343,371,319"/>
+<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="111,269,106,267,84,246,65,222,41,181,41,175,69,219,88,242,109,263,116,269"/>
+<area shape="poly" id="edge15_Node000011_Node000003" title=" " alt="" coords="108,337,106,336,76,297,54,253,41,211,36,181,36,175,46,209,59,251,80,294,110,333,113,337"/>
+</map>

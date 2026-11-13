@@ -1,0 +1,15 @@
+<map id="test_watts_differs_from_the_float_code_by_at_most_1_W" name="test_watts_differs_from_the_float_code_by_at_most_1_W">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,66,167,127"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#a7704334869b4be2aef18346b7c201ce5" title="The power calibration in fixed point, for watts(), built at compile time." alt="" coords="215,56,406,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,84,202,82,197,84,167,90"/>
+<area shape="rect" id="Node000007" href="$namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="252,108,368,136"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="167,103,239,113,234,114,167,108"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="454,31,625,58"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="406,57,441,55,436,56,407,62"/>
+<area shape="rect" id="Node000006" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="480,83,600,110"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="407,78,467,88,462,88,406,84"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="673,5,807,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="626,31,660,29,655,30,626,36"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="679,57,801,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="626,53,667,61,661,61,626,59"/>
+</map>

@@ -1,0 +1,25 @@
+<map id="test_sinusoidal_load_variation" name="test_sinusoidal_load_variation">
+<area shape="rect" id="Node000001" title="Test with sinusoidally varying current (simulating slow load changes)" alt="" coords="5,317,160,362"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="281,5,336,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,316,94,261,116,187,132,148,152,110,176,75,206,44,234,27,268,20,264,24,236,32,209,48,180,78,156,113,137,151,121,189,100,262,89,317"/>
+<area shape="rect" id="Node000003" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a2e34ec7e2024f9fd79d0b07213c0bd9d" title="Generate sinusoidal ADC value with noise." alt="" coords="208,57,410,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="86,316,99,269,123,209,158,147,180,119,206,94,214,91,211,95,209,99,184,123,162,150,128,211,104,271,91,317"/>
+<area shape="rect" id="Node000004" href="$structNewImplementation.html#afd32cfb737112b4bea40c7d356716afe" title="Process current sample and calculate power (new method)" alt="" coords="211,109,407,154"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="92,316,135,241,167,200,206,164,216,159,212,163,209,168,171,203,139,244,97,318"/>
+<area shape="rect" id="Node000005" href="$structOldImplementation.html#ae5e3e8c2357e81029656eac000c3293d" title="Process current sample and calculate power (old method)" alt="" coords="211,178,407,223"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="103,315,149,273,206,233,220,228,217,231,209,237,152,278,108,318"/>
+<area shape="rect" id="Node000006" href="$structNewImplementation.html#a8b91de1ca76a89a94e6fd701b8fc8dae" title="Update DC filter at end of half cycle (new method)" alt="" coords="222,248,396,292"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="156,314,221,295,217,299,159,318"/>
+<area shape="rect" id="Node000007" href="$structOldImplementation.html#a6dadd19982017d7486919dc56e9b9546" title="Update DC filter at end of half cycle (old method)" alt="" coords="222,317,396,362"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="159,337,208,338,204,341,161,342"/>
+<area shape="rect" id="Node000008" href="$structNewImplementation.html#a00caeab8b1d4af178ee4d49b14090207" title="Process voltage sample (new method &#45; left aligned)" alt="" coords="228,386,390,431"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="157,359,221,380,216,382,158,365"/>
+<area shape="rect" id="Node000009" href="$structOldImplementation.html#a7b6663f965ab1ddb1cf44c1458e3ed42" title="Process voltage sample (old method)" alt="" coords="231,456,386,500"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="105,359,152,401,209,441,221,448,216,449,206,445,149,405,106,365"/>
+<area shape="rect" id="Node000010" href="$structNewImplementation.html#ae74cf27602caa56a06470d06c779498a" title="Process voltage for RMS calculation (new method)" alt="" coords="228,525,390,570"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="95,359,139,434,171,475,209,510,217,517,211,517,206,515,167,479,135,437,94,364"/>
+<area shape="rect" id="Node000011" href="$structOldImplementation.html#a6500858b4a8503b4c863cea5a6fe446e" title="Process voltage for RMS calculation (old method)" alt="" coords="231,594,386,639"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="90,359,106,407,129,466,164,527,185,555,209,580,220,589,215,589,206,584,181,559,159,530,124,468,101,409,89,365"/>
+<area shape="rect" id="Node000012" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#afe721670afe144dfacafe352ece28b08" title="Convert right&#45;aligned ADC to left&#45;aligned." alt="" coords="255,663,362,690"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="86,359,98,420,118,498,134,539,154,579,179,617,209,649,224,659,243,669,238,668,222,664,206,653,175,620,149,582,129,541,113,499,92,421,86,365"/>
+</map>

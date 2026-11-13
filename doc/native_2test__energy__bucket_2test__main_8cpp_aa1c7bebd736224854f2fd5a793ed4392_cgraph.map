@@ -1,0 +1,5 @@
+<map id="test_fromWatts_scales_by_the_fraction_bits" name="test_fromWatts_scales_by_the_fraction_bits">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,175,50"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#aeae61ea16953d9d9b692f8bb2c8b5f6a" title="A power in watts, in bucket units per mains cycle." alt="" coords="223,14,364,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,25,210,27,204,28,175,30"/>
+</map>

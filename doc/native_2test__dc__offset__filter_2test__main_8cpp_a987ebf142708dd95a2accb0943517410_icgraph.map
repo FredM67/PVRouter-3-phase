@@ -1,0 +1,45 @@
+<map id="resetFilter" name="resetFilter">
+<area shape="rect" id="Node000001" title="Reset filter state to nominal values." alt="" coords="339,392,426,420"/>
+<area shape="rect" id="Node000002" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a95c834d6178047ce9e1bce7cbfea2836" title=" " alt="" coords="170,5,229,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="375,376,364,300,346,200,320,107,305,71,289,46,276,36,261,29,231,22,228,18,262,24,279,32,293,43,310,68,325,105,351,199,369,299,380,377"/>
+<area shape="rect" id="Node000003" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a91c5bf87af9274741f1412424671b3d8" title="Test filter accumulator doesn&#39;t wrap in normal operation." alt="" coords="108,57,290,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="378,376,372,322,358,252,332,180,313,146,289,116,277,104,276,99,293,112,317,143,337,177,363,251,378,321,383,377"/>
+<area shape="rect" id="Node000005" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a771cc8bce225f395f45a363ae6d6e1a2" title="Test filter behavior with ADC stuck at max (fault condition)" alt="" coords="112,125,286,153"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="376,376,368,331,353,275,327,217,310,191,289,168,274,156,272,151,293,164,314,188,332,215,358,273,374,330,381,377"/>
+<area shape="rect" id="Node000006" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a7c24e5ba8ad5271117e7498f6bdf3c8e" title="Test filter behavior with ADC stuck at zero (fault condition)" alt="" coords="113,177,286,205"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="373,377,363,341,346,298,322,255,289,219,275,208,273,203,293,214,326,252,351,296,368,339,378,377"/>
+<area shape="rect" id="Node000007" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a6b93126ee1e58d86ddd08530ee2974e3" title="Test filter stability with centered AC waveform." alt="" coords="120,229,278,274"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="364,378,333,333,313,309,289,288,272,277,271,271,293,284,317,305,338,330,369,378"/>
+<area shape="rect" id="Node000008" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a7bc4bebc6775c004bca6ae18cfe63e9b" title="Test filter time constant (convergence rate)" alt="" coords="108,297,291,325"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="353,382,324,360,290,339,265,328,263,323,292,334,327,356,358,381"/>
+<area shape="rect" id="Node000009" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#ac63a3141ed78f03525e152b517500004" title="Test filter tracks downward DC offset shift." alt="" coords="134,349,264,394"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="321,396,266,386,264,381,326,393"/>
+<area shape="rect" id="Node000010" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#af0aa75956c022f8bb696bac90a16dfd4" title="Test filter tracks upward DC offset shift." alt="" coords="134,418,264,463"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="321,419,266,430,264,426,326,415"/>
+<area shape="rect" id="Node000011" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#abddc3d4ce0f11979ebbd926ee49439fc" title="Test nominal initialization values." alt="" coords="132,488,266,532"/>
+<area shape="poly" id="edge16_Node000001_Node000011" title=" " alt="" coords="352,432,326,455,292,477,268,489,265,485,290,473,323,451,356,428"/>
+<area shape="rect" id="Node000012" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#aca43236fa8ad639a7754ca7401bccf8b" title="Test int16_t overflow edge case at max ADC." alt="" coords="125,557,274,602"/>
+<area shape="poly" id="edge18_Node000001_Node000012" title=" " alt="" coords="371,432,341,491,319,521,293,547,275,558,271,554,289,542,315,517,336,488,368,436"/>
+<area shape="rect" id="Node000013" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a25d6a72d3fb7a122f88d9a92a6d45810" title="Test large step change in DC offset." alt="" coords="112,626,287,671"/>
+<area shape="poly" id="edge20_Node000001_Node000013" title=" " alt="" coords="377,433,369,475,352,523,327,573,293,616,277,628,274,623,289,612,323,570,347,521,364,474,375,437"/>
+<area shape="rect" id="Node000014" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#afd8fdf9f7277b6546f771fadd4cd3b25" title="Test rounding behavior (| 32U adds 0.5 LSB)" alt="" coords="112,695,286,722"/>
+<area shape="poly" id="edge22_Node000001_Node000014" title=" " alt="" coords="382,432,378,488,364,555,352,590,337,625,317,657,293,685,277,696,274,692,289,681,313,654,332,622,347,589,359,554,372,487,379,437"/>
+<area shape="rect" id="Node000015" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a1357065445768b33549b25ec7f13f4db" title="Test safe operating range for int16_t sample&#45;minus&#45;DC." alt="" coords="124,746,274,791"/>
+<area shape="poly" id="edge24_Node000001_Node000015" title=" " alt="" coords="383,433,381,496,368,576,357,619,341,660,320,700,293,736,276,749,274,745,289,732,315,697,336,658,351,617,363,575,375,496,380,437"/>
+<area shape="rect" id="Node000016" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a56e0379686c3006b5e854cf18abf2ca5" title="Test sample&#45;minus&#45;DC calculation for various ADC values." alt="" coords="114,816,284,860"/>
+<area shape="poly" id="edge26_Node000001_Node000016" title=" " alt="" coords="380,433,370,520,352,630,326,734,311,776,293,805,279,817,277,812,289,801,306,774,321,733,347,629,365,519,377,438"/>
+<area shape="rect" id="Node000004" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,427,60,454"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="108,114,110,115,95,140,82,176,61,267,46,361,38,426,33,426,41,360,55,266,77,174,90,138,106,112,111,109"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="111,164,110,168,86,198,67,233,54,270,45,308,37,377,36,426,31,426,31,377,40,307,49,269,62,231,81,195,106,164,113,160"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="110,216,110,218,89,242,73,270,51,329,40,385,37,426,31,426,35,385,46,328,68,267,85,239,106,215,112,211"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="110,285,110,288,82,322,61,361,39,427,34,426,56,359,77,319,106,284,113,280"/>
+<area shape="poly" id="edge11_Node000008_Node000004" title=" " alt="" coords="113,335,109,339,87,359,68,383,43,427,38,425,63,380,83,355,106,334,116,330"/>
+<area shape="poly" id="edge13_Node000009_Node000004" title=" " alt="" coords="121,402,109,408,62,429,58,426,107,403,124,398"/>
+<area shape="poly" id="edge15_Node000010_Node000004" title=" " alt="" coords="116,442,61,443,58,438,120,439"/>
+<area shape="poly" id="edge17_Node000011_Node000004" title=" " alt="" coords="120,483,107,478,61,456,59,451,109,473,125,480"/>
+<area shape="poly" id="edge19_Node000012_Node000004" title=" " alt="" coords="111,549,106,547,83,525,64,500,41,458,40,452,68,497,87,521,109,542,116,548"/>
+<area shape="poly" id="edge21_Node000013_Node000004" title=" " alt="" coords="108,617,106,616,75,576,54,530,40,488,36,457,36,452,46,486,59,528,80,573,110,612,113,616"/>
+<area shape="poly" id="edge23_Node000014_Node000004" title=" " alt="" coords="108,686,106,685,83,658,66,627,53,594,43,561,34,499,34,458,34,452,39,499,49,560,58,593,71,625,88,655,110,681,113,685"/>
+<area shape="poly" id="edge25_Node000015_Node000004" title=" " alt="" coords="109,738,106,736,81,701,62,662,48,622,39,581,31,506,33,457,33,452,36,506,44,580,53,620,67,660,85,698,110,732,114,738"/>
+<area shape="poly" id="edge27_Node000016_Node000004" title=" " alt="" coords="107,805,106,805,89,776,75,735,53,632,39,527,35,457,35,452,45,527,58,631,80,733,94,774,110,802,112,806"/>
+</map>

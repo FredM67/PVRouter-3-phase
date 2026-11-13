@@ -1,0 +1,7 @@
+<map id="printDualTariffConfiguration" name="printDualTariffConfiguration">
+<area shape="rect" id="Node000001" title="Print the settings for off&#45;peak period." alt="" coords="297,5,497,33"/>
+<area shape="rect" id="Node000002" href="$group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="111,5,249,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="279,19,249,22,249,17,284,19"/>
+<area shape="rect" id="Node000003" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,63,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,20,63,22,63,17,98,19"/>
+</map>

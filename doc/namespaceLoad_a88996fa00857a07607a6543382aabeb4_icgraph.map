@@ -1,0 +1,16 @@
+<map id="Load::isValidMap" name="Load::isValidMap">
+<area shape="rect" id="Node000001" title="Check that every entry of a load map designates a usable pin." alt="" coords="345,118,476,146"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="112,5,293,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="374,109,296,65,270,53,270,48,298,60,379,109"/>
+<area shape="rect" id="Node000004" href="$native_2test__remote__loads_2test__main_8cpp.html#a6edc3c18882bd89a34fed2ad718d6546" title=" " alt="" coords="114,75,290,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="327,119,291,114,291,109,333,118"/>
+<area shape="rect" id="Node000005" href="$native_2test__remote__loads_2test__main_8cpp.html#a34f86f2e1854aedced0ec6e7267d0399" title=" " alt="" coords="108,144,297,189"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="327,146,298,153,297,148,333,144"/>
+<area shape="rect" id="Node000006" href="$native_2test__remote__loads_2test__main_8cpp.html#a35522623f3d902b482054aa21bbcf3af" title=" " alt="" coords="115,213,290,258"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="379,154,298,203,271,215,269,210,296,199,374,155"/>
+<area shape="rect" id="Node000003" href="$native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,118,60,146"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="115,59,109,65,74,92,48,119,43,116,71,88,106,60,118,55"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="98,120,61,129,59,124,101,116"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="90,145,61,140,59,135,95,142"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="114,206,106,203,71,175,45,148,46,143,74,171,109,199,119,206"/>
+</map>

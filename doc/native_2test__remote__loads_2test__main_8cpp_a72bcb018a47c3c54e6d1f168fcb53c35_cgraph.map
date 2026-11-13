@@ -1,0 +1,11 @@
+<map id="test_sendPending_drains_what_it_sends" name="test_sendPending_drains_what_it_sends">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,189,94"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="321,5,376,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,50,308,27,303,29,190,55"/>
+<area shape="rect" id="Node000003" href="$classRemoteLoadCore.html#ad375e0103bc6024968f0778643290b33" title="Hand every pending payload to send, addressed to its unit&#39;s node ID." alt="" coords="237,57,461,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="189,69,224,71,218,72,189,74"/>
+<area shape="rect" id="Node000005" href="$native_2test__remote__loads_2test__main_8cpp.html#a472cbe17dbc54a8cc7f3c5dc42245204" title="Build a LoadStates array from a bit pattern, bit i = load i." alt="" coords="308,109,390,137"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="189,87,295,111,290,112,189,93"/>
+<area shape="rect" id="Node000004" href="$classRemoteLoadCore.html#a319660f4fc15458ef8ddc005730fe57f" title="Claim a pending transmission for one unit." alt="" coords="509,57,730,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="461,69,496,71,491,71,462,74"/>
+</map>

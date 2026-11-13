@@ -1,0 +1,9 @@
+<map id="RemoteLoadCore::bitmaskOf" name="RemoteLoadCore::bitmaskOf">
+<area shape="rect" id="Node000001" title="Payload of Unit, from map entry I onwards." alt="" coords="539,29,748,57"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="687,14,673,10,644,8,617,10,601,15,598,20,604,30,599,28,592,20,598,11,615,5,644,3,674,5,692,14"/>
+<area shape="rect" id="Node000002" href="$classRemoteLoadCore.html#a062d2ae5848e06eb2885f5e5118e2699" title="Build and schedule the payload of Unit, then of every unit after it." alt="" coords="278,29,491,57"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="521,43,491,46,491,41,526,43"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="427,14,413,10,384,8,357,10,342,15,338,20,345,30,340,28,333,20,339,11,356,5,384,3,415,5,433,14"/>
+<area shape="rect" id="Node000003" href="$classRemoteLoadCore.html#a22769675a75fa14f2107571fb7b1ae2c" title="Rebuild every unit&#39;s payload from the current load states." alt="" coords="5,29,230,57"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="259,43,230,46,230,41,265,43"/>
+</map>

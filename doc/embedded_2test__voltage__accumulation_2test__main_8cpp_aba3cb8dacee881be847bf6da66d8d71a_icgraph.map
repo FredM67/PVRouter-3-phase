@@ -1,0 +1,24 @@
+<map id="simulateADC" name="simulateADC">
+<area shape="rect" id="Node000001" title=" " alt="" coords="578,136,685,164"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#aeeaffbde156096f6543dce5943b0e172" title="Generic test function for voltage accumulation with different parameters." alt="" coords="333,136,530,164"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="560,150,531,152,531,147,565,149"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#ac09865f3ca06a7bf578a1339b394ed9b" title=" " alt="" coords="114,5,274,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="400,126,348,87,284,48,255,36,254,31,286,43,351,83,405,125"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#ae77c1178fb2cc0712e65479ded7c3999" title=" " alt="" coords="110,57,278,85"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="375,131,284,100,246,88,245,83,286,95,380,129"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#aa0c9ea550b198ed4f9906898b8de80ce" title=" " alt="" coords="103,109,285,137"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="315,138,286,136,285,131,320,136"/>
+<area shape="rect" id="Node000007" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#a7354eeea461bd0c9c368a60963346238" title=" " alt="" coords="110,161,278,189"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="315,163,279,169,277,164,320,161"/>
+<area shape="rect" id="Node000008" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#aa5635ac718436e40827742d85af6c051" title=" " alt="" coords="118,213,270,241"/>
+<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="379,169,286,203,246,215,244,210,284,198,373,170"/>
+<area shape="rect" id="Node000009" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#a4848fffa6b9ba6d7331494cf44f6bdb1" title=" " alt="" coords="118,265,270,293"/>
+<area shape="poly" id="edge12_Node000002_Node000009" title=" " alt="" coords="405,173,351,216,286,255,254,267,253,262,284,250,348,212,400,175"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,136,55,164"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="110,42,104,48,82,68,64,93,40,136,35,134,59,90,78,65,101,44,113,38"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="117,93,104,100,74,118,49,137,45,134,71,114,101,95,121,89"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="88,142,56,148,53,144,92,138"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="93,161,56,156,54,151,97,158"/>
+<area shape="poly" id="edge11_Node000008_Node000004" title=" " alt="" coords="117,208,101,203,71,185,48,167,48,161,74,181,104,198,122,207"/>
+<area shape="poly" id="edge13_Node000009_Node000004" title=" " alt="" coords="109,258,101,255,78,234,59,209,37,167,38,162,64,206,82,230,104,250,114,258"/>
+</map>

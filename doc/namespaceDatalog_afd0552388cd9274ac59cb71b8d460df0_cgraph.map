@@ -1,0 +1,5 @@
+<map id="Datalog::sqrtScaled" name="Datalog::sqrtScaled">
+<area shape="rect" id="Node000001" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="5,5,154,33"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="202,5,356,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,17,189,19,184,19,154,22"/>
+</map>

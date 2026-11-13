@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['payload_0',['payload',['../structRecordingRadio.html#a23b00265d96d1095da7d1b68ae233178',1,'RecordingRadio']]],
+  ['pcb_5fversion_1',['PCB_VERSION',['../config_8h.html#a45a0071f406cc22929afb7a5fcb250b2',1,'config.h']]],
+  ['pendingtransmission_2',['pendingTransmission',['../structRemoteUnitState.html#a090df57ab247e41aa10e384c9cfda6e1',1,'RemoteUnitState']]],
+  ['persecondcounter_3',['perSecondCounter',['../processing_8cpp.html#aead026147b6b8dd9555a28797712f018',1,'processing.cpp']]],
+  ['persistence_5ffor_5fpolarity_5fchange_4',['PERSISTENCE_FOR_POLARITY_CHANGE',['../processing_8h.html#a2a52b2459c1ca802c59cfa96e71885ba',1,'processing.h']]],
+  ['physicalloadpin_5',['physicalLoadPin',['../config_8h.html#a4cfb4b5cc5504c54511b565a29906efc',1,'config.h']]],
+  ['physicalloadstate_6',['physicalLoadState',['../processing_8cpp.html#a6299bc3dd04b3fec6de87101e9e02d1f',1,'processing.cpp']]],
+  ['pi_7',['PI',['../native_2test__power__rms__comparison_2test__main_8cpp.html#ac01434fcf858bd4b50b62784079ad3c0',1,'test_main.cpp']]],
+  ['pin_8',['pin',['../structKeyIndexPair.html#ad99107e417f163e8a49b3a54752b7015',1,'KeyIndexPair::pin'],['../structOverridePins_1_1Entry.html#af6abc3fcd7be77b566472184d496709c',1,'OverridePins::Entry::pin']]],
+  ['pins_9',['pins',['../structPinList.html#a09ea8a2e34b56426168cd7ccea38e9c2',1,'PinList']]],
+  ['polarityconfirmed_10',['polarityConfirmed',['../processing_8cpp.html#a86686555f56c1d92d7fe1c06d044a2ec',1,'processing.cpp']]],
+  ['polarityconfirmedoflastsamplev_11',['polarityConfirmedOfLastSampleV',['../processing_8cpp.html#a043c3df0e6f259a7c11e6bbc89500c66',1,'processing.cpp']]],
+  ['polarityofmostrecentsamplev_12',['polarityOfMostRecentSampleV',['../processing_8cpp.html#ab499bc63170b1994691a7e84f99c7927',1,'processing.cpp']]],
+  ['post_5ftransition_5fmax_5fcount_13',['POST_TRANSITION_MAX_COUNT',['../processing_8cpp.html#a555d557c5b47a027b823b11a814f8693',1,'processing.cpp']]],
+  ['posttransitioncount_14',['postTransitionCount',['../processing_8cpp.html#aefaf5733efee19a73b7cbcb1159ff61f',1,'processing.cpp']]],
+  ['power_15',['power',['../classPayloadTx__struct.html#ab3001f04334464b35b7dd263bd08b1a0',1,'PayloadTx_struct']]],
+  ['power_5fl_16',['power_L',['../classPayloadTx__struct.html#a13cbb9a2141427b379764c105825815f',1,'PayloadTx_struct']]],
+  ['power_5flevel_17',['POWER_LEVEL',['../namespaceRFConfig.html#ac55c8459de18cc1760dbda0d819ddeaf',1,'RFConfig']]],
+  ['powercal_18',['powerCal',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#a7140f743a82f455f11e8c99e1c6e0986',1,'test_main.cpp']]],
+  ['powercalconst_19',['powerCalConst',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#a3634ec3136d8057a457beb3f1e78d456',1,'test_main.cpp']]],
+  ['powercalpersampleshift_20',['powerCalPerSampleShift',['../processing_8cpp.html#a62c2d6851a11d3bca3886e377a4bf660',1,'processing.cpp']]],
+  ['powerfixed_21',['powerFixed',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#a08e699ac1e2269b86f14967883e94c8b',1,'test_main.cpp']]],
+  ['previousbitmask_22',['previousBitmask',['../structRemoteUnitState.html#a67af333e62d6009246da29d716a16bd2',1,'RemoteUnitState']]],
+  ['progmem_23',['PROGMEM',['../processing_8cpp.html#a10870e20600d839701e08d54b0b045b8',1,'processing.cpp']]]
+];

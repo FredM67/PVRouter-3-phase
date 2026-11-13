@@ -1,0 +1,28 @@
+<map id="sim_processVoltage" name="sim_processVoltage">
+<area shape="rect" id="Node000001" title="Simulate processVoltage() &#45; filter accumulation (partial)" alt="" coords="339,216,490,244"/>
+<area shape="rect" id="Node000002" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a91c5bf87af9274741f1412424671b3d8" title="Test filter accumulator doesn&#39;t wrap in normal operation." alt="" coords="108,5,290,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="397,202,355,135,325,97,289,64,273,53,272,48,293,60,328,94,359,132,402,203"/>
+<area shape="rect" id="Node000004" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a771cc8bce225f395f45a363ae6d6e1a2" title="Test filter behavior with ADC stuck at max (fault condition)" alt="" coords="112,74,286,102"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="390,204,347,160,319,137,290,117,264,105,263,99,292,112,323,133,350,156,395,204"/>
+<area shape="rect" id="Node000005" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a7c24e5ba8ad5271117e7498f6bdf3c8e" title="Test filter behavior with ADC stuck at zero (fault condition)" alt="" coords="113,126,286,154"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="375,209,335,188,290,167,260,157,259,151,292,163,338,184,380,208"/>
+<area shape="rect" id="Node000006" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a6b93126ee1e58d86ddd08530ee2974e3" title="Test filter stability with centered AC waveform." alt="" coords="120,177,278,222"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="321,218,280,214,278,208,326,216"/>
+<area shape="rect" id="Node000007" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a7bc4bebc6775c004bca6ae18cfe63e9b" title="Test filter time constant (convergence rate)" alt="" coords="108,246,291,274"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="321,244,292,250,290,245,326,242"/>
+<area shape="rect" id="Node000008" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#ac63a3141ed78f03525e152b517500004" title="Test filter tracks downward DC offset shift." alt="" coords="134,297,264,342"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="366,252,292,287,263,299,260,294,290,283,371,250"/>
+<area shape="rect" id="Node000009" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#af0aa75956c022f8bb696bac90a16dfd4" title="Test filter tracks upward DC offset shift." alt="" coords="134,367,264,411"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="396,255,351,307,323,333,292,357,266,371,264,366,290,352,320,329,347,304,391,258"/>
+<area shape="rect" id="Node000010" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a25d6a72d3fb7a122f88d9a92a6d45810" title="Test large step change in DC offset." alt="" coords="112,436,287,481"/>
+<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="404,257,388,297,363,341,331,386,293,426,274,438,272,433,289,422,327,383,359,338,383,294,400,261"/>
+<area shape="rect" id="Node000003" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,216,60,244"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="110,61,110,64,80,102,59,145,46,185,39,217,34,216,41,184,55,143,76,99,106,61,113,57"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="114,111,109,116,85,140,66,167,42,217,37,215,61,165,81,136,106,112,117,107"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="117,162,109,167,74,192,48,218,44,215,71,188,106,163,121,158"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="103,219,62,228,59,223,106,215"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="100,244,61,237,59,233,104,241"/>
+<area shape="poly" id="edge12_Node000008_Node000003" title=" " alt="" coords="118,292,106,287,51,247,50,242,109,283,123,290"/>
+<area shape="poly" id="edge14_Node000009_Node000003" title=" " alt="" coords="118,364,106,356,81,329,61,299,39,247,39,242,65,296,85,326,109,352,123,363"/>
+<area shape="poly" id="edge16_Node000010_Node000003" title=" " alt="" coords="108,426,106,425,88,404,73,380,51,329,39,281,35,247,35,242,44,280,56,327,78,378,92,401,110,422,113,427"/>
+</map>

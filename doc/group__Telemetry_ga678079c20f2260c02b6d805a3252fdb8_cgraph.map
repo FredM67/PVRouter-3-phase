@@ -1,0 +1,10 @@
+<map id="printTextStep" name="printTextStep">
+<area shape="rect" id="Node000001" title="One step of the datalog in text format." alt="" coords="5,32,113,60"/>
+<area shape="rect" id="Node000002" href="$utils_8h.html#ad526defbfbce2f1f32bcb38a7a1a7b42" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="192,5,338,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,36,179,30,174,32,114,42"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#a993caf3ccf42a68629e46c31dc5fe885" title="An energy in bucket units, in hundredths of a joule (for the datalog)." alt="" coords="161,57,369,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="113,50,148,56,142,57,113,55"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#a7aaa5a81b4e5ecaca75d4e9f5eb9a052" title="Greatest common divisor, to reduce fractions at compile time." alt="" coords="417,57,513,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="370,69,404,71,399,71,370,74"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="430,56,425,48,429,39,443,33,465,31,489,33,503,42,498,42,487,38,465,36,444,38,433,43,430,48,435,58"/>
+</map>

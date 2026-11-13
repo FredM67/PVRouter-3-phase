@@ -1,0 +1,14 @@
+<map id="RemoteLoadCore::updateUnit" name="RemoteLoadCore::updateUnit">
+<area shape="rect" id="Node000001" title="Build and schedule the payload of Unit, then of every unit after it." alt="" coords="5,57,219,85"/>
+<area shape="poly" id="edge7_Node000001_Node000001" title=" " alt="" coords="68,57,61,48,66,39,84,33,112,31,142,33,160,42,155,42,141,38,112,36,85,38,70,43,66,48,73,57"/>
+<area shape="rect" id="Node000002" href="$classRemoteLoadCore.html#a3e667a8b690360f1544772f98365e895" title="Payload of Unit, from map entry I onwards." alt="" coords="267,31,476,58"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,58,254,56,248,57,220,63"/>
+<area shape="rect" id="Node000005" href="$classRemoteLoadCore.html#ab95b940353cefa4cf48c432b6f24593e" title="Record a unit&#39;s freshly computed payload and decide whether to send it." alt="" coords="272,83,471,110"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="219,79,259,85,254,85,219,84"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="337,29,331,22,336,12,349,6,371,4,395,7,409,16,404,15,393,12,371,9,351,11,340,16,337,21,342,31"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a2af331573ede4c50d696449fe9b4ab8d" title="Rank of a load among the loads of its own unit, in ascending map order." alt="" coords="524,5,616,33"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="476,28,511,27,506,27,477,34"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#ab4ce134e88bb49ba929ef2e5e8236bbe" title="The owning unit of the entry: 0 for a local load, 1..3 for a remote one." alt="" coords="664,31,765,58"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="476,42,651,44,646,45,476,47"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="617,25,652,33,646,33,617,30"/>
+</map>

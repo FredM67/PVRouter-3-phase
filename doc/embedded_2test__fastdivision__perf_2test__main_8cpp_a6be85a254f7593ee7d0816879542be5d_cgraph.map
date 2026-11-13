@@ -1,0 +1,9 @@
+<map id="test_perf_cycle_estimation" name="test_perf_cycle_estimation">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,57,203,85"/>
+<area shape="rect" id="Node000002" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="251,5,354,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,54,238,35,233,38,161,59"/>
+<area shape="rect" id="Node000003" href="$FastDivision_8cpp.html#a23623280f6a9bc988eea84e057769267" title=" " alt="" coords="259,57,346,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,69,246,71,241,72,203,74"/>
+<area shape="rect" id="Node000004" href="$FastDivision_8cpp.html#a8533c8b2efd068df7dd1b2e4d65b7ced" title=" " alt="" coords="270,109,335,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="160,83,257,110,252,112,159,88"/>
+</map>

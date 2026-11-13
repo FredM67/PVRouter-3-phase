@@ -1,0 +1,16 @@
+<map id="SerialOutput::runStep" name="SerialOutput::runStep">
+<area shape="rect" id="Node000001" title="Run the next step of the current output." alt="" coords="586,40,747,68"/>
+<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#a8900b131ef2e714ef60a9a995571d17b" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="344,13,538,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="568,43,539,41,539,36,574,42"/>
+<area shape="rect" id="Node000003" href="$namespaceSerialOutput.html#afd684610f3d410706ad307dcb113376a" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="374,65,508,93"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="568,65,509,74,509,69,574,64"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="179,5,228,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="367,62,228,28,229,23,372,60"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="113,57,294,102"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="356,80,294,82,294,77,361,79"/>
+<area shape="rect" id="Node000007" href="$embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="111,125,296,153"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="371,97,262,127,261,122,366,98"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,96,63,124"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="96,100,64,107,62,102,100,97"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="103,123,63,117,63,112,107,121"/>
+</map>

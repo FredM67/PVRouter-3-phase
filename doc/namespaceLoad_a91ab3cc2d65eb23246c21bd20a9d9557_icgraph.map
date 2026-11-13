@@ -1,0 +1,27 @@
+<map id="Load::countRemoteLoads" name="Load::countRemoteLoads">
+<area shape="rect" id="Node000001" title="Number of entries of the map that are driven remotely." alt="" coords="828,255,1013,282"/>
+<area shape="rect" id="Node000002" href="$utils__override_8h.html#a13662843c76f975c9c66890fe7659d91" title="Bitmask of every remote load (bit 16 + remote rank)." alt="" coords="615,135,757,162"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="875,247,714,165,716,160,880,247"/>
+<area shape="rect" id="Node000010" href="$native_2test__remote__loads_2test__main_8cpp.html#a21c6a116daf14b5d5b245130e42ee0ea" title=" " alt="" coords="592,255,780,282"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="810,269,780,271,780,266,815,268"/>
+<area shape="rect" id="Node000011" href="$native_2test__remote__loads_2test__main_8cpp.html#ad9cdda787ac040663adb8268e280f445" title=" " alt="" coords="604,306,768,351"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="851,286,769,310,768,305,846,287"/>
+<area shape="rect" id="Node000003" href="$utils__override__helpers_8h.html#a56b1293dc6f12ee82283d9630b026306" title="Returns a bitmask representing all REMOTE loads." alt="" coords="386,5,543,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="655,124,605,86,543,47,519,36,519,31,546,42,608,82,660,124"/>
+<area shape="rect" id="Node000006" href="$native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="388,57,540,102"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="622,130,538,105,538,99,628,129"/>
+<area shape="rect" id="Node000008" href="$native_2test__remote__loads_2test__main_8cpp.html#a1b9c634350ac05f34a47777b31d92453" title=" " alt="" coords="388,126,540,171"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="597,149,541,151,540,146,602,148"/>
+<area shape="rect" id="Node000009" href="$native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="384,196,544,240"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="627,167,539,197,537,192,622,168"/>
+<area shape="rect" id="Node000004" href="$utils__override__helpers_8h.html#ad19b0f6bfb7e49c2a32b6bb68d3228cd" title="Returns a bitmask representing all loads (local + remote)." alt="" coords="241,5,336,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="367,20,337,22,336,17,372,18"/>
+<area shape="rect" id="Node000005" href="$utils__override__helpers_8h.html#a1f9a7b43cca9e7e2cca9e7f2d052b07c" title="Returns a bitmask representing all loads and all relays." alt="" coords="5,5,193,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="223,21,195,22,192,17,228,18"/>
+<area shape="rect" id="Node000007" href="$native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="261,204,316,232"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="393,108,386,116,360,138,336,162,301,206,298,202,332,159,356,134,382,112,388,111"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="389,178,317,210,315,205,394,176"/>
+<area shape="poly" id="edge10_Node000009_Node000007" title=" " alt="" coords="366,218,316,220,315,215,371,217"/>
+<area shape="poly" id="edge12_Node000010_Node000007" title=" " alt="" coords="574,271,482,269,383,255,347,245,316,233,316,227,349,240,385,250,483,263,580,270"/>
+<area shape="poly" id="edge14_Node000011_Node000007" title=" " alt="" coords="586,321,488,307,435,294,383,278,341,257,308,235,309,230,344,252,385,273,436,289,489,302,591,321"/>
+</map>

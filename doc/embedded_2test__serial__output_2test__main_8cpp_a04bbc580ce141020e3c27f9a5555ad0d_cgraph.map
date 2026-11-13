@@ -1,0 +1,9 @@
+<map id="test_start_while_busy_is_refused" name="test_start_while_busy_is_refused">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,169,68"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__serial__output_2test__main_8cpp.html#acf70e15d56fee675be26106b5566d620" title=" " alt="" coords="244,5,330,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,32,232,26,226,27,170,38"/>
+<area shape="rect" id="Node000003" href="$namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="217,57,357,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="169,54,204,60,199,61,169,59"/>
+<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c" title="Whether an output is still in progress." alt="" coords="405,57,546,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="357,69,392,71,387,71,358,74"/>
+</map>

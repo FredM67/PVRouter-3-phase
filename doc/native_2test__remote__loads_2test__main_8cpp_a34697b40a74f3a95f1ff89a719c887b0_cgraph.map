@@ -1,0 +1,9 @@
+<map id="test_a_unit_beyond_the_core_is_ignored" name="test_a_unit_beyond_the_core_is_ignored">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,164,94"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="288,5,344,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,51,275,27,271,30,165,56"/>
+<area shape="rect" id="Node000003" href="$classRemoteLoadCore.html#a531f661161fa83cf97e06beaccb1745b" title="Current payload of a unit, whether or not it has been sent." alt="" coords="212,57,420,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="164,69,199,71,194,72,164,74"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#adb9797ea49459ec57cf3641aee0d7bd6" title="Declares a load driven by a remote unit over RF." alt="" coords="262,109,370,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="164,86,249,107,244,108,164,92"/>
+</map>

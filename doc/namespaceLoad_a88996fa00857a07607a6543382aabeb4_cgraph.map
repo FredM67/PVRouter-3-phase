@@ -1,0 +1,7 @@
+<map id="Load::isValidMap" name="Load::isValidMap">
+<area shape="rect" id="Node000001" title="Check that every entry of a load map designates a usable pin." alt="" coords="5,32,137,60"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="185,5,290,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,33,172,29,167,31,138,38"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="190,57,285,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,53,177,61,172,62,137,59"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="CapturePrint" name="CapturePrint">
+<area shape="rect" id="Node000001" title="A Print that captures the text, with a transmit buffer that fills up as it is written." alt="" coords="5,81,108,109"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="31,5,82,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="58,47,59,81,54,80,55,51"/>
+</map>

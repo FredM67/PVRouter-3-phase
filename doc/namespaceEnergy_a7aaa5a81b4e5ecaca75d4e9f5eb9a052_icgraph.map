@@ -1,0 +1,23 @@
+<map id="Energy::gcd" name="Energy::gcd">
+<area shape="rect" id="Node000001" title="Greatest common divisor, to reduce fractions at compile time." alt="" coords="788,78,884,106"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="868,62,858,59,836,56,815,58,804,63,801,69,806,78,801,76,796,69,800,59,814,53,836,51,860,54,874,63"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#a993caf3ccf42a68629e46c31dc5fe885" title="An energy in bucket units, in hundredths of a joule (for the datalog)." alt="" coords="531,78,740,106"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="770,92,740,94,740,89,775,91"/>
+<area shape="rect" id="Node000003" href="$native_2test__energy__bucket_2test__main_8cpp.html#aa248314565c6c3b78be6efc665c17867" title=" " alt="" coords="302,52,483,80"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="513,79,484,78,484,73,518,79"/>
+<area shape="rect" id="Node000004" href="$native_2test__energy__bucket_2test__main_8cpp.html#a16599d95b9d6625ee5c0c1d6d6772b8c" title=" " alt="" coords="108,5,254,50"/>
+<area shape="poly" id="edge11_Node000002_Node000004" title=" " alt="" coords="584,72,536,57,483,44,423,35,363,30,255,28,254,23,363,25,424,30,484,38,538,52,589,72"/>
+<area shape="rect" id="Node000006" href="$native_2test__energy__bucket_2test__main_8cpp.html#afd864ade4545e28c109686da020326c3" title=" " alt="" coords="108,75,254,119"/>
+<area shape="poly" id="edge12_Node000002_Node000006" title=" " alt="" coords="514,95,255,99,254,93,518,91"/>
+<area shape="rect" id="Node000007" href="$group__Telemetry.html#ga678079c20f2260c02b6d805a3252fdb8" title="One step of the datalog in text format." alt="" coords="339,154,446,182"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="577,110,440,156,439,151,572,111"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="296,50,255,44,254,38,301,49"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="284,82,255,89,254,84,289,81"/>
+<area shape="rect" id="Node000005" href="$native_2test__energy__bucket_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,48,60,76"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="90,50,61,58,59,54,94,47"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="90,78,61,71,59,66,94,75"/>
+<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="131,154,231,182"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="321,168,231,170,231,165,326,168"/>
+<area shape="rect" id="Node000009" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="8,154,57,182"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="113,170,58,170,58,165,116,165"/>
+</map>

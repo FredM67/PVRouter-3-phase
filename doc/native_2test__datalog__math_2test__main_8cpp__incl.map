@@ -1,0 +1,22 @@
+<map id="Mk2_3phase_RFdatalog_temp/test/native/test_datalog_math/test_main.cpp" name="Mk2_3phase_RFdatalog_temp/test/native/test_datalog_math/test_main.cpp">
+<area shape="rect" id="Node000001" title="Native unit tests for datalog_math.h." alt="" coords="20,5,234,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,115,70,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,70,63,105,59,102,98,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="93,115,160,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="127,65,129,100,124,99,126,70"/>
+<area shape="rect" id="Node000004" href="$datalog__math_8h.html" title="Integer arithmetic of the datalog: power and RMS voltage per phase." alt="" coords="185,115,308,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="167,65,220,105,215,106,167,70"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="136,342,206,370"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="218,145,195,165,173,192,162,226,159,262,166,327,161,326,154,262,157,225,168,189,191,161,222,141"/>
+<area shape="rect" id="Node000006" href="$energy__bucket_8h.html" title="Integer arithmetic of the energy bucket." alt="" coords="183,191,311,218"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="248,141,249,176,244,174,246,146"/>
+<area shape="rect" id="Node000007" href="$mult__asm_8h.html" title="Assembly&#45;optimized multiplication functions for AVR microcontrollers." alt="" coords="260,266,359,294"/>
+<area shape="poly" id="edge11_Node000004_Node000007" title=" " alt="" coords="273,141,303,161,325,189,330,205,331,222,324,253,319,251,325,222,325,206,320,192,299,165,274,146"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="243,217,187,329,182,326,238,220"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="259,216,291,254,286,254,258,221"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="282,296,210,337,208,332,287,293"/>
+<area shape="rect" id="Node000008" href="$is__same_8hpp.html" title=" " alt="" coords="230,342,408,370"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="313,292,318,328,313,326,310,297"/>
+<area shape="rect" id="Node000009" href="$integral__constant_8hpp.html" title=" " alt="" coords="238,418,400,445"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="321,368,321,404,317,400,317,372"/>
+</map>

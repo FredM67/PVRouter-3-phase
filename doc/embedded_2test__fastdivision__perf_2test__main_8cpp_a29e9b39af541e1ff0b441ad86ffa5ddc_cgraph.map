@@ -1,0 +1,9 @@
+<map id="test_perf_divu10_large_values" name="test_perf_divu10_large_values">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,176,94"/>
+<area shape="rect" id="Node000002" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="239,5,342,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,46,226,35,221,38,177,51"/>
+<area shape="rect" id="Node000003" href="$FastDivision_8cpp.html#a8533c8b2efd068df7dd1b2e4d65b7ced" title=" " alt="" coords="258,57,324,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="176,69,245,70,240,72,177,74"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2b8ac054aae805c9d0fe56b9e13c7fff" title="Reports benchmark results to Serial." alt="" coords="224,109,358,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="176,91,223,105,217,105,176,96"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Energy::toHundredthsOfJoule" name="Energy::toHundredthsOfJoule">
+<area shape="rect" id="Node000001" title="An energy in bucket units, in hundredths of a joule (for the datalog)." alt="" coords="5,29,214,57"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#a7aaa5a81b4e5ecaca75d4e9f5eb9a052" title="Greatest common divisor, to reduce fractions at compile time." alt="" coords="262,29,358,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,41,249,43,244,43,214,46"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="275,28,270,20,274,11,288,5,310,3,334,5,348,14,342,14,332,10,310,8,289,10,278,15,275,20,280,30"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="test_bitOf_counts_within_the_same_unit" name="test_bitOf_counts_within_the_same_unit">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,188,68"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a2af331573ede4c50d696449fe9b4ab8d" title="Rank of a load among the loads of its own unit, in ascending map order." alt="" coords="243,5,336,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,31,230,27,225,28,188,36"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#adb9797ea49459ec57cf3641aee0d7bd6" title="Declares a load driven by a remote unit over RF." alt="" coords="236,57,343,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="188,55,223,62,217,62,188,60"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#ab4ce134e88bb49ba929ef2e5e8236bbe" title="The owning unit of the entry: 0 for a local load, 1..3 for a remote one." alt="" coords="391,5,491,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="336,17,378,19,373,19,336,22"/>
+</map>

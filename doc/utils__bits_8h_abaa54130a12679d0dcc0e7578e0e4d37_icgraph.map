@@ -1,0 +1,44 @@
+<map id="bit_read" name="bit_read">
+<area shape="rect" id="Node000001" title="Read the specified bit." alt="" coords="746,188,820,216"/>
+<area shape="rect" id="Node000002" href="$validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="538,57,697,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="763,174,735,137,696,100,675,88,675,83,699,96,739,134,769,176"/>
+<area shape="rect" id="Node000003" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="571,109,664,137"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="746,179,697,152,665,139,665,134,699,147,752,179"/>
+<area shape="rect" id="Node000004" href="$group__Initialization.html#ga8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="566,265,669,293"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="750,224,699,255,668,267,666,262,697,250,745,225"/>
+<area shape="rect" id="Node000007" href="$group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="561,213,674,241"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="728,210,675,221,674,216,733,209"/>
+<area shape="rect" id="Node000008" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="569,161,666,189"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="728,194,666,186,666,180,733,193"/>
+<area shape="rect" id="Node000016" href="$classrelayOutput.html#af866e8a61c04548ed5e40e971f6b0e3f" title=" " alt="" coords="537,325,698,353"/>
+<area shape="poly" id="edge22_Node000001_Node000016" title=" " alt="" coords="767,228,738,269,699,307,662,327,660,322,696,302,734,266,762,230"/>
+<area shape="rect" id="Node000005" href="$group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="331,265,478,293"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="548,280,479,282,479,277,553,279"/>
+<area shape="rect" id="Node000006" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="159,213,216,241"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="327,262,216,237,216,231,331,260"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="543,245,465,267,464,262,548,244"/>
+<area shape="rect" id="Node000009" href="$group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="328,109,481,137"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="552,160,464,140,464,135,557,159"/>
+<area shape="rect" id="Node000012" href="$group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="332,161,478,189"/>
+<area shape="poly" id="edge12_Node000008_Node000012" title=" " alt="" coords="551,176,479,178,478,173,557,174"/>
+<area shape="rect" id="Node000013" href="$group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="358,213,452,241"/>
+<area shape="poly" id="edge15_Node000008_Node000013" title=" " alt="" coords="552,191,453,218,451,213,557,189"/>
+<area shape="rect" id="Node000014" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,5,489,33"/>
+<area shape="poly" id="edge18_Node000008_Node000014" title=" " alt="" coords="553,160,536,151,524,137,517,124,511,98,505,72,499,60,488,48,470,36,470,31,491,44,503,57,510,70,516,96,522,122,528,134,539,146,558,160"/>
+<area shape="rect" id="Node000015" href="$group__GeneralProcessing.html#gabe8c38238f5014c09e788c833b50af5e" title="Handles load priority rotation." alt="" coords="324,57,486,85"/>
+<area shape="poly" id="edge20_Node000008_Node000015" title=" " alt="" coords="553,158,536,151,521,138,511,125,502,112,488,100,464,88,464,83,491,96,506,109,516,122,524,134,539,146,558,158"/>
+<area shape="rect" id="Node000010" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,109,272,137"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="311,124,273,126,272,121,316,122"/>
+<area shape="rect" id="Node000011" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,109,55,137"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="85,125,57,125,54,121,89,121"/>
+<area shape="poly" id="edge14_Node000012_Node000006" title=" " alt="" coords="327,195,217,223,215,218,331,192"/>
+<area shape="poly" id="edge13_Node000012_Node000010" title=" " alt="" coords="326,158,249,140,248,135,331,156"/>
+<area shape="poly" id="edge17_Node000013_Node000006" title=" " alt="" coords="340,229,217,230,216,225,344,226"/>
+<area shape="poly" id="edge16_Node000013_Node000010" title=" " alt="" coords="341,210,319,203,258,171,210,140,210,135,260,166,321,198,346,209"/>
+<area shape="poly" id="edge19_Node000014_Node000010" title=" " alt="" coords="336,40,321,48,260,80,212,111,208,107,258,76,319,43,340,37"/>
+<area shape="poly" id="edge21_Node000015_Node000010" title=" " alt="" coords="327,91,250,111,247,106,331,88"/>
+<area shape="rect" id="Node000017" href="$classrelayOutput.html#a7bba2dafbdc27d07468741bc1d849f57" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="326,317,484,362"/>
+<area shape="poly" id="edge23_Node000016_Node000017" title=" " alt="" coords="519,339,484,342,484,337,524,339"/>
+<area shape="rect" id="Node000018" href="$classrelayOutput.html#a8db1c0f340b319bfc7ff11467ea57cc7" title="Proceed with the relay." alt="" coords="326,386,484,431"/>
+<area shape="poly" id="edge24_Node000016_Node000018" title=" " alt="" coords="561,358,476,388,475,383,556,359"/>
+</map>

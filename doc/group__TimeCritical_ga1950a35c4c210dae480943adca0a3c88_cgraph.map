@@ -1,0 +1,10 @@
+<map id="updatePhysicalLoadStates" name="updatePhysicalLoadStates">
+<area shape="rect" id="Node000001" title="Updates the physical load states based on logical load priorities and states." alt="" coords="5,23,198,50"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="448,24,553,52"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,20,245,9,323,3,400,9,443,19,438,20,400,14,323,8,246,14,171,25"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="275,23,370,50"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="198,34,262,36,257,37,198,39"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="246,75,400,102"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="164,48,249,70,243,71,163,54"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="373,72,433,57,438,56,374,77"/>
+</map>

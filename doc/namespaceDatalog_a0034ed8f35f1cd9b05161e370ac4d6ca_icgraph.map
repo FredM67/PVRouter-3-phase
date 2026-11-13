@@ -1,0 +1,11 @@
+<map id="Datalog::vrmsFactor" name="Datalog::vrmsFactor">
+<area shape="rect" id="Node000001" title="Scaling of the datalog voltage, Vrms_L_x100." alt="" coords="367,44,519,72"/>
+<area shape="rect" id="Node000002" href="$native_2test__datalog__math_2test__main_8cpp.html#ad04da3b136338e85aaf517de4bce1c3c" title=" " alt="" coords="121,5,306,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="349,46,307,43,307,37,354,46"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="108,74,319,102"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="354,70,320,77,319,71,349,70"/>
+<area shape="rect" id="Node000003" href="$native_2test__datalog__math_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,14,60,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="103,29,61,30,60,25,107,26"/>
+<area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="8,74,57,102"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="90,89,57,90,57,85,95,87"/>
+</map>

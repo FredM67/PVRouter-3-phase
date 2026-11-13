@@ -1,0 +1,15 @@
+<map id="is_same&lt; T, T &gt;" name="is_same&lt; T, T &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="21,421,150,448"/>
+<area shape="rect" id="Node000002" href="$structintegral__constant.html" title=" " alt="" coords="41,225,130,252"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="56,265,32,293,11,329,8,342,10,355,23,380,43,401,67,419,62,421,40,405,18,383,5,356,3,342,6,327,27,290,58,260"/>
+<area shape="rect" id="Node000006" href="$structis__same.html" title=" " alt="" coords="20,328,151,356"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="87,265,88,328,83,327,84,270"/>
+<area shape="rect" id="Node000003" href="$structintegral__constant.html" title=" " alt="" coords="64,115,209,160"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="97,173,93,185,87,205,87,225,82,224,82,204,88,183,99,169"/>
+<area shape="rect" id="Node000005" href="$structintegral__constant.html" title=" " alt="" coords="145,276,229,304"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="153,171,159,183,186,276,181,276,154,185,152,177"/>
+<area shape="rect" id="Node000004" href="$structintegral__constant.html" title=" " alt="" coords="64,5,209,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="137,63,139,115,134,114,136,68"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="184,318,174,359,152,398,137,412,119,423,117,418,133,408,148,395,169,357,181,322"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="88,369,88,421,83,420,83,373"/>
+</map>

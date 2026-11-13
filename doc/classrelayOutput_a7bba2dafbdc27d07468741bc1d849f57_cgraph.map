@@ -1,0 +1,11 @@
+<map id="relayOutput::proceed_forced_only" name="relayOutput::proceed_forced_only">
+<area shape="rect" id="Node000001" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="5,24,164,68"/>
+<area shape="rect" id="Node000002" href="$classrelayOutput.html#af866e8a61c04548ed5e40e971f6b0e3f" title=" " alt="" coords="218,5,378,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,33,205,30,200,32,164,39"/>
+<area shape="rect" id="Node000004" href="$classrelayOutput.html#ac5b46b3ccabacb3565a16038f8099398" title="Turn the relay ON or OFF if the &#39;time&#39; condition is met." alt="" coords="212,57,385,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="164,53,199,59,193,59,164,58"/>
+<area shape="rect" id="Node000003" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="444,5,518,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="379,17,431,19,425,19,379,22"/>
+<area shape="rect" id="Node000005" href="$utils__pins_8h.html#a505180a01641b0a5b17a0f2376f9b586" title="Set the Pin state for the specified pin." alt="" coords="433,57,528,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="385,69,420,71,415,71,385,74"/>
+</map>

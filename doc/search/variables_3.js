@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['calibration_5fmode_0',['CALIBRATION_MODE',['../config_8h.html#a858e958b407980de6e11570157e619cd',1,'config.h']]],
+  ['capture_1',['capture',['../embedded_2test__serial__output_2test__main_8cpp.html#a938ffc40866accb2ba8ceb66f852e8f7',1,'test_main.cpp']]],
+  ['convert_5ftemperature_2',['CONVERT_TEMPERATURE',['../constants_8h.html#a0fc0867cb8eb64709ec9326821f0657c',1,'constants.h']]],
+  ['copyof_5fcountloadon_3',['copyOf_countLoadON',['../namespaceShared.html#ab50c7218bb7e19f8f89a62d6f7d67637',1,'Shared']]],
+  ['copyof_5fenergyinbucket_5fmain_4',['copyOf_energyInBucket_main',['../namespaceShared.html#a9dd37e8b345f61293e790a60284ba858',1,'Shared']]],
+  ['copyof_5flowestnoofsamplesetspermainscycle_5',['copyOf_lowestNoOfSampleSetsPerMainsCycle',['../namespaceShared.html#aa51aa67f87e09e015629b84904bba01f',1,'Shared']]],
+  ['copyof_5fsamplesetsduringthisdatalogperiod_6',['copyOf_sampleSetsDuringThisDatalogPeriod',['../namespaceShared.html#a8bb9a3d2e934908bf745655312a7e416',1,'Shared']]],
+  ['copyof_5fsum_5fvsquared_7',['copyOf_sum_Vsquared',['../namespaceShared.html#ae23e7bcb455f6a22b0d36a71a2da79a2',1,'Shared']]],
+  ['copyof_5fsump_5fatsupplypoint_8',['copyOf_sumP_atSupplyPoint',['../namespaceShared.html#a97382a0bf73f64b26260a5829cdb7611',1,'Shared']]],
+  ['count_9',['count',['../structRecordingRadio.html#a85cb12305a94753304256812a5e5763e',1,'RecordingRadio::count'],['../structPinList.html#a7969ec092ecd8e3ca47f5ca63a3d4e54',1,'PinList::count']]],
+  ['countloadon_10',['countLoadON',['../processing_8cpp.html#a2f61fd181a2806e678e5473eaad03891',1,'processing.cpp']]],
+  ['cr_11',['CR',['../classTeleInfo.html#a710390df1d82afc54addcd2edb3405ae',1,'TeleInfo']]],
+  ['current_12',['current',['../namespaceSerialOutput.html#af451e3584b406603f6004d4689587970',1,'SerialOutput']]],
+  ['current_5famplitude_13',['CURRENT_AMPLITUDE',['../native_2test__power__rms__comparison_2test__main_8cpp.html#afcc9ea03c197b8ff6f065f7465af4079',1,'test_main.cpp']]],
+  ['cycles_14',['cycles',['../structTestStats.html#a202769bb6aceb308d2655f53c1765603',1,'TestStats']]],
+  ['cyclessincelastupdate_15',['cyclesSinceLastUpdate',['../structRemoteUnitState.html#ad2291ffee9d3852705db8b337d099821',1,'RemoteUnitState']]]
+];

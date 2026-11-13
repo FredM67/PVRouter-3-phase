@@ -1,0 +1,7 @@
+<map id="test_sendPending_without_units_never_sends" name="test_sendPending_without_units_never_sends">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,198,50"/>
+<area shape="rect" id="Node000002" href="$classRemoteLoadCore.html#ad375e0103bc6024968f0778643290b33" title="Hand every pending payload to send, addressed to its unit&#39;s node ID." alt="" coords="246,14,470,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,25,233,27,227,28,198,30"/>
+<area shape="rect" id="Node000003" href="$classRemoteLoadCore.html#a319660f4fc15458ef8ddc005730fe57f" title="Claim a pending transmission for one unit." alt="" coords="518,14,739,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="471,25,505,28,500,28,471,30"/>
+</map>

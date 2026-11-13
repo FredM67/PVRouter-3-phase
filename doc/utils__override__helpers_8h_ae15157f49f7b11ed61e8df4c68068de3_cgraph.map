@@ -1,0 +1,5 @@
+<map id="ALL_RELAYS" name="ALL_RELAYS">
+<area shape="rect" id="Node000001" title="Returns a bitmask representing all relay pins." alt="" coords="5,5,106,33"/>
+<area shape="rect" id="Node000002" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="154,5,219,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,17,141,19,135,19,106,22"/>
+</map>

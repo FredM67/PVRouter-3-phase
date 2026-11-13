@@ -1,0 +1,68 @@
+<map id="bit_set" name="bit_set">
+<area shape="rect" id="Node000001" title="Set the specified bit to 1." alt="" coords="920,369,985,397"/>
+<area shape="rect" id="Node000002" href="$utils__override__helpers_8h.html#ae15157f49f7b11ed61e8df4c68068de3" title="Returns a bitmask representing all relay pins." alt="" coords="275,6,376,34"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="948,352,944,304,932,243,908,179,891,150,870,125,843,101,815,81,751,49,683,28,613,15,544,9,479,8,377,15,375,11,479,3,544,4,613,10,684,23,753,44,817,76,847,97,874,121,895,147,913,177,937,241,949,304,953,355"/>
+<area shape="rect" id="Node000004" href="$validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac" title=" " alt="" coords="689,238,849,266"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="934,355,908,317,890,297,870,281,847,269,847,264,873,277,894,294,912,314,939,356"/>
+<area shape="rect" id="Node000005" href="$validation_8h.html#aceb581f17d3f679ec643c0f5fc316196" title="Overrides reach the outputs through the load states and the relay engine only, so each override pin m..." alt="" coords="682,290,856,318"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="918,360,871,333,837,321,837,316,873,328,924,360"/>
+<area shape="rect" id="Node000006" href="$validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="722,342,816,370"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="901,376,816,366,816,360,907,375"/>
+<area shape="rect" id="Node000007" href="$group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="666,394,872,422"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="902,390,873,396,871,391,907,389"/>
+<area shape="rect" id="Node000011" href="$group__Initialization.html#ga8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="718,600,820,627"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="949,410,942,451,928,497,906,543,873,583,849,600,821,609,820,604,847,595,870,579,901,540,923,495,937,450,945,414"/>
+<area shape="rect" id="Node000012" href="$group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="464,600,612,627"/>
+<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="946,410,937,443,922,477,901,511,873,540,773,566,610,602,609,596,771,561,870,535,897,508,917,475,932,441,942,413"/>
+<area shape="rect" id="Node000014" href="$group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="712,652,826,679"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="952,410,949,462,937,523,913,586,896,615,873,641,851,655,826,664,825,659,849,651,870,637,891,612,908,584,932,522,944,461,949,414"/>
+<area shape="rect" id="Node000015" href="$utils__override_8h.html#aece58b485056402b91be81d615714b28" title="Bitmask of the pins of every local load (lower 16 bits)." alt="" coords="706,186,832,214"/>
+<area shape="poly" id="edge16_Node000001_Node000015" title=" " alt="" coords="942,353,932,325,917,291,897,257,870,229,852,218,832,210,832,205,854,213,873,225,901,254,922,288,937,323,947,355"/>
+<area shape="rect" id="Node000022" href="$utils__override_8h.html#a13662843c76f975c9c66890fe7659d91" title="Bitmask of every remote load (bit 16 + remote rank)." alt="" coords="698,134,840,162"/>
+<area shape="poly" id="edge26_Node000001_Node000022" title=" " alt="" coords="946,352,939,314,925,266,903,218,888,196,870,177,840,160,840,154,873,173,892,193,907,215,930,264,944,313,951,355"/>
+<area shape="rect" id="Node000024" href="$utils__pins_8h.html#ac55bbc1bc996c72b6c33525fd84b45e6" title="Set the Pin state to ON for the specified pin." alt="" coords="728,498,810,526"/>
+<area shape="poly" id="edge32_Node000001_Node000024" title=" " alt="" coords="939,409,912,451,894,471,873,488,842,502,810,510,809,505,840,497,870,483,890,467,908,448,934,412"/>
+<area shape="rect" id="Node000027" href="$utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="728,446,810,474"/>
+<area shape="poly" id="edge35_Node000001_Node000027" title=" " alt="" coords="922,405,873,436,812,455,810,450,871,431,917,407"/>
+<area shape="rect" id="Node000003" href="$utils__override__helpers_8h.html#a1f9a7b43cca9e7e2cca9e7f2d052b07c" title="Returns a bitmask representing all loads and all relays." alt="" coords="5,33,193,61"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="258,30,195,38,191,34,262,26"/>
+<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="462,380,614,407"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="649,401,615,401,614,396,654,400"/>
+<area shape="rect" id="Node000009" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="241,404,410,431"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="444,405,411,410,409,405,449,403"/>
+<area shape="rect" id="Node000010" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="74,404,124,431"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="223,419,125,420,123,415,227,416"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="700,614,613,616,612,611,705,613"/>
+<area shape="rect" id="Node000013" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="297,600,354,627"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="446,614,355,616,354,611,451,613"/>
+<area shape="poly" id="edge14_Node000014_Node000012" title=" " alt="" coords="694,649,603,631,603,625,700,649"/>
+<area shape="rect" id="Node000016" href="$utils__override__helpers_8h.html#aacfc43b81341d59e7dd02a0eb307f6c6" title="Returns a bitmask representing all LOCAL load pins." alt="" coords="466,246,610,274"/>
+<area shape="poly" id="edge17_Node000015_Node000016" title=" " alt="" coords="696,220,596,248,593,243,701,217"/>
+<area shape="rect" id="Node000018" href="$native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="462,108,614,153"/>
+<area shape="poly" id="edge20_Node000015_Node000018" title=" " alt="" coords="693,182,666,176,605,156,605,151,667,171,698,181"/>
+<area shape="rect" id="Node000020" href="$native_2test__remote__loads_2test__main_8cpp.html#a1b9c634350ac05f34a47777b31d92453" title=" " alt="" coords="462,178,614,222"/>
+<area shape="poly" id="edge22_Node000015_Node000020" title=" " alt="" coords="688,201,615,203,614,198,693,199"/>
+<area shape="rect" id="Node000021" href="$native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="458,298,618,342"/>
+<area shape="poly" id="edge24_Node000015_Node000021" title=" " alt="" coords="690,216,668,229,653,242,644,257,635,272,620,288,601,299,598,295,617,283,631,269,639,254,649,239,665,225,694,213"/>
+<area shape="rect" id="Node000017" href="$utils__override__helpers_8h.html#ad19b0f6bfb7e49c2a32b6bb68d3228cd" title="Returns a bitmask representing all loads (local + remote)." alt="" coords="278,58,373,86"/>
+<area shape="poly" id="edge18_Node000016_Node000017" title=" " alt="" coords="463,240,456,237,440,223,429,209,408,176,338,89,338,83,412,173,434,206,444,219,460,233,468,239"/>
+<area shape="poly" id="edge19_Node000017_Node000003" title=" " alt="" coords="260,67,195,60,192,55,264,64"/>
+<area shape="rect" id="Node000019" href="$native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="298,186,352,214"/>
+<area shape="poly" id="edge21_Node000018_Node000019" title=" " alt="" coords="451,160,354,194,352,189,455,157"/>
+<area shape="poly" id="edge23_Node000020_Node000019" title=" " alt="" coords="445,201,354,203,352,198,449,199"/>
+<area shape="poly" id="edge25_Node000021_Node000019" title=" " alt="" coords="465,291,457,288,395,251,347,217,346,212,398,246,459,283,471,290"/>
+<area shape="poly" id="edge29_Node000022_Node000018" title=" " alt="" coords="680,143,615,139,614,134,685,141"/>
+<area shape="poly" id="edge30_Node000022_Node000020" title=" " alt="" coords="687,167,616,185,613,181,692,165"/>
+<area shape="poly" id="edge31_Node000022_Node000021" title=" " alt="" coords="682,165,668,177,656,190,649,202,644,229,639,258,632,273,620,287,605,299,602,295,616,284,627,270,634,256,639,228,644,201,652,186,665,173,687,162"/>
+<area shape="rect" id="Node000023" href="$utils__override__helpers_8h.html#a56b1293dc6f12ee82283d9630b026306" title="Returns a bitmask representing all REMOTE loads." alt="" coords="460,57,617,85"/>
+<area shape="poly" id="edge27_Node000022_Node000023" title=" " alt="" coords="710,129,617,99,586,88,584,83,619,94,715,128"/>
+<area shape="poly" id="edge28_Node000023_Node000017" title=" " alt="" coords="442,73,375,74,372,69,446,70"/>
+<area shape="rect" id="Node000025" href="$embedded_2test__utils__pins_2test__main_8cpp.html#a149130da05b40aff690713378ab38eac" title=" " alt="" coords="482,533,595,561"/>
+<area shape="poly" id="edge33_Node000024_Node000025" title=" " alt="" coords="710,521,596,541,595,536,716,520"/>
+<area shape="rect" id="Node000026" href="$embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="301,506,350,534"/>
+<area shape="poly" id="edge34_Node000025_Node000026" title=" " alt="" coords="464,538,351,526,350,520,469,537"/>
+<area shape="poly" id="edge36_Node000027_Node000009" title=" " alt="" coords="710,456,411,428,410,423,714,453"/>
+<area shape="rect" id="Node000028" href="$embedded_2test__utils__pins_2test__main_8cpp.html#a5b57301bc603e9d4e2a703b5c5a411a8" title=" " alt="" coords="481,481,595,509"/>
+<area shape="poly" id="edge37_Node000027_Node000028" title=" " alt="" coords="710,469,596,489,595,484,715,468"/>
+<area shape="poly" id="edge38_Node000028_Node000026" title=" " alt="" coords="463,504,351,520,350,515,468,502"/>
+</map>

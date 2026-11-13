@@ -1,0 +1,7 @@
+<map id="test_remote_without_led_has_pin_zero" name="test_remote_without_led_has_pin_zero">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,162,68"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="216,5,311,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,32,203,28,197,29,163,37"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#adb9797ea49459ec57cf3641aee0d7bd6" title="Declares a load driven by a remote unit over RF." alt="" coords="210,57,317,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,54,197,61,192,62,162,60"/>
+</map>

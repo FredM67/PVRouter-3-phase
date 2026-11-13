@@ -1,0 +1,25 @@
+<map id="Mk2_3phase_RFdatalog_temp/test/embedded/test_mult_asm_perf/test_main.cpp" name="Mk2_3phase_RFdatalog_temp/test/embedded/test_mult_asm_perf/test_main.cpp">
+<area shape="rect" id="Node000001" title="Performance benchmarks for assembly multiplication functions." alt="" coords="66,5,288,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="111,191,194,218"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="66,70,38,90,14,116,9,129,10,140,16,151,27,160,59,177,98,190,94,193,57,182,24,165,12,154,5,142,3,128,9,114,34,86,69,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="23,115,88,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,70,87,107,83,104,138,65"/>
+<area shape="rect" id="Node000004" href="$bench__report_8h.html" title="One machine&#45;readable line per benchmark result, for the CI history." alt="" coords="112,115,242,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="178,65,179,100,174,98,176,70"/>
+<area shape="rect" id="Node000005" href="$halt__after__tests_8h.html" title="Stops the MCU once an embedded test suite has run." alt="" coords="266,115,413,143"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="231,65,305,107,300,108,231,70"/>
+<area shape="rect" id="Node000008" href="$mult__asm_8h.html" title="Assembly&#45;optimized multiplication functions for AVR microcontrollers." alt="" coords="460,115,558,143"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="288,65,448,109,444,112,288,70"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="174,141,164,177,159,174,171,145"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="304,145,201,187,199,182,308,142"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="218,191,333,218"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="330,142,298,181,295,177,326,145"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="357,191,450,218"/>
+<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="352,141,385,179,379,178,350,146"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="474,191,544,218"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="510,141,511,177,507,173,507,145"/>
+<area shape="rect" id="Node000010" href="$is__same_8hpp.html" title=" " alt="" coords="568,191,745,218"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="536,141,620,184,614,183,535,146"/>
+<area shape="rect" id="Node000011" href="$integral__constant_8hpp.html" title=" " alt="" coords="576,266,738,294"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="659,217,659,252,655,249,655,221"/>
+</map>

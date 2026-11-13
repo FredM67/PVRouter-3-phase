@@ -1,0 +1,11 @@
+<map id="TeleInfo::writeNext" name="TeleInfo::writeNext">
+<area shape="rect" id="Node000001" title="Writes the next part of the finished frame." alt="" coords="315,48,459,76"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__teleinfo_2test__main_8cpp.html#ab2343fe4920543cd7a50e9535f504bcd" title=" " alt="" coords="122,5,256,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="297,47,256,42,256,37,302,47"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__serial__output_2test__main_8cpp.html#a27de18cd8e431ab8826ec6aa60d14c0c" title=" " alt="" coords="111,75,267,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="302,77,268,86,267,81,297,78"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__teleinfo_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,14,59,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="104,29,60,30,58,25,108,26"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,83,63,111"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="92,98,63,100,63,94,97,96"/>
+</map>

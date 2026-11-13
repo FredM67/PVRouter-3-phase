@@ -1,0 +1,7 @@
+<map id="haltAfterTests" name="haltAfterTests">
+<area shape="rect" id="Node000001" title=" " alt="" coords="111,32,221,60"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__fastdivision_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,5,59,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,33,59,27,59,21,98,30"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,57,63,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,60,64,68,63,63,98,59"/>
+</map>

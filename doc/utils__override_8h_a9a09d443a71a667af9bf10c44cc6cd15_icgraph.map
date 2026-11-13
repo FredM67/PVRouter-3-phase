@@ -1,0 +1,16 @@
+<map id="indicesToBitmask" name="indicesToBitmask">
+<area shape="rect" id="Node000001" title="Helper to convert pins to a bitmask at compile&#45;time." alt="" coords="323,118,458,146"/>
+<area shape="rect" id="Node000002" href="$native_2test__utils__override_2test__main_8cpp.html#af1aa500d1d2712cf4b23a79d26db545f" title=" " alt="" coords="108,5,275,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="353,110,274,65,250,53,250,48,276,60,358,109"/>
+<area shape="rect" id="Node000004" href="$native_2test__utils__override_2test__main_8cpp.html#a6108f2c793c23620f4d18be854adf556" title=" " alt="" coords="108,75,275,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="305,118,276,114,275,109,311,117"/>
+<area shape="rect" id="Node000005" href="$native_2test__utils__override_2test__main_8cpp.html#acb1fcaa9f1728c3f83d7602e9fba4caa" title=" " alt="" coords="108,144,275,189"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="305,147,276,154,275,149,310,145"/>
+<area shape="rect" id="Node000006" href="$native_2test__utils__override_2test__main_8cpp.html#a6f7e0b865591668495ae601f09483920" title=" " alt="" coords="108,213,275,258"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="358,153,276,203,251,215,249,210,274,199,353,155"/>
+<area shape="rect" id="Node000003" href="$native_2test__utils__override_2test__main_8cpp.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,118,60,146"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="114,60,109,65,75,92,48,119,44,116,71,88,106,60,117,56"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="91,121,62,128,59,124,94,117"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="90,146,61,140,60,135,95,143"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="113,206,106,203,71,175,46,149,47,143,75,171,109,199,118,206"/>
+</map>

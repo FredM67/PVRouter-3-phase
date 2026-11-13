@@ -1,0 +1,29 @@
+<map id="reference" name="reference">
+<area shape="rect" id="Node000001" title="The float arithmetic being replaced, in bucket units." alt="" coords="613,288,697,315"/>
+<area shape="rect" id="Node000002" href="$native_2test__energy__bucket_2test__main_8cpp.html#a0f3801aa789750b4d56cf88b9996bf95" title="Every average power from &#45;FULL_SCALE to +FULL_SCALE, in uneven steps." alt="" coords="378,108,552,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="634,274,603,234,564,190,527,161,492,139,493,133,530,157,567,186,607,230,639,275"/>
+<area shape="rect" id="Node000006" href="$native_2test__energy__bucket_2test__main_8cpp.html#a4bfecf3319b8ded51b2c0f051eef4f34" title=" " alt="" coords="134,176,290,238"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="628,276,599,254,564,235,494,215,422,204,352,201,292,202,290,197,352,196,422,199,496,209,566,230,602,250,633,277"/>
+<area shape="rect" id="Node000007" href="$native_2test__energy__bucket_2test__main_8cpp.html#a2c724726fb3468265a80715094ec73cd" title=" " alt="" coords="396,244,534,289"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="596,292,535,282,534,277,601,291"/>
+<area shape="rect" id="Node000008" href="$embedded_2test__serial__output_2test__main_8cpp.html#aae27f1312bc163c3eb9f5309b9fdf7dd" title=" " alt="" coords="386,314,544,358"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="596,312,545,324,544,319,601,311"/>
+<area shape="rect" id="Node000010" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae97034decb439605d485c0da0bb7e4f1" title=" " alt="" coords="386,383,545,428"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="630,325,600,351,567,373,541,385,540,380,564,369,597,347,625,327"/>
+<area shape="rect" id="Node000012" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#aa3fe0f8db223f35f23173422acfb3c14" title="sqrtScaled() and vrms() on the target, against the float code, over the whole voltage range." alt="" coords="365,452,565,497"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="645,328,615,387,593,417,567,442,548,454,546,449,564,438,589,413,610,384,640,331"/>
+<area shape="rect" id="Node000003" href="$native_2test__energy__bucket_2test__main_8cpp.html#af72c1396fe3d1230a5d9339ef4d0c16b" title=" " alt="" coords="108,5,317,67"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="404,103,306,70,305,65,409,101"/>
+<area shape="rect" id="Node000005" href="$native_2test__energy__bucket_2test__main_8cpp.html#a0a7fc5b3150cdce32bfb361da22a3e0d" title=" " alt="" coords="110,91,315,152"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="360,123,317,124,315,119,365,120"/>
+<area shape="rect" id="Node000004" href="$native_2test__energy__bucket_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,150,60,178"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="112,77,109,81,71,117,45,151,40,149,67,113,106,77,115,73"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="93,152,62,160,58,156,96,147"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="117,186,61,173,59,168,121,183"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="378,282,318,288,248,287,175,276,140,266,106,252,84,237,65,217,42,181,41,176,69,214,87,233,109,247,142,261,177,271,248,281,318,283,383,280"/>
+<area shape="rect" id="Node000009" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="184,322,241,350"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="368,337,242,339,241,334,373,335"/>
+<area shape="rect" id="Node000011" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="184,426,241,454"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="368,419,242,439,241,434,373,418"/>
+<area shape="poly" id="edge15_Node000012_Node000011" title=" " alt="" coords="347,460,241,447,241,441,353,459"/>
+</map>

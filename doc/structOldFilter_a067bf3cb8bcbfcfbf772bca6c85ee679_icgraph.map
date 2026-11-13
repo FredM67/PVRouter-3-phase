@@ -1,0 +1,16 @@
+<map id="OldFilter::processVoltage" name="OldFilter::processVoltage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="310,118,493,146"/>
+<area shape="rect" id="Node000002" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a4de396af4f21c6e4060f28f5d2965743" title="Verify new filter doesn&#39;t hit limits that old filter would." alt="" coords="111,5,258,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="356,111,261,65,237,53,237,48,263,60,362,110"/>
+<area shape="rect" id="Node000004" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a17576066e4c91bb03ac7733e0ac87b37" title="Compare filter response to sinusoidal AC waveform." alt="" coords="108,75,262,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="294,115,263,112,262,107,299,114"/>
+<area shape="rect" id="Node000005" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#ad835404ca9330eb976c4b1580004be7a" title="Compare old and new filter: same sample produces equivalent offset." alt="" coords="108,144,262,189"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="294,149,263,157,262,151,299,148"/>
+<area shape="rect" id="Node000006" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a2dfd2d745cae0e8753eafde9f29741c6" title="Compare filter tracking speed for step change." alt="" coords="108,213,262,258"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="362,152,263,203,238,215,236,210,261,199,356,154"/>
+<area shape="rect" id="Node000003" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,118,60,146"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,60,109,64,75,92,48,119,44,116,71,88,106,60,116,56"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="91,120,61,128,59,123,95,116"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="90,147,61,140,59,135,95,144"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="112,205,106,203,71,175,46,149,47,143,75,171,109,199,117,205"/>
+</map>

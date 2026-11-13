@@ -1,0 +1,12 @@
+<map id="round_up_to_power_of_2" name="round_up_to_power_of_2">
+<area shape="rect" id="Node000001" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="371,57,554,85"/>
+<area shape="rect" id="Node000002" href="$classEWMA__average.html#a318805480edbce025fd81a1021cc86c8" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="108,5,323,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="376,54,285,36,285,31,381,53"/>
+<area shape="rect" id="Node000003" href="$native_2test__ewma__avg_2test__main_8cpp.html#ad7b9f7b0cc475bb6df342f4a32f22d79" title=" " alt="" coords="115,57,316,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="353,71,316,74,316,69,358,71"/>
+<area shape="rect" id="Node000005" href="$native_2test__ewma__avg_2test__main_8cpp.html#a48284aaaaa12a9a7ccb66884785bfca4" title=" " alt="" coords="122,109,309,137"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="381,88,285,111,284,106,376,89"/>
+<area shape="rect" id="Node000004" href="$native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,84,60,112"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="99,90,61,97,59,91,104,86"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="104,110,60,104,60,99,108,106"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="infolnDecimals_P" name="infolnDecimals_P">
+<area shape="rect" id="Node000001" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="5,5,140,33"/>
+<area shape="rect" id="Node000002" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="188,5,307,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,17,174,19,169,19,140,22"/>
+</map>

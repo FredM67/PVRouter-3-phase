@@ -1,0 +1,22 @@
+<map id="Mk2_3phase_RFdatalog_temp/energy_bucket.h" name="Mk2_3phase_RFdatalog_temp/energy_bucket.h">
+<area shape="rect" id="Node000001" title="Integer arithmetic of the energy bucket." alt="" coords="520,5,696,50"/>
+<area shape="rect" id="Node000002" href="$datalog__math_8h.html" title="Integer arithmetic of the datalog: power and RMS voltage per phase." alt="" coords="269,106,445,151"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="536,57,413,108,411,104,541,55"/>
+<area shape="rect" id="Node000006" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="540,216,716,261"/>
+<area shape="poly" id="edge11_Node000001_Node000006" title=" " alt="" coords="548,57,526,78,510,99,503,115,501,129,503,143,510,158,522,176,537,190,574,216,569,215,534,195,518,179,505,161,498,144,495,129,498,114,505,97,522,74,543,60"/>
+<area shape="rect" id="Node000007" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="520,106,696,151"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="609,63,610,108,605,105,606,68"/>
+<area shape="rect" id="Node000008" href="$native_2test__energy__bucket_2test__main_8cpp.html" title="Native unit tests for energy_bucket.h." alt="" coords="719,98,939,160"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="670,54,764,97,759,98,670,59"/>
+<area shape="rect" id="Node000009" href="$utils_8h.html" title="Some utility functions." alt="" coords="838,216,1015,261"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="711,33,783,41,854,54,914,72,937,83,952,96,961,110,965,126,964,159,954,190,941,218,938,214,949,188,959,158,960,127,956,113,948,100,934,87,912,77,853,59,782,46,712,38"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="540,317,716,362"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="252,140,156,156,108,167,65,181,33,198,13,218,9,229,9,240,14,253,24,267,49,280,95,292,234,311,396,324,542,334,537,335,396,329,233,316,94,297,47,285,21,271,9,256,4,241,3,228,8,215,29,194,63,176,106,162,155,151,256,137"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html" title="The integer datalog arithmetic on the target: exact results, and cycle counts against the float code ..." alt="" coords="35,208,277,269"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="301,160,214,209,211,205,305,157"/>
+<area shape="rect" id="Node000005" href="$native_2test__datalog__math_2test__main_8cpp.html" title="Native unit tests for datalog_math.h." alt="" coords="301,208,515,269"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="375,163,396,208,391,206,373,168"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="426,155,576,215,570,216,425,160"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="630,274,630,319,626,315,626,278"/>
+<area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="849,266,694,319,692,314,844,267"/>
+</map>

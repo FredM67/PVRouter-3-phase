@@ -1,0 +1,7 @@
+<map id="test_isqrt_matches_the_reference" name="test_isqrt_matches_the_reference">
+<area shape="rect" id="Node000001" title="2 million values over the whole 32&#45;bit range, against sqrt() in double precision (exact here)." alt="" coords="5,5,151,50"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#a5c242aed104cfb700b6fc57675ae10b9" title="Integer square root, rounded to the nearest integer." alt="" coords="199,14,308,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,25,186,27,180,28,151,30"/>
+<area shape="rect" id="Node000003" href="$namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="356,14,510,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="308,25,343,28,338,28,308,30"/>
+</map>

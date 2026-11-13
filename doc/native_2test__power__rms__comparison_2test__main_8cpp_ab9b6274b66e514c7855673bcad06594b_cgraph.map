@@ -1,0 +1,7 @@
+<map id="test_power_unity_power_factor" name="test_power_unity_power_factor">
+<area shape="rect" id="Node000001" title="Test power calculation with unity power factor (V and I in phase)" alt="" coords="5,24,186,68"/>
+<area shape="rect" id="Node000002" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a096d1b796f1fc39aead9cd4913db73f0" title="Generate sinusoidal ADC value." alt="" coords="234,5,369,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,32,221,29,216,30,186,37"/>
+<area shape="rect" id="Node000003" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#afe721670afe144dfacafe352ece28b08" title="Convert right&#45;aligned ADC to left&#45;aligned." alt="" coords="248,57,355,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="186,54,235,63,230,63,186,60"/>
+</map>

@@ -1,0 +1,17 @@
+<map id="decay&lt; T &gt;" name="decay&lt; T &gt;">
+<area shape="rect" id="Node000001" title=" " alt="" coords="154,5,252,33"/>
+<area shape="rect" id="Node000002" href="$structdecay_3_01T_01_6_01_4.html" title=" " alt="" coords="5,98,118,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,44,77,100,74,95,163,39"/>
+<area shape="poly" id="edge6_Node000001_Node000002" title=" " alt="" coords="175,45,90,99,87,95,178,40"/>
+<area shape="rect" id="Node000003" href="$structdecay_3_01T_01_6_6_01_4.html" title=" " alt="" coords="142,98,264,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,46,199,99,194,97,193,50"/>
+<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="213,46,212,99,207,97,210,50"/>
+<area shape="rect" id="Node000004" href="$structdecay.html" title=" " alt="" coords="399,98,508,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="267,34,332,54,429,97,424,98,330,60,267,40"/>
+<area shape="rect" id="Node000005" href="$structdecay_3_01T_0fN_0e_01_4.html" title=" " alt="" coords="280,175,398,203"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="228,42,278,96,334,175,328,175,274,100,226,47"/>
+<area shape="rect" id="Node000006" href="$structdecay_3_01T_0f_0e_01_4.html" title=" " alt="" coords="475,175,584,203"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="267,24,338,33,415,48,481,69,506,81,522,96,532,116,536,138,534,176,530,173,530,138,527,118,518,100,503,86,479,73,414,53,338,39,267,29"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="423,134,360,177,358,172,418,135"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="479,134,519,175,514,174,477,139"/>
+</map>

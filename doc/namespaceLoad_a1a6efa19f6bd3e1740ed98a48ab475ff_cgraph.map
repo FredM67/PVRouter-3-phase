@@ -1,0 +1,8 @@
+<map id="Load::maxLoadsPerUnit" name="Load::maxLoadsPerUnit">
+<area shape="rect" id="Node000001" title="Largest number of loads assigned to any single remote unit." alt="" coords="5,31,181,58"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a45143ff1b1b918a50f68c637c882a610" title="Highest remote unit number appearing in the map (0 if fully local)." alt="" coords="229,5,359,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,31,216,29,211,30,182,36"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#ab4ce134e88bb49ba929ef2e5e8236bbe" title="The owning unit of the entry: 0 for a local load, 1..3 for a remote one." alt="" coords="407,31,507,58"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="181,42,392,42,391,47,181,47"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="360,27,394,34,389,34,359,32"/>
+</map>

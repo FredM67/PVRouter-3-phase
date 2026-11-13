@@ -1,0 +1,12 @@
+<map id="test_vrms_on_avr_matches_the_float_code" name="test_vrms_on_avr_matches_the_float_code">
+<area shape="rect" id="Node000001" title="sqrtScaled() and vrms() on the target, against the float code, over the whole voltage range." alt="" coords="5,48,206,92"/>
+<area shape="rect" id="Node000002" href="$native_2test__energy__bucket_2test__main_8cpp.html#a6daf045ca0cf4c7885ee70a055efcbf0" title="The float arithmetic being replaced, in bucket units." alt="" coords="269,5,352,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,44,256,32,251,34,199,49"/>
+<area shape="rect" id="Node000003" href="$namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="415,81,563,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="206,74,401,88,397,91,206,79"/>
+<area shape="rect" id="Node000005" href="$namespaceDatalog.html#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase." alt="" coords="254,107,367,134"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="199,90,241,103,236,103,198,95"/>
+<area shape="rect" id="Node000004" href="$namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="611,81,766,109"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="564,93,599,95,593,95,564,98"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="367,110,397,108,402,108,368,115"/>
+</map>

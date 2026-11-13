@@ -1,0 +1,15 @@
+<map id="test_per_sample_contribution_matches_the_exact_reference" name="test_per_sample_contribution_matches_the_exact_reference">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,230,94"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#a5c6a3eeab8203be8c21f0dcd70f1b1c0" title="Contribution of one mains cycle of one phase to the bucket." alt="" coords="297,5,448,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="229,46,289,36,284,38,231,51"/>
+<area shape="rect" id="Node000003" href="$native_2test__energy__bucket_2test__main_8cpp.html#a1eb6eb8118c52d7086f05c62d72ab7d6" title="The exact energy of one cycle: no truncating division, in bucket units." alt="" coords="311,57,434,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="230,69,298,70,293,72,230,74"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714" title="Build the per&#45;sample calibration table at compile time." alt="" coords="278,109,468,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="230,91,289,105,284,106,230,97"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="516,57,649,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="431,106,506,90,511,89,432,111"/>
+<area shape="rect" id="Node000006" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="522,109,643,137"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="468,121,509,123,504,123,469,126"/>
+<area shape="rect" id="Node000007" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="522,161,643,189"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="432,135,511,157,506,157,432,140"/>
+</map>

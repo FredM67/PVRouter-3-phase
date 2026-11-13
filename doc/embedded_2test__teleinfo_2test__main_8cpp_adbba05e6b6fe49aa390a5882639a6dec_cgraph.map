@@ -1,0 +1,9 @@
+<map id="test_calcBufferSize_compile_time" name="test_calcBufferSize_compile_time">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,151,68"/>
+<area shape="rect" id="Node000002" href="$group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="199,32,312,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,43,186,45,180,46,151,48"/>
+<area shape="rect" id="Node000003" href="$group__Telemetry.html#gaa9a3eeacd11602f3385056e620652bb7" title="Calculates the size of a single telemetry line in the frame." alt="" coords="360,5,432,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="312,32,342,29,347,28,313,38"/>
+<area shape="rect" id="Node000004" href="$types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="372,57,420,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="313,53,360,64,354,64,312,59"/>
+</map>

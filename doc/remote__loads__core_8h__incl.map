@@ -1,0 +1,8 @@
+<map id="Mk2_3phase_RFdatalog_temp/remote_loads_core.h" name="Mk2_3phase_RFdatalog_temp/remote_loads_core.h">
+<area shape="rect" id="Node000001" title="Unit grouping and payload bookkeeping for remotely controlled loads." alt="" coords="5,5,208,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="71,174,142,201"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,48,93,86,92,125,100,159,94,158,87,126,88,85,97,53"/>
+<area shape="rect" id="Node000003" href="$load__map_8h.html" title="Encoding of the load map: one packed byte per dump load." alt="" coords="102,98,199,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,48,139,84,133,84,117,53"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="145,125,124,162,120,158,140,128"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="test_duration_overflow_saturates_at_uint16_max" name="test_duration_overflow_saturates_at_uint16_max">
+<area shape="rect" id="Node000001" title=" " alt="" coords="321,5,514,50"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__utils__relay_2test__main_8cpp.html#a1f49390d0e196c3cbb9cbaf8f65297a0" title=" " alt="" coords="103,14,273,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="303,28,274,30,273,25,308,28"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,14,55,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="84,29,55,30,55,25,89,27"/>
+</map>

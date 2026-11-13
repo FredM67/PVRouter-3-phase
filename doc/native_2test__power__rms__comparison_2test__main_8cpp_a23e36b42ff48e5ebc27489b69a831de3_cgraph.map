@@ -1,0 +1,19 @@
+<map id="test_mathematical_identity" name="test_mathematical_identity">
+<area shape="rect" id="Node000001" title="CRITICAL TEST: Prove implementations are IDENTICAL over a full cycle." alt="" coords="5,239,207,266"/>
+<area shape="rect" id="Node000002" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a096d1b796f1fc39aead9cd4913db73f0" title="Generate sinusoidal ADC value." alt="" coords="285,5,420,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,237,129,198,160,145,201,90,226,64,253,42,272,34,269,38,256,47,229,68,205,93,164,148,134,201,116,239"/>
+<area shape="rect" id="Node000003" href="$structNewImplementation.html#afd32cfb737112b4bea40c7d356716afe" title="Process current sample and calculate power (new method)" alt="" coords="255,57,451,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="117,237,172,177,210,142,253,112,266,107,262,110,256,116,214,146,175,181,121,240"/>
+<area shape="rect" id="Node000004" href="$structOldImplementation.html#ae5e3e8c2357e81029656eac000c3293d" title="Process current sample and calculate power (old method)" alt="" coords="255,126,451,171"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="134,236,254,181,273,175,269,178,256,186,137,240"/>
+<area shape="rect" id="Node000005" href="$structNewImplementation.html#a00caeab8b1d4af178ee4d49b14090207" title="Process voltage sample (new method &#45; left aligned)" alt="" coords="272,196,434,240"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="206,236,258,230,254,233,208,241"/>
+<area shape="rect" id="Node000006" href="$structOldImplementation.html#a7b6663f965ab1ddb1cf44c1458e3ed42" title="Process voltage sample (old method)" alt="" coords="275,265,430,310"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="206,264,262,273,257,275,208,269"/>
+<area shape="rect" id="Node000007" href="$structNewImplementation.html#ae74cf27602caa56a06470d06c779498a" title="Process voltage for RMS calculation (new method)" alt="" coords="272,334,434,379"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="136,264,256,319,274,328,268,329,254,324,136,270"/>
+<area shape="rect" id="Node000008" href="$structOldImplementation.html#a6500858b4a8503b4c863cea5a6fe446e" title="Process voltage for RMS calculation (old method)" alt="" coords="275,404,430,448"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="119,264,175,324,214,359,256,389,267,397,261,396,253,393,210,363,172,328,118,269"/>
+<area shape="rect" id="Node000009" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#afe721670afe144dfacafe352ece28b08" title="Convert right&#45;aligned ADC to left&#45;aligned." alt="" coords="299,472,406,500"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="114,264,134,304,164,357,205,412,229,437,256,458,287,475,281,474,253,463,226,441,201,415,160,360,129,307,113,269"/>
+</map>

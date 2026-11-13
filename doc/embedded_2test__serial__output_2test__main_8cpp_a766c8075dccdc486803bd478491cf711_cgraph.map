@@ -1,0 +1,14 @@
+<map id="test_poll_waits_for_room" name="test_poll_waits_for_room">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,191,77"/>
+<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c" title="Whether an output is still in progress." alt="" coords="436,24,578,52"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,46,178,25,238,8,290,3,342,4,438,19,433,21,341,10,290,9,239,14,180,30,130,51"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__serial__output_2test__main_8cpp.html#acf70e15d56fee675be26106b5566d620" title=" " alt="" coords="266,23,352,50"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,49,253,43,248,45,192,54"/>
+<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#afd684610f3d410706ad307dcb113376a" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="242,127,376,154"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="139,75,257,119,252,122,137,80"/>
+<area shape="rect" id="Node000006" href="$namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="239,75,379,102"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="191,72,226,78,221,79,191,77"/>
+<area shape="rect" id="Node000005" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="427,127,587,154"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="376,138,414,140,408,140,376,143"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="365,71,433,57,438,55,366,77"/>
+</map>

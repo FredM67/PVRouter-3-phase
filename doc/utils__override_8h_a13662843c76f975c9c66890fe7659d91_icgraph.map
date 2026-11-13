@@ -1,0 +1,19 @@
+<map id="remoteLoadsMask" name="remoteLoadsMask">
+<area shape="rect" id="Node000001" title="Bitmask of every remote load (bit 16 + remote rank)." alt="" coords="592,100,734,128"/>
+<area shape="rect" id="Node000002" href="$utils__override__helpers_8h.html#a56b1293dc6f12ee82283d9630b026306" title="Returns a bitmask representing all REMOTE loads." alt="" coords="386,5,543,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="626,91,588,70,543,47,516,36,516,31,545,42,590,65,631,92"/>
+<area shape="rect" id="Node000005" href="$native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="388,57,540,102"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="575,99,540,95,540,90,580,99"/>
+<area shape="rect" id="Node000007" href="$native_2test__remote__loads_2test__main_8cpp.html#a1b9c634350ac05f34a47777b31d92453" title=" " alt="" coords="388,126,540,171"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="575,129,541,138,540,133,580,128"/>
+<area shape="rect" id="Node000008" href="$native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="384,196,544,240"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="629,135,546,186,521,198,519,192,543,181,624,137"/>
+<area shape="rect" id="Node000003" href="$utils__override__helpers_8h.html#ad19b0f6bfb7e49c2a32b6bb68d3228cd" title="Returns a bitmask representing all loads (local + remote)." alt="" coords="241,5,336,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="367,20,337,22,336,17,372,18"/>
+<area shape="rect" id="Node000004" href="$utils__override__helpers_8h.html#a1f9a7b43cca9e7e2cca9e7f2d052b07c" title="Returns a bitmask representing all loads and all relays." alt="" coords="5,5,193,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="223,20,194,22,192,17,228,18"/>
+<area shape="rect" id="Node000006" href="$native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="261,135,316,162"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="394,107,317,141,315,136,389,109"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="370,149,316,151,316,146,375,148"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="389,189,315,162,316,156,394,189"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="float_to_q8" name="float_to_q8">
+<area shape="rect" id="Node000001" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="330,88,423,116"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a28f0e2ea7b3c26680655edccb0ec238e" title="Test edge cases and potential overflow scenarios." alt="" coords="128,5,257,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="339,79,281,48,249,36,249,31,283,43,344,79"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a88117a7e9fb423e23d8958b9fa0837c8" title="Test basic functionality of mult16x8_q8." alt="" coords="103,57,282,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="312,92,280,88,279,83,317,91"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__mult__asm_2test__main_8cpp.html#afe635d3d8214d539d82722e2097430a8" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="113,109,272,154"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="312,112,273,121,272,116,317,111"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a7a1be7d11dfdb579b2ad53909fc4ace0" title="Test Q8 format conversion helpers." alt="" coords="119,178,266,223"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="348,124,283,168,258,180,256,175,281,164,343,126"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__mult__asm_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,88,55,116"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="116,41,104,48,73,68,48,89,44,86,70,64,101,43,120,37"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="99,90,56,100,54,95,103,86"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="95,116,56,109,55,104,99,112"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="109,171,101,168,68,143,44,119,45,114,72,139,104,164,114,171"/>
+</map>

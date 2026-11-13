@@ -1,0 +1,9 @@
+<map id="Mk2_3phase_RFdatalog_temp/test/embedded/halt_after_tests.h" name="Mk2_3phase_RFdatalog_temp/test/embedded/halt_after_tests.h">
+<area shape="rect" id="Node000001" title="Stops the MCU once an embedded test suite has run." alt="" coords="73,5,266,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,115,89,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,67,78,108,75,103,126,68"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="112,115,227,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="171,66,172,100,167,98,168,69"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="251,115,344,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="213,65,270,106,264,106,211,70"/>
+</map>

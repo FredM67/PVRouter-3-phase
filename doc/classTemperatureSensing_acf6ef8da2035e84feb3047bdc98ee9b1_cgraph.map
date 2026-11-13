@@ -1,0 +1,4 @@
+<map id="TemperatureSensing::readTemperature" name="TemperatureSensing::readTemperature">
+<area shape="rect" id="Node000001" title="Read temperature from a specific sensor (compile&#45;time bounds checking)." alt="" coords="5,29,160,74"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="52,28,51,19,56,11,67,5,83,3,99,5,111,14,105,14,97,10,82,8,69,10,60,14,56,20,57,29"/>
+</map>

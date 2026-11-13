@@ -1,0 +1,11 @@
+<map id="test_valid_voltage_calibration" name="test_valid_voltage_calibration">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,147,68"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#a976dddd63a52b0e01e42b764fb416928" title="Check that the voltage calibration values can be represented." alt="" coords="195,32,438,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,43,182,45,176,46,147,48"/>
+<area shape="rect" id="Node000003" href="$namespaceDatalog.html#a1dc0bffd09a9dedb477b5ca807afdb7e" title="Largest shift that keeps every (factor x calibration value) within 16 bits." alt="" coords="486,32,644,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="438,43,473,46,468,46,439,48"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="692,5,826,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="645,32,674,31,680,30,645,38"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="698,57,820,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="645,54,686,61,680,61,645,59"/>
+</map>

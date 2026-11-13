@@ -1,0 +1,28 @@
+<map id="processStartNewCycle" name="processStartNewCycle">
+<area shape="rect" id="Node000001" title="Processes the start of a new mains cycle on phase 0." alt="" coords="5,127,173,154"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="225,12,408,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,124,219,62,265,44,261,48,222,67,115,128"/>
+<area shape="rect" id="Node000004" href="$group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="227,76,406,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="153,124,239,106,235,109,156,128"/>
+<area shape="rect" id="Node000006" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="221,152,413,180"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="172,147,208,152,203,155,174,152"/>
+<area shape="rect" id="Node000010" href="$group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="247,261,387,289"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="115,152,281,252,277,255,114,158"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="472,5,671,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="408,21,458,21,454,23,410,26"/>
+<area shape="rect" id="Node000005" href="$group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="461,57,681,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="406,81,448,79,443,81,408,86"/>
+<area shape="rect" id="Node000007" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="729,159,835,186"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="413,149,541,139,612,139,682,145,722,154,717,155,681,150,612,145,541,145,414,154"/>
+<area shape="rect" id="Node000008" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="524,211,619,238"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="380,178,511,209,506,211,380,183"/>
+<area shape="rect" id="Node000009" href="$namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="494,159,648,186"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="413,166,481,169,476,171,414,171"/>
+<area shape="poly" id="edge9_Node000009_Node000007" title=" " alt="" coords="648,170,716,172,711,173,649,175"/>
+<area shape="poly" id="edge11_Node000010_Node000007" title=" " alt="" coords="387,279,452,282,526,279,605,269,680,247,722,224,755,198,760,196,725,228,682,252,606,274,527,284,452,287,388,285"/>
+<area shape="poly" id="edge12_Node000010_Node000008" title=" " alt="" coords="387,259,510,236,505,238,388,264"/>
+<area shape="rect" id="Node000011" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="524,312,618,340"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="388,286,511,313,506,314,387,292"/>
+<area shape="rect" id="Node000012" href="$utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="527,364,615,392"/>
+<area shape="poly" id="edge14_Node000010_Node000012" title=" " alt="" coords="341,287,396,318,462,349,515,367,509,366,460,354,393,323,340,292"/>
+</map>

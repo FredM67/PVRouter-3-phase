@@ -1,0 +1,5 @@
+<map id="proceedRotation" name="proceedRotation">
+<area shape="rect" id="Node000001" title="Proceeds with load priority rotation." alt="" coords="5,5,134,33"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="182,5,312,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,17,169,19,164,19,134,22"/>
+</map>

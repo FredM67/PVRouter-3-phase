@@ -1,0 +1,7 @@
+<map id="TeleInfo::sendUnsigned" name="TeleInfo::sendUnsigned">
+<area shape="rect" id="Node000001" title="Sends a telemetry value as an unsigned integer (above 32767, send() would wrap)." alt="" coords="285,14,457,42"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__teleinfo_2test__main_8cpp.html#ab2343fe4920543cd7a50e9535f504bcd" title=" " alt="" coords="103,5,237,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="267,28,237,30,237,25,272,28"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__teleinfo_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,14,55,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="85,29,55,30,55,25,90,26"/>
+</map>

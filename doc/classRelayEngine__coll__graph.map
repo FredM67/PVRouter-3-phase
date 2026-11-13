@@ -1,0 +1,9 @@
+<map id="RelayEngine&lt; N, D &gt;" name="RelayEngine&lt; N, D &gt;">
+<area shape="rect" id="Node000001" title="Manages a collection of relays and their behavior based on surplus and import thresholds." alt="" coords="8,225,168,252"/>
+<area shape="rect" id="Node000002" href="$classrelayOutput.html" title="Represents a single relay configuration and its behavior." alt="" coords="5,124,104,151"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="66,164,86,225,81,225,62,168"/>
+<area shape="rect" id="Node000003" href="$classEWMA__average.html" title=" " alt="" coords="128,115,376,160"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="206,169,111,226,108,222,201,167"/>
+<area shape="rect" id="Node000004" href="$classEWMA__average.html" title="Implements an Exponentially Weighted Moving Average (EWMA)." alt="" coords="171,5,333,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="253,46,254,115,249,114,250,51"/>
+</map>

@@ -1,0 +1,30 @@
+<map id="Mk2_3phase_RFdatalog_temp/mult_asm.h" name="Mk2_3phase_RFdatalog_temp/mult_asm.h">
+<area shape="rect" id="Node000001" title="Assembly&#45;optimized multiplication functions for AVR microcontrollers." alt="" coords="719,5,895,50"/>
+<area shape="rect" id="Node000002" href="$datalog__math_8h.html" title="Integer arithmetic of the datalog: power and RMS voltage per phase." alt="" coords="322,216,498,261"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="702,53,643,74,583,100,538,128,497,160,432,218,429,214,493,156,535,124,580,96,641,69,706,50"/>
+<area shape="rect" id="Node000007" href="$energy__bucket_8h.html" title="Integer arithmetic of the energy bucket." alt="" coords="594,106,770,151"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="770,58,710,108,707,104,766,61"/>
+<area shape="rect" id="Node000008" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="866,216,1042,261"/>
+<area shape="poly" id="edge14_Node000001_Node000008" title=" " alt="" coords="808,63,816,112,824,136,836,158,867,190,905,216,900,215,863,194,832,161,819,138,811,113,806,68"/>
+<area shape="rect" id="Node000011" href="$embedded_2test__mult__asm_2test__main_8cpp.html" title="Unity&#45;based unit tests for assembly multiplication functions." alt="" coords="845,98,1038,160"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="849,57,903,98,898,97,848,62"/>
+<area shape="rect" id="Node000012" href="$embedded_2test__mult__asm__perf_2test__main_8cpp.html" title="Performance benchmarks for assembly multiplication functions." alt="" coords="1063,98,1285,160"/>
+<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="902,52,1065,97,1060,98,902,57"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="542,427,718,472"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="304,246,191,258,133,268,81,282,40,299,15,321,9,332,9,346,14,361,26,377,51,390,97,402,236,420,398,434,544,444,539,444,398,439,235,426,96,407,49,395,23,381,10,363,4,347,4,331,10,317,37,294,79,277,132,263,190,253,308,242"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html" title="The integer datalog arithmetic on the target: exact results, and cycle counts against the float code ..." alt="" coords="37,317,279,379"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="343,269,230,319,228,314,347,266"/>
+<area shape="rect" id="Node000005" href="$native_2test__datalog__math_2test__main_8cpp.html" title="Native unit tests for datalog_math.h." alt="" coords="303,317,517,379"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="411,274,412,318,407,315,408,279"/>
+<area shape="rect" id="Node000006" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="542,326,718,370"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="468,265,588,325,583,325,467,271"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="632,384,632,428,628,425,628,388"/>
+<area shape="poly" id="edge8_Node000007_Node000002" title=" " alt="" coords="611,158,466,218,464,213,615,156"/>
+<area shape="poly" id="edge13_Node000007_Node000006" title=" " alt="" coords="614,157,585,182,563,209,556,225,554,238,563,268,581,299,605,326,600,325,577,302,558,270,549,238,551,223,558,206,581,178,609,160"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="751,155,901,215,896,216,750,160"/>
+<area shape="rect" id="Node000009" href="$native_2test__energy__bucket_2test__main_8cpp.html" title="Native unit tests for energy_bucket.h." alt="" coords="572,208,791,269"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="683,165,684,208,679,206,680,169"/>
+<area shape="rect" id="Node000010" href="$utils_8h.html" title="Some utility functions." alt="" coords="742,326,918,370"/>
+<area shape="poly" id="edge11_Node000007_Node000010" title=" " alt="" coords="747,156,779,178,805,206,820,236,829,269,833,327,828,324,823,270,815,238,801,209,776,182,746,161"/>
+<area shape="poly" id="edge12_Node000010_Node000003" title=" " alt="" coords="775,377,674,429,673,424,770,378"/>
+</map>

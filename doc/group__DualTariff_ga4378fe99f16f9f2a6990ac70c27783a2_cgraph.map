@@ -1,0 +1,5 @@
+<map id="printDualTariffConfiguration" name="printDualTariffConfiguration">
+<area shape="rect" id="Node000001" title="Print the settings for off&#45;peak period." alt="" coords="5,5,206,33"/>
+<area shape="rect" id="Node000002" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="254,5,373,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,17,241,19,235,19,206,22"/>
+</map>

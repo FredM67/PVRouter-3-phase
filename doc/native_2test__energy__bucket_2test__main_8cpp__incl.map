@@ -1,0 +1,18 @@
+<map id="Mk2_3phase_RFdatalog_temp/test/native/test_energy_bucket/test_main.cpp" name="Mk2_3phase_RFdatalog_temp/test/native/test_energy_bucket/test_main.cpp">
+<area shape="rect" id="Node000001" title="Native unit tests for energy_bucket.h." alt="" coords="17,5,236,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,115,70,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,70,63,105,59,102,98,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="93,115,160,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="127,65,129,100,124,99,126,70"/>
+<area shape="rect" id="Node000004" href="$energy__bucket_8h.html" title="Integer arithmetic of the energy bucket." alt="" coords="184,115,312,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="167,65,221,105,216,106,167,70"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="169,266,239,294"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="246,141,232,191,214,253,210,250,227,190,242,145"/>
+<area shape="rect" id="Node000006" href="$mult__asm_8h.html" title="Assembly&#45;optimized multiplication functions for AVR microcontrollers." alt="" coords="242,191,340,218"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="257,141,278,178,273,177,255,146"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="278,217,232,258,229,254,273,220"/>
+<area shape="rect" id="Node000007" href="$is__same_8hpp.html" title=" " alt="" coords="264,266,441,294"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="303,216,334,255,329,254,301,221"/>
+<area shape="rect" id="Node000008" href="$integral__constant_8hpp.html" title=" " alt="" coords="271,342,433,370"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="354,293,354,328,350,325,350,296"/>
+</map>

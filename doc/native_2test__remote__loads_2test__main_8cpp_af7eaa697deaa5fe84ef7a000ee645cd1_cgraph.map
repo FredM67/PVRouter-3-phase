@@ -1,0 +1,13 @@
+<map id="test_change_flags_a_transmission" name="test_change_flags_a_transmission">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,76,159,120"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="281,5,336,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="132,73,206,43,268,27,264,30,208,48,134,77"/>
+<area shape="rect" id="Node000003" href="$native_2test__remote__loads_2test__main_8cpp.html#ae753092f2807f2065441dec35e50c820" title="Claim a unit&#39;s payload if a transmission is due, else return &#45;1." alt="" coords="282,57,336,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="159,86,268,75,264,78,160,91"/>
+<area shape="rect" id="Node000005" href="$classRemoteLoadCore.html#a910c1fd81ac287730a92930b40decbee" title="True if a transmission is due for that unit." alt="" coords="207,109,411,137"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="159,104,194,109,188,111,160,109"/>
+<area shape="rect" id="Node000006" href="$namespaceLoad.html#adb9797ea49459ec57cf3641aee0d7bd6" title="Declares a load driven by a remote unit over RF." alt="" coords="255,161,362,189"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="135,118,208,146,243,159,238,159,206,151,135,123"/>
+<area shape="rect" id="Node000004" href="$classRemoteLoadCore.html#a319660f4fc15458ef8ddc005730fe57f" title="Claim a pending transmission for one unit." alt="" coords="459,57,680,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="336,69,446,71,441,72,337,74"/>
+</map>

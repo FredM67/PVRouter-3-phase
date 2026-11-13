@@ -1,0 +1,15 @@
+<map id="Load::bitOf" name="Load::bitOf">
+<area shape="rect" id="Node000001" title="Rank of a load among the loads of its own unit, in ascending map order." alt="" coords="796,60,889,88"/>
+<area shape="rect" id="Node000002" href="$classRemoteLoadCore.html#a3e667a8b690360f1544772f98365e895" title="Payload of Unit, from map entry I onwards." alt="" coords="539,29,748,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="778,64,737,60,738,55,783,64"/>
+<area shape="rect" id="Node000005" href="$native_2test__remote__loads_2test__main_8cpp.html#a94ad702b38939aa477b1126cccf4892f" title=" " alt="" coords="552,81,735,126"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="783,83,736,92,735,87,778,83"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="676,14,666,10,644,8,623,10,612,15,609,20,614,30,609,28,604,20,608,11,622,5,644,3,667,5,681,14"/>
+<area shape="rect" id="Node000003" href="$classRemoteLoadCore.html#a062d2ae5848e06eb2885f5e5118e2699" title="Build and schedule the payload of Unit, then of every unit after it." alt="" coords="278,29,491,57"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="521,43,492,46,491,41,526,43"/>
+<area shape="poly" id="edge5_Node000003_Node000003" title=" " alt="" coords="427,14,413,10,384,8,357,10,342,15,338,20,345,30,340,28,333,20,339,11,356,5,384,3,415,5,433,14"/>
+<area shape="rect" id="Node000004" href="$classRemoteLoadCore.html#a22769675a75fa14f2107571fb7b1ae2c" title="Rebuild every unit&#39;s payload from the current load states." alt="" coords="5,29,230,57"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="259,44,230,46,230,41,265,43"/>
+<area shape="rect" id="Node000006" href="$native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="357,89,412,117"/>
+<area shape="poly" id="edge7_Node000005_Node000006" title=" " alt="" coords="534,103,412,106,412,101,539,103"/>
+</map>

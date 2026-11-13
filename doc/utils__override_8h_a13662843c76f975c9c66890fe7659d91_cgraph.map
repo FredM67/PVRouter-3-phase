@@ -1,0 +1,9 @@
+<map id="remoteLoadsMask" name="remoteLoadsMask">
+<area shape="rect" id="Node000001" title="Bitmask of every remote load (bit 16 + remote rank)." alt="" coords="5,32,147,60"/>
+<area shape="rect" id="Node000002" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="255,5,320,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,34,242,24,237,26,147,40"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557" title="Number of entries of the map that are driven remotely." alt="" coords="195,57,380,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,52,182,58,177,58,147,57"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="428,57,533,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="381,69,415,71,410,71,381,74"/>
+</map>

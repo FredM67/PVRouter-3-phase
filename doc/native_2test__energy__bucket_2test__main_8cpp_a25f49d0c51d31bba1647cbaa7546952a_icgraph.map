@@ -1,0 +1,10 @@
+<map id="quantisationError" name="quantisationError">
+<area shape="rect" id="Node000001" title="Relative error of a quantised calibration value." alt="" coords="368,48,501,76"/>
+<area shape="rect" id="Node000002" href="$native_2test__energy__bucket_2test__main_8cpp.html#ac3248f8f7682c5fb8e046e8f46edad4b" title=" " alt="" coords="128,5,300,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="350,50,300,44,300,39,356,49"/>
+<area shape="rect" id="Node000004" href="$native_2test__energy__bucket_2test__main_8cpp.html#abe6fd445b90a95fe1a77c4c6938199e3" title=" " alt="" coords="108,75,320,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="355,75,321,83,320,78,350,75"/>
+<area shape="rect" id="Node000003" href="$native_2test__energy__bucket_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,48,60,76"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,49,61,60,59,55,114,45"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="90,75,60,70,60,65,95,72"/>
+</map>

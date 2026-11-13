@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['sample_5fperiod_5fus_0',['SAMPLE_PERIOD_US',['../embedded_2test__voltage__accumulation_2test__main_8cpp.html#ab4267d380257727b80e287bbdadc5f86',1,'test_main.cpp']]],
+  ['sample_5fset_5fperiod_5fus_1',['SAMPLE_SET_PERIOD_US',['../processing_8cpp.html#a37b88bae7be9d644f49ff7a3f138eceb',1,'processing.cpp']]],
+  ['sample_5fsets_5fmargin_2',['SAMPLE_SETS_MARGIN',['../processing_8cpp.html#a061f4d324283b93fb04773e4cc5956b9',1,'processing.cpp']]],
+  ['sample_5fsets_5fper_5fcycle_3',['SAMPLE_SETS_PER_CYCLE',['../processing_8cpp.html#a2e1c0c653050cdb35f952e02c614e441',1,'processing.cpp']]],
+  ['samples_5fper_5fcycle_4',['SAMPLES_PER_CYCLE',['../native_2test__power__rms__comparison_2test__main_8cpp.html#a8ad43357bb2de7778cf80af77cd0e7d4',1,'test_main.cpp']]],
+  ['samples_5fper_5fhalf_5fcycle_5',['SAMPLES_PER_HALF_CYCLE',['../native_2test__power__rms__comparison_2test__main_8cpp.html#adc88fafe623a698bdeecf9d131eaa86a',1,'test_main.cpp']]],
+  ['sendids_6',['sendIds',['../native_2test__remote__loads_2test__main_8cpp.html#a824006f992263bed5987e56f45c7960c',1,'test_main.cpp']]],
+  ['sendmap_7',['sendMap',['../native_2test__remote__loads_2test__main_8cpp.html#ad67b934badcab31beb6a044af65591d4',1,'test_main.cpp']]],
+  ['sensoraddrs_8',['sensorAddrs',['../classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5',1,'TemperatureSensing']]],
+  ['sensori_9',['sensorI',['../processing_8cpp.html#a8843ac58fa4e38e3bec429fac0f8de41',1,'processing.cpp']]],
+  ['sensorpin_10',['sensorPin',['../classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875',1,'TemperatureSensing']]],
+  ['sensorv_11',['sensorV',['../processing_8cpp.html#a84dbfaffb1c8ccc490804b5f976d7933',1,'processing.cpp']]],
+  ['sentpos_12',['sentPos',['../classTeleInfo.html#a40284da062c11b1e7c5709012de800e4',1,'TeleInfo']]],
+  ['serial_5foutput_5ftype_13',['SERIAL_OUTPUT_TYPE',['../config_8h.html#a8647e43a79ff20a858c1e3e3a76deadc',1,'SERIAL_OUTPUT_TYPE:&#160;config.h'],['../embedded_2test__utils__relay_2test__main_8cpp.html#a8647e43a79ff20a858c1e3e3a76deadc',1,'SERIAL_OUTPUT_TYPE:&#160;test_main.cpp']]],
+  ['settle_5fchange_14',['settle_change',['../classRelayEngine.html#a62a753c9ea9c15e35211398fb155a971',1,'RelayEngine']]],
+  ['settletestrelays_15',['settleTestRelays',['../embedded_2test__utils__relay_2test__main_8cpp.html#a7c682d7309f642233a0a0bbadf8a7634',1,'test_main.cpp']]],
+  ['shift_16',['shift',['../structDatalog_1_1FixedCalibration.html#a4f964d35bd99cc373565daabcc4a5a36',1,'Datalog::FixedCalibration::shift'],['../structEnergy_1_1PerSampleCalibration.html#aa20fd404855ba0414bf8ab499c605afe',1,'Energy::PerSampleCalibration::shift']]],
+  ['smallcal_17',['smallCal',['../native_2test__datalog__math_2test__main_8cpp.html#a59ade9a0ce79660a2b82273560409e09',1,'smallCal:&#160;test_main.cpp'],['../native_2test__energy__bucket_2test__main_8cpp.html#a59ade9a0ce79660a2b82273560409e09',1,'smallCal:&#160;test_main.cpp']]],
+  ['startupperiod_18',['startUpPeriod',['../processing_8h.html#a0d30025137b8f9bfe6d4e9c832db76b4',1,'processing.h']]],
+  ['state_19',['state',['../classSimpleRNG.html#a8773e2f96da6757d327c4c22070bc3ba',1,'SimpleRNG']]],
+  ['status_5foutput_5fenabled_20',['STATUS_OUTPUT_ENABLED',['../debug_8h.html#ab02b387fb91598f800c26d111353bbfe',1,'debug.h']]],
+  ['stx_21',['STX',['../classTeleInfo.html#a526fdfd73a773da14b949e6bfac72a6e',1,'TeleInfo']]],
+  ['sum_22',['sum',['../structCycles.html#abd7b9447bec559e4b7f432e442dfe087',1,'Cycles']]],
+  ['supply_5ffrequency_23',['SUPPLY_FREQUENCY',['../config__system_8h.html#ad62846ca1d96695a32041f6dd809401e',1,'SUPPLY_FREQUENCY:&#160;config_system.h'],['../embedded_2test__voltage__accumulation_2test__main_8cpp.html#ad62846ca1d96695a32041f6dd809401e',1,'SUPPLY_FREQUENCY:&#160;test_main.cpp']]],
+  ['surplusthreshold_24',['surplusThreshold',['../classrelayOutput.html#a5149cd72bf3d2ad09b5c8cf217db3e08',1,'relayOutput']]]
+];

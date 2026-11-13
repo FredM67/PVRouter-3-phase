@@ -1,0 +1,5 @@
+<map id="drain" name="drain">
+<area shape="rect" id="Node000001" title="Claim a unit&#39;s payload if a transmission is due, else return &#45;1." alt="" coords="5,5,60,33"/>
+<area shape="rect" id="Node000002" href="$classRemoteLoadCore.html#a319660f4fc15458ef8ddc005730fe57f" title="Claim a pending transmission for one unit." alt="" coords="108,5,329,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,17,94,18,89,20,60,22"/>
+</map>

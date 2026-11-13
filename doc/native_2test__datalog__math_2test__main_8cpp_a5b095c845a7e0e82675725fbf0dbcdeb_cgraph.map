@@ -1,0 +1,17 @@
+<map id="worstWattsError" name="worstWattsError">
+<area shape="rect" id="Node000001" title="Largest error of watts() against the reference, over the full input range, beyond what the 16&#45;bit cal..." alt="" coords="5,108,131,136"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#a7704334869b4be2aef18346b7c201ce5" title="The power calibration in fixed point, for watts(), built at compile time." alt="" coords="179,56,370,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,105,204,87,199,90,127,110"/>
+<area shape="rect" id="Node000007" href="$native_2test__datalog__math_2test__main_8cpp.html#a5051172495ce28cb0d7a4ef8a8d07c27" title="The float arithmetic being replaced, in watts (import = +ve)." alt="" coords="214,108,334,136"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="131,119,201,121,196,123,131,124"/>
+<area shape="rect" id="Node000008" href="$namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="216,160,332,188"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="126,134,204,155,199,157,126,139"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="418,31,589,58"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="370,57,405,55,400,56,371,62"/>
+<area shape="rect" id="Node000006" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="444,83,564,110"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="370,78,431,87,426,88,371,84"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="637,5,771,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="589,31,624,29,619,30,590,36"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="643,57,765,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="590,53,631,61,625,61,590,59"/>
+</map>

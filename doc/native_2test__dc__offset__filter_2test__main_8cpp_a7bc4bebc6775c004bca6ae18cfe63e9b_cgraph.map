@@ -1,0 +1,15 @@
+<map id="test_filter_time_constant" name="test_filter_time_constant">
+<area shape="rect" id="Node000001" title="Test filter time constant (convergence rate)" alt="" coords="5,136,189,164"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="311,5,366,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,134,164,89,198,65,236,43,265,32,298,25,294,28,267,37,238,48,201,69,167,93,115,137"/>
+<area shape="rect" id="Node000003" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#ab2de3e39699c1a89d01a7bbb5c1d6a8f" title="Simulate left&#45;aligned ADC reading." alt="" coords="287,57,390,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="133,133,236,95,274,86,270,89,237,100,135,138"/>
+<area shape="rect" id="Node000004" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a987ebf142708dd95a2accb0943517410" title="Reset filter state to nominal values." alt="" coords="295,109,382,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="188,137,282,128,277,131,190,142"/>
+<area shape="rect" id="Node000005" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#a3c3857725d76feda96aba49d3615013d" title="Simulate processMinusHalfCycle() &#45; DC offset extraction." alt="" coords="237,161,441,189"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="189,157,223,162,218,164,190,162"/>
+<area shape="rect" id="Node000006" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#aa4e466dce9a4cd1a7466dba429f87e94" title="Simulate processPolarity() &#45; DC offset subtraction." alt="" coords="263,213,415,241"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="135,162,237,198,267,208,262,209,236,203,135,167"/>
+<area shape="rect" id="Node000007" href="$native_2test__dc__offset__filter_2test__main_8cpp.html#ac318c6850eee1f0fb0a276a888f9a626" title="Simulate processVoltage() &#45; filter accumulation (partial)" alt="" coords="263,265,414,293"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="114,162,167,206,201,230,238,250,257,260,252,260,235,255,199,234,164,210,113,167"/>
+</map>

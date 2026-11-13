@@ -1,0 +1,35 @@
+<map id="Datalog::voltageShift" name="Datalog::voltageShift">
+<area shape="rect" id="Node000001" title="Largest shift that keeps every (factor x calibration value) within 16 bits." alt="" coords="885,167,1043,195"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#a976dddd63a52b0e01e42b764fb416928" title="Check that the voltage calibration values can be represented." alt="" coords="593,90,837,118"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="899,162,762,121,762,115,905,162"/>
+<area shape="rect" id="Node000005" href="$namespaceDatalog.html#a05836e3079ae85aebb1cf019c3fe4d4c" title="The voltage calibration in fixed point, for vrms(), built at compile time." alt="" coords="615,192,815,220"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="867,191,816,199,815,194,872,190"/>
+<area shape="rect" id="Node000003" href="$native_2test__datalog__math_2test__main_8cpp.html#aea6e42e807a4b058b8203b454a476a21" title=" " alt="" coords="126,5,268,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="599,89,268,41,268,35,603,85"/>
+<area shape="rect" id="Node000004" href="$native_2test__datalog__math_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,194,60,222"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="111,60,110,64,83,96,63,132,40,194,35,192,58,130,78,93,106,60,114,56"/>
+<area shape="rect" id="Node000006" href="$native_2test__datalog__math_2test__main_8cpp.html#a01e17a2fc8513f2bc000122e1021fc21" title=" " alt="" coords="108,75,286,119"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="674,185,615,157,545,132,478,117,410,108,287,100,286,94,411,102,479,112,546,126,617,152,679,185"/>
+<area shape="rect" id="Node000007" href="$native_2test__datalog__math_2test__main_8cpp.html#ad615f0fd21c9a28543ca5b7ac0c42280" title=" " alt="" coords="363,140,516,168"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="620,190,517,171,516,166,625,188"/>
+<area shape="rect" id="Node000008" href="$native_2test__datalog__math_2test__main_8cpp.html#a51023150d9622eab57e3ea3cc9ce3d24" title=" " alt="" coords="369,192,510,220"/>
+<area shape="poly" id="edge9_Node000005_Node000008" title=" " alt="" coords="597,207,511,209,510,204,602,206"/>
+<area shape="rect" id="Node000009" href="$native_2test__datalog__math_2test__main_8cpp.html#af9b5108c4d1521ec80c69999e3f3cebd" title=" " alt="" coords="362,244,517,272"/>
+<area shape="poly" id="edge11_Node000005_Node000009" title=" " alt="" coords="620,225,518,246,516,241,625,223"/>
+<area shape="rect" id="Node000010" href="$group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="334,296,545,324"/>
+<area shape="poly" id="edge13_Node000005_Node000010" title=" " alt="" coords="675,227,614,258,546,286,506,298,504,293,544,281,612,254,670,229"/>
+<area shape="rect" id="Node000012" href="$native_2test__datalog__math_2test__main_8cpp.html#ae9d50cea49541d6a3b6d566e8e34dd54" title="Largest error of vrms() against the reference, from 0 to the largest ADC voltage, beyond what the 16&#45;..." alt="" coords="378,355,501,383"/>
+<area shape="poly" id="edge15_Node000005_Node000012" title=" " alt="" coords="690,230,627,285,588,313,547,338,499,357,497,352,544,333,585,309,624,281,685,232"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="125,129,109,141,75,168,49,195,44,192,71,164,106,136,128,125"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="345,162,233,174,108,192,62,202,59,198,107,186,232,169,349,159"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="352,209,61,210,60,205,354,204"/>
+<area shape="poly" id="edge12_Node000009_Node000004" title=" " alt="" coords="346,249,60,214,60,208,349,245"/>
+<area shape="rect" id="Node000011" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="172,295,222,323"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="316,311,222,312,221,307,321,309"/>
+<area shape="rect" id="Node000013" href="$native_2test__datalog__math_2test__main_8cpp.html#ad30fa6b75976b4414fe06c2b879385b8" title=" " alt="" coords="108,347,286,391"/>
+<area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="361,370,286,372,286,366,366,368"/>
+<area shape="rect" id="Node000014" href="$native_2test__datalog__math_2test__main_8cpp.html#a22f10cd5da84e299cd5f9888b7ffe933" title=" " alt="" coords="108,416,286,461"/>
+<area shape="poly" id="edge18_Node000012_Node000014" title=" " alt="" coords="377,387,278,418,277,413,371,388"/>
+<area shape="poly" id="edge17_Node000013_Node000004" title=" " alt="" coords="110,338,106,336,80,309,60,277,38,225,39,219,65,275,85,305,109,332,115,338"/>
+<area shape="poly" id="edge19_Node000014_Node000004" title=" " alt="" coords="108,406,106,405,88,384,73,359,51,307,39,259,35,225,35,219,44,258,56,306,77,357,92,381,110,402,113,406"/>
+</map>

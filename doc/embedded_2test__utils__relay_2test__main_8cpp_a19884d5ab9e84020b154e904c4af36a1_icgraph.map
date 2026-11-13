@@ -1,0 +1,7 @@
+<map id="test_forced_only_when_already_off" name="test_forced_only_when_already_off">
+<area shape="rect" id="Node000001" title=" " alt="" coords="280,5,451,50"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__utils__relay_2test__main_8cpp.html#a6359982544a86c991720b115efdaaa0a" title=" " alt="" coords="103,14,232,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="262,28,232,30,232,25,267,28"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,14,55,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="85,29,55,30,55,25,90,26"/>
+</map>

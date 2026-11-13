@@ -1,0 +1,5 @@
+<map id="togglePin" name="togglePin">
+<area shape="rect" id="Node000001" title="Toggle the specified pin." alt="" coords="5,5,88,33"/>
+<area shape="rect" id="Node000002" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="136,5,201,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,17,123,19,118,20,88,22"/>
+</map>

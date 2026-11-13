@@ -1,0 +1,20 @@
+<map id="Cycles::average" name="Cycles::average">
+<area shape="rect" id="Node000001" title=" " alt="" coords="426,84,552,112"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="318,58,378,86"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="408,84,379,80,379,75,413,83"/>
+<area shape="rect" id="Node000007" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="318,110,378,138"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="408,113,379,121,378,116,413,112"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a3212c9cc61794c5d50497b722fb73572" title=" " alt="" coords="118,5,263,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,60,263,51,263,45,306,59"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae97034decb439605d485c0da0bb7e4f1" title=" " alt="" coords="111,75,270,119"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="300,80,271,87,270,82,305,78"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a59dd75a991aeada8deda93cc89af6218" title=" " alt="" coords="111,144,270,189"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="322,94,271,134,249,146,247,141,269,129,317,96"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,83,63,111"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="121,58,112,65,65,86,62,82,110,60,125,55"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="93,99,64,100,62,94,97,95"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="121,138,110,134,63,113,63,107,112,129,126,137"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="317,99,269,65,248,53,248,48,271,60,323,99"/>
+<area shape="poly" id="edge10_Node000007_Node000005" title=" " alt="" coords="300,116,271,113,270,108,305,116"/>
+<area shape="poly" id="edge11_Node000007_Node000006" title=" " alt="" coords="306,135,271,147,270,142,300,136"/>
+</map>

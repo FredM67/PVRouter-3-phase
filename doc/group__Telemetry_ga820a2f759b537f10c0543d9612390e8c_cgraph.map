@@ -1,0 +1,7 @@
+<map id="calcBufferSize" name="calcBufferSize">
+<area shape="rect" id="Node000001" title="Calculates the total buffer size required for the telemetry frame." alt="" coords="5,32,119,60"/>
+<area shape="rect" id="Node000002" href="$group__Telemetry.html#gaa9a3eeacd11602f3385056e620652bb7" title="Calculates the size of a single telemetry line in the frame." alt="" coords="167,5,239,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,32,154,28,149,30,120,38"/>
+<area shape="rect" id="Node000003" href="$types_8h.html#a694147b7171ec0b06bc8880dc100e756" title="Helper function to retrieve the dimension of a C&#45;array." alt="" coords="179,57,226,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,53,166,64,161,65,119,59"/>
+</map>

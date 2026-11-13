@@ -1,0 +1,19 @@
+<map id="test_census_is_constexpr" name="test_census_is_constexpr">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,107,193,134"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557" title="Number of entries of the map that are driven remotely." alt="" coords="241,5,426,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,104,240,49,275,37,271,40,242,54,128,109"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a45143ff1b1b918a50f68c637c882a610" title="Highest remote unit number appearing in the map (0 if fully local)." alt="" coords="474,108,604,136"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="166,103,240,93,333,86,426,93,476,104,471,104,426,98,333,91,241,98,168,109"/>
+<area shape="rect" id="Node000006" href="$namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671" title="Declares a load driven locally by the router." alt="" coords="288,107,379,134"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="193,118,275,119,270,122,194,123"/>
+<area shape="rect" id="Node000007" href="$namespaceLoad.html#a1a6efa19f6bd3e1740ed98a48ab475ff" title="Largest number of loads assigned to any single remote unit." alt="" coords="246,159,421,186"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="165,132,255,154,250,156,165,138"/>
+<area shape="rect" id="Node000008" href="$namespaceLoad.html#adb9797ea49459ec57cf3641aee0d7bd6" title="Declares a load driven by a remote unit over RF." alt="" coords="280,211,387,238"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="123,132,177,164,242,195,267,207,262,206,240,200,174,168,122,138"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="486,5,592,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="426,17,474,18,469,20,427,22"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#ab4ce134e88bb49ba929ef2e5e8236bbe" title="The owning unit of the entry: 0 for a local load, 1..3 for a remote one." alt="" coords="652,133,753,161"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="605,129,640,137,634,137,605,135"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="392,156,463,140,468,139,393,161"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="421,164,639,151,634,152,422,169"/>
+</map>

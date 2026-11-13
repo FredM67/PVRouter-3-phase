@@ -1,0 +1,23 @@
+<map id="overridePinOf" name="overridePinOf">
+<area shape="rect" id="Node000001" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="774,117,884,145"/>
+<area shape="rect" id="Node000002" href="$group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="520,5,726,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="801,105,767,77,724,48,695,36,696,31,727,43,770,72,806,106"/>
+<area shape="rect" id="Node000006" href="$utils__override__helpers_8h.html#ab3ada13405f7827c8b4255eba95e4081" title="Returns the pin number for any load (local or remote)." alt="" coords="594,57,652,85"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="771,112,725,99,652,80,652,75,726,94,776,112"/>
+<area shape="rect" id="Node000007" href="$native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="543,109,703,154"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="755,131,704,134,704,129,761,131"/>
+<area shape="rect" id="Node000009" href="$native_2test__remote__loads_2test__main_8cpp.html#ac7648d1668efa6a99495b61260ce0cf3" title=" " alt="" coords="526,178,720,223"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="774,150,692,180,691,175,768,151"/>
+<area shape="rect" id="Node000010" href="$native_2test__remote__loads_2test__main_8cpp.html#afdfeabe1158cf24b64eee1cc4910b668" title=" " alt="" coords="531,248,715,292"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="810,156,774,199,727,237,704,249,703,244,724,233,770,195,806,158"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="320,5,472,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="502,20,473,22,472,17,508,18"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,5,272,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="302,20,273,22,271,17,307,18"/>
+<area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,55,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="85,21,57,21,54,17,89,17"/>
+<area shape="rect" id="Node000008" href="$native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="369,187,423,214"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="536,158,425,195,423,190,531,159"/>
+<area shape="poly" id="edge9_Node000009_Node000008" title=" " alt="" coords="508,201,424,203,424,198,513,200"/>
+<area shape="poly" id="edge11_Node000010_Node000008" title=" " alt="" coords="531,243,424,211,424,206,536,242"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="TemperatureSensing&lt; N &gt;" name="TemperatureSensing&lt; N &gt;">
+<area shape="rect" id="Node000001" title="Implements temperature sensing functionality for multiple sensors." alt="" coords="5,98,200,126"/>
+<area shape="rect" id="Node000002" href="$structDeviceAddress.html" title="Structure representing the address of a device." alt="" coords="43,5,162,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,47,105,98,100,97,100,50"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="test_zero_load" name="test_zero_load">
+<area shape="rect" id="Node000001" title="Test with zero load (no current)" alt="" coords="5,32,122,60"/>
+<area shape="rect" id="Node000002" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a096d1b796f1fc39aead9cd4913db73f0" title="Generate sinusoidal ADC value." alt="" coords="170,5,305,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,34,157,31,152,33,123,39"/>
+<area shape="rect" id="Node000003" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#afe721670afe144dfacafe352ece28b08" title="Convert right&#45;aligned ADC to left&#45;aligned." alt="" coords="184,57,291,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,52,171,61,166,62,122,57"/>
+</map>

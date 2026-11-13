@@ -1,0 +1,5 @@
+<map id="Load::countUnits" name="Load::countUnits">
+<area shape="rect" id="Node000001" title="Highest remote unit number appearing in the map (0 if fully local)." alt="" coords="5,5,136,33"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#ab4ce134e88bb49ba929ef2e5e8236bbe" title="The owning unit of the entry: 0 for a local load, 1..3 for a remote one." alt="" coords="184,5,284,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,17,171,19,166,19,136,22"/>
+</map>

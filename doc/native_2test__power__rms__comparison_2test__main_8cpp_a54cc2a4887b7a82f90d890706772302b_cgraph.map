@@ -1,0 +1,9 @@
+<map id="test_full_cycle_equivalence" name="test_full_cycle_equivalence">
+<area shape="rect" id="Node000001" title="Test complete mains cycle processing equivalence." alt="" coords="5,57,207,85"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="295,5,350,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,54,282,28,277,31,168,59"/>
+<area shape="rect" id="Node000003" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a096d1b796f1fc39aead9cd4913db73f0" title="Generate sinusoidal ADC value." alt="" coords="255,57,390,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,69,241,71,236,72,208,74"/>
+<area shape="rect" id="Node000004" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#afe721670afe144dfacafe352ece28b08" title="Convert right&#45;aligned ADC to left&#45;aligned." alt="" coords="269,109,376,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="167,83,256,106,251,108,167,88"/>
+</map>

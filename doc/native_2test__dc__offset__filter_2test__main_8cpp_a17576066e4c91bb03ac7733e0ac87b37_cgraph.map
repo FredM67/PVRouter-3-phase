@@ -1,0 +1,21 @@
+<map id="test_compare_filters_ac_waveform" name="test_compare_filters_ac_waveform">
+<area shape="rect" id="Node000001" title="Compare filter response to sinusoidal AC waveform." alt="" coords="5,230,160,275"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="284,5,339,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,229,104,189,128,139,162,87,183,64,206,44,236,28,270,21,266,24,238,33,209,48,187,68,166,91,133,141,109,191,93,231"/>
+<area shape="rect" id="Node000003" href="$structNewFilter.html#adedd13c7b0e370c458504a9a9fd662e3" title=" " alt="" coords="214,57,409,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,228,137,162,169,126,206,96,221,89,217,93,209,100,173,130,141,165,98,231"/>
+<area shape="rect" id="Node000004" href="$structOldFilter.html#ab8dec38ef3ea6ead0b6c9f8edf4e4928" title=" " alt="" coords="217,109,406,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="103,228,148,186,176,164,206,146,222,141,218,145,209,151,179,169,151,190,107,231"/>
+<area shape="rect" id="Node000005" href="$structNewFilter.html#a8003660bbe4e0260cd88b6b524529761" title=" " alt="" coords="208,161,415,206"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="157,227,223,209,219,212,160,232"/>
+<area shape="rect" id="Node000006" href="$structOldFilter.html#a535cecd7f6561a5c743ef625ecac4e97" title=" " alt="" coords="211,230,412,275"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="159,250,198,251,193,254,161,255"/>
+<area shape="rect" id="Node000007" href="$structNewFilter.html#a4af93e60c64ba2bf1204af2ebac8da02" title=" " alt="" coords="216,299,407,326"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="159,272,208,285,238,294,233,295,207,290,160,277"/>
+<area shape="rect" id="Node000008" href="$structOldFilter.html#afc0c37c7f5274fb0cdb7ef275b93a854" title=" " alt="" coords="219,351,404,378"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="111,272,156,305,209,335,229,345,224,346,207,340,153,310,111,278"/>
+<area shape="rect" id="Node000009" href="$structNewFilter.html#aa9c941af3c65b4af9ee9164afe755f6d" title=" " alt="" coords="216,403,406,430"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="99,273,144,331,175,362,209,388,223,396,217,396,206,392,171,366,140,335,97,278"/>
+<area shape="rect" id="Node000010" href="$structOldFilter.html#a067bf3cb8bcbfcfbf772bca6c85ee679" title=" " alt="" coords="220,455,403,482"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="93,272,111,311,135,356,168,401,209,440,219,448,214,447,206,444,164,405,131,359,106,313,92,278"/>
+</map>

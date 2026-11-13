@@ -1,0 +1,5 @@
+<map id="SerialOutput::__attribute__" name="SerialOutput::__attribute__">
+<area shape="rect" id="Node000001" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="5,5,200,33"/>
+<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="248,5,408,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="200,17,235,19,229,19,200,22"/>
+</map>

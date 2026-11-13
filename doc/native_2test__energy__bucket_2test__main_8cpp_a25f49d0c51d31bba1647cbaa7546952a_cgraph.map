@@ -1,0 +1,5 @@
+<map id="quantisationError" name="quantisationError">
+<area shape="rect" id="Node000001" title="Relative error of a quantised calibration value." alt="" coords="5,5,139,33"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="187,5,307,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,17,174,19,169,19,139,22"/>
+</map>

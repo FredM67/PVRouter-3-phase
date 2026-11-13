@@ -1,0 +1,19 @@
+<map id="reportBenchmark" name="reportBenchmark">
+<area shape="rect" id="Node000001" title="Reports benchmark results to Serial." alt="" coords="342,152,476,180"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#ae168d15bdb3d5d4181ae01cd2436c76c" title=" " alt="" coords="123,5,274,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="383,141,343,103,293,65,271,53,271,48,295,60,347,99,388,141"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#ad75f88914357ef873f488b1a412459b1" title=" " alt="" coords="123,75,274,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="348,148,269,123,269,117,353,146"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#a29e9b39af541e1ff0b441ad86ffa5ddc" title=" " alt="" coords="113,144,284,189"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="324,167,285,169,284,164,329,166"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#a76bb4357cfa0e179472f77ecc6c39216" title=" " alt="" coords="103,213,294,258"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="348,186,269,215,268,210,353,184"/>
+<area shape="rect" id="Node000007" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2f0b23c67117c4e1f6be792e8f8b2815" title=" " alt="" coords="112,283,285,327"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="388,190,347,234,295,273,272,285,270,280,293,268,343,230,383,193"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,152,55,180"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="107,60,104,64,83,85,64,110,40,153,35,151,60,107,79,82,101,60,111,56"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="116,127,104,134,57,156,53,152,102,129,120,123"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="96,168,56,169,54,164,99,164"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="116,208,102,203,55,181,55,176,104,199,121,207"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="105,274,101,272,79,251,60,226,37,183,38,178,64,223,83,247,104,268,111,274"/>
+</map>

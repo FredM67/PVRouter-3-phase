@@ -1,0 +1,7 @@
+<map id="test_q8_conversion_helpers" name="test_q8_conversion_helpers">
+<area shape="rect" id="Node000001" title="Test Q8 format conversion helpers." alt="" coords="5,24,153,68"/>
+<area shape="rect" id="Node000002" href="$mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="201,5,294,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,32,188,28,183,30,154,37"/>
+<area shape="rect" id="Node000003" href="$mult__asm_8h.html#a42f38b6add47a7ce5bb3ec838646a72f" title="Convert Q8 format back to floating&#45;point." alt="" coords="201,57,294,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="153,54,188,62,183,62,153,60"/>
+</map>

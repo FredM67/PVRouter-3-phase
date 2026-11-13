@@ -1,0 +1,11 @@
+<map id="test_valid_calibration_rejects_zero_negative_and_huge_values" name="test_valid_calibration_rejects_zero_negative_and_huge_values">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,15,177,77"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#a99b9d09dfaa63652e20d657ebad6ab13" title="Check that the calibration values can be represented." alt="" coords="225,32,412,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,43,212,45,206,46,177,48"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="460,32,631,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="412,43,447,46,441,46,412,48"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="679,5,813,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="632,32,661,30,666,30,632,37"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="685,57,807,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="632,54,672,62,667,61,632,59"/>
+</map>

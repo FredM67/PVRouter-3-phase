@@ -1,0 +1,15 @@
+<map id="referenceVrms" name="referenceVrms">
+<area shape="rect" id="Node000001" title="The float arithmetic being replaced, in hundredths of a volt (x4 for long periods)." alt="" coords="535,36,653,64"/>
+<area shape="rect" id="Node000002" href="$native_2test__datalog__math_2test__main_8cpp.html#ad615f0fd21c9a28543ca5b7ac0c42280" title=" " alt="" coords="334,5,487,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="517,38,488,35,488,29,523,37"/>
+<area shape="rect" id="Node000004" href="$native_2test__datalog__math_2test__main_8cpp.html#ae9d50cea49541d6a3b6d566e8e34dd54" title="Largest error of vrms() against the reference, from 0 to the largest ADC voltage, beyond what the 16&#45;..." alt="" coords="350,61,472,89"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="517,60,473,69,472,64,523,60"/>
+<area shape="rect" id="Node000003" href="$native_2test__datalog__math_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,61,60,89"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="316,18,216,25,162,32,108,43,60,63,57,58,107,38,161,27,216,20,321,16"/>
+<area shape="rect" id="Node000005" href="$native_2test__datalog__math_2test__main_8cpp.html#ad30fa6b75976b4414fe06c2b879385b8" title=" " alt="" coords="108,53,286,98"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="332,76,286,78,286,73,337,75"/>
+<area shape="rect" id="Node000006" href="$native_2test__datalog__math_2test__main_8cpp.html#a22f10cd5da84e299cd5f9888b7ffe933" title=" " alt="" coords="108,122,286,167"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="354,94,269,124,267,119,348,95"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="90,77,61,78,59,73,94,74"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="119,116,107,112,60,91,61,85,109,107,124,115"/>
+</map>

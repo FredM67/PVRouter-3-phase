@@ -1,0 +1,23 @@
+<map id="test_vrms_matches_the_reference_long_period" name="test_vrms_matches_the_reference_long_period">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,183,94"/>
+<area shape="rect" id="Node000002" href="$native_2test__datalog__math_2test__main_8cpp.html#ae9d50cea49541d6a3b6d566e8e34dd54" title="Largest error of vrms() against the reference, from 0 to the largest ADC voltage, beyond what the 16&#45;..." alt="" coords="231,57,353,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,69,218,71,213,72,184,74"/>
+<area shape="rect" id="Node000003" href="$native_2test__datalog__math_2test__main_8cpp.html#a27596db0488e6b5a1e7e0d16a03a3d33" title="The float arithmetic being replaced, in hundredths of a volt (x4 for long periods)." alt="" coords="442,5,560,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="350,54,425,38,430,37,351,59"/>
+<area shape="rect" id="Node000004" href="$namespaceDatalog.html#a05836e3079ae85aebb1cf019c3fe4d4c" title="The voltage calibration in fixed point, for vrms(), built at compile time." alt="" coords="401,57,601,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="353,69,388,71,383,71,354,74"/>
+<area shape="rect" id="Node000009" href="$namespaceDatalog.html#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase." alt="" coords="444,109,558,137"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="351,83,432,105,427,105,350,88"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="668,5,789,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="565,54,650,37,656,36,566,59"/>
+<area shape="rect" id="Node000006" href="$namespaceDatalog.html#a1dc0bffd09a9dedb477b5ca807afdb7e" title="Largest shift that keeps every (factor x calibration value) within 16 bits." alt="" coords="649,57,808,85"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="602,69,636,71,631,71,602,74"/>
+<area shape="rect" id="Node000007" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="866,5,1000,33"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="786,54,858,38,863,37,787,59"/>
+<area shape="rect" id="Node000008" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="872,57,994,85"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="808,69,860,71,854,71,808,74"/>
+<area shape="rect" id="Node000010" href="$namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="654,109,803,137"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="558,121,641,123,636,123,558,126"/>
+<area shape="rect" id="Node000011" href="$namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="856,109,1010,137"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="803,121,843,123,838,123,803,126"/>
+</map>

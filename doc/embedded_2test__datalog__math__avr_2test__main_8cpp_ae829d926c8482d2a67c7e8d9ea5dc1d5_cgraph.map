@@ -1,0 +1,7 @@
+<map id="test_isqrt_on_avr_every_boundary" name="test_isqrt_on_avr_every_boundary">
+<area shape="rect" id="Node000001" title="Every rounding boundary of every root, on the target: the assembly loop is exact." alt="" coords="5,5,183,50"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#a5c242aed104cfb700b6fc57675ae10b9" title="Integer square root, rounded to the nearest integer." alt="" coords="231,14,340,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,25,218,27,213,28,183,30"/>
+<area shape="rect" id="Node000003" href="$namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="388,14,542,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="340,25,375,28,370,28,340,30"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Load::remoteOrdinal" name="Load::remoteOrdinal">
+<area shape="rect" id="Node000001" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="5,5,160,33"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="208,5,313,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,17,194,19,189,19,160,22"/>
+</map>

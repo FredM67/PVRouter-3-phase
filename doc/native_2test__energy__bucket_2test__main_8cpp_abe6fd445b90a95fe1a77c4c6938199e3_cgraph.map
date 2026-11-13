@@ -1,0 +1,13 @@
+<map id="test_typical_set_quantisation_error" name="test_typical_set_quantisation_error">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,76,218,120"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="266,57,437,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,83,253,82,247,83,219,89"/>
+<area shape="rect" id="Node000005" href="$native_2test__energy__bucket_2test__main_8cpp.html#a25f49d0c51d31bba1647cbaa7546952a" title="Relative error of a quantised calibration value." alt="" coords="285,109,418,137"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="218,106,271,114,266,115,218,112"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="485,5,618,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="407,54,478,38,483,37,408,59"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="491,57,612,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="437,69,478,71,473,71,438,74"/>
+<area shape="rect" id="Node000006" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="492,109,612,137"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="418,121,479,123,474,123,419,126"/>
+</map>

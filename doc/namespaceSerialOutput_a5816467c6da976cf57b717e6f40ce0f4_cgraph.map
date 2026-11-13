@@ -1,0 +1,5 @@
+<map id="SerialOutput::toDecimals" name="SerialOutput::toDecimals">
+<area shape="rect" id="Node000001" title="A float array constant as integers with the given number of decimals, rounded." alt="" coords="5,5,190,33"/>
+<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#a92c5012053b5fe0d463a87a06be6fe40" title="A float constant as an integer with the given number of decimals, rounded." alt="" coords="238,5,422,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,17,224,19,219,19,190,22"/>
+</map>

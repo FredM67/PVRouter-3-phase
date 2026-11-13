@@ -1,0 +1,16 @@
+<map id="RemoteLoadCore::updateLoads" name="RemoteLoadCore::updateLoads">
+<area shape="rect" id="Node000001" title="Rebuild every unit&#39;s payload from the current load states." alt="" coords="5,57,230,85"/>
+<area shape="rect" id="Node000002" href="$classRemoteLoadCore.html#a062d2ae5848e06eb2885f5e5118e2699" title="Build and schedule the payload of Unit, then of every unit after it." alt="" coords="278,57,491,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="230,69,265,71,260,71,230,74"/>
+<area shape="poly" id="edge8_Node000002_Node000002" title=" " alt="" coords="340,56,333,48,339,39,356,33,384,31,415,33,433,42,427,42,413,38,384,36,357,38,342,43,338,48,345,58"/>
+<area shape="rect" id="Node000003" href="$classRemoteLoadCore.html#a3e667a8b690360f1544772f98365e895" title="Payload of Unit, from map entry I onwards." alt="" coords="539,31,748,58"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="491,58,521,57,526,57,492,63"/>
+<area shape="rect" id="Node000006" href="$classRemoteLoadCore.html#ab95b940353cefa4cf48c432b6f24593e" title="Record a unit&#39;s freshly computed payload and decide whether to send it." alt="" coords="544,83,743,110"/>
+<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="492,79,531,85,526,85,491,84"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="609,29,604,22,608,12,622,6,644,4,667,7,681,16,676,15,666,12,644,9,623,11,612,16,609,21,614,31"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a2af331573ede4c50d696449fe9b4ab8d" title="Rank of a load among the loads of its own unit, in ascending map order." alt="" coords="796,5,889,33"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="749,28,778,27,784,27,749,34"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#ab4ce134e88bb49ba929ef2e5e8236bbe" title="The owning unit of the entry: 0 for a local load, 1..3 for a remote one." alt="" coords="937,31,1037,58"/>
+<area shape="poly" id="edge6_Node000003_Node000005" title=" " alt="" coords="748,42,924,44,918,45,749,47"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="889,25,924,33,919,33,889,30"/>
+</map>

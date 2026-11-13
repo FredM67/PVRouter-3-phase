@@ -1,0 +1,9 @@
+<map id="test_dc_offset_compensation" name="test_dc_offset_compensation">
+<area shape="rect" id="Node000001" title="Test with DC offset drift." alt="" coords="5,57,217,85"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="305,5,360,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,54,292,28,287,30,174,59"/>
+<area shape="rect" id="Node000003" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#a096d1b796f1fc39aead9cd4913db73f0" title="Generate sinusoidal ADC value." alt="" coords="265,57,400,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,69,252,71,247,72,217,74"/>
+<area shape="rect" id="Node000004" href="$native_2test__power__rms__comparison_2test__main_8cpp.html#afe721670afe144dfacafe352ece28b08" title="Convert right&#45;aligned ADC to left&#45;aligned." alt="" coords="279,109,386,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="174,83,266,106,261,108,173,88"/>
+</map>

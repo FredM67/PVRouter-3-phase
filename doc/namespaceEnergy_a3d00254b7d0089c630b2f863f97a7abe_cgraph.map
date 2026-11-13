@@ -1,0 +1,7 @@
+<map id="Energy::calibrationShift" name="Energy::calibrationShift">
+<area shape="rect" id="Node000001" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="5,32,177,60"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="225,5,358,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,32,212,29,206,31,178,37"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="231,57,352,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="177,54,218,61,212,62,177,59"/>
+</map>

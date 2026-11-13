@@ -1,0 +1,67 @@
+<map id="Datalog::squareRoot" name="Datalog::squareRoot">
+<area shape="rect" id="Node000001" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="1018,432,1172,460"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#a5c242aed104cfb700b6fc57675ae10b9" title="Integer square root, rounded to the nearest integer." alt="" coords="631,190,740,218"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1054,425,710,221,711,215,1059,423"/>
+<area shape="rect" id="Node000012" href="$namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="822,458,970,486"/>
+<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="1000,459,971,465,970,460,1005,457"/>
+<area shape="rect" id="Node000003" href="$native_2test__datalog__math_2test__main_8cpp.html#a1a95cf9cb6097b2aa13a7d4c13876d84" title="Every rounding boundary of every root: round(sqrt(x)) changes from r to r + 1 between r^2 + r and r^2..." alt="" coords="126,163,272,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="638,184,596,169,549,157,490,149,444,147,338,157,274,168,271,164,338,152,444,142,491,143,550,152,598,164,643,183"/>
+<area shape="rect" id="Node000005" href="$native_2test__datalog__math_2test__main_8cpp.html#a62639b67fb026dc90d2b67c1e7f31129" title=" " alt="" coords="116,256,282,284"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="613,194,555,189,486,186,411,189,339,201,292,223,228,258,224,254,290,218,337,196,411,184,486,181,556,184,618,191"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a3212c9cc61794c5d50497b722fb73572" title=" " alt="" coords="371,349,516,394"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="666,228,617,286,585,314,551,339,518,355,515,351,548,335,582,310,613,282,662,232"/>
+<area shape="rect" id="Node000008" href="$native_2test__datalog__math_2test__main_8cpp.html#a596162fe63abc92ae448fdf35de07862" title="2 million values over the whole 32&#45;bit range, against sqrt() in double precision (exact here)." alt="" coords="126,5,272,50"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="657,179,610,138,580,117,548,99,477,73,404,54,333,42,273,34,271,30,334,37,405,49,479,68,550,95,583,113,613,134,663,178"/>
+<area shape="rect" id="Node000009" href="$native_2test__datalog__math_2test__main_8cpp.html#a936de034d5bd89732f5f519af8aba799" title=" " alt="" coords="108,81,290,126"/>
+<area shape="poly" id="edge10_Node000002_Node000009" title=" " alt="" coords="649,182,604,156,549,133,483,118,415,108,292,103,289,98,415,103,483,112,550,128,606,151,654,180"/>
+<area shape="rect" id="Node000010" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8e535e373d8b312ca18c0386615e4453" title=" " alt="" coords="358,211,530,255"/>
+<area shape="poly" id="edge12_Node000002_Node000010" title=" " alt="" coords="613,214,532,225,529,220,618,211"/>
+<area shape="rect" id="Node000011" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae829d926c8482d2a67c7e8d9ea5dc1d5" title="Every rounding boundary of every root, on the target: the assembly loop is exact." alt="" coords="355,280,532,325"/>
+<area shape="poly" id="edge14_Node000002_Node000011" title=" " alt="" coords="641,226,550,270,519,282,516,277,548,265,645,223"/>
+<area shape="rect" id="Node000004" href="$native_2test__datalog__math_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,538,60,566"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="136,219,110,247,88,284,70,326,48,410,39,486,36,538,31,537,33,485,43,409,65,324,83,282,106,243,138,214"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="161,295,135,319,110,348,81,399,60,453,39,538,34,537,55,452,76,397,105,345,132,315,164,291"/>
+<area shape="rect" id="Node000007" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="170,358,228,386"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="354,373,229,374,227,369,358,370"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="115,62,110,71,90,109,75,165,62,233,53,305,41,445,37,538,32,537,36,445,47,305,57,232,69,164,85,107,105,67,118,57"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="121,137,110,152,94,184,80,229,58,344,44,459,37,538,32,537,39,459,53,343,74,228,89,182,106,149,124,133"/>
+<area shape="poly" id="edge13_Node000010_Node000007" title=" " alt="" coords="349,263,339,270,269,316,218,359,213,356,266,312,337,265,352,260"/>
+<area shape="poly" id="edge15_Node000011_Node000007" title=" " alt="" coords="346,331,230,366,226,361,350,327"/>
+<area shape="poly" id="edge17_Node000012_Node000006" title=" " alt="" coords="828,454,773,441,517,387,516,382,774,436,834,453"/>
+<area shape="rect" id="Node000013" href="$native_2test__datalog__math_2test__main_8cpp.html#a6ac8c95fea0d385112f1ee5aa6d4b482" title=" " alt="" coords="602,479,769,523"/>
+<area shape="poly" id="edge18_Node000012_Node000013" title=" " alt="" coords="804,485,770,492,768,487,809,483"/>
+<area shape="rect" id="Node000014" href="$native_2test__datalog__math_2test__main_8cpp.html#ae55363a1531796c3f85a781ef3e67ba5" title=" " alt="" coords="597,576,774,604"/>
+<area shape="poly" id="edge20_Node000012_Node000014" title=" " alt="" coords="859,492,713,578,711,574,854,495"/>
+<area shape="rect" id="Node000015" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#aa3fe0f8db223f35f23173422acfb3c14" title="sqrtScaled() and vrms() on the target, against the float code, over the whole voltage range." alt="" coords="344,419,544,463"/>
+<area shape="poly" id="edge22_Node000012_Node000015" title=" " alt="" coords="804,467,545,450,544,445,809,464"/>
+<area shape="rect" id="Node000016" href="$namespaceDatalog.html#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase." alt="" coords="629,692,742,720"/>
+<area shape="poly" id="edge24_Node000012_Node000016" title=" " alt="" coords="876,496,776,617,703,694,700,690,772,614,872,499"/>
+<area shape="poly" id="edge19_Node000013_Node000004" title=" " alt="" coords="585,510,338,529,61,552,59,547,338,524,589,506"/>
+<area shape="poly" id="edge21_Node000014_Node000004" title=" " alt="" coords="579,596,549,598,443,606,397,606,337,598,313,589,289,580,226,568,161,560,61,554,59,550,162,555,226,562,291,574,315,584,339,593,397,601,443,600,549,593,584,594"/>
+<area shape="poly" id="edge23_Node000015_Node000007" title=" " alt="" coords="345,415,229,382,227,377,350,412"/>
+<area shape="poly" id="edge31_Node000016_Node000015" title=" " alt="" coords="654,681,625,653,595,617,580,592,572,571,563,551,547,528,513,494,479,466,479,461,517,490,551,525,568,549,577,569,585,590,600,614,629,650,660,682"/>
+<area shape="rect" id="Node000017" href="$native_2test__datalog__math_2test__main_8cpp.html#ad615f0fd21c9a28543ca5b7ac0c42280" title=" " alt="" coords="122,727,276,755"/>
+<area shape="poly" id="edge25_Node000016_Node000017" title=" " alt="" coords="612,714,276,738,275,733,615,709"/>
+<area shape="rect" id="Node000018" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae97034decb439605d485c0da0bb7e4f1" title=" " alt="" coords="364,539,523,583"/>
+<area shape="poly" id="edge27_Node000016_Node000018" title=" " alt="" coords="645,685,482,587,483,581,650,684"/>
+<area shape="rect" id="Node000019" href="$native_2test__datalog__math_2test__main_8cpp.html#a51023150d9622eab57e3ea3cc9ce3d24" title=" " alt="" coords="373,770,514,798"/>
+<area shape="poly" id="edge29_Node000016_Node000019" title=" " alt="" coords="628,725,550,753,491,772,489,767,549,748,623,726"/>
+<area shape="rect" id="Node000020" href="$native_2test__datalog__math_2test__main_8cpp.html#af9b5108c4d1521ec80c69999e3f3cebd" title=" " alt="" coords="366,823,521,851"/>
+<area shape="poly" id="edge32_Node000016_Node000020" title=" " alt="" coords="661,730,611,773,551,811,514,825,513,820,548,807,608,769,656,732"/>
+<area shape="rect" id="Node000021" href="$group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="338,878,549,906"/>
+<area shape="poly" id="edge34_Node000016_Node000021" title=" " alt="" coords="670,732,622,800,589,835,551,865,518,880,517,875,548,860,585,831,618,797,666,735"/>
+<area shape="rect" id="Node000023" href="$native_2test__datalog__math_2test__main_8cpp.html#ae9d50cea49541d6a3b6d566e8e34dd54" title="Largest error of vrms() against the reference, from 0 to the largest ADC voltage, beyond what the 16&#45;..." alt="" coords="382,667,505,695"/>
+<area shape="poly" id="edge36_Node000016_Node000023" title=" " alt="" coords="611,699,505,690,505,685,616,698"/>
+<area shape="poly" id="edge26_Node000017_Node000004" title=" " alt="" coords="109,719,106,718,75,681,54,638,41,598,36,569,36,563,46,596,59,636,80,678,110,714,114,718"/>
+<area shape="poly" id="edge28_Node000018_Node000007" title=" " alt="" coords="399,530,218,389,219,383,403,528"/>
+<area shape="poly" id="edge30_Node000019_Node000004" title=" " alt="" coords="369,802,310,812,240,813,205,809,170,800,137,787,106,768,84,747,66,721,53,692,44,663,34,607,34,568,34,563,39,606,49,662,58,690,71,718,88,743,109,764,139,782,171,795,206,803,241,808,310,807,374,800"/>
+<area shape="poly" id="edge33_Node000020_Node000004" title=" " alt="" coords="369,855,310,866,240,866,204,861,169,853,136,839,106,819,91,800,78,772,56,699,41,622,36,569,36,563,47,621,62,698,83,770,96,798,109,815,139,834,171,848,205,856,240,861,310,860,375,854"/>
+<area shape="rect" id="Node000022" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="174,879,224,907"/>
+<area shape="poly" id="edge35_Node000021_Node000022" title=" " alt="" coords="320,892,224,896,224,890,325,892"/>
+<area shape="rect" id="Node000024" href="$native_2test__datalog__math_2test__main_8cpp.html#ad30fa6b75976b4414fe06c2b879385b8" title=" " alt="" coords="110,589,288,634"/>
+<area shape="poly" id="edge37_Node000023_Node000024" title=" " alt="" coords="375,663,281,637,280,632,380,661"/>
+<area shape="rect" id="Node000025" href="$native_2test__datalog__math_2test__main_8cpp.html#a22f10cd5da84e299cd5f9888b7ffe933" title=" " alt="" coords="110,659,288,703"/>
+<area shape="poly" id="edge39_Node000023_Node000025" title=" " alt="" coords="364,682,289,684,288,678,369,680"/>
+<area shape="poly" id="edge38_Node000024_Node000004" title=" " alt="" coords="119,585,61,564,59,559,123,582"/>
+<area shape="poly" id="edge40_Node000025_Node000004" title=" " alt="" coords="111,651,106,648,84,629,66,607,42,568,41,563,70,604,88,625,109,644,117,650"/>
+</map>

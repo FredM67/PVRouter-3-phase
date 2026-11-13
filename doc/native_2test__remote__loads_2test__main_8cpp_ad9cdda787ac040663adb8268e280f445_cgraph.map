@@ -1,0 +1,17 @@
+<map id="test_census_of_an_all_local_map" name="test_census_of_an_all_local_map">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,73,170,118"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557" title="Number of entries of the map that are driven remotely." alt="" coords="218,5,403,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,70,255,37,251,40,156,75"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a45143ff1b1b918a50f68c637c882a610" title="Highest remote unit number appearing in the map (0 if fully local)." alt="" coords="451,108,581,136"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="169,87,281,85,403,93,453,104,448,104,403,98,281,91,170,93"/>
+<area shape="rect" id="Node000006" href="$namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671" title="Declares a load driven locally by the router." alt="" coords="265,107,356,134"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="170,102,252,113,247,115,170,107"/>
+<area shape="rect" id="Node000007" href="$namespaceLoad.html#a1a6efa19f6bd3e1740ed98a48ab475ff" title="Largest number of loads assigned to any single remote unit." alt="" coords="223,159,398,186"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="144,115,219,143,245,154,239,154,217,148,143,121"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="464,5,569,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="403,17,451,19,446,20,404,22"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#ab4ce134e88bb49ba929ef2e5e8236bbe" title="The owning unit of the entry: 0 for a local load, 1..3 for a remote one." alt="" coords="629,133,730,161"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="582,129,617,137,611,137,582,135"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="369,155,440,140,445,140,370,161"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="398,164,611,152,616,151,399,169"/>
+</map>

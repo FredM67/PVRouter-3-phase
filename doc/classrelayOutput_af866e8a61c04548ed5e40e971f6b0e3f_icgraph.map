@@ -1,0 +1,7 @@
+<map id="relayOutput::isForced" name="relayOutput::isForced">
+<area shape="rect" id="Node000001" title=" " alt="" coords="212,48,372,76"/>
+<area shape="rect" id="Node000002" href="$classrelayOutput.html#a7bba2dafbdc27d07468741bc1d849f57" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="5,5,164,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,47,164,44,164,38,199,46"/>
+<area shape="rect" id="Node000003" href="$classrelayOutput.html#a8db1c0f340b319bfc7ff11467ea57cc7" title="Proceed with the relay." alt="" coords="5,75,164,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,79,165,86,164,81,199,78"/>
+</map>

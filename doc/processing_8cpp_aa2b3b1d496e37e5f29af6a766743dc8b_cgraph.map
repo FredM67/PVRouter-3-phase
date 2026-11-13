@@ -1,0 +1,7 @@
+<map id="printParamsForSelectedOutputMode" name="printParamsForSelectedOutputMode">
+<area shape="rect" id="Node000001" title="Print the settings used for the selected output mode." alt="" coords="5,32,261,60"/>
+<area shape="rect" id="Node000002" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="341,5,460,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,30,328,26,323,27,261,36"/>
+<area shape="rect" id="Node000003" href="$namespaceSerialOutput.html#a92c5012053b5fe0d463a87a06be6fe40" title="A float constant as an integer with the given number of decimals, rounded." alt="" coords="309,57,493,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="261,55,296,61,290,61,261,61"/>
+</map>

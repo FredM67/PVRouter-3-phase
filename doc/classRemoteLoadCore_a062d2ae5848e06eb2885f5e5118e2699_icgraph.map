@@ -1,0 +1,6 @@
+<map id="RemoteLoadCore::updateUnit" name="RemoteLoadCore::updateUnit">
+<area shape="rect" id="Node000001" title="Build and schedule the payload of Unit, then of every unit after it." alt="" coords="278,29,491,57"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="429,14,414,10,384,8,356,10,341,15,337,20,344,30,339,28,332,20,338,11,355,5,384,3,415,5,434,14"/>
+<area shape="rect" id="Node000002" href="$classRemoteLoadCore.html#a22769675a75fa14f2107571fb7b1ae2c" title="Rebuild every unit&#39;s payload from the current load states." alt="" coords="5,29,230,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="259,43,230,46,230,41,265,43"/>
+</map>

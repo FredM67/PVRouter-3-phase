@@ -1,0 +1,5 @@
+<map id="Datalog::isqrt" name="Datalog::isqrt">
+<area shape="rect" id="Node000001" title="Integer square root, rounded to the nearest integer." alt="" coords="5,5,115,33"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="163,5,317,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,17,150,19,145,19,115,22"/>
+</map>

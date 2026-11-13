@@ -1,0 +1,19 @@
+<map id="SharedRF::radio" name="SharedRF::radio">
+<area shape="rect" id="Node000001" title="Accessor for the shared RFM69 instance." alt="" coords="740,57,863,85"/>
+<area shape="rect" id="Node000002" href="$utils__rf_8h.html#af054c00af4d014f9db280e6e6e19e968" title="Initialize the shared RF module." alt="" coords="522,7,616,34"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="722,54,616,33,617,28,727,54"/>
+<area shape="rect" id="Node000005" href="$utils__rf_8h.html#af4688adbf4f3ed19323b79cf2fa2272b" title="Send RF data to gateway." alt="" coords="272,57,377,85"/>
+<area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="722,73,378,74,378,69,726,70"/>
+<area shape="rect" id="Node000008" href="$remote__loads_8h.html#a211dca9dd78a03ea9ec6cdd620ad85bb" title="Process pending RF transmissions." alt="" coords="446,108,692,136"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="727,88,636,110,636,105,721,88"/>
+<area shape="rect" id="Node000003" href="$group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="251,5,398,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="504,21,399,22,399,17,509,20"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="510,33,378,63,377,58,504,34"/>
+<area shape="rect" id="Node000004" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="124,5,182,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="233,20,182,22,181,17,238,18"/>
+<area shape="rect" id="Node000006" href="$group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="103,57,203,85"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="254,72,203,74,203,69,259,71"/>
+<area shape="rect" id="Node000007" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,83,55,110"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="85,86,56,94,54,89,90,83"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="431,118,55,100,55,95,431,113"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="test_per_sample_shift_and_values" name="test_per_sample_shift_and_values">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,170,94"/>
+<area shape="rect" id="Node000002" href="$namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714" title="Build the per&#45;sample calibration table at compile time." alt="" coords="218,57,408,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,69,205,71,199,72,170,74"/>
+<area shape="rect" id="Node000003" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="456,5,589,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="371,54,446,38,451,37,372,59"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="462,57,583,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="408,69,449,71,444,71,409,74"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="462,109,583,137"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="372,83,451,105,446,105,372,88"/>
+</map>

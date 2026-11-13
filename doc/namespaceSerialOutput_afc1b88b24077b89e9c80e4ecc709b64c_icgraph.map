@@ -1,0 +1,22 @@
+<map id="SerialOutput::busy" name="SerialOutput::busy">
+<area shape="rect" id="Node000001" title="Whether an output is still in progress." alt="" coords="532,83,674,110"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="153,5,254,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="533,78,484,68,360,45,254,29,254,23,361,40,485,63,539,78"/>
+<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="344,108,484,136"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="514,109,485,115,484,110,519,108"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="113,178,294,223"/>
+<area shape="poly" id="edge11_Node000001_Node000005" title=" " alt="" coords="562,117,485,150,387,174,294,191,294,186,386,169,484,145,557,118"/>
+<area shape="rect" id="Node000007" href="$embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="111,57,296,85"/>
+<area shape="poly" id="edge12_Node000001_Node000007" title=" " alt="" coords="515,92,297,80,296,74,519,90"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="9,5,59,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="136,21,60,22,58,17,139,17"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="380,98,341,73,295,48,254,33,254,28,297,43,344,69,385,98"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="363,141,266,180,265,175,358,142"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="337,105,264,88,264,83,342,103"/>
+<area shape="rect" id="Node000008" href="$embedded_2test__serial__output_2test__main_8cpp.html#a04bbc580ce141020e3c27f9a5555ad0d" title=" " alt="" coords="122,109,285,154"/>
+<area shape="poly" id="edge9_Node000004_Node000008" title=" " alt="" coords="326,126,286,130,285,125,331,125"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,117,63,145"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="123,172,110,168,63,147,63,142,112,163,129,172"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="128,92,112,99,65,119,62,115,110,94,132,88"/>
+<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="104,133,64,134,62,129,108,129"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="printJsonStep" name="printJsonStep">
+<area shape="rect" id="Node000001" title="One step of the datalog in JSON format." alt="" coords="5,32,113,60"/>
+<area shape="rect" id="Node000002" href="$utils_8h.html#ad526defbfbce2f1f32bcb38a7a1a7b42" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="195,5,342,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,36,182,29,177,32,114,42"/>
+<area shape="rect" id="Node000003" href="$namespaceSerialOutput.html#a5c00010099424ac29a16b77dbd562e5c" title="Print a value given in hundredths, in its shortest decimal form." alt="" coords="161,57,376,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="113,50,148,56,143,57,113,55"/>
+</map>

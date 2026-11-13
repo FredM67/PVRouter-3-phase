@@ -1,0 +1,9 @@
+<map id="test_perf_divmod10_small_values" name="test_perf_divmod10_small_values">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,157,94"/>
+<area shape="rect" id="Node000002" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="220,5,324,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,48,208,36,203,38,158,53"/>
+<area shape="rect" id="Node000003" href="$FastDivision_8cpp.html#a23623280f6a9bc988eea84e057769267" title=" " alt="" coords="229,57,315,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,69,216,70,211,72,158,74"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2b8ac054aae805c9d0fe56b9e13c7fff" title="Reports benchmark results to Serial." alt="" coords="205,109,339,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="157,89,206,104,201,105,157,95"/>
+</map>

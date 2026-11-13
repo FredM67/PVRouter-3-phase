@@ -1,0 +1,5 @@
+<map id="relayOutput::get_minOFF" name="relayOutput::get_minOFF">
+<area shape="rect" id="Node000001" title="Get the minimum OFF&#45;time in seconds." alt="" coords="314,5,499,33"/>
+<area shape="rect" id="Node000002" href="$classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="5,5,266,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="295,19,266,22,266,17,301,19"/>
+</map>
