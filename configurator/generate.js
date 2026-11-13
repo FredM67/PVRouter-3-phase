@@ -577,7 +577,7 @@
     const r = M.calibrationResult(m);
     const cal = M.calValuesOf(m);
     const line = (c, values) => (values.every((v) => v > 0) ? `inline constexpr float ${c.name}[NO_OF_PHASES]{ ${values.map((v) => calValue(c, v)).join(', ')} };` : null);
-    const lines = [line(cal.power, r.power), line(cal.voltage, r.voltage)];
+    const lines = [...(M.ctRatingUsed(m) ? [line(M.CT_RATING, m.calibration.ctRating)] : []), line(cal.power, r.power), line(cal.voltage, r.voltage)];
     return lines.every(Boolean) ? lines : null;
   }
 
@@ -592,6 +592,7 @@
     for (const [c, values] of [
       [cal.voltage, r.voltage],
       [cal.power, r.power],
+      ...(M.ctRatingUsed(m) ? [[M.CT_RATING, m.calibration.ctRating]] : []),
     ]) {
       const a = M.calibrationArray(text, c.name);
       if (!a) return null;

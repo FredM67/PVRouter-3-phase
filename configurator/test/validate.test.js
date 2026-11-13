@@ -104,6 +104,7 @@ const CASES = [
   ['warn.calLowPower', (m) => (m.calibrationMode = true) && (m.calibration.powerCalPerAmp = [0.0029225, 0.0029225, 0.0029225]) && (m.calibration.power[1] = { router: 100, meter: 105 })],
   ['warn.calRatio', (m) => (m.calibrationMode = true) && (m.calibration.voltageCalNewBoard = [0.8952, 0.8952, 0.8952]) && (m.calibration.voltage[2] = { router: 100, meter: 230 })],
   ['warn.calReading', (m) => (m.calibrationMode = true) && (m.calibration.voltage[0] = { router: 230, meter: 0 })],
+  ['warn.calCtRating', (m) => (m.calibrationMode = true) && Object.assign(m.calibration, { file: 'x', ctRating: [50, 0, 50] })],
 ];
 
 CASES.forEach(([key, change], i) => {

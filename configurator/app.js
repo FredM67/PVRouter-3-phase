@@ -993,6 +993,7 @@
         h('label', { class: 'button' }, h('span', null, T('cal.loadFile')), h('input', { type: 'file', accept: '.h,text/plain', hidden: true, onchange: loadCalibration })),
         h('small', { class: 'help' }, c.fileName ? T('cal.fileLoaded', { name: c.fileName }) : T('cal.noFile'))
       ),
+      ...ctRatings(),
       ...block('power', 'cal.power', 'cal.current.power', c.power, c[cal.power.key], r.power, cal.power.decimals, 'W'),
       ...block('voltage', 'cal.voltage', 'cal.current.voltage', c.voltage, c[cal.voltage.key], r.voltage, cal.voltage.decimals, 'V'),
       ...calibrationChecks(p),
@@ -1002,6 +1003,30 @@
       ...calibrationFiles(p),
       h('p', { class: 'help' }, T('cal.hidden'))
     );
+  }
+
+  // The rated current of the CTs, new board: f_powerCal = f_powerCalPerAmp x f_ctRating
+  function ctRatings() {
+    if (!M.ctRatingUsed(m)) return [];
+    const c = m.calibration;
+    return [
+      h('h3', null, T('cal.ctRatingTitle')),
+      row(
+        ...c.ctRating.map((_, i) =>
+          h(
+            'label',
+            { class: 'field' },
+            h('span', null, `${T('cal.phase')} ${i + 1} (A)`),
+            num(
+              () => c.ctRating[i],
+              (v) => (c.ctRating[i] = v),
+              { step: 'any', min: 0 }
+            )
+          )
+        )
+      ),
+      h('small', { class: 'help' }, T('cal.ctRatingHelp')),
+    ];
   }
 
   // In calibration mode the side panel is hidden: the checks come under the readings...

@@ -52,6 +52,11 @@
       }
     }
 
+    if (m.calibrationMode && M.ctRatingUsed(m) && m.calibration.file)
+      m.calibration.ctRating.forEach((a, i) => {
+        if (!(a > 0)) warning('warn.calCtRating', 'calibration', { phase: i + 1 });
+      });
+
     // ---- load map ----
     const n = m.loads.length;
     if (n < 1) error('err.noLoad', 'loads');

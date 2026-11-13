@@ -57,6 +57,7 @@
         file: null, // the user's calibration.h, as loaded: the new values are written into it
         fileName: '',
         // the values the router runs with, as in calibration.h
+        ctRating: [null, null, null], // f_ctRating, A, new board
         powerCalPerAmp: [null, null, null], // f_powerCalPerAmp, new board
         voltageCalNewBoard: [null, null, null], // f_voltageCalNewBoard
         powerCalOldBoard: [null, null, null], // f_powerCalOldBoard
@@ -204,9 +205,12 @@
     },
   };
   const calValuesOf = (m) => CAL_VALUES[m.pcbVersion] || CAL_VALUES.NEW;
-  const CAL_NAMES = Object.values(CAL_VALUES).flatMap((b) => [b.power, b.voltage]);
+  // The rated current of the CTs, new board only: set by the user, not corrected by calibration
+  const CT_RATING = { name: 'f_ctRating', key: 'ctRating', decimals: 1 };
+  const ctRatingUsed = (m) => m.pcbVersion === 'NEW';
+  const CAL_NAMES = [CT_RATING, ...Object.values(CAL_VALUES).flatMap((b) => [b.power, b.voltage])];
 
-  // { powerCalPerAmp, voltageCalNewBoard, powerCalOldBoard, voltageCalOldBoard }, or null
+  // { ctRating, powerCalPerAmp, voltageCalNewBoard, powerCalOldBoard, voltageCalOldBoard }, or null
   function parseCalibration(text) {
     const out = {};
     for (const { name, key } of CAL_NAMES) {
@@ -340,6 +344,8 @@
     parseCalibration,
     calibrationResult,
     calValuesOf,
+    CT_RATING,
+    ctRatingUsed,
     CAL_NAMES,
     resizeLoads,
     resizeRelays,

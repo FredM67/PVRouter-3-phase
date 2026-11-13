@@ -101,7 +101,7 @@ const calibrationFile = () => fs.readFileSync(path.join(repo, 'Mk2_3phase_RFdata
 
 test('calibration: new value = current value x meter / router, phase by phase', () => {
   const m = M.defaults();
-  Object.assign(m.calibration, { powerCalPerAmp: [0.0029225, 0.0029225, 0.0029225], voltageCalNewBoard: [0.8952, 0.8952, 0.8952] });
+  Object.assign(m.calibration, { ctRating: [50, 50, 30.3], powerCalPerAmp: [0.0029225, 0.0029225, 0.0029225], voltageCalNewBoard: [0.8952, 0.8952, 0.8952] });
   m.calibration.power[0] = { router: 2000, meter: 2100 };
   m.calibration.voltage[2] = { router: 232, meter: 230 };
   const r = M.calibrationResult(m);
@@ -111,6 +111,7 @@ test('calibration: new value = current value x meter / router, phase by phase', 
   );
   assert.strictEqual(r.voltage[2].toFixed(4), '0.8875');
   assert.deepStrictEqual(G.calibrationLines(m), [
+    'inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 30.3F };',
     'inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.0030686F, 0.0029225F, 0.0029225F };',
     'inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.8952F, 0.8952F, 0.8875F };',
   ]);
@@ -145,7 +146,12 @@ test('calibration: the loaded calibration.h gets only the changed values', () =>
   assert.ok(!G.files(m).some((f) => f.path.endsWith('calibration.h')), 'only in calibration mode');
 
   m.calibrationMode = true;
+  m.calibration.power[1] = { router: null, meter: null };
+  m.calibration.ctRating[2] = 30.3;
+  assert.strictEqual(G.calibrationH(m), text.replace('f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F }', 'f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 30.3F }'), 'a new CT rating');
   m.pcbVersion = 'OLD';
+  assert.strictEqual(G.calibrationH(m), null, 'no CT rating on the old board');
+  m.calibration.power[1] = { router: 1000, meter: 1010 };
   assert.strictEqual(G.calibrationH(m), text.replace('f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F }', 'f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05050F, 0.05000F }'), 'the old board: its own values');
 });
 
