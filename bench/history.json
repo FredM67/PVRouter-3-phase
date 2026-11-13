@@ -95,6 +95,30 @@
      "ram": 400
     }
    }
+  },
+  {
+   "commit": "3e2a5b895e5fe4b517ebc02395fa62373b234398",
+   "date": "2026-11-13T23:30:25+01:00",
+   "message": "ci(sim): spread the simulation scenarios over parallel jobs (#198)\n\nThe grid simulation ran its 13 scenarios in one job, the relay one its 6\nlong scenarios (330-425 s simulated each) in another: two waves on the 4\nvCPUs of a runner, 2-3.5 and 4-6 minutes.\n\n- sim/ci_targets.sh: the make targets of job k of n, from the scenarios on\n  disk (every n-th, alphabetical), so a new scenario always runs. A grid\n  scenario runs on its three boards in the same job, which compares them.\n- build.yml: grid-sim is a matrix of 4 jobs, one grid scenario each on the\n  three boards, and the RF scenarios.\n- relay-sim.yml: a matrix of 3 jobs, two relay scenarios each.\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/3e2a5b895e5fe4b517ebc02395fa62373b234398",
+   "sizes": {
+    "basic": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8584,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8588,
+     "ram": 400
+    }
+   }
   }
  ]
 }
