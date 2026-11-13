@@ -339,6 +339,9 @@ jobs:
           tool: customSmallerIsBetter
           output-file-path: bench/size.json
           benchmark-data-dir-path: bench
+          # gh-pages is already fetched, and holds the commit of the Speed step: fetching it again
+          # fails (non-fast-forward) on pull requests, where nothing is pushed
+          skip-fetch-gh-pages: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: ${{ env.RECORD }}
           alert-threshold: '102%'
