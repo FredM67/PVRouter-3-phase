@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-11-12
+ * @date 2026-11-13
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -587,11 +587,11 @@ inline void sendResults(bool bOffPeak)
  */
 inline void logLoadPriorities()
 {
-  infoln(F("Load Priorities: "));
+  statusln(F("Load Priorities: "));
   for (const auto& loadPrioAndState : loadPrioritiesAndState)
   {
-    info(F("\tload "));
-    infoln(loadPrioAndState);
+    status(F("\tload "));
+    statusln(loadPrioAndState);
   }
 }
 

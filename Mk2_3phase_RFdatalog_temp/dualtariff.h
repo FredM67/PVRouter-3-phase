@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Classes/types needed for dual-tariff support
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-13
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -77,7 +77,7 @@ inline void printDualTariffConfiguration()
 
   info(F("\tTemperature threshold is "));
   info(iTemperatureThreshold);
-  infoln(F("°C."));
+  infoln(F(" C."));  // ASCII: the IoT output is 7-bit
 
   for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
   {

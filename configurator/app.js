@@ -214,7 +214,7 @@
               M.SERIAL_OUTPUTS.map((s) => [s, T(`serial.${s}`)])
             )
           ),
-      !cal && m.serialOutput === 'HumanReadable'
+      !cal && m.serialOutput !== 'JSON' // text: human-readable and IoT outputs
         ? check(
             () => m.enableDebug,
             (v) => (m.enableDebug = v),
