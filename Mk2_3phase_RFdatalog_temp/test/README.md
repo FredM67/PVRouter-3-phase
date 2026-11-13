@@ -15,6 +15,7 @@ test/
 │   ├── test_remote_loads/
 │   └── test_utils_override/
 └── embedded/         # Run on Arduino or Wokwi simulator
+    ├── test_datalog_math_avr/
     ├── test_fastdivision/
     ├── test_mult_asm/
     ├── test_teleinfo/
@@ -58,6 +59,7 @@ pio test -e uno -f "*test_utils_relay*"
 
 | Test | Purpose |
 |------|---------|
+| [test_datalog_math_avr](embedded/test_datalog_math_avr/) | Integer datalog arithmetic on the target: the assembly square root at every rounding boundary, and cycle counts against the float code |
 | [test_fastdivision](embedded/test_fastdivision/) | AVR assembly fast division (divu10, divmod10) |
 | [test_mult_asm](embedded/test_mult_asm/) | AVR assembly multiplication optimization |
 | [test_teleinfo](embedded/test_teleinfo/) | French Teleinfo protocol parsing |

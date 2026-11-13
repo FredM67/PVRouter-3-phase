@@ -11,7 +11,9 @@ The float expressions, evaluated in double precision, are the reference. The cal
 
 | Test | Description |
 |------|-------------|
-| `test_isqrt_*` | Integer square root: exact on perfect squares, rounded to nearest, saturated at 65535 |
+| `test_isqrt_at_every_boundary` | For all 65536 roots r: r² - 1, r² and r² + r give r, r² + r + 1 gives r + 1 (every rounding boundary of the 32-bit range) |
+| `test_isqrt_matches_the_reference` | 2 million values over the whole 32-bit range give `round(sqrt())`, in double precision |
+| `test_isqrt_edge_cases` / `test_isqrt_of_the_largest_value_saturates` | 0 to 4, 2^30, 2^31, the boundaries around 32768.5, and 65535 for `UINT32_MAX` |
 | `test_sqrtScaled_*` | The root of the normalised value keeps at least 15 significant bits; 0 stays 0 |
 | `test_power_calibration_is_constexpr` | The fixed-point power calibration is built at compile time, with the shift of the energy bucket |
 | `test_watts_matches_the_reference_*` | Watts match the float reference from -2^18 to +2^18, old board, new board (50 A and 20 A CTs), extremes |
@@ -22,6 +24,8 @@ The float expressions, evaluated in double precision, are the reference. The cal
 | `test_vrms_matches_the_reference_*` | Vrms matches the float reference up to the largest ADC voltage, short and long datalog periods |
 | `test_vrms_at_230_V` / `test_vrms_of_zero` / `test_vrms_saturates` | A typical value, no voltage, and saturation at 655.35 V |
 | `test_valid_voltage_calibration` | Zero, negative or too small voltage calibration values are rejected |
+
+On AVR, `isqrt()` is an assembly loop: [test_datalog_math_avr](../../embedded/test_datalog_math_avr/) runs the same boundary checks on the target (simavr), and measures the cycles against the float code. These native tests check the C version of the same algorithm.
 
 ## Running
 

@@ -63,37 +63,93 @@ inline int16_t watts(const int32_t averagePower, const uint16_t calFixed, const 
 /**
  * @brief Integer square root, rounded to the nearest integer.
  *
- * @param value The radicand.
+ * @details Digit by digit, two bits of the value per bit of the root, most significant first.
+ *          The remainder (value - root^2 so far, < 2^19 before each trial) and twice the root
+ *          (< 2^17) fit in 3 bytes; keeping twice the root makes each trial a single compare:
+ *          remainder >= 2 x (2 x root) + 1  <=>  remainder > 2 x (2 x root).
+ *
+ *          On AVR, the loop is written in assembly: the value is consumed a byte at a time, and
+ *          each bit of the root costs ~21 cycles (~380 cycles in all), where avr-gcc's code for
+ *          the same loop needs ~44, and the float sqrt() ~500 (see test_datalog_math_perf).
+ *
+ * @param value The value to take the square root of.
  * @return round(sqrt(value)), at most 65535.
  */
 inline uint16_t isqrt(uint32_t value)
 {
-  uint32_t root{ 0 };
-  uint32_t bit{ 1UL << 30 };  // the highest power of 4 within 32 bits
+  uint32_t remainder;  // 3 bytes used
+  uint32_t twiceRoot;  // 3 bytes used
 
-  while (bit > value)
+#ifdef __AVR__
+  uint8_t bytes;
+  uint8_t bits;
+  asm(
+    "clr %A[rem]              \n\t"
+    "clr %B[rem]              \n\t"
+    "clr %C[rem]              \n\t"
+    "clr %A[twice]            \n\t"
+    "clr %B[twice]            \n\t"
+    "clr %C[twice]            \n\t"
+    "ldi %[bytes], 4          \n\t"
+    "1:                       \n\t"  // for each byte of the value, most significant first
+    "ldi %[bits], 4           \n\t"
+    "2:                       \n\t"  // for each pair of bits of the byte
+    "lsl %D[val]              \n\t"  // bring down the next two bits into the remainder
+    "rol %A[rem]              \n\t"
+    "rol %B[rem]              \n\t"
+    "rol %C[rem]              \n\t"
+    "lsl %D[val]              \n\t"
+    "rol %A[rem]              \n\t"
+    "rol %B[rem]              \n\t"
+    "rol %C[rem]              \n\t"
+    "lsl %A[twice]            \n\t"  // root <<= 1
+    "rol %B[twice]            \n\t"
+    "rol %C[twice]            \n\t"
+    "cp  %A[twice], %A[rem]   \n\t"  // carry if 2 x root < remainder
+    "cpc %B[twice], %B[rem]   \n\t"
+    "cpc %C[twice], %C[rem]   \n\t"
+    "brcc 3f                  \n\t"
+    "sec                      \n\t"  // remainder -= 2 x root + 1
+    "sbc %A[rem], %A[twice]   \n\t"
+    "sbc %B[rem], %B[twice]   \n\t"
+    "sbc %C[rem], %C[twice]   \n\t"
+    "ori %A[twice], 2         \n\t"  // root |= 1
+    "3:                       \n\t"
+    "dec %[bits]              \n\t"
+    "brne 2b                  \n\t"
+    "mov %D[val], %C[val]     \n\t"  // next byte of the value
+    "mov %C[val], %B[val]     \n\t"
+    "mov %B[val], %A[val]     \n\t"
+    "dec %[bytes]             \n\t"
+    "brne 1b                  \n\t"
+    : [rem] "=&r"(remainder), [twice] "=&d"(twiceRoot), [val] "+r"(value), [bytes] "=&d"(bytes), [bits] "=&d"(bits)
+    :
+    : "cc");
+  remainder &= 0xFFFFFFUL;
+  twiceRoot &= 0xFFFFFFUL;
+#else
+  remainder = 0;
+  twiceRoot = 0;
+  for (uint8_t step = 16; step; --step)
   {
-    bit >>= 2;
-  }
-  while (bit)
-  {
-    if (value >= root + bit)
+    remainder = (remainder << 2) | (value >> 30);  // bring down the next two bits
+    value <<= 2;
+    twiceRoot <<= 1;            // root <<= 1
+    if (remainder > twiceRoot)  // remainder >= 2 x root + 1
     {
-      value -= root + bit;
-      root = (root >> 1) + bit;
+      remainder -= twiceRoot + 1;
+      twiceRoot |= 2;  // root |= 1
     }
-    else
-    {
-      root >>= 1;
-    }
-    bit >>= 2;
   }
-  // value is now the remainder, x - root^2: round up when x >= (root + 0.5)^2 = root^2 + root + 0.25
-  if ((value > root) && (root < UINT16_MAX))
+#endif
+
+  auto root{ static_cast< uint16_t >(twiceRoot >> 1) };
+  // remainder = value - root^2: round up when value >= (root + 0.5)^2 = root^2 + root + 0.25
+  if ((remainder > root) && (root < UINT16_MAX))
   {
     ++root;
   }
-  return static_cast< uint16_t >(root);
+  return root;
 }
 
 /**
@@ -108,7 +164,12 @@ inline uint16_t sqrtScaled(uint32_t meanSquare, uint8_t& fractionBits)
   fractionBits = 0;
   if (meanSquare)
   {
-    while (meanSquare < (1UL << 30))  // each step of 2 bits adds one bit to the root
+    while (meanSquare < (1UL << 24))  // a byte at a time: byte moves, 4 bits of the root
+    {
+      meanSquare <<= 8;
+      fractionBits += 4;
+    }
+    while (meanSquare < (1UL << 30))  // then 2 bits at a time, 1 bit of the root
     {
       meanSquare <<= 2;
       ++fractionBits;
@@ -164,11 +225,23 @@ inline uint16_t vrms(const uint32_t meanSquare, const uint16_t calFixed, const u
   uint32_t product;
   multU16x16_to32(product, root, calFixed);
 
-  // rounded shift by (fractionBits + shift), without overflowing the 32 bits of product
-  const uint8_t total{ static_cast< uint8_t >(fractionBits + shift) };
+  // rounded shift by (fractionBits + shift), without overflowing the 32 bits of product:
+  // whole bytes first (byte moves on AVR), then the remaining bits one by one
+  uint8_t total{ static_cast< uint8_t >(fractionBits + shift) };
   if (total)
   {
-    product = ((product >> (total - 1)) + 1) >> 1;
+    --total;  // the last bit is shifted out after the rounding
+    if (total >= 16)
+    {
+      product >>= 16;
+      total -= 16;
+    }
+    if (total >= 8)
+    {
+      product >>= 8;
+      total -= 8;
+    }
+    product = ((product >> total) + 1) >> 1;
   }
   return product > UINT16_MAX ? UINT16_MAX : static_cast< uint16_t >(product);
 }

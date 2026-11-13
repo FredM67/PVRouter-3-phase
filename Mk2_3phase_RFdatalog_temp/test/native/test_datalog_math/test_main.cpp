@@ -108,31 +108,53 @@ static double worstVrmsError(float factor, const float (&cal)[N], uint32_t maxMe
 // Integer square root
 // ============================================================================
 
-void test_isqrt_of_perfect_squares(void)
+/**
+ * @brief Every rounding boundary of every root: round(sqrt(x)) changes from r to r + 1 between
+ *        r^2 + r and r^2 + r + 1, since (r + 0.5)^2 = r^2 + r + 0.25.
+ */
+void test_isqrt_at_every_boundary(void)
 {
-  for (uint32_t root = 0; root <= UINT16_MAX; root += 7)
+  for (uint32_t root = 0; root <= UINT16_MAX; ++root)
   {
-    TEST_ASSERT_EQUAL_UINT16(root, Datalog::isqrt(root * root));
+    const uint32_t square{ root * root };
+    if (root > 1)  // r^2 - 1 >= (r - 0.5)^2 from r = 2 on (sqrt(0) = 0)
+    {
+      TEST_ASSERT_EQUAL_UINT16(root, Datalog::isqrt(square - 1));
+    }
+    TEST_ASSERT_EQUAL_UINT16(root, Datalog::isqrt(square));
+    TEST_ASSERT_EQUAL_UINT16(root, Datalog::isqrt(square + root));  // up to UINT32_MAX
+    if (root < UINT16_MAX)                                          // 65535^2 + 65536 = 2^32 wraps
+    {
+      TEST_ASSERT_EQUAL_UINT16(root + 1, Datalog::isqrt(square + root + 1));
+    }
   }
-  TEST_ASSERT_EQUAL_UINT16(UINT16_MAX, Datalog::isqrt(65535UL * 65535UL));
 }
 
-void test_isqrt_rounds_to_nearest(void)
-{
-  // (r + 0.5)^2 = r^2 + r + 0.25: r^2 + r rounds down, r^2 + r + 1 rounds up
-  for (uint32_t root = 1; root < UINT16_MAX; root += 11)
-  {
-    TEST_ASSERT_EQUAL_UINT16(root, Datalog::isqrt(root * root + root));
-    TEST_ASSERT_EQUAL_UINT16(root + 1, Datalog::isqrt(root * root + root + 1));
-  }
-}
-
+/** @brief 2 million values over the whole 32-bit range, against sqrt() in double precision (exact here). */
 void test_isqrt_matches_the_reference(void)
 {
-  for (uint32_t value = 0; value < 0xFFF00000UL; value += 0x10001UL)
+  constexpr uint32_t STRIDE{ 2147 };  // odd, and not a multiple of small primes: hits all residues
+  uint32_t value{ 0 };
+  for (uint32_t i = 0; i < (UINT32_MAX / STRIDE); ++i, value += STRIDE)
   {
-    TEST_ASSERT_EQUAL_UINT16(static_cast< uint16_t >(lround(sqrt(static_cast< double >(value)))), Datalog::isqrt(value));
+    const auto expected{ static_cast< uint32_t >(lround(sqrt(static_cast< double >(value)))) };
+    if (Datalog::isqrt(value) != (expected > UINT16_MAX ? UINT16_MAX : expected))
+    {
+      TEST_FAIL_MESSAGE("isqrt() differs from round(sqrt())");
+    }
   }
+}
+
+void test_isqrt_edge_cases(void)
+{
+  TEST_ASSERT_EQUAL_UINT16(0, Datalog::isqrt(0));
+  TEST_ASSERT_EQUAL_UINT16(1, Datalog::isqrt(1));
+  TEST_ASSERT_EQUAL_UINT16(1, Datalog::isqrt(2));                 // 1.414
+  TEST_ASSERT_EQUAL_UINT16(2, Datalog::isqrt(3));                 // 1.732
+  TEST_ASSERT_EQUAL_UINT16(46341, Datalog::isqrt(1UL << 31));     // 46340.95
+  TEST_ASSERT_EQUAL_UINT16(32768, Datalog::isqrt(1UL << 30));     // smallest normalised value
+  TEST_ASSERT_EQUAL_UINT16(32768, Datalog::isqrt(0x40008000UL));  // 32768.4999962: rounds down
+  TEST_ASSERT_EQUAL_UINT16(32769, Datalog::isqrt(0x40008001UL));  // 32768.5000114: rounds up
 }
 
 void test_isqrt_of_the_largest_value_saturates(void)
@@ -283,9 +305,9 @@ int main(int argc, char** argv)
 
   UNITY_BEGIN();
 
-  RUN_TEST(test_isqrt_of_perfect_squares);
-  RUN_TEST(test_isqrt_rounds_to_nearest);
+  RUN_TEST(test_isqrt_at_every_boundary);
   RUN_TEST(test_isqrt_matches_the_reference);
+  RUN_TEST(test_isqrt_edge_cases);
   RUN_TEST(test_isqrt_of_the_largest_value_saturates);
   RUN_TEST(test_sqrtScaled_keeps_15_significant_bits);
   RUN_TEST(test_sqrtScaled_of_zero);
