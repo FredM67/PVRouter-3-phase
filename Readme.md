@@ -68,7 +68,7 @@ Vous trouverez [ici](schematics/3phase_Mainboard.pdf) le schéma de la carte-mè
 
 ## Documentation de développement
 
-Vous pouvez commencer à lire la documentation ici [3-phase routeur](https://fredm67.github.io/PVRouter-3-phase/) (en anglais).
+Vous pouvez commencer à lire la documentation ici [3-phase routeur](https://fredm67.github.io/PVRouter-3-phase/doc/) (en anglais).
 
 ## Documentation d’analyse et outils
 

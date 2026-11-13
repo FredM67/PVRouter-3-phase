@@ -61,7 +61,7 @@ It supports up to 12 resistive output loads, which are completely independent.
 
 ## Implementation documentation
 
-You can start reading the documentation here [3-phase diverter](https://fredm67.github.io/PVRouter-3-phase/html/index.html).
+You can start reading the documentation here [3-phase diverter](https://fredm67.github.io/PVRouter-3-phase/doc/).
 
 ## Analysis and Tools Documentation
 
