@@ -21,9 +21,10 @@ its own values, `f_powerCalOldBoard` and `f_voltageCalOldBoard`.
 
 ## Voltage: 0.8952 V per step (`f_voltageCalNewBoard`)
 
-```
-mains ── 6 × 20 kΩ (0.1 %) ── ZMPT101K 1:1 ── 150 Ω burden (0.1 %)
-                                               └─ C10 10 µF ── bias network (10k / 10k / 100 nF) ── ADC
+```mermaid
+flowchart LR
+    M(["mains"]) --> R["6 × 20 kΩ<br/>(0.1 %)"] --> Z["ZMPT101K<br/>1:1"] --> B["150 Ω burden<br/>(0.1 %)"]
+    B --> C["C10<br/>10 µF"] --> N["bias network<br/>10k / 10k / 100 nF"] --> A(["ADC"])
 ```
 
 - The ZMPT101K is a current transformer, rated for 2 mA. The 120 kΩ chain turns the mains voltage

@@ -304,17 +304,19 @@ For each relay, the transition or state change is managed as follows:
 
 **Threshold zones on the power axis:**
 
-```
-← surplus (exporting to grid)                      importing from grid →
-─────────────────────────────────────────────────────────────────────────
-         │                         │                         │
- surplusThreshold                 0 W               importThreshold
-  (e.g. −1000 W)                                    (e.g. +200 W)
-         │                                                   │
-         ▼  relay eligible to turn ON                        ▼  relay eligible to turn OFF
-    (if relay is OFF)                                   (if relay is ON)
-         │←──────────────── stable zone ───────────────────►│
-                    (relay keeps its current state)
+```mermaid
+flowchart LR
+    S["<b>Surplus</b>, below surplusThreshold<br/>(e.g. −1000 W, exporting)<br/>a relay that is OFF may turn ON"]
+    Z["<b>Stable zone</b>, between the thresholds<br/>(around 0 W)<br/>every relay keeps its state"]
+    I["<b>Import</b>, above importThreshold<br/>(e.g. +200 W)<br/>a relay that is ON may turn OFF"]
+    S --- Z --- I
+
+    classDef on fill:#c8e6c9,stroke:#2e7d32,color:#000
+    classDef keep fill:#eeeeee,stroke:#757575,color:#000
+    classDef off fill:#ffe0b2,stroke:#e65100,color:#000
+    class S on
+    class Z keep
+    class I off
 ```
 
 The EWMA-filtered grid power is compared against both thresholds continuously:
@@ -324,23 +326,22 @@ The EWMA-filtered grid power is compared against both thresholds continuously:
 
 **Minimum duration timers:**
 
-```
- Power (W)
-
- −1200 ─┐ solar surplus > 1000 W             solar production fades
-        │                         ┌──────────────────────────────
-  −600  │                         │
-     0  ┴─────────────────────────┴─────────────────────  time →
-  +300                                               ╭───── import
-
- Relay:
-  OFF ──────────────────┐                            ┌──────────
-                        │◄────── minON must elapse ─►│
-  ON                    └────────────────────────────┘
-                        ↑                            ↑
-                   turns ON                     turns OFF
-              (surplus met AND              (import exceeded AND
-               minOFF elapsed)               minON elapsed)
+```mermaid
+gantt
+    title One relay, minOFF 1 min and minON 5 min
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %M min
+    todayMarker off
+    section Grid
+    Surplus over 1000 W            :done, g1, 2001-01-01 00:00, 3m
+    Solar fades, stable zone       :g2, 2001-01-01 00:03, 1m
+    Import over 200 W              :crit, g3, 2001-01-01 00:04, 6m
+    section Relay
+    OFF, minOFF elapsing           :r1, 2001-01-01 00:00, 1m
+    turns ON                       :milestone, m1, 2001-01-01 00:01, 0m
+    ON, minON must elapse          :active, r2, 2001-01-01 00:01, 5m
+    turns OFF                      :milestone, m2, 2001-01-01 00:06, 0m
+    OFF                            :r3, 2001-01-01 00:06, 4m
 ```
 
 > [!NOTE]
@@ -348,22 +349,26 @@ The EWMA-filtered grid power is compared against both thresholds continuously:
 
 **Multi-relay ordering (example: 3 relays, thresholds 1000 W / 1500 W / 2000 W):**
 
+```mermaid
+---
+title: "Surplus grows: relay 0 first"
+---
+flowchart LR
+    U0{"Relay 0 OFF,<br/>surplus over its threshold<br/>and minOFF elapsed?"} -- no --> U1{"Relay 1?"} -- no --> U2{"Relay 2?"}
+    U0 -- yes --> U0on([relay 0 ON])
+    U1 -- yes --> U1on([relay 1 ON])
+    U2 -- yes --> U2on([relay 2 ON])
 ```
- Solar surplus grows:
 
-   Try relay 0 first → turns ON if threshold met AND minOFF elapsed
-     If relay 0 cannot switch (already ON, or minOFF not yet elapsed):
-     └─► Try relay 1 next
-           If relay 1 cannot switch:
-           └─► Try relay 2 last
-
- Import rises / solar fades:
-
-   Try relay 2 first → turns OFF if threshold met AND minON elapsed
-     If relay 2 cannot switch (already OFF, or minON not yet elapsed):
-     └─► Try relay 1 next
-           If relay 1 cannot switch:
-           └─► Try relay 0 last
+```mermaid
+---
+title: "Import rises / solar fades: relay 2 first"
+---
+flowchart LR
+    D2{"Relay 2 ON,<br/>import over its threshold<br/>and minON elapsed?"} -- no --> D1{"Relay 1?"} -- no --> D0{"Relay 0?"}
+    D2 -- yes --> D2off([relay 2 OFF])
+    D1 -- yes --> D1off([relay 1 OFF])
+    D0 -- yes --> D0off([relay 0 OFF])
 ```
 
 In each pass, the system iterates through all relays in order and stops as soon as **one relay successfully changes state** — that triggers the 60-second cooldown. Relays that cannot switch (minimum duration not yet elapsed, or already in the target state) are simply skipped.
@@ -606,19 +611,17 @@ Each load has two parameters: `{ START_TIME, DURATION }`
 
 #### Understanding the timeline
 
-```
-Off-peak period example: 23:00 to 07:00 (8 hours)
-
-        23:00                                           07:00
-          |================== OFF-PEAK ==================|
-          |                                              |
-     START ──────────────────────────────────────────► END
-          │                                              │
-          │  Positive values                             │
-          │  count from here ───►                        │
-          │                                              │
-          │                        ◄─── Negative values  │
-          │                             count from here  │
+```mermaid
+gantt
+    title Off-peak period, 23:00 to 07:00
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section Off-peak
+    Off-peak (8 h) :active, hc, 2001-01-01 23:00, 8h
+    section START_TIME
+    positive, counts from the start, here +3 h   :b1, 2001-01-01 23:00, 3h
+    negative, counts back from the end, here −3 h :b2, 2001-01-02 04:00, 3h
 ```
 
 #### Parameter 1: START_TIME (when to start)
@@ -653,29 +656,45 @@ Off-peak period example: 23:00 to 07:00 (8 hours)
 All examples assume off-peak period from **23:00 to 07:00** (8 hours):
 
 **Example 1:** `{ -3, 2 }` - Start 3 hours before end, run for 2 hours
-```
-23:00                              04:00    06:00    07:00
-  |====================================|======|========|
-                                       |BOOST |
-                                       └──2h──┘
+```mermaid
+gantt
+    title { -3, 2 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section Off-peak
+    Off-peak :active, hc, 2001-01-01 23:00, 8h
+    section Load
+    Boost, 2 h :crit, b3, 2001-01-02 04:00, 2h
 ```
 Result: Boost runs from **04:00 to 06:00**
 
 **Example 2:** `{ 2, 3 }` - Start 2 hours after start, run for 3 hours
-```
-23:00    01:00          04:00                        07:00
-  |========|=============|==============================|
-           |────BOOST────|
-           └─────3h──────┘
+```mermaid
+gantt
+    title { 2, 3 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section Off-peak
+    Off-peak :active, hc, 2001-01-01 23:00, 8h
+    section Load
+    Boost, 3 h :crit, b4, 2001-01-02 01:00, 3h
 ```
 Result: Boost runs from **01:00 to 04:00**
 
 **Example 3:** `{ -90, 120 }` - Start 90 minutes before end, duration of 120 minutes (but limited)
-```
-23:00                              05:30    07:00
-  |====================================|======|
-                                       |BOOST | ← stops here (off-peak ends)
-                                       └─90min─┘
+```mermaid
+gantt
+    title { -90, 120 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section Off-peak
+    Off-peak :active, hc, 2001-01-01 23:00, 8h
+    section Load
+    Boost, 90 min :crit, b5, 2001-01-02 05:30, 90m
+    cut, off-peak is over :done, b6, 2001-01-02 07:00, 30m
 ```
 Result: Boost runs from **05:30 to 07:00** (stops at end of off-peak, not 07:30)
 
@@ -684,10 +703,16 @@ Result: Boost runs from **05:30 to 07:00** (stops at end of off-peak, not 07:30)
 > In this example, only 90 minutes of boost occur instead of the configured 120 minutes.
 
 **Example 4:** `{ 1, UINT16_MAX }` - Start 1 hour after start, run until end
-```
-23:00    00:00                                       07:00
-  |========|=========================================|
-           |──────────────BOOST──────────────────────|
+```mermaid
+gantt
+    title { 1, UINT16_MAX }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section Off-peak
+    Off-peak :active, hc, 2001-01-01 23:00, 8h
+    section Load
+    Boost, until the end :crit, b7, 2001-01-02 00:00, 7h
 ```
 Result: Boost runs from **00:00 to 07:00**
 
@@ -749,11 +774,11 @@ Unlike [scheduled boost](#scheduled-boost-configuration-rg_forceload) which runs
 
 ### How it works
 
-```
-┌─────────────────┐
-│  Physical pin   │──── When contact closes ───► Loads/relays turn ON at full power
-│  (dry contact)  │──── When contact opens  ───► Normal router operation resumes
-└─────────────────┘
+```mermaid
+flowchart LR
+    P["Physical pin<br/>(dry contact)"]
+    P -- contact closes --> ON["Loads / relays ON at full power"]
+    P -- contact opens --> N["Normal router operation"]
 ```
 
 ### When to use manual boost
@@ -849,10 +874,9 @@ inline constexpr OverridePins overridePins{ {
 
 Connect each configured pin to a **dry contact** (voltage-free switch):
 
-```
-Arduino pin ────┬──── Switch/Button ────┬──── GND
-                │                       │
-           (internal pullup)       (closes circuit)
+```mermaid
+flowchart LR
+    PIN["Arduino pin<br/>(internal pull-up)"] --- SW["Switch / button<br/>(closes the circuit)"] --- GND["GND"]
 ```
 
 - **Contact closed** = boost active (loads at full power)
