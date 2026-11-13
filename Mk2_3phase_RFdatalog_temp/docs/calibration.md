@@ -26,8 +26,10 @@ mains ── 6 × 20 kΩ (0.1 %) ── ZMPT101K 1:1 ── 150 Ω burden (0.1 %
                                                └─ C10 10 µF ── bias network (10k / 10k / 100 nF) ── ADC
 ```
 
-- The 120 kΩ chain turns the mains voltage into a current: 8.333 µA per volt. The ZMPT101K passes
-  it 1:1 to its burden.
+- The ZMPT101K is a current transformer, rated for 2 mA. The 120 kΩ chain turns the mains voltage
+  into such a current: 230 V / 120 kΩ = 1.917 mA (2.108 mA at 253 V, +10 %). The ZMPT101K passes
+  it 1:1 to its burden. In the calculation, that is 1.917 mA / 230 = 8.333 µA for each volt of
+  mains.
 - Through C10, the VREF/2 bias network loads the 150 Ω burden: the ZMPT101K sees 145.73 Ω, of which
   98.81 % reaches the ADC at 50 Hz.
 - At the ADC: 8.333 µA × 145.73 Ω × 0.9881 = **1.2000 mV per mains volt**.
