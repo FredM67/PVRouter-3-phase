@@ -1,5 +1,7 @@
 <map id="test_printDecimals_matches_print_float" name="test_printDecimals_matches_print_float">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,163,50"/>
-<area shape="rect" id="Node000002" href="$native_2test__energy__bucket_2test__main_8cpp.html#a6daf045ca0cf4c7885ee70a055efcbf0" title="The float arithmetic being replaced, in bucket units." alt="" coords="211,14,294,42"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,25,198,27,193,28,163,30"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,163,68"/>
+<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="211,5,412,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,34,198,32,192,33,164,39"/>
+<area shape="rect" id="Node000003" href="$native_2test__energy__bucket_2test__main_8cpp.html#a6daf045ca0cf4c7885ee70a055efcbf0" title="The float arithmetic being replaced, in bucket units." alt="" coords="270,57,353,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="163,52,257,64,252,65,163,57"/>
 </map>

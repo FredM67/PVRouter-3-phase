@@ -7,7 +7,6 @@ var searchData=
   ['findlocalbitmask_4',['findLocalBitmask',['../classOverridePins.html#a871f92e908698a3dae4099a6851441a5',1,'OverridePins']]],
   ['findremotebitmask_5',['findRemoteBitmask',['../classOverridePins.html#a6ea64489fe147f5da39b8128e1af3c68',1,'OverridePins']]],
   ['float_5fto_5fq8_6',['float_to_q8',['../mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5',1,'mult_asm.h']]],
-  ['for_7',['for',['../namespaceSerialOutput.html#ad366c5c9a2a1d9fbfe231c3a3468f279',1,'SerialOutput']]],
-  ['freeram_8',['freeRam',['../utils_8h.html#aac7b29dc45caaaca67299571f6a2dcc0',1,'utils.h']]],
-  ['fromwatts_9',['fromWatts',['../namespaceEnergy.html#aeae61ea16953d9d9b692f8bb2c8b5f6a',1,'Energy']]]
+  ['freeram_7',['freeRam',['../group__Initialization.html#gaac7b29dc45caaaca67299571f6a2dcc0',1,'utils.h']]],
+  ['fromwatts_8',['fromWatts',['../namespaceEnergy.html#aeae61ea16953d9d9b692f8bb2c8b5f6a',1,'Energy']]]
 ];

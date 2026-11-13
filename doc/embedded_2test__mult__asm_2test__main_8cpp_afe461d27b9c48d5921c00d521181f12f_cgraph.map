@@ -1,36 +1,55 @@
 <map id="loop" name="loop">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,343,55,370"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,341,55,369"/>
 <area shape="rect" id="Node000002" href="$halt__after__tests_8h.html#a37a449e5fc91f8ecccc52de6fe54bac6" title=" " alt="" coords="177,5,288,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="30,342,37,278,51,189,72,102,85,67,101,44,129,26,164,17,160,21,131,31,105,48,90,70,77,103,56,190,42,279,35,343"/>
-<area shape="rect" id="Node000003" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a79005d5a7ff720b94615c9c31ac5e7dc" title="Compare assembly results with standard multiplication." alt="" coords="131,57,334,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="28,342,28,295,36,228,45,193,58,157,77,124,101,96,119,85,116,89,104,100,81,127,63,159,50,194,42,229,34,295,33,342"/>
-<area shape="rect" id="Node000004" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a28f0e2ea7b3c26680655edccb0ec238e" title="Test edge cases and potential overflow scenarios." alt="" coords="168,109,297,137"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="29,342,33,303,43,251,65,195,81,170,101,148,125,133,154,124,150,129,127,138,104,152,85,173,69,198,48,252,38,304,34,343"/>
-<area shape="rect" id="Node000006" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a88117a7e9fb423e23d8958b9fa0837c8" title="Test basic functionality of mult16x8_q8." alt="" coords="143,161,322,189"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="31,342,38,312,50,273,71,233,101,200,130,185,127,189,104,204,75,236,55,275,43,313,36,343"/>
-<area shape="rect" id="Node000007" href="$embedded_2test__mult__asm_2test__main_8cpp.html#ab583126f60b74c69693679be8f2c017b" title="Test rounding behavior of mult16x8_q8." alt="" coords="131,213,334,241"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="34,341,59,296,78,271,101,250,118,243,115,247,104,255,81,274,63,298,39,343"/>
-<area shape="rect" id="Node000008" href="$embedded_2test__mult__asm_2test__main_8cpp.html#ae06483def99fe9d3eade5b4aac5d9a43" title="Test basic functionality of multS16x16_to32." alt="" coords="149,265,316,310"/>
-<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="53,342,102,319,135,309,132,313,104,324,57,345"/>
-<area shape="rect" id="Node000009" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a4f13c1f22e2c04ec0483b9ca2cf6f58c" title="Test basic functionality of multU16x16_to32 (unsigned)" alt="" coords="148,334,317,379"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="54,354,134,355,130,358,56,359"/>
-<area shape="rect" id="Node000010" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a693f3438716b7b4ef481243837f33cc1" title="Test multU24x16_to32_hi8: (a x b) &gt;&gt; 8, a on 24 bits (energy bucket, #120)" alt="" coords="148,404,317,448"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="54,367,104,389,135,400,130,403,102,394,56,372"/>
-<area shape="rect" id="Node000011" href="$embedded_2test__mult__asm_2test__main_8cpp.html#afe635d3d8214d539d82722e2097430a8" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="153,473,312,518"/>
-<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="37,368,63,414,82,438,104,458,140,477,136,480,101,463,78,442,59,417,37,373"/>
-<area shape="rect" id="Node000012" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a421c857707def81da94388948e91c5ce" title="Performance comparison for Q8 fractional multiplication." alt="" coords="118,541,346,569"/>
-<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="33,368,41,403,53,446,73,491,87,511,104,528,110,533,105,534,101,532,83,514,69,493,48,448,36,404,33,373"/>
-<area shape="rect" id="Node000013" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a61d362737dc4e6078cf74deff55b1ef7" title="Performance comparison between assembly and standard multiplication." alt="" coords="104,593,361,621"/>
-<area shape="poly" id="edge14_Node000001_Node000013" title=" " alt="" coords="31,368,36,412,46,468,67,528,84,555,105,579,111,584,105,585,101,582,79,558,62,530,41,470,31,412,31,373"/>
-<area shape="rect" id="Node000014" href="$embedded_2test__mult__asm_2test__main_8cpp.html#ad79cab2493232b344fbe0e836b4e5c03" title="Performance comparison for unsigned multiplication (multU16x16_to32)" alt="" coords="103,645,362,673"/>
-<area shape="poly" id="edge15_Node000001_Node000014" title=" " alt="" coords="33,368,44,428,58,506,79,582,91,611,105,631,110,636,104,637,101,634,86,614,74,584,53,508,39,429,33,373"/>
-<area shape="rect" id="Node000015" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a7a1be7d11dfdb579b2ad53909fc4ace0" title="Test Q8 format conversion helpers." alt="" coords="159,697,306,742"/>
-<area shape="poly" id="edge16_Node000001_Node000015" title=" " alt="" coords="33,368,42,437,55,531,76,623,90,659,105,683,123,697,147,709,141,710,120,702,101,686,85,661,71,625,50,532,37,438,32,374"/>
-<area shape="rect" id="Node000005" href="$mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="410,321,503,349"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="296,123,332,131,364,148,398,184,423,226,441,269,452,307,447,306,436,271,419,229,394,187,360,152,330,136,298,128"/>
-<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="322,182,363,200,391,223,414,251,446,307,441,307,410,254,387,227,361,204,323,187"/>
-<area shape="poly" id="edge12_Node000011_Node000005" title=" " alt="" coords="311,480,337,471,360,458,386,437,408,411,440,365,444,361,412,415,390,441,364,463,339,476,314,485"/>
-<area shape="poly" id="edge17_Node000015_Node000005" title=" " alt="" coords="306,710,335,700,360,683,376,659,391,625,417,535,437,439,450,366,453,362,442,440,422,536,396,627,381,662,364,686,337,705,307,716"/>
-<area shape="rect" id="Node000016" href="$mult__asm_8h.html#a42f38b6add47a7ce5bb3ec838646a72f" title="Convert Q8 format back to floating&#45;point." alt="" coords="410,705,503,733"/>
-<area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="306,717,397,719,392,719,306,722"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="30,340,37,277,51,188,72,101,85,67,101,44,129,26,164,17,160,21,131,31,105,48,90,70,77,103,56,189,42,278,35,341"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a79005d5a7ff720b94615c9c31ac5e7dc" title="Compare assembly results with standard multiplication." alt="" coords="131,523,334,550"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="33,367,43,398,55,436,75,475,104,508,119,518,114,520,101,512,71,478,50,438,38,400,34,372"/>
+<area shape="rect" id="Node000007" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a28f0e2ea7b3c26680655edccb0ec238e" title="Test edge cases and potential overflow scenarios." alt="" coords="168,281,297,309"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="53,340,102,318,154,305,151,309,104,323,57,343"/>
+<area shape="rect" id="Node000009" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a88117a7e9fb423e23d8958b9fa0837c8" title="Test basic functionality of mult16x8_q8." alt="" coords="143,161,322,189"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="31,341,38,310,50,272,71,232,101,198,130,184,127,188,104,203,75,235,55,274,43,312,36,341"/>
+<area shape="rect" id="Node000010" href="$embedded_2test__mult__asm_2test__main_8cpp.html#ab583126f60b74c69693679be8f2c017b" title="Test rounding behavior of mult16x8_q8." alt="" coords="131,109,334,137"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="29,341,33,302,43,250,65,195,81,170,101,148,119,137,116,142,104,152,85,173,69,197,48,252,38,303,34,341"/>
+<area shape="rect" id="Node000011" href="$embedded_2test__mult__asm_2test__main_8cpp.html#ae06483def99fe9d3eade5b4aac5d9a43" title="Test basic functionality of multS16x16_to32." alt="" coords="149,402,316,447"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="54,366,104,387,136,399,131,402,102,392,56,371"/>
+<area shape="rect" id="Node000012" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a4f13c1f22e2c04ec0483b9ca2cf6f58c" title="Test basic functionality of multU16x16_to32 (unsigned)" alt="" coords="148,626,317,671"/>
+<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="31,367,34,416,43,481,51,516,64,551,82,584,104,612,136,633,131,635,101,616,77,587,59,553,46,518,37,482,29,416,31,372"/>
+<area shape="rect" id="Node000013" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a693f3438716b7b4ef481243837f33cc1" title="Test multU24x16_to32_hi8: (a x b) &gt;&gt; 8, a on 24 bits (energy bucket, #120)" alt="" coords="148,696,317,740"/>
+<area shape="poly" id="edge19_Node000001_Node000013" title=" " alt="" coords="33,367,42,436,55,530,76,622,90,657,105,681,136,703,130,704,101,685,85,660,71,623,50,531,37,437,32,372"/>
+<area shape="rect" id="Node000015" href="$embedded_2test__mult__asm_2test__main_8cpp.html#afe635d3d8214d539d82722e2097430a8" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="153,213,312,258"/>
+<area shape="poly" id="edge21_Node000001_Node000015" title=" " alt="" coords="37,340,63,303,81,284,101,268,139,251,136,255,104,272,84,288,67,307,42,342"/>
+<area shape="rect" id="Node000016" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a421c857707def81da94388948e91c5ce" title="Performance comparison for Q8 fractional multiplication." alt="" coords="118,57,346,85"/>
+<area shape="poly" id="edge25_Node000001_Node000016" title=" " alt="" coords="28,341,28,294,37,228,45,192,59,157,77,124,101,96,108,92,106,96,105,100,81,127,63,159,50,194,42,229,34,294,33,341"/>
+<area shape="rect" id="Node000017" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a61d362737dc4e6078cf74deff55b1ef7" title="Performance comparison between assembly and standard multiplication." alt="" coords="104,471,361,498"/>
+<area shape="poly" id="edge27_Node000001_Node000017" title=" " alt="" coords="37,367,63,413,81,437,104,457,113,463,108,465,101,461,78,441,59,416,37,372"/>
+<area shape="rect" id="Node000018" href="$embedded_2test__mult__asm_2test__main_8cpp.html#ad79cab2493232b344fbe0e836b4e5c03" title="Performance comparison for unsigned multiplication (multU16x16_to32)" alt="" coords="103,575,362,602"/>
+<area shape="poly" id="edge29_Node000001_Node000018" title=" " alt="" coords="32,367,38,408,48,459,69,514,85,539,104,560,111,566,105,567,101,564,81,542,65,516,43,461,33,408,32,372"/>
+<area shape="rect" id="Node000019" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a7a1be7d11dfdb579b2ad53909fc4ace0" title="Test Q8 format conversion helpers." alt="" coords="159,333,306,378"/>
+<area shape="poly" id="edge31_Node000001_Node000019" title=" " alt="" coords="54,353,145,353,141,357,56,357"/>
+<area shape="rect" id="Node000004" href="$group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="439,192,545,220"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="332,526,360,508,382,479,391,451,393,423,390,394,387,364,386,332,392,299,408,264,426,243,451,226,447,230,429,247,412,267,397,301,391,333,392,363,396,393,398,423,397,452,386,482,364,512,335,530"/>
+<area shape="rect" id="Node000005" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="424,411,560,438"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="324,520,361,507,415,478,460,450,464,447,418,483,363,512,326,524"/>
+<area shape="rect" id="Node000006" href="$group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="424,575,561,602"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="305,548,411,571,406,573,305,554"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="296,284,361,267,409,247,456,226,452,229,412,252,363,272,299,288"/>
+<area shape="poly" id="edge9_Node000007_Node000005" title=" " alt="" coords="297,296,332,304,363,318,380,333,389,348,398,363,412,378,447,403,441,403,408,383,393,366,385,350,376,336,361,323,330,309,298,301"/>
+<area shape="rect" id="Node000008" href="$mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="446,277,539,305"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="296,292,432,291,428,294,298,297"/>
+<area shape="poly" id="edge12_Node000009_Node000004" title=" " alt="" coords="322,183,426,196,421,199,323,188"/>
+<area shape="poly" id="edge11_Node000009_Node000008" title=" " alt="" coords="322,185,363,198,462,267,457,269,361,203,323,190"/>
+<area shape="poly" id="edge14_Node000010_Node000004" title=" " alt="" coords="315,135,363,147,451,184,446,186,361,152,317,140"/>
+<area shape="poly" id="edge16_Node000011_Node000005" title=" " alt="" coords="316,422,411,423,407,426,317,427"/>
+<area shape="poly" id="edge18_Node000012_Node000006" title=" " alt="" coords="317,626,416,606,411,607,318,632"/>
+<area shape="rect" id="Node000014" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="410,704,574,732"/>
+<area shape="poly" id="edge20_Node000013_Node000014" title=" " alt="" coords="317,715,397,718,392,718,318,720"/>
+<area shape="poly" id="edge23_Node000015_Node000004" title=" " alt="" coords="311,224,426,212,421,215,314,229"/>
+<area shape="poly" id="edge24_Node000015_Node000005" title=" " alt="" coords="312,242,340,252,364,268,376,281,384,295,390,323,395,351,402,364,412,379,442,403,437,403,408,382,397,367,390,352,385,324,379,297,372,285,360,272,337,257,313,247"/>
+<area shape="poly" id="edge22_Node000015_Node000008" title=" " alt="" coords="312,250,432,277,428,279,313,255"/>
+<area shape="poly" id="edge26_Node000016_Node000004" title=" " alt="" coords="329,83,363,95,394,114,423,135,470,180,465,181,420,139,391,118,361,100,331,88"/>
+<area shape="poly" id="edge28_Node000017_Node000005" title=" " alt="" coords="310,468,361,457,428,442,424,444,363,462,313,472"/>
+<area shape="poly" id="edge30_Node000018_Node000006" title=" " alt="" coords="362,586,410,588,405,589,363,591"/>
+<area shape="poly" id="edge32_Node000019_Node000008" title=" " alt="" coords="305,335,432,305,428,308,308,339"/>
+<area shape="rect" id="Node000020" href="$mult__asm_8h.html#a42f38b6add47a7ce5bb3ec838646a72f" title="Convert Q8 format back to floating&#45;point." alt="" coords="446,341,539,369"/>
+<area shape="poly" id="edge33_Node000019_Node000020" title=" " alt="" coords="306,353,432,354,428,357,307,358"/>
 </map>

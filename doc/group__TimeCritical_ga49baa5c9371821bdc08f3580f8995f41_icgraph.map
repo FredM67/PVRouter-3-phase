@@ -1,0 +1,22 @@
+<map id="mult16x8_q8" name="mult16x8_q8">
+<area shape="rect" id="Node000001" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="379,136,485,164"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a79005d5a7ff720b94615c9c31ac5e7dc" title="Compare assembly results with standard multiplication." alt="" coords="116,5,318,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="410,123,376,85,354,65,330,48,303,36,303,31,332,44,357,61,379,81,415,123"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a28f0e2ea7b3c26680655edccb0ec238e" title="Test edge cases and potential overflow scenarios." alt="" coords="152,57,282,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="392,128,330,100,282,86,281,81,332,95,397,128"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a88117a7e9fb423e23d8958b9fa0837c8" title="Test basic functionality of mult16x8_q8." alt="" coords="127,109,306,137"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="361,142,307,137,307,132,367,141"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__mult__asm_2test__main_8cpp.html#ab583126f60b74c69693679be8f2c017b" title="Test rounding behavior of mult16x8_q8." alt="" coords="116,161,318,189"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="361,159,319,166,318,161,366,157"/>
+<area shape="rect" id="Node000007" href="$embedded_2test__mult__asm_2test__main_8cpp.html#afe635d3d8214d539d82722e2097430a8" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="137,213,296,258"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="395,170,332,203,298,215,296,210,330,198,390,172"/>
+<area shape="rect" id="Node000008" href="$embedded_2test__mult__asm_2test__main_8cpp.html#a421c857707def81da94388948e91c5ce" title="Performance comparison for Q8 fractional multiplication." alt="" coords="103,281,331,309"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="418,176,383,227,359,252,332,272,309,283,307,278,330,268,356,248,379,224,413,179"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__mult__asm_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,136,55,164"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,42,104,48,82,68,63,92,40,137,35,135,59,89,78,65,101,44,114,38"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="135,87,104,100,74,118,49,137,45,134,71,114,102,95,139,83"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="110,140,57,149,54,144,114,136"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="98,161,56,156,54,151,102,158"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="120,210,101,203,71,185,48,167,48,161,74,180,104,198,125,208"/>
+<area shape="poly" id="edge12_Node000008_Node000003" title=" " alt="" coords="106,274,101,272,76,247,56,218,35,167,37,162,61,215,80,244,104,268,112,274"/>
+</map>

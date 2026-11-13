@@ -1,0 +1,5 @@
+<map id="test_multS16x16_to32_basic" name="test_multS16x16_to32_basic">
+<area shape="rect" id="Node000001" title="Test basic functionality of multS16x16_to32." alt="" coords="5,5,173,50"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="221,14,356,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,25,208,27,202,28,173,30"/>
+</map>

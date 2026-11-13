@@ -1,22 +1,24 @@
 <map id="test_vrms_is_faster_than_the_float_code" name="test_vrms_is_faster_than_the_float_code">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,101,165,146"/>
 <area shape="rect" id="Node000002" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="239,5,300,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,98,211,44,228,38,223,41,214,48,123,102"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,98,211,44,227,38,223,41,214,48,123,102"/>
 <area shape="rect" id="Node000005" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8f8db11a49383eeae3eeb265450c9ff9" title=" " alt="" coords="228,57,310,85"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="164,98,215,85,211,88,166,103"/>
 <area shape="rect" id="Node000006" href="$native_2test__energy__bucket_2test__main_8cpp.html#a6daf045ca0cf4c7885ee70a055efcbf0" title="The float arithmetic being replaced, in bucket units." alt="" coords="228,109,311,137"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="164,121,215,122,210,124,166,126"/>
 <area shape="rect" id="Node000007" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="239,161,300,189"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="165,143,227,162,222,163,165,148"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="165,143,227,162,222,164,165,148"/>
 <area shape="rect" id="Node000008" href="$namespaceDatalog.html#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase." alt="" coords="213,213,326,241"/>
 <area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="122,144,214,198,226,206,220,206,211,203,121,149"/>
-<area shape="rect" id="Node000003" href="$structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="386,109,511,137"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,30,327,44,416,100,411,101,325,48,300,35"/>
+<area shape="rect" id="Node000003" href="$structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="386,96,511,124"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="300,30,327,43,410,88,405,89,325,48,300,36"/>
 <area shape="rect" id="Node000004" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="396,5,500,33"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="300,17,384,18,379,20,301,22"/>
-<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="299,164,381,143,386,141,301,169"/>
-<area shape="rect" id="Node000009" href="$namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="374,213,522,241"/>
-<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="326,225,361,227,356,227,326,230"/>
-<area shape="rect" id="Node000010" href="$namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="570,213,725,241"/>
-<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="523,225,558,227,552,227,523,230"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="299,17,384,18,379,20,301,22"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="299,162,391,130,396,129,301,167"/>
+<area shape="rect" id="Node000009" href="$group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="380,187,517,214"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="326,216,362,213,367,213,327,221"/>
+<area shape="rect" id="Node000010" href="$namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="374,239,522,266"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="327,233,361,240,356,240,326,238"/>
+<area shape="rect" id="Node000011" href="$namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="570,239,725,266"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="523,250,558,252,552,253,523,255"/>
 </map>

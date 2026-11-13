@@ -1,9 +1,15 @@
 <map id="test_teleinfo_edge_values" name="test_teleinfo_edge_values">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,148,50"/>
-<area shape="rect" id="Node000002" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="196,14,307,42"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,25,183,27,177,28,148,30"/>
-<area shape="rect" id="Node000003" href="$classTeleInfo.html#a83f6500622fefb17eef340037510392e" title="Writes a whole line: line feed, tag, value, checksum and carriage return." alt="" coords="355,14,495,42"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="307,25,342,28,337,28,307,30"/>
-<area shape="rect" id="Node000004" href="$classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="543,14,751,42"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="496,25,530,28,525,28,496,30"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,148,94"/>
+<area shape="rect" id="Node000002" href="$classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character." alt="" coords="199,5,344,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,50,205,36,200,39,149,55"/>
+<area shape="rect" id="Node000003" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="216,57,327,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="148,69,203,70,198,72,149,74"/>
+<area shape="rect" id="Node000007" href="$classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="196,109,347,137"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="149,88,205,104,200,105,148,93"/>
+<area shape="rect" id="Node000004" href="$classTeleInfo.html#a83f6500622fefb17eef340037510392e" title="Writes a whole line: line feed, tag, value, checksum and carriage return." alt="" coords="395,57,535,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="327,69,382,71,377,71,328,74"/>
+<area shape="rect" id="Node000005" href="$classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="583,31,791,58"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="536,60,570,58,565,59,536,65"/>
+<area shape="rect" id="Node000006" href="$classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="619,83,755,110"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="536,77,607,87,601,87,536,82"/>
 </map>

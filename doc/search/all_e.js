@@ -35,5 +35,9 @@ var searchData=
   ['mk2_5f3phase_5frfdatalog_5ftemp_2eino_32',['Mk2_3phase_RFdatalog_temp.ino',['../Mk2__3phase__RFdatalog__temp_8ino.html',1,'']]],
   ['movingavg_33',['movingAvg',['../classmovingAvg.html',1,'']]],
   ['movingavg_2eh_34',['movingAvg.h',['../movingAvg_8h.html',1,'']]],
-  ['mult_5fasm_2eh_35',['mult_asm.h',['../mult__asm_8h.html',1,'']]]
+  ['mult16x8_5fq8_35',['mult16x8_q8',['../group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41',1,'mult_asm.h']]],
+  ['mult_5fasm_2eh_36',['mult_asm.h',['../mult__asm_8h.html',1,'']]],
+  ['mults16x16_5fto32_37',['multS16x16_to32',['../group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c',1,'mult_asm.h']]],
+  ['multu16x16_5fto32_38',['multU16x16_to32',['../group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320',1,'mult_asm.h']]],
+  ['multu24x16_5fto32_5fhi8_39',['multU24x16_to32_hi8',['../group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8',1,'mult_asm.h']]]
 ];

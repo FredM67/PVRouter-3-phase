@@ -1,0 +1,9 @@
+<map id="test_assembly_vs_standard" name="test_assembly_vs_standard">
+<area shape="rect" id="Node000001" title="Compare assembly results with standard multiplication." alt="" coords="5,57,208,85"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="271,5,378,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,54,258,34,254,37,169,59"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="257,57,392,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,69,244,71,239,72,208,74"/>
+<area shape="rect" id="Node000004" href="$group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="256,109,393,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="168,83,251,104,246,106,168,88"/>
+</map>

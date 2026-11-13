@@ -308,7 +308,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:gac599ad38730b3cb0276687ba6cbfaf1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the output pins configuration.  <br /></td></tr>
 <tr class="separator:gac599ad38730b3cb0276687ba6cbfaf1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2d9a6fb1fe26a80cf146d1bf115ab5ac" id="r_ga2d9a6fb1fe26a80cf146d1bf115ab5ac"><td class="memTemplParams" colspan="2">template&lt;typename T, size_t N&gt; </td></tr>
-<tr class="memitem:ga2d9a6fb1fe26a80cf146d1bf115ab5ac"><td class="memTemplItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Initialization.html#ga2d9a6fb1fe26a80cf146d1bf115ab5ac">initializeArray</a> (T(&amp;array)[N], T <a class="el" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a>)</td></tr>
+<tr class="memitem:ga2d9a6fb1fe26a80cf146d1bf115ab5ac"><td class="memTemplItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__Initialization.html#ga2d9a6fb1fe26a80cf146d1bf115ab5ac">initializeArray</a> (T(&amp;array)[N], T value)</td></tr>
 <tr class="memdesc:ga2d9a6fb1fe26a80cf146d1bf115ab5ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes all elements of a given array to a specified value.  <br /></td></tr>
 <tr class="separator:ga2d9a6fb1fe26a80cf146d1bf115ab5ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadeeaa08a0a50d8535fdf2c8a92d4aebc" id="r_gadeeaa08a0a50d8535fdf2c8a92d4aebc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc">initializeProcessing</a> ()</td></tr>
@@ -325,9 +325,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gabfb25288a79335282af6922e833d3c35" id="r_gabfb25288a79335282af6922e833d3c35"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35">nextLogicalLoadToBeRemoved</a> ()</td></tr>
 <tr class="memdesc:gabfb25288a79335282af6922e833d3c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve the next logical load that could be removed (in reverse order).  <br /></td></tr>
 <tr class="separator:gabfb25288a79335282af6922e833d3c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2b3b1d496e37e5f29af6a766743dc8b" id="r_aa2b3b1d496e37e5f29af6a766743dc8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2b3b1d496e37e5f29af6a766743dc8b">printParamsForSelectedOutputMode</a> ()</td></tr>
-<tr class="memdesc:aa2b3b1d496e37e5f29af6a766743dc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the settings used for the selected output mode.  <br /></td></tr>
-<tr class="separator:aa2b3b1d496e37e5f29af6a766743dc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa2b3b1d496e37e5f29af6a766743dc8b" id="r_gaa2b3b1d496e37e5f29af6a766743dc8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b">printParamsForSelectedOutputMode</a> ()</td></tr>
+<tr class="memdesc:gaa2b3b1d496e37e5f29af6a766743dc8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the settings used for the selected output mode.  <br /></td></tr>
+<tr class="separator:gaa2b3b1d496e37e5f29af6a766743dc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaef29df3a6c44ea8477b816cbdf3005f3" id="r_gaef29df3a6c44ea8477b816cbdf3005f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3">proceedHighEnergyLevel</a> ()</td></tr>
 <tr class="memdesc:gaef29df3a6c44ea8477b816cbdf3005f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the case when the energy level is high, potentially adding a load.  <br /></td></tr>
 <tr class="separator:gaef29df3a6c44ea8477b816cbdf3005f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -537,110 +537,65 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="processing_8cpp_a05c2e5b588ced1cd7312f5b0edc5b295_cgraph.png" border="0" usemap="#aprocessing_8cpp_a05c2e5b588ced1cd7312f5b0edc5b295_cgraph" alt=""/></div>
 <map name="aprocessing_8cpp_a05c2e5b588ced1cd7312f5b0edc5b295_cgraph" id="aprocessing_8cpp_a05c2e5b588ced1cd7312f5b0edc5b295_cgraph">
-<area shape="rect" title=" " alt="" coords="5,59,48,86"/>
-<area shape="rect" href="group__TimeCritical.html#gabaad87b294f3321a64479a46d8a0eeed" title="Processes the current raw sample for the specified phase." alt="" coords="96,32,292,60"/>
-<area shape="poly" title=" " alt="" coords="46,67,90,61,87,65,50,71"/>
-<area shape="rect" href="group__TimeCritical.html#gac1f07cd36657d61affe4642911ad27c1" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,84,293,112"/>
-<area shape="poly" title=" " alt="" coords="47,73,86,79,82,83,50,78"/>
-<area shape="rect" href="group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542" title="Confirms the polarity of the current voltage sample for a specific phase." alt="" coords="358,5,479,33"/>
-<area shape="poly" title=" " alt="" coords="255,81,292,69,340,43,361,37,356,40,342,48,294,74,258,86"/>
-<area shape="rect" href="group__TimeCritical.html#ga91e51a26522ae3a0b6d7cc70e4bcb4e9" title="Processes the polarity of the current voltage sample for a specific phase." alt="" coords="358,57,479,85"/>
-<area shape="poly" title=" " alt="" coords="292,84,345,79,341,82,295,88"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="341,109,496,137"/>
-<area shape="poly" title=" " alt="" coords="293,107,328,112,323,114,294,112"/>
-<area shape="rect" href="group__TimeCritical.html#gaed3b88c01657f322f7b985574a3427fd" title="Processes the current voltage sample for the specified phase." alt="" coords="358,161,479,189"/>
-<area shape="poly" title=" " alt="" coords="237,110,364,155,359,157,237,115"/>
-<area shape="rect" href="group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf" title="Processes the start of a new negative half cycle for the specified phase." alt="" coords="544,19,718,46"/>
-<area shape="poly" title=" " alt="" coords="468,106,495,94,519,76,543,57,562,51,557,54,546,61,522,80,498,99,470,111"/>
-<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="550,71,712,98"/>
-<area shape="poly" title=" " alt="" coords="496,107,539,101,534,103,498,111"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,148,715,176"/>
-<area shape="poly" title=" " alt="" coords="496,135,539,144,534,145,497,140"/>
-<area shape="rect" href="group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Processes the startup period for the router." alt="" coords="571,200,691,228"/>
-<area shape="poly" title=" " alt="" coords="469,135,498,148,522,167,546,185,562,194,557,194,543,189,519,171,495,152,469,140"/>
-<area shape="rect" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process data logging at the end of each logging period." alt="" coords="785,5,938,33"/>
-<area shape="poly" title=" " alt="" coords="681,68,765,43,796,37,792,39,766,48,683,73"/>
-<area shape="rect" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase&#45;specific new cycle." alt="" coords="766,57,958,85"/>
-<area shape="poly" title=" " alt="" coords="711,77,753,77,748,78,713,82"/>
-<area shape="rect" href="namespaceEnergy.html#a5c6a3eeab8203be8c21f0dcd70f1b1c0" title="Contribution of one mains cycle of one phase to the bucket." alt="" coords="1040,5,1192,33"/>
-<area shape="poly" title=" " alt="" coords="932,54,1033,36,1028,38,934,59"/>
-<area shape="rect" href="namespaceEnergy.html#aeae61ea16953d9d9b692f8bb2c8b5f6a" title="A power in watts, in bucket units per mains cycle." alt="" coords="1046,57,1187,85"/>
-<area shape="poly" title=" " alt="" coords="957,69,1033,71,1027,72,958,74"/>
-<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="770,109,954,137"/>
-<area shape="poly" title=" " alt="" coords="714,145,763,139,758,141,715,150"/>
-<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="772,161,952,189"/>
-<area shape="poly" title=" " alt="" coords="714,164,759,169,754,170,715,169"/>
-<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="766,239,958,266"/>
-<area shape="poly" title=" " alt="" coords="682,174,719,186,820,232,815,232,717,191,682,179"/>
-<area shape="rect" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="792,365,932,393"/>
-<area shape="poly" title=" " alt="" coords="698,174,719,186,738,208,747,229,754,251,768,276,802,318,836,355,831,354,798,321,763,279,750,254,742,231,734,211,716,191,697,179"/>
-<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="1016,109,1216,137"/>
-<area shape="poly" title=" " alt="" coords="954,121,1004,123,998,124,954,126"/>
-<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="1006,161,1226,189"/>
-<area shape="poly" title=" " alt="" coords="951,173,993,175,988,176,952,178"/>
-<area shape="rect" href="namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="1274,263,1380,290"/>
-<area shape="poly" title=" " alt="" coords="958,243,1086,240,1157,242,1227,249,1267,258,1262,258,1226,254,1157,248,1086,245,959,248"/>
-<area shape="rect" href="namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="1068,315,1164,342"/>
-<area shape="poly" title=" " alt="" coords="902,264,1007,299,1056,315,1051,314,1005,304,901,270"/>
-<area shape="rect" href="namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="1039,263,1193,290"/>
-<area shape="poly" title=" " alt="" coords="958,259,1026,268,1021,268,958,264"/>
-<area shape="poly" title=" " alt="" coords="1194,274,1261,276,1256,277,1194,279"/>
-<area shape="poly" title=" " alt="" coords="933,383,997,386,1071,383,1150,373,1225,351,1267,328,1300,302,1305,300,1270,332,1227,356,1151,378,1072,388,997,391,933,389"/>
-<area shape="poly" title=" " alt="" coords="932,363,1050,341,1056,341,933,368"/>
-<area shape="rect" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="1069,416,1163,444"/>
-<area shape="poly" title=" " alt="" coords="933,390,1056,418,1051,417,932,396"/>
-<area shape="rect" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="1072,468,1160,496"/>
-<area shape="poly" title=" " alt="" coords="886,391,941,422,1007,453,1060,471,1054,470,1005,458,938,427,885,396"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aa2b3b1d496e37e5f29af6a766743dc8b" name="aa2b3b1d496e37e5f29af6a766743dc8b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2b3b1d496e37e5f29af6a766743dc8b">&#9670;&#160;</a></span>printParamsForSelectedOutputMode()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void printParamsForSelectedOutputMode </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Print the settings used for the selected output mode. </p>
-<p>This function displays the relevant configuration parameters for the currently selected output mode. It provides details about the energy bucket capacity, thresholds, and mode-specific settings.</p>
-<ul>
-<li>For the "normal" mode, it displays the energy bucket capacity and thresholds.</li>
-<li>For the "anti-flicker" mode, it also displays the offset of energy thresholds. </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l01207">1207</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="processing_8cpp_aa2b3b1d496e37e5f29af6a766743dc8b_cgraph.png" border="0" usemap="#aprocessing_8cpp_aa2b3b1d496e37e5f29af6a766743dc8b_cgraph" alt=""/></div>
-<map name="aprocessing_8cpp_aa2b3b1d496e37e5f29af6a766743dc8b_cgraph" id="aprocessing_8cpp_aa2b3b1d496e37e5f29af6a766743dc8b_cgraph">
-<area shape="rect" title="Print the settings used for the selected output mode." alt="" coords="5,32,261,60"/>
-<area shape="rect" href="debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="341,5,460,33"/>
-<area shape="poly" title=" " alt="" coords="261,30,328,26,323,27,261,36"/>
-<area shape="rect" href="namespaceSerialOutput.html#a92c5012053b5fe0d463a87a06be6fe40" title="A float constant as an integer with the given number of decimals, rounded." alt="" coords="309,57,493,85"/>
-<area shape="poly" title=" " alt="" coords="261,55,296,61,290,61,261,61"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="processing_8cpp_aa2b3b1d496e37e5f29af6a766743dc8b_icgraph.png" border="0" usemap="#aprocessing_8cpp_aa2b3b1d496e37e5f29af6a766743dc8b_icgraph" alt=""/></div>
-<map name="aprocessing_8cpp_aa2b3b1d496e37e5f29af6a766743dc8b_icgraph" id="aprocessing_8cpp_aa2b3b1d496e37e5f29af6a766743dc8b_icgraph">
-<area shape="rect" title="Print the settings used for the selected output mode." alt="" coords="297,5,552,33"/>
-<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="111,5,249,33"/>
-<area shape="poly" title=" " alt="" coords="279,19,249,22,249,17,284,19"/>
-<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,63,33"/>
-<area shape="poly" title=" " alt="" coords="92,20,63,22,63,17,98,19"/>
+<area shape="rect" title=" " alt="" coords="5,71,48,98"/>
+<area shape="rect" href="group__TimeCritical.html#gabaad87b294f3321a64479a46d8a0eeed" title="Processes the current raw sample for the specified phase." alt="" coords="96,19,292,46"/>
+<area shape="poly" title=" " alt="" coords="46,76,134,49,131,54,50,80"/>
+<area shape="rect" href="group__TimeCritical.html#gac1f07cd36657d61affe4642911ad27c1" title="Processes the current voltage raw sample for the specified phase." alt="" coords="96,96,293,124"/>
+<area shape="poly" title=" " alt="" coords="47,85,86,91,82,95,50,90"/>
+<area shape="rect" href="group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="563,5,699,33"/>
+<area shape="poly" title=" " alt="" coords="292,27,550,20,546,24,294,32"/>
+<area shape="rect" href="group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542" title="Confirms the polarity of the current voltage sample for a specific phase." alt="" coords="358,44,479,72"/>
+<area shape="poly" title=" " alt="" coords="256,93,346,73,342,77,259,98"/>
+<area shape="rect" href="group__TimeCritical.html#ga91e51a26522ae3a0b6d7cc70e4bcb4e9" title="Processes the polarity of the current voltage sample for a specific phase." alt="" coords="358,96,479,124"/>
+<area shape="poly" title=" " alt="" coords="292,107,345,108,340,111,295,112"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="341,200,496,228"/>
+<area shape="poly" title=" " alt="" coords="219,122,276,152,342,185,361,194,356,195,340,190,273,157,220,127"/>
+<area shape="rect" href="group__TimeCritical.html#gaed3b88c01657f322f7b985574a3427fd" title="Processes the current voltage sample for the specified phase." alt="" coords="358,148,479,176"/>
+<area shape="poly" title=" " alt="" coords="257,122,346,143,341,146,258,127"/>
+<area shape="rect" href="group__TimeCritical.html#ga7449a97209a4b56151de6fc5197a9daf" title="Processes the start of a new negative half cycle for the specified phase." alt="" coords="544,83,718,110"/>
+<area shape="poly" title=" " alt="" coords="473,197,495,185,510,170,518,154,526,137,543,121,556,116,551,119,546,125,531,140,523,156,514,173,498,189,476,202"/>
+<area shape="rect" href="group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="550,135,712,162"/>
+<area shape="poly" title=" " alt="" coords="465,197,571,166,567,169,468,202"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="547,200,715,228"/>
+<area shape="poly" title=" " alt="" coords="496,211,534,213,529,215,498,216"/>
+<area shape="rect" href="group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Processes the startup period for the router." alt="" coords="571,252,691,280"/>
+<area shape="poly" title=" " alt="" coords="478,226,559,247,554,248,479,231"/>
+<area shape="rect" href="group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process data logging at the end of each logging period." alt="" coords="785,63,938,90"/>
+<area shape="poly" title=" " alt="" coords="679,132,717,119,765,101,794,94,789,96,767,106,719,124,681,137"/>
+<area shape="rect" href="group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase&#45;specific new cycle." alt="" coords="766,115,958,142"/>
+<area shape="poly" title=" " alt="" coords="711,139,753,137,748,139,713,144"/>
+<area shape="rect" href="namespaceEnergy.html#a5c6a3eeab8203be8c21f0dcd70f1b1c0" title="Contribution of one mains cycle of one phase to the bucket." alt="" coords="1040,63,1192,90"/>
+<area shape="poly" title=" " alt="" coords="932,111,1033,93,1028,95,934,117"/>
+<area shape="rect" href="namespaceEnergy.html#aeae61ea16953d9d9b692f8bb2c8b5f6a" title="A power in watts, in bucket units per mains cycle." alt="" coords="1046,115,1187,142"/>
+<area shape="poly" title=" " alt="" coords="957,126,1033,128,1027,129,958,131"/>
+<area shape="rect" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="1274,63,1439,90"/>
+<area shape="poly" title=" " alt="" coords="1192,74,1261,76,1256,77,1193,79"/>
+<area shape="rect" href="group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="770,167,954,194"/>
+<area shape="poly" title=" " alt="" coords="714,199,757,195,752,197,715,204"/>
+<area shape="rect" href="group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="772,219,952,246"/>
+<area shape="poly" title=" " alt="" coords="714,218,759,223,754,225,715,223"/>
+<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="766,296,958,324"/>
+<area shape="poly" title=" " alt="" coords="683,226,719,238,824,288,818,289,717,243,683,231"/>
+<area shape="rect" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="792,423,932,450"/>
+<area shape="poly" title=" " alt="" coords="698,226,719,238,739,261,748,284,754,307,768,334,802,375,836,413,831,411,798,379,763,337,749,309,742,286,734,264,716,243,698,231"/>
+<area shape="rect" href="group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="1016,167,1216,194"/>
+<area shape="poly" title=" " alt="" coords="954,178,1004,180,998,181,954,183"/>
+<area shape="rect" href="group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="1006,219,1226,246"/>
+<area shape="poly" title=" " alt="" coords="951,230,993,232,988,233,952,235"/>
+<area shape="rect" href="namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="1304,320,1409,348"/>
+<area shape="poly" title=" " alt="" coords="958,302,1086,299,1227,306,1291,318,1286,318,1226,311,1086,305,959,307"/>
+<area shape="rect" href="namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="1068,372,1164,400"/>
+<area shape="poly" title=" " alt="" coords="902,322,1007,357,1056,372,1051,372,1005,362,901,327"/>
+<area shape="rect" href="namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="1039,320,1193,348"/>
+<area shape="poly" title=" " alt="" coords="958,316,1026,325,1021,325,958,322"/>
+<area shape="poly" title=" " alt="" coords="1193,331,1291,334,1285,334,1194,336"/>
+<area shape="poly" title=" " alt="" coords="932,438,996,439,1070,436,1149,427,1225,409,1279,384,1323,358,1328,356,1282,389,1227,414,1150,432,1071,441,996,445,933,444"/>
+<area shape="poly" title=" " alt="" coords="932,420,1050,399,1056,398,933,425"/>
+<area shape="rect" href="utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="1069,473,1163,501"/>
+<area shape="poly" title=" " alt="" coords="933,448,1056,475,1051,475,932,453"/>
+<area shape="rect" href="utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="1072,525,1160,553"/>
+<area shape="poly" title=" " alt="" coords="886,448,941,479,1007,510,1060,528,1054,527,1005,515,938,484,885,453"/>
+<area shape="poly" title=" " alt="" coords="473,145,495,133,510,118,519,103,528,87,543,69,589,39,585,43,546,73,532,90,524,106,514,121,498,137,476,150"/>
 </map>
 </div>
 

@@ -1,0 +1,5 @@
+<map id="Datalog::watts" name="Datalog::watts">
+<area shape="rect" id="Node000001" title="The average power of a phase, in watts." alt="" coords="5,5,122,33"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="170,5,334,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,17,157,19,152,19,122,22"/>
+</map>

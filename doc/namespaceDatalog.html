@@ -105,7 +105,7 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5c242aed104cfb700b6fc57675ae10b9" id="r_a5c242aed104cfb700b6fc57675ae10b9"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c242aed104cfb700b6fc57675ae10b9">isqrt</a> (const uint32_t <a class="el" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a>)</td></tr>
+<tr class="memitem:a5c242aed104cfb700b6fc57675ae10b9" id="r_a5c242aed104cfb700b6fc57675ae10b9"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c242aed104cfb700b6fc57675ae10b9">isqrt</a> (const uint32_t value)</td></tr>
 <tr class="memdesc:a5c242aed104cfb700b6fc57675ae10b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer square root, rounded to the nearest integer.  <br /></td></tr>
 <tr class="separator:a5c242aed104cfb700b6fc57675ae10b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a976dddd63a52b0e01e42b764fb416928" id="r_a976dddd63a52b0e01e42b764fb416928"><td class="memTemplParams" colspan="2">template&lt;uint8_t N&gt; </td></tr>
@@ -120,7 +120,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:afd0552388cd9274ac59cb71b8d460df0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The square root of a mean square, with as many fractional bits as fit.  <br /></td></tr>
 <tr class="separator:afd0552388cd9274ac59cb71b8d460df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c37cce8c19e81c1cb2f1f7e95237446" id="r_a2c37cce8c19e81c1cb2f1f7e95237446"><td class="memTemplParams" colspan="2">template&lt;bool Normalise&gt; </td></tr>
-<tr class="memitem:a2c37cce8c19e81c1cb2f1f7e95237446"><td class="memTemplItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a2c37cce8c19e81c1cb2f1f7e95237446">squareRoot</a> (uint32_t <a class="el" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a>, uint8_t &amp;fractionBits)</td></tr>
+<tr class="memitem:a2c37cce8c19e81c1cb2f1f7e95237446"><td class="memTemplItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a2c37cce8c19e81c1cb2f1f7e95237446">squareRoot</a> (uint32_t value, uint8_t &amp;fractionBits)</td></tr>
 <tr class="memdesc:a2c37cce8c19e81c1cb2f1f7e95237446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Square root, rounded to the nearest integer, of the value or of the value normalised.  <br /></td></tr>
 <tr class="separator:a2c37cce8c19e81c1cb2f1f7e95237446"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05836e3079ae85aebb1cf019c3fe4d4c" id="r_a05836e3079ae85aebb1cf019c3fe4d4c"><td class="memTemplParams" colspan="2">template&lt;uint8_t N&gt; </td></tr>
@@ -844,11 +844,13 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceDatalog_af8ed1ad7ceb8ed44e3efa7b6353327a8_cgraph.png" border="0" usemap="#anamespaceDatalog_af8ed1ad7ceb8ed44e3efa7b6353327a8_cgraph" alt=""/></div>
 <map name="anamespaceDatalog_af8ed1ad7ceb8ed44e3efa7b6353327a8_cgraph" id="anamespaceDatalog_af8ed1ad7ceb8ed44e3efa7b6353327a8_cgraph">
-<area shape="rect" title="The RMS voltage of a phase." alt="" coords="5,5,119,33"/>
-<area shape="rect" href="namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="167,5,315,33"/>
-<area shape="poly" title=" " alt="" coords="119,17,153,19,148,19,119,22"/>
-<area shape="rect" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="363,5,517,33"/>
-<area shape="poly" title=" " alt="" coords="315,17,350,19,345,19,315,22"/>
+<area shape="rect" title="The RMS voltage of a phase." alt="" coords="5,32,119,60"/>
+<area shape="rect" href="group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="172,5,310,33"/>
+<area shape="poly" title=" " alt="" coords="118,35,159,31,154,33,120,40"/>
+<area shape="rect" href="namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="167,57,315,85"/>
+<area shape="poly" title=" " alt="" coords="119,51,154,58,149,59,119,57"/>
+<area shape="rect" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="363,57,517,85"/>
+<area shape="poly" title=" " alt="" coords="315,69,350,71,345,71,315,74"/>
 </map>
 </div>
 <div class="dynheader">
@@ -988,6 +990,16 @@ Here is the caller graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>averagePower x f_powerCal, rounded half away from zero, saturated to +-32767 W. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00044">44</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceDatalog_a47c7340a7476be8d077ce05dc1043aaf_cgraph.png" border="0" usemap="#anamespaceDatalog_a47c7340a7476be8d077ce05dc1043aaf_cgraph" alt=""/></div>
+<map name="anamespaceDatalog_a47c7340a7476be8d077ce05dc1043aaf_cgraph" id="anamespaceDatalog_a47c7340a7476be8d077ce05dc1043aaf_cgraph">
+<area shape="rect" title="The average power of a phase, in watts." alt="" coords="5,5,122,33"/>
+<area shape="rect" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="170,5,334,33"/>
+<area shape="poly" title=" " alt="" coords="122,17,157,19,152,19,122,22"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

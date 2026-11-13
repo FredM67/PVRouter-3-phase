@@ -1,7 +1,15 @@
 <map id="isDiversionEnabled" name="isDiversionEnabled">
-<area shape="rect" id="Node000001" title="Reads the diversion pin." alt="" coords="5,5,152,33"/>
+<area shape="rect" id="Node000001" title="Reads the diversion pin." alt="" coords="5,32,152,60"/>
 <area shape="rect" id="Node000002" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="200,5,296,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,17,187,19,182,19,152,22"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,32,187,28,182,30,153,37"/>
+<area shape="rect" id="Node000004" href="$debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="211,57,284,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="152,54,199,63,193,64,152,59"/>
 <area shape="rect" id="Node000003" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="344,5,418,33"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="296,17,331,19,326,19,296,22"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="296,17,331,19,326,19,297,22"/>
+<area shape="rect" id="Node000005" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="352,57,410,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="285,69,339,71,334,71,285,74"/>
+<area shape="rect" id="Node000006" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="466,57,638,85"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="411,69,453,71,448,71,411,74"/>
+<area shape="rect" id="Node000007" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="686,57,846,85"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="638,69,673,71,668,71,638,74"/>
 </map>

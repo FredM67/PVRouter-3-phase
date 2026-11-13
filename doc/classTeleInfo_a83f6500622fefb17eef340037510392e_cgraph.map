@@ -1,5 +1,7 @@
 <map id="TeleInfo::writeLine" name="TeleInfo::writeLine">
-<area shape="rect" id="Node000001" title="Writes a whole line: line feed, tag, value, checksum and carriage return." alt="" coords="5,5,146,33"/>
+<area shape="rect" id="Node000001" title="Writes a whole line: line feed, tag, value, checksum and carriage return." alt="" coords="5,32,146,60"/>
 <area shape="rect" id="Node000002" href="$classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="194,5,401,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,17,180,19,175,19,146,22"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,35,181,33,176,34,147,40"/>
+<area shape="rect" id="Node000003" href="$classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="230,57,365,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="146,51,217,61,212,62,146,57"/>
 </map>

@@ -1,0 +1,16 @@
+<map id="logLoadPriorities" name="logLoadPriorities">
+<area shape="rect" id="Node000001" title="Prints the load priorities to the Serial output." alt="" coords="5,32,136,60"/>
+<area shape="rect" id="Node000002" href="$debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="190,5,251,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,32,177,26,172,28,137,37"/>
+<area shape="rect" id="Node000006" href="$debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="184,57,257,85"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="136,54,171,62,166,63,136,60"/>
+<area shape="rect" id="Node000003" href="$debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="311,5,357,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="251,17,298,19,293,20,252,22"/>
+<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="411,32,583,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="358,20,398,29,393,29,358,26"/>
+<area shape="rect" id="Node000005" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="631,32,791,60"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="583,43,618,46,613,46,583,48"/>
+<area shape="rect" id="Node000007" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="305,57,363,85"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="257,69,292,71,287,71,258,74"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="363,64,393,62,399,61,364,69"/>
+</map>

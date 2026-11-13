@@ -1,7 +1,9 @@
 <map id="test_voltage_accumulation" name="test_voltage_accumulation">
-<area shape="rect" id="Node000001" title="Generic test function for voltage accumulation with different parameters." alt="" coords="5,32,203,60"/>
-<area shape="rect" id="Node000002" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#a75a5aa469078dc25a3b398daf64b6e87" title="Print a 64&#45;bit value on AVR, where Serial.print() tops out at 32 bits." alt="" coords="265,5,342,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,30,252,26,247,27,203,35"/>
-<area shape="rect" id="Node000003" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#aba3cb8dacee881be847bf6da66d8d71a" title=" " alt="" coords="251,57,357,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,56,238,62,232,63,203,61"/>
+<area shape="rect" id="Node000001" title="Generic test function for voltage accumulation with different parameters." alt="" coords="5,57,203,85"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="251,5,386,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,54,246,36,241,38,165,59"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#a75a5aa469078dc25a3b398daf64b6e87" title="Print a 64&#45;bit value on AVR, where Serial.print() tops out at 32 bits." alt="" coords="280,57,357,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,69,267,71,262,72,203,74"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#aba3cb8dacee881be847bf6da66d8d71a" title=" " alt="" coords="265,109,372,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,83,253,106,247,107,164,88"/>
 </map>

@@ -86,7 +86,8 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">Temperature sensing feature</div></div>
 </div><!--header-->
 <div class="contents">
@@ -108,6 +109,12 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga89c7e0a0d9d1ce58b1583f591701d2c4" id="r_ga89c7e0a0d9d1ce58b1583f591701d2c4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga89c7e0a0d9d1ce58b1583f591701d2c4">TemperatureSensing&lt; N &gt;::ScratchPad</a> = uint8_t[9]</td></tr>
 <tr class="memdesc:ga89c7e0a0d9d1ce58b1583f591701d2c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a buffer for storing sensor data.  <br /></td></tr>
 <tr class="separator:ga89c7e0a0d9d1ce58b1583f591701d2c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga90dc0c3192649d64ae885b62e6afa6e4" id="r_ga90dc0c3192649d64ae885b62e6afa6e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga90dc0c3192649d64ae885b62e6afa6e4">processTemperatureData</a> ()</td></tr>
+<tr class="memdesc:ga90dc0c3192649d64ae885b62e6afa6e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes temperature data from DS18B20 sensors.  <br /></td></tr>
+<tr class="separator:ga90dc0c3192649d64ae885b62e6afa6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions used for temperature monitoring and processing. </p>
@@ -144,6 +151,42 @@ template&lt;uint8_t N&gt; </div>
 </ul>
 
 <p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00119">119</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga90dc0c3192649d64ae885b62e6afa6e4" name="ga90dc0c3192649d64ae885b62e6afa6e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga90dc0c3192649d64ae885b62e6afa6e4">&#9670;&#160;</a></span>processTemperatureData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void processTemperatureData </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes temperature data from DS18B20 sensors. </p>
+<p>This function reads temperature values from all connected DS18B20 sensors, filters out invalid readings, and updates the telemetry data structure with valid temperature values. Invalid readings are identified as 85.00°C (encoded as 8500) with a delta greater than 5.00°C (encoded as 500) from the previous reading. After processing, it requests new temperature measurements for the next cycle.</p>
+<dl class="section note"><dt>Note</dt><dd>This function assumes that temperature values are stored as integers multiplied by 100 for precision.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <code>temperatureSensing</code> object must be initialized and configured with the connected DS18B20 sensors.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The <code>tx_data.temperature_x100</code> array is updated with the latest valid temperature readings. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00475">475</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__TemperatureSensing_ga90dc0c3192649d64ae885b62e6afa6e4_icgraph.png" border="0" usemap="#agroup__TemperatureSensing_ga90dc0c3192649d64ae885b62e6afa6e4_icgraph" alt=""/></div>
+<map name="agroup__TemperatureSensing_ga90dc0c3192649d64ae885b62e6afa6e4_icgraph" id="agroup__TemperatureSensing_ga90dc0c3192649d64ae885b62e6afa6e4_icgraph">
+<area shape="rect" title="Processes temperature data from DS18B20 sensors." alt="" coords="103,5,287,33"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,55,33"/>
+<area shape="poly" title=" " alt="" coords="85,20,55,22,55,17,90,18"/>
+</map>
+</div>
 
 </div>
 </div>

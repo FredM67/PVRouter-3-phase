@@ -1,11 +1,25 @@
 <map id="proceedDualTariffLogic" name="proceedDualTariffLogic">
-<area shape="rect" id="Node000001" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="5,32,175,60"/>
+<area shape="rect" id="Node000001" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="5,57,175,85"/>
 <area shape="rect" id="Node000002" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="239,5,335,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,32,226,27,221,28,175,37"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,54,226,34,221,37,146,59"/>
 <area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="223,57,351,85"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="175,54,210,61,204,61,175,59"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="174,69,209,71,204,72,175,74"/>
+<area shape="rect" id="Node000010" href="$debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="577,108,651,136"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="158,83,223,94,410,111,564,120,559,121,409,116,222,99,157,88"/>
 <area shape="rect" id="Node000003" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="427,5,501,33"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="335,17,414,19,409,20,336,22"/>
 <area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="399,57,529,85"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="351,69,386,71,381,71,351,74"/>
+<area shape="rect" id="Node000006" href="$debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="583,56,645,84"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="529,68,571,70,565,70,530,73"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="508,83,565,105,560,104,507,88"/>
+<area shape="rect" id="Node000007" href="$debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="705,56,751,84"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="645,67,692,70,686,70,645,72"/>
+<area shape="rect" id="Node000008" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="805,83,976,110"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="752,71,792,80,787,80,751,76"/>
+<area shape="rect" id="Node000009" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1024,83,1185,110"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="977,94,1012,96,1006,97,977,99"/>
+<area shape="rect" id="Node000011" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="699,108,757,136"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="651,119,686,122,680,122,651,124"/>
+<area shape="poly" id="edge11_Node000011_Node000008" title=" " alt="" coords="757,115,787,113,792,112,758,120"/>
 </map>

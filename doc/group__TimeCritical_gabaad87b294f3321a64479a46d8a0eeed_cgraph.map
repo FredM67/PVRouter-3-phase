@@ -1,0 +1,5 @@
+<map id="processCurrentRawSample" name="processCurrentRawSample">
+<area shape="rect" id="Node000001" title="Processes the current raw sample for the specified phase." alt="" coords="5,5,202,33"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="250,5,385,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,17,237,19,231,19,202,22"/>
+</map>

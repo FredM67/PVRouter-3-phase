@@ -111,7 +111,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="keyword">const</span> uint32_t magnitude{ <span class="keyword">static_cast&lt;</span> uint32_t <span class="keyword">&gt;</span>(negative ? -averagePower : averagePower) };</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  uint32_t product;  <span class="comment">// (magnitude x calFixed) &gt;&gt; 8, at most 2^26</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  multU24x16_to32_hi8(product, magnitude, calFixed);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  <a class="code hl_function" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8">multU24x16_to32_hi8</a>(product, magnitude, calFixed);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  <span class="keyword">const</span> uint8_t remaining{ <span class="keyword">static_cast&lt;</span> uint8_t <span class="keyword">&gt;</span>(shift - 8) };</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  uint32_t rounded{ (product + (<span class="keyword">static_cast&lt;</span> uint32_t <span class="keyword">&gt;</span>(1) &lt;&lt; (remaining - 1))) &gt;&gt; remaining };</div>
@@ -120,8 +120,8 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    rounded = INT16_MAX;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  }</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code hl_variable" href="mult__asm_8h.html#a937d4dd628a8858b443a399410d2600b">result</a>{ <span class="keyword">static_cast&lt;</span> int16_t <span class="keyword">&gt;</span>(rounded) };</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keywordflow">return</span> negative ? <span class="keyword">static_cast&lt;</span> int16_t <span class="keyword">&gt;</span>(-<a class="code hl_variable" href="mult__asm_8h.html#a937d4dd628a8858b443a399410d2600b">result</a>) : <a class="code hl_variable" href="mult__asm_8h.html#a937d4dd628a8858b443a399410d2600b">result</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keyword">const</span> <span class="keyword">auto</span> result{ <span class="keyword">static_cast&lt;</span> int16_t <span class="keyword">&gt;</span>(rounded) };</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  <span class="keywordflow">return</span> negative ? <span class="keyword">static_cast&lt;</span> int16_t <span class="keyword">&gt;</span>(-result) : result;</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
 </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
@@ -206,13 +206,13 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span></div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="keyword">template</span>&lt; <span class="keywordtype">bool</span> Normalise &gt;</div>
 <div class="foldopen" id="foldopen00165" data-start="{" data-end="}">
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446">  165</a></span><span class="keyword">inline</span> uint16_t <a class="code hl_function" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446">squareRoot</a>(uint32_t <a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a>, uint8_t&amp; fractionBits)</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446">  165</a></span><span class="keyword">inline</span> uint16_t <a class="code hl_function" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446">squareRoot</a>(uint32_t value, uint8_t&amp; fractionBits)</div>
 <div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>{</div>
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>  uint8_t shift{ 0 };</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>  <a class="code hl_typedef" href="namespaceDatalog.html#a082b40f2df84bbedfd82bcfa4668bc60">uint24_t</a> remainder;</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>  <a class="code hl_typedef" href="namespaceDatalog.html#a082b40f2df84bbedfd82bcfa4668bc60">uint24_t</a> twiceRoot;</div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>  <span class="keywordflow">if</span> (Normalise &amp;&amp; !<a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a>)</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>  <span class="keywordflow">if</span> (Normalise &amp;&amp; !value)</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>  {</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    fractionBits = 0;</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">return</span> 0;</div>
@@ -232,14 +232,14 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="preprocessor">#else</span></div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>  <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (Normalise)</div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>  {</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordflow">while</span> (<a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a> &lt; (1UL &lt;&lt; 24))  <span class="comment">// whole bytes, 4 bits of the root each</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordflow">while</span> (value &lt; (1UL &lt;&lt; 24))  <span class="comment">// whole bytes, 4 bits of the root each</span></div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    {</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>      <a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a> &lt;&lt;= 8;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>      value &lt;&lt;= 8;</div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>      shift += 4;</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    }</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordflow">while</span> (<a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a> &lt; (1UL &lt;&lt; 30))  <span class="comment">// then pairs of bits, 1 bit of the root each</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordflow">while</span> (value &lt; (1UL &lt;&lt; 30))  <span class="comment">// then pairs of bits, 1 bit of the root each</span></div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    {</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>      <a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a> &lt;&lt;= 2;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>      value &lt;&lt;= 2;</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>      ++shift;</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    }</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  }</div>
@@ -247,8 +247,8 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>  twiceRoot = 0;</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>  <span class="keywordflow">for</span> (uint8_t step = 16; step; --step)</div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  {</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    remainder = (remainder &lt;&lt; 2) | (<a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a> &gt;&gt; 30);  <span class="comment">// bring down the next two bits</span></div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a> &lt;&lt;= 2;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    remainder = (remainder &lt;&lt; 2) | (value &gt;&gt; 30);  <span class="comment">// bring down the next two bits</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    value &lt;&lt;= 2;</div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    twiceRoot &lt;&lt;= 1;            <span class="comment">// root &lt;&lt;= 1</span></div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordflow">if</span> (remainder &gt; twiceRoot)  <span class="comment">// remainder &gt;= 2 x root + 1</span></div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    {</div>
@@ -276,10 +276,10 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span></div>
 <div class="foldopen" id="foldopen00239" data-start="{" data-end="}">
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="namespaceDatalog.html#a5c242aed104cfb700b6fc57675ae10b9">  239</a></span><span class="keyword">inline</span> uint16_t <a class="code hl_function" href="namespaceDatalog.html#a5c242aed104cfb700b6fc57675ae10b9">isqrt</a>(<span class="keyword">const</span> uint32_t <a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a>)</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="namespaceDatalog.html#a5c242aed104cfb700b6fc57675ae10b9">  239</a></span><span class="keyword">inline</span> uint16_t <a class="code hl_function" href="namespaceDatalog.html#a5c242aed104cfb700b6fc57675ae10b9">isqrt</a>(<span class="keyword">const</span> uint32_t value)</div>
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>{</div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>  uint8_t fractionBits;</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446">squareRoot&lt; false &gt;</a>(<a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a>, fractionBits);</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>  <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446">squareRoot&lt; false &gt;</a>(value, fractionBits);</div>
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>}</div>
 </div>
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span></div>
@@ -309,9 +309,9 @@ $(function(){ initResizable(false); });
 <div class="foldopen" id="foldopen00290" data-start="{" data-end="}">
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno"><a class="line" href="namespaceDatalog.html#a976dddd63a52b0e01e42b764fb416928">  290</a></span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="namespaceDatalog.html#a976dddd63a52b0e01e42b764fb416928">isValidVoltageCalibration</a>(<span class="keyword">const</span> uint16_t factor, <span class="keyword">const</span> <span class="keywordtype">float</span> (&amp;cal)[N])</div>
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>{</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> <a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a> : cal)</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> value : cal)</div>
 <div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>  {</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordflow">if</span> (!(<a class="code hl_variable" href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a> &gt; 0.0F))</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordflow">if</span> (!(value &gt; 0.0F))</div>
 <div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    {</div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    }</div>
@@ -327,7 +327,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>  <span class="keyword">const</span> uint16_t root{ <a class="code hl_function" href="namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0">sqrtScaled</a>(meanSquare, fractionBits) };</div>
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>  uint32_t product;</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>  multU16x16_to32(product, root, calFixed);</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>  <a class="code hl_function" href="group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320">multU16x16_to32</a>(product, root, calFixed);</div>
 <div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
 <div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>  <span class="comment">// rounded shift by (fractionBits + shift), without overflowing the 32 bits of product:</span></div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>  <span class="comment">// whole bytes first (byte moves on AVR), then the remaining bits one by one</span></div>
@@ -392,9 +392,9 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span> </div>
 <div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span><span class="preprocessor">#endif </span><span class="comment">/* DATALOG_MATH_H */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aenergy__bucket_8h_html"><div class="ttname"><a href="energy__bucket_8h.html">energy_bucket.h</a></div><div class="ttdoc">Integer arithmetic of the energy bucket.</div></div>
+<div class="ttc" id="agroup__TimeCritical_html_ga1c7cf312d47fe59d0ca5be3844bd9320"><div class="ttname"><a href="group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320">multU16x16_to32</a></div><div class="ttdeci">static void multU16x16_to32(uint32_t &amp;result, A a, B b)</div><div class="ttdoc">Optimized 16×16→32 unsigned multiplication with assembly.</div><div class="ttdef"><b>Definition</b> <a href="mult__asm_8h_source.html#l00096">mult_asm.h:96</a></div></div>
+<div class="ttc" id="agroup__TimeCritical_html_gabc318f6984145cb3265035f62e21c4d8"><div class="ttname"><a href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8">multU24x16_to32_hi8</a></div><div class="ttdeci">static void multU24x16_to32_hi8(uint32_t &amp;result, A a, B b)</div><div class="ttdoc">Optimized 24×16→40 unsigned multiplication, returning bits 8..39.</div><div class="ttdef"><b>Definition</b> <a href="mult__asm_8h_source.html#l00143">mult_asm.h:143</a></div></div>
 <div class="ttc" id="amult__asm_8h_html"><div class="ttname"><a href="mult__asm_8h.html">mult_asm.h</a></div><div class="ttdoc">Assembly-optimized multiplication functions for AVR microcontrollers.</div></div>
-<div class="ttc" id="amult__asm_8h_html_a937d4dd628a8858b443a399410d2600b"><div class="ttname"><a href="mult__asm_8h.html#a937d4dd628a8858b443a399410d2600b">result</a></div><div class="ttdeci">result</div><div class="ttdef"><b>Definition</b> <a href="mult__asm_8h_source.html#l00073">mult_asm.h:73</a></div></div>
-<div class="ttc" id="amult__asm_8h_html_ab65c3f645981bd61ac4c6d9fb2158c7e"><div class="ttname"><a href="mult__asm_8h.html#ab65c3f645981bd61ac4c6d9fb2158c7e">value</a></div><div class="ttdeci">static V value</div><div class="ttdef"><b>Definition</b> <a href="mult__asm_8h_source.html#l00205">mult_asm.h:205</a></div></div>
 <div class="ttc" id="anamespaceDatalog_html"><div class="ttname"><a href="namespaceDatalog.html">Datalog</a></div><div class="ttdef"><b>Definition</b> <a href="#l00032">datalog_math.h:33</a></div></div>
 <div class="ttc" id="anamespaceDatalog_html_a0034ed8f35f1cd9b05161e370ac4d6ca"><div class="ttname"><a href="namespaceDatalog.html#a0034ed8f35f1cd9b05161e370ac4d6ca">Datalog::vrmsFactor</a></div><div class="ttdeci">constexpr uint16_t vrmsFactor(const uint8_t datalogPeriodInSeconds)</div><div class="ttdoc">Scaling of the datalog voltage, Vrms_L_x100.</div><div class="ttdef"><b>Definition</b> <a href="#l00266">datalog_math.h:266</a></div></div>
 <div class="ttc" id="anamespaceDatalog_html_a05836e3079ae85aebb1cf019c3fe4d4c"><div class="ttname"><a href="namespaceDatalog.html#a05836e3079ae85aebb1cf019c3fe4d4c">Datalog::voltageCalibration</a></div><div class="ttdeci">constexpr FixedCalibration&lt; N &gt; voltageCalibration(const uint16_t factor, const float(&amp;cal)[N])</div><div class="ttdoc">The voltage calibration in fixed point, for vrms(), built at compile time.</div><div class="ttdef"><b>Definition</b> <a href="#l00374">datalog_math.h:374</a></div></div>

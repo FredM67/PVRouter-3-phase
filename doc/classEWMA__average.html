@@ -109,18 +109,18 @@ Inheritance diagram for EWMA_average&lt; A &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0d9eb73d671e91692918061aadab6e69" id="r_a0d9eb73d671e91692918061aadab6e69"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d9eb73d671e91692918061aadab6e69">__attribute__</a> ((noinline)) auto getAverageT() const</td></tr>
-<tr class="memdesc:a0d9eb73d671e91692918061aadab6e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Triple Exponentially Weighted Moving Average (TEMA).  <br /></td></tr>
-<tr class="separator:a0d9eb73d671e91692918061aadab6e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a318805480edbce025fd81a1021cc86c8" id="r_a318805480edbce025fd81a1021cc86c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a318805480edbce025fd81a1021cc86c8">__attribute__</a> ((noinline)) void addValue(int32_t input)</td></tr>
-<tr class="memdesc:a318805480edbce025fd81a1021cc86c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new value and update the EMA, DEMA, and TEMA.  <br /></td></tr>
-<tr class="separator:a318805480edbce025fd81a1021cc86c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a208b9b3d82809466b4d90aedb3c7e4db" id="r_a208b9b3d82809466b4d90aedb3c7e4db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a208b9b3d82809466b4d90aedb3c7e4db">addValue</a> (int32_t input)</td></tr>
+<tr class="memdesc:a208b9b3d82809466b4d90aedb3c7e4db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new value and update the EMA, DEMA, and TEMA.  <br /></td></tr>
+<tr class="separator:a208b9b3d82809466b4d90aedb3c7e4db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8caa754acdd5f485f7cd2a183cee1286" id="r_a8caa754acdd5f485f7cd2a183cee1286"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8caa754acdd5f485f7cd2a183cee1286">getAverageD</a> () const</td></tr>
 <tr class="memdesc:a8caa754acdd5f485f7cd2a183cee1286"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Double Exponentially Weighted Moving Average (DEMA).  <br /></td></tr>
 <tr class="separator:a8caa754acdd5f485f7cd2a183cee1286"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9343d2edcd78461e66118196e76fa2c" id="r_ad9343d2edcd78461e66118196e76fa2c"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad9343d2edcd78461e66118196e76fa2c">getAverageS</a> () const</td></tr>
 <tr class="memdesc:ad9343d2edcd78461e66118196e76fa2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Exponentially Weighted Moving Average (EMA).  <br /></td></tr>
 <tr class="separator:ad9343d2edcd78461e66118196e76fa2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f68c3f411360bfd79ef732a313616be" id="r_a8f68c3f411360bfd79ef732a313616be"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f68c3f411360bfd79ef732a313616be">getAverageT</a> () const</td></tr>
+<tr class="memdesc:a8f68c3f411360bfd79ef732a313616be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Triple Exponentially Weighted Moving Average (TEMA).  <br /></td></tr>
+<tr class="separator:a8f68c3f411360bfd79ef732a313616be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -156,7 +156,7 @@ class EWMA_average&lt; A &gt;</div><p>Implements an Exponentially Weighted Movin
 <h1><a class="anchor" id="cloud_immunity"></a>
 Cloud Immunity Tuning</h1>
 <p>For PV router applications, cloud immunity is crucial to prevent relay chattering:</p>
-<p><b>TEMA (getAverageT()) is recommended for relay control</b> as it provides:</p><ul>
+<p><b>TEMA (<a class="el" href="#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA).">getAverageT()</a>) is recommended for relay control</b> as it provides:</p><ul>
 <li>Best immunity to brief cloud shadows (5-60 seconds)</li>
 <li>Good responsiveness to genuine load changes</li>
 <li>Optimal balance for most installations</li>
@@ -164,7 +164,7 @@ Cloud Immunity Tuning</h1>
 <p><b>Filter Comparison:</b></p><ul>
 <li>EMA (<a class="el" href="#ad9343d2edcd78461e66118196e76fa2c" title="Get the Exponentially Weighted Moving Average (EMA).">getAverageS()</a>): Basic smoothing, most responsive, least cloud immunity</li>
 <li>DEMA (<a class="el" href="#a8caa754acdd5f485f7cd2a183cee1286" title="Get the Double Exponentially Weighted Moving Average (DEMA).">getAverageD()</a>): Better cloud immunity, good responsiveness</li>
-<li>TEMA (getAverageT()): Best cloud immunity, excellent responsiveness to real changes</li>
+<li>TEMA (<a class="el" href="#a8f68c3f411360bfd79ef732a313616be" title="Get the Triple Exponentially Weighted Moving Average (TEMA).">getAverageT()</a>): Best cloud immunity, excellent responsiveness to real changes</li>
 </ul>
 <p><b>Tuning Guidelines:</b></p><ul>
 <li>Template parameter A should be: <code>delay_minutes * 60 / sample_period_seconds</code></li>
@@ -174,8 +174,8 @@ Cloud Immunity Tuning</h1>
 
 <p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00107">107</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0d9eb73d671e91692918061aadab6e69" name="a0d9eb73d671e91692918061aadab6e69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d9eb73d671e91692918061aadab6e69">&#9670;&#160;</a></span>__attribute__() <span class="overload">[1/2]</span></h2>
+<a id="a208b9b3d82809466b4d90aedb3c7e4db" name="a208b9b3d82809466b4d90aedb3c7e4db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a208b9b3d82809466b4d90aedb3c7e4db">&#9670;&#160;</a></span>addValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,42 +186,9 @@ template&lt;uint8_t A = 10&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::__attribute__ </td>
+          <td class="memname">void <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::addValue </td>
           <td>(</td>
-          <td class="paramtype">(noinline)</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the Triple Exponentially Weighted Moving Average (TEMA). </p>
-<dl class="section return"><dt>Returns</dt><dd>auto The TEMA value.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Not inlined: it is read in several places (relay decisions, datalog output), and each inlined copy would read a static instance's averages with absolute lds (4 bytes per byte), against ld/ldd through this (2 bytes) - 70 bytes less. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00163">163</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a318805480edbce025fd81a1021cc86c8" name="a318805480edbce025fd81a1021cc86c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a318805480edbce025fd81a1021cc86c8">&#9670;&#160;</a></span>__attribute__() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t A = 10&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::__attribute__ </td>
-          <td>(</td>
-          <td class="paramtype">(noinline)</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">int32_t</td>          <td class="paramname"><span class="paramname"><em>input</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -246,11 +213,35 @@ template&lt;uint8_t A = 10&gt; </div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classEWMA__average_a318805480edbce025fd81a1021cc86c8_cgraph.png" border="0" usemap="#aclassEWMA__average_a318805480edbce025fd81a1021cc86c8_cgraph" alt=""/></div>
-<map name="aclassEWMA__average_a318805480edbce025fd81a1021cc86c8_cgraph" id="aclassEWMA__average_a318805480edbce025fd81a1021cc86c8_cgraph">
-<area shape="rect" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="5,5,221,33"/>
-<area shape="rect" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="269,5,452,33"/>
-<area shape="poly" title=" " alt="" coords="221,17,256,19,250,19,221,22"/>
+<div class="center"><img src="classEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph.png" border="0" usemap="#aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph" alt=""/></div>
+<map name="aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph" id="aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_cgraph">
+<area shape="rect" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="5,5,197,33"/>
+<area shape="rect" href="ewma__avg_8hpp.html#ab2d65d6104cd09368e1b72bb4342cae5" title="Helper compile&#45;time function to retrieve the previous power of 2 of the given number (120 =&gt; 64 =&gt; 6)" alt="" coords="245,5,428,33"/>
+<area shape="poly" title=" " alt="" coords="197,17,231,19,226,19,197,22"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_icgraph.png" border="0" usemap="#aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_icgraph" alt=""/></div>
+<map name="aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_icgraph" id="aclassEWMA__average_a208b9b3d82809466b4d90aedb3c7e4db_icgraph">
+<area shape="rect" title="Add a new value and update the EMA, DEMA, and TEMA." alt="" coords="356,117,547,145"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#ad7b9f7b0cc475bb6df342f4a32f22d79" title=" " alt="" coords="108,5,308,33"/>
+<area shape="poly" title=" " alt="" coords="415,108,366,79,307,48,273,36,273,31,309,43,369,74,421,108"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a48ab1db89c49f63ba36c2ad6b2650fe5" title=" " alt="" coords="110,57,306,85"/>
+<area shape="poly" title=" " alt="" coords="375,114,267,88,267,83,380,112"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a4c3833a15e1ae16f4281c3efb4c2d4c7" title=" " alt="" coords="133,109,283,154"/>
+<area shape="poly" title=" " alt="" coords="338,132,284,134,283,129,343,130"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a015d975403ec04c63a5e402886c25464" title=" " alt="" coords="133,177,283,205"/>
+<area shape="poly" title=" " alt="" coords="375,150,268,179,267,174,380,148"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a48284aaaaa12a9a7ccb66884785bfca4" title=" " alt="" coords="114,229,302,257"/>
+<area shape="poly" title=" " alt="" coords="421,153,369,188,309,219,273,231,272,226,307,214,366,184,415,155"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,117,60,145"/>
+<area shape="poly" title=" " alt="" coords="117,41,109,48,89,64,71,83,45,118,40,115,67,79,85,60,106,44,121,38"/>
+<area shape="poly" title=" " alt="" coords="126,91,109,99,62,119,59,115,107,94,130,88"/>
+<area shape="poly" title=" " alt="" coords="115,133,61,134,59,129,119,129"/>
+<area shape="poly" title=" " alt="" coords="126,173,107,168,60,148,60,142,109,163,131,172"/>
+<area shape="poly" title=" " alt="" coords="117,223,106,219,85,202,67,183,42,148,43,143,71,180,89,198,109,214,122,223"/>
 </map>
 </div>
 
@@ -363,6 +354,60 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="116,170,61,161,59,156,120,166"/>
 <area shape="poly" title=" " alt="" coords="117,224,106,220,71,196,47,171,47,166,75,192,109,216,122,223"/>
 <area shape="poly" title=" " alt="" coords="114,274,106,271,81,247,61,219,38,171,40,166,66,216,85,243,109,266,119,274"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a8f68c3f411360bfd79ef732a313616be" name="a8f68c3f411360bfd79ef732a313616be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f68c3f411360bfd79ef732a313616be">&#9670;&#160;</a></span>getAverageT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t A = 10&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; A &gt;::getAverageT </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the Triple Exponentially Weighted Moving Average (TEMA). </p>
+<dl class="section return"><dt>Returns</dt><dd>auto The TEMA value.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Not inlined: it is read in several places (relay decisions, datalog output), and each inlined copy would read a static instance's averages with absolute lds (4 bytes per byte), against ld/ldd through this (2 bytes) - 70 bytes less. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ewma__avg_8hpp_source.html#l00163">163</a> of file <a class="el" href="ewma__avg_8hpp_source.html">ewma_avg.hpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classEWMA__average_a8f68c3f411360bfd79ef732a313616be_icgraph.png" border="0" usemap="#aclassEWMA__average_a8f68c3f411360bfd79ef732a313616be_icgraph" alt=""/></div>
+<map name="aclassEWMA__average_a8f68c3f411360bfd79ef732a313616be_icgraph" id="aclassEWMA__average_a8f68c3f411360bfd79ef732a313616be_icgraph">
+<area shape="rect" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="351,88,564,116"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a18905b27ca58963be912f77201ddf421" title=" " alt="" coords="135,5,276,33"/>
+<area shape="poly" title=" " alt="" coords="403,83,302,48,262,36,262,31,304,43,408,81"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a48ab1db89c49f63ba36c2ad6b2650fe5" title=" " alt="" coords="108,57,303,85"/>
+<area shape="poly" title=" " alt="" coords="333,87,304,86,303,80,338,87"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a4c3833a15e1ae16f4281c3efb4c2d4c7" title=" " alt="" coords="130,109,280,154"/>
+<area shape="poly" title=" " alt="" coords="333,117,281,125,280,120,338,115"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#a015d975403ec04c63a5e402886c25464" title=" " alt="" coords="130,177,280,205"/>
+<area shape="poly" title=" " alt="" coords="414,122,304,168,267,179,266,174,302,163,409,123"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,88,60,116"/>
+<area shape="poly" title=" " alt="" coords="123,40,109,48,77,68,51,89,47,86,74,64,106,43,127,37"/>
+<area shape="poly" title=" " alt="" coords="108,90,61,100,59,95,111,86"/>
+<area shape="poly" title=" " alt="" coords="113,118,60,109,60,104,117,114"/>
+<area shape="poly" title=" " alt="" coords="117,171,106,168,71,144,46,119,47,114,75,140,109,164,122,171"/>
 </map>
 </div>
 

@@ -8,7 +8,7 @@ var searchData=
   ['i_5fsamplevminusdc_5',['i_sampleVminusDC',['../structNewFilter.html#a9b32f6ae3af83096a90cca88fee3f7c3',1,'NewFilter::i_sampleVminusDC'],['../structNewImplementation.html#aaae6044f197543b9af13d4cc9a112d99',1,'NewImplementation::i_sampleVminusDC'],['../processing_8cpp.html#aa7aa70ebc9718c5b969b99e2a8ad3d27',1,'i_sampleVminusDC:&#160;processing.cpp'],['../native_2test__dc__offset__filter_2test__main_8cpp.html#a23b748fea2953b81dd10b6076aae3cd0',1,'i_sampleVminusDC:&#160;test_main.cpp']]],
   ['importthreshold_6',['importThreshold',['../classrelayOutput.html#a4ef45ace133c038e9e6fca3c9ed20d05',1,'relayOutput']]],
   ['inaveragepower_7',['inAveragePower',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8445896206e63b81ec5e11c8e1815d6e',1,'test_main.cpp']]],
-  ['index_8',['index',['../structadc__ctx__t.html#adbd9b4c131b385683df2e2a4a52b105a',1,'adc_ctx_t::index'],['../classTeleInfo.html#a058beaf679f9391e36e9135d06cbadcc',1,'TeleInfo::index']]],
+  ['index_8',['index',['../structadc__ctx__t.html#adbd9b4c131b385683df2e2a4a52b105a',1,'adc_ctx_t']]],
   ['indexlist_9',['indexList',['../structKeyIndexPair.html#a8d1e4f39df3f10428d32496d32a7b525',1,'KeyIndexPair']]],
   ['initialdelay_10',['initialDelay',['../processing_8h.html#abd063c9cf1db937d3c2a0f3f2c064f60',1,'processing.h']]],
   ['initialized_11',['initialized',['../namespaceSharedRF.html#a51e7c524b154b77701017a222f4ddd60',1,'SharedRF']]],

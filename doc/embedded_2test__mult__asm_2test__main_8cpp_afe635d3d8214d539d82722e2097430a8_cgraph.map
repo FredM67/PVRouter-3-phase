@@ -1,5 +1,9 @@
 <map id="test_performance_isr_simulation" name="test_performance_isr_simulation">
-<area shape="rect" id="Node000001" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="5,5,165,50"/>
-<area shape="rect" id="Node000002" href="$mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="213,14,306,42"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,25,200,27,195,28,165,30"/>
+<area shape="rect" id="Node000001" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="5,49,165,94"/>
+<area shape="rect" id="Node000002" href="$mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="234,5,327,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,47,221,34,216,37,166,52"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="227,57,334,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,69,214,70,209,72,166,74"/>
+<area shape="rect" id="Node000004" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="213,109,348,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="166,90,214,105,209,105,165,95"/>
 </map>

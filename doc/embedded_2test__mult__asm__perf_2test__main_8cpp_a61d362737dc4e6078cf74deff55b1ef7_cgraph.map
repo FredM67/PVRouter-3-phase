@@ -1,5 +1,7 @@
 <map id="test_performance_multS16x16_to32" name="test_performance_multS16x16_to32">
-<area shape="rect" id="Node000001" title="Performance comparison between assembly and standard multiplication." alt="" coords="5,5,263,33"/>
-<area shape="rect" id="Node000002" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="311,5,414,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="263,17,298,19,292,19,263,22"/>
+<area shape="rect" id="Node000001" title="Performance comparison between assembly and standard multiplication." alt="" coords="5,32,263,60"/>
+<area shape="rect" id="Node000002" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="327,5,430,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="263,29,314,26,309,27,264,34"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="311,57,446,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="263,57,298,63,293,63,263,62"/>
 </map>

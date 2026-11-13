@@ -6,25 +6,29 @@
 <area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="181,158,281,139,276,142,183,163"/>
 <area shape="rect" id="Node000009" href="$namespaceDatalog.html#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase." alt="" coords="308,161,422,189"/>
 <area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="217,173,295,174,290,176,217,178"/>
-<area shape="rect" id="Node000012" href="$namespaceDatalog.html#a0034ed8f35f1cd9b05161e370ac4d6ca" title="Scaling of the datalog voltage, Vrms_L_x100." alt="" coords="289,213,441,241"/>
-<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="182,187,281,209,276,211,182,192"/>
-<area shape="rect" id="Node000013" href="$namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="307,265,423,293"/>
-<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="137,187,196,218,266,250,295,262,289,262,264,255,193,223,137,192"/>
+<area shape="rect" id="Node000013" href="$namespaceDatalog.html#a0034ed8f35f1cd9b05161e370ac4d6ca" title="Scaling of the datalog voltage, Vrms_L_x100." alt="" coords="289,213,441,241"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="182,187,281,209,276,211,182,192"/>
+<area shape="rect" id="Node000014" href="$namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="307,265,423,293"/>
+<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="137,187,196,218,266,250,295,262,289,262,264,255,193,223,137,192"/>
 <area shape="rect" id="Node000003" href="$namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="513,5,684,33"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="430,54,521,36,516,38,431,59"/>
 <area shape="rect" id="Node000006" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="538,57,659,85"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="460,69,525,70,520,72,461,74"/>
-<area shape="rect" id="Node000004" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="743,84,876,112"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="648,31,685,43,765,78,760,78,683,48,648,36"/>
+<area shape="rect" id="Node000004" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="743,96,876,124"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="650,31,685,43,773,88,768,88,683,48,650,36"/>
 <area shape="rect" id="Node000005" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="749,19,870,46"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="684,22,736,27,731,28,685,27"/>
 <area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="430,106,526,87,521,89,431,111"/>
 <area shape="rect" id="Node000008" href="$namespaceDatalog.html#a1dc0bffd09a9dedb477b5ca807afdb7e" title="Largest shift that keeps every (factor x calibration value) within 16 bits." alt="" coords="520,109,678,137"/>
 <area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="465,121,506,123,501,124,466,126"/>
-<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="678,111,730,107,724,108,679,116"/>
-<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="650,106,683,94,765,55,770,53,685,99,651,111"/>
-<area shape="rect" id="Node000010" href="$namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="524,161,673,189"/>
-<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="422,173,512,175,506,176,422,178"/>
-<area shape="rect" id="Node000011" href="$namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="732,161,887,189"/>
-<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="673,173,720,175,714,175,674,178"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="678,116,730,115,724,115,678,121"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="650,106,683,94,768,55,773,53,685,99,651,111"/>
+<area shape="rect" id="Node000010" href="$group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="530,161,667,189"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="422,173,517,175,512,176,422,178"/>
+<area shape="rect" id="Node000011" href="$namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="524,213,673,241"/>
+<area shape="poly" id="edge13_Node000009_Node000011" title=" " alt="" coords="422,185,521,209,516,210,422,190"/>
+<area shape="rect" id="Node000012" href="$namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="732,213,887,241"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="673,225,720,227,714,227,674,230"/>
+<area shape="rect" id="Node000015" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="516,265,681,293"/>
+<area shape="poly" id="edge17_Node000014_Node000015" title=" " alt="" coords="423,277,503,279,498,279,423,282"/>
 </map>

@@ -1,0 +1,16 @@
+<map id="EWMA_average::getAverageT" name="EWMA_average::getAverageT">
+<area shape="rect" id="Node000001" title="Get the Triple Exponentially Weighted Moving Average (TEMA)." alt="" coords="351,88,564,116"/>
+<area shape="rect" id="Node000002" href="$native_2test__ewma__avg_2test__main_8cpp.html#a18905b27ca58963be912f77201ddf421" title=" " alt="" coords="135,5,276,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="403,83,302,48,262,36,262,31,304,43,408,81"/>
+<area shape="rect" id="Node000004" href="$native_2test__ewma__avg_2test__main_8cpp.html#a48ab1db89c49f63ba36c2ad6b2650fe5" title=" " alt="" coords="108,57,303,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="333,87,304,86,303,80,338,87"/>
+<area shape="rect" id="Node000005" href="$native_2test__ewma__avg_2test__main_8cpp.html#a4c3833a15e1ae16f4281c3efb4c2d4c7" title=" " alt="" coords="130,109,280,154"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="333,117,281,125,280,120,338,115"/>
+<area shape="rect" id="Node000006" href="$native_2test__ewma__avg_2test__main_8cpp.html#a015d975403ec04c63a5e402886c25464" title=" " alt="" coords="130,177,280,205"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="414,122,304,168,267,179,266,174,302,163,409,123"/>
+<area shape="rect" id="Node000003" href="$native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="5,88,60,116"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,40,109,48,77,68,51,89,47,86,74,64,106,43,127,37"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="108,90,61,100,59,95,111,86"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="113,118,60,109,60,104,117,114"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="117,171,106,168,71,144,46,119,47,114,75,140,109,164,122,171"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="test_mult16x8_q8_rounding" name="test_mult16x8_q8_rounding">
+<area shape="rect" id="Node000001" title="Test rounding behavior of mult16x8_q8." alt="" coords="5,5,208,33"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="256,5,362,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,17,243,19,238,19,208,22"/>
+</map>

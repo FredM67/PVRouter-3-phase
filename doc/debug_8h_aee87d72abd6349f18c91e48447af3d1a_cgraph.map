@@ -1,0 +1,9 @@
+<map id="infolnDecimals" name="infolnDecimals">
+<area shape="rect" id="Node000001" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="5,32,125,60"/>
+<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="188,5,359,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,36,175,31,170,33,126,41"/>
+<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="173,57,374,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="125,50,160,57,155,57,125,56"/>
+<area shape="rect" id="Node000003" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="422,5,582,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="359,17,409,19,404,19,360,22"/>
+</map>

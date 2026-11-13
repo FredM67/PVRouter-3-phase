@@ -1,7 +1,11 @@
 <map id="test_performance_isr_simulation" name="test_performance_isr_simulation">
-<area shape="rect" id="Node000001" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="5,24,165,68"/>
-<area shape="rect" id="Node000002" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="213,5,316,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,31,200,28,195,30,165,37"/>
-<area shape="rect" id="Node000003" href="$mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="218,57,311,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,54,205,62,200,63,165,60"/>
+<area shape="rect" id="Node000001" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="5,76,165,120"/>
+<area shape="rect" id="Node000002" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="229,5,332,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,73,212,43,231,38,226,41,214,48,143,77"/>
+<area shape="rect" id="Node000003" href="$mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="234,57,327,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,84,221,78,216,81,166,89"/>
+<area shape="rect" id="Node000004" href="$group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="227,109,334,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,106,214,114,209,115,165,111"/>
+<area shape="rect" id="Node000005" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="213,161,348,189"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="144,118,232,154,227,156,143,123"/>
 </map>

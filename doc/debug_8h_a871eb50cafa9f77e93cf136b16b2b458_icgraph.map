@@ -1,0 +1,34 @@
+<map id="statusln" name="statusln">
+<area shape="rect" id="Node000001" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="965,133,1038,161"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="757,5,904,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="982,119,954,83,915,48,893,36,893,31,919,44,958,80,987,121"/>
+<area shape="rect" id="Node000006" href="$group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="783,57,878,85"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="959,125,916,106,873,88,873,83,918,101,965,126"/>
+<area shape="rect" id="Node000007" href="$group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="765,159,896,186"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="947,155,896,165,895,160,952,154"/>
+<area shape="rect" id="Node000009" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,108,489,136"/>
+<area shape="poly" id="edge15_Node000001_Node000009" title=" " alt="" coords="947,147,490,128,489,123,951,143"/>
+<area shape="rect" id="Node000010" href="$group__GeneralProcessing.html#gabe8c38238f5014c09e788c833b50af5e" title="Handles load priority rotation." alt="" coords="324,160,486,188"/>
+<area shape="poly" id="edge16_Node000001_Node000010" title=" " alt="" coords="973,170,947,188,918,200,856,214,793,221,729,223,667,220,553,208,465,191,464,186,554,202,667,215,729,217,793,215,855,208,916,195,944,184,969,171"/>
+<area shape="rect" id="Node000011" href="$classrelayOutput.html#ac5b46b3ccabacb3565a16038f8099398" title="Turn the relay ON or OFF if the &#39;time&#39; condition is met." alt="" coords="744,269,917,297"/>
+<area shape="poly" id="edge17_Node000001_Node000011" title=" " alt="" coords="984,173,955,210,919,244,871,271,869,266,915,240,951,206,979,175"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,57,272,85"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="739,14,653,13,548,13,434,19,320,32,271,44,226,59,223,55,269,39,320,27,433,14,547,8,653,8,744,13"/>
+<area shape="rect" id="Node000005" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="588,57,645,85"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="753,38,646,67,645,62,758,36"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,57,55,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="85,73,57,73,54,69,89,69"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="766,58,695,48,581,43,466,46,360,53,273,62,271,57,360,48,466,40,581,38,696,43,771,57"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="765,72,646,74,645,69,770,70"/>
+<area shape="poly" id="edge14_Node000007_Node000005" title=" " alt="" coords="783,152,645,87,646,82,788,152"/>
+<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="552,159,681,186"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="747,173,682,175,681,170,752,172"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="539,155,466,139,465,134,544,154"/>
+<area shape="poly" id="edge12_Node000008_Node000010" title=" " alt="" coords="534,174,487,176,486,171,540,172"/>
+<area shape="poly" id="edge11_Node000009_Node000003" title=" " alt="" coords="325,105,250,88,249,83,330,103"/>
+<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="335,155,319,150,258,118,210,88,210,83,261,114,321,145,341,154"/>
+<area shape="rect" id="Node000012" href="$classrelayOutput.html#a7bba2dafbdc27d07468741bc1d849f57" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="537,261,696,306"/>
+<area shape="poly" id="edge18_Node000011_Node000012" title=" " alt="" coords="725,283,696,286,696,281,731,283"/>
+<area shape="rect" id="Node000013" href="$classrelayOutput.html#a8db1c0f340b319bfc7ff11467ea57cc7" title="Proceed with the relay." alt="" coords="537,330,696,375"/>
+<area shape="poly" id="edge19_Node000011_Node000013" title=" " alt="" coords="773,302,688,332,687,327,768,303"/>
+</map>

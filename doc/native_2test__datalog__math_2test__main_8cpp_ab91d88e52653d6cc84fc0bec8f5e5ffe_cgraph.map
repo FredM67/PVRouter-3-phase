@@ -16,4 +16,6 @@
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="827,31,862,29,856,30,828,36"/>
 <area shape="rect" id="Node000006" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="881,57,1002,85"/>
 <area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="827,53,868,61,863,61,827,59"/>
+<area shape="rect" id="Node000010" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="659,160,823,188"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="570,171,646,174,641,174,570,176"/>
 </map>

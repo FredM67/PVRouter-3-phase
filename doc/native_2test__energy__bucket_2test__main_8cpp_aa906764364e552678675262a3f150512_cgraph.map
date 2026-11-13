@@ -2,14 +2,16 @@
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,49,247,94"/>
 <area shape="rect" id="Node000002" href="$namespaceEnergy.html#a5c6a3eeab8203be8c21f0dcd70f1b1c0" title="Contribution of one mains cycle of one phase to the bucket." alt="" coords="314,5,466,33"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="242,46,304,36,299,38,243,51"/>
-<area shape="rect" id="Node000003" href="$native_2test__energy__bucket_2test__main_8cpp.html#a1eb6eb8118c52d7086f05c62d72ab7d6" title="The exact energy of one cycle: no truncating division, in bucket units." alt="" coords="328,57,452,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="247,69,315,70,310,72,248,74"/>
-<area shape="rect" id="Node000004" href="$namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714" title="Build the per&#45;sample calibration table at compile time." alt="" coords="295,109,485,137"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="243,91,304,105,298,106,243,97"/>
-<area shape="rect" id="Node000005" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="533,57,666,85"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="448,106,523,90,528,89,449,111"/>
-<area shape="rect" id="Node000006" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="539,109,660,137"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="485,121,526,123,521,123,486,126"/>
-<area shape="rect" id="Node000007" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="540,161,660,189"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="449,135,528,157,523,157,449,140"/>
+<area shape="rect" id="Node000004" href="$native_2test__energy__bucket_2test__main_8cpp.html#a1eb6eb8118c52d7086f05c62d72ab7d6" title="The exact energy of one cycle: no truncating division, in bucket units." alt="" coords="328,57,452,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="247,69,315,70,310,72,248,74"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714" title="Build the per&#45;sample calibration table at compile time." alt="" coords="295,109,485,137"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="243,91,304,105,298,106,243,97"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="533,5,697,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="466,17,520,19,515,20,466,22"/>
+<area shape="rect" id="Node000006" href="$namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="548,57,682,85"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="453,106,534,90,540,89,454,111"/>
+<area shape="rect" id="Node000007" href="$namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="554,109,676,137"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="485,121,542,123,536,123,486,126"/>
+<area shape="rect" id="Node000008" href="$namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="555,161,675,189"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="453,135,542,158,537,158,453,140"/>
 </map>

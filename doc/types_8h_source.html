@@ -184,13 +184,13 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="types_8h.html#a23913965d671d9cb03004085740837b9">  105</a></span><span class="keyword">constexpr</span> uint8_t <a class="code hl_function" href="types_8h.html#a23913965d671d9cb03004085740837b9">ival</a>(Ts... Vs)</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>{</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  <span class="keywordtype">char</span> vals[<span class="keyword">sizeof</span>...(Vs)]{ Vs... };</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  uint8_t <a class="code hl_variable" href="mult__asm_8h.html#a937d4dd628a8858b443a399410d2600b">result</a>{ 0 };</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  uint8_t result{ 0 };</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  <span class="keywordflow">for</span> (uint8_t <a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a> = 0; <a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a> &lt; <span class="keyword">sizeof</span>...(Vs); <a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>++)</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <a class="code hl_variable" href="mult__asm_8h.html#a937d4dd628a8858b443a399410d2600b">result</a> *= 10;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <a class="code hl_variable" href="mult__asm_8h.html#a937d4dd628a8858b443a399410d2600b">result</a> += vals[<a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>] - <span class="charliteral">&#39;0&#39;</span>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    result *= 10;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    result += vals[<a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>] - <span class="charliteral">&#39;0&#39;</span>;</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  }</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>  <span class="keywordflow">return</span> <a class="code hl_variable" href="mult__asm_8h.html#a937d4dd628a8858b443a399410d2600b">result</a>;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>  <span class="keywordflow">return</span> result;</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
 </div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
@@ -216,7 +216,6 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aconstants_8h_html"><div class="ttname"><a href="constants_8h.html">constants.h</a></div><div class="ttdoc">Some constants.</div></div>
 <div class="ttc" id="aembedded_2test__mult__asm_2test__main_8cpp_html_af27e3188294c2df66d975b74a09c001d"><div class="ttname"><a href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a></div><div class="ttdeci">uint8_t i</div><div class="ttdef"><b>Definition</b> <a href="embedded_2test__mult__asm_2test__main_8cpp_source.html#l00881">test_main.cpp:881</a></div></div>
 <div class="ttc" id="aload__map_8h_html"><div class="ttname"><a href="load__map_8h.html">load_map.h</a></div><div class="ttdoc">Encoding of the load map: one packed byte per dump load.</div></div>
-<div class="ttc" id="amult__asm_8h_html_a937d4dd628a8858b443a399410d2600b"><div class="ttname"><a href="mult__asm_8h.html#a937d4dd628a8858b443a399410d2600b">result</a></div><div class="ttdeci">result</div><div class="ttdef"><b>Definition</b> <a href="mult__asm_8h_source.html#l00073">mult_asm.h:73</a></div></div>
 <div class="ttc" id="astructintegral__constant_html"><div class="ttname"><a href="structintegral__constant.html">integral_constant</a></div><div class="ttdef"><b>Definition</b> <a href="integral__constant_8hpp_source.html#l00008">integral_constant.hpp:9</a></div></div>
 <div class="ttc" id="atype__traits_8hpp_html"><div class="ttname"><a href="type__traits_8hpp.html">type_traits.hpp</a></div><div class="ttdoc">Some useful but missing stl functions templates.</div></div>
 <div class="ttc" id="atypes_8h_html_a06b890c4a964752df814257dc1f13073"><div class="ttname"><a href="types_8h.html#a06b890c4a964752df814257dc1f13073">RotationModes</a></div><div class="ttdeci">RotationModes</div><div class="ttdef"><b>Definition</b> <a href="#l00061">types.h:62</a></div></div>

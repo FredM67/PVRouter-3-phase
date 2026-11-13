@@ -1,9 +1,11 @@
 <map id="test_20s_shift8_overflow" name="test_20s_shift8_overflow">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,32,188,60"/>
-<area shape="rect" id="Node000002" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#aeeaffbde156096f6543dce5943b0e172" title="Generic test function for voltage accumulation with different parameters." alt="" coords="236,32,433,60"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,43,223,45,217,46,188,48"/>
-<area shape="rect" id="Node000003" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#a75a5aa469078dc25a3b398daf64b6e87" title="Print a 64&#45;bit value on AVR, where Serial.print() tops out at 32 bits." alt="" coords="496,5,573,33"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,30,478,27,483,26,433,35"/>
-<area shape="rect" id="Node000004" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#aba3cb8dacee881be847bf6da66d8d71a" title=" " alt="" coords="481,57,587,85"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="433,56,468,63,463,62,433,61"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,57,188,85"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#aeeaffbde156096f6543dce5943b0e172" title="Generic test function for voltage accumulation with different parameters." alt="" coords="236,57,433,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,69,223,71,217,72,188,74"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="481,5,616,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="394,54,471,38,476,37,395,59"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#a75a5aa469078dc25a3b398daf64b6e87" title="Print a 64&#45;bit value on AVR, where Serial.print() tops out at 32 bits." alt="" coords="510,57,587,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="433,69,497,71,492,71,434,74"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__voltage__accumulation_2test__main_8cpp.html#aba3cb8dacee881be847bf6da66d8d71a" title=" " alt="" coords="496,109,602,137"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="395,83,483,107,478,107,394,88"/>
 </map>

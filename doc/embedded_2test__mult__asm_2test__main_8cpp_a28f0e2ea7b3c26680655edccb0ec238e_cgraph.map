@@ -1,5 +1,9 @@
 <map id="test_edge_cases" name="test_edge_cases">
-<area shape="rect" id="Node000001" title="Test edge cases and potential overflow scenarios." alt="" coords="5,5,135,33"/>
-<area shape="rect" id="Node000002" href="$mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="183,5,276,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,17,170,19,164,19,135,22"/>
+<area shape="rect" id="Node000001" title="Test edge cases and potential overflow scenarios." alt="" coords="5,57,135,85"/>
+<area shape="rect" id="Node000002" href="$mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="204,5,297,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="120,54,191,35,187,38,122,59"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="197,57,304,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="135,69,184,70,179,72,135,74"/>
+<area shape="rect" id="Node000004" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="183,109,318,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="121,83,188,104,183,105,121,88"/>
 </map>

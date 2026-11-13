@@ -4,41 +4,43 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,121,149,89,208,57,228,50,224,54,210,62,152,93,106,124"/>
 <area shape="rect" id="Node000003" href="$group__TimeCritical.html#gaab63947d9b9f7f49dbb62a8ceada3d30" title="Process the start of a new positive half cycle for the specified phase." alt="" coords="215,71,376,98"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="141,120,223,101,219,105,144,124"/>
-<area shape="rect" id="Node000008" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="212,148,379,176"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="160,143,198,149,194,151,162,148"/>
-<area shape="rect" id="Node000020" href="$group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Processes the startup period for the router." alt="" coords="235,200,356,228"/>
-<area shape="poly" id="edge22_Node000001_Node000020" title=" " alt="" coords="117,148,210,185,234,194,229,196,208,190,118,153"/>
+<area shape="rect" id="Node000009" href="$group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="212,148,379,176"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="160,143,198,149,194,151,162,148"/>
+<area shape="rect" id="Node000021" href="$group__TimeCritical.html#ga4bd9766ebd8acc09da5413f6d613f123" title="Processes the startup period for the router." alt="" coords="235,200,356,228"/>
+<area shape="poly" id="edge23_Node000001_Node000021" title=" " alt="" coords="117,148,210,185,234,194,229,196,208,190,118,153"/>
 <area shape="rect" id="Node000004" href="$group__TimeCritical.html#gaabf10592d01250ef862370d26c5a382b" title="Process data logging at the end of each logging period." alt="" coords="450,5,603,33"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="345,68,429,43,461,36,456,39,431,48,347,72"/>
 <area shape="rect" id="Node000005" href="$group__TimeCritical.html#ga21380cdbe3f783dad431ff1a912cbaa1" title="Process the latest contribution after each phase&#45;specific new cycle." alt="" coords="430,57,622,85"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="375,77,417,76,413,79,378,82"/>
 <area shape="rect" id="Node000006" href="$namespaceEnergy.html#a5c6a3eeab8203be8c21f0dcd70f1b1c0" title="Contribution of one mains cycle of one phase to the bucket." alt="" coords="705,5,856,33"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="597,54,697,36,692,38,599,59"/>
-<area shape="rect" id="Node000007" href="$namespaceEnergy.html#aeae61ea16953d9d9b692f8bb2c8b5f6a" title="A power in watts, in bucket units per mains cycle." alt="" coords="710,57,851,85"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="622,69,697,70,692,72,623,74"/>
-<area shape="rect" id="Node000009" href="$group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="434,109,618,137"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="378,145,427,139,422,141,380,150"/>
-<area shape="rect" id="Node000011" href="$group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="436,161,616,189"/>
-<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="378,164,423,168,418,170,380,169"/>
-<area shape="rect" id="Node000013" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="430,239,622,266"/>
-<area shape="poly" id="edge12_Node000008_Node000013" title=" " alt="" coords="346,174,383,186,485,231,479,232,381,191,347,179"/>
-<area shape="rect" id="Node000017" href="$group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="456,365,596,393"/>
-<area shape="poly" id="edge17_Node000008_Node000017" title=" " alt="" coords="362,174,384,186,403,208,412,229,419,251,432,276,466,318,501,355,496,354,462,321,428,279,414,254,407,231,398,211,380,191,362,179"/>
-<area shape="rect" id="Node000010" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="681,109,880,137"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="618,121,668,122,663,124,619,126"/>
-<area shape="rect" id="Node000012" href="$group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="670,161,891,189"/>
-<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="616,173,657,174,652,176,617,178"/>
-<area shape="rect" id="Node000014" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="939,263,1044,290"/>
-<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="622,243,750,240,821,242,891,249,931,258,926,258,890,254,821,248,750,245,623,248"/>
-<area shape="rect" id="Node000015" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="733,315,828,342"/>
-<area shape="poly" id="edge14_Node000013_Node000015" title=" " alt="" coords="566,264,671,299,720,314,715,315,670,304,566,270"/>
-<area shape="rect" id="Node000016" href="$namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="703,263,858,290"/>
-<area shape="poly" id="edge15_Node000013_Node000016" title=" " alt="" coords="622,259,690,267,685,268,623,264"/>
-<area shape="poly" id="edge16_Node000016_Node000014" title=" " alt="" coords="858,274,926,276,920,277,858,279"/>
-<area shape="poly" id="edge18_Node000017_Node000014" title=" " alt="" coords="597,383,661,386,735,383,814,373,890,351,932,328,965,302,970,300,935,332,892,356,815,378,736,388,661,391,597,389"/>
-<area shape="poly" id="edge19_Node000017_Node000015" title=" " alt="" coords="596,363,720,340,715,342,597,368"/>
-<area shape="rect" id="Node000018" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="733,416,828,444"/>
-<area shape="poly" id="edge20_Node000017_Node000018" title=" " alt="" coords="597,390,721,417,715,418,597,396"/>
-<area shape="rect" id="Node000019" href="$utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="736,468,825,496"/>
-<area shape="poly" id="edge21_Node000017_Node000019" title=" " alt="" coords="551,391,605,422,671,453,724,471,719,470,669,458,602,427,549,396"/>
+<area shape="rect" id="Node000008" href="$namespaceEnergy.html#aeae61ea16953d9d9b692f8bb2c8b5f6a" title="A power in watts, in bucket units per mains cycle." alt="" coords="710,57,851,85"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="622,69,697,70,692,72,623,74"/>
+<area shape="rect" id="Node000007" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="939,5,1103,33"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="856,17,926,18,920,20,857,22"/>
+<area shape="rect" id="Node000010" href="$group__TimeCritical.html#gaef29df3a6c44ea8477b816cbdf3005f3" title="Handles the case when the energy level is high, potentially adding a load." alt="" coords="434,109,618,137"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="378,145,427,139,422,141,380,150"/>
+<area shape="rect" id="Node000012" href="$group__TimeCritical.html#ga7ecb8f04a958d86156a6c95581f242d3" title="Handles the case when the energy level is low, potentially removing a load." alt="" coords="436,161,616,189"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="378,164,423,168,418,170,380,169"/>
+<area shape="rect" id="Node000014" href="$group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="430,239,622,266"/>
+<area shape="poly" id="edge13_Node000009_Node000014" title=" " alt="" coords="346,174,383,186,485,231,479,232,381,191,347,179"/>
+<area shape="rect" id="Node000018" href="$group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="456,365,596,393"/>
+<area shape="poly" id="edge18_Node000009_Node000018" title=" " alt="" coords="362,174,384,186,403,208,412,229,419,251,432,276,466,318,501,355,496,354,462,321,428,279,414,254,407,231,398,211,380,191,362,179"/>
+<area shape="rect" id="Node000011" href="$group__TimeCritical.html#ga8e7b88bb4b21554d23b57676a45e034e" title="Retrieve the next logical load that could be added." alt="" coords="681,109,880,137"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="618,121,668,122,663,124,619,126"/>
+<area shape="rect" id="Node000013" href="$group__TimeCritical.html#gabfb25288a79335282af6922e833d3c35" title="Retrieve the next logical load that could be removed (in reverse order)." alt="" coords="670,161,891,189"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="616,173,657,174,652,176,617,178"/>
+<area shape="rect" id="Node000015" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="968,263,1074,290"/>
+<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="623,244,750,242,891,249,956,261,950,261,890,254,750,247,623,250"/>
+<area shape="rect" id="Node000016" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="733,315,828,342"/>
+<area shape="poly" id="edge15_Node000014_Node000016" title=" " alt="" coords="566,264,671,299,720,314,715,315,670,304,566,270"/>
+<area shape="rect" id="Node000017" href="$namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="703,263,858,290"/>
+<area shape="poly" id="edge16_Node000014_Node000017" title=" " alt="" coords="622,259,690,267,685,268,623,264"/>
+<area shape="poly" id="edge17_Node000017_Node000015" title=" " alt="" coords="857,274,955,276,950,277,858,279"/>
+<area shape="poly" id="edge19_Node000018_Node000015" title=" " alt="" coords="597,381,660,382,735,379,813,369,890,351,943,327,987,301,992,299,946,332,892,356,814,375,735,384,660,387,597,386"/>
+<area shape="poly" id="edge20_Node000018_Node000016" title=" " alt="" coords="596,363,720,340,715,342,597,368"/>
+<area shape="rect" id="Node000019" href="$utils__pins_8h.html#a7195575c2ba8a186bd9758e4e2a141fd" title="Set the Pins state to OFF." alt="" coords="733,416,828,444"/>
+<area shape="poly" id="edge21_Node000018_Node000019" title=" " alt="" coords="597,390,721,417,715,418,597,396"/>
+<area shape="rect" id="Node000020" href="$utils__pins_8h.html#ae60db4342d45f22fa3bf5b297cf95bf3" title="Set the Pins state to ON." alt="" coords="736,468,825,496"/>
+<area shape="poly" id="edge22_Node000018_Node000020" title=" " alt="" coords="551,391,605,422,671,453,724,471,719,470,669,458,602,427,549,396"/>
 </map>

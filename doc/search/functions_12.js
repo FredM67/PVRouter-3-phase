@@ -28,5 +28,8 @@ var searchData=
   ['sqrtscaled_25',['sqrtScaled',['../namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0',1,'Datalog']]],
   ['squareroot_26',['squareRoot',['../namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446',1,'Datalog']]],
   ['start_27',['start',['../namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094',1,'SerialOutput']]],
-  ['starttimer_28',['startTimer',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#a2a6444cd1b8b68309115d457acd6ead9',1,'test_main.cpp']]]
+  ['startframe_28',['startFrame',['../classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66',1,'TeleInfo']]],
+  ['starttimer_29',['startTimer',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#a2a6444cd1b8b68309115d457acd6ead9',1,'test_main.cpp']]],
+  ['status_30',['status',['../debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab',1,'debug.h']]],
+  ['statusln_31',['statusln',['../debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458',1,'debug.h']]]
 ];

@@ -1,5 +1,7 @@
 <map id="test_performance_mult16x8_q8" name="test_performance_mult16x8_q8">
-<area shape="rect" id="Node000001" title="Performance comparison for Q8 fractional multiplication." alt="" coords="5,5,234,33"/>
-<area shape="rect" id="Node000002" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="282,5,385,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,17,269,19,264,19,234,22"/>
+<area shape="rect" id="Node000001" title="Performance comparison for Q8 fractional multiplication." alt="" coords="5,32,234,60"/>
+<area shape="rect" id="Node000002" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="283,5,386,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,29,270,27,265,28,234,34"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="282,57,388,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,57,269,63,263,63,234,62"/>
 </map>

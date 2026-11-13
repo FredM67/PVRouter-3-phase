@@ -1,0 +1,5 @@
+<map id="test_performance_multU16x16_to32" name="test_performance_multU16x16_to32">
+<area shape="rect" id="Node000001" title="Performance comparison for unsigned multiplication (multU16x16_to32)" alt="" coords="5,5,265,33"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="313,5,450,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="265,17,300,19,294,19,265,22"/>
+</map>

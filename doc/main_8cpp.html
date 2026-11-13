@@ -362,9 +362,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9b9428fd01019319970f27b88bb1cf33" id="r_ga9b9428fd01019319970f27b88bb1cf33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33">proceedRotation</a> ()</td></tr>
 <tr class="memdesc:ga9b9428fd01019319970f27b88bb1cf33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceeds with load priority rotation.  <br /></td></tr>
 <tr class="separator:ga9b9428fd01019319970f27b88bb1cf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90dc0c3192649d64ae885b62e6afa6e4" id="r_a90dc0c3192649d64ae885b62e6afa6e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90dc0c3192649d64ae885b62e6afa6e4">processTemperatureData</a> ()</td></tr>
-<tr class="memdesc:a90dc0c3192649d64ae885b62e6afa6e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes temperature data from DS18B20 sensors.  <br /></td></tr>
-<tr class="separator:a90dc0c3192649d64ae885b62e6afa6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga90dc0c3192649d64ae885b62e6afa6e4" id="r_ga90dc0c3192649d64ae885b62e6afa6e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__TemperatureSensing.html#ga90dc0c3192649d64ae885b62e6afa6e4">processTemperatureData</a> ()</td></tr>
+<tr class="memdesc:ga90dc0c3192649d64ae885b62e6afa6e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes temperature data from DS18B20 sensors.  <br /></td></tr>
+<tr class="separator:ga90dc0c3192649d64ae885b62e6afa6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4fc01d736fe50cf5b977f755b675f11d" id="r_ga4fc01d736fe50cf5b977f755b675f11d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d">setup</a> ()</td></tr>
 <tr class="memdesc:ga4fc01d736fe50cf5b977f755b675f11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once during startup.  <br /></td></tr>
 <tr class="separator:ga4fc01d736fe50cf5b977f755b675f11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -388,43 +388,7 @@ Functions</h2></td></tr>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023-2026 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="a90dc0c3192649d64ae885b62e6afa6e4" name="a90dc0c3192649d64ae885b62e6afa6e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90dc0c3192649d64ae885b62e6afa6e4">&#9670;&#160;</a></span>processTemperatureData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void processTemperatureData </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Processes temperature data from DS18B20 sensors. </p>
-<p>This function reads temperature values from all connected DS18B20 sensors, filters out invalid readings, and updates the telemetry data structure with valid temperature values. Invalid readings are identified as 85.00°C (encoded as 8500) with a delta greater than 5.00°C (encoded as 500) from the previous reading. After processing, it requests new temperature measurements for the next cycle.</p>
-<dl class="section note"><dt>Note</dt><dd>This function assumes that temperature values are stored as integers multiplied by 100 for precision.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <code>temperatureSensing</code> object must be initialized and configured with the connected DS18B20 sensors.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>The <code>tx_data.temperature_x100</code> array is updated with the latest valid temperature readings. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00475">475</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph.png" border="0" usemap="#amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph" alt=""/></div>
-<map name="amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph" id="amain_8cpp_a90dc0c3192649d64ae885b62e6afa6e4_icgraph">
-<area shape="rect" title="Processes temperature data from DS18B20 sensors." alt="" coords="103,5,287,33"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,55,33"/>
-<area shape="poly" title=" " alt="" coords="85,20,55,22,55,17,90,18"/>
-</map>
-</div>
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2

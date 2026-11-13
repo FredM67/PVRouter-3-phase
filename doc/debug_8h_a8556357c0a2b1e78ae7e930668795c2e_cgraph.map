@@ -1,5 +1,11 @@
 <map id="infolnDecimals_P" name="infolnDecimals_P">
-<area shape="rect" id="Node000001" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="5,5,140,33"/>
-<area shape="rect" id="Node000002" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="188,5,307,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,17,174,19,169,19,140,22"/>
+<area shape="rect" id="Node000001" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="5,32,140,60"/>
+<area shape="rect" id="Node000002" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="188,32,307,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,43,174,45,169,46,140,48"/>
+<area shape="rect" id="Node000003" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="370,5,541,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="307,36,358,32,352,32,308,41"/>
+<area shape="rect" id="Node000005" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="355,57,556,85"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="308,50,342,57,337,57,308,56"/>
+<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="604,5,765,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="542,17,591,19,586,19,542,22"/>
 </map>

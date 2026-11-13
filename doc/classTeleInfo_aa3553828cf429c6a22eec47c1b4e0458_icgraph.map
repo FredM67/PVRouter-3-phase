@@ -1,0 +1,30 @@
+<map id="TeleInfo::writeTag" name="TeleInfo::writeTag">
+<area shape="rect" id="Node000001" title="Writes a tag to the buffer." alt="" coords="732,127,867,155"/>
+<area shape="rect" id="Node000002" href="$classTeleInfo.html#a83f6500622fefb17eef340037510392e" title="Writes a whole line: line feed, tag, value, checksum and carriage return." alt="" coords="543,127,684,155"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="714,141,685,144,684,138,719,141"/>
+<area shape="rect" id="Node000003" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="354,152,465,180"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="525,152,466,162,465,157,530,151"/>
+<area shape="rect" id="Node000012" href="$classTeleInfo.html#a61bb01da9590444331f8a02d39cfc7c7" title="Sends a telemetry value as an unsigned integer (above 32767, send() would wrap)." alt="" coords="323,58,495,86"/>
+<area shape="poly" id="edge15_Node000002_Node000012" title=" " alt="" coords="553,122,453,89,453,83,559,121"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__teleinfo_2test__main_8cpp.html#af4b9ef88d9c0c3bdb7f0d12e28e2c68a" title=" " alt="" coords="121,75,265,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="347,148,265,123,265,117,352,146"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a0f0c6baf6642826749c0a045161a89fe" title=" " alt="" coords="122,144,264,189"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="336,167,265,169,264,164,341,165"/>
+<area shape="rect" id="Node000007" href="$embedded_2test__teleinfo_2test__main_8cpp.html#ab2343fe4920543cd7a50e9535f504bcd" title=" " alt="" coords="126,5,260,50"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="376,143,321,99,274,65,253,53,252,48,276,60,324,95,382,142"/>
+<area shape="rect" id="Node000008" href="$embedded_2test__teleinfo_2test__main_8cpp.html#aa23742a5e9c73d0216ba3d7ac475746f" title=" " alt="" coords="124,213,262,258"/>
+<area shape="poly" id="edge9_Node000003_Node000008" title=" " alt="" coords="347,187,263,216,261,211,352,184"/>
+<area shape="rect" id="Node000009" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a365c05d0400045836d05ecfeb560eda5" title=" " alt="" coords="111,283,275,327"/>
+<area shape="poly" id="edge11_Node000003_Node000009" title=" " alt="" coords="383,189,335,232,276,273,254,285,251,280,274,268,332,228,379,192"/>
+<area shape="rect" id="Node000010" href="$embedded_2test__serial__output_2test__main_8cpp.html#a27de18cd8e431ab8826ec6aa60d14c0c" title=" " alt="" coords="115,352,271,397"/>
+<area shape="poly" id="edge13_Node000003_Node000010" title=" " alt="" coords="395,192,348,267,315,307,277,342,258,354,255,349,273,338,311,303,344,264,391,195"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__teleinfo_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,152,59,180"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="122,128,112,134,61,157,57,153,110,129,125,124"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="104,168,60,169,58,164,108,164"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="114,61,112,64,90,86,71,110,45,153,40,151,67,107,86,82,109,60,118,56"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="121,208,110,203,60,180,58,175,112,199,126,206"/>
+<area shape="poly" id="edge12_Node000009_Node000005" title=" " alt="" coords="113,275,109,272,86,250,67,226,42,183,43,178,71,223,90,247,112,268,119,274"/>
+<area shape="rect" id="Node000011" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,360,63,388"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="97,375,64,377,63,372,102,373"/>
+<area shape="poly" id="edge16_Node000012_Node000007" title=" " alt="" coords="321,55,261,44,260,39,325,53"/>
+</map>

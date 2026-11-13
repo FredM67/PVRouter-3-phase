@@ -1,30 +1,36 @@
 <map id="initializeProcessing" name="initializeProcessing">
-<area shape="rect" id="Node000001" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="5,185,153,213"/>
+<area shape="rect" id="Node000001" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="5,211,153,238"/>
 <area shape="rect" id="Node000002" href="$utils__bits_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e" title="Clear the specified bit." alt="" coords="241,5,318,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,184,129,120,162,83,199,49,228,34,224,38,202,53,166,86,134,123,91,186"/>
-<area shape="rect" id="Node000003" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="435,56,500,84"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="89,183,134,137,165,112,200,93,257,75,316,65,372,62,422,65,417,67,372,68,317,71,258,80,202,98,168,117,137,141,94,187"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,209,126,134,159,89,199,49,228,34,224,38,202,53,163,93,130,137,89,212"/>
+<area shape="rect" id="Node000003" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="459,55,524,82"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="86,209,129,150,161,118,199,93,263,71,329,60,391,58,446,62,441,64,391,63,329,65,264,76,202,98,165,122,133,154,91,211"/>
 <area shape="rect" id="Node000004" href="$group__Initialization.html#ga8995e5745b217d64477574abf086acc7" title="Retrieves the input pins configuration." alt="" coords="228,107,330,134"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="110,183,200,145,222,138,218,142,202,150,113,187"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="98,208,143,177,199,145,218,139,214,142,202,150,146,181,101,212"/>
 <area shape="rect" id="Node000006" href="$group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="223,159,336,186"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="152,187,209,180,205,184,154,192"/>
-<area shape="rect" id="Node000009" href="$utils__rf_8h.html#af054c00af4d014f9db280e6e6e19e968" title="Initialize the shared RF module." alt="" coords="232,211,326,238"/>
-<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="152,206,219,215,215,218,153,211"/>
-<area shape="rect" id="Node000011" href="$group__Initialization.html#ga2d9a6fb1fe26a80cf146d1bf115ab5ac" title="Initializes all elements of a given array to a specified value." alt="" coords="223,263,336,290"/>
-<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="113,211,202,247,223,257,218,258,200,252,113,216"/>
-<area shape="rect" id="Node000012" href="$utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873" title="Set the pins as INPUT_PULLUP." alt="" coords="201,315,358,342"/>
-<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="94,211,140,254,170,278,202,300,216,308,211,308,199,304,167,283,137,258,93,216"/>
-<area shape="rect" id="Node000013" href="$utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e" title="Set the pins as OUTPUT." alt="" coords="215,367,344,394"/>
-<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="89,211,132,279,164,318,202,352,212,360,207,359,199,356,160,321,128,282,87,216"/>
-<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="330,104,422,81,418,84,332,109"/>
-<area shape="rect" id="Node000005" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="430,108,505,136"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="330,118,417,120,413,123,332,123"/>
-<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="332,156,357,144,371,132,380,120,390,107,404,94,423,86,419,89,408,99,393,111,384,123,375,136,359,148,335,160"/>
-<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="332,156,418,135,413,137,334,161"/>
-<area shape="rect" id="Node000007" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="415,212,520,240"/>
-<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="331,184,404,207,399,208,331,190"/>
-<area shape="rect" id="Node000008" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="420,160,515,188"/>
-<area shape="poly" id="edge10_Node000006_Node000008" title=" " alt="" coords="336,170,407,172,402,174,337,176"/>
-<area shape="rect" id="Node000010" href="$namespaceSharedRF.html#a1885bc1c65805664c2ad68a37868cd57" title="Accessor for the shared RFM69 instance." alt="" coords="406,264,529,292"/>
-<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="327,235,404,259,399,260,327,240"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="134,208,210,189,206,193,137,212"/>
+<area shape="rect" id="Node000009" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="250,211,308,238"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="152,222,237,223,233,226,154,227"/>
+<area shape="rect" id="Node000012" href="$utils__rf_8h.html#af054c00af4d014f9db280e6e6e19e968" title="Initialize the shared RF module." alt="" coords="232,263,326,290"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="135,236,219,259,215,262,136,242"/>
+<area shape="rect" id="Node000014" href="$group__Initialization.html#ga2d9a6fb1fe26a80cf146d1bf115ab5ac" title="Initializes all elements of a given array to a specified value." alt="" coords="223,315,336,342"/>
+<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="99,236,146,268,202,299,219,308,214,309,199,304,143,272,100,242"/>
+<area shape="rect" id="Node000015" href="$utils__pins_8h.html#ac106ac6266d5d7a5328ea0c63778a873" title="Set the pins as INPUT_PULLUP." alt="" coords="201,367,358,394"/>
+<area shape="poly" id="edge17_Node000001_Node000015" title=" " alt="" coords="90,236,136,292,167,324,202,352,213,360,208,360,199,356,163,328,132,296,89,241"/>
+<area shape="rect" id="Node000016" href="$utils__pins_8h.html#ad448cf4026a22a8190ea178a02702b2e" title="Set the pins as OUTPUT." alt="" coords="215,419,344,446"/>
+<area shape="poly" id="edge18_Node000001_Node000016" title=" " alt="" coords="86,236,104,271,128,316,161,363,202,404,211,411,205,410,199,408,157,366,124,319,99,274,86,241"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="330,106,446,78,442,81,332,110"/>
+<area shape="rect" id="Node000005" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="454,107,529,134"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="330,118,441,119,437,122,332,123"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="332,156,357,144,371,131,380,119,389,106,405,93,446,77,442,80,407,97,393,109,384,122,375,135,359,148,335,160"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="335,156,442,132,437,134,337,161"/>
+<area shape="rect" id="Node000007" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="439,159,544,186"/>
+<area shape="poly" id="edge9_Node000006_Node000007" title=" " alt="" coords="336,170,426,171,421,174,337,175"/>
+<area shape="rect" id="Node000008" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="444,211,539,238"/>
+<area shape="poly" id="edge10_Node000006_Node000008" title=" " alt="" coords="336,184,431,208,426,210,337,189"/>
+<area shape="rect" id="Node000010" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="406,263,577,290"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="309,229,420,258,415,259,309,234"/>
+<area shape="rect" id="Node000011" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="625,263,786,290"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="577,274,613,276,607,277,578,279"/>
+<area shape="rect" id="Node000013" href="$namespaceSharedRF.html#a1885bc1c65805664c2ad68a37868cd57" title="Accessor for the shared RFM69 instance." alt="" coords="430,315,553,342"/>
+<area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="327,285,420,310,415,311,327,291"/>
 </map>

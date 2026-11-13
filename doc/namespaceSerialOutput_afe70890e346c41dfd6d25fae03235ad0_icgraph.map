@@ -1,0 +1,31 @@
+<map id="SerialOutput::printDecimals" name="SerialOutput::printDecimals">
+<area shape="rect" id="Node000001" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="808,211,1009,238"/>
+<area shape="rect" id="Node000002" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="620,107,740,134"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="859,204,712,137,713,132,865,204"/>
+<area shape="rect" id="Node000008" href="$group__Telemetry.html#ga678079c20f2260c02b6d805a3252fdb8" title="One step of the datalog in text format." alt="" coords="626,180,734,208"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="790,209,734,204,734,198,795,209"/>
+<area shape="rect" id="Node000011" href="$embedded_2test__serial__output_2test__main_8cpp.html#aae27f1312bc163c3eb9f5309b9fdf7dd" title=" " alt="" coords="601,232,759,276"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="790,240,759,246,759,241,795,239"/>
+<area shape="rect" id="Node000013" href="$embedded_2test__serial__output_2test__main_8cpp.html#ae4661fa1d0daf8ee1282ebe4e9e68a60" title=" " alt="" coords="600,300,760,362"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="866,245,749,302,747,297,860,246"/>
+<area shape="rect" id="Node000003" href="$debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="358,5,492,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="641,98,600,76,551,54,492,35,492,30,553,49,602,71,646,98"/>
+<area shape="rect" id="Node000004" href="$group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="111,81,249,109"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="602,104,552,98,471,92,389,91,250,94,249,89,389,85,471,87,553,93,608,103"/>
+<area shape="rect" id="Node000006" href="$group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="324,107,525,134"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="602,121,526,123,525,118,608,120"/>
+<area shape="rect" id="Node000007" href="$group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="297,159,552,186"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="603,136,497,161,496,155,608,135"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="344,39,298,54,217,83,214,79,296,49,348,36"/>
+<area shape="rect" id="Node000005" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,81,63,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="93,97,65,97,62,93,97,93"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="307,110,250,105,249,100,312,107"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="325,155,296,148,249,131,210,112,209,107,251,126,298,143,330,154"/>
+<area shape="rect" id="Node000009" href="$group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="374,211,475,238"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="608,203,476,221,475,216,613,201"/>
+<area shape="rect" id="Node000010" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="155,211,204,238"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="357,226,205,227,205,222,361,223"/>
+<area shape="rect" id="Node000012" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="396,289,453,317"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="589,272,454,300,454,295,583,272"/>
+<area shape="poly" id="edge16_Node000013_Node000012" title=" " alt="" coords="582,321,454,309,454,304,588,321"/>
+</map>

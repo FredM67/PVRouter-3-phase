@@ -10,9 +10,10 @@ var searchData=
   ['checkagainstreference_7',['checkAgainstReference',['../native_2test__energy__bucket_2test__main_8cpp.html#a0f3801aa789750b4d56cf88b9996bf95',1,'test_main.cpp']]],
   ['checkhundredthsofjoule_8',['checkHundredthsOfJoule',['../native_2test__energy__bucket_2test__main_8cpp.html#aa248314565c6c3b78be6efc665c17867',1,'test_main.cpp']]],
   ['clear_9',['clear',['../classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7',1,'movingAvg::clear()'],['../classCapturePrint.html#abb4646c624fa1b4fa19317eea7a4191e',1,'CapturePrint::clear()']]],
-  ['confirmpolarity_10',['confirmPolarity',['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(const uint8_t phase):&#160;processing.cpp'],['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(uint8_t phase):&#160;processing.cpp']]],
-  ['contribution_11',['contribution',['../namespaceEnergy.html#a5c6a3eeab8203be8c21f0dcd70f1b1c0',1,'Energy']]],
-  ['countremoteloads_12',['countRemoteLoads',['../namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557',1,'Load']]],
-  ['countunits_13',['countUnits',['../namespaceLoad.html#a45143ff1b1b918a50f68c637c882a610',1,'Load']]],
-  ['cycle_14',['cycle',['../native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3',1,'test_main.cpp']]]
+  ['complete_10',['complete',['../namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5',1,'SerialOutput']]],
+  ['confirmpolarity_11',['confirmPolarity',['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(const uint8_t phase):&#160;processing.cpp'],['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(uint8_t phase):&#160;processing.cpp']]],
+  ['contribution_12',['contribution',['../namespaceEnergy.html#a5c6a3eeab8203be8c21f0dcd70f1b1c0',1,'Energy']]],
+  ['countremoteloads_13',['countRemoteLoads',['../namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557',1,'Load']]],
+  ['countunits_14',['countUnits',['../namespaceLoad.html#a45143ff1b1b918a50f68c637c882a610',1,'Load']]],
+  ['cycle_15',['cycle',['../native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3',1,'test_main.cpp']]]
 ];

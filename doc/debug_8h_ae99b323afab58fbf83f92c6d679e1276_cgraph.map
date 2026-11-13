@@ -1,0 +1,9 @@
+<map id="debug" name="debug">
+<area shape="rect" id="Node000001" title="Print a debug message, as Serial.print() does (only with ENABLE_DEBUG)." alt="" coords="5,5,67,33"/>
+<area shape="rect" id="Node000002" href="$debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="115,5,161,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="67,17,102,19,96,20,67,22"/>
+<area shape="rect" id="Node000003" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="209,5,380,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="161,17,196,19,190,19,161,22"/>
+<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="428,5,589,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="381,17,416,19,410,19,381,22"/>
+</map>

@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="A float constant as an integer with the given number of decimals, rounded." alt="" coords="600,62,785,89"/>
 <area shape="rect" id="Node000002" href="$group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="111,6,249,33"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="648,54,604,37,552,22,471,12,390,8,250,14,249,9,390,3,472,6,553,17,605,32,654,55"/>
-<area shape="rect" id="Node000004" href="$processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="297,31,552,59"/>
+<area shape="rect" id="Node000004" href="$group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="297,31,552,59"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="582,63,551,62,551,57,588,63"/>
 <area shape="rect" id="Node000005" href="$embedded_2test__serial__output_2test__main_8cpp.html#a65218dd97cd5257ddbf898fe11218a92" title=" " alt="" coords="351,83,498,127"/>
 <area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="582,88,499,99,498,94,588,87"/>

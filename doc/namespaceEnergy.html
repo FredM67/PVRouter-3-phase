@@ -110,7 +110,7 @@ Functions</h2></td></tr>
 <tr class="memitem:aeae61ea16953d9d9b692f8bb2c8b5f6a" id="r_aeae61ea16953d9d9b692f8bb2c8b5f6a"><td class="memItemLeft" align="right" valign="top">constexpr int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeae61ea16953d9d9b692f8bb2c8b5f6a">fromWatts</a> (const int32_t watts)</td></tr>
 <tr class="memdesc:aeae61ea16953d9d9b692f8bb2c8b5f6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">A power in watts, in bucket units per mains cycle.  <br /></td></tr>
 <tr class="separator:aeae61ea16953d9d9b692f8bb2c8b5f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aaa5a81b4e5ecaca75d4e9f5eb9a052" id="r_a7aaa5a81b4e5ecaca75d4e9f5eb9a052"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7aaa5a81b4e5ecaca75d4e9f5eb9a052">gcd</a> (const uint16_t <a class="el" href="mult__asm_8h.html#a9f72706a5f6d5733630e6882af136d84">a</a>, const uint16_t <a class="el" href="mult__asm_8h.html#a4414aa31e4dce202d4c64618f9aeea60">b</a>)</td></tr>
+<tr class="memitem:a7aaa5a81b4e5ecaca75d4e9f5eb9a052" id="r_a7aaa5a81b4e5ecaca75d4e9f5eb9a052"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7aaa5a81b4e5ecaca75d4e9f5eb9a052">gcd</a> (const uint16_t a, const uint16_t b)</td></tr>
 <tr class="memdesc:a7aaa5a81b4e5ecaca75d4e9f5eb9a052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Greatest common divisor, to reduce fractions at compile time.  <br /></td></tr>
 <tr class="separator:a7aaa5a81b4e5ecaca75d4e9f5eb9a052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99b9d09dfaa63652e20d657ebad6ab13" id="r_a99b9d09dfaa63652e20d657ebad6ab13"><td class="memTemplParams" colspan="2">template&lt;uint8_t N&gt; </td></tr>
@@ -325,6 +325,16 @@ Here is the caller graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>averagePower x cal, in bucket units, rounded to the nearest unit. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="energy__bucket_8h_source.html#l00161">161</a> of file <a class="el" href="energy__bucket_8h_source.html">energy_bucket.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceEnergy_a5c6a3eeab8203be8c21f0dcd70f1b1c0_cgraph.png" border="0" usemap="#anamespaceEnergy_a5c6a3eeab8203be8c21f0dcd70f1b1c0_cgraph" alt=""/></div>
+<map name="anamespaceEnergy_a5c6a3eeab8203be8c21f0dcd70f1b1c0_cgraph" id="anamespaceEnergy_a5c6a3eeab8203be8c21f0dcd70f1b1c0_cgraph">
+<area shape="rect" title="Contribution of one mains cycle of one phase to the bucket." alt="" coords="5,5,157,33"/>
+<area shape="rect" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="205,5,369,33"/>
+<area shape="poly" title=" " alt="" coords="157,17,192,19,186,19,157,22"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

@@ -1,16 +1,91 @@
 <map id="SerialOutput::runStep" name="SerialOutput::runStep">
-<area shape="rect" id="Node000001" title="Run the next step of the current output." alt="" coords="586,40,747,68"/>
-<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#a8900b131ef2e714ef60a9a995571d17b" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="344,13,538,41"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="568,43,539,41,539,36,574,42"/>
-<area shape="rect" id="Node000003" href="$namespaceSerialOutput.html#afd684610f3d410706ad307dcb113376a" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="374,65,508,93"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="568,65,509,74,509,69,574,64"/>
-<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="179,5,228,33"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="367,62,228,28,229,23,372,60"/>
-<area shape="rect" id="Node000005" href="$embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="113,57,294,102"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="356,80,294,82,294,77,361,79"/>
-<area shape="rect" id="Node000007" href="$embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="111,125,296,153"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="371,97,262,127,261,122,366,98"/>
-<area shape="rect" id="Node000006" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,96,63,124"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="96,100,64,107,62,102,100,97"/>
-<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="103,123,63,117,63,112,107,121"/>
+<area shape="rect" id="Node000001" title="Run the next step of the current output." alt="" coords="1726,728,1886,756"/>
+<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1507,316,1678,344"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1788,713,1600,346,1602,342,1793,715"/>
+<area shape="rect" id="Node000029" href="$namespaceSerialOutput.html#afd684610f3d410706ad307dcb113376a" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="1525,975,1660,1002"/>
+<area shape="poly" id="edge52_Node000001_Node000029" title=" " alt="" coords="1786,766,1607,976,1605,972,1781,768"/>
+<area shape="rect" id="Node000003" href="$debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="1343,233,1389,261"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1535,311,1390,258,1389,253,1541,310"/>
+<area shape="rect" id="Node000018" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="1337,401,1395,429"/>
+<area shape="poly" id="edge22_Node000002_Node000018" title=" " alt="" coords="1537,351,1397,407,1394,402,1542,348"/>
+<area shape="rect" id="Node000027" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="1306,105,1426,133"/>
+<area shape="poly" id="edge46_Node000002_Node000027" title=" " alt="" coords="1562,305,1382,136,1383,130,1567,305"/>
+<area shape="rect" id="Node000004" href="$debug_8h.html#ae99b323afab58fbf83f92c6d679e1276" title="Print a debug message, as Serial.print() does (only with ENABLE_DEBUG)." alt="" coords="800,53,861,81"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1336,222,1304,189,1271,146,1258,115,1252,88,1245,64,1237,54,1224,44,1178,22,1129,11,1077,8,1026,12,977,21,932,33,863,56,860,52,930,27,976,16,1025,7,1077,3,1129,6,1180,17,1227,39,1240,50,1249,62,1257,87,1263,114,1276,143,1308,185,1342,223"/>
+<area shape="rect" id="Node000006" href="$group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="761,156,900,184"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="1326,231,1280,214,1225,198,1138,183,1050,175,901,171,899,166,1050,170,1139,178,1226,192,1281,209,1332,230"/>
+<area shape="rect" id="Node000007" href="$group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="995,105,1195,133"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="1334,223,1285,188,1224,153,1174,136,1174,131,1226,149,1288,184,1339,223"/>
+<area shape="rect" id="Node000008" href="$group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="968,207,1223,234"/>
+<area shape="poly" id="edge9_Node000003_Node000008" title=" " alt="" coords="1325,244,1224,236,1223,230,1330,243"/>
+<area shape="rect" id="Node000009" href="$classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="965,311,1225,338"/>
+<area shape="poly" id="edge11_Node000003_Node000009" title=" " alt="" coords="1326,263,1226,300,1177,312,1175,307,1225,295,1331,261"/>
+<area shape="rect" id="Node000010" href="$classRelayEngine.html#ae27586afc10fc74876b2d647d05536ba" title="Print the configuration of each relay." alt="" coords="984,362,1206,407"/>
+<area shape="poly" id="edge12_Node000003_Node000010" title=" " alt="" coords="1340,270,1289,314,1227,352,1198,364,1195,359,1224,347,1286,309,1336,273"/>
+<area shape="rect" id="Node000011" href="$debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="1064,259,1126,286"/>
+<area shape="poly" id="edge13_Node000003_Node000011" title=" " alt="" coords="1325,252,1127,272,1125,267,1330,250"/>
+<area shape="rect" id="Node000005" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="588,532,645,560"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="791,92,768,116,746,146,726,198,721,247,725,294,733,338,740,382,740,427,727,473,715,496,698,521,674,538,647,546,645,541,671,533,694,517,711,494,723,471,734,426,734,383,728,339,720,294,716,247,721,197,741,143,764,112,795,88"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="821,196,760,380,724,471,698,521,673,537,647,545,644,540,671,532,694,517,719,469,755,379,818,200"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="1002,138,901,159,899,154,1007,135"/>
+<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="1002,204,900,185,899,180,1007,202"/>
+<area shape="rect" id="Node000012" href="$group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="765,428,896,456"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="1046,276,1007,285,966,301,926,331,890,366,843,429,839,425,886,363,922,327,964,297,1006,280,1051,274"/>
+<area shape="poly" id="edge21_Node000012_Node000005" title=" " alt="" coords="753,464,745,471,731,483,722,495,712,508,697,521,672,534,647,542,644,537,670,529,694,517,709,505,717,492,727,479,742,466,757,461"/>
+<area shape="rect" id="Node000013" href="$group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="552,480,681,508"/>
+<area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="753,461,678,482,676,477,758,459"/>
+<area shape="rect" id="Node000014" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,553,489,581"/>
+<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="556,515,538,523,448,555,445,550,536,518,561,512"/>
+<area shape="rect" id="Node000017" href="$group__GeneralProcessing.html#gabe8c38238f5014c09e788c833b50af5e" title="Handles load priority rotation." alt="" coords="324,655,486,682"/>
+<area shape="poly" id="edge19_Node000013_Node000017" title=" " alt="" coords="543,517,539,522,523,539,514,555,505,573,491,594,458,629,426,656,422,652,454,625,487,591,501,571,509,553,518,536,536,518,548,513"/>
+<area shape="rect" id="Node000015" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,655,272,682"/>
+<area shape="poly" id="edge17_Node000014_Node000015" title=" " alt="" coords="347,589,321,601,216,656,212,652,319,597,351,585"/>
+<area shape="rect" id="Node000016" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,800,55,828"/>
+<area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="159,696,49,801,45,798,160,690"/>
+<area shape="poly" id="edge20_Node000017_Node000015" title=" " alt="" coords="306,670,274,671,271,666,311,667"/>
+<area shape="poly" id="edge32_Node000018_Node000005" title=" " alt="" coords="1348,440,1298,499,1264,527,1226,549,1146,577,1061,593,975,598,891,596,813,588,744,578,646,556,645,551,745,572,814,583,892,590,975,593,1060,587,1144,572,1224,545,1261,523,1294,496,1344,443"/>
+<area shape="poly" id="edge27_Node000018_Node000006" title=" " alt="" coords="1320,430,1250,449,1157,461,1107,461,1057,455,1009,442,964,421,932,397,906,368,884,334,867,299,843,233,833,186,835,181,848,231,872,297,889,331,910,364,936,393,966,417,1011,437,1058,450,1108,455,1157,455,1249,444,1325,428"/>
+<area shape="poly" id="edge28_Node000018_Node000007" title=" " alt="" coords="1345,388,1271,274,1250,233,1240,216,1224,197,1176,161,1130,136,1130,131,1179,157,1227,193,1244,213,1254,230,1276,271,1350,389"/>
+<area shape="poly" id="edge29_Node000018_Node000008" title=" " alt="" coords="1347,387,1327,356,1299,318,1264,280,1224,249,1199,237,1199,232,1227,245,1268,276,1303,314,1332,353,1353,388"/>
+<area shape="poly" id="edge30_Node000018_Node000009" title=" " alt="" coords="1323,394,1278,373,1224,352,1186,342,1185,336,1226,347,1280,368,1329,394"/>
+<area shape="poly" id="edge31_Node000018_Node000010" title=" " alt="" coords="1319,411,1206,400,1206,394,1324,409"/>
+<area shape="rect" id="Node000019" href="$debug_8h.html#ab753909eac023c9095cde3544f912923" title="Print a debug message and a line end, as Serial.println() does (only with ENABLE_DEBUG)." alt="" coords="794,480,867,508"/>
+<area shape="poly" id="edge23_Node000018_Node000019" title=" " alt="" coords="1320,434,1277,452,1226,466,1125,482,1024,491,868,497,867,491,1024,486,1124,477,1225,460,1275,447,1325,432"/>
+<area shape="rect" id="Node000020" href="$group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="757,532,904,560"/>
+<area shape="poly" id="edge25_Node000018_Node000020" title=" " alt="" coords="1336,437,1286,472,1226,499,1142,522,1055,536,974,544,905,548,904,543,973,539,1054,531,1140,516,1224,494,1283,467,1331,439"/>
+<area shape="rect" id="Node000021" href="$debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="1058,685,1132,713"/>
+<area shape="poly" id="edge33_Node000018_Node000021" title=" " alt="" coords="1352,441,1302,526,1267,573,1227,617,1176,658,1126,687,1124,682,1173,653,1224,613,1263,570,1297,523,1348,445"/>
+<area shape="poly" id="edge24_Node000019_Node000005" title=" " alt="" coords="776,507,647,541,645,536,781,505"/>
+<area shape="poly" id="edge26_Node000020_Node000005" title=" " alt="" coords="739,547,646,548,645,543,744,545"/>
+<area shape="poly" id="edge40_Node000021_Node000012" title=" " alt="" coords="1078,671,1053,628,1016,574,970,518,915,471,894,459,894,454,919,466,974,515,1020,571,1057,626,1083,672"/>
+<area shape="poly" id="edge41_Node000021_Node000014" title=" " alt="" coords="1041,712,983,726,907,735,825,737,743,727,647,697,556,657,480,616,428,584,428,579,482,611,558,652,649,692,744,722,825,732,907,730,982,721,1046,711"/>
+<area shape="poly" id="edge42_Node000021_Node000017" title=" " alt="" coords="1069,722,976,795,913,835,842,872,766,900,727,909,688,915,649,916,610,912,572,902,536,885,508,865,483,840,462,812,445,782,420,725,409,685,410,680,425,723,450,780,467,809,487,837,511,861,539,881,574,897,611,907,649,911,687,910,726,904,764,895,840,867,910,830,973,791,1064,724"/>
+<area shape="rect" id="Node000022" href="$group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="757,685,904,713"/>
+<area shape="poly" id="edge34_Node000021_Node000022" title=" " alt="" coords="1040,700,904,702,903,696,1046,698"/>
+<area shape="rect" id="Node000023" href="$group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="783,633,878,661"/>
+<area shape="poly" id="edge37_Node000021_Node000023" title=" " alt="" coords="1041,690,878,659,878,654,1046,689"/>
+<area shape="rect" id="Node000024" href="$classrelayOutput.html#ac5b46b3ccabacb3565a16038f8099398" title="Turn the relay ON or OFF if the &#39;time&#39; condition is met." alt="" coords="744,787,917,814"/>
+<area shape="poly" id="edge43_Node000021_Node000024" title=" " alt="" coords="1047,718,918,771,871,789,869,784,916,766,1042,720"/>
+<area shape="poly" id="edge36_Node000022_Node000005" title=" " alt="" coords="753,679,742,675,705,648,672,616,628,563,629,558,676,613,709,644,745,670,758,679"/>
+<area shape="poly" id="edge35_Node000022_Node000015" title=" " alt="" coords="739,704,548,708,434,705,320,696,252,685,250,680,320,691,434,699,548,702,744,702"/>
+<area shape="poly" id="edge39_Node000023_Node000005" title=" " alt="" coords="770,628,743,617,641,563,641,557,745,613,775,627"/>
+<area shape="poly" id="edge38_Node000023_Node000015" title=" " alt="" coords="765,644,568,637,444,638,320,646,252,656,249,652,320,640,444,633,568,632,770,641"/>
+<area shape="rect" id="Node000025" href="$classrelayOutput.html#a7bba2dafbdc27d07468741bc1d849f57" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="537,757,696,801"/>
+<area shape="poly" id="edge44_Node000024_Node000025" title=" " alt="" coords="725,791,697,790,696,784,731,790"/>
+<area shape="rect" id="Node000026" href="$classrelayOutput.html#a8db1c0f340b319bfc7ff11467ea57cc7" title="Proceed with the relay." alt="" coords="537,826,696,871"/>
+<area shape="poly" id="edge45_Node000024_Node000026" title=" " alt="" coords="748,819,697,833,695,828,753,817"/>
+<area shape="poly" id="edge49_Node000027_Node000006" title=" " alt="" coords="1331,96,1283,68,1254,54,1225,44,1152,26,1093,16,1065,17,1035,21,966,44,950,54,941,65,919,94,850,157,846,153,915,91,937,62,947,50,964,39,1034,16,1064,11,1093,11,1153,20,1226,39,1256,49,1286,63,1336,96"/>
+<area shape="poly" id="edge50_Node000027_Node000007" title=" " alt="" coords="1288,120,1197,122,1195,117,1293,118"/>
+<area shape="poly" id="edge51_Node000027_Node000008" title=" " alt="" coords="1310,140,1136,208,1133,204,1315,137"/>
+<area shape="rect" id="Node000028" href="$debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="1028,53,1162,81"/>
+<area shape="poly" id="edge47_Node000027_Node000028" title=" " alt="" coords="1288,106,1163,83,1162,77,1293,104"/>
+<area shape="poly" id="edge48_Node000028_Node000006" title=" " alt="" coords="1011,81,966,96,903,127,854,158,850,153,901,122,964,91,1015,78"/>
+<area shape="poly" id="edge53_Node000029_Node000016" title=" " alt="" coords="1507,981,1321,969,1096,962,403,962,349,958,295,946,243,930,193,910,109,866,52,831,52,826,111,862,196,905,245,925,297,941,350,952,403,956,1097,956,1321,964,1512,981"/>
+<area shape="rect" id="Node000030" href="$embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="1276,997,1456,1041"/>
+<area shape="poly" id="edge54_Node000029_Node000030" title=" " alt="" coords="1513,999,1457,1009,1457,1004,1508,1000"/>
+<area shape="rect" id="Node000032" href="$embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="1273,1065,1459,1093"/>
+<area shape="poly" id="edge56_Node000029_Node000032" title=" " alt="" coords="1555,1009,1460,1056,1426,1067,1425,1062,1458,1051,1550,1010"/>
+<area shape="rect" id="Node000031" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="1066,1035,1124,1062"/>
+<area shape="poly" id="edge55_Node000030_Node000031" title=" " alt="" coords="1263,1030,1124,1048,1124,1043,1258,1031"/>
+<area shape="poly" id="edge57_Node000032_Node000031" title=" " alt="" coords="1255,1067,1124,1054,1124,1049,1261,1067"/>
 </map>

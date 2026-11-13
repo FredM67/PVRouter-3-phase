@@ -1,0 +1,5 @@
+<map id="Energy::contribution" name="Energy::contribution">
+<area shape="rect" id="Node000001" title="Contribution of one mains cycle of one phase to the bucket." alt="" coords="5,5,157,33"/>
+<area shape="rect" id="Node000002" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="205,5,369,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,17,192,19,186,19,157,22"/>
+</map>

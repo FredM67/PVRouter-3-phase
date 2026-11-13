@@ -1,7 +1,7 @@
 var searchData=
 [
   ['add_0',['add',['../structCycles.html#a7eef5f75cf8b1cf3435a683462b7ff8e',1,'Cycles']]],
-  ['addvalue_1',['addValue',['../classmovingAvg.html#aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5',1,'movingAvg']]],
+  ['addvalue_1',['addValue',['../classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db',1,'EWMA_average::addValue()'],['../classmovingAvg.html#aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5',1,'movingAvg::addValue()']]],
   ['all_5floads_2',['ALL_LOADS',['../utils__override__helpers_8h.html#ad19b0f6bfb7e49c2a32b6bb68d3228cd',1,'utils_override_helpers.h']]],
   ['all_5floads_5fand_5frelays_3',['ALL_LOADS_AND_RELAYS',['../utils__override__helpers_8h.html#a1f9a7b43cca9e7e2cca9e7f2d052b07c',1,'utils_override_helpers.h']]],
   ['all_5flocal_5floads_4',['ALL_LOCAL_LOADS',['../utils__override__helpers_8h.html#aacfc43b81341d59e7dd02a0eb307f6c6',1,'utils_override_helpers.h']]],

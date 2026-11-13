@@ -6,7 +6,7 @@
 <area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="584,98,250,98,249,93,586,93"/>
 <area shape="rect" id="Node000005" href="$group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="324,107,525,134"/>
 <area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="583,104,526,112,525,107,588,103"/>
-<area shape="rect" id="Node000006" href="$processing_8cpp.html#aa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="297,159,552,186"/>
+<area shape="rect" id="Node000006" href="$group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="297,159,552,186"/>
 <area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="622,116,553,148,509,161,508,155,551,143,617,117"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="343,38,298,54,217,83,215,78,296,49,348,36"/>
 <area shape="rect" id="Node000004" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,81,63,109"/>
