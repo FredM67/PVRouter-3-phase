@@ -31,6 +31,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
 
 #include "calibration.h"
+#include "datalog_math.h"
 #include "processing.h"
 #include "shared_var.h"
 #include "types.h"
@@ -426,30 +427,32 @@ void setup()
  * @details
  * - Computes the power for each phase using the accumulated power data and calibration factors.
  * - Calculates the RMS voltage for each phase using the accumulated voltage squared data.
+ * - Integer arithmetic only (datalog_math.h): the calibration factors are fixed-point constants.
  * - Updates the total power by summing the power of all phases.
  *
  * @ingroup GeneralProcessing
  */
 void updatePowerAndVoltageData()
 {
+  // the calibration constants in fixed point, converted at compile time: no float code (#120)
+  static constexpr auto powerCal PROGMEM{ Datalog::powerCalibration(f_powerCal) };
+  static constexpr auto voltageCal PROGMEM{ Datalog::voltageCalibration(Datalog::vrmsFactor(DATALOG_PERIOD_IN_SECONDS), f_voltageCal) };
+
   tx_data.power = 0;
   uint8_t phase{ NO_OF_PHASES };
   do
   {
     --phase;
-    tx_data.power_L[phase] = Shared::copyOf_sumP_atSupplyPoint[phase] / Shared::copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
-    tx_data.power_L[phase] *= -1;
+    const uint16_t sampleSets{ Shared::copyOf_sampleSetsDuringThisDatalogPeriod };
+
+    // import = +ve: the sum of the ISR is negative when importing
+    tx_data.power_L[phase] = Datalog::watts(-Shared::copyOf_sumP_atSupplyPoint[phase] / sampleSets,
+                                            pgm_read_word(&powerCal.value[phase]), powerCal.shift);
 
     tx_data.power += tx_data.power_L[phase];
 
-    if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
-    {
-      tx_data.Vrms_L_x100[phase] = static_cast< uint32_t >((100U << 2) * f_voltageCal[phase] * sqrt(Shared::copyOf_sum_Vsquared[phase] / Shared::copyOf_sampleSetsDuringThisDatalogPeriod));
-    }
-    else
-    {
-      tx_data.Vrms_L_x100[phase] = static_cast< uint32_t >(100U * f_voltageCal[phase] * sqrt(Shared::copyOf_sum_Vsquared[phase] / Shared::copyOf_sampleSetsDuringThisDatalogPeriod));
-    }
+    tx_data.Vrms_L_x100[phase] = Datalog::vrms(Shared::copyOf_sum_Vsquared[phase] / sampleSets,
+                                               pgm_read_word(&voltageCal.value[phase]), voltageCal.shift);
   } while (phase);
 }
 

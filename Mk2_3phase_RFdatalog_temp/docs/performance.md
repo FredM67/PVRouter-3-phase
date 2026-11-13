@@ -133,8 +133,8 @@ volatile bool flags[6];                             // 6 bytes
 2. **Constexpr Calculations**
    ```cpp
    // Pre-calculated at compile time
-   inline constexpr float invSUPPLY_FREQUENCY{ 1.0F / SUPPLY_FREQUENCY };
-   inline constexpr float invDATALOG_PERIOD{ 1.0F / DATALOG_PERIOD_IN_MAINS_CYCLES };
+   // Float calibration values turned into 16-bit fixed-point constants
+   const Datalog::FixedCalibration< NO_OF_PHASES > powerCalFixed PROGMEM{ Datalog::powerCalibration(f_powerCal) };
    ```
 
 3. **Static Configuration Validation**

@@ -487,7 +487,7 @@ void sendTelemetryData(const bool bOffPeak)
   do
   {
     --idx;
-    teleInfo.send("D", Shared::copyOf_countLoadON[idx] * 100 * invDATALOG_PERIOD_IN_MAINS_CYCLES, idx + 1);  // Send load ON count for each load
+    teleInfo.send("D", static_cast< int16_t >(Shared::copyOf_countLoadON[idx] * 100UL / DATALOG_PERIOD_IN_MAINS_CYCLES), idx + 1);  // Send the ON time of each load, in %
   } while (idx);
 
   if constexpr (TEMP_SENSOR_PRESENT)
