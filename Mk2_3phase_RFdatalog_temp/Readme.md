@@ -940,7 +940,7 @@ Cette fonctionnalité permet d’établir une hiérarchie claire dans l’utilis
 
 ## Paramètre `REQUIRED_EXPORT_IN_WATTS`
 Le paramètre `REQUIRED_EXPORT_IN_WATTS` détermine la quantité minimale d’énergie que le système doit réserver pour l’exportation ou l’importation vers le réseau électrique avant de dévier le surplus vers les charges contrôlées.
-Par défaut réglé à 0 W, ce paramètre peut être utilisé pour garantir une exportation constante vers le réseau, par exemple pour respecter des accords de revente d’électricité.
+Par défaut réglé à 20 W, ce paramètre peut être utilisé pour garantir une exportation constante vers le réseau, par exemple pour respecter des accords de revente d’électricité.
 Une valeur négative obligera le routeur à consommer cette puissance depuis le réseau. Cela peut être utile voire nécessaire pour les installations configurées en *zéro injection* afin d’amorcer la production solaire.
 
 > [!IMPORTANT]

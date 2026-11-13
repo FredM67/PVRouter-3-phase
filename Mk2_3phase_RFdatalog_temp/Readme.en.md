@@ -935,7 +935,7 @@ This feature allows establishing a clear hierarchy in the use of produced energy
 
 ## `REQUIRED_EXPORT_IN_WATTS` parameter
 The `REQUIRED_EXPORT_IN_WATTS` parameter determines the minimum amount of energy that the system must reserve for export or import to the electrical grid before diverting surplus to controlled loads.
-Set to 0 W by default, this parameter can be used to guarantee constant export to the grid, for example to comply with electricity resale agreements.
+Set to 20 W by default, this parameter can be used to guarantee constant export to the grid, for example to comply with electricity resale agreements.
 A negative value will force the router to consume this power from the grid. This can be useful or even necessary for installations configured in *zero injection* to initiate solar production.
 
 > [!IMPORTANT]
