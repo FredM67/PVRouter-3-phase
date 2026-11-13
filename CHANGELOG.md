@@ -145,9 +145,9 @@ valid load maps ([#160]).
 
 ### Development
 
-- **Benchmark history** on GitHub Pages ([bench](https://fredm67.github.io/PVRouter-3-phase/bench/)):
-  the cycle counts of the simavr benchmarks and the flash and RAM of every build, recorded on
-  each push to `dev`.
+- **GitHub Pages** ([fredm67.github.io/PVRouter-3-phase](https://fredm67.github.io/PVRouter-3-phase/)):
+  a landing page to the code documentation (now in `doc/`) and the **firmware size history**,
+  the flash and RAM of every build configuration on two charts, recorded on each push to `dev`.
 - **Performance report** on every pull request, as a comment updated at each push: the target
   branch is measured in the same run and compared with the PR, 🚨 beyond 2% worse.
 - **Configurator CI:** its default choices must regenerate the shipped config files byte for

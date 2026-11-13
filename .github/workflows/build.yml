@@ -85,13 +85,13 @@ jobs:
             echo "| Flash | $FLASH | 32256 | $((FLASH * 100 / 32256)) |"
             echo "| RAM (static) | $RAM | 2048 | $((RAM * 100 / 2048)) |"
           } >> "$GITHUB_STEP_SUMMARY"
-          # for the benchmark history (job benchmarks): smaller is better
+          # for the size history (job pages) and the PR report: smaller is better
           LABEL="${{ matrix.environment }}${{ matrix.serial && format(', {0}', matrix.serial) || '' }}"
           mkdir -p bench
           printf '[{"name": "flash: %s", "value": %d, "unit": "bytes"}, {"name": "RAM: %s", "value": %d, "unit": "bytes"}]\n' \
             "$LABEL" "$FLASH" "$LABEL" "$RAM" > "bench/size-${{ strategy.job-index }}.json"
 
-      - name: Upload the size for the benchmark history
+      - name: Upload the size for the size history and the PR report
         uses: actions/upload-artifact@v7
         with:
           name: bench-size-${{ strategy.job-index }}
@@ -287,19 +287,18 @@ jobs:
           name: grid-sim
           path: sim/out/
 
-  # Benchmark history (https://fredm67.github.io/PVRouter-3-phase/bench/): the cycle counts of the
-  # embedded benchmarks and the size of every build, smaller is better. Each push to dev adds a
-  # point to the history (gh-pages, folder bench/, kept by the doxygen deploy), and a commit more
-  # than 2% worse than the previous point gets a comment. Pull requests get the report of the
-  # pr-report job instead. The only job that writes to gh-pages here, in the same concurrency
-  # group as the doxygen deploy.
-  benchmarks:
-    name: Benchmarks
-    needs: [ build, test-embedded ]
+  # GitHub Pages (https://fredm67.github.io/PVRouter-3-phase/): each push to dev publishes the
+  # landing page and the size history (pages/), and adds the flash and RAM of every build to
+  # bench/history.json (scripts/ci/pages_update.py). The doc (doc/) is deployed by
+  # doxygen-gh-pages.yml, in the same concurrency group. Regressions are reported on pull
+  # requests, by the pr-report job.
+  pages:
+    name: GitHub Pages
+    needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # push the history to gh-pages, comment on the commit
+      contents: write  # push to gh-pages
     concurrency:
       group: gh-pages
       cancel-in-progress: false
@@ -308,43 +307,37 @@ jobs:
 
       - uses: actions/download-artifact@v8
         with:
-          pattern: bench-*
+          pattern: bench-size-*
           path: bench
           merge-multiple: true
 
       - name: Merge the sizes of the builds
         run: jq -s 'add' bench/size-*.json > bench/size.json
 
-      - name: Speed
-        uses: benchmark-action/github-action-benchmark@v1
+      - uses: actions/checkout@v7
         with:
-          name: Speed (simavr)
-          tool: customSmallerIsBetter
-          output-file-path: bench/speed.json
-          benchmark-data-dir-path: bench
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
-          alert-threshold: '102%'
-          comment-on-alert: true
-          fail-on-alert: false
-          summary-always: true
+          ref: gh-pages
+          path: site
 
-      - name: Firmware size
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          name: Firmware size
-          tool: customSmallerIsBetter
-          output-file-path: bench/size.json
-          benchmark-data-dir-path: bench
-          # gh-pages is already fetched, and holds the commit of the Speed step: fetching it again
-          # fails (non-fast-forward) on pull requests, where nothing is pushed
-          skip-fetch-gh-pages: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
-          alert-threshold: '102%'
-          comment-on-alert: true
-          fail-on-alert: false
-          summary-always: true
+      - name: Update the pages and the size history
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: >-
+          python3 scripts/ci/pages_update.py site pages bench/size.json
+          "${{ github.sha }}" "${{ github.event.head_commit.timestamp }}" "${{ github.event.head_commit.url }}"
+
+      - name: Push to gh-pages
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to publish"
+          else
+            git commit -q -m "Pages and size history for ${GITHUB_SHA::8}"
+            git push origin HEAD:gh-pages
+          fi
 
   # The target branch of a pull request, measured as the PR is: the builds of the build matrix and
   # the embedded benchmarks, with the PR's scripts/ci/measure.sh (the target may predate it).

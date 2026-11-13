@@ -9,15 +9,15 @@ on:
     - Doxyfile
   workflow_dispatch:
 
-# The steps of DenverCoder1/doxygen-github-pages-action, written out: its deploy deletes every
-# file it did not generate (clean), which would wipe the benchmark history (bench/, written by
-# the benchmarks job of build.yml) - clean-exclude keeps it.
+# The steps of DenverCoder1/doxygen-github-pages-action, written out, to deploy to doc/ of
+# gh-pages: the landing page and the firmware size history (bench/) are written by the
+# pages job of build.yml. The deploy cleans doc/ only (target-folder).
 jobs:
   deploy:
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    # one writer to gh-pages at a time, with the benchmarks job of build.yml
+    # one writer to gh-pages at a time, with the pages job of build.yml
     concurrency:
       group: gh-pages
       cancel-in-progress: false
@@ -47,4 +47,4 @@ jobs:
         with:
           branch: gh-pages
           folder: docs/html
-          clean-exclude: bench
+          target-folder: doc
