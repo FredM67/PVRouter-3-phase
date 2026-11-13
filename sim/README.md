@@ -28,8 +28,13 @@ The firmware's serial output is shown with the simulated time.
 
 ## Usage (Linux / WSL)
 
+The simulated grid is the old board's (ADC reference AVCC, 5 V, and the calibration of
+`scenarios/common.scn`), and `grid_sim` reads the human-readable datalog: `configs/sim_config.sh`
+sets both in `config.h`, whatever its defaults. Run it before every firmware build below.
+
 ```bash
 # 1. build the firmware
+(cd .. && sim/configs/sim_config.sh)
 (cd ../Mk2_3phase_RFdatalog_temp && pio run -e basic)
 
 # 2. run every scenario, fail on any unmet expectation
@@ -51,6 +56,7 @@ simavr comes from the PlatformIO package `platformio/tool-simavr` (installed by 
 The scenarios in `scenarios/rf` need a firmware with remote loads: the `rf` environment, with `configs/remote_loads.patch` applied to `config.h` (a fourth load is added: loads 3 and 4 go to remote units 1 and 2, RF nodes 15 and 16).
 
 ```bash
+sim/configs/sim_config.sh
 git apply --unidiff-zero sim/configs/remote_loads.patch
 (cd Mk2_3phase_RFdatalog_temp && pio run -e rf)
 make -C sim check-rf                 # with the receiver firmware (built by build_receivers.sh)
@@ -79,6 +85,7 @@ Frames get lost in `rf_drop` windows, and at random with `rf_loss`, from a fixed
 The scenarios in `scenarios/relays` need a firmware with relay diversion: `configs/relays.patch` puts two relays on D8 and D9 (surplus thresholds 1000 and 2000 W, import threshold 200 W, 2 minutes minimum ON and OFF) with a 1-minute filter. It is built in a build directory of its own, so the `basic` firmware of `make check` stays.
 
 ```bash
+sim/configs/sim_config.sh
 git apply --unidiff-zero sim/configs/relays.patch
 (cd Mk2_3phase_RFdatalog_temp && PLATFORMIO_BUILD_DIR=.pio/build-relays pio run -e basic)
 git checkout Mk2_3phase_RFdatalog_temp/config.h
