@@ -64,7 +64,17 @@ make -C sim check-new
 make -C sim compare-boards   # after check and check-new
 ```
 
-`compare-boards` checks that each scenario gives the same result on both boards: grid import and export, in total and per phase, and the energy of each load, within 1 % or 0.1 Wh. The boards only differ in resolution (the new board has fewer ADC steps per watt and per volt), which can move a switching instant by a half-cycle now and then.
+`compare-boards` checks that each scenario gives the same result on both boards: grid import and export, in total and per phase, and the energy of each load, within 1 % or 0.1 Wh. The boards only differ in resolution: with the 50 A CTs of `calibration.h`, the new board has 0.161 A per ADC step against 0.061 A on the old board, which can move a switching instant by a half-cycle now and then.
+
+`check-new20` runs the same scenarios with 20 A CTs (0.065 A per step, about the old board's resolution), and `compare-boards-20` compares them within 0.5 % or 0.05 Wh. The firmware must be built with that rating, which `sim_config.sh` writes into `f_ctRating`:
+
+```bash
+sim/configs/sim_config.sh NEW 20
+(cd Mk2_3phase_RFdatalog_temp && PLATFORMIO_BUILD_DIR=.pio/build-new20 pio run -e basic)
+git checkout Mk2_3phase_RFdatalog_temp/config.h Mk2_3phase_RFdatalog_temp/calibration.h
+make -C sim check-new20 compare-boards-20
+make -C sim compare-ct    # 20 A against 50 A CTs, after check-new and check-new20
+```
 
 The scenarios in `scenarios/rf` need a firmware with remote loads: the `rf` environment, with `configs/remote_loads.patch` applied to `config.h` (a fourth load is added: loads 3 and 4 go to remote units 1 and 2, RF nodes 15 and 16).
 

@@ -2,13 +2,15 @@
 # The calibration of a board, as grid_sim settings, read from calibration.h: the simulator must
 # generate the voltages and powers the firmware reads back with the same values.
 #
-#   board_scn.sh OLD|NEW [calibration.h] > board.scn      then: grid_sim -b board.scn ...
+#   board_scn.sh OLD|NEW [calibration.h [CT rating]] > board.scn      then: grid_sim -b board.scn ...
 #
 # OLD: vcal = f_voltageCalOldBoard, pcal = f_powerCalOldBoard
-# NEW: vcal = f_voltageCalNewBoard, pcal = f_powerCalPerAmp x f_ctRating
+# NEW: vcal = f_voltageCalNewBoard, pcal = f_powerCalPerAmp x f_ctRating, or x the given CT rating:
+#      the firmware must be built with the same rating (configs/sim_config.sh NEW <rating>)
 set -e
 board=$1
 cal=${2:-../Mk2_3phase_RFdatalog_temp/calibration.h}
+ct=$3
 
 # the 3 values of an array, from its definition line (commented-out lines are skipped)
 values() {
@@ -17,7 +19,7 @@ values() {
   echo $v
 }
 
-echo "# $board board, from $cal"
+echo "# $board board, from $cal${ct:+, CTs of $ct A}"
 case $board in
 OLD)
   echo "vcal $(values f_voltageCalOldBoard)"
@@ -25,11 +27,13 @@ OLD)
   ;;
 NEW)
   echo "vcal $(values f_voltageCalNewBoard)"
-  echo "$(values f_powerCalPerAmp) $(values f_ctRating)" |
+  ratings=$(values f_ctRating)
+  [ -n "$ct" ] && ratings="$ct $ct $ct"
+  echo "$(values f_powerCalPerAmp) $ratings" |
     awk '{ printf "pcal %.9g %.9g %.9g\n", $1 * $4, $2 * $5, $3 * $6 }'
   ;;
 *)
-  echo "usage: board_scn.sh OLD|NEW [calibration.h]" >&2
+  echo "usage: board_scn.sh OLD|NEW [calibration.h [CT rating]]" >&2
   exit 2
   ;;
 esac

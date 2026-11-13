@@ -1,28 +1,35 @@
 #!/bin/sh
-# The same scenario must give the same result on both boards: compares the summaries of
-# 'make check' (old board) and 'make check-new' (new board), scenario by scenario.
+# The same scenario must give the same result on every board: compares the summaries of two
+# runs, scenario by scenario.
 #
-#   compare_boards.sh [out dir]   (default: out)
+#   compare_boards.sh [out dir [run [% [Wh [reference]]]]]   (default: out new 1 0.1, old board)
 #
+# run: the prefix of the summaries to check, new (make check-new) or new20 (make check-new20).
+# reference: the prefix of the summaries to compare with; none for the old board (make check).
 # Compared: grid import and export, in total and per phase, and the energy of each load.
-# Allowed difference: 1 % or 0.1 Wh, whichever is larger. The boards differ in resolution only
-# (fewer ADC steps per watt and per volt on the new board), which can move a switching
-# instant by a half-cycle now and then: a few hundredths of a Wh over a scenario.
+# Allowed difference: the given % or Wh, whichever is larger. The boards differ in resolution
+# only (with 50 A CTs, the new board has 2.6 times fewer ADC steps per watt), which can move a
+# switching instant by a half-cycle now and then: a few hundredths of a Wh over a scenario.
 out=${1:-out}
+run=${2:-new}
+pct=${3:-1}
+min_wh=${4:-0.1}
+ref=${5:-}
+ref_name=${ref:-old}
 status=0
 found=0
-for new in "$out"/new-*-summary.txt; do
+for new in "$out"/$run-*-summary.txt; do
   [ -e "$new" ] || break
   found=1
   name=$(basename "$new" -summary.txt)
-  name=${name#new-}
-  old="$out/$name-summary.txt"
+  name=${name#$run-}
+  old="$out/${ref:+$ref-}$name-summary.txt"
   if [ ! -e "$old" ]; then
-    echo "$name: no old-board summary ($old): run make check"
+    echo "$name: no $ref_name summary ($old): run make check${ref:+-$ref}"
     status=1
     continue
   fi
-  awk -v name="$name" '
+  awk -v name="$name ($run against $ref_name)" -v ref="$ref_name" -v run="$run" -v pct="$pct" -v min_wh="$min_wh" '
     # figures of a summary: grid import/export (total and per phase), energy of each load
     function grab(  i, n, p, v) {
       if ($1 == "Grid") {
@@ -43,17 +50,17 @@ for new in "$out"/new-*-summary.txt; do
       bad = 0
       for (k in keys) {
         a = val[1, k]; b = val[2, k]
-        if (b == "") { printf "%s: %s missing on the new board\n", name, k; bad = 1; continue }
+        if (b == "") { printf "%s: %s missing in %s\n", name, k, run; bad = 1; continue }
         d = a - b; if (d < 0) d = -d
-        m = a > b ? a : b; tol = m * 0.01; if (tol < 0.1) tol = 0.1
-        if (d > tol) { printf "%s: %s %.2f Wh (old) / %.2f Wh (new), off by %.2f Wh\n", name, k, a, b, d; bad = 1 }
+        m = a > b ? a : b; tol = m * pct / 100; if (tol < min_wh) tol = min_wh
+        if (d > tol) { printf "%s: %s %.2f Wh (%s) / %.2f Wh (%s), off by %.2f Wh\n", name, k, a, ref, b, run, d; bad = 1 }
       }
-      printf "%s: %s\n", name, bad ? "the boards DIFFER" : "same result on both boards"
+      printf "%s: %s\n", name, bad ? "DIFFERENT results" : "same result"
       exit bad
     }' "$old" "$new" || status=1
 done
 if [ $found = 0 ]; then
-  echo "no new-board summary in $out: run make check-new"
+  echo "no $run-* summary in $out: run make check-$run"
   exit 1
 fi
 exit $status

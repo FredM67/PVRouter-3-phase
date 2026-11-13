@@ -8,8 +8,11 @@
 #   make check-relays   run scenarios/relays against the relay firmware (configs/relays.patch)
 #   make check-new      run the scenarios of 'make check' against a new-board firmware (internal
 #                       1.1 V reference), with the new board's calibration read from calibration.h
+#   make check-new20    the same with 20 A CTs: about the resolution of the old board
 #   make compare-boards after 'make check check-new': each scenario must give the same result
 #                       on both boards (grid and load energies within 1 % or 0.1 Wh)
+#   make compare-boards-20    after 'make check check-new20': the same within 0.5 % or 0.05 Wh
+#   make compare-ct     after 'make check-new check-new20': 20 A against 50 A CTs, within 1 % or 0.1 Wh
 #   make run SCN=scenarios/surplus_step.scn    run one scenario, serial output shown
 #
 # Every scenario is a target of its own (check-<name>, check-new-<name>, check-rf-<name>, check-relays-<name>): with -j$(nproc),
@@ -26,6 +29,9 @@ FW_RF  ?= ../Mk2_3phase_RFdatalog_temp/.pio/build/rf/firmware.elf
 FW_RELAYS ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-relays/basic/firmware.elf
 # the new board (configs/sim_config.sh NEW), in a build directory of its own too
 FW_NEW ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new/basic/firmware.elf
+# the new board with 20 A CTs (configs/sim_config.sh NEW 20)
+FW_NEW20 ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new20/basic/firmware.elf
+CT_LOW  ?= 20
 CAL    ?= ../Mk2_3phase_RFdatalog_temp/calibration.h
 SCN    ?= scenarios/surplus_step.scn
 OUT    ?= out
@@ -69,6 +75,9 @@ $(FW_RELAYS):
 $(FW_NEW):
 	$(error firmware not found: $(FW_NEW) - see check-new in README.md)
 
+$(FW_NEW20):
+	$(error firmware not found: $(FW_NEW20) - see check-new20 in README.md)
+
 run: grid_sim $(FW)
 	@mkdir -p $(OUT)
 	./grid_sim -t $(OUT)/$(notdir $(SCN:.scn=))-trace.csv -e $(OUT)/$(notdir $(SCN:.scn=))-events.csv $(FW) $(SCN)
@@ -77,6 +86,7 @@ CHECK    := $(SCENARIOS:scenarios/%.scn=check-%)
 CHECK_RF := $(RF_SCENARIOS:scenarios/rf/%.scn=check-rf-%)
 CHECK_RELAYS := $(RELAY_SCENARIOS:scenarios/relays/%.scn=check-relays-%)
 CHECK_NEW := $(SCENARIOS:scenarios/%.scn=check-new-%)
+CHECK_NEW20 := $(SCENARIOS:scenarios/%.scn=check-new20-%)
 
 check: $(CHECK)
 
@@ -86,9 +96,17 @@ check-relays: $(CHECK_RELAYS)
 
 check-new: $(CHECK_NEW)
 
-# reads the summaries of the last 'make check check-new'
+check-new20: $(CHECK_NEW20)
+
+# read the summaries of the last 'make check check-new' / 'make check check-new20'
 compare-boards:
-	sh compare_boards.sh $(OUT)
+	sh compare_boards.sh $(OUT) new 1 0.1
+
+compare-boards-20:
+	sh compare_boards.sh $(OUT) new20 0.5 0.05
+
+compare-ct:
+	sh compare_boards.sh $(OUT) new20 1 0.1 new
 
 # the summary is shown once the scenario is over: parallel runs don't mix their lines
 # $(call scenario,<firmware and receivers>,<scenario file>,<output name>)
@@ -109,6 +127,13 @@ $(OUT)/new_board.scn: board_scn.sh $(CAL)
 $(CHECK_NEW): check-new-%: grid_sim $(FW_NEW) $(OUT)/new_board.scn
 	$(call scenario,-b $(OUT)/new_board.scn $(FW_NEW),scenarios/$*.scn,new-$*)
 
+$(OUT)/new20_board.scn: board_scn.sh $(CAL)
+	@mkdir -p $(OUT)
+	sh board_scn.sh NEW $(CAL) $(CT_LOW) > $@
+
+$(CHECK_NEW20): check-new20-%: grid_sim $(FW_NEW20) $(OUT)/new20_board.scn
+	$(call scenario,-b $(OUT)/new20_board.scn $(FW_NEW20),scenarios/$*.scn,new20-$*)
+
 $(CHECK_RF): check-rf-%: grid_sim $(FW_RF) $(if $(RX_NODES),receivers)
 	$(call scenario,$(RX_ARGS) $(FW_RF),scenarios/rf/$*.scn,rf-$*)
 
@@ -121,4 +146,4 @@ receivers:
 clean:
 	rm -rf grid_sim *.o $(OUT)
 
-.PHONY: run check check-new compare-boards check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_RF) $(CHECK_RELAYS) receivers clean
+.PHONY: run check check-new check-new20 compare-boards compare-boards-20 compare-ct check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_NEW20) $(CHECK_RF) $(CHECK_RELAYS) receivers clean

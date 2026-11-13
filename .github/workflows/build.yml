@@ -209,6 +209,14 @@ jobs:
         run: |
           sim/configs/sim_config.sh NEW
           PLATFORMIO_BUILD_DIR=.pio/build-new pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+          git checkout ${{ env.PROJECT_DIR }}/config.h
+
+      # and with 20 A CTs, about the resolution of the old board
+      - name: Build firmware (new board, 20 A CTs)
+        run: |
+          sim/configs/sim_config.sh NEW 20
+          PLATFORMIO_BUILD_DIR=.pio/build-new20 pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+          git checkout ${{ env.PROJECT_DIR }}/config.h ${{ env.PROJECT_DIR }}/calibration.h
           sim/configs/sim_config.sh
 
       # the same grid, with the third load on a remote unit driven over RF
@@ -222,11 +230,15 @@ jobs:
 
       # every scenario in parallel, the RF ones with the receiver firmware
       - name: Run grid scenarios
-        run: make -C sim -j"$(nproc)" -k check check-new check-rf
+        run: make -C sim -j"$(nproc)" -k check check-new check-new20 check-rf
 
       # the same scenario must give the same result on both boards
-      - name: Compare the old and new boards
-        run: make -C sim compare-boards
+      # old board, new board with 50 A CTs, new board with 20 A CTs: the same result
+      - name: Compare the boards
+        run: |
+          make -C sim compare-boards
+          make -C sim compare-boards-20
+          make -C sim compare-ct
 
       - name: Report grid scenarios
         if: always()
