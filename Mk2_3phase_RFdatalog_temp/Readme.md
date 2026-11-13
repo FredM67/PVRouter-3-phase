@@ -311,17 +311,19 @@ Pour chaque relais, la transition ou le changement d’état est géré de la ma
 
 **Zones de seuil sur l’axe de puissance :**
 
-```
-← surplus (export vers le réseau)                    import depuis le réseau →
-───────────────────────────────────────────────────────────────────────────
-         │                         │                         │
-  seuilSurplus                    0 W                 seuilImport
-  (ex. −1000 W)                                       (ex. +200 W)
-         │                                                   │
-         ▼  relais éligible à la mise en ON                  ▼  relais éligible à la mise en OFF
-    (si relais est OFF)                                  (si relais est ON)
-         │←────────────────── zone stable ─────────────────►│
-                    (le relais conserve son état actuel)
+```mermaid
+flowchart LR
+    S["<b>Surplus</b>, sous seuilSurplus<br/>(ex. −1000 W, export)<br/>un relais OFF peut passer ON"]
+    Z["<b>Zone stable</b>, entre les seuils<br/>(autour de 0 W)<br/>chaque relais garde son état"]
+    I["<b>Import</b>, au-dessus de seuilImport<br/>(ex. +200 W)<br/>un relais ON peut passer OFF"]
+    S --- Z --- I
+
+    classDef on fill:#c8e6c9,stroke:#2e7d32,color:#000
+    classDef keep fill:#eeeeee,stroke:#757575,color:#000
+    classDef off fill:#ffe0b2,stroke:#e65100,color:#000
+    class S on
+    class Z keep
+    class I off
 ```
 
 La puissance réseau filtrée par la moyenne EWMA est comparée en permanence aux deux seuils :
@@ -331,23 +333,22 @@ La puissance réseau filtrée par la moyenne EWMA est comparée en permanence au
 
 **Minuteries de durée minimale :**
 
-```
- Puissance (W)
-
- −1200 ─┬ surplus solaire > 1000 W         production solaire en baisse
-        │                       ┌──────────────────────────────────────
-  −600  │                       │
-     0  ┴───────────────────────┴────────────────────  temps →
-  +300                                     └──────────────────── import
-
- Relais :
-  OFF ────────────────┐                              ┌──────────
-                      │◄────── minON doit s’écouler ►│
-  ON                  └──────────────────────────────┘
-                      ↑                            ↑
-                mise en ON                    mise en OFF
-           (surplus atteint ET            (import dépassé ET
-            minOFF écoulé)                 minON écoulé)
+```mermaid
+gantt
+    title Un relais, minOFF 1 min et minON 5 min
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %M min
+    todayMarker off
+    section Réseau
+    Surplus de plus de 1000 W            :done, g1, 2001-01-01 00:00, 3m
+    Production en baisse, zone stable    :g2, 2001-01-01 00:03, 1m
+    Import de plus de 200 W              :crit, g3, 2001-01-01 00:04, 6m
+    section Relais
+    OFF, minOFF en cours                 :r1, 2001-01-01 00:00, 1m
+    mise en ON                           :milestone, m1, 2001-01-01 00:01, 0m
+    ON, minON doit s’écouler             :active, r2, 2001-01-01 00:01, 5m
+    mise en OFF                          :milestone, m2, 2001-01-01 00:06, 0m
+    OFF                                  :r3, 2001-01-01 00:06, 4m
 ```
 
 > [!NOTE]
@@ -355,22 +356,26 @@ La puissance réseau filtrée par la moyenne EWMA est comparée en permanence au
 
 **Ordre de traitement multi-relais (exemple : 3 relais, seuils 1000 W / 1500 W / 2000 W) :**
 
+```mermaid
+---
+title: "Surplus croissant : relais 0 en premier"
+---
+flowchart LR
+    U0{"Relais 0 OFF,<br/>surplus au-delà de son seuil<br/>et minOFF écoulé ?"} -- non --> U1{"Relais 1 ?"} -- non --> U2{"Relais 2 ?"}
+    U0 -- oui --> U0on([relais 0 ON])
+    U1 -- oui --> U1on([relais 1 ON])
+    U2 -- oui --> U2on([relais 2 ON])
 ```
- Surplus solaire croissant :
 
-   Essai relais 0 en premier → mise en ON si seuil atteint ET minOFF écoulé
-     Si relais 0 ne peut pas basculer (déjà ON, ou minOFF pas encore écoulé) :
-     └─► Essai relais 1 ensuite
-           Si relais 1 ne peut pas basculer :
-           └─► Essai relais 2 en dernier
-
- Import croissant / production solaire décroissante :
-
-   Essai relais 2 en premier → mise en OFF si seuil atteint ET minON écoulé
-     Si relais 2 ne peut pas basculer (déjà OFF, ou minON pas encore écoulé) :
-     └─► Essai relais 1 ensuite
-           Si relais 1 ne peut pas basculer :
-           └─► Essai relais 0 en dernier
+```mermaid
+---
+title: "Import croissant / production en baisse : relais 2 en premier"
+---
+flowchart LR
+    D2{"Relais 2 ON,<br/>import au-delà de son seuil<br/>et minON écoulé ?"} -- non --> D1{"Relais 1 ?"} -- non --> D0{"Relais 0 ?"}
+    D2 -- oui --> D2off([relais 2 OFF])
+    D1 -- oui --> D1off([relais 1 OFF])
+    D0 -- oui --> D0off([relais 0 OFF])
 ```
 
 À chaque passe, le système parcourt tous les relais dans l’ordre et s’arrête dès qu’**un relais change d’état avec succès** — ce qui déclenche la période de stabilisation de 60 secondes. Les relais qui ne peuvent pas basculer (durée minimale pas encore écoulée, ou déjà dans l’état cible) sont simplement ignorés.
@@ -611,20 +616,17 @@ Chaque charge a deux paramètres : `{ HEURE_DEBUT, DUREE }`
 
 #### Comprendre la ligne du temps
 
-```
-Exemple de période HC : 23:00 à 07:00 (8 heures)
-
-        23:00                                          07:00
-          |================== HEURES CREUSES ============|
-          |                                              |
-     DEBUT ──────────────────────────────────────────► FIN
-          │                                              │
-          │  Les valeurs positives                       │
-          │  comptent à partir d’ici ───►                │
-          │                                              │
-          │                      ◄─── Les valeurs        │
-          │                           négatives comptent │
-          │                           à partir d’ici     │
+```mermaid
+gantt
+    title Période HC, de 23:00 à 07:00
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section HC
+    Heures creuses (8 h) :active, hc, 2001-01-01 23:00, 8h
+    section START_TIME
+    positif, compte depuis le début, ici +3 h  :b8, 2001-01-01 23:00, 3h
+    négatif, compte depuis la fin, ici −3 h    :b9, 2001-01-02 04:00, 3h
 ```
 
 #### Paramètre 1 : HEURE_DEBUT (quand démarrer)
@@ -659,29 +661,45 @@ Exemple de période HC : 23:00 à 07:00 (8 heures)
 Tous les exemples supposent une période HC de **23:00 à 07:00** (8 heures) :
 
 **Exemple 1 :** `{ -3, 2 }` - Démarrage 3 heures avant la fin, durée 2 heures
-```
-23:00                              04:00    06:00    07:00
-  |====================================|======|========|
-                                       |BOOST |
-                                       └─2 h──┘
+```mermaid
+gantt
+    title { -3, 2 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section HC
+    Heures creuses :active, hc, 2001-01-01 23:00, 8h
+    section Charge
+    Boost, 2 h :crit, b10, 2001-01-02 04:00, 2h
 ```
 Résultat : Le boost fonctionne de **04:00 à 06:00**
 
 **Exemple 2 :** `{ 2, 3 }` - Démarrage 2 heures après le début, durée 3 heures
-```
-23:00    01:00          04:00                        07:00
-  |========|=============|==============================|
-           |────BOOST────|
-           └────3 h──────┘
+```mermaid
+gantt
+    title { 2, 3 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section HC
+    Heures creuses :active, hc, 2001-01-01 23:00, 8h
+    section Charge
+    Boost, 3 h :crit, b11, 2001-01-02 01:00, 3h
 ```
 Résultat : Le boost fonctionne de **01:00 à 04:00**
 
 **Exemple 3 :** `{ -90, 120 }` - Démarrage 90 minutes avant la fin, durée de 120 minutes (mais limitée)
-```
-23:00                              05:30    07:00
-  |====================================|======|
-                                       |BOOST | ← s’arrête ici (fin des HC)
-                                       └90 min┘
+```mermaid
+gantt
+    title { -90, 120 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section HC
+    Heures creuses :active, hc, 2001-01-01 23:00, 8h
+    section Charge
+    Boost, 90 min :crit, b12, 2001-01-02 05:30, 90m
+    coupé, fin des HC :done, b13, 2001-01-02 07:00, 30m
 ```
 Résultat : Le boost fonctionne de **05:30 à 07:00** (s’arrête à la fin des HC, pas à 07:30)
 
@@ -690,10 +708,16 @@ Résultat : Le boost fonctionne de **05:30 à 07:00** (s’arrête à la fin de
 > Dans cet exemple, seules 90 minutes de boost ont lieu au lieu des 120 minutes configurées.
 
 **Exemple 4 :** `{ 1, UINT16_MAX }` - Démarrage 1 heure après le début, jusqu’à la fin
-```
-23:00    00:00                                       07:00
-  |========|=========================================|
-           |──────────────BOOST──────────────────────|
+```mermaid
+gantt
+    title { 1, UINT16_MAX }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section HC
+    Heures creuses :active, hc, 2001-01-01 23:00, 8h
+    section Charge
+    Boost, jusqu’à la fin :crit, b14, 2001-01-02 00:00, 7h
 ```
 Résultat : Le boost fonctionne de **00:00 à 07:00**
 
@@ -755,11 +779,11 @@ Contrairement au [boost programmé](#configuration-du-boost-programmé-rg_forcel
 
 ### Fonctionnement
 
-```
-┌─────────────────┐
-│   Pin physique  │──── Quand le contact se ferme ───► Les charges/relais passent à 100 %
-│  (contact sec)  │──── Quand le contact s’ouvre ───► Fonctionnement normal du routeur
-└─────────────────┘
+```mermaid
+flowchart LR
+    P["Pin physique<br/>(contact sec)"]
+    P -- le contact se ferme --> ON["Charges / relais à 100 %"]
+    P -- le contact s’ouvre --> N["Fonctionnement normal du routeur"]
 ```
 
 ### Quand utiliser le boost manuel
@@ -855,10 +879,9 @@ inline constexpr OverridePins overridePins{ {
 
 Connectez chaque pin configurée à un **contact sec** (interrupteur sans tension) :
 
-```
-Pin Arduino ────┬──── Interrupteur/Bouton ────┬──── GND
-                │                              │
-          (pull-up interne)              (ferme le circuit)
+```mermaid
+flowchart LR
+    PIN["Pin Arduino<br/>(pull-up interne)"] --- SW["Interrupteur / bouton<br/>(ferme le circuit)"] --- GND["GND"]
 ```
 
 - **Contact fermé** = boost actif (charges à pleine puissance)

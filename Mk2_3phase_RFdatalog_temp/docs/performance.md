@@ -35,13 +35,12 @@ The PVRouter achieves excellent performance characteristics for a real-time embe
 
 ### Critical Timing Requirements
 
-```
-Mains Cycle (50Hz): 20ms
-├── Half-cycle: 10ms
-├── ADC samples per cycle: ~192 (9.6kHz / 50Hz)
-├── Zero-crossing detection: <500μs
-└── TRIAC switching window: <100μs
-```
+Mains cycle (50Hz): 20ms
+
+- Half-cycle: 10ms
+- ADC samples per cycle: ~192 (9.6kHz / 50Hz)
+- Zero-crossing detection: <500μs
+- TRIAC switching window: <100μs
 
 ## Memory Usage Analysis
 

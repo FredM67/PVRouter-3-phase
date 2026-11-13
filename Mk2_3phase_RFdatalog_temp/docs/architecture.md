@@ -14,62 +14,31 @@ The PVRouter is designed as a real-time embedded system with the following core 
 
 ## Architecture Diagram
 
-```
-                    PVRouter Software Architecture
-
-┌─────────────────────────────────────────────────────────────────┐
-│                        Application Layer                        │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌───────────────┐  ┌──────────────┐  ┌─────────────────────┐   │
-│  │   Main Loop   │  │ Temperature  │  │    Telemetry &      │   │
-│  │  (main.cpp)   │  │   Sensing    │  │   Data Logging      │   │
-│  │               │  │(utils_temp.h)│  │  (various utils)    │   │
-│  └───────────────┘  └──────────────┘  └─────────────────────┘   │
-│          │                   │                    │             │
-│          ▼                   ▼                    ▼             │
-├─────────────────────────────────────────────────────────────────┤
-│                     Processing Engine Layer                     │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌──────────────────────────────────────────────────────────┐   │
-│  │              Core Processing Engine                      │   │
-│  │                (processing.cpp/.h)                       │   │
-│  │                                                          │   │
-│  │  • Real power calculation (V × I × cos φ)                │   │
-│  │  • Energy bucket management                              │   │
-│  │  • Load priority algorithms                              │   │
-│  │  • Polarity detection & confirmation                     │   │
-│  │  • Data aggregation for logging                          │   │
-│  └──────────────────────────────────────────────────────────┘   │
-│                              │                                  │
-│                              ▼                                  │
-├─────────────────────────────────────────────────────────────────┤
-│                    Hardware Abstraction Layer                   │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────┐  ┌──────────────┐  ┌─────────────────────────┐ │
-│  │   ADC ISR   │  │  Pin Control │  │      OneWire Bus        │ │
-│  │ (interrupt) │  │(utils_pins.h)│  │   (utils_temp.h)        │ │
-│  │             │  │              │  │                         │ │
-│  │ • Sample V  │  │ • TRIAC      │  │ • DS18B20 sensors       │ │
-│  │ • Sample I  │  │ • Relay      │  │ • Temperature reading   │ │
-│  │ • Timing    │  │ • GPIO       │  │ • CRC validation        │ │
-│  └─────────────┘  └──────────────┘  └─────────────────────────┘ │
-│                                                                 │
-├─────────────────────────────────────────────────────────────────┤
-│                       Configuration Layer                       │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌─────────────┐  ┌──────────────┐  ┌─────────────────────────┐ │
-│  │   config.h  │  │calibration.h │  │     validation.h        │ │
-│  │             │  │              │  │                         │ │
-│  │ • Features  │  │ • Cal values │  │ • Compile-time checks   │ │
-│  │ • Pin maps  │  │ • Power/V/I  │  │ • Static assertions     │ │
-│  │ • Behavior  │  │ • Phase cal  │  │ • Safety validation     │ │
-│  └─────────────┘  └──────────────┘  └─────────────────────────┘ │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph APP["Application layer"]
+        MAIN["<b>Main loop</b><br/>main.cpp"]
+        TEMP["<b>Temperature sensing</b><br/>utils_temp.h"]
+        TELE["<b>Telemetry & data logging</b><br/>various utils"]
+    end
+    subgraph PROC["Processing engine layer"]
+        CORE["<b>Core processing engine</b><br/>processing.cpp/.h<br/><br/>Real power calculation (V × I × cos φ)<br/>Energy bucket management<br/>Load priority algorithms<br/>Polarity detection & confirmation<br/>Data aggregation for logging"]
+    end
+    subgraph HAL["Hardware abstraction layer"]
+        ISR["<b>ADC ISR</b><br/>(interrupt)<br/><br/>Sample V<br/>Sample I<br/>Timing"]
+        PINS["<b>Pin control</b><br/>utils_pins.h<br/><br/>TRIAC<br/>Relay<br/>GPIO"]
+        OW["<b>OneWire bus</b><br/>utils_temp.h<br/><br/>DS18B20 sensors<br/>Temperature reading<br/>CRC validation"]
+    end
+    subgraph CFG["Configuration layer"]
+        CONF["<b>config.h</b><br/><br/>Features<br/>Pin maps<br/>Behavior"]
+        CAL["<b>calibration.h</b><br/><br/>Cal values<br/>Power/V/I<br/>Phase cal"]
+        VAL["<b>validation.h</b><br/><br/>Compile-time checks<br/>Static assertions<br/>Safety validation"]
+    end
+    MAIN & TEMP & TELE --> CORE
+    CORE --> ISR & PINS & OW
+    ISR ~~~ CONF
+    PINS ~~~ CAL
+    OW ~~~ VAL
 ```
 
 ## Key Modules
