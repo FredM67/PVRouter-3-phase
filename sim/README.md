@@ -117,6 +117,17 @@ make -C sim check-relays
 
 A relay's contacts follow its pin at once. The firmware decides on the grid power of each datalog line (every 5 s) through its TEMA filter, waits 1 minute after any relay change, and holds each relay for its minimum ON or OFF time - from power-up for the first switch-on. A relay scenario therefore lasts several minutes; the minimum times are longer than the settle time, so that a firmware ignoring them fails.
 
+### In CI
+
+The scenarios are spread over parallel jobs: three for the grid scenarios, one for the RF ones (`build.yml`), three for the relay ones (`relay-sim.yml`). `ci_targets.sh` gives the make targets of a job, from the scenarios it finds: job k of n takes every n-th scenario, starting from the k-th. A grid scenario runs on its three boards in the same job, which then compares them.
+
+```bash
+sim/ci_targets.sh grid 1/3      # check-clouds check-new-clouds check-new20-clouds
+sim/ci_targets.sh relays 2/3    # check-relays-relay_import_first check-relays-relay_steps
+```
+
+With more scenarios than jobs, a job runs several of them in parallel. A new scenario needs no change to the workflows; more jobs, only their `part` list.
+
 ## Scenarios
 
 Plain text, one command per line, `#` starts a comment.

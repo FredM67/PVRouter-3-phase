@@ -155,7 +155,7 @@ valid load maps ([#160]).
 - **Grid simulator** (`sim/`, simavr): the production firmware runs on a simulated 3-phase grid,
   with scenarios checked in CI. It covers regulation, ISR timing and switching instants ([#169],
   [#170]), the RFM69 radio and the receiver firmware with frame loss ([#171], [#173]), relay
-  diversion ([#176]), and runs the scenarios in parallel ([#174]).
+  diversion ([#176]), and runs the scenarios in parallel ([#174]), over several CI jobs.
 - **Embedded tests in simavr** instead of Wokwi, with no token needed ([#168]); CI without
   duplicate runs, with automatic test discovery ([#167]).
 - **CI builds** every environment ([#154]) and the IoT serial output, and reports flash and RAM

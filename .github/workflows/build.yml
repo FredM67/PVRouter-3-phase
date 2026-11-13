@@ -215,9 +215,15 @@ jobs:
   # The production firmware on a simulated 3-phase grid (sim/README.md):
   # regulation, load priorities, ISR timing and switching instants, no hardware needed.
   grid-sim:
-    name: Grid simulation
+    name: Grid simulation (${{ matrix.part == 'rf' && 'RF' || matrix.part }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # the scenarios spread over jobs: each grid scenario on its three boards (sim/ci_targets.sh),
+    # and the RF ones, which run three microcontrollers each, in a job of their own
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [ '1/3', '2/3', '3/3', rf ]
     steps:
       - uses: actions/checkout@v7
         with:
@@ -225,17 +231,18 @@ jobs:
 
       - uses: ./.github/actions/setup-platformio
 
-      # src_dir = ./ puts .pio/libdeps in PlatformIO's project checksum: installing the
-      # libraries of another environment would wipe every build, the basic one included
-      # the old board and the human-readable datalog, which grid_sim reads (sim/README.md)
+      # the old board and the human-readable datalog, which grid_sim reads (sim/README.md). A job
+      # builds basic or rf, not both: src_dir = ./ puts .pio/libdeps in PlatformIO's project
+      # checksum, and installing the libraries of the other environment would wipe the builds.
       - name: Build firmware (basic)
+        if: matrix.part != 'rf'
         run: |
           sim/configs/sim_config.sh
-          pio pkg install --project-dir ${{ env.PROJECT_DIR }} -e basic -e rf
           pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
 
       # the same scenarios on the new board: internal 1.1 V reference, calibration from calibration.h
       - name: Build firmware (new board)
+        if: matrix.part != 'rf'
         run: |
           sim/configs/sim_config.sh NEW
           PLATFORMIO_BUILD_DIR=.pio/build-new pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
@@ -243,28 +250,37 @@ jobs:
 
       # and with 20 A CTs, about the resolution of the old board
       - name: Build firmware (new board, 20 A CTs)
+        if: matrix.part != 'rf'
         run: |
           sim/configs/sim_config.sh NEW 20
           PLATFORMIO_BUILD_DIR=.pio/build-new20 pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
           git checkout ${{ env.PROJECT_DIR }}/config.h ${{ env.PROJECT_DIR }}/calibration.h
-          sim/configs/sim_config.sh
 
       # the same grid, with the third load on a remote unit driven over RF
       - name: Build firmware (remote loads)
+        if: matrix.part == 'rf'
         run: |
+          sim/configs/sim_config.sh
           git apply --unidiff-zero sim/configs/remote_loads.patch
           pio run --project-dir ${{ env.PROJECT_DIR }} -e rf
 
       - name: Install simavr
         run: pio pkg install --global --tool platformio/tool-simavr
 
-      # every scenario in parallel, the RF ones with the receiver firmware
+      # the scenarios of this job in parallel, the RF ones with the receiver firmware
       - name: Run grid scenarios
-        run: make -C sim -j"$(nproc)" -k check check-new check-new20 check-rf
+        run: |
+          if [ "${{ matrix.part }}" = rf ]; then
+            targets=check-rf
+          else
+            targets=$(sim/ci_targets.sh grid ${{ matrix.part }})
+          fi
+          echo "make $targets"
+          make -C sim -j"$(nproc)" -k $targets
 
-      # the same scenario must give the same result on both boards
       # old board, new board with 50 A CTs, new board with 20 A CTs: the same result
       - name: Compare the boards
+        if: matrix.part != 'rf'
         run: |
           make -C sim compare-boards
           make -C sim compare-boards-20
@@ -274,7 +290,7 @@ jobs:
         if: always()
         run: |
           {
-            echo "### Grid simulation"
+            echo "### Grid simulation (${{ matrix.part }})"
             echo '```'
             cat sim/out/*-summary.txt 2>/dev/null || echo "no summary"
             echo '```'
@@ -284,7 +300,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: grid-sim
+          name: grid-sim-${{ strategy.job-index }}
           path: sim/out/
 
   # GitHub Pages (https://fredm67.github.io/PVRouter-3-phase/): each push to dev publishes the
