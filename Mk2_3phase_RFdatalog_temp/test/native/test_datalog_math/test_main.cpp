@@ -285,6 +285,15 @@ void test_vrms_saturates(void)
   TEST_ASSERT_EQUAL_UINT16(UINT16_MAX, Datalog::vrms(UINT32_MAX, fixed.value[0], fixed.shift));
 }
 
+void test_vrms_factor_follows_the_scaling_of_the_isr(void)
+{
+  static_assert(Datalog::vrmsFactor(5) == 100.0F, "must be constexpr");
+  TEST_ASSERT_EQUAL_FLOAT(100.0F, Datalog::vrmsFactor(1));
+  TEST_ASSERT_EQUAL_FLOAT(100.0F, Datalog::vrmsFactor(10));  // V^2 unscaled up to 10 s
+  TEST_ASSERT_EQUAL_FLOAT(400.0F, Datalog::vrmsFactor(11));  // V^2 / 16 above: root / 4
+  TEST_ASSERT_EQUAL_FLOAT(400.0F, Datalog::vrmsFactor(40));
+}
+
 void test_valid_voltage_calibration(void)
 {
   static constexpr float zeroCal[]{ 0.8F, 0.0F, 0.8F };
@@ -326,6 +335,7 @@ int main(int argc, char** argv)
   RUN_TEST(test_vrms_at_230_V);
   RUN_TEST(test_vrms_of_zero);
   RUN_TEST(test_vrms_saturates);
+  RUN_TEST(test_vrms_factor_follows_the_scaling_of_the_isr);
   RUN_TEST(test_valid_voltage_calibration);
 
   return UNITY_END();

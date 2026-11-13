@@ -625,7 +625,8 @@ void processVoltage(const uint8_t phase)
   multS16x16_to32(inst_Vsquared_signed, filtV_div4, filtV_div4);
   uint32_t inst_Vsquared = static_cast< uint32_t >(inst_Vsquared_signed);
 
-  // Shift strategy verified safe by unit tests for all datalog periods and voltages
+  // Shift strategy verified safe by unit tests for all datalog periods and voltages.
+  // Datalog::vrmsFactor() compensates the x1/16 scaling: keep both conditions the same.
   if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
   {
     inst_Vsquared >>= 12;  // scaling is now x1/16 (V_ADC x V_ADC)

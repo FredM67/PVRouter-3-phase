@@ -436,7 +436,7 @@ void updatePowerAndVoltageData()
 {
   // the calibration constants in fixed point, converted at compile time: no float code (#120)
   static constexpr auto powerCal PROGMEM{ Datalog::powerCalibration(f_powerCal) };
-  static constexpr auto voltageCal PROGMEM{ Datalog::voltageCalibration(VRMS_FACTOR, f_voltageCal) };
+  static constexpr auto voltageCal PROGMEM{ Datalog::voltageCalibration(Datalog::vrmsFactor(DATALOG_PERIOD_IN_SECONDS), f_voltageCal) };
 
   tx_data.power = 0;
   uint8_t phase{ NO_OF_PHASES };

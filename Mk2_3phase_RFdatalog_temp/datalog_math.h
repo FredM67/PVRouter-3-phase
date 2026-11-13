@@ -255,6 +255,20 @@ inline uint16_t sqrtScaled(const uint32_t meanSquare, uint8_t& fractionBits)
 }
 
 /**
+ * @brief Scaling of the datalog voltage, Vrms_L_x100.
+ *
+ * @details Hundredths of a volt. For datalog periods over 10 s, processVoltage() scales V^2 down
+ *          by 16 so that the sum cannot overflow: the root is then 4 times smaller, hence x4.
+ *
+ * @param datalogPeriodInSeconds DATALOG_PERIOD_IN_SECONDS.
+ * @return The factor for voltageCalibration(): 100, or 400 for periods over 10 s.
+ */
+constexpr float vrmsFactor(const uint8_t datalogPeriodInSeconds)
+{
+  return datalogPeriodInSeconds > 10 ? 400.0F : 100.0F;
+}
+
+/**
  * @brief Largest shift that keeps every (factor x calibration value) within 16 bits.
  *
  * @param factor The scaling of the result, e.g. 100 for hundredths of a volt.
