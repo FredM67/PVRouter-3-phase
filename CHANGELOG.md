@@ -24,6 +24,9 @@ If you keep your own `config.h`, check these points:
 - **mk2Wifi / ESPHome:** `EMONESP_CONTROL` and the `emonesp` PlatformIO environment are gone.
   For the mk2Wifi module, set `SERIAL_OUTPUT_TYPE = SerialOutputType::IoT` and choose its pins
   freely in `config.h` ([#180]).
+- **mk2Wifi YAML:** the `mk2pvrouter` component is now built into ESPHome (2026.10.0 and
+  later): remove the `external_components` block, write `tag:` instead of `tag_name:` in the
+  sensors, and remove `update_interval` under `mk2pvrouter:`. The configurator writes it so.
 - **Diversion pin:** with the pin LOW, forced loads *and* forced relays and remote loads now stay
   ON (before, only forced local TRIACs did). For an absence where nothing must heat, not even with
   off-peak forcing, use the new router OFF pin ([#179]).
