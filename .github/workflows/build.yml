@@ -289,23 +289,20 @@ jobs:
 
   # Benchmark history (https://fredm67.github.io/PVRouter-3-phase/bench/): the cycle counts of the
   # embedded benchmarks and the size of every build, smaller is better. Each push to dev adds a
-  # point to the history (gh-pages, folder bench/, kept by the doxygen deploy); a pull request is
-  # compared with the last point, and anything more than 2% worse gets a comment. The only job
-  # that writes to gh-pages here, in the same concurrency group as the doxygen deploy.
+  # point to the history (gh-pages, folder bench/, kept by the doxygen deploy), and a commit more
+  # than 2% worse than the previous point gets a comment. Pull requests get the report of the
+  # pr-report job instead. The only job that writes to gh-pages here, in the same concurrency
+  # group as the doxygen deploy.
   benchmarks:
     name: Benchmarks
     needs: [ build, test-embedded ]
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/dev'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # push the history to gh-pages (dev only), comment on the commit
+      contents: write  # push the history to gh-pages, comment on the commit
     concurrency:
-      group: ${{ github.event_name == 'push' && 'gh-pages' || format('benchmarks-{0}', github.run_id) }}
+      group: gh-pages
       cancel-in-progress: false
-    env:
-      # record on dev only; comment unless the pull request comes from a fork (read-only token)
-      RECORD: ${{ github.event_name == 'push' && github.ref == 'refs/heads/dev' }}
-      COMMENT: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
     steps:
       - uses: actions/checkout@v7
 
@@ -326,9 +323,9 @@ jobs:
           output-file-path: bench/speed.json
           benchmark-data-dir-path: bench
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: ${{ env.RECORD }}
+          auto-push: true
           alert-threshold: '102%'
-          comment-on-alert: ${{ env.COMMENT }}
+          comment-on-alert: true
           fail-on-alert: false
           summary-always: true
 
@@ -343,8 +340,85 @@ jobs:
           # fails (non-fast-forward) on pull requests, where nothing is pushed
           skip-fetch-gh-pages: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: ${{ env.RECORD }}
+          auto-push: true
           alert-threshold: '102%'
-          comment-on-alert: ${{ env.COMMENT }}
+          comment-on-alert: true
           fail-on-alert: false
           summary-always: true
+
+  # The target branch of a pull request, measured as the PR is: the builds of the build matrix and
+  # the embedded benchmarks, with the PR's scripts/ci/measure.sh (the target may predate it).
+  baseline:
+    name: Baseline (${{ github.base_ref }})
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: target
+          submodules: 'true'
+
+      - uses: ./.github/actions/setup-platformio
+
+      - name: Measure ${{ github.base_ref }}
+        run: scripts/ci/measure.sh target baseline
+
+      - name: Upload the figures of ${{ github.base_ref }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: baseline
+          path: |
+            baseline/size.json
+            baseline/speed.json
+
+  # The report of a pull request, as ESPHome does it: the target branch against the PR (merged
+  # into it, as CI builds it), flash and RAM of every build and every benchmark, in one comment
+  # updated at each push. PRs from forks get it in the job summary only (read-only token).
+  pr-report:
+    name: Performance report
+    needs: [ build, test-embedded, baseline ]
+    # a failed baseline still gives a report, with the PR's figures alone
+    if: github.event_name == 'pull_request' && !cancelled() && needs.build.result == 'success' && needs.test-embedded.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write  # the comment
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: bench-*
+          path: pr
+          merge-multiple: true
+
+      - uses: actions/download-artifact@v8
+        continue-on-error: true  # no baseline: the PR's figures alone
+        with:
+          name: baseline
+          path: baseline
+
+      - name: Write the report
+        run: |
+          jq -s 'add' pr/size-*.json > pr/size.json
+          python3 scripts/ci/pr_report.py baseline pr "${{ github.base_ref }}" \
+            "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" > report.md
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Comment on the pull request
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          id=$(gh api "repos/${{ github.repository }}/issues/$PR/comments" --paginate \
+            --jq '.[] | select(.body | contains("<!-- pvrouter-bench-report -->")) | .id' | head -n 1)
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/${{ github.repository }}/issues/comments/$id" -F body=@report.md > /dev/null
+          else
+            gh pr comment "$PR" --body-file report.md
+          fi
