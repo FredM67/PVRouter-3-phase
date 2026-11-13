@@ -22,7 +22,9 @@ flowchart TB
         TELE["<b>Telemetry & data logging</b><br/>various utils"]
     end
     subgraph PROC["Processing engine layer"]
+        PL["spacer"]:::spacer
         CORE["<b>Core processing engine</b><br/>processing.cpp/.h<br/><br/>Real power calculation (V × I × cos φ)<br/>Energy bucket management<br/>Load priority algorithms<br/>Polarity detection & confirmation<br/>Data aggregation for logging"]
+        PR["spacer spacer spacer"]:::spacer
     end
     subgraph HAL["Hardware abstraction layer"]
         ISR["<b>ADC ISR</b><br/>(interrupt)<br/><br/>Sample V<br/>Sample I<br/>Timing"]
@@ -39,6 +41,12 @@ flowchart TB
     ISR ~~~ CONF
     PINS ~~~ CAL
     OW ~~~ VAL
+    %% invisible spacers: the engine layer as wide as the others
+    MAIN ~~~ PL
+    TELE ~~~ PR
+    PL ~~~ ISR
+    PR ~~~ OW
+    classDef spacer fill:none,stroke:none,color:transparent
 ```
 
 ## Key Modules
