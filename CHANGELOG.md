@@ -125,6 +125,9 @@ valid load maps ([#160]).
 - **Integer energy bucket:** no float and no division left in the ADC ISR; the contribution at
   each zero crossing drops from ~1000 to ~125 cycles. Hand-written 16x16 and 24x16 multiplies
   ([#163]).
+- **No float code left:** the datalog (power and voltage per phase) and the load ON times of the
+  IoT output use integer arithmetic too, with an integer square root; the float library is no
+  longer linked: 370 bytes of flash and 24 bytes of RAM less ([#120]).
 - **Flash:**
   - the RFM69 driver is only linked when RF is used (+2.9 kB avoided without RF) ([#155]);
   - the relay code is 396 bytes smaller ([#175]);
@@ -151,13 +154,14 @@ valid load maps ([#160]).
   duplicate runs, with automatic test discovery ([#167]).
 - **CI builds** every environment ([#154]) and the IoT serial output, and reports flash and RAM
   in the job summary ([#166], [#180]).
-- **Tests:** native suites for the energy bucket, the remote loads, the overrides, the RMS
-  pipeline and the DC filter, and simavr tests for the relays, the serial output and the
-  multiplies ([#127], [#160], [#163], [#172], [#180]).
+- **Tests:** native suites for the energy bucket, the datalog arithmetic, the remote loads, the
+  overrides, the RMS pipeline and the DC filter, and simavr tests for the relays, the serial output and the
+  multiplies ([#120], [#127], [#160], [#163], [#172], [#180]).
 - **Workflow:** `main` (stable) and `dev` (development) branches ([#134], [#135]), pre-commit
   hooks for formatting and file headers ([#153], [#159]).
 
 [Unreleased]: https://github.com/FredM67/PVRouter-3-phase/compare/main...dev
+[#120]: https://github.com/FredM67/PVRouter-3-phase/issues/120
 [#121]: https://github.com/FredM67/PVRouter-3-phase/issues/121
 [#127]: https://github.com/FredM67/PVRouter-3-phase/pull/127
 [#134]: https://github.com/FredM67/PVRouter-3-phase/pull/134

@@ -31,6 +31,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
 
 #include "calibration.h"
+#include "datalog_math.h"
 #include "processing.h"
 #include "shared_var.h"
 #include "types.h"
@@ -417,6 +418,19 @@ void setup()
   SerialOutput::endStartupText< SERIAL_OUTPUT_TYPE == SerialOutputType::IoT >();
 }
 
+/** Scaling of the voltage in the datalog: hundredths of a volt, x4 when the ISR scales V^2 down by 16 */
+constexpr float VRMS_FACTOR{ DATALOG_PERIOD_IN_SECONDS > 10 ? 400.0F : 100.0F };
+
+static_assert(Datalog::isValidVoltageCalibration(VRMS_FACTOR, f_voltageCal), "******** Wrong voltage calibration ! Each value of f_voltageCal must be positive. Please check your calibration.h ! ********");
+
+/** f_powerCal in fixed point, for the datalog: no float code (#120) */
+const Datalog::FixedCalibration< NO_OF_PHASES > powerCalFixed PROGMEM{ Datalog::powerCalibration(f_powerCal) };
+constexpr uint8_t powerCalShift{ Datalog::powerCalibration(f_powerCal).shift };
+
+/** VRMS_FACTOR x f_voltageCal in fixed point, for the datalog */
+const Datalog::FixedCalibration< NO_OF_PHASES > voltageCalFixed PROGMEM{ Datalog::voltageCalibration(VRMS_FACTOR, f_voltageCal) };
+constexpr uint8_t voltageCalShift{ Datalog::voltageCalibration(VRMS_FACTOR, f_voltageCal).shift };
+
 /**
  * @brief Updates power and voltage data for all phases.
  *
@@ -426,6 +440,7 @@ void setup()
  * @details
  * - Computes the power for each phase using the accumulated power data and calibration factors.
  * - Calculates the RMS voltage for each phase using the accumulated voltage squared data.
+ * - Integer arithmetic only (datalog_math.h): the calibration factors are fixed-point constants.
  * - Updates the total power by summing the power of all phases.
  *
  * @ingroup GeneralProcessing
@@ -437,19 +452,16 @@ void updatePowerAndVoltageData()
   do
   {
     --phase;
-    tx_data.power_L[phase] = Shared::copyOf_sumP_atSupplyPoint[phase] / Shared::copyOf_sampleSetsDuringThisDatalogPeriod * f_powerCal[phase];
-    tx_data.power_L[phase] *= -1;
+    const uint16_t sampleSets{ Shared::copyOf_sampleSetsDuringThisDatalogPeriod };
+
+    // import = +ve: the sum of the ISR is negative when importing
+    tx_data.power_L[phase] = Datalog::watts(-Shared::copyOf_sumP_atSupplyPoint[phase] / sampleSets,
+                                            pgm_read_word(&powerCalFixed.value[phase]), powerCalShift);
 
     tx_data.power += tx_data.power_L[phase];
 
-    if constexpr (DATALOG_PERIOD_IN_SECONDS > 10)
-    {
-      tx_data.Vrms_L_x100[phase] = static_cast< uint32_t >((100U << 2) * f_voltageCal[phase] * sqrt(Shared::copyOf_sum_Vsquared[phase] / Shared::copyOf_sampleSetsDuringThisDatalogPeriod));
-    }
-    else
-    {
-      tx_data.Vrms_L_x100[phase] = static_cast< uint32_t >(100U * f_voltageCal[phase] * sqrt(Shared::copyOf_sum_Vsquared[phase] / Shared::copyOf_sampleSetsDuringThisDatalogPeriod));
-    }
+    tx_data.Vrms_L_x100[phase] = Datalog::vrms(Shared::copyOf_sum_Vsquared[phase] / sampleSets,
+                                               pgm_read_word(&voltageCalFixed.value[phase]), voltageCalShift);
   } while (phase);
 }
 

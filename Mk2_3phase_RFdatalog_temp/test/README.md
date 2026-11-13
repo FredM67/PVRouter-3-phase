@@ -7,6 +7,7 @@ Unit tests for PVRouter-3-phase firmware.
 ```
 test/
 ├── native/           # Run on host PC (no hardware required)
+│   ├── test_datalog_math/
 │   ├── test_dc_offset_filter/
 │   ├── test_energy_bucket/
 │   ├── test_ewma_avg/
@@ -45,6 +46,7 @@ pio test -e uno -f "*test_utils_relay*"
 
 | Test | Purpose |
 |------|---------|
+| [test_datalog_math](native/test_datalog_math/) | Integer power and RMS voltage of the datalog, checked against the float references |
 | [test_dc_offset_filter](native/test_dc_offset_filter/) | DC offset removal filter |
 | [test_energy_bucket](native/test_energy_bucket/) | Integer energy bucket, checked against the float and exact references |
 | [test_ewma_avg](native/test_ewma_avg/) | EWMA filter for cloud immunity |
