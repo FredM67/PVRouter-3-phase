@@ -61,7 +61,10 @@ sim/configs/sim_config.sh NEW
 (cd Mk2_3phase_RFdatalog_temp && PLATFORMIO_BUILD_DIR=.pio/build-new pio run -e basic)
 git checkout Mk2_3phase_RFdatalog_temp/config.h
 make -C sim check-new
+make -C sim compare-boards   # after check and check-new
 ```
+
+`compare-boards` checks that each scenario gives the same result on both boards: grid import and export, in total and per phase, and the energy of each load, within 1 % or 0.1 Wh. The boards only differ in resolution (the new board has fewer ADC steps per watt and per volt), which can move a switching instant by a half-cycle now and then.
 
 The scenarios in `scenarios/rf` need a firmware with remote loads: the `rf` environment, with `configs/remote_loads.patch` applied to `config.h` (a fourth load is added: loads 3 and 4 go to remote units 1 and 2, RF nodes 15 and 16).
 

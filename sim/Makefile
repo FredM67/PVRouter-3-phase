@@ -8,6 +8,8 @@
 #   make check-relays   run scenarios/relays against the relay firmware (configs/relays.patch)
 #   make check-new      run the scenarios of 'make check' against a new-board firmware (internal
 #                       1.1 V reference), with the new board's calibration read from calibration.h
+#   make compare-boards after 'make check check-new': each scenario must give the same result
+#                       on both boards (grid and load energies within 1 % or 0.1 Wh)
 #   make run SCN=scenarios/surplus_step.scn    run one scenario, serial output shown
 #
 # Every scenario is a target of its own (check-<name>, check-new-<name>, check-rf-<name>, check-relays-<name>): with -j$(nproc),
@@ -84,6 +86,10 @@ check-relays: $(CHECK_RELAYS)
 
 check-new: $(CHECK_NEW)
 
+# reads the summaries of the last 'make check check-new'
+compare-boards:
+	sh compare_boards.sh $(OUT)
+
 # the summary is shown once the scenario is over: parallel runs don't mix their lines
 # $(call scenario,<firmware and receivers>,<scenario file>,<output name>)
 define scenario
@@ -115,4 +121,4 @@ receivers:
 clean:
 	rm -rf grid_sim *.o $(OUT)
 
-.PHONY: run check check-new check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_RF) $(CHECK_RELAYS) receivers clean
+.PHONY: run check check-new compare-boards check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_RF) $(CHECK_RELAYS) receivers clean

@@ -224,6 +224,10 @@ jobs:
       - name: Run grid scenarios
         run: make -C sim -j"$(nproc)" -k check check-new check-rf
 
+      # the same scenario must give the same result on both boards
+      - name: Compare the old and new boards
+        run: make -C sim compare-boards
+
       - name: Report grid scenarios
         if: always()
         run: |
