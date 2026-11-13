@@ -43,6 +43,21 @@ mains ── 6 × 20 kΩ (0.1 %) ── ZMPT101K 1:1 ── 150 Ω burden (0.1 %
 
 `f_powerCalPerAmp` = 0.8952 × 3.2647 × 10⁻³ = **0.0029225**, so 0.14613 with a 50 A CT.
 
+### Current-output CT with a burden resistor
+
+A current-output CT, such as the YHDC SCT-013-000 (100 A : 50 mA, so 2000:1), needs a burden
+resistor R (R18 / R28 / R38 on the board), and the burden sets the range, not the CT label. Across
+R, the CT gives R × I / 2000 volts: it behaves like a 333 mV CT rated for the current that gives
+333 mV, so `f_ctRating` = 0.333 × 2000 / R = **666 / R** amps, 30.3 with 22 Ω.
+
+Keep the peak voltage across R below half the ADC range, 0.55 V: R < 0.55 × 2000 / (√2 × the
+largest current).
+
+### Old board
+
+The old board has other input stages and a 5 V reference: this calculation doesn't apply. Set
+`f_ctRating` to 1 and `f_powerCalPerAmp` to the former `f_powerCal`, then calibrate as usual.
+
 ## How close it is
 
 | Source | Effect |

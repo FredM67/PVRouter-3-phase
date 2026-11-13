@@ -23,8 +23,9 @@
 // volts, for the voltage shown in the datalog only.
 //
 // The default values suit the new board (rev. 6.0+) with 333 mV voltage-output CTs; they come from
-// its design (see docs/calibration.md). Old board: f_powerCalPerAmp = your former f_powerCal /
-// f_ctRating, and about 0.82 for f_voltageCal.
+// its design (see docs/calibration.md). With a current-output CT and a burden resistor R (YHDC
+// SCT-013-000, 2000:1), f_ctRating = 666 / R: the current giving 333 mV across the burden.
+// Old board: f_ctRating = 1, f_powerCalPerAmp = your former f_powerCal, about 0.82 for f_voltageCal.
 //
 // To calibrate, compare with a reference meter:
 //   new value = old value x reference reading / router reading
