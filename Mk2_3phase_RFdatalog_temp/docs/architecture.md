@@ -27,7 +27,7 @@ flowchart TB
         TELE["<b>Telemetry & data logging</b><br/>various utils"]
     end
     subgraph PROC["Processing engine layer"]
-        CORE["<b>Core processing engine</b><br/>processing.cpp/.h<br/><br/>Real power calculation (V × I × cos φ) · Energy bucket management<br/>Load priority algorithms · Polarity detection & confirmation<br/>Data aggregation for logging"]
+        CORE["<b>Core processing engine</b><br/>processing.cpp/.h<br/><br/>Real power calculation (V × I × cos φ)<br/>Energy bucket management<br/>Load priority algorithms<br/>Polarity detection & confirmation<br/>Data aggregation for logging"]
     end
     subgraph HAL["Hardware abstraction layer"]
         ISR["<b>ADC ISR</b><br/>(interrupt)<br/><br/>Sample V<br/>Sample I<br/>Timing"]
