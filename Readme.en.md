@@ -1,20 +1,22 @@
 <div align = center>
 
-[![GitHub issues](https://img.shields.io/github/issues/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/issues)
-[![GitHub forks](https://img.shields.io/github/forks/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/network)
-[![GitHub stars](https://img.shields.io/github/stars/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/stargazers)
-[![CI](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/build.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/build.yml)
-[![Relay simulation](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/relay-sim.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/relay-sim.yml)
-[![CodeQL](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml)
-[![Doxygen](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml/badge.svg)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/FredM67/PVRouter-3-phase/build.yml?branch=dev&label=CI&logo=github)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/build.yml)
+[![relay simulation](https://img.shields.io/github/actions/workflow/status/FredM67/PVRouter-3-phase/relay-sim.yml?branch=dev&label=relay%20simulation&logo=github)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/relay-sim.yml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/FredM67/PVRouter-3-phase/codeql.yml?branch=dev&label=CodeQL&logo=github)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml)
+[![doc](https://img.shields.io/github/actions/workflow/status/FredM67/PVRouter-3-phase/doxygen-gh-pages.yml?branch=main&label=doc&logo=github)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml)
+<br/>
+[![Arduino Uno](https://img.shields.io/badge/Arduino%20Uno-ATmega328P-00878F?logo=arduino&logoColor=white)](https://docs.arduino.cc/hardware/uno-rev3/)
+[![flash](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ffredm67.github.io%2FPVRouter-3-phase%2Fbench%2Fhistory.json&query=%24.entries%5B-1%3A%5D.sizes.basic.flash&label=flash&suffix=%20%2F%2032256%20B&color=blue)](https://fredm67.github.io/PVRouter-3-phase/bench/)
+[![RAM](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ffredm67.github.io%2FPVRouter-3-phase%2Fbench%2Fhistory.json&query=%24.entries%5B-1%3A%5D.sizes.basic.ram&label=RAM&suffix=%20%2F%202048%20B&color=blue)](https://fredm67.github.io/PVRouter-3-phase/bench/)
+[![C++17](https://img.shields.io/badge/C%2B%2B-17-00599C?logo=cplusplus&logoColor=white)](https://en.cppreference.com/w/cpp/17)
+[![PlatformIO](https://img.shields.io/badge/PlatformIO-ready-F5822A?logo=platformio&logoColor=white)](https://platformio.org/)
 <br/>
 [![License](https://img.shields.io/github/license/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/blob/main/LICENSE)
-[![Arduino Uno](https://img.shields.io/badge/Arduino%20Uno-ATmega328P-00878F?logo=arduino&logoColor=white)](https://docs.arduino.cc/hardware/uno-rev3/)
-[![PlatformIO](https://img.shields.io/badge/PlatformIO-ready-F5822A?logo=platformio&logoColor=white)](https://platformio.org/)
-[![C++17](https://img.shields.io/badge/C%2B%2B-17-00599C?logo=cplusplus&logoColor=white)](https://en.cppreference.com/w/cpp/17)
-[![flash (basic)](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ffredm67.github.io%2FPVRouter-3-phase%2Fbench%2Fhistory.json&query=%24.entries%5B-1%3A%5D.sizes.basic.flash&label=flash%20%28basic%29&suffix=%20%2F%2032256%20B&color=blue)](https://fredm67.github.io/PVRouter-3-phase/bench/)
-[![RAM (basic)](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ffredm67.github.io%2FPVRouter-3-phase%2Fbench%2Fhistory.json&query=%24.entries%5B-1%3A%5D.sizes.basic.ram&label=RAM%20%28basic%29&suffix=%20%2F%202048%20B&color=blue)](https://fredm67.github.io/PVRouter-3-phase/bench/)
-[![Last commit (dev)](https://img.shields.io/github/last-commit/FredM67/PVRouter-3-phase/dev)](https://github.com/FredM67/PVRouter-3-phase/commits/dev)
+[![Last commit](https://img.shields.io/github/last-commit/FredM67/PVRouter-3-phase/dev?label=last%20commit%20%28dev%29)](https://github.com/FredM67/PVRouter-3-phase/commits/dev)
+[![Issues](https://img.shields.io/github/issues/FredM67/PVRouter-3-phase)](https://github.com/FredM67/PVRouter-3-phase/issues)
+[![Stars](https://img.shields.io/github/stars/FredM67/PVRouter-3-phase?style=flat)](https://github.com/FredM67/PVRouter-3-phase/stargazers)
+[![Forks](https://img.shields.io/github/forks/FredM67/PVRouter-3-phase?style=flat)](https://github.com/FredM67/PVRouter-3-phase/network)
+<br/>
 <br/>
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://stand-with-ukraine.pp.ua)
 <br/>
