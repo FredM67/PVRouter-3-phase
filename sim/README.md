@@ -13,6 +13,7 @@ No hardware, no sun: regulation, load priorities, ISR timing and switching insta
 
 | Figure | Meaning |
 |---|---|
+| ADC reference | AVCC 5 V (old board) or internal 1.1 V (new board), as the firmware selects it in `ADMUX`: the analog levels follow it |
 | ADC conversion period | must be 1664 cycles (13 ADC clocks at /128); `grid_sim` fails otherwise |
 | ADC ISR average / max | cycle-exact duration of `ISR(ADC_vect)` |
 | ISR overruns | ISR calls longer than one conversion (104 µs): the next sample may be taken on the wrong channel |
@@ -28,7 +29,7 @@ The firmware's serial output is shown with the simulated time.
 
 ## Usage (Linux / WSL)
 
-The simulated grid is the old board's (ADC reference AVCC, 5 V, and the calibration of
+By default, the simulated grid is the old board's (ADC reference AVCC, 5 V, and the calibration of
 `scenarios/common.scn`), and `grid_sim` reads the human-readable datalog: `configs/sim_config.sh`
 sets both in `config.h`, whatever its defaults. Run it before every firmware build below.
 
@@ -52,6 +53,15 @@ simavr comes from the PlatformIO package `platformio/tool-simavr` (installed by 
 - `<scenario>-events.csv`: every load change, RF frame (`RF<node>` and its payload in hex) and lost RF link, with its time.
 
 ### Remote loads
+
+The same scenarios run on the **new board** (internal 1.1 V ADC reference) with `make check-new`: `grid_sim` follows the reference the firmware selects in `ADMUX`, and `board_scn.sh` takes the new board's calibration from `calibration.h` (`f_voltageCalNewBoard`, `f_powerCalPerAmp` × `f_ctRating`), read after the scenario with `grid_sim -b`. The firmware is built in a build directory of its own:
+
+```bash
+sim/configs/sim_config.sh NEW
+(cd Mk2_3phase_RFdatalog_temp && PLATFORMIO_BUILD_DIR=.pio/build-new pio run -e basic)
+git checkout Mk2_3phase_RFdatalog_temp/config.h
+make -C sim check-new
+```
 
 The scenarios in `scenarios/rf` need a firmware with remote loads: the `rf` environment, with `configs/remote_loads.patch` applied to `config.h` (a fourth load is added: loads 3 and 4 go to remote units 1 and 2, RF nodes 15 and 16).
 

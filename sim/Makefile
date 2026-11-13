@@ -6,9 +6,11 @@
 #                       RemoteLoadReceiver firmware on each remote unit (RX_NODES)
 #   make check-rf RX_NODES=    the same with ideal receivers
 #   make check-relays   run scenarios/relays against the relay firmware (configs/relays.patch)
+#   make check-new      run the scenarios of 'make check' against a new-board firmware (internal
+#                       1.1 V reference), with the new board's calibration read from calibration.h
 #   make run SCN=scenarios/surplus_step.scn    run one scenario, serial output shown
 #
-# Every scenario is a target of its own (check-<name>, check-rf-<name>, check-relays-<name>): with -j$(nproc),
+# Every scenario is a target of its own (check-<name>, check-new-<name>, check-rf-<name>, check-relays-<name>): with -j$(nproc),
 # they run in parallel, and 'make -j$(nproc) check check-rf' runs both sets together.
 #
 # The firmware is built separately: (cd ../Mk2_3phase_RFdatalog_temp && pio run -e basic)
@@ -20,6 +22,9 @@ FW     ?= ../Mk2_3phase_RFdatalog_temp/.pio/build/basic/firmware.elf
 FW_RF  ?= ../Mk2_3phase_RFdatalog_temp/.pio/build/rf/firmware.elf
 # built in a build directory of its own, so that it does not replace the basic firmware
 FW_RELAYS ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-relays/basic/firmware.elf
+# the new board (configs/sim_config.sh NEW), in a build directory of its own too
+FW_NEW ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new/basic/firmware.elf
+CAL    ?= ../Mk2_3phase_RFdatalog_temp/calibration.h
 SCN    ?= scenarios/surplus_step.scn
 OUT    ?= out
 # remote units running the receiver firmware in scenarios/rf (node IDs of configs/remote_loads.patch)
@@ -59,6 +64,9 @@ $(FW_RF):
 $(FW_RELAYS):
 	$(error firmware not found: $(FW_RELAYS) - see configs/relays.patch)
 
+$(FW_NEW):
+	$(error firmware not found: $(FW_NEW) - see check-new in README.md)
+
 run: grid_sim $(FW)
 	@mkdir -p $(OUT)
 	./grid_sim -t $(OUT)/$(notdir $(SCN:.scn=))-trace.csv -e $(OUT)/$(notdir $(SCN:.scn=))-events.csv $(FW) $(SCN)
@@ -66,12 +74,15 @@ run: grid_sim $(FW)
 CHECK    := $(SCENARIOS:scenarios/%.scn=check-%)
 CHECK_RF := $(RF_SCENARIOS:scenarios/rf/%.scn=check-rf-%)
 CHECK_RELAYS := $(RELAY_SCENARIOS:scenarios/relays/%.scn=check-relays-%)
+CHECK_NEW := $(SCENARIOS:scenarios/%.scn=check-new-%)
 
 check: $(CHECK)
 
 check-rf: $(CHECK_RF)
 
 check-relays: $(CHECK_RELAYS)
+
+check-new: $(CHECK_NEW)
 
 # the summary is shown once the scenario is over: parallel runs don't mix their lines
 # $(call scenario,<firmware and receivers>,<scenario file>,<output name>)
@@ -83,6 +94,14 @@ endef
 
 $(CHECK): check-%: grid_sim $(FW)
 	$(call scenario,$(FW),scenarios/$*.scn,$*)
+
+# the same scenarios, with the new board's calibration replacing that of scenarios/common.scn
+$(OUT)/new_board.scn: board_scn.sh $(CAL)
+	@mkdir -p $(OUT)
+	sh board_scn.sh NEW $(CAL) > $@
+
+$(CHECK_NEW): check-new-%: grid_sim $(FW_NEW) $(OUT)/new_board.scn
+	$(call scenario,-b $(OUT)/new_board.scn $(FW_NEW),scenarios/$*.scn,new-$*)
 
 $(CHECK_RF): check-rf-%: grid_sim $(FW_RF) $(if $(RX_NODES),receivers)
 	$(call scenario,$(RX_ARGS) $(FW_RF),scenarios/rf/$*.scn,rf-$*)
@@ -96,4 +115,4 @@ receivers:
 clean:
 	rm -rf grid_sim *.o $(OUT)
 
-.PHONY: run check check-rf check-relays $(CHECK) $(CHECK_RF) $(CHECK_RELAYS) receivers clean
+.PHONY: run check check-new check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_RF) $(CHECK_RELAYS) receivers clean

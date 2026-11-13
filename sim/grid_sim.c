@@ -47,6 +47,9 @@
 #define ADC_CYCLES_PER_CONVERSION 1664 /* 13 ADC clocks at F_CPU / 128 */
 #define ADC_MID_COUNTS 511.5           /* bias of the analog front end */
 #define ADC_MAX_SWING 510.0            /* counts, either side of the bias */
+#define ADMUX_ADDR 0x7C                /* ADMUX in the data space of the ATmega328P */
+#define AVCC_MV 5000.0                 /* old board: ADC reference AVCC, the 5 V supply */
+#define INTERNAL_REF_MV 1100.0         /* new board: internal 1.1 V reference */
 #define NO_OF_PHASES 3
 #define ADC_SEQUENCE_SETTLING (2 * 2 * NO_OF_PHASES) /* conversions ignored after the ADC starts */
 
@@ -404,6 +407,9 @@ static struct
   int expected_src;
   uint64_t misfiled;
   double first_misfiled;
+  /* the reference the firmware selected (REFS1:0 of ADMUX), in mV: 0 before the first conversion */
+  double vref_mv;
+  int vref_changed;
 } adc = { .min_period = UINT64_MAX, .expected_src = -1 };
 
 static struct
@@ -643,7 +649,13 @@ static void adc_trigger_hook(struct avr_irq_t *irq, uint32_t value, void *param)
       fprintf(stderr, "grid_sim: warning: ADC%d clipped at %.3f s\n", e.mux.src, now());
   }
 
-  const double millivolts = (ADC_MID_COUNTS + counts + 0.5) * 5000.0 / 1023.0;
+  /* The front end gives the same counts on both boards: the analog levels follow the
+   * reference the firmware selected, AVCC (old board) or the internal 1.1 V (new board) */
+  const double vref_mv = (avr->data[ADMUX_ADDR] >> 6) == 3 ? INTERNAL_REF_MV : AVCC_MV;
+  if (adc.vref_mv && vref_mv != adc.vref_mv)
+    adc.vref_changed = 1;
+  adc.vref_mv = vref_mv;
+  const double millivolts = (ADC_MID_COUNTS + counts + 0.5) * vref_mv / 1023.0;
   avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_ADC_GETIRQ, e.mux.src), (uint32_t)lround(millivolts));
 }
 
@@ -1056,7 +1068,7 @@ static int report_expects(void)
 
 static void usage(void)
 {
-  fprintf(stderr, "usage: grid_sim [-q] [-t trace.csv] [-e events.csv] [-r node=receiver.elf]... firmware.elf "
+  fprintf(stderr, "usage: grid_sim [-q] [-t trace.csv] [-e events.csv] [-r node=receiver.elf]... [-b board.scn] firmware.elf "
                   "scenario.scn\n");
   exit(2);
 }
@@ -1088,7 +1100,7 @@ static avr_t *make_avr(const char *elf_path, avr_irq_notify_t uart_cb, void *uar
 
 int main(int argc, char *argv[])
 {
-  const char *trace_path = NULL, *events_path = NULL;
+  const char *trace_path = NULL, *events_path = NULL, *board_path = NULL;
   int argi = 1;
   for (; argi < argc && argv[argi][0] == '-'; ++argi)
   {
@@ -1098,6 +1110,8 @@ int main(int argc, char *argv[])
       trace_path = argv[++argi];
     else if (!strcmp(argv[argi], "-e") && argi + 1 < argc)
       events_path = argv[++argi];
+    else if (!strcmp(argv[argi], "-b") && argi + 1 < argc)
+      board_path = argv[++argi];
     else if (!strcmp(argv[argi], "-r") && argi + 1 < argc)
     {
       receiver_t *rx = &receivers[no_of_receivers];
@@ -1116,6 +1130,9 @@ int main(int argc, char *argv[])
   const char *elf_path = argv[argi];
   snprintf(scn.name, sizeof scn.name, "%s", argv[argi + 1]);
   parse_scenario(scn.name, 0);
+  /* read last: the board's settings (vcal, pcal) replace those of the scenario */
+  if (board_path)
+    parse_scenario(board_path, 0);
 
   avr = make_avr(elf_path, uart_hook, NULL);
 
@@ -1197,6 +1214,10 @@ int main(int argc, char *argv[])
   printf("ADC       conversion period %llu-%llu cycles (expected %d), %llu conversions%s\n",
          (unsigned long long)adc.min_period, (unsigned long long)adc.max_period, ADC_CYCLES_PER_CONVERSION,
          (unsigned long long)adc.conversions, adc.clipped ? ", CLIPPED" : "");
+  printf("ADC       reference %s%s\n",
+         adc.vref_mv == INTERNAL_REF_MV ? "internal 1.1 V (new board)" : adc.vref_mv ? "AVCC 5 V (old board)"
+                                                                                     : "unknown",
+         adc.vref_changed ? ", CHANGED while running" : "");
   printf("ADC       %llu samples filed under the wrong channel", (unsigned long long)adc.misfiled);
   if (adc.misfiled)
     printf(", first at %.3f s", adc.first_misfiled);

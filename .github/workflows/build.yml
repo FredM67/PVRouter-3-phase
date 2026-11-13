@@ -204,6 +204,13 @@ jobs:
           pio pkg install --project-dir ${{ env.PROJECT_DIR }} -e basic -e rf
           pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
 
+      # the same scenarios on the new board: internal 1.1 V reference, calibration from calibration.h
+      - name: Build firmware (new board)
+        run: |
+          sim/configs/sim_config.sh NEW
+          PLATFORMIO_BUILD_DIR=.pio/build-new pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+          sim/configs/sim_config.sh
+
       # the same grid, with the third load on a remote unit driven over RF
       - name: Build firmware (remote loads)
         run: |
@@ -215,7 +222,7 @@ jobs:
 
       # every scenario in parallel, the RF ones with the receiver firmware
       - name: Run grid scenarios
-        run: make -C sim -j"$(nproc)" -k check check-rf
+        run: make -C sim -j"$(nproc)" -k check check-new check-rf
 
       - name: Report grid scenarios
         if: always()
