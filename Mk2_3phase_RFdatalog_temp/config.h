@@ -23,8 +23,8 @@ inline constexpr PcbVersion PCB_VERSION{ PcbVersion::NEW };
 inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
 
 // Debug messages (free RAM...) at startup. Whatever this setting, the startup configuration is
-// printed in human-readable and IoT output (at 8N1, before the 7E1 of the IoT frames), and the
-// status messages in human-readable output only.
+// printed in every output (for IoT, at 8N1, before the 7E1 of the frames), and the status
+// messages in human-readable output only.
 inline constexpr bool ENABLE_DEBUG{ true };
 
 #include "debug.h"  // needs SERIAL_OUTPUT_TYPE and ENABLE_DEBUG

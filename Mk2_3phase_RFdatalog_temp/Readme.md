@@ -982,7 +982,7 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };
 > [!NOTE]
 > La configuration de la sortie série sur `SerialOutputType::IoT` n’est pas strictement obligatoire pour le fonctionnement du routeur. Cependant, elle est nécessaire si vous souhaitez exploiter les données du routeur dans Home Assistant (puissance instantanée, statistiques, etc.). Sans cette configuration, seules les fonctions de contrôle (boost, arrêt routage) seront disponibles dans Home Assistant.
 >
-> En mode `IoT` (comme en mode `JSON`), le routeur n’envoie rien d’autre sur le port série : la bannière de démarrage, le résumé de la configuration et les messages de débogage ne sont affichés qu’en mode `HumanReadable`.
+> Dans tous les modes, le routeur affiche sa configuration au démarrage, pour vérifier ce avec quoi il tourne. En mode `IoT`, il le fait à 9600 bauds 8N1 (le réglage par défaut des moniteurs série), puis passe en 7E1 pour les données de Home Assistant ; en mode `JSON`, ces lignes précèdent la première ligne JSON. Les messages d’état en fonctionnement (relais, rotation, heures creuses…) ne sont affichés qu’en mode `HumanReadable`.
 
 S’il vous reste des broches libres, d’autres fonctions peuvent être ajoutées de la même façon, par exemple la rotation des priorités :
 ```cpp

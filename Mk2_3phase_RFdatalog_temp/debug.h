@@ -8,17 +8,18 @@
  * @copyright Copyright (c) 2023-2026
  *
  * @details In the IoT and JSON modes, the serial port carries data for another device (mk2Wifi...).
- *          - info(), infoln(): the startup configuration, in human-readable and IoT output. In
- *            IoT output, it is printed at 9600 baud 8N1, the default of serial monitors, before
- *            setup() switches to the 7E1 of the telemetry: the mk2pvrouter ESPHome component
- *            drops everything until its first frame.
+ *          - info(), infoln(): the startup configuration, in every output mode: without it, no
+ *            way to know what the router runs with. In IoT output, it is printed at 9600 baud
+ *            8N1, the default of serial monitors, before setup() switches to the 7E1 of the
+ *            telemetry: the mk2pvrouter ESPHome component drops everything until its first
+ *            frame. In JSON output, its lines come before the first JSON line.
  *          - status(), statusln(): status changes while running, in human-readable output only.
  *          - debug(), debugln(): debug messages at startup, as info(), only with ENABLE_DEBUG.
  *
  *          The arguments are those of Serial.print() / Serial.println(). A datalog output still
  *          in progress is written first, so a message never lands in the middle of a datalog
- *          line or telemetry frame (see serial_output.h). When the output is off, the calls
- *          compile to nothing, provided their arguments have no side effects.
+ *          line or telemetry frame (see serial_output.h). When a message is off, the call
+ *          compiles to nothing, provided its arguments have no side effects.
  *
  *          The templates are always inlined: out of line, GCC keeps a copy per argument type,
  *          about 20 bytes more in all.
@@ -34,11 +35,6 @@
 #include "serial_output.h"
 
 /**
- * @brief Whether the startup text is printed: in human-readable and IoT output modes.
- */
-inline constexpr bool TEXT_OUTPUT_ENABLED{ SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable || SERIAL_OUTPUT_TYPE == SerialOutputType::IoT };
-
-/**
  * @brief Whether the status changes are printed while running: in human-readable output only.
  */
 inline constexpr bool STATUS_OUTPUT_ENABLED{ SERIAL_OUTPUT_TYPE == SerialOutputType::HumanReadable };
@@ -49,11 +45,8 @@ inline constexpr bool STATUS_OUTPUT_ENABLED{ SERIAL_OUTPUT_TYPE == SerialOutputT
 template< typename... Args >
 __attribute__((always_inline)) inline void info(const Args&... args)
 {
-  if constexpr (TEXT_OUTPUT_ENABLED)
-  {
-    SerialOutput::complete();
-    Serial.print(args...);
-  }
+  SerialOutput::complete();
+  Serial.print(args...);
 }
 
 /**
@@ -62,11 +55,8 @@ __attribute__((always_inline)) inline void info(const Args&... args)
 template< typename... Args >
 __attribute__((always_inline)) inline void infoln(const Args&... args)
 {
-  if constexpr (TEXT_OUTPUT_ENABLED)
-  {
-    SerialOutput::complete();
-    Serial.println(args...);
-  }
+  SerialOutput::complete();
+  Serial.println(args...);
 }
 
 /**
@@ -77,27 +67,17 @@ __attribute__((always_inline)) inline void infoln(const Args&... args)
  */
 inline void infolnDecimals(const int32_t value, const uint8_t decimals)
 {
-  if constexpr (TEXT_OUTPUT_ENABLED)
-  {
-    SerialOutput::complete();
-    SerialOutput::printDecimals(Serial, value, decimals);
-    Serial.println();
-  }
+  SerialOutput::complete();
+  SerialOutput::printDecimals(Serial, value, decimals);
+  Serial.println();
 }
 
 /**
  * @brief Same as infolnDecimals(), with the value read from PROGMEM.
- *
- * @details The value is read here, not by the caller: a PROGMEM read (pgm_read_dword) is
- *          volatile inline assembly, which would stay in the firmware even with the text
- *          output off.
  */
 inline void infolnDecimals_P(const int32_t* value, const uint8_t decimals)
 {
-  if constexpr (TEXT_OUTPUT_ENABLED)
-  {
-    infolnDecimals(static_cast< int32_t >(pgm_read_dword(value)), decimals);
-  }
+  infolnDecimals(static_cast< int32_t >(pgm_read_dword(value)), decimals);
 }
 
 /**
