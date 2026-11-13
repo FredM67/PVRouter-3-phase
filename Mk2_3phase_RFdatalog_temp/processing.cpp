@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-13
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -24,7 +24,7 @@
 inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
 inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
 
-// ADC reference: AVCC (5 V) on the old board, the internal 1.1 V on the new one (buffered from AREF).
+// ADC reference: AVCC (= VCC, 5 V or 3.3 V) on the old board, the internal 1.1 V on the new one (buffered from AREF).
 // ADLAR=1 enables left-aligned ADC for efficient fixed-point math.
 constexpr uint8_t _ADMUX{ (PCB_VERSION == PcbVersion::NEW ? bit(REFS1) | bit(REFS0) : bit(REFS0)) | bit(ADLAR) };
 // ------------------------------------------

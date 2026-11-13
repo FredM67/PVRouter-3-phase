@@ -55,7 +55,8 @@ largest current).
 
 ### Old board
 
-The old board has other input stages and a 5 V reference: this calculation doesn't apply. Set
+The old board has other input stages, and its ADC reference is AVCC, the supply voltage (5 V or
+3.3 V), not the internal 1.1 V: this calculation doesn't apply. Set
 `f_ctRating` to 1 and `f_powerCalPerAmp` to the former `f_powerCal`, then calibrate as usual.
 
 ## How close it is
