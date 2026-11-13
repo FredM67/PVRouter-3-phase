@@ -262,6 +262,27 @@ void test_teleinfo_written_in_parts(void)
   TEST_ASSERT_EQUAL_STRING(whole, capture.text);
 }
 
+/**
+ * @brief The startup text at 8N1, then 7E1 for the IoT output only (UART0 frame format in UCSR0C)
+ */
+void test_startup_text_serial_settings()
+{
+  SerialOutput::beginStartupText();
+  const uint8_t startup{ UCSR0C };
+  SerialOutput::endStartupText< true >();
+  const uint8_t iot{ UCSR0C };
+
+  SerialOutput::beginStartupText();
+  SerialOutput::endStartupText< false >();
+  const uint8_t other{ UCSR0C };
+
+  Serial.begin(9600);  // 8N1 again, for the test report (already, unless a check fails)
+
+  TEST_ASSERT_EQUAL_HEX8(SERIAL_8N1, startup);
+  TEST_ASSERT_EQUAL_HEX8(SERIAL_7E1, iot);
+  TEST_ASSERT_EQUAL_HEX8(SERIAL_8N1, other);
+}
+
 void setup()
 {
   delay(1000);
@@ -277,6 +298,7 @@ void setup()
   RUN_TEST(test_printDecimals_other_decimals_and_extremes);
   RUN_TEST(test_toDecimals_at_compile_time);
   RUN_TEST(test_teleinfo_written_in_parts);
+  RUN_TEST(test_startup_text_serial_settings);
 
   UNITY_END();
   haltAfterTests();

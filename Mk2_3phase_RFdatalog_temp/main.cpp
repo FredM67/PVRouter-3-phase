@@ -390,9 +390,9 @@ void setup()
 {
   delay(initialDelay);  // allows time to open the Serial Monitor
 
-  // Do NOT set greater than 9600. 8N1 even for the IoT output, so the startup configuration
-  // shows on a serial monitor with its default settings: 7E1 comes at the end of setup().
-  Serial.begin(9600, SERIAL_8N1);
+  // 8N1 even for the IoT output, so the startup configuration shows on a serial monitor with its
+  // default settings: 7E1 comes at the end of setup().
+  SerialOutput::beginStartupText();
 
   // On start, display config info in the serial monitor (human-readable and IoT outputs)
   printConfiguration();
@@ -414,11 +414,7 @@ void setup()
   debugln(freeRam());  // a useful value to keep an eye on
   infoln(F("----"));
 
-  if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::IoT)
-  {
-    Serial.flush();                  // the startup text has left, at 8N1
-    Serial.begin(9600, SERIAL_7E1);  // the telemetry frames, as the mk2Wifi module expects
-  }
+  SerialOutput::endStartupText< SERIAL_OUTPUT_TYPE == SerialOutputType::IoT >();
 }
 
 /**
