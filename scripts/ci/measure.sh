@@ -22,7 +22,8 @@ mkdir -p "$out"
 # one build: its flash and RAM as two JSON results
 measure() {
   local env=$1 label=$2
-  pio run --project-dir "$project" -e "$env" -s
+  # stdout carries the JSON: everything pio prints (package installs on a fresh runner) to stderr
+  pio run --project-dir "$project" -e "$env" -s >&2
   local text data bss
   read -r text data bss _ < <("$avr_size" "$project/.pio/build/$env/firmware.elf" | tail -n 1)
   printf '{"name": "flash: %s", "value": %d, "unit": "bytes"}\n' "$label" $((text + data))
