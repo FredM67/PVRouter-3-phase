@@ -9,14 +9,42 @@ on:
     - Doxyfile
   workflow_dispatch:
 
+# The steps of DenverCoder1/doxygen-github-pages-action, written out: its deploy deletes every
+# file it did not generate (clean), which would wipe the benchmark history (bench/, written by
+# the benchmarks job of build.yml) - clean-exclude keeps it.
 jobs:
   deploy:
     permissions:
       contents: write
     runs-on: ubuntu-latest
+    # one writer to gh-pages at a time, with the benchmarks job of build.yml
+    concurrency:
+      group: gh-pages
+      cancel-in-progress: false
+    env:
+      DOXYGEN_VERSION: 1.13.2
     steps:
-      - uses: DenverCoder1/doxygen-github-pages-action@v2.0.0
+      - uses: actions/checkout@v7
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          config_file: Doxyfile
-          doxygen_version: 1.13.2
+          submodules: 'true'
+
+      - name: Install Graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Install Doxygen ${{ env.DOXYGEN_VERSION }}
+        run: |
+          wget -q "https://github.com/doxygen/doxygen/releases/download/Release_${DOXYGEN_VERSION//./_}/doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz"
+          tar -xzf "doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz"
+          sudo mv "doxygen-${DOXYGEN_VERSION}/bin/doxygen" /usr/local/bin/doxygen
+
+      - name: Generate the documentation
+        run: |
+          doxygen Doxyfile
+          touch docs/html/.nojekyll
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs/html
+          clean-exclude: bench
