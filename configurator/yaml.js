@@ -85,7 +85,7 @@
   function sensor(tag, name, id, extra) {
     return [
       '  - platform: mk2pvrouter',
-      `    tag_name: ${q(tag)}`,
+      `    tag: ${q(tag)}`,
       `    name: ${q(name)}`,
       ...(id ? [`    id: ${id}`] : []),
       ...extra.map((l) => `    ${l}`),
@@ -121,6 +121,7 @@
       'esphome:',
       `  name: ${q(name)}`,
       `  friendly_name: ${q(friendly)}`,
+      '  min_version: 2026.10.0  # first release with the mk2pvrouter component built in',
       '  on_boot:',
       '    priority: -100  # Lower priority to ensure it runs after other boot tasks',
       '    then:',
@@ -137,13 +138,6 @@
       '  board: esp32-c6-devkitc-1  # module mk2Wifi (ESP32-C6-MINI-1)',
       '  framework:',
       '    type: esp-idf',
-      '',
-      'external_components:',
-      '  - source:',
-      '      type: git',
-      '      url: https://github.com/FredM67/esphome_components',
-      '    components: [ mk2pvrouter ]',
-      '    refresh: 1d',
       '',
       'logger:',
       '  baud_rate: 0  # the UART talks to the router',
@@ -202,8 +196,7 @@
         '  data_bits: 7',
         '  stop_bits: 1',
         '',
-        'mk2pvrouter:',
-        `  update_interval: ${m.datalogPeriod}s`,
+        'mk2pvrouter:  # publishes each frame as it arrives',
         ''
       );
 
@@ -267,7 +260,7 @@
     if (binaries.length) {
       add('binary_sensor:');
       for (const [tag, label, cls] of binaries)
-        add('  - platform: mk2pvrouter', `    tag_name: ${q(tag)}`, `    name: ${q(label)}`, ...(cls ? [`    device_class: ${cls}`] : []), '    web_server:', '      sorting_group_id: sorting_group_sensors', '');
+        add('  - platform: mk2pvrouter', `    tag: ${q(tag)}`, `    name: ${q(label)}`, ...(cls ? [`    device_class: ${cls}`] : []), '    web_server:', '      sorting_group_id: sorting_group_sensors', '');
     }
 
     // ---- text sensors ----
