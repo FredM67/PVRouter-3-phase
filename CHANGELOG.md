@@ -127,7 +127,7 @@ valid load maps ([#160]).
   ([#163]).
 - **No float code left:** the datalog (power and voltage per phase) and the load ON times of the
   IoT output use integer arithmetic too, with an assembly integer square root; the float library
-  is no longer linked: about 335 bytes of flash and 24 bytes of RAM less. The voltage takes ~670
+  is no longer linked: about 365 bytes of flash and 24 bytes of RAM less. The voltage takes ~570
   cycles per phase instead of ~830, the power ~155 instead of ~290 ([#120]).
 - **Flash:**
   - the RFM69 driver is only linked when RF is used (+2.9 kB avoided without RF) ([#155]);

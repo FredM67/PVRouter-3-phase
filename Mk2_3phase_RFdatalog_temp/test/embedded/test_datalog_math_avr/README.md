@@ -16,9 +16,11 @@ Timer1 runs at the CPU clock with interrupts disabled: the counts are exact CPU 
 
 | | Float code (before) | Integer code |
 |---|---|---|
-| Square root (with the conversions of the float code) | 573 / 662 | 549 / 594 (`isqrt()` alone: 433 / 439) |
-| `Vrms_L_x100` of a phase | 831 / 916 | 672 / 734 |
+| Square root (with the conversions of the float code) | 573 / 662 | 446 / 513 (`isqrt()` alone: 415 / 421) |
+| `Vrms_L_x100` of a phase | 831 / 916 | 569 / 653 |
 | `power_L` of a phase | 291 / 334 | 156 / 158 |
+
+`sqrtScaled()` first normalises the value to >= 2^30, so that the root keeps 15 to 16 significant bits (without it, 230 V would only get ~12 bits, ±0.05 V): a whole byte costs ~8 cycles, a pair of bits ~14. The worst case is the smallest value (1: 3 bytes and 3 pairs, ~90 cycles more than `isqrt()`); a mains voltage needs ~60.
 
 ## Running
 

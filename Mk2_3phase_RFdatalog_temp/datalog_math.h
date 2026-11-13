@@ -60,74 +60,145 @@ inline int16_t watts(const int32_t averagePower, const uint16_t calFixed, const 
   return negative ? static_cast< int16_t >(-result) : result;
 }
 
+#ifdef __AVR__
+using uint24_t = __uint24; /**< 3 bytes on AVR: the remainder and twice the root of the square root */
+#else
+using uint24_t = uint32_t;
+#endif
+
+#ifdef __AVR__
+// The assembly of squareRoot(), as string literals to concatenate.
+
+/** Shifts [val] (not 0) up to >= 2^30, counting the bits of the root gained in [shift]: whole
+ *  bytes first (byte moves, 4 bits of the root each), then pairs of bits (1 bit each). */
+#define DATALOG_SQRT_NORMALISE \
+  "tst  %D[val]             \n\t" \
+  "brne 6f                  \n\t" \
+  "5:                       \n\t" \
+  "mov  %D[val], %C[val]    \n\t" \
+  "mov  %C[val], %B[val]    \n\t" \
+  "mov  %B[val], %A[val]    \n\t" \
+  "clr  %A[val]             \n\t" \
+  "subi %[shift], -4        \n\t" \
+  "tst  %D[val]             \n\t" \
+  "breq 5b                  \n\t" \
+  "6:                       \n\t" \
+  "cpi  %D[val], 0x40       \n\t" \
+  "brsh 7f                  \n\t" \
+  "lsl  %A[val]             \n\t" \
+  "rol  %B[val]             \n\t" \
+  "rol  %C[val]             \n\t" \
+  "rol  %D[val]             \n\t" \
+  "lsl  %A[val]             \n\t" \
+  "rol  %B[val]             \n\t" \
+  "rol  %C[val]             \n\t" \
+  "rol  %D[val]             \n\t" \
+  "inc  %[shift]            \n\t" \
+  "rjmp 6b                  \n\t" \
+  "7:                       \n\t"
+
+/** The 16 digits of the root: for each byte of [val], most significant first, for each pair of
+ *  bits of the byte, bring the pair down into [rem], double the root, and try 2 x root + 1. */
+#define DATALOG_SQRT_DIGITS \
+  "clr  %A[rem]             \n\t" \
+  "clr  %B[rem]             \n\t" \
+  "clr  %C[rem]             \n\t" \
+  "clr  %A[twice]           \n\t" \
+  "clr  %B[twice]           \n\t" \
+  "clr  %C[twice]           \n\t" \
+  "ldi  %[bytes], 4         \n\t" \
+  "1:                       \n\t" \
+  "ldi  %[bits], 4          \n\t" \
+  "2:                       \n\t" \
+  "lsl  %D[val]             \n\t" \
+  "rol  %A[rem]             \n\t" \
+  "rol  %B[rem]             \n\t" \
+  "rol  %C[rem]             \n\t" \
+  "lsl  %D[val]             \n\t" \
+  "rol  %A[rem]             \n\t" \
+  "rol  %B[rem]             \n\t" \
+  "rol  %C[rem]             \n\t" \
+  "lsl  %A[twice]           \n\t" \
+  "rol  %B[twice]           \n\t" \
+  "rol  %C[twice]           \n\t" \
+  "cp   %A[twice], %A[rem]  \n\t" \
+  "cpc  %B[twice], %B[rem]  \n\t" \
+  "cpc  %C[twice], %C[rem]  \n\t" \
+  "brcc 3f                  \n\t" \
+  "sec                      \n\t" \
+  "sbc  %A[rem], %A[twice]  \n\t" \
+  "sbc  %B[rem], %B[twice]  \n\t" \
+  "sbc  %C[rem], %C[twice]  \n\t" \
+  "ori  %A[twice], 2        \n\t" \
+  "3:                       \n\t" \
+  "dec  %[bits]             \n\t" \
+  "brne 2b                  \n\t" \
+  "mov  %D[val], %C[val]    \n\t" \
+  "mov  %C[val], %B[val]    \n\t" \
+  "mov  %B[val], %A[val]    \n\t" \
+  "dec  %[bytes]            \n\t" \
+  "brne 1b                  \n\t"
+
+#define DATALOG_SQRT_OPERANDS \
+  [rem] "=&r"(remainder), [twice] "=&d"(twiceRoot), [val] "+d"(value), [bytes] "=&d"(bytes), [bits] "=&d"(bits), [shift] "+d"(shift)
+#endif
+
 /**
- * @brief Integer square root, rounded to the nearest integer.
+ * @brief Square root, rounded to the nearest integer, of the value or of the value normalised.
  *
  * @details Digit by digit, two bits of the value per bit of the root, most significant first.
  *          The remainder (value - root^2 so far, < 2^19 before each trial) and twice the root
  *          (< 2^17) fit in 3 bytes; keeping twice the root makes each trial a single compare:
  *          remainder >= 2 x (2 x root) + 1  <=>  remainder > 2 x (2 x root).
  *
- *          On AVR, the loop is written in assembly: the value is consumed a byte at a time, and
- *          each bit of the root costs ~21 cycles (~380 cycles in all), where avr-gcc's code for
- *          the same loop needs ~44, and the float sqrt() ~500 (see test_datalog_math_perf).
+ *          On AVR, this is assembly: the value is consumed a byte at a time, each bit of the root
+ *          costs ~21 cycles, and the normalisation ~6 cycles per byte and ~12 per pair of bits
+ *          (avr-gcc's code for the same needs about twice as much; see test_datalog_math_avr).
  *
+ * @tparam Normalise false: round(sqrt(value)). true: the value is first shifted left by pairs of
+ *                   bits up to >= 2^30, so that the root has 15 to 16 significant bits.
  * @param value The value to take the square root of.
- * @return round(sqrt(value)), at most 65535.
+ * @param[out] fractionBits The number of fractional bits of the result (0 if not normalised).
+ * @return round(sqrt(value) x 2^fractionBits), at most 65535.
  */
-inline uint16_t isqrt(uint32_t value)
+template< bool Normalise >
+inline uint16_t squareRoot(uint32_t value, uint8_t& fractionBits)
 {
-  uint32_t remainder;  // 3 bytes used
-  uint32_t twiceRoot;  // 3 bytes used
+  uint8_t shift{ 0 };
+  uint24_t remainder;
+  uint24_t twiceRoot;
+
+  if (Normalise && !value)
+  {
+    fractionBits = 0;
+    return 0;
+  }
 
 #ifdef __AVR__
   uint8_t bytes;
   uint8_t bits;
-  asm(
-    "clr %A[rem]              \n\t"
-    "clr %B[rem]              \n\t"
-    "clr %C[rem]              \n\t"
-    "clr %A[twice]            \n\t"
-    "clr %B[twice]            \n\t"
-    "clr %C[twice]            \n\t"
-    "ldi %[bytes], 4          \n\t"
-    "1:                       \n\t"  // for each byte of the value, most significant first
-    "ldi %[bits], 4           \n\t"
-    "2:                       \n\t"  // for each pair of bits of the byte
-    "lsl %D[val]              \n\t"  // bring down the next two bits into the remainder
-    "rol %A[rem]              \n\t"
-    "rol %B[rem]              \n\t"
-    "rol %C[rem]              \n\t"
-    "lsl %D[val]              \n\t"
-    "rol %A[rem]              \n\t"
-    "rol %B[rem]              \n\t"
-    "rol %C[rem]              \n\t"
-    "lsl %A[twice]            \n\t"  // root <<= 1
-    "rol %B[twice]            \n\t"
-    "rol %C[twice]            \n\t"
-    "cp  %A[twice], %A[rem]   \n\t"  // carry if 2 x root < remainder
-    "cpc %B[twice], %B[rem]   \n\t"
-    "cpc %C[twice], %C[rem]   \n\t"
-    "brcc 3f                  \n\t"
-    "sec                      \n\t"  // remainder -= 2 x root + 1
-    "sbc %A[rem], %A[twice]   \n\t"
-    "sbc %B[rem], %B[twice]   \n\t"
-    "sbc %C[rem], %C[twice]   \n\t"
-    "ori %A[twice], 2         \n\t"  // root |= 1
-    "3:                       \n\t"
-    "dec %[bits]              \n\t"
-    "brne 2b                  \n\t"
-    "mov %D[val], %C[val]     \n\t"  // next byte of the value
-    "mov %C[val], %B[val]     \n\t"
-    "mov %B[val], %A[val]     \n\t"
-    "dec %[bytes]             \n\t"
-    "brne 1b                  \n\t"
-    : [rem] "=&r"(remainder), [twice] "=&d"(twiceRoot), [val] "+r"(value), [bytes] "=&d"(bytes), [bits] "=&d"(bits)
-    :
-    : "cc");
-  remainder &= 0xFFFFFFUL;
-  twiceRoot &= 0xFFFFFFUL;
+  if constexpr (Normalise)
+  {
+    asm(DATALOG_SQRT_NORMALISE DATALOG_SQRT_DIGITS:DATALOG_SQRT_OPERANDS : : "cc");
+  }
+  else
+  {
+    asm(DATALOG_SQRT_DIGITS:DATALOG_SQRT_OPERANDS : : "cc");
+  }
 #else
+  if constexpr (Normalise)
+  {
+    while (value < (1UL << 24))  // whole bytes, 4 bits of the root each
+    {
+      value <<= 8;
+      shift += 4;
+    }
+    while (value < (1UL << 30))  // then pairs of bits, 1 bit of the root each
+    {
+      value <<= 2;
+      ++shift;
+    }
+  }
   remainder = 0;
   twiceRoot = 0;
   for (uint8_t step = 16; step; --step)
@@ -143,6 +214,7 @@ inline uint16_t isqrt(uint32_t value)
   }
 #endif
 
+  fractionBits = shift;
   auto root{ static_cast< uint16_t >(twiceRoot >> 1) };
   // remainder = value - root^2: round up when value >= (root + 0.5)^2 = root^2 + root + 0.25
   if ((remainder > root) && (root < UINT16_MAX))
@@ -152,6 +224,24 @@ inline uint16_t isqrt(uint32_t value)
   return root;
 }
 
+#ifdef __AVR__
+#undef DATALOG_SQRT_NORMALISE
+#undef DATALOG_SQRT_DIGITS
+#undef DATALOG_SQRT_OPERANDS
+#endif
+
+/**
+ * @brief Integer square root, rounded to the nearest integer.
+ *
+ * @param value The value to take the square root of.
+ * @return round(sqrt(value)), at most 65535.
+ */
+inline uint16_t isqrt(const uint32_t value)
+{
+  uint8_t fractionBits;
+  return squareRoot< false >(value, fractionBits);
+}
+
 /**
  * @brief The square root of a mean square, with as many fractional bits as fit.
  *
@@ -159,23 +249,9 @@ inline uint16_t isqrt(uint32_t value)
  * @param[out] fractionBits The number of fractional bits of the result.
  * @return sqrt(meanSquare) x 2^fractionBits, rounded; >= 2^15 unless meanSquare is 0.
  */
-inline uint16_t sqrtScaled(uint32_t meanSquare, uint8_t& fractionBits)
+inline uint16_t sqrtScaled(const uint32_t meanSquare, uint8_t& fractionBits)
 {
-  fractionBits = 0;
-  if (meanSquare)
-  {
-    while (meanSquare < (1UL << 24))  // a byte at a time: byte moves, 4 bits of the root
-    {
-      meanSquare <<= 8;
-      fractionBits += 4;
-    }
-    while (meanSquare < (1UL << 30))  // then 2 bits at a time, 1 bit of the root
-    {
-      meanSquare <<= 2;
-      ++fractionBits;
-    }
-  }
-  return isqrt(meanSquare);
+  return squareRoot< true >(meanSquare, fractionBits);
 }
 
 /**
