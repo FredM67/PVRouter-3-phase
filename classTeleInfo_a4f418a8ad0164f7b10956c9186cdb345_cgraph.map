@@ -1,5 +1,0 @@
-<map id="TeleInfo::send" name="TeleInfo::send">
-<area shape="rect" id="Node000001" title="Sends a telemetry value as an integer." alt="" coords="5,5,117,31"/>
-<area shape="rect" id="Node000002" href="$classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="165,5,373,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,15,152,15,152,21,118,21"/>
-</map>

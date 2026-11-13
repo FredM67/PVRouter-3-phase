@@ -1,7 +1,0 @@
-<map id="sendTelemetryData" name="sendTelemetryData">
-<area shape="rect" id="Node000001" title="Sends telemetry data using the TeleInfo class." alt="" coords="5,5,155,31"/>
-<area shape="rect" id="Node000002" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="203,5,315,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,15,189,15,189,21,155,21"/>
-<area shape="rect" id="Node000003" href="$classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="363,5,571,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="315,15,349,15,349,21,315,21"/>
-</map>

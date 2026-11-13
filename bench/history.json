@@ -71,6 +71,30 @@
      "ram": 400
     }
    }
+  },
+  {
+   "commit": "6c82938aabe01fdccc470b74e7526dae85ab2644",
+   "date": "2026-11-13T23:20:10+01:00",
+   "message": "docs: firmware history for September to November 2026 (#197)\n\nThe history in the main page of the doc stopped in January 2026. Each\nmonth from the merged pull requests of dev; February to August only had\ndependency bumps and personal branches.\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/6c82938aabe01fdccc470b74e7526dae85ab2644",
+   "sizes": {
+    "basic": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8584,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8588,
+     "ram": 400
+    }
+   }
   }
  ]
 }
