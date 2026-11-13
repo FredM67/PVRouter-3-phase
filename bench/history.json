@@ -1,0 +1,76 @@
+{
+ "entries": [
+  {
+   "commit": "5d182e81e774f5697c9de4d1e37218286894f36e",
+   "date": "2026-11-13T22:37:39+01:00",
+   "message": "ci: benchmark history on GitHub Pages, 2% regression alerts (#194)\n\n* ci: benchmark history on GitHub Pages, 2% regression alerts\n\n- test/embedded/bench_report.h: benchReport() prints one machine-readable\n  line per result, BENCH|<name>|<value>|<unit>; the datalog, mult_asm and\n  fastdivision benchmarks report their 19 results so (cycles, or us for\n  the micros() based ones). simavr is cycle-accurate: the values are the\n  same from run to run (checked), only code changes move them.\n- scripts/ci/bench_to_json.py: these lines as JSON for\n  benchmark-action/github-action-benchmark (customSmallerIsBetter); fails\n  on no result or a name reported twice.\n- build.yml: the embedded tests run verbose and upload their results\n  (also shown in the job summary); every build uploads its flash and RAM.\n  A new benchmarks job, the only writer to gh-pages: a push to dev adds a\n  point to the history (gh-pages/bench, charts at /bench/); a pull\n  request is compared with the last point, and anything more than 2%\n  worse gets a comment (not from forks, read-only token). No failure.\n- doxygen-gh-pages.yml: the steps of DenverCoder1's action written out,\n  since its deploy cleans every file it did not generate; clean-exclude\n  keeps bench/. Both jobs share the gh-pages concurrency group.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\n* fix(ci): the size benchmark reuses the gh-pages branch of the speed one\n\nThe Speed step commits its result on the local gh-pages branch (pushed on\ndev only); the Firmware size step then fetched gh-pages:gh-pages again,\nwhich git rejects as non-fast-forward. skip-fetch-gh-pages: the branch is\nalready up to date (on dev, the Speed step has just pushed it, and the\ngh-pages concurrency group keeps other writers out).\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/5d182e81e774f5697c9de4d1e37218286894f36e",
+   "sizes": {
+    "basic": {
+     "flash": 8582,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8578,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8582,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8582,
+     "ram": 400
+    }
+   }
+  },
+  {
+   "commit": "241f4399d175067f6a112d0d1a401d46cdc979b7",
+   "date": "2026-11-13T22:53:50+01:00",
+   "message": "ci: performance and size report on every pull request (#195)\n\n* ci: performance and size report on every pull request\n\nAs ESPHome does for memory: one comment per pull request, updated at\neach push, comparing the target branch with the PR (merged into it, as\nCI builds it):\n\n- baseline job: checks out the target branch at base.sha next to the PR,\n  and measures it with the PR's scripts/ci/measure.sh (the target may\n  predate it): the builds of the build matrix, and the BENCH| results of\n  the embedded tests;\n- pr-report job: scripts/ci/pr_report.py compares these figures with the\n  PR's (the artifacts of the build and test-embedded jobs): flash and RAM\n  of every build, the changed benchmarks (all of them folded), ESPHome's\n  marks (📈 🚨 beyond 2% worse, 📈 🔸 below, 📉 ✅ / 🎉 better), new and\n  removed results. Job summary always; the comment, found by its hidden\n  marker and edited in place, unless the PR comes from a fork. A failed\n  baseline still gives a report, with the PR's figures alone.\n- the history job (gh-pages) now runs on pushes to dev only.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\n* fix(build): branch and commit in the firmware on Linux too\n\ninject_sketch_name.py called git with shell=True and a list of\narguments: on Linux, that only runs the first element, a bare 'git',\nwhich fails - Linux builds (CI included) always said N/A for the branch\nand the commit. git now runs without a shell, in the project directory,\nand any failure or empty output gives N/A (no git, not a repository,\ndetached HEAD as in CI checkouts). The hash has a fixed length\n(--short=8), so that the firmware size does not move with it: the PR\nreport compares sizes to the byte.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\n* fix(ci): measure.sh keeps pio's output out of the JSON\n\nOn a fresh runner, pio prints its package installs on stdout, which\nmeasure() pipes into jq: the baseline failed with a jq parse error.\npio's output now goes to stderr.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/241f4399d175067f6a112d0d1a401d46cdc979b7",
+   "sizes": {
+    "basic": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8584,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8588,
+     "ram": 400
+    }
+   }
+  },
+  {
+   "commit": "740d232b8b742f4aa6d8c4e3d831115dbebf28f5",
+   "date": "2026-11-13T23:08:12+01:00",
+   "message": "ci: GitHub Pages landing page, firmware size history on two charts (#196)\n\n- pages/index.html: a landing page linking the code documentation, the size\n  history, the repository, and the user documentation and configurator.\n- pages/bench/index.html: flash and RAM, one chart each, every build\n  configuration on it, to compare configurations and follow them over time.\n  End-of-line labels, tooltips with the commit, a table view, light and dark.\n- scripts/ci/pages_update.py: publishes the pages and appends the sizes to\n  bench/history.json, seeded from the former github-action-benchmark data.\n- build.yml: the benchmarks job becomes the pages job, without\n  github-action-benchmark; the speed history is dropped (the functions\n  benchmarked rarely change), the PR report keeps the speed figures.\n- doxygen-gh-pages.yml: deploys to doc/.\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/740d232b8b742f4aa6d8c4e3d831115dbebf28f5",
+   "sizes": {
+    "basic": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8584,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8588,
+     "ram": 400
+    }
+   }
+  }
+ ]
+}

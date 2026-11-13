@@ -1,281 +1,241 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes" />
-    <style>
-      html {
-        font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-        -webkit-font-smoothing: antialiased;
-        background-color: #fff;
-        font-size: 16px;
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Firmware size history · PVRouter 3-phase</title>
+  <!-- Reads history.json, appended at each push to dev by scripts/ci/pages_update.py -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+      --grid: #e1e0d9; --axis: #c3c2b7;
+      --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7;
+        --grid: #2c2c2a; --axis: #383835;
+        --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
       }
-      body {
-        color: #4a4a4a;
-        margin: 8px;
-        font-size: 1em;
-        font-weight: 400;
-      }
-      header {
-        margin-bottom: 8px;
-        display: flex;
-        flex-direction: column;
-      }
-      main {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-      }
-      a {
-        color: #3273dc;
-        cursor: pointer;
-        text-decoration: none;
-      }
-      a:hover {
-        color: #000;
-      }
-      button {
-        color: #fff;
-        background-color: #3298dc;
-        border-color: transparent;
-        cursor: pointer;
-        text-align: center;
-      }
-      button:hover {
-        background-color: #2793da;
-        flex: none;
-      }
-      .spacer {
-        flex: auto;
-      }
-      .small {
-        font-size: 0.75rem;
-      }
-      footer {
-        margin-top: 16px;
-        display: flex;
-        align-items: center;
-      }
-      .header-label {
-        margin-right: 4px;
-      }
-      .benchmark-set {
-        margin: 8px 0;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-      }
-      .benchmark-title {
-        font-size: 3rem;
-        font-weight: 600;
-        word-break: break-word;
-        text-align: center;
-      }
-      .benchmark-graphs {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-        width: 100%;
-      }
-      .benchmark-chart {
-        max-width: 1000px;
-      }
-    </style>
-    <title>Benchmarks</title>
-  </head>
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main { max-width: 1000px; margin: 0 auto; padding: 32px 20px 48px; }
+    nav { font-size: 14px; margin-bottom: 16px; }
+    nav a { color: var(--ink-2); }
+    h1 { margin: 0 0 4px; font-size: 24px; }
+    .lead { margin: 0 0 24px; color: var(--ink-2); }
+    section { background: var(--surface); border: 1px solid var(--grid); border-radius: 10px; padding: 16px 16px 8px; margin-bottom: 20px; }
+    h2 { margin: 0; font-size: 17px; }
+    .sub { margin: 0 0 8px; color: var(--ink-2); font-size: 13px; }
+    .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 0 8px; padding: 0; list-style: none; font-size: 13px; color: var(--ink-2); }
+    .legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+    .plot { position: relative; height: 340px; }
+    details { margin: 8px 0 4px; font-size: 13px; }
+    summary { cursor: pointer; color: var(--ink-2); }
+    .table-wrap { overflow-x: auto; margin-top: 8px; }
+    table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+    th, td { padding: 4px 8px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; }
+    th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
+    td a { color: var(--ink-2); }
+    .empty { color: var(--muted); padding: 24px 0; }
+  </style>
+</head>
+<body>
+<main>
+  <nav><a href="../">← PVRouter 3-phase</a></nav>
+  <h1>Firmware size history</h1>
+  <p class="lead">Flash and RAM of every build configuration of the CI, at each change of <code>dev</code>.
+    Hover a point for the commit, click it to open the commit.</p>
 
-  <body>
-    <header id="header">
-      <div class="header-item">
-        <strong class="header-label">Last Update:</strong>
-        <span id="last-update"></span>
-      </div>
-      <div class="header-item">
-        <strong class="header-label">Repository:</strong>
-        <a id="repository-link" rel="noopener"></a>
-      </div>
-    </header>
-    <main id="main"></main>
-    <footer>
-      <button id="dl-button">Download data as JSON</button>
-      <div class="spacer"></div>
-      <div class="small">Powered by <a rel="noopener" href="https://github.com/marketplace/actions/continuous-benchmark">github-action-benchmark</a></div>
-    </footer>
+  <section aria-labelledby="flash-title">
+    <h2 id="flash-title">Flash</h2>
+    <p class="sub">bytes, of 32,256 available (bootloader excluded)</p>
+    <ul class="legend" id="flash-legend"></ul>
+    <div class="plot"><canvas id="flash" role="img" aria-label="Flash used by each build configuration, over time"></canvas></div>
+    <details><summary>Table</summary><div class="table-wrap" id="flash-table"></div></details>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
-    <script src="data.js"></script>
-    <script id="main-script">
-      'use strict';
-      (function() {
-        // Colors from https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
-        const toolColors = {
-          cargo: '#dea584',
-          go: '#00add8',
-          benchmarkjs: '#f1e05a',
-          benchmarkluau: '#000080',
-          pytest: '#3572a5',
-          googlecpp: '#f34b7d',
-          catch2: '#f34b7d',
-          julia: '#a270ba',
-          jmh: '#b07219',
-          benchmarkdotnet: '#178600',
-          customBiggerIsBetter: '#38ff38',
-          customSmallerIsBetter: '#ff3838',
-          _: '#333333'
-        };
+  <section aria-labelledby="ram-title">
+    <h2 id="ram-title">RAM</h2>
+    <p class="sub">bytes of static RAM (data + bss), of 2,048 available</p>
+    <ul class="legend" id="ram-legend"></ul>
+    <div class="plot"><canvas id="ram" role="img" aria-label="Static RAM used by each build configuration, over time"></canvas></div>
+    <details><summary>Table</summary><div class="table-wrap" id="ram-table"></div></details>
+  </section>
+</main>
 
-        function init() {
-          function collectBenchesPerTestCase(entries) {
-            const map = new Map();
-            for (const entry of entries) {
-              const {commit, date, tool, benches} = entry;
-              for (const bench of benches) {
-                const result = { commit, date, tool, bench };
-                const arr = map.get(bench.name);
-                if (arr === undefined) {
-                  map.set(bench.name, [result]);
-                } else {
-                  arr.push(result);
-                }
-              }
-            }
-            return map;
-          }
+<script>
+// The build configurations, in a fixed order: each keeps its color whatever the others do.
+// Configurations not listed here (added later) take the next slots, in order of appearance.
+const KNOWN = ["basic", "basic, IoT", "basic, HumanReadable", "rf"];
+const SLOTS = ["--s1", "--s2", "--s3", "--s4"];
+const BUDGET = { flash: 32256, ram: 2048 };
 
-          const data = window.BENCHMARK_DATA;
+const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const fmt = n => n.toLocaleString("en-US");
+const charts = [];
 
-          // Render header
-          document.getElementById('last-update').textContent = new Date(data.lastUpdate).toString();
-          const repoLink = document.getElementById('repository-link');
-          repoLink.href = data.repoUrl;
-          repoLink.textContent = data.repoUrl;
+function configsOf(entries) {
+  const seen = [...KNOWN];
+  for (const e of entries) for (const c of Object.keys(e.sizes)) if (!seen.includes(c)) seen.push(c);
+  return seen.filter(c => entries.some(e => e.sizes[c]));
+}
 
-          // Render footer
-          document.getElementById('dl-button').onclick = () => {
-            const dataUrl = 'data:,' + JSON.stringify(data, null, 2);
-            const a = document.createElement('a');
-            a.href = dataUrl;
-            a.download = 'benchmark_data.json';
-            a.click();
-          };
+// Labels at the end of the lines, in text color: identity never rests on color alone.
+// Configurations ending on the same value share one label.
+const endLabels = {
+  id: "endLabels",
+  afterDatasetsDraw(chart) {
+    const { ctx, chartArea } = chart;
+    const groups = new Map();
+    chart.data.datasets.forEach((ds, i) => {
+      const meta = chart.getDatasetMeta(i);
+      if (meta.hidden) return;
+      let j = ds.data.length - 1;
+      while (j >= 0 && ds.data[j] == null) j--;
+      if (j < 0) return;
+      const key = ds.data[j];
+      if (!groups.has(key)) groups.set(key, { y: meta.data[j].y, names: [] });
+      groups.get(key).names.push(ds.label);
+    });
+    const placed = [...groups.values()].sort((a, b) => a.y - b.y);
+    for (let k = 1; k < placed.length; k++) placed[k].y = Math.max(placed[k].y, placed[k - 1].y + 15);
+    ctx.save();
+    ctx.font = "12px system-ui, sans-serif";
+    ctx.fillStyle = css("--ink-2");
+    ctx.textBaseline = "middle";
+    for (const g of placed) ctx.fillText(g.names.join(" = "), chartArea.right + 8, g.y);
+    ctx.restore();
+  },
+};
 
-          // Prepare data points for charts
-          return Object.keys(data.entries).map(name => ({
-            name,
-            dataSet: collectBenchesPerTestCase(data.entries[name]),
-          }));
-        }
+// A vertical hairline at the hovered commit.
+const crosshair = {
+  id: "crosshair",
+  afterDatasetsDraw(chart) {
+    const active = chart.tooltip && chart.tooltip.getActiveElements();
+    if (!active || !active.length) return;
+    const { ctx, chartArea } = chart;
+    ctx.save();
+    ctx.strokeStyle = css("--axis");
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(active[0].element.x, chartArea.top);
+    ctx.lineTo(active[0].element.x, chartArea.bottom);
+    ctx.stroke();
+    ctx.restore();
+  },
+};
 
-        function renderAllChars(dataSets) {
+function draw(entries, metric) {
+  const configs = configsOf(entries);
+  const color = c => css(SLOTS[configs.indexOf(c) % SLOTS.length]);
+  const labels = entries.map(e => e.commit.slice(0, 7));
 
-          function renderGraph(parent, name, dataset) {
-            const canvas = document.createElement('canvas');
-            canvas.className = 'benchmark-chart';
-            parent.appendChild(canvas);
+  const legend = document.getElementById(metric + "-legend");
+  legend.innerHTML = configs.map(c => `<li><i style="background:${color(c)}"></i>${c}</li>`).join("");
 
-            const color = toolColors[dataset.length > 0 ? dataset[0].tool : '_'];
-            const data = {
-              labels: dataset.map(d => d.commit.id.slice(0, 7)),
-              datasets: [
-                {
-                  label: name,
-                  data: dataset.map(d => d.bench.value),
-                  borderColor: color,
-                  backgroundColor: color + '60', // Add alpha for #rrggbbaa
-                }
-              ],
-            };
-            const options = {
-              scales: {
-                xAxes: [
-                  {
-                    scaleLabel: {
-                      display: true,
-                      labelString: 'commit',
-                    },
-                  }
-                ],
-                yAxes: [
-                  {
-                    scaleLabel: {
-                      display: true,
-                      labelString: dataset.length > 0 ? dataset[0].bench.unit : '',
-                    },
-                    ticks: {
-                      beginAtZero: true,
-                    }
-                  }
-                ],
-              },
-              tooltips: {
-                callbacks: {
-                  afterTitle: items => {
-                    const {index} = items[0];
-                    const data = dataset[index];
-                    return '\n' + data.commit.message + '\n\n' + data.commit.timestamp + ' committed by @' + data.commit.committer.username + '\n';
-                  },
-                  label: item => {
-                    let label = item.value;
-                    const { range, unit } = dataset[item.index].bench;
-                    label += ' ' + unit;
-                    if (range) {
-                      label += ' (' + range + ')';
-                    }
-                    return label;
-                  },
-                  afterLabel: item => {
-                    const { extra } = dataset[item.index].bench;
-                    return extra ? '\n' + extra : '';
-                  }
-                }
-              },
-              onClick: (_mouseEvent, activeElems) => {
-                if (activeElems.length === 0) {
-                  return;
-                }
-                // XXX: Undocumented. How can we know the index?
-                const index = activeElems[0]._index;
-                const url = dataset[index].commit.url;
-                window.open(url, '_blank');
-              },
-            };
+  const chart = new Chart(document.getElementById(metric), {
+    type: "line",
+    data: {
+      labels,
+      datasets: configs.map(c => ({
+        label: c,
+        data: entries.map(e => (e.sizes[c] ? e.sizes[c][metric] : null)),
+        borderColor: color(c),
+        backgroundColor: color(c),
+        borderWidth: 2,
+        pointRadius: entries.length > 60 ? 0 : 4,
+        pointHoverRadius: 6,
+        pointBorderColor: css("--surface"),
+        pointBorderWidth: 2,
+        spanGaps: true,
+        tension: 0,
+      })),
+    },
+    options: {
+      maintainAspectRatio: false,
+      animation: false,
+      layout: { padding: { right: 170 } },
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: css("--surface"),
+          titleColor: css("--ink"),
+          bodyColor: css("--ink-2"),
+          footerColor: css("--muted"),
+          borderColor: css("--grid"),
+          borderWidth: 1,
+          padding: 10,
+          usePointStyle: true,
+          callbacks: {
+            title: items => {
+              const e = entries[items[0].dataIndex];
+              return `${e.commit.slice(0, 8)} · ${e.date.slice(0, 10)}`;
+            },
+            label: item => ` ${item.dataset.label}: ${fmt(item.raw)} bytes (${(item.raw * 100 / BUDGET[metric]).toFixed(1)}%)`,
+            footer: items => entries[items[0].dataIndex].message.split("\n")[0].slice(0, 80),
+          },
+        },
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          border: { color: css("--axis") },
+          ticks: { color: css("--muted"), font: { family: "ui-monospace, monospace", size: 11 }, maxRotation: 0, autoSkipPadding: 16 },
+        },
+        y: {
+          grid: { color: css("--grid") },
+          border: { display: false },
+          ticks: { color: css("--muted"), callback: v => fmt(v) },
+          grace: "5%",
+        },
+      },
+      onClick: (_, elements) => {
+        if (elements.length) window.open(entries[elements[0].index].url, "_blank", "noopener");
+      },
+      onHover: (event, elements) => {
+        event.native.target.style.cursor = elements.length ? "pointer" : "default";
+      },
+    },
+    plugins: [endLabels, crosshair],
+  });
+  charts.push(chart);
 
-            new Chart(canvas, {
-              type: 'line',
-              data,
-              options,
-            });
-          }
+  // the table view: newest first
+  const rows = [...entries].reverse().map(e =>
+    `<tr><td><a href="${e.url}">${e.commit.slice(0, 8)}</a></td><td>${e.date.slice(0, 10)}</td>` +
+    configs.map(c => `<td>${e.sizes[c] ? fmt(e.sizes[c][metric]) : "—"}</td>`).join("") + "</tr>");
+  document.getElementById(metric + "-table").innerHTML =
+    `<table><thead><tr><th>Commit</th><th>Date</th>${configs.map(c => `<th>${c}</th>`).join("")}</tr></thead>` +
+    `<tbody>${rows.join("")}</tbody></table>`;
+}
 
-          function renderBenchSet(name, benchSet, main) {
-            const setElem = document.createElement('div');
-            setElem.className = 'benchmark-set';
-            main.appendChild(setElem);
+function render(entries) {
+  charts.splice(0).forEach(c => c.destroy());
+  draw(entries, "flash");
+  draw(entries, "ram");
+}
 
-            const nameElem = document.createElement('h1');
-            nameElem.className = 'benchmark-title';
-            nameElem.textContent = name;
-            setElem.appendChild(nameElem);
-
-            const graphsElem = document.createElement('div');
-            graphsElem.className = 'benchmark-graphs';
-            setElem.appendChild(graphsElem);
-
-            for (const [benchName, benches] of benchSet.entries()) {
-              renderGraph(graphsElem, benchName, benches)
-            }
-          }
-
-          const main = document.getElementById('main');
-          for (const {name, dataSet} of dataSets) {
-            renderBenchSet(name, dataSet, main);
-          }
-        }
-
-        renderAllChars(init()); // Start
-      })();
-    </script>
-  </body>
+fetch("history.json", { cache: "no-cache" })
+  .then(r => r.json())
+  .then(history => {
+    const entries = history.entries || [];
+    if (!entries.length) {
+      document.querySelectorAll(".plot").forEach(p => (p.innerHTML = '<p class="empty">No data yet.</p>'));
+      return;
+    }
+    render(entries);
+    // dark mode has its own steps: redraw with them
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => render(entries));
+  })
+  .catch(() => {
+    document.querySelectorAll(".plot").forEach(p => (p.innerHTML = '<p class="empty">The history could not be loaded.</p>'));
+  });
+</script>
+</body>
 </html>
