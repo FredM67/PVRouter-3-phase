@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Compile-time validations
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-13
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -18,6 +18,7 @@
 
 #include "config.h"
 #include "calibration.h"
+#include "datalog_math.h"
 #include "energy_bucket.h"
 
 /**
@@ -33,6 +34,7 @@ static_assert(SUPPLY_FREQUENCY == 50 || SUPPLY_FREQUENCY == 60, "******** SUPPLY
 static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too long and will lead to overflow ! ****");
 
 static_assert(Energy::isValidCalibration(f_powerCal), "******** Wrong power calibration ! Each value of f_powerCal must be positive and below 8. Please check your calibration.h ! ********");
+static_assert(Datalog::isValidVoltageCalibration(VRMS_FACTOR, f_voltageCal), "******** Wrong voltage calibration ! Each value of f_voltageCal must be positive. Please check your calibration.h ! ********");
 
 static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == unused_pin), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
 static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == unused_pin), "******** Wrong pin value for diversion command. Please check your config.h ! ********");

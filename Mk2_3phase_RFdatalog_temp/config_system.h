@@ -31,6 +31,8 @@ inline constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{ 5 }; /**< Period of datalogg
 
 inline constexpr typename conditional< DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY >= UINT8_MAX, uint16_t, uint8_t >::type DATALOG_PERIOD_IN_MAINS_CYCLES{ DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY }; /**< Period of datalogging in cycles */
 
+inline constexpr float VRMS_FACTOR{ DATALOG_PERIOD_IN_SECONDS > 10 ? 400.0F : 100.0F }; /**< Scaling of the datalog voltage: hundredths of a volt, x4 when the ISR scales V^2 down by 16 (periods over 10 s) */
+
 //--------------------------------------------------------------------------------------------------
 
 #endif  // CONFIG_SYSTEM_H

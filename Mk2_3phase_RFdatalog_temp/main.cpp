@@ -418,19 +418,6 @@ void setup()
   SerialOutput::endStartupText< SERIAL_OUTPUT_TYPE == SerialOutputType::IoT >();
 }
 
-/** Scaling of the voltage in the datalog: hundredths of a volt, x4 when the ISR scales V^2 down by 16 */
-constexpr float VRMS_FACTOR{ DATALOG_PERIOD_IN_SECONDS > 10 ? 400.0F : 100.0F };
-
-static_assert(Datalog::isValidVoltageCalibration(VRMS_FACTOR, f_voltageCal), "******** Wrong voltage calibration ! Each value of f_voltageCal must be positive. Please check your calibration.h ! ********");
-
-/** f_powerCal in fixed point, for the datalog: no float code (#120) */
-const Datalog::FixedCalibration< NO_OF_PHASES > powerCalFixed PROGMEM{ Datalog::powerCalibration(f_powerCal) };
-constexpr uint8_t powerCalShift{ Datalog::powerCalibration(f_powerCal).shift };
-
-/** VRMS_FACTOR x f_voltageCal in fixed point, for the datalog */
-const Datalog::FixedCalibration< NO_OF_PHASES > voltageCalFixed PROGMEM{ Datalog::voltageCalibration(VRMS_FACTOR, f_voltageCal) };
-constexpr uint8_t voltageCalShift{ Datalog::voltageCalibration(VRMS_FACTOR, f_voltageCal).shift };
-
 /**
  * @brief Updates power and voltage data for all phases.
  *
@@ -447,6 +434,10 @@ constexpr uint8_t voltageCalShift{ Datalog::voltageCalibration(VRMS_FACTOR, f_vo
  */
 void updatePowerAndVoltageData()
 {
+  // the calibration constants in fixed point, converted at compile time: no float code (#120)
+  static constexpr auto powerCal PROGMEM{ Datalog::powerCalibration(f_powerCal) };
+  static constexpr auto voltageCal PROGMEM{ Datalog::voltageCalibration(VRMS_FACTOR, f_voltageCal) };
+
   tx_data.power = 0;
   uint8_t phase{ NO_OF_PHASES };
   do
@@ -456,12 +447,12 @@ void updatePowerAndVoltageData()
 
     // import = +ve: the sum of the ISR is negative when importing
     tx_data.power_L[phase] = Datalog::watts(-Shared::copyOf_sumP_atSupplyPoint[phase] / sampleSets,
-                                            pgm_read_word(&powerCalFixed.value[phase]), powerCalShift);
+                                            pgm_read_word(&powerCal.value[phase]), powerCal.shift);
 
     tx_data.power += tx_data.power_L[phase];
 
     tx_data.Vrms_L_x100[phase] = Datalog::vrms(Shared::copyOf_sum_Vsquared[phase] / sampleSets,
-                                               pgm_read_word(&voltageCalFixed.value[phase]), voltageCalShift);
+                                               pgm_read_word(&voltageCal.value[phase]), voltageCal.shift);
   } while (phase);
 }
 
