@@ -263,9 +263,9 @@ inline uint16_t sqrtScaled(const uint32_t meanSquare, uint8_t& fractionBits)
  * @param datalogPeriodInSeconds DATALOG_PERIOD_IN_SECONDS.
  * @return The factor for voltageCalibration(): 100, or 400 for periods over 10 s.
  */
-constexpr float vrmsFactor(const uint8_t datalogPeriodInSeconds)
+constexpr uint16_t vrmsFactor(const uint8_t datalogPeriodInSeconds)
 {
-  return datalogPeriodInSeconds > 10 ? 400.0F : 100.0F;
+  return datalogPeriodInSeconds > 10 ? 400 : 100;
 }
 
 /**
@@ -275,9 +275,9 @@ constexpr float vrmsFactor(const uint8_t datalogPeriodInSeconds)
  * @param cal The voltage calibration values, one per phase.
  */
 template< uint8_t N >
-constexpr uint8_t voltageShift(const float factor, const float (&cal)[N])
+constexpr uint8_t voltageShift(const uint16_t factor, const float (&cal)[N])
 {
-  return Energy::shiftFor(factor * Energy::largestOf(cal));
+  return Energy::shiftFor(static_cast< float >(factor) * Energy::largestOf(cal));
 }
 
 /**
@@ -287,7 +287,7 @@ constexpr uint8_t voltageShift(const float factor, const float (&cal)[N])
  *          15 fractional bits from sqrtScaled(), the total shift must stay below 32.
  */
 template< uint8_t N >
-constexpr bool isValidVoltageCalibration(const float factor, const float (&cal)[N])
+constexpr bool isValidVoltageCalibration(const uint16_t factor, const float (&cal)[N])
 {
   for (const auto value : cal)
   {
@@ -371,13 +371,13 @@ constexpr FixedCalibration< N > powerCalibration(const float (&cal)[N])
  * @param cal f_voltageCal, one value per phase.
  */
 template< uint8_t N >
-constexpr FixedCalibration< N > voltageCalibration(const float factor, const float (&cal)[N])
+constexpr FixedCalibration< N > voltageCalibration(const uint16_t factor, const float (&cal)[N])
 {
   FixedCalibration< N > fixed{};
   fixed.shift = voltageShift(factor, cal);
   for (uint8_t phase = 0; phase < N; ++phase)
   {
-    fixed.value[phase] = Energy::toFixed(factor * cal[phase], fixed.shift);
+    fixed.value[phase] = Energy::toFixed(static_cast< float >(factor) * cal[phase], fixed.shift);
   }
   return fixed;
 }

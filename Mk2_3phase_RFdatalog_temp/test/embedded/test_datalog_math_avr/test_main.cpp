@@ -32,7 +32,7 @@ static volatile float voltageCal[]{ 0.888065256F, 0.888065256F, 0.888065256F };
 static constexpr float powerCalConst[]{ 0.1432025F, 0.1432025F, 0.1432025F };
 static constexpr float voltageCalConst[]{ 0.888065256F, 0.888065256F, 0.888065256F };
 static constexpr auto powerFixed{ Datalog::powerCalibration(powerCalConst) };
-static constexpr auto voltageFixed{ Datalog::voltageCalibration(100.0F, voltageCalConst) };
+static constexpr auto voltageFixed{ Datalog::voltageCalibration(100, voltageCalConst) };
 
 // inputs: mean squares from 0 V to ~450 V (ADC steps squared), average powers from -2^18 to +2^18
 static const uint32_t meanSquares[]{ 0UL, 1UL, 100UL, 5000UL, 45000UL, 67076UL, 67081UL, 70000UL, 150000UL, 262144UL };

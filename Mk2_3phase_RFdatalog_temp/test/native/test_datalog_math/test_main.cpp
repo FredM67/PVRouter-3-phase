@@ -42,7 +42,7 @@ static double referenceWatts(int32_t averagePower, float cal)
 }
 
 /** @brief The float arithmetic being replaced, in hundredths of a volt (x4 for long periods). */
-static double referenceVrms(uint32_t meanSquare, float factor, float cal)
+static double referenceVrms(uint32_t meanSquare, uint16_t factor, float cal)
 {
   return static_cast< double >(factor) * cal * sqrt(static_cast< double >(meanSquare));
 }
@@ -85,7 +85,7 @@ static double worstWattsError(const float (&cal)[N])
  *          i.e. 0.012 V at most at 230 V.
  */
 template< uint8_t N >
-static double worstVrmsError(float factor, const float (&cal)[N], uint32_t maxMeanSquare)
+static double worstVrmsError(uint16_t factor, const float (&cal)[N], uint32_t maxMeanSquare)
 {
   const auto fixed{ Datalog::voltageCalibration(factor, cal) };
   double worst{ 0.0 };
@@ -243,7 +243,7 @@ void test_watts_differs_from_the_float_code_by_at_most_1_W(void)
 
 void test_voltage_calibration_is_constexpr(void)
 {
-  constexpr auto fixed{ Datalog::voltageCalibration(100.0F, oldBoardVCal) };  // must be constexpr
+  constexpr auto fixed{ Datalog::voltageCalibration(100, oldBoardVCal) };  // must be constexpr
 
   TEST_ASSERT_EQUAL_UINT8(9, fixed.shift);  // 81.95 x 2^9 = 41958 fills the 16 bits
   TEST_ASSERT_GREATER_OR_EQUAL_UINT16(1U << 15, fixed.value[2]);
@@ -252,46 +252,46 @@ void test_voltage_calibration_is_constexpr(void)
 void test_vrms_matches_the_reference_short_period(void)
 {
   // 5 s datalog: V^2 unscaled, V_ADC up to 512 (old board: 230 V ~ 282 steps rms)
-  TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(100.0F, oldBoardVCal, 512UL * 512UL));
-  TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(100.0F, newBoardVCal, 512UL * 512UL));
+  TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(100, oldBoardVCal, 512UL * 512UL));
+  TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(100, newBoardVCal, 512UL * 512UL));
 }
 
 void test_vrms_matches_the_reference_long_period(void)
 {
   // datalog > 10 s: V^2 scaled down by 16, the result scaled up by 4
-  TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(400.0F, oldBoardVCal, 512UL * 512UL / 16));
-  TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(400.0F, newBoardVCal, 512UL * 512UL / 16));
+  TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(400, oldBoardVCal, 512UL * 512UL / 16));
+  TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(400, newBoardVCal, 512UL * 512UL / 16));
 }
 
 void test_vrms_at_230_V(void)
 {
-  const auto fixed{ Datalog::voltageCalibration(100.0F, newBoardVCal) };
+  const auto fixed{ Datalog::voltageCalibration(100, newBoardVCal) };
   const double steps{ 230.0 / newBoardVCal[0] };  // rms ADC steps for 230 V
   const auto meanSquare{ static_cast< uint32_t >(steps * steps) };
 
-  TEST_ASSERT_INT_WITHIN(1, lround(referenceVrms(meanSquare, 100.0F, newBoardVCal[0])), Datalog::vrms(meanSquare, fixed.value[0], fixed.shift));
+  TEST_ASSERT_INT_WITHIN(1, lround(referenceVrms(meanSquare, 100, newBoardVCal[0])), Datalog::vrms(meanSquare, fixed.value[0], fixed.shift));
   TEST_ASSERT_INT_WITHIN(2, 23000, Datalog::vrms(meanSquare, fixed.value[0], fixed.shift));
 }
 
 void test_vrms_of_zero(void)
 {
-  const auto fixed{ Datalog::voltageCalibration(100.0F, newBoardVCal) };
+  const auto fixed{ Datalog::voltageCalibration(100, newBoardVCal) };
   TEST_ASSERT_EQUAL_UINT16(0, Datalog::vrms(0, fixed.value[0], fixed.shift));
 }
 
 void test_vrms_saturates(void)
 {
-  const auto fixed{ Datalog::voltageCalibration(400.0F, newBoardVCal) };
+  const auto fixed{ Datalog::voltageCalibration(400, newBoardVCal) };
   TEST_ASSERT_EQUAL_UINT16(UINT16_MAX, Datalog::vrms(UINT32_MAX, fixed.value[0], fixed.shift));
 }
 
 void test_vrms_factor_follows_the_scaling_of_the_isr(void)
 {
-  static_assert(Datalog::vrmsFactor(5) == 100.0F, "must be constexpr");
-  TEST_ASSERT_EQUAL_FLOAT(100.0F, Datalog::vrmsFactor(1));
-  TEST_ASSERT_EQUAL_FLOAT(100.0F, Datalog::vrmsFactor(10));  // V^2 unscaled up to 10 s
-  TEST_ASSERT_EQUAL_FLOAT(400.0F, Datalog::vrmsFactor(11));  // V^2 / 16 above: root / 4
-  TEST_ASSERT_EQUAL_FLOAT(400.0F, Datalog::vrmsFactor(40));
+  static_assert(Datalog::vrmsFactor(5) == 100, "must be constexpr");
+  TEST_ASSERT_EQUAL_UINT16(100, Datalog::vrmsFactor(1));
+  TEST_ASSERT_EQUAL_UINT16(100, Datalog::vrmsFactor(10));  // V^2 unscaled up to 10 s
+  TEST_ASSERT_EQUAL_UINT16(400, Datalog::vrmsFactor(11));  // V^2 / 16 above: root / 4
+  TEST_ASSERT_EQUAL_UINT16(400, Datalog::vrmsFactor(40));
 }
 
 void test_valid_voltage_calibration(void)
@@ -300,11 +300,11 @@ void test_valid_voltage_calibration(void)
   static constexpr float negativeCal[]{ 0.8F, 0.8F, -0.8F };
   static constexpr float tinyCal[]{ 0.0001F, 0.0001F, 0.0001F };
 
-  static_assert(Datalog::isValidVoltageCalibration(100.0F, oldBoardVCal), "old board");
-  static_assert(Datalog::isValidVoltageCalibration(400.0F, newBoardVCal), "new board, long period");
-  TEST_ASSERT_FALSE(Datalog::isValidVoltageCalibration(100.0F, zeroCal));
-  TEST_ASSERT_FALSE(Datalog::isValidVoltageCalibration(100.0F, negativeCal));
-  TEST_ASSERT_FALSE(Datalog::isValidVoltageCalibration(100.0F, tinyCal));  // shift > 16
+  static_assert(Datalog::isValidVoltageCalibration(100, oldBoardVCal), "old board");
+  static_assert(Datalog::isValidVoltageCalibration(400, newBoardVCal), "new board, long period");
+  TEST_ASSERT_FALSE(Datalog::isValidVoltageCalibration(100, zeroCal));
+  TEST_ASSERT_FALSE(Datalog::isValidVoltageCalibration(100, negativeCal));
+  TEST_ASSERT_FALSE(Datalog::isValidVoltageCalibration(100, tinyCal));  // shift > 16
 }
 
 int main(int argc, char** argv)
