@@ -57,8 +57,10 @@
         file: null, // the user's calibration.h, as loaded: the new values are written into it
         fileName: '',
         // the values the router runs with, as in calibration.h
-        powerCalPerAmp: [null, null, null], // f_powerCalPerAmp
-        voltageCal: [null, null, null], // f_voltageCal
+        powerCalPerAmp: [null, null, null], // f_powerCalPerAmp, new board
+        voltageCalNewBoard: [null, null, null], // f_voltageCalNewBoard
+        powerCalOldBoard: [null, null, null], // f_powerCalOldBoard
+        voltageCalOldBoard: [null, null, null], // f_voltageCalOldBoard
         power: [0, 1, 2].map(() => ({ router: null, meter: null })), // W, P1..P3
         voltage: [0, 1, 2].map(() => ({ router: null, meter: null })), // V, V1..V3
       },
@@ -189,15 +191,22 @@
     return null;
   }
 
-  // The values calibration corrects: f_powerCal = f_powerCalPerAmp x f_ctRating in the firmware
+  // The values calibration corrects, for each board: calibration.h has a set per board, and the
+  // firmware uses the one of PCB_VERSION (new board: f_powerCal = f_powerCalPerAmp x f_ctRating)
   const CAL_VALUES = {
-    power: { name: 'f_powerCalPerAmp', key: 'powerCalPerAmp', decimals: 7 },
-    voltage: { name: 'f_voltageCal', key: 'voltageCal', decimals: 4 },
+    NEW: {
+      power: { name: 'f_powerCalPerAmp', key: 'powerCalPerAmp', decimals: 7 },
+      voltage: { name: 'f_voltageCalNewBoard', key: 'voltageCalNewBoard', decimals: 4 },
+    },
+    OLD: {
+      power: { name: 'f_powerCalOldBoard', key: 'powerCalOldBoard', decimals: 5 },
+      voltage: { name: 'f_voltageCalOldBoard', key: 'voltageCalOldBoard', decimals: 4 },
+    },
   };
-  const calValuesOf = () => CAL_VALUES;
-  const CAL_NAMES = [CAL_VALUES.power, CAL_VALUES.voltage];
+  const calValuesOf = (m) => CAL_VALUES[m.pcbVersion] || CAL_VALUES.NEW;
+  const CAL_NAMES = Object.values(CAL_VALUES).flatMap((b) => [b.power, b.voltage]);
 
-  // { powerCalPerAmp, voltageCal }, or null
+  // { powerCalPerAmp, voltageCalNewBoard, powerCalOldBoard, voltageCalOldBoard }, or null
   function parseCalibration(text) {
     const out = {};
     for (const { name, key } of CAL_NAMES) {

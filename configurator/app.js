@@ -947,7 +947,7 @@
     const r = M.calibrationResult(m);
     const shown = (v, decimals) => (v > 0 ? v.toFixed(decimals) : '—');
     const block = (kind, titleKey, currentKey, readings, current, result, decimals, unit) => [
-      h('h3', null, T(titleKey)),
+      h('h3', null, T(titleKey, { name: M.calValuesOf(m)[kind].name })),
       ...readings.map((x, i) =>
         row(
           h('strong', null, `${T('cal.phase')} ${i + 1}`),

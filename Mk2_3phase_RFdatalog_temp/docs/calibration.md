@@ -15,10 +15,11 @@ The firmware works on 10-bit ADC samples, steps from 0 to 1023 around a mid-poin
   mean of the products of the voltage and current samples. It is the one the router diverts with.
   It is the product of volts per voltage step and amps per current step.
 
-`calibration.h` gives `f_powerCal` per amp of CT rating: `f_powerCal` = `f_powerCalPerAmp` ×
-`f_ctRating` on the new board; on the old board, `f_ctRating` is ignored.
+For the new board, `calibration.h` gives `f_powerCal` per amp of CT rating: `f_powerCal` =
+`f_powerCalPerAmp` × `f_ctRating`, and `f_voltageCal` = `f_voltageCalNewBoard`. The old board has
+its own values, `f_powerCalOldBoard` and `f_voltageCalOldBoard`.
 
-## Voltage: 0.8952 V per step
+## Voltage: 0.8952 V per step (`f_voltageCalNewBoard`)
 
 ```
 mains ── 6 × 20 kΩ (0.1 %) ── ZMPT101K 1:1 ── 150 Ω burden (0.1 %)
@@ -56,8 +57,8 @@ largest current).
 ### Old board
 
 The old board has other input stages, and its ADC reference is AVCC, the supply voltage (5 V or
-3.3 V), not the internal 1.1 V: this calculation doesn't apply. The firmware ignores
-`f_ctRating` there: set `f_powerCalPerAmp` to the former `f_powerCal`, then calibrate as usual.
+3.3 V), not the internal 1.1 V: this calculation doesn't apply. Its values, `f_powerCalOldBoard`
+(0.05 to start) and `f_voltageCalOldBoard`, are found by calibration.
 
 ## How close it is
 

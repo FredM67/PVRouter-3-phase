@@ -138,21 +138,27 @@ The end-user should ONLY edit the **calibration.h** and **config.h** files.
 You can start reading the documentation here [3-phase router](https://fredm67.github.io/Mk2PVRouter-3-phase/) (in English).
 
 # Router calibration
-Calibration values are found in the **calibration.h** file. Only the power matters for routing; the voltage (`V1`, `V2`, `V3`) is only displayed.
+Calibration values are found in the **calibration.h** file, one set per board: the router uses the one of `PCB_VERSION` (**config.h**). Only the power matters for routing; the voltage (`V1`, `V2`, `V3`) is only displayed.
 
 ```cpp
+// Old board
+inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
+inline constexpr float f_voltageCalOldBoard[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F };
+// New board
 inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };
 inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.0029225F, 0.0029225F, 0.0029225F };
-inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8952F, 0.8952F, 0.8952F };
+inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.8952F, 0.8952F, 0.8952F };
 ```
 
-The power factor is given per amp of CT rating: enter the rated current of your CTs in `f_ctRating`. The default values suit the new universal board (rev. 6.0 and later) with 333 mV voltage-output CTs, and come from its design ([how](docs/calibration.md)): with them, the router is usually accurate to a few percent without calibration. With a current-output CT and a burden resistor R, such as the YHDC SCT-013-000 (2000:1), `f_ctRating` = 666 / R, the current giving 333 mV across the burden (30.3 with 22 Ω). With the old board, `f_ctRating` is ignored: set `f_powerCalPerAmp` to your former `f_powerCal` (0.05 is a good start), and about 0.82 for `f_voltageCal`.
+Old board: the values are as before; 0.05 is a good start for `f_powerCalOldBoard`. If you already calibrated your router, copy your former `f_powerCal` and `f_voltageCal` values there.
+
+New universal board (rev. 6.0 and later): the power factor is given per amp of CT rating, enter the rated current of your CTs in `f_ctRating`. The default values suit 333 mV voltage-output CTs, and come from its design ([how](docs/calibration.md)): with them, the router is usually accurate to a few percent without calibration. With a current-output CT and a burden resistor R, such as the YHDC SCT-013-000 (2000:1), `f_ctRating` = 666 / R, the current giving 333 mV across the burden (30.3 with 22 Ω).
 
 The router program itself is used for calibration, so the values are measured with exactly the processing they will be used with. With `SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable` (in **config.h**), it prints every 5 seconds, on the serial monitor at 9600 baud, the power of each phase (`P1`, `P2`, `P3`, in W, positive when importing).
 
 1. Set `CALIBRATION_MODE` to `true` in **config.h** and upload: the router then measures and logs as usual, but never switches any load (TRIACs, relays, remote loads, overrides), which would change the power being measured. It says so at start-up.
 2. Measure the power on phase 1 with a reference instrument (a clamp wattmeter around the same cable as the CT, for instance), ideally with a large resistive load on that phase, such as a water heater.
-3. Compare it with `P1`, and correct the value of phase 1: new `f_powerCalPerAmp[0]` = old `f_powerCalPerAmp[0]` × reference power / `P1`. The [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/) does this calculation in calibration mode, and can write your **calibration.h** again with the new values.
+3. Compare it with `P1`, and correct the value of phase 1: new value = old value × reference power / `P1`, for `f_powerCalOldBoard[0]` or `f_powerCalPerAmp[0]` depending on the board. The [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/) does this calculation in calibration mode, and can write your **calibration.h** again with the new values.
 4. Repeat for phases 2 and 3, upload again and check.
 5. Set `CALIBRATION_MODE` back to `false` and upload: the router diverts again.
 

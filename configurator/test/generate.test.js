@@ -101,7 +101,7 @@ const calibrationFile = () => fs.readFileSync(path.join(repo, 'Mk2_3phase_RFdata
 
 test('calibration: new value = current value x meter / router, phase by phase', () => {
   const m = M.defaults();
-  Object.assign(m.calibration, { powerCalPerAmp: [0.0029225, 0.0029225, 0.0029225], voltageCal: [0.8952, 0.8952, 0.8952] });
+  Object.assign(m.calibration, { powerCalPerAmp: [0.0029225, 0.0029225, 0.0029225], voltageCalNewBoard: [0.8952, 0.8952, 0.8952] });
   m.calibration.power[0] = { router: 2000, meter: 2100 };
   m.calibration.voltage[2] = { router: 232, meter: 230 };
   const r = M.calibrationResult(m);
@@ -112,17 +112,21 @@ test('calibration: new value = current value x meter / router, phase by phase', 
   assert.strictEqual(r.voltage[2].toFixed(4), '0.8875');
   assert.deepStrictEqual(G.calibrationLines(m), [
     'inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.0030686F, 0.0029225F, 0.0029225F };',
-    'inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8952F, 0.8952F, 0.8875F };',
+    'inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.8952F, 0.8952F, 0.8875F };',
   ]);
 });
 
-test('calibration: the same values for both boards', () => {
+test('calibration: the old board corrects its own values', () => {
   const m = M.defaults();
-  Object.assign(m.calibration, { powerCalPerAmp: [0.001, 0.001, 0.001], voltageCal: [0.82, 0.82, 0.82] });
-  m.calibration.power[1] = { router: 1000, meter: 1010 };
-  const lines = G.calibrationLines(m);
   m.pcbVersion = 'OLD';
-  assert.deepStrictEqual(G.calibrationLines(m), lines);
+  Object.assign(m.calibration, { powerCalOldBoard: [0.05, 0.05, 0.05], voltageCalOldBoard: [0.8151, 0.8184, 0.8195] });
+  m.calibration.power[1] = { router: 1000, meter: 1010 };
+  assert.deepStrictEqual(G.calibrationLines(m), [
+    'inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05050F, 0.05000F };',
+    'inline constexpr float f_voltageCalOldBoard[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F };',
+  ]);
+  m.pcbVersion = 'NEW';
+  assert.strictEqual(G.calibrationLines(m), null, 'no values of the new board yet');
 });
 
 test('calibration: the loaded calibration.h gets only the changed values', () => {
@@ -139,6 +143,10 @@ test('calibration: the loaded calibration.h gets only the changed values', () =>
   assert.ok(G.files(m).some((f) => f.path === 'Mk2_3phase_RFdatalog_temp/calibration.h' && f.text === out));
   m.calibrationMode = false;
   assert.ok(!G.files(m).some((f) => f.path.endsWith('calibration.h')), 'only in calibration mode');
+
+  m.calibrationMode = true;
+  m.pcbVersion = 'OLD';
+  assert.strictEqual(G.calibrationH(m), text.replace('f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F }', 'f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05050F, 0.05000F }'), 'the old board: its own values');
 });
 
 test('calibration: a commented-out line is not the one read or rewritten', () => {

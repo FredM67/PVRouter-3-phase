@@ -102,7 +102,7 @@ const CASES = [
   ['warn.calProbe', (m) => (m.calibrationMode = true) && (m.calibration.power[0] = { router: -1500, meter: 1500 })],
   ['warn.calCurrent', (m) => (m.calibrationMode = true) && (m.calibration.power[0] = { router: 1500, meter: 1500 })],
   ['warn.calLowPower', (m) => (m.calibrationMode = true) && (m.calibration.powerCalPerAmp = [0.0029225, 0.0029225, 0.0029225]) && (m.calibration.power[1] = { router: 100, meter: 105 })],
-  ['warn.calRatio', (m) => (m.calibrationMode = true) && (m.calibration.voltageCal = [0.8952, 0.8952, 0.8952]) && (m.calibration.voltage[2] = { router: 100, meter: 230 })],
+  ['warn.calRatio', (m) => (m.calibrationMode = true) && (m.calibration.voltageCalNewBoard = [0.8952, 0.8952, 0.8952]) && (m.calibration.voltage[2] = { router: 100, meter: 230 })],
   ['warn.calReading', (m) => (m.calibrationMode = true) && (m.calibration.voltage[0] = { router: 230, meter: 0 })],
 ];
 
