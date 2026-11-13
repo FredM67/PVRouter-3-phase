@@ -53,17 +53,18 @@ Il est issu du [Mk2PVRouter triphasé](https://web.archive.org/web/2022062015234
 
 ## Fonctionnalités
 
-- **Sorties TRIAC**, pilotées en proportion du surplus, une charge après l’autre selon leur priorité ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-des-sorties-triac)).
-- **Sorties relais tout-ou-rien**, avec un seuil de surplus, un seuil d’import, des durées minimales de marche et d’arrêt, et un filtre contre le passage des nuages ; systèmes avec batterie compris ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-des-sorties-relais-tout-ou-rien)).
-- **Charges distantes** par liaison radio RFM69, pilotées par des unités équipées du firmware [`RemoteLoadReceiver`](RemoteLoadReceiver/) ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-du-module-rf-et-des-charges-distantes)).
-- **Heures creuses (double tarif)** : boost programmé des charges choisies, arrêté au-delà d’un seuil de température de l’eau ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#gestion-des-heures-creuses-et-boost-programmé-dual-tariff)).
-- **Boost manuel** par une *pin* : un interrupteur, un contact sec, une sortie domotique ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#boost-manuel-déclenché-par-pin)).
-- **Rotation des priorités**, pour que toutes les résistances fonctionnent à peu près autant ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#rotation-des-priorités)).
-- **Capteurs de température** (DS18B20), autant que nécessaire ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-du-ou-des-capteurs-de-température)).
-- **Arrêt du routage et arrêt du routeur** par des *pins* ([arrêt du routage](Mk2_3phase_RFdatalog_temp/Readme.md#arrêt-du-routage), [routeur à l’arrêt](Mk2_3phase_RFdatalog_temp/Readme.md#routeur-à-larrêt)).
-- **Télémétrie** : sortie série lisible pour la mise en service, données pour [Home Assistant via le module mk2Wifi](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-avec-le-module-mk2wifi) (ESPHome), ou JSON ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#type-de-sortie-série)).
-- **Mode étalonnage** intégré au firmware, pour l’ancienne et la nouvelle carte-mère ([étalonnage](Mk2_3phase_RFdatalog_temp/Readme.md#étalonnage-du-routeur)).
-- **Installations en zéro injection**, comme Enphase avec son profil zéro export ([plus bas](#installations-en-zéro-injection-enphase)).
+Ce que le routeur fait pour vous :
+
+- **Chauffer l’eau avec votre surplus solaire.** Dès que vos panneaux produisent plus que ce que la maison consomme, le routeur envoie l’excédent vers le chauffe-eau au lieu de le céder au réseau. Il dose au plus juste : 300 W de surplus, ce sont environ 300 W dans le chauffe-eau, sans acheter de courant au réseau ([réglage des sorties](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-des-sorties-triac)).
+- **Plusieurs résistances, dans l’ordre que vous choisissez.** Le routeur alimente la première ; quand elle est à pleine puissance, il passe à la suivante. Pour qu’elles s’usent de la même façon, l’ordre peut aussi changer chaque jour ([rotation des priorités](Mk2_3phase_RFdatalog_temp/Readme.md#rotation-des-priorités)).
+- **Allumer aussi des appareils en marche/arrêt** (un deuxième chauffe-eau, un radiateur...) grâce à des relais : l’appareil démarre quand le surplus suffit et s’arrête quand la maison se remet à acheter du courant, sans s’affoler au passage d’un nuage. Fonctionne aussi avec une batterie domestique ([relais](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-des-sorties-relais-tout-ou-rien)).
+- **Piloter un chauffe-eau éloigné, sans fil.** Si le chauffe-eau est loin du tableau électrique, un petit boîtier placé près de lui reçoit les ordres du routeur par radio ([charges distantes](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-du-module-rf-et-des-charges-distantes)).
+- **Avoir de l’eau chaude même sans soleil.** Si la journée n’a pas suffi, le routeur chauffe pendant les heures creuses, à l’heure et pour la durée que vous choisissez, et s’arrête dès que l’eau est assez chaude ([heures creuses](Mk2_3phase_RFdatalog_temp/Readme.md#gestion-des-heures-creuses-et-boost-programmé-dual-tariff)). Un simple interrupteur peut aussi forcer la pleine puissance à tout moment ([boost manuel](Mk2_3phase_RFdatalog_temp/Readme.md#boost-manuel-déclenché-par-pin)).
+- **Connaître la température de l’eau** avec une ou plusieurs sondes ([sondes de température](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-du-ou-des-capteurs-de-température)).
+- **Mettre en pause pendant une absence** : soit arrêter le routage (le surplus repart sur le réseau, les heures creuses chauffent encore), soit tout éteindre, heures creuses comprises ([arrêt du routage](Mk2_3phase_RFdatalog_temp/Readme.md#arrêt-du-routage), [routeur à l’arrêt](Mk2_3phase_RFdatalog_temp/Readme.md#routeur-à-larrêt)).
+- **Tout suivre dans Home Assistant** : puissances, tensions, températures, état des charges, via le module Wi-Fi mk2Wifi ([mk2Wifi](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-avec-le-module-mk2wifi)), ou sur un ordinateur relié en USB ([sortie série](Mk2_3phase_RFdatalog_temp/Readme.md#type-de-sortie-série)).
+- **Un étalonnage facile**, grâce à un mode dédié dans le firmware ([étalonnage](Mk2_3phase_RFdatalog_temp/Readme.md#étalonnage-du-routeur)).
+- **Fonctionner aussi en zéro injection**, comme avec les micro-onduleurs Enphase réglés pour ne rien injecter ([plus bas](#installations-en-zéro-injection-enphase)).
 
 ## Pour commencer
 

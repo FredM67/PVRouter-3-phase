@@ -53,17 +53,18 @@ It derives from Robin Emley's [3-phase Mk2PVRouter](https://web.archive.org/web/
 
 ## Features
 
-- **TRIAC outputs**, controlled in proportion to the surplus, one load after the other by priority ([configuration](Mk2_3phase_RFdatalog_temp/Readme.en.md#triac-output-configuration)).
-- **On/off relay outputs**, with a surplus threshold, an import threshold, minimum ON and OFF times, and a filter against passing clouds; battery systems supported ([configuration](Mk2_3phase_RFdatalog_temp/Readme.en.md#onoff-relay-output-configuration)).
-- **Remote loads** over an RFM69 radio link, driven by units running the [`RemoteLoadReceiver`](RemoteLoadReceiver/) firmware ([configuration](Mk2_3phase_RFdatalog_temp/Readme.en.md#rf-module-and-remote-loads-configuration)).
-- **Off-peak hours (dual tariff)**: scheduled boost of chosen loads, stopped above a water temperature threshold ([configuration](Mk2_3phase_RFdatalog_temp/Readme.en.md#off-peak-hours-management-and-scheduled-boost-dual-tariff)).
-- **Manual boost** from a pin: a switch, a dry contact, a home automation output ([configuration](Mk2_3phase_RFdatalog_temp/Readme.en.md#manual-boost-pin-triggered)).
-- **Priority rotation**, so that all the heating elements run about the same time ([configuration](Mk2_3phase_RFdatalog_temp/Readme.en.md#priority-rotation)).
-- **Temperature sensors** (DS18B20), as many as needed ([configuration](Mk2_3phase_RFdatalog_temp/Readme.en.md#temperature-sensors-configuration)).
-- **Diversion stop and router OFF** pins ([routing stop](Mk2_3phase_RFdatalog_temp/Readme.en.md#routing-stop), [router OFF](Mk2_3phase_RFdatalog_temp/Readme.en.md#router-off)).
-- **Telemetry**: human-readable serial output for commissioning, or data for [Home Assistant through the mk2Wifi module](Mk2_3phase_RFdatalog_temp/Readme.en.md#configuration-with-the-mk2wifi-module) (ESPHome), or JSON ([configuration](Mk2_3phase_RFdatalog_temp/Readme.en.md#serial-output-type)).
-- **Calibration mode** built into the firmware, for the old and the new motherboard ([calibration](Mk2_3phase_RFdatalog_temp/Readme.en.md#router-calibration)).
-- **Zero-export installations**, such as Enphase with its zero-export profile ([below](#zero-export-installations-enphase)).
+What the router does for you:
+
+- **Heats your water with your solar surplus.** As soon as your panels produce more than the house consumes, the router sends the excess to the water heater instead of giving it away to the grid. It matches the surplus exactly: 300 W of surplus means about 300 W in the water heater, without buying power from the grid ([output settings](Mk2_3phase_RFdatalog_temp/Readme.en.md#triac-output-configuration)).
+- **Several heating elements, in the order you choose.** The router feeds the first one; once it runs at full power, it moves on to the next. So that they wear evenly, the order can also change every day ([priority rotation](Mk2_3phase_RFdatalog_temp/Readme.en.md#priority-rotation)).
+- **Also switches on/off appliances** (a second water heater, a radiator...) through relays: the appliance starts when the surplus is large enough and stops when the house starts buying power again, without reacting to every passing cloud. Works with a home battery too ([relays](Mk2_3phase_RFdatalog_temp/Readme.en.md#onoff-relay-output-configuration)).
+- **Controls a distant water heater, wirelessly.** If the water heater is far from the electrical panel, a small unit next to it receives the router's orders by radio ([remote loads](Mk2_3phase_RFdatalog_temp/Readme.en.md#rf-module-and-remote-loads-configuration)).
+- **Hot water even without sun.** If the day was not enough, the router heats during off-peak hours, at the time and for the duration you choose, and stops as soon as the water is hot enough ([off-peak hours](Mk2_3phase_RFdatalog_temp/Readme.en.md#off-peak-hours-management-and-scheduled-boost-dual-tariff)). A simple switch can also force full power at any time ([manual boost](Mk2_3phase_RFdatalog_temp/Readme.en.md#manual-boost-pin-triggered)).
+- **Knows the water temperature**, with one or more sensors ([temperature sensors](Mk2_3phase_RFdatalog_temp/Readme.en.md#temperature-sensors-configuration)).
+- **Pauses while you are away**: either stop diverting (the surplus goes back to the grid, off-peak heating still works), or switch everything off, off-peak heating included ([routing stop](Mk2_3phase_RFdatalog_temp/Readme.en.md#routing-stop), [router OFF](Mk2_3phase_RFdatalog_temp/Readme.en.md#router-off)).
+- **Everything in Home Assistant**: power, voltages, temperatures, state of the loads, through the mk2Wifi Wi-Fi module ([mk2Wifi](Mk2_3phase_RFdatalog_temp/Readme.en.md#configuration-with-the-mk2wifi-module)), or on a computer over USB ([serial output](Mk2_3phase_RFdatalog_temp/Readme.en.md#serial-output-type)).
+- **Easy calibration**, with a dedicated mode in the firmware ([calibration](Mk2_3phase_RFdatalog_temp/Readme.en.md#router-calibration)).
+- **Works with zero-export installations too**, such as Enphase micro-inverters set to export nothing ([below](#zero-export-installations-enphase)).
 
 ## Getting started
 
