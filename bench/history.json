@@ -119,6 +119,30 @@
      "ram": 400
     }
    }
+  },
+  {
+   "commit": "49180fdbc196c777c1ff88dbca08a725b1b0a99f",
+   "date": "2026-11-13T23:39:56+01:00",
+   "message": "docs: clean doxygen output, no warning left (#199)\n\n* docs: no __attribute__ \"function\" in the doxygen doc\n\nDoxygen took the __attribute__((...)) of declarations for a function of\nits own, listed in the class, namespace, global and TimeCritical pages.\nPREDEFINED now defines it to nothing; it only remains in the source\nlistings. 8 doxygen warnings less (18 -> 10).\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\n* docs: no doxygen warning left\n\n- Doxyfile: no markdown main page; the mainpage is that of the .ino, and\n  *.md files are not input files.\n- ewma_avg.hpp: its section label was the same as that of the .ino.\n- processTemperatureData() in TemperatureSensing, not the nonexistent\n  TemperatureProcessing; freeRam() and printParamsForSelectedOutputMode()\n  in Initialization (they run at startup), not the nonexistent Debugging.\n- RelayEngine: no @param for its unnamed integral_constant argument.\n- TeleInfo::send() and writeTag(): the index parameter documented.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/49180fdbc196c777c1ff88dbca08a725b1b0a99f",
+   "sizes": {
+    "basic": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8584,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8588,
+     "ram": 400
+    }
+   }
   }
  ]
 }
