@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Non-blocking serial output of the datalog
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-13
  *
  * @details At 9600 baud, a datalog line takes about 130 ms to send, and the UART's
  *          transmit buffer holds only 64 characters: a plain Serial.print() of the
@@ -216,6 +216,33 @@ __attribute__((noinline)) inline void printDecimals(Print& out, int32_t value, u
   while (divisor /= 10)
   {
     out.print(static_cast< char >('0' + (magnitude / divisor) % 10));
+  }
+}
+
+/** Baud rate of every output mode: do NOT set it higher */
+inline constexpr uint32_t BAUD_RATE{ 9600 };
+
+/**
+ * @brief Serial settings for the startup text: 9600 baud 8N1, the default of serial monitors
+ */
+inline void beginStartupText()
+{
+  Serial.begin(BAUD_RATE, SERIAL_8N1);
+}
+
+/**
+ * @brief Serial settings after the startup text: 7E1 for the IoT telemetry frames, as the mk2Wifi
+ *        module expects; unchanged for the other outputs
+ *
+ * @tparam IOT whether the output is IoT
+ */
+template< bool IOT >
+inline void endStartupText()
+{
+  if constexpr (IOT)
+  {
+    Serial.flush();  // the startup text has left, at 8N1
+    Serial.begin(BAUD_RATE, SERIAL_7E1);
   }
 }
 }  // namespace SerialOutput

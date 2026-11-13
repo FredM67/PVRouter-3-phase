@@ -15,6 +15,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
 - [Étalonnage du routeur](#étalonnage-du-routeur)
 - [Documentation d’analyse et outils](#documentation-danalyse-et-outils)
 - [Configuration du programme](#configuration-du-programme)
+  - [Carte-mère : ancienne ou nouvelle](#carte-mère-ancienne-ou-nouvelle)
   - [Type de sortie série](#type-de-sortie-série)
   - [Configuration des sorties TRIAC](#configuration-des-sorties-triac)
   - [Configuration des sorties relais tout-ou-rien](#configuration-des-sorties-relais-tout-ou-rien)
@@ -144,19 +145,27 @@ Le dossier **[docs/](docs/)** contient la documentation technique détaillée :
 Vous pouvez commencer à lire la documentation ici [3-phase routeur](https://fredm67.github.io/Mk2PVRouter-3-phase/) (en anglais).
 
 # Étalonnage du routeur
-Les valeurs d’étalonnage se trouvent dans le fichier **calibration.h**.
-Il s’agit de la ligne :
+Les valeurs d’étalonnage se trouvent dans le fichier **calibration.h**, un jeu par carte : le routeur utilise celui de `PCB_VERSION` (**config.h**). Seule la puissance compte pour le routage ; la tension (`V1`, `V2`, `V3`) n’est qu’affichée.
+
 ```cpp
-inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
+// Ancienne carte
+inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
+inline constexpr float f_voltageCalOldBoard[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F };
+// Nouvelle carte
+inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };
+inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.00286405F, 0.00286405F, 0.00286405F };
+inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.888065256F, 0.888065256F, 0.888065256F };
 ```
 
-Ces valeurs par défaut doivent être déterminées pour assurer un fonctionnement optimal du routeur.
+Ancienne carte : les valeurs sont celles d’avant, 0,05 est un bon départ pour `f_powerCalOldBoard`. Si votre routeur est déjà étalonné, recopiez-y vos anciennes valeurs de `f_powerCal` et `f_voltageCal`.
+
+Nouvelle carte universelle (rev. 6.0 et suivantes) : le facteur de puissance est donné par ampère de calibre de sonde, indiquez le courant nominal de vos sondes dans `f_ctRating`. Les valeurs par défaut conviennent aux sondes à sortie tension 333 mV, et découlent de sa conception, corrigée par l’étalonnage d’une première carte ([détails, en anglais](docs/calibration.md)) : avec elles, le routeur est en général précis à quelques pour cent sans étalonnage. Avec une sonde à sortie courant et une résistance de charge R, comme la YHDC SCT-013-000 (2000:1), `f_ctRating` = 666 / R, le courant qui donne 333 mV aux bornes de la résistance (30,3 avec 22 Ω).
 
 L’étalonnage se fait avec le programme du routeur lui-même : les valeurs sont ainsi mesurées avec exactement le traitement avec lequel elles seront utilisées. Avec `SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable` (dans **config.h**), il affiche toutes les 5 secondes, sur le moniteur série à 9600 bauds, la puissance de chaque phase (`P1`, `P2`, `P3`, en W, positive en import).
 
 1. Passez `CALIBRATION_MODE` à `true` dans **config.h** et téléversez : le routeur mesure et affiche comme d’habitude, mais ne commute plus aucune charge (triacs, relais, charges distantes, forçages), ce qui modifierait la puissance mesurée. Il l’annonce au démarrage.
 2. Mesurez la puissance sur la phase 1 avec un appareil de référence (par exemple une pince wattmétrique autour du même câble que la sonde), idéalement avec une forte charge résistive sur cette phase, comme un chauffe-eau.
-3. Comparez-la à `P1` et corrigez la valeur : nouveau `f_powerCal[0]` = ancien `f_powerCal[0]` × puissance de référence / `P1`.
+3. Comparez-la à `P1` et corrigez la valeur de la phase 1 : nouvelle valeur = ancienne valeur × puissance de référence / `P1`, pour `f_powerCalOldBoard[0]` ou `f_powerCalPerAmp[0]` selon la carte. Le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/) fait ce calcul en mode étalonnage, et peut réécrire votre **calibration.h** avec les nouvelles valeurs.
 4. Recommencez pour les phases 2 et 3, téléversez à nouveau et vérifiez.
 5. Remettez `CALIBRATION_MODE` à `false` et téléversez : le routeur route à nouveau.
 
@@ -182,6 +191,20 @@ La configuration d’une fonctionnalité suit généralement deux étapes :
 - Configuration des paramètres de la fonctionnalité
 
 La cohérence de la configuration est vérifiée lors de la compilation. Par exemple, si une *pin* est allouée deux fois par erreur, le compilateur générera une erreur.
+
+> [!TIP]
+> Le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/) le fait pour vous : choisissez vos charges, relais, unités distantes, broches de commande et options, il les vérifie et écrit `config.h`, `config_system.h`, `config_rf.h`, les fichiers des unités distantes et, avec le module mk2Wifi, le YAML ESPHome. Gardez votre `calibration.h`.
+
+## Carte-mère : ancienne ou nouvelle
+
+L’ancienne carte triphasée et la nouvelle carte universelle **3phaseDiverter** (rév. 6.0 et suivantes) ne mesurent pas de la même façon : la nouvelle carte utilise la référence interne de 1,1 V de l’ATmega328P, que le firmware doit activer. Indiquez au firmware quelle carte vous avez, dans **config.h** :
+```cpp
+inline constexpr PcbVersion PCB_VERSION{ PcbVersion::OLD };  // NEW pour la carte universelle 3phaseDiverter
+```
+Le résumé affiché au démarrage indique le choix (`Motherboard: old` ou `new`).
+
+> [!IMPORTANT]
+> Avec un mauvais choix, toutes les mesures sont fausses. Après un changement, refaites l’étalonnage.
 
 ## Type de sortie série
 
@@ -288,17 +311,19 @@ Pour chaque relais, la transition ou le changement d’état est géré de la ma
 
 **Zones de seuil sur l’axe de puissance :**
 
-```
-← surplus (export vers le réseau)                    import depuis le réseau →
-───────────────────────────────────────────────────────────────────────────
-         │                         │                         │
-  seuilSurplus                    0 W                 seuilImport
-  (ex. −1000 W)                                       (ex. +200 W)
-         │                                                   │
-         ▼  relais éligible à la mise en ON                  ▼  relais éligible à la mise en OFF
-    (si relais est OFF)                                  (si relais est ON)
-         │←────────────────── zone stable ─────────────────►│
-                    (le relais conserve son état actuel)
+```mermaid
+flowchart LR
+    S["<b>Surplus</b>, sous seuilSurplus<br/>(ex. −1000 W, export)<br/>un relais OFF peut passer ON"]
+    Z["<b>Zone stable</b>, entre les seuils<br/>(autour de 0 W)<br/>chaque relais garde son état"]
+    I["<b>Import</b>, au-dessus de seuilImport<br/>(ex. +200 W)<br/>un relais ON peut passer OFF"]
+    S --- Z --- I
+
+    classDef on fill:#c8e6c9,stroke:#2e7d32,color:#000
+    classDef keep fill:#eeeeee,stroke:#757575,color:#000
+    classDef off fill:#ffe0b2,stroke:#e65100,color:#000
+    class S on
+    class Z keep
+    class I off
 ```
 
 La puissance réseau filtrée par la moyenne EWMA est comparée en permanence aux deux seuils :
@@ -308,23 +333,22 @@ La puissance réseau filtrée par la moyenne EWMA est comparée en permanence au
 
 **Minuteries de durée minimale :**
 
-```
- Puissance (W)
-
- −1200 ─┬ surplus solaire > 1000 W         production solaire en baisse
-        │                       ┌──────────────────────────────────────
-  −600  │                       │
-     0  ┴───────────────────────┴────────────────────  temps →
-  +300                                     └──────────────────── import
-
- Relais :
-  OFF ────────────────┐                              ┌──────────
-                      │◄────── minON doit s’écouler ►│
-  ON                  └──────────────────────────────┘
-                      ↑                            ↑
-                mise en ON                    mise en OFF
-           (surplus atteint ET            (import dépassé ET
-            minOFF écoulé)                 minON écoulé)
+```mermaid
+gantt
+    title Un relais, minOFF 1 min et minON 5 min
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %M min
+    todayMarker off
+    section Réseau
+    Surplus de plus de 1000 W            :done, g1, 2001-01-01 00:00, 3m
+    Production en baisse, zone stable    :g2, 2001-01-01 00:03, 1m
+    Import de plus de 200 W              :crit, g3, 2001-01-01 00:04, 6m
+    section Relais
+    OFF, minOFF en cours                 :r1, 2001-01-01 00:00, 1m
+    mise en ON                           :milestone, m1, 2001-01-01 00:01, 0m
+    ON, minON doit s’écouler             :active, r2, 2001-01-01 00:01, 5m
+    mise en OFF                          :milestone, m2, 2001-01-01 00:06, 0m
+    OFF                                  :r3, 2001-01-01 00:06, 4m
 ```
 
 > [!NOTE]
@@ -332,22 +356,26 @@ La puissance réseau filtrée par la moyenne EWMA est comparée en permanence au
 
 **Ordre de traitement multi-relais (exemple : 3 relais, seuils 1000 W / 1500 W / 2000 W) :**
 
+```mermaid
+---
+title: "Surplus croissant : relais 0 en premier"
+---
+flowchart LR
+    U0{"Relais 0 OFF,<br/>surplus au-delà de son seuil<br/>et minOFF écoulé ?"} -- non --> U1{"Relais 1 ?"} -- non --> U2{"Relais 2 ?"}
+    U0 -- oui --> U0on([relais 0 ON])
+    U1 -- oui --> U1on([relais 1 ON])
+    U2 -- oui --> U2on([relais 2 ON])
 ```
- Surplus solaire croissant :
 
-   Essai relais 0 en premier → mise en ON si seuil atteint ET minOFF écoulé
-     Si relais 0 ne peut pas basculer (déjà ON, ou minOFF pas encore écoulé) :
-     └─► Essai relais 1 ensuite
-           Si relais 1 ne peut pas basculer :
-           └─► Essai relais 2 en dernier
-
- Import croissant / production solaire décroissante :
-
-   Essai relais 2 en premier → mise en OFF si seuil atteint ET minON écoulé
-     Si relais 2 ne peut pas basculer (déjà OFF, ou minON pas encore écoulé) :
-     └─► Essai relais 1 ensuite
-           Si relais 1 ne peut pas basculer :
-           └─► Essai relais 0 en dernier
+```mermaid
+---
+title: "Import croissant / production en baisse : relais 2 en premier"
+---
+flowchart LR
+    D2{"Relais 2 ON,<br/>import au-delà de son seuil<br/>et minON écoulé ?"} -- non --> D1{"Relais 1 ?"} -- non --> D0{"Relais 0 ?"}
+    D2 -- oui --> D2off([relais 2 OFF])
+    D1 -- oui --> D1off([relais 1 OFF])
+    D0 -- oui --> D0off([relais 0 OFF])
 ```
 
 À chaque passe, le système parcourt tous les relais dans l’ordre et s’arrête dès qu’**un relais change d’état avec succès** — ce qui déclenche la période de stabilisation de 60 secondes. Les relais qui ne peuvent pas basculer (durée minimale pas encore écoulée, ou déjà dans l’état cible) sont simplement ignorés.
@@ -588,20 +616,17 @@ Chaque charge a deux paramètres : `{ HEURE_DEBUT, DUREE }`
 
 #### Comprendre la ligne du temps
 
-```
-Exemple de période HC : 23:00 à 07:00 (8 heures)
-
-        23:00                                          07:00
-          |================== HEURES CREUSES ============|
-          |                                              |
-     DEBUT ──────────────────────────────────────────► FIN
-          │                                              │
-          │  Les valeurs positives                       │
-          │  comptent à partir d’ici ───►                │
-          │                                              │
-          │                      ◄─── Les valeurs        │
-          │                           négatives comptent │
-          │                           à partir d’ici     │
+```mermaid
+gantt
+    title Période HC, de 23:00 à 07:00
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section HC
+    Heures creuses (8 h) :active, hc, 2001-01-01 23:00, 8h
+    section START_TIME
+    positif, compte depuis le début, ici +3 h  :b8, 2001-01-01 23:00, 3h
+    négatif, compte depuis la fin, ici −3 h    :b9, 2001-01-02 04:00, 3h
 ```
 
 #### Paramètre 1 : HEURE_DEBUT (quand démarrer)
@@ -636,29 +661,45 @@ Exemple de période HC : 23:00 à 07:00 (8 heures)
 Tous les exemples supposent une période HC de **23:00 à 07:00** (8 heures) :
 
 **Exemple 1 :** `{ -3, 2 }` - Démarrage 3 heures avant la fin, durée 2 heures
-```
-23:00                              04:00    06:00    07:00
-  |====================================|======|========|
-                                       |BOOST |
-                                       └─2 h──┘
+```mermaid
+gantt
+    title { -3, 2 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section HC
+    Heures creuses :active, hc, 2001-01-01 23:00, 8h
+    section Charge
+    Boost, 2 h :crit, b10, 2001-01-02 04:00, 2h
 ```
 Résultat : Le boost fonctionne de **04:00 à 06:00**
 
 **Exemple 2 :** `{ 2, 3 }` - Démarrage 2 heures après le début, durée 3 heures
-```
-23:00    01:00          04:00                        07:00
-  |========|=============|==============================|
-           |────BOOST────|
-           └────3 h──────┘
+```mermaid
+gantt
+    title { 2, 3 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section HC
+    Heures creuses :active, hc, 2001-01-01 23:00, 8h
+    section Charge
+    Boost, 3 h :crit, b11, 2001-01-02 01:00, 3h
 ```
 Résultat : Le boost fonctionne de **01:00 à 04:00**
 
 **Exemple 3 :** `{ -90, 120 }` - Démarrage 90 minutes avant la fin, durée de 120 minutes (mais limitée)
-```
-23:00                              05:30    07:00
-  |====================================|======|
-                                       |BOOST | ← s’arrête ici (fin des HC)
-                                       └90 min┘
+```mermaid
+gantt
+    title { -90, 120 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section HC
+    Heures creuses :active, hc, 2001-01-01 23:00, 8h
+    section Charge
+    Boost, 90 min :crit, b12, 2001-01-02 05:30, 90m
+    coupé, fin des HC :done, b13, 2001-01-02 07:00, 30m
 ```
 Résultat : Le boost fonctionne de **05:30 à 07:00** (s’arrête à la fin des HC, pas à 07:30)
 
@@ -667,10 +708,16 @@ Résultat : Le boost fonctionne de **05:30 à 07:00** (s’arrête à la fin de
 > Dans cet exemple, seules 90 minutes de boost ont lieu au lieu des 120 minutes configurées.
 
 **Exemple 4 :** `{ 1, UINT16_MAX }` - Démarrage 1 heure après le début, jusqu’à la fin
-```
-23:00    00:00                                       07:00
-  |========|=========================================|
-           |──────────────BOOST──────────────────────|
+```mermaid
+gantt
+    title { 1, UINT16_MAX }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section HC
+    Heures creuses :active, hc, 2001-01-01 23:00, 8h
+    section Charge
+    Boost, jusqu’à la fin :crit, b14, 2001-01-02 00:00, 7h
 ```
 Résultat : Le boost fonctionne de **00:00 à 07:00**
 
@@ -732,11 +779,11 @@ Contrairement au [boost programmé](#configuration-du-boost-programmé-rg_forcel
 
 ### Fonctionnement
 
-```
-┌─────────────────┐
-│   Pin physique  │──── Quand le contact se ferme ───► Les charges/relais passent à 100 %
-│  (contact sec)  │──── Quand le contact s’ouvre ───► Fonctionnement normal du routeur
-└─────────────────┘
+```mermaid
+flowchart LR
+    P["Pin physique<br/>(contact sec)"]
+    P -- le contact se ferme --> ON["Charges / relais à 100 %"]
+    P -- le contact s’ouvre --> N["Fonctionnement normal du routeur"]
 ```
 
 ### Quand utiliser le boost manuel
@@ -832,10 +879,9 @@ inline constexpr OverridePins overridePins{ {
 
 Connectez chaque pin configurée à un **contact sec** (interrupteur sans tension) :
 
-```
-Pin Arduino ────┬──── Interrupteur/Bouton ────┬──── GND
-                │                              │
-          (pull-up interne)              (ferme le circuit)
+```mermaid
+flowchart LR
+    PIN["Pin Arduino<br/>(pull-up interne)"] --- SW["Interrupteur / bouton<br/>(ferme le circuit)"] --- GND["GND"]
 ```
 
 - **Contact fermé** = boost actif (charges à pleine puissance)
@@ -907,6 +953,9 @@ Le module **mk2Wifi** relie un **ESP32-C6** (WiFi 6, Bluetooth LE, Zigbee, Threa
 
 Le matériel, son installation et le dépannage sont documentés sur les [pages mk2Wifi](https://fredm67.github.io/Mk2PVRouter/mk2wifi/presentation-mk2wifi/), et la configuration ESPHome dans [ce gist](https://gist.github.com/FredM67/986e1cb0fc020fa6324ccc151006af99). Cette section ne traite que du côté routeur.
 
+> [!TIP]
+> Le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/) écrit ensemble le `config.h` du routeur et le YAML ESPHome correspondant, et liste les ponts de soudure à fermer. Ses commandes sont sûres en cas de défaut : le module ne tire une entrée du routeur à l’état bas que pour l’état non par défaut, si bien qu’un fil coupé ou un module qui redémarre laisse le routeur router, sans marche forcée.
+
 > [!CAUTION]
 > Ne branchez jamais l’USB-C du module lorsqu’il est enfiché sur la carte mère : les deux alimentations 5 V ne sont pas isolées.
 
@@ -958,7 +1007,7 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };
 > [!NOTE]
 > La configuration de la sortie série sur `SerialOutputType::IoT` n’est pas strictement obligatoire pour le fonctionnement du routeur. Cependant, elle est nécessaire si vous souhaitez exploiter les données du routeur dans Home Assistant (puissance instantanée, statistiques, etc.). Sans cette configuration, seules les fonctions de contrôle (boost, arrêt routage) seront disponibles dans Home Assistant.
 >
-> En mode `IoT` (comme en mode `JSON`), le routeur n’envoie rien d’autre sur le port série : la bannière de démarrage, le résumé de la configuration et les messages de débogage ne sont affichés qu’en mode `HumanReadable`.
+> Dans tous les modes, le routeur affiche sa configuration au démarrage, pour vérifier ce avec quoi il tourne. En mode `IoT`, il le fait à 9600 bauds 8N1 (le réglage par défaut des moniteurs série), puis passe en 7E1 pour les données de Home Assistant ; en mode `JSON`, ces lignes précèdent la première ligne JSON. Les messages d’état en fonctionnement (relais, rotation, heures creuses…) ne sont affichés qu’en mode `HumanReadable`.
 
 S’il vous reste des broches libres, d’autres fonctions peuvent être ajoutées de la même façon, par exemple la rotation des priorités :
 ```cpp

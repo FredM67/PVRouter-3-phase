@@ -5,6 +5,9 @@ logs
 docs/.$*.drawio.*
 *.res.txt
 
+# Backups of the configurator's "save into the firmware folder"
+configurator-backup/
+
 # Python artifacts
 __pycache__/
 *.py[cod]

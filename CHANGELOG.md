@@ -12,12 +12,21 @@ Changes on `dev`, not yet on `main`.
 
 If you keep your own `config.h`, check these points:
 
+- **Motherboard:** add `inline constexpr PcbVersion PCB_VERSION{ PcbVersion::OLD };` after
+  `#include "types.h"`, or `NEW` for the universal 3phaseDiverter board, then recalibrate if
+  you choose `NEW`.
+- **Shipped `config.h`:** it now targets the new board with the mk2Wifi module
+  (`PcbVersion::NEW`, `SerialOutputType::IoT`), as does the configurator by default. With the
+  old board, set `PcbVersion::OLD`; for the serial monitor, `SerialOutputType::HumanReadable`.
 - **`ENABLE_DEBUG`** is now a setting like the others: replace `#define ENABLE_DEBUG` with
   `inline constexpr bool ENABLE_DEBUG{ true };` (or `false`). It only controls the debug
   messages now; the startup configuration is always printed in human-readable mode ([#180]).
 - **mk2Wifi / ESPHome:** `EMONESP_CONTROL` and the `emonesp` PlatformIO environment are gone.
   For the mk2Wifi module, set `SERIAL_OUTPUT_TYPE = SerialOutputType::IoT` and choose its pins
   freely in `config.h` ([#180]).
+- **mk2Wifi YAML:** the `mk2pvrouter` component is now built into ESPHome (2026.10.0 and
+  later): remove the `external_components` block, write `tag:` instead of `tag_name:` in the
+  sensors, and remove `update_interval` under `mk2pvrouter:`. The configurator writes it so.
 - **Diversion pin:** with the pin LOW, forced loads *and* forced relays and remote loads now stay
   ON (before, only forced local TRIACs did). For an absence where nothing must heat, not even with
   off-peak forcing, use the new router OFF pin ([#179]).
@@ -26,13 +35,30 @@ If you keep your own `config.h`, check these points:
 - **Calibration:** the `cal_CTx_v_meter` sketch is gone. Calibrate with the router firmware
   itself, with `CALIBRATION_MODE` set (see the README) ([#178]).
 - **Arduino IDE:** the ArduinoJson library is no longer needed ([#172]).
+- **Calibration:** `calibration.h` has a set of values per board, chosen by `PCB_VERSION`.
+  Old board: copy your former `f_powerCal` and `f_voltageCal` values into `f_powerCalOldBoard`
+  and `f_voltageCalOldBoard`.
 
-No change needed for: the calibration values (`f_powerCal`, `f_voltageCal`, `f_phaseCal`), which
-keep their meaning ([#127], [#163]), and load pin lists such as `{ 5, 6, 7 }`, which are still
+No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
+and load pin lists such as `{ 5, 6, 7 }`, which are still
 valid load maps ([#160]).
 
 ### Added
 
+- **Configurator:** a web page that writes the router's `config.h`, `config_system.h` and
+  `config_rf.h`, the remote units' files and the ESPHome YAML of the mk2Wifi module, and checks
+  the choices as the compiler would (plus the mk2Wifi wiring). English and French, works offline.
+  Its mk2Wifi controls are fail-safe: a broken wire or a rebooting module leaves the router
+  routing, without boost. With Chrome or Edge it saves straight into the firmware folder, with a
+  backup and an undo. In calibration mode, it computes the power and voltage values of the chosen
+  board from the router's and a reference meter's readings, and writes them into your `calibration.h`.
+  <https://fredm67.github.io/Mk2PVRouter/configurateur/>
+- **New motherboard:** `PCB_VERSION` in `config.h` selects the board. `NEW` (universal
+  3phaseDiverter board, rev. 6.0 and later) switches the ADC to the internal 1.1 V reference the
+  board is designed for; `OLD` keeps AVCC. The startup summary shows the choice.
+- **Power calibration per amp of CT rating, new board:** `f_powerCal` = `f_powerCalPerAmp` ×
+  `f_ctRating`, so changing a CT only means entering its rating. The default values suit the new board with
+  333 mV voltage-output CTs; they come from its design (`docs/calibration.md`).
 - **Remote loads over RF:** up to 8 loads on up to 3 remote units, each an Arduino with an RFM69
   running the new `RemoteLoadReceiver` firmware ([#155], [#160]). Local and remote loads are
   declared in one load map (`Load::local(pin)`, `Load::remote(unit)`), in any order, and share
@@ -66,6 +92,11 @@ valid load maps ([#160]).
 
 ### Fixed
 
+- **Remote load receiver with the Arduino IDE:** it did not build (`utils_pins.h: No such
+  file or directory`), since it took `utils_pins.h` and `utils_bits.h` from the router's folder,
+  which only PlatformIO could see. The receiver now has its own copies, checked against the
+  router's by CI, which also builds the receiver with the Arduino CLI. Its README explains the
+  Arduino IDE setup and the one-copy-per-unit layout ([#185]).
 - **Stuck relay:** a relay forced by an override pin could stay ON for good after the override
   was released ([#179]).
 - **Dual tariff:** automatic forcing never triggered, and the temperature threshold was ignored
@@ -110,6 +141,8 @@ valid load maps ([#160]).
 
 ### Development
 
+- **Configurator CI:** its default choices must regenerate the shipped config files byte for
+  byte; presets are built with PlatformIO, and their YAML checked with `esphome config`.
 - **Grid simulator** (`sim/`, simavr): the production firmware runs on a simulated 3-phase grid,
   with scenarios checked in CI. It covers regulation, ISR timing and switching instants ([#169],
   [#170]), the RFM69 radio and the receiver firmware with frame loss ([#171], [#173]), relay
@@ -151,3 +184,4 @@ valid load maps ([#160]).
 [#178]: https://github.com/FredM67/PVRouter-3-phase/pull/178
 [#179]: https://github.com/FredM67/PVRouter-3-phase/pull/179
 [#180]: https://github.com/FredM67/PVRouter-3-phase/pull/180
+[#185]: https://github.com/FredM67/PVRouter-3-phase/pull/185

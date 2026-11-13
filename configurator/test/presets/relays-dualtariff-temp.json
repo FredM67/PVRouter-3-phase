@@ -1,0 +1,27 @@
+{
+  "relays": {
+    "enabled": true,
+    "filterDelay": 3,
+    "list": [
+      { "pin": 8, "surplus": 1000, "import": 200, "minOn": 5, "minOff": 5 },
+      { "pin": 9, "surplus": 1500, "import": -50, "minOn": 10, "minOff": 5 }
+    ]
+  },
+  "overrides": { "enabled": true, "list": [{ "pin": 11, "wifi": false, "targets": [{ "load": 0 }, { "relay": 1 }] }] },
+  "dualTariff": {
+    "enabled": true,
+    "pin": 4,
+    "offPeakHours": 8,
+    "force": [{ "start": -3, "duration": 2 }, { "start": 2, "duration": null }],
+    "tempThreshold": 70
+  },
+  "temperature": {
+    "mode": "router",
+    "pin": 3,
+    "sensors": [
+      { "address": "28BE416B090000A4", "name": "" },
+      { "address": "281BD76A090000B7", "name": "" }
+    ]
+  },
+  "watchdog": { "enabled": true, "pin": 13 }
+}

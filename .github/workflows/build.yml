@@ -37,8 +37,9 @@ jobs:
   # Build job: compiles firmware for embedded targets.
   # One entry per user-selectable environment - `pio run` alone only builds
   # `default_envs` (basic), which let the rf environment break unnoticed.
-  # The IoT entry is the serial output for the mk2Wifi module (config.h only, no environment
-  # of its own, since Arduino IDE users have no environments).
+  # The serial entries set the output of config.h (no environment of their own, since Arduino
+  # IDE users have no environments): IoT for the mk2Wifi module, HumanReadable for the serial
+  # monitor, whatever the default of config.h.
   build:
     name: Build Firmware (${{ matrix.environment }}${{ matrix.serial && format(', {0}', matrix.serial) || '' }})
     runs-on: ubuntu-latest
@@ -50,6 +51,8 @@ jobs:
           - environment: rf
           - environment: basic
             serial: IoT
+          - environment: basic
+            serial: HumanReadable
     steps:
       - uses: actions/checkout@v7
         with:
@@ -60,7 +63,7 @@ jobs:
       - name: Select the ${{ matrix.serial }} serial output
         if: matrix.serial
         run: |
-          sed -i 's/SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;/SERIAL_OUTPUT_TYPE = SerialOutputType::${{ matrix.serial }};/' ${{ env.PROJECT_DIR }}/config.h
+          sed -i -E 's/SERIAL_OUTPUT_TYPE = SerialOutputType::[A-Za-z]+;/SERIAL_OUTPUT_TYPE = SerialOutputType::${{ matrix.serial }};/' ${{ env.PROJECT_DIR }}/config.h
           grep -q 'SERIAL_OUTPUT_TYPE = SerialOutputType::${{ matrix.serial }};' ${{ env.PROJECT_DIR }}/config.h
 
       - name: Build firmware (${{ matrix.environment }})
@@ -82,6 +85,69 @@ jobs:
             echo "| Flash | $FLASH | 32256 | $((FLASH * 100 / 32256)) |"
             echo "| RAM (static) | $RAM | 2048 | $((RAM * 100 / 2048)) |"
           } >> "$GITHUB_STEP_SUMMARY"
+
+  # The remote load receiver as the Arduino IDE builds it: only the files of its folder, in C++17.
+  # utils_pins.h and utils_bits.h are copies of the router's, since the IDE sees nothing else.
+  receiver-arduino:
+    name: Remote Load Receiver (Arduino CLI)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: The receiver's copies match the router's files
+        run: |
+          for f in utils_pins.h utils_bits.h; do
+            diff <(grep -v '@date' Mk2_3phase_RFdatalog_temp/$f) <(grep -v '@date' RemoteLoadReceiver/$f) \
+              || { echo "::error file=RemoteLoadReceiver/$f::out of date, copy Mk2_3phase_RFdatalog_temp/$f here"; exit 1; }
+          done
+
+      # arduino-cli directly: arduino/compile-sketches pins a Python that newer runners lack.
+      - uses: arduino/setup-arduino-cli@v2
+
+      - name: Build with the Arduino CLI
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+          arduino-cli lib install RFM69_LowPowerLab
+          arduino-cli compile --fqbn arduino:avr:uno --warnings default \
+            --build-property compiler.cpp.extra_flags=-std=gnu++17 RemoteLoadReceiver
+
+  # The configurator (configurator/, published by the Mk2PVRouter documentation): its default choices must give
+  # back the shipped config files, the files it generates must build and be clang-format clean,
+  # and its mk2Wifi YAML must be a valid ESPHome configuration.
+  configurator:
+    name: Configurator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup-platformio
+
+      - name: Unit tests
+        run: node --test configurator/test/*.test.js
+
+      - name: Install clang-format
+        run: pip install clang-format==18.1.8
+
+      - name: Build the presets
+        run: bash configurator/test/compile-presets.sh
+
+      # ESPHome supports Python < 3.15 only, while setup-platformio takes the newest one:
+      # it gets its own Python, kept off the PATH, in a virtual environment.
+      - name: Set up Python for ESPHome
+        id: python-esphome
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+          update-environment: false
+
+      - name: Install ESPHome
+        run: |
+          "${{ steps.python-esphome.outputs.python-path }}" -m venv "$RUNNER_TEMP/esphome"
+          "$RUNNER_TEMP/esphome/bin/pip" install esphome
+
+      - name: Check the mk2Wifi YAML
+        run: ESPHOME="$RUNNER_TEMP/esphome/bin/esphome" bash configurator/test/check-yaml.sh
 
   # Native tests: every test under test/native runs in a single job,
   # so a new test is picked up without editing this file.
@@ -131,8 +197,10 @@ jobs:
 
       # src_dir = ./ puts .pio/libdeps in PlatformIO's project checksum: installing the
       # libraries of another environment would wipe every build, the basic one included
+      # the old board and the human-readable datalog, which grid_sim reads (sim/README.md)
       - name: Build firmware (basic)
         run: |
+          sim/configs/sim_config.sh
           pio pkg install --project-dir ${{ env.PROJECT_DIR }} -e basic -e rf
           pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
 
