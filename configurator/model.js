@@ -47,8 +47,8 @@
       formatVersion: FORMAT_VERSION,
 
       // config.h - general
-      pcbVersion: 'OLD', // OLD: former 3-phase board, NEW: universal 3phaseDiverter board
-      serialOutput: 'HumanReadable',
+      pcbVersion: 'NEW', // OLD: former 3-phase board, NEW: universal 3phaseDiverter board
+      serialOutput: 'IoT',
       enableDebug: true,
       calibrationMode: false,
 
@@ -56,8 +56,12 @@
       calibration: {
         file: null, // the user's calibration.h, as loaded: the new values are written into it
         fileName: '',
-        powerCal: [null, null, null], // f_powerCal the router runs with
-        voltageCal: [null, null, null], // f_voltageCal the router runs with
+        // the values the router runs with, as in calibration.h
+        ctRating: [null, null, null], // f_ctRating, A, new board
+        powerCalPerAmp: [null, null, null], // f_powerCalPerAmp, new board
+        voltageCalNewBoard: [null, null, null], // f_voltageCalNewBoard
+        powerCalOldBoard: [null, null, null], // f_powerCalOldBoard
+        voltageCalOldBoard: [null, null, null], // f_voltageCalOldBoard
         power: [0, 1, 2].map(() => ({ router: null, meter: null })), // W, P1..P3
         voltage: [0, 1, 2].map(() => ({ router: null, meter: null })), // V, V1..V3
       },
@@ -188,21 +192,46 @@
     return null;
   }
 
+  // The values calibration corrects, for each board: calibration.h has a set per board, and the
+  // firmware uses the one of PCB_VERSION (new board: f_powerCal = f_powerCalPerAmp x f_ctRating)
+  const CAL_VALUES = {
+    NEW: {
+      power: { name: 'f_powerCalPerAmp', key: 'powerCalPerAmp', decimals: 7 },
+      voltage: { name: 'f_voltageCalNewBoard', key: 'voltageCalNewBoard', decimals: 4 },
+    },
+    OLD: {
+      power: { name: 'f_powerCalOldBoard', key: 'powerCalOldBoard', decimals: 5 },
+      voltage: { name: 'f_voltageCalOldBoard', key: 'voltageCalOldBoard', decimals: 4 },
+    },
+  };
+  const calValuesOf = (m) => CAL_VALUES[m.pcbVersion] || CAL_VALUES.NEW;
+  // The rated current of the CTs, new board only: set by the user, not corrected by calibration
+  const CT_RATING = { name: 'f_ctRating', key: 'ctRating', decimals: 1 };
+  const ctRatingUsed = (m) => m.pcbVersion === 'NEW';
+  const CAL_NAMES = [CT_RATING, ...Object.values(CAL_VALUES).flatMap((b) => [b.power, b.voltage])];
+
+  // { ctRating, powerCalPerAmp, voltageCalNewBoard, powerCalOldBoard, voltageCalOldBoard }, or null
   function parseCalibration(text) {
-    const power = calibrationArray(text, 'f_powerCal');
-    const voltage = calibrationArray(text, 'f_voltageCal');
-    return power && voltage ? { powerCal: power.values, voltageCal: voltage.values } : null;
+    const out = {};
+    for (const { name, key } of CAL_NAMES) {
+      const a = calibrationArray(text, name);
+      if (!a) return null;
+      out[key] = a.values;
+    }
+    return out;
   }
 
-  // The corrected values: current x meter / router, for each phase with both readings
+  // The corrected values: current x meter / router, for each phase with both readings.
+  // { power, voltage }: the new values of calValuesOf(m).power and .voltage
   function calibrationResult(m) {
     const c = m.calibration;
+    const cal = calValuesOf(m);
     const fix = (current, readings) =>
       current.map((cur, i) => {
         const { router, meter } = readings[i];
         return cur > 0 && router > 0 && meter > 0 ? (cur * meter) / router : cur;
       });
-    return { powerCal: fix(c.powerCal, c.power), voltageCal: fix(c.voltageCal, c.voltage) };
+    return { power: fix(c[cal.power.key], c.power), voltage: fix(c[cal.voltage.key], c.voltage) };
   }
 
   // ---- derived values, shared by the validator, the generator and the page ----
@@ -314,6 +343,10 @@
     calibrationArray,
     parseCalibration,
     calibrationResult,
+    calValuesOf,
+    CT_RATING,
+    ctRatingUsed,
+    CAL_NAMES,
     resizeLoads,
     resizeRelays,
   };

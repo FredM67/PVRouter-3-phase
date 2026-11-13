@@ -98,22 +98,41 @@ test('override pins: a comment says what each one forces, numbered as on the pag
 });
 
 const calibrationFile = () => fs.readFileSync(path.join(repo, 'Mk2_3phase_RFdatalog_temp/calibration.h'), 'utf8');
+// The text with one value of an array replaced: the tests follow the values of calibration.h
+function withValue(text, name, phase, value) {
+  const t = M.calibrationArray(text, name).tokens[phase];
+  return text.slice(0, t.start) + value + text.slice(t.end);
+}
 
 test('calibration: new value = current value x meter / router, phase by phase', () => {
   const m = M.defaults();
-  Object.assign(m.calibration, { powerCal: [0.05, 0.05, 0.05], voltageCal: [0.8151, 0.8184, 0.8195] });
+  Object.assign(m.calibration, { ctRating: [50, 50, 30.3], powerCalPerAmp: [0.0029225, 0.0029225, 0.0029225], voltageCalNewBoard: [0.8952, 0.8952, 0.8952] });
   m.calibration.power[0] = { router: 2000, meter: 2100 };
   m.calibration.voltage[2] = { router: 232, meter: 230 };
   const r = M.calibrationResult(m);
   assert.deepStrictEqual(
-    r.powerCal.map((v) => v.toFixed(5)),
-    ['0.05250', '0.05000', '0.05000']
+    r.power.map((v) => v.toFixed(7)),
+    ['0.0030686', '0.0029225', '0.0029225']
   );
-  assert.strictEqual(r.voltageCal[2].toFixed(4), '0.8124');
+  assert.strictEqual(r.voltage[2].toFixed(4), '0.8875');
   assert.deepStrictEqual(G.calibrationLines(m), [
-    'inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05250F, 0.05000F, 0.05000F };',
-    'inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8124F };',
+    'inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 30.3F };',
+    'inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.0030686F, 0.0029225F, 0.0029225F };',
+    'inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.8952F, 0.8952F, 0.8875F };',
   ]);
+});
+
+test('calibration: the old board corrects its own values', () => {
+  const m = M.defaults();
+  m.pcbVersion = 'OLD';
+  Object.assign(m.calibration, { powerCalOldBoard: [0.05, 0.05, 0.05], voltageCalOldBoard: [0.8151, 0.8184, 0.8195] });
+  m.calibration.power[1] = { router: 1000, meter: 1010 };
+  assert.deepStrictEqual(G.calibrationLines(m), [
+    'inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05050F, 0.05000F };',
+    'inline constexpr float f_voltageCalOldBoard[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F };',
+  ]);
+  m.pcbVersion = 'NEW';
+  assert.strictEqual(G.calibrationLines(m), null, 'no values of the new board yet');
 });
 
 test('calibration: the loaded calibration.h gets only the changed values', () => {
@@ -126,22 +145,34 @@ test('calibration: the loaded calibration.h gets only the changed values', () =>
 
   m.calibration.power[1] = { router: 1000, meter: 1010 };
   const out = G.calibrationH(m);
-  assert.strictEqual(out, text.replace('{ 0.05000F, 0.05000F, 0.05000F }', '{ 0.05000F, 0.05050F, 0.05000F }'));
+  assert.strictEqual(out, withValue(text, 'f_powerCalPerAmp', 1, `${(m.calibration.powerCalPerAmp[1] * 1.01).toFixed(7)}F`));
   assert.ok(G.files(m).some((f) => f.path === 'Mk2_3phase_RFdatalog_temp/calibration.h' && f.text === out));
   m.calibrationMode = false;
   assert.ok(!G.files(m).some((f) => f.path.endsWith('calibration.h')), 'only in calibration mode');
+
+  m.calibrationMode = true;
+  m.calibration.power[1] = { router: null, meter: null };
+  m.calibration.ctRating[2] = 30.3;
+  assert.strictEqual(G.calibrationH(m), withValue(text, 'f_ctRating', 2, '30.3F'), 'a new CT rating');
+  m.pcbVersion = 'OLD';
+  assert.strictEqual(G.calibrationH(m), null, 'no CT rating on the old board');
+  m.calibration.power[1] = { router: 1000, meter: 1010 };
+  assert.strictEqual(G.calibrationH(m), withValue(text, 'f_powerCalOldBoard', 1, `${(m.calibration.powerCalOldBoard[1] * 1.01).toFixed(5)}F`), 'the old board: its own values');
 });
 
 test('calibration: a commented-out line is not the one read or rewritten', () => {
-  const text = '// inline constexpr float f_powerCal[NO_OF_PHASES]{ 1.0F, 1.0F, 1.0F };\n' + calibrationFile();
-  assert.deepStrictEqual(M.parseCalibration(text).powerCal, [0.05, 0.05, 0.05]);
+  const text = '// inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 1.0F, 1.0F, 1.0F };\n' + calibrationFile();
+  const inFile = M.parseCalibration(calibrationFile()).powerCalPerAmp;
+  assert.deepStrictEqual(M.parseCalibration(text).powerCalPerAmp, inFile);
   const m = M.defaults();
   m.calibrationMode = true;
   Object.assign(m.calibration, { file: text, ...M.parseCalibration(text) });
   m.calibration.power[0] = { router: 500, meter: 1000 };
-  assert.ok(G.calibrationH(m).startsWith('// inline constexpr float f_powerCal[NO_OF_PHASES]{ 1.0F, 1.0F, 1.0F };\n'));
-  assert.match(G.calibrationH(m), /^inline constexpr float f_powerCal\[NO_OF_PHASES\]\{ 0\.10000F, 0\.05000F, 0\.05000F \};/m);
+  assert.ok(G.calibrationH(m).startsWith('// inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 1.0F, 1.0F, 1.0F };\n'));
+  assert.strictEqual(G.calibrationH(m), withValue(text, 'f_powerCalPerAmp', 0, `${(inFile[0] * 2).toFixed(7)}F`));
   assert.strictEqual(M.parseCalibration('int a;'), null);
+  // the calibration.h of an older firmware, with f_powerCal set directly, is not this one
+  assert.strictEqual(M.parseCalibration('inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05F, 0.05F, 0.05F };\ninline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8F, 0.8F, 0.8F };'), null);
 });
 
 test('calibration mode: human-readable output and no YAML, the usual choice kept', () => {

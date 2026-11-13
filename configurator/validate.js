@@ -36,8 +36,8 @@
     if (m.calibrationMode) {
       const c = m.calibration;
       for (const [kind, readings, current] of [
-        ['power', c.power, c.powerCal],
-        ['voltage', c.voltage, c.voltageCal],
+        ['power', c.power, c[M.calValuesOf(m).power.key]],
+        ['voltage', c.voltage, c[M.calValuesOf(m).voltage.key]],
       ]) {
         readings.forEach(({ router, meter }, i) => {
           const params = { phase: i + 1 };
@@ -51,6 +51,11 @@
         });
       }
     }
+
+    if (m.calibrationMode && M.ctRatingUsed(m) && m.calibration.file)
+      m.calibration.ctRating.forEach((a, i) => {
+        if (!(a > 0)) warning('warn.calCtRating', 'calibration', { phase: i + 1 });
+      });
 
     // ---- load map ----
     const n = m.loads.length;

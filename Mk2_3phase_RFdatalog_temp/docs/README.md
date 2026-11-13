@@ -22,17 +22,10 @@ This directory contains technical documentation about the PVRouter's software ar
 ## Quick Reference
 
 ### System Overview
-```
-┌─────────────────┐     ┌──────────────────┐    ┌─────────────────┐
-│   ADC Inputs    │───▶│  Processing      │───▶│  Load Control   │
-│  (V/I sensors)  │     │     Engine       │    │   (TRIACs)      │
-└─────────────────┘     └──────────────────┘    └─────────────────┘
-                              │
-                              ▼
-                       ┌──────────────────┐
-                       │   Data Logging   │
-                       │  & Telemetry     │
-                       └──────────────────┘
+```mermaid
+flowchart LR
+    ADC["ADC inputs<br/>(V/I sensors)"] --> P["Processing engine"] --> L["Load control<br/>(TRIACs)"]
+    P --> D["Data logging<br/>& telemetry"]
 ```
 
 ### Key Performance Metrics

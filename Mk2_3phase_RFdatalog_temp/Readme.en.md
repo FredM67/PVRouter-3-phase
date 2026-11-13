@@ -138,19 +138,27 @@ The end-user should ONLY edit the **calibration.h** and **config.h** files.
 You can start reading the documentation here [3-phase router](https://fredm67.github.io/Mk2PVRouter-3-phase/) (in English).
 
 # Router calibration
-Calibration values are found in the **calibration.h** file.
-This is the line:
+Calibration values are found in the **calibration.h** file, one set per board: the router uses the one of `PCB_VERSION` (**config.h**). Only the power matters for routing; the voltage (`V1`, `V2`, `V3`) is only displayed.
+
 ```cpp
-inline constexpr float f_powerCal[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
+// Old board
+inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
+inline constexpr float f_voltageCalOldBoard[NO_OF_PHASES]{ 0.8151F, 0.8184F, 0.8195F };
+// New board
+inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };
+inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.00286405F, 0.00286405F, 0.00286405F };
+inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.888065256F, 0.888065256F, 0.888065256F };
 ```
 
-These default values must be determined to ensure optimal router operation.
+Old board: the values are as before; 0.05 is a good start for `f_powerCalOldBoard`. If you already calibrated your router, copy your former `f_powerCal` and `f_voltageCal` values there.
+
+New universal board (rev. 6.0 and later): the power factor is given per amp of CT rating, enter the rated current of your CTs in `f_ctRating`. The default values suit 333 mV voltage-output CTs, and come from its design, corrected by the calibration of a first board ([how](docs/calibration.md)): with them, the router is usually accurate to a few percent without calibration. With a current-output CT and a burden resistor R, such as the YHDC SCT-013-000 (2000:1), `f_ctRating` = 666 / R, the current giving 333 mV across the burden (30.3 with 22 Ω).
 
 The router program itself is used for calibration, so the values are measured with exactly the processing they will be used with. With `SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable` (in **config.h**), it prints every 5 seconds, on the serial monitor at 9600 baud, the power of each phase (`P1`, `P2`, `P3`, in W, positive when importing).
 
 1. Set `CALIBRATION_MODE` to `true` in **config.h** and upload: the router then measures and logs as usual, but never switches any load (TRIACs, relays, remote loads, overrides), which would change the power being measured. It says so at start-up.
 2. Measure the power on phase 1 with a reference instrument (a clamp wattmeter around the same cable as the CT, for instance), ideally with a large resistive load on that phase, such as a water heater.
-3. Compare it with `P1`, and correct the value: new `f_powerCal[0]` = old `f_powerCal[0]` × reference power / `P1`. The [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/) does this calculation in calibration mode, and can write your **calibration.h** again with the new values.
+3. Compare it with `P1`, and correct the value of phase 1: new value = old value × reference power / `P1`, for `f_powerCalOldBoard[0]` or `f_powerCalPerAmp[0]` depending on the board. The [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/) does this calculation in calibration mode, and can write your **calibration.h** again with the new values.
 4. Repeat for phases 2 and 3, upload again and check.
 5. Set `CALIBRATION_MODE` back to `false` and upload: the router diverts again.
 
@@ -296,17 +304,19 @@ For each relay, the transition or state change is managed as follows:
 
 **Threshold zones on the power axis:**
 
-```
-← surplus (exporting to grid)                      importing from grid →
-─────────────────────────────────────────────────────────────────────────
-         │                         │                         │
- surplusThreshold                 0 W               importThreshold
-  (e.g. −1000 W)                                    (e.g. +200 W)
-         │                                                   │
-         ▼  relay eligible to turn ON                        ▼  relay eligible to turn OFF
-    (if relay is OFF)                                   (if relay is ON)
-         │←──────────────── stable zone ───────────────────►│
-                    (relay keeps its current state)
+```mermaid
+flowchart LR
+    S["<b>Surplus</b>, below surplusThreshold<br/>(e.g. −1000 W, exporting)<br/>a relay that is OFF may turn ON"]
+    Z["<b>Stable zone</b>, between the thresholds<br/>(around 0 W)<br/>every relay keeps its state"]
+    I["<b>Import</b>, above importThreshold<br/>(e.g. +200 W)<br/>a relay that is ON may turn OFF"]
+    S --- Z --- I
+
+    classDef on fill:#c8e6c9,stroke:#2e7d32,color:#000
+    classDef keep fill:#eeeeee,stroke:#757575,color:#000
+    classDef off fill:#ffe0b2,stroke:#e65100,color:#000
+    class S on
+    class Z keep
+    class I off
 ```
 
 The EWMA-filtered grid power is compared against both thresholds continuously:
@@ -316,23 +326,22 @@ The EWMA-filtered grid power is compared against both thresholds continuously:
 
 **Minimum duration timers:**
 
-```
- Power (W)
-
- −1200 ─┐ solar surplus > 1000 W             solar production fades
-        │                         ┌──────────────────────────────
-  −600  │                         │
-     0  ┴─────────────────────────┴─────────────────────  time →
-  +300                                               ╭───── import
-
- Relay:
-  OFF ──────────────────┐                            ┌──────────
-                        │◄────── minON must elapse ─►│
-  ON                    └────────────────────────────┘
-                        ↑                            ↑
-                   turns ON                     turns OFF
-              (surplus met AND              (import exceeded AND
-               minOFF elapsed)               minON elapsed)
+```mermaid
+gantt
+    title One relay, minOFF 1 min and minON 5 min
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %M min
+    todayMarker off
+    section Grid
+    Surplus over 1000 W            :done, g1, 2001-01-01 00:00, 3m
+    Solar fades, stable zone       :g2, 2001-01-01 00:03, 1m
+    Import over 200 W              :crit, g3, 2001-01-01 00:04, 6m
+    section Relay
+    OFF, minOFF elapsing           :r1, 2001-01-01 00:00, 1m
+    turns ON                       :milestone, m1, 2001-01-01 00:01, 0m
+    ON, minON must elapse          :active, r2, 2001-01-01 00:01, 5m
+    turns OFF                      :milestone, m2, 2001-01-01 00:06, 0m
+    OFF                            :r3, 2001-01-01 00:06, 4m
 ```
 
 > [!NOTE]
@@ -340,22 +349,26 @@ The EWMA-filtered grid power is compared against both thresholds continuously:
 
 **Multi-relay ordering (example: 3 relays, thresholds 1000 W / 1500 W / 2000 W):**
 
+```mermaid
+---
+title: "Surplus grows: relay 0 first"
+---
+flowchart LR
+    U0{"Relay 0 OFF,<br/>surplus over its threshold<br/>and minOFF elapsed?"} -- no --> U1{"Relay 1?"} -- no --> U2{"Relay 2?"}
+    U0 -- yes --> U0on([relay 0 ON])
+    U1 -- yes --> U1on([relay 1 ON])
+    U2 -- yes --> U2on([relay 2 ON])
 ```
- Solar surplus grows:
 
-   Try relay 0 first → turns ON if threshold met AND minOFF elapsed
-     If relay 0 cannot switch (already ON, or minOFF not yet elapsed):
-     └─► Try relay 1 next
-           If relay 1 cannot switch:
-           └─► Try relay 2 last
-
- Import rises / solar fades:
-
-   Try relay 2 first → turns OFF if threshold met AND minON elapsed
-     If relay 2 cannot switch (already OFF, or minON not yet elapsed):
-     └─► Try relay 1 next
-           If relay 1 cannot switch:
-           └─► Try relay 0 last
+```mermaid
+---
+title: "Import rises / solar fades: relay 2 first"
+---
+flowchart LR
+    D2{"Relay 2 ON,<br/>import over its threshold<br/>and minON elapsed?"} -- no --> D1{"Relay 1?"} -- no --> D0{"Relay 0?"}
+    D2 -- yes --> D2off([relay 2 OFF])
+    D1 -- yes --> D1off([relay 1 OFF])
+    D0 -- yes --> D0off([relay 0 OFF])
 ```
 
 In each pass, the system iterates through all relays in order and stops as soon as **one relay successfully changes state** — that triggers the 60-second cooldown. Relays that cannot switch (minimum duration not yet elapsed, or already in the target state) are simply skipped.
@@ -598,19 +611,17 @@ Each load has two parameters: `{ START_TIME, DURATION }`
 
 #### Understanding the timeline
 
-```
-Off-peak period example: 23:00 to 07:00 (8 hours)
-
-        23:00                                           07:00
-          |================== OFF-PEAK ==================|
-          |                                              |
-     START ──────────────────────────────────────────► END
-          │                                              │
-          │  Positive values                             │
-          │  count from here ───►                        │
-          │                                              │
-          │                        ◄─── Negative values  │
-          │                             count from here  │
+```mermaid
+gantt
+    title Off-peak period, 23:00 to 07:00
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section Off-peak
+    Off-peak (8 h) :active, hc, 2001-01-01 23:00, 8h
+    section START_TIME
+    positive, counts from the start, here +3 h   :b1, 2001-01-01 23:00, 3h
+    negative, counts back from the end, here −3 h :b2, 2001-01-02 04:00, 3h
 ```
 
 #### Parameter 1: START_TIME (when to start)
@@ -645,29 +656,45 @@ Off-peak period example: 23:00 to 07:00 (8 hours)
 All examples assume off-peak period from **23:00 to 07:00** (8 hours):
 
 **Example 1:** `{ -3, 2 }` - Start 3 hours before end, run for 2 hours
-```
-23:00                              04:00    06:00    07:00
-  |====================================|======|========|
-                                       |BOOST |
-                                       └──2h──┘
+```mermaid
+gantt
+    title { -3, 2 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section Off-peak
+    Off-peak :active, hc, 2001-01-01 23:00, 8h
+    section Load
+    Boost, 2 h :crit, b3, 2001-01-02 04:00, 2h
 ```
 Result: Boost runs from **04:00 to 06:00**
 
 **Example 2:** `{ 2, 3 }` - Start 2 hours after start, run for 3 hours
-```
-23:00    01:00          04:00                        07:00
-  |========|=============|==============================|
-           |────BOOST────|
-           └─────3h──────┘
+```mermaid
+gantt
+    title { 2, 3 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section Off-peak
+    Off-peak :active, hc, 2001-01-01 23:00, 8h
+    section Load
+    Boost, 3 h :crit, b4, 2001-01-02 01:00, 3h
 ```
 Result: Boost runs from **01:00 to 04:00**
 
 **Example 3:** `{ -90, 120 }` - Start 90 minutes before end, duration of 120 minutes (but limited)
-```
-23:00                              05:30    07:00
-  |====================================|======|
-                                       |BOOST | ← stops here (off-peak ends)
-                                       └─90min─┘
+```mermaid
+gantt
+    title { -90, 120 }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section Off-peak
+    Off-peak :active, hc, 2001-01-01 23:00, 8h
+    section Load
+    Boost, 90 min :crit, b5, 2001-01-02 05:30, 90m
+    cut, off-peak is over :done, b6, 2001-01-02 07:00, 30m
 ```
 Result: Boost runs from **05:30 to 07:00** (stops at end of off-peak, not 07:30)
 
@@ -676,10 +703,16 @@ Result: Boost runs from **05:30 to 07:00** (stops at end of off-peak, not 07:30)
 > In this example, only 90 minutes of boost occur instead of the configured 120 minutes.
 
 **Example 4:** `{ 1, UINT16_MAX }` - Start 1 hour after start, run until end
-```
-23:00    00:00                                       07:00
-  |========|=========================================|
-           |──────────────BOOST──────────────────────|
+```mermaid
+gantt
+    title { 1, UINT16_MAX }
+    dateFormat YYYY-MM-DD HH:mm
+    axisFormat %H:%M
+    todayMarker off
+    section Off-peak
+    Off-peak :active, hc, 2001-01-01 23:00, 8h
+    section Load
+    Boost, until the end :crit, b7, 2001-01-02 00:00, 7h
 ```
 Result: Boost runs from **00:00 to 07:00**
 
@@ -741,11 +774,11 @@ Unlike [scheduled boost](#scheduled-boost-configuration-rg_forceload) which runs
 
 ### How it works
 
-```
-┌─────────────────┐
-│  Physical pin   │──── When contact closes ───► Loads/relays turn ON at full power
-│  (dry contact)  │──── When contact opens  ───► Normal router operation resumes
-└─────────────────┘
+```mermaid
+flowchart LR
+    P["Physical pin<br/>(dry contact)"]
+    P -- contact closes --> ON["Loads / relays ON at full power"]
+    P -- contact opens --> N["Normal router operation"]
 ```
 
 ### When to use manual boost
@@ -841,10 +874,9 @@ inline constexpr OverridePins overridePins{ {
 
 Connect each configured pin to a **dry contact** (voltage-free switch):
 
-```
-Arduino pin ────┬──── Switch/Button ────┬──── GND
-                │                       │
-           (internal pullup)       (closes circuit)
+```mermaid
+flowchart LR
+    PIN["Arduino pin<br/>(internal pull-up)"] --- SW["Switch / button<br/>(closes the circuit)"] --- GND["GND"]
 ```
 
 - **Contact closed** = boost active (loads at full power)
@@ -970,7 +1002,7 @@ inline constexpr bool TEMP_SENSOR_PRESENT{ false };
 > [!NOTE]
 > Configuring serial output to `SerialOutputType::IoT` is not strictly mandatory for router operation. However, it's necessary if you want to exploit router data in Home Assistant (instantaneous power, statistics, etc.). Without this configuration, only control functions (boost, routing stop) will be available in Home Assistant.
 >
-> In `IoT` (and `JSON`) mode, the router sends nothing else on the serial port: the startup banner, the configuration summary and the debug messages are only printed in `HumanReadable` mode.
+> In every mode, the router prints its configuration at startup, so you can check what it runs with. In `IoT` mode, it does so at 9600 baud 8N1 (the default of serial monitors), then switches to 7E1 for the Home Assistant data; in `JSON` mode, these lines come before the first JSON line. The status messages while running (relays, rotation, off-peak…) are only printed in `HumanReadable` mode.
 
 If you have more free pins, other functions can be added the same way, for example priority rotation:
 ```cpp

@@ -214,7 +214,7 @@
               M.SERIAL_OUTPUTS.map((s) => [s, T(`serial.${s}`)])
             )
           ),
-      !cal && m.serialOutput === 'HumanReadable'
+      !cal
         ? check(
             () => m.enableDebug,
             (v) => (m.enableDebug = v),
@@ -926,7 +926,7 @@
     const text = await file.text();
     const values = M.parseCalibration(text);
     if (!values) return alert(T('cal.badFile', { name: file.name }));
-    Object.assign(m.calibration, { file: text, fileName: file.name, powerCal: values.powerCal, voltageCal: values.voltageCal });
+    Object.assign(m.calibration, { file: text, fileName: file.name, ...values });
     changed();
   }
 
@@ -935,8 +935,9 @@
     const c = m.calibration;
     const r = M.calibrationResult(m);
     c.file = G.calibrationH(m) || c.file;
-    c.powerCal = r.powerCal;
-    c.voltageCal = r.voltageCal;
+    const cal = M.calValuesOf(m);
+    c[cal.power.key] = r.power;
+    c[cal.voltage.key] = r.voltage;
     for (const x of [...c.power, ...c.voltage]) x.router = x.meter = null;
     changed();
   }
@@ -945,8 +946,8 @@
     const c = m.calibration;
     const r = M.calibrationResult(m);
     const shown = (v, decimals) => (v > 0 ? v.toFixed(decimals) : '—');
-    const block = (kind, currentKey, readings, current, result, decimals, unit) => [
-      h('h3', null, T(`cal.${kind}`)),
+    const block = (kind, titleKey, currentKey, readings, current, result, decimals, unit) => [
+      h('h3', null, T(titleKey, { name: M.calValuesOf(m)[kind].name })),
       ...readings.map((x, i) =>
         row(
           h('strong', null, `${T('cal.phase')} ${i + 1}`),
@@ -980,18 +981,21 @@
       h('small', { class: 'help' }, T(`cal.${kind}Help`, { unit })),
     ];
     const lines = G.calibrationLines(m);
-    const changedValues = r.powerCal.some((v, i) => v !== c.powerCal[i]) || r.voltageCal.some((v, i) => v !== c.voltageCal[i]);
+    const cal = M.calValuesOf(m);
+    const changedValues = r.power.some((v, i) => v !== c[cal.power.key][i]) || r.voltage.some((v, i) => v !== c[cal.voltage.key][i]);
     return section(
       'calibration',
       'sec.calibration',
       p,
       h('p', { class: 'help' }, T('cal.intro')),
+      h('p', { class: 'help' }, T('cal.ctRating')),
       row(
         h('label', { class: 'button' }, h('span', null, T('cal.loadFile')), h('input', { type: 'file', accept: '.h,text/plain', hidden: true, onchange: loadCalibration })),
         h('small', { class: 'help' }, c.fileName ? T('cal.fileLoaded', { name: c.fileName }) : T('cal.noFile'))
       ),
-      ...block('power', 'cal.current.power', c.power, c.powerCal, r.powerCal, 5, 'W'),
-      ...block('voltage', 'cal.current.voltage', c.voltage, c.voltageCal, r.voltageCal, 4, 'V'),
+      ...ctRatings(),
+      ...block('power', 'cal.power', 'cal.current.power', c.power, c[cal.power.key], r.power, cal.power.decimals, 'W'),
+      ...block('voltage', 'cal.voltage', 'cal.current.voltage', c.voltage, c[cal.voltage.key], r.voltage, cal.voltage.decimals, 'V'),
       ...calibrationChecks(p),
       h('h3', null, T('cal.lines')),
       lines ? h('pre', { class: 'lines' }, h('code', null, lines.join('\n'))) : h('small', { class: 'help' }, T('cal.linesMissing')),
@@ -999,6 +1003,30 @@
       ...calibrationFiles(p),
       h('p', { class: 'help' }, T('cal.hidden'))
     );
+  }
+
+  // The rated current of the CTs, new board: f_powerCal = f_powerCalPerAmp x f_ctRating
+  function ctRatings() {
+    if (!M.ctRatingUsed(m)) return [];
+    const c = m.calibration;
+    return [
+      h('h3', null, T('cal.ctRatingTitle')),
+      row(
+        ...c.ctRating.map((_, i) =>
+          h(
+            'label',
+            { class: 'field' },
+            h('span', null, `${T('cal.phase')} ${i + 1} (A)`),
+            num(
+              () => c.ctRating[i],
+              (v) => (c.ctRating[i] = v),
+              { step: 'any', min: 0 }
+            )
+          )
+        )
+      ),
+      h('small', { class: 'help' }, T('cal.ctRatingHelp')),
+    ];
   }
 
   // In calibration mode the side panel is hidden: the checks come under the readings...

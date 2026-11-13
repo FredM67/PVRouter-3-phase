@@ -44,41 +44,35 @@ This Arduino sketch receives RF commands from the main PV Router and controls lo
 
 ### RFM69 Module
 
-```
-Arduino UNO          RFM69
------------          -----
-D10 (SS)    <--->    NSS
-D11 (MOSI)  <--->    MOSI
-D12 (MISO)  <--->    MISO
-D13 (SCK)   <--->    SCK
-D2 (IRQ)    <--->    DIO0
-3.3V        <--->    3.3V   ⚠️ NOT 5V!
-GND         <--->    GND
-```
+| Arduino UNO | RFM69 |
+|---|---|
+| D10 (SS) | NSS |
+| D11 (MOSI) | MOSI |
+| D12 (MISO) | MISO |
+| D13 (SCK) | SCK |
+| D2 (IRQ) | DIO0 |
+| 3.3V | 3.3V ⚠️ NOT 5V! |
+| GND | GND |
 
 **Important**: the RFM69 operates at 3.3V. DO NOT connect it to 5V!
 
 ### Load Outputs
 
-```
-Arduino UNO          TRIAC/SSR
------------          ---------
-D4          --->     Load 0 control input
-D3          --->     Load 1 control input
-GND         <--->    Common ground
-```
+| Arduino UNO | TRIAC/SSR |
+|---|---|
+| D4 | Load 0 control input |
+| D3 | Load 1 control input |
+| GND | Common ground |
 
 Active HIGH: Arduino HIGH = Load ON
 
 ### Status LEDs (Optional)
 
-```
-Arduino UNO          LEDs
------------          ----
-D5          --->     Green LED anode (+)
-D7          --->     Red LED anode (+)
-GND         <--->    Cathodes (-), each via a 220Ω resistor
-```
+| Arduino UNO | LEDs |
+|---|---|
+| D5 | Green LED anode (+) |
+| D7 | Red LED anode (+) |
+| GND | Cathodes (-), each via a 220Ω resistor |
 
 - Green, slow blink (1 s on, 1 s off): the main loop is running. If it stops blinking, the firmware is stuck, and the watchdog resets the board within 1 s.
 - Red, off: RF link OK

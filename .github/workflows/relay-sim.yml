@@ -60,6 +60,7 @@ jobs:
 
       - name: Build firmware (relays)
         run: |
+          sim/configs/sim_config.sh
           git apply --unidiff-zero sim/configs/relays.patch
           PLATFORMIO_BUILD_DIR=.pio/build-relays pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
 

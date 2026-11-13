@@ -68,8 +68,8 @@ test('sensors follow what the router sends', () => {
     m.temperature.mode = 'router';
     Object.assign(m.dualTariff, { enabled: true, pin: 9 });
   });
-  for (const tag of ['P', 'P1', 'P3', 'V1', 'V3', 'D1', 'D3', 'R', 'R1', 'T1', 'T2', 'N', 'TA', 'S', 'S_MC']) assert.match(y, new RegExp(`tag_name: "${tag}"\n`), tag);
-  assert.doesNotMatch(y, /tag_name: "(D4|R2|T3)"/);
+  for (const tag of ['P', 'P1', 'P3', 'V1', 'V3', 'D1', 'D3', 'R', 'R1', 'T1', 'T2', 'N', 'TA', 'S', 'S_MC']) assert.match(y, new RegExp(`tag: "${tag}"\n`), tag);
+  assert.doesNotMatch(y, /tag: "(D4|R2|T3)"/);
   assert.doesNotMatch(y, /dallas_temp/);
 });
 
@@ -77,7 +77,7 @@ test('probes on the module: dallas_temp on GPIO23, no T tags', () => {
   const y = wifi((m) => (m.temperature.mode = 'esp'));
   assert.match(y, /one_wire:\n {2}- platform: gpio\n {4}pin: GPIO23/);
   assert.match(y, /platform: dallas_temp\n {4}address: 0x28BE416B090000A4/);
-  assert.doesNotMatch(y, /tag_name: "T1"/);
+  assert.doesNotMatch(y, /tag: "T1"/);
 });
 
 test('without the IoT output, no UART and no router sensor', () => {

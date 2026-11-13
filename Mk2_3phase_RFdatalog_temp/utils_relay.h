@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for the relay output feature
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-13
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -251,7 +251,7 @@ private:
 
     setPinState(relay_pin, on);
 
-    infoln(on ? F("Relay turned ON!") : F("Relay turned OFF!"));
+    statusln(on ? F("Relay turned ON!") : F("Relay turned OFF!"));
 
     relayIsON = on;
     duration = 0;

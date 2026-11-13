@@ -15,7 +15,7 @@
  * - **Watchdog**: Toggles a pin to indicate system activity.
  *
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-13
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -195,12 +195,12 @@ bool isDiversionEnabled()
   {
     const bool pinState{ getPinState(diversionPin) };
 
-    if constexpr (TEXT_OUTPUT_ENABLED)
+    if constexpr (STATUS_OUTPUT_ENABLED)
     {
       static bool previousState{ HIGH };
       if (previousState != pinState)
       {
-        infoln(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
+        statusln(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
       }
 
       previousState = pinState;
@@ -232,12 +232,12 @@ bool isRouterOff()
   {
     const bool pinState{ getPinState(routerOffPin) };
 
-    if constexpr (TEXT_OUTPUT_ENABLED)
+    if constexpr (STATUS_OUTPUT_ENABLED)
     {
       static bool previousState{ HIGH };
       if (previousState != pinState)
       {
-        infoln(!pinState ? F("Router OFF!") : F("Router ON!"));
+        statusln(!pinState ? F("Router OFF!") : F("Router ON!"));
       }
 
       previousState = pinState;
@@ -303,7 +303,7 @@ bool proceedDualTariffLogic()
   if (pinOffPeakState && !pinNewState)
   {
     // we start off-peak period
-    infoln(F("Change to off-peak period!"));
+    statusln(F("Change to off-peak period!"));
 
     ul_TimeOffPeak = millis();
 
@@ -316,7 +316,7 @@ bool proceedDualTariffLogic()
   // end of off-peak period
   if (!pinOffPeakState && pinNewState)
   {
-    infoln(F("Change to peak period!"));
+    statusln(F("Change to peak period!"));
   }
 
   pinOffPeakState = pinNewState;
@@ -352,7 +352,7 @@ void proceedLoadPriorities()
 
     if (pinRotationState && !pinNewState)
     {
-      infoln(F("Trigger rotation!"));
+      statusln(F("Trigger rotation!"));
 
       proceedRotation();
     }
@@ -390,9 +390,11 @@ void setup()
 {
   delay(initialDelay);  // allows time to open the Serial Monitor
 
-  Serial.begin(9600, SERIAL_OUTPUT_TYPE == SerialOutputType::IoT ? SERIAL_7E1 : SERIAL_8N1);  // initialize Serial interface, Do NOT set greater than 9600
+  // 8N1 even for the IoT output, so the startup configuration shows on a serial monitor with its
+  // default settings: 7E1 comes at the end of setup().
+  SerialOutput::beginStartupText();
 
-  // On start, display config info in the serial monitor (human-readable output only)
+  // On start, display config info in the serial monitor (human-readable and IoT outputs)
   printConfiguration();
 
   // initializes all loads to OFF at startup
@@ -411,6 +413,8 @@ void setup()
   debug(F(">>free RAM = "));
   debugln(freeRam());  // a useful value to keep an eye on
   infoln(F("----"));
+
+  SerialOutput::endStartupText< SERIAL_OUTPUT_TYPE == SerialOutputType::IoT >();
 }
 
 /**

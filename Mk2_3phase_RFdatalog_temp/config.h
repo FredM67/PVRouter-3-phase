@@ -6,7 +6,7 @@
  * https://fredm67.github.io/Mk2PVRouter/configurateur/
  *
  * @version 1.0
- * @date 2026-10-02
+ * @date 2026-11-13
  */
 
 #ifndef CONFIG_H
@@ -17,13 +17,14 @@
 
 // Motherboard: OLD for the former 3-phase board, NEW for the universal 3phaseDiverter board
 // (rev. 6.0 and later). A wrong choice gives wrong measurements: recalibrate after a change.
-inline constexpr PcbVersion PCB_VERSION{ PcbVersion::OLD };
+inline constexpr PcbVersion PCB_VERSION{ PcbVersion::NEW };
 
-// Serial output type - Human readable for initial setup and commissioning
-inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable;
+// Serial output type - IoT, for the mk2Wifi module / Home Assistant (9600 baud, 7E1)
+inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
 
-// Debug messages (free RAM...), human-readable output only. The startup configuration and the
-// status messages do not depend on it: they are always printed in human-readable output.
+// Debug messages (free RAM...) at startup. Whatever this setting, the startup configuration is
+// printed in every output (for IoT, at 8N1, before the 7E1 of the frames), and the status
+// messages in human-readable output only.
 inline constexpr bool ENABLE_DEBUG{ true };
 
 #include "debug.h"  // needs SERIAL_OUTPUT_TYPE and ENABLE_DEBUG

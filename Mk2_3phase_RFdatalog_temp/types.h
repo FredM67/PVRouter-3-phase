@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some basics classes/types
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-13
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -34,7 +34,7 @@ enum class SerialOutputType
 /** Motherboard generation: they do not measure the same way */
 enum class PcbVersion : uint8_t
 {
-  OLD, /**< the former 3-phase board: ADC reference AVCC (5 V) */
+  OLD, /**< the former 3-phase board: ADC reference AVCC (= VCC, 5 V or 3.3 V) */
   NEW  /**< the universal 3phaseDiverter board (rev. 6.0 and later): internal 1.1 V ADC reference */
 };
 
