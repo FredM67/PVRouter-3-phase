@@ -33,8 +33,8 @@ If you keep your own `config.h`, check these points:
   itself, with `CALIBRATION_MODE` set (see the README) ([#178]).
 - **Arduino IDE:** the ArduinoJson library is no longer needed ([#172]).
 - **Power calibration:** `f_powerCal` is now given per amp of CT rating. Replace your
-  `f_powerCal` line with `f_ctRating` and `f_powerCalPerAmp`. With the old board and its
-  current-output CTs, `f_ctRating` = 1 and `f_powerCalPerAmp` = your former `f_powerCal`.
+  `f_powerCal` line with `f_ctRating` and `f_powerCalPerAmp`. With the old board,
+  `f_ctRating` is ignored: `f_powerCalPerAmp` = your former `f_powerCal`.
 
 No change needed for: `f_voltageCal` and `f_phaseCal`, which keep their meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still

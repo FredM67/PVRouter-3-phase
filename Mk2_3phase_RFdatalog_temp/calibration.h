@@ -25,7 +25,8 @@
 // The default values suit the new board (rev. 6.0+) with 333 mV voltage-output CTs; they come from
 // its design (see docs/calibration.md). With a current-output CT and a burden resistor R (YHDC
 // SCT-013-000, 2000:1), f_ctRating = 666 / R: the current giving 333 mV across the burden.
-// Old board: f_ctRating = 1, f_powerCalPerAmp = your former f_powerCal, about 0.82 for f_voltageCal.
+// Old board: f_ctRating is ignored; f_powerCalPerAmp = your former f_powerCal (0.05 to start),
+// and about 0.82 for f_voltageCal.
 //
 // To calibrate, compare with a reference meter:
 //   new value = old value x reference reading / router reading
@@ -52,7 +53,12 @@ inline constexpr float alpha{ 0.002 };
 
 static_assert(NO_OF_PHASES == 3, "f_powerCal below lists 3 phases");
 
+/** f_ctRating as applied: ignored on the old board, so a rating left there changes nothing */
+inline constexpr bool CT_RATING_APPLIED{ PCB_VERSION == PcbVersion::NEW };
+
 /** f_powerCal of each phase, as the router uses it */
-inline constexpr float f_powerCal[NO_OF_PHASES]{ f_powerCalPerAmp[0] * f_ctRating[0], f_powerCalPerAmp[1] * f_ctRating[1], f_powerCalPerAmp[2] * f_ctRating[2] };
+inline constexpr float f_powerCal[NO_OF_PHASES]{ CT_RATING_APPLIED ? f_powerCalPerAmp[0] * f_ctRating[0] : f_powerCalPerAmp[0],
+                                                 CT_RATING_APPLIED ? f_powerCalPerAmp[1] * f_ctRating[1] : f_powerCalPerAmp[1],
+                                                 CT_RATING_APPLIED ? f_powerCalPerAmp[2] * f_ctRating[2] : f_powerCalPerAmp[2] };
 
 #endif  // CALIBRATION_H
