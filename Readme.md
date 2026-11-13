@@ -27,276 +27,184 @@
 
 # PVRouter (version triphasée)
 
-Ma version du firmware Mk2PVRouter en 3 phases (voir http://www.mk2pvrouter.co.uk).
+Firmware d’un routeur photovoltaïque triphasé pour l’Arduino Uno (ATmega328P). Il mesure la puissance échangée avec le réseau sur chaque phase, et envoie le surplus de la production solaire vers des charges résistives, typiquement les résistances d’un chauffe-eau, au lieu de l’injecter.
 
-Robin Emley propose déjà un routeur PV triphasé (https://www.mk2pvrouter.co.uk/3-phase-version.html).
-Il prend en charge jusqu’à 12 sorties pour charges résistives, qui sont complètement indépendantes.
+Il est issu du [Mk2PVRouter triphasé](https://web.archive.org/web/20220620152349/https://mk2pvrouter.co.uk/3-phase-version.html) (archive) de Robin Emley, retravaillé depuis : tout le traitement critique en temps se fait dans l’interruption de l’ADC, en arithmétique entière uniquement, et toute la configuration est vérifiée à la compilation.
 
----
-**_NOTE:_** Pour une version en monophasé, voir [PVRouter-Single](https://github.com/FredM67/PVRouter-Single).
-
----
+> [!NOTE]
+> Vous construisez ou installez un routeur ? La **[documentation utilisateur](https://fredm67.github.io/Mk2PVRouter/)** couvre le matériel, l’installation, l’étalonnage et le dépannage.
+> Pour une installation monophasée, voir [PVRouter-1-phase](https://github.com/FredM67/PVRouter-1-phase).
 
 - [PVRouter (version triphasée)](#pvrouter-version-triphasée)
-  - [Aperçu des dossiers](#aperçu-des-dossiers)
-  - [Gallerie photo](#gallerie-photo)
-  - [Schéma de la carte-mère](#schéma-de-la-carte-mère)
+  - [Fonctionnalités](#fonctionnalités)
+  - [Pour commencer](#pour-commencer)
+  - [Organisation du dépôt](#organisation-du-dépôt)
   - [Documentation de développement](#documentation-de-développement)
-  - [Documentation d’analyse et outils](#documentation-danalyse-et-outils)
-  - [Documentation de l’utilisateur final](#documentation-de-lutilisateur-final)
-    - [Aperçu](#aperçu)
-    - [Gestion des priorités de charge](#gestion-des-priorités-de-charge)
-    - [Détection HC](#détection-hc)
-    - [Boost pleine puissance](#boost-pleine-puissance)
-    - [Sortie(s) relais tout-ou-rien \*\* NEW \*\*](#sorties-relais-tout-ou-rien--new-)
-    - [Capteur de température](#capteur-de-température)
-    - [Profil Enphase zéro export](#profil-enphase-zéro-export)
-  - [Comment câbler le routeur](#comment-câbler-le-routeur)
-  - [Applications / Diagrammes de câblage](#applications--diagrammes-de-câblage)
-    - [Pré-requis](#pré-requis)
-    - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
-    - [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
-    - [Chauffe-eau avec thermostat ACI triphasé (SANS neutre)](#chauffe-eau-avec-thermostat-aci-triphasé-sans-neutre)
-    - [Alternatives SANS neutre](#alternatives-sans-neutre)
-  - [Support](#support)
-  - [Roadmap](#roadmap)
-  - [Contributing](#contributing)
-  - [Authors and acknowledgment](#authors-and-acknowledgment)
+  - [Installations en zéro injection (Enphase)](#installations-en-zéro-injection-enphase)
+- [Exemples de câblage](#exemples-de-câblage)
+  - [Pré-requis](#pré-requis)
+  - [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
+  - [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
+  - [Chauffe-eau avec thermostat ACI triphasé (sans neutre)](#chauffe-eau-avec-thermostat-aci-triphasé-sans-neutre)
+  - [Alternative sans neutre](#alternative-sans-neutre)
+- [Support](#support)
+- [Contribuer](#contribuer)
+- [Auteurs et remerciements](#auteurs-et-remerciements)
 
-## Aperçu des dossiers
-- [**Mk2_3phase_RFdatalog_temp**](Mk2_3phase_RFdatalog_temp) : contient tous les fichiers nécessaires au programme du routeur.
-- [**dev**](dev) : contient divers programmes pour le développement du routeur.
-    - **RawSamplesTool_6chan** : permet de tester les 6 canaux de mesure.
-- autres dossiers : contiennent des fichiers divers et variés relatifs au site.
+## Fonctionnalités
 
-## Gallerie photo
+- **Sorties TRIAC**, pilotées en proportion du surplus, une charge après l’autre selon leur priorité ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-des-sorties-triac)).
+- **Sorties relais tout-ou-rien**, avec un seuil de surplus, un seuil d’import, des durées minimales de marche et d’arrêt, et un filtre contre le passage des nuages ; systèmes avec batterie compris ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-des-sorties-relais-tout-ou-rien)).
+- **Charges distantes** par liaison radio RFM69, pilotées par des unités équipées du firmware [`RemoteLoadReceiver`](RemoteLoadReceiver/) ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-du-module-rf-et-des-charges-distantes)).
+- **Heures creuses (double tarif)** : boost programmé des charges choisies, arrêté au-delà d’un seuil de température de l’eau ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#gestion-des-heures-creuses-et-boost-programmé-dual-tariff)).
+- **Boost manuel** par une *pin* : un interrupteur, un contact sec, une sortie domotique ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#boost-manuel-déclenché-par-pin)).
+- **Rotation des priorités**, pour que toutes les résistances fonctionnent à peu près autant ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#rotation-des-priorités)).
+- **Capteurs de température** (DS18B20), autant que nécessaire ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-du-ou-des-capteurs-de-température)).
+- **Arrêt du routage et arrêt du routeur** par des *pins* ([arrêt du routage](Mk2_3phase_RFdatalog_temp/Readme.md#arrêt-du-routage), [routeur à l’arrêt](Mk2_3phase_RFdatalog_temp/Readme.md#routeur-à-larrêt)).
+- **Télémétrie** : sortie série lisible pour la mise en service, données pour [Home Assistant via le module mk2Wifi](Mk2_3phase_RFdatalog_temp/Readme.md#configuration-avec-le-module-mk2wifi) (ESPHome), ou JSON ([configuration](Mk2_3phase_RFdatalog_temp/Readme.md#type-de-sortie-série)).
+- **Mode étalonnage** intégré au firmware, pour l’ancienne et la nouvelle carte-mère ([étalonnage](Mk2_3phase_RFdatalog_temp/Readme.md#étalonnage-du-routeur)).
+- **Installations en zéro injection**, comme Enphase avec son profil zéro export ([plus bas](#installations-en-zéro-injection-enphase)).
 
-Vous trouverez quelques [photos](Gallery.md) de routeurs assemblés.
+## Pour commencer
 
-## Schéma de la carte-mère
+1. **Matériel et câblage** : la [documentation utilisateur](https://fredm67.github.io/Mk2PVRouter/), la [notice d’installation](docs/HowToInstall.pdf), le [schéma de la carte-mère](schematics/3phase_Mainboard.pdf), et les [exemples de câblage](#exemples-de-câblage) plus bas. Quelques [photos](Gallery.md) de routeurs assemblés.
+2. **Configuration** : les réglages sont dans `config.h`, l’étalonnage dans `calibration.h`. Le [configurateur](configurator/) écrit les deux, ainsi que le YAML ESPHome du module mk2Wifi, depuis une page web : ouvrez `configurator/index.html` dans un navigateur.
+3. **Compilation et téléversement** : avec [Visual Studio Code et PlatformIO](Mk2_3phase_RFdatalog_temp/Readme.md#utilisation-avec-visual-studio-code-recommandé) (recommandé) ou l’[Arduino IDE](Mk2_3phase_RFdatalog_temp/Readme.md#utilisation-avec-arduino-ide).
+4. **Étalonnage** : voir l’[étalonnage du routeur](Mk2_3phase_RFdatalog_temp/Readme.md#étalonnage-du-routeur).
 
-Vous trouverez [ici](schematics/3phase_Mainboard.pdf) le schéma de la carte-mère.
+## Organisation du dépôt
+
+| Dossier                                                    | Contenu                                                                                       |
+| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| [`Mk2_3phase_RFdatalog_temp`](Mk2_3phase_RFdatalog_temp/)  | le firmware du routeur, sa configuration et ses tests                                         |
+| [`RemoteLoadReceiver`](RemoteLoadReceiver/)                | le firmware des unités de charges distantes (RFM69)                                           |
+| [`configurator`](configurator/)                            | la page web qui écrit les fichiers de configuration                                           |
+| [`sim`](sim/)                                              | le simulateur de réseau : le firmware tourne sur un réseau triphasé simulé (simavr)           |
+| [`analysis`](analysis/README.md)                           | outils d’analyse du filtrage des sorties relais (EWMA/TEMA, immunité aux nuages)              |
+| [`dev`](dev/)                                              | programmes de développement : échantillons bruts des 6 canaux, test de transformateur, mesures de performance, ... |
+| [`docs`](docs/), [`schematics`](schematics/), [`img`](img/) | notice d’installation, schémas de câblage, schémas électroniques, images                      |
 
 ## Documentation de développement
 
-Vous pouvez commencer à lire la documentation ici [3-phase routeur](https://fredm67.github.io/PVRouter-3-phase/doc/) (en anglais).
+- [Documentation du code](https://fredm67.github.io/PVRouter-3-phase/doc/) (Doxygen, en anglais) et [historique de la taille du firmware](https://fredm67.github.io/PVRouter-3-phase/bench/), sur le [site du projet](https://fredm67.github.io/PVRouter-3-phase/).
+- [Journal des modifications](CHANGELOG.md) (en anglais) des changements sur `dev`, pas encore sur `main`.
+- [Tests](Mk2_3phase_RFdatalog_temp/test/README.md) (en anglais) : tests unitaires natifs, tests embarqués et mesures de performance dans simavr.
+- [Simulateur de réseau](sim/README.md) (en anglais) : régulation, timing de l’ISR, instants de commutation, radio et relais, vérifiés en CI.
+- [Outils d’analyse](analysis/README.md) [![en](https://img.shields.io/badge/lang-en-red.svg)](analysis/README.en.md) : filtrage des sorties relais, réglage pour les climats nuageux et les systèmes avec batterie.
 
-## Documentation d’analyse et outils
+## Installations en zéro injection (Enphase)
 
-📊 **[Outils d’Analyse et Documentation Technique](analysis/README.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](analysis/README.en.md)
+Avec un profil zéro export, le système PV réduit sa production dès qu’elle dépasse la consommation de la maison : rien n’est jamais injecté. Le routeur ne voit donc jamais de surplus, et n’a rien à router.
 
-Cette section contient des outils d’analyse avancés et de la documentation technique pour :
+La solution est un `REQUIRED_EXPORT_IN_WATTS` négatif (dans `config_system.h`, voir [sa description](Mk2_3phase_RFdatalog_temp/Readme.md#paramètre-required_export_in_watts)) : le routeur se comporte alors comme un petit générateur PV. Avec *-20*, il ajoute -20 W à chaque mesure :
 
-- **🔄 Filtrage EWMA/TEMA** : Analyse de l’immunité aux nuages et optimisation des filtres
-- **📈 Analyse de performance** : Scripts de visualisation et benchmarks
-- **⚙️ Guide de réglage** : Documentation pour l’optimisation des paramètres
-- **📊 Graphiques techniques** : Comparaisons visuelles des algorithmes de filtrage
+- quand la maison **importe**, la mesure reste positive : le routeur ne fait rien ;
+- quand la mesure est **autour de zéro**, la limitation zéro export est active. Avec -20 W ajoutés, le routeur voit un surplus, et commence à router vers le chauffe-eau. L’Envoy voit plus de consommation et augmente la production ; le routeur revoit zéro, ajoute à nouveau -20 W, et route davantage. Cela continue jusqu’à ce que la production atteigne son maximum : la mesure reste alors juste au-dessus de zéro, et le système est stable.
 
-> **Utilisateurs avancés :** Ces outils vous aideront à comprendre et optimiser le comportement du routeur PV, notamment pour les installations avec variabilité de production solaire ou systèmes de batteries.
+Testé sur une installation réelle par Amorim. Selon l’installation, *-20* peut devoir être augmenté ou diminué.
 
-## Documentation de l’utilisateur final
+# Exemples de câblage
 
-### Aperçu
+Je veux :
 
-L’objectif était de modifier/optimiser le programme pour le cas « spécial » d’un chauffe-eau triphasé. Un chauffe-eau triphasé est composé en fait de 3 éléments de chauffage indépendants. La plupart du temps, un tel chauffe-eau peut être connecté en monophasé, en triphasé étoile (WYE) ou triphasé triangle (Delta). Lorsqu’il est connecté en étoile, il n’y a pas besoin de fil de neutre parce que le système est équilibré, donc à tout moment, il n’y a pas de courant qui circule vers le neutre.
+- passer mon chauffe-eau monophasé à thermostat mécanique en triphasé : voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique) ;
+- raccorder mon chauffe-eau triphasé à thermostat mécanique : voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique) ;
+- passer mon chauffe-eau ACI monophasé en triphasé sans acheter de kit triphasé : voir [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé) ;
+- raccorder mon chauffe-eau ACI triphasé : voir [Chauffe-eau avec thermostat ACI triphasé (sans neutre)](#chauffe-eau-avec-thermostat-aci-triphasé-sans-neutre) ;
+- raccorder plusieurs charges purement résistives : une sur chaque sortie, en laissant la [rotation des priorités](Mk2_3phase_RFdatalog_temp/Readme.md#rotation-des-priorités) désactivée.
 
-Fonctionnalités ajoutées :
+## Pré-requis
 
-- gestion des priorités de charge (configurable)
-- détection HC/HP (configurable)
-- boost pleine puissance
-- capteur de température (juste la lecture pour le moment)
-- enregistrement de données optimisé (RF)
-- sortie série en JSON ou TXT
+Pour passer un chauffe-eau monophasé en triphasé, il DOIT supporter le câblage triphasé, c’est-à-dire avoir 3 résistances.
 
-Le programme original a dû être entièrement retravaillé et re-structuré pour permettre la lecture de la température. Dans le programme d’origine, l’ISR ne fait que lire et convertir les données analogiques, et le traitement se fait dans la boucle *loop*. Cela ne fonctionnera pas avec un capteur de température en raison de ses performances lentes. Il déstabiliserait l’ensemble du système, des données de courant / tension seraient perdues, ...
+> [!WARNING]
+> Modifier le câblage implique d’intervenir sur le réseau 230 V. Soyez sûr de ce que vous entreprenez ; au moindre doute, faites appel à un électricien qualifié.
 
-Maintenant, tout le traitement critique en termes de temps se fait à l’intérieur de l’ISR, les autres tâches comme la journalisation des données (RF), la sortie série, la lecture de la température sont faites à l’intérieur de la boucle *loop()*. L’ISR et le processeur principal communiquent entre eux par le biais d’« événements ».
+## Chauffe-eau avec thermostat mécanique
 
-### Gestion des priorités de charge
+### Passage du monophasé au triphasé (avec neutre)
 
-Dans ma variante du programme de Robin, les 3 charges sont toujours physiquement indépendantes, c’est-à-dire que le routeur va détourner l’excédent d’énergie à la première charge (priorité la plus élevée) de 0% à 100%, puis à la seconde (0% à 100%) et enfin à la troisième.
+> [!NOTE]
+> **Nécessite un routeur avec 3 sorties.** Chaque résistance est pilotée séparément.
 
-Pour éviter que les priorités restent tout le temps inchangées, ce qui signifie que la charge 1 fonctionnera beaucoup plus que la charge 2, qui elle-même fonctionnera plus que la charge 3, j’ai ajouté une gestion des priorités. Chaque jour, les priorités des charges sont permutées, donc sur plusieurs jours, tous les éléments de chauffage fonctionneront en moyenne de façon équitable.
+Séparez les 3 résistances, probablement avec un nouveau fil pour chacune. Elles sont souvent reliées par des « étoiles » métalliques : une pour la phase, une pour le neutre. Retirez uniquement celle de la phase ; celle du neutre reste en place.
 
-### Détection HC
+### Câblage
 
-Selon le pays, certains compteurs d’énergie disposent d’interrupteur/relais qui bascule au début de la période creuse. Il est destiné à contrôler un commutateur HC/HP. Si vous le reliez à une broche numérique libre du routeur (dans mon cas D3), vous pouvez détecter le début et fin des HC.
+Sur tous les chauffe-eau triphasés que j’ai vus, le thermostat ne coupe que 2 phases en fonctionnement normal (les 3 en mode sécurité). Il doit donc être câblé autrement, pour que les 3 phases soient coupées.
 
-### Boost pleine puissance
+> [!NOTE]
+> Dans un système triphasé équilibré, aucun courant ne circule dans le neutre : couper 2 phases sur 3 suffit à éteindre l’appareil. C’est pourquoi la plupart des thermostats sont construits ainsi.
 
-Le support a été ajouté pour forcer la pleine puissance sur des charges spécifiques. Chaque charge peut être forcée indépendamment les unes des autres, l’heure de début et la durée peuvent être définies individuellement.
-
-Dans ma variante, c’est utilisé pour changer le chauffage pendant la période creuse, dans le cas où le surplus a été trop faible au cours de la journée. Ici, pour optimiser le comportement, un capteur de température sera utilisé pour vérifier la température de l’eau et décider d’allumer ou non pendant la nuit.
-
-### Sortie(s) relais tout-ou-rien ** NEW **
-
-Une ou plusieurs sorties tout-ou-rien via un relais peuvent être maintenant pilotées par le routeur.
-Leur priorité sera toujours en dernier, c’est-à-dire que les sorties TRIAC hachées auront toujours une priorité plus élevée.
-
-L’utilisateur devra définir pour cela, et ce pour chaque sortie relais :
-- le seuil de surplus pour le déclenchement du relais (par défaut 1000W)
-- le seuil d’import pour l’arrêt du relais (par défaut 200W)
-- le temps minimal de fonctionnement du relais en minutes (par défaut 5 mn)
-- le temps minimal d’arrêt du relais en minutes (par défaut 5 mn)
-
-Les seuils de surplus et d’import sont calculés par une moyenne glissante sur une période de temps donnée. Par défaut, les moyennes sont calculées sur 1 minute.
-
-### Capteur de température
-
-Il peut être utilisé pour optimiser le fonctionnement du mode boost, pour prendre la bonne décision pendant la nuit.
-
-### Profil Enphase zéro export
-
-Lorsque le profil zéro-export est activé, le système PV réduit la production d’énergie si la production du système dépasse les besoins de consommation du site. Cela garantit zéro injection dans le réseau.
-
-Comme effet secondaire, le routeur ne verra pas à aucun moment un surplus d’énergie.
-L’idée est donc d’appliquer un certain décalage à l’énergie mesurée par le routeur.
-Comme il est déjà commenté dans le code, après l’assignation d’une valeur négative à *REQUIRED_EXPORT_IN_WATTS*, le routeur agira comme un générateur PV.
-Si vous définissez une valeur de *-20*, chaque fois que le routeur mesure le flux d’énergie, il ajoutera *-20* aux mesures.
-
-Alors, maintenant voyons ce qui se passe dans différents cas:
-
-- la valeur mesurée est **positive** (importation d’énergie = pas d’excédent), après avoir ajouté *-20*, cela reste positif, le routeur ne fait rien. Pour une valeur comprise entre -20 et 0, le déviateur ne fera rien non plus.
-- la valeur mesurée est **autour de zéro**. Dans cette situation, la limitation du "profil zéro exportation" est active.
-Après l’ajout de *-20*, nous obtenons une valeur négative, ce qui déclenchera le détournement d’énergie vers le chauffe-eau.
-Ensuite, il y a une sorte de réaction en chaîne. L’Envoy détecte plus de consommation, décide d’augmenter la production.
-À la mesure suivante, le routeur mesure à nouveau une valeur autour de zéro, ajoute à nouveau -20, et détourne encore plus d’énergie.
-Lorsque la production (et l’excédent) arrive au maximum possible, la valeur mesurée restera autour de zéro+ et le système deviendra stable.
-
-Cela a été testé en situation réelle par Amorim. Selon chaque situation, il peut être nécessaire de modifier cette valeur de *-20* à une valeur plus grande ou plus petite.
-
-## Comment câbler le routeur
-[Ici](docs/HowToInstall.pdf) vous trouverez une rapide notice d’installation du routeur.
-
-## Applications / Diagrammes de câblage
-
-Je veux:
-
-- changer mon chauffe-eau (avec thermostat mécanique) monophasé en triphasé, voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
-- connecter mon chauffe-eau (avec thermostat mécanique) en triphasé, voir [Chauffe-eau avec thermostat mécanique](#chauffe-eau-avec-thermostat-mécanique)
-- changer mon chauffe-eau aci monophasé en triphasé sans acheter de kit triphasé, voir [Chauffe-eau avec thermostat ACI monophasé](#chauffe-eau-avec-thermostat-aci-monophasé)
-- connecter mon chauffe-eau ACI triphasé, voir [Chauffe-eau avec thermostat ACI triphasé (SANS neutre)](#chauffe-eau-avec-thermostat-aci-triphasé-sans-neutre)
-- connecter plusieurs charges résistives pures, il suffit de les câbler, une sur chaque sortie. N’oubliez pas de désactiver la gestion des priorités de charge.
-
-### Pré-requis
-
-Votre chauffe-eau DOIT supporter le câblage en triphasé (c’est-à-dire il doit y avoir 3 éléments chauffants).
-
----
-**_Avertissement de sécurité_**
-
-Pour modifier le câblage existant, l’accès à la tension du réseau 240V est nécessaire.
-Soyez sûr de savoir ce que vous entreprenez. Au besoin, faîtes appel à un électricien qualifié.
-
----
-
-### Chauffe-eau avec thermostat mécanique
-
-#### Passage du monophasé au triphasé (avec neutre)
-
----
-**_Nécessite un routeur avec 3 sorties_**
-
-Avec cette solution, vous commandez chaque résistance séparément l’une de l’autre.
-
----
-
-Vous devrez séparer les 3 éléments de chauffage, et probablement ajouter un nouveau fil pour chacun d’eux. Parfois, les éléments sont reliés ensemble avec une sorte "d’étoile" métallique. Il y en a une pour la phase, et une pour le fil neutre. Vous n’avez qu’à supprimer celle de la phase, celle pour neutre doit rester câblée.
-
-#### Câblage
-
-Sur tous les chauffe-eau (triphasé) que j’ai vu, le thermostat ne coupe que 2 phases en mode normal (les 3 phases en mode de sécurité), il doit donc être câblé d’une autre manière pour obtenir une commutation complète sur les 3 phases.
-
----
-**_Rappel_**
-
-Dans une situation entièrement équilibrée en triphasé, vous n’avez pas besoin de fil neutre. Pour éteindre l’appareil, il suffit de couper 2 phases, ce qui explique la construction de ces thermostats
-
----
-
-Pour cela, j’ai « recyclé » un commutateur HC/HP triphasé, mais vous pouvez utiliser n’importe quel relais triphasé. La bobine de commande doit être connectée à une alimentation "permanente" (et non à travers le routeur) contrôlée par le thermostat.
+Pour cela, j’ai « recyclé » un contacteur HC/HP triphasé, mais n’importe quel contacteur triphasé convient. Sa bobine peut être sur n’importe quelle phase, mais elle doit être alimentée en permanence (pas à travers le routeur), à travers le thermostat.
 
 ![Chauffe-eau avec thermostat mécanique](img/Heater_mechanical.png)
-*Figure: Diagramme de câblage*
+*Figure : Schéma de câblage*
 
-### Chauffe-eau avec thermostat ACI monophasé
+## Chauffe-eau avec thermostat ACI monophasé
 
-Dans ce cas, c’est en quelque sorte la même situation qu’avant. Vous n’avez pas besoin d’acheter un kit ACI en triphasé pour convertir votre chauffe-eau monophasé. La carte ACI doit être connectée à une phase permanente. Elle contrôlera ensuite n’importe quel relais en triphasé.
+La situation est à peu près la même que ci-dessus : pas besoin d’acheter un kit triphasé pour convertir le chauffe-eau. La carte ACI doit être reliée à une phase permanente ; elle commande ensuite n’importe quel contacteur triphasé.
 
 ![Chauffe-eau avec thermostat ACI monophasé](img/Heater_ACI_Mono.png)
-*Figure : Diagramme de câblage*
+*Figure : Schéma de câblage*
 
-### Chauffe-eau avec thermostat ACI triphasé (SANS neutre)
+## Chauffe-eau avec thermostat ACI triphasé (sans neutre)
 
----
-**_Nécessite un routeur avec 2 sorties_**
+> [!NOTE]
+> **Nécessite un routeur avec 2 sorties.** Chaque résistance est pilotée séparément.
 
-Avec cette solution, vous commandez chaque résistance séparément l’une de l’autre.
+La carte ACI ne coupe pas les 3 phases quand la température est atteinte : seules 2 sont coupées. Celle qui reste raccordée correspond au fil du milieu du connecteur de puissance.
 
----
-
-La carte ACI ne coupe pas les 3 phases lorsque la température est atteinte. Seules 2 phases sont coupées.
-
-La phase non coupée est celle qui correspond au fil du milieu sur le connecteur. ***Il est très IMPORTANT que cette phase, non coupée par le thermostat, ne passe pas par un triac***.
+> [!IMPORTANT]
+> Cette phase, qui reste permanente, **ne doit pas passer par un TRIAC**.
 
 La carte ACI doit être reliée à 3 phases permanentes.
 
 ![Chauffe-eau avec thermostat ACI triphasé](img/Heater_ACI_Tri.png)
-*Figure : Diagramme de câblage*
+*Figure : Schéma de câblage*
 
-### Alternatives SANS neutre
+## Alternative sans neutre
 
----
-**_Nécessite un routeur avec 2 sorties_**
+> [!NOTE]
+> **Nécessite un routeur avec 2 sorties.** Pas de fil de neutre supplémentaire, et pas de contacteur.
 
-Cette solution vous permet d’économiser le rajout d’un fil de neutre et/ou l’ajout un contacteur.
+### Chauffe-eau avec thermostat mécanique
 
----
+Ce câblage est plus simple, et surtout ne nécessite aucun contacteur tri- ou quadripolaire.
 
-#### Chauffe-eau avec thermostat mécanique
+Regardez bien sur le thermostat quelles bornes il coupe :
 
-Cette configuration permet de simplifier les branchements et surtout, il n’est plus nécessaire de rajouter un contacteur tri-/quadripolaire.
+- en **rouge**, la coupure de sécurité (remarquez le « S » sur chaque contact) : les 3 phases sont coupées ;
+- en **vert**, seules 2 phases sont coupées, L2 et L3.
 
----
-**_Zoom sur le thermostat_**
-
-Il faut bien faire attention, en regardant sur le thermostat, quelles bornes sont coupées.
-
-En **rouge**, coupure de sécurité (remarquez le ’S’ sur chaque contact) : les 3 phases sont coupées.
-
-En **vert**, seules 2 phases sont coupées, L2 et L3. ***Il est très IMPORTANT que la phase L1, non coupée par le thermostat, ne passe pas par un triac***.
+> [!IMPORTANT]
+> La phase L1, que le thermostat ne coupe pas, **ne doit pas passer par un TRIAC**.
 
 ![Thermostat mécanique](img/Thermostat.png)
-*Figure: Exemple de thermostat*
-
----
+*Figure : Exemple de thermostat*
 
 ![Chauffe-eau avec thermostat mécanique](img/Heater_mechanical-No_neutral.png)
-*Figure: Diagramme de câblage*
+*Figure : Schéma de câblage*
 
-## Support
+# Support
 
-This project is maintained by [@FredM67](https://github.com/FredM67). Please understand that we won’t be able to provide individual support via email. We also believe that help is much more valuable if it’s shared publicly, so that more people can benefit from it.
+Ce projet est maintenu par [@FredM67](https://github.com/FredM67). Il n’est pas possible d’assurer un support individuel par e-mail ; une aide partagée publiquement est d’ailleurs bien plus utile, puisque tout le monde peut en profiter.
 
-| Type                                  | Platforms                                                                     |
-| ------------------------------------- | ----------------------------------------------------------------------------- |
-| 🚨 **Bug Reports**                     | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
-| 📚 **Docs Issue**                      | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
-| 🎁 **Feature Requests**                | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)    |
-| 🛡 **Report a security vulnerability** | See [SECURITY.md](SECURITY.md)                                                |
-| 💬 **General Questions**               | [GitHub Discussions](https://github.com/FredM67/PVRouter-3-phase/discussions) |
+| Type                                         | Où                                                                                  |
+| -------------------------------------------- | ----------------------------------------------------------------------------------- |
+| 🚨 **Signaler un bug**                       | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)          |
+| 📚 **Problème de documentation**             | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)          |
+| 🎁 **Demande de fonctionnalité**             | [GitHub Issue Tracker](https://github.com/FredM67/PVRouter-3-phase/issues)          |
+| 🛡 **Signaler une faille de sécurité**       | Voir [SECURITY.md](SECURITY.md)                                                     |
+| 💬 **Questions générales**                   | [GitHub Discussions](https://github.com/FredM67/PVRouter-3-phase/discussions)       |
 
-## Roadmap
+# Contribuer
 
-No changes are currently planned.
+Lisez [CONTRIBUTING.md](CONTRIBUTING.md) (en anglais) pour le code de conduite et la façon de proposer des *pull requests*.
 
-## Contributing
+# Auteurs et remerciements
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+- **Robin Emley** - le firmware Mk2PVRouter d’origine - [mk2pvrouter.co.uk](https://web.archive.org/web/20231115123017/https://mk2pvrouter.co.uk/) (archive)
+- **Frédéric Metrich** - cette version - [FredM67](https://github.com/FredM67)
 
-## Authors and acknowledgment
-
-- **Frédéric Metrich** - _Initial work_ - [FredM67](https://github.com/FredM67)
-
-See also the list of [contributors](https://github.com/FredM67/PVRouter-3-phase/graphs/contributors) who participated in this project.
+Voir aussi la liste des [contributeurs](https://github.com/FredM67/PVRouter-3-phase/graphs/contributors) qui ont participé à ce projet.
