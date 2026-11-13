@@ -32,11 +32,12 @@ If you keep your own `config.h`, check these points:
 - **Calibration:** the `cal_CTx_v_meter` sketch is gone. Calibrate with the router firmware
   itself, with `CALIBRATION_MODE` set (see the README) ([#178]).
 - **Arduino IDE:** the ArduinoJson library is no longer needed ([#172]).
-- **Calibration values:** `f_powerCal` and `f_voltageCal` are no longer set in `calibration.h`.
-  With the old board, rename them `f_powerCalOldBoard` and `f_voltageCalOldBoard`, same values.
-  With the new board, enter the rated current of your CTs in `f_ctRating`.
+- **Power calibration:** `f_powerCal` is now given per amp of CT rating. Replace your
+  `f_powerCal` line with `f_ctRating` (the rated current of your CTs) and `f_powerCalPerAmp` =
+  your former `f_powerCal` / `f_ctRating`.
 
-No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]), and load pin lists such as `{ 5, 6, 7 }`, which are still
+No change needed for: `f_voltageCal` and `f_phaseCal`, which keep their meaning ([#127], [#163]),
+and load pin lists such as `{ 5, 6, 7 }`, which are still
 valid load maps ([#160]).
 
 ### Added
@@ -46,19 +47,15 @@ valid load maps ([#160]).
   the choices as the compiler would (plus the mk2Wifi wiring). English and French, works offline.
   Its mk2Wifi controls are fail-safe: a broken wire or a rebooting module leaves the router
   routing, without boost. With Chrome or Edge it saves straight into the firmware folder, with a
-  backup and an undo. In calibration mode, it computes the power and voltage values
-  (`f_powerCorrection` and `f_voltageCorrection`, or `f_powerCalOldBoard` and
-  `f_voltageCalOldBoard`, depending on the board) from the router's and a reference meter's
-  readings, and writes them into your `calibration.h`.
+  backup and an undo. In calibration mode, it computes `f_powerCalPerAmp` and `f_voltageCal` from
+  the router's and a reference meter's readings, and writes them into your `calibration.h`.
   <https://fredm67.github.io/Mk2PVRouter/configurateur/>
 - **New motherboard:** `PCB_VERSION` in `config.h` selects the board. `NEW` (universal
   3phaseDiverter board, rev. 6.0 and later) switches the ADC to the internal 1.1 V reference the
   board is designed for; `OLD` keeps AVCC. The startup summary shows the choice.
-- **Calibration from the design (new board):** `f_powerCal` and `f_voltageCal` are calculated
-  from the input stages of the board (0.1 % resistors) and the rated current of the 333 mV
-  voltage-output CTs (`f_ctRating`). The three phases share the ADC reference, so they stay
-  balanced without any measurement; `f_powerCorrection` and `f_voltageCorrection` correct the
-  values shown, independently of each other.
+- **Power calibration per amp of CT rating:** `f_powerCal` = `f_powerCalPerAmp` × `f_ctRating`,
+  so changing a CT only means entering its rating. The default values suit the new board with
+  333 mV voltage-output CTs; they come from its design (`docs/calibration.md`).
 - **Remote loads over RF:** up to 8 loads on up to 3 remote units, each an Arduino with an RFM69
   running the new `RemoteLoadReceiver` firmware ([#155], [#160]). Local and remote loads are
   declared in one load map (`Load::local(pin)`, `Load::remote(unit)`), in any order, and share

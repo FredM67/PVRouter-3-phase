@@ -988,13 +988,13 @@
       'sec.calibration',
       p,
       h('p', { class: 'help' }, T('cal.intro')),
-      m.pcbVersion === 'NEW' ? h('p', { class: 'help' }, T('cal.newBoard')) : null,
+      h('p', { class: 'help' }, T('cal.ctRating')),
       row(
         h('label', { class: 'button' }, h('span', null, T('cal.loadFile')), h('input', { type: 'file', accept: '.h,text/plain', hidden: true, onchange: loadCalibration })),
         h('small', { class: 'help' }, c.fileName ? T('cal.fileLoaded', { name: c.fileName }) : T('cal.noFile'))
       ),
-      ...block('power', `cal.power.${m.pcbVersion}`, `cal.current.power.${m.pcbVersion}`, c.power, c[cal.power.key], r.power, cal.power.decimals, 'W'),
-      ...block('voltage', `cal.voltage.${m.pcbVersion}`, `cal.current.voltage.${m.pcbVersion}`, c.voltage, c[cal.voltage.key], r.voltage, cal.voltage.decimals, 'V'),
+      ...block('power', 'cal.power', 'cal.current.power', c.power, c[cal.power.key], r.power, cal.power.decimals, 'W'),
+      ...block('voltage', 'cal.voltage', 'cal.current.voltage', c.voltage, c[cal.voltage.key], r.voltage, cal.voltage.decimals, 'V'),
       ...calibrationChecks(p),
       h('h3', null, T('cal.lines')),
       lines ? h('pre', { class: 'lines' }, h('code', null, lines.join('\n'))) : h('small', { class: 'help' }, T('cal.linesMissing')),

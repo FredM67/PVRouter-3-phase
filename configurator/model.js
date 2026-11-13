@@ -57,10 +57,8 @@
         file: null, // the user's calibration.h, as loaded: the new values are written into it
         fileName: '',
         // the values the router runs with, as in calibration.h
-        powerCorrection: [null, null, null], // new board
-        voltageCorrection: [null, null, null],
-        powerCalOldBoard: [null, null, null], // old board
-        voltageCalOldBoard: [null, null, null],
+        powerCalPerAmp: [null, null, null], // f_powerCalPerAmp
+        voltageCal: [null, null, null], // f_voltageCal
         power: [0, 1, 2].map(() => ({ router: null, meter: null })), // W, P1..P3
         voltage: [0, 1, 2].map(() => ({ router: null, meter: null })), // V, V1..V3
       },
@@ -191,22 +189,15 @@
     return null;
   }
 
-  // The values calibration corrects, depending on the board: on the new one, the firmware
-  // calculates f_powerCal and f_voltageCal from the design of the board, and these are corrections
+  // The values calibration corrects: f_powerCal = f_powerCalPerAmp x f_ctRating in the firmware
   const CAL_VALUES = {
-    NEW: {
-      power: { name: 'f_powerCorrection', key: 'powerCorrection', decimals: 4 },
-      voltage: { name: 'f_voltageCorrection', key: 'voltageCorrection', decimals: 4 },
-    },
-    OLD: {
-      power: { name: 'f_powerCalOldBoard', key: 'powerCalOldBoard', decimals: 5 },
-      voltage: { name: 'f_voltageCalOldBoard', key: 'voltageCalOldBoard', decimals: 4 },
-    },
+    power: { name: 'f_powerCalPerAmp', key: 'powerCalPerAmp', decimals: 7 },
+    voltage: { name: 'f_voltageCal', key: 'voltageCal', decimals: 4 },
   };
-  const calValuesOf = (m) => CAL_VALUES[m.pcbVersion] || CAL_VALUES.OLD;
-  const CAL_NAMES = ['NEW', 'OLD'].flatMap((b) => [CAL_VALUES[b].power, CAL_VALUES[b].voltage]);
+  const calValuesOf = () => CAL_VALUES;
+  const CAL_NAMES = [CAL_VALUES.power, CAL_VALUES.voltage];
 
-  // { powerCorrection, voltageCorrection, powerCalOldBoard, voltageCalOldBoard }, or null
+  // { powerCalPerAmp, voltageCal }, or null
   function parseCalibration(text) {
     const out = {};
     for (const { name, key } of CAL_NAMES) {

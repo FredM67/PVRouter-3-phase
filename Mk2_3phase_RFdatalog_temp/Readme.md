@@ -145,25 +145,21 @@ Le dossier **[docs/](docs/)** contient la documentation technique détaillée :
 Vous pouvez commencer à lire la documentation ici [3-phase routeur](https://fredm67.github.io/Mk2PVRouter-3-phase/) (en anglais).
 
 # Étalonnage du routeur
-Les valeurs d’étalonnage se trouvent dans le fichier **calibration.h**. Seule la puissance compte pour le routage ; la tension (`V1`, `V2`, `V3`) n’est qu’affichée. Les valeurs à régler dépendent de la carte choisie dans **config.h** :
+Les valeurs d’étalonnage se trouvent dans le fichier **calibration.h**. Seule la puissance compte pour le routage ; la tension (`V1`, `V2`, `V3`) n’est qu’affichée.
 
-- **Nouvelle carte** (`PcbVersion::NEW`), avec des sondes à sortie tension (333 mV à leur courant nominal) : le firmware calcule ses facteurs à partir de la conception de la carte, dont toutes les résistances sont à 0,1 %. Indiquez le courant nominal de vos sondes :
-  ```cpp
-  inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };
-  ```
-  Cela suffit pour le routage : les trois phases partagent la même référence de l’ADC, elles restent donc équilibrées. Cette référence varie toutefois d’un ATmega328P à l’autre : les watts et volts affichés peuvent s’écarter de quelques pour cent. Pour les corriger, `f_powerCorrection` et `f_voltageCorrection` (1 = la valeur calculée) sont indépendants l’un de l’autre.
-- **Ancienne carte** (`PcbVersion::OLD`) : `f_powerCalOldBoard` et `f_voltageCalOldBoard` donnent directement les facteurs :
-  ```cpp
-  inline constexpr float f_powerCalOldBoard[NO_OF_PHASES]{ 0.05000F, 0.05000F, 0.05000F };
-  ```
+```cpp
+inline constexpr float f_ctRating[NO_OF_PHASES]{ 50.0F, 50.0F, 50.0F };
+inline constexpr float f_powerCalPerAmp[NO_OF_PHASES]{ 0.0029225F, 0.0029225F, 0.0029225F };
+inline constexpr float f_voltageCal[NO_OF_PHASES]{ 0.8952F, 0.8952F, 0.8952F };
+```
 
-Ces valeurs par défaut doivent être déterminées pour assurer un fonctionnement optimal du routeur.
+Le facteur de puissance est donné par ampère de calibre de sonde : indiquez le courant nominal de vos sondes dans `f_ctRating`. Les valeurs par défaut conviennent à la nouvelle carte universelle (rev. 6.0 et suivantes) avec des sondes à sortie tension 333 mV, et découlent de sa conception ([détails, en anglais](docs/calibration.md)) : avec elles, le routeur est en général précis à quelques pour cent sans étalonnage. Avec l’ancienne carte, `f_powerCalPerAmp` = votre ancien `f_powerCal` / `f_ctRating` (0,05 est un bon départ pour `f_powerCal`), et environ 0,82 pour `f_voltageCal`.
 
 L’étalonnage se fait avec le programme du routeur lui-même : les valeurs sont ainsi mesurées avec exactement le traitement avec lequel elles seront utilisées. Avec `SERIAL_OUTPUT_TYPE = SerialOutputType::HumanReadable` (dans **config.h**), il affiche toutes les 5 secondes, sur le moniteur série à 9600 bauds, la puissance de chaque phase (`P1`, `P2`, `P3`, en W, positive en import).
 
 1. Passez `CALIBRATION_MODE` à `true` dans **config.h** et téléversez : le routeur mesure et affiche comme d’habitude, mais ne commute plus aucune charge (triacs, relais, charges distantes, forçages), ce qui modifierait la puissance mesurée. Il l’annonce au démarrage.
 2. Mesurez la puissance sur la phase 1 avec un appareil de référence (par exemple une pince wattmétrique autour du même câble que la sonde), idéalement avec une forte charge résistive sur cette phase, comme un chauffe-eau.
-3. Comparez-la à `P1` et corrigez la valeur de la phase 1 : nouvelle valeur = ancienne valeur × puissance de référence / `P1`, dans `f_powerCorrection[0]` (nouvelle carte) ou `f_powerCalOldBoard[0]` (ancienne carte). Le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/) fait ce calcul en mode étalonnage, et peut réécrire votre **calibration.h** avec les nouvelles valeurs.
+3. Comparez-la à `P1` et corrigez la valeur de la phase 1 : nouveau `f_powerCalPerAmp[0]` = ancien `f_powerCalPerAmp[0]` × puissance de référence / `P1`. Le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/) fait ce calcul en mode étalonnage, et peut réécrire votre **calibration.h** avec les nouvelles valeurs.
 4. Recommencez pour les phases 2 et 3, téléversez à nouveau et vérifiez.
 5. Remettez `CALIBRATION_MODE` à `false` et téléversez : le routeur route à nouveau.
 
