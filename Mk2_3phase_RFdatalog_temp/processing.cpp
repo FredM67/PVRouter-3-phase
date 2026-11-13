@@ -1202,7 +1202,7 @@ void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample)
  * - For the "normal" mode, it displays the energy bucket capacity and thresholds.
  * - For the "anti-flicker" mode, it also displays the offset of energy thresholds.
  *
- * @ingroup Debugging
+ * @ingroup Initialization
  */
 void printParamsForSelectedOutputMode()
 {

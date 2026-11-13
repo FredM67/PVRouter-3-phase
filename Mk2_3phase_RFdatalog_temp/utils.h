@@ -604,7 +604,7 @@ inline void logLoadPriorities()
  *
  * @return int The amount of free RAM in bytes.
  *
- * @ingroup Debugging
+ * @ingroup Initialization
  */
 inline int freeRam()
 {

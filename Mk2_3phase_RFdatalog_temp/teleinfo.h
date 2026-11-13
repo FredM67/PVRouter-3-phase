@@ -16,7 +16,7 @@
  *   1 stop bit, and even parity.
  *
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-13
  *
  * @copyright Copyright (c) 2025-2026
  *
@@ -208,6 +208,7 @@ private:
   /**
    * @brief Writes a tag to the buffer.
    * @param tag The tag to write.
+   * @param index Appended to the tag as a digit (1-9), none when 0.
    */
   __attribute__((always_inline)) void writeTag(const char* tag, uint8_t index)
   {
@@ -265,6 +266,7 @@ public:
    * @brief Sends a telemetry value as an integer.
    * @param tag The tag associated with the value.
    * @param value The integer value to send.
+   * @param index Appended to the tag as a digit (1-9), none when 0.
    */
   void send(const char* tag, int16_t value, uint8_t index = 0)
   {

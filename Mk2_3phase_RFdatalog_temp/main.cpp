@@ -470,7 +470,7 @@ void updatePowerAndVoltageData()
  *
  * @post The `tx_data.temperature_x100` array is updated with the latest valid temperature readings.
  *
- * @ingroup TemperatureProcessing
+ * @ingroup TemperatureSensing
  */
 void processTemperatureData()
 {
