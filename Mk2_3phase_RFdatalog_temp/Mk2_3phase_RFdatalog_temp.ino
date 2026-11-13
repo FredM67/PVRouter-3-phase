@@ -3,7 +3,7 @@
  * @author Robin Emley (www.Mk2PVrouter.co.uk)
  * @author Frederic Metrich (frederic.metrich@live.fr)
  * @brief A photovoltaic energy diverter.
- * @date 2020-01-14
+ * @date 2026-11-13
  *
  * @mainpage A 3-phase photovoltaic router/diverter
  *
@@ -13,6 +13,32 @@
  * In the absence of such a system, surplus energy flows away to the grid and is of no benefit to the PV-owner.
  *
  * @section history History
+ *
+ * __November 2026: changes:__
+ * - no floating-point code left: integer datalog arithmetic, with a square root in assembly
+ * - calibration values per board, CT rating of the new motherboard
+ * - configurator web page for the router, the remote units and the mk2Wifi module
+ * - the remote load receiver builds with the Arduino IDE
+ * - flash, RAM and speed report on every pull request, size history on GitHub Pages
+ *
+ * __October 2026: changes:__
+ * - PCB_VERSION: the new motherboard and its internal 1.1 V ADC reference
+ * - calibration mode in the router firmware, replacing the calibration sketch
+ * - one diversion switch for every output, and a router OFF pin
+ * - output for the mk2Wifi module, info vs debug messages, float-free text output
+ * - fixes: temperature sensing, 255-minute boost, IoT relay tags, buffer overflows
+ * - smaller relay code; relay pin writes no longer clobber the load pins
+ * - remote load receiver: hardware watchdog, status LED, frame length check
+ * - changelog of the changes on dev (CHANGELOG.md)
+ *
+ * __September 2026: changes:__
+ * - remote loads over RFM69, with several remote units; RFM12B / JeeLib no longer supported
+ * - integer energy bucket: no float or division left in the ADC ISR
+ * - left-aligned ADC and circular channel list
+ * - non-blocking serial output of the datalog, ArduinoJson no longer needed
+ * - dual tariff load forcing and its temperature threshold restored
+ * - grid simulator (simavr): the firmware runs on a simulated 3-phase grid, with RF and remote units
+ * - embedded tests in simavr instead of Wokwi
  *
  * __January 2026: changes:__
  * - override pins now support remote loads via virtual pin mapping
@@ -154,7 +180,7 @@
  *   - direct port manipulation to save code size and speed-up performance
  *
  * @author Fred Metrich
- * @copyright Copyright (c) 2025
+ * @copyright Copyright (c) 2025-2026
  *
  * __February 2020: updated to Mk2_3phase_RFdatalog_3a with these changes:__
  * - removal of some redundant code in the logic for determining the next load state.
