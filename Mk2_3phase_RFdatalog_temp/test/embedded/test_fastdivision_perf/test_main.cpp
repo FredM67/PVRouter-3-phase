@@ -14,6 +14,7 @@
 #include <Arduino.h>
 #include <unity.h>
 
+#include "../bench_report.h"
 #include "../halt_after_tests.h"
 
 #include "FastDivision.h"
@@ -88,6 +89,7 @@ void test_perf_divu10_small_values(void)
   stdTime = endTime - startTime;
 
   reportBenchmark("small", fastTime, stdTime);
+  benchReport(F("fastdivision: divu10 small"), fastTime, F("us"));
 
   // Just verify correctness, not timing (speedup varies)
   TEST_ASSERT_TRUE(fastTime > 0);
@@ -121,6 +123,7 @@ void test_perf_divu10_medium_values(void)
   stdTime = endTime - startTime;
 
   reportBenchmark("medium", fastTime, stdTime);
+  benchReport(F("fastdivision: divu10 medium"), fastTime, F("us"));
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -153,6 +156,7 @@ void test_perf_divu10_large_values(void)
   stdTime = endTime - startTime;
 
   reportBenchmark("large", fastTime, stdTime);
+  benchReport(F("fastdivision: divu10 large"), fastTime, F("us"));
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -194,6 +198,7 @@ void test_perf_divmod10_small_values(void)
   stdTime = endTime - startTime;
 
   reportBenchmark("small", fastTime, stdTime);
+  benchReport(F("fastdivision: divmod10 small"), fastTime, F("us"));
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -231,6 +236,7 @@ void test_perf_divmod10_large_values(void)
   stdTime = endTime - startTime;
 
   reportBenchmark("large", fastTime, stdTime);
+  benchReport(F("fastdivision: divmod10 large"), fastTime, F("us"));
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -281,6 +287,9 @@ void test_perf_cycle_estimation(void)
   Serial.print(F("\n  divmod10: ~"));
   Serial.print(divmod10Cycles, 1);
   Serial.print(F(" cycles"));
+
+  benchReport(F("fastdivision: divu10 x1000"), divu10Time, F("us"));
+  benchReport(F("fastdivision: divmod10 x1000"), divmod10Time, F("us"));
 
   Serial.print(F("\n\nNote: Cycle counts include loop overhead and function call."));
   Serial.print(F("\nActual instruction cycles are lower than measured."));

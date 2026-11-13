@@ -18,6 +18,7 @@
 #include <unity.h>
 #include <math.h>
 
+#include "../bench_report.h"
 #include "../halt_after_tests.h"
 
 #include "datalog_math.h"
@@ -100,6 +101,13 @@ static uint16_t overhead()
     MEASURE(empty, 0, {});
   }
   return empty.min;
+}
+
+/** @brief The average and worst case of an integer function, for the CI history. */
+static void bench(const __FlashStringHelper* avgName, const __FlashStringHelper* maxName, const Cycles& stats)
+{
+  benchReport(avgName, stats.average(), F("cycles"));
+  benchReport(maxName, stats.max, F("cycles"));
 }
 
 static void report(const __FlashStringHelper* name, const Cycles& stats)
@@ -212,6 +220,8 @@ void test_isqrt_is_faster_than_float_sqrt(void)
   report(F("float sqrt()        "), floatSqrt);
   report(F("Datalog::isqrt()    "), intSqrt);
   report(F("Datalog::sqrtScaled "), scaledSqrt);
+  bench(F("datalog: isqrt avg"), F("datalog: isqrt max"), intSqrt);
+  bench(F("datalog: sqrtScaled avg"), F("datalog: sqrtScaled max"), scaledSqrt);
 
   TEST_ASSERT_LESS_OR_EQUAL_UINT16(floatSqrt.max, scaledSqrt.max);
   TEST_ASSERT_LESS_OR_EQUAL_UINT32(floatSqrt.sum, scaledSqrt.sum);
@@ -240,6 +250,7 @@ void test_vrms_is_faster_than_the_float_code(void)
   Serial.println(F("--- Vrms_L_x100 ---"));
   report(F("float (as before)   "), floatVrms);
   report(F("Datalog::vrms()     "), intVrms);
+  bench(F("datalog: vrms avg"), F("datalog: vrms max"), intVrms);
 
   TEST_ASSERT_LESS_OR_EQUAL_UINT16(floatVrms.max, intVrms.max);
   TEST_ASSERT_LESS_OR_EQUAL_UINT32(floatVrms.sum, intVrms.sum);
@@ -265,6 +276,7 @@ void test_watts_is_faster_than_the_float_code(void)
   Serial.println(F("--- power_L ---"));
   report(F("float (as before)   "), floatWatts);
   report(F("Datalog::watts()    "), intWatts);
+  bench(F("datalog: watts avg"), F("datalog: watts max"), intWatts);
 
   TEST_ASSERT_LESS_OR_EQUAL_UINT16(floatWatts.max, intWatts.max);
   TEST_ASSERT_LESS_OR_EQUAL_UINT32(floatWatts.sum, intWatts.sum);

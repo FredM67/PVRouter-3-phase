@@ -73,5 +73,17 @@ pio test -e uno -f "*test_utils_relay*"
 - **Embedded tests**: Run in the [simavr](https://github.com/buserror/simavr) simulator (`uno_sim` environment), benchmarks included
 - See `.github/workflows/build.yml` for configuration
 
+## Benchmark history
+
+Every benchmark result is printed once more as a machine-readable line, with `benchReport()` from [`embedded/bench_report.h`](embedded/bench_report.h):
+
+```
+BENCH|datalog: vrms max|653|cycles
+```
+
+CI collects these lines from the verbose output of the embedded tests (`scripts/ci/bench_to_json.py`), together with the flash and RAM of every build, and tracks them on GitHub Pages: [fredm67.github.io/PVRouter-3-phase/bench](https://fredm67.github.io/PVRouter-3-phase/bench/). Each push to `dev` adds a point to the charts; a pull request is compared with the last point, and any value more than **2%** worse gets a comment. Smaller is better everywhere.
+
+simavr is cycle-accurate, so the values are exact and identical from run to run: only a change of the code moves them. The name of a result is the key of its history - renaming it starts a new chart.
+
 Every embedded test must call `haltAfterTests()` (from [`embedded/halt_after_tests.h`](embedded/halt_after_tests.h)) right after `UNITY_END()`:
 the suite then runs once, and simavr exits instead of running forever.

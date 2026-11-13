@@ -85,6 +85,17 @@ jobs:
             echo "| Flash | $FLASH | 32256 | $((FLASH * 100 / 32256)) |"
             echo "| RAM (static) | $RAM | 2048 | $((RAM * 100 / 2048)) |"
           } >> "$GITHUB_STEP_SUMMARY"
+          # for the benchmark history (job benchmarks): smaller is better
+          LABEL="${{ matrix.environment }}${{ matrix.serial && format(', {0}', matrix.serial) || '' }}"
+          mkdir -p bench
+          printf '[{"name": "flash: %s", "value": %d, "unit": "bytes"}, {"name": "RAM: %s", "value": %d, "unit": "bytes"}]\n' \
+            "$LABEL" "$FLASH" "$LABEL" "$RAM" > "bench/size-${{ strategy.job-index }}.json"
+
+      - name: Upload the size for the benchmark history
+        uses: actions/upload-artifact@v7
+        with:
+          name: bench-size-${{ strategy.job-index }}
+          path: bench/size-${{ strategy.job-index }}.json
 
   # The remote load receiver as the Arduino IDE builds it: only the files of its folder, in C++17.
   # utils_pins.h and utils_bits.h are copies of the router's, since the IDE sees nothing else.
@@ -179,8 +190,27 @@ jobs:
 
       - uses: ./.github/actions/setup-platformio
 
+      # verbose, for the BENCH| lines of the benchmarks (test/embedded/bench_report.h)
       - name: Run embedded tests in simavr
-        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e uno_sim
+        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e uno_sim -v | tee embedded-tests.log
+
+      - name: Collect the benchmark results
+        run: |
+          mkdir -p bench
+          python3 scripts/ci/bench_to_json.py embedded-tests.log > bench/speed.json
+          {
+            echo "### Benchmarks (simavr, exact)"
+            echo ""
+            echo "| Benchmark | Value | Unit |"
+            echo "|---|---:|---|"
+            jq -r '.[] | "| \(.name) | \(.value) | \(.unit) |"' bench/speed.json
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the benchmark results
+        uses: actions/upload-artifact@v7
+        with:
+          name: bench-speed
+          path: bench/speed.json
 
   # The production firmware on a simulated 3-phase grid (sim/README.md):
   # regulation, load priorities, ISR timing and switching instants, no hardware needed.
@@ -256,3 +286,62 @@ jobs:
         with:
           name: grid-sim
           path: sim/out/
+
+  # Benchmark history (https://fredm67.github.io/PVRouter-3-phase/bench/): the cycle counts of the
+  # embedded benchmarks and the size of every build, smaller is better. Each push to dev adds a
+  # point to the history (gh-pages, folder bench/, kept by the doxygen deploy); a pull request is
+  # compared with the last point, and anything more than 2% worse gets a comment. The only job
+  # that writes to gh-pages here, in the same concurrency group as the doxygen deploy.
+  benchmarks:
+    name: Benchmarks
+    needs: [ build, test-embedded ]
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # push the history to gh-pages (dev only), comment on the commit
+    concurrency:
+      group: ${{ github.event_name == 'push' && 'gh-pages' || format('benchmarks-{0}', github.run_id) }}
+      cancel-in-progress: false
+    env:
+      # record on dev only; comment unless the pull request comes from a fork (read-only token)
+      RECORD: ${{ github.event_name == 'push' && github.ref == 'refs/heads/dev' }}
+      COMMENT: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: bench-*
+          path: bench
+          merge-multiple: true
+
+      - name: Merge the sizes of the builds
+        run: jq -s 'add' bench/size-*.json > bench/size.json
+
+      - name: Speed
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: Speed (simavr)
+          tool: customSmallerIsBetter
+          output-file-path: bench/speed.json
+          benchmark-data-dir-path: bench
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: ${{ env.RECORD }}
+          alert-threshold: '102%'
+          comment-on-alert: ${{ env.COMMENT }}
+          fail-on-alert: false
+          summary-always: true
+
+      - name: Firmware size
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: Firmware size
+          tool: customSmallerIsBetter
+          output-file-path: bench/size.json
+          benchmark-data-dir-path: bench
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: ${{ env.RECORD }}
+          alert-threshold: '102%'
+          comment-on-alert: ${{ env.COMMENT }}
+          fail-on-alert: false
+          summary-always: true
