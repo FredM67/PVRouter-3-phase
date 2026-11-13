@@ -147,7 +147,9 @@ valid load maps ([#160]).
 
 - **Benchmark history** on GitHub Pages ([bench](https://fredm67.github.io/PVRouter-3-phase/bench/)):
   the cycle counts of the simavr benchmarks and the flash and RAM of every build, recorded on
-  each push to `dev`; a pull request that makes one more than 2% worse gets a comment.
+  each push to `dev`.
+- **Performance report** on every pull request, as a comment updated at each push: the target
+  branch is measured in the same run and compared with the PR, 🚨 beyond 2% worse.
 - **Configurator CI:** its default choices must regenerate the shipped config files byte for
   byte; presets are built with PlatformIO, and their YAML checked with `esphome config`.
 - **Grid simulator** (`sim/`, simavr): the production firmware runs on a simulated 3-phase grid,

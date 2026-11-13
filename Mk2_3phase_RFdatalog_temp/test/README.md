@@ -81,7 +81,9 @@ Every benchmark result is printed once more as a machine-readable line, with `be
 BENCH|datalog: vrms max|653|cycles
 ```
 
-CI collects these lines from the verbose output of the embedded tests (`scripts/ci/bench_to_json.py`), together with the flash and RAM of every build, and tracks them on GitHub Pages: [fredm67.github.io/PVRouter-3-phase/bench](https://fredm67.github.io/PVRouter-3-phase/bench/). Each push to `dev` adds a point to the charts; a pull request is compared with the last point, and any value more than **2%** worse gets a comment. Smaller is better everywhere.
+CI collects these lines from the verbose output of the embedded tests (`scripts/ci/bench_to_json.py`), together with the flash and RAM of every build, and tracks them on GitHub Pages: [fredm67.github.io/PVRouter-3-phase/bench](https://fredm67.github.io/PVRouter-3-phase/bench/). Each push to `dev` adds a point to the charts. Smaller is better everywhere.
+
+Every pull request gets a **performance report** as a comment, updated at each push (as ESPHome does for memory): its target branch is built and measured in the same run (`scripts/ci/measure.sh`), and compared with the PR (`scripts/ci/pr_report.py`). 📈 🚨 marks a value more than **2%** worse, 📈 🔸 a smaller regression, 📉 ✅ / 🎉 an improvement. PRs from forks get the report in the job summary only.
 
 simavr is cycle-accurate, so the values are exact and identical from run to run: only a change of the code moves them. The name of a result is the key of its history - renaming it starts a new chart.
 
