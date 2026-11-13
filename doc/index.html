@@ -92,6 +92,32 @@ Description</h1>
 <p><a class="el" href="Mk2__3phase__RFdatalog__temp_8ino.html" title="A photovoltaic energy diverter.">Mk2_3phase_RFdatalog_temp.ino</a> - Arduino program that maximizes the use of home photovoltaic production by monitoring energy consumption and diverting power to one or more resistive charge(s) when needed. In the absence of such a system, surplus energy flows away to the grid and is of no benefit to the PV-owner.</p>
 <h1><a class="anchor" id="history"></a>
 History</h1>
+<p><b>November 2026: changes:</b></p><ul>
+<li>no floating-point code left: integer datalog arithmetic, with a square root in assembly</li>
+<li>calibration values per board, CT rating of the new motherboard</li>
+<li>configurator web page for the router, the remote units and the mk2Wifi module</li>
+<li>the remote load receiver builds with the Arduino IDE</li>
+<li>flash, RAM and speed report on every pull request, size history on GitHub Pages</li>
+</ul>
+<p><b>October 2026: changes:</b></p><ul>
+<li>PCB_VERSION: the new motherboard and its internal 1.1 V ADC reference</li>
+<li>calibration mode in the router firmware, replacing the calibration sketch</li>
+<li>one diversion switch for every output, and a router OFF pin</li>
+<li>output for the mk2Wifi module, info vs debug messages, float-free text output</li>
+<li>fixes: temperature sensing, 255-minute boost, IoT relay tags, buffer overflows</li>
+<li>smaller relay code; relay pin writes no longer clobber the load pins</li>
+<li>remote load receiver: hardware watchdog, status LED, frame length check</li>
+<li>changelog of the changes on dev (CHANGELOG.md)</li>
+</ul>
+<p><b>September 2026: changes:</b></p><ul>
+<li>remote loads over RFM69, with several remote units; RFM12B / JeeLib no longer supported</li>
+<li>integer energy bucket: no float or division left in the ADC ISR</li>
+<li>left-aligned ADC and circular channel list</li>
+<li>non-blocking serial output of the datalog, ArduinoJson no longer needed</li>
+<li>dual tariff load forcing and its temperature threshold restored</li>
+<li>grid simulator (simavr): the firmware runs on a simulated 3-phase grid, with RF and remote units</li>
+<li>embedded tests in simavr instead of Wokwi</li>
+</ul>
 <p><b>January 2026: changes:</b></p><ul>
 <li>override pins now support remote loads via virtual pin mapping</li>
 <li>FastDivision performance benchmarks with Wokwi simulation</li>
@@ -225,7 +251,7 @@ History</h1>
 </li>
 </ul>
 <dl class="section author"><dt>Author</dt><dd>Fred Metrich </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025-2026</dd></dl>
 <p><b>February 2020: updated to Mk2_3phase_RFdatalog_3a with these changes:</b></p><ul>
 <li>removal of some redundant code in the logic for determining the next load state.</li>
 </ul>
