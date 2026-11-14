@@ -2,11 +2,12 @@
  * @file test_main.cpp
  * @brief Performance benchmarks for assembly multiplication functions
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-14
  *
  * This file contains performance benchmarks for the assembly-optimized
- * multiplication functions. These tests should only be run on real hardware,
- * not in CI simulators where timing is meaningless.
+ * multiplication functions. They run in CI in the simavr simulator (uno_sim
+ * environment), which is cycle-accurate: the timings are exact and the same
+ * from run to run. Every result is also printed as a BENCH line (bench_report.h).
  *
  * Based on:
  * - florentbr's optimization suggestions for PVRouter
@@ -479,7 +480,7 @@ void loop()
   if (i < max_blinks)
   {
     Serial.println(F("========================================"));
-    Serial.println(F("Performance Tests (Hardware Only)"));
+    Serial.println(F("Performance Tests"));
     Serial.println(F("========================================"));
     Serial.println(F(""));
 
