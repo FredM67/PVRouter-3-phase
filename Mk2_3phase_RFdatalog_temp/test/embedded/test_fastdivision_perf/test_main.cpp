@@ -5,10 +5,11 @@
  * Measures execution time of AVR assembly fast division functions
  * compared to standard C division operators.
  *
- * IMPORTANT: This test is for REAL HARDWARE ONLY, not CI.
- * Run manually with: pio test -e uno -f "*test_fastdivision_perf*"
+ * Runs in CI in the simavr simulator (uno_sim environment): simavr is cycle-accurate, so the
+ * timings are exact and the same from run to run. On a connected board:
+ * pio test -e uno -f "*test_fastdivision_perf*"
  *
- * Results are printed to Serial for documentation purposes.
+ * Every result is also printed as a BENCH line (bench_report.h), for the CI benchmark history.
  */
 
 #include <Arduino.h>
@@ -314,9 +315,9 @@ void test_perf_summary(void)
   Serial.print(F("The AVR assembly fast division functions provide significant speedup\n"));
   Serial.print(F("over standard C division operators, which is critical for ISR performance.\n"));
   Serial.print(F("\n"));
-  Serial.print(F("Key findings:\n"));
-  Serial.print(F("- divu10: ~3-4x faster than standard uint16_t division\n"));
-  Serial.print(F("- divmod10: ~5-7x faster than standard uint32_t div+mod\n"));
+  Serial.print(F("Key findings (measured on an Arduino Uno, see the speedups above):\n"));
+  Serial.print(F("- divu10: ~4.8x faster than standard uint16_t division\n"));
+  Serial.print(F("- divmod10: ~4.4x faster than standard uint32_t div+mod\n"));
   Serial.print(F("- Shift-based divisions (divu2/4/8) compile to single instructions\n"));
   Serial.print(F("================================================================================\n"));
 
