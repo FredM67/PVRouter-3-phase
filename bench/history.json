@@ -143,6 +143,30 @@
      "ram": 400
     }
    }
+  },
+  {
+   "commit": "3ab20d28698998eaf4724235678037d3b67fb38e",
+   "date": "2026-11-14T22:39:33+01:00",
+   "message": "docs(test): all embedded suites listed, benchmarks run in simavr (#203)\n\n- test README: test_fastdivision_perf, test_mult_asm_perf and\n  test_serial_output added to the tree and the table\n- the _perf suites run in CI in simavr (cycle-accurate), not\n  \"hardware only\": headers, banner and test_mult_asm README fixed\n- figures from a new run on an Arduino Uno: ISR simulation of\n  test_mult_asm_perf (1.53x, 4.40 us saved), and the speedups of the\n  fastdivision summary (divu10 ~4.8x, divmod10 ~4.4x)\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/3ab20d28698998eaf4724235678037d3b67fb38e",
+   "sizes": {
+    "basic": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8584,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8588,
+     "ram": 400
+    }
+   }
   }
  ]
 }
