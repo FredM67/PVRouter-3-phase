@@ -16,13 +16,18 @@ The PVRouter achieves excellent performance characteristics for a real-time embe
 
 ### ADC Interrupt Service Routine (ISR)
 
-| Operation | Typical Time | Max Time | Notes |
-|-----------|-------------|----------|-------|
-| ADC sample processing | 25μs | 35μs | Per sample (V or I) |
-| Power calculation | 15μs | 25μs | 16-bit integer math |
-| Energy bucket update | 8μs | 12μs | Integer multiply by a compile-time `cal / n` table, no division or float (~125 cycles) |
-| Load state decision | 5μs | 10μs | Threshold comparison |
-| **Total ISR time** | **53μs** | **82μs** | **Well within 104μs budget** |
+The ADC is free-running: one conversion every 104 µs (13 ADC clocks at 125 kHz, 1,664 CPU cycles), and one ISR call per conversion. Each call must end before the next conversion completes.
+
+Measured cycle-exactly in the grid simulator (`make -C sim check`, `basic` firmware, ISR entry to `reti`):
+
+| Measure | Cycles | Time | Share of the 104 µs period | When |
+|---------|--------|------|----------------------------|------|
+| Average | 350 | 21.9 µs | 21 % | every call |
+| Maximum, steady state | ~1,050 | ~66 µs | 63 % | once per datalog period (the mains cycle that copies the datalog values) |
+| Maximum, one-off | ~1,400 | ~88 µs | 85 % | once, at the end of the start-up period |
+| Calls longer than one conversion | 0 | | | |
+
+Of the average, about 150 cycles (~9 µs) are the entry and exit of the ISR: it saves and restores 31 registers and sets up a 6-byte stack frame. The energy bucket update is an integer multiply by a compile-time `cal / n` table, no division or float (~125 cycles, once per phase and mains cycle).
 
 ### Main Loop Operations
 
@@ -82,16 +87,16 @@ volatile bool flags[6];                             // 6 bytes
 ### ADC Processing Performance
 
 **Test Setup**: Arduino Uno, 16MHz, standard 3-phase configuration
-**Measurement Method**: Digital pin toggling with oscilloscope
+**Measurement Method**: grid simulator (simavr), cycle-exact; see [ADC Interrupt Service Routine](#adc-interrupt-service-routine-isr)
 
 | Metric | Value | Unit | Notes |
 |--------|-------|------|-------|
-| ADC conversion time | 13 | μs | Hardware limit (104 ADC clock cycles) |
-| Sample processing time | 25 | μs | Software processing per sample |
-| Maximum samples/second | 9,615 | Hz | Theoretical maximum |
-| Actual sampling rate | 9,600 | Hz | Practical sustained rate |
-| ISR overhead | 8 | μs | Context switching |
-| **Total cycle time** | **104** | **μs** | **Meets real-time requirements** |
+| ADC conversion time | 104 | μs | 13 ADC clocks at 125 kHz (16 MHz / 128), free-running |
+| Sample processing time | 21.9 | μs | ISR average per sample (V or I), 350 cycles |
+| Maximum samples/second | 9,615 | Hz | 1 / 104 µs |
+| Actual sampling rate | 9,615 | Hz | Free-running: one sample per conversion |
+| ISR overhead | ~9 | μs | Entry and exit: 31 registers saved and restored, 6-byte stack frame (~150 cycles) |
+| **Total cycle time** | **104** | **μs** | **Average ISR 21 % of it, longest steady-state call 63 %** |
 
 ### Power Calculation Accuracy
 
@@ -133,8 +138,8 @@ volatile bool flags[6];                             // 6 bytes
 2. **Constexpr Calculations**
    ```cpp
    // Pre-calculated at compile time
-   inline constexpr float invSUPPLY_FREQUENCY{ 1.0F / SUPPLY_FREQUENCY };
-   inline constexpr float invDATALOG_PERIOD{ 1.0F / DATALOG_PERIOD_IN_MAINS_CYCLES };
+   // Float calibration values turned into 16-bit fixed-point constants
+   const Datalog::FixedCalibration< NO_OF_PHASES > powerCalFixed PROGMEM{ Datalog::powerCalibration(f_powerCal) };
    ```
 
 3. **Static Configuration Validation**

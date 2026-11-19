@@ -2,17 +2,17 @@
 
 This directory contains Unity-based unit tests for the assembly-optimized multiplication functions.
 
-**Note:** Performance benchmarks are in a separate directory (`test_mult_asm_perf/`) and should only be run on real hardware, not in CI simulators.
+**Note:** Performance benchmarks are in a separate directory (`test_mult_asm_perf/`). Both suites run in CI in the simavr simulator (`uno_sim` environment), which is cycle-accurate: the benchmark timings are exact, and tracked in the CI benchmark history.
 
 ## Running the Tests
 
-To run the multiplication function tests on embedded hardware (AVR):
+To run the multiplication function tests on a connected board (AVR), or in simavr with `--environment uno_sim`:
 
 ```bash
-# Run functional tests (suitable for CI)
+# Run functional tests
 pio test --environment uno --filter test_mult_asm
 
-# Run performance benchmarks (hardware only, not for CI)
+# Run performance benchmarks
 pio test --environment uno --filter test_mult_asm_perf
 
 # Run all multiplication tests including benchmarks
@@ -55,21 +55,22 @@ Results measured on real Arduino Uno hardware:
 
 | Function | Operations | Assembly Time | Standard Time | Speedup |
 |----------|------------|---------------|---------------|---------|
-| `multS16x16_to32` | 36,000 | 99,376μs | 146,748μs | **1.48x** |
-| `multU16x16_to32` | 49,000 | 127,632μs | 146,504μs | **1.15x** |
+| `multS16x16_to32` | 36,000 | 99,376μs | 146,744μs | **1.48x** |
+| `multU16x16_to32` | 49,000 | 127,636μs | 146,496μs | **1.15x** |
 | `mult16x8_q8` | 480,000 | 792,828μs | 1,867,324μs | **2.36x** |
 
 **ISR Simulation (1,000 samples):**
 
 | Metric | Assembly | Standard | Improvement |
 |--------|----------|----------|-------------|
-| Total time | 8,364μs | 12,076μs | **1.44x faster** |
-| Time per sample | 8.36μs | 12.08μs | **3.71μs saved** |
+| Total time | 8,364μs | 12,768μs | **1.53x faster** |
+| Time per sample | 8.36μs | 12.77μs | **4.40μs saved** |
 
 **Why This Matters:**
 
-The ADC ISR runs at 9.6 kHz (every 104μs). Saving 3.71μs per ISR iteration:
-- Reduces ISR execution time by ~3.6%
+The ADC ISR runs at 9.6 kHz (every 104μs). Saving 4.40μs per ISR iteration:
+
+- Frees ~4.2% of each 104μs ISR period
 - Provides more headroom for other processing
 - Critical for maintaining real-time performance
 
@@ -83,4 +84,4 @@ The tests follow the Unity testing framework pattern used throughout the project
 
 ## Hardware Requirements
 
-These tests require AVR hardware (Arduino Uno/compatible) since they test AVR-specific assembly optimizations.
+These tests need an AVR (Arduino Uno/compatible) since they test AVR-specific assembly optimizations: a real board, or the simavr simulator (`uno_sim` environment, Linux/WSL).

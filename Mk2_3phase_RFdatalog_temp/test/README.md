@@ -7,6 +7,7 @@ Unit tests for PVRouter-3-phase firmware.
 ```
 test/
 ├── native/           # Run on host PC (no hardware required)
+│   ├── test_datalog_math/
 │   ├── test_dc_offset_filter/
 │   ├── test_energy_bucket/
 │   ├── test_ewma_avg/
@@ -14,8 +15,12 @@ test/
 │   ├── test_remote_loads/
 │   └── test_utils_override/
 └── embedded/         # Run on Arduino or Wokwi simulator
+    ├── test_datalog_math_avr/
     ├── test_fastdivision/
+    ├── test_fastdivision_perf/
     ├── test_mult_asm/
+    ├── test_mult_asm_perf/
+    ├── test_serial_output/
     ├── test_teleinfo/
     ├── test_utils_pins/
     ├── test_utils_relay/
@@ -45,6 +50,7 @@ pio test -e uno -f "*test_utils_relay*"
 
 | Test | Purpose |
 |------|---------|
+| [test_datalog_math](native/test_datalog_math/) | Integer power and RMS voltage of the datalog, checked against the float references |
 | [test_dc_offset_filter](native/test_dc_offset_filter/) | DC offset removal filter |
 | [test_energy_bucket](native/test_energy_bucket/) | Integer energy bucket, checked against the float and exact references |
 | [test_ewma_avg](native/test_ewma_avg/) | EWMA filter for cloud immunity |
@@ -56,8 +62,12 @@ pio test -e uno -f "*test_utils_relay*"
 
 | Test | Purpose |
 |------|---------|
+| [test_datalog_math_avr](embedded/test_datalog_math_avr/) | Integer datalog arithmetic on the target: the assembly square root at every rounding boundary, and cycle counts against the float code |
 | [test_fastdivision](embedded/test_fastdivision/) | AVR assembly fast division (divu10, divmod10) |
+| [test_fastdivision_perf](embedded/test_fastdivision_perf/) | Benchmark: fast division against the C `/` and `%` operators |
 | [test_mult_asm](embedded/test_mult_asm/) | AVR assembly multiplication optimization |
+| [test_mult_asm_perf](embedded/test_mult_asm_perf/) | Benchmark: assembly multiplications, and their cost in a simulated ISR |
+| [test_serial_output](embedded/test_serial_output/) | Non-blocking serial output: waits for room in the transmit buffer, decimal printing, Teleinfo frame written in parts |
 | [test_teleinfo](embedded/test_teleinfo/) | French Teleinfo protocol parsing |
 | [test_utils_pins](embedded/test_utils_pins/) | GPIO pin manipulation |
 | [test_utils_relay](embedded/test_utils_relay/) | Relay control logic and timing |
@@ -68,6 +78,20 @@ pio test -e uno -f "*test_utils_relay*"
 - **Native tests**: Run on Ubuntu in GitHub Actions
 - **Embedded tests**: Run in the [simavr](https://github.com/buserror/simavr) simulator (`uno_sim` environment), benchmarks included
 - See `.github/workflows/build.yml` for configuration
+
+## Benchmark history
+
+Every benchmark result is printed once more as a machine-readable line, with `benchReport()` from [`embedded/bench_report.h`](embedded/bench_report.h):
+
+```
+BENCH|datalog: vrms max|653|cycles
+```
+
+CI collects these lines from the verbose output of the embedded tests (`scripts/ci/bench_to_json.py`), together with the flash and RAM of every build: they feed the performance report of the pull requests (below). The flash and RAM are also tracked on GitHub Pages, one chart each with every build configuration: [fredm67.github.io/PVRouter-3-phase/bench](https://fredm67.github.io/PVRouter-3-phase/bench/). Each push to `dev` adds a point (`scripts/ci/pages_update.py`). Smaller is better everywhere.
+
+Every pull request gets a **performance report** as a comment, updated at each push (as ESPHome does for memory): its target branch is built and measured in the same run (`scripts/ci/measure.sh`), and compared with the PR (`scripts/ci/pr_report.py`). 📈 🚨 marks a value more than **2%** worse, 📈 🔸 a smaller regression, 📉 ✅ / 🎉 an improvement. PRs from forks get the report in the job summary only.
+
+simavr is cycle-accurate, so the values are exact and identical from run to run: only a change of the code moves them. The name of a result is its key in the report - renaming it shows it as new.
 
 Every embedded test must call `haltAfterTests()` (from [`embedded/halt_after_tests.h`](embedded/halt_after_tests.h)) right after `UNITY_END()`:
 the suite then runs once, and simavr exits instead of running forever.

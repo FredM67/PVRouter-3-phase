@@ -308,7 +308,9 @@ public:
   /**
    * @brief Construct a list of relays with a custom sliding average.
    *
-   * @param ic Integral constant representing the sliding average duration.
+   * The first argument, an unnamed integral_constant, only carries the sliding average
+   * duration D in its type.
+   *
    * @param ref Array of relay configurations.
    */
   constexpr RelayEngine(integral_constant< uint8_t, D > /* ic */, const relayOutput (&ref)[N])

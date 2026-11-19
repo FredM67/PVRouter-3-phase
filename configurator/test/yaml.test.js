@@ -85,6 +85,34 @@ test('without the IoT output, no UART and no router sensor', () => {
   assert.doesNotMatch(y, /uart:|mk2pvrouter:|platform: mk2pvrouter/);
 });
 
+// ESPHome rejects an access point SSID above 32 bytes in UTF-8
+function apSsid(yaml) {
+  const m = yaml.match(/\n {2}ap:\n {4}ssid: (".*")\n/);
+  assert.ok(m, 'ap ssid');
+  return JSON.parse(m[1]);
+}
+
+test('fallback access point: SSID within 32 bytes in UTF-8, cut on a whole character', () => {
+  const bytes = (s) => Buffer.byteLength(s, 'utf8');
+  for (const [language, name] of [
+    ['fr', undefined],
+    ['en', undefined],
+    ['fr', 'Routeur photovoltaïque du garage'],
+    ['fr', 'Mk2PVRouter’’’’’’’’’’'],
+  ]) {
+    const s = apSsid(
+      wifi((m) => {
+        m.mk2wifi.language = language;
+        if (name) m.mk2wifi.friendlyName = name;
+      })
+    );
+    assert.ok(bytes(s) <= 32, `${language} ${name}: ${s} is ${bytes(s)} bytes`);
+    assert.ok(!s.includes('�') && s === s.trimEnd(), s);
+  }
+  // short enough: kept whole
+  assert.strictEqual(apSsid(wifi((m) => (m.mk2wifi.language = 'en'))), 'Mk2PVRouter Fallback Hotspot');
+});
+
 test('entity names follow the chosen language', () => {
   assert.match(wifi(), /name: "Puissance instantanée"/);
   assert.match(

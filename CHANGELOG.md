@@ -125,6 +125,10 @@ valid load maps ([#160]).
 - **Integer energy bucket:** no float and no division left in the ADC ISR; the contribution at
   each zero crossing drops from ~1000 to ~125 cycles. Hand-written 16x16 and 24x16 multiplies
   ([#163]).
+- **No float code left:** the datalog (power and voltage per phase) and the load ON times of the
+  IoT output use integer arithmetic too, with an assembly integer square root; the float library
+  is no longer linked: about 365 bytes of flash and 24 bytes of RAM less. The voltage takes ~570
+  cycles per phase instead of ~830, the power ~155 instead of ~290 ([#120]).
 - **Flash:**
   - the RFM69 driver is only linked when RF is used (+2.9 kB avoided without RF) ([#155]);
   - the relay code is 396 bytes smaller ([#175]);
@@ -141,23 +145,29 @@ valid load maps ([#160]).
 
 ### Development
 
+- **GitHub Pages** ([fredm67.github.io/PVRouter-3-phase](https://fredm67.github.io/PVRouter-3-phase/)):
+  a landing page to the code documentation (now in `doc/`) and the **firmware size history**,
+  the flash and RAM of every build configuration on two charts, recorded on each push to `dev`.
+- **Performance report** on every pull request, as a comment updated at each push: the target
+  branch is measured in the same run and compared with the PR, 🚨 beyond 2% worse.
 - **Configurator CI:** its default choices must regenerate the shipped config files byte for
   byte; presets are built with PlatformIO, and their YAML checked with `esphome config`.
 - **Grid simulator** (`sim/`, simavr): the production firmware runs on a simulated 3-phase grid,
   with scenarios checked in CI. It covers regulation, ISR timing and switching instants ([#169],
   [#170]), the RFM69 radio and the receiver firmware with frame loss ([#171], [#173]), relay
-  diversion ([#176]), and runs the scenarios in parallel ([#174]).
+  diversion ([#176]), and runs the scenarios in parallel ([#174]), over several CI jobs.
 - **Embedded tests in simavr** instead of Wokwi, with no token needed ([#168]); CI without
   duplicate runs, with automatic test discovery ([#167]).
 - **CI builds** every environment ([#154]) and the IoT serial output, and reports flash and RAM
   in the job summary ([#166], [#180]).
-- **Tests:** native suites for the energy bucket, the remote loads, the overrides, the RMS
-  pipeline and the DC filter, and simavr tests for the relays, the serial output and the
-  multiplies ([#127], [#160], [#163], [#172], [#180]).
+- **Tests:** native suites for the energy bucket, the datalog arithmetic, the remote loads, the
+  overrides, the RMS pipeline and the DC filter, and simavr tests for the relays, the serial output and the
+  multiplies ([#120], [#127], [#160], [#163], [#172], [#180]).
 - **Workflow:** `main` (stable) and `dev` (development) branches ([#134], [#135]), pre-commit
   hooks for formatting and file headers ([#153], [#159]).
 
 [Unreleased]: https://github.com/FredM67/PVRouter-3-phase/compare/main...dev
+[#120]: https://github.com/FredM67/PVRouter-3-phase/issues/120
 [#121]: https://github.com/FredM67/PVRouter-3-phase/issues/121
 [#127]: https://github.com/FredM67/PVRouter-3-phase/pull/127
 [#134]: https://github.com/FredM67/PVRouter-3-phase/pull/134

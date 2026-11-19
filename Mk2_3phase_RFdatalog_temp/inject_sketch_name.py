@@ -1,20 +1,33 @@
-from datetime import datetime, timezone
+from datetime import datetime
 import os
-from pathlib import Path
 import subprocess
-from subprocess import check_output, CalledProcessError
+
+Import("env")
+
+
+def git(*args) -> str:
+  """The output of a git command run in the project, or "N/A" (no git, not a repository, empty).
+
+  No shell: with shell=True, a list of arguments only runs its first element on Linux - a bare
+  'git', which fails - so Linux builds always said N/A.
+  """
+  try:
+    output = subprocess.check_output(["git", *args], cwd=env["PROJECT_DIR"], stderr=subprocess.DEVNULL)
+  except (OSError, subprocess.CalledProcessError):
+    return "N/A"
+  return output.decode("utf-8").strip() or "N/A"
+
 
 def get_git_revision_short_hash() -> str:
-  try:
-    return subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'],shell=True).decode('utf-8').strip()
-  except CalledProcessError:
-    return "N/A"
+  # a fixed length: plain --short grows when an abbreviation becomes ambiguous, and the size of
+  # the firmware would move with it (the PR report compares sizes to the byte)
+  return git("rev-parse", "--short=8", "HEAD")
+
 
 def get_git_current_branch() -> str:
-  try:
-    return subprocess.check_output(['git', 'branch', '--show-current'],shell=True).decode('utf-8').strip()
-  except CalledProcessError:
-    return "N/A"
+  # empty, hence N/A, on a detached HEAD (CI checkouts)
+  return git("branch", "--show-current")
+
 
 def write_version_h(file_path, project_path, current_time, branch_name, commit_hash, build_env):
     content = f"""\
@@ -33,8 +46,6 @@ def write_version_h(file_path, project_path, current_time, branch_name, commit_h
     if not os.path.exists(file_path) or open(file_path).read() != content:
         with open(file_path, "w") as f:
             f.write(content)
-
-Import("env")
 
 # Get project directory and other values
 proj_path = os.path.basename(env["PROJECT_DIR"])

@@ -365,8 +365,6 @@
         '/**< Period of datalogging in cycles */',
       ],
       '',
-      "// Computes inverse value at compile time to use '*' instead of '/'",
-      'inline constexpr float invDATALOG_PERIOD_IN_MAINS_CYCLES{ 1.0F / DATALOG_PERIOD_IN_MAINS_CYCLES };',
       '//--------------------------------------------------------------------------------------------------',
       '',
       '#endif  // CONFIG_SYSTEM_H',

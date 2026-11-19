@@ -157,7 +157,7 @@ private:
 #### Interrupt Service Routines
 ```cpp
 // ISR must be:
-// - Minimal in duration (<50μs)
+// - Minimal in duration (well within one ADC conversion, 104μs; ~22μs on average today)
 // - Atomic in operation
 // - Free of blocking calls
 

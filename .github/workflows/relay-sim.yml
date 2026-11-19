@@ -48,9 +48,14 @@ env:
 
 jobs:
   grid-sim-relays:
-    name: Grid simulation (relays)
+    name: Grid simulation (relays ${{ matrix.part }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # the scenarios spread over jobs, two each (sim/ci_targets.sh)
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [ '1/3', '2/3', '3/3' ]
     steps:
       - uses: actions/checkout@v7
         with:
@@ -68,13 +73,16 @@ jobs:
         run: pio pkg install --global --tool platformio/tool-simavr
 
       - name: Run relay scenarios
-        run: make -C sim -j"$(nproc)" -k check-relays
+        run: |
+          targets=$(sim/ci_targets.sh relays ${{ matrix.part }})
+          echo "make $targets"
+          make -C sim -j"$(nproc)" -k $targets
 
       - name: Report relay scenarios
         if: always()
         run: |
           {
-            echo "### Grid simulation (relays)"
+            echo "### Grid simulation (relays ${{ matrix.part }})"
             echo '```'
             cat sim/out/*-summary.txt 2>/dev/null || echo "no summary"
             echo '```'
@@ -84,5 +92,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: grid-sim-relays
+          name: grid-sim-relays-${{ strategy.job-index }}
           path: sim/out/

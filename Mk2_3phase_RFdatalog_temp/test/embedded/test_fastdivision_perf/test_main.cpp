@@ -5,15 +5,17 @@
  * Measures execution time of AVR assembly fast division functions
  * compared to standard C division operators.
  *
- * IMPORTANT: This test is for REAL HARDWARE ONLY, not CI.
- * Run manually with: pio test -e uno -f "*test_fastdivision_perf*"
+ * Runs in CI in the simavr simulator (uno_sim environment): simavr is cycle-accurate, so the
+ * timings are exact and the same from run to run. On a connected board:
+ * pio test -e uno -f "*test_fastdivision_perf*"
  *
- * Results are printed to Serial for documentation purposes.
+ * Every result is also printed as a BENCH line (bench_report.h), for the CI benchmark history.
  */
 
 #include <Arduino.h>
 #include <unity.h>
 
+#include "../bench_report.h"
 #include "../halt_after_tests.h"
 
 #include "FastDivision.h"
@@ -88,6 +90,7 @@ void test_perf_divu10_small_values(void)
   stdTime = endTime - startTime;
 
   reportBenchmark("small", fastTime, stdTime);
+  benchReport(F("fastdivision: divu10 small"), fastTime, F("us"));
 
   // Just verify correctness, not timing (speedup varies)
   TEST_ASSERT_TRUE(fastTime > 0);
@@ -121,6 +124,7 @@ void test_perf_divu10_medium_values(void)
   stdTime = endTime - startTime;
 
   reportBenchmark("medium", fastTime, stdTime);
+  benchReport(F("fastdivision: divu10 medium"), fastTime, F("us"));
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -153,6 +157,7 @@ void test_perf_divu10_large_values(void)
   stdTime = endTime - startTime;
 
   reportBenchmark("large", fastTime, stdTime);
+  benchReport(F("fastdivision: divu10 large"), fastTime, F("us"));
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -194,6 +199,7 @@ void test_perf_divmod10_small_values(void)
   stdTime = endTime - startTime;
 
   reportBenchmark("small", fastTime, stdTime);
+  benchReport(F("fastdivision: divmod10 small"), fastTime, F("us"));
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -231,6 +237,7 @@ void test_perf_divmod10_large_values(void)
   stdTime = endTime - startTime;
 
   reportBenchmark("large", fastTime, stdTime);
+  benchReport(F("fastdivision: divmod10 large"), fastTime, F("us"));
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -282,6 +289,9 @@ void test_perf_cycle_estimation(void)
   Serial.print(divmod10Cycles, 1);
   Serial.print(F(" cycles"));
 
+  benchReport(F("fastdivision: divu10 x1000"), divu10Time, F("us"));
+  benchReport(F("fastdivision: divmod10 x1000"), divmod10Time, F("us"));
+
   Serial.print(F("\n\nNote: Cycle counts include loop overhead and function call."));
   Serial.print(F("\nActual instruction cycles are lower than measured."));
 
@@ -305,9 +315,9 @@ void test_perf_summary(void)
   Serial.print(F("The AVR assembly fast division functions provide significant speedup\n"));
   Serial.print(F("over standard C division operators, which is critical for ISR performance.\n"));
   Serial.print(F("\n"));
-  Serial.print(F("Key findings:\n"));
-  Serial.print(F("- divu10: ~3-4x faster than standard uint16_t division\n"));
-  Serial.print(F("- divmod10: ~5-7x faster than standard uint32_t div+mod\n"));
+  Serial.print(F("Key findings (measured on an Arduino Uno, see the speedups above):\n"));
+  Serial.print(F("- divu10: ~4.8x faster than standard uint16_t division\n"));
+  Serial.print(F("- divmod10: ~4.4x faster than standard uint32_t div+mod\n"));
   Serial.print(F("- Shift-based divisions (divu2/4/8) compile to single instructions\n"));
   Serial.print(F("================================================================================\n"));
 

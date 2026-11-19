@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Basic configuration values to be set by the end-user
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-13
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -31,8 +31,6 @@ inline constexpr uint8_t DATALOG_PERIOD_IN_SECONDS{ 5 }; /**< Period of datalogg
 
 inline constexpr typename conditional< DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY >= UINT8_MAX, uint16_t, uint8_t >::type DATALOG_PERIOD_IN_MAINS_CYCLES{ DATALOG_PERIOD_IN_SECONDS * SUPPLY_FREQUENCY }; /**< Period of datalogging in cycles */
 
-// Computes inverse value at compile time to use '*' instead of '/'
-inline constexpr float invDATALOG_PERIOD_IN_MAINS_CYCLES{ 1.0F / DATALOG_PERIOD_IN_MAINS_CYCLES };
 //--------------------------------------------------------------------------------------------------
 
 #endif  // CONFIG_SYSTEM_H

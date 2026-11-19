@@ -2,11 +2,12 @@
  * @file test_main.cpp
  * @brief Performance benchmarks for assembly multiplication functions
  * @version 0.1
- * @date 2026-09-30
+ * @date 2026-11-14
  *
  * This file contains performance benchmarks for the assembly-optimized
- * multiplication functions. These tests should only be run on real hardware,
- * not in CI simulators where timing is meaningless.
+ * multiplication functions. They run in CI in the simavr simulator (uno_sim
+ * environment), which is cycle-accurate: the timings are exact and the same
+ * from run to run. Every result is also printed as a BENCH line (bench_report.h).
  *
  * Based on:
  * - florentbr's optimization suggestions for PVRouter
@@ -17,6 +18,7 @@
 #include <Arduino.h>
 #include <unity.h>
 
+#include "../bench_report.h"
 #include "../halt_after_tests.h"
 
 #include "mult_asm.h"
@@ -102,6 +104,7 @@ void test_performance_multS16x16_to32(void)
   Serial.print(F("Assembly time: "));
   Serial.print(asm_time);
   Serial.println(F(" us"));
+  benchReport(F("mult_asm: multS16x16_to32"), asm_time, F("us"));
   Serial.print(F("Standard time: "));
   Serial.print(std_time);
   Serial.println(F(" us"));
@@ -202,6 +205,7 @@ void test_performance_multU16x16_to32(void)
   Serial.print(F("Assembly time: "));
   Serial.print(asm_time);
   Serial.println(F(" us"));
+  benchReport(F("mult_asm: multU16x16_to32"), asm_time, F("us"));
   Serial.print(F("Standard time: "));
   Serial.print(std_time);
   Serial.println(F(" us"));
@@ -304,6 +308,7 @@ void test_performance_mult16x8_q8(void)
   Serial.print(F("Assembly time: "));
   Serial.print(asm_time);
   Serial.println(F(" us"));
+  benchReport(F("mult_asm: mult16x8_q8"), asm_time, F("us"));
   Serial.print(F("Standard time: "));
   Serial.print(std_time);
   Serial.println(F(" us"));
@@ -425,6 +430,7 @@ void test_performance_isr_simulation(void)
   Serial.print(F("Assembly ISR time: "));
   Serial.print(asm_time);
   Serial.println(F(" us"));
+  benchReport(F("mult_asm: ISR simulation"), asm_time, F("us"));
   Serial.print(F("Standard ISR time: "));
   Serial.print(std_time);
   Serial.println(F(" us"));
@@ -474,7 +480,7 @@ void loop()
   if (i < max_blinks)
   {
     Serial.println(F("========================================"));
-    Serial.println(F("Performance Tests (Hardware Only)"));
+    Serial.println(F("Performance Tests"));
     Serial.println(F("========================================"));
     Serial.println(F(""));
 

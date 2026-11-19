@@ -85,6 +85,17 @@ jobs:
             echo "| Flash | $FLASH | 32256 | $((FLASH * 100 / 32256)) |"
             echo "| RAM (static) | $RAM | 2048 | $((RAM * 100 / 2048)) |"
           } >> "$GITHUB_STEP_SUMMARY"
+          # for the size history (job pages) and the PR report: smaller is better
+          LABEL="${{ matrix.environment }}${{ matrix.serial && format(', {0}', matrix.serial) || '' }}"
+          mkdir -p bench
+          printf '[{"name": "flash: %s", "value": %d, "unit": "bytes"}, {"name": "RAM: %s", "value": %d, "unit": "bytes"}]\n' \
+            "$LABEL" "$FLASH" "$LABEL" "$RAM" > "bench/size-${{ strategy.job-index }}.json"
+
+      - name: Upload the size for the size history and the PR report
+        uses: actions/upload-artifact@v7
+        with:
+          name: bench-size-${{ strategy.job-index }}
+          path: bench/size-${{ strategy.job-index }}.json
 
   # The remote load receiver as the Arduino IDE builds it: only the files of its folder, in C++17.
   # utils_pins.h and utils_bits.h are copies of the router's, since the IDE sees nothing else.
@@ -179,15 +190,40 @@ jobs:
 
       - uses: ./.github/actions/setup-platformio
 
+      # verbose, for the BENCH| lines of the benchmarks (test/embedded/bench_report.h)
       - name: Run embedded tests in simavr
-        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e uno_sim
+        run: pio test --project-dir ${{ env.PROJECT_DIR }} -e uno_sim -v | tee embedded-tests.log
+
+      - name: Collect the benchmark results
+        run: |
+          mkdir -p bench
+          python3 scripts/ci/bench_to_json.py embedded-tests.log > bench/speed.json
+          {
+            echo "### Benchmarks (simavr, exact)"
+            echo ""
+            echo "| Benchmark | Value | Unit |"
+            echo "|---|---:|---|"
+            jq -r '.[] | "| \(.name) | \(.value) | \(.unit) |"' bench/speed.json
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the benchmark results
+        uses: actions/upload-artifact@v7
+        with:
+          name: bench-speed
+          path: bench/speed.json
 
   # The production firmware on a simulated 3-phase grid (sim/README.md):
   # regulation, load priorities, ISR timing and switching instants, no hardware needed.
   grid-sim:
-    name: Grid simulation
+    name: Grid simulation (${{ matrix.part == 'rf' && 'RF' || matrix.part }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # the scenarios spread over jobs: each grid scenario on its three boards (sim/ci_targets.sh),
+    # and the RF ones, which run three microcontrollers each, in a job of their own
+    strategy:
+      fail-fast: false
+      matrix:
+        part: [ '1/3', '2/3', '3/3', rf ]
     steps:
       - uses: actions/checkout@v7
         with:
@@ -195,33 +231,66 @@ jobs:
 
       - uses: ./.github/actions/setup-platformio
 
-      # src_dir = ./ puts .pio/libdeps in PlatformIO's project checksum: installing the
-      # libraries of another environment would wipe every build, the basic one included
-      # the old board and the human-readable datalog, which grid_sim reads (sim/README.md)
+      # the old board and the human-readable datalog, which grid_sim reads (sim/README.md). A job
+      # builds basic or rf, not both: src_dir = ./ puts .pio/libdeps in PlatformIO's project
+      # checksum, and installing the libraries of the other environment would wipe the builds.
       - name: Build firmware (basic)
+        if: matrix.part != 'rf'
         run: |
           sim/configs/sim_config.sh
-          pio pkg install --project-dir ${{ env.PROJECT_DIR }} -e basic -e rf
           pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+
+      # the same scenarios on the new board: internal 1.1 V reference, calibration from calibration.h
+      - name: Build firmware (new board)
+        if: matrix.part != 'rf'
+        run: |
+          sim/configs/sim_config.sh NEW
+          PLATFORMIO_BUILD_DIR=.pio/build-new pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+          git checkout ${{ env.PROJECT_DIR }}/config.h
+
+      # and with 20 A CTs, about the resolution of the old board
+      - name: Build firmware (new board, 20 A CTs)
+        if: matrix.part != 'rf'
+        run: |
+          sim/configs/sim_config.sh NEW 20
+          PLATFORMIO_BUILD_DIR=.pio/build-new20 pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+          git checkout ${{ env.PROJECT_DIR }}/config.h ${{ env.PROJECT_DIR }}/calibration.h
 
       # the same grid, with the third load on a remote unit driven over RF
       - name: Build firmware (remote loads)
+        if: matrix.part == 'rf'
         run: |
+          sim/configs/sim_config.sh
           git apply --unidiff-zero sim/configs/remote_loads.patch
           pio run --project-dir ${{ env.PROJECT_DIR }} -e rf
 
       - name: Install simavr
         run: pio pkg install --global --tool platformio/tool-simavr
 
-      # every scenario in parallel, the RF ones with the receiver firmware
+      # the scenarios of this job in parallel, the RF ones with the receiver firmware
       - name: Run grid scenarios
-        run: make -C sim -j"$(nproc)" -k check check-rf
+        run: |
+          if [ "${{ matrix.part }}" = rf ]; then
+            targets=check-rf
+          else
+            targets=$(sim/ci_targets.sh grid ${{ matrix.part }})
+          fi
+          echo "make $targets"
+          make -C sim -j"$(nproc)" -k $targets
+
+      # old board, new board with 50 A CTs, new board with 20 A CTs: the same result
+      - name: Compare the boards
+        if: matrix.part != 'rf'
+        run: |
+          make -C sim compare-boards
+          make -C sim compare-boards-20
+          make -C sim compare-ct
 
       - name: Report grid scenarios
         if: always()
         run: |
           {
-            echo "### Grid simulation"
+            echo "### Grid simulation (${{ matrix.part }})"
             echo '```'
             cat sim/out/*-summary.txt 2>/dev/null || echo "no summary"
             echo '```'
@@ -231,5 +300,134 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: grid-sim
+          name: grid-sim-${{ strategy.job-index }}
           path: sim/out/
+
+  # GitHub Pages (https://fredm67.github.io/PVRouter-3-phase/): each push to dev publishes the
+  # landing page and the size history (pages/), and adds the flash and RAM of every build to
+  # bench/history.json (scripts/ci/pages_update.py). The doc (doc/) is deployed by
+  # doxygen-gh-pages.yml, in the same concurrency group. Regressions are reported on pull
+  # requests, by the pr-report job.
+  pages:
+    name: GitHub Pages
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # push to gh-pages
+    concurrency:
+      group: gh-pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: bench-size-*
+          path: bench
+          merge-multiple: true
+
+      - name: Merge the sizes of the builds
+        run: jq -s 'add' bench/size-*.json > bench/size.json
+
+      - uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: site
+
+      - name: Update the pages and the size history
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: >-
+          python3 scripts/ci/pages_update.py site pages bench/size.json
+          "${{ github.sha }}" "${{ github.event.head_commit.timestamp }}" "${{ github.event.head_commit.url }}"
+
+      - name: Push to gh-pages
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to publish"
+          else
+            git commit -q -m "Pages and size history for ${GITHUB_SHA::8}"
+            git push origin HEAD:gh-pages
+          fi
+
+  # The target branch of a pull request, measured as the PR is: the builds of the build matrix and
+  # the embedded benchmarks, with the PR's scripts/ci/measure.sh (the target may predate it).
+  baseline:
+    name: Baseline (${{ github.base_ref }})
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: target
+          submodules: 'true'
+
+      - uses: ./.github/actions/setup-platformio
+
+      - name: Measure ${{ github.base_ref }}
+        run: scripts/ci/measure.sh target baseline
+
+      - name: Upload the figures of ${{ github.base_ref }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: baseline
+          path: |
+            baseline/size.json
+            baseline/speed.json
+
+  # The report of a pull request, as ESPHome does it: the target branch against the PR (merged
+  # into it, as CI builds it), flash and RAM of every build and every benchmark, in one comment
+  # updated at each push. PRs from forks get it in the job summary only (read-only token).
+  pr-report:
+    name: Performance report
+    needs: [ build, test-embedded, baseline ]
+    # a failed baseline still gives a report, with the PR's figures alone
+    if: github.event_name == 'pull_request' && !cancelled() && needs.build.result == 'success' && needs.test-embedded.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write  # the comment
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: bench-*
+          path: pr
+          merge-multiple: true
+
+      - uses: actions/download-artifact@v8
+        continue-on-error: true  # no baseline: the PR's figures alone
+        with:
+          name: baseline
+          path: baseline
+
+      - name: Write the report
+        run: |
+          jq -s 'add' pr/size-*.json > pr/size.json
+          python3 scripts/ci/pr_report.py baseline pr "${{ github.base_ref }}" \
+            "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" > report.md
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Comment on the pull request
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          id=$(gh api "repos/${{ github.repository }}/issues/$PR/comments" --paginate \
+            --jq '.[] | select(.body | contains("<!-- pvrouter-bench-report -->")) | .id' | head -n 1)
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/${{ github.repository }}/issues/comments/$id" -F body=@report.md > /dev/null
+          else
+            gh pr comment "$PR" --body-file report.md
+          fi
