@@ -36,10 +36,10 @@ ISR(ADC_vect) {
 
 | Parameter | Value | Notes |
 |-----------|--------|-------|
-| **ADC Conversion Time** | ~13μs | At 125kHz ADC clock |
-| **ISR Execution Time** | <50μs | Critical timing requirement |
+| **ADC Conversion Time** | 104μs | 13 ADC clocks at 125kHz, free-running |
+| **ISR Execution Time** | ~22μs average, ~66μs longest | Must end within one conversion (104μs), see [performance.md](performance.md) |
 | **Sample Rate** | 9.6 kHz | 6 channels × 1.6 kHz each |
-| **Cycle Period** | 104.17μs | 6 samples per interrupt cycle |
+| **Cycle Period** | 104μs | 1 sample per interrupt; 6 interrupts (625μs) per set of V and I samples |
 
 ## Sample Processing Pipeline
 
