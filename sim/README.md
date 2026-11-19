@@ -66,7 +66,7 @@ make -C sim compare-boards   # after check and check-new
 
 `compare-boards` checks that each scenario gives the same result on both boards: grid import and export, in total and per phase, and the energy of each load, within 1 % or 0.1 Wh. The boards only differ in resolution: with the 50 A CTs of `calibration.h`, the new board has 0.161 A per ADC step against 0.061 A on the old board, which can move a switching instant by a half-cycle now and then.
 
-`check-new20` runs the same scenarios with 20 A CTs (0.065 A per step, about the old board's resolution), and `compare-boards-20` compares them within 0.5 % or 0.05 Wh. The firmware must be built with that rating, which `sim_config.sh` writes into `f_ctRating`:
+`check-new20` runs the same scenarios with 20 A CTs (0.065 A per step, about the old board's resolution), and `compare-boards-20` compares them within 0.5 % or 0.1 Wh: a change of ISR timing alone shifts the switching instants and moves the result by up to 0.08 Wh (surplus_step on the old board, same arithmetic). The firmware must be built with that rating, which `sim_config.sh` writes into `f_ctRating`:
 
 ```bash
 sim/configs/sim_config.sh NEW 20
