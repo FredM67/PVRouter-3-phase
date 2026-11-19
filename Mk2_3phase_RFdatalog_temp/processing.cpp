@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-19
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -879,7 +879,10 @@ void processStartNewCycle()
 void processMinusHalfCycle(const uint8_t phase)
 {
   // This is a convenient point to refresh the DC offset for the phase being processed.
-  i_DCoffset_V[phase] = l_filterDC_V[phase] >> 15;
+  // Bits 15..30 of the integrator, as '>> 15' into a uint16_t, but without its 15-turn
+  // shift loop (~105 cycles, 4 here): '<< 1' only drops bit 31, which the uint16_t drops
+  // too. Identical for all 2^32 values (checked exhaustively).
+  i_DCoffset_V[phase] = static_cast< uint16_t >((l_filterDC_V[phase] << 1) >> 16);
 }
 
 /**
