@@ -195,7 +195,9 @@ static void spi_hook(struct avr_irq_t *irq, uint32_t value, void *param)
     return;
 
   uint8_t reply = 0;
-  if (rf->index++ == 0)
+  if (rf->absent)
+    ; /* MISO held low, nothing written */
+  else if (rf->index++ == 0)
     rf->addr = (uint8_t)value; /* bit 7: write */
   else
   {
