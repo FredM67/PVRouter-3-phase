@@ -51,8 +51,8 @@ pio check
 
 ### Real-Time Constraints
 
-- ADC ISR runs at **9.6 kHz** (every 104μs)
-- ISR must complete in **<50μs**
+- ADC ISR runs at **9.6 kHz** (every 104μs, 1,664 CPU cycles)
+- Every ISR call must end within one ADC conversion (104μs); measured in the grid simulator: **350 cycles (~22μs) on average**, ~1,050 cycles (~66μs) for the longest steady-state call (once per datalog period), ~1,400 cycles once at the end of start-up (docs/performance.md)
 - No blocking calls, no dynamic allocation in ISR
 - Volatile shared variables for ISR-main loop communication
 

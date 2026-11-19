@@ -68,6 +68,21 @@
   };
 
   const q = (s) => JSON.stringify(String(s)); // YAML double-quoted scalar
+
+  // A Wi-Fi SSID holds at most 32 bytes in UTF-8 (ESPHome rejects more): cut on a whole
+  // character. String.slice() counts UTF-16 units, and '’' or 'è' take 2 or 3 bytes.
+  function ssid(s) {
+    const utf8 = new TextEncoder();
+    let out = '';
+    let bytes = 0;
+    for (const ch of s) {
+      const n = utf8.encode(ch).length;
+      if (bytes + n > 32) break;
+      out += ch;
+      bytes += n;
+    }
+    return out.trimEnd();
+  }
   const gpio = (pin) => `GPIO${M.MK2WIFI_GPIO[pin]}`;
 
   // An open-drain output: released (pull-up of the router) when inactive
@@ -155,7 +170,7 @@
       '  ssid: !secret wifi_ssid',
       '  password: !secret wifi_password',
       '  ap:',
-      `    ssid: ${q(`${friendly} ${t.fallback}`.slice(0, 32))}`,
+      `    ssid: ${q(ssid(`${friendly} ${t.fallback}`))}`,
       '    password: !secret wifi_fallback_password',
       '',
       'captive_portal:',
