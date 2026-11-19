@@ -191,6 +191,30 @@
      "ram": 400
     }
    }
+  },
+  {
+   "commit": "ed64c0f1775892261f9fec38a33bb42d9110332c",
+   "date": "2026-11-19T23:46:30+01:00",
+   "message": "perf: DC offset refresh without a 15-turn shift loop (#206)\n\ni_DCoffset_V[phase] = l_filterDC_V[phase] >> 15 compiled to a loop of\n15 x lsr/ror/ror/ror/dec/brne (~105 cycles), three times per mains\ncycle in the ADC ISR. (uint16_t)((l << 1) >> 16) gives bits 15..30 of\nthe integrator too - '<< 1' only drops bit 31, which the uint16_t drops\nas well - in 4 cycles (add/adc/adc/adc).\n\n- identical for all 2^32 values of the uint32_t integrator (checked\n  exhaustively on the host)\n- grid simulator: ISR average 350.2 -> 348.6 cycles, maxima unchanged\n  (the longest calls are not the negative half-cycle ones); all\n  expectations pass\n- flash -6 B\n\nThe simulator's switching events move slightly, as for any ISR timing\nchange: dev with 8 nops added at the same place (same arithmetic)\ndiverges from dev at the same event.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/ed64c0f1775892261f9fec38a33bb42d9110332c",
+   "sizes": {
+    "basic": {
+     "flash": 8580,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8578,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8580,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8582,
+     "ram": 400
+    }
+   }
   }
  ]
 }
