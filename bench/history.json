@@ -167,6 +167,30 @@
      "ram": 400
     }
    }
+  },
+  {
+   "commit": "5874772837546ec40c0ec5c539db4bec9a500a8d",
+   "date": "2026-11-19T23:40:10+01:00",
+   "message": "fix(configurator): fallback AP SSID cut to 32 bytes in UTF-8, not 32 characters (#207)\n\nESPHome 2026.11.0 rejects an access point SSID above 32 bytes, which\nbroke the \"Check the mk2Wifi YAML\" step on every PR. The generated SSID\nwas cut with String.slice(0, 32), which counts UTF-16 units: in French,\n\"Mk2PVRouter Point d’accès de sec\" is 32 characters but 35 bytes ('’' is\n3 bytes, 'è' 2).\n\nssid() now cuts on whole characters to at most 32 bytes, and trims a\ntrailing space. New test: French and English defaults, long and\nmulti-byte friendly names all stay within 32 bytes; it fails on the old\ncode with the CI symptom. Checked with ESPHome 2026.11.0: the three\nmk2Wifi presets are valid.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/5874772837546ec40c0ec5c539db4bec9a500a8d",
+   "sizes": {
+    "basic": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8584,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8586,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8588,
+     "ram": 400
+    }
+   }
   }
  ]
 }
