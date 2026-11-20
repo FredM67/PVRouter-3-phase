@@ -38,7 +38,8 @@ def load(directory, name):
 
 
 def number(value):
-    return f"{int(value):,}" if float(value).is_integer() else f"{value:,.2f}"
+    # up to 4 decimals: results in us are exact to 1/16 us (0.0625)
+    return f"{int(value):,}" if float(value).is_integer() else f"{value:,.4f}".rstrip("0")
 
 
 def classify(base, pr):
@@ -102,12 +103,64 @@ def section(title, base, pr, target, show_unchanged):
     return "\n".join(out), counts
 
 
+UNITS = {"us": " [us]", "cycles": " [cycles]"}
+
+
+def by_function(results):
+    """{function: {unit: value}}: the "<name> [us]" and "<name> [cycles]" results of a benchmark
+    in one entry, in their order. A result without these suffixes keeps its name."""
+    functions = {}
+    for name, (value, unit) in results.items():
+        suffix = UNITS.get(unit, "")
+        function = name.removesuffix(suffix) if suffix and name.endswith(suffix) else name
+        functions.setdefault(function, {})[unit] = value
+    return functions
+
+
+def cell(values, unit):
+    return "—" if values is None or unit not in values else number(values[unit])
+
+
+def speed_section(title, base, pr, target):
+    """The benchmarks, one row per function: us and cycles of both sides, the change in cycles."""
+    base, pr = by_function(base), by_function(pr)
+    rows, counts = [], {}
+    for function, values in pr.items():
+        unit = "cycles" if "cycles" in values else next(iter(values))
+        old_values = base.get(function)
+        old = None if old_values is None else old_values.get(unit)
+        kind = classify(old, values[unit])
+        counts[kind] = counts.get(kind, 0) + 1
+        row = [
+            function,
+            cell(old_values, "us"),
+            cell(values, "us"),
+            cell(old_values, "cycles"),
+            cell(values, "cycles"),
+            change(old, values[unit], unit),
+        ]
+        rows.append((kind, row))
+    removed = [function for function in base if function not in pr]
+    header = ["", f"`{target}` µs", "This PR µs", f"`{target}` cycles", "This PR cycles", "Change"]
+    changed = [row for kind, row in rows if kind != "same"]
+    out = [f"### {title}", ""]
+    if changed:
+        out.append(table(header, changed))
+    else:
+        out.append(f"No change in the {len(rows)} results.")
+    if changed and len(changed) < len(rows):
+        out += ["", f"<details><summary>All {len(rows)} results</summary>", "", table(header, [row for _, row in rows]), "", "</details>"]
+    if removed:
+        out += ["", "❌ Removed: " + ", ".join(f"`{function}`" for function in removed)]
+    return "\n".join(out), counts
+
+
 def main(target_dir, pr_dir, target, target_sha, pr_sha):
     base_size, pr_size = load(target_dir, "size.json"), load(pr_dir, "size.json")
     base_speed, pr_speed = load(target_dir, "speed.json"), load(pr_dir, "speed.json")
 
     size_md, size_counts = section("Firmware size", base_size, pr_size, target, show_unchanged=True)
-    speed_md, speed_counts = section("Speed (simavr, exact)", base_speed, pr_speed, target, show_unchanged=False)
+    speed_md, speed_counts = speed_section("Speed (simavr, exact)", base_speed, pr_speed, target)
     counts = {k: size_counts.get(k, 0) + speed_counts.get(k, 0) for k in set(size_counts) | set(speed_counts)}
 
     if not base_size and not base_speed:
@@ -141,6 +194,8 @@ def main(target_dir, pr_dir, target, target_sha, pr_sha):
     out.append(
         f"<sub>Smaller is better. `{target}` at {target_sha[:8]} against this PR merged into it ({pr_sha[:8]}). "
         f"simavr is cycle-accurate: the figures are exact, only code changes move them. "
+        f"Every benchmark is counted in CPU cycles, and shown in µs as well (cycles / 16); "
+        f"the change is that of the cycles. "
         f"History of `dev`: [benchmarks]({HISTORY}).</sub>"
     )
     print("\n".join(out))

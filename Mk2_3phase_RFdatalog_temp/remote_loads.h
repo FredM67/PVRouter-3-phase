@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Support for remotely controlled loads via RF using RFM69
  * @version 3.0
- * @date 2026-09-23
+ * @date 2026-11-19
  *
  * @copyright Copyright (c) 2025-2026
  *
@@ -42,6 +42,12 @@
  * @details Call this from the main loop to handle RF transmissions outside ISR context.
  *          This prevents blocking the ISR with RF communication delays.
  *
+ *          Nothing is sent while the RF module is not initialized (missing, unpowered or
+ *          badly wired at startup): the library would wait up to 1 s for a free channel on
+ *          each send, then possibly forever for the "packet sent" flag, which a module that
+ *          does not answer never raises. The payloads stay pending, and go out once
+ *          sendResults() has brought the module up (it retries once per datalog period).
+ *
  * @note Declared here but only usable once @c remoteLoads is declared (end of config.h);
  *       it is a template-free inline function, so that is resolved at the call site.
  */
@@ -49,6 +55,11 @@ inline void processRemoteLoadTransmissions()
 {
   if constexpr (REMOTE_LOADS_PRESENT)
   {
+    if (!SharedRF::initialized)
+    {
+      return;
+    }
+
     remoteLoads.sendPending(RFConfig::REMOTE_NODE_ID, [](uint8_t nodeId, uint8_t payload)
                             {
                               // fire and forget - no ACK, so the main loop is never blocked waiting on a reply

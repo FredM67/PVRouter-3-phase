@@ -87,7 +87,7 @@ Ce que le routeur fait pour vous :
 
 ## Documentation de développement
 
-- [Documentation du code](https://fredm67.github.io/PVRouter-3-phase/doc/) (Doxygen, en anglais) et [historique de la taille du firmware](https://fredm67.github.io/PVRouter-3-phase/bench/), sur le [site du projet](https://fredm67.github.io/PVRouter-3-phase/).
+- [Documentation du code](https://fredm67.github.io/PVRouter-3-phase/doc/) (Doxygen, en anglais) et [historique de la taille et de la vitesse du firmware](https://fredm67.github.io/PVRouter-3-phase/bench/), sur le [site du projet](https://fredm67.github.io/PVRouter-3-phase/).
 - [Journal des modifications](CHANGELOG.md) (en anglais) des changements sur `dev`, pas encore sur `main`.
 - [Tests](Mk2_3phase_RFdatalog_temp/test/README.md) (en anglais) : tests unitaires natifs, tests embarqués et mesures de performance dans simavr.
 - [Simulateur de réseau](sim/README.md) (en anglais) : régulation, timing de l’ISR, instants de commutation, radio et relais, vérifiés en CI.

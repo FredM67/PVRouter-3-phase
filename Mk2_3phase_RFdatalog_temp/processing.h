@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Public functions/variables of processing engine
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -48,6 +48,7 @@ inline void processDataLogging();
 inline void updatePortsStates();
 inline void updatePhysicalLoadStates();
 #else
+// -O3 on a function that is a call of its own: here 50 bytes smaller than with -Os
 void initializeProcessing() __attribute__((optimize("-O3")));
 inline void processStartUp(uint8_t phase) __attribute__((always_inline));
 // two call sites (predictive and fallback decisions), once per mains cycle: not inlined
@@ -62,13 +63,18 @@ inline void processPolarity(uint8_t phase, uint16_t rawSample) __attribute__((al
 inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
 inline void proceedLowEnergyLevel(int32_t l_energy) __attribute__((always_inline));
 inline void proceedHighEnergyLevel(int32_t l_energy) __attribute__((always_inline));
-inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline, optimize("-O3")));
-inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline, optimize("-O3")));
+inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline));
+inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline));
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
 inline int32_t predictEnergyInBucket(uint8_t n) __attribute__((always_inline));
-inline void processDataLogging() __attribute__((always_inline, optimize("-O3")));
+inline void processDataLogging() __attribute__((always_inline));
+// An inlined function is compiled with the options of the ISR it lands in: an optimize() attribute
+// on it changes nothing (same firmware, to the byte). updatePortsStates() is a call: -O3 unrolls
+// its load loop into constant masks (grid simulator: 38 cycles less on average, 88 less at most).
 inline void updatePortsStates() __attribute__((optimize("-O3")));
-inline void updatePhysicalLoadStates() __attribute__((always_inline));
+// not inlined on purpose: inlined, it takes registers that the rest of the ISR then spills to a
+// stack frame on every call (grid simulator: 30 cycles more on average, 65 more at most)
+inline void updatePhysicalLoadStates() __attribute__((noinline));
 #endif
 
 #endif /* PROCESSING_H */

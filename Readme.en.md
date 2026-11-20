@@ -87,7 +87,7 @@ What the router does for you:
 
 ## Developer documentation
 
-- [Code documentation](https://fredm67.github.io/PVRouter-3-phase/doc/) (Doxygen) and [firmware size history](https://fredm67.github.io/PVRouter-3-phase/bench/), on the [project site](https://fredm67.github.io/PVRouter-3-phase/).
+- [Code documentation](https://fredm67.github.io/PVRouter-3-phase/doc/) (Doxygen) and [firmware size and speed history](https://fredm67.github.io/PVRouter-3-phase/bench/), on the [project site](https://fredm67.github.io/PVRouter-3-phase/).
 - [Changelog](CHANGELOG.md) of the changes on `dev`, not yet on `main`.
 - [Tests](Mk2_3phase_RFdatalog_temp/test/README.md): native unit tests, and embedded tests and benchmarks in simavr.
 - [Grid simulator](sim/README.md): regulation, ISR timing, switching instants, radio and relays, checked in CI.

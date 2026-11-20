@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief The text output: informational messages (info) and debug messages (debug)
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -22,7 +22,9 @@
  *          compiles to nothing, provided its arguments have no side effects.
  *
  *          The templates are always inlined: out of line, GCC keeps a copy per argument type,
- *          about 20 bytes more in all.
+ *          about 20 bytes more in all. A text in flash, F("..."), the most common message by far,
+ *          goes to an overload that is not inlined instead: one call per message, rather than
+ *          complete() and Serial.print() at each of them.
  *
  * @note Needs SERIAL_OUTPUT_TYPE and ENABLE_DEBUG: include it after them (see config.h).
  */
@@ -57,6 +59,27 @@ __attribute__((always_inline)) inline void infoln(const Args&... args)
 {
   SerialOutput::complete();
   Serial.println(args...);
+}
+
+/**
+ * @brief Print a text in flash, F("..."): info() out of line.
+ *
+ * @details Chosen over the template for F("...") (a non-template function wins an equal match),
+ *          also through status() and debug().
+ */
+__attribute__((noinline)) inline void info(const __FlashStringHelper* text)
+{
+  SerialOutput::complete();
+  Serial.print(text);
+}
+
+/**
+ * @brief Print a text in flash, F("..."), and a line end: infoln() out of line.
+ */
+__attribute__((noinline)) inline void infoln(const __FlashStringHelper* text)
+{
+  SerialOutput::complete();
+  Serial.println(text);
 }
 
 /**

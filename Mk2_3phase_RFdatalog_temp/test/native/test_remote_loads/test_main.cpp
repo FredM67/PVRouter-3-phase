@@ -115,6 +115,41 @@ void test_remoteOrdinal_counts_remote_entries_only(void)
   TEST_ASSERT_EQUAL(2, Load::remoteOrdinal(map, 4));
 }
 
+void test_overrideMasks_match_the_shift_they_replace(void)
+{
+  // the ISR tests the override of load i with these masks instead of shifting by the pin
+  static constexpr uint8_t map[]{ Load::local(5), Load::remote(1, 6), Load::local(13), Load::remote(2), Load::local(2), Load::remote(1) };
+  static constexpr auto masks{ Load::overrideMasks(map) };
+
+  for (uint8_t i = 0; i < sizeof(map); ++i)
+  {
+    if (Load::isLocal(map[i]))
+    {
+      TEST_ASSERT_EQUAL_HEX16(1U << Load::pinOf(map[i]), masks.local[i]);
+      TEST_ASSERT_EQUAL_HEX8(0, masks.remote[i]);
+    }
+    else
+    {
+      TEST_ASSERT_EQUAL_HEX16(0, masks.local[i]);
+      TEST_ASSERT_EQUAL_HEX8(1U << Load::remoteOrdinal(map, i), masks.remote[i]);
+    }
+  }
+  TEST_ASSERT_EQUAL_HEX16(0x2000, masks.local[2]);  // pin 13: the high byte, PORTB
+  TEST_ASSERT_EQUAL_HEX8(0x04, masks.remote[5]);    // third remote load, though on unit 1
+}
+
+void test_overrideMasks_give_no_bit_to_an_out_of_range_entry(void)
+{
+  // rejected by validation.h; the mask builder itself must stay a valid constant expression
+  static constexpr uint8_t map[]{ Load::local(20), Load::remote(1), Load::remote(1), Load::remote(1), Load::remote(1),
+                                  Load::remote(2), Load::remote(2), Load::remote(2), Load::remote(2), Load::remote(3) };
+  static constexpr auto masks{ Load::overrideMasks(map) };
+
+  TEST_ASSERT_EQUAL_HEX16(0, masks.local[0]);     // pin 20: beyond the 16-bit override bitmask
+  TEST_ASSERT_EQUAL_HEX8(0x80, masks.remote[8]);  // eighth remote load: the last bit
+  TEST_ASSERT_EQUAL_HEX8(0, masks.remote[9]);     // ninth: beyond the 8-bit remote bitmask
+}
+
 void test_bitOf_counts_within_the_same_unit(void)
 {
   static constexpr uint8_t map[]{ Load::remote(1), Load::remote(2), Load::remote(1), Load::remote(2), Load::remote(1) };
@@ -560,6 +595,26 @@ void test_isValidMap_checks_a_remote_status_led(void)
   TEST_ASSERT_TRUE(Load::isValidMap(ledOk));
 }
 
+void test_remote_unit_out_of_range_is_flagged(void)
+{
+  // packed as is, unit 4 wraps to 0: remote(4, 8) would be local(8), a TRIAC on the LED pin
+  static constexpr uint8_t unit4[]{ Load::local(5), Load::remote(4, 8) };
+  static constexpr uint8_t unit0[]{ Load::remote(0, 8) };
+  static constexpr uint8_t unit4NoLed[]{ Load::remote(4) };
+  static constexpr uint8_t units1to3[]{ Load::remote(1), Load::remote(2, 8), Load::remote(3) };
+
+  static_assert(!Load::hasValidRemoteUnits(unit4), "unit 4 must be caught");
+  TEST_ASSERT_EQUAL_UINT8(invalidRemoteUnitEntry, Load::remote(4, 8));
+  TEST_ASSERT_FALSE(Load::isLocal(Load::remote(4, 8)));
+  TEST_ASSERT_FALSE(Load::hasValidRemoteUnits(unit4));
+  TEST_ASSERT_FALSE(Load::hasValidRemoteUnits(unit0));
+  TEST_ASSERT_FALSE(Load::hasValidRemoteUnits(unit4NoLed));
+  TEST_ASSERT_TRUE(Load::hasValidRemoteUnits(units1to3));
+
+  // one error only: the map check leaves the marker to hasValidRemoteUnits()
+  TEST_ASSERT_TRUE(Load::isValidMap(unit4));
+}
+
 // ============================================================================
 // Node ID validation (validation.h asserts on this)
 // ============================================================================
@@ -726,6 +781,8 @@ int main(int, char **)
   RUN_TEST(test_census_is_constexpr);
   RUN_TEST(test_census_of_an_all_local_map);
   RUN_TEST(test_remoteOrdinal_counts_remote_entries_only);
+  RUN_TEST(test_overrideMasks_match_the_shift_they_replace);
+  RUN_TEST(test_overrideMasks_give_no_bit_to_an_out_of_range_entry);
   RUN_TEST(test_bitOf_counts_within_the_same_unit);
 
   // Unit grouping
@@ -769,6 +826,7 @@ int main(int, char **)
   RUN_TEST(test_isValidMap_rejects_unusable_local_pins);
   RUN_TEST(test_isValidMap_rejects_the_unused_pin_sentinel);
   RUN_TEST(test_isValidMap_checks_a_remote_status_led);
+  RUN_TEST(test_remote_unit_out_of_range_is_flagged);
 
   RUN_TEST(test_node_ids_accepts_distinct_ids);
   RUN_TEST(test_node_ids_rejects_a_duplicate);

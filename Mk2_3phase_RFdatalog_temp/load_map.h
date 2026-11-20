@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Encoding of the load map: one packed byte per dump load
  * @version 1.0
- * @date 2026-09-23
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2025-2026
  *
@@ -42,6 +42,20 @@ inline constexpr uint8_t MAX_REMOTE_UNITS{ 3 };   /**< only 2 bits are available
 inline constexpr uint8_t MAX_LOADS_PER_UNIT{ 8 }; /**< one payload byte per unit, 1 bit per load */
 
 /**
+ * @brief The entry Load::remote() returns for a unit outside 1..MAX_REMOTE_UNITS.
+ *
+ * @details Packed as is, unit 4 would wrap to 0 (local) and remote(4, 8) would be local(8): a
+ *          TRIAC on the LED pin. A static_assert cannot test a parameter (and C++17 has no
+ *          consteval), so remote() returns this marker and validation.h reports it, with its
+ *          own message (Load::hasValidRemoteUnits()).
+ *
+ *          It decodes as a remote load (unit 3) with a status LED on pin 62, which does not
+ *          exist: the checks of local loads ignore it, isValidMap() and the pin check skip it,
+ *          so a wrong unit gives one error, not a cascade.
+ */
+inline constexpr uint8_t invalidRemoteUnitEntry{ 0xFE };
+
+/**
  * @brief Authoring and decoding helpers for the packed load map.
  */
 namespace Load
@@ -59,9 +73,14 @@ constexpr uint8_t local(uint8_t pin)
  * @brief Declares a load driven by a remote unit over RF.
  * @param unit The remote unit number (1..3).
  * @param ledPin Optional status LED pin on the router, 0 for none.
+ * @return The packed entry, or invalidRemoteUnitEntry if the unit is not 1..MAX_REMOTE_UNITS.
  */
 constexpr uint8_t remote(uint8_t unit, uint8_t ledPin = 0)
 {
+  if ((unit == 0) || (unit > MAX_REMOTE_UNITS))
+  {
+    return invalidRemoteUnitEntry;
+  }
   return static_cast< uint8_t >(static_cast< uint8_t >(unit << loadTypeShift) | (ledPin & loadPinMask));
 }
 
@@ -186,6 +205,45 @@ constexpr uint8_t bitOf(const uint8_t (&map)[N], uint8_t loadNum)
 }
 
 /**
+ * @brief Override bit of each load, in the local or in the remote override bitmask.
+ *
+ * @details Built at compile time, so that the ISR tests a load's override with a mask
+ *          instead of shifting by its pin (a loop on AVR) or counting its remote ordinal.
+ */
+template< uint8_t N >
+struct OverrideMasks
+{
+  uint16_t local[N]; /**< bit of the load's pin in the local override bitmask, 0 for a remote load */
+  uint8_t remote[N]; /**< bit of the load's ordinal in the remote override bitmask, 0 for a local load */
+};
+
+/**
+ * @brief Build the override bits of a load map.
+ *
+ * @details An entry out of range (rejected by isValidMap() and the remote load count
+ *          checks) gets no bit, so that the error reported is that one.
+ *
+ * @param map The load map.
+ */
+template< uint8_t N >
+constexpr OverrideMasks< N > overrideMasks(const uint8_t (&map)[N])
+{
+  OverrideMasks< N > masks{};
+  for (uint8_t i = 0; i < N; ++i)
+  {
+    if (isLocal(map[i]))
+    {
+      masks.local[i] = pinOf(map[i]) < 16 ? static_cast< uint16_t >(1U << pinOf(map[i])) : 0;
+    }
+    else
+    {
+      masks.remote[i] = remoteOrdinal(map, i) < 8 ? static_cast< uint8_t >(1U << remoteOrdinal(map, i)) : 0;
+    }
+  }
+  return masks;
+}
+
+/**
  * @brief Check that every entry of a load map designates a usable pin.
  *
  * @details A local load needs a real TRIAC pin, 2..13 (0 and 1 are the serial
@@ -202,12 +260,35 @@ constexpr bool isValidMap(const uint8_t (&map)[N])
   {
     const uint8_t pin{ pinOf(entry) };
 
+    if (entry == invalidRemoteUnitEntry)
+    {
+      continue;  // a wrong unit, reported by hasValidRemoteUnits()
+    }
+
     if (!isLocal(entry) && (pin == 0))
     {
       continue;  // remote load without status LED
     }
 
     if ((pin < 2) || (pin > 13))
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * @brief Check that every remote load of a map was declared with a unit from 1 to 3.
+ *
+ * @details Load::remote() returns invalidRemoteUnitEntry otherwise: see there.
+ */
+template< uint8_t N >
+constexpr bool hasValidRemoteUnits(const uint8_t (&map)[N])
+{
+  for (const auto &entry : map)
+  {
+    if (entry == invalidRemoteUnitEntry)
     {
       return false;
     }

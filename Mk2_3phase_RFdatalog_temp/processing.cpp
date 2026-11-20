@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-11-19
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -53,6 +53,9 @@ constexpr uint8_t N_MAX{ SAMPLE_SETS_PER_CYCLE + SAMPLE_SETS_MARGIN };
 /**< power calibration over n, in fixed point, for every expected n: no division in the ISR */
 const Energy::PerSampleCalibration< N_MIN, N_MAX, NO_OF_PHASES > powerCalPerSample PROGMEM{ Energy::toFixedPerSample< N_MIN, N_MAX >(f_powerCal) };
 constexpr uint8_t powerCalPerSampleShift{ Energy::toFixedPerSample< N_MIN, N_MAX >(f_powerCal).shift };
+
+/** override bit of each load: the ISR tests a mask instead of shifting by the pin */
+const Load::OverrideMasks< NO_OF_DUMPLOADS > overrideMasks PROGMEM{ Load::overrideMasks(physicalLoadPin) };
 
 // Predictive load switching (issue #161).
 // A zero-crossing triac driver only fires at the next zero crossing of its own phase. The load
@@ -490,22 +493,23 @@ void updatePhysicalLoadStates()
   // Diversion OFF stops the surplus diversion only: a forced load stays ON. With the router
   // OFF, the main loop clears the overrides and disables diversion: every load is OFF.
   const bool bDiversionEnabled{ Shared::b_diversionEnabled };
+  // the override bitmasks are read once: the same snapshot for every load of this cycle
+  const uint16_t overrideBitmask{ Shared::overrideBitmask };
+  const uint8_t remoteOverrideBitmask{ REMOTE_LOADS_PRESENT ? Shared::remoteOverrideBitmask : uint8_t{ 0 } };
   uint8_t idx{ NO_OF_DUMPLOADS };
   do
   {
     --idx;
     const auto iLoad{ loadPrioritiesAndState[idx] & loadStateMask };
-    const uint8_t loadEntry{ physicalLoadPin[iLoad] };
 
-    // Check override based on load type (local vs remote).
-    // With an all-local map the whole test folds down to the local branch.
-    const bool bOverrideActive{
-      (!REMOTE_LOADS_PRESENT || Load::isLocal(loadEntry))
-        // Local load: check physical pin in local override bitmask
-        ? (Shared::overrideBitmask & (1U << Load::pinOf(loadEntry))) != 0
-        // Remote load: check its ordinal in the remote override bitmask
-        : (Shared::remoteOverrideBitmask & (1U << Load::remoteOrdinal(physicalLoadPin, iLoad))) != 0
-    };
+    // A local load has its pin's bit in the local override bitmask, a remote load its
+    // ordinal's bit in the remote one; the other mask is 0. With an all-local map, the
+    // remote test folds away.
+    bool bOverrideActive{ (overrideBitmask & pgm_read_word(&overrideMasks.local[iLoad])) != 0 };
+    if constexpr (REMOTE_LOADS_PRESENT)
+    {
+      bOverrideActive = bOverrideActive || ((remoteOverrideBitmask & pgm_read_byte(&overrideMasks.remote[iLoad])) != 0);
+    }
 
     const bool bOn{ bOverrideActive || (bDiversionEnabled && (loadPrioritiesAndState[idx] & loadStateOnBit)) };
     physicalLoadState[iLoad] = (!CALIBRATION_MODE && bOn) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;

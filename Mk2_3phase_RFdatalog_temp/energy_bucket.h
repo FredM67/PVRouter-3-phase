@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Integer arithmetic of the energy bucket
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-19
  *
  * @copyright Copyright (c) 2026-2026
  *
@@ -170,7 +170,23 @@ inline int32_t contribution(const int32_t averagePower, const uint16_t calFixed,
 
   // remaining shift down to bucket units; >= 1 for any calibration value below 8
   const uint8_t remaining{ static_cast< uint8_t >(shift - FRACTION_BITS - 8) };
-  const auto rounded{ static_cast< int32_t >((product + (1UL << (remaining - 1))) >> remaining) };
+
+  // Rounded: (product + 2^(remaining-1)) >> remaining. From remaining = 9 on, the rounding
+  // constant is a multiple of 256, so the same value is ((product >> 8) + 2^(remaining-9))
+  // >> (remaining-8): '>> 8' is a byte move, and the add in between keeps the compiler from
+  // merging both shifts back into one loop (remaining = 11 for the new board with 50 A CTs:
+  // a 3-turn loop instead of 11, ~52 cycles less). It also cannot overflow, unlike the
+  // 32-bit add of the general form. shift is a constant at the call site in the ISR, so
+  // only one branch is compiled there.
+  int32_t rounded;
+  if (remaining >= 9)
+  {
+    rounded = static_cast< int32_t >(((product >> 8) + (1UL << (remaining - 9))) >> (remaining - 8));
+  }
+  else
+  {
+    rounded = static_cast< int32_t >((product + (1UL << (remaining - 1))) >> remaining);
+  }
 
   return negative ? -rounded : rounded;
 }

@@ -585,7 +585,7 @@
               num(
                 () => rot.afterSeconds / 3600,
                 (v) => (rot.afterSeconds = Math.round((v || 0) * 3600)),
-                { min: 0.5, max: 24, step: 0.5 }
+                { min: 0.5, max: 18, step: 0.5 }
               )
             )
           : null

@@ -157,7 +157,9 @@ static struct
   int no_of_receiver_pins;
   rf_drop_t rf_drops[MAX_RF_DROPS]; /* frames lost in these windows */
   int no_of_rf_drops;
-  double rf_loss; /* share of frames lost at random, in % */
+  double rf_loss;      /* share of frames lost at random, in % */
+  int rf_absent;       /* the router's RFM69 does not answer */
+  int rf_loss_max_run; /* at most this many frames lost at random in a row, per node; 0: no limit */
   char name[PATH_MAX];
 } scn = {
   .duration = 60.0,
@@ -276,8 +278,10 @@ static void parse_scenario(const char *path, int depth)
       if (ok)
         ++scn.no_of_rf_drops;
     }
+    else if (!strcmp(cmd, "rf_absent"))
+      scn.rf_absent = 1;
     else if (!strcmp(cmd, "rf_loss"))
-      ok = sscanf(args, "%lf", &scn.rf_loss) == 1 && scn.rf_loss >= 0 && scn.rf_loss <= 100;
+      ok = sscanf(args, "%lf %d", &scn.rf_loss, &scn.rf_loss_max_run) >= 1 && scn.rf_loss >= 0 && scn.rf_loss <= 100 && scn.rf_loss_max_run >= 0;
     else if (!strcmp(cmd, "input"))
     {
       if (scn.no_of_inputs == MAX_INPUTS)
@@ -454,6 +458,7 @@ static struct
     unsigned long frames, lost;
     double first, last, max_gap, air_time;
     unsigned links_lost;
+    int lost_in_a_row; /* frames lost at random in a row (rf_loss) */
   } nodes[MAX_RF_NODES];
   int no_of_nodes;
   uint32_t random; /* state of the frame loss generator: the same losses on every run */
@@ -762,11 +767,21 @@ static int rf_frame_lost(const rfm69_frame_t *f)
   }
   if (scn.rf_loss <= 0)
     return 0;
-  /* xorshift32 */
+  /* xorshift32, drawn for every frame: the same sequence whatever the limit below */
   rf.random ^= rf.random << 13;
   rf.random ^= rf.random >> 17;
   rf.random ^= rf.random << 5;
-  return rf.random < (uint32_t)(scn.rf_loss / 100.0 * UINT32_MAX);
+  int lost = rf.random < (uint32_t)(scn.rf_loss / 100.0 * UINT32_MAX);
+  /* a limit on the losses in a row makes the longest gap independent of the firmware's timing,
+   * which decides which frames the sequence falls on */
+  struct rf_node *n = rf_node(f->target);
+  if (n)
+  {
+    if (lost && scn.rf_loss_max_run && n->lost_in_a_row >= scn.rf_loss_max_run)
+      lost = 0;
+    n->lost_in_a_row = lost ? n->lost_in_a_row + 1 : 0;
+  }
+  return lost;
 }
 
 /* a frame has been sent: every other radio may receive it; without a receiver
@@ -1149,6 +1164,7 @@ int main(int argc, char *argv[])
                               l);
   }
   rfm69_init(&rf.chip, avr, RF_CS_PORT, RF_CS_BIT, rf_frame, &rf.chip);
+  rf.chip.absent = scn.rf_absent;
 
   /* remote units running the receiver firmware: its load pins drive their remote loads */
   for (int r = 0; r < no_of_receivers; ++r)

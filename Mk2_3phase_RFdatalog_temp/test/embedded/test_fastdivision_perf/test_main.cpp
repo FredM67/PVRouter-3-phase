@@ -16,6 +16,7 @@
 #include <unity.h>
 
 #include "../bench_report.h"
+#include "../bench_timer.h"
 #include "../halt_after_tests.h"
 
 #include "FastDivision.h"
@@ -52,11 +53,15 @@ void reportBenchmark(const char* name, uint32_t fastTime, uint32_t stdTime)
   Serial.print(name);
   Serial.print(F(": fast="));
   Serial.print(fastTime);
-  Serial.print(F("us, std="));
+  Serial.print(F(" cycles, std="));
   Serial.print(stdTime);
-  Serial.print(F("us, speedup="));
+  Serial.print(F(" cycles, speedup="));
   Serial.print(speedup, 2);
   Serial.print(F("x"));
+  Serial.print(F("\n    per call: fast="));
+  printPerOp(fastTime, ITERATIONS);
+  Serial.print(F(", std="));
+  printPerOp(stdTime, ITERATIONS);
 }
 
 // ============================================================================
@@ -65,32 +70,29 @@ void reportBenchmark(const char* name, uint32_t fastTime, uint32_t stdTime)
 
 void test_perf_divu10_small_values(void)
 {
-  uint32_t startTime, endTime;
   uint32_t fastTime, stdTime;
 
   // Test with small values (0-255)
   Serial.print(F("\n[BENCHMARK] divu10 small values (0-255):"));
 
   // Fast division timing
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < ITERATIONS; ++i)
   {
     v_result16 = divu10((uint16_t)(i & 0xFF));
   }
-  endTime = micros();
-  fastTime = endTime - startTime;
+  fastTime = BenchTimer::stop();
 
   // Standard division timing
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < ITERATIONS; ++i)
   {
     v_result16 = (uint16_t)(i & 0xFF) / 10;
   }
-  endTime = micros();
-  stdTime = endTime - startTime;
+  stdTime = BenchTimer::stop();
 
   reportBenchmark("small", fastTime, stdTime);
-  benchReport(F("fastdivision: divu10 small"), fastTime, F("us"));
+  benchCycles(F("fastdivision: divu10 small per call"), fastTime, ITERATIONS);
 
   // Just verify correctness, not timing (speedup varies)
   TEST_ASSERT_TRUE(fastTime > 0);
@@ -99,32 +101,29 @@ void test_perf_divu10_small_values(void)
 
 void test_perf_divu10_medium_values(void)
 {
-  uint32_t startTime, endTime;
   uint32_t fastTime, stdTime;
 
   // Test with medium values (256-4095)
   Serial.print(F("\n[BENCHMARK] divu10 medium values (256-4095):"));
 
   // Fast division timing
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < ITERATIONS; ++i)
   {
     v_result16 = divu10((uint16_t)((i & 0xFFF) + 256));
   }
-  endTime = micros();
-  fastTime = endTime - startTime;
+  fastTime = BenchTimer::stop();
 
   // Standard division timing
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < ITERATIONS; ++i)
   {
     v_result16 = ((uint16_t)((i & 0xFFF) + 256)) / 10;
   }
-  endTime = micros();
-  stdTime = endTime - startTime;
+  stdTime = BenchTimer::stop();
 
   reportBenchmark("medium", fastTime, stdTime);
-  benchReport(F("fastdivision: divu10 medium"), fastTime, F("us"));
+  benchCycles(F("fastdivision: divu10 medium per call"), fastTime, ITERATIONS);
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -132,32 +131,29 @@ void test_perf_divu10_medium_values(void)
 
 void test_perf_divu10_large_values(void)
 {
-  uint32_t startTime, endTime;
   uint32_t fastTime, stdTime;
 
   // Test with large values (full uint16_t range)
   Serial.print(F("\n[BENCHMARK] divu10 large values (0-65535):"));
 
   // Fast division timing
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < ITERATIONS; ++i)
   {
     v_result16 = divu10((uint16_t)i);
   }
-  endTime = micros();
-  fastTime = endTime - startTime;
+  fastTime = BenchTimer::stop();
 
   // Standard division timing
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < ITERATIONS; ++i)
   {
     v_result16 = ((uint16_t)i) / 10;
   }
-  endTime = micros();
-  stdTime = endTime - startTime;
+  stdTime = BenchTimer::stop();
 
   reportBenchmark("large", fastTime, stdTime);
-  benchReport(F("fastdivision: divu10 large"), fastTime, F("us"));
+  benchCycles(F("fastdivision: divu10 large per call"), fastTime, ITERATIONS);
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -169,7 +165,6 @@ void test_perf_divu10_large_values(void)
 
 void test_perf_divmod10_small_values(void)
 {
-  uint32_t startTime, endTime;
   uint32_t fastTime, stdTime;
   uint32_t div;
   uint8_t mod;
@@ -177,29 +172,27 @@ void test_perf_divmod10_small_values(void)
   Serial.print(F("\n[BENCHMARK] divmod10 small values (0-255):"));
 
   // Fast division timing
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < ITERATIONS; ++i)
   {
     divmod10(i & 0xFF, div, mod);
     v_result32 = div;
     v_result8 = mod;
   }
-  endTime = micros();
-  fastTime = endTime - startTime;
+  fastTime = BenchTimer::stop();
 
   // Standard division timing
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < ITERATIONS; ++i)
   {
     uint32_t val = i & 0xFF;
     v_result32 = val / 10;
     v_result8 = val % 10;
   }
-  endTime = micros();
-  stdTime = endTime - startTime;
+  stdTime = BenchTimer::stop();
 
   reportBenchmark("small", fastTime, stdTime);
-  benchReport(F("fastdivision: divmod10 small"), fastTime, F("us"));
+  benchCycles(F("fastdivision: divmod10 small per call"), fastTime, ITERATIONS);
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -207,7 +200,6 @@ void test_perf_divmod10_small_values(void)
 
 void test_perf_divmod10_large_values(void)
 {
-  uint32_t startTime, endTime;
   uint32_t fastTime, stdTime;
   uint32_t div;
   uint8_t mod;
@@ -215,29 +207,27 @@ void test_perf_divmod10_large_values(void)
   Serial.print(F("\n[BENCHMARK] divmod10 large values (full uint32_t):"));
 
   // Fast division timing
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < ITERATIONS; ++i)
   {
     divmod10(i * 1000UL, div, mod);
     v_result32 = div;
     v_result8 = mod;
   }
-  endTime = micros();
-  fastTime = endTime - startTime;
+  fastTime = BenchTimer::stop();
 
   // Standard division timing
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < ITERATIONS; ++i)
   {
     uint32_t val = i * 1000UL;
     v_result32 = val / 10;
     v_result8 = val % 10;
   }
-  endTime = micros();
-  stdTime = endTime - startTime;
+  stdTime = BenchTimer::stop();
 
   reportBenchmark("large", fastTime, stdTime);
-  benchReport(F("fastdivision: divmod10 large"), fastTime, F("us"));
+  benchCycles(F("fastdivision: divmod10 large per call"), fastTime, ITERATIONS);
 
   TEST_ASSERT_TRUE(fastTime > 0);
   TEST_ASSERT_TRUE(stdTime > 0);
@@ -249,7 +239,6 @@ void test_perf_divmod10_large_values(void)
 
 void test_perf_cycle_estimation(void)
 {
-  uint32_t startTime, endTime;
   constexpr uint32_t CYCLE_ITERATIONS = 1000UL;
 
   Serial.print(F("\n\n[CYCLE ESTIMATION] ("));
@@ -257,40 +246,34 @@ void test_perf_cycle_estimation(void)
   Serial.print(F(" iterations):"));
 
   // divu10 timing
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < CYCLE_ITERATIONS; ++i)
   {
     v_result16 = divu10(12345);
   }
-  endTime = micros();
-  uint32_t divu10Time = endTime - startTime;
+  const uint32_t divu10Time{ BenchTimer::stop() };
 
   // divmod10 timing
   uint32_t div;
   uint8_t mod;
-  startTime = micros();
+  BenchTimer::start();
   for (uint32_t i = 0; i < CYCLE_ITERATIONS; ++i)
   {
     divmod10(12345678UL, div, mod);
     v_result32 = div;
   }
-  endTime = micros();
-  uint32_t divmod10Time = endTime - startTime;
+  const uint32_t divmod10Time{ BenchTimer::stop() };
 
-  // Calculate approximate cycles (16MHz = 16 cycles per microsecond)
-  float divu10Cycles = (float)divu10Time * 16.0f / (float)CYCLE_ITERATIONS;
-  float divmod10Cycles = (float)divmod10Time * 16.0f / (float)CYCLE_ITERATIONS;
+  // per call, loop included
+  Serial.print(F("\n  divu10: "));
+  printPerOp(divu10Time, CYCLE_ITERATIONS);
+  Serial.print(F(" (claimed: 29 cycles)"));
 
-  Serial.print(F("\n  divu10: ~"));
-  Serial.print(divu10Cycles, 1);
-  Serial.print(F(" cycles (claimed: 29 cycles)"));
+  Serial.print(F("\n  divmod10: "));
+  printPerOp(divmod10Time, CYCLE_ITERATIONS);
 
-  Serial.print(F("\n  divmod10: ~"));
-  Serial.print(divmod10Cycles, 1);
-  Serial.print(F(" cycles"));
-
-  benchReport(F("fastdivision: divu10 x1000"), divu10Time, F("us"));
-  benchReport(F("fastdivision: divmod10 x1000"), divmod10Time, F("us"));
+  benchCycles(F("fastdivision: divu10(12345) per call"), divu10Time, CYCLE_ITERATIONS);
+  benchCycles(F("fastdivision: divmod10(12345678) per call"), divmod10Time, CYCLE_ITERATIONS);
 
   Serial.print(F("\n\nNote: Cycle counts include loop overhead and function call."));
   Serial.print(F("\nActual instruction cycles are lower than measured."));
