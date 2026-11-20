@@ -548,9 +548,13 @@ With the Arduino IDE, the *OneWire* library must be installed, as for any build 
 
 ### Sensor configuration
 To configure the sensors, you must enter their addresses.
-Use a program to scan connected sensors.
-You can find such programs on the Internet or among the examples provided with the Arduino IDE.
-It's recommended to stick a label with each sensor's address on its cable.
+The router finds them itself: set `TEMP_SENSOR_PRESENT` to `true` with the bus pin, set `CALIBRATION_MODE` to `true` (see [Router calibration](#router-calibration)) and upload. At start-up, it lists the sensors on the bus, with their addresses written as `config.h` takes them, and tells whether `config.h` already has each of them:
+```
+Temperature sensors found on pin 4:
+	{ 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 }  not in config.h
+	{ 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 }  not in config.h
+```
+Connecting the sensors one at a time tells which address is which sensor. It's recommended to stick a label with each sensor's address on its cable.
 
 Enter the addresses as follows:
 ```cpp
