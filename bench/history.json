@@ -335,6 +335,30 @@
      "ram": 396
     }
    }
+  },
+  {
+   "commit": "1c159ecf21a354ec39631b5140fb293ae33e8b5f",
+   "date": "2026-11-20T10:10:22+01:00",
+   "message": "ci: a change of one micros() step is no change in the PR report (#213)\n\nThe microsecond benchmarks time a loop with micros(), which counts in\nsteps of 4 us at 16 MHz. When the code before the loop moves by a few\ncycles, the same loop reads one step more or less: #212 got \"slightly\nworse\" for multU16x16_to32 (+4 us on 127,608 us), with a loop identical\nto the instruction, and -4 us on mult16x8_q8.\n\nThe report now counts a change within one step of its unit (4 us) as no\nchange, and says so in the change column. Results in cycles (Timer1,\ninterrupts off) are unchanged: exact to the cycle. Footer and test README\nexplain it.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/1c159ecf21a354ec39631b5140fb293ae33e8b5f",
+   "sizes": {
+    "basic": {
+     "flash": 8492,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 8488,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 8492,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 8490,
+     "ram": 396
+    }
+   }
   }
  ]
 }
