@@ -94,7 +94,9 @@ OverrideMasks getDualTariffForcingBitmask(const bool bOffPeak, const int16_t cur
     return { 0, 0 };
   }
 
-  // Too hot: no boost
+  // Too hot: no boost. A missing or failed reading (DEVICE_DISCONNECTED_RAW, -7040) counts as cold
+  // on purpose: the boost runs, and the water heater's own thermostat stays the safety limit; the
+  // threshold only stops the boost before the heater's setting.
   if (currentTemperature_x100 > iTemperatureThreshold_x100)
   {
     return { 0, 0 };
