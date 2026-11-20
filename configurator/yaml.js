@@ -236,12 +236,13 @@
       add(...sensor('S', t.sampleSets, null, ['unit_of_measurement: ""', 'accuracy_decimals: 0', 'icon: "mdi:counter"', 'entity_category: diagnostic']));
       add(...sensor('S_MC', t.sampleSetsPerCycle, null, ['unit_of_measurement: ""', 'accuracy_decimals: 0', 'icon: "mdi:counter"', 'entity_category: diagnostic']));
     }
+    // ESPHome finds the probes on the bus: one needs nothing, several are told apart by their rank
+    // in the order of their addresses (index)
     if (espTemp)
-      m.temperature.sensors.forEach((s, i) => {
-        const a = M.parseAddress(s.address);
+      m.temperature.sensors.forEach((s, i, all) => {
         add(
           '  - platform: dallas_temp',
-          ...(a ? [`    address: 0x${a.map((b) => b.toString(16).toUpperCase().padStart(2, '0')).join('')}`] : []),
+          ...(all.length > 1 ? [`    index: ${i}`] : []),
           `    name: ${q(s.name || t.temperature(i + 1))}`,
           `    id: t${i + 1}`,
           '    update_interval: 30s',

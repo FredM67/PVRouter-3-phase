@@ -833,19 +833,23 @@
             )
           : h('p', { class: 'help' }, T('tempPinFixed', { pin: pinLabel(M.TEMP_PIN) }))
         : null,
+      // the module finds the probes itself: only their names
+      t.mode === 'esp' ? help('tempEspProbes') : null,
       t.mode !== 'off'
         ? [
             t.sensors.map((s, i) =>
               row(
                 h('strong', null, `${T('sensor')} ${i + 1}`),
-                field(
-                  'address',
-                  text(
-                    () => s.address,
-                    (v) => (s.address = v),
-                    { placeholder: '28BE416B090000A4' }
-                  )
-                ),
+                t.mode === 'router'
+                  ? field(
+                      'address',
+                      text(
+                        () => s.address,
+                        (v) => (s.address = v),
+                        { placeholder: '28BE416B090000A4' }
+                      )
+                    )
+                  : null,
                 field(
                   'sensorName',
                   text(

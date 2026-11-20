@@ -109,6 +109,8 @@ valid load maps ([#160]).
 - **Configurator, temperature probes:** read by the router on the new board, they are on `D3`,
   wired with its pull-up on the board, so the pin is no longer a choice there. On the old board,
   the pin is still chosen, with a reminder to wire the pull-up and the probes' power.
+- **Configurator, probes read by the mk2Wifi module:** no address to enter, ESPHome finds the
+  probes on the bus; each is only named, and the YAML tells several apart by `index`.
 - **`RELAY(n)`** with relay diversion off, or beyond the configured relays, now fails to compile,
   in the override pins and in the boosts, and so does `LOAD(n)` beyond the configured loads, with
   the message of `validation.h` instead of an array-bounds error. `MINUTES()` is one macro shared
