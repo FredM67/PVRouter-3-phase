@@ -476,15 +476,10 @@ void processTemperatureData()
   uint8_t idx{ temperatureSensing.size() };
   do
   {
-    auto tmp = temperatureSensing.readTemperature(--idx);
+    const auto tmp{ temperatureSensing.readTemperature(--idx) };
 
-    // if read temperature is 85 and the delta with previous is greater than 5, skip the value
-    if (8500 == tmp && (abs(tmp - tx_data.temperature_x100[idx]) > 500))
-    {
-      tmp = DEVICE_DISCONNECTED_RAW;
-    }
-
-    tx_data.temperature_x100[idx] = tmp;
+    // 85.00 °C more than 5.00 °C away from the previous reading: the power-on value, skipped
+    tx_data.temperature_x100[idx] = DS18B20::skipPowerOnValue(tmp, tx_data.temperature_x100[idx]);
   } while (idx);
 
   temperatureSensing.requestTemperatures();  // for use next time around

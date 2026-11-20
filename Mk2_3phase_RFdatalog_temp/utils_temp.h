@@ -26,6 +26,7 @@
 
 #include "constants.h"
 #include "config.h"
+#include "ds18b20.h"
 #include "onewire_search.h"
 
 /**
@@ -78,11 +79,6 @@ public:
   {
     return 0x01;
   }
-
-  uint8_t crc8(const uint8_t*, uint8_t)
-  {
-    return 0x00;
-  }
 };
 /// @endcond
 
@@ -111,21 +107,6 @@ using OneWireType = conditional_t< TEMP_SENSOR_PRESENT, OneWire, MockOneWire >;
 template< uint8_t N >
 class TemperatureSensing
 {
-  /**
-   * @typedef ScratchPad
-   * @brief Represents a buffer for storing sensor data.
-   *
-   * The `ScratchPad` type alias is used to define a buffer of 9 bytes, which is
-   * typically used to store data read from a DS18B20 temperature sensor's scratchpad memory.
-   *
-   * @details
-   * - The scratchpad memory contains temperature data, configuration settings, and a CRC byte.
-   * - This buffer is used during temperature reading and validation processes.
-   *
-   * @ingroup TemperatureSensing
-   */
-  using ScratchPad = uint8_t[9];
-
 public:
   constexpr TemperatureSensing() = delete;
 
@@ -214,7 +195,7 @@ public:
         }
         info(F(" }"));
 
-        if (oneWire.crc8(found.addr, 7) != found.addr[7])
+        if (DS18B20::crc8(found.addr, 7) != found.addr[7])
         {
           infoln(F("  CRC error: check the wiring"));
         }
@@ -309,7 +290,7 @@ public:
    * @details
    * - Communicates with the sensor using the OneWire protocol.
    * - Reads the scratchpad memory of the sensor to retrieve temperature data.
-   * - Validates the data using CRC and checks for out-of-range values.
+   * - DS18B20::decode() (ds18b20.h) checks its CRC, converts it and checks the range.
    */
   [[nodiscard]] int16_t readTemperature(const uint8_t idx) const
   {
@@ -321,7 +302,7 @@ public:
     }
     else
     {
-      static ScratchPad buf;
+      static DS18B20::ScratchPad buf;
 
       if (!oneWire.reset())
       {
@@ -339,20 +320,7 @@ public:
       {
         return DEVICE_DISCONNECTED_RAW;
       }
-      if (oneWire.crc8(buf, 8) != buf[8])
-      {
-        return DEVICE_DISCONNECTED_RAW;
-      }
-
-      // result is temperature x16, multiply by 6.25 to convert to temperature x100
-      int16_t result{ (buf[1] << 8) | buf[0] };
-      result = (result * 6) + (result >> 2);
-      if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
-      {
-        return OUTOFRANGE_TEMPERATURE;  // return value ('Out of range')
-      }
-
-      return result;
+      return DS18B20::decode(buf);
     }
   }
 
