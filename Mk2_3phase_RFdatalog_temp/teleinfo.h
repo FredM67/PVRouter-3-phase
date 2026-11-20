@@ -16,7 +16,7 @@
  *   1 stop bit, and even parity.
  *
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2025-2026
  *
@@ -180,26 +180,17 @@ private:
    * @param startPos The starting position in the buffer.
    * @param endPos The ending position in the buffer.
    * @return The calculated checksum as a single byte.
+   *
+   * @details A plain loop: a line is about 15 bytes, summed once per datalog period in the main
+   *          loop, never in the ISR. Unrolled 4 times, it saved a few cycles per byte for 40 bytes
+   *          of flash more.
    */
   [[nodiscard]] uint8_t calculateChecksum(size_t startPos, size_t endPos) const
   {
     uint8_t sum{ 0 };
-    auto* ptr = buffer + startPos;
-    const auto* end = buffer + endPos;
-
-    // Process 4 bytes at once for longer segments
-    while (ptr + 4 <= end)
+    for (const char* ptr = buffer + startPos; ptr != buffer + endPos; ++ptr)
     {
-      sum += *ptr++;
-      sum += *ptr++;
-      sum += *ptr++;
-      sum += *ptr++;
-    }
-
-    // Handle remaining bytes
-    while (ptr < end)
-    {
-      sum += *ptr++;
+      sum += *ptr;
     }
 
     return (sum & 0x3F) + 0x20;
