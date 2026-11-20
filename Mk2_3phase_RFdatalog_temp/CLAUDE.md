@@ -95,6 +95,7 @@ test/
 │   └── test_utils_pins/
 └── native/       # Cross-platform tests (run on host)
     ├── test_ewma_avg/
+    ├── test_load_priorities/
     ├── test_remote_loads/
     └── test_utils_override/
 ```

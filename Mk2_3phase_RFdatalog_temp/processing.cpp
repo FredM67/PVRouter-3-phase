@@ -19,6 +19,7 @@
 #include "shared_var.h"
 #include "mult_asm.h"
 #include "energy_bucket.h"
+#include "load_priorities.h"
 
 // analogue input pins
 inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
@@ -77,16 +78,13 @@ constexpr int32_t initThreshold(const bool lower)
 constexpr int32_t l_lowerThreshold_default{ initThreshold(true) };  /**< lower default threshold set accordingly to the output mode */
 constexpr int32_t l_upperThreshold_default{ initThreshold(false) }; /**< upper default threshold set accordingly to the output mode */
 
-int32_t l_energyInBucket_main{ 0 };  /**< main energy bucket (over all phases) */
-int32_t l_lowerEnergyThreshold{ 0 }; /**< dynamic lower threshold */
-int32_t l_upperEnergyThreshold{ 0 }; /**< dynamic upper threshold */
+int32_t l_energyInBucket_main{ 0 }; /**< main energy bucket (over all phases) */
 
-// for improved control of multiple loads
-bool b_recentTransition{ false };                 /**< a load state has been recently toggled */
-uint8_t postTransitionCount{ 0 };                 /**< counts the number of cycle since last transition */
-constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 3 }; /**< allows each transition to take effect */
-// constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
-uint8_t activeLoad{ NO_OF_DUMPLOADS }; /**< current active load */
+/** the fixed levels of the main energy bucket */
+constexpr LoadPriorities::Bucket bucketLevels{ l_capacityOfEnergyBucket_main, l_midPointOfEnergyBucket_main,
+                                               l_lowerThreshold_default, l_upperThreshold_default };
+
+LoadPriorities::Switching< NO_OF_DUMPLOADS > loadSwitching; /**< for improved control of multiple loads */
 
 int32_t l_sumP[NO_OF_PHASES]{};           /**< cumulative power per phase */
 int16_t i_sampleVminusDC[NO_OF_PHASES]{}; /**< current raw voltage sample filtered (left-aligned ADC) */
@@ -452,14 +450,7 @@ void updatePhysicalLoadStates()
   {
     if (Shared::b_reOrderLoads)
     {
-      uint8_t i{ static_cast< uint8_t >(NO_OF_DUMPLOADS - 1) };
-      const auto temp{ loadPrioritiesAndState[i] };
-      do
-      {
-        loadPrioritiesAndState[i] = loadPrioritiesAndState[i - 1];
-        --i;
-      } while (i);
-      loadPrioritiesAndState[0] = temp;
+      LoadPriorities::rotate(loadPrioritiesAndState);
 
       Shared::b_reOrderLoads = false;
     }
@@ -471,24 +462,20 @@ void updatePhysicalLoadStates()
   // the override bitmasks are read once: the same snapshot for every load of this cycle
   const uint16_t overrideBitmask{ Shared::overrideBitmask };
   const uint8_t remoteOverrideBitmask{ REMOTE_LOADS_PRESENT ? Shared::remoteOverrideBitmask : uint8_t{ 0 } };
-  uint8_t idx{ NO_OF_DUMPLOADS };
-  do
-  {
-    --idx;
-    const auto iLoad{ loadPrioritiesAndState[idx] & loadStateMask };
 
-    // A local load has its pin's bit in the local override bitmask, a remote load its
-    // ordinal's bit in the remote one; the other mask is 0. With an all-local map, the
-    // remote test folds away.
-    bool bOverrideActive{ (overrideBitmask & pgm_read_word(&overrideMasks.local[iLoad])) != 0 };
-    if constexpr (REMOTE_LOADS_PRESENT)
-    {
-      bOverrideActive = bOverrideActive || ((remoteOverrideBitmask & pgm_read_byte(&overrideMasks.remote[iLoad])) != 0);
-    }
-
-    const bool bOn{ bOverrideActive || (bDiversionEnabled && (loadPrioritiesAndState[idx] & loadStateOnBit)) };
-    physicalLoadState[iLoad] = (!CALIBRATION_MODE && bOn) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
-  } while (idx);
+  LoadPriorities::toPhysical< CALIBRATION_MODE >(
+    loadPrioritiesAndState, physicalLoadState, bDiversionEnabled,
+    [overrideBitmask, remoteOverrideBitmask](const uint8_t iLoad) __attribute__((always_inline)) {
+      // A local load has its pin's bit in the local override bitmask, a remote load its
+      // ordinal's bit in the remote one; the other mask is 0. With an all-local map, the
+      // remote test folds away.
+      bool bOverrideActive{ (overrideBitmask & pgm_read_word(&overrideMasks.local[iLoad])) != 0 };
+      if constexpr (REMOTE_LOADS_PRESENT)
+      {
+        bOverrideActive = bOverrideActive || ((remoteOverrideBitmask & pgm_read_byte(&overrideMasks.remote[iLoad])) != 0);
+      }
+      return bOverrideActive;
+    });
 }
 
 /**
@@ -684,104 +671,6 @@ void processStartUp(const uint8_t phase)
 }
 
 /**
- * @brief Handles the case when the energy level is high, potentially adding a load.
- *
- * This function determines if a new load can be added based on the current energy level
- * and recent transitions. It updates the logical load states and thresholds accordingly.
- *
- * @details
- * - Identifies the next logical load to be added.
- * - Ensures that only the active load can be switched during the post-transition period.
- * - Updates the upper energy threshold and logical load states if a load is added.
- *
- * @ingroup TimeCritical
- */
-void proceedHighEnergyLevel()
-{
-  bool bOK_toAddLoad{ true };
-  const auto tempLoad{ nextLogicalLoadToBeAdded() };
-
-  if (tempLoad == NO_OF_DUMPLOADS)
-  {
-    return;
-  }
-
-  // a load which is now OFF has been identified for potentially being switched ON
-  if (b_recentTransition)
-  {
-    // During the post-transition period, any increase in the energy level is noted.
-    l_upperEnergyThreshold = l_energyInBucket_main;
-
-    // the energy thresholds must remain within range
-    if (l_upperEnergyThreshold > l_capacityOfEnergyBucket_main)
-    {
-      l_upperEnergyThreshold = l_capacityOfEnergyBucket_main;
-    }
-
-    // Only the active load may be switched during this period. All other loads must
-    // wait until the recent transition has had sufficient opportunity to take effect.
-    bOK_toAddLoad = (tempLoad == activeLoad);
-  }
-
-  if (bOK_toAddLoad)
-  {
-    loadPrioritiesAndState[tempLoad] |= loadStateOnBit;
-    activeLoad = tempLoad;
-    postTransitionCount = 0;
-    b_recentTransition = true;
-  }
-}
-
-/**
- * @brief Handles the case when the energy level is low, potentially removing a load.
- *
- * This function determines if a load can be removed based on the current energy level
- * and recent transitions. It updates the logical load states and thresholds accordingly.
- *
- * @details
- * - Identifies the next logical load to be removed.
- * - Ensures that only the active load can be switched during the post-transition period.
- * - Updates the lower energy threshold and logical load states if a load is removed.
- *
- * @ingroup TimeCritical
- */
-void proceedLowEnergyLevel()
-{
-  bool bOK_toRemoveLoad{ true };
-  const auto tempLoad{ nextLogicalLoadToBeRemoved() };
-
-  if (tempLoad == NO_OF_DUMPLOADS)
-  {
-    return;
-  }
-
-  // a load which is now ON has been identified for potentially being switched OFF
-  if (b_recentTransition)
-  {
-    // During the post-transition period, any decrease in the energy level is noted.
-    l_lowerEnergyThreshold = l_energyInBucket_main;
-
-    // the energy thresholds must remain within range
-    if (l_lowerEnergyThreshold < 0)
-    {
-      l_lowerEnergyThreshold = 0;
-    }
-
-    // Only the active load may be switched during this period. All other loads must
-    // wait until the recent transition has had sufficient opportunity to take effect.
-    bOK_toRemoveLoad = (tempLoad == activeLoad);
-  }
-
-  if (bOK_toRemoveLoad)
-  {
-    loadPrioritiesAndState[tempLoad] &= loadStateMask;
-    activeLoad = tempLoad;
-    postTransitionCount = 0;
-    b_recentTransition = true;
-  }
-}
-
-/**
  * @brief Processes the start of a new mains cycle on phase 0.
  *
  * This function is executed once per 20ms (for 50Hz), shortly after the start of each
@@ -798,33 +687,8 @@ void proceedLowEnergyLevel()
  */
 void processStartNewCycle()
 {
-  // Restrictions apply for the period immediately after a load has been switched.
-  // Here the b_recentTransition flag is checked and updated as necessary.
-  // if (b_recentTransition)
-  //   b_recentTransition = (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
-  // for optimization, the next line is equivalent to the two lines above
-  b_recentTransition &= (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
-
-  if (l_energyInBucket_main > l_midPointOfEnergyBucket_main)
-  {
-    // the energy state is in the upper half of the working range
-    l_lowerEnergyThreshold = l_lowerThreshold_default;  // reset the "opposite" threshold
-    if (l_energyInBucket_main > l_upperEnergyThreshold)
-    {
-      // Because the energy level is high, some action may be required
-      proceedHighEnergyLevel();
-    }
-  }
-  else
-  {
-    // the energy state is in the lower half of the working range
-    l_upperEnergyThreshold = l_upperThreshold_default;  // reset the "opposite" threshold
-    if (l_energyInBucket_main < l_lowerEnergyThreshold)
-    {
-      // Because the energy level is low, some action may be required
-      proceedLowEnergyLevel();
-    }
-  }
+  // may switch one load ON or OFF (load_priorities.h)
+  loadSwitching.onNewCycle(loadPrioritiesAndState, l_energyInBucket_main, bucketLevels);
 
   updatePhysicalLoadStates();  // allows the logical-to-physical mapping to be changed
 
@@ -887,57 +751,6 @@ void processMinusHalfCycle(const uint8_t phase)
   // shift loop (~105 cycles, 4 here): '<< 1' only drops bit 31, which the uint16_t drops
   // too. Identical for all 2^32 values (checked exhaustively).
   i_DCoffset_V[phase] = static_cast< uint16_t >((l_filterDC_V[phase] << 1) >> 16);
-}
-
-/**
- * @brief Retrieve the next logical load that could be added.
- *
- * This function identifies the next logical load that can be added based on the
- * current load priorities and states. It iterates through the load priorities
- * to find the first load that is currently OFF.
- *
- * @return The load number if a suitable load is found, or `NO_OF_DUMPLOADS` if no
- *         load can be added.
- *
- * @ingroup TimeCritical
- */
-uint8_t nextLogicalLoadToBeAdded()
-{
-  for (uint8_t index = 0; index < NO_OF_DUMPLOADS; ++index)
-  {
-    if (0x00 == (loadPrioritiesAndState[index] & loadStateOnBit))
-    {
-      return (index);
-    }
-  }
-
-  return (NO_OF_DUMPLOADS);
-}
-
-/**
- * @brief Retrieve the next logical load that could be removed (in reverse order).
- *
- * This function identifies the next logical load that can be removed based on the
- * current load priorities and states. It iterates through the load priorities
- * in reverse order to find the first load that is currently ON.
- *
- * @return The load number if a suitable load is found, or `NO_OF_DUMPLOADS` if no
- *         load can be removed.
- *
- * @ingroup TimeCritical
- */
-uint8_t nextLogicalLoadToBeRemoved()
-{
-  uint8_t index{ NO_OF_DUMPLOADS };
-  do
-  {
-    if (loadPrioritiesAndState[--index] & loadStateOnBit)
-    {
-      return (index);
-    }
-  } while (index);
-
-  return (NO_OF_DUMPLOADS);
 }
 
 /**

@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some basics classes/types
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -17,7 +17,8 @@
 #include "type_traits.hpp"
 
 #include "constants.h"
-#include "load_map.h"  // LoadStates and the packed load-map encoding
+#include "load_map.h"         // LoadStates and the packed load-map encoding
+#include "load_priorities.h"  // loadStateMask, loadStateOnBit
 
 // -------------------------------
 // definitions of enumerated types
@@ -53,9 +54,6 @@ enum class OutputModes : uint8_t
 };
 
 // LoadStates lives in load_map.h, so that the load-map logic stays Arduino-free.
-
-inline constexpr uint8_t loadStateMask{ 0x7FU };                      /**< bit mask for masking load state */
-inline constexpr uint8_t loadStateOnBit{ (uint8_t)(~loadStateMask) }; /**< bit mask for load state ON */
 
 /** Rotation modes */
 enum class RotationModes : uint8_t
