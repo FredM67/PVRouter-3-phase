@@ -9,6 +9,7 @@ Tests for the packed load map (`load_map.h`), the per-unit payload builder (`rem
 | `test_local_*` / `test_remote_*` | Packed encoding: unit number in bits 6-7, pin or status LED in bits 0-5 |
 | `test_census_*` | `constexpr` census of a map: unit count, remote load count, loads per unit |
 | `test_remoteOrdinal_*` | Position of a load among the remote ones (the `REMOTE_LOAD(n)` space) |
+| `test_overrideMasks_*` | Per-load override bits the ISR tests: the pin's bit for a local load, the remote rank's bit for a remote one, none for an out-of-range entry |
 | `test_bitOf_*` | Position of a load within its own unit's payload |
 | `test_*_unit*` / `test_interleaved_map` | Grouping loads by unit, locals ignored, units independent |
 | `test_first_load_of_a_unit_is_bit_zero` | Bit ordering: ascending map order, first load of a unit is bit 0 |
