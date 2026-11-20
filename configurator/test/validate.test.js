@@ -68,9 +68,10 @@ const CASES = [
   ['warn.overrideNothing', (m) => (m.overrides.list[0].targets = 'ALL_REMOTE_LOADS')],
   ['err.offPeakHours', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 13 })],
   ['err.tempThreshold', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, tempThreshold: 0 })],
-  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: 10, duration: 20 }] })],
-  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: -9, duration: 1 }] })],
-  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: 480, duration: null }] })],
+  // start of a boost: hours from -24 to 24, minutes beyond; 8 hours of off-peak
+  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: 10, duration: 20 }] })], // hours: after the end
+  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: -9, duration: 1 }] })], // hours: before the start
+  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: 480, duration: null }] })], // minutes: at the end
   ['err.noSensor', (m) => Object.assign(m.temperature, { mode: 'router', sensors: [] })],
   ['err.sensorAddress', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE41')],
   ['warn.sensorCrc', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE416B090000A5')],
@@ -119,17 +120,18 @@ CASES.forEach(([key, change], i) => {
 });
 
 test('dual tariff: boosts that start within the off-peak period are accepted', () => {
+  // start: hours from -24 to 24, minutes beyond, as in the firmware; 8 hours of off-peak
   for (const force of [
-    [{ start: -3, duration: 2 }], // config.h
-    [{ start: 7, duration: 1 }],
-    [{ start: -8, duration: 1 }], // from the very start
-    [{ start: 479, duration: 1 }], // minutes
-    [{ start: -480, duration: 30 }],
-    [{ start: 0, duration: null }],
-    [{ start: 10, duration: 0 }], // no boost: any offset
+    [{ start: -3, duration: 2 }], // hours: config.h, 3 h before the end
+    [{ start: 7, duration: 1 }], // hours: 7 h after the start
+    [{ start: -8, duration: 1 }], // hours: from the very start
+    [{ start: 479, duration: 1 }], // minutes: 1 min before the end
+    [{ start: -480, duration: 30 }], // minutes: from the very start
+    [{ start: 0, duration: null }], // the whole period
+    [{ start: 10, duration: 0 }], // no boost: any start
   ]) {
     const m = variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force }));
-    assert.ok(!keys(m).includes('err.forceWindow'), JSON.stringify(force));
+    assert.deepStrictEqual(errors(m), [], JSON.stringify(force));
   }
 });
 

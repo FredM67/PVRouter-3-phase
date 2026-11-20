@@ -79,18 +79,18 @@ constexpr bool durationInMinutes(const pairForceLoad& force)
  * @brief The start of the window, in ms from the start of the off-peak period.
  *
  * @details A negative offset counts back from the end of the period. A start before the
- *          period wraps around to a very large value: the window then never opens
- *          (startsWithinOffPeak() rejects it at compile time).
+ *          period wraps around to a very large value: the window then never opens.
+ *          validation.h rejects such a window at compile time, with startsWithinOffPeak().
  *
  * @param offPeakHours the duration of the off-peak period, in hours (12 at most)
  */
 constexpr uint32_t windowStart(const pairForceLoad& force, const uint8_t offPeakHours)
 {
-  // 16 bits: 12 h is 43200 s. In int, 10 h and more overflowed (#214).
-  const uint16_t uiPeakDurationInSec{ static_cast< uint16_t >(offPeakHours * 3600U) };
+  // 32 bits, as in startsWithinOffPeak(). In int (16 bits on the AVR), 10 h and more overflowed (#214).
+  const uint32_t ulPeakDurationInSec{ static_cast< uint32_t >(offPeakHours * 3600UL) };
 
   // unsigned 32-bit arithmetic: a negative offset wraps around, back below the end of the period
-  uint32_t start{ static_cast< uint32_t >(((force.getStartOffset() >= 0) ? 0 : uiPeakDurationInSec) + force.getStartOffset() * (offsetInMinutes(force) ? 60ul : 3600ul)) };
+  uint32_t start{ static_cast< uint32_t >(((force.getStartOffset() >= 0) ? 0 : ulPeakDurationInSec) + force.getStartOffset() * (offsetInMinutes(force) ? 60ul : 3600ul)) };
   start *= 1000ul;  // convert in milli-seconds
   return start;
 }
