@@ -1,0 +1,20 @@
+# Rotation pin (D12) pressed while the override pin (D4) forces every load, and still held
+# when the override ends: no rotation. Rotation waits for no override, but the press
+# happened during one, so it is dropped rather than carried over to the end of the
+# override. Same surplus as rotation_pin.scn: without rotation, D5 runs and D7 stays OFF.
+include common.scn
+duration 70
+
+at 0   600 600 600
+at 70  600 600 600
+
+input 4 0 25            # override: every load forced
+input 12 0 30           # rotation pressed during the override...
+input 4 1 35            # ...override released...
+input 12 1 45           # ...rotation released 10 s later
+
+expect 22 pin 5 on
+expect 22 pin 7 off
+expect 32 pin 7 on      # forced
+expect 60 pin 5 on      # priorities unchanged
+expect 60 pin 7 off
