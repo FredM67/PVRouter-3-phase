@@ -229,11 +229,6 @@ select {
   background: #fff;
 }
 
-input:disabled {
-  background: #eee;
-  color: #888;
-}
-
 .block {
   padding: 0.25rem 0;
   border-top: 1px dashed var(--line);

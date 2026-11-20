@@ -70,7 +70,6 @@
       step: a.step || 1,
       min: a.min,
       max: a.max,
-      disabled: a.disabled,
       onchange: (e) => {
         set(e.target.value === '' ? null : Number(e.target.value));
         changed();
@@ -766,16 +765,17 @@
                   { min: 1, max: 12 }
                 )
               ),
-              field(
-                'tempThreshold',
-                num(
-                  () => d.tempThreshold,
-                  (v) => (d.tempThreshold = v),
-                  { min: 1, max: 100, disabled: !M.tempSensorPresent(m) }
-                ),
-                M.tempSensorPresent(m) ? null : 'tempThresholdOff'
-              ),
-              // with several probes, the one the threshold is checked on
+              // the threshold needs the router to read the probes; with several, the one it is checked on
+              M.tempSensorPresent(m)
+                ? field(
+                    'tempThreshold',
+                    num(
+                      () => d.tempThreshold,
+                      (v) => (d.tempThreshold = v),
+                      { min: 1, max: 100 }
+                    )
+                  )
+                : null,
               M.tempSensorPresent(m) && m.temperature.sensors.length > 1
                 ? field(
                     'tempSensor',
@@ -787,6 +787,7 @@
                   )
                 : null
             ),
+            M.tempSensorPresent(m) ? null : help('tempThresholdNone'),
             h(
               'div',
               { class: 'block' },
