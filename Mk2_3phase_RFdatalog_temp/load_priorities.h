@@ -13,9 +13,10 @@
  *
  *          Once per mains cycle, the ISR compares the energy bucket with two thresholds:
  *          above the upper one, the first load OFF in priority order comes ON; below the
- *          lower one, the last load ON goes OFF. After a switch, only that same load may switch
- *          again for POST_TRANSITION_MAX_COUNT cycles, so that the switch has time to show in
- *          the bucket, and the threshold follows the bucket meanwhile.
+ *          lower one, the last load ON goes OFF. After a switch, no other load may switch for
+ *          POST_TRANSITION_MAX_COUNT cycles, so that the switch has time to show in the bucket:
+ *          only the load just switched may switch back. The threshold follows the bucket
+ *          meanwhile.
  *
  *          A threshold goes back to its default only when the bucket is in the other half:
  *          while the bucket stays in the upper half, the upper threshold keeps the level the
