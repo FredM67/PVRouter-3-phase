@@ -11,12 +11,14 @@
   const I = window.PVRI18n;
   const Z = window.PVRZip;
   const D = window.PVRFolder;
+  const TL = window.PVRTimeline;
 
   const STORE = 'pvrouter-configurator';
   let m = M.defaults();
   let lang = (navigator.language || 'en').toLowerCase().startsWith('fr') ? 'fr' : 'en';
   let activeFile = 0;
   let folderStatus = null; // { level: 'ok' | 'error', text } after saving into a folder
+  let selectedBoost = null; // the boost chosen on the timeline (page state, not saved)
 
   try {
     const saved = JSON.parse(localStorage.getItem(STORE) || 'null');
@@ -617,11 +619,102 @@
     ];
   }
 
-  function boostEditor(d, b, i) {
+  // ---- the boost timeline: one lane per boost, bars dragged with the mouse, touch or pen ----
+
+  const offPeakTime = (min) => `+${Math.floor(min / 60)}h${String(min % 60).padStart(2, '0')}`;
+
+  // Where the bar goes; a window that does not fit is still drawn, inside the track
+  function placeBar(bar, b, period, label) {
+    const w = M.boostWindow(b, period);
+    let start = Math.min(Math.max(w.start, 0), period);
+    let end = Math.min(Math.max(w.end, start), period);
+    if (end - start < TL.SNAP) {
+      start = Math.max(0, Math.min(start, period - TL.SNAP));
+      end = start + TL.SNAP;
+    }
+    bar.style.left = `${TL.toPercent(start, period)}%`;
+    bar.style.width = `${TL.toPercent(end - start, period)}%`;
+    bar.title = `${label}: ${offPeakTime(w.start)} → ${w.open ? T('tl.end') : offPeakTime(w.end)}`;
+    bar.classList.toggle('bad', !M.boostFits(b, period));
+  }
+
+  function selectBoost(i) {
+    selectedBoost = i;
+    render();
+    const card = document.getElementById(`boost-${i}`);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Drag the body: move; drag the free edge (handle): resize. Only the bar follows the pointer
+  // (a full redraw would drop the captured element); the page redraws on release.
+  function timelineBar(b, i, period) {
+    const label = TL.targetsLabel(m, b.targets, T);
+    const open = b.for === null;
+    const handle = open ? null : h('span', { class: `tl-handle ${b.from === 'start' ? 'right' : 'left'}` });
+    const bar = h('div', { class: `tl-bar c${i % 4}${open ? ' open' : ''}${selectedBoost === i ? ' selected' : ''}` }, handle, h('span', { class: 'tl-text' }, label));
+    placeBar(bar, b, period, label);
+    bar.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      const resizing = e.target === handle;
+      const width = bar.parentElement.getBoundingClientRect().width;
+      const x0 = e.clientX;
+      const orig = { ...b };
+      let moved = false;
+      bar.setPointerCapture(e.pointerId);
+      const onMove = (ev) => {
+        const dx = ev.clientX - x0;
+        if (!moved && Math.abs(dx) < 3) return; // a click, so far
+        moved = true;
+        const r = (resizing ? TL.resize : TL.move)(orig, Math.round((dx / width) * period), period);
+        b.at = r.at;
+        b.for = r.for;
+        bar.classList.add('dragging');
+        placeBar(bar, b, period, label);
+      };
+      const onUp = () => {
+        bar.removeEventListener('pointermove', onMove);
+        bar.removeEventListener('pointerup', onUp);
+        bar.removeEventListener('pointercancel', onUp);
+        if (moved) changed();
+        else selectBoost(i);
+      };
+      bar.addEventListener('pointermove', onMove);
+      bar.addEventListener('pointerup', onUp);
+      bar.addEventListener('pointercancel', onUp);
+    });
+    return bar;
+  }
+
+  function boostTimeline(d) {
+    const period = d.offPeakHours * 60;
+    if (!d.boosts.length || !(period > 0)) return null;
+    const lane = (name, track) => h('div', { class: 'tl-lane' }, h('span', { class: 'tl-name' }, name), track);
     return h(
       'div',
-      { class: 'sub' },
-      row(h('strong', null, `${T('boost')} ${i + 1}`), button('remove', () => d.boosts.splice(i, 1), 'small')),
+      { class: 'timeline' },
+      lane(
+        '',
+        h(
+          'div',
+          { class: 'tl-axis' },
+          TL.axisLabels(d.offPeakHours, T).map((l) => h('span', null, l))
+        )
+      ),
+      d.boosts.map((b, i) => lane(`${T('boost')} ${i + 1}`, h('div', { class: 'tl-track' }, M.boostWindow(b, period) ? timelineBar(b, i, period) : null))),
+      help('tl.help')
+    );
+  }
+
+  function boostEditor(d, b, i) {
+    const remove = () => {
+      d.boosts.splice(i, 1);
+      selectedBoost = null; // the numbers shift
+    };
+    return h(
+      'div',
+      { class: `sub${selectedBoost === i ? ' selected' : ''}`, id: `boost-${i}` },
+      row(h('strong', null, `${T('boost')} ${i + 1}`), button('remove', remove, 'small')),
       row(
         hoursMinutes(
           'boostAt',
@@ -686,6 +779,7 @@
               { class: 'block' },
               h('strong', null, T('boosts')),
               help('boostsHelp'),
+              boostTimeline(d),
               d.boosts.map((b, i) => boostEditor(d, b, i)),
               button('add', () => d.boosts.push({ from: 'start', at: 0, for: 120, targets: 'ALL_LOADS' }))
             ),
