@@ -926,6 +926,51 @@
     "mult_asm: mult16x8_q8 per op": 27.16,
     "mult_asm: ISR simulation per sample": 132.09
    }
+  },
+  {
+   "commit": "e9960d17831922362a07326564a57b9e1e14a180",
+   "date": "2026-11-20T22:49:44+01:00",
+   "message": "ci: greet new issues only, no pull_request_target (#227)\n\nGitHub blocks pull_request_target by default on public repositories from\nDecember 2, 2026. Outside pull requests hardly ever come, and on a fork PR\nthe pull_request event gets a read-only token that cannot comment: the PR\ngreeting goes, the issue greeting stays.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/e9960d17831922362a07326564a57b9e1e14a180",
+   "sizes": {
+    "basic": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "basic, remote loads": {
+     "flash": 12392,
+     "ram": 675
+    },
+    "basic, IoT": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7802,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05,
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09
+   }
   }
  ]
 }
