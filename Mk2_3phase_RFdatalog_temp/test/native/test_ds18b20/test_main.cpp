@@ -159,14 +159,15 @@ void test_just_inside_the_range()
   TEST_ASSERT_EQUAL_INT16(-5494, decodeX16(-879));  // -54.9375 °C
 }
 
-void test_the_bounds_of_the_sensor_are_out_of_range()
+void test_the_bounds_of_the_sensor_are_in_range()
 {
-  // NOTE: -55 and +125 °C are within the range of the DS18B20, but the check excludes its
-  // bounds (<= TEMP_RANGE_LOW, >= TEMP_RANGE_HIGH). The firmware's behaviour, pinned here.
+  // -55 and +125 °C are the bounds of the DS18B20: readings like any other
   TEST_ASSERT_EQUAL_INT16(12500, DS18B20::toHundredths(0xD0, 0x07));  // +125 °C (datasheet: 07 D0)
   TEST_ASSERT_EQUAL_INT16(-5500, DS18B20::toHundredths(0x90, 0xFC));  // -55 °C (datasheet: FC 90)
-  TEST_ASSERT_EQUAL_INT16(OUTOFRANGE_TEMPERATURE, decodeX16(2000));
-  TEST_ASSERT_EQUAL_INT16(OUTOFRANGE_TEMPERATURE, decodeX16(-880));
+  TEST_ASSERT_EQUAL_INT16(12500, decodeX16(2000));
+  TEST_ASSERT_EQUAL_INT16(-5500, decodeX16(-880));
+  TEST_ASSERT_TRUE(isValidTemperature(12500));
+  TEST_ASSERT_TRUE(isValidTemperature(-5500));
 }
 
 void test_beyond_the_range()
@@ -235,6 +236,46 @@ void test_other_readings_are_kept_whatever_the_jump()
   TEST_ASSERT_EQUAL_INT16(OUTOFRANGE_TEMPERATURE, DS18B20::skipPowerOnValue(OUTOFRANGE_TEMPERATURE, 2000));
 }
 
+// ----- the power-on value, reading after reading ---------------------------------------------
+
+void test_a_first_reading_of_85_is_skipped()
+{
+  DS18B20::PowerOnFilter filter;
+  TEST_ASSERT_EQUAL_INT16(DEVICE_DISCONNECTED_RAW, filter(8500));
+}
+
+void test_a_steady_85_after_an_invalid_reading_is_kept()
+{
+  // a CRC error while the water sits at 85 °C: the next 85.00 °C are real
+  DS18B20::PowerOnFilter filter;
+  TEST_ASSERT_EQUAL_INT16(8450, filter(8450));
+  TEST_ASSERT_EQUAL_INT16(DEVICE_DISCONNECTED_RAW, filter(DEVICE_DISCONNECTED_RAW));
+  TEST_ASSERT_EQUAL_INT16(8500, filter(8500));
+  TEST_ASSERT_EQUAL_INT16(8500, filter(8500));
+}
+
+void test_85_after_an_invalid_reading_far_from_the_last_valid_one_is_skipped()
+{
+  // the sensor restarted (a glitch on its supply): 85.00 °C is its power-on value
+  DS18B20::PowerOnFilter filter;
+  TEST_ASSERT_EQUAL_INT16(2000, filter(2000));
+  TEST_ASSERT_EQUAL_INT16(DEVICE_DISCONNECTED_RAW, filter(DEVICE_DISCONNECTED_RAW));
+  TEST_ASSERT_EQUAL_INT16(DEVICE_DISCONNECTED_RAW, filter(8500));
+  TEST_ASSERT_EQUAL_INT16(2010, filter(2010));
+}
+
+void test_a_skipped_or_out_of_range_value_is_no_reference()
+{
+  DS18B20::PowerOnFilter filter;
+  TEST_ASSERT_EQUAL_INT16(2000, filter(2000));
+  TEST_ASSERT_EQUAL_INT16(DEVICE_DISCONNECTED_RAW, filter(8500));
+  TEST_ASSERT_EQUAL_INT16(DEVICE_DISCONNECTED_RAW, filter(8500));  // still 20 °C away
+  TEST_ASSERT_EQUAL_INT16(OUTOFRANGE_TEMPERATURE, filter(OUTOFRANGE_TEMPERATURE));
+  TEST_ASSERT_EQUAL_INT16(DEVICE_DISCONNECTED_RAW, filter(8500));
+  TEST_ASSERT_EQUAL_INT16(8200, filter(8200));
+  TEST_ASSERT_EQUAL_INT16(8500, filter(8500));  // 3 °C from the last valid reading
+}
+
 // ----- what is sent ---------------------------------------------------------------------------
 
 void test_invalid_readings_are_not_sent()
@@ -291,7 +332,7 @@ int main(int, char **)
   RUN_TEST(test_every_register_value_of_the_range);
 
   RUN_TEST(test_just_inside_the_range);
-  RUN_TEST(test_the_bounds_of_the_sensor_are_out_of_range);
+  RUN_TEST(test_the_bounds_of_the_sensor_are_in_range);
   RUN_TEST(test_beyond_the_range);
 
   RUN_TEST(test_all_ones_is_a_disconnected_probe);
@@ -307,6 +348,10 @@ int main(int, char **)
   RUN_TEST(test_valid_readings_are_sent);
   RUN_TEST(test_the_invalid_values_cannot_be_temperatures);
   RUN_TEST(test_a_skipped_power_on_value_is_not_sent);
+  RUN_TEST(test_a_first_reading_of_85_is_skipped);
+  RUN_TEST(test_a_steady_85_after_an_invalid_reading_is_kept);
+  RUN_TEST(test_85_after_an_invalid_reading_far_from_the_last_valid_one_is_skipped);
+  RUN_TEST(test_a_skipped_or_out_of_range_value_is_no_reference);
 
   return UNITY_END();
 }
