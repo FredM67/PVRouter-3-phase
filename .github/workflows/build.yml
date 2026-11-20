@@ -311,7 +311,8 @@ jobs:
           path: sim/out/
 
   # GitHub Pages (https://fredm67.github.io/PVRouter-3-phase/): each push to dev publishes the
-  # landing page and the size and speed history (pages/), and adds the flash and RAM of every build
+  # landing page and the size and speed history (pages/), the configurator as a preview
+  # (configurator/), and adds the flash and RAM of every build
   # and the embedded benchmarks to bench/history.json (scripts/ci/pages_update.py). Failed embedded
   # tests do not hold back the sizes: the entry then has no speed. The doc (doc/) is deployed by
   # doxygen-gh-pages.yml, in the same concurrency group. Regressions are reported on pull
