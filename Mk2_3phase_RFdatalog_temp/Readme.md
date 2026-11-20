@@ -116,7 +116,6 @@ Toutes les bibliothèques sont toujours incluses dans le code source. Cependant,
 - **dualtariff.h** : définitions de la fonction double tarif
 - **ewma_avg.h** : fonctions de calcul de moyenne EWMA
 - **main.cpp** : code source principal
-- **movingAvg.h** : code source pour la moyenne glissante
 - **processing.cpp** : code source du moteur de traitement
 - **processing.h** : prototypes de fonctions du moteur de traitement
 - **Readme.md** : ce fichier
