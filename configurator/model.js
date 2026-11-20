@@ -255,6 +255,14 @@
     return { start, end: open ? periodMin : start + b.for, open };
   }
 
+  // The same window counted from the other end: switching "after the start" / "before the end"
+  // must not move the boost (0 h after the start, for 2 h = 8 h before the end, for 2 h, with 8 h)
+  function reanchor(b, from, periodMin) {
+    const w = boostWindow(b, periodMin);
+    if (!w || from === b.from) return { from, at: b.at, for: b.for };
+    return { from, at: periodMin - b.at, for: b.for };
+  }
+
   // As validation.h (startsWithinOffPeak(), endsWithinOffPeak(), hasLength()): the whole window
   // lies within the period, and lasts.
   function boostFits(b, periodMin) {
@@ -351,6 +359,7 @@
     remoteLoadsPresent,
     boostWindow,
     boostFits,
+    reanchor,
     rfChipPresent,
     tempSensorPresent,
     overridePresent,

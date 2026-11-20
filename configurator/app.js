@@ -724,7 +724,7 @@
         ),
         select(
           () => b.from,
-          (v) => (b.from = v),
+          (v) => Object.assign(b, M.reanchor(b, v, d.offPeakHours * 60)),
           ['start', 'end'].map((f) => [f, T(`boostFrom.${f}`)])
         )
       ),

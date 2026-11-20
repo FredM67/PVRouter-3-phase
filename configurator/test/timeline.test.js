@@ -78,3 +78,12 @@ test('drag a window that no longer fits: the result fits', () => {
   assert.deepStrictEqual(TL.resize({ from: 'start', at: 170, for: 60 }, 15, 180), { at: 165, for: 15 });
   assert.deepStrictEqual(TL.resize({ from: 'end', at: 60, for: 240 }, -15, 180), { at: 75, for: 75 });
 });
+
+test('switching the anchor keeps the window', () => {
+  // 0 h after the start, for 2 h -> 8 h before the end, for 2 h (8 h period): still 0h-2h
+  assert.deepStrictEqual(M.reanchor({ from: 'start', at: 0, for: 120 }, 'end', 480), { from: 'end', at: 480, for: 120 });
+  assert.deepStrictEqual(M.reanchor({ from: 'end', at: 180, for: 90 }, 'start', 480), { from: 'start', at: 300, for: 90 });
+  assert.deepStrictEqual(M.reanchor({ from: 'end', at: 120, for: null }, 'start', 480), { from: 'start', at: 360, for: null });
+  assert.deepStrictEqual(M.reanchor({ from: 'start', at: 60, for: 60 }, 'start', 480), { from: 'start', at: 60, for: 60 }); // same anchor
+  assert.deepStrictEqual(M.reanchor({ from: 'start', at: null, for: 60 }, 'end', 480), { from: 'end', at: null, for: 60 }); // unreadable time: kept
+});
