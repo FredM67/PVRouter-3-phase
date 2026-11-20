@@ -1,6 +1,6 @@
 # Dual Tariff Tests
 
-Tests for the scheduled boosts of the dual tariff (`utils_dualtariff.h`, `ScheduledBoosts` in `utils_override.h`). A boost is a window (`FIRST`, `LAST`, `FROM_START`, `BEFORE_END`, with `FOR`) and a list of targets, written with `HOURS()` / `MINUTES()`. The firmware resolves each boost at compile time, with `ul_OFF_PEAK_DURATION`, to `{ start, end, local mask, remote mask }`, in ms from the start of the off-peak period, and forces the targets while `millis()` minus that start is in the window. A boost without end (`LAST`, or no `FOR`) lasts until the meter switches back to peak.
+Tests for the scheduled boosts of the dual tariff (`utils_dualtariff.h`, `ScheduledBoosts` too). A boost is a window (`FIRST`, `LAST`, `FROM_START`, `BEFORE_END`, with `FOR`) and a list of targets, written with `HOURS()` / `MINUTES()`. The firmware resolves each boost at compile time, with `ul_OFF_PEAK_DURATION`, to `{ start, end, local mask, remote mask }`, in ms from the start of the off-peak period, and forces the targets while `millis()` minus that start is in the window. A boost without end (`LAST`, or no `FOR`) lasts until the meter switches back to peak.
 
 ## Tests
 

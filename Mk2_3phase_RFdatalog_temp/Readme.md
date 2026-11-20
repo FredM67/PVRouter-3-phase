@@ -27,13 +27,13 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
   - [Configuration du Watchdog](#configuration-du-watchdog)
   - [Configuration du ou des capteurs de température](#configuration-du-ou-des-capteurs-de-température)
     - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité)
-    - [Configuration du ou des capteurs (commun aux 2 cas précédents)](#configuration-du-ou-des-capteurs-commun-aux-2-cas-précédents)
+    - [Configuration du ou des capteurs](#configuration-du-ou-des-capteurs)
   - [Gestion des Heures Creuses et boost programmé (dual tariff)](#gestion-des-heures-creuses-et-boost-programmé-dual-tariff)
     - [Configuration matérielle](#configuration-matérielle)
     - [Configuration logicielle](#configuration-logicielle-1)
     - [Configuration des boosts programmés (scheduledBoosts)](#configuration-des-boosts-programmés-scheduledboosts)
-    - [Exemples visuels](#exemples-visuels)
-    - [Configuration pour plusieurs charges](#configuration-pour-plusieurs-charges)
+      - [Comprendre la ligne du temps](#comprendre-la-ligne-du-temps)
+      - [Exemples](#exemples)
     - [Aide-mémoire](#aide-mémoire)
   - [Rotation des priorités](#rotation-des-priorités)
   - [Boost manuel (déclenché par pin)](#boost-manuel-déclenché-par-pin)
@@ -295,7 +295,7 @@ inline constexpr RelayEngine relays{ MINUTES(15), { { 3, 1000, 200, 1, 1 } } };
 ```
 ___
 > [!NOTE]
-> La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n’est nécessaire ! La même macro (et `HOURS()`) sert à écrire les temps des [boosts programmés](#configuration-des-boosts-programmés-scheduledboosts).
+> La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n’est nécessaire ! La même macro (et `HOURS()`) sert à écrire les temps des [boosts programmés](#configuration-des-boosts-programmés-scheduledboosts).
 ___
 
 Les relais configurés dans le système sont gérés par un système similaire à une machine à états.
