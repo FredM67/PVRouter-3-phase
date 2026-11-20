@@ -329,6 +329,7 @@ public:
     : relay(ref)
   {
     static_assert(V <= UINT8_MAX, "******** RELAY_FILTER_DELAY cannot exceed 255 minutes ! Please check your config.h ! ********");
+    static_assert(V == D, "******** The MINUTES() given to RelayEngine differs from its template parameter D (RELAY_FILTER_DELAY) ! Please check your config.h ! ********");
   }
 
   /**

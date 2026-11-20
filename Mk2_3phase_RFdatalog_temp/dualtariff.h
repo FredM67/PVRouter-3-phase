@@ -116,13 +116,19 @@ inline void printDualTariffConfiguration()
       info(F(" to "));
       printOffPeakTime(boost.end);
     }
-    info(F(" of off-peak, forcing"));
+    info(F(" of off-peak, forcing "));
 
+    bool first{ true };
     for (uint8_t pin = 0; pin != 16; ++pin)
     {
       if (bit_read(boost.local, pin))
       {
-        info(F(" D"));
+        if (!first)
+        {
+          info(F(", "));
+        }
+        first = false;
+        info('D');
         info(pin);
       }
     }
@@ -130,7 +136,12 @@ inline void printDualTariffConfiguration()
     {
       if (bit_read(boost.remote, n))
       {
-        info(F(" remote load "));
+        if (!first)
+        {
+          info(F(", "));
+        }
+        first = false;
+        info(F("remote load "));
         info(n + 1);
       }
     }
