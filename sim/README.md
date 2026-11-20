@@ -83,12 +83,12 @@ make -C sim check-new20 compare-boards-20
 make -C sim compare-ct    # 20 A against 50 A CTs, after check-new and check-new20
 ```
 
-The scenarios in `scenarios/rf` need a firmware with remote loads: the `rf` environment, with `configs/remote_loads.patch` applied to `config.h` (a fourth load is added: loads 3 and 4 go to remote units 1 and 2, RF nodes 15 and 16).
+The scenarios in `scenarios/rf` need a firmware with remote loads: `configs/remote_loads.patch` applied to `config.h`, built in a build directory of its own (a fourth load is added: loads 3 and 4 go to remote units 1 and 2, RF nodes 15 and 16).
 
 ```bash
 sim/configs/sim_config.sh
 git apply --unidiff-zero sim/configs/remote_loads.patch
-(cd Mk2_3phase_RFdatalog_temp && pio run -e rf)
+(cd Mk2_3phase_RFdatalog_temp && PLATFORMIO_BUILD_DIR=.pio/build-rf pio run -e basic)
 make -C sim check-rf                 # with the receiver firmware (built by build_receivers.sh)
 make -C sim check-rf RX_NODES=       # with ideal receivers
 make -C sim -j$(nproc) check check-rf    # both sets in parallel

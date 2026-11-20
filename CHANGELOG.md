@@ -184,6 +184,8 @@ valid load maps ([#160]).
 - `EMONESP_CONTROL`, the `emonesp` environment and its SoftwareSerial debug port ([#180]).
 - The RFM12B / JeeLib RF stack, and the `remote_loads` and `rf_all` environments, which built the
   same firmware as `rf` ([#155]).
+- The `rf` environment, which built the same firmware as `basic`: RF telemetry and remote loads
+  are chosen in `config.h` ([#226]).
 - The ArduinoJson dependency of the firmware ([#172]).
 
 ### Development
@@ -238,3 +240,4 @@ valid load maps ([#160]).
 [#179]: https://github.com/FredM67/PVRouter-3-phase/pull/179
 [#180]: https://github.com/FredM67/PVRouter-3-phase/pull/180
 [#185]: https://github.com/FredM67/PVRouter-3-phase/pull/185
+[#226]: https://github.com/FredM67/PVRouter-3-phase/pull/226
