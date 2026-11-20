@@ -198,7 +198,9 @@ public:
       RomSearch< OneWireType > search{ oneWire };
       DeviceAddress found;
       uint8_t count{ 0 };
-      while (search.next(found.addr))
+      // bounded: noise on a long or badly terminated bus could otherwise keep the search going
+      constexpr uint8_t MAX_LISTED{ 16 };
+      while ((count != MAX_LISTED) && search.next(found.addr))
       {
         ++count;
         info(F("\t{ "));
@@ -229,6 +231,10 @@ public:
       if (0 == count)
       {
         infoln(F("\tnone: check the wiring and the pull-up resistor"));
+      }
+      else if (MAX_LISTED == count)
+      {
+        infoln(F("\t... stopped after 16: noise on the bus? Check the wiring"));
       }
     }
   }
