@@ -267,8 +267,8 @@ constexpr bool targetsAreOutputs(const List &list)
  * @brief Each REMOTE_LOAD(n) target of an entry of @p list must be an existing remote load.
  *
  * @details REMOTE_LOAD() counts from 0: with two remote loads, REMOTE_LOAD(2) is a third one
- *          that does not exist, and the entry would force nothing. A target from 8 on
- *          cannot be seen here: the list already dropped it (8 bits per entry).
+ *          that does not exist, and the entry would force nothing. From 8 on, REMOTE_LOAD()
+ *          gives pin 0 (the masks hold 8 remote loads): targetsAreOutputs() rejects it.
  *
  * @tparam List OverridePins or ScheduledBoosts
  */
@@ -349,9 +349,9 @@ static_assert(check_pins().unique, "******** Duplicate pin definition ! Please c
 static_assert((check_pins().used & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
 static_assert((check_pins().used & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
 static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
-static_assert(check_override_targets(), "******** An override pin forces a pin that is neither a local load nor a relay ! Please check overridePins in your config.h ! ********");
+static_assert(check_override_targets(), "******** An override pin forces a pin that is neither a local load nor a relay (REMOTE_LOAD() goes up to 7) ! Please check overridePins in your config.h ! ********");
 static_assert(check_override_remote_targets(), "******** An override pin forces a remote load that does not exist ! REMOTE_LOAD(n) counts from 0. Please check overridePins in your config.h ! ********");
-static_assert(!DUAL_TARIFF || targetsAreOutputs(scheduledBoosts), "******** A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on?). Please check scheduledBoosts in your config.h ! ********");
+static_assert(!DUAL_TARIFF || targetsAreOutputs(scheduledBoosts), "******** A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on? REMOTE_LOAD() goes up to 7). Please check scheduledBoosts in your config.h ! ********");
 static_assert(!DUAL_TARIFF || targetsAreRemoteLoads(scheduledBoosts), "******** A scheduled boost forces a remote load that does not exist (REMOTE_LOAD() counts from 0). Please check scheduledBoosts in your config.h ! ********");
 
 static_assert(!(RF_CHIP_PRESENT && ((check_pins().used & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");

@@ -261,7 +261,7 @@
   // must not move the boost (0 h after the start, for 2 h = 8 h before the end, for 2 h, with 8 h)
   function reanchor(b, from, periodMin) {
     const w = boostWindow(b, periodMin);
-    if (!w || from === b.from) return { from, at: b.at, for: b.for };
+    if (!w || from === b.from || !(periodMin > 0)) return { from, at: b.at, for: b.for }; // no period (field emptied): as typed
     return { from, at: periodMin - b.at, for: b.for };
   }
 
@@ -279,7 +279,7 @@
   // fits, or with unreadable times, is unchanged.
   function fitBoost(b, periodMin) {
     const w = boostWindow(b, periodMin);
-    if (!w || boostFits(b, periodMin) || (!w.open && b.for <= 0)) return { at: b.at, for: b.for };
+    if (!w || !(periodMin > 0) || boostFits(b, periodMin) || (!w.open && b.for <= 0)) return { at: b.at, for: b.for };
     if (b.from === 'end') {
       const at = Math.min(b.at, periodMin);
       return { at, for: w.open ? null : Math.min(b.for, at) };

@@ -68,10 +68,15 @@ constexpr BoostStart BEFORE_END(const Minutes m)
   return BoostStart{ true, m.value };
 }
 
-/** @brief A boost lasting @p m. */
+/**
+ * @brief A boost lasting @p m.
+ *
+ * @note MINUTES(65535) would read as UNTIL_THE_END: it becomes 65534, which still ends after any
+ *       off-peak period, so validation.h rejects it instead of boosting until the end.
+ */
 constexpr BoostLength FOR(const Minutes m)
 {
-  return BoostLength{ m.value };
+  return BoostLength{ m.value == UNTIL_THE_END ? static_cast< uint16_t >(UNTIL_THE_END - 1) : m.value };
 }
 
 /** @brief The first @p d of the off-peak period. */

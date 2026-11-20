@@ -58,10 +58,16 @@ constexpr uint8_t LOCAL_LOAD(uint8_t loadNum)
  * @brief Returns the virtual pin number for a REMOTE load.
  * @param loadNum The remote load ordinal (0-based), counting remote loads only
  *                in ascending physicalLoadPin[] order.
- * @return The virtual pin number (>= REMOTE_PIN_BASE).
+ * @return The virtual pin number (>= REMOTE_PIN_BASE), or pin 0 from loadNum 8 on: the target
+ *         masks hold 8 remote loads, a larger index would vanish from them and force nothing.
+ *         Pin 0 is never an output, so validation.h rejects it.
  */
 constexpr uint8_t REMOTE_LOAD(uint8_t loadNum)
 {
+  if (loadNum >= 8)
+  {
+    return 0;
+  }
   return REMOTE_PIN_BASE + loadNum;
 }
 

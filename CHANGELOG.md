@@ -114,7 +114,8 @@ valid load maps ([#160]).
   otherwise it tells several probes apart by `index`.
 - **`RELAY(n)`** with relay diversion off, or beyond the configured relays, now fails to compile,
   in the override pins and in the boosts, and so does `LOAD(n)` beyond the configured loads, with
-  the message of `validation.h` instead of an array-bounds error. `MINUTES()` is one macro shared
+  the message of `validation.h` instead of an array-bounds error. `REMOTE_LOAD(n)` from 8 on fails
+  too: the target masks hold 8 remote loads, and it used to force nothing. `MINUTES()` is one macro shared
   by the relays and the boosts; `HOURS()` is built on it, so too many hours fail to compile
   instead of wrapping around.
 - **One meaning for "diversion OFF":** the diversion pin stops the surplus diversion on TRIACs,

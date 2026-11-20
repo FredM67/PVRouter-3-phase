@@ -154,6 +154,10 @@ inline void printDualTariffConfiguration()
         info(n + 1);
       }
     }
+    if (first)
+    {
+      info(F("nothing"));
+    }
     infoln('.');
   }
 }

@@ -72,6 +72,32 @@ void test_twelve_hours(void)
   TEST_ASSERT_EQUAL_UINT32(43200000UL, DualTariff::windowEnd(FIRST(HOURS(12)), 12));
 }
 
+// 3 h before the end, for 2 h, and 1 h 30 before the end, for 1 h, whatever the period: no
+// 16-bit overflow from 10 h on (#214)
+void test_before_end_from_3_to_12_hours(void)
+{
+  for (uint8_t hours = 3; hours <= 12; ++hours)
+  {
+    const BoostWindow a{ BEFORE_END(HOURS(3)), FOR(HOURS(2)) };
+    TEST_ASSERT_EQUAL_UINT32((hours - 3) * HOUR, DualTariff::windowStart(a, hours));
+    TEST_ASSERT_EQUAL_UINT32((hours - 1) * HOUR, DualTariff::windowEnd(a, hours));
+    TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(a, hours));
+    TEST_ASSERT_TRUE(DualTariff::endsWithinOffPeak(a, hours));
+
+    const BoostWindow b{ BEFORE_END(MINUTES(90)), FOR(MINUTES(60)) };
+    TEST_ASSERT_EQUAL_UINT32(hours * HOUR - 90 * MINUTE, DualTariff::windowStart(b, hours));
+    TEST_ASSERT_EQUAL_UINT32(hours * HOUR - 30 * MINUTE, DualTariff::windowEnd(b, hours));
+  }
+}
+
+// FOR(MINUTES(65535)) is a (wrong) length, not 'until the end': it ends after any period
+void test_for_the_largest_minutes_is_not_until_the_end(void)
+{
+  constexpr BoostWindow w{ FROM_START(MINUTES(0)), FOR(MINUTES(65535)) };
+  TEST_ASSERT_NOT_EQUAL(UNTIL_THE_END, w.length.minutes);
+  TEST_ASSERT_FALSE(DualTariff::endsWithinOffPeak(w, 12));
+}
+
 void test_starts_within_off_peak(void)
 {
   TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(FIRST(HOURS(10)), 8));     // starts within, but ends after: see below
@@ -199,6 +225,8 @@ int main(void)
   RUN_TEST(test_before_end_for);
   RUN_TEST(test_until_the_end_has_no_end);
   RUN_TEST(test_twelve_hours);
+  RUN_TEST(test_before_end_from_3_to_12_hours);
+  RUN_TEST(test_for_the_largest_minutes_is_not_until_the_end);
   RUN_TEST(test_starts_within_off_peak);
   RUN_TEST(test_ends_within_off_peak);
   RUN_TEST(test_a_boost_of_zero_minutes_has_no_length);

@@ -129,3 +129,11 @@ test('shortening the off-peak period keeps the boosts inside it', () => {
   assert.deepStrictEqual(M.fitBoost({ from: 'end', at: 180, for: 120 }, 300), { at: 180, for: 120 }); // fits: unchanged
   assert.deepStrictEqual(M.fitBoost({ from: 'start', at: null, for: 60 }, 300), { at: null, for: 60 }); // unreadable: left to the error
 });
+
+test('no off-peak length (field emptied): the boost keeps what is typed', () => {
+  // null * 60 = 0: no period to keep the boost in, so nothing is moved or cut
+  assert.deepStrictEqual(M.reanchor({ from: 'start', at: 60, for: 60 }, 'end', 0), { from: 'end', at: 60, for: 60 });
+  assert.deepStrictEqual(M.withStart({ from: 'end', at: 180, for: 180 }, 120, 0), { at: 120, for: 180 });
+  assert.deepStrictEqual(M.withDuration({ from: 'end', at: 120, for: 120 }, 150, 0), { at: 150, for: 150 }); // the end stays: no period needed
+  assert.deepStrictEqual(M.fitBoost({ from: 'start', at: 0, for: 360 }, 0), { at: 0, for: 360 });
+});
