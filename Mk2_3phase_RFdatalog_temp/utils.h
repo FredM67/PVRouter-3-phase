@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-11-19
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -29,6 +29,19 @@
 #include "utils_temp.h"
 
 #include "version.h"
+
+/**
+ * @brief Print "is present" or "is NOT present", and a line end.
+ *
+ * @details Each F("...") is a string of its own in flash, even with the same text: the features
+ *          print these two through here, so each is stored once.
+ *
+ * @param present Whether the feature is present.
+ */
+inline void infolnPresence(const bool present)
+{
+  infoln(present ? F("is present") : F("is NOT present"));
+}
 
 /**
  * @brief Print the configuration during startup.
@@ -122,58 +135,30 @@ inline void printConfiguration()
   printParamsForSelectedOutputMode();
 
   info(F("Temperature capability "));
-  if constexpr (TEMP_SENSOR_PRESENT)
-  {
-    infoln(F("is present"));
-  }
-  else
-  {
-    infoln(F("is NOT present"));
-  }
+  infolnPresence(TEMP_SENSOR_PRESENT);
 
   info(F("Dual-tariff capability "));
+  infolnPresence(DUAL_TARIFF);
   if constexpr (DUAL_TARIFF)
   {
-    infoln(F("is present"));
     printDualTariffConfiguration();
-  }
-  else
-  {
-    infoln(F("is NOT present"));
   }
 
   info(F("Load rotation feature "));
-  if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
-  {
-    infoln(F("is present"));
-  }
-  else
-  {
-    infoln(F("is NOT present"));
-  }
+  infolnPresence(PRIORITY_ROTATION != RotationModes::OFF);
 
   info(F("Relay diversion feature "));
+  infolnPresence(RELAY_DIVERSION);
   if constexpr (RELAY_DIVERSION)
   {
-    infoln(F("is present"));
-
     relays.printRelayEngineConfiguration();
-  }
-  else
-  {
-    infoln(F("is NOT present"));
   }
 
   info(F("Override feature "));
+  infolnPresence(OVERRIDE_PIN_PRESENT);
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    infoln(F("is present"));
-
     overridePins.printOverrideConfig();
-  }
-  else
-  {
-    infoln(F("is NOT present"));
   }
 
   info(F("RF capability "));
@@ -211,7 +196,7 @@ inline void printConfiguration()
   }
   else
   {
-    infoln(F("is NOT present"));
+    infolnPresence(false);
   }
 
   info(F("Datalogging capability "));
@@ -229,7 +214,7 @@ inline void printConfiguration()
   }
   else
   {
-    infoln(F("is NOT present"));
+    infolnPresence(false);
   }
 }
 
