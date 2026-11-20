@@ -287,6 +287,30 @@
      "ram": 400
     }
    }
+  },
+  {
+   "commit": "ae76577e360604331db9f8babb13c3cccdf56dff",
+   "date": "2026-11-20T09:05:27+01:00",
+   "message": "perf: load states from a mask table, updatePhysicalLoadStates not inlined (#209)\n\n* perf: load states from a mask table, updatePhysicalLoadStates not inlined\n\nupdatePhysicalLoadStates() tested each load's override by shifting the\n16-bit override bitmask by its pin, an n-turn loop on AVR (~100 cycles per\nmains cycle with pins 5-7), counted a remote load's ordinal with a loop\nover the map, and re-read the volatile bitmask for every load.\n\n- Load::overrideMasks() builds, at compile time and in flash, the bit of\n  each load in the local or the remote override bitmask; the loop tests a\n  mask, and reads the bitmasks once per cycle.\n- updatePhysicalLoadStates() is a real call instead of always_inline:\n  inlined, it takes registers that the rest of the ISR spills to a 6-byte\n  stack frame on every call. As a call, the ISR has no stack frame.\n\nGrid simulator, basic firmware (old board), against dev:\n- average ISR call 348.6-348.8 -> 318.8-318.9 cycles\n- longest steady-state call 1,043-1,054 -> 978-989\n- one-off start-up maximum 1,395-1,407 -> 1,329-1,341\n- RF build with remote loads: average 359.3-359.7 -> 351.3-351.7, maximum\n  1,409 -> 1,399\n- flash 8,512 -> 8,418 B, initialised RAM 58 -> 54 B\n- all expectations pass (30 basic, 36 RF)\n\nThe table alone, with the function still inlined, is slower (+2 cycles on\naverage): the gain comes from the call. The other forced-inline functions\nwere tried one by one; none improves both the average and the maximum.\n\nNative tests for the masks (195/195). ISR figures updated in CLAUDE.md,\narchitecture.md and performance.md.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: ISR figures with #208 merged\n\nMeasured on this branch merged with dev (#204, #208), against dev:\n- average ISR call 347.8-348.0 -> 318.0-318.1 cycles\n- longest steady-state call 992-1,003 -> 925-936\n- one-off start-up maximum 1,332-1,350 -> 1,270-1,285\n- flash 8,524 -> 8,426 B, initialised RAM 58 -> 54 B\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/ae76577e360604331db9f8babb13c3cccdf56dff",
+   "sizes": {
+    "basic": {
+     "flash": 8492,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 8488,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 8492,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 8490,
+     "ram": 396
+    }
+   }
   }
  ]
 }
