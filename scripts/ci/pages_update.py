@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Updates a checkout of gh-pages: the site pages, and the firmware size history.
+"""Updates a checkout of gh-pages: the site pages, and the firmware size and speed history.
 
     pages_update.py <gh-pages checkout> <pages dir> <size.json> <commit sha> <ISO date> <commit url>
+                    [<speed.json>]
 
 The commit message is read from the COMMIT_MESSAGE environment variable (no quoting issue).
 
@@ -9,6 +10,10 @@ The commit message is read from the COMMIT_MESSAGE environment variable (no quot
 - Appends the sizes of size.json (customSmallerIsBetter results named "flash: <build>" and
   "RAM: <build>", from the build jobs) to bench/history.json, as one entry per commit (a rerun
   replaces the entry of its commit).
+- Adds the benchmarks of speed.json (BENCH| results of the embedded tests, from the
+  test-embedded job), if given and present, to the same entry: {name: cycles}. Each benchmark
+  is reported in us and in cycles ("<name> [us]", "<name> [cycles]"): only the cycles are kept,
+  under <name>; the page shows the us (cycles / 16).
 - Seeds the history from the data of github-action-benchmark (bench/data.js), used before.
 - Keeps the site tidy: bench/ only holds the page and the history; at the root, once doxygen
   deploys to doc/, everything else than the landing page, doc/ and bench/ is removed (the doc
@@ -37,6 +42,16 @@ def sizes_of(results):
     return sizes
 
 
+def speeds_of(results):
+    """{benchmark: cycles} from the BENCH| results; only those counted in cycles."""
+    speeds = {}
+    for result in results:
+        if result.get("unit") == "cycles":
+            name = result["name"].removesuffix(" [cycles]")
+            speeds[name] = int(result["value"])
+    return speeds
+
+
 def seed_from_benchmark_action(bench):
     """The entries of the former github-action-benchmark data, if any."""
     path = os.path.join(bench, "data.js")
@@ -57,7 +72,7 @@ def seed_from_benchmark_action(bench):
     return entries
 
 
-def main(site, pages, size_json, sha, date, url):
+def main(site, pages, size_json, sha, date, url, speed_json=None):
     bench = os.path.join(site, "bench")
     os.makedirs(bench, exist_ok=True)
 
@@ -81,6 +96,10 @@ def main(site, pages, size_json, sha, date, url):
     }
     if not entry["sizes"]:
         sys.exit(f"pages_update: no size in {size_json}")
+    if speed_json and os.path.exists(speed_json):
+        speeds = speeds_of(json.load(open(speed_json, encoding="utf-8")))
+        if speeds:
+            entry["speed"] = speeds
     history["entries"] = [e for e in history["entries"] if e["commit"] != sha] + [entry]
     with open(history_path, "w", encoding="utf-8") as f:
         json.dump(history, f, indent=1, ensure_ascii=False)
@@ -94,7 +113,10 @@ def main(site, pages, size_json, sha, date, url):
         for name in os.listdir(site):
             if name not in KEEP_AT_ROOT:
                 remove(os.path.join(site, name))
-    print(f"pages_update: {len(history['entries'])} entries, {len(entry['sizes'])} builds for {sha[:8]}")
+    print(
+        f"pages_update: {len(history['entries'])} entries, {len(entry['sizes'])} builds and "
+        f"{len(entry.get('speed', {}))} benchmarks for {sha[:8]}"
+    )
 
 
 def remove(path):
@@ -105,6 +127,8 @@ def remove(path):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 7:
-        sys.exit("usage: pages_update.py <gh-pages checkout> <pages dir> <size.json> <sha> <date> <url>")
+    if len(sys.argv) not in (7, 8):
+        sys.exit(
+            "usage: pages_update.py <gh-pages checkout> <pages dir> <size.json> <sha> <date> <url> [<speed.json>]"
+        )
     main(*sys.argv[1:])
