@@ -117,6 +117,7 @@ All libraries are always included in the source code. However, only the code act
 - **processing.cpp** : processing engine source code
 - **processing.h** : processing engine function prototypes
 - **Readme.en.md** : this file
+- **relay_engine.h** : decisions of the *relay diversion* (thresholds, minimum times, order), Arduino-free
 - **teleinfo.h**: *IoT Telemetry* feature source code
 - **types.h** : type definitions ...
 - **type_traits.h** : some STL stuff not yet available in the avr package

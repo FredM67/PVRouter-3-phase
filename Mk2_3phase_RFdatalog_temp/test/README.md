@@ -15,6 +15,7 @@ test/
 │   ├── test_ewma_avg/
 │   ├── test_load_priorities/
 │   ├── test_power_rms_comparison/
+│   ├── test_relay_engine/
 │   ├── test_remote_loads/
 │   └── test_utils_override/
 └── embedded/         # Run on Arduino or Wokwi simulator
@@ -62,6 +63,7 @@ pio test -e uno -f "*test_utils_relay*"
 | [test_load_priorities](native/test_load_priorities/) | Load priority state machine: switching order, post-transition period, rotation, overrides |
 | [test_pin_edges](native/test_pin_edges/) | Edges of the active-LOW input pins: released at startup, one edge per press or release, one previous level per pin, a rotation press during forcing dropped |
 | [test_power_rms_comparison](native/test_power_rms_comparison/) | Real power vs. RMS power computation |
+| [test_relay_engine](native/test_relay_engine/) | Relay diversion decisions: strict thresholds, minimum ON/OFF times, settle time after any change, order in and out, overrides, diversion OFF, decision on the average |
 | [test_remote_loads](native/test_remote_loads/) | Packed load map and per-unit remote payloads |
 | [test_utils_override](native/test_utils_override/) | Override pin system (local + remote loads) |
 
