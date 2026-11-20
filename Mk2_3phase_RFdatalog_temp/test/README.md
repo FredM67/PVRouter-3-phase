@@ -91,7 +91,7 @@ CI collects these lines from the verbose output of the embedded tests (`scripts/
 
 Every pull request gets a **performance report** as a comment, updated at each push (as ESPHome does for memory): its target branch is built and measured in the same run (`scripts/ci/measure.sh`), and compared with the PR (`scripts/ci/pr_report.py`). 📈 🚨 marks a value more than **2%** worse, 📈 🔸 a smaller regression, 📉 ✅ / 🎉 an improvement. PRs from forks get the report in the job summary only.
 
-simavr is cycle-accurate, so the values are exact and identical from run to run: only a change of the code moves them. The name of a result is its key in the report - renaming it shows it as new.
+simavr is cycle-accurate, so the values are exact and identical from run to run: only a change of the code moves them. Results in `us` are read with `micros()`, which counts in steps of 4 µs (64 cycles): a timed loop reads one step more or less as soon as the code before it moves by a few cycles, with the very same loop. The report counts a change of one step as none; results in `cycles` (Timer1, interrupts off) are exact to the cycle. The name of a result is its key in the report - renaming it shows it as new.
 
 Every embedded test must call `haltAfterTests()` (from [`embedded/halt_after_tests.h`](embedded/halt_after_tests.h)) right after `UNITY_END()`:
 the suite then runs once, and simavr exits instead of running forever.
