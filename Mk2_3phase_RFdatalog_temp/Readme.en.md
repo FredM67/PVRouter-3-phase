@@ -296,7 +296,7 @@ Every second, the system increases the duration of the current state of each rel
 - if the current average power is above the import threshold, it tries to turn off some relays.
 - if the current average power is above the surplus threshold, it tries to turn on more relays.
 
-Relays are processed in ascending order for surplus and in descending order for import.
+Relays turn ON in ascending order and OFF in descending order: on an import, and also on a small surplus for relays in battery mode.
 
 For each relay, the transition or state change is managed as follows:
 - if the relay is *OFF* and the current average power is below the surplus threshold, the relay tries to switch to *ON* state. This transition is subject to the condition that the relay has been *OFF* for at least the *minOFF* duration.

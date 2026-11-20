@@ -143,6 +143,19 @@ void test_the_minimum_times_are_given_in_minutes_and_kept_in_seconds(void)
   TEST_ASSERT_EQUAL_UINT16(180, r.get_minOFF());
 }
 
+void test_a_minimum_time_beyond_1092_minutes_is_marked_for_validation(void)
+{
+  // 1093 min = 65580 s does not fit in 16 bits: kept as UINT16_MAX, which no number of
+  // minutes gives (it is no multiple of 60), so that validation.h can refuse it
+  const Relay r{ 5, 1000, 200, 1093, 1092 };
+  TEST_ASSERT_EQUAL_UINT16(UINT16_MAX, r.get_minON());
+  TEST_ASSERT_EQUAL_UINT16(65520, r.get_minOFF());
+  TEST_ASSERT_TRUE(r.hasValidMinimumTimes() == false);
+
+  const Relay s{ 5, 1000, 200, 1092, 1092 };
+  TEST_ASSERT_TRUE(s.hasValidMinimumTimes());
+}
+
 void test_the_surplus_threshold_is_positive_whatever_its_sign_in_the_config(void)
 {
   const Relay plus{ 4, 500, 100 };
@@ -496,17 +509,25 @@ void test_each_relay_comes_in_at_its_own_threshold(void)
   assertSwitch(0, 6, true);
 }
 
-void test_a_zero_average_is_handled_as_a_surplus_by_increasing_index(void)
+void test_battery_relays_go_out_by_decreasing_index_on_a_small_surplus(void)
 {
-  // Battery mode, both ON: at 0 W, the first relay goes out first (the surplus branch walks
-  // by increasing index); at 1 W, an import, the last one goes out first.
+  // Battery mode, both ON: on a surplus below 100 W, at 0 W, or on an import, the last relay
+  // goes out first, as on an import in normal mode.
+  const Engine< 2 > d{ { { 5, 500, -100, 0, 0 }, { 6, 500, -100, 0, 0 } } };
+  allOn(d);
+
+  setAverage< 2 >(-50);
+  d.proceed_relays(NO_OVERRIDE);
+  TEST_ASSERT_EQUAL_UINT8(1, switchCount);
+  assertSwitch(0, 6, false);
+
   const Engine< 2 > e{ { { 5, 500, -100, 0, 0 }, { 6, 500, -100, 0, 0 } } };
   allOn(e);
 
   setAverage< 2 >(0);
   e.proceed_relays(NO_OVERRIDE);
   TEST_ASSERT_EQUAL_UINT8(1, switchCount);
-  assertSwitch(0, 5, false);
+  assertSwitch(0, 6, false);
 
   const Engine< 2 > f{ { { 5, 500, -100, 0, 0 }, { 6, 500, -100, 0, 0 } } };
   allOn(f);
@@ -662,6 +683,7 @@ int main(void)
   UNITY_BEGIN();
 
   RUN_TEST(test_the_minimum_times_are_given_in_minutes_and_kept_in_seconds);
+  RUN_TEST(test_a_minimum_time_beyond_1092_minutes_is_marked_for_validation);
   RUN_TEST(test_the_surplus_threshold_is_positive_whatever_its_sign_in_the_config);
   RUN_TEST(test_the_defaults);
 
@@ -690,7 +712,7 @@ int main(void)
   RUN_TEST(test_a_relay_held_by_its_minimum_off_time_lets_the_next_one_in);
   RUN_TEST(test_a_relay_held_by_its_minimum_on_time_lets_the_previous_one_out);
   RUN_TEST(test_each_relay_comes_in_at_its_own_threshold);
-  RUN_TEST(test_a_zero_average_is_handled_as_a_surplus_by_increasing_index);
+  RUN_TEST(test_battery_relays_go_out_by_decreasing_index_on_a_small_surplus);
 
   RUN_TEST(test_a_forced_relay_comes_in_during_an_import);
   RUN_TEST(test_a_forced_relay_stays_on_while_the_others_go_out);

@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Compile-time validations
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -337,6 +337,21 @@ constexpr uint16_t check_relay_pins()
   return pins_ok;
 }
 
+/**
+ * @brief Each relay's minimum ON and OFF times fit in 16 bits of seconds: 1092 minutes at most.
+ */
+constexpr bool check_relay_minimum_times()
+{
+  for (uint8_t idx = 0; idx < relays.size(); ++idx)
+  {
+    if (!relays.get_relay(idx).hasValidMinimumTimes())
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
 static_assert(Load::hasValidRemoteUnits(physicalLoadPin), "******** Wrong remote unit ! Load::remote() takes a unit from 1 to 3. Please check physicalLoadPin in your config.h ! ********");
 static_assert(Load::isValidMap(physicalLoadPin), "******** Wrong load map ! Each local load needs a pin in 2..13. Please check physicalLoadPin in your config.h ! ********");
 static_assert(Load::maxLoadsPerUnit(physicalLoadPin) <= MAX_LOADS_PER_UNIT, "******** Too many loads on a single remote unit (one payload byte per unit) ! ********");
@@ -349,6 +364,7 @@ static_assert(check_pins().unique, "******** Duplicate pin definition ! Please c
 static_assert((check_pins().used & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
 static_assert((check_pins().used & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
 static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
+static_assert(check_relay_minimum_times(), "******** A relay's minimum ON or OFF time cannot exceed 1092 minutes (about 18 hours) ! Please check relays in your config.h ! ********");
 static_assert(check_override_targets(), "******** An override pin forces a pin that is neither a local load nor a relay (REMOTE_LOAD() goes up to 7) ! Please check overridePins in your config.h ! ********");
 static_assert(check_override_remote_targets(), "******** An override pin forces a remote load that does not exist ! REMOTE_LOAD(n) counts from 0. Please check overridePins in your config.h ! ********");
 static_assert(!DUAL_TARIFF || targetsAreOutputs(scheduledBoosts), "******** A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on? REMOTE_LOAD() goes up to 7). Please check scheduledBoosts in your config.h ! ********");
