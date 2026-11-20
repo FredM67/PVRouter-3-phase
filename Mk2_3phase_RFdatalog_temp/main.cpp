@@ -473,13 +473,14 @@ void updatePowerAndVoltageData()
  */
 void processTemperatureData()
 {
+  // 85.00 °C more than 5.00 °C away from the last valid reading: the power-on value, skipped
+  static DS18B20::PowerOnFilter powerOnFilter[temperatureSensing.size()];
+
   uint8_t idx{ temperatureSensing.size() };
   do
   {
-    const auto tmp{ temperatureSensing.readTemperature(--idx) };
-
-    // 85.00 °C more than 5.00 °C away from the previous reading: the power-on value, skipped
-    tx_data.temperature_x100[idx] = DS18B20::skipPowerOnValue(tmp, tx_data.temperature_x100[idx]);
+    --idx;
+    tx_data.temperature_x100[idx] = powerOnFilter[idx](temperatureSensing.readTemperature(idx));
   } while (idx);
 
   temperatureSensing.requestTemperatures();  // for use next time around
