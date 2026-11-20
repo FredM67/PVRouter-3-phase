@@ -20,25 +20,30 @@
   // A start in minutes, back into the boost's own terms
   const atOf = (b, start, periodMin) => (b.from === 'end' ? periodMin - start : start);
 
-  // Drag the whole bar by deltaMin (positive: later)
+  // Drag the whole bar by deltaMin (positive: later). A boost longer than the period (after the
+  // period was shortened) is cut to it, so the result always fits.
   function move(b, deltaMin, periodMin) {
     const w = M.boostWindow(b, periodMin);
-    const last = w.open ? periodMin - SNAP : periodMin - b.for; // the latest start that still fits
+    const length = w.open ? null : Math.min(b.for, periodMin);
+    const last = w.open ? periodMin - SNAP : periodMin - length; // the latest start that still fits
     const start = clamp(snap(w.start + deltaMin), 0, last);
-    return { at: atOf(b, start, periodMin), for: b.for };
+    return { at: atOf(b, start, periodMin), for: length };
   }
 
   // Drag the free edge by deltaMin: the end of a boost counted from the start, the start of one
-  // counted back from the end (its end stays). An open boost has no free edge.
+  // counted back from the end (its end stays). An open boost has no free edge. The fixed edge is
+  // first brought back into the period (it may lie outside after the period was shortened).
   function resize(b, deltaMin, periodMin) {
     const w = M.boostWindow(b, periodMin);
     if (w.open) return { at: b.at, for: b.for };
     if (b.from === 'start') {
-      const end = clamp(snap(w.end + deltaMin), w.start + SNAP, periodMin);
-      return { at: b.at, for: end - w.start };
+      const start = clamp(w.start, 0, periodMin - SNAP);
+      const end = clamp(snap(w.end + deltaMin), start + SNAP, periodMin);
+      return { at: start, for: end - start };
     }
-    const start = clamp(snap(w.start + deltaMin), 0, w.end - SNAP);
-    return { at: atOf(b, start, periodMin), for: w.end - start };
+    const end = clamp(w.end, SNAP, periodMin);
+    const start = clamp(snap(w.start + deltaMin), 0, end - SNAP);
+    return { at: atOf(b, start, periodMin), for: end - start };
   }
 
   const toPercent = (min, periodMin) => (min / periodMin) * 100;

@@ -513,7 +513,8 @@ footer a {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 8px;
+  width: 33%; /* a short bar keeps a body to move it by */
+  max-width: 8px;
   cursor: ew-resize;
 }
 

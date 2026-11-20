@@ -634,7 +634,7 @@
     }
     bar.style.left = `${TL.toPercent(start, period)}%`;
     bar.style.width = `${TL.toPercent(end - start, period)}%`;
-    bar.title = `${label}: ${offPeakTime(w.start)} → ${w.open ? T('tl.end') : offPeakTime(w.end)}`;
+    bar.title = T('tl.title', { targets: label, from: offPeakTime(w.start), to: w.open ? T('tl.end') : offPeakTime(w.end) });
     bar.classList.toggle('bad', !M.boostFits(b, period));
   }
 
@@ -701,7 +701,7 @@
           TL.axisLabels(d.offPeakHours, T).map((l) => h('span', null, l))
         )
       ),
-      d.boosts.map((b, i) => lane(`${T('boost')} ${i + 1}`, h('div', { class: 'tl-track' }, M.boostWindow(b, period) ? timelineBar(b, i, period) : null))),
+      d.boosts.map((b, i) => lane(T('tl.lane', { n: i + 1 }), h('div', { class: 'tl-track' }, M.boostWindow(b, period) ? timelineBar(b, i, period) : null))),
       help('tl.help')
     );
   }

@@ -42,3 +42,8 @@ test('no key is defined twice in a language (the last one would win silently)', 
     assert.deepStrictEqual(names.filter((k, i) => names.indexOf(k) !== i), []);
   }
 });
+
+test('timeline: lane names keep their number, the tooltip follows French typography', () => {
+  for (const lang of ['en', 'fr']) assert.ok(I.t(lang, 'tl.lane', { n: 12 }).length <= 12, lang);
+  assert.match(I.t('fr', 'tl.title', { targets: 'charges 1, 3', from: '+1h00', to: 'fin' }), /charges 1, 3 : \+1h00 → fin/);
+});

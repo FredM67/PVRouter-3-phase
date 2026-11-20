@@ -69,3 +69,12 @@ test('labels: axis, targets, position', () => {
   assert.strictEqual(TL.targetsLabel(m, 'ALL_LOADS', t), 'all loads');
   assert.strictEqual(TL.toPercent(120, 480), 25);
 });
+
+test('drag a window that no longer fits: the result fits', () => {
+  // period shortened to 3 h under boosts set for a longer one
+  assert.deepStrictEqual(TL.move({ from: 'start', at: 0, for: 240 }, 15, 180), { at: 0, for: 180 });
+  assert.deepStrictEqual(TL.move({ from: 'end', at: 60, for: 240 }, 15, 180), { at: 180, for: 180 });
+  assert.deepStrictEqual(TL.resize({ from: 'start', at: 300, for: 60 }, -15, 180), { at: 165, for: 15 });
+  assert.deepStrictEqual(TL.resize({ from: 'start', at: 170, for: 60 }, 15, 180), { at: 165, for: 15 });
+  assert.deepStrictEqual(TL.resize({ from: 'end', at: 60, for: 240 }, -15, 180), { at: 75, for: 75 });
+});
