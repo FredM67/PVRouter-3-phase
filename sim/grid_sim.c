@@ -158,6 +158,7 @@ static struct
   rf_drop_t rf_drops[MAX_RF_DROPS]; /* frames lost in these windows */
   int no_of_rf_drops;
   double rf_loss; /* share of frames lost at random, in % */
+  int rf_absent;  /* the router's RFM69 does not answer */
   char name[PATH_MAX];
 } scn = {
   .duration = 60.0,
@@ -276,6 +277,8 @@ static void parse_scenario(const char *path, int depth)
       if (ok)
         ++scn.no_of_rf_drops;
     }
+    else if (!strcmp(cmd, "rf_absent"))
+      scn.rf_absent = 1;
     else if (!strcmp(cmd, "rf_loss"))
       ok = sscanf(args, "%lf", &scn.rf_loss) == 1 && scn.rf_loss >= 0 && scn.rf_loss <= 100;
     else if (!strcmp(cmd, "input"))
@@ -1149,6 +1152,7 @@ int main(int argc, char *argv[])
                               l);
   }
   rfm69_init(&rf.chip, avr, RF_CS_PORT, RF_CS_BIT, rf_frame, &rf.chip);
+  rf.chip.absent = scn.rf_absent;
 
   /* remote units running the receiver firmware: its load pins drive their remote loads */
   for (int r = 0; r < no_of_receivers; ++r)

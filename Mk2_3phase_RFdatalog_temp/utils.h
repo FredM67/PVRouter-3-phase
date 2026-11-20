@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-19
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -526,6 +526,9 @@ void sendTelemetryData(const bool bOffPeak)
  * @param bOffPeak Indicates whether the system is in an off-peak tariff period.
  *
  * @details
+ * - If an RF module is configured but did not start (missing, unpowered or badly wired),
+ *   it retries its initialization, once per datalog period: RF logging and remote loads
+ *   only send once it is up.
  * - If RF communication is enabled, it sends RF data.
  * - Depending on the `SERIAL_OUTPUT_TYPE`, it prints data in text format, sends telemetry
  *   data, or outputs data in JSON format.
@@ -536,6 +539,11 @@ void sendTelemetryData(const bool bOffPeak)
 inline void sendResults(bool bOffPeak)
 {
   static bool startup{ true };
+
+  if constexpr (RF_CHIP_PRESENT)
+  {
+    initialize_rf();  // returns at once if the module is up, else retries (about 50 ms when it fails)
+  }
 
   if (startup)
   {
