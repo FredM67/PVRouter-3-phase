@@ -539,7 +539,8 @@ inline constexpr uint8_t watchDogPin{ 9 };
 Il est possible de brancher un ou plusieurs capteurs de température Dallas DS18B20.
 Ces capteurs peuvent servir à des fins informatives ou pour contrôler le mode boost.
 
-Le bus des sondes est sur `D3`, câblé avec son pull-up sur la carte mère : branchez les sondes sur le connecteur de température de la carte. Avec le module mk2Wifi, mettez le cavalier `TEMP` en position routeur (voir [Cavalier `TEMP`](#cavalier-temp)).
+- **Nouvelle carte** (`PcbVersion::NEW`) : le bus des sondes est sur `D3`, câblé avec son pull-up sur la carte. Branchez les sondes sur le connecteur de température de la carte ; avec le module mk2Wifi, mettez le cavalier `TEMP` en position routeur (voir [Cavalier `TEMP`](#cavalier-temp)).
+- **Ancienne carte** (`PcbVersion::OLD`) : rien n’est câblé. Choisissez une pin libre, ajoutez un pull-up de 4,7 kΩ entre la ligne de données et le +5 V, et alimentez les sondes (+5 V, GND).
 
 ### Activation de la fonctionnalité
 
@@ -566,7 +567,7 @@ inline constexpr TemperatureSensing temperatureSensing{ 3,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } };
 ```
-Le premier paramètre, *3*, est la pin du bus *OneWire*, `D3`.
+Le premier paramètre, *3*, est la pin du bus *OneWire* : `D3` sur la nouvelle carte, la pin choisie sur l’ancienne.
 
 ___
 > [!NOTE]

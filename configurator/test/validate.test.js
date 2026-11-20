@@ -95,7 +95,9 @@ const CASES = [
   ['warn.sensorCrc', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE416B090000A5')],
   ['err.tempEspNoWifi', (m) => (m.temperature.mode = 'esp')],
   ['err.duplicatePin', (m) => (m.overrides.list[0].pin = 5)],
-  ['err.duplicatePin', (m) => (m.temperature.mode = 'router') && Object.assign(m.dualTariff, { enabled: true, pin: 3 })], // probes on D3, wired on the board
+  ['err.duplicatePin', (m) => (m.temperature.mode = 'router') && Object.assign(m.dualTariff, { enabled: true, pin: 3 })], // new board: probes on D3
+  ['err.duplicatePin', (m) => (m.pcbVersion = 'OLD') && Object.assign(m.temperature, { mode: 'router', pin: 4 })], // old board: the chosen pin
+  ['err.tempPin', (m) => (m.pcbVersion = 'OLD') && Object.assign(m.temperature, { mode: 'router', pin: null })],
   ['err.duplicatePin', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 6 })],
   ['err.duplicatePin', (m) => (m.relays.enabled = true) && m.relays.list.forEach((r) => (r.pin = 8))],
   ['err.rfPin', (m) => (m.rf.logging = true) && (m.overrides.list[0].pin = 10)],
@@ -187,4 +189,8 @@ test('calibration mode: the IoT rules and the mk2Wifi output warning do not appl
 test('the sensor of the boosts is only checked when the router reads the sensors', () => {
   assert.ok(!keys(variant((m) => (m.dualTariff.tempSensor = 5))).includes('err.tempSensor')); // no sensing
   assert.ok(!keys(variant((m) => (m.temperature.mode = 'router') && (m.dualTariff.tempSensor = 1))).includes('err.tempSensor'));
+});
+
+test('new board: the probes are on D3 whatever pin the model holds', () => {
+  assert.ok(!keys(variant((m) => Object.assign(m.temperature, { mode: 'router', pin: null }))).includes('err.tempPin'));
 });

@@ -85,6 +85,7 @@
     needPin(m.diversion.enabled, m.diversion.pin, 'err.diversionPin', 'diversion');
     needPin(m.routerOff.enabled, m.routerOff.pin, 'err.routerOffPin', 'routerOff');
     needPin(m.rotation.mode === 'PIN', m.rotation.pin, 'err.rotationPin', 'rotation');
+    needPin(M.tempSensorPresent(m) && m.pcbVersion === 'OLD', m.temperature.pin, 'err.tempPin', 'temperature');
     needPin(m.watchdog.enabled, m.watchdog.pin, 'err.watchdogPin', 'watchdog');
     needPin(m.dualTariff.enabled, m.dualTariff.pin, 'err.dualTariffPin', 'dualTariff');
     if (!M.ROTATION_MODES.includes(m.rotation.mode)) error('err.rotationMode', 'rotation');
@@ -183,7 +184,7 @@
     const use = (p, what) => {
       if (isRouterPin(p)) uses.push([p, what]);
     };
-    if (M.tempSensorPresent(m)) use(M.TEMP_PIN, 'temperature');
+    if (M.tempSensorPresent(m)) use(M.tempPin(m), 'temperature');
     if (m.diversion.enabled) use(m.diversion.pin, 'diversion');
     if (m.routerOff.enabled) use(m.routerOff.pin, 'routerOff');
     if (m.rotation.mode === 'PIN') use(m.rotation.pin, 'rotation');

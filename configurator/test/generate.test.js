@@ -273,8 +273,9 @@ test('removing a sensor: the boosts keep the same sensor, or fall back to the fi
   assert.strictEqual(m.dualTariff.tempSensor, 0);
 });
 
-test('temperature: the router reads the probes on D3, wired on the board', () => {
-  const m = M.normalize({ temperature: { mode: 'router', pin: 4 } }); // a former choice of pin is dropped
-  assert.ok(!('pin' in m.temperature));
+test('temperature: D3 on the new board, wired there; the chosen pin on the old one', () => {
+  const m = M.normalize({ pcbVersion: 'NEW', temperature: { mode: 'router', pin: 4 } });
   assert.match(G.configH(m), /^inline constexpr TemperatureSensing temperatureSensing\{ 3,$/m);
+  m.pcbVersion = 'OLD';
+  assert.match(G.configH(m), /^inline constexpr TemperatureSensing temperatureSensing\{ 4,$/m);
 });

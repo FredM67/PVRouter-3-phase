@@ -534,7 +534,8 @@ inline constexpr uint8_t watchDogPin{ 9 };
 It's possible to connect one or more Dallas DS18B20 temperature sensors.
 These sensors can serve informational purposes or to control boost mode.
 
-The probes' bus is on `D3`, wired with its pull-up on the motherboard: connect the probes to the board's temperature connector. With the mk2Wifi module, put the `TEMP` jumper in the router position (see [`TEMP` jumper](#temp-jumper)).
+- **New board** (`PcbVersion::NEW`): the probes' bus is on `D3`, wired with its pull-up on the board. Connect the probes to the board's temperature connector; with the mk2Wifi module, put the `TEMP` jumper in the router position (see [`TEMP` jumper](#temp-jumper)).
+- **Old board** (`PcbVersion::OLD`): nothing is wired. Choose a free pin, add a 4.7 kΩ pull-up between the data line and +5 V, and power the probes (+5 V, GND).
 
 ### Feature activation
 
@@ -561,7 +562,7 @@ inline constexpr TemperatureSensing temperatureSensing{ 3,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } };
 ```
-The first parameter, *3*, is the pin of the *OneWire* bus, `D3`.
+The first parameter, *3*, is the pin of the *OneWire* bus: `D3` on the new board, the chosen pin on the old one.
 
 ___
 > [!NOTE]

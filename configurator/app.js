@@ -820,7 +820,19 @@
           M.TEMP_MODES.map((x) => [x, T(`temp.${x}`)])
         )
       ),
-      t.mode === 'router' ? h('p', { class: 'help' }, T('tempPinFixed', { pin: pinLabel(M.TEMP_PIN) })) : null,
+      // new board: the bus is wired on D3; old board: the user wires it, on a pin of their choice
+      t.mode === 'router'
+        ? m.pcbVersion === 'OLD'
+          ? field(
+              'pin',
+              pinSelect(
+                () => t.pin,
+                (v) => (t.pin = v)
+              ),
+              'tempPinOld'
+            )
+          : h('p', { class: 'help' }, T('tempPinFixed', { pin: pinLabel(M.TEMP_PIN) }))
+        : null,
       t.mode !== 'off'
         ? [
             t.sensors.map((s, i) =>

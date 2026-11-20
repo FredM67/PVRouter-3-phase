@@ -106,8 +106,9 @@ valid load maps ([#160]).
   against `iTemperatureThreshold` (it was always the first). In the configurator, the threshold
   is hidden without temperature sensing on the router, and a sensor can be chosen when there
   are several.
-- **Configurator, temperature probes:** read by the router, they are on `D3`, wired with its
-  pull-up on the board; the pin is no longer a choice.
+- **Configurator, temperature probes:** read by the router on the new board, they are on `D3`,
+  wired with its pull-up on the board, so the pin is no longer a choice there. On the old board,
+  the pin is still chosen, with a reminder to wire the pull-up and the probes' power.
 - **`RELAY(n)`** with relay diversion off, or beyond the configured relays, now fails to compile,
   in the override pins and in the boosts, and so does `LOAD(n)` beyond the configured loads, with
   the message of `validation.h` instead of an array-bounds error. `MINUTES()` is one macro shared
