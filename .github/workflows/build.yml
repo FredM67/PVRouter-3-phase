@@ -201,9 +201,13 @@ jobs:
           {
             echo "### Benchmarks (simavr, exact)"
             echo ""
-            echo "| Benchmark | Value | Unit |"
-            echo "|---|---:|---|"
-            jq -r '.[] | "| \(.name) | \(.value) | \(.unit) |"' bench/speed.json
+            echo "| Benchmark | µs | cycles |"
+            echo "|---|---:|---:|"
+            # one row per benchmark: its "<name> [us]" and "<name> [cycles]" results
+            jq -r 'def num: if . == null then "—" elif . == floor then floor else . end;
+              (map({key: .name, value: .value}) | from_entries) as $v
+              | .[] | select(.name | endswith(" [us]")) | (.name | rtrimstr(" [us]")) as $n
+              | "| \($n) | \(.value | num) | \($v[$n + " [cycles]"] | num) |"' bench/speed.json
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload the benchmark results
