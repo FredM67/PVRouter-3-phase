@@ -160,6 +160,20 @@ jobs:
       - name: Check the mk2Wifi YAML
         run: ESPHOME="$RUNNER_TEMP/esphome/bin/esphome" bash configurator/test/check-yaml.sh
 
+  # Compile checks: the compile-time checks of validation.h must refuse wrong settings with
+  # the right message, and accept good ones (all loads remote, boosts with dual tariff off...).
+  # One case per file under scripts/ci/compile-fail, picked up without editing this file.
+  compile-checks:
+    name: Compile checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup-platformio
+
+      - name: Build the cases
+        run: bash scripts/ci/compile-fail.sh
+
   # Native tests: every test under test/native runs in a single job,
   # so a new test is picked up without editing this file.
   test-native:

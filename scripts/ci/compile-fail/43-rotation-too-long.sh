@@ -1,0 +1,3 @@
+# More than 65534 seconds.
+replace 'ROTATION_AFTER_SECONDS{ 8UL * 3600UL }' 'ROTATION_AFTER_SECONDS{ 65535UL }'
+expect='ROTATION_AFTER_SECONDS cannot exceed 65534 seconds'
