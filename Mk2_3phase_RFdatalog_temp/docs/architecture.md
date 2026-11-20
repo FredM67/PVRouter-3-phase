@@ -74,7 +74,7 @@ flowchart TB
 
 **Example validation**:
 ```cpp
-static_assert(check_pins(), "******** Duplicate pin definition ! ********");
+static_assert(check_pins().unique, "******** Duplicate pin definition ! ********");
 static_assert(NO_OF_DUMPLOADS > 0, "Number of dump loads must be greater than 0");
 ```
 

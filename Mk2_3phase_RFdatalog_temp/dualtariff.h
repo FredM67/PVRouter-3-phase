@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Classes/types needed for dual-tariff support
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -30,7 +30,7 @@ class _rg_OffsetForce
 public:
   constexpr _rg_OffsetForce()
   {
-    constexpr uint16_t uiPeakDurationInSec{ OffPeakDuration * 3600 };
+    constexpr uint16_t uiPeakDurationInSec{ OffPeakDuration * 3600U };
     // calculates offsets for force start and stop of each load
     for (uint8_t i = 0; i != N; ++i)
     {

@@ -89,7 +89,8 @@
     needPin(m.dualTariff.enabled, m.dualTariff.pin, 'err.dualTariffPin', 'dualTariff');
     needPin(M.tempSensorPresent(m), m.temperature.pin, 'err.tempPin', 'temperature');
     if (!M.ROTATION_MODES.includes(m.rotation.mode)) error('err.rotationMode', 'rotation');
-    if (!inRange(m.rotation.afterSeconds, 1, 86400)) error('err.rotationAfter', 'rotation');
+    // the firmware counts the seconds in 16 bits (validation.h)
+    if (!inRange(m.rotation.afterSeconds, 1, 65534)) error('err.rotationAfter', 'rotation');
     if (m.dualTariff.enabled && m.rotation.mode !== 'OFF') warning('warn.rotationDualTariff', 'rotation');
 
     // ---- relays ----
@@ -98,6 +99,8 @@
       if (!relays.length) error('err.noRelay', 'relays');
       if (60 % m.datalogPeriod !== 0) error('err.datalogDivides60', 'datalogPeriod');
       if (!inRange(m.relays.filterDelay, 1, 10)) error('err.filterDelay', 'relays');
+      // the EWMA must span at least 5 datalogs (validation.h)
+      else if (Math.floor((m.relays.filterDelay * 60) / m.datalogPeriod) < 5) error('err.filterTooShort', 'relays');
       relays.forEach((r, i) => {
         const field = `relays.${i}`;
         if (!isRouterPin(r.pin)) error('err.relayPin', field, { relay: i + 1 });

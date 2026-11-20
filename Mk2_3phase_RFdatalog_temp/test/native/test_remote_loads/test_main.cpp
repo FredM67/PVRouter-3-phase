@@ -595,6 +595,26 @@ void test_isValidMap_checks_a_remote_status_led(void)
   TEST_ASSERT_TRUE(Load::isValidMap(ledOk));
 }
 
+void test_remote_unit_out_of_range_is_flagged(void)
+{
+  // packed as is, unit 4 wraps to 0: remote(4, 8) would be local(8), a TRIAC on the LED pin
+  static constexpr uint8_t unit4[]{ Load::local(5), Load::remote(4, 8) };
+  static constexpr uint8_t unit0[]{ Load::remote(0, 8) };
+  static constexpr uint8_t unit4NoLed[]{ Load::remote(4) };
+  static constexpr uint8_t units1to3[]{ Load::remote(1), Load::remote(2, 8), Load::remote(3) };
+
+  static_assert(!Load::hasValidRemoteUnits(unit4), "unit 4 must be caught");
+  TEST_ASSERT_EQUAL_UINT8(invalidRemoteUnitEntry, Load::remote(4, 8));
+  TEST_ASSERT_FALSE(Load::isLocal(Load::remote(4, 8)));
+  TEST_ASSERT_FALSE(Load::hasValidRemoteUnits(unit4));
+  TEST_ASSERT_FALSE(Load::hasValidRemoteUnits(unit0));
+  TEST_ASSERT_FALSE(Load::hasValidRemoteUnits(unit4NoLed));
+  TEST_ASSERT_TRUE(Load::hasValidRemoteUnits(units1to3));
+
+  // one error only: the map check leaves the marker to hasValidRemoteUnits()
+  TEST_ASSERT_TRUE(Load::isValidMap(unit4));
+}
+
 // ============================================================================
 // Node ID validation (validation.h asserts on this)
 // ============================================================================
@@ -806,6 +826,7 @@ int main(int, char **)
   RUN_TEST(test_isValidMap_rejects_unusable_local_pins);
   RUN_TEST(test_isValidMap_rejects_the_unused_pin_sentinel);
   RUN_TEST(test_isValidMap_checks_a_remote_status_led);
+  RUN_TEST(test_remote_unit_out_of_range_is_flagged);
 
   RUN_TEST(test_node_ids_accepts_distinct_ids);
   RUN_TEST(test_node_ids_rejects_a_duplicate);

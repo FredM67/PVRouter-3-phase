@@ -145,7 +145,7 @@ volatile bool flags[6];                             // 6 bytes
 3. **Static Configuration Validation**
    ```cpp
    // Catch errors at compile time, not runtime
-   static_assert(check_pins(), "Duplicate pin definition!");
+   static_assert(check_pins().unique, "Duplicate pin definition!");
    static_assert(NO_OF_DUMPLOADS > 0, "Must have at least one load");
    ```
 
