@@ -145,7 +145,7 @@
     // The boosts are written into config.h with dual tariff off too: their values and targets
     // must compile whatever the setting (LOAD(n) past the last load does not). The windows only
     // matter with dual tariff, as in validation.h (startsWithinOffPeak(), endsWithinOffPeak(),
-    // hasLength()): the whole window lies within the period, and lasts.
+    // hasLength()): the whole window lies within the period, and lasts (M.boostFits()).
     const period = m.dualTariff.offPeakHours * 60;
     const boostKeys = {
       targets: 'err.boostTargets',
@@ -156,9 +156,8 @@
     };
     m.dualTariff.boosts.forEach((b, i) => {
       const field = `dualTariff.boosts.${i}`;
-      const start = b.from === 'end' ? period - b.at : b.at;
       if (!['start', 'end'].includes(b.from) || !inRange(b.at, 0, 720) || (b.for !== null && !inRange(b.for, 0, 720))) error('err.boost', field, { index: i + 1 });
-      else if (m.dualTariff.enabled && (start < 0 || start >= period || b.for === 0 || (b.for !== null && start + b.for > period))) error('err.boostWindow', field, { index: i + 1 });
+      else if (m.dualTariff.enabled && !M.boostFits(b, period)) error('err.boostWindow', field, { index: i + 1 });
       checkTargets(b.targets, field, i + 1, boostKeys);
     });
 

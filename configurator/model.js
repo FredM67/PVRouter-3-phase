@@ -244,6 +244,24 @@
   const remoteLoadCount = (m) => m.loads.filter((l) => l.type === 'remote').length;
   const loadsOfUnit = (m, unit) => m.loads.filter((l) => l.type === 'remote' && l.unit === unit).length;
   const remoteLoadsPresent = (m) => remoteLoadCount(m) > 0;
+
+  // A scheduled boost's window, in minutes from the start of the off-peak period ({ from, at, for }:
+  // 'at' counted from the start or back from the end; for: null = until the meter goes back to
+  // peak, drawn up to the end). null when its time cannot be read.
+  function boostWindow(b, periodMin) {
+    if (!Number.isInteger(b.at) || !['start', 'end'].includes(b.from)) return null;
+    const start = b.from === 'end' ? periodMin - b.at : b.at;
+    const open = b.for === null;
+    return { start, end: open ? periodMin : start + b.for, open };
+  }
+
+  // As validation.h (startsWithinOffPeak(), endsWithinOffPeak(), hasLength()): the whole window
+  // lies within the period, and lasts.
+  function boostFits(b, periodMin) {
+    const w = boostWindow(b, periodMin);
+    if (!w || w.start < 0 || w.start >= periodMin) return false;
+    return w.open || (b.for > 0 && w.end <= periodMin);
+  }
   const rfChipPresent = (m) => m.rf.logging || remoteLoadsPresent(m);
   const tempSensorPresent = (m) => m.temperature.mode === 'router';
   const overridePresent = (m) => m.overrides.enabled && m.overrides.list.length > 0;
@@ -331,6 +349,8 @@
     remoteLoadCount,
     loadsOfUnit,
     remoteLoadsPresent,
+    boostWindow,
+    boostFits,
     rfChipPresent,
     tempSensorPresent,
     overridePresent,
