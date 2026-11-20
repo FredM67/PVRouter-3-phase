@@ -95,7 +95,7 @@ const CASES = [
   ['warn.sensorCrc', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE416B090000A5')],
   ['err.tempEspNoWifi', (m) => (m.temperature.mode = 'esp')],
   ['err.duplicatePin', (m) => (m.overrides.list[0].pin = 5)],
-  ['err.duplicatePin', (m) => Object.assign(m.temperature, { mode: 'router', pin: 4 })],
+  ['err.duplicatePin', (m) => (m.temperature.mode = 'router') && Object.assign(m.dualTariff, { enabled: true, pin: 3 })], // probes on D3, wired on the board
   ['err.duplicatePin', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 6 })],
   ['err.duplicatePin', (m) => (m.relays.enabled = true) && m.relays.list.forEach((r) => (r.pin = 8))],
   ['err.rfPin', (m) => (m.rf.logging = true) && (m.overrides.list[0].pin = 10)],

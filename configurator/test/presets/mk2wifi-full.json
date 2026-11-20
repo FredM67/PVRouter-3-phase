@@ -25,7 +25,6 @@
   },
   "temperature": {
     "mode": "router",
-    "pin": 3,
     "sensors": [{ "address": "28BE416B090000A4", "name": "Chauffe-eau" }]
   },
   "mk2wifi": { "enabled": true, "name": "mk2pvrouter", "friendlyName": "Mk2PVRouter", "language": "fr" }

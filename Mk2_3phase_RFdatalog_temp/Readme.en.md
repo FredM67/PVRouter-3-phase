@@ -534,12 +534,11 @@ inline constexpr uint8_t watchDogPin{ 9 };
 It's possible to connect one or more Dallas DS18B20 temperature sensors.
 These sensors can serve informational purposes or to control boost mode.
 
-By default, output `D3` is used for the temperature sensor output and already has a pull-up.
-If you want to use another pin, you'll need to add a *pull-up* to the used pin.
+The probes' bus is on `D3`, wired with its pull-up on the motherboard: connect the probes to the board's temperature connector. With the mk2Wifi module, put the `TEMP` jumper in the router position (see [`TEMP` jumper](#temp-jumper)).
 
 ### Feature activation
 
-In `config.h`, set `TEMP_SENSOR_PRESENT` to `true`, and give the bus pin and the sensor addresses in `temperatureSensing` (see below):
+In `config.h`, set `TEMP_SENSOR_PRESENT` to `true`, and give the bus pin (`3`) and the sensor addresses in `temperatureSensing` (see below):
 ```cpp
 inline constexpr bool TEMP_SENSOR_PRESENT{ true };
 ```
@@ -550,7 +549,7 @@ With the Arduino IDE, the *OneWire* library must be installed, as for any build 
 To configure the sensors, you must enter their addresses.
 The router finds them itself: set `TEMP_SENSOR_PRESENT` to `true` with the bus pin, set `CALIBRATION_MODE` to `true` (see [Router calibration](#router-calibration)) and upload. At start-up, it lists the sensors on the bus, with their addresses written as `config.h` takes them, and tells whether `config.h` already has each of them:
 ```
-Temperature sensors found on pin 4:
+Temperature sensors found on pin 3:
 	{ 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 }  not in config.h
 	{ 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 }  not in config.h
 ```
@@ -558,11 +557,11 @@ Connecting the sensors one at a time tells which address is which sensor. It's r
 
 Enter the addresses as follows:
 ```cpp
-inline constexpr TemperatureSensing temperatureSensing{ 4,
+inline constexpr TemperatureSensing temperatureSensing{ 3,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } };
 ```
-The number *4* as first parameter is the *pin* that the user will have chosen for the *OneWire* bus.
+The first parameter, *3*, is the pin of the *OneWire* bus, `D3`.
 
 ___
 > [!NOTE]

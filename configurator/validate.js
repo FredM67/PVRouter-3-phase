@@ -87,7 +87,6 @@
     needPin(m.rotation.mode === 'PIN', m.rotation.pin, 'err.rotationPin', 'rotation');
     needPin(m.watchdog.enabled, m.watchdog.pin, 'err.watchdogPin', 'watchdog');
     needPin(m.dualTariff.enabled, m.dualTariff.pin, 'err.dualTariffPin', 'dualTariff');
-    needPin(M.tempSensorPresent(m), m.temperature.pin, 'err.tempPin', 'temperature');
     if (!M.ROTATION_MODES.includes(m.rotation.mode)) error('err.rotationMode', 'rotation');
     // the firmware counts the seconds in 16 bits (validation.h)
     if (!inRange(m.rotation.afterSeconds, 1, 65534)) error('err.rotationAfter', 'rotation');
@@ -184,7 +183,7 @@
     const use = (p, what) => {
       if (isRouterPin(p)) uses.push([p, what]);
     };
-    if (M.tempSensorPresent(m)) use(m.temperature.pin, 'temperature');
+    if (M.tempSensorPresent(m)) use(M.TEMP_PIN, 'temperature');
     if (m.diversion.enabled) use(m.diversion.pin, 'diversion');
     if (m.routerOff.enabled) use(m.routerOff.pin, 'routerOff');
     if (m.rotation.mode === 'PIN') use(m.rotation.pin, 'rotation');

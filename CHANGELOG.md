@@ -104,8 +104,10 @@ valid load maps ([#160]).
   one line per boost.
 - **Temperature threshold of the boosts:** `BOOST_TEMP_SENSOR` chooses which sensor is checked
   against `iTemperatureThreshold` (it was always the first). In the configurator, the threshold
-  is greyed out without temperature sensing on the router, and a sensor can be chosen when there
+  is hidden without temperature sensing on the router, and a sensor can be chosen when there
   are several.
+- **Configurator, temperature probes:** read by the router, they are on `D3`, wired with its
+  pull-up on the board; the pin is no longer a choice.
 - **`RELAY(n)`** with relay diversion off, or beyond the configured relays, now fails to compile,
   in the override pins and in the boosts, and so does `LOAD(n)` beyond the configured loads, with
   the message of `validation.h` instead of an array-bounds error. `MINUTES()` is one macro shared

@@ -121,6 +121,7 @@
 
       'sec.temperature': 'Temperatures (DS18B20)',
       tempMode: 'Probes read by',
+      tempPinFixed: 'On {pin}, wired with its pull-up on the board.',
       'temp.off': 'no probe',
       'temp.router': 'the router',
       'temp.esp': 'the mk2Wifi module (TEMP jumper on 3-centre)',
@@ -249,7 +250,6 @@
       'err.rotationPin': 'Priority rotation: choose a pin.',
       'err.watchdogPin': 'Watchdog LED: choose a pin.',
       'err.dualTariffPin': 'Dual tariff: choose a pin.',
-      'err.tempPin': 'Temperatures: choose the pin of the probes.',
       'err.rotationMode': 'Unknown rotation mode.',
       'err.rotationAfter': 'The rotation delay must be between 1 s and 18 h.',
       'warn.rotationDualTariff': 'With dual tariff, the priorities rotate at the start of each off-peak period: the rotation setting is ignored.',
@@ -414,6 +414,7 @@
 
       'sec.temperature': 'Températures (DS18B20)',
       tempMode: 'Sondes lues par',
+      tempPinFixed: 'Sur {pin}, câblée avec son pull-up sur la carte.',
       'temp.off': 'pas de sonde',
       'temp.router': 'le routeur',
       'temp.esp': 'le module mk2Wifi (cavalier TEMP sur 3-centre)',
@@ -541,7 +542,6 @@
       'err.rotationPin': 'Rotation des priorités : choisir une broche.',
       'err.watchdogPin': 'LED de vie : choisir une broche.',
       'err.dualTariffPin': 'Double tarif : choisir une broche.',
-      'err.tempPin': 'Températures : choisir la broche des sondes.',
       'err.rotationMode': 'Mode de rotation inconnu.',
       'err.rotationAfter': 'Le délai de rotation doit être compris entre 1 s et 18 h.',
       'warn.rotationDualTariff': 'Avec le double tarif, les priorités tournent au début de chaque période creuse : le réglage de rotation est ignoré.',

@@ -20,7 +20,6 @@
   },
   "temperature": {
     "mode": "router",
-    "pin": 3,
     "sensors": [
       { "address": "28BE416B090000A4", "name": "" },
       { "address": "281BD76A090000B7", "name": "" }

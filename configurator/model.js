@@ -40,6 +40,7 @@
   const RF_FREQUENCIES = ['RF69_433MHZ', 'RF69_868MHZ', 'RF69_915MHZ'];
   const OVERRIDE_GROUPS = ['ALL_LOADS', 'ALL_LOCAL_LOADS', 'ALL_REMOTE_LOADS', 'ALL_RELAYS', 'ALL_LOADS_AND_RELAYS'];
   const TEMP_MODES = ['off', 'router', 'esp'];
+  const TEMP_PIN = 3; // the probes' bus, wired with its pull-up on the board (router mode)
   const PHASES = 3; // NO_OF_PHASES of the 3-phase firmware
 
   function defaults() {
@@ -117,8 +118,7 @@
       },
 
       temperature: {
-        mode: 'off', // 'router': the router reads the probes; 'esp': the mk2Wifi module does
-        pin: 3,
+        mode: 'off', // 'router': the router reads the probes (on TEMP_PIN); 'esp': the mk2Wifi module does
         sensors: [
           { address: '28BE416B090000A4', name: '' },
           { address: '281BD76A090000B7', name: '' },
@@ -392,6 +392,7 @@
     RF_FREQUENCIES,
     OVERRIDE_GROUPS,
     TEMP_MODES,
+    TEMP_PIN,
     PHASES,
     defaults,
     normalize,

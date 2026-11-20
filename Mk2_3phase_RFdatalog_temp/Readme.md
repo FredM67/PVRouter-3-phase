@@ -539,12 +539,11 @@ inline constexpr uint8_t watchDogPin{ 9 };
 Il est possible de brancher un ou plusieurs capteurs de température Dallas DS18B20.
 Ces capteurs peuvent servir à des fins informatives ou pour contrôler le mode boost.
 
-Par défaut, la sortie `D3` est utilisée pour la sortie du capteur de température et dispose déjà d’un pull-up.
-Si vous souhaitez utiliser une autre pin, il faudra rajouter un *pull-up* sur la pin utilisée.
+Le bus des sondes est sur `D3`, câblé avec son pull-up sur la carte mère : branchez les sondes sur le connecteur de température de la carte. Avec le module mk2Wifi, mettez le cavalier `TEMP` en position routeur (voir [Cavalier `TEMP`](#cavalier-temp)).
 
 ### Activation de la fonctionnalité
 
-Dans `config.h`, passez `TEMP_SENSOR_PRESENT` à `true`, et indiquez la pin du bus et les adresses des capteurs dans `temperatureSensing` (voir plus bas) :
+Dans `config.h`, passez `TEMP_SENSOR_PRESENT` à `true`, et indiquez la pin du bus (`3`) et les adresses des capteurs dans `temperatureSensing` (voir plus bas) :
 ```cpp
 inline constexpr bool TEMP_SENSOR_PRESENT{ true };
 ```
@@ -555,7 +554,7 @@ Avec l’Arduino IDE, la bibliothèque *OneWire* doit être installée, comme po
 Pour configurer les capteurs, vous devez entrer leurs adresses.
 Le routeur les trouve lui-même : mettez `TEMP_SENSOR_PRESENT` à `true` avec la broche du bus, mettez `CALIBRATION_MODE` à `true` (voir [Étalonnage du routeur](#étalonnage-du-routeur)) et téléversez. Au démarrage, il liste les capteurs présents sur le bus, avec leurs adresses écrites comme **config.h** les attend, et indique si **config.h** contient déjà chacune d’elles :
 ```
-Temperature sensors found on pin 4:
+Temperature sensors found on pin 3:
 	{ 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 }  not in config.h
 	{ 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 }  not in config.h
 ```
@@ -563,11 +562,11 @@ En branchant les capteurs un par un, on sait quelle adresse correspond à quel c
 
 Entrez les adresses comme suit :
 ```cpp
-inline constexpr TemperatureSensing temperatureSensing{ 4,
+inline constexpr TemperatureSensing temperatureSensing{ 3,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } };
 ```
-Le nombre *4* en premier paramètre est la *pin* que l’utilisateur aura choisi pour le bus *OneWire*.
+Le premier paramètre, *3*, est la pin du bus *OneWire*, `D3`.
 
 ___
 > [!NOTE]

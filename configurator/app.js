@@ -820,15 +820,7 @@
           M.TEMP_MODES.map((x) => [x, T(`temp.${x}`)])
         )
       ),
-      t.mode === 'router'
-        ? field(
-            'pin',
-            pinSelect(
-              () => t.pin,
-              (v) => (t.pin = v)
-            )
-          )
-        : null,
+      t.mode === 'router' ? h('p', { class: 'help' }, T('tempPinFixed', { pin: pinLabel(M.TEMP_PIN) })) : null,
       t.mode !== 'off'
         ? [
             t.sensors.map((s, i) =>

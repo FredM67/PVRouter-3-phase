@@ -375,7 +375,7 @@
     const sensors = m.temperature.sensors.map((s) => M.parseAddress(s.address)).filter(Boolean);
     const addresses = (sensors.length ? sensors : M.defaults().temperature.sensors.map((s) => M.parseAddress(s.address))).map((a) => `{ ${a.map(hex).join(', ')} }`);
     const tempPrefix = 'inline constexpr TemperatureSensing temperatureSensing{ ';
-    add(`${tempPrefix}${pin(M.tempSensorPresent(m) ? m.temperature.pin : null)},`);
+    add(`${tempPrefix}${pin(M.tempSensorPresent(m) ? M.TEMP_PIN : null)},`);
     add(...list(' '.repeat(tempPrefix.length), addresses, ' };', '/**< list of temperature sensor Addresses */'));
     add(
       '',
