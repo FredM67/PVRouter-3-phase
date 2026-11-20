@@ -431,6 +431,51 @@
      "ram": 396
     }
    }
+  },
+  {
+   "commit": "5b91dff28a70f729db3feb8ad4ed456f9f96a10d",
+   "date": "2026-11-20T12:00:25+01:00",
+   "message": "ci: speed charts on GitHub Pages, one small chart per benchmark (#216)\n\n* ci: speed charts on GitHub Pages, one small chart per benchmark\n\nEach push to dev adds the embedded benchmarks to bench/history.json,\nnext to the sizes: {name: cycles}, from the \"[cycles]\" results of the\ntest-embedded job (the \"[us]\" ones are cycles / 16, shown by the page).\n\nThe page gets a Speed section: small multiples grouped by test suite,\neach with its own scale (from 156 to 12.6 million cycles), the latest\nvalue in cycles and us, a tooltip per commit and a table per suite.\n\nThe pages job now waits for test-embedded too; failed embedded tests do\nnot hold back the sizes, the entry then has no speed.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* test: loop benchmarks report one operation, in cycles and us\n\nThe loop benchmarks reported the whole loop: 1,573,974 cycles for\nmultS16x16_to32 are 36,000 multiplications, 43.7 cycles each. They now\nreport one operation (loop overhead included), with a name saying so:\n\"... per op\", \"... per call\", \"... per sample\". benchCycles() takes the\nnumber of operations: the cycles get two decimals, the us stay at four.\n\nThe human-readable output gives cycles and us per operation too\n(printPerOp), and the history on Pages keeps the decimals.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* ci: one row per benchmark in the PR report, with us and cycles columns\n\nThe speed table of the PR report had two rows per function, its \"[us]\"\nand \"[cycles]\" results. It now has one: us and cycles of the target\nbranch and of the PR side by side, and the change, computed on the\ncycles (the exact figure). The step summary of the embedded tests gets\nthe same layout.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/5b91dff28a70f729db3feb8ad4ed456f9f96a10d",
+   "sizes": {
+    "basic": {
+     "flash": 8222,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 8218,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 8222,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 8258,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05,
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158
+   }
   }
  ]
 }
