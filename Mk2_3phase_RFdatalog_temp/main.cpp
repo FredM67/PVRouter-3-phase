@@ -183,14 +183,17 @@ struct PinEdges
   bool active;  /**< the pin is LOW now */
   bool changed; /**< it changed since the previous reading */
 
+  /** @brief it went LOW since the previous reading */
   constexpr bool pressed() const
   {
     return changed && active;
-  } /**< it went LOW since the previous reading */
+  }
+
+  /** @brief it went HIGH since the previous reading */
   constexpr bool released() const
   {
     return changed && !active;
-  } /**< it went HIGH since the previous reading */
+  }
 };
 
 /**
