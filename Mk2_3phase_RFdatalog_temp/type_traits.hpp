@@ -3,9 +3,9 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some useful but missing stl functions templates
  * @version 0.1
- * @date 2023-06-14
+ * @date 2026-11-20
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2023-2026
  *
  */
 
@@ -14,6 +14,8 @@
 // MIT License
 
 #pragma once
+
+#include <stdint.h>
 
 #include "type_traits/conditional.hpp"
 #include "type_traits/decay.hpp"
@@ -36,3 +38,13 @@
 #include "type_traits/remove_const.hpp"
 #include "type_traits/remove_reference.hpp"
 #include "type_traits/void_t.hpp"
+
+/**
+ * @brief A compile-time number of minutes, as an integral_constant.
+ *
+ * @details One syntax for the durations of config.h: the sliding average of the relays
+ *          (RelayEngine takes it as a template parameter) and the scheduled boosts (Minutes).
+ *          Usage: MINUTES(RELAY_FILTER_DELAY), MINUTES(90).
+ */
+#define MINUTES(value) \
+  integral_constant< uint16_t, (value) > {}

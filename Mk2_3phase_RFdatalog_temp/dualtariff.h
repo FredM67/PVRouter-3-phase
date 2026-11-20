@@ -1,8 +1,8 @@
 /**
  * @file dualtariff.h
  * @author Frédéric Metrich (frederic.metrich@live.fr)
- * @brief Classes/types needed for dual-tariff support
- * @version 0.1
+ * @brief The scheduled boosts of the dual tariff, resolved at compile time
+ * @version 0.2
  * @date 2026-11-20
  *
  * @copyright Copyright (c) 2021-2026
@@ -12,43 +12,77 @@
 #ifndef DUALTARIFF_H
 #define DUALTARIFF_H
 
+#include <avr/pgmspace.h>
+
 #include "config.h"
-
-/**
- * @brief Template class for Load-Overriding
- * @details The array is initialized at compile time so it can be read-only and
- *          the performance and code size are better
- *
- * @tparam N # of loads
- * @tparam D
- *
- * @ingroup DualTariff
- */
-template< uint8_t N, uint8_t OffPeakDuration = 8 >
-class _rg_OffsetForce
-{
-public:
-  constexpr _rg_OffsetForce()
-  {
-    // calculates offsets for force start and stop of each load (utils_dualtariff.h)
-    for (uint8_t i = 0; i != N; ++i)
-    {
-      _rg[i][0] = DualTariff::windowStart(rg_ForceLoad[i], OffPeakDuration);
-      _rg[i][1] = DualTariff::windowEnd(rg_ForceLoad[i], OffPeakDuration);
-    }
-  }
-  const auto(&operator[](uint8_t i) const)
-  {
-    return _rg[i];
-  }
-
-private:
-  uint32_t _rg[N][2]{};
-};
 
 inline uint32_t ul_TimeOffPeak; /**< 'timestamp' for start of off-peak period */
 
-inline constexpr auto rg_OffsetForce{ _rg_OffsetForce< NO_OF_DUMPLOADS, ul_OFF_PEAK_DURATION >() }; /**< start & stop offsets for each load */
+inline constexpr uint8_t NO_OF_BOOSTS{ scheduledBoosts.size() }; /**< number of scheduled boosts */
+
+/**
+ * @brief The scheduled boosts, resolved for the off-peak duration: window in ms and target masks.
+ *
+ * @details One entry at least: an array of size 0 is not valid C++. Without any boost, the
+ *          entry is never read.
+ *
+ * @ingroup DualTariff
+ */
+struct BoostTable
+{
+  DualTariff::Boost boost[NO_OF_BOOSTS ? NO_OF_BOOSTS : 1];
+};
+
+/**
+ * @brief Resolves each scheduled boost, at compile time.
+ *
+ * @ingroup DualTariff
+ */
+constexpr BoostTable resolveBoosts()
+{
+  BoostTable table{};
+  for (uint8_t i = 0; i != NO_OF_BOOSTS; ++i)
+  {
+    table.boost[i] = DualTariff::resolve(scheduledBoosts, i, ul_OFF_PEAK_DURATION);
+  }
+  return table;
+}
+
+inline constexpr BoostTable boostTable PROGMEM{ resolveBoosts() }; /**< the scheduled boosts, in flash */
+
+/**
+ * @brief Reads scheduled boost @p i from flash.
+ *
+ * @param i the boost, below NO_OF_BOOSTS
+ * @return its window in ms from the start of the off-peak period, and its target masks
+ *
+ * @ingroup DualTariff
+ */
+inline DualTariff::Boost readBoost(const uint8_t i)
+{
+  DualTariff::Boost boost;
+  memcpy_P(&boost, &boostTable.boost[i], sizeof(boost));
+  return boost;
+}
+
+/**
+ * @brief Prints a time in ms from the start of the off-peak period, as <h>h<mm>.
+ *
+ * @ingroup DualTariff
+ */
+inline void printOffPeakTime(const uint32_t ms)
+{
+  const auto minutes{ static_cast< uint16_t >(ms / 60000UL) };
+  const uint8_t mm{ static_cast< uint8_t >(minutes % 60) };
+
+  info(minutes / 60);
+  info('h');
+  if (mm < 10)
+  {
+    info('0');
+  }
+  info(mm);
+}
 
 /**
  * @brief Print the settings for off-peak period
@@ -65,45 +99,42 @@ inline void printDualTariffConfiguration()
   info(iTemperatureThreshold);
   infoln(F(" C."));  // ASCII: the IoT output is 7-bit
 
-  for (uint8_t i = 0; i < NO_OF_DUMPLOADS; ++i)
+  for (uint8_t i = 0; i != NO_OF_BOOSTS; ++i)
   {
-    info(F("\tLoad #"));
-    info(i + 1);
-    infoln(F(":"));
+    const auto boost{ readBoost(i) };
 
-    info(F("\t\tStart "));
-    if (rg_ForceLoad[i].getStartOffset() >= 0)
+    info(F("\tBoost #"));
+    info(i + 1);
+    info(F(": from "));
+    printOffPeakTime(boost.start);
+    if (UINT32_MAX == boost.end)
     {
-      info(rg_ForceLoad[i].getStartOffset());
-      info(F(" hours/minutes after begin of off-peak period "));
+      info(F(" until the end"));
     }
     else
     {
-      info(-rg_ForceLoad[i].getStartOffset());
-      info(F(" hours/minutes before the end of off-peak period "));
+      info(F(" to "));
+      printOffPeakTime(boost.end);
     }
-    if (rg_ForceLoad[i].getDuration() == UINT16_MAX)
+    info(F(" of off-peak, forcing"));
+
+    for (uint8_t pin = 0; pin != 16; ++pin)
     {
-      infoln(F("till the end of the period."));
+      if (bit_read(boost.local, pin))
+      {
+        info(F(" D"));
+        info(pin);
+      }
     }
-    else
+    for (uint8_t n = 0; n != 8; ++n)
     {
-      info(F("for a duration of "));
-      info(rg_ForceLoad[i].getDuration());
-      infoln(F(" hour/minute(s)."));
+      if (bit_read(boost.remote, n))
+      {
+        info(F(" remote load "));
+        info(n + 1);
+      }
     }
-    // milliseconds, printed in seconds with 2 decimals, without the float code of Print
-    info(F("\t\tCalculated offset in seconds: "));
-    infolnDecimals(static_cast< int32_t >(rg_OffsetForce[i][0] / 10), 2);
-    info(F("\t\tCalculated duration in seconds: "));
-    if (UINT32_MAX == rg_OffsetForce[i][1])
-    {
-      infoln(F("until the end of off-peak"));
-    }
-    else
-    {
-      infolnDecimals(static_cast< int32_t >(rg_OffsetForce[i][1] / 10), 2);
-    }
+    infoln('.');
   }
 }
 

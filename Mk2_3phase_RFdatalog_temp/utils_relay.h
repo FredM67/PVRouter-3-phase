@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for the relay output feature
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -319,6 +319,19 @@ public:
   }
 
   /**
+   * @brief Construct a list of relays with a custom sliding average, given with MINUTES().
+   *
+   * @tparam V the sliding average duration in minutes: D, once checked to fit 8 bits
+   * @param ref Array of relay configurations.
+   */
+  template< uint16_t V >
+  constexpr RelayEngine(integral_constant< uint16_t, V > /* ic */, const relayOutput (&ref)[N])
+    : relay(ref)
+  {
+    static_assert(V <= UINT8_MAX, "******** RELAY_FILTER_DELAY cannot exceed 255 minutes ! Please check your config.h ! ********");
+  }
+
+  /**
    * @brief Get the number of relays
    *
    * @return constexpr auto The number of relays
@@ -482,5 +495,8 @@ RelayEngine(const relayOutput (&)[N]) -> RelayEngine< N, 10 >;
 
 template< uint8_t N, uint8_t D >
 RelayEngine(integral_constant< uint8_t, D >, const relayOutput (&)[N]) -> RelayEngine< N, D >;
+
+template< uint8_t N, uint16_t D >
+RelayEngine(integral_constant< uint16_t, D >, const relayOutput (&)[N]) -> RelayEngine< N, static_cast< uint8_t >(D) >;
 
 #endif /* UTILS_RELAY_H */

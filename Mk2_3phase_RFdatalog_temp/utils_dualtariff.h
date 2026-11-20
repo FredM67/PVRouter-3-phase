@@ -16,64 +16,27 @@
 
 #include <stdint.h>
 
-#include "utils_override.h"  // PinList, REMOTE_PIN_BASE
-
-/** @brief Config parameters for overriding a load
- *  @details This class allows the user to define when and how long a load will be forced at
- *           full power during off-peak period.
- *
- *           For each load, the user defines a pair of values: pairForceLoad => { offset, duration }.
- *           The load will be started with full power at ('start_offpeak' + 'offset') for a duration of 'duration'
- *             - all values are in hours (if between -24 and 24) or in minutes.
- *             - if the offset is negative, it's calculated from the end of the off-peak period (ie -3 means 3 hours back from the end).
- *             - to leave the load at full power till the end of the off-peak period, set the duration to 'UINT16_MAX' (somehow infinite time)
- *
- *           A default pair, as for the loads left out of rg_ForceLoad, is { 0, UINT16_MAX }:
- *           the whole off-peak period. { 0, 0 } is no scheduled boost.
- */
-class pairForceLoad
-{
-public:
-  constexpr pairForceLoad() = default;
-  explicit constexpr pairForceLoad(int16_t _iStartOffset)
-    : iStartOffset(_iStartOffset), uiDuration(UINT16_MAX)
-  {
-  }
-  constexpr pairForceLoad(int16_t _iStartOffset, uint16_t _uiDuration)
-    : iStartOffset(_iStartOffset), uiDuration(_uiDuration)
-  {
-  }
-
-  [[nodiscard]] constexpr int16_t getStartOffset() const
-  {
-    return iStartOffset;
-  }
-  [[nodiscard]] constexpr uint16_t getDuration() const
-  {
-    return uiDuration;
-  }
-
-private:
-  int16_t iStartOffset{ 0 };         /**< the start offset from the off-peak begin in hours or minutes */
-  uint16_t uiDuration{ UINT16_MAX }; /**< the duration for overriding the load in hours or minutes */
-};
+#include "utils_override.h"  // PinList, REMOTE_PIN_BASE, MINUTES() (through type_traits.hpp)
 
 /** @brief A number of minutes: the unit of the scheduled boosts, built with HOURS() or MINUTES(). */
 struct Minutes
 {
   uint16_t value;
+
+  /** @brief @p v minutes: explicit, so that a bare number is not taken for a duration. */
+  explicit constexpr Minutes(const uint16_t v)
+    : value(v) {}
+
+  /** @brief From MINUTES() (type_traits.hpp), the same macro as for the relays. */
+  template< uint16_t V >
+  constexpr Minutes(integral_constant< uint16_t, V > /* ic */)
+    : value(V) {}
 };
 
 /** @brief @p n hours, as Minutes. */
 constexpr Minutes HOURS(const uint8_t n)
 {
   return Minutes{ static_cast< uint16_t >(n * 60U) };
-}
-
-/** @brief @p n minutes, as Minutes. */
-constexpr Minutes MINUTES(const uint16_t n)
-{
-  return Minutes{ n };
 }
 
 /** @brief Where a boost starts: @p minutes after the start of the off-peak period, or before its end if @p fromEnd. */
@@ -242,61 +205,14 @@ ScheduledBoosts(const BoostEntry< MaxPins > (&)[N])
 ScheduledBoosts() -> ScheduledBoosts< 0 >;
 
 /**
- * @brief The forcing window of each load, in milliseconds from the start of the off-peak period.
+ * @brief The windows of the scheduled boosts, in milliseconds from the start of the off-peak period.
  *
  * @ingroup DualTariff
  */
 namespace DualTariff
 {
-/** @brief An offset beyond +-24 is in minutes, in hours otherwise. */
-constexpr bool offsetInMinutes(const pairForceLoad& force)
-{
-  return force.getStartOffset() > 24 || force.getStartOffset() < -24;
-}
-
-/** @brief A duration beyond 24 is in minutes (but UINT16_MAX: until the end), in hours otherwise. */
-constexpr bool durationInMinutes(const pairForceLoad& force)
-{
-  return force.getDuration() > 24 && UINT16_MAX != force.getDuration();
-}
-
 /**
- * @brief The start of the window, in ms from the start of the off-peak period.
- *
- * @details A negative offset counts back from the end of the period. A start before the
- *          period wraps around to a very large value: the window then never opens.
- *          validation.h rejects such a window at compile time, with startsWithinOffPeak().
- *
- * @param offPeakHours the duration of the off-peak period, in hours (12 at most)
- */
-constexpr uint32_t windowStart(const pairForceLoad& force, const uint8_t offPeakHours)
-{
-  // 16 bits: 12 h (the most validation.h allows) is 43200 s. In int, 10 h and more overflowed (#214).
-  const uint16_t uiPeakDurationInSec{ static_cast< uint16_t >(offPeakHours * 3600U) };
-
-  // unsigned 32-bit arithmetic: a negative offset wraps around, back below the end of the period
-  uint32_t start{ static_cast< uint32_t >(((force.getStartOffset() >= 0) ? 0 : uiPeakDurationInSec) + force.getStartOffset() * (offsetInMinutes(force) ? 60ul : 3600ul)) };
-  start *= 1000ul;  // convert in milli-seconds
-  return start;
-}
-
-/**
- * @brief The end of the window (excluded), in ms from the start of the off-peak period.
- *
- * @return UINT32_MAX for a duration of UINT16_MAX: until the end of the off-peak period,
- *         which stops any forcing anyway
- */
-constexpr uint32_t windowEnd(const pairForceLoad& force, const uint8_t offPeakHours)
-{
-  if (UINT16_MAX == force.getDuration())
-  {
-    return UINT32_MAX;
-  }
-  return static_cast< uint32_t >(windowStart(force, offPeakHours) + force.getDuration() * (durationInMinutes(force) ? 60ul : 3600ul) * 1000ul);
-}
-
-/**
- * @brief Whether the load is in its forcing window.
+ * @brief Whether the boost is in its window.
  *
  * @param elapsed ms since the start of the off-peak period: millis() - its start, which stays
  *                right when millis() wraps around
@@ -304,24 +220,6 @@ constexpr uint32_t windowEnd(const pairForceLoad& force, const uint8_t offPeakHo
 constexpr bool inWindow(const uint32_t elapsed, const uint32_t start, const uint32_t end)
 {
   return (elapsed >= start) && (elapsed < end);
-}
-
-/**
- * @brief Whether the window starts within the off-peak period: otherwise, it would never open.
- *
- * @details A duration of 0 (no scheduled boost) is always valid, whatever its offset.
- */
-constexpr bool startsWithinOffPeak(const pairForceLoad& force, const uint8_t offPeakHours)
-{
-  if (0 == force.getDuration())
-  {
-    return true;
-  }
-  const int32_t periodInSec{ static_cast< int32_t >(offPeakHours * 3600L) };
-  const int32_t offsetInSec{ static_cast< int32_t >(force.getStartOffset() * (offsetInMinutes(force) ? 60L : 3600L)) };
-  const int32_t startInSec{ (force.getStartOffset() >= 0) ? offsetInSec : periodInSec + offsetInSec };
-
-  return (startInSec >= 0) && (startInSec < periodInSec);
 }
 
 /**
@@ -334,7 +232,7 @@ constexpr bool startsWithinOffPeak(const pairForceLoad& force, const uint8_t off
  */
 constexpr uint32_t windowStart(const BoostWindow& window, const uint8_t offPeakHours)
 {
-  const uint32_t minutes{ window.start.fromEnd ? (static_cast< uint32_t >(offPeakHours) * 60UL - window.start.minutes) : window.start.minutes };
+  const uint32_t minutes{ window.start.fromEnd ? (static_cast< uint32_t >(offPeakHours) * 60U - window.start.minutes) : window.start.minutes };
   return minutes * 60000UL;
 }
 
@@ -366,6 +264,7 @@ constexpr bool hasLength(const BoostWindow& window)
 {
   return 0 != window.length.minutes;
 }
+
 /** @brief A boost resolved for a given off-peak duration: its window in ms and its target masks. */
 struct Boost
 {
