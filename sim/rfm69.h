@@ -11,6 +11,9 @@
  * this one listens (RX mode) on the same network, sets PayloadReady and raises
  * DIO0. PayloadReady and DIO0 drop once the FIFO has been read out.
  *
+ * Absent chip (absent != 0): a module that does not answer - missing, unpowered
+ * or badly wired, MISO held low. Every byte read is 0 and writes are lost.
+ *
  * Copyright (c) 2026 Frédéric Metrich
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
@@ -52,6 +55,7 @@ typedef struct
   rfm69_frame_t frame;
   rfm69_frame_cb_t on_frame;
   void *param;
+  int absent; /* the chip does not answer: reads give 0, writes are lost */
   /* DIO0 output, to an AVR input pin (NULL if not connected) */
   avr_irq_t *dio0;
   /* statistics */

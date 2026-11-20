@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief RF module support for RFM69
  * @version 2.0
- * @date 2026-09-21
+ * @date 2026-11-19
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -87,7 +87,8 @@ inline bool initialize_rf()
  * @brief Send RF data to gateway
  * @param data Reference to the telemetry data to send
  * @details Sends telemetry data to the gateway node for data logging.
- *          Initializes RF module if not already done.
+ *          Nothing is sent while the RF module is not initialized: sendResults() retries
+ *          the initialization once per datalog period, for the remote loads as well.
  *          Uses fire-and-forget mode (no ACK) for better performance.
  */
 template< typename PayloadType >
@@ -97,10 +98,7 @@ inline void send_rf_data(const PayloadType& data)
   {
     if (!SharedRF::initialized)
     {
-      if (!initialize_rf())
-      {
-        return;  // Failed to initialize
-      }
+      return;
     }
 
     // Send data to gateway without ACK (fire and forget for performance)
