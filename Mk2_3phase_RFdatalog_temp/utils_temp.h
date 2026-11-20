@@ -166,18 +166,6 @@ public:
   }
 
   /**
-   * @brief Initialize the Dallas temperature sensors.
-   *
-   * This method initializes the OneWire bus and sends a request to all connected sensors
-   * to start temperature conversion. It ensures that the sensors are ready for temperature
-   * readings.
-   *
-   * @details
-   * - Initializes the OneWire bus using the specified sensor pin.
-   * - Sends a `CONVERT_TEMPERATURE` command to all sensors on the bus.
-   * - This method should be called during system initialization to prepare the sensors.
-   */
-  /**
    * @brief Lists the sensors on the bus, with their ROM codes as config.h takes them.
    *
    * @details Calibration mode only (CALIBRATION_MODE), with temperature sensing: to find the codes
@@ -239,6 +227,18 @@ public:
     }
   }
 
+  /**
+   * @brief Initialize the Dallas temperature sensors.
+   *
+   * This method initializes the OneWire bus and sends a request to all connected sensors
+   * to start temperature conversion. It ensures that the sensors are ready for temperature
+   * readings.
+   *
+   * @details
+   * - Initializes the OneWire bus using the specified sensor pin.
+   * - Sends a `CONVERT_TEMPERATURE` command to all sensors on the bus.
+   * - This method should be called during system initialization to prepare the sensors.
+   */
   void initTemperatureSensors() const
   {
     if constexpr (TEMP_SENSOR_PRESENT)

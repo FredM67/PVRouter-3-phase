@@ -59,8 +59,13 @@ public:
    */
   bool next(uint8_t (&rom)[8])
   {
-    if (lastDevice || !bus.reset())
+    if (lastDevice)
     {
+      return false;
+    }
+    if (!bus.reset())
+    {
+      lastDiscrepancy = 0;  // no device answers: the next search starts over
       return false;
     }
     bus.write(SEARCH_ROM);

@@ -25,7 +25,16 @@ class SimulatedBus
 public:
   void add(const uint8_t (&rom)[8])
   {
-    memcpy(roms[count++], rom, 8);
+    if (count != MAX_DEVICES)
+    {
+      memcpy(roms[count++], rom, 8);
+    }
+  }
+
+  /** Plugs the devices back in (after unplugAll()). */
+  void replugAll(uint8_t devices)
+  {
+    count = devices;
   }
 
   bool reset()
@@ -74,8 +83,11 @@ public:
   /** Unplugs every device: no presence pulse at the next reset. */
   void unplugAll()
   {
+    plugged = count;
     count = 0;
   }
+
+  uint8_t plugged{ 0 };
 
   uint8_t lastCommand{ 0 };
   uint16_t resets{ 0 };
@@ -121,7 +133,7 @@ bool contains(const uint8_t (&found)[MAX_DEVICES + 1][8], uint8_t n, const uint8
 // DS18B20 codes: family 0x28, serial number, CRC (the search does not check it)
 constexpr uint8_t SENSOR_A[8]{ 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 };
 constexpr uint8_t SENSOR_B[8]{ 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 };
-constexpr uint8_t SENSOR_C[8]{ 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB6 };  // B but the last bit
+constexpr uint8_t SENSOR_C[8]{ 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0x37 };  // B but bit 63, the last one sent
 constexpr uint8_t SENSOR_D[8]{ 0x28, 0xFF, 0x00, 0x12, 0x34, 0x56, 0x78, 0x9A };
 }  // namespace
 
@@ -238,6 +250,23 @@ void test_devices_unplugged_between_two_searches()
   TEST_ASSERT_FALSE(search.next(rom));  // no presence pulse
 }
 
+void test_search_starts_over_after_a_reset_without_presence()
+{
+  SimulatedBus bus;
+  bus.add(SENSOR_A);
+  bus.add(SENSOR_D);
+  RomSearch< SimulatedBus > search{ bus };
+  uint8_t first[8]{};
+  uint8_t rom[8]{};
+
+  TEST_ASSERT_TRUE(search.next(first));
+  bus.unplugAll();
+  TEST_ASSERT_FALSE(search.next(rom));
+  bus.replugAll(bus.plugged);
+  TEST_ASSERT_TRUE(search.next(rom));
+  TEST_ASSERT_EQUAL_UINT8_ARRAY(first, rom, 8);  // the first device again, not the second
+}
+
 int main()
 {
   UNITY_BEGIN();
@@ -249,5 +278,6 @@ int main()
   RUN_TEST(test_eight_devices);
   RUN_TEST(test_no_search_after_the_last_device);
   RUN_TEST(test_devices_unplugged_between_two_searches);
+  RUN_TEST(test_search_starts_over_after_a_reset_without_presence);
   return UNITY_END();
 }

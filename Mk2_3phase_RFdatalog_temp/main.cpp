@@ -408,7 +408,7 @@ void setup()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    temperatureSensing.printSensorsOnBus();  // calibration mode only
+    temperatureSensing.printSensorsOnBus();  // empty unless CALIBRATION_MODE
     temperatureSensing.initTemperatureSensors();
   }
 
