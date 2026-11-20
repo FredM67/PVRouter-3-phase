@@ -239,6 +239,30 @@
      "ram": 400
     }
    }
+  },
+  {
+   "commit": "58470139de12835d6959023b11f3037993b55d87",
+   "date": "2026-11-20T08:06:40+01:00",
+   "message": "perf: energy bucket rounding without the long shift loop (#208)\n\n* perf: energy bucket rounding without the long shift loop\n\ncontribution() rounded with (product + 2^(r-1)) >> r, r = shift - 12 (11\nfor the new board with 50 A CTs, 13 for the old board). avr-gcc -Os\ncompiles that 32-bit shift into an r-turn loop, three times per mains\ncycle in the ADC ISR, including in its longest call.\n\nFrom r = 9 on, the rounding constant is a multiple of 256, so the same\nvalue is ((product >> 8) + 2^(r-9)) >> (r-8): '>> 8' is a byte move and\nthe add in between keeps the compiler from merging both shifts again\n(3 turns instead of 11). Below 9 (calibrations near the limit of 8), the\ngeneral form stays. shift is a constant at the call site in the ISR, so\nonly one branch is compiled there.\n\n- identical on every reachable input. Exhaustively over all 2^32 values\n  of product, for r = 9..16, the forms only differ where the 32-bit add\n  of the general form wraps, unreachable since product <= 2^32 - 2^16;\n  the new form cannot overflow\n- new native test: contribution() equals the general rounding (in 64\n  bits) for r = 5..16 (both branches), at the rounding edges and on\n  20,000 random (power, calFixed) pairs per r\n- grid simulator: longest steady-state ISR call 1,043-1,054 -> 992-1,003\n  cycles, one-off start-up maximum 1,395-1,407 -> 1,344-1,356, average\n  -0.8; all expectations pass\n- flash +10 B\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* test(sim): 20 A board comparison within 0.1 Wh, like the others\n\ncompare-boards-20 allowed 0.05 Wh. A change of ISR timing alone shifts the\nswitching instants: with the faster energy bucket rounding, surplus_step on\nthe old board went from 7.14 to 7.22 Wh of grid import with an identical\nresult of every computation, and the 20 A run ended 0.09 Wh away from it.\n0.1 Wh, as for the two other comparisons, stays above that noise.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/58470139de12835d6959023b11f3037993b55d87",
+   "sizes": {
+    "basic": {
+     "flash": 8590,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8588,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8590,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8592,
+     "ram": 400
+    }
+   }
   }
  ]
 }
