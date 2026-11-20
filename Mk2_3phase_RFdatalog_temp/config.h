@@ -196,6 +196,7 @@ inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 }; /**< Duration of the off-pea
 inline constexpr ScheduledBoosts scheduledBoosts{ { { BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(0) } } } }; /**< load #1, from 3 hours before the end, for 2 hours */
 
 inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
+inline constexpr uint8_t BOOST_TEMP_SENSOR{ 0 };       /**< the sensor checked against it: its index in temperatureSensing, from 0 */
 
 inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },

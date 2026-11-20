@@ -603,8 +603,8 @@ void loop()
     {
       processTemperatureData();
 
-      // the first sensor is the reference for the dual tariff temperature threshold
-      iTemperature_x100 = tx_data.temperature_x100[0];
+      // the sensor checked against the dual tariff temperature threshold
+      iTemperature_x100 = tx_data.temperature_x100[BOOST_TEMP_SENSOR];
     }
 
     sendResults(bOffPeak);

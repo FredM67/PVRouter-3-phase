@@ -90,6 +90,7 @@ const CASES = [
   ['err.boostNoRelay', (m) => (m.dualTariff.boosts = [{ from: 'end', at: 180, for: 120, targets: [{ relay: 0 }] }])],
   ['err.boost', (m) => (m.dualTariff.boosts = [{ from: 'end', at: null, for: 120, targets: [{ load: 0 }] }])],
   ['err.noSensor', (m) => Object.assign(m.temperature, { mode: 'router', sensors: [] })],
+  ['err.tempSensor', (m) => (m.temperature.mode = 'router') && (m.dualTariff.tempSensor = 2)], // 2 sensors: 0 or 1
   ['err.sensorAddress', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE41')],
   ['warn.sensorCrc', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE416B090000A5')],
   ['err.tempEspNoWifi', (m) => (m.temperature.mode = 'esp')],
@@ -181,4 +182,9 @@ test('calibration mode: the IoT rules and the mk2Wifi output warning do not appl
     m.calibrationMode = true;
   });
   assert.ok(!keys(m).includes('warn.wifiNotIoT'));
+});
+
+test('the sensor of the boosts is only checked when the router reads the sensors', () => {
+  assert.ok(!keys(variant((m) => (m.dualTariff.tempSensor = 5))).includes('err.tempSensor')); // no sensing
+  assert.ok(!keys(variant((m) => (m.temperature.mode = 'router') && (m.dualTariff.tempSensor = 1))).includes('err.tempSensor'));
 });

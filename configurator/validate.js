@@ -174,6 +174,9 @@
         } else if (M.crc8(a.slice(0, 7)) !== a[7]) warning('warn.sensorCrc', `temperature.${i}`, { sensor: i + 1 });
       });
       if (m.temperature.mode === 'esp' && !m.mk2wifi.enabled) error('err.tempEspNoWifi', 'temperature');
+      // BOOST_TEMP_SENSOR: one of the probes (validation.h), whether dual tariff is on or not
+      if (M.tempSensorPresent(m) && sensors.length && !inRange(m.dualTariff.tempSensor, 0, sensors.length - 1))
+        error('err.tempSensor', m.dualTariff.enabled ? 'dualTariff' : 'temperature');
     }
 
     // ---- one pin, one use ----

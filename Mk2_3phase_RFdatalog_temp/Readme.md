@@ -647,7 +647,7 @@ Trois règles à retenir :
 - **Ce qui n’est pas listé n’est jamais en boost.** Une liste vide, `inline constexpr ScheduledBoosts scheduledBoosts{};`, signifie aucun boost.
 - **Chaque boost s’arrête quand le compteur repasse en heures pleines**, quelle que soit sa fenêtre.
 - **Toute la fenêtre tient dans la période d’HC** (`ul_OFF_PEAK_DURATION`) : une fenêtre avec `FOR` finit au plus tard à la fin de la période, sinon la compilation échoue. `LAST` et une fenêtre sans `FOR` durent jusqu’à ce que le compteur repasse en heures pleines.
-- La condition de température (`iTemperatureThreshold`) s’applique à tous les boosts : au-dessus du seuil, rien n’est en boost.
+- La condition de température (`iTemperatureThreshold`) s’applique à tous les boosts : au-dessus du seuil, rien n’est en boost. Elle demande la mesure de température sur le routeur (`TEMP_SENSOR_PRESENT`) ; `BOOST_TEMP_SENSOR` choisit la sonde, par son rang dans `temperatureSensing` (0 : la première).
 
 Une charge peut figurer dans plusieurs boosts : leurs fenêtres s’additionnent. Une fenêtre inclut son début et exclut sa fin.
 

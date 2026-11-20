@@ -95,9 +95,18 @@ inline void printDualTariffConfiguration()
   info(ul_OFF_PEAK_DURATION);
   infoln(F(" hours."));
 
-  info(F("\tTemperature threshold is "));
-  info(iTemperatureThreshold);
-  infoln(F(" C."));  // ASCII: the IoT output is 7-bit
+  if constexpr (TEMP_SENSOR_PRESENT)
+  {
+    info(F("\tTemperature threshold is "));
+    info(iTemperatureThreshold);
+    info(F(" C, on sensor #"));  // ASCII: the IoT output is 7-bit
+    info(BOOST_TEMP_SENSOR + 1);
+    infoln(F("."));
+  }
+  else
+  {
+    infoln(F("\tNo temperature threshold (no temperature sensing)."));
+  }
 
   for (uint8_t i = 0; i != NO_OF_BOOSTS; ++i)
   {

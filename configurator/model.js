@@ -113,6 +113,7 @@
         // start or before the end, for 'for' minutes (null: until the end); targets as overrides
         boosts: [{ from: 'end', at: 180, for: 120, targets: [{ load: 0 }] }],
         tempThreshold: 100,
+        tempSensor: 0, // the probe checked against it, from 0 (temperature.sensors)
       },
 
       temperature: {
@@ -289,6 +290,14 @@
   }
   const rfChipPresent = (m) => m.rf.logging || remoteLoadsPresent(m);
   const tempSensorPresent = (m) => m.temperature.mode === 'router';
+
+  // Remove probe i; the boosts keep the probe they check, or fall back to the first if it was this one
+  function removeSensor(m, i) {
+    m.temperature.sensors.splice(i, 1);
+    const d = m.dualTariff;
+    if (d.tempSensor === i) d.tempSensor = 0;
+    else if (d.tempSensor > i) --d.tempSensor;
+  }
   const overridePresent = (m) => m.overrides.enabled && m.overrides.list.length > 0;
   // calibration reads P1..P3 on the serial monitor: human-readable, whatever the usual choice
   const serialOutputOf = (m) => (m.calibrationMode ? 'HumanReadable' : m.serialOutput);
@@ -381,6 +390,7 @@
     withStart,
     rfChipPresent,
     tempSensorPresent,
+    removeSensor,
     overridePresent,
     serialOutputOf,
     controlInputs,

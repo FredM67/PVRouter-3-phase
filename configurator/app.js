@@ -70,6 +70,7 @@
       step: a.step || 1,
       min: a.min,
       max: a.max,
+      disabled: a.disabled,
       onchange: (e) => {
         set(e.target.value === '' ? null : Number(e.target.value));
         changed();
@@ -770,9 +771,21 @@
                 num(
                   () => d.tempThreshold,
                   (v) => (d.tempThreshold = v),
-                  { min: 1, max: 100 }
-                )
-              )
+                  { min: 1, max: 100, disabled: !M.tempSensorPresent(m) }
+                ),
+                M.tempSensorPresent(m) ? null : 'tempThresholdOff'
+              ),
+              // with several probes, the one the threshold is checked on
+              M.tempSensorPresent(m) && m.temperature.sensors.length > 1
+                ? field(
+                    'tempSensor',
+                    select(
+                      () => d.tempSensor,
+                      (v) => (d.tempSensor = v),
+                      m.temperature.sensors.map((s, i) => [i, `${T('sensor')} ${i + 1}${s.name ? ` (${s.name})` : ''}`])
+                    )
+                  )
+                : null
             ),
             h(
               'div',
@@ -831,7 +844,7 @@
                     (v) => (s.name = v)
                   )
                 ),
-                button('remove', () => t.sensors.splice(i, 1), 'small')
+                button('remove', () => M.removeSensor(m, i), 'small')
               )
             ),
             button('add', () => t.sensors.push({ address: '', name: '' })),

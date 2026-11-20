@@ -246,3 +246,29 @@ test('calibration mode: config.h and the new calibration.h, nothing else', () =>
     ['Mk2_3phase_RFdatalog_temp/config.h', 'Mk2_3phase_RFdatalog_temp/calibration.h']
   );
 });
+
+test('temperature threshold: the sensor it is checked on', () => {
+  const m = M.defaults();
+  m.dualTariff.tempSensor = 1;
+  assert.match(G.configH(m), /^inline constexpr uint8_t BOOST_TEMP_SENSOR\{ 1 \};/m);
+});
+
+test('removing a sensor: the boosts keep the same sensor, or fall back to the first', () => {
+  const three = () => {
+    const m = M.defaults();
+    m.temperature.sensors = [{ address: 'A', name: '' }, { address: 'B', name: '' }, { address: 'C', name: '' }];
+    return m;
+  };
+  let m = three();
+  m.dualTariff.tempSensor = 2;
+  M.removeSensor(m, 0); // one before it: same sensor, one place lower
+  assert.deepStrictEqual([m.temperature.sensors.length, m.dualTariff.tempSensor], [2, 1]);
+  m = three();
+  m.dualTariff.tempSensor = 1;
+  M.removeSensor(m, 1); // the chosen one: the first
+  assert.strictEqual(m.dualTariff.tempSensor, 0);
+  m = three();
+  m.dualTariff.tempSensor = 0;
+  M.removeSensor(m, 2); // one after it: unchanged
+  assert.strictEqual(m.dualTariff.tempSensor, 0);
+});

@@ -369,6 +369,7 @@
     add(
       '',
       [`inline constexpr int16_t iTemperatureThreshold{ ${m.dualTariff.tempThreshold} };`, '/**< the temperature threshold to stop overriding in °C */'],
+      [`inline constexpr uint8_t BOOST_TEMP_SENSOR{ ${m.dualTariff.tempSensor} };`, '/**< the sensor checked against it: its index in temperatureSensing, from 0 */'],
       ''
     );
     const sensors = m.temperature.sensors.map((s) => M.parseAddress(s.address)).filter(Boolean);

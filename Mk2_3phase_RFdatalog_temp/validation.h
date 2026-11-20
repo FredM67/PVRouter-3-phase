@@ -86,6 +86,7 @@ static_assert(ROTATION_AFTER_SECONDS > 0, "******** ROTATION_AFTER_SECONDS must 
 static_assert(ROTATION_AFTER_SECONDS < UINT16_MAX, "******** ROTATION_AFTER_SECONDS cannot exceed 65534 seconds (about 18 hours) ! ********");
 
 static_assert(!TEMP_SENSOR_PRESENT || (temperatureSensing.size() > 0), "******** No temperature sensors configured but TEMP_SENSOR_PRESENT is true ! ********");
+static_assert(!TEMP_SENSOR_PRESENT || (BOOST_TEMP_SENSOR < temperatureSensing.size()), "******** BOOST_TEMP_SENSOR must be one of the sensors in temperatureSensing (from 0) ! ********");
 static_assert(TEMP_RANGE_LOW < TEMP_RANGE_HIGH, "******** Invalid temperature range ! ********");
 
 /**

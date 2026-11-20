@@ -54,7 +54,9 @@ If you keep your own `config.h`, check these points:
   `scheduledBoosts` is never boosted. To keep the whole-night boost, list it with
   `{ FROM_START(MINUTES(0)), { LOAD(n) } }`. The shipped `config.h` now boosts only load #1.
   `ul_OFF_PEAK_DURATION` must match the meter's off-peak period: it places `LAST` and
-  `BEFORE_END`. The configurator writes the new form (see "Changed").
+  `BEFORE_END`. The configurator writes the new form (see "Changed"). Also add
+  `inline constexpr uint8_t BOOST_TEMP_SENSOR{ 0 };` after `iTemperatureThreshold`: the sensor
+  checked against the threshold (0, the first, as before).
 
 No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still
@@ -100,6 +102,10 @@ valid load maps ([#160]).
   time. Every boost stops when the meter switches back to peak. The configurator has a
   "Scheduled boosts" list in place of the per-load forcing fields, and the startup summary prints
   one line per boost.
+- **Temperature threshold of the boosts:** `BOOST_TEMP_SENSOR` chooses which sensor is checked
+  against `iTemperatureThreshold` (it was always the first). In the configurator, the threshold
+  is greyed out without temperature sensing on the router, and a sensor can be chosen when there
+  are several.
 - **`RELAY(n)`** with relay diversion off, or beyond the configured relays, now fails to compile,
   in the override pins and in the boosts, and so does `LOAD(n)` beyond the configured loads, with
   the message of `validation.h` instead of an array-bounds error. `MINUTES()` is one macro shared
