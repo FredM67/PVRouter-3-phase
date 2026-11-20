@@ -881,6 +881,51 @@
     "datalog: watts avg": 156,
     "datalog: watts max": 158
    }
+  },
+  {
+   "commit": "165bbfaa00c4500a0d580e1a9025f0f05abb2d5b",
+   "date": "2026-11-20T22:45:01+01:00",
+   "message": "ci: compile checks; build: no rf environment (#226)\n\n* ci: compile checks, settings the firmware must refuse or accept\n\nscripts/ci/compile-fail.sh builds the router with one edit of the shipped\nconfig*.h per case, and checks that validation.h refuses it with the\nexpected static_assert message, or accepts it. 22 cases: override and\nboost targets (bug 7: REMOTE_LOAD(n) beyond the remote loads), boost\nwindows, off-peak duration, probes, pins, priorities, rotation, and the\nbuilds that must succeed (bug 6: all loads remote, no pin used). A case\nwhose edit no longer matches the shipped config fails, so none goes stale.\n\nA new configurator preset, remote-only, builds a router with only remote\nloads and its two receivers.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* build: no rf environment, a build with remote loads instead\n\nenv:rf built the same firmware as basic: RF telemetry and remote loads\nare chosen in config.h. The build matrix and the PR report now build\nbasic with sim/configs/remote_loads.patch (\"basic, remote loads\"), so the\nRF code is actually built and measured. The RF grid simulation builds the\nsame firmware in .pio/build-rf.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/165bbfaa00c4500a0d580e1a9025f0f05abb2d5b",
+   "sizes": {
+    "basic": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "basic, remote loads": {
+     "flash": 12392,
+     "ram": 675
+    },
+    "basic, IoT": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7802,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05,
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09
+   }
   }
  ]
 }
