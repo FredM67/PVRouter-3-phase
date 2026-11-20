@@ -19,8 +19,11 @@ expect 45 pin 6 on
 expect 58 pin 5 off
 expect 58 pin 6 off
 expect 58 pin 7 off
-expect 20 35 grid_avg -120 80
-expect 38 50 grid_avg -120 80
+# Regulation: an ideal router holds the grid at -20 W (REQUIRED_EXPORT_IN_WATTS) on average.
+# One mains cycle of a 2 kW load is 40 J, about 3 W over these windows: +-10 W leaves three of
+# them for the bucket's level at the window edges and the boards' resolution.
+expect 20 35 grid_avg -30 -10
+expect 38 50 grid_avg -30 -10
 expect min_sample_sets 30
 # ISR calls longer than one ADC conversion (104 us), where the next sample may be
 # taken on the wrong channel. dev has a handful per minute, at datalog time.

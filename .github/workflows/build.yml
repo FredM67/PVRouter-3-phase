@@ -218,6 +218,9 @@ jobs:
     name: Grid simulation (${{ matrix.part == 'rf' && 'RF' || matrix.part }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    # the same banner length whatever the checkout: same code, same switching instants (sim/README.md)
+    env:
+      PVR_SIM_BUILD: 1
     # the scenarios spread over jobs: each grid scenario on its three boards (sim/ci_targets.sh),
     # and the RF ones, which run three microcontrollers each, in a job of their own
     strategy:

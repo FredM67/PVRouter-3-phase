@@ -33,8 +33,15 @@ By default, the simulated grid is the old board's (ADC reference AVCC, 5 V, and 
 `scenarios/common.scn`), and `grid_sim` reads the human-readable datalog: `configs/sim_config.sh`
 sets both in `config.h`, whatever its defaults. Run it before every firmware build below.
 
+Build with `PVR_SIM_BUILD` set, as CI does. The firmware prints its banner at 9600 baud before it
+starts sampling, so the banner's length shifts the whole run against the scenario. A different
+branch name alone moves the grid import of `surplus_step` by 0.05 Wh (7.15 against 7.20 Wh). With
+`PVR_SIM_BUILD`, the build writes the branch name a CI checkout gives (`N/A`), and the same code
+gives the same result everywhere.
+
 ```bash
 # 1. build the firmware
+export PVR_SIM_BUILD=1
 (cd .. && sim/configs/sim_config.sh)
 (cd ../Mk2_3phase_RFdatalog_temp && pio run -e basic)
 

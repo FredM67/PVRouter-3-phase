@@ -45,6 +45,8 @@ concurrency:
 
 env:
   PROJECT_DIR: Mk2_3phase_RFdatalog_temp
+  # the same banner length whatever the checkout: same code, same switching instants (sim/README.md)
+  PVR_SIM_BUILD: 1
 
 jobs:
   grid-sim-relays:
