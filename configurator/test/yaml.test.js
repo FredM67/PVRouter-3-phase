@@ -73,13 +73,19 @@ test('sensors follow what the router sends', () => {
   assert.doesNotMatch(y, /dallas_temp/);
 });
 
-test('probes on the module: dallas_temp on GPIO23 by index, no address, no T tags', () => {
-  const y = wifi((m) => (m.temperature.mode = 'esp')); // two probes, with addresses left from the router mode
+test('probes on the module: dallas_temp on GPIO23, by address when all have one, no T tags', () => {
+  const y = wifi((m) => (m.temperature.mode = 'esp')); // two probes with their addresses
   assert.match(y, /one_wire:\n {2}- platform: gpio\n {4}pin: GPIO23/);
+  assert.match(y, /platform: dallas_temp\n {4}address: 0x28BE416B090000A4\n/);
+  assert.match(y, /platform: dallas_temp\n {4}address: 0x281BD76A090000B7\n/);
+  assert.doesNotMatch(y, /tag: "T1"/);
+});
+
+test('probes on the module: by index when an address is missing', () => {
+  const y = wifi((m) => (m.temperature.mode = 'esp') && (m.temperature.sensors[1].address = ''));
   assert.match(y, /platform: dallas_temp\n {4}index: 0\n {4}name: /);
   assert.match(y, /platform: dallas_temp\n {4}index: 1\n {4}name: /);
   assert.doesNotMatch(y, /^ {4}address:/m);
-  assert.doesNotMatch(y, /tag: "T1"/);
 });
 
 test('one probe on the module: neither address nor index', () => {

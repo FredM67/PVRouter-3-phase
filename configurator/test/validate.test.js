@@ -195,7 +195,9 @@ test('new board: the probes are on D3 whatever pin the model holds', () => {
   assert.ok(!keys(variant((m) => Object.assign(m.temperature, { mode: 'router', pin: null }))).includes('err.tempPin'));
 });
 
-test('probes on the module: ESPHome finds the addresses, they are not checked', () => {
-  const k = keys(variant((m) => (m.mk2wifi.enabled = true) && Object.assign(m.temperature, { mode: 'esp', sensors: [{ address: '28BE41', name: '' }, { address: '', name: '' }] })));
-  assert.ok(!k.includes('err.sensorAddress') && !k.includes('warn.sensorCrc'), k.join());
+test('probes on the module: an address is optional, but checked when given', () => {
+  const esp = (sensors) => keys(variant((m) => (m.mk2wifi.enabled = true) && Object.assign(m.temperature, { mode: 'esp', sensors })));
+  assert.ok(!esp([{ address: '', name: '' }, { address: '', name: '' }]).includes('err.sensorAddress'));
+  assert.ok(esp([{ address: '28BE41', name: '' }, { address: '', name: '' }]).includes('err.sensorAddress'));
+  assert.ok(esp([{ address: '28BE416B090000A5', name: '' }]).includes('warn.sensorCrc'));
 });

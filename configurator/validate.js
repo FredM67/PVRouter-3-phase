@@ -142,13 +142,14 @@
     if (m.temperature.mode !== 'off') {
       const sensors = m.temperature.sensors;
       if (!sensors.length) error('err.noSensor', 'temperature');
-      // the router needs each probe's address; on the module, ESPHome finds them itself
-      if (M.tempSensorPresent(m))
-        sensors.forEach((s, i) => {
-          const a = M.parseAddress(s.address);
-          if (!a) error('err.sensorAddress', `temperature.${i}`, { sensor: i + 1 });
-          else if (M.crc8(a.slice(0, 7)) !== a[7]) warning('warn.sensorCrc', `temperature.${i}`, { sensor: i + 1 });
-        });
+      // the router needs each probe's address; on the module, ESPHome finds them itself: optional,
+      // checked when given
+      sensors.forEach((s, i) => {
+        const a = M.parseAddress(s.address);
+        if (!a) {
+          if (M.tempSensorPresent(m) || (s.address || '').trim()) error('err.sensorAddress', `temperature.${i}`, { sensor: i + 1 });
+        } else if (M.crc8(a.slice(0, 7)) !== a[7]) warning('warn.sensorCrc', `temperature.${i}`, { sensor: i + 1 });
+      });
       if (m.temperature.mode === 'esp' && !m.mk2wifi.enabled) error('err.tempEspNoWifi', 'temperature');
       // BOOST_TEMP_SENSOR: one of the probes (validation.h), whether dual tariff is on or not
       if (M.tempSensorPresent(m) && sensors.length && !inRange(m.dualTariff.tempSensor, 0, sensors.length - 1))
