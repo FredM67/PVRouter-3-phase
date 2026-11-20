@@ -1241,6 +1241,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "5427acdd0841ce5a67d0fee427f06b9fa5ee675b",
+   "date": "2026-11-20T23:43:28+01:00",
+   "message": "fix: temperature bounds valid, a steady 85 °C kept after a CRC error (#234)\n\n* fix: temperature bounds valid, a steady 85 °C kept after a CRC error\n\n- -55.00 and +125.00 °C, the bounds of the DS18B20, were reported out of\n  range (<= / >=), against the comment. They are readings like any other.\n- 85.00 °C was compared with the value kept last time: after one invalid\n  reading (a CRC error), a real, steady 85.00 °C looked like the power-on\n  value and was dropped every second until the temperature moved.\n  DS18B20::PowerOnFilter compares it with the last valid reading of the\n  sensor instead (2 bytes of RAM per sensor). A first 85.00 °C is still\n  skipped.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: changelog entry for the temperature fixes\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/5427acdd0841ce5a67d0fee427f06b9fa5ee675b",
+   "sizes": {
+    "basic": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, remote loads": {
+     "flash": 12372,
+     "ram": 675
+    },
+    "basic, IoT": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7784,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
