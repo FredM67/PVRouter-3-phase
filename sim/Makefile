@@ -18,7 +18,10 @@
 # Every scenario is a target of its own (check-<name>, check-new-<name>, check-rf-<name>, check-relays-<name>): with -j$(nproc),
 # they run in parallel, and 'make -j$(nproc) check check-rf' runs both sets together.
 #
-# The firmware is built separately: (cd ../Mk2_3phase_RFdatalog_temp && pio run -e basic)
+# The firmware is built separately, as CI does (README.md, Usage):
+#   export PVR_SIM_BUILD=1
+#   (cd .. && sim/configs/sim_config.sh)   # human-readable output (grid_sim reads it), old board
+#   (cd ../Mk2_3phase_RFdatalog_temp && pio run -e basic)
 # The remote-loads firmware is the rf environment with configs/remote_loads.patch applied.
 # The receiver firmware is built by build_receivers.sh (needs pio), once per node ID.
 
@@ -64,7 +67,7 @@ avr_adc.o: avr_adc.c
 	$(CC) $(CFLAGS) -w -c -o $@ $<
 
 $(FW):
-	$(error firmware not found: $(FW) - build it first with 'pio run -e basic')
+	$(error firmware not found: $(FW) - build it first: export PVR_SIM_BUILD=1, run sim/configs/sim_config.sh from the repository root, then 'pio run -e basic' (README.md, Usage))
 
 $(FW_RF):
 	$(error firmware not found: $(FW_RF) - apply configs/remote_loads.patch, then 'pio run -e rf')
