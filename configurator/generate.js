@@ -51,6 +51,12 @@
   }
 
   const hex = (b) => '0x' + b.toString(16).toUpperCase().padStart(2, '0');
+  // The threshold, as entered when the router reads the probes; without them its field is hidden and
+  // the firmware ignores it, but validation.h still wants 1..100: an unreadable one is written as 100
+  const tempThreshold = (m) => {
+    const t = m.dualTariff.tempThreshold;
+    return M.tempSensorPresent(m) || (Number.isInteger(t) && t >= 1 && t <= 100) ? t : 100;
+  };
 
   function overrideTargets(targets) {
     if (typeof targets === 'string') return `${targets}()`;
@@ -67,18 +73,75 @@
     ALL_LOADS_AND_RELAYS: 'all loads and relays',
   };
 
-  // What each override pin forces, numbered from 1 as on the page: LOAD(0) is load 1. Only when
-  // a list names loads or relays one by one; ALL_LOADS() and the like speak for themselves.
-  function overrideComments(m, overrides) {
-    if (overrides.every((o) => typeof o.targets === 'string')) return [];
+  // What a list of targets names, numbered from 1 as on the page: LOAD(0) is load 1
+  function targetsText(m, targets) {
+    if (typeof targets === 'string') return TARGET_NAMES[targets];
     const target = (t) => {
       if ('relay' in t) return `relay ${t.relay + 1} (${pinName((m.relays.list[t.relay] || {}).pin)})`;
       const load = m.loads[t.load] || {};
       return `load ${t.load + 1} (${load.type === 'remote' ? `remote unit ${load.unit}` : pinName(load.pin)})`;
     };
+    return targets.map(target).join(', ');
+  }
+
+  const COUNT_FROM_0 = '(LOAD(n) and RELAY(n) count from 0: LOAD(0) is load 1):';
+
+  // What each override pin forces. Only when a list names loads or relays one by one;
+  // ALL_LOADS() and the like speak for themselves.
+  function overrideComments(m, overrides) {
+    if (overrides.every((o) => typeof o.targets === 'string')) return [];
+    return [`// What each override pin forces ${COUNT_FROM_0}`, ...overrides.map((o) => `//   ${pinName(o.pin)}: ${targetsText(m, o.targets)}`)];
+  }
+
+  // ---- scheduled boosts ----
+
+  const boostTime = (min) => (min % 60 === 0 ? `HOURS(${min / 60})` : `MINUTES(${min})`);
+  const isFirst = (b) => b.from === 'start' && b.at === 0 && b.for !== null;
+
+  // The window of a boost, in the shortest form the firmware takes
+  function boostWindow(b) {
+    if (isFirst(b)) return `FIRST(${boostTime(b.for)})`;
+    if (b.for === null) return `${b.from === 'end' ? 'LAST' : 'FROM_START'}(${boostTime(b.at)})`;
+    return `${b.from === 'end' ? 'BEFORE_END' : 'FROM_START'}(${boostTime(b.at)}), FOR(${boostTime(b.for)})`;
+  }
+
+  const plural = (n, unit) => `${n} ${unit}${n === 1 ? '' : 's'}`;
+  const amount = (min) => (min % 60 === 0 ? plural(min / 60, 'hour') : plural(min, 'minute'));
+  const joinAnd = (xs) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}` : xs.join(''));
+
+  // A single boost in words, for the trailing comment: "load #1, from 3 hours before the end, for 2 hours"
+  function boostInWords(b) {
+    const what = typeof b.targets === 'string' ? TARGET_NAMES[b.targets] : joinAnd(b.targets.map((t) => ('relay' in t ? `relay #${t.relay + 1}` : `load #${t.load + 1}`)));
+    let when;
+    if (isFirst(b)) when = `the first ${amount(b.for)}`;
+    else if (b.from === 'end' && b.for === null) when = `the last ${amount(b.at)}`;
+    else {
+      const start = `from ${amount(b.at)} ${b.from === 'end' ? 'before the end' : 'after the start'}`;
+      when = b.for === null ? `${start}, until the end` : `${start}, for ${amount(b.for)}`;
+    }
+    return `${what}, ${when}`;
+  }
+
+  // What each boost forces, when there are several and a list names loads or relays one by one
+  // (a single boost says it in its trailing comment)
+  function boostComments(m, boosts) {
+    if (boosts.length < 2 || boosts.every((b) => typeof b.targets === 'string')) return [];
+    return [`// What each scheduled boost forces ${COUNT_FROM_0}`, ...boosts.map((b, i) => `//   boost ${i + 1}: ${targetsText(m, b.targets)}`)];
+  }
+
+  function boostLines(m) {
+    const boosts = m.dualTariff.boosts;
+    const prefix = 'inline constexpr ScheduledBoosts scheduledBoosts';
+    if (!boosts.length) return [[`${prefix}{};`, '/**< no scheduled boost */']];
+    const comment = boosts.length === 1 ? `/**< ${boostInWords(boosts[0])} */` : '/**< list of scheduled boosts */';
     return [
-      '// What each override pin forces (LOAD(n) and RELAY(n) count from 0: LOAD(0) is load 1):',
-      ...overrides.map((o) => `//   ${pinName(o.pin)}: ${typeof o.targets === 'string' ? TARGET_NAMES[o.targets] : o.targets.map(target).join(', ')}`),
+      ...boostComments(m, boosts),
+      ...list(
+        `${prefix}{ `,
+        boosts.map((b) => `{ ${boostWindow(b)}, ${overrideTargets(b.targets)} }`),
+        ' };',
+        comment
+      ),
     ];
   }
 
@@ -86,13 +149,6 @@
     if (s % 3600 === 0) return `${s / 3600}UL * 3600UL`;
     if (s % 60 === 0) return `${s / 60}UL * 60UL`;
     return `${s}UL`;
-  }
-
-  // Trailing entries equal to the default ({ 0, UINT16_MAX }) can be left out
-  function forceEntries(m) {
-    const f = m.dualTariff.force.slice(0, m.loads.length);
-    while (f.length && f[f.length - 1].start === 0 && f[f.length - 1].duration === null) f.pop();
-    return f.map((e) => `{ ${e.start}, ${e.duration === null ? 'UINT16_MAX' : e.duration} }`);
   }
 
   // ---- config.h ----
@@ -299,22 +355,33 @@
     const overrides = m.overrides.list.length ? m.overrides.list : [{ pin: null, targets: 'ALL_LOADS' }];
     add(...overrideComments(m, overrides));
     add(...list('inline constexpr OverridePins overridePins{ ', overrides.map((o) => `{ ${pin(o.pin)}, ${overrideTargets(o.targets)} }`), ' };', '/**< list of override pin/loads-relays pairs */'));
-    const force = forceEntries(m);
     add(
       '',
-      [`inline constexpr uint8_t ul_OFF_PEAK_DURATION{ ${m.dualTariff.offPeakHours} };`, '/**< Duration of the off-peak period in hours */'],
-      [
-        `inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]${force.length ? `{ ${force.join(', ')} }` : '{}'};`,
-        force.length === 1 ? '/**< force config for load #1 ONLY for dual tariff */' : '/**< force config of each load for dual tariff */',
-      ],
+      [`inline constexpr uint8_t ul_OFF_PEAK_DURATION{ ${m.dualTariff.offPeakHours} };`, '/**< Duration of the off-peak period in hours: must match the meter (it places the boosts counted back from the end) */'],
       '',
-      [`inline constexpr int16_t iTemperatureThreshold{ ${m.dualTariff.tempThreshold} };`, '/**< the temperature threshold to stop overriding in °C */'],
+      '// Scheduled boosts during the off-peak period (DUAL_TARIFF): when, and what they force.',
+      '// Targets as for the override pins; what is not listed is never boosted.',
+      '// Each window lies within the period; every boost stops when the meter switches back to peak.',
+      '//   FIRST(d)                the first d of the period',
+      '//   LAST(d)                 the last d of the period',
+      '//   FROM_START(t), FOR(d)   from t after the start, for d (without FOR: until the end)',
+      '//   BEFORE_END(t), FOR(d)   from t before the end, for d (without FOR: until the end)',
+      '//   t and d: HOURS(n) or MINUTES(n)',
+      '// inline constexpr ScheduledBoosts scheduledBoosts{ {',
+      '//     { FIRST(HOURS(2)), { LOAD(0), LOAD(2) } },    // loads #1 and #3, the first 2 hours',
+      '//     { LAST(MINUTES(90)), { RELAY(0) } } } };      // relay #1, the last 1 h 30'
+    );
+    add(...boostLines(m));
+    add(
+      '',
+      [`inline constexpr int16_t iTemperatureThreshold{ ${tempThreshold(m)} };`, '/**< the temperature threshold to stop overriding in °C */'],
+      [`inline constexpr uint8_t BOOST_TEMP_SENSOR{ ${m.dualTariff.tempSensor} };`, '/**< the sensor checked against it: its index in temperatureSensing, from 0 */'],
       ''
     );
     const sensors = m.temperature.sensors.map((s) => M.parseAddress(s.address)).filter(Boolean);
     const addresses = (sensors.length ? sensors : M.defaults().temperature.sensors.map((s) => M.parseAddress(s.address))).map((a) => `{ ${a.map(hex).join(', ')} }`);
     const tempPrefix = 'inline constexpr TemperatureSensing temperatureSensing{ ';
-    add(`${tempPrefix}${pin(M.tempSensorPresent(m) ? m.temperature.pin : null)},`);
+    add(`${tempPrefix}${pin(M.tempSensorPresent(m) ? M.tempPin(m) : null)},`);
     add(...list(' '.repeat(tempPrefix.length), addresses, ' };', '/**< list of temperature sensor Addresses */'));
     add(
       '',
