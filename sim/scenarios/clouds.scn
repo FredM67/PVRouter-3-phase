@@ -25,8 +25,10 @@ expect 45 pin 6 on
 expect 89 pin 5 off
 expect 89 pin 6 off
 expect 89 pin 7 off
-expect 22 30 grid_avg -150 100
-expect 58 70 grid_avg -150 100
+# Regulation at -20 W (REQUIRED_EXPORT_IN_WATTS), as in surplus_step.scn; +-15 W here, since the
+# second window starts 2 s after a step of the surplus.
+expect 22 30 grid_avg -35 -5
+expect 58 70 grid_avg -35 -5
 expect min_sample_sets 30
 # ISR calls longer than one ADC conversion (104 us), where the next sample may be
 # taken on the wrong channel. dev has a handful per minute, at datalog time.
