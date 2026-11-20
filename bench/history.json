@@ -263,6 +263,30 @@
      "ram": 400
     }
    }
+  },
+  {
+   "commit": "843f5818302cf62b7815e708c5d0bf4b0ce6584e",
+   "date": "2026-11-20T09:00:25+01:00",
+   "message": "test(sim): regulation checked against theory, same code same result (#210)\n\n* test(sim): regulation checked against theory, same code same result\n\nThe grid-average windows allowed -120..+80 W (clouds -150..+100) around an\nideal of -20 W, REQUIRED_EXPORT_IN_WATTS: a regulation off by 50 W passed.\nNow -30..-10 W in surplus_step and remote_step, -35..-5 W in clouds (its\nsecond window starts 2 s after a step). One mains cycle of a 2 kW load is\n40 J, about 3 W over a window. Measured on dev, the #208 and #209 code,\nold board and new board with 50 A and 20 A CTs: -13.1 to -25.1 W.\n\nThe firmware prints its banner at 9600 baud before it samples, so the\nbanner's length shifts the run against the scenario: the same #209 code\ngave 7.20 Wh of grid import in surplus_step from a branch, 7.15 Wh from a\ndetached HEAD (CI). With PVR_SIM_BUILD set, the build writes the branch\nname a CI checkout gives (N/A); the grid simulation workflows set it.\nFrom a branch and from a detached HEAD, the summaries are now identical.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* test(sim): random RF losses at most 3 in a row in lossy_link\n\nlossy_link loses 10 % of the frames at random, from a fixed sequence\ndrawn frame after frame. Which frames the sequence falls on depends on the\nfirmware's timing: with #209, the frames go out in a slightly different\norder at start-up, and node 15 lost 4 frames in a row, a 0.503 s gap\nagainst the receiver's 0.5 s timeout - one link loss, against none\nexpected. At 10 %, a few runs in a hundred have such a run, whatever the\ncode.\n\nrf_loss takes an optional limit on the losses in a row, per node; the\nsequence itself is unchanged. lossy_link uses 3: the receivers must keep\ntheir loads through 3 frames lost in a row, which the scenario meant.\n\nDev and #209 (merged with dev): check-rf 41/41.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/843f5818302cf62b7815e708c5d0bf4b0ce6584e",
+   "sizes": {
+    "basic": {
+     "flash": 8590,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8588,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8590,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8592,
+     "ram": 400
+    }
+   }
   }
  ]
 }
