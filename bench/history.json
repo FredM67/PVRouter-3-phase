@@ -383,6 +383,30 @@
      "ram": 396
     }
    }
+  },
+  {
+   "commit": "aad47defa9a5c0cb40908efe932a6a4acd4eea5f",
+   "date": "2026-11-20T10:24:00+01:00",
+   "message": "fix: configuration checks that let wrong settings through, or reject good ones (#214)\n\nvalidation.h, load_map.h:\n- Load::remote() with a unit outside 1..3 packed as another unit: unit 4\n  wrapped to 0, so remote(4, 8) became a local load with its TRIAC on the\n  LED pin. remote() now returns a marker entry, reported by\n  Load::hasValidRemoteUnits() with one error of its own; the other checks\n  skip it, so no cascade.\n- \"Duplicate pin definition\" for a router whose loads are all remote, with\n  no other pin: check_pins() returned the pins used, 0 also meaning a\n  conflict. It now returns { unique, used }.\n- A REMOTE_LOAD(n) override target beyond NO_OF_REMOTE_LOADS forced\n  nothing, silently (REMOTE_LOAD counts from 0); now an error. Skipped when\n  the load map itself is invalid, which has its own error.\n- ROTATION_AFTER_SECONDS is compared with a 16-bit counter of seconds: at\n  most 65534 s (about 18 h), not 24 h.\n- With relays, RELAY_FILTER_DELAY must span at least 5 datalog periods:\n  below, the triple EMA of the filter shifts by a negative count.\n- dualtariff.h: OffPeakDuration * 3600U, unsigned like its result.\n\nconfigurator: the same rotation limit (18 h) and relay filter check, in\nEnglish and French, with tests.\n\nChecked: wrong units 0 and 4 (with and without LED) give one error;\nall-remote maps build; real duplicates, RX/TX pins and REMOTE_LOAD(n) off\nby one are reported; native 197/197, rf build with remote loads,\nconfigurator 110/110.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/aad47defa9a5c0cb40908efe932a6a4acd4eea5f",
+   "sizes": {
+    "basic": {
+     "flash": 8222,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 8218,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 8222,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 8258,
+     "ram": 396
+    }
+   }
   }
  ]
 }
