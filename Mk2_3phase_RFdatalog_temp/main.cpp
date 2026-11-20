@@ -32,6 +32,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 
 #include "calibration.h"
 #include "datalog_math.h"
+#include "pin_edges.h"
 #include "processing.h"
 #include "shared_var.h"
 #include "types.h"
@@ -176,27 +177,6 @@ OverrideMasks getOverrideBitmask(const bool bOffPeak, const int16_t currentTempe
 }
 
 /**
- * @brief State of an active-LOW input pin, and how it changed since the previous reading.
- */
-struct PinEdges
-{
-  bool active;  /**< the pin is LOW now */
-  bool changed; /**< it changed since the previous reading */
-
-  /** @brief it went LOW since the previous reading */
-  constexpr bool pressed() const
-  {
-    return changed && active;
-  }
-
-  /** @brief it went HIGH since the previous reading */
-  constexpr bool released() const
-  {
-    return changed && !active;
-  }
-};
-
-/**
  * @brief Reads an active-LOW input pin, and tells how it changed since the previous reading.
  *
  * @tparam pin the input pin: each one keeps its own previous level, released at startup.
@@ -210,12 +190,7 @@ struct PinEdges
 template< uint8_t pin >
 PinEdges readPinEdges()
 {
-  static bool wasActive{ false };
-  const bool active{ !getPinState(pin) };
-  const PinEdges edges{ active, active != wasActive };
-
-  wasActive = active;
-  return edges;
+  return trackPinEdges< pin >(!getPinState(pin));
 }
 
 /**
@@ -375,7 +350,7 @@ void proceedLoadPriorities(const bool bOverridden)
   {
     const PinEdges pin{ readPinEdges< rotationPin >() };
 
-    if (pin.pressed() && !bOverridden)
+    if (isRotationRequested(pin, bOverridden))
     {
       statusln(F("Trigger rotation!"));
 
@@ -498,18 +473,14 @@ void updatePowerAndVoltageData()
  */
 void processTemperatureData()
 {
+  // 85.00 °C more than 5.00 °C away from the last valid reading: the power-on value, skipped
+  static DS18B20::PowerOnFilter powerOnFilter[temperatureSensing.size()];
+
   uint8_t idx{ temperatureSensing.size() };
   do
   {
-    auto tmp = temperatureSensing.readTemperature(--idx);
-
-    // if read temperature is 85 and the delta with previous is greater than 5, skip the value
-    if (8500 == tmp && (abs(tmp - tx_data.temperature_x100[idx]) > 500))
-    {
-      tmp = DEVICE_DISCONNECTED_RAW;
-    }
-
-    tx_data.temperature_x100[idx] = tmp;
+    --idx;
+    tx_data.temperature_x100[idx] = powerOnFilter[idx](temperatureSensing.readTemperature(idx));
   } while (idx);
 
   temperatureSensing.requestTemperatures();  // for use next time around

@@ -135,6 +135,9 @@ valid load maps ([#160]).
 
 ### Fixed
 
+- **Temperature:** -55.00 and +125.00 °C were reported out of range, and after one CRC error a
+  steady 85.00 °C was dropped every second as the sensor's power-on value. It is now compared
+  with the sensor's last valid reading ([#234]).
 - **Remote load receiver with the Arduino IDE:** it did not build (`utils_pins.h: No such
   file or directory`), since it took `utils_pins.h` and `utils_bits.h` from the router's folder,
   which only PlatformIO could see. The receiver now has its own copies, checked against the
@@ -241,3 +244,4 @@ valid load maps ([#160]).
 [#180]: https://github.com/FredM67/PVRouter-3-phase/pull/180
 [#185]: https://github.com/FredM67/PVRouter-3-phase/pull/185
 [#226]: https://github.com/FredM67/PVRouter-3-phase/pull/226
+[#234]: https://github.com/FredM67/PVRouter-3-phase/pull/234

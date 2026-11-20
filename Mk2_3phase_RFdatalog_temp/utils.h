@@ -218,16 +218,6 @@ inline void printConfiguration()
   }
 }
 
-/**
- * @brief Whether a temperature reading is valid, and so worth sending.
- *
- * @param temperature_x100 The reading, in hundredths of °C.
- */
-inline bool isValidTemperature(int16_t temperature_x100)
-{
-  return (OUTOFRANGE_TEMPERATURE != temperature_x100) && (DEVICE_DISCONNECTED_RAW != temperature_x100);
-}
-
 inline bool datalogOffPeak{ false }; /**< tariff at the datalog being printed, for the JSON format */
 
 /**
@@ -479,8 +469,7 @@ void sendTelemetryData(const bool bOffPeak)
   {
     for (uint8_t idx = 0; idx < temperatureSensing.size(); ++idx)
     {
-      if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
-          || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
+      if (!isValidTemperature(tx_data.temperature_x100[idx]))
       {
         continue;  // Skip invalid temperature readings
       }
