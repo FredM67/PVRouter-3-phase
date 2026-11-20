@@ -103,7 +103,7 @@ compare-boards:
 	sh compare_boards.sh $(OUT) new 1 0.1
 
 compare-boards-20:
-	sh compare_boards.sh $(OUT) new20 0.5 0.05
+	sh compare_boards.sh $(OUT) new20 0.5 0.1
 
 compare-ct:
 	sh compare_boards.sh $(OUT) new20 1 0.1 new
