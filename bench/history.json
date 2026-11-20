@@ -1286,6 +1286,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "f03188aa6e3598652be15df0296e2d7c70bb608c",
+   "date": "2026-11-20T23:55:10+01:00",
+   "message": "test: the relay engine decisions, with native tests (#235)\n\nThe decisions of the relay diversion move to relay_engine.h, without\nArduino: RelayLogic::Relay (thresholds, minimum ON/OFF times, override)\nand RelayLogic::Engine (settle time, order in and out, diversion OFF,\nEWMA average). A relay calls the switched() of its Output type on each\nchange; in the firmware, RelayPinOutput sets the pin and prints the\nchange, as try_switch() did. utils_relay.h keeps relayOutput and\nRelayEngine, their constructors and printing: main.cpp is unchanged.\n\nThe engine copies the relays with an index_sequence: initializing an\narray member from another is a GCC extension that the native compiler\nrefuses.\n\ntest_relay_engine (33 tests) pins the strict thresholds, the end of the\nminimum times, the settle time after any change, the order, overrides,\ndiversion OFF and the decision on the triple EMA. The firmware code is\nthe same: try_switch() and proceed_relay() disassemble identically.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/f03188aa6e3598652be15df0296e2d7c70bb608c",
+   "sizes": {
+    "basic": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, remote loads": {
+     "flash": 12372,
+     "ram": 675
+    },
+    "basic, IoT": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7784,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
