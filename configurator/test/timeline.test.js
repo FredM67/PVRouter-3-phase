@@ -116,3 +116,16 @@ test('minutes field: quarters of an hour', () => {
   assert.strictEqual(TL.quarter(-10), 0);
   assert.strictEqual(TL.quarter(null), 0);
 });
+
+test('shortening the off-peak period keeps the boosts inside it', () => {
+  // 6 h from the start, period cut from 8 h to 5 h: 5 h from the start
+  assert.deepStrictEqual(M.fitBoost({ from: 'start', at: 0, for: 360 }, 300), { at: 0, for: 300 });
+  assert.deepStrictEqual(M.fitBoost({ from: 'start', at: 240, for: 120 }, 300), { at: 240, for: 60 }); // start kept, cut
+  assert.deepStrictEqual(M.fitBoost({ from: 'start', at: 360, for: 60 }, 300), { at: 240, for: 60 }); // started after the end
+  assert.deepStrictEqual(M.fitBoost({ from: 'start', at: 360, for: null }, 300), { at: 285, for: null });
+  assert.deepStrictEqual(M.fitBoost({ from: 'end', at: 180, for: 240 }, 300), { at: 180, for: 180 }); // start kept, cut
+  assert.deepStrictEqual(M.fitBoost({ from: 'end', at: 360, for: 360 }, 300), { at: 300, for: 300 }); // started before the start
+  assert.deepStrictEqual(M.fitBoost({ from: 'end', at: 420, for: null }, 300), { at: 300, for: null });
+  assert.deepStrictEqual(M.fitBoost({ from: 'end', at: 180, for: 120 }, 300), { at: 180, for: 120 }); // fits: unchanged
+  assert.deepStrictEqual(M.fitBoost({ from: 'start', at: null, for: 60 }, 300), { at: null, for: 60 }); // unreadable: left to the error
+});

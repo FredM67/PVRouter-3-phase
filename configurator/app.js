@@ -761,7 +761,11 @@
                 'offPeakHours',
                 num(
                   () => d.offPeakHours,
-                  (v) => (d.offPeakHours = v),
+                  (v) => {
+                    d.offPeakHours = v;
+                    // a shorter period: the boosts are brought inside it
+                    if (Number.isInteger(v) && v >= 1 && v <= 12) d.boosts.forEach((b) => Object.assign(b, M.fitBoost(b, v * 60)));
+                  },
                   { min: 1, max: 12 }
                 )
               ),

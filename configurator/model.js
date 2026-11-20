@@ -272,6 +272,23 @@
     return { at: periodMin - (w.end - duration), for: duration };
   }
 
+  // A boost brought inside a shorter off-peak period: its anchored edge (the start counted from the
+  // start, or back from the end) stays where it is and the duration is cut to the period; an edge
+  // now outside the period comes back to it, keeping what it can of the duration. A boost that
+  // fits, or with unreadable times, is unchanged.
+  function fitBoost(b, periodMin) {
+    const w = boostWindow(b, periodMin);
+    if (!w || boostFits(b, periodMin) || (!w.open && b.for <= 0)) return { at: b.at, for: b.for };
+    if (b.from === 'end') {
+      const at = Math.min(b.at, periodMin);
+      return { at, for: w.open ? null : Math.min(b.for, at) };
+    }
+    if (w.open) return { at: Math.min(b.at, periodMin - 15), for: null };
+    if (b.at < periodMin) return { at: b.at, for: periodMin - b.at };
+    const length = Math.min(b.for, periodMin);
+    return { at: periodMin - length, for: length };
+  }
+
   // A new start ('at') keeps the duration while the window fits; one that would run past the end
   // of the period is cut there (3 h before the end, for 3 h -> 2 h before the end, for 2 h). A start
   // outside the period is left to err.boostWindow.
@@ -388,6 +405,7 @@
     reanchor,
     withDuration,
     withStart,
+    fitBoost,
     rfChipPresent,
     tempSensorPresent,
     removeSensor,

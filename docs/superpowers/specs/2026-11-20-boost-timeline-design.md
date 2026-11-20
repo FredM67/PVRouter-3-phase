@@ -38,7 +38,7 @@ The user wants a graphical way to set up each scheduled boost in the configurato
 - **Snap:** 15 minutes while dragging, and in the minutes fields too (step 15, a typed value snapped to the nearest quarter, 0 to 45), as the user asked after trying the page.
 - **Limits while dragging:** the window stays inside the off-peak period (the rule of #223: start within [0, period), start + `for` ≤ period); a duration never goes below 15 minutes by dragging.
 - **Selection:** clicking a bar highlights its boost card and scrolls it into view.
-- **Sync:** dragging updates the model and the fields live; editing a field redraws the bar. Changing the off-peak length, adding or removing a boost redraws the timeline. A boost that does not fit (e.g. after shortening the period) is drawn in red, next to the existing `err.boostWindow`.
+- **Sync:** dragging updates the model and the fields live; editing a field redraws the bar. Changing the off-peak length, adding or removing a boost redraws the timeline. Shortening the period brings the boosts inside it (`M.fitBoost()`: the anchored edge stays and the duration is cut, or an edge left outside comes back to the period), as the user asked after trying the page. A boost that still does not fit (hand-edited values) is drawn in red, next to the existing `err.boostWindow`.
 - **Strings:** en/fr in `i18n.js` (French: U+00A0 before `:` etc.).
 - **Where the code goes:** a new `configurator/timeline.js`, loaded like the other scripts. Its geometry is pure functions, tested with `node --test`: minutes ↔ position, snap, clamp to the period, drag (move / resize) → new `{ at, for }` keeping the anchor. `app.js` only mounts it.
 
