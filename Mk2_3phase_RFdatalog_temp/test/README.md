@@ -9,6 +9,7 @@ test/
 ├── native/           # Run on host PC (no hardware required)
 │   ├── test_datalog_math/
 │   ├── test_dc_offset_filter/
+│   ├── test_ds18b20/
 │   ├── test_dual_tariff/
 │   ├── test_energy_bucket/
 │   ├── test_ewma_avg/
@@ -54,6 +55,7 @@ pio test -e uno -f "*test_utils_relay*"
 |------|---------|
 | [test_datalog_math](native/test_datalog_math/) | Integer power and RMS voltage of the datalog, checked against the float references |
 | [test_dc_offset_filter](native/test_dc_offset_filter/) | DC offset removal filter |
+| [test_ds18b20](native/test_ds18b20/) | Checks of a DS18B20 reading: CRC-8, register to hundredths of °C (1/16 °C steps, negatives), range, disconnected probe, the 85 °C power-on value skipped after a jump, invalid readings not sent |
 | [test_dual_tariff](native/test_dual_tariff/) | Scheduled boosts of the dual tariff: the windows (`FIRST`, `LAST`, `FROM_START`, `BEFORE_END`, `FOR`), the masks of the targets, rejected windows (starting or ending outside the off-peak period, or of 0 min) |
 | [test_energy_bucket](native/test_energy_bucket/) | Integer energy bucket, checked against the float and exact references |
 | [test_ewma_avg](native/test_ewma_avg/) | EWMA filter for cloud immunity |
