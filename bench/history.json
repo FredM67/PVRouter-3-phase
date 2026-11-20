@@ -1196,6 +1196,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "592d50f7341daf3ea554df1ed5765a52e6d03e9b",
+   "date": "2026-11-20T23:32:41+01:00",
+   "message": "test: the temperature reading checks, with native tests (#233)\n\nThe checks of a DS18B20 reading move to ds18b20.h, Arduino-free:\nthe CRC-8, the register to hundredths of °C, the range, the 85 °C\npower-on value skipped after a jump (from main.cpp), and\nisValidTemperature() (from utils.h). utils_temp.h keeps the bus I/O.\n\nThe CRC is the firmware's own bit-by-bit copy, no longer the 32-byte\ntable of the OneWire library: the native tests check the CRC that runs,\nand the firmware with temperature sensing is 34 bytes smaller. The\nshipped config is unchanged (7950 bytes of flash, 568 of RAM).\n\nNew native suite test_ds18b20: 26 tests.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/592d50f7341daf3ea554df1ed5765a52e6d03e9b",
+   "sizes": {
+    "basic": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, remote loads": {
+     "flash": 12372,
+     "ram": 675
+    },
+    "basic, IoT": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7784,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
