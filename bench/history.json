@@ -1376,6 +1376,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "2bf5090880bb35b1a8d431bf5a22687f3835e38b",
+   "date": "2026-11-21T00:12:38+01:00",
+   "message": "fix: relays in battery mode go out last first; minimum times beyond 1092 min refused (#237)\n\n* fix: relays in battery mode go out last first; minimum times beyond 1092 min refused\n\n- On a surplus, the engine walked the relays from the first: relays in\n  battery mode (negative import threshold), which go out on a small\n  surplus, went out first relay first, against the documented decreasing\n  order. The relays are now walked down first, OFF only, then up, ON.\n  Normal mode is unchanged: nothing goes out on a surplus there. One call\n  site of proceed_relay() keeps the switching code inlined once: 24 bytes\n  less flash with the relay firmware of the simulator.\n- A minimum ON or OFF time is kept in 16 bits of seconds: on AVR,\n  minutes * 60 wrapped silently beyond 1092 minutes (1093 gave 44 s). The\n  conversion now saturates at UINT16_MAX, which no number of minutes\n  gives, and validation.h refuses it. Two compile checks: 1093 refused,\n  1092 builds.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: changelog entry for the relay fixes\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/2bf5090880bb35b1a8d431bf5a22687f3835e38b",
+   "sizes": {
+    "basic": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, remote loads": {
+     "flash": 12372,
+     "ram": 675
+    },
+    "basic, IoT": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7784,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
