@@ -80,6 +80,8 @@ Pour **MacOSX**, ce fichier se trouve dans '/Users/[user]/Library/Arduino15/pack
 
 Ouvrez le fichier dans n’importe quel éditeur de texte (vous aurez besoin des droits d’administrateur) et remplacez le paramètre '**-std=gnu++11**' par '**-std=gnu++17**'. C’est tout !
 
+Facultatif : dans le même fichier, ajoutez '**-Wl,--relax**' à la fin de la ligne qui commence par '**compiler.c.elf.flags=**'. L’éditeur de liens raccourcit alors chaque appel et chaque saut dont la cible est assez proche (2 octets au lieu de 4) : le firmware est plus petit d’environ 270 octets, comme avec PlatformIO, qui fixe ce paramètre lui-même.
+
 Si votre IDE Arduino était ouvert, veuillez fermer toutes les instances et le rouvrir.
 
 ## Bibliothèques requises pour l’Arduino IDE
