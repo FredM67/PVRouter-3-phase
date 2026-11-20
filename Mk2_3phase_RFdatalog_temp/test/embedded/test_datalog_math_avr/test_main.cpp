@@ -3,7 +3,7 @@
  * @brief The integer datalog arithmetic on the target: exact results, and cycle counts against
  *        the float code it replaces
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-20
  *
  * @details datalog_math.h replaced, in the datalog (#120):
  *          - power_L     = (int16_t)(sumP / n * f_powerCal[phase])
@@ -106,8 +106,8 @@ static uint16_t overhead()
 /** @brief The average and worst case of an integer function, for the CI history. */
 static void bench(const __FlashStringHelper* avgName, const __FlashStringHelper* maxName, const Cycles& stats)
 {
-  benchReport(avgName, stats.average(), F("cycles"));
-  benchReport(maxName, stats.max, F("cycles"));
+  benchCycles(avgName, stats.average());
+  benchCycles(maxName, stats.max);
 }
 
 static void report(const __FlashStringHelper* name, const Cycles& stats)

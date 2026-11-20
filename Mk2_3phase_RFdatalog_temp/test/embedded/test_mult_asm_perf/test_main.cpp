@@ -2,7 +2,7 @@
  * @file test_main.cpp
  * @brief Performance benchmarks for assembly multiplication functions
  * @version 0.1
- * @date 2026-11-14
+ * @date 2026-11-20
  *
  * This file contains performance benchmarks for the assembly-optimized
  * multiplication functions. They run in CI in the simavr simulator (uno_sim
@@ -19,6 +19,7 @@
 #include <unity.h>
 
 #include "../bench_report.h"
+#include "../bench_timer.h"
 #include "../halt_after_tests.h"
 
 #include "mult_asm.h"
@@ -55,7 +56,7 @@ void test_performance_multS16x16_to32(void)
   }
 
   // Performance test for assembly multiplication
-  unsigned long start_time = micros();
+  BenchTimer::start();
 
   for (uint16_t i = 0; i < iterations; i++)
   {
@@ -69,7 +70,7 @@ void test_performance_multS16x16_to32(void)
     }
   }
 
-  unsigned long asm_time = micros() - start_time;
+  const uint32_t asm_time{ BenchTimer::stop() };
 
   // Warm up standard multiplication
   for (uint8_t k = 0; k < 10; k++)
@@ -78,7 +79,7 @@ void test_performance_multS16x16_to32(void)
   }
 
   // Performance test for standard multiplication
-  start_time = micros();
+  BenchTimer::start();
 
   for (uint16_t i = 0; i < iterations; i++)
   {
@@ -92,7 +93,7 @@ void test_performance_multS16x16_to32(void)
     }
   }
 
-  unsigned long std_time = micros() - start_time;
+  const uint32_t std_time{ BenchTimer::stop() };
 
   // Calculate total operations
   uint32_t total_ops = (uint32_t)iterations * num_vals * num_vals;
@@ -103,18 +104,18 @@ void test_performance_multS16x16_to32(void)
   Serial.println(total_ops);
   Serial.print(F("Assembly time: "));
   Serial.print(asm_time);
-  Serial.println(F(" us"));
-  benchReport(F("mult_asm: multS16x16_to32"), asm_time, F("us"));
+  Serial.println(F(" cycles"));
+  benchCycles(F("mult_asm: multS16x16_to32"), asm_time);
   Serial.print(F("Standard time: "));
   Serial.print(std_time);
-  Serial.println(F(" us"));
+  Serial.println(F(" cycles"));
 
   if (asm_time > 0 && std_time > 0)
   {
-    Serial.print(F("Assembly ops/us: "));
-    Serial.println((float)total_ops / asm_time, 2);
-    Serial.print(F("Standard ops/us: "));
-    Serial.println((float)total_ops / std_time, 2);
+    Serial.print(F("Assembly cycles per op: "));
+    Serial.println((float)asm_time / total_ops, 2);
+    Serial.print(F("Standard cycles per op: "));
+    Serial.println((float)std_time / total_ops, 2);
 
     if (asm_time < std_time)
     {
@@ -156,7 +157,7 @@ void test_performance_multU16x16_to32(void)
   }
 
   // Performance test for assembly multiplication
-  unsigned long start_time = micros();
+  BenchTimer::start();
 
   for (uint16_t i = 0; i < iterations; i++)
   {
@@ -170,7 +171,7 @@ void test_performance_multU16x16_to32(void)
     }
   }
 
-  unsigned long asm_time = micros() - start_time;
+  const uint32_t asm_time{ BenchTimer::stop() };
 
   // Warm up standard multiplication
   for (uint8_t k = 0; k < 10; k++)
@@ -179,7 +180,7 @@ void test_performance_multU16x16_to32(void)
   }
 
   // Performance test for standard multiplication
-  start_time = micros();
+  BenchTimer::start();
 
   for (uint16_t i = 0; i < iterations; i++)
   {
@@ -193,7 +194,7 @@ void test_performance_multU16x16_to32(void)
     }
   }
 
-  unsigned long std_time = micros() - start_time;
+  const uint32_t std_time{ BenchTimer::stop() };
 
   // Calculate total operations
   uint32_t total_ops = (uint32_t)iterations * num_vals * num_vals;
@@ -204,18 +205,18 @@ void test_performance_multU16x16_to32(void)
   Serial.println(total_ops);
   Serial.print(F("Assembly time: "));
   Serial.print(asm_time);
-  Serial.println(F(" us"));
-  benchReport(F("mult_asm: multU16x16_to32"), asm_time, F("us"));
+  Serial.println(F(" cycles"));
+  benchCycles(F("mult_asm: multU16x16_to32"), asm_time);
   Serial.print(F("Standard time: "));
   Serial.print(std_time);
-  Serial.println(F(" us"));
+  Serial.println(F(" cycles"));
 
   if (asm_time > 0 && std_time > 0)
   {
-    Serial.print(F("Assembly ops/us: "));
-    Serial.println((float)total_ops / asm_time, 2);
-    Serial.print(F("Standard ops/us: "));
-    Serial.println((float)total_ops / std_time, 2);
+    Serial.print(F("Assembly cycles per op: "));
+    Serial.println((float)asm_time / total_ops, 2);
+    Serial.print(F("Standard cycles per op: "));
+    Serial.println((float)std_time / total_ops, 2);
 
     if (asm_time < std_time)
     {
@@ -259,7 +260,7 @@ void test_performance_mult16x8_q8(void)
   }
 
   // Performance test for assembly Q8 multiplication
-  unsigned long start_time = micros();
+  BenchTimer::start();
 
   for (uint16_t i = 0; i < iterations; i++)
   {
@@ -273,7 +274,7 @@ void test_performance_mult16x8_q8(void)
     }
   }
 
-  unsigned long asm_time = micros() - start_time;
+  const uint32_t asm_time{ BenchTimer::stop() };
 
   // Warm up standard Q8 multiplication
   for (uint8_t k = 0; k < 10; k++)
@@ -282,7 +283,7 @@ void test_performance_mult16x8_q8(void)
   }
 
   // Performance test for standard Q8 multiplication
-  start_time = micros();
+  BenchTimer::start();
 
   for (uint16_t i = 0; i < iterations; i++)
   {
@@ -296,7 +297,7 @@ void test_performance_mult16x8_q8(void)
     }
   }
 
-  unsigned long std_time = micros() - start_time;
+  const uint32_t std_time{ BenchTimer::stop() };
 
   // Calculate total operations
   uint32_t total_ops = (uint32_t)iterations * num_vals * num_fracs;
@@ -307,18 +308,18 @@ void test_performance_mult16x8_q8(void)
   Serial.println(total_ops);
   Serial.print(F("Assembly time: "));
   Serial.print(asm_time);
-  Serial.println(F(" us"));
-  benchReport(F("mult_asm: mult16x8_q8"), asm_time, F("us"));
+  Serial.println(F(" cycles"));
+  benchCycles(F("mult_asm: mult16x8_q8"), asm_time);
   Serial.print(F("Standard time: "));
   Serial.print(std_time);
-  Serial.println(F(" us"));
+  Serial.println(F(" cycles"));
 
   if (asm_time > 0 && std_time > 0)
   {
-    Serial.print(F("Assembly ops/us: "));
-    Serial.println((float)total_ops / asm_time, 2);
-    Serial.print(F("Standard ops/us: "));
-    Serial.println((float)total_ops / std_time, 2);
+    Serial.print(F("Assembly cycles per op: "));
+    Serial.println((float)asm_time / total_ops, 2);
+    Serial.print(F("Standard cycles per op: "));
+    Serial.println((float)std_time / total_ops, 2);
 
     if (asm_time < std_time)
     {
@@ -367,7 +368,7 @@ void test_performance_isr_simulation(void)
   }
 
   // Performance test for assembly-optimized ISR simulation
-  unsigned long start_time = micros();
+  BenchTimer::start();
 
   for (uint16_t i = 0; i < samples; i++)
   {
@@ -386,7 +387,7 @@ void test_performance_isr_simulation(void)
     filtered_current += filter_delta;
   }
 
-  unsigned long asm_time = micros() - start_time;
+  const uint32_t asm_time{ BenchTimer::stop() };
 
   // Reset for standard test
   power_sum = 0;
@@ -405,7 +406,7 @@ void test_performance_isr_simulation(void)
   }
 
   // Performance test for standard C ISR simulation
-  start_time = micros();
+  BenchTimer::start();
 
   for (uint16_t i = 0; i < samples; i++)
   {
@@ -421,7 +422,7 @@ void test_performance_isr_simulation(void)
     filtered_current += filter_delta;
   }
 
-  unsigned long std_time = micros() - start_time;
+  const uint32_t std_time{ BenchTimer::stop() };
 
   // Report results
   Serial.println(F("--- ISR Simulation Performance Results ---"));
@@ -429,18 +430,18 @@ void test_performance_isr_simulation(void)
   Serial.println(samples);
   Serial.print(F("Assembly ISR time: "));
   Serial.print(asm_time);
-  Serial.println(F(" us"));
-  benchReport(F("mult_asm: ISR simulation"), asm_time, F("us"));
+  Serial.println(F(" cycles"));
+  benchCycles(F("mult_asm: ISR simulation"), asm_time);
   Serial.print(F("Standard ISR time: "));
   Serial.print(std_time);
-  Serial.println(F(" us"));
+  Serial.println(F(" cycles"));
 
   if (asm_time > 0 && std_time > 0)
   {
-    Serial.print(F("Assembly samples/us: "));
-    Serial.println((float)samples / asm_time, 2);
-    Serial.print(F("Standard samples/us: "));
-    Serial.println((float)samples / std_time, 2);
+    Serial.print(F("Assembly cycles per sample: "));
+    Serial.println((float)asm_time / samples, 2);
+    Serial.print(F("Standard cycles per sample: "));
+    Serial.println((float)std_time / samples, 2);
 
     if (asm_time < std_time)
     {
@@ -452,7 +453,7 @@ void test_performance_isr_simulation(void)
       float time_saved_per_sample = (float)(std_time - asm_time) / samples;
       Serial.print(F("Time saved per ISR: "));
       Serial.print(time_saved_per_sample, 2);
-      Serial.println(F(" us"));
+      Serial.println(F(" cycles"));
     }
     else
     {
