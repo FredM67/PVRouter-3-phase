@@ -641,6 +641,7 @@ The targets are written as for the override pins: `LOAD(n)`, `REMOTE_LOAD(n)`, `
 Three rules to remember:
 - **What is not listed is never boosted.** An empty list, `inline constexpr ScheduledBoosts scheduledBoosts{};`, means no boost at all.
 - **Every boost stops when the meter switches back to peak**, whatever its window.
+- **The whole window lies within the off-peak period** (`ul_OFF_PEAK_DURATION`): a window with `FOR` ends at the latest at the end of the period, or the build fails. `LAST` and a window without `FOR` run until the meter switches back to peak.
 - The temperature condition (`iTemperatureThreshold`) applies to all boosts: above it, nothing is boosted.
 
 A load may be in several boosts: their windows add up. A window includes its start and excludes its end.
@@ -679,11 +680,11 @@ gantt
 
 **Example 2:** `{ FROM_START(HOURS(2)), FOR(HOURS(3)), { LOAD(0) } }`: from 2 hours after the start, for 3 hours. The boost runs from **01:00 to 04:00**.
 
-**Example 3:** `{ BEFORE_END(MINUTES(90)), FOR(MINUTES(120)), { LOAD(0) } }`: from 90 minutes before the end, for 120 minutes. The boost runs from **05:30 to 07:00**: it stops when the meter switches back to peak, not at 07:30. Only 90 minutes of boost occur instead of the 120 configured.
+**Example 3:** `{ BEFORE_END(MINUTES(90)), FOR(MINUTES(60)), { LOAD(0) } }`: from 90 minutes before the end, for 60 minutes. The boost runs from **05:30 to 06:30**. With `FOR(MINUTES(120))`, it would end at 07:30, after the off-peak period: the build rejects it. To run until the end, leave `FOR` out.
 
 **Example 4:** `{ FROM_START(HOURS(1)), { LOAD(0) } }`: from 1 hour after the start, until the end. The boost runs from **00:00 to 07:00**.
 
-**Example 5:** the whole night, for a load: `{ FIRST(HOURS(12)), { LOAD(0) } }`. Whatever the length of the off-peak period (12 hours at most), the meter ends the boost.
+**Example 5:** the whole night, for a load: `{ FROM_START(MINUTES(0)), { LOAD(0) } }`. Whatever the length of the off-peak period, the meter ends the boost.
 
 Several loads and several windows:
 ```cpp
@@ -698,17 +699,20 @@ inline constexpr ScheduledBoosts scheduledBoosts{ {
 
 The compiler stops with a message naming the problem:
 
-- `A scheduled boost starts outside the off-peak period, or lasts 0 minutes: it would never run. Please check scheduledBoosts in your config.h !` : for instance `LAST(HOURS(10))` or `BEFORE_END(HOURS(9))` with 8 hours, or `FOR(MINUTES(0))`. A window with `FOR` may end after the period (`FIRST(HOURS(10))` with 8 hours): the meter stops it.
-- `A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on?). Please check scheduledBoosts in your config.h !` : for instance `RELAY(0)` with relay diversion off, or a `RELAY(n)` beyond the configured relays.
+- `A scheduled boost starts or ends outside the off-peak period, or lasts 0 minutes. Please check scheduledBoosts in your config.h !` : for instance `LAST(HOURS(10))` or `BEFORE_END(HOURS(9))` with 8 hours (starts before the period), `FIRST(HOURS(10))` or `BEFORE_END(HOURS(1)), FOR(HOURS(2))` with 8 hours (ends after it), or `FOR(MINUTES(0))`.
+- `A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on?). Please check scheduledBoosts in your config.h !` : for instance `RELAY(0)` with relay diversion off, a `RELAY(n)` beyond the configured relays, or a `LOAD(n)` beyond the configured loads (`LOAD(3)` with 3 loads). In a manual boost (`overridePins`), the same targets stop the build with `An override pin forces a pin that is neither a local load nor a relay ! Please check overridePins in your config.h !`
 - `A scheduled boost forces a remote load that does not exist (REMOTE_LOAD() counts from 0). Please check scheduledBoosts in your config.h !`
 
 #### What the router prints at startup
 
-One line per boost, with the window in hours and minutes after the start of the off-peak period:
+One line per boost, in the order of the list, with the window in hours and minutes after the start of the off-peak period. For the four boosts of [Understanding the timeline](#understanding-the-timeline) (8 hours of off-peak), with the first three loads local on D5, D6 and D7, two remote loads, and relay #1 on D4:
 ```
-	Boost #1: from 5h00 to 7h00 of off-peak, forcing D5.
+	Boost #1: from 0h00 to 2h00 of off-peak, forcing D5, D7.
 	Boost #2: from 6h00 until the end of off-peak, forcing remote load 2.
+	Boost #3: from 2h00 to 4h00 of off-peak, forcing D6.
+	Boost #4: from 5h00 to 6h30 of off-peak, forcing D4.
 ```
+Local loads and relays print as their pins (D5, D4), in ascending pin order. Remote loads count from 1: `REMOTE_LOAD(1)` prints `remote load 2`.
 
 ### Quick reference
 

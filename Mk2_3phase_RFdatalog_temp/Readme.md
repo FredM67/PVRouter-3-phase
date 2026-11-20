@@ -646,6 +646,7 @@ Les cibles s’écrivent comme pour les pins d’override : `LOAD(n)`, `REMOTE_
 Trois règles à retenir :
 - **Ce qui n’est pas listé n’est jamais en boost.** Une liste vide, `inline constexpr ScheduledBoosts scheduledBoosts{};`, signifie aucun boost.
 - **Chaque boost s’arrête quand le compteur repasse en heures pleines**, quelle que soit sa fenêtre.
+- **Toute la fenêtre tient dans la période d’HC** (`ul_OFF_PEAK_DURATION`) : une fenêtre avec `FOR` finit au plus tard à la fin de la période, sinon la compilation échoue. `LAST` et une fenêtre sans `FOR` durent jusqu’à ce que le compteur repasse en heures pleines.
 - La condition de température (`iTemperatureThreshold`) s’applique à tous les boosts : au-dessus du seuil, rien n’est en boost.
 
 Une charge peut figurer dans plusieurs boosts : leurs fenêtres s’additionnent. Une fenêtre inclut son début et exclut sa fin.
@@ -684,11 +685,11 @@ gantt
 
 **Exemple 2 :** `{ FROM_START(HOURS(2)), FOR(HOURS(3)), { LOAD(0) } }` : 2 heures après le début, pendant 3 heures. Le boost fonctionne de **01:00 à 04:00**.
 
-**Exemple 3 :** `{ BEFORE_END(MINUTES(90)), FOR(MINUTES(120)), { LOAD(0) } }` : 90 minutes avant la fin, pendant 120 minutes. Le boost fonctionne de **05:30 à 07:00** : il s’arrête quand le compteur repasse en heures pleines, pas à 07:30. Seules 90 minutes de boost ont lieu au lieu des 120 configurées.
+**Exemple 3 :** `{ BEFORE_END(MINUTES(90)), FOR(MINUTES(60)), { LOAD(0) } }` : 90 minutes avant la fin, pendant 60 minutes. Le boost fonctionne de **05:30 à 06:30**. Avec `FOR(MINUTES(120))`, il finirait à 07:30, après la période d’HC : la compilation le refuse. Pour aller jusqu’à la fin, omettez `FOR`.
 
 **Exemple 4 :** `{ FROM_START(HOURS(1)), { LOAD(0) } }` : 1 heure après le début, jusqu’à la fin. Le boost fonctionne de **00:00 à 07:00**.
 
-**Exemple 5 :** toute la nuit, pour une charge : `{ FIRST(HOURS(12)), { LOAD(0) } }`. Quelle que soit la durée des HC (12 heures au plus), le compteur met fin au boost.
+**Exemple 5 :** toute la nuit, pour une charge : `{ FROM_START(MINUTES(0)), { LOAD(0) } }`. Quelle que soit la durée des HC, le compteur met fin au boost.
 
 Plusieurs charges et plusieurs fenêtres :
 ```cpp
@@ -703,17 +704,20 @@ inline constexpr ScheduledBoosts scheduledBoosts{ {
 
 Le compilateur s’arrête avec un message qui nomme le problème :
 
-- `A scheduled boost starts outside the off-peak period, or lasts 0 minutes: it would never run. Please check scheduledBoosts in your config.h !` : par exemple `LAST(HOURS(10))` ou `BEFORE_END(HOURS(9))` avec 8 heures, ou `FOR(MINUTES(0))`. Une fenêtre avec `FOR` peut finir après la période (`FIRST(HOURS(10))` avec 8 heures) : le compteur l’arrête.
-- `A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on?). Please check scheduledBoosts in your config.h !` : par exemple `RELAY(0)` sans diversion sur relais, ou un `RELAY(n)` au-delà des relais configurés.
+- `A scheduled boost starts or ends outside the off-peak period, or lasts 0 minutes. Please check scheduledBoosts in your config.h !` : par exemple `LAST(HOURS(10))` ou `BEFORE_END(HOURS(9))` avec 8 heures (démarre avant la période), `FIRST(HOURS(10))` ou `BEFORE_END(HOURS(1)), FOR(HOURS(2))` avec 8 heures (finit après), ou `FOR(MINUTES(0))`.
+- `A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on?). Please check scheduledBoosts in your config.h !` : par exemple `RELAY(0)` sans diversion sur relais, un `RELAY(n)` au-delà des relais configurés, ou un `LOAD(n)` au-delà des charges configurées (`LOAD(3)` avec 3 charges). Dans un boost manuel (`overridePins`), les mêmes cibles arrêtent la compilation avec `An override pin forces a pin that is neither a local load nor a relay ! Please check overridePins in your config.h !`
 - `A scheduled boost forces a remote load that does not exist (REMOTE_LOAD() counts from 0). Please check scheduledBoosts in your config.h !`
 
 #### Ce que le routeur affiche au démarrage
 
-Une ligne par boost, avec la fenêtre en heures et minutes après le début des HC :
+Une ligne par boost, dans l’ordre de la liste, avec la fenêtre en heures et minutes après le début des HC. Pour les quatre boosts de [Comprendre la ligne du temps](#comprendre-la-ligne-du-temps) (8 heures d’HC), avec les trois premières charges locales sur D5, D6 et D7, deux charges distantes, et le relais #1 sur D4 :
 ```
-	Boost #1: from 5h00 to 7h00 of off-peak, forcing D5.
+	Boost #1: from 0h00 to 2h00 of off-peak, forcing D5, D7.
 	Boost #2: from 6h00 until the end of off-peak, forcing remote load 2.
+	Boost #3: from 2h00 to 4h00 of off-peak, forcing D6.
+	Boost #4: from 5h00 to 6h30 of off-peak, forcing D4.
 ```
+Les charges locales et les relais s’affichent par leur broche (D5, D4), dans l’ordre croissant des broches. Les charges distantes comptent à partir de 1 : `REMOTE_LOAD(1)` s’affiche `remote load 2`.
 
 ### Aide-mémoire
 

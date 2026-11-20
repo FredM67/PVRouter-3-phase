@@ -54,7 +54,7 @@ pio test -e uno -f "*test_utils_relay*"
 |------|---------|
 | [test_datalog_math](native/test_datalog_math/) | Integer power and RMS voltage of the datalog, checked against the float references |
 | [test_dc_offset_filter](native/test_dc_offset_filter/) | DC offset removal filter |
-| [test_dual_tariff](native/test_dual_tariff/) | Scheduled boosts of the dual tariff: the windows (`FIRST`, `LAST`, `FROM_START`, `BEFORE_END`, `FOR`), the cut at the end, the masks of the targets, windows that never open |
+| [test_dual_tariff](native/test_dual_tariff/) | Scheduled boosts of the dual tariff: the windows (`FIRST`, `LAST`, `FROM_START`, `BEFORE_END`, `FOR`), the masks of the targets, rejected windows (starting or ending outside the off-peak period, or of 0 min) |
 | [test_energy_bucket](native/test_energy_bucket/) | Integer energy bucket, checked against the float and exact references |
 | [test_ewma_avg](native/test_ewma_avg/) | EWMA filter for cloud immunity |
 | [test_load_priorities](native/test_load_priorities/) | Load priority state machine: switching order, post-transition period, rotation, overrides |

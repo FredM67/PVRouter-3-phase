@@ -98,7 +98,7 @@ These were decided with the user, or proposed and accepted:
 - **Run time:** `getDualTariffForcingBitmask()` loops over the resolved boosts and ORs the masks of the open windows, if the temperature condition holds. It no longer goes through `physicalLoadPin` / `overridePinOf`.
 - **Checks (`validation.h`):**
   - each window starts within the off-peak period (the rule #222 added, now on the new form): `LAST(10h)` or `BEFORE_END(9h)` with 8 h are rejected;
-  - a window with `FOR` may end after `ul_OFF_PEAK_DURATION` (`FIRST(HOURS(10))` with 8 h): the meter going back to peak stops it;
+  - the whole window lies within the off-peak period (decided by the user in the final review): a window with `FOR` ends by `ul_OFF_PEAK_DURATION` at the latest, so `FIRST(HOURS(10))` or `BEFORE_END(HOURS(1)), FOR(HOURS(2))` with 8 h are rejected (`DualTariff::endsWithinOffPeak()`); `LAST` and windows without `FOR` still run until the meter goes back to peak;
   - `FOR(0)` and a zero `FIRST`/`LAST` are rejected (a boost that never runs);
   - targets are valid: the same checks as `overridePins` (load and remote-load indexes in range, relays that exist...), factored so both lists share them.
 - **Printing:** `printDualTariffConfiguration()` (called from `utils.h`) prints one line per boost: its window (start and end, in hours from the off-peak start) and its targets.
@@ -106,13 +106,13 @@ These were decided with the user, or proposed and accepted:
 ## The rest of the change
 
 - `config.h`: `rg_ForceLoad` replaced by `scheduledBoosts`, next to `overridePins`, with a commented example like the one above.
-- Native tests (`test/native/test_dual_tariff`): rewritten for the new forms. Each form, start/end edges, cut at the end of the period, rejected windows, the 12 h period, `millis()` wraparound (kept from #222), masks from the targets, overlapping boosts.
+- Native tests (`test/native/test_dual_tariff`): rewritten for the new forms. Each form, start/end edges, rejected windows (starting or ending outside the period), the 12 h period, `millis()` wraparound (kept from #222), masks from the targets, overlapping boosts.
 - Configurator: new model (a list of boosts: kind, time, duration, targets), an editor reusing `targetsEditor` from the override pins, generator, the same checks, en/fr strings, the three presets that have a boost, tests.
 - Docs: Readme.md / Readme.en.md (the dual-tariff sections), CHANGELOG (breaking change: how to rewrite an old `rg_ForceLoad`), `docs/architecture.md`, the test READMEs, `CLAUDE.md`.
 
 ## Calls made (for the user to check)
 
-1. **The shipped default** (decided by the user). Today's `config.h` has 3 loads and boosts load #1 from 3 h before the end for 2 h; by the "left out" default, loads #2 and #3 are boosted all night. The new default is only `{ BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(0) } }`: loads #2 and #3 are no longer boosted. The same goes for the configurator default and the presets (`relays-dualtariff-temp.json` loses its third load's all-night boost). The CHANGELOG says so, and shows how to keep a whole-night boost (`FIRST(HOURS(12))` or `FROM_START(MINUTES(0))`).
+1. **The shipped default** (decided by the user). Today's `config.h` has 3 loads and boosts load #1 from 3 h before the end for 2 h; by the "left out" default, loads #2 and #3 are boosted all night. The new default is only `{ BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(0) } }`: loads #2 and #3 are no longer boosted. The same goes for the configurator default and the presets (`relays-dualtariff-temp.json` loses its third load's all-night boost). The CHANGELOG says so, and shows how to keep a whole-night boost (`FROM_START(MINUTES(0))`; `FIRST(HOURS(12))` no longer compiles with a shorter period).
 2. **Relays can be boosted.** It costs nothing: the override mask already drives them.
 3. **The temperature condition applies to relays too**, one rule for every target.
 4. **`FROM_START`/`BEFORE_END` without `FOR` last until the end**, like `LAST`.

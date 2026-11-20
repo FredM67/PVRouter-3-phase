@@ -45,12 +45,14 @@ If you keep your own `config.h`, check these points:
   | Before | After |
   |--------|-------|
   | `{ -3, 2 }` | `{ BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(n) } }` |
-  | `{ 2 }` | `{ FROM_START(HOURS(2)), { LOAD(n) } }` |
+  | `{ 2 }` or `{ 2, UINT16_MAX }` | `{ FROM_START(HOURS(2)), { LOAD(n) } }` (no `FOR`: until the end) |
+  | `{ -3, UINT16_MAX }` | `{ LAST(HOURS(3)), { LOAD(n) } }` |
   | `{ -150, 90 }` | `{ BEFORE_END(MINUTES(150)), FOR(MINUTES(90)), { LOAD(n) } }` |
+  | `{ 0, 0 }` (never boosted) | leave the load out of `scheduledBoosts` |
 
   A load left out of `rg_ForceLoad` used to be boosted all night; what is not listed in
   `scheduledBoosts` is never boosted. To keep the whole-night boost, list it with
-  `{ FIRST(HOURS(12)), { LOAD(n) } }`. The shipped `config.h` now boosts only load #1.
+  `{ FROM_START(MINUTES(0)), { LOAD(n) } }`. The shipped `config.h` now boosts only load #1.
   `ul_OFF_PEAK_DURATION` must match the meter's off-peak period: it places `LAST` and
   `BEFORE_END`. The configurator writes the new form (see "Changed").
 
@@ -93,12 +95,16 @@ valid load maps ([#160]).
 - **Scheduled boosts** replace the per-load forcing of the dual tariff: a list of `{ window,
   { targets } }` entries, written with `FIRST()`, `LAST()`, `FROM_START()`, `BEFORE_END()`, `FOR()`
   and `HOURS()` / `MINUTES()`, and the same targets as the override pins. Remote loads and relays
-  can now be boosted, a target may be in several boosts, and a boost that never runs is rejected
-  at compile time. Every boost stops when the meter switches back to peak. The configurator has a
+  can now be boosted, a target may be in several boosts, and a boost that never runs, or that
+  starts or ends outside the off-peak period (`ul_OFF_PEAK_DURATION`), is rejected at compile
+  time. Every boost stops when the meter switches back to peak. The configurator has a
   "Scheduled boosts" list in place of the per-load forcing fields, and the startup summary prints
   one line per boost.
 - **`RELAY(n)`** with relay diversion off, or beyond the configured relays, now fails to compile,
-  in the override pins and in the boosts. `MINUTES()` is one macro shared by the relays and the boosts.
+  in the override pins and in the boosts, and so does `LOAD(n)` beyond the configured loads, with
+  the message of `validation.h` instead of an array-bounds error. `MINUTES()` is one macro shared
+  by the relays and the boosts; `HOURS()` is built on it, so too many hours fail to compile
+  instead of wrapping around.
 - **One meaning for "diversion OFF":** the diversion pin stops the surplus diversion on TRIACs,
   relays and remote loads alike; forcing (override pins, dual tariff) still works ([#179]).
 - **Control inputs at power-up:** the diversion and router OFF pins are read once in `setup()`,
