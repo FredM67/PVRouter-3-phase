@@ -13,7 +13,7 @@
  * - **Error Handling**: Handles disconnected or out-of-range sensors.
  *
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2024-2026
  *
@@ -26,6 +26,7 @@
 
 #include "constants.h"
 #include "config.h"
+#include "onewire_search.h"
 
 /**
  * @struct DeviceAddress
@@ -69,6 +70,13 @@ public:
   uint8_t read()
   {
     return 0x00;
+  }
+
+  void write_bit(uint8_t) {}
+
+  uint8_t read_bit()
+  {
+    return 0x01;
   }
 
   uint8_t crc8(const uint8_t*, uint8_t)
@@ -169,6 +177,62 @@ public:
    * - Sends a `CONVERT_TEMPERATURE` command to all sensors on the bus.
    * - This method should be called during system initialization to prepare the sensors.
    */
+  /**
+   * @brief Lists the sensors on the bus, with their ROM codes as config.h takes them.
+   *
+   * @details Calibration mode only (CALIBRATION_MODE), with temperature sensing: to find the codes
+   *          to put in config.h, or to check them. Each code says whether config.h has it. The
+   *          OneWire library is built without its search (-DONEWIRE_SEARCH=0, platformio.ini):
+   *          RomSearch (onewire_search.h) does it here, with its state on the stack.
+   */
+  void printSensorsOnBus() const
+  {
+    if constexpr (TEMP_SENSOR_PRESENT && CALIBRATION_MODE)
+    {
+      oneWire.begin(sensorPin);
+
+      info(F("Temperature sensors found on pin "));
+      info(sensorPin);
+      infoln(F(":"));
+
+      RomSearch< OneWireType > search{ oneWire };
+      DeviceAddress found;
+      uint8_t count{ 0 };
+      while (search.next(found.addr))
+      {
+        ++count;
+        info(F("\t{ "));
+        for (uint8_t i = 0; i != 8; ++i)
+        {
+          info(F("0x"));
+          if (found.addr[i] < 0x10)
+          {
+            info('0');
+          }
+          info(found.addr[i], HEX);
+          if (i != 7)
+          {
+            info(F(", "));
+          }
+        }
+        info(F(" }"));
+
+        if (oneWire.crc8(found.addr, 7) != found.addr[7])
+        {
+          infoln(F("  CRC error: check the wiring"));
+        }
+        else
+        {
+          infoln(isConfigured(found) ? F("  in config.h") : F("  not in config.h"));
+        }
+      }
+      if (0 == count)
+      {
+        infoln(F("\tnone: check the wiring and the pull-up resistor"));
+      }
+    }
+  }
+
   void initTemperatureSensors() const
   {
     if constexpr (TEMP_SENSOR_PRESENT)
@@ -284,6 +348,19 @@ public:
   }
 
 private:
+  /** @brief Whether config.h lists this sensor. */
+  bool isConfigured(const DeviceAddress& device) const
+  {
+    for (uint8_t idx = 0; idx != N; ++idx)
+    {
+      if (0 == memcmp(sensorAddrs[idx].addr, device.addr, sizeof(device.addr)))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
   const uint8_t sensorPin{ unused_pin }; /**< The pin of the sensor(s) */
 
   const DeviceAddress sensorAddrs[N]; /**< Array of sensors */

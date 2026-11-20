@@ -15,7 +15,7 @@
  * - **Watchdog**: Toggles a pin to indicate system activity.
  *
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -408,6 +408,7 @@ void setup()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
+    temperatureSensing.printSensorsOnBus();  // calibration mode only
     temperatureSensing.initTemperatureSensors();
   }
 
