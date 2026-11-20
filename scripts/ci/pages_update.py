@@ -48,7 +48,8 @@ def speeds_of(results):
     for result in results:
         if result.get("unit") == "cycles":
             name = result["name"].removesuffix(" [cycles]")
-            speeds[name] = int(result["value"])
+            value = float(result["value"])
+            speeds[name] = int(value) if value.is_integer() else value  # per op: 2 decimals
     return speeds
 
 
