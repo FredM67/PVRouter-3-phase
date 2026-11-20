@@ -184,7 +184,9 @@ void test_the_upper_threshold_stays_within_the_bucket(void)
   uint8_t prio[3]{ 0, 1, 2 };
 
   s.onNewCycle(prio, 800, bucket);
-  s.onNewCycle(prio, 1200, bucket);  // a bucket above its capacity (the ISR clamps it afterwards)
+  // a bucket above its capacity: onNewCycle() clamps the threshold it takes from it
+  // (the ISR clamps the bucket itself, afterwards)
+  s.onNewCycle(prio, 1200, bucket);
 
   TEST_ASSERT_EQUAL_INT32(1000, s.upperThreshold);
 }
@@ -228,7 +230,9 @@ void test_the_lower_threshold_stays_within_the_bucket(void)
   uint8_t prio[3]{ 0 | ON, 1 | ON, 2 | ON };
 
   s.onNewCycle(prio, 200, bucket);
-  s.onNewCycle(prio, -300, bucket);  // a bucket below 0 (the ISR clamps it afterwards)
+  // a bucket below 0: onNewCycle() clamps the threshold it takes from it
+  // (the ISR clamps the bucket itself, afterwards)
+  s.onNewCycle(prio, -300, bucket);
 
   TEST_ASSERT_EQUAL_INT32(0, s.lowerThreshold);
 }

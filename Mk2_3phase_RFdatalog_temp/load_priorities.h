@@ -112,6 +112,10 @@ __attribute__((always_inline)) inline void rotate(uint8_t (&priorities)[N])
  *
  * @tparam CALIBRATION every load stays OFF (calibration mode)
  * @param isOverridden callable, physical load number -> true if its override is active
+ *
+ * @pre The load numbers of @p priorities are 0..N-1, each once: they index @p physical
+ *      unchecked. validation.h checks loadPrioritiesAtStartup at compile time
+ *      (check_load_priorities()), and rotate() only reorders them.
  */
 template< bool CALIBRATION, uint8_t N, typename IsOverridden >
 __attribute__((always_inline)) inline void toPhysical(const uint8_t (&priorities)[N], LoadStates (&physical)[N],
