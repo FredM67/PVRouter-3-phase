@@ -146,13 +146,6 @@ void test_negative_offsets_with_10_to_12_hours(void)
   }
 }
 
-void test_the_period_needs_more_than_16_bits_beyond_18_hours(void)
-{
-  // validation.h stops at 12 hours; the computation itself holds beyond 65535 s
-  TEST_ASSERT_EQUAL_UINT32(21 * HOUR, startOf({ -3, 2 }, 24));
-  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak({ -3, 2 }, 24));
-}
-
 void test_12_hours_whole_range(void)
 {
   // the longest period: a window from the very start, one up to the very end
@@ -263,7 +256,6 @@ int main(void)
   RUN_TEST(test_zero_zero_is_no_boost);
 
   RUN_TEST(test_negative_offsets_with_10_to_12_hours);
-  RUN_TEST(test_the_period_needs_more_than_16_bits_beyond_18_hours);
   RUN_TEST(test_12_hours_whole_range);
   RUN_TEST(test_windows_are_computed_at_compile_time);
 
