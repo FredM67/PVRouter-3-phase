@@ -719,7 +719,7 @@
         hoursMinutes(
           'boostAt',
           () => b.at,
-          (v) => (b.at = v),
+          (v) => Object.assign(b, M.withStart(b, v, d.offPeakHours * 60)),
           d.offPeakHours || 12
         ),
         select(

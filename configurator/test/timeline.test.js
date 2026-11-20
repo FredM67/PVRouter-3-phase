@@ -96,3 +96,13 @@ test('changing the duration keeps the anchored edge', () => {
   assert.deepStrictEqual(M.withDuration({ from: 'end', at: 120, for: null }, 120, 480), { at: 120, for: 120 }); // was until the end: end is the period's
   assert.deepStrictEqual(M.withDuration({ from: 'end', at: 120, for: 120 }, null, 480), { at: 120, for: null }); // until the end
 });
+
+test('changing the start keeps the boost inside the period', () => {
+  // 3 h before the end, for 3 h (5h-8h) -> starts 2 h before the end: cut to 2 h (6h-8h)
+  assert.deepStrictEqual(M.withStart({ from: 'end', at: 180, for: 180 }, 120, 480), { at: 120, for: 120 });
+  assert.deepStrictEqual(M.withStart({ from: 'end', at: 180, for: 90 }, 240, 480), { at: 240, for: 90 }); // still fits: duration kept
+  assert.deepStrictEqual(M.withStart({ from: 'start', at: 300, for: 120 }, 420, 480), { at: 420, for: 60 }); // after the start, cut too
+  assert.deepStrictEqual(M.withStart({ from: 'start', at: 60, for: 60 }, 120, 480), { at: 120, for: 60 });
+  assert.deepStrictEqual(M.withStart({ from: 'end', at: 120, for: null }, 60, 480), { at: 60, for: null }); // until the end
+  assert.deepStrictEqual(M.withStart({ from: 'end', at: 120, for: 60 }, 600, 480), { at: 600, for: 60 }); // starts before the period: left to the error
+});

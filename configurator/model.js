@@ -271,6 +271,15 @@
     return { at: periodMin - (w.end - duration), for: duration };
   }
 
+  // A new start ('at') keeps the duration while the window fits; one that would run past the end
+  // of the period is cut there (3 h before the end, for 3 h -> 2 h before the end, for 2 h). A start
+  // outside the period is left to err.boostWindow.
+  function withStart(b, at, periodMin) {
+    const w = boostWindow({ ...b, at }, periodMin);
+    if (!w || w.open || w.start < 0 || w.start >= periodMin || w.end <= periodMin) return { at, for: b.for };
+    return { at, for: periodMin - w.start };
+  }
+
   // As validation.h (startsWithinOffPeak(), endsWithinOffPeak(), hasLength()): the whole window
   // lies within the period, and lasts.
   function boostFits(b, periodMin) {
@@ -369,6 +378,7 @@
     boostFits,
     reanchor,
     withDuration,
+    withStart,
     rfChipPresent,
     tempSensorPresent,
     overridePresent,
