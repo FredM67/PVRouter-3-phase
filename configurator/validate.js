@@ -115,8 +115,8 @@
       if (typeof t === 'string') {
         if (!M.OVERRIDE_GROUPS.includes(t)) error(keys.targets, field, { index });
         if (t === 'ALL_RELAYS' && !m.relays.enabled) error(keys.noRelay, field, { index });
-        if (t === 'ALL_REMOTE_LOADS' && !remote) warning(keys.nothing, field, { index });
-        if (t === 'ALL_LOCAL_LOADS' && remote === n) warning(keys.nothing, field, { index });
+        if (keys.nothing && t === 'ALL_REMOTE_LOADS' && !remote) warning(keys.nothing, field, { index });
+        if (keys.nothing && t === 'ALL_LOCAL_LOADS' && remote === n) warning(keys.nothing, field, { index });
       } else if (!Array.isArray(t) || !t.length) error(keys.targets, field, { index });
       else
         for (const x of t) {
@@ -141,18 +141,26 @@
     if (m.dualTariff.enabled) {
       if (!inRange(m.dualTariff.offPeakHours, 1, 12)) error('err.offPeakHours', 'dualTariff');
       if (!inRange(m.dualTariff.tempThreshold, 1, 100)) error('err.tempThreshold', 'dualTariff');
-      // as DualTariff::startsWithinOffPeak() and hasLength() (utils_dualtariff.h): a boost that
-      // starts outside the period, or lasts 0 min, never runs
-      const period = m.dualTariff.offPeakHours * 60;
-      const keys = { targets: 'err.boostTargets', noRelay: 'err.boostNoRelay', relay: 'err.boostRelay', load: 'err.boostLoad', nothing: 'warn.boostNothing' };
-      m.dualTariff.boosts.forEach((b, i) => {
-        const field = `dualTariff.boosts.${i}`;
-        const start = b.from === 'end' ? period - b.at : b.at;
-        if (!['start', 'end'].includes(b.from) || !inRange(b.at, 0, 720) || (b.for !== null && !inRange(b.for, 0, 65534))) error('err.boost', field, { index: i + 1 });
-        else if (start < 0 || start >= period || b.for === 0) error('err.boostWindow', field, { index: i + 1 });
-        checkTargets(b.targets, field, i + 1, keys);
-      });
     }
+    // The boosts are written into config.h with dual tariff off too: their values and targets
+    // must compile whatever the setting (LOAD(n) past the last load does not). The windows only
+    // matter with dual tariff, as in validation.h (startsWithinOffPeak(), hasLength()): a boost
+    // that starts outside the period, or lasts 0 min, never runs.
+    const period = m.dualTariff.offPeakHours * 60;
+    const boostKeys = {
+      targets: 'err.boostTargets',
+      noRelay: 'err.boostNoRelay',
+      relay: 'err.boostRelay',
+      load: 'err.boostLoad',
+      nothing: m.dualTariff.enabled ? 'warn.boostNothing' : null, // a boost that never runs forces nothing anyway
+    };
+    m.dualTariff.boosts.forEach((b, i) => {
+      const field = `dualTariff.boosts.${i}`;
+      const start = b.from === 'end' ? period - b.at : b.at;
+      if (!['start', 'end'].includes(b.from) || !inRange(b.at, 0, 720) || (b.for !== null && !inRange(b.for, 0, 65534))) error('err.boost', field, { index: i + 1 });
+      else if (m.dualTariff.enabled && (start < 0 || start >= period || b.for === 0)) error('err.boostWindow', field, { index: i + 1 });
+      checkTargets(b.targets, field, i + 1, boostKeys);
+    });
 
     // ---- temperature ----
     if (!M.TEMP_MODES.includes(m.temperature.mode)) error('err.tempMode', 'temperature');

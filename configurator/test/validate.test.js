@@ -82,6 +82,10 @@ const CASES = [
   ['err.boostLoad', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: [{ load: 5 }] })],
   ['err.boostTargets', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: [] })],
   ['warn.boostNothing', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: 'ALL_REMOTE_LOADS' })],
+  // dual tariff off: the boosts are still written into config.h, so they must compile
+  ['err.boostLoad', (m) => (m.dualTariff.boosts = [{ from: 'end', at: 180, for: 120, targets: [{ load: 5 }] }])],
+  ['err.boostNoRelay', (m) => (m.dualTariff.boosts = [{ from: 'end', at: 180, for: 120, targets: [{ relay: 0 }] }])],
+  ['err.boost', (m) => (m.dualTariff.boosts = [{ from: 'end', at: null, for: 120, targets: [{ load: 0 }] }])],
   ['err.noSensor', (m) => Object.assign(m.temperature, { mode: 'router', sensors: [] })],
   ['err.sensorAddress', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE41')],
   ['warn.sensorCrc', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE416B090000A5')],
@@ -141,6 +145,11 @@ test('dual tariff: boosts that start within the off-peak period are accepted', (
     assert.deepStrictEqual(errors(m), [], JSON.stringify(b));
   }
   assert.deepStrictEqual(errors(variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, boosts: [] }))), []);
+});
+
+test('dual tariff off: the windows of the boosts are not checked, nor what a group finds to force', () => {
+  const m = variant((m) => (m.dualTariff.boosts = [{ from: 'start', at: 600, for: 0, targets: 'ALL_REMOTE_LOADS' }]));
+  assert.deepStrictEqual(V.validate(m), []);
 });
 
 test('remote units are only checked when used', () => {
