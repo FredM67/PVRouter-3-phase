@@ -266,11 +266,16 @@
   }
 
   // A new duration (null: until the end) keeps the anchored edge: the start of a boost counted
-  // from the start, the end of one counted back from the end (it then starts earlier or later)
+  // from the start, the end of one counted back from the end (it then starts earlier or later).
+  // A boost that would no longer fit moves to end with the period, or start with it; a duration
+  // longer than the period is cut to it. No period (field emptied): as typed.
   function withDuration(b, duration, periodMin) {
     const w = boostWindow(b, periodMin);
-    if (duration === null || !w || b.from !== 'end') return { at: b.at, for: duration };
-    return { at: periodMin - (w.end - duration), for: duration };
+    if (duration === null || !w || !(periodMin > 0)) return { at: b.at, for: duration };
+    const length = Math.min(duration, periodMin);
+    const anchored = b.from === 'end' ? w.end - length : w.start; // w.end: the period's end when open
+    const start = Math.min(Math.max(anchored, 0), periodMin - length);
+    return { at: b.from === 'end' ? periodMin - start : start, for: length };
   }
 
   // A boost brought inside a shorter off-peak period: its anchored edge (the start counted from the
@@ -363,14 +368,25 @@
   }
 
   // Keep the per-load arrays in step with the number of loads
+  // The boosts and override pins drop the targets that no longer exist (a group stays)
+  function dropTargets(m, keep) {
+    const trim = (o) => {
+      if (Array.isArray(o.targets)) o.targets = o.targets.filter(keep);
+    };
+    m.dualTariff.boosts.forEach(trim);
+    m.overrides.list.forEach(trim);
+  }
+
   function resizeLoads(m, count) {
     while (m.loads.length < count) {
       const used = new Set(m.loads.filter((l) => l.type === 'local').map((l) => l.pin));
+      if (tempSensorPresent(m)) used.add(tempPin(m)); // the probes' bus
       const pin = [5, 6, 7, 3, 4, 8, 9].find((p) => !used.has(p)) || 2;
       m.loads.push({ type: 'local', pin });
     }
     m.loads.length = count;
     m.priorities = m.loads.map((_, i) => i);
+    dropTargets(m, (x) => !('load' in x) || x.load < count);
     return m;
   }
 
@@ -378,6 +394,7 @@
   function resizeRelays(m, count) {
     while (m.relays.list.length < count) m.relays.list.push({ pin: null, surplus: 1000, import: 200, minOn: 5, minOff: 5 });
     m.relays.list.length = count;
+    dropTargets(m, (x) => !('relay' in x) || x.relay < count);
     return m;
   }
 

@@ -134,6 +134,17 @@ test('no off-peak length (field emptied): the boost keeps what is typed', () => 
   // null * 60 = 0: no period to keep the boost in, so nothing is moved or cut
   assert.deepStrictEqual(M.reanchor({ from: 'start', at: 60, for: 60 }, 'end', 0), { from: 'end', at: 60, for: 60 });
   assert.deepStrictEqual(M.withStart({ from: 'end', at: 180, for: 180 }, 120, 0), { at: 120, for: 180 });
-  assert.deepStrictEqual(M.withDuration({ from: 'end', at: 120, for: 120 }, 150, 0), { at: 150, for: 150 }); // the end stays: no period needed
+  assert.deepStrictEqual(M.withDuration({ from: 'end', at: 120, for: 120 }, 150, 0), { at: 120, for: 150 });
   assert.deepStrictEqual(M.fitBoost({ from: 'start', at: 0, for: 360 }, 0), { at: 0, for: 360 });
+});
+
+test('a new duration that does not fit moves the boost to end with the period', () => {
+  // 30 min from 7 h, made 2 h: from 6 h to the end
+  assert.deepStrictEqual(M.withDuration({ from: 'start', at: 420, for: 30 }, 120, 480), { at: 360, for: 120 });
+  // 6 h-7 h counted from the end, made 8 h: the whole period
+  assert.deepStrictEqual(M.withDuration({ from: 'end', at: 120, for: 60 }, 480, 480), { at: 480, for: 480 });
+  // longer than the period: the period
+  assert.deepStrictEqual(M.withDuration({ from: 'start', at: 0, for: 60 }, 600, 480), { at: 0, for: 480 });
+  // 'until the end' unticked at 7 h: 2 h, from 6 h
+  assert.deepStrictEqual(M.withDuration({ from: 'start', at: 420, for: null }, 120, 480), { at: 360, for: 120 });
 });

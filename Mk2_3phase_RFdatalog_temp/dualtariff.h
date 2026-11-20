@@ -128,7 +128,7 @@ inline void printDualTariffConfiguration()
     info(F(" of off-peak, forcing "));
 
     bool first{ true };
-    for (uint8_t pin = 0; pin != 16; ++pin)
+    for (uint8_t pin = 0; pin != LOCAL_MASK_BITS; ++pin)
     {
       if (bit_read(boost.local, pin))
       {
@@ -141,7 +141,7 @@ inline void printDualTariffConfiguration()
         info(pin);
       }
     }
-    for (uint8_t n = 0; n != 8; ++n)
+    for (uint8_t n = 0; n != REMOTE_MASK_BITS; ++n)
     {
       if (bit_read(boost.remote, n))
       {

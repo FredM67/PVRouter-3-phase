@@ -279,3 +279,31 @@ test('temperature: D3 on the new board, wired there; the chosen pin on the old o
   m.pcbVersion = 'OLD';
   assert.match(G.configH(m), /^inline constexpr TemperatureSensing temperatureSensing\{ 4,$/m);
 });
+
+test('no probe read by the router: an unreadable threshold is written as 100, the firmware ignores it', () => {
+  const m = M.defaults();
+  m.dualTariff.tempThreshold = null;
+  assert.match(G.configH(m), /^inline constexpr int16_t iTemperatureThreshold\{ 100 \};/m);
+  m.dualTariff.tempThreshold = 60;
+  assert.match(G.configH(m), /^inline constexpr int16_t iTemperatureThreshold\{ 60 \};/m);
+});
+
+test('fewer loads or relays: the boosts and override pins drop the targets that no longer exist', () => {
+  const m = M.defaults(); // 3 loads
+  M.resizeLoads(m, 4);
+  M.resizeRelays(m, 2);
+  m.dualTariff.boosts = [{ from: 'start', at: 0, for: 60, targets: [{ load: 0 }, { load: 3 }, { relay: 1 }] }];
+  m.overrides.list = [{ pin: 4, wifi: false, targets: [{ load: 3 }, { relay: 0 }] }, { pin: 8, wifi: false, targets: 'ALL_LOADS' }];
+  M.resizeLoads(m, 3);
+  M.resizeRelays(m, 1);
+  assert.deepStrictEqual(m.dualTariff.boosts[0].targets, [{ load: 0 }]);
+  assert.deepStrictEqual(m.overrides.list[0].targets, [{ relay: 0 }]);
+  assert.strictEqual(m.overrides.list[1].targets, 'ALL_LOADS');
+});
+
+test('a new load avoids the probes pin', () => {
+  const m = M.defaults(); // new board, loads on 5, 6, 7
+  m.temperature.mode = 'router'; // probes on D3
+  M.resizeLoads(m, 4);
+  assert.strictEqual(m.loads[3].pin, 4);
+});

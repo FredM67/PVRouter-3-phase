@@ -151,6 +151,9 @@
         } else if (M.crc8(a.slice(0, 7)) !== a[7]) warning('warn.sensorCrc', `temperature.${i}`, { sensor: i + 1 });
       });
       if (m.temperature.mode === 'esp' && !m.mk2wifi.enabled) error('err.tempEspNoWifi', 'temperature');
+      // on the module, the YAML uses the addresses only when every probe has one (yaml.js)
+      const withAddress = sensors.filter((s) => M.parseAddress(s.address)).length;
+      if (m.temperature.mode === 'esp' && withAddress && withAddress < sensors.length) warning('warn.sensorSomeAddresses', 'temperature');
       // BOOST_TEMP_SENSOR: one of the probes (validation.h), whether dual tariff is on or not
       if (M.tempSensorPresent(m) && sensors.length && !inRange(m.dualTariff.tempSensor, 0, sensors.length - 1))
         error('err.tempSensor', m.dualTariff.enabled ? 'dualTariff' : 'temperature');
@@ -159,12 +162,13 @@
     // ---- dual tariff ----
     if (m.dualTariff.enabled) {
       if (!inRange(m.dualTariff.offPeakHours, 1, 12)) error('err.offPeakHours', 'dualTariff');
-      if (!inRange(m.dualTariff.tempThreshold, 1, 100)) error('err.tempThreshold', 'dualTariff');
+      // shown (and used) only when the router reads the probes; otherwise written as 100 (generate.js)
+      if (M.tempSensorPresent(m) && !inRange(m.dualTariff.tempThreshold, 1, 100)) error('err.tempThreshold', 'dualTariff');
     }
-    // The boosts are written into config.h with dual tariff off too: their values and targets
-    // must compile whatever the setting (LOAD(n) past the last load does not). The windows only
-    // matter with dual tariff, as in validation.h (startsWithinOffPeak(), endsWithinOffPeak(),
-    // hasLength()): the whole window lies within the period, and lasts (M.boostFits()).
+    // The boosts are written into config.h with dual tariff off too: their values must be numbers.
+    // Their windows and targets only matter with dual tariff, as in validation.h (LOAD(), RELAY()
+    // and REMOTE_LOAD() give pin 0 out of range, checked with DUAL_TARIFF only): the whole window
+    // lies within the period, and lasts (M.boostFits()), and the targets exist.
     const period = m.dualTariff.offPeakHours * 60;
     const boostKeys = {
       targets: 'err.boostTargets',
@@ -177,7 +181,7 @@
       const field = `dualTariff.boosts.${i}`;
       if (!['start', 'end'].includes(b.from) || !inRange(b.at, 0, 720) || (b.for !== null && !inRange(b.for, 0, 720))) error('err.boost', field, { index: i + 1 });
       else if (m.dualTariff.enabled && !M.boostFits(b, period)) error('err.boostWindow', field, { index: i + 1 });
-      checkTargets(b.targets, field, i + 1, boostKeys);
+      if (m.dualTariff.enabled) checkTargets(b.targets, field, i + 1, boostKeys);
     });
 
     // ---- one pin, one use ----

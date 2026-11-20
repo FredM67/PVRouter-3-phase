@@ -51,6 +51,12 @@
   }
 
   const hex = (b) => '0x' + b.toString(16).toUpperCase().padStart(2, '0');
+  // The threshold, as entered when the router reads the probes; without them its field is hidden and
+  // the firmware ignores it, but validation.h still wants 1..100: an unreadable one is written as 100
+  const tempThreshold = (m) => {
+    const t = m.dualTariff.tempThreshold;
+    return M.tempSensorPresent(m) || (Number.isInteger(t) && t >= 1 && t <= 100) ? t : 100;
+  };
 
   function overrideTargets(targets) {
     if (typeof targets === 'string') return `${targets}()`;
@@ -368,7 +374,7 @@
     add(...boostLines(m));
     add(
       '',
-      [`inline constexpr int16_t iTemperatureThreshold{ ${m.dualTariff.tempThreshold} };`, '/**< the temperature threshold to stop overriding in °C */'],
+      [`inline constexpr int16_t iTemperatureThreshold{ ${tempThreshold(m)} };`, '/**< the temperature threshold to stop overriding in °C */'],
       [`inline constexpr uint8_t BOOST_TEMP_SENSOR{ ${m.dualTariff.tempSensor} };`, '/**< the sensor checked against it: its index in temperatureSensing, from 0 */'],
       ''
     );

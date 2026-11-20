@@ -69,7 +69,6 @@ const CASES = [
   ['err.overrideLoad', (m) => (m.overrides.list[0].targets = [{ load: 3 }])],
   ['warn.overrideNothing', (m) => (m.overrides.list[0].targets = 'ALL_REMOTE_LOADS')],
   ['err.offPeakHours', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 13 })],
-  ['err.tempThreshold', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, tempThreshold: 0 })],
   // start of a boost: hours from -24 to 24, minutes beyond; 8 hours of off-peak
   ['err.boostWindow', (m) => boosts(m, { from: 'end', at: 540, for: null })], // 9 h before the end of 8 h
   ['err.boostWindow', (m) => boosts(m, { from: 'start', at: 480, for: 60 })], // at the end
@@ -85,11 +84,11 @@ const CASES = [
   ['err.boostLoad', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: [{ load: 5 }] })],
   ['err.boostTargets', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: [] })],
   ['warn.boostNothing', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: 'ALL_REMOTE_LOADS' })],
-  // dual tariff off: the boosts are still written into config.h, so they must compile
-  ['err.boostLoad', (m) => (m.dualTariff.boosts = [{ from: 'end', at: 180, for: 120, targets: [{ load: 5 }] }])],
-  ['err.boostNoRelay', (m) => (m.dualTariff.boosts = [{ from: 'end', at: 180, for: 120, targets: [{ relay: 0 }] }])],
+  // dual tariff off: the boosts are still written into config.h, their values must be numbers
   ['err.boost', (m) => (m.dualTariff.boosts = [{ from: 'end', at: null, for: 120, targets: [{ load: 0 }] }])],
   ['err.noSensor', (m) => Object.assign(m.temperature, { mode: 'router', sensors: [] })],
+  ['err.tempThreshold', (m) => (m.temperature.mode = 'router') && Object.assign(m.dualTariff, { enabled: true, pin: 9, tempThreshold: 0 })],
+  ['warn.sensorSomeAddresses', (m) => (m.mk2wifi.enabled = true) && (m.temperature.mode = 'esp') && (m.temperature.sensors[1].address = '')],
   ['err.tempSensor', (m) => (m.temperature.mode = 'router') && (m.dualTariff.tempSensor = 2)], // 2 sensors: 0 or 1
   ['err.sensorAddress', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE41')],
   ['warn.sensorCrc', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE416B090000A5')],
@@ -200,4 +199,20 @@ test('probes on the module: an address is optional, but checked when given', () 
   assert.ok(!esp([{ address: '', name: '' }, { address: '', name: '' }]).includes('err.sensorAddress'));
   assert.ok(esp([{ address: '28BE41', name: '' }, { address: '', name: '' }]).includes('err.sensorAddress'));
   assert.ok(esp([{ address: '28BE416B090000A5', name: '' }]).includes('warn.sensorCrc'));
+});
+
+test('dual tariff off: the targets of the boosts are not checked, the firmware compiles them', () => {
+  // LOAD(), RELAY() and REMOTE_LOAD() give pin 0 out of range; validation.h checks them with dual tariff only
+  const k = keys(variant((m) => (m.dualTariff.boosts = [{ from: 'end', at: 180, for: 120, targets: [{ load: 5 }, { relay: 0 }] }])));
+  assert.deepStrictEqual(k, []);
+});
+
+test('no probe read by the router: the hidden threshold is not checked', () => {
+  assert.ok(!keys(variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, tempThreshold: 0 }))).includes('err.tempThreshold'));
+});
+
+test('probes on the module: all or none of the addresses, no warning', () => {
+  const esp = (change) => keys(variant((m) => (m.mk2wifi.enabled = true) && (m.temperature.mode = 'esp') && change(m)));
+  assert.ok(!esp(() => true).includes('warn.sensorSomeAddresses'));
+  assert.ok(!esp((m) => m.temperature.sensors.forEach((s) => (s.address = ''))).includes('warn.sensorSomeAddresses'));
 });

@@ -24,7 +24,7 @@
  *
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @version 0.2
- * @date 2026-10-02
+ * @date 2026-11-20
  * @copyright Copyright (c) 2025-2026
  */
 
@@ -46,6 +46,9 @@
  *          REMOTE_LOAD(0) returns 128, REMOTE_LOAD(1) returns 129, etc.
  */
 inline constexpr uint8_t REMOTE_PIN_BASE{ 128 };
+
+inline constexpr uint8_t LOCAL_MASK_BITS{ 16 }; /**< pins in a target's local mask (uint16_t): D0-D15 */
+inline constexpr uint8_t REMOTE_MASK_BITS{ 8 }; /**< remote loads in a target's remote mask (uint8_t) */
 
 /**
  * @brief Override pin of a load: its physical pin if local, a virtual pin if remote.
@@ -226,7 +229,7 @@ struct PinList
       if (pins[i] >= REMOTE_PIN_BASE)
       {
         const uint8_t remoteIndex = pins[i] - REMOTE_PIN_BASE;
-        if (remoteIndex < 8)
+        if (remoteIndex < REMOTE_MASK_BITS)
         {
           result |= (1U << remoteIndex);
         }
