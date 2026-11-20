@@ -3,8 +3,9 @@
  *
  * Pure functions, so the page (app.js) and the tests share them: where a boost sits on the
  * off-peak period, and what dragging it does. Times in minutes from the start of the off-peak
- * period; a boost is { from: 'start' | 'end', at, for } (model.js). Dragging snaps to 15 minutes,
- * keeps the boost's anchor ('from') and never leaves the period (M.boostFits()).
+ * period; a boost is { from: 'start' | 'end', at, for } (model.js). Dragging and the minutes fields
+ * snap to 15 minutes; dragging keeps the boost's anchor ('from') and never leaves the period
+ * (M.boostFits()).
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(require('./model.js'));
@@ -46,6 +47,10 @@
     return { at: atOf(b, start, periodMin), for: end - start };
   }
 
+  // The minutes field of a boost's times: a quarter of an hour, 0 to 45 (a full hour is the hours
+  // field's), whatever is typed
+  const quarter = (min) => clamp(snap(min || 0), 0, 60 - SNAP);
+
   const toPercent = (min, periodMin) => (min / periodMin) * 100;
 
   // "start", "+1h" ... "+(hours-1)h", "end"
@@ -75,5 +80,5 @@
     return parts.join(', ');
   }
 
-  return { SNAP, snap, move, resize, toPercent, axisLabels, targetsLabel };
+  return { SNAP, snap, quarter, move, resize, toPercent, axisLabels, targetsLabel };
 });

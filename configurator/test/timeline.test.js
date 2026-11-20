@@ -106,3 +106,13 @@ test('changing the start keeps the boost inside the period', () => {
   assert.deepStrictEqual(M.withStart({ from: 'end', at: 120, for: null }, 60, 480), { at: 60, for: null }); // until the end
   assert.deepStrictEqual(M.withStart({ from: 'end', at: 120, for: 60 }, 600, 480), { at: 600, for: 60 }); // starts before the period: left to the error
 });
+
+test('minutes field: quarters of an hour', () => {
+  assert.strictEqual(TL.quarter(0), 0);
+  assert.strictEqual(TL.quarter(7), 0);
+  assert.strictEqual(TL.quarter(8), 15);
+  assert.strictEqual(TL.quarter(40), 45);
+  assert.strictEqual(TL.quarter(59), 45); // never a full hour: the hours field does that
+  assert.strictEqual(TL.quarter(-10), 0);
+  assert.strictEqual(TL.quarter(null), 0);
+});

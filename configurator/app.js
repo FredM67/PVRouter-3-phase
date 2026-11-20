@@ -596,7 +596,7 @@
     );
   }
 
-  // A number of minutes as two inputs, h and min
+  // A number of minutes as two inputs, h and min (quarters of an hour)
   function hoursMinutes(labelKey, get, set, maxHours) {
     const total = () => get() || 0;
     return [
@@ -612,8 +612,8 @@
         'minutes',
         num(
           () => total() % 60,
-          (v) => set(Math.floor(total() / 60) * 60 + (v || 0)),
-          { min: 0, max: 59 }
+          (v) => set(Math.floor(total() / 60) * 60 + TL.quarter(v)),
+          { min: 0, max: 60 - TL.SNAP, step: TL.SNAP }
         )
       ),
     ];
