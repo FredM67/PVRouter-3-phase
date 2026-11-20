@@ -78,6 +78,8 @@ For **MacOSX**, this file is located in '/Users/[user]/Library/Arduino15/package
 
 Open the file in any text editor (you'll need administrator rights) and replace the parameter '**-std=gnu++11**' with '**-std=gnu++17**'. That's it!
 
+Optionally, in the same file, add '**-Wl,--relax**' at the end of the line starting with '**compiler.c.elf.flags=**'. The linker then shortens every call and jump whose target is close enough (2 bytes instead of 4): the firmware is about 270 bytes smaller, as with PlatformIO, which sets this flag itself.
+
 If your Arduino IDE was open, please close all instances and reopen it.
 
 ## Required libraries for Arduino IDE
