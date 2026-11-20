@@ -176,6 +176,46 @@ OverrideMasks getOverrideBitmask(const bool bOffPeak, const int16_t currentTempe
 }
 
 /**
+ * @brief State of an active-LOW input pin, and how it changed since the previous reading.
+ */
+struct PinEdges
+{
+  bool active;  /**< the pin is LOW now */
+  bool changed; /**< it changed since the previous reading */
+
+  constexpr bool pressed() const
+  {
+    return changed && active;
+  } /**< it went LOW since the previous reading */
+  constexpr bool released() const
+  {
+    return changed && !active;
+  } /**< it went HIGH since the previous reading */
+};
+
+/**
+ * @brief Reads an active-LOW input pin, and tells how it changed since the previous reading.
+ *
+ * @tparam pin the input pin: each one keeps its own previous level, released at startup.
+ * @return its state and its edges.
+ *
+ * @details Read each pin every second, whether its edges are used or not: a previous level
+ *          left stale would turn a press made long ago into an edge now.
+ *
+ * @ingroup GeneralProcessing
+ */
+template< uint8_t pin >
+PinEdges readPinEdges()
+{
+  static bool wasActive{ false };
+  const bool active{ !getPinState(pin) };
+  const PinEdges edges{ active, active != wasActive };
+
+  wasActive = active;
+  return edges;
+}
+
+/**
  * @brief Reads the diversion pin.
  *
  * @return true unless the diversion pin is LOW. With diversion OFF, the surplus is not
@@ -187,20 +227,14 @@ bool isDiversionEnabled()
 {
   if constexpr (DIVERSION_PIN_PRESENT)
   {
-    const bool pinState{ getPinState(diversionPin) };
+    const PinEdges pin{ readPinEdges< diversionPin >() };
 
-    if constexpr (STATUS_OUTPUT_ENABLED)
+    if (pin.changed)
     {
-      static bool previousState{ HIGH };
-      if (previousState != pinState)
-      {
-        statusln(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
-      }
-
-      previousState = pinState;
+      statusln(pin.active ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
     }
 
-    return pinState;
+    return !pin.active;
   }
   else
   {
@@ -224,20 +258,14 @@ bool isRouterOff()
   }
   else if constexpr (ROUTER_OFF_PIN_PRESENT)
   {
-    const bool pinState{ getPinState(routerOffPin) };
+    const PinEdges pin{ readPinEdges< routerOffPin >() };
 
-    if constexpr (STATUS_OUTPUT_ENABLED)
+    if (pin.changed)
     {
-      static bool previousState{ HIGH };
-      if (previousState != pinState)
-      {
-        statusln(!pinState ? F("Router OFF!") : F("Router ON!"));
-      }
-
-      previousState = pinState;
+      statusln(pin.active ? F("Router OFF!") : F("Router ON!"));
     }
 
-    return !pinState;
+    return pin.active;
   }
   else
   {
@@ -291,10 +319,9 @@ void proceedRotation()
  */
 bool proceedDualTariffLogic()
 {
-  static bool pinOffPeakState{ HIGH };
-  const auto pinNewState{ getPinState(dualTariffPin) };
+  const PinEdges pin{ readPinEdges< dualTariffPin >() };
 
-  if (pinOffPeakState && !pinNewState)
+  if (pin.pressed())
   {
     // we start off-peak period
     statusln(F("Change to off-peak period!"));
@@ -308,14 +335,12 @@ bool proceedDualTariffLogic()
   }
 
   // end of off-peak period
-  if (!pinOffPeakState && pinNewState)
+  if (pin.released())
   {
     statusln(F("Change to peak period!"));
   }
 
-  pinOffPeakState = pinNewState;
-
-  return (LOW == pinOffPeakState);
+  return pin.active;
 }
 
 /**
@@ -325,14 +350,18 @@ bool proceedDualTariffLogic()
  * It supports priority rotation via pin control or automatic rotation.
  * Override logic is handled in getOverrideBitmask().
  *
+ * @param bOverridden true while a load, relay or remote load is forced: no rotation then.
+ *
  * @details
  * - In dual tariff mode, rotation is handled by `proceedDualTariffLogic` when off-peak starts.
  * - If priority rotation is set to auto, it rotates priorities after a defined period of inactivity.
+ * - The rotation pin is read every second, forced or not: a press during forcing is dropped,
+ *   not carried over to its end.
  * - Override logic (external pins + dual tariff forcing) is handled atomically in getOverrideBitmask().
  *
  * @ingroup GeneralProcessing
  */
-void proceedLoadPriorities()
+void proceedLoadPriorities(const bool bOverridden)
 {
   if constexpr (DUAL_TARIFF)
   {
@@ -341,20 +370,18 @@ void proceedLoadPriorities()
 
   if constexpr (PRIORITY_ROTATION == RotationModes::PIN)
   {
-    static uint8_t pinRotationState{ HIGH };
-    const auto pinNewState{ getPinState(rotationPin) };
+    const PinEdges pin{ readPinEdges< rotationPin >() };
 
-    if (pinRotationState && !pinNewState)
+    if (pin.pressed() && !bOverridden)
     {
       statusln(F("Trigger rotation!"));
 
       proceedRotation();
     }
-    pinRotationState = pinNewState;
   }
   else if constexpr (PRIORITY_ROTATION == RotationModes::AUTO)
   {
-    if (ROTATION_AFTER_SECONDS < Shared::absenceOfDivertedEnergyCountInSeconds)
+    if (!bOverridden && ROTATION_AFTER_SECONDS < Shared::absenceOfDivertedEnergyCountInSeconds)
     {
       proceedRotation();
 
@@ -541,11 +568,8 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
   Shared::overrideBitmask = privateOverrideMasks.local;
   Shared::remoteOverrideBitmask = privateOverrideMasks.remote;
 
-  // Only process priority logic if no override pins are active (local or remote)
-  if (!Shared::overrideBitmask && !Shared::remoteOverrideBitmask)
-  {
-    proceedLoadPriorities();
-  }
+  // no rotation while anything is forced (local or remote)
+  proceedLoadPriorities(privateOverrideMasks.local || privateOverrideMasks.remote);
 }
 
 /**
