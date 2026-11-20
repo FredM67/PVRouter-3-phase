@@ -81,6 +81,7 @@ pio test -e uno -f "*test_utils_relay*"
 
 - **Native tests**: Run on Ubuntu in GitHub Actions
 - **Embedded tests**: Run in the [simavr](https://github.com/buserror/simavr) simulator (`uno_sim` environment), benchmarks included
+- **Compile checks**: `scripts/ci/compile-fail.sh` builds the router with settings that `validation.h` must refuse, each with its expected message, and a few it must accept (all loads remote, a wrong boost with dual tariff off). One case per file in `scripts/ci/compile-fail/`: it edits the shipped `config*.h` with `replace 'old' 'new'` and sets `expect` to part of the message, or leaves it empty for a build that must succeed. Runs in about 30 seconds, also locally (Linux/WSL)
 - See `.github/workflows/build.yml` for configuration
 
 ## Benchmark history

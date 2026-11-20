@@ -1,0 +1,13 @@
+{
+  "loads": [
+    { "type": "remote", "unit": 1, "led": null },
+    { "type": "remote", "unit": 1, "led": null },
+    { "type": "remote", "unit": 2, "led": null }
+  ],
+  "priorities": [0, 1, 2],
+  "rf": { "logging": false, "networkId": 210, "routerId": 10, "gatewayId": 1, "remoteIds": [15, 16] },
+  "units": [
+    { "loadPins": [4, 3], "statusLeds": true, "greenLed": 5, "redLed": 7 },
+    { "loadPins": [4], "statusLeds": false, "greenLed": 5, "redLed": 7 }
+  ]
+}

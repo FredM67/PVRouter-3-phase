@@ -22,12 +22,12 @@
 #   export PVR_SIM_BUILD=1
 #   (cd .. && sim/configs/sim_config.sh)   # human-readable output (grid_sim reads it), old board
 #   (cd ../Mk2_3phase_RFdatalog_temp && pio run -e basic)
-# The remote-loads firmware is the rf environment with configs/remote_loads.patch applied.
+# The remote-loads firmware: configs/remote_loads.patch applied, built in .pio/build-rf (README.md).
 # The receiver firmware is built by build_receivers.sh (needs pio), once per node ID.
 
 SIMAVR ?= $(HOME)/.platformio/packages/tool-simavr
 FW     ?= ../Mk2_3phase_RFdatalog_temp/.pio/build/basic/firmware.elf
-FW_RF  ?= ../Mk2_3phase_RFdatalog_temp/.pio/build/rf/firmware.elf
+FW_RF  ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-rf/basic/firmware.elf
 # built in a build directory of its own, so that it does not replace the basic firmware
 FW_RELAYS ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-relays/basic/firmware.elf
 # the new board (configs/sim_config.sh NEW), in a build directory of its own too
@@ -70,7 +70,7 @@ $(FW):
 	$(error firmware not found: $(FW) - build it first: export PVR_SIM_BUILD=1, run sim/configs/sim_config.sh from the repository root, then 'pio run -e basic' (README.md, Usage))
 
 $(FW_RF):
-	$(error firmware not found: $(FW_RF) - apply configs/remote_loads.patch, then 'pio run -e rf')
+	$(error firmware not found: $(FW_RF) - apply configs/remote_loads.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-rf pio run -e basic' (README.md))
 
 $(FW_RELAYS):
 	$(error firmware not found: $(FW_RELAYS) - see configs/relays.patch)
