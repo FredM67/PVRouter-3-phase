@@ -87,7 +87,7 @@ These were decided with the user, or proposed and accepted:
 - Not listed: never boosted. An empty list means no boost at all.
 - Several boosts may name the same target; their windows add up (OR).
 - A window includes its start and excludes its end (as `DualTariff::inWindow` today).
-- The end of the off-peak period stops every boost, whatever its window.
+- The end of the off-peak period stops every boost, whatever its window. That end is the off-peak pin going back to peak, not `ul_OFF_PEAK_DURATION`, as today (see call 6).
 - The temperature condition (at or below `iTemperatureThreshold`) applies to all boosts, as today.
 
 ## Decided: how it works
@@ -96,7 +96,7 @@ These were decided with the user, or proposed and accepted:
 - **Run time:** `getDualTariffForcingBitmask()` loops over the resolved boosts and ORs the masks of the open windows, if the temperature condition holds. It no longer goes through `physicalLoadPin` / `overridePinOf`.
 - **Checks (`validation.h`):**
   - each window starts within the off-peak period (the rule #222 added, now on the new form): `LAST(10h)` or `BEFORE_END(9h)` with 8 h are rejected;
-  - a window may end after the period: it is cut there (`FIRST(10h)` with 8 h boosts all night);
+  - a window may end after the nominal period (`FIRST(10h)` with 8 h boosts all night): the pin stops it;
   - `FOR(0)` and a zero `FIRST`/`LAST` are rejected (a boost that never runs);
   - targets are valid: the same checks as `overridePins` (load and remote-load indexes in range, relays that exist...), factored so both lists share them.
 - **Printing:** `printDualTariffConfiguration()` (called from `utils.h`) prints one line per boost: its window (start and end, in hours from the off-peak start) and its targets.
@@ -108,13 +108,14 @@ These were decided with the user, or proposed and accepted:
 - Configurator: new model (a list of boosts: kind, time, duration, targets), an editor reusing `targetsEditor` from the override pins, generator, the same checks, en/fr strings, the three presets that have a boost, tests.
 - Docs: Readme.md / Readme.en.md (the dual-tariff sections), CHANGELOG (breaking change: how to rewrite an old `rg_ForceLoad`), `docs/architecture.md`, the test READMEs, `CLAUDE.md`.
 
-## My calls (for the user to check)
+## Calls made (for the user to check)
 
-1. **The shipped default.** Today's `config.h` boosts load #1 from 3 h before the end for 2 h, and (by the "left out" default) any other local load all night. The new default is only `{ BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(0) } }`: with one load in the default config, nothing else changes.
+1. **The shipped default** (decided by the user). Today's `config.h` has 3 loads and boosts load #1 from 3 h before the end for 2 h; by the "left out" default, loads #2 and #3 are boosted all night. The new default is only `{ BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(0) } }`: loads #2 and #3 are no longer boosted. The same goes for the configurator default and the presets (`relays-dualtariff-temp.json` loses its third load's all-night boost). The CHANGELOG says so, and shows how to keep a whole-night boost (`FIRST(HOURS(12))` or `FROM_START(MINUTES(0))`).
 2. **Relays can be boosted.** It costs nothing: the override mask already drives them.
 3. **The temperature condition applies to relays too**, one rule for every target.
 4. **`FROM_START`/`BEFORE_END` without `FOR` last until the end**, like `LAST`.
 5. **Resolved boosts live in flash (PROGMEM) if that keeps RAM flat or lower**; `.data` is acceptable only if RAM does not grow against today's default config.
+6. **No cut at the nominal end.** `ul_OFF_PEAK_DURATION` only places the windows counted back from the end. `LAST`, and `FROM_START`/`BEFORE_END` without `FOR`, resolve to an open end (`UINT32_MAX`), as `UINT16_MAX` does today: if the meter keeps off-peak past the configured duration, they keep running until the pin says peak. A window with `FOR` ends at its start plus `FOR`, or earlier if the pin says peak first.
 
 ## Left to the builder
 
