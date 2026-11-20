@@ -135,6 +135,9 @@ valid load maps ([#160]).
 
 ### Fixed
 
+- **Relays in battery mode:** on a small surplus, they went out first relay first; they now go
+  out in decreasing order, as on an import. A minimum ON or OFF time beyond 1092 minutes wrapped
+  silently (1093 minutes gave 44 seconds); it is now refused at compile time ([#237]).
 - **Temperature:** -55.00 and +125.00 °C were reported out of range, and after one CRC error a
   steady 85.00 °C was dropped every second as the sensor's power-on value. It is now compared
   with the sensor's last valid reading ([#234]).
@@ -245,3 +248,4 @@ valid load maps ([#160]).
 [#185]: https://github.com/FredM67/PVRouter-3-phase/pull/185
 [#226]: https://github.com/FredM67/PVRouter-3-phase/pull/226
 [#234]: https://github.com/FredM67/PVRouter-3-phase/pull/234
+[#237]: https://github.com/FredM67/PVRouter-3-phase/pull/237
