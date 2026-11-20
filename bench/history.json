@@ -701,6 +701,51 @@
     "mult_asm: mult16x8_q8 per op": 27.16,
     "mult_asm: ISR simulation per sample": 132.09
    }
+  },
+  {
+   "commit": "a007eb69695e6adc3e5a0300e8ee25d78fff74e4",
+   "date": "2026-11-20T18:08:47+01:00",
+   "message": "test: the dual-tariff forcing windows; reject boosts that never run; no -fpermissive (#222)\n\n* test: the dual-tariff forcing windows; reject boosts that never run; no -fpermissive\n\nThe forcing windows of the dual tariff had no test. Their computation moves\nto utils_dualtariff.h, now Arduino-free, with the same arithmetic:\nDualTariff::windowStart(), windowEnd() and inWindow(), used by\ndualtariff.h (rg_OffsetForce) and main.cpp. The firmware is the same, to\nthe instruction, with dual tariff off, on (8 h) and on (12 h, windows in\nhours, minutes and until the end).\n\ntest/native/test_dual_tariff, 20 tests: offsets from the start and back\nfrom the end, hours and minutes (24 is hours, 25 is minutes), until the\nend, { 0, 0 }, a load left out of rg_ForceLoad (the whole period), 10 to\n12 hours, start included and end excluded, the millis() wraparound.\n\nA boost that starts outside the off-peak period never runs ({ 10, 20 } or\n{ -9, 1 } with 8 hours): validation.h now rejects it at compile time\n(DualTariff::startsWithinOffPeak()), and the configurator too\n(err.forceWindow), so that it never writes a config.h that does not build.\n\nBug 5 of #214, OffPeakDuration * 3600 in 16-bit int, gave the right value\nonce wrapped around: no test of the windows can see it. The compiler did,\n\"overflow in constant expression\", but the Arduino core adds -fpermissive,\nwhich made it a warning. platformio.ini now removes that flag: with bug 5\nput back, the build fails. Every config builds without it (default, rf,\ndual tariff + temperature + rotation, the remote-loads and relays patches\nof the simulator), with the same firmware; native 254/254, embedded\n113/113, configurator 114/114.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix: windowStart() in 32 bits as the check; clearer tests and comments\n\nFrom the Graphify review of #222:\n- windowStart() kept the period in 16 bits, startsWithinOffPeak() in 32:\n  they would disagree beyond 18 hours. Both in 32 bits now (validation.h\n  still stops at 12 hours). Same firmware, to the instruction. A test at\n  24 hours.\n- The compile-time rejection is in validation.h, as the comment now says.\n- The configurator tests label each start in hours or minutes, and the\n  accepted boosts must give no error at all, not just no err.forceWindow.\n- validate.js says why a duration of 0 skips the check: no boost.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* revert: the off-peak period back in 16 bits\n\nNo off-peak period lasts more than 12 hours, and validation.h stops\nthere: 43200 s fits in a uint16_t. The comment says so; the 24-hour test\ngoes.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/a007eb69695e6adc3e5a0300e8ee25d78fff74e4",
+   "sizes": {
+    "basic": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 7970,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7802,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
