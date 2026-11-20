@@ -45,7 +45,7 @@ pio check
 - `calibration.h` - Power calibration values - **users edit for their hardware**
 - `processing.cpp/.h` - Core real-time processing engine
 - `validation.h` - ~50+ compile-time safety assertions
-- `utils_relay.h` - Relay control with EWMA filtering
+- `utils_relay.h` - Relay control: pins and printing; the decisions, with EWMA filtering, are in `relay_engine.h` (Arduino-free, native tests)
 - `utils_temp.h` - DS18B20 temperature sensor management
 
 ### Real-Time Constraints
