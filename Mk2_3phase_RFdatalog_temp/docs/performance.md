@@ -22,9 +22,9 @@ Measured cycle-exactly in the grid simulator (`make -C sim check`, `basic` firmw
 
 | Measure | Cycles | Time | Share of the 104 µs period | When |
 |---------|--------|------|----------------------------|------|
-| Average | 319 | 19.9 µs | 19 % | every call |
-| Maximum, steady state | ~985 | ~62 µs | 59 % | once per datalog period (the mains cycle that copies the datalog values) |
-| Maximum, one-off | ~1,340 | ~84 µs | 81 % | once, at the end of the start-up period |
+| Average | 318 | 19.9 µs | 19 % | every call |
+| Maximum, steady state | ~930 | ~58 µs | 56 % | once per datalog period (the mains cycle that copies the datalog values) |
+| Maximum, one-off | ~1,280 | ~80 µs | 77 % | once, at the end of the start-up period |
 | Calls longer than one conversion | 0 | | | |
 
 Of the average, about 145 cycles (~9 µs) are the entry and exit of the ISR: it saves and restores 32 registers, with no stack frame. `updatePhysicalLoadStates()`, which runs once per mains cycle, is a real call on purpose: inlined, it needs registers that the rest of the ISR then spills to a stack frame on every call (30 cycles more on average, 65 more for the longest call). The energy bucket update is an integer multiply by a compile-time `cal / n` table, no division or float (~125 cycles, once per phase and mains cycle).
@@ -92,11 +92,11 @@ volatile bool flags[6];                             // 6 bytes
 | Metric | Value | Unit | Notes |
 |--------|-------|------|-------|
 | ADC conversion time | 104 | μs | 13 ADC clocks at 125 kHz (16 MHz / 128), free-running |
-| Sample processing time | 19.9 | μs | ISR average per sample (V or I), 319 cycles |
+| Sample processing time | 19.9 | μs | ISR average per sample (V or I), 318 cycles |
 | Maximum samples/second | 9,615 | Hz | 1 / 104 µs |
 | Actual sampling rate | 9,615 | Hz | Free-running: one sample per conversion |
 | ISR overhead | ~9 | μs | Entry and exit: 32 registers saved and restored, no stack frame (~145 cycles) |
-| **Total cycle time** | **104** | **μs** | **Average ISR 19 % of it, longest steady-state call 59 %** |
+| **Total cycle time** | **104** | **μs** | **Average ISR 19 % of it, longest steady-state call 56 %** |
 
 ### Power Calculation Accuracy
 
