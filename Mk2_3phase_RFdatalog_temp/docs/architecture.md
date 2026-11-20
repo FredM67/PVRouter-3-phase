@@ -90,7 +90,7 @@ static_assert(NO_OF_DUMPLOADS > 0, "Number of dump loads must be greater than 0"
 ### 4. Utility Modules
 - **`utils_pins.h`**: Direct port manipulation for performance
 - **`utils_relay.h`**: Relay-based load control with timing
-- **`utils_dualtariff.h`**: Off-peak period management
+- **`utils_dualtariff.h`**: Off-peak period management and the windows of the scheduled boosts (Arduino-free, `constexpr`)
 - **`utils_rf.h`**: RF communication support
 
 ## Data Flow
