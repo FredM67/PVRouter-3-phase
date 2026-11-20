@@ -30,7 +30,7 @@ inline constexpr uint8_t CONVERT_TEMPERATURE{ 0x44 };
 inline constexpr uint8_t READ_SCRATCHPAD{ 0xBE };
 inline constexpr uint8_t WRITE_SCRATCH{ 0x4E };
 
-inline constexpr int16_t OUTOFRANGE_TEMPERATURE{ 30200 }; /**< this value (302C) is sent if the sensor reports -55C or less, or +125C or more (bounds excluded, see DS18B20::decode()) */
+inline constexpr int16_t OUTOFRANGE_TEMPERATURE{ 30200 }; /**< this value (302C) is sent if the sensor reports below -55C or above +125C */
 inline constexpr int16_t TEMP_RANGE_LOW{ -5500 };
 inline constexpr int16_t TEMP_RANGE_HIGH{ 12500 };
 
@@ -95,7 +95,7 @@ constexpr int16_t toHundredths(uint8_t lsb, uint8_t msb)
  *
  * @param buf The 9 bytes read from the sensor
  * @return The temperature in hundredths of °C, `DEVICE_DISCONNECTED_RAW` on a CRC error,
- *         `OUTOFRANGE_TEMPERATURE` at -55.00 °C or below, or at +125.00 °C or above.
+ *         `OUTOFRANGE_TEMPERATURE` below -55.00 °C or above +125.00 °C.
  */
 constexpr int16_t decode(const ScratchPad& buf)
 {
@@ -105,7 +105,7 @@ constexpr int16_t decode(const ScratchPad& buf)
   }
 
   const int16_t result{ toHundredths(buf[0], buf[1]) };
-  if (result <= TEMP_RANGE_LOW || result >= TEMP_RANGE_HIGH)
+  if (result < TEMP_RANGE_LOW || result > TEMP_RANGE_HIGH)
   {
     return OUTOFRANGE_TEMPERATURE;
   }
@@ -120,7 +120,7 @@ constexpr int16_t decode(const ScratchPad& buf)
  *          is that value, not a temperature.
  *
  * @param reading The reading of the sensor
- * @param previous The reading kept last time
+ * @param previous The last valid reading (PowerOnFilter keeps it)
  * @return `reading`, or `DEVICE_DISCONNECTED_RAW` for the power-on value
  */
 constexpr int16_t skipPowerOnValue(int16_t reading, int16_t previous)
@@ -146,5 +146,37 @@ constexpr bool isValidTemperature(int16_t temperature_x100)
 {
   return (OUTOFRANGE_TEMPERATURE != temperature_x100) && (DEVICE_DISCONNECTED_RAW != temperature_x100);
 }
+
+namespace DS18B20
+{
+/**
+ * @brief The readings of one sensor, the power-on value skipped.
+ *
+ * @details Compares each 85.00 °C with the last valid reading: an invalid reading in between
+ *          (a CRC error) leaves it as it was. Compared with the reading kept last time, a steady
+ *          85.00 °C would be dropped for good after a single CRC error. At startup, the reference
+ *          is 0, so a first reading of 85.00 °C is skipped.
+ */
+struct PowerOnFilter
+{
+  int16_t lastValid{ 0 }; /**< the last valid reading, in hundredths of °C */
+
+  /**
+   * @brief The reading to keep.
+   *
+   * @param reading The reading of the sensor
+   * @return `reading`, or `DEVICE_DISCONNECTED_RAW` for the power-on value
+   */
+  int16_t operator()(const int16_t reading)
+  {
+    const int16_t kept{ skipPowerOnValue(reading, lastValid) };
+    if (isValidTemperature(kept))
+    {
+      lastValid = kept;
+    }
+    return kept;
+  }
+};
+}  // namespace DS18B20
 
 #endif /* DS18B20_H */

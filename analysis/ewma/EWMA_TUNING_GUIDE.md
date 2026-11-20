@@ -90,7 +90,7 @@ Pour les utilisateurs qui veulent expérimenter avec différents types de filtre
 - **DEMA** : `ewma_average.getAverageD()` - Bon équilibre
 - **TEMA** : `ewma_average.getAverageT()` - Meilleure immunité aux nuages (par défaut actuel)
 
-La sélection du filtre se trouve dans `utils_relay.h` dans les méthodes `get_average()` et `proceed_relays()`.
+La sélection du filtre se trouve dans `relay_engine.h` dans les méthodes `get_average()` et `proceed_relays()`.
 
 ### Comparaison Visuelle des Filtres
 

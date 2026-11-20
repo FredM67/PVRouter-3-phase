@@ -119,6 +119,7 @@ Toutes les bibliothèques sont toujours incluses dans le code source. Cependant,
 - **processing.cpp** : code source du moteur de traitement
 - **processing.h** : prototypes de fonctions du moteur de traitement
 - **Readme.md** : ce fichier
+- **relay_engine.h** : décisions de la *diversion par relais* (seuils, temps minimaux, ordre), sans Arduino
 - **teleinfo.h**: code source de la fonctionnalité *Télémétrie IoT*
 - **types.h** : définitions des types…
 - **type_traits.h** : quelques trucs STL qui ne sont pas encore disponibles dans le paquet avr
