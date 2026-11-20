@@ -17,6 +17,11 @@
  *          again for POST_TRANSITION_MAX_COUNT cycles, so that the switch has time to show in
  *          the bucket, and the threshold follows the bucket meanwhile.
  *
+ *          A threshold goes back to its default only when the bucket is in the other half:
+ *          while the bucket stays in the upper half, the upper threshold keeps the level the
+ *          bucket reached during the last post-transition period, and a load comes ON only if
+ *          the bucket rises above it. The same for the lower threshold in the lower half.
+ *
  *          Then the logical states give the physical ones: a load is ON if its override is
  *          active, or if diversion is enabled and its logical state is ON. Calibration mode
  *          keeps every load OFF.
@@ -128,8 +133,8 @@ struct Bucket
 {
   int32_t capacity;     /**< full bucket */
   int32_t midPoint;     /**< half of the capacity */
-  int32_t lowerDefault; /**< lower threshold, outside a post-transition period */
-  int32_t upperDefault; /**< upper threshold, outside a post-transition period */
+  int32_t lowerDefault; /**< lower threshold, set again at each cycle in the upper half */
+  int32_t upperDefault; /**< upper threshold, set again at each cycle in the lower half */
 };
 
 /**

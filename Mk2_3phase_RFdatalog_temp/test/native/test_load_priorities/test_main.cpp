@@ -41,8 +41,9 @@ void cycles(LoadPriorities::Switching< N >& s, uint8_t (&prio)[N], const int32_t
 }
 
 /**
- * A state machine that has run: both thresholds at their defaults. It starts with both at 0, as
- * in the firmware, so that nothing switches off before the bucket has been in its upper half once.
+ * A state machine with both thresholds at their defaults, as after cycles in both halves of
+ * the bucket. A new one starts with both at 0, as in the firmware: nothing would switch off
+ * before the bucket has been in its upper half once.
  */
 LoadPriorities::Switching< 3 > settled(const LoadPriorities::Bucket& b = bucket)
 {
@@ -183,7 +184,7 @@ void test_the_upper_threshold_stays_within_the_bucket(void)
   uint8_t prio[3]{ 0, 1, 2 };
 
   s.onNewCycle(prio, 800, bucket);
-  s.onNewCycle(prio, 1200, bucket);  // above the capacity: clamped by the ISR afterwards
+  s.onNewCycle(prio, 1200, bucket);  // a bucket above its capacity (the ISR clamps it afterwards)
 
   TEST_ASSERT_EQUAL_INT32(1000, s.upperThreshold);
 }
@@ -227,7 +228,7 @@ void test_the_lower_threshold_stays_within_the_bucket(void)
   uint8_t prio[3]{ 0 | ON, 1 | ON, 2 | ON };
 
   s.onNewCycle(prio, 200, bucket);
-  s.onNewCycle(prio, -300, bucket);  // below 0: clamped by the ISR afterwards
+  s.onNewCycle(prio, -300, bucket);  // a bucket below 0 (the ISR clamps it afterwards)
 
   TEST_ASSERT_EQUAL_INT32(0, s.lowerThreshold);
 }
