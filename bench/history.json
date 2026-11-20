@@ -311,6 +311,30 @@
      "ram": 396
     }
    }
+  },
+  {
+   "commit": "1c1c49ff86e493a81a30f3d65918953099f9c516",
+   "date": "2026-11-20T09:22:56+01:00",
+   "message": "chore: no optimize(\"-O3\") on the functions inlined into the ISR (#211)\n\nnextLogicalLoadToBeAdded(), nextLogicalLoadToBeRemoved() and\nprocessDataLogging() are always_inline: their code is compiled with the\noptions of the ISR they land in, so the attribute did nothing. Without it,\nthe firmware is the same to the byte (basic, and rf with remote loads,\nbuild strings frozen).\n\nThe attribute stays where the function is a call of its own, with what it\nis worth noted next to it:\n- updatePortsStates(): -O3 unrolls the load loop into constant masks; with\n  -Os, the ISR takes 38 cycles more on average and 88 more at most\n  (grid simulator, surplus_step)\n- initializeProcessing(): 50 bytes smaller with -O3 than with -Os\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/1c1c49ff86e493a81a30f3d65918953099f9c516",
+   "sizes": {
+    "basic": {
+     "flash": 8492,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 8488,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 8492,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 8490,
+     "ram": 396
+    }
+   }
   }
  ]
 }
