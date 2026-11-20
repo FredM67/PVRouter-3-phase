@@ -13,7 +13,7 @@
  *
  * @author Frederic Metrich (frederic.metrich@live.fr)
  * @version 0.2
- * @date 2026-09-23
+ * @date 2026-11-20
  * @copyright Copyright (c) 2025-2026
  */
 
@@ -57,11 +57,15 @@ constexpr uint8_t REMOTE_LOAD(uint8_t loadNum)
 /**
  * @brief Returns the pin number for a given relay index at compile time.
  * @param relayNum The relay index (0-based).
- * @return The pin number for the relay.
- * @note Only use when RELAY_DIVERSION is enabled.
+ * @return The pin number for the relay, or pin 0 if the relay does not exist (relay diversion
+ *         off, or relayNum out of range): pin 0 is never an output, so validation.h rejects it.
  */
 constexpr uint8_t RELAY(uint8_t relayNum)
 {
+  if (!RELAY_DIVERSION || relayNum >= relays.size())
+  {
+    return 0;
+  }
   return relays.get_relay(relayNum).get_pin();
 }
 
