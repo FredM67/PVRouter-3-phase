@@ -114,7 +114,6 @@ All libraries are always included in the source code. However, only the code act
 - **dualtariff.h** : dual tariff function definitions
 - **ewma_avg.h** : EWMA averaging calculation functions
 - **main.cpp** : main source code
-- **movingAvg.h** : sliding window average source code
 - **processing.cpp** : processing engine source code
 - **processing.h** : processing engine function prototypes
 - **Readme.en.md** : this file
