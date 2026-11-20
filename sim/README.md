@@ -33,8 +33,15 @@ By default, the simulated grid is the old board's (ADC reference AVCC, 5 V, and 
 `scenarios/common.scn`), and `grid_sim` reads the human-readable datalog: `configs/sim_config.sh`
 sets both in `config.h`, whatever its defaults. Run it before every firmware build below.
 
+Build with `PVR_SIM_BUILD` set, as CI does. The firmware prints its banner at 9600 baud before it
+starts sampling, so the banner's length shifts the whole run against the scenario. A different
+branch name alone moves the grid import of `surplus_step` by 0.05 Wh (7.15 against 7.20 Wh). With
+`PVR_SIM_BUILD`, the build writes the branch name a CI checkout gives (`N/A`), and the same code
+gives the same result everywhere.
+
 ```bash
 # 1. build the firmware
+export PVR_SIM_BUILD=1
 (cd .. && sim/configs/sim_config.sh)
 (cd ../Mk2_3phase_RFdatalog_temp && pio run -e basic)
 
@@ -101,7 +108,7 @@ Each remote unit is either:
 - **the `RemoteLoadReceiver` firmware** (`grid_sim -r <node>=<receiver.elf>`), in its own simulated AVR, running in step with the router on the same clock. Its load pins (`receiver_pins`) drive its remote loads, and its serial output is shown, prefixed with `R<node>|`. `build_receivers.sh` builds it once per node ID, since `REMOTE_NODE_ID` is a constant of its `config_rf.h`. `make check-rf` does this for the nodes in `RX_NODES`;
 - **an ideal receiver**, when no firmware is given for its node: its loads take their bit from each frame once it has been sent, and switch off when no frame has come for `rf_timeout` seconds (500 ms, like the firmware).
 
-Frames get lost in `rf_drop` windows, and at random with `rf_loss`, from a fixed seed, so the same frames are lost on every run.
+Frames get lost in `rf_drop` windows, and at random with `rf_loss`, from a fixed seed, so the same frames are lost on every run of the same firmware. Which frames the sequence falls on still depends on the firmware's timing; a limit on the losses in a row keeps the longest gap independent of it.
 
 ### Relays
 
@@ -144,7 +151,7 @@ Plain text, one command per line, `#` starts a comment.
 | `receiver_pins <pin>...` | receiver firmware: the output pin of each payload bit, bit 0 first (`loadPins` in its `config.h`) |
 | `rf_timeout <s>` | ideal receivers: link timeout (default 0.5 s) |
 | `rf_drop <t0> <t1> [<node>]` | frames sent in this window (to this node, or to all) are lost |
-| `rf_loss <percent>` | share of frames lost at random, over the whole run |
+| `rf_loss <percent> [<max>]` | share of frames lost at random, over the whole run; at most `<max>` in a row per node |
 | `rf_absent` | the router's RFM69 does not answer (missing, unpowered or badly wired: every SPI read gives 0) |
 | `input <pin> <0\|1> [<t>]` | level of an input pin from time t on (default 0): the latest line at or before the current time wins; unconnected inputs read 1, like the pull-ups |
 | `at <t> <L1> <L2> <L3>` | surplus per phase in W (> 0 = export) at time t; linear in between, repeat a time for a step |

@@ -52,6 +52,16 @@ proj_path = os.path.basename(env["PROJECT_DIR"])
 current_time = datetime.now().replace(microsecond=0).astimezone().isoformat(' ')
 branch_name = get_git_current_branch()
 commit_hash = get_git_revision_short_hash()
+
+# Grid simulator builds (PVR_SIM_BUILD set, sim/README.md): the firmware prints these strings at
+# 9600 baud before it starts sampling, so their length shifts the whole run against the scenario
+# and moves the switching instants. The branch name, the only one whose length varies, is fixed
+# to what a CI checkout (detached HEAD) gives, so that the same code gives the same result
+# everywhere.
+if os.environ.get("PVR_SIM_BUILD"):
+    branch_name = "N/A"
+    if commit_hash == "N/A":
+        commit_hash = "00000000"  # no git: the length of a real hash
 build_env = env["PIOENV"]
 
 # Path to the version.h file

@@ -21,8 +21,9 @@ expect 70 pin 5 off
 expect 70 pin 6 off
 expect 70 remote 15 0 off
 expect 70 remote 16 0 off
-expect 25 40 grid_avg -120 80
-expect 45 60 grid_avg -120 80
+# regulation at -20 W (REQUIRED_EXPORT_IN_WATTS) +-10 W, as in ../surplus_step.scn
+expect 25 40 grid_avg -30 -10
+expect 45 60 grid_avg -30 -10
 # a refresh every 5 mains cycles (100 ms); printing the datalog does not delay it
 # (serial_output.h). The receiver's link timeout is 500 ms.
 expect rf_max_gap 15 0.15
