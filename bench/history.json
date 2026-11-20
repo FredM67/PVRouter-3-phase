@@ -1061,6 +1061,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "b830c880c2b2f731c23da9c029744a716477cb83",
+   "date": "2026-11-20T23:08:34+01:00",
+   "message": "refactor: one edge detection for the input pins, rotation read during forcing (#230)\n\n* refactor: one edge detection for the input pins, rotation read during forcing\n\nThe diversion, router OFF, dual tariff and rotation pins each kept their\nprevious level and compared it by hand. readPinEdges<pin>() does it once:\nthe pin's state, and whether it changed since the previous reading.\n\nThe rotation pin was read only while nothing was forced, so its previous\nlevel went stale during forcing: a press made during an override and still\nheld at its end rotated the priorities then. It is now read every second,\nand a press during forcing is dropped. The relay firmware of the simulator\ngets a rotation pin (D12), with two scenarios: rotation_pin, and\nrotation_during_override, which fails before this change.\n\nFlash: 18 bytes less with the shipped config, 12 with the relay firmware.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* style: PinEdges member comments above the functions\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/b830c880c2b2f731c23da9c029744a716477cb83",
+   "sizes": {
+    "basic": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, remote loads": {
+     "flash": 12372,
+     "ram": 675
+    },
+    "basic, IoT": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7784,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
