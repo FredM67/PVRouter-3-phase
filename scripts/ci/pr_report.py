@@ -18,6 +18,10 @@ import sys
 
 MARKER = "<!-- pvrouter-bench-report -->"
 THRESHOLD = 2.0  # %, as the alert threshold of the benchmark history
+# Step of a unit: a change of at most one step is no change. micros() counts in steps of 4 us at
+# 16 MHz, so a timed loop reads one step more or less as soon as the code before it moves by a
+# few cycles, with the very same loop (+4 us on 127,608 us with linker relaxation, #212).
+RESOLUTION = {"us": 4}
 HISTORY = "https://fredm67.github.io/PVRouter-3-phase/bench/"
 
 
@@ -41,11 +45,16 @@ def number(value):
     return f"{int(value):,}" if float(value).is_integer() else f"{value:,.2f}"
 
 
-def classify(base, pr):
+def within_resolution(base, pr, unit):
+    """Whether two values of a unit differ by at most one step of its resolution."""
+    return abs(pr - base) <= RESOLUTION.get(unit, 0)
+
+
+def classify(base, pr, unit=""):
     """'new', 'same', 'better', 'worse' (within the threshold) or 'regression'."""
     if base is None:
         return "new"
-    if pr == base:
+    if within_resolution(base, pr, unit):
         return "same"
     pct = (pr - base) / base * 100 if base else float("inf")
     if pr < base:
@@ -60,6 +69,9 @@ def change(base, pr, unit):
     delta = pr - base
     if delta == 0:
         return "➡️ no change"
+    if within_resolution(base, pr, unit):
+        sign = "+" if delta > 0 else "-"
+        return f"➡️ no change ({sign}{number(abs(delta))} {unit}: one step of the clock)"
     pct = delta / base * 100 if base else float("inf")
     direction = "📈" if delta > 0 else "📉"
     if delta > 0:
@@ -81,7 +93,7 @@ def section(title, base, pr, target, show_unchanged):
     rows, counts = [], {}
     for name, (value, unit) in pr.items():
         old = base.get(name, (None, unit))[0]
-        kind = classify(old, value)
+        kind = classify(old, value, unit)
         counts[kind] = counts.get(kind, 0) + 1
         row = [name, "—" if old is None else f"{number(old)} {unit}", f"{number(value)} {unit}", change(old, value, unit)]
         rows.append((kind, row))
@@ -141,6 +153,7 @@ def main(target_dir, pr_dir, target, target_sha, pr_sha):
     out.append(
         f"<sub>Smaller is better. `{target}` at {target_sha[:8]} against this PR merged into it ({pr_sha[:8]}). "
         f"simavr is cycle-accurate: the figures are exact, only code changes move them. "
+        f"Results in us come from micros(), in steps of 4 us: a change of one step counts as none. "
         f"History of `dev`: [benchmarks]({HISTORY}).</sub>"
     )
     print("\n".join(out))
