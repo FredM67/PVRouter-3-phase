@@ -94,6 +94,7 @@ test/
 │   ├── test_utils_relay/
 │   └── test_utils_pins/
 └── native/       # Cross-platform tests (run on host)
+    ├── test_dual_tariff/
     ├── test_ewma_avg/
     ├── test_load_priorities/
     ├── test_remote_loads/

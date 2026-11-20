@@ -137,8 +137,18 @@
       if (!inRange(m.dualTariff.offPeakHours, 1, 12)) error('err.offPeakHours', 'dualTariff');
       if (!inRange(m.dualTariff.tempThreshold, 1, 100)) error('err.tempThreshold', 'dualTariff');
       if (m.dualTariff.force.length > n) error('err.forceCount', 'dualTariff');
+      // as DualTariff::startsWithinOffPeak() (utils_dualtariff.h): hours from -24 to 24, minutes
+      // beyond; a negative start counts back from the end. A boost starting outside never runs.
+      // A duration of 0 is no boost ({ 0, 0 } in the Readme): its start does not matter.
+      const periodSec = m.dualTariff.offPeakHours * 3600;
+      const startsWithinOffPeak = (f) => {
+        const offsetSec = f.start * (Math.abs(f.start) > 24 ? 60 : 3600);
+        const startSec = f.start >= 0 ? offsetSec : periodSec + offsetSec;
+        return startSec >= 0 && startSec < periodSec;
+      };
       m.dualTariff.force.forEach((f, i) => {
         if (!inRange(f.start, -32768, 32767) || (f.duration !== null && !inRange(f.duration, 0, 65534))) error('err.force', 'dualTariff', { load: i + 1 });
+        else if (f.duration !== 0 && !startsWithinOffPeak(f)) error('err.forceWindow', 'dualTariff', { load: i + 1 });
       });
     }
 

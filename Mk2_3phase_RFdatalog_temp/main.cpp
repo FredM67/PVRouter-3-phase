@@ -103,7 +103,7 @@ OverrideMasks getDualTariffForcingBitmask(const bool bOffPeak, const int16_t cur
   {
     --i;
     // Skip if not within the 'force period'
-    if ((ulElapsedTime < rg_OffsetForce[i][0]) || (ulElapsedTime >= rg_OffsetForce[i][1]))
+    if (!DualTariff::inWindow(ulElapsedTime, rg_OffsetForce[i][0], rg_OffsetForce[i][1]))
     {
       continue;
     }

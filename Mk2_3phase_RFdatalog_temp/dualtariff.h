@@ -30,25 +30,11 @@ class _rg_OffsetForce
 public:
   constexpr _rg_OffsetForce()
   {
-    constexpr uint16_t uiPeakDurationInSec{ OffPeakDuration * 3600U };
-    // calculates offsets for force start and stop of each load
+    // calculates offsets for force start and stop of each load (utils_dualtariff.h)
     for (uint8_t i = 0; i != N; ++i)
     {
-      const bool bOffsetInMinutes{ rg_ForceLoad[i].getStartOffset() > 24 || rg_ForceLoad[i].getStartOffset() < -24 };
-      const bool bDurationInMinutes{ rg_ForceLoad[i].getDuration() > 24 && UINT16_MAX != rg_ForceLoad[i].getDuration() };
-
-      _rg[i][0] = ((rg_ForceLoad[i].getStartOffset() >= 0) ? 0 : uiPeakDurationInSec) + rg_ForceLoad[i].getStartOffset() * (bOffsetInMinutes ? 60ul : 3600ul);
-      _rg[i][0] *= 1000ul;  // convert in milli-seconds
-
-      if (UINT16_MAX == rg_ForceLoad[i].getDuration())
-      {
-        // until the end of the off-peak period, which stops any forcing anyway
-        _rg[i][1] = UINT32_MAX;
-      }
-      else
-      {
-        _rg[i][1] = _rg[i][0] + rg_ForceLoad[i].getDuration() * (bDurationInMinutes ? 60ul : 3600ul) * 1000ul;
-      }
+      _rg[i][0] = DualTariff::windowStart(rg_ForceLoad[i], OffPeakDuration);
+      _rg[i][1] = DualTariff::windowEnd(rg_ForceLoad[i], OffPeakDuration);
     }
   }
   const auto(&operator[](uint8_t i) const)

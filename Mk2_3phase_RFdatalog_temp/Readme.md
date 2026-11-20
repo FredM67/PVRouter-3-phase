@@ -758,6 +758,8 @@ inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{
 | Démarrer 90 min après le début des HC, pendant 2 h | `{ 90, 2 }` |
 | Démarrer 90 min avant la fin des HC, jusqu’à la fin | `{ -90, UINT16_MAX }` |
 
+Une charge absente de `rg_ForceLoad` reçoit `{ 0, UINT16_MAX }` : boost pendant toutes les HC. Un boost qui démarre en dehors des HC (`{ 10, 20 }` avec 8 heures) ne se déclencherait jamais : la compilation le refuse.
+
 ## Rotation des priorités
 La rotation des priorités est utile lors de l’alimentation d’un chauffe-eau triphasé.
 Elle permet d’équilibrer la durée de fonctionnement des différentes résistances sur une période prolongée.
