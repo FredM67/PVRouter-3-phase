@@ -263,6 +263,14 @@
     return { from, at: periodMin - b.at, for: b.for };
   }
 
+  // A new duration (null: until the end) keeps the anchored edge: the start of a boost counted
+  // from the start, the end of one counted back from the end (it then starts earlier or later)
+  function withDuration(b, duration, periodMin) {
+    const w = boostWindow(b, periodMin);
+    if (duration === null || !w || b.from !== 'end') return { at: b.at, for: duration };
+    return { at: periodMin - (w.end - duration), for: duration };
+  }
+
   // As validation.h (startsWithinOffPeak(), endsWithinOffPeak(), hasLength()): the whole window
   // lies within the period, and lasts.
   function boostFits(b, periodMin) {
@@ -360,6 +368,7 @@
     boostWindow,
     boostFits,
     reanchor,
+    withDuration,
     rfChipPresent,
     tempSensorPresent,
     overridePresent,

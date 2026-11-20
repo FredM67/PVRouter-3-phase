@@ -87,3 +87,12 @@ test('switching the anchor keeps the window', () => {
   assert.deepStrictEqual(M.reanchor({ from: 'start', at: 60, for: 60 }, 'start', 480), { from: 'start', at: 60, for: 60 }); // same anchor
   assert.deepStrictEqual(M.reanchor({ from: 'start', at: null, for: 60 }, 'end', 480), { from: 'end', at: null, for: 60 }); // unreadable time: kept
 });
+
+test('changing the duration keeps the anchored edge', () => {
+  // 2 h before the end, for 2 h (6h-8h) -> for 2 h 30: starts 2 h 30 before the end (5h30-8h)
+  assert.deepStrictEqual(M.withDuration({ from: 'end', at: 120, for: 120 }, 150, 480), { at: 150, for: 150 });
+  assert.deepStrictEqual(M.withDuration({ from: 'end', at: 180, for: 90 }, 60, 480), { at: 150, for: 60 }); // shorter: starts later
+  assert.deepStrictEqual(M.withDuration({ from: 'start', at: 60, for: 60 }, 120, 480), { at: 60, for: 120 }); // after the start: start stays
+  assert.deepStrictEqual(M.withDuration({ from: 'end', at: 120, for: null }, 120, 480), { at: 120, for: 120 }); // was until the end: end is the period's
+  assert.deepStrictEqual(M.withDuration({ from: 'end', at: 120, for: 120 }, null, 480), { at: 120, for: null }); // until the end
+});

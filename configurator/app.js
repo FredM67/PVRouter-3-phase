@@ -731,14 +731,14 @@
       row(
         check(
           () => b.for === null,
-          (v) => (b.for = v ? null : 120),
+          (v) => Object.assign(b, M.withDuration(b, v ? null : 120, d.offPeakHours * 60)),
           'untilEnd'
         ),
         b.for !== null
           ? hoursMinutes(
               'boostFor',
               () => b.for,
-              (v) => (b.for = v),
+              (v) => Object.assign(b, M.withDuration(b, v, d.offPeakHours * 60)),
               d.offPeakHours || 12 // the whole window lies within the off-peak period
             )
           : null
