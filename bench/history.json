@@ -656,6 +656,51 @@
     "datalog: watts avg": 156,
     "datalog: watts max": 158
    }
+  },
+  {
+   "commit": "6d3446b8a3465684d1b6439095fe6936f400ee40",
+   "date": "2026-11-20T15:40:04+01:00",
+   "message": "test: the load priority state machine, with native tests; fix rotation with one load (#221)\n\n* test: the load priority state machine, in load_priorities.h with native tests\n\nThe switching decision of the ADC ISR (proceedHigh/LowEnergyLevel,\nnextLogicalLoadToBeAdded/Removed, the rotation and the logical-to-physical\nmapping) had no test. It moves to load_priorities.h, with no Arduino\ndependency, and test/native/test_load_priorities checks it on the real code:\n- the order: first load OFF comes ON, last load ON goes OFF;\n- one load at a time: no other load switches during the post-transition\n  period, the load just switched may switch back, the thresholds follow\n  the bucket within 0 and its capacity;\n- each half of the bucket resets the other threshold; the dead band of the\n  anti-flicker mode;\n- rotation; diversion OFF, overrides and calibration mode.\n28 tests; breaking the post-transition rule fails 3 of them, removing from\nthe front fails 5.\n\nThe decision, Switching::onNewCycle(), is not inlined, as\nupdatePhysicalLoadStates(): inlined, it grew the ISR by 76 bytes, with 4\nmore registers to save and a stack frame on every call. Out of line, grid\nsimulator:\n- default: average 317.0 -> 316.9 cycles, one-off max +2 to +8 cycles;\n  flash -4 B (7,972 -> 7,968);\n- remote loads: average 350.5 -> 318.6 cycles, max 1,347 -> 1,270;\n  flash -108 B (12,228 -> 12,120).\n\nFixes rotation with a single load: the loop started at 0, read\npriorities[-1] and wrapped around, writing 255 bytes past the array in the\nISR. Nothing rejects PRIORITY_ROTATION with one load. The new test\nsegfaults without the fix.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: when the thresholds go back to their defaults\n\nFrom the Graphify review of #221:\n- load_priorities.h says a threshold goes back to its default only when\n  the bucket is in the other half: in the upper half, the upper threshold\n  keeps the level of the last post-transition period. The Bucket comments\n  said \"outside a post-transition period\". Same behaviour as before.\n- The clamping tests: the ISR clamps the bucket, the thresholds are\n  clamped by onNewCycle(), as asserted.\n- settled() sets the default thresholds, it runs no cycle.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: the precondition of toPhysical(), the clamping tests\n\nFrom the second Graphify review of #221:\n- toPhysical() indexes the physical states with the load numbers,\n  unchecked: they are 0..N-1, each once. check_load_priorities() rejects\n  duplicates and requires the sum 0 + ... + N-1, which only 0..N-1 reach,\n  and rotate() only reorders them. Said in a @pre.\n- The clamping tests say which clamp they check: onNewCycle() clamps the\n  threshold, the ISR the bucket.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: the post-transition rule, in plain words\n\nFrom the third Graphify review of #221: \"only that same load may switch\nagain\" read as if the load just switched ON could switch ON again. No\nother load may switch during the period; the load just switched may\nswitch back.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/6d3446b8a3465684d1b6439095fe6936f400ee40",
+   "sizes": {
+    "basic": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 7970,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7802,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05,
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09
+   }
   }
  ]
 }
