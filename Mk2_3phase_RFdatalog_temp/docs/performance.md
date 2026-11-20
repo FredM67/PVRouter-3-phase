@@ -27,7 +27,7 @@ Measured cycle-exactly in the grid simulator (`make -C sim check`, `basic` firmw
 | Maximum, one-off | ~1,280 | ~80 µs | 77 % | once, at the end of the start-up period |
 | Calls longer than one conversion | 0 | | | |
 
-Of the average, about 145 cycles (~9 µs) are the entry and exit of the ISR: it saves and restores 32 registers, with no stack frame. `updatePhysicalLoadStates()`, which runs once per mains cycle, is a real call on purpose: inlined, it needs registers that the rest of the ISR then spills to a stack frame on every call (30 cycles more on average, 65 more for the longest call). The energy bucket update is an integer multiply by a compile-time `cal / n` table, no division or float (~125 cycles, once per phase and mains cycle).
+Of the average, about 145 cycles (~9 µs) are the entry and exit of the ISR: it saves and restores 32 registers, with no stack frame. `updatePhysicalLoadStates()`, which runs once per mains cycle, is a real call on purpose: inlined, it needs registers that the rest of the ISR then spills to a stack frame on every call (30 cycles more on average, 65 more for the longest call). So is the switching decision, `LoadPriorities::Switching::onNewCycle()` (`load_priorities.h`): inlined, it put 4 more registers and a stack frame in the ISR; out of line, the average is unchanged, and 32 cycles lower with remote loads. The energy bucket update is an integer multiply by a compile-time `cal / n` table, no division or float (~125 cycles, once per phase and mains cycle).
 
 ### Main Loop Operations
 

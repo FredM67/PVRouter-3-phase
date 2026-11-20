@@ -11,6 +11,7 @@ test/
 │   ├── test_dc_offset_filter/
 │   ├── test_energy_bucket/
 │   ├── test_ewma_avg/
+│   ├── test_load_priorities/
 │   ├── test_power_rms_comparison/
 │   ├── test_remote_loads/
 │   └── test_utils_override/
@@ -54,6 +55,7 @@ pio test -e uno -f "*test_utils_relay*"
 | [test_dc_offset_filter](native/test_dc_offset_filter/) | DC offset removal filter |
 | [test_energy_bucket](native/test_energy_bucket/) | Integer energy bucket, checked against the float and exact references |
 | [test_ewma_avg](native/test_ewma_avg/) | EWMA filter for cloud immunity |
+| [test_load_priorities](native/test_load_priorities/) | Load priority state machine: switching order, post-transition period, rotation, overrides |
 | [test_power_rms_comparison](native/test_power_rms_comparison/) | Real power vs. RMS power computation |
 | [test_remote_loads](native/test_remote_loads/) | Packed load map and per-unit remote payloads |
 | [test_utils_override](native/test_utils_override/) | Override pin system (local + remote loads) |

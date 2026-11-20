@@ -38,10 +38,6 @@ inline void processRawSamples(const uint8_t phase);
 inline void processVoltage(uint8_t phase);
 inline void processPolarity(uint8_t phase, uint16_t rawSample);
 inline void confirmPolarity(uint8_t phase);
-inline void proceedLowEnergyLevel();
-inline void proceedHighEnergyLevel();
-inline uint8_t nextLogicalLoadToBeAdded();
-inline uint8_t nextLogicalLoadToBeRemoved();
 inline void processLatestContribution(uint8_t phase);
 inline void processDataLogging();
 inline void updatePortsStates();
@@ -59,10 +55,6 @@ inline void processRawSamples(const uint8_t phase) __attribute__((always_inline)
 inline void processVoltage(uint8_t phase) __attribute__((always_inline));
 inline void processPolarity(uint8_t phase, uint16_t rawSample) __attribute__((always_inline));
 inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
-inline void proceedLowEnergyLevel() __attribute__((always_inline));
-inline void proceedHighEnergyLevel() __attribute__((always_inline));
-inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline));
-inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline));
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
 inline void processDataLogging() __attribute__((always_inline));
 // An inlined function is compiled with the options of the ISR it lands in: an optimize() attribute
