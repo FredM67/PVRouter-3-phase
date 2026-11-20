@@ -215,6 +215,30 @@
      "ram": 400
     }
    }
+  },
+  {
+   "commit": "76c366bf6b56106afdc672433594d0fc9392ed41",
+   "date": "2026-11-20T07:58:40+01:00",
+   "message": "fix(rf): remote loads wait for a working RF module (#204)\n\nIf the RFM69 failed to start (missing, unpowered or badly wired),\nprocessRemoteLoadTransmissions() still called radio().send(). The\nlibrary then waits up to 1 s for a free channel on every send, and in\nsendFrame() forever for \"mode ready\" / \"packet sent\" when the module\nholds MISO low: the main loop hangs (relays, overrides, dual tariff,\ntelemetry stop; the ISR keeps routing the local loads).\n\n- remote loads send nothing while SharedRF::initialized is false; their\n  payloads stay pending and go out once the module is up\n- sendResults() retries initialize_rf() once per datalog period whenever\n  an RF chip is configured (before, only with RF logging), and\n  send_rf_data() just checks the flag, so a failing module costs one\n  ~50 ms retry per period\n- simulator: 'rf_absent' scenario command (the router's RFM69 answers\n  0 to every SPI read) and scenarios/rf/rf_absent.scn: the override pin,\n  read by the main loop, must still force the local loads. dev fails it\n  (3/5), this branch passes (5/5); the other RF scenarios pass on both\n\nbasic firmware unchanged (byte-identical but for the build timestamp),\nrf firmware +16 B.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/76c366bf6b56106afdc672433594d0fc9392ed41",
+   "sizes": {
+    "basic": {
+     "flash": 8580,
+     "ram": 570
+    },
+    "rf": {
+     "flash": 8578,
+     "ram": 570
+    },
+    "basic, IoT": {
+     "flash": 8580,
+     "ram": 570
+    },
+    "basic, HumanReadable": {
+     "flash": 8582,
+     "ram": 400
+    }
+   }
   }
  ]
 }
