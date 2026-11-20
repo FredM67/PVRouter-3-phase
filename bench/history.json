@@ -407,6 +407,30 @@
      "ram": 396
     }
    }
+  },
+  {
+   "commit": "742e941614f82792fa255173566bf3999fda3072",
+   "date": "2026-11-20T11:45:29+01:00",
+   "message": "test: every benchmark in exact CPU cycles, reported in us and cycles (#215)\n\nThe loop benchmarks (mult_asm, fastdivision) timed with micros(): steps of\n4 us, plus every millis() interrupt in between, so a result moved by one\nstep when unrelated code moved. They now count cycles with Timer1 extended\nto 32 bits by its overflow interrupt (bench_timer.h), millis() paused and\nthe serial output sent first: exact and independent of where the loop\nstarts.\n\nEvery result is reported twice, `<name> [us]` (cycles / 16, exact to\n1/16 us) and `<name> [cycles]`, including the datalog math results that\nwere in cycles only.\n\nThe PR report drops the one-step rule of #213, now unneeded, and shows up\nto 4 decimals.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/742e941614f82792fa255173566bf3999fda3072",
+   "sizes": {
+    "basic": {
+     "flash": 8222,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 8218,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 8222,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 8258,
+     "ram": 396
+    }
+   }
   }
  ]
 }
