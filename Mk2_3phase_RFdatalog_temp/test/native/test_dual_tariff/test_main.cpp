@@ -339,6 +339,58 @@ void test_boost_window_across_the_millis_wraparound(void)
   TEST_ASSERT_FALSE(DualTariff::inWindow(at4h - offPeakStart, start, end));
 }
 
+namespace
+{
+// pins written raw: LOAD() needs config.h
+constexpr ScheduledBoosts boosts{ {
+  { FIRST(HOURS(2)), { 5, 7 } },
+  { LAST(HOURS(1)), { REMOTE_PIN_BASE + 1 } },
+  { FROM_START(HOURS(1)), { 5 } },  // no FOR: until the end
+  { BEFORE_END(HOURS(3)), FOR(MINUTES(90)), { 9 } },
+} };
+static_assert(boosts.size() == 4);
+}  // namespace
+
+void test_targets_become_masks(void)
+{
+  TEST_ASSERT_EQUAL_UINT16((1U << 5) | (1U << 7), boosts.getLocalBitmask(0));
+  TEST_ASSERT_EQUAL_UINT8(0, boosts.getRemoteBitmask(0));
+  TEST_ASSERT_EQUAL_UINT16(0, boosts.getLocalBitmask(1));
+  TEST_ASSERT_EQUAL_UINT8(0b10, boosts.getRemoteBitmask(1));
+}
+
+void test_without_for_lasts_until_the_end(void)
+{
+  TEST_ASSERT_EQUAL_UINT32(3600000UL, DualTariff::resolve(boosts, 2, 8).start);
+  TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, DualTariff::resolve(boosts, 2, 8).end);
+}
+
+void test_resolve(void)
+{
+  constexpr auto b{ DualTariff::resolve(boosts, 3, 8) };
+  static_assert(b.start == 18000000UL && b.end == 23400000UL && b.local == (1U << 9) && b.remote == 0);
+  TEST_ASSERT_EQUAL_UINT32(18000000UL, b.start);
+}
+
+void test_a_target_may_be_in_several_boosts(void)
+{
+  TEST_ASSERT_TRUE(boosts.getLocalBitmask(0) & boosts.getLocalBitmask(2));  // pin 5 twice
+}
+
+void test_an_empty_list(void)
+{
+  constexpr ScheduledBoosts none{};
+  static_assert(none.size() == 0);
+  TEST_ASSERT_EQUAL_UINT8(0, none.size());
+}
+
+void test_a_start_before_the_period_wraps_the_same_on_every_target(void)
+{
+  // 1 h period, start 2 h before the end: -60 min, in uint32_t
+  const BoostWindow w{ BEFORE_END(HOURS(2)), FOR(MINUTES(10)) };
+  TEST_ASSERT_EQUAL_UINT32(static_cast< uint32_t >(-60) * 60000UL, DualTariff::windowStart(w, 1));
+}
+
 int main(void)
 {
   UNITY_BEGIN();
@@ -381,6 +433,12 @@ int main(void)
   RUN_TEST(test_boost_windows_are_computed_at_compile_time);
   RUN_TEST(test_boost_window_includes_its_start_and_excludes_its_end);
   RUN_TEST(test_boost_window_across_the_millis_wraparound);
+  RUN_TEST(test_targets_become_masks);
+  RUN_TEST(test_without_for_lasts_until_the_end);
+  RUN_TEST(test_resolve);
+  RUN_TEST(test_a_target_may_be_in_several_boosts);
+  RUN_TEST(test_an_empty_list);
+  RUN_TEST(test_a_start_before_the_period_wraps_the_same_on_every_target);
 
   return UNITY_END();
 }

@@ -16,6 +16,8 @@
 
 #include <stdint.h>
 
+#include "utils_override.h"  // PinList, REMOTE_PIN_BASE
+
 /** @brief Config parameters for overriding a load
  *  @details This class allows the user to define when and how long a load will be forced at
  *           full power during off-peak period.
@@ -127,6 +129,118 @@ constexpr BoostWindow LAST(const Minutes d)
   return BoostWindow{ BEFORE_END(d), BoostLength{ UNTIL_THE_END } };
 }
 
+/** @brief When a set of loads is boosted: a window and the targets. */
+template< uint8_t MaxPins = 16 >
+struct BoostEntry
+{
+  BoostWindow window;
+  PinList< MaxPins > targets;
+
+  /** @brief A boost with its window and targets. */
+  constexpr BoostEntry(const BoostWindow& w, const PinList< MaxPins >& t)
+    : window(w), targets(t) {}
+
+  /** @brief A boost from @p s until the end of the off-peak period. */
+  constexpr BoostEntry(const BoostStart& s, const PinList< MaxPins >& t)
+    : window{ s, BoostLength{ UNTIL_THE_END } }, targets(t) {}
+
+  /** @brief A boost from @p s, lasting @p l. */
+  constexpr BoostEntry(const BoostStart& s, const BoostLength& l, const PinList< MaxPins >& t)
+    : window{ s, l }, targets(t) {}
+};
+
+/**
+ * @brief The scheduled boosts: a window and the bitmasks of its targets, for each entry.
+ *
+ * @details Same accessors as OverridePins, so that a target check takes either.
+ *
+ * @tparam N number of boosts
+ * @tparam MaxPins maximum number of pins (loads + relays) of a target list
+ */
+template< uint8_t N, uint8_t MaxPins = 16 >
+class ScheduledBoosts
+{
+private:
+  struct Entry
+  {
+    BoostWindow window;    /**< when the targets are boosted */
+    uint16_t localBitmask; /**< bitmask of the local loads/relays */
+    uint8_t remoteBitmask; /**< bitmask of the remote loads */
+  };
+
+  Entry entries_[N]{};
+
+public:
+  /** @brief Builds the boosts from their entries. */
+  constexpr ScheduledBoosts(const BoostEntry< MaxPins > (&boosts)[N])
+  {
+    for (uint8_t i = 0; i < N; ++i)
+    {
+      entries_[i] = { boosts[i].window, boosts[i].targets.toLocalBitmask(), boosts[i].targets.toRemoteBitmask() };
+    }
+  }
+
+  /** @brief The number of boosts. */
+  constexpr uint8_t size() const
+  {
+    return N;
+  }
+
+  /** @brief The window of boost @p i, or a window of length 0 if out of bounds. */
+  constexpr BoostWindow getWindow(uint8_t i) const
+  {
+    return i < N ? entries_[i].window : BoostWindow{ FROM_START(MINUTES(0)), BoostLength{ 0 } };
+  }
+
+  /** @brief The local bitmask of boost @p i, or 0 if out of bounds. */
+  constexpr uint16_t getLocalBitmask(uint8_t i) const
+  {
+    return i < N ? entries_[i].localBitmask : 0;
+  }
+
+  /** @brief The remote bitmask of boost @p i, or 0 if out of bounds. */
+  constexpr uint8_t getRemoteBitmask(uint8_t i) const
+  {
+    return i < N ? entries_[i].remoteBitmask : 0;
+  }
+};
+
+/** @brief No boost at all. */
+template< uint8_t MaxPins >
+class ScheduledBoosts< 0, MaxPins >
+{
+public:
+  constexpr ScheduledBoosts() = default;
+
+  constexpr uint8_t size() const
+  {
+    return 0;
+  }
+
+  constexpr BoostWindow getWindow(uint8_t) const
+  {
+    return BoostWindow{ FROM_START(MINUTES(0)), BoostLength{ 0 } };
+  }
+
+  constexpr uint16_t getLocalBitmask(uint8_t) const
+  {
+    return 0;
+  }
+
+  constexpr uint8_t getRemoteBitmask(uint8_t) const
+  {
+    return 0;
+  }
+};
+
+/** @brief Deduction guide, as for OverridePins. */
+template< uint8_t MaxPins, uint8_t N >
+ScheduledBoosts(const BoostEntry< MaxPins > (&)[N])
+  -> ScheduledBoosts< N, MaxPins >;
+
+/** @brief Deduction guide: no argument, no boost. */
+ScheduledBoosts() -> ScheduledBoosts< 0 >;
+
 /**
  * @brief The forcing window of each load, in milliseconds from the start of the off-peak period.
  *
@@ -220,7 +334,7 @@ constexpr bool startsWithinOffPeak(const pairForceLoad& force, const uint8_t off
  */
 constexpr uint32_t windowStart(const BoostWindow& window, const uint8_t offPeakHours)
 {
-  const uint32_t minutes{ window.start.fromEnd ? (offPeakHours * 60U - window.start.minutes) : window.start.minutes };
+  const uint32_t minutes{ window.start.fromEnd ? (static_cast< uint32_t >(offPeakHours) * 60UL - window.start.minutes) : window.start.minutes };
   return minutes * 60000UL;
 }
 
@@ -251,6 +365,22 @@ constexpr bool startsWithinOffPeak(const BoostWindow& window, const uint8_t offP
 constexpr bool hasLength(const BoostWindow& window)
 {
   return 0 != window.length.minutes;
+}
+/** @brief A boost resolved for a given off-peak duration: its window in ms and its target masks. */
+struct Boost
+{
+  uint32_t start;
+  uint32_t end;
+  uint16_t local;
+  uint8_t remote;
+};
+
+/** @brief Boost @p i of @p boosts, for an off-peak period of @p offPeakHours. */
+template< uint8_t N, uint8_t MaxPins >
+constexpr Boost resolve(const ScheduledBoosts< N, MaxPins >& boosts, const uint8_t i, const uint8_t offPeakHours)
+{
+  const BoostWindow window{ boosts.getWindow(i) };
+  return Boost{ windowStart(window, offPeakHours), windowEnd(window, offPeakHours), boosts.getLocalBitmask(i), boosts.getRemoteBitmask(i) };
 }
 }  // namespace DualTariff
 
