@@ -627,7 +627,7 @@
           'boostAt',
           () => b.at,
           (v) => (b.at = v),
-          12
+          d.offPeakHours || 12
         ),
         select(
           () => b.from,
@@ -645,7 +645,8 @@
           ? hoursMinutes(
               'boostFor',
               () => b.for,
-              (v) => (b.for = v)
+              (v) => (b.for = v),
+              d.offPeakHours || 12 // the whole window lies within the off-peak period
             )
           : null
       ),

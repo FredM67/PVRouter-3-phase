@@ -74,8 +74,11 @@ const CASES = [
   ['err.boostWindow', (m) => boosts(m, { from: 'end', at: 540, for: null })], // 9 h before the end of 8 h
   ['err.boostWindow', (m) => boosts(m, { from: 'start', at: 480, for: 60 })], // at the end
   ['err.boostWindow', (m) => boosts(m, { from: 'start', at: 0, for: 0 })], // lasts 0 min
+  ['err.boostWindow', (m) => boosts(m, { from: 'start', at: 0, for: 600 })], // FIRST(HOURS(10)): ends after the end
+  ['err.boostWindow', (m) => boosts(m, { from: 'end', at: 60, for: 120 })], // BEFORE_END(HOURS(1)), FOR(HOURS(2))
+  ['err.boostWindow', (m) => boosts(m, { from: 'start', at: 420, for: 61 })], // FROM_START(HOURS(7)), FOR(MINUTES(61))
   ['err.boost', (m) => boosts(m, { from: 'start', at: null, for: 60 })],
-  ['err.boost', (m) => boosts(m, { from: 'start', at: 0, for: 65535 })],
+  ['err.boost', (m) => boosts(m, { from: 'start', at: 0, for: 721 })], // more than 12 h, the longest off-peak period
   ['err.boostNoRelay', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: [{ relay: 0 }] })],
   ['err.boostNoRelay', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: 'ALL_RELAYS' })],
   ['err.boostRelay', (m) => (m.relays.enabled = true) && boosts(m, { from: 'start', at: 0, for: 60, targets: [{ relay: 3 }] })],
@@ -137,7 +140,8 @@ test('dual tariff: boosts that start within the off-peak period are accepted', (
   for (const b of [
     { from: 'end', at: 180, for: 120 }, // config.h, 3 h before the end
     { from: 'end', at: 480, for: null }, // from the very start
-    { from: 'start', at: 0, for: 600 }, // longer than the period: the end stops it
+    { from: 'start', at: 0, for: 480 }, // FIRST(HOURS(8)): ends at the end
+    { from: 'start', at: 420, for: 60 }, // FROM_START(HOURS(7)), FOR(HOURS(1))
     { from: 'start', at: 479, for: 1 }, // 1 min before the end
     { from: 'end', at: 1, for: null }, // the last minute
   ]) {
@@ -145,6 +149,8 @@ test('dual tariff: boosts that start within the off-peak period are accepted', (
     assert.deepStrictEqual(errors(m), [], JSON.stringify(b));
   }
   assert.deepStrictEqual(errors(variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, boosts: [] }))), []);
+  // 12 h, the longest off-peak period and the longest boost
+  assert.deepStrictEqual(errors(variant((m) => boosts(m, { from: 'start', at: 0, for: 720 }) && (m.dualTariff.offPeakHours = 12))), []);
 });
 
 test('dual tariff off: the windows of the boosts are not checked, nor what a group finds to force', () => {

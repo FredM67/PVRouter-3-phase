@@ -74,12 +74,25 @@ void test_twelve_hours(void)
 
 void test_starts_within_off_peak(void)
 {
-  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(FIRST(HOURS(10)), 8));     // ends after: the meter stops it
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(FIRST(HOURS(10)), 8));     // starts within, but ends after: see below
   TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(LAST(HOURS(8)), 8));       // starts at 0
   TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak(LAST(MINUTES(481)), 8));  // 1 min before the start
   TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak(LAST(MINUTES(0)), 8));    // at the end
   TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak(BoostWindow{ FROM_START(HOURS(8)), FOR(HOURS(1)) }, 8));
   TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(BoostWindow{ FROM_START(MINUTES(479)), FOR(HOURS(1)) }, 8));
+}
+
+void test_ends_within_off_peak(void)
+{
+  TEST_ASSERT_FALSE(DualTariff::endsWithinOffPeak(FIRST(HOURS(10)), 8));
+  TEST_ASSERT_TRUE(DualTariff::endsWithinOffPeak(FIRST(HOURS(8)), 8));  // ends at the end
+  TEST_ASSERT_FALSE(DualTariff::endsWithinOffPeak(BoostWindow{ BEFORE_END(HOURS(1)), FOR(HOURS(2)) }, 8));
+  TEST_ASSERT_TRUE(DualTariff::endsWithinOffPeak(BoostWindow{ BEFORE_END(HOURS(3)), FOR(HOURS(2)) }, 8));
+  TEST_ASSERT_TRUE(DualTariff::endsWithinOffPeak(BoostWindow{ FROM_START(HOURS(7)), FOR(HOURS(1)) }, 8));
+  TEST_ASSERT_FALSE(DualTariff::endsWithinOffPeak(BoostWindow{ FROM_START(HOURS(7)), FOR(MINUTES(61)) }, 8));
+  TEST_ASSERT_TRUE(DualTariff::endsWithinOffPeak(LAST(HOURS(8)), 8));  // until the end
+  TEST_ASSERT_TRUE(DualTariff::endsWithinOffPeak(BoostWindow{ FROM_START(HOURS(1)), BoostLength{ UNTIL_THE_END } }, 8));
+  TEST_ASSERT_TRUE(DualTariff::endsWithinOffPeak(FIRST(HOURS(12)), 12));
 }
 
 void test_a_boost_of_zero_minutes_has_no_length(void)
@@ -187,6 +200,7 @@ int main(void)
   RUN_TEST(test_until_the_end_has_no_end);
   RUN_TEST(test_twelve_hours);
   RUN_TEST(test_starts_within_off_peak);
+  RUN_TEST(test_ends_within_off_peak);
   RUN_TEST(test_a_boost_of_zero_minutes_has_no_length);
   RUN_TEST(test_boost_windows_are_computed_at_compile_time);
   RUN_TEST(test_boost_window_includes_its_start_and_excludes_its_end);

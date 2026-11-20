@@ -47,8 +47,9 @@ static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION == 0)), "******** Off-peak d
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION > 12)), "******** Off-peak duration cannot last more than 12 hours. Please check your config.h ! ********");
 
 /**
- * @brief Every scheduled boost starts within the off-peak period and lasts: otherwise, it never
- *        runs (LAST(HOURS(9)) with 8 hours, FOR(MINUTES(0))).
+ * @brief Every scheduled boost lies within the off-peak period and lasts: otherwise, it never
+ *        runs (LAST(HOURS(9)) with 8 hours, FOR(MINUTES(0))), or the meter cuts it short
+ *        (FIRST(HOURS(10)) with 8 hours).
  */
 constexpr bool check_boost_windows()
 {
@@ -56,14 +57,14 @@ constexpr bool check_boost_windows()
   {
     const BoostWindow window{ scheduledBoosts.getWindow(i) };
 
-    if (!DualTariff::startsWithinOffPeak(window, ul_OFF_PEAK_DURATION) || !DualTariff::hasLength(window))
+    if (!DualTariff::startsWithinOffPeak(window, ul_OFF_PEAK_DURATION) || !DualTariff::endsWithinOffPeak(window, ul_OFF_PEAK_DURATION) || !DualTariff::hasLength(window))
     {
       return false;
     }
   }
   return true;
 }
-static_assert(!DUAL_TARIFF || check_boost_windows(), "******** A scheduled boost starts outside the off-peak period, or lasts 0 minutes: it would never run. Please check scheduledBoosts in your config.h ! ********");
+static_assert(!DUAL_TARIFF || check_boost_windows(), "******** A scheduled boost starts or ends outside the off-peak period, or lasts 0 minutes. Please check scheduledBoosts in your config.h ! ********");
 
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
 // the EWMA of the relays averages RELAY_FILTER_DELAY * 60 / DATALOG_PERIOD_IN_SECONDS datalogs:

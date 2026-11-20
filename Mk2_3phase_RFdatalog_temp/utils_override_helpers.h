@@ -25,21 +25,32 @@
 /**
  * @brief Returns the pin number for any load (local or remote).
  * @param loadNum The load index into physicalLoadPin[] (0-based).
- * @return Physical pin for local loads, virtual pin (>= REMOTE_PIN_BASE) for remote loads.
+ * @return Physical pin for local loads, virtual pin (>= REMOTE_PIN_BASE) for remote loads,
+ *         or pin 0 if the load does not exist (loadNum out of range): pin 0 is never an output,
+ *         so validation.h rejects it.
  */
 constexpr uint8_t LOAD(uint8_t loadNum)
 {
+  if (loadNum >= NO_OF_DUMPLOADS)
+  {
+    return 0;
+  }
   return overridePinOf(physicalLoadPin, loadNum);
 }
 
 /**
  * @brief Returns the physical pin number for a LOCAL load.
  * @param loadNum The load index into physicalLoadPin[] (0-based).
- * @return The pin number for the local load.
+ * @return The pin number for the local load, or pin 0 if the load does not exist (loadNum
+ *         out of range): pin 0 is never an output, so validation.h rejects it.
  * @note Kept for readability at the call site; identical to LOAD() for a local load.
  */
 constexpr uint8_t LOCAL_LOAD(uint8_t loadNum)
 {
+  if (loadNum >= NO_OF_DUMPLOADS)
+  {
+    return 0;
+  }
   return Load::pinOf(physicalLoadPin[loadNum]);
 }
 

@@ -184,7 +184,7 @@ inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 }; /**< Duration of the off-pea
 
 // Scheduled boosts during the off-peak period (DUAL_TARIFF): when, and what they force.
 // Targets as for the override pins; what is not listed is never boosted.
-// Every boost stops when the meter switches back to peak.
+// Each window lies within the period; every boost stops when the meter switches back to peak.
 //   FIRST(d)                the first d of the period
 //   LAST(d)                 the last d of the period
 //   FROM_START(t), FOR(d)   from t after the start, for d (without FOR: until the end)

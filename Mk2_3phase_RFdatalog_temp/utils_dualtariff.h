@@ -27,17 +27,11 @@ struct Minutes
   explicit constexpr Minutes(const uint16_t v)
     : value(v) {}
 
-  /** @brief From MINUTES() (type_traits.hpp), the same macro as for the relays. */
+  /** @brief From MINUTES() or HOURS() (type_traits.hpp), the same macros as for the relays. */
   template< uint16_t V >
   constexpr Minutes(integral_constant< uint16_t, V > /* ic */)
     : value(V) {}
 };
-
-/** @brief @p n hours, as Minutes. */
-constexpr Minutes HOURS(const uint8_t n)
-{
-  return Minutes{ static_cast< uint16_t >(n * 60U) };
-}
 
 /** @brief Where a boost starts: @p minutes after the start of the off-peak period, or before its end if @p fromEnd. */
 struct BoostStart
@@ -250,13 +244,34 @@ constexpr uint32_t windowEnd(const BoostWindow& window, const uint8_t offPeakHou
   return windowStart(window, offPeakHours) + window.length.minutes * 60000UL;
 }
 
+/** @brief The start of the window, in minutes from the start of the off-peak period: negative if before it. */
+constexpr int32_t startInMinutes(const BoostWindow& window, const uint8_t offPeakHours)
+{
+  const int32_t periodInMin{ static_cast< int32_t >(offPeakHours * 60L) };
+  return window.start.fromEnd ? periodInMin - window.start.minutes : static_cast< int32_t >(window.start.minutes);
+}
+
 /** @brief Whether the window starts within the off-peak period: otherwise, it would never open. */
 constexpr bool startsWithinOffPeak(const BoostWindow& window, const uint8_t offPeakHours)
 {
-  const int32_t periodInMin{ static_cast< int32_t >(offPeakHours * 60L) };
-  const int32_t startInMin{ window.start.fromEnd ? periodInMin - window.start.minutes : static_cast< int32_t >(window.start.minutes) };
+  const int32_t startInMin{ startInMinutes(window, offPeakHours) };
 
-  return (startInMin >= 0) && (startInMin < periodInMin);
+  return (startInMin >= 0) && (startInMin < offPeakHours * 60L);
+}
+
+/**
+ * @brief Whether a window with FOR() ends within the off-peak period (its end may be the end of
+ *        the period): a longer one is a mistake, since the meter would cut it short.
+ *
+ * @return true for UNTIL_THE_END: only the meter ends such a boost
+ */
+constexpr bool endsWithinOffPeak(const BoostWindow& window, const uint8_t offPeakHours)
+{
+  if (UNTIL_THE_END == window.length.minutes)
+  {
+    return true;
+  }
+  return startInMinutes(window, offPeakHours) + window.length.minutes <= offPeakHours * 60L;
 }
 
 /** @brief Whether the boost lasts at all: a length of 0 is no boost. */

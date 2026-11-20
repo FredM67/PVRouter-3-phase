@@ -48,3 +48,12 @@
  */
 #define MINUTES(value) \
   integral_constant< uint16_t, (value) > {}
+
+/**
+ * @brief A compile-time number of hours, as MINUTES().
+ *
+ * @details Usage: HOURS(2). Too many hours fail to compile instead of wrapping around: the
+ *          product overflows the 16-bit int of the AVR (from HOURS(547) on), and is a narrowing
+ *          conversion to uint16_t on a native build (beyond 65535 minutes).
+ */
+#define HOURS(value) MINUTES((value) * 60)
