@@ -40,27 +40,13 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 #include "utils_relay.h"
 #include "validation.h"
 #include "main.h"
+#include "override_masks.h"
 
 // --------------  general global variables -----------------
 //
 // Some of these variables are used in multiple blocks so cannot be static.
 // For integer maths, some variables need to be 'int32_t'
 //
-
-/**
- * @struct OverrideMasks
- * @brief Holds both local and remote override bitmasks.
- *
- * @var OverrideMasks::local
- * Bitmask for local loads and relays (physical pins 2-13).
- * @var OverrideMasks::remote
- * Bitmask for remote loads (bit n = remote load n, n being the remote ordinal).
- */
-struct OverrideMasks
-{
-  uint16_t local;
-  uint8_t remote;
-};
 
 /**
  * @brief Calculates the dual tariff forcing bitmasks based on current conditions.
@@ -73,6 +59,7 @@ struct OverrideMasks
  * @return Bitmasks of loads and relays that should be forced ON due to dual tariff conditions, 0 if none.
  *
  * @details
+ * - The logic is Forcing::boostForcing() (override_masks.h); this wrapper reads millis() and the tables.
  * - Only applies during off-peak periods.
  * - Each scheduled boost has its own window (scheduledBoosts), resolved at compile time.
  * - Temperature must be at or below the threshold for forcing to activate.
@@ -89,36 +76,8 @@ OverrideMasks getDualTariffForcingBitmask(const bool bOffPeak, const int16_t cur
 
   constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
 
-  // Return early if we're not in off-peak period
-  if (!bOffPeak)
-  {
-    return { 0, 0 };
-  }
-
-  // Too hot: no boost. A missing or failed reading (DEVICE_DISCONNECTED_RAW, -7040) counts as cold
-  // on purpose: the boost runs, and the water heater's own thermostat stays the safety limit; the
-  // threshold only stops the boost before the heater's setting.
-  if (currentTemperature_x100 > iTemperatureThreshold_x100)
-  {
-    return { 0, 0 };
-  }
-
-  // We're in off-peak period - check the window of each boost
-  const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
-
-  OverrideMasks forcing{ 0, 0 };
-  for (uint8_t i = 0; i != NO_OF_BOOSTS; ++i)
-  {
-    const auto boost{ readBoost(i) };
-
-    if (DualTariff::inWindow(ulElapsedTime, boost.start, boost.end))
-    {
-      forcing.local |= boost.local;
-      forcing.remote |= boost.remote;
-    }
-  }
-
-  return forcing;
+  return Forcing::boostForcing(bOffPeak, static_cast< uint32_t >(millis() - ul_TimeOffPeak), currentTemperature_x100,
+                               iTemperatureThreshold_x100, NO_OF_BOOSTS, readBoost);
 }
 
 /**
@@ -134,7 +93,8 @@ OverrideMasks getDualTariffForcingBitmask(const bool bOffPeak, const int16_t cur
  * @return OverrideMasks struct containing both local (physical pins) and remote (virtual pins) bitmasks.
  *
  * @details
- * - First checks all configured external override pins and sets corresponding bits.
+ * - The logic is Forcing::pinForcing() (override_masks.h); this wrapper reads the pins.
+ * - First checks all configured external override pins (active LOW) and sets corresponding bits.
  * - Local bitmask controls physical pins (loads/relays on pins 2-13).
  * - Remote bitmask controls remote loads (bit n = remote load n).
  * - Then applies dual tariff forcing using bitwise OR operation (local and remote).
@@ -150,30 +110,14 @@ OverrideMasks getOverrideBitmask(const bool bOffPeak, const int16_t currentTempe
   // Add external override pins
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    // Check each configured override pin and combine their bitmasks
-    uint8_t i{ overridePins.size() };
-    do
-    {
-      --i;
-      const uint8_t pin = overridePins.getPin(i);
-      const auto pinState = getPinState(pin);
-
-      if (!pinState)  // Pin is LOW (active)
-      {
-        masks.local |= overridePins.getLocalBitmask(i);
-        masks.remote |= overridePins.getRemoteBitmask(i);
-      }
-    } while (i);
+    masks = Forcing::pinForcing(overridePins, [](const uint8_t pin)
+                                {
+                                  return !getPinState(pin);  // Pin is LOW (active)
+                                });
   }
 
   // Add dual tariff forcing - OR operation handles precedence automatically
-  // If a bit is already set by external override, OR won't change it
-  // If a bit is not set, OR will apply dual tariff forcing
-  const auto forcing{ getDualTariffForcingBitmask(bOffPeak, currentTemperature_x100) };
-  masks.local |= forcing.local;
-  masks.remote |= forcing.remote;
-
-  return masks;
+  return masks | getDualTariffForcingBitmask(bOffPeak, currentTemperature_x100);
 }
 
 /**

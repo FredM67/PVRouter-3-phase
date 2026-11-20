@@ -61,6 +61,7 @@ pio test -e uno -f "*test_utils_relay*"
 | [test_energy_bucket](native/test_energy_bucket/) | Integer energy bucket, checked against the float and exact references |
 | [test_ewma_avg](native/test_ewma_avg/) | EWMA filter for cloud immunity |
 | [test_load_priorities](native/test_load_priorities/) | Load priority state machine: switching order, post-transition period, rotation, overrides |
+| [test_override_masks](native/test_override_masks/) | Forced outputs: the targets of the override pins held LOW and of the scheduled boosts in their window (off-peak, temperature threshold, dead probe), joined |
 | [test_pin_edges](native/test_pin_edges/) | Edges of the active-LOW input pins: released at startup, one edge per press or release, one previous level per pin, a rotation press during forcing dropped |
 | [test_power_rms_comparison](native/test_power_rms_comparison/) | Real power vs. RMS power computation |
 | [test_relay_engine](native/test_relay_engine/) | Relay diversion decisions: strict thresholds, minimum ON/OFF times, settle time after any change, order in and out, overrides, diversion OFF, decision on the average |
