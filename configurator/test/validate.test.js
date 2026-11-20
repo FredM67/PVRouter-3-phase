@@ -68,6 +68,9 @@ const CASES = [
   ['warn.overrideNothing', (m) => (m.overrides.list[0].targets = 'ALL_REMOTE_LOADS')],
   ['err.offPeakHours', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 13 })],
   ['err.tempThreshold', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, tempThreshold: 0 })],
+  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: 10, duration: 20 }] })],
+  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: -9, duration: 1 }] })],
+  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: 480, duration: null }] })],
   ['err.noSensor', (m) => Object.assign(m.temperature, { mode: 'router', sensors: [] })],
   ['err.sensorAddress', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE41')],
   ['warn.sensorCrc', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE416B090000A5')],
@@ -113,6 +116,21 @@ CASES.forEach(([key, change], i) => {
     const m = variant(change);
     assert.ok(keys(m).includes(key), JSON.stringify(V.validate(m)));
   });
+});
+
+test('dual tariff: boosts that start within the off-peak period are accepted', () => {
+  for (const force of [
+    [{ start: -3, duration: 2 }], // config.h
+    [{ start: 7, duration: 1 }],
+    [{ start: -8, duration: 1 }], // from the very start
+    [{ start: 479, duration: 1 }], // minutes
+    [{ start: -480, duration: 30 }],
+    [{ start: 0, duration: null }],
+    [{ start: 10, duration: 0 }], // no boost: any offset
+  ]) {
+    const m = variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force }));
+    assert.ok(!keys(m).includes('err.forceWindow'), JSON.stringify(force));
+  }
 });
 
 test('remote units are only checked when used', () => {

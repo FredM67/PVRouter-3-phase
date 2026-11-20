@@ -753,6 +753,8 @@ inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{
 | Start 90min after off-peak begins, run 2h | `{ 90, 2 }` |
 | Start 90min before off-peak ends, run until end | `{ -90, UINT16_MAX }` |
 
+A load left out of `rg_ForceLoad` gets `{ 0, UINT16_MAX }`: boost for the whole off-peak period. A boost that starts outside the off-peak period (`{ 10, 20 }` with 8 hours) would never run: the build rejects it.
+
 ## Priority rotation
 Priority rotation is useful when powering a three-phase water heater.
 It allows balancing the operating duration of different resistors over an extended period.

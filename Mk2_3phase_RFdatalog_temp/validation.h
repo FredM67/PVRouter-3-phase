@@ -46,6 +46,23 @@ static_assert(DUAL_TARIFF ^ (dualTariffPin == unused_pin), "******** Wrong pin v
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION == 0)), "******** Off-peak duration cannot be zero. Please check your config.h ! ********");
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION > 12)), "******** Off-peak duration cannot last more than 12 hours. Please check your config.h ! ********");
 
+/**
+ * @brief Every scheduled boost starts within the off-peak period: one that starts outside of it
+ *        never runs ({ 10, 20 } with 8 hours, { -9, 1 } with 8 hours).
+ */
+constexpr bool check_force_windows()
+{
+  for (const auto &force : rg_ForceLoad)
+  {
+    if (!DualTariff::startsWithinOffPeak(force, ul_OFF_PEAK_DURATION))
+    {
+      return false;
+    }
+  }
+  return true;
+}
+static_assert(!DUAL_TARIFF || check_force_windows(), "******** A scheduled boost (rg_ForceLoad) starts outside the off-peak period: it would never run. Values from -24 to 24 are hours, minutes beyond. Please check your config.h ! ********");
+
 
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
 // the EWMA of the relays averages RELAY_FILTER_DELAY * 60 / DATALOG_PERIOD_IN_SECONDS datalogs:
