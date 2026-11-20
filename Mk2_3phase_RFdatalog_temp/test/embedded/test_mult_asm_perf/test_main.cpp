@@ -105,17 +105,19 @@ void test_performance_multS16x16_to32(void)
   Serial.print(F("Assembly time: "));
   Serial.print(asm_time);
   Serial.println(F(" cycles"));
-  benchCycles(F("mult_asm: multS16x16_to32"), asm_time);
+  benchCycles(F("mult_asm: multS16x16_to32 per op"), asm_time, total_ops);
   Serial.print(F("Standard time: "));
   Serial.print(std_time);
   Serial.println(F(" cycles"));
 
   if (asm_time > 0 && std_time > 0)
   {
-    Serial.print(F("Assembly cycles per op: "));
-    Serial.println((float)asm_time / total_ops, 2);
-    Serial.print(F("Standard cycles per op: "));
-    Serial.println((float)std_time / total_ops, 2);
+    Serial.print(F("Assembly per op: "));
+    printPerOp(asm_time, total_ops);
+    Serial.println();
+    Serial.print(F("Standard per op: "));
+    printPerOp(std_time, total_ops);
+    Serial.println();
 
     if (asm_time < std_time)
     {
@@ -206,17 +208,19 @@ void test_performance_multU16x16_to32(void)
   Serial.print(F("Assembly time: "));
   Serial.print(asm_time);
   Serial.println(F(" cycles"));
-  benchCycles(F("mult_asm: multU16x16_to32"), asm_time);
+  benchCycles(F("mult_asm: multU16x16_to32 per op"), asm_time, total_ops);
   Serial.print(F("Standard time: "));
   Serial.print(std_time);
   Serial.println(F(" cycles"));
 
   if (asm_time > 0 && std_time > 0)
   {
-    Serial.print(F("Assembly cycles per op: "));
-    Serial.println((float)asm_time / total_ops, 2);
-    Serial.print(F("Standard cycles per op: "));
-    Serial.println((float)std_time / total_ops, 2);
+    Serial.print(F("Assembly per op: "));
+    printPerOp(asm_time, total_ops);
+    Serial.println();
+    Serial.print(F("Standard per op: "));
+    printPerOp(std_time, total_ops);
+    Serial.println();
 
     if (asm_time < std_time)
     {
@@ -309,17 +313,19 @@ void test_performance_mult16x8_q8(void)
   Serial.print(F("Assembly time: "));
   Serial.print(asm_time);
   Serial.println(F(" cycles"));
-  benchCycles(F("mult_asm: mult16x8_q8"), asm_time);
+  benchCycles(F("mult_asm: mult16x8_q8 per op"), asm_time, total_ops);
   Serial.print(F("Standard time: "));
   Serial.print(std_time);
   Serial.println(F(" cycles"));
 
   if (asm_time > 0 && std_time > 0)
   {
-    Serial.print(F("Assembly cycles per op: "));
-    Serial.println((float)asm_time / total_ops, 2);
-    Serial.print(F("Standard cycles per op: "));
-    Serial.println((float)std_time / total_ops, 2);
+    Serial.print(F("Assembly per op: "));
+    printPerOp(asm_time, total_ops);
+    Serial.println();
+    Serial.print(F("Standard per op: "));
+    printPerOp(std_time, total_ops);
+    Serial.println();
 
     if (asm_time < std_time)
     {
@@ -431,17 +437,19 @@ void test_performance_isr_simulation(void)
   Serial.print(F("Assembly ISR time: "));
   Serial.print(asm_time);
   Serial.println(F(" cycles"));
-  benchCycles(F("mult_asm: ISR simulation"), asm_time);
+  benchCycles(F("mult_asm: ISR simulation per sample"), asm_time, samples);
   Serial.print(F("Standard ISR time: "));
   Serial.print(std_time);
   Serial.println(F(" cycles"));
 
   if (asm_time > 0 && std_time > 0)
   {
-    Serial.print(F("Assembly cycles per sample: "));
-    Serial.println((float)asm_time / samples, 2);
-    Serial.print(F("Standard cycles per sample: "));
-    Serial.println((float)std_time / samples, 2);
+    Serial.print(F("Assembly per sample: "));
+    printPerOp(asm_time, samples);
+    Serial.println();
+    Serial.print(F("Standard per sample: "));
+    printPerOp(std_time, samples);
+    Serial.println();
 
     if (asm_time < std_time)
     {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Firmware size history · PVRouter 3-phase</title>
+  <title>Firmware size and speed history · PVRouter 3-phase</title>
   <!-- Reads history.json, appended at each push to dev by scripts/ci/pages_update.py -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
   <style>
@@ -41,14 +41,20 @@
     th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
     td a { color: var(--ink-2); }
     .empty { color: var(--muted); padding: 24px 0; }
+    h3 { margin: 16px 0 8px; font-size: 14px; font-weight: 600; }
+    .multiples { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+    .panel { border: 1px solid var(--grid); border-radius: 8px; padding: 10px 10px 4px; }
+    .panel h4 { margin: 0; font-size: 13px; font-weight: 600; }
+    .panel .value { margin: 0 0 4px; font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+    .small-plot { position: relative; height: 130px; }
   </style>
 </head>
 <body>
 <main>
   <nav><a href="../">← PVRouter 3-phase</a></nav>
-  <h1>Firmware size history</h1>
-  <p class="lead">Flash and RAM of every build configuration of the CI, at each change of <code>dev</code>.
-    Hover a point for the commit, click it to open the commit.</p>
+  <h1>Firmware size and speed history</h1>
+  <p class="lead">Flash and RAM of every build configuration of the CI, and the embedded benchmarks, at each
+    change of <code>dev</code>. Hover a point for the commit, click it to open the commit.</p>
 
   <section aria-labelledby="flash-title">
     <h2 id="flash-title">Flash</h2>
@@ -64,6 +70,13 @@
     <ul class="legend" id="ram-legend"></ul>
     <div class="plot"><canvas id="ram" role="img" aria-label="Static RAM used by each build configuration, over time"></canvas></div>
     <details><summary>Table</summary><div class="table-wrap" id="ram-table"></div></details>
+  </section>
+
+  <section aria-labelledby="speed-title">
+    <h2 id="speed-title">Speed</h2>
+    <p class="sub">CPU cycles of the embedded benchmarks, in simavr (cycle-exact): 16 cycles = 1 µs.
+      Each chart has its own scale: read the values rather than the slopes.</p>
+    <div id="speed"></div>
   </section>
 </main>
 
@@ -215,10 +228,130 @@ function draw(entries, metric) {
     `<tbody>${rows.join("")}</tbody></table>`;
 }
 
+// --- speed: one small chart per benchmark, grouped by test suite ("<suite>: <benchmark>") ---
+
+const cycles = n => `${fmt(n)} cycles = ${(n / 16).toLocaleString("en-US", { maximumFractionDigits: 4 })} µs`;
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+
+// benchmarks in the order of the latest entry, then those dropped since
+function benchmarksOf(entries) {
+  const names = [];
+  for (const e of [...entries].reverse()) for (const n of Object.keys(e.speed)) if (!names.includes(n)) names.push(n);
+  return names;
+}
+
+function suitesOf(names) {
+  const suites = new Map();
+  for (const n of names) {
+    const cut = n.indexOf(": ");
+    const [suite, short] = cut < 0 ? ["other", n] : [n.slice(0, cut), n.slice(cut + 2)];
+    if (!suites.has(suite)) suites.set(suite, []);
+    suites.get(suite).push({ name: n, short });
+  }
+  return suites;
+}
+
+function drawSpeed(all) {
+  const box = document.getElementById("speed");
+  const entries = all.filter(e => e.speed && Object.keys(e.speed).length);
+  if (!entries.length) {
+    box.innerHTML = '<p class="empty">No data yet: the next change of <code>dev</code> adds the first point.</p>';
+    return;
+  }
+  const suites = suitesOf(benchmarksOf(entries));
+  const labels = entries.map(e => e.commit.slice(0, 7));
+  const newest = entries[entries.length - 1];
+  let html = "", id = 0;
+  for (const [suite, benches] of suites) {
+    html += `<h3>${esc(suite)}</h3><div class="multiples">`;
+    for (const b of benches) {
+      const last = [...entries].reverse().find(e => e.speed[b.name] != null);
+      b.id = "speed-" + id++;
+      html += `<div class="panel"><h4>${esc(b.short)}</h4>` +
+        `<p class="value">${cycles(last.speed[b.name])}${last === newest ? "" : " (no longer measured)"}</p>` +
+        `<div class="small-plot"><canvas id="${b.id}" role="img" aria-label="${esc(b.name)}, CPU cycles over time"></canvas></div></div>`;
+    }
+    html += "</div>";
+    // the table view of the suite: newest first
+    const rows = [...entries].reverse().map(e =>
+      `<tr><td><a href="${e.url}">${e.commit.slice(0, 8)}</a></td><td>${e.date.slice(0, 10)}</td>` +
+      benches.map(b => `<td>${e.speed[b.name] != null ? fmt(e.speed[b.name]) : "—"}</td>`).join("") + "</tr>");
+    html += `<details><summary>Table of ${esc(suite)} (cycles)</summary><div class="table-wrap"><table><thead><tr>` +
+      `<th>Commit</th><th>Date</th>${benches.map(b => `<th>${esc(b.short)}</th>`).join("")}</tr></thead>` +
+      `<tbody>${rows.join("")}</tbody></table></div></details>`;
+  }
+  box.innerHTML = html;
+
+  for (const benches of suites.values()) for (const b of benches) {
+    charts.push(new Chart(document.getElementById(b.id), {
+      type: "line",
+      data: {
+        labels,
+        datasets: [{
+          label: b.name,
+          data: entries.map(e => e.speed[b.name] ?? null),
+          borderColor: css("--s1"),
+          backgroundColor: css("--s1"),
+          borderWidth: 2,
+          pointRadius: entries.length > 30 ? 0 : 4,
+          pointHoverRadius: 6,
+          pointBorderColor: css("--surface"),
+          pointBorderWidth: 2,
+          spanGaps: true,
+          tension: 0,
+        }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        animation: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: css("--surface"),
+            titleColor: css("--ink"),
+            bodyColor: css("--ink-2"),
+            footerColor: css("--muted"),
+            borderColor: css("--grid"),
+            borderWidth: 1,
+            padding: 10,
+            displayColors: false,
+            callbacks: {
+              title: items => {
+                const e = entries[items[0].dataIndex];
+                return `${e.commit.slice(0, 8)} · ${e.date.slice(0, 10)}`;
+              },
+              label: item => cycles(item.raw),
+              footer: items => entries[items[0].dataIndex].message.split("\n")[0].slice(0, 60),
+            },
+          },
+        },
+        scales: {
+          x: { display: false },
+          y: {
+            grid: { color: css("--grid") },
+            border: { display: false },
+            ticks: { color: css("--muted"), maxTicksLimit: 4, callback: v => fmt(v) },
+            grace: "10%",
+          },
+        },
+        onClick: (_, elements) => {
+          if (elements.length) window.open(entries[elements[0].index].url, "_blank", "noopener");
+        },
+        onHover: (event, elements) => {
+          event.native.target.style.cursor = elements.length ? "pointer" : "default";
+        },
+      },
+      plugins: [crosshair],
+    }));
+  }
+}
+
 function render(entries) {
   charts.splice(0).forEach(c => c.destroy());
   draw(entries, "flash");
   draw(entries, "ram");
+  drawSpeed(entries);
 }
 
 fetch("history.json", { cache: "no-cache" })

@@ -88,9 +88,16 @@ BENCH|datalog: isqrt avg [us]|25.8750|us
 BENCH|datalog: isqrt avg [cycles]|414|cycles
 ```
 
+A loop reports one operation, its cycles divided by the operations, loop overhead included: `benchCycles(name, cycles, ops)`, with a name saying what one operation is (`... per op`, `... per call`). The cycles then have two decimals, the microseconds stay at four.
+
+```
+BENCH|mult_asm: multS16x16_to32 per op [us]|2.7864|us
+BENCH|mult_asm: multS16x16_to32 per op [cycles]|44.58|cycles
+```
+
 Loops of any length are timed with `BenchTimer` from [`embedded/bench_timer.h`](embedded/bench_timer.h): Timer1 at the CPU clock, extended to 32 bits by its overflow interrupt, with the `millis()` interrupt paused and the serial output sent before the measurement. Short code is timed with Timer1 directly, interrupts off (`test_datalog_math_avr`).
 
-CI collects these lines from the verbose output of the embedded tests (`scripts/ci/bench_to_json.py`), together with the flash and RAM of every build: they feed the performance report of the pull requests (below). The flash and RAM are also tracked on GitHub Pages, one chart each with every build configuration: [fredm67.github.io/PVRouter-3-phase/bench](https://fredm67.github.io/PVRouter-3-phase/bench/). Each push to `dev` adds a point (`scripts/ci/pages_update.py`). Smaller is better everywhere.
+CI collects these lines from the verbose output of the embedded tests (`scripts/ci/bench_to_json.py`), together with the flash and RAM of every build: they feed the performance report of the pull requests (below). They are also tracked on GitHub Pages, [fredm67.github.io/PVRouter-3-phase/bench](https://fredm67.github.io/PVRouter-3-phase/bench/): the flash and RAM in one chart each with every build configuration, and one small chart per benchmark, in cycles. Each push to `dev` adds a point (`scripts/ci/pages_update.py`). Smaller is better everywhere.
 
 Every pull request gets a **performance report** as a comment, updated at each push (as ESPHome does for memory): its target branch is built and measured in the same run (`scripts/ci/measure.sh`), and compared with the PR (`scripts/ci/pr_report.py`). 📈 🚨 marks a value more than **2%** worse, 📈 🔸 a smaller regression, 📉 ✅ / 🎉 an improvement. PRs from forks get the report in the job summary only.
 
