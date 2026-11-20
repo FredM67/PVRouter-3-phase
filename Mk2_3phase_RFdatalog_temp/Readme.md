@@ -553,9 +553,13 @@ Avec l’Arduino IDE, la bibliothèque *OneWire* doit être installée, comme po
 
 ### Configuration du ou des capteurs
 Pour configurer les capteurs, vous devez entrer leurs adresses.
-Utilisez un programme pour scanner les capteurs connectés.
-Vous pouvez trouver de tels programmes sur Internet ou parmi les exemples fournis avec l’Arduino IDE.
-Il est recommandé de coller une étiquette avec l’adresse de chaque capteur sur son câble.
+Le routeur les trouve lui-même : mettez `TEMP_SENSOR_PRESENT` à `true` avec la broche du bus, mettez `CALIBRATION_MODE` à `true` (voir [Étalonnage du routeur](#étalonnage-du-routeur)) et téléversez. Au démarrage, il liste les capteurs présents sur le bus, avec leurs adresses écrites comme **config.h** les attend, et indique si **config.h** contient déjà chacune d’elles :
+```
+Temperature sensors found on pin 4:
+	{ 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 }  not in config.h
+	{ 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 }  not in config.h
+```
+En branchant les capteurs un par un, on sait quelle adresse correspond à quel capteur. Il est recommandé de coller une étiquette avec l’adresse de chaque capteur sur son câble.
 
 Entrez les adresses comme suit :
 ```cpp

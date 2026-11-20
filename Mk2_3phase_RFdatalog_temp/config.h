@@ -6,7 +6,7 @@
  * https://fredm67.github.io/Mk2PVRouter/configurateur/
  *
  * @version 1.0
- * @date 2026-11-13
+ * @date 2026-11-20
  */
 
 #ifndef CONFIG_H
@@ -30,7 +30,9 @@ inline constexpr bool ENABLE_DEBUG{ true };
 #include "debug.h"  // needs SERIAL_OUTPUT_TYPE and ENABLE_DEBUG
 
 // Calibration mode: the router measures and logs as usual, but never switches any load
-// (TRIACs, relays, remote loads, overrides), as with the router OFF. Set back to false once calibrated!
+// (TRIACs, relays, remote loads, overrides), as with the router OFF. With temperature sensing, it
+// also lists the sensors on the bus at startup, with their addresses for this file.
+// Set back to false once calibrated!
 inline constexpr bool CALIBRATION_MODE{ false };
 
 //--------------------------------------------------------------------------------------------------
