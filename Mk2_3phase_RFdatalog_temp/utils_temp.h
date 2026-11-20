@@ -188,8 +188,15 @@ public:
       uint8_t count{ 0 };
       // bounded: noise on a long or badly terminated bus could otherwise keep the search going
       constexpr uint8_t MAX_LISTED{ 16 };
-      while ((count != MAX_LISTED) && search.next(found.addr))
+      static_assert(MAX_LISTED == 16, "update the message below");
+      while (search.next(found.addr))
       {
+        if (MAX_LISTED == count)
+        {
+          // a 17th device: exactly 16 sensors give no warning
+          infoln(F("\t... more than 16: noise on the bus? Check the wiring"));
+          break;
+        }
         ++count;
         info(F("\t{ "));
         for (uint8_t i = 0; i != 8; ++i)
@@ -219,10 +226,6 @@ public:
       if (0 == count)
       {
         infoln(F("\tnone: check the wiring and the pull-up resistor"));
-      }
-      else if (MAX_LISTED == count)
-      {
-        infoln(F("\t... stopped after 16: noise on the bus? Check the wiring"));
       }
     }
   }
