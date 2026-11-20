@@ -7,6 +7,9 @@
 The commit message is read from the COMMIT_MESSAGE environment variable (no quoting issue).
 
 - Copies the pages of the repository (pages/index.html, pages/bench/index.html) to the site.
+- Publishes the configurator of dev as a preview, in configurator/ (without its tests): a banner
+  says so and links to the released one, and it keeps its settings under a key of its own, since
+  the released configurator (fredm67.github.io/Mk2PVRouter) shares the origin and its storage.
 - Appends the sizes of size.json (customSmallerIsBetter results named "flash: <build>" and
   "RAM: <build>", from the build jobs) to bench/history.json, as one entry per commit (a rerun
   replaces the entry of its commit).
@@ -19,7 +22,8 @@ The commit message is read from the COMMIT_MESSAGE environment variable (no quot
   deploys to doc/, everything else than the landing page, doc/ and bench/ is removed (the doc
   used to be deployed at the root).
 
-Layout of the site: / (landing page), doc/ (doxygen, deployed by doxygen-gh-pages.yml), bench/.
+Layout of the site: / (landing page), doc/ (doxygen, deployed by doxygen-gh-pages.yml), bench/,
+configurator/.
 """
 
 import json
@@ -27,8 +31,40 @@ import os
 import shutil
 import sys
 
-KEEP_AT_ROOT = {".git", ".nojekyll", "index.html", "doc", "bench", "CNAME"}
+KEEP_AT_ROOT = {".git", ".nojekyll", "index.html", "doc", "bench", "configurator", "CNAME"}
 KEEP_IN_BENCH = {"index.html", "history.json"}
+
+CONFIGURATOR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "configurator")
+RELEASED_CONFIGURATOR = "https://fredm67.github.io/Mk2PVRouter/configurateur/"
+STORE = "'pvrouter-configurator'"
+PREVIEW_STORE = "'pvrouter-configurator-dev'"
+PREVIEW_BANNER = (
+    '<div style="background:#fff3cd;border-bottom:1px solid #e0c060;padding:.5rem 1rem;'
+    'font:14px/1.4 system-ui,sans-serif;text-align:center">'
+    "Preview of the <code>dev</code> branch, not released: it may change or break, and its files "
+    "may not suit the released firmware. / Aperçu de la branche <code>dev</code>, non publié.<br>"
+    f'Released configurator / Configurateur publié : <a href="{RELEASED_CONFIGURATOR}">{RELEASED_CONFIGURATOR}</a>'
+    "</div>"
+)
+
+
+def replace_once(text, old, new, what):
+    if text.count(old) != 1:
+        sys.exit(f"pages_update: {what}: expected one {old!r}, found {text.count(old)}")
+    return text.replace(old, new)
+
+
+def publish_configurator(site):
+    """The configurator of dev, as a preview: banner, settings of its own, no tests."""
+    target = os.path.join(site, "configurator")
+    if os.path.isdir(target):
+        shutil.rmtree(target)  # files removed from the repository go too
+    shutil.copytree(CONFIGURATOR, target, ignore=shutil.ignore_patterns("test", "README.md"))
+    for name, old, new in (("index.html", "<body>", "<body>\n" + PREVIEW_BANNER), ("app.js", STORE, PREVIEW_STORE)):
+        path = os.path.join(target, name)
+        text = open(path, encoding="utf-8").read()
+        with open(path, "w", encoding="utf-8", newline="") as f:
+            f.write(replace_once(text, old, new, f"configurator/{name}"))
 
 
 def sizes_of(results):
@@ -81,6 +117,7 @@ def main(site, pages, size_json, sha, date, url, speed_json=None):
     shutil.copyfile(os.path.join(pages, "index.html"), os.path.join(site, "index.html"))
     shutil.copyfile(os.path.join(pages, "bench", "index.html"), os.path.join(bench, "index.html"))
     open(os.path.join(site, ".nojekyll"), "a").close()
+    publish_configurator(site)
 
     # the history
     history_path = os.path.join(bench, "history.json")
