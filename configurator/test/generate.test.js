@@ -97,6 +97,48 @@ test('override pins: a comment says what each one forces, numbered as on the pag
   assert.doesNotMatch(G.configH(M.defaults()), /What each override pin forces/);
 });
 
+// One boost of the default model replaced: its line in config.h
+function boostsLine(boosts) {
+  const m = M.defaults();
+  m.dualTariff.boosts = boosts;
+  return G.configH(m)
+    .split('\n')
+    .find((l) => l.startsWith('inline constexpr ScheduledBoosts'));
+}
+
+test('scheduled boosts: each kind of window gives its form', () => {
+  const one = (b) => boostsLine([{ targets: [{ load: 0 }], ...b }]);
+  assert.match(one({ from: 'start', at: 0, for: 120 }), /scheduledBoosts\{ \{ \{ FIRST\(HOURS\(2\)\), \{ LOAD\(0\) \} \} \} \};/);
+  assert.match(one({ from: 'end', at: 90, for: null }), /scheduledBoosts\{ \{ \{ LAST\(MINUTES\(90\)\), \{ LOAD\(0\) \} \} \} \};/);
+  assert.match(one({ from: 'start', at: 60, for: null }), /scheduledBoosts\{ \{ \{ FROM_START\(HOURS\(1\)\), \{ LOAD\(0\) \} \} \} \};/);
+  assert.match(one({ from: 'end', at: 180, for: 90 }), /scheduledBoosts\{ \{ \{ BEFORE_END\(HOURS\(3\)\), FOR\(MINUTES\(90\)\), \{ LOAD\(0\) \} \} \} \};/);
+  assert.match(one({ from: 'start', at: 30, for: 60 }), /scheduledBoosts\{ \{ \{ FROM_START\(MINUTES\(30\)\), FOR\(HOURS\(1\)\), \{ LOAD\(0\) \} \} \} \};/);
+});
+
+test('scheduled boosts: an empty list, a group of targets', () => {
+  assert.match(boostsLine([]), /^inline constexpr ScheduledBoosts scheduledBoosts\{\};/);
+  assert.match(boostsLine([{ from: 'start', at: 0, for: 120, targets: 'ALL_RELAYS' }]), /\{ \{ \{ FIRST\(HOURS\(2\)\), ALL_RELAYS\(\) \} \} \}; \/\*\*< all relays, the first 2 hours \*\/$/);
+});
+
+test('scheduled boosts: several, one per line, a comment says what each one forces', () => {
+  const m = M.defaults();
+  m.dualTariff.boosts = [
+    { from: 'end', at: 180, for: 120, targets: [{ load: 0 }] },
+    { from: 'start', at: 0, for: 60, targets: 'ALL_LOADS' },
+  ];
+  assert.match(
+    G.configH(m),
+    /^\/\/ What each scheduled boost forces .*\n\/\/ {3}boost 1: load 1 \(D5\)\n\/\/ {3}boost 2: all loads\ninline constexpr ScheduledBoosts scheduledBoosts\{ \{ \{ BEFORE_END\(HOURS\(3\)\), FOR\(HOURS\(2\)\), \{ LOAD\(0\) \} \},\n {52}\{ FIRST\(HOURS\(1\)\), ALL_LOADS\(\) \} \} \};/m
+  );
+});
+
+test('normalize: the former force list is dropped, the default boosts take its place', () => {
+  const m = M.normalize({ dualTariff: { enabled: true, pin: 3, force: [{ start: -3, duration: 2 }] } });
+  assert.ok(!('force' in m.dualTariff));
+  assert.deepStrictEqual(m.dualTariff.boosts, M.defaults().dualTariff.boosts);
+  assert.deepStrictEqual(M.defaults().dualTariff.boosts, [{ from: 'end', at: 180, for: 120, targets: [{ load: 0 }] }]);
+});
+
 const calibrationFile = () => fs.readFileSync(path.join(repo, 'Mk2_3phase_RFdatalog_temp/calibration.h'), 'utf8');
 // The text with one value of an array replaced: the tests follow the values of calibration.h
 function withValue(text, name, phase, value) {

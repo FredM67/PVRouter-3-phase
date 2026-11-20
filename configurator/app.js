@@ -594,12 +594,67 @@
     );
   }
 
+  // A number of minutes as two inputs, h and min
+  function hoursMinutes(labelKey, get, set, maxHours) {
+    const total = () => get() || 0;
+    return [
+      field(
+        labelKey,
+        num(
+          () => Math.floor(total() / 60),
+          (v) => set((v || 0) * 60 + (total() % 60)),
+          { min: 0, max: maxHours }
+        )
+      ),
+      field(
+        'minutes',
+        num(
+          () => total() % 60,
+          (v) => set(Math.floor(total() / 60) * 60 + (v || 0)),
+          { min: 0, max: 59 }
+        )
+      ),
+    ];
+  }
+
+  function boostEditor(d, b, i) {
+    return h(
+      'div',
+      { class: 'sub' },
+      row(h('strong', null, `${T('boost')} ${i + 1}`), button('remove', () => d.boosts.splice(i, 1), 'small')),
+      row(
+        hoursMinutes(
+          'boostAt',
+          () => b.at,
+          (v) => (b.at = v),
+          12
+        ),
+        select(
+          () => b.from,
+          (v) => (b.from = v),
+          ['start', 'end'].map((f) => [f, T(`boostFrom.${f}`)])
+        )
+      ),
+      row(
+        check(
+          () => b.for === null,
+          (v) => (b.for = v ? null : 120),
+          'untilEnd'
+        ),
+        b.for !== null
+          ? hoursMinutes(
+              'boostFor',
+              () => b.for,
+              (v) => (b.for = v)
+            )
+          : null
+      ),
+      targetsEditor(b)
+    );
+  }
+
   function dualTariff(p) {
     const d = m.dualTariff;
-    const entry = (i) => {
-      while (d.force.length <= i) d.force.push({ start: 0, duration: null });
-      return d.force[i];
-    };
     return section(
       'dualTariff',
       'sec.dualTariff',
@@ -625,34 +680,14 @@
                 )
               )
             ),
-            m.loads.map((_, i) => {
-              const f = i < d.force.length ? d.force[i] : { start: 0, duration: null };
-              return row(
-                h('strong', null, `${T('force')} – ${loadName(i)}`),
-                field(
-                  'start',
-                  num(
-                    () => f.start,
-                    (v) => (entry(i).start = v || 0)
-                  )
-                ),
-                f.duration !== null
-                  ? field(
-                      'duration',
-                      num(
-                        () => f.duration,
-                        (v) => (entry(i).duration = v),
-                        { min: 0 }
-                      )
-                    )
-                  : null,
-                check(
-                  () => f.duration === null,
-                  (v) => (entry(i).duration = v ? null : 2),
-                  'untilEnd'
-                )
-              );
-            }),
+            h(
+              'div',
+              { class: 'block' },
+              h('strong', null, T('boosts')),
+              help('boostsHelp'),
+              d.boosts.map((b, i) => boostEditor(d, b, i)),
+              button('add', () => d.boosts.push({ from: 'start', at: 0, for: 120, targets: 'ALL_LOADS' }))
+            ),
           ]
         : null
     );

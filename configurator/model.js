@@ -109,9 +109,9 @@
         pin: null,
         wifi: false,
         offPeakHours: 8,
-        // one entry per load: start offset (hours, or minutes beyond 24) and duration
-        // (null = until the end of the off-peak period)
-        force: [{ start: -3, duration: 2 }],
+        // scheduled boosts: from 'start' or 'end' of the off-peak period, 'at' minutes after the
+        // start or before the end, for 'for' minutes (null: until the end); targets as overrides
+        boosts: [{ from: 'end', at: 180, for: 120, targets: [{ load: 0 }] }],
         tempThreshold: 100,
       },
 
@@ -299,7 +299,6 @@
     }
     m.loads.length = count;
     m.priorities = m.loads.map((_, i) => i);
-    while (m.dualTariff.force.length > count) m.dualTariff.force.pop();
     return m;
   }
 

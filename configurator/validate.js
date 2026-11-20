@@ -110,25 +110,30 @@
       });
     }
 
+    // ---- what an override pin or a boost forces (validation.h: targetsAreOutputs) ----
+    const checkTargets = (t, field, index, keys) => {
+      if (typeof t === 'string') {
+        if (!M.OVERRIDE_GROUPS.includes(t)) error(keys.targets, field, { index });
+        if (t === 'ALL_RELAYS' && !m.relays.enabled) error(keys.noRelay, field, { index });
+        if (t === 'ALL_REMOTE_LOADS' && !remote) warning(keys.nothing, field, { index });
+        if (t === 'ALL_LOCAL_LOADS' && remote === n) warning(keys.nothing, field, { index });
+      } else if (!Array.isArray(t) || !t.length) error(keys.targets, field, { index });
+      else
+        for (const x of t) {
+          if ('relay' in x) {
+            if (!m.relays.enabled) error(keys.noRelay, field, { index });
+            else if (!inRange(x.relay, 0, relays.length - 1)) error(keys.relay, field, { index, relay: x.relay + 1 });
+          } else if (!inRange(x.load, 0, n - 1)) error(keys.load, field, { index, load: x.load + 1 });
+        }
+    };
+
     // ---- overrides ----
     if (M.overridePresent(m)) {
+      const keys = { targets: 'err.overrideTargets', noRelay: 'err.overrideNoRelay', relay: 'err.overrideRelay', load: 'err.overrideLoad', nothing: 'warn.overrideNothing' };
       m.overrides.list.forEach((o, i) => {
         const field = `overrides.${i}`;
         if (!isRouterPin(o.pin)) error('err.overridePin', field, { index: i + 1 });
-        const t = o.targets;
-        if (typeof t === 'string') {
-          if (!M.OVERRIDE_GROUPS.includes(t)) error('err.overrideTargets', field, { index: i + 1 });
-          if (t === 'ALL_RELAYS' && !m.relays.enabled) error('err.overrideNoRelay', field, { index: i + 1 });
-          if (t === 'ALL_REMOTE_LOADS' && !remote) warning('warn.overrideNothing', field, { index: i + 1 });
-          if (t === 'ALL_LOCAL_LOADS' && remote === n) warning('warn.overrideNothing', field, { index: i + 1 });
-        } else if (!Array.isArray(t) || !t.length) error('err.overrideTargets', field, { index: i + 1 });
-        else
-          for (const x of t) {
-            if ('relay' in x) {
-              if (!m.relays.enabled) error('err.overrideNoRelay', field, { index: i + 1 });
-              else if (!inRange(x.relay, 0, relays.length - 1)) error('err.overrideRelay', field, { index: i + 1, relay: x.relay + 1 });
-            } else if (!inRange(x.load, 0, n - 1)) error('err.overrideLoad', field, { index: i + 1, load: x.load + 1 });
-          }
+        checkTargets(o.targets, field, i + 1, keys);
       });
     }
 
@@ -136,19 +141,16 @@
     if (m.dualTariff.enabled) {
       if (!inRange(m.dualTariff.offPeakHours, 1, 12)) error('err.offPeakHours', 'dualTariff');
       if (!inRange(m.dualTariff.tempThreshold, 1, 100)) error('err.tempThreshold', 'dualTariff');
-      if (m.dualTariff.force.length > n) error('err.forceCount', 'dualTariff');
-      // as DualTariff::startsWithinOffPeak() (utils_dualtariff.h): hours from -24 to 24, minutes
-      // beyond; a negative start counts back from the end. A boost starting outside never runs.
-      // A duration of 0 is no boost ({ 0, 0 } in the Readme): its start does not matter.
-      const periodSec = m.dualTariff.offPeakHours * 3600;
-      const startsWithinOffPeak = (f) => {
-        const offsetSec = f.start * (Math.abs(f.start) > 24 ? 60 : 3600);
-        const startSec = f.start >= 0 ? offsetSec : periodSec + offsetSec;
-        return startSec >= 0 && startSec < periodSec;
-      };
-      m.dualTariff.force.forEach((f, i) => {
-        if (!inRange(f.start, -32768, 32767) || (f.duration !== null && !inRange(f.duration, 0, 65534))) error('err.force', 'dualTariff', { load: i + 1 });
-        else if (f.duration !== 0 && !startsWithinOffPeak(f)) error('err.forceWindow', 'dualTariff', { load: i + 1 });
+      // as DualTariff::startsWithinOffPeak() and hasLength() (utils_dualtariff.h): a boost that
+      // starts outside the period, or lasts 0 min, never runs
+      const period = m.dualTariff.offPeakHours * 60;
+      const keys = { targets: 'err.boostTargets', noRelay: 'err.boostNoRelay', relay: 'err.boostRelay', load: 'err.boostLoad', nothing: 'warn.boostNothing' };
+      m.dualTariff.boosts.forEach((b, i) => {
+        const field = `dualTariff.boosts.${i}`;
+        const start = b.from === 'end' ? period - b.at : b.at;
+        if (!['start', 'end'].includes(b.from) || !inRange(b.at, 0, 720) || (b.for !== null && !inRange(b.for, 0, 65534))) error('err.boost', field, { index: i + 1 });
+        else if (start < 0 || start >= period || b.for === 0) error('err.boostWindow', field, { index: i + 1 });
+        checkTargets(b.targets, field, i + 1, keys);
       });
     }
 

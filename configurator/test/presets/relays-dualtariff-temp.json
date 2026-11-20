@@ -12,7 +12,10 @@
     "enabled": true,
     "pin": 4,
     "offPeakHours": 8,
-    "force": [{ "start": -3, "duration": 2 }, { "start": 2, "duration": null }],
+    "boosts": [
+      { "from": "end", "at": 180, "for": 120, "targets": [{ "load": 0 }] },
+      { "from": "start", "at": 120, "for": null, "targets": [{ "load": 1 }] }
+    ],
     "tempThreshold": 70
   },
   "temperature": {

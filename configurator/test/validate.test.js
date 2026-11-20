@@ -15,6 +15,8 @@ const variant = (change) => {
   return m;
 };
 const remote = (unit) => ({ type: 'remote', unit, led: null });
+// dual tariff on, 8 hours of off-peak, one boost (load 1 unless told otherwise)
+const boosts = (m, b) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, boosts: [{ targets: [{ load: 0 }], ...b }] });
 
 test('the defaults have no problem', () => {
   assert.deepStrictEqual(V.validate(M.defaults()), []);
@@ -69,9 +71,17 @@ const CASES = [
   ['err.offPeakHours', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 13 })],
   ['err.tempThreshold', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, tempThreshold: 0 })],
   // start of a boost: hours from -24 to 24, minutes beyond; 8 hours of off-peak
-  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: 10, duration: 20 }] })], // hours: after the end
-  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: -9, duration: 1 }] })], // hours: before the start
-  ['err.forceWindow', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force: [{ start: 480, duration: null }] })], // minutes: at the end
+  ['err.boostWindow', (m) => boosts(m, { from: 'end', at: 540, for: null })], // 9 h before the end of 8 h
+  ['err.boostWindow', (m) => boosts(m, { from: 'start', at: 480, for: 60 })], // at the end
+  ['err.boostWindow', (m) => boosts(m, { from: 'start', at: 0, for: 0 })], // lasts 0 min
+  ['err.boost', (m) => boosts(m, { from: 'start', at: null, for: 60 })],
+  ['err.boost', (m) => boosts(m, { from: 'start', at: 0, for: 65535 })],
+  ['err.boostNoRelay', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: [{ relay: 0 }] })],
+  ['err.boostNoRelay', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: 'ALL_RELAYS' })],
+  ['err.boostRelay', (m) => (m.relays.enabled = true) && boosts(m, { from: 'start', at: 0, for: 60, targets: [{ relay: 3 }] })],
+  ['err.boostLoad', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: [{ load: 5 }] })],
+  ['err.boostTargets', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: [] })],
+  ['warn.boostNothing', (m) => boosts(m, { from: 'start', at: 0, for: 60, targets: 'ALL_REMOTE_LOADS' })],
   ['err.noSensor', (m) => Object.assign(m.temperature, { mode: 'router', sensors: [] })],
   ['err.sensorAddress', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE41')],
   ['warn.sensorCrc', (m) => (m.temperature.mode = 'router') && (m.temperature.sensors[0].address = '28BE416B090000A5')],
@@ -120,19 +130,17 @@ CASES.forEach(([key, change], i) => {
 });
 
 test('dual tariff: boosts that start within the off-peak period are accepted', () => {
-  // start: hours from -24 to 24, minutes beyond, as in the firmware; 8 hours of off-peak
-  for (const force of [
-    [{ start: -3, duration: 2 }], // hours: config.h, 3 h before the end
-    [{ start: 7, duration: 1 }], // hours: 7 h after the start
-    [{ start: -8, duration: 1 }], // hours: from the very start
-    [{ start: 479, duration: 1 }], // minutes: 1 min before the end
-    [{ start: -480, duration: 30 }], // minutes: from the very start
-    [{ start: 0, duration: null }], // the whole period
-    [{ start: 10, duration: 0 }], // no boost: any start
+  for (const b of [
+    { from: 'end', at: 180, for: 120 }, // config.h, 3 h before the end
+    { from: 'end', at: 480, for: null }, // from the very start
+    { from: 'start', at: 0, for: 600 }, // longer than the period: the end stops it
+    { from: 'start', at: 479, for: 1 }, // 1 min before the end
+    { from: 'end', at: 1, for: null }, // the last minute
   ]) {
-    const m = variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, force }));
-    assert.deepStrictEqual(errors(m), [], JSON.stringify(force));
+    const m = variant((m) => boosts(m, b));
+    assert.deepStrictEqual(errors(m), [], JSON.stringify(b));
   }
+  assert.deepStrictEqual(errors(variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3, boosts: [] }))), []);
 });
 
 test('remote units are only checked when used', () => {
