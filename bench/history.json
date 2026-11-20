@@ -611,6 +611,51 @@
     "datalog: watts avg": 156,
     "datalog: watts max": 158
    }
+  },
+  {
+   "commit": "904f1e645aaca49f6c185c785cbfeffe27c4c7b4",
+   "date": "2026-11-20T14:26:55+01:00",
+   "message": "build: OneWire without its bus search; calibration mode lists the temperature sensors (#220)\n\n* build: OneWire without its bus search, -48 B flash, -11 B RAM with sensors\n\nThe firmware addresses its DS18B20 sensors by their ROM codes from\nconfig.h, it never searches the bus. -DONEWIRE_SEARCH=0 drops the search\nstate of the OneWire object (ROM_NO[8] and 3 state bytes) and the code\nthat resets it.\n\nWith temperature sensing: 9,142 -> 9,094 B of flash, 647 -> 636 B of RAM.\nWithout it, OneWire is not built in: no change (7,972 B).\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat: list the temperature sensors on the bus in calibration mode\n\nWith temperature sensing and CALIBRATION_MODE, the router lists the\nsensors on the bus at startup, with their ROM codes written as config.h\ntakes them, and whether config.h already has each of them, or a CRC\nerror. No more separate sketch to find the addresses.\n\nOneWire is built without its search (-DONEWIRE_SEARCH=0): RomSearch\n(onewire_search.h) does it on the bit primitives of the bus, with its\nstate on the stack, as in Maxim's application note 187. Compiled in with\ncalibration mode and temperature sensing only: no change otherwise.\nNative tests on a simulated wired-AND bus (test_onewire_search).\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix(configurator): the CALIBRATION_MODE comment of config.h\n\nThe configurator writes config.h, and its tests compare the result with\nthe repository's config.h: the comment on CALIBRATION_MODE, which now\nmentions the sensor listing, must be the same in both.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix: bound the sensor listing of calibration mode\n\nThe search ends on a clean bus, but noise on a long or badly terminated\n1-Wire cable could keep producing new codes, and the router would loop\nin setup(). The listing stops after 16 sensors, and says why.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix: the ROM search starts over after a reset without presence\n\nFrom the Graphify review of #220:\n- RomSearch::next() kept lastDiscrepancy when no device answered the\n  reset: once the devices were back, the next call carried on with the\n  old listing and skipped the first one, against its documented contract.\n  A new test unplugs and replugs the bus between two searches.\n- The \"last bit\" test differed in bit 56 (byte 7, bit 0): it now differs\n  in bit 63, the last one sent.\n- SimulatedBus::add() ignores a device beyond its table.\n- The doc block of initTemperatureSensors() is back above it.\n- main.cpp says printSensorsOnBus() is empty unless CALIBRATION_MODE.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix: no noise warning for exactly 16 sensors\n\nFrom the second Graphify review of #220: the listing stopped at the 16th\nsensor and then warned of noise, as if there were more. It now warns\nonly when a 17th answers. A static_assert ties the 16 of the message to\nMAX_LISTED. 4 B less flash with temperature and calibration mode on.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/904f1e645aaca49f6c185c785cbfeffe27c4c7b4",
+   "sizes": {
+    "basic": {
+     "flash": 7978,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 7978,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7808,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05,
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158
+   }
   }
  ]
 }
