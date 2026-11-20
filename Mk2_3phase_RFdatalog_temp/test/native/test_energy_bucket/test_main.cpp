@@ -176,6 +176,57 @@ void test_contribution_at_full_scale_does_not_overflow(void)
   TEST_ASSERT_INT32_WITHIN(2, lround(reference(-FULL_SCALE, largeCal[0])), Energy::contribution(-FULL_SCALE, calFixed, shift));
 }
 
+/** @brief contribution() with the general rounding, (product + 2^(r-1)) >> r, in 64 bits. */
+static int32_t generalRounding(int32_t power, uint16_t calFixed, uint8_t shift)
+{
+  const bool negative{ power < 0 };
+  const uint64_t magnitude{ static_cast< uint64_t >(negative ? -static_cast< int64_t >(power) : power) };
+  const uint64_t product{ (magnitude * calFixed) >> 8 };
+  const uint8_t remaining{ static_cast< uint8_t >(shift - Energy::FRACTION_BITS - 8) };
+  const auto rounded{ static_cast< int32_t >((product + (1ULL << (remaining - 1))) >> remaining) };
+  return negative ? -rounded : rounded;
+}
+
+void test_contribution_rounding_shortcut_is_exact(void)
+{
+  // remaining = shift - 12. From 9 on, contribution() rounds with a byte move and a short
+  // shift; below, with the general form. Both must give exactly the general rounding, for
+  // any |power| below 2^24 (the per-sample path) and any calFixed.
+  uint32_t lcg{ 12345 };
+  const auto next = [&lcg]()
+  {
+    lcg = lcg * 1664525UL + 1013904223UL;
+    return lcg;
+  };
+
+  for (uint8_t shift = 17; shift <= 28; ++shift)  // remaining 5..16
+  {
+    const uint8_t remaining{ static_cast< uint8_t >(shift - 12) };
+
+    // rounding edges: with calFixed = 256, product == |power|
+    for (int32_t k = 0; k < 64; ++k)
+    {
+      for (int32_t d = -1; d <= 1; ++d)
+      {
+        const int64_t edge{ (static_cast< int64_t >(k) << remaining) + (1L << (remaining - 1)) + d };
+        if ((edge < 0) || (edge >= (1L << 24)))
+          continue;
+        const auto power{ static_cast< int32_t >(edge) };
+        TEST_ASSERT_EQUAL_INT32(generalRounding(power, 256, shift), Energy::contribution(power, 256, shift));
+        TEST_ASSERT_EQUAL_INT32(generalRounding(-power, 256, shift), Energy::contribution(-power, 256, shift));
+      }
+    }
+
+    // random powers and calibration values, including the largest ones
+    for (uint16_t i = 0; i < 20000; ++i)
+    {
+      const auto power{ static_cast< int32_t >(next() & 0xFFFFFFUL) * ((next() & 1) ? 1 : -1) };
+      const auto calFixed{ static_cast< uint16_t >((i < 100) ? 65535 - i : next() >> 16) };
+      TEST_ASSERT_EQUAL_INT32(generalRounding(power, calFixed, shift), Energy::contribution(power, calFixed, shift));
+    }
+  }
+}
+
 void test_contribution_is_sign_symmetric(void)
 {
   // import and export must weigh the same, or the bucket drifts one way
@@ -424,6 +475,7 @@ int main(int, char **)
   RUN_TEST(test_contribution_matches_the_reference_for_extreme_calibrations);
   RUN_TEST(test_contribution_of_zero_is_zero);
   RUN_TEST(test_contribution_at_full_scale_does_not_overflow);
+  RUN_TEST(test_contribution_rounding_shortcut_is_exact);
   RUN_TEST(test_contribution_is_sign_symmetric);
   RUN_TEST(test_no_drift_over_one_minute);
 
