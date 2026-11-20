@@ -1378,7 +1378,7 @@
     const problems = V.validate(m);
     const scroll = window.scrollY;
     // In calibration mode, only what calibration needs, plus the sections with an error to fix
-    const all = [general, loads, relays, controls, dualTariff, temperature, mk2wifi, rf, units];
+    const all = [general, loads, relays, controls, temperature, dualTariff, mk2wifi, rf, units];
     const withError = (s) => problems.some((x) => x.level === 'error' && sectionOf(x.field) === s.name);
     const shown = m.calibrationMode ? [general, calibration, ...all.slice(1).filter(withError)] : all;
     document.getElementById('form').replaceChildren(...shown.map((s) => s(problems)).filter(Boolean));
