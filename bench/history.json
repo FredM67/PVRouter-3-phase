@@ -1016,6 +1016,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "7731133b641da139ab73fb3c27dc8e7e1be9b6cf",
+   "date": "2026-11-20T22:54:19+01:00",
+   "message": "docs: config comments that pointed to a deleted test and a wrong value (#229)\n\nconfig.h sent readers to test_cloud_patterns, removed in ebdd8330, and to\ndocs/Cloud_Pattern_Tuning_Guide.md, which lies at the root of the\nrepository, not next to config.h. DIVERSION_START_THRESHOLD_WATTS said 50 W\nfor a value of 0. The configurator writes the same comments.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/7731133b641da139ab73fb3c27dc8e7e1be9b6cf",
+   "sizes": {
+    "basic": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "basic, remote loads": {
+     "flash": 12392,
+     "ram": 675
+    },
+    "basic, IoT": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7802,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
