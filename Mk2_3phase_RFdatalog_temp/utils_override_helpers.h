@@ -13,7 +13,7 @@
  *
  * @author Frederic Metrich (frederic.metrich@live.fr)
  * @version 0.2
- * @date 2026-09-23
+ * @date 2026-11-20
  * @copyright Copyright (c) 2025-2026
  */
 
@@ -25,21 +25,32 @@
 /**
  * @brief Returns the pin number for any load (local or remote).
  * @param loadNum The load index into physicalLoadPin[] (0-based).
- * @return Physical pin for local loads, virtual pin (>= REMOTE_PIN_BASE) for remote loads.
+ * @return Physical pin for local loads, virtual pin (>= REMOTE_PIN_BASE) for remote loads,
+ *         or pin 0 if the load does not exist (loadNum out of range): pin 0 is never an output,
+ *         so validation.h rejects it.
  */
 constexpr uint8_t LOAD(uint8_t loadNum)
 {
+  if (loadNum >= NO_OF_DUMPLOADS)
+  {
+    return 0;
+  }
   return overridePinOf(physicalLoadPin, loadNum);
 }
 
 /**
  * @brief Returns the physical pin number for a LOCAL load.
  * @param loadNum The load index into physicalLoadPin[] (0-based).
- * @return The pin number for the local load.
+ * @return The pin number for the local load, or pin 0 if the load does not exist (loadNum
+ *         out of range): pin 0 is never an output, so validation.h rejects it.
  * @note Kept for readability at the call site; identical to LOAD() for a local load.
  */
 constexpr uint8_t LOCAL_LOAD(uint8_t loadNum)
 {
+  if (loadNum >= NO_OF_DUMPLOADS)
+  {
+    return 0;
+  }
   return Load::pinOf(physicalLoadPin[loadNum]);
 }
 
@@ -47,21 +58,31 @@ constexpr uint8_t LOCAL_LOAD(uint8_t loadNum)
  * @brief Returns the virtual pin number for a REMOTE load.
  * @param loadNum The remote load ordinal (0-based), counting remote loads only
  *                in ascending physicalLoadPin[] order.
- * @return The virtual pin number (>= REMOTE_PIN_BASE).
+ * @return The virtual pin number (>= REMOTE_PIN_BASE), or pin 0 from loadNum REMOTE_MASK_BITS (8)
+ *         on: the target masks hold 8 remote loads, a larger index would vanish from them and force nothing.
+ *         Pin 0 is never an output, so validation.h rejects it.
  */
 constexpr uint8_t REMOTE_LOAD(uint8_t loadNum)
 {
+  if (loadNum >= REMOTE_MASK_BITS)
+  {
+    return 0;
+  }
   return REMOTE_PIN_BASE + loadNum;
 }
 
 /**
  * @brief Returns the pin number for a given relay index at compile time.
  * @param relayNum The relay index (0-based).
- * @return The pin number for the relay.
- * @note Only use when RELAY_DIVERSION is enabled.
+ * @return The pin number for the relay, or pin 0 if the relay does not exist (relay diversion
+ *         off, or relayNum out of range): pin 0 is never an output, so validation.h rejects it.
  */
 constexpr uint8_t RELAY(uint8_t relayNum)
 {
+  if (!RELAY_DIVERSION || relayNum >= relays.size())
+  {
+    return 0;
+  }
   return relays.get_relay(relayNum).get_pin();
 }
 

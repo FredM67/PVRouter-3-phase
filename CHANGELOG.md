@@ -38,6 +38,25 @@ If you keep your own `config.h`, check these points:
 - **Calibration:** `calibration.h` has a set of values per board, chosen by `PCB_VERSION`.
   Old board: copy your former `f_powerCal` and `f_voltageCal` values into `f_powerCalOldBoard`
   and `f_voltageCalOldBoard`.
+- **Dual tariff, scheduled boosts (breaking):** `rg_ForceLoad` (with `pairForceLoad` and
+  `rg_OffsetForce`) is replaced by `scheduledBoosts`; there is no compatibility layer. Rewrite each
+  load's pair as a boost, with explicit units (`HOURS()`, `MINUTES()`) and its target:
+
+  | Before | After |
+  |--------|-------|
+  | `{ -3, 2 }` | `{ BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(n) } }` |
+  | `{ 2 }` or `{ 2, UINT16_MAX }` | `{ FROM_START(HOURS(2)), { LOAD(n) } }` (no `FOR`: until the end) |
+  | `{ -3, UINT16_MAX }` | `{ LAST(HOURS(3)), { LOAD(n) } }` |
+  | `{ -150, 90 }` | `{ BEFORE_END(MINUTES(150)), FOR(MINUTES(90)), { LOAD(n) } }` |
+  | `{ 0, 0 }` (never boosted) | leave the load out of `scheduledBoosts` |
+
+  A load left out of `rg_ForceLoad` used to be boosted all night; what is not listed in
+  `scheduledBoosts` is never boosted. To keep the whole-night boost, list it with
+  `{ FROM_START(MINUTES(0)), { LOAD(n) } }`. The shipped `config.h` now boosts only load #1.
+  `ul_OFF_PEAK_DURATION` must match the meter's off-peak period: it places `LAST` and
+  `BEFORE_END`. The configurator writes the new form (see "Changed"). Also add
+  `inline constexpr uint8_t BOOST_TEMP_SENSOR{ 0 };` after `iTemperatureThreshold`: the sensor
+  checked against the threshold (0, the first, as before).
 
 No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still
@@ -75,6 +94,30 @@ valid load maps ([#160]).
 
 ### Changed
 
+- **Scheduled boosts** replace the per-load forcing of the dual tariff: a list of `{ window,
+  { targets } }` entries, written with `FIRST()`, `LAST()`, `FROM_START()`, `BEFORE_END()`, `FOR()`
+  and `HOURS()` / `MINUTES()`, and the same targets as the override pins. Remote loads and relays
+  can now be boosted, a target may be in several boosts, and a boost that never runs, or that
+  starts or ends outside the off-peak period (`ul_OFF_PEAK_DURATION`), is rejected at compile
+  time. Every boost stops when the meter switches back to peak. The configurator has a
+  "Scheduled boosts" list in place of the per-load forcing fields, and the startup summary prints
+  one line per boost.
+- **Temperature threshold of the boosts:** `BOOST_TEMP_SENSOR` chooses which sensor is checked
+  against `iTemperatureThreshold` (it was always the first). In the configurator, the threshold
+  is hidden without temperature sensing on the router, and a sensor can be chosen when there
+  are several.
+- **Configurator, temperature probes:** read by the router on the new board, they are on `D3`,
+  wired with its pull-up on the board, so the pin is no longer a choice there. On the old board,
+  the pin is still chosen, with a reminder to wire the pull-up and the probes' power.
+- **Configurator, probes read by the mk2Wifi module:** the addresses are optional, ESPHome finds
+  the probes on the bus. With all of them, the YAML keeps each name on its probe (`address`);
+  otherwise it tells several probes apart by `index`.
+- **`RELAY(n)`** with relay diversion off, or beyond the configured relays, now fails to compile,
+  in the override pins and in the boosts, and so does `LOAD(n)` beyond the configured loads, with
+  the message of `validation.h` instead of an array-bounds error. `REMOTE_LOAD(n)` from 8 on fails
+  too: the target masks hold 8 remote loads, and it used to force nothing. `MINUTES()` is one macro shared
+  by the relays and the boosts; `HOURS()` is built on it, so too many hours fail to compile
+  instead of wrapping around.
 - **One meaning for "diversion OFF":** the diversion pin stops the surplus diversion on TRIACs,
   relays and remote loads alike; forcing (override pins, dual tariff) still works ([#179]).
 - **Control inputs at power-up:** the diversion and router OFF pins are read once in `setup()`,

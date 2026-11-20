@@ -85,9 +85,9 @@
     needPin(m.diversion.enabled, m.diversion.pin, 'err.diversionPin', 'diversion');
     needPin(m.routerOff.enabled, m.routerOff.pin, 'err.routerOffPin', 'routerOff');
     needPin(m.rotation.mode === 'PIN', m.rotation.pin, 'err.rotationPin', 'rotation');
+    needPin(M.tempSensorPresent(m) && m.pcbVersion === 'OLD', m.temperature.pin, 'err.tempPin', 'temperature');
     needPin(m.watchdog.enabled, m.watchdog.pin, 'err.watchdogPin', 'watchdog');
     needPin(m.dualTariff.enabled, m.dualTariff.pin, 'err.dualTariffPin', 'dualTariff');
-    needPin(M.tempSensorPresent(m), m.temperature.pin, 'err.tempPin', 'temperature');
     if (!M.ROTATION_MODES.includes(m.rotation.mode)) error('err.rotationMode', 'rotation');
     // the firmware counts the seconds in 16 bits (validation.h)
     if (!inRange(m.rotation.afterSeconds, 1, 65534)) error('err.rotationAfter', 'rotation');
@@ -110,45 +110,30 @@
       });
     }
 
+    // ---- what an override pin or a boost forces (validation.h: targetsAreOutputs) ----
+    const checkTargets = (t, field, index, keys) => {
+      if (typeof t === 'string') {
+        if (!M.OVERRIDE_GROUPS.includes(t)) error(keys.targets, field, { index });
+        if (t === 'ALL_RELAYS' && !m.relays.enabled) error(keys.noRelay, field, { index });
+        if (keys.nothing && t === 'ALL_REMOTE_LOADS' && !remote) warning(keys.nothing, field, { index });
+        if (keys.nothing && t === 'ALL_LOCAL_LOADS' && remote === n) warning(keys.nothing, field, { index });
+      } else if (!Array.isArray(t) || !t.length) error(keys.targets, field, { index });
+      else
+        for (const x of t) {
+          if ('relay' in x) {
+            if (!m.relays.enabled) error(keys.noRelay, field, { index });
+            else if (!inRange(x.relay, 0, relays.length - 1)) error(keys.relay, field, { index, relay: x.relay + 1 });
+          } else if (!inRange(x.load, 0, n - 1)) error(keys.load, field, { index, load: x.load + 1 });
+        }
+    };
+
     // ---- overrides ----
     if (M.overridePresent(m)) {
+      const keys = { targets: 'err.overrideTargets', noRelay: 'err.overrideNoRelay', relay: 'err.overrideRelay', load: 'err.overrideLoad', nothing: 'warn.overrideNothing' };
       m.overrides.list.forEach((o, i) => {
         const field = `overrides.${i}`;
         if (!isRouterPin(o.pin)) error('err.overridePin', field, { index: i + 1 });
-        const t = o.targets;
-        if (typeof t === 'string') {
-          if (!M.OVERRIDE_GROUPS.includes(t)) error('err.overrideTargets', field, { index: i + 1 });
-          if (t === 'ALL_RELAYS' && !m.relays.enabled) error('err.overrideNoRelay', field, { index: i + 1 });
-          if (t === 'ALL_REMOTE_LOADS' && !remote) warning('warn.overrideNothing', field, { index: i + 1 });
-          if (t === 'ALL_LOCAL_LOADS' && remote === n) warning('warn.overrideNothing', field, { index: i + 1 });
-        } else if (!Array.isArray(t) || !t.length) error('err.overrideTargets', field, { index: i + 1 });
-        else
-          for (const x of t) {
-            if ('relay' in x) {
-              if (!m.relays.enabled) error('err.overrideNoRelay', field, { index: i + 1 });
-              else if (!inRange(x.relay, 0, relays.length - 1)) error('err.overrideRelay', field, { index: i + 1, relay: x.relay + 1 });
-            } else if (!inRange(x.load, 0, n - 1)) error('err.overrideLoad', field, { index: i + 1, load: x.load + 1 });
-          }
-      });
-    }
-
-    // ---- dual tariff ----
-    if (m.dualTariff.enabled) {
-      if (!inRange(m.dualTariff.offPeakHours, 1, 12)) error('err.offPeakHours', 'dualTariff');
-      if (!inRange(m.dualTariff.tempThreshold, 1, 100)) error('err.tempThreshold', 'dualTariff');
-      if (m.dualTariff.force.length > n) error('err.forceCount', 'dualTariff');
-      // as DualTariff::startsWithinOffPeak() (utils_dualtariff.h): hours from -24 to 24, minutes
-      // beyond; a negative start counts back from the end. A boost starting outside never runs.
-      // A duration of 0 is no boost ({ 0, 0 } in the Readme): its start does not matter.
-      const periodSec = m.dualTariff.offPeakHours * 3600;
-      const startsWithinOffPeak = (f) => {
-        const offsetSec = f.start * (Math.abs(f.start) > 24 ? 60 : 3600);
-        const startSec = f.start >= 0 ? offsetSec : periodSec + offsetSec;
-        return startSec >= 0 && startSec < periodSec;
-      };
-      m.dualTariff.force.forEach((f, i) => {
-        if (!inRange(f.start, -32768, 32767) || (f.duration !== null && !inRange(f.duration, 0, 65534))) error('err.force', 'dualTariff', { load: i + 1 });
-        else if (f.duration !== 0 && !startsWithinOffPeak(f)) error('err.forceWindow', 'dualTariff', { load: i + 1 });
+        checkTargets(o.targets, field, i + 1, keys);
       });
     }
 
@@ -157,22 +142,54 @@
     if (m.temperature.mode !== 'off') {
       const sensors = m.temperature.sensors;
       if (!sensors.length) error('err.noSensor', 'temperature');
+      // the router needs each probe's address; on the module, ESPHome finds them itself: optional,
+      // checked when given
       sensors.forEach((s, i) => {
         const a = M.parseAddress(s.address);
-        const optional = m.temperature.mode === 'esp' && sensors.length === 1 && !s.address;
         if (!a) {
-          if (!optional) error('err.sensorAddress', `temperature.${i}`, { sensor: i + 1 });
+          if (M.tempSensorPresent(m) || (s.address || '').trim()) error('err.sensorAddress', `temperature.${i}`, { sensor: i + 1 });
         } else if (M.crc8(a.slice(0, 7)) !== a[7]) warning('warn.sensorCrc', `temperature.${i}`, { sensor: i + 1 });
       });
       if (m.temperature.mode === 'esp' && !m.mk2wifi.enabled) error('err.tempEspNoWifi', 'temperature');
+      // on the module, the YAML uses the addresses only when every probe has one (yaml.js)
+      const withAddress = sensors.filter((s) => M.parseAddress(s.address)).length;
+      if (m.temperature.mode === 'esp' && withAddress && withAddress < sensors.length) warning('warn.sensorSomeAddresses', 'temperature');
+      // BOOST_TEMP_SENSOR: one of the probes (validation.h), whether dual tariff is on or not
+      if (M.tempSensorPresent(m) && sensors.length && !inRange(m.dualTariff.tempSensor, 0, sensors.length - 1))
+        error('err.tempSensor', m.dualTariff.enabled ? 'dualTariff' : 'temperature');
     }
+
+    // ---- dual tariff ----
+    if (m.dualTariff.enabled) {
+      if (!inRange(m.dualTariff.offPeakHours, 1, 12)) error('err.offPeakHours', 'dualTariff');
+      // shown (and used) only when the router reads the probes; otherwise written as 100 (generate.js)
+      if (M.tempSensorPresent(m) && !inRange(m.dualTariff.tempThreshold, 1, 100)) error('err.tempThreshold', 'dualTariff');
+    }
+    // The boosts are written into config.h with dual tariff off too: their values must be numbers.
+    // Their windows and targets only matter with dual tariff, as in validation.h (LOAD(), RELAY()
+    // and REMOTE_LOAD() give pin 0 out of range, checked with DUAL_TARIFF only): the whole window
+    // lies within the period, and lasts (M.boostFits()), and the targets exist.
+    const period = m.dualTariff.offPeakHours * 60;
+    const boostKeys = {
+      targets: 'err.boostTargets',
+      noRelay: 'err.boostNoRelay',
+      relay: 'err.boostRelay',
+      load: 'err.boostLoad',
+      nothing: m.dualTariff.enabled ? 'warn.boostNothing' : null, // a boost that never runs forces nothing anyway
+    };
+    m.dualTariff.boosts.forEach((b, i) => {
+      const field = `dualTariff.boosts.${i}`;
+      if (!['start', 'end'].includes(b.from) || !inRange(b.at, 0, 720) || (b.for !== null && !inRange(b.for, 0, 720))) error('err.boost', field, { index: i + 1 });
+      else if (m.dualTariff.enabled && !M.boostFits(b, period)) error('err.boostWindow', field, { index: i + 1 });
+      if (m.dualTariff.enabled) checkTargets(b.targets, field, i + 1, boostKeys);
+    });
 
     // ---- one pin, one use ----
     const uses = [];
     const use = (p, what) => {
       if (isRouterPin(p)) uses.push([p, what]);
     };
-    if (M.tempSensorPresent(m)) use(m.temperature.pin, 'temperature');
+    if (M.tempSensorPresent(m)) use(M.tempPin(m), 'temperature');
     if (m.diversion.enabled) use(m.diversion.pin, 'diversion');
     if (m.routerOff.enabled) use(m.routerOff.pin, 'routerOff');
     if (m.rotation.mode === 'PIN') use(m.rotation.pin, 'rotation');

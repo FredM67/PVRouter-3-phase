@@ -180,10 +180,23 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
 
 inline constexpr OverridePins overridePins{ { { 4, ALL_LOADS() } } }; /**< list of override pin/loads-relays pairs */
 
-inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
+inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 }; /**< Duration of the off-peak period in hours: must match the meter (it places the boosts counted back from the end) */
+
+// Scheduled boosts during the off-peak period (DUAL_TARIFF): when, and what they force.
+// Targets as for the override pins; what is not listed is never boosted.
+// Each window lies within the period; every boost stops when the meter switches back to peak.
+//   FIRST(d)                the first d of the period
+//   LAST(d)                 the last d of the period
+//   FROM_START(t), FOR(d)   from t after the start, for d (without FOR: until the end)
+//   BEFORE_END(t), FOR(d)   from t before the end, for d (without FOR: until the end)
+//   t and d: HOURS(n) or MINUTES(n)
+// inline constexpr ScheduledBoosts scheduledBoosts{ {
+//     { FIRST(HOURS(2)), { LOAD(0), LOAD(2) } },    // loads #1 and #3, the first 2 hours
+//     { LAST(MINUTES(90)), { RELAY(0) } } } };      // relay #1, the last 1 h 30
+inline constexpr ScheduledBoosts scheduledBoosts{ { { BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(0) } } } }; /**< load #1, from 3 hours before the end, for 2 hours */
 
 inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
+inline constexpr uint8_t BOOST_TEMP_SENSOR{ 0 };       /**< the sensor checked against it: its index in temperatureSensing, from 0 */
 
 inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },

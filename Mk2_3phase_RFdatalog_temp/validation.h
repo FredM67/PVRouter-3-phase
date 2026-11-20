@@ -47,22 +47,24 @@ static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION == 0)), "******** Off-peak d
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION > 12)), "******** Off-peak duration cannot last more than 12 hours. Please check your config.h ! ********");
 
 /**
- * @brief Every scheduled boost starts within the off-peak period: one that starts outside of it
- *        never runs ({ 10, 20 } with 8 hours, { -9, 1 } with 8 hours).
+ * @brief Every scheduled boost lies within the off-peak period and lasts: otherwise, it never
+ *        runs (LAST(HOURS(9)) with 8 hours, FOR(MINUTES(0))), or the meter cuts it short
+ *        (FIRST(HOURS(10)) with 8 hours).
  */
-constexpr bool check_force_windows()
+constexpr bool check_boost_windows()
 {
-  for (const auto &force : rg_ForceLoad)
+  for (uint8_t i = 0; i != scheduledBoosts.size(); ++i)
   {
-    if (!DualTariff::startsWithinOffPeak(force, ul_OFF_PEAK_DURATION))
+    const BoostWindow window{ scheduledBoosts.getWindow(i) };
+
+    if (!DualTariff::startsWithinOffPeak(window, ul_OFF_PEAK_DURATION) || !DualTariff::endsWithinOffPeak(window, ul_OFF_PEAK_DURATION) || !DualTariff::hasLength(window))
     {
       return false;
     }
   }
   return true;
 }
-static_assert(!DUAL_TARIFF || check_force_windows(), "******** A scheduled boost (rg_ForceLoad) starts outside the off-peak period: it would never run. Values from -24 to 24 are hours, minutes beyond. Please check your config.h ! ********");
-
+static_assert(!DUAL_TARIFF || check_boost_windows(), "******** A scheduled boost starts or ends outside the off-peak period, or lasts 0 minutes. Please check scheduledBoosts in your config.h ! ********");
 
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
 // the EWMA of the relays averages RELAY_FILTER_DELAY * 60 / DATALOG_PERIOD_IN_SECONDS datalogs:
@@ -78,13 +80,13 @@ static_assert(DIVERSION_START_THRESHOLD_WATTS >= 0 && DIVERSION_START_THRESHOLD_
 
 static_assert(sizeof(physicalLoadPin) / sizeof(physicalLoadPin[0]) == NO_OF_DUMPLOADS, "******** physicalLoadPin array size mismatch (one entry per dump load) ! ********");
 static_assert(sizeof(loadPrioritiesAtStartup) / sizeof(loadPrioritiesAtStartup[0]) == NO_OF_DUMPLOADS, "******** loadPrioritiesAtStartup array size mismatch ! ********");
-static_assert(sizeof(rg_ForceLoad) / sizeof(rg_ForceLoad[0]) == NO_OF_DUMPLOADS, "******** rg_ForceLoad array size mismatch ! ********");
 
 static_assert(ROTATION_AFTER_SECONDS > 0, "******** ROTATION_AFTER_SECONDS must be greater than 0 ! ********");
 // compared with a 16-bit counter of seconds (Shared::absenceOfDivertedEnergyCountInSeconds)
 static_assert(ROTATION_AFTER_SECONDS < UINT16_MAX, "******** ROTATION_AFTER_SECONDS cannot exceed 65534 seconds (about 18 hours) ! ********");
 
 static_assert(!TEMP_SENSOR_PRESENT || (temperatureSensing.size() > 0), "******** No temperature sensors configured but TEMP_SENSOR_PRESENT is true ! ********");
+static_assert(!TEMP_SENSOR_PRESENT || (BOOST_TEMP_SENSOR < temperatureSensing.size()), "******** BOOST_TEMP_SENSOR must be one of the sensors in temperatureSensing (from 0) ! ********");
 static_assert(TEMP_RANGE_LOW < TEMP_RANGE_HIGH, "******** Invalid temperature range ! ********");
 
 /**
@@ -230,10 +232,13 @@ constexpr bool check_load_priorities()
 }
 
 /**
- * @brief Overrides reach the outputs through the load states and the relay engine only,
- *        so each override pin may only force local loads and relays.
+ * @brief Overrides and boosts reach the outputs through the load states and the relay engine
+ *        only, so each entry of @p list may only force local loads and relays.
+ *
+ * @tparam List OverridePins or ScheduledBoosts
  */
-constexpr bool check_override_targets()
+template< typename List >
+constexpr bool targetsAreOutputs(const List &list)
 {
   uint16_t outputs{ 0 };
 
@@ -249,26 +254,26 @@ constexpr bool check_override_targets()
       bit_set(outputs, relays.get_relay(idx).get_pin());
   }
 
-  if constexpr (OVERRIDE_PIN_PRESENT)
+  for (uint8_t i = 0; i != list.size(); ++i)
   {
-    for (uint8_t i = 0; i < overridePins.size(); ++i)
-    {
-      if (overridePins.getLocalBitmask(i) & ~outputs)
-        return false;
-    }
+    if (list.getLocalBitmask(i) & ~outputs)
+      return false;
   }
 
   return true;
 }
 
 /**
- * @brief Each REMOTE_LOAD(n) target of an override pin must be an existing remote load.
+ * @brief Each REMOTE_LOAD(n) target of an entry of @p list must be an existing remote load.
  *
  * @details REMOTE_LOAD() counts from 0: with two remote loads, REMOTE_LOAD(2) is a third one
- *          that does not exist, and the override pin would force nothing. A target from 8 on
- *          cannot be seen here: OverridePins already dropped it (8 bits per entry).
+ *          that does not exist, and the entry would force nothing. From 8 on, REMOTE_LOAD()
+ *          gives pin 0 (the masks hold 8 remote loads): targetsAreOutputs() rejects it.
+ *
+ * @tparam List OverridePins or ScheduledBoosts
  */
-constexpr bool check_override_remote_targets()
+template< typename List >
+constexpr bool targetsAreRemoteLoads(const List &list)
 {
   // a local load on a pin from 16 on lands in the remote range of LOAD(): isValidMap() reports it
   if (!Load::isValidMap(physicalLoadPin))
@@ -276,17 +281,38 @@ constexpr bool check_override_remote_targets()
     return true;
   }
 
-  if constexpr (OVERRIDE_PIN_PRESENT)
-  {
-    const uint16_t existing{ static_cast< uint16_t >((1U << NO_OF_REMOTE_LOADS) - 1) };
+  const uint16_t existing{ static_cast< uint16_t >((1U << NO_OF_REMOTE_LOADS) - 1) };
 
-    for (uint8_t i = 0; i < overridePins.size(); ++i)
-    {
-      if (overridePins.getRemoteBitmask(i) & ~existing)
-        return false;
-    }
+  for (uint8_t i = 0; i != list.size(); ++i)
+  {
+    if (list.getRemoteBitmask(i) & ~existing)
+      return false;
   }
 
+  return true;
+}
+
+/**
+ * @brief Each override pin may only force local loads and relays.
+ */
+constexpr bool check_override_targets()
+{
+  if constexpr (OVERRIDE_PIN_PRESENT)
+  {
+    return targetsAreOutputs(overridePins);
+  }
+  return true;
+}
+
+/**
+ * @brief Each REMOTE_LOAD(n) target of an override pin must be an existing remote load.
+ */
+constexpr bool check_override_remote_targets()
+{
+  if constexpr (OVERRIDE_PIN_PRESENT)
+  {
+    return targetsAreRemoteLoads(overridePins);
+  }
   return true;
 }
 
@@ -323,8 +349,10 @@ static_assert(check_pins().unique, "******** Duplicate pin definition ! Please c
 static_assert((check_pins().used & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
 static_assert((check_pins().used & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
 static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
-static_assert(check_override_targets(), "******** An override pin forces a pin that is neither a local load nor a relay ! Please check overridePins in your config.h ! ********");
+static_assert(check_override_targets(), "******** An override pin forces a pin that is neither a local load nor a relay (REMOTE_LOAD() goes up to 7) ! Please check overridePins in your config.h ! ********");
 static_assert(check_override_remote_targets(), "******** An override pin forces a remote load that does not exist ! REMOTE_LOAD(n) counts from 0. Please check overridePins in your config.h ! ********");
+static_assert(!DUAL_TARIFF || targetsAreOutputs(scheduledBoosts), "******** A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on? REMOTE_LOAD() goes up to 7). Please check scheduledBoosts in your config.h ! ********");
+static_assert(!DUAL_TARIFF || targetsAreRemoteLoads(scheduledBoosts), "******** A scheduled boost forces a remote load that does not exist (REMOTE_LOAD() counts from 0). Please check scheduledBoosts in your config.h ! ********");
 
 static_assert(!(RF_CHIP_PRESENT && ((check_pins().used & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
 static_assert(!(RF_CHIP_PRESENT && (SharedRF::ROUTER_NODE_ID < 1 || SharedRF::ROUTER_NODE_ID > 30)), "******** RF node ID must be between 1 and 30 ! ********");

@@ -64,16 +64,16 @@ struct OverrideMasks
 /**
  * @brief Calculates the dual tariff forcing bitmasks based on current conditions.
  *
- * This function determines which loads should be forced ON during off-peak periods
- * based on elapsed time since off-peak start, configured time windows, and temperature conditions.
+ * This function determines which loads and relays should be forced ON during off-peak periods
+ * based on elapsed time since off-peak start, the scheduled boosts, and temperature conditions.
  *
  * @param bOffPeak true if the system is in an off-peak period (as tracked by proceedDualTariffLogic()).
  * @param currentTemperature_x100 Current temperature multiplied by 100.
- * @return Bitmasks of loads that should be forced ON due to dual tariff conditions, 0 if none.
+ * @return Bitmasks of loads and relays that should be forced ON due to dual tariff conditions, 0 if none.
  *
  * @details
  * - Only applies during off-peak periods.
- * - Each load has its own time window defined in rg_OffsetForce.
+ * - Each scheduled boost has its own window (scheduledBoosts), resolved at compile time.
  * - Temperature must be at or below the threshold for forcing to activate.
  * - Relies on proceedDualTariffLogic() having been called first, so that ul_TimeOffPeak is up to date.
  *
@@ -94,35 +94,28 @@ OverrideMasks getDualTariffForcingBitmask(const bool bOffPeak, const int16_t cur
     return { 0, 0 };
   }
 
-  // We're in off-peak period - check forcing time windows
+  // Too hot: no boost. A missing or failed reading (DEVICE_DISCONNECTED_RAW, -7040) counts as cold
+  // on purpose: the boost runs, and the water heater's own thermostat stays the safety limit; the
+  // threshold only stops the boost before the heater's setting.
+  if (currentTemperature_x100 > iTemperatureThreshold_x100)
+  {
+    return { 0, 0 };
+  }
+
+  // We're in off-peak period - check the window of each boost
   const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
 
   OverrideMasks forcing{ 0, 0 };
-  uint8_t i{ NO_OF_DUMPLOADS };
-  do
+  for (uint8_t i = 0; i != NO_OF_BOOSTS; ++i)
   {
-    --i;
-    // Skip if not within the 'force period'
-    if (!DualTariff::inWindow(ulElapsedTime, rg_OffsetForce[i][0], rg_OffsetForce[i][1]))
-    {
-      continue;
-    }
+    const auto boost{ readBoost(i) };
 
-    // Force load ON if temperature condition is met
-    if (currentTemperature_x100 <= iTemperatureThreshold_x100)
+    if (DualTariff::inWindow(ulElapsedTime, boost.start, boost.end))
     {
-      const uint8_t pin{ overridePinOf(physicalLoadPin, i) };
-
-      if (pin < REMOTE_PIN_BASE)
-      {
-        bit_set(forcing.local, pin);
-      }
-      else
-      {
-        bit_set(forcing.remote, pin - REMOTE_PIN_BASE);
-      }
+      forcing.local |= boost.local;
+      forcing.remote |= boost.remote;
     }
-  } while (i);
+  }
 
   return forcing;
 }
@@ -612,8 +605,8 @@ void loop()
     {
       processTemperatureData();
 
-      // the first sensor is the reference for the dual tariff temperature threshold
-      iTemperature_x100 = tx_data.temperature_x100[0];
+      // the sensor checked against the dual tariff temperature threshold
+      iTemperature_x100 = tx_data.temperature_x100[BOOST_TEMP_SENSOR];
     }
 
     sendResults(bOffPeak);

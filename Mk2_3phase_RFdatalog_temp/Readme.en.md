@@ -25,13 +25,13 @@ This program is designed to be used with the Arduino IDE and/or other developmen
   - [Watchdog configuration](#watchdog-configuration)
   - [Temperature sensor(s) configuration](#temperature-sensors-configuration)
     - [Feature activation](#feature-activation)
-    - [Sensor configuration (common to both cases above)](#sensor-configuration-common-to-both-cases-above)
+    - [Sensor configuration](#sensor-configuration)
   - [Off-peak hours management and scheduled boost (dual tariff)](#off-peak-hours-management-and-scheduled-boost-dual-tariff)
     - [Hardware configuration](#hardware-configuration)
     - [Software configuration](#software-configuration-1)
-    - [Scheduled boost configuration (rg\_ForceLoad)](#scheduled-boost-configuration-rg_forceload)
-    - [Visual examples](#visual-examples)
-    - [Multiple loads configuration](#multiple-loads-configuration)
+    - [Scheduled boost configuration (scheduledBoosts)](#scheduled-boost-configuration-scheduledboosts)
+      - [Understanding the timeline](#understanding-the-timeline)
+      - [Examples](#examples)
     - [Quick reference](#quick-reference)
   - [Priority rotation](#priority-rotation)
   - [Manual boost (pin-triggered)](#manual-boost-pin-triggered)
@@ -288,7 +288,7 @@ inline constexpr RelayEngine relays{ MINUTES(15), { { 3, 1000, 200, 1, 1 } } };
 ```
 ___
 > [!NOTE]
-> The `MINUTES()` macro automatically converts the value to a template parameter. No special suffix is needed!
+> The `MINUTES()` macro automatically converts the value to a template parameter. No special suffix is needed! The same macro (and `HOURS()`) writes the times of the [scheduled boosts](#scheduled-boost-configuration-scheduledboosts).
 ___
 
 Relays configured in the system are managed by a system similar to a state machine.
@@ -534,12 +534,12 @@ inline constexpr uint8_t watchDogPin{ 9 };
 It's possible to connect one or more Dallas DS18B20 temperature sensors.
 These sensors can serve informational purposes or to control boost mode.
 
-By default, output `D3` is used for the temperature sensor output and already has a pull-up.
-If you want to use another pin, you'll need to add a *pull-up* to the used pin.
+- **New board** (`PcbVersion::NEW`): the probes' bus is on `D3`, wired with its pull-up on the board. Connect the probes to the board's temperature connector; with the mk2Wifi module, put the `TEMP` jumper in the router position (see [`TEMP` jumper](#temp-jumper)).
+- **Old board** (`PcbVersion::OLD`): nothing is wired. Choose a free pin, add a 4.7 kΩ pull-up between the data line and +5 V, and power the probes (+5 V, GND).
 
 ### Feature activation
 
-In `config.h`, set `TEMP_SENSOR_PRESENT` to `true`, and give the bus pin and the sensor addresses in `temperatureSensing` (see below):
+In `config.h`, set `TEMP_SENSOR_PRESENT` to `true`, and give the bus pin (`3`) and the sensor addresses in `temperatureSensing` (see below):
 ```cpp
 inline constexpr bool TEMP_SENSOR_PRESENT{ true };
 ```
@@ -550,7 +550,7 @@ With the Arduino IDE, the *OneWire* library must be installed, as for any build 
 To configure the sensors, you must enter their addresses.
 The router finds them itself: set `TEMP_SENSOR_PRESENT` to `true` with the bus pin, set `CALIBRATION_MODE` to `true` (see [Router calibration](#router-calibration)) and upload. At start-up, it lists the sensors on the bus, with their addresses written as `config.h` takes them, and tells whether `config.h` already has each of them:
 ```
-Temperature sensors found on pin 4:
+Temperature sensors found on pin 3:
 	{ 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 }  not in config.h
 	{ 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 }  not in config.h
 ```
@@ -558,11 +558,11 @@ Connecting the sensors one at a time tells which address is which sensor. It's r
 
 Enter the addresses as follows:
 ```cpp
-inline constexpr TemperatureSensing temperatureSensing{ 4,
+inline constexpr TemperatureSensing temperatureSensing{ 3,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } };
 ```
-The number *4* as first parameter is the *pin* that the user will have chosen for the *OneWire* bus.
+The first parameter, *3*, is the pin of the *OneWire* bus: `D3` on the new board, the chosen pin on the old one.
 
 ___
 > [!NOTE]
@@ -603,19 +603,61 @@ inline constexpr uint8_t dualTariffPin{ 3 };
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };
 ```
 
-**Step 4:** Configure the scheduled boost timing for each load.
+**Step 4:** Configure the scheduled boosts: which loads are forced, and when.
 
-### Scheduled boost configuration (rg_ForceLoad)
+> [!IMPORTANT]
+> `ul_OFF_PEAK_DURATION` must match the real length of your meter's off-peak period. The router only learns when off-peak **starts** and **ends** from the meter's contact; the duration is used to place the boosts counted back from the end (`LAST`, `BEFORE_END`).
 
-The `rg_ForceLoad` array defines **when** and **how long** each load should be boosted during the off-peak period.
+### Scheduled boost configuration (scheduledBoosts)
+
+The `scheduledBoosts` list says **when** and **for how long** which loads, remote loads or relays are boosted during the off-peak period. It reads as a schedule, one line per boost, and it takes the same targets as the [override pins](#targeting-loads-and-relays).
 
 ```cpp
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { START_TIME, DURATION } };
+inline constexpr ScheduledBoosts scheduledBoosts{ {
+    { WINDOW, { TARGETS } }
+} };
 ```
 
-Each load has two parameters: `{ START_TIME, DURATION }`
+Each boost is a **window** (when) followed by its **targets** (who). All times are relative to the off-peak period, written with `HOURS(n)` or `MINUTES(n)`: a bare number is not accepted.
+
+#### The windows
+
+| Window | Meaning |
+|--------|---------|
+| `FIRST(d)` | from the start of the off-peak period, for `d` |
+| `LAST(d)` | the last `d` of the period, until its end |
+| `FROM_START(t), FOR(d)` | from `t` after the start, for `d` |
+| `BEFORE_END(t), FOR(d)` | from `t` before the end, for `d` |
+| `FROM_START(t)` or `BEFORE_END(t)` without `FOR` | from there until the end of the period |
+| `HOURS(n)` / `MINUTES(n)` | the only way to write a time `t` or a duration `d` |
+
+#### The targets
+
+The targets are written as for the override pins: `LOAD(n)`, `REMOTE_LOAD(n)`, `RELAY(n)`, `ALL_LOADS()`, `ALL_RELAYS()`, `ALL_LOADS_AND_RELAYS()`... Everything counts from 0: `LOAD(0)` is the first load.
+
+> [!NOTE]
+> `RELAY(n)` only works with relay diversion on (`RELAY_DIVERSION`) and for a relay that exists. Otherwise the build fails: the same goes for the targets of the override pins.
+
+Three rules to remember:
+- **What is not listed is never boosted.** An empty list, `inline constexpr ScheduledBoosts scheduledBoosts{};`, means no boost at all.
+- **Every boost stops when the meter switches back to peak**, whatever its window.
+- **The whole window lies within the off-peak period** (`ul_OFF_PEAK_DURATION`): a window with `FOR` ends at the latest at the end of the period, or the build fails. `LAST` and a window without `FOR` run until the meter switches back to peak.
+- The temperature condition (`iTemperatureThreshold`) applies to all boosts: above it, nothing is boosted. It needs temperature sensing on the router (`TEMP_SENSOR_PRESENT`); `BOOST_TEMP_SENSOR` chooses the sensor, by its index in `temperatureSensing` (0: the first). The threshold is meant to be below the water heater's own thermostat, which stays the safety limit: for example, the thermostat at 80 °C so the heater takes as much surplus as possible, and the threshold at 60 °C so the off-peak boost leaves room for the next day's surplus. If the sensor cannot be read (disconnected, failed), the boosts run, up to the thermostat.
+
+A load may be in several boosts: their windows add up. A window includes its start and excludes its end.
 
 #### Understanding the timeline
+
+All examples assume an off-peak period from **23:00 to 07:00** (`ul_OFF_PEAK_DURATION{ 8 }`):
+
+```cpp
+inline constexpr ScheduledBoosts scheduledBoosts{ {
+    { FIRST(HOURS(2)), { LOAD(0), LOAD(2) } },                // loads #1 and #3, the first 2 h
+    { LAST(HOURS(2)), { REMOTE_LOAD(1) } },                   // the 2nd remote load, the last 2 h
+    { FROM_START(HOURS(2)), FOR(HOURS(2)), { LOAD(1) } },     // load #2, from 2 h after the start, for 2 h
+    { BEFORE_END(HOURS(3)), FOR(MINUTES(90)), { RELAY(0) } }  // relay #1, from 3 h before the end, for 1 h 30
+} };
+```
 
 ```mermaid
 gantt
@@ -625,135 +667,64 @@ gantt
     todayMarker off
     section Off-peak
     Off-peak (8 h) :active, hc, 2001-01-01 23:00, 8h
-    section START_TIME
-    positive, counts from the start, here +3 h   :b1, 2001-01-01 23:00, 3h
-    negative, counts back from the end, here −3 h :b2, 2001-01-02 04:00, 3h
+    section Boosts
+    FIRST(HOURS(2)), loads #1 and #3 :crit, sb1, 2001-01-01 23:00, 2h
+    FROM_START(HOURS(2)), FOR(HOURS(2)), load #2 :crit, sb2, 2001-01-02 01:00, 2h
+    BEFORE_END(HOURS(3)), FOR(MINUTES(90)), relay #1 :crit, sb3, 2001-01-02 04:00, 90m
+    LAST(HOURS(2)), remote load #2 :crit, sb4, 2001-01-02 05:00, 2h
 ```
 
-#### Parameter 1: START_TIME (when to start)
+#### Examples
 
-| Value | Meaning | Example (off-peak 23:00-07:00) |
-|-------|---------|-------------------------------|
-| `0` | **Disabled** - no boost for this load | - |
-| `1` to `23` | Hours **after** off-peak START | `3` = start at 02:00 (23:00 + 3h) |
-| `-1` to `-23` | Hours **before** off-peak END | `-3` = start at 04:00 (07:00 - 3h) |
-| `24` or more | Minutes **after** off-peak START | `90` = start at 00:30 (23:00 + 90min) |
-| `-24` or less | Minutes **before** off-peak END | `-90` = start at 05:30 (07:00 - 90min) |
+**Example 1:** `{ BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(0) } }`: from 3 hours before the end, for 2 hours. The boost runs from **04:00 to 06:00**.
 
-> [!NOTE]
-> **Why 24?** The value 24 is used as a threshold to distinguish between hours and minutes.
-> Values from 1-23 are interpreted as hours, values 24+ are interpreted as minutes.
+**Example 2:** `{ FROM_START(HOURS(2)), FOR(HOURS(3)), { LOAD(0) } }`: from 2 hours after the start, for 3 hours. The boost runs from **01:00 to 04:00**.
 
-#### Parameter 2: DURATION (how long to boost)
+**Example 3:** `{ BEFORE_END(MINUTES(90)), FOR(MINUTES(60)), { LOAD(0) } }`: from 90 minutes before the end, for 60 minutes. The boost runs from **05:30 to 06:30**. With `FOR(MINUTES(120))`, it would end at 07:30, after the off-peak period: the build rejects it. To run until the end, leave `FOR` out.
 
-| Value | Meaning |
-|-------|---------|
-| `0` | **Disabled** - no boost |
-| `1` to `23` | Duration in **hours** |
-| `24` or more | Duration in **minutes** |
-| `UINT16_MAX` | Until the **end** of off-peak period |
+**Example 4:** `{ FROM_START(HOURS(1)), { LOAD(0) } }`: from 1 hour after the start, until the end. The boost runs from **00:00 to 07:00**.
 
-> [!IMPORTANT]
-> **Boost always stops when the off-peak period ends**, regardless of the configured duration.
-> If you set a duration that would extend past the end of off-peak, the boost will be cut short.
+**Example 5:** the whole night, for a load: `{ FROM_START(MINUTES(0)), { LOAD(0) } }`. Whatever the length of the off-peak period, the meter ends the boost.
 
-### Visual examples
-
-All examples assume off-peak period from **23:00 to 07:00** (8 hours):
-
-**Example 1:** `{ -3, 2 }` - Start 3 hours before end, run for 2 hours
-```mermaid
-gantt
-    title { -3, 2 }
-    dateFormat YYYY-MM-DD HH:mm
-    axisFormat %H:%M
-    todayMarker off
-    section Off-peak
-    Off-peak :active, hc, 2001-01-01 23:00, 8h
-    section Load
-    Boost, 2 h :crit, b3, 2001-01-02 04:00, 2h
-```
-Result: Boost runs from **04:00 to 06:00**
-
-**Example 2:** `{ 2, 3 }` - Start 2 hours after start, run for 3 hours
-```mermaid
-gantt
-    title { 2, 3 }
-    dateFormat YYYY-MM-DD HH:mm
-    axisFormat %H:%M
-    todayMarker off
-    section Off-peak
-    Off-peak :active, hc, 2001-01-01 23:00, 8h
-    section Load
-    Boost, 3 h :crit, b4, 2001-01-02 01:00, 3h
-```
-Result: Boost runs from **01:00 to 04:00**
-
-**Example 3:** `{ -90, 120 }` - Start 90 minutes before end, duration of 120 minutes (but limited)
-```mermaid
-gantt
-    title { -90, 120 }
-    dateFormat YYYY-MM-DD HH:mm
-    axisFormat %H:%M
-    todayMarker off
-    section Off-peak
-    Off-peak :active, hc, 2001-01-01 23:00, 8h
-    section Load
-    Boost, 90 min :crit, b5, 2001-01-02 05:30, 90m
-    cut, off-peak is over :done, b6, 2001-01-02 07:00, 30m
-```
-Result: Boost runs from **05:30 to 07:00** (stops at end of off-peak, not 07:30)
-
-> [!NOTE]
-> **Boost always stops at the end of the off-peak period**, even if the configured duration is longer.
-> In this example, only 90 minutes of boost occur instead of the configured 120 minutes.
-
-**Example 4:** `{ 1, UINT16_MAX }` - Start 1 hour after start, run until end
-```mermaid
-gantt
-    title { 1, UINT16_MAX }
-    dateFormat YYYY-MM-DD HH:mm
-    axisFormat %H:%M
-    todayMarker off
-    section Off-peak
-    Off-peak :active, hc, 2001-01-01 23:00, 8h
-    section Load
-    Boost, until the end :crit, b7, 2001-01-02 00:00, 7h
-```
-Result: Boost runs from **00:00 to 07:00**
-
-### Multiple loads configuration
-
-Each load can have its own boost schedule. Use `{ 0, 0 }` to disable boost for a specific load.
-
-**Example:** 2 loads, boost only the second one:
+Several loads and several windows:
 ```cpp
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{
-    { 0, 0 },      // Load #1: no scheduled boost
-    { -3, 2 }      // Load #2: boost 3h before end, for 2h
-};
+inline constexpr ScheduledBoosts scheduledBoosts{ {
+    { BEFORE_END(HOURS(4)), FOR(HOURS(2)), { LOAD(0) } },  // load #1: 03:00-05:00 (last resort, if water still cold)
+    { LAST(HOURS(2)), { LOAD(1) } },                       // load #2: 05:00-07:00 (top-up before morning)
+    { FIRST(HOURS(1)), { LOAD(0) } }                       // load #1 also: 23:00-00:00
+} };                                                       // load #3: never boosted
 ```
 
-**Example:** 3 loads with different schedules:
-```cpp
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{
-    { -4, 2 },         // Load #1: 04:00-06:00 (last resort, if water still cold)
-    { -2, UINT16_MAX }, // Load #2: 05:00-07:00 (top-up before morning)
-    { 0, 0 }           // Load #3: no scheduled boost
-};
+#### What the build rejects
+
+The compiler stops with a message naming the problem:
+
+- `A scheduled boost starts or ends outside the off-peak period, or lasts 0 minutes. Please check scheduledBoosts in your config.h !` : for instance `LAST(HOURS(10))` or `BEFORE_END(HOURS(9))` with 8 hours (starts before the period), `FIRST(HOURS(10))` or `BEFORE_END(HOURS(1)), FOR(HOURS(2))` with 8 hours (ends after it), or `FOR(MINUTES(0))`.
+- `A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on?). Please check scheduledBoosts in your config.h !` : for instance `RELAY(0)` with relay diversion off, a `RELAY(n)` beyond the configured relays, or a `LOAD(n)` beyond the configured loads (`LOAD(3)` with 3 loads). In a manual boost (`overridePins`), the same targets stop the build with `An override pin forces a pin that is neither a local load nor a relay ! Please check overridePins in your config.h !`
+- `A scheduled boost forces a remote load that does not exist (REMOTE_LOAD() counts from 0). Please check scheduledBoosts in your config.h !`
+
+#### What the router prints at startup
+
+One line per boost, in the order of the list, with the window in hours and minutes after the start of the off-peak period. For the four boosts of [Understanding the timeline](#understanding-the-timeline) (8 hours of off-peak), with the first three loads local on D5, D6 and D7, two remote loads, and relay #1 on D4:
 ```
+	Boost #1: from 0h00 to 2h00 of off-peak, forcing D5, D7.
+	Boost #2: from 6h00 until the end of off-peak, forcing remote load 2.
+	Boost #3: from 2h00 to 4h00 of off-peak, forcing D6.
+	Boost #4: from 5h00 to 6h30 of off-peak, forcing D4.
+```
+Local loads and relays print as their pins (D5, D4), in ascending pin order. Remote loads count from 1: `REMOTE_LOAD(1)` prints `remote load 2`.
 
 ### Quick reference
 
-| Want to... | Use this |
-|------------|----------|
-| Disable boost | `{ 0, 0 }` |
-| Start 2h after off-peak begins, run 3h | `{ 2, 3 }` |
-| Start 3h before off-peak ends, run 2h | `{ -3, 2 }` |
-| Start 90min after off-peak begins, run 2h | `{ 90, 2 }` |
-| Start 90min before off-peak ends, run until end | `{ -90, UINT16_MAX }` |
-
-A load left out of `rg_ForceLoad` gets `{ 0, UINT16_MAX }`: boost for the whole off-peak period. A boost that starts outside the off-peak period (`{ 10, 20 }` with 8 hours) would never run: the build rejects it.
+| Want to... | Write |
+|------------|-------|
+| The first 2 h, loads #1 and #3 | `{ FIRST(HOURS(2)), { LOAD(0), LOAD(2) } }` |
+| The last 90 min | `{ LAST(MINUTES(90)), { LOAD(0) } }` |
+| Start 2 h after off-peak begins, run 3 h | `{ FROM_START(HOURS(2)), FOR(HOURS(3)), { LOAD(0) } }` |
+| Start 3 h before off-peak ends, run 2 h | `{ BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(0) } }` |
+| Start 90 min before off-peak ends, run until the end | `{ BEFORE_END(MINUTES(90)), { LOAD(0) } }` |
+| Boost a relay or a remote load | `{ ..., { RELAY(0) } }`, `{ ..., { REMOTE_LOAD(0) } }` |
+| No boost | `inline constexpr ScheduledBoosts scheduledBoosts{};` |
 
 ## Priority rotation
 Priority rotation is useful when powering a three-phase water heater.
@@ -778,7 +749,7 @@ inline constexpr uint8_t rotationPin{ 10 };
 
 ## Manual boost (pin-triggered)
 
-Unlike [scheduled boost](#scheduled-boost-configuration-rg_forceload) which runs automatically during off-peak hours, **manual boost** lets you trigger heating on-demand using physical switches, buttons, timers, or home automation systems.
+Unlike [scheduled boost](#scheduled-boost-configuration-scheduledboosts) which runs automatically during off-peak hours, **manual boost** lets you trigger heating on-demand using physical switches, buttons, timers, or home automation systems.
 
 ### How it works
 
@@ -825,6 +796,9 @@ There are **two ways** to specify which loads/relays to activate:
 | `ALL_REMOTE_LOADS()` | All remote loads only |
 | `ALL_RELAYS()` | All configured relays |
 | `ALL_LOADS_AND_RELAYS()` | Everything |
+
+> [!NOTE]
+> `RELAY(n)` only works with relay diversion on (`RELAY_DIVERSION`) and for a relay that exists: otherwise the build fails, for the override pins as for the [scheduled boosts](#scheduled-boost-configuration-scheduledboosts).
 
 #### Method 2: By physical pin number
 

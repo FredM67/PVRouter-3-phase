@@ -12,5 +12,5 @@
   "rotation": { "mode": "AUTO", "pin": null, "wifi": false, "afterSeconds": 7200 },
   "overrides": { "enabled": false, "list": [] },
   "relays": { "enabled": true, "filterDelay": 1, "list": [{ "pin": 6, "surplus": 800, "import": 100, "minOn": 2, "minOff": 3 }] },
-  "dualTariff": { "enabled": false, "force": [] }
+  "dualTariff": { "enabled": false, "boosts": [] }
 }

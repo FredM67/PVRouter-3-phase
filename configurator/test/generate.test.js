@@ -97,6 +97,48 @@ test('override pins: a comment says what each one forces, numbered as on the pag
   assert.doesNotMatch(G.configH(M.defaults()), /What each override pin forces/);
 });
 
+// One boost of the default model replaced: its line in config.h
+function boostsLine(boosts) {
+  const m = M.defaults();
+  m.dualTariff.boosts = boosts;
+  return G.configH(m)
+    .split('\n')
+    .find((l) => l.startsWith('inline constexpr ScheduledBoosts'));
+}
+
+test('scheduled boosts: each kind of window gives its form', () => {
+  const one = (b) => boostsLine([{ targets: [{ load: 0 }], ...b }]);
+  assert.match(one({ from: 'start', at: 0, for: 120 }), /scheduledBoosts\{ \{ \{ FIRST\(HOURS\(2\)\), \{ LOAD\(0\) \} \} \} \};/);
+  assert.match(one({ from: 'end', at: 90, for: null }), /scheduledBoosts\{ \{ \{ LAST\(MINUTES\(90\)\), \{ LOAD\(0\) \} \} \} \};/);
+  assert.match(one({ from: 'start', at: 60, for: null }), /scheduledBoosts\{ \{ \{ FROM_START\(HOURS\(1\)\), \{ LOAD\(0\) \} \} \} \};/);
+  assert.match(one({ from: 'end', at: 180, for: 90 }), /scheduledBoosts\{ \{ \{ BEFORE_END\(HOURS\(3\)\), FOR\(MINUTES\(90\)\), \{ LOAD\(0\) \} \} \} \};/);
+  assert.match(one({ from: 'start', at: 30, for: 60 }), /scheduledBoosts\{ \{ \{ FROM_START\(MINUTES\(30\)\), FOR\(HOURS\(1\)\), \{ LOAD\(0\) \} \} \} \};/);
+});
+
+test('scheduled boosts: an empty list, a group of targets', () => {
+  assert.match(boostsLine([]), /^inline constexpr ScheduledBoosts scheduledBoosts\{\};/);
+  assert.match(boostsLine([{ from: 'start', at: 0, for: 120, targets: 'ALL_RELAYS' }]), /\{ \{ \{ FIRST\(HOURS\(2\)\), ALL_RELAYS\(\) \} \} \}; \/\*\*< all relays, the first 2 hours \*\/$/);
+});
+
+test('scheduled boosts: several, one per line, a comment says what each one forces', () => {
+  const m = M.defaults();
+  m.dualTariff.boosts = [
+    { from: 'end', at: 180, for: 120, targets: [{ load: 0 }] },
+    { from: 'start', at: 0, for: 60, targets: 'ALL_LOADS' },
+  ];
+  assert.match(
+    G.configH(m),
+    /^\/\/ What each scheduled boost forces .*\n\/\/ {3}boost 1: load 1 \(D5\)\n\/\/ {3}boost 2: all loads\ninline constexpr ScheduledBoosts scheduledBoosts\{ \{ \{ BEFORE_END\(HOURS\(3\)\), FOR\(HOURS\(2\)\), \{ LOAD\(0\) \} \},\n {52}\{ FIRST\(HOURS\(1\)\), ALL_LOADS\(\) \} \} \};/m
+  );
+});
+
+test('normalize: the former force list is dropped, the default boosts take its place', () => {
+  const m = M.normalize({ dualTariff: { enabled: true, pin: 3, force: [{ start: -3, duration: 2 }] } });
+  assert.ok(!('force' in m.dualTariff));
+  assert.deepStrictEqual(m.dualTariff.boosts, M.defaults().dualTariff.boosts);
+  assert.deepStrictEqual(M.defaults().dualTariff.boosts, [{ from: 'end', at: 180, for: 120, targets: [{ load: 0 }] }]);
+});
+
 const calibrationFile = () => fs.readFileSync(path.join(repo, 'Mk2_3phase_RFdatalog_temp/calibration.h'), 'utf8');
 // The text with one value of an array replaced: the tests follow the values of calibration.h
 function withValue(text, name, phase, value) {
@@ -203,4 +245,65 @@ test('calibration mode: config.h and the new calibration.h, nothing else', () =>
     G.files(m).map((f) => f.path),
     ['Mk2_3phase_RFdatalog_temp/config.h', 'Mk2_3phase_RFdatalog_temp/calibration.h']
   );
+});
+
+test('temperature threshold: the sensor it is checked on', () => {
+  const m = M.defaults();
+  m.dualTariff.tempSensor = 1;
+  assert.match(G.configH(m), /^inline constexpr uint8_t BOOST_TEMP_SENSOR\{ 1 \};/m);
+});
+
+test('removing a sensor: the boosts keep the same sensor, or fall back to the first', () => {
+  const three = () => {
+    const m = M.defaults();
+    m.temperature.sensors = [{ address: 'A', name: '' }, { address: 'B', name: '' }, { address: 'C', name: '' }];
+    return m;
+  };
+  let m = three();
+  m.dualTariff.tempSensor = 2;
+  M.removeSensor(m, 0); // one before it: same sensor, one place lower
+  assert.deepStrictEqual([m.temperature.sensors.length, m.dualTariff.tempSensor], [2, 1]);
+  m = three();
+  m.dualTariff.tempSensor = 1;
+  M.removeSensor(m, 1); // the chosen one: the first
+  assert.strictEqual(m.dualTariff.tempSensor, 0);
+  m = three();
+  m.dualTariff.tempSensor = 0;
+  M.removeSensor(m, 2); // one after it: unchanged
+  assert.strictEqual(m.dualTariff.tempSensor, 0);
+});
+
+test('temperature: D3 on the new board, wired there; the chosen pin on the old one', () => {
+  const m = M.normalize({ pcbVersion: 'NEW', temperature: { mode: 'router', pin: 4 } });
+  assert.match(G.configH(m), /^inline constexpr TemperatureSensing temperatureSensing\{ 3,$/m);
+  m.pcbVersion = 'OLD';
+  assert.match(G.configH(m), /^inline constexpr TemperatureSensing temperatureSensing\{ 4,$/m);
+});
+
+test('no probe read by the router: an unreadable threshold is written as 100, the firmware ignores it', () => {
+  const m = M.defaults();
+  m.dualTariff.tempThreshold = null;
+  assert.match(G.configH(m), /^inline constexpr int16_t iTemperatureThreshold\{ 100 \};/m);
+  m.dualTariff.tempThreshold = 60;
+  assert.match(G.configH(m), /^inline constexpr int16_t iTemperatureThreshold\{ 60 \};/m);
+});
+
+test('fewer loads or relays: the boosts and override pins drop the targets that no longer exist', () => {
+  const m = M.defaults(); // 3 loads
+  M.resizeLoads(m, 4);
+  M.resizeRelays(m, 2);
+  m.dualTariff.boosts = [{ from: 'start', at: 0, for: 60, targets: [{ load: 0 }, { load: 3 }, { relay: 1 }] }];
+  m.overrides.list = [{ pin: 4, wifi: false, targets: [{ load: 3 }, { relay: 0 }] }, { pin: 8, wifi: false, targets: 'ALL_LOADS' }];
+  M.resizeLoads(m, 3);
+  M.resizeRelays(m, 1);
+  assert.deepStrictEqual(m.dualTariff.boosts[0].targets, [{ load: 0 }]);
+  assert.deepStrictEqual(m.overrides.list[0].targets, [{ relay: 0 }]);
+  assert.strictEqual(m.overrides.list[1].targets, 'ALL_LOADS');
+});
+
+test('a new load avoids the probes pin', () => {
+  const m = M.defaults(); // new board, loads on 5, 6, 7
+  m.temperature.mode = 'router'; // probes on D3
+  M.resizeLoads(m, 4);
+  assert.strictEqual(m.loads[3].pin, 4);
 });
