@@ -521,6 +521,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "1d960d23679d18f0977b3e71192f998f8cc09461",
+   "date": "2026-11-20T12:17:44+01:00",
+   "message": "perf: one \"is present\" / \"is NOT present\" in flash, -60 B (#218)\n\nEach F(\"...\") is a string of its own in flash, even with the same text:\nthe startup configuration stored \"is NOT present\" (15 B) once per absent\nfeature, five times with the default config. The features now print it\nthrough infolnPresence(), which holds both strings once; the blocks get\nshorter too (presence line, then the details if present).\n\nFlash of the basic build: 8,072 -> 8,012 B with the default config (the\nsame -60 B in HumanReadable, JSON and rf), 11,880 -> 11,836 B with relays,\ntemperature, dual tariff and rotation on. Same output.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/1d960d23679d18f0977b3e71192f998f8cc09461",
+   "sizes": {
+    "basic": {
+     "flash": 8018,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 8014,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 8018,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7808,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05,
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158
+   }
   }
  ]
 }
