@@ -566,6 +566,51 @@
     "datalog: watts avg": 156,
     "datalog: watts max": 158
    }
+  },
+  {
+   "commit": "b93f48fada6eddd266d0c53618b57ba05d6839c9",
+   "date": "2026-11-20T12:24:44+01:00",
+   "message": "perf: plain loop for the teleinfo checksum, -40 B (#219)\n\nThe checksum of a teleinfo line was unrolled 4 times, with a second loop\nfor the remaining bytes. A line is about 15 bytes, summed once per\ndatalog period in the main loop, never in the ISR: a plain loop does.\n\nFlash: 8,012 -> 7,972 B (basic), 8,010 -> 7,970 B (rf). Same checksums\n(test_teleinfo).\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/b93f48fada6eddd266d0c53618b57ba05d6839c9",
+   "sizes": {
+    "basic": {
+     "flash": 7978,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 7978,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7808,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05,
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158
+   }
   }
  ]
 }
