@@ -134,7 +134,7 @@ Data logging → Serial output → Telemetry transmission
 ## Real-Time Guarantees
 
 ### Interrupt Service Routine (ISR)
-- **Execution time**: 350 cycles (~22μs) on average, ~66μs for the longest steady-state call; every call must end within one ADC conversion (104μs) - see [performance.md](performance.md)
+- **Execution time**: 318 cycles (~20μs) on average, ~58μs for the longest steady-state call; every call must end within one ADC conversion (104μs) - see [performance.md](performance.md)
 - **Frequency**: 9.6 kHz (every 104μs)
 - **Priority**: Highest (hardware ADC interrupt)
 - **Memory**: Stack-based, no heap allocation

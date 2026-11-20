@@ -115,6 +115,41 @@ void test_remoteOrdinal_counts_remote_entries_only(void)
   TEST_ASSERT_EQUAL(2, Load::remoteOrdinal(map, 4));
 }
 
+void test_overrideMasks_match_the_shift_they_replace(void)
+{
+  // the ISR tests the override of load i with these masks instead of shifting by the pin
+  static constexpr uint8_t map[]{ Load::local(5), Load::remote(1, 6), Load::local(13), Load::remote(2), Load::local(2), Load::remote(1) };
+  static constexpr auto masks{ Load::overrideMasks(map) };
+
+  for (uint8_t i = 0; i < sizeof(map); ++i)
+  {
+    if (Load::isLocal(map[i]))
+    {
+      TEST_ASSERT_EQUAL_HEX16(1U << Load::pinOf(map[i]), masks.local[i]);
+      TEST_ASSERT_EQUAL_HEX8(0, masks.remote[i]);
+    }
+    else
+    {
+      TEST_ASSERT_EQUAL_HEX16(0, masks.local[i]);
+      TEST_ASSERT_EQUAL_HEX8(1U << Load::remoteOrdinal(map, i), masks.remote[i]);
+    }
+  }
+  TEST_ASSERT_EQUAL_HEX16(0x2000, masks.local[2]);  // pin 13: the high byte, PORTB
+  TEST_ASSERT_EQUAL_HEX8(0x04, masks.remote[5]);    // third remote load, though on unit 1
+}
+
+void test_overrideMasks_give_no_bit_to_an_out_of_range_entry(void)
+{
+  // rejected by validation.h; the mask builder itself must stay a valid constant expression
+  static constexpr uint8_t map[]{ Load::local(20), Load::remote(1), Load::remote(1), Load::remote(1), Load::remote(1),
+                                  Load::remote(2), Load::remote(2), Load::remote(2), Load::remote(2), Load::remote(3) };
+  static constexpr auto masks{ Load::overrideMasks(map) };
+
+  TEST_ASSERT_EQUAL_HEX16(0, masks.local[0]);     // pin 20: beyond the 16-bit override bitmask
+  TEST_ASSERT_EQUAL_HEX8(0x80, masks.remote[8]);  // eighth remote load: the last bit
+  TEST_ASSERT_EQUAL_HEX8(0, masks.remote[9]);     // ninth: beyond the 8-bit remote bitmask
+}
+
 void test_bitOf_counts_within_the_same_unit(void)
 {
   static constexpr uint8_t map[]{ Load::remote(1), Load::remote(2), Load::remote(1), Load::remote(2), Load::remote(1) };
@@ -726,6 +761,8 @@ int main(int, char **)
   RUN_TEST(test_census_is_constexpr);
   RUN_TEST(test_census_of_an_all_local_map);
   RUN_TEST(test_remoteOrdinal_counts_remote_entries_only);
+  RUN_TEST(test_overrideMasks_match_the_shift_they_replace);
+  RUN_TEST(test_overrideMasks_give_no_bit_to_an_out_of_range_entry);
   RUN_TEST(test_bitOf_counts_within_the_same_unit);
 
   // Unit grouping

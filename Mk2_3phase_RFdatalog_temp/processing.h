@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Public functions/variables of processing engine
  * @version 0.1
- * @date 2026-10-02
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -65,7 +65,9 @@ inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline, optimi
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
 inline void processDataLogging() __attribute__((always_inline, optimize("-O3")));
 inline void updatePortsStates() __attribute__((optimize("-O3")));
-inline void updatePhysicalLoadStates() __attribute__((always_inline));
+// not inlined on purpose: inlined, it takes registers that the rest of the ISR then spills to a
+// stack frame on every call (grid simulator: 30 cycles more on average, 65 more at most)
+inline void updatePhysicalLoadStates() __attribute__((noinline));
 #endif
 
 #endif /* PROCESSING_H */

@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Encoding of the load map: one packed byte per dump load
  * @version 1.0
- * @date 2026-09-23
+ * @date 2026-11-20
  *
  * @copyright Copyright (c) 2025-2026
  *
@@ -183,6 +183,45 @@ constexpr uint8_t bitOf(const uint8_t (&map)[N], uint8_t loadNum)
     }
   }
   return bit;
+}
+
+/**
+ * @brief Override bit of each load, in the local or in the remote override bitmask.
+ *
+ * @details Built at compile time, so that the ISR tests a load's override with a mask
+ *          instead of shifting by its pin (a loop on AVR) or counting its remote ordinal.
+ */
+template< uint8_t N >
+struct OverrideMasks
+{
+  uint16_t local[N]; /**< bit of the load's pin in the local override bitmask, 0 for a remote load */
+  uint8_t remote[N]; /**< bit of the load's ordinal in the remote override bitmask, 0 for a local load */
+};
+
+/**
+ * @brief Build the override bits of a load map.
+ *
+ * @details An entry out of range (rejected by isValidMap() and the remote load count
+ *          checks) gets no bit, so that the error reported is that one.
+ *
+ * @param map The load map.
+ */
+template< uint8_t N >
+constexpr OverrideMasks< N > overrideMasks(const uint8_t (&map)[N])
+{
+  OverrideMasks< N > masks{};
+  for (uint8_t i = 0; i < N; ++i)
+  {
+    if (isLocal(map[i]))
+    {
+      masks.local[i] = pinOf(map[i]) < 16 ? static_cast< uint16_t >(1U << pinOf(map[i])) : 0;
+    }
+    else
+    {
+      masks.remote[i] = remoteOrdinal(map, i) < 8 ? static_cast< uint8_t >(1U << remoteOrdinal(map, i)) : 0;
+    }
+  }
+  return masks;
 }
 
 /**
