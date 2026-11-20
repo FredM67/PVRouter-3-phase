@@ -160,8 +160,8 @@ void test_12_hours_whole_range(void)
 void test_windows_are_computed_at_compile_time(void)
 {
   // as in dualtariff.h: rg_OffsetForce is constexpr
-  static_assert(DualTariff::windowStart({ -3, 2 }, 12) == 9 * HOUR, "computed at compile time");
-  static_assert(DualTariff::windowEnd({ -3, 2 }, 12) == 11 * HOUR, "computed at compile time");
+  static_assert(DualTariff::windowStart(pairForceLoad{ -3, 2 }, 12) == 9 * HOUR, "computed at compile time");
+  static_assert(DualTariff::windowEnd(pairForceLoad{ -3, 2 }, 12) == 11 * HOUR, "computed at compile time");
   TEST_PASS();
 }
 
@@ -206,16 +206,16 @@ void test_elapsed_time_across_the_millis_wraparound(void)
 void test_a_window_starting_after_the_period_never_opens(void)
 {
   // { 10, 20 } with 8 h: starts 2 h after the end
-  TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak({ 10, 20 }, 8));
+  TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak(pairForceLoad{ 10, 20 }, 8));
   // starting at the very end: never opens either
-  TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak({ 8, 1 }, 8));
-  TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak({ 480, 1 }, 8));  // 480 min = 8 h
+  TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak(pairForceLoad{ 8, 1 }, 8));
+  TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak(pairForceLoad{ 480, 1 }, 8));  // 480 min = 8 h
 }
 
 void test_a_window_starting_before_the_period_never_opens(void)
 {
   // { -9, 1 } with 8 h: 1 h before the start, wraps around to a huge start
-  TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak({ -9, 1 }, 8));
+  TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak(pairForceLoad{ -9, 1 }, 8));
   TEST_ASSERT_TRUE(startOf({ -9, 1 }, 8) > 8 * HOUR);
   TEST_ASSERT_FALSE(forcedAt({ -9, 1 }, 8, 0));
   TEST_ASSERT_FALSE(forcedAt({ -9, 1 }, 8, 7 * HOUR));
@@ -223,19 +223,120 @@ void test_a_window_starting_before_the_period_never_opens(void)
 
 void test_windows_within_the_period_are_accepted(void)
 {
-  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak({ -3, 2 }, 8));  // config.h
-  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak({ 7, 1 }, 8));
-  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak({ -8, 1 }, 8));  // from the very start
-  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak({ 479, 1 }, 8));
-  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak({ -480, 30 }, 8));
-  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak({ -12, 1 }, 12));
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(pairForceLoad{ -3, 2 }, 8));  // config.h
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(pairForceLoad{ 7, 1 }, 8));
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(pairForceLoad{ -8, 1 }, 8));  // from the very start
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(pairForceLoad{ 479, 1 }, 8));
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(pairForceLoad{ -480, 30 }, 8));
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(pairForceLoad{ -12, 1 }, 12));
   TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(pairForceLoad{}, 8));  // a load left out
 }
 
 void test_no_boost_is_accepted_whatever_its_offset(void)
 {
-  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak({ 0, 0 }, 8));
-  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak({ 10, 0 }, 8));
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(pairForceLoad{ 0, 0 }, 8));
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(pairForceLoad{ 10, 0 }, 8));
+}
+
+// ============================================================================
+// Scheduled boosts: BoostWindow
+// ============================================================================
+
+void test_hours_and_minutes(void)
+{
+  TEST_ASSERT_EQUAL_UINT16(120, HOURS(2).value);
+  TEST_ASSERT_EQUAL_UINT16(720, HOURS(12).value);
+  TEST_ASSERT_EQUAL_UINT16(90, MINUTES(90).value);
+}
+
+void test_first_starts_at_the_start_and_lasts_its_duration(void)
+{
+  TEST_ASSERT_EQUAL_UINT32(0, DualTariff::windowStart(FIRST(HOURS(2)), 8));
+  TEST_ASSERT_EQUAL_UINT32(7200000UL, DualTariff::windowEnd(FIRST(HOURS(2)), 8));
+}
+
+void test_last_starts_back_from_the_end_and_has_no_end(void)
+{
+  TEST_ASSERT_EQUAL_UINT32(21600000UL, DualTariff::windowStart(LAST(HOURS(2)), 8));
+  TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, DualTariff::windowEnd(LAST(HOURS(2)), 8));
+}
+
+void test_from_start_for(void)
+{
+  constexpr BoostWindow w{ FROM_START(HOURS(2)), FOR(HOURS(2)) };
+  TEST_ASSERT_EQUAL_UINT32(7200000UL, DualTariff::windowStart(w, 8));
+  TEST_ASSERT_EQUAL_UINT32(14400000UL, DualTariff::windowEnd(w, 8));
+}
+
+void test_before_end_for(void)
+{
+  constexpr BoostWindow w{ BEFORE_END(HOURS(3)), FOR(MINUTES(90)) };
+  TEST_ASSERT_EQUAL_UINT32(18000000UL, DualTariff::windowStart(w, 8));
+  TEST_ASSERT_EQUAL_UINT32(23400000UL, DualTariff::windowEnd(w, 8));
+}
+
+void test_until_the_end_has_no_end(void)
+{
+  constexpr BoostWindow w{ FROM_START(HOURS(1)), BoostLength{ UNTIL_THE_END } };
+  TEST_ASSERT_EQUAL_UINT32(3600000UL, DualTariff::windowStart(w, 8));
+  TEST_ASSERT_EQUAL_UINT32(UINT32_MAX, DualTariff::windowEnd(w, 8));
+}
+
+void test_twelve_hours(void)
+{
+  TEST_ASSERT_EQUAL_UINT32(0, DualTariff::windowStart(LAST(HOURS(12)), 12));
+  TEST_ASSERT_EQUAL_UINT32(43140000UL, DualTariff::windowStart(LAST(MINUTES(1)), 12));
+  TEST_ASSERT_EQUAL_UINT32(43200000UL, DualTariff::windowEnd(FIRST(HOURS(12)), 12));
+}
+
+void test_starts_within_off_peak(void)
+{
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(FIRST(HOURS(10)), 8));     // ends after: the meter stops it
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(LAST(HOURS(8)), 8));       // starts at 0
+  TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak(LAST(MINUTES(481)), 8));  // 1 min before the start
+  TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak(LAST(MINUTES(0)), 8));    // at the end
+  TEST_ASSERT_FALSE(DualTariff::startsWithinOffPeak(BoostWindow{ FROM_START(HOURS(8)), FOR(HOURS(1)) }, 8));
+  TEST_ASSERT_TRUE(DualTariff::startsWithinOffPeak(BoostWindow{ FROM_START(MINUTES(479)), FOR(HOURS(1)) }, 8));
+}
+
+void test_a_boost_of_zero_minutes_has_no_length(void)
+{
+  TEST_ASSERT_FALSE(DualTariff::hasLength(FIRST(MINUTES(0))));
+  TEST_ASSERT_FALSE(DualTariff::hasLength(BoostWindow{ BEFORE_END(HOURS(2)), FOR(MINUTES(0)) }));
+  TEST_ASSERT_TRUE(DualTariff::hasLength(LAST(HOURS(2))));
+}
+
+void test_boost_windows_are_computed_at_compile_time(void)
+{
+  static_assert(DualTariff::windowEnd(FIRST(HOURS(2)), 8) == 7200000UL, "computed at compile time");
+  TEST_PASS();
+}
+
+void test_boost_window_includes_its_start_and_excludes_its_end(void)
+{
+  constexpr BoostWindow w{ FROM_START(HOURS(2)), FOR(HOURS(3)) };  // 2 h to 5 h
+  const uint32_t start{ DualTariff::windowStart(w, 8) };
+  const uint32_t end{ DualTariff::windowEnd(w, 8) };
+
+  TEST_ASSERT_FALSE(DualTariff::inWindow(2 * HOUR - 1, start, end));
+  TEST_ASSERT_TRUE(DualTariff::inWindow(2 * HOUR, start, end));
+  TEST_ASSERT_TRUE(DualTariff::inWindow(5 * HOUR - 1, start, end));
+  TEST_ASSERT_FALSE(DualTariff::inWindow(5 * HOUR, start, end));
+  TEST_ASSERT_TRUE(DualTariff::inWindow(UINT32_MAX - 1, DualTariff::windowStart(LAST(HOURS(2)), 8), DualTariff::windowEnd(LAST(HOURS(2)), 8)));
+}
+
+void test_boost_window_across_the_millis_wraparound(void)
+{
+  const uint32_t offPeakStart{ UINT32_MAX - MINUTE + 1 };              // 1 min before millis() wraps
+  const uint32_t start{ DualTariff::windowStart(LAST(HOURS(3)), 8) };  // 5 h
+  const uint32_t end{ DualTariff::windowEnd(LAST(HOURS(3)), 8) };
+
+  const uint32_t at6h{ offPeakStart + 6 * HOUR };  // wrapped around
+  const uint32_t at4h{ offPeakStart + 4 * HOUR };
+
+  TEST_ASSERT_TRUE(at6h < offPeakStart);
+  TEST_ASSERT_TRUE(DualTariff::inWindow(at6h - offPeakStart, start, end));
+  TEST_ASSERT_FALSE(DualTariff::inWindow(at4h - offPeakStart, start, end));
 }
 
 int main(void)
@@ -267,6 +368,19 @@ int main(void)
   RUN_TEST(test_a_window_starting_before_the_period_never_opens);
   RUN_TEST(test_windows_within_the_period_are_accepted);
   RUN_TEST(test_no_boost_is_accepted_whatever_its_offset);
+
+  RUN_TEST(test_hours_and_minutes);
+  RUN_TEST(test_first_starts_at_the_start_and_lasts_its_duration);
+  RUN_TEST(test_last_starts_back_from_the_end_and_has_no_end);
+  RUN_TEST(test_from_start_for);
+  RUN_TEST(test_before_end_for);
+  RUN_TEST(test_until_the_end_has_no_end);
+  RUN_TEST(test_twelve_hours);
+  RUN_TEST(test_starts_within_off_peak);
+  RUN_TEST(test_a_boost_of_zero_minutes_has_no_length);
+  RUN_TEST(test_boost_windows_are_computed_at_compile_time);
+  RUN_TEST(test_boost_window_includes_its_start_and_excludes_its_end);
+  RUN_TEST(test_boost_window_across_the_millis_wraparound);
 
   return UNITY_END();
 }

@@ -56,6 +56,77 @@ private:
   uint16_t uiDuration{ UINT16_MAX }; /**< the duration for overriding the load in hours or minutes */
 };
 
+/** @brief A number of minutes: the unit of the scheduled boosts, built with HOURS() or MINUTES(). */
+struct Minutes
+{
+  uint16_t value;
+};
+
+/** @brief @p n hours, as Minutes. */
+constexpr Minutes HOURS(const uint8_t n)
+{
+  return Minutes{ static_cast< uint16_t >(n * 60U) };
+}
+
+/** @brief @p n minutes, as Minutes. */
+constexpr Minutes MINUTES(const uint16_t n)
+{
+  return Minutes{ n };
+}
+
+/** @brief Where a boost starts: @p minutes after the start of the off-peak period, or before its end if @p fromEnd. */
+struct BoostStart
+{
+  bool fromEnd;
+  uint16_t minutes;
+};
+
+/** @brief The length of a boost that only the meter ends: the end of the off-peak period stops it anyway. */
+inline constexpr uint16_t UNTIL_THE_END{ UINT16_MAX };
+
+/** @brief How long a boost lasts, in minutes, or UNTIL_THE_END. */
+struct BoostLength
+{
+  uint16_t minutes;
+};
+
+/** @brief When a load is boosted during the off-peak period. */
+struct BoostWindow
+{
+  BoostStart start;
+  BoostLength length;
+};
+
+/** @brief A start @p m after the beginning of the off-peak period. */
+constexpr BoostStart FROM_START(const Minutes m)
+{
+  return BoostStart{ false, m.value };
+}
+
+/** @brief A start @p m before the end of the off-peak period. */
+constexpr BoostStart BEFORE_END(const Minutes m)
+{
+  return BoostStart{ true, m.value };
+}
+
+/** @brief A boost lasting @p m. */
+constexpr BoostLength FOR(const Minutes m)
+{
+  return BoostLength{ m.value };
+}
+
+/** @brief The first @p d of the off-peak period. */
+constexpr BoostWindow FIRST(const Minutes d)
+{
+  return BoostWindow{ FROM_START(MINUTES(0)), FOR(d) };
+}
+
+/** @brief The last @p d of the off-peak period, until the end. */
+constexpr BoostWindow LAST(const Minutes d)
+{
+  return BoostWindow{ BEFORE_END(d), BoostLength{ UNTIL_THE_END } };
+}
+
 /**
  * @brief The forcing window of each load, in milliseconds from the start of the off-peak period.
  *
@@ -137,6 +208,49 @@ constexpr bool startsWithinOffPeak(const pairForceLoad& force, const uint8_t off
   const int32_t startInSec{ (force.getStartOffset() >= 0) ? offsetInSec : periodInSec + offsetInSec };
 
   return (startInSec >= 0) && (startInSec < periodInSec);
+}
+
+/**
+ * @brief The start of the boost window, in ms from the start of the off-peak period.
+ *
+ * @details A start before the period wraps around to a very large value: the window then never
+ *          opens. validation.h rejects such a window at compile time, with startsWithinOffPeak().
+ *
+ * @param offPeakHours the duration of the off-peak period, in hours (12 at most)
+ */
+constexpr uint32_t windowStart(const BoostWindow& window, const uint8_t offPeakHours)
+{
+  const uint32_t minutes{ window.start.fromEnd ? (offPeakHours * 60U - window.start.minutes) : window.start.minutes };
+  return minutes * 60000UL;
+}
+
+/**
+ * @brief The end of the boost window (excluded), in ms from the start of the off-peak period.
+ *
+ * @return UINT32_MAX for UNTIL_THE_END: the end of the off-peak period stops any boost anyway
+ */
+constexpr uint32_t windowEnd(const BoostWindow& window, const uint8_t offPeakHours)
+{
+  if (UNTIL_THE_END == window.length.minutes)
+  {
+    return UINT32_MAX;
+  }
+  return windowStart(window, offPeakHours) + window.length.minutes * 60000UL;
+}
+
+/** @brief Whether the window starts within the off-peak period: otherwise, it would never open. */
+constexpr bool startsWithinOffPeak(const BoostWindow& window, const uint8_t offPeakHours)
+{
+  const int32_t periodInMin{ static_cast< int32_t >(offPeakHours * 60L) };
+  const int32_t startInMin{ window.start.fromEnd ? periodInMin - window.start.minutes : static_cast< int32_t >(window.start.minutes) };
+
+  return (startInMin >= 0) && (startInMin < periodInMin);
+}
+
+/** @brief Whether the boost lasts at all: a length of 0 is no boost. */
+constexpr bool hasLength(const BoostWindow& window)
+{
+  return 0 != window.length.minutes;
 }
 }  // namespace DualTariff
 
