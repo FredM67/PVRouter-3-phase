@@ -88,6 +88,8 @@ These were decided with the user, or proposed and accepted:
 - Several boosts may name the same target; their windows add up (OR).
 - A window includes its start and excludes its end (as `DualTariff::inWindow` today).
 - The end of the off-peak period stops every boost, whatever its window. That end is the meter going back to peak (the off-peak pin), never `ul_OFF_PEAK_DURATION` (see call 6).
+- `ul_OFF_PEAK_DURATION` is there only to place the windows counted back from the end (`LAST`, `BEFORE_END`). It must match the meter's real off-peak length; the README and the `config.h` comment say so.
+- When the meter switches back to peak, every boost stops at once.
 - The temperature condition (at or below `iTemperatureThreshold`) applies to all boosts, as today.
 
 ## Decided: how it works
