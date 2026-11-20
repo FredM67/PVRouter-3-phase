@@ -132,11 +132,7 @@ inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
 // - Frequently cloudy (coastal):         3 minutes (enhanced stability)
 // - Very cloudy (mountain, tropical):    4 minutes (maximum stability)
 //
-// 🧪 Scientific Tuning:
-// Run cloud pattern analysis tests to determine optimal setting for your climate:
-//   cd Mk2_3phase_RFdatalog_temp && pio test -e native --filter="test_cloud_patterns" -v
-//
-// 📖 Full guide: docs/Cloud_Pattern_Tuning_Guide.md
+// 📖 Full guide: docs/Cloud_Pattern_Tuning_Guide.md, at the root of the repository
 //--------------------------------------------------------------------------------------------------
 inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minutes for relay control */
 
