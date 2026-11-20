@@ -476,6 +476,51 @@
     "datalog: watts avg": 156,
     "datalog: watts max": 158
    }
+  },
+  {
+   "commit": "e3490f9b82cea5f0f0945310fd5111df05269d14",
+   "date": "2026-11-20T12:09:45+01:00",
+   "message": "perf: info(F(...)) out of line, -144 B of flash (-276 B with features) (#217)\n\ninfo() and infoln() are templates, always inlined: each of the 101\nmessages that print a text in flash, F(\"...\"), had complete(), the load\nof Serial and the call to print() inlined at its call site. A\nnon-template overload for const __FlashStringHelper*, not inlined, takes\nthese calls (a non-template function wins an equal match), also through\nstatus() and debug(): one call per message.\n\nFlash of the basic build: 8,216 -> 8,072 B with the default config,\n12,156 -> 11,880 B with relays, temperature, dual tariff and rotation on.\nText output only, never in the ISR: a message costs one call more.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/e3490f9b82cea5f0f0945310fd5111df05269d14",
+   "sizes": {
+    "basic": {
+     "flash": 8078,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 8074,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 8078,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7868,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
