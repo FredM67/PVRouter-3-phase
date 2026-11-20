@@ -19,7 +19,8 @@ The relays record each switch (pin, new state) instead of driving a pin. Each re
 | `test_nothing_switches_during_the_first_minute` / `test_a_change_of_any_relay_holds_every_relay_for_a_minute` / `test_the_settle_time_holds_a_switch_off_after_a_switch_on` / `test_no_change_starts_no_settle_time` | The settle time: 60 s at start-up and after any change, for every relay; none without a change |
 | `test_on_a_surplus_the_relays_come_in_*` / `test_on_an_import_the_relays_go_out_*` | One relay per settle time: in by increasing index, out by decreasing index |
 | `test_a_relay_held_by_its_minimum_*_lets_the_*` / `test_each_relay_comes_in_at_its_own_threshold` | A relay that cannot switch is skipped: the next one may |
-| `test_a_zero_average_is_handled_as_a_surplus_by_increasing_index` | 0 W walks the relays by increasing index (battery mode: the first relay goes out first), 1 W by decreasing index |
+| `test_battery_relays_go_out_by_decreasing_index_on_a_small_surplus` | Battery mode: on a small surplus or at 0 W, the last relay goes out first, as on an import |
+| `test_a_minimum_time_beyond_1092_minutes_is_marked_for_validation` | 1093 min do not fit in 16 bits of seconds: kept as UINT16_MAX, refused by `validation.h` |
 | `test_a_forced_relay_comes_in_during_an_import` / `test_a_forced_relay_stays_on_while_the_others_go_out` / `test_a_released_relay_is_left_to_the_engine` | Overrides through the engine |
 | `test_diversion_off_*` | Diversion OFF: every unforced relay OFF in one go, the forced ones ON, the average ignored; the minimum times and the settle time still apply |
 | `test_the_engine_decides_on_the_average_not_on_the_last_value` / `test_the_engine_decides_on_the_triple_ema` | One datalog does not make the average; the decision is on the triple EMA |

@@ -303,7 +303,7 @@ Chaque seconde, le système augmente la durée de l’état actuel de chaque rel
 - si la puissance moyenne actuelle est supérieure au seuil d’import, elle essaie d’éteindre certains relais.
 - si la puissance moyenne actuelle est supérieure au seuil de surplus, elle essaie d’allumer plus de relais.
 
-Les relais sont traités dans l’ordre croissant pour le surplus et dans l’ordre décroissant pour l’importation.
+Les relais s’allument dans l’ordre croissant et s’éteignent dans l’ordre décroissant : sur une importation, et aussi sur un petit surplus pour les relais en mode batterie.
 
 Pour chaque relais, la transition ou le changement d’état est géré de la manière suivante :
 - si le relais est *OFF* et que la puissance moyenne actuelle est inférieure au seuil de surplus, le relais essaie de passer à l’état *ON*. Cette transition est soumise à la condition que le relais ait été *OFF* pendant au moins la durée *minOFF*.

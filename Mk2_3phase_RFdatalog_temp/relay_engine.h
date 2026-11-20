@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Decisions of the relay diversion: which relay switches, and when
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @details The relay engine without its I/O: the thresholds, the minimum ON and OFF times, the
  *          settle time after any relay change, the order the relays come in and go out, and the
@@ -109,7 +109,7 @@ public:
    * @param _minOFF Minimum duration in minutes to leave relay OFF
    */
   constexpr Relay(uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)
-    : relay_pin{ _relay_pin }, surplusThreshold{ negativeOf(_surplusThreshold) }, importThreshold{ _importThreshold }, minON{ static_cast< uint16_t >(_minON * 60) }, minOFF{ static_cast< uint16_t >(_minOFF * 60) }
+    : relay_pin{ _relay_pin }, surplusThreshold{ negativeOf(_surplusThreshold) }, importThreshold{ _importThreshold }, minON{ toSeconds(_minON) }, minOFF{ toSeconds(_minOFF) }
   {
   }
 
@@ -164,6 +164,16 @@ public:
   }
 
   /**
+   * @brief Whether both minimum times fit in 16 bits of seconds (1092 minutes at most).
+   *
+   * @details validation.h refuses a relay for which it is false.
+   */
+  constexpr bool hasValidMinimumTimes() const
+  {
+    return (minON != UINT16_MAX) && (minOFF != UINT16_MAX);
+  }
+
+  /**
    * @brief Return the state
    *
    * @return auto
@@ -191,20 +201,23 @@ public:
    *
    * @param currentAvgPower Current average power
    * @param overrideBitmask Override bitmask (local pins): the relay is forced ON while its bit is set
+   * @param onAllowed False to turn the relay OFF only (a forced relay is never turned OFF)
    * @return bool True if state has changed
    */
-  bool proceed_relay(const int32_t currentAvgPower, const uint16_t overrideBitmask) const
+  bool proceed_relay(const int32_t currentAvgPower, const uint16_t overrideBitmask, const bool onAllowed = true) const
   {
+    const bool forced{ isForced(overrideBitmask) };
+
     // To avoid changing sign, surplus is a negative value
     // Turn ON if surplus threshold is met OR if override is active
-    if (currentAvgPower < surplusThreshold || isForced(overrideBitmask))
+    if (onAllowed && (currentAvgPower < surplusThreshold || forced))
     {
       return try_switch(true);
     }
 
     // Positive threshold: turn OFF when importing > threshold (normal mode).
     // Negative threshold: turn OFF when surplus < abs(threshold) (battery mode).
-    if (currentAvgPower > importThreshold)
+    if (!forced && currentAvgPower > importThreshold)
     {
       return try_switch(false);
     }
@@ -225,6 +238,18 @@ public:
   }
 
 private:
+  /**
+   * @brief Minutes to seconds, in 16 bits.
+   *
+   * @return the seconds, or UINT16_MAX beyond 1092 minutes: no number of minutes gives it (it
+   *         is no multiple of 60), so hasValidMinimumTimes() can tell. On AVR, `minutes * 60`
+   *         would wrap silently (1093 minutes gave 44 seconds).
+   */
+  static constexpr uint16_t toSeconds(const uint16_t minutes)
+  {
+    return minutes * 60UL > UINT16_MAX ? UINT16_MAX : static_cast< uint16_t >(minutes * 60UL);
+  }
+
   /** @brief -abs(value), without the abs() macro of Arduino.h. */
   static constexpr int16_t negativeOf(const int16_t value)
   {
@@ -352,14 +377,16 @@ public:
 #endif
 
   /**
-   * @brief Proceed all relays in increasing order (surplus) or decreasing order (import).
+   * @brief Proceed all relays: OFF in decreasing order, ON in increasing order.
    *
    * @param overrideBitmask Override bitmask (local pins): a relay is forced ON while its bit is set
    * @param diversionEnabled Whether diversion is enabled - if false, only the forced relays are ON
    *
    * @details This method adjusts the state of the relays based on the current average power.
    * If surplus power is available, it tries to turn ON relays in increasing order. If power
-   * is being imported, it tries to turn OFF relays in decreasing order.
+   * is being imported, it tries to turn OFF relays in decreasing order. On a surplus too, a
+   * relay in battery mode (negative import threshold) that goes OFF does so in decreasing
+   * order, before any relay comes in.
    * When diversion is disabled, the relays that are not forced are turned OFF.
    * The minimum ON and OFF times, and the settle time after any change, always apply.
    */
@@ -388,31 +415,25 @@ public:
 
     const auto currentAvgPower{ ewma_average.getAverageT() };
 
-    if (currentAvgPower > 0)
+    const bool importing{ currentAvgPower > 0 };
+
+    // First from the last relay down: OFF on an import (where a forced relay comes in too), and
+    // on a small surplus for the relays in battery mode. Then, on a surplus only, from the first
+    // relay up: ON. One call site, so that the switching code is inlined once.
+    for (uint8_t step = 0; step != 2 * N; ++step)
     {
-      // Currently importing, try to turn OFF some relays
-      uint8_t idx{ N };
-      do
+      const bool down{ step < N };
+      if (!down && importing)
       {
-        if (relay[--idx].proceed_relay(currentAvgPower, overrideBitmask))
-        {
-          settle_change = 60;
-          return;
-        }
-      } while (idx);
-    }
-    else
-    {
-      // Remaining surplus, try to turn ON more relays
-      uint8_t idx{ 0 };
-      do
+        return;
+      }
+
+      const uint8_t idx{ static_cast< uint8_t >(down ? N - 1 - step : step - N) };
+      if (relay[idx].proceed_relay(currentAvgPower, overrideBitmask, importing || !down))
       {
-        if (relay[idx].proceed_relay(currentAvgPower, overrideBitmask))
-        {
-          settle_change = 60;
-          return;
-        }
-      } while (++idx < N);
+        settle_change = 60;
+        return;
+      }
     }
   }
 
