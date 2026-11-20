@@ -791,6 +791,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "92cf1e2d08fbd2c4818b5dc9042e0086fd350a63",
+   "date": "2026-11-20T20:30:06+01:00",
+   "message": "ci: publish the configurator of dev as a preview on GitHub Pages (#225)\n\nEach push to dev copies configurator/ (without its tests) to\nfredm67.github.io/PVRouter-3-phase/configurator/, to try it before it\nreaches main and the documentation site. A banner says it is a preview and\nlinks to the released configurator; it keeps its settings under a key of\nits own, since the released one shares the origin and its storage. The\nlanding page links to it.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/92cf1e2d08fbd2c4818b5dc9042e0086fd350a63",
+   "sizes": {
+    "basic": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 7970,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 7974,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7802,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
