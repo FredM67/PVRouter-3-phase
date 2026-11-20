@@ -777,7 +777,8 @@
                       () => d.tempThreshold,
                       (v) => (d.tempThreshold = v),
                       { min: 1, max: 100 }
-                    )
+                    ),
+                    'tempThresholdHelp'
                   )
                 : null,
               M.tempSensorPresent(m) && m.temperature.sensors.length > 1

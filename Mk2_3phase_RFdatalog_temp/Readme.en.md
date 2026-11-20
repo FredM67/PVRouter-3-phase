@@ -642,7 +642,7 @@ Three rules to remember:
 - **What is not listed is never boosted.** An empty list, `inline constexpr ScheduledBoosts scheduledBoosts{};`, means no boost at all.
 - **Every boost stops when the meter switches back to peak**, whatever its window.
 - **The whole window lies within the off-peak period** (`ul_OFF_PEAK_DURATION`): a window with `FOR` ends at the latest at the end of the period, or the build fails. `LAST` and a window without `FOR` run until the meter switches back to peak.
-- The temperature condition (`iTemperatureThreshold`) applies to all boosts: above it, nothing is boosted. It needs temperature sensing on the router (`TEMP_SENSOR_PRESENT`); `BOOST_TEMP_SENSOR` chooses the sensor, by its index in `temperatureSensing` (0: the first). The threshold only stops the boost before the water heater's own thermostat does, which stays the safety limit: if the sensor cannot be read (disconnected, failed), the boosts run.
+- The temperature condition (`iTemperatureThreshold`) applies to all boosts: above it, nothing is boosted. It needs temperature sensing on the router (`TEMP_SENSOR_PRESENT`); `BOOST_TEMP_SENSOR` chooses the sensor, by its index in `temperatureSensing` (0: the first). The threshold is meant to be below the water heater's own thermostat, which stays the safety limit: for example, the thermostat at 80 °C so the heater takes as much surplus as possible, and the threshold at 60 °C so the off-peak boost leaves room for the next day's surplus. If the sensor cannot be read (disconnected, failed), the boosts run, up to the thermostat.
 
 A load may be in several boosts: their windows add up. A window includes its start and excludes its end.
 
