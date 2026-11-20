@@ -359,6 +359,30 @@
      "ram": 396
     }
    }
+  },
+  {
+   "commit": "70734bb08e20025f04c3312ba18ae9a2af596ba3",
+   "date": "2026-11-20T10:17:46+01:00",
+   "message": "build: link with --relax, also suggested for the Arduino IDE (#212)\n\nThe compiler emits every call and jump to another function in its long,\nabsolute form (call/jmp, 4 bytes), since final addresses are only known\nat link time. With --relax, the linker turns each one whose target is\nwithin 4 KB into the relative form (rcall/rjmp, 2 bytes, one cycle less)\nand moves everything after it.\n\n- flash 8,422 -> 8,152 B (default build, build strings frozen); 127 of\n  184 calls become rcall\n- the vector table keeps its 4-byte slots (rjmp + nop): every vector at\n  the same address, one cycle less to enter an interrupt\n- ADC ISR: average 318.0 -> 317.0 cycles, maximum -1 to -5: the ISR is\n  inlined, the vector is its only frequent jump\n- grid simulator, 3 boards, relays, RF: 190/190 expectations, boards\n  compare the same; embedded tests (simavr, built with it): 113/113\n\nThe READMEs suggest the same flag in platform.txt to Arduino IDE users.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/70734bb08e20025f04c3312ba18ae9a2af596ba3",
+   "sizes": {
+    "basic": {
+     "flash": 8222,
+     "ram": 568
+    },
+    "rf": {
+     "flash": 8218,
+     "ram": 568
+    },
+    "basic, IoT": {
+     "flash": 8222,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 8258,
+     "ram": 396
+    }
+   }
   }
  ]
 }
