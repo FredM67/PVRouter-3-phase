@@ -9,6 +9,7 @@ test/
 ├── native/           # Run on host PC (no hardware required)
 │   ├── test_datalog_math/
 │   ├── test_dc_offset_filter/
+│   ├── test_ds18b20/
 │   ├── test_dual_tariff/
 │   ├── test_energy_bucket/
 │   ├── test_ewma_avg/
@@ -54,11 +55,13 @@ pio test -e uno -f "*test_utils_relay*"
 |------|---------|
 | [test_datalog_math](native/test_datalog_math/) | Integer power and RMS voltage of the datalog, checked against the float references |
 | [test_dc_offset_filter](native/test_dc_offset_filter/) | DC offset removal filter |
+| [test_ds18b20](native/test_ds18b20/) | Checks of a DS18B20 reading: CRC-8, register to hundredths of °C (1/16 °C steps, negatives), range, disconnected probe, the 85 °C power-on value skipped after a jump, invalid readings not sent |
 | [test_dual_tariff](native/test_dual_tariff/) | Scheduled boosts of the dual tariff: the windows (`FIRST`, `LAST`, `FROM_START`, `BEFORE_END`, `FOR`), the masks of the targets, rejected windows (starting or ending outside the off-peak period, or of 0 min) |
 | [test_energy_bucket](native/test_energy_bucket/) | Integer energy bucket, checked against the float and exact references |
 | [test_ewma_avg](native/test_ewma_avg/) | EWMA filter for cloud immunity |
 | [test_load_priorities](native/test_load_priorities/) | Load priority state machine: switching order, post-transition period, rotation, overrides |
 | [test_override_masks](native/test_override_masks/) | Forced outputs: the targets of the override pins held LOW and of the scheduled boosts in their window (off-peak, temperature threshold, dead probe), joined |
+| [test_pin_edges](native/test_pin_edges/) | Edges of the active-LOW input pins: released at startup, one edge per press or release, one previous level per pin, a rotation press during forcing dropped |
 | [test_power_rms_comparison](native/test_power_rms_comparison/) | Real power vs. RMS power computation |
 | [test_remote_loads](native/test_remote_loads/) | Packed load map and per-unit remote payloads |
 | [test_utils_override](native/test_utils_override/) | Override pin system (local + remote loads) |
