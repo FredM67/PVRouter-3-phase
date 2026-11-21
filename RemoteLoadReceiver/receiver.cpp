@@ -2,10 +2,11 @@
  * @file receiver.cpp
  * @brief Implementation of Remote Load Receiver functions
  * @version 2.0
- * @date 2026-10-01
+ * @date 2026-11-21
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  *
  * @copyright Copyright (c) 2025-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 #include <avr/wdt.h>

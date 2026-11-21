@@ -1,6 +1,8 @@
 /*
  * PVRouter configurator - English and French texts of the page.
  * The generated files stay in English; the YAML entity names follow their own setting.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();

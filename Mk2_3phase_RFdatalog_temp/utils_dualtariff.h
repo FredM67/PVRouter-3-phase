@@ -6,6 +6,7 @@
  * @date 2026-11-21
  *
  * @copyright Copyright (c) 2023-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @note This header has no Arduino dependency, so it can be exercised by the native test
  *       suite (test/native/test_dual_tariff).

@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Encoding of the load map: one packed byte per dump load
  * @version 1.0
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2025-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details Each entry of @c physicalLoadPin[] describes one dump load:
  *          - bits 6-7 : owning unit. 0 = local (driven by the router itself),

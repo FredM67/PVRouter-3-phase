@@ -7,6 +7,8 @@
  *
  * Each problem: { level: 'error' | 'warning', key, params, field }. 'key' is an i18n key
  * (i18n.js), 'field' the setting to highlight.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(require('./model.js'));

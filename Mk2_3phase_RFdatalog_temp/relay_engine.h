@@ -14,6 +14,7 @@
  * @note This header has no Arduino dependency (its whole include closure is plain C++).
  *
  * @copyright Copyright (c) 2023-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
 

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 #ifndef SHARED_VAR_H
 #define SHARED_VAR_H
 

@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Integer arithmetic of the datalog: power and RMS voltage per phase
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details At the end of each datalog period, the main loop turns the sums of the ISR into
  *          watts and volts. This used to be float arithmetic (a multiplication by f_powerCal,

@@ -194,8 +194,8 @@ inline constexpr uint8_t REMOTE_NODE_ID{ 16 };  // Different ID, in config_rf.h
 
 ## License
 
-Based on Mk2 PV Router by Robin Emley
-www.Mk2PVrouter.co.uk
+GPL-3.0-or-later, as the router (see [NOTICE](../NOTICE)). Based on remoteUnit_fasterControl_1 by Robin Emley
+(www.Mk2PVrouter.co.uk). Your `config.h` and `config_rf.h` are yours: use and share them on any terms you like.
 
 ## Support
 

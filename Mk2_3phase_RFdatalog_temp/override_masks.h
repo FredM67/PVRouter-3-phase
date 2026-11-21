@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief The forced outputs: the override pins, and the scheduled boosts of the dual tariff
  * @version 1.0
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details Once per second, the firmware computes what is forced ON: the targets of each override
  *          pin held LOW, and the targets of each scheduled boost whose window is open. The

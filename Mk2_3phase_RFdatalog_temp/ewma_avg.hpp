@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief This file implements an Exponentially Weighted Moving Average template class
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-21
  *
  * @section ewma_description Description
  * The Exponentially Weighted Moving Average (EWMA) is a quantitative or statistical measure used to model or describe a time series.
@@ -28,6 +28,7 @@
  * on the side-drawback.
  *
  * @copyright Copyright (c) 2024-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
 

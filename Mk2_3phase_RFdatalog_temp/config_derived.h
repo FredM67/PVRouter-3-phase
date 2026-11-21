@@ -6,6 +6,7 @@
  * @date 2026-11-21
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details The code includes this file, never config.h directly. config.h only holds the
  *          settings; here come the values derived from them and the objects built from them:

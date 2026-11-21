@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief The edges of the active-LOW input pins: pressed, released, or no change
  * @version 1.0
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details The diversion, router OFF, dual tariff and rotation pins are read once per second.
  *          Each one keeps its previous level, released at startup: the new level and the

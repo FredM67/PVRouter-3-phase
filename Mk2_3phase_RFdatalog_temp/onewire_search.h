@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief The ROM search of a 1-Wire bus, on the bit primitives of the bus
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details The firmware builds the OneWire library without its own search (-DONEWIRE_SEARCH=0 in
  *          platformio.ini): its object would keep 11 bytes of search state for good, and the

@@ -6,6 +6,7 @@
  * @date 2026-11-21
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details config.h includes this file and nothing else. Nothing here depends on a setting, so
  *          config.h reads on its own, top to bottom, for the compiler as for the configurator.
