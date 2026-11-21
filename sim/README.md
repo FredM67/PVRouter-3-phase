@@ -18,6 +18,7 @@ No hardware, no sun: regulation, load priorities, ISR timing and switching insta
 | ADC ISR average / max | cycle-exact duration of `ISR(ADC_vect)` |
 | ISR overruns | ISR calls longer than one conversion (104 µs): the next sample may be taken on the wrong channel |
 | misfiled samples | conversions filed under the wrong channel: the ISR writes ADMUX for the conversion after next, so an overrun leaves one conversion on the previous channel. The first two rounds after the ADC starts are ignored |
+| ADMUX delay | cycles from the start of a conversion to the ISR's ADMUX write. The datasheet only allows a change one ADC clock (128 cycles) or more after the conversion started: earlier, that conversion may take the new channel. The simulated ADC locks the channel at once, so misfiled samples cannot show it; this figure does |
 | min sample sets | as reported by the firmware's own datalog (32 on the real board) |
 | per load | switch-ons, time on, energy, and the **switching latency**: delay from the pin change to the zero crossing where the load follows, and whether it was a rising crossing (start of the phase's measurement window) |
 | per relay | switch-ons, time on, energy, and the shortest complete ON and OFF periods |
@@ -166,6 +167,7 @@ Plain text, one command per line, `#` starts a comment.
 | `expect isr_overruns <n>` | at most n ISR calls longer than one conversion |
 | `expect misfiled_samples <n>` | at most n conversions filed under the wrong channel |
 | `expect isr_max <cycles>` | ISR duration never above this |
+| `expect admux_delay_min <cycles>` | the ISR never writes ADMUX sooner than this after its conversion started |
 
 `scenarios/common.scn` describes the hardware of the default `config.h` / `calibration.h`; the other scenarios include it. `scenarios/rf/common.scn` and `scenarios/relays/common.scn` do the same for the remote-loads and relay configurations.
 
