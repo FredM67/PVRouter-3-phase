@@ -14,7 +14,6 @@
 
 #include <Arduino.h>
 
-#include "config_types.h"  // unused_pin
 #include "utils_bits.h"
 
 #if defined(__DOXYGEN__)

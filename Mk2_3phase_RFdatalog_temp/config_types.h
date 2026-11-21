@@ -23,6 +23,7 @@
 
 #include "type_traits.hpp"  // MINUTES(), HOURS(), integral_constant, index_sequence
 #include "load_map.h"       // Load::local(), Load::remote()
+#include "utils_bits.h"     // unused_pin
 
 /** Enum for serial output types */
 enum class SerialOutputType
@@ -47,7 +48,6 @@ enum class RotationModes : uint8_t
   PIN   /**< Pin triggered */
 };
 
-inline constexpr uint8_t unused_pin{ 0xff }; /**< unused pin */
 
 //--------------------------------------------------------------------------------------------------
 // Targets of the override pins and of the scheduled boosts
