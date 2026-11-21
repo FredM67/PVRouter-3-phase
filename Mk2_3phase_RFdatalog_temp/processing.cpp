@@ -451,7 +451,7 @@ void updatePhysicalLoadStates()
   {
     if (Shared::b_reOrderLoads)
     {
-      LoadPriorities::rotate(loadPrioritiesAndState);
+      rotationTable.rotate(loadPrioritiesAndState);  // each rotation group, among its own places
 
       Shared::b_reOrderLoads = false;
     }

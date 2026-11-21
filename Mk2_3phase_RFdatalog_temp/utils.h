@@ -39,6 +39,31 @@
  *
  * @param present Whether the feature is present.
  */
+/**
+ * @brief Prints the rotation groups, as load numbers counted from 0 as in LOAD(n):
+ *        "	groups { 0 1 2 } { 3 4 5 }".
+ *
+ * @ingroup Initialization
+ */
+inline void printRotationGroups()
+{
+  info(F("	groups"));
+  for (uint8_t g = 0; g != rotationTable.size(); ++g)
+  {
+    info(F(" {"));
+    for (uint8_t i = 0; i != NO_OF_DUMPLOADS; ++i)
+    {
+      if (rotationTable.loads(g) & (1UL << i))
+      {
+        info(F(" "));
+        info(i);
+      }
+    }
+    info(F(" }"));
+  }
+  infoln(F(""));
+}
+
 inline void infolnPresence(const bool present)
 {
   infoln(present ? F("is present") : F("is NOT present"));
@@ -147,6 +172,10 @@ inline void printConfiguration()
 
   info(F("Load rotation feature "));
   infolnPresence(PRIORITY_ROTATION != RotationModes::OFF);
+  if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
+  {
+    printRotationGroups();
+  }
 
   info(F("Relay diversion feature "));
   infolnPresence(RELAY_DIVERSION);
