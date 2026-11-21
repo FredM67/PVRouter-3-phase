@@ -757,6 +757,7 @@ En mode **manuel**, vous devez également définir la *pin* qui déclenchera la 
 ```cpp
 inline constexpr uint8_t rotationPin{ 10 };
 ```
+La pin fonctionne de la même façon avec ou sans double tarif.
 
 ### Groupes de rotation
 `rotationGroups` liste les charges qui tournent, un groupe par appareil. Pour un chauffe-eau sur toutes les charges locales :

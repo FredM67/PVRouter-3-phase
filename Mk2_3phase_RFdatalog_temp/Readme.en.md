@@ -752,6 +752,7 @@ In **manual** mode, you must also define the *pin* that will trigger rotation:
 ```cpp
 inline constexpr uint8_t rotationPin{ 10 };
 ```
+The pin works the same with or without dual tariff.
 
 ### Rotation groups
 `rotationGroups` lists the loads that take turns, one group per appliance. For one water heater on every local load:

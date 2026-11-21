@@ -276,8 +276,9 @@ bool proceedDualTariffLogic()
  * @param bOverridden true while a load, relay or remote load is forced: no rotation then.
  *
  * @details
- * - In dual tariff mode, rotation is handled by `proceedDualTariffLogic` when off-peak starts.
- * - If priority rotation is set to auto, it rotates priorities after a defined period of inactivity.
+ * - The rotation pin works with or without dual tariff.
+ * - Automatic rotation: after a defined period without diversion; with dual tariff,
+ *   `proceedDualTariffLogic` rotates when off-peak starts instead.
  * - The rotation pin is read every second, forced or not: a press during forcing is dropped,
  *   not carried over to its end.
  * - Override logic (external pins + dual tariff forcing) is handled atomically in getOverrideBitmask().
@@ -286,11 +287,6 @@ bool proceedDualTariffLogic()
  */
 void proceedLoadPriorities(const bool bOverridden)
 {
-  if constexpr (DUAL_TARIFF)
-  {
-    return;
-  }
-
   if constexpr (PRIORITY_ROTATION == RotationModes::PIN)
   {
     const PinEdges pin{ readPinEdges< rotationPin >() };
@@ -302,7 +298,7 @@ void proceedLoadPriorities(const bool bOverridden)
       proceedRotation();
     }
   }
-  else if constexpr (PRIORITY_ROTATION == RotationModes::AUTO)
+  else if constexpr (PRIORITY_ROTATION == RotationModes::AUTO && !DUAL_TARIFF)
   {
     if (!bOverridden && ROTATION_AFTER_SECONDS < Shared::absenceOfDivertedEnergyCountInSeconds)
     {
