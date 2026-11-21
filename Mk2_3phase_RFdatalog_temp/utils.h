@@ -32,22 +32,14 @@
 #include "version.h"
 
 /**
- * @brief Print "is present" or "is NOT present", and a line end.
- *
- * @details Each F("...") is a string of its own in flash, even with the same text: the features
- *          print these two through here, so each is stored once.
- *
- * @param present Whether the feature is present.
- */
-/**
  * @brief Prints the rotation groups, as load numbers counted from 0 as in LOAD(n):
- *        "	groups { 0 1 2 } { 3 4 5 }".
+ *        "\tgroups { 0 1 2 } { 3 4 5 }".
  *
  * @ingroup Initialization
  */
 inline void printRotationGroups()
 {
-  info(F("	groups"));
+  info(F("\tgroups"));
   for (uint8_t g = 0; g != rotationTable.size(); ++g)
   {
     info(F(" {"));
@@ -64,6 +56,14 @@ inline void printRotationGroups()
   infoln(F(""));
 }
 
+/**
+ * @brief Print "is present" or "is NOT present", and a line end.
+ *
+ * @details Each F("...") is a string of its own in flash, even with the same text: the features
+ *          print these two through here, so each is stored once.
+ *
+ * @param present Whether the feature is present.
+ */
 inline void infolnPresence(const bool present)
 {
   infoln(present ? F("is present") : F("is NOT present"));

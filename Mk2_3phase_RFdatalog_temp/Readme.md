@@ -752,7 +752,7 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::AUTO };
 ```cpp
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
 ```
-En mode **automatique**, la rotation se fait automatiquement toutes les 24 h.
+En mode **automatique**, la rotation se fait quand le routeur n’a rien routé pendant `ROTATION_AFTER_SECONDS` (8 h par défaut), en général une fois par nuit. Avec le double tarif, elle se fait à la place au début de chaque période creuse.
 En mode **manuel**, vous devez également définir la *pin* qui déclenchera la rotation :
 ```cpp
 inline constexpr uint8_t rotationPin{ 10 };
@@ -776,7 +776,7 @@ Les règles, vérifiées à la compilation :
 - un groupe ne contient que des charges locales, ou les charges d’une seule unité distante ;
 - rotation active, il faut au moins un groupe ; rotation `OFF`, `rotationGroups` reste vide, `{}`.
 
-Tous les groupes tournent ensemble, sur le même déclencheur, automatique ou la pin.
+Tous les groupes tournent ensemble, sur le même déclencheur.
 
 ## Boost manuel (déclenché par pin)
 

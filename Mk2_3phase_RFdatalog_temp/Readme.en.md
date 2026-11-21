@@ -747,7 +747,7 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::AUTO };
 ```cpp
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
 ```
-In **automatic** mode, rotation happens automatically every 24 h.
+In **automatic** mode, rotation happens once the router has diverted nothing for `ROTATION_AFTER_SECONDS` (8 h by default), usually once a night. With dual tariff, it happens at the start of each off-peak period instead.
 In **manual** mode, you must also define the *pin* that will trigger rotation:
 ```cpp
 inline constexpr uint8_t rotationPin{ 10 };
@@ -771,7 +771,7 @@ The rules, checked at compile time:
 - a group holds local loads only, or the loads of one remote unit;
 - with rotation on, there is at least one group; with rotation `OFF`, `rotationGroups` stays empty, `{}`.
 
-All the groups rotate together, on the same trigger, automatic or the pin.
+All the groups rotate together, on the same trigger.
 
 ## Manual boost (pin-triggered)
 

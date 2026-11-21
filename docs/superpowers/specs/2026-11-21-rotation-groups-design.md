@@ -101,7 +101,7 @@ A config of the former layout (rotation on, no `rotationGroups` declared) fails 
 
 ### Startup summary
 
-The line that says rotation is present also lists the groups, as load numbers, e.g. `Priority rotation: is present, groups { 0 1 2 } { 3 4 5 }`. `logLoadPriorities()` is unchanged.
+Under the line that says rotation is present, a tab-indented line lists the groups as load numbers, as the other features print their details, e.g. `Load rotation feature is present` then `\tgroups { 0 1 2 } { 3 4 5 }`. `logLoadPriorities()` is unchanged.
 
 ### Configurator
 
