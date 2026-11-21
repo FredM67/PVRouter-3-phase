@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for dual tariff feature
  * @version 0.2
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -16,111 +16,19 @@
 
 #include <stdint.h>
 
-#include "utils_override.h"  // PinList, REMOTE_PIN_BASE, MINUTES() (through type_traits.hpp)
-
-/** @brief A number of minutes: the unit of the scheduled boosts, built with HOURS() or MINUTES(). */
-struct Minutes
-{
-  uint16_t value;
-
-  /** @brief @p v minutes: explicit, so that a bare number is not taken for a duration. */
-  explicit constexpr Minutes(const uint16_t v)
-    : value(v) {}
-
-  /** @brief From MINUTES() or HOURS() (type_traits.hpp), the same macros as for the relays. */
-  template< uint16_t V >
-  constexpr Minutes(integral_constant< uint16_t, V > /* ic */)
-    : value(V) {}
-};
-
-/** @brief Where a boost starts: @p minutes after the start of the off-peak period, or before its end if @p fromEnd. */
-struct BoostStart
-{
-  bool fromEnd;
-  uint16_t minutes;
-};
-
-/** @brief The length of a boost that only the meter ends: the end of the off-peak period stops it anyway. */
-inline constexpr uint16_t UNTIL_THE_END{ UINT16_MAX };
-
-/** @brief How long a boost lasts, in minutes, or UNTIL_THE_END. */
-struct BoostLength
-{
-  uint16_t minutes;
-};
-
-/** @brief When a load is boosted during the off-peak period. */
-struct BoostWindow
-{
-  BoostStart start;
-  BoostLength length;
-};
-
-/** @brief A start @p m after the beginning of the off-peak period. */
-constexpr BoostStart FROM_START(const Minutes m)
-{
-  return BoostStart{ false, m.value };
-}
-
-/** @brief A start @p m before the end of the off-peak period. */
-constexpr BoostStart BEFORE_END(const Minutes m)
-{
-  return BoostStart{ true, m.value };
-}
-
-/**
- * @brief A boost lasting @p m.
- *
- * @note MINUTES(65535) would read as UNTIL_THE_END: it becomes 65534, which still ends after any
- *       off-peak period, so validation.h rejects it instead of boosting until the end.
- */
-constexpr BoostLength FOR(const Minutes m)
-{
-  return BoostLength{ m.value == UNTIL_THE_END ? static_cast< uint16_t >(UNTIL_THE_END - 1) : m.value };
-}
-
-/** @brief The first @p d of the off-peak period. */
-constexpr BoostWindow FIRST(const Minutes d)
-{
-  return BoostWindow{ FROM_START(MINUTES(0)), FOR(d) };
-}
-
-/** @brief The last @p d of the off-peak period, until the end. */
-constexpr BoostWindow LAST(const Minutes d)
-{
-  return BoostWindow{ BEFORE_END(d), BoostLength{ UNTIL_THE_END } };
-}
-
-/** @brief When a set of loads is boosted: a window and the targets. */
-template< uint8_t MaxPins = 16 >
-struct BoostEntry
-{
-  BoostWindow window;
-  PinList< MaxPins > targets;
-
-  /** @brief A boost with its window and targets. */
-  constexpr BoostEntry(const BoostWindow& w, const PinList< MaxPins >& t)
-    : window(w), targets(t) {}
-
-  /** @brief A boost from @p s until the end of the off-peak period. */
-  constexpr BoostEntry(const BoostStart& s, const PinList< MaxPins >& t)
-    : window{ s, BoostLength{ UNTIL_THE_END } }, targets(t) {}
-
-  /** @brief A boost from @p s, lasting @p l. */
-  constexpr BoostEntry(const BoostStart& s, const BoostLength& l, const PinList< MaxPins >& t)
-    : window{ s, l }, targets(t) {}
-};
+#include "config_types.h"  // the boost windows, BoostEntry, ScheduledBoosts, PinList
 
 /**
  * @brief The scheduled boosts: a window and the bitmasks of its targets, for each entry.
  *
- * @details Same accessors as OverridePins, so that a target check takes either.
+ * @details Same accessors as OverrideTable, so that a target check takes either. Built from the
+ *          ScheduledBoosts of config.h and a TargetMap (utils_override.h), or from plain pins.
  *
  * @tparam N number of boosts
  * @tparam MaxPins maximum number of pins (loads + relays) of a target list
  */
 template< uint8_t N, uint8_t MaxPins = 16 >
-class ScheduledBoosts
+class BoostSchedule
 {
 private:
   struct Entry
@@ -133,12 +41,22 @@ private:
   Entry entries_[N]{};
 
 public:
-  /** @brief Builds the boosts from their entries. */
-  constexpr ScheduledBoosts(const BoostEntry< MaxPins > (&boosts)[N])
+  /** @brief Builds the boosts from their entries, with plain pins. */
+  constexpr BoostSchedule(const BoostEntry< MaxPins > (&boosts)[N])
   {
     for (uint8_t i = 0; i < N; ++i)
     {
       entries_[i] = { boosts[i].window, boosts[i].targets.toLocalBitmask(), boosts[i].targets.toRemoteBitmask() };
+    }
+  }
+
+  /** @brief Builds the boosts of config.h, their codes turned into pins by @p map (a TargetMap). */
+  template< typename Map >
+  constexpr BoostSchedule(const ScheduledBoosts< N, MaxPins >& boosts, const Map& map)
+  {
+    for (uint8_t i = 0; i < N; ++i)
+    {
+      entries_[i] = { boosts.getWindow(i), map.localBitmask(boosts.getTargets(i)), map.remoteBitmask(boosts.getTargets(i)) };
     }
   }
 
@@ -169,10 +87,16 @@ public:
 
 /** @brief No boost at all. */
 template< uint8_t MaxPins >
-class ScheduledBoosts< 0, MaxPins >
+class BoostSchedule< 0, MaxPins >
 {
 public:
-  constexpr ScheduledBoosts() = default;
+  constexpr BoostSchedule() = default;
+
+  /** @brief No boost in config.h either. */
+  template< typename Map >
+  constexpr BoostSchedule(const ScheduledBoosts< 0, MaxPins >& /* boosts */, const Map& /* map */)
+  {
+  }
 
   constexpr uint8_t size() const
   {
@@ -195,13 +119,17 @@ public:
   }
 };
 
-/** @brief Deduction guide, as for OverridePins. */
+/** @brief Deduction guide, as for OverrideTable. */
 template< uint8_t MaxPins, uint8_t N >
-ScheduledBoosts(const BoostEntry< MaxPins > (&)[N])
-  -> ScheduledBoosts< N, MaxPins >;
+BoostSchedule(const BoostEntry< MaxPins > (&)[N])
+  -> BoostSchedule< N, MaxPins >;
 
 /** @brief Deduction guide: no argument, no boost. */
-ScheduledBoosts() -> ScheduledBoosts< 0 >;
+BoostSchedule() -> BoostSchedule< 0 >;
+
+/** @brief Deduction guide: from the boosts of config.h. */
+template< uint8_t N, uint8_t MaxPins, typename Map >
+BoostSchedule(const ScheduledBoosts< N, MaxPins >&, const Map&) -> BoostSchedule< N, MaxPins >;
 
 /**
  * @brief The windows of the scheduled boosts, in milliseconds from the start of the off-peak period.
@@ -296,7 +224,7 @@ struct Boost
 
 /** @brief Boost @p i of @p boosts, for an off-peak period of @p offPeakHours. */
 template< uint8_t N, uint8_t MaxPins >
-constexpr Boost resolve(const ScheduledBoosts< N, MaxPins >& boosts, const uint8_t i, const uint8_t offPeakHours)
+constexpr Boost resolve(const BoostSchedule< N, MaxPins >& boosts, const uint8_t i, const uint8_t offPeakHours)
 {
   const BoostWindow window{ boosts.getWindow(i) };
   return Boost{ windowStart(window, offPeakHours), windowEnd(window, offPeakHours), boosts.getLocalBitmask(i), boosts.getRemoteBitmask(i) };

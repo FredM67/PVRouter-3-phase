@@ -3,8 +3,9 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Provides utilities for managing temperature sensors.
  *
- * This file defines the `TemperatureSensing` class, which handles temperature sensing
- * using DS18B20 sensors. It includes functions for initializing sensors, reading temperatures,
+ * This file defines the `TempSensors` class, which handles temperature sensing
+ * using DS18B20 sensors, from the `TemperatureSensing` of config.h. It includes functions for
+ * initializing sensors, reading temperatures,
  * and managing sensor addresses.
  *
  * @details
@@ -13,7 +14,7 @@
  * - **Error Handling**: Handles disconnected or out-of-range sensors.
  *
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2024-2026
  *
@@ -26,26 +27,9 @@
 
 #include "constants.h"
 #include "config.h"
+#include "debug.h"
 #include "ds18b20.h"
 #include "onewire_search.h"
-
-/**
- * @struct DeviceAddress
- * @brief Structure representing the address of a device.
- *
- * This structure is used to store the unique address of a device, such as a DS18B20 temperature sensor.
- * The address is an array of 8 bytes, typically represented in hexadecimal.
- *
- * @details
- * - Each byte in the array represents a part of the unique address of the device.
- * - This structure is used to identify and communicate with specific devices on the OneWire bus.
- *
- * @ingroup TemperatureSensing
- */
-struct DeviceAddress
-{
-  uint8_t addr[8]{}; /**< The address of the device as an array of 8 bytes. */
-};
 
 // Mock class for OneWire
 /// @cond DOXYGEN_EXCLUDE
@@ -88,10 +72,11 @@ public:
 using OneWireType = conditional_t< TEMP_SENSOR_PRESENT, OneWire, MockOneWire >;
 
 /**
- * @class TemperatureSensing
+ * @class TempSensors
  * @brief Implements temperature sensing functionality for multiple sensors.
  *
- * The `TemperatureSensing` class manages temperature sensors connected via the OneWire bus.
+ * The `TempSensors` class reads the sensors of config.h (its base, `TemperatureSensing`). It
+ * manages temperature sensors connected via the OneWire bus.
  * It supports initialization, temperature reading, and error handling for multiple sensors.
  *
  * @tparam N The number of sensors connected to the system.
@@ -105,23 +90,19 @@ using OneWireType = conditional_t< TEMP_SENSOR_PRESENT, OneWire, MockOneWire >;
  * @ingroup TemperatureSensing
  */
 template< uint8_t N >
-class TemperatureSensing
+class TempSensors : public TemperatureSensing< N >
 {
-public:
-  constexpr TemperatureSensing() = delete;
+  using TemperatureSensing< N >::sensorPin;
+  using TemperatureSensing< N >::sensorAddrs;
 
+public:
   /**
-   * @brief Construct a new Temperature Sensing object.
+   * @brief The sensors of config.h.
    *
-   * This constructor initializes the `TemperatureSensing` object with the specified pin
-   * and a list of device addresses for the connected temperature sensors.
-   *
-   * @tparam N The number of sensors connected to the system.
-   * @param pin The pin number where the temperature sensors are connected.
-   * @param ref A reference to an array of `DeviceAddress` objects representing the addresses of the sensors.
+   * @param sensors The pin of the bus and the address of each sensor, as in config.h.
    */
-  constexpr TemperatureSensing(uint8_t pin, const DeviceAddress (&ref)[N])
-    : sensorPin{ pin }, sensorAddrs(ref)
+  explicit constexpr TempSensors(const TemperatureSensing< N >& sensors)
+    : TemperatureSensing< N >(sensors)
   {
   }
 
@@ -233,31 +214,6 @@ public:
   }
 
   /**
-   * @brief Get the number of sensors.
-   *
-   * This method returns the number of temperature sensors connected to the system.
-   * It provides a compile-time constant value representing the total number of sensors.
-   *
-   * @return constexpr auto The number of sensors.
-   */
-  constexpr auto size() const
-  {
-    return N;
-  }
-
-  /**
-   * @brief Get the pin of the sensor(s).
-   *
-   * This method returns the pin number where the temperature sensors are connected.
-   *
-   * @return constexpr auto The pin number.
-   */
-  constexpr auto get_pin() const
-  {
-    return sensorPin;
-  }
-
-  /**
    * @brief Read temperature from a specific sensor (compile-time bounds checking).
    *
    * This template version provides compile-time bounds checking for constant sensor indices.
@@ -338,11 +294,11 @@ private:
     return false;
   }
 
-  const uint8_t sensorPin{ unused_pin }; /**< The pin of the sensor(s) */
-
-  const DeviceAddress sensorAddrs[N]; /**< Array of sensors */
-
   static inline OneWireType oneWire; /**< For temperature sensing */
 };
+
+/** @brief Deduction guide: N from the sensors of config.h. */
+template< uint8_t N >
+TempSensors(const TemperatureSensing< N >&) -> TempSensors< N >;
 
 #endif /* UTILS_TEMP_H */

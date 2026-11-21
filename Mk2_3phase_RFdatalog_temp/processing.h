@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Public functions/variables of processing engine
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -12,7 +12,7 @@
 #ifndef PROCESSING_H
 #define PROCESSING_H
 
-#include "config.h"
+#include "config_derived.h"
 
 inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]; /**< load priorities */
 
@@ -22,7 +22,7 @@ inline constexpr uint16_t initialDelay{ 3000 };  /**< in milli-seconds, to allow
 inline constexpr uint16_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow LP filter to settle */
 
 // one temperature per sensor, only with temperature sensing (TEMP_SENSOR_PRESENT is a constexpr, not a macro)
-inline PayloadTx_struct< NO_OF_PHASES, TEMP_SENSOR_PRESENT ? temperatureSensing.size() : 0 > tx_data; /**< logging data */
+inline PayloadTx_struct< NO_OF_PHASES, TEMP_SENSOR_PRESENT ? tempSensors.size() : 0 > tx_data; /**< logging data */
 
 void printParamsForSelectedOutputMode();
 

@@ -10,7 +10,8 @@
 
 #include <unity.h>
 
-#include "utils_dualtariff.h"  // Real header - pure C++
+#include "utils_dualtariff.h"
+#include "utils_override.h"  // TargetMap  // Real header - pure C++
 
 namespace
 {
@@ -163,8 +164,8 @@ void test_boost_window_across_the_millis_wraparound(void)
 
 namespace
 {
-// pins written raw: LOAD() needs config.h
-constexpr ScheduledBoosts boosts{ {
+// pins written raw: LOAD() needs a load map (test_boosts_from_the_settings)
+constexpr BoostSchedule boosts{ {
   { FIRST(HOURS(2)), { 5, 7 } },
   { LAST(HOURS(1)), { REMOTE_PIN_BASE + 1 } },
   { FROM_START(HOURS(1)), { 5 } },  // no FOR: until the end
@@ -201,7 +202,38 @@ void test_a_target_may_be_in_several_boosts(void)
 
 void test_an_empty_list(void)
 {
-  constexpr ScheduledBoosts none{};
+  constexpr BoostSchedule none{};
+  static_assert(none.size() == 0);
+  TEST_ASSERT_EQUAL_UINT8(0, none.size());
+}
+
+void test_boosts_from_the_settings(void)
+{
+  // as config_derived.h builds boostSchedule from the scheduledBoosts of config.h
+  static constexpr uint8_t map[]{ Load::local(5), Load::remote(1) };
+  static constexpr RelaySetting relaySettings[]{ { 8 } };
+  static constexpr RelayEngine relays{ relaySettings };
+  constexpr TargetMap targets{ map, relays, true };
+  constexpr ScheduledBoosts settings{ { { FIRST(HOURS(2)), { LOAD(0), RELAY(0) } },
+                                        { LAST(MINUTES(90)), { LOAD(1) } } } };
+  constexpr BoostSchedule fromSettings{ settings, targets };
+
+  static_assert(fromSettings.size() == 2);
+  TEST_ASSERT_EQUAL_UINT16((1U << 5) | (1U << 8), fromSettings.getLocalBitmask(0));
+  TEST_ASSERT_EQUAL_UINT8(0, fromSettings.getRemoteBitmask(0));
+  TEST_ASSERT_EQUAL_UINT16(0, fromSettings.getLocalBitmask(1));
+  TEST_ASSERT_EQUAL_UINT8(0b1, fromSettings.getRemoteBitmask(1));
+  TEST_ASSERT_EQUAL_UINT16(90, fromSettings.getWindow(1).start.minutes);
+  TEST_ASSERT_TRUE(fromSettings.getWindow(1).start.fromEnd);
+}
+
+void test_no_boost_in_the_settings(void)
+{
+  static constexpr uint8_t map[]{ Load::local(5) };
+  static constexpr RelaySetting relaySettings[]{ { 8 } };
+  static constexpr RelayEngine relays{ relaySettings };
+  constexpr ScheduledBoosts settings{};
+  constexpr BoostSchedule none{ settings, TargetMap{ map, relays, false } };
   static_assert(none.size() == 0);
   TEST_ASSERT_EQUAL_UINT8(0, none.size());
 }
@@ -238,6 +270,8 @@ int main(void)
   RUN_TEST(test_resolve);
   RUN_TEST(test_a_target_may_be_in_several_boosts);
   RUN_TEST(test_an_empty_list);
+  RUN_TEST(test_boosts_from_the_settings);
+  RUN_TEST(test_no_boost_in_the_settings);
   RUN_TEST(test_a_start_before_the_period_wraps_to_a_large_value);
 
   return UNITY_END();

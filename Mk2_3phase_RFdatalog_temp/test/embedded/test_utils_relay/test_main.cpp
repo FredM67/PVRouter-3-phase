@@ -5,16 +5,11 @@
 #include "../halt_after_tests.h"
 
 #include "types.h"
-
-// normally from config.h: the text output of utils_relay.h (debug.h) depends on them
-inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE{ SerialOutputType::HumanReadable };
-inline constexpr bool ENABLE_DEBUG{ false };
-
 #include "utils_pins.h"
 #include "utils_relay.h"
 
-constexpr RelayEngine relays{ { { 2, 1000, 200, 1, 1 },
-                                { 3, 100, 20, 2, 3 } } };
+constexpr RelayDiverter relays{ { { 2, 1000, 200, 1, 1 },
+                                  { 3, 100, 20, 2, 3 } } };
 
 void setUp(void)
 {
@@ -234,20 +229,20 @@ void test_get_size(void)
 }
 
 // ============================================================================
-// RelayEngine settle_change tests
+// RelayDiverter settle_change tests
 // ============================================================================
 
 // Use a different D parameter (1 minute instead of 10) to:
 // 1. Create a separate EWMA instance (different template instantiation)
 // 2. Have faster EWMA convergence (fewer samples needed)
 // EWMA window = D * 60 / DATALOG_PERIOD_IN_SECONDS = 1 * 60 / 5 = 12 samples
-constexpr RelayEngine< 2, 1 > settleTestRelays{ integral_constant< uint8_t, 1 >{},
-                                                { { 8, 500, 100, 1, 1 },
-                                                  { 9, 800, 150, 1, 1 } } };
+constexpr RelayDiverter< 2, 1 > settleTestRelays{ integral_constant< uint8_t, 1 >{},
+                                                  { { 8, 500, 100, 1, 1 },
+                                                    { 9, 800, 150, 1, 1 } } };
 
 void test_settle_change_blocks_initial_relay_changes(void)
 {
-  // RelayEngine initializes settle_change to 60 seconds
+  // RelayDiverter initializes settle_change to 60 seconds
   // proceed_relays() should return early and not change any relay state
 
   // Ensure relays are OFF initially
@@ -395,10 +390,10 @@ void test_proceed_settle_change(void)
 // Use 3 relays to clearly demonstrate ordering behavior
 // D=3 for separate EWMA instance
 // All relays have same thresholds to focus on ordering, not threshold differences
-constexpr RelayEngine< 3, 3 > orderingTestRelays{ integral_constant< uint8_t, 3 >{},
-                                                  { { 11, 500, 100, 1, 1 },
-                                                    { 12, 500, 100, 1, 1 },
-                                                    { 13, 500, 100, 1, 1 } } };
+constexpr RelayDiverter< 3, 3 > orderingTestRelays{ integral_constant< uint8_t, 3 >{},
+                                                    { { 11, 500, 100, 1, 1 },
+                                                      { 12, 500, 100, 1, 1 },
+                                                      { 13, 500, 100, 1, 1 } } };
 
 void feed_surplus_to_ordering_relays(void)
 {
@@ -538,8 +533,8 @@ void test_relay_ordering(void)
 
 // Use D=2 to create a separate EWMA instance from other tests
 // Using pin 10 to avoid conflicts with other tests
-constexpr RelayEngine< 1, 2 > overflowTestRelays{ integral_constant< uint8_t, 2 >{},
-                                                  { { 10, 500, 100, 1, 1 } } };
+constexpr RelayDiverter< 1, 2 > overflowTestRelays{ integral_constant< uint8_t, 2 >{},
+                                                    { { 10, 500, 100, 1, 1 } } };
 
 void test_duration_overflow_saturates_at_uint16_max(void)
 {
@@ -665,8 +660,8 @@ void test_duration_overflow(void)
 // ============================================================================
 
 // Use D=4 to create a separate EWMA instance
-constexpr RelayEngine< 1, 4 > forceOffTestRelays{ integral_constant< uint8_t, 4 >{},
-                                                  { { 4, 500, 100, 1, 1 } } };
+constexpr RelayDiverter< 1, 4 > forceOffTestRelays{ integral_constant< uint8_t, 4 >{},
+                                                    { { 4, 500, 100, 1, 1 } } };
 
 void test_forced_only_when_already_off(void)
 {
@@ -764,9 +759,9 @@ void test_forced_only(void)
 // ============================================================================
 
 // Use D=5 to create a separate EWMA instance
-constexpr RelayEngine< 2, 5 > diversionTestRelays{ integral_constant< uint8_t, 5 >{},
-                                                   { { 5, 500, 100, 1, 1 },
-                                                     { 6, 800, 150, 1, 1 } } };
+constexpr RelayDiverter< 2, 5 > diversionTestRelays{ integral_constant< uint8_t, 5 >{},
+                                                     { { 5, 500, 100, 1, 1 },
+                                                       { 6, 800, 150, 1, 1 } } };
 
 void test_diversion_disabled_forces_relays_off(void)
 {

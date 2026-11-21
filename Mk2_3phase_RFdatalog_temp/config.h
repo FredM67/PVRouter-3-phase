@@ -5,15 +5,16 @@
  * Edit it by hand, or create it with the configurator:
  * https://fredm67.github.io/Mk2PVRouter/configurateur/
  *
- * @version 1.0
- * @date 2026-11-20
+ * Settings only: no #include line but the one below, nothing computed. The firmware builds
+ * what it needs from these settings in config_derived.h.
+ *
+ * @version 2.0
+ * @date 2026-11-21
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
-#include "config_system.h"
-#include "types.h"
+#include "config_types.h"  // the types and helpers used below (Load::local(), LOAD(), HOURS()...)
 
 // Motherboard: OLD for the former 3-phase board, NEW for the universal 3phaseDiverter board
 // (rev. 6.0 and later). A wrong choice gives wrong measurements: recalibrate after a change.
@@ -26,8 +27,6 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
 // printed in every output (for IoT, at 8N1, before the 7E1 of the frames), and the status
 // messages in human-readable output only.
 inline constexpr bool ENABLE_DEBUG{ true };
-
-#include "debug.h"  // needs SERIAL_OUTPUT_TYPE and ENABLE_DEBUG
 
 // Calibration mode: the router measures and logs as usual, but never switches any load
 // (TRIACs, relays, remote loads, overrides), as with the router OFF. With temperature sensing, it
@@ -54,24 +53,6 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
   Load::local(7)
 }; /**< the load map: one packed entry per dump load */
 
-// Derived from the load map above - never edit these by hand.
-inline constexpr uint8_t NO_OF_REMOTE_LOADS{ Load::countRemoteLoads(physicalLoadPin) }; /**< number of loads controlled via RF */
-inline constexpr uint8_t NO_OF_REMOTE_UNITS{ Load::countUnits(physicalLoadPin) };       /**< number of remote units to talk to */
-inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 };                  /**< automatically true if remote loads configured */
-
-#include "remote_loads_core.h"
-
-/**
- * @brief The one and only remote-load controller.
- *
- * @details Declared non-const on purpose: it holds the per-unit transmission state.
- *          @c RemoteLoadCore has a @c constexpr default constructor and brace-or-equal
- *          member initialisers, so this object is constant-initialized. It therefore
- *          lands in @c .bss with no entry in @c .init_array, and @c --gc-sections drops
- *          it outright when no remote unit is configured.
- */
-inline RemoteLoadCore< NO_OF_REMOTE_UNITS > remoteLoads{};
-
 // Feature toggles
 inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr bool ROUTER_OFF_PIN_PRESENT{ false };                  /**< set it to 'true' if you want a pin that switches the router OFF */
@@ -83,10 +64,6 @@ inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a 
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
 inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF data logging is needed */
-
-#include "utils_dualtariff.h"
-#include "utils_relay.h"
-#include "utils_temp.h"
 
 // ----------- Pinout Assignments -----------
 //
@@ -146,24 +123,18 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
                                        { unused_pin, 300, 400, 1, 1 },
                                        { unused_pin, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
 
-#include "utils_override_helpers.h"  // Provides LOAD(), RELAY(), ALL_LOADS(), ALL_RELAYS(), ALL_LOADS_AND_RELAYS()
-
 // This is an example of override pin configuration.
 // You can modify the pin numbers and associated loads/relays as needed.
 // Ensure that the pins used do not conflict with other functionalities in your setup.
 //
-// Helper functions available:
-//   LOAD(n)           - Returns the pin for load n of physicalLoadPin[] (physical if the
-//                       load is local, virtual >= REMOTE_PIN_BASE if it is remote)
+// Targets, in a list or alone:
+//   LOAD(n)           - load n of physicalLoadPin[], local or remote
 //   LOCAL_LOAD(n)     - Same as LOAD(n), for a load known to be local
-//   REMOTE_LOAD(n)    - Returns the virtual pin for the n-th REMOTE load (>= 128).
-//                       n counts remote loads only, in physicalLoadPin[] order.
-//   ALL_LOCAL_LOADS() - uint32_t bitmask, lower 16 bits for local load pins
-//   ALL_REMOTE_LOADS()- uint32_t bitmask, upper 16 bits for remote loads (bit 16 = remote 0)
-//   ALL_LOADS()       - uint32_t combining local (lower 16 bits) and remote (upper 16 bits)
-//   RELAY(n)          - Returns pin for relay n
-//   ALL_RELAYS()      - uint32_t bitmask, lower 16 bits for relay pins
-//   ALL_LOADS_AND_RELAYS() - uint32_t combining all loads and relays
+//   REMOTE_LOAD(n)    - the n-th REMOTE load: n counts remote loads only, in
+//                       physicalLoadPin[] order
+//   RELAY(n)          - relay n of relays
+//   ALL_LOCAL_LOADS(), ALL_REMOTE_LOADS(), ALL_LOADS(), ALL_RELAYS(), ALL_LOADS_AND_RELAYS()
+//   a number          - that pin
 //
 // Example configurations:
 // inline constexpr OverridePins overridePins{
@@ -199,7 +170,3 @@ inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } }; /**< list of temperature sensor Addresses */
 
 inline constexpr uint32_t ROTATION_AFTER_SECONDS{ 8UL * 3600UL }; /**< rotates load priorities after this period of inactivity */
-
-#include "remote_loads.h"  // the RF shell; needs remoteLoads and the RF feature flags above
-
-#endif  // CONFIG_H

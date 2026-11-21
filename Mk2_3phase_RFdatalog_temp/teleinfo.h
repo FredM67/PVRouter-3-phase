@@ -16,7 +16,7 @@
  *   1 stop bit, and even parity.
  *
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2025-2026
  *
@@ -25,7 +25,7 @@
 #define TELEINFO_H
 
 #include "config_system.h"
-#include "config.h"
+#include "config_derived.h"
 
 /**
  * @brief Calculates the size of a single telemetry line in the frame.
@@ -75,10 +75,10 @@ inline static constexpr size_t lineSize(size_t tagLen, size_t valueLen)
  *
  * If relay diversion is enabled (`RELAY_DIVERSION`):
  * - 1 line for the "R" tag (signed 6 digits) - mean power for relay diversion.
- * - `relays.size()` lines for the "R1" to "Rn" tags (1 digit each) - relay states.
+ * - `relayDiverter.size()` lines for the "R1" to "Rn" tags (1 digit each) - relay states.
  *
  * If temperature sensors are present (`TEMP_SENSOR_PRESENT`):
- * - `temperatureSensing.size()` lines for the "T1" to "Tn" tags (5 characters each, sign included) - temperature readings.
+ * - `tempSensors.size()` lines for the "T1" to "Tn" tags (5 characters each, sign included) - temperature readings.
  *
  * Common for all configurations:
  * - 1 line for the "N" tag (unsigned 5 digits) - absence of diverted energy count.
@@ -116,13 +116,13 @@ inline static constexpr size_t calcBufferSize()
 
   if constexpr (RELAY_DIVERSION)
   {
-    size += lineSize(1, 6);                  // R (signed 6 digits) - mean power for relay diversion
-    size += relays.size() * lineSize(2, 1);  // R1-Rn (1 (ON), 0 (OFF)) - relay state
+    size += lineSize(1, 6);                         // R (signed 6 digits) - mean power for relay diversion
+    size += relayDiverter.size() * lineSize(2, 1);  // R1-Rn (1 (ON), 0 (OFF)) - relay state
   }
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    size += temperatureSensing.size() * lineSize(2, 5);  // T1-Tn (signed, 5 characters: -55.00 to 125.00 C) - temperature
+    size += tempSensors.size() * lineSize(2, 5);  // T1-Tn (signed, 5 characters: -55.00 to 125.00 C) - temperature
   }
 
   size += lineSize(1, 5);  // N (unsigned 5 digits) - absence of diverted energy count

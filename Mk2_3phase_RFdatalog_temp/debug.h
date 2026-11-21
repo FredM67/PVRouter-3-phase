@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief The text output: informational messages (info) and debug messages (debug)
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -26,13 +26,21 @@
  *          goes to an overload that is not inlined instead: one call per message, rather than
  *          complete() and Serial.print() at each of them.
  *
- * @note Needs SERIAL_OUTPUT_TYPE and ENABLE_DEBUG: include it after them (see config.h).
+ * @note Reads SERIAL_OUTPUT_TYPE and ENABLE_DEBUG from config.h, which it includes.
  */
 
 #ifndef DEBUG_H
 #define DEBUG_H
 
 #include <Arduino.h>
+
+#include "config.h"  // SERIAL_OUTPUT_TYPE, ENABLE_DEBUG
+
+// A config.h of the former layout defines CONFIG_H and includes this file itself: stop on the
+// reason, before the follow-on errors.
+#if defined(CONFIG_H)
+#error "This config.h has the former layout, with #include lines and derived values. config.h now only holds the settings: create it again with the configurator, or see 'config.h holds the settings only' in the CHANGELOG to update it by hand."
+#endif
 
 #include "serial_output.h"
 

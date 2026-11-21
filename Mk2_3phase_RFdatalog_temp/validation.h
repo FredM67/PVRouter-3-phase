@@ -16,7 +16,7 @@
 #include "utils_pins.h"
 #include "utils_rf.h"
 
-#include "config.h"
+#include "config_derived.h"
 #include "calibration.h"
 #include "datalog_math.h"
 #include "energy_bucket.h"
@@ -194,9 +194,9 @@ constexpr PinCheck check_pins()
 
   if constexpr (RELAY_DIVERSION)
   {
-    for (uint8_t idx = 0; idx < relays.size(); ++idx)
+    for (uint8_t idx = 0; idx < relayDiverter.size(); ++idx)
     {
-      const auto relayPin = relays.get_relay(idx).get_pin();
+      const auto relayPin = relayDiverter.get_relay(idx).get_pin();
 
       if (relayPin != unused_pin)
       {
@@ -250,8 +250,8 @@ constexpr bool targetsAreOutputs(const List &list)
 
   if constexpr (RELAY_DIVERSION)
   {
-    for (uint8_t idx = 0; idx < relays.size(); ++idx)
-      bit_set(outputs, relays.get_relay(idx).get_pin());
+    for (uint8_t idx = 0; idx < relayDiverter.size(); ++idx)
+      bit_set(outputs, relayDiverter.get_relay(idx).get_pin());
   }
 
   for (uint8_t i = 0; i != list.size(); ++i)
@@ -299,7 +299,7 @@ constexpr bool check_override_targets()
 {
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    return targetsAreOutputs(overridePins);
+    return targetsAreOutputs(overrideTable);
   }
   return true;
 }
@@ -311,7 +311,7 @@ constexpr bool check_override_remote_targets()
 {
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    return targetsAreRemoteLoads(overridePins);
+    return targetsAreRemoteLoads(overrideTable);
   }
   return true;
 }
@@ -320,9 +320,9 @@ constexpr uint16_t check_relay_pins()
 {
   bool pins_ok{ true };
 
-  for (uint8_t idx = 0; idx < relays.size(); ++idx)
+  for (uint8_t idx = 0; idx < relayDiverter.size(); ++idx)
   {
-    const auto relayPin = relays.get_relay(idx).get_pin();
+    const auto relayPin = relayDiverter.get_relay(idx).get_pin();
 
     if constexpr (RELAY_DIVERSION)
     {
@@ -342,9 +342,9 @@ constexpr uint16_t check_relay_pins()
  */
 constexpr bool check_relay_minimum_times()
 {
-  for (uint8_t idx = 0; idx < relays.size(); ++idx)
+  for (uint8_t idx = 0; idx < relayDiverter.size(); ++idx)
   {
-    if (!relays.get_relay(idx).hasValidMinimumTimes())
+    if (!relayDiverter.get_relay(idx).hasValidMinimumTimes())
     {
       return false;
     }
@@ -367,8 +367,8 @@ static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay
 static_assert(check_relay_minimum_times(), "******** A relay's minimum ON or OFF time cannot exceed 1092 minutes (about 18 hours) ! Please check relays in your config.h ! ********");
 static_assert(check_override_targets(), "******** An override pin forces a pin that is neither a local load nor a relay (REMOTE_LOAD() goes up to 7) ! Please check overridePins in your config.h ! ********");
 static_assert(check_override_remote_targets(), "******** An override pin forces a remote load that does not exist ! REMOTE_LOAD(n) counts from 0. Please check overridePins in your config.h ! ********");
-static_assert(!DUAL_TARIFF || targetsAreOutputs(scheduledBoosts), "******** A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on? REMOTE_LOAD() goes up to 7). Please check scheduledBoosts in your config.h ! ********");
-static_assert(!DUAL_TARIFF || targetsAreRemoteLoads(scheduledBoosts), "******** A scheduled boost forces a remote load that does not exist (REMOTE_LOAD() counts from 0). Please check scheduledBoosts in your config.h ! ********");
+static_assert(!DUAL_TARIFF || targetsAreOutputs(boostSchedule), "******** A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on? REMOTE_LOAD() goes up to 7). Please check scheduledBoosts in your config.h ! ********");
+static_assert(!DUAL_TARIFF || targetsAreRemoteLoads(boostSchedule), "******** A scheduled boost forces a remote load that does not exist (REMOTE_LOAD() counts from 0). Please check scheduledBoosts in your config.h ! ********");
 
 static_assert(!(RF_CHIP_PRESENT && ((check_pins().used & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
 static_assert(!(RF_CHIP_PRESENT && (SharedRF::ROUTER_NODE_ID < 1 || SharedRF::ROUTER_NODE_ID > 30)), "******** RF node ID must be between 1 and 30 ! ********");
