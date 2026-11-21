@@ -1511,6 +1511,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "15b99b17d23fa88bd53744fa651683d89df95a7d",
+   "date": "2026-11-21T16:26:33+01:00",
+   "message": "docs: NOTICE with the origins of the code, SPDX tags, your settings are yours (#240)\n\n- NOTICE: the firmware derives from Robin Emley's 3-phase Mk2 PV Router\n  sketch (the first file of this repository, 2019) and the remote load\n  firmware from his remoteUnit_fasterControl_1. He published them without\n  any license statement; the changes since 2019 are GPL-3.0-or-later. It\n  also lists his sketches kept in obsolete/ and dev/, the third-party code\n  (ArduinoJson's type_traits, MIT; simavr's avr_adc.c, GPL) and the\n  libraries used (RFM69 GPL-3.0, OneWire MIT-style, Arduino core LGPL).\n- The settings files (config.h, config_system.h, config_rf.h,\n  calibration.h, and the remote units' config.h and config_rf.h) and every\n  file the configurator writes are the user's, on any terms: NOTICE, the\n  Readmes, the configurator and receiver READMEs say so. These files get no\n  license tag.\n- SPDX-License-Identifier: GPL-3.0-or-later in the firmware, receiver and\n  configurator sources (52 files). Not in the settings files, the\n  generated version.h, nor FastDivision.cpp/.h, whose origin is not\n  recorded.\n- Readme.md / Readme.en.md: a License section.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/15b99b17d23fa88bd53744fa651683d89df95a7d",
+   "sizes": {
+    "basic": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, remote loads": {
+     "flash": 12372,
+     "ram": 675
+    },
+    "basic, IoT": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7784,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }

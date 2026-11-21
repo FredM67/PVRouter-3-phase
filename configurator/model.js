@@ -6,6 +6,8 @@
  * (checked by test/generate.test.js).
  *
  * Works as a classic <script> (global PVRModel) and as a Node module.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();

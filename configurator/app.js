@@ -1,6 +1,8 @@
 /*
  * PVRouter configurator - the page: form, problems, files.
  * Every change updates the model and redraws the page from it.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function () {
   'use strict';
