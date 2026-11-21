@@ -252,3 +252,8 @@ test('rotation: a load gone from the map stays in its group editor, to be untick
   assert.deepStrictEqual(M.rotationChoices(m, m.rotation.groups[0]), [0, 1, 2]);
   assert.deepStrictEqual(M.rotationChoices(m, [0]), [0, 1]);
 });
+
+test('rotation: with dual tariff, the rotation pin still works, so no warning', () => {
+  const m = variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3 }) && Object.assign(m.rotation, { mode: 'PIN', pin: 4, groups: [[0, 1, 2]] }));
+  assert.ok(!keys(m).includes('warn.rotationDualTariff'));
+});

@@ -93,7 +93,7 @@
     if (!M.ROTATION_MODES.includes(m.rotation.mode)) error('err.rotationMode', 'rotation');
     // the firmware counts the seconds in 16 bits (validation.h)
     if (!inRange(m.rotation.afterSeconds, 1, 65534)) error('err.rotationAfter', 'rotation');
-    if (m.dualTariff.enabled && m.rotation.mode !== 'OFF') warning('warn.rotationDualTariff', 'rotation');
+    if (m.dualTariff.enabled && m.rotation.mode === 'AUTO') warning('warn.rotationDualTariff', 'rotation');
     // rotation groups (validation.h): with rotation OFF, rotationGroups is written empty
     if (m.rotation.mode !== 'OFF') {
       const groups = m.rotation.groups || [];
