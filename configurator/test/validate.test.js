@@ -55,7 +55,6 @@ const CASES = [
   ['err.watchdogPin', (m) => (m.watchdog.enabled = true)],
   ['err.dualTariffPin', (m) => (m.dualTariff.enabled = true)],
   ['err.rotationAfter', (m) => (m.rotation.afterSeconds = 65535)],
-  ['warn.rotationDualTariff', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3 }) && (m.rotation.mode = 'AUTO')],
   // rotation groups: lists of load indices, checked as validation.h does
   ['err.rotationNoGroup', (m) => (m.rotation.mode = 'AUTO')],
   ['err.rotationGroupSmall', (m) => (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[0]])],
@@ -253,7 +252,9 @@ test('rotation: a load gone from the map stays in its group editor, to be untick
   assert.deepStrictEqual(M.rotationChoices(m, [0]), [0, 1]);
 });
 
-test('rotation: with dual tariff, the rotation pin still works, so no warning', () => {
-  const m = variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3 }) && Object.assign(m.rotation, { mode: 'PIN', pin: 4, groups: [[0, 1, 2]] }));
-  assert.ok(!keys(m).includes('warn.rotationDualTariff'));
+test('rotation: dual tariff is no problem, in either mode (the page tells when it rotates)', () => {
+  for (const mode of ['AUTO', 'PIN']) {
+    const m = variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3 }) && Object.assign(m.rotation, { mode, pin: 4, groups: [[0, 1, 2]] }));
+    assert.deepStrictEqual(V.validate(m).filter((p) => p.field === 'rotation'), [], mode);
+  }
 });

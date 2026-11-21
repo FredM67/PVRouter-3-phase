@@ -170,8 +170,9 @@ valid load maps ([#160]).
 
 - **Rotation pin with dual tariff:** the pin was not read when `DUAL_TARIFF` is on, so
   `RotationModes::PIN` never rotated. It now works as without dual tariff; automatic rotation
-  still happens at the start of each off-peak period. The configurator warns about dual tariff
-  in automatic mode only ([#242]).
+  still happens at the start of each off-peak period ([#242]). With dual tariff and automatic
+  rotation, the configurator no longer warns: it hides the delay without diversion, which does
+  not apply, and says when the priorities rotate ([#241]).
 - **Relays in battery mode:** on a small surplus, they went out first relay first; they now go
   out in decreasing order, as on an import. A minimum ON or OFF time beyond 1092 minutes wrapped
   silently (1093 minutes gave 44 seconds); it is now refused at compile time ([#237]).

@@ -621,7 +621,9 @@
               wifiCheck(rot, rot.pin)
             )
           : null,
-        rot.mode === 'AUTO'
+        // with dual tariff, automatic rotation happens at off-peak start: no delay to set
+        rot.mode === 'AUTO' && m.dualTariff.enabled ? help('rotationAtOffPeak') : null,
+        rot.mode === 'AUTO' && !m.dualTariff.enabled
           ? field(
               'rotationAfter',
               num(
