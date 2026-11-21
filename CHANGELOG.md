@@ -77,7 +77,7 @@ If you keep your own `config.h`, check these points:
   With rotation, list the loads that take turns:
   `inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } };` for one water heater
   on every local load (what rotation did before, when every load is local). An empty list with
-  rotation on stops the build with *Priority rotation is on but rotationGroups is empty*.
+  rotation on stops the build with *Priority rotation is on but rotationGroups is empty* ([#241]).
 
 No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still
@@ -120,7 +120,7 @@ valid load maps ([#160]).
   on their own, and loads in no group keep their place. A group holds at least 2 loads, local
   loads only or the loads of one remote unit, and a load is in one group at most; the compiler
   and the configurator check it. The configurator has a checkbox per load in each group, and the
-  startup summary prints the groups.
+  startup summary prints the groups ([#241]).
 - **`config.h`** only holds settings: it includes `config_types.h` and nothing else, and no line
   depends on a header included before it. `config_derived.h` builds the rest from it: the derived
   values, `remoteLoads`, the relay engine, the override and boost bitmasks, the temperature
@@ -283,3 +283,4 @@ valid load maps ([#160]).
 [#234]: https://github.com/FredM67/PVRouter-3-phase/pull/234
 [#237]: https://github.com/FredM67/PVRouter-3-phase/pull/237
 [#238]: https://github.com/FredM67/PVRouter-3-phase/pull/238
+[#241]: https://github.com/FredM67/PVRouter-3-phase/pull/241
