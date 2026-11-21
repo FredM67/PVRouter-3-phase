@@ -171,7 +171,7 @@ valid load maps ([#160]).
 - **Rotation pin with dual tariff:** the pin was not read when `DUAL_TARIFF` is on, so
   `RotationModes::PIN` never rotated. It now works as without dual tariff; automatic rotation
   still happens at the start of each off-peak period. The configurator warns about dual tariff
-  in automatic mode only.
+  in automatic mode only ([#242]).
 - **Relays in battery mode:** on a small surplus, they went out first relay first; they now go
   out in decreasing order, as on an import. A minimum ON or OFF time beyond 1092 minutes wrapped
   silently (1093 minutes gave 44 seconds); it is now refused at compile time ([#237]).
@@ -288,3 +288,4 @@ valid load maps ([#160]).
 [#237]: https://github.com/FredM67/PVRouter-3-phase/pull/237
 [#238]: https://github.com/FredM67/PVRouter-3-phase/pull/238
 [#241]: https://github.com/FredM67/PVRouter-3-phase/pull/241
+[#242]: https://github.com/FredM67/PVRouter-3-phase/pull/242
