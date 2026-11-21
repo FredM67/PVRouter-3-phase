@@ -16,3 +16,6 @@ relay 8 1 1500
 relay 9 2 1500
 
 input 4 1    # override pin released (active low)
+
+# ADMUX must change one ADC clock (128 cycles) or more after the conversion started
+expect admux_delay_min 128

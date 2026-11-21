@@ -14,3 +14,6 @@ load 7 3 2000
 
 # D4 is the override pin (active LOW): keep it released
 input 4 1
+
+# ADMUX must change one ADC clock (128 cycles) or more after the conversion started
+expect admux_delay_min 128

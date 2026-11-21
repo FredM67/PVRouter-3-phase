@@ -15,7 +15,7 @@
  * payload's bits once it has been sent, and they drop out when no frame arrives
  * within the receiver's link timeout, like RemoteLoadReceiver does.
  *
- * Measured: ADC conversion period, ADC ISR duration (cycle-exact), load switching,
+ * Measured: ADC conversion period, ADC ISR duration (cycle-exact), delay of its ADMUX write, load switching,
  * RF frames, grid import/export energy, and the firmware's own serial output.
  *
  * Usage: grid_sim [-q] [-t trace.csv] [-e events.csv] firmware.elf scenario.scn
@@ -39,6 +39,7 @@
 #include "avr_uart.h"
 #include "rfm69.h"
 #include "sim_avr.h"
+#include "sim_core.h"
 #include "sim_elf.h"
 #include "sim_interrupts.h"
 
@@ -48,6 +49,7 @@
 #define ADC_MID_COUNTS 511.5           /* bias of the analog front end */
 #define ADC_MAX_SWING 510.0            /* counts, either side of the bias */
 #define ADMUX_ADDR 0x7C                /* ADMUX in the data space of the ATmega328P */
+#define ADC_CLOCK_CYCLES 128           /* one ADC clock at F_CPU / 128 */
 #define AVCC_MV 5000.0                 /* old board: ADC reference AVCC, the 5 V supply */
 #define INTERNAL_REF_MV 1100.0         /* new board: internal 1.1 V reference */
 #define NO_OF_PHASES 3
@@ -85,6 +87,7 @@ typedef enum
   EXPECT_MIN_SETS, /* expect min_sample_sets <n>  (lowest value reported by the firmware) */
   EXPECT_OVERRUNS, /* expect isr_overruns <n>  (ISR calls longer than one conversion, at most) */
   EXPECT_MISFILED, /* expect misfiled_samples <n>  (conversions filed under the wrong channel, at most) */
+  EXPECT_ADMUX,    /* expect admux_delay_min <cycles>  (ADMUX written by the ISR this long after its conversion started, at least) */
   EXPECT_RF_GAP,   /* expect rf_max_gap <node> <s>  (longest silence towards a node, once it got a frame) */
   EXPECT_RF_LOST,  /* expect rf_links_lost <node> <min> <max>  (times the node's receiver lost the link) */
   EXPECT_SWITCHES, /* expect switches <pin> <min> <max>  (switch-ons of a load or relay) */
@@ -319,6 +322,8 @@ static void parse_scenario(const char *path, int depth)
         e->kind = EXPECT_OVERRUNS;
       else if (sscanf(args, " misfiled_samples %lf", &e->hi) == 1)
         e->kind = EXPECT_MISFILED;
+      else if (sscanf(args, " admux_delay_min %lf", &e->lo) == 1)
+        e->kind = EXPECT_ADMUX;
       else if (sscanf(args, " rf_max_gap %d %lf", &e->node, &e->hi) == 2)
         e->kind = EXPECT_RF_GAP;
       else if (sscanf(args, " rf_links_lost %d %lf %lf", &e->node, &e->lo, &e->hi) == 3 && e->hi >= e->lo)
@@ -424,7 +429,23 @@ static struct
   avr_cycle_count_t max;
   double max_at;
   uint64_t overruns; /* calls longer than one conversion: the next sample may use the wrong channel */
+  int running;
 } isr;
+
+/* ADMUX writes of the ADC ISR, timed from the start of the conversion in progress.
+ * Free-running, a conversion starts when the previous one completes and raises the
+ * interrupt. The ATmega328P datasheet (24.5) allows changing ADMUX during a conversion
+ * only one ADC clock (128 CPU cycles) or more after it started: earlier, the conversion
+ * that just started may already take the new channel. The simulated ADC locks the
+ * channel at the very start, so misfiled_samples cannot see such a write: this does. */
+static struct
+{
+  avr_cycle_count_t conversion_started;
+  uint64_t writes;
+  uint64_t early; /* less than one ADC clock after the conversion started */
+  avr_cycle_count_t min, max;
+  double min_at;
+} admux = { .min = UINT64_MAX };
 
 static struct
 {
@@ -669,6 +690,7 @@ static void isr_hook(struct avr_irq_t *irq, uint32_t value, void *param)
   (void)irq;
   (void)param;
 
+  isr.running = (int)value;
   if (value)
   {
     isr.started = avr->cycle;
@@ -684,6 +706,35 @@ static void isr_hook(struct avr_irq_t *irq, uint32_t value, void *param)
     isr.max = duration;
     isr.max_at = now();
   }
+}
+
+/* the ADC interrupt is raised: free-running, the next conversion starts now */
+static void adc_pending_hook(struct avr_irq_t *irq, uint32_t value, void *param)
+{
+  (void)irq;
+  (void)param;
+  if (value)
+    admux.conversion_started = avr->cycle;
+}
+
+static void admux_write(struct avr_t *mcu, avr_io_addr_t addr, uint8_t v, void *param)
+{
+  (void)param;
+  avr_core_watch_write(mcu, addr, v);
+  /* setup() writes it too, before the ADC runs: only the ISR's writes count */
+  if (!isr.running || !admux.conversion_started)
+    return;
+  const avr_cycle_count_t delay = mcu->cycle - admux.conversion_started;
+  ++admux.writes;
+  if (delay < ADC_CLOCK_CYCLES)
+    ++admux.early;
+  if (delay < admux.min)
+  {
+    admux.min = delay;
+    admux.min_at = now();
+  }
+  if (delay > admux.max)
+    admux.max = delay;
 }
 
 /* the input of a load's power stage changes: an output pin, or a remote receiver */
@@ -1017,6 +1068,11 @@ static int report_expects(void)
         snprintf(what, sizeof what, "samples filed under the wrong channel at most %.0f: %llu", e->hi,
                  (unsigned long long)adc.misfiled);
         break;
+      case EXPECT_ADMUX:
+        e->passed = admux.writes && admux.min >= e->lo;
+        snprintf(what, sizeof what, "ADMUX written at least %.0f cycles after its conversion started: %llu", e->lo,
+                 admux.writes ? (unsigned long long)admux.min : 0ULL);
+        break;
       case EXPECT_RF_GAP:
         {
           const struct rf_node *n = NULL;
@@ -1153,6 +1209,8 @@ int main(int argc, char *argv[])
 
   avr_irq_register_notify(avr_io_getirq(avr, AVR_IOCTL_ADC_GETIRQ, ADC_IRQ_OUT_TRIGGER), adc_trigger_hook, NULL);
   avr_irq_register_notify(avr_get_interrupt_irq(avr, ADC_VECTOR) + AVR_INT_IRQ_RUNNING, isr_hook, NULL);
+  avr_irq_register_notify(avr_get_interrupt_irq(avr, ADC_VECTOR) + AVR_INT_IRQ_PENDING, adc_pending_hook, NULL);
+  avr_register_io_write(avr, ADMUX_ADDR, admux_write, NULL);
 
   double next_input_t = apply_inputs(0);
 
@@ -1238,6 +1296,10 @@ int main(int argc, char *argv[])
   if (adc.misfiled)
     printf(", first at %.3f s", adc.first_misfiled);
   printf("\n");
+  if (admux.writes)
+    printf("ADC       ADMUX written %llu-%llu cycles after its conversion started (at least %d), min at %.3f s%s\n",
+           (unsigned long long)admux.min, (unsigned long long)admux.max, ADC_CLOCK_CYCLES, admux.min_at,
+           admux.early ? ", TOO EARLY" : "");
   if (isr.count)
     printf("ADC ISR   average %.1f cycles, max %llu cycles (%.1f us) at %.3f s, %llu of %llu calls over %d cycles\n",
            (double)isr.total / isr.count, (unsigned long long)isr.max, isr.max * 1e6 / F_CPU, isr.max_at,
