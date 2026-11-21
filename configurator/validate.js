@@ -91,9 +91,26 @@
     needPin(m.watchdog.enabled, m.watchdog.pin, 'err.watchdogPin', 'watchdog');
     needPin(m.dualTariff.enabled, m.dualTariff.pin, 'err.dualTariffPin', 'dualTariff');
     if (!M.ROTATION_MODES.includes(m.rotation.mode)) error('err.rotationMode', 'rotation');
-    // the firmware counts the seconds in 16 bits (validation.h)
-    if (!inRange(m.rotation.afterSeconds, 1, 65534)) error('err.rotationAfter', 'rotation');
-    if (m.dualTariff.enabled && m.rotation.mode !== 'OFF') warning('warn.rotationDualTariff', 'rotation');
+    if (M.rotationDelayShown(m) && !M.rotationDelayValid(m.rotation.afterSeconds)) error('err.rotationAfter', 'rotation');
+    // rotation groups (validation.h): with rotation OFF, rotationGroups is written empty
+    if (m.rotation.mode !== 'OFF') {
+      const groups = m.rotation.groups || [];
+      const seen = new Set();
+      let twice = false;
+      if (!groups.length) error('err.rotationNoGroup', 'rotation');
+      groups.forEach((g, i) => {
+        const group = i + 1;
+        const missing = g.find((l) => !inRange(l, 0, n - 1));
+        if (missing !== undefined) return error('err.rotationNotALoad', 'rotation', { group, load: missing + 1 });
+        if (new Set(g).size < 2) error('err.rotationGroupSmall', 'rotation', { group });
+        for (const l of g) {
+          if (seen.has(l)) twice = true;
+          seen.add(l);
+        }
+        if (new Set(g.map((l) => m.loads[l].type === 'local' ? 0 : m.loads[l].unit)).size > 1) error('err.rotationGroupMixed', 'rotation', { group });
+      });
+      if (twice) error('err.rotationLoadTwice', 'rotation');
+    }
 
     // ---- relays ----
     const relays = m.relays.enabled ? m.relays.list : [];

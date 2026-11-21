@@ -95,6 +95,17 @@
     return [`// What each override pin forces ${COUNT_FROM_0}`, ...overrides.map((o) => `//   ${pinName(o.pin)}: ${targetsText(m, o.targets)}`)];
   }
 
+  // ---- rotation groups ----
+  // {} without rotation; ALL_LOCAL_LOADS() for a single group of every local load
+  function rotationGroups(m) {
+    const groups = m.rotation.mode === 'OFF' ? [] : m.rotation.groups;
+    if (!groups.length) return '{}';
+    const local = m.loads.map((l, i) => (l.type === 'local' ? i : null)).filter((i) => i !== null);
+    const everyLocal = (g) => g.length === local.length && local.every((i) => g.includes(i));
+    if (groups.length === 1 && everyLocal(groups[0])) return '{ { ALL_LOCAL_LOADS() } }';
+    return `{ ${groups.map((g) => `{ ${g.map((i) => `LOAD(${i})`).join(', ')} }`).join(', ')} }`;
+  }
+
   // ---- scheduled boosts ----
 
   const boostTime = (min) => (min % 60 === 0 ? `HOURS(${min / 60})` : `MINUTES(${min})`);
@@ -145,6 +156,12 @@
         comment
       ),
     ];
+  }
+
+  // the delay as set; when its field is hidden, an invalid one (never checked) gives the default
+  function rotationDelay(m) {
+    const s = m.rotation.afterSeconds;
+    return M.rotationDelayShown(m) || M.rotationDelayValid(s) ? s : M.defaults().rotation.afterSeconds;
   }
 
   function rotationSeconds(s) {
@@ -262,6 +279,15 @@
       '// Load indices refer to physicalLoadPin[] above, local and remote loads alike.',
       [`inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ ${m.priorities.join(', ')} };`, '/**< load priorities at startup (0=highest) */'],
       '',
+      '// Rotation groups: the loads that take turns at the top of the priority list, when',
+      '// PRIORITY_ROTATION is not OFF. One group per appliance, e.g. the 3 elements of a water heater:',
+      '//   { { ALL_LOCAL_LOADS() } }                                     - one heater, every local load',
+      '//   { { LOAD(0), LOAD(1), LOAD(2) }, { LOAD(3), LOAD(4), LOAD(5) } } - two heaters',
+      '// Each group rotates among the priority places its loads hold; loads in no group never move.',
+      '// A group has at least 2 loads, all local or all on the same remote unit, and a load is in one',
+      '// group at most. Leave it empty, {}, without rotation.',
+      [`inline constexpr RotationGroups rotationGroups${rotationGroups(m)};`, '/**< the loads that take turns, {} without rotation */'],
+      '',
       "// Set the value to 'unused_pin' when the pin is not needed (feature deactivated)",
       [`inline constexpr uint8_t dualTariffPin{ ${pin(m.dualTariff.enabled ? m.dualTariff.pin : null)} };`, '/**< for 3-phase PCB, off-peak trigger */'],
       [`inline constexpr uint8_t diversionPin{ ${pin(m.diversion.enabled ? m.diversion.pin : null)} };`, '/**< if LOW, no surplus diversion: only forced loads/relays are ON */'],
@@ -354,7 +380,7 @@
     add(...list(' '.repeat(tempPrefix.length), addresses, ' };', '/**< list of temperature sensor Addresses */'));
     add(
       '',
-      [`inline constexpr uint32_t ROTATION_AFTER_SECONDS{ ${rotationSeconds(m.rotation.afterSeconds)} };`, '/**< rotates load priorities after this period of inactivity */']
+      [`inline constexpr uint32_t ROTATION_AFTER_SECONDS{ ${rotationSeconds(rotationDelay(m))} };`, '/**< rotates load priorities after this period of inactivity */']
     );
     return render(L);
   }

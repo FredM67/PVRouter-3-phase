@@ -1556,6 +1556,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "087af07274d087a39f9fdb63e43b23f40851ffa0",
+   "date": "2026-11-22T00:04:50+01:00",
+   "message": "feat!: rotation groups, the loads that take turns (#241)\n\n* docs: rotation groups design\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: rotation groups implementation plan\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat: RotationGroups, the loads that take turns, in config.h\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat: rotation groups resolved to priority places, checked, rotated\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat!: priority rotation rotates the rotation groups only\n\nThe ISR rotates each group of rotationGroups among the priority places its\nloads hold (rotationTable, config_derived.h), instead of every load.\nvalidation.h refuses rotation without groups, groups without rotation, a\ntarget that is not a load, a group of fewer than 2 loads, a load listed\ntwice, and a group mixing local and remote loads or two remote units\n(compile-fail cases 60-68). The startup summary lists the groups. The\nsim's relay config rotates its three local loads as one group.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat(configurator): rotation groups, written and checked as the compiler does\n\nA checkbox per load in each group, shown when priority rotation is on. The\ngenerator writes rotationGroups ({} without rotation, ALL_LOCAL_LOADS() for a\nsingle group of every local load), and the checks mirror validation.h.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: rotation groups\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix: final review: stale loads can be unticked; the upgrade note quotes the real error\n\nThe group editor keeps a load gone from the map as a checkbox, so the 'not a\nload' error can be cleared. Every config.h needs the rotationGroups line,\nrotation on or off: compile-fail case 69 pins the error a former config.h gets.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: the automatic rotation trigger as it runs; printRotationGroups in its place\n\nThe Readmes said automatic rotation happens every 24 h: it happens after\nROTATION_AFTER_SECONDS without diversion, or at off-peak start with dual tariff.\nprintRotationGroups() no longer splits infolnPresence() from its doc comment, and\nuses \\t. The spec shows the groups on their own line, as the summary prints them.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: CHANGELOG links #241\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix: the rotation pin works with dual tariff (#242)\n\n* fix: the rotation pin works with dual tariff\n\nWith DUAL_TARIFF on, proceedLoadPriorities() returned before reading the\nrotation pin, so RotationModes::PIN never rotated. The pin is now read as\nwithout dual tariff; automatic rotation still happens at off-peak start only.\n\nThe relay sim firmware now has dual tariff on D11 (idle: peak), so\nrotation_pin runs with it, and rotation_pin_off_peak presses the pin during\noff-peak. The configurator warns about dual tariff in automatic mode only.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: CHANGELOG links #242\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>\n\n* fix(configurator): with dual tariff, automatic rotation shows when it rotates\n\nThe delay without diversion does not apply with dual tariff: the field is\nhidden, and an info line says the priorities rotate at the start of each\noff-peak period. Nothing is wrong with that setting, so it is no longer a\nwarning.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix(configurator): the rotation delay is checked only when its field is shown\n\nThe delay without diversion was checked in every mode, so an invalid value\n(the field cleared, 0) left an error on a hidden field once dual tariff or\nthe pin mode was chosen. It is now checked only for automatic rotation\nwithout dual tariff; when hidden, an invalid value is written as the 8-hour\ndefault, which the compiler accepts.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/087af07274d087a39f9fdb63e43b23f40851ffa0",
+   "sizes": {
+    "basic": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, remote loads": {
+     "flash": 12372,
+     "ram": 675
+    },
+    "basic, IoT": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7784,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }

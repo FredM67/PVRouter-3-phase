@@ -87,7 +87,8 @@
       // control inputs (active LOW). 'wifi': driven by the mk2Wifi module (pin in D5..D9)
       diversion: { enabled: false, pin: null, wifi: false },
       routerOff: { enabled: false, pin: null, wifi: false },
-      rotation: { mode: 'OFF', pin: null, wifi: false, afterSeconds: 8 * 3600 },
+      // groups: lists of load indices that take turns (rotationGroups), only written with rotation on
+      rotation: { mode: 'OFF', pin: null, wifi: false, afterSeconds: 8 * 3600, groups: [] },
       watchdog: { enabled: false, pin: null },
 
       relays: {
@@ -379,6 +380,19 @@
     m.overrides.list.forEach(trim);
   }
 
+  // the delay without diversion only applies to automatic rotation without dual tariff (with it,
+  // rotation happens at off-peak start): only then is its field shown and checked
+  const rotationDelayShown = (m) => m.rotation.mode === 'AUTO' && !m.dualTariff.enabled;
+  const ROTATION_DELAY_MAX = 65534; // the firmware counts the seconds in 16 bits (validation.h)
+  const rotationDelayValid = (s) => Number.isInteger(s) && s >= 1 && s <= ROTATION_DELAY_MAX;
+
+  // the loads a rotation group editor offers: every load, plus any load of the group that is no
+  // longer in the map, so that it can be unticked (validate.js flags it as not a load)
+  function rotationChoices(m, group) {
+    const n = m.loads.length;
+    return [...m.loads.map((_, l) => l), ...group.filter((l) => l >= n).sort((x, y) => x - y)];
+  }
+
   function resizeLoads(m, count) {
     while (m.loads.length < count) {
       const used = new Set(m.loads.filter((l) => l.type === 'local').map((l) => l.pin));
@@ -446,6 +460,9 @@
     CT_RATING,
     ctRatingUsed,
     CAL_NAMES,
+    rotationChoices,
+    rotationDelayShown,
+    rotationDelayValid,
     resizeLoads,
     resizeRelays,
   };
