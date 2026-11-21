@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief RF module support for RFM69
  * @version 2.0
- * @date 2026-11-19
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -15,7 +15,7 @@
 #ifndef _UTILS_RF_H
 #define _UTILS_RF_H
 
-#include "config.h"
+#include "config_derived.h"
 #include "config_rf.h"
 
 #include <RFM69.h>

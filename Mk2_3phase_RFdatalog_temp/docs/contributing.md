@@ -141,8 +141,8 @@ private:
 // 2. Arduino/platform headers
 #include <Arduino.h>
 
-// 3. Project headers
-#include "config.h"
+// 3. Project headers: config_derived.h, never config.h (the settings only)
+#include "config_derived.h"
 #include "types.h"
 
 // Implementation...

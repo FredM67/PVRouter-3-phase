@@ -1,6 +1,6 @@
 # Dual Tariff Tests
 
-Tests for the scheduled boosts of the dual tariff (`utils_dualtariff.h`, `ScheduledBoosts` too). A boost is a window (`FIRST`, `LAST`, `FROM_START`, `BEFORE_END`, with `FOR`) and a list of targets, written with `HOURS()` / `MINUTES()`. The firmware resolves each boost at compile time, with `ul_OFF_PEAK_DURATION`, to `{ start, end, local mask, remote mask }`, in ms from the start of the off-peak period, and forces the targets while `millis()` minus that start is in the window. A boost without end (`LAST`, or no `FOR`) lasts until the meter switches back to peak.
+Tests for the scheduled boosts of the dual tariff (`utils_dualtariff.h`: `BoostSchedule`, and the `ScheduledBoosts` of config.h it is built from). A boost is a window (`FIRST`, `LAST`, `FROM_START`, `BEFORE_END`, with `FOR`) and a list of targets, written with `HOURS()` / `MINUTES()`. The firmware resolves each boost at compile time, with `ul_OFF_PEAK_DURATION`, to `{ start, end, local mask, remote mask }`, in ms from the start of the off-peak period, and forces the targets while `millis()` minus that start is in the window. A boost without end (`LAST`, or no `FOR`) lasts until the meter switches back to peak.
 
 ## Tests
 
@@ -21,7 +21,9 @@ Tests for the scheduled boosts of the dual tariff (`utils_dualtariff.h`, `Schedu
 | `test_without_for_lasts_until_the_end` | `resolve()` of a start without `FOR` |
 | `test_resolve` | A boost resolves to `{ start, end, local, remote }` at compile time |
 | `test_a_target_may_be_in_several_boosts` | The same target in two boosts |
-| `test_an_empty_list` | `ScheduledBoosts{}`: no boost |
+| `test_an_empty_list` | `BoostSchedule{}`: no boost |
+| `test_boosts_from_the_settings` | The `ScheduledBoosts` of config.h, with `LOAD()` and `RELAY()`, turned into masks by `TargetMap` as in config_derived.h |
+| `test_no_boost_in_the_settings` | `ScheduledBoosts{}` in config.h: no boost either |
 | `test_a_start_before_the_period_wraps_to_a_large_value` | A start before the period wraps in `uint32_t` (what the compile-time check catches) |
 
 ## Bug 5 (#214)

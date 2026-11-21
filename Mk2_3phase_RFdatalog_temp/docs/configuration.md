@@ -10,12 +10,31 @@ The PVRouter configuration system is built on the principle of "fail fast, fail 
 
 ### Configuration Headers Structure
 ```
-config.h              ← User-specific configuration (main file)
-├── config_system.h   ← System-wide constants and types
-├── calibration.h     ← Hardware calibration values
-├── types.h          ← Type definitions and enums
-└── utils_*.h        ← Feature-specific utilities
+config.h              ← The settings, and nothing else (the file users edit, or the configurator writes)
+└── config_types.h    ← What config.h is written with: types, helpers, target codes (no setting, no Arduino)
+
+config_derived.h      ← What the code includes, never config.h directly
+├── config_system.h   ← System-wide constants
+├── config.h
+├── types.h, debug.h  ← debug.h reads SERIAL_OUTPUT_TYPE and ENABLE_DEBUG from config.h itself
+├── NO_OF_REMOTE_LOADS, NO_OF_REMOTE_UNITS, remoteLoads
+├── relayDiverter, overrideTable, boostSchedule, tempSensors
+│                     ← built from relays, overridePins, scheduledBoosts, temperatureSensing
+└── remote_loads.h
+
+calibration.h         ← Hardware calibration values
+validation.h          ← static_assert on the settings
 ```
+
+config.h has no `#include` but `config_types.h` and computes nothing, so no line of it depends on a
+header included before it, and the configurator writes it whole. `RelayEngine`, `OverridePins`,
+`ScheduledBoosts` and `TemperatureSensing` only hold what config.h says; the objects the firmware works
+with are built from them in config_derived.h.
+
+`LOAD(n)`, `RELAY(n)` and `ALL_LOADS()` cannot give a pin in config.h: which pin load #1 is, and which
+relays exist, is only known once config.h is read. They give a code (`TargetCode` in config_types.h),
+and `TargetMap` (utils_override.h) turns each code into its pins against the load map and the relays.
+A plain number is a pin, as before. The native test `test_config_h` builds config.h alone on the PC.
 
 ### Type-Safe Configuration
 ```cpp

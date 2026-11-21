@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -11,7 +11,7 @@
 
 #include <Arduino.h>
 
-#include "config.h"
+#include "config_derived.h"
 #include "calibration.h"
 #include "dualtariff.h"
 #include "processing.h"
@@ -198,9 +198,9 @@ constexpr uint16_t getOutputPins()
 
   if constexpr (RELAY_DIVERSION)
   {
-    for (uint8_t idx = 0; idx < relays.size(); ++idx)
+    for (uint8_t idx = 0; idx < relayDiverter.size(); ++idx)
     {
-      const auto relayPin = relays.get_relay(idx).get_pin();
+      const auto relayPin = relayDiverter.get_relay(idx).get_pin();
 
       if (bit_read(output_pins, relayPin))
         return 0;
@@ -266,9 +266,9 @@ constexpr uint16_t getInputPins()
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
     // Add all configured override pins
-    for (uint8_t i = 0; i < overridePins.size(); ++i)
+    for (uint8_t i = 0; i < overrideTable.size(); ++i)
     {
-      const uint8_t pin = overridePins.getPin(i);
+      const uint8_t pin = overrideTable.getPin(i);
       if (bit_read(input_pins, pin))
         return 0;
 

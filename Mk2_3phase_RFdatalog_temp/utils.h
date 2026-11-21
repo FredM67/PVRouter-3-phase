@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -151,14 +151,14 @@ inline void printConfiguration()
   infolnPresence(RELAY_DIVERSION);
   if constexpr (RELAY_DIVERSION)
   {
-    relays.printRelayEngineConfiguration();
+    relayDiverter.printRelayEngineConfiguration();
   }
 
   info(F("Override feature "));
   infolnPresence(OVERRIDE_PIN_PRESENT);
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    overridePins.printOverrideConfig();
+    overrideTable.printOverrideConfig();
   }
 
   info(F("RF capability "));
@@ -246,7 +246,7 @@ inline bool printJsonStep(Print& out, uint8_t step)
     if constexpr (RELAY_DIVERSION)
     {
       out.print(F(",\"R\":"));
-      out.print(relays.get_average());
+      out.print(relayDiverter.get_average());
     }
     return true;
   }
@@ -264,7 +264,7 @@ inline bool printJsonStep(Print& out, uint8_t step)
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    if (step < temperatureSensing.size())
+    if (step < tempSensors.size())
     {
       if (isValidTemperature(tx_data.temperature_x100[step]))
       {
@@ -275,7 +275,7 @@ inline bool printJsonStep(Print& out, uint8_t step)
       }
       return true;
     }
-    step -= temperatureSensing.size();
+    step -= tempSensors.size();
   }
 
   if constexpr (DUAL_TARIFF)
@@ -321,7 +321,7 @@ inline bool printTextStep(Print& out, uint8_t step)
     if constexpr (RELAY_DIVERSION)
     {
       out.print(F("/"));
-      out.print(relays.get_average());
+      out.print(relayDiverter.get_average());
     }
     return true;
   }
@@ -349,7 +349,7 @@ inline bool printTextStep(Print& out, uint8_t step)
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    if (step < temperatureSensing.size())
+    if (step < tempSensors.size())
     {
       if (isValidTemperature(tx_data.temperature_x100[step]))
       {
@@ -360,7 +360,7 @@ inline bool printTextStep(Print& out, uint8_t step)
       }
       return true;
     }
-    step -= temperatureSensing.size();
+    step -= tempSensors.size();
   }
 
   switch (step)
@@ -448,13 +448,13 @@ void sendTelemetryData(const bool bOffPeak)
 
   if constexpr (RELAY_DIVERSION)
   {
-    teleInfo.send("R", static_cast< int16_t >(relays.get_average()));  // Send relay average if diversion is enabled
+    teleInfo.send("R", static_cast< int16_t >(relayDiverter.get_average()));  // Send relay average if diversion is enabled
 
-    idx = relays.size();
+    idx = relayDiverter.size();
     do
     {
       --idx;
-      teleInfo.send("R", relays.get_relay(idx).isRelayON(), idx + 1);  // Send state of each relay (R1-Rn)
+      teleInfo.send("R", relayDiverter.get_relay(idx).isRelayON(), idx + 1);  // Send state of each relay (R1-Rn)
     } while (idx);
   }
 
@@ -467,7 +467,7 @@ void sendTelemetryData(const bool bOffPeak)
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    for (uint8_t idx = 0; idx < temperatureSensing.size(); ++idx)
+    for (uint8_t idx = 0; idx < tempSensors.size(); ++idx)
     {
       if (!isValidTemperature(tx_data.temperature_x100[idx]))
       {

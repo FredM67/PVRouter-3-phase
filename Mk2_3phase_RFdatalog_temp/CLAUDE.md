@@ -41,7 +41,9 @@ pio check
 
 ### Key Files
 
-- `config.h` - User configuration (features, pins, loads) - **primary file users edit**
+- `config.h` - User configuration (features, pins, loads) - **primary file users edit**. Settings only: it includes `config_types.h` and nothing else
+- `config_types.h` - What config.h is written with: settings types, `LOAD()`/`RELAY()`/`ALL_...()` target codes, the boost windows. No setting, no Arduino
+- `config_derived.h` - What the code includes (never config.h): derived constants, `remoteLoads`, and the objects built from the settings (`relayDiverter`, `overrideTable`, `boostSchedule`, `tempSensors`)
 - `calibration.h` - Power calibration values - **users edit for their hardware**
 - `processing.cpp/.h` - Core real-time processing engine
 - `validation.h` - ~50+ compile-time safety assertions

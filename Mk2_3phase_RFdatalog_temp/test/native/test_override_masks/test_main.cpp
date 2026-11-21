@@ -3,7 +3,7 @@
  * @brief Native unit tests for override_masks.h: what is forced ON, by the override pins and the
  *        scheduled boosts of the dual tariff
  *
- * @details The pins and boosts are built with the real OverridePins and ScheduledBoosts, and the
+ * @details The pins and boosts are built with the real OverrideTable and BoostSchedule, and the
  *          boosts resolved with DualTariff::resolve(), as dualtariff.h does at compile time. A
  *          pin is active when LOW: here, when its bit is set in a mask of active pins.
  */
@@ -11,6 +11,7 @@
 #include <unity.h>
 
 #include "override_masks.h"  // Real header - pure C++
+#include "utils_override.h"  // OverrideTable
 
 namespace
 {
@@ -30,17 +31,17 @@ constexpr uint8_t remote(const uint8_t n)
 }
 
 // Override pins: D3 forces D5 and remote load 1, D4 forces D5 and D6, D12 forces remote load 0
-constexpr OverridePins pins{ { { 3, { 5, remote(1) } },
-                               { 4, { 5, 6 } },
-                               { 12, { remote(0) } } } };
+constexpr OverrideTable pins{ { { 3, { 5, remote(1) } },
+                                { 4, { 5, 6 } },
+                                { 12, { remote(0) } } } };
 
 // Boosts, over 8 hours of off-peak:
 //  #0 the first 2 h: D5
 //  #1 from 1 h, for 2 h (1 h to 3 h): D6 and remote load 2
 //  #2 the last 3 h (5 h to the end): D7
-constexpr ScheduledBoosts boosts{ { { FIRST(HOURS(2)), { 5 } },
-                                    { FROM_START(HOURS(1)), FOR(HOURS(2)), { 6, remote(2) } },
-                                    { LAST(HOURS(3)), { 7 } } } };
+constexpr BoostSchedule boosts{ { { FIRST(HOURS(2)), { 5 } },
+                                  { FROM_START(HOURS(1)), FOR(HOURS(2)), { 6, remote(2) } },
+                                  { LAST(HOURS(3)), { 7 } } } };
 
 constexpr uint16_t bit(const uint8_t n)
 {

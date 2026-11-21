@@ -109,7 +109,9 @@ Toutes les bibliothèques sont toujours incluses dans le code source. Cependant,
 
 - **Mk2_3phase_RFdatalog_temp.ino** : Ce fichier est nécessaire pour l’IDE Arduino
 - **calibration.h** : contient les paramètres d’étalonnage
-- **config.h** : les préférences de l’utilisateur sont stockées ici (affectation des broches, fonctionnalités…)
+- **config.h** : les préférences de l’utilisateur sont stockées ici (affectation des broches, fonctionnalités…), et rien d’autre
+- **config_types.h** : ce avec quoi s’écrit **config.h** (types, `LOAD()`, `HOURS()`…) — *ne pas modifier*
+- **config_derived.h** : ce que le firmware construit à partir de **config.h** — *ne pas modifier*
 - **config_system.h** : constantes système rarement modifiées
 - **constants.h** : quelques constantes — *ne pas modifier*
 - **debug.h** : Quelques macros pour la sortie série et le débogage
@@ -136,6 +138,9 @@ Toutes les bibliothèques sont toujours incluses dans le code source. Cependant,
 - **Doxyfile** : paramètre pour Doxygen (documentation du code)
 
 L’utilisateur final ne doit éditer QUE les fichiers **calibration.h** et **config.h**.
+
+> [!NOTE]
+> **config.h** ne contient que des réglages : il n’inclut que `config_types.h`. Un **config.h** d’une version précédente, avec des lignes `#include`, `NO_OF_REMOTE_LOADS` ou `remoteLoads`, arrête la compilation sur *This config.h has the former layout* : recréez-le avec le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/), ou supprimez ces lignes (voir le CHANGELOG).
 
 ## Documentation technique
 Le dossier **[docs/](docs/)** contient la documentation technique détaillée :
@@ -792,9 +797,9 @@ Il existe **deux méthodes** pour spécifier quelles charges/relais activer :
 
 | Macro | Description |
 |-------|-------------|
-| `LOAD(n)` | Charge par index (0 = première charge, 1 = deuxième, etc. - locales puis distantes) |
-| `LOCAL_LOAD(n)` | Charge locale par index (0 = première charge locale) |
-| `REMOTE_LOAD(n)` | Charge distante par index (0 = première charge distante) |
+| `LOAD(n)` | Charge n de `physicalLoadPin[]`, locale ou distante (0 = première entrée, 1 = deuxième, etc.) |
+| `LOCAL_LOAD(n)` | Comme `LOAD(n)`, pour une charge que l’on sait locale : n compte toujours toutes les charges de `physicalLoadPin[]` |
+| `REMOTE_LOAD(n)` | La n-ième charge distante (0 = première charge distante), en ne comptant que les charges distantes, dans l’ordre de `physicalLoadPin[]` |
 | `RELAY(n)` | Relais par index (0 = premier relais, 1 = deuxième, etc.) |
 | `ALL_LOADS()` | Toutes les charges configurées (locales + distantes) |
 | `ALL_LOCAL_LOADS()` | Toutes les charges locales uniquement |
@@ -821,6 +826,8 @@ Vous pouvez mélanger les deux méthodes dans la même configuration :
 ```cpp
 { 3, { 5, LOAD(1) } }  // Pin D3 : active la pin 5 ET la charge #1
 ```
+
+Un groupe se mélange aussi : `{ 3, { ALL_LOCAL_LOADS(), RELAY(0) } }` force toutes les charges locales et le relais #1.
 
 ### Exemples de configuration
 

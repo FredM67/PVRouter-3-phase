@@ -2,7 +2,7 @@
 
 Tests for what is forced ON once per second (`override_masks.h`): the targets of each override pin held LOW (`Forcing::pinForcing()`), and the targets of each scheduled boost whose window is open (`Forcing::boostForcing()`), joined with `|`. `main.cpp` reads `millis()`, the pins and the boost table in flash, and calls these functions.
 
-The pins and boosts are built with the real `OverridePins` and `ScheduledBoosts`, and the boosts resolved with `DualTariff::resolve()`, as `dualtariff.h` does at compile time. The test configuration: override pins D3 (D5, remote load 1), D4 (D5, D6) and D12 (remote load 0); over 8 hours of off-peak, boosts `FIRST(HOURS(2))` (D5), `FROM_START(HOURS(1)), FOR(HOURS(2))` (D6, remote load 2) and `LAST(HOURS(3))` (D7); a threshold of 60 °C.
+The pins and boosts are built with the real `OverrideTable` and `BoostSchedule`, and the boosts resolved with `DualTariff::resolve()`, as `dualtariff.h` does at compile time. The test configuration: override pins D3 (D5, remote load 1), D4 (D5, D6) and D12 (remote load 0); over 8 hours of off-peak, boosts `FIRST(HOURS(2))` (D5), `FROM_START(HOURS(1)), FOR(HOURS(2))` (D6, remote load 2) and `LAST(HOURS(3))` (D7); a threshold of 60 °C.
 
 ## Tests
 

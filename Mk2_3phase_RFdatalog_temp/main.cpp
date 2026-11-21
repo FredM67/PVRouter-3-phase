@@ -15,7 +15,7 @@
  * - **Watchdog**: Toggles a pin to indicate system activity.
  *
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -26,7 +26,7 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 
 #include <Arduino.h>  // may not be needed, but it's probably a good idea to include this
 
-#include "config.h"
+#include "config_derived.h"
 
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
 
@@ -110,7 +110,7 @@ OverrideMasks getOverrideBitmask(const bool bOffPeak, const int16_t currentTempe
   // Add external override pins
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    masks = Forcing::pinForcing(overridePins, [](const uint8_t pin)
+    masks = Forcing::pinForcing(overrideTable, [](const uint8_t pin)
                                 {
                                   return !getPinState(pin);  // Pin is LOW (active)
                                 });
@@ -350,8 +350,8 @@ void setup()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    temperatureSensing.printSensorsOnBus();  // empty unless CALIBRATION_MODE
-    temperatureSensing.initTemperatureSensors();
+    tempSensors.printSensorsOnBus();  // empty unless CALIBRATION_MODE
+    tempSensors.initTemperatureSensors();
   }
 
   debug(F(">>free RAM = "));
@@ -418,16 +418,16 @@ void updatePowerAndVoltageData()
 void processTemperatureData()
 {
   // 85.00 °C more than 5.00 °C away from the last valid reading: the power-on value, skipped
-  static DS18B20::PowerOnFilter powerOnFilter[temperatureSensing.size()];
+  static DS18B20::PowerOnFilter powerOnFilter[tempSensors.size()];
 
-  uint8_t idx{ temperatureSensing.size() };
+  uint8_t idx{ tempSensors.size() };
   do
   {
     --idx;
-    tx_data.temperature_x100[idx] = powerOnFilter[idx](temperatureSensing.readTemperature(idx));
+    tx_data.temperature_x100[idx] = powerOnFilter[idx](tempSensors.readTemperature(idx));
   } while (idx);
 
-  temperatureSensing.requestTemperatures();  // for use next time around
+  tempSensors.requestTemperatures();  // for use next time around
 }
 
 /**
@@ -477,8 +477,8 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
 
   if constexpr (RELAY_DIVERSION)
   {
-    relays.inc_duration();
-    relays.proceed_relays(privateOverrideMasks.local, bDiversionEnabled);
+    relayDiverter.inc_duration();
+    relayDiverter.proceed_relays(privateOverrideMasks.local, bDiversionEnabled);
   }
 
   // Copy to the shared versions for ISR access
@@ -540,7 +540,7 @@ void loop()
 
     if constexpr (RELAY_DIVERSION)
     {
-      relays.update_average(tx_data.power);
+      relayDiverter.update_average(tx_data.power);
     }
 
     if constexpr (TEMP_SENSOR_PRESENT)

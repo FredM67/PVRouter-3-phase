@@ -537,12 +537,14 @@ void test_load_masks_of_an_all_local_map(void)
 
 void test_masks_feed_the_override_config(void)
 {
-  // what ALL_LOADS() and LOAD(n) hand to OverridePins in config.h
+  // ALL_LOADS() and LOAD(n) in config.h, turned into pins against the map, as config_derived.h does
   static constexpr uint8_t map[]{ Load::local(5), Load::remote(1), Load::remote(2), Load::local(6) };
-  constexpr OverridePins pins{
-    { KeyIndexPair< 8 >{ 4, localLoadsMask(map) | remoteLoadsMask(map) },
-      KeyIndexPair< 8 >{ 3, { overridePinOf(map, 2) } } }
-  };
+  static constexpr RelaySetting relaySettings[]{ { 9 } };
+  static constexpr RelayEngine relays{ relaySettings };
+  constexpr TargetMap targets{ map, relays, false };
+  constexpr OverridePins< 2, 8 > settings{ { { 4, { ALL_LOADS() } },
+                                             { 3, { LOAD(2) } } } };
+  constexpr OverrideTable pins{ settings, targets };
 
   TEST_ASSERT_EQUAL_HEX16((1U << 5) | (1U << 6), pins.getLocalBitmask(0));
   TEST_ASSERT_EQUAL_HEX8(0b11, pins.getRemoteBitmask(0));

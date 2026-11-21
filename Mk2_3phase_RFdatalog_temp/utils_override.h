@@ -12,19 +12,18 @@
  * - Static configuration of override pin mappings
  * - Template deduction guide for convenient usage
  *
- * Usage example:
+ * config.h writes the override pins with codes (OverridePins, in config_types.h): TargetMap
+ * turns each code into its pins, and OverrideTable holds the resulting bitmasks.
+ *
+ * Usage example, with plain pins:
  * @code
- * constexpr OverridePins overridePins{
- *     {2, {1, 3}},
- *     {3, {0, 2, 6}},
- *     {4, {5}}
- * };
- * constexpr OverridePins<3, 8> pins{pairs};
+ * constexpr OverrideTable table{ { { 2, { 5, 6 } },
+ *                                  { 3, { 7 } } } };
  * @endcode
  *
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @version 0.2
- * @date 2026-11-20
+ * @date 2026-11-21
  * @copyright Copyright (c) 2025-2026
  */
 
@@ -33,22 +32,13 @@
 
 #include "type_traits.hpp"
 
+#include "config_types.h"  // PinList, KeyIndexPair, OverridePins, RelayEngine, the target codes
 #include "utils_bits.h"
 #include "load_map.h"
 
 #ifdef ARDUINO
 #include "debug.h"
 #endif
-
-/**
- * @brief Base value for virtual pins representing remote loads.
- * @details Values >= REMOTE_PIN_BASE are virtual pins for remote loads.
- *          REMOTE_LOAD(0) returns 128, REMOTE_LOAD(1) returns 129, etc.
- */
-inline constexpr uint8_t REMOTE_PIN_BASE{ 128 };
-
-inline constexpr uint8_t LOCAL_MASK_BITS{ 16 }; /**< pins in a target's local mask (uint16_t): D0-D15 */
-inline constexpr uint8_t REMOTE_MASK_BITS{ 8 }; /**< remote loads in a target's remote mask (uint8_t) */
 
 /**
  * @brief Override pin of a load: its physical pin if local, a virtual pin if remote.
@@ -130,154 +120,127 @@ constexpr uint16_t indicesToBitmask()
 }
 
 /**
- * @brief Wrapper for a list of pins, constructible from variadic arguments.
- * @tparam MaxPins Maximum number of pins supported.
+ * @class TargetMap
+ * @brief What the target codes of config.h stand for, once the load map and the relays are known.
  *
- * @details Supports both physical pins (0-127) and virtual pins for remote loads (128+).
- *          Virtual pins are created using REMOTE_LOAD(n) which returns REMOTE_PIN_BASE + n.
+ * @details LOAD(n) is the override pin of load n (overridePinOf()), LOCAL_LOAD(n) its local pin,
+ *          RELAY(n) the pin of relay n, and ALL_...() every pin of their kind. Out of range, or
+ *          RELAY() without relay diversion, a code gives pin 0, which no load or relay uses:
+ *          validation.h reports it. Any other value is a pin already.
+ *
+ * @tparam NL Number of loads in the load map.
+ * @tparam NR Number of relays.
+ * @tparam D Duration of the sliding average of the relays (unused here).
  */
-template< uint8_t MaxPins >
-struct PinList
+template< uint8_t NL, uint8_t NR, uint8_t D >
+class TargetMap
 {
-  uint8_t pins[MaxPins];
-  uint8_t count;
-
+public:
   /**
-   * @brief Default constructor. Initializes with zero pins.
+   * @param loadMap The load map (physicalLoadPin).
+   * @param relays The relays, as in config.h.
+   * @param relayDiversion Whether the relays are in use (RELAY_DIVERSION).
    */
-  constexpr PinList()
-    : pins{}, count(0) {}
-
-  /**
-   * @brief Constructor from local-only bitmask.
-   * @param bitmask Local pin bitmask (bits 0-15 correspond to physical pins).
-   */
-  constexpr PinList(uint16_t bitmask)
-    : pins{}, count(0)
+  constexpr TargetMap(const uint8_t (&loadMap)[NL], const RelayEngine< NR, D >& relays, const bool relayDiversion)
+    : loadMap_(loadMap), relays_(relays), relayDiversion_(relayDiversion)
   {
-    for (uint8_t pin = 0; pin < 16 && count < MaxPins; ++pin)
+  }
+
+  /** @brief The pin that a single code stands for (any code but ALL_...()). */
+  constexpr uint8_t pinOf(const uint8_t code) const
+  {
+    if (code >= TargetCode::LOAD && code < TargetCode::LOAD + TargetCode::MAX_LOADS)
     {
-      if (bitmask & (1U << pin))
-      {
-        pins[count++] = pin;  // Store the physical pin number
-      }
+      const uint8_t loadNum = code - TargetCode::LOAD;
+      return loadNum < NL ? overridePinOf(loadMap_, loadNum) : 0;
+    }
+    if (code >= TargetCode::LOCAL_LOAD && code < TargetCode::LOCAL_LOAD + TargetCode::MAX_LOCAL_LOADS)
+    {
+      const uint8_t loadNum = code - TargetCode::LOCAL_LOAD;
+      return loadNum < NL ? Load::pinOf(loadMap_[loadNum]) : 0;
+    }
+    if (code >= TargetCode::RELAY && code < TargetCode::RELAY + TargetCode::MAX_RELAYS)
+    {
+      const uint8_t relayNum = code - TargetCode::RELAY;
+      return relayDiversion_ && relayNum < NR ? relays_.get_relay(relayNum).pin : 0;
+    }
+    return code;
+  }
+
+  /** @brief Whether @p code is one of ALL_...(): several pins. */
+  static constexpr bool isGroup(const uint8_t code)
+  {
+    return code >= TargetCode::ALL_LOCAL_LOADS && code <= TargetCode::ALL_LOADS_AND_RELAYS;
+  }
+
+  /** @brief The pins of an ALL_...() code: local pins in the lower 16 bits, remote loads from bit 16. */
+  constexpr uint32_t groupMask(const uint8_t code) const
+  {
+    switch (code)
+    {
+      case TargetCode::ALL_LOCAL_LOADS:
+        return localLoadsMask(loadMap_);
+      case TargetCode::ALL_REMOTE_LOADS:
+        return remoteLoadsMask(loadMap_);
+      case TargetCode::ALL_LOADS:
+        return localLoadsMask(loadMap_) | remoteLoadsMask(loadMap_);
+      case TargetCode::ALL_RELAYS:
+        return relaysMask();
+      case TargetCode::ALL_LOADS_AND_RELAYS:
+        return localLoadsMask(loadMap_) | remoteLoadsMask(loadMap_) | relaysMask();
+      default:
+        return 0;
     }
   }
 
-  /**
-   * @brief Constructor from combined bitmask. Extracts both local and remote pins.
-   * @param bitmask Combined bitmask value:
-   *                - Lower 16 bits (0-15): local/physical pin bitmask
-   *                - Upper 16 bits (16-31): remote load bitmask (bit 16 = remote 0, etc.)
-   */
-  constexpr PinList(uint32_t bitmask)
-    : pins{}, count(0)
-  {
-    // Extract local pins from lower 16 bits
-    for (uint8_t pin = 0; pin < 16 && count < MaxPins; ++pin)
-    {
-      if (bitmask & (1UL << pin))
-      {
-        pins[count++] = pin;  // Store the physical pin number
-      }
-    }
-    // Extract remote loads from upper 16 bits
-    for (uint8_t i = 0; i < 8 && count < MaxPins; ++i)
-    {
-      if (bitmask & (1UL << (16 + i)))
-      {
-        pins[count++] = REMOTE_PIN_BASE + i;  // Store virtual pin for remote load
-      }
-    }
-  }
-
-  /**
-   * @brief Variadic constructor. Initializes with provided pins.
-   * @param args List of pins (can include both physical and virtual pins).
-   */
-  template< typename... Args >
-  constexpr PinList(Args... args)
-    : pins{ static_cast< uint8_t >(args)... }, count(sizeof...(args)) {}
-
-  /**
-   * @brief Converts the pin list to a bitmask for local/physical pins only.
-   * @return Bitmask with bits set for pins < REMOTE_PIN_BASE.
-   */
-  constexpr uint16_t toLocalBitmask() const
+  /** @brief The local loads and relays that @p targets force, as a bitmask of pins. */
+  template< uint8_t MaxPins >
+  constexpr uint16_t localBitmask(const PinList< MaxPins >& targets) const
   {
     uint16_t result{ 0 };
-    for (uint8_t i = 0; i < count; ++i)
+    for (uint8_t i = 0; i < targets.count; ++i)
     {
-      if (pins[i] < REMOTE_PIN_BASE)
-      {
-        result |= (1U << pins[i]);
-      }
+      const uint8_t code{ targets.pins[i] };
+      result |= isGroup(code) ? static_cast< uint16_t >(groupMask(code)) : PinList< 1 >{ pinOf(code) }.toLocalBitmask();
     }
     return result;
   }
 
-  /**
-   * @brief Converts the pin list to a bitmask for remote loads only.
-   * @return Bitmask where bit n is set if remote load n is in the list.
-   *         (Pins >= REMOTE_PIN_BASE are converted to indices 0-7)
-   */
-  constexpr uint8_t toRemoteBitmask() const
+  /** @brief The remote loads that @p targets force, as a bitmask (bit 0 = remote load 0). */
+  template< uint8_t MaxPins >
+  constexpr uint8_t remoteBitmask(const PinList< MaxPins >& targets) const
   {
     uint8_t result{ 0 };
-    for (uint8_t i = 0; i < count; ++i)
+    for (uint8_t i = 0; i < targets.count; ++i)
     {
-      if (pins[i] >= REMOTE_PIN_BASE)
-      {
-        const uint8_t remoteIndex = pins[i] - REMOTE_PIN_BASE;
-        if (remoteIndex < REMOTE_MASK_BITS)
-        {
-          result |= (1U << remoteIndex);
-        }
-      }
+      const uint8_t code{ targets.pins[i] };
+      result |= isGroup(code) ? static_cast< uint8_t >(groupMask(code) >> 16) : PinList< 1 >{ pinOf(code) }.toRemoteBitmask();
     }
     return result;
   }
+
+private:
+  /** @brief The pins of the relays, none without relay diversion. */
+  constexpr uint32_t relaysMask() const
+  {
+    uint32_t mask{ 0 };
+    if (relayDiversion_)
+    {
+      for (uint8_t i = 0; i < NR; ++i)
+      {
+        bit_set(mask, relays_.get_relay(i).pin);
+      }
+    }
+    return mask;
+  }
+
+  const uint8_t (&loadMap_)[NL];       /**< the load map */
+  const RelayEngine< NR, D >& relays_; /**< the relays */
+  const bool relayDiversion_;          /**< whether the relays are in use */
 };
 
 /**
- * @brief Structure holding a pin and its associated index list.
- * @tparam MaxPins Maximum number of pins supported.
- */
-template< uint8_t MaxPins >
-struct KeyIndexPair
-{
-  uint8_t pin;
-  PinList< MaxPins > indexList;
-
-  /**
-   * @brief Constructor.
-   * @param k Pin value.
-   * @param list Index list.
-   */
-  constexpr KeyIndexPair(uint8_t k, const PinList< MaxPins >& list)
-    : pin(k), indexList(list) {}
-
-  /**
-   * @brief Returns the bitmask for local pins in the index list.
-   * @return Bitmask for physical pins (< REMOTE_PIN_BASE).
-   */
-  constexpr uint16_t getLocalBitmask() const
-  {
-    return indexList.toLocalBitmask();
-  }
-
-  /**
-   * @brief Returns the bitmask for remote loads in the index list.
-   * @return Bitmask where bit n is set if remote load n is in the list.
-   */
-  constexpr uint8_t getRemoteBitmask() const
-  {
-    return indexList.toRemoteBitmask();
-  }
-};
-
-/**
- * @class OverridePins
+ * @class OverrideTable
  * @brief Manages override pins and their associated bitmasks for forced operation.
  *
  * This class provides compile-time mapping between override pins and the loads/relays they control.
@@ -288,7 +251,7 @@ struct KeyIndexPair
  * @tparam MaxPins Maximum number of pins supported (loads + relays). Default is 16.
  */
 template< uint8_t N, uint8_t MaxPins = 16 >
-class OverridePins
+class OverrideTable
 {
 private:
   /**
@@ -317,13 +280,34 @@ public:
    *
    * @param pairs Array of pin-index pairs, each specifying a pin and its associated pins.
    */
-  constexpr OverridePins(const KeyIndexPair< MaxPins > (&pairs)[N])
+  constexpr OverrideTable(const KeyIndexPair< MaxPins > (&pairs)[N])
     : entries_{}  // default initialize
   {
     Entry temp[N]{};
     for (uint8_t i = 0; i < N; ++i)
     {
       temp[i] = { pairs[i].pin, pairs[i].getLocalBitmask(), pairs[i].getRemoteBitmask() };
+    }
+    for (uint8_t i = 0; i < N; ++i)
+    {
+      const_cast< Entry& >(entries_[i]) = temp[i];
+    }
+  }
+
+  /**
+   * @brief Constructor. The override pins of config.h, their codes turned into pins by @p map.
+   *
+   * @param pins The override pins, as in config.h.
+   * @param map What the codes stand for (a TargetMap).
+   */
+  template< typename Map >
+  constexpr OverrideTable(const OverridePins< N, MaxPins >& pins, const Map& map)
+    : entries_{}  // default initialize
+  {
+    Entry temp[N]{};
+    for (uint8_t i = 0; i < N; ++i)
+    {
+      temp[i] = { pins.getPin(i), map.localBitmask(pins.getTargets(i)), map.remoteBitmask(pins.getTargets(i)) };
     }
     for (uint8_t i = 0; i < N; ++i)
     {
@@ -427,11 +411,11 @@ public:
 };
 
 /**
- * @brief Deduction guide for OverridePins template.
+ * @brief Deduction guide for OverrideTable, from plain pins.
  * Allows template argument deduction from constructor arguments.
  */
 template< uint8_t MaxPins, uint8_t N >
-OverridePins(const KeyIndexPair< MaxPins > (&)[N])
-  -> OverridePins< N, MaxPins >;
+OverrideTable(const KeyIndexPair< MaxPins > (&)[N])
+  -> OverrideTable< N, MaxPins >;
 
 #endif /* UTILS_OVERRIDE_H */

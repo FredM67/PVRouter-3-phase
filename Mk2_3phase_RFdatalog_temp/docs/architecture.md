@@ -63,8 +63,11 @@ flowchart TB
 - Energy bucket algorithm for load switching decisions
 - State machine for polarity detection
 
-### 2. Configuration System (`config.h`, `validation.h`)
+### 2. Configuration System (`config.h`, `config_types.h`, `config_derived.h`, `validation.h`)
 **Core responsibility**: Compile-time configuration and validation
+
+config.h holds the settings only, written with the types of config_types.h; config_derived.h,
+which the code includes, builds the derived values and objects from them (see configuration.md).
 
 **Key features**:
 - Template-based configuration

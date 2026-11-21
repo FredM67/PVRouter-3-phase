@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief The scheduled boosts of the dual tariff, resolved at compile time
  * @version 0.2
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2021-2026
  *
@@ -14,11 +14,11 @@
 
 #include <avr/pgmspace.h>
 
-#include "config.h"
+#include "config_derived.h"
 
 inline uint32_t ul_TimeOffPeak; /**< 'timestamp' for start of off-peak period */
 
-inline constexpr uint8_t NO_OF_BOOSTS{ scheduledBoosts.size() }; /**< number of scheduled boosts */
+inline constexpr uint8_t NO_OF_BOOSTS{ boostSchedule.size() }; /**< number of scheduled boosts */
 
 /**
  * @brief The scheduled boosts, resolved for the off-peak duration: window in ms and target masks.
@@ -43,7 +43,7 @@ constexpr BoostTable resolveBoosts()
   BoostTable table{};
   for (uint8_t i = 0; i != NO_OF_BOOSTS; ++i)
   {
-    table.boost[i] = DualTariff::resolve(scheduledBoosts, i, ul_OFF_PEAK_DURATION);
+    table.boost[i] = DualTariff::resolve(boostSchedule, i, ul_OFF_PEAK_DURATION);
   }
   return table;
 }

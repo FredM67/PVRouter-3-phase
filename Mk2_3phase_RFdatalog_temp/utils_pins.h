@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for pins manipulation
  * @version 0.1
- * @date 2026-10-01
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -15,8 +15,6 @@
 #include <Arduino.h>
 
 #include "utils_bits.h"
-
-inline constexpr uint8_t unused_pin{ 0xff }; /**< unused pin */
 
 #if defined(__DOXYGEN__)
 inline constexpr void togglePin(uint8_t pin);

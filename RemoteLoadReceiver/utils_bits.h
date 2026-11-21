@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Bit manipulation utility functions
  * @version 0.1
- * @date 2026-10-05
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2025-2026
  *
@@ -15,6 +15,8 @@
 #define UTILS_BITS_H
 
 #include <stdint.h>
+
+inline constexpr uint8_t unused_pin{ 0xff }; /**< no pin: the value of a pin setting that is not used */
 
 /**
  * @brief Set the specified bit to 1

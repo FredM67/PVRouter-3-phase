@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for the relay output feature
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @details The decisions (thresholds, minimum ON/OFF times, settle time, order, EWMA average) are
  *          in relay_engine.h, without Arduino. Here, the relays drive their pins and print their
@@ -94,12 +94,12 @@ public:
 };
 
 /**
- * @class RelayEngine
+ * @class RelayDiverter
  * @brief Manages a collection of relays and their behavior based on surplus and import thresholds.
  *
  * The decisions are those of RelayLogic::Engine (relay_engine.h), on relays that drive their
  * pins (relayOutput). Here, the constructors, which check the sliding average duration, and the
- * printing of the configuration.
+ * printing of the configuration. config_derived.h builds it from the RelayEngine of config.h.
  *
  * @tparam N The number of relays to be managed.
  * @tparam D The duration in minutes for the sliding average (default is 10 minutes).
@@ -107,7 +107,7 @@ public:
  * @ingroup RelayDiversion
  */
 template< uint8_t N, uint8_t D = 10 >
-class RelayEngine : public RelayLogic::Engine< relayOutput, N, D >
+class RelayDiverter : public RelayLogic::Engine< relayOutput, N, D >
 {
   using Base = RelayLogic::Engine< relayOutput, N, D >;
 
@@ -116,7 +116,7 @@ public:
    * @brief Construct a list of relays
    *
    */
-  explicit constexpr RelayEngine(const relayOutput (&ref)[N])
+  explicit constexpr RelayDiverter(const relayOutput (&ref)[N])
     : Base(ref)
   {
   }
@@ -129,7 +129,7 @@ public:
    *
    * @param ref Array of relay configurations.
    */
-  constexpr RelayEngine(integral_constant< uint8_t, D > /* ic */, const relayOutput (&ref)[N])
+  constexpr RelayDiverter(integral_constant< uint8_t, D > /* ic */, const relayOutput (&ref)[N])
     : Base(ref)
   {
   }
@@ -141,11 +141,21 @@ public:
    * @param ref Array of relay configurations.
    */
   template< uint16_t V >
-  constexpr RelayEngine(integral_constant< uint16_t, V > /* ic */, const relayOutput (&ref)[N])
+  constexpr RelayDiverter(integral_constant< uint16_t, V > /* ic */, const relayOutput (&ref)[N])
     : Base(ref)
   {
     static_assert(V <= UINT8_MAX, "******** RELAY_FILTER_DELAY cannot exceed 255 minutes ! Please check your config.h ! ********");
-    static_assert(V == D, "******** The MINUTES() given to RelayEngine differs from its template parameter D (RELAY_FILTER_DELAY) ! Please check your config.h ! ********");
+    static_assert(V == D, "******** The MINUTES() given to RelayDiverter differs from its template parameter D (RELAY_FILTER_DELAY) ! Please check your config.h ! ********");
+  }
+
+  /**
+   * @brief The relays of config.h.
+   *
+   * @param relays The relays, as in config.h.
+   */
+  explicit constexpr RelayDiverter(const RelayEngine< N, D >& relays)
+    : RelayDiverter(relays, make_index_sequence< N >{})
+  {
   }
 
   /**
@@ -165,16 +175,27 @@ public:
       Base::relay[i].printRelayConfiguration(i);
     }
   }
+
+private:
+  template< uint8_t... I >
+  constexpr RelayDiverter(const RelayEngine< N, D >& relays, index_sequence< I... > /* is */)
+    : Base({ relayOutput{ relays.get_relay(I).pin, relays.get_relay(I).surplusThreshold, relays.get_relay(I).importThreshold,
+                          relays.get_relay(I).minON, relays.get_relay(I).minOFF }... })
+  {
+  }
 };
 
 // Deduction guides for automatic template parameter deduction
 template< uint8_t N >
-RelayEngine(const relayOutput (&)[N]) -> RelayEngine< N, 10 >;
+RelayDiverter(const relayOutput (&)[N]) -> RelayDiverter< N, 10 >;
 
 template< uint8_t N, uint8_t D >
-RelayEngine(integral_constant< uint8_t, D >, const relayOutput (&)[N]) -> RelayEngine< N, D >;
+RelayDiverter(integral_constant< uint8_t, D >, const relayOutput (&)[N]) -> RelayDiverter< N, D >;
 
 template< uint8_t N, uint16_t D >
-RelayEngine(integral_constant< uint16_t, D >, const relayOutput (&)[N]) -> RelayEngine< N, static_cast< uint8_t >(D) >;
+RelayDiverter(integral_constant< uint16_t, D >, const relayOutput (&)[N]) -> RelayDiverter< N, static_cast< uint8_t >(D) >;
+
+template< uint8_t N, uint8_t D >
+RelayDiverter(const RelayEngine< N, D >&) -> RelayDiverter< N, D >;
 
 #endif /* UTILS_RELAY_H */

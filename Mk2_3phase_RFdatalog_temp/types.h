@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some basics classes/types
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -16,6 +16,8 @@
 
 #include "type_traits.hpp"
 
+#include "config_types.h"  // the enums of config.h (SerialOutputType, PcbVersion, RotationModes)
+
 #include "constants.h"
 #include "load_map.h"         // LoadStates and the packed load-map encoding
 #include "load_priorities.h"  // loadStateMask, loadStateOnBit
@@ -24,21 +26,6 @@
 // definitions of enumerated types
 
 //--------------------------------------------------------------------------------------------------
-/** Enum for serial output types */
-enum class SerialOutputType
-{
-  HumanReadable, /**< Human-readable output for commissioning */
-  IoT,           /**< Output for HomeAssistant or similar */
-  JSON           /**< Output in JSON format */
-};
-
-/** Motherboard generation: they do not measure the same way */
-enum class PcbVersion : uint8_t
-{
-  OLD, /**< the former 3-phase board: ADC reference AVCC (= VCC, 5 V or 3.3 V) */
-  NEW  /**< the universal 3phaseDiverter board (rev. 6.0 and later): internal 1.1 V ADC reference */
-};
-
 /** Polarities */
 enum class Polarities : uint8_t
 {
@@ -54,14 +41,6 @@ enum class OutputModes : uint8_t
 };
 
 // LoadStates lives in load_map.h, so that the load-map logic stays Arduino-free.
-
-/** Rotation modes */
-enum class RotationModes : uint8_t
-{
-  OFF,  /**< Off */
-  AUTO, /**< Once a day */
-  PIN   /**< Pin triggered */
-};
 
 /** @brief container for datalogging
  *  @details This class is used for datalogging.
