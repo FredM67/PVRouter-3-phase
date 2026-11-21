@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief The load priority state machine: which load to switch at each mains cycle
  * @version 1.0
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details Each element of the priority array is one logical load, the highest priority
  *          first: its low 7 bits are the physical load number (an index of physicalLoadPin[]),

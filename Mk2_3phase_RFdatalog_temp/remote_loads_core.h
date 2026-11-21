@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Unit grouping and payload bookkeeping for remotely controlled loads
  * @version 1.0
- * @date 2026-09-23
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2025-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details Given the load map (see load_map.h) and the current state of every dump
  *          load, this builds one RF payload per remote unit and decides when a

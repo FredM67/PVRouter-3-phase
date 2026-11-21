@@ -6,6 +6,8 @@
  * period; a boost is { from: 'start' | 'end', at, for } (model.js). Dragging and the minutes fields
  * snap to 15 minutes; dragging keeps the boost's anchor ('from') and never leaves the period
  * (M.boostFits()).
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(require('./model.js'));

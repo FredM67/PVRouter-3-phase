@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Integer arithmetic of the energy bucket
  * @version 0.1
- * @date 2026-11-19
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details The energy bucket used to be a float, which put libgcc floating-point calls
  *          in the ADC ISR. It is now an int32_t in fixed-point units:

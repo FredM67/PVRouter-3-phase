@@ -19,6 +19,7 @@
  * @date 2026-11-21
  *
  * @copyright Copyright (c) 2025-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
 #ifndef TELEINFO_H

@@ -3,7 +3,7 @@
  * @author Robin Emley (www.Mk2PVrouter.co.uk)
  * @author Frederic Metrich (frederic.metrich@live.fr)
  * @brief A photovoltaic energy diverter.
- * @date 2026-11-13
+ * @date 2026-11-21
  *
  * @mainpage A 3-phase photovoltaic router/diverter
  *
@@ -181,6 +181,7 @@
  *
  * @author Fred Metrich
  * @copyright Copyright (c) 2025-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * __February 2020: updated to Mk2_3phase_RFdatalog_3a with these changes:__
  * - removal of some redundant code in the logic for determining the next load state.

@@ -38,3 +38,8 @@ bash configurator/test/check-yaml.sh              # 'esphome config' on the mk2W
 
 The presets (`test/presets/*.json`) are saves of the page: a new one is picked up by both
 scripts. The CI job `Configurator` runs all three.
+
+## License
+
+The configurator is GPL-3.0-or-later, as the rest of the project. The files it writes are yours: use, change and
+share them on any terms you like (see [NOTICE](../NOTICE)).

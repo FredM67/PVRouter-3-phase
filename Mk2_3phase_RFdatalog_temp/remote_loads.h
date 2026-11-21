@@ -6,6 +6,7 @@
  * @date 2026-11-21
  *
  * @copyright Copyright (c) 2025-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details Radio shell around RemoteLoadCore (remote_loads_core.h). The core decides
  *          what each remote unit should be told and when; this file does the telling,

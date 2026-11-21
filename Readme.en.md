@@ -209,3 +209,9 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for the code of conduct and the p
 - **Frédéric Metrich** - this version - [FredM67](https://github.com/FredM67)
 
 See also the list of [contributors](https://github.com/FredM67/PVRouter-3-phase/graphs/contributors) who participated in this project.
+
+# License
+
+GPL-3.0-or-later, see [LICENSE](LICENSE). [NOTICE](NOTICE) details where the code comes from: the firmware derives from Robin Emley's Mk2PVRouter sketches, which he published without a license statement; the changes since 2019 are under the GPL.
+
+The files that hold your settings (`config.h`, `config_system.h`, `config_rf.h`, `calibration.h`) and every file the configurator writes are yours: use, change and share them on any terms you like.

@@ -10,6 +10,8 @@
  * wire, an open jumper or an ESP32 that reboots or hangs at boot leaves the router in its
  * default state: routing ON, router running, no boost, no rotation. Every control goes back
  * to that state at each boot of the module.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(require('./model.js'));

@@ -6,6 +6,7 @@
  * @date 2026-11-21
  *
  * @copyright Copyright (c) 2023-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details In the IoT and JSON modes, the serial port carries data for another device (mk2Wifi...).
  *          - info(), infoln(): the startup configuration, in every output mode: without it, no

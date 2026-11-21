@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief The checks of a DS18B20 reading: CRC, conversion to hundredths of °C, range, power-on value
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details The bus I/O stays in utils_temp.h. Here, what is done with the 9 bytes of the
  *          scratchpad once read, and with the reading once converted:

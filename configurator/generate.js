@@ -4,6 +4,8 @@
  * Pure functions: each one returns the full text of a file. The layout follows the shipped
  * files (and clang-format: trailing comments aligned within runs of consecutive lines), so the
  * defaults give back the shipped files byte for byte.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(require('./model.js'), require('./yaml.js'));

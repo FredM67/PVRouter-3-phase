@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some constants
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2021-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
 

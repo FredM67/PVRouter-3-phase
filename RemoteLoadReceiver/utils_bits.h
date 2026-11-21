@@ -6,6 +6,7 @@
  * @date 2026-11-21
  *
  * @copyright Copyright (c) 2025-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @note These functions are pure C++ with no Arduino dependencies,
  *       making them usable in both embedded and native test environments.
