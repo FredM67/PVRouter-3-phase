@@ -12,9 +12,23 @@ Changes on `dev`, not yet on `main`.
 
 If you keep your own `config.h`, check these points:
 
+- **`config.h` holds the settings only (breaking):** its `#include` lines, the values derived
+  from the load map and `remoteLoads` move to `config_derived.h`, which the code includes
+  instead. The settings lines themselves do not change. A `config.h` of the former layout stops
+  the build with *This config.h has the former layout*. Create it again with the configurator,
+  or edit it by hand:
+  - replace `#ifndef CONFIG_H`, `#define CONFIG_H`, `#include "config_system.h"` and
+    `#include "types.h"` with `#pragma once` and `#include "config_types.h"`;
+  - delete the other `#include` lines (`debug.h`, `remote_loads_core.h`, `utils_dualtariff.h`,
+    `utils_relay.h`, `utils_temp.h`, `utils_override_helpers.h`, `remote_loads.h`) and the
+    final `#endif`;
+  - delete `NO_OF_REMOTE_LOADS`, `NO_OF_REMOTE_UNITS`, `REMOTE_LOADS_PRESENT` and `remoteLoads`.
+
+  `LOAD()`, `RELAY()` and `ALL_LOADS()` are written as before; a group and single targets can
+  now share a list: `{ ALL_LOCAL_LOADS(), RELAY(0) }` ([#238]).
 - **Motherboard:** add `inline constexpr PcbVersion PCB_VERSION{ PcbVersion::OLD };` after
-  `#include "types.h"`, or `NEW` for the universal 3phaseDiverter board, then recalibrate if
-  you choose `NEW`.
+  `#include "config_types.h"`, or `NEW` for the universal 3phaseDiverter board, then recalibrate
+  if you choose `NEW`.
 - **Shipped `config.h`:** it now targets the new board with the mk2Wifi module
   (`PcbVersion::NEW`, `SerialOutputType::IoT`), as does the configurator by default. With the
   old board, set `PcbVersion::OLD`; for the serial monitor, `SerialOutputType::HumanReadable`.
@@ -94,6 +108,12 @@ valid load maps ([#160]).
 
 ### Changed
 
+- **`config.h`** only holds settings: it includes `config_types.h` and nothing else, and no line
+  depends on a header included before it. `config_derived.h` builds the rest from it: the derived
+  values, `remoteLoads`, the relay engine, the override and boost bitmasks, the temperature
+  sensors. `LOAD()`, `RELAY()` and `ALL_...()` give codes that it turns into pins once the load map
+  and the relays are known, so a list may mix a group and single targets. The firmware is the same,
+  instruction for instruction ([#238]).
 - **Scheduled boosts** replace the per-load forcing of the dual tariff: a list of `{ window,
   { targets } }` entries, written with `FIRST()`, `LAST()`, `FROM_START()`, `BEFORE_END()`, `FOR()`
   and `HOURS()` / `MINUTES()`, and the same targets as the override pins. Remote loads and relays
@@ -249,3 +269,4 @@ valid load maps ([#160]).
 [#226]: https://github.com/FredM67/PVRouter-3-phase/pull/226
 [#234]: https://github.com/FredM67/PVRouter-3-phase/pull/234
 [#237]: https://github.com/FredM67/PVRouter-3-phase/pull/237
+[#238]: https://github.com/FredM67/PVRouter-3-phase/pull/238

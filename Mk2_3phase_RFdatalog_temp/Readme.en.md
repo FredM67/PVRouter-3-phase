@@ -107,7 +107,9 @@ All libraries are always included in the source code. However, only the code act
 
 - **Mk2_3phase_RFdatalog_temp.ino** : This file is needed for Arduino IDE
 - **calibration.h** : contains the calibration parameters
-- **config.h** : the user's preferences are stored here (pin assignments, features ...)
+- **config.h** : the user's preferences are stored here (pin assignments, features ...), and nothing else
+- **config_types.h** : what **config.h** is written with (types, `LOAD()`, `HOURS()`...) — *do not edit*
+- **config_derived.h** : what the firmware builds from **config.h** — *do not edit*
 - **config_system.h** : rarely modified system constants
 - **constants.h** : some constants — *do not edit*
 - **debug.h** : Some macros for serial output and debugging
@@ -134,6 +136,9 @@ All libraries are always included in the source code. However, only the code act
 - **Doxyfile** : parameter for Doxygen (code documentation)
 
 The end-user should ONLY edit the **calibration.h** and **config.h** files.
+
+> [!NOTE]
+> **config.h** only holds settings: it includes `config_types.h` and nothing else. A **config.h** from an earlier version, with `#include` lines, `NO_OF_REMOTE_LOADS` or `remoteLoads`, stops the build with *This config.h has the former layout*: create it again with the [configurator](https://fredm67.github.io/Mk2PVRouter/configurateur/), or delete those lines (see the CHANGELOG).
 
 # Development documentation
 
@@ -816,6 +821,8 @@ You can combine both methods in the same configuration:
 ```cpp
 { 3, { 5, LOAD(1) } }  // Pin D3: activates pin 5 AND load #1
 ```
+
+A group mixes too: `{ 3, { ALL_LOCAL_LOADS(), RELAY(0) } }` forces every local load and relay #1.
 
 ### Configuration examples
 

@@ -109,7 +109,9 @@ Toutes les bibliothèques sont toujours incluses dans le code source. Cependant,
 
 - **Mk2_3phase_RFdatalog_temp.ino** : Ce fichier est nécessaire pour l’IDE Arduino
 - **calibration.h** : contient les paramètres d’étalonnage
-- **config.h** : les préférences de l’utilisateur sont stockées ici (affectation des broches, fonctionnalités…)
+- **config.h** : les préférences de l’utilisateur sont stockées ici (affectation des broches, fonctionnalités…), et rien d’autre
+- **config_types.h** : ce avec quoi s’écrit **config.h** (types, `LOAD()`, `HOURS()`…) — *ne pas modifier*
+- **config_derived.h** : ce que le firmware construit à partir de **config.h** — *ne pas modifier*
 - **config_system.h** : constantes système rarement modifiées
 - **constants.h** : quelques constantes — *ne pas modifier*
 - **debug.h** : Quelques macros pour la sortie série et le débogage
@@ -136,6 +138,9 @@ Toutes les bibliothèques sont toujours incluses dans le code source. Cependant,
 - **Doxyfile** : paramètre pour Doxygen (documentation du code)
 
 L’utilisateur final ne doit éditer QUE les fichiers **calibration.h** et **config.h**.
+
+> [!NOTE]
+> **config.h** ne contient que des réglages : il n’inclut que `config_types.h`. Un **config.h** d’une version précédente, avec des lignes `#include`, `NO_OF_REMOTE_LOADS` ou `remoteLoads`, arrête la compilation sur *This config.h has the former layout* : recréez-le avec le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/), ou supprimez ces lignes (voir le CHANGELOG).
 
 ## Documentation technique
 Le dossier **[docs/](docs/)** contient la documentation technique détaillée :
@@ -821,6 +826,8 @@ Vous pouvez mélanger les deux méthodes dans la même configuration :
 ```cpp
 { 3, { 5, LOAD(1) } }  // Pin D3 : active la pin 5 ET la charge #1
 ```
+
+Un groupe se mélange aussi : `{ 3, { ALL_LOCAL_LOADS(), RELAY(0) } }` force toutes les charges locales et le relais #1.
 
 ### Exemples de configuration
 
