@@ -71,6 +71,11 @@ If you keep your own `config.h`, check these points:
   `BEFORE_END`. The configurator writes the new form (see "Changed"). Also add
   `inline constexpr uint8_t BOOST_TEMP_SENSOR{ 0 };` after `iTemperatureThreshold`: the sensor
   checked against the threshold (0, the first, as before).
+- **Priority rotation needs `rotationGroups` (breaking):** with `PRIORITY_ROTATION` not `OFF`,
+  list the loads that take turns after `loadPrioritiesAtStartup`:
+  `inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } };` for one water heater
+  on every local load. Without rotation, write `rotationGroups{}`. The build stops otherwise, with
+  *Priority rotation is on but rotationGroups is empty*.
 
 No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still
@@ -108,6 +113,12 @@ valid load maps ([#160]).
 
 ### Changed
 
+- **Priority rotation** rotates the loads of `rotationGroups` only, any number of groups, each
+  among the priority places its loads hold at startup: two 3-phase water heaters each take turns
+  on their own, and loads in no group keep their place. A group holds at least 2 loads, local
+  loads only or the loads of one remote unit, and a load is in one group at most; the compiler
+  and the configurator check it. The configurator has a checkbox per load in each group, and the
+  startup summary prints the groups.
 - **`config.h`** only holds settings: it includes `config_types.h` and nothing else, and no line
   depends on a header included before it. `config_derived.h` builds the rest from it: the derived
   values, `remoteLoads`, the relay engine, the override and boost bitmasks, the temperature
