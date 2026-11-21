@@ -380,6 +380,12 @@
     m.overrides.list.forEach(trim);
   }
 
+  // the delay without diversion only applies to automatic rotation without dual tariff (with it,
+  // rotation happens at off-peak start): only then is its field shown and checked
+  const rotationDelayShown = (m) => m.rotation.mode === 'AUTO' && !m.dualTariff.enabled;
+  const ROTATION_DELAY_MAX = 65534; // the firmware counts the seconds in 16 bits (validation.h)
+  const rotationDelayValid = (s) => Number.isInteger(s) && s >= 1 && s <= ROTATION_DELAY_MAX;
+
   // the loads a rotation group editor offers: every load, plus any load of the group that is no
   // longer in the map, so that it can be unticked (validate.js flags it as not a load)
   function rotationChoices(m, group) {
@@ -455,6 +461,8 @@
     ctRatingUsed,
     CAL_NAMES,
     rotationChoices,
+    rotationDelayShown,
+    rotationDelayValid,
     resizeLoads,
     resizeRelays,
   };

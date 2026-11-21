@@ -158,6 +158,12 @@
     ];
   }
 
+  // the delay as set; when its field is hidden, an invalid one (never checked) gives the default
+  function rotationDelay(m) {
+    const s = m.rotation.afterSeconds;
+    return M.rotationDelayShown(m) || M.rotationDelayValid(s) ? s : M.defaults().rotation.afterSeconds;
+  }
+
   function rotationSeconds(s) {
     if (s % 3600 === 0) return `${s / 3600}UL * 3600UL`;
     if (s % 60 === 0) return `${s / 60}UL * 60UL`;
@@ -374,7 +380,7 @@
     add(...list(' '.repeat(tempPrefix.length), addresses, ' };', '/**< list of temperature sensor Addresses */'));
     add(
       '',
-      [`inline constexpr uint32_t ROTATION_AFTER_SECONDS{ ${rotationSeconds(m.rotation.afterSeconds)} };`, '/**< rotates load priorities after this period of inactivity */']
+      [`inline constexpr uint32_t ROTATION_AFTER_SECONDS{ ${rotationSeconds(rotationDelay(m))} };`, '/**< rotates load priorities after this period of inactivity */']
     );
     return render(L);
   }

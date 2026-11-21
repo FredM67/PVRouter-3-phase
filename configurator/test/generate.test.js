@@ -328,3 +328,12 @@ test('rotation groups: two groups, the loads listed', () => {
   Object.assign(m.rotation, { mode: 'AUTO', groups: [[0, 1], [2, 3]] });
   assert.match(rotationLine(m), /rotationGroups\{ \{ LOAD\(0\), LOAD\(1\) \}, \{ LOAD\(2\), LOAD\(3\) \} \};/);
 });
+
+test('rotation delay: a hidden, invalid delay is written as the 8-hour default', () => {
+  const delayLine = (m) => G.configH(m).split('\n').find((l) => l.includes('ROTATION_AFTER_SECONDS{'));
+  const m = M.defaults();
+  Object.assign(m.rotation, { mode: 'PIN', pin: 4, afterSeconds: 0 });
+  assert.match(delayLine(m), /ROTATION_AFTER_SECONDS\{ 8UL \* 3600UL \}/);
+  Object.assign(m.rotation, { mode: 'AUTO', afterSeconds: 2 * 3600 });
+  assert.match(delayLine(m), /ROTATION_AFTER_SECONDS\{ 2UL \* 3600UL \}/);
+});

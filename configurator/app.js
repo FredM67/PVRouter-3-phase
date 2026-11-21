@@ -623,7 +623,7 @@
           : null,
         // with dual tariff, automatic rotation happens at off-peak start: no delay to set
         rot.mode === 'AUTO' && m.dualTariff.enabled ? help('rotationAtOffPeak') : null,
-        rot.mode === 'AUTO' && !m.dualTariff.enabled
+        M.rotationDelayShown(m)
           ? field(
               'rotationAfter',
               num(

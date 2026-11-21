@@ -91,8 +91,7 @@
     needPin(m.watchdog.enabled, m.watchdog.pin, 'err.watchdogPin', 'watchdog');
     needPin(m.dualTariff.enabled, m.dualTariff.pin, 'err.dualTariffPin', 'dualTariff');
     if (!M.ROTATION_MODES.includes(m.rotation.mode)) error('err.rotationMode', 'rotation');
-    // the firmware counts the seconds in 16 bits (validation.h)
-    if (!inRange(m.rotation.afterSeconds, 1, 65534)) error('err.rotationAfter', 'rotation');
+    if (M.rotationDelayShown(m) && !M.rotationDelayValid(m.rotation.afterSeconds)) error('err.rotationAfter', 'rotation');
     // rotation groups (validation.h): with rotation OFF, rotationGroups is written empty
     if (m.rotation.mode !== 'OFF') {
       const groups = m.rotation.groups || [];

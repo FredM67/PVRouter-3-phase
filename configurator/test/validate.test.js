@@ -54,7 +54,7 @@ const CASES = [
   ['err.rotationPin', (m) => (m.rotation.mode = 'PIN')],
   ['err.watchdogPin', (m) => (m.watchdog.enabled = true)],
   ['err.dualTariffPin', (m) => (m.dualTariff.enabled = true)],
-  ['err.rotationAfter', (m) => (m.rotation.afterSeconds = 65535)],
+  ['err.rotationAfter', (m) => Object.assign(m.rotation, { mode: 'AUTO', groups: [[0, 1, 2]], afterSeconds: 65535 })],
   // rotation groups: lists of load indices, checked as validation.h does
   ['err.rotationNoGroup', (m) => (m.rotation.mode = 'AUTO')],
   ['err.rotationGroupSmall', (m) => (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[0]])],
@@ -257,4 +257,12 @@ test('rotation: dual tariff is no problem, in either mode (the page tells when i
     const m = variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3 }) && Object.assign(m.rotation, { mode, pin: 4, groups: [[0, 1, 2]] }));
     assert.deepStrictEqual(V.validate(m).filter((p) => p.field === 'rotation'), [], mode);
   }
+});
+
+test('rotation delay: checked only when its field is shown (automatic, without dual tariff)', () => {
+  const delay = (change) => keys(variant((m) => change(m) || (m.rotation.afterSeconds = 0))).includes('err.rotationAfter');
+  assert.ok(delay((m) => Object.assign(m.rotation, { mode: 'AUTO', groups: [[0, 1, 2]] }) && false));
+  assert.ok(!delay((m) => Object.assign(m.rotation, { mode: 'AUTO', groups: [[0, 1, 2]] }) && Object.assign(m.dualTariff, { enabled: true, pin: 3 }) && false));
+  assert.ok(!delay((m) => Object.assign(m.rotation, { mode: 'PIN', pin: 4, groups: [[0, 1, 2]] }) && false));
+  assert.ok(!delay(() => false));
 });
