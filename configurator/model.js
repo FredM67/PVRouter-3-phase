@@ -380,6 +380,13 @@
     m.overrides.list.forEach(trim);
   }
 
+  // the loads a rotation group editor offers: every load, plus any load of the group that is no
+  // longer in the map, so that it can be unticked (validate.js flags it as not a load)
+  function rotationChoices(m, group) {
+    const n = m.loads.length;
+    return [...m.loads.map((_, l) => l), ...group.filter((l) => l >= n).sort((x, y) => x - y)];
+  }
+
   function resizeLoads(m, count) {
     while (m.loads.length < count) {
       const used = new Set(m.loads.filter((l) => l.type === 'local').map((l) => l.pin));
@@ -447,6 +454,7 @@
     CT_RATING,
     ctRatingUsed,
     CAL_NAMES,
+    rotationChoices,
     resizeLoads,
     resizeRelays,
   };

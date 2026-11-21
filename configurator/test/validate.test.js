@@ -244,3 +244,11 @@ test('rotation: a good group of every local load passes', () => {
   const m = variant((m) => (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[2, 0, 1]]));
   assert.deepStrictEqual(keys(m).filter((k) => k.startsWith('err.rotation')), []);
 });
+
+test('rotation: a load gone from the map stays in its group editor, to be unticked', () => {
+  const m = variant((m) => (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[0, 1, 2]]));
+  M.resizeLoads(m, 2);
+  assert.ok(keys(m).includes('err.rotationNotALoad'));
+  assert.deepStrictEqual(M.rotationChoices(m, m.rotation.groups[0]), [0, 1, 2]);
+  assert.deepStrictEqual(M.rotationChoices(m, [0]), [0, 1]);
+});

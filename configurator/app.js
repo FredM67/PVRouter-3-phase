@@ -528,7 +528,7 @@
           h(
             'div',
             { class: 'targets' },
-            m.loads.map((_, l) =>
+            M.rotationChoices(m, g).map((l) =>
               h(
                 'label',
                 { class: 'check' },
@@ -540,7 +540,7 @@
                     changed();
                   },
                 }),
-                h('span', null, loadName(l))
+                h('span', null, l < m.loads.length ? loadName(l) : `${T('load')} ${l + 1}`)
               )
             )
           )

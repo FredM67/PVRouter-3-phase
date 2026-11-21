@@ -71,11 +71,13 @@ If you keep your own `config.h`, check these points:
   `BEFORE_END`. The configurator writes the new form (see "Changed"). Also add
   `inline constexpr uint8_t BOOST_TEMP_SENSOR{ 0 };` after `iTemperatureThreshold`: the sensor
   checked against the threshold (0, the first, as before).
-- **Priority rotation needs `rotationGroups` (breaking):** with `PRIORITY_ROTATION` not `OFF`,
-  list the loads that take turns after `loadPrioritiesAtStartup`:
+- **`rotationGroups` (breaking):** every `config.h` needs this line after
+  `loadPrioritiesAtStartup`, or the build stops with *'rotationGroups' was not declared*. Without
+  rotation (`PRIORITY_ROTATION` is `OFF`), write `inline constexpr RotationGroups rotationGroups{};`.
+  With rotation, list the loads that take turns:
   `inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } };` for one water heater
-  on every local load. Without rotation, write `rotationGroups{}`. The build stops otherwise, with
-  *Priority rotation is on but rotationGroups is empty*.
+  on every local load (what rotation did before, when every load is local). An empty list with
+  rotation on stops the build with *Priority rotation is on but rotationGroups is empty*.
 
 No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still
