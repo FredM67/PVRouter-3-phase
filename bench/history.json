@@ -1421,6 +1421,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "2b9d80ab58e9eccb4fb06ec869ed9516a84e3e84",
+   "date": "2026-11-21T01:21:49+01:00",
+   "message": "refactor: config.h holds the settings only (#238)\n\n* refactor: config.h holds the settings only\n\nconfig.h mixed the settings with #include lines, derived constants, the\nremote-load controller and objects built at definition time, so its order\nmattered and LOAD(), RELAY() and ALL_LOADS() had to come after the load map\nand the relays they read.\n\n- config_types.h: what config.h is written with, with no setting and no\n  Arduino in it. RelayEngine, OverridePins, ScheduledBoosts and\n  TemperatureSensing now only hold what config.h says, so the settings\n  lines stay as they were. LOAD(), RELAY() and ALL_...() give codes.\n- config_derived.h, which the code includes instead of config.h: the\n  derived constants, remoteLoads, and the objects built from the settings\n  (relayDiverter, overrideTable, boostSchedule, tempSensors). TargetMap\n  turns the codes into pins against the load map and the relays.\n- debug.h includes config.h itself: no include order left.\n- A config.h of the former layout stops with the reason (debug.h and\n  config_derived.h test its CONFIG_H guard).\n- A group and single targets can now share a list:\n  { ALL_LOCAL_LOADS(), RELAY(0) }.\n\nThe firmware is unchanged: on the 7 configurator presets, the same\ninstructions as before, the build timestamp aside.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: config.h holds the settings only\n\nThe Readmes list config_types.h and config_derived.h and say what a\nconfig.h of the former layout does; configuration.md shows the new\nlayout and why LOAD() and RELAY() give codes; the CHANGELOG says how to\nupdate a config.h by hand.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* test: the relay test's own relays, apart from those of config.h\n\ndebug.h includes config.h now, so its relays settings are in scope.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix: unused_pin in utils_bits.h, so the receiver's copies stay the same\n\nutils_pins.h included config_types.h for unused_pin, which the remote\nload receiver doesn't have: its copy of utils_pins.h fell out of date.\nunused_pin now lives in utils_bits.h, Arduino-free and copied to the\nreceiver as well; config_types.h includes it from there.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: LOAD(n) and LOCAL_LOAD(n) count the entries of physicalLoadPin[]\n\nThe Readmes said LOAD(n) counts local loads then remote ones, and\nLOCAL_LOAD(n) local loads only. Both index physicalLoadPin[], whose\nlocal and remote entries may come in any order; REMOTE_LOAD(n) is the\none that counts remote loads only.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/2b9d80ab58e9eccb4fb06ec869ed9516a84e3e84",
+   "sizes": {
+    "basic": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, remote loads": {
+     "flash": 12372,
+     "ram": 675
+    },
+    "basic, IoT": {
+     "flash": 7956,
+     "ram": 568
+    },
+    "basic, HumanReadable": {
+     "flash": 7784,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
