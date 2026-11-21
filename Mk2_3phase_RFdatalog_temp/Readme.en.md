@@ -792,9 +792,9 @@ There are **two ways** to specify which loads/relays to activate:
 
 | Macro | Description |
 |-------|-------------|
-| `LOAD(n)` | Load by index (0 = first load, 1 = second, etc. - local then remote) |
-| `LOCAL_LOAD(n)` | Local load by index (0 = first local load) |
-| `REMOTE_LOAD(n)` | Remote load by index (0 = first remote load) |
+| `LOAD(n)` | Load n of `physicalLoadPin[]`, local or remote (0 = first entry, 1 = second, etc.) |
+| `LOCAL_LOAD(n)` | Same as `LOAD(n)`, for a load known to be local: n still counts every load of `physicalLoadPin[]` |
+| `REMOTE_LOAD(n)` | The n-th remote load (0 = first remote load), counting remote loads only, in `physicalLoadPin[]` order |
 | `RELAY(n)` | Relay by index (0 = first relay, 1 = second, etc.) |
 | `ALL_LOADS()` | All configured loads (local + remote) |
 | `ALL_LOCAL_LOADS()` | All local loads only |

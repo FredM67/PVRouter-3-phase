@@ -797,9 +797,9 @@ Il existe **deux méthodes** pour spécifier quelles charges/relais activer :
 
 | Macro | Description |
 |-------|-------------|
-| `LOAD(n)` | Charge par index (0 = première charge, 1 = deuxième, etc. - locales puis distantes) |
-| `LOCAL_LOAD(n)` | Charge locale par index (0 = première charge locale) |
-| `REMOTE_LOAD(n)` | Charge distante par index (0 = première charge distante) |
+| `LOAD(n)` | Charge n de `physicalLoadPin[]`, locale ou distante (0 = première entrée, 1 = deuxième, etc.) |
+| `LOCAL_LOAD(n)` | Comme `LOAD(n)`, pour une charge que l’on sait locale : n compte toujours toutes les charges de `physicalLoadPin[]` |
+| `REMOTE_LOAD(n)` | La n-ième charge distante (0 = première charge distante), en ne comptant que les charges distantes, dans l’ordre de `physicalLoadPin[]` |
 | `RELAY(n)` | Relais par index (0 = premier relais, 1 = deuxième, etc.) |
 | `ALL_LOADS()` | Toutes les charges configurées (locales + distantes) |
 | `ALL_LOCAL_LOADS()` | Toutes les charges locales uniquement |
