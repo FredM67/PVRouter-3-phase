@@ -87,7 +87,8 @@
       // control inputs (active LOW). 'wifi': driven by the mk2Wifi module (pin in D5..D9)
       diversion: { enabled: false, pin: null, wifi: false },
       routerOff: { enabled: false, pin: null, wifi: false },
-      rotation: { mode: 'OFF', pin: null, wifi: false, afterSeconds: 8 * 3600 },
+      // groups: lists of load indices that take turns (rotationGroups), only written with rotation on
+      rotation: { mode: 'OFF', pin: null, wifi: false, afterSeconds: 8 * 3600, groups: [] },
       watchdog: { enabled: false, pin: null },
 
       relays: {
