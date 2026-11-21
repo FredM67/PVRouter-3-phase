@@ -8,8 +8,8 @@
 #include "utils_pins.h"
 #include "utils_relay.h"
 
-constexpr RelayDiverter relays{ { { 2, 1000, 200, 1, 1 },
-                                  { 3, 100, 20, 2, 3 } } };
+constexpr RelayDiverter testRelays{ { { 2, 1000, 200, 1, 1 },
+                                      { 3, 100, 20, 2, 3 } } };
 
 void setUp(void)
 {
@@ -47,42 +47,42 @@ void test_relay_initialization_with_negative_thresholds(void)
 
 void test_get_pin(void)
 {
-  TEST_ASSERT_EQUAL(2, relays.get_relay(0).get_pin());
-  TEST_ASSERT_EQUAL(3, relays.get_relay(1).get_pin());
+  TEST_ASSERT_EQUAL(2, testRelays.get_relay(0).get_pin());
+  TEST_ASSERT_EQUAL(3, testRelays.get_relay(1).get_pin());
 }
 
 void test_get_surplusThreshold(void)
 {
-  TEST_ASSERT_EQUAL(1000, relays.get_relay(0).get_surplusThreshold());
-  TEST_ASSERT_EQUAL(100, relays.get_relay(1).get_surplusThreshold());
+  TEST_ASSERT_EQUAL(1000, testRelays.get_relay(0).get_surplusThreshold());
+  TEST_ASSERT_EQUAL(100, testRelays.get_relay(1).get_surplusThreshold());
 }
 
 void test_get_importThreshold(void)
 {
-  TEST_ASSERT_EQUAL(200, relays.get_relay(0).get_importThreshold());
-  TEST_ASSERT_EQUAL(20, relays.get_relay(1).get_importThreshold());
+  TEST_ASSERT_EQUAL(200, testRelays.get_relay(0).get_importThreshold());
+  TEST_ASSERT_EQUAL(20, testRelays.get_relay(1).get_importThreshold());
 }
 
 void test_get_minON(void)
 {
-  TEST_ASSERT_EQUAL(1 * 60, relays.get_relay(0).get_minON());
-  TEST_ASSERT_EQUAL(2 * 60, relays.get_relay(1).get_minON());
+  TEST_ASSERT_EQUAL(1 * 60, testRelays.get_relay(0).get_minON());
+  TEST_ASSERT_EQUAL(2 * 60, testRelays.get_relay(1).get_minON());
 }
 
 void test_get_minOFF(void)
 {
-  TEST_ASSERT_EQUAL(1 * 60, relays.get_relay(0).get_minOFF());
-  TEST_ASSERT_EQUAL(3 * 60, relays.get_relay(1).get_minOFF());
+  TEST_ASSERT_EQUAL(1 * 60, testRelays.get_relay(0).get_minOFF());
+  TEST_ASSERT_EQUAL(3 * 60, testRelays.get_relay(1).get_minOFF());
 }
 
 void test_isRelayON(void)
 {
-  TEST_ASSERT_FALSE(relays.get_relay(1).isRelayON());
+  TEST_ASSERT_FALSE(testRelays.get_relay(1).isRelayON());
 }
 
 void test_relay_turnON(void)
 {
-  const auto& my_relay{ relays.get_relay(1) };
+  const auto& my_relay{ testRelays.get_relay(1) };
 
   TEST_ASSERT_FALSE(my_relay.isRelayON());
 
@@ -111,7 +111,7 @@ void test_relay_turnON(void)
 
 void test_relay_turnOFF(void)
 {
-  const auto& my_relay{ relays.get_relay(1) };
+  const auto& my_relay{ testRelays.get_relay(1) };
 
   TEST_ASSERT_TRUE(my_relay.isRelayON());
 
@@ -140,7 +140,7 @@ void test_relay_turnOFF(void)
 
 void test_relay_override_turnON(void)
 {
-  const auto& my_relay{ relays.get_relay(1) };
+  const auto& my_relay{ testRelays.get_relay(1) };
 
   // Ensure relay is OFF initially
   TEST_ASSERT_FALSE(my_relay.isRelayON());
@@ -178,7 +178,7 @@ void test_relay_override_turnON(void)
 
 void test_relay_override_minimum_ON_time(void)
 {
-  const auto& my_relay{ relays.get_relay(1) };
+  const auto& my_relay{ testRelays.get_relay(1) };
 
   // Relay should be ON from previous test
   TEST_ASSERT_TRUE(my_relay.isRelayON());
@@ -225,7 +225,7 @@ void test_proceed_relay(void)
 
 void test_get_size(void)
 {
-  TEST_ASSERT_EQUAL(2, relays.size());
+  TEST_ASSERT_EQUAL(2, testRelays.size());
 }
 
 // ============================================================================
