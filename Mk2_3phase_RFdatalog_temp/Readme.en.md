@@ -34,6 +34,7 @@ This program is designed to be used with the Arduino IDE and/or other developmen
       - [Examples](#examples)
     - [Quick reference](#quick-reference)
   - [Priority rotation](#priority-rotation)
+    - [Rotation groups](#rotation-groups)
   - [Manual boost (pin-triggered)](#manual-boost-pin-triggered)
     - [How it works](#how-it-works)
     - [When to use manual boost](#when-to-use-manual-boost)
@@ -450,7 +451,7 @@ Each remote unit receives a single byte, **one bit per load, in ascending map or
 
 **Priorities:**
 
-Local and remote loads share one priority list and one rotation. There is no longer any rule forcing remote loads to come last — `loadPrioritiesAtStartup` gives the order, whatever the mix:
+Local and remote loads share one priority list (a [rotation group](#priority-rotation) holds local loads only, or the loads of one remote unit). There is no longer any rule forcing remote loads to come last — `loadPrioritiesAtStartup` gives the order, whatever the mix:
 
 ```cpp
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2, 3 };
@@ -735,7 +736,7 @@ Local loads and relays print as their pins (D5, D4), in ascending pin order. Rem
 Priority rotation is useful when powering a three-phase water heater.
 It allows balancing the operating duration of different resistors over an extended period.
 
-But it can also be interesting if you want to swap the priorities of two devices each day (two water heaters, ...).
+But it can also be interesting if you want to swap the priorities of two devices each day (two water heaters, ...): make them a group of two loads.
 
 For once, activating this function has 2 modes:
 - **automatic**, you'll then specify
@@ -746,11 +747,32 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::AUTO };
 ```cpp
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
 ```
-In **automatic** mode, rotation happens automatically every 24 h.
+In **automatic** mode, rotation happens once the router has diverted nothing for `ROTATION_AFTER_SECONDS` (8 h by default), usually once a night. With dual tariff, it happens at the start of each off-peak period instead.
 In **manual** mode, you must also define the *pin* that will trigger rotation:
 ```cpp
 inline constexpr uint8_t rotationPin{ 10 };
 ```
+The pin works the same with or without dual tariff.
+
+### Rotation groups
+`rotationGroups` lists the loads that take turns, one group per appliance. For one water heater on every local load:
+```cpp
+inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } };
+```
+Each group rotates among the priority places its loads hold at startup; loads in no group never move. With two 3-phase water heaters and interleaved priorities:
+```cpp
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 3, 1, 4, 2, 5 };
+inline constexpr RotationGroups rotationGroups{ { LOAD(0), LOAD(1), LOAD(2) }, { LOAD(3), LOAD(4), LOAD(5) } };
+```
+one rotation turns `0, 3, 1, 4, 2, 5` into `2, 5, 0, 3, 1, 4`: each heater moves its last element to the top, and each still holds the same places.
+
+The rules, checked at compile time:
+- a group has at least 2 loads;
+- a load is in one group at most;
+- a group holds local loads only, or the loads of one remote unit;
+- with rotation on, there is at least one group; with rotation `OFF`, `rotationGroups` stays empty, `{}`.
+
+All the groups rotate together, on the same trigger.
 
 ## Manual boost (pin-triggered)
 

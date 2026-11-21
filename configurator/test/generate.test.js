@@ -307,3 +307,33 @@ test('a new load avoids the probes pin', () => {
   M.resizeLoads(m, 4);
   assert.strictEqual(m.loads[3].pin, 4);
 });
+
+const rotationLine = (m) => G.configH(m).split('\n').find((l) => l.includes('RotationGroups rotationGroups'));
+
+test('rotation groups: none without rotation, even with groups in the model', () => {
+  const m = M.defaults();
+  m.rotation.groups = [[0, 1]];
+  assert.match(rotationLine(m), /rotationGroups\{\};/);
+});
+
+test('rotation groups: every local load is ALL_LOCAL_LOADS(), whatever the order', () => {
+  const m = M.defaults();
+  Object.assign(m.rotation, { mode: 'AUTO', groups: [[2, 0, 1]] });
+  assert.match(rotationLine(m), /rotationGroups\{ \{ ALL_LOCAL_LOADS\(\) \} \};/);
+});
+
+test('rotation groups: two groups, the loads listed', () => {
+  const m = M.defaults();
+  M.resizeLoads(m, 4);
+  Object.assign(m.rotation, { mode: 'AUTO', groups: [[0, 1], [2, 3]] });
+  assert.match(rotationLine(m), /rotationGroups\{ \{ LOAD\(0\), LOAD\(1\) \}, \{ LOAD\(2\), LOAD\(3\) \} \};/);
+});
+
+test('rotation delay: a hidden, invalid delay is written as the 8-hour default', () => {
+  const delayLine = (m) => G.configH(m).split('\n').find((l) => l.includes('ROTATION_AFTER_SECONDS{'));
+  const m = M.defaults();
+  Object.assign(m.rotation, { mode: 'PIN', pin: 4, afterSeconds: 0 });
+  assert.match(delayLine(m), /ROTATION_AFTER_SECONDS\{ 8UL \* 3600UL \}/);
+  Object.assign(m.rotation, { mode: 'AUTO', afterSeconds: 2 * 3600 });
+  assert.match(delayLine(m), /ROTATION_AFTER_SECONDS\{ 2UL \* 3600UL \}/);
+});

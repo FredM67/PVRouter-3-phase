@@ -55,6 +55,7 @@ inline RemoteLoadCore< NO_OF_REMOTE_UNITS > remoteLoads{};
 //--------------------------------------------------------------------------------------------------
 // The objects built from the settings
 //
+#include "rotation_groups.h"
 #include "utils_dualtariff.h"
 #include "utils_override.h"
 #include "utils_relay.h"
@@ -67,6 +68,8 @@ inline constexpr RelayDiverter relayDiverter{ relays };                     /**<
 inline constexpr OverrideTable overrideTable{ overridePins, targetMap };    /**< what each override pin forces */
 inline constexpr BoostSchedule boostSchedule{ scheduledBoosts, targetMap }; /**< what each scheduled boost forces */
 inline constexpr TempSensors tempSensors{ temperatureSensing };             /**< the temperature sensors */
+/** @brief The priority places each rotation group rotates in. */
+inline constexpr Rotation::Table rotationTable{ rotationGroups, physicalLoadPin, loadPrioritiesAtStartup };
 
 #include "remote_loads.h"  // the RF shell; needs remoteLoads and the RF feature flags
 

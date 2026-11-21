@@ -512,6 +512,44 @@
     ];
   }
 
+  // the rotation groups: a checkbox per load in each group (rotationGroups)
+  function rotationGroupsEditor(rot) {
+    if (!rot.groups) rot.groups = [];
+    return h(
+      'div',
+      { class: 'sub' },
+      h('strong', null, T('rotationGroups')),
+      help('rotationGroupsHelp'),
+      rot.groups.map((g, i) =>
+        h(
+          'div',
+          { class: 'sub' },
+          row(h('strong', null, `${T('rotationGroup')} ${i + 1}`), button('remove', () => rot.groups.splice(i, 1), 'small')),
+          h(
+            'div',
+            { class: 'targets' },
+            M.rotationChoices(m, g).map((l) =>
+              h(
+                'label',
+                { class: 'check' },
+                h('input', {
+                  type: 'checkbox',
+                  checked: g.includes(l),
+                  onchange: (e) => {
+                    rot.groups[i] = e.target.checked ? [...g.filter((x) => x !== l), l].sort((x, y) => x - y) : g.filter((x) => x !== l);
+                    changed();
+                  },
+                }),
+                h('span', null, l < m.loads.length ? loadName(l) : `${T('load')} ${l + 1}`)
+              )
+            )
+          )
+        )
+      ),
+      button('addRotationGroup', () => rot.groups.push([]))
+    );
+  }
+
   function controls(p) {
     const o = m.overrides;
     const rot = m.rotation;
@@ -583,7 +621,9 @@
               wifiCheck(rot, rot.pin)
             )
           : null,
-        rot.mode === 'AUTO'
+        // with dual tariff, automatic rotation happens at off-peak start: no delay to set
+        rot.mode === 'AUTO' && m.dualTariff.enabled ? help('rotationAtOffPeak') : null,
+        M.rotationDelayShown(m)
           ? field(
               'rotationAfter',
               num(
@@ -592,7 +632,8 @@
                 { min: 0.5, max: 18, step: 0.5 }
               )
             )
-          : null
+          : null,
+        rot.mode !== 'OFF' ? rotationGroupsEditor(rot) : null
       ),
       inputPin(m.watchdog, 'enabled', 'watchdog')
     );

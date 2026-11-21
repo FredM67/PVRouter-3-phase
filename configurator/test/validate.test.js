@@ -54,8 +54,15 @@ const CASES = [
   ['err.rotationPin', (m) => (m.rotation.mode = 'PIN')],
   ['err.watchdogPin', (m) => (m.watchdog.enabled = true)],
   ['err.dualTariffPin', (m) => (m.dualTariff.enabled = true)],
-  ['err.rotationAfter', (m) => (m.rotation.afterSeconds = 65535)],
-  ['warn.rotationDualTariff', (m) => Object.assign(m.dualTariff, { enabled: true, pin: 3 }) && (m.rotation.mode = 'AUTO')],
+  ['err.rotationAfter', (m) => Object.assign(m.rotation, { mode: 'AUTO', groups: [[0, 1, 2]], afterSeconds: 65535 })],
+  // rotation groups: lists of load indices, checked as validation.h does
+  ['err.rotationNoGroup', (m) => (m.rotation.mode = 'AUTO')],
+  ['err.rotationGroupSmall', (m) => (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[0]])],
+  ['err.rotationLoadTwice', (m) => (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[0, 1], [1, 2]])],
+  ['err.rotationLoadTwice', (m) => (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[0, 0, 1]])],
+  ['err.rotationGroupMixed', (m) => (m.loads[2] = remote(1)) && (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[1, 2]])],
+  ['err.rotationGroupMixed', (m) => (m.loads[1] = remote(1)) && (m.loads[2] = remote(2)) && (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[1, 2]])],
+  ['err.rotationNotALoad', (m) => (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[0, 3]])], // a load removed after the groups were set
   ['err.noRelay', (m) => Object.assign(m.relays, { enabled: true, list: [] })],
   ['err.relayPin', (m) => (m.relays.enabled = true)],
   ['err.datalogDivides60', (m) => (m.relays.enabled = true) && (m.datalogPeriod = 7)],
@@ -215,4 +222,47 @@ test('probes on the module: all or none of the addresses, no warning', () => {
   const esp = (change) => keys(variant((m) => (m.mk2wifi.enabled = true) && (m.temperature.mode = 'esp') && change(m)));
   assert.ok(!esp(() => true).includes('warn.sensorSomeAddresses'));
   assert.ok(!esp((m) => m.temperature.sensors.forEach((s) => (s.address = ''))).includes('warn.sensorSomeAddresses'));
+});
+
+test('rotation OFF: the groups left in the model are not checked', () => {
+  const m = variant((m) => (m.rotation.groups = [[0]]));
+  assert.deepStrictEqual(keys(m).filter((k) => k.startsWith('err.rotation')), []);
+});
+
+test('rotation: a save without groups loads with none, and is refused with rotation on', () => {
+  const saved = M.defaults();
+  delete saved.rotation.groups;
+  saved.rotation.mode = 'PIN';
+  saved.rotation.pin = 8;
+  const m = M.normalize(JSON.parse(JSON.stringify(saved)));
+  assert.deepStrictEqual(m.rotation.groups, []);
+  assert.ok(keys(m).includes('err.rotationNoGroup'));
+});
+
+test('rotation: a good group of every local load passes', () => {
+  const m = variant((m) => (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[2, 0, 1]]));
+  assert.deepStrictEqual(keys(m).filter((k) => k.startsWith('err.rotation')), []);
+});
+
+test('rotation: a load gone from the map stays in its group editor, to be unticked', () => {
+  const m = variant((m) => (m.rotation.mode = 'AUTO') && (m.rotation.groups = [[0, 1, 2]]));
+  M.resizeLoads(m, 2);
+  assert.ok(keys(m).includes('err.rotationNotALoad'));
+  assert.deepStrictEqual(M.rotationChoices(m, m.rotation.groups[0]), [0, 1, 2]);
+  assert.deepStrictEqual(M.rotationChoices(m, [0]), [0, 1]);
+});
+
+test('rotation: dual tariff is no problem, in either mode (the page tells when it rotates)', () => {
+  for (const mode of ['AUTO', 'PIN']) {
+    const m = variant((m) => Object.assign(m.dualTariff, { enabled: true, pin: 3 }) && Object.assign(m.rotation, { mode, pin: 4, groups: [[0, 1, 2]] }));
+    assert.deepStrictEqual(V.validate(m).filter((p) => p.field === 'rotation'), [], mode);
+  }
+});
+
+test('rotation delay: checked only when its field is shown (automatic, without dual tariff)', () => {
+  const delay = (change) => keys(variant((m) => change(m) || (m.rotation.afterSeconds = 0))).includes('err.rotationAfter');
+  assert.ok(delay((m) => Object.assign(m.rotation, { mode: 'AUTO', groups: [[0, 1, 2]] }) && false));
+  assert.ok(!delay((m) => Object.assign(m.rotation, { mode: 'AUTO', groups: [[0, 1, 2]] }) && Object.assign(m.dualTariff, { enabled: true, pin: 3 }) && false));
+  assert.ok(!delay((m) => Object.assign(m.rotation, { mode: 'PIN', pin: 4, groups: [[0, 1, 2]] }) && false));
+  assert.ok(!delay(() => false));
 });

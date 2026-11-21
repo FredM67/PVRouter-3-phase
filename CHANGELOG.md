@@ -71,6 +71,13 @@ If you keep your own `config.h`, check these points:
   `BEFORE_END`. The configurator writes the new form (see "Changed"). Also add
   `inline constexpr uint8_t BOOST_TEMP_SENSOR{ 0 };` after `iTemperatureThreshold`: the sensor
   checked against the threshold (0, the first, as before).
+- **`rotationGroups` (breaking):** every `config.h` needs this line after
+  `loadPrioritiesAtStartup`, or the build stops with *'rotationGroups' was not declared*. Without
+  rotation (`PRIORITY_ROTATION` is `OFF`), write `inline constexpr RotationGroups rotationGroups{};`.
+  With rotation, list the loads that take turns:
+  `inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } };` for one water heater
+  on every local load (what rotation did before, when every load is local). An empty list with
+  rotation on stops the build with *Priority rotation is on but rotationGroups is empty* ([#241]).
 
 No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still
@@ -108,6 +115,12 @@ valid load maps ([#160]).
 
 ### Changed
 
+- **Priority rotation** rotates the loads of `rotationGroups` only, any number of groups, each
+  among the priority places its loads hold at startup: two 3-phase water heaters each take turns
+  on their own, and loads in no group keep their place. A group holds at least 2 loads, local
+  loads only or the loads of one remote unit, and a load is in one group at most; the compiler
+  and the configurator check it. The configurator has a checkbox per load in each group, and the
+  startup summary prints the groups ([#241]).
 - **`config.h`** only holds settings: it includes `config_types.h` and nothing else, and no line
   depends on a header included before it. `config_derived.h` builds the rest from it: the derived
   values, `remoteLoads`, the relay engine, the override and boost bitmasks, the temperature
@@ -155,6 +168,11 @@ valid load maps ([#160]).
 
 ### Fixed
 
+- **Rotation pin with dual tariff:** the pin was not read when `DUAL_TARIFF` is on, so
+  `RotationModes::PIN` never rotated. It now works as without dual tariff; automatic rotation
+  still happens at the start of each off-peak period ([#242]). With dual tariff and automatic
+  rotation, the configurator no longer warns: it hides the delay without diversion, which does
+  not apply, and says when the priorities rotate ([#241]).
 - **Relays in battery mode:** on a small surplus, they went out first relay first; they now go
   out in decreasing order, as on an import. A minimum ON or OFF time beyond 1092 minutes wrapped
   silently (1093 minutes gave 44 seconds); it is now refused at compile time ([#237]).
@@ -270,3 +288,5 @@ valid load maps ([#160]).
 [#234]: https://github.com/FredM67/PVRouter-3-phase/pull/234
 [#237]: https://github.com/FredM67/PVRouter-3-phase/pull/237
 [#238]: https://github.com/FredM67/PVRouter-3-phase/pull/238
+[#241]: https://github.com/FredM67/PVRouter-3-phase/pull/241
+[#242]: https://github.com/FredM67/PVRouter-3-phase/pull/242

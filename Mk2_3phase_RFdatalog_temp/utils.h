@@ -32,6 +32,31 @@
 #include "version.h"
 
 /**
+ * @brief Prints the rotation groups, as load numbers counted from 0 as in LOAD(n):
+ *        "\tgroups { 0 1 2 } { 3 4 5 }".
+ *
+ * @ingroup Initialization
+ */
+inline void printRotationGroups()
+{
+  info(F("\tgroups"));
+  for (uint8_t g = 0; g != rotationTable.size(); ++g)
+  {
+    info(F(" {"));
+    for (uint8_t i = 0; i != NO_OF_DUMPLOADS; ++i)
+    {
+      if (rotationTable.loads(g) & (1UL << i))
+      {
+        info(F(" "));
+        info(i);
+      }
+    }
+    info(F(" }"));
+  }
+  infoln(F(""));
+}
+
+/**
  * @brief Print "is present" or "is NOT present", and a line end.
  *
  * @details Each F("...") is a string of its own in flash, even with the same text: the features
@@ -147,6 +172,10 @@ inline void printConfiguration()
 
   info(F("Load rotation feature "));
   infolnPresence(PRIORITY_ROTATION != RotationModes::OFF);
+  if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
+  {
+    printRotationGroups();
+  }
 
   info(F("Relay diversion feature "));
   infolnPresence(RELAY_DIVERSION);

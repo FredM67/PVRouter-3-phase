@@ -12,7 +12,8 @@
  *          config.h reads on its own, top to bottom, for the compiler as for the configurator.
  *          Nothing here depends on Arduino either: the native tests build it on the PC.
  *
- *          The settings types (RelayEngine, OverridePins, ScheduledBoosts, TemperatureSensing)
+ *          The settings types (RelayEngine, OverridePins, ScheduledBoosts, RotationGroups,
+ *          TemperatureSensing)
  *          only hold what config.h says. The objects the firmware works with are built from them
  *          in config_derived.h, which the code includes instead of config.h.
  */
@@ -518,6 +519,96 @@ ScheduledBoosts(const BoostEntry< MaxPins > (&)[N])
 
 /** @brief Deduction guide: no argument, no boost. */
 ScheduledBoosts() -> ScheduledBoosts< 0 >;
+
+/**
+ * @brief The rotation groups, as in config.h: the loads that take turns at the top of the
+ *        priority list, one group per appliance (the elements of a 3-phase water heater).
+ *
+ * @details Each group is a list of target codes, as for the override pins: LOAD(n),
+ *          LOCAL_LOAD(n), REMOTE_LOAD(n), ALL_LOCAL_LOADS()... The codes stay codes here;
+ *          Rotation::Table (rotation_groups.h) holds the priority places each group rotates in.
+ *          One constructor takes up to 10 groups: each group needs at least 2 loads, and the
+ *          router drives at most 12 local and 8 remote loads, so no valid config needs more.
+ *
+ * @tparam N Number of groups.
+ * @tparam MaxPins Maximum number of targets per group.
+ */
+template< uint8_t N, uint8_t MaxPins = 16 >
+class RotationGroups
+{
+  static_assert(N >= 1 && N <= 10, "rotationGroups holds 1 to 10 groups");
+
+public:
+  /** @brief The groups, one list of targets each. */
+  constexpr RotationGroups(const PinList< MaxPins >& g0, const PinList< MaxPins >& g1 = {},
+                           const PinList< MaxPins >& g2 = {}, const PinList< MaxPins >& g3 = {},
+                           const PinList< MaxPins >& g4 = {}, const PinList< MaxPins >& g5 = {},
+                           const PinList< MaxPins >& g6 = {}, const PinList< MaxPins >& g7 = {},
+                           const PinList< MaxPins >& g8 = {}, const PinList< MaxPins >& g9 = {})
+    : RotationGroups(Ten{ { g0, g1, g2, g3, g4, g5, g6, g7, g8, g9 } }, make_index_sequence< N >{})
+  {
+  }
+
+  /** @brief Number of groups. */
+  constexpr uint8_t size() const
+  {
+    return N;
+  }
+
+  /** @brief The targets of group @p index, as codes. */
+  constexpr const PinList< MaxPins >& getGroup(const uint8_t index) const
+  {
+    return groups_[index];
+  }
+
+private:
+  struct Ten
+  {
+    PinList< MaxPins > groups[10];
+  };
+
+  template< uint8_t... I >
+  constexpr RotationGroups(const Ten& ten, index_sequence< I... > /* is */)
+    : groups_{ ten.groups[I]... }
+  {
+  }
+
+  const PinList< MaxPins > groups_[N]; /**< the targets of each group */
+};
+
+/** @brief No rotation group. */
+template< uint8_t MaxPins >
+class RotationGroups< 0, MaxPins >
+{
+public:
+  constexpr RotationGroups() = default;
+
+  /** @brief Number of groups: none. */
+  constexpr uint8_t size() const
+  {
+    return 0;
+  }
+
+  /** @brief No targets: never called, there for the loops over size(). */
+  constexpr PinList< MaxPins > getGroup(uint8_t) const
+  {
+    return PinList< MaxPins >{};
+  }
+};
+
+/** @brief Deduction guides: the number of groups is the number of lists. */
+RotationGroups() -> RotationGroups< 0 >;
+using RotationGroupTargets = PinList< 16 >; /**< the targets of one rotation group */
+RotationGroups(const RotationGroupTargets&) -> RotationGroups< 1 >;
+RotationGroups(const RotationGroupTargets&, const RotationGroupTargets&) -> RotationGroups< 2 >;
+RotationGroups(const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&) -> RotationGroups< 3 >;
+RotationGroups(const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&) -> RotationGroups< 4 >;
+RotationGroups(const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&) -> RotationGroups< 5 >;
+RotationGroups(const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&) -> RotationGroups< 6 >;
+RotationGroups(const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&) -> RotationGroups< 7 >;
+RotationGroups(const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&) -> RotationGroups< 8 >;
+RotationGroups(const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&) -> RotationGroups< 9 >;
+RotationGroups(const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&, const RotationGroupTargets&) -> RotationGroups< 10 >;
 
 //--------------------------------------------------------------------------------------------------
 // Relays

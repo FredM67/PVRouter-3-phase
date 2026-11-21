@@ -3,7 +3,8 @@ D8 and D9 (surplus thresholds 1000 and 2000 W, import threshold 200 W, 2 minutes
 ON and OFF), and a 1-minute filter so that the scenarios stay short. The minimum times are
 longer than the 1-minute settle time after any relay change, so that they can be told apart.
 The override pin D4 forces every load and relay, the diversion pin is D3, the router OFF
-pin is D2 and the rotation pin is D12 (all active LOW).
+pin is D2, the rotation pin is D12 and the dual tariff pin is D11 (all active LOW: off-peak while
+LOW, so peak when left alone); the three loads form one rotation group.
 
   git apply --unidiff-zero sim/configs/relays.patch
   PLATFORMIO_BUILD_DIR=.pio/build-relays pio run --project-dir Mk2_3phase_RFdatalog_temp -e basic
@@ -13,7 +14,7 @@ pin is D2 and the rotation pin is D12 (all active LOW).
 The build directory of its own keeps the basic firmware of 'make check'.
 
 diff --git a/Mk2_3phase_RFdatalog_temp/config.h b/Mk2_3phase_RFdatalog_temp/config.h
-index c2e358a4..14022e20 100644
+index 38c26159..70ef3f02 100644
 --- a/Mk2_3phase_RFdatalog_temp/config.h
 +++ b/Mk2_3phase_RFdatalog_temp/config.h
 @@ -57,3 +57,3 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
@@ -23,25 +24,32 @@ index c2e358a4..14022e20 100644
 +inline constexpr bool DIVERSION_PIN_PRESENT{ true };                    /**< set it to 'true' if you want to control diversion ON/OFF */
 +inline constexpr bool ROUTER_OFF_PIN_PRESENT{ true };                   /**< set it to 'true' if you want a pin that switches the router OFF */
 +inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN }; /**< set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities */
-@@ -63 +63 @@ inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if th
+@@ -63,2 +63,2 @@ inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if th
 -inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
+-inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 +inline constexpr bool RELAY_DIVERSION{ true };      /**< set it to 'true' if a relay is used for diversion */
-@@ -95,3 +95,3 @@ inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-
++inline constexpr bool DUAL_TARIFF{ true };           /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
+@@ -100 +100 @@ inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /*
+-inline constexpr RotationGroups rotationGroups{}; /**< the loads that take turns, {} without rotation */
++inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } }; /**< the loads that take turns, {} without rotation */
+@@ -103,4 +103,4 @@ inline constexpr RotationGroups rotationGroups{}; /**< the loads that take turns
+-inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
 -inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, no surplus diversion: only forced loads/relays are ON */
 -inline constexpr uint8_t routerOffPin{ unused_pin };  /**< if LOW, router OFF: every load and relay is OFF, forcing included */
 -inline constexpr uint8_t rotationPin{ unused_pin };   /**< if LOW, trigger a load priority rotation */
++inline constexpr uint8_t dualTariffPin{ 11 };         /**< for 3-phase PCB, off-peak trigger */
 +inline constexpr uint8_t diversionPin{ 3 };           /**< if LOW, no surplus diversion: only forced loads/relays are ON */
 +inline constexpr uint8_t routerOffPin{ 2 };           /**< if LOW, router OFF: every load and relay is OFF, forcing included */
 +inline constexpr uint8_t rotationPin{ 12 };           /**< if LOW, trigger a load priority rotation */
-@@ -114 +114 @@ inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
+@@ -123 +123 @@ inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
 -inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minutes for relay control */
 +inline constexpr uint8_t RELAY_FILTER_DELAY{ 1 }; /**< EWMA filter delay in minutes for relay control */
-@@ -122,3 +122,2 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
+@@ -131,3 +131,2 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
 -                                     { { unused_pin, 100, 200, 1, 1 },
 -                                       { unused_pin, 300, 400, 1, 1 },
 -                                       { unused_pin, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
 +                                     { { 8, 1000, 200, 2, 2 },
 +                                       { 9, 2000, 200, 2, 2 } } }; /**< config for relay diversion with optimized EWMA filtering */
-@@ -148 +147 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
+@@ -157 +156 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
 -inline constexpr OverridePins overridePins{ { { 4, ALL_LOADS() } } }; /**< list of override pin/loads-relays pairs */
 +inline constexpr OverridePins overridePins{ { { 4, ALL_LOADS_AND_RELAYS() } } }; /**< list of override pin/loads-relays pairs */

@@ -36,6 +36,7 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
       - [Exemples](#exemples)
     - [Aide-mémoire](#aide-mémoire)
   - [Rotation des priorités](#rotation-des-priorités)
+    - [Groupes de rotation](#groupes-de-rotation)
   - [Boost manuel (déclenché par pin)](#boost-manuel-déclenché-par-pin)
     - [Fonctionnement](#fonctionnement)
     - [Quand utiliser le boost manuel](#quand-utiliser-le-boost-manuel)
@@ -455,7 +456,7 @@ Chaque unité distante reçoit un seul octet, **un bit par charge, dans l'ordre 
 
 **Priorités :**
 
-Charges locales et distantes partagent une seule liste de priorités et une seule rotation. Il n'y a plus de règle imposant aux charges distantes d'être en dernier — `loadPrioritiesAtStartup` donne l'ordre, quel que soit le mélange :
+Charges locales et distantes partagent une seule liste de priorités (un [groupe de rotation](#rotation-des-priorités) ne contient que des charges locales, ou les charges d’une seule unité distante). Il n'y a plus de règle imposant aux charges distantes d'être en dernier — `loadPrioritiesAtStartup` donne l'ordre, quel que soit le mélange :
 
 ```cpp
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2, 3 };
@@ -740,7 +741,7 @@ Les charges locales et les relais s’affichent par leur broche (D5, D4), dans l
 La rotation des priorités est utile lors de l’alimentation d’un chauffe-eau triphasé.
 Elle permet d’équilibrer la durée de fonctionnement des différentes résistances sur une période prolongée.
 
-Mais elle peut aussi être intéressante si on veut permuter les priorités de deux appareils chaque jour (deux chauffe-eau…).
+Mais elle peut aussi être intéressante si on veut permuter les priorités de deux appareils chaque jour (deux chauffe-eau…) : on en fait un groupe de deux charges.
 
 Une fois n’est pas coutume, l’activation de cette fonction possède 2 modes :
 - **automatique**, on spécifiera alors
@@ -751,11 +752,32 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::AUTO };
 ```cpp
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
 ```
-En mode **automatique**, la rotation se fait automatiquement toutes les 24 h.
-Em mode **manuel**, vous devez également définir la *pin* qui déclenchera la rotation :
+En mode **automatique**, la rotation se fait quand le routeur n’a rien routé pendant `ROTATION_AFTER_SECONDS` (8 h par défaut), en général une fois par nuit. Avec le double tarif, elle se fait à la place au début de chaque période creuse.
+En mode **manuel**, vous devez également définir la *pin* qui déclenchera la rotation :
 ```cpp
 inline constexpr uint8_t rotationPin{ 10 };
 ```
+La pin fonctionne de la même façon avec ou sans double tarif.
+
+### Groupes de rotation
+`rotationGroups` liste les charges qui tournent, un groupe par appareil. Pour un chauffe-eau sur toutes les charges locales :
+```cpp
+inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } };
+```
+Chaque groupe tourne entre les places de priorité que ses charges occupent au démarrage ; les charges hors groupe ne bougent jamais. Avec deux chauffe-eau triphasés et des priorités entrelacées :
+```cpp
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 3, 1, 4, 2, 5 };
+inline constexpr RotationGroups rotationGroups{ { LOAD(0), LOAD(1), LOAD(2) }, { LOAD(3), LOAD(4), LOAD(5) } };
+```
+une rotation transforme `0, 3, 1, 4, 2, 5` en `2, 5, 0, 3, 1, 4` : chaque chauffe-eau fait passer son dernier élément en tête, et chacun garde les mêmes places.
+
+Les règles, vérifiées à la compilation :
+- un groupe compte au moins 2 charges ;
+- une charge est dans un groupe au plus ;
+- un groupe ne contient que des charges locales, ou les charges d’une seule unité distante ;
+- rotation active, il faut au moins un groupe ; rotation `OFF`, `rotationGroups` reste vide, `{}`.
+
+Tous les groupes tournent ensemble, sur le même déclencheur.
 
 ## Boost manuel (déclenché par pin)
 

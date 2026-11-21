@@ -361,6 +361,12 @@ static_assert(sizeof(RFConfig::REMOTE_NODE_ID) >= NO_OF_REMOTE_UNITS * sizeof(RF
 static_assert(areValidNodeIds(RFConfig::REMOTE_NODE_ID, NO_OF_REMOTE_UNITS, RFConfig::ROUTER_NODE_ID), "******** Remote node IDs must be unique, differ from the router and lie between 1 and 30 ! ********");
 
 static_assert(check_load_priorities(), "******** Load Priorities wrong ! Please check your config ! ********");
+static_assert(PRIORITY_ROTATION == RotationModes::OFF || rotationGroups.size() != 0, "******** Priority rotation is on but rotationGroups is empty ! Please check rotationGroups in your config.h ! ********");
+static_assert(PRIORITY_ROTATION != RotationModes::OFF || rotationGroups.size() == 0, "******** rotationGroups is set but priority rotation is OFF ! Please check rotationGroups in your config.h ! ********");
+static_assert(Rotation::targetsAreLoads(rotationGroups, physicalLoadPin), "******** A rotation group names something that is not a load ! Please check rotationGroups in your config.h ! ********");
+static_assert(Rotation::groupsHaveTwoLoads(rotationGroups, physicalLoadPin), "******** A rotation group needs at least 2 loads ! Please check rotationGroups in your config.h ! ********");
+static_assert(Rotation::noLoadTwice(rotationGroups, physicalLoadPin), "******** A load is listed twice in rotationGroups ! Please check rotationGroups in your config.h ! ********");
+static_assert(Rotation::groupsAreConsistent(rotationGroups, physicalLoadPin), "******** A rotation group mixes local and remote loads, or loads of two remote units ! Please check rotationGroups in your config.h ! ********");
 static_assert(check_pins().unique, "******** Duplicate pin definition ! Please check your config ! ********");
 static_assert((check_pins().used & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
 static_assert((check_pins().used & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");

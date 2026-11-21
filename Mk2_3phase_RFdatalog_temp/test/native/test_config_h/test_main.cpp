@@ -22,6 +22,7 @@ void test_config_h_reads_on_its_own(void)
   TEST_ASSERT_EQUAL(NO_OF_DUMPLOADS, sizeof(loadPrioritiesAtStartup));
   TEST_ASSERT_TRUE(relays.size() > 0);
   TEST_ASSERT_TRUE(temperatureSensing.size() > 0);
+  TEST_ASSERT_TRUE(rotationGroups.size() <= NO_OF_DUMPLOADS / 2);
 }
 
 void test_targets_resolve_as_in_config_derived_h(void)
