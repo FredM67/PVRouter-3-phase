@@ -1736,6 +1736,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "4afa6a09ce68b835bfcfbcca6cd35a8dd23af9a7",
+   "date": "2026-11-22T23:30:35+01:00",
+   "message": "refactor: adc_chain.h, the six ADC conversions and the ADMUX after-next rule in one place (#247)\n\n* test: adc_chain.h, the six ADC conversions and the ADMUX after-next rule, with native tests\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* refactor: processing.cpp builds its ADC channel table and start-up ADMUX from adc_chain.h\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/4afa6a09ce68b835bfcfbcca6cd35a8dd23af9a7",
+   "sizes": {
+    "basic": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12328,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
