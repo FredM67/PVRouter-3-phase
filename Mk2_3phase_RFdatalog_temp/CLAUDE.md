@@ -17,8 +17,15 @@ pio run -e basic           # Production build
 pio run -e basic_debug     # Debug build with symbols
 
 # Run tests
-pio test -e native         # Cross-platform unit tests
-pio test -e uno            # Embedded tests (requires hardware)
+pio test -e native         # Cross-platform unit tests (needs gcc: WSL on Windows)
+pio test -e uno_sim        # Embedded tests in simavr, no hardware
+pio test -e uno            # Embedded tests on a real board
+
+# Settings that must be refused (from the repo root)
+bash ../scripts/ci/compile-fail.sh
+
+# Grid simulator: regulation and ISR timing on a simulated grid (see ../sim/README.md)
+make -C ../sim check
 
 # Upload to Arduino
 pio run -t upload
@@ -77,12 +84,12 @@ pio check
 
 - All load control must include safety validation
 - Never modify power routing logic without understanding the energy bucket algorithm
-- Test timing on real hardware with oscilloscope for ISR changes
+- Measure every ISR change in the grid simulator (`ADC ISR max`, `ADMUX delay`, `misfiled samples`); confirm on real hardware when the change is risky
 - Compile-time validation via `static_assert` is preferred over runtime checks
 
 ## Git Workflow
 
-- Two-branch model: `main` (stable) + `dev` (development)
+- `main` (stable) and `dev` (development), both protected by rulesets; topic branches (`feat/…`, `fix/…`, `docs/…`, …), personal branches under `users/`
 - PRs target `dev` branch
 - Conventional commits: `fix:`, `feat:`, `docs:`, `chore:`
 
@@ -90,20 +97,19 @@ pio check
 
 ```
 test/
-├── embedded/     # Hardware-dependent tests (run on Arduino)
-│   ├── test_teleinfo/
-│   ├── test_utils_relay/
-│   └── test_utils_pins/
-└── native/       # Cross-platform tests (run on host)
-    ├── test_dual_tariff/
-    ├── test_ewma_avg/
-    ├── test_load_priorities/
-    ├── test_remote_loads/
-    └── test_utils_override/
+├── embedded/     # Run on the AVR: in simavr (uno_sim) or on a board (uno)
+│   ├── test_datalog_math_avr/  test_fastdivision/  test_fastdivision_perf/
+│   ├── test_mult_asm/  test_mult_asm_perf/  test_serial_output/
+│   └── test_teleinfo/  test_utils_pins/  test_utils_relay/  test_voltage_accumulation/
+└── native/       # Run on the host
+    ├── test_config_h/  test_datalog_math/  test_dc_offset_filter/  test_ds18b20/
+    ├── test_dual_tariff/  test_energy_bucket/  test_ewma_avg/  test_load_priorities/
+    ├── test_onewire_search/  test_override_masks/  test_pin_edges/  test_power_rms_comparison/
+    └── test_relay_engine/  test_remote_loads/  test_rotation_groups/  test_utils_override/
 ```
 
 ## Dependencies
 
 - **ArduinoJson 6.x** (NOT v7): only for the embedded test `test_serial_output`, the firmware writes its JSON itself
 - **OneWire 2.3.8+** (for DS18B20 sensors)
-- **JeeLib** (optional, for RF support)
+- **RFM69** by LowPowerLab (`lowpowerlab/RFM69`, for the RF datalog and remote loads)
