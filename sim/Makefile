@@ -9,6 +9,10 @@
 #   make check-new      run the scenarios of 'make check' against a new-board firmware (internal
 #                       1.1 V reference), with the new board's calibration read from calibration.h
 #   make check-new20    the same with 20 A CTs: about the resolution of the old board
+#   make check-temp    the scenarios of 'make check' against a firmware with temperature sensing (configs/temperature.patch,
+#                       old board) and two DS18B20 on D3 (configs/ds18b20.scn): the 1-Wire time slots against
+#                       the ADC interrupt's deadline, and the datalog must report both temperatures
+#   make check-new-temp the same on the new board
 #   make compare-boards after 'make check check-new': each scenario must give the same result
 #                       on both boards (grid and load energies within 1 % or 0.1 Wh)
 #   make compare-boards-20    after 'make check check-new20': the same within 0.5 % or 0.05 Wh
@@ -34,6 +38,9 @@ FW_RELAYS ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-relays/basic/firmware.elf
 FW_NEW ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new/basic/firmware.elf
 # the new board with 20 A CTs (configs/sim_config.sh NEW 20)
 FW_NEW20 ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new20/basic/firmware.elf
+# the old and the new board with temperature sensing (configs/temperature.patch), two DS18B20 on D3
+FW_TEMP ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-temp/basic/firmware.elf
+FW_NEW_TEMP ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new-temp/basic/firmware.elf
 CT_LOW  ?= 20
 CAL    ?= ../Mk2_3phase_RFdatalog_temp/calibration.h
 SCN    ?= scenarios/surplus_step.scn
@@ -53,13 +60,16 @@ SCENARIOS    := $(filter-out scenarios/common.scn,$(wildcard scenarios/*.scn))
 RF_SCENARIOS := $(filter-out scenarios/rf/common.scn,$(wildcard scenarios/rf/*.scn))
 RELAY_SCENARIOS := $(filter-out scenarios/relays/common.scn,$(wildcard scenarios/relays/*.scn))
 
-grid_sim: grid_sim.o rfm69.o avr_adc.o
+grid_sim: grid_sim.o rfm69.o ds18b20.o avr_adc.o
 	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
-grid_sim.o: grid_sim.c rfm69.h
+grid_sim.o: grid_sim.c rfm69.h ds18b20.h
 	$(CC) $(CFLAGS) -Wall -Wextra -c -o $@ $<
 
 rfm69.o: rfm69.c rfm69.h
+	$(CC) $(CFLAGS) -Wall -Wextra -c -o $@ $<
+
+ds18b20.o: ds18b20.c ds18b20.h
 	$(CC) $(CFLAGS) -Wall -Wextra -c -o $@ $<
 
 # upstream code, built as is
@@ -81,6 +91,12 @@ $(FW_NEW):
 $(FW_NEW20):
 	$(error firmware not found: $(FW_NEW20) - see check-new20 in README.md)
 
+$(FW_TEMP):
+	$(error firmware not found: $(FW_TEMP) - sim_config.sh, apply configs/temperature.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-temp pio run -e basic' (README.md))
+
+$(FW_NEW_TEMP):
+	$(error firmware not found: $(FW_NEW_TEMP) - sim_config.sh NEW, apply configs/temperature.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-new-temp pio run -e basic' (README.md))
+
 run: grid_sim $(FW)
 	@mkdir -p $(OUT)
 	./grid_sim -t $(OUT)/$(notdir $(SCN:.scn=))-trace.csv -e $(OUT)/$(notdir $(SCN:.scn=))-events.csv $(FW) $(SCN)
@@ -90,6 +106,8 @@ CHECK_RF := $(RF_SCENARIOS:scenarios/rf/%.scn=check-rf-%)
 CHECK_RELAYS := $(RELAY_SCENARIOS:scenarios/relays/%.scn=check-relays-%)
 CHECK_NEW := $(SCENARIOS:scenarios/%.scn=check-new-%)
 CHECK_NEW20 := $(SCENARIOS:scenarios/%.scn=check-new20-%)
+CHECK_TEMP := $(SCENARIOS:scenarios/%.scn=check-temp-%)
+CHECK_NEW_TEMP := $(SCENARIOS:scenarios/%.scn=check-new-temp-%)
 
 check: $(CHECK)
 
@@ -100,6 +118,10 @@ check-relays: $(CHECK_RELAYS)
 check-new: $(CHECK_NEW)
 
 check-new20: $(CHECK_NEW20)
+
+check-temp: $(CHECK_TEMP)
+
+check-new-temp: $(CHECK_NEW_TEMP)
 
 # read the summaries of the last 'make check check-new' / 'make check check-new20'
 compare-boards:
@@ -143,10 +165,26 @@ $(CHECK_RF): check-rf-%: grid_sim $(FW_RF) $(if $(RX_NODES),receivers)
 $(CHECK_RELAYS): check-relays-%: grid_sim $(FW_RELAYS)
 	$(call scenario,$(FW_RELAYS),scenarios/relays/$*.scn,relays-$*)
 
+# Temperature sensing: the two DS18B20 of configs/ds18b20.scn on D3, which must be read after their
+# conversion and reported by the datalog; the board files of the old and the new board
+$(OUT)/temp_board.scn: board_scn.sh $(CAL) configs/ds18b20.scn
+	@mkdir -p $(OUT)
+	{ sh board_scn.sh OLD $(CAL); cat configs/ds18b20.scn; } > $@
+
+$(OUT)/new_temp_board.scn: board_scn.sh $(CAL) configs/ds18b20.scn
+	@mkdir -p $(OUT)
+	{ sh board_scn.sh NEW $(CAL); cat configs/ds18b20.scn; } > $@
+
+$(CHECK_TEMP): check-temp-%: grid_sim $(FW_TEMP) $(OUT)/temp_board.scn
+	$(call scenario,-b $(OUT)/temp_board.scn $(FW_TEMP),scenarios/$*.scn,temp-$*)
+
+$(CHECK_NEW_TEMP): check-new-temp-%: grid_sim $(FW_NEW_TEMP) $(OUT)/new_temp_board.scn
+	$(call scenario,-b $(OUT)/new_temp_board.scn $(FW_NEW_TEMP),scenarios/$*.scn,new_temp-$*)
+
 receivers:
 	bash build_receivers.sh $(RX_DIR) $(RX_NODES)
 
 clean:
 	rm -rf grid_sim *.o $(OUT)
 
-.PHONY: run check check-new check-new20 compare-boards compare-boards-20 compare-ct check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_NEW20) $(CHECK_RF) $(CHECK_RELAYS) receivers clean
+.PHONY: run check check-new check-new20 check-temp check-new-temp compare-boards compare-boards-20 compare-ct check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_NEW20) $(CHECK_TEMP) $(CHECK_NEW_TEMP) $(CHECK_RF) $(CHECK_RELAYS) receivers clean

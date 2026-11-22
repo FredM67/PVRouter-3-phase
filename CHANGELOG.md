@@ -245,6 +245,11 @@ valid load maps ([#160]).
   with scenarios checked in CI. It covers regulation, ISR timing and switching instants ([#169],
   [#170]), the RFM69 radio and the receiver firmware with frame loss ([#171], [#173]), relay
   diversion ([#176]), and runs the scenarios in parallel ([#174]), over several CI jobs.
+- **Grid simulator, DS18B20 sensors:** `ds18b20.c` models two sensors on the firmware's 1-Wire pin
+  (reset and presence, Skip ROM, Match ROM, Convert T, Read Scratchpad with its CRC, the real bit
+  timing), with the `ds18b20` scenario command and the `ds18b20_early_reads` and `temperature`
+  expectations. `make check-temp` and `make check-new-temp` build and run the scenarios with
+  temperature sensing and measure the 1-Wire interrupt-off windows against the ADC interrupt's deadline.
 - **Embedded tests in simavr** instead of Wokwi, with no token needed ([#168]); CI without
   duplicate runs, with automatic test discovery ([#167]).
 - **CI builds** every environment ([#154]) and the IoT serial output, and reports flash and RAM
