@@ -105,7 +105,7 @@ test/
     ├── test_config_h/  test_datalog_math/  test_dc_offset_filter/  test_ds18b20/
     ├── test_dual_tariff/  test_energy_bucket/  test_ewma_avg/  test_load_priorities/
     ├── test_onewire_search/  test_override_masks/  test_pin_edges/  test_power_rms_comparison/
-    └── test_relay_engine/  test_remote_loads/  test_rotation_groups/  test_utils_override/
+    └── test_relay_engine/  test_remote_loads/  test_rotation_groups/  test_teleinfo/  test_utils_override/
 ```
 
 ## Dependencies

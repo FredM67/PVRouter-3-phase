@@ -1,10 +1,22 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+/**
+ * @file test_main.cpp
+ * @brief Embedded tests for teleinfo.h: the IoT frame on the ATmega328P (16-bit int)
+ *
+ * @details The code of the firmware, run on the target: the lines (digits of 16-bit values,
+ *          checksum) and whole frames written step by step, with and without the per-phase lines.
+ *          The expected text is built independently, its checksums summed by appendLine(). The
+ *          native tests (test/native/test_teleinfo) check the frame byte for byte against the
+ *          buffered frame of the former firmware.
+ */
+
 #include <Arduino.h>
 #include <unity.h>
 
 #include "../halt_after_tests.h"
 
+#include "serial_output.h"
 #include "teleinfo.h"
-#include "config_system.h"
 
 void setUp(void)
 {
@@ -15,89 +27,6 @@ void tearDown(void)
 {
   // Clean up after each test
 }
-
-void test_lineSize_calculation(void)
-{
-  // Test lineSize function with various tag and value lengths
-  // Format: LF + tag + TAB + value + TAB + checksum + CR = 5 + tagLen + valueLen
-
-  TEST_ASSERT_EQUAL(5 + 1 + 3, lineSize(1, 3));  // 1-char tag, 3-char value
-  TEST_ASSERT_EQUAL(5 + 2 + 5, lineSize(2, 5));  // 2-char tag, 5-char value
-  TEST_ASSERT_EQUAL(5 + 4 + 2, lineSize(4, 2));  // 4-char tag, 2-char value
-}
-
-void test_calcBufferSize_compile_time(void)
-{
-  // Test that calcBufferSize is evaluated at compile time
-  constexpr size_t bufferSize = calcBufferSize();
-
-  // Basic validation - should be reasonable size
-  TEST_ASSERT_GREATER_THAN(10, bufferSize);  // Should be more than just STX+ETX
-  TEST_ASSERT_LESS_THAN(1000, bufferSize);   // Should be reasonable for embedded system
-}
-
-void test_teleinfo_instantiation(void)
-{
-  // Test that we can create TeleInfo objects without issues
-  TeleInfo teleinfo;
-
-  // This test mainly validates that the class compiles and can be instantiated
-  // The buffer size calculation and memory allocation should work
-  TEST_ASSERT_TRUE(true);  // If we get here, instantiation worked
-}
-
-void test_teleinfo_basic_operations(void)
-{
-  // Test basic operations that don't require output verification
-  TeleInfo teleinfo;
-
-  // These should not crash or cause issues
-  teleinfo.startFrame();
-  teleinfo.send("P", 1234);
-  teleinfo.send("V", 230, 1);
-  teleinfo.send("T", -15, 2);
-  teleinfo.endFrame();
-
-  // If we reach here, the basic operations completed without crashing
-  TEST_ASSERT_TRUE(true);
-}
-
-void test_teleinfo_edge_values(void)
-{
-  // Test edge case values
-  TeleInfo teleinfo;
-
-  teleinfo.startFrame();
-
-  // Test various edge case values
-  teleinfo.send("ZERO", 0);
-  teleinfo.send("MAX", 32767);   // MAX INT16
-  teleinfo.send("MIN", -32768);  // MIN INT16
-  teleinfo.send("POS", 1);
-  teleinfo.send("NEG", -1);
-
-  teleinfo.endFrame();
-
-  // If execution reaches here, edge values were handled correctly
-  TEST_ASSERT_TRUE(true);
-}
-
-/* captures the frame written by writeNext() */
-class FramePrint : public Print
-{
-public:
-  char text[64]{};
-  size_t length{ 0 };
-
-  size_t write(uint8_t c) override
-  {
-    if (length < sizeof text - 1)
-    {
-      text[length++] = static_cast< char >(c);
-    }
-    return 1;
-  }
-};
 
 /* one line as the router writes it: LF tag TAB value TAB checksum CR */
 static void appendLine(char* expected, const char* tagAndValue)
@@ -115,73 +44,196 @@ static void appendLine(char* expected, const char* tagAndValue)
   strcat(expected, end);
 }
 
-/* the values that used to be cut or wrong: a 5-character temperature, the sample count above
- * 32767 (long datalog periods) and an indexed relay state */
+/* the expected text of a single line */
+static const char* expectedLine(const char* tagAndValue)
+{
+  static char expected[TeleInfo::MAX_STEP_LENGTH + 1];
+  expected[0] = '\0';
+  appendLine(expected, tagAndValue);
+  return expected;
+}
+
+void test_lineSize_calculation(void)
+{
+  // LF + tag + TAB + value + TAB + checksum + CR = 5 + tagLength + valueLength
+  TEST_ASSERT_EQUAL(5 + 1 + 3, TeleInfo::lineSize(1, 3));
+  TEST_ASSERT_EQUAL(5 + 2 + 5, TeleInfo::lineSize(2, 5));
+  TEST_ASSERT_EQUAL(5 + 4 + 2, TeleInfo::lineSize(4, 2));
+
+  // a step fits the serial output's (SerialOutput::MAX_STEP_LENGTH)
+  TEST_ASSERT_LESS_OR_EQUAL(SerialOutput::MAX_STEP_LENGTH, TeleInfo::MAX_STEP_LENGTH);
+}
+
+/* the values that used to be cut or wrong: a 5-character temperature, a voltage and a sample
+ * count above 32767, an indexed relay state, the extremes of 16 bits */
 void test_teleinfo_line_contents(void)
 {
-  TeleInfo teleinfo;
-  teleinfo.startFrame();
-  teleinfo.send("T", -5500, 1);
-  teleinfo.sendUnsigned("S", 64000);
-  teleinfo.send("R", 1, 2);
-  teleinfo.endFrame();
+  char text[TeleInfo::MAX_STEP_LENGTH + 1];
 
-  FramePrint out;
-  while (teleinfo.writeNext(out, 16))
+  *TeleInfo::line(text, "T", -5500, 1) = '\0';
+  TEST_ASSERT_EQUAL_STRING(expectedLine("T1\t-5500"), text);
+
+  *TeleInfo::lineUnsigned(text, "S", 64000) = '\0';
+  TEST_ASSERT_EQUAL_STRING(expectedLine("S\t64000"), text);
+
+  *TeleInfo::lineUnsigned(text, "V", 46000, 2) = '\0';
+  TEST_ASSERT_EQUAL_STRING(expectedLine("V2\t46000"), text);
+
+  *TeleInfo::line(text, "R", 1, 2) = '\0';
+  TEST_ASSERT_EQUAL_STRING(expectedLine("R2\t1"), text);
+
+  *TeleInfo::line(text, "P", -32768) = '\0';
+  TEST_ASSERT_EQUAL_STRING(expectedLine("P\t-32768"), text);
+
+  *TeleInfo::line(text, "S_MC", 0) = '\0';
+  TEST_ASSERT_EQUAL_STRING(expectedLine("S_MC\t0"), text);
+}
+
+/** @brief A data source of writeFrameStep(): 2 loads, 1 relay, 2 temperature sensors (the 2nd invalid). */
+template< uint8_t PHASES >
+struct TestSource
+{
+  static constexpr uint8_t PHASE_COUNT{ PHASES };
+  static constexpr bool RELAY_DIVERSION{ true };
+  static constexpr uint8_t RELAY_COUNT{ 1 };
+  static constexpr uint8_t LOAD_COUNT{ 2 };
+  static constexpr uint8_t TEMP_COUNT{ 2 };
+  static constexpr bool DUAL_TARIFF{ true };
+
+  static int16_t power()
   {
+    return -1234;
   }
+  static int16_t phasePower(uint8_t idx)
+  {
+    return static_cast< int16_t >(400 + idx);
+  }
+  static uint16_t phaseVoltage(uint8_t idx)
+  {
+    return static_cast< uint16_t >(46000 + idx);  // above 32767: unsigned
+  }
+  static int16_t relayAverage()
+  {
+    return -567;
+  }
+  static bool relayOn(uint8_t)
+  {
+    return true;
+  }
+  static int16_t loadOnPercent(uint8_t idx)
+  {
+    return idx == 0 ? 100 : 37;
+  }
+  static bool temperatureValid(uint8_t idx)
+  {
+    return idx == 0;
+  }
+  static int16_t temperature(uint8_t)
+  {
+    return 2137;
+  }
+  static uint16_t absenceCount()
+  {
+    return 40000;
+  }
+  static bool offPeak()
+  {
+    return true;
+  }
+  static uint16_t sampleSets()
+  {
+    return 64000;
+  }
+  static uint8_t lowestSampleSetsPerCycle()
+  {
+    return 44;
+  }
+};
 
-  char expected[64]{ '\x02' };
-  appendLine(expected, "T1\t-5500");
+/* captures a frame, written step by step as the serial output does */
+class FramePrint : public Print
+{
+public:
+  char text[240]{};
+  size_t length{ 0 };
+
+  using Print::write;
+
+  size_t write(uint8_t c) override
+  {
+    if (length < sizeof text - 1)
+    {
+      text[length++] = static_cast< char >(c);
+    }
+    return 1;
+  }
+};
+
+template< typename Source >
+static void streamFrame(FramePrint& out)
+{
+  uint8_t step{ 0 };
+  bool more{ true };
+  while (more)
+  {
+    char text[TeleInfo::MAX_STEP_LENGTH];
+    uint8_t length{ 0 };
+    more = TeleInfo::writeFrameStep< Source >(step++, text, length);
+    TEST_ASSERT_LESS_OR_EQUAL(TeleInfo::MAX_STEP_LENGTH, length);
+    out.write(text, length);
+  }
+}
+
+/* the frame of a 3-phase router: P, then P and V of each phase, the last phase first */
+void test_frame_three_phases(void)
+{
+  FramePrint out;
+  streamFrame< TestSource< 3 > >(out);
+
+  char expected[240]{ '\x02' };
+  appendLine(expected, "P\t-1234");
+  appendLine(expected, "P3\t402");
+  appendLine(expected, "V3\t46002");
+  appendLine(expected, "P2\t401");
+  appendLine(expected, "V2\t46001");
+  appendLine(expected, "P1\t400");
+  appendLine(expected, "V1\t46000");
+  appendLine(expected, "R\t-567");
+  appendLine(expected, "R1\t1");
+  appendLine(expected, "D2\t37");
+  appendLine(expected, "D1\t100");
+  appendLine(expected, "T1\t2137");
+  appendLine(expected, "N\t40000");
+  appendLine(expected, "TA\t1");
   appendLine(expected, "S\t64000");
-  appendLine(expected, "R2\t1");
+  appendLine(expected, "S_MC\t44");
   const char etx[]{ '\x03', '\0' };
   strcat(expected, etx);
 
   TEST_ASSERT_EQUAL_STRING(expected, out.text);
 }
 
-void test_teleinfo_multiple_frames(void)
+/* the frame of a single-phase setup: no per-phase lines */
+void test_frame_single_phase(void)
 {
-  // Test creating multiple frames in sequence
-  TeleInfo teleinfo;
+  FramePrint out;
+  streamFrame< TestSource< 1 > >(out);
 
-  // First frame
-  teleinfo.startFrame();
-  teleinfo.send("F1", 100);
-  teleinfo.endFrame();
+  char expected[240]{ '\x02' };
+  appendLine(expected, "P\t-1234");
+  appendLine(expected, "R\t-567");
+  appendLine(expected, "R1\t1");
+  appendLine(expected, "D2\t37");
+  appendLine(expected, "D1\t100");
+  appendLine(expected, "T1\t2137");
+  appendLine(expected, "N\t40000");
+  appendLine(expected, "TA\t1");
+  appendLine(expected, "S\t64000");
+  appendLine(expected, "S_MC\t44");
+  const char etx[]{ '\x03', '\0' };
+  strcat(expected, etx);
 
-  // Second frame
-  teleinfo.startFrame();
-  teleinfo.send("F2", 200);
-  teleinfo.endFrame();
-
-  // Third frame
-  teleinfo.startFrame();
-  teleinfo.send("F3", 300);
-  teleinfo.endFrame();
-
-  // If we reach here, multiple frames were created successfully
-  TEST_ASSERT_TRUE(true);
-}
-
-void test_teleinfo_long_sequences(void)
-{
-  // Test longer sequences to validate buffer management
-  TeleInfo teleinfo;
-
-  teleinfo.startFrame();
-
-  // Add many values to test buffer capacity
-  for (int i = 1; i <= 10; i++)
-  {
-    teleinfo.send("V", 230 + i, i);
-  }
-
-  teleinfo.endFrame();
-
-  // If we reach here, long sequences were handled correctly
-  TEST_ASSERT_TRUE(true);
+  TEST_ASSERT_EQUAL_STRING(expected, out.text);
 }
 
 void setup()
@@ -197,13 +249,9 @@ void setup()
 void loop()
 {
   RUN_TEST(test_lineSize_calculation);
-  RUN_TEST(test_calcBufferSize_compile_time);
-  RUN_TEST(test_teleinfo_instantiation);
-  RUN_TEST(test_teleinfo_basic_operations);
-  RUN_TEST(test_teleinfo_edge_values);
   RUN_TEST(test_teleinfo_line_contents);
-  RUN_TEST(test_teleinfo_multiple_frames);
-  RUN_TEST(test_teleinfo_long_sequences);
+  RUN_TEST(test_frame_three_phases);
+  RUN_TEST(test_frame_single_phase);
 
   Serial.println("All TeleInfo tests completed!");
 

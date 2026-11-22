@@ -168,6 +168,9 @@ valid load maps ([#160]).
 
 ### Fixed
 
+- **IoT output:** the voltage of each phase (`V1` to `V3`) and the count of seconds without
+  diverted energy (`N`) go out unsigned. `V` was read as a signed number, negative above 327.67 V;
+  `N` turned negative after 9.1 hours without diverted energy.
 - **Rotation pin with dual tariff:** the pin was not read when `DUAL_TARIFF` is on, so
   `RotationModes::PIN` never rotated. It now works as without dual tariff; automatic rotation
   still happens at the start of each off-peak period ([#242]). With dual tariff and automatic
@@ -216,6 +219,10 @@ valid load maps ([#160]).
   IoT output use integer arithmetic too, with an assembly integer square root; the float library
   is no longer linked: about 365 bytes of flash and 24 bytes of RAM less. The voltage takes ~570
   cycles per phase instead of ~830, the power ~155 instead of ~290 ([#120]).
+- **IoT output, 154 bytes of RAM less:** the telemetry frame is written a line at a time, as the
+  text and JSON outputs are, instead of being built in a buffer first (the biggest RAM item of
+  the firmware, 156 to 224 bytes depending on the settings). The frame on the wire does not change
+  but for the two fixes above, and about 30 bytes of flash are saved too.
 - **Flash:**
   - the RFM69 driver is only linked when RF is used (+2.9 kB avoided without RF) ([#155]);
   - the relay code is 396 bytes smaller ([#175]);
@@ -239,6 +246,8 @@ valid load maps ([#160]).
   the flash and RAM of every build configuration on two charts, recorded on each push to `dev`.
 - **Performance report** on every pull request, as a comment updated at each push: the target
   branch is measured in the same run and compared with the PR, 🚨 beyond 2% worse.
+- **Compile-fail checks:** the expected message must be in the compiler's own error line, not in the
+  source line gcc echoes under it, so a case proves that its own `static_assert` fired.
 - **Configurator CI:** its default choices must regenerate the shipped config files byte for
   byte; presets are built with PlatformIO, and their YAML checked with `esphome config`.
 - **Grid simulator** (`sim/`, simavr): the production firmware runs on a simulated 3-phase grid,
@@ -250,6 +259,9 @@ valid load maps ([#160]).
   timing), with the `ds18b20` scenario command and the `ds18b20_early_reads` and `temperature`
   expectations. `make check-temp` and `make check-new-temp` build and run the scenarios with
   temperature sensing and measure the 1-Wire interrupt-off windows against the ADC interrupt's deadline.
+- **Tests:** the IoT frame no longer needs Arduino and has native tests: checksums, every tag,
+  line lengths, optional features on and off, and the frame byte for byte against the former
+  buffered one.
 - **Embedded tests in simavr** instead of Wokwi, with no token needed ([#168]); CI without
   duplicate runs, with automatic test discovery ([#167]).
 - **CI builds** every environment ([#154]) and the IoT serial output, and reports flash and RAM

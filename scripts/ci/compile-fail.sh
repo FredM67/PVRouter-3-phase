@@ -7,6 +7,12 @@
 # helpers below), and sets 'expect' to a part of the static_assert message. An empty
 # 'expect' means the settings are good and the build must succeed.
 #
+# 'expect' is looked for in the compiler's own error lines only (gcc: '<file>:<line>:<col>:
+# error: static assertion failed: <message>', also '#error' and ordinary errors), never in
+# the source lines gcc echoes under them, nor in notes: the echo of a failing static_assert
+# carries the text of its message, and of the other asserts on nearby lines, so matching the
+# whole log would let a case pass without its own check ever firing.
+#
 # Usage: compile-fail.sh [case.sh...]   (default: every case)
 # PIO can point to PlatformIO.
 set -euo pipefail
@@ -52,6 +58,10 @@ temperature_on() {
   replace 'temperatureSensing{ unused_pin,' 'temperatureSensing{ 3,'
 }
 
+# An error diagnostic: starts with 'file:line:col: ', the way gcc writes it (an echoed source
+# line is indented or numbered, and a note says 'note:').
+error_line='^[^[:space:]][^[:space:]]*:[0-9]+:([0-9]+:)? (fatal )?error: '
+
 cases=("$@")
 [ ${#cases[@]} -eq 0 ] && cases=("$here"/compile-fail/*.sh)
 
@@ -84,10 +94,10 @@ for case in "${cases[@]}"; do
     fi
   elif [ $built -eq 1 ]; then
     result="FAILED: built, should be refused with '$expect'"
-  elif grep -qF -- "$expect" "$work/log"; then
+  elif grep -E "$error_line" "$work/log" > "$work/errors"; grep -qF -- "$expect" "$work/errors"; then
     result="ok: refused"
   else
-    grep -E 'error|static assertion' "$work/log" || cat "$work/log"
+    cat "$work/errors" 2>/dev/null; [ -s "$work/errors" ] || cat "$work/log"
     result="FAILED: refused, but without '$expect'"
   fi
   echo "::endgroup::"
