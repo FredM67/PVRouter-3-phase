@@ -3,9 +3,9 @@
 # each one with the expected static_assert message: a check that lets a wrong setting
 # through, or rejects a good one, shows up here instead of on someone's water heater.
 #
-# Each case in compile-fail/*.sh edits the shipped config*.h with 'replace' (and the
-# helpers below), and sets 'expect' to a part of the static_assert message. An empty
-# 'expect' means the settings are good and the build must succeed.
+# Each case in compile-fail/*.sh edits the shipped config*.h with 'replace' (calibration.h with
+# 'replace_calibration') and the helpers below, and sets 'expect' to a part of the static_assert
+# message. An empty 'expect' means the settings are good and the build must succeed.
 #
 # 'expect' is looked for in the compiler's own error lines only (gcc: '<file>:<line>:<col>:
 # error: static assertion failed: <message>', also '#error' and ordinary errors), never in
@@ -27,25 +27,36 @@ src="$work/Mk2_3phase_RFdatalog_temp"
 mkdir -p "$src"
 (cd "$repo/Mk2_3phase_RFdatalog_temp" && tar --exclude=./.pio -cf - .) | (cd "$src" && tar -xf -)
 mkdir -p "$work/shipped"
-cp "$src"/config*.h "$work/shipped/"
+cp "$src"/config*.h "$src"/calibration.h "$work/shipped/"
 
-# Replaces 'old' by 'new' in config*.h; 'old' must appear exactly once, so a case can't go
-# stale silently when the shipped config changes.
-replace() {
+# Replaces 'old' by 'new' in the files given; 'old' must appear exactly once among them, so a
+# case can't go stale silently when the shipped settings change.
+replace_in() {
   local old=$1 new=$2 f content rest found=0 target=
-  for f in "$src"/config*.h; do
+  shift 2
+  for f in "$@"; do
     content=$(<"$f")
     rest=${content//"$old"/}
     found=$((found + (${#content} - ${#rest}) / ${#old}))
     if [ "$content" != "$rest" ]; then target=$f; fi
   done
   if [ "$found" -ne 1 ]; then
-    echo "replace: '$old' found $found times in config*.h, expected once"
+    echo "replace: '$old' found $found times in $*, expected once"
     stale=1
     return 0
   fi
   content=$(<"$target")
   printf '%s\n' "${content/"$old"/"$new"}" > "$target"
+}
+
+# ... in config*.h
+replace() {
+  replace_in "$1" "$2" "$src"/config*.h
+}
+
+# ... in calibration.h
+replace_calibration() {
+  replace_in "$1" "$2" "$src/calibration.h"
 }
 
 dual_tariff_on() {
@@ -68,7 +79,7 @@ cases=("$@")
 failed=0
 for case in "${cases[@]}"; do
   name=$(basename "$case" .sh)
-  cp "$work/shipped"/config*.h "$src/"
+  cp "$work/shipped"/config*.h "$work/shipped"/calibration.h "$src/"
   expect=
   stale=0
   echo "::group::$name"
