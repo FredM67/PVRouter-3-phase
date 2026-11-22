@@ -1781,6 +1781,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "747f2442b48c5d4ab8a66ce6af2c380341e06f2f",
+   "date": "2026-11-22T23:36:36+01:00",
+   "message": "perf: fixed-point CT filter in the ADC ISR (#248)\n\n* perf: fixed-point CT filter in the ADC ISR\n\nThe low-pass of the current added back with a gain (lpf_gain, alpha of\ncalibration.h, off by default) was computed in float in the ADC ISR.\nIt is now the fixed-point filter of the single-phase firmware\n(ct_filter.h, Robin's filter at x256, int16 saturation), one state per\nphase, with alpha and the gain converted at compile time and checked in\nvalidation.h. The settings keep their names and meaning; with lpf_gain\n0 the filter is compiled out and the firmware is unchanged.\n\nGrid simulator, old board, gain 9 and alpha 0.002: ISR average 782 ->\n421 cycles (317 without the filter), 504 bytes less flash.\n\nTests: output within one ADC count of Robin's float on a step, a sine\nand noise (alpha 0.0011 and 0.002, gains 0.5 to 20), time constant,\nsaturation, zero gain, valid range.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* ci: compile-fail cases for the CT filter settings\n\ncompile-fail.sh can now edit calibration.h (replace_calibration):\nalpha too large or too small, gain too large or negative are refused;\nRobin's old-board values build.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/747f2442b48c5d4ab8a66ce6af2c380341e06f2f",
+   "sizes": {
+    "basic": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12328,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
