@@ -254,6 +254,11 @@ valid load maps ([#160]).
   with scenarios checked in CI. It covers regulation, ISR timing and switching instants ([#169],
   [#170]), the RFM69 radio and the receiver firmware with frame loss ([#171], [#173]), relay
   diversion ([#176]), and runs the scenarios in parallel ([#174]), over several CI jobs.
+- **Grid simulator, DS18B20 sensors:** `ds18b20.c` models two sensors on the firmware's 1-Wire pin
+  (reset and presence, Skip ROM, Match ROM, Convert T, Read Scratchpad with its CRC, the real bit
+  timing), with the `ds18b20` scenario command and the `ds18b20_early_reads` and `temperature`
+  expectations. `make check-temp` and `make check-new-temp` build and run the scenarios with
+  temperature sensing and measure the 1-Wire interrupt-off windows against the ADC interrupt's deadline.
 - **Tests:** the IoT frame no longer needs Arduino and has native tests: checksums, every tag,
   line lengths, optional features on and off, and the frame byte for byte against the former
   buffered one.
