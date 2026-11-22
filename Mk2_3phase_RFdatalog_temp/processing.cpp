@@ -22,14 +22,13 @@
 #include "ct_filter.h"
 #include "energy_bucket.h"
 #include "load_priorities.h"
+#include "adc_chain.h"
 
-// analogue input pins
-inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
-inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
-
-// ADC reference: AVCC (= VCC, 5 V or 3.3 V) on the old board, the internal 1.1 V on the new one (buffered from AREF).
-// ADLAR=1 enables left-aligned ADC for efficient fixed-point math.
-constexpr uint8_t _ADMUX{ (PCB_VERSION == PcbVersion::NEW ? bit(REFS1) | bit(REFS0) : bit(REFS0)) | bit(ADLAR) };
+// Analogue input pins, ADC reference and left-aligned result of each conversion: adc_chain.h.
+// The reference is AVCC (= VCC, 5 V or 3.3 V) on the old board, the internal 1.1 V on the new one
+// (buffered from AREF). ADLAR=1 enables left-aligned ADC for efficient fixed-point math.
+static_assert(AdcChain::BIT_REFS1 == REFS1 && AdcChain::BIT_REFS0 == REFS0 && AdcChain::BIT_ADLAR == ADLAR, "adc_chain.h: ADMUX bits differ from avr/io.h");
+static_assert(AdcChain::NO_OF_CONVERSIONS == 2 * NO_OF_PHASES, "adc_chain.h: a V and an I conversion per phase");
 // ------------------------------------------
 
 // Define ideal bias, ADC mid-range, left aligned.
@@ -47,9 +46,9 @@ constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1F };
 // at F_CPU / 128 (104 us at 16 MHz); a sample set is one V and one I conversion per phase.
 constexpr uint8_t ADC_CLOCKS_PER_CONVERSION{ 13 };
 constexpr uint8_t ADC_PRESCALER{ 128 };
-constexpr uint32_t SAMPLE_SET_PERIOD_US{ 2UL * NO_OF_PHASES * ADC_CLOCKS_PER_CONVERSION * ADC_PRESCALER / (F_CPU / 1000000UL) }; /**< 624 us */
-constexpr uint8_t SAMPLE_SETS_PER_CYCLE{ 1000000UL / (SUPPLY_FREQUENCY * SAMPLE_SET_PERIOD_US) };                                /**< 32 at 50 Hz, 26 at 60 Hz */
-constexpr uint8_t SAMPLE_SETS_MARGIN{ 4 };                                                                                       /**< covers crossing jitter and frequency drift */
+constexpr uint32_t SAMPLE_SET_PERIOD_US{ 1UL * AdcChain::NO_OF_CONVERSIONS * ADC_CLOCKS_PER_CONVERSION * ADC_PRESCALER / (F_CPU / 1000000UL) }; /**< 624 us */
+constexpr uint8_t SAMPLE_SETS_PER_CYCLE{ 1000000UL / (SUPPLY_FREQUENCY * SAMPLE_SET_PERIOD_US) };                                               /**< 32 at 50 Hz, 26 at 60 Hz */
+constexpr uint8_t SAMPLE_SETS_MARGIN{ 4 };                                                                                                      /**< covers crossing jitter and frequency drift */
 constexpr uint8_t N_MIN{ SAMPLE_SETS_PER_CYCLE - SAMPLE_SETS_MARGIN };
 constexpr uint8_t N_MAX{ SAMPLE_SETS_PER_CYCLE + SAMPLE_SETS_MARGIN };
 
@@ -340,7 +339,7 @@ void initializeProcessing()
   ADCSRB = 0x00;
 
   // Reference and left-aligned result for the first conversion too, on the first channel (V1)
-  ADMUX = _ADMUX | sensorV[0];
+  ADMUX = AdcChain::admuxOf(PCB_VERSION, AdcChain::Channel::V1);
 
   // Set up the ADC to be free-running
   bit_set(ADCSRA, ADPS0);  // Set the ADC's clock to system clock / 128
@@ -1095,18 +1094,19 @@ void printParamsForSelectedOutputMode()
 struct adc_ctx_t
 {
   struct adc_ctx_t *next; /**< pointer to next context in circular list */
-  uint8_t index;          /**< channel index (0-5 for V1,I1,V2,I2,V3,I3) */
+  uint8_t index;          /**< channel just converted (0-5 for V1,I1,V2,I2,V3,I3: AdcChain::Channel) */
   uint8_t admux;          /**< ADMUX register value for this channel */
 };
 
-// ADC optimization: circular linked list for channel management
-static adc_ctx_t _channels[6] = {
-  { .next = &_channels[1], .index = 0, .admux = _ADMUX | sensorV[1] },  // V1 -> setup for V2
-  { .next = &_channels[2], .index = 1, .admux = _ADMUX | sensorI[1] },  // I1 -> setup for I2
-  { .next = &_channels[3], .index = 2, .admux = _ADMUX | sensorV[2] },  // V2 -> setup for V3
-  { .next = &_channels[4], .index = 3, .admux = _ADMUX | sensorI[2] },  // I2 -> setup for I3
-  { .next = &_channels[5], .index = 4, .admux = _ADMUX | sensorV[0] },  // V3 -> setup for V1
-  { .next = &_channels[0], .index = 5, .admux = _ADMUX | sensorI[0] }   // I3 -> setup for I1
+// ADC optimization: circular linked list for channel management. The ADMUX written after a
+// conversion applies to the conversion after next (adc_chain.h); every entry is a constant.
+static adc_ctx_t _channels[AdcChain::NO_OF_CONVERSIONS] = {
+  { .next = &_channels[1], .index = static_cast< uint8_t >(AdcChain::Channel::V1), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::V1) },  // V1 -> setup for V2
+  { .next = &_channels[2], .index = static_cast< uint8_t >(AdcChain::Channel::I1), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::I1) },  // I1 -> setup for I2
+  { .next = &_channels[3], .index = static_cast< uint8_t >(AdcChain::Channel::V2), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::V2) },  // V2 -> setup for V3
+  { .next = &_channels[4], .index = static_cast< uint8_t >(AdcChain::Channel::I2), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::I2) },  // I2 -> setup for I3
+  { .next = &_channels[5], .index = static_cast< uint8_t >(AdcChain::Channel::V3), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::V3) },  // V3 -> setup for V1
+  { .next = &_channels[0], .index = static_cast< uint8_t >(AdcChain::Channel::I3), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::I3) }   // I3 -> setup for I1
 };
 
 static adc_ctx_t *_ctx = &_channels[0];
