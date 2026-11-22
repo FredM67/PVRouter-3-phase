@@ -115,6 +115,7 @@ Toutes les bibliothèques sont toujours incluses dans le code source. Cependant,
 - **config_derived.h** : ce que le firmware construit à partir de **config.h** — *ne pas modifier*
 - **config_system.h** : constantes système rarement modifiées
 - **constants.h** : quelques constantes — *ne pas modifier*
+- **ct_filter.h** : le filtre des TC (`lpf_gain`, `alpha` de **calibration.h**), en virgule fixe — *ne pas modifier*
 - **debug.h** : Quelques macros pour la sortie série et le débogage
 - **dualtariff.h** : définitions de la fonction double tarif
 - **ewma_avg.h** : fonctions de calcul de moyenne EWMA

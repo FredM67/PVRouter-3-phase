@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Calibration values definition
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-22
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -67,6 +67,8 @@ inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.888065256F, 0.88806
 //
 inline constexpr float f_phaseCal{ 1 }; /**< Nominal values only */
 
+// CT filter: a low-pass of the current added back with a gain, to offset the high-pass behaviour of the CTs.
+// Turned into fixed point at compile time (ct_filter.h): alpha from 0.00005 to below 0.0625, gain below 64.
 inline constexpr float lpf_gain{ 0 }; /**< setting this to 0 disables this extra processing */
 inline constexpr float alpha{ 0.002 };
 //--------------------------------------------------------------------------------------------------

@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Compile-time validations
  * @version 0.1
- * @date 2026-11-21
+ * @date 2026-11-22
  *
  * @copyright Copyright (c) 2023-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -19,6 +19,7 @@
 
 #include "config_derived.h"
 #include "calibration.h"
+#include "ct_filter.h"
 #include "datalog_math.h"
 #include "energy_bucket.h"
 
@@ -36,6 +37,7 @@ static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too lo
 
 static_assert(Energy::isValidCalibration(f_powerCal), "******** Wrong power calibration ! Each value of f_powerCal must be positive and below 8. Please check your calibration.h ! ********");
 static_assert(Datalog::isValidVoltageCalibration(Datalog::vrmsFactor(DATALOG_PERIOD_IN_SECONDS), f_voltageCal), "******** Wrong voltage calibration ! Each value of f_voltageCal must be positive. Please check your calibration.h ! ********");
+static_assert(lpf_gain == 0.0F || alpha == 0.0F || CtFilter::isAccurate(lpf_gain, alpha), "******** Wrong CT filter settings ! alpha must be from 0.00005 to below 0.0625 and lpf_gain from 0 to below 64. Please check your calibration.h ! ********");
 
 static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == unused_pin), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
 static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == unused_pin), "******** Wrong pin value for diversion command. Please check your config.h ! ********");

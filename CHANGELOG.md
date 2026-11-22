@@ -223,6 +223,15 @@ valid load maps ([#160]).
   text and JSON outputs are, instead of being built in a buffer first (the biggest RAM item of
   the firmware, 156 to 224 bytes depending on the settings). The frame on the wire does not change
   but for the two fixes above, and about 30 bytes of flash are saved too.
+- **CT filter in fixed point:** the low-pass of the current added back with a gain (`lpf_gain`,
+  `alpha` in `calibration.h`, off by default) no longer uses float in the ADC ISR; it is the
+  fixed-point filter of the single-phase firmware (`ct_filter.h`), Robin's filter at his x256
+  resolution (the float one worked at x64: its dead zone was four times wider). The settings keep
+  their names and meaning; they are converted at compile time and
+  checked in `validation.h` (alpha from 0.00005 to below 0.0625, gain below 64). With the filter
+  on (gain 9, alpha 0.002, old board, grid simulator) the ISR averages 421 cycles instead of
+  782, against 317 with the filter off; the firmware is 504 bytes smaller. With `lpf_gain` 0
+  the firmware is unchanged.
 - **Flash:**
   - the RFM69 driver is only linked when RF is used (+2.9 kB avoided without RF) ([#155]);
   - the relay code is 396 bytes smaller ([#175]);

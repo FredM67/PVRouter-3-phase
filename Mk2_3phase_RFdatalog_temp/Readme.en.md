@@ -113,6 +113,7 @@ All libraries are always included in the source code. However, only the code act
 - **config_derived.h** : what the firmware builds from **config.h** — *do not edit*
 - **config_system.h** : rarely modified system constants
 - **constants.h** : some constants — *do not edit*
+- **ct_filter.h** : the CT filter (`lpf_gain`, `alpha` of **calibration.h**), in fixed point — *do not edit*
 - **debug.h** : Some macros for serial output and debugging
 - **dualtariff.h** : dual tariff function definitions
 - **ewma_avg.h** : EWMA averaging calculation functions
