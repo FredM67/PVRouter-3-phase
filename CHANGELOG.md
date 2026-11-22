@@ -257,6 +257,9 @@ valid load maps ([#160]).
 - **Tests:** the IoT frame no longer needs Arduino and has native tests: checksums, every tag,
   line lengths, optional features on and off, and the frame byte for byte against the former
   buffered one.
+- **Tests:** the ADC channel order and the "ADMUX applies to the conversion after next" rule are
+  described once in `adc_chain.h`, with native tests; `processing.cpp` builds its channel table
+  from it. The firmware is the same, instruction for instruction.
 - **Embedded tests in simavr** instead of Wokwi, with no token needed ([#168]); CI without
   duplicate runs, with automatic test discovery ([#167]).
 - **CI builds** every environment ([#154]) and the IoT serial output, and reports flash and RAM
