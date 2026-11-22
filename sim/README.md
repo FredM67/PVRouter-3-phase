@@ -6,6 +6,7 @@
 - each load pin drives a load of known power on a given phase, through a **zero-crossing triac driver**: a pin change only takes effect at the next zero crossing of the load's own phase;
 - the grid current of each phase is the scenario's surplus minus the loads that conduct - which is what the firmware measures and regulates;
 - an **RFM69 radio model** sits on the SPI bus (chip select D10). Remote loads follow the frames the router sends them, received by the **`RemoteLoadReceiver` firmware** running in more simulated AVRs (or by an ideal receiver). Frames can be lost on purpose.
+- **DS18B20 temperature sensors** on a 1-Wire bus (`ds18b20.c`): the firmware reads them as on the board, and the timing of its bus I/O against the mains cycle is measured.
 
 No hardware, no sun: regulation, load priorities, ISR timing and switching instants can be checked on any Linux/WSL machine, and in CI.
 
@@ -19,6 +20,9 @@ No hardware, no sun: regulation, load priorities, ISR timing and switching insta
 | ISR overruns | ISR calls longer than one conversion (104 µs): the next sample may be taken on the wrong channel |
 | misfiled samples | conversions filed under the wrong channel: the ISR writes ADMUX for the conversion after next, so an overrun leaves one conversion on the previous channel. The first two rounds after the ADC starts are ignored |
 | ADMUX delay | cycles from the start of a conversion to the ISR's ADMUX write. The datasheet only allows a change one ADC clock (128 cycles) or more after the conversion started: earlier, that conversion may take the new channel. The simulated ADC locks the channel at once, so misfiled samples cannot show it; this figure does |
+| 1-Wire | resets, presence pulses, slot errors (a low neither a 1, a 0 nor a reset); the bursts of bus activity (slots less than 2 ms apart) and the longest; where in the mains cycle (phase L1) the slots that keep interrupts off for long fall: a reset (70 µs from its release to its presence sample) and a 0 written (65 µs low) |
+| per DS18B20 | its conversions and scratchpad reads, and the reads made before the end of a conversion (750 ms) |
+| temperatures | each `T<n>` of the datalog: in how many lines, lowest and highest |
 | min sample sets | as reported by the firmware's own datalog (32 on the real board) |
 | per load | switch-ons, time on, energy, and the **switching latency**: delay from the pin change to the zero crossing where the load follows, and whether it was a rising crossing (start of the phase's measurement window) |
 | per relay | switch-ons, time on, energy, and the shortest complete ON and OFF periods |
@@ -125,12 +129,26 @@ make -C sim check-relays
 
 A relay's contacts follow its pin at once. The firmware decides on the grid power of each datalog line (every 5 s) through its TEMA filter, waits 1 minute after any relay change, and holds each relay for its minimum ON or OFF time - from power-up for the first switch-on. A relay scenario therefore lasts several minutes; the minimum times are longer than the settle time, so that a firmware ignoring them fails.
 
-### In CI
+### Temperature sensing
 
-The scenarios are spread over parallel jobs: three for the grid scenarios, one for the RF ones (`build.yml`), three for the relay ones (`relay-sim.yml`). `ci_targets.sh` gives the make targets of a job, from the scenarios it finds: job k of n takes every n-th scenario, starting from the k-th. A grid scenario runs on its three boards in the same job, which then compares them.
+`make check-temp` (old board) and `make check-new-temp` (new board) run the scenarios of `make check` against a firmware with temperature sensing on D3 (`configs/temperature.patch`, built in a build directory of its own), with the two DS18B20 of `configs/ds18b20.scn` on the bus, at 21.50 and -3.25 °C: the datalog must report both, read after their conversion (`ds18b20_early_reads 0`). The OneWire library keeps interrupts off for a reset and for each 0 written (70 and 65 µs, about 1100 cycles), and the ADC interrupt waits meanwhile; the common expectations (no misfiled sample, ADMUX written 128 cycles or more after its conversion started, no overrun) apply unchanged.
 
 ```bash
-sim/ci_targets.sh grid 1/3      # check-clouds check-new-clouds check-new20-clouds
+sim/configs/sim_config.sh NEW        # or without NEW, for check-temp
+git apply --unidiff-zero sim/configs/temperature.patch
+(cd Mk2_3phase_RFdatalog_temp && PLATFORMIO_BUILD_DIR=.pio/build-new-temp pio run -e basic)   # build-temp for the old board
+git checkout Mk2_3phase_RFdatalog_temp/config.h
+make -C sim check-new-temp
+```
+
+Measured on the three scenarios, 50 Hz, and over mains frequencies from 49.5 to 51 Hz (the 1-Wire bursts then fall at other angles against the ADC conversions): the ISR itself does not change (max ~1260-1280 cycles, the datalog call), only the ADMUX write is pushed back when an ISR call waits for a 1-Wire time slot. The ordinary calls write ADMUX within 373 cycles, the datalog call within ~1190, once per 5 s, and the firmware starts its 1-Wire burst after that call, so a window cannot delay it. Worst ADMUX delay seen: 1505 cycles on the old board, 1445 on the new one, against 1664 (about 1190 without sensors); no misfiled sample, no overrun, no scratchpad read early.
+
+### In CI
+
+The scenarios are spread over parallel jobs: three for the grid scenarios, one for the RF ones (`build.yml`), three for the relay ones (`relay-sim.yml`). `ci_targets.sh` gives the make targets of a job, from the scenarios it finds: job k of n takes every n-th scenario, starting from the k-th. A grid scenario runs on its three boards and on the two temperature builds in the same job; the job then compares the three boards.
+
+```bash
+sim/ci_targets.sh grid 1/3      # check-clouds check-new-clouds check-new20-clouds check-temp-clouds check-new-temp-clouds
 sim/ci_targets.sh relays 2/3    # check-relays-relay_import_first check-relays-relay_steps
 ```
 
@@ -154,6 +172,7 @@ Plain text, one command per line, `#` starts a comment.
 | `rf_drop <t0> <t1> [<node>]` | frames sent in this window (to this node, or to all) are lost |
 | `rf_loss <percent> [<max>]` | share of frames lost at random, over the whole run; at most `<max>` in a row per node |
 | `rf_absent` | the router's RFM69 does not answer (missing, unpowered or badly wired: every SPI read gives 0) |
+| `ds18b20 <pin> <°C> <ROM code>` | a DS18B20 on the 1-Wire bus of the pin, at that temperature; its ROM code in 8 hex bytes (`28 BE 41 6B 09 00 00 A4`). Until its first conversion, it holds the power-on value 85.00 °C |
 | `input <pin> <0\|1> [<t>]` | level of an input pin from time t on (default 0): the latest line at or before the current time wins; unconnected inputs read 1, like the pull-ups |
 | `at <t> <L1> <L2> <L3>` | surplus per phase in W (> 0 = export) at time t; linear in between, repeat a time for a step |
 | `expect <t> pin <p> on\|off` | state of an output pin at time t |
@@ -164,6 +183,8 @@ Plain text, one command per line, `#` starts a comment.
 | `expect min_on <pin> <s>` / `expect min_off <pin> <s>` | shortest complete ON period / OFF period between two ON ones, at least |
 | `expect <t0> <t1> grid_avg <min> <max>` | average grid power (all phases, import > 0) over a window |
 | `expect min_sample_sets <n>` | lowest sample-set count reported by the firmware |
+| `expect ds18b20_early_reads <n>` | at most n scratchpads read before the end of their conversion |
+| `expect temperature <n> <min> <max>` | every `T<n>` the datalog reports lies within [min, max], and at least one line reports it |
 | `expect isr_overruns <n>` | at most n ISR calls longer than one conversion |
 | `expect misfiled_samples <n>` | at most n conversions filed under the wrong channel |
 | `expect isr_max <cycles>` | ISR duration never above this |
@@ -177,6 +198,7 @@ Plain text, one command per line, `#` starts a comment.
 - **RF**: a frame either arrives intact or is lost; no range, interference, collisions or corrupted frames. The channel always looks free to carrier sense.
 - **Ideal signals**: pure sine waves, no ADC noise, no CT phase error, no harmonics.
 - **Power stage**: an ideal zero-crossing triac driver, resistive loads; relays switch at once, with no bounce.
+- **DS18B20**: Skip ROM, Match ROM, Convert T and Read Scratchpad only, with a fixed temperature, a 750 ms conversion and no parasite power. The bus is ideal: no noise, no rise time. Search ROM (the calibration mode lists the sensors with it) is not modelled.
 - **Timing**: simavr executes the real instructions with their datasheet cycle counts; peripherals are modelled, not exact.
 
 ## simavr ADC fix

@@ -244,7 +244,7 @@ jobs:
     # the same banner length whatever the checkout: same code, same switching instants (sim/README.md)
     env:
       PVR_SIM_BUILD: 1
-    # the scenarios spread over jobs: each grid scenario on its three boards (sim/ci_targets.sh),
+    # the scenarios spread over jobs: each grid scenario on its five builds (sim/ci_targets.sh),
     # and the RF ones, which run three microcontrollers each, in a job of their own
     strategy:
       fail-fast: false
@@ -279,6 +279,23 @@ jobs:
           sim/configs/sim_config.sh NEW 20
           PLATFORMIO_BUILD_DIR=.pio/build-new20 pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
           git checkout ${{ env.PROJECT_DIR }}/config.h ${{ env.PROJECT_DIR }}/calibration.h
+
+      # temperature sensing, two DS18B20 on D3: the 1-Wire time slots against the ADC deadline
+      - name: Build firmware (temperature sensing)
+        if: matrix.part != 'rf'
+        run: |
+          sim/configs/sim_config.sh
+          git apply --unidiff-zero sim/configs/temperature.patch
+          PLATFORMIO_BUILD_DIR=.pio/build-temp pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+          git checkout ${{ env.PROJECT_DIR }}/config.h
+
+      - name: Build firmware (new board, temperature sensing)
+        if: matrix.part != 'rf'
+        run: |
+          sim/configs/sim_config.sh NEW
+          git apply --unidiff-zero sim/configs/temperature.patch
+          PLATFORMIO_BUILD_DIR=.pio/build-new-temp pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+          git checkout ${{ env.PROJECT_DIR }}/config.h
 
       # the same grid, with the third load on a remote unit driven over RF
       - name: Build firmware (remote loads)
