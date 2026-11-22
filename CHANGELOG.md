@@ -246,6 +246,8 @@ valid load maps ([#160]).
   the flash and RAM of every build configuration on two charts, recorded on each push to `dev`.
 - **Performance report** on every pull request, as a comment updated at each push: the target
   branch is measured in the same run and compared with the PR, 🚨 beyond 2% worse.
+- **Compile-fail checks:** the expected message must be in the compiler's own error line, not in the
+  source line gcc echoes under it, so a case proves that its own `static_assert` fired.
 - **Configurator CI:** its default choices must regenerate the shipped config files byte for
   byte; presets are built with PlatformIO, and their YAML checked with `esphome config`.
 - **Grid simulator** (`sim/`, simavr): the production firmware runs on a simulated 3-phase grid,
