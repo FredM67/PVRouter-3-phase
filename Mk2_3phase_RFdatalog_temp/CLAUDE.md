@@ -52,6 +52,7 @@ pio check
 - `config_types.h` - What config.h is written with: settings types, `LOAD()`/`RELAY()`/`ALL_...()` target codes, the boost windows. No setting, no Arduino
 - `config_derived.h` - What the code includes (never config.h): derived constants, `remoteLoads`, and the objects built from the settings (`relayDiverter`, `overrideTable`, `boostSchedule`, `tempSensors`)
 - `calibration.h` - Power calibration values - **users edit for their hardware**
+- `ct_filter.h` - The CT filter (`lpf_gain`, `alpha` of `calibration.h`) in fixed point, Arduino-free (native tests); compiled out with `lpf_gain` 0
 - `processing.cpp/.h` - Core real-time processing engine
 - `adc_chain.h` - The six ADC conversions (V1, I1, V2, I2, V3, I3), their pins and ADMUX values, and the rule that the ADMUX written in an ISR call applies to the conversion after next; Arduino-free, native tests. `processing.cpp` builds its channel table from it
 - `validation.h` - ~50+ compile-time safety assertions
@@ -103,8 +104,8 @@ test/
 │   ├── test_mult_asm/  test_mult_asm_perf/  test_serial_output/
 │   └── test_teleinfo/  test_utils_pins/  test_utils_relay/  test_voltage_accumulation/
 └── native/       # Run on the host
-    ├── test_adc_chain/  test_config_h/  test_datalog_math/  test_dc_offset_filter/  test_ds18b20/
-    ├── test_dual_tariff/  test_energy_bucket/  test_ewma_avg/  test_load_priorities/
+    ├── test_adc_chain/  test_config_h/  test_ct_filter/  test_datalog_math/  test_dc_offset_filter/
+    ├── test_ds18b20/  test_dual_tariff/  test_energy_bucket/  test_ewma_avg/  test_load_priorities/
     ├── test_onewire_search/  test_override_masks/  test_pin_edges/  test_power_rms_comparison/
     └── test_relay_engine/  test_remote_loads/  test_rotation_groups/  test_teleinfo/  test_utils_override/
 ```

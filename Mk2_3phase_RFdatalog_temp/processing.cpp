@@ -19,6 +19,7 @@
 #include "utils_pins.h"
 #include "shared_var.h"
 #include "mult_asm.h"
+#include "ct_filter.h"
 #include "energy_bucket.h"
 #include "load_priorities.h"
 #include "adc_chain.h"
@@ -524,9 +525,6 @@ void processPolarity(const uint8_t phase, const uint16_t rawSample)
  */
 void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
 {
-  // extra items for an LPF to improve the processing of data samples from CT1
-  static int32_t lpf_long[NO_OF_PHASES]{};  // new LPF, for offsetting the behaviour of CTx as a HPF
-
   // remove most of the DC offset from the current sample.
   // Use the voltage bias, it's most likely more accurate than the default mid-range.
   // Add 0.5 for the rounding, +32 when 10-bits left aligned `1<<(15-10)`
@@ -536,9 +534,11 @@ void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
   // Using if constexpr ensures zero overhead when CT filtering is disabled
   if constexpr (lpf_gain != 0.0F && alpha != 0.0F)
   {
-    const auto last_lpf_long{ lpf_long[phase] };
-    lpf_long[phase] += alpha * (sampleIminusDC - last_lpf_long);
-    sampleIminusDC += (lpf_gain * lpf_long[phase]);
+    // Robin's filter in fixed point, one state per phase (ct_filter.h); the settings are checked in validation.h
+    static CtFilter::LowPassBoost ctFilter[NO_OF_PHASES];  // for offsetting the behaviour of CTx as a HPF
+    constexpr CtFilter::Coefficients ctFilterCoefficients{ CtFilter::coefficientsOf(lpf_gain, alpha) };
+
+    sampleIminusDC = ctFilter[phase].apply(sampleIminusDC, ctFilterCoefficients);  // at x256, saturated to int16
   }
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
