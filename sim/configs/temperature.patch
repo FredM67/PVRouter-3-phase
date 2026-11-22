@@ -1,0 +1,23 @@
+Firmware for 'make check-temp' and 'make check-new-temp': temperature sensing on D3, the bus pin
+of the new board (and a free pin on the old one; below 14, as the firmware requires, and not
+D2/D10-D13, which RF builds use). The two sensors of config.h sit on the bus (configs/ds18b20.scn,
+in the board files of these targets): each reset and each 0 written keeps interrupts off for its
+1-Wire time slot (70 and 65 us), which these builds measure against the ADC interrupt's deadline,
+and the datalog must report both temperatures.
+
+  PVR_SIM_BUILD=1 sh sim/configs/sim_config.sh NEW          # or without NEW, for check-temp
+  git apply --unidiff-zero sim/configs/temperature.patch
+  PLATFORMIO_BUILD_DIR=.pio/build-new-temp pio run --project-dir Mk2_3phase_RFdatalog_temp -e basic    # build-temp for the old board
+  git checkout Mk2_3phase_RFdatalog_temp/config.h
+  make -C sim check-new-temp
+
+diff --git a/Mk2_3phase_RFdatalog_temp/config.h b/Mk2_3phase_RFdatalog_temp/config.h
+index 38c26159..536d2945 100644
+--- a/Mk2_3phase_RFdatalog_temp/config.h
++++ b/Mk2_3phase_RFdatalog_temp/config.h
+@@ -65 +65 @@ inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if th
+-inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
++inline constexpr bool TEMP_SENSOR_PRESENT{ true };   /**< set it to 'true' if temperature sensing is needed */
+@@ -177 +177 @@ inline constexpr uint8_t BOOST_TEMP_SENSOR{ 0 };       /**< the sensor checked a
+-inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
++inline constexpr TemperatureSensing temperatureSensing{ 3,

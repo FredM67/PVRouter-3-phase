@@ -2,7 +2,8 @@
 # The make targets of one CI job, when the scenarios of a set are spread over several jobs.
 #
 #   ci_targets.sh grid <k>/<n>     scenarios/*.scn, each on the three boards (check-, check-new-,
-#                                  check-new20-): the boards of a scenario stay in the same job,
+#                                  check-new20-) and on the two temperature builds (check-temp-,
+#                                  check-new-temp-): the boards of a scenario stay in the same job,
 #                                  which can then compare them
 #   ci_targets.sh relays <k>/<n>   scenarios/relays/*.scn
 #
@@ -29,7 +30,7 @@ fi
 
 for name in $names; do
   case $set_name in
-    grid)   printf 'check-%s check-new-%s check-new20-%s\n' "$name" "$name" "$name" ;;
+    grid)   printf 'check-%s check-new-%s check-new20-%s check-temp-%s check-new-temp-%s\n' "$name" "$name" "$name" "$name" "$name" ;;
     relays) printf 'check-relays-%s\n' "$name" ;;
   esac
 done | tr '\n' ' '
