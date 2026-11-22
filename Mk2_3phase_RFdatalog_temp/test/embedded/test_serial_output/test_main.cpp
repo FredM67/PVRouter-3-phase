@@ -227,38 +227,106 @@ void test_toDecimals_at_compile_time(void)
   TEST_PASS();
 }
 
-/* a frame written a part at a time is the same as written at once */
+/** @brief The data of a small IoT frame: P, P1, V1, P2, V2, P3, V3, D1, T1, N, S, S_MC (3 phases, no relay). */
+struct FrameSource
+{
+  static constexpr uint8_t PHASE_COUNT{ 3 };
+  static constexpr bool RELAY_DIVERSION{ false };
+  static constexpr uint8_t RELAY_COUNT{ 0 };
+  static constexpr uint8_t LOAD_COUNT{ 1 };
+  static constexpr uint8_t TEMP_COUNT{ 1 };
+  static constexpr bool DUAL_TARIFF{ false };
+
+  static int16_t power()
+  {
+    return -1234;
+  }
+  static int16_t phasePower(uint8_t)
+  {
+    return 399;
+  }
+  static uint16_t phaseVoltage(uint8_t)
+  {
+    return 23012;
+  }
+  static int16_t relayAverage()
+  {
+    return 0;
+  }
+  static bool relayOn(uint8_t)
+  {
+    return false;
+  }
+  static int16_t loadOnPercent(uint8_t)
+  {
+    return 37;
+  }
+  static bool temperatureValid(uint8_t)
+  {
+    return true;
+  }
+  static int16_t temperature(uint8_t)
+  {
+    return 2137;
+  }
+  static uint16_t absenceCount()
+  {
+    return 7;
+  }
+  static bool offPeak()
+  {
+    return false;
+  }
+  static uint16_t sampleSets()
+  {
+    return 64000;
+  }
+  static uint8_t lowestSampleSetsPerCycle()
+  {
+    return 44;
+  }
+};
+
+/* one step of the IoT frame, as writeTeleInfoStep() in utils.h */
+bool frameStep(Print& out, uint8_t step)
+{
+  char text[TeleInfo::MAX_STEP_LENGTH];
+  uint8_t length;
+  const bool more{ TeleInfo::writeFrameStep< FrameSource >(step, text, length) };
+  out.write(text, length);
+  return more;
+}
+
+/* the IoT frame, a line per step through poll(), never overfills the transmit buffer and is the
+ * same as written at once */
 void test_teleinfo_written_in_parts(void)
 {
-  static TeleInfo teleinfo;
-  char whole[200];
+  static_assert(TeleInfo::MAX_STEP_LENGTH <= SerialOutput::MAX_STEP_LENGTH, "a line fits a step");
 
-  auto buildFrame = []()
-  {
-    teleinfo.startFrame();
-    teleinfo.send("P", -1234);
-    teleinfo.send("V", 23012, 1);
-    teleinfo.send("T", 2137, 2);
-    teleinfo.endFrame();
-  };
-
-  buildFrame();
+  char whole[300];
   capture.room = 1000;
-  TEST_ASSERT_FALSE(teleinfo.writeNext(capture, 255));
+  uint8_t step{ 0 };
+  while (frameStep(capture, step++))
+  {
+  }
   TEST_ASSERT_LESS_THAN(sizeof whole, capture.length);
   memcpy(whole, capture.text, capture.length + 1);
   TEST_ASSERT_EQUAL_CHAR(0x02, whole[0]);
   TEST_ASSERT_EQUAL_CHAR(0x03, whole[capture.length - 1]);
 
-  buildFrame();
   capture.clear();
-  uint8_t parts{ 1 };
-  capture.room = 1000;
-  while (teleinfo.writeNext(capture, 7))
+  TEST_ASSERT_TRUE(SerialOutput::start(frameStep));
+  uint8_t polls{ 0 };
+  while (SerialOutput::busy() && polls < 50)
   {
-    ++parts;
+    SerialOutput::poll(capture);
+    capture.room = 63;  // the UART sent everything meanwhile
+    ++polls;
   }
-  TEST_ASSERT_GREATER_THAN(3, parts);
+
+  TEST_ASSERT_FALSE(SerialOutput::busy());
+  TEST_ASSERT_FALSE(capture.overflow);
+  TEST_ASSERT_GREATER_THAN(1, polls);  // it did take several passes
   TEST_ASSERT_EQUAL_STRING(whole, capture.text);
 }
 

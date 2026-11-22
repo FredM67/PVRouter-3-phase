@@ -17,6 +17,7 @@ test/
 │   ├── test_power_rms_comparison/
 │   ├── test_relay_engine/
 │   ├── test_remote_loads/
+│   ├── test_teleinfo/
 │   └── test_utils_override/
 └── embedded/         # Run on Arduino or Wokwi simulator
     ├── test_datalog_math_avr/
@@ -66,6 +67,7 @@ pio test -e uno -f "*test_utils_relay*"
 | [test_power_rms_comparison](native/test_power_rms_comparison/) | Real power vs. RMS power computation |
 | [test_relay_engine](native/test_relay_engine/) | Relay diversion decisions: strict thresholds, minimum ON/OFF times, settle time after any change, order in and out, overrides, diversion OFF, decision on the average |
 | [test_remote_loads](native/test_remote_loads/) | Packed load map and per-unit remote payloads |
+| [test_teleinfo](native/test_teleinfo/) | The IoT frame streamed a line per step: byte for byte the former buffered frame for every feature set, a golden frame, every tag, optional features on and off, `N`, `V` and `S` unsigned |
 | [test_utils_override](native/test_utils_override/) | Override pin system (local + remote loads) |
 
 ### Embedded Tests
@@ -77,8 +79,8 @@ pio test -e uno -f "*test_utils_relay*"
 | [test_fastdivision_perf](embedded/test_fastdivision_perf/) | Benchmark: fast division against the C `/` and `%` operators |
 | [test_mult_asm](embedded/test_mult_asm/) | AVR assembly multiplication optimization |
 | [test_mult_asm_perf](embedded/test_mult_asm_perf/) | Benchmark: assembly multiplications, and their cost in a simulated ISR |
-| [test_serial_output](embedded/test_serial_output/) | Non-blocking serial output: waits for room in the transmit buffer, decimal printing, Teleinfo frame written in parts |
-| [test_teleinfo](embedded/test_teleinfo/) | French Teleinfo protocol parsing |
+| [test_serial_output](embedded/test_serial_output/) | Non-blocking serial output: waits for room in the transmit buffer, decimal printing, IoT frame written in parts |
+| [test_teleinfo](embedded/test_teleinfo/) | The IoT frame on the target: lines (16-bit values, checksums), whole frames with three phases and with one |
 | [test_utils_pins](embedded/test_utils_pins/) | GPIO pin manipulation |
 | [test_utils_relay](embedded/test_utils_relay/) | Relay control logic and timing |
 | [test_voltage_accumulation](embedded/test_voltage_accumulation/) | Voltage sample accumulation over a mains cycle |

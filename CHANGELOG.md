@@ -168,6 +168,9 @@ valid load maps ([#160]).
 
 ### Fixed
 
+- **IoT output:** the voltage of each phase (`V1` to `V3`) and the count of seconds without
+  diverted energy (`N`) go out unsigned. `V` was read as a signed number, negative above 327.67 V;
+  `N` turned negative after 9.1 hours without diverted energy.
 - **Rotation pin with dual tariff:** the pin was not read when `DUAL_TARIFF` is on, so
   `RotationModes::PIN` never rotated. It now works as without dual tariff; automatic rotation
   still happens at the start of each off-peak period ([#242]). With dual tariff and automatic
@@ -216,6 +219,10 @@ valid load maps ([#160]).
   IoT output use integer arithmetic too, with an assembly integer square root; the float library
   is no longer linked: about 365 bytes of flash and 24 bytes of RAM less. The voltage takes ~570
   cycles per phase instead of ~830, the power ~155 instead of ~290 ([#120]).
+- **IoT output, 154 bytes of RAM less:** the telemetry frame is written a line at a time, as the
+  text and JSON outputs are, instead of being built in a buffer first (the biggest RAM item of
+  the firmware, 156 to 224 bytes depending on the settings). The frame on the wire does not change
+  but for the two fixes above, and about 30 bytes of flash are saved too.
 - **Flash:**
   - the RFM69 driver is only linked when RF is used (+2.9 kB avoided without RF) ([#155]);
   - the relay code is 396 bytes smaller ([#175]);
@@ -247,6 +254,9 @@ valid load maps ([#160]).
   with scenarios checked in CI. It covers regulation, ISR timing and switching instants ([#169],
   [#170]), the RFM69 radio and the receiver firmware with frame loss ([#171], [#173]), relay
   diversion ([#176]), and runs the scenarios in parallel ([#174]), over several CI jobs.
+- **Tests:** the IoT frame no longer needs Arduino and has native tests: checksums, every tag,
+  line lengths, optional features on and off, and the frame byte for byte against the former
+  buffered one.
 - **Embedded tests in simavr** instead of Wokwi, with no token needed ([#168]); CI without
   duplicate runs, with automatic test discovery ([#167]).
 - **CI builds** every environment ([#154]) and the IoT serial output, and reports flash and RAM

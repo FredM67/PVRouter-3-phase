@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-11-21
+ * @date 2026-11-22
  *
  * @copyright Copyright (c) 2021-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -664,6 +664,7 @@ void processStartUp(const uint8_t phase)
   beyondStartUpPeriod = true;
   l_sumP[phase] = 0;
   l_sumP_atSupplyPoint[phase] = 0;
+  l_sum_Vsquared[phase] = 0;  // with the sample set count: the first datalog period holds only its own samples
   n_samplesDuringThisMainsCycle[phase] = 0;
   i_sampleSetsDuringThisDatalogPeriod = 0;
 
