@@ -1691,6 +1691,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "5a957c835c17952f08188acac097927181fc52f4",
+   "date": "2026-11-22T23:23:22+01:00",
+   "message": "test(sim): DS18B20 sensors on the 1-Wire bus of the grid simulator (#246)\n\n* test(sim): two DS18B20 on the bus of the temperature builds\n\ngrid_sim had no 1-Wire device: with temperature sensing, every reset\nfound no sensor. ds18b20.c, ported from the single-phase simulator,\nmodels the sensors the firmware reads: reset and presence pulse, Skip ROM\nand Match ROM, Convert T (750 ms, power-on value 85.00 C until then) and\nRead Scratchpad with its CRC, each bit decoded from how long the master\nholds the bus low, so the OneWire library runs with its real timing. The\nsummary gives the bursts of bus activity and where in the mains cycle the\nslots that keep interrupts off for long fall.\n\ncheck-temp (old board) and check-new-temp (new board) run the scenarios\nagainst a firmware with temperature sensing on D3 (configs/temperature.patch)\nand the two sensors of config.h on the bus (configs/ds18b20.scn): the\ndatalog must report 21.50 and -3.25 C, and no scratchpad may be read before\nthe end of its conversion. Worst ADMUX delay with sensors: 1505 cycles\n(old board), 1445 (new board), against 1664; no misfiled sample.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* ci: the temperature builds run in the grid simulation jobs\n\nThe ISR timing expectations of every grid scenario hold with two DS18B20\non the bus, on both boards (no misfiled sample, no overrun, ADMUX written\nwithin 1505 cycles of 1664), so check-temp and check-new-temp join the\nthree boards in each job.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/5a957c835c17952f08188acac097927181fc52f4",
+   "sizes": {
+    "basic": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12328,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
