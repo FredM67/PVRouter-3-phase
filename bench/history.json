@@ -1646,6 +1646,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "a03d179ce66e957bd202e849062b745ef5e239bb",
+   "date": "2026-11-22T23:16:22+01:00",
+   "message": "refactor: the IoT frame is streamed a line at a time, without a frame buffer (#245)\n\n* fix: start-up resets the V^2 sum with the sample set count\n\nprocessStartUp() zeroed the sample set count at the end of start-up but\nleft l_sum_Vsquared holding the V^2 of the samples taken meanwhile, so\nthe first datalog period divided more V^2 than samples. Hygiene only:\nsendResults() drops the first datalog anyway, and the later periods\nwere never affected.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* refactor: the IoT frame is streamed a line at a time, without a frame buffer\n\nThe TeleInfo class built the whole frame in a buffer sized by the settings\n(154 bytes of RAM with the shipped config.h, 156 to 224 in general) before\nSerialOutput wrote it out. teleinfo.h now writes one line per step of the\nserial output, as the text and JSON outputs do, in a few bytes on the\nstack, and is free of Arduino: the values come from a data source given as\na template parameter (TeleInfoData in utils.h). The relay states, the\ntariff and the absence count, which change every second, are taken at the\ndatalog event, when the buffered frame took them.\n\nThe frame on the wire is the same, byte for byte (tags, order, checksums,\nseparators), as the native tests check against the former class kept as a\nreference, with two fixes: N and V1..Vn go out unsigned (V went through an\nint16 cast, 46000 read -19536; N turned negative after 9.1 h without\ndiverted energy).\n\nNew native tests: checksum, golden frame, every tag, line lengths, optional\nfeatures on and off, unsigned N, V and S. The embedded test_teleinfo and the\nframe test of test_serial_output are ported and pass in uno_sim.\n\nbasic build: RAM 568 -> 414 bytes, flash 7950 -> 7920 bytes.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/a03d179ce66e957bd202e849062b745ef5e239bb",
+   "sizes": {
+    "basic": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12328,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
