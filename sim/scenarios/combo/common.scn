@@ -22,6 +22,6 @@ input 4 1    # override pin released (active low)
 
 # ADMUX must change one ADC clock (128 cycles) or more after the conversion started
 expect admux_delay_min 128
-# ... and not much later than the measured worst case (1555 at 60 Hz, 1443 at 50 Hz; a deadline of 1664): the
+# ... and not much later than the measured worst case (1545 at 60 Hz, 1418 at 50 Hz; a deadline of 1664): the
 # 1-Wire transactions run right after the cycle's heavy ISR call, so a rise means that scheduling moved
 expect admux_delay_max 1600

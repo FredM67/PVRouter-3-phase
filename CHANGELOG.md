@@ -290,7 +290,7 @@ valid load maps ([#160]).
   `check-new-combo`, `check-combo60` and `check-new-combo60` run `scenarios/combo` (surplus
   climbing through two local and two remote loads and two relays, RF datalog frames, two DS18B20) on
   the heaviest build (`configs/temp_rf_relays.patch`), old and new board, 50 and 60 Hz, in a CI job
-  of their own: no misfiled sample, no overrun, latest ADMUX write 1555 cycles of 1664 (5 to 35
+  of their own: no misfiled sample, no overrun, latest ADMUX write 1545 cycles of 1664 (5 to 35
   misfiled samples before the 1-Wire transactions were scheduled). The new expectation
   `admux_delay_max` sets a ceiling on that write.
 - **Tests:** the IoT frame no longer needs Arduino and has native tests: checksums, every tag,

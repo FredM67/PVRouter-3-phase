@@ -159,14 +159,14 @@ Temperature sensing together with remote loads (`configs/remote_loads.patch`, fo
 
 The firmware now runs the bus I/O as short transactions, at most one per mains cycle, started when the loop sees that `processStartNewCycle()` is done (`Shared::b_newMainsCycle`, set at its end; `temp_schedule.h`), so the long slots fall among the ordinary ADC calls, from 34 to 158 degrees after L1's positive crossing. With sensors, the datalog output is handled on the pass that sees the new cycle, 1248 µs after its event, so that the conversion of the next round starts right after the cycle's work.
 
-`configs/temp_rf_relays.patch` builds the combination (two local loads, two remote loads, RF datalog, two relays on D8 and D9, the override pin and the two DS18B20 on D3) and `scenarios/combo/surplus_ladder.scn` runs every feature at once (the surplus climbs through the four loads and both relays, then falls to an import). `make check-combo`, `check-new-combo`, `check-combo60` and `check-new-combo60` run it on the old and the new board, at 50 and 60 Hz, with the receiver firmware on each remote unit; they are in CI (the *RF, relays, temperature* job). `scenarios/combo/common.scn` also has a ceiling, `admux_delay_max 1600`, a little above the worst write measured.
+`configs/temp_rf_relays.patch` builds the combination (two local loads, two remote loads, RF datalog, two relays on D8 and D9, the override pin and the two DS18B20 on D3) and `scenarios/combo/surplus_ladder.scn` runs every feature at once (the surplus climbs through the four loads and both relays, then falls to an import) in 260 s: the two relays have 1-minute minimum ON and OFF times, which with the 60 s settle time between relays sets the length (relay 1 in at 66 s, relay 2 at 126 s, relay 2 out at 186 s, relay 1 at 246 s). `make check-combo`, `check-new-combo`, `check-combo60` and `check-new-combo60` run it on the old and the new board, at 50 and 60 Hz, with the receiver firmware on each remote unit; they are in CI (the *RF, relays, temperature* job). `scenarios/combo/common.scn` also has a ceiling, `admux_delay_max 1600`, a little above the worst write measured.
 
 | Build | Misfiled before / now | Worst ADMUX write now (cycles, deadline 1664) | Overruns |
 |---|---|---|---|
-| combination, old board, 50 Hz | 5 / 0 | 1400 | 0 |
-| combination, new board, 50 Hz | 35 / 0 | 1443 | 0 |
-| combination, old board, 60 Hz | 7 / 0 | 1555 | 0 |
-| combination, new board, 60 Hz | 11 / 0 | 1528 | 0 |
+| combination, old board, 50 Hz | 5 / 0 | 1418 | 0 |
+| combination, new board, 50 Hz | 35 / 0 | 1398 | 0 |
+| combination, old board, 60 Hz | 7 / 0 | 1529 | 0 |
+| combination, new board, 60 Hz | 11 / 0 | 1545 | 0 |
 
 The 'before' runs (firmware with the 1-Wire bus read in one burst per datalog period) report ADMUX writes of 2 to 64 cycles, flagged TOO EARLY: a write later than 1664 cycles shows as a small delay from the *next* conversion, so a late write always comes with misfiled samples. The scenario has 26 expectations: 23 passed before, all pass now. The four temperature targets (sensors only) go from 1558 to 1442 cycles at worst.
 
