@@ -25,7 +25,7 @@
   try {
     const saved = JSON.parse(localStorage.getItem(STORE) || 'null');
     if (saved) {
-      m = M.normalize(saved.model);
+      m = M.normalize(saved.model); // a single-phase state throws: the defaults stay
       lang = saved.lang === 'fr' ? 'fr' : 'en';
     }
   } catch (e) {
@@ -33,6 +33,8 @@
   }
 
   const T = (key, params) => I.t(lang, key, params);
+  const singlePhaseUrl = M.singlePhaseUrl(window.location);
+  const devTag = window.PVR_DOC_VERSION === 'dev' ? ' (dev)' : ''; // set by the docs site's doc-version.js, if any
 
   // ---- DOM helpers ----
 
@@ -127,7 +129,7 @@
   const pinLabel = (p) => (p >= 14 ? `A${p - 14}` : `D${p}`);
   const pinSelect = (get, set, opts) => {
     const o = opts || {};
-    const pins = o.pins || M.DIGITAL_PINS;
+    const pins = o.pins || M.offeredPins(m, get());
     const options = pins.map((p) => [p, pinLabel(p)]);
     if (o.none || get() === null || get() === undefined) options.unshift([null, o.none ? T('none') : '—']);
     return select(get, set, options);
@@ -1428,7 +1430,10 @@
     document.documentElement.lang = lang;
     for (const el of document.querySelectorAll('[data-t]')) el.textContent = T(el.dataset.t);
     for (const el of document.querySelectorAll('[data-title]')) el.title = T(el.dataset.title);
-    document.title = T('title');
+    document.title = T('title') + devTag;
+    for (const el of document.querySelectorAll('[data-t="title"]')) el.textContent = T('title') + devTag;
+    const sw = document.getElementById('switch');
+    sw.replaceChildren(T('router.label'), ' ', h('a', { href: singlePhaseUrl }, T('router.one')), ' / ', h('strong', null, T('router.three')));
     document.getElementById('lang').textContent = T('language');
     const problems = V.validate(m);
     const scroll = window.scrollY;
@@ -1448,6 +1453,7 @@
   document.getElementById('lang').addEventListener('click', () => {
     lang = lang === 'fr' ? 'en' : 'fr';
     changed();
+    renderRefused(); // in the new language
   });
   document.getElementById('save').addEventListener('click', () => download('pvrouter-config.json', JSON.stringify(m, null, 2) + '\n', 'application/json'));
   document.getElementById('load').addEventListener('change', async (e) => {
@@ -1459,11 +1465,25 @@
       if (typeof data !== 'object' || data === null || !('formatVersion' in data)) throw new Error('not a save');
       m = M.normalize(data);
       activeFile = 0;
+      showRefused(false); // a good save: the message of a refused one goes
       changed();
     } catch (err) {
-      alert(T('loadError'));
+      if (err.message === 'router') showRefused(true);
+      else alert(T('loadError'));
     }
   });
+  // a save of the other router: a message with the link, in place of the problems
+  let refusedShown = false;
+  function showRefused(shown) {
+    refusedShown = shown;
+    renderRefused();
+  }
+  function renderRefused() {
+    const box = document.getElementById('refused');
+    if (!refusedShown) return box.replaceChildren();
+    const [pre, post] = T('router.refused', { link: '' }).split('');
+    box.replaceChildren(pre, h('a', { href: singlePhaseUrl }, T('router.one')), post, ' ', h('button', { type: 'button', onclick: () => showRefused(false) }, T('router.dismiss')));
+  }
   const restoreBtn = document.getElementById('restore');
   if (D.supported()) restoreBtn.addEventListener('click', restoreFromFolder);
   else restoreBtn.remove();
@@ -1471,6 +1491,7 @@
     if (!confirm(T('resetConfirm'))) return;
     m = M.defaults();
     activeFile = 0;
+    showRefused(false);
     changed();
   });
 

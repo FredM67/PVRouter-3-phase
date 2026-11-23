@@ -4,13 +4,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PVRouter configurator</title>
+    <title>3-phase PVRouter configurator</title>
+    <script src="doc-version.js" onerror="this.remove()"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
       <div>
-        <h1 data-t="title">PVRouter configurator</h1>
+        <h1 data-t="title">3-phase PVRouter configurator</h1>
+        <p id="switch" class="switch"></p>
         <p data-t="subtitle"></p>
       </div>
       <nav>
@@ -21,6 +23,7 @@
         <button type="button" id="reset" data-t="reset"></button>
       </nav>
     </header>
+    <div id="refused" class="refused" role="alert"></div>
     <main>
       <form id="form" autocomplete="off"></form>
       <aside>

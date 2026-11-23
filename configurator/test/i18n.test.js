@@ -47,3 +47,9 @@ test('timeline: lane names keep their number, the tooltip follows French typogra
   for (const lang of ['en', 'fr']) assert.ok(I.t(lang, 'tl.lane', { n: 12 }).length <= 12, lang);
   assert.match(I.t('fr', 'tl.title', { targets: 'charges 1, 3', from: '+1h00', to: 'fin' }), /charges 1, 3 : \+1h00 → fin/);
 });
+
+test('pin uses are named in the language of the page', () => {
+  const uses = [{ key: 'use.override', n: 1 }, { key: 'use.load', n: 2 }, { key: 'use.temperature' }];
+  assert.strictEqual(I.t('fr', 'err.duplicatePin', { pin: 5, uses }), 'D5 est utilisée plusieurs fois\u00a0: forçage 1, charge 2, sondes de température.');
+  assert.strictEqual(I.t('en', 'err.duplicatePin', { pin: 5, uses }), 'D5 is used more than once: override 1, load 2, temperature probes.');
+});

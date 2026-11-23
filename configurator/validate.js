@@ -215,19 +215,20 @@
     const use = (p, what) => {
       if (isRouterPin(p)) uses.push([p, what]);
     };
-    if (M.tempSensorPresent(m)) use(M.tempPin(m), 'temperature');
-    if (m.diversion.enabled) use(m.diversion.pin, 'diversion');
-    if (m.routerOff.enabled) use(m.routerOff.pin, 'routerOff');
-    if (m.rotation.mode === 'PIN') use(m.rotation.pin, 'rotation');
-    if (m.dualTariff.enabled) use(m.dualTariff.pin, 'dualTariff');
-    if (M.overridePresent(m)) m.overrides.list.forEach((o, i) => use(o.pin, `override ${i + 1}`));
-    if (m.watchdog.enabled) use(m.watchdog.pin, 'watchdog');
-    m.loads.forEach((l, i) => use(l.type === 'local' ? l.pin : l.led, `load ${i + 1}`));
-    relays.forEach((r, i) => use(r.pin, `relay ${i + 1}`));
+    // what: a text key, translated by the page ({ key: 'use.load', n: 1 })
+    if (M.tempSensorPresent(m)) use(M.tempPin(m), { key: 'use.temperature' });
+    if (m.diversion.enabled) use(m.diversion.pin, { key: 'use.diversion' });
+    if (m.routerOff.enabled) use(m.routerOff.pin, { key: 'use.routerOff' });
+    if (m.rotation.mode === 'PIN') use(m.rotation.pin, { key: 'use.rotation' });
+    if (m.dualTariff.enabled) use(m.dualTariff.pin, { key: 'use.dualTariff' });
+    if (M.overridePresent(m)) m.overrides.list.forEach((o, i) => use(o.pin, { key: 'use.override', n: i + 1 }));
+    if (m.watchdog.enabled) use(m.watchdog.pin, { key: 'use.watchdog' });
+    m.loads.forEach((l, i) => use(l.type === 'local' ? l.pin : l.led, { key: 'use.load', n: i + 1 }));
+    relays.forEach((r, i) => use(r.pin, { key: 'use.relay', n: i + 1 }));
     const byPin = new Map();
     for (const [p, what] of uses) byPin.set(p, [...(byPin.get(p) || []), what]);
-    for (const [p, whats] of byPin) if (whats.length > 1) error('err.duplicatePin', 'pins', { pin: p, uses: whats.join(', ') });
-    if (M.rfChipPresent(m)) for (const [p, whats] of byPin) if (M.RF_PINS.includes(p)) error('err.rfPin', 'pins', { pin: p, uses: whats.join(', ') });
+    for (const [p, whats] of byPin) if (whats.length > 1) error('err.duplicatePin', 'pins', { pin: p, uses: whats });
+    if (M.rfChipPresent(m)) for (const [p, whats] of byPin) if (M.RF_PINS.includes(p)) error('err.rfPin', 'pins', { pin: p, uses: whats });
 
     // ---- RF ----
     if (M.rfChipPresent(m)) {

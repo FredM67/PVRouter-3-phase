@@ -97,6 +97,9 @@ valid load maps ([#160]).
   backup and an undo. In calibration mode, it computes the power and voltage values of the chosen
   board from the router's and a reference meter's readings, and writes them into your `calibration.h`.
   <https://fredm67.github.io/Mk2PVRouter/configurateur/>
+  A switch at the top leads to the single-phase configurator, and a save made there is refused
+  here, with a link to it. Pin errors name their users in the page's language, and the pin lists
+  leave out D2 and D10 to D13 when the RFM69 is present.
 - **New motherboard:** `PCB_VERSION` in `config.h` selects the board. `NEW` (universal
   3phaseDiverter board, rev. 6.0 and later) switches the ADC to the internal 1.1 V reference the
   board is designed for; `OLD` keeps AVCC. The startup summary shows the choice.
