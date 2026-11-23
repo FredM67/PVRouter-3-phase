@@ -18,6 +18,7 @@ test/
 │   ├── test_relay_engine/
 │   ├── test_remote_loads/
 │   ├── test_teleinfo/
+│   ├── test_temp_schedule/
 │   └── test_utils_override/
 └── embedded/         # Run on Arduino or Wokwi simulator
     ├── test_datalog_math_avr/
@@ -68,6 +69,7 @@ pio test -e uno -f "*test_utils_relay*"
 | [test_relay_engine](native/test_relay_engine/) | Relay diversion decisions: strict thresholds, minimum ON/OFF times, settle time after any change, order in and out, overrides, diversion OFF, decision on the average |
 | [test_remote_loads](native/test_remote_loads/) | Packed load map and per-unit remote payloads |
 | [test_teleinfo](native/test_teleinfo/) | The IoT frame streamed a line per step: byte for byte the former buffered frame for every feature set, a golden frame, every tag, optional features on and off, `N`, `V` and `S` unsigned |
+| [test_temp_schedule](native/test_temp_schedule/) | Which 1-Wire transaction of the temperature sensors runs on which mains cycle (`temp_schedule.h`): the round (conversion, then ADDRESS, READ and CLOSE per sensor), one transaction per cycle, only on a cycle seen on time, the round ending within the datalog period |
 | [test_utils_override](native/test_utils_override/) | Override pin system (local + remote loads) |
 
 ### Embedded Tests

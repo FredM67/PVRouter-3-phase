@@ -36,7 +36,9 @@
  *          One round per datalog period: started when the loop handles the end of the period
  *          (before the datalog output, whose UART interrupts would add to the delay of the ADC
  *          interrupt), or at the next cycle, it ends long before the period does (fitsInPeriod()),
- *          and the datalog sends its values.
+ *          and the datalog sends its values. With sensors built in, the loop handles the datalog
+ *          event, raised at L1's crossing, on the pass that sees the new cycle: 1248 us after the
+ *          event, and the datalog output of a temperature build is that much later.
  *
  * @note This header has no Arduino dependency, so it can be exercised by the native test suite.
  *

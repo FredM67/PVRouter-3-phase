@@ -57,7 +57,8 @@ pio check
 - `adc_chain.h` - The six ADC conversions (V1, I1, V2, I2, V3, I3), their pins and ADMUX values, and the rule that the ADMUX written in an ISR call applies to the conversion after next; Arduino-free, native tests. `processing.cpp` builds its channel table from it
 - `validation.h` - ~50+ compile-time safety assertions
 - `utils_relay.h` - Relay control: pins and printing; the decisions, with EWMA filtering, are in `relay_engine.h` (Arduino-free, native tests)
-- `utils_temp.h` - DS18B20 temperature sensor management
+- `utils_temp.h` - DS18B20 temperature sensor management: the bus I/O in short transactions (`startRead()`, `readScratchpad()`, `endRead()`)
+- `temp_schedule.h` - Which 1-Wire transaction runs on which mains cycle (Arduino-free, native tests): one per cycle, right after the cycle's heavy ADC interrupt call, so the ADC deadline holds with remote loads and relays
 
 ### Real-Time Constraints
 
@@ -107,7 +108,7 @@ test/
     ├── test_adc_chain/  test_config_h/  test_ct_filter/  test_datalog_math/  test_dc_offset_filter/
     ├── test_ds18b20/  test_dual_tariff/  test_energy_bucket/  test_ewma_avg/  test_load_priorities/
     ├── test_onewire_search/  test_override_masks/  test_pin_edges/  test_power_rms_comparison/
-    └── test_relay_engine/  test_remote_loads/  test_rotation_groups/  test_teleinfo/  test_utils_override/
+    └── test_relay_engine/  test_remote_loads/  test_rotation_groups/  test_teleinfo/  test_temp_schedule/  test_utils_override/
 ```
 
 ## Dependencies
