@@ -1,0 +1,19 @@
+Firmware for 'make check-temp60' and 'make check-new-temp60': the 60 Hz mains (SUPPLY_FREQUENCY of
+config_system.h) with temperature sensing (configs/temperature.patch, applied too). The scenarios are
+the same ones, at 60 Hz (Makefile: out/scn60). A 60 Hz mains gives 26 sample sets per mains cycle
+instead of 32, a datalog period of 300 mains cycles instead of 250, and moves the 1-Wire slots
+against the ADC conversions.
+
+  PVR_SIM_BUILD=1 sh sim/configs/sim_config.sh NEW          # or without NEW, for check-temp60
+  git apply --unidiff-zero sim/configs/temperature.patch sim/configs/supply_60hz.patch
+  PLATFORMIO_BUILD_DIR=.pio/build-new-temp60 pio run --project-dir Mk2_3phase_RFdatalog_temp -e basic    # build-temp60 for the old board
+  git checkout Mk2_3phase_RFdatalog_temp/config.h Mk2_3phase_RFdatalog_temp/config_system.h
+  make -C sim check-new-temp60
+
+diff --git a/Mk2_3phase_RFdatalog_temp/config_system.h b/Mk2_3phase_RFdatalog_temp/config_system.h
+index 87385f47..29bb1abd 100644
+--- a/Mk2_3phase_RFdatalog_temp/config_system.h
++++ b/Mk2_3phase_RFdatalog_temp/config_system.h
+@@ -26 +26 @@ inline constexpr int16_t DIVERSION_START_THRESHOLD_WATTS{ 0 }; /**< surplus in W
+-inline constexpr uint8_t SUPPLY_FREQUENCY{ 50 }; /**< number of cycles/s of the grid power supply */
++inline constexpr uint8_t SUPPLY_FREQUENCY{ 60 }; /**< number of cycles/s of the grid power supply */

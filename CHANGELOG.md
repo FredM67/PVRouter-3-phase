@@ -268,6 +268,13 @@ valid load maps ([#160]).
   timing), with the `ds18b20` scenario command and the `ds18b20_early_reads` and `temperature`
   expectations. `make check-temp` and `make check-new-temp` build and run the scenarios with
   temperature sensing and measure the 1-Wire interrupt-off windows against the ADC interrupt's deadline.
+- **Grid simulator, temperature sensing at 60 Hz:** `make check-temp60` and `make check-new-temp60`
+  run the scenarios at 60 Hz (`configs/supply_60hz.patch`) with the two sensors, in CI. The same
+  measurement with remote loads, relays or both together is **not** in CI: with temperature
+  sensing, those builds write ADMUX after the next conversion started in some runs (misfiled
+  samples), because a 1-Wire slot (up to 1113 cycles with interrupts off) delays the heavier ISR
+  calls past the 1664-cycle deadline. The patch (`configs/temp_rf_relays.patch`) and the scenarios
+  (`scenarios/combo`) stay for a firmware that schedules its 1-Wire transactions.
 - **Tests:** the IoT frame no longer needs Arduino and has native tests: checksums, every tag,
   line lengths, optional features on and off, and the frame byte for byte against the former
   buffered one.

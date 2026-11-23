@@ -13,6 +13,9 @@
 #                       old board) and two DS18B20 on D3 (configs/ds18b20.scn): the 1-Wire time slots against
 #                       the ADC interrupt's deadline, and the datalog must report both temperatures
 #   make check-new-temp the same on the new board
+#   make check-temp60   the same at 60 Hz (configs/supply_60hz.patch too): the scenarios run with `mains 60`, derived
+#                       from scenarios/ into out/scn60 (the same expectations, the sample sets per cycle scaled)
+#   make check-new-temp60 the same on the new board
 #   make compare-boards after 'make check check-new': each scenario must give the same result
 #                       on both boards (grid and load energies within 1 % or 0.1 Wh)
 #   make compare-boards-20    after 'make check check-new20': the same within 0.5 % or 0.05 Wh
@@ -41,6 +44,9 @@ FW_NEW20 ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new20/basic/firmware.elf
 # the old and the new board with temperature sensing (configs/temperature.patch), two DS18B20 on D3
 FW_TEMP ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-temp/basic/firmware.elf
 FW_NEW_TEMP ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new-temp/basic/firmware.elf
+# the same at 60 Hz (configs/temperature.patch and configs/supply_60hz.patch)
+FW_TEMP60 ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-temp60/basic/firmware.elf
+FW_NEW_TEMP60 ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new-temp60/basic/firmware.elf
 CT_LOW  ?= 20
 CAL    ?= ../Mk2_3phase_RFdatalog_temp/calibration.h
 SCN    ?= scenarios/surplus_step.scn
@@ -97,6 +103,12 @@ $(FW_TEMP):
 $(FW_NEW_TEMP):
 	$(error firmware not found: $(FW_NEW_TEMP) - sim_config.sh NEW, apply configs/temperature.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-new-temp pio run -e basic' (README.md))
 
+$(FW_TEMP60):
+	$(error firmware not found: $(FW_TEMP60) - sim_config.sh, apply configs/temperature.patch and configs/supply_60hz.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-temp60 pio run -e basic' (README.md))
+
+$(FW_NEW_TEMP60):
+	$(error firmware not found: $(FW_NEW_TEMP60) - sim_config.sh NEW, apply configs/temperature.patch and configs/supply_60hz.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-new-temp60 pio run -e basic' (README.md))
+
 run: grid_sim $(FW)
 	@mkdir -p $(OUT)
 	./grid_sim -t $(OUT)/$(notdir $(SCN:.scn=))-trace.csv -e $(OUT)/$(notdir $(SCN:.scn=))-events.csv $(FW) $(SCN)
@@ -108,6 +120,10 @@ CHECK_NEW := $(SCENARIOS:scenarios/%.scn=check-new-%)
 CHECK_NEW20 := $(SCENARIOS:scenarios/%.scn=check-new20-%)
 CHECK_TEMP := $(SCENARIOS:scenarios/%.scn=check-temp-%)
 CHECK_NEW_TEMP := $(SCENARIOS:scenarios/%.scn=check-new-temp-%)
+CHECK_TEMP60 := $(SCENARIOS:scenarios/%.scn=check-temp60-%)
+CHECK_NEW_TEMP60 := $(SCENARIOS:scenarios/%.scn=check-new-temp60-%)
+# the scenarios at 60 Hz: scenarios/ with the mains frequency changed (common.scn is among them, the others include it)
+SCN60 := $(SCENARIOS:scenarios/%.scn=$(OUT)/scn60/%.scn) $(OUT)/scn60/common.scn
 
 check: $(CHECK)
 
@@ -122,6 +138,10 @@ check-new20: $(CHECK_NEW20)
 check-temp: $(CHECK_TEMP)
 
 check-new-temp: $(CHECK_NEW_TEMP)
+
+check-temp60: $(CHECK_TEMP60)
+
+check-new-temp60: $(CHECK_NEW_TEMP60)
 
 # read the summaries of the last 'make check check-new' / 'make check check-new20'
 compare-boards:
@@ -181,10 +201,21 @@ $(CHECK_TEMP): check-temp-%: grid_sim $(FW_TEMP) $(OUT)/temp_board.scn
 $(CHECK_NEW_TEMP): check-new-temp-%: grid_sim $(FW_NEW_TEMP) $(OUT)/new_temp_board.scn
 	$(call scenario,-b $(OUT)/new_temp_board.scn $(FW_NEW_TEMP),scenarios/$*.scn,new_temp-$*)
 
+# 60 Hz: 50 Hz of the scenarios becomes 60, and the sample sets per mains cycle (26.7 instead of 32) scale with it
+$(OUT)/scn60/%.scn: scenarios/%.scn
+	@mkdir -p $(@D)
+	awk '/^mains 50 / { sub(/^mains 50 /, "mains 60 ") } /^expect min_sample_sets / { $$3 = int($$3 * 50 / 60) } { print }' $< > $@
+
+$(CHECK_TEMP60): check-temp60-%: grid_sim $(FW_TEMP60) $(OUT)/temp_board.scn $(SCN60)
+	$(call scenario,-b $(OUT)/temp_board.scn $(FW_TEMP60),$(OUT)/scn60/$*.scn,temp60-$*)
+
+$(CHECK_NEW_TEMP60): check-new-temp60-%: grid_sim $(FW_NEW_TEMP60) $(OUT)/new_temp_board.scn $(SCN60)
+	$(call scenario,-b $(OUT)/new_temp_board.scn $(FW_NEW_TEMP60),$(OUT)/scn60/$*.scn,new_temp60-$*)
+
 receivers:
 	bash build_receivers.sh $(RX_DIR) $(RX_NODES)
 
 clean:
 	rm -rf grid_sim *.o $(OUT)
 
-.PHONY: run check check-new check-new20 check-temp check-new-temp compare-boards compare-boards-20 compare-ct check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_NEW20) $(CHECK_TEMP) $(CHECK_NEW_TEMP) $(CHECK_RF) $(CHECK_RELAYS) receivers clean
+.PHONY: run check check-new check-new20 check-temp check-new-temp check-temp60 check-new-temp60 compare-boards compare-boards-20 compare-ct check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_NEW20) $(CHECK_TEMP) $(CHECK_NEW_TEMP) $(CHECK_TEMP60) $(CHECK_NEW_TEMP60) $(CHECK_RF) $(CHECK_RELAYS) receivers clean
