@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Compile-time validations
  * @version 0.1
- * @date 2026-11-22
+ * @date 2026-11-23
  *
  * @copyright Copyright (c) 2023-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -22,6 +22,7 @@
 #include "ct_filter.h"
 #include "datalog_math.h"
 #include "energy_bucket.h"
+#include "temp_schedule.h"
 
 /**
  * @note All these checks are done by the compiler.
@@ -90,6 +91,8 @@ static_assert(ROTATION_AFTER_SECONDS < UINT16_MAX, "******** ROTATION_AFTER_SECO
 
 static_assert(!TEMP_SENSOR_PRESENT || (temperatureSensing.size() > 0), "******** No temperature sensors configured but TEMP_SENSOR_PRESENT is true ! ********");
 static_assert(!TEMP_SENSOR_PRESENT || (BOOST_TEMP_SENSOR < temperatureSensing.size()), "******** BOOST_TEMP_SENSOR must be one of the sensors in temperatureSensing (from 0) ! ********");
+// one 1-Wire transaction per mains cycle (temp_schedule.h): the conversion, 750 ms, then 3 per sensor
+static_assert(!TEMP_SENSOR_PRESENT || TempSchedule::fitsInPeriod(temperatureSensing.size(), SUPPLY_FREQUENCY, DATALOG_PERIOD_IN_MAINS_CYCLES), "******** Too many temperature sensors for DATALOG_PERIOD_IN_SECONDS: their conversion (750 ms) and reads must end within a datalog period. Lengthen DATALOG_PERIOD_IN_SECONDS ! ********");
 static_assert(TEMP_RANGE_LOW < TEMP_RANGE_HIGH, "******** Invalid temperature range ! ********");
 
 /**

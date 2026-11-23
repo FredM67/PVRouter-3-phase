@@ -9,12 +9,13 @@
  * and managing sensor addresses.
  *
  * @details
- * - **Sensor Initialization**: Initializes the OneWire bus and requests temperature readings.
- * - **Temperature Reading**: Reads and validates temperature data from sensors.
+ * - **Sensor Initialization**: Initializes the OneWire bus.
+ * - **Temperature Reading**: The conversion, then each sensor's read in three transactions, one
+ *   per mains cycle (temp_schedule.h): its scratchpad is validated by DS18B20::decode().
  * - **Error Handling**: Handles disconnected or out-of-range sensors.
  *
  * @version 0.1
- * @date 2026-11-21
+ * @date 2026-11-23
  *
  * @copyright Copyright (c) 2024-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -83,8 +84,9 @@ using OneWireType = conditional_t< TEMP_SENSOR_PRESENT, OneWire, MockOneWire >;
  * @tparam N The number of sensors connected to the system.
  *
  * @details
- * - **Initialization**: Initializes the OneWire bus and requests temperature readings.
- * - **Temperature Reading**: Reads and validates temperature data from individual sensors.
+ * - **Initialization**: Initializes the OneWire bus.
+ * - **Temperature Reading**: The transactions of temp_schedule.h: requestTemperatures(), then for
+ *   each sensor startRead(), readScratchpad() and endRead(), on three mains cycles.
  * - **Error Handling**: Handles disconnected or out-of-range sensors.
  * - **Compile-Time Configuration**: `TEMP_SENSOR_PRESENT` selects the real OneWire bus or a mock.
  *
@@ -196,21 +198,94 @@ public:
   /**
    * @brief Initialize the Dallas temperature sensors.
    *
-   * This method initializes the OneWire bus and sends a request to all connected sensors
-   * to start temperature conversion. It ensures that the sensors are ready for temperature
-   * readings.
-   *
-   * @details
-   * - Initializes the OneWire bus using the specified sensor pin.
-   * - Sends a `CONVERT_TEMPERATURE` command to all sensors on the bus.
-   * - This method should be called during system initialization to prepare the sensors.
+   * @details Initializes the OneWire bus on the sensor pin. The first conversion is requested by
+   *          the main loop, at the first mains cycle (temp_schedule.h), like every other one.
+   *          Call it during system initialization.
    */
   void initTemperatureSensors() const
   {
     if constexpr (TEMP_SENSOR_PRESENT)
     {
       oneWire.begin(sensorPin);
-      requestTemperatures();
+    }
+  }
+
+  /**
+   * @brief ADDRESS, the first transaction of a sensor's read: reset, Match ROM, the first half of
+   *        its ROM code.
+   *
+   * @param idx The index of the sensor
+   * @return false if no sensor answered the reset (its read ends here: DEVICE_DISCONNECTED_RAW)
+   */
+  [[nodiscard]] bool startRead(const uint8_t idx) const
+  {
+    if constexpr (!TEMP_SENSOR_PRESENT)
+    {
+      (void)idx;
+      return false;
+    }
+    else
+    {
+      if (!oneWire.reset())
+      {
+        return false;
+      }
+      oneWire.write(MATCH_ROM);
+      for (uint8_t i = 0; i != ROM_HALF; ++i)
+      {
+        oneWire.write(sensorAddrs[idx].addr[i]);
+      }
+      return true;
+    }
+  }
+
+  /**
+   * @brief READ, the second transaction: the second half of the ROM code, Read Scratchpad, the
+   *        9 bytes of the scratchpad.
+   *
+   * @param idx The index of the sensor, as for startRead()
+   */
+  void readScratchpad(const uint8_t idx) const
+  {
+    if constexpr (!TEMP_SENSOR_PRESENT)
+    {
+      (void)idx;
+    }
+    else
+    {
+      for (uint8_t i = ROM_HALF; i != sizeof(sensorAddrs[idx].addr); ++i)
+      {
+        oneWire.write(sensorAddrs[idx].addr[i]);
+      }
+      oneWire.write(READ_SCRATCHPAD);
+
+      for (auto& buf_elem : scratchPad)
+      {
+        buf_elem = oneWire.read();
+      }
+    }
+  }
+
+  /**
+   * @brief CLOSE, the last transaction: a reset (the sensor still there?), the reading decoded.
+   *
+   * @return int16_t The temperature in hundredths of a degree Celsius (e.g., 2500 = 25.00°C).
+   *         Returns `DEVICE_DISCONNECTED_RAW` if the sensor is disconnected or CRC validation fails.
+   *         Returns `OUTOFRANGE_TEMPERATURE` if the temperature is out of the defined range.
+   */
+  [[nodiscard]] int16_t endRead() const
+  {
+    if constexpr (!TEMP_SENSOR_PRESENT)
+    {
+      return 0;
+    }
+    else
+    {
+      if (!oneWire.reset())
+      {
+        return DEVICE_DISCONNECTED_RAW;
+      }
+      return DS18B20::decode(scratchPad);
     }
   }
 
@@ -245,40 +320,20 @@ public:
    *         Returns `OUTOFRANGE_TEMPERATURE` if the temperature is out of the defined range.
    *
    * @details
-   * - Communicates with the sensor using the OneWire protocol.
-   * - Reads the scratchpad memory of the sensor to retrieve temperature data.
+   * - The three transactions of a read at once: startRead(), readScratchpad(), endRead(). The
+   *   firmware runs them on three mains cycles instead (temp_schedule.h): the bus keeps
+   *   interrupts off for its resets and its 0s written, which must keep clear of the heavy ADC
+   *   interrupts.
    * - DS18B20::decode() (ds18b20.h) checks its CRC, converts it and checks the range.
    */
   [[nodiscard]] int16_t readTemperature(const uint8_t idx) const
   {
-    if constexpr (!TEMP_SENSOR_PRESENT)
+    if (!startRead(idx))
     {
-      // Suppress unused parameter warning when temperature sensing is disabled
-      (void)idx;
-      return 0;
+      return DEVICE_DISCONNECTED_RAW;
     }
-    else
-    {
-      static DS18B20::ScratchPad buf;
-
-      if (!oneWire.reset())
-      {
-        return DEVICE_DISCONNECTED_RAW;
-      }
-      oneWire.select(sensorAddrs[idx].addr);
-      oneWire.write(READ_SCRATCHPAD);
-
-      for (auto& buf_elem : buf)
-      {
-        buf_elem = oneWire.read();
-      }
-
-      if (!oneWire.reset())
-      {
-        return DEVICE_DISCONNECTED_RAW;
-      }
-      return DS18B20::decode(buf);
-    }
+    readScratchpad(idx);
+    return endRead();
   }
 
 private:
@@ -295,7 +350,11 @@ private:
     return false;
   }
 
-  static inline OneWireType oneWire; /**< For temperature sensing */
+  static constexpr uint8_t MATCH_ROM{ 0x55 }; /**< the ROM command that addresses one sensor */
+  static constexpr uint8_t ROM_HALF{ 4 };     /**< the bytes of the ROM code written by startRead() */
+
+  static inline OneWireType oneWire;            /**< For temperature sensing */
+  static inline DS18B20::ScratchPad scratchPad; /**< the scratchpad of the sensor being read */
 };
 
 /** @brief Deduction guide: N from the sensors of config.h. */

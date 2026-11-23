@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-11-22
+ * @date 2026-11-23
  *
  * @copyright Copyright (c) 2021-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -683,6 +683,7 @@ void processStartUp(const uint8_t phase)
  * - Adjusts energy thresholds and determines whether to add or remove loads.
  * - Updates the physical load states and control ports.
  * - Ensures the energy bucket level remains within defined limits.
+ * - Signals the new mains cycle to the main code (Shared::b_newMainsCycle), last.
  *
  * @ingroup TimeCritical
  */
@@ -723,6 +724,10 @@ void processStartNewCycle()
   {
     l_energyInBucket_main = 0;
   }
+
+  // a 50 Hz 'tick' for use by the main code, once the cycle's work is done: the 1-Wire
+  // transactions start when the loop sees it, their slots must not delay this call
+  Shared::b_newMainsCycle = true;
 }
 
 /**
@@ -766,7 +771,6 @@ void processMinusHalfCycle(const uint8_t phase)
  * @details
  * - Adds the latest energy contribution to the main energy bucket.
  * - Applies adjustments for required export energy on phase 0.
- * - Signals a new mains cycle for phase 0.
  *
  * @ingroup TimeCritical
  */
@@ -823,8 +827,6 @@ void processLatestContribution(const uint8_t phase)
       else
         Shared::absenceOfDivertedEnergyCountInSeconds = 0;
     }
-
-    Shared::b_newMainsCycle = true;  //  a 50 Hz 'tick' for use by the main code
   }
   // Applying max and min limits to the main accumulator's level
   // is deferred until after the energy related decisions have been taken

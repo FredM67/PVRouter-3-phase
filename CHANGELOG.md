@@ -78,6 +78,10 @@ If you keep your own `config.h`, check these points:
   `inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } };` for one water heater
   on every local load (what rotation did before, when every load is local). An empty list with
   rotation on stops the build with *Priority rotation is on but rotationGroups is empty* ([#241]).
+- **Temperature sensors and the datalog period:** a round of reads (the conversion, 750 ms, then
+  3 mains cycles per sensor) must end within the datalog period. With a 1 s period, at most 3
+  sensors at 50 Hz, 4 at 60 Hz; more stops the build with *Too many temperature sensors for
+  DATALOG_PERIOD_IN_SECONDS*. Lengthen `DATALOG_PERIOD_IN_SECONDS`, or use fewer sensors.
 
 No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still
@@ -115,6 +119,18 @@ valid load maps ([#160]).
 
 ### Changed
 
+- **Temperature sensing keeps the ADC deadline** with remote loads and relays: the DS18B20 are
+  read in short 1-Wire transactions, one per mains cycle at most, started right after the cycle's
+  heavy ADC interrupt call (`temp_schedule.h`). A 1-Wire reset or `0` keeps interrupts off for
+  65 to 70 µs; read in one burst, they could delay that call past its deadline and misfile ADC
+  samples (the simulator measured 5 to 35 samples in a run with four loads, RF datalog, relays and
+  sensors). The values and the datalog format do not change: one reading per sensor per datalog
+  period, converted at its start and sent at its end. Two side effects: in every build (not only
+  temperature builds), `Shared::b_newMainsCycle` is set at the end of `processStartNewCycle()`,
+  1248 µs after L1's crossing (and once more at the end of the start-up period), so the loop's
+  per-cycle work, the per-second tasks included, runs that much later; in temperature builds
+  only, the datalog output is handled on the pass that sees the new cycle, 1248 µs after its
+  event.
 - **Priority rotation** rotates the loads of `rotationGroups` only, any number of groups, each
   among the priority places its loads hold at startup: two 3-phase water heaters each take turns
   on their own, and loads in no group keep their place. A group holds at least 2 loads, local
@@ -269,12 +285,14 @@ valid load maps ([#160]).
   expectations. `make check-temp` and `make check-new-temp` build and run the scenarios with
   temperature sensing and measure the 1-Wire interrupt-off windows against the ADC interrupt's deadline.
 - **Grid simulator, temperature sensing at 60 Hz:** `make check-temp60` and `make check-new-temp60`
-  run the scenarios at 60 Hz (`configs/supply_60hz.patch`) with the two sensors, in CI. The same
-  measurement with remote loads, relays or both together is **not** in CI: with temperature
-  sensing, those builds write ADMUX after the next conversion started in some runs (misfiled
-  samples), because a 1-Wire slot (up to 1113 cycles with interrupts off) delays the heavier ISR
-  calls past the 1664-cycle deadline. The patch (`configs/temp_rf_relays.patch`) and the scenarios
-  (`scenarios/combo`) stay for a firmware that schedules its 1-Wire transactions.
+  run the scenarios at 60 Hz (`configs/supply_60hz.patch`) with the two sensors, in CI.
+- **Grid simulator, temperature with remote loads, RF datalog and relays:** `make check-combo`,
+  `check-new-combo`, `check-combo60` and `check-new-combo60` run `scenarios/combo` (surplus
+  climbing through two local and two remote loads and two relays, RF datalog frames, two DS18B20) on
+  the heaviest build (`configs/temp_rf_relays.patch`), old and new board, 50 and 60 Hz, in a CI job
+  of their own: no misfiled sample, no overrun, latest ADMUX write 1545 cycles of 1664 (5 to 35
+  misfiled samples before the 1-Wire transactions were scheduled). The new expectation
+  `admux_delay_max` sets a ceiling on that write.
 - **Tests:** the IoT frame no longer needs Arduino and has native tests: checksums, every tag,
   line lengths, optional features on and off, and the frame byte for byte against the former
   buffered one.

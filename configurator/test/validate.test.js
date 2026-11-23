@@ -14,6 +14,7 @@ const variant = (change) => {
   change(m);
   return m;
 };
+const sensors = (n) => Array.from({ length: n }, (_, i) => ({ ...M.defaults().temperature.sensors[0], address: M.defaults().temperature.sensors[i % 2].address }));
 const remote = (unit) => ({ type: 'remote', unit, led: null });
 // dual tariff on, 8 hours of off-peak, one boost (load 1 unless told otherwise)
 const boosts = (m, b) => Object.assign(m.dualTariff, { enabled: true, pin: 3, offPeakHours: 8, boosts: [{ targets: [{ load: 0 }], ...b }] });
@@ -94,6 +95,8 @@ const CASES = [
   // dual tariff off: the boosts are still written into config.h, their values must be numbers
   ['err.boost', (m) => (m.dualTariff.boosts = [{ from: 'end', at: null, for: 120, targets: [{ load: 0 }] }])],
   ['err.noSensor', (m) => Object.assign(m.temperature, { mode: 'router', sensors: [] })],
+  ['err.tempRoundTooLong', (m) => Object.assign(m, { datalogPeriod: 1 }) && Object.assign(m.temperature, { mode: 'router', sensors: sensors(4) })],
+  ['err.tempRoundTooLong', (m) => Object.assign(m, { datalogPeriod: 1, supplyFrequency: 60 }) && Object.assign(m.temperature, { mode: 'router', sensors: sensors(5) })],
   ['err.tempThreshold', (m) => (m.temperature.mode = 'router') && Object.assign(m.dualTariff, { enabled: true, pin: 9, tempThreshold: 0 })],
   ['warn.sensorSomeAddresses', (m) => (m.mk2wifi.enabled = true) && (m.temperature.mode = 'esp') && (m.temperature.sensors[1].address = '')],
   ['err.tempSensor', (m) => (m.temperature.mode = 'router') && (m.dualTariff.tempSensor = 2)], // 2 sensors: 0 or 1
@@ -165,6 +168,16 @@ test('dual tariff: boosts that start within the off-peak period are accepted', (
 test('dual tariff off: the windows of the boosts are not checked, nor what a group finds to force', () => {
   const m = variant((m) => (m.dualTariff.boosts = [{ from: 'start', at: 600, for: 0, targets: 'ALL_REMOTE_LOADS' }]));
   assert.deepStrictEqual(V.validate(m), []);
+});
+
+test('temperature: a round of reads that fits the datalog period is accepted (temp_schedule.h)', () => {
+  const ok = (f, n, period, mode) => !keys(variant((m) => Object.assign(m, { datalogPeriod: period, supplyFrequency: f }) && Object.assign(m.temperature, { mode: mode || 'router', sensors: sensors(n) }))).includes('err.tempRoundTooLong');
+  assert.ok(ok(50, 3, 1));
+  assert.ok(!ok(50, 4, 1));
+  assert.ok(ok(60, 4, 1));
+  assert.ok(!ok(60, 5, 1));
+  assert.ok(ok(50, 4, 2));
+  assert.ok(ok(50, 6, 1, 'esp')); // the module reads the probes itself
 });
 
 test('remote units are only checked when used', () => {

@@ -1,0 +1,49 @@
+Firmware for the heaviest combination of the simulator: temperature sensing, remote loads, RF
+data logging and relays in one build. The two local loads (D5, D6), two remote loads (nodes 15 and
+16), RF data logging to the gateway, two relays on D8 and D9 (as configs/relays.patch: 1000 and
+2000 W of surplus, 200 W of import, 1 minute minimum ON and OFF, 1-minute filter), the override pin
+D4 and the two DS18B20 on D3. The RFM69 takes D2 and D10-D13, so the relay patch's diversion,
+router OFF, rotation and dual tariff pins (D3, D2, D12, D11) have no pin left: not in this build.
+
+  PVR_SIM_BUILD=1 sh sim/configs/sim_config.sh
+  git apply --unidiff-zero sim/configs/temp_rf_relays.patch
+  PLATFORMIO_BUILD_DIR=.pio/build-combo pio run --project-dir Mk2_3phase_RFdatalog_temp -e basic
+  git checkout Mk2_3phase_RFdatalog_temp/config.h
+
+diff --git a/Mk2_3phase_RFdatalog_temp/config.h b/Mk2_3phase_RFdatalog_temp/config.h
+index 38c26159..8ba6c14b 100644
+--- a/Mk2_3phase_RFdatalog_temp/config.h
++++ b/Mk2_3phase_RFdatalog_temp/config.h
+@@ -40 +40 @@ inline constexpr bool CALIBRATION_MODE{ false };
+-inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (local + remote) */
++inline constexpr uint8_t NO_OF_DUMPLOADS{ 4 }; /**< TOTAL number of dump loads (local + remote) */
+@@ -53 +53,2 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+-  Load::local(7)
++  Load::remote(1),
++  Load::remote(2)
+@@ -63 +64 @@ inline constexpr bool WATCHDOG_PIN_PRESENT{ false }; /**< set it to 'true' if th
+-inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a relay is used for diversion */
++inline constexpr bool RELAY_DIVERSION{ true };       /**< set it to 'true' if a relay is used for diversion */
+@@ -65,2 +66,2 @@ inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if th
+-inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
+-inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF data logging is needed */
++inline constexpr bool TEMP_SENSOR_PRESENT{ true };   /**< set it to 'true' if temperature sensing is needed */
++inline constexpr bool RF_LOGGING_PRESENT{ true };    /**< set it to 'true' if RF data logging is needed */
+@@ -91 +92 @@ inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF
+-inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
++inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2, 3 }; /**< load priorities at startup (0=highest) */
+@@ -123 +124 @@ inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
+-inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minutes for relay control */
++inline constexpr uint8_t RELAY_FILTER_DELAY{ 1 }; /**< EWMA filter delay in minutes for relay control */
+@@ -131,3 +132,2 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
+-                                     { { unused_pin, 100, 200, 1, 1 },
+-                                       { unused_pin, 300, 400, 1, 1 },
+-                                       { unused_pin, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
++                                     { { 8, 1000, 200, 1, 1 },
++                                       { 9, 2000, 200, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
+@@ -157 +157 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
+-inline constexpr OverridePins overridePins{ { { 4, ALL_LOADS() } } }; /**< list of override pin/loads-relays pairs */
++inline constexpr OverridePins overridePins{ { { 4, ALL_LOADS_AND_RELAYS() } } }; /**< list of override pin/loads-relays pairs */
+@@ -177 +177 @@ inline constexpr uint8_t BOOST_TEMP_SENSOR{ 0 };       /**< the sensor checked a
+-inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
++inline constexpr TemperatureSensing temperatureSensing{ 3,

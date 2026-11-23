@@ -143,7 +143,7 @@ make -C sim check-new-temp
 
 Measured on the three scenarios, 50 Hz, and over mains frequencies from 49.5 to 51 Hz (the 1-Wire bursts then fall at other angles against the ADC conversions): the ISR itself does not change (max ~1260-1280 cycles, the datalog call), only the ADMUX write is pushed back when an ISR call waits for a 1-Wire time slot. The ADMUX write of an ISR call is at most 1664 cycles after its pending flag: the call may wait for a time slot (up to 1036 cycles for a 0 written, 1113 for a reset) and still has to write ADMUX within what is left. The ordinary calls write ADMUX within 373 cycles after their start, the call of each mains cycle within ~620 (bits of the load update), the datalog call within ~850-1190, once per 5 s: the firmware starts its 1-Wire burst after that call, so a window cannot delay it, but it delays the next calls. Worst ADMUX delay seen: 1505 cycles on the old board, 1445 on the new one, against 1664 (about 1190 without sensors); no misfiled sample, no overrun, no scratchpad read early. That margin is thin: a call that writes ADMUX 620 cycles after its start fails when it is pending in the first 70 cycles of a reset slot.
 
-`make check-temp60` and `make check-new-temp60` run the same scenarios at 60 Hz (`configs/supply_60hz.patch` after `configs/temperature.patch`, `SUPPLY_FREQUENCY` 60): `out/scn60` holds the scenarios with `mains 60` and the sample sets per mains cycle scaled (26.7 instead of 32 per cycle: `min_sample_sets` 25 instead of 30). Worst ADMUX delay 1558 cycles on the old board, 1408 on the new one, no misfiled sample (60 Hz sweep from 59.5 to 61 Hz: 1554 and 1525).
+`make check-temp60` and `make check-new-temp60` run the same scenarios at 60 Hz (`configs/supply_60hz.patch` after `configs/temperature.patch`, `SUPPLY_FREQUENCY` 60): `out/scn60` holds the scenarios with `mains 60` and the sample sets per mains cycle scaled (26.7 instead of 32 per cycle: `min_sample_sets` 25 instead of 30). Worst ADMUX delay 1423 cycles on the old board, 1442 on the new one, no misfiled sample (1558 and 1408 before the 1-Wire transactions were scheduled).
 
 ```bash
 sim/configs/sim_config.sh NEW        # or without NEW, for check-temp60
@@ -153,29 +153,42 @@ git checkout Mk2_3phase_RFdatalog_temp/config.h Mk2_3phase_RFdatalog_temp/config
 make -C sim check-new-temp60
 ```
 
-#### Temperature with remote loads, relays: not in CI
+#### Temperature with remote loads, RF datalog and relays
 
-Temperature sensing together with remote loads (`configs/remote_loads.patch`, four loads), with relays (`configs/relays.patch`, the sensors on D13: the relay patch has D3 for the diversion pin), or with both (`configs/temp_rf_relays.patch`: remote loads, RF datalog, relays and sensors in one build, `scenarios/combo`) **does not stay within the ADC deadline**: some runs misfile samples (a conversion filed under the wrong channel) and write ADMUX after the next conversion has started. A 1-Wire slot keeps interrupts off 1036-1113 cycles; the ISR call of each mains cycle writes ADMUX ~740-780 cycles after its start with four loads (~620 with three), and a call of the datalog period ~850: a slot that begins before such a call is pending delays it past the 1664 cycles. Whether a run fails depends on how the slots fall against the ADC conversions (frequency, scenario, board), so the same firmware passes some scenarios and fails others: these combinations have no `make` target and are not run in CI. They are kept as patches and scenarios, to be run by hand once the firmware schedules its 1-Wire transactions away from the ISR's heavy calls:
+Temperature sensing together with remote loads (`configs/remote_loads.patch`, four loads), with relays (`configs/relays.patch`, the sensors on D13: the relay patch has D3 for the diversion pin), or with both is the heaviest case for the ADC deadline: a 1-Wire slot keeps interrupts off 1036-1113 cycles, the ISR call of each mains cycle (`processStartNewCycle()`) writes ADMUX ~740-780 cycles after its start with four loads (~620 with three), and a call of the datalog period ~850: a slot that begins before such a call is pending delays it past the 1664 cycles. Before the firmware scheduled its 1-Wire transactions, these builds misfiled samples and wrote ADMUX after the next conversion had started in some runs (the combination build below: 5 misfiled samples on the old board, 35 on the new one, 7 and 11 at 60 Hz).
+
+The firmware now runs the bus I/O as short transactions, at most one per mains cycle, started when the loop sees that `processStartNewCycle()` is done (`Shared::b_newMainsCycle`, set at its end; `temp_schedule.h`), so the long slots fall among the ordinary ADC calls, from 34 to 158 degrees after L1's positive crossing. With sensors, the datalog output is handled on the pass that sees the new cycle, 1248 µs after its event, so that the conversion of the next round starts right after the cycle's work.
+
+`configs/temp_rf_relays.patch` builds the combination (two local loads, two remote loads, RF datalog, two relays on D8 and D9, the override pin and the two DS18B20 on D3) and `scenarios/combo/surplus_ladder.scn` runs every feature at once (the surplus climbs through the four loads and both relays, then falls to an import) in 260 s: the two relays have 1-minute minimum ON and OFF times, which with the 60 s settle time between relays sets the length (relay 1 in at 66 s, relay 2 at 126 s, relay 2 out at 186 s, relay 1 at 246 s). `make check-combo`, `check-new-combo`, `check-combo60` and `check-new-combo60` run it on the old and the new board, at 50 and 60 Hz, with the receiver firmware on each remote unit; they are in CI (the *RF, relays, temperature* job). `scenarios/combo/common.scn` also has a ceiling, `admux_delay_max 1600`, a little above the worst write measured.
+
+| Build | Misfiled before / now | Worst ADMUX write now (cycles, deadline 1664) | Overruns |
+|---|---|---|---|
+| combination, old board, 50 Hz | 5 / 0 | 1418 | 0 |
+| combination, new board, 50 Hz | 35 / 0 | 1398 | 0 |
+| combination, old board, 60 Hz | 7 / 0 | 1529 | 0 |
+| combination, new board, 60 Hz | 11 / 0 | 1545 | 0 |
+
+The 'before' runs (firmware with the 1-Wire bus read in one burst per datalog period) report ADMUX writes of 2 to 64 cycles, flagged TOO EARLY: a write later than 1664 cycles shows as a small delay from the *next* conversion, so a late write always comes with misfiled samples. The scenario has 26 expectations: 23 passed before, all pass now. The four temperature targets (sensors only) go from 1558 to 1442 cycles at worst.
+
+The same firmware without the combination: `scenarios/rf` with remote loads and sensors on D3, and `scenarios/relays` with relays and sensors on D13, on both boards at 50 and 60 Hz (56 runs, run by hand with `grid_sim -b` and a board file of `board_scn.sh` and `configs/ds18b20.scn`): 0 misfiled samples and 0 overruns in every run; worst ADMUX write 1434 cycles (relays, new board, 60 Hz) and 1431 (remote loads, old board, 60 Hz); before, the diagnostic runs of 2026-11-23 found writes at 1666 cycles (relays) and 1718 (remote loads), past the deadline. One run fails on its own scenario, as without sensors: `relays/rotation_pin_off_peak` at 60 Hz on the old board (`at 28.0 s, D6 ON`, D6 modulating at that instant, a 50 Hz scenario).
 
 ```bash
-sim/configs/sim_config.sh
+sim/configs/sim_config.sh                # NEW for the new board, build-new-combo
 git apply --unidiff-zero sim/configs/temp_rf_relays.patch
-(cd Mk2_3phase_RFdatalog_temp && PLATFORMIO_BUILD_DIR=.pio/build-temp-rf-relays pio run -e basic)
+(cd Mk2_3phase_RFdatalog_temp && PLATFORMIO_BUILD_DIR=.pio/build-combo pio run -e basic)
 git checkout Mk2_3phase_RFdatalog_temp/config.h
-make -C sim grid_sim receivers
-cd sim
-{ sh board_scn.sh OLD; cat configs/ds18b20.scn; } > out/combo_board.scn
-./grid_sim -q -b out/combo_board.scn -r 15=out/receivers/receiver-15.elf -r 16=out/receivers/receiver-16.elf \
-  ../Mk2_3phase_RFdatalog_temp/.pio/build-temp-rf-relays/basic/firmware.elf scenarios/combo/surplus_ladder.scn
+make -C sim check-combo                  # at 60 Hz: also configs/supply_60hz.patch, build-combo60, check-combo60
 ```
 
 ### In CI
 
-The scenarios are spread over parallel jobs: three for the grid scenarios, one for the RF ones (`build.yml`), three for the relay ones (`relay-sim.yml`). `ci_targets.sh` gives the make targets of a job, from the scenarios it finds: job k of n takes every n-th scenario, starting from the k-th. A grid scenario runs on its three boards and on the four temperature builds (50 and 60 Hz) in the same job; the job then compares the three boards.
+The scenarios are spread over parallel jobs: three for the grid scenarios, one for the RF ones (`build.yml`), three for the relay ones (`relay-sim.yml`). `ci_targets.sh` gives the make targets of a job, from the scenarios it finds: job k of n takes every n-th scenario, starting from the k-th. A grid scenario runs on its three boards and on the four temperature builds (50 and 60 Hz) in the same job; the job then compares the three boards. The combination scenarios (`scenarios/combo`) have two jobs of their own: their two 50 Hz builds in one, their two 60 Hz builds in the other.
 
 ```bash
 sim/ci_targets.sh grid 1/3      # check-clouds check-new-clouds check-new20-clouds check-temp-clouds check-new-temp-clouds check-temp60-clouds check-new-temp60-clouds
 sim/ci_targets.sh relays 2/3    # check-relays-relay_import_first check-relays-relay_steps
+sim/ci_targets.sh combo 1/1     # check-combo-surplus_ladder check-new-combo-surplus_ladder
+sim/ci_targets.sh combo60 1/1   # check-combo60-surplus_ladder check-new-combo60-surplus_ladder
 ```
 
 With more scenarios than jobs, a job runs several of them in parallel. A new scenario needs no change to the workflows; more jobs, only their `part` list.
@@ -215,6 +228,7 @@ Plain text, one command per line, `#` starts a comment.
 | `expect misfiled_samples <n>` | at most n conversions filed under the wrong channel |
 | `expect isr_max <cycles>` | ISR duration never above this |
 | `expect admux_delay_min <cycles>` | the ISR never writes ADMUX sooner than this after its conversion started |
+| `expect admux_delay_max <cycles>` | the ISR never writes ADMUX later than this after its conversion started: a ceiling under the 1664-cycle deadline (a write later than that shows up as a small delay from the next conversion, with misfiled samples) |
 
 `scenarios/common.scn` describes the hardware of the default `config.h` / `calibration.h`; the other scenarios include it. `scenarios/rf/common.scn` and `scenarios/relays/common.scn` do the same for the remote-loads and relay configurations.
 

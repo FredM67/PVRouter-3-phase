@@ -1,0 +1,27 @@
+# Router with two local loads, two remote units, RF data logging, two relays and two DS18B20
+# (configs/temp_rf_relays.patch): loads on D5 and D6, the third load on unit 1 (node 15), the
+# fourth on unit 2 (node 16), relay 1 on D8 (1000 W of export in), relay 2 on D9 (2000 W).
+# The DS18B20 (D3) come with the board file of 'make check-combo'.
+mains 50 230
+vcal 0.8151 0.8184 0.8195
+pcal 0.05 0.05 0.05
+
+# load <pin> <phase> <W>
+load 5 1 2000
+load 6 2 2000
+# remote <node> <bit> <phase> <W>
+remote 15 0 3 2000
+remote 16 0 1 2000
+# with the RemoteLoadReceiver firmware (grid_sim -r): its loadPins, bit 0 first
+receiver_pins 4 3
+# relay <pin> <phase> <W>: the contacts follow the pin, with no zero-crossing latching
+relay 8 1 1500
+relay 9 2 1500
+
+input 4 1    # override pin released (active low)
+
+# ADMUX must change one ADC clock (128 cycles) or more after the conversion started
+expect admux_delay_min 128
+# ... and not much later than the measured worst case (1545 at 60 Hz, 1418 at 50 Hz; a deadline of 1664): the
+# 1-Wire transactions run right after the cycle's heavy ISR call, so a rise means that scheduling moved
+expect admux_delay_max 1600
