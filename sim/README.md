@@ -127,6 +127,8 @@ git checkout Mk2_3phase_RFdatalog_temp/config.h
 make -C sim check-relays
 ```
 
+`make check-relays60` runs the same scenarios at 60 Hz: `configs/supply_60hz.patch` after `configs/relays.patch`, built in `.pio/build-relays60` (`git checkout Mk2_3phase_RFdatalog_temp/config.h Mk2_3phase_RFdatalog_temp/config_system.h` after the build); `out/scn60/relays` holds the scenarios with `mains 60`, derived as for `check-temp60`.
+
 A relay's contacts follow its pin at once. The firmware decides on the grid power of each datalog line (every 5 s) through its TEMA filter, waits 1 minute after any relay change, and holds each relay for its minimum ON or OFF time - from power-up for the first switch-on. A relay scenario therefore lasts several minutes; the minimum times are longer than the settle time, so that a firmware ignoring them fails.
 
 ### Temperature sensing
@@ -170,7 +172,7 @@ The firmware now runs the bus I/O as short transactions, at most one per mains c
 
 The 'before' runs (firmware with the 1-Wire bus read in one burst per datalog period) report ADMUX writes of 2 to 64 cycles, flagged TOO EARLY: a write later than 1664 cycles shows as a small delay from the *next* conversion, so a late write always comes with misfiled samples. The scenario has 26 expectations: 23 passed before, all pass now. The four temperature targets (sensors only) go from 1558 to 1442 cycles at worst.
 
-The same firmware without the combination: `scenarios/rf` with remote loads and sensors on D3, and `scenarios/relays` with relays and sensors on D13, on both boards at 50 and 60 Hz (56 runs, run by hand with `grid_sim -b` and a board file of `board_scn.sh` and `configs/ds18b20.scn`): 0 misfiled samples and 0 overruns in every run; worst ADMUX write 1434 cycles (relays, new board, 60 Hz) and 1431 (remote loads, old board, 60 Hz); before, the diagnostic runs of 2026-11-23 found writes at 1666 cycles (relays) and 1718 (remote loads), past the deadline. One run fails on its own scenario, as without sensors: `relays/rotation_pin_off_peak` at 60 Hz on the old board (`at 28.0 s, D6 ON`, D6 modulating at that instant, a 50 Hz scenario).
+The same firmware without the combination: `scenarios/rf` with remote loads and sensors on D3, and `scenarios/relays` with relays and sensors on D13, on both boards at 50 and 60 Hz (56 runs, run by hand with `grid_sim -b` and a board file of `board_scn.sh` and `configs/ds18b20.scn`): 0 misfiled samples and 0 overruns in every run; worst ADMUX write 1434 cycles (relays, new board, 60 Hz) and 1431 (remote loads, old board, 60 Hz); before, the diagnostic runs of 2026-11-23 found writes at 1666 cycles (relays) and 1718 (remote loads), past the deadline. One run failed on its own scenario, as without sensors: `relays/rotation_pin_off_peak` at 60 Hz on the old board (`expect 28 pin 6 on`: D6 takes the surplus left by D5 and modulates, 7 cycles ON of 9, so a check at one instant fell in an OFF gap at 60 Hz and in an ON stretch at 50 Hz by luck). The scenario no longer checks D6 there, and `scenarios/relays` now runs at 60 Hz in CI (below).
 
 ```bash
 sim/configs/sim_config.sh                # NEW for the new board, build-new-combo
@@ -182,11 +184,12 @@ make -C sim check-combo                  # at 60 Hz: also configs/supply_60hz.pa
 
 ### In CI
 
-The scenarios are spread over parallel jobs: three for the grid scenarios, one for the RF ones (`build.yml`), three for the relay ones (`relay-sim.yml`). `ci_targets.sh` gives the make targets of a job, from the scenarios it finds: job k of n takes every n-th scenario, starting from the k-th. A grid scenario runs on its three boards and on the four temperature builds (50 and 60 Hz) in the same job; the job then compares the three boards. The combination scenarios (`scenarios/combo`) have two jobs of their own: their two 50 Hz builds in one, their two 60 Hz builds in the other.
+The scenarios are spread over parallel jobs: three for the grid scenarios, one for the RF ones (`build.yml`), three for the relay ones, each at 50 and 60 Hz (`relay-sim.yml`: both firmware builds in every job, `relays` and `relays60` targets). `ci_targets.sh` gives the make targets of a job, from the scenarios it finds: job k of n takes every n-th scenario, starting from the k-th. A grid scenario runs on its three boards and on the four temperature builds (50 and 60 Hz) in the same job; the job then compares the three boards. The combination scenarios (`scenarios/combo`) have two jobs of their own: their two 50 Hz builds in one, their two 60 Hz builds in the other.
 
 ```bash
 sim/ci_targets.sh grid 1/3      # check-clouds check-new-clouds check-new20-clouds check-temp-clouds check-new-temp-clouds check-temp60-clouds check-new-temp60-clouds
-sim/ci_targets.sh relays 2/3    # check-relays-relay_import_first check-relays-relay_steps
+sim/ci_targets.sh relays 2/3    # check-relays-relay_import_first check-relays-relay_steps check-relays-rotation_pin_off_peak
+sim/ci_targets.sh relays60 2/3  # check-relays60-relay_import_first check-relays60-relay_steps check-relays60-rotation_pin_off_peak
 sim/ci_targets.sh combo 1/1     # check-combo-surplus_ladder check-new-combo-surplus_ladder
 sim/ci_targets.sh combo60 1/1   # check-combo60-surplus_ladder check-new-combo60-surplus_ladder
 ```

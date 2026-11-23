@@ -6,6 +6,7 @@
 #                       RemoteLoadReceiver firmware on each remote unit (RX_NODES)
 #   make check-rf RX_NODES=    the same with ideal receivers
 #   make check-relays   run scenarios/relays against the relay firmware (configs/relays.patch)
+#   make check-relays60 the same at 60 Hz (configs/supply_60hz.patch too), the scenarios derived into out/scn60/relays
 #   make check-new      run the scenarios of 'make check' against a new-board firmware (internal
 #                       1.1 V reference), with the new board's calibration read from calibration.h
 #   make check-new20    the same with 20 A CTs: about the resolution of the old board
@@ -40,6 +41,8 @@ FW     ?= ../Mk2_3phase_RFdatalog_temp/.pio/build/basic/firmware.elf
 FW_RF  ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-rf/basic/firmware.elf
 # built in a build directory of its own, so that it does not replace the basic firmware
 FW_RELAYS ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-relays/basic/firmware.elf
+# the same at 60 Hz (configs/relays.patch and configs/supply_60hz.patch)
+FW_RELAYS60 ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-relays60/basic/firmware.elf
 # the new board (configs/sim_config.sh NEW), in a build directory of its own too
 FW_NEW ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new/basic/firmware.elf
 # the new board with 20 A CTs (configs/sim_config.sh NEW 20)
@@ -97,6 +100,9 @@ $(FW):
 $(FW_RF):
 	$(error firmware not found: $(FW_RF) - apply configs/remote_loads.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-rf pio run -e basic' (README.md))
 
+$(FW_RELAYS60):
+	$(error firmware not found: $(FW_RELAYS60) - sim_config.sh, apply configs/relays.patch and configs/supply_60hz.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-relays60 pio run -e basic' (README.md))
+
 $(FW_RELAYS):
 	$(error firmware not found: $(FW_RELAYS) - see configs/relays.patch)
 
@@ -125,6 +131,7 @@ run: grid_sim $(FW)
 CHECK    := $(SCENARIOS:scenarios/%.scn=check-%)
 CHECK_RF := $(RF_SCENARIOS:scenarios/rf/%.scn=check-rf-%)
 CHECK_RELAYS := $(RELAY_SCENARIOS:scenarios/relays/%.scn=check-relays-%)
+CHECK_RELAYS60 := $(RELAY_SCENARIOS:scenarios/relays/%.scn=check-relays60-%)
 CHECK_NEW := $(SCENARIOS:scenarios/%.scn=check-new-%)
 CHECK_NEW20 := $(SCENARIOS:scenarios/%.scn=check-new20-%)
 CHECK_TEMP := $(SCENARIOS:scenarios/%.scn=check-temp-%)
@@ -138,12 +145,15 @@ CHECK_NEW_COMBO60 := $(COMBO_SCENARIOS:scenarios/combo/%.scn=check-new-combo60-%
 # the scenarios at 60 Hz: scenarios/ with the mains frequency changed (common.scn is among them, the others include it)
 SCN60 := $(SCENARIOS:scenarios/%.scn=$(OUT)/scn60/%.scn) $(OUT)/scn60/common.scn
 SCN60_COMBO := $(COMBO_SCENARIOS:scenarios/combo/%.scn=$(OUT)/scn60/combo/%.scn) $(OUT)/scn60/combo/common.scn
+SCN60_RELAYS := $(RELAY_SCENARIOS:scenarios/relays/%.scn=$(OUT)/scn60/relays/%.scn) $(OUT)/scn60/relays/common.scn
 
 check: $(CHECK)
 
 check-rf: $(CHECK_RF)
 
 check-relays: $(CHECK_RELAYS)
+
+check-relays60: $(CHECK_RELAYS60)
 
 check-new: $(CHECK_NEW)
 
@@ -207,6 +217,9 @@ $(CHECK_RF): check-rf-%: grid_sim $(FW_RF) $(if $(RX_NODES),receivers)
 $(CHECK_RELAYS): check-relays-%: grid_sim $(FW_RELAYS)
 	$(call scenario,$(FW_RELAYS),scenarios/relays/$*.scn,relays-$*)
 
+$(CHECK_RELAYS60): check-relays60-%: grid_sim $(FW_RELAYS60) $(SCN60_RELAYS)
+	$(call scenario,$(FW_RELAYS60),$(OUT)/scn60/relays/$*.scn,relays60-$*)
+
 # Temperature sensing: the two DS18B20 of configs/ds18b20.scn on D3, which must be read after their
 # conversion and reported by the datalog; the board files of the old and the new board
 $(OUT)/temp_board.scn: board_scn.sh $(CAL) configs/ds18b20.scn
@@ -265,4 +278,4 @@ receivers:
 clean:
 	rm -rf grid_sim *.o $(OUT)
 
-.PHONY: run check check-new check-new20 check-temp check-new-temp check-temp60 check-new-temp60 check-combo check-new-combo check-combo60 check-new-combo60 compare-boards compare-boards-20 compare-ct check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_NEW20) $(CHECK_TEMP) $(CHECK_NEW_TEMP) $(CHECK_TEMP60) $(CHECK_NEW_TEMP60) $(CHECK_COMBO) $(CHECK_NEW_COMBO) $(CHECK_COMBO60) $(CHECK_NEW_COMBO60) $(CHECK_RF) $(CHECK_RELAYS) receivers clean
+.PHONY: run check check-new check-new20 check-temp check-new-temp check-temp60 check-new-temp60 check-combo check-new-combo check-combo60 check-new-combo60 compare-boards compare-boards-20 compare-ct check-rf check-relays check-relays60 $(CHECK) $(CHECK_NEW) $(CHECK_NEW20) $(CHECK_TEMP) $(CHECK_NEW_TEMP) $(CHECK_TEMP60) $(CHECK_NEW_TEMP60) $(CHECK_COMBO) $(CHECK_NEW_COMBO) $(CHECK_COMBO60) $(CHECK_NEW_COMBO60) $(CHECK_RF) $(CHECK_RELAYS) $(CHECK_RELAYS60) receivers clean
