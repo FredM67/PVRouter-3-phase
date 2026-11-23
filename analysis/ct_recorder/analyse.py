@@ -27,7 +27,7 @@ GAIN_MAX = 64.0
 FIT_CYCLES_INTO_BURST = 20  # the reference is fitted on ON cycles this far into a burst, or further
 STARTUP_S = 10.0  # skipped at the start of a recording: a lagging DC removal, the candidate filters settling
 WARM_UPTIME_S = 120  # the DC removal settles within this time after power-up (the sketch waits for it)
-SHIFT_LIMIT = 1.0  # samples
+SHIFT_LIMIT_S = 1.0e-3  # the shift of the reference, a time: 1 ms is 18 deg at 50 Hz, whatever the spacing
 LOAD_RATIO_MIN = 3.0  # the current's rms in the ON cycles against its rms late in the OFF periods
 TAU_SIGNIFICANCE = 6.0  # the CT's switch-on residual must be this many standard errors above zero
 TAU_GRID = (1e-3, 30.0)  # s: the CT time constants tried
@@ -215,12 +215,16 @@ class _Context:
         if a < 0:
             k, a, b = -k, -a, -b
         theta = math.atan2(b, a)
-        if abs(theta / self.omega_dt) > SHIFT_LIMIT:
-            theta = math.copysign(SHIFT_LIMIT * self.omega_dt, theta)
+        limit = SHIFT_LIMIT_S / self.dt  # samples
+        if abs(theta / self.omega_dt) >= limit:
+            theta = math.copysign(limit * self.omega_dt, theta)
             c, s = math.cos(theta), math.sin(theta)
             g = self._gram
             k = (c * rhs[0] + s * rhs[1]) / (c * c * g[0, 0] + 2 * c * s * g[0, 1] + s * s * g[1, 1])
         return k, theta / self.omega_dt, theta
+
+    def at_shift_limit(self, shift):
+        return abs(shift) >= SHIFT_LIMIT_S / self.dt * (1 - 1e-9)
 
     def reference(self, k, theta):
         return k * (self.vc * math.cos(theta) + self.q * math.sin(theta))
@@ -309,13 +313,24 @@ class _Context:
         return self._tail
 
     def unsettled(self):
-        """The used bursts whose OFF period may end with more than TAIL_LIMIT of the CT's tail left: for the longest
-        time constant the fit allows. A long tail is a fraction of a count, its time constant only bounded from
-        below: "settled" needs the fit to show it."""
-        _, _, tau_high, _, _ = self.tail()
+        """(bursts, unconfirmed): the used bursts whose OFF period ends with more than TAIL_LIMIT of the CT's tail.
+
+        With an upper bound on the time constant, for the longest one the fit allows. Without one (a slow CT: its
+        tail is a fraction of a count), for the shortest: the fit shows the tail left at the end; if even that
+        one leaves nothing, the settling cannot be confirmed at 10 bits (unconfirmed True, no bursts), and no OFF
+        length could confirm it.
+        """
+        _, tau_low, tau_high, _, _ = self.tail()
         if math.isnan(tau_high):
-            return []
-        return [b for b in self.used if math.exp(-(b.span_end - b.end) * self.dt / tau_high) > TAIL_LIMIT]
+            return [], False
+
+        def late(tau):
+            return [b for b in self.used if math.exp(-(b.span_end - b.end) * self.dt / tau) > TAIL_LIMIT]
+
+        if not math.isinf(tau_high):
+            return late(tau_high), False
+        bursts = late(tau_low)
+        return bursts, not bursts
 
 
 def _golden_min(f, lo, hi, iterations):
@@ -349,7 +364,10 @@ def find_bursts(rec):
 
 
 def fit_reference(rec, i=None):
-    """(k, shift_samples): I out (or i) ~ k x V shifted by shift_samples (-1 to 1), on steady ON cycles."""
+    """(k, shift_samples): I out (or i) ~ k x V shifted by shift_samples, on steady ON cycles.
+
+    The shift is limited to SHIFT_LIMIT_S (1 ms) either way, converted with the recording's spacing.
+    """
     k, shift, _ = _context(rec).fit(rec.i_out if i is None else i)
     return k, shift
 
@@ -474,7 +492,15 @@ def _report_header(rec, path, lines):
         f"Overruns: {overruns} (frames lost to a full ring buffer or skipped bytes: {rec.dropped_bytes} bytes)"
     )
     k, shift, _ = ctx.fit(rec.i_out)
-    lines.append(f"Reference: k = {k:.5f} (I out per voltage count), shift = {shift:+.3f} samples")
+    lines.append(
+        f"Reference: k = {k:.5f} (I out per voltage count), shift = {shift:+.3f} samples"
+        f" ({shift * ctx.dt * 1e6:+.0f} us)"
+    )
+    if ctx.at_shift_limit(shift):
+        lines.append(
+            f"warning: the shift sits at its limit ({SHIFT_LIMIT_S * 1e3:g} ms): the phase between V and I is"
+            " larger than the conversion order and a CT explain; the burst errors carry a constant offset"
+        )
     startup = [b for b in ctx.bursts if b.excluded == "start-up"]
     excluded = [b for b in ctx.bursts if b.excluded == "overrun"]
     text = f"Bursts: {len(ctx.used)} used of {len(ctx.bursts)} ({len(startup)} in the first {STARTUP_S:g} s"
@@ -496,13 +522,21 @@ def _tail_lines(rec, lines):
             f"CT time constant: {_duration(tau)} ({_duration(tau_low)} to {high};"
             f" switch-on residual {c / 64:.2f} +- {sigma / 64:.2f} counts)"
         )
-    late = ctx.unsettled()
+    late, unconfirmed = ctx.unsettled()
+    needed = f"{math.log(1 / TAIL_LIMIT):.0f} of them needed"
     if late:
         off_s = min((b.span_end - b.end) * ctx.dt for b in late)
+        bound = f"up to {high}" if not math.isinf(tau_high) else f"of {_duration(tau_low)} or more"
         lines.append(
-            f"warning: the CT tail may not be settled at the end of the OFF period ({off_s:.1f} s, against a CT time"
-            f" constant up to {high}: {math.log(1 / TAIL_LIMIT):.0f} of them needed) in bursts"
-            f" {', '.join(str(b.number) for b in late)}: use longer OFF periods"
+            f"warning: the CT tail is not settled at the end of the OFF period ({off_s:.1f} s, against a CT time"
+            f" constant {bound}: {needed}) in bursts {', '.join(str(b.number) for b in late)}:"
+            " use longer OFF periods"
+        )
+    elif unconfirmed:
+        lines.append(
+            f"note: the settling of the CT tail cannot be confirmed at 10 bits: the CT time constant is"
+            f" {_duration(tau_low)} or more, without an upper bound (its tail is a fraction of a count); the OFF"
+            f" periods are long enough for {_duration(tau_low)} ({needed})"
         )
 
 

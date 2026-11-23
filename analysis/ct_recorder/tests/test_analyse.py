@@ -1,5 +1,6 @@
 """The analysis on synthetic recordings (3-phase spacing, default burst pattern)."""
 
+import math
 import re
 
 import numpy as np
@@ -119,3 +120,40 @@ def test_warns_when_tail_not_settled(tmp_path, capsys):
     used = [b.number for b in find_bursts(rec) if not b.excluded]
     listed = re.search(r"bursts ([0-9, ]+)", warnings[0]).group(1)
     assert used and set(used) <= {int(x) for x in listed.replace(",", " ").split()}
+
+
+def test_no_filter_at_single_phase_spacing_with_phase(tmp_path, capsys):
+    """312 us, CT2 converted 208 us after V, 2 deg more from the divider and the CT: 1.02 samples of shift.
+
+    The shift's limit is a time (1 ms), not a sample: the fit is not clamped, no warning, no filter needed.
+    """
+    path = make_recording(
+        tmp_path / "ct2.ctr", seconds=40.0, spacing_us=312, tau_s=None, i_delay_us=208, i_phase_deg=2.0
+    )
+    rec = read_recording(path)
+    expected = (208e-6 + 2.0 / 360 / 50) / 312e-6
+    _, shift = fit_reference(rec)
+    assert expected > 1.0 and abs(shift - expected) < 0.02
+    assert analyse.main([str(path)]) == 0
+    out = capsys.readouterr().out
+    assert "no filter needed" in out
+    assert "warning" not in out.lower()
+
+
+def test_unbounded_tail_says_settling_cannot_be_confirmed(tmp_path):
+    """A slow CT: its time constant has no upper bound at 10 bits. The OFF periods (3 s) cover the lower bound:
+    a note that the settling cannot be confirmed, not "use longer OFF periods"; a lower bound beyond them warns."""
+    rec = read_recording(make_recording(tmp_path / "slow.ctr", seconds=30.0, tau_s=None))
+    ctx = analyse._context(rec)
+    ctx._tail = (20.0, 0.8, math.inf, -13.0, 1.0)  # tau, tau_low, tau_high (unbounded), C, its standard error
+    lines = []
+    analyse._tail_lines(rec, lines)
+    assert not any(line.startswith("warning") for line in lines)
+    note = [line for line in lines if line.startswith("note:")]
+    assert len(note) == 1 and "cannot be confirmed at 10 bits" in note[0] and "800.0 ms or more" in note[0]
+    assert "longer OFF" not in note[0]
+    ctx._tail = (20.0, 2.0, math.inf, -13.0, 1.0)
+    lines = []
+    analyse._tail_lines(rec, lines)
+    warnings = [line for line in lines if line.startswith("warning")]
+    assert len(warnings) == 1 and "not settled" in warnings[0] and "use longer OFF periods" in warnings[0]

@@ -80,6 +80,8 @@ def make_recording(
     path,
     seconds=60.0,
     spacing_us=624,
+    i_delay_us=CONVERSION_US,
+    i_phase_deg=0.0,
     tau_s=0.015,
     pattern=DEFAULT_PATTERN,
     i_amplitude=150.0,
@@ -91,7 +93,9 @@ def make_recording(
     uptime_s=600,
     seed=1,
 ):
-    """Writes a 3-phase recording (V1/I1, I converted one conversion after V) to path and returns path.
+    """Writes a recording to path and returns path: 3-phase (V1/I1) at 624 us, single-phase at another spacing.
+
+    i_delay_us: the current converted this long after the voltage. i_phase_deg: extra phase between V and I.
 
     tau_s: the CT's high-pass time constant (None: ideal CT). i_amplitude: the load current's peak in counts
     (0: no load current, noise only). ct_filter: (alpha, gain) the sketch applies (None: filter off).
@@ -101,7 +105,9 @@ def make_recording(
     dt = spacing_us * 1e-6
     n = int(seconds / dt)
     t = 0.3e-3 + np.arange(n) * dt  # the voltage's sampling times
-    t_i = t + CONVERSION_US * 1e-6  # the current is converted one conversion later
+    # the current is converted i_delay_us after the voltage (one conversion for V1/I1, two for CT2); i_phase_deg:
+    # the phase the voltage divider and the CT add between V and I, in the same direction
+    t_i = t + i_delay_us * 1e-6 + i_phase_deg / 360.0 / 50.0
     omega = 2 * np.pi * 50.0
     v_true = 300 * np.sin(omega * t)
     step = np.where(t < dc_step_s, dc_step, 0)
@@ -153,10 +159,10 @@ def make_recording(
 
     header = {
         "version": "1.0",
-        "router": "3-phase",
+        "router": "3-phase" if spacing_us == 624 else "single-phase",
         "board": "OLD",
         "pair": "1",
-        "conversions": 6,
+        "conversions": 6 if spacing_us == 624 else 3,
         "spacing_us": spacing_us,
         "measured_spacing_us": spacing_us,
         "alpha": f"{alpha:.6f}",
