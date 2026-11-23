@@ -1,6 +1,6 @@
 # CT recorder: measure the CTs, compute the CT filter, check it
 
-Status: design, for approval. Repository: PVRouter-3-phase. A copy goes to PVRouter-1-phase once
+Status: approved by the user on 2026-11-23. Repository: PVRouter-3-phase. A copy goes to PVRouter-1-phase once
 the tool is finished.
 
 ## Why
@@ -97,6 +97,10 @@ sample spacing. The answer may also be "no filter", if the filter makes no diffe
 
 ## Settled after the builder check (my calls, for the user to check)
 
+- **The whole ADC chain as the firmware runs it, without calibration** (the user's rule). The tool
+  reproduces the firmware's sampling and sample processing exactly, but applies no
+  `f_powerCal`/`f_voltageCal`/`f_phaseCal`: everything stays in ADC units, since the analysis only
+  compares the current with the voltage of the same recording.
 - **The current path, not the filter alone.** The firmware doesn't filter the raw ADC value: it
   removes the DC offset, left-aligns to x64, filters, saturates (`processCurrentRawSample`). The
   tool runs that same path (the firmware's DC removal and `ct_filter.h`). The stream carries the
