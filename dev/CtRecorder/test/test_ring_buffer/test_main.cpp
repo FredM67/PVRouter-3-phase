@@ -54,18 +54,27 @@ void test_holds_exactly_n_frames()
 void test_overrun_flag_on_next_frame()
 {
   RingBuffer< 8 > ring;
-  for (uint8_t k = 0; k != 9; ++k)  // N + 1 without a pop
+  for (uint8_t k = 0; k != 9; ++k)  // N + 1 without a pop: the last is dropped
   {
     ring.push(frameOf(k));
   }
   TEST_ASSERT_EQUAL_UINT32(1, ring.overruns());
   FrameData f;
+  for (uint8_t k = 0; k != 8; ++k)  // the frames before the gap are not flagged
+  {
+    TEST_ASSERT_TRUE(ring.pop(f));
+    TEST_ASSERT_EQUAL_UINT16(k, f.v);
+    TEST_ASSERT_FALSE(f.overrun);
+  }
+  TEST_ASSERT_TRUE(ring.push(frameOf(100)));  // the first stored after the drop
+  TEST_ASSERT_TRUE(ring.push(frameOf(101)));
   TEST_ASSERT_TRUE(ring.pop(f));
-  TEST_ASSERT_EQUAL_UINT16(0, f.v);
+  TEST_ASSERT_EQUAL_UINT16(100, f.v);
   TEST_ASSERT_TRUE(f.overrun);
   TEST_ASSERT_TRUE(ring.pop(f));
-  TEST_ASSERT_EQUAL_UINT16(1, f.v);
+  TEST_ASSERT_EQUAL_UINT16(101, f.v);
   TEST_ASSERT_FALSE(f.overrun);
+  TEST_ASSERT_EQUAL_UINT32(1, ring.overruns());
 }
 
 int main()

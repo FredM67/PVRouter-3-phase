@@ -24,15 +24,21 @@ struct RingBuffer
     if (static_cast< uint8_t >(head_ - tail_) == N)
     {
       ++overruns_;
-      ++overrunTicks_;
+      overrunPending_ = true;
       return false;
     }
-    frames_[head_ & (N - 1)] = f;
+    FrameData &slot{ frames_[head_ & (N - 1)] };
+    slot = f;
+    if (overrunPending_)  // the first frame stored after a drop: frames were lost just before it
+    {
+      slot.overrun = true;
+      overrunPending_ = false;
+    }
     head_ = static_cast< uint8_t >(head_ + 1);
     return true;
   }
 
-  /** False when empty. The frame popped after an overrun carries the overrun flag. */
+  /** False when empty. The frame stored right after a drop carries the overrun flag (set by push()). */
   bool pop(FrameData &f)
   {
     if (head_ == tail_)
@@ -41,9 +47,6 @@ struct RingBuffer
     }
     f = frames_[tail_ & (N - 1)];
     tail_ = static_cast< uint8_t >(tail_ + 1);
-    const uint8_t ticks{ overrunTicks_ };
-    f.overrun = (ticks != seenTicks_);
-    seenTicks_ = ticks;
     return true;
   }
 
@@ -58,7 +61,7 @@ struct RingBuffer
   {
     tail_ = head_;
     overruns_ = 0;
-    seenTicks_ = overrunTicks_;
+    overrunPending_ = false;
   }
 
 private:
@@ -66,7 +69,5 @@ private:
   volatile uint8_t head_{ 0 };
   volatile uint8_t tail_{ 0 };
   volatile uint32_t overruns_{ 0 };
-  // a wrapping 8-bit copy of the count, so that one byte tells the consumer whether a frame was lost
-  volatile uint8_t overrunTicks_{ 0 };
-  uint8_t seenTicks_{ 0 };
+  bool overrunPending_{ false };  // producer only: a frame was dropped, the next one stored carries the flag
 };

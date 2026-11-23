@@ -66,6 +66,10 @@ constexpr uint32_t WARMUP_S{ 120 };
 
 constexpr uint32_t MAX_RECORD_S{ 3600 };
 
+// ADMUX is written at least this many CPU cycles after the ISR was entered: more than one ADC clock (128), as the
+// firmware, which does real work on every channel
+constexpr uint16_t ADMUX_MIN_DELAY_CYCLES{ 160 };
+
 // ADMUX to write after each conversion: the one for the conversion after next
 struct AdmuxTable
 {
@@ -113,7 +117,8 @@ inline void driveLoad(const bool on)
 
 ISR(ADC_vect)
 {
-  const uint16_t raw{ ADCW };  // left-aligned
+  const uint16_t entry{ TCNT1 };  // Timer1 counts CPU cycles: the time base of the ADMUX margin below
+  const uint16_t raw{ ADCW };     // left-aligned
   const uint8_t index{ conversionIndex };
 
   if (index == LAYOUT.vIndex)
@@ -150,7 +155,14 @@ ISR(ADC_vect)
     }
   }
 
-  // ADMUX last, at least 128 CPU cycles after the trigger: it applies to the conversion after next
+  // ADMUX applies to the conversion after next, and the datasheet only allows writing it one ADC clock (128 CPU
+  // cycles) or more after the conversion started: earlier, the running conversion may take the new channel. The
+  // paths that do no work (the channels not recorded) are shorter than that, so wait until ADMUX_MIN_DELAY_CYCLES
+  // cycles after the entry of the ISR (itself 10 or more cycles after the conversion started: interrupt latency,
+  // vector, register saves). The firmware has real work on every channel; the recorder has not.
+  while (static_cast< uint16_t >(TCNT1 - entry) < ADMUX_MIN_DELAY_CYCLES)
+  {
+  }
   ADMUX = admuxWrittenAfter[index];
   conversionIndex = static_cast< uint8_t >((index + 1 == LAYOUT.conversions) ? 0 : index + 1);
 }
@@ -466,6 +478,8 @@ void setup()
     digitalWrite(pin, LEVEL_OFF);
   }
 
+  TCCR1A = 0;
+  TCCR1B = (1U << CS10);  // Timer1 free-running at the CPU clock, read by the ISR (ADMUX margin)
   startAdc();
 }
 
