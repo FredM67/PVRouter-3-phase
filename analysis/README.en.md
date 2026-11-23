@@ -47,6 +47,14 @@ analysis/
 - **ema_effectiveness_analysis_extended.py**: Comprehensive comparison of EMA, DEMA, and TEMA filtering effectiveness with extended scenarios showing long-term stabilization.
 - **tema_comparison.py**: Focused comparison between multi-alpha TEMA (production implementation) and standard single-alpha TEMA.
 
+### CT Recorder
+
+**Location**: `ct_recorder/` (Python tool) and `../dev/CtRecorder/` (sketch)
+
+- The sketch records the router's ADC chain (one voltage, one current, no calibration) while the load is driven in bursts. The tool analyses the recording and finds the CT filter (`lpf_gain` and `alpha` in `calibration.h`), or concludes that no filter is needed.
+- Not yet tested on a real board.
+- Workflow and how to read the report: [dev/CtRecorder/README.en.md](../dev/CtRecorder/README.en.md).
+
 ### Cloud Pattern Visualization
 
 **Location**: `../Mk2_3phase_RFdatalog_temp/scripts/`
