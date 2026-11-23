@@ -1961,6 +1961,51 @@
     "mult_asm: mult16x8_q8 per op": 27.16,
     "mult_asm: ISR simulation per sample": 132.09
    }
+  },
+  {
+   "commit": "261d100086341b7b26f7d123718584b0b8a14a97",
+   "date": "2026-11-23T16:31:48+01:00",
+   "message": "test(sim): relay scenarios at 60 Hz in CI; no point check on a modulating load (#252)\n\nrotation_pin_off_peak checked D6 ON at one instant, but with 1800 W of surplus D6 is the second\nload and modulates (7 cycles ON, 2 OFF at 60 Hz): the instant fell in an OFF gap at 60 Hz and in\nan ON stretch at 50 Hz by luck. The check is removed, and scenarios/relays now also run at 60 Hz\nin CI (make check-relays60, ci_targets.sh relays60), so such a difference shows up there.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/261d100086341b7b26f7d123718584b0b8a14a97",
+   "sizes": {
+    "basic": {
+     "flash": 7928,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12330,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7928,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7800,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
