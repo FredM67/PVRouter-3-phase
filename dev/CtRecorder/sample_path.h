@@ -64,6 +64,30 @@ public:
     return dcOffset_;
   }
 
+  // The rest of the state a recording header carries (a copy of the object is the snapshot: it is trivially copyable)
+
+  /** The integrator of the offset (Q17.15). */
+  uint32_t integrator() const
+  {
+    return filterDC_;
+  }
+
+  bool confirmedPositive() const
+  {
+    return confirmed_ == POSITIVE;
+  }
+
+  bool lastConfirmedPositive() const
+  {
+    return lastConfirmed_ == POSITIVE;
+  }
+
+  /** Samples counted towards a change of polarity. */
+  uint8_t persistenceCount() const
+  {
+    return count_;
+  }
+
 private:
   enum Polarity : uint8_t
   {

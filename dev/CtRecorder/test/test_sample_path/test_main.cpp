@@ -105,9 +105,32 @@ void test_current_uses_voltage_offset()
   TEST_ASSERT_EQUAL_INT16(static_cast< int16_t >((raw | 32U) - p.dcOffset()), p.currentMinusDc(raw));
 }
 
+void test_copy_is_a_snapshot_of_the_whole_state()
+{
+  SamplePath p;
+  for (uint32_t n = 0; n != 3200; ++n)
+  {
+    p.onVoltage(sineRaw(n, 530.0, 300.0));
+  }
+  SamplePath copy{ p };  // what the recorder's ISR snapshots
+  TEST_ASSERT_EQUAL_UINT32(p.integrator(), copy.integrator());
+  for (uint32_t n = 3200; n != 3600; ++n)
+  {
+    const uint16_t raw{ sineRaw(n, 530.0, 300.0) };
+    TEST_ASSERT_EQUAL_INT16(p.onVoltage(raw), copy.onVoltage(raw));
+    TEST_ASSERT_EQUAL_UINT16(p.dcOffset(), copy.dcOffset());
+    TEST_ASSERT_EQUAL_UINT32(p.integrator(), copy.integrator());
+    TEST_ASSERT_EQUAL(p.confirmedPositive(), copy.confirmedPositive());
+    TEST_ASSERT_EQUAL(p.lastConfirmedPositive(), copy.lastConfirmedPositive());
+    TEST_ASSERT_EQUAL_UINT8(p.persistenceCount(), copy.persistenceCount());
+    TEST_ASSERT_EQUAL(p.cycleStarted(), copy.cycleStarted());
+  }
+}
+
 int main()
 {
   UNITY_BEGIN();
+  RUN_TEST(test_copy_is_a_snapshot_of_the_whole_state);
   RUN_TEST(test_initial_offset_is_nominal);
   RUN_TEST(test_voltage_minus_dc_rounds_half);
   RUN_TEST(test_offset_tracks_a_shifted_sine);

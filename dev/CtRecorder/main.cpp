@@ -99,6 +99,16 @@ float filterAlpha{ 0.0F };
 float filterGain{ 0.0F };
 volatile bool filterOn{ false };
 
+// The state of the two filters just before the first recorded sample set (they run warm before a recording)
+struct Snapshot
+{
+  SamplePath path;
+  CtFilter::LowPassBoost lowPass;
+};
+Snapshot snapshot;
+volatile bool snapshotRequested{ false };
+volatile bool snapshotTaken{ false };
+
 volatile bool recording{ false };
 volatile bool loadOn{ false };
 volatile uint32_t setsConverted{ 0 };  // voltage conversions so far: one per sample set
@@ -123,6 +133,15 @@ ISR(ADC_vect)
 
   if (index == LAYOUT.vIndex)
   {
+    if (snapshotRequested)
+    {
+      // once per recording: the state before this set is processed, and recording starts with it (its current
+      // follows in the same set). One struct copy, taken here so that it is consistent with the first frame.
+      snapshot = Snapshot{ samplePath, lowPass };
+      snapshotRequested = false;
+      snapshotTaken = true;
+      recording = true;
+    }
     samplePath.onVoltage(raw);
     lastV = raw;
     lastCycleStart = samplePath.cycleStarted();
@@ -197,6 +216,14 @@ void printHeaderLine(const __FlashStringHelper *key, const char *value)
 }
 
 void printHeaderLine(const __FlashStringHelper *key, uint32_t value)
+{
+  Serial.print('#');
+  Serial.print(key);
+  Serial.print(' ');
+  Serial.println(value);
+}
+
+void printSignedHeaderLine(const __FlashStringHelper *key, int32_t value)
 {
   Serial.print('#');
   Serial.print(key);
@@ -398,13 +425,46 @@ void commandRecord(const char *args)
   interrupts();
   printHeaderLine(F("dc_offset"), dcOffset);
   printHeaderLine(F("uptime_s"), millis() / 1000UL);
-  Serial.println(F("#BEGIN"));
 
+  // the coefficients the ISR uses: the 6-decimal alpha above cannot rebuild them (names of CtFilter::Coefficients)
+  noInterrupts();
+  const CtFilter::Coefficients coef{ coefficients };
+  interrupts();
+  printSignedHeaderLine(F("alpha_fixed"), static_cast< int32_t >(coef.alpha));
+  printHeaderLine(F("alpha_shift"), static_cast< uint32_t >(coef.alphaShift));
+  printSignedHeaderLine(F("gain_fixed"), static_cast< int32_t >(coef.gain));
+  printSignedHeaderLine(F("gain_half"), static_cast< int32_t >(coef.gainHalf));
+  printSignedHeaderLine(F("gain_quarter"), static_cast< int32_t >(coef.gainQuarter));
+
+  // recording starts at the next voltage sample, which snapshots the state of the filters; the frames queue in
+  // the ring while the snapshot is printed (about 5 ms of the 80 ms it holds)
   noInterrupts();
   ring.clear();
   cursor.reset(pattern);  // the first cycle start after this is cycle 0 of the pattern
-  recording = true;
+  snapshotTaken = false;
+  snapshotRequested = true;
   interrupts();
+  const uint32_t requested{ millis() };
+  while (!snapshotTaken)
+  {
+    if (static_cast< uint32_t >(millis() - requested) > 500UL)
+    {
+      noInterrupts();
+      snapshotRequested = false;
+      interrupts();
+      Serial.println(F("#ERR no ADC conversions"));
+      return;
+    }
+  }
+  const Snapshot start{ snapshot };  // not touched by the ISR any more
+  printHeaderLine(F("state_dc_offset"), static_cast< uint32_t >(start.path.dcOffset()));
+  printHeaderLine(F("state_integrator"), start.path.integrator());
+  printHeaderLine(F("state_confirmed"), static_cast< uint32_t >(start.path.confirmedPositive()));
+  printHeaderLine(F("state_last_confirmed"), static_cast< uint32_t >(start.path.lastConfirmedPositive()));
+  printHeaderLine(F("state_count"), static_cast< uint32_t >(start.path.persistenceCount()));
+  printSignedHeaderLine(F("state_lpf_x64"), static_cast< int32_t >(start.lowPass.lpfX64));
+  printHeaderLine(F("state_lpf_low_bits"), static_cast< uint32_t >(start.lowPass.lpfLowBits));
+  Serial.println(F("#BEGIN"));
 
   uint32_t frames{ 0 };
   FrameData f;

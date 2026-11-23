@@ -4,6 +4,9 @@ Plain Python ints with the C++ widths made explicit: wrap16/wrap32 for the integ
 ints is the arithmetic shift gcc gives, the float to fixed conversions run in float32 as the C++ does.
 """
 
+from dataclasses import dataclass
+from typing import NamedTuple
+
 import numpy as np
 
 PERSISTENCE_FOR_POLARITY_CHANGE = 1
@@ -26,8 +29,38 @@ def _to_int16(f):
     return wrap16(int(f))
 
 
+class Coefficients(NamedTuple):
+    """CtFilter::Coefficients (fixed point, ints)."""
+
+    alpha: int
+    alpha_x2: int
+    alpha_x4: int
+    shift: int
+    gain: int
+    gain_half: int
+    gain_quarter: int
+
+    @classmethod
+    def from_fixed(cls, alpha, shift, gain, gain_half, gain_quarter):
+        """From what the recording header carries (alpha_x2 and alpha_x4 are multiples of alpha)."""
+        return cls(alpha, wrap16(2 * alpha), wrap16(4 * alpha), shift, gain, gain_half, gain_quarter)
+
+
+@dataclass
+class PathState:
+    """The state of SamplePath and LowPassBoost at the start of a run (default: the power-up state)."""
+
+    dc_offset: int = 511 << 6
+    filter_dc: int = (511 << 6) << 15
+    confirmed: int = 0
+    last_confirmed: int = 0
+    count: int = 0
+    lpf_x64: int = 0
+    lpf_low_bits: int = 0
+
+
 def coefficients_of(gain, alpha):
-    """CtFilter::coefficientsOf(): (alpha, alphaX2, alphaX4, shift, gain, gainHalf, gainQuarter)."""
+    """CtFilter::coefficientsOf(gain, alpha), in float32."""
     f32 = np.float32
     gain = f32(gain)
     alpha = f32(alpha)
@@ -36,7 +69,7 @@ def coefficients_of(gain, alpha):
     while shift != 0 and alpha * f32(1 << (16 + shift)) + half >= f32(ALPHA_FIXED_LIMIT):
         shift -= 1
     alpha_fixed = _to_int16(alpha * f32(1 << (16 + shift)) + half)
-    return (
+    return Coefficients(
         alpha_fixed,
         wrap16(2 * alpha_fixed),
         wrap16(4 * alpha_fixed),
@@ -50,12 +83,13 @@ def coefficients_of(gain, alpha):
 class SamplePath:
     """sample_path.h. Samples are left-aligned (10-bit << 6)."""
 
-    def __init__(self):
-        self.dc_offset = 511 << 6
-        self.filter_dc = (511 << 6) << 15
-        self.confirmed = 0  # 0 negative, 1 positive
-        self.last_confirmed = 0
-        self.count = 0
+    def __init__(self, state=None):
+        state = state or PathState()
+        self.dc_offset = state.dc_offset
+        self.filter_dc = state.filter_dc
+        self.confirmed = state.confirmed  # 0 negative, 1 positive
+        self.last_confirmed = state.last_confirmed
+        self.count = state.count
         self.cycle_started = False
 
     def on_voltage(self, raw):
@@ -84,9 +118,10 @@ class SamplePath:
 class LowPassBoost:
     """CtFilter::LowPassBoost, state starting at zero."""
 
-    def __init__(self):
-        self.lpf_x64 = 0
-        self.lpf_low_bits = 0
+    def __init__(self, state=None):
+        state = state or PathState()
+        self.lpf_x64 = state.lpf_x64
+        self.lpf_low_bits = state.lpf_low_bits
 
     def apply(self, sample, coef):
         alpha, alpha_x2, alpha_x4, shift, gain, gain_half, gain_quarter = coef
@@ -117,11 +152,21 @@ class LowPassBoost:
         return max(INT16_MIN, min(INT16_MAX, out))
 
 
-def firmware_current(v_raw, i_raw, alpha, gain):
-    """I out as the sketch streams it, from the 10-bit raw V and I of the frames. Gain 0: filter off."""
-    path = SamplePath()
-    coef = coefficients_of(gain, alpha) if gain != 0 else None
-    low_pass = LowPassBoost()
+def firmware_current(v_raw, i_raw, alpha=None, gain=None, coefficients=None, state=None):
+    """I out as the sketch streams it, from the 10-bit raw V and I of the frames.
+
+    The filter is given by coefficients (a Coefficients, as the recording header carries them) or, as a
+    convenience, by alpha and gain; neither, or a gain of 0: filter off. state is a PathState (the recording's
+    snapshot); without it the run starts from the power-up state.
+    """
+    path = SamplePath(state)
+    if coefficients is not None:
+        coef = coefficients
+    elif gain:
+        coef = coefficients_of(gain, alpha)
+    else:
+        coef = None
+    low_pass = LowPassBoost(state)
     out = np.empty(len(v_raw), dtype=np.int16)
     for k, (v, i) in enumerate(zip(np.asarray(v_raw).tolist(), np.asarray(i_raw).tolist())):
         path.on_voltage(v << 6)

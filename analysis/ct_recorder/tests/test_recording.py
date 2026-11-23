@@ -39,3 +39,26 @@ def test_reader_resyncs_after_garbage(tmp_path):
     rec = read_recording(path)
     assert list(rec.v_raw) == [1, 4, 7]
     assert rec.dropped_bytes == 5 + len(truncated)
+
+
+def test_resync_rejects_a_sync_byte_inside_a_broken_frame(tmp_path):
+    first = frame(0, 1, 2, 3)
+    broken = bytes([0xA5, 0x00, 0x07, 0x00, 0x08])  # a frame cut short
+    garbage = bytes([0x00, 0xA5, 0x00, 0x01, 0x00, 0x02, 0x00])  # holds a 0xA5 that looks like a frame start
+    body = first + broken + garbage + frame(1, 4, 5, 6) + frame(0, 7, 8, 9)
+    path = tmp_path / "r.bin"
+    path.write_bytes(HEADER + body + b"#END frames=3 overruns=0\n")
+    rec = read_recording(path)
+    assert list(rec.v_raw) == [1, 4, 7]
+    assert list(rec.i_out) == [3, 6, 9]
+    assert rec.dropped_bytes == len(broken) + len(garbage)
+    assert rec.resync_indices == [1]
+    assert list(rec.overrun) == [False, True, False]  # the gap is marked on the first frame after it
+
+
+def test_clean_recording_has_no_resync(tmp_path):
+    path = tmp_path / "r.bin"
+    path.write_bytes(HEADER + frame(0, 1, 2, 3) + frame(0, 4, 5, 6) + b"#END frames=2 overruns=0\n")
+    rec = read_recording(path)
+    assert rec.resync_indices == [] and not rec.overrun.any() and rec.dropped_bytes == 0
+    assert rec.coefficients is None and rec.initial_state is None
