@@ -100,8 +100,8 @@ constexpr uint16_t roundCycles(const uint8_t noOfSensors, const uint8_t supplyFr
  *
  * @details The round starts at the first cycle of the period, or the next one if the first is
  *          late; one cycle per second of the round may be late; and it must be over before the
- *          last cycle of the period, whose datalog copies run in the ADC interrupt right after the
- *          new cycle is flagged.
+ *          last cycle of the period, whose datalog copies run in the ADC interrupt at L1's crossing,
+ *          before the new cycle is flagged.
  *
  * @param noOfSensors The number of sensors
  * @param supplyFrequency SUPPLY_FREQUENCY
