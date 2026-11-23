@@ -27,9 +27,14 @@ GAIN_MAX = 64.0
 FIT_CYCLES_INTO_BURST = 20  # the reference is fitted on ON cycles this far into a burst, or further
 STARTUP_S = 10.0  # skipped at the start of a recording: a lagging DC removal, the candidate filters settling
 WARM_UPTIME_S = 120  # the DC removal settles within this time after power-up (the sketch waits for it)
-# the shift of the reference, a time whatever the spacing: 2 ms is 36 deg at 50 Hz. A fast CT leads the current:
-# 12 deg (0.67 ms) for a 15 ms CT, 32 deg (1.8 ms) for a 5 ms one, plus up to 208 us of conversion order (CT2)
-SHIFT_LIMIT_S = 2.0e-3
+# The shift of the reference, a time whatever the spacing (positive: the current leads). A correct setup only
+# leads: the current is converted after the voltage (104 to 208 us) and a CT leads it, 12 deg (0.67 ms) for a
+# 15 ms CT, 32 deg (1.8 ms) for a 5 ms one; from +105 us (ideal CT) to about +1.8 ms (5 ms CT on CT2).
+# SHIFT_MAX_S: 2 ms (36 deg at 50 Hz) covers that. SHIFT_MIN_S: -0.5 ms (-9 deg) leaves room for a phase error of
+# a few degrees in the divider or the CT; a current lagging more is a load on another phase (+120 deg folds to
+# -60 deg with k < 0) or the wrong pair, and is refused.
+SHIFT_MIN_S = -0.5e-3
+SHIFT_MAX_S = 2.0e-3
 LOAD_RATIO_MIN = 3.0  # the current's rms in the ON cycles against its rms late in the OFF periods
 # A burst without current (the heater's thermostat cut out, the sketch still switching): its weakest ON cycle,
 # from the LEVEL_CYCLES_INTO_BURST-th on, carries less than NO_CURRENT_RATIO of the load's current (the
@@ -170,10 +175,20 @@ class _Context:
         """Refuses a raw current that is not k x V shifted on the fit's cycles: what the fit leaves is above
         PROPORTIONAL_RESIDUAL_MAX of the current.
 
-        A shift at its limit alone does not refuse: the fit then leaves little when the true shift is only a
-        little beyond, and the report warns. A shift well beyond the limit (a load on another phase: 120 deg)
-        leaves far more than PROPORTIONAL_RESIDUAL_MAX.
+        Refuses first a best shift below SHIFT_MIN_S: the current lags the voltage. A load on phase 3 (+120 deg)
+        folds to -60 deg with k < 0, and a fast CT's lead would bring it back inside the bounds.
+
+        A shift at its upper bound alone does not refuse: the fit then leaves little when the true shift is only
+        a little beyond, and the report warns. A shift well beyond it leaves far more than
+        PROPORTIONAL_RESIDUAL_MAX.
         """
+        _, best, _ = self.fit(self.raw, bounded=False)
+        if best * self.dt < SHIFT_MIN_S:
+            raise AnalysisError(
+                f"current not proportional to the voltage: the current lags the voltage by {-best * self.dt * 1e6:.0f}"
+                f" us ({-SHIFT_MIN_S * 1e6:.0f} us at most): load not resistive, or on another phase, or wrong pair;"
+                " check that the CT is on the load's phase and that the recorded pair is the load's"
+            )
         k, _, theta = self.fit(self.raw)
         ref = self.reference(k, theta)[self.mask]
         left = self.raw[self.mask] - ref
@@ -271,8 +286,12 @@ class _Context:
                 edges = (b.flag_on, b.flag_off, b.flag_next)
             b.start, b.end, b.span_end = edges
 
-    def fit(self, i):
-        """(k, shift in samples, theta) of i ~ k x V shifted, least squares on the fit's samples."""
+    def fit(self, i, bounded=True):
+        """(k, shift in samples, theta) of i ~ k x V shifted, least squares on the fit's samples.
+
+        k takes the sign that keeps the shift within +-90 deg (a CT clamped the wrong way round gives k < 0).
+        bounded: the shift is held within SHIFT_MIN_S to SHIFT_MAX_S; False: the best shift, unbounded.
+        """
         i_m = np.asarray(i, dtype=float)[self.mask]
         rhs = np.array([self._v_m @ i_m, self._q_m @ i_m])
         a, b = np.linalg.solve(self._gram, rhs)
@@ -280,16 +299,18 @@ class _Context:
         if a < 0:
             k, a, b = -k, -a, -b
         theta = math.atan2(b, a)
-        limit = SHIFT_LIMIT_S / self.dt  # samples
-        if abs(theta / self.omega_dt) >= limit:
-            theta = math.copysign(limit * self.omega_dt, theta)
+        low, high = (SHIFT_MIN_S / self.dt * self.omega_dt, SHIFT_MAX_S / self.dt * self.omega_dt)  # radians
+        if bounded and not low < theta < high:
+            theta = low if theta <= low else high
             c, s = math.cos(theta), math.sin(theta)
             g = self._gram
             k = (c * rhs[0] + s * rhs[1]) / (c * c * g[0, 0] + 2 * c * s * g[0, 1] + s * s * g[1, 1])
         return k, theta / self.omega_dt, theta
 
     def at_shift_limit(self, shift):
-        return abs(shift) >= SHIFT_LIMIT_S / self.dt * (1 - 1e-9)
+        """The shift sits at either bound."""
+        margin = 1 - 1e-9
+        return shift >= SHIFT_MAX_S / self.dt * margin or shift <= SHIFT_MIN_S / self.dt * margin
 
     def reference(self, k, theta):
         return k * (self.vc * math.cos(theta) + self.q * math.sin(theta))
@@ -432,7 +453,7 @@ def find_bursts(rec):
 def fit_reference(rec, i=None):
     """(k, shift_samples): I out (or i) ~ k x V shifted by shift_samples, on steady ON cycles.
 
-    The shift is limited to SHIFT_LIMIT_S (2 ms) either way, converted with the recording's spacing.
+    The shift is held within SHIFT_MIN_S to SHIFT_MAX_S (-0.5 to +2 ms), converted with the recording's spacing.
     """
     k, shift, _ = _context(rec).fit(rec.i_out if i is None else i)
     return k, shift
@@ -564,8 +585,9 @@ def _report_header(rec, path, lines):
     )
     if ctx.at_shift_limit(shift):
         lines.append(
-            f"warning: the shift sits at its limit ({SHIFT_LIMIT_S * 1e3:g} ms): the phase between V and I is"
-            " larger than the conversion order and a CT explain; the burst errors carry a constant offset"
+            f"warning: the shift sits at its limit ({(SHIFT_MAX_S if shift > 0 else SHIFT_MIN_S) * 1e3:+g} ms): the"
+            " phase between V and I is larger than the conversion order and a CT explain; the burst errors carry a"
+            " constant offset"
         )
     startup = [b for b in ctx.bursts if b.excluded == "start-up"]
     excluded = [b for b in ctx.bursts if b.excluded and b.excluded != "start-up"]

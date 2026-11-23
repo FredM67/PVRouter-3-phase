@@ -125,7 +125,7 @@ def test_warns_when_tail_not_settled(tmp_path, capsys):
 def test_no_filter_at_single_phase_spacing_with_phase(tmp_path, capsys):
     """312 us, CT2 converted 208 us after V, 2 deg more from the divider and the CT: 1.02 samples of shift.
 
-    The shift's limit is a time (1 ms), not a sample: the fit is not clamped, no warning, no filter needed.
+    The shift's bounds are times, not samples: the fit is not clamped, no warning, no filter needed.
     """
     path = make_recording(
         tmp_path / "ct2.ctr", seconds=40.0, spacing_us=312, tau_s=None, i_delay_us=208, i_phase_deg=2.0
@@ -213,7 +213,7 @@ def test_fast_ct_on_single_phase_ct2_is_not_refused(tmp_path):
         tmp_path / "ct2.ctr", seconds=40.0, spacing_us=312, tau_s=0.015, i_delay_us=208, i_phase_deg=2.0
     )
     _, shift = fit_reference(read_recording(path))
-    assert 0.9e-3 < shift * 312e-6 < analyse.SHIFT_LIMIT_S
+    assert 0.9e-3 < shift * 312e-6 < analyse.SHIFT_MAX_S
 
 
 @pytest.mark.parametrize("tau_s", [0.005, 0.006])
@@ -235,3 +235,29 @@ def test_fast_ct_is_not_refused_and_the_filter_is_found(tmp_path, tau_s, layout)
     on = burst_energy_errors(rec, firmware_current(rec.v_raw, rec.i_raw, alpha, gain, state=rec.initial_state))
     assert gain > 0
     assert rms(on) < 0.5 * rms(off)
+
+
+@pytest.mark.parametrize("phase_deg, tau_s", [(120.0, 0.006), (120.0, 0.010), (240.0, None), (240.0, 0.006)])
+def test_load_on_another_phase_is_refused_whatever_the_ct(tmp_path, capsys, phase_deg, tau_s):
+    """+120 deg folds to -60 deg with k < 0; a fast CT's lead brings it back within 2 ms of zero. A correct setup
+    only gives positive shifts (conversion order plus CT lead): a current lagging the voltage is refused."""
+    path = make_recording(tmp_path / "phase.ctr", seconds=40.0, tau_s=tau_s, i_phase_deg=phase_deg)
+    with pytest.raises(AnalysisError, match="current not proportional to the voltage"):
+        fit_reference(read_recording(path))
+    assert analyse.main([str(path)]) != 0
+    assert "lpf_gain" not in capsys.readouterr().out
+
+
+def test_lagging_current_message(tmp_path):
+    path = make_recording(tmp_path / "phase.ctr", seconds=40.0, tau_s=0.006, i_phase_deg=120.0)
+    with pytest.raises(AnalysisError, match="the current lags the voltage.*on another phase, or wrong pair"):
+        fit_reference(read_recording(path))
+
+
+def test_reversed_ct_with_a_positive_shift_is_accepted(tmp_path, capsys):
+    """A CT clamped the wrong way round: k < 0, the shift still positive (conversion order plus CT lead)."""
+    path = make_recording(tmp_path / "reversed.ctr", seconds=SECONDS, tau_s=0.015, i_amplitude=-150.0)
+    k, shift = fit_reference(read_recording(path))
+    assert k < 0 and 0 < shift * 624e-6 < analyse.SHIFT_MAX_S
+    assert analyse.main([str(path)]) == 0
+    assert "filter needed" in capsys.readouterr().out
