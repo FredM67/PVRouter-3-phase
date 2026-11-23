@@ -78,6 +78,10 @@ If you keep your own `config.h`, check these points:
   `inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } };` for one water heater
   on every local load (what rotation did before, when every load is local). An empty list with
   rotation on stops the build with *Priority rotation is on but rotationGroups is empty* ([#241]).
+- **Temperature sensors and the datalog period:** a round of reads (the conversion, 750 ms, then
+  3 mains cycles per sensor) must end within the datalog period. With a 1 s period, at most 3
+  sensors at 50 Hz, 4 at 60 Hz; more stops the build with *Too many temperature sensors for
+  DATALOG_PERIOD_IN_SECONDS*. Lengthen `DATALOG_PERIOD_IN_SECONDS`, or use fewer sensors.
 
 No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still
@@ -115,10 +119,6 @@ valid load maps ([#160]).
 
 ### Changed
 
-- **Temperature sensors and the datalog period:** a round of reads (the conversion, 750 ms, then
-  3 mains cycles per sensor) must end within the datalog period. With a 1 s period, at most 3
-  sensors at 50 Hz, 4 at 60 Hz; more stops the build with *Too many temperature sensors for
-  DATALOG_PERIOD_IN_SECONDS*. Lengthen `DATALOG_PERIOD_IN_SECONDS`, or use fewer sensors.
 - **Temperature sensing keeps the ADC deadline** with remote loads and relays: the DS18B20 are
   read in short 1-Wire transactions, one per mains cycle at most, started right after the cycle's
   heavy ADC interrupt call (`temp_schedule.h`). A 1-Wire reset or `0` keeps interrupts off for
