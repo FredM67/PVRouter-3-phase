@@ -182,12 +182,13 @@ make -C sim check-combo                  # at 60 Hz: also configs/supply_60hz.pa
 
 ### In CI
 
-The scenarios are spread over parallel jobs: three for the grid scenarios, one for the RF ones (`build.yml`), three for the relay ones (`relay-sim.yml`). `ci_targets.sh` gives the make targets of a job, from the scenarios it finds: job k of n takes every n-th scenario, starting from the k-th. A grid scenario runs on its three boards and on the four temperature builds (50 and 60 Hz) in the same job; the job then compares the three boards. The combination scenarios (`scenarios/combo`) have a job of their own, on their four builds.
+The scenarios are spread over parallel jobs: three for the grid scenarios, one for the RF ones (`build.yml`), three for the relay ones (`relay-sim.yml`). `ci_targets.sh` gives the make targets of a job, from the scenarios it finds: job k of n takes every n-th scenario, starting from the k-th. A grid scenario runs on its three boards and on the four temperature builds (50 and 60 Hz) in the same job; the job then compares the three boards. The combination scenarios (`scenarios/combo`) have two jobs of their own: their two 50 Hz builds in one, their two 60 Hz builds in the other.
 
 ```bash
 sim/ci_targets.sh grid 1/3      # check-clouds check-new-clouds check-new20-clouds check-temp-clouds check-new-temp-clouds check-temp60-clouds check-new-temp60-clouds
 sim/ci_targets.sh relays 2/3    # check-relays-relay_import_first check-relays-relay_steps
-sim/ci_targets.sh combo 1/1     # check-combo-surplus_ladder check-new-combo-surplus_ladder check-combo60-surplus_ladder check-new-combo60-surplus_ladder
+sim/ci_targets.sh combo 1/1     # check-combo-surplus_ladder check-new-combo-surplus_ladder
+sim/ci_targets.sh combo60 1/1   # check-combo60-surplus_ladder check-new-combo60-surplus_ladder
 ```
 
 With more scenarios than jobs, a job runs several of them in parallel. A new scenario needs no change to the workflows; more jobs, only their `part` list.

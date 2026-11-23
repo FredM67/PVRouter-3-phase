@@ -262,7 +262,7 @@ jobs:
   # The production firmware on a simulated 3-phase grid (sim/README.md):
   # regulation, load priorities, ISR timing and switching instants, no hardware needed.
   grid-sim:
-    name: Grid simulation (${{ matrix.part == 'rf' && 'RF' || matrix.part == 'combo' && 'RF, relays, temperature' || matrix.part }})
+    name: Grid simulation (${{ matrix.part == 'rf' && 'RF' || matrix.part == 'combo' && 'RF, relays, temperature' || matrix.part == 'combo60' && 'RF, relays, temperature, 60 Hz' || matrix.part }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
     # the same banner length whatever the checkout: same code, same switching instants (sim/README.md)
@@ -270,11 +270,12 @@ jobs:
       PVR_SIM_BUILD: 1
     # the scenarios spread over jobs: each grid scenario on its seven builds (sim/ci_targets.sh),
     # and the RF ones, which run three microcontrollers each, in a job of their own, as the
-    # combination (remote loads, RF datalog, relays and temperature sensing) on its four builds
+    # combination (remote loads, RF datalog, relays and temperature sensing) on its two boards,
+    # one job at 50 Hz and one at 60 Hz
     strategy:
       fail-fast: false
       matrix:
-        part: [ '1/3', '2/3', '3/3', rf, combo ]
+        part: [ '1/3', '2/3', '3/3', rf, combo, combo60 ]
     steps:
       - uses: actions/checkout@v7
         with:
@@ -365,7 +366,7 @@ jobs:
           git checkout ${{ env.PROJECT_DIR }}/config.h
 
       - name: Build firmware (RF, relays, temperature sensing, 60 Hz)
-        if: matrix.part == 'combo'
+        if: matrix.part == 'combo60'
         run: |
           sim/configs/sim_config.sh
           git apply --unidiff-zero sim/configs/temp_rf_relays.patch sim/configs/supply_60hz.patch
@@ -373,7 +374,7 @@ jobs:
           git checkout ${{ env.PROJECT_DIR }}/config.h ${{ env.PROJECT_DIR }}/config_system.h
 
       - name: Build firmware (new board, RF, relays, temperature sensing, 60 Hz)
-        if: matrix.part == 'combo'
+        if: matrix.part == 'combo60'
         run: |
           sim/configs/sim_config.sh NEW
           git apply --unidiff-zero sim/configs/temp_rf_relays.patch sim/configs/supply_60hz.patch
@@ -388,8 +389,8 @@ jobs:
         run: |
           if [ "${{ matrix.part }}" = rf ]; then
             targets=check-rf
-          elif [ "${{ matrix.part }}" = combo ]; then
-            targets=$(sim/ci_targets.sh combo 1/1)
+          elif [ "${{ matrix.part }}" = combo ] || [ "${{ matrix.part }}" = combo60 ]; then
+            targets=$(sim/ci_targets.sh ${{ matrix.part }} 1/1)
           else
             targets=$(sim/ci_targets.sh grid ${{ matrix.part }})
           fi

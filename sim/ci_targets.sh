@@ -7,9 +7,10 @@
 #                                  the boards of a scenario stay in the same job, which can then
 #                                  compare them
 #   ci_targets.sh relays <k>/<n>   scenarios/relays/*.scn
-#   ci_targets.sh combo <k>/<n>    scenarios/combo/*.scn, on the four builds with remote loads, RF datalog,
-#                                  relays and temperature sensing (check-combo-, check-new-combo-, and at
-#                                  60 Hz check-combo60-, check-new-combo60-)
+#   ci_targets.sh combo <k>/<n>    scenarios/combo/*.scn, on the two 50 Hz builds with remote loads, RF
+#                                  datalog, relays and temperature sensing (check-combo-, check-new-combo-)
+#   ci_targets.sh combo60 <k>/<n>  the same scenarios on the two 60 Hz builds (check-combo60-,
+#                                  check-new-combo60-)
 #
 # Job k of n takes every n-th scenario, in alphabetical order, starting from the k-th. The
 # scenarios are found here, as the Makefile finds them: a new one is always run by some job.
@@ -23,7 +24,7 @@ n=${2#*/}
 case $set_name in
   grid)   dir=$here/scenarios ;;
   relays) dir=$here/scenarios/relays ;;
-  combo)  dir=$here/scenarios/combo ;;
+  combo | combo60) dir=$here/scenarios/combo ;;
   *) echo "ci_targets.sh: unknown set '$set_name'" >&2; exit 1 ;;
 esac
 
@@ -37,7 +38,8 @@ for name in $names; do
   case $set_name in
     grid)   printf 'check-%s check-new-%s check-new20-%s check-temp-%s check-new-temp-%s check-temp60-%s check-new-temp60-%s\n' "$name" "$name" "$name" "$name" "$name" "$name" "$name" ;;
     relays) printf 'check-relays-%s\n' "$name" ;;
-    combo)  printf 'check-combo-%s check-new-combo-%s check-combo60-%s check-new-combo60-%s\n' "$name" "$name" "$name" "$name" ;;
+    combo)   printf 'check-combo-%s check-new-combo-%s\n' "$name" "$name" ;;
+    combo60) printf 'check-combo60-%s check-new-combo60-%s\n' "$name" "$name" ;;
   esac
 done | tr '\n' ' '
 echo
