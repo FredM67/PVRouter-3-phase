@@ -1916,6 +1916,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "20341e2c0684a45324595cc1a758261b784fc9a9",
+   "date": "2026-11-23T15:12:12+01:00",
+   "message": "feat: 1-Wire transactions start right after the mains-cycle boundary (#251)\n\n* test(sim): temperature with remote loads, RF datalog and relays in one build, not in CI\n\nconfigs/temp_rf_relays.patch builds the heaviest combination (two remote loads, RF data logging,\ntwo relays, two DS18B20 on D3) and scenarios/combo/surplus_ladder.scn runs every feature at once.\nThe scenario passes on the same build without sensors; with sensors it misfiles samples and\nwrites ADMUX after the next conversion started, so no make target runs it and CI does not.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: design and plan of the 1-Wire scheduling port\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat: temp_schedule.h, which 1-Wire transaction runs on which mains cycle\n\nOne 1-Wire transaction per mains cycle at most, started right after the\ncycle boundary: the conversion, then three per sensor. validation.h refuses\na datalog period too short for its round. Native tests and compile-fail\ncases (too long, at the limit) included.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat: 1-Wire transactions start right after a mains-cycle boundary\n\nA 1-Wire reset, and each 0 written, keep interrupts off for 65 to 70 us:\nthe ADC interrupt then starts up to ~1100 cycles late, and must still\nwrite ADMUX within the 1664 cycles of its conversion. The sensors were\nread all at once at the end of each datalog period, and their slots\ncould fall on the heavy call of each mains cycle, processStartNewCycle().\n\nThe main loop now runs the bus I/O as short transactions, at most one\nper mains cycle (temp_schedule.h), each at the top of the loop pass that\nsees the new cycle, and only if the loop was idle when it began:\n- the conversion of every sensor, at the start of each datalog period;\n- 780 ms or more later, three transactions per sensor: reset, Match ROM\n  and half the ROM code; the other half, Read Scratchpad and the 9\n  bytes; the closing reset, and the reading decoded (utils_temp.h:\n  startRead(), readScratchpad(), endRead()).\n\nb_newMainsCycle was raised at L1's crossing, two sample sets (1248 us)\nbefore processStartNewCycle(): it is now raised at the end of that call,\nso that a transaction started on it misses it. The datalog event, raised\nat the crossing, is handled on the pass that sees the new cycle when\nsensors are built in: the round's conversion (~2.1 ms of bus I/O, more\nthan the 1248 us before the heavy call) then runs right after the\ncycle's work and before the datalog output, or with the next cycle if\nthat pass is late.\n\nIn the grid simulator the long slots now fall at 34-129 deg (45-158 at\n60 Hz); latest ADMUX write of the four temperature targets 1442 cycles,\nfrom 1558. The combination build (temp_rf_relays.patch, old board) no\nlonger misfiles samples: 0 instead of 5, latest ADMUX write 1400 cycles.\nThe values and their cadence are unchanged.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* test(sim): temperature with remote loads, RF datalog and relays in CI\n\nmake check-combo, check-new-combo, check-combo60 and check-new-combo60 run\nscenarios/combo on configs/temp_rf_relays.patch, old and new board, 50 and\n60 Hz, in a CI job of their own (ci_targets.sh combo). The new expectation\nadmux_delay_max gives the scenario a ceiling (1600 cycles).\n\nOn the firmware before the 1-Wire scheduling the scenario misfiles 5, 35,\n7 and 11 samples (old, new, old 60 Hz, new 60 Hz); now 0, latest ADMUX write\n1400, 1443, 1555 and 1528 cycles of 1664. The four temperature targets go\nfrom 1558 to 1442 at worst. sim/README.md and CHANGELOG.md updated.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: where the per-cycle flag is set, what a temperature build delays, the new tests\n\nShared::b_newMainsCycle, set at the end of processStartNewCycle(), and the\ndatalog output of a temperature build handled 1248 us after its event are\ndescribed where they are declared and in temp_schedule.h; the measured\nfigures in main.cpp's comment name their source (sim/README.md);\nCLAUDE.md and test/README.md list temp_schedule.h and test_temp_schedule.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix(configurator): refuse a datalog period too short for the temperature round\n\nMirrors validation.h's fitsInPeriod() assert (err.tempRoundTooLong).\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: changelog on the sensor limit and the flag move; stale names and cycle counts in comments\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: sensor limit bullet under Upgrading from main\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* ci: the combination scenarios in two jobs, 50 Hz and 60 Hz\n\nThe combination job took 12 minutes on a runner (four builds, three microcontrollers per\nscenario), against a 20-minute timeout. Its 50 Hz and 60 Hz builds now run in two jobs:\nci_targets.sh combo gives check-combo- and check-new-combo-, combo60 the two 60 Hz targets.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* test(sim): the combination scenario in 260 s, relays with 1-minute minimum times\n\nThe relay chain sets the floor: relay 1 in at 66 s, relay 2 60 s later, relay 2 out after its\n1-minute minimum ON (186 s), relay 1 after the 60 s settle time (246 s). Same checks as before;\nworst ADMUX write 1418 / 1398 / 1529 / 1545 (old 50, new 50, old 60, new 60 Hz), within ~45\ncycles of the 480 s runs; the 1600 ceiling is unchanged.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/20341e2c0684a45324595cc1a758261b784fc9a9",
+   "sizes": {
+    "basic": {
+     "flash": 7928,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12330,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7928,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7800,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05,
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09
+   }
   }
  ]
 }
