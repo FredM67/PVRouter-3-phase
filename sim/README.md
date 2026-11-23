@@ -141,14 +141,40 @@ git checkout Mk2_3phase_RFdatalog_temp/config.h
 make -C sim check-new-temp
 ```
 
-Measured on the three scenarios, 50 Hz, and over mains frequencies from 49.5 to 51 Hz (the 1-Wire bursts then fall at other angles against the ADC conversions): the ISR itself does not change (max ~1260-1280 cycles, the datalog call), only the ADMUX write is pushed back when an ISR call waits for a 1-Wire time slot. The ordinary calls write ADMUX within 373 cycles, the datalog call within ~1190, once per 5 s, and the firmware starts its 1-Wire burst after that call, so a window cannot delay it. Worst ADMUX delay seen: 1505 cycles on the old board, 1445 on the new one, against 1664 (about 1190 without sensors); no misfiled sample, no overrun, no scratchpad read early.
+Measured on the three scenarios, 50 Hz, and over mains frequencies from 49.5 to 51 Hz (the 1-Wire bursts then fall at other angles against the ADC conversions): the ISR itself does not change (max ~1260-1280 cycles, the datalog call), only the ADMUX write is pushed back when an ISR call waits for a 1-Wire time slot. The ADMUX write of an ISR call is at most 1664 cycles after its pending flag: the call may wait for a time slot (up to 1036 cycles for a 0 written, 1113 for a reset) and still has to write ADMUX within what is left. The ordinary calls write ADMUX within 373 cycles after their start, the call of each mains cycle within ~620 (bits of the load update), the datalog call within ~850-1190, once per 5 s: the firmware starts its 1-Wire burst after that call, so a window cannot delay it, but it delays the next calls. Worst ADMUX delay seen: 1505 cycles on the old board, 1445 on the new one, against 1664 (about 1190 without sensors); no misfiled sample, no overrun, no scratchpad read early. That margin is thin: a call that writes ADMUX 620 cycles after its start fails when it is pending in the first 70 cycles of a reset slot.
+
+`make check-temp60` and `make check-new-temp60` run the same scenarios at 60 Hz (`configs/supply_60hz.patch` after `configs/temperature.patch`, `SUPPLY_FREQUENCY` 60): `out/scn60` holds the scenarios with `mains 60` and the sample sets per mains cycle scaled (26.7 instead of 32 per cycle: `min_sample_sets` 25 instead of 30). Worst ADMUX delay 1558 cycles on the old board, 1408 on the new one, no misfiled sample (60 Hz sweep from 59.5 to 61 Hz: 1554 and 1525).
+
+```bash
+sim/configs/sim_config.sh NEW        # or without NEW, for check-temp60
+git apply --unidiff-zero sim/configs/temperature.patch sim/configs/supply_60hz.patch
+(cd Mk2_3phase_RFdatalog_temp && PLATFORMIO_BUILD_DIR=.pio/build-new-temp60 pio run -e basic)   # build-temp60 for the old board
+git checkout Mk2_3phase_RFdatalog_temp/config.h Mk2_3phase_RFdatalog_temp/config_system.h
+make -C sim check-new-temp60
+```
+
+#### Temperature with remote loads, relays: not in CI
+
+Temperature sensing together with remote loads (`configs/remote_loads.patch`, four loads), with relays (`configs/relays.patch`, the sensors on D13: the relay patch has D3 for the diversion pin), or with both (`configs/temp_rf_relays.patch`: remote loads, RF datalog, relays and sensors in one build, `scenarios/combo`) **does not stay within the ADC deadline**: some runs misfile samples (a conversion filed under the wrong channel) and write ADMUX after the next conversion has started. A 1-Wire slot keeps interrupts off 1036-1113 cycles; the ISR call of each mains cycle writes ADMUX ~740-780 cycles after its start with four loads (~620 with three), and a call of the datalog period ~850: a slot that begins before such a call is pending delays it past the 1664 cycles. Whether a run fails depends on how the slots fall against the ADC conversions (frequency, scenario, board), so the same firmware passes some scenarios and fails others: these combinations have no `make` target and are not run in CI. They are kept as patches and scenarios, to be run by hand once the firmware schedules its 1-Wire transactions away from the ISR's heavy calls:
+
+```bash
+sim/configs/sim_config.sh
+git apply --unidiff-zero sim/configs/temp_rf_relays.patch
+(cd Mk2_3phase_RFdatalog_temp && PLATFORMIO_BUILD_DIR=.pio/build-temp-rf-relays pio run -e basic)
+git checkout Mk2_3phase_RFdatalog_temp/config.h
+make -C sim grid_sim receivers
+cd sim
+{ sh board_scn.sh OLD; cat configs/ds18b20.scn; } > out/combo_board.scn
+./grid_sim -q -b out/combo_board.scn -r 15=out/receivers/receiver-15.elf -r 16=out/receivers/receiver-16.elf \
+  ../Mk2_3phase_RFdatalog_temp/.pio/build-temp-rf-relays/basic/firmware.elf scenarios/combo/surplus_ladder.scn
+```
 
 ### In CI
 
-The scenarios are spread over parallel jobs: three for the grid scenarios, one for the RF ones (`build.yml`), three for the relay ones (`relay-sim.yml`). `ci_targets.sh` gives the make targets of a job, from the scenarios it finds: job k of n takes every n-th scenario, starting from the k-th. A grid scenario runs on its three boards and on the two temperature builds in the same job; the job then compares the three boards.
+The scenarios are spread over parallel jobs: three for the grid scenarios, one for the RF ones (`build.yml`), three for the relay ones (`relay-sim.yml`). `ci_targets.sh` gives the make targets of a job, from the scenarios it finds: job k of n takes every n-th scenario, starting from the k-th. A grid scenario runs on its three boards and on the four temperature builds (50 and 60 Hz) in the same job; the job then compares the three boards.
 
 ```bash
-sim/ci_targets.sh grid 1/3      # check-clouds check-new-clouds check-new20-clouds check-temp-clouds check-new-temp-clouds
+sim/ci_targets.sh grid 1/3      # check-clouds check-new-clouds check-new20-clouds check-temp-clouds check-new-temp-clouds check-temp60-clouds check-new-temp60-clouds
 sim/ci_targets.sh relays 2/3    # check-relays-relay_import_first check-relays-relay_steps
 ```
 
@@ -194,7 +220,7 @@ Plain text, one command per line, `#` starts a comment.
 
 ## Limits
 
-- **Firmware configuration**: the scenarios match the default `config.h` (3 local loads on D5-D7, override pin D4), `scenarios/rf` matches `configs/remote_loads.patch` and `scenarios/relays` matches `configs/relays.patch`. Another configuration needs its own `common.scn`.
+- **Firmware configuration**: the scenarios match the default `config.h` (3 local loads on D5-D7, override pin D4), `scenarios/rf` matches `configs/remote_loads.patch` and `scenarios/relays` matches `configs/relays.patch` and `scenarios/combo` matches `configs/temp_rf_relays.patch`. Another configuration needs its own `common.scn`.
 - **RF**: a frame either arrives intact or is lost; no range, interference, collisions or corrupted frames. The channel always looks free to carrier sense.
 - **Ideal signals**: pure sine waves, no ADC noise, no CT phase error, no harmonics.
 - **Power stage**: an ideal zero-crossing triac driver, resistive loads; relays switch at once, with no bounce.

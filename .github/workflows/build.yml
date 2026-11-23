@@ -268,7 +268,7 @@ jobs:
     # the same banner length whatever the checkout: same code, same switching instants (sim/README.md)
     env:
       PVR_SIM_BUILD: 1
-    # the scenarios spread over jobs: each grid scenario on its five builds (sim/ci_targets.sh),
+    # the scenarios spread over jobs: each grid scenario on its seven builds (sim/ci_targets.sh),
     # and the RF ones, which run three microcontrollers each, in a job of their own
     strategy:
       fail-fast: false
@@ -320,6 +320,23 @@ jobs:
           git apply --unidiff-zero sim/configs/temperature.patch
           PLATFORMIO_BUILD_DIR=.pio/build-new-temp pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
           git checkout ${{ env.PROJECT_DIR }}/config.h
+
+      # the same at 60 Hz: the 1-Wire slots fall at other angles against the ADC conversions
+      - name: Build firmware (temperature sensing, 60 Hz)
+        if: matrix.part != 'rf'
+        run: |
+          sim/configs/sim_config.sh
+          git apply --unidiff-zero sim/configs/temperature.patch sim/configs/supply_60hz.patch
+          PLATFORMIO_BUILD_DIR=.pio/build-temp60 pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+          git checkout ${{ env.PROJECT_DIR }}/config.h ${{ env.PROJECT_DIR }}/config_system.h
+
+      - name: Build firmware (new board, temperature sensing, 60 Hz)
+        if: matrix.part != 'rf'
+        run: |
+          sim/configs/sim_config.sh NEW
+          git apply --unidiff-zero sim/configs/temperature.patch sim/configs/supply_60hz.patch
+          PLATFORMIO_BUILD_DIR=.pio/build-new-temp60 pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+          git checkout ${{ env.PROJECT_DIR }}/config.h ${{ env.PROJECT_DIR }}/config_system.h
 
       # the same grid, with the third load on a remote unit driven over RF
       - name: Build firmware (remote loads)
