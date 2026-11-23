@@ -16,6 +16,9 @@
 #   make check-temp60   the same at 60 Hz (configs/supply_60hz.patch too): the scenarios run with `mains 60`, derived
 #                       from scenarios/ into out/scn60 (the same expectations, the sample sets per cycle scaled)
 #   make check-new-temp60 the same on the new board
+#   make check-combo    scenarios/combo against the heaviest build (configs/temp_rf_relays.patch: remote loads, RF datalog, relays
+#                       and temperature sensing), old board, the receiver firmware on each remote unit (RX_NODES)
+#   make check-new-combo / check-combo60 / check-new-combo60    the same on the new board, at 60 Hz, new board at 60 Hz
 #   make compare-boards after 'make check check-new': each scenario must give the same result
 #                       on both boards (grid and load energies within 1 % or 0.1 Wh)
 #   make compare-boards-20    after 'make check check-new20': the same within 0.5 % or 0.05 Wh
@@ -47,6 +50,11 @@ FW_NEW_TEMP ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new-temp/basic/firmware.e
 # the same at 60 Hz (configs/temperature.patch and configs/supply_60hz.patch)
 FW_TEMP60 ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-temp60/basic/firmware.elf
 FW_NEW_TEMP60 ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new-temp60/basic/firmware.elf
+# remote loads, RF datalog, relays and temperature sensing in one build (configs/temp_rf_relays.patch), the same four ways
+FW_COMBO ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-combo/basic/firmware.elf
+FW_NEW_COMBO ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new-combo/basic/firmware.elf
+FW_COMBO60 ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-combo60/basic/firmware.elf
+FW_NEW_COMBO60 ?= ../Mk2_3phase_RFdatalog_temp/.pio/build-new-combo60/basic/firmware.elf
 CT_LOW  ?= 20
 CAL    ?= ../Mk2_3phase_RFdatalog_temp/calibration.h
 SCN    ?= scenarios/surplus_step.scn
@@ -65,6 +73,7 @@ LDLIBS  = $(SIMAVR)/lib/libsimavr.a -l:libelf.so.1 -lm
 SCENARIOS    := $(filter-out scenarios/common.scn,$(wildcard scenarios/*.scn))
 RF_SCENARIOS := $(filter-out scenarios/rf/common.scn,$(wildcard scenarios/rf/*.scn))
 RELAY_SCENARIOS := $(filter-out scenarios/relays/common.scn,$(wildcard scenarios/relays/*.scn))
+COMBO_SCENARIOS := $(filter-out scenarios/combo/common.scn,$(wildcard scenarios/combo/*.scn))
 
 grid_sim: grid_sim.o rfm69.o ds18b20.o avr_adc.o
 	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
@@ -122,8 +131,13 @@ CHECK_TEMP := $(SCENARIOS:scenarios/%.scn=check-temp-%)
 CHECK_NEW_TEMP := $(SCENARIOS:scenarios/%.scn=check-new-temp-%)
 CHECK_TEMP60 := $(SCENARIOS:scenarios/%.scn=check-temp60-%)
 CHECK_NEW_TEMP60 := $(SCENARIOS:scenarios/%.scn=check-new-temp60-%)
+CHECK_COMBO := $(COMBO_SCENARIOS:scenarios/combo/%.scn=check-combo-%)
+CHECK_NEW_COMBO := $(COMBO_SCENARIOS:scenarios/combo/%.scn=check-new-combo-%)
+CHECK_COMBO60 := $(COMBO_SCENARIOS:scenarios/combo/%.scn=check-combo60-%)
+CHECK_NEW_COMBO60 := $(COMBO_SCENARIOS:scenarios/combo/%.scn=check-new-combo60-%)
 # the scenarios at 60 Hz: scenarios/ with the mains frequency changed (common.scn is among them, the others include it)
 SCN60 := $(SCENARIOS:scenarios/%.scn=$(OUT)/scn60/%.scn) $(OUT)/scn60/common.scn
+SCN60_COMBO := $(COMBO_SCENARIOS:scenarios/combo/%.scn=$(OUT)/scn60/combo/%.scn) $(OUT)/scn60/combo/common.scn
 
 check: $(CHECK)
 
@@ -142,6 +156,14 @@ check-new-temp: $(CHECK_NEW_TEMP)
 check-temp60: $(CHECK_TEMP60)
 
 check-new-temp60: $(CHECK_NEW_TEMP60)
+
+check-combo: $(CHECK_COMBO)
+
+check-new-combo: $(CHECK_NEW_COMBO)
+
+check-combo60: $(CHECK_COMBO60)
+
+check-new-combo60: $(CHECK_NEW_COMBO60)
 
 # read the summaries of the last 'make check check-new' / 'make check check-new20'
 compare-boards:
@@ -212,10 +234,35 @@ $(CHECK_TEMP60): check-temp60-%: grid_sim $(FW_TEMP60) $(OUT)/temp_board.scn $(S
 $(CHECK_NEW_TEMP60): check-new-temp60-%: grid_sim $(FW_NEW_TEMP60) $(OUT)/new_temp_board.scn $(SCN60)
 	$(call scenario,-b $(OUT)/new_temp_board.scn $(FW_NEW_TEMP60),$(OUT)/scn60/$*.scn,new_temp60-$*)
 
+$(FW_COMBO):
+	$(error firmware not found: $(FW_COMBO) - sim_config.sh, apply configs/temp_rf_relays.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-combo pio run -e basic' (README.md))
+
+$(FW_NEW_COMBO):
+	$(error firmware not found: $(FW_NEW_COMBO) - sim_config.sh NEW, apply configs/temp_rf_relays.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-new-combo pio run -e basic' (README.md))
+
+$(FW_COMBO60):
+	$(error firmware not found: $(FW_COMBO60) - sim_config.sh, apply configs/temp_rf_relays.patch and configs/supply_60hz.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-combo60 pio run -e basic' (README.md))
+
+$(FW_NEW_COMBO60):
+	$(error firmware not found: $(FW_NEW_COMBO60) - sim_config.sh NEW, apply configs/temp_rf_relays.patch and configs/supply_60hz.patch, then 'PLATFORMIO_BUILD_DIR=.pio/build-new-combo60 pio run -e basic' (README.md))
+
+# the combination: the board files of the temperature targets, the RF receivers of check-rf; 60 Hz as check-temp60
+$(CHECK_COMBO): check-combo-%: grid_sim $(FW_COMBO) $(OUT)/temp_board.scn $(if $(RX_NODES),receivers)
+	$(call scenario,-b $(OUT)/temp_board.scn $(RX_ARGS) $(FW_COMBO),scenarios/combo/$*.scn,combo-$*)
+
+$(CHECK_NEW_COMBO): check-new-combo-%: grid_sim $(FW_NEW_COMBO) $(OUT)/new_temp_board.scn $(if $(RX_NODES),receivers)
+	$(call scenario,-b $(OUT)/new_temp_board.scn $(RX_ARGS) $(FW_NEW_COMBO),scenarios/combo/$*.scn,new_combo-$*)
+
+$(CHECK_COMBO60): check-combo60-%: grid_sim $(FW_COMBO60) $(OUT)/temp_board.scn $(SCN60_COMBO) $(if $(RX_NODES),receivers)
+	$(call scenario,-b $(OUT)/temp_board.scn $(RX_ARGS) $(FW_COMBO60),$(OUT)/scn60/combo/$*.scn,combo60-$*)
+
+$(CHECK_NEW_COMBO60): check-new-combo60-%: grid_sim $(FW_NEW_COMBO60) $(OUT)/new_temp_board.scn $(SCN60_COMBO) $(if $(RX_NODES),receivers)
+	$(call scenario,-b $(OUT)/new_temp_board.scn $(RX_ARGS) $(FW_NEW_COMBO60),$(OUT)/scn60/combo/$*.scn,new_combo60-$*)
+
 receivers:
 	bash build_receivers.sh $(RX_DIR) $(RX_NODES)
 
 clean:
 	rm -rf grid_sim *.o $(OUT)
 
-.PHONY: run check check-new check-new20 check-temp check-new-temp check-temp60 check-new-temp60 compare-boards compare-boards-20 compare-ct check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_NEW20) $(CHECK_TEMP) $(CHECK_NEW_TEMP) $(CHECK_TEMP60) $(CHECK_NEW_TEMP60) $(CHECK_RF) $(CHECK_RELAYS) receivers clean
+.PHONY: run check check-new check-new20 check-temp check-new-temp check-temp60 check-new-temp60 check-combo check-new-combo check-combo60 check-new-combo60 compare-boards compare-boards-20 compare-ct check-rf check-relays $(CHECK) $(CHECK_NEW) $(CHECK_NEW20) $(CHECK_TEMP) $(CHECK_NEW_TEMP) $(CHECK_TEMP60) $(CHECK_NEW_TEMP60) $(CHECK_COMBO) $(CHECK_NEW_COMBO) $(CHECK_COMBO60) $(CHECK_NEW_COMBO60) $(CHECK_RF) $(CHECK_RELAYS) receivers clean

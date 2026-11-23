@@ -94,6 +94,7 @@ typedef enum
   EXPECT_OVERRUNS,    /* expect isr_overruns <n>  (ISR calls longer than one conversion, at most) */
   EXPECT_MISFILED,    /* expect misfiled_samples <n>  (conversions filed under the wrong channel, at most) */
   EXPECT_ADMUX,       /* expect admux_delay_min <cycles>  (ADMUX written by the ISR this long after its conversion started, at least) */
+  EXPECT_ADMUX_MAX,   /* expect admux_delay_max <cycles>  (the same, at most: the ceiling of a build with 1-Wire transactions) */
   EXPECT_RF_GAP,      /* expect rf_max_gap <node> <s>  (longest silence towards a node, once it got a frame) */
   EXPECT_RF_LOST,     /* expect rf_links_lost <node> <min> <max>  (times the node's receiver lost the link) */
   EXPECT_SWITCHES,    /* expect switches <pin> <min> <max>  (switch-ons of a load or relay) */
@@ -364,6 +365,8 @@ static void parse_scenario(const char *path, int depth)
         e->kind = EXPECT_MISFILED;
       else if (sscanf(args, " admux_delay_min %lf", &e->lo) == 1)
         e->kind = EXPECT_ADMUX;
+      else if (sscanf(args, " admux_delay_max %lf", &e->hi) == 1)
+        e->kind = EXPECT_ADMUX_MAX;
       else if (sscanf(args, " rf_max_gap %d %lf", &e->node, &e->hi) == 2)
         e->kind = EXPECT_RF_GAP;
       else if (sscanf(args, " rf_links_lost %d %lf %lf", &e->node, &e->lo, &e->hi) == 3 && e->hi >= e->lo)
@@ -1164,6 +1167,11 @@ static int report_expects(void)
         e->passed = admux.writes && admux.min >= e->lo;
         snprintf(what, sizeof what, "ADMUX written at least %.0f cycles after its conversion started: %llu", e->lo,
                  admux.writes ? (unsigned long long)admux.min : 0ULL);
+        break;
+      case EXPECT_ADMUX_MAX:
+        e->passed = admux.writes && admux.max <= e->hi;
+        snprintf(what, sizeof what, "ADMUX written at most %.0f cycles after its conversion started: %llu", e->hi,
+                 admux.writes ? (unsigned long long)admux.max : 0ULL);
         break;
       case EXPECT_RF_GAP:
         {
