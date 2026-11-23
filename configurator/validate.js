@@ -176,6 +176,13 @@
       // BOOST_TEMP_SENSOR: one of the probes (validation.h), whether dual tariff is on or not
       if (M.tempSensorPresent(m) && sensors.length && !inRange(m.dualTariff.tempSensor, 0, sensors.length - 1))
         error('err.tempSensor', m.dualTariff.enabled ? 'dualTariff' : 'temperature');
+      // one 1-Wire transaction per mains cycle (temp_schedule.h fitsInPeriod(), validation.h): the
+      // conversion, then 3 per probe, must end within a datalog period
+      if (M.tempSensorPresent(m) && sensors.length && (m.supplyFrequency === 50 || m.supplyFrequency === 60) && inRange(m.datalogPeriod, 1, 40)) {
+        const f = m.supplyFrequency;
+        const cycles = Math.floor((750 * f + 999) / 1000) + 1 + 3 * sensors.length;
+        if (cycles + Math.floor(cycles / f) + 2 > m.datalogPeriod * f) error('err.tempRoundTooLong', 'temperature');
+      }
     }
 
     // ---- dual tariff ----
