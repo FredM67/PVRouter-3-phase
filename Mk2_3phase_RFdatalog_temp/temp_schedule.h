@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details A reset of the 1-Wire bus, and each 0 written, keep interrupts off for 65 to 70 µs
- *          (the OneWire library): the ADC interrupt then starts up to ~1300 cycles late, and must
+ *          (the OneWire library): the ADC interrupt then starts up to ~1100 cycles late, and must
  *          still write ADMUX within the 1664 cycles of its conversion. The heaviest ADC interrupts
  *          are those of the mains cycle's work, run once per cycle shortly after L1's positive
  *          crossing (processing.cpp, processStartNewCycle()): a slot that delays one of them can

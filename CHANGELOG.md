@@ -115,17 +115,22 @@ valid load maps ([#160]).
 
 ### Changed
 
+- **Temperature sensors and the datalog period:** a round of reads (the conversion, 750 ms, then
+  3 mains cycles per sensor) must end within the datalog period. With a 1 s period, at most 3
+  sensors at 50 Hz, 4 at 60 Hz; more stops the build with *Too many temperature sensors for
+  DATALOG_PERIOD_IN_SECONDS*. Lengthen `DATALOG_PERIOD_IN_SECONDS`, or use fewer sensors.
 - **Temperature sensing keeps the ADC deadline** with remote loads and relays: the DS18B20 are
   read in short 1-Wire transactions, one per mains cycle at most, started right after the cycle's
   heavy ADC interrupt call (`temp_schedule.h`). A 1-Wire reset or `0` keeps interrupts off for
   65 to 70 µs; read in one burst, they could delay that call past its deadline and misfile ADC
   samples (the simulator measured 5 to 35 samples in a run with four loads, RF datalog, relays and
   sensors). The values and the datalog format do not change: one reading per sensor per datalog
-  period, converted at its start and sent at its end. Two side effects in temperature builds:
-  `Shared::b_newMainsCycle` is set at the end of `processStartNewCycle()`, 1248 µs after L1's
-  crossing (and once more at the end of the start-up period), so the loop's per-cycle work, the
-  per-second tasks included, runs that much later in every build; and the datalog output is
-  handled on the pass that sees the new cycle, 1248 µs after its event.
+  period, converted at its start and sent at its end. Two side effects: in every build (not only
+  temperature builds), `Shared::b_newMainsCycle` is set at the end of `processStartNewCycle()`,
+  1248 µs after L1's crossing (and once more at the end of the start-up period), so the loop's
+  per-cycle work, the per-second tasks included, runs that much later; in temperature builds
+  only, the datalog output is handled on the pass that sees the new cycle, 1248 µs after its
+  event.
 - **Priority rotation** rotates the loads of `rotationGroups` only, any number of groups, each
   among the priority places its loads hold at startup: two 3-phase water heaters each take turns
   on their own, and loads in no group keep their place. A group holds at least 2 loads, local

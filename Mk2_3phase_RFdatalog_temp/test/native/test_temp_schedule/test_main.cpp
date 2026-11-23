@@ -237,7 +237,7 @@ void test_never_two_transactions_in_one_cycle_and_never_before_the_conversion_ti
 
 /**
  * @brief A datalog period of the main loop: the round must be over before the cycle that ends the
- *        period, whose ISR copies run right after the new cycle is flagged.
+ *        period, whose ISR copies run ~1248 µs before the new cycle is flagged.
  *
  * @details The cycle after each per-second tick is late (the per-second work and the display may
  *          run past the next tick).

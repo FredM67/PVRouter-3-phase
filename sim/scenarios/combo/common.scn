@@ -1,7 +1,7 @@
 # Router with two local loads, two remote units, RF data logging, two relays and two DS18B20
 # (configs/temp_rf_relays.patch): loads on D5 and D6, the third load on unit 1 (node 15), the
 # fourth on unit 2 (node 16), relay 1 on D8 (1000 W of export in), relay 2 on D9 (2000 W).
-# The DS18B20 (D3) come with the board file of 'make check-temp-rf-relays'.
+# The DS18B20 (D3) come with the board file of 'make check-combo'.
 mains 50 230
 vcal 0.8151 0.8184 0.8195
 pcal 0.05 0.05 0.05

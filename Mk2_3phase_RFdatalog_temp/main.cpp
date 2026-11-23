@@ -622,7 +622,7 @@ void loop()
   //   processPlusHalfCycle()), then b_datalogEventPending;
   // - 2 sample sets later (1248 µs): the cycle's work, processStartNewCycle(), the heaviest call
   //   (its ADMUX written ~660 to 780 cycles in with 4 loads: sim/README.md, Temperature with remote
-  //   loads, relays), then b_newMainsCycle;
+  //   loads, RF datalog and relays), then b_newMainsCycle;
   // - the next such call, a mains cycle later.
   // The conversion (reset, Skip ROM, Convert T: ~2.1 ms of bus I/O) cannot fit between the event
   // and processStartNewCycle(); started after it, its slots fall among the ordinary calls.

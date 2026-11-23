@@ -7,7 +7,7 @@ router OFF, rotation and dual tariff pins (D3, D2, D12, D11) have no pin left: n
 
   PVR_SIM_BUILD=1 sh sim/configs/sim_config.sh
   git apply --unidiff-zero sim/configs/temp_rf_relays.patch
-  PLATFORMIO_BUILD_DIR=.pio/build-temp-rf-relays pio run --project-dir Mk2_3phase_RFdatalog_temp -e basic
+  PLATFORMIO_BUILD_DIR=.pio/build-combo pio run --project-dir Mk2_3phase_RFdatalog_temp -e basic
   git checkout Mk2_3phase_RFdatalog_temp/config.h
 
 diff --git a/Mk2_3phase_RFdatalog_temp/config.h b/Mk2_3phase_RFdatalog_temp/config.h
