@@ -6,7 +6,7 @@ import pytest
 from ct_recorder.firmware_path import Coefficients, PathState, coefficients_of, firmware_current
 from ct_recorder.recording import read_recording
 
-from .conftest import synthetic_recording
+from ct_recorder.synthetic import synthetic_recording
 
 SETTINGS = [(0.0, 0), (0.0011, 9), (0.002, 12), (0.0625 - 1e-6, 63), (0.01, 9), (0.00005, 12)]
 

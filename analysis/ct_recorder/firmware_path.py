@@ -115,41 +115,59 @@ class SamplePath:
         return wrap16((raw | 32) - self.dc_offset)
 
 
-class LowPassBoost:
-    """CtFilter::LowPassBoost, state starting at zero."""
+def low_pass_trace(samples, coef, lpf_x64=0, lpf_low_bits=0):
+    """The state of CtFilter::LowPassBoost after each sample: (lpf_x64, lpf_low_bits), two int64 arrays.
 
-    def __init__(self, state=None):
-        state = state or PathState()
-        self.lpf_x64 = state.lpf_x64
-        self.lpf_low_bits = state.lpf_low_bits
-
-    def apply(self, sample, coef):
-        alpha, alpha_x2, alpha_x4, shift, gain, gain_half, gain_quarter = coef
-        increment = sample * alpha_x4 - self.lpf_x64 * alpha_x4
-        if self.lpf_low_bits & 1:
+    The state depends on alpha only (the gain is applied after it, boosted()): the filter search runs this loop
+    once per alpha and tries every gain on its result.
+    """
+    alpha, alpha_x2, alpha_x4, shift = coef[0], coef[1], coef[2], coef[3]
+    shift_mask = (1 << shift) - 1
+    n = len(samples)
+    trace_x64 = np.empty(n, dtype=np.int64)
+    trace_low = np.empty(n, dtype=np.int64)
+    x64 = lpf_x64
+    low = lpf_low_bits
+    for k, sample in enumerate(np.asarray(samples).tolist()):
+        increment = sample * alpha_x4 - x64 * alpha_x4
+        if low & 1:
             increment -= alpha
-        if self.lpf_low_bits & 2:
+        if low & 2:
             increment -= alpha_x2
-        increment = wrap32(increment)
+        increment = ((increment + 0x80000000) & 0xFFFFFFFF) - 0x80000000  # int32
+        high = increment >> 16  # an int32 >> 16 is in the int16 range
+        fraction_dropped = (increment & 0xFFFF) != 0 or (high & shift_mask) != 0
+        total = ((low + (high >> shift) + 0x8000) & 0xFFFF) - 0x8000  # int16
+        x64 = ((x64 + (total >> 2) + 0x8000) & 0xFFFF) - 0x8000
+        low = total & 3
+        if x64 < 0 and fraction_dropped:
+            low += 1
+            if low == 4:
+                low = 0
+                x64 = ((x64 + 1 + 0x8000) & 0xFFFF) - 0x8000
+        trace_x64[k] = x64
+        trace_low[k] = low
+    return trace_x64, trace_low
 
-        increment_high = wrap16(increment >> 16)
-        fraction_dropped = ((increment & 0xFFFF) != 0) or ((increment_high & ((1 << shift) - 1)) != 0)
-        total = wrap16(self.lpf_low_bits + (increment_high >> shift))
-        self.lpf_x64 = wrap16(self.lpf_x64 + (total >> 2))
-        self.lpf_low_bits = total & 3
-        if self.lpf_x64 < 0 and fraction_dropped:
-            self.lpf_low_bits += 1
-            if self.lpf_low_bits == 4:
-                self.lpf_low_bits = 0
-                self.lpf_x64 = wrap16(self.lpf_x64 + 1)
 
-        boost = wrap32(self.lpf_x64 * gain)
-        if self.lpf_low_bits & 1:
-            boost = wrap32(boost + gain_quarter)
-        if self.lpf_low_bits & 2:
-            boost = wrap32(boost + gain_half)
-        out = sample + (boost >> 8)
-        return max(INT16_MIN, min(INT16_MAX, out))
+def boosted(samples, trace_x64, trace_low, coef):
+    """CtFilter::LowPassBoost's output from its state after each sample (low_pass_trace()), any gain, numpy."""
+    gain, gain_half, gain_quarter = coef[4], coef[5], coef[6]
+    boost = trace_x64 * gain
+    boost = boost + np.where(trace_low & 1, gain_quarter, 0) + np.where(trace_low & 2, gain_half, 0)
+    boost = ((boost + 0x80000000) & 0xFFFFFFFF) - 0x80000000  # int32
+    out = np.asarray(samples, dtype=np.int64) + (boost >> 8)
+    return np.clip(out, INT16_MIN, INT16_MAX).astype(np.int16)
+
+
+def current_minus_dc(v_raw, i_raw, state=None):
+    """The firmware's current minus DC before the CT filter (int64 array), from the 10-bit raw V and I."""
+    path = SamplePath(state)
+    out = np.empty(len(v_raw), dtype=np.int64)
+    for k, (v, i) in enumerate(zip(np.asarray(v_raw).tolist(), np.asarray(i_raw).tolist())):
+        path.on_voltage(v << 6)
+        out[k] = path.current_minus_dc(i << 6)
+    return out
 
 
 def firmware_current(v_raw, i_raw, alpha=None, gain=None, coefficients=None, state=None):
@@ -159,19 +177,13 @@ def firmware_current(v_raw, i_raw, alpha=None, gain=None, coefficients=None, sta
     convenience, by alpha and gain; neither, or a gain of 0: filter off. state is a PathState (the recording's
     snapshot); without it the run starts from the power-up state.
     """
-    path = SamplePath(state)
+    samples = current_minus_dc(v_raw, i_raw, state)
     if coefficients is not None:
         coef = coefficients
     elif gain:
         coef = coefficients_of(gain, alpha)
     else:
-        coef = None
-    low_pass = LowPassBoost(state)
-    out = np.empty(len(v_raw), dtype=np.int16)
-    for k, (v, i) in enumerate(zip(np.asarray(v_raw).tolist(), np.asarray(i_raw).tolist())):
-        path.on_voltage(v << 6)
-        value = path.current_minus_dc(i << 6)
-        if coef is not None:
-            value = low_pass.apply(value, coef)
-        out[k] = value
-    return out
+        return samples.astype(np.int16)  # int16 wrap, as the C++ (the path is int16 already)
+    state = state or PathState()
+    trace_x64, trace_low = low_pass_trace(samples, coef, state.lpf_x64, state.lpf_low_bits)
+    return boosted(samples, trace_x64, trace_low, coef)
