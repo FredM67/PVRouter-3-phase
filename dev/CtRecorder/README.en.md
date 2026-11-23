@@ -14,6 +14,7 @@ A standalone sketch that records the router's own ADC chain (one voltage and one
 - The load is driven by pin 5 (the first load of both shipped configurations), through the router's zero-crossing triac or SSR output, not a relay. Pins 6 and 7 are held OFF.
 - A resistive load (water heater) is the reference.
 - The recorded pair is V1/I1 on the 3-phase router, V/CT1 on the single-phase one (`CTR_PAIR=GRID`). For V/CT2, set `CTR_PAIR=DIVERTED` in `platformio.ini`.
+- The recorded CT must see the load's current only. I1 and CT1 are grid CTs: they see the whole house and the PV export. Clamp the CT around the water heater's supply cable only. Otherwise, record with everything else off and no PV (at night, for instance). CT2 (`DIVERTED`) normally sees only the diverted load.
 
 ## Choosing the environment
 
@@ -49,10 +50,10 @@ pip install -r analysis/ct_recorder/requirements.txt
 
    ```bash
    cd analysis
-   python -m ct_recorder.capture COM3 --seconds 180 --wait -o filter_off.ctr
+   python -m ct_recorder.capture COM3 --seconds 180 -o filter_off.ctr
    ```
 
-   `COM3` is the serial port (500 000 baud). Without `--wait`, the capture stops with an error if the board was just powered. Change the pattern with `--pattern ON,OFF[,ON,OFF...]` (in mains cycles, up to 8 pairs).
+   `COM3` is the serial port (500 000 baud). Opening the port may reset the board. The sketch then refuses to record for 120 s, and the capture waits. So expect about 2 minutes more per capture. With `--no-wait`, the capture stops with an error instead of waiting. Change the pattern with `--pattern ON,OFF[,ON,OFF...]` (in mains cycles, up to 8 pairs).
 
 3. **Analyse**:
 
@@ -69,11 +70,11 @@ pip install -r analysis/ct_recorder/requirements.txt
    python -m ct_recorder.analyse filter_off.ctr --compare filter_on.ctr
    ```
 
-   `--filter ALPHA GAIN` is accepted for alpha from 0.00005 to below 0.0625 and a gain from 0 to below 64. A gain of 0 turns the filter off (the state at power-up).
+   `0.004626` and `9.344` are example values, from a synthetic recording. Use those your analysis prints. `--filter ALPHA GAIN` is accepted for alpha from 0.00005 to below 0.0625 and a gain from 0 to below 64. A gain of 0 turns the filter off (the state at power-up).
 
 ## Rules
 
-- The sketch refuses to record (`#ERR warming up`) during the first 120 s after power-up. The firmware's DC-offset filter settles with a time constant of about 20 s on the 3-phase spacing (about 10 s single-phase). `--wait` waits and retries.
+- The sketch refuses to record (`#ERR warming up`) during the first 120 s after power-up or a reset. Opening the serial port may reset the board (depending on the board and the driver). The firmware's DC-offset filter settles with a time constant of about 20 s on the 3-phase spacing (about 10 s single-phase). The capture waits and retries, except with `--no-wait`.
 - Record at least 3 minutes with the default pattern (at least about 10 bursts). With fewer, the CT time-constant estimate is unreliable.
 - Commands are not read while a recording runs (64-byte serial input buffer).
 
@@ -89,9 +90,12 @@ The analysis measures the energy error over the ON cycles of each burst. For a l
   inline constexpr float alpha{ 0.004626 };
   ```
 
+  These are example values, from a synthetic recording. Use those your analysis prints.
+
 - The fitted V/I shift is limited to ±1 ms, with a warning at the limit.
+- If the current is not proportional to the voltage (the load is not resistive, or the CT is on another phase), the analysis refuses and gives no filter.
 - A note says when the end of the CT tail cannot be confirmed at 10 bits (tail too short against the resolution).
-- Bursts in the first 10 s, or with a buffer overrun, are left out and listed.
+- Bursts in the first 10 s, with a buffer overrun, or without current (the water heater's thermostat cut out), are left out and listed. With fewer than 4 bursts left, the analysis refuses.
 
 ## Files
 
