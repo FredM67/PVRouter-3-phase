@@ -157,3 +157,61 @@ def test_unbounded_tail_says_settling_cannot_be_confirmed(tmp_path):
     analyse._tail_lines(rec, lines)
     warnings = [line for line in lines if line.startswith("warning")]
     assert len(warnings) == 1 and "not settled" in warnings[0] and "use longer OFF periods" in warnings[0]
+
+
+def test_refuses_a_current_not_proportional_to_the_voltage(tmp_path, capsys):
+    """The load on another phase: the current 120 deg from V. An ideal CT, so nothing else to blame: no filter
+    may come out of it."""
+    path = make_recording(tmp_path / "phase.ctr", seconds=SECONDS, tau_s=None, i_phase_deg=120.0)
+    with pytest.raises(AnalysisError, match="current not proportional to the voltage"):
+        fit_reference(read_recording(path))
+    assert analyse.main([str(path)]) != 0
+    captured = capsys.readouterr()
+    assert "not resistive, or on another phase" in captured.err
+    assert "filter needed" not in captured.out and "lpf_gain" not in captured.out
+
+
+def test_thermostat_cut_out_bursts_excluded(tmp_path, capsys):
+    """The heater's thermostat cuts out at 50 s of 90 s: the sketch still switches, no current flows. The bursts
+    without current are left out and listed; the filter and the CT time constant come from the others."""
+    path = make_recording(tmp_path / "cut.ctr", seconds=90.0, tau_s=0.015, current_off_s=50.0)
+    rec = read_recording(path)
+    bursts = find_bursts(rec)
+    cut = [b for b in bursts if b.excluded == "no current (thermostat?)"]
+    dt = 624e-6
+    assert cut and all(b.flag_off * dt > 50.0 for b in cut)  # their ON cycles reach past the cut-out
+    assert all(b.flag_off * dt < 50.0 for b in bursts if b.used)
+    alpha, gain, tau_ms = search_filter(rec)
+    assert gain > 0 and abs(tau_ms - 15.0) < 0.2 * 15.0
+    assert analyse.main([str(path)]) == 0
+    out = capsys.readouterr().out
+    assert "filter needed" in out
+    for b in cut:
+        assert f"burst {b.number} " in out
+    assert "no current (thermostat?)" in out
+
+
+def test_refuses_when_too_few_bursts_carry_current(tmp_path):
+    """The thermostat cuts out at 24 s: three bursts with current are left after the start-up, too few to judge
+    a filter."""
+    path = make_recording(tmp_path / "cut.ctr", seconds=60.0, tau_s=0.015, current_off_s=24.0)
+    with pytest.raises(AnalysisError, match="too few bursts"):
+        fit_reference(read_recording(path))
+
+
+def test_shift_at_limit_with_a_small_residual_warns_without_refusing(tmp_path, capsys):
+    """20 deg more than the conversion order: the shift sits at its 1 ms limit, the fit still leaves only a few %
+    of the current. A warning, not a refusal (a 15 ms CT on CT2 of the single-phase router is close to the limit
+    too)."""
+    path = make_recording(tmp_path / "ph20.ctr", seconds=SECONDS, tau_s=None, i_phase_deg=20.0)
+    assert analyse.main([str(path)]) == 0
+    assert "warning: the shift sits at its limit" in capsys.readouterr().out
+
+
+def test_fast_ct_on_single_phase_ct2_is_not_refused(tmp_path):
+    """312 us, CT2 208 us after V, 2 deg, a 15 ms CT: the shift is close to its limit, the current proportional."""
+    path = make_recording(
+        tmp_path / "ct2.ctr", seconds=40.0, spacing_us=312, tau_s=0.015, i_delay_us=208, i_phase_deg=2.0
+    )
+    _, shift = fit_reference(read_recording(path))
+    assert 0.9e-3 < shift * 312e-6 < analyse.SHIFT_LIMIT_S

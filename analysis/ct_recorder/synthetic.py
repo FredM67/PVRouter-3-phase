@@ -92,6 +92,7 @@ def make_recording(
     gap_frames=10,
     uptime_s=600,
     seed=1,
+    current_off_s=None,
 ):
     """Writes a recording to path and returns path: 3-phase (V1/I1) at 624 us, single-phase at another spacing.
 
@@ -100,7 +101,8 @@ def make_recording(
     tau_s: the CT's high-pass time constant (None: ideal CT). i_amplitude: the load current's peak in counts
     (0: no load current, noise only). ct_filter: (alpha, gain) the sketch applies (None: filter off).
     dc_step: counts added to V and I for the first dc_step_s seconds. overrun_at: times (s) where gap_frames
-    frames are lost, the next frame flagged as an overrun.
+    frames are lost, the next frame flagged as an overrun. current_off_s: the load stops drawing current from
+    this time on (a thermostat cuts out), while the sketch keeps switching it.
     """
     dt = spacing_us * 1e-6
     n = int(seconds / dt)
@@ -133,6 +135,8 @@ def make_recording(
     last_crossing = np.floor(omega * t_i / np.pi) * np.pi / omega
     driving = np.searchsorted(t, last_crossing, side="right") - 1
     conducting = np.where(driving >= 0, load_on[np.maximum(driving, 0)], False)
+    if current_off_s is not None:
+        conducting &= t_i < current_off_s
     amps = i_amplitude * np.sin(omega * t_i) * conducting
     i_float = 512 + ct_highpass(amps, tau_s, dt) + step + lcg_noise(n, seed + 1, 4, continuous=True)
     i_raw = np.clip(np.rint(i_float), 0, 1023).astype(np.int64)
@@ -184,8 +188,9 @@ def make_recording(
         "state_lpf_x64": state.lpf_x64,
         "state_lpf_low_bits": state.lpf_low_bits,
     }
-    text = "#OK\n" + "".join(f"#{key} {value}\n" for key, value in header.items()) + "#BEGIN\n"
-    end = f"#END frames={len(frames)} overruns={len(overrun_at)}\n"
+    # the lines end with CR LF, as Serial.println writes them
+    text = "#OK\r\n" + "".join(f"#{key} {value}\r\n" for key, value in header.items()) + "#BEGIN\r\n"
+    end = f"#END frames={len(frames)} overruns={len(overrun_at)}\r\n"
     path = Path(path)
     path.write_bytes(text.encode("ascii") + frames.tobytes() + end.encode("ascii"))
     return path

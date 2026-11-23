@@ -1,5 +1,9 @@
-"""Reads what capture.py wrote: "#" header lines, "#BEGIN", 8-byte binary frames, "#END ..."."""
+"""Reads what capture.py wrote: "#" header lines, "#BEGIN", 8-byte binary frames, "#END ...".
 
+The sketch ends its text lines with CR LF (Serial.println); a plain LF is accepted too.
+"""
+
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
@@ -16,6 +20,7 @@ FLAG_CYCLE_START = 4
 FLAG_OVERRUN = 8
 FLAGS_MASK = 0x0F
 RAW_LIMIT = 1024
+BEGIN_LINE = re.compile(rb"#BEGIN\r?\n")
 
 
 @dataclass
@@ -81,10 +86,10 @@ def parse_frames(body):
 
 def read_recording(path):
     data = Path(path).read_bytes()
-    marker = b"#BEGIN\n"
-    begin = data.find(marker)
-    if begin < 0:
+    marker = BEGIN_LINE.search(data)
+    if marker is None:
         raise ValueError(f"{path}: no #BEGIN line")
+    begin = marker.start()
     header = {}
     for line in data[:begin].decode("ascii", errors="replace").splitlines():
         if not line.startswith("#"):
@@ -92,7 +97,7 @@ def read_recording(path):
         key, _, value = line[1:].partition(" ")
         if key not in ("OK", "ERR"):
             header[key] = value
-    start = begin + len(marker)
+    start = marker.end()
     end = data.rfind(b"#END", start)
     if end >= 0:
         tail = data[end:].split(b"\n", 1)[0].decode("ascii", errors="replace")

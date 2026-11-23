@@ -29,6 +29,18 @@ STARTUP_S = 10.0  # skipped at the start of a recording: a lagging DC removal, t
 WARM_UPTIME_S = 120  # the DC removal settles within this time after power-up (the sketch waits for it)
 SHIFT_LIMIT_S = 1.0e-3  # the shift of the reference, a time: 1 ms is 18 deg at 50 Hz, whatever the spacing
 LOAD_RATIO_MIN = 3.0  # the current's rms in the ON cycles against its rms late in the OFF periods
+# A burst without current (the heater's thermostat cut out, the sketch still switching): its weakest ON cycle,
+# from the LEVEL_CYCLES_INTO_BURST-th on, carries less than NO_CURRENT_RATIO of the load's current (the
+# strongest burst's median cycle). A resistive load's current only moves by a few % with the mains voltage; the
+# load conducts from a zero crossing after the switch, up to a cycle late, hence the first cycles left out.
+LEVEL_CYCLES_INTO_BURST = 2
+NO_CURRENT_RATIO = 0.5
+NO_CURRENT = "no current (thermostat?)"
+MIN_USED_BURSTS = 4  # fewer bursts left: too few repeats to judge a filter against the burst-to-burst spread
+# The fit leaves rms(i - reference) / rms(reference) on its cycles; beyond this, the current is not k x V shifted
+# (not a resistive load, or a load on another phase). Noise and quantisation leave about 1 %; 15 % is a first
+# guess, to be tuned on hardware recordings.
+PROPORTIONAL_RESIDUAL_MAX = 0.15
 TAU_SIGNIFICANCE = 6.0  # the CT's switch-on residual must be this many standard errors above zero
 TAU_GRID = (1e-3, 30.0)  # s: the CT time constants tried
 TAIL_LIMIT = 0.05  # the CT's tail left at the end of an OFF period, as a fraction of its value at switch-off
@@ -52,7 +64,7 @@ class Burst:
     flag_next: int  # the cycle start of the next burst
     first_cycle: int  # index of the first ON cycle in the list of cycle starts
     off_cycle: int
-    excluded: str = ""  # "", "start-up" or "overrun"
+    excluded: str = ""  # "", "start-up", "overrun" or NO_CURRENT
     start: int = 0  # the load conducts from the zero crossing at start to the one at end
     end: int = 0
     span_end: int = 0  # the next burst's start
@@ -94,18 +106,11 @@ class _Context:
 
         self.skip = int(STARTUP_S / self.dt)
         self.bursts = self._find_bursts()
-        self.used = [b for b in self.bursts if b.used]
-        self.mask = np.zeros(n, dtype=bool)
-        for b in self.used:
-            for j in range(b.first_cycle + FIT_CYCLES_INTO_BURST, b.off_cycle):
-                self.mask[cs[j] : cs[j + 1]] = True
-        if not self.mask.any():
-            raise AnalysisError(
-                f"no burst of more than {FIT_CYCLES_INTO_BURST} ON cycles after the first {STARTUP_S:g} s:"
-                " nothing to fit the reference on (use a longer recording or longer bursts)"
-            )
         self.raw = current_minus_dc(rec.v_raw, rec.i_raw, rec.initial_state)
+        self._set_mask()
         self._check_load_current()
+        self._exclude_without_current()
+        self._set_mask()
         self._set_windows()
         self._v_m = self.vc[self.mask]
         self._q_m = self.q[self.mask]
@@ -120,6 +125,64 @@ class _Context:
         self._e_vv = cum_vv[self._ends] - cum_vv[self._starts]
         self._e_vq = cum_vq[self._ends] - cum_vq[self._starts]
         self._tail = None
+        self._check_proportional()
+
+    def _set_mask(self):
+        """The used bursts and the fit's samples: their ON cycles FIT_CYCLES_INTO_BURST or more into the burst."""
+        self.used = [b for b in self.bursts if b.used]
+        self.mask = np.zeros(self.n, dtype=bool)
+        for b in self.used:
+            for j in range(b.first_cycle + FIT_CYCLES_INTO_BURST, b.off_cycle):
+                self.mask[self.cs[j] : self.cs[j + 1]] = True
+        if not self.mask.any():
+            raise AnalysisError(
+                f"no burst of more than {FIT_CYCLES_INTO_BURST} ON cycles after the first {STARTUP_S:g} s:"
+                " nothing to fit the reference on (use a longer recording or longer bursts)"
+            )
+
+    def _exclude_without_current(self):
+        """Excludes the used bursts the load drew no current in, whole or in part (a thermostat cut out), and
+        refuses when fewer than MIN_USED_BURSTS are left."""
+        levels = {}  # burst number: (weakest cycle, median cycle), current rms per ON cycle
+        for b in self.used:
+            cycles = [
+                float(np.std(self.raw[self.cs[j] : self.cs[j + 1]]))
+                for j in range(b.first_cycle + LEVEL_CYCLES_INTO_BURST, b.off_cycle)
+            ]
+            if cycles:
+                levels[b.number] = (min(cycles), float(np.median(cycles)))
+        load = max((median for _, median in levels.values()), default=0.0)
+        for b in self.used:
+            if b.number in levels and levels[b.number][0] < NO_CURRENT_RATIO * load:
+                b.excluded = NO_CURRENT
+        used = [b for b in self.bursts if b.used]
+        if len(used) < MIN_USED_BURSTS:
+            without = sum(1 for b in self.bursts if b.excluded == NO_CURRENT)
+            raise AnalysisError(
+                f"too few bursts to judge a filter: {len(used)} used after the first {STARTUP_S:g} s"
+                f" ({without} without current: a thermostat?), {MIN_USED_BURSTS} needed; record longer, with the"
+                " load drawing current all along"
+            )
+
+    def _check_proportional(self):
+        """Refuses a raw current that is not k x V shifted on the fit's cycles: what the fit leaves is above
+        PROPORTIONAL_RESIDUAL_MAX of the current.
+
+        A shift at its limit alone does not refuse: a 15 ms CT on CT2 of the single-phase router already sits at
+        976 us of the 1 ms (the fit then leaves 2 %), and the report warns. A shift well beyond the limit (a load
+        on another phase: 120 deg) leaves far more than PROPORTIONAL_RESIDUAL_MAX.
+        """
+        k, _, theta = self.fit(self.raw)
+        ref = self.reference(k, theta)[self.mask]
+        left = self.raw[self.mask] - ref
+        left = left - left.mean()  # the current's DC against the voltage's is not the load's
+        ratio = _rms(left) / max(_rms(ref), 1e-9)
+        if ratio > PROPORTIONAL_RESIDUAL_MAX:
+            raise AnalysisError(
+                "current not proportional to the voltage: load not resistive, or on another phase (the fit leaves"
+                f" {100 * ratio:.0f} % of the current, {100 * PROPORTIONAL_RESIDUAL_MAX:.0f} % at most); check that"
+                " the CT is on the load's phase and that the load is a heater"
+            )
 
     def _find_bursts(self):
         rec, cs = self.rec, self.cs
@@ -257,10 +320,11 @@ class _Context:
         conducting = np.zeros(self.n)
         for b in self.used:
             region[b.start : b.span_end] = True
-        for b in self.bursts:
+        live = [b for b in self.bursts if b.excluded != NO_CURRENT]  # the load drew current: the CT's events
+        for b in live:
             conducting[b.start : b.end] = 1.0
-        events = [b.start for b in self.bursts] + [b.end for b in self.bursts]
-        signs = [-1.0] * len(self.bursts) + [1.0] * len(self.bursts)
+        events = [b.start for b in live] + [b.end for b in live]
+        signs = [-1.0] * len(live) + [1.0] * len(live)
         y = self.raw[region].astype(float)
         base = np.column_stack(
             ((self.vc * conducting)[region], (self.q * conducting)[region], np.ones(int(region.sum())))
@@ -502,10 +566,10 @@ def _report_header(rec, path, lines):
             " larger than the conversion order and a CT explain; the burst errors carry a constant offset"
         )
     startup = [b for b in ctx.bursts if b.excluded == "start-up"]
-    excluded = [b for b in ctx.bursts if b.excluded == "overrun"]
+    excluded = [b for b in ctx.bursts if b.excluded and b.excluded != "start-up"]
     text = f"Bursts: {len(ctx.used)} used of {len(ctx.bursts)} ({len(startup)} in the first {STARTUP_S:g} s"
     for b in excluded:
-        text += f"; burst {b.number} (t = {b.flag_on * ctx.dt:.1f} s) excluded: overrun"
+        text += f"; burst {b.number} (t = {b.flag_on * ctx.dt:.1f} s) excluded: {b.excluded}"
     lines.append(text + ")")
     if ctx.delay_half_cycles:
         lines.append(f"The load conducts {ctx.delay_half_cycles} half-cycle(s) after the sketch switches it")

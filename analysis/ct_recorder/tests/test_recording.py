@@ -62,3 +62,17 @@ def test_clean_recording_has_no_resync(tmp_path):
     rec = read_recording(path)
     assert rec.resync_indices == [] and not rec.overrun.any() and rec.dropped_bytes == 0
     assert rec.coefficients is None and rec.initial_state is None
+
+
+def test_reads_crlf_lines_as_the_arduino_core_writes_them(tmp_path):
+    """Serial.println ends lines with CR LF: the header, #BEGIN and #END lines all arrive that way."""
+    header = HEADER.replace(b"\n", b"\r\n")
+    path = tmp_path / "r.bin"
+    body = frame(1, 500, 520, -5) + frame(0, 7, 8, 9)
+    path.write_bytes(b"#OK\r\n" + header + body + b"#END frames=2 overruns=0\r\n")
+    rec = read_recording(path)
+    assert rec.header["router"] == "3-phase"
+    assert rec.header["gain"] == "12.0000"
+    assert rec.header["END"] == "frames=2 overruns=0"
+    assert list(rec.v_raw) == [500, 7] and list(rec.i_out) == [-5, 9]
+    assert rec.dropped_bytes == 0 and rec.resync_indices == []
