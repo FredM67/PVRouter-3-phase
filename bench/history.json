@@ -1871,6 +1871,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "879a3baf870ec1eb1f17077487772c9c19f08a18",
+   "date": "2026-11-23T11:23:56+01:00",
+   "message": "ci: temperature sensing at 60 Hz in the grid simulation; README on the combinations that fail (#250)\n\nmake check-temp60 and check-new-temp60 run the grid scenarios at 60 Hz (configs/supply_60hz.patch)\nwith the two DS18B20: no misfiled sample, worst ADMUX delay 1558 cycles (old board) and 1408 (new).\nBoth are added to ci_targets.sh and the grid-sim job. The README now says that remote loads or\nrelays together with sensors do not keep the ADC deadline, and corrects the ADMUX figures of the\nordinary ISR calls (up to ~620 cycles with one call per mains cycle, not 373).\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/879a3baf870ec1eb1f17077487772c9c19f08a18",
+   "sizes": {
+    "basic": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12328,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
