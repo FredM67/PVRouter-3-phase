@@ -1826,6 +1826,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "03cbeceed9b9cd39776f0e9ed7bebf65636aa7c4",
+   "date": "2026-11-23T10:08:21+01:00",
+   "message": "feat: CT recorder, measure the CTs and compute the CT filter (#249)\n\n* docs: CT recorder design\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: CT recorder design approved; no calibration in the tool\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs(ct-recorder): implementation plan\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat(ct-recorder): chain layouts and the firmware's sample path, with native tests\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat(ct-recorder): frame, ring buffer and burst pattern, with native tests\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat(ct-recorder): the recording sketch, binary frames over a ring buffer\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix(ct-recorder): overrun flag on the frame after the gap; ADMUX never written before one ADC clock\n\nThe producer latches a dropped frame and flags the next one stored. The ISR\nwaits (Timer1 at the CPU clock) until 160 cycles after its entry before\nwriting ADMUX, so the channels that do no work respect the 128-cycle rule.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat(ct-recorder): capture and reader, the firmware's current path bit for bit in Python\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix(ct-recorder): coefficients and starting state in the header, resync with lookahead, wider golden test\n\nThe header carries the fixed-point coefficients the ISR uses and the state of\nSamplePath and LowPassBoost snapshotted at the first recorded sample set, so\nfirmware_current reproduces a recording. The reader accepts a frame only when\na sync byte follows, marks the gap in overrun and lists the resync indices.\nThe golden signal gains a clipped segment and the alphas 0.01 and 0.00005.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* feat(ct-recorder): the analysis, filter search and verdict\n\nanalyse.py fits the reference (k and a fractional shift, on ON cycles 20 or\nmore into a burst, after a 10 s start-up), computes the energy error of each\nburst over its ON cycles, searches alpha/gain with the firmware's own\nfixed-point filter from the recording's raw samples and starting state, fits\nthe CT's time constant on the raw switch-on residual, and states the verdict:\nthe calibration.h lines, or \"no filter needed\" when the improvement is within\nthe spread over the repeated bursts. --compare takes a filter-off and a\nfilter-on run; --plots writes a switch-on and a switch-off.\n\nfirmware_path.py runs the low-pass once per alpha (low_pass_trace) and\napplies any gain to its state in numpy (boosted): the same bit-exact path,\nstill checked against the C++.\n\nsynthetic.py writes recordings as the sketch streams them (moved from\nconftest.py: the clipped sine for the golden tests).\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix(ct-recorder): the shift limit is 1 ms, not a sample; an unbounded CT tail is not \"use longer OFF periods\"\n\nThe reference's shift was clamped to one sample: 11 deg at 624 us, 5.6 deg\nat 312 us, where CT2 alone is 2/3 of a sample after V. At the clamp k was\nrefitted with the wrong phase and every burst carried a constant error (the\n15 ms synthetic CT: -0.82 %). The limit is now 1 ms whatever the spacing, and\nthe report warns when the shift sits at it.\n\nA slow CT's time constant has no upper bound at 10 bits: every burst warned\n\"use longer OFF periods\", which no OFF length can satisfy. When the bound is\nmissing and even the shortest time constant the fit allows leaves the tail\nsettled, a note says the settling cannot be confirmed at 10 bits (with the\nlower bound). The warning stays when the fit shows the tail is left.\n\nmake_recording takes the current's conversion delay and an extra phase.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs(ct-recorder): how to record and analyse; ci: build and test the tool\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix(ct-recorder): read CR LF lines, refuse a current not proportional to V, leave out bursts without current\n\n- The reader accepts \"#BEGIN\\r\\n\" (Serial.println), so real recordings read; the synthetic recordings and the\n  fake serial of the capture tests now end their lines with CR LF too.\n- The analysis refuses when the fit leaves more than 15 % of the current (a load on another phase: 84 %). A\n  shift at its limit with a small residual still only warns: a 15 ms CT on single-phase CT2 sits at 976 us.\n- Bursts whose weakest ON cycle carries less than half the load's current (a thermostat cut out) are left out,\n  listed, and kept out of the CT tail fit; fewer than 4 bursts left: refused.\n- The capture waits through the warm-up by default (--no-wait fails fast, the wait is capped at 180 s), opens\n  the port with DTR and RTS low, and reports an #ERR line sent after #OK (e.g. \"no ADC conversions\").\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs(ct-recorder): where the CT goes, the capture waits, example values labelled\n\n- The recorded CT must see the heater's current only: I1/CT1 are grid CTs (the whole house, the PV export).\n- Opening the port may reset the board: expect about 2 minutes more per capture; --no-wait replaces --wait.\n- The example filter values come from a synthetic recording; the refusals and the thermostat exclusion listed.\n- French README: U+00A0 inside the guillemets.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix(ct-recorder): the shift limit is 2 ms, so fast CTs are not refused\n\nA 5 ms CT leads the current by 32 deg (1.8 ms) at 50 Hz: with the 1 ms limit the clamped fit left 19 to 35 %\nof the current and the analysis refused the CTs that need the filter most. At 2 ms (36 deg) a 5 or 6 ms CT,\non 3-phase I1 and on single-phase CT2, leaves 1.7 to 3.7 % and the filter is found (RMS error 1.6-3.3 % down\nto 0.03-0.07 %). The 5 ms CT on CT2 sits at the limit and warns. A load on another phase still refuses.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix(ct-recorder): a current lagging the voltage is refused, the shift bounds are -0.5 to +2 ms\n\nA load on phase 3 (+120 deg) folds to -60 deg with k < 0, and a fast CT's lead brought it back inside +-2 ms:\nwith a 6 ms CT the analysis printed a filter. A correct setup only leads (conversion order plus CT lead, +105 us\nto about +1.8 ms), so the bounds are now SHIFT_MIN_S -0.5 ms and SHIFT_MAX_S +2 ms, and a best shift below\n-0.5 ms is refused (\"the current lags the voltage ... on another phase, or wrong pair\"). A reversed CT (k < 0,\npositive shift) is still accepted; the upper bound still only warns.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/03cbeceed9b9cd39776f0e9ed7bebf65636aa7c4",
+   "sizes": {
+    "basic": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12328,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7926,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
