@@ -14,6 +14,7 @@ own, more detailed guide: [`Mk2_3phase_RFdatalog_temp/CLAUDE.md`](Mk2_3phase_RFd
 | `scripts/` | Git hooks (pre-commit framework or plain hooks, [README](scripts/README.md)) |
 | `configurator/` | Browser configurator that writes `config.h` (plain JS, Node tests) |
 | `analysis/`, `dev/` | Measurement analysis and development sketches; not part of the build |
+| `dev/CtRecorder/`, `analysis/ct_recorder/` | CT recorder: a sketch recording the ADC chain (own PlatformIO envs and native tests) and the Python tool that finds the CT filter ([README](dev/CtRecorder/README.en.md)); built and tested by the `ct-recorder` CI job |
 | `docs/`, `lang/`, `pages/`, `img/`, `schematics/` | Wiring diagrams, translated docs, GitHub Pages, pictures, schematics |
 | `obsolete/` | Old code kept for reference; do not update |
 

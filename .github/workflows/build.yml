@@ -194,6 +194,30 @@ jobs:
       - name: Run native tests
         run: pio test --project-dir ${{ env.PROJECT_DIR }} -e native
 
+  # The CT recorder (dev/CtRecorder, analysis/ct_recorder): the sketch on its five environments,
+  # its native tests, and the Python tool's tests (the golden ones build a C++ program with g++).
+  ct-recorder:
+    name: CT recorder
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup-platformio
+
+      - name: Build the sketch (every environment)
+        run: pio run --project-dir dev/CtRecorder -e three_phase_old -e three_phase_new -e single_phase_old_seg -e single_phase_old_oled -e single_phase_new
+
+      - name: Run native tests
+        run: pio test --project-dir dev/CtRecorder -e native
+
+      - name: Install the tool's requirements
+        run: pip install -r analysis/ct_recorder/requirements.txt
+
+      # from analysis/, where the ct_recorder package is found
+      - name: Test the tool
+        working-directory: analysis
+        run: python -m pytest ct_recorder/tests
+
   # Embedded tests: every test under test/embedded runs in the simavr simulator
   # (a bare ATmega328P at 16 MHz), benchmarks included - simavr is cycle-accurate,
   # so their figures are reproducible. Free and unlimited, no token needed.

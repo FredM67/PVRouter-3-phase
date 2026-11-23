@@ -283,6 +283,11 @@ valid load maps ([#160]).
   multiplies ([#120], [#127], [#160], [#163], [#172], [#180]).
 - **Workflow:** `main` (stable) and `dev` (development) branches ([#134], [#135]), pre-commit
   hooks for formatting and file headers ([#153], [#159]).
+- **CT recorder** (`dev/CtRecorder/`, `analysis/ct_recorder/`): a sketch that records the router's
+  own ADC chain (voltage and one current, no calibration) while a load is driven in bursts, and a
+  Python tool that finds the CT filter (`lpf_gain` and `alpha` of `calibration.h`) for a board, or
+  concludes that none is needed. Native, golden and synthetic tests run in CI (job `ct-recorder`).
+  Not yet tested on a real board.
 
 [Unreleased]: https://github.com/FredM67/PVRouter-3-phase/compare/main...dev
 [#120]: https://github.com/FredM67/PVRouter-3-phase/issues/120
