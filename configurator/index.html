@@ -4,14 +4,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PVRouter configurator</title>
+    <title>3-phase PVRouter configurator</title>
+    <script src="doc-version.js" onerror="this.remove()"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
 <div style="background:#fff3cd;border-bottom:1px solid #e0c060;padding:.5rem 1rem;font:14px/1.4 system-ui,sans-serif;text-align:center">Preview of the <code>dev</code> branch, not released: it may change or break, and its files may not suit the released firmware. / Aperçu de la branche <code>dev</code>, non publié.<br>Released configurator / Configurateur publié : <a href="https://fredm67.github.io/Mk2PVRouter/configurateur/">https://fredm67.github.io/Mk2PVRouter/configurateur/</a></div>
     <header>
       <div>
-        <h1 data-t="title">PVRouter configurator</h1>
+        <h1 data-t="title">3-phase PVRouter configurator</h1>
+        <p id="switch" class="switch"></p>
         <p data-t="subtitle"></p>
       </div>
       <nav>
@@ -22,6 +24,7 @@
         <button type="button" id="reset" data-t="reset"></button>
       </nav>
     </header>
+    <div id="refused" class="refused" role="alert"></div>
     <main>
       <form id="form" autocomplete="off"></form>
       <aside>

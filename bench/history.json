@@ -2006,6 +2006,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "291b757c5355028d1c65af1de2395b5929fe2e00",
+   "date": "2026-11-23T20:10:37+01:00",
+   "message": "feat(configurator): switch to the single-phase configurator (#253)\n\n- \"Router: single-phase / 3-phase\" at the top. On the docs site the link\n  is relative (../configurateur-monophase/), so it stays in the version\n  being read; elsewhere it goes to the stable site. A \"(dev)\" tag when the\n  docs site's doc-version.js says dev.\n- Saves carry \"router\": 3; a single-phase save is refused, with a link to\n  its page. Older saves, without the field, still load.\n- Pin errors name their users in the page's language (keys rendered by\n  t()), and the pin lists no longer offer the RF chip's pins: the same\n  fixes as the single-phase page.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/291b757c5355028d1c65af1de2395b5929fe2e00",
+   "sizes": {
+    "basic": {
+     "flash": 7928,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12330,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7928,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7800,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }

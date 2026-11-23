@@ -48,6 +48,7 @@
   function defaults() {
     return {
       formatVersion: FORMAT_VERSION,
+      router: 3, // 3: this page, 1: the single-phase page (a save without it is a 3-phase one)
 
       // config.h - general
       pcbVersion: 'NEW', // OLD: former 3-phase board, NEW: universal 3phaseDiverter board
@@ -158,8 +159,19 @@
 
   const clone = (o) => JSON.parse(JSON.stringify(o));
 
+  // The router a save is for: a save without the field is a 3-phase one
+  const saveRouter = (data) => (data && data.router) ?? 3;
+
+  const SINGLE_PHASE_URL = 'https://fredm67.github.io/Mk2PVRouter/configurateur-monophase/';
+  // Where the "single-phase" link goes: relative on the docs site (it follows the version being
+  // read), absolute from a file or any other host. loc: { protocol, pathname }
+  function singlePhaseUrl(loc) {
+    return loc && /^https?:$/.test(loc.protocol) && String(loc.pathname).includes('/Mk2PVRouter/') ? '../configurateur-monophase/' : SINGLE_PHASE_URL;
+  }
+
   // Fill what an older or hand-edited JSON lacks, keep the rest
   function normalize(input) {
+    if (saveRouter(input) !== 3) throw new Error('router');
     const base = defaults();
     const merge = (b, v) => {
       if (Array.isArray(b)) return Array.isArray(v) ? clone(v) : b;
@@ -315,6 +327,10 @@
     return w.open || (b.for > 0 && w.end <= periodMin);
   }
   const rfChipPresent = (m) => m.rf.logging || remoteLoadsPresent(m);
+
+  // the router pins a pin list offers: not those of the RF chip when it is there; the pin already
+  // chosen stays, so the page shows it with the error that says why
+  const offeredPins = (m, current) => DIGITAL_PINS.filter((p) => p === current || !(rfChipPresent(m) && RF_PINS.includes(p)));
   const tempSensorPresent = (m) => m.temperature.mode === 'router';
   // The pin of the probes' bus: wired on the new board, chosen on the old one
   const tempPin = (m) => (m.pcbVersion === 'OLD' ? m.temperature.pin : TEMP_PIN);
@@ -432,6 +448,8 @@
     PHASES,
     defaults,
     normalize,
+    saveRouter,
+    singlePhaseUrl,
     clone,
     remoteUnitsUsed,
     remoteLoadCount,
@@ -444,6 +462,7 @@
     withStart,
     fitBoost,
     rfChipPresent,
+    offeredPins,
     tempSensorPresent,
     tempPin,
     removeSensor,
