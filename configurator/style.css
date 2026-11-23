@@ -38,6 +38,20 @@ header h1 {
   font-size: 1.5rem;
 }
 
+.switch {
+  margin: 0.25rem 0 0;
+}
+
+.refused:not(:empty) {
+  max-width: 70rem;
+  margin: 0 auto 1rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid #c0392b;
+  border-radius: 6px;
+  background: #fdecea;
+  color: #7b241c;
+}
+
 header p {
   margin: 0.25rem 0 0;
   color: var(--muted);

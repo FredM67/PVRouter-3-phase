@@ -279,3 +279,17 @@ test('rotation delay: checked only when its field is shown (automatic, without d
   assert.ok(!delay((m) => Object.assign(m.rotation, { mode: 'PIN', pin: 4, groups: [[0, 1, 2]] }) && false));
   assert.ok(!delay(() => false));
 });
+
+test('pins: the uses of a pin are keys, translated by the page, not English text', () => {
+  const m = variant((m) => (m.loads[0] = { type: 'local', pin: 5 }) && (m.overrides.list[0].pin = 5));
+  const dup = V.validate(m).find((p) => p.key === 'err.duplicatePin');
+  assert.ok(dup.params.uses.some((u) => u.key === 'use.load' && u.n === 1));
+  assert.ok(dup.params.uses.some((u) => u.key === 'use.override' && u.n === 1));
+});
+
+test('pins offered: not those of the RF chip when it is there; a chosen one stays', () => {
+  const rf = variant((m) => (m.rf.logging = true));
+  assert.deepStrictEqual(M.offeredPins(rf, 5).filter((p) => M.RF_PINS.includes(p)), []);
+  assert.ok(M.offeredPins(rf, 10).includes(10));
+  assert.ok(M.offeredPins(variant((m) => (m.rf.logging = false) && (m.loads = m.loads.filter((l) => l.type === 'local'))), 5).includes(10));
+});
