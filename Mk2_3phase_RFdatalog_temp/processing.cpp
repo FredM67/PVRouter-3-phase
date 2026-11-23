@@ -725,7 +725,7 @@ void processStartNewCycle()
     l_energyInBucket_main = 0;
   }
 
-  // a 50 Hz 'tick' for use by the main code, once the cycle's work is done: the 1-Wire
+  // one 'tick' per mains cycle for use by the main code, once the cycle's work is done: the 1-Wire
   // transactions start when the loop sees it, their slots must not delay this call
   Shared::b_newMainsCycle = true;
 }
