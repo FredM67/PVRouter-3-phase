@@ -92,7 +92,7 @@ L'analyse mesure l'erreur d'énergie sur les cycles ON de chaque impulsion. Pour
 
   Ces valeurs sont des exemples, tirés d'un enregistrement synthétique. Utilisez celles qu'affiche votre analyse.
 
-- Le décalage V/I ajusté est limité à ±1 ms, avec un avertissement à la limite.
+- Le décalage V/I ajusté est limité à ±2 ms (36° à 50 Hz), avec un avertissement à la limite.
 - Si le courant n'est pas proportionnel à la tension (charge non résistive, ou TC sur une autre phase), l'analyse refuse et ne donne pas de filtre.
 - Une note indique quand la fin de la queue du TC ne peut pas être confirmée avec 10 bits (queue trop courte devant la résolution).
 - Les impulsions des 10 premières secondes, avec un dépassement du tampon, ou sans courant (thermostat du chauffe-eau coupé), sont écartées et listées. S'il reste moins de 4 impulsions, l'analyse refuse.

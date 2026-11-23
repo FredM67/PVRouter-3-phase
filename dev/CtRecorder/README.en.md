@@ -92,7 +92,7 @@ The analysis measures the energy error over the ON cycles of each burst. For a l
 
   These are example values, from a synthetic recording. Use those your analysis prints.
 
-- The fitted V/I shift is limited to ±1 ms, with a warning at the limit.
+- The fitted V/I shift is limited to ±2 ms (36° at 50 Hz), with a warning at the limit.
 - If the current is not proportional to the voltage (the load is not resistive, or the CT is on another phase), the analysis refuses and gives no filter.
 - A note says when the end of the CT tail cannot be confirmed at 10 bits (tail too short against the resolution).
 - Bursts in the first 10 s, with a buffer overrun, or without current (the water heater's thermostat cut out), are left out and listed. With fewer than 4 bursts left, the analysis refuses.

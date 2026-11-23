@@ -200,18 +200,38 @@ def test_refuses_when_too_few_bursts_carry_current(tmp_path):
 
 
 def test_shift_at_limit_with_a_small_residual_warns_without_refusing(tmp_path, capsys):
-    """20 deg more than the conversion order: the shift sits at its 1 ms limit, the fit still leaves only a few %
-    of the current. A warning, not a refusal (a 15 ms CT on CT2 of the single-phase router is close to the limit
-    too)."""
-    path = make_recording(tmp_path / "ph20.ctr", seconds=SECONDS, tau_s=None, i_phase_deg=20.0)
+    """38 deg more than the conversion order (40 deg in all): the shift sits at its 2 ms (36 deg) limit, the fit
+    still leaves well under 15 % of the current. A warning, not a refusal."""
+    path = make_recording(tmp_path / "ph38.ctr", seconds=SECONDS, tau_s=None, i_phase_deg=38.0)
     assert analyse.main([str(path)]) == 0
     assert "warning: the shift sits at its limit" in capsys.readouterr().out
 
 
 def test_fast_ct_on_single_phase_ct2_is_not_refused(tmp_path):
-    """312 us, CT2 208 us after V, 2 deg, a 15 ms CT: the shift is close to its limit, the current proportional."""
+    """312 us, CT2 208 us after V, 2 deg, a 15 ms CT: a shift of about 1 ms, the current proportional."""
     path = make_recording(
         tmp_path / "ct2.ctr", seconds=40.0, spacing_us=312, tau_s=0.015, i_delay_us=208, i_phase_deg=2.0
     )
     _, shift = fit_reference(read_recording(path))
     assert 0.9e-3 < shift * 312e-6 < analyse.SHIFT_LIMIT_S
+
+
+@pytest.mark.parametrize("tau_s", [0.005, 0.006])
+@pytest.mark.parametrize(
+    "layout",
+    [dict(spacing_us=624, i_delay_us=104), dict(spacing_us=312, i_delay_us=208, i_phase_deg=2.0)],
+    ids=["three_phase_I1", "single_phase_CT2"],
+)
+def test_fast_ct_is_not_refused_and_the_filter_is_found(tmp_path, tau_s, layout):
+    """A 5 or 6 ms CT leads the current by 28 to 32 deg at 50 Hz (about 1.6 to 1.8 ms), plus the conversion order:
+    the CTs that need the filter most. Not refused, and the filter found cuts the RMS burst-energy error.
+
+    The 5 ms CT on CT2 (32.5 + 3.7 + 2 deg) sits just past the 2 ms limit: the fit is clamped, the report warns."""
+    path = make_recording(tmp_path / "fast.ctr", seconds=40.0, tau_s=tau_s, **layout)
+    rec = read_recording(path)
+    fit_reference(rec)  # not refused
+    alpha, gain, _ = search_filter(rec)
+    off = burst_energy_errors(rec, raw_current(rec))
+    on = burst_energy_errors(rec, firmware_current(rec.v_raw, rec.i_raw, alpha, gain, state=rec.initial_state))
+    assert gain > 0
+    assert rms(on) < 0.5 * rms(off)
