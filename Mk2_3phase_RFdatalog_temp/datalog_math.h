@@ -87,22 +87,24 @@ constexpr uint8_t powerShift(const uint32_t maxSampleSets)
  *          out with the noise of real samples.
  *
  * @tparam SHIFT The shift of the sum in the ISR (powerShift()).
- * @param sum The power summed over the period, each sample scaled down by 2^SHIFT.
- * @param sampleSets The sample sets of the period (not 0).
+ * @tparam Count The type of the sample set counter (16 or 32 bits).
+ * @param sum The power summed over the period, scaled down by 2^SHIFT.
+ * @param sampleSets The sample sets of the period (not 0, below 2^27).
  * @return The average, at most +-2^18.
  */
-template< uint8_t SHIFT >
-inline int32_t averagePower(const int32_t sum, const uint16_t sampleSets)
+template< uint8_t SHIFT, typename Count >
+inline int32_t averagePower(const int32_t sum, const Count sampleSets)
 {
+  const auto n{ static_cast< int32_t >(sampleSets) };  // a signed division: the sum is signed
   if constexpr (SHIFT == 0)
   {
-    return sum / sampleSets;
+    return sum / n;
   }
   else
   {
-    const int32_t quotient{ sum / sampleSets };
-    const int32_t remainder{ sum % sampleSets };  // |remainder| < 2^16: x 2^SHIFT fits
-    return quotient * (static_cast< int32_t >(1) << SHIFT) + remainder * (static_cast< int32_t >(1) << SHIFT) / sampleSets;
+    const int32_t quotient{ sum / n };
+    const int32_t remainder{ sum % n };  // |remainder| < n: x 2^SHIFT fits
+    return quotient * (static_cast< int32_t >(1) << SHIFT) + remainder * (static_cast< int32_t >(1) << SHIFT) / n;
   }
 }
 
