@@ -29,7 +29,7 @@ void printParamsForSelectedOutputMode();
 
 #if defined(__DOXYGEN__)
 void initializeProcessing();
-inline void processStartUp(uint8_t phase);
+void processStartUp();
 inline void processStartNewCycle();
 inline void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample);
 inline void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample);
@@ -47,7 +47,7 @@ inline void updatePhysicalLoadStates();
 #else
 // -O3 on a function that is a call of its own: here 50 bytes smaller than with -Os
 void initializeProcessing() __attribute__((optimize("-O3")));
-inline void processStartUp(uint8_t phase) __attribute__((always_inline));
+void processStartUp() __attribute__((noinline));  // once, at the end of the start-up period: one copy, not one per phase
 inline void processStartNewCycle() __attribute__((always_inline));
 inline void processVoltageRawSample(const uint8_t phase, const uint16_t rawSample) __attribute__((always_inline));
 inline void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample) __attribute__((always_inline));
