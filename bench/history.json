@@ -2186,6 +2186,51 @@
     "mult_asm: mult16x8_q8 per op": 27.16,
     "mult_asm: ISR simulation per sample": 132.09
    }
+  },
+  {
+   "commit": "21a165c364a1be4d5be2890db74998c9e043193c",
+   "date": "2026-11-24T14:45:21+01:00",
+   "message": "fix: the pin check sees pins from 16 on, and every phase restarts after start-up (#258)\n\n* fix: the pin check sees pins from 16 on, and every phase restarts after start-up\n\nPin check (validation.h): check_pins() kept the pins in a 16-bit mask, so\na feature pin from 16 on (A2 to A5, analog inputs of this board) was\ndropped from it and passed every check. The mask is now 32 bits, with\nclaimPin() as in the single-phase firmware, and every pin from 14 on is\nrefused (\"Pins 14 and above cannot be used\"; the former message said that\npins 14 and 15 do not exist, while they are A0 and A1). New compile-fail\ncase: 77-analog-input-used-by-a-feature.\n\nStart-up (processing.cpp): the end of the start-up period reset the sums\nand the sample count of the phase whose crossing ended it only; the other\ntwo kept those of the whole start-up period, for their first\ncontribution and their first datalog period. Every phase is now reset.\nprocessStartUp() is out of line: it runs once, and inlined it was copied\nonce per phase into the ADC interrupt.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix: each phase restarts at its own crossings during start-up, not in a loop at the end\n\nThe loop over the phases at the end of the start-up period made the ADC ISR spill to a stack\nframe on every call, as a call (noinline) and inlined alike. processStartUp(phase) is back to\ndev's shape, with the per-phase resets moved before the end-of-start-up check: every phase\nstarts afresh at each of its crossings during the start-up period, so when the first phase to\ncross ends it, the others hold one cycle at most.\n\nGrid simulator, against dev (old board / new board): ISR average 316.9 / 316.7 cycles\n(unchanged), ISR max 917-928 / 903-914 cycles (1268 / 1260), ADMUX written at most 847 / 833\ncycles (1187 / 1179). The former worst case was the first contribution of L2 and L3 after the\nstart-up period, through the division of an unexpected cycle length, with the sample count of\nthe whole start-up period.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/21a165c364a1be4d5be2890db74998c9e043193c",
+   "sizes": {
+    "basic": {
+     "flash": 7872,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12244,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7872,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7742,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
