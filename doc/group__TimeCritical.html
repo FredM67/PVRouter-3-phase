@@ -809,7 +809,7 @@ Here is the caller graph for this function:</div>
 <li>Signals the main processor that logging data is available after the startup period. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00862">862</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00869">869</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -865,7 +865,7 @@ Here is the caller graph for this function:</div>
 <li>Applies adjustments for required export energy on phase 0. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00789">789</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00796">796</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -936,7 +936,7 @@ Here is the caller graph for this function:</div>
 <li>The integrator is free-running: it is never reset, and is not clamped. Its time constant is long enough that a plausible offset drift is tracked smoothly, while a stuck or disconnected VT settles to that input instead of to a fixed limit. See <code>test/native/test_dc_offset_filter</code> for the tracking and step-response cases. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00765">765</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00772">772</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -992,7 +992,7 @@ Here is the caller graph for this function:</div>
 <li>Resets cumulative power and sample count for the phase. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00919">919</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00926">926</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1122,7 +1122,7 @@ Here is the caller graph for this function:</div>
 <li>For phase 0, it triggers the start of a new mains cycle and handles startup logic. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00957">957</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00964">964</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1209,7 +1209,7 @@ Here is the caller graph for this function:</div>
 <li>Signals the new mains cycle to the main code (<a class="el" href="namespaceShared.html#aeb0c8d5068e7da50d773ea26d9f27393">Shared::b_newMainsCycle</a>), last. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00702">702</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00709">709</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1279,11 +1279,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <ul>
-<li>During the startup period, the function waits until the filters have settled.</li>
-<li>Once the startup period is over, it resets key variables and flags to prepare for normal operation. </li>
+<li>At each crossing of the phase during the startup period, the phase starts its sums and its sample count afresh.</li>
+<li>Once the filters have settled, the startup period is over: the flags are set for normal operation. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00666">666</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00667">667</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1407,7 +1407,7 @@ Here is the caller graph for this function:</div>
 <li>Updates voltage-related metrics and increments the sample set count for phase 0. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l01014">1014</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l01021">1021</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

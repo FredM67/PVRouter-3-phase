@@ -1,11 +1,13 @@
 <map id="check_pins" name="check_pins">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,84,99,112"/>
-<area shape="rect" id="Node000002" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="162,5,236,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,81,145,43,159,39,155,42,148,48,80,86"/>
-<area shape="rect" id="Node000003" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="167,57,232,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="98,87,154,78,149,81,100,92"/>
-<area shape="rect" id="Node000004" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="147,109,252,137"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="99,103,134,111,129,113,99,108"/>
-<area shape="rect" id="Node000005" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="152,161,247,189"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="80,110,148,146,160,154,154,154,145,151,79,115"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,83,99,110"/>
+<area shape="rect" id="Node000002" href="$validation_8h.html#acc162a273cb19d8554e6043c51f6dfd2" title="Marks pin as used in used." alt="" coords="161,31,238,58"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,80,148,61,144,65,95,84"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="147,83,252,110"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="99,94,134,95,129,98,100,99"/>
+<area shape="rect" id="Node000006" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="152,135,247,162"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="94,108,146,128,141,130,93,114"/>
+<area shape="rect" id="Node000003" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="300,5,374,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="238,35,287,28,282,30,239,40"/>
+<area shape="rect" id="Node000004" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="304,57,370,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="238,49,292,61,287,62,238,55"/>
 </map>

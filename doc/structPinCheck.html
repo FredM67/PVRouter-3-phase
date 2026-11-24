@@ -100,8 +100,8 @@ $(function(){ initResizable(false); });
 Public Attributes</h2></td></tr>
 <tr class="memitem:a02e02413be7f1d38e040c9134471b010" id="r_a02e02413be7f1d38e040c9134471b010"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02e02413be7f1d38e040c9134471b010">unique</a></td></tr>
 <tr class="separator:a02e02413be7f1d38e040c9134471b010"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4068b231335dcbe686dfdbc41b52efd3" id="r_a4068b231335dcbe686dfdbc41b52efd3"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4068b231335dcbe686dfdbc41b52efd3">used</a></td></tr>
-<tr class="separator:a4068b231335dcbe686dfdbc41b52efd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a261a2ec30c289edd00acdca0ed076aba" id="r_a261a2ec30c289edd00acdca0ed076aba"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a261a2ec30c289edd00acdca0ed076aba">used</a></td></tr>
+<tr class="separator:a261a2ec30c289edd00acdca0ed076aba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Result of <a class="el" href="validation_8h.html#afec5bfb31058ece3c98c5bc005283250">check_pins()</a>: whether every pin is used once, and the pins used. </p>
@@ -126,18 +126,18 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4068b231335dcbe686dfdbc41b52efd3" name="a4068b231335dcbe686dfdbc41b52efd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4068b231335dcbe686dfdbc41b52efd3">&#9670;&#160;</a></span>used</h2>
+<a id="a261a2ec30c289edd00acdca0ed076aba" name="a261a2ec30c289edd00acdca0ed076aba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a261a2ec30c289edd00acdca0ed076aba">&#9670;&#160;</a></span>used</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t PinCheck::used</td>
+          <td class="memname">uint32_t PinCheck::used</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>the pins used (0 on a conflict) </p>
+<p>the pins used, bit n = pin n (0 on a conflict); bit 31 = a pin from 32 on </p>
 
 <p class="definition">Definition at line <a class="el" href="validation_8h_source.html#l00107">107</a> of file <a class="el" href="validation_8h_source.html">validation.h</a>.</p>
 
