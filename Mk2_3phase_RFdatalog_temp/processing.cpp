@@ -654,32 +654,36 @@ void processVoltage(const uint8_t phase)
  * to settle before normal operation begins. It ensures that the system is stable
  * before processing energy and load states.
  *
+ * @param phase The phase number [0..NO_OF_PHASES[.
+ *
  * @details
- * - During the startup period, the function waits until the filters have settled.
- * - Once the startup period is over, it resets the sums and sample counts of every phase,
- *   and the flags, to prepare for normal operation.
+ * - At each crossing of the phase during the startup period, the phase starts its sums and its
+ *   sample count afresh.
+ * - Once the filters have settled, the startup period is over: the flags are set for normal
+ *   operation.
  *
  * @ingroup TimeCritical
  */
-void processStartUp()
+void processStartUp(const uint8_t phase)
 {
+  // Every phase starts afresh at each of its crossings during the start-up period: the crossing
+  // that ends it is the first phase's to come, and the others then hold one cycle at most, not
+  // the sums and the sample count of the whole start-up period. Done here, for the crossing
+  // phase only, rather than for all phases at the end: a loop over the phases, inlined or
+  // called, makes the ISR spill to a stack frame on every call.
+  l_sumP[phase] = 0;
+  l_sumP_atSupplyPoint[phase] = 0;
+  l_sum_Vsquared[phase] = 0;  // with the sample set count: the first datalog period holds its own samples (one cycle more at most for the other phases)
+  n_samplesDuringThisMainsCycle[phase] = 0;
+
   // wait until the DC-blocking filters have had time to settle
   if (millis() <= (initialDelay + startUpPeriod))
   {
-    return;  // still settling, do nothing
+    return;  // still settling
   }
 
   // the DC-blocking filters have had time to settle
   beyondStartUpPeriod = true;
-  // every phase restarts here, not only the one whose crossing ends the start-up period: the
-  // others would keep the sums and the sample count of the whole start-up period
-  for (uint8_t phase = 0; phase != NO_OF_PHASES; ++phase)
-  {
-    l_sumP[phase] = 0;
-    l_sumP_atSupplyPoint[phase] = 0;
-    l_sum_Vsquared[phase] = 0;  // with the sample set count: the first datalog period holds only its own samples
-    n_samplesDuringThisMainsCycle[phase] = 0;
-  }
   i_sampleSetsDuringThisDatalogPeriod = 0;
 
   n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
@@ -974,7 +978,7 @@ void processRawSamples(const uint8_t phase)
       }
       else
       {
-        processStartUp();
+        processStartUp(phase);
       }
     }
 
