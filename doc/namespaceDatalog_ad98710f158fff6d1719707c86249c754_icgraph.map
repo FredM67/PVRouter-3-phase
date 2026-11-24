@@ -1,0 +1,10 @@
+<map id="Datalog::powerShift" name="Datalog::powerShift">
+<area shape="rect" id="Node000001" title="The shift by which the ISR scales the power down before adding it to the datalog sum." alt="" coords="338,52,487,80"/>
+<area shape="rect" id="Node000002" href="$native_2test__datalog__math_2test__main_8cpp.html#a097542ea474ed61efe4b5e20fd533c98" title=" " alt="" coords="108,5,290,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="320,50,290,47,290,42,325,50"/>
+<area shape="rect" id="Node000004" href="$native_2test__datalog__math_2test__main_8cpp.html#adaa8d92c6fe90650f91ec8cb63ae0525" title=" " alt="" coords="112,74,286,136"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="325,82,287,92,286,87,320,83"/>
+<area shape="rect" id="Node000003" href="$native_2test__datalog__math_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,52,60,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,54,61,63,59,58,94,51"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="94,83,60,75,60,70,99,80"/>
+</map>

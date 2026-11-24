@@ -110,231 +110,239 @@ $(function(){ initResizable(false); });
 <code>#include &quot;<a class="el" href="energy__bucket_8h_source.html">energy_bucket.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="load__priorities_8h_source.html">load_priorities.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="adc__chain_8h_source.html">adc_chain.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for processing.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="processing_8cpp__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2processing_8cpp" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2processing_8cpp" id="aMk2__3phase__RFdatalog__temp_2processing_8cpp">
-<area shape="rect" title="Implements the processing engine." alt="" coords="2650,5,2826,50"/>
-<area shape="rect" title=" " alt="" coords="2388,476,2472,504"/>
-<area shape="poly" title=" " alt="" coords="2647,41,2535,64,2414,94,2360,114,2318,136,2289,160,2282,173,2279,186,2279,264,2283,296,2292,327,2307,356,2324,383,2365,430,2403,467,2398,466,2361,434,2320,386,2302,358,2287,329,2278,297,2274,265,2274,186,2277,171,2285,157,2315,131,2358,109,2412,89,2534,58,2652,40"/>
-<area shape="rect" href="config__derived_8h.html" title="The configuration as the firmware uses it: the settings, and what is built from them." alt="" coords="2783,174,2912,201"/>
-<area shape="poly" title=" " alt="" coords="2754,48,2832,161,2827,160,2752,53"/>
-<area shape="rect" href="load__priorities_8h.html" title="The load priority state machine: which load to switch at each mains cycle." alt="" coords="2134,476,2260,504"/>
-<area shape="poly" title=" " alt="" coords="2647,34,2496,49,2409,61,2324,76,2247,96,2184,121,2160,135,2142,151,2131,168,2127,186,2127,264,2133,321,2148,376,2167,424,2185,464,2180,462,2162,426,2143,377,2128,322,2122,265,2122,186,2126,166,2138,148,2157,131,2182,116,2245,91,2323,71,2408,56,2496,44,2652,33"/>
-<area shape="rect" href="utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="2560,325,2655,353"/>
-<area shape="poly" title=" " alt="" coords="2695,49,2665,73,2640,100,2626,125,2616,153,2605,211,2603,266,2606,311,2601,308,2598,266,2600,210,2611,151,2621,123,2636,96,2661,69,2690,52"/>
-<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="3208,174,3310,201"/>
-<area shape="poly" title=" " alt="" coords="2810,48,3204,169,3199,169,2809,53"/>
-<area shape="rect" href="dualtariff_8h.html" title="The scheduled boosts of the dual tariff, resolved at compile time." alt="" coords="2650,98,2743,126"/>
-<area shape="poly" title=" " alt="" coords="2729,49,2712,86,2708,82,2725,52"/>
-<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="2818,98,2922,126"/>
-<area shape="poly" title=" " alt="" coords="2773,48,2839,90,2834,89,2773,53"/>
-<area shape="rect" href="shared__var_8h.html" title=" " alt="" coords="1978,98,2082,126"/>
-<area shape="poly" title=" " alt="" coords="2647,38,2405,65,2106,101,2098,102,2097,97,2106,95,2404,59,2652,37"/>
-<area shape="rect" href="mult__asm_8h.html" title="Assembly&#45;optimized multiplication functions for AVR microcontrollers." alt="" coords="3517,636,3615,664"/>
-<area shape="poly" title=" " alt="" coords="2647,33,2470,43,2257,56,2070,75,2004,87,1967,100,1946,118,1933,136,1926,158,1925,186,1925,264,1928,311,1939,350,1955,383,1978,410,2006,434,2040,456,2123,502,2176,524,2242,545,2319,563,2406,578,2601,604,2811,622,3021,634,3216,641,3504,648,3499,649,3216,646,3020,639,2810,627,2600,609,2405,584,2318,568,2241,550,2174,529,2121,506,2038,461,2003,438,1974,414,1951,386,1934,352,1923,312,1919,265,1919,186,1921,157,1928,134,1942,114,1965,96,2003,82,2069,70,2257,51,2470,38,2652,32"/>
-<area shape="rect" href="ct__filter_8h.html" title="The CT filter: a low&#45;pass of the current added back with a gain, one per phase." alt="" coords="3575,552,3656,580"/>
-<area shape="poly" title=" " alt="" coords="2826,32,3064,49,3354,80,3488,101,3599,125,3643,138,3675,153,3697,168,3705,186,3705,416,3698,453,3683,488,3662,518,3641,543,3639,539,3658,515,3678,485,3693,452,3699,416,3699,187,3693,172,3673,157,3641,143,3598,130,3487,106,3353,85,3064,55,2827,37"/>
-<area shape="rect" href="energy__bucket_8h.html" title="Integer arithmetic of the energy bucket." alt="" coords="3680,552,3809,580"/>
-<area shape="poly" title=" " alt="" coords="2827,30,3203,54,3402,72,3483,83,3545,95,3582,102,3619,105,3686,111,3714,118,3736,132,3750,154,3755,186,3755,416,3749,538,3745,534,3750,416,3750,186,3745,156,3732,135,3712,123,3685,116,3618,111,3581,107,3544,101,3482,89,3401,78,3203,59,2827,36"/>
-<area shape="rect" href="adc__chain_8h.html" title="The six ADC conversions of the 3&#45;phase board, and the ADMUX pipeline of the free&#45;running ADC." alt="" coords="3790,401,3888,428"/>
-<area shape="poly" title=" " alt="" coords="2826,27,3063,33,3358,44,3500,53,3624,64,3718,78,3751,87,3773,96,3797,114,3813,133,3821,156,3823,186,3823,264,3828,329,3836,387,3832,384,3822,330,3818,265,3818,186,3816,157,3808,136,3793,118,3770,100,3749,92,3717,84,3623,70,3500,58,3358,49,3063,38,2827,33"/>
-<area shape="rect" href="config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="1534,476,1662,504"/>
-<area shape="poly" title=" " alt="" coords="2780,200,2772,204,2640,218,2536,225,2434,233,2302,252,2214,269,2146,286,1992,328,1908,344,1842,354,1778,370,1701,403,1656,434,1620,468,1618,463,1653,430,1698,398,1776,365,1841,349,1907,339,1991,322,2145,281,2213,264,2302,247,2433,228,2536,220,2639,213,2771,199,2785,199"/>
-<area shape="rect" href="config_8h.html" title="Router configuration: loads, relays, control pins and features." alt="" coords="3390,401,3462,428"/>
-<area shape="poly" title=" " alt="" coords="2912,197,3005,217,3107,247,3190,281,3270,321,3395,393,3390,392,3268,325,3188,286,3105,252,3004,222,2912,202"/>
-<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="2415,325,2485,353"/>
-<area shape="poly" title=" " alt="" coords="2815,201,2500,322,2498,317,2810,203"/>
-<area shape="rect" href="debug_8h.html" title="The text output: informational messages (info) and debug messages (debug)" alt="" coords="2679,325,2752,353"/>
-<area shape="poly" title=" " alt="" coords="2830,201,2801,225,2773,251,2750,282,2730,314,2727,309,2745,279,2769,248,2798,221,2825,203"/>
-<area shape="rect" href="remote__loads__core_8h.html" title="Unit grouping and payload bookkeeping for remotely controlled loads." alt="" coords="2945,476,3102,504"/>
-<area shape="poly" title=" " alt="" coords="2912,194,2966,213,2990,228,3011,248,3027,273,3037,301,3045,360,3042,417,3033,463,3029,459,3036,416,3040,360,3032,302,3022,275,3007,251,2987,232,2963,218,2912,200"/>
-<area shape="rect" href="rotation__groups_8h.html" title="The rotation groups: which loads take turns, checked and resolved at compile time." alt="" coords="2881,401,3016,428"/>
-<area shape="poly" title=" " alt="" coords="2847,200,2846,231,2847,269,2854,312,2870,351,2887,373,2911,393,2905,392,2884,377,2865,354,2849,313,2842,270,2841,231,2844,204"/>
-<area shape="rect" href="utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="3486,401,3614,428"/>
-<area shape="poly" title=" " alt="" coords="2912,195,3027,215,3157,247,3259,282,3358,321,3513,394,3508,393,3356,326,3257,287,3156,252,3026,220,2912,200"/>
-<area shape="rect" href="utils__override_8h.html" title="Compile&#45;time utilities for managing override pins and index&#45;to&#45;bitmask mapping." alt="" coords="3092,401,3214,428"/>
-<area shape="poly" title=" " alt="" coords="2912,189,2953,195,2996,206,3039,223,3077,247,3105,279,3126,316,3141,353,3149,387,3145,384,3136,355,3122,318,3101,282,3074,251,3036,227,2994,211,2952,200,2912,194"/>
-<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="2460,249,2560,277"/>
-<area shape="poly" title=" " alt="" coords="2784,203,2576,250,2575,245,2789,201"/>
-<area shape="rect" href="utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="2895,249,2997,277"/>
-<area shape="poly" title=" " alt="" coords="2866,199,2919,241,2914,240,2864,204"/>
-<area shape="rect" href="remote__loads_8h.html" title="Support for remotely controlled loads via RF using RFM69." alt="" coords="2314,249,2436,277"/>
-<area shape="poly" title=" " alt="" coords="2780,198,2760,204,2453,249,2452,244,2759,199,2785,197"/>
-<area shape="rect" href="type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1708,552,1827,580"/>
-<area shape="poly" title=" " alt="" coords="1629,502,1726,546,1721,545,1628,507"/>
-<area shape="rect" title=" " alt="" coords="3215,720,3285,748"/>
-<area shape="poly" title=" " alt="" coords="1827,569,2193,597,2370,613,2459,625,2477,636,2489,648,2500,660,2516,670,2575,686,2655,699,2850,717,3049,726,3202,732,3197,732,3049,732,2850,723,2654,705,2574,691,2514,675,2496,664,2485,652,2474,640,2457,630,2370,618,2193,602,1827,574"/>
-<area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="1364,636,1560,664"/>
-<area shape="poly" title=" " alt="" coords="1721,580,1526,634,1525,629,1716,581"/>
-<area shape="rect" href="decay_8hpp.html" title=" " alt="" coords="356,636,517,664"/>
-<area shape="poly" title=" " alt="" coords="1704,567,1510,569,1219,576,877,594,701,610,529,630,503,635,501,630,528,625,701,605,877,589,1219,571,1510,564,1710,566"/>
-<area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="1634,628,1773,672"/>
-<area shape="poly" title=" " alt="" coords="1759,579,1731,617,1728,613,1755,582"/>
-<area shape="rect" href="function__traits_8hpp.html" title=" " alt="" coords="1797,628,1946,672"/>
-<area shape="poly" title=" " alt="" coords="1785,578,1835,618,1829,617,1783,583"/>
-<area shape="rect" href="index__sequence_8hpp.html" title="std::index_sequence, which avr&#45;libc lacks, on 8&#45;bit indexes" alt="" coords="2528,636,2756,664"/>
-<area shape="poly" title=" " alt="" coords="1827,569,2176,595,2509,625,2553,633,2547,633,2508,630,2175,600,1827,574"/>
-<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="1605,872,1751,916"/>
-<area shape="poly" title=" " alt="" coords="1828,568,2054,589,2158,605,2193,615,2213,626,2221,638,2223,650,2214,674,2197,692,2181,703,2145,711,2106,713,2061,723,1882,798,1736,867,1734,862,1880,793,2060,718,2106,708,2145,706,2178,698,2194,688,2209,671,2218,649,2216,640,2210,630,2191,620,2157,611,2053,594,1828,574"/>
-<area shape="rect" href="is__array_8hpp.html" title=" " alt="" coords="541,636,714,664"/>
-<area shape="poly" title=" " alt="" coords="1705,568,1540,574,1299,583,1018,601,733,630,701,635,700,630,732,625,1018,596,1299,578,1540,569,1710,567"/>
-<area shape="rect" href="is__base__of_8hpp.html" title=" " alt="" coords="788,628,933,672"/>
-<area shape="poly" title=" " alt="" coords="1704,568,1573,575,1387,584,1171,602,949,630,948,625,1170,597,1386,579,1573,569,1710,568"/>
-<area shape="rect" href="remove__reference_8hpp.html" title=" " alt="" coords="1016,720,1185,748"/>
-<area shape="poly" title=" " alt="" coords="1704,572,1516,595,1421,611,1354,630,1339,640,1329,651,1319,663,1303,675,1245,701,1185,719,1184,714,1243,696,1301,670,1315,659,1325,648,1335,636,1352,625,1420,605,1515,589,1710,571"/>
-<area shape="rect" href="is__class_8hpp.html" title=" " alt="" coords="2083,720,2257,748"/>
-<area shape="poly" title=" " alt="" coords="1827,569,2113,594,2244,610,2287,618,2308,626,2316,638,2318,650,2308,674,2283,700,2251,717,2250,712,2280,695,2304,671,2312,649,2311,640,2304,630,2286,623,2243,616,2112,600,1828,574"/>
-<area shape="rect" href="is__const_8hpp.html" title=" " alt="" coords="2032,796,2209,824"/>
-<area shape="poly" title=" " alt="" coords="1827,570,2084,596,2201,611,2239,619,2257,626,2265,638,2267,650,2265,662,2257,674,2236,693,2213,701,2188,702,2163,699,2139,696,2115,697,2093,704,2074,722,2068,737,2072,753,2082,769,2096,787,2091,785,2078,772,2067,755,2063,736,2069,719,2091,700,2114,691,2139,691,2164,694,2188,697,2212,696,2233,689,2253,671,2260,660,2262,650,2260,640,2254,630,2237,624,2200,617,2084,601,1828,575"/>
-<area shape="rect" href="is__convertible_8hpp.html" title=" " alt="" coords="2282,720,2496,748"/>
-<area shape="poly" title=" " alt="" coords="1827,569,2123,597,2262,612,2330,625,2349,642,2364,663,2383,707,2379,704,2360,665,2345,646,2327,630,2261,618,2123,602,1827,575"/>
-<area shape="rect" href="is__enum_8hpp.html" title=" " alt="" coords="2021,636,2199,664"/>
-<area shape="poly" title=" " alt="" coords="1823,578,2043,632,2038,632,1822,583"/>
-<area shape="rect" href="is__floating__point_8hpp.html" title=" " alt="" coords="1518,720,1675,748"/>
-<area shape="poly" title=" " alt="" coords="1710,578,1663,599,1642,613,1624,629,1613,647,1606,666,1599,706,1595,703,1600,665,1608,644,1620,626,1639,608,1660,595,1705,579"/>
-<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="1626,796,1730,824"/>
-<area shape="poly" title=" " alt="" coords="1705,569,1478,578,1175,590,906,607,818,618,791,624,778,630,712,694,704,704,713,708,804,715,890,725,1005,745,1102,757,1270,773,1614,803,1608,803,1270,778,1101,763,1004,751,889,730,804,720,712,713,699,706,708,691,775,625,789,619,817,613,906,602,1175,585,1478,573,1710,568"/>
-<area shape="rect" href="is__integral_8hpp.html" title=" " alt="" coords="1709,720,1826,748"/>
-<area shape="poly" title=" " alt="" coords="1827,566,1863,571,1899,582,1933,600,1960,626,1969,650,1960,674,1942,689,1913,701,1841,721,1840,716,1911,696,1939,684,1956,671,1964,650,1956,629,1930,604,1897,587,1862,577,1827,571"/>
-<area shape="rect" href="is__pointer_8hpp.html" title=" " alt="" coords="2417,796,2603,824"/>
-<area shape="poly" title=" " alt="" coords="1827,569,2131,594,2281,610,2367,625,2402,640,2444,664,2484,692,2510,719,2519,750,2517,782,2514,779,2513,751,2505,722,2481,696,2442,669,2399,645,2365,630,2280,616,2131,600,1827,574"/>
-<area shape="rect" href="is__signed_8hpp.html" title=" " alt="" coords="431,720,616,748"/>
-<area shape="poly" title=" " alt="" coords="1704,568,1389,573,945,582,727,590,541,600,406,613,366,621,346,630,340,639,338,649,347,671,361,683,385,694,448,716,443,716,383,699,358,687,343,674,333,650,335,637,343,626,364,616,406,608,540,595,727,584,944,577,1389,568,1710,567"/>
-<area shape="rect" href="is__unsigned_8hpp.html" title=" " alt="" coords="207,720,408,748"/>
-<area shape="poly" title=" " alt="" coords="1705,568,1387,574,939,584,719,592,531,602,394,615,352,622,332,630,319,645,312,665,307,706,302,703,306,663,314,643,328,626,351,617,393,610,530,597,719,587,939,579,1387,569,1710,567"/>
+<area shape="rect" title="Implements the processing engine." alt="" coords="3300,5,3477,50"/>
+<area shape="rect" title=" " alt="" coords="2554,476,2637,504"/>
+<area shape="poly" title=" " alt="" coords="3297,30,3159,36,2978,46,2775,67,2673,82,2573,101,2511,116,2463,131,2358,176,2277,205,2212,228,2184,242,2158,262,2135,289,2112,326,2107,345,2111,363,2123,378,2142,393,2199,418,2272,438,2351,453,2428,463,2541,477,2536,477,2428,469,2350,458,2270,443,2197,423,2140,398,2119,382,2106,365,2102,345,2108,324,2130,286,2155,258,2181,238,2210,223,2276,200,2356,171,2461,126,2509,111,2572,95,2672,77,2775,61,2977,41,3159,30,3303,29"/>
+<area shape="rect" href="config__derived_8h.html" title="The configuration as the firmware uses it: the settings, and what is built from them." alt="" coords="3114,174,3242,201"/>
+<area shape="poly" title=" " alt="" coords="3303,43,3250,67,3226,82,3205,100,3189,128,3182,160,3178,156,3184,126,3201,96,3223,77,3247,62,3298,45"/>
+<area shape="rect" href="load__priorities_8h.html" title="The load priority state machine: which load to switch at each mains cycle." alt="" coords="2223,476,2349,504"/>
+<area shape="poly" title=" " alt="" coords="3297,30,2971,38,2539,50,2331,59,2155,70,2028,84,1990,92,1972,100,1942,142,1928,184,1929,225,1943,267,1967,309,2000,349,2039,389,2082,426,2103,438,2134,449,2210,472,2205,472,2132,455,2101,443,2079,431,2035,393,1996,353,1963,312,1938,270,1924,226,1923,183,1937,139,1968,96,1988,87,2027,79,2154,65,2331,54,2538,45,2971,33,3303,30"/>
+<area shape="rect" href="adc__chain_8h.html" title="The six ADC conversions of the 3&#45;phase board, and the ADMUX pipeline of the free&#45;running ADC." alt="" coords="3685,249,3783,277"/>
+<area shape="poly" title=" " alt="" coords="3426,48,3516,103,3621,171,3709,240,3704,239,3618,176,3513,107,3425,53"/>
+<area shape="rect" href="datalog__math_8h.html" title="Integer arithmetic of the datalog: power and RMS voltage per phase." alt="" coords="3991,249,4114,277"/>
+<area shape="poly" title=" " alt="" coords="3477,27,3604,31,3750,41,3820,50,3883,62,3936,77,3974,96,4005,126,4027,163,4041,201,4050,236,4045,233,4036,203,4022,165,4000,129,3971,100,3934,82,3882,67,3819,55,3749,46,3604,36,3478,32"/>
+<area shape="rect" href="energy__bucket_8h.html" title="Integer arithmetic of the energy bucket." alt="" coords="4092,325,4221,353"/>
+<area shape="poly" title=" " alt="" coords="3477,28,3610,33,3764,45,3906,65,3963,79,4006,96,4036,116,4062,141,4085,170,4104,200,4134,260,4151,311,4147,309,4129,262,4100,203,4080,173,4058,145,4032,120,4003,100,3962,84,3905,70,3763,50,3610,39,3477,33"/>
+<area shape="rect" href="mult__asm_8h.html" title="Assembly&#45;optimized multiplication functions for AVR microcontrollers." alt="" coords="4042,401,4140,428"/>
+<area shape="poly" title=" " alt="" coords="3477,33,3619,48,3698,61,3776,77,3846,97,3903,121,3925,135,3942,150,3953,168,3957,186,3957,264,3959,285,3966,305,3990,340,4022,368,4055,393,4050,392,4018,373,3986,343,3961,307,3954,286,3951,265,3951,186,3948,170,3938,154,3922,139,3901,126,3844,102,3774,82,3697,66,3618,53,3477,38"/>
+<area shape="rect" href="utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="2122,325,2218,353"/>
+<area shape="poly" title=" " alt="" coords="3297,29,3102,39,2974,50,2834,69,2686,97,2537,136,2391,187,2321,217,2254,252,2217,281,2188,315,2185,311,2213,277,2251,247,2319,212,2389,182,2536,131,2685,92,2833,64,2973,45,3101,33,3302,28"/>
+<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="3506,174,3608,201"/>
+<area shape="poly" title=" " alt="" coords="3412,48,3534,163,3529,162,3411,53"/>
+<area shape="rect" href="dualtariff_8h.html" title="The scheduled boosts of the dual tariff, resolved at compile time." alt="" coords="3342,98,3435,126"/>
+<area shape="poly" title=" " alt="" coords="3390,48,3391,84,3387,81,3387,53"/>
+<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="3216,98,3319,126"/>
+<area shape="poly" title=" " alt="" coords="3359,49,3301,91,3298,86,3354,51"/>
+<area shape="rect" href="shared__var_8h.html" title=" " alt="" coords="1982,98,2086,126"/>
+<area shape="poly" title=" " alt="" coords="3297,30,3088,38,2792,49,2451,69,2105,101,2103,101,2101,96,2104,95,2451,64,2792,43,3088,32,3303,30"/>
+<area shape="rect" href="ct__filter_8h.html" title="The CT filter: a low&#45;pass of the current added back with a gain, one per phase." alt="" coords="4245,325,4327,353"/>
+<area shape="poly" title=" " alt="" coords="3477,29,3617,35,3781,46,3935,66,3997,79,4043,96,4082,117,4119,143,4184,203,4236,262,4272,313,4267,311,4232,266,4180,206,4115,147,4079,122,4041,100,3995,85,3934,71,3780,52,3617,40,3477,34"/>
+<area shape="rect" href="config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="1945,476,2072,504"/>
+<area shape="poly" title=" " alt="" coords="3111,191,2677,212,2431,230,2330,240,2253,252,2182,263,2117,269,2006,280,1957,293,1910,315,1866,350,1822,402,1815,417,1816,430,1824,441,1839,451,1881,467,1932,480,1927,480,1879,472,1836,456,1821,445,1811,432,1809,416,1817,399,1862,346,1907,310,1955,288,2005,275,2117,264,2181,258,2252,247,2329,235,2431,224,2676,207,3116,190"/>
+<area shape="rect" href="config_8h.html" title="Router configuration: loads, relays, control pins and features." alt="" coords="3431,401,3504,428"/>
+<area shape="poly" title=" " alt="" coords="3227,199,3279,219,3330,247,3369,280,3404,318,3454,388,3449,386,3399,321,3365,284,3327,252,3277,223,3227,205"/>
+<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="2675,325,2745,353"/>
+<area shape="poly" title=" " alt="" coords="3139,201,2760,324,2759,319,3134,203"/>
+<area shape="rect" href="debug_8h.html" title="The text output: informational messages (info) and debug messages (debug)" alt="" coords="2496,325,2569,353"/>
+<area shape="poly" title=" " alt="" coords="3111,192,2998,200,2860,211,2730,228,2677,239,2638,252,2614,265,2591,281,2554,316,2552,311,2588,277,2611,260,2636,247,2676,234,2729,223,2860,206,2998,195,3116,191"/>
+<area shape="poly" title=" " alt="" coords="3242,195,3672,253,3667,254,3242,200"/>
+<area shape="poly" title=" " alt="" coords="3243,192,3314,199,3978,255,3972,256,3314,204,3243,198"/>
+<area shape="rect" href="remote__loads__core_8h.html" title="Unit grouping and payload bookkeeping for remotely controlled loads." alt="" coords="2373,476,2530,504"/>
+<area shape="poly" title=" " alt="" coords="3111,189,3011,194,2879,203,2733,221,2659,235,2588,252,2509,273,2446,297,2420,313,2397,335,2377,364,2359,402,2355,415,2359,427,2378,450,2403,469,2398,468,2374,454,2354,430,2350,415,2354,400,2372,361,2393,332,2416,309,2443,292,2507,268,2587,247,2658,229,2732,216,2879,197,3011,188,3116,188"/>
+<area shape="rect" href="rotation__groups_8h.html" title="The rotation groups: which loads take turns, checked and resolved at compile time." alt="" coords="3578,401,3714,428"/>
+<area shape="poly" title=" " alt="" coords="3228,199,3294,220,3364,247,3437,283,3507,322,3617,392,3612,391,3504,326,3434,287,3362,252,3292,225,3227,205"/>
+<area shape="rect" href="utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="3789,401,3916,428"/>
+<area shape="poly" title=" " alt="" coords="3234,199,3408,247,3633,325,3809,395,3804,394,3632,330,3407,252,3233,205"/>
+<area shape="rect" href="utils__override_8h.html" title="Compile&#45;time utilities for managing override pins and index&#45;to&#45;bitmask mapping." alt="" coords="3234,401,3356,428"/>
+<area shape="poly" title=" " alt="" coords="3182,199,3206,276,3222,315,3244,351,3274,390,3269,388,3240,354,3218,318,3201,278,3179,204"/>
+<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="2264,249,2364,277"/>
+<area shape="poly" title=" " alt="" coords="3111,192,2801,214,2596,230,2389,252,2380,253,2379,248,2388,247,2596,225,2801,208,3116,191"/>
+<area shape="rect" href="utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="3215,249,3317,277"/>
+<area shape="poly" title=" " alt="" coords="3194,199,3241,240,3236,239,3193,204"/>
+<area shape="rect" href="remote__loads_8h.html" title="Support for remotely controlled loads via RF using RFM69." alt="" coords="2649,249,2771,277"/>
+<area shape="poly" title=" " alt="" coords="3111,198,2787,251,2786,246,3116,197"/>
+<area shape="rect" href="type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1700,552,1819,580"/>
+<area shape="poly" title=" " alt="" coords="1967,504,1819,550,1818,545,1962,505"/>
+<area shape="rect" title=" " alt="" coords="3548,720,3618,748"/>
+<area shape="poly" title=" " alt="" coords="1819,566,2357,584,2642,602,2746,613,2807,625,2825,636,2837,648,2848,660,2864,670,2922,686,3000,699,3190,717,3385,726,3535,732,3530,732,3385,731,3190,722,2999,704,2921,691,2862,675,2844,664,2833,652,2822,640,2805,630,2745,618,2642,607,2356,590,1820,571"/>
+<area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="2218,636,2413,664"/>
+<area shape="poly" title=" " alt="" coords="1820,572,1993,594,2205,625,2237,633,2232,633,2204,630,1992,599,1820,577"/>
+<area shape="rect" href="decay_8hpp.html" title=" " alt="" coords="1208,636,1369,664"/>
+<area shape="poly" title=" " alt="" coords="1697,576,1554,600,1381,630,1359,635,1357,630,1380,625,1554,595,1702,575"/>
+<area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="2438,628,2577,672"/>
+<area shape="poly" title=" " alt="" coords="1819,567,2078,583,2247,600,2425,627,2419,628,2247,606,2077,589,1819,572"/>
+<area shape="rect" href="function__traits_8hpp.html" title=" " alt="" coords="2601,628,2750,672"/>
+<area shape="poly" title=" " alt="" coords="1819,566,1955,570,2143,579,2361,597,2589,627,2583,628,2361,602,2143,585,1955,575,1820,571"/>
+<area shape="rect" href="index__sequence_8hpp.html" title="std::index_sequence, which avr&#45;libc lacks, on 8&#45;bit indexes" alt="" coords="2876,636,3104,664"/>
+<area shape="poly" title=" " alt="" coords="1819,566,2253,581,2552,599,2857,625,2903,633,2897,633,2856,630,2551,604,2252,586,1820,571"/>
+<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="989,872,1135,916"/>
+<area shape="poly" title=" " alt="" coords="1696,568,1459,574,1123,583,785,601,644,614,538,630,462,641,399,650,371,658,345,671,321,692,296,722,289,741,294,759,310,776,337,791,417,819,523,841,642,858,765,871,977,889,971,889,764,876,642,863,522,846,416,824,335,796,307,780,289,762,283,741,292,719,317,688,342,667,369,653,398,644,461,636,538,625,644,609,784,596,1123,578,1459,569,1702,567"/>
+<area shape="rect" href="is__array_8hpp.html" title=" " alt="" coords="1393,636,1566,664"/>
+<area shape="poly" title=" " alt="" coords="1717,580,1539,634,1538,629,1712,581"/>
+<area shape="rect" href="is__base__of_8hpp.html" title=" " alt="" coords="1590,628,1734,672"/>
+<area shape="poly" title=" " alt="" coords="1746,579,1700,620,1698,615,1741,581"/>
+<area shape="rect" href="remove__reference_8hpp.html" title=" " alt="" coords="1539,720,1708,748"/>
+<area shape="poly" title=" " alt="" coords="1763,578,1765,624,1760,650,1748,674,1722,699,1690,717,1688,712,1719,695,1744,671,1755,648,1759,624,1760,582"/>
+<area shape="rect" href="is__class_8hpp.html" title=" " alt="" coords="544,720,718,748"/>
+<area shape="poly" title=" " alt="" coords="1696,569,1474,576,1174,587,895,605,795,617,738,630,711,646,687,666,650,710,647,705,683,663,708,642,736,625,794,611,895,600,1173,582,1474,571,1702,568"/>
+<area shape="rect" href="is__const_8hpp.html" title=" " alt="" coords="732,796,909,824"/>
+<area shape="poly" title=" " alt="" coords="1697,569,1499,577,1237,589,997,606,911,617,862,630,832,647,812,666,797,689,783,721,781,737,784,753,801,785,796,783,779,755,775,737,778,720,792,687,807,662,829,643,860,625,910,612,996,601,1237,583,1499,572,1702,568"/>
+<area shape="rect" href="is__convertible_8hpp.html" title=" " alt="" coords="306,720,520,748"/>
+<area shape="poly" title=" " alt="" coords="1697,568,1484,575,1187,585,890,603,767,615,675,630,612,648,551,670,452,715,450,710,549,665,610,643,673,625,766,610,890,598,1187,580,1483,570,1702,568"/>
+<area shape="rect" href="is__enum_8hpp.html" title=" " alt="" coords="905,636,1083,664"/>
+<area shape="poly" title=" " alt="" coords="1697,571,1440,593,1272,609,1102,630,1071,635,1070,630,1102,625,1271,604,1439,587,1702,570"/>
+<area shape="rect" href="is__floating__point_8hpp.html" title=" " alt="" coords="1017,720,1174,748"/>
+<area shape="poly" title=" " alt="" coords="1697,567,1502,570,1247,578,1123,585,1016,596,936,611,910,620,895,630,885,644,885,657,892,669,907,680,950,700,1004,717,999,717,948,705,904,685,888,673,880,659,880,643,891,626,908,615,935,606,1015,591,1122,580,1246,572,1502,565,1702,566"/>
+<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="1297,796,1400,824"/>
+<area shape="poly" title=" " alt="" coords="1697,570,1567,578,1409,589,1270,606,1223,617,1198,630,1180,655,1178,661,1180,665,1194,670,1220,671,1254,672,1291,678,1326,692,1342,703,1356,719,1363,734,1366,750,1361,783,1357,780,1360,750,1358,735,1352,722,1339,707,1324,697,1289,683,1254,678,1220,676,1193,675,1176,669,1173,662,1175,652,1195,626,1221,612,1269,601,1408,584,1567,573,1702,569"/>
+<area shape="rect" href="is__integral_8hpp.html" title=" " alt="" coords="1198,720,1315,748"/>
+<area shape="poly" title=" " alt="" coords="1697,569,1558,577,1385,587,1233,605,1181,616,1154,630,1148,639,1147,649,1155,671,1175,694,1203,714,1198,713,1172,698,1150,674,1141,649,1143,637,1151,626,1180,611,1232,600,1385,582,1557,571,1702,568"/>
+<area shape="rect" href="is__pointer_8hpp.html" title=" " alt="" coords="2180,796,2366,824"/>
+<area shape="poly" title=" " alt="" coords="1819,566,2051,572,2358,584,2631,602,2721,613,2749,619,2764,626,2781,649,2789,670,2788,690,2779,707,2763,723,2741,737,2683,760,2611,778,2533,791,2382,806,2381,801,2532,786,2610,773,2681,755,2739,732,2760,719,2775,704,2783,688,2784,671,2777,651,2760,630,2748,624,2720,618,2631,607,2358,590,2051,578,1820,571"/>
+<area shape="rect" href="is__signed_8hpp.html" title=" " alt="" coords="1731,720,1916,748"/>
+<area shape="poly" title=" " alt="" coords="1768,578,1792,627,1818,707,1814,704,1788,629,1766,583"/>
+<area shape="rect" href="is__unsigned_8hpp.html" title=" " alt="" coords="792,720,993,748"/>
+<area shape="poly" title=" " alt="" coords="1696,567,1498,570,1238,577,1112,584,1002,595,921,610,894,619,879,629,870,646,869,666,873,686,880,708,876,705,868,688,863,666,865,645,875,626,892,615,920,605,1002,590,1111,579,1238,572,1498,565,1702,566"/>
 <area shape="rect" href="make__unsigned_8hpp.html" title=" " alt="" coords="5,636,231,664"/>
-<area shape="poly" title=" " alt="" coords="1705,567,1473,571,1114,579,687,597,467,612,250,630,207,636,205,631,250,625,466,606,687,592,1114,574,1473,566,1710,567"/>
-<area shape="rect" href="remove__const_8hpp.html" title=" " alt="" coords="957,628,1103,672"/>
-<area shape="poly" title=" " alt="" coords="1705,570,1455,589,1289,606,1119,630,1118,625,1289,601,1454,584,1710,569"/>
-<area shape="rect" href="void__t_8hpp.html" title=" " alt="" coords="1127,636,1290,664"/>
-<area shape="poly" title=" " alt="" coords="1704,574,1529,598,1309,630,1283,635,1282,630,1308,625,1528,593,1710,573"/>
-<area shape="rect" title=" " alt="" coords="640,720,713,748"/>
-<area shape="poly" title=" " alt="" coords="475,662,628,715,622,716,475,667"/>
-<area shape="poly" title=" " alt="" coords="2723,662,2776,670,3202,727,3196,727,2775,675,2723,667"/>
-<area shape="poly" title=" " alt="" coords="636,662,664,708,659,706,634,667"/>
-<area shape="poly" title=" " alt="" coords="925,670,1051,715,1045,715,924,676"/>
-<area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="2275,796,2372,824"/>
-<area shape="poly" title=" " alt="" coords="2198,746,2285,790,2280,789,2197,751"/>
-<area shape="poly" title=" " alt="" coords="2052,824,1767,879,1766,874,2047,824"/>
-<area shape="poly" title=" " alt="" coords="2379,747,2346,787,2344,782,2375,750"/>
-<area shape="poly" title=" " alt="" coords="2121,662,2154,709,2149,707,2119,667"/>
-<area shape="poly" title=" " alt="" coords="2155,662,2332,716,2327,715,2154,667"/>
-<area shape="poly" title=" " alt="" coords="2030,664,1691,721,1690,715,2025,665"/>
-<area shape="poly" title=" " alt="" coords="2077,664,1729,793,1727,788,2071,665"/>
-<area shape="poly" title=" " alt="" coords="2058,664,1838,719,1837,714,2052,665"/>
-<area shape="poly" title=" " alt="" coords="1599,746,1604,783,1616,822,1644,862,1639,860,1612,825,1599,784,1595,750"/>
-<area shape="poly" title=" " alt="" coords="1612,746,1655,786,1650,785,1610,751"/>
-<area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="1364,796,1485,824"/>
-<area shape="poly" title=" " alt="" coords="1569,748,1470,792,1469,787,1563,749"/>
-<area shape="poly" title=" " alt="" coords="1680,822,1680,858,1676,854,1676,826"/>
-<area shape="poly" title=" " alt="" coords="1768,746,1761,784,1744,825,1715,863,1712,858,1740,822,1755,783,1764,750"/>
-<area shape="poly" title=" " alt="" coords="1754,748,1707,788,1705,784,1749,750"/>
-<area shape="poly" title=" " alt="" coords="1711,748,1500,795,1499,790,1705,748"/>
-<area shape="poly" title=" " alt="" coords="2419,820,2384,826,1767,887,1766,881,2383,821,2414,821"/>
-<area shape="poly" title=" " alt="" coords="616,745,1591,878,1589,883,616,751"/>
-<area shape="poly" title=" " alt="" coords="616,744,628,745,872,764,1062,773,1252,780,1497,793,1614,804,1608,804,1497,799,1252,786,1062,778,871,769,627,751,616,750"/>
-<area shape="poly" title=" " alt="" coords="616,744,628,745,1034,780,1352,804,1346,804,1034,785,627,751,616,749"/>
-<area shape="poly" title=" " alt="" coords="402,746,668,781,992,821,1322,856,1592,885,1587,885,1322,861,991,826,667,786,402,751"/>
-<area shape="poly" title=" " alt="" coords="408,744,420,745,722,765,958,773,1194,780,1497,793,1614,803,1608,804,1497,799,1194,785,958,778,722,770,419,751,408,750"/>
-<area shape="poly" title=" " alt="" coords="408,744,420,745,687,766,951,782,1352,805,1346,806,951,788,687,771,419,751,408,750"/>
-<area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="163,796,297,824"/>
-<area shape="poly" title=" " alt="" coords="128,662,214,782,209,784,126,667"/>
-<area shape="poly" title=" " alt="" coords="297,812,1590,885,1589,890,297,818"/>
-<area shape="rect" href="config__types_8h.html" title="What config.h is written with: its types, constants and helpers." alt="" coords="3390,476,3505,504"/>
-<area shape="poly" title=" " alt="" coords="3431,427,3442,463,3437,460,3428,431"/>
-<area shape="poly" title=" " alt="" coords="3392,502,3378,507,3236,518,3049,529,2600,547,1843,566,1842,560,2600,541,3049,524,3236,513,3378,501,3387,503"/>
-<area shape="poly" title=" " alt="" coords="3425,504,3392,527,3361,554,3338,584,3325,611,3313,639,3295,674,3270,710,3267,706,3290,671,3309,637,3320,609,3334,581,3357,550,3389,523,3420,505"/>
-<area shape="rect" href="load__map_8h.html" title="Encoding of the load map: one packed byte per dump load." alt="" coords="2973,552,3071,580"/>
-<area shape="poly" title=" " alt="" coords="3392,502,3378,507,3086,556,3085,551,3378,501,3386,502"/>
-<area shape="rect" href="utils__bits_8h.html" title="Bit manipulation utility functions." alt="" coords="3146,552,3239,580"/>
-<area shape="poly" title=" " alt="" coords="3404,504,3253,550,3252,545,3399,505"/>
-<area shape="poly" title=" " alt="" coords="3028,578,3052,623,3070,648,3092,670,3117,687,3145,701,3202,723,3197,722,3143,706,3114,692,3088,674,3066,652,3048,626,3026,582"/>
-<area shape="poly" title=" " alt="" coords="3199,578,3243,707,3238,704,3196,582"/>
-<area shape="poly" title=" " alt="" coords="2441,352,2426,376,2414,401,2412,432,2420,464,2415,461,2407,433,2409,400,2421,373,2436,354"/>
-<area shape="poly" title=" " alt="" coords="2412,341,2286,346,2108,356,1933,374,1861,387,1808,403,1779,417,1758,431,1742,450,1727,477,1724,493,1727,509,1746,542,1741,540,1723,511,1719,493,1722,475,1737,447,1755,427,1777,412,1806,398,1860,382,1932,368,2108,350,2285,341,2417,340"/>
-<area shape="poly" title=" " alt="" coords="2485,343,2548,350,2651,358,2739,361,2889,360,2961,361,3038,366,3125,378,3227,398,3277,412,3327,430,3411,470,3406,469,3325,435,3276,417,3225,403,3124,383,3038,372,2961,366,2889,365,2739,366,2651,363,2547,355,2485,348"/>
-<area shape="poly" title=" " alt="" coords="2438,352,2409,385,2381,424,2371,445,2366,465,2368,485,2378,502,2609,526,2961,559,2955,559,2608,531,2375,506,2363,486,2361,465,2366,443,2376,421,2405,381,2433,354"/>
-<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="2760,401,2857,428"/>
-<area shape="poly" title=" " alt="" coords="2485,345,2748,400,2742,400,2485,350"/>
-<area shape="poly" title=" " alt="" coords="2418,348,2289,382,2210,403,2202,415,2198,430,2195,463,2191,459,2192,429,2198,413,2207,399,2288,376,2412,349"/>
-<area shape="poly" title=" " alt="" coords="2763,425,2488,480,2487,475,2757,426"/>
-<area shape="rect" href="ds18b20_8h.html" title="The checks of a DS18B20 reading: CRC, conversion to hundredths of °C, range, power&#45;on value." alt="" coords="3278,476,3366,504"/>
-<area shape="poly" title=" " alt="" coords="2857,424,2869,426,3086,458,3265,482,3260,482,3086,463,2868,431,2857,429"/>
-<area shape="poly" title=" " alt="" coords="3320,503,3260,707,3256,703,3316,506"/>
-<area shape="poly" title=" " alt="" coords="2260,495,2369,508,2509,533,2663,571,2740,596,2814,625,2833,637,2846,648,2859,660,2878,670,2964,697,3052,715,3134,725,3202,732,3197,732,3133,730,3051,720,2962,702,2876,675,2856,664,2843,652,2830,641,2812,630,2738,601,2661,576,2508,538,2368,514,2260,500"/>
-<area shape="poly" title=" " alt="" coords="2260,499,2278,501,2961,559,2955,560,2278,507,2260,504"/>
-<area shape="poly" title=" " alt="" coords="2681,350,2507,403,2473,433,2447,466,2444,461,2470,429,2505,398,2676,351"/>
-<area shape="poly" title=" " alt="" coords="2753,341,3321,398,3377,407,3372,407,3320,403,2753,346"/>
-<area shape="rect" href="serial__output_8h.html" title="Non&#45;blocking serial output of the datalog." alt="" coords="2518,401,2636,428"/>
-<area shape="poly" title=" " alt="" coords="2693,352,2616,396,2614,391,2688,354"/>
-<area shape="poly" title=" " alt="" coords="2553,428,2470,472,2469,467,2548,430"/>
-<area shape="poly" title=" " alt="" coords="3037,502,3085,550,3231,709,3226,708,3081,554,3035,507"/>
-<area shape="poly" title=" " alt="" coords="3025,503,3025,538,3021,535,3021,507"/>
-<area shape="poly" title=" " alt="" coords="2942,427,2927,464,2923,483,2925,504,2942,560,2966,602,2999,636,3049,670,3086,689,3126,704,3202,726,3197,725,3124,709,3084,694,3046,675,2996,640,2961,605,2937,563,2919,504,2918,483,2922,462,2938,430"/>
-<area shape="poly" title=" " alt="" coords="3017,422,3377,476,3371,476,3017,427"/>
-<area shape="poly" title=" " alt="" coords="2944,427,2931,464,2930,484,2935,503,2953,525,2978,545,2973,544,2949,529,2930,505,2925,485,2926,463,2939,430"/>
-<area shape="poly" title=" " alt="" coords="3550,427,3542,466,3532,487,3519,506,3504,518,3490,526,3462,532,3434,538,3405,554,3378,583,3363,611,3348,640,3324,674,3281,714,3278,709,3320,671,3344,638,3358,608,3374,580,3402,550,3433,533,3461,527,3488,521,3501,514,3515,502,3527,485,3536,465,3546,431"/>
-<area shape="poly" title=" " alt="" coords="3534,428,3479,470,3477,465,3529,430"/>
-<area shape="poly" title=" " alt="" coords="3088,425,2827,464,2484,507,2125,540,1843,562,1842,557,2124,535,2483,501,2827,459,3094,425"/>
-<area shape="poly" title=" " alt="" coords="3206,426,3382,472,3377,472,3206,432"/>
-<area shape="poly" title=" " alt="" coords="3152,427,3140,466,3116,506,3092,528,3064,547,3063,542,3088,524,3112,502,3135,463,3148,430"/>
-<area shape="poly" title=" " alt="" coords="3158,426,3188,538,3183,536,3155,431"/>
-<area shape="poly" title=" " alt="" coords="2480,277,1815,548,1813,543,2475,278"/>
-<area shape="poly" title=" " alt="" coords="2502,276,2472,315,2469,311,2497,279"/>
-<area shape="poly" title=" " alt="" coords="2547,275,2667,319,2662,319,2547,280"/>
-<area shape="rect" href="relay__engine_8h.html" title="Decisions of the relay diversion: which relay switches, and when." alt="" coords="1819,401,1937,428"/>
-<area shape="poly" title=" " alt="" coords="2457,277,1949,399,1948,394,2462,276"/>
-<area shape="poly" title=" " alt="" coords="2528,275,2581,316,2576,315,2527,280"/>
-<area shape="poly" title=" " alt="" coords="1825,430,1663,475,1662,469,1831,428"/>
-<area shape="poly" title=" " alt="" coords="1882,427,1883,465,1880,486,1871,505,1849,530,1821,547,1819,542,1845,526,1866,503,1874,484,1878,464,1878,431"/>
-<area shape="poly" title=" " alt="" coords="1886,426,1907,460,1938,502,1979,544,2003,562,2028,577,2059,589,2096,597,2185,605,2288,606,2397,602,2507,599,2611,599,2700,606,2738,614,2770,625,2785,636,2793,648,2801,660,2814,670,2845,682,2888,692,2994,709,3202,730,3197,730,2993,714,2887,697,2844,687,2811,675,2797,664,2789,651,2781,640,2767,630,2737,619,2699,611,2610,604,2507,604,2398,607,2288,611,2185,610,2095,602,2058,594,2026,582,2000,567,1976,548,1934,505,1903,463,1884,431"/>
-<area shape="poly" title=" " alt="" coords="1906,426,2001,465,2061,486,2123,501,2267,526,2389,539,2498,544,2600,544,2812,539,2937,541,3084,549,3134,557,3128,557,3083,555,2937,546,2812,544,2600,549,2498,550,2389,545,2266,531,2121,507,2059,491,1999,470,1905,432"/>
-<area shape="rect" href="ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="1736,476,1857,504"/>
-<area shape="poly" title=" " alt="" coords="1866,428,1823,468,1821,464,1861,430"/>
-<area shape="poly" title=" " alt="" coords="1793,503,1780,539,1776,535,1789,506"/>
-<area shape="poly" title=" " alt="" coords="2562,349,2510,371,2485,385,2464,402,2446,431,2436,463,2432,459,2441,429,2460,399,2482,380,2507,366,2557,350"/>
-<area shape="poly" title=" " alt="" coords="2655,348,2668,350,2775,355,2954,360,3130,372,3193,383,3215,390,3228,399,3239,415,3244,433,3242,471,3229,509,3211,541,3208,537,3224,507,3236,470,3239,434,3234,417,3224,403,3212,395,3192,388,3129,378,2954,366,2775,360,2667,355,2655,353"/>
-<area shape="poly" title=" " alt="" coords="2929,277,2812,350,2732,392,2648,431,2488,476,2486,471,2646,426,2730,388,2809,345,2924,278"/>
-<area shape="poly" title=" " alt="" coords="2998,265,3128,283,3205,299,3280,323,3345,354,3399,392,3394,391,3342,359,3278,327,3204,304,3127,288,2998,271"/>
-<area shape="poly" title=" " alt="" coords="2959,275,2973,292,2984,312,2989,333,2983,354,2966,368,2939,381,2872,402,2871,396,2937,376,2963,364,2978,351,2984,333,2979,314,2969,295,2957,280"/>
-<area shape="poly" title=" " alt="" coords="2998,263,3073,272,3163,293,3209,311,3252,334,3291,363,3323,399,3330,414,3333,430,3331,463,3327,460,3328,431,3325,416,3318,402,3287,367,3249,338,3207,316,3162,299,3073,277,2998,269"/>
-<area shape="poly" title=" " alt="" coords="2907,277,2768,324,2766,319,2902,278"/>
-<area shape="rect" href="onewire__search_8h.html" title="The ROM search of a 1&#45;Wire bus, on the bit primitives of the bus." alt="" coords="3416,552,3551,580"/>
-<area shape="poly" title=" " alt="" coords="2997,264,3146,274,3337,296,3432,314,3516,336,3584,364,3609,381,3628,399,3639,421,3638,442,3629,463,3613,483,3570,519,3524,547,3523,542,3567,515,3609,480,3624,461,3633,441,3633,422,3624,402,3606,385,3581,369,3515,341,3431,319,3337,301,3146,279,2998,269"/>
-<area shape="rect" title=" " alt="" coords="2879,325,2968,353"/>
-<area shape="poly" title=" " alt="" coords="2944,276,2934,312,2930,308,2940,279"/>
-<area shape="poly" title=" " alt="" coords="3478,579,3447,626,3424,652,3398,674,3350,702,3301,722,3299,716,3348,698,3395,670,3420,648,3442,623,3473,582"/>
-<area shape="poly" title=" " alt="" coords="2378,275,2387,342,2406,428,2419,463,2414,461,2401,429,2382,343,2375,280"/>
-<area shape="poly" title=" " alt="" coords="2436,251,2460,247,2770,203,2765,204,2461,252,2437,256"/>
-<area shape="poly" title=" " alt="" coords="2318,278,1992,355,1924,367,1871,374,1818,383,1754,403,1634,470,1632,465,1752,398,1817,378,1870,368,1923,362,1991,350,2323,277"/>
-<area shape="poly" title=" " alt="" coords="2389,275,2428,315,2423,313,2388,280"/>
-<area shape="poly" title=" " alt="" coords="2402,275,2498,323,2549,350,2647,393,2749,426,2845,451,2938,473,2933,473,2844,456,2748,431,2645,398,2546,355,2495,327,2402,280"/>
-<area shape="rect" href="utils__rf_8h.html" title="RF module support for RFM69." alt="" coords="1578,325,1655,353"/>
-<area shape="poly" title=" " alt="" coords="2311,271,1672,335,1671,330,2316,270"/>
-<area shape="poly" title=" " alt="" coords="1655,328,1889,291,2207,247,2363,231,2486,223,2609,215,2770,201,2765,202,2610,221,2486,229,2363,237,2208,252,1889,296,1657,333"/>
-<area shape="rect" href="config__rf_8h.html" title="RF module configuration for RFM69." alt="" coords="1427,401,1516,428"/>
-<area shape="poly" title=" " alt="" coords="1593,352,1512,396,1510,391,1588,354"/>
-<area shape="rect" title=" " alt="" coords="1432,476,1510,504"/>
-<area shape="poly" title=" " alt="" coords="1607,352,1496,467,1493,463,1602,354"/>
-<area shape="rect" title=" " alt="" coords="1590,401,1643,428"/>
-<area shape="poly" title=" " alt="" coords="1618,351,1619,387,1614,383,1615,355"/>
-<area shape="poly" title=" " alt="" coords="1473,427,1474,462,1469,459,1470,431"/>
-<area shape="poly" title=" " alt="" coords="3311,193,3412,213,3456,228,3484,248,3499,274,3501,299,3496,324,3484,354,3473,374,3456,392,3454,388,3468,371,3480,352,3490,323,3496,298,3494,276,3480,251,3454,233,3410,218,3311,198"/>
-<area shape="poly" title=" " alt="" coords="2724,124,2809,167,2804,166,2723,129"/>
-<area shape="rect" title=" " alt="" coords="2634,174,2759,201"/>
-<area shape="poly" title=" " alt="" coords="2698,124,2699,160,2695,156,2695,128"/>
-<area shape="poly" title=" " alt="" coords="2868,124,2858,161,2854,157,2864,128"/>
-<area shape="poly" title=" " alt="" coords="2037,124,2066,180,2114,260,2180,349,2219,390,2261,426,2288,443,2317,457,2376,478,2371,478,2315,462,2285,448,2258,430,2215,394,2176,352,2109,263,2061,182,2035,129"/>
-<area shape="poly" title=" " alt="" coords="3528,664,3499,675,3301,724,3300,719,3497,670,3522,665"/>
-<area shape="poly" title=" " alt="" coords="3541,664,3435,710,3367,733,3297,751,1745,809,1745,803,3296,745,3366,728,3433,705,3536,665"/>
-<area shape="poly" title=" " alt="" coords="3592,579,3506,630,3473,653,3439,675,3368,703,3301,723,3300,718,3366,698,3437,670,3470,649,3503,625,3587,581"/>
-<area shape="poly" title=" " alt="" coords="3610,579,3583,625,3580,621,3605,582"/>
-<area shape="poly" title=" " alt="" coords="3737,579,3693,628,3663,654,3629,675,3586,692,3542,706,3452,725,3368,734,3301,736,3301,731,3368,728,3451,719,3541,701,3584,687,3626,670,3660,650,3690,624,3732,581"/>
-<area shape="poly" title=" " alt="" coords="3719,580,3609,632,3608,627,3713,581"/>
-<area shape="poly" title=" " alt="" coords="3843,427,3847,458,3846,497,3840,540,3823,581,3793,620,3762,643,3725,658,3677,675,3575,704,3471,722,3376,732,3301,735,3301,730,3376,726,3470,717,3574,699,3676,670,3723,653,3759,638,3789,616,3818,578,3835,539,3841,497,3841,458,3840,431"/>
-<area shape="poly" title=" " alt="" coords="3792,425,3521,478,3520,473,3787,425"/>
+<area shape="poly" title=" " alt="" coords="1696,567,1466,571,1109,579,685,597,465,612,250,630,207,636,205,631,250,625,465,606,684,592,1108,574,1466,566,1702,567"/>
+<area shape="rect" href="remove__const_8hpp.html" title=" " alt="" coords="1860,628,2005,672"/>
+<area shape="poly" title=" " alt="" coords="1788,578,1875,621,1870,620,1787,583"/>
+<area shape="rect" href="void__t_8hpp.html" title=" " alt="" coords="2030,636,2193,664"/>
+<area shape="poly" title=" " alt="" coords="1816,578,2043,632,2037,632,1816,583"/>
+<area shape="rect" title=" " alt="" coords="1441,720,1515,748"/>
+<area shape="poly" title=" " alt="" coords="1319,662,1437,714,1431,714,1319,667"/>
+<area shape="poly" title=" " alt="" coords="3071,662,3124,670,3535,727,3530,727,3123,675,3071,667"/>
+<area shape="poly" title=" " alt="" coords="1481,662,1481,707,1476,703,1477,666"/>
+<area shape="poly" title=" " alt="" coords="1654,671,1638,708,1634,704,1650,674"/>
+<area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="459,796,556,824"/>
+<area shape="poly" title=" " alt="" coords="612,748,544,790,541,785,607,749"/>
+<area shape="poly" title=" " alt="" coords="860,822,986,866,981,866,859,827"/>
+<area shape="poly" title=" " alt="" coords="430,746,481,787,476,786,429,751"/>
+<area shape="poly" title=" " alt="" coords="933,665,705,719,704,714,938,664"/>
+<area shape="poly" title=" " alt="" coords="902,665,522,720,521,715,907,663"/>
+<area shape="poly" title=" " alt="" coords="1011,662,1070,711,1065,710,1010,667"/>
+<area shape="poly" title=" " alt="" coords="1081,662,1233,689,1295,704,1329,718,1340,732,1346,748,1351,782,1347,779,1341,750,1335,735,1326,722,1294,709,1232,694,1081,667"/>
+<area shape="poly" title=" " alt="" coords="1036,662,1203,715,1197,715,1036,667"/>
+<area shape="poly" title=" " alt="" coords="1095,747,1072,858,1068,855,1090,750"/>
+<area shape="poly" title=" " alt="" coords="1141,746,1291,791,1286,791,1140,751"/>
+<area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="1099,796,1220,824"/>
+<area shape="poly" title=" " alt="" coords="1108,746,1140,785,1135,783,1106,751"/>
+<area shape="poly" title=" " alt="" coords="1305,824,1150,870,1149,865,1300,825"/>
+<area shape="poly" title=" " alt="" coords="1258,747,1253,786,1246,807,1233,825,1215,842,1195,856,1150,876,1149,871,1192,851,1212,838,1229,822,1241,804,1248,785,1254,750"/>
+<area shape="poly" title=" " alt="" coords="1274,746,1323,787,1318,786,1272,751"/>
+<area shape="poly" title=" " alt="" coords="1242,748,1189,789,1187,784,1237,749"/>
+<area shape="poly" title=" " alt="" coords="2182,818,1150,889,1150,884,2177,817"/>
+<area shape="poly" title=" " alt="" coords="1767,748,1413,826,1150,878,1150,873,1412,821,1761,749"/>
+<area shape="poly" title=" " alt="" coords="1741,748,1416,801,1415,796,1735,749"/>
+<area shape="poly" title=" " alt="" coords="1734,746,1720,751,1235,803,1235,798,1719,745,1728,747"/>
+<area shape="poly" title=" " alt="" coords="908,746,1031,862,1025,861,905,751"/>
+<area shape="poly" title=" " alt="" coords="975,746,1284,798,1279,798,975,751"/>
+<area shape="poly" title=" " alt="" coords="941,746,1100,792,1095,792,940,751"/>
+<area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="75,796,209,824"/>
+<area shape="poly" title=" " alt="" coords="122,662,140,781,135,781,118,666"/>
+<area shape="poly" title=" " alt="" coords="209,817,250,821,655,858,977,886,971,886,654,863,250,826,209,822"/>
+<area shape="rect" href="config__types_8h.html" title="What config.h is written with: its types, constants and helpers." alt="" coords="3443,476,3558,504"/>
+<area shape="poly" title=" " alt="" coords="3475,427,3491,463,3486,461,3472,431"/>
+<area shape="poly" title=" " alt="" coords="3445,502,3432,507,3284,519,3088,530,2621,547,1835,566,1835,561,2620,542,3088,524,3283,513,3431,501,3440,503"/>
+<area shape="poly" title=" " alt="" coords="3516,502,3536,524,3554,551,3568,591,3578,633,3585,706,3581,703,3573,634,3563,593,3549,553,3532,527,3514,507"/>
+<area shape="rect" href="load__map_8h.html" title="Encoding of the load map: one packed byte per dump load." alt="" coords="3397,552,3495,580"/>
+<area shape="poly" title=" " alt="" coords="3493,503,3466,542,3463,537,3489,506"/>
+<area shape="rect" href="utils__bits_8h.html" title="Bit manipulation utility functions." alt="" coords="3281,552,3374,580"/>
+<area shape="poly" title=" " alt="" coords="3472,504,3373,548,3371,543,3467,505"/>
+<area shape="poly" title=" " alt="" coords="3454,578,3480,621,3516,671,3557,712,3552,710,3512,674,3476,624,3452,583"/>
+<area shape="poly" title=" " alt="" coords="3345,577,3478,670,3548,713,3543,712,3475,675,3344,583"/>
+<area shape="poly" title=" " alt="" coords="2703,352,2616,466,2613,462,2698,354"/>
+<area shape="poly" title=" " alt="" coords="2711,351,2709,385,2700,427,2681,471,2667,490,2650,506,2632,515,2604,523,2523,536,2416,546,2293,554,2038,563,1835,567,1834,561,2038,558,2293,549,2416,541,2522,531,2603,518,2630,510,2647,502,2663,486,2677,468,2695,426,2704,384,2708,355"/>
+<area shape="poly" title=" " alt="" coords="2745,340,2878,357,2962,374,3044,398,3070,412,3095,426,3184,450,3258,458,3333,463,3430,476,3425,476,3332,468,3257,464,3183,455,3093,431,3067,417,3042,403,2961,379,2878,363,2745,345"/>
+<area shape="poly" title=" " alt="" coords="2716,351,2734,388,2763,427,2795,456,2823,474,2854,488,2896,501,2967,521,3028,532,3082,537,3134,538,3244,538,3308,541,3385,552,3379,552,3307,546,3244,543,3134,543,3082,542,3027,537,2965,526,2895,507,2853,493,2820,479,2791,460,2759,430,2730,391,2714,355"/>
+<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="2772,401,2869,428"/>
+<area shape="poly" title=" " alt="" coords="2730,351,2791,393,2786,392,2729,356"/>
+<area shape="poly" title=" " alt="" coords="2672,344,2512,367,2426,383,2392,393,2367,403,2331,432,2303,466,2301,461,2327,428,2365,398,2390,388,2425,378,2511,361,2677,343"/>
+<area shape="poly" title=" " alt="" coords="2783,428,2650,474,2649,469,2778,430"/>
+<area shape="rect" href="ds18b20_8h.html" title="The checks of a DS18B20 reading: CRC, conversion to hundredths of °C, range, power&#45;on value." alt="" coords="3331,476,3420,504"/>
+<area shape="poly" title=" " alt="" coords="2869,420,3318,481,3313,481,2869,425"/>
+<area shape="poly" title=" " alt="" coords="3420,500,3467,519,3489,533,3509,550,3537,588,3558,629,3572,670,3580,707,3576,704,3567,672,3553,631,3533,590,3505,554,3486,537,3464,524,3420,506"/>
+<area shape="poly" title=" " alt="" coords="2350,500,2361,501,2586,535,2762,557,2937,583,3161,625,3248,646,3335,670,3536,721,3530,721,3333,675,3247,651,3160,630,2937,588,2761,563,2586,540,2360,507,2350,505"/>
+<area shape="poly" title=" " alt="" coords="2349,500,2361,501,2515,515,2646,521,2870,522,3095,525,3227,533,3385,552,3379,552,3227,538,3095,530,2870,528,2646,526,2515,520,2360,507,2350,505"/>
+<area shape="poly" title=" " alt="" coords="2538,351,2567,427,2584,464,2579,461,2562,429,2535,355"/>
+<area shape="poly" title=" " alt="" coords="2570,341,2664,350,2862,364,3016,372,3171,381,3369,398,3418,406,3413,406,3368,403,3170,387,3016,378,2862,369,2663,355,2570,347"/>
+<area shape="rect" href="serial__output_8h.html" title="Non&#45;blocking serial output of the datalog." alt="" coords="2378,401,2496,428"/>
+<area shape="poly" title=" " alt="" coords="2518,352,2467,393,2465,389,2513,354"/>
+<area shape="poly" title=" " alt="" coords="2465,426,2556,470,2551,469,2465,432"/>
+<area shape="poly" title=" " alt="" coords="3765,275,3803,295,3848,322,3893,357,3931,399,3945,421,3953,441,3957,489,3957,567,3952,597,3941,618,3922,633,3899,642,3843,656,3781,675,3634,720,3633,715,3780,670,3842,650,3897,637,3919,628,3936,615,3947,595,3951,567,3951,489,3948,443,3940,424,3927,402,3889,361,3845,326,3801,299,3764,280"/>
+<area shape="poly" title=" " alt="" coords="3718,276,3648,331,3607,365,3568,402,3541,434,3518,466,3516,461,3537,431,3564,399,3604,361,3645,326,3713,278"/>
+<area shape="poly" title=" " alt="" coords="4048,276,4022,336,4012,374,4007,413,4007,567,4004,593,3996,613,3982,628,3964,639,3921,656,3871,675,3807,697,3754,706,3701,710,3634,721,3633,716,3700,705,3754,701,3806,692,3869,670,3919,651,3962,634,3979,623,3991,610,3999,591,4002,567,4002,413,4007,373,4017,334,4043,279"/>
+<area shape="poly" title=" " alt="" coords="4072,275,4129,317,4124,315,4071,280"/>
+<area shape="poly" title=" " alt="" coords="4057,275,4086,387,4082,384,4054,279"/>
+<area shape="poly" title=" " alt="" coords="4161,351,4174,411,4181,489,4181,567,4178,591,4171,611,4159,626,4144,638,4106,656,4060,675,4025,687,3977,697,3859,714,3634,733,3634,727,3858,709,3976,692,4023,682,4058,670,4104,651,4141,633,4155,622,4166,608,4173,590,4175,567,4175,489,4168,412,4158,355"/>
+<area shape="poly" title=" " alt="" coords="4147,352,4114,392,4112,387,4143,354"/>
+<area shape="poly" title=" " alt="" coords="4094,426,4096,475,4089,542,4081,578,4068,614,4050,646,4025,674,3996,692,3954,705,3846,724,3730,732,3634,735,3634,730,3730,727,3846,718,3952,700,3993,687,4022,670,4046,643,4063,611,4076,577,4084,541,4090,475,4091,430"/>
+<area shape="poly" title=" " alt="" coords="4098,426,4111,476,4119,537,4118,587,4112,610,4101,632,4084,654,4061,674,4006,711,3956,734,3908,746,3860,750,3757,747,3698,747,3630,751,3485,759,3239,769,2571,786,1416,810,1415,805,2570,781,3239,763,3485,754,3630,745,3697,741,3757,742,3860,745,3907,741,3954,729,4004,707,4058,670,4080,650,4096,629,4107,609,4113,587,4114,537,4106,477,4095,431"/>
+<area shape="poly" title=" " alt="" coords="2530,500,2542,501,2644,509,2732,509,2881,503,2953,502,3029,508,3114,523,3212,550,3258,572,3312,608,3367,644,3410,670,3474,696,3536,719,3531,718,3472,701,3407,675,3364,649,3309,612,3255,577,3210,554,3113,528,3028,513,2953,508,2881,508,2732,514,2644,514,2542,507,2530,505"/>
+<area shape="poly" title=" " alt="" coords="2530,500,2542,501,2669,512,2777,517,2961,521,3146,526,3255,535,3385,552,3379,552,3254,540,3146,532,2961,526,2777,523,2669,517,2542,507,2530,505"/>
+<area shape="poly" title=" " alt="" coords="3646,427,3599,673,3591,707,3588,703,3594,672,3642,430"/>
+<area shape="poly" title=" " alt="" coords="3623,428,3541,472,3539,466,3617,430"/>
+<area shape="poly" title=" " alt="" coords="3640,427,3612,467,3572,506,3535,530,3497,548,3495,543,3532,525,3568,502,3608,463,3635,430"/>
+<area shape="poly" title=" " alt="" coords="3856,427,3859,458,3858,497,3850,540,3834,581,3815,608,3792,632,3739,671,3684,700,3634,720,3633,715,3682,695,3736,666,3788,628,3811,604,3829,578,3845,539,3852,496,3853,458,3853,431"/>
+<area shape="poly" title=" " alt="" coords="3792,429,3574,476,3573,471,3787,429"/>
+<area shape="poly" title=" " alt="" coords="3264,428,3146,470,3072,491,2997,507,2892,520,2753,531,2419,549,2083,560,1835,566,1835,561,2083,555,2418,544,2753,526,2891,515,2996,501,3071,485,3144,465,3258,429"/>
+<area shape="poly" title=" " alt="" coords="3332,426,3452,471,3447,470,3332,432"/>
+<area shape="poly" title=" " alt="" coords="3297,427,3304,465,3310,484,3321,502,3350,527,3386,547,3380,546,3347,531,3317,506,3306,487,3298,466,3294,431"/>
+<area shape="poly" title=" " alt="" coords="3290,427,3277,464,3275,484,3278,503,3288,523,3303,542,3298,540,3284,526,3273,505,3269,484,3272,463,3286,430"/>
+<area shape="poly" title=" " alt="" coords="2308,276,2278,318,2256,338,2231,355,2173,378,2121,387,2072,388,2026,383,1980,378,1932,377,1879,384,1820,403,1788,417,1764,430,1745,449,1728,477,1725,493,1727,508,1741,541,1737,538,1722,510,1720,492,1724,475,1741,445,1761,426,1786,412,1818,398,1878,379,1932,372,1981,373,2027,378,2073,382,2120,382,2171,373,2229,350,2253,334,2274,314,2304,279"/>
+<area shape="poly" title=" " alt="" coords="2364,271,2663,328,2657,328,2364,276"/>
+<area shape="poly" title=" " alt="" coords="2353,275,2484,320,2478,320,2353,280"/>
+<area shape="rect" href="relay__engine_8h.html" title="Decisions of the relay diversion: which relay switches, and when." alt="" coords="1831,401,1949,428"/>
+<area shape="poly" title=" " alt="" coords="2314,275,2303,316,2292,337,2276,355,2236,380,2200,395,2165,401,2131,403,2057,398,2015,398,1968,403,1965,404,1963,399,1967,398,2015,393,2057,393,2131,397,2164,396,2198,390,2234,375,2272,351,2288,334,2298,314,2310,279"/>
+<area shape="poly" title=" " alt="" coords="2291,277,2210,320,2208,315,2286,278"/>
+<area shape="poly" title=" " alt="" coords="1912,426,1978,469,1972,468,1911,432"/>
+<area shape="poly" title=" " alt="" coords="1843,428,1780,453,1755,465,1740,478,1735,492,1735,507,1745,540,1741,537,1730,508,1730,491,1736,475,1752,461,1778,448,1838,430"/>
+<area shape="poly" title=" " alt="" coords="1936,426,2086,474,2120,489,2155,501,2305,535,2424,551,2544,561,2698,577,2763,582,2818,583,2914,579,2959,580,3007,586,3059,600,3118,625,3133,636,3141,648,3149,660,3162,670,3192,681,3233,691,3334,708,3535,730,3530,730,3334,713,3232,697,3190,686,3159,675,3145,664,3137,651,3129,640,3115,630,3057,606,3006,591,2959,585,2914,584,2818,588,2762,588,2698,582,2544,566,2423,556,2304,540,2153,507,2118,494,2084,479,1935,432"/>
+<area shape="poly" title=" " alt="" coords="1949,423,2047,443,2155,474,2184,489,2212,501,2307,519,2433,533,2738,551,3044,559,3269,564,3263,564,3044,564,2738,556,2432,538,2306,524,2211,507,2181,493,2153,479,2046,448,1949,428"/>
+<area shape="rect" href="ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="1750,476,1870,504"/>
+<area shape="poly" title=" " alt="" coords="1878,428,1837,468,1834,463,1873,430"/>
+<area shape="poly" title=" " alt="" coords="1803,503,1779,541,1776,537,1799,506"/>
+<area shape="poly" title=" " alt="" coords="2196,351,2272,387,2367,426,2541,475,2536,475,2365,431,2270,392,2195,356"/>
+<area shape="poly" title=" " alt="" coords="2119,342,2043,348,1953,358,1871,375,1841,388,1821,402,1817,414,1822,427,1840,443,1875,467,1934,501,2017,516,2159,528,2552,546,2968,556,3268,564,3263,564,2968,562,2552,551,2159,533,2016,521,1932,507,1872,472,1836,447,1817,430,1812,414,1817,399,1838,383,1870,370,1952,352,2043,343,2124,341"/>
+<area shape="poly" title=" " alt="" coords="3262,276,3223,361,3197,404,3173,431,3143,441,3092,451,2948,467,2653,488,2652,483,2947,462,3091,445,3142,436,3170,426,3193,400,3218,358,3258,279"/>
+<area shape="poly" title=" " alt="" coords="3261,276,3250,314,3250,334,3257,351,3282,368,3322,383,3418,406,3413,406,3321,388,3279,373,3253,354,3245,335,3245,313,3257,279"/>
+<area shape="poly" title=" " alt="" coords="3212,267,3156,274,3085,285,3010,302,2938,327,2887,358,2845,392,2843,388,2884,354,2936,323,3009,297,3084,280,3155,269,3217,266"/>
+<area shape="poly" title=" " alt="" coords="3307,275,3342,294,3358,307,3371,324,3385,358,3390,396,3389,431,3384,463,3380,459,3383,431,3384,396,3380,360,3366,326,3354,311,3339,298,3306,280"/>
+<area shape="poly" title=" " alt="" coords="3212,270,2585,335,2584,330,3217,269"/>
+<area shape="rect" href="onewire__search_8h.html" title="The ROM search of a 1&#45;Wire bus, on the bit primitives of the bus." alt="" coords="3684,552,3819,580"/>
+<area shape="poly" title=" " alt="" coords="3318,274,3555,334,3668,369,3706,385,3728,399,3747,432,3757,469,3760,506,3757,539,3753,535,3754,506,3752,470,3743,434,3724,403,3704,390,3666,374,3554,339,3317,279"/>
+<area shape="rect" title=" " alt="" coords="3267,325,3356,353"/>
+<area shape="poly" title=" " alt="" coords="3275,275,3298,313,3293,311,3273,280"/>
+<area shape="poly" title=" " alt="" coords="3744,579,3712,625,3666,674,3617,714,3615,709,3663,670,3708,621,3740,582"/>
+<area shape="poly" title=" " alt="" coords="2701,276,2666,326,2631,399,2606,464,2602,460,2626,397,2661,324,2696,279"/>
+<area shape="poly" title=" " alt="" coords="2771,251,3101,202,3096,203,2772,256"/>
+<area shape="poly" title=" " alt="" coords="2646,275,2543,298,2424,328,2317,363,2213,403,2051,472,2049,467,2211,398,2315,358,2423,322,2542,292,2651,274"/>
+<area shape="poly" title=" " alt="" coords="2712,275,2712,311,2708,308,2708,280"/>
+<area shape="poly" title=" " alt="" coords="2651,275,2570,298,2486,327,2422,360,2389,381,2368,402,2365,420,2373,437,2390,453,2411,469,2406,468,2386,457,2369,440,2360,421,2364,399,2385,377,2419,355,2484,323,2568,293,2646,276"/>
+<area shape="rect" href="utils__rf_8h.html" title="RF module support for RFM69." alt="" coords="2949,325,3026,353"/>
+<area shape="poly" title=" " alt="" coords="2760,275,2936,323,2931,323,2759,280"/>
+<area shape="poly" title=" " alt="" coords="3003,322,3147,212,3152,210,3005,327"/>
+<area shape="rect" href="config__rf_8h.html" title="RF module configuration for RFM69." alt="" coords="2943,401,3032,428"/>
+<area shape="poly" title=" " alt="" coords="2989,351,2989,387,2985,383,2986,355"/>
+<area shape="rect" title=" " alt="" coords="2907,476,2985,504"/>
+<area shape="poly" title=" " alt="" coords="2972,352,2950,375,2934,402,2930,416,2930,432,2937,463,2932,460,2925,432,2925,416,2929,400,2946,372,2967,355"/>
+<area shape="rect" title=" " alt="" coords="3106,401,3159,428"/>
+<area shape="poly" title=" " alt="" coords="3014,351,3096,394,3091,393,3013,356"/>
+<area shape="poly" title=" " alt="" coords="2982,427,2962,465,2959,460,2978,430"/>
+<area shape="poly" title=" " alt="" coords="3557,200,3545,269,3533,312,3516,354,3491,391,3488,387,3512,351,3528,310,3540,268,3553,204"/>
+<area shape="poly" title=" " alt="" coords="3354,125,3231,171,3229,166,3348,127"/>
+<area shape="rect" title=" " alt="" coords="3326,174,3451,201"/>
+<area shape="poly" title=" " alt="" coords="3390,124,3391,160,3387,156,3387,128"/>
+<area shape="poly" title=" " alt="" coords="3254,125,3207,166,3204,161,3249,127"/>
+<area shape="poly" title=" " alt="" coords="2034,124,2031,186,2031,227,2036,272,2045,317,2062,360,2086,397,2121,426,2156,440,2202,451,2316,461,2437,466,2541,476,2536,476,2437,472,2316,467,2201,456,2154,446,2118,431,2082,401,2057,363,2040,319,2031,273,2026,227,2026,186,2031,128"/>
+<area shape="poly" title=" " alt="" coords="4280,352,4249,411,4237,449,4231,489,4231,567,4229,590,4223,608,4213,623,4200,636,4167,655,4126,675,4084,689,4029,701,3891,719,3748,729,3634,734,3634,729,3748,724,3891,713,4028,696,4083,684,4124,670,4165,651,4197,632,4209,620,4218,606,4224,589,4226,567,4226,489,4231,448,4245,409,4275,355"/>
+<area shape="poly" title=" " alt="" coords="4254,353,4141,398,4139,392,4249,354"/>
 </map>
 </div>
 </div>
@@ -423,10 +431,6 @@ Variables</h2></td></tr>
 <tr class="separator:a4e92ecad979e48c641e681211c81e3b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16fdc76855b18530d79f3b3541a3c0ca" id="r_a16fdc76855b18530d79f3b3541a3c0ca"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16fdc76855b18530d79f3b3541a3c0ca">absenceOfDivertedEnergyCountInMC</a> { 0 }</td></tr>
 <tr class="separator:a16fdc76855b18530d79f3b3541a3c0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ed8b7faceb1ae9141141187eff75184" id="r_a2ed8b7faceb1ae9141141187eff75184"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ed8b7faceb1ae9141141187eff75184">ADC_CLOCKS_PER_CONVERSION</a> { 13 }</td></tr>
-<tr class="separator:a2ed8b7faceb1ae9141141187eff75184"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a037c64c839a0adff73cb780ac05657da" id="r_a037c64c839a0adff73cb780ac05657da"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a037c64c839a0adff73cb780ac05657da">ADC_PRESCALER</a> { 128 }</td></tr>
-<tr class="separator:a037c64c839a0adff73cb780ac05657da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a493293ab73a9b6a8ac228debcbacd7f0" id="r_a493293ab73a9b6a8ac228debcbacd7f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a493293ab73a9b6a8ac228debcbacd7f0">b_diversionStarted</a> { false }</td></tr>
 <tr class="separator:a493293ab73a9b6a8ac228debcbacd7f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaecb72fa3ab0755ac124b5fa6ffa1c6f" id="r_aaecb72fa3ab0755ac124b5fa6ffa1c6f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaecb72fa3ab0755ac124b5fa6ffa1c6f">beyondStartUpPeriod</a> { false }</td></tr>
@@ -437,6 +441,8 @@ Variables</h2></td></tr>
 <tr class="separator:a2f61fd181a2806e678e5473eaad03891"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43212c58ded1ca3978ab206d531a7f7c" id="r_a43212c58ded1ca3978ab206d531a7f7c"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a43212c58ded1ca3978ab206d531a7f7c">f_offsetOfEnergyThresholdsInAFmode</a> { 0.1F }</td></tr>
 <tr class="separator:a43212c58ded1ca3978ab206d531a7f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc7b9c1813e2a4b2a890b0350bc9519b" id="r_acc7b9c1813e2a4b2a890b0350bc9519b"><td class="memItemLeft" align="right" valign="top">constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acc7b9c1813e2a4b2a890b0350bc9519b">FULL_SCALE_PER_SAMPLE</a> { 1UL &lt;&lt; 18 }</td></tr>
+<tr class="separator:acc7b9c1813e2a4b2a890b0350bc9519b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adaf6a4d9b4b7804469ca8311468c1c02" id="r_adaf6a4d9b4b7804469ca8311468c1c02"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adaf6a4d9b4b7804469ca8311468c1c02">i_DCoffset_V</a> [<a class="el" href="config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>] {}</td></tr>
 <tr class="separator:adaf6a4d9b4b7804469ca8311468c1c02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3d9077f27c4d2db2adfb892d111657c" id="r_ab3d9077f27c4d2db2adfb892d111657c"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3d9077f27c4d2db2adfb892d111657c">i_DCoffset_V_nom</a> { 511U &lt;&lt; 6 }</td></tr>
@@ -469,10 +475,6 @@ Variables</h2></td></tr>
 <tr class="separator:a553f28df1683f35eefa78b35ad0e2d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0beef0d593bc73e25d415c64444255e5" id="r_a0beef0d593bc73e25d415c64444255e5"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0beef0d593bc73e25d415c64444255e5">n_lowestNoOfSampleSetsPerMainsCycle</a> { 0 }</td></tr>
 <tr class="separator:a0beef0d593bc73e25d415c64444255e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa94bca1089dcacfd14001398e745b449" id="r_aa94bca1089dcacfd14001398e745b449"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa94bca1089dcacfd14001398e745b449">N_MAX</a> { <a class="el" href="#a2e1c0c653050cdb35f952e02c614e441">SAMPLE_SETS_PER_CYCLE</a> + <a class="el" href="#a061f4d324283b93fb04773e4cc5956b9">SAMPLE_SETS_MARGIN</a> }</td></tr>
-<tr class="separator:aa94bca1089dcacfd14001398e745b449"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b764c447c002ce136c613d2fbb59a2d" id="r_a9b764c447c002ce136c613d2fbb59a2d"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b764c447c002ce136c613d2fbb59a2d">N_MIN</a> { <a class="el" href="#a2e1c0c653050cdb35f952e02c614e441">SAMPLE_SETS_PER_CYCLE</a> - <a class="el" href="#a061f4d324283b93fb04773e4cc5956b9">SAMPLE_SETS_MARGIN</a> }</td></tr>
-<tr class="separator:a9b764c447c002ce136c613d2fbb59a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a22740c3a35433eaeae0fa7177d93a1" id="r_a9a22740c3a35433eaeae0fa7177d93a1"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a22740c3a35433eaeae0fa7177d93a1">n_samplesDuringThisMainsCycle</a> [<a class="el" href="config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>] {}</td></tr>
 <tr class="separator:a9a22740c3a35433eaeae0fa7177d93a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14c0bd4df597ffb07f73e5a3581238b9" id="r_a14c0bd4df597ffb07f73e5a3581238b9"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="types_8h.html#aae913bd32d3b848f4a5ba5b9d32e9a1f">OutputModes</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14c0bd4df597ffb07f73e5a3581238b9">outputMode</a> { <a class="el" href="types_8h.html#aae913bd32d3b848f4a5ba5b9d32e9a1fa1e23852820b9154316c7c06e2b7ba051">OutputModes::NORMAL</a> }</td></tr>
@@ -487,16 +489,10 @@ Variables</h2></td></tr>
 <tr class="separator:a043c3df0e6f259a7c11e6bbc89500c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab499bc63170b1994691a7e84f99c7927" id="r_ab499bc63170b1994691a7e84f99c7927"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a297c9a15e28f6c3824b7a33453238136">Polarities</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab499bc63170b1994691a7e84f99c7927">polarityOfMostRecentSampleV</a> [<a class="el" href="config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a>] {}</td></tr>
 <tr class="separator:ab499bc63170b1994691a7e84f99c7927"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62c2d6851a11d3bca3886e377a4bf660" id="r_a62c2d6851a11d3bca3886e377a4bf660"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62c2d6851a11d3bca3886e377a4bf660">powerCalPerSampleShift</a> { <a class="el" href="namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714">Energy::toFixedPerSample</a>&lt; <a class="el" href="#a9b764c447c002ce136c613d2fbb59a2d">N_MIN</a>, <a class="el" href="#aa94bca1089dcacfd14001398e745b449">N_MAX</a> &gt;(<a class="el" href="calibration_8h.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>).shift }</td></tr>
+<tr class="memitem:a62c2d6851a11d3bca3886e377a4bf660" id="r_a62c2d6851a11d3bca3886e377a4bf660"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62c2d6851a11d3bca3886e377a4bf660">powerCalPerSampleShift</a> { <a class="el" href="namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714">Energy::toFixedPerSample</a>&lt; <a class="el" href="config__derived_8h.html#a9b764c447c002ce136c613d2fbb59a2d">N_MIN</a>, <a class="el" href="config__derived_8h.html#aa94bca1089dcacfd14001398e745b449">N_MAX</a> &gt;(<a class="el" href="calibration_8h.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>).shift }</td></tr>
 <tr class="separator:a62c2d6851a11d3bca3886e377a4bf660"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54fa344d9816b60dc59031ee62b35af7" id="r_a54fa344d9816b60dc59031ee62b35af7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structEnergy_1_1PerSampleCalibration.html">Energy::PerSampleCalibration</a>&lt; <a class="el" href="#a9b764c447c002ce136c613d2fbb59a2d">N_MIN</a>, <a class="el" href="#aa94bca1089dcacfd14001398e745b449">N_MAX</a>, <a class="el" href="config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a> &gt; powerCalPerSample&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54fa344d9816b60dc59031ee62b35af7">PROGMEM</a> { <a class="el" href="namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714">Energy::toFixedPerSample</a>&lt; <a class="el" href="#a9b764c447c002ce136c613d2fbb59a2d">N_MIN</a>, <a class="el" href="#aa94bca1089dcacfd14001398e745b449">N_MAX</a> &gt;(<a class="el" href="calibration_8h.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>) }</td></tr>
+<tr class="memitem:a54fa344d9816b60dc59031ee62b35af7" id="r_a54fa344d9816b60dc59031ee62b35af7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structEnergy_1_1PerSampleCalibration.html">Energy::PerSampleCalibration</a>&lt; <a class="el" href="config__derived_8h.html#a9b764c447c002ce136c613d2fbb59a2d">N_MIN</a>, <a class="el" href="config__derived_8h.html#aa94bca1089dcacfd14001398e745b449">N_MAX</a>, <a class="el" href="config__system_8h.html#ac17be2735ad17e6198cd2a24eb39eb91">NO_OF_PHASES</a> &gt; powerCalPerSample&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54fa344d9816b60dc59031ee62b35af7">PROGMEM</a> { <a class="el" href="namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714">Energy::toFixedPerSample</a>&lt; <a class="el" href="config__derived_8h.html#a9b764c447c002ce136c613d2fbb59a2d">N_MIN</a>, <a class="el" href="config__derived_8h.html#aa94bca1089dcacfd14001398e745b449">N_MAX</a> &gt;(<a class="el" href="calibration_8h.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>) }</td></tr>
 <tr class="separator:a54fa344d9816b60dc59031ee62b35af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37b88bae7be9d644f49ff7a3f138eceb" id="r_a37b88bae7be9d644f49ff7a3f138eceb"><td class="memItemLeft" align="right" valign="top">constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37b88bae7be9d644f49ff7a3f138eceb">SAMPLE_SET_PERIOD_US</a> { 1UL * <a class="el" href="namespaceAdcChain.html#a8b7e02cdc7680e1b4f3fbf16a0dbbee4">AdcChain::NO_OF_CONVERSIONS</a> * <a class="el" href="#a2ed8b7faceb1ae9141141187eff75184">ADC_CLOCKS_PER_CONVERSION</a> * <a class="el" href="#a037c64c839a0adff73cb780ac05657da">ADC_PRESCALER</a> / (F_CPU / 1000000UL) }</td></tr>
-<tr class="separator:a37b88bae7be9d644f49ff7a3f138eceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a061f4d324283b93fb04773e4cc5956b9" id="r_a061f4d324283b93fb04773e4cc5956b9"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a061f4d324283b93fb04773e4cc5956b9">SAMPLE_SETS_MARGIN</a> { 4 }</td></tr>
-<tr class="separator:a061f4d324283b93fb04773e4cc5956b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e1c0c653050cdb35f952e02c614e441" id="r_a2e1c0c653050cdb35f952e02c614e441"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e1c0c653050cdb35f952e02c614e441">SAMPLE_SETS_PER_CYCLE</a> { 1000000UL / (<a class="el" href="config__system_8h.html#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> * <a class="el" href="#a37b88bae7be9d644f49ff7a3f138eceb">SAMPLE_SET_PERIOD_US</a>) }</td></tr>
-<tr class="separator:a2e1c0c653050cdb35f952e02c614e441"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implements the processing engine. </p>
@@ -539,7 +535,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the corresponding threshold </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00072">72</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00073">73</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -558,7 +554,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l01135">1135</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l01146">1146</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -656,10 +652,10 @@ Here is the call graph for this function:</div>
 <div class="ttc" id="anamespaceAdcChain_html_ae5b4a483854a641f278c0fd91c08a36fad5b50b8cf96bcc8aba90f306f5e6189c"><div class="ttname"><a href="namespaceAdcChain.html#ae5b4a483854a641f278c0fd91c08a36fad5b50b8cf96bcc8aba90f306f5e6189c">AdcChain::Channel::V3</a></div><div class="ttdeci">@ V3</div><div class="ttdef"><b>Definition</b> <a href="adc__chain_8h_source.html#l00040">adc_chain.h:40</a></div></div>
 <div class="ttc" id="anamespaceAdcChain_html_ae5b4a483854a641f278c0fd91c08a36faec765f1adc3b4253f2d3b131a4a8618f"><div class="ttname"><a href="namespaceAdcChain.html#ae5b4a483854a641f278c0fd91c08a36faec765f1adc3b4253f2d3b131a4a8618f">AdcChain::Channel::V2</a></div><div class="ttdeci">@ V2</div><div class="ttdef"><b>Definition</b> <a href="adc__chain_8h_source.html#l00038">adc_chain.h:38</a></div></div>
 <div class="ttc" id="anamespaceAdcChain_html_ae5b4a483854a641f278c0fd91c08a36faf4a3f9ad212c5f18078484d1b535ea95"><div class="ttname"><a href="namespaceAdcChain.html#ae5b4a483854a641f278c0fd91c08a36faf4a3f9ad212c5f18078484d1b535ea95">AdcChain::Channel::I3</a></div><div class="ttdeci">@ I3</div><div class="ttdef"><b>Definition</b> <a href="adc__chain_8h_source.html#l00041">adc_chain.h:41</a></div></div>
-<div class="ttc" id="aprocessing_8cpp_html_a0da6b8363259e848df21e73af6d322f2"><div class="ttname"><a href="#a0da6b8363259e848df21e73af6d322f2">_channels</a></div><div class="ttdeci">static adc_ctx_t _channels[AdcChain::NO_OF_CONVERSIONS]</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l01124">processing.cpp:1124</a></div></div>
-<div class="ttc" id="astructadc__ctx__t_html_adbd9b4c131b385683df2e2a4a52b105a"><div class="ttname"><a href="structadc__ctx__t.html#adbd9b4c131b385683df2e2a4a52b105a">adc_ctx_t::index</a></div><div class="ttdeci">uint8_t index</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l01118">processing.cpp:1118</a></div></div>
+<div class="ttc" id="aprocessing_8cpp_html_a0da6b8363259e848df21e73af6d322f2"><div class="ttname"><a href="#a0da6b8363259e848df21e73af6d322f2">_channels</a></div><div class="ttdeci">static adc_ctx_t _channels[AdcChain::NO_OF_CONVERSIONS]</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l01135">processing.cpp:1135</a></div></div>
+<div class="ttc" id="astructadc__ctx__t_html_adbd9b4c131b385683df2e2a4a52b105a"><div class="ttname"><a href="structadc__ctx__t.html#adbd9b4c131b385683df2e2a4a52b105a">adc_ctx_t::index</a></div><div class="ttdeci">uint8_t index</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l01129">processing.cpp:1129</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l01124">1124</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l01135">1135</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -683,7 +679,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l01133">1133</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l01144">1144</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -700,55 +696,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>number of main cycles without diverted energy </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00112">112</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2ed8b7faceb1ae9141141187eff75184" name="a2ed8b7faceb1ae9141141187eff75184"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ed8b7faceb1ae9141141187eff75184">&#9670;&#160;</a></span>ADC_CLOCKS_PER_CONVERSION</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t ADC_CLOCKS_PER_CONVERSION { 13 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00047">47</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a037c64c839a0adff73cb780ac05657da" name="a037c64c839a0adff73cb780ac05657da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a037c64c839a0adff73cb780ac05657da">&#9670;&#160;</a></span>ADC_PRESCALER</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t ADC_PRESCALER { 128 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00048">48</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00113">113</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -765,7 +713,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>Tracks whether diversion has started </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00064">64</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00065">65</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -782,7 +730,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>start-up delay, allows things to settle </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00116">116</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00117">117</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -807,13 +755,13 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">{ <a class="code hl_variable" href="#a1b96dc7a4a95833b1ecae10ab1968f86">l_capacityOfEnergyBucket_main</a>, <a class="code hl_variable" href="#a8379b28456d81e7d003332f89ea40738">l_midPointOfEnergyBucket_main</a>,</div>
 <div class="line">                                               <a class="code hl_variable" href="#ac53b1f11ebf4e2ecc844bea4cc6553c9">l_lowerThreshold_default</a>, <a class="code hl_variable" href="#a7260ca9787ae6990f0a91cf35682e717">l_upperThreshold_default</a> }</div>
-<div class="ttc" id="aprocessing_8cpp_html_a1b96dc7a4a95833b1ecae10ab1968f86"><div class="ttname"><a href="#a1b96dc7a4a95833b1ecae10ab1968f86">l_capacityOfEnergyBucket_main</a></div><div class="ttdeci">constexpr int32_t l_capacityOfEnergyBucket_main</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l00039">processing.cpp:39</a></div></div>
-<div class="ttc" id="aprocessing_8cpp_html_a7260ca9787ae6990f0a91cf35682e717"><div class="ttname"><a href="#a7260ca9787ae6990f0a91cf35682e717">l_upperThreshold_default</a></div><div class="ttdeci">constexpr int32_t l_upperThreshold_default</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l00080">processing.cpp:80</a></div></div>
-<div class="ttc" id="aprocessing_8cpp_html_a8379b28456d81e7d003332f89ea40738"><div class="ttname"><a href="#a8379b28456d81e7d003332f89ea40738">l_midPointOfEnergyBucket_main</a></div><div class="ttdeci">constexpr int32_t l_midPointOfEnergyBucket_main</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l00041">processing.cpp:41</a></div></div>
-<div class="ttc" id="aprocessing_8cpp_html_ac53b1f11ebf4e2ecc844bea4cc6553c9"><div class="ttname"><a href="#ac53b1f11ebf4e2ecc844bea4cc6553c9">l_lowerThreshold_default</a></div><div class="ttdeci">constexpr int32_t l_lowerThreshold_default</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l00079">processing.cpp:79</a></div></div>
+<div class="ttc" id="aprocessing_8cpp_html_a1b96dc7a4a95833b1ecae10ab1968f86"><div class="ttname"><a href="#a1b96dc7a4a95833b1ecae10ab1968f86">l_capacityOfEnergyBucket_main</a></div><div class="ttdeci">constexpr int32_t l_capacityOfEnergyBucket_main</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l00040">processing.cpp:40</a></div></div>
+<div class="ttc" id="aprocessing_8cpp_html_a7260ca9787ae6990f0a91cf35682e717"><div class="ttname"><a href="#a7260ca9787ae6990f0a91cf35682e717">l_upperThreshold_default</a></div><div class="ttdeci">constexpr int32_t l_upperThreshold_default</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l00081">processing.cpp:81</a></div></div>
+<div class="ttc" id="aprocessing_8cpp_html_a8379b28456d81e7d003332f89ea40738"><div class="ttname"><a href="#a8379b28456d81e7d003332f89ea40738">l_midPointOfEnergyBucket_main</a></div><div class="ttdeci">constexpr int32_t l_midPointOfEnergyBucket_main</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l00042">processing.cpp:42</a></div></div>
+<div class="ttc" id="aprocessing_8cpp_html_ac53b1f11ebf4e2ecc844bea4cc6553c9"><div class="ttname"><a href="#ac53b1f11ebf4e2ecc844bea4cc6553c9">l_lowerThreshold_default</a></div><div class="ttdeci">constexpr int32_t l_lowerThreshold_default</div><div class="ttdef"><b>Definition</b> <a href="processing_8cpp_source.html#l00080">processing.cpp:80</a></div></div>
 </div><!-- fragment --><p>the fixed levels of the main energy bucket </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00085">85</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00086">86</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -830,7 +778,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>Number of cycle the load was ON (over 1 datalog period) </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00110">110</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00111">111</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -854,7 +802,31 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00043">43</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00044">44</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acc7b9c1813e2a4b2a890b0350bc9519b" name="acc7b9c1813e2a4b2a890b0350bc9519b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc7b9c1813e2a4b2a890b0350bc9519b">&#9670;&#160;</a></span>FULL_SCALE_PER_SAMPLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t FULL_SCALE_PER_SAMPLE { 1UL &lt;&lt; 18 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00048">48</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -871,7 +843,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>&lt;&mdash; for LPF main energy bucket for 3-phase use, with units of Joules * SUPPLY_FREQUENCY * 2^Energy::FRACTION_BITS </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00036">36</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00037">37</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -896,7 +868,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>nominal mid-point value of ADC @ x64 scale </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00035">35</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00036">36</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -913,7 +885,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>number of sample sets during each datalogging period </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00098">98</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00099">99</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -930,7 +902,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>current raw voltage sample filtered (left-aligned ADC) </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00091">91</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00092">92</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -955,7 +927,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>for resetting flexible thresholds </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00039">39</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00040">40</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -972,7 +944,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>main energy bucket (over all phases) </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00082">82</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00083">83</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -989,7 +961,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>for the LPF which determines DC offset (voltage) </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00092">92</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00093">93</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1014,7 +986,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>lower default threshold set accordingly to the output mode </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00079">79</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00080">80</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1039,7 +1011,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>threshold in anti-flicker mode - must not exceed 0.4 </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00041">41</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00042">42</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1056,7 +1028,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>for summation of V^2 values during datalog period </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00095">95</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00096">96</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1073,7 +1045,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>cumulative power per phase </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00090">90</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00091">91</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1090,7 +1062,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>for summation of 'real power' values during datalog period </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00094">94</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00095">95</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1115,7 +1087,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>upper default threshold set accordingly to the output mode </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00080">80</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00081">81</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1132,7 +1104,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>for improved control of multiple loads </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00088">88</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00089">89</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1149,7 +1121,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>for counting how often datalog is updated </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00100">100</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00101">101</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1166,56 +1138,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>For a mechanism to check the integrity of this code structure </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00102">102</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa94bca1089dcacfd14001398e745b449" name="aa94bca1089dcacfd14001398e745b449"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa94bca1089dcacfd14001398e745b449">&#9670;&#160;</a></span>N_MAX</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t N_MAX { <a class="el" href="#a2e1c0c653050cdb35f952e02c614e441">SAMPLE_SETS_PER_CYCLE</a> + <a class="el" href="#a061f4d324283b93fb04773e4cc5956b9">SAMPLE_SETS_MARGIN</a> }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>power calibration over n, in fixed point, for every expected n: no division in the ISR </p>
-
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00053">53</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9b764c447c002ce136c613d2fbb59a2d" name="a9b764c447c002ce136c613d2fbb59a2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b764c447c002ce136c613d2fbb59a2d">&#9670;&#160;</a></span>N_MIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t N_MIN { <a class="el" href="#a2e1c0c653050cdb35f952e02c614e441">SAMPLE_SETS_PER_CYCLE</a> - <a class="el" href="#a061f4d324283b93fb04773e4cc5956b9">SAMPLE_SETS_MARGIN</a> }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00052">52</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00103">103</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1232,7 +1155,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>number of sample sets for each phase during each mains cycle </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00097">97</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00098">98</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1257,7 +1180,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>Output mode to be used </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00062">62</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00063">63</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1274,7 +1197,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>for counting every second inside the ISR </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00114">114</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00115">115</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1291,7 +1214,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>Physical state of the loads </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00109">109</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00110">110</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1308,7 +1231,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>for zero-crossing detection </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00106">106</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00107">107</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1325,7 +1248,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>for zero-crossing detection </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00107">107</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00108">108</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1342,7 +1265,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>for zero-crossing detection </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00105">105</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00106">106</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1356,7 +1279,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t powerCalPerSampleShift { <a class="el" href="namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714">Energy::toFixedPerSample</a>&lt; <a class="el" href="#a9b764c447c002ce136c613d2fbb59a2d">N_MIN</a>, <a class="el" href="#aa94bca1089dcacfd14001398e745b449">N_MAX</a> &gt;(<a class="el" href="calibration_8h.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>).shift }</td>
+          <td class="memname">uint8_t powerCalPerSampleShift { <a class="el" href="namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714">Energy::toFixedPerSample</a>&lt; <a class="el" href="config__derived_8h.html#a9b764c447c002ce136c613d2fbb59a2d">N_MIN</a>, <a class="el" href="config__derived_8h.html#aa94bca1089dcacfd14001398e745b449">N_MAX</a> &gt;(<a class="el" href="calibration_8h.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>).shift }</td>
         </tr>
       </table>
   </td>
@@ -1366,7 +1289,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00057">57</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00058">58</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>
@@ -1377,88 +1300,14 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structLoad_1_1OverrideMasks.html">Load::OverrideMasks</a>&lt; <a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> &gt; overrideMasks PROGMEM { <a class="el" href="namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714">Energy::toFixedPerSample</a>&lt; <a class="el" href="#a9b764c447c002ce136c613d2fbb59a2d">N_MIN</a>, <a class="el" href="#aa94bca1089dcacfd14001398e745b449">N_MAX</a> &gt;(<a class="el" href="calibration_8h.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>) }</td>
+          <td class="memname">const <a class="el" href="structLoad_1_1OverrideMasks.html">Load::OverrideMasks</a>&lt; <a class="el" href="config_8h.html#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> &gt; overrideMasks PROGMEM { <a class="el" href="namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714">Energy::toFixedPerSample</a>&lt; <a class="el" href="config__derived_8h.html#a9b764c447c002ce136c613d2fbb59a2d">N_MIN</a>, <a class="el" href="config__derived_8h.html#aa94bca1089dcacfd14001398e745b449">N_MAX</a> &gt;(<a class="el" href="calibration_8h.html#aa04530439c9232df689568f4a6cd64d9">f_powerCal</a>) }</td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>power calibration over n, in fixed point, for every expected n: no division in the ISR</p>
 <p>override bit of each load: the ISR tests a mask instead of shifting by the pin </p>
 
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00056">56</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a37b88bae7be9d644f49ff7a3f138eceb" name="a37b88bae7be9d644f49ff7a3f138eceb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37b88bae7be9d644f49ff7a3f138eceb">&#9670;&#160;</a></span>SAMPLE_SET_PERIOD_US</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32_t SAMPLE_SET_PERIOD_US { 1UL * <a class="el" href="namespaceAdcChain.html#a8b7e02cdc7680e1b4f3fbf16a0dbbee4">AdcChain::NO_OF_CONVERSIONS</a> * <a class="el" href="#a2ed8b7faceb1ae9141141187eff75184">ADC_CLOCKS_PER_CONVERSION</a> * <a class="el" href="#a037c64c839a0adff73cb780ac05657da">ADC_PRESCALER</a> / (F_CPU / 1000000UL) }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>624 us </p>
-
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00049">49</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a061f4d324283b93fb04773e4cc5956b9" name="a061f4d324283b93fb04773e4cc5956b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a061f4d324283b93fb04773e4cc5956b9">&#9670;&#160;</a></span>SAMPLE_SETS_MARGIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t SAMPLE_SETS_MARGIN { 4 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>covers crossing jitter and frequency drift </p>
-
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00051">51</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2e1c0c653050cdb35f952e02c614e441" name="a2e1c0c653050cdb35f952e02c614e441"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e1c0c653050cdb35f952e02c614e441">&#9670;&#160;</a></span>SAMPLE_SETS_PER_CYCLE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t SAMPLE_SETS_PER_CYCLE { 1000000UL / (<a class="el" href="config__system_8h.html#ad62846ca1d96695a32041f6dd809401e">SUPPLY_FREQUENCY</a> * <a class="el" href="#a37b88bae7be9d644f49ff7a3f138eceb">SAMPLE_SET_PERIOD_US</a>) }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>32 at 50 Hz, 26 at 60 Hz </p>
-
-<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00050">50</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="processing_8cpp_source.html#l00057">57</a> of file <a class="el" href="processing_8cpp_source.html">processing.cpp</a>.</p>
 
 </div>
 </div>

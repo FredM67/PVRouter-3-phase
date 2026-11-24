@@ -9,11 +9,11 @@ var searchData=
   ['active_6',['active',['../structPinEdges.html#aeb6a7a92acb3acd42892334209289344',1,'PinEdges']]],
   ['activeload_7',['activeLoad',['../structLoadPriorities_1_1Switching.html#a770f6046b24f6eb57f66d3d4f94e6ce5',1,'LoadPriorities::Switching']]],
   ['adc_5fchain_2eh_8',['adc_chain.h',['../adc__chain_8h.html',1,'']]],
-  ['adc_5fclocks_5fper_5fconversion_9',['ADC_CLOCKS_PER_CONVERSION',['../processing_8cpp.html#a2ed8b7faceb1ae9141141187eff75184',1,'processing.cpp']]],
+  ['adc_5fclocks_5fper_5fconversion_9',['ADC_CLOCKS_PER_CONVERSION',['../config__derived_8h.html#a2ed8b7faceb1ae9141141187eff75184',1,'config_derived.h']]],
   ['adc_5fctx_5ft_10',['adc_ctx_t',['../structadc__ctx__t.html',1,'']]],
   ['adc_5fmid_5fpoint_11',['ADC_MID_POINT',['../native_2test__power__rms__comparison_2test__main_8cpp.html#a22e664e934a29c1aa99b3a12f7d5006e',1,'test_main.cpp']]],
   ['adc_5fmidpoint_5faligned_12',['ADC_MIDPOINT_ALIGNED',['../embedded_2test__voltage__accumulation_2test__main_8cpp.html#a9962b8eb6234001a297ee1f56f30f236',1,'test_main.cpp']]],
-  ['adc_5fprescaler_13',['ADC_PRESCALER',['../processing_8cpp.html#a037c64c839a0adff73cb780ac05657da',1,'processing.cpp']]],
+  ['adc_5fprescaler_13',['ADC_PRESCALER',['../config__derived_8h.html#a037c64c839a0adff73cb780ac05657da',1,'config_derived.h']]],
   ['adcchain_14',['AdcChain',['../namespaceAdcChain.html',1,'']]],
   ['add_15',['add',['../structCycles.html#a7eef5f75cf8b1cf3435a683462b7ff8e',1,'Cycles']]],
   ['addr_16',['addr',['../structDeviceAddress.html#ae90422657105a8cff63931e274f2d391',1,'DeviceAddress']]],
@@ -46,5 +46,6 @@ var searchData=
   ['availableforwrite_43',['availableForWrite',['../classCapturePrint.html#a814feef980c3c487fabc15158adbac0a',1,'CapturePrint']]],
   ['avcc_44',['AVCC',['../native_2test__adc__chain_2test__main_8cpp.html#adc70c1a954366142e3dfa9720cbe8339',1,'test_main.cpp']]],
   ['average_45',['average',['../structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc',1,'Cycles']]],
-  ['averagepowers_46',['averagePowers',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#a549d4e8ed11b8f623af0c822b28a8777',1,'test_main.cpp']]]
+  ['averagepower_46',['averagePower',['../namespaceDatalog.html#ae6899e75179f0cbe5f4bfbbf4de61a45',1,'Datalog']]],
+  ['averagepowers_47',['averagePowers',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#a549d4e8ed11b8f623af0c822b28a8777',1,'test_main.cpp']]]
 ];

@@ -1,5 +1,7 @@
 <map id="Datalog::watts" name="Datalog::watts">
-<area shape="rect" id="Node000001" title="The average power of a phase, in watts." alt="" coords="5,5,122,33"/>
-<area shape="rect" id="Node000002" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="170,5,334,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,17,157,19,152,19,122,22"/>
+<area shape="rect" id="Node000001" title="The average power of a phase, in watts." alt="" coords="5,32,122,60"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#ae6899e75179f0cbe5f4bfbbf4de61a45" title="The average power of a datalog period, back at the x1 scale of V_ADC x I_ADC." alt="" coords="170,5,343,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,35,157,33,152,34,122,40"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="174,57,338,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="122,51,162,58,156,59,122,56"/>
 </map>

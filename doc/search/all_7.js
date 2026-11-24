@@ -38,9 +38,10 @@ var searchData=
   ['fromend_35',['fromEnd',['../structBoostStart.html#a425c2438e323764ad1eeb174e5c50376',1,'BoostStart']]],
   ['fromwatts_36',['fromWatts',['../namespaceEnergy.html#aeae61ea16953d9d9b692f8bb2c8b5f6a',1,'Energy']]],
   ['full_5fscale_37',['FULL_SCALE',['../native_2test__datalog__math_2test__main_8cpp.html#a943fb37f466c4f90d352496c353d89a9',1,'FULL_SCALE:&#160;test_main.cpp'],['../native_2test__energy__bucket_2test__main_8cpp.html#a943fb37f466c4f90d352496c353d89a9',1,'FULL_SCALE:&#160;test_main.cpp']]],
-  ['function_5ftraits_38',['function_traits',['../structfunction__traits.html',1,'']]],
-  ['function_5ftraits_2ehpp_39',['function_traits.hpp',['../function__traits_8hpp.html',1,'']]],
-  ['function_5ftraits_3c_20returntype_28_2a_29_28arg1_29_20_3e_40',['function_traits&lt; ReturnType(*)(Arg1) &gt;',['../structfunction__traits_3_01ReturnType_07_5_08_07Arg1_08_01_4.html',1,'']]],
-  ['function_5ftraits_3c_20returntype_28_2a_29_28arg1_2c_20arg2_29_20_3e_41',['function_traits&lt; ReturnType(*)(Arg1, Arg2) &gt;',['../structfunction__traits_3_01ReturnType_07_5_08_07Arg1_00_01Arg2_08_01_4.html',1,'']]],
-  ['functions_42',['Time-critical functions',['../group__TimeCritical.html',1,'']]]
+  ['full_5fscale_5fper_5fsample_38',['FULL_SCALE_PER_SAMPLE',['../processing_8cpp.html#acc7b9c1813e2a4b2a890b0350bc9519b',1,'processing.cpp']]],
+  ['function_5ftraits_39',['function_traits',['../structfunction__traits.html',1,'']]],
+  ['function_5ftraits_2ehpp_40',['function_traits.hpp',['../function__traits_8hpp.html',1,'']]],
+  ['function_5ftraits_3c_20returntype_28_2a_29_28arg1_29_20_3e_41',['function_traits&lt; ReturnType(*)(Arg1) &gt;',['../structfunction__traits_3_01ReturnType_07_5_08_07Arg1_08_01_4.html',1,'']]],
+  ['function_5ftraits_3c_20returntype_28_2a_29_28arg1_2c_20arg2_29_20_3e_42',['function_traits&lt; ReturnType(*)(Arg1, Arg2) &gt;',['../structfunction__traits_3_01ReturnType_07_5_08_07Arg1_00_01Arg2_08_01_4.html',1,'']]],
+  ['functions_43',['Time-critical functions',['../group__TimeCritical.html',1,'']]]
 ];

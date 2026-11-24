@@ -1,0 +1,10 @@
+<map id="checkShiftedAverage" name="checkShiftedAverage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="342,65,499,93"/>
+<area shape="rect" id="Node000002" href="$native_2test__datalog__math_2test__main_8cpp.html#aa9ab6b198801ea57a5371176e2db30c7" title=" " alt="" coords="119,5,282,67"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="328,62,283,55,283,49,334,61"/>
+<area shape="rect" id="Node000004" href="$native_2test__datalog__math_2test__main_8cpp.html#a48fe2616c6656beb8140ceab05814b20" title=" " alt="" coords="108,91,294,152"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="333,96,295,106,294,101,328,97"/>
+<area shape="rect" id="Node000003" href="$native_2test__datalog__math_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,65,60,93"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="102,63,61,74,59,70,106,59"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="90,95,60,88,60,83,95,93"/>
+</map>

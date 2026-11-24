@@ -17,5 +17,6 @@ var searchData=
   ['assertcaptured_14',['assertCaptured',['../embedded_2test__serial__output_2test__main_8cpp.html#ac4aaab4b8ae82859a1852d8209ecc509',1,'test_main.cpp']]],
   ['assertsameasreference_15',['assertSameAsReference',['../native_2test__teleinfo_2test__main_8cpp.html#a93d29d98543146f8457ae77079e5a41d',1,'test_main.cpp']]],
   ['availableforwrite_16',['availableForWrite',['../classCapturePrint.html#a814feef980c3c487fabc15158adbac0a',1,'CapturePrint']]],
-  ['average_17',['average',['../structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc',1,'Cycles']]]
+  ['average_17',['average',['../structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc',1,'Cycles']]],
+  ['averagepower_18',['averagePower',['../namespaceDatalog.html#ae6899e75179f0cbe5f4bfbbf4de61a45',1,'Datalog']]]
 ];

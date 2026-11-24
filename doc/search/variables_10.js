@@ -1,9 +1,9 @@
 var searchData=
 [
   ['sample_5fperiod_5fus_0',['SAMPLE_PERIOD_US',['../embedded_2test__voltage__accumulation_2test__main_8cpp.html#ab4267d380257727b80e287bbdadc5f86',1,'test_main.cpp']]],
-  ['sample_5fset_5fperiod_5fus_1',['SAMPLE_SET_PERIOD_US',['../processing_8cpp.html#a37b88bae7be9d644f49ff7a3f138eceb',1,'processing.cpp']]],
-  ['sample_5fsets_5fmargin_2',['SAMPLE_SETS_MARGIN',['../processing_8cpp.html#a061f4d324283b93fb04773e4cc5956b9',1,'processing.cpp']]],
-  ['sample_5fsets_5fper_5fcycle_3',['SAMPLE_SETS_PER_CYCLE',['../processing_8cpp.html#a2e1c0c653050cdb35f952e02c614e441',1,'processing.cpp']]],
+  ['sample_5fset_5fperiod_5fus_1',['SAMPLE_SET_PERIOD_US',['../config__derived_8h.html#a37b88bae7be9d644f49ff7a3f138eceb',1,'config_derived.h']]],
+  ['sample_5fsets_5fmargin_2',['SAMPLE_SETS_MARGIN',['../config__derived_8h.html#a061f4d324283b93fb04773e4cc5956b9',1,'config_derived.h']]],
+  ['sample_5fsets_5fper_5fcycle_3',['SAMPLE_SETS_PER_CYCLE',['../config__derived_8h.html#a2e1c0c653050cdb35f952e02c614e441',1,'config_derived.h']]],
   ['samples_5fper_5fcycle_4',['SAMPLES_PER_CYCLE',['../native_2test__power__rms__comparison_2test__main_8cpp.html#a8ad43357bb2de7778cf80af77cd0e7d4',1,'test_main.cpp']]],
   ['samples_5fper_5fhalf_5fcycle_5',['SAMPLES_PER_HALF_CYCLE',['../native_2test__power__rms__comparison_2test__main_8cpp.html#adc88fafe623a698bdeecf9d131eaa86a',1,'test_main.cpp']]],
   ['samplesets_6',['sampleSets',['../structValues.html#a49d1f1094567a393d3348c63a0e28655',1,'Values']]],

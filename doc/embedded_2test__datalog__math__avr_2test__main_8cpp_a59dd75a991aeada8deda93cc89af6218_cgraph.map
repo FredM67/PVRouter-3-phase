@@ -1,26 +1,28 @@
 <map id="test_watts_is_faster_than_the_float_code" name="test_watts_is_faster_than_the_float_code">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,153,165,198"/>
 <area shape="rect" id="Node000002" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="241,83,301,110"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,150,228,113,224,117,141,155"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,150,228,113,224,117,141,155"/>
 <area shape="rect" id="Node000009" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8f8db11a49383eeae3eeb265450c9ff9" title=" " alt="" coords="230,135,312,162"/>
 <area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="164,161,217,155,212,158,166,166"/>
 <area shape="rect" id="Node000010" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="241,187,301,214"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="165,183,228,194,223,195,165,189"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="165,183,228,193,223,195,165,189"/>
 <area shape="rect" id="Node000011" href="$namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="213,239,329,266"/>
 <area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="141,196,224,231,219,233,140,201"/>
-<area shape="rect" id="Node000003" href="$structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="396,160,522,188"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="302,106,412,153,407,154,301,111"/>
-<area shape="rect" id="Node000004" href="$bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="408,83,511,110"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="301,94,394,96,389,97,302,99"/>
-<area shape="rect" id="Node000005" href="$bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="593,5,691,33"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="493,80,591,40,596,39,495,85"/>
-<area shape="rect" id="Node000006" href="$bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="594,57,690,85"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="511,87,581,79,576,81,512,92"/>
-<area shape="rect" id="Node000007" href="$bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="596,109,688,137"/>
-<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="511,101,583,114,578,115,511,107"/>
-<area shape="rect" id="Node000008" href="$bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="589,161,695,189"/>
-<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="494,108,597,155,591,155,493,114"/>
-<area shape="poly" id="edge10_Node000010_Node000003" title=" " alt="" coords="301,194,384,184,378,185,302,199"/>
-<area shape="rect" id="Node000012" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="377,239,541,266"/>
-<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="329,250,364,252,359,253,329,255"/>
+<area shape="rect" id="Node000003" href="$structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="401,148,526,176"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="302,104,409,142,404,143,301,109"/>
+<area shape="rect" id="Node000004" href="$bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="412,83,515,110"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="301,94,399,95,394,98,302,99"/>
+<area shape="rect" id="Node000005" href="$bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="602,5,700,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="498,80,604,38,599,40,500,85"/>
+<area shape="rect" id="Node000006" href="$bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="603,57,699,85"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="515,87,590,79,585,80,517,92"/>
+<area shape="rect" id="Node000007" href="$bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="605,109,697,137"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="516,101,593,114,587,115,516,107"/>
+<area shape="rect" id="Node000008" href="$bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="598,161,704,189"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="499,108,605,155,599,155,499,114"/>
+<area shape="poly" id="edge10_Node000010_Node000003" title=" " alt="" coords="301,192,388,177,383,178,302,197"/>
+<area shape="rect" id="Node000012" href="$namespaceDatalog.html#ae6899e75179f0cbe5f4bfbbf4de61a45" title="The average power of a datalog period, back at the x1 scale of V_ADC x I_ADC." alt="" coords="377,225,550,253"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="329,246,364,246,359,247,330,251"/>
+<area shape="rect" id="Node000013" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="382,277,546,305"/>
+<area shape="poly" id="edge13_Node000011_Node000013" title=" " alt="" coords="329,261,379,274,374,274,329,267"/>
 </map>

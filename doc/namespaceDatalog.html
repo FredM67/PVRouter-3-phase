@@ -105,6 +105,10 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ae6899e75179f0cbe5f4bfbbf4de61a45" id="r_ae6899e75179f0cbe5f4bfbbf4de61a45"><td class="memTemplParams" colspan="2">template&lt;uint8_t SHIFT, typename Count&gt; </td></tr>
+<tr class="memitem:ae6899e75179f0cbe5f4bfbbf4de61a45"><td class="memTemplItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae6899e75179f0cbe5f4bfbbf4de61a45">averagePower</a> (const int32_t sum, const Count sampleSets)</td></tr>
+<tr class="memdesc:ae6899e75179f0cbe5f4bfbbf4de61a45"><td class="mdescLeft">&#160;</td><td class="mdescRight">The average power of a datalog period, back at the x1 scale of V_ADC x I_ADC.  <br /></td></tr>
+<tr class="separator:ae6899e75179f0cbe5f4bfbbf4de61a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c242aed104cfb700b6fc57675ae10b9" id="r_a5c242aed104cfb700b6fc57675ae10b9"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c242aed104cfb700b6fc57675ae10b9">isqrt</a> (const uint32_t value)</td></tr>
 <tr class="memdesc:a5c242aed104cfb700b6fc57675ae10b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Integer square root, rounded to the nearest integer.  <br /></td></tr>
 <tr class="separator:a5c242aed104cfb700b6fc57675ae10b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,6 +120,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a7704334869b4be2aef18346b7c201ce5"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="structDatalog_1_1FixedCalibration.html">FixedCalibration</a>&lt; N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a7704334869b4be2aef18346b7c201ce5">powerCalibration</a> (const float(&amp;cal)[N])</td></tr>
 <tr class="memdesc:a7704334869b4be2aef18346b7c201ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The power calibration in fixed point, for <a class="el" href="#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts.">watts()</a>, built at compile time.  <br /></td></tr>
 <tr class="separator:a7704334869b4be2aef18346b7c201ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad98710f158fff6d1719707c86249c754" id="r_ad98710f158fff6d1719707c86249c754"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad98710f158fff6d1719707c86249c754">powerShift</a> (const uint32_t maxSampleSets)</td></tr>
+<tr class="memdesc:ad98710f158fff6d1719707c86249c754"><td class="mdescLeft">&#160;</td><td class="mdescRight">The shift by which the ISR scales the power down before adding it to the datalog sum.  <br /></td></tr>
+<tr class="separator:ad98710f158fff6d1719707c86249c754"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd0552388cd9274ac59cb71b8d460df0" id="r_afd0552388cd9274ac59cb71b8d460df0"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd0552388cd9274ac59cb71b8d460df0">sqrtScaled</a> (const uint32_t meanSquare, uint8_t &amp;fractionBits)</td></tr>
 <tr class="memdesc:afd0552388cd9274ac59cb71b8d460df0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The square root of a mean square, with as many fractional bits as fit.  <br /></td></tr>
 <tr class="separator:afd0552388cd9274ac59cb71b8d460df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,7 +144,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a0034ed8f35f1cd9b05161e370ac4d6ca" id="r_a0034ed8f35f1cd9b05161e370ac4d6ca"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0034ed8f35f1cd9b05161e370ac4d6ca">vrmsFactor</a> (const uint8_t datalogPeriodInSeconds)</td></tr>
 <tr class="memdesc:a0034ed8f35f1cd9b05161e370ac4d6ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scaling of the datalog voltage, Vrms_L_x100.  <br /></td></tr>
 <tr class="separator:a0034ed8f35f1cd9b05161e370ac4d6ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47c7340a7476be8d077ce05dc1043aaf" id="r_a47c7340a7476be8d077ce05dc1043aaf"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47c7340a7476be8d077ce05dc1043aaf">watts</a> (const int32_t averagePower, const uint16_t calFixed, const uint8_t shift)</td></tr>
+<tr class="memitem:a47c7340a7476be8d077ce05dc1043aaf" id="r_a47c7340a7476be8d077ce05dc1043aaf"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47c7340a7476be8d077ce05dc1043aaf">watts</a> (const int32_t <a class="el" href="#ae6899e75179f0cbe5f4bfbbf4de61a45">averagePower</a>, const uint16_t calFixed, const uint8_t shift)</td></tr>
 <tr class="memdesc:a47c7340a7476be8d077ce05dc1043aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The average power of a phase, in watts.  <br /></td></tr>
 <tr class="separator:a47c7340a7476be8d077ce05dc1043aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -154,11 +161,116 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00067">67</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00114">114</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ae6899e75179f0cbe5f4bfbbf4de61a45" name="ae6899e75179f0cbe5f4bfbbf4de61a45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6899e75179f0cbe5f4bfbbf4de61a45">&#9670;&#160;</a></span>averagePower()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t SHIFT, typename Count&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t Datalog::averagePower </td>
+          <td>(</td>
+          <td class="paramtype">const int32_t</td>          <td class="paramname"><span class="paramname"><em>sum</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Count</td>          <td class="paramname"><span class="paramname"><em>sampleSets</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The average power of a datalog period, back at the x1 scale of V_ADC x I_ADC. </p>
+<p>sum x 2^SHIFT / sampleSets, truncated toward zero, in 32 bits: the quotient and the remainder are scaled up separately, so the division loses nothing more. The rounding of each sample in the ISR keeps the average within 8 (half the shift), and averages out with the noise of real samples.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">SHIFT</td><td>The shift of the sum in the ISR (<a class="el" href="#ad98710f158fff6d1719707c86249c754" title="The shift by which the ISR scales the power down before adding it to the datalog sum.">powerShift()</a>). </td></tr>
+    <tr><td class="paramname">Count</td><td>The type of the sample set counter (16 or 32 bits). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sum</td><td>The power summed over the period, scaled down by 2^SHIFT. </td></tr>
+    <tr><td class="paramname">sampleSets</td><td>The sample sets of the period (not 0, below 2^27). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The average, at most +-2^18. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00096">96</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceDatalog_ae6899e75179f0cbe5f4bfbbf4de61a45_icgraph.png" border="0" usemap="#anamespaceDatalog_ae6899e75179f0cbe5f4bfbbf4de61a45_icgraph" alt=""/></div>
+<map name="anamespaceDatalog_ae6899e75179f0cbe5f4bfbbf4de61a45_icgraph" id="anamespaceDatalog_ae6899e75179f0cbe5f4bfbbf4de61a45_icgraph">
+<area shape="rect" title="The average power of a datalog period, back at the x1 scale of V_ADC x I_ADC." alt="" coords="855,240,1028,267"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#a55145aa9af9d0ed4fbb23d010171474d" title=" " alt="" coords="379,94,536,122"/>
+<area shape="poly" title=" " alt="" coords="917,227,871,179,840,155,806,136,738,115,666,104,598,101,538,102,536,97,598,95,667,98,739,109,808,131,843,150,874,175,923,227"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#a48ca6b9e84f67a99af964a52633a4084" title=" " alt="" coords="628,145,790,207"/>
+<area shape="poly" title=" " alt="" coords="880,235,790,206,790,200,885,234"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#a7b6c0ddd95cea905208bd66a651b40cc" title=" " alt="" coords="611,231,807,276"/>
+<area shape="poly" title=" " alt="" coords="837,254,808,256,806,251,842,253"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="352,277,563,305"/>
+<area shape="poly" title=" " alt="" coords="879,273,807,291,681,300,564,299,563,294,681,295,806,286,884,271"/>
+<area shape="rect" href="namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="651,424,767,451"/>
+<area shape="poly" title=" " alt="" coords="913,276,730,425,727,421,908,279"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#aa9ab6b198801ea57a5371176e2db30c7" title=" " alt="" coords="124,5,288,67"/>
+<area shape="poly" title=" " alt="" coords="390,91,289,62,287,57,394,88"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#a48fe2616c6656beb8140ceab05814b20" title=" " alt="" coords="113,91,299,152"/>
+<area shape="poly" title=" " alt="" coords="361,115,301,119,298,114,366,112"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,392,60,419"/>
+<area shape="poly" title=" " alt="" coords="111,76,110,80,96,105,83,141,61,233,46,326,38,392,33,391,41,325,56,232,77,140,91,103,106,77,113,71"/>
+<area shape="poly" title=" " alt="" coords="115,165,110,173,90,200,75,230,53,293,42,350,37,392,32,391,36,350,48,291,70,227,86,197,106,169,117,160"/>
+<area shape="poly" title=" " alt="" coords="610,174,482,175,334,181,263,188,199,199,147,213,109,232,91,248,76,268,55,313,43,357,38,391,32,391,38,356,50,311,72,265,87,245,106,227,145,208,198,194,262,183,334,176,482,170,615,172"/>
+<area shape="poly" title=" " alt="" coords="593,244,467,237,325,234,257,236,196,242,146,253,109,268,80,295,60,329,46,364,39,392,34,391,41,362,55,327,76,291,106,263,144,247,196,237,257,231,325,228,467,231,598,241"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="181,277,230,305"/>
+<area shape="poly" title=" " alt="" coords="334,292,232,293,230,288,338,289"/>
+<area shape="poly" title=" " alt="" coords="682,412,630,366,597,341,562,320,533,308,532,303,565,315,600,337,634,362,687,412"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#a578ea20110b03dfeaaa1650ede366523" title=" " alt="" coords="377,329,538,391"/>
+<area shape="poly" title=" " alt="" coords="644,419,539,388,539,382,650,418"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a59dd75a991aeada8deda93cc89af6218" title=" " alt="" coords="378,415,537,460"/>
+<area shape="poly" title=" " alt="" coords="633,438,538,440,537,435,638,437"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#ab5a7b02b8adb8d9557265033571b8146" title=" " alt="" coords="387,484,528,529"/>
+<area shape="poly" title=" " alt="" coords="639,457,530,490,528,485,644,455"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#a25f4c01ffcf91fb7c58c5ce958fed656" title=" " alt="" coords="379,554,536,598"/>
+<area shape="poly" title=" " alt="" coords="682,460,629,504,565,544,538,556,536,551,562,539,626,500,678,463"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#a5b095c845a7e0e82675725fbf0dbcdeb" title="Largest error of watts() against the reference, over the full input range, beyond what the 16&#45;bit cal..." alt="" coords="395,622,520,650"/>
+<area shape="poly" title=" " alt="" coords="695,463,673,500,644,540,607,580,565,613,521,631,520,625,562,609,604,576,640,537,669,497,690,467"/>
+<area shape="poly" title=" " alt="" coords="359,360,240,366,174,373,108,383,62,397,58,393,107,378,173,367,240,361,364,357"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="177,392,234,419"/>
+<area shape="poly" title=" " alt="" coords="360,427,235,412,234,406,365,424"/>
+<area shape="poly" title=" " alt="" coords="370,493,246,468,107,433,61,418,59,413,108,428,247,463,375,490"/>
+<area shape="poly" title=" " alt="" coords="362,550,303,535,247,523,202,518,158,508,106,484,68,453,44,422,43,417,72,449,109,479,160,503,203,512,248,518,305,530,367,549"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#a52da7c35d23613031adcd8302d3d3d96" title=" " alt="" coords="112,544,300,589"/>
+<area shape="poly" title=" " alt="" coords="377,618,351,613,280,592,280,587,353,608,382,618"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#ad1d9ca0e83f814162007f1bb6e6774c2" title=" " alt="" coords="108,614,304,658"/>
+<area shape="poly" title=" " alt="" coords="377,637,305,639,304,634,382,636"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#ab91d88e52653d6cc84fc0bec8f5e5ffe" title=" " alt="" coords="111,683,300,728"/>
+<area shape="poly" title=" " alt="" coords="393,654,290,685,289,680,387,655"/>
+<area shape="poly" title=" " alt="" coords="120,537,106,527,81,501,62,472,39,422,39,417,66,469,86,498,109,524,125,536"/>
+<area shape="poly" title=" " alt="" coords="108,605,106,603,87,582,72,557,50,505,38,456,35,422,35,417,43,455,56,503,77,555,92,579,110,600,113,604"/>
+<area shape="poly" title=" " alt="" coords="107,673,106,673,82,642,64,607,51,571,42,534,33,467,33,422,34,417,38,467,47,533,56,569,69,605,87,639,110,669,113,674"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a5c242aed104cfb700b6fc57675ae10b9" name="a5c242aed104cfb700b6fc57675ae10b9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c242aed104cfb700b6fc57675ae10b9">&#9670;&#160;</a></span>isqrt()</h2>
 
@@ -191,7 +303,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>round(sqrt(value)), at most 65535. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00240">240</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00287">287</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -268,7 +380,7 @@ template&lt;uint8_t N&gt; </div>
 <p>Check that the voltage calibration values can be represented. </p>
 <p>Every value must be positive, and the shift small enough for <a class="el" href="#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase.">vrms()</a>: with up to 15 fractional bits from <a class="el" href="#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit.">sqrtScaled()</a>, the total shift must stay below 32. </p>
 
-<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00291">291</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00338">338</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -331,7 +443,7 @@ template&lt;uint8_t N&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00356">356</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00403">403</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -387,6 +499,58 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="ad98710f158fff6d1719707c86249c754" name="ad98710f158fff6d1719707c86249c754"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad98710f158fff6d1719707c86249c754">&#9670;&#160;</a></span>powerShift()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Datalog::powerShift </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>maxSampleSets</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The shift by which the ISR scales the power down before adding it to the datalog sum. </p>
+<p>In ADC steps: one sample adds V_ADC x I_ADC, at most 2^18; a sine over the whole span of the ADC averages 2^17. While a datalog period of full-span sines fits in the signed 32-bit sum, no shift; beyond, a shift by 4 (at most 2^14 per sample: 30 s fit with any signal). The same idea as the V^2 scaling, but from the sample count: a firmware that samples faster needs it for shorter periods.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">maxSampleSets</td><td>The most sample sets in a datalog period (MAX_SAMPLE_SETS_PER_DATALOG). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0, or 4. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00076">76</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceDatalog_ad98710f158fff6d1719707c86249c754_icgraph.png" border="0" usemap="#anamespaceDatalog_ad98710f158fff6d1719707c86249c754_icgraph" alt=""/></div>
+<map name="anamespaceDatalog_ad98710f158fff6d1719707c86249c754_icgraph" id="anamespaceDatalog_ad98710f158fff6d1719707c86249c754_icgraph">
+<area shape="rect" title="The shift by which the ISR scales the power down before adding it to the datalog sum." alt="" coords="338,52,487,80"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#a097542ea474ed61efe4b5e20fd533c98" title=" " alt="" coords="108,5,290,50"/>
+<area shape="poly" title=" " alt="" coords="320,50,290,47,290,42,325,50"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#adaa8d92c6fe90650f91ec8cb63ae0525" title=" " alt="" coords="112,74,286,136"/>
+<area shape="poly" title=" " alt="" coords="325,82,287,92,286,87,320,83"/>
+<area shape="rect" href="native_2test__datalog__math_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,52,60,80"/>
+<area shape="poly" title=" " alt="" coords="90,54,61,63,59,58,94,51"/>
+<area shape="poly" title=" " alt="" coords="94,83,60,75,60,70,99,80"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="afd0552388cd9274ac59cb71b8d460df0" name="afd0552388cd9274ac59cb71b8d460df0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd0552388cd9274ac59cb71b8d460df0">&#9670;&#160;</a></span>sqrtScaled()</h2>
 
@@ -424,7 +588,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>sqrt(meanSquare) x 2^fractionBits, rounded; &gt;= 2^15 unless meanSquare is 0. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00253">253</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00300">300</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -534,7 +698,7 @@ template&lt;bool Normalise&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>round(sqrt(value) x 2^fractionBits), at most 65535. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00166">166</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00213">213</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -648,7 +812,7 @@ template&lt;uint8_t N&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00375">375</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00422">422</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -739,7 +903,7 @@ template&lt;uint8_t N&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00279">279</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00326">326</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -838,7 +1002,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>factor x f_voltageCal x sqrt(meanSquare), rounded, saturated to 65535. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00311">311</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00358">358</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -926,7 +1090,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The factor for <a class="el" href="#a05836e3079ae85aebb1cf019c3fe4d4c" title="The voltage calibration in fixed point, for vrms(), built at compile time.">voltageCalibration()</a>: 100, or 400 for periods over 10 s. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00267">267</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datalog__math_8h_source.html#l00314">314</a> of file <a class="el" href="datalog__math_8h_source.html">datalog_math.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -995,9 +1159,11 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceDatalog_a47c7340a7476be8d077ce05dc1043aaf_cgraph.png" border="0" usemap="#anamespaceDatalog_a47c7340a7476be8d077ce05dc1043aaf_cgraph" alt=""/></div>
 <map name="anamespaceDatalog_a47c7340a7476be8d077ce05dc1043aaf_cgraph" id="anamespaceDatalog_a47c7340a7476be8d077ce05dc1043aaf_cgraph">
-<area shape="rect" title="The average power of a phase, in watts." alt="" coords="5,5,122,33"/>
-<area shape="rect" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="170,5,334,33"/>
-<area shape="poly" title=" " alt="" coords="122,17,157,19,152,19,122,22"/>
+<area shape="rect" title="The average power of a phase, in watts." alt="" coords="5,32,122,60"/>
+<area shape="rect" href="namespaceDatalog.html#ae6899e75179f0cbe5f4bfbbf4de61a45" title="The average power of a datalog period, back at the x1 scale of V_ADC x I_ADC." alt="" coords="170,5,343,33"/>
+<area shape="poly" title=" " alt="" coords="121,35,157,33,152,34,122,40"/>
+<area shape="rect" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="174,57,338,85"/>
+<area shape="poly" title=" " alt="" coords="122,51,162,58,156,59,122,56"/>
 </map>
 </div>
 <div class="dynheader">

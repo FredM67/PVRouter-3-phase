@@ -1,0 +1,5 @@
+<map id="test_power_shift_follows_the_sample_count" name="test_power_shift_follows_the_sample_count">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,188,50"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#ad98710f158fff6d1719707c86249c754" title="The shift by which the ISR scales the power down before adding it to the datalog sum." alt="" coords="236,14,385,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,25,222,27,217,28,188,30"/>
+</map>

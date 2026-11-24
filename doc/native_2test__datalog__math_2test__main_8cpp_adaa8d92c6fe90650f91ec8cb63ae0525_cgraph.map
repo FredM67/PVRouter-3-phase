@@ -1,0 +1,5 @@
+<map id="test_power_shift_keeps_30_s_of_any_signal_in_32_bits" name="test_power_shift_keeps_30_s_of_any_signal_in_32_bits">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,180,67"/>
+<area shape="rect" id="Node000002" href="$namespaceDatalog.html#ad98710f158fff6d1719707c86249c754" title="The shift by which the ISR scales the power down before adding it to the datalog sum." alt="" coords="228,22,377,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,34,215,36,210,36,180,39"/>
+</map>

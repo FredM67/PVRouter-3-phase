@@ -1,0 +1,7 @@
+<map id="test_shifted_sum_keeps_the_average_of_a_noisy_signal_over_30_s" name="test_shifted_sum_keeps_the_average_of_a_noisy_signal_over_30_s">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,192,67"/>
+<area shape="rect" id="Node000002" href="$native_2test__datalog__math_2test__main_8cpp.html#a55145aa9af9d0ed4fbb23d010171474d" title=" " alt="" coords="240,22,397,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,34,227,36,221,36,192,39"/>
+<area shape="rect" id="Node000003" href="$namespaceDatalog.html#ae6899e75179f0cbe5f4bfbbf4de61a45" title="The average power of a datalog period, back at the x1 scale of V_ADC x I_ADC." alt="" coords="445,22,618,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="397,34,432,36,427,36,398,39"/>
+</map>
