@@ -245,7 +245,7 @@
           num(
             () => m.datalogPeriod,
             (v) => (m.datalogPeriod = v),
-            { min: 1, max: 40 }
+            { min: 1, max: 30 }
           )
         )
       ),

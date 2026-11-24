@@ -2231,6 +2231,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "556fcb5332804f9a93713d9e834853c48c2bb076",
+   "date": "2026-11-24T16:19:32+01:00",
+   "message": "fix!: the datalog period at most 30 s, its power summed in 32 bits (#259)\n\n* fix: the datalog power summed in 64 bits, the sample-set counter widened as the period needs\n\nThe datalog power was summed per sample in 32 bits: up to 32 sample sets per mains cycle (36 with\nthe margin), each adding up to 2^18, wrap the sum long before the 40 s that validation.h allows.\nThe sample-set counter, 16 bits, wrapped from 37 s on.\n\n- Each sample still adds to a 32-bit sum, folded once per mains cycle into a 64-bit sum by\n  addToDatalogSums(), called from processStartNewCycle(). The fold is a call of its own: inlined,\n  or called from the crossing, its 64-bit adds made the ISR spill to a stack frame on every call\n  (grid simulator: 29 cycles more on average, ADMUX written up to 220 cycles later).\n- SampleSetCounter (sample_sets.h, config_derived.h): uint16_t up to 36 s, uint32_t above; the\n  IoT frame streams a 32-bit count (TeleInfo::lineUnsigned, MAX_STEP_LENGTH for 10 digits).\n- The sampling constants (N_MIN, N_MAX...) move to config_derived.h; static_asserts check the\n  counter, the 64-bit power and the 32-bit V^2 sum for the configured period.\n- Datalog::isVSquaredScaled(): the one condition for the V^2 scaling, in processing.cpp and in\n  vrmsFactor(); the V^2 sum is scaled from 10 s on (it wrapped above 9 s at full scale).\n- compile-fail cases 78-81: 41 s refused, 37 s (32-bit counter), 40 s at 50 and 60 Hz build.\n\nGrid simulator, against dev: ISR 320 cycles on average (317), 1269 at most (1268), ADMUX written\n1188 cycles at most (1187); datalog values unchanged.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix!: the datalog period at most 30 s, its power summed in 32 bits\n\nNo 64-bit arithmetic on the ATmega328P: the power of the datalog period is\nsummed in 32 bits again, scaled down by 16 when the period needs it, as the\nvoltage already was (Robin's x1/16 for V^2).\n\n- Datalog::powerShift(): in ADC steps, a full-span sine averages 2^17 per\n  sample; while the sample sets of the period times 2^17 fit in 31 bits, no\n  shift (up to 9 s), else a shift by 4 (2^14 per sample at most: 30 s of\n  any signal fit). The ISR adds (instP + 8) >> 4, rounded; the energy\n  bucket keeps its unscaled sum.\n- Datalog::averagePower<SHIFT>(): the average scaled back up, quotient and\n  remainder apart, in 32 bits.\n- At most 30 s (validation.h, configurator): up to 54000 sample sets, so\n  the counter stays 16 bits. From 37 s on it used to wrap.\n- Removed: the 64-bit sums, addToDatalogSums(), SampleSetCounter and\n  sample_sets.h, the 32-bit IoT count line; V^2 scaled above 10 s again.\n- compile-fail: 31 s refused; 30 s builds at 50 and 60 Hz.\n\nDefault build: same size as dev (7866 bytes of flash, 414 of RAM) and the\nsame ISR (average 316.9 cycles, max 928). At 30 s: 16 cycles more on\naverage than dev at 30 s, the same max, 52 bytes of flash.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* refactor: averagePower() takes a 16- or 32-bit count, as in the single-phase firmware\n\nThe same code in both firmwares; the single-phase counter widens to 32 bits\nfrom 20 s on. The division stays signed. Same size, same tests.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/556fcb5332804f9a93713d9e834853c48c2bb076",
+   "sizes": {
+    "basic": {
+     "flash": 7872,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12244,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7872,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7742,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
