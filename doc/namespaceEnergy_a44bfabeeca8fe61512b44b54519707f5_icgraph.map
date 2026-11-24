@@ -22,7 +22,7 @@
 <area shape="poly" id="edge39_Node000001_Node000026" title=" " alt="" coords="929,606,895,648,871,669,843,684,788,700,744,701,641,684,554,667,552,662,642,679,744,695,788,694,841,679,868,664,892,645,932,602"/>
 <area shape="rect" id="Node000027" href="$native_2test__energy__bucket_2test__main_8cpp.html#a39a7465c1bf02714b4ff0167c33e75af" title=" " alt="" coords="666,624,817,669"/>
 <area shape="poly" id="edge42_Node000001_Node000027" title=" " alt="" coords="889,598,812,626,809,622,893,595"/>
-<area shape="rect" id="Node000028" href="$namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714" title="Build the per&#45;sample calibration table at compile time." alt="" coords="646,836,837,863"/>
+<area shape="rect" id="Node000028" href="$namespaceEnergy.html#a885b471812d2960dbe6740592c62d41a" title="Build the per&#45;sample calibration table at compile time." alt="" coords="646,836,837,863"/>
 <area shape="poly" id="edge44_Node000001_Node000028" title=" " alt="" coords="928,606,844,727,757,837,752,834,840,724,931,602"/>
 <area shape="rect" id="Node000036" href="$namespaceDatalog.html#a05836e3079ae85aebb1cf019c3fe4d4c" title="The voltage calibration in fixed point, for vrms(), built at compile time." alt="" coords="641,1617,842,1645"/>
 <area shape="poly" id="edge60_Node000001_Node000036" title=" " alt="" coords="948,604,939,726,919,909,888,1125,868,1237,844,1346,821,1428,795,1507,751,1619,747,1615,789,1505,816,1427,839,1345,863,1236,883,1124,914,908,934,725,945,609"/>

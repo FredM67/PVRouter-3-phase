@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Largest of the calibration values." alt="" coords="1152,1038,1285,1066"/>
 <area shape="rect" id="Node000002" href="$namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="933,642,1104,670"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1201,1025,1026,673,1028,668,1206,1024"/>
-<area shape="rect" id="Node000033" href="$namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714" title="Build the per&#45;sample calibration table at compile time." alt="" coords="668,1038,858,1066"/>
+<area shape="rect" id="Node000033" href="$namespaceEnergy.html#a885b471812d2960dbe6740592c62d41a" title="Build the per&#45;sample calibration table at compile time." alt="" coords="668,1038,858,1066"/>
 <area shape="poly" id="edge53_Node000001_Node000033" title=" " alt="" coords="1134,1054,860,1055,858,1050,1139,1051"/>
 <area shape="rect" id="Node000041" href="$namespaceDatalog.html#a1dc0bffd09a9dedb477b5ca807afdb7e" title="Largest shift that keeps every (factor x calibration value) within 16 bits." alt="" coords="939,1840,1098,1867"/>
 <area shape="poly" id="edge69_Node000001_Node000041" title=" " alt="" coords="1213,1080,1026,1840,1021,1838,1208,1083"/>

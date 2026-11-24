@@ -226,7 +226,7 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The integer datalog arithmetic on the target: exact results, and cycle counts against the float code it replaces. </p>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2026-11-20</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2026-11-24</dd></dl>
 <p><a class="el" href="datalog__math_8h.html" title="Integer arithmetic of the datalog: power and RMS voltage per phase.">datalog_math.h</a> replaced, in the datalog (#120):</p><ul>
 <li>power_L = (int16_t)(sumP / n * f_powerCal[phase])</li>
 <li>Vrms_L_x100 = (uint32_t)(100 * f_voltageCal[phase] * sqrt(sum_Vsquared / n)) The assembly square root is checked at every rounding boundary of the 32-bit range, and the integer version must not be slower. Timer1 runs at the CPU clock (prescaler 1) with interrupts disabled, so the counts are exact CPU cycles, in simavr as on a real board. The overhead of the measurement itself is subtracted. </li>
@@ -267,9 +267,9 @@ Variables</h2></td></tr>
 <div class="line">    sei(); \</div>
 <div class="line">    (stats).add(<span class="keyword">static_cast&lt;</span> uint16_t <span class="keyword">&gt;</span>(t1 - t0 - (<a class="code hl_function" href="#a8f8db11a49383eeae3eeb265450c9ff9">overhead</a>))); \</div>
 <div class="line">  } <span class="keywordflow">while</span> (0)</div>
-<div class="ttc" id="aembedded_2test__datalog__math__avr_2test__main_8cpp_html_a8f8db11a49383eeae3eeb265450c9ff9"><div class="ttname"><a href="#a8f8db11a49383eeae3eeb265450c9ff9">overhead</a></div><div class="ttdeci">static uint16_t overhead()</div><div class="ttdef"><b>Definition</b> <a href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00096">test_main.cpp:96</a></div></div>
+<div class="ttc" id="aembedded_2test__datalog__math__avr_2test__main_8cpp_html_a8f8db11a49383eeae3eeb265450c9ff9"><div class="ttname"><a href="#a8f8db11a49383eeae3eeb265450c9ff9">overhead</a></div><div class="ttdeci">static uint16_t overhead()</div><div class="ttdef"><b>Definition</b> <a href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00097">test_main.cpp:97</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00084">84</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00085">85</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -308,7 +308,7 @@ Variables</h2></td></tr>
 
 <p>The average and worst case of an integer function, for the CI history. </p>
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00107">107</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00108">108</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -365,7 +365,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00302">302</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00303">303</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -392,7 +392,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00096">96</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00097">97</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -441,7 +441,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00113">113</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00114">114</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -488,7 +488,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00026">26</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00027">27</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -507,7 +507,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00285">285</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00286">286</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -606,7 +606,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00075">75</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00076">76</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -625,7 +625,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00027">27</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00028">28</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -644,7 +644,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00202">202</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00203">203</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -707,7 +707,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00165">165</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00166">166</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -751,7 +751,7 @@ Here is the caller graph for this function:</div>
 <p>Every rounding boundary of every root, on the target: the assembly loop is exact. </p>
 <p>round(sqrt(x)) changes from r to r + 1 between r^2 + r and r^2 + r + 1, since (r + 0.5)^2 = r^2 + r + 0.25. Checking r^2 - 1 (from r = 2), r^2, r^2 + r and r^2 + r + 1 for all 65536 roots covers every boundary of the 32-bit range (up to 65535^2 + 65535 = UINT32_MAX), and with them the largest remainders (worst cases of the 3-byte remainder) and the carries of each byte. </p>
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00138">138</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00139">139</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -792,7 +792,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00234">234</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00235">235</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -860,7 +860,7 @@ Here is the caller graph for this function:</div>
 
 <p>sqrtScaled() and vrms() on the target, against the float code, over the whole voltage range. </p>
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00181">181</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00182">182</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -908,7 +908,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00259">259</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00260">260</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -976,7 +976,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00040">40</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00041">41</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1000,7 +1000,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00044">44</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00045">45</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1024,7 +1024,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00043">43</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00044">44</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1048,7 +1048,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00045">45</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00046">46</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1072,7 +1072,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00039">39</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00040">40</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1096,7 +1096,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00041">41</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00042">42</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1120,7 +1120,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00047">47</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00048">48</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1144,7 +1144,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00046">46</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00047">47</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1168,7 +1168,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00030">30</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00031">31</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1192,7 +1192,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00033">33</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00034">34</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1216,7 +1216,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00035">35</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00036">36</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1240,7 +1240,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00031">31</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00032">32</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1264,7 +1264,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00034">34</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00035">35</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -1288,7 +1288,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00036">36</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html#l00037">37</a> of file <a class="el" href="embedded_2test__datalog__math__avr_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>

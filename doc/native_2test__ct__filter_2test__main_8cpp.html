@@ -97,7 +97,7 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>Native tests for <a class="el" href="ct__filter_8h.html" title="The CT filter: a low-pass of the current added back with a gain, one per phase.">ct_filter.h</a>: the CT low-pass filter, in fixed point.  
+<p>Native tests for <a class="el" href="ct__filter_8h.html" title="The CT filter: a low-pass of the current added back with a gain, one per phase.">ct_filter.h</a>: the CT filter, in fixed point.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;unity.h&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
@@ -108,7 +108,7 @@ Include dependency graph for test_main.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="native_2test__ct__filter_2test__main_8cpp__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2test_2native_2test__ct__filter_2test__main_8cpp" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2test_2native_2test__ct__filter_2test__main_8cpp" id="aMk2__3phase__RFdatalog__temp_2test_2native_2test__ct__filter_2test__main_8cpp">
-<area shape="rect" title="Native tests for ct_filter.h: the CT low&#45;pass filter, in fixed point." alt="" coords="73,5,250,67"/>
+<area shape="rect" title="Native tests for ct_filter.h: the CT filter, in fixed point." alt="" coords="73,5,250,67"/>
 <area shape="rect" title=" " alt="" coords="5,115,70,143"/>
 <area shape="poly" title=" " alt="" coords="119,70,70,107,66,104,121,65"/>
 <area shape="rect" title=" " alt="" coords="93,115,160,143"/>
@@ -163,7 +163,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a95c834d6178047ce9e1bce7cbfea2836" id="r_a95c834d6178047ce9e1bce7cbfea2836"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95c834d6178047ce9e1bce7cbfea2836">setUp</a> (void)</td></tr>
 <tr class="separator:a95c834d6178047ce9e1bce7cbfea2836"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22a8117821dc918bc128604f6128d094" id="r_a22a8117821dc918bc128604f6128d094"><td class="memItemLeft" align="right" valign="top">static int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22a8117821dc918bc128604f6128d094">sineCounts</a> (const uint16_t <a class="el" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>, const int16_t dcResidual, const int16_t amplitudeFactor)</td></tr>
-<tr class="memdesc:a22a8117821dc918bc128604f6128d094"><td class="mdescLeft">&#160;</td><td class="mdescRight">50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak.  <br /></td></tr>
+<tr class="memdesc:a22a8117821dc918bc128604f6128d094"><td class="mdescLeft">&#160;</td><td class="mdescRight">A 50 Hz sine of 64 samples per cycle (the single-phase rate, twice the 3-phase one), quarter wave table, 100 peak.  <br /></td></tr>
 <tr class="separator:a22a8117821dc918bc128604f6128d094"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9909011e5fea0c018842eec4d93d0662" id="r_a9909011e5fea0c018842eec4d93d0662"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9909011e5fea0c018842eec4d93d0662">tearDown</a> (void)</td></tr>
 <tr class="separator:a9909011e5fea0c018842eec4d93d0662"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,7 +196,7 @@ Variables</h2></td></tr>
 <tr class="separator:a3b61e96fe7ebffbff80f90df8e76fb6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Native tests for <a class="el" href="ct__filter_8h.html" title="The CT filter: a low-pass of the current added back with a gain, one per phase.">ct_filter.h</a>: the CT low-pass filter, in fixed point. </p>
+<div class="textblock"><p>Native tests for <a class="el" href="ct__filter_8h.html" title="The CT filter: a low-pass of the current added back with a gain, one per phase.">ct_filter.h</a>: the CT filter, in fixed point. </p>
 <p>The current sample reaches the filter DC-removed, left-aligned (x64 scale, int16). The reference is <a class="el" href="structRobin.html" title="Robin&#39;s filter, verbatim from Mk2_fasterControl_Full/processing.cpp (x256 scale).">Robin</a>'s filter (Mk2_fasterControl_Full), verbatim, in float at his x256 resolution: the fixed-point filter must track it within TOLERANCE of its output on a step, a sine and noise, for the settings of the old boards (alpha 0.0011, gain 9), the shipped alpha (0.002) and a few gains. </p>
 
 <p class="definition">Definition in file <a class="el" href="native_2test__ct__filter_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
@@ -291,7 +291,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="268,151,310,183,361,215,409,235,404,234,359,219,307,187,267,157"/>
 <area shape="rect" href="group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="576,14,712,42"/>
 <area shape="poly" title=" " alt="" coords="528,25,563,27,558,28,529,30"/>
-<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="597,178,691,206"/>
+<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="A 50 Hz sine of 64 samples per cycle (the single&#45;phase rate, twice the 3&#45;phase one),..." alt="" coords="597,178,691,206"/>
 <area shape="poly" title=" " alt="" coords="494,189,584,191,579,192,494,194"/>
 </map>
 </div>
@@ -362,7 +362,7 @@ Here is the call graph for this function:</div>
 <div class="center"><img src="native_2test__ct__filter_2test__main_8cpp_a3c5f570fee70d19aa60015762fd35987_cgraph.png" border="0" usemap="#anative_2test__ct__filter_2test__main_8cpp_a3c5f570fee70d19aa60015762fd35987_cgraph" alt=""/></div>
 <map name="anative_2test__ct__filter_2test__main_8cpp_a3c5f570fee70d19aa60015762fd35987_cgraph" id="anative_2test__ct__filter_2test__main_8cpp_a3c5f570fee70d19aa60015762fd35987_cgraph">
 <area shape="rect" title="Input sample i, in ADC counts; noise is a fixed linear congruential sequence. The step is sized so th..." alt="" coords="5,5,105,33"/>
-<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="153,5,246,33"/>
+<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="A 50 Hz sine of 64 samples per cycle (the single&#45;phase rate, twice the 3&#45;phase one),..." alt="" coords="153,5,246,33"/>
 <area shape="poly" title=" " alt="" coords="105,17,139,19,134,19,105,22"/>
 </map>
 </div>
@@ -512,7 +512,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="644,318,699,350,765,384,785,394,780,393,763,389,696,355,643,323"/>
 <area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a3c5f570fee70d19aa60015762fd35987" title="Input sample i, in ADC counts; noise is a fixed linear congruential sequence. The step is sized so th..." alt="" coords="798,347,898,375"/>
 <area shape="poly" title=" " alt="" coords="681,318,786,345,780,346,680,323"/>
-<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="1018,398,1111,425"/>
+<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="A 50 Hz sine of 64 samples per cycle (the single&#45;phase rate, twice the 3&#45;phase one),..." alt="" coords="1018,398,1111,425"/>
 <area shape="poly" title=" " alt="" coords="898,370,1005,397,1000,397,897,375"/>
 <area shape="poly" title=" " alt="" coords="280,274,324,279,319,281,282,279"/>
 <area shape="poly" title=" " alt="" coords="699,58,718,71,735,94,742,116,749,138,766,160,770,166,765,165,762,164,744,141,737,118,730,96,714,75,699,64"/>
@@ -598,7 +598,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="87,151,128,183,180,215,228,235,223,235,177,219,125,187,86,157"/>
 <area shape="rect" href="group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="395,14,530,42"/>
 <area shape="poly" title=" " alt="" coords="347,25,382,27,377,29,348,30"/>
-<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="416,178,509,206"/>
+<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="A 50 Hz sine of 64 samples per cycle (the single&#45;phase rate, twice the 3&#45;phase one),..." alt="" coords="416,178,509,206"/>
 <area shape="poly" title=" " alt="" coords="313,189,403,191,398,192,313,194"/>
 </map>
 </div>
@@ -676,7 +676,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak. </p>
+<p>A 50 Hz sine of 64 samples per cycle (the single-phase rate, twice the 3-phase one), quarter wave table, 100 peak. </p>
 
 <p class="definition">Definition at line <a class="el" href="native_2test__ct__filter_2test__main_8cpp_source.html#l00062">62</a> of file <a class="el" href="native_2test__ct__filter_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
@@ -684,7 +684,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="native_2test__ct__filter_2test__main_8cpp_a22a8117821dc918bc128604f6128d094_icgraph.png" border="0" usemap="#anative_2test__ct__filter_2test__main_8cpp_a22a8117821dc918bc128604f6128d094_icgraph" alt=""/></div>
 <map name="anative_2test__ct__filter_2test__main_8cpp_a22a8117821dc918bc128604f6128d094_icgraph" id="anative_2test__ct__filter_2test__main_8cpp_a22a8117821dc918bc128604f6128d094_icgraph">
-<area shape="rect" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="862,148,955,176"/>
+<area shape="rect" title="A 50 Hz sine of 64 samples per cycle (the single&#45;phase rate, twice the 3&#45;phase one),..." alt="" coords="862,148,955,176"/>
 <area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a3c5f570fee70d19aa60015762fd35987" title="Input sample i, in ADC counts; noise is a fixed linear congruential sequence. The step is sized so th..." alt="" coords="715,119,814,147"/>
 <area shape="poly" title=" " alt="" coords="844,150,814,146,815,140,849,150"/>
 <area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#ab296665170913a3d6065906c3a950c16" title=" " alt="" coords="513,166,667,228"/>
@@ -856,7 +856,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="493,151,534,183,586,215,634,235,628,234,583,219,531,187,491,157"/>
 <area shape="rect" href="group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="801,14,936,42"/>
 <area shape="poly" title=" " alt="" coords="753,25,788,27,782,28,753,30"/>
-<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="822,178,915,206"/>
+<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="A 50 Hz sine of 64 samples per cycle (the single&#45;phase rate, twice the 3&#45;phase one),..." alt="" coords="822,178,915,206"/>
 <area shape="poly" title=" " alt="" coords="718,189,809,192,803,192,719,194"/>
 </map>
 </div>
@@ -911,7 +911,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="486,151,527,183,579,215,627,235,621,234,576,219,524,187,484,157"/>
 <area shape="rect" href="group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="794,14,929,42"/>
 <area shape="poly" title=" " alt="" coords="746,25,781,27,775,28,746,30"/>
-<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="815,178,908,206"/>
+<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="A 50 Hz sine of 64 samples per cycle (the single&#45;phase rate, twice the 3&#45;phase one),..." alt="" coords="815,178,908,206"/>
 <area shape="poly" title=" " alt="" coords="711,189,802,192,796,192,712,194"/>
 </map>
 </div>
@@ -1013,7 +1013,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="468,151,509,183,561,215,609,235,603,234,558,219,506,187,466,157"/>
 <area shape="rect" href="group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="776,14,911,42"/>
 <area shape="poly" title=" " alt="" coords="728,25,763,27,757,28,728,30"/>
-<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="797,178,890,206"/>
+<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="A 50 Hz sine of 64 samples per cycle (the single&#45;phase rate, twice the 3&#45;phase one),..." alt="" coords="797,178,890,206"/>
 <area shape="poly" title=" " alt="" coords="693,189,784,192,778,192,694,194"/>
 </map>
 </div>
@@ -1060,7 +1060,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="158,154,195,151,190,154,160,159"/>
 <area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a6fc1aff038a4cf3ba928f348a3a86bb2" title="The low&#45;pass state of the filter, in ADC counts." alt="" coords="232,178,350,206"/>
 <area shape="poly" title=" " alt="" coords="159,173,219,182,214,184,159,178"/>
-<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="244,230,338,258"/>
+<area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="A 50 Hz sine of 64 samples per cycle (the single&#45;phase rate, twice the 3&#45;phase one),..." alt="" coords="244,230,338,258"/>
 <area shape="poly" title=" " alt="" coords="157,195,208,214,232,225,227,225,206,220,157,200"/>
 <area shape="rect" href="native_2test__ct__filter_2test__main_8cpp.html#ab22ab0f95f0afee6d34745548c195f52" title="A DC&#45;removed sample in ADC counts, at the x64 scale of the firmware." alt="" coords="268,282,314,310"/>
 <area shape="poly" title=" " alt="" coords="114,195,158,232,208,267,256,287,251,287,205,271,154,237,113,200"/>

@@ -585,7 +585,7 @@ var searchData=
   ['time_20critical_20functions_582',['Time-critical functions',['../group__TimeCritical.html',1,'']]],
   ['todecimals_583',['toDecimals',['../namespaceSerialOutput.html#a92c5012053b5fe0d463a87a06be6fe40',1,'SerialOutput::toDecimals(float value, uint8_t decimals)'],['../namespaceSerialOutput.html#a5816467c6da976cf57b717e6f40ce0f4',1,'SerialOutput::toDecimals(const float(&amp;values)[N], uint8_t decimals)']]],
   ['tofixed_584',['toFixed',['../namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5',1,'Energy']]],
-  ['tofixedpersample_585',['toFixedPerSample',['../namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714',1,'Energy']]],
+  ['tofixedpersample_585',['toFixedPerSample',['../namespaceEnergy.html#a885b471812d2960dbe6740592c62d41a',1,'Energy']]],
   ['togglepin_586',['togglePin',['../utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977',1,'utils_pins.h']]],
   ['tohundredths_587',['toHundredths',['../namespaceDS18B20.html#ae74d41c356b743b6a5b1453c3e68dbb5',1,'DS18B20']]],
   ['tohundredthsofjoule_588',['toHundredthsOfJoule',['../namespaceEnergy.html#a993caf3ccf42a68629e46c31dc5fe885',1,'Energy']]],

@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,48,260,36,256,38,198,53"/>
 <area shape="rect" id="Node000004" href="$native_2test__energy__bucket_2test__main_8cpp.html#a1eb6eb8118c52d7086f05c62d72ab7d6" title="The exact energy of one cycle: no truncating division, in bucket units." alt="" coords="278,57,402,85"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="197,69,265,70,260,72,197,74"/>
-<area shape="rect" id="Node000005" href="$namespaceEnergy.html#a14f050e4deb2594324499ad84e16f714" title="Build the per&#45;sample calibration table at compile time." alt="" coords="245,109,435,137"/>
+<area shape="rect" id="Node000005" href="$namespaceEnergy.html#a885b471812d2960dbe6740592c62d41a" title="Build the per&#45;sample calibration table at compile time." alt="" coords="245,109,435,137"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="197,89,261,105,256,106,197,95"/>
 <area shape="rect" id="Node000003" href="$group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="483,5,647,33"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="416,17,470,19,465,20,416,22"/>

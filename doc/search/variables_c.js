@@ -10,7 +10,7 @@ var searchData=
   ['n_5fsamples_7',['n_samples',['../structOldImplementation.html#a84ce0669bcce9751da4e532c84fa5771',1,'OldImplementation::n_samples'],['../structNewImplementation.html#a2acc489e0cc69662fa66f6dc74908768',1,'NewImplementation::n_samples']]],
   ['n_5fsamplesduringthismainscycle_8',['n_samplesDuringThisMainsCycle',['../processing_8cpp.html#a9a22740c3a35433eaeae0fa7177d93a1',1,'processing.cpp']]],
   ['network_5fid_9',['NETWORK_ID',['../namespaceRFConfig.html#ad0b64b090abf5796ba60eec27bc963af',1,'RFConfig']]],
-  ['new_5fboard_5fcalibration_10',['NEW_BOARD_CALIBRATION',['../calibration_8h.html#a85a92aa64b423809c04b4d6198952d0d',1,'calibration.h']]],
+  ['new_5fboard_5fcalibration_10',['NEW_BOARD_CALIBRATION',['../config__derived_8h.html#a85a92aa64b423809c04b4d6198952d0d',1,'config_derived.h']]],
   ['newboard20cal_11',['newBoard20Cal',['../native_2test__datalog__math_2test__main_8cpp.html#ad7e48fa43e90abb2e899adce011469e8',1,'test_main.cpp']]],
   ['newboard50cal_12',['newBoard50Cal',['../native_2test__datalog__math_2test__main_8cpp.html#a08e58c673e59e0545571a0b913b527f9',1,'test_main.cpp']]],
   ['newboardvcal_13',['newBoardVCal',['../native_2test__datalog__math_2test__main_8cpp.html#ae4c9e46dfe6a3c8855aab39e531e6560',1,'test_main.cpp']]],

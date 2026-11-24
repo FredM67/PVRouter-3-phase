@@ -41,7 +41,7 @@
 <area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="644,318,699,350,765,384,785,394,780,393,763,389,696,355,643,323"/>
 <area shape="rect" id="Node000013" href="$native_2test__ct__filter_2test__main_8cpp.html#a3c5f570fee70d19aa60015762fd35987" title="Input sample i, in ADC counts; noise is a fixed linear congruential sequence. The step is sized so th..." alt="" coords="798,347,898,375"/>
 <area shape="poly" id="edge16_Node000011_Node000013" title=" " alt="" coords="681,318,786,345,780,346,680,323"/>
-<area shape="rect" id="Node000014" href="$native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="1018,398,1111,425"/>
+<area shape="rect" id="Node000014" href="$native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="A 50 Hz sine of 64 samples per cycle (the single&#45;phase rate, twice the 3&#45;phase one),..." alt="" coords="1018,398,1111,425"/>
 <area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="898,370,1005,397,1000,397,897,375"/>
 <area shape="poly" id="edge20_Node000015_Node000010" title=" " alt="" coords="280,274,324,279,319,281,282,279"/>
 <area shape="poly" id="edge22_Node000016_Node000003" title=" " alt="" coords="699,58,718,71,735,94,742,116,749,138,766,160,770,166,765,165,762,164,744,141,737,118,730,96,714,75,699,64"/>

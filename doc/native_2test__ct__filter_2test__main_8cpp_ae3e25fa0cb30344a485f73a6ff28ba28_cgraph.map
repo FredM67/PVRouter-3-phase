@@ -12,6 +12,6 @@
 <area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="87,151,128,183,180,215,228,235,223,235,177,219,125,187,86,157"/>
 <area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="395,14,530,42"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="347,25,382,27,377,29,348,30"/>
-<area shape="rect" id="Node000007" href="$native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="416,178,509,206"/>
+<area shape="rect" id="Node000007" href="$native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="A 50 Hz sine of 64 samples per cycle (the single&#45;phase rate, twice the 3&#45;phase one),..." alt="" coords="416,178,509,206"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="313,189,403,191,398,192,313,194"/>
 </map>

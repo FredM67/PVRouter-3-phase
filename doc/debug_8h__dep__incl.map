@@ -1,41 +1,42 @@
 <map id="Mk2_3phase_RFdatalog_temp/debug.h" name="Mk2_3phase_RFdatalog_temp/debug.h">
-<area shape="rect" id="Node000001" title="The text output: informational messages (info) and debug messages (debug)" alt="" coords="246,5,422,50"/>
-<area shape="rect" id="Node000002" href="$config__derived_8h.html" title="The configuration as the firmware uses it: the settings, and what is built from them." alt="" coords="267,199,444,244"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="339,63,356,199,351,198,337,68"/>
-<area shape="rect" id="Node000011" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="99,98,276,143"/>
-<area shape="poly" id="edge20_Node000001_Node000011" title=" " alt="" coords="285,60,224,100,221,96,288,56"/>
-<area shape="rect" id="Node000013" href="$utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="371,98,548,143"/>
-<area shape="poly" id="edge24_Node000001_Node000013" title=" " alt="" coords="376,56,432,97,427,98,376,62"/>
-<area shape="rect" id="Node000003" href="$dualtariff_8h.html" title="The scheduled boosts of the dual tariff, resolved at compile time." alt="" coords="659,300,836,345"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="456,245,664,299,659,301,456,251"/>
-<area shape="rect" id="Node000004" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="534,393,710,438"/>
-<area shape="poly" id="edge7_Node000002_Node000004" title=" " alt="" coords="459,230,497,239,534,253,569,273,599,299,613,321,621,346,626,394,621,391,616,347,608,323,595,302,566,277,532,258,495,244,459,235"/>
-<area shape="rect" id="Node000006" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="283,486,460,530"/>
-<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="269,251,185,281,133,303,96,334,69,366,61,383,59,400,63,418,74,436,86,447,106,457,158,474,221,487,286,498,280,499,220,492,157,479,103,462,83,451,69,439,58,419,53,400,56,381,64,363,92,330,130,298,183,276,273,247"/>
-<area shape="rect" id="Node000007" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="409,300,585,345"/>
-<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="399,250,469,300,463,300,398,256"/>
-<area shape="rect" id="Node000008" href="$remote__loads_8h.html" title="Support for remotely controlled loads via RF using RFM69." alt="" coords="83,393,260,438"/>
-<area shape="poly" id="edge12_Node000002_Node000008" title=" " alt="" coords="259,251,180,280,151,292,136,302,129,323,130,347,139,370,151,392,146,392,134,373,125,348,123,323,132,299,148,288,178,275,263,247"/>
-<area shape="rect" id="Node000009" href="$utils__rf_8h.html" title="RF module support for RFM69." alt="" coords="158,300,334,345"/>
-<area shape="poly" id="edge14_Node000002_Node000009" title=" " alt="" coords="323,252,272,302,268,298,319,256"/>
-<area shape="rect" id="Node000010" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="283,393,460,438"/>
-<area shape="poly" id="edge19_Node000002_Node000010" title=" " alt="" coords="360,257,372,394,367,392,357,261"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="708,353,653,395,651,390,703,355"/>
-<area shape="rect" id="Node000005" href="$utils_8h.html" title="Some utility functions." alt="" coords="734,393,910,438"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="776,354,807,394,802,392,774,359"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="722,438,461,492,460,487,716,438"/>
-<area shape="poly" id="edge10_Node000007_Node000004" title=" " alt="" coords="539,352,595,393,590,392,538,357"/>
-<area shape="poly" id="edge11_Node000007_Node000005" title=" " alt="" coords="589,347,747,392,742,393,589,352"/>
-<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="497,359,491,400,474,439,448,467,418,488,416,483,445,463,469,436,486,399,494,363"/>
-<area shape="poly" id="edge13_Node000008_Node000002" title=" " alt="" coords="158,378,147,339,148,318,156,299,174,287,208,272,297,243,293,246,210,277,177,291,160,302,153,319,152,339,163,379"/>
-<area shape="poly" id="edge16_Node000009_Node000005" title=" " alt="" coords="350,336,723,390,736,395,731,395,722,396,350,341"/>
-<area shape="poly" id="edge15_Node000009_Node000008" title=" " alt="" coords="221,355,191,395,187,391,217,359"/>
-<area shape="poly" id="edge17_Node000009_Node000010" title=" " alt="" coords="289,351,344,392,339,393,288,357"/>
-<area shape="poly" id="edge18_Node000010_Node000006" title=" " alt="" coords="373,451,374,487,369,484,370,455"/>
-<area shape="poly" id="edge21_Node000011_Node000002" title=" " alt="" coords="237,148,321,198,316,200,238,154"/>
-<area shape="poly" id="edge22_Node000011_Node000006" title=" " alt="" coords="84,152,60,169,39,192,19,238,12,268,8,301,10,336,17,371,30,404,52,436,67,448,88,458,147,476,216,488,286,499,280,500,215,493,146,481,86,463,64,452,48,439,26,407,12,372,4,336,3,301,7,267,14,237,35,189,57,165,87,147"/>
-<area shape="rect" id="Node000012" href="$embedded_2test__utils__relay_2test__main_8cpp.html" title=" " alt="" coords="50,191,243,252"/>
-<area shape="poly" id="edge23_Node000011_Node000012" title=" " alt="" coords="174,155,161,191,156,189,172,159"/>
-<area shape="poly" id="edge25_Node000013_Node000002" title=" " alt="" coords="428,152,380,201,376,197,424,155"/>
-<area shape="poly" id="edge26_Node000013_Node000005" title=" " alt="" coords="562,135,638,155,717,188,756,209,791,235,823,264,850,299,858,323,856,349,848,373,837,395,834,391,843,371,851,348,853,324,845,302,819,268,788,239,753,214,715,192,636,160,563,140"/>
+<area shape="rect" id="Node000001" title="The text output: informational messages (info) and debug messages (debug)" alt="" coords="278,5,454,50"/>
+<area shape="rect" id="Node000002" href="$config__derived_8h.html" title="The configuration as the firmware uses it: the settings, and what is built from them." alt="" coords="299,199,476,244"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="372,63,388,200,383,198,369,68"/>
+<area shape="rect" id="Node000011" href="$utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="131,98,308,143"/>
+<area shape="poly" id="edge21_Node000001_Node000011" title=" " alt="" coords="317,60,256,100,253,96,320,56"/>
+<area shape="rect" id="Node000013" href="$utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="403,98,580,143"/>
+<area shape="poly" id="edge25_Node000001_Node000013" title=" " alt="" coords="408,56,464,97,459,98,408,62"/>
+<area shape="rect" id="Node000003" href="$dualtariff_8h.html" title="The scheduled boosts of the dual tariff, resolved at compile time." alt="" coords="675,300,852,345"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="485,246,684,299,679,301,485,251"/>
+<area shape="rect" id="Node000004" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="719,393,896,438"/>
+<area shape="poly" id="edge7_Node000002_Node000004" title=" " alt="" coords="491,222,596,228,707,241,759,251,804,263,841,279,866,299,872,310,875,323,868,349,852,373,833,395,830,390,848,370,863,347,869,323,867,312,861,302,838,284,802,268,758,256,706,246,596,233,492,227"/>
+<area shape="rect" id="Node000005" href="$utils_8h.html" title="Some utility functions." alt="" coords="519,393,696,438"/>
+<area shape="poly" id="edge14_Node000002_Node000005" title=" " alt="" coords="404,256,430,301,465,343,503,370,546,393,541,392,501,375,462,347,426,304,402,261"/>
+<area shape="rect" id="Node000006" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="269,486,445,530"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="300,251,143,303,113,322,91,340,74,362,59,394,55,423,63,446,83,465,113,479,149,490,188,497,271,506,265,507,188,502,147,495,111,484,80,469,59,449,49,423,54,392,70,359,88,337,110,318,141,298,303,247"/>
+<area shape="rect" id="Node000007" href="$processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="475,300,652,345"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="440,249,528,299,522,300,439,255"/>
+<area shape="rect" id="Node000008" href="$remote__loads_8h.html" title="Support for remotely controlled loads via RF using RFM69." alt="" coords="69,393,245,438"/>
+<area shape="poly" id="edge12_Node000002_Node000008" title=" " alt="" coords="293,251,201,282,152,302,142,323,138,347,140,371,145,393,140,392,135,372,133,347,137,322,148,298,199,277,297,247"/>
+<area shape="rect" id="Node000009" href="$utils__rf_8h.html" title="RF module support for RFM69." alt="" coords="174,300,350,345"/>
+<area shape="poly" id="edge15_Node000002_Node000009" title=" " alt="" coords="346,255,291,302,288,298,350,252"/>
+<area shape="rect" id="Node000010" href="$validation_8h.html" title="Compile&#45;time validations." alt="" coords="269,393,445,438"/>
+<area shape="poly" id="edge20_Node000002_Node000010" title=" " alt="" coords="384,258,363,394,358,392,380,261"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="782,357,800,394,795,392,779,361"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="716,352,646,395,644,390,711,354"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="536,443,418,488,416,483,530,444"/>
+<area shape="poly" id="edge10_Node000007_Node000004" title=" " alt="" coords="636,348,752,392,746,393,636,353"/>
+<area shape="poly" id="edge11_Node000007_Node000005" title=" " alt="" coords="582,357,600,394,595,392,579,361"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="538,356,501,399,459,440,393,487,391,483,455,436,498,395,534,358"/>
+<area shape="poly" id="edge13_Node000008_Node000002" title=" " alt="" coords="156,376,157,338,162,317,172,298,229,275,330,243,326,246,231,280,176,302,167,319,163,338,161,378"/>
+<area shape="poly" id="edge17_Node000009_Node000005" title=" " alt="" coords="360,347,527,392,522,393,359,352"/>
+<area shape="poly" id="edge16_Node000009_Node000008" title=" " alt="" coords="228,354,184,395,180,390,224,357"/>
+<area shape="poly" id="edge18_Node000009_Node000010" title=" " alt="" coords="296,353,337,393,332,393,295,358"/>
+<area shape="poly" id="edge19_Node000010_Node000006" title=" " alt="" coords="359,451,359,487,355,484,355,455"/>
+<area shape="poly" id="edge22_Node000011_Node000002" title=" " alt="" coords="269,148,353,198,348,199,270,154"/>
+<area shape="poly" id="edge23_Node000011_Node000006" title=" " alt="" coords="119,152,94,169,71,192,31,256,18,286,10,316,9,345,14,375,27,405,48,436,62,448,82,458,137,475,203,488,271,499,266,499,202,493,136,480,80,463,59,452,44,439,22,407,9,376,3,345,5,315,13,285,26,254,67,189,90,165,122,147"/>
+<area shape="rect" id="Node000012" href="$embedded_2test__utils__relay_2test__main_8cpp.html" title=" " alt="" coords="82,191,275,252"/>
+<area shape="poly" id="edge24_Node000011_Node000012" title=" " alt="" coords="206,155,193,191,188,189,203,159"/>
+<area shape="poly" id="edge26_Node000013_Node000002" title=" " alt="" coords="460,152,412,201,408,197,456,155"/>
+<area shape="poly" id="edge27_Node000013_Node000005" title=" " alt="" coords="594,137,667,159,741,191,777,212,811,237,841,266,866,299,875,323,873,335,865,347,806,367,697,395,696,390,804,362,862,343,868,333,869,323,861,302,837,269,807,241,775,217,739,196,665,164,595,143"/>
 </map>

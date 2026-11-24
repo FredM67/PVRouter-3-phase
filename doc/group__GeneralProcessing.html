@@ -197,7 +197,7 @@ Functions</h2></td></tr>
 <li>Function is called atomically to prevent race conditions with ISR. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00114">114</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00113">113</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -271,7 +271,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00513">513</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00512">512</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -374,7 +374,7 @@ Here is the caller graph for this function:</div>
 <p>Reads the diversion pin. </p>
 <dl class="section return"><dt>Returns</dt><dd>true unless the diversion pin is LOW. With diversion OFF, the surplus is not diverted any more, but forced loads and relays stay ON. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00156">156</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00155">155</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -436,7 +436,7 @@ Here is the caller graph for this function:</div>
 <p>Tells whether the router is OFF. </p>
 <dl class="section return"><dt>Returns</dt><dd>true in calibration mode, or while the router OFF pin is LOW. With the router OFF, every load and relay is OFF, forcing included. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00183">183</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00182">182</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -580,7 +580,7 @@ Here is the caller graph for this function:</div>
 <li>Sends telemetry results and updates relay states if relay diversion is enabled. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00565">565</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00564">564</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -780,7 +780,7 @@ false if the system is in a high tariff (on-peak) period.</dd></dl>
 <li><a class="el" href="namespaceLoad.html" title="Authoring and decoding helpers for the packed load map.">Load</a> forcing logic (including temperature conditions) is handled atomically in <a class="el" href="#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing.">getOverrideBitmask()</a>. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00250">250</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00249">249</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -862,7 +862,7 @@ Here is the caller graph for this function:</div>
 <li>Override logic (external pins + dual tariff forcing) is handled atomically in <a class="el" href="#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing.">getOverrideBitmask()</a>. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00295">295</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00294">294</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -941,7 +941,7 @@ Here is the caller graph for this function:</div>
 <li>Logs the updated load priorities after the rotation. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00219">219</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00218">218</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1012,7 +1012,7 @@ template&lt;uint8_t pin&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>its state and its edges.</dd></dl>
 <p>Read each pin every second, whether its edges are used or not: a previous level left stale would turn a press made long ago into an edge now. </p>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00143">143</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00142">142</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1189,7 +1189,7 @@ Here is the caller graph for this function:</div>
 <li>Updates the total power by summing the power of all phases. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00386">386</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00385">385</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

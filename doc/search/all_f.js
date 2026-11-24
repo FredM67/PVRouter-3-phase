@@ -13,7 +13,7 @@ var searchData=
   ['negativeof_10',['negativeOf',['../classRelayLogic_1_1Relay.html#a0112c2e5f6a55c37dca3fdf0ba5aab93',1,'RelayLogic::Relay']]],
   ['network_5fid_11',['NETWORK_ID',['../namespaceRFConfig.html#ad0b64b090abf5796ba60eec27bc963af',1,'RFConfig']]],
   ['new_12',['NEW',['../config__types_8h.html#a8bb3ae3452a609d213c4d66e88a7086ba24d459a81449d7210c8f9a86c2913034',1,'config_types.h']]],
-  ['new_5fboard_5fcalibration_13',['NEW_BOARD_CALIBRATION',['../calibration_8h.html#a85a92aa64b423809c04b4d6198952d0d',1,'calibration.h']]],
+  ['new_5fboard_5fcalibration_13',['NEW_BOARD_CALIBRATION',['../config__derived_8h.html#a85a92aa64b423809c04b4d6198952d0d',1,'config_derived.h']]],
   ['newboard20cal_14',['newBoard20Cal',['../native_2test__datalog__math_2test__main_8cpp.html#ad7e48fa43e90abb2e899adce011469e8',1,'test_main.cpp']]],
   ['newboard50cal_15',['newBoard50Cal',['../native_2test__datalog__math_2test__main_8cpp.html#a08e58c673e59e0545571a0b913b527f9',1,'test_main.cpp']]],
   ['newboardvcal_16',['newBoardVCal',['../native_2test__datalog__math_2test__main_8cpp.html#ae4c9e46dfe6a3c8855aab39e531e6560',1,'test_main.cpp']]],
