@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief Native tests for adc_chain.h: the six conversions, the reference and the ADMUX pipeline

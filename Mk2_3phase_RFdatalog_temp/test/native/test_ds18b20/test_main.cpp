@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief The checks of a DS18B20 reading (ds18b20.h): CRC, conversion, range, power-on value

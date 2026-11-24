@@ -1,9 +1,10 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief The integer datalog arithmetic on the target: exact results, and cycle counts against
  *        the float code it replaces
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-24
  *
  * @details datalog_math.h replaced, in the datalog (#120):
  *          - power_L     = (int16_t)(sumP / n * f_powerCal[phase])

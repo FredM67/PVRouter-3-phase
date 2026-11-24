@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
- * @brief Native tests for ct_filter.h: the CT low-pass filter, in fixed point
+ * @brief Native tests for ct_filter.h: the CT filter, in fixed point
  *
  * @details The current sample reaches the filter DC-removed, left-aligned (x64 scale, int16).
  *          The reference is Robin's filter (Mk2_fasterControl_Full), verbatim, in float at his
@@ -58,7 +58,7 @@ enum class Shape : uint8_t
   NOISE
 };
 
-/** @brief 50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak. */
+/** @brief A 50 Hz sine of 64 samples per cycle (the single-phase rate, twice the 3-phase one), quarter wave table, 100 peak. */
 static int16_t sineCounts(const uint16_t i, const int16_t dcResidual, const int16_t amplitudeFactor)
 {
   static constexpr int16_t sine64[16]{ 0, 20, 39, 56, 71, 83, 92, 98, 100, 98, 92, 83, 71, 56, 39, 20 };

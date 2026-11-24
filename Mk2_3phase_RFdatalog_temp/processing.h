@@ -43,7 +43,7 @@ inline void processLatestContribution(uint8_t phase);
 inline void processDataLogging();
 void addToDatalogSums();
 inline void updatePortsStates();
-inline void updatePhysicalLoadStates();
+void updatePhysicalLoadStates();
 #else
 // -O3 on a function that is a call of its own: here 50 bytes smaller than with -Os
 void initializeProcessing() __attribute__((optimize("-O3")));
@@ -59,13 +59,13 @@ inline void processPolarity(uint8_t phase, uint16_t rawSample) __attribute__((al
 inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
 inline void processDataLogging() __attribute__((always_inline));
-// An inlined function is compiled with the options of the ISR it lands in: an optimize() attribute
-// on it changes nothing (same firmware, to the byte). updatePortsStates() is a call: -O3 unrolls
-// its load loop into constant masks (grid simulator: 38 cycles less on average, 88 less at most).
+// An inlined function is compiled with the options of the function it lands in: an optimize()
+// attribute on it changes nothing. updatePortsStates() is a call: -O3 unrolls its load loop into
+// constant masks (grid simulator: 38 cycles less on average, 88 less at most).
 inline void updatePortsStates() __attribute__((optimize("-O3")));
 // not inlined on purpose: inlined, it takes registers that the rest of the ISR then spills to a
 // stack frame on every call (grid simulator: 30 cycles more on average, 65 more at most)
-inline void updatePhysicalLoadStates() __attribute__((noinline));
+void updatePhysicalLoadStates() __attribute__((noinline));
 // not inlined on purpose either: its 64-bit datalog sums, inlined, make the ISR spill to a stack
 // frame on every call (grid simulator: 29 cycles more on average)
 void addToDatalogSums() __attribute__((noinline));
