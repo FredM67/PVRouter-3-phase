@@ -33,11 +33,11 @@ index 38c26159..70ef3f02 100644
 -inline constexpr RotationGroups rotationGroups{}; /**< the loads that take turns, {} without rotation */
 +inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } }; /**< the loads that take turns, {} without rotation */
 @@ -103,4 +103,4 @@ inline constexpr RotationGroups rotationGroups{}; /**< the loads that take turns
--inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
+-inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< off-peak trigger, the meter's dry contact */
 -inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, no surplus diversion: only forced loads/relays are ON */
 -inline constexpr uint8_t routerOffPin{ unused_pin };  /**< if LOW, router OFF: every load and relay is OFF, forcing included */
 -inline constexpr uint8_t rotationPin{ unused_pin };   /**< if LOW, trigger a load priority rotation */
-+inline constexpr uint8_t dualTariffPin{ 11 };         /**< for 3-phase PCB, off-peak trigger */
++inline constexpr uint8_t dualTariffPin{ 11 };         /**< off-peak trigger, the meter's dry contact */
 +inline constexpr uint8_t diversionPin{ 3 };           /**< if LOW, no surplus diversion: only forced loads/relays are ON */
 +inline constexpr uint8_t routerOffPin{ 2 };           /**< if LOW, router OFF: every load and relay is OFF, forcing included */
 +inline constexpr uint8_t rotationPin{ 12 };           /**< if LOW, trigger a load priority rotation */
