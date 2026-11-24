@@ -350,6 +350,30 @@ void initializeProcessing()
 }
 
 /**
+ * @brief The pins the loads drive: the local TRIACs, plus the status LED of each remote load.
+ *
+ * @return A 16-bit mask of these pins, computed at compile time.
+ *
+ * @ingroup Initialization
+ */
+constexpr uint16_t getLoadPins()
+{
+  uint16_t load_pins{ 0 };
+
+  for (const auto &loadEntry : physicalLoadPin)
+  {
+    const uint8_t pin{ Load::pinOf(loadEntry) };
+
+    if (Load::isLocal(loadEntry) || (pin != 0))
+    {
+      bit_set(load_pins, pin);
+    }
+  }
+
+  return load_pins;
+}
+
+/**
  * @brief Updates the control ports for each of the physical loads.
  *
  * This function determines the ON/OFF state of each physical load and updates
@@ -358,7 +382,8 @@ void initializeProcessing()
  * @details
  * - If a load is OFF, its corresponding pin is added to the `pinsOFF` mask.
  * - If a load is ON, its corresponding pin is added to the `pinsON` mask.
- * - Finally, the pins are updated using `setPinsOFF` and `setPinsON` functions.
+ * - Finally, the pins are updated with `setPinsState`, one write per port, and only on the
+ *   ports the load pins are on.
  * - Overrides are already part of the physical load states, and the relays are driven
  *   by the relay engine only: no other pin is ever written here.
  *
@@ -400,8 +425,7 @@ void updatePortsStates()
     }
   } while (i);
 
-  setPinsOFF(pinsOFF);
-  setPinsON(pinsON);
+  setPinsState< getLoadPins() >(pinsON, pinsOFF);
 }
 
 /**

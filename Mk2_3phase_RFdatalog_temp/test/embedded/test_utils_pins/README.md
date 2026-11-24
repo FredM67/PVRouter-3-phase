@@ -10,8 +10,8 @@ Tests for low-level GPIO pin manipulation functions.
 | `test_setPinOFF` | Setting a single pin LOW |
 | `test_togglePin` | Toggling pin state |
 | `test_setPinState` | Setting pin to specific state |
-| `test_setPinsON` | Setting multiple pins HIGH via bitmask |
-| `test_setPinsOFF` | Setting multiple pins LOW via bitmask |
+| `test_setPinsState` | Setting multiple pins HIGH and LOW via bitmasks, one write per port |
+| `test_setPinsState_skipsUnusedPort` | A port with none of the used pins is not written |
 
 ## Running
 
