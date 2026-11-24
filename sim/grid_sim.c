@@ -1072,6 +1072,8 @@ static void onewire_level(int low, void *param)
 
 /* Drives the input pins with their levels at time t: unconnected inputs read HIGH, like the
  * firmware's pull-ups; for each pin, the latest 'input' line at or before t wins.
+ * simavr copies the external levels into PINx only when the firmware writes the port, so the
+ * pin of each 'input' line also gets its level at once, as on the chip (see onewire_level).
  * Returns when the next level change is due. */
 static double apply_inputs(double t)
 {
@@ -1098,6 +1100,14 @@ static double apply_inputs(double t)
     *e = in->value ? (*e | mask) : (*e & ~mask);
   }
   set_external();
+  for (int pin = 0; pin < 14; ++pin)
+  {
+    if (since[pin] < 0)
+      continue;
+    const int b = port_of(pin) == 'B';
+    const int level = ((ext[b] & ~ext_held_low[b]) >> bit_of(pin)) & 1;
+    avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ(port_of(pin)), bit_of(pin)), level);
+  }
   return next;
 }
 
