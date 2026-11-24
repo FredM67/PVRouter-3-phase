@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Public functions/variables of processing engine
  * @version 0.1
- * @date 2026-11-21
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2021-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
