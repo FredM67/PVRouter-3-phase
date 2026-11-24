@@ -85,6 +85,11 @@ If you keep your own `config.h`, check these points:
   3 mains cycles per sensor) must end within the datalog period. With a 1 s period, at most 3
   sensors at 50 Hz, 4 at 60 Hz; more stops the build with *Too many temperature sensors for
   DATALOG_PERIOD_IN_SECONDS*. Lengthen `DATALOG_PERIOD_IN_SECONDS`, or use fewer sensors.
+- **Datalog period:** at most 30 s, instead of 40 s. From 37 s on, the sample-set counter wrapped;
+  and the power of a long period could wrap its 32-bit sum. The power is now summed scaled down
+  by 16 when the period needs it (from 10 s on), as the voltage already was, and scaled back up
+  for the average. A period over 30 s stops the build with *Data log duration is too
+  long*; the configurator refuses it too ([#259]).
 
 No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still
@@ -358,3 +363,4 @@ valid load maps ([#160]).
 [#238]: https://github.com/FredM67/PVRouter-3-phase/pull/238
 [#241]: https://github.com/FredM67/PVRouter-3-phase/pull/241
 [#242]: https://github.com/FredM67/PVRouter-3-phase/pull/242
+[#259]: https://github.com/FredM67/PVRouter-3-phase/pull/259

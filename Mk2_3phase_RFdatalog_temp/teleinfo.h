@@ -55,21 +55,20 @@ constexpr uint8_t lineSize(uint8_t tagLength, uint8_t valueLength)
 
 /**
  * @brief The most a step writes: STX or ETX, and the longest line, a 4-character tag ("S_MC")
- *        with a 10-digit value (a 32-bit sample count).
+ *        with a signed 16-bit value (-32768).
  */
-inline constexpr uint8_t MAX_STEP_LENGTH{ 1 + lineSize(4, 10) };
+inline constexpr uint8_t MAX_STEP_LENGTH{ 1 + lineSize(4, 6) };
 
 /**
- * @brief Writes the decimal digits of a value.
+ * @brief Writes the decimal digits of a 16-bit value.
  *
  * @param dst Where to write.
  * @param value The value.
  * @return The end of what was written.
  */
-template< typename Unsigned >
-char* writeDigits(char* dst, Unsigned value)
+inline char* writeDigits(char* dst, uint16_t value)
 {
-  char digits[10];
+  char digits[5];
   uint8_t count{ 0 };
   do
   {
@@ -94,12 +93,11 @@ char* writeDigits(char* dst, Unsigned value)
  * @param dst Where to write, room for lineSize() bytes.
  * @param tag The tag, at most 4 characters with the index.
  * @param index Appended to the tag as a digit (1-9), none when 0.
- * @param magnitude The magnitude of the value: 16 bits, or 32 bits for the sample count.
+ * @param magnitude The magnitude of the value.
  * @param negative Whether the value is negative.
  * @return The end of the line.
  */
-template< typename Magnitude >
-char* writeLine(char* dst, const char* tag, uint8_t index, Magnitude magnitude, bool negative)
+inline char* writeLine(char* dst, const char* tag, uint8_t index, uint16_t magnitude, bool negative)
 {
   *dst++ = LF;
 
@@ -152,22 +150,13 @@ inline char* line(char* dst, const char* tag, int16_t value, uint8_t index = 0)
  *
  * @param dst Where to write, room for lineSize() bytes.
  * @param tag The tag.
- * @param value The value: 16 bits, or 32 bits (the sample count beyond 36 s).
+ * @param value The value.
  * @param index Appended to the tag as a digit (1-9), none when 0.
  * @return The end of the line.
  */
-template< typename Unsigned >
-char* lineUnsigned(char* dst, const char* tag, Unsigned value, uint8_t index = 0)
+inline char* lineUnsigned(char* dst, const char* tag, uint16_t value, uint8_t index = 0)
 {
-  static_assert(sizeof(Unsigned) <= 4, "at most 32 bits");
-  if constexpr (sizeof(Unsigned) > 2)
-  {
-    return writeLine(dst, tag, index, static_cast< uint32_t >(value), false);
-  }
-  else
-  {
-    return writeLine(dst, tag, index, static_cast< uint16_t >(value), false);
-  }
+  return writeLine(dst, tag, index, value, false);
 }
 
 /**

@@ -60,7 +60,7 @@ inline constexpr float f_voltageCal[NO_OF_PHASES]{ NEW_BOARD_CALIBRATION ? f_vol
 // datalog period
 //
 #include "adc_chain.h"
-#include "sample_sets.h"
+#include "datalog_math.h"
 
 // Expected number of sample sets per mains cycle. One ADC conversion takes 13 ADC clocks
 // at F_CPU / 128 (104 us at 16 MHz); a sample set is one V and one I conversion per phase.
@@ -72,10 +72,10 @@ inline constexpr uint8_t SAMPLE_SETS_MARGIN{ 4 };                               
 inline constexpr uint8_t N_MIN{ SAMPLE_SETS_PER_CYCLE - SAMPLE_SETS_MARGIN };
 inline constexpr uint8_t N_MAX{ SAMPLE_SETS_PER_CYCLE + SAMPLE_SETS_MARGIN };
 
-/** the most sample sets in a datalog period */
-inline constexpr uint32_t MAX_SAMPLE_SETS_PER_DATALOG{ SampleSets::maxPerDatalog(DATALOG_PERIOD_IN_MAINS_CYCLES, N_MAX) };
-/** their counter: 16 bits up to 36 s, 32 bits above */
-using SampleSetCounter = SampleSets::Counter< MAX_SAMPLE_SETS_PER_DATALOG >;
+/** the most sample sets in a datalog period: 54000 at 30 s, within the 16-bit counter (validation.h) */
+inline constexpr uint32_t MAX_SAMPLE_SETS_PER_DATALOG{ static_cast< uint32_t >(DATALOG_PERIOD_IN_MAINS_CYCLES) * N_MAX };
+/** the shift of the datalog power sum in the ISR: 0, or 4 when the period needs it (Datalog::powerShift()) */
+inline constexpr uint8_t DATALOG_POWER_SHIFT{ Datalog::powerShift(MAX_SAMPLE_SETS_PER_DATALOG) };
 
 //--------------------------------------------------------------------------------------------------
 // From the load map

@@ -61,6 +61,53 @@ inline int16_t watts(const int32_t averagePower, const uint16_t calFixed, const 
   return negative ? static_cast< int16_t >(-result) : result;
 }
 
+/**
+ * @brief The shift by which the ISR scales the power down before adding it to the datalog sum.
+ *
+ * @details In ADC steps: one sample adds V_ADC x I_ADC, at most 2^18; a sine over the whole span
+ *          of the ADC averages 2^17. While a datalog period of full-span sines fits in the signed
+ *          32-bit sum, no shift; beyond, a shift by 4 (at most 2^14 per sample: 30 s fit with any
+ *          signal). The same idea as the V^2 scaling, but from the sample count: a firmware that
+ *          samples faster needs it for shorter periods.
+ *
+ * @param maxSampleSets The most sample sets in a datalog period (MAX_SAMPLE_SETS_PER_DATALOG).
+ * @return 0, or 4.
+ */
+constexpr uint8_t powerShift(const uint32_t maxSampleSets)
+{
+  return maxSampleSets > (static_cast< uint32_t >(INT32_MAX) >> 17) ? 4 : 0;
+}
+
+/**
+ * @brief The average power of a datalog period, back at the x1 scale of V_ADC x I_ADC.
+ *
+ * @details sum x 2^SHIFT / sampleSets, truncated toward zero, in 32 bits: the quotient and the
+ *          remainder are scaled up separately, so the division loses nothing more. The rounding
+ *          of each sample in the ISR keeps the average within 8 (half the shift), and averages
+ *          out with the noise of real samples.
+ *
+ * @tparam SHIFT The shift of the sum in the ISR (powerShift()).
+ * @tparam Count The type of the sample set counter (16 or 32 bits).
+ * @param sum The power summed over the period, scaled down by 2^SHIFT.
+ * @param sampleSets The sample sets of the period (not 0, below 2^27).
+ * @return The average, at most +-2^18.
+ */
+template< uint8_t SHIFT, typename Count >
+inline int32_t averagePower(const int32_t sum, const Count sampleSets)
+{
+  const auto n{ static_cast< int32_t >(sampleSets) };  // a signed division: the sum is signed
+  if constexpr (SHIFT == 0)
+  {
+    return sum / n;
+  }
+  else
+  {
+    const int32_t quotient{ sum / n };
+    const int32_t remainder{ sum % n };  // |remainder| < n: x 2^SHIFT fits
+    return quotient * (static_cast< int32_t >(1) << SHIFT) + remainder * (static_cast< int32_t >(1) << SHIFT) / n;
+  }
+}
+
 #ifdef __AVR__
 using uint24_t = __uint24; /**< 3 bytes on AVR: the remainder and twice the root of the square root */
 #else
@@ -256,33 +303,17 @@ inline uint16_t sqrtScaled(const uint32_t meanSquare, uint8_t& fractionBits)
 }
 
 /**
- * @brief Whether processVoltage() scales V^2 down by 16 before summing it over the datalog period.
- *
- * @details One sample adds at most 2^18 to the 32-bit sum. At up to 36 sample sets per cycle
- *          (3 phases, 6 conversions per set), 9 s give at most 450 x 36 x 2^18 = 4.2e9 at 50 Hz
- *          (540 x 30 x 2^18 at 60 Hz), below 2^32; 10 s would not. processing.cpp checks it
- *          against the real sample count.
- *
- * @param datalogPeriodInSeconds DATALOG_PERIOD_IN_SECONDS.
- * @return true above 9 s.
- */
-constexpr bool isVSquaredScaled(const uint8_t datalogPeriodInSeconds)
-{
-  return datalogPeriodInSeconds > 9;
-}
-
-/**
  * @brief Scaling of the datalog voltage, Vrms_L_x100.
  *
- * @details Hundredths of a volt. When isVSquaredScaled(), processVoltage() scales V^2 down by 16
- *          so that the sum cannot overflow: the root is then 4 times smaller, hence x4.
+ * @details Hundredths of a volt. For datalog periods over 10 s, processVoltage() scales V^2 down
+ *          by 16 so that the sum cannot overflow: the root is then 4 times smaller, hence x4.
  *
  * @param datalogPeriodInSeconds DATALOG_PERIOD_IN_SECONDS.
- * @return The factor for voltageCalibration(): 100, or 400 when V^2 is scaled.
+ * @return The factor for voltageCalibration(): 100, or 400 for periods over 10 s.
  */
 constexpr uint16_t vrmsFactor(const uint8_t datalogPeriodInSeconds)
 {
-  return isVSquaredScaled(datalogPeriodInSeconds) ? 400 : 100;
+  return datalogPeriodInSeconds > 10 ? 400 : 100;
 }
 
 /**

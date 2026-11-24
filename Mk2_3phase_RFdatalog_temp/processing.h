@@ -41,7 +41,6 @@ inline void processPolarity(uint8_t phase, uint16_t rawSample);
 inline void confirmPolarity(uint8_t phase);
 inline void processLatestContribution(uint8_t phase);
 inline void processDataLogging();
-void addToDatalogSums();
 inline void updatePortsStates();
 void updatePhysicalLoadStates();
 #else
@@ -66,9 +65,6 @@ inline void updatePortsStates() __attribute__((optimize("-O3")));
 // not inlined on purpose: inlined, it takes registers that the rest of the ISR then spills to a
 // stack frame on every call (grid simulator: 30 cycles more on average, 65 more at most)
 void updatePhysicalLoadStates() __attribute__((noinline));
-// not inlined on purpose either: its 64-bit datalog sums, inlined, make the ISR spill to a stack
-// frame on every call (grid simulator: 29 cycles more on average)
-void addToDatalogSums() __attribute__((noinline));
 #endif
 
 #endif /* PROCESSING_H */
