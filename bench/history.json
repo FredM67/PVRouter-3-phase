@@ -2096,6 +2096,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "a827000581a31b3f32b2026bd663fa18bb79506d",
+   "date": "2026-11-24T08:25:25+01:00",
+   "message": "perf: one write per port for the load pins, and only on the ports they use (#256)\n\n* perf: one write per port for the load pins, and only on the ports they use\n\nThe ports are volatile, so setPinsOFF() then setPinsON() read and wrote\nPORTD and PORTB twice each per ADC interrupt, PORTB included when no load\npin is on it (mask 0). setPinsState<usedPins>(on, off) writes each port\nonce, and only the ports a load pin is on, decided at compile time from\nthe load map (getLoadPins(): TRIAC pins and remote-load status LEDs).\n\nBasic config (loads on PORTD): 10 single-cycle instructions down to 5.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* perf: the startup pin setup skips the ports none of its pins is on\n\nsetPinsAsOutput() and setPinsAsInputPullup() take their pins as a\ntemplate argument: DDRB |= 0 or PORTB |= 0 is still a read and a write on\na volatile register, now a port without any of the pins is not touched.\n12 bytes less with the default configuration.\n\nThe remote load receiver gets the new utils_pins.h (CI checks that its\ncopy matches) and calls setPinsState() instead of setPinsOFF().\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix(sim): input pins read their scripted level at once\n\nsimavr copies the external levels set with AVR_IOCTL_IOPORT_SET_EXTERNAL\ninto PINx only when the firmware writes the port. The firmware used to\nwrite PORTB once per mains cycle even without a load pin on it (PORTB\n&= ~0, PORTB |= 0), which refreshed PINB by chance; now that it does not,\nthe inputs on PORTB (rotation D12, relay override D13) were never seen\nin the relay scenarios. Each pin of an 'input' line now gets its level\nthrough its IRQ, as the DS18B20 bus already does, so PINx follows the pin\nas on the chip.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/a827000581a31b3f32b2026bd663fa18bb79506d",
+   "sizes": {
+    "basic": {
+     "flash": 7872,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12244,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7872,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7742,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
