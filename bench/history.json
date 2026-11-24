@@ -2141,6 +2141,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "732cf5ad9a120a3077aa898e4d491709b593c986",
+   "date": "2026-11-24T13:31:11+01:00",
+   "message": "ci: the Doxygen documentation follows dev (#257)\n\nThe doc was deployed on pushes to main only, so it went stale between\nreleases and was refreshed by hand from dev, while the size and speed\nhistory next to it follows every push to dev. It is now deployed on each\npush to dev that touches the firmware or the Doxyfile; the doc badge and\nthe landing page say so.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/732cf5ad9a120a3077aa898e4d491709b593c986",
+   "sizes": {
+    "basic": {
+     "flash": 7872,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12244,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7872,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7742,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05,
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09
+   }
   }
  ]
 }
