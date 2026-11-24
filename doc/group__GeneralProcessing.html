@@ -85,6 +85,7 @@ $(function(){ initResizable(false); });
 
 <div class="header">
   <div class="summary">
+<a href="#files">Files</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">General Processing</div></div>
@@ -94,6 +95,15 @@ $(function(){ initResizable(false); });
 <p>Functions and routines that handle general system processing tasks.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="files" name="files"></a>
+Files</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="override__masks_8h.html">override_masks.h</a></td></tr>
+<tr class="memdesc:override__masks_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">The forced outputs: the override pins, and the scheduled boosts of the dual tariff. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pin__edges_8h.html">pin_edges.h</a></td></tr>
+<tr class="memdesc:pin__edges_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">The edges of the active-LOW input pins: pressed, released, or no change. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEWMA__average.html">EWMA_average&lt; A &gt;</a></td></tr>
@@ -123,12 +133,16 @@ Functions</h2></td></tr>
 <tr class="memitem:ga6cceee9dcc5819acbee76f71dad833f7" id="r_ga6cceee9dcc5819acbee76f71dad833f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga6cceee9dcc5819acbee76f71dad833f7">proceedDualTariffLogic</a> ()</td></tr>
 <tr class="memdesc:ga6cceee9dcc5819acbee76f71dad833f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles dual tariff state transitions and priority rotation during off-peak periods.  <br /></td></tr>
 <tr class="separator:ga6cceee9dcc5819acbee76f71dad833f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabe8c38238f5014c09e788c833b50af5e" id="r_gabe8c38238f5014c09e788c833b50af5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gabe8c38238f5014c09e788c833b50af5e">proceedLoadPriorities</a> ()</td></tr>
-<tr class="memdesc:gabe8c38238f5014c09e788c833b50af5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles load priority rotation.  <br /></td></tr>
-<tr class="separator:gabe8c38238f5014c09e788c833b50af5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74b56510aaa212ac90624173a857edaa" id="r_ga74b56510aaa212ac90624173a857edaa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga74b56510aaa212ac90624173a857edaa">proceedLoadPriorities</a> (const bool bOverridden)</td></tr>
+<tr class="memdesc:ga74b56510aaa212ac90624173a857edaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles load priority rotation.  <br /></td></tr>
+<tr class="separator:ga74b56510aaa212ac90624173a857edaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9b9428fd01019319970f27b88bb1cf33" id="r_ga9b9428fd01019319970f27b88bb1cf33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga9b9428fd01019319970f27b88bb1cf33">proceedRotation</a> ()</td></tr>
 <tr class="memdesc:ga9b9428fd01019319970f27b88bb1cf33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceeds with load priority rotation.  <br /></td></tr>
 <tr class="separator:ga9b9428fd01019319970f27b88bb1cf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad44625fcec1a89332de1ca29930f28ea" id="r_gad44625fcec1a89332de1ca29930f28ea"><td class="memTemplParams" colspan="2">template&lt;uint8_t pin&gt; </td></tr>
+<tr class="memitem:gad44625fcec1a89332de1ca29930f28ea"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structPinEdges.html">PinEdges</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gad44625fcec1a89332de1ca29930f28ea">readPinEdges</a> ()</td></tr>
+<tr class="memdesc:gad44625fcec1a89332de1ca29930f28ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an active-LOW input pin, and tells how it changed since the previous reading.  <br /></td></tr>
+<tr class="separator:gad44625fcec1a89332de1ca29930f28ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gade56d6fce22a518b8feff1a150461f94" id="r_gade56d6fce22a518b8feff1a150461f94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gade56d6fce22a518b8feff1a150461f94">sendResults</a> (bool bOffPeak)</td></tr>
 <tr class="memdesc:gade56d6fce22a518b8feff1a150461f94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints or sends telemetry data logs based on the selected output format.  <br /></td></tr>
 <tr class="separator:gade56d6fce22a518b8feff1a150461f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,7 +188,8 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="structOverrideMasks.html" title="Holds both local and remote override bitmasks.">OverrideMasks</a> struct containing both local (physical pins) and remote (virtual pins) bitmasks.</dd></dl>
 <ul>
-<li>First checks all configured external override pins and sets corresponding bits.</li>
+<li>The logic is <a class="el" href="namespaceForcing.html#ae53199beda3c60c5a7c552c4eb7e42f2" title="The targets of the override pins that are active (held LOW).">Forcing::pinForcing()</a> (<a class="el" href="override__masks_8h.html" title="The forced outputs: the override pins, and the scheduled boosts of the dual tariff.">override_masks.h</a>); this wrapper reads the pins.</li>
+<li>First checks all configured external override pins (active LOW) and sets corresponding bits.</li>
 <li>Local bitmask controls physical pins (loads/relays on pins 2-13).</li>
 <li>Remote bitmask controls remote loads (bit n = remote load n).</li>
 <li>Then applies dual tariff forcing using bitwise OR operation (local and remote).</li>
@@ -182,30 +197,26 @@ Functions</h2></td></tr>
 <li>Function is called atomically to prevent race conditions with ISR. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00152">152</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00114">114</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__GeneralProcessing_ga138363324cdfb878a017c41a0d33bcf3_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga138363324cdfb878a017c41a0d33bcf3_cgraph" alt=""/></div>
 <map name="agroup__GeneralProcessing_ga138363324cdfb878a017c41a0d33bcf3_cgraph" id="agroup__GeneralProcessing_ga138363324cdfb878a017c41a0d33bcf3_cgraph">
-<area shape="rect" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="5,84,158,112"/>
-<area shape="rect" href="group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="206,57,411,85"/>
-<area shape="poly" title=" " alt="" coords="158,86,193,84,188,86,159,92"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="260,109,356,137"/>
-<area shape="poly" title=" " alt="" coords="158,104,247,116,242,117,158,109"/>
-<area shape="rect" href="utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="482,5,547,33"/>
-<area shape="poly" title=" " alt="" coords="366,54,464,32,469,30,367,59"/>
-<area shape="rect" href="utils__override_8h.html#ab72aa66577de637d07a6d3bb1b809108" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="459,57,569,85"/>
-<area shape="poly" title=" " alt="" coords="411,69,446,71,441,71,411,74"/>
-<area shape="rect" href="namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="820,59,925,86"/>
-<area shape="poly" title=" " alt="" coords="563,54,617,43,695,37,772,43,815,54,810,54,771,48,695,42,618,48,564,59"/>
-<area shape="rect" href="namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="647,57,742,85"/>
-<area shape="poly" title=" " alt="" coords="570,69,634,71,629,71,570,74"/>
-<area shape="rect" href="namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="617,109,772,137"/>
-<area shape="poly" title=" " alt="" coords="565,83,632,105,627,104,565,88"/>
-<area shape="poly" title=" " alt="" coords="745,106,804,91,809,91,746,111"/>
-<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="477,109,551,137"/>
-<area shape="poly" title=" " alt="" coords="357,121,464,123,459,123,357,126"/>
+<area shape="rect" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="5,107,158,134"/>
+<area shape="rect" href="group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="206,55,411,82"/>
+<area shape="poly" title=" " alt="" coords="144,103,232,85,227,88,146,109"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="260,107,356,134"/>
+<area shape="poly" title=" " alt="" coords="158,118,247,119,242,122,158,123"/>
+<area shape="rect" href="namespaceForcing.html#ae53199beda3c60c5a7c552c4eb7e42f2" title="The targets of the override pins that are active (held LOW)." alt="" coords="237,159,380,186"/>
+<area shape="poly" title=" " alt="" coords="146,132,232,154,227,155,145,138"/>
+<area shape="rect" href="namespaceForcing.html#a3b89513ed1a630712a3132079cfa6410" title="The targets of the scheduled boosts whose window is open." alt="" coords="459,5,618,33"/>
+<area shape="poly" title=" " alt="" coords="375,52,459,36,454,38,377,57"/>
+<area shape="rect" href="group__DualTariff.html#ga686c4ecdf9da4efb37be3fe956774d83" title="Reads scheduled boost i from flash." alt="" coords="666,31,754,58"/>
+<area shape="poly" title=" " alt="" coords="411,60,654,47,649,49,412,65"/>
+<area shape="poly" title=" " alt="" coords="619,28,653,36,648,36,619,34"/>
+<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="502,107,576,134"/>
+<area shape="poly" title=" " alt="" coords="357,118,489,120,483,121,357,123"/>
 </map>
 </div>
 <div class="dynheader">
@@ -254,75 +265,82 @@ Here is the caller graph for this function:</div>
 <dl class="section note"><dt>Note</dt><dd>Override pins are checked at 1 Hz (once per second) for debouncing and to minimize ISR communication overhead. This means override pin changes have a latency of 0-1 second before taking effect. This is acceptable since override pins are typically used for manual control or scheduled operations (e.g., dual tariff forcing) rather than time-critical automatic control.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">bOffPeak</td><td>Reference to the off-peak state flag. </td></tr>
+    <tr><td class="paramname">bOffPeak</td><td><a class="el" href="classReference.html" title="The buffered TeleInfo class of the firmware, as it was (utoa() aside): the reference of the frame....">Reference</a> to the off-peak state flag. </td></tr>
     <tr><td class="paramname">iTemperature_x100</td><td>Current temperature multiplied by 100 (default to 0 if temperature sensing is disabled). </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00518">518</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00513">513</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__GeneralProcessing_ga143b5ab1cc611c04c761240ce5687fdd_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga143b5ab1cc611c04c761240ce5687fdd_cgraph" alt=""/></div>
 <map name="agroup__GeneralProcessing_ga143b5ab1cc611c04c761240ce5687fdd_cgraph" id="agroup__GeneralProcessing_ga143b5ab1cc611c04c761240ce5687fdd_cgraph">
-<area shape="rect" title="Handles tasks that need to be executed every second." alt="" coords="5,232,175,260"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="231,104,384,132"/>
-<area shape="poly" title=" " alt="" coords="106,230,156,190,221,148,250,136,246,140,224,152,159,194,110,233"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="234,205,380,233"/>
-<area shape="poly" title=" " alt="" coords="174,233,221,229,217,231,176,238"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="260,257,354,285"/>
-<area shape="poly" title=" " alt="" coords="174,253,247,263,243,265,175,258"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="223,309,392,337"/>
-<area shape="poly" title=" " alt="" coords="127,257,224,294,247,304,242,304,222,299,127,263"/>
-<area shape="rect" href="group__GeneralProcessing.html#gabe8c38238f5014c09e788c833b50af5e" title="Handles load priority rotation." alt="" coords="226,361,388,389"/>
-<area shape="poly" title=" " alt="" coords="106,257,157,301,189,325,224,346,240,355,235,355,221,351,186,330,154,305,105,263"/>
-<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="502,108,584,136"/>
-<area shape="poly" title=" " alt="" coords="122,229,222,191,364,154,488,130,484,133,365,159,223,196,125,234"/>
-<area shape="rect" href="group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="440,56,645,84"/>
-<area shape="poly" title=" " alt="" coords="377,101,459,86,454,89,380,106"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="494,209,591,237"/>
-<area shape="poly" title=" " alt="" coords="341,130,498,202,493,203,340,135"/>
-<area shape="rect" href="utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="726,108,791,136"/>
-<area shape="poly" title=" " alt="" coords="603,82,714,110,709,111,604,87"/>
-<area shape="rect" href="utils__override_8h.html#ab72aa66577de637d07a6d3bb1b809108" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="703,56,814,84"/>
-<area shape="poly" title=" " alt="" coords="645,67,690,69,685,71,646,72"/>
-<area shape="rect" href="namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="1074,81,1179,109"/>
-<area shape="poly" title=" " alt="" coords="814,71,1061,90,1056,91,814,76"/>
-<area shape="rect" href="namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="901,5,996,33"/>
-<area shape="poly" title=" " alt="" coords="812,53,889,35,884,37,814,58"/>
-<area shape="rect" href="namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="872,107,1026,134"/>
-<area shape="poly" title=" " alt="" coords="813,82,882,102,877,102,813,87"/>
-<area shape="poly" title=" " alt="" coords="1026,107,1061,104,1056,105,1027,112"/>
-<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="721,209,796,237"/>
-<area shape="poly" title=" " alt="" coords="591,221,708,223,703,224,592,226"/>
-<area shape="poly" title=" " alt="" coords="381,218,481,221,476,223,381,223"/>
-<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="912,311,986,338"/>
-<area shape="poly" title=" " alt="" coords="380,203,440,195,549,180,636,165,678,162,722,165,770,176,825,195,859,215,889,242,933,298,928,297,886,246,856,220,823,200,768,181,721,171,678,168,637,171,550,185,440,200,382,208"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="1098,311,1156,338"/>
-<area shape="poly" title=" " alt="" coords="986,322,1084,324,1079,325,986,327"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1227,337,1399,365"/>
-<area shape="poly" title=" " alt="" coords="1156,326,1215,337,1209,337,1156,331"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1447,337,1607,365"/>
-<area shape="poly" title=" " alt="" coords="1399,349,1434,351,1429,351,1399,354"/>
-<area shape="poly" title=" " alt="" coords="354,259,481,235,476,237,355,264"/>
-<area shape="poly" title=" " alt="" coords="355,270,559,281,824,303,900,316,894,316,823,308,558,286,355,276"/>
-<area shape="poly" title=" " alt="" coords="357,306,391,294,499,246,504,244,393,299,359,311"/>
-<area shape="poly" title=" " alt="" coords="392,321,898,322,896,327,392,326"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="478,361,607,389"/>
-<area shape="poly" title=" " alt="" coords="374,335,466,357,461,358,373,340"/>
-<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="693,361,824,389"/>
-<area shape="poly" title=" " alt="" coords="607,373,681,375,675,375,607,378"/>
-<area shape="poly" title=" " alt="" coords="813,358,895,338,900,338,814,363"/>
-<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="918,363,980,390"/>
-<area shape="poly" title=" " alt="" coords="824,373,905,376,900,376,824,378"/>
-<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="1104,363,1150,390"/>
-<area shape="poly" title=" " alt="" coords="980,374,1091,376,1086,377,980,379"/>
-<area shape="poly" title=" " alt="" coords="1150,371,1210,365,1215,365,1150,376"/>
-<area shape="poly" title=" " alt="" coords="363,358,391,346,427,323,461,297,515,249,520,247,465,301,430,327,393,351,365,363"/>
-<area shape="poly" title=" " alt="" coords="353,387,443,410,500,421,562,428,628,432,694,429,760,418,823,398,838,388,846,376,855,362,870,349,895,339,900,338,873,353,859,366,851,379,841,392,825,403,761,423,695,434,627,437,561,434,499,426,442,415,352,392"/>
-<area shape="poly" title=" " alt="" coords="389,373,465,375,460,375,389,378"/>
-<area shape="poly" title=" " alt="" coords="584,119,713,121,708,123,585,124"/>
+<area shape="rect" title="Handles tasks that need to be executed every second." alt="" coords="5,311,175,338"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="231,108,384,136"/>
+<area shape="poly" title=" " alt="" coords="104,308,280,143,280,149,108,312"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="234,232,380,260"/>
+<area shape="poly" title=" " alt="" coords="124,308,222,270,247,263,243,267,224,275,127,312"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="260,284,354,312"/>
+<area shape="poly" title=" " alt="" coords="174,312,247,304,243,307,176,317"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="223,336,392,364"/>
+<area shape="poly" title=" " alt="" coords="174,332,210,337,205,339,176,337"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="226,388,388,416"/>
+<area shape="poly" title=" " alt="" coords="127,336,224,373,247,382,242,383,222,378,127,341"/>
+<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="266,489,348,517"/>
+<area shape="poly" title=" " alt="" coords="110,336,279,478,275,480,107,341"/>
+<area shape="rect" href="group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="440,31,645,58"/>
+<area shape="poly" title=" " alt="" coords="350,105,439,75,485,62,481,65,441,80,353,110"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="725,83,821,110"/>
+<area shape="poly" title=" " alt="" coords="383,115,712,98,708,102,385,120"/>
+<area shape="rect" href="namespaceForcing.html#ae53199beda3c60c5a7c552c4eb7e42f2" title="The targets of the override pins that are active (held LOW)." alt="" coords="471,133,614,161"/>
+<area shape="poly" title=" " alt="" coords="383,127,458,137,453,139,384,133"/>
+<area shape="rect" href="namespaceForcing.html#a3b89513ed1a630712a3132079cfa6410" title="The targets of the scheduled boosts whose window is open." alt="" coords="693,31,853,58"/>
+<area shape="poly" title=" " alt="" coords="645,42,680,44,675,45,647,47"/>
+<area shape="rect" href="group__DualTariff.html#ga686c4ecdf9da4efb37be3fe956774d83" title="Reads scheduled boost i from flash." alt="" coords="901,5,988,33"/>
+<area shape="poly" title=" " alt="" coords="614,28,693,17,795,12,888,16,883,17,795,18,694,22,616,32"/>
+<area shape="poly" title=" " alt="" coords="852,30,887,27,883,29,854,35"/>
+<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="907,83,982,110"/>
+<area shape="poly" title=" " alt="" coords="821,94,894,96,889,97,822,99"/>
+<area shape="rect" href="group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="488,235,597,262"/>
+<area shape="poly" title=" " alt="" coords="380,244,475,247,470,249,382,249"/>
+<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="908,360,981,388"/>
+<area shape="poly" title=" " alt="" coords="370,229,429,219,498,212,572,211,646,221,725,245,799,279,864,316,914,351,908,350,861,321,797,284,723,250,645,226,572,217,498,217,430,224,372,234"/>
+<area shape="poly" title=" " alt="" coords="563,232,644,171,666,145,676,133,692,121,713,113,708,115,695,125,680,137,670,148,647,174,566,236"/>
+<area shape="rect" href="pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="716,135,830,162"/>
+<area shape="poly" title=" " alt="" coords="575,232,728,168,723,170,578,237"/>
+<area shape="rect" href="pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="904,135,984,162"/>
+<area shape="poly" title=" " alt="" coords="829,146,891,148,886,149,831,151"/>
+<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="1036,363,1094,390"/>
+<area shape="poly" title=" " alt="" coords="981,372,1023,375,1018,376,981,377"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1142,396,1314,424"/>
+<area shape="poly" title=" " alt="" coords="1095,380,1145,392,1139,392,1095,385"/>
+<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1362,396,1522,424"/>
+<area shape="poly" title=" " alt="" coords="1314,407,1349,410,1344,410,1314,412"/>
+<area shape="poly" title=" " alt="" coords="354,286,475,262,471,264,356,291"/>
+<area shape="poly" title=" " alt="" coords="355,297,571,310,712,324,853,346,895,358,890,358,852,351,711,330,571,315,355,302"/>
+<area shape="poly" title=" " alt="" coords="357,333,391,321,505,269,500,271,393,326,359,338"/>
+<area shape="poly" title=" " alt="" coords="392,350,893,370,891,374,392,356"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="478,387,607,414"/>
+<area shape="poly" title=" " alt="" coords="375,362,466,383,461,384,375,367"/>
+<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="708,437,838,465"/>
+<area shape="poly" title=" " alt="" coords="608,412,695,433,690,434,607,417"/>
+<area shape="poly" title=" " alt="" coords="810,434,852,417,900,396,905,394,854,422,812,439"/>
+<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="914,433,975,461"/>
+<area shape="poly" title=" " alt="" coords="838,447,901,448,896,448,839,452"/>
+<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="1042,421,1088,449"/>
+<area shape="poly" title=" " alt="" coords="975,441,1029,439,1024,439,976,447"/>
+<area shape="poly" title=" " alt="" coords="1088,429,1124,426,1129,425,1089,434"/>
+<area shape="poly" title=" " alt="" coords="363,385,391,373,427,349,461,323,516,275,520,272,465,327,430,354,393,378,365,390"/>
+<area shape="poly" title=" " alt="" coords="375,414,440,423,543,429,645,423,779,405,895,385,890,386,780,410,646,428,543,435,440,428,375,419"/>
+<area shape="poly" title=" " alt="" coords="388,399,465,400,460,402,389,404"/>
+<area shape="rect" href="pin__edges_8h.html#a817c8abf26d0b5dff72b46a2b910c06f" title="Tells whether the rotation pin asks for a rotation now." alt="" coords="464,488,621,516"/>
+<area shape="poly" title=" " alt="" coords="334,414,383,440,441,467,478,483,473,483,439,472,381,445,333,419"/>
+<area shape="rect" href="structPinEdges.html#a8d666a88ac780603e6d26475bec567d6" title="it went LOW since the previous reading" alt="" coords="703,489,843,517"/>
+<area shape="poly" title=" " alt="" coords="621,500,691,503,685,503,621,505"/>
+<area shape="rect" href="utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="510,540,575,568"/>
+<area shape="poly" title=" " alt="" coords="349,509,498,543,492,544,348,515"/>
 </map>
 </div>
 <div class="dynheader">
@@ -356,25 +374,31 @@ Here is the caller graph for this function:</div>
 <p>Reads the diversion pin. </p>
 <dl class="section return"><dt>Returns</dt><dd>true unless the diversion pin is LOW. With diversion OFF, the surplus is not diverted any more, but forced loads and relays stay ON. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00193">193</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00156">156</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__GeneralProcessing_ga4e06ff3a8f34e61a5a7029370755ffd1_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga4e06ff3a8f34e61a5a7029370755ffd1_cgraph" alt=""/></div>
 <map name="agroup__GeneralProcessing_ga4e06ff3a8f34e61a5a7029370755ffd1_cgraph" id="agroup__GeneralProcessing_ga4e06ff3a8f34e61a5a7029370755ffd1_cgraph">
-<area shape="rect" title="Reads the diversion pin." alt="" coords="5,32,152,60"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="200,5,296,33"/>
-<area shape="poly" title=" " alt="" coords="151,32,187,28,182,30,153,37"/>
-<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="211,57,284,85"/>
-<area shape="poly" title=" " alt="" coords="152,54,199,63,193,64,152,59"/>
-<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="344,5,418,33"/>
-<area shape="poly" title=" " alt="" coords="296,17,331,19,326,19,297,22"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="352,57,410,85"/>
-<area shape="poly" title=" " alt="" coords="285,69,339,71,334,71,285,74"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="466,57,638,85"/>
-<area shape="poly" title=" " alt="" coords="411,69,453,71,448,71,411,74"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="686,57,846,85"/>
-<area shape="poly" title=" " alt="" coords="638,69,673,71,668,71,638,74"/>
+<area shape="rect" title="Reads the diversion pin." alt="" coords="5,84,152,112"/>
+<area shape="rect" href="group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="200,57,309,85"/>
+<area shape="poly" title=" " alt="" coords="152,84,187,81,182,82,153,89"/>
+<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="218,109,291,137"/>
+<area shape="poly" title=" " alt="" coords="152,106,205,115,200,116,152,111"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="366,5,462,33"/>
+<area shape="poly" title=" " alt="" coords="299,54,352,39,357,38,300,59"/>
+<area shape="rect" href="pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="357,57,470,85"/>
+<area shape="poly" title=" " alt="" coords="309,69,344,71,339,71,310,74"/>
+<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="567,5,641,33"/>
+<area shape="poly" title=" " alt="" coords="462,17,554,19,549,20,463,22"/>
+<area shape="rect" href="pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="564,57,644,85"/>
+<area shape="poly" title=" " alt="" coords="471,69,551,71,546,71,471,74"/>
+<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="384,109,443,137"/>
+<area shape="poly" title=" " alt="" coords="292,121,371,123,366,123,292,126"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="518,109,690,137"/>
+<area shape="poly" title=" " alt="" coords="443,121,505,123,500,123,443,126"/>
+<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="738,109,898,137"/>
+<area shape="poly" title=" " alt="" coords="690,121,725,123,720,123,690,126"/>
 </map>
 </div>
 <div class="dynheader">
@@ -412,25 +436,31 @@ Here is the caller graph for this function:</div>
 <p>Tells whether the router is OFF. </p>
 <dl class="section return"><dt>Returns</dt><dd>true in calibration mode, or while the router OFF pin is LOW. With the router OFF, every load and relay is OFF, forcing included. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00226">226</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00183">183</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__GeneralProcessing_ga0f30f7b5a1d8e7d17f0fb30c81eb4c59_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga0f30f7b5a1d8e7d17f0fb30c81eb4c59_cgraph" alt=""/></div>
 <map name="agroup__GeneralProcessing_ga0f30f7b5a1d8e7d17f0fb30c81eb4c59_cgraph" id="agroup__GeneralProcessing_ga0f30f7b5a1d8e7d17f0fb30c81eb4c59_cgraph">
-<area shape="rect" title="Tells whether the router is OFF." alt="" coords="5,32,100,60"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="148,5,244,33"/>
-<area shape="poly" title=" " alt="" coords="100,34,135,30,130,32,101,40"/>
-<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="159,57,232,85"/>
-<area shape="poly" title=" " alt="" coords="100,52,147,61,141,63,100,57"/>
-<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="292,5,366,33"/>
-<area shape="poly" title=" " alt="" coords="244,17,279,19,274,20,245,22"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="300,57,358,85"/>
-<area shape="poly" title=" " alt="" coords="233,69,287,71,282,71,233,74"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="414,57,586,85"/>
-<area shape="poly" title=" " alt="" coords="359,69,401,71,396,71,359,74"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="634,57,794,85"/>
-<area shape="poly" title=" " alt="" coords="586,69,621,71,616,71,586,74"/>
+<area shape="rect" title="Tells whether the router is OFF." alt="" coords="5,84,100,112"/>
+<area shape="rect" href="group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="148,57,257,85"/>
+<area shape="poly" title=" " alt="" coords="99,87,135,83,130,85,101,92"/>
+<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="166,109,239,137"/>
+<area shape="poly" title=" " alt="" coords="100,103,153,114,148,115,100,108"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="314,5,410,33"/>
+<area shape="poly" title=" " alt="" coords="246,54,305,37,300,39,248,59"/>
+<area shape="rect" href="pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="305,57,418,85"/>
+<area shape="poly" title=" " alt="" coords="257,69,292,71,287,72,258,74"/>
+<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="515,5,589,33"/>
+<area shape="poly" title=" " alt="" coords="410,17,502,19,497,20,411,22"/>
+<area shape="rect" href="pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="512,57,592,85"/>
+<area shape="poly" title=" " alt="" coords="419,69,499,71,494,71,419,74"/>
+<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="332,109,391,137"/>
+<area shape="poly" title=" " alt="" coords="240,121,319,123,314,123,240,126"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="466,109,638,137"/>
+<area shape="poly" title=" " alt="" coords="391,121,453,123,448,123,391,126"/>
+<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="686,109,846,137"/>
+<area shape="poly" title=" " alt="" coords="638,121,673,123,668,123,638,126"/>
 </map>
 </div>
 <div class="dynheader">
@@ -480,7 +510,7 @@ Here is the caller graph for this function:</div>
 <li>Like every text message, it is only printed in human-readable output mode. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00588">588</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00615">615</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -514,7 +544,7 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="701,82,631,95,631,90,696,83"/>
 <area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,5,489,33"/>
 <area shape="poly" title=" " alt="" coords="519,34,490,33,490,27,525,34"/>
-<area shape="rect" href="group__GeneralProcessing.html#gabe8c38238f5014c09e788c833b50af5e" title="Handles load priority rotation." alt="" coords="324,57,486,85"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="324,57,486,85"/>
 <area shape="poly" title=" " alt="" coords="525,55,487,63,486,57,519,56"/>
 <area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,32,272,60"/>
 <area shape="poly" title=" " alt="" coords="302,32,273,38,272,33,307,31"/>
@@ -544,152 +574,177 @@ Here is the caller graph for this function:</div>
 <p>Main processor loop. </p>
 <p>This function handles non-time-critical tasks such as load management, telemetry updates, and temperature sensing. It processes ADC data through flags set by the ISR and ensures proper system operation.</p>
 <ul>
-<li>Executes tasks triggered by the <code>b_newMainsCycle</code> flag, which is set after every pair of ADC conversions.</li>
+<li>Executes tasks triggered by the <code>b_newMainsCycle</code> flag, which is set once per mains cycle; with temperature sensing, the cycle's 1-Wire transaction first, before any other work.</li>
 <li>Handles per-second tasks such as load priority management and diversion state updates.</li>
 <li>Processes data logging events and updates power, voltage, and temperature data.</li>
 <li>Sends telemetry results and updates relay states if relay diversion is enabled. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00572">572</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00565">565</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__GeneralProcessing_gafe461d27b9c48d5921c00d521181f12f_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_gafe461d27b9c48d5921c00d521181f12f_cgraph" alt=""/></div>
 <map name="agroup__GeneralProcessing_gafe461d27b9c48d5921c00d521181f12f_cgraph" id="agroup__GeneralProcessing_gafe461d27b9c48d5921c00d521181f12f_cgraph">
-<area shape="rect" title="Main processor loop." alt="" coords="5,696,55,724"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="141,208,310,236"/>
-<area shape="poly" title=" " alt="" coords="30,695,50,573,71,490,100,406,123,360,150,316,204,245,202,250,155,319,128,363,105,408,76,491,55,575,36,696"/>
-<area shape="rect" href="namespaceSerialOutput.html#afd684610f3d410706ad307dcb113376a" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="1484,388,1618,416"/>
-<area shape="poly" title=" " alt="" coords="41,694,103,627,151,583,208,537,272,494,342,457,417,432,456,426,495,423,1188,423,1337,418,1472,409,1467,411,1338,423,1189,428,495,428,456,431,418,438,344,462,275,498,211,541,154,587,107,631,46,697"/>
-<area shape="rect" href="remote__loads_8h.html#a211dca9dd78a03ea9ec6cdd620ad85bb" title="Process pending RF transmissions." alt="" coords="103,721,348,749"/>
-<area shape="poly" title=" " alt="" coords="53,711,101,717,97,720,56,715"/>
-<area shape="rect" href="group__TemperatureSensing.html#ga90dc0c3192649d64ae885b62e6afa6e4" title="Processes temperature data from DS18B20 sensors." alt="" coords="133,773,318,801"/>
-<area shape="poly" title=" " alt="" coords="46,721,74,741,104,758,125,767,121,770,102,763,71,745,48,726"/>
-<area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="175,669,276,697"/>
-<area shape="poly" title=" " alt="" coords="53,704,161,690,158,694,57,709"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="120,1055,331,1082"/>
-<area shape="poly" title=" " alt="" coords="41,722,212,1040,207,1042,37,726"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="420,104,572,132"/>
-<area shape="poly" title=" " alt="" coords="252,206,317,174,395,142,423,134,419,138,397,147,319,179,256,209"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="423,208,569,236"/>
-<area shape="poly" title=" " alt="" coords="309,220,410,220,406,224,312,224"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="449,156,543,184"/>
-<area shape="poly" title=" " alt="" coords="300,205,436,180,432,184,303,209"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="412,312,581,340"/>
-<area shape="poly" title=" " alt="" coords="253,234,319,265,397,297,423,306,419,308,395,302,317,269,255,239"/>
-<area shape="rect" href="group__GeneralProcessing.html#gabe8c38238f5014c09e788c833b50af5e" title="Handles load priority rotation." alt="" coords="415,260,577,288"/>
-<area shape="poly" title=" " alt="" coords="300,234,408,255,403,258,303,239"/>
-<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="711,5,793,33"/>
-<area shape="poly" title=" " alt="" coords="238,206,302,149,347,117,395,90,474,61,556,41,632,28,698,21,694,24,633,33,557,46,476,66,397,95,350,121,306,153,243,209"/>
-<area shape="rect" href="group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="649,57,855,85"/>
-<area shape="poly" title=" " alt="" coords="571,102,659,87,655,90,574,106"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="704,159,800,186"/>
-<area shape="poly" title=" " alt="" coords="563,130,691,158,686,160,565,135"/>
-<area shape="rect" href="utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="952,5,1018,33"/>
-<area shape="poly" title=" " alt="" coords="816,54,939,28,935,31,819,59"/>
-<area shape="rect" href="utils__override_8h.html#ab72aa66577de637d07a6d3bb1b809108" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="930,57,1040,85"/>
-<area shape="poly" title=" " alt="" coords="854,69,917,70,912,72,856,74"/>
-<area shape="rect" href="namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="1312,83,1418,110"/>
-<area shape="poly" title=" " alt="" coords="1040,72,1300,91,1295,93,1041,77"/>
-<area shape="rect" href="namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="1140,7,1235,34"/>
-<area shape="poly" title=" " alt="" coords="1039,55,1127,35,1122,38,1042,60"/>
-<area shape="rect" href="namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="1110,108,1264,136"/>
-<area shape="poly" title=" " alt="" coords="1040,82,1117,103,1112,104,1041,87"/>
-<area shape="poly" title=" " alt="" coords="1264,108,1299,105,1294,107,1266,113"/>
-<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="948,159,1022,186"/>
-<area shape="poly" title=" " alt="" coords="799,170,934,171,930,174,801,175"/>
-<area shape="poly" title=" " alt="" coords="568,205,690,183,686,186,571,210"/>
-<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="1150,260,1224,288"/>
-<area shape="poly" title=" " alt="" coords="569,222,790,231,1062,253,1138,264,1133,266,1062,258,790,237,571,227"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="1336,260,1394,288"/>
-<area shape="poly" title=" " alt="" coords="1224,271,1323,273,1318,275,1225,276"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1466,312,1637,340"/>
-<area shape="poly" title=" " alt="" coords="1394,279,1487,307,1482,308,1395,284"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1685,363,1845,390"/>
-<area shape="poly" title=" " alt="" coords="1612,338,1692,358,1686,359,1613,343"/>
-<area shape="poly" title=" " alt="" coords="543,168,690,170,686,173,545,173"/>
-<area shape="poly" title=" " alt="" coords="542,159,644,145,708,137,763,128,858,112,903,109,951,112,1003,123,1063,145,1098,165,1128,191,1172,247,1167,247,1124,195,1095,169,1061,150,1002,128,950,117,903,114,859,117,764,134,709,143,645,150,545,163"/>
-<area shape="poly" title=" " alt="" coords="564,309,595,297,633,274,669,247,729,196,725,200,672,251,636,278,598,302,568,314"/>
-<area shape="poly" title=" " alt="" coords="542,338,641,362,703,373,772,382,845,385,919,382,992,370,1061,347,1076,337,1085,325,1094,312,1109,298,1138,286,1134,289,1111,303,1098,315,1089,328,1080,341,1063,352,993,375,919,387,845,390,772,387,703,379,640,367,543,343"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="688,311,816,338"/>
-<area shape="poly" title=" " alt="" coords="580,323,675,324,670,326,583,328"/>
-<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="920,311,1050,338"/>
-<area shape="poly" title=" " alt="" coords="815,322,906,323,902,326,817,327"/>
-<area shape="poly" title=" " alt="" coords="1042,308,1138,285,1133,288,1044,313"/>
-<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="1156,312,1218,340"/>
-<area shape="poly" title=" " alt="" coords="1050,322,1144,325,1139,327,1051,327"/>
-<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="1342,312,1388,340"/>
-<area shape="poly" title=" " alt="" coords="1217,323,1329,325,1324,327,1219,328"/>
-<area shape="poly" title=" " alt="" coords="1388,323,1453,325,1447,327,1389,328"/>
-<area shape="poly" title=" " alt="" coords="557,257,595,245,656,219,713,192,709,196,658,224,597,250,560,262"/>
-<area shape="poly" title=" " alt="" coords="577,271,1137,272,1133,276,578,276"/>
-<area shape="poly" title=" " alt="" coords="569,286,675,308,670,310,571,291"/>
-<area shape="poly" title=" " alt="" coords="792,17,939,18,934,21,795,22"/>
-<area shape="poly" title=" " alt="" coords="1618,391,1672,387,1667,389,1620,396"/>
-<area shape="rect" href="namespaceSharedRF.html#a1885bc1c65805664c2ad68a37868cd57" title="Accessor for the shared RFM69 instance." alt="" coords="923,824,1046,852"/>
-<area shape="poly" title=" " alt="" coords="327,747,350,760,362,772,369,786,373,814,379,839,385,851,397,861,459,893,514,910,565,914,616,910,725,885,788,871,859,861,913,855,908,856,860,866,788,876,726,890,617,915,565,920,513,915,456,898,395,865,381,854,374,841,368,815,363,788,357,776,346,764,328,752"/>
-<area shape="rect" href="namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c" title="Whether an output is still in progress." alt="" coords="681,671,823,698"/>
-<area shape="poly" title=" " alt="" coords="275,681,668,682,664,686,277,686"/>
-<area shape="rect" href="group__Telemetry.html#ga0018bc6f3f3b53571428522d11575051" title="One step of the datalog in JSON format." alt="" coords="442,567,550,594"/>
-<area shape="poly" title=" " alt="" coords="253,667,318,636,395,605,429,596,425,599,397,610,320,641,257,671"/>
-<area shape="rect" href="group__Telemetry.html#ga678079c20f2260c02b6d805a3252fdb8" title="One step of the datalog in text format." alt="" coords="442,515,550,542"/>
-<area shape="poly" title=" " alt="" coords="239,667,304,612,347,580,395,553,430,541,426,545,397,558,350,585,307,616,243,671"/>
-<area shape="rect" href="utils__rf_8h.html#af4688adbf4f3ed19323b79cf2fa2272b" title="Send RF data to gateway." alt="" coords="444,824,549,852"/>
-<area shape="poly" title=" " alt="" coords="275,682,314,689,350,708,362,720,369,733,375,760,380,785,387,797,398,809,431,828,426,829,394,813,382,800,375,787,370,761,364,735,358,723,346,712,312,694,277,687"/>
-<area shape="rect" href="utils_8h.html#a1907e04bd551745d6acdaaf198bda73a" title="Sends telemetry data using the TeleInfo class." alt="" coords="422,720,570,748"/>
-<area shape="poly" title=" " alt="" coords="275,690,409,716,404,719,277,695"/>
-<area shape="rect" href="namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="426,619,566,646"/>
-<area shape="poly" title=" " alt="" coords="275,672,413,647,409,650,277,676"/>
-<area shape="rect" href="group__Telemetry.html#gac998b3a180f6abe87514dad43b9033f2" title="One step of the telemetry frame: its next part." alt="" coords="429,772,563,800"/>
-<area shape="poly" title=" " alt="" coords="275,685,313,693,349,708,365,720,374,733,383,745,397,757,417,768,412,769,395,761,379,749,370,736,361,723,347,712,311,698,277,690"/>
-<area shape="rect" href="utils_8h.html#ad526defbfbce2f1f32bcb38a7a1a7b42" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="679,567,825,594"/>
-<area shape="poly" title=" " alt="" coords="549,578,666,579,661,582,551,583"/>
-<area shape="rect" href="namespaceSerialOutput.html#a5c00010099424ac29a16b77dbd562e5c" title="Print a value given in hundredths, in its shortest decimal form." alt="" coords="644,619,860,646"/>
-<area shape="poly" title=" " alt="" coords="549,589,668,614,663,616,551,594"/>
-<area shape="poly" title=" " alt="" coords="549,537,668,562,663,564,551,542"/>
-<area shape="rect" href="namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="651,463,853,490"/>
-<area shape="poly" title=" " alt="" coords="549,515,668,492,663,495,551,520"/>
-<area shape="rect" href="namespaceEnergy.html#a993caf3ccf42a68629e46c31dc5fe885" title="An energy in bucket units, in hundredths of a joule (for the datalog)." alt="" coords="648,515,856,542"/>
-<area shape="poly" title=" " alt="" coords="549,526,635,527,630,530,551,531"/>
-<area shape="rect" href="namespaceEnergy.html#a7aaa5a81b4e5ecaca75d4e9f5eb9a052" title="Greatest common divisor, to reduce fractions at compile time." alt="" coords="937,515,1033,542"/>
-<area shape="poly" title=" " alt="" coords="856,526,923,528,918,529,857,531"/>
-<area shape="poly" title=" " alt="" coords="950,514,944,506,949,496,963,490,985,488,1009,491,1023,499,1018,500,1007,496,985,493,964,495,952,500,950,505,955,515"/>
-<area shape="poly" title=" " alt="" coords="548,824,644,810,752,803,860,810,913,820,908,821,859,815,752,808,645,815,550,829"/>
-<area shape="rect" href="utils__rf_8h.html#af054c00af4d014f9db280e6e6e19e968" title="Initialize the shared RF module." alt="" coords="705,824,799,852"/>
-<area shape="poly" title=" " alt="" coords="549,835,692,837,687,839,550,840"/>
-<area shape="poly" title=" " alt="" coords="799,835,910,837,905,838,800,840"/>
-<area shape="poly" title=" " alt="" coords="566,644,668,666,663,668,567,649"/>
-<area shape="rect" href="namespaceDatalog.html#a7704334869b4be2aef18346b7c201ce5" title="The power calibration in fixed point, for watts(), built at compile time." alt="" coords="400,977,592,1005"/>
-<area shape="poly" title=" " alt="" coords="273,1052,395,1015,428,1009,423,1010,397,1020,275,1057"/>
-<area shape="rect" href="namespaceDatalog.html#a05836e3079ae85aebb1cf019c3fe4d4c" title="The voltage calibration in fixed point, for vrms(), built at compile time." alt="" coords="396,1029,596,1057"/>
-<area shape="poly" title=" " alt="" coords="331,1056,383,1053,378,1055,332,1061"/>
-<area shape="rect" href="namespaceDatalog.html#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase." alt="" coords="440,1081,553,1109"/>
-<area shape="poly" title=" " alt="" coords="331,1076,427,1088,421,1089,332,1082"/>
-<area shape="rect" href="namespaceDatalog.html#a0034ed8f35f1cd9b05161e370ac4d6ca" title="Scaling of the datalog voltage, Vrms_L_x100." alt="" coords="420,1133,572,1161"/>
-<area shape="poly" title=" " alt="" coords="272,1080,397,1118,428,1129,422,1129,395,1123,272,1086"/>
-<area shape="rect" href="namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="438,1185,554,1213"/>
-<area shape="poly" title=" " alt="" coords="247,1080,312,1124,354,1149,397,1170,426,1183,420,1182,395,1175,351,1153,309,1129,245,1086"/>
-<area shape="rect" href="namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="666,925,838,953"/>
-<area shape="poly" title=" " alt="" coords="567,974,668,956,663,958,569,979"/>
-<area shape="rect" href="namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="692,977,812,1005"/>
-<area shape="poly" title=" " alt="" coords="592,989,678,991,673,992,593,994"/>
-<area shape="rect" href="namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="918,951,1052,978"/>
-<area shape="poly" title=" " alt="" coords="838,946,906,955,900,956,838,951"/>
-<area shape="rect" href="namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="924,1016,1046,1044"/>
-<area shape="poly" title=" " alt="" coords="821,951,861,963,945,1009,940,1008,859,968,821,956"/>
-<area shape="poly" title=" " alt="" coords="567,1026,679,1006,674,1007,569,1031"/>
-<area shape="rect" href="namespaceDatalog.html#a1dc0bffd09a9dedb477b5ca807afdb7e" title="Largest shift that keeps every (factor x calibration value) within 16 bits." alt="" coords="673,1029,831,1057"/>
-<area shape="poly" title=" " alt="" coords="597,1041,660,1043,655,1044,597,1046"/>
-<area shape="poly" title=" " alt="" coords="817,1026,859,1014,937,986,942,984,861,1019,818,1031"/>
-<area shape="poly" title=" " alt="" coords="831,1036,911,1034,906,1035,832,1041"/>
-<area shape="rect" href="group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="683,1081,821,1109"/>
-<area shape="poly" title=" " alt="" coords="553,1093,671,1095,665,1096,553,1098"/>
-<area shape="rect" href="namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="678,1133,826,1161"/>
-<area shape="poly" title=" " alt="" coords="553,1104,668,1130,663,1130,553,1109"/>
-<area shape="rect" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="908,1133,1062,1161"/>
-<area shape="poly" title=" " alt="" coords="827,1145,895,1147,890,1147,827,1150"/>
-<area shape="rect" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="670,1185,834,1213"/>
-<area shape="poly" title=" " alt="" coords="555,1197,657,1199,652,1199,555,1202"/>
+<area shape="rect" title="Main processor loop." alt="" coords="5,980,55,1008"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="141,361,310,389"/>
+<area shape="poly" title=" " alt="" coords="33,979,213,403,217,406,38,980"/>
+<area shape="rect" href="namespaceSerialOutput.html#afd684610f3d410706ad307dcb113376a" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="1535,5,1670,33"/>
+<area shape="poly" title=" " alt="" coords="29,979,32,861,42,676,51,577,63,484,80,406,100,349,175,212,212,155,252,107,297,69,351,40,416,22,495,17,1199,16,1522,18,1517,20,1199,22,495,22,417,28,353,45,300,73,255,111,216,158,179,215,105,351,85,407,69,485,56,577,47,676,37,861,34,979"/>
+<area shape="rect" href="remote__loads_8h.html#a211dca9dd78a03ea9ec6cdd620ad85bb" title="Process pending RF transmissions." alt="" coords="103,980,348,1008"/>
+<area shape="poly" title=" " alt="" coords="53,992,89,992,85,996,57,996"/>
+<area shape="rect" href="group__TemperatureSensing.html#ga7db1cd9dbe3ce12b90dc41523338353b" title="Processes temperature data from DS18B20 sensors." alt="" coords="133,1032,318,1060"/>
+<area shape="poly" title=" " alt="" coords="54,1001,103,1017,139,1026,134,1029,102,1022,56,1005"/>
+<area shape="rect" href="group__TemperatureSensing.html#ga3a97244f1558e94cb1fe9d0190fea8af" title="Runs the 1&#45;Wire transaction of this mains cycle, if any." alt="" coords="397,1083,595,1110"/>
+<area shape="poly" title=" " alt="" coords="39,1005,66,1039,84,1056,104,1069,172,1093,245,1106,316,1110,384,1110,379,1112,316,1115,244,1111,171,1098,101,1074,80,1060,62,1043,40,1010"/>
+<area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="175,825,276,853"/>
+<area shape="poly" title=" " alt="" coords="47,978,196,860,194,865,51,981"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga09f681954987d95f85831ca82365f987" title="Updates power and voltage data for all phases." alt="" coords="120,1212,331,1240"/>
+<area shape="poly" title=" " alt="" coords="38,1006,66,1056,105,1114,150,1161,196,1201,191,1203,147,1165,101,1117,62,1059,38,1011"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="420,437,572,465"/>
+<area shape="poly" title=" " alt="" coords="277,387,432,431,427,434,279,392"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="423,309,569,337"/>
+<area shape="poly" title=" " alt="" coords="300,359,409,338,406,342,303,363"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="449,361,543,389"/>
+<area shape="poly" title=" " alt="" coords="309,373,435,373,431,377,312,377"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="412,132,581,160"/>
+<area shape="poly" title=" " alt="" coords="235,360,299,285,344,238,394,196,449,165,446,169,398,200,348,242,303,288,240,362"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="415,209,577,237"/>
+<area shape="poly" title=" " alt="" coords="250,359,458,243,455,247,254,363"/>
+<area shape="rect" href="utils__pins_8h.html#aaec5db9d46ba784c4f16046e6deb6977" title="Toggle the specified pin." alt="" coords="455,540,537,568"/>
+<area shape="poly" title=" " alt="" coords="248,387,463,530,458,532,249,392"/>
+<area shape="rect" href="group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="649,463,855,490"/>
+<area shape="poly" title=" " alt="" coords="572,456,636,464,632,466,574,461"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="939,413,1036,441"/>
+<area shape="poly" title=" " alt="" coords="572,445,925,429,921,432,574,450"/>
+<area shape="rect" href="namespaceForcing.html#ae53199beda3c60c5a7c552c4eb7e42f2" title="The targets of the override pins that are active (held LOW)." alt="" coords="680,515,824,542"/>
+<area shape="poly" title=" " alt="" coords="536,463,645,499,677,509,672,511,644,504,537,468"/>
+<area shape="rect" href="namespaceForcing.html#a3b89513ed1a630712a3132079cfa6410" title="The targets of the scheduled boosts whose window is open." alt="" coords="908,515,1067,542"/>
+<area shape="poly" title=" " alt="" coords="817,488,909,510,904,512,819,494"/>
+<area shape="rect" href="group__DualTariff.html#ga686c4ecdf9da4efb37be3fe956774d83" title="Reads scheduled boost i from flash." alt="" coords="1154,489,1241,517"/>
+<area shape="poly" title=" " alt="" coords="854,480,1141,498,1136,501,856,485"/>
+<area shape="poly" title=" " alt="" coords="1066,516,1141,509,1137,511,1068,521"/>
+<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="1160,413,1235,441"/>
+<area shape="poly" title=" " alt="" coords="1035,425,1148,426,1143,428,1037,430"/>
+<area shape="rect" href="group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="697,311,807,338"/>
+<area shape="poly" title=" " alt="" coords="568,321,684,323,680,326,571,326"/>
+<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="1161,184,1234,212"/>
+<area shape="poly" title=" " alt="" coords="569,308,1147,205,1144,209,571,313"/>
+<area shape="poly" title=" " alt="" coords="779,336,839,366,909,398,929,407,924,408,907,403,837,371,780,341"/>
+<area shape="rect" href="pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="931,361,1044,389"/>
+<area shape="poly" title=" " alt="" coords="807,334,918,359,913,361,808,339"/>
+<area shape="rect" href="pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="1158,361,1238,389"/>
+<area shape="poly" title=" " alt="" coords="1043,373,1144,374,1140,376,1045,378"/>
+<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="1369,159,1428,186"/>
+<area shape="poly" title=" " alt="" coords="1234,191,1357,177,1352,179,1236,196"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1517,57,1688,85"/>
+<area shape="poly" title=" " alt="" coords="1427,156,1561,91,1557,94,1430,160"/>
+<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1736,32,1896,60"/>
+<area shape="poly" title=" " alt="" coords="1687,59,1723,56,1718,58,1689,63"/>
+<area shape="poly" title=" " alt="" coords="542,364,684,336,680,340,545,368"/>
+<area shape="poly" title=" " alt="" coords="542,375,686,372,773,363,859,347,946,320,1029,285,1161,218,1157,222,1031,289,947,325,860,352,774,369,686,377,545,379"/>
+<area shape="poly" title=" " alt="" coords="528,158,598,196,669,249,727,299,722,301,665,253,595,200,529,163"/>
+<area shape="poly" title=" " alt="" coords="528,129,582,109,644,93,708,83,764,79,813,80,859,85,952,108,1068,145,1152,177,1147,179,1066,150,950,113,858,90,812,85,764,85,709,89,645,98,583,114,531,133"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="688,107,816,134"/>
+<area shape="poly" title=" " alt="" coords="580,135,674,127,670,130,583,140"/>
+<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="922,56,1052,84"/>
+<area shape="poly" title=" " alt="" coords="815,105,909,85,905,89,818,109"/>
+<area shape="poly" title=" " alt="" coords="1029,82,1068,100,1124,136,1171,173,1165,174,1120,140,1066,104,1030,87"/>
+<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="1167,56,1228,84"/>
+<area shape="poly" title=" " alt="" coords="1052,67,1154,69,1149,71,1054,72"/>
+<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="1375,56,1422,84"/>
+<area shape="poly" title=" " alt="" coords="1228,67,1362,69,1357,71,1230,72"/>
+<area shape="poly" title=" " alt="" coords="1421,67,1504,69,1499,72,1423,72"/>
+<area shape="poly" title=" " alt="" coords="533,235,703,303,698,306,534,240"/>
+<area shape="poly" title=" " alt="" coords="577,218,1147,198,1144,202,579,223"/>
+<area shape="poly" title=" " alt="" coords="523,207,643,145,675,136,671,140,645,150,527,211"/>
+<area shape="rect" href="pin__edges_8h.html#a817c8abf26d0b5dff72b46a2b910c06f" title="Tells whether the rotation pin asks for a rotation now." alt="" coords="674,159,830,186"/>
+<area shape="poly" title=" " alt="" coords="568,207,666,188,662,192,571,211"/>
+<area shape="rect" href="structPinEdges.html#a8d666a88ac780603e6d26475bec567d6" title="it went LOW since the previous reading" alt="" coords="918,159,1057,186"/>
+<area shape="poly" title=" " alt="" coords="830,170,904,171,900,174,832,175"/>
+<area shape="rect" href="utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="719,567,785,594"/>
+<area shape="poly" title=" " alt="" coords="537,556,706,574,701,577,538,561"/>
+<area shape="poly" title=" " alt="" coords="1669,25,1723,33,1718,35,1671,30"/>
+<area shape="rect" href="namespaceSharedRF.html#a1885bc1c65805664c2ad68a37868cd57" title="Accessor for the shared RFM69 instance." alt="" coords="690,981,814,1009"/>
+<area shape="poly" title=" " alt="" coords="301,1006,396,1018,496,1023,596,1018,677,1009,672,1011,597,1023,496,1028,396,1023,303,1011"/>
+<area shape="poly" title=" " alt="" coords="303,1058,406,1078,401,1080,304,1063"/>
+<area shape="rect" href="namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c" title="Whether an output is still in progress." alt="" coords="681,619,823,646"/>
+<area shape="poly" title=" " alt="" coords="232,824,255,788,291,741,338,693,366,672,395,655,463,632,535,620,604,617,668,621,664,623,604,622,535,625,464,637,397,660,369,677,342,697,295,744,260,791,237,826"/>
+<area shape="rect" href="utils__rf_8h.html#af054c00af4d014f9db280e6e6e19e968" title="Initialize the shared RF module." alt="" coords="449,981,543,1009"/>
+<area shape="poly" title=" " alt="" coords="241,851,307,907,350,939,397,966,436,982,431,983,395,971,347,943,303,911,241,856"/>
+<area shape="rect" href="group__Telemetry.html#ga0018bc6f3f3b53571428522d11575051" title="One step of the datalog in JSON format." alt="" coords="442,773,550,801"/>
+<area shape="poly" title=" " alt="" coords="275,827,429,798,426,802,277,832"/>
+<area shape="rect" href="group__Telemetry.html#ga678079c20f2260c02b6d805a3252fdb8" title="One step of the datalog in text format." alt="" coords="442,721,550,749"/>
+<area shape="poly" title=" " alt="" coords="252,823,317,792,395,759,429,750,425,754,397,764,319,796,256,827"/>
+<area shape="rect" href="utils__rf_8h.html#af4688adbf4f3ed19323b79cf2fa2272b" title="Send RF data to gateway." alt="" coords="444,929,549,957"/>
+<area shape="poly" title=" " alt="" coords="254,851,319,882,397,914,431,926,426,928,395,919,317,887,255,856"/>
+<area shape="rect" href="structTeleInfoData.html#afdf74e3ad6a18d229b186afea64cf945" title="Takes the values that change during the frame (the tariff is in datalogOffPeak)." alt="" coords="411,877,581,905"/>
+<area shape="poly" title=" " alt="" coords="275,846,407,872,403,875,277,851"/>
+<area shape="rect" href="namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="426,669,566,697"/>
+<area shape="poly" title=" " alt="" coords="239,823,303,767,347,735,395,707,415,701,411,704,397,712,350,740,307,771,243,826"/>
+<area shape="rect" href="group__Telemetry.html#gab51e8b51241c993237fc1badfa8466bf" title="One step of the telemetry frame, in IoT format: one line (see TeleInfo::writeFrameStep())." alt="" coords="429,825,563,853"/>
+<area shape="poly" title=" " alt="" coords="275,837,416,837,412,841,277,842"/>
+<area shape="poly" title=" " alt="" coords="543,993,677,994,672,996,545,998"/>
+<area shape="rect" href="ds18b20_8h.html#ad55adf4c2798fb2203dd07c6954856fe" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="679,775,825,802"/>
+<area shape="poly" title=" " alt="" coords="549,785,666,787,661,789,551,790"/>
+<area shape="rect" href="namespaceSerialOutput.html#a5c00010099424ac29a16b77dbd562e5c" title="Print a value given in hundredths, in its shortest decimal form." alt="" coords="644,827,860,854"/>
+<area shape="poly" title=" " alt="" coords="549,796,669,822,664,824,551,801"/>
+<area shape="poly" title=" " alt="" coords="549,744,669,770,664,772,551,749"/>
+<area shape="rect" href="namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="651,723,853,750"/>
+<area shape="poly" title=" " alt="" coords="549,733,638,735,633,737,551,738"/>
+<area shape="rect" href="namespaceEnergy.html#a993caf3ccf42a68629e46c31dc5fe885" title="An energy in bucket units, in hundredths of a joule (for the datalog)." alt="" coords="648,671,856,698"/>
+<area shape="poly" title=" " alt="" coords="549,722,666,700,662,703,551,727"/>
+<area shape="rect" href="namespaceEnergy.html#a7aaa5a81b4e5ecaca75d4e9f5eb9a052" title="Greatest common divisor, to reduce fractions at compile time." alt="" coords="939,671,1036,698"/>
+<area shape="poly" title=" " alt="" coords="856,682,926,683,921,686,858,687"/>
+<area shape="poly" title=" " alt="" coords="951,670,945,662,950,652,964,646,987,644,1012,647,1027,655,1022,656,1011,652,987,649,966,651,954,656,951,661,956,671"/>
+<area shape="poly" title=" " alt="" coords="549,951,678,979,673,981,550,956"/>
+<area shape="poly" title=" " alt="" coords="565,667,668,648,664,651,568,672"/>
+<area shape="rect" href="namespaceTeleInfo.html#a1ada410c6d97aa6b44e403d583f46480" title="Writes a step of the frame: one line, STX before the first one, ETX after the last." alt="" coords="660,879,844,906"/>
+<area shape="poly" title=" " alt="" coords="563,850,670,874,665,876,564,856"/>
+<area shape="rect" href="namespaceTeleInfo.html#a7587a7c6cf35dbbad31cfddc9d0526da" title="Writes the line of a step." alt="" coords="914,904,1060,932"/>
+<area shape="poly" title=" " alt="" coords="844,900,902,908,896,909,845,905"/>
+<area shape="rect" href="namespaceTeleInfo.html#ad667795b4250f603604afc9b30c0a017" title="The number of steps of a frame: one per line, invalid temperatures included (they write nothing)." alt="" coords="910,852,1065,880"/>
+<area shape="poly" title=" " alt="" coords="843,880,897,875,892,877,845,885"/>
+<area shape="rect" href="namespaceTeleInfo.html#af4144be70a1141bccb67583aa9730635" title="Writes the line of a signed value." alt="" coords="1146,877,1250,905"/>
+<area shape="poly" title=" " alt="" coords="1060,906,1133,899,1128,900,1061,911"/>
+<area shape="rect" href="namespaceTeleInfo.html#a17cf541f513ec089af6363fb0cc75769" title="Writes the line of an unsigned value (above 32767, line() would wrap)." alt="" coords="1115,929,1280,957"/>
+<area shape="poly" title=" " alt="" coords="1060,924,1102,931,1097,932,1061,929"/>
+<area shape="rect" href="namespaceTeleInfo.html#ab851b8161d4b41b2b4898e46f38b64e0" title="Writes a whole line: LF, tag and index, TAB, value, TAB, checksum and CR." alt="" coords="1328,903,1469,930"/>
+<area shape="poly" title=" " alt="" coords="1250,895,1316,905,1311,906,1250,900"/>
+<area shape="rect" href="namespaceTeleInfo.html#ae66100e613f030a8bb86f56d9b509a84" title="Writes the decimal digits of a 16&#45;bit value." alt="" coords="1527,903,1678,930"/>
+<area shape="poly" title=" " alt="" coords="1469,914,1514,916,1508,917,1470,919"/>
+<area shape="poly" title=" " alt="" coords="1280,930,1316,927,1311,928,1281,935"/>
+<area shape="rect" href="namespaceDatalog.html#a7704334869b4be2aef18346b7c201ce5" title="The power calibration in fixed point, for watts(), built at compile time." alt="" coords="400,1291,592,1318"/>
+<area shape="poly" title=" " alt="" coords="272,1238,397,1275,428,1286,423,1286,395,1280,272,1243"/>
+<area shape="rect" href="namespaceDatalog.html#a05836e3079ae85aebb1cf019c3fe4d4c" title="The voltage calibration in fixed point, for vrms(), built at compile time." alt="" coords="396,1239,596,1266"/>
+<area shape="poly" title=" " alt="" coords="331,1234,383,1240,378,1242,332,1239"/>
+<area shape="rect" href="namespaceDatalog.html#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase." alt="" coords="440,1368,553,1396"/>
+<area shape="poly" title=" " alt="" coords="249,1238,397,1328,456,1361,450,1360,395,1332,248,1243"/>
+<area shape="rect" href="namespaceDatalog.html#a0034ed8f35f1cd9b05161e370ac4d6ca" title="Scaling of the datalog voltage, Vrms_L_x100." alt="" coords="420,1135,572,1162"/>
+<area shape="poly" title=" " alt="" coords="273,1209,395,1173,428,1166,423,1168,397,1178,275,1214"/>
+<area shape="rect" href="namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="438,1187,554,1214"/>
+<area shape="poly" title=" " alt="" coords="331,1213,425,1206,420,1208,332,1218"/>
+<area shape="rect" href="namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe" title="Largest shift that keeps every calibration value within 16 bits." alt="" coords="666,1316,838,1344"/>
+<area shape="poly" title=" " alt="" coords="592,1311,653,1320,648,1320,593,1317"/>
+<area shape="rect" href="namespaceEnergy.html#a44bfabeeca8fe61512b44b54519707f5" title="A calibration value as a 16&#45;bit fixed&#45;point constant." alt="" coords="692,1264,812,1292"/>
+<area shape="poly" title=" " alt="" coords="592,1292,679,1285,674,1286,593,1297"/>
+<area shape="rect" href="namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77" title="Largest of the calibration values." alt="" coords="921,1303,1054,1330"/>
+<area shape="poly" title=" " alt="" coords="838,1322,908,1321,903,1321,838,1328"/>
+<area shape="rect" href="namespaceEnergy.html#a8b5cc27275819b07610576e86d2f009b" title="Largest shift that keeps a value within 16 bits once scaled by 2^shift." alt="" coords="927,1225,1048,1253"/>
+<area shape="poly" title=" " alt="" coords="820,1313,859,1301,905,1280,946,1262,951,1260,908,1285,861,1306,821,1318"/>
+<area shape="poly" title=" " alt="" coords="597,1260,679,1270,674,1271,597,1265"/>
+<area shape="rect" href="namespaceDatalog.html#a1dc0bffd09a9dedb477b5ca807afdb7e" title="Largest shift that keeps every (factor x calibration value) within 16 bits." alt="" coords="673,1212,831,1240"/>
+<area shape="poly" title=" " alt="" coords="596,1239,660,1235,655,1236,597,1245"/>
+<area shape="poly" title=" " alt="" coords="821,1238,861,1250,908,1270,951,1295,946,1294,905,1275,859,1255,820,1243"/>
+<area shape="poly" title=" " alt="" coords="831,1228,914,1235,908,1235,832,1233"/>
+<area shape="rect" href="group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="683,1368,821,1396"/>
+<area shape="poly" title=" " alt="" coords="553,1379,671,1382,665,1382,553,1384"/>
+<area shape="rect" href="namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="678,1420,826,1448"/>
+<area shape="poly" title=" " alt="" coords="553,1391,668,1416,663,1416,553,1396"/>
+<area shape="rect" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="910,1420,1064,1448"/>
+<area shape="poly" title=" " alt="" coords="826,1431,898,1434,892,1434,826,1436"/>
+<area shape="rect" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="670,1160,834,1188"/>
+<area shape="poly" title=" " alt="" coords="554,1192,657,1183,652,1185,556,1197"/>
 </map>
 </div>
 
@@ -722,35 +777,41 @@ false if the system is in a high tariff (on-peak) period.</dd></dl>
 <li><a class="el" href="namespaceLoad.html" title="Authoring and decoding helpers for the packed load map.">Load</a> forcing logic (including temperature conditions) is handled atomically in <a class="el" href="#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing.">getOverrideBitmask()</a>. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00299">299</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00250">250</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_cgraph" alt=""/></div>
 <map name="agroup__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_cgraph" id="agroup__GeneralProcessing_ga6cceee9dcc5819acbee76f71dad833f7_cgraph">
-<area shape="rect" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="5,57,175,85"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="239,5,335,33"/>
-<area shape="poly" title=" " alt="" coords="145,54,226,34,221,37,146,59"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="223,57,351,85"/>
-<area shape="poly" title=" " alt="" coords="174,69,209,71,204,72,175,74"/>
-<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="577,108,651,136"/>
-<area shape="poly" title=" " alt="" coords="158,83,223,94,410,111,564,120,559,121,409,116,222,99,157,88"/>
-<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="427,5,501,33"/>
-<area shape="poly" title=" " alt="" coords="335,17,414,19,409,20,336,22"/>
-<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="399,57,529,85"/>
-<area shape="poly" title=" " alt="" coords="351,69,386,71,381,71,351,74"/>
-<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="583,56,645,84"/>
-<area shape="poly" title=" " alt="" coords="529,68,571,70,565,70,530,73"/>
-<area shape="poly" title=" " alt="" coords="508,83,565,105,560,104,507,88"/>
-<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="705,56,751,84"/>
-<area shape="poly" title=" " alt="" coords="645,67,692,70,686,70,645,72"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="805,83,976,110"/>
-<area shape="poly" title=" " alt="" coords="752,71,792,80,787,80,751,76"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1024,83,1185,110"/>
-<area shape="poly" title=" " alt="" coords="977,94,1012,96,1006,97,977,99"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="699,108,757,136"/>
-<area shape="poly" title=" " alt="" coords="651,119,686,122,680,122,651,124"/>
-<area shape="poly" title=" " alt="" coords="757,115,787,113,792,112,758,120"/>
+<area shape="rect" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="5,59,175,86"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="223,8,351,36"/>
+<area shape="poly" title=" " alt="" coords="145,56,218,38,214,42,147,61"/>
+<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="581,57,654,85"/>
+<area shape="poly" title=" " alt="" coords="175,70,566,69,565,74,175,75"/>
+<area shape="rect" href="group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="232,109,342,137"/>
+<area shape="poly" title=" " alt="" coords="146,84,219,104,214,106,146,90"/>
+<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="399,8,529,36"/>
+<area shape="poly" title=" " alt="" coords="351,19,386,21,381,22,352,24"/>
+<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="587,5,648,33"/>
+<area shape="poly" title=" " alt="" coords="529,18,574,19,569,20,530,23"/>
+<area shape="poly" title=" " alt="" coords="510,34,569,55,564,55,509,39"/>
+<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="712,5,758,33"/>
+<area shape="poly" title=" " alt="" coords="648,17,699,19,694,20,649,22"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="812,32,983,60"/>
+<area shape="poly" title=" " alt="" coords="758,20,799,29,794,29,758,26"/>
+<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1031,32,1192,60"/>
+<area shape="poly" title=" " alt="" coords="983,43,1019,46,1013,46,984,48"/>
+<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="706,57,764,85"/>
+<area shape="poly" title=" " alt="" coords="654,69,693,71,687,71,655,74"/>
+<area shape="poly" title=" " alt="" coords="764,64,799,61,794,62,765,69"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="416,109,512,137"/>
+<area shape="poly" title=" " alt="" coords="342,121,403,123,398,123,342,126"/>
+<area shape="rect" href="pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="408,161,521,189"/>
+<area shape="poly" title=" " alt="" coords="337,135,402,156,397,156,336,140"/>
+<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="580,109,655,137"/>
+<area shape="poly" title=" " alt="" coords="513,121,568,123,562,123,513,126"/>
+<area shape="rect" href="pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="577,161,658,189"/>
+<area shape="poly" title=" " alt="" coords="521,173,564,175,559,175,521,178"/>
 </map>
 </div>
 <div class="dynheader">
@@ -768,8 +829,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="gabe8c38238f5014c09e788c833b50af5e" name="gabe8c38238f5014c09e788c833b50af5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gabe8c38238f5014c09e788c833b50af5e">&#9670;&#160;</a></span>proceedLoadPriorities()</h2>
+<a id="ga74b56510aaa212ac90624173a857edaa" name="ga74b56510aaa212ac90624173a857edaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga74b56510aaa212ac90624173a857edaa">&#9670;&#160;</a></span>proceedLoadPriorities()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -777,7 +838,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void proceedLoadPriorities </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>bOverridden</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -785,48 +846,65 @@ Here is the caller graph for this function:</div>
 
 <p>Handles load priority rotation. </p>
 <p>This function manages load priority rotation behavior based on the system configuration. It supports priority rotation via pin control or automatic rotation. Override logic is handled in <a class="el" href="#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing.">getOverrideBitmask()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bOverridden</td><td>true while a load, relay or remote load is forced: no rotation then.</td></tr>
+  </table>
+  </dd>
+</dl>
 <ul>
-<li>In dual tariff mode, rotation is handled by <code>proceedDualTariffLogic</code> when off-peak starts.</li>
-<li>If priority rotation is set to auto, it rotates priorities after a defined period of inactivity.</li>
+<li>The rotation pin works with or without dual tariff.</li>
+<li>Automatic rotation: after a defined period without diversion; with dual tariff, <code>proceedDualTariffLogic</code> rotates when off-peak starts instead.</li>
+<li>The rotation pin is read every second, forced or not: a press during forcing is dropped, not carried over to its end.</li>
 <li>Override logic (external pins + dual tariff forcing) is handled atomically in <a class="el" href="#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing.">getOverrideBitmask()</a>. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00342">342</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00295">295</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__GeneralProcessing_gabe8c38238f5014c09e788c833b50af5e_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_gabe8c38238f5014c09e788c833b50af5e_cgraph" alt=""/></div>
-<map name="agroup__GeneralProcessing_gabe8c38238f5014c09e788c833b50af5e_cgraph" id="agroup__GeneralProcessing_gabe8c38238f5014c09e788c833b50af5e_cgraph">
-<area shape="rect" title="Handles load priority rotation." alt="" coords="5,57,168,85"/>
-<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="232,5,328,33"/>
-<area shape="poly" title=" " alt="" coords="140,54,219,35,214,37,142,59"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="216,57,344,85"/>
-<area shape="poly" title=" " alt="" coords="168,69,203,71,197,72,169,74"/>
-<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="570,108,644,136"/>
-<area shape="poly" title=" " alt="" coords="152,83,216,94,403,111,557,121,552,121,402,116,215,99,152,88"/>
-<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="420,5,494,33"/>
-<area shape="poly" title=" " alt="" coords="328,17,407,19,402,20,329,22"/>
-<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="392,57,522,85"/>
-<area shape="poly" title=" " alt="" coords="344,69,379,71,374,71,344,74"/>
-<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="576,56,638,84"/>
-<area shape="poly" title=" " alt="" coords="522,68,564,70,558,70,523,73"/>
-<area shape="poly" title=" " alt="" coords="501,83,558,105,553,104,500,88"/>
-<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="698,56,744,84"/>
-<area shape="poly" title=" " alt="" coords="638,67,685,70,679,70,638,72"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="798,83,969,110"/>
-<area shape="poly" title=" " alt="" coords="745,71,785,80,780,80,744,76"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1017,83,1178,110"/>
-<area shape="poly" title=" " alt="" coords="970,94,1005,96,999,97,970,99"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="692,108,750,136"/>
-<area shape="poly" title=" " alt="" coords="644,119,679,122,673,122,644,124"/>
-<area shape="poly" title=" " alt="" coords="750,115,780,113,785,112,751,120"/>
+<div class="center"><img src="group__GeneralProcessing_ga74b56510aaa212ac90624173a857edaa_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga74b56510aaa212ac90624173a857edaa_cgraph" alt=""/></div>
+<map name="agroup__GeneralProcessing_ga74b56510aaa212ac90624173a857edaa_cgraph" id="agroup__GeneralProcessing_ga74b56510aaa212ac90624173a857edaa_cgraph">
+<area shape="rect" title="Handles load priority rotation." alt="" coords="5,83,168,110"/>
+<area shape="rect" href="pin__edges_8h.html#a817c8abf26d0b5dff72b46a2b910c06f" title="Tells whether the rotation pin asks for a rotation now." alt="" coords="216,5,372,33"/>
+<area shape="poly" title=" " alt="" coords="122,80,215,43,238,37,233,40,217,48,124,84"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="230,57,358,85"/>
+<area shape="poly" title=" " alt="" coords="167,84,217,80,212,82,169,89"/>
+<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="611,107,684,134"/>
+<area shape="poly" title=" " alt="" coords="168,97,596,116,594,121,168,103"/>
+<area shape="rect" href="group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="239,159,348,186"/>
+<area shape="poly" title=" " alt="" coords="127,108,242,151,238,154,127,114"/>
+<area shape="rect" href="structPinEdges.html#a8d666a88ac780603e6d26475bec567d6" title="it went LOW since the previous reading" alt="" coords="420,5,559,33"/>
+<area shape="poly" title=" " alt="" coords="372,17,407,18,402,20,373,22"/>
+<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="424,57,555,85"/>
+<area shape="poly" title=" " alt="" coords="358,69,412,71,406,72,359,74"/>
+<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="617,55,678,82"/>
+<area shape="poly" title=" " alt="" coords="555,67,604,69,599,70,556,73"/>
+<area shape="poly" title=" " alt="" coords="536,83,599,105,594,105,536,88"/>
+<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="742,55,788,82"/>
+<area shape="poly" title=" " alt="" coords="678,66,729,68,724,69,679,71"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="842,81,1013,109"/>
+<area shape="poly" title=" " alt="" coords="788,70,829,78,824,79,788,75"/>
+<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1061,81,1222,109"/>
+<area shape="poly" title=" " alt="" coords="1013,93,1049,95,1043,95,1014,98"/>
+<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="736,107,794,134"/>
+<area shape="poly" title=" " alt="" coords="684,118,723,120,717,121,685,123"/>
+<area shape="poly" title=" " alt="" coords="794,113,824,111,829,111,795,119"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="442,159,538,186"/>
+<area shape="poly" title=" " alt="" coords="349,170,429,172,423,173,349,175"/>
+<area shape="rect" href="pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="433,211,546,238"/>
+<area shape="poly" title=" " alt="" coords="349,184,423,206,418,206,349,190"/>
+<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="610,159,685,186"/>
+<area shape="poly" title=" " alt="" coords="538,170,597,172,592,173,539,175"/>
+<area shape="rect" href="pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="607,211,688,238"/>
+<area shape="poly" title=" " alt="" coords="547,222,594,224,589,225,547,227"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__GeneralProcessing_gabe8c38238f5014c09e788c833b50af5e_icgraph.png" border="0" usemap="#agroup__GeneralProcessing_gabe8c38238f5014c09e788c833b50af5e_icgraph" alt=""/></div>
-<map name="agroup__GeneralProcessing_gabe8c38238f5014c09e788c833b50af5e_icgraph" id="agroup__GeneralProcessing_gabe8c38238f5014c09e788c833b50af5e_icgraph">
+<div class="center"><img src="group__GeneralProcessing_ga74b56510aaa212ac90624173a857edaa_icgraph.png" border="0" usemap="#agroup__GeneralProcessing_ga74b56510aaa212ac90624173a857edaa_icgraph" alt=""/></div>
+<map name="agroup__GeneralProcessing_ga74b56510aaa212ac90624173a857edaa_icgraph" id="agroup__GeneralProcessing_ga74b56510aaa212ac90624173a857edaa_icgraph">
 <area shape="rect" title="Handles load priority rotation." alt="" coords="320,5,482,33"/>
 <area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,5,272,33"/>
 <area shape="poly" title=" " alt="" coords="301,19,272,22,272,17,307,19"/>
@@ -860,7 +938,7 @@ Here is the caller graph for this function:</div>
 <li>Logs the updated load priorities after the rotation. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00268">268</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00219">219</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -892,13 +970,86 @@ Here is the caller graph for this function:</div>
 <area shape="rect" title="Proceeds with load priority rotation." alt="" coords="537,32,666,60"/>
 <area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,5,489,33"/>
 <area shape="poly" title=" " alt="" coords="519,35,490,33,490,28,525,35"/>
-<area shape="rect" href="group__GeneralProcessing.html#gabe8c38238f5014c09e788c833b50af5e" title="Handles load priority rotation." alt="" coords="324,57,486,85"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="324,57,486,85"/>
 <area shape="poly" title=" " alt="" coords="525,56,487,63,486,58,519,56"/>
 <area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,32,272,60"/>
 <area shape="poly" title=" " alt="" coords="302,32,273,38,272,33,307,31"/>
 <area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,32,55,60"/>
 <area shape="poly" title=" " alt="" coords="85,47,55,48,55,43,89,44"/>
 <area shape="poly" title=" " alt="" coords="306,60,273,58,273,53,311,60"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="gad44625fcec1a89332de1ca29930f28ea" name="gad44625fcec1a89332de1ca29930f28ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad44625fcec1a89332de1ca29930f28ea">&#9670;&#160;</a></span>readPinEdges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t pin&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPinEdges.html">PinEdges</a> readPinEdges </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads an active-LOW input pin, and tells how it changed since the previous reading. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">pin</td><td>the input pin: each one keeps its own previous level, released at startup. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>its state and its edges.</dd></dl>
+<p>Read each pin every second, whether its edges are used or not: a previous level left stale would turn a press made long ago into an edge now. </p>
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00143">143</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__GeneralProcessing_gad44625fcec1a89332de1ca29930f28ea_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_gad44625fcec1a89332de1ca29930f28ea_cgraph" alt=""/></div>
+<map name="agroup__GeneralProcessing_gad44625fcec1a89332de1ca29930f28ea_cgraph" id="agroup__GeneralProcessing_gad44625fcec1a89332de1ca29930f28ea_cgraph">
+<area shape="rect" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="5,32,115,60"/>
+<area shape="rect" href="utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="171,5,268,33"/>
+<area shape="poly" title=" " alt="" coords="115,34,158,29,153,31,116,39"/>
+<area shape="rect" href="pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="163,57,276,85"/>
+<area shape="poly" title=" " alt="" coords="115,52,150,59,145,60,115,57"/>
+<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="327,5,401,33"/>
+<area shape="poly" title=" " alt="" coords="268,17,314,19,309,20,268,22"/>
+<area shape="rect" href="pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="324,57,404,85"/>
+<area shape="poly" title=" " alt="" coords="276,69,311,71,306,71,277,74"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__GeneralProcessing_gad44625fcec1a89332de1ca29930f28ea_icgraph.png" border="0" usemap="#agroup__GeneralProcessing_gad44625fcec1a89332de1ca29930f28ea_icgraph" alt=""/></div>
+<map name="agroup__GeneralProcessing_gad44625fcec1a89332de1ca29930f28ea_icgraph" id="agroup__GeneralProcessing_gad44625fcec1a89332de1ca29930f28ea_icgraph">
+<area shape="rect" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="537,84,647,112"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="332,109,478,137"/>
+<area shape="poly" title=" " alt="" coords="519,108,479,116,478,111,524,107"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="358,161,452,189"/>
+<area shape="poly" title=" " alt="" coords="554,119,490,151,453,164,452,159,488,146,549,120"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,5,489,33"/>
+<area shape="poly" title=" " alt="" coords="549,76,488,48,456,36,456,31,490,43,555,76"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="324,57,486,85"/>
+<area shape="poly" title=" " alt="" coords="519,88,486,85,486,80,525,88"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,71,272,98"/>
+<area shape="poly" title=" " alt="" coords="314,108,269,102,269,96,319,107"/>
+<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="159,136,216,164"/>
+<area shape="poly" title=" " alt="" coords="314,135,217,149,216,144,319,133"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,71,55,98"/>
+<area shape="poly" title=" " alt="" coords="85,86,56,87,54,82,89,83"/>
+<area shape="poly" title=" " alt="" coords="340,157,319,151,271,127,218,101,219,96,273,122,321,146,345,157"/>
+<area shape="poly" title=" " alt="" coords="340,169,216,156,216,150,345,167"/>
+<area shape="poly" title=" " alt="" coords="339,39,237,73,235,68,344,37"/>
+<area shape="poly" title=" " alt="" coords="306,78,273,82,272,77,311,76"/>
 </map>
 </div>
 
@@ -936,50 +1087,66 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <ul>
+<li>If an RF module is configured but did not start (missing, unpowered or badly wired), it retries its initialization, once per datalog period: RF logging and remote loads only send once it is up.</li>
 <li>If RF communication is enabled, it sends RF data.</li>
 <li>Depending on the <code>SERIAL_OUTPUT_TYPE</code>, it prints data in text format, sends telemetry data, or outputs data in JSON format.</li>
 <li>Skips the first datalogging event during startup to avoid incomplete data. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00536">536</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00557">557</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__GeneralProcessing_gade56d6fce22a518b8feff1a150461f94_cgraph.png" border="0" usemap="#agroup__GeneralProcessing_gade56d6fce22a518b8feff1a150461f94_cgraph" alt=""/></div>
 <map name="agroup__GeneralProcessing_gade56d6fce22a518b8feff1a150461f94_cgraph" id="agroup__GeneralProcessing_gade56d6fce22a518b8feff1a150461f94_cgraph">
-<area shape="rect" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="5,212,106,240"/>
-<area shape="rect" href="namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c" title="Whether an output is still in progress." alt="" coords="387,213,528,241"/>
-<area shape="poly" title=" " alt="" coords="106,223,373,224,370,229,107,229"/>
-<area shape="rect" href="group__Telemetry.html#ga0018bc6f3f3b53571428522d11575051" title="One step of the datalog in JSON format." alt="" coords="174,57,282,85"/>
-<area shape="poly" title=" " alt="" coords="62,210,96,155,122,123,152,96,164,90,160,94,155,100,126,127,100,158,66,213"/>
-<area shape="rect" href="group__Telemetry.html#ga678079c20f2260c02b6d805a3252fdb8" title="One step of the datalog in text format." alt="" coords="174,109,282,137"/>
-<area shape="poly" title=" " alt="" coords="69,210,106,179,152,148,168,142,164,145,155,152,109,183,74,214"/>
-<area shape="rect" href="utils__rf_8h.html#af4688adbf4f3ed19323b79cf2fa2272b" title="Send RF data to gateway." alt="" coords="175,315,280,342"/>
-<area shape="poly" title=" " alt="" coords="72,237,109,268,155,300,169,308,164,308,152,304,106,273,71,242"/>
-<area shape="rect" href="utils_8h.html#a1907e04bd551745d6acdaaf198bda73a" title="Sends telemetry data using the TeleInfo class." alt="" coords="154,263,302,290"/>
-<area shape="poly" title=" " alt="" coords="105,238,166,256,161,259,105,243"/>
-<area shape="rect" href="namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="158,161,298,189"/>
-<area shape="poly" title=" " alt="" coords="104,209,166,192,162,196,106,214"/>
-<area shape="rect" href="group__Telemetry.html#gac998b3a180f6abe87514dad43b9033f2" title="One step of the telemetry frame: its next part." alt="" coords="161,367,295,394"/>
-<area shape="poly" title=" " alt="" coords="65,238,100,293,126,325,155,352,165,360,160,359,152,356,122,328,96,297,63,243"/>
-<area shape="rect" href="utils_8h.html#ad526defbfbce2f1f32bcb38a7a1a7b42" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="384,57,531,85"/>
-<area shape="poly" title=" " alt="" coords="281,69,371,70,367,72,283,74"/>
-<area shape="rect" href="namespaceSerialOutput.html#a5c00010099424ac29a16b77dbd562e5c" title="Print a value given in hundredths, in its shortest decimal form." alt="" coords="350,5,565,33"/>
-<area shape="poly" title=" " alt="" coords="281,57,380,35,376,39,283,62"/>
-<area shape="poly" title=" " alt="" coords="281,109,380,88,376,91,283,114"/>
-<area shape="rect" href="namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="357,161,558,189"/>
-<area shape="poly" title=" " alt="" coords="282,133,381,156,376,158,282,138"/>
-<area shape="rect" href="namespaceEnergy.html#a993caf3ccf42a68629e46c31dc5fe885" title="An energy in bucket units, in hundredths of a joule (for the datalog)." alt="" coords="354,109,562,137"/>
-<area shape="poly" title=" " alt="" coords="281,121,340,122,336,124,283,126"/>
-<area shape="rect" href="namespaceEnergy.html#a7aaa5a81b4e5ecaca75d4e9f5eb9a052" title="Greatest common divisor, to reduce fractions at compile time." alt="" coords="627,109,723,137"/>
-<area shape="poly" title=" " alt="" coords="561,121,614,123,609,124,562,126"/>
-<area shape="poly" title=" " alt="" coords="637,108,632,100,636,91,651,85,675,83,701,85,716,94,711,94,699,90,675,88,652,90,640,95,637,100,643,110"/>
-<area shape="rect" href="utils__rf_8h.html#af054c00af4d014f9db280e6e6e19e968" title="Initialize the shared RF module." alt="" coords="410,289,505,317"/>
-<area shape="poly" title=" " alt="" coords="280,320,397,309,392,311,281,325"/>
-<area shape="rect" href="namespaceSharedRF.html#a1885bc1c65805664c2ad68a37868cd57" title="Accessor for the shared RFM69 instance." alt="" coords="613,315,737,342"/>
-<area shape="poly" title=" " alt="" coords="281,326,599,326,597,331,281,331"/>
-<area shape="poly" title=" " alt="" coords="505,306,601,319,595,320,505,311"/>
-<area shape="poly" title=" " alt="" coords="292,187,381,208,376,210,293,192"/>
+<area shape="rect" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="5,185,106,213"/>
+<area shape="rect" href="namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c" title="Whether an output is still in progress." alt="" coords="409,120,550,148"/>
+<area shape="poly" title=" " alt="" coords="75,183,111,162,153,145,215,132,278,125,396,126,391,129,279,131,216,137,154,150,113,167,79,186"/>
+<area shape="rect" href="utils__rf_8h.html#af054c00af4d014f9db280e6e6e19e968" title="Initialize the shared RF module." alt="" coords="192,5,286,33"/>
+<area shape="poly" title=" " alt="" coords="59,184,91,117,118,78,152,44,179,31,175,35,155,48,122,81,96,120,64,186"/>
+<area shape="rect" href="group__Telemetry.html#ga0018bc6f3f3b53571428522d11575051" title="One step of the datalog in JSON format." alt="" coords="185,211,292,238"/>
+<area shape="poly" title=" " alt="" coords="105,204,172,213,168,217,107,209"/>
+<area shape="rect" href="group__Telemetry.html#ga678079c20f2260c02b6d805a3252fdb8" title="One step of the datalog in text format." alt="" coords="185,315,292,342"/>
+<area shape="poly" title=" " alt="" coords="67,211,104,255,128,279,155,300,173,310,168,311,152,304,125,283,100,259,67,216"/>
+<area shape="rect" href="utils__rf_8h.html#af4688adbf4f3ed19323b79cf2fa2272b" title="Send RF data to gateway." alt="" coords="186,57,292,85"/>
+<area shape="poly" title=" " alt="" coords="66,184,102,143,152,101,177,89,174,93,155,105,105,147,70,186"/>
+<area shape="rect" href="structTeleInfoData.html#afdf74e3ad6a18d229b186afea64cf945" title="Takes the values that change during the frame (the tariff is in datalogOffPeak)." alt="" coords="154,263,324,290"/>
+<area shape="poly" title=" " alt="" coords="81,211,155,247,175,256,170,258,153,252,82,216"/>
+<area shape="rect" href="namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="169,159,309,186"/>
+<area shape="poly" title=" " alt="" coords="105,190,155,183,152,187,108,194"/>
+<area shape="rect" href="group__Telemetry.html#gab51e8b51241c993237fc1badfa8466bf" title="One step of the telemetry frame, in IoT format: one line (see TeleInfo::writeFrameStep())." alt="" coords="172,367,306,394"/>
+<area shape="poly" title=" " alt="" coords="62,211,96,279,122,318,155,352,165,359,159,360,152,356,118,322,91,282,61,216"/>
+<area shape="rect" href="namespaceSharedRF.html#a1885bc1c65805664c2ad68a37868cd57" title="Accessor for the shared RFM69 instance." alt="" coords="418,43,541,70"/>
+<area shape="poly" title=" " alt="" coords="286,24,405,43,400,46,287,29"/>
+<area shape="rect" href="ds18b20_8h.html#ad55adf4c2798fb2203dd07c6954856fe" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="406,249,553,277"/>
+<area shape="poly" title=" " alt="" coords="293,230,394,248,389,250,293,236"/>
+<area shape="rect" href="namespaceSerialOutput.html#a5c00010099424ac29a16b77dbd562e5c" title="Print a value given in hundredths, in its shortest decimal form." alt="" coords="372,197,587,225"/>
+<area shape="poly" title=" " alt="" coords="292,219,359,217,354,219,294,224"/>
+<area shape="poly" title=" " alt="" coords="287,312,371,287,407,280,402,282,373,292,289,317"/>
+<area shape="rect" href="namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="379,353,580,381"/>
+<area shape="poly" title=" " alt="" coords="293,334,377,350,372,351,293,340"/>
+<area shape="rect" href="namespaceEnergy.html#a993caf3ccf42a68629e46c31dc5fe885" title="An energy in bucket units, in hundredths of a joule (for the datalog)." alt="" coords="376,301,584,329"/>
+<area shape="poly" title=" " alt="" coords="292,323,363,321,358,323,294,328"/>
+<area shape="rect" href="namespaceEnergy.html#a7aaa5a81b4e5ecaca75d4e9f5eb9a052" title="Greatest common divisor, to reduce fractions at compile time." alt="" coords="665,301,761,329"/>
+<area shape="poly" title=" " alt="" coords="584,313,652,315,647,316,584,318"/>
+<area shape="poly" title=" " alt="" coords="677,300,671,292,676,283,690,277,713,275,738,277,752,286,747,286,736,282,713,280,691,282,680,287,677,292,682,302"/>
+<area shape="poly" title=" " alt="" coords="291,66,405,60,400,63,293,70"/>
+<area shape="poly" title=" " alt="" coords="308,159,396,146,391,149,310,164"/>
+<area shape="rect" href="namespaceTeleInfo.html#a1ada410c6d97aa6b44e403d583f46480" title="Writes a step of the frame: one line, STX before the first one, ETX after the last." alt="" coords="388,405,571,433"/>
+<area shape="poly" title=" " alt="" coords="307,389,377,402,372,403,307,394"/>
+<area shape="rect" href="namespaceTeleInfo.html#a7587a7c6cf35dbbad31cfddc9d0526da" title="Writes the line of a step." alt="" coords="640,431,786,458"/>
+<area shape="poly" title=" " alt="" coords="572,426,627,435,622,435,571,432"/>
+<area shape="rect" href="namespaceTeleInfo.html#ad667795b4250f603604afc9b30c0a017" title="The number of steps of a frame: one per line, invalid temperatures included (they write nothing)." alt="" coords="635,379,791,406"/>
+<area shape="poly" title=" " alt="" coords="571,406,622,403,617,403,572,411"/>
+<area shape="rect" href="namespaceTeleInfo.html#af4144be70a1141bccb67583aa9730635" title="Writes the line of a signed value." alt="" coords="869,404,974,432"/>
+<area shape="poly" title=" " alt="" coords="786,433,851,427,856,426,787,438"/>
+<area shape="rect" href="namespaceTeleInfo.html#a17cf541f513ec089af6363fb0cc75769" title="Writes the line of an unsigned value (above 32767, line() would wrap)." alt="" coords="839,456,1004,484"/>
+<area shape="poly" title=" " alt="" coords="786,451,826,458,821,458,786,456"/>
+<area shape="rect" href="namespaceTeleInfo.html#ab851b8161d4b41b2b4898e46f38b64e0" title="Writes a whole line: LF, tag and index, TAB, value, TAB, checksum and CR." alt="" coords="1052,431,1192,458"/>
+<area shape="poly" title=" " alt="" coords="974,422,1040,433,1034,433,974,427"/>
+<area shape="rect" href="namespaceTeleInfo.html#ae66100e613f030a8bb86f56d9b509a84" title="Writes the decimal digits of a 16&#45;bit value." alt="" coords="1240,431,1392,458"/>
+<area shape="poly" title=" " alt="" coords="1192,442,1227,444,1222,445,1193,447"/>
+<area shape="poly" title=" " alt="" coords="1004,457,1034,455,1040,455,1005,462"/>
 </map>
 </div>
 <div class="dynheader">
@@ -1019,7 +1186,7 @@ Here is the caller graph for this function:</div>
 <li>Updates the total power by summing the power of all phases. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00435">435</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00386">386</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

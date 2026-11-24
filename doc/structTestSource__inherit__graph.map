@@ -1,0 +1,17 @@
+<map id="TestSource&lt; PHASES &gt;" name="TestSource&lt; PHASES &gt;">
+<area shape="rect" id="Node000001" title="A data source of writeFrameStep(): 2 loads, 1 relay, 2 temperature sensors (the 2nd invalid)." alt="" coords="5,222,178,250"/>
+<area shape="rect" id="Node000002" href="$structTestSource.html" title=" " alt="" coords="356,5,506,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,207,143,150,170,120,200,95,237,74,277,57,357,37,353,40,279,62,240,78,203,99,173,124,147,153,110,210"/>
+<area shape="rect" id="Node000003" href="$structTestSource.html" title=" " alt="" coords="356,75,506,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="121,211,158,185,201,161,279,131,357,111,353,114,281,136,203,166,161,189,125,214"/>
+<area shape="rect" id="Node000004" href="$structTestSource.html" title=" " alt="" coords="356,144,506,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="176,216,201,210,357,180,353,183,202,216,178,220"/>
+<area shape="rect" id="Node000005" href="$structTestSource.html" title=" " alt="" coords="356,213,506,258"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="193,233,357,234,353,237,194,238"/>
+<area shape="rect" id="Node000006" href="$structTestSource.html" title=" " alt="" coords="356,283,506,327"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="178,251,357,288,353,291,178,256"/>
+<area shape="rect" id="Node000007" href="$structTestSource.html" title=" " alt="" coords="356,352,506,397"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="123,256,161,282,203,305,281,335,358,358,353,359,279,340,201,310,158,286,123,262"/>
+<area shape="rect" id="Node000008" href="$structTestSource.html" title=" " alt="" coords="356,421,506,466"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="108,260,148,318,173,347,203,372,240,393,279,409,358,433,353,433,277,414,237,397,200,376,170,351,143,321,107,266"/>
+</map>

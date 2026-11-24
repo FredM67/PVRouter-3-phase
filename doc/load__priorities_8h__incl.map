@@ -1,0 +1,8 @@
+<map id="Mk2_3phase_RFdatalog_temp/load_priorities.h" name="Mk2_3phase_RFdatalog_temp/load_priorities.h">
+<area shape="rect" id="Node000001" title="The load priority state machine: which load to switch at each mains cycle." alt="" coords="5,5,182,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="58,174,129,201"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,48,80,86,79,125,87,159,81,159,74,126,75,85,85,53"/>
+<area shape="rect" id="Node000003" href="$load__map_8h.html" title="Encoding of the load map: one packed byte per dump load." alt="" coords="89,98,186,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="106,48,126,84,120,84,104,53"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="132,125,111,162,107,158,127,128"/>
+</map>

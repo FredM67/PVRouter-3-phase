@@ -136,7 +136,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad10739abc0b7b1ec80ce4fe144ee2094"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start an output, written by later calls to <a class="el" href="#afd684610f3d410706ad307dcb113376a" title="Write as many steps as the transmit buffer can take, without waiting.">poll()</a>  <br /></td></tr>
 <tr class="separator:ad10739abc0b7b1ec80ce4fe144ee2094"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5816467c6da976cf57b717e6f40ce0f4" id="r_a5816467c6da976cf57b717e6f40ce0f4"><td class="memTemplParams" colspan="2">template&lt;uint8_t N&gt; </td></tr>
-<tr class="memitem:a5816467c6da976cf57b717e6f40ce0f4"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="structSerialOutput_1_1DecimalsTable.html">DecimalsTable</a>&lt; N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a5816467c6da976cf57b717e6f40ce0f4">toDecimals</a> (const float(&amp;values)[N], uint8_t decimals)</td></tr>
+<tr class="memitem:a5816467c6da976cf57b717e6f40ce0f4"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="structSerialOutput_1_1DecimalsTable.html">DecimalsTable</a>&lt; N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a5816467c6da976cf57b717e6f40ce0f4">toDecimals</a> (const float(&amp;<a class="el" href="native_2test__teleinfo_2test__main_8cpp.html#a8eedbefcaecc67f586ba30552de6674d">values</a>)[N], uint8_t decimals)</td></tr>
 <tr class="memdesc:a5816467c6da976cf57b717e6f40ce0f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">A float array constant as integers with the given number of decimals, rounded.  <br /></td></tr>
 <tr class="separator:a5816467c6da976cf57b717e6f40ce0f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92c5012053b5fe0d463a87a06be6fe40" id="r_a92c5012053b5fe0d463a87a06be6fe40"><td class="memItemLeft" align="right" valign="top">constexpr int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a92c5012053b5fe0d463a87a06be6fe40">toDecimals</a> (float value, uint8_t decimals)</td></tr>
@@ -177,7 +177,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>false if this was the last step </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00040">40</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00041">41</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 
 </div>
 </div>
@@ -207,7 +207,7 @@ Variables</h2></td></tr>
 
 <p>Serial settings for the startup text: 9600 baud 8N1, the default of serial monitors. </p>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00228">228</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00229">229</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -250,32 +250,36 @@ Here is the caller graph for this function:</div>
 
 <p>Whether an output is still in progress. </p>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00048">48</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00049">49</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceSerialOutput_afc1b88b24077b89e9c80e4ecc709b64c_icgraph.png" border="0" usemap="#anamespaceSerialOutput_afc1b88b24077b89e9c80e4ecc709b64c_icgraph" alt=""/></div>
 <map name="anamespaceSerialOutput_afc1b88b24077b89e9c80e4ecc709b64c_icgraph" id="anamespaceSerialOutput_afc1b88b24077b89e9c80e4ecc709b64c_icgraph">
-<area shape="rect" title="Whether an output is still in progress." alt="" coords="532,83,674,110"/>
+<area shape="rect" title="Whether an output is still in progress." alt="" coords="532,135,674,162"/>
 <area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="153,5,254,33"/>
-<area shape="poly" title=" " alt="" coords="533,78,484,68,360,45,254,29,254,23,361,40,485,63,539,78"/>
-<area shape="rect" href="namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="344,108,484,136"/>
-<area shape="poly" title=" " alt="" coords="514,109,485,115,484,110,519,108"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="113,178,294,223"/>
-<area shape="poly" title=" " alt="" coords="562,117,485,150,387,174,294,191,294,186,386,169,484,145,557,118"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="111,57,296,85"/>
-<area shape="poly" title=" " alt="" coords="515,92,297,80,296,74,519,90"/>
+<area shape="poly" title=" " alt="" coords="560,128,483,95,360,57,254,32,254,26,362,52,485,90,565,127"/>
+<area shape="rect" href="namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="344,135,484,162"/>
+<area shape="poly" title=" " alt="" coords="514,149,485,151,484,146,519,148"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="113,57,294,102"/>
+<area shape="poly" title=" " alt="" coords="520,131,484,126,294,95,294,89,485,121,526,131"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="111,195,296,222"/>
+<area shape="poly" title=" " alt="" coords="522,167,485,176,297,202,296,197,484,171,527,166"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a27de18cd8e431ab8826ec6aa60d14c0c" title=" " alt="" coords="125,246,282,291"/>
+<area shape="poly" title=" " alt="" coords="561,168,485,202,380,233,282,256,281,250,378,227,483,197,556,170"/>
 <area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="9,5,59,33"/>
 <area shape="poly" title=" " alt="" coords="136,21,60,22,58,17,139,17"/>
-<area shape="poly" title=" " alt="" coords="380,98,341,73,295,48,254,33,254,28,297,43,344,69,385,98"/>
-<area shape="poly" title=" " alt="" coords="363,141,266,180,265,175,358,142"/>
-<area shape="poly" title=" " alt="" coords="337,105,264,88,264,83,342,103"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a04bbc580ce141020e3c27f9a5555ad0d" title=" " alt="" coords="122,109,285,154"/>
-<area shape="poly" title=" " alt="" coords="326,126,286,130,285,125,331,125"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,117,63,145"/>
-<area shape="poly" title=" " alt="" coords="123,172,110,168,63,147,63,142,112,163,129,172"/>
-<area shape="poly" title=" " alt="" coords="128,92,112,99,65,119,62,115,110,94,132,88"/>
-<area shape="poly" title=" " alt="" coords="104,133,64,134,62,129,108,129"/>
+<area shape="poly" title=" " alt="" coords="388,123,347,85,295,47,254,31,254,26,297,42,351,80,393,123"/>
+<area shape="poly" title=" " alt="" coords="353,130,274,105,274,99,358,129"/>
+<area shape="poly" title=" " alt="" coords="348,168,297,186,258,197,257,192,295,181,353,166"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a04bbc580ce141020e3c27f9a5555ad0d" title=" " alt="" coords="122,126,285,171"/>
+<area shape="poly" title=" " alt="" coords="326,149,286,151,285,146,331,148"/>
+<area shape="poly" title=" " alt="" coords="387,171,346,206,297,236,272,248,271,243,295,231,343,201,382,173"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,164,63,192"/>
+<area shape="poly" title=" " alt="" coords="118,110,112,116,78,141,51,165,47,162,75,137,109,112,122,107"/>
+<area shape="poly" title=" " alt="" coords="107,193,64,186,63,180,111,190"/>
+<area shape="poly" title=" " alt="" coords="105,167,64,175,62,171,108,163"/>
+<area shape="poly" title=" " alt="" coords="119,240,109,236,77,215,52,195,52,190,80,211,112,232,124,239"/>
 </map>
 </div>
 
@@ -307,7 +311,7 @@ Here is the caller graph for this function:</div>
 <p>Write whatever is left of the current output to Serial, waiting like a plain print. </p>
 <dl class="section note"><dt>Note</dt><dd>Out of line and without parameters: it is called before every debug message, so each call site costs a plain call. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00098">98</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00099">99</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -323,83 +327,95 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceSerialOutput_a7a595eab49199186c178345e2e5a3ca5_icgraph.png" border="0" usemap="#anamespaceSerialOutput_a7a595eab49199186c178345e2e5a3ca5_icgraph" alt=""/></div>
 <map name="anamespaceSerialOutput_a7a595eab49199186c178345e2e5a3ca5_icgraph" id="anamespaceSerialOutput_a7a595eab49199186c178345e2e5a3ca5_icgraph">
-<area shape="rect" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1441,259,1612,286"/>
-<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="1310,259,1356,286"/>
-<area shape="poly" title=" " alt="" coords="1423,273,1357,275,1356,270,1428,272"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="1304,451,1362,478"/>
-<area shape="poly" title=" " alt="" coords="1503,296,1350,453,1347,448,1498,299"/>
-<area shape="rect" href="debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="1273,107,1393,134"/>
-<area shape="poly" title=" " alt="" coords="1493,249,1352,138,1353,132,1498,249"/>
-<area shape="rect" href="debug_8h.html#ae99b323afab58fbf83f92c6d679e1276" title="Print a debug message, as Serial.print() does (only with ENABLE_DEBUG)." alt="" coords="800,369,861,397"/>
-<area shape="poly" title=" " alt="" coords="1292,270,1231,269,1148,270,1056,279,1010,288,966,300,932,315,899,334,850,371,846,367,896,329,929,310,964,295,1009,283,1055,274,1147,265,1231,264,1297,268"/>
-<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="761,157,900,185"/>
-<area shape="poly" title=" " alt="" coords="1303,248,1268,222,1224,199,1139,177,1052,167,970,164,901,167,899,162,970,159,1052,161,1140,172,1226,194,1271,217,1309,248"/>
-<area shape="rect" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="995,208,1195,236"/>
-<area shape="poly" title=" " alt="" coords="1292,265,1164,239,1163,234,1297,264"/>
-<area shape="rect" href="group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="968,107,1223,134"/>
-<area shape="poly" title=" " alt="" coords="1312,245,1276,199,1251,175,1224,155,1185,138,1185,132,1227,150,1255,171,1280,196,1318,246"/>
-<area shape="rect" href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="965,361,1225,389"/>
-<area shape="poly" title=" " alt="" coords="1307,295,1270,326,1226,351,1191,363,1189,358,1224,346,1267,322,1302,298"/>
-<area shape="rect" href="classRelayEngine.html#ae27586afc10fc74876b2d647d05536ba" title="Print the configuration of each relay." alt="" coords="984,413,1206,458"/>
-<area shape="poly" title=" " alt="" coords="1318,298,1281,353,1256,380,1227,403,1204,415,1202,410,1224,398,1252,376,1277,350,1314,302"/>
-<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="1064,309,1126,337"/>
-<area shape="poly" title=" " alt="" coords="1292,282,1127,319,1125,314,1297,279"/>
-<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="588,607,645,634"/>
-<area shape="poly" title=" " alt="" coords="808,407,632,608,629,604,804,411"/>
-<area shape="poly" title=" " alt="" coords="818,198,627,608,622,605,814,201"/>
-<area shape="poly" title=" " alt="" coords="1002,205,900,187,899,182,1007,204"/>
-<area shape="poly" title=" " alt="" coords="1002,139,901,160,899,156,1007,137"/>
-<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="765,685,896,713"/>
-<area shape="poly" title=" " alt="" coords="1047,321,1005,330,984,338,967,352,951,371,941,390,931,429,934,469,942,509,950,549,953,591,945,632,934,653,919,674,897,690,894,686,915,671,930,651,940,630,948,590,945,550,936,510,928,470,926,429,936,388,947,368,963,348,982,334,1004,324,1051,319"/>
-<area shape="poly" title=" " alt="" coords="763,680,743,675,646,635,646,630,745,670,768,680"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="552,737,681,765"/>
-<area shape="poly" title=" " alt="" coords="753,718,678,739,676,734,758,716"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,763,489,790"/>
-<area shape="poly" title=" " alt="" coords="534,762,491,769,489,764,539,760"/>
-<area shape="rect" href="group__GeneralProcessing.html#gabe8c38238f5014c09e788c833b50af5e" title="Handles load priority rotation." alt="" coords="324,815,486,842"/>
-<area shape="poly" title=" " alt="" coords="565,772,490,804,454,816,452,812,488,799,570,770"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,789,272,817"/>
-<area shape="poly" title=" " alt="" coords="302,790,273,795,271,790,307,788"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,789,55,817"/>
-<area shape="poly" title=" " alt="" coords="85,805,56,805,54,801,89,801"/>
-<area shape="poly" title=" " alt="" coords="306,818,273,816,272,810,311,816"/>
-<area shape="poly" title=" " alt="" coords="1296,485,1262,504,1226,516,1154,533,1092,542,985,547,878,550,816,557,744,572,692,590,647,609,644,604,690,585,743,567,815,552,878,544,985,541,1092,537,1153,528,1225,511,1260,499,1291,487"/>
-<area shape="poly" title=" " alt="" coords="1287,480,1222,499,1137,510,1092,510,1047,505,1004,493,963,472,939,448,930,422,925,393,915,359,838,188,839,183,919,357,930,391,935,421,944,445,967,468,1006,488,1048,500,1092,505,1137,505,1221,494,1292,478"/>
-<area shape="poly" title=" " alt="" coords="1317,436,1280,371,1254,334,1224,300,1176,264,1130,239,1130,234,1179,260,1227,296,1258,330,1284,368,1322,438"/>
-<area shape="poly" title=" " alt="" coords="1319,435,1268,300,1242,234,1223,198,1203,179,1180,162,1135,137,1134,132,1183,157,1206,175,1227,195,1246,232,1273,298,1324,437"/>
-<area shape="poly" title=" " alt="" coords="1297,441,1264,422,1224,403,1191,392,1190,387,1226,398,1266,417,1303,442"/>
-<area shape="poly" title=" " alt="" coords="1286,460,1206,451,1206,446,1291,459"/>
-<area shape="rect" href="debug_8h.html#ab753909eac023c9095cde3544f912923" title="Print a debug message and a line end, as Serial.println() does (only with ENABLE_DEBUG)." alt="" coords="794,581,867,609"/>
-<area shape="poly" title=" " alt="" coords="1314,489,1277,533,1253,552,1226,567,1179,584,1128,597,1027,608,936,608,868,603,867,597,936,603,1027,603,1127,591,1177,579,1224,562,1250,547,1273,529,1310,492"/>
-<area shape="rect" href="group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="757,633,904,661"/>
-<area shape="poly" title=" " alt="" coords="1322,491,1308,523,1287,557,1260,589,1227,615,1187,634,1145,647,1059,662,976,665,905,661,904,655,976,660,1058,657,1144,642,1185,629,1224,610,1256,585,1283,554,1303,521,1319,494"/>
-<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="1058,788,1132,816"/>
-<area shape="poly" title=" " alt="" coords="1322,491,1284,574,1257,622,1227,667,1168,738,1114,790,1111,785,1164,734,1223,664,1253,619,1279,571,1318,494"/>
-<area shape="poly" title=" " alt="" coords="776,602,647,620,645,615,781,600"/>
-<area shape="poly" title=" " alt="" coords="739,637,646,627,645,621,744,635"/>
-<area shape="poly" title=" " alt="" coords="1047,781,916,728,881,716,881,711,918,723,1052,781"/>
-<area shape="poly" title=" " alt="" coords="1042,802,490,782,490,777,1045,798"/>
-<area shape="poly" title=" " alt="" coords="1042,806,487,828,486,823,1045,802"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="757,889,904,917"/>
-<area shape="poly" title=" " alt="" coords="1047,821,918,874,871,891,870,886,916,869,1042,822"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="783,737,878,765"/>
-<area shape="poly" title=" " alt="" coords="1041,792,878,763,878,757,1046,792"/>
-<area shape="rect" href="classrelayOutput.html#ac5b46b3ccabacb3565a16038f8099398" title="Turn the relay ON or OFF if the &#39;time&#39; condition is met." alt="" coords="744,949,917,977"/>
-<area shape="poly" title=" " alt="" coords="1067,825,1001,878,918,931,873,951,872,946,916,926,998,874,1062,827"/>
-<area shape="poly" title=" " alt="" coords="807,877,627,637,630,633,812,877"/>
-<area shape="poly" title=" " alt="" coords="739,902,547,892,432,878,319,856,265,839,219,820,218,815,267,834,321,851,433,873,547,887,744,901"/>
-<area shape="poly" title=" " alt="" coords="766,736,742,727,717,707,694,684,636,637,637,632,697,680,720,703,745,722,771,736"/>
-<area shape="poly" title=" " alt="" coords="766,738,695,728,589,720,506,720,424,730,321,754,266,771,220,791,217,787,264,766,319,749,423,725,506,715,590,715,696,723,771,737"/>
-<area shape="rect" href="classrelayOutput.html#a7bba2dafbdc27d07468741bc1d849f57" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="537,1010,696,1055"/>
-<area shape="poly" title=" " alt="" coords="773,982,688,1012,687,1007,768,983"/>
-<area shape="rect" href="classrelayOutput.html#a8db1c0f340b319bfc7ff11467ea57cc7" title="Proceed with the relay." alt="" coords="537,941,696,986"/>
-<area shape="poly" title=" " alt="" coords="725,963,696,966,696,961,731,963"/>
-<area shape="poly" title=" " alt="" coords="1261,103,1199,93,1124,85,1044,85,1004,90,966,98,932,110,901,126,851,159,848,155,898,121,930,105,964,93,1003,84,1044,80,1124,80,1200,88,1266,102"/>
-<area shape="poly" title=" " alt="" coords="1282,142,1131,210,1129,205,1287,139"/>
-<area shape="poly" title=" " alt="" coords="1255,121,1224,123,1223,118,1260,120"/>
-<area shape="rect" href="debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="1028,5,1162,33"/>
-<area shape="poly" title=" " alt="" coords="1299,97,1265,75,1224,54,1163,34,1162,29,1226,49,1268,71,1304,97"/>
-<area shape="poly" title=" " alt="" coords="1010,34,966,54,929,78,894,107,845,159,841,155,891,103,925,74,964,49,1015,31"/>
+<area shape="rect" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1548,309,1719,337"/>
+<area shape="rect" href="debug_8h.html#a3cb0b813335b40837a5cc0b22a735491" title="Print a text in flash, F(&quot;...&quot;): info() out of line." alt="" coords="1448,208,1494,236"/>
+<area shape="poly" title=" " alt="" coords="1594,301,1494,239,1495,233,1600,301"/>
+<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="1448,309,1494,337"/>
+<area shape="poly" title=" " alt="" coords="1530,324,1495,326,1494,321,1535,323"/>
+<area shape="rect" href="debug_8h.html#aecc2167c1df6c1ef96e8c7c1219c7c16" title="Print a text in flash, F(&quot;...&quot;), and a line end: infoln() out of line." alt="" coords="1442,411,1500,438"/>
+<area shape="poly" title=" " alt="" coords="1599,344,1496,413,1493,408,1594,347"/>
+<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="1297,537,1355,565"/>
+<area shape="poly" title=" " alt="" coords="1556,343,1500,368,1443,401,1396,460,1339,539,1336,535,1392,457,1440,397,1498,363,1561,341"/>
+<area shape="rect" href="debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="1266,81,1386,109"/>
+<area shape="poly" title=" " alt="" coords="1542,304,1489,284,1463,268,1440,249,1427,233,1420,218,1414,188,1409,159,1403,144,1392,129,1369,112,1369,107,1396,125,1408,141,1415,157,1420,187,1425,216,1432,231,1444,245,1466,264,1491,279,1547,304"/>
+<area shape="rect" href="debug_8h.html#ae99b323afab58fbf83f92c6d679e1276" title="Print a debug message, as Serial.print() does (only with ENABLE_DEBUG)." alt="" coords="1295,5,1357,33"/>
+<area shape="poly" title=" " alt="" coords="1456,293,1439,248,1428,197,1423,155,1414,116,1391,71,1373,51,1353,36,1353,31,1377,47,1396,68,1419,114,1428,154,1433,196,1444,246,1461,295"/>
+<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="739,240,877,268"/>
+<area shape="poly" title=" " alt="" coords="1444,297,1439,291,1426,266,1419,244,1411,225,1392,207,1369,192,1347,184,1307,178,1264,180,1210,179,1079,165,1022,166,951,179,916,191,882,208,830,242,826,237,879,203,913,186,949,174,1021,160,1079,160,1210,174,1264,174,1308,173,1349,179,1371,188,1395,202,1415,222,1424,242,1431,264,1444,288,1450,298"/>
+<area shape="rect" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="980,240,1180,268"/>
+<area shape="poly" title=" " alt="" coords="1439,299,1418,287,1393,275,1340,261,1285,253,1181,249,1180,244,1285,248,1341,256,1395,270,1420,282,1444,299"/>
+<area shape="rect" href="group__DualTariff.html#ga58395f016d0737f432ea1cec1e160971" title="Prints a time in ms from the start of the off&#45;peak period, as &lt;h&gt;h&lt;mm&gt;." alt="" coords="1258,284,1394,312"/>
+<area shape="poly" title=" " alt="" coords="1430,317,1395,312,1394,307,1435,316"/>
+<area shape="rect" href="group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="952,188,1208,216"/>
+<area shape="poly" title=" " alt="" coords="1445,298,1392,244,1348,226,1301,213,1254,205,1209,201,1208,196,1255,200,1303,208,1350,221,1395,240,1450,298"/>
+<area shape="rect" href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="950,412,1210,440"/>
+<area shape="poly" title=" " alt="" coords="1431,341,1395,358,1275,391,1166,414,1164,409,1274,386,1393,353,1436,339"/>
+<area shape="rect" href="classRelayDiverter.html#ab23c31c106f60659e04f1f52045b9f0e" title="Print the configuration of each relay." alt="" coords="987,464,1173,508"/>
+<area shape="poly" title=" " alt="" coords="1447,347,1419,378,1395,397,1341,424,1283,446,1175,474,1173,469,1282,441,1339,420,1392,393,1415,374,1443,350"/>
+<area shape="rect" href="group__Initialization.html#gaf89dd9a18ac303e10da1e6bbb50f310b" title="Prints the rotation groups, as load numbers counted from 0 as in LOAD(n): &quot;\tgroups { 0 1 2 }..." alt="" coords="1004,360,1156,388"/>
+<area shape="poly" title=" " alt="" coords="1430,329,1158,367,1156,361,1435,327"/>
+<area shape="rect" href="classTempSensors.html#a80b0959867c7d30015fe661b51777db7" title="Lists the sensors on the bus, with their ROM codes as config.h takes them." alt="" coords="982,292,1178,336"/>
+<area shape="poly" title=" " alt="" coords="1430,325,1258,326,1179,322,1178,317,1258,321,1435,323"/>
+<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="1295,685,1357,713"/>
+<area shape="poly" title=" " alt="" coords="1460,350,1444,400,1431,450,1422,489,1413,528,1396,578,1366,639,1338,687,1335,683,1362,637,1391,575,1408,527,1417,488,1425,448,1439,398,1456,354"/>
+<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="573,709,630,737"/>
+<area shape="poly" title=" " alt="" coords="1277,15,1213,12,1130,12,1039,22,994,32,951,46,872,79,813,113,765,160,716,230,681,295,655,366,635,438,621,508,608,631,605,710,600,708,603,631,616,507,630,436,650,364,676,293,711,227,761,157,810,109,869,74,949,41,993,27,1038,17,1130,7,1214,7,1282,13"/>
+<area shape="poly" title=" " alt="" coords="797,280,611,710,607,707,792,283"/>
+<area shape="poly" title=" " alt="" coords="962,255,878,256,877,251,967,253"/>
+<area shape="poly" title=" " alt="" coords="1241,284,1162,271,1161,266,1246,283"/>
+<area shape="poly" title=" " alt="" coords="987,220,879,243,876,238,991,218"/>
+<area shape="poly" title=" " alt="" coords="986,361,949,351,912,333,877,311,826,271,826,266,880,306,915,328,951,346,991,360"/>
+<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="743,787,873,814"/>
+<area shape="poly" title=" " alt="" coords="1297,721,1257,749,1211,770,1121,791,1029,803,944,807,874,807,873,801,944,802,1029,798,1120,786,1209,765,1255,744,1292,723"/>
+<area shape="poly" title=" " alt="" coords="734,782,713,776,630,740,631,735,715,771,740,782"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="537,787,666,814"/>
+<area shape="poly" title=" " alt="" coords="724,801,667,803,666,798,730,800"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,787,489,814"/>
+<area shape="poly" title=" " alt="" coords="519,801,491,803,489,798,525,800"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="324,839,486,866"/>
+<area shape="poly" title=" " alt="" coords="529,820,461,841,459,835,534,818"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,864,272,892"/>
+<area shape="poly" title=" " alt="" coords="340,821,321,830,225,866,223,861,319,825,345,818"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,864,55,892"/>
+<area shape="poly" title=" " alt="" coords="85,880,56,880,54,876,89,876"/>
+<area shape="poly" title=" " alt="" coords="306,865,273,870,272,865,311,863"/>
+<area shape="poly" title=" " alt="" coords="1308,576,1267,624,1241,646,1211,663,1160,680,1090,693,920,712,751,722,631,725,630,720,750,716,920,706,1090,688,1159,674,1209,658,1238,641,1264,620,1303,579"/>
+<area shape="poly" title=" " alt="" coords="1279,553,1201,556,1103,553,1012,543,975,535,949,523,916,496,888,463,865,427,847,389,822,319,811,271,813,265,827,317,852,387,870,424,892,460,919,492,951,518,977,530,1013,538,1104,548,1201,551,1284,552"/>
+<area shape="poly" title=" " alt="" coords="1319,521,1309,470,1289,404,1275,370,1257,337,1235,307,1209,281,1181,266,1181,260,1212,277,1239,304,1261,334,1280,368,1294,402,1314,469,1324,523"/>
+<area shape="poly" title=" " alt="" coords="1314,521,1261,356,1231,273,1218,245,1208,230,1192,219,1192,214,1212,227,1223,243,1236,271,1266,354,1319,523"/>
+<area shape="poly" title=" " alt="" coords="1301,526,1261,489,1236,469,1209,454,1182,443,1182,438,1212,449,1239,465,1264,485,1306,526"/>
+<area shape="poly" title=" " alt="" coords="1279,540,1167,511,1167,506,1284,539"/>
+<area shape="poly" title=" " alt="" coords="1309,522,1270,462,1242,429,1209,403,1184,391,1157,383,1157,377,1186,386,1212,398,1246,426,1274,459,1314,524"/>
+<area shape="poly" title=" " alt="" coords="1314,522,1300,484,1278,437,1248,390,1209,351,1178,333,1178,328,1212,346,1252,387,1282,435,1305,482,1319,524"/>
+<area shape="rect" href="debug_8h.html#ab753909eac023c9095cde3544f912923" title="Print a debug message and a line end, as Serial.println() does (only with ENABLE_DEBUG)." alt="" coords="771,735,844,762"/>
+<area shape="poly" title=" " alt="" coords="1312,577,1264,659,1236,696,1212,719,1164,741,1114,756,1062,765,1011,769,916,767,845,758,845,753,917,761,1011,763,1062,759,1113,751,1163,736,1209,714,1232,692,1259,656,1308,580"/>
+<area shape="rect" href="utils_8h.html#a25c5ac42b5ae08d9a1fb30c1cb69b1c2" title="Print &quot;is present&quot; or &quot;is NOT present&quot;, and a line end." alt="" coords="1022,583,1139,610"/>
+<area shape="poly" title=" " alt="" coords="1279,560,1140,588,1138,583,1284,558"/>
+<area shape="rect" href="group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="734,633,882,661"/>
+<area shape="poly" title=" " alt="" coords="1298,574,1258,603,1211,624,1124,645,1036,655,952,658,883,656,882,650,952,652,1035,650,1124,639,1209,619,1255,598,1293,576"/>
+<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="1044,888,1117,916"/>
+<area shape="poly" title=" " alt="" coords="1312,577,1261,675,1239,723,1213,769,1153,839,1099,890,1097,885,1149,835,1208,766,1234,721,1256,673,1307,580"/>
+<area shape="poly" title=" " alt="" coords="753,743,631,729,630,724,758,742"/>
+<area shape="poly" title=" " alt="" coords="1004,590,975,583,948,567,914,532,886,492,863,449,844,405,820,325,810,271,812,266,825,323,849,403,867,447,890,489,918,529,952,562,978,578,1009,590"/>
+<area shape="poly" title=" " alt="" coords="746,668,715,682,632,714,629,709,713,677,751,665"/>
+<area shape="poly" title=" " alt="" coords="1027,882,901,835,852,818,852,812,903,830,1032,882"/>
+<area shape="poly" title=" " alt="" coords="1025,895,902,879,719,855,537,828,478,818,477,812,538,823,720,850,902,874,1031,894"/>
+<area shape="poly" title=" " alt="" coords="1044,923,979,957,941,971,903,982,850,991,808,994,766,991,713,982,629,959,549,928,480,896,431,870,432,864,483,891,551,923,631,954,714,977,767,986,808,989,849,986,901,977,939,966,977,952,1039,924"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="735,888,881,916"/>
+<area shape="poly" title=" " alt="" coords="1025,902,881,904,881,899,1031,902"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="761,940,855,968"/>
+<area shape="poly" title=" " alt="" coords="1031,911,856,948,855,942,1026,912"/>
+<area shape="rect" href="structRelayPinOutput.html#a2a6b0d7b3f4614d27bab2ed23e938176" title="Called on each change of a relay, before its state changes." alt="" coords="714,1041,902,1069"/>
+<area shape="poly" title=" " alt="" coords="1052,925,985,976,903,1026,859,1043,858,1038,901,1021,982,972,1047,927"/>
+<area shape="poly" title=" " alt="" coords="773,878,712,828,664,777,621,740,622,735,668,773,715,824,778,878"/>
+<area shape="poly" title=" " alt="" coords="718,901,273,884,272,878,721,896"/>
+<area shape="poly" title=" " alt="" coords="743,945,727,940,712,929,696,910,688,892,683,855,680,817,675,798,663,777,645,756,626,740,626,735,649,752,668,774,679,796,685,816,688,854,693,890,701,907,716,925,730,936,749,946"/>
+<area shape="poly" title=" " alt="" coords="744,949,320,898,273,892,272,886,320,893,747,944"/>
+<area shape="poly" title=" " alt="" coords="1267,77,1202,62,1120,51,1077,50,1033,54,991,62,951,78,925,93,902,113,863,159,835,205,817,241,813,238,830,202,859,156,898,109,922,89,949,73,990,57,1033,48,1077,45,1120,46,1203,57,1272,76"/>
+<area shape="poly" title=" " alt="" coords="1276,117,1116,190,1113,185,1280,114"/>
+<area shape="rect" href="debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="1013,87,1147,114"/>
+<area shape="poly" title=" " alt="" coords="1248,98,1149,102,1147,97,1253,96"/>
+<area shape="poly" title=" " alt="" coords="995,116,951,135,912,160,876,189,823,241,820,238,872,185,909,155,949,130,1000,113"/>
 </map>
 </div>
 
@@ -438,7 +454,7 @@ template&lt;bool IOT&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00240">240</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00241">241</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -481,7 +497,7 @@ Here is the caller graph for this function:</div>
 
 <p>Write as many steps as the transmit buffer can take, without waiting. </p>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00084">84</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00085">85</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -497,16 +513,19 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceSerialOutput_afd684610f3d410706ad307dcb113376a_icgraph.png" border="0" usemap="#anamespaceSerialOutput_afd684610f3d410706ad307dcb113376a_icgraph" alt=""/></div>
 <map name="anamespaceSerialOutput_afd684610f3d410706ad307dcb113376a_icgraph" id="anamespaceSerialOutput_afd684610f3d410706ad307dcb113376a_icgraph">
-<area shape="rect" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="344,65,478,93"/>
+<area shape="rect" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="344,96,478,124"/>
 <area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="179,5,228,33"/>
-<area shape="poly" title=" " alt="" coords="346,61,295,47,228,28,228,23,297,42,352,60"/>
+<area shape="poly" title=" " alt="" coords="373,87,337,67,295,47,229,27,228,21,297,42,339,63,378,87"/>
 <area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="113,57,294,102"/>
-<area shape="poly" title=" " alt="" coords="326,80,294,82,294,77,331,79"/>
+<area shape="poly" title=" " alt="" coords="326,98,294,95,294,90,331,97"/>
 <area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="111,125,296,153"/>
-<area shape="poly" title=" " alt="" coords="351,98,297,116,258,127,257,122,295,111,346,99"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,96,63,124"/>
-<area shape="poly" title=" " alt="" coords="96,100,64,107,62,102,100,97"/>
-<area shape="poly" title=" " alt="" coords="103,123,63,117,63,112,107,121"/>
+<area shape="poly" title=" " alt="" coords="326,122,297,129,296,123,332,121"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a27de18cd8e431ab8826ec6aa60d14c0c" title=" " alt="" coords="125,177,282,222"/>
+<area shape="poly" title=" " alt="" coords="371,130,297,167,268,179,267,174,295,162,366,132"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,125,63,153"/>
+<area shape="poly" title=" " alt="" coords="123,109,64,132,62,127,126,105"/>
+<area shape="poly" title=" " alt="" coords="93,141,64,142,62,137,97,138"/>
+<area shape="poly" title=" " alt="" coords="122,173,63,152,63,146,126,170"/>
 </map>
 </div>
 
@@ -555,41 +574,38 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00196">196</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00197">197</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceSerialOutput_afe70890e346c41dfd6d25fae03235ad0_icgraph.png" border="0" usemap="#anamespaceSerialOutput_afe70890e346c41dfd6d25fae03235ad0_icgraph" alt=""/></div>
 <map name="anamespaceSerialOutput_afe70890e346c41dfd6d25fae03235ad0_icgraph" id="anamespaceSerialOutput_afe70890e346c41dfd6d25fae03235ad0_icgraph">
-<area shape="rect" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="808,211,1009,238"/>
-<area shape="rect" href="debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="620,107,740,134"/>
-<area shape="poly" title=" " alt="" coords="859,204,712,137,713,132,865,204"/>
-<area shape="rect" href="group__Telemetry.html#ga678079c20f2260c02b6d805a3252fdb8" title="One step of the datalog in text format." alt="" coords="626,180,734,208"/>
-<area shape="poly" title=" " alt="" coords="790,209,734,204,734,198,795,209"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#aae27f1312bc163c3eb9f5309b9fdf7dd" title=" " alt="" coords="601,232,759,276"/>
-<area shape="poly" title=" " alt="" coords="790,240,759,246,759,241,795,239"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#ae4661fa1d0daf8ee1282ebe4e9e68a60" title=" " alt="" coords="600,300,760,362"/>
-<area shape="poly" title=" " alt="" coords="866,245,749,302,747,297,860,246"/>
+<area shape="rect" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="808,175,1009,202"/>
+<area shape="rect" href="debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="620,71,740,98"/>
+<area shape="poly" title=" " alt="" coords="859,168,712,101,713,96,865,168"/>
+<area shape="rect" href="group__Telemetry.html#ga678079c20f2260c02b6d805a3252fdb8" title="One step of the datalog in text format." alt="" coords="626,144,734,172"/>
+<area shape="poly" title=" " alt="" coords="790,173,734,168,734,162,795,173"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#aae27f1312bc163c3eb9f5309b9fdf7dd" title=" " alt="" coords="601,196,759,240"/>
+<area shape="poly" title=" " alt="" coords="790,204,759,210,759,205,795,203"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#ae4661fa1d0daf8ee1282ebe4e9e68a60" title=" " alt="" coords="600,264,760,326"/>
+<area shape="poly" title=" " alt="" coords="866,209,749,266,747,261,860,210"/>
 <area shape="rect" href="debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="358,5,492,33"/>
-<area shape="poly" title=" " alt="" coords="641,98,600,76,551,54,492,35,492,30,553,49,602,71,646,98"/>
-<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="111,81,249,109"/>
-<area shape="poly" title=" " alt="" coords="602,104,552,98,471,92,389,91,250,94,249,89,389,85,471,87,553,93,608,103"/>
-<area shape="rect" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="324,107,525,134"/>
-<area shape="poly" title=" " alt="" coords="602,121,526,123,525,118,608,120"/>
-<area shape="rect" href="group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="297,159,552,186"/>
-<area shape="poly" title=" " alt="" coords="603,136,497,161,496,155,608,135"/>
-<area shape="poly" title=" " alt="" coords="344,39,298,54,217,83,214,79,296,49,348,36"/>
-<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,81,63,109"/>
-<area shape="poly" title=" " alt="" coords="93,97,65,97,62,93,97,93"/>
-<area shape="poly" title=" " alt="" coords="307,110,250,105,249,100,312,107"/>
-<area shape="poly" title=" " alt="" coords="325,155,296,148,249,131,210,112,209,107,251,126,298,143,330,154"/>
-<area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="374,211,475,238"/>
-<area shape="poly" title=" " alt="" coords="608,203,476,221,475,216,613,201"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="155,211,204,238"/>
-<area shape="poly" title=" " alt="" coords="357,226,205,227,205,222,361,223"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="396,289,453,317"/>
-<area shape="poly" title=" " alt="" coords="589,272,454,300,454,295,583,272"/>
-<area shape="poly" title=" " alt="" coords="582,321,454,309,454,304,588,321"/>
+<area shape="poly" title=" " alt="" coords="607,67,552,54,483,36,483,31,553,49,613,66"/>
+<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="111,56,249,84"/>
+<area shape="poly" title=" " alt="" coords="604,85,250,74,249,69,607,80"/>
+<area shape="rect" href="group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="297,107,552,134"/>
+<area shape="poly" title=" " alt="" coords="602,96,528,109,527,103,608,94"/>
+<area shape="poly" title=" " alt="" coords="340,38,250,58,248,53,344,35"/>
+<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,56,63,84"/>
+<area shape="poly" title=" " alt="" coords="93,72,64,72,62,68,97,68"/>
+<area shape="poly" title=" " alt="" coords="337,104,250,87,249,82,342,102"/>
+<area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="374,159,475,186"/>
+<area shape="poly" title=" " alt="" coords="608,162,476,172,475,167,613,161"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="155,159,204,186"/>
+<area shape="poly" title=" " alt="" coords="357,174,205,175,205,170,361,171"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="396,239,453,266"/>
+<area shape="poly" title=" " alt="" coords="583,231,454,251,454,246,589,230"/>
+<area shape="poly" title=" " alt="" coords="582,279,454,260,454,255,588,279"/>
 </map>
 </div>
 
@@ -632,7 +648,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00116">116</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00117">117</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -682,101 +698,116 @@ Here is the caller graph for this function:</div>
 
 <p>Run the next step of the current output. </p>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00073">73</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00074">74</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceSerialOutput_a60a79de5db3bb8e9787c5430b5eaafa5_icgraph.png" border="0" usemap="#anamespaceSerialOutput_a60a79de5db3bb8e9787c5430b5eaafa5_icgraph" alt=""/></div>
 <map name="anamespaceSerialOutput_a60a79de5db3bb8e9787c5430b5eaafa5_icgraph" id="anamespaceSerialOutput_a60a79de5db3bb8e9787c5430b5eaafa5_icgraph">
-<area shape="rect" title="Run the next step of the current output." alt="" coords="1726,728,1886,756"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1507,316,1678,344"/>
-<area shape="poly" title=" " alt="" coords="1788,713,1600,346,1602,342,1793,715"/>
-<area shape="rect" href="namespaceSerialOutput.html#afd684610f3d410706ad307dcb113376a" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="1525,975,1660,1002"/>
-<area shape="poly" title=" " alt="" coords="1786,766,1607,976,1605,972,1781,768"/>
-<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="1343,233,1389,261"/>
-<area shape="poly" title=" " alt="" coords="1535,311,1390,258,1389,253,1541,310"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="1337,401,1395,429"/>
-<area shape="poly" title=" " alt="" coords="1537,351,1397,407,1394,402,1542,348"/>
-<area shape="rect" href="debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="1306,105,1426,133"/>
-<area shape="poly" title=" " alt="" coords="1562,305,1382,136,1383,130,1567,305"/>
-<area shape="rect" href="debug_8h.html#ae99b323afab58fbf83f92c6d679e1276" title="Print a debug message, as Serial.print() does (only with ENABLE_DEBUG)." alt="" coords="800,53,861,81"/>
-<area shape="poly" title=" " alt="" coords="1336,222,1304,189,1271,146,1258,115,1252,88,1245,64,1237,54,1224,44,1178,22,1129,11,1077,8,1026,12,977,21,932,33,863,56,860,52,930,27,976,16,1025,7,1077,3,1129,6,1180,17,1227,39,1240,50,1249,62,1257,87,1263,114,1276,143,1308,185,1342,223"/>
-<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="761,156,900,184"/>
-<area shape="poly" title=" " alt="" coords="1326,231,1280,214,1225,198,1138,183,1050,175,901,171,899,166,1050,170,1139,178,1226,192,1281,209,1332,230"/>
-<area shape="rect" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="995,105,1195,133"/>
-<area shape="poly" title=" " alt="" coords="1334,223,1285,188,1224,153,1174,136,1174,131,1226,149,1288,184,1339,223"/>
-<area shape="rect" href="group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="968,207,1223,234"/>
-<area shape="poly" title=" " alt="" coords="1325,244,1224,236,1223,230,1330,243"/>
-<area shape="rect" href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="965,311,1225,338"/>
-<area shape="poly" title=" " alt="" coords="1326,263,1226,300,1177,312,1175,307,1225,295,1331,261"/>
-<area shape="rect" href="classRelayEngine.html#ae27586afc10fc74876b2d647d05536ba" title="Print the configuration of each relay." alt="" coords="984,362,1206,407"/>
-<area shape="poly" title=" " alt="" coords="1340,270,1289,314,1227,352,1198,364,1195,359,1224,347,1286,309,1336,273"/>
-<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="1064,259,1126,286"/>
-<area shape="poly" title=" " alt="" coords="1325,252,1127,272,1125,267,1330,250"/>
-<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="588,532,645,560"/>
-<area shape="poly" title=" " alt="" coords="791,92,768,116,746,146,726,198,721,247,725,294,733,338,740,382,740,427,727,473,715,496,698,521,674,538,647,546,645,541,671,533,694,517,711,494,723,471,734,426,734,383,728,339,720,294,716,247,721,197,741,143,764,112,795,88"/>
-<area shape="poly" title=" " alt="" coords="821,196,760,380,724,471,698,521,673,537,647,545,644,540,671,532,694,517,719,469,755,379,818,200"/>
-<area shape="poly" title=" " alt="" coords="1002,138,901,159,899,154,1007,135"/>
-<area shape="poly" title=" " alt="" coords="1002,204,900,185,899,180,1007,202"/>
-<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="765,428,896,456"/>
-<area shape="poly" title=" " alt="" coords="1046,276,1007,285,966,301,926,331,890,366,843,429,839,425,886,363,922,327,964,297,1006,280,1051,274"/>
-<area shape="poly" title=" " alt="" coords="753,464,745,471,731,483,722,495,712,508,697,521,672,534,647,542,644,537,670,529,694,517,709,505,717,492,727,479,742,466,757,461"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="552,480,681,508"/>
-<area shape="poly" title=" " alt="" coords="753,461,678,482,676,477,758,459"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,553,489,581"/>
-<area shape="poly" title=" " alt="" coords="556,515,538,523,448,555,445,550,536,518,561,512"/>
-<area shape="rect" href="group__GeneralProcessing.html#gabe8c38238f5014c09e788c833b50af5e" title="Handles load priority rotation." alt="" coords="324,655,486,682"/>
-<area shape="poly" title=" " alt="" coords="543,517,539,522,523,539,514,555,505,573,491,594,458,629,426,656,422,652,454,625,487,591,501,571,509,553,518,536,536,518,548,513"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,655,272,682"/>
-<area shape="poly" title=" " alt="" coords="347,589,321,601,216,656,212,652,319,597,351,585"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,800,55,828"/>
-<area shape="poly" title=" " alt="" coords="159,696,49,801,45,798,160,690"/>
-<area shape="poly" title=" " alt="" coords="306,670,274,671,271,666,311,667"/>
-<area shape="poly" title=" " alt="" coords="1348,440,1298,499,1264,527,1226,549,1146,577,1061,593,975,598,891,596,813,588,744,578,646,556,645,551,745,572,814,583,892,590,975,593,1060,587,1144,572,1224,545,1261,523,1294,496,1344,443"/>
-<area shape="poly" title=" " alt="" coords="1320,430,1250,449,1157,461,1107,461,1057,455,1009,442,964,421,932,397,906,368,884,334,867,299,843,233,833,186,835,181,848,231,872,297,889,331,910,364,936,393,966,417,1011,437,1058,450,1108,455,1157,455,1249,444,1325,428"/>
-<area shape="poly" title=" " alt="" coords="1345,388,1271,274,1250,233,1240,216,1224,197,1176,161,1130,136,1130,131,1179,157,1227,193,1244,213,1254,230,1276,271,1350,389"/>
-<area shape="poly" title=" " alt="" coords="1347,387,1327,356,1299,318,1264,280,1224,249,1199,237,1199,232,1227,245,1268,276,1303,314,1332,353,1353,388"/>
-<area shape="poly" title=" " alt="" coords="1323,394,1278,373,1224,352,1186,342,1185,336,1226,347,1280,368,1329,394"/>
-<area shape="poly" title=" " alt="" coords="1319,411,1206,400,1206,394,1324,409"/>
-<area shape="rect" href="debug_8h.html#ab753909eac023c9095cde3544f912923" title="Print a debug message and a line end, as Serial.println() does (only with ENABLE_DEBUG)." alt="" coords="794,480,867,508"/>
-<area shape="poly" title=" " alt="" coords="1320,434,1277,452,1226,466,1125,482,1024,491,868,497,867,491,1024,486,1124,477,1225,460,1275,447,1325,432"/>
-<area shape="rect" href="group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="757,532,904,560"/>
-<area shape="poly" title=" " alt="" coords="1336,437,1286,472,1226,499,1142,522,1055,536,974,544,905,548,904,543,973,539,1054,531,1140,516,1224,494,1283,467,1331,439"/>
-<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="1058,685,1132,713"/>
-<area shape="poly" title=" " alt="" coords="1352,441,1302,526,1267,573,1227,617,1176,658,1126,687,1124,682,1173,653,1224,613,1263,570,1297,523,1348,445"/>
-<area shape="poly" title=" " alt="" coords="776,507,647,541,645,536,781,505"/>
-<area shape="poly" title=" " alt="" coords="739,547,646,548,645,543,744,545"/>
-<area shape="poly" title=" " alt="" coords="1078,671,1053,628,1016,574,970,518,915,471,894,459,894,454,919,466,974,515,1020,571,1057,626,1083,672"/>
-<area shape="poly" title=" " alt="" coords="1041,712,983,726,907,735,825,737,743,727,647,697,556,657,480,616,428,584,428,579,482,611,558,652,649,692,744,722,825,732,907,730,982,721,1046,711"/>
-<area shape="poly" title=" " alt="" coords="1069,722,976,795,913,835,842,872,766,900,727,909,688,915,649,916,610,912,572,902,536,885,508,865,483,840,462,812,445,782,420,725,409,685,410,680,425,723,450,780,467,809,487,837,511,861,539,881,574,897,611,907,649,911,687,910,726,904,764,895,840,867,910,830,973,791,1064,724"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="757,685,904,713"/>
-<area shape="poly" title=" " alt="" coords="1040,700,904,702,903,696,1046,698"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="783,633,878,661"/>
-<area shape="poly" title=" " alt="" coords="1041,690,878,659,878,654,1046,689"/>
-<area shape="rect" href="classrelayOutput.html#ac5b46b3ccabacb3565a16038f8099398" title="Turn the relay ON or OFF if the &#39;time&#39; condition is met." alt="" coords="744,787,917,814"/>
-<area shape="poly" title=" " alt="" coords="1047,718,918,771,871,789,869,784,916,766,1042,720"/>
-<area shape="poly" title=" " alt="" coords="753,679,742,675,705,648,672,616,628,563,629,558,676,613,709,644,745,670,758,679"/>
-<area shape="poly" title=" " alt="" coords="739,704,548,708,434,705,320,696,252,685,250,680,320,691,434,699,548,702,744,702"/>
-<area shape="poly" title=" " alt="" coords="770,628,743,617,641,563,641,557,745,613,775,627"/>
-<area shape="poly" title=" " alt="" coords="765,644,568,637,444,638,320,646,252,656,249,652,320,640,444,633,568,632,770,641"/>
-<area shape="rect" href="classrelayOutput.html#a7bba2dafbdc27d07468741bc1d849f57" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="537,757,696,801"/>
-<area shape="poly" title=" " alt="" coords="725,791,697,790,696,784,731,790"/>
-<area shape="rect" href="classrelayOutput.html#a8db1c0f340b319bfc7ff11467ea57cc7" title="Proceed with the relay." alt="" coords="537,826,696,871"/>
-<area shape="poly" title=" " alt="" coords="748,819,697,833,695,828,753,817"/>
-<area shape="poly" title=" " alt="" coords="1331,96,1283,68,1254,54,1225,44,1152,26,1093,16,1065,17,1035,21,966,44,950,54,941,65,919,94,850,157,846,153,915,91,937,62,947,50,964,39,1034,16,1064,11,1093,11,1153,20,1226,39,1256,49,1286,63,1336,96"/>
-<area shape="poly" title=" " alt="" coords="1288,120,1197,122,1195,117,1293,118"/>
-<area shape="poly" title=" " alt="" coords="1310,140,1136,208,1133,204,1315,137"/>
-<area shape="rect" href="debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="1028,53,1162,81"/>
-<area shape="poly" title=" " alt="" coords="1288,106,1163,83,1162,77,1293,104"/>
-<area shape="poly" title=" " alt="" coords="1011,81,966,96,903,127,854,158,850,153,901,122,964,91,1015,78"/>
-<area shape="poly" title=" " alt="" coords="1507,981,1321,969,1096,962,403,962,349,958,295,946,243,930,193,910,109,866,52,831,52,826,111,862,196,905,245,925,297,941,350,952,403,956,1097,956,1321,964,1512,981"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="1276,997,1456,1041"/>
-<area shape="poly" title=" " alt="" coords="1513,999,1457,1009,1457,1004,1508,1000"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="1273,1065,1459,1093"/>
-<area shape="poly" title=" " alt="" coords="1555,1009,1460,1056,1426,1067,1425,1062,1458,1051,1550,1010"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="1066,1035,1124,1062"/>
-<area shape="poly" title=" " alt="" coords="1263,1030,1124,1048,1124,1043,1258,1031"/>
-<area shape="poly" title=" " alt="" coords="1255,1067,1124,1054,1124,1049,1261,1067"/>
+<area shape="rect" title="Run the next step of the current output." alt="" coords="1894,792,2055,820"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1675,385,1846,413"/>
+<area shape="poly" title=" " alt="" coords="1956,777,1768,416,1771,411,1961,778"/>
+<area shape="rect" href="namespaceSerialOutput.html#afd684610f3d410706ad307dcb113376a" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="1694,1172,1828,1200"/>
+<area shape="poly" title=" " alt="" coords="1960,832,1772,1173,1768,1169,1955,835"/>
+<area shape="rect" href="debug_8h.html#a3cb0b813335b40837a5cc0b22a735491" title="Print a text in flash, F(&quot;...&quot;): info() out of line." alt="" coords="1511,461,1558,489"/>
+<area shape="poly" title=" " alt="" coords="1700,419,1559,470,1557,465,1705,417"/>
+<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="1511,360,1558,388"/>
+<area shape="poly" title=" " alt="" coords="1657,389,1558,379,1557,374,1662,387"/>
+<area shape="rect" href="debug_8h.html#aecc2167c1df6c1ef96e8c7c1219c7c16" title="Print a text in flash, F(&quot;...&quot;), and a line end: infoln() out of line." alt="" coords="1505,308,1564,336"/>
+<area shape="poly" title=" " alt="" coords="1707,379,1626,351,1564,332,1564,327,1628,346,1713,379"/>
+<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="1297,512,1355,540"/>
+<area shape="poly" title=" " alt="" coords="1657,405,1553,422,1497,435,1443,452,1388,482,1345,514,1342,509,1385,477,1441,447,1495,429,1552,416,1662,403"/>
+<area shape="rect" href="debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="1266,56,1386,84"/>
+<area shape="poly" title=" " alt="" coords="1731,374,1592,253,1495,176,1392,104,1361,87,1361,82,1395,100,1498,171,1595,248,1736,374"/>
+<area shape="rect" href="debug_8h.html#ae99b323afab58fbf83f92c6d679e1276" title="Print a debug message, as Serial.print() does (only with ENABLE_DEBUG)." alt="" coords="1295,660,1357,688"/>
+<area shape="poly" title=" " alt="" coords="1501,395,1471,423,1444,451,1427,477,1417,500,1396,552,1337,661,1333,658,1391,550,1412,498,1422,475,1440,448,1467,419,1496,398"/>
+<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="739,209,877,237"/>
+<area shape="poly" title=" " alt="" coords="1493,372,1466,366,1440,349,1423,325,1416,301,1417,254,1419,230,1417,208,1409,187,1392,167,1361,155,1307,147,1160,142,1019,144,951,148,916,161,882,177,830,211,826,207,879,173,913,156,949,143,1019,139,1160,136,1307,142,1363,150,1395,162,1414,184,1422,207,1424,230,1422,254,1421,301,1428,323,1444,345,1468,361,1499,371"/>
+<area shape="rect" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="980,261,1180,289"/>
+<area shape="poly" title=" " alt="" coords="1493,366,1210,303,1157,292,1156,287,1211,298,1498,364"/>
+<area shape="rect" href="group__DualTariff.html#ga58395f016d0737f432ea1cec1e160971" title="Prints a time in ms from the start of the off&#45;peak period, as &lt;h&gt;h&lt;mm&gt;." alt="" coords="1258,259,1394,286"/>
+<area shape="poly" title=" " alt="" coords="1493,367,1468,361,1440,349,1425,339,1415,328,1392,307,1362,290,1362,284,1395,302,1419,325,1429,335,1443,345,1469,356,1498,366"/>
+<area shape="rect" href="group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="952,157,1208,185"/>
+<area shape="poly" title=" " alt="" coords="1493,371,1466,365,1440,349,1426,331,1419,312,1416,276,1414,241,1406,225,1392,209,1346,182,1294,166,1240,159,1189,159,1187,154,1240,154,1295,161,1348,177,1395,205,1411,222,1419,239,1422,275,1424,311,1430,328,1443,345,1468,361,1498,370"/>
+<area shape="rect" href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="950,381,1210,409"/>
+<area shape="poly" title=" " alt="" coords="1493,381,1394,395,1211,400,1210,395,1393,390,1498,379"/>
+<area shape="rect" href="classRelayDiverter.html#ab23c31c106f60659e04f1f52045b9f0e" title="Print the configuration of each relay." alt="" coords="987,433,1173,478"/>
+<area shape="poly" title=" " alt="" coords="1494,383,1394,406,1175,443,1173,438,1393,401,1499,381"/>
+<area shape="rect" href="group__Initialization.html#gaf89dd9a18ac303e10da1e6bbb50f310b" title="Prints the rotation groups, as load numbers counted from 0 as in LOAD(n): &quot;\tgroups { 0 1 2 }..." alt="" coords="1004,209,1156,237"/>
+<area shape="poly" title=" " alt="" coords="1493,371,1467,365,1440,349,1428,336,1422,323,1416,296,1411,271,1404,260,1392,249,1365,234,1336,223,1274,210,1212,208,1158,212,1155,207,1212,202,1275,205,1338,217,1367,229,1395,245,1408,256,1416,269,1421,295,1427,321,1433,333,1443,345,1469,360,1498,370"/>
+<area shape="rect" href="classTempSensors.html#a80b0959867c7d30015fe661b51777db7" title="Lists the sensors on the bus, with their ROM codes as config.h takes them." alt="" coords="982,313,1178,358"/>
+<area shape="poly" title=" " alt="" coords="1493,372,1179,346,1178,341,1498,370"/>
+<area shape="rect" href="debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="1295,861,1357,889"/>
+<area shape="poly" title=" " alt="" coords="1500,393,1469,420,1444,451,1427,485,1417,515,1410,570,1409,628,1405,662,1396,700,1365,793,1336,863,1332,859,1360,791,1391,698,1400,661,1403,628,1405,570,1412,514,1422,483,1439,448,1466,417,1496,396"/>
+<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="573,729,630,757"/>
+<area shape="poly" title=" " alt="" coords="1296,696,1257,723,1211,742,1127,760,1041,770,955,774,872,774,728,763,631,751,630,745,728,758,872,768,955,769,1041,765,1126,754,1210,737,1254,718,1292,698"/>
+<area shape="poly" title=" " alt="" coords="797,250,611,730,606,728,793,253"/>
+<area shape="poly" title=" " alt="" coords="987,259,878,239,877,234,991,257"/>
+<area shape="poly" title=" " alt="" coords="1241,274,1182,277,1180,272,1246,272"/>
+<area shape="poly" title=" " alt="" coords="987,190,879,212,876,208,991,187"/>
+<area shape="poly" title=" " alt="" coords="986,224,878,226,876,221,991,222"/>
+<area shape="rect" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="743,1011,873,1038"/>
+<area shape="poly" title=" " alt="" coords="1298,897,1258,927,1211,951,1122,980,1030,1001,945,1015,874,1023,873,1017,944,1009,1029,996,1121,975,1209,946,1255,923,1293,900"/>
+<area shape="poly" title=" " alt="" coords="770,1001,740,979,712,950,675,898,644,843,607,760,609,755,649,841,679,895,716,947,744,975,775,1002"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga9b9428fd01019319970f27b88bb1cf33" title="Proceeds with load priority rotation." alt="" coords="537,1011,666,1038"/>
+<area shape="poly" title=" " alt="" coords="724,1025,667,1027,666,1022,730,1024"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,960,489,988"/>
+<area shape="poly" title=" " alt="" coords="528,1007,462,991,461,986,533,1006"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="324,1012,486,1040"/>
+<area shape="poly" title=" " alt="" coords="519,1026,487,1028,486,1023,525,1024"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,960,272,988"/>
+<area shape="poly" title=" " alt="" coords="302,975,273,976,271,971,307,973"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,1036,55,1064"/>
+<area shape="poly" title=" " alt="" coords="142,997,57,1040,53,1036,144,993"/>
+<area shape="poly" title=" " alt="" coords="326,1009,249,991,248,986,331,1007"/>
+<area shape="poly" title=" " alt="" coords="1291,550,1256,574,1211,594,1137,612,1072,617,1013,615,958,610,904,605,847,607,785,618,715,643,683,662,655,685,615,731,611,727,651,682,680,657,713,638,784,612,847,601,904,600,959,604,1014,610,1072,612,1136,606,1209,589,1253,570,1295,547"/>
+<area shape="poly" title=" " alt="" coords="1279,528,1201,529,1103,525,1012,513,975,504,949,492,916,465,888,432,865,396,847,358,822,288,811,240,812,235,827,287,852,356,870,393,893,429,920,461,951,488,977,499,1013,508,1104,519,1201,524,1284,526"/>
+<area shape="poly" title=" " alt="" coords="1316,496,1303,454,1282,400,1251,347,1231,323,1209,303,1181,288,1180,282,1212,298,1235,319,1255,344,1287,398,1309,452,1321,498"/>
+<area shape="poly" title=" " alt="" coords="1314,496,1261,327,1231,244,1218,215,1208,200,1192,188,1192,183,1212,196,1223,212,1236,242,1266,326,1319,498"/>
+<area shape="poly" title=" " alt="" coords="1301,500,1262,460,1237,440,1209,423,1183,412,1183,407,1212,418,1240,435,1265,456,1307,500"/>
+<area shape="poly" title=" " alt="" coords="1279,514,1161,481,1160,476,1285,513"/>
+<area shape="poly" title=" " alt="" coords="1319,496,1309,444,1290,377,1275,342,1257,309,1235,278,1209,252,1184,237,1157,229,1156,224,1186,232,1212,248,1239,275,1262,306,1280,340,1295,375,1314,443,1324,498"/>
+<area shape="poly" title=" " alt="" coords="1309,498,1270,435,1242,401,1209,372,1179,356,1179,351,1212,368,1246,397,1275,432,1314,499"/>
+<area shape="rect" href="debug_8h.html#ab753909eac023c9095cde3544f912923" title="Print a debug message and a line end, as Serial.println() does (only with ENABLE_DEBUG)." alt="" coords="771,652,844,680"/>
+<area shape="poly" title=" " alt="" coords="1308,550,1268,599,1241,620,1211,638,1163,656,1111,668,1059,676,1008,680,915,679,846,673,844,668,915,674,1008,674,1059,670,1110,663,1161,650,1209,633,1238,616,1264,595,1304,554"/>
+<area shape="rect" href="utils_8h.html#a25c5ac42b5ae08d9a1fb30c1cb69b1c2" title="Print &quot;is present&quot; or &quot;is NOT present&quot;, and a line end." alt="" coords="1022,552,1139,580"/>
+<area shape="poly" title=" " alt="" coords="1279,534,1140,559,1138,554,1284,532"/>
+<area shape="rect" href="group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="734,704,882,732"/>
+<area shape="poly" title=" " alt="" coords="1315,552,1300,587,1277,623,1248,658,1212,685,1171,705,1128,719,1084,728,1040,734,955,736,883,731,882,726,955,731,1039,728,1083,723,1127,713,1169,700,1209,681,1244,654,1273,620,1295,584,1311,556"/>
+<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="1044,909,1117,937"/>
+<area shape="poly" title=" " alt="" coords="1312,551,1213,738,1147,838,1094,911,1090,907,1142,835,1208,735,1308,555"/>
+<area shape="poly" title=" " alt="" coords="754,680,715,695,632,731,629,727,713,690,759,677"/>
+<area shape="poly" title=" " alt="" coords="1004,560,975,552,948,536,914,501,886,461,863,418,844,374,820,294,811,240,812,235,825,293,849,373,867,416,890,459,918,498,952,532,978,547,1009,559"/>
+<area shape="poly" title=" " alt="" coords="716,730,632,742,630,737,721,728"/>
+<area shape="poly" title=" " alt="" coords="1032,942,903,995,853,1013,851,1008,901,990,1027,944"/>
+<area shape="poly" title=" " alt="" coords="1026,932,902,951,679,967,491,974,489,969,679,962,902,946,1031,931"/>
+<area shape="poly" title=" " alt="" coords="1057,947,991,1005,949,1032,903,1052,843,1067,781,1075,718,1077,657,1075,545,1061,459,1043,459,1038,546,1056,657,1070,718,1072,780,1070,842,1062,901,1047,946,1028,988,1001,1052,949"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="735,805,881,833"/>
+<area shape="poly" title=" " alt="" coords="1033,902,972,877,901,848,864,836,864,831,903,843,974,872,1038,902"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="761,857,855,885"/>
+<area shape="poly" title=" " alt="" coords="1026,914,856,883,855,877,1031,913"/>
+<area shape="rect" href="structRelayPinOutput.html#a2a6b0d7b3f4614d27bab2ed23e938176" title="Called on each change of a relay, before its state changes." alt="" coords="714,909,902,937"/>
+<area shape="poly" title=" " alt="" coords="1025,924,903,926,902,921,1030,923"/>
+<area shape="poly" title=" " alt="" coords="746,800,713,790,631,757,630,752,715,785,752,799"/>
+<area shape="poly" title=" " alt="" coords="717,832,535,866,427,890,321,919,265,940,218,962,215,957,263,935,319,914,426,884,534,860,722,829"/>
+<area shape="poly" title=" " alt="" coords="743,858,712,847,682,826,654,802,614,760,615,755,657,799,685,822,715,842,749,858"/>
+<area shape="poly" title=" " alt="" coords="744,883,320,951,263,962,260,957,320,946,746,878"/>
+<area shape="poly" title=" " alt="" coords="1249,64,1185,64,1108,68,1028,80,951,104,910,127,874,156,823,210,818,207,870,152,907,123,949,99,1027,75,1108,63,1185,59,1254,62"/>
+<area shape="poly" title=" " alt="" coords="1274,91,1117,159,1115,155,1279,88"/>
+<area shape="rect" href="debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="1013,5,1147,33"/>
+<area shape="poly" title=" " alt="" coords="1249,55,1149,36,1147,30,1254,54"/>
+<area shape="poly" title=" " alt="" coords="996,32,974,42,951,53,906,91,867,135,838,178,819,210,814,208,833,175,863,132,902,87,949,49,972,37,1000,29"/>
+<area shape="poly" title=" " alt="" coords="1695,1167,1627,1154,1478,1133,1327,1128,403,1128,300,1121,200,1102,114,1080,56,1061,54,1056,116,1074,201,1097,301,1115,403,1123,1327,1123,1478,1127,1627,1149,1700,1168"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="1444,1233,1624,1278"/>
+<area shape="poly" title=" " alt="" coords="1701,1204,1610,1235,1609,1230,1696,1205"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="1442,1301,1627,1329"/>
+<area shape="poly" title=" " alt="" coords="1737,1210,1688,1253,1628,1292,1601,1303,1600,1298,1626,1287,1685,1249,1732,1212"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a27de18cd8e431ab8826ec6aa60d14c0c" title=" " alt="" coords="1456,1164,1612,1208"/>
+<area shape="poly" title=" " alt="" coords="1676,1186,1613,1188,1613,1183,1681,1186"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="1297,1241,1355,1269"/>
+<area shape="poly" title=" " alt="" coords="1426,1255,1355,1258,1355,1253,1432,1255"/>
+<area shape="poly" title=" " alt="" coords="1463,1296,1441,1292,1355,1266,1355,1261,1442,1287,1468,1297"/>
+<area shape="poly" title=" " alt="" coords="1453,1213,1356,1248,1355,1243,1448,1214"/>
 </map>
 </div>
 
@@ -814,7 +845,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>false if the previous output is still in progress (nothing started) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00059">59</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00060">60</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -830,21 +861,24 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceSerialOutput_ad10739abc0b7b1ec80ce4fe144ee2094_icgraph.png" border="0" usemap="#anamespaceSerialOutput_ad10739abc0b7b1ec80ce4fe144ee2094_icgraph" alt=""/></div>
 <map name="anamespaceSerialOutput_ad10739abc0b7b1ec80ce4fe144ee2094_icgraph" id="anamespaceSerialOutput_ad10739abc0b7b1ec80ce4fe144ee2094_icgraph">
-<area shape="rect" title="Start an output, written by later calls to poll()" alt="" coords="344,96,484,124"/>
+<area shape="rect" title="Start an output, written by later calls to poll()" alt="" coords="344,125,484,153"/>
 <area shape="rect" href="group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="153,5,254,33"/>
-<area shape="poly" title=" " alt="" coords="375,87,338,68,295,47,254,33,254,28,297,42,340,63,380,87"/>
+<area shape="poly" title=" " alt="" coords="386,114,346,80,295,47,254,32,254,26,297,42,349,76,391,115"/>
 <area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="113,57,294,102"/>
-<area shape="poly" title=" " alt="" coords="326,98,294,95,294,90,331,97"/>
+<area shape="poly" title=" " alt="" coords="346,121,284,105,284,99,351,120"/>
 <area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="111,125,296,153"/>
-<area shape="poly" title=" " alt="" coords="326,122,297,129,296,124,331,121"/>
+<area shape="poly" title=" " alt="" coords="326,140,297,142,296,137,331,138"/>
 <area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a04bbc580ce141020e3c27f9a5555ad0d" title=" " alt="" coords="122,177,285,222"/>
-<area shape="poly" title=" " alt="" coords="373,130,297,167,268,179,266,174,295,162,368,131"/>
+<area shape="poly" title=" " alt="" coords="346,159,285,179,283,174,351,157"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a27de18cd8e431ab8826ec6aa60d14c0c" title=" " alt="" coords="125,246,282,291"/>
+<area shape="poly" title=" " alt="" coords="390,162,348,201,297,236,273,248,271,243,295,232,345,197,385,165"/>
 <area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="9,5,59,33"/>
 <area shape="poly" title=" " alt="" coords="136,21,60,22,58,17,139,17"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,125,63,153"/>
-<area shape="poly" title=" " alt="" coords="123,109,64,132,62,127,126,105"/>
-<area shape="poly" title=" " alt="" coords="93,141,64,142,62,137,97,138"/>
-<area shape="poly" title=" " alt="" coords="122,173,63,152,63,146,126,170"/>
+<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,155,63,182"/>
+<area shape="poly" title=" " alt="" coords="120,110,112,116,54,156,51,152,109,112,123,106"/>
+<area shape="poly" title=" " alt="" coords="103,158,64,166,62,161,107,154"/>
+<area shape="poly" title=" " alt="" coords="104,183,64,176,62,171,109,180"/>
+<area shape="poly" title=" " alt="" coords="117,239,109,236,74,210,48,185,49,180,78,206,112,232,122,239"/>
 </map>
 </div>
 
@@ -889,7 +923,7 @@ template&lt;uint8_t N&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the values times 10^decimals, rounded </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00176">176</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00177">177</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -941,7 +975,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the value times 10^decimals, rounded </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00150">150</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00151">151</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -988,7 +1022,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Baud rate of every output mode: do NOT set it higher </p>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00223">223</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00224">224</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 
 </div>
 </div>
@@ -1013,7 +1047,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>output in progress, nullptr if none </p>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00042">42</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00043">43</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 
 </div>
 </div>
@@ -1038,7 +1072,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>a step never writes more characters than this </p>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00031">31</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00032">32</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 
 </div>
 </div>
@@ -1063,7 +1097,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>index of its next step </p>
 
-<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00043">43</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="serial__output_8h_source.html#l00044">44</a> of file <a class="el" href="serial__output_8h_source.html">serial_output.h</a>.</p>
 
 </div>
 </div>

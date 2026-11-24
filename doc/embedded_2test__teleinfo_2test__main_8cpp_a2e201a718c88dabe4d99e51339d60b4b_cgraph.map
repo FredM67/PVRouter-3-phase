@@ -1,0 +1,20 @@
+<map id="streamFrame" name="streamFrame">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,32,114,60"/>
+<area shape="rect" id="Node000002" href="$classFramePrint.html#af7c0d3f36da0ff389957c5bba6663cc8" title=" " alt="" coords="187,5,320,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,36,173,29,169,32,115,41"/>
+<area shape="rect" id="Node000003" href="$namespaceTeleInfo.html#a1ada410c6d97aa6b44e403d583f46480" title="Writes a step of the frame: one line, STX before the first one, ETX after the last." alt="" coords="162,57,345,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="114,50,149,56,144,58,114,56"/>
+<area shape="rect" id="Node000004" href="$namespaceTeleInfo.html#a7587a7c6cf35dbbad31cfddc9d0526da" title="Writes the line of a step." alt="" coords="398,31,544,58"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="345,57,385,55,379,56,345,63"/>
+<area shape="rect" id="Node000009" href="$namespaceTeleInfo.html#ad667795b4250f603604afc9b30c0a017" title="The number of steps of a frame: one per line, invalid temperatures included (they write nothing)." alt="" coords="393,83,548,110"/>
+<area shape="poly" id="edge9_Node000003_Node000009" title=" " alt="" coords="345,79,380,86,375,86,345,85"/>
+<area shape="rect" id="Node000005" href="$namespaceTeleInfo.html#af4144be70a1141bccb67583aa9730635" title="Writes the line of a signed value." alt="" coords="627,5,731,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="544,33,614,27,608,28,544,38"/>
+<area shape="rect" id="Node000008" href="$namespaceTeleInfo.html#a17cf541f513ec089af6363fb0cc75769" title="Writes the line of an unsigned value (above 32767, line() would wrap)." alt="" coords="596,57,762,85"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="544,51,584,59,578,59,544,56"/>
+<area shape="rect" id="Node000006" href="$namespaceTeleInfo.html#ab851b8161d4b41b2b4898e46f38b64e0" title="Writes a whole line: LF, tag and index, TAB, value, TAB, checksum and CR." alt="" coords="810,32,950,60"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="731,23,797,35,792,35,731,29"/>
+<area shape="rect" id="Node000007" href="$namespaceTeleInfo.html#ae66100e613f030a8bb86f56d9b509a84" title="Writes the decimal digits of a 16&#45;bit value." alt="" coords="998,32,1149,60"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="950,43,985,46,980,46,950,48"/>
+<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="762,58,792,57,797,56,762,63"/>
+</map>

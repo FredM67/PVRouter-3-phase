@@ -1,0 +1,46 @@
+<map id="DS18B20::crc8" name="DS18B20::crc8">
+<area shape="rect" id="Node000001" title="The Dallas/Maxim CRC&#45;8 (x^8 + x^5 + x^4 + 1), as OneWire::crc8." alt="" coords="832,576,948,604"/>
+<area shape="rect" id="Node000002" href="$namespaceDS18B20.html#aaf6ef3bce762af86ea3c251474b509a4" title="The reading of a scratchpad, its CRC checked." alt="" coords="603,272,738,300"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="867,564,681,303,683,298,872,564"/>
+<area shape="rect" id="Node000007" href="$native_2test__ds18b20_2test__main_8cpp.html#adb6dd05eaf0425325141fb4058139cc7" title=" " alt="" coords="315,5,474,50"/>
+<area shape="poly" id="edge19_Node000001_Node000007" title=" " alt="" coords="883,560,874,502,856,425,826,341,806,300,782,263,751,222,721,190,692,164,663,143,595,107,508,65,475,50,473,45,510,60,598,102,666,139,696,160,725,186,755,218,787,259,811,298,831,339,861,423,879,501,888,562"/>
+<area shape="rect" id="Node000013" href="$classTempSensors.html#a80b0959867c7d30015fe661b51777db7" title="Lists the sensors on the bus, with their ROM codes as config.h takes them." alt="" coords="572,767,769,811"/>
+<area shape="poly" id="edge18_Node000001_Node000013" title=" " alt="" coords="880,617,845,688,819,725,786,756,766,769,765,764,783,752,815,721,841,685,876,620"/>
+<area shape="rect" id="Node000014" href="$native_2test__ds18b20_2test__main_8cpp.html#ab42b5345937c5d6e31c20451dbc68894" title=" " alt="" coords="592,508,749,553"/>
+<area shape="poly" id="edge20_Node000001_Node000014" title=" " alt="" coords="820,572,750,555,750,549,825,572"/>
+<area shape="rect" id="Node000015" href="$native_2test__ds18b20_2test__main_8cpp.html#a643ff33988eb22e900cfadaeffee2027" title=" " alt="" coords="557,576,784,604"/>
+<area shape="poly" id="edge22_Node000001_Node000015" title=" " alt="" coords="814,591,785,593,784,588,819,590"/>
+<area shape="rect" id="Node000016" href="$native_2test__ds18b20_2test__main_8cpp.html#a051b5e2e933709798fb28875ee5f5a74" title=" " alt="" coords="596,628,745,673"/>
+<area shape="poly" id="edge24_Node000001_Node000016" title=" " alt="" coords="825,608,746,633,745,627,820,609"/>
+<area shape="rect" id="Node000017" href="$native_2test__ds18b20_2test__main_8cpp.html#aa06fb31989271027eb65f010d05f217b" title=" " alt="" coords="587,697,754,742"/>
+<area shape="poly" id="edge26_Node000001_Node000017" title=" " alt="" coords="869,615,832,654,786,687,756,701,754,696,783,683,828,650,864,617"/>
+<area shape="rect" id="Node000003" href="$classTempSensors.html#a5cd5e7c474cb8cb494c00273fbd00165" title="CLOSE, the last transaction: a reset (the sensor still there?), the reading decoded." alt="" coords="308,74,480,102"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="646,261,576,179,538,140,508,115,481,103,480,98,510,111,542,136,580,176,651,260"/>
+<area shape="rect" id="Node000005" href="$native_2test__ds18b20_2test__main_8cpp.html#a165314ef3361e87cc41f63e4ccdd6524" title=" " alt="" coords="310,472,478,517"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="653,312,596,388,555,428,510,462,480,477,478,472,508,457,552,424,592,384,649,315"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="643,261,601,213,555,152,541,126,534,104,525,84,507,64,475,45,474,40,511,60,530,81,539,102,546,124,559,149,605,209,648,261"/>
+<area shape="rect" id="Node000008" href="$native_2test__ds18b20_2test__main_8cpp.html#a2e6aa3b30286179f3f147f35be687e75" title=" " alt="" coords="313,125,476,170"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="636,263,579,225,508,185,477,172,476,167,510,180,582,220,642,263"/>
+<area shape="rect" id="Node000009" href="$native_2test__ds18b20_2test__main_8cpp.html#acf799807eaa02986ddc114684492ce24" title=" " alt="" coords="280,195,509,239"/>
+<area shape="poly" id="edge10_Node000002_Node000009" title=" " alt="" coords="596,269,487,243,486,237,600,267"/>
+<area shape="rect" id="Node000010" href="$native_2test__ds18b20_2test__main_8cpp.html#a1f1c4050eece38bbdec37673f7875dab" title=" " alt="" coords="314,264,474,309"/>
+<area shape="poly" id="edge12_Node000002_Node000010" title=" " alt="" coords="585,288,476,289,474,284,589,285"/>
+<area shape="rect" id="Node000011" href="$native_2test__ds18b20_2test__main_8cpp.html#a28de296ace6a369609e189445f0039a7" title=" " alt="" coords="318,333,471,378"/>
+<area shape="poly" id="edge14_Node000002_Node000011" title=" " alt="" coords="596,306,473,339,470,334,600,303"/>
+<area shape="rect" id="Node000012" href="$native_2test__ds18b20_2test__main_8cpp.html#a8abeb654254a41ee15361caad239e021" title=" " alt="" coords="297,403,492,447"/>
+<area shape="poly" id="edge16_Node000002_Node000012" title=" " alt="" coords="637,311,582,353,510,393,482,404,479,400,508,388,579,348,641,308"/>
+<area shape="rect" id="Node000004" href="$classTempSensors.html#a2dbc30f78c42cb642cc1052c5a24eb67" title="Reads the temperature of a specific sensor (runtime bounds checking)." alt="" coords="5,74,232,102"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="291,89,233,90,231,85,295,86"/>
+<area shape="rect" id="Node000006" href="$native_2test__ds18b20_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="91,411,146,439"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="293,471,146,434,145,429,297,468"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="299,50,281,64,243,105,211,153,185,203,164,255,137,348,124,411,119,410,132,347,159,253,180,201,206,150,239,102,278,60,302,46"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="297,173,281,184,251,211,224,241,179,306,146,368,128,412,123,410,142,366,174,304,220,238,247,207,278,180,300,169"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="287,248,281,254,232,292,189,337,131,412,127,409,185,333,228,288,278,249,291,244"/>
+<area shape="poly" id="edge13_Node000010_Node000006" title=" " alt="" coords="298,314,281,323,200,369,140,412,136,409,198,365,278,319,302,311"/>
+<area shape="poly" id="edge15_Node000011_Node000006" title=" " alt="" coords="301,381,147,421,145,416,304,376"/>
+<area shape="poly" id="edge17_Node000012_Node000006" title=" " alt="" coords="280,427,147,427,145,423,283,423"/>
+<area shape="poly" id="edge21_Node000014_Node000006" title=" " alt="" coords="574,545,510,553,435,554,356,548,279,532,234,513,194,489,135,442,135,437,197,484,237,508,280,526,357,542,435,548,510,547,579,544"/>
+<area shape="poly" id="edge23_Node000015_Node000006" title=" " alt="" coords="539,599,479,599,412,593,344,580,279,559,231,534,189,501,132,442,132,437,192,497,234,529,281,555,345,575,412,588,479,594,544,598"/>
+<area shape="poly" id="edge25_Node000016_Node000006" title=" " alt="" coords="578,657,512,659,434,652,354,636,315,623,278,606,251,589,225,568,181,522,147,476,128,442,128,437,151,473,185,518,229,564,254,585,281,601,317,618,356,631,435,647,512,654,584,657"/>
+<area shape="poly" id="edge27_Node000017_Node000006" title=" " alt="" coords="569,726,503,727,427,717,350,697,313,682,278,663,247,639,218,610,173,546,141,485,125,442,125,436,145,483,177,544,222,607,250,635,281,659,315,677,351,692,428,712,503,721,574,726"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="DualTariff::endsWithinOffPeak" name="DualTariff::endsWithinOffPeak">
+<area shape="rect" id="Node000001" title="Whether a window with FOR() ends within the off&#45;peak period (its end may be the end of the period): a..." alt="" coords="5,5,221,33"/>
+<area shape="rect" id="Node000002" href="$namespaceDualTariff.html#add1fd2c084fbdde86e4fba396c547c5f" title="The start of the window, in minutes from the start of the off&#45;peak period: negative if before it." alt="" coords="269,5,454,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,17,255,19,250,19,221,22"/>
+</map>

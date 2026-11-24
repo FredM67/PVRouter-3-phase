@@ -1,0 +1,9 @@
+<map id="test_TargetMap_a_group_and_single_targets_in_one_list" name="test_TargetMap_a_group_and_single_targets_in_one_list">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,186,102"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#a8af39b8c36153ede0635e295ee423ad0" title="Every local load." alt="" coords="234,5,378,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,46,235,36,230,38,187,51"/>
+<area shape="rect" id="Node000003" href="$config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98" title="Load loadNum of physicalLoadPin[], local or remote (0, no load, if out of range)." alt="" coords="277,57,334,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="186,69,265,70,259,72,186,74"/>
+<area shape="rect" id="Node000004" href="$config__types_8h.html#a9938283660846cb266258c478ef4a7bd" title="Relay relayNum of relays (0, no relay, if out of range or without relay diversion)." alt="" coords="275,109,337,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="186,91,262,111,257,112,186,96"/>
+</map>

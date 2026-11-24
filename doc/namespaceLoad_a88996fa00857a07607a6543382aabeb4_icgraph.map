@@ -1,16 +1,23 @@
 <map id="Load::isValidMap" name="Load::isValidMap">
-<area shape="rect" id="Node000001" title="Check that every entry of a load map designates a usable pin." alt="" coords="345,118,476,146"/>
-<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="112,5,293,50"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="374,109,296,65,270,53,270,48,298,60,379,109"/>
-<area shape="rect" id="Node000004" href="$native_2test__remote__loads_2test__main_8cpp.html#a6edc3c18882bd89a34fed2ad718d6546" title=" " alt="" coords="114,75,290,119"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="327,119,291,114,291,109,333,118"/>
-<area shape="rect" id="Node000005" href="$native_2test__remote__loads_2test__main_8cpp.html#a34f86f2e1854aedced0ec6e7267d0399" title=" " alt="" coords="108,144,297,189"/>
-<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="327,146,298,153,297,148,333,144"/>
-<area shape="rect" id="Node000006" href="$native_2test__remote__loads_2test__main_8cpp.html#a35522623f3d902b482054aa21bbcf3af" title=" " alt="" coords="115,213,290,258"/>
-<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="379,154,298,203,271,215,269,210,296,199,374,155"/>
-<area shape="rect" id="Node000003" href="$native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,118,60,146"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="115,59,109,65,74,92,48,119,43,116,71,88,106,60,118,55"/>
-<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="98,120,61,129,59,124,101,116"/>
-<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="90,145,61,140,59,135,95,142"/>
-<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="114,206,106,203,71,175,45,148,46,143,74,171,109,199,119,206"/>
+<area shape="rect" id="Node000001" title="Check that every entry of a load map designates a usable pin." alt="" coords="465,178,596,206"/>
+<area shape="rect" id="Node000002" href="$validation_8h.html#ab24866c5cec7b4140dcd049e199a4c79" title="Each REMOTE_LOAD(n) target of an entry of list must be an existing remote load." alt="" coords="233,14,412,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="512,164,473,109,446,80,416,55,396,45,395,39,418,51,450,76,477,106,517,165"/>
+<area shape="rect" id="Node000004" href="$native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="232,65,413,110"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="494,169,416,125,390,113,390,108,418,120,499,169"/>
+<area shape="rect" id="Node000006" href="$native_2test__remote__loads_2test__main_8cpp.html#a6edc3c18882bd89a34fed2ad718d6546" title=" " alt="" coords="234,135,410,179"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="447,179,411,174,411,169,453,178"/>
+<area shape="rect" id="Node000007" href="$native_2test__remote__loads_2test__main_8cpp.html#a34f86f2e1854aedced0ec6e7267d0399" title=" " alt="" coords="228,204,417,249"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="447,206,418,213,417,208,453,204"/>
+<area shape="rect" id="Node000008" href="$native_2test__remote__loads_2test__main_8cpp.html#a35522623f3d902b482054aa21bbcf3af" title=" " alt="" coords="235,273,410,318"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="499,213,418,263,391,275,389,270,416,259,494,215"/>
+<area shape="rect" id="Node000009" href="$native_2test__remote__loads_2test__main_8cpp.html#aed68fc4ff8cb6df64bc796925d8e9084" title=" " alt="" coords="242,343,402,387"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="516,218,476,277,449,306,419,333,398,345,396,340,415,328,445,303,472,273,511,220"/>
+<area shape="rect" id="Node000003" href="$validation_8h.html#ae1df6b53bb219de54ee6ea79ee4e1f81" title="Each REMOTE_LOAD(n) target of an override pin must be an existing remote load." alt="" coords="5,5,180,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="215,29,181,30,179,25,220,26"/>
+<area shape="rect" id="Node000005" href="$native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="65,212,120,240"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="236,118,229,125,161,171,111,214,107,210,158,167,226,120,241,115"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="230,186,121,221,119,216,233,182"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="210,228,121,229,119,224,214,225"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="229,270,120,237,120,232,234,267"/>
+<area shape="poly" id="edge12_Node000009_Node000005" title=" " alt="" coords="236,336,226,333,158,286,108,243,109,238,161,282,229,328,241,336"/>
 </map>

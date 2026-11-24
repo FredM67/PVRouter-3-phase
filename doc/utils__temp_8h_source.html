@@ -92,202 +92,307 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 <a href="utils__temp_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#ifndef UTILS_TEMP_H</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#define UTILS_TEMP_H</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &quot;<a class="code" href="constants_8h.html">constants.h</a>&quot;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="config_8h.html">config.h</a>&quot;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span></div>
-<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structDeviceAddress.html">   43</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structDeviceAddress.html">DeviceAddress</a></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">   45</a></span>  uint8_t <a class="code hl_variable" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">addr</a>[8]{}; </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#ifndef UTILS_TEMP_H</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#define UTILS_TEMP_H</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &quot;<a class="code" href="constants_8h.html">constants.h</a>&quot;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &quot;<a class="code" href="config_8h.html">config.h</a>&quot;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &quot;<a class="code" href="debug_8h.html">debug.h</a>&quot;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &quot;<a class="code" href="ds18b20_8h.html">ds18b20.h</a>&quot;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &quot;<a class="code" href="onewire__search_8h.html">onewire_search.h</a>&quot;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// Mock class for OneWire</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">class </span>MockOneWire</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="comment">// Mock constructor</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  MockOneWire() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="keywordtype">void</span> <a class="code hl_function" href="namespaceBenchTimer.html#aec7b874a7b2744549e4aa1acbb8023f2">begin</a>(uint8_t) {}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keywordtype">bool</span> reset()</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  }</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="keywordtype">void</span> skip() {}</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="keywordtype">void</span> select(<span class="keyword">const</span> uint8_t*) {}</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  <span class="keywordtype">void</span> write(uint8_t) {}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  uint8_t read()</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">return</span> 0x00;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keywordtype">void</span> write_bit(uint8_t) {}</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  uint8_t read_bit()</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">return</span> 0x01;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">// The real OneWire bus only with temperature sensing. TEMP_SENSOR_PRESENT is a constexpr, not a</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">// macro: the choice must be made in C++, an #if on it would always pick the mock.</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#include &lt;OneWire.h&gt;</span>  <span class="comment">// for temperature sensing</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="utils__temp_8h.html#a0f5e42982c253168ebf3b2179c09bb96">   74</a></span><span class="keyword">using </span><a class="code hl_typedef" href="utils__temp_8h.html#a0f5e42982c253168ebf3b2179c09bb96">OneWireType</a> = <a class="code hl_typedef" href="conditional_8hpp.html#ac8708c937b092874893a6aa081bde14a">conditional_t&lt; TEMP_SENSOR_PRESENT, OneWire, MockOneWire &gt;</a>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">template</span>&lt; u<span class="keywordtype">int</span>8_t N &gt;</div>
+<div class="foldopen" id="foldopen00096" data-start="{" data-end="};">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="classTempSensors.html">   96</a></span><span class="keyword">class </span><a class="code hl_function" href="classTempSensors.html#a64e0ca83c04daed8e0fc235bcdec38a5">TempSensors</a> : <span class="keyword">public</span> <a class="code hl_function" href="classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3">TemperatureSensing</a>&lt; N &gt;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>{</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  <span class="keyword">using </span><a class="code hl_function" href="classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3">TemperatureSensing</a>&lt; N &gt;<a class="code hl_variable" href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">::sensorPin</a>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  <span class="keyword">using </span><a class="code hl_function" href="classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3">TemperatureSensing</a>&lt; N &gt;<a class="code hl_variable" href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">::sensorAddrs</a>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00107" data-start="{" data-end="}">
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="classTempSensors.html#a64e0ca83c04daed8e0fc235bcdec38a5">  107</a></span>  <span class="keyword">explicit</span> <span class="keyword">constexpr</span> <a class="code hl_function" href="classTempSensors.html#a64e0ca83c04daed8e0fc235bcdec38a5">TempSensors</a>(<span class="keyword">const</span> <a class="code hl_function" href="classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3">TemperatureSensing&lt; N &gt;</a>&amp; sensors)</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    : <a class="code hl_function" href="classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3">TemperatureSensing</a>&lt; N &gt;(sensors)</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  }</div>
 </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// Mock class for OneWire</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">class </span>MockOneWire</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>{</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>  <span class="comment">// Mock constructor</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  MockOneWire() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="keywordtype">void</span> begin(uint8_t) {}</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  <span class="keywordtype">bool</span> reset()</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  {</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keywordtype">void</span> skip() {}</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="keywordtype">void</span> select(<span class="keyword">const</span> uint8_t*) {}</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keywordtype">void</span> write(uint8_t) {}</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  uint8_t read()</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">return</span> 0x00;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  uint8_t crc8(<span class="keyword">const</span> uint8_t*, uint8_t)</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">return</span> 0x00;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  }</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>};</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">// The real OneWire bus only with temperature sensing. TEMP_SENSOR_PRESENT is a constexpr, not a</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">// macro: the choice must be made in C++, an #if on it would always pick the mock.</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#include &lt;OneWire.h&gt;</span>  <span class="comment">// for temperature sensing</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="utils__temp_8h.html#a0f5e42982c253168ebf3b2179c09bb96">   84</a></span><span class="keyword">using </span><a class="code hl_typedef" href="utils__temp_8h.html#a0f5e42982c253168ebf3b2179c09bb96">OneWireType</a> = <a class="code hl_typedef" href="conditional_8hpp.html#ac8708c937b092874893a6aa081bde14a">conditional_t&lt; TEMP_SENSOR_PRESENT, OneWire, MockOneWire &gt;</a>;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keyword">template</span>&lt; u<span class="keywordtype">int</span>8_t N &gt;</div>
-<div class="foldopen" id="foldopen00104" data-start="{" data-end="};">
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html">  104</a></span><span class="keyword">class </span><a class="code hl_function" href="classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3">TemperatureSensing</a></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>{</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="group__TemperatureSensing.html#ga89c7e0a0d9d1ce58b1583f591701d2c4">  119</a></span>  <span class="keyword">using </span><a class="code hl_typedef" href="group__TemperatureSensing.html#ga89c7e0a0d9d1ce58b1583f591701d2c4">ScratchPad</a> = uint8_t[9];</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3">  122</a></span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3">TemperatureSensing</a>() = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span></div>
-<div class="foldopen" id="foldopen00134" data-start="{" data-end="}">
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8">  134</a></span>  <span class="keyword">constexpr</span> <a class="code hl_function" href="classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8">TemperatureSensing</a>(uint8_t pin, <span class="keyword">const</span> <a class="code hl_struct" href="structDeviceAddress.html">DeviceAddress</a> (&amp;ref)[N])</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    : <a class="code hl_variable" href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">sensorPin</a>{ pin }, <a class="code hl_variable" href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">sensorAddrs</a>(ref)</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>  {</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>  }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span></div>
+<div class="foldopen" id="foldopen00123" data-start="{" data-end="}">
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="classTempSensors.html#a1b38e8222d8716cf2deaff1a69b3ebd1">  123</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classTempSensors.html#a1b38e8222d8716cf2deaff1a69b3ebd1">requestTemperatures</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a>)</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>      <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.reset();</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>      <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.skip();</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>      <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.write(<a class="code hl_variable" href="ds18b20_8h.html#a0fc0867cb8eb64709ec9326821f0657c">CONVERT_TEMPERATURE</a>);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>  }</div>
 </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span></div>
-<div class="foldopen" id="foldopen00150" data-start="{" data-end="}">
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80">  150</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80">requestTemperatures</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a>)</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    {</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>      <a class="code hl_variable" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">oneWire</a>.reset();</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>      <a class="code hl_variable" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">oneWire</a>.skip();</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>      <a class="code hl_variable" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">oneWire</a>.write(<a class="code hl_variable" href="constants_8h.html#a0fc0867cb8eb64709ec9326821f0657c">CONVERT_TEMPERATURE</a>);</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    }</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>  }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span></div>
+<div class="foldopen" id="foldopen00141" data-start="{" data-end="}">
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="classTempSensors.html#a80b0959867c7d30015fe661b51777db7">  141</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classTempSensors.html#a80b0959867c7d30015fe661b51777db7">printSensorsOnBus</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a> &amp;&amp; <a class="code hl_variable" href="config_8h.html#a858e958b407980de6e11570157e619cd">CALIBRATION_MODE</a>)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    {</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>      <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.begin(<a class="code hl_variable" href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">sensorPin</a>);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>      <a class="code hl_function" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a">info</a>(F(<span class="stringliteral">&quot;Temperature sensors found on pin &quot;</span>));</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>      <a class="code hl_function" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a">info</a>(<a class="code hl_variable" href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">sensorPin</a>);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>      <a class="code hl_function" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca">infoln</a>(F(<span class="stringliteral">&quot;:&quot;</span>));</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>      <a class="code hl_class" href="classRomSearch.html">RomSearch&lt; OneWireType &gt;</a> search{ <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a> };</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>      <a class="code hl_struct" href="structDeviceAddress.html">DeviceAddress</a> found;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>      uint8_t count{ 0 };</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>      <span class="comment">// bounded: noise on a long or badly terminated bus could otherwise keep the search going</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>      <span class="keyword">constexpr</span> uint8_t MAX_LISTED{ 16 };</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>      <span class="keyword">static_assert</span>(MAX_LISTED == 16, <span class="stringliteral">&quot;update the message below&quot;</span>);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>      <span class="keywordflow">while</span> (search.next(found.<a class="code hl_variable" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">addr</a>))</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>      {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">if</span> (MAX_LISTED == count)</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        {</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>          <span class="comment">// a 17th device: exactly 16 sensors give no warning</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>          <a class="code hl_function" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca">infoln</a>(F(<span class="stringliteral">&quot;\t... more than 16: noise on the bus? Check the wiring&quot;</span>));</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>          <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        }</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        ++count;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <a class="code hl_function" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a">info</a>(F(<span class="stringliteral">&quot;\t{ &quot;</span>));</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordflow">for</span> (uint8_t <a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a> = 0; <a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a> != 8; ++<a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>)</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        {</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>          <a class="code hl_function" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a">info</a>(F(<span class="stringliteral">&quot;0x&quot;</span>));</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>          <span class="keywordflow">if</span> (found.<a class="code hl_variable" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">addr</a>[<a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>] &lt; 0x10)</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>          {</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            <a class="code hl_function" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a">info</a>(<span class="charliteral">&#39;0&#39;</span>);</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>          }</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>          <a class="code hl_function" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a">info</a>(found.<a class="code hl_variable" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">addr</a>[<a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>], HEX);</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>          <span class="keywordflow">if</span> (<a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a> != 7)</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>          {</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            <a class="code hl_function" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a">info</a>(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>          }</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        }</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <a class="code hl_function" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a">info</a>(F(<span class="stringliteral">&quot; }&quot;</span>));</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="namespaceDS18B20.html#a0ecb269888a40e4a3edad6d1864c79af">DS18B20::crc8</a>(found.<a class="code hl_variable" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">addr</a>, 7) != found.<a class="code hl_variable" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">addr</a>[7])</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        {</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>          <a class="code hl_function" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca">infoln</a>(F(<span class="stringliteral">&quot;  CRC error: check the wiring&quot;</span>));</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        }</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        {</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>          <a class="code hl_function" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca">infoln</a>(<a class="code hl_function" href="classTempSensors.html#a0ab095160573d2105532e939f87e03f5">isConfigured</a>(found) ? F(<span class="stringliteral">&quot;  in config.h&quot;</span>) : F(<span class="stringliteral">&quot;  not in config.h&quot;</span>));</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        }</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>      }</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>      <span class="keywordflow">if</span> (0 == count)</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>      {</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <a class="code hl_function" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca">infoln</a>(F(<span class="stringliteral">&quot;\tnone: check the wiring and the pull-up resistor&quot;</span>));</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>      }</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    }</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>  }</div>
 </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span></div>
-<div class="foldopen" id="foldopen00172" data-start="{" data-end="}">
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html#a61b759a6c7b9cfddcdfa075f27988fde">  172</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classTemperatureSensing.html#a61b759a6c7b9cfddcdfa075f27988fde">initTemperatureSensors</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a>)</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    {</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>      <a class="code hl_variable" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">oneWire</a>.begin(<a class="code hl_variable" href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">sensorPin</a>);</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>      <a class="code hl_function" href="classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80">requestTemperatures</a>();</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>  }</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span></div>
+<div class="foldopen" id="foldopen00205" data-start="{" data-end="}">
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno"><a class="line" href="classTempSensors.html#a183f75b92b30a25bd33a24abb4044ff7">  205</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classTempSensors.html#a183f75b92b30a25bd33a24abb4044ff7">initTemperatureSensors</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a>)</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    {</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>      <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.begin(<a class="code hl_variable" href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">sensorPin</a>);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    }</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>  }</div>
 </div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span></div>
-<div class="foldopen" id="foldopen00189" data-start="{" data-end="}">
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html#ac9d0df044ed65e49c7ad1a5fed1c5b76">  189</a></span>  <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="classTemperatureSensing.html#ac9d0df044ed65e49c7ad1a5fed1c5b76">size</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordflow">return</span> N;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>  }</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span></div>
+<div class="foldopen" id="foldopen00220" data-start="{" data-end="}">
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno"><a class="line" href="classTempSensors.html#aaa3a95a40caca1e1ea2db1734020279c">  220</a></span>  [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classTempSensors.html#aaa3a95a40caca1e1ea2db1734020279c">startRead</a>(<span class="keyword">const</span> uint8_t idx)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (!<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a>)</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>      (void)idx;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    }</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    {</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>      <span class="keywordflow">if</span> (!<a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.reset())</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>      {</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>      }</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>      <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.write(<a class="code hl_variable" href="classTempSensors.html#a24a30e1e2a1f5677ebbc00083e87a4cf">MATCH_ROM</a>);</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>      <span class="keywordflow">for</span> (uint8_t <a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a> = 0; <a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a> != <a class="code hl_variable" href="classTempSensors.html#a9f6b4d1a4957c6b49066e96f030fb9f7">ROM_HALF</a>; ++<a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>)</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>      {</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.write(<a class="code hl_variable" href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">sensorAddrs</a>[idx].addr[<a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>]);</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>      }</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    }</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>  }</div>
 </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span></div>
-<div class="foldopen" id="foldopen00201" data-start="{" data-end="}">
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html#aed6d4373de91a9d842e4f2f6ccbc93be">  201</a></span>  <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="code hl_function" href="classTemperatureSensing.html#aed6d4373de91a9d842e4f2f6ccbc93be">get_pin</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">sensorPin</a>;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>  }</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span></div>
+<div class="foldopen" id="foldopen00248" data-start="{" data-end="}">
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="classTempSensors.html#a4f439e82b504958e36285d46f0746b8b">  248</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classTempSensors.html#a4f439e82b504958e36285d46f0746b8b">readScratchpad</a>(<span class="keyword">const</span> uint8_t idx)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (!<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a>)</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    {</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>      (void)idx;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    {</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>      <span class="keywordflow">for</span> (uint8_t <a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a> = <a class="code hl_variable" href="classTempSensors.html#a9f6b4d1a4957c6b49066e96f030fb9f7">ROM_HALF</a>; <a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a> != <span class="keyword">sizeof</span>(<a class="code hl_variable" href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">sensorAddrs</a>[idx].addr); ++<a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>)</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>      {</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.write(<a class="code hl_variable" href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">sensorAddrs</a>[idx].addr[<a class="code hl_variable" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>]);</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>      }</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>      <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.write(<a class="code hl_variable" href="ds18b20_8h.html#a4efcca8a8902b210fd176b46753964f1">READ_SCRATCHPAD</a>);</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; buf_elem : <a class="code hl_variable" href="classTempSensors.html#ae9da37475060fb2c337d2d0b76676db1">scratchPad</a>)</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>      {</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        buf_elem = <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.read();</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>      }</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    }</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>  }</div>
 </div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span></div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>  <span class="keyword">template</span>&lt; u<span class="keywordtype">int</span>8_t IDX &gt;</div>
-<div class="foldopen" id="foldopen00218" data-start="{" data-end="}">
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html#acf6ef8da2035e84feb3047bdc98ee9b1">  218</a></span>  [[nodiscard]] int16_t <a class="code hl_function" href="classTemperatureSensing.html#acf6ef8da2035e84feb3047bdc98ee9b1">readTemperature</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keyword">static_assert</span>(IDX &lt; N, <span class="stringliteral">&quot;Sensor index out of bounds! Check your sensor configuration.&quot;</span>);</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="classTemperatureSensing.html#acf6ef8da2035e84feb3047bdc98ee9b1">readTemperature</a>(IDX);</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  }</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span></div>
+<div class="foldopen" id="foldopen00276" data-start="{" data-end="}">
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno"><a class="line" href="classTempSensors.html#a5cd5e7c474cb8cb494c00273fbd00165">  276</a></span>  [[nodiscard]] int16_t <a class="code hl_function" href="classTempSensors.html#a5cd5e7c474cb8cb494c00273fbd00165">endRead</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (!<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a>)</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    {</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>      <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    }</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    {</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>      <span class="keywordflow">if</span> (!<a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>.reset())</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>      {</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="ds18b20_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a>;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>      }</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>      <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceDS18B20.html#aaf6ef3bce762af86ea3c251474b509a4">DS18B20::decode</a>(<a class="code hl_variable" href="classTempSensors.html#ae9da37475060fb2c337d2d0b76676db1">scratchPad</a>);</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    }</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>  }</div>
 </div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span></div>
-<div class="foldopen" id="foldopen00241" data-start="{" data-end="}">
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe">  241</a></span>  [[nodiscard]] int16_t <a class="code hl_function" href="classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe">readTemperature</a>(<span class="keyword">const</span> uint8_t idx)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="keyword">  </span>{</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (!<a class="code hl_variable" href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a>)</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    {</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>      <span class="comment">// Suppress unused parameter warning when temperature sensing is disabled</span></div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>      (void)idx;</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>      <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    }</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    {</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>      <span class="keyword">static</span> <a class="code hl_typedef" href="group__TemperatureSensing.html#ga89c7e0a0d9d1ce58b1583f591701d2c4">ScratchPad</a> buf;</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>      <span class="keywordflow">if</span> (!<a class="code hl_variable" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">oneWire</a>.reset())</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>      {</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a>;</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>      }</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>      <a class="code hl_variable" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">oneWire</a>.select(<a class="code hl_variable" href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">sensorAddrs</a>[idx].addr);</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>      <a class="code hl_variable" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">oneWire</a>.write(<a class="code hl_variable" href="constants_8h.html#a4efcca8a8902b210fd176b46753964f1">READ_SCRATCHPAD</a>);</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>      <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; buf_elem : buf)</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>      {</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        buf_elem = <a class="code hl_variable" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">oneWire</a>.read();</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>      }</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>      <span class="keywordflow">if</span> (!<a class="code hl_variable" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">oneWire</a>.reset())</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>      {</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a>;</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>      }</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>      <span class="keywordflow">if</span> (<a class="code hl_variable" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">oneWire</a>.crc8(buf, 8) != buf[8])</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>      {</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a>;</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>      }</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>      <span class="comment">// result is temperature x16, multiply by 6.25 to convert to temperature x100</span></div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>      int16_t result{ (buf[1] &lt;&lt; 8) | buf[0] };</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>      result = (result * 6) + (result &gt;&gt; 2);</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>      <span class="keywordflow">if</span> (result &lt;= TEMP_RANGE_LOW || result &gt;= <a class="code hl_variable" href="constants_8h.html#ae66df05f0d2fda508e164431349b3b8c">TEMP_RANGE_HIGH</a>)</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>      {</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="constants_8h.html#a8b4582476cecd5c6149546816236ffa7">OUTOFRANGE_TEMPERATURE</a>;  <span class="comment">// return value (&#39;Out of range&#39;)</span></div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>      }</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>      <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    }</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>  }</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>  <span class="keyword">template</span>&lt; u<span class="keywordtype">int</span>8_t IDX &gt;</div>
+<div class="foldopen" id="foldopen00304" data-start="{" data-end="}">
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno"><a class="line" href="classTempSensors.html#a0fac9f9385d31a12b1069ae46aac503b">  304</a></span>  [[nodiscard]] int16_t <a class="code hl_function" href="classTempSensors.html#a0fac9f9385d31a12b1069ae46aac503b">readTemperature</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="keyword">static_assert</span>(IDX &lt; N, <span class="stringliteral">&quot;Sensor index out of bounds! Check your sensor configuration.&quot;</span>);</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="classTempSensors.html#a0fac9f9385d31a12b1069ae46aac503b">readTemperature</a>(IDX);</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>  }</div>
 </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">  287</a></span>  <span class="keyword">const</span> uint8_t <a class="code hl_variable" href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">sensorPin</a>{ <a class="code hl_variable" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }; </div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">  289</a></span>  <span class="keyword">const</span> <a class="code hl_struct" href="structDeviceAddress.html">DeviceAddress</a> <a class="code hl_variable" href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">sensorAddrs</a>[N]; </div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno"><a class="line" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">  291</a></span>  <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_typedef" href="utils__temp_8h.html#a0f5e42982c253168ebf3b2179c09bb96">OneWireType</a> <a class="code hl_variable" href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">oneWire</a>; </div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>};</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span></div>
+<div class="foldopen" id="foldopen00329" data-start="{" data-end="}">
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno"><a class="line" href="classTempSensors.html#a2dbc30f78c42cb642cc1052c5a24eb67">  329</a></span>  [[nodiscard]] int16_t <a class="code hl_function" href="classTempSensors.html#a2dbc30f78c42cb642cc1052c5a24eb67">readTemperature</a>(<span class="keyword">const</span> uint8_t idx)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="classTempSensors.html#aaa3a95a40caca1e1ea2db1734020279c">startRead</a>(idx))</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    {</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>      <span class="keywordflow">return</span> <a class="code hl_variable" href="ds18b20_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a>;</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    }</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    <a class="code hl_function" href="classTempSensors.html#a4f439e82b504958e36285d46f0746b8b">readScratchpad</a>(idx);</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="classTempSensors.html#a5cd5e7c474cb8cb494c00273fbd00165">endRead</a>();</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>  }</div>
 </div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="preprocessor">#endif </span><span class="comment">/* UTILS_TEMP_H */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclassTemperatureSensing_html_a10629740380a6f688ac5c70346a94c80"><div class="ttname"><a href="classTemperatureSensing.html#a10629740380a6f688ac5c70346a94c80">TemperatureSensing::requestTemperatures</a></div><div class="ttdeci">void requestTemperatures() const</div><div class="ttdoc">Request temperature conversion for all sensors.</div><div class="ttdef"><b>Definition</b> <a href="#l00150">utils_temp.h:150</a></div></div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span> </div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="keyword">private</span>:</div>
+<div class="foldopen" id="foldopen00341" data-start="{" data-end="}">
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno"><a class="line" href="classTempSensors.html#a0ab095160573d2105532e939f87e03f5">  341</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="classTempSensors.html#a0ab095160573d2105532e939f87e03f5">isConfigured</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structDeviceAddress.html">DeviceAddress</a>&amp; device)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="keyword">  </span>{</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <span class="keywordflow">for</span> (uint8_t idx = 0; idx != N; ++idx)</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    {</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>      <span class="keywordflow">if</span> (0 == memcmp(<a class="code hl_variable" href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">sensorAddrs</a>[idx].addr, device.<a class="code hl_variable" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">addr</a>, <span class="keyword">sizeof</span>(device.<a class="code hl_variable" href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">addr</a>)))</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>      {</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>      }</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    }</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>  }</div>
+</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno"><a class="line" href="classTempSensors.html#a24a30e1e2a1f5677ebbc00083e87a4cf">  353</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> uint8_t <a class="code hl_variable" href="classTempSensors.html#a24a30e1e2a1f5677ebbc00083e87a4cf">MATCH_ROM</a>{ 0x55 }; </div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno"><a class="line" href="classTempSensors.html#a9f6b4d1a4957c6b49066e96f030fb9f7">  354</a></span>  <span class="keyword">static</span> <span class="keyword">constexpr</span> uint8_t <a class="code hl_variable" href="classTempSensors.html#a9f6b4d1a4957c6b49066e96f030fb9f7">ROM_HALF</a>{ 4 };     </div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno"><a class="line" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">  356</a></span>  <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_typedef" href="utils__temp_8h.html#a0f5e42982c253168ebf3b2179c09bb96">OneWireType</a> <a class="code hl_variable" href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">oneWire</a>;            </div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno"><a class="line" href="classTempSensors.html#ae9da37475060fb2c337d2d0b76676db1">  357</a></span>  <span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_typedef" href="namespaceDS18B20.html#ae972c9513750d1147090128d17be3e70">DS18B20::ScratchPad</a> <a class="code hl_variable" href="classTempSensors.html#ae9da37475060fb2c337d2d0b76676db1">scratchPad</a>; </div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>};</div>
+</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span></div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span><span class="keyword">template</span>&lt; u<span class="keywordtype">int</span>8_t N &gt;</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno"><a class="line" href="utils__temp_8h.html#a9e6c2bc739a72a8e68be2b73e1af4ff6">  362</a></span><a class="code hl_function" href="utils__temp_8h.html#a9e6c2bc739a72a8e68be2b73e1af4ff6">TempSensors</a>(<span class="keyword">const</span> <a class="code hl_class" href="classTemperatureSensing.html">TemperatureSensing&lt; N &gt;</a>&amp;) -&gt; <a class="code hl_class" href="classTempSensors.html">TempSensors&lt; N &gt;</a>;</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span> </div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span><span class="preprocessor">#endif </span><span class="comment">/* UTILS_TEMP_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclassRomSearch_html"><div class="ttname"><a href="classRomSearch.html">RomSearch</a></div><div class="ttdoc">The successive searches of a 1-Wire bus, one device each.</div><div class="ttdef"><b>Definition</b> <a href="onewire__search_8h_source.html#l00045">onewire_search.h:46</a></div></div>
+<div class="ttc" id="aclassTempSensors_html"><div class="ttname"><a href="classTempSensors.html">TempSensors</a></div><div class="ttdoc">Implements temperature sensing functionality for multiple sensors.</div><div class="ttdef"><b>Definition</b> <a href="#l00096">utils_temp.h:97</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_a0ab095160573d2105532e939f87e03f5"><div class="ttname"><a href="classTempSensors.html#a0ab095160573d2105532e939f87e03f5">TempSensors::isConfigured</a></div><div class="ttdeci">bool isConfigured(const DeviceAddress &amp;device) const</div><div class="ttdoc">Whether config.h lists this sensor.</div><div class="ttdef"><b>Definition</b> <a href="#l00341">utils_temp.h:341</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_a0fac9f9385d31a12b1069ae46aac503b"><div class="ttname"><a href="classTempSensors.html#a0fac9f9385d31a12b1069ae46aac503b">TempSensors::readTemperature</a></div><div class="ttdeci">int16_t readTemperature() const</div><div class="ttdoc">Read temperature from a specific sensor (compile-time bounds checking).</div><div class="ttdef"><b>Definition</b> <a href="#l00304">utils_temp.h:304</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_a183f75b92b30a25bd33a24abb4044ff7"><div class="ttname"><a href="classTempSensors.html#a183f75b92b30a25bd33a24abb4044ff7">TempSensors::initTemperatureSensors</a></div><div class="ttdeci">void initTemperatureSensors() const</div><div class="ttdoc">Initialize the Dallas temperature sensors.</div><div class="ttdef"><b>Definition</b> <a href="#l00205">utils_temp.h:205</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_a1b38e8222d8716cf2deaff1a69b3ebd1"><div class="ttname"><a href="classTempSensors.html#a1b38e8222d8716cf2deaff1a69b3ebd1">TempSensors::requestTemperatures</a></div><div class="ttdeci">void requestTemperatures() const</div><div class="ttdoc">Request temperature conversion for all sensors.</div><div class="ttdef"><b>Definition</b> <a href="#l00123">utils_temp.h:123</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_a24a30e1e2a1f5677ebbc00083e87a4cf"><div class="ttname"><a href="classTempSensors.html#a24a30e1e2a1f5677ebbc00083e87a4cf">TempSensors::MATCH_ROM</a></div><div class="ttdeci">static constexpr uint8_t MATCH_ROM</div><div class="ttdef"><b>Definition</b> <a href="#l00353">utils_temp.h:353</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_a2dbc30f78c42cb642cc1052c5a24eb67"><div class="ttname"><a href="classTempSensors.html#a2dbc30f78c42cb642cc1052c5a24eb67">TempSensors::readTemperature</a></div><div class="ttdeci">int16_t readTemperature(const uint8_t idx) const</div><div class="ttdoc">Reads the temperature of a specific sensor (runtime bounds checking).</div><div class="ttdef"><b>Definition</b> <a href="#l00329">utils_temp.h:329</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_a4f439e82b504958e36285d46f0746b8b"><div class="ttname"><a href="classTempSensors.html#a4f439e82b504958e36285d46f0746b8b">TempSensors::readScratchpad</a></div><div class="ttdeci">void readScratchpad(const uint8_t idx) const</div><div class="ttdoc">READ, the second transaction: the second half of the ROM code, Read Scratchpad, the 9 bytes of the sc...</div><div class="ttdef"><b>Definition</b> <a href="#l00248">utils_temp.h:248</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_a5cd5e7c474cb8cb494c00273fbd00165"><div class="ttname"><a href="classTempSensors.html#a5cd5e7c474cb8cb494c00273fbd00165">TempSensors::endRead</a></div><div class="ttdeci">int16_t endRead() const</div><div class="ttdoc">CLOSE, the last transaction: a reset (the sensor still there?), the reading decoded.</div><div class="ttdef"><b>Definition</b> <a href="#l00276">utils_temp.h:276</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_a64e0ca83c04daed8e0fc235bcdec38a5"><div class="ttname"><a href="classTempSensors.html#a64e0ca83c04daed8e0fc235bcdec38a5">TempSensors::TempSensors</a></div><div class="ttdeci">constexpr TempSensors(const TemperatureSensing&lt; N &gt; &amp;sensors)</div><div class="ttdoc">The sensors of config.h.</div><div class="ttdef"><b>Definition</b> <a href="#l00107">utils_temp.h:107</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_a80b0959867c7d30015fe661b51777db7"><div class="ttname"><a href="classTempSensors.html#a80b0959867c7d30015fe661b51777db7">TempSensors::printSensorsOnBus</a></div><div class="ttdeci">void printSensorsOnBus() const</div><div class="ttdoc">Lists the sensors on the bus, with their ROM codes as config.h takes them.</div><div class="ttdef"><b>Definition</b> <a href="#l00141">utils_temp.h:141</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_a9f6b4d1a4957c6b49066e96f030fb9f7"><div class="ttname"><a href="classTempSensors.html#a9f6b4d1a4957c6b49066e96f030fb9f7">TempSensors::ROM_HALF</a></div><div class="ttdeci">static constexpr uint8_t ROM_HALF</div><div class="ttdef"><b>Definition</b> <a href="#l00354">utils_temp.h:354</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_aa58474fcc7c86ebe0f68235c5e4e9ad3"><div class="ttname"><a href="classTempSensors.html#aa58474fcc7c86ebe0f68235c5e4e9ad3">TempSensors::oneWire</a></div><div class="ttdeci">static OneWireType oneWire</div><div class="ttdef"><b>Definition</b> <a href="#l00356">utils_temp.h:356</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_aaa3a95a40caca1e1ea2db1734020279c"><div class="ttname"><a href="classTempSensors.html#aaa3a95a40caca1e1ea2db1734020279c">TempSensors::startRead</a></div><div class="ttdeci">bool startRead(const uint8_t idx) const</div><div class="ttdoc">ADDRESS, the first transaction of a sensor&#39;s read: reset, Match ROM, the first half of its ROM code.</div><div class="ttdef"><b>Definition</b> <a href="#l00220">utils_temp.h:220</a></div></div>
+<div class="ttc" id="aclassTempSensors_html_ae9da37475060fb2c337d2d0b76676db1"><div class="ttname"><a href="classTempSensors.html#ae9da37475060fb2c337d2d0b76676db1">TempSensors::scratchPad</a></div><div class="ttdeci">static DS18B20::ScratchPad scratchPad</div><div class="ttdef"><b>Definition</b> <a href="#l00357">utils_temp.h:357</a></div></div>
+<div class="ttc" id="aclassTemperatureSensing_html"><div class="ttname"><a href="classTemperatureSensing.html">TemperatureSensing</a></div><div class="ttdoc">The temperature sensors, as in config.h: the pin of the bus and the address of each sensor.</div><div class="ttdef"><b>Definition</b> <a href="config__types_8h_source.html#l00734">config_types.h:735</a></div></div>
 <div class="ttc" id="aclassTemperatureSensing_html_a1db5f6a92a1fee319e08f3e075b516e3"><div class="ttname"><a href="classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3">TemperatureSensing::TemperatureSensing</a></div><div class="ttdeci">constexpr TemperatureSensing()=delete</div></div>
-<div class="ttc" id="aclassTemperatureSensing_html_a224556f099404a746b61c14e25545ef8"><div class="ttname"><a href="classTemperatureSensing.html#a224556f099404a746b61c14e25545ef8">TemperatureSensing::TemperatureSensing</a></div><div class="ttdeci">constexpr TemperatureSensing(uint8_t pin, const DeviceAddress(&amp;ref)[N])</div><div class="ttdoc">Construct a new Temperature Sensing object.</div><div class="ttdef"><b>Definition</b> <a href="#l00134">utils_temp.h:134</a></div></div>
-<div class="ttc" id="aclassTemperatureSensing_html_a2bd6eab63a275b8b5bc372189c59cec5"><div class="ttname"><a href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">TemperatureSensing::sensorAddrs</a></div><div class="ttdeci">const DeviceAddress sensorAddrs[N]</div><div class="ttdef"><b>Definition</b> <a href="#l00289">utils_temp.h:289</a></div></div>
-<div class="ttc" id="aclassTemperatureSensing_html_a4931626067c97497173c2b1e6285ec27"><div class="ttname"><a href="classTemperatureSensing.html#a4931626067c97497173c2b1e6285ec27">TemperatureSensing::oneWire</a></div><div class="ttdeci">static OneWireType oneWire</div><div class="ttdef"><b>Definition</b> <a href="#l00291">utils_temp.h:291</a></div></div>
-<div class="ttc" id="aclassTemperatureSensing_html_a61b759a6c7b9cfddcdfa075f27988fde"><div class="ttname"><a href="classTemperatureSensing.html#a61b759a6c7b9cfddcdfa075f27988fde">TemperatureSensing::initTemperatureSensors</a></div><div class="ttdeci">void initTemperatureSensors() const</div><div class="ttdoc">Initialize the Dallas temperature sensors.</div><div class="ttdef"><b>Definition</b> <a href="#l00172">utils_temp.h:172</a></div></div>
-<div class="ttc" id="aclassTemperatureSensing_html_a6a9a904dfc27f7a5b9465f9c5a1f5875"><div class="ttname"><a href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">TemperatureSensing::sensorPin</a></div><div class="ttdeci">const uint8_t sensorPin</div><div class="ttdef"><b>Definition</b> <a href="#l00287">utils_temp.h:287</a></div></div>
-<div class="ttc" id="aclassTemperatureSensing_html_a818e69732219334348f6e6e44774d0fe"><div class="ttname"><a href="classTemperatureSensing.html#a818e69732219334348f6e6e44774d0fe">TemperatureSensing::readTemperature</a></div><div class="ttdeci">int16_t readTemperature(const uint8_t idx) const</div><div class="ttdoc">Reads the temperature of a specific sensor (runtime bounds checking).</div><div class="ttdef"><b>Definition</b> <a href="#l00241">utils_temp.h:241</a></div></div>
-<div class="ttc" id="aclassTemperatureSensing_html_ac9d0df044ed65e49c7ad1a5fed1c5b76"><div class="ttname"><a href="classTemperatureSensing.html#ac9d0df044ed65e49c7ad1a5fed1c5b76">TemperatureSensing::size</a></div><div class="ttdeci">constexpr auto size() const</div><div class="ttdoc">Get the number of sensors.</div><div class="ttdef"><b>Definition</b> <a href="#l00189">utils_temp.h:189</a></div></div>
-<div class="ttc" id="aclassTemperatureSensing_html_acf6ef8da2035e84feb3047bdc98ee9b1"><div class="ttname"><a href="classTemperatureSensing.html#acf6ef8da2035e84feb3047bdc98ee9b1">TemperatureSensing::readTemperature</a></div><div class="ttdeci">int16_t readTemperature() const</div><div class="ttdoc">Read temperature from a specific sensor (compile-time bounds checking).</div><div class="ttdef"><b>Definition</b> <a href="#l00218">utils_temp.h:218</a></div></div>
-<div class="ttc" id="aclassTemperatureSensing_html_aed6d4373de91a9d842e4f2f6ccbc93be"><div class="ttname"><a href="classTemperatureSensing.html#aed6d4373de91a9d842e4f2f6ccbc93be">TemperatureSensing::get_pin</a></div><div class="ttdeci">constexpr auto get_pin() const</div><div class="ttdoc">Get the pin of the sensor(s).</div><div class="ttdef"><b>Definition</b> <a href="#l00201">utils_temp.h:201</a></div></div>
+<div class="ttc" id="aclassTemperatureSensing_html_a2bd6eab63a275b8b5bc372189c59cec5"><div class="ttname"><a href="classTemperatureSensing.html#a2bd6eab63a275b8b5bc372189c59cec5">TemperatureSensing::sensorAddrs</a></div><div class="ttdeci">const DeviceAddress sensorAddrs[N]</div><div class="ttdef"><b>Definition</b> <a href="config__types_8h_source.html#l00759">config_types.h:759</a></div></div>
+<div class="ttc" id="aclassTemperatureSensing_html_a6a9a904dfc27f7a5b9465f9c5a1f5875"><div class="ttname"><a href="classTemperatureSensing.html#a6a9a904dfc27f7a5b9465f9c5a1f5875">TemperatureSensing::sensorPin</a></div><div class="ttdeci">const uint8_t sensorPin</div><div class="ttdef"><b>Definition</b> <a href="config__types_8h_source.html#l00758">config_types.h:758</a></div></div>
 <div class="ttc" id="aconditional_8hpp_html_ac8708c937b092874893a6aa081bde14a"><div class="ttname"><a href="conditional_8hpp.html#ac8708c937b092874893a6aa081bde14a">conditional_t</a></div><div class="ttdeci">typename conditional&lt; Condition, TrueType, FalseType &gt;::type conditional_t</div><div class="ttdef"><b>Definition</b> <a href="conditional_8hpp_source.html#l00020">conditional.hpp:20</a></div></div>
 <div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div><div class="ttdoc">Router configuration: loads, relays, control pins and features.</div></div>
-<div class="ttc" id="aconfig_8h_html_abe9c0a80c3e6d59aaa13ce3e193a5083"><div class="ttname"><a href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a></div><div class="ttdeci">constexpr bool TEMP_SENSOR_PRESENT</div><div class="ttdef"><b>Definition</b> <a href="config_8h_source.html#l00082">config.h:82</a></div></div>
+<div class="ttc" id="aconfig_8h_html_a858e958b407980de6e11570157e619cd"><div class="ttname"><a href="config_8h.html#a858e958b407980de6e11570157e619cd">CALIBRATION_MODE</a></div><div class="ttdeci">constexpr bool CALIBRATION_MODE</div><div class="ttdef"><b>Definition</b> <a href="config_8h_source.html#l00035">config.h:35</a></div></div>
+<div class="ttc" id="aconfig_8h_html_abe9c0a80c3e6d59aaa13ce3e193a5083"><div class="ttname"><a href="config_8h.html#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a></div><div class="ttdeci">constexpr bool TEMP_SENSOR_PRESENT</div><div class="ttdef"><b>Definition</b> <a href="config_8h_source.html#l00065">config.h:65</a></div></div>
 <div class="ttc" id="aconstants_8h_html"><div class="ttname"><a href="constants_8h.html">constants.h</a></div><div class="ttdoc">Some constants.</div></div>
-<div class="ttc" id="aconstants_8h_html_a0fc0867cb8eb64709ec9326821f0657c"><div class="ttname"><a href="constants_8h.html#a0fc0867cb8eb64709ec9326821f0657c">CONVERT_TEMPERATURE</a></div><div class="ttdeci">constexpr uint8_t CONVERT_TEMPERATURE</div><div class="ttdef"><b>Definition</b> <a href="constants_8h_source.html#l00018">constants.h:18</a></div></div>
-<div class="ttc" id="aconstants_8h_html_a32edf43fb1167432fcfdfdf60351ca83"><div class="ttname"><a href="constants_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a></div><div class="ttdeci">constexpr int16_t DEVICE_DISCONNECTED_RAW</div><div class="ttdef"><b>Definition</b> <a href="constants_8h_source.html#l00027">constants.h:27</a></div></div>
-<div class="ttc" id="aconstants_8h_html_a4efcca8a8902b210fd176b46753964f1"><div class="ttname"><a href="constants_8h.html#a4efcca8a8902b210fd176b46753964f1">READ_SCRATCHPAD</a></div><div class="ttdeci">constexpr uint8_t READ_SCRATCHPAD</div><div class="ttdef"><b>Definition</b> <a href="constants_8h_source.html#l00019">constants.h:19</a></div></div>
-<div class="ttc" id="aconstants_8h_html_a8b4582476cecd5c6149546816236ffa7"><div class="ttname"><a href="constants_8h.html#a8b4582476cecd5c6149546816236ffa7">OUTOFRANGE_TEMPERATURE</a></div><div class="ttdeci">constexpr int16_t OUTOFRANGE_TEMPERATURE</div><div class="ttdef"><b>Definition</b> <a href="constants_8h_source.html#l00022">constants.h:22</a></div></div>
-<div class="ttc" id="aconstants_8h_html_ae66df05f0d2fda508e164431349b3b8c"><div class="ttname"><a href="constants_8h.html#ae66df05f0d2fda508e164431349b3b8c">TEMP_RANGE_HIGH</a></div><div class="ttdeci">constexpr int16_t TEMP_RANGE_HIGH</div><div class="ttdef"><b>Definition</b> <a href="constants_8h_source.html#l00024">constants.h:24</a></div></div>
-<div class="ttc" id="agroup__TemperatureSensing_html_ga89c7e0a0d9d1ce58b1583f591701d2c4"><div class="ttname"><a href="group__TemperatureSensing.html#ga89c7e0a0d9d1ce58b1583f591701d2c4">TemperatureSensing::ScratchPad</a></div><div class="ttdeci">uint8_t[9] ScratchPad</div><div class="ttdoc">Represents a buffer for storing sensor data.</div><div class="ttdef"><b>Definition</b> <a href="#l00119">utils_temp.h:119</a></div></div>
-<div class="ttc" id="astructDeviceAddress_html"><div class="ttname"><a href="structDeviceAddress.html">DeviceAddress</a></div><div class="ttdoc">Structure representing the address of a device.</div><div class="ttdef"><b>Definition</b> <a href="#l00043">utils_temp.h:44</a></div></div>
-<div class="ttc" id="astructDeviceAddress_html_ae90422657105a8cff63931e274f2d391"><div class="ttname"><a href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">DeviceAddress::addr</a></div><div class="ttdeci">uint8_t addr[8]</div><div class="ttdef"><b>Definition</b> <a href="#l00045">utils_temp.h:45</a></div></div>
-<div class="ttc" id="autils__pins_8h_html_af56aa6e64828c1a87b646a7e02fc5ded"><div class="ttname"><a href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a></div><div class="ttdeci">constexpr uint8_t unused_pin</div><div class="ttdef"><b>Definition</b> <a href="utils__pins_8h_source.html#l00019">utils_pins.h:19</a></div></div>
-<div class="ttc" id="autils__temp_8h_html_a0f5e42982c253168ebf3b2179c09bb96"><div class="ttname"><a href="utils__temp_8h.html#a0f5e42982c253168ebf3b2179c09bb96">OneWireType</a></div><div class="ttdeci">conditional_t&lt; TEMP_SENSOR_PRESENT, OneWire, MockOneWire &gt; OneWireType</div><div class="ttdef"><b>Definition</b> <a href="#l00084">utils_temp.h:84</a></div></div>
+<div class="ttc" id="adebug_8h_html"><div class="ttname"><a href="debug_8h.html">debug.h</a></div><div class="ttdoc">The text output: informational messages (info) and debug messages (debug)</div></div>
+<div class="ttc" id="adebug_8h_html_a3adeb14e342ac09e6112ddc3f314b2ca"><div class="ttname"><a href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca">infoln</a></div><div class="ttdeci">void infoln(const Args &amp;... args)</div><div class="ttdoc">Print an informational message and a line end, as Serial.println() does.</div><div class="ttdef"><b>Definition</b> <a href="debug_8h_source.html#l00067">debug.h:67</a></div></div>
+<div class="ttc" id="adebug_8h_html_aca46af6ad7e486edceb7ad7752f02d6a"><div class="ttname"><a href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a">info</a></div><div class="ttdeci">void info(const Args &amp;... args)</div><div class="ttdoc">Print an informational message, as Serial.print() does.</div><div class="ttdef"><b>Definition</b> <a href="debug_8h_source.html#l00057">debug.h:57</a></div></div>
+<div class="ttc" id="ads18b20_8h_html"><div class="ttname"><a href="ds18b20_8h.html">ds18b20.h</a></div><div class="ttdoc">The checks of a DS18B20 reading: CRC, conversion to hundredths of °C, range, power-on value.</div></div>
+<div class="ttc" id="ads18b20_8h_html_a0fc0867cb8eb64709ec9326821f0657c"><div class="ttname"><a href="ds18b20_8h.html#a0fc0867cb8eb64709ec9326821f0657c">CONVERT_TEMPERATURE</a></div><div class="ttdeci">constexpr uint8_t CONVERT_TEMPERATURE</div><div class="ttdef"><b>Definition</b> <a href="ds18b20_8h_source.html#l00030">ds18b20.h:30</a></div></div>
+<div class="ttc" id="ads18b20_8h_html_a32edf43fb1167432fcfdfdf60351ca83"><div class="ttname"><a href="ds18b20_8h.html#a32edf43fb1167432fcfdfdf60351ca83">DEVICE_DISCONNECTED_RAW</a></div><div class="ttdeci">constexpr int16_t DEVICE_DISCONNECTED_RAW</div><div class="ttdef"><b>Definition</b> <a href="ds18b20_8h_source.html#l00038">ds18b20.h:38</a></div></div>
+<div class="ttc" id="ads18b20_8h_html_a4efcca8a8902b210fd176b46753964f1"><div class="ttname"><a href="ds18b20_8h.html#a4efcca8a8902b210fd176b46753964f1">READ_SCRATCHPAD</a></div><div class="ttdeci">constexpr uint8_t READ_SCRATCHPAD</div><div class="ttdef"><b>Definition</b> <a href="ds18b20_8h_source.html#l00031">ds18b20.h:31</a></div></div>
+<div class="ttc" id="aembedded_2test__mult__asm_2test__main_8cpp_html_af27e3188294c2df66d975b74a09c001d"><div class="ttname"><a href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a></div><div class="ttdeci">uint8_t i</div><div class="ttdef"><b>Definition</b> <a href="embedded_2test__mult__asm_2test__main_8cpp_source.html#l00881">test_main.cpp:881</a></div></div>
+<div class="ttc" id="anamespaceBenchTimer_html_aec7b874a7b2744549e4aa1acbb8023f2"><div class="ttname"><a href="namespaceBenchTimer.html#aec7b874a7b2744549e4aa1acbb8023f2">BenchTimer::begin</a></div><div class="ttdeci">void begin()</div><div class="ttdoc">Starts counting: from the last instruction on, one count per CPU cycle.</div><div class="ttdef"><b>Definition</b> <a href="bench__timer_8h_source.html#l00037">bench_timer.h:37</a></div></div>
+<div class="ttc" id="anamespaceDS18B20_html_a0ecb269888a40e4a3edad6d1864c79af"><div class="ttname"><a href="namespaceDS18B20.html#a0ecb269888a40e4a3edad6d1864c79af">DS18B20::crc8</a></div><div class="ttdeci">constexpr uint8_t crc8(const uint8_t *data, uint8_t len)</div><div class="ttdoc">The Dallas/Maxim CRC-8 (x^8 + x^5 + x^4 + 1), as OneWire::crc8.</div><div class="ttdef"><b>Definition</b> <a href="ds18b20_8h_source.html#l00059">ds18b20.h:59</a></div></div>
+<div class="ttc" id="anamespaceDS18B20_html_aaf6ef3bce762af86ea3c251474b509a4"><div class="ttname"><a href="namespaceDS18B20.html#aaf6ef3bce762af86ea3c251474b509a4">DS18B20::decode</a></div><div class="ttdeci">constexpr int16_t decode(const ScratchPad &amp;buf)</div><div class="ttdoc">The reading of a scratchpad, its CRC checked.</div><div class="ttdef"><b>Definition</b> <a href="ds18b20_8h_source.html#l00101">ds18b20.h:101</a></div></div>
+<div class="ttc" id="anamespaceDS18B20_html_ae972c9513750d1147090128d17be3e70"><div class="ttname"><a href="namespaceDS18B20.html#ae972c9513750d1147090128d17be3e70">DS18B20::ScratchPad</a></div><div class="ttdeci">uint8_t[9] ScratchPad</div><div class="ttdoc">The scratchpad: temperature LSB and MSB, TH, TL, configuration, 3 reserved bytes, CRC.</div><div class="ttdef"><b>Definition</b> <a href="ds18b20_8h_source.html#l00043">ds18b20.h:43</a></div></div>
+<div class="ttc" id="aonewire__search_8h_html"><div class="ttname"><a href="onewire__search_8h.html">onewire_search.h</a></div><div class="ttdoc">The ROM search of a 1-Wire bus, on the bit primitives of the bus.</div></div>
+<div class="ttc" id="astructDeviceAddress_html"><div class="ttname"><a href="structDeviceAddress.html">DeviceAddress</a></div><div class="ttdoc">Structure representing the address of a device.</div><div class="ttdef"><b>Definition</b> <a href="config__types_8h_source.html#l00721">config_types.h:722</a></div></div>
+<div class="ttc" id="astructDeviceAddress_html_ae90422657105a8cff63931e274f2d391"><div class="ttname"><a href="structDeviceAddress.html#ae90422657105a8cff63931e274f2d391">DeviceAddress::addr</a></div><div class="ttdeci">uint8_t addr[8]</div><div class="ttdef"><b>Definition</b> <a href="config__types_8h_source.html#l00723">config_types.h:723</a></div></div>
+<div class="ttc" id="autils__temp_8h_html_a0f5e42982c253168ebf3b2179c09bb96"><div class="ttname"><a href="utils__temp_8h.html#a0f5e42982c253168ebf3b2179c09bb96">OneWireType</a></div><div class="ttdeci">conditional_t&lt; TEMP_SENSOR_PRESENT, OneWire, MockOneWire &gt; OneWireType</div><div class="ttdef"><b>Definition</b> <a href="#l00074">utils_temp.h:74</a></div></div>
+<div class="ttc" id="autils__temp_8h_html_a9e6c2bc739a72a8e68be2b73e1af4ff6"><div class="ttname"><a href="utils__temp_8h.html#a9e6c2bc739a72a8e68be2b73e1af4ff6">TempSensors</a></div><div class="ttdeci">TempSensors(const TemperatureSensing&lt; N &gt; &amp;) -&gt; TempSensors&lt; N &gt;</div><div class="ttdoc">Deduction guide: N from the sensors of config.h.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

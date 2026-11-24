@@ -1,0 +1,7 @@
+<map id="RelayLogic::Relay::negativeOf" name="RelayLogic::Relay::negativeOf">
+<area shape="rect" id="Node000001" title="&#45;abs(value), without the abs() macro of Arduino.h." alt="" coords="198,40,342,85"/>
+<area shape="rect" id="Node000002" href="$classRelayLogic_1_1Relay.html#afa99e2cd76636799f714f4188a7389ae" title="Construct a new relay Config object with default/custom parameters." alt="" coords="5,5,150,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,47,150,43,150,38,185,46"/>
+<area shape="rect" id="Node000003" href="$classRelayLogic_1_1Relay.html#a87c9db04bd0806761bd60dadd51c778b" title="Construct a new relay Config object with custom parameters." alt="" coords="5,75,150,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,79,150,87,149,81,185,77"/>
+</map>

@@ -1,0 +1,32 @@
+<map id="AdcChain::refBits" name="AdcChain::refBits">
+<area shape="rect" id="Node000001" title="The reference bits of ADMUX on a board." alt="" coords="814,146,947,174"/>
+<area shape="rect" id="Node000002" href="$namespaceAdcChain.html#a3f992a5e4ee47876cb5765bf267c27f5" title="The ADMUX value that converts a channel: reference, left&#45;adjusted result, analog input." alt="" coords="615,175,766,203"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="796,173,767,180,766,175,801,172"/>
+<area shape="rect" id="Node000007" href="$native_2test__adc__chain_2test__main_8cpp.html#adbd8519294ba2d17c4899393d2a00753" title=" " alt="" coords="133,348,280,376"/>
+<area shape="poly" id="edge17_Node000001_Node000007" title=" " alt="" coords="856,183,806,228,738,279,657,328,613,349,568,365,493,380,415,385,342,383,280,377,280,372,343,378,415,380,492,375,567,360,611,344,654,323,735,275,803,224,851,185"/>
+<area shape="rect" id="Node000010" href="$native_2test__adc__chain_2test__main_8cpp.html#a5fefa41eb7a279e50e3e852f7667ceae" title=" " alt="" coords="358,5,563,50"/>
+<area shape="poly" id="edge16_Node000001_Node000010" title=" " alt="" coords="852,135,813,105,765,77,715,59,663,47,564,33,563,28,664,42,716,54,767,72,816,101,857,136"/>
+<area shape="rect" id="Node000011" href="$native_2test__adc__chain_2test__main_8cpp.html#a004ee700c02dc503e76cbd2548986778" title=" " alt="" coords="619,87,762,131"/>
+<area shape="poly" id="edge18_Node000001_Node000011" title=" " alt="" coords="808,141,763,131,763,125,814,141"/>
+<area shape="rect" id="Node000003" href="$namespaceAdcChain.html#a6d2f12ba9de9b28a2c36a59b29648c80" title="The ADMUX value the interrupt writes after the conversion of a channel." alt="" coords="353,226,567,254"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="607,207,527,228,526,223,612,206"/>
+<area shape="rect" id="Node000004" href="$native_2test__adc__chain_2test__main_8cpp.html#a966cc06df498917065b27d6b18629775" title=" " alt="" coords="108,177,305,238"/>
+<area shape="poly" id="edge13_Node000002_Node000004" title=" " alt="" coords="598,194,306,207,305,201,602,191"/>
+<area shape="rect" id="Node000006" href="$native_2test__adc__chain_2test__main_8cpp.html#a7caddc3e4a13dbb4d9c375563b418990" title=" " alt="" coords="125,262,288,324"/>
+<area shape="poly" id="edge14_Node000002_Node000006" title=" " alt="" coords="663,211,619,243,568,268,496,286,421,296,350,300,289,300,288,295,350,295,421,291,495,280,566,262,617,239,658,213"/>
+<area shape="poly" id="edge15_Node000002_Node000007" title=" " alt="" coords="671,214,628,263,599,286,569,305,495,333,418,351,344,361,280,365,280,360,343,356,417,346,493,328,566,300,596,282,624,259,667,216"/>
+<area shape="rect" id="Node000008" href="$group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="386,124,534,152"/>
+<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="607,172,526,155,526,150,612,171"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="649,167,614,146,489,53,490,48,617,141,654,167"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="335,225,306,223,305,217,340,224"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="374,258,289,278,288,273,379,256"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="430,262,373,302,306,338,272,350,270,345,304,333,371,298,425,264"/>
+<area shape="rect" id="Node000005" href="$native_2test__adc__chain_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,194,60,222"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="90,209,61,210,59,205,94,206"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="115,256,106,253,57,224,57,219,109,248,120,254"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="117,343,106,338,79,311,59,279,37,225,39,219,64,276,84,307,109,334,122,343"/>
+<area shape="rect" id="Node000009" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="178,124,235,152"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="369,140,236,141,235,136,373,137"/>
+<area shape="poly" id="edge12_Node000010_Node000005" title=" " alt="" coords="340,17,284,19,223,27,164,43,109,71,81,99,61,133,47,167,39,194,34,193,42,165,56,130,77,95,106,67,162,38,222,21,284,14,344,14"/>
+<area shape="poly" id="edge19_Node000011_Node000005" title=" " alt="" coords="601,101,478,94,335,89,201,94,148,103,109,115,86,132,67,153,42,195,37,192,63,150,82,128,106,111,147,97,201,89,335,84,479,89,606,100"/>
+</map>

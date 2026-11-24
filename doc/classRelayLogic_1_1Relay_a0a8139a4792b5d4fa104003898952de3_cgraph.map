@@ -1,0 +1,9 @@
+<map id="RelayLogic::Relay::proceed_forced_only" name="RelayLogic::Relay::proceed_forced_only">
+<area shape="rect" id="Node000001" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="5,40,162,85"/>
+<area shape="rect" id="Node000002" href="$classRelayLogic_1_1Relay.html#a917ae090d91ec5a35a073a17ae863828" title=" " alt="" coords="210,5,354,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,46,197,42,192,44,163,51"/>
+<area shape="rect" id="Node000004" href="$classRelayLogic_1_1Relay.html#a837a1db7c5ae77805ccfb5e4d21bb6bd" title="Turn the relay ON or OFF if the &#39;time&#39; condition is met." alt="" coords="210,75,354,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="162,73,197,81,192,82,162,79"/>
+<area shape="rect" id="Node000003" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="402,14,476,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="354,25,389,27,384,28,355,30"/>
+</map>

@@ -1,24 +1,26 @@
 <map id="getPinState" name="getPinState">
-<area shape="rect" id="Node000001" title="Get the Pin State." alt="" coords="537,109,634,137"/>
-<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="328,5,481,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="557,98,526,73,488,48,461,36,461,31,491,43,529,69,562,99"/>
-<area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="332,213,478,241"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="562,147,529,177,491,203,462,215,460,210,488,198,526,173,557,149"/>
-<area shape="rect" id="Node000007" href="$group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="358,161,452,189"/>
-<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="525,141,453,164,452,159,520,142"/>
-<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,57,489,85"/>
-<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="520,105,455,88,455,83,525,105"/>
-<area shape="rect" id="Node000009" href="$group__GeneralProcessing.html#gabe8c38238f5014c09e788c833b50af5e" title="Handles load priority rotation." alt="" coords="324,109,486,137"/>
-<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="519,124,487,126,486,121,524,123"/>
-<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,109,272,137"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="335,40,321,48,260,80,211,111,208,107,258,76,319,43,340,37"/>
-<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,109,55,137"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="85,125,56,126,54,121,89,121"/>
-<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="335,207,319,203,211,140,213,135,321,198,340,208"/>
-<area shape="rect" id="Node000006" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="159,187,216,214"/>
-<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="314,217,216,207,216,201,319,216"/>
-<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="340,161,248,140,249,135,345,160"/>
-<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="340,183,217,200,216,195,345,182"/>
-<area shape="poly" id="edge11_Node000008_Node000003" title=" " alt="" coords="326,90,249,111,248,106,331,88"/>
-<area shape="poly" id="edge13_Node000009_Node000003" title=" " alt="" coords="306,124,273,126,272,121,311,123"/>
+<area shape="rect" id="Node000001" title="Get the Pin State." alt="" coords="738,60,834,87"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="537,8,690,35"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="720,55,662,38,662,33,726,54"/>
+<area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="559,85,668,113"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="720,83,669,93,668,88,725,82"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,85,272,113"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="519,10,424,9,371,14,321,24,288,36,256,53,207,87,204,82,254,48,285,31,319,19,371,9,423,4,524,9"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,85,55,113"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="85,100,56,101,54,96,89,97"/>
+<area shape="rect" id="Node000006" href="$group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="332,137,478,165"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="547,115,464,139,463,134,541,116"/>
+<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="358,189,452,217"/>
+<area shape="poly" id="edge8_Node000005_Node000008" title=" " alt="" coords="583,121,539,152,490,178,453,193,452,188,488,174,537,147,578,123"/>
+<area shape="rect" id="Node000009" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,33,489,61"/>
+<area shape="poly" id="edge11_Node000005_Node000009" title=" " alt="" coords="541,82,463,64,463,58,547,81"/>
+<area shape="rect" id="Node000010" href="$group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="324,85,486,113"/>
+<area shape="poly" id="edge13_Node000005_Node000010" title=" " alt="" coords="541,99,486,101,486,96,546,98"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="326,133,248,116,249,111,331,132"/>
+<area shape="rect" id="Node000007" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="159,162,216,190"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="314,162,217,175,216,170,319,160"/>
+<area shape="poly" id="edge9_Node000008_Node000003" title=" " alt="" coords="341,185,319,178,211,116,213,111,321,174,346,185"/>
+<area shape="poly" id="edge10_Node000008_Node000007" title=" " alt="" coords="340,196,216,182,216,177,345,195"/>
+<area shape="poly" id="edge12_Node000009_Node000003" title=" " alt="" coords="326,66,249,87,248,82,331,64"/>
+<area shape="poly" id="edge14_Node000010_Node000003" title=" " alt="" coords="306,99,273,101,272,96,311,98"/>
 </map>

@@ -1,0 +1,19 @@
+<map id="AdcChain::channelAfterNext" name="AdcChain::channelAfterNext">
+<area shape="rect" id="Node000001" title="The channel two steps after another one in the chain V1, I1, V2, I2, V3, I3." alt="" coords="615,108,819,135"/>
+<area shape="rect" id="Node000002" href="$namespaceAdcChain.html#a6d2f12ba9de9b28a2c36a59b29648c80" title="The ADMUX value the interrupt writes after the conversion of a channel." alt="" coords="353,108,567,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="597,122,568,124,567,119,602,121"/>
+<area shape="rect" id="Node000003" href="$native_2test__adc__chain_2test__main_8cpp.html#a966cc06df498917065b27d6b18629775" title=" " alt="" coords="108,5,305,67"/>
+<area shape="poly" id="edge8_Node000001_Node000003" title=" " alt="" coords="614,105,567,99,305,55,305,50,568,94,619,104"/>
+<area shape="rect" id="Node000007" href="$native_2test__adc__chain_2test__main_8cpp.html#a8285378a9512cb896dfdb1bf6f8fe834" title=" " alt="" coords="390,188,530,233"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="663,140,527,191,526,185,658,141"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="399,103,300,70,300,65,404,101"/>
+<area shape="rect" id="Node000005" href="$native_2test__adc__chain_2test__main_8cpp.html#a7caddc3e4a13dbb4d9c375563b418990" title=" " alt="" coords="125,91,288,152"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="335,122,289,124,288,119,340,121"/>
+<area shape="rect" id="Node000006" href="$native_2test__adc__chain_2test__main_8cpp.html#adbd8519294ba2d17c4899393d2a00753" title=" " alt="" coords="133,177,280,205"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="395,139,306,167,261,179,260,174,304,162,390,141"/>
+<area shape="rect" id="Node000004" href="$native_2test__adc__chain_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,142,60,170"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="111,77,109,81,73,113,47,144,42,140,69,109,106,77,115,73"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="108,143,61,153,59,148,111,139"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="117,175,60,164,60,159,121,172"/>
+<area shape="poly" id="edge10_Node000007_Node000004" title=" " alt="" coords="378,228,315,238,247,241,176,235,107,219,71,197,45,173,46,168,74,193,109,214,176,230,247,235,314,233,372,228"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="test_no_boost_at_all" name="test_no_boost_at_all">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,161,33"/>
+<area shape="rect" id="Node000002" href="$namespaceForcing.html#a3b89513ed1a630712a3132079cfa6410" title="The targets of the scheduled boosts whose window is open." alt="" coords="209,5,368,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,17,196,19,190,19,161,22"/>
+<area shape="rect" id="Node000003" href="$group__DualTariff.html#ga686c4ecdf9da4efb37be3fe956774d83" title="Reads scheduled boost i from flash." alt="" coords="416,5,503,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="369,17,403,19,398,19,369,22"/>
+</map>

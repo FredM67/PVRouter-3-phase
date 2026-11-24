@@ -1,0 +1,5 @@
+<map id="Mk2_3phase_RFdatalog_temp/temp_schedule.h" name="Mk2_3phase_RFdatalog_temp/temp_schedule.h">
+<area shape="rect" id="Node000001" title="Which 1&#45;Wire transaction of the temperature sensors runs on which mains cycle." alt="" coords="5,5,183,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="59,98,129,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,48,97,83,91,81,92,52"/>
+</map>

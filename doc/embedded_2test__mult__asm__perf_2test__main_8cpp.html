@@ -100,6 +100,7 @@ $(function(){ initResizable(false); });
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
 <code>#include &lt;unity.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="bench__report_8h_source.html">../bench_report.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="bench__timer_8h_source.html">../bench_timer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="halt__after__tests_8h_source.html">../halt_after_tests.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mult__asm_8h_source.html">mult_asm.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -107,29 +108,32 @@ Include dependency graph for test_main.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="embedded_2test__mult__asm__perf_2test__main_8cpp__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2test_2embedded_2test__mult__asm__perf_2test__main_8cpp" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2test_2embedded_2test__mult__asm__perf_2test__main_8cpp" id="aMk2__3phase__RFdatalog__temp_2test_2embedded_2test__mult__asm__perf_2test__main_8cpp">
-<area shape="rect" title="Performance benchmarks for assembly multiplication functions." alt="" coords="66,5,288,67"/>
-<area shape="rect" title=" " alt="" coords="111,191,194,218"/>
-<area shape="poly" title=" " alt="" coords="66,70,38,90,14,116,9,129,10,140,16,151,27,160,59,177,98,190,94,193,57,182,24,165,12,154,5,142,3,128,9,114,34,86,69,65"/>
-<area shape="rect" title=" " alt="" coords="23,115,88,143"/>
-<area shape="poly" title=" " alt="" coords="135,70,87,107,83,104,138,65"/>
-<area shape="rect" href="bench__report_8h.html" title="One machine&#45;readable line per benchmark result, for the CI history." alt="" coords="112,115,242,143"/>
-<area shape="poly" title=" " alt="" coords="178,65,179,100,174,98,176,70"/>
-<area shape="rect" href="halt__after__tests_8h.html" title="Stops the MCU once an embedded test suite has run." alt="" coords="266,115,413,143"/>
-<area shape="poly" title=" " alt="" coords="231,65,305,107,300,108,231,70"/>
-<area shape="rect" href="mult__asm_8h.html" title="Assembly&#45;optimized multiplication functions for AVR microcontrollers." alt="" coords="460,115,558,143"/>
-<area shape="poly" title=" " alt="" coords="288,65,448,109,444,112,288,70"/>
-<area shape="poly" title=" " alt="" coords="174,141,164,177,159,174,171,145"/>
-<area shape="poly" title=" " alt="" coords="304,145,201,187,199,182,308,142"/>
-<area shape="rect" title=" " alt="" coords="218,191,333,218"/>
-<area shape="poly" title=" " alt="" coords="330,142,298,181,295,177,326,145"/>
-<area shape="rect" title=" " alt="" coords="357,191,450,218"/>
-<area shape="poly" title=" " alt="" coords="352,141,385,179,379,178,350,146"/>
-<area shape="rect" title=" " alt="" coords="474,191,544,218"/>
-<area shape="poly" title=" " alt="" coords="510,141,511,177,507,173,507,145"/>
-<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="568,191,745,218"/>
-<area shape="poly" title=" " alt="" coords="536,141,620,184,614,183,535,146"/>
-<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="576,266,738,294"/>
-<area shape="poly" title=" " alt="" coords="659,217,659,252,655,249,655,221"/>
+<area shape="rect" title="Performance benchmarks for assembly multiplication functions." alt="" coords="144,5,367,67"/>
+<area shape="rect" title=" " alt="" coords="179,191,263,218"/>
+<area shape="poly" title=" " alt="" coords="143,47,109,56,74,70,42,90,17,116,9,135,12,149,25,162,47,173,104,188,166,198,161,201,103,193,45,178,22,166,8,152,3,134,12,114,39,86,71,66,107,51,146,43"/>
+<area shape="rect" title=" " alt="" coords="26,115,90,143"/>
+<area shape="poly" title=" " alt="" coords="188,70,102,110,99,106,191,65"/>
+<area shape="rect" href="bench__report_8h.html" title="Machine&#45;readable lines per benchmark result, for the CI performance report." alt="" coords="114,115,245,143"/>
+<area shape="poly" title=" " alt="" coords="232,66,202,105,199,101,229,69"/>
+<area shape="rect" href="bench__timer_8h.html" title="Exact CPU cycle count of a benchmark loop, whatever its length." alt="" coords="269,115,394,143"/>
+<area shape="poly" title=" " alt="" coords="282,65,313,103,308,103,280,70"/>
+<area shape="rect" href="halt__after__tests_8h.html" title="Stops the MCU once an embedded test suite has run." alt="" coords="418,115,565,143"/>
+<area shape="poly" title=" " alt="" coords="334,65,446,108,441,110,334,70"/>
+<area shape="rect" href="mult__asm_8h.html" title="Assembly&#45;optimized multiplication functions for AVR microcontrollers." alt="" coords="589,115,687,143"/>
+<area shape="poly" title=" " alt="" coords="367,61,576,111,571,113,367,66"/>
+<area shape="poly" title=" " alt="" coords="188,141,209,177,203,177,186,146"/>
+<area shape="poly" title=" " alt="" coords="314,142,254,184,252,180,309,144"/>
+<area shape="poly" title=" " alt="" coords="441,144,278,190,277,185,446,142"/>
+<area shape="rect" title=" " alt="" coords="317,191,431,218"/>
+<area shape="poly" title=" " alt="" coords="473,142,409,185,406,180,468,144"/>
+<area shape="rect" title=" " alt="" coords="456,191,549,218"/>
+<area shape="poly" title=" " alt="" coords="495,141,501,177,496,174,492,145"/>
+<area shape="rect" title=" " alt="" coords="592,191,663,218"/>
+<area shape="poly" title=" " alt="" coords="638,141,634,177,630,174,635,145"/>
+<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="687,191,864,218"/>
+<area shape="poly" title=" " alt="" coords="663,141,741,183,735,183,662,146"/>
+<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="694,266,857,294"/>
+<area shape="poly" title=" " alt="" coords="778,217,778,252,774,249,774,221"/>
 </map>
 </div>
 </div>
@@ -168,8 +172,8 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Performance benchmarks for assembly multiplication functions. </p>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2026-11-13</dd></dl>
-<p>This file contains performance benchmarks for the assembly-optimized multiplication functions. These tests should only be run on real hardware, not in CI simulators where timing is meaningless.</p>
+<dl class="section date"><dt>Date</dt><dd>2026-11-20</dd></dl>
+<p>This file contains performance benchmarks for the assembly-optimized multiplication functions. They run in CI in the simavr simulator (uno_sim environment), which is cycle-accurate: the timings are exact and the same from run to run. Every result is also printed as a BENCH line (<a class="el" href="bench__report_8h.html" title="Machine-readable lines per benchmark result, for the CI performance report.">bench_report.h</a>).</p>
 <p>Based on:</p><ul>
 <li>florentbr's optimization suggestions for PVRouter</li>
 <li>avrfreertos multiplication optimizations by feilipu</li>
@@ -193,7 +197,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00477">477</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00487">487</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -240,7 +244,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00025">25</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00027">27</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -259,7 +263,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00468">468</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00478">478</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -278,7 +282,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00030">30</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00032">32</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -299,21 +303,43 @@ Here is the call graph for this function:</div>
 
 <p>ISR-like performance test simulating real-world usage. </p>
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00343">343</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00351">351</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="embedded_2test__mult__asm__perf_2test__main_8cpp_afe635d3d8214d539d82722e2097430a8_cgraph.png" border="0" usemap="#aembedded_2test__mult__asm__perf_2test__main_8cpp_afe635d3d8214d539d82722e2097430a8_cgraph" alt=""/></div>
 <map name="aembedded_2test__mult__asm__perf_2test__main_8cpp_afe635d3d8214d539d82722e2097430a8_cgraph" id="aembedded_2test__mult__asm__perf_2test__main_8cpp_afe635d3d8214d539d82722e2097430a8_cgraph">
-<area shape="rect" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="5,76,165,120"/>
-<area shape="rect" href="bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="229,5,332,33"/>
-<area shape="poly" title=" " alt="" coords="140,73,212,43,231,38,226,41,214,48,143,77"/>
-<area shape="rect" href="mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="234,57,327,85"/>
-<area shape="poly" title=" " alt="" coords="165,84,221,78,216,81,166,89"/>
-<area shape="rect" href="group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="227,109,334,137"/>
-<area shape="poly" title=" " alt="" coords="165,106,214,114,209,115,165,111"/>
-<area shape="rect" href="group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="213,161,348,189"/>
-<area shape="poly" title=" " alt="" coords="144,118,232,154,227,156,143,123"/>
+<area shape="rect" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="5,205,165,250"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="230,57,333,85"/>
+<area shape="poly" title=" " alt="" coords="102,203,148,150,178,121,211,96,224,90,220,94,214,100,182,125,152,153,106,206"/>
+<area shape="rect" href="mult__asm_8h.html#ae142426bd928ca107ab63a45cd47a2f5" title="Convert floating&#45;point fraction to Q8 format." alt="" coords="235,161,328,189"/>
+<area shape="poly" title=" " alt="" coords="164,204,222,190,217,193,166,208"/>
+<area shape="rect" href="group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="228,213,334,241"/>
+<area shape="poly" title=" " alt="" coords="164,225,215,226,211,228,166,230"/>
+<area shape="rect" href="group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="214,265,349,293"/>
+<area shape="poly" title=" " alt="" coords="165,246,214,260,209,262,165,251"/>
+<area shape="rect" href="bench__report_8h.html#a57834612f707a5be015f1b63df8f6f8b" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="236,109,326,137"/>
+<area shape="poly" title=" " alt="" coords="119,202,211,147,228,142,224,145,214,152,122,206"/>
+<area shape="rect" href="namespaceBenchTimer.html#a82628ef115b5e63b8f524eefe7ad5541" title="Starts a measurement (the first one also measures the overhead)." alt="" coords="213,317,350,345"/>
+<area shape="poly" title=" " alt="" coords="121,248,214,302,229,311,224,311,211,307,120,253"/>
+<area shape="rect" href="namespaceBenchTimer.html#a83598a5f4301aae3bc20f76dc0edeeac" title="The CPU cycles since start(), without those of start() and stop()." alt="" coords="214,369,349,397"/>
+<area shape="poly" title=" " alt="" coords="105,248,152,301,182,329,214,354,225,363,219,362,211,359,178,333,148,305,103,253"/>
+<area shape="rect" href="bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="421,5,518,33"/>
+<area shape="poly" title=" " alt="" coords="332,55,408,35,404,38,335,59"/>
+<area shape="rect" href="bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="422,57,518,85"/>
+<area shape="poly" title=" " alt="" coords="333,69,408,70,403,72,334,74"/>
+<area shape="rect" href="bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="424,109,515,137"/>
+<area shape="poly" title=" " alt="" coords="333,83,411,106,406,107,334,88"/>
+<area shape="rect" href="bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="417,161,522,189"/>
+<area shape="poly" title=" " alt="" coords="327,83,352,96,367,109,376,122,385,134,400,146,411,154,405,154,396,151,381,138,372,125,363,112,348,100,327,88"/>
+<area shape="poly" title=" " alt="" coords="326,108,408,87,404,90,328,113"/>
+<area shape="poly" title=" " alt="" coords="326,121,411,122,406,124,328,126"/>
+<area shape="poly" title=" " alt="" coords="327,133,405,156,399,157,327,138"/>
+<area shape="rect" href="namespaceBenchTimer.html#aec7b874a7b2744549e4aa1acbb8023f2" title="Starts counting: from the last instruction on, one count per CPU cycle." alt="" coords="398,317,541,345"/>
+<area shape="poly" title=" " alt="" coords="350,329,385,331,380,331,350,334"/>
+<area shape="rect" href="namespaceBenchTimer.html#a1e486fe101f7927a060dec577b62b817" title="The cycles since begin(), its own instructions included." alt="" coords="404,369,535,397"/>
+<area shape="poly" title=" " alt="" coords="335,343,405,365,400,365,334,348"/>
+<area shape="poly" title=" " alt="" coords="349,381,391,383,386,383,349,386"/>
 </map>
 </div>
 
@@ -336,17 +362,39 @@ Here is the call graph for this function:</div>
 
 <p>Performance comparison for Q8 fractional multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00240">240</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00246">246</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="embedded_2test__mult__asm__perf_2test__main_8cpp_a421c857707def81da94388948e91c5ce_cgraph.png" border="0" usemap="#aembedded_2test__mult__asm__perf_2test__main_8cpp_a421c857707def81da94388948e91c5ce_cgraph" alt=""/></div>
 <map name="aembedded_2test__mult__asm__perf_2test__main_8cpp_a421c857707def81da94388948e91c5ce_cgraph" id="aembedded_2test__mult__asm__perf_2test__main_8cpp_a421c857707def81da94388948e91c5ce_cgraph">
-<area shape="rect" title="Performance comparison for Q8 fractional multiplication." alt="" coords="5,32,234,60"/>
-<area shape="rect" href="bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="283,5,386,33"/>
-<area shape="poly" title=" " alt="" coords="234,29,270,27,265,28,234,34"/>
-<area shape="rect" href="group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="282,57,388,85"/>
-<area shape="poly" title=" " alt="" coords="234,57,269,63,263,63,234,62"/>
+<area shape="rect" title="Performance comparison for Q8 fractional multiplication." alt="" coords="5,161,234,189"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="299,57,402,85"/>
+<area shape="poly" title=" " alt="" coords="148,159,281,95,300,90,295,93,283,100,150,163"/>
+<area shape="rect" href="group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41" title="Optimized 16×8→16 signed multiplication with Q8 fractional." alt="" coords="297,161,404,189"/>
+<area shape="poly" title=" " alt="" coords="234,173,284,174,279,176,235,178"/>
+<area shape="rect" href="bench__report_8h.html#a57834612f707a5be015f1b63df8f6f8b" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="305,109,396,137"/>
+<area shape="poly" title=" " alt="" coords="184,158,292,135,288,138,185,163"/>
+<area shape="rect" href="namespaceBenchTimer.html#a82628ef115b5e63b8f524eefe7ad5541" title="Starts a measurement (the first one also measures the overhead)." alt="" coords="282,213,419,241"/>
+<area shape="poly" title=" " alt="" coords="184,187,273,208,268,210,184,192"/>
+<area shape="rect" href="namespaceBenchTimer.html#a83598a5f4301aae3bc20f76dc0edeeac" title="The CPU cycles since start(), without those of start() and stop()." alt="" coords="283,265,418,293"/>
+<area shape="poly" title=" " alt="" coords="150,187,283,250,300,259,295,259,281,255,148,192"/>
+<area shape="rect" href="bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="490,5,587,33"/>
+<area shape="poly" title=" " alt="" coords="401,54,478,35,473,38,403,59"/>
+<area shape="rect" href="bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="490,57,587,85"/>
+<area shape="poly" title=" " alt="" coords="402,69,477,70,472,72,403,74"/>
+<area shape="rect" href="bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="493,109,584,137"/>
+<area shape="poly" title=" " alt="" coords="402,83,480,106,475,107,402,88"/>
+<area shape="rect" href="bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="486,161,591,189"/>
+<area shape="poly" title=" " alt="" coords="396,83,421,96,436,109,445,122,454,134,469,146,480,155,474,154,465,151,450,138,441,125,432,112,417,100,396,88"/>
+<area shape="poly" title=" " alt="" coords="395,108,478,88,473,90,397,113"/>
+<area shape="poly" title=" " alt="" coords="396,121,480,123,475,124,397,126"/>
+<area shape="poly" title=" " alt="" coords="396,133,474,156,468,157,396,138"/>
+<area shape="rect" href="namespaceBenchTimer.html#aec7b874a7b2744549e4aa1acbb8023f2" title="Starts counting: from the last instruction on, one count per CPU cycle." alt="" coords="467,213,610,241"/>
+<area shape="poly" title=" " alt="" coords="419,225,454,227,449,227,419,230"/>
+<area shape="rect" href="namespaceBenchTimer.html#a1e486fe101f7927a060dec577b62b817" title="The cycles since begin(), its own instructions included." alt="" coords="473,265,604,293"/>
+<area shape="poly" title=" " alt="" coords="404,239,474,261,469,261,403,244"/>
+<area shape="poly" title=" " alt="" coords="418,277,460,279,455,279,418,282"/>
 </map>
 </div>
 
@@ -369,17 +417,39 @@ Here is the call graph for this function:</div>
 
 <p>Performance comparison between assembly and standard multiplication. </p>
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00038">38</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00040">40</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="embedded_2test__mult__asm__perf_2test__main_8cpp_a61d362737dc4e6078cf74deff55b1ef7_cgraph.png" border="0" usemap="#aembedded_2test__mult__asm__perf_2test__main_8cpp_a61d362737dc4e6078cf74deff55b1ef7_cgraph" alt=""/></div>
 <map name="aembedded_2test__mult__asm__perf_2test__main_8cpp_a61d362737dc4e6078cf74deff55b1ef7_cgraph" id="aembedded_2test__mult__asm__perf_2test__main_8cpp_a61d362737dc4e6078cf74deff55b1ef7_cgraph">
-<area shape="rect" title="Performance comparison between assembly and standard multiplication." alt="" coords="5,32,263,60"/>
-<area shape="rect" href="bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="327,5,430,33"/>
-<area shape="poly" title=" " alt="" coords="263,29,314,26,309,27,264,34"/>
-<area shape="rect" href="group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="311,57,446,85"/>
-<area shape="poly" title=" " alt="" coords="263,57,298,63,293,63,263,62"/>
+<area shape="rect" title="Performance comparison between assembly and standard multiplication." alt="" coords="5,161,263,189"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="328,57,431,85"/>
+<area shape="poly" title=" " alt="" coords="166,158,310,95,329,90,324,92,312,100,168,163"/>
+<area shape="rect" href="group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="312,161,447,189"/>
+<area shape="poly" title=" " alt="" coords="263,173,299,175,293,176,264,178"/>
+<area shape="rect" href="bench__report_8h.html#a57834612f707a5be015f1b63df8f6f8b" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="334,109,424,137"/>
+<area shape="poly" title=" " alt="" coords="202,158,321,134,317,137,204,163"/>
+<area shape="rect" href="namespaceBenchTimer.html#a82628ef115b5e63b8f524eefe7ad5541" title="Starts a measurement (the first one also measures the overhead)." alt="" coords="311,213,448,241"/>
+<area shape="poly" title=" " alt="" coords="203,187,298,209,293,210,203,192"/>
+<area shape="rect" href="namespaceBenchTimer.html#a83598a5f4301aae3bc20f76dc0edeeac" title="The CPU cycles since start(), without those of start() and stop()." alt="" coords="312,265,447,293"/>
+<area shape="poly" title=" " alt="" coords="167,187,312,250,329,259,324,259,310,255,166,192"/>
+<area shape="rect" href="bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="519,5,616,33"/>
+<area shape="poly" title=" " alt="" coords="430,54,507,36,502,38,432,59"/>
+<area shape="rect" href="bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="520,57,616,85"/>
+<area shape="poly" title=" " alt="" coords="431,69,506,70,501,72,432,74"/>
+<area shape="rect" href="bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="522,109,613,137"/>
+<area shape="poly" title=" " alt="" coords="431,83,509,106,504,107,431,88"/>
+<area shape="rect" href="bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="515,161,620,189"/>
+<area shape="poly" title=" " alt="" coords="425,83,450,96,465,109,474,122,483,134,498,146,509,155,503,154,494,151,479,138,470,125,461,112,446,100,425,88"/>
+<area shape="poly" title=" " alt="" coords="424,108,507,88,502,89,426,113"/>
+<area shape="poly" title=" " alt="" coords="425,121,509,123,504,124,426,126"/>
+<area shape="poly" title=" " alt="" coords="425,133,503,156,497,157,425,138"/>
+<area shape="rect" href="namespaceBenchTimer.html#aec7b874a7b2744549e4aa1acbb8023f2" title="Starts counting: from the last instruction on, one count per CPU cycle." alt="" coords="496,213,639,241"/>
+<area shape="poly" title=" " alt="" coords="448,225,483,227,478,227,448,230"/>
+<area shape="rect" href="namespaceBenchTimer.html#a1e486fe101f7927a060dec577b62b817" title="The cycles since begin(), its own instructions included." alt="" coords="502,265,633,293"/>
+<area shape="poly" title=" " alt="" coords="433,239,503,261,498,261,432,244"/>
+<area shape="poly" title=" " alt="" coords="447,277,489,279,484,279,447,282"/>
 </map>
 </div>
 
@@ -402,17 +472,39 @@ Here is the call graph for this function:</div>
 
 <p>Performance comparison for unsigned multiplication (multU16x16_to32) </p>
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00139">139</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00143">143</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="embedded_2test__mult__asm__perf_2test__main_8cpp_ad79cab2493232b344fbe0e836b4e5c03_cgraph.png" border="0" usemap="#aembedded_2test__mult__asm__perf_2test__main_8cpp_ad79cab2493232b344fbe0e836b4e5c03_cgraph" alt=""/></div>
 <map name="aembedded_2test__mult__asm__perf_2test__main_8cpp_ad79cab2493232b344fbe0e836b4e5c03_cgraph" id="aembedded_2test__mult__asm__perf_2test__main_8cpp_ad79cab2493232b344fbe0e836b4e5c03_cgraph">
-<area shape="rect" title="Performance comparison for unsigned multiplication (multU16x16_to32)" alt="" coords="5,32,265,60"/>
-<area shape="rect" href="bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="330,5,433,33"/>
-<area shape="poly" title=" " alt="" coords="265,29,317,26,312,27,266,34"/>
-<area shape="rect" href="group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="313,57,450,85"/>
-<area shape="poly" title=" " alt="" coords="265,57,300,63,294,63,265,62"/>
+<area shape="rect" title="Performance comparison for unsigned multiplication (multU16x16_to32)" alt="" coords="5,161,265,189"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="330,57,433,85"/>
+<area shape="poly" title=" " alt="" coords="167,158,312,95,331,90,326,93,314,100,169,163"/>
+<area shape="rect" href="group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="313,161,450,189"/>
+<area shape="poly" title=" " alt="" coords="265,173,300,175,294,176,266,178"/>
+<area shape="rect" href="bench__report_8h.html#a57834612f707a5be015f1b63df8f6f8b" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="336,109,426,137"/>
+<area shape="poly" title=" " alt="" coords="203,158,323,134,318,137,205,163"/>
+<area shape="rect" href="namespaceBenchTimer.html#a82628ef115b5e63b8f524eefe7ad5541" title="Starts a measurement (the first one also measures the overhead)." alt="" coords="313,213,450,241"/>
+<area shape="poly" title=" " alt="" coords="204,187,300,209,295,210,204,192"/>
+<area shape="rect" href="namespaceBenchTimer.html#a83598a5f4301aae3bc20f76dc0edeeac" title="The CPU cycles since start(), without those of start() and stop()." alt="" coords="314,265,449,293"/>
+<area shape="poly" title=" " alt="" coords="169,187,314,250,331,259,326,259,312,255,167,192"/>
+<area shape="rect" href="bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="521,5,618,33"/>
+<area shape="poly" title=" " alt="" coords="432,54,509,36,504,38,434,59"/>
+<area shape="rect" href="bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="522,57,618,85"/>
+<area shape="poly" title=" " alt="" coords="433,69,508,70,503,72,434,74"/>
+<area shape="rect" href="bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="524,109,615,137"/>
+<area shape="poly" title=" " alt="" coords="433,83,511,106,506,107,433,88"/>
+<area shape="rect" href="bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="517,161,622,189"/>
+<area shape="poly" title=" " alt="" coords="427,83,452,96,467,109,476,122,485,134,500,146,511,155,505,154,496,151,481,138,472,125,463,112,448,100,427,88"/>
+<area shape="poly" title=" " alt="" coords="426,108,509,88,504,89,428,113"/>
+<area shape="poly" title=" " alt="" coords="427,121,511,123,506,124,428,126"/>
+<area shape="poly" title=" " alt="" coords="427,133,505,156,499,157,427,138"/>
+<area shape="rect" href="namespaceBenchTimer.html#aec7b874a7b2744549e4aa1acbb8023f2" title="Starts counting: from the last instruction on, one count per CPU cycle." alt="" coords="498,213,641,241"/>
+<area shape="poly" title=" " alt="" coords="450,225,485,227,480,227,450,230"/>
+<area shape="rect" href="namespaceBenchTimer.html#a1e486fe101f7927a060dec577b62b817" title="The cycles since begin(), its own instructions included." alt="" coords="504,265,635,293"/>
+<area shape="poly" title=" " alt="" coords="435,239,505,261,500,261,434,244"/>
+<area shape="poly" title=" " alt="" coords="449,277,491,279,486,279,449,282"/>
 </map>
 </div>
 
@@ -431,7 +523,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00474">474</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00484">484</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>
@@ -447,7 +539,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00475">475</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html#l00485">485</a> of file <a class="el" href="embedded_2test__mult__asm__perf_2test__main_8cpp_source.html">test_main.cpp</a>.</p>
 
 </div>
 </div>

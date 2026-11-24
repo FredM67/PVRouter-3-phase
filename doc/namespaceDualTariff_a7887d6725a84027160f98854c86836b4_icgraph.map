@@ -1,0 +1,5 @@
+<map id="DualTariff::windowEnd" name="DualTariff::windowEnd">
+<area shape="rect" id="Node000001" title="The end of the boost window (excluded), in ms from the start of the off&#45;peak period." alt="" coords="193,5,358,33"/>
+<area shape="rect" id="Node000002" href="$namespaceDualTariff.html#a0a0695c296e5eb740ea51bae242d9e80" title="Boost i of boosts, for an off&#45;peak period of offPeakHours." alt="" coords="5,5,145,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,19,145,22,145,17,180,19"/>
+</map>

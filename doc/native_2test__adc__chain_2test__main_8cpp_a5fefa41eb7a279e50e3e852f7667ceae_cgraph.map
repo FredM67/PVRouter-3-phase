@@ -1,0 +1,11 @@
+<map id="test_admux_of_is_reference_adlar_and_pin" name="test_admux_of_is_reference_adlar_and_pin">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,34,211,79"/>
+<area shape="rect" id="Node000002" href="$namespaceAdcChain.html#a3f992a5e4ee47876cb5765bf267c27f5" title="The ADMUX value that converts a channel: reference, left&#45;adjusted result, analog input." alt="" coords="259,43,409,70"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="211,54,246,56,240,57,211,59"/>
+<area shape="rect" id="Node000003" href="$namespaceAdcChain.html#ab0c38e0462567f16eac56f6f252229d5" title="The analog input of a channel (A0 = 0)." alt="" coords="461,5,586,33"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="211,35,258,29,356,21,448,20,443,21,356,26,259,34,212,40"/>
+<area shape="rect" id="Node000004" href="$namespaceAdcChain.html#a49994e50fa1e55e1cbd23ea74cc14ea6" title="The reference bits of ADMUX on a board." alt="" coords="457,69,590,97"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="211,73,259,79,353,84,444,86,439,86,353,89,258,84,211,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="407,39,443,35,448,34,408,45"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="409,64,444,72,439,72,409,70"/>
+</map>

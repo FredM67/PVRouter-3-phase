@@ -1,0 +1,5 @@
+<map id="Forcing::boostForcing" name="Forcing::boostForcing">
+<area shape="rect" id="Node000001" title="The targets of the scheduled boosts whose window is open." alt="" coords="5,5,165,33"/>
+<area shape="rect" id="Node000002" href="$group__DualTariff.html#ga686c4ecdf9da4efb37be3fe956774d83" title="Reads scheduled boost i from flash." alt="" coords="213,5,300,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="165,17,200,19,194,19,165,22"/>
+</map>

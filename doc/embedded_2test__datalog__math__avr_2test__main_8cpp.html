@@ -117,7 +117,7 @@ Include dependency graph for test_main.cpp:</div>
 <area shape="poly" title=" " alt="" coords="158,70,95,108,92,105,161,65"/>
 <area shape="rect" title=" " alt="" coords="114,115,182,143"/>
 <area shape="poly" title=" " alt="" coords="188,70,168,103,163,101,190,65"/>
-<area shape="rect" href="bench__report_8h.html" title="One machine&#45;readable line per benchmark result, for the CI history." alt="" coords="205,115,336,143"/>
+<area shape="rect" href="bench__report_8h.html" title="Machine&#45;readable lines per benchmark result, for the CI performance report." alt="" coords="205,115,336,143"/>
 <area shape="poly" title=" " alt="" coords="230,65,256,102,251,102,230,70"/>
 <area shape="rect" href="halt__after__tests_8h.html" title="Stops the MCU once an embedded test suite has run." alt="" coords="360,115,506,143"/>
 <area shape="poly" title=" " alt="" coords="284,65,389,108,384,110,284,70"/>
@@ -226,7 +226,7 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The integer datalog arithmetic on the target: exact results, and cycle counts against the float code it replaces. </p>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2026-11-13</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2026-11-20</dd></dl>
 <p><a class="el" href="datalog__math_8h.html" title="Integer arithmetic of the datalog: power and RMS voltage per phase.">datalog_math.h</a> replaced, in the datalog (#120):</p><ul>
 <li>power_L = (int16_t)(sumP / n * f_powerCal[phase])</li>
 <li>Vrms_L_x100 = (uint32_t)(100 * f_voltageCal[phase] * sqrt(sum_Vsquared / n)) The assembly square root is checked at every rounding boundary of the 32-bit range, and the integer version must not be slower. Timer1 runs at the CPU clock (prescaler 1) with interrupts disabled, so the counts are exact CPU cycles, in simavr as on a real board. The overhead of the measurement itself is subtracted. </li>
@@ -314,11 +314,19 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="embedded_2test__datalog__math__avr_2test__main_8cpp_ad136b45a1d3f2709dfb11a4f17bbd39b_cgraph.png" border="0" usemap="#aembedded_2test__datalog__math__avr_2test__main_8cpp_ad136b45a1d3f2709dfb11a4f17bbd39b_cgraph" alt=""/></div>
 <map name="aembedded_2test__datalog__math__avr_2test__main_8cpp_ad136b45a1d3f2709dfb11a4f17bbd39b_cgraph" id="aembedded_2test__datalog__math__avr_2test__main_8cpp_ad136b45a1d3f2709dfb11a4f17bbd39b_cgraph">
-<area shape="rect" title="The average and worst case of an integer function, for the CI history." alt="" coords="5,32,66,60"/>
-<area shape="rect" href="structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="114,5,239,33"/>
-<area shape="poly" title=" " alt="" coords="65,38,101,33,96,35,67,43"/>
-<area shape="rect" href="bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="125,57,228,85"/>
-<area shape="poly" title=" " alt="" coords="66,49,112,58,107,60,66,54"/>
+<area shape="rect" title="The average and worst case of an integer function, for the CI history." alt="" coords="5,59,66,86"/>
+<area shape="rect" href="structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="114,32,239,60"/>
+<area shape="poly" title=" " alt="" coords="65,65,100,59,96,62,67,69"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="125,84,228,112"/>
+<area shape="poly" title=" " alt="" coords="66,75,112,84,107,87,67,80"/>
+<area shape="rect" href="bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="291,5,388,33"/>
+<area shape="poly" title=" " alt="" coords="211,81,238,69,286,43,295,42,300,39,288,48,240,74,213,86"/>
+<area shape="rect" href="bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="292,57,388,85"/>
+<area shape="poly" title=" " alt="" coords="228,87,279,81,274,82,229,92"/>
+<area shape="rect" href="bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="294,109,385,137"/>
+<area shape="poly" title=" " alt="" coords="228,103,282,113,276,114,229,109"/>
+<area shape="rect" href="bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="287,161,392,189"/>
+<area shape="poly" title=" " alt="" coords="208,110,298,154,292,155,207,115"/>
 </map>
 </div>
 <div class="dynheader">
@@ -508,58 +516,66 @@ Here is the call graph for this function:</div>
 <area shape="rect" title=" " alt="" coords="5,204,63,232"/>
 <area shape="rect" href="halt__after__tests_8h.html#a37a449e5fc91f8ecccc52de6fe54bac6" title=" " alt="" coords="156,5,266,33"/>
 <area shape="poly" title=" " alt="" coords="35,203,41,170,55,127,76,81,91,61,109,42,142,26,139,30,112,47,95,64,81,84,59,129,46,172,40,204"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a3212c9cc61794c5d50497b722fb73572" title=" " alt="" coords="138,265,284,309"/>
-<area shape="poly" title=" " alt="" coords="63,229,112,250,130,258,125,260,110,255,64,234"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a3212c9cc61794c5d50497b722fb73572" title=" " alt="" coords="138,196,284,240"/>
+<area shape="poly" title=" " alt="" coords="62,215,125,216,121,220,65,220"/>
 <area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8e535e373d8b312ca18c0386615e4453" title=" " alt="" coords="125,126,297,171"/>
 <area shape="poly" title=" " alt="" coords="61,202,110,181,129,175,126,179,112,186,65,206"/>
 <area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae829d926c8482d2a67c7e8d9ea5dc1d5" title="Every rounding boundary of every root, on the target: the assembly loop is exact." alt="" coords="122,57,300,102"/>
 <area shape="poly" title=" " alt="" coords="40,203,66,158,86,133,109,112,119,107,116,112,112,116,90,137,70,161,45,205"/>
 <area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae97034decb439605d485c0da0bb7e4f1" title=" " alt="" coords="131,334,290,379"/>
 <area shape="poly" title=" " alt="" coords="42,229,70,275,90,299,112,320,120,326,115,327,109,324,86,302,66,278,42,235"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#aa3fe0f8db223f35f23173422acfb3c14" title="sqrtScaled() and vrms() on the target, against the float code, over the whole voltage range." alt="" coords="111,428,311,472"/>
-<area shape="poly" title=" " alt="" coords="39,229,63,304,84,349,113,389,147,419,142,420,109,393,80,351,59,306,38,235"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a59dd75a991aeada8deda93cc89af6218" title=" " alt="" coords="131,195,290,240"/>
-<area shape="poly" title=" " alt="" coords="62,216,117,216,114,220,65,220"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="387,308,447,336"/>
-<area shape="poly" title=" " alt="" coords="284,297,374,313,369,315,284,302"/>
-<area shape="rect" href="namespaceDatalog.html#a5c242aed104cfb700b6fc57675ae10b9" title="Integer square root, rounded to the nearest integer." alt="" coords="362,100,472,128"/>
-<area shape="poly" title=" " alt="" coords="282,268,309,250,321,237,327,224,333,197,339,168,345,154,357,139,365,135,361,138,361,142,350,156,344,170,338,198,332,226,325,240,313,255,285,272"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8f8db11a49383eeae3eeb265450c9ff9" title=" " alt="" coords="376,204,458,232"/>
-<area shape="poly" title=" " alt="" coords="278,262,363,235,359,238,281,267"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="387,256,447,284"/>
-<area shape="poly" title=" " alt="" coords="283,278,374,272,369,275,285,284"/>
-<area shape="rect" href="namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="531,412,680,440"/>
-<area shape="poly" title=" " alt="" coords="282,307,312,319,360,345,451,379,539,407,533,408,450,384,358,350,310,324,282,313"/>
-<area shape="rect" href="structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="543,256,668,284"/>
-<area shape="poly" title=" " alt="" coords="447,311,540,288,535,289,449,316"/>
-<area shape="rect" href="bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="554,308,657,336"/>
-<area shape="poly" title=" " alt="" coords="448,319,541,321,535,322,448,324"/>
-<area shape="rect" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="736,257,890,285"/>
-<area shape="poly" title=" " alt="" coords="471,106,520,105,576,108,634,118,689,138,723,160,753,188,797,245,792,244,749,191,720,164,686,143,632,123,575,113,520,110,473,111"/>
-<area shape="poly" title=" " alt="" coords="447,267,530,269,524,271,448,272"/>
-<area shape="poly" title=" " alt="" coords="662,409,686,397,717,374,746,347,790,299,795,296,750,351,721,378,689,401,663,414"/>
-<area shape="poly" title=" " alt="" coords="296,132,350,124,345,127,299,136"/>
-<area shape="poly" title=" " alt="" coords="299,92,350,101,345,103,301,97"/>
-<area shape="poly" title=" " alt="" coords="290,341,374,328,369,330,292,346"/>
-<area shape="poly" title=" " alt="" coords="289,332,309,320,325,301,333,283,341,263,357,243,362,242,366,239,361,246,345,266,338,285,330,304,313,324,292,337"/>
-<area shape="poly" title=" " alt="" coords="281,331,310,319,358,294,376,288,371,291,360,299,312,324,283,336"/>
-<area shape="rect" href="native_2test__energy__bucket_2test__main_8cpp.html#a6daf045ca0cf4c7885ee70a055efcbf0" title="The float arithmetic being replaced, in bucket units." alt="" coords="376,461,459,489"/>
-<area shape="poly" title=" " alt="" coords="253,377,312,413,360,446,372,455,367,454,358,451,310,417,251,382"/>
-<area shape="rect" href="namespaceDatalog.html#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase." alt="" coords="360,409,474,437"/>
-<area shape="poly" title=" " alt="" coords="282,377,360,404,355,405,282,382"/>
-<area shape="poly" title=" " alt="" coords="474,421,518,424,513,425,474,427"/>
-<area shape="rect" href="group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="537,360,674,388"/>
-<area shape="poly" title=" " alt="" coords="472,406,533,393,538,391,473,411"/>
-<area shape="poly" title=" " alt="" coords="263,470,308,486,362,499,419,505,475,498,528,476,572,450,577,449,530,480,476,503,419,510,361,505,307,492,262,475"/>
-<area shape="poly" title=" " alt="" coords="312,460,363,468,357,468,312,465"/>
-<area shape="poly" title=" " alt="" coords="311,434,348,432,343,433,312,439"/>
-<area shape="poly" title=" " alt="" coords="287,238,312,250,337,271,361,293,376,303,370,303,357,297,334,275,310,255,288,243"/>
-<area shape="poly" title=" " alt="" coords="290,215,363,217,358,219,292,220"/>
-<area shape="poly" title=" " alt="" coords="291,235,375,258,370,260,291,241"/>
-<area shape="rect" href="namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="359,152,475,180"/>
-<area shape="poly" title=" " alt="" coords="290,195,347,183,342,185,292,200"/>
-<area shape="rect" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="523,152,688,180"/>
-<area shape="poly" title=" " alt="" coords="475,163,510,165,505,167,476,168"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#aa3fe0f8db223f35f23173422acfb3c14" title="sqrtScaled() and vrms() on the target, against the float code, over the whole voltage range." alt="" coords="111,421,311,466"/>
+<area shape="poly" title=" " alt="" coords="39,230,63,305,84,349,113,389,139,412,134,413,109,393,79,352,58,307,38,235"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a59dd75a991aeada8deda93cc89af6218" title=" " alt="" coords="131,265,290,310"/>
+<area shape="poly" title=" " alt="" coords="63,229,112,250,130,258,125,260,110,255,64,234"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="387,187,447,214"/>
+<area shape="poly" title=" " alt="" coords="283,209,374,203,369,206,285,214"/>
+<area shape="rect" href="namespaceDatalog.html#a5c242aed104cfb700b6fc57675ae10b9" title="Integer square root, rounded to the nearest integer." alt="" coords="362,85,472,113"/>
+<area shape="poly" title=" " alt="" coords="282,195,310,181,324,169,333,156,343,143,357,129,375,119,371,123,361,133,347,147,338,160,328,172,312,185,285,200"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8f8db11a49383eeae3eeb265450c9ff9" title=" " alt="" coords="376,343,458,370"/>
+<area shape="poly" title=" " alt="" coords="284,234,313,250,330,270,338,290,345,309,361,328,367,334,362,334,357,332,341,311,333,292,325,273,309,255,284,239"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="387,239,447,266"/>
+<area shape="poly" title=" " alt="" coords="284,227,374,244,369,246,284,233"/>
+<area shape="rect" href="namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="531,447,680,474"/>
+<area shape="poly" title=" " alt="" coords="280,193,336,177,393,166,443,163,462,166,477,173,502,203,513,234,512,267,507,300,501,333,499,367,505,400,525,432,529,438,524,436,521,435,500,401,493,367,495,333,502,299,507,266,507,235,498,205,474,177,461,171,442,168,393,171,337,182,283,197"/>
+<area shape="rect" href="structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="543,239,668,266"/>
+<area shape="poly" title=" " alt="" coords="448,206,540,233,535,234,448,211"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="554,137,657,165"/>
+<area shape="poly" title=" " alt="" coords="447,190,541,167,536,170,449,195"/>
+<area shape="rect" href="bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="764,60,862,88"/>
+<area shape="poly" title=" " alt="" coords="641,134,735,98,758,92,753,94,737,103,643,139"/>
+<area shape="rect" href="bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="765,112,861,140"/>
+<area shape="poly" title=" " alt="" coords="657,142,752,133,747,134,658,147"/>
+<area shape="rect" href="bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="767,164,858,192"/>
+<area shape="poly" title=" " alt="" coords="657,155,754,169,749,171,658,160"/>
+<area shape="rect" href="bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="760,216,866,244"/>
+<area shape="poly" title=" " alt="" coords="644,163,689,181,737,201,758,210,752,210,735,206,687,186,644,168"/>
+<area shape="rect" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="736,344,890,372"/>
+<area shape="poly" title=" " alt="" coords="435,111,475,143,525,174,569,191,607,197,645,205,689,225,721,249,751,277,795,332,790,330,747,280,718,253,686,229,643,210,606,202,568,196,522,179,472,147,434,116"/>
+<area shape="poly" title=" " alt="" coords="447,250,530,252,524,253,448,255"/>
+<area shape="poly" title=" " alt="" coords="656,443,687,431,735,405,776,382,781,380,738,410,689,436,657,449"/>
+<area shape="poly" title=" " alt="" coords="296,126,350,114,346,117,299,130"/>
+<area shape="poly" title=" " alt="" coords="299,85,349,91,344,94,301,90"/>
+<area shape="poly" title=" " alt="" coords="289,333,309,320,326,297,333,274,340,250,357,225,371,218,375,215,361,229,345,253,338,276,331,300,313,324,292,338"/>
+<area shape="poly" title=" " alt="" coords="291,354,363,356,358,357,291,359"/>
+<area shape="poly" title=" " alt="" coords="286,331,310,320,334,299,357,277,375,270,371,272,361,281,337,303,312,324,289,336"/>
+<area shape="rect" href="native_2test__energy__bucket_2test__main_8cpp.html#a6daf045ca0cf4c7885ee70a055efcbf0" title="The float arithmetic being replaced, in bucket units." alt="" coords="376,395,459,422"/>
+<area shape="poly" title=" " alt="" coords="291,374,363,394,357,395,291,379"/>
+<area shape="rect" href="namespaceDatalog.html#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase." alt="" coords="360,447,474,474"/>
+<area shape="poly" title=" " alt="" coords="256,377,312,406,360,431,374,440,368,439,358,436,310,411,255,382"/>
+<area shape="poly" title=" " alt="" coords="474,458,518,460,513,461,474,463"/>
+<area shape="rect" href="group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="537,395,674,422"/>
+<area shape="poly" title=" " alt="" coords="470,443,536,427,541,426,471,449"/>
+<area shape="poly" title=" " alt="" coords="277,463,359,483,417,488,475,483,526,478,531,478,476,488,417,493,359,488,276,469"/>
+<area shape="poly" title=" " alt="" coords="311,424,363,417,357,419,312,429"/>
+<area shape="poly" title=" " alt="" coords="312,449,348,454,343,455,312,454"/>
+<area shape="poly" title=" " alt="" coords="280,262,310,250,358,225,376,219,371,222,360,230,312,255,283,267"/>
+<area shape="poly" title=" " alt="" coords="279,307,363,337,358,338,279,313"/>
+<area shape="poly" title=" " alt="" coords="290,271,374,259,369,261,292,276"/>
+<area shape="rect" href="namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="359,291,475,318"/>
+<area shape="poly" title=" " alt="" coords="290,291,346,298,341,299,291,296"/>
+<area shape="rect" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="523,291,688,318"/>
+<area shape="poly" title=" " alt="" coords="475,302,511,304,505,305,476,307"/>
 </map>
 </div>
 
@@ -632,25 +648,33 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="embedded_2test__datalog__math__avr_2test__main_8cpp_a3212c9cc61794c5d50497b722fb73572_cgraph.png" border="0" usemap="#aembedded_2test__datalog__math__avr_2test__main_8cpp_a3212c9cc61794c5d50497b722fb73572_cgraph" alt=""/></div>
 <map name="aembedded_2test__datalog__math__avr_2test__main_8cpp_a3212c9cc61794c5d50497b722fb73572_cgraph" id="aembedded_2test__datalog__math__avr_2test__main_8cpp_a3212c9cc61794c5d50497b722fb73572_cgraph">
-<area shape="rect" title=" " alt="" coords="5,101,151,146"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="243,5,303,33"/>
-<area shape="poly" title=" " alt="" coords="108,98,150,71,197,43,230,32,226,35,200,48,153,75,112,103"/>
-<area shape="rect" href="namespaceDatalog.html#a5c242aed104cfb700b6fc57675ae10b9" title="Integer square root, rounded to the nearest integer." alt="" coords="218,161,328,189"/>
-<area shape="poly" title=" " alt="" coords="151,140,206,156,201,158,151,145"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8f8db11a49383eeae3eeb265450c9ff9" title=" " alt="" coords="232,109,314,137"/>
-<area shape="poly" title=" " alt="" coords="150,121,219,122,214,124,151,126"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="243,57,303,85"/>
-<area shape="poly" title=" " alt="" coords="150,101,229,81,225,85,152,106"/>
-<area shape="rect" href="namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="199,213,347,241"/>
-<area shape="poly" title=" " alt="" coords="111,143,153,171,200,198,216,207,211,207,197,203,150,176,110,148"/>
-<area shape="rect" href="structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="410,57,535,85"/>
-<area shape="poly" title=" " alt="" coords="304,24,404,52,399,54,304,30"/>
-<area shape="rect" href="bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="420,5,524,33"/>
-<area shape="poly" title=" " alt="" coords="303,17,407,18,402,20,304,22"/>
-<area shape="rect" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="395,187,549,214"/>
-<area shape="poly" title=" " alt="" coords="328,179,383,189,377,189,328,185"/>
-<area shape="poly" title=" " alt="" coords="303,69,396,70,391,72,304,74"/>
-<area shape="poly" title=" " alt="" coords="347,215,377,213,382,213,348,220"/>
+<area shape="rect" title=" " alt="" coords="5,178,151,223"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="243,83,303,110"/>
+<area shape="poly" title=" " alt="" coords="108,176,150,148,197,121,230,109,226,112,200,126,153,152,112,180"/>
+<area shape="rect" href="namespaceDatalog.html#a5c242aed104cfb700b6fc57675ae10b9" title="Integer square root, rounded to the nearest integer." alt="" coords="218,239,328,266"/>
+<area shape="poly" title=" " alt="" coords="151,217,206,233,201,235,151,223"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8f8db11a49383eeae3eeb265450c9ff9" title=" " alt="" coords="232,187,314,214"/>
+<area shape="poly" title=" " alt="" coords="150,198,219,199,214,202,151,203"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="243,135,303,162"/>
+<area shape="poly" title=" " alt="" coords="150,179,229,159,225,162,152,184"/>
+<area shape="rect" href="namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="199,291,347,318"/>
+<area shape="poly" title=" " alt="" coords="111,221,153,249,200,275,216,285,211,284,197,280,150,253,110,226"/>
+<area shape="rect" href="structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="410,135,535,162"/>
+<area shape="poly" title=" " alt="" coords="304,102,404,129,399,131,304,107"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="420,83,524,110"/>
+<area shape="poly" title=" " alt="" coords="303,94,407,95,402,98,304,99"/>
+<area shape="rect" href="bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="601,5,699,33"/>
+<area shape="poly" title=" " alt="" coords="505,80,605,38,600,41,507,85"/>
+<area shape="rect" href="bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="602,57,698,85"/>
+<area shape="poly" title=" " alt="" coords="523,87,589,79,584,81,525,92"/>
+<area shape="rect" href="bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="604,109,696,137"/>
+<area shape="poly" title=" " alt="" coords="524,102,592,114,587,115,524,107"/>
+<area shape="rect" href="bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="597,161,703,189"/>
+<area shape="poly" title=" " alt="" coords="518,108,550,121,599,146,610,154,605,154,596,151,548,126,518,114"/>
+<area shape="rect" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="395,264,549,292"/>
+<area shape="poly" title=" " alt="" coords="328,257,383,266,377,266,328,262"/>
+<area shape="poly" title=" " alt="" coords="303,146,396,148,391,149,304,151"/>
+<area shape="poly" title=" " alt="" coords="347,292,377,290,382,290,348,297"/>
 </map>
 </div>
 <div class="dynheader">
@@ -772,28 +796,36 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="embedded_2test__datalog__math__avr_2test__main_8cpp_ae97034decb439605d485c0da0bb7e4f1_cgraph.png" border="0" usemap="#aembedded_2test__datalog__math__avr_2test__main_8cpp_ae97034decb439605d485c0da0bb7e4f1_cgraph" alt=""/></div>
 <map name="aembedded_2test__datalog__math__avr_2test__main_8cpp_ae97034decb439605d485c0da0bb7e4f1_cgraph" id="aembedded_2test__datalog__math__avr_2test__main_8cpp_ae97034decb439605d485c0da0bb7e4f1_cgraph">
-<area shape="rect" title=" " alt="" coords="5,101,165,146"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="239,5,300,33"/>
-<area shape="poly" title=" " alt="" coords="120,98,211,44,227,38,223,41,214,48,123,102"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8f8db11a49383eeae3eeb265450c9ff9" title=" " alt="" coords="228,57,310,85"/>
-<area shape="poly" title=" " alt="" coords="164,98,215,85,211,88,166,103"/>
-<area shape="rect" href="native_2test__energy__bucket_2test__main_8cpp.html#a6daf045ca0cf4c7885ee70a055efcbf0" title="The float arithmetic being replaced, in bucket units." alt="" coords="228,109,311,137"/>
-<area shape="poly" title=" " alt="" coords="164,121,215,122,210,124,166,126"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="239,161,300,189"/>
-<area shape="poly" title=" " alt="" coords="165,143,227,162,222,164,165,148"/>
-<area shape="rect" href="namespaceDatalog.html#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase." alt="" coords="213,213,326,241"/>
-<area shape="poly" title=" " alt="" coords="122,144,214,198,226,206,220,206,211,203,121,149"/>
-<area shape="rect" href="structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="386,96,511,124"/>
-<area shape="poly" title=" " alt="" coords="300,30,327,43,410,88,405,89,325,48,300,36"/>
-<area shape="rect" href="bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="396,5,500,33"/>
-<area shape="poly" title=" " alt="" coords="299,17,384,18,379,20,301,22"/>
-<area shape="poly" title=" " alt="" coords="299,162,391,130,396,129,301,167"/>
-<area shape="rect" href="group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="380,187,517,214"/>
-<area shape="poly" title=" " alt="" coords="326,216,362,213,367,213,327,221"/>
-<area shape="rect" href="namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="374,239,522,266"/>
-<area shape="poly" title=" " alt="" coords="327,233,361,240,356,240,326,238"/>
-<area shape="rect" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="570,239,725,266"/>
-<area shape="poly" title=" " alt="" coords="523,250,558,252,552,253,523,255"/>
+<area shape="rect" title=" " alt="" coords="5,178,165,223"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="239,83,300,110"/>
+<area shape="poly" title=" " alt="" coords="120,175,211,121,227,115,223,118,214,125,123,180"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8f8db11a49383eeae3eeb265450c9ff9" title=" " alt="" coords="228,135,310,162"/>
+<area shape="poly" title=" " alt="" coords="164,176,215,163,211,166,166,180"/>
+<area shape="rect" href="native_2test__energy__bucket_2test__main_8cpp.html#a6daf045ca0cf4c7885ee70a055efcbf0" title="The float arithmetic being replaced, in bucket units." alt="" coords="228,187,311,214"/>
+<area shape="poly" title=" " alt="" coords="164,198,215,199,210,202,166,203"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="239,239,300,266"/>
+<area shape="poly" title=" " alt="" coords="165,220,227,239,222,241,165,226"/>
+<area shape="rect" href="namespaceDatalog.html#af8ed1ad7ceb8ed44e3efa7b6353327a8" title="The RMS voltage of a phase." alt="" coords="213,291,326,318"/>
+<area shape="poly" title=" " alt="" coords="122,221,214,276,226,284,220,283,211,280,121,226"/>
+<area shape="rect" href="structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="386,173,511,201"/>
+<area shape="poly" title=" " alt="" coords="300,108,327,121,410,165,405,166,325,126,300,113"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="396,83,500,110"/>
+<area shape="poly" title=" " alt="" coords="299,94,384,95,379,98,301,99"/>
+<area shape="rect" href="bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="599,5,696,33"/>
+<area shape="poly" title=" " alt="" coords="481,80,569,43,592,38,587,40,571,48,483,85"/>
+<area shape="rect" href="bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="599,57,696,85"/>
+<area shape="poly" title=" " alt="" coords="499,87,586,78,581,80,501,93"/>
+<area shape="rect" href="bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="602,109,693,137"/>
+<area shape="poly" title=" " alt="" coords="500,101,589,115,584,116,500,106"/>
+<area shape="rect" href="bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="595,161,700,189"/>
+<area shape="poly" title=" " alt="" coords="481,108,571,146,592,156,587,156,569,151,481,113"/>
+<area shape="poly" title=" " alt="" coords="299,239,391,208,396,206,301,244"/>
+<area shape="rect" href="group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320" title="Optimized 16×16→32 unsigned multiplication with assembly." alt="" coords="380,264,517,292"/>
+<area shape="poly" title=" " alt="" coords="326,293,362,291,367,290,327,299"/>
+<area shape="rect" href="namespaceDatalog.html#afd0552388cd9274ac59cb71b8d460df0" title="The square root of a mean square, with as many fractional bits as fit." alt="" coords="374,316,522,344"/>
+<area shape="poly" title=" " alt="" coords="327,310,361,317,356,317,326,315"/>
+<area shape="rect" href="namespaceDatalog.html#a2c37cce8c19e81c1cb2f1f7e95237446" title="Square root, rounded to the nearest integer, of the value or of the value normalised." alt="" coords="570,316,725,344"/>
+<area shape="poly" title=" " alt="" coords="523,327,558,330,552,330,523,332"/>
 </map>
 </div>
 <div class="dynheader">
@@ -880,22 +912,30 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="embedded_2test__datalog__math__avr_2test__main_8cpp_a59dd75a991aeada8deda93cc89af6218_cgraph.png" border="0" usemap="#aembedded_2test__datalog__math__avr_2test__main_8cpp_a59dd75a991aeada8deda93cc89af6218_cgraph" alt=""/></div>
 <map name="aembedded_2test__datalog__math__avr_2test__main_8cpp_a59dd75a991aeada8deda93cc89af6218_cgraph" id="aembedded_2test__datalog__math__avr_2test__main_8cpp_a59dd75a991aeada8deda93cc89af6218_cgraph">
-<area shape="rect" title=" " alt="" coords="5,76,165,120"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="241,5,301,33"/>
-<area shape="poly" title=" " alt="" coords="139,73,228,36,224,39,141,77"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8f8db11a49383eeae3eeb265450c9ff9" title=" " alt="" coords="230,57,312,85"/>
-<area shape="poly" title=" " alt="" coords="164,84,217,78,212,80,166,89"/>
-<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="241,109,301,137"/>
-<area shape="poly" title=" " alt="" coords="165,106,228,116,223,118,165,111"/>
-<area shape="rect" href="namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="213,161,329,189"/>
-<area shape="poly" title=" " alt="" coords="141,118,224,154,219,156,140,123"/>
-<area shape="rect" href="structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="396,83,522,110"/>
-<area shape="poly" title=" " alt="" coords="302,29,412,76,407,77,301,34"/>
-<area shape="rect" href="bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="408,5,511,33"/>
-<area shape="poly" title=" " alt="" coords="301,17,394,18,389,20,302,22"/>
-<area shape="poly" title=" " alt="" coords="301,116,384,107,378,108,302,122"/>
-<area shape="rect" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="377,161,541,189"/>
-<area shape="poly" title=" " alt="" coords="329,173,364,175,359,175,329,178"/>
+<area shape="rect" title=" " alt="" coords="5,153,165,198"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="241,83,301,110"/>
+<area shape="poly" title=" " alt="" coords="139,150,228,113,224,117,141,155"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a8f8db11a49383eeae3eeb265450c9ff9" title=" " alt="" coords="230,135,312,162"/>
+<area shape="poly" title=" " alt="" coords="164,161,217,155,212,158,166,166"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#acea142c2e0c05753ebc26ea470b1b693" title=" " alt="" coords="241,187,301,214"/>
+<area shape="poly" title=" " alt="" coords="165,183,228,194,223,195,165,189"/>
+<area shape="rect" href="namespaceDatalog.html#a47c7340a7476be8d077ce05dc1043aaf" title="The average power of a phase, in watts." alt="" coords="213,239,329,266"/>
+<area shape="poly" title=" " alt="" coords="141,196,224,231,219,233,140,201"/>
+<area shape="rect" href="structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="396,160,522,188"/>
+<area shape="poly" title=" " alt="" coords="302,106,412,153,407,154,301,111"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="408,83,511,110"/>
+<area shape="poly" title=" " alt="" coords="301,94,394,96,389,97,302,99"/>
+<area shape="rect" href="bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="593,5,691,33"/>
+<area shape="poly" title=" " alt="" coords="493,80,591,40,596,39,495,85"/>
+<area shape="rect" href="bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="594,57,690,85"/>
+<area shape="poly" title=" " alt="" coords="511,87,581,79,576,81,512,92"/>
+<area shape="rect" href="bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="596,109,688,137"/>
+<area shape="poly" title=" " alt="" coords="511,101,583,114,578,115,511,107"/>
+<area shape="rect" href="bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="589,161,695,189"/>
+<area shape="poly" title=" " alt="" coords="494,108,597,155,591,155,493,114"/>
+<area shape="poly" title=" " alt="" coords="301,194,384,184,378,185,302,199"/>
+<area shape="rect" href="group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8" title="Optimized 24×16→40 unsigned multiplication, returning bits 8..39." alt="" coords="377,239,541,266"/>
+<area shape="poly" title=" " alt="" coords="329,250,364,252,359,253,329,255"/>
 </map>
 </div>
 <div class="dynheader">

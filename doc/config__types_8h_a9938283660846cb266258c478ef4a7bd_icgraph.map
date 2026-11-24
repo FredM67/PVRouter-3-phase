@@ -1,0 +1,27 @@
+<map id="RELAY" name="RELAY">
+<area shape="rect" id="Node000001" title="Relay relayNum of relays (0, no relay, if out of range or without relay diversion)." alt="" coords="365,230,427,258"/>
+<area shape="rect" id="Node000002" href="$native_2test__dual__tariff_2test__main_8cpp.html#ab1856ca4c3f60ab8bfa373c4bc92a473" title=" " alt="" coords="131,5,294,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="387,214,379,181,365,140,344,99,315,64,294,49,293,44,319,60,348,96,370,138,384,179,393,215"/>
+<area shape="rect" id="Node000004" href="$native_2test__rotation__groups_2test__main_8cpp.html#ae02980ca0e1540f877916886e4a05cc8" title=" " alt="" coords="138,75,287,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="379,215,353,174,336,152,315,134,288,118,287,112,319,130,340,149,358,171,385,216"/>
+<area shape="rect" id="Node000006" href="$native_2test__rotation__groups_2test__main_8cpp.html#a921b649b122b06156c0508281f5d9179" title=" " alt="" coords="133,144,292,189"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="356,222,316,203,288,192,287,187,318,199,361,221"/>
+<area shape="rect" id="Node000007" href="$native_2test__utils__override_2test__main_8cpp.html#a92df4f7ff34ca678d35ca4ecb1ba49eb" title=" " alt="" coords="108,213,317,274"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="347,245,318,246,317,241,352,243"/>
+<area shape="rect" id="Node000009" href="$native_2test__utils__override_2test__main_8cpp.html#a9793a6c43da9735fe1a7743d2375d3e4" title=" " alt="" coords="122,298,302,360"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="355,267,318,289,294,300,291,295,316,284,359,264"/>
+<area shape="rect" id="Node000010" href="$native_2test__utils__override_2test__main_8cpp.html#ae3cee01aa21bf70a43d8974fcead4b38" title=" " alt="" coords="128,384,297,429"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="387,270,361,324,342,351,319,374,299,386,296,382,315,370,338,347,356,321,383,274"/>
+<area shape="rect" id="Node000011" href="$native_2test__utils__override_2test__main_8cpp.html#ab03471c003e56d385f8116fa0defa6a5" title=" " alt="" coords="125,453,300,498"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="393,271,386,311,372,357,350,403,319,443,301,456,299,451,315,439,346,400,367,355,381,310,389,275"/>
+<area shape="rect" id="Node000003" href="$native_2test__dual__tariff_2test__main_8cpp.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,14,60,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="114,30,62,30,59,25,118,26"/>
+<area shape="rect" id="Node000005" href="$native_2test__rotation__groups_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,118,60,146"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="121,116,62,129,59,124,124,112"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="116,150,61,139,59,134,120,146"/>
+<area shape="rect" id="Node000008" href="$native_2test__utils__override_2test__main_8cpp.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,354,60,382"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="111,285,109,288,72,322,46,355,42,352,69,318,106,284,115,281"/>
+<area shape="poly" id="edge10_Node000009_Node000008" title=" " alt="" coords="105,354,61,364,59,360,109,350"/>
+<area shape="poly" id="edge12_Node000010_Node000008" title=" " alt="" coords="110,386,61,376,60,371,114,383"/>
+<area shape="poly" id="edge14_Node000011_Node000008" title=" " alt="" coords="114,446,106,443,70,414,44,385,45,379,73,410,109,439,119,446"/>
+</map>

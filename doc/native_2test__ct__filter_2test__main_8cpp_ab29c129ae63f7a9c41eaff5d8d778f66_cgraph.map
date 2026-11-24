@@ -1,0 +1,13 @@
+<map id="test_saturates_at_the_int16_limits" name="test_saturates_at_the_int16_limits">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,96,168,141"/>
+<area shape="rect" id="Node000002" href="$structCtFilter_1_1LowPassBoost.html#a10df09b866e7a13b17fbedf3141ba5df" title="Filters one sample." alt="" coords="216,5,384,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,93,215,60,232,55,227,58,217,65,141,98"/>
+<area shape="rect" id="Node000004" href="$namespaceCtFilter.html#ab9ffad2517588975b04987dfa01da104" title="Converts the float settings to fixed point, at compile time." alt="" coords="217,74,383,102"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="167,104,204,101,199,103,169,109"/>
+<area shape="rect" id="Node000005" href="$structCtFilter_1_1LowPassBoost.html#a9c5345543b4137f98bf2e8db4acff17b" title="The low&#45;pass state, x256 scale (Robin&#39;s lpf_long)." alt="" coords="216,125,384,170"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="168,127,203,133,198,135,168,132"/>
+<area shape="rect" id="Node000006" href="$native_2test__ct__filter_2test__main_8cpp.html#ab22ab0f95f0afee6d34745548c195f52" title="A DC&#45;removed sample in ADC counts, at the x64 scale of the firmware." alt="" coords="277,194,322,222"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="130,139,217,180,265,198,259,198,215,185,128,144"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="432,14,567,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="384,25,419,27,414,28,385,30"/>
+</map>

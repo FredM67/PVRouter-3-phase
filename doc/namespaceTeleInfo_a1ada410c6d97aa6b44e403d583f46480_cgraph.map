@@ -1,0 +1,16 @@
+<map id="TeleInfo::writeFrameStep" name="TeleInfo::writeFrameStep">
+<area shape="rect" id="Node000001" title="Writes a step of the frame: one line, STX before the first one, ETX after the last." alt="" coords="5,57,189,85"/>
+<area shape="rect" id="Node000002" href="$namespaceTeleInfo.html#a7587a7c6cf35dbbad31cfddc9d0526da" title="Writes the line of a step." alt="" coords="241,31,388,58"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,57,228,55,223,56,189,63"/>
+<area shape="rect" id="Node000007" href="$namespaceTeleInfo.html#ad667795b4250f603604afc9b30c0a017" title="The number of steps of a frame: one per line, invalid temperatures included (they write nothing)." alt="" coords="237,83,392,110"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="189,79,224,86,219,86,189,85"/>
+<area shape="rect" id="Node000003" href="$namespaceTeleInfo.html#af4144be70a1141bccb67583aa9730635" title="Writes the line of a signed value." alt="" coords="470,5,575,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="387,33,457,27,452,28,388,38"/>
+<area shape="rect" id="Node000006" href="$namespaceTeleInfo.html#a17cf541f513ec089af6363fb0cc75769" title="Writes the line of an unsigned value (above 32767, line() would wrap)." alt="" coords="440,57,605,85"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="388,51,427,59,422,59,388,56"/>
+<area shape="rect" id="Node000004" href="$namespaceTeleInfo.html#ab851b8161d4b41b2b4898e46f38b64e0" title="Writes a whole line: LF, tag and index, TAB, value, TAB, checksum and CR." alt="" coords="653,32,794,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="575,23,641,34,636,35,575,29"/>
+<area shape="rect" id="Node000005" href="$namespaceTeleInfo.html#ae66100e613f030a8bb86f56d9b509a84" title="Writes the decimal digits of a 16&#45;bit value." alt="" coords="842,32,993,60"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="794,43,829,46,823,46,794,48"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="605,58,636,57,641,56,606,63"/>
+</map>

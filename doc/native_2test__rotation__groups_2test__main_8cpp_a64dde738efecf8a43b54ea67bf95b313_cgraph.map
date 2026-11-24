@@ -1,0 +1,5 @@
+<map id="test_missing_inner_braces_make_one_load_groups" name="test_missing_inner_braces_make_one_load_groups">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,186,67"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98" title="Load loadNum of physicalLoadPin[], local or remote (0, no load, if out of range)." alt="" coords="234,22,291,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,34,221,36,215,36,186,39"/>
+</map>

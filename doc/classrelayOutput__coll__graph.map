@@ -1,0 +1,7 @@
+<map id="relayOutput" name="relayOutput">
+<area shape="rect" id="Node000001" title="Represents a single relay configuration and its behavior." alt="" coords="30,209,129,237"/>
+<area shape="rect" id="Node000002" href="$classRelayLogic_1_1Relay.html" title=" " alt="" coords="5,115,154,160"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,173,82,209,77,208,78,177"/>
+<area shape="rect" id="Node000003" href="$classRelayLogic_1_1Relay.html" title="The state of one relay, and its decisions." alt="" coords="5,5,154,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="81,63,82,115,77,114,78,68"/>
+</map>

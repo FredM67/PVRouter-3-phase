@@ -1,0 +1,5 @@
+<map id="CtFilter::isAccurate" name="CtFilter::isAccurate">
+<area shape="rect" id="Node000001" title="Whether the settings fit the fixed point, the coefficients within 1 % of them." alt="" coords="5,5,150,33"/>
+<area shape="rect" id="Node000002" href="$namespaceCtFilter.html#ab9ffad2517588975b04987dfa01da104" title="Converts the float settings to fixed point, at compile time." alt="" coords="198,5,364,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,17,185,19,179,19,150,22"/>
+</map>

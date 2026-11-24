@@ -1,0 +1,7 @@
+<map id="DS18B20::decode" name="DS18B20::decode">
+<area shape="rect" id="Node000001" title="The reading of a scratchpad, its CRC checked." alt="" coords="5,32,141,60"/>
+<area shape="rect" id="Node000002" href="$namespaceDS18B20.html#a0ecb269888a40e4a3edad6d1864c79af" title="The Dallas/Maxim CRC&#45;8 (x^8 + x^5 + x^4 + 1), as OneWire::crc8." alt="" coords="219,5,334,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,34,206,28,201,30,142,40"/>
+<area shape="rect" id="Node000003" href="$namespaceDS18B20.html#ae74d41c356b743b6a5b1453c3e68dbb5" title="The temperature of the register, in hundredths of °C." alt="" coords="189,57,365,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="141,52,176,58,170,59,141,57"/>
+</map>

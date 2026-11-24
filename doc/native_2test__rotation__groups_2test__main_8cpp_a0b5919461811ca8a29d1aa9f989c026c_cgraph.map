@@ -1,0 +1,21 @@
+<map id="test_check_mixed_local_and_remote" name="test_check_mixed_local_and_remote">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,101,182,146"/>
+<area shape="rect" id="Node000002" href="$namespaceRotation.html#a57cf6c54748dfbca21338d5b77c66b7d" title="In each group, every load is local, or every load is on the same remote unit." alt="" coords="230,83,449,110"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,111,217,110,212,111,183,116"/>
+<area shape="rect" id="Node000010" href="$config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98" title="Load loadNum of physicalLoadPin[], local or remote (0, no load, if out of range)." alt="" coords="311,135,368,162"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="182,130,298,143,293,145,182,135"/>
+<area shape="rect" id="Node000003" href="$namespaceRotation.html#ac9dbe2a247e49dafaad508219c3dc8c7" title="The loads of group g, all its codes together." alt="" coords="497,31,656,58"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="405,79,492,63,498,62,407,85"/>
+<area shape="rect" id="Node000008" href="$classRotationGroups.html#a8ff1ab9670673dc8bb0dc18a699d1c27" title="Number of groups." alt="" coords="498,83,655,110"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="449,94,485,96,480,97,450,99"/>
+<area shape="rect" id="Node000009" href="$namespaceLoad.html#ab4ce134e88bb49ba929ef2e5e8236bbe" title="The owning unit of the entry: 0 for a local load, 1..3 for a remote one." alt="" coords="526,135,627,162"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="406,108,514,134,508,134,406,114"/>
+<area shape="rect" id="Node000004" href="$classRotationGroups.html#ad78cbe84f9b6ad77591a84c5446335cb" title="The targets of group index, as codes." alt="" coords="704,5,895,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="656,33,691,31,686,32,657,38"/>
+<area shape="rect" id="Node000005" href="$namespaceRotation.html#a36513c8eb5ac373cec0e77e69744cac5" title="The loads a target code stands for, by load number." alt="" coords="732,57,867,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="657,51,720,61,714,61,657,57"/>
+<area shape="rect" id="Node000006" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="943,31,1048,58"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="867,59,924,54,930,53,868,65"/>
+<area shape="rect" id="Node000007" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="948,83,1043,110"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="867,77,935,88,930,88,867,83"/>
+</map>

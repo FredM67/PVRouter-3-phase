@@ -1,0 +1,9 @@
+<map id="test_no_rotation_while_forced" name="test_no_rotation_while_forced">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,175,68"/>
+<area shape="rect" id="Node000002" href="$pin__edges_8h.html#a817c8abf26d0b5dff72b46a2b910c06f" title="Tells whether the rotation pin asks for a rotation now." alt="" coords="223,5,379,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,33,210,30,204,32,175,38"/>
+<area shape="rect" id="Node000004" href="$pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="261,57,341,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="175,53,248,64,243,65,175,59"/>
+<area shape="rect" id="Node000003" href="$structPinEdges.html#a8d666a88ac780603e6d26475bec567d6" title="it went LOW since the previous reading" alt="" coords="427,5,566,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="379,17,414,19,409,19,380,22"/>
+</map>

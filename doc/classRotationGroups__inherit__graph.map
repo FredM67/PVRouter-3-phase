@@ -1,0 +1,5 @@
+<map id="RotationGroups&lt; N, MaxPins &gt;" name="RotationGroups&lt; N, MaxPins &gt;">
+<area shape="rect" id="Node000001" title="The rotation groups, as in config.h: the loads that take turns at the top of the priority list,..." alt="" coords="5,5,157,50"/>
+<area shape="rect" id="Node000002" href="$classRotationGroups_3_010_00_01MaxPins_01_4.html" title="No rotation group." alt="" coords="6,115,156,160"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,64,84,115,78,114,79,68"/>
+</map>

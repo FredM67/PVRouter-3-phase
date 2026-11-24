@@ -1,0 +1,15 @@
+<map id="TempSensors::readTemperature" name="TempSensors::readTemperature">
+<area shape="rect" id="Node000001" title="Reads the temperature of a specific sensor (runtime bounds checking)." alt="" coords="5,84,232,112"/>
+<area shape="rect" id="Node000002" href="$classTempSensors.html#a5cd5e7c474cb8cb494c00273fbd00165" title="CLOSE, the last transaction: a reset (the sensor still there?), the reading decoded." alt="" coords="302,32,474,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,81,300,62,295,64,195,86"/>
+<area shape="rect" id="Node000006" href="$classTempSensors.html#a4f439e82b504958e36285d46f0746b8b" title="READ, the second transaction: the second half of the ROM code, Read Scratchpad, the 9 bytes of the sc..." alt="" coords="280,84,496,112"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="232,95,267,97,262,98,232,100"/>
+<area shape="rect" id="Node000007" href="$classTempSensors.html#aaa3a95a40caca1e1ea2db1734020279c" title="ADDRESS, the first transaction of a sensor&#39;s read: reset, Match ROM, the first half of its ROM code." alt="" coords="299,136,477,164"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="194,110,300,132,295,133,194,115"/>
+<area shape="rect" id="Node000003" href="$namespaceDS18B20.html#aaf6ef3bce762af86ea3c251474b509a4" title="The reading of a scratchpad, its CRC checked." alt="" coords="544,32,679,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="474,43,531,45,526,46,474,48"/>
+<area shape="rect" id="Node000004" href="$namespaceDS18B20.html#a0ecb269888a40e4a3edad6d1864c79af" title="The Dallas/Maxim CRC&#45;8 (x^8 + x^5 + x^4 + 1), as OneWire::crc8." alt="" coords="758,5,873,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="680,34,745,28,740,29,680,40"/>
+<area shape="rect" id="Node000005" href="$namespaceDS18B20.html#ae74d41c356b743b6a5b1453c3e68dbb5" title="The temperature of the register, in hundredths of °C." alt="" coords="727,57,904,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="680,52,714,58,709,58,680,57"/>
+</map>

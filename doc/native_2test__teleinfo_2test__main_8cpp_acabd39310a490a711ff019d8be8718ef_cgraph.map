@@ -1,0 +1,18 @@
+<map id="referenceFrame" name="referenceFrame">
+<area shape="rect" id="Node000001" title="The frame of sendTelemetryData() as it was, N and V sent unsigned." alt="" coords="5,84,130,112"/>
+<area shape="rect" id="Node000002" href="$classReference.html#a5612002fbeddb53078db92158087c617" title=" " alt="" coords="191,5,352,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,81,177,43,202,37,198,39,179,48,97,86"/>
+<area shape="rect" id="Node000003" href="$classReference.html#a07329c5bac682f7a84f4793712f9253f" title=" " alt="" coords="208,57,334,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="130,87,195,80,190,83,131,92"/>
+<area shape="rect" id="Node000007" href="$classReference.html#a0c7ec1ce912b0829a172e3bdda73059b" title=" " alt="" coords="178,109,365,137"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="130,103,165,109,160,110,131,108"/>
+<area shape="rect" id="Node000008" href="$classReference.html#a8e950af29386803bc87cbbd1671a288a" title=" " alt="" coords="188,161,354,189"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="97,110,179,146,203,156,198,156,177,151,96,115"/>
+<area shape="rect" id="Node000004" href="$classReference.html#a17835b410168c78a2b80e2b94058ebd3" title=" " alt="" coords="413,84,568,112"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="335,76,400,86,395,87,335,81"/>
+<area shape="rect" id="Node000005" href="$classReference.html#af12f023888bbbe42be58fa98b27acf57" title=" " alt="" coords="616,57,839,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="568,86,603,85,598,86,569,92"/>
+<area shape="rect" id="Node000006" href="$classReference.html#a446ace7c0e2cd02aa3b1c967c992556f" title=" " alt="" coords="652,109,803,137"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="569,103,639,113,634,114,569,109"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="365,110,400,108,395,109,366,115"/>
+</map>

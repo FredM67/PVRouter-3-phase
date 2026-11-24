@@ -1,0 +1,24 @@
+<map id="Reference::calculateChecksum" name="Reference::calculateChecksum">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1163,83,1386,111"/>
+<area shape="rect" id="Node000002" href="$classReference.html#a17835b410168c78a2b80e2b94058ebd3" title=" " alt="" coords="960,83,1115,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1145,97,1116,100,1116,94,1150,97"/>
+<area shape="rect" id="Node000003" href="$classReference.html#a07329c5bac682f7a84f4793712f9253f" title=" " alt="" coords="755,56,882,84"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="942,86,882,81,882,75,947,86"/>
+<area shape="rect" id="Node000010" href="$classReference.html#a0c7ec1ce912b0829a172e3bdda73059b" title=" " alt="" coords="725,108,912,136"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="947,108,913,114,912,109,941,108"/>
+<area shape="rect" id="Node000004" href="$native_2test__teleinfo_2test__main_8cpp.html#acabd39310a490a711ff019d8be8718ef" title="The frame of sendTelemetryData() as it was, N and V sent unsigned." alt="" coords="552,83,677,111"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="743,80,678,91,677,86,738,81"/>
+<area shape="rect" id="Node000005" href="$native_2test__teleinfo_2test__main_8cpp.html#a93d29d98543146f8457ae77079e5a41d" title=" " alt="" coords="324,83,504,111"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="534,97,505,100,505,94,539,97"/>
+<area shape="rect" id="Node000006" href="$native_2test__teleinfo_2test__main_8cpp.html#a7199e20d34ee2a9f648670035b077d0c" title=" " alt="" coords="117,5,267,50"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="350,79,266,53,266,48,356,78"/>
+<area shape="rect" id="Node000008" href="$native_2test__teleinfo_2test__main_8cpp.html#aecd3a467a7010b9877fd6b3984b1a735" title=" " alt="" coords="111,75,272,119"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="306,97,273,100,273,94,311,97"/>
+<area shape="rect" id="Node000009" href="$native_2test__teleinfo_2test__main_8cpp.html#aad7dd778241bc17fc1da19ac8c06f10a" title=" " alt="" coords="108,143,276,171"/>
+<area shape="poly" id="edge9_Node000005_Node000009" title=" " alt="" coords="348,115,247,145,246,140,343,116"/>
+<area shape="rect" id="Node000007" href="$native_2test__teleinfo_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,83,60,111"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="118,58,109,65,61,87,59,82,107,60,123,55"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="93,99,61,100,60,94,98,95"/>
+<area shape="poly" id="edge10_Node000009_Node000007" title=" " alt="" coords="122,138,107,134,60,113,60,108,109,129,127,138"/>
+<area shape="poly" id="edge12_Node000010_Node000004" title=" " alt="" coords="707,109,677,107,677,102,712,109"/>
+</map>

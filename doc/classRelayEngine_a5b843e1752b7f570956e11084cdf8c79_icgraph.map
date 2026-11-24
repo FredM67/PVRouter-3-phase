@@ -1,0 +1,8 @@
+<map id="RelayEngine::RelayEngine" name="RelayEngine::RelayEngine">
+<area shape="rect" id="Node000001" title="The relays, with the default sliding average." alt="" coords="245,32,436,60"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="380,16,367,13,340,11,315,13,302,17,298,23,304,32,299,31,293,23,298,13,314,7,340,5,368,8,385,17"/>
+<area shape="rect" id="Node000002" href="$classRelayEngine.html#a073d0aa851e4d71b8653c8eab7f5b887" title="The relays, with a sliding average given with MINUTES()." alt="" coords="5,5,197,33"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="226,34,197,33,197,27,232,33"/>
+<area shape="rect" id="Node000003" href="$classRelayEngine.html#adedbe71032561bb81568457656ad3f25" title="The relays, with a sliding average given as an integral_constant&lt; uint8_t &gt;." alt="" coords="5,57,197,85"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="226,58,198,64,197,58,232,57"/>
+</map>

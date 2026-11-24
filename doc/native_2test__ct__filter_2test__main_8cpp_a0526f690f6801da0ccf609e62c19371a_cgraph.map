@@ -1,0 +1,19 @@
+<map id="checkTracksFloat" name="checkTracksFloat">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,126,139,154"/>
+<area shape="rect" id="Node000002" href="$native_2test__ct__filter_2test__main_8cpp.html#ae3e25fa0cb30344a485f73a6ff28ba28" title="Largest |fixed &#45; float| at the output (x64) over samples of the input." alt="" coords="187,126,312,154"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,137,174,139,169,141,140,142"/>
+<area shape="rect" id="Node000003" href="$structCtFilter_1_1LowPassBoost.html#a10df09b866e7a13b17fbedf3141ba5df" title="Filters one sample." alt="" coords="360,5,528,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="267,123,308,92,359,60,372,56,368,58,361,65,311,97,270,127"/>
+<area shape="rect" id="Node000005" href="$structRobin.html#a6fb351d4e59a86c1d556e8057482d2e6" title=" " alt="" coords="393,74,495,102"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="303,123,381,104,376,106,305,128"/>
+<area shape="rect" id="Node000006" href="$namespaceCtFilter.html#ab9ffad2517588975b04987dfa01da104" title="Converts the float settings to fixed point, at compile time." alt="" coords="361,126,527,154"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="312,137,348,139,343,140,313,142"/>
+<area shape="rect" id="Node000007" href="$native_2test__ct__filter_2test__main_8cpp.html#a3c5f570fee70d19aa60015762fd35987" title="Input sample i, in ADC counts; noise is a fixed linear congruential sequence. The step is sized so th..." alt="" coords="394,178,494,206"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="304,151,382,174,377,175,304,157"/>
+<area shape="rect" id="Node000009" href="$native_2test__ct__filter_2test__main_8cpp.html#ab22ab0f95f0afee6d34745548c195f52" title="A DC&#45;removed sample in ADC counts, at the x64 scale of the firmware." alt="" coords="422,230,467,258"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="268,151,310,183,361,215,409,235,404,234,359,219,307,187,267,157"/>
+<area shape="rect" id="Node000004" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="576,14,712,42"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="528,25,563,27,558,28,529,30"/>
+<area shape="rect" id="Node000008" href="$native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="597,178,691,206"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="494,189,584,191,579,192,494,194"/>
+</map>

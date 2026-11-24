@@ -1,0 +1,10 @@
+<map id="TargetMap&lt; NL, NR, D &gt;" name="TargetMap&lt; NL, NR, D &gt;">
+<area shape="rect" id="Node000001" title="What the target codes of config.h stand for, once the load map and the relays are known." alt="" coords="5,283,187,311"/>
+<area shape="rect" id="Node000002" href="$classRelayEngine.html" title=" " alt="" coords="11,191,181,218"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,232,99,284,93,282,94,235"/>
+<area shape="rect" id="Node000003" href="$structRelaySetting.html" title="The settings of one relay, as in config.h: { pin, surplus, import, minON, minOFF }..." alt="" coords="44,5,148,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,46,89,98,91,149,96,191,91,190,85,149,84,98,91,51"/>
+<area shape="rect" id="Node000004" href="$classRelayEngine.html" title="The relays, as in config.h: the sliding average and the settings of each relay." alt="" coords="142,98,303,126"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="127,40,207,96,202,98,126,45"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="190,137,116,192,113,188,194,133"/>
+</map>

@@ -1,0 +1,14 @@
+<map id="TempSchedule::conversionCycles" name="TempSchedule::conversionCycles">
+<area shape="rect" id="Node000001" title="The mains cycles from the conversion to the first read." alt="" coords="806,24,1000,68"/>
+<area shape="rect" id="Node000002" href="$namespaceTempSchedule.html#a121ce6c5bcb0b60682342712228bebde" title="The mains cycles of a round on time: from the conversion to the last CLOSE." alt="" coords="554,7,758,34"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="788,34,758,34,758,28,793,34"/>
+<area shape="rect" id="Node000006" href="$native_2test__temp__schedule_2test__main_8cpp.html#aedc06ece400da7ec56b467357d59d1af" title="A datalog period of the main loop: the round must be over before the cycle that ends the period,..." alt="" coords="337,57,479,85"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="793,51,480,70,480,65,788,52"/>
+<area shape="rect" id="Node000003" href="$namespaceTempSchedule.html#aa02ca0a1229825d06ab688b54c15dcf8" title="Whether a round ends within its datalog period." alt="" coords="310,5,506,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="536,20,507,22,507,17,541,20"/>
+<area shape="rect" id="Node000004" href="$native_2test__temp__schedule_2test__main_8cpp.html#ab199d16a4a93bed03d4049a9e1b3385c" title=" " alt="" coords="108,24,262,68"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="292,33,263,39,262,34,297,32"/>
+<area shape="rect" id="Node000005" href="$native_2test__temp__schedule_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,32,60,60"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="90,47,60,48,60,43,95,44"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="319,61,262,57,263,52,324,61"/>
+</map>

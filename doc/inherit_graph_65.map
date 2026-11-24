@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classRelayLogic_1_1Engine.html" title=" " alt="" coords="5,5,176,50"/>
+<area shape="rect" id="Node000001" href="$classRelayDiverter.html" title="Manages a collection of relays and their behavior based on surplus and import thresholds." alt="" coords="224,14,393,42"/>
+<area shape="poly" id="edge25_Node000000_Node000001" title=" " alt="" coords="191,25,226,27,221,28,192,30"/>
+</map>

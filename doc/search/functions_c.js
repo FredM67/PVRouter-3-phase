@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['main_0',['main',['../native_2test__datalog__math_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;test_main.cpp'],['../native_2test__dc__offset__filter_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;test_main.cpp'],['../native_2test__energy__bucket_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0',1,'main(int, char **):&#160;test_main.cpp'],['../native_2test__ewma__avg_2test__main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;test_main.cpp'],['../native_2test__power__rms__comparison_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;test_main.cpp'],['../native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0',1,'main(int, char **):&#160;test_main.cpp'],['../native_2test__utils__override_2test__main_8cpp.html#a840291bc02cba5474a4cb46a9b9566fe',1,'main(void):&#160;test_main.cpp']]],
-  ['maxloadsperunit_1',['maxLoadsPerUnit',['../namespaceLoad.html#a1a6efa19f6bd3e1740ed98a48ab475ff',1,'Load']]],
-  ['mult16x8_5fq8_2',['mult16x8_q8',['../group__TimeCritical.html#ga49baa5c9371821bdc08f3580f8995f41',1,'mult_asm.h']]],
-  ['mults16x16_5fto32_3',['multS16x16_to32',['../group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c',1,'mult_asm.h']]],
-  ['multu16x16_5fto32_4',['multU16x16_to32',['../group__TimeCritical.html#ga1c7cf312d47fe59d0ca5be3844bd9320',1,'mult_asm.h']]],
-  ['multu24x16_5fto32_5fhi8_5',['multU24x16_to32_hi8',['../group__TimeCritical.html#gabc318f6984145cb3265035f62e21c4d8',1,'mult_asm.h']]]
+  ['negativeof_0',['negativeOf',['../classRelayLogic_1_1Relay.html#a0112c2e5f6a55c37dca3fdf0ba5aab93',1,'RelayLogic::Relay']]],
+  ['newperiod_1',['newPeriod',['../classTempSchedule_1_1Scheduler.html#a96cbcf289b18997371a4189f3e712dd0',1,'TempSchedule::Scheduler']]],
+  ['next_2',['next',['../classRomSearch.html#a81a62eb569c4a1d95a0134c3c67efd5c',1,'RomSearch::next()'],['../classTempSchedule_1_1Scheduler.html#acc6aa991b44f223071aebace47c5ac45',1,'TempSchedule::Scheduler::next()'],['../classSimpleRNG.html#aa6727fc4f77e1a933f61258d965de6b7',1,'SimpleRNG::next()']]],
+  ['nexttoadd_3',['nextToAdd',['../namespaceLoadPriorities.html#a36125f3d6722a8bc0307afc39deee588',1,'LoadPriorities']]],
+  ['nexttoremove_4',['nextToRemove',['../namespaceLoadPriorities.html#a1258efcfb93fd5721c9b43d3711daa58',1,'LoadPriorities']]],
+  ['noise_5',['noise',['../classSimpleRNG.html#a454833ecb0cd0e5a8457405b1dd30417',1,'SimpleRNG']]],
+  ['noloadtwice_6',['noLoadTwice',['../namespaceRotation.html#a17a4b1e578045cd1fd65c50b2f4cbf0d',1,'Rotation']]]
 ];

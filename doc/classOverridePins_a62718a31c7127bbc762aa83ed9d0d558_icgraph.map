@@ -1,0 +1,5 @@
+<map id="OverridePins::getPin" name="OverridePins::getPin">
+<area shape="rect" id="Node000001" title="The override pin at index (0 if out of range)." alt="" coords="263,5,416,33"/>
+<area shape="rect" id="Node000002" href="$classOverrideTable.html#aebf0e1582da62a380112408a07f67380" title="Constructor. The override pins of config.h, their codes turned into pins by map." alt="" coords="5,5,215,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="245,19,215,22,215,17,250,19"/>
+</map>

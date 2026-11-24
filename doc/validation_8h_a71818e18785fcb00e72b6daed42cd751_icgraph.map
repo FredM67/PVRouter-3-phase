@@ -1,0 +1,5 @@
+<map id="targetsAreOutputs" name="targetsAreOutputs">
+<area shape="rect" id="Node000001" title="Overrides and boosts reach the outputs through the load states and the relay engine only,..." alt="" coords="227,5,367,33"/>
+<area shape="rect" id="Node000002" href="$validation_8h.html#aceb581f17d3f679ec643c0f5fc316196" title="Each override pin may only force local loads and relays." alt="" coords="5,5,179,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,19,179,22,179,17,214,19"/>
+</map>

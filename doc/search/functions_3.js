@@ -1,19 +1,17 @@
 var searchData=
 [
-  ['calcbuffersize_0',['calcBufferSize',['../group__Telemetry.html#ga820a2f759b537f10c0543d9612390e8c',1,'teleinfo.h']]],
-  ['calculatechecksum_1',['calculateChecksum',['../classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58',1,'TeleInfo']]],
-  ['calibrationshift_2',['calibrationShift',['../namespaceEnergy.html#a3d00254b7d0089c630b2f863f97a7abe',1,'Energy']]],
-  ['check_5fload_5fpriorities_3',['check_load_priorities',['../validation_8h.html#a97da13005cbcf80e3bb29f69a46139ac',1,'validation.h']]],
-  ['check_5foverride_5ftargets_4',['check_override_targets',['../validation_8h.html#aceb581f17d3f679ec643c0f5fc316196',1,'validation.h']]],
-  ['check_5fpins_5',['check_pins',['../validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc',1,'validation.h']]],
-  ['check_5frelay_5fpins_6',['check_relay_pins',['../validation_8h.html#a60096a6d3a2fc387b51a01b6ff8c53d2',1,'validation.h']]],
-  ['checkagainstreference_7',['checkAgainstReference',['../native_2test__energy__bucket_2test__main_8cpp.html#a0f3801aa789750b4d56cf88b9996bf95',1,'test_main.cpp']]],
-  ['checkhundredthsofjoule_8',['checkHundredthsOfJoule',['../native_2test__energy__bucket_2test__main_8cpp.html#aa248314565c6c3b78be6efc665c17867',1,'test_main.cpp']]],
-  ['clear_9',['clear',['../classmovingAvg.html#adc157cfdb883805b88f3979cebb72de7',1,'movingAvg::clear()'],['../classCapturePrint.html#abb4646c624fa1b4fa19317eea7a4191e',1,'CapturePrint::clear()']]],
-  ['complete_10',['complete',['../namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5',1,'SerialOutput']]],
-  ['confirmpolarity_11',['confirmPolarity',['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(const uint8_t phase):&#160;processing.cpp'],['../group__TimeCritical.html#gadc681bbd6c00b6c808ad999bc0e49542',1,'confirmPolarity(uint8_t phase):&#160;processing.cpp']]],
-  ['contribution_12',['contribution',['../namespaceEnergy.html#a5c6a3eeab8203be8c21f0dcd70f1b1c0',1,'Energy']]],
-  ['countremoteloads_13',['countRemoteLoads',['../namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557',1,'Load']]],
-  ['countunits_14',['countUnits',['../namespaceLoad.html#a45143ff1b1b918a50f68c637c882a610',1,'Load']]],
-  ['cycle_15',['cycle',['../native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3',1,'test_main.cpp']]]
+  ['data_0',['data',['../classReference.html#a2cb344f4216e7050d29151691821ad07',1,'Reference']]],
+  ['debug_1',['debug',['../debug_8h.html#ae99b323afab58fbf83f92c6d679e1276',1,'debug.h']]],
+  ['debugln_2',['debugln',['../debug_8h.html#ab753909eac023c9095cde3544f912923',1,'debug.h']]],
+  ['decimicros_3',['deciMicros',['../bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973',1,'bench_report.h']]],
+  ['declval_4',['declval',['../declval_8hpp.html#a4c9aed552e31ca560a00d61f804ee445',1,'declval.hpp']]],
+  ['decode_5',['decode',['../namespaceDS18B20.html#aaf6ef3bce762af86ea3c251474b509a4',1,'DS18B20']]],
+  ['divmod10_6',['divmod10',['../FastDivision_8cpp.html#a23623280f6a9bc988eea84e057769267',1,'divmod10(uint32_t in, uint32_t &amp;div, uint8_t &amp;mod):&#160;FastDivision.cpp'],['../FastDivision_8h.html#a23623280f6a9bc988eea84e057769267',1,'divmod10(uint32_t in, uint32_t &amp;div, uint8_t &amp;mod):&#160;FastDivision.cpp']]],
+  ['divu1_7',['divu1',['../FastDivision_8h.html#a856802529674be529d84048a0ec6806a',1,'FastDivision.h']]],
+  ['divu10_8',['divu10',['../FastDivision_8cpp.html#a8533c8b2efd068df7dd1b2e4d65b7ced',1,'divu10(uint16_t n):&#160;FastDivision.cpp'],['../FastDivision_8h.html#a8533c8b2efd068df7dd1b2e4d65b7ced',1,'divu10(uint16_t n):&#160;FastDivision.cpp']]],
+  ['divu2_9',['divu2',['../FastDivision_8h.html#af6ee560bcf53b38e7ff6d6c79ff511c1',1,'FastDivision.h']]],
+  ['divu4_10',['divu4',['../FastDivision_8h.html#af8e7e73d42cc8822e1cc702dc4ee9e47',1,'FastDivision.h']]],
+  ['divu8_11',['divu8',['../FastDivision_8h.html#a9de45a7c76d6a1f1887e51646717145e',1,'FastDivision.h']]],
+  ['done_12',['done',['../classTempSchedule_1_1Scheduler.html#a06d7c05594cf2e6999e68bee213cd309',1,'TempSchedule::Scheduler']]],
+  ['drain_13',['drain',['../native_2test__remote__loads_2test__main_8cpp.html#ae753092f2807f2065441dec35e50c820',1,'test_main.cpp']]]
 ];

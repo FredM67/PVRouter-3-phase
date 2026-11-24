@@ -1,0 +1,5 @@
+<map id="test_TargetMap_RELAY_needs_relay_diversion" name="test_TargetMap_RELAY_needs_relay_diversion">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,180,50"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#a9938283660846cb266258c478ef4a7bd" title="Relay relayNum of relays (0, no relay, if out of range or without relay diversion)." alt="" coords="228,14,290,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,25,214,27,209,28,180,30"/>
+</map>

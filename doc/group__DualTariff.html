@@ -85,6 +85,7 @@ $(function(){ initResizable(false); });
 
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">Dual tariff feature</div></div>
@@ -94,10 +95,19 @@ $(function(){ initResizable(false); });
 <p>Functions used for managing dual tariff periods.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceDualTariff.html">DualTariff</a></td></tr>
+<tr class="memdesc:namespaceDualTariff"><td class="mdescLeft">&#160;</td><td class="mdescRight">The windows of the scheduled boosts, in milliseconds from the start of the off-peak period. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class__rg__OffsetForce.html">_rg_OffsetForce&lt; N, OffPeakDuration &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template class for Load-Overriding.  <a href="class__rg__OffsetForce.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structDualTariff_1_1Boost.html">DualTariff::Boost</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A boost resolved for a given off-peak duration: its window in ms and its target masks.  <a href="structDualTariff_1_1Boost.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBoostTable.html">BoostTable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The scheduled boosts, resolved for the off-peak duration: window in ms and target masks.  <a href="structBoostTable.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -108,6 +118,15 @@ Functions</h2></td></tr>
 <tr class="memitem:ga4378fe99f16f9f2a6990ac70c27783a2" id="r_ga4378fe99f16f9f2a6990ac70c27783a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga4378fe99f16f9f2a6990ac70c27783a2">printDualTariffConfiguration</a> ()</td></tr>
 <tr class="memdesc:ga4378fe99f16f9f2a6990ac70c27783a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the settings for off-peak period.  <br /></td></tr>
 <tr class="separator:ga4378fe99f16f9f2a6990ac70c27783a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga58395f016d0737f432ea1cec1e160971" id="r_ga58395f016d0737f432ea1cec1e160971"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga58395f016d0737f432ea1cec1e160971">printOffPeakTime</a> (const uint32_t ms)</td></tr>
+<tr class="memdesc:ga58395f016d0737f432ea1cec1e160971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a time in ms from the start of the off-peak period, as &lt;h&gt;h&lt;mm&gt;.  <br /></td></tr>
+<tr class="separator:ga58395f016d0737f432ea1cec1e160971"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga686c4ecdf9da4efb37be3fe956774d83" id="r_ga686c4ecdf9da4efb37be3fe956774d83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structDualTariff_1_1Boost.html">DualTariff::Boost</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga686c4ecdf9da4efb37be3fe956774d83">readBoost</a> (const uint8_t <a class="el" href="embedded_2test__mult__asm_2test__main_8cpp.html#af27e3188294c2df66d975b74a09c001d">i</a>)</td></tr>
+<tr class="memdesc:ga686c4ecdf9da4efb37be3fe956774d83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads scheduled boost <code class="param">i</code> from flash.  <br /></td></tr>
+<tr class="separator:ga686c4ecdf9da4efb37be3fe956774d83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3009ccb36d1f122143901eb20b4d06de" id="r_ga3009ccb36d1f122143901eb20b4d06de"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="structBoostTable.html">BoostTable</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga3009ccb36d1f122143901eb20b4d06de">resolveBoosts</a> ()</td></tr>
+<tr class="memdesc:ga3009ccb36d1f122143901eb20b4d06de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves each scheduled boost, at compile time.  <br /></td></tr>
+<tr class="separator:ga3009ccb36d1f122143901eb20b4d06de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions used for managing dual tariff periods. </p>
@@ -134,7 +153,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Calculates the dual tariff forcing bitmasks based on current conditions. </p>
-<p>This function determines which loads should be forced ON during off-peak periods based on elapsed time since off-peak start, configured time windows, and temperature conditions.</p>
+<p>This function determines which loads and relays should be forced ON during off-peak periods based on elapsed time since off-peak start, the scheduled boosts, and temperature conditions.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bOffPeak</td><td>true if the system is in an off-peak period (as tracked by <a class="el" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off-peak periods.">proceedDualTariffLogic()</a>). </td></tr>
@@ -142,32 +161,27 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Bitmasks of loads that should be forced ON due to dual tariff conditions, 0 if none.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Bitmasks of loads and relays that should be forced ON due to dual tariff conditions, 0 if none.</dd></dl>
 <ul>
+<li>The logic is <a class="el" href="namespaceForcing.html#a3b89513ed1a630712a3132079cfa6410" title="The targets of the scheduled boosts whose window is open.">Forcing::boostForcing()</a> (<a class="el" href="override__masks_8h.html" title="The forced outputs: the override pins, and the scheduled boosts of the dual tariff.">override_masks.h</a>); this wrapper reads millis() and the tables.</li>
 <li>Only applies during off-peak periods.</li>
-<li>Each load has its own time window defined in rg_OffsetForce.</li>
+<li>Each scheduled boost has its own window (scheduledBoosts), resolved at compile time.</li>
 <li>Temperature must be at or below the threshold for forcing to activate.</li>
 <li>Relies on <a class="el" href="group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off-peak periods.">proceedDualTariffLogic()</a> having been called first, so that ul_TimeOffPeak is up to date. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00082">82</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00078">78</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__DualTariff_gaf02bde0d44c73c6a662d2adc64d17092_cgraph.png" border="0" usemap="#agroup__DualTariff_gaf02bde0d44c73c6a662d2adc64d17092_cgraph" alt=""/></div>
 <map name="agroup__DualTariff_gaf02bde0d44c73c6a662d2adc64d17092_cgraph" id="agroup__DualTariff_gaf02bde0d44c73c6a662d2adc64d17092_cgraph">
-<area shape="rect" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="5,32,211,60"/>
-<area shape="rect" href="utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="281,5,346,33"/>
-<area shape="poly" title=" " alt="" coords="210,30,268,24,263,26,212,35"/>
-<area shape="rect" href="utils__override_8h.html#ab72aa66577de637d07a6d3bb1b809108" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="259,57,369,85"/>
-<area shape="poly" title=" " alt="" coords="211,56,245,62,240,63,211,61"/>
-<area shape="rect" href="namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="619,59,725,86"/>
-<area shape="poly" title=" " alt="" coords="362,54,417,43,494,37,572,43,615,54,609,54,571,48,494,42,417,48,363,59"/>
-<area shape="rect" href="namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="446,57,542,85"/>
-<area shape="poly" title=" " alt="" coords="369,69,434,71,429,71,370,74"/>
-<area shape="rect" href="namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="417,109,571,137"/>
-<area shape="poly" title=" " alt="" coords="365,83,432,105,427,105,364,88"/>
-<area shape="poly" title=" " alt="" coords="545,106,604,91,609,91,546,111"/>
+<area shape="rect" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="5,31,211,58"/>
+<area shape="rect" href="namespaceForcing.html#a3b89513ed1a630712a3132079cfa6410" title="The targets of the scheduled boosts whose window is open." alt="" coords="259,5,418,33"/>
+<area shape="poly" title=" " alt="" coords="211,31,246,29,240,30,211,36"/>
+<area shape="rect" href="group__DualTariff.html#ga686c4ecdf9da4efb37be3fe956774d83" title="Reads scheduled boost i from flash." alt="" coords="466,31,553,58"/>
+<area shape="poly" title=" " alt="" coords="211,42,451,42,450,47,211,47"/>
+<area shape="poly" title=" " alt="" coords="419,28,453,36,448,36,418,34"/>
 </map>
 </div>
 <div class="dynheader">
@@ -212,27 +226,29 @@ Here is the caller graph for this function:</div>
 
 <p>Print the settings for off-peak period. </p>
 
-<p class="definition">Definition at line <a class="el" href="dualtariff_8h_source.html#l00072">72</a> of file <a class="el" href="dualtariff_8h_source.html">dualtariff.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dualtariff_8h_source.html#l00093">93</a> of file <a class="el" href="dualtariff_8h_source.html">dualtariff.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__DualTariff_ga4378fe99f16f9f2a6990ac70c27783a2_cgraph.png" border="0" usemap="#agroup__DualTariff_ga4378fe99f16f9f2a6990ac70c27783a2_cgraph" alt=""/></div>
 <map name="agroup__DualTariff_ga4378fe99f16f9f2a6990ac70c27783a2_cgraph" id="agroup__DualTariff_ga4378fe99f16f9f2a6990ac70c27783a2_cgraph">
-<area shape="rect" title="Print the settings for off&#45;peak period." alt="" coords="5,57,206,85"/>
-<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="290,5,336,33"/>
-<area shape="poly" title=" " alt="" coords="163,54,277,27,273,30,165,59"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="284,57,342,85"/>
-<area shape="poly" title=" " alt="" coords="206,69,271,71,266,72,206,74"/>
-<area shape="rect" href="debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="254,109,373,137"/>
-<area shape="poly" title=" " alt="" coords="164,83,243,104,237,106,164,88"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="436,57,607,85"/>
-<area shape="poly" title=" " alt="" coords="337,22,451,53,446,53,337,27"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="670,57,831,85"/>
-<area shape="poly" title=" " alt="" coords="608,69,657,71,652,71,608,74"/>
-<area shape="poly" title=" " alt="" coords="343,69,423,71,418,71,343,74"/>
-<area shape="poly" title=" " alt="" coords="371,106,446,90,451,89,372,111"/>
-<area shape="rect" href="namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="421,109,622,137"/>
-<area shape="poly" title=" " alt="" coords="374,121,408,123,403,123,374,126"/>
+<area shape="rect" title="Print the settings for off&#45;peak period." alt="" coords="5,107,206,134"/>
+<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="284,5,358,33"/>
+<area shape="poly" title=" " alt="" coords="136,104,277,38,275,42,138,109"/>
+<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="443,105,489,133"/>
+<area shape="poly" title=" " alt="" coords="170,103,273,89,332,88,389,93,431,105,425,105,389,98,331,93,273,95,171,109"/>
+<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="437,157,495,185"/>
+<area shape="poly" title=" " alt="" coords="186,132,254,143,424,166,419,168,253,148,186,138"/>
+<area shape="rect" href="group__DualTariff.html#ga58395f016d0737f432ea1cec1e160971" title="Prints a time in ms from the start of the off&#45;peak period, as &lt;h&gt;h&lt;mm&gt;." alt="" coords="254,107,389,134"/>
+<area shape="poly" title=" " alt="" coords="205,118,241,120,236,121,206,123"/>
+<area shape="rect" href="group__DualTariff.html#ga686c4ecdf9da4efb37be3fe956774d83" title="Reads scheduled boost i from flash." alt="" coords="278,208,365,236"/>
+<area shape="poly" title=" " alt="" coords="138,132,278,199,274,202,136,137"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="543,132,715,160"/>
+<area shape="poly" title=" " alt="" coords="490,120,530,129,525,129,490,126"/>
+<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="763,132,923,160"/>
+<area shape="poly" title=" " alt="" coords="715,143,750,146,745,146,715,148"/>
+<area shape="poly" title=" " alt="" coords="495,164,525,162,531,161,496,169"/>
+<area shape="poly" title=" " alt="" coords="389,117,430,119,425,120,390,123"/>
 </map>
 </div>
 <div class="dynheader">
@@ -247,6 +263,164 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="92,20,63,22,63,17,98,19"/>
 </map>
 </div>
+
+</div>
+</div>
+<a id="ga58395f016d0737f432ea1cec1e160971" name="ga58395f016d0737f432ea1cec1e160971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga58395f016d0737f432ea1cec1e160971">&#9670;&#160;</a></span>printOffPeakTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printOffPeakTime </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>ms</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prints a time in ms from the start of the off-peak period, as &lt;h&gt;h&lt;mm&gt;. </p>
+
+<p class="definition">Definition at line <a class="el" href="dualtariff_8h_source.html#l00074">74</a> of file <a class="el" href="dualtariff_8h_source.html">dualtariff.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__DualTariff_ga58395f016d0737f432ea1cec1e160971_cgraph.png" border="0" usemap="#agroup__DualTariff_ga58395f016d0737f432ea1cec1e160971_cgraph" alt=""/></div>
+<map name="agroup__DualTariff_ga58395f016d0737f432ea1cec1e160971_cgraph" id="agroup__DualTariff_ga58395f016d0737f432ea1cec1e160971_cgraph">
+<area shape="rect" title="Prints a time in ms from the start of the off&#45;peak period, as &lt;h&gt;h&lt;mm&gt;." alt="" coords="5,5,141,33"/>
+<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="189,5,235,33"/>
+<area shape="poly" title=" " alt="" coords="141,17,175,19,170,19,141,22"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="283,5,454,33"/>
+<area shape="poly" title=" " alt="" coords="235,17,270,19,264,19,235,22"/>
+<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="502,5,663,33"/>
+<area shape="poly" title=" " alt="" coords="455,17,490,19,484,19,455,22"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__DualTariff_ga58395f016d0737f432ea1cec1e160971_icgraph.png" border="0" usemap="#agroup__DualTariff_ga58395f016d0737f432ea1cec1e160971_icgraph" alt=""/></div>
+<map name="agroup__DualTariff_ga58395f016d0737f432ea1cec1e160971_icgraph" id="agroup__DualTariff_ga58395f016d0737f432ea1cec1e160971_icgraph">
+<area shape="rect" title="Prints a time in ms from the start of the off&#45;peak period, as &lt;h&gt;h&lt;mm&gt;." alt="" coords="545,5,681,33"/>
+<area shape="rect" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="297,5,497,33"/>
+<area shape="poly" title=" " alt="" coords="527,19,498,22,498,17,532,19"/>
+<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="111,5,249,33"/>
+<area shape="poly" title=" " alt="" coords="279,19,249,22,249,17,284,19"/>
+<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,63,33"/>
+<area shape="poly" title=" " alt="" coords="92,20,63,22,63,17,98,19"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ga686c4ecdf9da4efb37be3fe956774d83" name="ga686c4ecdf9da4efb37be3fe956774d83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga686c4ecdf9da4efb37be3fe956774d83">&#9670;&#160;</a></span>readBoost()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structDualTariff_1_1Boost.html">DualTariff::Boost</a> readBoost </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>i</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reads scheduled boost <code class="param">i</code> from flash. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>the boost, below NO_OF_BOOSTS </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>its window in ms from the start of the off-peak period, and its target masks </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="dualtariff_8h_source.html#l00062">62</a> of file <a class="el" href="dualtariff_8h_source.html">dualtariff.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__DualTariff_ga686c4ecdf9da4efb37be3fe956774d83_icgraph.png" border="0" usemap="#agroup__DualTariff_ga686c4ecdf9da4efb37be3fe956774d83_icgraph" alt=""/></div>
+<map name="agroup__DualTariff_ga686c4ecdf9da4efb37be3fe956774d83_icgraph" id="agroup__DualTariff_ga686c4ecdf9da4efb37be3fe956774d83_icgraph">
+<area shape="rect" title="Reads scheduled boost i from flash." alt="" coords="1022,152,1109,180"/>
+<area shape="rect" href="namespaceForcing.html#a3b89513ed1a630712a3132079cfa6410" title="The targets of the scheduled boosts whose window is open." alt="" coords="794,127,954,154"/>
+<area shape="poly" title=" " alt="" coords="1004,158,954,154,954,148,1009,158"/>
+<area shape="rect" href="group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="520,5,726,33"/>
+<area shape="poly" title=" " alt="" coords="1027,143,973,118,901,91,827,68,697,36,697,31,829,63,903,86,975,113,1032,144"/>
+<area shape="rect" href="native_2test__override__masks_2test__main_8cpp.html#a5e241261a6212cad1083e4825e5bcfa7" title=" " alt="" coords="535,196,711,240"/>
+<area shape="poly" title=" " alt="" coords="1004,173,712,210,711,205,1009,172"/>
+<area shape="rect" href="group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="774,245,974,273"/>
+<area shape="poly" title=" " alt="" coords="1035,188,975,226,922,247,921,242,973,221,1030,189"/>
+<area shape="poly" title=" " alt="" coords="836,118,724,48,691,36,691,31,727,43,841,118"/>
+<area shape="rect" href="native_2test__override__masks_2test__main_8cpp.html#a10730fbc0339fe8325fc42208be49415" title=" " alt="" coords="545,57,701,85"/>
+<area shape="poly" title=" " alt="" coords="807,122,725,100,680,88,680,83,726,95,812,122"/>
+<area shape="poly" title=" " alt="" coords="814,159,699,197,697,192,809,160"/>
+<area shape="rect" href="native_2test__override__masks_2test__main_8cpp.html#aa8e3b1a48197ea83b537f253ad07050a" title=" " alt="" coords="535,110,711,171"/>
+<area shape="poly" title=" " alt="" coords="776,141,711,143,711,138,781,140"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="320,5,472,33"/>
+<area shape="poly" title=" " alt="" coords="502,20,473,22,472,17,508,18"/>
+<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,5,272,33"/>
+<area shape="poly" title=" " alt="" coords="302,20,273,22,271,17,307,18"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,55,33"/>
+<area shape="poly" title=" " alt="" coords="85,21,57,21,54,17,89,17"/>
+<area shape="rect" href="native_2test__override__masks_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="369,127,423,154"/>
+<area shape="poly" title=" " alt="" coords="547,90,521,100,425,133,423,128,520,95,552,89"/>
+<area shape="poly" title=" " alt="" coords="538,190,519,186,424,152,424,147,521,181,543,190"/>
+<area shape="poly" title=" " alt="" coords="517,141,424,143,424,138,523,140"/>
+<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="554,264,692,292"/>
+<area shape="poly" title=" " alt="" coords="761,268,693,275,693,270,756,268"/>
+<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="368,264,425,292"/>
+<area shape="poly" title=" " alt="" coords="536,278,425,280,425,275,541,278"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ga3009ccb36d1f122143901eb20b4d06de" name="ga3009ccb36d1f122143901eb20b4d06de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3009ccb36d1f122143901eb20b4d06de">&#9670;&#160;</a></span>resolveBoosts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structBoostTable.html">BoostTable</a> resolveBoosts </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resolves each scheduled boost, at compile time. </p>
+
+<p class="definition">Definition at line <a class="el" href="dualtariff_8h_source.html#l00042">42</a> of file <a class="el" href="dualtariff_8h_source.html">dualtariff.h</a>.</p>
 
 </div>
 </div>

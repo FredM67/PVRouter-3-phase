@@ -1,0 +1,59 @@
+<map id="pinEdges" name="pinEdges">
+<area shape="rect" id="Node000001" title="The edges of a pin, from its previous level and its current one." alt="" coords="1006,152,1086,180"/>
+<area shape="rect" id="Node000002" href="$native_2test__pin__edges_2test__main_8cpp.html#a5816ec4b6f770058cb653265be3bd9ea" title=" " alt="" coords="766,5,958,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1026,139,997,102,956,64,938,53,937,48,960,60,1001,98,1031,140"/>
+<area shape="rect" id="Node000004" href="$native_2test__pin__edges_2test__main_8cpp.html#a9c6a5366f88031fc8ffb7ebba4eb9731" title=" " alt="" coords="777,75,946,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="993,147,957,134,927,123,926,117,959,129,998,146"/>
+<area shape="rect" id="Node000005" href="$native_2test__pin__edges_2test__main_8cpp.html#af876365a0de1e7dd3395238311caec62" title=" " alt="" coords="787,144,937,189"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="988,167,938,169,937,164,993,165"/>
+<area shape="rect" id="Node000006" href="$native_2test__pin__edges_2test__main_8cpp.html#af19dc2bc34b1382e82ffa7646342a271" title=" " alt="" coords="781,213,942,274"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="995,188,938,215,936,210,999,185"/>
+<area shape="rect" id="Node000007" href="$pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="805,452,918,480"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="1031,192,874,454,870,450,1026,195"/>
+<area shape="rect" id="Node000003" href="$native_2test__pin__edges_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="378,314,432,342"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="748,37,698,48,643,64,588,85,539,115,513,138,491,163,454,220,428,275,413,315,408,312,423,273,449,218,486,160,510,134,536,111,586,81,641,59,697,43,752,35"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="759,100,708,107,650,118,592,136,539,162,495,197,459,241,432,283,415,315,410,312,428,280,455,237,491,194,536,157,590,131,649,113,707,102,764,97"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="769,160,716,162,657,167,596,179,539,199,499,225,464,257,417,315,413,312,460,253,495,220,536,195,595,174,656,162,716,157,773,158"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="763,220,712,213,655,210,595,213,538,226,501,244,468,268,420,315,416,312,464,264,498,240,536,221,595,208,655,204,713,208,768,218"/>
+<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="573,719,682,747"/>
+<area shape="poly" id="edge10_Node000007_Node000008" title=" " alt="" coords="854,493,836,542,808,600,769,659,746,686,719,710,683,727,682,722,716,705,742,682,765,656,803,598,831,540,850,496"/>
+<area shape="rect" id="Node000016" href="$native_2test__pin__edges_2test__main_8cpp.html#a09bf2ef752132d4b33871e7773736ffe" title=" " alt="" coords="540,565,715,626"/>
+<area shape="poly" id="edge22_Node000007_Node000016" title=" " alt="" coords="827,488,719,554,695,567,693,562,716,549,822,490"/>
+<area shape="rect" id="Node000017" href="$native_2test__pin__edges_2test__main_8cpp.html#a7e976742f83966ef5b555097e8c077e4" title=" " alt="" coords="549,651,706,695"/>
+<area shape="poly" id="edge24_Node000007_Node000017" title=" " alt="" coords="847,492,795,566,760,606,719,640,699,653,697,648,716,636,756,602,791,563,842,495"/>
+<area shape="rect" id="Node000018" href="$native_2test__pin__edges_2test__main_8cpp.html#ade7d0b53abd617e6db72905ddd3aad1f" title=" " alt="" coords="553,236,702,281"/>
+<area shape="poly" id="edge26_Node000007_Node000018" title=" " alt="" coords="842,439,791,369,756,330,716,295,698,284,698,279,719,291,760,326,796,366,847,440"/>
+<area shape="rect" id="Node000019" href="$native_2test__pin__edges_2test__main_8cpp.html#a3c16fda10c2388b8c72bd776eca6defd" title=" " alt="" coords="546,305,709,350"/>
+<area shape="poly" id="edge28_Node000007_Node000019" title=" " alt="" coords="830,442,779,405,716,365,693,353,693,348,719,360,782,400,835,443"/>
+<area shape="rect" id="Node000020" href="$native_2test__pin__edges_2test__main_8cpp.html#a8abeffa6dc135beeeb0351b4806ef377" title=" " alt="" coords="556,375,699,419"/>
+<area shape="poly" id="edge30_Node000007_Node000020" title=" " alt="" coords="796,448,700,421,700,416,801,447"/>
+<area shape="rect" id="Node000021" href="$native_2test__pin__edges_2test__main_8cpp.html#aaf5a3cf88ec9a1d0542924f0f644778e" title=" " alt="" coords="540,444,715,489"/>
+<area shape="poly" id="edge32_Node000007_Node000021" title=" " alt="" coords="787,467,716,469,715,464,792,466"/>
+<area shape="rect" id="Node000022" href="$native_2test__pin__edges_2test__main_8cpp.html#a7f86477200ada5fe43fb72da81d9c585" title=" " alt="" coords="537,512,718,540"/>
+<area shape="poly" id="edge34_Node000007_Node000022" title=" " alt="" coords="788,485,686,514,684,509,793,484"/>
+<area shape="rect" id="Node000009" href="$group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="332,744,478,772"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="555,741,479,753,478,747,560,741"/>
+<area shape="rect" id="Node000013" href="$group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="358,796,452,824"/>
+<area shape="poly" id="edge15_Node000008_Node000013" title=" " alt="" coords="577,752,490,786,453,798,452,793,488,781,572,753"/>
+<area shape="rect" id="Node000014" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,692,489,720"/>
+<area shape="poly" id="edge18_Node000008_Node000014" title=" " alt="" coords="555,725,490,719,490,714,560,724"/>
+<area shape="rect" id="Node000015" href="$group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="324,640,486,668"/>
+<area shape="poly" id="edge20_Node000008_Node000015" title=" " alt="" coords="555,715,536,710,512,697,488,683,456,671,457,666,490,679,515,692,538,705,561,715"/>
+<area shape="rect" id="Node000010" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,706,272,734"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="314,743,269,737,269,731,319,742"/>
+<area shape="rect" id="Node000012" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="159,771,216,799"/>
+<area shape="poly" id="edge14_Node000009_Node000012" title=" " alt="" coords="314,770,217,784,216,779,319,769"/>
+<area shape="rect" id="Node000011" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,706,55,734"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="85,721,56,722,54,717,89,718"/>
+<area shape="poly" id="edge16_Node000013_Node000010" title=" " alt="" coords="340,792,319,786,271,762,218,737,219,731,273,757,321,781,345,792"/>
+<area shape="poly" id="edge17_Node000013_Node000012" title=" " alt="" coords="340,804,216,791,216,786,345,803"/>
+<area shape="poly" id="edge19_Node000014_Node000010" title=" " alt="" coords="302,713,273,717,272,712,307,712"/>
+<area shape="poly" id="edge21_Node000015_Node000010" title=" " alt="" coords="339,674,237,708,235,703,344,672"/>
+<area shape="poly" id="edge23_Node000016_Node000003" title=" " alt="" coords="539,555,535,554,489,499,452,439,425,383,410,345,412,340,430,381,456,436,493,496,539,550,544,556"/>
+<area shape="poly" id="edge25_Node000017_Node000003" title=" " alt="" coords="538,641,535,640,504,604,478,563,456,520,439,476,416,397,407,344,409,339,421,396,444,474,461,518,482,560,508,601,539,636,543,642"/>
+<area shape="poly" id="edge27_Node000018_Node000003" title=" " alt="" coords="537,287,434,322,431,317,541,284"/>
+<area shape="poly" id="edge29_Node000019_Node000003" title=" " alt="" coords="528,329,433,330,431,325,533,326"/>
+<area shape="poly" id="edge31_Node000020_Node000003" title=" " alt="" coords="538,371,433,339,432,333,543,369"/>
+<area shape="poly" id="edge33_Node000021_Node000003" title=" " alt="" coords="545,437,536,434,469,387,421,345,421,339,472,383,539,429,550,437"/>
+<area shape="poly" id="edge35_Node000022_Node000003" title=" " alt="" coords="542,506,536,503,492,464,455,419,428,376,412,344,413,339,432,373,460,416,496,461,539,499,547,506"/>
+</map>

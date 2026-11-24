@@ -1,0 +1,7 @@
+<map id="test_before_end_for" name="test_before_end_for">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,32,157,60"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#a1443b40bba36a2678456b87bae0ba5e1" title="A start m before the end of the off&#45;peak period." alt="" coords="205,5,313,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,32,192,29,187,30,158,37"/>
+<area shape="rect" id="Node000003" href="$config__types_8h.html#a29ce77d1007e49cacadbead00f25d579" title="A boost lasting m." alt="" coords="235,57,283,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,54,222,65,217,66,157,59"/>
+</map>

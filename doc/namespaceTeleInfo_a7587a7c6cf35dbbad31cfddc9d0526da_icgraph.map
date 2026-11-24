@@ -1,0 +1,60 @@
+<map id="TeleInfo::frameLine" name="TeleInfo::frameLine">
+<area shape="rect" id="Node000001" title="Writes the line of a step." alt="" coords="1008,252,1154,280"/>
+<area shape="rect" id="Node000002" href="$namespaceTeleInfo.html#a1ada410c6d97aa6b44e403d583f46480" title="Writes a step of the frame: one line, STX before the first one, ETX after the last." alt="" coords="777,252,960,280"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="990,266,961,268,960,263,995,265"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__serial__output_2test__main_8cpp.html#ae8d26a821500deebb3c197509980f495" title=" " alt="" coords="617,104,706,132"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="832,243,682,135,683,129,838,242"/>
+<area shape="rect" id="Node000006" href="$native_2test__teleinfo_2test__main_8cpp.html#ace1eebb5d0b30b9b2107b037d706f1b1" title=" " alt="" coords="607,185,716,213"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="806,247,707,216,707,211,811,246"/>
+<area shape="rect" id="Node000013" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a2e201a718c88dabe4d99e51339d60b4b" title=" " alt="" coords="402,375,510,402"/>
+<area shape="poly" id="edge15_Node000002_Node000013" title=" " alt="" coords="802,286,506,377,505,372,806,283"/>
+<area shape="rect" id="Node000022" href="$group__Telemetry.html#gab51e8b51241c993237fc1badfa8466bf" title="One step of the telemetry frame, in IoT format: one line (see TeleInfo::writeFrameStep())." alt="" coords="594,384,729,412"/>
+<area shape="poly" id="edge32_Node000002_Node000022" title=" " alt="" coords="840,288,789,329,730,368,696,386,694,381,727,364,786,325,835,291"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__serial__output_2test__main_8cpp.html#a27de18cd8e431ab8826ec6aa60d14c0c" title=" " alt="" coords="378,14,534,59"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="608,99,515,62,514,57,613,97"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="184,5,242,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="360,31,243,24,241,19,364,28"/>
+<area shape="rect" id="Node000007" href="$native_2test__teleinfo_2test__main_8cpp.html#a93d29d98543146f8457ae77079e5a41d" title=" " alt="" coords="366,185,546,213"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="589,200,548,202,546,197,594,198"/>
+<area shape="rect" id="Node000012" href="$native_2test__teleinfo_2test__main_8cpp.html#a9595ab1dc4aefe40e384ca6445f011b6" title=" " alt="" coords="384,100,528,128"/>
+<area shape="poly" id="edge13_Node000006_Node000012" title=" " alt="" coords="609,180,492,131,491,126,614,178"/>
+<area shape="rect" id="Node000008" href="$native_2test__teleinfo_2test__main_8cpp.html#a7199e20d34ee2a9f648670035b077d0c" title=" " alt="" coords="138,177,288,222"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="348,201,289,202,287,197,353,198"/>
+<area shape="rect" id="Node000010" href="$native_2test__teleinfo_2test__main_8cpp.html#aecd3a467a7010b9877fd6b3984b1a735" title=" " alt="" coords="132,108,294,152"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="388,182,294,155,293,150,393,179"/>
+<area shape="rect" id="Node000011" href="$native_2test__teleinfo_2test__main_8cpp.html#aad7dd778241bc17fc1da19ac8c06f10a" title=" " alt="" coords="129,245,297,273"/>
+<area shape="poly" id="edge11_Node000007_Node000011" title=" " alt="" coords="382,219,319,236,275,247,272,243,317,231,386,216"/>
+<area shape="rect" id="Node000009" href="$native_2test__teleinfo_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,297,60,325"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="122,227,109,236,72,267,46,298,41,296,69,264,106,232,125,223"/>
+<area shape="poly" id="edge10_Node000010_Node000009" title=" " alt="" coords="117,158,109,166,82,198,62,235,40,297,35,296,57,232,78,195,106,163,120,154"/>
+<area shape="poly" id="edge12_Node000011_Node000009" title=" " alt="" coords="136,279,108,288,62,303,58,300,107,283,139,275"/>
+<area shape="poly" id="edge14_Node000012_Node000009" title=" " alt="" coords="405,95,342,77,264,63,223,62,183,67,144,78,109,97,87,118,70,143,57,171,48,200,38,256,36,297,31,297,33,255,43,198,52,169,65,140,83,114,106,93,142,73,182,62,223,57,264,58,343,72,410,93"/>
+<area shape="poly" id="edge16_Node000013_Node000008" title=" " alt="" coords="435,362,387,300,354,265,317,236,289,221,288,216,319,232,357,262,391,296,440,362"/>
+<area shape="poly" id="edge31_Node000013_Node000011" title=" " alt="" coords="426,364,378,326,317,288,287,276,285,271,319,283,381,322,432,364"/>
+<area shape="rect" id="Node000014" href="$native_2test__teleinfo_2test__main_8cpp.html#a95121a5262f0d1135ef5becaa0a87a8b" title=" " alt="" coords="154,521,272,549"/>
+<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="435,413,385,465,354,491,319,512,274,529,271,524,317,507,351,486,382,461,431,416"/>
+<area shape="rect" id="Node000015" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a8e5e7b6db0bbdf35b9b151741297bc52" title=" " alt="" coords="121,625,305,653"/>
+<area shape="poly" id="edge19_Node000013_Node000015" title=" " alt="" coords="443,415,385,526,351,580,320,615,297,627,295,622,316,610,346,577,381,523,439,418"/>
+<area shape="rect" id="Node000017" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a1c6fb5ce770cfa838074fb17455886b2" title=" " alt="" coords="120,573,306,601"/>
+<area shape="poly" id="edge21_Node000013_Node000017" title=" " alt="" coords="443,414,423,451,395,490,360,529,319,563,294,575,292,570,317,558,357,526,391,487,418,448,439,418"/>
+<area shape="rect" id="Node000018" href="$native_2test__teleinfo_2test__main_8cpp.html#abd16c7cc57d696e4508201665db10ae0" title=" " alt="" coords="127,297,298,325"/>
+<area shape="poly" id="edge23_Node000013_Node000018" title=" " alt="" coords="403,370,317,340,276,328,274,323,319,335,408,368"/>
+<area shape="rect" id="Node000019" href="$native_2test__teleinfo_2test__main_8cpp.html#a01335e7dbc51eb8fcd884d0ddea4f55e" title=" " alt="" coords="129,349,296,377"/>
+<area shape="poly" id="edge25_Node000013_Node000019" title=" " alt="" coords="384,383,297,374,296,369,389,380"/>
+<area shape="rect" id="Node000020" href="$native_2test__teleinfo_2test__main_8cpp.html#a0ea95610c8a15f3fe79d1d94efe12b18" title=" " alt="" coords="108,401,318,429"/>
+<area shape="poly" id="edge27_Node000013_Node000020" title=" " alt="" coords="384,397,319,406,317,401,389,395"/>
+<area shape="rect" id="Node000021" href="$native_2test__teleinfo_2test__main_8cpp.html#a16591a53c527da293250678e3464978f" title=" " alt="" coords="137,453,288,498"/>
+<area shape="poly" id="edge29_Node000013_Node000021" title=" " alt="" coords="402,410,319,443,285,455,283,450,317,438,407,407"/>
+<area shape="poly" id="edge18_Node000014_Node000009" title=" " alt="" coords="136,528,106,512,86,491,70,466,49,413,37,363,35,328,35,323,42,362,54,411,75,464,91,487,109,508,141,526"/>
+<area shape="rect" id="Node000016" href="$embedded_2test__teleinfo_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="8,599,57,626"/>
+<area shape="poly" id="edge20_Node000015_Node000016" title=" " alt="" coords="103,625,58,619,57,613,107,621"/>
+<area shape="poly" id="edge22_Node000017_Node000016" title=" " alt="" coords="102,604,59,612,57,607,106,601"/>
+<area shape="poly" id="edge24_Node000018_Node000009" title=" " alt="" coords="110,313,61,313,58,309,114,309"/>
+<area shape="poly" id="edge26_Node000019_Node000009" title=" " alt="" coords="135,346,107,339,61,323,59,318,108,334,140,344"/>
+<area shape="poly" id="edge28_Node000020_Node000009" title=" " alt="" coords="118,396,106,391,68,359,44,328,43,323,72,356,109,386,123,394"/>
+<area shape="poly" id="edge30_Node000021_Node000009" title=" " alt="" coords="120,452,106,443,80,415,59,382,38,328,38,323,64,380,84,411,109,438,125,450"/>
+<area shape="rect" id="Node000023" href="$group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="406,564,506,592"/>
+<area shape="poly" id="edge33_Node000022_Node000023" title=" " alt="" coords="635,421,475,566,472,561,630,423"/>
+<area shape="rect" id="Node000024" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="188,677,238,705"/>
+<area shape="poly" id="edge34_Node000023_Node000024" title=" " alt="" coords="427,600,377,636,319,667,277,681,238,690,238,685,275,676,317,662,374,632,422,602"/>
+</map>

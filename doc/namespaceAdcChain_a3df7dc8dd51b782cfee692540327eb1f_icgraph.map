@@ -1,0 +1,10 @@
+<map id="AdcChain::channelConverted" name="AdcChain::channelConverted">
+<area shape="rect" id="Node000001" title="The channel round round converts, once the pipeline is full." alt="" coords="332,44,540,72"/>
+<area shape="rect" id="Node000002" href="$native_2test__adc__chain_2test__main_8cpp.html#a72de1b935b20696f85ebf5c6ceddf174" title=" " alt="" coords="108,5,284,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="314,43,285,42,285,36,319,43"/>
+<area shape="rect" id="Node000004" href="$native_2test__adc__chain_2test__main_8cpp.html#adbd8519294ba2d17c4899393d2a00753" title=" " alt="" coords="123,74,269,102"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="319,73,270,81,269,76,314,73"/>
+<area shape="rect" id="Node000003" href="$native_2test__adc__chain_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,44,60,72"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,49,61,56,59,51,94,46"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="105,73,60,66,60,60,110,70"/>
+</map>

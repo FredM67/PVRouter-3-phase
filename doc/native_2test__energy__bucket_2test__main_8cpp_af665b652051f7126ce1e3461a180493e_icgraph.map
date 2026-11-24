@@ -1,0 +1,7 @@
+<map id="generalRounding" name="generalRounding">
+<area shape="rect" id="Node000001" title="contribution() with the general rounding, (product + 2^(r&#45;1)) &gt;&gt; r, in 64 bits." alt="" coords="351,14,482,42"/>
+<area shape="rect" id="Node000002" href="$native_2test__energy__bucket_2test__main_8cpp.html#a3c9406087ec379a7daf52839723763c6" title=" " alt="" coords="108,5,303,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="333,28,303,30,303,25,338,28"/>
+<area shape="rect" id="Node000003" href="$native_2test__energy__bucket_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,14,60,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,29,60,30,60,25,95,27"/>
+</map>

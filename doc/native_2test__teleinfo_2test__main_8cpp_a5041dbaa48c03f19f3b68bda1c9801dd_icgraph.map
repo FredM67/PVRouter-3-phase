@@ -1,0 +1,10 @@
+<map id="countTag" name="countTag">
+<area shape="rect" id="Node000001" title="How many lines have exactly this tag." alt="" coords="323,32,402,60"/>
+<area shape="rect" id="Node000002" href="$native_2test__teleinfo_2test__main_8cpp.html#a95121a5262f0d1135ef5becaa0a87a8b" title=" " alt="" coords="132,5,250,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="305,38,251,31,251,26,310,37"/>
+<area shape="rect" id="Node000004" href="$native_2test__teleinfo_2test__main_8cpp.html#a01335e7dbc51eb8fcd884d0ddea4f55e" title=" " alt="" coords="108,57,275,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="310,54,276,61,275,56,305,54"/>
+<area shape="rect" id="Node000003" href="$native_2test__teleinfo_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,32,60,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="116,34,61,44,59,39,119,30"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="90,56,60,53,60,47,95,54"/>
+</map>

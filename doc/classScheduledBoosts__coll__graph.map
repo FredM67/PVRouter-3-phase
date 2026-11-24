@@ -1,0 +1,18 @@
+<map id="ScheduledBoosts&lt; N, MaxPins &gt;" name="ScheduledBoosts&lt; N, MaxPins &gt;">
+<area shape="rect" id="Node000001" title="The scheduled boosts, as in config.h: each window with the targets it forces." alt="" coords="86,376,247,421"/>
+<area shape="rect" id="Node000002" href="$structBoostEntry.html" title=" " alt="" coords="98,283,236,311"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,325,169,377,164,374,165,328"/>
+<area shape="rect" id="Node000003" href="$structBoostWindow.html" title="When a load is boosted during the off&#45;peak period." alt="" coords="177,98,287,126"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="230,139,219,198,197,261,181,285,177,281,192,258,214,197,227,144"/>
+<area shape="rect" id="Node000006" href="$structBoostEntry.html" title="When a set of loads is boosted: a window and the targets." alt="" coords="10,191,187,218"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="189,135,165,152,114,192,110,189,162,147,193,131"/>
+<area shape="rect" id="Node000004" href="$structBoostStart.html" title="Where a boost starts: minutes after the start of the off&#45;peak period, or before its end if fromEnd." alt="" coords="185,5,274,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="231,46,234,98,229,97,229,51"/>
+<area shape="rect" id="Node000005" href="$structBoostLength.html" title="How long a boost lasts, in minutes, or UNTIL_THE_END." alt="" coords="298,5,400,33"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="319,45,251,99,247,95,322,41"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="118,228,160,282,154,283,117,233"/>
+<area shape="rect" id="Node000007" href="$structPinList.html" title=" " alt="" coords="25,98,135,126"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="79,138,85,166,94,190,89,190,79,167,79,143"/>
+<area shape="rect" id="Node000008" href="$structPinList.html" title="Wrapper for a list of pins, constructible from variadic arguments." alt="" coords="5,5,155,33"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="80,46,83,98,77,97,80,51"/>
+</map>

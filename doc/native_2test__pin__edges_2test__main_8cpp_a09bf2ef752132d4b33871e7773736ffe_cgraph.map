@@ -1,0 +1,11 @@
+<map id="test_a_press_while_forced_is_dropped_not_carried_over" name="test_a_press_while_forced_is_dropped_not_carried_over">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,15,181,77"/>
+<area shape="rect" id="Node000002" href="$pin__edges_8h.html#a817c8abf26d0b5dff72b46a2b910c06f" title="Tells whether the rotation pin asks for a rotation now." alt="" coords="229,5,385,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,32,216,30,211,31,181,38"/>
+<area shape="rect" id="Node000004" href="$pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="250,57,364,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="181,54,238,62,232,63,181,59"/>
+<area shape="rect" id="Node000003" href="$structPinEdges.html#a8d666a88ac780603e6d26475bec567d6" title="it went LOW since the previous reading" alt="" coords="433,5,572,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="385,17,420,19,415,19,386,22"/>
+<area shape="rect" id="Node000005" href="$pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="462,57,543,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="364,69,450,71,444,71,364,74"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="test_crc_of_a_known_rom_code" name="test_crc_of_a_known_rom_code">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,163,50"/>
+<area shape="rect" id="Node000002" href="$namespaceDS18B20.html#a0ecb269888a40e4a3edad6d1864c79af" title="The Dallas/Maxim CRC&#45;8 (x^8 + x^5 + x^4 + 1), as OneWire::crc8." alt="" coords="211,14,326,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,25,198,27,192,28,163,30"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="RelayDiverter&lt; N, D &gt;" name="RelayDiverter&lt; N, D &gt;">
+<area shape="rect" id="Node000001" title="Manages a collection of relays and their behavior based on surplus and import thresholds." alt="" coords="6,209,175,237"/>
+<area shape="rect" id="Node000002" href="$classRelayLogic_1_1Engine.html" title=" " alt="" coords="5,115,176,160"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,173,93,209,88,208,89,177"/>
+<area shape="rect" id="Node000003" href="$classRelayLogic_1_1Engine.html" title="A collection of relays, switched one at a time from a sliding average." alt="" coords="18,5,163,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="92,63,93,115,88,114,89,68"/>
+</map>

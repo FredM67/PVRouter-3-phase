@@ -1,16 +1,18 @@
 var searchData=
 [
-  ['add_0',['add',['../structCycles.html#a7eef5f75cf8b1cf3435a683462b7ff8e',1,'Cycles']]],
-  ['addvalue_1',['addValue',['../classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db',1,'EWMA_average::addValue()'],['../classmovingAvg.html#aa0d0d8ba97b9d3fdfdbcf3a0b8d8f0f5',1,'movingAvg::addValue()']]],
-  ['all_5floads_2',['ALL_LOADS',['../utils__override__helpers_8h.html#ad19b0f6bfb7e49c2a32b6bb68d3228cd',1,'utils_override_helpers.h']]],
-  ['all_5floads_5fand_5frelays_3',['ALL_LOADS_AND_RELAYS',['../utils__override__helpers_8h.html#a1f9a7b43cca9e7e2cca9e7f2d052b07c',1,'utils_override_helpers.h']]],
-  ['all_5flocal_5floads_4',['ALL_LOCAL_LOADS',['../utils__override__helpers_8h.html#aacfc43b81341d59e7dd02a0eb307f6c6',1,'utils_override_helpers.h']]],
-  ['all_5frelays_5',['ALL_RELAYS',['../utils__override__helpers_8h.html#ae15157f49f7b11ed61e8df4c68068de3',1,'utils_override_helpers.h']]],
-  ['all_5fremote_5floads_6',['ALL_REMOTE_LOADS',['../utils__override__helpers_8h.html#a56b1293dc6f12ee82283d9630b026306',1,'utils_override_helpers.h']]],
-  ['appendline_7',['appendLine',['../embedded_2test__teleinfo_2test__main_8cpp.html#a2a68a15b365d99047b738628d77bd56b',1,'test_main.cpp']]],
-  ['are_5fpins_5fvalid_8',['are_pins_valid',['../utils__override_8h.html#a7e15c4d8fe7154a837f77741fbcbd389',1,'utils_override.h']]],
-  ['arevalidnodeids_9',['areValidNodeIds',['../remote__loads__core_8h.html#a06668c9ec3f2bbccd5182261564f1602',1,'remote_loads_core.h']]],
-  ['assertcaptured_10',['assertCaptured',['../embedded_2test__serial__output_2test__main_8cpp.html#ac4aaab4b8ae82859a1852d8209ecc509',1,'test_main.cpp']]],
-  ['availableforwrite_11',['availableForWrite',['../classCapturePrint.html#a814feef980c3c487fabc15158adbac0a',1,'CapturePrint']]],
-  ['average_12',['average',['../structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc',1,'Cycles']]]
+  ['before_5fend_0',['BEFORE_END',['../config__types_8h.html#a1443b40bba36a2678456b87bae0ba5e1',1,'config_types.h']]],
+  ['begin_1',['begin',['../namespaceBenchTimer.html#aec7b874a7b2744549e4aa1acbb8023f2',1,'BenchTimer']]],
+  ['beginstartuptext_2',['beginStartupText',['../namespaceSerialOutput.html#aac2a2b989ae1aed012a9149bcb922751',1,'SerialOutput']]],
+  ['bench_3',['bench',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b',1,'test_main.cpp']]],
+  ['benchcycles_4',['benchCycles',['../bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759',1,'bench_report.h']]],
+  ['benchprefix_5',['benchPrefix',['../bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796',1,'bench_report.h']]],
+  ['bit_5fclear_6',['bit_clear',['../utils__bits_8h.html#aeae4199ba44e9e5de9d228a6b6a8133e',1,'utils_bits.h']]],
+  ['bit_5fread_7',['bit_read',['../utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37',1,'utils_bits.h']]],
+  ['bit_5fset_8',['bit_set',['../utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc',1,'utils_bits.h']]],
+  ['bitmaskof_9',['bitmaskOf',['../classRemoteLoadCore.html#a3e667a8b690360f1544772f98365e895',1,'RemoteLoadCore']]],
+  ['bitof_10',['bitOf',['../namespaceLoad.html#a2af331573ede4c50d696449fe9b4ab8d',1,'Load']]],
+  ['boostentry_11',['BoostEntry',['../structBoostEntry.html#a734ef648195c92779e7cbf7d5e2ec732',1,'BoostEntry::BoostEntry(const BoostWindow &amp;w, const PinList&lt; MaxPins &gt; &amp;t)'],['../structBoostEntry.html#a3441d46b89681cbffe41dc14c2640c1f',1,'BoostEntry::BoostEntry(const BoostStart &amp;s, const PinList&lt; MaxPins &gt; &amp;t)'],['../structBoostEntry.html#a5fa6aba9b4dba00fd64156eaf762b5f2',1,'BoostEntry::BoostEntry(const BoostStart &amp;s, const BoostLength &amp;l, const PinList&lt; MaxPins &gt; &amp;t)']]],
+  ['boostforcing_12',['boostForcing',['../namespaceForcing.html#a3b89513ed1a630712a3132079cfa6410',1,'Forcing']]],
+  ['boostschedule_13',['BoostSchedule',['../classBoostSchedule.html#a3e0ef7edc5adea097f6848b16ed5fea3',1,'BoostSchedule::BoostSchedule(const BoostEntry&lt; MaxPins &gt;(&amp;boosts)[N])'],['../classBoostSchedule.html#a0b04248b9e61ca8a3080a187056eefd9',1,'BoostSchedule::BoostSchedule(const ScheduledBoosts&lt; N, MaxPins &gt; &amp;boosts, const Map &amp;map)'],['../classBoostSchedule_3_010_00_01MaxPins_01_4.html#a744f22cc5e03b3226d6c78f188090bb5',1,'BoostSchedule&lt; 0, MaxPins &gt;::BoostSchedule()=default'],['../classBoostSchedule_3_010_00_01MaxPins_01_4.html#a11b5fbaf9ef31bdb8174e4d87bac1d28',1,'BoostSchedule&lt; 0, MaxPins &gt;::BoostSchedule(const ScheduledBoosts&lt; 0, MaxPins &gt; &amp;, const Map &amp;)'],['../classBoostSchedule.html#a3e0ef7edc5adea097f6848b16ed5fea3',1,'BoostSchedule&lt; 0, MaxPins &gt;::BoostSchedule(const BoostEntry&lt; MaxPins &gt;(&amp;boosts)[N])'],['../classBoostSchedule.html#a0b04248b9e61ca8a3080a187056eefd9',1,'BoostSchedule&lt; 0, MaxPins &gt;::BoostSchedule(const ScheduledBoosts&lt; N, MaxPins &gt; &amp;boosts, const Map &amp;map)'],['../utils__dualtariff_8h.html#ad5cafef8e020310ea0edb5c6d35053ff',1,'BoostSchedule(const BoostEntry&lt; MaxPins &gt;(&amp;)[N]) -&gt; BoostSchedule&lt; N, MaxPins &gt;:&#160;utils_dualtariff.h'],['../utils__dualtariff_8h.html#a2c22d1dac2fd70a39fd739dcd03d3d82',1,'BoostSchedule() -&gt; BoostSchedule&lt; 0 &gt;:&#160;utils_dualtariff.h'],['../utils__dualtariff_8h.html#a8a7632ec09a08663a7e1513c51a19ba5',1,'BoostSchedule(const ScheduledBoosts&lt; N, MaxPins &gt; &amp;, const Map &amp;) -&gt; BoostSchedule&lt; N, MaxPins &gt;:&#160;utils_dualtariff.h']]],
+  ['busy_14',['busy',['../namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c',1,'SerialOutput']]]
 ];

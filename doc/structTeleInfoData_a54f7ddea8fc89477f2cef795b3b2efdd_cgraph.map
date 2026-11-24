@@ -1,0 +1,5 @@
+<map id="TeleInfoData::temperatureValid" name="TeleInfoData::temperatureValid">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,198,50"/>
+<area shape="rect" id="Node000002" href="$ds18b20_8h.html#ad55adf4c2798fb2203dd07c6954856fe" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="246,14,392,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,25,233,27,228,28,198,30"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="RelayEngine::RelayEngine" name="RelayEngine::RelayEngine">
+<area shape="rect" id="Node000001" title="The relays, with the default sliding average." alt="" coords="5,29,197,57"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="68,28,62,20,67,11,80,5,101,3,124,5,137,14,132,14,122,10,101,8,81,10,71,15,68,20,73,29"/>
+</map>

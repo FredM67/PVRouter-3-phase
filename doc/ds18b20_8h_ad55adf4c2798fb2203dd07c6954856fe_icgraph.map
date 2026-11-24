@@ -1,0 +1,29 @@
+<map id="isValidTemperature" name="isValidTemperature">
+<area shape="rect" id="Node000001" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="491,220,638,248"/>
+<area shape="rect" id="Node000002" href="$structDS18B20_1_1PowerOnFilter.html#a06e2fdc5e886b6c603e5882de4bc5ca0" title="The reading to keep." alt="" coords="258,5,437,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="548,206,507,136,477,98,442,64,425,53,424,48,445,60,481,94,511,133,553,207"/>
+<area shape="rect" id="Node000003" href="$group__Telemetry.html#ga0018bc6f3f3b53571428522d11575051" title="One step of the datalog in JSON format." alt="" coords="294,74,401,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="541,208,499,162,472,137,442,117,401,100,401,95,445,112,475,133,503,158,546,208"/>
+<area shape="rect" id="Node000006" href="$group__Telemetry.html#ga678079c20f2260c02b6d805a3252fdb8" title="One step of the datalog in text format." alt="" coords="294,126,401,154"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="527,212,488,190,442,167,402,154,401,149,444,163,491,185,532,212"/>
+<area shape="rect" id="Node000007" href="$structTeleInfoData.html#a54f7ddea8fc89477f2cef795b3b2efdd" title=" " alt="" coords="251,177,443,222"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="474,221,444,218,443,212,479,220"/>
+<area shape="rect" id="Node000008" href="$native_2test__ds18b20_2test__main_8cpp.html#a165314ef3361e87cc41f63e4ccdd6524" title=" " alt="" coords="263,247,431,291"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="474,249,433,258,431,253,479,247"/>
+<area shape="rect" id="Node000010" href="$native_2test__ds18b20_2test__main_8cpp.html#a0697280e0a6043c38f01ff4f0b2a6024" title=" " alt="" coords="267,316,427,361"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="531,255,445,306,417,318,415,313,442,301,526,258"/>
+<area shape="rect" id="Node000011" href="$native_2test__ds18b20_2test__main_8cpp.html#ab5c5615d9462e0142f247fa3d8c0968b" title=" " alt="" coords="252,385,442,430"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="548,260,505,319,477,349,445,375,424,387,422,382,442,371,473,345,501,316,544,263"/>
+<area shape="rect" id="Node000012" href="$native_2test__ds18b20_2test__main_8cpp.html#aa248647a3d45fa22d3a08bcec6cf8048" title=" " alt="" coords="273,455,421,499"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="556,261,541,304,517,352,485,401,445,444,423,459,421,454,442,440,481,398,512,350,536,302,552,265"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gade56d6fce22a518b8feff1a150461f94" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="103,100,203,128"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="276,99,205,110,202,105,280,95"/>
+<area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,100,55,128"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="85,116,57,116,53,112,89,112"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="276,132,204,123,203,118,280,129"/>
+<area shape="rect" id="Node000009" href="$native_2test__ds18b20_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="126,359,180,387"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="260,299,252,306,208,334,173,361,169,357,205,329,250,301,265,296"/>
+<area shape="poly" id="edge11_Node000010_Node000009" title=" " alt="" coords="250,357,181,371,180,366,254,354"/>
+<area shape="poly" id="edge13_Node000011_Node000009" title=" " alt="" coords="234,389,181,380,180,375,240,387"/>
+<area shape="poly" id="edge15_Node000012_Node000009" title=" " alt="" coords="260,448,250,445,205,417,171,390,172,385,208,412,252,440,265,448"/>
+</map>

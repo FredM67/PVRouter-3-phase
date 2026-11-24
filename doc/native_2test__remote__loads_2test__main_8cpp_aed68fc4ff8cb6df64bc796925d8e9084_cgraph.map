@@ -1,0 +1,16 @@
+<map id="test_remote_unit_out_of_range_is_flagged" name="test_remote_unit_out_of_range_is_flagged">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,98,166,143"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a9f9bfc414551f643b26e70ee05ceaa11" title="Check that every remote load of a map was declared with a unit from 1 to 3." alt="" coords="214,5,414,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,95,213,49,249,37,245,40,215,54,126,100"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="462,56,567,84"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="165,101,213,93,337,79,449,72,444,74,337,84,214,98,167,106"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a88996fa00857a07607a6543382aabeb4" title="Check that every entry of a load map designates a usable pin." alt="" coords="248,107,380,134"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,118,235,119,231,122,166,123"/>
+<area shape="rect" id="Node000006" href="$namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671" title="Declares a load driven locally by the router." alt="" coords="268,159,360,186"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="166,136,256,158,251,160,166,141"/>
+<area shape="rect" id="Node000007" href="$namespaceLoad.html#adb9797ea49459ec57cf3641aee0d7bd6" title="Declares a load driven by a remote unit over RF." alt="" coords="260,211,368,238"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="119,141,164,169,215,195,248,209,243,209,213,200,161,174,118,146"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="371,104,449,86,444,88,372,109"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="467,108,562,136"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="380,118,454,121,449,122,380,124"/>
+</map>

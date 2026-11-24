@@ -1,0 +1,7 @@
+<map id="TeleInfo::lineUnsigned" name="TeleInfo::lineUnsigned">
+<area shape="rect" id="Node000001" title="Writes the line of an unsigned value (above 32767, line() would wrap)." alt="" coords="5,5,171,33"/>
+<area shape="rect" id="Node000002" href="$namespaceTeleInfo.html#ab851b8161d4b41b2b4898e46f38b64e0" title="Writes a whole line: LF, tag and index, TAB, value, TAB, checksum and CR." alt="" coords="219,5,359,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,17,206,19,201,19,171,22"/>
+<area shape="rect" id="Node000003" href="$namespaceTeleInfo.html#ae66100e613f030a8bb86f56d9b509a84" title="Writes the decimal digits of a 16&#45;bit value." alt="" coords="407,5,558,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="359,17,394,19,389,19,359,22"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Mk2_3phase_RFdatalog_temp/adc_chain.h" name="Mk2_3phase_RFdatalog_temp/adc_chain.h">
+<area shape="rect" id="Node000001" title="The six ADC conversions of the 3&#45;phase board, and the ADMUX pipeline of the free&#45;running ADC." alt="" coords="108,5,284,50"/>
+<area shape="rect" id="Node000002" href="$processing_8cpp.html" title="Implements the processing engine." alt="" coords="5,106,182,151"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,60,117,108,114,104,161,62"/>
+<area shape="rect" id="Node000003" href="$native_2test__adc__chain_2test__main_8cpp.html" title="Native tests for adc_chain.h: the six conversions, the reference and the ADMUX pipeline." alt="" coords="206,98,395,160"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="231,58,271,98,266,97,229,63"/>
+</map>

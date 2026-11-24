@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['v_5fresult16_0',['v_result16',['../embedded_2test__fastdivision__perf_2test__main_8cpp.html#a89193cb35191ef142f5f06258b8e1f06',1,'test_main.cpp']]],
-  ['v_5fresult32_1',['v_result32',['../embedded_2test__fastdivision__perf_2test__main_8cpp.html#a49b5a81c15f2c95f731f1665fdc81491',1,'test_main.cpp']]],
-  ['v_5fresult8_2',['v_result8',['../embedded_2test__fastdivision__perf_2test__main_8cpp.html#add3209b64c8614f30ccf1e338be691d5',1,'test_main.cpp']]],
-  ['validpinmask_3',['validPinMask',['../utils__override_8h.html#a66fecdc5caac536e248b718581cd50f1',1,'utils_override.h']]],
-  ['value_4',['value',['../structDatalog_1_1FixedCalibration.html#ade0d22137b213e3fd53ef7a44810a3ad',1,'Datalog::FixedCalibration::value'],['../structEnergy_1_1PerSampleCalibration.html#a1e68ad1945b3719751991b5aa44ae886',1,'Energy::PerSampleCalibration::value'],['../structSerialOutput_1_1DecimalsTable.html#a8eaac083ef9efed464b3532ab720f3dc',1,'SerialOutput::DecimalsTable::value'],['../structintegral__constant.html#a898163d4533374f6993a6c2e2116443a',1,'integral_constant::value'],['../classis__base__of.html#af5099c0b8b7ac33766bbc071e8df525b',1,'is_base_of::value'],['../structis__class.html#a8e480c366229d83043464856beaef26f',1,'is_class::value'],['../structis__convertible.html#ae961431c0a8dc3506828194f8ec1c684',1,'is_convertible::value'],['../structis__enum.html#aecdd48955dfb72b90880aafdec94e2db',1,'is_enum::value']]],
-  ['voltage_5famplitude_5',['VOLTAGE_AMPLITUDE',['../native_2test__power__rms__comparison_2test__main_8cpp.html#af48c168b28bf07c75fb3c6a25d40f8f7',1,'test_main.cpp']]],
-  ['voltagecal_6',['voltageCal',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#ac830b4e530e79661d6c353d8840d2a0e',1,'test_main.cpp']]],
-  ['voltagecalconst_7',['voltageCalConst',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae550d7d43093bcf6299e2aa4162d7806',1,'test_main.cpp']]],
-  ['voltagefixed_8',['voltageFixed',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#a13f7003471d8968dadf6a94012e15fd5',1,'test_main.cpp']]],
-  ['vrms_5fl_5fx100_9',['Vrms_L_x100',['../classPayloadTx__struct.html#aaa15a0c4d9a5a1d7808d017d1e22c070',1,'PayloadTx_struct']]]
+  ['ul_5foff_5fpeak_5fduration_0',['ul_OFF_PEAK_DURATION',['../config_8h.html#abd1baf11732956aa199473daae453926',1,'config.h']]],
+  ['ul_5ftimeoffpeak_1',['ul_TimeOffPeak',['../dualtariff_8h.html#a9b220149c714c37067af68c2056d9316',1,'dualtariff.h']]],
+  ['unique_2',['unique',['../structPinCheck.html#a02e02413be7f1d38e040c9134471b010',1,'PinCheck']]],
+  ['unitstates_3',['unitStates',['../classRemoteLoadCore.html#a39bf33b4e1d082efa0e4e28ce0b62a4a',1,'RemoteLoadCore']]],
+  ['until_5fthe_5fend_4',['UNTIL_THE_END',['../config__types_8h.html#a7e2349540d7bb0a95b5d556e368027b7',1,'config_types.h']]],
+  ['unused_5fpin_5',['unused_pin',['../utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded',1,'utils_bits.h']]],
+  ['upperdefault_6',['upperDefault',['../structLoadPriorities_1_1Bucket.html#aae2ef2d1089205e5627dd0bb773fbabb',1,'LoadPriorities::Bucket']]],
+  ['upperthreshold_7',['upperThreshold',['../structLoadPriorities_1_1Switching.html#ae27daa4669ed7d9acefc0843b2ef494b',1,'LoadPriorities::Switching']]],
+  ['used_8',['used',['../structPinCheck.html#a4068b231335dcbe686dfdbc41b52efd3',1,'PinCheck']]]
 ];

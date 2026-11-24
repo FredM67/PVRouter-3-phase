@@ -1,7 +1,15 @@
 <map id="bench" name="bench">
-<area shape="rect" id="Node000001" title="The average and worst case of an integer function, for the CI history." alt="" coords="5,32,66,60"/>
-<area shape="rect" id="Node000002" href="$structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="114,5,239,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,38,101,33,96,35,67,43"/>
-<area shape="rect" id="Node000003" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="125,57,228,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="66,49,112,58,107,60,66,54"/>
+<area shape="rect" id="Node000001" title="The average and worst case of an integer function, for the CI history." alt="" coords="5,59,66,86"/>
+<area shape="rect" id="Node000002" href="$structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc" title=" " alt="" coords="114,32,239,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,65,100,59,96,62,67,69"/>
+<area shape="rect" id="Node000003" href="$bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="125,84,228,112"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="66,75,112,84,107,87,67,80"/>
+<area shape="rect" id="Node000004" href="$bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="291,5,388,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="211,81,238,69,286,43,295,42,300,39,288,48,240,74,213,86"/>
+<area shape="rect" id="Node000005" href="$bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="292,57,388,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="228,87,279,81,274,82,229,92"/>
+<area shape="rect" id="Node000006" href="$bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="294,109,385,137"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="228,103,282,113,276,114,229,109"/>
+<area shape="rect" id="Node000007" href="$bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="287,161,392,189"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="208,110,298,154,292,155,207,115"/>
 </map>

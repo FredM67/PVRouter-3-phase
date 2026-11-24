@@ -1,0 +1,15 @@
+<map id="test_the_next_load_waits_for_the_end_of_the_post_transition_period" name="test_the_next_load_waits_for_the_end_of_the_post_transition_period">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,19,207,81"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="318,5,373,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,34,304,24,300,26,208,40"/>
+<area shape="rect" id="Node000003" href="$structLoadPriorities_1_1Switching.html#a7d79ced5e64eedf2731796d021807a9b" title="The decision of one mains cycle: may switch one load ON or OFF." alt="" coords="255,57,436,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,60,242,66,237,67,207,65"/>
+<area shape="rect" id="Node000004" href="$structLoadPriorities_1_1Switching.html#acf8c0c8a19301b3d209ae5bbb363359b" title="The energy level is high: may switch the next load ON." alt="" coords="484,22,665,67"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="436,63,471,60,466,61,437,68"/>
+<area shape="rect" id="Node000006" href="$structLoadPriorities_1_1Switching.html#a8cb972b6750de408b20de11579739d3c" title="The energy level is low: may switch the last load ON to OFF." alt="" coords="484,92,665,136"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="436,90,471,98,466,98,436,96"/>
+<area shape="rect" id="Node000005" href="$namespaceLoadPriorities.html#a36125f3d6722a8bc0307afc39deee588" title="The next logical load to switch ON: the first one OFF, in priority order." alt="" coords="728,31,914,58"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="666,42,715,44,709,45,666,47"/>
+<area shape="rect" id="Node000007" href="$namespaceLoadPriorities.html#a1258efcfb93fd5721c9b43d3711daa58" title="The next logical load to switch OFF: the last one ON, in priority order." alt="" coords="713,100,929,128"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="666,111,700,114,695,114,666,116"/>
+</map>

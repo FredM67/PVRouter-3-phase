@@ -1,0 +1,11 @@
+<map id="check_override_remote_targets" name="check_override_remote_targets">
+<area shape="rect" id="Node000001" title="Each REMOTE_LOAD(n) target of an override pin must be an existing remote load." alt="" coords="5,24,180,68"/>
+<area shape="rect" id="Node000002" href="$validation_8h.html#ab24866c5cec7b4140dcd049e199a4c79" title="Each REMOTE_LOAD(n) target of an entry of list must be an existing remote load." alt="" coords="228,32,406,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,43,215,45,210,46,180,48"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a88996fa00857a07607a6543382aabeb4" title="Check that every entry of a load map designates a usable pin." alt="" coords="454,32,585,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="406,43,441,46,436,46,407,48"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="633,5,739,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="585,33,616,30,621,30,586,38"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="638,57,734,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="586,53,626,62,620,62,586,59"/>
+</map>

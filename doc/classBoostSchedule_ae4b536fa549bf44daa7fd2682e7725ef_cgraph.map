@@ -1,0 +1,5 @@
+<map id="BoostSchedule::getWindow" name="BoostSchedule::getWindow">
+<area shape="rect" id="Node000001" title="The window of boost i, or a window of length 0 if out of bounds." alt="" coords="5,5,204,33"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#a68fc652a2abfa341df092d301f4f9a7c" title="A start m after the beginning of the off&#45;peak period." alt="" coords="252,5,359,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="204,17,239,19,233,19,204,22"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="test_late_cycles_postpone_without_losing_a_step" name="test_late_cycles_postpone_without_losing_a_step">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,199,85"/>
+<area shape="rect" id="Node000002" href="$classTempSchedule_1_1Scheduler.html#a06d7c05594cf2e6999e68bee213cd309" title="Whether the round is over." alt="" coords="247,5,434,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,46,234,43,229,44,200,51"/>
+<area shape="rect" id="Node000003" href="$classTempSchedule_1_1Scheduler.html#acc6aa991b44f223071aebace47c5ac45" title="The transaction of this mains cycle: called once per cycle, when the loop sees it." alt="" coords="247,75,434,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,74,234,81,229,81,199,79"/>
+</map>

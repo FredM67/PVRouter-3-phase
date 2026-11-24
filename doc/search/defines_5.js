@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['validate_5fpins_0',['VALIDATE_PINS',['../utils__override_8h.html#ad58f45427bd6d7a8d10c3d4eebad89f4',1,'utils_override.h']]]
+  ['remote_5fload_0',['REMOTE_LOAD',['../native_2test__utils__override_2test__main_8cpp.html#ac45993f50d460ec82200d89090ea16d8',1,'test_main.cpp']]]
 ];

@@ -1,0 +1,21 @@
+<map id="Forcing::boostForcing" name="Forcing::boostForcing">
+<area shape="rect" id="Node000001" title="The targets of the scheduled boosts whose window is open." alt="" coords="774,88,933,116"/>
+<area shape="rect" id="Node000002" href="$group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="520,5,726,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="807,81,725,48,685,36,685,31,727,43,812,81"/>
+<area shape="rect" id="Node000006" href="$native_2test__override__masks_2test__main_8cpp.html#a10730fbc0339fe8325fc42208be49415" title=" " alt="" coords="545,57,701,85"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="755,89,701,84,701,79,761,89"/>
+<area shape="rect" id="Node000008" href="$native_2test__override__masks_2test__main_8cpp.html#a5e241261a6212cad1083e4825e5bcfa7" title=" " alt="" coords="535,109,711,154"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="755,114,712,123,711,117,761,114"/>
+<area shape="rect" id="Node000009" href="$native_2test__override__masks_2test__main_8cpp.html#aa8e3b1a48197ea83b537f253ad07050a" title=" " alt="" coords="535,178,711,239"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="814,123,727,168,701,180,700,175,725,163,809,124"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="320,5,472,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="502,20,473,22,472,17,508,19"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,5,272,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="302,20,273,22,272,17,307,18"/>
+<area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,55,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="85,21,56,21,54,17,89,17"/>
+<area shape="rect" id="Node000007" href="$native_2test__override__masks_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="369,117,423,145"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="546,90,521,99,425,126,423,121,520,94,551,89"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="517,132,424,134,423,129,522,131"/>
+<area shape="poly" id="edge10_Node000009_Node000007" title=" " alt="" coords="518,174,423,143,424,138,524,174"/>
+</map>

@@ -1,0 +1,18 @@
+<map id="writeTeleInfoStep" name="writeTeleInfoStep">
+<area shape="rect" id="Node000001" title="One step of the telemetry frame, in IoT format: one line (see TeleInfo::writeFrameStep())." alt="" coords="5,57,140,85"/>
+<area shape="rect" id="Node000002" href="$namespaceTeleInfo.html#a1ada410c6d97aa6b44e403d583f46480" title="Writes a step of the frame: one line, STX before the first one, ETX after the last." alt="" coords="188,57,371,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,69,175,71,169,72,140,74"/>
+<area shape="rect" id="Node000003" href="$namespaceTeleInfo.html#a7587a7c6cf35dbbad31cfddc9d0526da" title="Writes the line of a step." alt="" coords="424,31,570,58"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="371,57,411,55,405,56,371,63"/>
+<area shape="rect" id="Node000008" href="$namespaceTeleInfo.html#ad667795b4250f603604afc9b30c0a017" title="The number of steps of a frame: one per line, invalid temperatures included (they write nothing)." alt="" coords="419,83,574,110"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="371,79,406,86,401,86,371,85"/>
+<area shape="rect" id="Node000004" href="$namespaceTeleInfo.html#af4144be70a1141bccb67583aa9730635" title="Writes the line of a signed value." alt="" coords="653,5,757,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="570,33,640,27,634,28,570,38"/>
+<area shape="rect" id="Node000007" href="$namespaceTeleInfo.html#a17cf541f513ec089af6363fb0cc75769" title="Writes the line of an unsigned value (above 32767, line() would wrap)." alt="" coords="622,57,788,85"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="570,51,610,59,604,59,570,56"/>
+<area shape="rect" id="Node000005" href="$namespaceTeleInfo.html#ab851b8161d4b41b2b4898e46f38b64e0" title="Writes a whole line: LF, tag and index, TAB, value, TAB, checksum and CR." alt="" coords="836,32,976,60"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="757,23,823,35,818,35,757,29"/>
+<area shape="rect" id="Node000006" href="$namespaceTeleInfo.html#ae66100e613f030a8bb86f56d9b509a84" title="Writes the decimal digits of a 16&#45;bit value." alt="" coords="1024,32,1175,60"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="976,43,1011,46,1006,46,976,48"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="788,58,818,57,823,56,788,63"/>
+</map>

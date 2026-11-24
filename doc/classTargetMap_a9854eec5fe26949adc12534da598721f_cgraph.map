@@ -1,0 +1,20 @@
+<map id="TargetMap::groupMask" name="TargetMap::groupMask">
+<area shape="rect" id="Node000001" title="The pins of an ALL_...() code: local pins in the lower 16 bits, remote loads from bit 16." alt="" coords="5,107,175,134"/>
+<area shape="rect" id="Node000002" href="$utils__override_8h.html#aece58b485056402b91be81d615714b28" title="Bitmask of the pins of every local load (lower 16 bits)." alt="" coords="246,55,372,82"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,103,235,85,230,88,152,109"/>
+<area shape="rect" id="Node000006" href="$classTargetMap.html#ad6d586a59f62a8465c7fcf25d31bd4ac" title="The pins of the relays, none without relay diversion." alt="" coords="223,107,395,134"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="175,118,210,120,204,121,175,123"/>
+<area shape="rect" id="Node000007" href="$utils__override_8h.html#a13662843c76f975c9c66890fe7659d91" title="Bitmask of every remote load (bit 16 + remote rank)." alt="" coords="238,159,380,186"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="152,132,235,154,230,155,151,138"/>
+<area shape="rect" id="Node000003" href="$utils__bits_8h.html#a23ed26b879b65f5ddf07facc1e4b18bc" title="Set the specified bit to 1." alt="" coords="503,107,568,134"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="372,80,490,109,485,110,372,86"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="676,108,782,136"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="371,68,491,75,629,93,669,103,663,103,628,98,491,81,372,73"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="488,5,583,33"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="371,52,475,32,470,34,373,57"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="395,118,490,120,485,121,396,123"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="372,155,485,132,490,131,373,161"/>
+<area shape="rect" id="Node000008" href="$namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557" title="Number of entries of the map that are driven remotely." alt="" coords="443,159,628,186"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="380,170,430,172,424,173,380,175"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="591,155,659,140,664,139,592,161"/>
+</map>

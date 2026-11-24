@@ -1,0 +1,9 @@
+<map id="TempSchedule::roundCycles" name="TempSchedule::roundCycles">
+<area shape="rect" id="Node000001" title="The mains cycles of a round on time: from the conversion to the last CLOSE." alt="" coords="554,14,758,42"/>
+<area shape="rect" id="Node000002" href="$namespaceTempSchedule.html#aa02ca0a1229825d06ab688b54c15dcf8" title="Whether a round ends within its datalog period." alt="" coords="310,14,506,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="536,28,507,30,507,25,541,28"/>
+<area shape="rect" id="Node000003" href="$native_2test__temp__schedule_2test__main_8cpp.html#ab199d16a4a93bed03d4049a9e1b3385c" title=" " alt="" coords="108,5,262,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="292,28,263,30,262,25,297,28"/>
+<area shape="rect" id="Node000004" href="$native_2test__temp__schedule_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,14,60,42"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="90,29,60,30,60,25,95,27"/>
+</map>

@@ -1,4 +1,27 @@
 var searchData=
 [
-  ['simplerng_0',['SimpleRNG',['../classSimpleRNG.html',1,'']]]
+  ['recordingradio_0',['RecordingRadio',['../structRecordingRadio.html',1,'']]],
+  ['reference_1',['Reference',['../classReference.html',1,'']]],
+  ['relay_2',['Relay',['../classRelayLogic_1_1Relay.html',1,'RelayLogic']]],
+  ['relay_3c_20relaypinoutput_20_3e_3',['Relay&lt; RelayPinOutput &gt;',['../classRelayLogic_1_1Relay.html',1,'RelayLogic']]],
+  ['relaydiverter_4',['RelayDiverter',['../classRelayDiverter.html',1,'']]],
+  ['relayengine_5',['RelayEngine',['../classRelayEngine.html',1,'']]],
+  ['relayengine_3c_20nr_2c_20d_20_3e_6',['RelayEngine&lt; NR, D &gt;',['../classRelayEngine.html',1,'']]],
+  ['relayoutput_7',['relayOutput',['../classrelayOutput.html',1,'']]],
+  ['relaypinoutput_8',['RelayPinOutput',['../structRelayPinOutput.html',1,'']]],
+  ['relaysetting_9',['RelaySetting',['../structRelaySetting.html',1,'']]],
+  ['remoteloadcore_10',['RemoteLoadCore',['../classRemoteLoadCore.html',1,'']]],
+  ['remoteunitstate_11',['RemoteUnitState',['../structRemoteUnitState.html',1,'']]],
+  ['remove_5fconst_12',['remove_const',['../structremove__const.html',1,'']]],
+  ['remove_5fconst_3c_20const_20t_20_3e_13',['remove_const&lt; const T &gt;',['../structremove__const_3_01const_01T_01_4.html',1,'']]],
+  ['remove_5fcv_14',['remove_cv',['../structremove__cv.html',1,'']]],
+  ['remove_5fcv_3c_20const_20t_20_3e_15',['remove_cv&lt; const T &gt;',['../structremove__cv_3_01const_01T_01_4.html',1,'']]],
+  ['remove_5fcv_3c_20const_20volatile_20t_20_3e_16',['remove_cv&lt; const volatile T &gt;',['../structremove__cv_3_01const_01volatile_01T_01_4.html',1,'']]],
+  ['remove_5fcv_3c_20volatile_20t_20_3e_17',['remove_cv&lt; volatile T &gt;',['../structremove__cv_3_01volatile_01T_01_4.html',1,'']]],
+  ['remove_5freference_18',['remove_reference',['../structremove__reference.html',1,'']]],
+  ['remove_5freference_3c_20t_20_26_20_3e_19',['remove_reference&lt; T &amp; &gt;',['../structremove__reference_3_01T_01_6_01_4.html',1,'']]],
+  ['robin_20',['Robin',['../structRobin.html',1,'']]],
+  ['romsearch_21',['RomSearch',['../classRomSearch.html',1,'']]],
+  ['rotationgroups_22',['RotationGroups',['../classRotationGroups.html',1,'']]],
+  ['rotationgroups_3c_200_2c_20maxpins_20_3e_23',['RotationGroups&lt; 0, MaxPins &gt;',['../classRotationGroups_3_010_00_01MaxPins_01_4.html',1,'']]]
 ];

@@ -1,0 +1,7 @@
+<map id="test_release_once_then_no_edge" name="test_release_once_then_no_edge">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,181,50"/>
+<area shape="rect" id="Node000002" href="$pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="229,14,342,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,25,216,27,210,28,181,30"/>
+<area shape="rect" id="Node000003" href="$pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="390,14,470,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="342,25,377,28,372,28,343,30"/>
+</map>

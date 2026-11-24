@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['load_0',['Load',['../namespaceLoad.html',1,'']]]
+  ['ctfilter_0',['CtFilter',['../namespaceCtFilter.html',1,'']]]
 ];

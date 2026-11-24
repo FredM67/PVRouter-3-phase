@@ -1,0 +1,11 @@
+<map id="reportBenchmark" name="reportBenchmark">
+<area shape="rect" id="Node000001" title="Reports benchmark results to Serial." alt="" coords="5,57,140,85"/>
+<area shape="rect" id="Node000002" href="$bench__report_8h.html#a57834612f707a5be015f1b63df8f6f8b" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="188,57,278,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,69,174,70,169,72,141,74"/>
+<area shape="rect" id="Node000003" href="$bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="330,5,427,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="273,54,321,39,326,38,275,59"/>
+<area shape="rect" id="Node000004" href="$bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="333,57,424,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="278,69,320,71,315,72,279,74"/>
+<area shape="rect" id="Node000005" href="$bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="326,109,431,137"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="274,83,326,104,321,104,274,88"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="ScheduledBoosts&lt; N, MaxPins &gt;" name="ScheduledBoosts&lt; N, MaxPins &gt;">
+<area shape="rect" id="Node000001" title="The scheduled boosts, as in config.h: each window with the targets it forces." alt="" coords="5,5,167,50"/>
+<area shape="rect" id="Node000002" href="$classScheduledBoosts_3_010_00_01MaxPins_01_4.html" title="No boost at all." alt="" coords="6,115,166,160"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,64,89,115,83,114,84,68"/>
+</map>

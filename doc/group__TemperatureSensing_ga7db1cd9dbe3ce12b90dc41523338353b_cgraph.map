@@ -1,0 +1,5 @@
+<map id="processTemperatureData" name="processTemperatureData">
+<area shape="rect" id="Node000001" title="Processes temperature data from DS18B20 sensors." alt="" coords="5,5,190,33"/>
+<area shape="rect" id="Node000002" href="$group__TemperatureSensing.html#ga3a97244f1558e94cb1fe9d0190fea8af" title="Runs the 1&#45;Wire transaction of this mains cycle, if any." alt="" coords="238,5,436,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,17,225,19,219,19,190,22"/>
+</map>

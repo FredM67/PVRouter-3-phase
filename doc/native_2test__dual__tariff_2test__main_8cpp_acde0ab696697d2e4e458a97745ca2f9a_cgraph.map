@@ -1,0 +1,7 @@
+<map id="test_a_start_before_the_period_wraps_to_a_large_value" name="test_a_start_before_the_period_wraps_to_a_large_value">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,15,169,77"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#a1443b40bba36a2678456b87bae0ba5e1" title="A start m before the end of the off&#45;peak period." alt="" coords="217,5,325,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,31,204,29,199,30,169,37"/>
+<area shape="rect" id="Node000003" href="$config__types_8h.html#a29ce77d1007e49cacadbead00f25d579" title="A boost lasting m." alt="" coords="247,57,295,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="169,54,234,66,229,66,169,60"/>
+</map>

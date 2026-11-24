@@ -1,0 +1,45 @@
+<map id="trackPinEdges" name="trackPinEdges">
+<area shape="rect" id="Node000001" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="766,307,879,334"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="573,83,682,110"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="812,291,799,254,780,209,752,163,716,124,700,114,683,107,682,102,702,109,719,120,756,160,784,206,804,253,816,293"/>
+<area shape="rect" id="Node000010" href="$native_2test__pin__edges_2test__main_8cpp.html#a09bf2ef752132d4b33871e7773736ffe" title=" " alt="" coords="540,324,715,386"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="748,334,716,342,715,337,753,333"/>
+<area shape="rect" id="Node000012" href="$native_2test__pin__edges_2test__main_8cpp.html#a7e976742f83966ef5b555097e8c077e4" title=" " alt="" coords="549,410,706,455"/>
+<area shape="poly" id="edge15_Node000001_Node000012" title=" " alt="" coords="796,343,760,374,719,400,695,412,693,407,716,396,757,369,791,346"/>
+<area shape="rect" id="Node000013" href="$native_2test__pin__edges_2test__main_8cpp.html#ade7d0b53abd617e6db72905ddd3aad1f" title=" " alt="" coords="553,480,702,524"/>
+<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="810,347,774,409,749,441,719,469,700,481,698,476,716,465,745,438,770,406,806,350"/>
+<area shape="rect" id="Node000014" href="$native_2test__pin__edges_2test__main_8cpp.html#a3c16fda10c2388b8c72bd776eca6defd" title=" " alt="" coords="546,549,709,594"/>
+<area shape="poly" id="edge19_Node000001_Node000014" title=" " alt="" coords="816,348,805,392,785,442,757,493,719,538,702,551,701,546,716,535,753,490,780,439,800,390,812,351"/>
+<area shape="rect" id="Node000015" href="$native_2test__pin__edges_2test__main_8cpp.html#a8abeffa6dc135beeeb0351b4806ef377" title=" " alt="" coords="556,134,699,179"/>
+<area shape="poly" id="edge21_Node000001_Node000015" title=" " alt="" coords="802,292,767,243,743,217,716,193,698,182,698,177,719,189,747,213,771,240,808,293"/>
+<area shape="rect" id="Node000016" href="$native_2test__pin__edges_2test__main_8cpp.html#aaf5a3cf88ec9a1d0542924f0f644778e" title=" " alt="" coords="540,204,715,248"/>
+<area shape="poly" id="edge23_Node000001_Node000016" title=" " alt="" coords="783,298,716,263,691,251,691,246,719,258,789,298"/>
+<area shape="rect" id="Node000017" href="$native_2test__pin__edges_2test__main_8cpp.html#a7f86477200ada5fe43fb72da81d9c585" title=" " alt="" coords="537,272,718,300"/>
+<area shape="poly" id="edge25_Node000001_Node000017" title=" " alt="" coords="748,308,709,303,709,298,753,307"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="332,109,478,137"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="555,106,479,117,477,112,560,104"/>
+<area shape="rect" id="Node000007" href="$group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="358,161,452,189"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="556,116,538,124,515,137,490,151,454,164,451,160,488,146,512,133,536,119,560,113"/>
+<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,57,489,85"/>
+<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="555,90,491,83,489,78,560,88"/>
+<area shape="rect" id="Node000009" href="$group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="324,5,486,33"/>
+<area shape="poly" id="edge11_Node000002_Node000009" title=" " alt="" coords="572,77,488,48,453,36,452,31,490,43,577,76"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,71,272,98"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="314,109,270,101,268,96,319,106"/>
+<area shape="rect" id="Node000006" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="159,136,216,164"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="314,136,218,149,215,144,318,132"/>
+<area shape="rect" id="Node000005" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,71,55,98"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="85,86,57,87,53,82,89,83"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="340,158,319,151,271,127,219,101,218,96,273,122,321,146,345,156"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="340,170,217,156,215,151,345,166"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="302,79,274,82,271,77,307,76"/>
+<area shape="poly" id="edge12_Node000009_Node000004" title=" " alt="" coords="340,40,238,72,235,68,343,36"/>
+<area shape="rect" id="Node000011" href="$native_2test__pin__edges_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="378,341,432,369"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="522,356,433,358,432,353,527,354"/>
+<area shape="poly" id="edge16_Node000012_Node000011" title=" " alt="" coords="544,405,432,367,432,362,549,404"/>
+<area shape="poly" id="edge18_Node000013_Node000011" title=" " alt="" coords="544,472,536,469,500,445,467,418,419,372,420,367,471,414,504,441,539,465,549,473"/>
+<area shape="poly" id="edge20_Node000014_Node000011" title=" " alt="" coords="541,540,536,539,492,497,456,449,412,372,414,367,460,446,496,493,539,534,546,542"/>
+<area shape="poly" id="edge22_Node000015_Node000011" title=" " alt="" coords="542,188,539,193,498,230,463,272,416,343,412,339,458,269,494,226,536,189,546,185"/>
+<area shape="poly" id="edge24_Node000016_Node000011" title=" " alt="" coords="546,256,539,263,474,304,424,343,421,339,471,300,536,258,550,254"/>
+<area shape="poly" id="edge26_Node000017_Node000011" title=" " alt="" coords="560,306,538,315,433,349,431,344,537,310,565,304"/>
+</map>

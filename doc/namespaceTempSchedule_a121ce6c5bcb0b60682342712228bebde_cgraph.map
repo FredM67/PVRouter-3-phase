@@ -1,0 +1,5 @@
+<map id="TempSchedule::roundCycles" name="TempSchedule::roundCycles">
+<area shape="rect" id="Node000001" title="The mains cycles of a round on time: from the conversion to the last CLOSE." alt="" coords="5,14,209,42"/>
+<area shape="rect" id="Node000002" href="$namespaceTempSchedule.html#a0356a338801144f1af30252869624d3c" title="The mains cycles from the conversion to the first read." alt="" coords="257,5,451,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="209,25,244,27,239,28,209,30"/>
+</map>

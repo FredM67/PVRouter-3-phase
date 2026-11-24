@@ -1,0 +1,5 @@
+<map id="targetsAreRemoteLoads" name="targetsAreRemoteLoads">
+<area shape="rect" id="Node000001" title="Each REMOTE_LOAD(n) target of an entry of list must be an existing remote load." alt="" coords="228,14,406,42"/>
+<area shape="rect" id="Node000002" href="$validation_8h.html#ae1df6b53bb219de54ee6ea79ee4e1f81" title="Each REMOTE_LOAD(n) target of an override pin must be an existing remote load." alt="" coords="5,5,180,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="210,28,180,30,180,25,215,27"/>
+</map>

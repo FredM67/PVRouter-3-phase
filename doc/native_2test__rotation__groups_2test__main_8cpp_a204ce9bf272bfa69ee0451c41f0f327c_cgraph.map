@@ -1,0 +1,9 @@
+<map id="test_loads_of_pin_is_the_local_load_on_it" name="test_loads_of_pin_is_the_local_load_on_it">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,167,68"/>
+<area shape="rect" id="Node000002" href="$namespaceRotation.html#a36513c8eb5ac373cec0e77e69744cac5" title="The loads a target code stands for, by load number." alt="" coords="215,32,349,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,43,202,45,197,46,167,48"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="397,5,502,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="349,33,379,30,385,29,350,38"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="402,57,497,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="350,53,389,62,384,62,349,59"/>
+</map>

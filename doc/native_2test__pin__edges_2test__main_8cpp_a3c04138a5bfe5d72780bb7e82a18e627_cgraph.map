@@ -1,0 +1,45 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,392,60,420"/>
+<area shape="rect" id="Node000002" href="$native_2test__pin__edges_2test__main_8cpp.html#a09bf2ef752132d4b33871e7773736ffe" title=" " alt="" coords="110,160,286,221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="34,391,41,359,55,317,76,272,106,231,110,229,108,234,110,235,81,275,60,319,46,361,39,392"/>
+<area shape="rect" id="Node000007" href="$native_2test__pin__edges_2test__main_8cpp.html#a5816ec4b6f770058cb653265be3bd9ea" title=" " alt="" coords="336,487,528,531"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="34,418,38,463,47,521,56,552,69,581,86,607,109,628,132,643,153,651,174,656,194,656,236,646,287,628,321,611,352,589,401,545,406,542,355,593,324,616,289,633,238,651,194,661,173,661,152,657,130,647,106,632,82,610,64,583,51,554,42,522,32,464,33,423"/>
+<area shape="rect" id="Node000008" href="$native_2test__pin__edges_2test__main_8cpp.html#a7e976742f83966ef5b555097e8c077e4" title=" " alt="" coords="120,245,276,290"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="38,391,64,347,83,322,106,300,115,296,112,301,109,304,87,326,69,350,43,393"/>
+<area shape="rect" id="Node000009" href="$native_2test__pin__edges_2test__main_8cpp.html#ade7d0b53abd617e6db72905ddd3aad1f" title=" " alt="" coords="123,315,272,359"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="58,392,107,369,124,364,120,368,109,374,62,395"/>
+<area shape="rect" id="Node000010" href="$native_2test__pin__edges_2test__main_8cpp.html#a9c6a5366f88031fc8ffb7ebba4eb9731" title=" " alt="" coords="113,5,282,50"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="32,392,40,323,54,224,76,127,90,88,106,61,111,58,108,63,110,64,95,90,81,128,60,225,45,324,38,392"/>
+<area shape="rect" id="Node000011" href="$native_2test__pin__edges_2test__main_8cpp.html#af876365a0de1e7dd3395238311caec62" title=" " alt="" coords="357,641,507,686"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="36,418,47,475,62,549,83,619,96,645,109,662,135,677,164,689,193,696,224,699,286,697,341,690,346,690,286,702,224,704,193,701,162,694,133,682,106,666,91,648,78,621,57,550,42,476,36,423"/>
+<area shape="rect" id="Node000012" href="$native_2test__pin__edges_2test__main_8cpp.html#a3c16fda10c2388b8c72bd776eca6defd" title=" " alt="" coords="117,384,279,429"/>
+<area shape="poly" id="edge17_Node000001_Node000012" title=" " alt="" coords="59,404,103,404,99,408,62,409"/>
+<area shape="rect" id="Node000013" href="$native_2test__pin__edges_2test__main_8cpp.html#a8abeffa6dc135beeeb0351b4806ef377" title=" " alt="" coords="126,453,270,498"/>
+<area shape="poly" id="edge19_Node000001_Node000013" title=" " alt="" coords="60,417,109,439,125,446,120,448,107,443,61,422"/>
+<area shape="rect" id="Node000014" href="$native_2test__pin__edges_2test__main_8cpp.html#aaf5a3cf88ec9a1d0542924f0f644778e" title=" " alt="" coords="110,523,286,567"/>
+<area shape="poly" id="edge21_Node000001_Node000014" title=" " alt="" coords="40,418,69,463,87,487,109,508,116,514,111,515,106,512,83,491,64,466,41,423"/>
+<area shape="rect" id="Node000015" href="$native_2test__pin__edges_2test__main_8cpp.html#af19dc2bc34b1382e82ffa7646342a271" title=" " alt="" coords="117,74,278,136"/>
+<area shape="poly" id="edge23_Node000001_Node000015" title=" " alt="" coords="31,392,34,346,45,282,67,211,84,177,106,146,110,144,108,149,110,149,89,179,72,213,50,283,40,347,37,392"/>
+<area shape="rect" id="Node000016" href="$native_2test__pin__edges_2test__main_8cpp.html#a7f86477200ada5fe43fb72da81d9c585" title=" " alt="" coords="108,591,288,619"/>
+<area shape="poly" id="edge26_Node000001_Node000016" title=" " alt="" coords="36,418,45,452,58,495,79,540,93,560,109,578,114,582,109,583,106,582,88,563,74,542,53,497,40,454,36,423"/>
+<area shape="rect" id="Node000003" href="$pin__edges_8h.html#a817c8abf26d0b5dff72b46a2b910c06f" title="Tells whether the rotation pin asks for a rotation now." alt="" coords="354,91,510,119"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="283,157,380,123,376,126,286,161"/>
+<area shape="rect" id="Node000005" href="$pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="376,392,489,420"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="271,219,290,231,329,267,364,307,417,379,411,379,360,310,325,271,286,235,272,224"/>
+<area shape="rect" id="Node000004" href="$structPinEdges.html#a8d666a88ac780603e6d26475bec567d6" title="it went LOW since the previous reading" alt="" coords="576,91,716,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="510,103,563,104,559,106,512,107"/>
+<area shape="rect" id="Node000006" href="$pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="606,392,686,420"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="488,404,593,405,588,407,490,409"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="479,484,599,429,604,426,482,489"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="263,288,289,300,352,340,405,382,400,383,349,345,287,305,264,293"/>
+<area shape="poly" id="edge11_Node000009_Node000005" title=" " alt="" coords="273,356,371,386,366,389,273,362"/>
+<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="267,48,376,84,371,87,269,53"/>
+<area shape="poly" id="edge14_Node000010_Node000006" title=" " alt="" coords="282,16,343,16,408,24,473,43,503,58,530,78,562,110,587,148,607,189,622,232,640,314,646,378,641,376,634,314,617,234,602,191,583,151,558,114,527,82,500,63,471,48,407,29,342,22,284,21"/>
+<area shape="poly" id="edge16_Node000011_Node000006" title=" " alt="" coords="450,639,621,433,626,432,454,643"/>
+<area shape="poly" id="edge18_Node000012_Node000005" title=" " alt="" coords="279,404,362,405,357,408,280,409"/>
+<area shape="poly" id="edge20_Node000013_Node000005" title=" " alt="" coords="269,452,370,424,366,427,271,457"/>
+<area shape="poly" id="edge22_Node000014_Node000005" title=" " alt="" coords="263,520,287,508,311,491,334,472,396,431,400,428,338,476,314,496,289,513,265,524"/>
+<area shape="poly" id="edge24_Node000015_Node000003" title=" " alt="" coords="278,103,341,103,337,107,280,107"/>
+<area shape="poly" id="edge25_Node000015_Node000006" title=" " alt="" coords="267,134,289,145,386,208,479,274,618,382,613,383,476,278,383,212,287,150,268,139"/>
+<area shape="poly" id="edge27_Node000016_Node000005" title=" " alt="" coords="270,588,286,578,305,553,312,529,318,502,334,473,360,447,388,430,393,427,364,451,338,476,323,504,317,530,310,556,290,582,272,593"/>
+</map>

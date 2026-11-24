@@ -1,0 +1,17 @@
+<map id="test_a_surplus_brings_every_load_on_then_its_end_every_load_off" name="test_a_surplus_brings_every_load_on_then_its_end_every_load_off">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,70,188,131"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="299,5,354,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,67,286,32,282,35,187,71"/>
+<area shape="rect" id="Node000003" href="$namespaceLoadPriorities.html#a36125f3d6722a8bc0307afc39deee588" title="The next logical load to switch ON: the first one OFF, in priority order." alt="" coords="709,87,895,114"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="188,94,236,93,441,90,646,93,696,96,691,97,646,98,441,95,236,98,189,99"/>
+<area shape="rect" id="Node000004" href="$namespaceLoadPriorities.html#a1258efcfb93fd5721c9b43d3711daa58" title="The next logical load to switch OFF: the last one ON, in priority order." alt="" coords="694,215,910,242"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="161,129,237,162,349,205,399,219,465,231,516,236,555,236,646,231,676,233,682,233,646,236,555,241,516,242,465,236,398,224,347,210,235,167,160,135"/>
+<area shape="rect" id="Node000005" href="$structLoadPriorities_1_1Switching.html#a7d79ced5e64eedf2731796d021807a9b" title="The decision of one mains cycle: may switch one load ON or OFF." alt="" coords="236,108,417,152"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="188,110,223,116,218,117,189,115"/>
+<area shape="rect" id="Node000006" href="$structLoadPriorities_1_1Switching.html#acf8c0c8a19301b3d209ae5bbb363359b" title="The energy level is high: may switch the next load ON." alt="" coords="465,108,646,152"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="417,127,452,129,447,130,418,132"/>
+<area shape="rect" id="Node000007" href="$structLoadPriorities_1_1Switching.html#a8cb972b6750de408b20de11579739d3c" title="The energy level is low: may switch the last load ON to OFF." alt="" coords="465,177,646,222"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="403,150,468,172,462,172,402,155"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="646,116,696,113,691,114,647,122"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="647,207,681,214,676,214,647,213"/>
+</map>

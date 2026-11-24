@@ -6,7 +6,7 @@
 <area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="701,82,631,95,631,90,696,83"/>
 <area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,5,489,33"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="519,34,490,33,490,27,525,34"/>
-<area shape="rect" id="Node000006" href="$group__GeneralProcessing.html#gabe8c38238f5014c09e788c833b50af5e" title="Handles load priority rotation." alt="" coords="324,57,486,85"/>
+<area shape="rect" id="Node000006" href="$group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="324,57,486,85"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="525,55,487,63,486,57,519,56"/>
 <area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,32,272,60"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="302,32,273,38,272,33,307,31"/>

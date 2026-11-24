@@ -86,100 +86,84 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classRelayEngine-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">RelayEngine&lt; N, D &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__RelayDiversion.html">Relay diversion feature</a></div></div></div>
+  <div class="headertitle"><div class="title">RelayEngine&lt; N, D &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Manages a collection of relays and their behavior based on surplus and import thresholds.  
+<p>The relays, as in <a class="el" href="config_8h.html" title="Router configuration: loads, relays, control pins and features.">config.h</a>: the sliding average and the settings of each relay.  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="config__types_8h_source.html">config_types.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for RelayEngine&lt; N, D &gt;:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRelayEngine__inherit__graph.png" border="0" usemap="#aRelayEngine_3_01N_00_01D_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="aRelayEngine_3_01N_00_01D_01_4_inherit__map" id="aRelayEngine_3_01N_00_01D_01_4_inherit__map">
+<area shape="rect" title="The relays, as in config.h: the sliding average and the settings of each relay." alt="" coords="10,5,170,33"/>
+<area shape="rect" href="classRelayEngine.html" title=" " alt="" coords="5,98,175,126"/>
+<area shape="poly" title=" " alt="" coords="92,47,93,98,87,97,88,50"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for RelayEngine&lt; N, D &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classRelayEngine__coll__graph.png" border="0" usemap="#aRelayEngine_3_01N_00_01D_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="aRelayEngine_3_01N_00_01D_01_4_coll__map" id="aRelayEngine_3_01N_00_01D_01_4_coll__map">
-<area shape="rect" title="Manages a collection of relays and their behavior based on surplus and import thresholds." alt="" coords="8,225,168,252"/>
-<area shape="rect" href="classrelayOutput.html" title="Represents a single relay configuration and its behavior." alt="" coords="5,124,104,151"/>
-<area shape="poly" title=" " alt="" coords="66,164,86,225,81,225,62,168"/>
-<area shape="rect" href="classEWMA__average.html" title=" " alt="" coords="128,115,376,160"/>
-<area shape="poly" title=" " alt="" coords="206,169,111,226,108,222,201,167"/>
-<area shape="rect" href="classEWMA__average.html" title="Implements an Exponentially Weighted Moving Average (EWMA)." alt="" coords="171,5,333,33"/>
-<area shape="poly" title=" " alt="" coords="253,46,254,115,249,114,250,51"/>
+<area shape="rect" title="The relays, as in config.h: the sliding average and the settings of each relay." alt="" coords="5,98,166,126"/>
+<area shape="rect" href="structRelaySetting.html" title="The settings of one relay, as in config.h: { pin, surplus, import, minON, minOFF }..." alt="" coords="33,5,138,33"/>
+<area shape="poly" title=" " alt="" coords="88,47,88,98,83,97,83,50"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa834d2148c13bbf4c63f949033746ecd" id="r_aa834d2148c13bbf4c63f949033746ecd"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa834d2148c13bbf4c63f949033746ecd">RelayEngine</a> (const <a class="el" href="classrelayOutput.html">relayOutput</a>(&amp;ref)[N])</td></tr>
-<tr class="memdesc:aa834d2148c13bbf4c63f949033746ecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a list of relays.  <br /></td></tr>
-<tr class="separator:aa834d2148c13bbf4c63f949033746ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0a05e724c1a60c40c638e350b861b88" id="r_af0a05e724c1a60c40c638e350b861b88"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0a05e724c1a60c40c638e350b861b88">RelayEngine</a> (<a class="el" href="structintegral__constant.html">integral_constant</a>&lt; uint8_t, D &gt;, const <a class="el" href="classrelayOutput.html">relayOutput</a>(&amp;ref)[N])</td></tr>
-<tr class="memdesc:af0a05e724c1a60c40c638e350b861b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a list of relays with a custom sliding average.  <br /></td></tr>
-<tr class="separator:af0a05e724c1a60c40c638e350b861b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a981b20422ed19d2aa87d042c583173ee" id="r_a981b20422ed19d2aa87d042c583173ee"><td class="memItemLeft" align="right" valign="top">constexpr const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a981b20422ed19d2aa87d042c583173ee">get_relay</a> (uint8_t idx) const</td></tr>
-<tr class="memdesc:a981b20422ed19d2aa87d042c583173ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the relay object.  <br /></td></tr>
-<tr class="separator:a981b20422ed19d2aa87d042c583173ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f831b566b2da140a17333ab6a39e5dc" id="r_a4f831b566b2da140a17333ab6a39e5dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f831b566b2da140a17333ab6a39e5dc">inc_duration</a> () const</td></tr>
-<tr class="memdesc:a4f831b566b2da140a17333ab6a39e5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment the duration's state of each relay.  <br /></td></tr>
-<tr class="separator:a4f831b566b2da140a17333ab6a39e5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae27586afc10fc74876b2d647d05536ba" id="r_ae27586afc10fc74876b2d647d05536ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae27586afc10fc74876b2d647d05536ba">printRelayEngineConfiguration</a> () const</td></tr>
-<tr class="memdesc:ae27586afc10fc74876b2d647d05536ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the configuration of each relay.  <br /></td></tr>
-<tr class="separator:ae27586afc10fc74876b2d647d05536ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9276daf7f89b58d06e0b03253493416b" id="r_a9276daf7f89b58d06e0b03253493416b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9276daf7f89b58d06e0b03253493416b">proceed_relays</a> (const uint16_t overrideBitmask, const bool diversionEnabled=true) const</td></tr>
-<tr class="memdesc:a9276daf7f89b58d06e0b03253493416b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed all relays in increasing order (surplus) or decreasing order (import).  <br /></td></tr>
-<tr class="separator:a9276daf7f89b58d06e0b03253493416b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa92cbba2dda5fcbda87efb068162c4bc" id="r_aa92cbba2dda5fcbda87efb068162c4bc"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa92cbba2dda5fcbda87efb068162c4bc">size</a> () const</td></tr>
-<tr class="memdesc:aa92cbba2dda5fcbda87efb068162c4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of relays.  <br /></td></tr>
-<tr class="separator:aa92cbba2dda5fcbda87efb068162c4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b843e1752b7f570956e11084cdf8c79" id="r_a5b843e1752b7f570956e11084cdf8c79"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b843e1752b7f570956e11084cdf8c79">RelayEngine</a> (const <a class="el" href="structRelaySetting.html">RelaySetting</a>(&amp;ref)[N])</td></tr>
+<tr class="memdesc:a5b843e1752b7f570956e11084cdf8c79"><td class="mdescLeft">&#160;</td><td class="mdescRight">The relays, with the default sliding average.  <br /></td></tr>
+<tr class="separator:a5b843e1752b7f570956e11084cdf8c79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a073d0aa851e4d71b8653c8eab7f5b887" id="r_a073d0aa851e4d71b8653c8eab7f5b887"><td class="memTemplParams" colspan="2">template&lt;uint16_t V&gt; </td></tr>
+<tr class="memitem:a073d0aa851e4d71b8653c8eab7f5b887"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a073d0aa851e4d71b8653c8eab7f5b887">RelayEngine</a> (<a class="el" href="structintegral__constant.html">integral_constant</a>&lt; uint16_t, V &gt;, const <a class="el" href="structRelaySetting.html">RelaySetting</a>(&amp;ref)[N])</td></tr>
+<tr class="memdesc:a073d0aa851e4d71b8653c8eab7f5b887"><td class="mdescLeft">&#160;</td><td class="mdescRight">The relays, with a sliding average given with <a class="el" href="type__traits_8hpp.html#a1ff3cad1c24da56b3ff84a8c39db99d7" title="A compile-time number of minutes, as an integral_constant.">MINUTES()</a>.  <br /></td></tr>
+<tr class="separator:a073d0aa851e4d71b8653c8eab7f5b887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adedbe71032561bb81568457656ad3f25" id="r_adedbe71032561bb81568457656ad3f25"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adedbe71032561bb81568457656ad3f25">RelayEngine</a> (<a class="el" href="structintegral__constant.html">integral_constant</a>&lt; uint8_t, D &gt;, const <a class="el" href="structRelaySetting.html">RelaySetting</a>(&amp;ref)[N])</td></tr>
+<tr class="memdesc:adedbe71032561bb81568457656ad3f25"><td class="mdescLeft">&#160;</td><td class="mdescRight">The relays, with a sliding average given as an <a class="el" href="structintegral__constant.html">integral_constant&lt; uint8_t &gt;</a>.  <br /></td></tr>
+<tr class="separator:adedbe71032561bb81568457656ad3f25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac7060db6dbefb2b9f0a474f01c4ed3f" id="r_aac7060db6dbefb2b9f0a474f01c4ed3f"><td class="memItemLeft" align="right" valign="top">constexpr const <a class="el" href="structRelaySetting.html">RelaySetting</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac7060db6dbefb2b9f0a474f01c4ed3f">get_relay</a> (const uint8_t idx) const</td></tr>
+<tr class="memdesc:aac7060db6dbefb2b9f0a474f01c4ed3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The settings of relay <code class="param">idx</code>.  <br /></td></tr>
+<tr class="separator:aac7060db6dbefb2b9f0a474f01c4ed3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0560ef5dd22363f805946013cb0d6338" id="r_a0560ef5dd22363f805946013cb0d6338"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0560ef5dd22363f805946013cb0d6338">size</a> () const</td></tr>
+<tr class="memdesc:a0560ef5dd22363f805946013cb0d6338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of relays.  <br /></td></tr>
+<tr class="separator:a0560ef5dd22363f805946013cb0d6338"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a2c586921b020480449159786461195aa" id="r_a2c586921b020480449159786461195aa"><td class="memItemLeft" align="right" valign="top">static auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c586921b020480449159786461195aa">get_average</a> ()</td></tr>
-<tr class="memdesc:a2c586921b020480449159786461195aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current average.  <br /></td></tr>
-<tr class="separator:a2c586921b020480449159786461195aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c8796258ac6cd4006a55c236c383287" id="r_a2c8796258ac6cd4006a55c236c383287"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c8796258ac6cd4006a55c236c383287">update_average</a> (int16_t currentPower)</td></tr>
-<tr class="memdesc:a2c8796258ac6cd4006a55c236c383287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the sliding average.  <br /></td></tr>
-<tr class="separator:a2c8796258ac6cd4006a55c236c383287"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a454d76a754a8600f1abe4b9f3971d604" id="r_a454d76a754a8600f1abe4b9f3971d604"><td class="memTemplParams" colspan="2">template&lt;uint8_t... I&gt; </td></tr>
+<tr class="memitem:a454d76a754a8600f1abe4b9f3971d604"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a454d76a754a8600f1abe4b9f3971d604">RelayEngine</a> (const <a class="el" href="structRelaySetting.html">RelaySetting</a>(&amp;ref)[N], <a class="el" href="structindex__sequence.html">index_sequence</a>&lt; I... &gt;)</td></tr>
+<tr class="separator:a454d76a754a8600f1abe4b9f3971d604"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a4771d7ed435411f4fd06dc480c1b1508" id="r_a4771d7ed435411f4fd06dc480c1b1508"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classrelayOutput.html">relayOutput</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4771d7ed435411f4fd06dc480c1b1508">relay</a> [N]</td></tr>
-<tr class="separator:a4771d7ed435411f4fd06dc480c1b1508"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62a753c9ea9c15e35211398fb155a971" id="r_a62a753c9ea9c15e35211398fb155a971"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62a753c9ea9c15e35211398fb155a971">settle_change</a> { 60 }</td></tr>
-<tr class="separator:a62a753c9ea9c15e35211398fb155a971"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a03a84f65f56f7e8bce137c967dfe7ebf" id="r_a03a84f65f56f7e8bce137c967dfe7ebf"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; D *60/<a class="el" href="config__system_8h.html#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03a84f65f56f7e8bce137c967dfe7ebf">ewma_average</a></td></tr>
-<tr class="separator:a03a84f65f56f7e8bce137c967dfe7ebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34a01c6136f8e04474cfcb30e6db8e60" id="r_a34a01c6136f8e04474cfcb30e6db8e60"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structRelaySetting.html">RelaySetting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34a01c6136f8e04474cfcb30e6db8e60">relay_</a> [N]</td></tr>
+<tr class="separator:a34a01c6136f8e04474cfcb30e6db8e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;uint8_t N, uint8_t D = 10&gt;<br />
-class RelayEngine&lt; N, D &gt;</div><p>Manages a collection of relays and their behavior based on surplus and import thresholds. </p>
-<p>The <code><a class="el" href="classRelayEngine.html" title="Manages a collection of relays and their behavior based on surplus and import thresholds.">RelayEngine</a></code> class provides functionality to manage multiple relays, including their initialization, state transitions, and configuration. It uses a sliding average to determine the current power state and adjusts the relays accordingly.</p>
+class RelayEngine&lt; N, D &gt;</div><p>The relays, as in <a class="el" href="config_8h.html" title="Router configuration: loads, relays, control pins and features.">config.h</a>: the sliding average and the settings of each relay. </p>
+<p><a class="el" href="classRelayDiverter.html" title="Manages a collection of relays and their behavior based on surplus and import thresholds.">RelayDiverter</a> (<a class="el" href="utils__relay_8h.html" title="Some utility functions for the relay output feature.">utils_relay.h</a>) is the engine built from them.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">N</td><td>The number of relays to be managed. </td></tr>
-    <tr><td class="paramname">D</td><td>The duration in minutes for the sliding average (default is 10 minutes).</td></tr>
+    <tr><td class="paramname">N</td><td>Number of relays. </td></tr>
+    <tr><td class="paramname">D</td><td>Duration of the sliding average, in minutes (RELAY_FILTER_DELAY). </td></tr>
   </table>
   </dd>
 </dl>
-<ul>
-<li><b>Relay Management</b>: Handles the state of multiple relays, turning them ON or OFF based on surplus and import thresholds.</li>
-<li><b>Sliding Average</b>: Uses an Exponentially Weighted Moving Average (EWMA) to calculate the average power over a configurable duration.</li>
-<li><b>State Transitions</b>: Ensures stable operation by enforcing minimum ON/OFF durations and a delay between state changes.</li>
-<li><b>Initialization</b>: Provides methods to initialize relay pins and print their configuration. </li>
-</ul>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00296">296</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00647">647</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa834d2148c13bbf4c63f949033746ecd" name="aa834d2148c13bbf4c63f949033746ecd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa834d2148c13bbf4c63f949033746ecd">&#9670;&#160;</a></span>RelayEngine() <span class="overload">[1/2]</span></h2>
+<a id="a5b843e1752b7f570956e11084cdf8c79" name="a5b843e1752b7f570956e11084cdf8c79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b843e1752b7f570956e11084cdf8c79">&#9670;&#160;</a></span>RelayEngine() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +176,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;<a class="el" href="classRelayEngine.html">::RelayEngine</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classrelayOutput.html">relayOutput</a>(&amp;)</td>          <td class="paramname"><span class="paramname"><em>ref</em></span>[N]</td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structRelaySetting.html">RelaySetting</a>(&amp;)</td>          <td class="paramname"><span class="paramname"><em>ref</em></span>[N]</td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -203,14 +187,36 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a list of relays. </p>
+<p>The relays, with the default sliding average. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00303">303</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00651">651</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRelayEngine_a5b843e1752b7f570956e11084cdf8c79_cgraph.png" border="0" usemap="#aclassRelayEngine_a5b843e1752b7f570956e11084cdf8c79_cgraph" alt=""/></div>
+<map name="aclassRelayEngine_a5b843e1752b7f570956e11084cdf8c79_cgraph" id="aclassRelayEngine_a5b843e1752b7f570956e11084cdf8c79_cgraph">
+<area shape="rect" title="The relays, with the default sliding average." alt="" coords="5,29,197,57"/>
+<area shape="poly" title=" " alt="" coords="68,28,62,20,67,11,80,5,101,3,124,5,137,14,132,14,122,10,101,8,81,10,71,15,68,20,73,29"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRelayEngine_a5b843e1752b7f570956e11084cdf8c79_icgraph.png" border="0" usemap="#aclassRelayEngine_a5b843e1752b7f570956e11084cdf8c79_icgraph" alt=""/></div>
+<map name="aclassRelayEngine_a5b843e1752b7f570956e11084cdf8c79_icgraph" id="aclassRelayEngine_a5b843e1752b7f570956e11084cdf8c79_icgraph">
+<area shape="rect" title="The relays, with the default sliding average." alt="" coords="245,32,436,60"/>
+<area shape="poly" title=" " alt="" coords="380,16,367,13,340,11,315,13,302,17,298,23,304,32,299,31,293,23,298,13,314,7,340,5,368,8,385,17"/>
+<area shape="rect" href="classRelayEngine.html#a073d0aa851e4d71b8653c8eab7f5b887" title="The relays, with a sliding average given with MINUTES()." alt="" coords="5,5,197,33"/>
+<area shape="poly" title=" " alt="" coords="226,34,197,33,197,27,232,33"/>
+<area shape="rect" href="classRelayEngine.html#adedbe71032561bb81568457656ad3f25" title="The relays, with a sliding average given as an integral_constant&lt; uint8_t &gt;." alt="" coords="5,57,197,85"/>
+<area shape="poly" title=" " alt="" coords="226,58,198,64,197,58,232,57"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="af0a05e724c1a60c40c638e350b861b88" name="af0a05e724c1a60c40c638e350b861b88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0a05e724c1a60c40c638e350b861b88">&#9670;&#160;</a></span>RelayEngine() <span class="overload">[2/2]</span></h2>
+<a id="adedbe71032561bb81568457656ad3f25" name="adedbe71032561bb81568457656ad3f25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adedbe71032561bb81568457656ad3f25">&#9670;&#160;</a></span>RelayEngine() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,7 +234,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classrelayOutput.html">relayOutput</a>(&amp;)</td>          <td class="paramname"><span class="paramname"><em>ref</em></span>[N]&#160;)</td>
+          <td class="paramtype">const <a class="el" href="structRelaySetting.html">RelaySetting</a>(&amp;)</td>          <td class="paramname"><span class="paramname"><em>ref</em></span>[N]&#160;)</td>
         </tr>
       </table>
   </td>
@@ -238,208 +244,109 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a list of relays with a custom sliding average. </p>
-<p>The first argument, an unnamed <a class="el" href="structintegral__constant.html">integral_constant</a>, only carries the sliding average duration D in its type.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ref</td><td>Array of relay configurations. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>The relays, with a sliding average given as an <a class="el" href="structintegral__constant.html">integral_constant&lt; uint8_t &gt;</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00316">316</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2c586921b020480449159786461195aa" name="a2c586921b020480449159786461195aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c586921b020480449159786461195aa">&#9670;&#160;</a></span>get_average()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t D = 10&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static auto <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::get_average </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the current average. </p>
-<dl class="section return"><dt>Returns</dt><dd>auto The current average </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00347">347</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="a981b20422ed19d2aa87d042c583173ee" name="a981b20422ed19d2aa87d042c583173ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a981b20422ed19d2aa87d042c583173ee">&#9670;&#160;</a></span>get_relay()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t D = 10&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const auto &amp; <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::get_relay </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>idx</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the relay object. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">idx</td><td>The index of the relay </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>constexpr const auto&amp; The relay object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00337">337</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="a4f831b566b2da140a17333ab6a39e5dc" name="a4f831b566b2da140a17333ab6a39e5dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f831b566b2da140a17333ab6a39e5dc">&#9670;&#160;</a></span>inc_duration()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t D&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::inc_duration </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Increment the duration's state of each relay. </p>
-<p>This method updates the duration of the current state for each relay and decreases the delay (<code>settle_change</code>) until the next state change is allowed. </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00465">465</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="ae27586afc10fc74876b2d647d05536ba" name="ae27586afc10fc74876b2d647d05536ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae27586afc10fc74876b2d647d05536ba">&#9670;&#160;</a></span>printRelayEngineConfiguration()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t D = 10&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::printRelayEngineConfiguration </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Print the configuration of each relay. </p>
-<p>This method outputs the configuration of all relays, including their pin assignments, thresholds, and minimum ON/OFF durations, to the Serial interface. </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00445">445</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00657">657</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classRelayEngine_ae27586afc10fc74876b2d647d05536ba_cgraph.png" border="0" usemap="#aclassRelayEngine_ae27586afc10fc74876b2d647d05536ba_cgraph" alt=""/></div>
-<map name="aclassRelayEngine_ae27586afc10fc74876b2d647d05536ba_cgraph" id="aclassRelayEngine_ae27586afc10fc74876b2d647d05536ba_cgraph">
-<area shape="rect" title="Print the configuration of each relay." alt="" coords="5,24,227,68"/>
-<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="281,5,327,33"/>
-<area shape="poly" title=" " alt="" coords="227,27,268,24,263,25,228,33"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="275,57,333,85"/>
-<area shape="poly" title=" " alt="" coords="227,58,262,65,256,65,227,64"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="381,32,552,60"/>
-<area shape="poly" title=" " alt="" coords="327,20,368,29,363,29,327,26"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="600,32,761,60"/>
-<area shape="poly" title=" " alt="" coords="553,43,588,46,582,46,553,48"/>
-<area shape="poly" title=" " alt="" coords="333,64,363,62,368,61,334,69"/>
+<div class="center"><img src="classRelayEngine_adedbe71032561bb81568457656ad3f25_cgraph.png" border="0" usemap="#aclassRelayEngine_adedbe71032561bb81568457656ad3f25_cgraph" alt=""/></div>
+<map name="aclassRelayEngine_adedbe71032561bb81568457656ad3f25_cgraph" id="aclassRelayEngine_adedbe71032561bb81568457656ad3f25_cgraph">
+<area shape="rect" title="The relays, with a sliding average given as an integral_constant&lt; uint8_t &gt;." alt="" coords="5,29,197,57"/>
+<area shape="rect" href="classRelayEngine.html#a5b843e1752b7f570956e11084cdf8c79" title="The relays, with the default sliding average." alt="" coords="245,29,436,57"/>
+<area shape="poly" title=" " alt="" coords="197,41,231,43,226,43,197,46"/>
+<area shape="poly" title=" " alt="" coords="299,28,293,20,298,11,314,5,340,3,368,5,385,14,380,14,367,10,340,8,315,10,302,15,298,20,304,30"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a9276daf7f89b58d06e0b03253493416b" name="a9276daf7f89b58d06e0b03253493416b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9276daf7f89b58d06e0b03253493416b">&#9670;&#160;</a></span>proceed_relays()</h2>
+<a id="a073d0aa851e4d71b8653c8eab7f5b887" name="a073d0aa851e4d71b8653c8eab7f5b887"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a073d0aa851e4d71b8653c8eab7f5b887">&#9670;&#160;</a></span>RelayEngine() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;uint8_t N, uint8_t D = 10&gt; </div>
+<div class="memtemplate">
+template&lt;uint16_t V&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::proceed_relays </td>
+          <td class="memname"><a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;<a class="el" href="classRelayEngine.html">::RelayEngine</a> </td>
           <td>(</td>
-          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>overrideBitmask</em></span>, </td>
+          <td class="paramtype"><a class="el" href="structintegral__constant.html">integral_constant</a>&lt; uint16_t, V &gt;</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>diversionEnabled</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;) const</td>
+          <td class="paramtype">const <a class="el" href="structRelaySetting.html">RelaySetting</a>(&amp;)</td>          <td class="paramname"><span class="paramname"><em>ref</em></span>[N]&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Proceed all relays in increasing order (surplus) or decreasing order (import). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">overrideBitmask</td><td>Override bitmask (local pins): a relay is forced ON while its bit is set </td></tr>
-    <tr><td class="paramname">diversionEnabled</td><td>Whether diversion is enabled - if false, only the forced relays are ON</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>This method adjusts the state of the relays based on the current average power. If surplus power is available, it tries to turn ON relays in increasing order. If power is being imported, it tries to turn OFF relays in decreasing order. When diversion is disabled, the relays that are not forced are turned OFF. The minimum ON and OFF times, and the settle time after any change, always apply. </p>
+<p>The relays, with a sliding average given with <a class="el" href="type__traits_8hpp.html#a1ff3cad1c24da56b3ff84a8c39db99d7" title="A compile-time number of minutes, as an integral_constant.">MINUTES()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00386">386</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00664">664</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classRelayEngine_a073d0aa851e4d71b8653c8eab7f5b887_cgraph.png" border="0" usemap="#aclassRelayEngine_a073d0aa851e4d71b8653c8eab7f5b887_cgraph" alt=""/></div>
+<map name="aclassRelayEngine_a073d0aa851e4d71b8653c8eab7f5b887_cgraph" id="aclassRelayEngine_a073d0aa851e4d71b8653c8eab7f5b887_cgraph">
+<area shape="rect" title="The relays, with a sliding average given with MINUTES()." alt="" coords="5,29,197,57"/>
+<area shape="rect" href="classRelayEngine.html#a5b843e1752b7f570956e11084cdf8c79" title="The relays, with the default sliding average." alt="" coords="245,29,436,57"/>
+<area shape="poly" title=" " alt="" coords="197,41,231,43,226,43,197,46"/>
+<area shape="poly" title=" " alt="" coords="299,28,293,20,298,11,314,5,340,3,368,5,385,14,380,14,367,10,340,8,315,10,302,15,298,20,304,30"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="aa92cbba2dda5fcbda87efb068162c4bc" name="aa92cbba2dda5fcbda87efb068162c4bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa92cbba2dda5fcbda87efb068162c4bc">&#9670;&#160;</a></span>size()</h2>
+<a id="a454d76a754a8600f1abe4b9f3971d604" name="a454d76a754a8600f1abe4b9f3971d604"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a454d76a754a8600f1abe4b9f3971d604">&#9670;&#160;</a></span>RelayEngine() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N, uint8_t D = 10&gt; </div>
+<div class="memtemplate">
+template&lt;uint8_t... I&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;<a class="el" href="classRelayEngine.html">::RelayEngine</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structRelaySetting.html">RelaySetting</a>(&amp;)</td>          <td class="paramname"><span class="paramname"><em>ref</em></span>[N], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structindex__sequence.html">index_sequence</a>&lt; I... &gt;</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00685">685</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aac7060db6dbefb2b9f0a474f01c4ed3f" name="aac7060db6dbefb2b9f0a474f01c4ed3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac7060db6dbefb2b9f0a474f01c4ed3f">&#9670;&#160;</a></span>get_relay()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -450,7 +357,38 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::size </td>
+          <td class="memname">const <a class="el" href="structRelaySetting.html">RelaySetting</a> &amp; <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::get_relay </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>idx</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The settings of relay <code class="param">idx</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00678">678</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
+
+</div>
+</div>
+<a id="a0560ef5dd22363f805946013cb0d6338" name="a0560ef5dd22363f805946013cb0d6338"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0560ef5dd22363f805946013cb0d6338">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N, uint8_t D = 10&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::size </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -463,53 +401,15 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the number of relays. </p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr auto The number of relays </dd></dl>
+<p>Number of relays. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00326">326</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="a2c8796258ac6cd4006a55c236c383287" name="a2c8796258ac6cd4006a55c236c383287"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c8796258ac6cd4006a55c236c383287">&#9670;&#160;</a></span>update_average()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t D = 10&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::update_average </td>
-          <td>(</td>
-          <td class="paramtype">int16_t</td>          <td class="paramname"><span class="paramname"><em>currentPower</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Update the sliding average. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">currentPower</td><td>Current power at the grid </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00357">357</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00672">672</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a03a84f65f56f7e8bce137c967dfe7ebf" name="a03a84f65f56f7e8bce137c967dfe7ebf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03a84f65f56f7e8bce137c967dfe7ebf">&#9670;&#160;</a></span>ewma_average</h2>
+<a id="a34a01c6136f8e04474cfcb30e6db8e60" name="a34a01c6136f8e04474cfcb30e6db8e60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34a01c6136f8e04474cfcb30e6db8e60">&#9670;&#160;</a></span>relay_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -520,34 +420,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classEWMA__average.html">EWMA_average</a>&lt; D * 60 / <a class="el" href="config__system_8h.html#aa1ffffd0033bb88a0611cc09daef8d20">DATALOG_PERIOD_IN_SECONDS</a> &gt; <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::ewma_average</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>EWMA average </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00462">462</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="a4771d7ed435411f4fd06dc480c1b1508" name="a4771d7ed435411f4fd06dc480c1b1508"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4771d7ed435411f4fd06dc480c1b1508">&#9670;&#160;</a></span>relay</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t D = 10&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="classrelayOutput.html">relayOutput</a> <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::relay[N]</td>
+          <td class="memname">const <a class="el" href="structRelaySetting.html">RelaySetting</a> <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::relay_[N]</td>
         </tr>
       </table>
   </td>
@@ -556,41 +429,14 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Array of relays </p>
+<p>the settings of each relay </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00458">458</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="a62a753c9ea9c15e35211398fb155a971" name="a62a753c9ea9c15e35211398fb155a971"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62a753c9ea9c15e35211398fb155a971">&#9670;&#160;</a></span>settle_change</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t D = 10&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::settle_change { 60 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Delay in seconds until next change occurs </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00460">460</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00690">690</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Mk2_3phase_RFdatalog_temp/<a class="el" href="utils__relay_8h_source.html">utils_relay.h</a></li>
+<li>Mk2_3phase_RFdatalog_temp/<a class="el" href="config__types_8h_source.html">config_types.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,0 +1,7 @@
+<map id="RelayLogic::Relay::isForced" name="RelayLogic::Relay::isForced">
+<area shape="rect" id="Node000001" title=" " alt="" coords="210,40,354,85"/>
+<area shape="rect" id="Node000002" href="$classRelayLogic_1_1Relay.html#a0a8139a4792b5d4fa104003898952de3" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="5,5,162,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,48,162,44,162,39,197,47"/>
+<area shape="rect" id="Node000003" href="$classRelayLogic_1_1Relay.html#ad7c9dcc2003959eff518578edb1f0b01" title="Proceed with the relay." alt="" coords="11,75,156,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,78,157,87,156,82,197,77"/>
+</map>

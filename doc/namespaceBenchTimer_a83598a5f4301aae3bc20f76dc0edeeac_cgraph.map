@@ -1,0 +1,5 @@
+<map id="BenchTimer::stop" name="BenchTimer::stop">
+<area shape="rect" id="Node000001" title="The CPU cycles since start(), without those of start() and stop()." alt="" coords="5,5,141,33"/>
+<area shape="rect" id="Node000002" href="$namespaceBenchTimer.html#a1e486fe101f7927a060dec577b62b817" title="The cycles since begin(), its own instructions included." alt="" coords="189,5,320,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="141,17,176,19,170,19,141,22"/>
+</map>

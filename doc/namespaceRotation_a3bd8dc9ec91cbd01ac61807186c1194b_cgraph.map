@@ -1,0 +1,17 @@
+<map id="Rotation::groupsHaveTwoLoads" name="Rotation::groupsHaveTwoLoads">
+<area shape="rect" id="Node000001" title="Every group holds at least 2 loads." alt="" coords="5,57,231,85"/>
+<area shape="rect" id="Node000002" href="$namespaceRotation.html#a3be7c703aea1c9dde590e09524ce5915" title="Number of bits set in mask." alt="" coords="279,5,438,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,54,279,36,274,38,186,59"/>
+<area shape="rect" id="Node000003" href="$namespaceRotation.html#ac9dbe2a247e49dafaad508219c3dc8c7" title="The loads of group g, all its codes together." alt="" coords="279,57,438,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="231,69,266,71,260,72,232,74"/>
+<area shape="rect" id="Node000008" href="$classRotationGroups.html#a8ff1ab9670673dc8bb0dc18a699d1c27" title="Number of groups." alt="" coords="280,109,436,137"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="186,83,279,105,274,106,185,88"/>
+<area shape="rect" id="Node000004" href="$classRotationGroups.html#ad78cbe84f9b6ad77591a84c5446335cb" title="The targets of group index, as codes." alt="" coords="486,32,676,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="438,59,473,58,468,59,439,65"/>
+<area shape="rect" id="Node000005" href="$namespaceRotation.html#a36513c8eb5ac373cec0e77e69744cac5" title="The loads a target code stands for, by load number." alt="" coords="514,84,648,112"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="439,78,501,88,496,88,438,83"/>
+<area shape="rect" id="Node000006" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="724,57,830,85"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="649,86,706,81,711,80,649,91"/>
+<area shape="rect" id="Node000007" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="729,109,825,137"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="649,104,717,115,712,115,649,109"/>
+</map>

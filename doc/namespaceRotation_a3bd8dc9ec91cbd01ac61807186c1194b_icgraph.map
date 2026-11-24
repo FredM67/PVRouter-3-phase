@@ -1,0 +1,7 @@
+<map id="Rotation::groupsHaveTwoLoads" name="Rotation::groupsHaveTwoLoads">
+<area shape="rect" id="Node000001" title="Every group holds at least 2 loads." alt="" coords="342,5,567,33"/>
+<area shape="rect" id="Node000002" href="$native_2test__rotation__groups_2test__main_8cpp.html#a317a77357ebb4d2d14ce3cd6a6241301" title=" " alt="" coords="108,5,294,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="324,19,294,22,294,17,329,19"/>
+<area shape="rect" id="Node000003" href="$native_2test__rotation__groups_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,5,60,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,20,60,22,60,17,95,18"/>
+</map>

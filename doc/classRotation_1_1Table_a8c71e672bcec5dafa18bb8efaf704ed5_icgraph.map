@@ -1,0 +1,19 @@
+<map id="Rotation::Table::rotate" name="Rotation::Table::rotate">
+<area shape="rect" id="Node000001" title="Rotates each group by one among its places; each entry keeps its ON bit." alt="" coords="345,152,510,180"/>
+<area shape="rect" id="Node000002" href="$native_2test__rotation__groups_2test__main_8cpp.html#ac9596b692e560956b0b218e9b19ee959" title=" " alt="" coords="122,5,282,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="398,142,353,104,296,65,273,53,273,48,298,60,356,100,404,142"/>
+<area shape="rect" id="Node000004" href="$native_2test__rotation__groups_2test__main_8cpp.html#aa28573460d4ef0c4460195246059be66" title=" " alt="" coords="130,75,275,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="363,148,276,122,276,117,368,147"/>
+<area shape="rect" id="Node000005" href="$native_2test__rotation__groups_2test__main_8cpp.html#ab6fceeb94d6dc8dab32e97440a8fe39b" title=" " alt="" coords="110,144,295,189"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="327,167,296,169,295,164,332,166"/>
+<area shape="rect" id="Node000006" href="$native_2test__rotation__groups_2test__main_8cpp.html#a6c722eab78e2b32b7d799a7ab4985acb" title=" " alt="" coords="108,213,297,258"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="363,186,278,215,276,210,368,184"/>
+<area shape="rect" id="Node000007" href="$native_2test__rotation__groups_2test__main_8cpp.html#aad804694bca81e84ad75fb97b1fd8e10" title=" " alt="" coords="123,283,282,327"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="403,190,356,233,298,273,274,285,272,280,296,268,353,229,399,192"/>
+<area shape="rect" id="Node000003" href="$native_2test__rotation__groups_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,152,60,180"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="112,60,109,64,87,86,68,110,43,153,38,151,64,107,83,82,106,60,115,56"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="121,127,109,134,62,155,59,151,107,129,125,124"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="92,168,61,169,59,164,96,165"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="121,208,107,203,60,182,60,177,109,199,126,206"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="111,274,106,272,83,251,64,226,40,183,41,178,68,223,87,247,109,268,116,274"/>
+</map>

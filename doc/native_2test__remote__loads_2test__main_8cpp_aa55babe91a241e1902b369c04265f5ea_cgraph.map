@@ -1,0 +1,16 @@
+<map id="test_overrideMasks_give_no_bit_to_an_out_of_range_entry" name="test_overrideMasks_give_no_bit_to_an_out_of_range_entry">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,180,102"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671" title="Declares a load driven locally by the router." alt="" coords="260,5,352,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,47,247,33,242,35,181,52"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a9679d070377ade53a8315b4ec5bbece6" title="Build the override bits of a load map." alt="" coords="228,57,384,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,69,214,71,209,72,180,74"/>
+<area shape="rect" id="Node000007" href="$namespaceLoad.html#adb9797ea49459ec57cf3641aee0d7bd6" title="Declares a load driven by a remote unit over RF." alt="" coords="252,109,360,137"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="180,90,240,106,234,107,180,95"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="634,59,740,86"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="365,54,432,43,509,37,587,43,630,54,624,54,586,48,509,43,432,48,366,59"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="462,57,557,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="384,69,449,71,443,71,384,74"/>
+<area shape="rect" id="Node000006" href="$namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="432,109,586,137"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="363,83,440,105,434,105,363,88"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="560,106,619,91,624,91,561,111"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="TemperatureSensing::TemperatureSensing" name="TemperatureSensing::TemperatureSensing">
+<area shape="rect" id="Node000001" title="The sensors on pin, from their addresses." alt="" coords="5,5,168,50"/>
+<area shape="rect" id="Node000002" href="$classTemperatureSensing.html#a1db5f6a92a1fee319e08f3e075b516e3" title=" " alt="" coords="216,5,378,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,25,203,27,197,28,168,30"/>
+</map>

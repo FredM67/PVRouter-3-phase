@@ -1,9 +1,9 @@
 <map id="test_relay_initialization_with_positive_thresholds" name="test_relay_initialization_with_positive_thresholds">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,196,94"/>
-<area shape="rect" id="Node000002" href="$classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e" title="Get the import threshold which will turns OFF the relay." alt="" coords="244,5,485,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,50,278,35,273,38,197,55"/>
-<area shape="rect" id="Node000003" href="$classrelayOutput.html#ac9bf2670034f07cc718b4a9b7c513155" title="Get the control pin of the relay." alt="" coords="287,57,442,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,69,274,70,269,72,196,74"/>
-<area shape="rect" id="Node000004" href="$classrelayOutput.html#a53d146f5a123d31cae6146e8fb4c038a" title="Get the surplus threshold which will turns ON the relay." alt="" coords="274,109,455,154"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="196,90,261,107,256,108,196,95"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,75,196,119"/>
+<area shape="rect" id="Node000002" href="$classRelayLogic_1_1Relay.html#aa740cb24fa9e1df59138945c3c4f72ce" title="Get the import threshold which will turns OFF the relay." alt="" coords="246,5,402,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,72,237,54,233,56,176,77"/>
+<area shape="rect" id="Node000003" href="$classRelayLogic_1_1Relay.html#ac8bf92354342e42367624b27be8666cb" title="Get the control pin of the relay." alt="" coords="252,75,396,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,94,239,96,234,98,196,100"/>
+<area shape="rect" id="Node000004" href="$classRelayLogic_1_1Relay.html#a4192d85927e9b7fa4bb3e61844bc42aa" title="Get the surplus threshold which will turns ON the relay." alt="" coords="244,144,404,189"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="175,117,238,138,232,139,174,123"/>
 </map>

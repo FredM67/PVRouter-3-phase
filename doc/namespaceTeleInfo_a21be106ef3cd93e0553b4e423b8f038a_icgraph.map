@@ -1,0 +1,11 @@
+<map id="TeleInfo::lineSize" name="TeleInfo::lineSize">
+<area shape="rect" id="Node000001" title="The size of a line: LF, tag, TAB, value, TAB, checksum and CR." alt="" coords="338,32,469,60"/>
+<area shape="rect" id="Node000002" href="$native_2test__teleinfo_2test__main_8cpp.html#a0767da6d2b4cf84548d9d1d286e0f601" title=" " alt="" coords="160,5,238,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="320,36,238,27,238,21,325,35"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a1679b9193726b3b8d6607e5e2c4435a5" title=" " alt="" coords="108,57,290,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="325,56,291,62,290,57,320,56"/>
+<area shape="rect" id="Node000003" href="$native_2test__teleinfo_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,5,60,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="143,21,60,22,59,17,146,17"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__teleinfo_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="8,57,57,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="89,72,58,74,57,69,94,70"/>
+</map>

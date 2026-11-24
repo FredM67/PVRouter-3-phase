@@ -1,0 +1,5 @@
+<map id="TempSensors::endRead" name="TempSensors::endRead">
+<area shape="rect" id="Node000001" title="CLOSE, the last transaction: a reset (the sensor still there?), the reading decoded." alt="" coords="280,5,452,33"/>
+<area shape="rect" id="Node000002" href="$classTempSensors.html#a2dbc30f78c42cb642cc1052c5a24eb67" title="Reads the temperature of a specific sensor (runtime bounds checking)." alt="" coords="5,5,232,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="261,19,232,22,232,17,267,19"/>
+</map>

@@ -94,7 +94,7 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>One machine-readable line per benchmark result, for the CI history.  
+<p>Machine-readable lines per benchmark result, for the CI performance report.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -102,7 +102,7 @@ Include dependency graph for bench_report.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="bench__report_8h__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2test_2embedded_2bench__report_8h" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2test_2embedded_2bench__report_8h" id="aMk2__3phase__RFdatalog__temp_2test_2embedded_2bench__report_8h">
-<area shape="rect" title="One machine&#45;readable line per benchmark result, for the CI history." alt="" coords="5,5,213,67"/>
+<area shape="rect" title="Machine&#45;readable lines per benchmark result, for the CI performance report." alt="" coords="5,5,213,67"/>
 <area shape="rect" title=" " alt="" coords="67,115,151,143"/>
 <area shape="poly" title=" " alt="" coords="111,65,111,100,107,98,107,69"/>
 </map>
@@ -112,7 +112,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="bench__report_8h__dep__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2test_2embedded_2bench__report_8hdep" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2test_2embedded_2bench__report_8hdep" id="aMk2__3phase__RFdatalog__temp_2test_2embedded_2bench__report_8hdep">
-<area shape="rect" title="One machine&#45;readable line per benchmark result, for the CI history." alt="" coords="264,5,472,67"/>
+<area shape="rect" title="Machine&#45;readable lines per benchmark result, for the CI performance report." alt="" coords="264,5,472,67"/>
 <area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html" title="The integer datalog arithmetic on the target: exact results, and cycle counts against the float code ..." alt="" coords="5,124,248,185"/>
 <area shape="poly" title=" " alt="" coords="294,73,190,125,188,120,289,75"/>
 <area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html" title="Performance benchmarks for FastDivision." alt="" coords="271,115,464,194"/>
@@ -126,18 +126,34 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a851e319646c9038dd48af27b76722cf6" id="r_a851e319646c9038dd48af27b76722cf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a851e319646c9038dd48af27b76722cf6">benchReport</a> (const __FlashStringHelper *name, const uint32_t value, const __FlashStringHelper *unit)</td></tr>
-<tr class="separator:a851e319646c9038dd48af27b76722cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f39002b7d7499dff47b590d10ec6759" id="r_a6f39002b7d7499dff47b590d10ec6759"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f39002b7d7499dff47b590d10ec6759">benchCycles</a> (const __FlashStringHelper *name, const uint32_t cycles, const uint32_t ops=1)</td></tr>
+<tr class="memdesc:a6f39002b7d7499dff47b590d10ec6759"><td class="mdescLeft">&#160;</td><td class="mdescRight">A result in CPU cycles, reported twice: in microseconds and in cycles.  <br /></td></tr>
+<tr class="separator:a6f39002b7d7499dff47b590d10ec6759"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b4f58e6fe8c7d77844d6df1c0fcc796" id="r_a0b4f58e6fe8c7d77844d6df1c0fcc796"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b4f58e6fe8c7d77844d6df1c0fcc796">benchPrefix</a> (const __FlashStringHelper *name, const __FlashStringHelper *suffix)</td></tr>
+<tr class="memdesc:a0b4f58e6fe8c7d77844d6df1c0fcc796"><td class="mdescLeft">&#160;</td><td class="mdescRight">The start of a BENCH line, up to the separator before the value.  <br /></td></tr>
+<tr class="separator:a0b4f58e6fe8c7d77844d6df1c0fcc796"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d74028e61e7cbb08e8f2fdef588e430" id="r_a5d74028e61e7cbb08e8f2fdef588e430"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d74028e61e7cbb08e8f2fdef588e430">centiCycles</a> (const uint32_t cycles, const uint32_t ops)</td></tr>
+<tr class="memdesc:a5d74028e61e7cbb08e8f2fdef588e430"><td class="mdescLeft">&#160;</td><td class="mdescRight">cycles / ops in hundredths of a cycle, rounded.  <br /></td></tr>
+<tr class="separator:a5d74028e61e7cbb08e8f2fdef588e430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdbb80b81727b5ee2565ea50d6cdc973" id="r_acdbb80b81727b5ee2565ea50d6cdc973"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdbb80b81727b5ee2565ea50d6cdc973">deciMicros</a> (const uint32_t cycles, const uint32_t ops)</td></tr>
+<tr class="memdesc:acdbb80b81727b5ee2565ea50d6cdc973"><td class="mdescLeft">&#160;</td><td class="mdescRight">cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625).  <br /></td></tr>
+<tr class="separator:acdbb80b81727b5ee2565ea50d6cdc973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9576607ec7127ac2c5450f07643e1c10" id="r_a9576607ec7127ac2c5450f07643e1c10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9576607ec7127ac2c5450f07643e1c10">printDecimal</a> (const uint32_t value, const uint8_t decimals)</td></tr>
+<tr class="memdesc:a9576607ec7127ac2c5450f07643e1c10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints value / 10^decimals with that many decimals, zero-padded: 27326, 4 -&gt; 2.7326.  <br /></td></tr>
+<tr class="separator:a9576607ec7127ac2c5450f07643e1c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57834612f707a5be015f1b63df8f6f8b" id="r_a57834612f707a5be015f1b63df8f6f8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57834612f707a5be015f1b63df8f6f8b">printPerOp</a> (const uint32_t cycles, const uint32_t ops=1)</td></tr>
+<tr class="memdesc:a57834612f707a5be015f1b63df8f6f8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints "&lt;cycles&gt; cycles = &lt;us&gt; us" for one operation, for the human-readable output.  <br /></td></tr>
+<tr class="separator:a57834612f707a5be015f1b63df8f6f8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>One machine-readable line per benchmark result, for the CI history. </p>
-<p>Prints <code>BENCH|&lt;name&gt;|&lt;value&gt;|&lt;unit&gt;</code> on its own line. CI collects these lines from the verbose output of the embedded tests (scripts/ci/bench_to_json.py), and tracks every value on GitHub Pages: a pull request that makes one worse by more than 2% gets a comment. Smaller is better. simavr is cycle-accurate, so the values are exact and the same from run to run.</p>
-<p>The name must stay the same over time: it is the key of the history. </p>
+<div class="textblock"><p>Machine-readable lines per benchmark result, for the CI performance report. </p>
+<p>Prints <code>BENCH|&lt;name&gt;|&lt;value&gt;|&lt;unit&gt;</code> on its own line. CI collects these lines from the verbose output of the embedded tests (scripts/ci/bench_to_json.py), measures the target branch of a pull request in the same run, and posts the comparison as a comment (scripts/ci/pr_report.py); each push to dev adds them to the history on GitHub Pages (scripts/ci/pages_update.py). Smaller is better. simavr is cycle-accurate, so the values are exact and the same from run to run.</p>
+<p>The name must stay the same over time: it is the key of the comparison. </p>
 
 <p class="definition">Definition in file <a class="el" href="bench__report_8h_source.html">bench_report.h</a>.</p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a851e319646c9038dd48af27b76722cf6" name="a851e319646c9038dd48af27b76722cf6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a851e319646c9038dd48af27b76722cf6">&#9670;&#160;</a></span>benchReport()</h2>
+<a id="a6f39002b7d7499dff47b590d10ec6759" name="a6f39002b7d7499dff47b590d10ec6759"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f39002b7d7499dff47b590d10ec6759">&#9670;&#160;</a></span>benchCycles()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,19 +162,19 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void benchReport </td>
+          <td class="memname">void benchCycles </td>
           <td>(</td>
           <td class="paramtype">const __FlashStringHelper *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>cycles</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const __FlashStringHelper *</td>          <td class="paramname"><span class="paramname"><em>unit</em></span>&#160;)</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>ops</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -168,13 +184,40 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="bench__report_8h_source.html#l00019">19</a> of file <a class="el" href="bench__report_8h_source.html">bench_report.h</a>.</p>
+<p>A result in CPU cycles, reported twice: in microseconds and in cycles. </p>
+<p><code>&lt;name&gt; [us]</code> is cycles / 16 at 16 MHz, with four decimals (exact for a single call: 1/16 = 0.0625). <code>&lt;name&gt; [cycles]</code> is the count itself, with two decimals for a loop. Measured with <a class="el" href="namespaceBenchTimer.html">BenchTimer</a> (<a class="el" href="bench__timer_8h.html" title="Exact CPU cycle count of a benchmark loop, whatever its length.">bench_timer.h</a>), or with Timer1 directly.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>the name, saying what one operation is for a loop ("... per op") </td></tr>
+    <tr><td class="paramname">cycles</td><td>the cycles of the whole loop </td></tr>
+    <tr><td class="paramname">ops</td><td>the operations in the loop, to report one of them: 1 for a single call </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="bench__report_8h_source.html#l00096">96</a> of file <a class="el" href="bench__report_8h_source.html">bench_report.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="bench__report_8h_a6f39002b7d7499dff47b590d10ec6759_cgraph.png" border="0" usemap="#abench__report_8h_a6f39002b7d7499dff47b590d10ec6759_cgraph" alt=""/></div>
+<map name="abench__report_8h_a6f39002b7d7499dff47b590d10ec6759_cgraph" id="abench__report_8h_a6f39002b7d7499dff47b590d10ec6759_cgraph">
+<area shape="rect" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="5,84,109,112"/>
+<area shape="rect" href="bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="161,5,258,33"/>
+<area shape="poly" title=" " alt="" coords="84,81,155,43,169,39,165,42,158,48,87,86"/>
+<area shape="rect" href="bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="161,57,258,85"/>
+<area shape="poly" title=" " alt="" coords="108,86,148,81,144,84,110,91"/>
+<area shape="rect" href="bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="164,109,255,137"/>
+<area shape="poly" title=" " alt="" coords="109,104,151,112,146,114,109,109"/>
+<area shape="rect" href="bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="157,161,262,189"/>
+<area shape="poly" title=" " alt="" coords="87,110,169,153,165,155,85,115"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="bench__report_8h_a851e319646c9038dd48af27b76722cf6_icgraph.png" border="0" usemap="#abench__report_8h_a851e319646c9038dd48af27b76722cf6_icgraph" alt=""/></div>
-<map name="abench__report_8h_a851e319646c9038dd48af27b76722cf6_icgraph" id="abench__report_8h_a851e319646c9038dd48af27b76722cf6_icgraph">
-<area shape="rect" title=" " alt="" coords="625,403,729,431"/>
+<div class="center"><img src="bench__report_8h_a6f39002b7d7499dff47b590d10ec6759_icgraph.png" border="0" usemap="#abench__report_8h_a6f39002b7d7499dff47b590d10ec6759_icgraph" alt=""/></div>
+<map name="abench__report_8h_a6f39002b7d7499dff47b590d10ec6759_icgraph" id="abench__report_8h_a6f39002b7d7499dff47b590d10ec6759_icgraph">
+<area shape="rect" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="625,403,729,431"/>
 <area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="418,83,478,111"/>
 <area shape="poly" title=" " alt="" coords="673,386,667,331,652,260,639,223,623,187,602,154,576,126,553,111,528,103,479,98,477,93,529,98,556,107,579,122,606,151,628,185,644,221,657,259,672,331,677,389"/>
 <area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a6be85a254f7593ee7d0816879542be5d" title=" " alt="" coords="349,135,546,163"/>
@@ -214,6 +257,467 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="345,336,216,319,215,314,349,333"/>
 <area shape="poly" title=" " alt="" coords="335,390,317,385,260,357,215,330,214,325,262,353,319,380,340,389"/>
 <area shape="poly" title=" " alt="" coords="343,466,317,454,278,424,244,389,200,330,201,325,248,386,281,420,319,449,349,465"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0b4f58e6fe8c7d77844d6df1c0fcc796" name="a0b4f58e6fe8c7d77844d6df1c0fcc796"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b4f58e6fe8c7d77844d6df1c0fcc796">&#9670;&#160;</a></span>benchPrefix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void benchPrefix </td>
+          <td>(</td>
+          <td class="paramtype">const __FlashStringHelper *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const __FlashStringHelper *</td>          <td class="paramname"><span class="paramname"><em>suffix</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The start of a BENCH line, up to the separator before the value. </p>
+
+<p class="definition">Definition at line <a class="el" href="bench__report_8h_source.html#l00076">76</a> of file <a class="el" href="bench__report_8h_source.html">bench_report.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="bench__report_8h_a0b4f58e6fe8c7d77844d6df1c0fcc796_icgraph.png" border="0" usemap="#abench__report_8h_a0b4f58e6fe8c7d77844d6df1c0fcc796_icgraph" alt=""/></div>
+<map name="abench__report_8h_a0b4f58e6fe8c7d77844d6df1c0fcc796_icgraph" id="abench__report_8h_a0b4f58e6fe8c7d77844d6df1c0fcc796_icgraph">
+<area shape="rect" title="The start of a BENCH line, up to the separator before the value." alt="" coords="777,403,874,431"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="625,403,729,431"/>
+<area shape="poly" title=" " alt="" coords="758,418,730,420,729,414,764,416"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="418,83,478,111"/>
+<area shape="poly" title=" " alt="" coords="673,386,667,331,652,260,639,223,623,187,602,154,576,126,553,111,528,103,479,98,477,93,529,98,556,107,579,122,606,151,628,185,644,221,657,259,672,331,677,389"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a6be85a254f7593ee7d0816879542be5d" title=" " alt="" coords="349,135,546,163"/>
+<area shape="poly" title=" " alt="" coords="670,387,662,341,645,283,617,225,598,199,576,176,547,160,547,155,579,172,602,195,622,222,650,281,667,340,675,389"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#ae168d15bdb3d5d4181ae01cd2436c76c" title=" " alt="" coords="372,187,523,231"/>
+<area shape="poly" title=" " alt="" coords="665,387,652,356,633,317,608,278,576,246,551,231,524,221,523,216,553,226,579,242,612,275,638,314,657,354,670,389"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#ad75f88914357ef873f488b1a412459b1" title=" " alt="" coords="372,256,523,301"/>
+<area shape="poly" title=" " alt="" coords="654,390,621,352,600,332,576,315,550,303,524,294,523,289,552,298,579,311,603,328,625,348,660,391"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a29e9b39af541e1ff0b441ad86ffa5ddc" title=" " alt="" coords="362,325,533,370"/>
+<area shape="poly" title=" " alt="" coords="620,398,577,385,534,372,533,367,578,380,626,397"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a76bb4357cfa0e179472f77ecc6c39216" title=" " alt="" coords="352,395,543,439"/>
+<area shape="poly" title=" " alt="" coords="607,418,544,420,543,414,612,416"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2f0b23c67117c4e1f6be792e8f8b2815" title=" " alt="" coords="361,464,534,509"/>
+<area shape="poly" title=" " alt="" coords="621,437,578,454,536,467,534,462,577,449,625,435"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#afe635d3d8214d539d82722e2097430a8" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="368,533,527,578"/>
+<area shape="poly" title=" " alt="" coords="659,442,625,486,603,506,579,523,529,544,527,539,576,519,600,502,621,482,655,445"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#a421c857707def81da94388948e91c5ce" title="Performance comparison for Q8 fractional multiplication." alt="" coords="334,602,562,630"/>
+<area shape="poly" title=" " alt="" coords="670,444,658,481,639,521,613,560,579,592,559,604,557,599,576,588,609,556,634,518,653,479,666,448"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#a61d362737dc4e6078cf74deff55b1ef7" title="Performance comparison between assembly and standard multiplication." alt="" coords="319,654,576,682"/>
+<area shape="poly" title=" " alt="" coords="673,444,664,491,647,544,619,598,601,622,579,643,559,656,557,651,576,639,597,618,615,595,642,542,659,489,670,448"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#ad79cab2493232b344fbe0e836b4e5c03" title="Performance comparison for unsigned multiplication (multU16x16_to32)" alt="" coords="318,706,577,734"/>
+<area shape="poly" title=" " alt="" coords="676,444,670,500,655,567,642,602,626,636,605,668,579,695,559,708,558,703,576,691,601,664,621,634,637,600,649,566,665,499,673,448"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a3212c9cc61794c5d50497b722fb73572" title=" " alt="" coords="118,5,263,50"/>
+<area shape="poly" title=" " alt="" coords="400,86,264,50,263,45,405,84"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae97034decb439605d485c0da0bb7e4f1" title=" " alt="" coords="111,75,270,119"/>
+<area shape="poly" title=" " alt="" coords="400,99,272,99,269,95,404,95"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a59dd75a991aeada8deda93cc89af6218" title=" " alt="" coords="111,144,270,189"/>
+<area shape="poly" title=" " alt="" coords="400,107,319,126,256,145,253,141,317,121,404,103"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,83,63,111"/>
+<area shape="poly" title=" " alt="" coords="122,59,112,65,65,86,61,82,110,60,125,54"/>
+<area shape="poly" title=" " alt="" coords="93,99,65,99,61,95,97,95"/>
+<area shape="poly" title=" " alt="" coords="121,139,110,134,64,112,62,108,112,129,126,136"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="166,299,215,327"/>
+<area shape="poly" title=" " alt="" coords="332,168,319,177,280,205,247,239,202,300,198,297,243,236,277,201,317,172,336,165"/>
+<area shape="poly" title=" " alt="" coords="355,232,319,246,262,273,216,300,212,297,260,269,317,241,359,229"/>
+<area shape="poly" title=" " alt="" coords="355,292,216,312,214,307,359,289"/>
+<area shape="poly" title=" " alt="" coords="345,336,216,319,215,314,349,333"/>
+<area shape="poly" title=" " alt="" coords="335,390,317,385,260,357,215,330,214,325,262,353,319,380,340,389"/>
+<area shape="poly" title=" " alt="" coords="343,466,317,454,278,424,244,389,200,330,201,325,248,386,281,420,319,449,349,465"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a5d74028e61e7cbb08e8f2fdef588e430" name="a5d74028e61e7cbb08e8f2fdef588e430"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d74028e61e7cbb08e8f2fdef588e430">&#9670;&#160;</a></span>centiCycles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t centiCycles </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>cycles</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>ops</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>cycles / ops in hundredths of a cycle, rounded. </p>
+
+<p class="definition">Definition at line <a class="el" href="bench__report_8h_source.html#l00043">43</a> of file <a class="el" href="bench__report_8h_source.html">bench_report.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="bench__report_8h_a5d74028e61e7cbb08e8f2fdef588e430_icgraph.png" border="0" usemap="#abench__report_8h_a5d74028e61e7cbb08e8f2fdef588e430_icgraph" alt=""/></div>
+<map name="abench__report_8h_a5d74028e61e7cbb08e8f2fdef588e430_icgraph" id="abench__report_8h_a5d74028e61e7cbb08e8f2fdef588e430_icgraph">
+<area shape="rect" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="809,556,905,584"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="657,504,761,532"/>
+<area shape="poly" title=" " alt="" coords="798,551,750,535,751,530,804,551"/>
+<area shape="rect" href="bench__report_8h.html#a57834612f707a5be015f1b63df8f6f8b" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="664,582,754,610"/>
+<area shape="poly" title=" " alt="" coords="791,582,755,591,754,585,796,581"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="450,118,510,146"/>
+<area shape="poly" title=" " alt="" coords="702,488,693,435,676,365,648,290,629,253,607,220,585,196,559,176,510,147,510,142,562,171,589,192,611,217,634,251,653,287,681,364,698,434,707,490"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a6be85a254f7593ee7d0816879542be5d" title=" " alt="" coords="381,582,578,610"/>
+<area shape="poly" title=" " alt="" coords="674,539,610,571,568,584,566,579,608,567,669,541"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#ae168d15bdb3d5d4181ae01cd2436c76c" title=" " alt="" coords="131,283,282,327"/>
+<area shape="poly" title=" " alt="" coords="700,489,689,453,671,409,644,366,627,348,608,333,569,312,528,298,485,288,441,283,356,284,284,292,281,287,356,278,441,278,486,283,530,292,572,307,611,328,631,344,648,363,675,407,694,451,704,491"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#ad75f88914357ef873f488b1a412459b1" title=" " alt="" coords="131,352,282,397"/>
+<area shape="poly" title=" " alt="" coords="696,489,684,460,665,426,640,393,608,369,569,351,527,340,483,334,439,333,355,340,284,354,281,350,355,335,439,328,484,329,528,335,570,346,611,364,644,390,669,423,688,458,701,491"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a29e9b39af541e1ff0b441ad86ffa5ddc" title=" " alt="" coords="121,421,292,466"/>
+<area shape="poly" title=" " alt="" coords="639,504,609,500,440,474,292,455,291,450,441,469,610,494,644,503"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a76bb4357cfa0e179472f77ecc6c39216" title=" " alt="" coords="111,491,302,535"/>
+<area shape="poly" title=" " alt="" coords="640,520,303,517,302,511,644,516"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2f0b23c67117c4e1f6be792e8f8b2815" title=" " alt="" coords="120,213,293,258"/>
+<area shape="poly" title=" " alt="" coords="702,488,693,444,676,388,649,333,630,309,608,288,572,266,533,249,492,237,450,229,367,223,295,226,292,221,367,218,451,224,493,232,535,244,575,261,611,284,634,305,653,330,681,386,698,442,707,490"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#afe635d3d8214d539d82722e2097430a8" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="400,633,559,678"/>
+<area shape="poly" title=" " alt="" coords="686,542,659,572,637,600,627,612,611,623,561,644,559,639,608,619,623,608,633,596,655,569,681,545"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#a421c857707def81da94388948e91c5ce" title="Performance comparison for Q8 fractional multiplication." alt="" coords="366,702,594,730"/>
+<area shape="poly" title=" " alt="" coords="683,541,660,572,645,605,641,635,634,664,625,678,611,692,593,704,591,699,608,688,621,675,629,662,636,634,640,604,655,569,678,544"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#a61d362737dc4e6078cf74deff55b1ef7" title="Performance comparison between assembly and standard multiplication." alt="" coords="351,754,608,782"/>
+<area shape="poly" title=" " alt="" coords="682,541,660,572,649,596,644,619,643,661,638,702,629,722,611,743,593,756,591,751,608,739,624,720,633,701,638,661,639,618,644,594,655,569,677,544"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#ad79cab2493232b344fbe0e836b4e5c03" title="Performance comparison for unsigned multiplication (multU16x16_to32)" alt="" coords="350,530,609,558"/>
+<area shape="poly" title=" " alt="" coords="639,526,610,532,609,527,644,525"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a3212c9cc61794c5d50497b722fb73572" title=" " alt="" coords="134,5,279,50"/>
+<area shape="poly" title=" " alt="" coords="433,116,301,65,272,53,270,48,303,60,437,113"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae97034decb439605d485c0da0bb7e4f1" title=" " alt="" coords="127,75,286,119"/>
+<area shape="poly" title=" " alt="" coords="432,128,287,110,286,105,436,124"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a59dd75a991aeada8deda93cc89af6218" title=" " alt="" coords="127,144,286,189"/>
+<area shape="poly" title=" " alt="" coords="432,139,288,159,285,154,436,136"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,83,63,111"/>
+<area shape="poly" title=" " alt="" coords="125,58,112,65,65,85,61,82,110,60,128,54"/>
+<area shape="poly" title=" " alt="" coords="109,99,65,99,62,95,113,95"/>
+<area shape="poly" title=" " alt="" coords="124,139,110,134,64,113,62,108,112,129,129,137"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,395,59,423"/>
+<area shape="poly" title=" " alt="" coords="363,607,303,608,236,599,170,581,138,567,109,550,80,521,58,486,44,452,39,426,38,421,49,450,63,484,84,518,112,546,141,562,172,576,237,594,303,602,368,606"/>
+<area shape="poly" title=" " alt="" coords="118,337,112,342,77,369,50,396,45,394,73,365,109,337,122,332"/>
+<area shape="poly" title=" " alt="" coords="114,395,61,406,57,402,117,391"/>
+<area shape="poly" title=" " alt="" coords="104,425,60,416,58,411,108,422"/>
+<area shape="poly" title=" " alt="" coords="118,485,109,481,73,453,48,426,47,420,77,449,112,476,122,483"/>
+<area shape="poly" title=" " alt="" coords="114,269,113,272,86,302,66,336,42,395,37,394,61,334,82,299,109,268,117,264"/>
+<area shape="poly" title=" " alt="" coords="646,596,579,598,578,593,651,595"/>
+<area shape="poly" title=" " alt="" coords="651,611,560,637,559,632,646,612"/>
+<area shape="poly" title=" " alt="" coords="690,620,656,660,634,678,611,693,584,704,582,699,608,688,631,673,652,656,686,623"/>
+<area shape="poly" title=" " alt="" coords="699,623,666,686,641,717,611,743,586,756,585,751,608,739,637,713,661,683,694,625"/>
+<area shape="poly" title=" " alt="" coords="646,580,609,573,554,561,554,555,610,568,651,580"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2b8ac054aae805c9d0fe56b9e13c7fff" title="Reports benchmark results to Serial." alt="" coords="412,378,547,406"/>
+<area shape="poly" title=" " alt="" coords="678,572,496,408,498,403,683,571"/>
+<area shape="poly" title=" " alt="" coords="417,374,280,331,279,325,422,371"/>
+<area shape="poly" title=" " alt="" coords="395,388,283,382,281,377,399,385"/>
+<area shape="poly" title=" " alt="" coords="395,409,293,430,291,425,399,406"/>
+<area shape="poly" title=" " alt="" coords="436,415,303,481,274,492,272,488,301,476,440,411"/>
+<area shape="poly" title=" " alt="" coords="446,369,382,322,301,273,277,261,275,256,303,268,385,318,452,368"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="acdbb80b81727b5ee2565ea50d6cdc973" name="acdbb80b81727b5ee2565ea50d6cdc973"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdbb80b81727b5ee2565ea50d6cdc973">&#9670;&#160;</a></span>deciMicros()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t deciMicros </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>cycles</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>ops</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625). </p>
+
+<p class="definition">Definition at line <a class="el" href="bench__report_8h_source.html#l00049">49</a> of file <a class="el" href="bench__report_8h_source.html">bench_report.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="bench__report_8h_acdbb80b81727b5ee2565ea50d6cdc973_icgraph.png" border="0" usemap="#abench__report_8h_acdbb80b81727b5ee2565ea50d6cdc973_icgraph" alt=""/></div>
+<map name="abench__report_8h_acdbb80b81727b5ee2565ea50d6cdc973_icgraph" id="abench__report_8h_acdbb80b81727b5ee2565ea50d6cdc973_icgraph">
+<area shape="rect" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="809,556,900,584"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="657,504,761,532"/>
+<area shape="poly" title=" " alt="" coords="797,551,750,535,750,530,802,551"/>
+<area shape="rect" href="bench__report_8h.html#a57834612f707a5be015f1b63df8f6f8b" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="664,582,754,610"/>
+<area shape="poly" title=" " alt="" coords="791,582,755,590,754,585,796,580"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="450,118,510,146"/>
+<area shape="poly" title=" " alt="" coords="702,488,693,435,676,365,648,290,629,253,607,220,585,196,559,176,510,147,510,142,562,171,589,192,611,217,634,251,653,287,681,364,698,434,707,490"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a6be85a254f7593ee7d0816879542be5d" title=" " alt="" coords="381,582,578,610"/>
+<area shape="poly" title=" " alt="" coords="674,539,610,571,568,584,566,579,608,567,669,541"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#ae168d15bdb3d5d4181ae01cd2436c76c" title=" " alt="" coords="131,283,282,327"/>
+<area shape="poly" title=" " alt="" coords="700,489,689,453,671,409,644,366,627,348,608,333,569,312,528,298,485,288,441,283,356,284,284,292,281,287,356,278,441,278,486,283,530,292,572,307,611,328,631,344,648,363,675,407,694,451,704,491"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#ad75f88914357ef873f488b1a412459b1" title=" " alt="" coords="131,352,282,397"/>
+<area shape="poly" title=" " alt="" coords="696,489,684,460,665,426,640,393,608,369,569,351,527,340,483,334,439,333,355,340,284,354,281,350,355,335,439,328,484,329,528,335,570,346,611,364,644,390,669,423,688,458,701,491"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a29e9b39af541e1ff0b441ad86ffa5ddc" title=" " alt="" coords="121,421,292,466"/>
+<area shape="poly" title=" " alt="" coords="639,504,609,500,440,474,292,455,291,450,441,469,610,494,644,503"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a76bb4357cfa0e179472f77ecc6c39216" title=" " alt="" coords="111,491,302,535"/>
+<area shape="poly" title=" " alt="" coords="640,520,303,517,302,511,644,516"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2f0b23c67117c4e1f6be792e8f8b2815" title=" " alt="" coords="120,213,293,258"/>
+<area shape="poly" title=" " alt="" coords="702,488,693,444,676,388,649,333,630,309,608,288,572,266,533,249,492,237,450,229,367,223,295,226,292,221,367,218,451,224,493,232,535,244,575,261,611,284,634,305,653,330,681,386,698,442,707,490"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#afe635d3d8214d539d82722e2097430a8" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="400,633,559,678"/>
+<area shape="poly" title=" " alt="" coords="686,542,659,572,637,600,627,612,611,623,561,644,559,639,608,619,623,608,633,596,655,569,681,545"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#a421c857707def81da94388948e91c5ce" title="Performance comparison for Q8 fractional multiplication." alt="" coords="366,702,594,730"/>
+<area shape="poly" title=" " alt="" coords="683,541,660,572,645,605,641,635,634,664,625,678,611,692,593,704,591,699,608,688,621,675,629,662,636,634,640,604,655,569,678,544"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#a61d362737dc4e6078cf74deff55b1ef7" title="Performance comparison between assembly and standard multiplication." alt="" coords="351,754,608,782"/>
+<area shape="poly" title=" " alt="" coords="682,541,660,572,649,596,644,619,643,661,638,702,629,722,611,743,593,756,591,751,608,739,624,720,633,701,638,661,639,618,644,594,655,569,677,544"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#ad79cab2493232b344fbe0e836b4e5c03" title="Performance comparison for unsigned multiplication (multU16x16_to32)" alt="" coords="350,530,609,558"/>
+<area shape="poly" title=" " alt="" coords="639,526,610,532,609,527,644,525"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a3212c9cc61794c5d50497b722fb73572" title=" " alt="" coords="134,5,279,50"/>
+<area shape="poly" title=" " alt="" coords="433,116,301,65,272,53,270,48,303,60,437,113"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae97034decb439605d485c0da0bb7e4f1" title=" " alt="" coords="127,75,286,119"/>
+<area shape="poly" title=" " alt="" coords="432,128,287,110,286,105,436,124"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a59dd75a991aeada8deda93cc89af6218" title=" " alt="" coords="127,144,286,189"/>
+<area shape="poly" title=" " alt="" coords="432,139,288,159,285,154,436,136"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,83,63,111"/>
+<area shape="poly" title=" " alt="" coords="125,58,112,65,65,85,61,82,110,60,128,54"/>
+<area shape="poly" title=" " alt="" coords="109,99,65,99,62,95,113,95"/>
+<area shape="poly" title=" " alt="" coords="124,139,110,134,64,113,62,108,112,129,129,137"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,395,59,423"/>
+<area shape="poly" title=" " alt="" coords="363,607,303,608,236,599,170,581,138,567,109,550,80,521,58,486,44,452,39,426,38,421,49,450,63,484,84,518,112,546,141,562,172,576,237,594,303,602,368,606"/>
+<area shape="poly" title=" " alt="" coords="118,337,112,342,77,369,50,396,45,394,73,365,109,337,122,332"/>
+<area shape="poly" title=" " alt="" coords="114,395,61,406,57,402,117,391"/>
+<area shape="poly" title=" " alt="" coords="104,425,60,416,58,411,108,422"/>
+<area shape="poly" title=" " alt="" coords="118,485,109,481,73,453,48,426,47,420,77,449,112,476,122,483"/>
+<area shape="poly" title=" " alt="" coords="114,269,113,272,86,302,66,336,42,395,37,394,61,334,82,299,109,268,117,264"/>
+<area shape="poly" title=" " alt="" coords="646,596,579,598,578,593,651,595"/>
+<area shape="poly" title=" " alt="" coords="651,611,560,637,559,632,646,612"/>
+<area shape="poly" title=" " alt="" coords="690,620,656,660,634,678,611,693,584,704,582,699,608,688,631,673,652,656,686,623"/>
+<area shape="poly" title=" " alt="" coords="699,623,666,686,641,717,611,743,586,756,585,751,608,739,637,713,661,683,694,625"/>
+<area shape="poly" title=" " alt="" coords="646,580,609,573,554,561,554,555,610,568,651,580"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2b8ac054aae805c9d0fe56b9e13c7fff" title="Reports benchmark results to Serial." alt="" coords="412,378,547,406"/>
+<area shape="poly" title=" " alt="" coords="678,572,496,408,498,403,683,571"/>
+<area shape="poly" title=" " alt="" coords="417,374,280,331,279,325,422,371"/>
+<area shape="poly" title=" " alt="" coords="395,388,283,382,281,377,399,385"/>
+<area shape="poly" title=" " alt="" coords="395,409,293,430,291,425,399,406"/>
+<area shape="poly" title=" " alt="" coords="436,415,303,481,274,492,272,488,301,476,440,411"/>
+<area shape="poly" title=" " alt="" coords="446,369,382,322,301,273,277,261,275,256,303,268,385,318,452,368"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a9576607ec7127ac2c5450f07643e1c10" name="a9576607ec7127ac2c5450f07643e1c10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9576607ec7127ac2c5450f07643e1c10">&#9670;&#160;</a></span>printDecimal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printDecimal </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>decimals</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prints value / 10^decimals with that many decimals, zero-padded: 27326, 4 -&gt; 2.7326. </p>
+
+<p class="definition">Definition at line <a class="el" href="bench__report_8h_source.html#l00021">21</a> of file <a class="el" href="bench__report_8h_source.html">bench_report.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="bench__report_8h_a9576607ec7127ac2c5450f07643e1c10_icgraph.png" border="0" usemap="#abench__report_8h_a9576607ec7127ac2c5450f07643e1c10_icgraph" alt=""/></div>
+<map name="abench__report_8h_a9576607ec7127ac2c5450f07643e1c10_icgraph" id="abench__report_8h_a9576607ec7127ac2c5450f07643e1c10_icgraph">
+<area shape="rect" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="809,556,914,584"/>
+<area shape="rect" href="bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="657,504,761,532"/>
+<area shape="poly" title=" " alt="" coords="801,551,752,535,752,530,807,551"/>
+<area shape="rect" href="bench__report_8h.html#a57834612f707a5be015f1b63df8f6f8b" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="664,582,754,610"/>
+<area shape="poly" title=" " alt="" coords="790,582,755,591,754,586,796,581"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="450,118,510,146"/>
+<area shape="poly" title=" " alt="" coords="702,488,693,435,676,365,648,290,629,253,607,220,585,196,559,176,510,147,510,142,562,171,589,192,611,217,634,251,653,287,681,364,698,434,707,490"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a6be85a254f7593ee7d0816879542be5d" title=" " alt="" coords="381,582,578,610"/>
+<area shape="poly" title=" " alt="" coords="674,539,610,571,568,584,566,579,608,567,669,541"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#ae168d15bdb3d5d4181ae01cd2436c76c" title=" " alt="" coords="131,283,282,327"/>
+<area shape="poly" title=" " alt="" coords="700,489,689,453,671,409,644,366,627,348,608,333,569,312,528,298,485,288,441,283,356,284,284,292,281,287,356,278,441,278,486,283,530,292,572,307,611,328,631,344,648,363,675,407,694,451,704,491"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#ad75f88914357ef873f488b1a412459b1" title=" " alt="" coords="131,352,282,397"/>
+<area shape="poly" title=" " alt="" coords="696,489,684,460,665,426,640,393,608,369,569,351,527,340,483,334,439,333,355,340,284,354,281,350,355,335,439,328,484,329,528,335,570,346,611,364,644,390,669,423,688,458,701,491"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a29e9b39af541e1ff0b441ad86ffa5ddc" title=" " alt="" coords="121,421,292,466"/>
+<area shape="poly" title=" " alt="" coords="639,504,609,500,440,474,292,455,291,450,441,469,610,494,644,503"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a76bb4357cfa0e179472f77ecc6c39216" title=" " alt="" coords="111,491,302,535"/>
+<area shape="poly" title=" " alt="" coords="640,520,303,517,302,511,644,516"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2f0b23c67117c4e1f6be792e8f8b2815" title=" " alt="" coords="120,213,293,258"/>
+<area shape="poly" title=" " alt="" coords="702,488,693,444,676,388,649,333,630,309,608,288,572,266,533,249,492,237,450,229,367,223,295,226,292,221,367,218,451,224,493,232,535,244,575,261,611,284,634,305,653,330,681,386,698,442,707,490"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#afe635d3d8214d539d82722e2097430a8" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="400,633,559,678"/>
+<area shape="poly" title=" " alt="" coords="686,542,659,572,637,600,627,612,611,623,561,644,559,639,608,619,623,608,633,596,655,569,681,545"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#a421c857707def81da94388948e91c5ce" title="Performance comparison for Q8 fractional multiplication." alt="" coords="366,702,594,730"/>
+<area shape="poly" title=" " alt="" coords="683,541,660,572,645,605,641,635,634,664,625,678,611,692,593,704,591,699,608,688,621,675,629,662,636,634,640,604,655,569,678,544"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#a61d362737dc4e6078cf74deff55b1ef7" title="Performance comparison between assembly and standard multiplication." alt="" coords="351,754,608,782"/>
+<area shape="poly" title=" " alt="" coords="682,541,660,572,649,596,644,619,643,661,638,702,629,722,611,743,593,756,591,751,608,739,624,720,633,701,638,661,639,618,644,594,655,569,677,544"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#ad79cab2493232b344fbe0e836b4e5c03" title="Performance comparison for unsigned multiplication (multU16x16_to32)" alt="" coords="350,530,609,558"/>
+<area shape="poly" title=" " alt="" coords="639,526,610,532,609,527,644,525"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a3212c9cc61794c5d50497b722fb73572" title=" " alt="" coords="134,5,279,50"/>
+<area shape="poly" title=" " alt="" coords="433,116,301,65,272,53,270,48,303,60,437,113"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae97034decb439605d485c0da0bb7e4f1" title=" " alt="" coords="127,75,286,119"/>
+<area shape="poly" title=" " alt="" coords="432,128,287,110,286,105,436,124"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a59dd75a991aeada8deda93cc89af6218" title=" " alt="" coords="127,144,286,189"/>
+<area shape="poly" title=" " alt="" coords="432,139,288,159,285,154,436,136"/>
+<area shape="rect" href="embedded_2test__datalog__math__avr_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,83,63,111"/>
+<area shape="poly" title=" " alt="" coords="125,58,112,65,65,85,61,82,110,60,128,54"/>
+<area shape="poly" title=" " alt="" coords="109,99,65,99,62,95,113,95"/>
+<area shape="poly" title=" " alt="" coords="124,139,110,134,64,113,62,108,112,129,129,137"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,395,59,423"/>
+<area shape="poly" title=" " alt="" coords="363,607,303,608,236,599,170,581,138,567,109,550,80,521,58,486,44,452,39,426,38,421,49,450,63,484,84,518,112,546,141,562,172,576,237,594,303,602,368,606"/>
+<area shape="poly" title=" " alt="" coords="118,337,112,342,77,369,50,396,45,394,73,365,109,337,122,332"/>
+<area shape="poly" title=" " alt="" coords="114,395,61,406,57,402,117,391"/>
+<area shape="poly" title=" " alt="" coords="104,425,60,416,58,411,108,422"/>
+<area shape="poly" title=" " alt="" coords="118,485,109,481,73,453,48,426,47,420,77,449,112,476,122,483"/>
+<area shape="poly" title=" " alt="" coords="114,269,113,272,86,302,66,336,42,395,37,394,61,334,82,299,109,268,117,264"/>
+<area shape="poly" title=" " alt="" coords="646,596,579,598,578,593,651,595"/>
+<area shape="poly" title=" " alt="" coords="651,611,560,637,559,632,646,612"/>
+<area shape="poly" title=" " alt="" coords="690,620,656,660,634,678,611,693,584,704,582,699,608,688,631,673,652,656,686,623"/>
+<area shape="poly" title=" " alt="" coords="699,623,666,686,641,717,611,743,586,756,585,751,608,739,637,713,661,683,694,625"/>
+<area shape="poly" title=" " alt="" coords="646,580,609,573,554,561,554,555,610,568,651,580"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2b8ac054aae805c9d0fe56b9e13c7fff" title="Reports benchmark results to Serial." alt="" coords="412,378,547,406"/>
+<area shape="poly" title=" " alt="" coords="678,572,496,408,498,403,683,571"/>
+<area shape="poly" title=" " alt="" coords="417,374,280,331,279,325,422,371"/>
+<area shape="poly" title=" " alt="" coords="395,388,283,382,281,377,399,385"/>
+<area shape="poly" title=" " alt="" coords="395,409,293,430,291,425,399,406"/>
+<area shape="poly" title=" " alt="" coords="436,415,303,481,274,492,272,488,301,476,440,411"/>
+<area shape="poly" title=" " alt="" coords="446,369,382,322,301,273,277,261,275,256,303,268,385,318,452,368"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a57834612f707a5be015f1b63df8f6f8b" name="a57834612f707a5be015f1b63df8f6f8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57834612f707a5be015f1b63df8f6f8b">&#9670;&#160;</a></span>printPerOp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printPerOp </td>
+          <td>(</td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>cycles</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t</td>          <td class="paramname"><span class="paramname"><em>ops</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prints "&lt;cycles&gt; cycles = &lt;us&gt; us" for one operation, for the human-readable output. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cycles</td><td>the cycles of the whole loop </td></tr>
+    <tr><td class="paramname">ops</td><td>the operations in the loop: 1 for a single call </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="bench__report_8h_source.html#l00060">60</a> of file <a class="el" href="bench__report_8h_source.html">bench_report.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="bench__report_8h_a57834612f707a5be015f1b63df8f6f8b_cgraph.png" border="0" usemap="#abench__report_8h_a57834612f707a5be015f1b63df8f6f8b_cgraph" alt=""/></div>
+<map name="abench__report_8h_a57834612f707a5be015f1b63df8f6f8b_cgraph" id="abench__report_8h_a57834612f707a5be015f1b63df8f6f8b_cgraph">
+<area shape="rect" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="5,57,96,85"/>
+<area shape="rect" href="bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="148,5,244,33"/>
+<area shape="poly" title=" " alt="" coords="91,54,143,37,139,40,93,59"/>
+<area shape="rect" href="bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="151,57,242,85"/>
+<area shape="poly" title=" " alt="" coords="95,69,138,70,133,72,96,74"/>
+<area shape="rect" href="bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="144,109,249,137"/>
+<area shape="poly" title=" " alt="" coords="92,83,144,103,139,105,91,88"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="bench__report_8h_a57834612f707a5be015f1b63df8f6f8b_icgraph.png" border="0" usemap="#abench__report_8h_a57834612f707a5be015f1b63df8f6f8b_icgraph" alt=""/></div>
+<map name="abench__report_8h_a57834612f707a5be015f1b63df8f6f8b_icgraph" id="abench__report_8h_a57834612f707a5be015f1b63df8f6f8b_icgraph">
+<area shape="rect" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="655,402,746,430"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2b8ac054aae805c9d0fe56b9e13c7fff" title="Reports benchmark results to Serial." alt="" coords="410,187,545,215"/>
+<area shape="poly" title=" " alt="" coords="677,389,645,351,605,308,548,257,498,218,499,213,551,253,609,304,649,347,682,390"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a6be85a254f7593ee7d0816879542be5d" title=" " alt="" coords="103,351,300,379"/>
+<area shape="poly" title=" " alt="" coords="671,391,642,370,606,353,561,341,515,335,421,333,334,341,263,353,261,348,333,335,421,327,515,329,562,336,608,348,645,366,677,392"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#afe635d3d8214d539d82722e2097430a8" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="398,363,557,407"/>
+<area shape="poly" title=" " alt="" coords="637,408,558,399,558,393,643,407"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#a421c857707def81da94388948e91c5ce" title="Performance comparison for Q8 fractional multiplication." alt="" coords="364,431,592,459"/>
+<area shape="poly" title=" " alt="" coords="638,424,588,433,587,428,643,423"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#a61d362737dc4e6078cf74deff55b1ef7" title="Performance comparison between assembly and standard multiplication." alt="" coords="349,483,606,511"/>
+<area shape="poly" title=" " alt="" coords="669,438,640,458,608,473,568,485,567,480,606,468,637,453,664,439"/>
+<area shape="rect" href="embedded_2test__mult__asm__perf_2test__main_8cpp.html#ad79cab2493232b344fbe0e836b4e5c03" title="Performance comparison for unsigned multiplication (multU16x16_to32)" alt="" coords="348,535,607,563"/>
+<area shape="poly" title=" " alt="" coords="686,442,654,486,633,507,609,525,581,537,580,532,606,520,629,503,650,483,681,444"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#ae168d15bdb3d5d4181ae01cd2436c76c" title=" " alt="" coords="126,5,277,50"/>
+<area shape="poly" title=" " alt="" coords="448,177,383,122,342,92,299,65,276,53,274,48,301,60,345,87,387,118,453,176"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#ad75f88914357ef873f488b1a412459b1" title=" " alt="" coords="126,75,277,119"/>
+<area shape="poly" title=" " alt="" coords="424,182,299,134,268,122,267,117,301,129,429,180"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a29e9b39af541e1ff0b441ad86ffa5ddc" title=" " alt="" coords="116,144,286,189"/>
+<area shape="poly" title=" " alt="" coords="393,192,288,180,286,174,397,189"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a76bb4357cfa0e179472f77ecc6c39216" title=" " alt="" coords="106,213,297,258"/>
+<area shape="poly" title=" " alt="" coords="393,213,298,226,296,221,397,210"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2f0b23c67117c4e1f6be792e8f8b2815" title=" " alt="" coords="115,283,288,327"/>
+<area shape="poly" title=" " alt="" coords="424,223,301,273,269,284,266,280,299,268,429,219"/>
+<area shape="rect" href="embedded_2test__fastdivision__perf_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,187,55,215"/>
+<area shape="poly" title=" " alt="" coords="111,57,104,64,79,94,59,128,37,187,32,186,54,126,74,91,101,60,114,53"/>
+<area shape="poly" title=" " alt="" coords="110,129,104,134,70,161,45,188,40,186,67,157,101,129,113,124"/>
+<area shape="poly" title=" " alt="" coords="99,189,57,198,53,194,103,185"/>
+<area shape="poly" title=" " alt="" coords="89,215,57,208,54,204,93,212"/>
+<area shape="poly" title=" " alt="" coords="109,276,101,273,67,245,43,218,42,212,70,241,104,268,114,274"/>
+<area shape="poly" title=" " alt="" coords="105,344,101,342,73,312,53,277,35,218,34,213,58,275,78,309,104,338,110,342"/>
 </map>
 </div>
 

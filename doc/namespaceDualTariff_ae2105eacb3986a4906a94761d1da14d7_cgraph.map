@@ -1,0 +1,5 @@
+<map id="DualTariff::startsWithinOffPeak" name="DualTariff::startsWithinOffPeak">
+<area shape="rect" id="Node000001" title="Whether the window starts within the off&#45;peak period: otherwise, it would never open." alt="" coords="5,5,176,50"/>
+<area shape="rect" id="Node000002" href="$namespaceDualTariff.html#add1fd2c084fbdde86e4fba396c547c5f" title="The start of the window, in minutes from the start of the off&#45;peak period: negative if before it." alt="" coords="224,14,409,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,25,211,27,205,28,176,30"/>
+</map>

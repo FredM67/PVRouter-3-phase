@@ -88,16 +88,20 @@ $(function(){ initResizable(false); });
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle"><div class="title">type_traits.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Some useful but missing stl functions templates.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="conditional_8hpp_source.html">type_traits/conditional.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="conditional_8hpp_source.html">type_traits/conditional.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="decay_8hpp_source.html">type_traits/decay.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="enable__if_8hpp_source.html">type_traits/enable_if.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="function__traits_8hpp_source.html">type_traits/function_traits.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="index__sequence_8hpp_source.html">type_traits/index_sequence.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="integral__constant_8hpp_source.html">type_traits/integral_constant.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="is__array_8hpp_source.html">type_traits/is_array.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="is__base__of_8hpp_source.html">type_traits/is_base_of.hpp</a>&quot;</code><br />
@@ -120,80 +124,85 @@ Include dependency graph for type_traits.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="type__traits_8hpp__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2type__traits_8hpp" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2type__traits_8hpp" id="aMk2__3phase__RFdatalog__temp_2type__traits_8hpp">
-<area shape="rect" title="Some useful but missing stl functions templates." alt="" coords="1390,5,1566,50"/>
-<area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="5,106,201,134"/>
-<area shape="poly" title=" " alt="" coords="1386,30,1180,37,888,47,553,68,381,82,213,101,180,105,177,101,212,95,380,77,552,62,888,42,1180,31,1392,29"/>
-<area shape="rect" href="decay_8hpp.html" title=" " alt="" coords="758,106,918,134"/>
-<area shape="poly" title=" " alt="" coords="1386,38,1179,64,930,101,906,105,905,100,929,95,1179,59,1392,37"/>
-<area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="421,98,561,143"/>
-<area shape="poly" title=" " alt="" coords="1386,31,1237,38,1037,50,809,70,576,100,575,95,809,64,1036,44,1237,33,1392,30"/>
-<area shape="rect" href="function__traits_8hpp.html" title=" " alt="" coords="585,98,733,143"/>
-<area shape="poly" title=" " alt="" coords="1387,34,1108,56,931,75,749,100,748,95,930,70,1107,51,1392,33"/>
-<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="1740,342,1885,387"/>
-<area shape="poly" title=" " alt="" coords="1566,28,1738,34,1940,46,2034,55,2114,66,2174,79,2195,87,2207,96,2227,121,2241,145,2249,170,2251,195,2248,220,2240,245,2226,271,2208,296,2187,312,2157,325,2078,345,1987,357,1901,363,1900,358,1986,351,2077,340,2156,320,2184,307,2204,292,2222,268,2235,243,2243,219,2246,195,2244,171,2236,147,2223,124,2204,100,2192,92,2173,85,2113,71,2033,60,1939,51,1738,40,1567,34"/>
-<area shape="rect" href="is__array_8hpp.html" title=" " alt="" coords="224,106,398,134"/>
-<area shape="poly" title=" " alt="" coords="1386,31,1209,38,966,50,689,70,410,101,381,105,379,100,409,95,689,64,966,44,1209,33,1392,30"/>
-<area shape="rect" href="is__base__of_8hpp.html" title=" " alt="" coords="942,98,1086,143"/>
-<area shape="poly" title=" " alt="" coords="1387,45,1105,101,1102,101,1100,96,1104,95,1392,44"/>
-<area shape="rect" href="remove__reference_8hpp.html" title=" " alt="" coords="578,191,746,218"/>
-<area shape="poly" title=" " alt="" coords="1386,34,1332,43,1268,55,1204,74,1143,100,1130,111,1122,122,1114,134,1099,145,975,164,762,193,761,188,974,159,1097,140,1110,130,1118,119,1126,107,1140,96,1202,69,1267,50,1331,37,1392,33"/>
-<area shape="rect" href="is__class_8hpp.html" title=" " alt="" coords="770,191,945,218"/>
-<area shape="poly" title=" " alt="" coords="1386,40,1292,63,1242,79,1194,100,1179,111,1169,122,1159,134,1143,145,1110,157,1064,169,958,190,956,185,1062,164,1108,152,1140,140,1155,130,1165,119,1175,107,1191,96,1240,74,1291,58,1391,39"/>
-<area shape="rect" href="is__const_8hpp.html" title=" " alt="" coords="2268,266,2444,294"/>
-<area shape="poly" title=" " alt="" coords="1566,30,1746,38,1958,52,2146,71,2213,83,2251,96,2271,111,2289,130,2318,171,2338,214,2351,253,2347,250,2334,216,2313,174,2285,133,2268,115,2248,100,2211,88,2145,76,1958,57,1745,44,1566,35"/>
-<area shape="rect" href="is__convertible_8hpp.html" title=" " alt="" coords="969,191,1184,218"/>
-<area shape="poly" title=" " alt="" coords="1392,47,1320,71,1251,100,1222,121,1194,145,1119,186,1117,181,1191,140,1219,117,1248,96,1319,66,1387,48"/>
-<area shape="rect" href="is__enum_8hpp.html" title=" " alt="" coords="1262,106,1440,134"/>
-<area shape="poly" title=" " alt="" coords="1450,49,1383,100,1380,95,1445,51"/>
-<area shape="rect" href="is__floating__point_8hpp.html" title=" " alt="" coords="1258,191,1414,218"/>
-<area shape="poly" title=" " alt="" coords="1480,49,1475,96,1467,121,1454,144,1428,169,1396,187,1394,182,1424,165,1450,141,1463,119,1470,95,1476,52"/>
-<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="1477,266,1580,294"/>
-<area shape="poly" title=" " alt="" coords="1496,48,1537,110,1556,149,1571,190,1573,205,1571,219,1551,256,1548,252,1566,217,1568,205,1566,191,1551,151,1532,112,1493,53"/>
-<area shape="rect" href="is__integral_8hpp.html" title=" " alt="" coords="1439,191,1556,218"/>
-<area shape="poly" title=" " alt="" coords="1486,48,1499,98,1501,177,1497,174,1494,98,1483,53"/>
-<area shape="rect" href="is__pointer_8hpp.html" title=" " alt="" coords="1850,266,2036,294"/>
-<area shape="poly" title=" " alt="" coords="1567,45,1703,76,1856,114,1985,154,2029,172,2053,189,2059,201,2059,212,2048,232,2025,249,1997,263,1996,258,2022,244,2044,228,2054,211,2054,202,2049,192,2027,177,1984,159,1855,120,1702,81,1566,51"/>
-<area shape="rect" href="is__signed_8hpp.html" title=" " alt="" coords="1631,191,1815,218"/>
-<area shape="poly" title=" " alt="" coords="1528,48,1571,69,1614,96,1664,137,1704,180,1699,179,1660,141,1611,100,1569,74,1527,53"/>
-<area shape="rect" href="is__unsigned_8hpp.html" title=" " alt="" coords="1839,191,2039,218"/>
-<area shape="poly" title=" " alt="" coords="1535,48,1893,185,1888,185,1534,53"/>
-<area shape="rect" href="make__unsigned_8hpp.html" title=" " alt="" coords="1968,106,2193,134"/>
-<area shape="poly" title=" " alt="" coords="1566,39,1949,95,1986,103,1981,103,1948,101,1566,44"/>
-<area shape="rect" href="remove__const_8hpp.html" title=" " alt="" coords="2320,98,2465,143"/>
-<area shape="poly" title=" " alt="" coords="1566,30,1891,50,2095,69,2301,95,2307,99,2302,99,2300,101,2095,74,1890,55,1567,35"/>
-<area shape="rect" href="void__t_8hpp.html" title=" " alt="" coords="2489,106,2653,134"/>
-<area shape="poly" title=" " alt="" coords="1566,28,1736,33,1963,45,2219,65,2478,95,2507,103,2502,103,2477,101,2219,70,1962,50,1736,39,1567,33"/>
-<area shape="rect" title=" " alt="" coords="385,191,458,218"/>
-<area shape="poly" title=" " alt="" coords="779,136,746,145,474,197,473,192,745,140,784,134"/>
-<area shape="poly" title=" " alt="" coords="329,132,394,181,389,181,328,137"/>
-<area shape="poly" title=" " alt="" coords="938,141,930,145,737,189,736,184,929,140,943,139"/>
-<area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="919,266,1015,294"/>
-<area shape="poly" title=" " alt="" coords="878,216,938,258,932,257,877,221"/>
-<area shape="poly" title=" " alt="" coords="2272,294,1901,352,1900,347,2266,295"/>
-<area shape="poly" title=" " alt="" coords="1059,218,1000,260,998,255,1054,220"/>
-<area shape="poly" title=" " alt="" coords="1269,135,953,190,952,185,1274,134"/>
-<area shape="poly" title=" " alt="" coords="1309,134,1136,188,1134,183,1304,135"/>
-<area shape="poly" title=" " alt="" coords="1351,133,1343,178,1339,174,1347,137"/>
-<area shape="poly" title=" " alt="" coords="1320,134,1287,153,1258,172,1248,183,1242,194,1242,205,1248,217,1261,228,1281,237,1336,253,1400,264,1464,274,1459,274,1400,270,1335,259,1279,242,1258,232,1244,220,1237,206,1237,193,1244,180,1254,168,1284,148,1315,136"/>
-<area shape="poly" title=" " alt="" coords="1375,132,1464,183,1458,182,1374,137"/>
-<area shape="poly" title=" " alt="" coords="1350,216,1394,255,1423,275,1453,292,1522,317,1593,335,1663,347,1727,358,1721,357,1662,353,1592,340,1520,322,1451,296,1420,279,1391,259,1348,221"/>
-<area shape="poly" title=" " alt="" coords="1371,216,1483,261,1477,260,1370,222"/>
-<area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="1604,266,1724,294"/>
-<area shape="poly" title=" " alt="" coords="1396,216,1593,262,1588,262,1395,222"/>
-<area shape="poly" title=" " alt="" coords="1574,292,1727,338,1722,338,1574,297"/>
-<area shape="poly" title=" " alt="" coords="1488,217,1475,236,1465,256,1460,275,1467,292,1482,305,1507,317,1573,335,1650,348,1727,358,1722,358,1649,353,1571,341,1505,322,1480,310,1462,296,1455,275,1460,254,1471,233,1483,220"/>
-<area shape="poly" title=" " alt="" coords="1505,217,1519,253,1515,250,1502,221"/>
-<area shape="poly" title=" " alt="" coords="1528,216,1623,260,1618,259,1527,222"/>
-<area shape="poly" title=" " alt="" coords="1925,294,1861,336,1859,331,1919,295"/>
-<area shape="poly" title=" " alt="" coords="1732,216,1795,329,1790,327,1729,221"/>
-<area shape="poly" title=" " alt="" coords="1691,218,1578,263,1576,258,1686,219"/>
-<area shape="poly" title=" " alt="" coords="1715,218,1686,256,1683,252,1710,220"/>
-<area shape="poly" title=" " alt="" coords="1906,218,1870,240,1840,268,1825,296,1817,328,1814,324,1820,295,1836,265,1867,236,1901,220"/>
-<area shape="poly" title=" " alt="" coords="1864,219,1595,269,1595,263,1858,219"/>
-<area shape="poly" title=" " alt="" coords="1893,218,1729,264,1728,259,1887,219"/>
-<area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="2060,266,2194,294"/>
-<area shape="poly" title=" " alt="" coords="2086,132,2121,253,2117,250,2083,137"/>
-<area shape="poly" title=" " alt="" coords="2079,294,1901,343,1900,338,2074,295"/>
+<area shape="rect" title="Some useful but missing stl functions templates." alt="" coords="1537,5,1714,50"/>
+<area shape="rect" title=" " alt="" coords="140,191,210,218"/>
+<area shape="poly" title=" " alt="" coords="1534,30,1168,36,672,46,433,55,229,67,82,82,38,91,17,100,10,110,8,119,17,141,39,163,66,179,96,190,126,197,122,200,94,195,64,184,35,168,13,144,3,120,5,108,13,96,36,86,82,77,229,62,433,50,672,41,1168,31,1540,29"/>
+<area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="27,106,222,134"/>
+<area shape="poly" title=" " alt="" coords="1534,30,1309,35,986,45,613,65,421,81,234,101,200,106,198,101,233,95,421,76,613,60,986,39,1309,29,1539,29"/>
+<area shape="rect" href="decay_8hpp.html" title=" " alt="" coords="1032,106,1192,134"/>
+<area shape="poly" title=" " alt="" coords="1534,42,1382,69,1205,101,1182,105,1181,100,1204,95,1381,64,1539,41"/>
+<area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="499,98,638,143"/>
+<area shape="poly" title=" " alt="" coords="1534,30,1374,37,1156,48,907,68,653,100,652,95,907,63,1156,42,1374,32,1539,29"/>
+<area shape="rect" href="function__traits_8hpp.html" title=" " alt="" coords="662,98,810,143"/>
+<area shape="poly" title=" " alt="" coords="1534,33,1227,54,1029,73,826,100,825,95,1028,68,1226,49,1540,32"/>
+<area shape="rect" href="index__sequence_8hpp.html" title="std::index_sequence, which avr&#45;libc lacks, on 8&#45;bit indexes" alt="" coords="246,106,474,134"/>
+<area shape="poly" title=" " alt="" coords="1534,32,1086,53,789,72,487,101,447,106,445,101,487,95,788,67,1086,48,1540,31"/>
+<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="2037,342,2182,387"/>
+<area shape="poly" title=" " alt="" coords="1714,27,1919,30,2168,40,2286,49,2388,61,2463,76,2489,85,2505,96,2524,121,2538,145,2546,170,2549,195,2546,220,2537,245,2524,270,2505,296,2484,312,2455,325,2375,345,2284,357,2198,363,2198,358,2283,351,2374,340,2453,320,2482,307,2501,292,2519,268,2532,243,2540,219,2543,195,2541,171,2533,147,2520,124,2501,100,2486,90,2462,81,2387,66,2286,54,2168,46,1919,35,1714,32"/>
+<area shape="rect" href="is__array_8hpp.html" title=" " alt="" coords="835,106,1008,134"/>
+<area shape="poly" title=" " alt="" coords="1534,37,1303,63,1021,101,994,105,993,100,1020,95,1302,57,1540,36"/>
+<area shape="rect" href="is__base__of_8hpp.html" title=" " alt="" coords="1216,98,1360,143"/>
+<area shape="poly" title=" " alt="" coords="1547,50,1376,98,1375,93,1542,51"/>
+<area shape="rect" href="remove__reference_8hpp.html" title=" " alt="" coords="875,191,1043,218"/>
+<area shape="poly" title=" " alt="" coords="1540,47,1477,71,1418,100,1405,111,1397,123,1388,134,1373,145,1255,166,1059,193,1058,188,1254,161,1371,140,1384,131,1392,120,1401,108,1415,96,1475,66,1534,49"/>
+<area shape="rect" href="is__class_8hpp.html" title=" " alt="" coords="1306,191,1481,218"/>
+<area shape="poly" title=" " alt="" coords="1595,49,1526,100,1422,183,1420,178,1523,96,1590,51"/>
+<area shape="rect" href="is__const_8hpp.html" title=" " alt="" coords="2565,266,2742,294"/>
+<area shape="poly" title=" " alt="" coords="1714,28,1926,35,2186,48,2418,67,2501,80,2548,96,2569,111,2587,129,2615,171,2636,214,2648,253,2644,250,2631,216,2611,174,2582,133,2565,115,2546,100,2499,86,2418,73,2186,53,1926,40,1715,34"/>
+<area shape="rect" href="is__convertible_8hpp.html" title=" " alt="" coords="1068,191,1282,218"/>
+<area shape="poly" title=" " alt="" coords="1566,50,1516,74,1468,100,1454,112,1444,123,1433,134,1417,145,1352,172,1286,190,1285,184,1351,167,1415,140,1430,130,1440,119,1450,108,1465,96,1514,69,1561,51"/>
+<area shape="rect" href="is__enum_8hpp.html" title=" " alt="" coords="1536,106,1715,134"/>
+<area shape="poly" title=" " alt="" coords="1627,48,1628,93,1623,89,1624,52"/>
+<area shape="rect" href="is__floating__point_8hpp.html" title=" " alt="" coords="1555,191,1712,218"/>
+<area shape="poly" title=" " alt="" coords="1677,48,1707,69,1729,97,1737,120,1729,144,1710,168,1684,186,1682,181,1706,164,1725,141,1731,120,1725,99,1703,73,1676,53"/>
+<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="1774,266,1877,294"/>
+<area shape="poly" title=" " alt="" coords="1695,48,1744,70,1794,100,1837,140,1855,163,1868,190,1871,207,1867,225,1849,257,1846,252,1862,223,1866,207,1863,191,1850,166,1833,143,1791,104,1741,74,1694,53"/>
+<area shape="rect" href="is__integral_8hpp.html" title=" " alt="" coords="1736,191,1854,218"/>
+<area shape="poly" title=" " alt="" coords="1682,48,1719,69,1752,96,1776,135,1791,177,1786,174,1771,137,1748,100,1716,73,1681,53"/>
+<area shape="rect" href="is__pointer_8hpp.html" title=" " alt="" coords="2147,266,2333,294"/>
+<area shape="poly" title=" " alt="" coords="1714,38,1866,61,2038,95,2199,134,2296,163,2331,176,2350,189,2356,201,2356,212,2345,232,2322,249,2294,263,2293,257,2319,244,2341,228,2351,211,2351,202,2346,192,2329,181,2295,168,2197,139,2037,101,1865,67,1714,43"/>
+<area shape="rect" href="is__signed_8hpp.html" title=" " alt="" coords="1928,191,2112,218"/>
+<area shape="poly" title=" " alt="" coords="1714,36,1812,57,1863,74,1911,96,1938,114,1964,135,2004,180,1999,178,1960,139,1935,118,1908,100,1861,79,1810,62,1714,41"/>
+<area shape="rect" href="is__unsigned_8hpp.html" title=" " alt="" coords="2136,191,2336,218"/>
+<area shape="poly" title=" " alt="" coords="1714,41,1831,64,1957,95,2087,139,2195,185,2189,184,2085,144,1955,101,1829,69,1714,46"/>
+<area shape="rect" href="make__unsigned_8hpp.html" title=" " alt="" coords="2265,106,2490,134"/>
+<area shape="poly" title=" " alt="" coords="1714,35,1954,60,2246,95,2286,104,2281,104,2245,101,1954,65,1714,40"/>
+<area shape="rect" href="remove__const_8hpp.html" title=" " alt="" coords="2617,98,2762,143"/>
+<area shape="poly" title=" " alt="" coords="1714,28,1879,34,2099,45,2347,65,2598,95,2604,99,2599,99,2597,101,2347,70,2098,51,1879,39,1714,33"/>
+<area shape="rect" href="void__t_8hpp.html" title=" " alt="" coords="2787,106,2950,134"/>
+<area shape="poly" title=" " alt="" coords="1714,27,1907,31,2170,41,2471,61,2625,77,2775,95,2804,103,2799,103,2774,101,2624,82,2471,67,2170,46,1906,36,1715,32"/>
+<area shape="rect" title=" " alt="" coords="777,191,850,218"/>
+<area shape="poly" title=" " alt="" coords="1067,134,866,192,864,187,1062,135"/>
+<area shape="poly" title=" " alt="" coords="328,136,220,186,217,182,332,133"/>
+<area shape="poly" title=" " alt="" coords="907,134,844,183,842,179,902,136"/>
+<area shape="poly" title=" " alt="" coords="1218,139,1205,145,1027,189,1026,184,1204,140,1213,140"/>
+<area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="1236,266,1332,294"/>
+<area shape="poly" title=" " alt="" coords="1377,218,1317,260,1315,255,1371,220"/>
+<area shape="poly" title=" " alt="" coords="2569,294,2198,352,2198,347,2563,295"/>
+<area shape="poly" title=" " alt="" coords="1195,216,1255,258,1250,257,1194,221"/>
+<area shape="poly" title=" " alt="" coords="1591,134,1445,188,1444,183,1586,135"/>
+<area shape="poly" title=" " alt="" coords="1556,134,1263,190,1262,185,1550,135"/>
+<area shape="poly" title=" " alt="" coords="1629,133,1633,177,1629,174,1625,137"/>
+<area shape="poly" title=" " alt="" coords="1603,134,1576,153,1552,174,1539,196,1539,206,1545,217,1558,228,1578,237,1633,253,1698,264,1762,274,1756,274,1697,270,1632,259,1576,242,1555,232,1541,220,1534,207,1534,194,1548,170,1573,149,1598,136"/>
+<area shape="poly" title=" " alt="" coords="1653,132,1757,184,1752,183,1652,137"/>
+<area shape="poly" title=" " alt="" coords="1647,216,1691,255,1720,275,1751,292,1819,317,1891,335,1960,347,2024,358,2019,357,1959,353,1890,340,1818,322,1748,296,1717,279,1688,259,1646,221"/>
+<area shape="poly" title=" " alt="" coords="1668,216,1780,261,1775,260,1667,222"/>
+<area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="1901,266,2022,294"/>
+<area shape="poly" title=" " alt="" coords="1693,216,1890,262,1885,262,1692,222"/>
+<area shape="poly" title=" " alt="" coords="1872,292,2025,338,2019,338,1871,297"/>
+<area shape="poly" title=" " alt="" coords="1785,217,1772,236,1762,256,1757,275,1764,292,1780,305,1804,317,1870,335,1947,348,2024,358,2019,358,1946,353,1869,341,1802,322,1777,310,1759,296,1752,275,1757,254,1768,233,1781,220"/>
+<area shape="poly" title=" " alt="" coords="1802,217,1816,253,1812,250,1799,221"/>
+<area shape="poly" title=" " alt="" coords="1825,216,1921,260,1915,259,1824,222"/>
+<area shape="poly" title=" " alt="" coords="2222,294,2158,336,2156,331,2217,295"/>
+<area shape="poly" title=" " alt="" coords="2029,216,2092,330,2087,327,2026,221"/>
+<area shape="poly" title=" " alt="" coords="1988,218,1875,263,1874,258,1983,219"/>
+<area shape="poly" title=" " alt="" coords="2012,218,1983,256,1980,252,2007,220"/>
+<area shape="poly" title=" " alt="" coords="2203,218,2167,240,2137,268,2122,296,2114,328,2111,324,2117,295,2133,265,2164,236,2198,220"/>
+<area shape="poly" title=" " alt="" coords="2161,219,1893,269,1892,263,2156,219"/>
+<area shape="poly" title=" " alt="" coords="2190,218,2026,264,2025,259,2184,219"/>
+<area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="2358,266,2491,294"/>
+<area shape="poly" title=" " alt="" coords="2383,132,2418,253,2414,250,2380,137"/>
+<area shape="poly" title=" " alt="" coords="2376,294,2198,343,2197,338,2371,295"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -201,101 +210,191 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="type__traits_8hpp__dep__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2type__traits_8hppdep" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2type__traits_8hppdep" id="aMk2__3phase__RFdatalog__temp_2type__traits_8hppdep">
-<area shape="rect" title="Some useful but missing stl functions templates." alt="" coords="1720,5,1897,50"/>
-<area shape="rect" href="config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="1370,98,1546,143"/>
-<area shape="poly" title=" " alt="" coords="1708,55,1543,100,1541,95,1713,54"/>
-<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="1575,199,1752,244"/>
-<area shape="poly" title=" " alt="" coords="1703,41,1679,51,1653,63,1630,79,1611,100,1605,111,1603,123,1610,150,1625,175,1643,199,1638,198,1620,178,1605,152,1598,124,1600,110,1606,96,1626,75,1650,58,1677,46,1708,39"/>
-<area shape="rect" href="ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="1620,98,1797,143"/>
-<area shape="poly" title=" " alt="" coords="1776,59,1734,100,1731,95,1771,62"/>
-<area shape="rect" href="movingAvg_8h.html" title="Code for sliding&#45;window average." alt="" coords="1820,98,1997,143"/>
-<area shape="poly" title=" " alt="" coords="1844,58,1887,98,1882,97,1843,63"/>
-<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="2020,98,2197,143"/>
-<area shape="poly" title=" " alt="" coords="1895,52,2040,97,2034,98,1895,57"/>
-<area shape="rect" href="utils__override_8h.html" title="Compile&#45;time utilities for managing override pins and index&#45;to&#45;bitmask mapping." alt="" coords="2318,98,2494,143"/>
-<area shape="poly" title=" " alt="" coords="1912,42,2320,105,2315,106,1912,47"/>
-<area shape="rect" href="config_8h.html" title="Router configuration: loads, relays, control pins and features." alt="" coords="1348,309,1525,354"/>
-<area shape="poly" title=" " alt="" coords="1456,156,1441,310,1437,307,1452,160"/>
-<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="1324,511,1501,556"/>
-<area shape="poly" title=" " alt="" coords="1477,154,1511,226,1545,313,1559,357,1567,397,1569,430,1562,456,1547,475,1530,490,1489,513,1487,508,1526,486,1543,471,1557,453,1563,430,1562,397,1554,358,1540,315,1506,228,1474,159"/>
-<area shape="rect" href="remote__loads_8h.html" title="Support for remotely controlled loads via RF using RFM69." alt="" coords="1524,511,1701,556"/>
-<area shape="poly" title=" " alt="" coords="1492,152,1522,189,1555,247,1577,294,1592,344,1606,410,1613,464,1615,512,1611,509,1608,464,1601,410,1587,346,1572,296,1551,249,1517,192,1490,157"/>
-<area shape="rect" href="teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="247,410,424,455"/>
-<area shape="poly" title=" " alt="" coords="1351,131,1138,156,871,192,739,215,618,241,517,270,443,303,412,326,386,355,348,411,344,408,381,352,409,322,441,298,515,265,617,236,738,210,870,187,1137,151,1357,130"/>
-<area shape="rect" href="embedded_2test__teleinfo_2test__main_8cpp.html" title=" " alt="" coords="5,503,199,564"/>
-<area shape="poly" title=" " alt="" coords="1351,125,1167,134,940,146,725,165,637,178,571,193,499,220,429,256,363,299,302,344,199,434,130,504,126,501,196,430,299,340,360,294,426,252,496,216,569,188,636,173,725,160,940,141,1166,128,1357,123"/>
-<area shape="poly" title=" " alt="" coords="1517,147,1621,199,1616,199,1517,153"/>
-<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="1148,410,1325,455"/>
-<area shape="poly" title=" " alt="" coords="1382,360,1281,412,1280,407,1377,362"/>
-<area shape="rect" href="main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="1148,612,1325,657"/>
-<area shape="poly" title=" " alt="" coords="1515,357,1602,394,1645,417,1683,443,1712,471,1730,501,1733,517,1732,533,1726,550,1715,566,1688,586,1650,601,1602,613,1547,622,1431,633,1325,636,1325,631,1431,628,1546,617,1601,608,1648,596,1686,581,1711,562,1721,547,1727,532,1728,517,1725,503,1708,474,1679,447,1642,422,1599,399,1514,362"/>
-<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="1023,511,1200,556"/>
-<area shape="poly" title=" " alt="" coords="1331,348,1217,375,1169,392,1139,412,1124,434,1116,461,1111,512,1107,509,1110,460,1119,432,1135,408,1167,388,1216,370,1336,347"/>
-<area shape="poly" title=" " alt="" coords="1493,360,1520,382,1539,409,1546,433,1539,456,1526,474,1510,490,1472,513,1470,508,1506,486,1522,471,1534,453,1541,433,1534,411,1516,385,1492,365"/>
-<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="898,410,1074,455"/>
-<area shape="poly" title=" " alt="" coords="1331,356,1075,414,1074,409,1336,354"/>
-<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="698,410,874,455"/>
-<area shape="poly" title=" " alt="" coords="1330,346,1126,375,886,413,875,415,874,409,886,407,1126,370,1336,344"/>
-<area shape="poly" title=" " alt="" coords="1488,359,1520,381,1549,408,1567,433,1581,461,1601,512,1597,509,1576,463,1562,436,1545,412,1517,385,1487,364"/>
-<area shape="poly" title=" " alt="" coords="1331,340,960,369,724,389,486,413,425,420,423,415,486,407,723,384,959,363,1336,338"/>
-<area shape="rect" href="utils__rf_8h.html" title="RF module support for RFM69." alt="" coords="1348,410,1525,455"/>
-<area shape="poly" title=" " alt="" coords="1438,367,1439,411,1435,408,1435,371"/>
-<area shape="rect" href="utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="498,410,674,455"/>
-<area shape="poly" title=" " alt="" coords="1330,340,1036,368,856,388,675,412,674,407,855,382,1036,362,1335,339"/>
-<area shape="poly" title=" " alt="" coords="1239,468,1239,614,1235,610,1235,472"/>
-<area shape="poly" title=" " alt="" coords="1200,463,1140,513,1137,508,1195,465"/>
-<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="823,511,1000,556"/>
-<area shape="poly" title=" " alt="" coords="1153,459,983,513,982,508,1148,460"/>
-<area shape="poly" title=" " alt="" coords="1289,460,1377,511,1371,510,1288,465"/>
-<area shape="poly" title=" " alt="" coords="998,558,1168,612,1163,612,997,563"/>
-<area shape="poly" title=" " alt="" coords="1363,563,1276,614,1274,609,1358,565"/>
-<area shape="poly" title=" " alt="" coords="1026,462,1087,511,1082,510,1024,467"/>
-<area shape="poly" title=" " alt="" coords="963,466,929,513,926,509,958,468"/>
-<area shape="poly" title=" " alt="" coords="784,468,790,519,799,542,813,562,836,578,869,590,956,610,1056,622,1151,631,1145,631,1055,627,955,615,867,596,833,582,809,566,794,545,785,520,781,472"/>
-<area shape="poly" title=" " alt="" coords="872,457,1043,511,1037,511,872,462"/>
-<area shape="poly" title=" " alt="" coords="826,462,887,511,882,510,824,467"/>
-<area shape="poly" title=" " alt="" coords="1611,494,1595,454,1569,412,1534,380,1495,357,1496,352,1537,376,1573,408,1600,451,1615,497"/>
-<area shape="poly" title=" " alt="" coords="439,449,825,516,821,519,439,454"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html" title=" " alt="" coords="223,503,432,564"/>
-<area shape="poly" title=" " alt="" coords="334,468,332,504,327,501,331,472"/>
-<area shape="poly" title=" " alt="" coords="268,463,175,504,172,500,272,459"/>
-<area shape="poly" title=" " alt="" coords="1330,456,1242,471,1171,479,1100,489,1012,505,980,513,979,508,1011,500,1099,483,1170,474,1241,466,1335,455"/>
-<area shape="poly" title=" " alt="" coords="1430,468,1420,513,1416,509,1426,471"/>
-<area shape="poly" title=" " alt="" coords="1489,460,1577,511,1572,510,1488,465"/>
-<area shape="poly" title=" " alt="" coords="689,409,698,407,878,382,1058,362,1351,339,1345,340,1059,368,879,388,698,413,690,414"/>
-<area shape="poly" title=" " alt="" coords="672,457,843,510,837,511,672,462"/>
-<area shape="poly" title=" " alt="" coords="1607,250,1483,311,1482,306,1601,252"/>
-<area shape="poly" title=" " alt="" coords="1557,223,1301,233,1142,243,977,259,818,283,676,316,615,335,562,358,520,383,488,412,440,458,402,483,381,494,380,493,383,492,418,494,491,502,609,522,780,562,877,584,976,601,1151,626,1145,625,976,606,876,589,779,567,608,527,490,507,417,499,383,497,375,494,378,489,399,479,437,454,484,408,516,379,560,353,613,330,675,310,817,278,976,254,1141,238,1301,228,1562,222"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html" title=" " alt="" coords="1821,300,2015,362"/>
-<area shape="poly" title=" " alt="" coords="1729,248,1849,300,1844,300,1728,253"/>
-<area shape="poly" title=" " alt="" coords="1695,155,1675,201,1671,197,1690,159"/>
-<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html" title=" " alt="" coords="1775,191,1970,252"/>
-<area shape="poly" title=" " alt="" coords="1758,148,1825,190,1820,190,1757,154"/>
-<area shape="poly" title=" " alt="" coords="2070,151,2028,192,2016,210,2009,225,2000,240,1983,255,1947,271,1898,285,1776,306,1643,320,1525,328,1525,323,1642,315,1775,301,1897,279,1945,266,1981,250,1996,237,2004,223,2011,207,2024,189,2065,154"/>
-<area shape="poly" title=" " alt="" coords="2124,155,2149,235,2158,282,2162,330,2162,434,2155,465,2135,493,2104,517,2063,538,2013,557,1957,573,1829,598,1691,616,1553,627,1325,635,1325,630,1553,621,1690,610,1828,593,1956,568,2012,552,2060,533,2101,512,2131,489,2150,463,2157,433,2157,330,2153,283,2144,236,2121,160"/>
-<area shape="poly" title=" " alt="" coords="2108,156,2101,205,2087,259,2064,315,2048,341,2029,364,1994,396,1954,424,1911,449,1867,469,1780,500,1702,520,1701,515,1778,495,1865,464,1909,444,1951,420,1990,392,2025,360,2044,337,2059,312,2082,257,2096,203,2104,160"/>
-<area shape="poly" title=" " alt="" coords="2003,144,1883,168,1764,193,1734,201,1733,196,1763,188,1882,163,2008,143"/>
-<area shape="poly" title=" " alt="" coords="2093,155,2065,206,2028,254,2000,280,1969,302,1967,297,1996,276,2024,251,2061,203,2089,158"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html" title="Native unit tests for load_map.h and remote_loads_core.h." alt="" coords="2397,191,2610,252"/>
-<area shape="poly" title=" " alt="" coords="2439,151,2476,191,2471,189,2437,156"/>
-<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html" title="Native unit tests for utils_override.h." alt="" coords="2634,191,2847,252"/>
-<area shape="poly" title=" " alt="" coords="2494,145,2641,190,2636,190,2494,150"/>
-<area shape="rect" href="utils__override__helpers_8h.html" title="Config&#45;dependent helper functions for override pin configuration." alt="" coords="2196,191,2373,252"/>
-<area shape="poly" title=" " alt="" coords="2370,152,2323,193,2320,188,2365,154"/>
-<area shape="poly" title=" " alt="" coords="2179,236,1526,321,1525,316,2184,235"/>
+<area shape="rect" title="Some useful but missing stl functions templates." alt="" coords="554,5,730,50"/>
+<area shape="rect" href="config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="554,191,730,235"/>
+<area shape="poly" title=" " alt="" coords="643,63,644,191,639,190,641,68"/>
+<area shape="rect" href="relay__engine_8h.html" title="Decisions of the relay diversion: which relay switches, and when." alt="" coords="224,292,400,336"/>
+<area shape="poly" title=" " alt="" coords="561,59,531,77,499,100,471,134,455,166,441,199,414,237,381,268,348,293,344,290,378,264,410,234,436,197,451,164,466,131,496,96,528,73,565,55"/>
+<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="438,402,614,446"/>
+<area shape="poly" title=" " alt="" coords="616,60,577,121,559,156,544,191,531,250,525,309,526,402,521,401,520,308,526,249,539,190,554,153,573,118,613,64"/>
+<area shape="rect" href="config__types_8h.html" title="What config.h is written with: its types, constants and helpers." alt="" coords="1190,98,1366,143"/>
+<area shape="poly" title=" " alt="" coords="745,41,1191,105,1187,108,746,46"/>
+<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="587,292,763,336"/>
+<area shape="poly" title=" " alt="" coords="670,60,712,118,730,153,744,190,749,213,744,236,726,268,703,293,699,289,722,265,739,234,744,213,739,191,726,155,708,121,670,65"/>
+<area shape="rect" href="utils__override_8h.html" title="Compile&#45;time utilities for managing override pins and index&#45;to&#45;bitmask mapping." alt="" coords="1867,191,2043,235"/>
+<area shape="poly" title=" " alt="" coords="745,33,1031,55,1205,73,1378,95,1646,142,1869,191,1864,192,1645,147,1377,101,1204,79,1031,61,746,38"/>
+<area shape="rect" href="ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="224,191,400,235"/>
+<area shape="poly" title=" " alt="" coords="536,57,488,76,439,100,408,122,378,146,333,192,329,189,375,142,404,117,436,96,486,71,540,53"/>
+<area shape="rect" href="config__derived_8h.html" title="The configuration as the firmware uses it: the settings, and what is built from them." alt="" coords="1091,511,1267,556"/>
+<area shape="poly" title=" " alt="" coords="733,238,779,257,821,281,839,297,851,312,862,327,878,343,946,394,1017,440,1139,511,1134,511,1014,444,943,398,875,347,858,330,846,315,835,300,817,286,776,262,734,244"/>
+<area shape="rect" href="remote__loads_8h.html" title="Support for remotely controlled loads via RF using RFM69." alt="" coords="739,705,915,750"/>
+<area shape="poly" title=" " alt="" coords="582,245,543,272,499,305,459,346,428,394,424,410,424,433,429,489,444,563,473,595,507,622,545,646,584,665,665,694,741,714,736,714,664,699,582,670,542,650,504,627,470,599,439,566,424,490,419,433,419,409,423,392,455,343,495,301,540,267,586,241"/>
+<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="966,705,1142,750"/>
+<area shape="poly" title=" " alt="" coords="717,240,749,258,777,282,800,314,821,359,861,468,900,578,921,623,942,655,972,682,1007,705,1002,704,969,686,938,659,916,625,896,580,856,470,816,361,795,317,773,285,746,263,717,245"/>
+<area shape="poly" title=" " alt="" coords="553,242,386,294,383,289,557,239"/>
+<area shape="rect" href="dualtariff_8h.html" title="The scheduled boosts of the dual tariff, resolved at compile time." alt="" coords="1667,612,1843,657"/>
+<area shape="poly" title=" " alt="" coords="1283,548,1655,610,1669,615,1664,614,1655,615,1283,553"/>
+<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="1667,705,1843,750"/>
+<area shape="poly" title=" " alt="" coords="1283,537,1443,546,1623,561,1776,582,1828,595,1857,610,1864,622,1866,634,1857,658,1835,686,1805,707,1803,702,1831,682,1853,656,1861,633,1859,624,1853,614,1826,600,1775,587,1622,566,1443,551,1283,542"/>
+<area shape="rect" href="main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="1154,798,1330,842"/>
+<area shape="poly" title=" " alt="" coords="1188,569,1207,656,1239,799,1234,796,1202,658,1185,574"/>
+<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="1216,612,1392,657"/>
+<area shape="poly" title=" " alt="" coords="1219,563,1280,613,1275,611,1218,568"/>
+<area shape="poly" title=" " alt="" coords="1079,553,1002,580,965,596,930,615,901,636,875,660,836,707,833,702,871,656,897,632,927,610,962,591,1000,575,1074,555"/>
+<area shape="rect" href="utils__rf_8h.html" title="RF module support for RFM69." alt="" coords="966,612,1142,657"/>
+<area shape="poly" title=" " alt="" coords="1142,565,1082,614,1080,610,1137,567"/>
+<area shape="poly" title=" " alt="" coords="1073,545,1043,556,1010,569,980,589,956,614,950,625,949,634,956,656,978,682,1007,705,1002,704,974,686,951,658,943,634,945,623,952,611,977,584,1007,565,1041,551,1079,543"/>
+<area shape="poly" title=" " alt="" coords="1757,671,1757,707,1753,703,1753,675"/>
+<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="1327,705,1503,750"/>
+<area shape="poly" title=" " alt="" coords="1661,661,1497,707,1496,702,1656,662"/>
+<area shape="poly" title=" " alt="" coords="1363,757,1284,800,1282,795,1357,758"/>
+<area shape="poly" title=" " alt="" coords="1408,654,1669,708,1664,708,1407,659"/>
+<area shape="poly" title=" " alt="" coords="1343,664,1391,705,1386,704,1341,669"/>
+<area shape="poly" title=" " alt="" coords="1294,670,1251,799,1247,796,1290,673"/>
+<area shape="poly" title=" " alt="" coords="861,691,901,649,951,610,1020,577,1088,557,1093,555,1022,581,954,615,905,653,863,696"/>
+<area shape="poly" title=" " alt="" coords="1155,659,1331,704,1326,704,1155,664"/>
+<area shape="poly" title=" " alt="" coords="988,662,882,707,880,702,983,664"/>
+<area shape="poly" title=" " alt="" coords="1055,671,1056,707,1052,703,1052,675"/>
+<area shape="poly" title=" " alt="" coords="1113,754,1200,798,1194,797,1112,759"/>
+<area shape="rect" href="native_2test__relay__engine_2test__main_8cpp.html" title="Native unit tests for relay_engine.h: the decisions of the relay diversion." alt="" coords="155,393,363,455"/>
+<area shape="poly" title=" " alt="" coords="296,349,276,394,272,391,293,353"/>
+<area shape="poly" title=" " alt="" coords="369,341,485,400,480,402,369,347"/>
+<area shape="poly" title=" " alt="" coords="630,440,1093,516,1088,519,630,445"/>
+<area shape="poly" title=" " alt="" coords="481,454,460,479,444,504,436,534,444,563,466,604,489,636,513,661,539,681,602,714,684,747,722,759,773,770,899,788,1156,813,1150,813,898,794,772,775,721,764,682,752,600,719,536,686,510,665,485,639,462,606,439,565,430,534,439,502,456,476,477,458"/>
+<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html" title=" " alt="" coords="454,503,648,564"/>
+<area shape="poly" title=" " alt="" coords="535,459,546,503,541,501,533,464"/>
+<area shape="rect" href="adc__chain_8h.html" title="The six ADC conversions of the 3&#45;phase board, and the ADMUX pipeline of the free&#45;running ADC." alt="" coords="2796,191,2972,235"/>
+<area shape="poly" title=" " alt="" coords="1381,125,2798,205,2794,209,1381,130"/>
+<area shape="rect" href="config_8h.html" title="Router configuration: loads, relays, control pins and features." alt="" coords="1316,191,1492,235"/>
+<area shape="poly" title=" " alt="" coords="1320,149,1377,190,1371,190,1320,154"/>
+<area shape="rect" href="rotation__groups_8h.html" title="The rotation groups: which loads take turns, checked and resolved at compile time." alt="" coords="1062,191,1242,235"/>
+<area shape="poly" title=" " alt="" coords="1238,150,1184,192,1181,188,1233,153"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html" title="Native tests for the rotation groups: the setting, its resolution and the rotation." alt="" coords="888,283,1115,345"/>
+<area shape="poly" title=" " alt="" coords="1172,134,1109,156,1079,172,1052,193,1035,213,1022,237,1008,285,1004,281,1017,235,1030,210,1048,189,1076,168,1107,151,1176,132"/>
+<area shape="poly" title=" " alt="" coords="1172,148,1016,193,861,246,732,294,729,289,859,241,1014,188,1177,145"/>
+<area shape="rect" href="utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="1594,191,1770,235"/>
+<area shape="poly" title=" " alt="" coords="1381,142,1595,191,1590,192,1381,147"/>
+<area shape="poly" title=" " alt="" coords="1381,133,1869,199,1864,201,1381,138"/>
+<area shape="poly" title=" " alt="" coords="2948,241,2973,259,2993,282,3012,317,3019,349,3019,423,3019,535,3016,547,3008,558,2979,579,2934,597,2874,615,2721,645,2538,670,2341,690,2148,706,1844,725,1844,719,2148,701,2341,685,2537,665,2721,640,2873,610,2932,592,2976,574,3004,554,3011,545,3014,535,3014,422,3014,349,3007,319,2989,285,2970,263,2947,246"/>
+<area shape="rect" href="native_2test__adc__chain_2test__main_8cpp.html" title="Native tests for adc_chain.h: the six conversions, the reference and the ADMUX pipeline." alt="" coords="2790,283,2979,345"/>
+<area shape="poly" title=" " alt="" coords="2886,249,2886,285,2882,281,2883,253"/>
+<area shape="poly" title=" " alt="" coords="1304,234,1263,257,1230,285,1221,302,1212,327,1198,390,1183,512,1178,509,1193,389,1207,325,1216,300,1226,282,1260,253,1299,237"/>
+<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="1467,612,1643,657"/>
+<area shape="poly" title=" " alt="" coords="1429,246,1451,282,1488,376,1518,470,1553,613,1548,610,1513,472,1483,378,1446,284,1428,251"/>
+<area shape="rect" href="debug_8h.html" title="The text output: informational messages (info) and debug messages (debug)" alt="" coords="1240,292,1416,336"/>
+<area shape="poly" title=" " alt="" coords="1381,246,1346,294,1343,289,1376,249"/>
+<area shape="rect" href="utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="1291,402,1467,446"/>
+<area shape="poly" title=" " alt="" coords="1421,248,1434,295,1435,321,1431,346,1417,377,1399,403,1396,399,1413,374,1426,344,1430,320,1428,296,1419,253"/>
+<area shape="rect" href="native_2test__config__h_2test__main_8cpp.html" title="Native tests for config.h itself." alt="" coords="1592,283,1771,345"/>
+<area shape="poly" title=" " alt="" coords="1479,238,1599,283,1594,283,1479,244"/>
+<area shape="poly" title=" " alt="" coords="1617,661,1710,705,1704,704,1616,666"/>
+<area shape="poly" title=" " alt="" coords="1511,665,1449,707,1447,702,1506,666"/>
+<area shape="poly" title=" " alt="" coords="1553,671,1542,714,1531,734,1517,752,1475,781,1427,801,1377,813,1330,820,1330,815,1376,808,1425,796,1472,776,1513,748,1527,731,1537,712,1549,674"/>
+<area shape="poly" title=" " alt="" coords="1454,654,1143,713,1142,707,1449,655"/>
+<area shape="poly" title=" " alt="" coords="1307,348,1196,513,1192,509,1303,351"/>
+<area shape="poly" title=" " alt="" coords="1222,332,1127,348,615,414,614,409,1127,342,1227,330"/>
+<area shape="poly" title=" " alt="" coords="1346,348,1371,402,1366,400,1344,353"/>
+<area shape="poly" title=" " alt="" coords="1328,453,1220,513,1218,508,1323,455"/>
+<area shape="poly" title=" " alt="" coords="1386,460,1407,612,1415,706,1411,703,1402,613,1383,464"/>
+<area shape="poly" title=" " alt="" coords="1157,249,1180,512,1175,510,1154,253"/>
+<area shape="poly" title=" " alt="" coords="1109,243,1049,285,1046,280,1105,245"/>
+<area shape="poly" title=" " alt="" coords="713,343,792,399,838,428,887,452,938,473,991,490,1093,516,1088,517,990,495,936,478,885,457,836,432,789,403,713,349"/>
+<area shape="poly" title=" " alt="" coords="683,349,698,434,704,532,704,636,703,699,709,723,729,748,758,766,802,781,855,793,914,802,1040,812,1156,819,1151,819,1040,817,914,807,854,798,800,786,756,771,725,752,705,726,697,699,699,636,699,532,692,434,681,354"/>
+<area shape="poly" title=" " alt="" coords="698,347,723,392,758,481,788,570,824,705,819,703,782,572,753,483,718,394,696,352"/>
+<area shape="poly" title=" " alt="" coords="630,348,557,403,554,399,635,344"/>
+<area shape="poly" title=" " alt="" coords="668,350,653,403,628,456,609,482,587,504,584,500,605,478,623,453,648,401,665,354"/>
+<area shape="poly" title=" " alt="" coords="1631,243,1605,264,1582,285,1564,309,1551,331,1536,374,1518,416,1503,436,1481,457,1430,487,1375,508,1320,522,1268,530,1267,524,1319,516,1374,503,1428,482,1477,453,1499,433,1514,413,1531,372,1546,329,1559,306,1578,282,1602,260,1627,245"/>
+<area shape="poly" title=" " alt="" coords="1683,249,1684,284,1679,281,1680,253"/>
+<area shape="rect" href="override__masks_8h.html" title="The forced outputs: the override pins, and the scheduled boosts of the dual tariff." alt="" coords="2058,292,2241,336"/>
+<area shape="poly" title=" " alt="" coords="1785,233,2061,293,2055,294,1785,239"/>
+<area shape="rect" href="native_2test__dual__tariff_2test__main_8cpp.html" title="Native unit tests for utils_dualtariff.h: the scheduled boosts of the dual tariff." alt="" coords="1794,283,1985,345"/>
+<area shape="poly" title=" " alt="" coords="1741,240,1829,283,1823,283,1741,245"/>
+<area shape="poly" title=" " alt="" coords="2138,349,2115,433,2105,483,2102,532,2102,636,2095,665,2077,690,2048,713,2011,732,1966,749,1914,764,1797,787,1670,803,1543,813,1330,821,1330,816,1543,808,1669,798,1796,782,1913,759,1964,744,2009,727,2045,708,2073,687,2090,663,2096,636,2096,532,2100,482,2109,432,2134,353"/>
+<area shape="rect" href="native_2test__override__masks_2test__main_8cpp.html" title="Native unit tests for override_masks.h: what is forced ON, by the override pins and the scheduled boo..." alt="" coords="2150,393,2378,455"/>
+<area shape="poly" title=" " alt="" coords="2185,345,2235,393,2229,392,2183,350"/>
+<area shape="poly" title=" " alt="" coords="1983,246,1997,270,2007,296,2009,323,1999,347,1977,368,1948,387,1872,421,1777,450,1671,474,1559,494,1450,509,1268,528,1267,523,1450,504,1559,488,1670,469,1776,445,1870,416,1946,382,1974,364,1994,343,2003,322,2002,297,1993,273,1981,251"/>
+<area shape="poly" title=" " alt="" coords="1883,240,1766,285,1764,280,1878,242"/>
+<area shape="poly" title=" " alt="" coords="2058,223,2117,232,2175,245,2223,261,2254,282,2269,308,2276,337,2276,367,2273,394,2269,391,2271,366,2271,338,2264,310,2250,285,2221,266,2173,250,2116,237,2059,228"/>
+<area shape="poly" title=" " alt="" coords="1935,247,1911,285,1908,281,1930,250"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html" title="Native unit tests for load_map.h and remote_loads_core.h." alt="" coords="2315,283,2528,345"/>
+<area shape="poly" title=" " alt="" coords="2059,232,2297,281,2317,287,2312,287,2296,286,2059,237"/>
+<area shape="rect" href="native_2test__utils__override_2test__main_8cpp.html" title="Native unit tests for utils_override.h." alt="" coords="2552,283,2766,345"/>
+<area shape="poly" title=" " alt="" coords="2059,220,2281,243,2411,260,2541,281,2554,285,2549,286,2540,286,2411,265,2281,248,2059,225"/>
+<area shape="poly" title=" " alt="" coords="313,248,315,292,310,291,312,253"/>
+<area shape="rect" href="native_2test__ewma__avg_2test__main_8cpp.html" title=" " alt="" coords="5,283,201,345"/>
+<area shape="poly" title=" " alt="" coords="251,245,169,285,165,281,254,240"/>
 </map>
 </div>
 </div>
 <p><a href="type__traits_8hpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a90981f563df11aabc8983419f5277a03" id="r_a90981f563df11aabc8983419f5277a03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90981f563df11aabc8983419f5277a03">HOURS</a>(value)</td></tr>
+<tr class="memdesc:a90981f563df11aabc8983419f5277a03"><td class="mdescLeft">&#160;</td><td class="mdescRight">A compile-time number of hours, as <a class="el" href="#a1ff3cad1c24da56b3ff84a8c39db99d7" title="A compile-time number of minutes, as an integral_constant.">MINUTES()</a>.  <br /></td></tr>
+<tr class="separator:a90981f563df11aabc8983419f5277a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ff3cad1c24da56b3ff84a8c39db99d7" id="r_a1ff3cad1c24da56b3ff84a8c39db99d7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ff3cad1c24da56b3ff84a8c39db99d7">MINUTES</a>(value)</td></tr>
+<tr class="memdesc:a1ff3cad1c24da56b3ff84a8c39db99d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A compile-time number of minutes, as an <a class="el" href="structintegral__constant.html">integral_constant</a>.  <br /></td></tr>
+<tr class="separator:a1ff3cad1c24da56b3ff84a8c39db99d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Some useful but missing stl functions templates. </p>
 <dl class="section author"><dt>Author</dt><dd>Frédéric Metrich (<a href="#" onclick="location.href='mai'+'lto:'+'fre'+'de'+'ric'+'.m'+'etr'+'ic'+'h@l'+'iv'+'e.f'+'r'; return false;">frede<span class="obfuscator">.nosp@m.</span>ric.<span class="obfuscator">.nosp@m.</span>metri<span class="obfuscator">.nosp@m.</span>ch@l<span class="obfuscator">.nosp@m.</span>ive.f<span class="obfuscator">.nosp@m.</span>r</a>) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2023-06-14</dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2026-11-21</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023-2026 SPDX-License-Identifier: GPL-3.0-or-later </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="type__traits_8hpp_source.html">type_traits.hpp</a>.</p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a90981f563df11aabc8983419f5277a03" name="a90981f563df11aabc8983419f5277a03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90981f563df11aabc8983419f5277a03">&#9670;&#160;</a></span>HOURS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define HOURS</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a1ff3cad1c24da56b3ff84a8c39db99d7">MINUTES</a>((value) * 60)</div>
+<div class="ttc" id="atype__traits_8hpp_html_a1ff3cad1c24da56b3ff84a8c39db99d7"><div class="ttname"><a href="#a1ff3cad1c24da56b3ff84a8c39db99d7">MINUTES</a></div><div class="ttdeci">#define MINUTES(value)</div><div class="ttdoc">A compile-time number of minutes, as an integral_constant.</div><div class="ttdef"><b>Definition</b> <a href="type__traits_8hpp_source.html#l00051">type_traits.hpp:51</a></div></div>
+</div><!-- fragment -->
+<p>A compile-time number of hours, as <a class="el" href="#a1ff3cad1c24da56b3ff84a8c39db99d7" title="A compile-time number of minutes, as an integral_constant.">MINUTES()</a>. </p>
+<p>Usage: <a class="el" href="#a90981f563df11aabc8983419f5277a03" title="A compile-time number of hours, as MINUTES().">HOURS(2)</a>. Too many hours fail to compile instead of wrapping around: the product overflows the 16-bit int of the AVR (from <a class="el" href="#a90981f563df11aabc8983419f5277a03" title="A compile-time number of hours, as MINUTES().">HOURS(547)</a> on), and is a narrowing conversion to uint16_t on a native build (beyond 65535 minutes). </p>
+
+<p class="definition">Definition at line <a class="el" href="type__traits_8hpp_source.html#l00061">61</a> of file <a class="el" href="type__traits_8hpp_source.html">type_traits.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ff3cad1c24da56b3ff84a8c39db99d7" name="a1ff3cad1c24da56b3ff84a8c39db99d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ff3cad1c24da56b3ff84a8c39db99d7">&#9670;&#160;</a></span>MINUTES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MINUTES</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">  <a class="code hl_struct" href="structintegral__constant.html">integral_constant</a>&lt; uint16_t, (value) &gt; {}</div>
+<div class="ttc" id="astructintegral__constant_html"><div class="ttname"><a href="structintegral__constant.html">integral_constant</a></div><div class="ttdef"><b>Definition</b> <a href="integral__constant_8hpp_source.html#l00008">integral_constant.hpp:9</a></div></div>
+</div><!-- fragment -->
+<p>A compile-time number of minutes, as an <a class="el" href="structintegral__constant.html">integral_constant</a>. </p>
+<p>One syntax for the durations of <a class="el" href="config_8h.html" title="Router configuration: loads, relays, control pins and features.">config.h</a>: the sliding average of the relays (<a class="el" href="classRelayEngine.html" title="The relays, as in config.h: the sliding average and the settings of each relay.">RelayEngine</a> takes it as a template parameter) and the scheduled boosts (<a class="el" href="structMinutes.html" title="A number of minutes: the unit of the scheduled boosts, built with HOURS() or MINUTES().">Minutes</a>). Usage: <a class="el" href="#a1ff3cad1c24da56b3ff84a8c39db99d7" title="A compile-time number of minutes, as an integral_constant.">MINUTES(RELAY_FILTER_DELAY)</a>, <a class="el" href="#a1ff3cad1c24da56b3ff84a8c39db99d7" title="A compile-time number of minutes, as an integral_constant.">MINUTES(90)</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="type__traits_8hpp_source.html#l00051">51</a> of file <a class="el" href="type__traits_8hpp_source.html">type_traits.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2

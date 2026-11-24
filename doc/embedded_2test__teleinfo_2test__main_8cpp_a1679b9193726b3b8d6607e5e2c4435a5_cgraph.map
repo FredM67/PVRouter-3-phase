@@ -1,5 +1,5 @@
 <map id="test_lineSize_calculation" name="test_lineSize_calculation">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,5,188,33"/>
-<area shape="rect" id="Node000002" href="$group__Telemetry.html#gaa9a3eeacd11602f3385056e620652bb7" title="Calculates the size of a single telemetry line in the frame." alt="" coords="236,5,308,33"/>
+<area shape="rect" id="Node000002" href="$namespaceTeleInfo.html#a21be106ef3cd93e0553b4e423b8f038a" title="The size of a line: LF, tag, TAB, value, TAB, checksum and CR." alt="" coords="236,5,367,33"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,17,223,19,217,19,188,22"/>
 </map>

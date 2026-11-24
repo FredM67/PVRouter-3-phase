@@ -1,0 +1,5 @@
+<map id="ScheduledBoosts::getTargets" name="ScheduledBoosts::getTargets">
+<area shape="rect" id="Node000001" title="The targets of boost i, as codes." alt="" coords="275,5,483,33"/>
+<area shape="rect" id="Node000002" href="$classBoostSchedule.html#a0b04248b9e61ca8a3080a187056eefd9" title="Builds the boosts of config.h, their codes turned into pins by map (a TargetMap)." alt="" coords="5,5,227,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="257,19,227,22,227,17,262,19"/>
+</map>

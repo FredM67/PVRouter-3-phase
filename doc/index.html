@@ -140,7 +140,7 @@ History</h1>
 <li>instant power telemetry support for real-time monitoring</li>
 </ul>
 <p><b>September 2025: changes:</b></p><ul>
-<li>major refactoring of override system with flexible <a class="el" href="classOverridePins.html" title="Manages override pins and their associated bitmasks for forced operation.">OverridePins</a> template</li>
+<li>major refactoring of override system with flexible <a class="el" href="classOverridePins.html" title="The override pins, as in config.h: each pin with the targets it forces.">OverridePins</a> template</li>
 <li>improved dual tariff integration with automatic load forcing</li>
 <li>relay configuration enhancements with battery system support (negative thresholds)</li>
 <li>comprehensive documentation updates for new override architecture</li>
@@ -229,7 +229,7 @@ History</h1>
 <p><b>October 2019, renamed as Mk2_3phase_RFdatalog_temp with these changes:</b></p><ul>
 <li>This sketch has been restructured in order to make better use of the ISR.</li>
 <li>All of the time-critical code is now contained within the ISR and its helper functions.</li>
-<li>Values for datalogging are transferred to the main code using a flag-based handshake mechanism.</li>
+<li><a class="el" href="structValues.html" title="The values of a datalog, shared by every test source.">Values</a> for datalogging are transferred to the main code using a flag-based handshake mechanism.</li>
 <li>The diversion of surplus power can no longer be affected by slower activities which may be running in the main code such as Serial statements and RF.</li>
 <li>Temperature sensing is supported. A pullup resistor (4K7 or similar) is required for the Dallas sensor.</li>
 <li>The output mode, i.e. NORMAL or ANTI_FLICKER, is now set at compile time.</li>
@@ -251,7 +251,7 @@ History</h1>
 </li>
 </ul>
 <dl class="section author"><dt>Author</dt><dd>Fred Metrich </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025-2026</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025-2026 SPDX-License-Identifier: GPL-3.0-or-later</dd></dl>
 <p><b>February 2020: updated to Mk2_3phase_RFdatalog_3a with these changes:</b></p><ul>
 <li>removal of some redundant code in the logic for determining the next load state.</li>
 </ul>
@@ -271,7 +271,7 @@ History</h1>
 <p><b>Issue 1 was released in January 2015.</b></p>
 <p>This sketch provides continuous monitoring of real power on three phases. Surplus power is diverted to multiple loads in sequential order. A suitable output-stage is required for each load; this can be either triac-based, or a Solid State Relay.</p>
 <p>Datalogging of real power and Vrms is provided for each phase. The presence or absence of the RFM12B needs to be set at compile time</p>
-<dl class="section author"><dt>Authors</dt><dd>Robin Emley www.Mk2PVrouter.co.uk * </dd></dl>
+<dl class="section author"><dt>Authors</dt><dd><a class="el" href="structRobin.html" title="Robin&#39;s filter, verbatim from Mk2_fasterControl_Full/processing.cpp (x256 scale).">Robin</a> Emley www.Mk2PVrouter.co.uk * </dd></dl>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

@@ -1,0 +1,58 @@
+<map id="centiCycles" name="centiCycles">
+<area shape="rect" id="Node000001" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="809,556,905,584"/>
+<area shape="rect" id="Node000002" href="$bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="657,504,761,532"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="798,551,750,535,751,530,804,551"/>
+<area shape="rect" id="Node000019" href="$bench__report_8h.html#a57834612f707a5be015f1b63df8f6f8b" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="664,582,754,610"/>
+<area shape="poly" id="edge25_Node000001_Node000019" title=" " alt="" coords="791,582,755,591,754,585,796,581"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#ad136b45a1d3f2709dfb11a4f17bbd39b" title="The average and worst case of an integer function, for the CI history." alt="" coords="450,118,510,146"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="702,488,693,435,676,365,648,290,629,253,607,220,585,196,559,176,510,147,510,142,562,171,589,192,611,217,634,251,653,287,681,364,698,434,707,490"/>
+<area shape="rect" id="Node000008" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#a6be85a254f7593ee7d0816879542be5d" title=" " alt="" coords="381,582,578,610"/>
+<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="674,539,610,571,568,584,566,579,608,567,669,541"/>
+<area shape="rect" id="Node000010" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#ae168d15bdb3d5d4181ae01cd2436c76c" title=" " alt="" coords="131,283,282,327"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="700,489,689,453,671,409,644,366,627,348,608,333,569,312,528,298,485,288,441,283,356,284,284,292,281,287,356,278,441,278,486,283,530,292,572,307,611,328,631,344,648,363,675,407,694,451,704,491"/>
+<area shape="rect" id="Node000011" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#ad75f88914357ef873f488b1a412459b1" title=" " alt="" coords="131,352,282,397"/>
+<area shape="poly" id="edge13_Node000002_Node000011" title=" " alt="" coords="696,489,684,460,665,426,640,393,608,369,569,351,527,340,483,334,439,333,355,340,284,354,281,350,355,335,439,328,484,329,528,335,570,346,611,364,644,390,669,423,688,458,701,491"/>
+<area shape="rect" id="Node000012" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#a29e9b39af541e1ff0b441ad86ffa5ddc" title=" " alt="" coords="121,421,292,466"/>
+<area shape="poly" id="edge15_Node000002_Node000012" title=" " alt="" coords="639,504,609,500,440,474,292,455,291,450,441,469,610,494,644,503"/>
+<area shape="rect" id="Node000013" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#a76bb4357cfa0e179472f77ecc6c39216" title=" " alt="" coords="111,491,302,535"/>
+<area shape="poly" id="edge17_Node000002_Node000013" title=" " alt="" coords="640,520,303,517,302,511,644,516"/>
+<area shape="rect" id="Node000014" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2f0b23c67117c4e1f6be792e8f8b2815" title=" " alt="" coords="120,213,293,258"/>
+<area shape="poly" id="edge19_Node000002_Node000014" title=" " alt="" coords="702,488,693,444,676,388,649,333,630,309,608,288,572,266,533,249,492,237,450,229,367,223,295,226,292,221,367,218,451,224,493,232,535,244,575,261,611,284,634,305,653,330,681,386,698,442,707,490"/>
+<area shape="rect" id="Node000015" href="$embedded_2test__mult__asm__perf_2test__main_8cpp.html#afe635d3d8214d539d82722e2097430a8" title="ISR&#45;like performance test simulating real&#45;world usage." alt="" coords="400,633,559,678"/>
+<area shape="poly" id="edge21_Node000002_Node000015" title=" " alt="" coords="686,542,659,572,637,600,627,612,611,623,561,644,559,639,608,619,623,608,633,596,655,569,681,545"/>
+<area shape="rect" id="Node000016" href="$embedded_2test__mult__asm__perf_2test__main_8cpp.html#a421c857707def81da94388948e91c5ce" title="Performance comparison for Q8 fractional multiplication." alt="" coords="366,702,594,730"/>
+<area shape="poly" id="edge22_Node000002_Node000016" title=" " alt="" coords="683,541,660,572,645,605,641,635,634,664,625,678,611,692,593,704,591,699,608,688,621,675,629,662,636,634,640,604,655,569,678,544"/>
+<area shape="rect" id="Node000017" href="$embedded_2test__mult__asm__perf_2test__main_8cpp.html#a61d362737dc4e6078cf74deff55b1ef7" title="Performance comparison between assembly and standard multiplication." alt="" coords="351,754,608,782"/>
+<area shape="poly" id="edge23_Node000002_Node000017" title=" " alt="" coords="682,541,660,572,649,596,644,619,643,661,638,702,629,722,611,743,593,756,591,751,608,739,624,720,633,701,638,661,639,618,644,594,655,569,677,544"/>
+<area shape="rect" id="Node000018" href="$embedded_2test__mult__asm__perf_2test__main_8cpp.html#ad79cab2493232b344fbe0e836b4e5c03" title="Performance comparison for unsigned multiplication (multU16x16_to32)" alt="" coords="350,530,609,558"/>
+<area shape="poly" id="edge24_Node000002_Node000018" title=" " alt="" coords="639,526,610,532,609,527,644,525"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a3212c9cc61794c5d50497b722fb73572" title=" " alt="" coords="134,5,279,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="433,116,301,65,272,53,270,48,303,60,437,113"/>
+<area shape="rect" id="Node000006" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#ae97034decb439605d485c0da0bb7e4f1" title=" " alt="" coords="127,75,286,119"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="432,128,287,110,286,105,436,124"/>
+<area shape="rect" id="Node000007" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a59dd75a991aeada8deda93cc89af6218" title=" " alt="" coords="127,144,286,189"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="432,139,288,159,285,154,436,136"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title=" " alt="" coords="5,83,63,111"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="125,58,112,65,65,85,61,82,110,60,128,54"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="109,99,65,99,62,95,113,95"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="124,139,110,134,64,113,62,108,112,129,129,137"/>
+<area shape="rect" id="Node000009" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="9,395,59,423"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="363,607,303,608,236,599,170,581,138,567,109,550,80,521,58,486,44,452,39,426,38,421,49,450,63,484,84,518,112,546,141,562,172,576,237,594,303,602,368,606"/>
+<area shape="poly" id="edge12_Node000010_Node000009" title=" " alt="" coords="118,337,112,342,77,369,50,396,45,394,73,365,109,337,122,332"/>
+<area shape="poly" id="edge14_Node000011_Node000009" title=" " alt="" coords="114,395,61,406,57,402,117,391"/>
+<area shape="poly" id="edge16_Node000012_Node000009" title=" " alt="" coords="104,425,60,416,58,411,108,422"/>
+<area shape="poly" id="edge18_Node000013_Node000009" title=" " alt="" coords="118,485,109,481,73,453,48,426,47,420,77,449,112,476,122,483"/>
+<area shape="poly" id="edge20_Node000014_Node000009" title=" " alt="" coords="114,269,113,272,86,302,66,336,42,395,37,394,61,334,82,299,109,268,117,264"/>
+<area shape="poly" id="edge32_Node000019_Node000008" title=" " alt="" coords="646,596,579,598,578,593,651,595"/>
+<area shape="poly" id="edge33_Node000019_Node000015" title=" " alt="" coords="651,611,560,637,559,632,646,612"/>
+<area shape="poly" id="edge34_Node000019_Node000016" title=" " alt="" coords="690,620,656,660,634,678,611,693,584,704,582,699,608,688,631,673,652,656,686,623"/>
+<area shape="poly" id="edge35_Node000019_Node000017" title=" " alt="" coords="699,623,666,686,641,717,611,743,586,756,585,751,608,739,637,713,661,683,694,625"/>
+<area shape="poly" id="edge36_Node000019_Node000018" title=" " alt="" coords="646,580,609,573,554,561,554,555,610,568,651,580"/>
+<area shape="rect" id="Node000020" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html#a2b8ac054aae805c9d0fe56b9e13c7fff" title="Reports benchmark results to Serial." alt="" coords="412,378,547,406"/>
+<area shape="poly" id="edge26_Node000019_Node000020" title=" " alt="" coords="678,572,496,408,498,403,683,571"/>
+<area shape="poly" id="edge27_Node000020_Node000010" title=" " alt="" coords="417,374,280,331,279,325,422,371"/>
+<area shape="poly" id="edge28_Node000020_Node000011" title=" " alt="" coords="395,388,283,382,281,377,399,385"/>
+<area shape="poly" id="edge29_Node000020_Node000012" title=" " alt="" coords="395,409,293,430,291,425,399,406"/>
+<area shape="poly" id="edge30_Node000020_Node000013" title=" " alt="" coords="436,415,303,481,274,492,272,488,301,476,440,411"/>
+<area shape="poly" id="edge31_Node000020_Node000014" title=" " alt="" coords="446,369,382,322,301,273,277,261,275,256,303,268,385,318,452,368"/>
+</map>

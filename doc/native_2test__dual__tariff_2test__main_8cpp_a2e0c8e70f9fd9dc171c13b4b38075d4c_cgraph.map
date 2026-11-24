@@ -1,0 +1,11 @@
+<map id="test_boost_window_includes_its_start_and_excludes_its_end" name="test_boost_window_includes_its_start_and_excludes_its_end">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,213,102"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#a29ce77d1007e49cacadbead00f25d579" title="A boost lasting m." alt="" coords="290,5,338,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,42,278,28,273,30,214,47"/>
+<area shape="rect" id="Node000003" href="$config__types_8h.html#a68fc652a2abfa341df092d301f4f9a7c" title="A start m after the beginning of the off&#45;peak period." alt="" coords="261,57,368,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="213,69,248,71,243,72,213,74"/>
+<area shape="rect" id="Node000004" href="$config__types_8h.html#a68f3d6551120fd462ed0022322f874f0" title="The last d of the off&#45;peak period, until the end." alt="" coords="287,109,342,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="213,95,275,113,269,113,213,100"/>
+<area shape="rect" id="Node000005" href="$config__types_8h.html#a1443b40bba36a2678456b87bae0ba5e1" title="A start m before the end of the off&#45;peak period." alt="" coords="416,109,524,137"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="342,121,403,123,398,123,342,126"/>
+</map>

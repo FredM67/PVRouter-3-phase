@@ -1,0 +1,9 @@
+<map id="test_TargetMap_out_of_range_gives_pin_0" name="test_TargetMap_out_of_range_gives_pin_0">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,175,94"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98" title="Load loadNum of physicalLoadPin[], local or remote (0, no load, if out of range)." alt="" coords="247,5,304,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,46,234,30,230,32,173,51"/>
+<area shape="rect" id="Node000003" href="$config__types_8h.html#a30df68bcb2fef5f40118867b32ee826a" title="Same as LOAD(), for a load known to be local." alt="" coords="223,57,329,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,69,209,71,204,72,175,74"/>
+<area shape="rect" id="Node000004" href="$config__types_8h.html#a9938283660846cb266258c478ef4a7bd" title="Relay relayNum of relays (0, no relay, if out of range or without relay diversion)." alt="" coords="245,109,307,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="173,91,232,110,227,111,172,97"/>
+</map>

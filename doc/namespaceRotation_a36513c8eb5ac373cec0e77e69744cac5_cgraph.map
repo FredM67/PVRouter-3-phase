@@ -1,0 +1,7 @@
+<map id="Rotation::loadsOf" name="Rotation::loadsOf">
+<area shape="rect" id="Node000001" title="The loads a target code stands for, by load number." alt="" coords="5,32,140,60"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="188,5,293,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,33,175,29,170,31,141,38"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="193,57,288,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="140,53,180,61,174,62,140,59"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="test_table_gives_the_loads_of_each_group" name="test_table_gives_the_loads_of_each_group">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,171,68"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#a8af39b8c36153ede0635e295ee423ad0" title="Every local load." alt="" coords="219,5,363,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,32,206,30,200,31,172,38"/>
+<area shape="rect" id="Node000003" href="$config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98" title="Load loadNum of physicalLoadPin[], local or remote (0, no load, if out of range)." alt="" coords="262,57,320,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="171,54,249,65,244,66,171,59"/>
+</map>

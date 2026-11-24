@@ -1,0 +1,43 @@
+<map id="DS18B20::toHundredths" name="DS18B20::toHundredths">
+<area shape="rect" id="Node000001" title="The temperature of the register, in hundredths of °C." alt="" coords="795,583,972,610"/>
+<area shape="rect" id="Node000002" href="$namespaceDS18B20.html#aaf6ef3bce762af86ea3c251474b509a4" title="The reading of a scratchpad, its CRC checked." alt="" coords="584,273,720,301"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="860,570,663,304,665,299,865,570"/>
+<area shape="rect" id="Node000013" href="$native_2test__ds18b20_2test__main_8cpp.html#a19d84786ac51c9597facdeec373ba657" title=" " alt="" coords="597,531,707,558"/>
+<area shape="poly" id="edge18_Node000001_Node000013" title=" " alt="" coords="801,579,708,560,708,554,806,579"/>
+<area shape="rect" id="Node000014" href="$native_2test__ds18b20_2test__main_8cpp.html#a67599effb8c001e336378953e703cf47" title=" " alt="" coords="600,583,705,610"/>
+<area shape="poly" id="edge20_Node000001_Node000014" title=" " alt="" coords="777,597,705,599,705,594,783,596"/>
+<area shape="rect" id="Node000015" href="$native_2test__ds18b20_2test__main_8cpp.html#ab5c5615d9462e0142f247fa3d8c0968b" title=" " alt="" coords="557,634,747,679"/>
+<area shape="poly" id="edge22_Node000001_Node000015" title=" " alt="" coords="816,614,741,636,740,631,810,615"/>
+<area shape="rect" id="Node000016" href="$native_2test__ds18b20_2test__main_8cpp.html#a871ca556dc22444fa282d9fa765987c5" title=" " alt="" coords="612,703,693,730"/>
+<area shape="poly" id="edge24_Node000001_Node000016" title=" " alt="" coords="857,620,808,659,748,694,694,712,693,706,746,689,805,655,852,621"/>
+<area shape="rect" id="Node000003" href="$classTempSensors.html#a5cd5e7c474cb8cb494c00273fbd00165" title="CLOSE, the last transaction: a reset (the sensor still there?), the reading decoded." alt="" coords="308,5,480,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="640,258,623,212,595,154,557,95,534,69,508,47,481,33,480,27,510,42,537,65,561,92,600,151,628,210,645,259"/>
+<area shape="rect" id="Node000005" href="$native_2test__ds18b20_2test__main_8cpp.html#a165314ef3361e87cc41f63e4ccdd6524" title=" " alt="" coords="310,57,478,102"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="633,260,584,189,548,150,508,116,479,101,478,96,510,112,552,146,588,186,638,260"/>
+<area shape="rect" id="Node000007" href="$native_2test__ds18b20_2test__main_8cpp.html#adb6dd05eaf0425325141fb4058139cc7" title=" " alt="" coords="315,126,474,171"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="621,263,571,225,508,186,474,171,473,166,510,181,574,220,626,263"/>
+<area shape="rect" id="Node000008" href="$native_2test__ds18b20_2test__main_8cpp.html#a2e6aa3b30286179f3f147f35be687e75" title=" " alt="" coords="313,196,476,240"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="581,270,477,242,476,237,586,268"/>
+<area shape="rect" id="Node000009" href="$native_2test__ds18b20_2test__main_8cpp.html#acf799807eaa02986ddc114684492ce24" title=" " alt="" coords="280,265,509,310"/>
+<area shape="poly" id="edge10_Node000002_Node000009" title=" " alt="" coords="567,288,510,290,509,285,572,286"/>
+<area shape="rect" id="Node000010" href="$native_2test__ds18b20_2test__main_8cpp.html#a1f1c4050eece38bbdec37673f7875dab" title=" " alt="" coords="314,334,474,379"/>
+<area shape="poly" id="edge12_Node000002_Node000010" title=" " alt="" coords="581,307,476,337,474,332,586,304"/>
+<area shape="rect" id="Node000011" href="$native_2test__ds18b20_2test__main_8cpp.html#a28de296ace6a369609e189445f0039a7" title=" " alt="" coords="318,404,471,448"/>
+<area shape="poly" id="edge14_Node000002_Node000011" title=" " alt="" coords="626,310,574,354,510,394,473,409,470,404,508,389,571,350,622,313"/>
+<area shape="rect" id="Node000012" href="$native_2test__ds18b20_2test__main_8cpp.html#a8abeb654254a41ee15361caad239e021" title=" " alt="" coords="297,473,492,518"/>
+<area shape="poly" id="edge16_Node000002_Node000012" title=" " alt="" coords="638,312,588,389,552,429,510,463,489,475,486,470,508,458,548,425,584,385,634,316"/>
+<area shape="rect" id="Node000004" href="$classTempSensors.html#a2dbc30f78c42cb642cc1052c5a24eb67" title="Reads the temperature of a specific sensor (runtime bounds checking)." alt="" coords="5,5,232,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="291,21,233,21,231,17,295,18"/>
+<area shape="rect" id="Node000006" href="$native_2test__ds18b20_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="91,412,146,440"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="295,105,281,116,246,151,216,191,191,233,170,277,141,357,125,412,120,411,136,355,165,275,186,231,212,188,242,147,278,112,298,100"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="299,173,281,185,251,212,224,242,179,307,146,369,127,413,123,411,142,366,174,305,220,238,247,208,278,181,303,169"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="296,245,281,255,232,293,189,338,131,413,127,410,185,334,228,289,278,250,300,241"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="292,317,281,324,200,370,140,413,136,410,198,366,278,319,296,314"/>
+<area shape="poly" id="edge13_Node000010_Node000006" title=" " alt="" coords="297,382,147,422,145,417,301,378"/>
+<area shape="poly" id="edge15_Node000011_Node000006" title=" " alt="" coords="300,428,147,428,145,423,304,424"/>
+<area shape="poly" id="edge17_Node000012_Node000006" title=" " alt="" coords="286,470,146,435,146,430,290,467"/>
+<area shape="poly" id="edge19_Node000013_Node000006" title=" " alt="" coords="579,553,517,559,440,558,358,550,279,532,235,514,194,489,135,443,135,437,197,485,237,509,280,527,359,545,440,553,516,554,584,552"/>
+<area shape="poly" id="edge21_Node000014_Node000006" title=" " alt="" coords="582,602,518,606,440,602,358,589,279,564,231,537,188,503,131,443,131,438,192,499,234,533,281,559,359,584,441,596,518,601,587,602"/>
+<area shape="poly" id="edge23_Node000015_Node000006" title=" " alt="" coords="539,662,479,662,411,654,343,637,278,611,250,593,225,572,180,524,146,477,127,443,127,437,151,474,184,520,228,568,254,589,281,606,344,632,412,649,479,657,544,662"/>
+<area shape="poly" id="edge25_Node000016_Node000006" title=" " alt="" coords="599,722,528,727,446,722,402,715,359,704,317,689,278,668,246,644,218,615,172,549,140,487,124,443,125,438,145,485,176,547,222,611,250,640,281,664,319,684,361,699,403,710,446,717,528,722,593,722"/>
+</map>

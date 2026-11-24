@@ -1,0 +1,18 @@
+<map id="CtFilter::LowPassBoost::lowPass" name="CtFilter::LowPassBoost::lowPass">
+<area shape="rect" id="Node000001" title="The low&#45;pass state, x256 scale (Robin&#39;s lpf_long)." alt="" coords="546,176,715,221"/>
+<area shape="rect" id="Node000002" href="$native_2test__ct__filter_2test__main_8cpp.html#a6fc1aff038a4cf3ba928f348a3a86bb2" title="The low&#45;pass state of the filter, in ADC counts." alt="" coords="358,108,476,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="550,171,457,138,458,133,555,171"/>
+<area shape="rect" id="Node000006" href="$native_2test__ct__filter_2test__main_8cpp.html#aee73d7095085deccabbc3c6222fe3081" title=" " alt="" coords="108,176,288,221"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="528,200,289,201,289,196,533,197"/>
+<area shape="rect" id="Node000007" href="$native_2test__ct__filter_2test__main_8cpp.html#ab29c129ae63f7a9c41eaff5d8d778f66" title=" " alt="" coords="336,236,498,281"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="537,225,499,239,498,233,532,226"/>
+<area shape="rect" id="Node000003" href="$native_2test__ct__filter_2test__main_8cpp.html#ab296665170913a3d6065906c3a950c16" title=" " alt="" coords="121,5,274,67"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="362,102,275,69,275,63,367,101"/>
+<area shape="rect" id="Node000005" href="$native_2test__ct__filter_2test__main_8cpp.html#a9a32961b0fc47c71be3df59d97e020f6" title=" " alt="" coords="118,91,278,152"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="340,122,279,124,278,119,346,121"/>
+<area shape="rect" id="Node000004" href="$native_2test__ct__filter_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,146,60,174"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="111,78,109,81,73,115,46,147,42,145,69,111,106,77,114,73"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="101,146,61,156,59,152,105,142"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="90,176,61,169,60,164,95,173"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="318,268,270,270,215,265,159,255,107,236,86,223,68,207,43,177,44,172,72,204,89,219,109,231,161,249,216,260,270,265,323,267"/>
+</map>

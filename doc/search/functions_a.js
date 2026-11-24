@@ -1,4 +1,22 @@
 var searchData=
 [
-  ['keyindexpair_0',['KeyIndexPair',['../structKeyIndexPair.html#ac28c3c59b18a4cf0bb94cf29bb4d9d57',1,'KeyIndexPair']]]
+  ['largestof_0',['largestOf',['../namespaceEnergy.html#ab6b5951d040a1d99b3f1f1deecc2da77',1,'Energy']]],
+  ['last_1',['LAST',['../config__types_8h.html#a68f3d6551120fd462ed0022322f874f0',1,'config_types.h']]],
+  ['leftalignadc_2',['leftAlignADC',['../native_2test__dc__offset__filter_2test__main_8cpp.html#ab2de3e39699c1a89d01a7bbb5c1d6a8f',1,'test_main.cpp']]],
+  ['line_3',['line',['../namespaceTeleInfo.html#af4144be70a1141bccb67583aa9730635',1,'TeleInfo']]],
+  ['linesize_4',['lineSize',['../namespaceTeleInfo.html#a21be106ef3cd93e0553b4e423b8f038a',1,'TeleInfo']]],
+  ['lineunsigned_5',['lineUnsigned',['../namespaceTeleInfo.html#a17cf541f513ec089af6363fb0cc75769',1,'TeleInfo']]],
+  ['load_6',['LOAD',['../config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98',1,'config_types.h']]],
+  ['loadonpercent_7',['loadOnPercent',['../structFrameSource.html#a9b9dd0366468768c7384595b7d7601c5',1,'FrameSource::loadOnPercent()'],['../structTestSource.html#acd5958ab509e985f7c341cdf51e48106',1,'TestSource::loadOnPercent(uint8_t idx)'],['../structTestSource.html#acd5958ab509e985f7c341cdf51e48106',1,'TestSource::loadOnPercent(uint8_t idx)'],['../structTeleInfoData.html#a87c41694dd7522553b9e87320366a6f0',1,'TeleInfoData::loadOnPercent()']]],
+  ['loads_8',['loads',['../classRotation_1_1Table.html#ad7a532b65dd04e156a03a2bb7616c3a4',1,'Rotation::Table::loads()'],['../classRotation_1_1Table_3_010_00_01NL_01_4.html#ab8b71152c70bb0e5dd0f3bd1a38d59ce',1,'Rotation::Table&lt; 0, NL &gt;::loads(uint8_t) const'],['../classRotation_1_1Table.html#ad7a532b65dd04e156a03a2bb7616c3a4',1,'Rotation::Table&lt; 0, NL &gt;::loads(const uint8_t g) const']]],
+  ['loadsof_9',['loadsOf',['../namespaceRotation.html#a36513c8eb5ac373cec0e77e69744cac5',1,'Rotation']]],
+  ['local_10',['local',['../namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671',1,'Load']]],
+  ['local_5fload_11',['LOCAL_LOAD',['../config__types_8h.html#a30df68bcb2fef5f40118867b32ee826a',1,'config_types.h']]],
+  ['localbitmask_12',['localBitmask',['../classTargetMap.html#addc13e5c41027c9794828390352a3691',1,'TargetMap']]],
+  ['localloadsmask_13',['localLoadsMask',['../utils__override_8h.html#aece58b485056402b91be81d615714b28',1,'utils_override.h']]],
+  ['logloadpriorities_14',['logLoadPriorities',['../group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1',1,'utils.h']]],
+  ['loop_15',['loop',['../group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;main.cpp'],['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__fastdivision_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__fastdivision__perf_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__mult__asm_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__mult__asm__perf_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__serial__output_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__teleinfo_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__utils__pins_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp'],['../embedded_2test__voltage__accumulation_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f',1,'loop():&#160;test_main.cpp']]],
+  ['lowestsamplesetspercycle_16',['lowestSampleSetsPerCycle',['../structFrameSource.html#a30938be142a940809a36ae2875081449',1,'FrameSource::lowestSampleSetsPerCycle()'],['../structTestSource.html#a1bb559418920778ff361455593929626',1,'TestSource::lowestSampleSetsPerCycle()'],['../structTestSource.html#a1bb559418920778ff361455593929626',1,'TestSource::lowestSampleSetsPerCycle()'],['../structTeleInfoData.html#aaa36f0da421e338e10728eb5a1e0d989',1,'TeleInfoData::lowestSampleSetsPerCycle()']]],
+  ['lowpass_17',['lowPass',['../structCtFilter_1_1LowPassBoost.html#a9c5345543b4137f98bf2e8db4acff17b',1,'CtFilter::LowPassBoost']]],
+  ['lowpasscounts_18',['lowPassCounts',['../native_2test__ct__filter_2test__main_8cpp.html#a6fc1aff038a4cf3ba928f348a3a86bb2',1,'test_main.cpp']]]
 ];

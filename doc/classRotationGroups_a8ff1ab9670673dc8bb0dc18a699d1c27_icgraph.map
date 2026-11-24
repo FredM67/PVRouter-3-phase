@@ -1,0 +1,27 @@
+<map id="RotationGroups::size" name="RotationGroups::size">
+<area shape="rect" id="Node000001" title="Number of groups." alt="" coords="615,170,772,198"/>
+<area shape="rect" id="Node000002" href="$namespaceRotation.html#a57cf6c54748dfbca21338d5b77c66b7d" title="In each group, every load is local, or every load is on the same remote unit." alt="" coords="345,83,564,111"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="644,163,566,134,506,114,506,109,568,129,649,163"/>
+<area shape="rect" id="Node000006" href="$namespaceRotation.html#a3bd8dc9ec91cbd01ac61807186c1194b" title="Every group holds at least 2 loads." alt="" coords="342,143,567,171"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="597,173,568,172,568,167,602,173"/>
+<area shape="rect" id="Node000008" href="$namespaceRotation.html#a17a4b1e578045cd1fd65c50b2f4cbf0d" title="No load is named twice, within a group or across groups." alt="" coords="371,195,538,223"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="597,194,539,203,538,197,602,193"/>
+<area shape="rect" id="Node000010" href="$namespaceRotation.html#a238ea91bf428faeb307acf2254b41a65" title="Every code of every group stands for at least one load." alt="" coords="360,251,550,279"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="649,203,568,237,514,253,513,248,566,232,643,204"/>
+<area shape="rect" id="Node000003" href="$native_2test__rotation__groups_2test__main_8cpp.html#a0b5919461811ca8a29d1aa9f989c026c" title=" " alt="" coords="113,5,289,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="384,80,285,53,285,48,389,78"/>
+<area shape="rect" id="Node000005" href="$native_2test__rotation__groups_2test__main_8cpp.html#a598e53502423cb24b8bca1111ba3d96d" title=" " alt="" coords="113,75,289,119"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="327,98,290,100,289,94,332,96"/>
+<area shape="rect" id="Node000004" href="$native_2test__rotation__groups_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,143,60,171"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="112,60,109,64,88,83,70,105,44,144,39,142,66,102,84,80,106,60,116,56"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="121,127,61,150,59,145,124,123"/>
+<area shape="rect" id="Node000007" href="$native_2test__rotation__groups_2test__main_8cpp.html#a317a77357ebb4d2d14ce3cd6a6241301" title=" " alt="" coords="108,143,294,171"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="324,158,295,160,294,154,329,156"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="90,159,61,159,59,155,94,155"/>
+<area shape="rect" id="Node000009" href="$native_2test__rotation__groups_2test__main_8cpp.html#afcd6a2399aaf4eff7348863d154e5ef5" title=" " alt="" coords="117,195,285,223"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="353,209,286,212,285,206,358,209"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="131,191,107,185,60,169,60,164,108,180,136,189"/>
+<area shape="rect" id="Node000011" href="$native_2test__rotation__groups_2test__main_8cpp.html#ae02980ca0e1540f877916886e4a05cc8" title=" " alt="" coords="126,247,276,291"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="341,267,276,270,276,265,347,267"/>
+<area shape="poly" id="edge14_Node000011_Node000004" title=" " alt="" coords="113,239,106,236,69,205,44,174,45,169,73,201,109,232,118,239"/>
+</map>

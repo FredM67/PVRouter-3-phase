@@ -96,169 +96,102 @@ $(function(){ initResizable(false); });
 
 <p>Router configuration: loads, relays, control pins and features.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="config__system_8h_source.html">config_system.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="types_8h_source.html">types.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="debug_8h_source.html">debug.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="utils__dualtariff_8h_source.html">utils_dualtariff.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="utils__override__helpers_8h_source.html">utils_override_helpers.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="remote__loads_8h_source.html">remote_loads.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="config__types_8h_source.html">config_types.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for config.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="config_8h__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2config_8h" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2config_8h" id="aMk2__3phase__RFdatalog__temp_2config_8h">
-<area shape="rect" title="Router configuration: loads, relays, control pins and features." alt="" coords="749,5,925,50"/>
-<area shape="rect" href="config__system_8h.html" title="Basic configuration values to be set by the end&#45;user." alt="" coords="963,174,1090,201"/>
-<area shape="poly" title=" " alt="" coords="863,48,955,124,1002,164,996,163,951,128,863,53"/>
-<area shape="rect" href="types_8h.html" title="Some basics classes/types." alt="" coords="554,174,624,201"/>
-<area shape="poly" title=" " alt="" coords="776,52,733,74,687,100,646,132,612,165,609,161,643,128,684,96,730,69,781,49"/>
-<area shape="rect" href="debug_8h.html" title="The text output: informational messages (info) and debug messages (debug)" alt="" coords="456,174,530,201"/>
-<area shape="poly" title=" " alt="" coords="765,52,708,75,646,100,582,134,527,167,524,163,579,130,644,96,706,70,770,49"/>
-<area shape="rect" href="remote__loads__core_8h.html" title="Unit grouping and payload bookkeeping for remotely controlled loads." alt="" coords="1312,174,1469,201"/>
-<area shape="poly" title=" " alt="" coords="925,32,1028,40,1141,53,1244,72,1285,83,1316,96,1335,109,1352,125,1378,161,1373,160,1348,129,1332,113,1313,100,1283,88,1242,77,1140,59,1027,46,926,37"/>
-<area shape="rect" href="utils__dualtariff_8h.html" title="Some utility functions for dual tariff feature." alt="" coords="107,98,234,126"/>
-<area shape="poly" title=" " alt="" coords="747,42,250,103,249,98,750,37"/>
-<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="697,98,796,126"/>
-<area shape="poly" title=" " alt="" coords="815,49,774,89,771,85,811,52"/>
-<area shape="rect" href="utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="367,98,470,126"/>
-<area shape="poly" title=" " alt="" coords="747,46,486,99,484,94,751,43"/>
-<area shape="rect" href="utils__override__helpers_8h.html" title="Config&#45;dependent helper functions for override pin configuration." alt="" coords="1124,98,1302,126"/>
-<area shape="poly" title=" " alt="" coords="926,46,1140,93,1135,95,926,51"/>
-<area shape="rect" href="remote__loads_8h.html" title="Support for remotely controlled loads via RF using RFM69." alt="" coords="965,98,1088,126"/>
-<area shape="poly" title=" " alt="" coords="879,48,978,91,973,92,879,53"/>
-<area shape="rect" href="type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1083,249,1202,277"/>
-<area shape="poly" title=" " alt="" coords="1048,199,1112,241,1106,241,1047,205"/>
-<area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="1666,334,1862,361"/>
-<area shape="poly" title=" " alt="" coords="1202,273,1214,274,1337,290,1433,298,1530,307,1654,322,1687,330,1682,330,1653,328,1529,312,1433,303,1336,295,1213,280,1203,278"/>
-<area shape="rect" href="decay_8hpp.html" title=" " alt="" coords="572,334,732,361"/>
-<area shape="poly" title=" " alt="" coords="1080,275,1064,280,904,302,744,328,722,332,720,327,743,322,903,297,1063,274,1085,273"/>
-<area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="1936,325,2075,370"/>
-<area shape="poly" title=" " alt="" coords="1202,273,1213,274,1320,285,1411,291,1566,295,1720,300,1811,308,1918,322,1923,326,1918,326,1917,328,1810,314,1720,306,1566,300,1411,297,1320,291,1213,280,1203,278"/>
-<area shape="rect" href="function__traits_8hpp.html" title=" " alt="" coords="2099,325,2247,370"/>
-<area shape="poly" title=" " alt="" coords="1202,273,1213,274,1344,287,1456,293,1647,294,1839,298,1952,306,2086,325,2081,325,1951,311,1839,303,1647,299,1456,298,1344,292,1213,280,1203,278"/>
-<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="615,569,760,614"/>
-<area shape="poly" title=" " alt="" coords="1080,271,1019,280,939,285,870,285,754,282,698,283,640,290,575,304,499,327,467,343,427,366,390,393,367,419,361,436,358,452,360,467,366,481,389,506,422,527,463,544,509,558,602,579,597,579,507,563,461,549,419,531,385,510,362,484,355,469,353,452,355,435,363,416,386,389,424,362,464,338,498,323,573,298,639,284,698,278,754,277,870,280,939,280,1018,274,1085,270"/>
-<area shape="rect" href="is__array_8hpp.html" title=" " alt="" coords="756,334,929,361"/>
-<area shape="poly" title=" " alt="" coords="1092,278,906,331,905,326,1097,277"/>
-<area shape="rect" href="is__base__of_8hpp.html" title=" " alt="" coords="2424,325,2568,370"/>
-<area shape="poly" title=" " alt="" coords="1202,273,1213,274,1394,290,1548,296,1810,293,1936,291,2071,293,2225,302,2405,322,2411,325,2406,325,2405,328,2224,308,2071,298,1936,296,1810,298,1548,301,1394,295,1213,280,1203,278"/>
-<area shape="rect" href="remove__reference_8hpp.html" title=" " alt="" coords="2396,418,2564,445"/>
-<area shape="poly" title=" " alt="" coords="1202,273,1213,274,1320,281,1454,283,1764,282,1923,283,2073,289,2204,301,2260,310,2309,322,2351,339,2391,361,2455,408,2450,407,2388,365,2349,344,2307,328,2259,316,2204,306,2072,294,1923,288,1764,287,1454,288,1320,286,1213,280,1203,278"/>
-<area shape="rect" href="is__class_8hpp.html" title=" " alt="" coords="2182,418,2356,445"/>
-<area shape="poly" title=" " alt="" coords="1202,273,1213,274,1400,279,1755,285,2108,298,2229,308,2266,315,2286,323,2296,342,2298,363,2293,385,2285,406,2282,401,2288,383,2292,363,2291,343,2282,327,2265,320,2228,313,2107,303,1755,290,1400,284,1213,280,1203,278"/>
-<area shape="rect" href="is__const_8hpp.html" title=" " alt="" coords="1576,493,1752,521"/>
-<area shape="poly" title=" " alt="" coords="1202,273,1213,274,1340,278,1552,282,1662,286,1759,293,1834,305,1859,313,1875,323,1890,349,1888,374,1873,399,1849,421,1784,460,1717,490,1715,485,1782,456,1846,417,1869,395,1883,373,1885,350,1871,327,1857,318,1833,310,1759,299,1661,291,1552,287,1340,283,1213,280,1203,278"/>
-<area shape="rect" href="is__convertible_8hpp.html" title=" " alt="" coords="1943,418,2158,445"/>
-<area shape="poly" title=" " alt="" coords="1202,273,1213,274,1743,285,2088,298,2206,308,2243,315,2262,323,2273,340,2273,356,2265,370,2249,382,2204,402,2150,417,2149,411,2202,397,2246,378,2261,367,2268,355,2268,342,2258,327,2241,320,2205,314,2087,303,1743,290,1213,280,1203,278"/>
-<area shape="rect" href="is__enum_8hpp.html" title=" " alt="" coords="1055,334,1233,361"/>
-<area shape="poly" title=" " alt="" coords="1144,275,1146,320,1141,316,1141,280"/>
-<area shape="rect" href="is__floating__point_8hpp.html" title=" " alt="" coords="1050,418,1206,445"/>
-<area shape="poly" title=" " alt="" coords="1105,277,1071,298,1056,311,1045,326,1038,347,1045,368,1062,391,1086,410,1081,409,1058,394,1040,371,1033,347,1040,324,1052,307,1068,294,1100,279"/>
-<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="920,493,1024,521"/>
-<area shape="poly" title=" " alt="" coords="1184,275,1220,294,1235,307,1248,324,1252,349,1252,388,1248,426,1242,447,1228,458,1208,468,1157,483,1097,495,1039,502,1038,497,1096,490,1155,478,1206,463,1225,454,1238,444,1243,425,1246,388,1247,350,1243,326,1231,311,1217,298,1184,280"/>
-<area shape="rect" href="is__integral_8hpp.html" title=" " alt="" coords="908,418,1025,445"/>
-<area shape="poly" title=" " alt="" coords="1110,277,1070,299,1032,327,1002,366,979,406,976,401,997,363,1029,323,1067,295,1105,279"/>
-<area shape="rect" href="is__pointer_8hpp.html" title=" " alt="" coords="5,493,192,521"/>
-<area shape="poly" title=" " alt="" coords="1080,272,1019,280,854,282,581,285,438,289,311,297,213,309,179,317,159,327,143,342,131,360,113,401,104,442,101,479,96,477,99,441,108,399,126,357,139,339,156,323,177,312,212,304,310,291,438,283,580,279,854,277,1018,274,1085,271"/>
-<area shape="rect" href="is__signed_8hpp.html" title=" " alt="" coords="601,418,785,445"/>
-<area shape="poly" title=" " alt="" coords="1080,275,1064,280,805,291,647,304,591,314,572,320,562,327,555,337,553,346,562,368,586,393,618,412,612,412,582,397,558,371,548,347,550,335,558,323,570,315,589,309,646,298,805,285,1064,274,1085,274"/>
-<area shape="rect" href="is__unsigned_8hpp.html" title=" " alt="" coords="377,418,577,445"/>
-<area shape="poly" title=" " alt="" coords="1080,275,1064,280,948,285,799,287,723,290,652,297,592,309,547,327,527,343,511,363,489,405,485,401,507,360,523,339,544,323,590,304,651,292,722,285,798,281,948,279,1064,274,1085,274"/>
-<area shape="rect" href="make__unsigned_8hpp.html" title=" " alt="" coords="170,334,395,361"/>
-<area shape="poly" title=" " alt="" coords="1080,275,1064,280,882,297,739,304,597,311,415,328,374,333,372,328,414,322,597,305,739,298,881,291,1064,274,1085,274"/>
-<area shape="rect" href="remove__const_8hpp.html" title=" " alt="" coords="1308,325,1454,370"/>
-<area shape="poly" title=" " alt="" coords="1181,275,1306,319,1301,320,1181,280"/>
-<area shape="rect" href="void__t_8hpp.html" title=" " alt="" coords="1478,334,1642,361"/>
-<area shape="poly" title=" " alt="" coords="1203,273,1467,322,1491,330,1486,330,1466,328,1202,278"/>
-<area shape="rect" title=" " alt="" coords="810,418,883,445"/>
-<area shape="poly" title=" " alt="" coords="683,359,804,411,799,411,683,364"/>
-<area shape="poly" title=" " alt="" coords="845,360,847,404,843,401,842,364"/>
-<area shape="poly" title=" " alt="" coords="2494,368,2487,404,2484,400,2490,372"/>
-<area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="2112,493,2208,521"/>
-<area shape="poly" title=" " alt="" coords="2252,445,2193,487,2191,482,2247,447"/>
-<area shape="poly" title=" " alt="" coords="1576,518,776,585,776,580,1574,514"/>
-<area shape="poly" title=" " alt="" coords="2071,443,2130,485,2125,484,2069,448"/>
-<area shape="poly" title=" " alt="" coords="1230,359,1297,367,1540,385,1730,392,1921,398,2169,417,2164,418,1921,403,1730,397,1539,390,1297,372,1231,364"/>
-<area shape="poly" title=" " alt="" coords="1233,359,1297,367,1640,399,1931,422,1925,423,1640,404,1297,372,1233,364"/>
-<area shape="poly" title=" " alt="" coords="1143,360,1135,404,1131,401,1139,364"/>
-<area shape="poly" title=" " alt="" coords="1167,359,1192,376,1214,398,1227,422,1227,435,1221,447,1209,458,1191,467,1146,482,1039,501,1038,496,1144,477,1189,462,1206,453,1216,444,1222,433,1222,423,1210,401,1189,380,1166,364"/>
-<area shape="poly" title=" " alt="" coords="1118,361,1010,413,1008,408,1113,363"/>
-<area shape="poly" title=" " alt="" coords="1121,444,1087,485,1064,506,1037,523,972,551,903,570,837,582,776,589,776,584,836,577,902,565,970,546,1035,519,1060,502,1083,482,1116,447"/>
-<area shape="poly" title=" " alt="" coords="1103,445,1014,489,1013,484,1097,447"/>
-<area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="725,493,845,521"/>
-<area shape="poly" title=" " alt="" coords="1069,446,861,492,860,487,1064,446"/>
-<area shape="poly" title=" " alt="" coords="929,521,776,567,775,562,924,522"/>
-<area shape="poly" title=" " alt="" coords="956,445,914,484,859,523,814,546,768,566,767,560,812,542,856,519,910,480,951,447"/>
-<area shape="poly" title=" " alt="" coords="969,444,972,479,968,476,966,448"/>
-<area shape="poly" title=" " alt="" coords="937,445,832,490,831,485,931,447"/>
-<area shape="poly" title=" " alt="" coords="192,519,601,575,599,580,192,524"/>
-<area shape="poly" title=" " alt="" coords="695,444,691,555,687,552,691,447"/>
-<area shape="poly" title=" " alt="" coords="743,443,910,489,905,489,743,449"/>
-<area shape="poly" title=" " alt="" coords="710,443,760,484,755,483,709,448"/>
-<area shape="poly" title=" " alt="" coords="496,443,649,559,644,559,494,448"/>
-<area shape="poly" title=" " alt="" coords="566,443,907,495,902,497,566,449"/>
-<area shape="poly" title=" " alt="" coords="533,443,718,489,712,490,532,449"/>
-<area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="216,493,349,521"/>
-<area shape="poly" title=" " alt="" coords="284,360,285,478,280,477,281,363"/>
-<area shape="poly" title=" " alt="" coords="348,519,602,571,597,573,347,524"/>
-<area shape="poly" title=" " alt="" coords="624,195,643,199,875,232,1070,255,1065,256,874,238,642,204,625,200"/>
-<area shape="rect" title=" " alt="" coords="12,334,95,361"/>
-<area shape="poly" title=" " alt="" coords="591,199,587,240,579,261,564,279,526,299,474,311,412,317,346,319,214,320,158,322,114,328,103,330,99,326,113,322,157,317,214,315,346,314,412,312,473,306,524,294,561,275,574,259,582,239,588,204"/>
-<area shape="rect" href="constants_8h.html" title="Some constants." alt="" coords="454,249,551,277"/>
-<area shape="poly" title=" " alt="" coords="576,200,531,241,528,237,572,204"/>
-<area shape="rect" href="load__map_8h.html" title="Encoding of the load map: one packed byte per dump load." alt="" coords="1342,249,1439,277"/>
-<area shape="poly" title=" " alt="" coords="624,191,687,199,865,213,1006,219,1147,226,1329,249,1324,249,1146,232,1006,224,865,218,686,204,625,196"/>
-<area shape="poly" title=" " alt="" coords="451,276,442,280,349,293,277,300,205,309,114,328,103,330,100,326,113,322,204,304,276,295,348,288,441,274,456,274"/>
-<area shape="rect" title=" " alt="" coords="2593,334,2663,361"/>
-<area shape="poly" title=" " alt="" coords="1440,263,2047,285,2384,303,2508,312,2580,322,2591,328,2586,327,2579,328,2507,318,2384,308,2047,291,1440,269"/>
-<area shape="poly" title=" " alt="" coords="454,200,384,223,301,252,244,279,106,330,103,326,241,275,299,247,382,218,458,197"/>
-<area shape="rect" href="serial__output_8h.html" title="Non&#45;blocking serial output of the datalog." alt="" coords="311,249,430,277"/>
-<area shape="poly" title=" " alt="" coords="469,204,407,243,404,239,473,200"/>
-<area shape="poly" title=" " alt="" coords="309,278,218,300,114,328,105,330,101,326,112,322,217,295,313,275"/>
-<area shape="poly" title=" " alt="" coords="1392,200,1393,235,1388,232,1389,204"/>
-<area shape="poly" title=" " alt="" coords="1470,194,2078,256,2396,294,2512,310,2580,322,2591,328,2585,327,2579,328,2511,315,2396,299,2077,262,1470,199"/>
-<area shape="poly" title=" " alt="" coords="139,129,112,148,86,175,69,211,60,250,54,319,49,318,54,249,64,209,82,172,109,144,142,124"/>
-<area shape="poly" title=" " alt="" coords="796,124,965,169,959,170,797,129"/>
-<area shape="poly" title=" " alt="" coords="729,125,709,144,691,163,683,182,684,191,688,199,706,209,740,218,840,234,1070,257,1065,258,840,239,739,223,704,214,685,203,678,193,678,181,687,160,705,140,725,128"/>
-<area shape="poly" title=" " alt="" coords="716,128,632,169,629,165,721,125"/>
-<area shape="poly" title=" " alt="" coords="699,128,546,174,544,169,703,125"/>
-<area shape="rect" href="ewma__avg_8hpp.html" title="This file implements an Exponentially Weighted Moving Average template class." alt="" coords="818,174,939,201"/>
-<area shape="poly" title=" " alt="" coords="770,124,844,166,839,166,770,129"/>
-<area shape="rect" href="utils__pins_8h.html" title="Some utility functions for pins manipulation." alt="" coords="699,174,794,201"/>
-<area shape="poly" title=" " alt="" coords="748,124,749,159,744,157,745,129"/>
-<area shape="poly" title=" " alt="" coords="926,199,1083,244,1078,245,926,205"/>
-<area shape="poly" title=" " alt="" coords="732,200,671,243,632,263,591,280,521,298,460,308,405,311,354,311,247,310,185,315,114,328,102,330,98,326,113,322,185,310,247,304,354,305,405,306,459,303,520,293,590,274,630,258,669,238,727,203"/>
-<area shape="rect" href="utils__bits_8h.html" title="Bit manipulation utility functions." alt="" coords="1226,249,1318,277"/>
-<area shape="poly" title=" " alt="" coords="794,197,807,199,919,214,1008,222,1097,231,1213,249,1208,249,1096,236,1007,228,918,219,806,204,795,202"/>
-<area shape="poly" title=" " alt="" coords="1318,273,1331,274,1452,284,1604,288,1957,288,2138,289,2309,293,2460,304,2580,322,2592,328,2586,327,2579,328,2459,309,2309,299,2138,294,1957,293,1604,293,1452,289,1330,280,1319,278"/>
-<area shape="poly" title=" " alt="" coords="469,99,736,49,732,52,471,104"/>
-<area shape="poly" title=" " alt="" coords="399,129,88,327,85,323,398,123"/>
-<area shape="poly" title=" " alt="" coords="421,123,431,160,447,200,478,239,473,239,443,203,426,162,420,128"/>
-<area shape="rect" title=" " alt="" coords="96,174,186,201"/>
-<area shape="poly" title=" " alt="" coords="367,128,202,173,199,168,371,124"/>
-<area shape="rect" href="utils__override_8h.html" title="Compile&#45;time utilities for managing override pins and index&#45;to&#45;bitmask mapping." alt="" coords="1165,174,1288,201"/>
-<area shape="poly" title=" " alt="" coords="1217,124,1224,160,1219,157,1214,129"/>
-<area shape="poly" title=" " alt="" coords="1214,201,1170,241,1167,237,1209,203"/>
-<area shape="poly" title=" " alt="" coords="1256,199,1350,243,1345,243,1256,205"/>
-<area shape="poly" title=" " alt="" coords="1236,199,1258,237,1253,235,1234,204"/>
-<area shape="poly" title=" " alt="" coords="1000,98,909,59,909,54,1006,97"/>
-<area shape="poly" title=" " alt="" coords="1028,124,1029,159,1024,157,1025,128"/>
-<area shape="poly" title=" " alt="" coords="962,125,640,180,639,175,967,122"/>
-<area shape="poly" title=" " alt="" coords="1052,124,1077,139,1099,159,1111,180,1111,192,1105,203,1072,232,1029,256,977,274,918,288,853,298,784,305,635,312,339,312,212,316,114,328,102,330,98,326,113,322,212,310,339,307,635,306,783,300,853,293,917,283,976,269,1027,251,1069,228,1100,200,1106,190,1106,181,1095,162,1074,144,1052,129"/>
-<area shape="poly" title=" " alt="" coords="1088,123,1313,170,1308,171,1088,128"/>
-<area shape="rect" href="utils__rf_8h.html" title="RF module support for RFM69." alt="" coords="2282,174,2360,201"/>
-<area shape="poly" title=" " alt="" coords="1088,120,1113,123,1457,150,1793,168,2270,185,2264,186,1793,173,1457,155,1113,128,1088,125"/>
-<area shape="poly" title=" " alt="" coords="2281,184,941,43,941,37,2284,180"/>
-<area shape="rect" href="config__rf_8h.html" title="RF module configuration for RFM69." alt="" coords="2618,249,2707,277"/>
-<area shape="poly" title=" " alt="" coords="2360,195,2606,249,2601,249,2360,200"/>
-<area shape="rect" title=" " alt="" coords="2687,334,2766,361"/>
-<area shape="poly" title=" " alt="" coords="2356,199,2675,323,2683,328,2678,327,2674,327,2355,205"/>
-<area shape="rect" title=" " alt="" coords="2294,249,2348,277"/>
-<area shape="poly" title=" " alt="" coords="2323,200,2323,235,2319,232,2319,204"/>
-<area shape="poly" title=" " alt="" coords="2674,275,2709,322,2705,320,2672,280"/>
+<area shape="rect" title="Router configuration: loads, relays, control pins and features." alt="" coords="90,5,266,50"/>
+<area shape="rect" href="config__types_8h.html" title="What config.h is written with: its types, constants and helpers." alt="" coords="120,98,236,126"/>
+<area shape="poly" title=" " alt="" coords="179,48,181,83,176,82,178,53"/>
+<area shape="rect" title=" " alt="" coords="151,342,221,370"/>
+<area shape="poly" title=" " alt="" coords="175,123,165,174,163,215,167,257,181,327,175,326,161,258,158,216,160,173,173,128"/>
+<area shape="rect" href="type__traits_8hpp.html" title="Some useful but missing stl functions templates." alt="" coords="1428,174,1547,201"/>
+<area shape="poly" title=" " alt="" coords="236,114,1413,179,1411,185,236,119"/>
+<area shape="rect" href="load__map_8h.html" title="Encoding of the load map: one packed byte per dump load." alt="" coords="174,174,271,201"/>
+<area shape="poly" title=" " alt="" coords="186,124,209,160,204,161,186,129"/>
+<area shape="rect" href="utils__bits_8h.html" title="Bit manipulation utility functions." alt="" coords="5,174,98,201"/>
+<area shape="poly" title=" " alt="" coords="154,129,89,168,85,164,157,124"/>
+<area shape="poly" title=" " alt="" coords="1425,190,1197,198,887,210,600,227,496,239,436,252,421,261,412,272,402,284,386,296,349,314,310,329,238,348,236,343,308,324,347,309,383,292,398,281,408,269,418,257,435,247,495,234,599,222,887,205,1197,193,1430,190"/>
+<area shape="rect" href="conditional_8hpp.html" title=" " alt="" coords="2398,258,2593,286"/>
+<area shape="poly" title=" " alt="" coords="1548,188,1901,205,2139,222,2380,247,2418,255,2412,255,2379,252,2138,227,1901,210,1548,193"/>
+<area shape="rect" href="decay_8hpp.html" title=" " alt="" coords="701,258,861,286"/>
+<area shape="poly" title=" " alt="" coords="1425,193,1185,214,1029,230,873,252,849,257,847,251,872,247,1029,225,1184,208,1430,192"/>
+<area shape="rect" href="enable__if_8hpp.html" title=" " alt="" coords="2835,249,2974,294"/>
+<area shape="poly" title=" " alt="" coords="1548,187,2163,204,2536,222,2695,233,2822,249,2817,249,2694,238,2535,227,2163,209,1548,193"/>
+<area shape="rect" href="function__traits_8hpp.html" title=" " alt="" coords="224,249,372,294"/>
+<area shape="poly" title=" " alt="" coords="1425,189,1251,193,995,201,696,220,542,234,392,252,388,252,386,247,391,247,542,228,696,214,995,196,1251,188,1430,188"/>
+<area shape="rect" href="index__sequence_8hpp.html" title="std::index_sequence, which avr&#45;libc lacks, on 8&#45;bit indexes" alt="" coords="448,258,676,286"/>
+<area shape="poly" title=" " alt="" coords="1425,192,1111,213,902,230,689,252,651,257,649,252,689,247,901,225,1111,208,1430,191"/>
+<area shape="rect" href="integral__constant_8hpp.html" title=" " alt="" coords="1278,493,1423,538"/>
+<area shape="poly" title=" " alt="" coords="1547,186,1730,188,1964,196,2077,204,2174,215,2247,229,2271,237,2287,247,2294,259,2296,271,2287,295,2252,354,2234,376,2213,393,2164,421,2099,448,2044,464,1970,478,1789,498,1597,510,1438,515,1438,510,1597,504,1788,493,1969,473,2042,459,2097,443,2161,416,2210,389,2230,372,2248,351,2282,293,2290,270,2289,261,2283,251,2269,242,2245,234,2173,220,2076,209,1964,202,1730,194,1548,191"/>
+<area shape="rect" href="is__array_8hpp.html" title=" " alt="" coords="885,258,1058,286"/>
+<area shape="poly" title=" " alt="" coords="1425,197,1269,222,1077,252,1050,257,1049,252,1076,247,1268,216,1430,196"/>
+<area shape="rect" href="is__base__of_8hpp.html" title=" " alt="" coords="2667,249,2812,294"/>
+<area shape="poly" title=" " alt="" coords="1547,186,1734,186,2006,194,2325,212,2489,227,2649,247,2655,250,2650,250,2648,252,2488,232,2324,217,2006,199,1734,192,1548,191"/>
+<area shape="rect" href="remove__reference_8hpp.html" title=" " alt="" coords="2601,342,2769,370"/>
+<area shape="poly" title=" " alt="" coords="1547,186,1792,190,2123,199,2287,206,2431,217,2542,230,2581,238,2606,247,2629,263,2648,284,2675,329,2671,327,2644,287,2625,267,2604,252,2579,243,2541,235,2431,222,2287,212,2123,204,1792,195,1548,192"/>
+<area shape="rect" href="is__class_8hpp.html" title=" " alt="" coords="1859,342,2033,370"/>
+<area shape="poly" title=" " alt="" coords="1523,199,1572,220,1624,247,1652,271,1664,281,1681,292,1756,315,1860,339,1854,339,1755,320,1678,296,1661,286,1649,275,1621,252,1569,225,1522,204"/>
+<area shape="rect" href="is__const_8hpp.html" title=" " alt="" coords="2347,418,2524,445"/>
+<area shape="poly" title=" " alt="" coords="1547,187,1737,192,1982,203,2205,221,2284,233,2330,247,2351,262,2369,281,2397,322,2418,365,2430,404,2426,401,2413,367,2393,325,2364,284,2347,266,2328,252,2283,238,2204,226,1981,208,1737,198,1548,193"/>
+<area shape="rect" href="is__convertible_8hpp.html" title=" " alt="" coords="1620,342,1835,370"/>
+<area shape="poly" title=" " alt="" coords="1506,199,1636,292,1697,334,1692,333,1633,296,1504,204"/>
+<area shape="rect" href="is__enum_8hpp.html" title=" " alt="" coords="1336,258,1514,286"/>
+<area shape="poly" title=" " alt="" coords="1480,201,1445,248,1442,243,1475,203"/>
+<area shape="rect" href="is__floating__point_8hpp.html" title=" " alt="" coords="1339,342,1495,370"/>
+<area shape="poly" title=" " alt="" coords="1425,195,1400,203,1372,214,1346,230,1326,251,1318,271,1326,293,1344,315,1370,335,1365,334,1341,319,1321,295,1313,271,1321,248,1343,225,1369,209,1398,198,1430,194"/>
+<area shape="rect" href="is__same_8hpp.html" title=" " alt="" coords="1298,418,1402,445"/>
+<area shape="poly" title=" " alt="" coords="1500,199,1516,222,1529,248,1540,283,1548,312,1546,340,1531,371,1508,395,1480,411,1449,422,1418,429,1417,423,1447,417,1477,406,1505,390,1527,368,1541,339,1542,313,1535,284,1524,250,1512,224,1498,204"/>
+<area shape="rect" href="is__integral_8hpp.html" title=" " alt="" coords="1197,342,1314,370"/>
+<area shape="poly" title=" " alt="" coords="1430,197,1368,218,1339,233,1312,251,1296,268,1283,288,1265,329,1262,325,1279,286,1292,265,1308,247,1336,228,1366,213,1425,198"/>
+<area shape="rect" href="is__pointer_8hpp.html" title=" " alt="" coords="678,418,865,445"/>
+<area shape="poly" title=" " alt="" coords="1425,195,1257,217,1174,233,1115,252,1102,262,1094,273,1086,285,1071,296,1024,313,980,316,938,312,898,304,860,299,824,301,789,314,755,344,748,357,748,372,758,405,753,403,742,372,743,355,751,340,787,309,823,295,861,294,899,299,939,307,980,311,1023,308,1069,292,1082,282,1090,270,1098,258,1113,247,1172,228,1256,212,1430,193"/>
+<area shape="rect" href="is__signed_8hpp.html" title=" " alt="" coords="765,342,949,370"/>
+<area shape="poly" title=" " alt="" coords="1425,194,1310,213,1243,229,1179,252,1161,262,1148,273,1135,285,1115,296,1040,323,965,341,964,336,1039,318,1113,292,1131,281,1144,269,1158,258,1177,247,1242,224,1309,208,1430,193"/>
+<area shape="rect" href="is__unsigned_8hpp.html" title=" " alt="" coords="973,342,1173,370"/>
+<area shape="poly" title=" " alt="" coords="1431,201,1354,224,1274,252,1183,294,1108,336,1106,331,1180,290,1272,247,1353,219,1426,203"/>
+<area shape="rect" href="make__unsigned_8hpp.html" title=" " alt="" coords="1691,258,1916,286"/>
+<area shape="poly" title=" " alt="" coords="1538,199,1741,253,1735,253,1538,205"/>
+<area shape="rect" href="remove__const_8hpp.html" title=" " alt="" coords="1940,249,2086,294"/>
+<area shape="poly" title=" " alt="" coords="1548,192,1714,213,1927,249,1922,249,1714,218,1548,198"/>
+<area shape="rect" href="void__t_8hpp.html" title=" " alt="" coords="2110,258,2273,286"/>
+<area shape="poly" title=" " alt="" coords="1548,190,1789,209,1943,225,2099,247,2127,254,2121,254,2098,252,1943,230,1789,214,1548,195"/>
+<area shape="rect" title=" " alt="" coords="616,342,690,370"/>
+<area shape="poly" title=" " alt="" coords="763,285,687,336,685,331,758,287"/>
+<area shape="poly" title=" " alt="" coords="500,288,237,346,235,341,503,284"/>
+<area shape="poly" title=" " alt="" coords="918,287,705,344,704,339,923,285"/>
+<area shape="poly" title=" " alt="" coords="2727,293,2703,331,2701,327,2723,296"/>
+<area shape="rect" href="declval_8hpp.html" title=" " alt="" coords="1781,418,1877,445"/>
+<area shape="poly" title=" " alt="" coords="1928,369,1863,412,1861,407,1923,371"/>
+<area shape="poly" title=" " alt="" coords="2350,443,2329,448,1825,488,1438,512,1438,507,1825,483,2329,443,2344,444"/>
+<area shape="poly" title=" " alt="" coords="1746,368,1801,409,1796,408,1745,373"/>
+<area shape="poly" title=" " alt="" coords="1509,283,1850,339,1845,339,1508,289"/>
+<area shape="poly" title=" " alt="" coords="1474,283,1667,338,1662,337,1473,289"/>
+<area shape="poly" title=" " alt="" coords="1425,284,1422,328,1418,325,1422,288"/>
+<area shape="poly" title=" " alt="" coords="1451,283,1477,300,1501,321,1515,345,1515,358,1510,371,1491,391,1468,406,1418,425,1417,420,1466,402,1488,387,1505,368,1510,357,1510,346,1497,324,1474,304,1450,289"/>
+<area shape="poly" title=" " alt="" coords="1400,285,1297,337,1295,332,1395,287"/>
+<area shape="poly" title=" " alt="" coords="1421,368,1424,405,1422,426,1417,446,1405,467,1389,485,1387,480,1401,464,1412,444,1417,425,1419,405,1417,372"/>
+<area shape="poly" title=" " alt="" coords="1407,369,1373,409,1371,404,1403,371"/>
+<area shape="rect" href="remove__cv_8hpp.html" title=" " alt="" coords="1103,418,1224,445"/>
+<area shape="poly" title=" " alt="" coords="1374,370,1224,415,1223,410,1369,371"/>
+<area shape="poly" title=" " alt="" coords="1352,444,1352,479,1348,476,1348,448"/>
+<area shape="poly" title=" " alt="" coords="1260,368,1271,404,1288,444,1318,483,1313,481,1284,447,1266,406,1257,372"/>
+<area shape="poly" title=" " alt="" coords="1273,368,1324,409,1319,407,1272,373"/>
+<area shape="poly" title=" " alt="" coords="1242,369,1192,410,1190,406,1237,371"/>
+<area shape="poly" title=" " alt="" coords="865,443,1265,502,1260,502,864,449"/>
+<area shape="poly" title=" " alt="" coords="885,368,969,404,1072,443,1170,471,1265,496,1260,496,1169,476,1071,448,967,409,884,373"/>
+<area shape="poly" title=" " alt="" coords="946,368,1286,420,1280,421,945,373"/>
+<area shape="poly" title=" " alt="" coords="912,368,1096,413,1091,414,912,373"/>
+<area shape="poly" title=" " alt="" coords="1073,368,1077,407,1082,426,1093,443,1120,460,1162,475,1265,501,1260,501,1160,481,1118,465,1090,447,1078,429,1071,407,1070,372"/>
+<area shape="poly" title=" " alt="" coords="1123,368,1288,413,1283,413,1122,373"/>
+<area shape="poly" title=" " alt="" coords="1090,368,1138,408,1133,407,1088,373"/>
+<area shape="rect" href="type__identity_8hpp.html" title=" " alt="" coords="1953,418,2086,445"/>
+<area shape="poly" title=" " alt="" coords="1888,283,1983,306,2022,322,2047,340,2054,356,2053,374,2039,407,2036,403,2048,373,2049,357,2043,344,2020,326,1981,311,1887,289"/>
+<area shape="poly" title=" " alt="" coords="1955,441,1439,506,1438,501,1950,441"/>
+<area shape="poly" title=" " alt="" coords="221,200,195,328,190,326,218,204"/>
+<area shape="poly" title=" " alt="" coords="58,199,84,243,119,292,159,331,154,333,115,296,80,246,58,205"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -266,50 +199,57 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="config_8h__dep__incl.png" border="0" usemap="#aMk2__3phase__RFdatalog__temp_2config_8hdep" alt=""/></div>
 <map name="aMk2__3phase__RFdatalog__temp_2config_8hdep" id="aMk2__3phase__RFdatalog__temp_2config_8hdep">
-<area shape="rect" title="Router configuration: loads, relays, control pins and features." alt="" coords="687,5,863,50"/>
-<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="487,98,663,143"/>
-<area shape="poly" title=" " alt="" coords="716,56,624,100,622,95,711,58"/>
-<area shape="rect" href="main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="310,300,486,345"/>
-<area shape="poly" title=" " alt="" coords="669,32,494,39,291,51,197,60,117,71,57,84,38,92,26,100,11,123,9,145,17,166,32,186,78,221,126,250,170,272,218,289,312,312,306,313,216,294,168,277,123,255,75,226,29,190,12,169,4,146,6,122,23,96,35,87,56,79,116,66,196,55,291,46,494,34,674,30"/>
-<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="172,199,349,244"/>
-<area shape="poly" title=" " alt="" coords="669,30,562,36,445,47,390,55,342,67,303,82,277,100,263,122,257,148,256,175,258,200,254,198,251,175,252,148,258,120,273,96,301,77,341,62,389,50,444,41,562,30,674,28"/>
-<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="1087,199,1263,244"/>
-<area shape="poly" title=" " alt="" coords="879,25,989,29,1108,39,1163,48,1211,60,1250,76,1277,96,1285,110,1286,125,1282,140,1273,154,1246,179,1215,201,1213,196,1243,175,1269,150,1277,137,1281,125,1280,112,1273,100,1248,81,1210,65,1162,53,1107,44,989,34,879,31"/>
-<area shape="rect" href="dualtariff_8h.html" title="Classes/types needed for dual&#45;tariff support." alt="" coords="287,98,463,143"/>
-<area shape="poly" title=" " alt="" coords="669,53,464,102,463,97,674,51"/>
-<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="36,98,213,143"/>
-<area shape="poly" title=" " alt="" coords="669,41,468,67,232,101,214,103,212,99,231,95,467,62,674,39"/>
-<area shape="rect" href="remote__loads_8h.html" title="Support for remotely controlled loads via RF using RFM69." alt="" coords="1287,199,1463,244"/>
-<area shape="poly" title=" " alt="" coords="878,30,988,37,1106,49,1213,68,1256,81,1287,96,1313,118,1334,145,1362,200,1358,198,1329,148,1309,122,1284,100,1254,86,1212,73,1105,55,987,42,879,35"/>
-<area shape="rect" href="teleinfo_8h.html" title="Manages telemetry data and frame formatting." alt="" coords="887,98,1063,143"/>
-<area shape="poly" title=" " alt="" coords="837,54,930,97,925,97,837,59"/>
-<area shape="rect" href="utils__rf_8h.html" title="RF module support for RFM69." alt="" coords="1087,98,1263,143"/>
-<area shape="poly" title=" " alt="" coords="879,50,1089,99,1084,99,879,55"/>
-<area shape="rect" href="utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="687,98,863,143"/>
-<area shape="poly" title=" " alt="" coords="768,63,770,99,765,96,765,68"/>
-<area shape="poly" title=" " alt="" coords="480,148,450,169,425,192,411,218,403,247,398,301,394,298,397,246,406,216,421,189,446,165,475,150"/>
-<area shape="poly" title=" " alt="" coords="489,149,330,201,328,196,494,147"/>
-<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="435,199,611,244"/>
-<area shape="poly" title=" " alt="" coords="559,155,536,201,533,197,555,158"/>
-<area shape="poly" title=" " alt="" coords="679,141,791,155,879,161,966,170,1076,188,1110,199,1105,199,1075,193,966,175,879,167,791,160,679,146"/>
-<area shape="poly" title=" " alt="" coords="486,253,426,302,424,298,481,255"/>
-<area shape="poly" title=" " alt="" coords="1096,248,1076,255,914,282,751,300,486,320,486,315,751,295,913,276,1075,250,1091,249"/>
-<area shape="poly" title=" " alt="" coords="341,151,287,201,284,197,336,154"/>
-<area shape="poly" title=" " alt="" coords="420,149,493,199,488,199,419,154"/>
-<area shape="poly" title=" " alt="" coords="126,156,137,206,147,230,162,250,194,276,232,294,271,306,312,316,307,316,270,311,230,299,192,280,159,254,143,233,132,208,124,161"/>
-<area shape="poly" title=" " alt="" coords="167,150,233,198,228,199,166,155"/>
-<area shape="poly" title=" " alt="" coords="227,144,438,197,433,200,227,150"/>
-<area shape="poly" title=" " alt="" coords="1370,183,1347,139,1329,118,1308,100,1275,85,1228,72,1109,52,979,40,864,34,864,29,980,35,1110,47,1229,66,1276,80,1311,96,1333,114,1351,137,1374,185"/>
-<area shape="poly" title=" " alt="" coords="869,144,747,168,625,193,595,201,594,196,624,188,746,163,874,143"/>
-<area shape="rect" href="embedded_2test__serial__output_2test__main_8cpp.html" title=" " alt="" coords="636,191,845,252"/>
-<area shape="poly" title=" " alt="" coords="912,148,813,193,811,187,907,150"/>
-<area shape="rect" href="embedded_2test__teleinfo_2test__main_8cpp.html" title=" " alt="" coords="869,191,1062,252"/>
-<area shape="poly" title=" " alt="" coords="974,156,971,192,967,188,970,160"/>
-<area shape="poly" title=" " alt="" coords="1069,144,945,160,846,167,748,174,625,193,592,201,591,196,624,188,747,169,846,161,945,155,1074,143"/>
-<area shape="poly" title=" " alt="" coords="1177,156,1177,201,1173,197,1173,160"/>
-<area shape="poly" title=" " alt="" coords="1233,147,1334,199,1329,198,1232,153"/>
-<area shape="poly" title=" " alt="" coords="782,81,781,52,784,48,786,84"/>
-<area shape="poly" title=" " alt="" coords="709,148,579,201,577,196,703,149"/>
+<area shape="rect" title="Router configuration: loads, relays, control pins and features." alt="" coords="644,5,820,50"/>
+<area shape="rect" href="calibration_8h.html" title="Calibration values definition." alt="" coords="393,410,570,455"/>
+<area shape="poly" title=" " alt="" coords="672,59,632,86,586,120,544,161,509,209,497,235,489,262,480,318,479,370,481,411,476,409,474,370,475,318,484,261,492,233,505,206,540,158,583,116,629,82,676,56"/>
+<area shape="rect" href="config__derived_8h.html" title="The configuration as the firmware uses it: the settings, and what is built from them." alt="" coords="644,309,820,354"/>
+<area shape="poly" title=" " alt="" coords="734,64,735,309,730,307,730,68"/>
+<area shape="rect" href="debug_8h.html" title="The text output: informational messages (info) and debug messages (debug)" alt="" coords="769,106,946,151"/>
+<area shape="poly" title=" " alt="" coords="772,57,833,106,828,106,771,62"/>
+<area shape="rect" href="utils__temp_8h.html" title="Provides utilities for managing temperature sensors." alt="" coords="519,208,695,252"/>
+<area shape="poly" title=" " alt="" coords="713,61,622,209,618,206,709,65"/>
+<area shape="rect" href="native_2test__config__h_2test__main_8cpp.html" title="Native tests for config.h itself." alt="" coords="970,98,1148,160"/>
+<area shape="poly" title=" " alt="" coords="818,52,972,100,967,101,819,58"/>
+<area shape="rect" href="main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="719,595,895,640"/>
+<area shape="poly" title=" " alt="" coords="486,468,497,510,507,529,521,545,553,563,602,579,721,605,716,605,601,584,551,568,517,549,503,532,492,512,483,472"/>
+<area shape="rect" href="processing_8cpp.html" title="Implements the processing engine." alt="" coords="744,503,920,547"/>
+<area shape="poly" title=" " alt="" coords="580,456,751,502,746,502,580,462"/>
+<area shape="rect" href="utils_8h.html" title="Some utility functions." alt="" coords="531,503,707,547"/>
+<area shape="poly" title=" " alt="" coords="527,461,589,502,584,502,526,466"/>
+<area shape="rect" href="validation_8h.html" title="Compile&#45;time validations." alt="" coords="249,503,426,547"/>
+<area shape="poly" title=" " alt="" coords="437,462,373,505,370,500,432,464"/>
+<area shape="poly" title=" " alt="" coords="678,552,765,595,760,595,677,557"/>
+<area shape="poly" title=" " alt="" coords="441,544,721,599,716,600,441,549"/>
+<area shape="poly" title=" " alt="" coords="818,355,834,359,873,365,909,366,972,361,1002,361,1030,367,1058,382,1085,408,1095,424,1101,440,1101,455,1098,470,1079,498,1049,523,1011,546,969,566,884,597,882,592,967,561,1009,541,1046,519,1075,494,1093,468,1096,455,1096,441,1091,427,1081,412,1054,386,1028,372,1001,366,972,366,909,371,873,371,833,365,818,361"/>
+<area shape="poly" title=" " alt="" coords="789,360,815,382,835,409,842,433,845,458,840,504,835,501,839,458,837,434,830,411,811,385,788,365"/>
+<area shape="poly" title=" " alt="" coords="626,333,506,338,373,349,311,359,256,373,212,390,183,412,177,422,175,431,184,453,197,469,213,482,252,504,246,505,210,487,193,473,179,456,170,432,172,420,180,408,210,386,254,368,310,354,372,344,506,333,631,331"/>
+<area shape="rect" href="dualtariff_8h.html" title="The scheduled boosts of the dual tariff, resolved at compile time." alt="" coords="644,410,820,455"/>
+<area shape="poly" title=" " alt="" coords="734,367,734,411,730,408,731,371"/>
+<area shape="rect" href="processing_8h.html" title="Public functions/variables of processing engine." alt="" coords="895,410,1071,455"/>
+<area shape="poly" title=" " alt="" coords="802,357,931,409,925,410,801,362"/>
+<area shape="rect" href="remote__loads_8h.html" title="Support for remotely controlled loads via RF using RFM69." alt="" coords="5,503,182,547"/>
+<area shape="poly" title=" " alt="" coords="626,337,505,346,366,360,241,382,192,396,156,412,134,432,116,456,103,481,95,504,90,501,98,479,111,453,130,428,153,408,190,391,240,376,366,355,504,341,631,335"/>
+<area shape="rect" href="utils__rf_8h.html" title="RF module support for RFM69." alt="" coords="193,410,370,455"/>
+<area shape="poly" title=" " alt="" coords="627,357,371,414,369,409,631,354"/>
+<area shape="poly" title=" " alt="" coords="768,463,811,503,806,502,766,468"/>
+<area shape="poly" title=" " alt="" coords="696,463,647,505,645,500,691,466"/>
+<area shape="poly" title=" " alt="" coords="976,468,960,511,934,549,901,577,864,597,863,592,898,572,930,546,955,508,971,471"/>
+<area shape="poly" title=" " alt="" coords="936,462,869,505,867,500,931,464"/>
+<area shape="poly" title=" " alt="" coords="883,458,707,505,705,500,878,459"/>
+<area shape="poly" title=" " alt="" coords="114,487,140,445,157,425,177,408,214,391,264,376,388,355,524,341,646,335,641,337,524,346,389,360,265,382,216,396,180,412,161,428,144,448,118,490"/>
+<area shape="poly" title=" " alt="" coords="377,456,541,501,536,503,377,462"/>
+<area shape="poly" title=" " alt="" coords="304,465,327,503,322,502,302,470"/>
+<area shape="poly" title=" " alt="" coords="221,464,140,505,137,500,225,460"/>
+<area shape="poly" title=" " alt="" coords="838,163,747,310,744,307,834,166"/>
+<area shape="rect" href="utils__relay_8h.html" title="Some utility functions for the relay output feature." alt="" coords="845,208,1022,252"/>
+<area shape="poly" title=" " alt="" coords="884,161,920,208,914,207,883,166"/>
+<area shape="poly" title=" " alt="" coords="786,159,663,209,661,205,791,156"/>
+<area shape="poly" title=" " alt="" coords="997,257,1027,276,1053,298,1086,335,1109,370,1118,408,1112,455,1095,508,1081,529,1058,549,1020,573,979,591,937,603,896,611,895,606,935,598,977,586,1018,568,1055,545,1077,525,1090,506,1107,454,1113,408,1104,372,1082,338,1049,302,1023,280,996,263"/>
+<area shape="poly" title=" " alt="" coords="878,258,777,311,775,306,873,261"/>
+<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html" title=" " alt="" coords="845,300,1038,362"/>
+<area shape="poly" title=" " alt="" coords="938,266,941,301,937,299,935,270"/>
+<area shape="poly" title=" " alt="" coords="610,266,620,503,615,501,606,270"/>
+<area shape="poly" title=" " alt="" coords="646,260,708,309,702,308,646,265"/>
 </map>
 </div>
 </div>
@@ -317,15 +257,17 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:ae74834afbf58bc7d04243bad16ef83d5" id="r_ae74834afbf58bc7d04243bad16ef83d5"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae74834afbf58bc7d04243bad16ef83d5">BOOST_TEMP_SENSOR</a> { 0 }</td></tr>
+<tr class="separator:ae74834afbf58bc7d04243bad16ef83d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a858e958b407980de6e11570157e619cd" id="r_a858e958b407980de6e11570157e619cd"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a858e958b407980de6e11570157e619cd">CALIBRATION_MODE</a> { false }</td></tr>
 <tr class="separator:a858e958b407980de6e11570157e619cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4fafac7a898d0c42cf814b9ab893d8c" id="r_af4fafac7a898d0c42cf814b9ab893d8c"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af4fafac7a898d0c42cf814b9ab893d8c">DIVERSION_PIN_PRESENT</a> { false }</td></tr>
 <tr class="separator:af4fafac7a898d0c42cf814b9ab893d8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7356f13f5bd190e1c4617b7143e4416d" id="r_a7356f13f5bd190e1c4617b7143e4416d"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7356f13f5bd190e1c4617b7143e4416d">diversionPin</a> { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td></tr>
+<tr class="memitem:a7356f13f5bd190e1c4617b7143e4416d" id="r_a7356f13f5bd190e1c4617b7143e4416d"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7356f13f5bd190e1c4617b7143e4416d">diversionPin</a> { <a class="el" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td></tr>
 <tr class="separator:a7356f13f5bd190e1c4617b7143e4416d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e4069ecc0f4af6f9c1d9aafa84178de" id="r_a6e4069ecc0f4af6f9c1d9aafa84178de"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e4069ecc0f4af6f9c1d9aafa84178de">DUAL_TARIFF</a> { false }</td></tr>
 <tr class="separator:a6e4069ecc0f4af6f9c1d9aafa84178de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3918ff99c886117c4166c18d7232accf" id="r_a3918ff99c886117c4166c18d7232accf"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3918ff99c886117c4166c18d7232accf">dualTariffPin</a> { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td></tr>
+<tr class="memitem:a3918ff99c886117c4166c18d7232accf" id="r_a3918ff99c886117c4166c18d7232accf"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3918ff99c886117c4166c18d7232accf">dualTariffPin</a> { <a class="el" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td></tr>
 <tr class="separator:a3918ff99c886117c4166c18d7232accf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99a6f99ea62c46c99a1db839cdc8cc0d" id="r_a99a6f99ea62c46c99a1db839cdc8cc0d"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99a6f99ea62c46c99a1db839cdc8cc0d">ENABLE_DEBUG</a> { true }</td></tr>
 <tr class="separator:a99a6f99ea62c46c99a1db839cdc8cc0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -335,15 +277,11 @@ Variables</h2></td></tr>
 <tr class="separator:a00662b40b4d1afe819f2bdb6ad0ed191"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2458020f21db854d8f2fe0e500dcd05" id="r_aa2458020f21db854d8f2fe0e500dcd05"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a> { 3 }</td></tr>
 <tr class="separator:aa2458020f21db854d8f2fe0e500dcd05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9e49b9ee7b4e089889d4d9446860da3" id="r_af9e49b9ee7b4e089889d4d9446860da3"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9e49b9ee7b4e089889d4d9446860da3">NO_OF_REMOTE_LOADS</a> { <a class="el" href="namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557">Load::countRemoteLoads</a>(<a class="el" href="#a4cfb4b5cc5504c54511b565a29906efc">physicalLoadPin</a>) }</td></tr>
-<tr class="separator:af9e49b9ee7b4e089889d4d9446860da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b86e4a3369c03fec917295508ef3a2f" id="r_a7b86e4a3369c03fec917295508ef3a2f"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b86e4a3369c03fec917295508ef3a2f">NO_OF_REMOTE_UNITS</a> { <a class="el" href="namespaceLoad.html#a45143ff1b1b918a50f68c637c882a610">Load::countUnits</a>(<a class="el" href="#a4cfb4b5cc5504c54511b565a29906efc">physicalLoadPin</a>) }</td></tr>
-<tr class="separator:a7b86e4a3369c03fec917295508ef3a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3113411238215d7011c4c5ac3680a973" id="r_a3113411238215d7011c4c5ac3680a973"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3113411238215d7011c4c5ac3680a973">OVERRIDE_PIN_PRESENT</a> { true }</td></tr>
 <tr class="separator:a3113411238215d7011c4c5ac3680a973"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82927030c9074aa56f0f3d9a1b625956" id="r_a82927030c9074aa56f0f3d9a1b625956"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classOverridePins.html">OverridePins</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82927030c9074aa56f0f3d9a1b625956">overridePins</a> { { { 4, <a class="el" href="utils__override__helpers_8h.html#ad19b0f6bfb7e49c2a32b6bb68d3228cd">ALL_LOADS</a>() } } }</td></tr>
+<tr class="memitem:a82927030c9074aa56f0f3d9a1b625956" id="r_a82927030c9074aa56f0f3d9a1b625956"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classOverridePins.html">OverridePins</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82927030c9074aa56f0f3d9a1b625956">overridePins</a> { { { 4, <a class="el" href="config__types_8h.html#aad6aa9352a63d75d3ac6ea162d333bf1">ALL_LOADS</a>() } } }</td></tr>
 <tr class="separator:a82927030c9074aa56f0f3d9a1b625956"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45a0071f406cc22929afb7a5fcb250b2" id="r_a45a0071f406cc22929afb7a5fcb250b2"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="types_8h.html#a8bb3ae3452a609d213c4d66e88a7086b">PcbVersion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45a0071f406cc22929afb7a5fcb250b2">PCB_VERSION</a> { <a class="el" href="types_8h.html#a8bb3ae3452a609d213c4d66e88a7086ba24d459a81449d7210c8f9a86c2913034">PcbVersion::NEW</a> }</td></tr>
+<tr class="memitem:a45a0071f406cc22929afb7a5fcb250b2" id="r_a45a0071f406cc22929afb7a5fcb250b2"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="config__types_8h.html#a8bb3ae3452a609d213c4d66e88a7086b">PcbVersion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45a0071f406cc22929afb7a5fcb250b2">PCB_VERSION</a> { <a class="el" href="config__types_8h.html#a8bb3ae3452a609d213c4d66e88a7086ba24d459a81449d7210c8f9a86c2913034">PcbVersion::NEW</a> }</td></tr>
 <tr class="separator:a45a0071f406cc22929afb7a5fcb250b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cfb4b5cc5504c54511b565a29906efc" id="r_a4cfb4b5cc5504c54511b565a29906efc"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4cfb4b5cc5504c54511b565a29906efc">physicalLoadPin</a> [<a class="el" href="#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>]</td></tr>
 <tr class="separator:a4cfb4b5cc5504c54511b565a29906efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -353,26 +291,23 @@ Variables</h2></td></tr>
 <tr class="separator:a4e6a54dbc2ca8c81fe77c28bf5d05056"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c7a62222eb839f193a1ea1b83b0acc6" id="r_a4c7a62222eb839f193a1ea1b83b0acc6"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classRelayEngine.html">RelayEngine</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c7a62222eb839f193a1ea1b83b0acc6">relays</a></td></tr>
 <tr class="separator:a4c7a62222eb839f193a1ea1b83b0acc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75c68e7e76d77336ac94d74ed0349718" id="r_a75c68e7e76d77336ac94d74ed0349718"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a75c68e7e76d77336ac94d74ed0349718">REMOTE_LOADS_PRESENT</a> { <a class="el" href="#af9e49b9ee7b4e089889d4d9446860da3">NO_OF_REMOTE_LOADS</a> != 0 }</td></tr>
-<tr class="separator:a75c68e7e76d77336ac94d74ed0349718"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0562929108ccf8867442f664dd511581" id="r_a0562929108ccf8867442f664dd511581"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRemoteLoadCore.html">RemoteLoadCore</a>&lt; <a class="el" href="#a7b86e4a3369c03fec917295508ef3a2f">NO_OF_REMOTE_UNITS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0562929108ccf8867442f664dd511581">remoteLoads</a> {}</td></tr>
-<tr class="memdesc:a0562929108ccf8867442f664dd511581"><td class="mdescLeft">&#160;</td><td class="mdescRight">The one and only remote-load controller.  <br /></td></tr>
-<tr class="separator:a0562929108ccf8867442f664dd511581"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d71639fef8b7ed7801069f4c1ba0838" id="r_a5d71639fef8b7ed7801069f4c1ba0838"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d71639fef8b7ed7801069f4c1ba0838">RF_LOGGING_PRESENT</a> { false }</td></tr>
 <tr class="separator:a5d71639fef8b7ed7801069f4c1ba0838"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a281368464ae362f565124959a02d2888" id="r_a281368464ae362f565124959a02d2888"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classpairForceLoad.html">pairForceLoad</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a281368464ae362f565124959a02d2888">rg_ForceLoad</a> [<a class="el" href="#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { { -3, 2 } }</td></tr>
-<tr class="separator:a281368464ae362f565124959a02d2888"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31c1d96ed6ba0d5d3fa8172b1191f8db" id="r_a31c1d96ed6ba0d5d3fa8172b1191f8db"><td class="memItemLeft" align="right" valign="top">constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31c1d96ed6ba0d5d3fa8172b1191f8db">ROTATION_AFTER_SECONDS</a> { 8UL * 3600UL }</td></tr>
 <tr class="separator:a31c1d96ed6ba0d5d3fa8172b1191f8db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e46594bb69d18074193e096a4470dce" id="r_a0e46594bb69d18074193e096a4470dce"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e46594bb69d18074193e096a4470dce">RotationModes</a> { <a class="el" href="types_8h.html#a06b890c4a964752df814257dc1f13073a88559a0cfd8250c9d65970cc145c92d4">RotationModes::OFF</a> }</td></tr>
+<tr class="memitem:a9daee0bd0bfe4f17ee1cd1441d9e5ad5" id="r_a9daee0bd0bfe4f17ee1cd1441d9e5ad5"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classRotationGroups.html">RotationGroups</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9daee0bd0bfe4f17ee1cd1441d9e5ad5">rotationGroups</a> {}</td></tr>
+<tr class="separator:a9daee0bd0bfe4f17ee1cd1441d9e5ad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e46594bb69d18074193e096a4470dce" id="r_a0e46594bb69d18074193e096a4470dce"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e46594bb69d18074193e096a4470dce">RotationModes</a> { <a class="el" href="config__types_8h.html#a06b890c4a964752df814257dc1f13073a88559a0cfd8250c9d65970cc145c92d4">RotationModes::OFF</a> }</td></tr>
 <tr class="separator:a0e46594bb69d18074193e096a4470dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af668b2a5b07a913bd673318dc30654bb" id="r_af668b2a5b07a913bd673318dc30654bb"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af668b2a5b07a913bd673318dc30654bb">rotationPin</a> { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td></tr>
+<tr class="memitem:af668b2a5b07a913bd673318dc30654bb" id="r_af668b2a5b07a913bd673318dc30654bb"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af668b2a5b07a913bd673318dc30654bb">rotationPin</a> { <a class="el" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td></tr>
 <tr class="separator:af668b2a5b07a913bd673318dc30654bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c3372bd03d7dd3953ba9a88de2f3987" id="r_a1c3372bd03d7dd3953ba9a88de2f3987"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c3372bd03d7dd3953ba9a88de2f3987">ROUTER_OFF_PIN_PRESENT</a> { false }</td></tr>
 <tr class="separator:a1c3372bd03d7dd3953ba9a88de2f3987"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2e03102a69f2785bdba812a96547c1d" id="r_ad2e03102a69f2785bdba812a96547c1d"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2e03102a69f2785bdba812a96547c1d">routerOffPin</a> { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td></tr>
+<tr class="memitem:ad2e03102a69f2785bdba812a96547c1d" id="r_ad2e03102a69f2785bdba812a96547c1d"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad2e03102a69f2785bdba812a96547c1d">routerOffPin</a> { <a class="el" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td></tr>
 <tr class="separator:ad2e03102a69f2785bdba812a96547c1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8647e43a79ff20a858c1e3e3a76deadc" id="r_a8647e43a79ff20a858c1e3e3a76deadc"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="types_8h.html#a79eb4203772befbcfd761524de448ac7">SerialOutputType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8647e43a79ff20a858c1e3e3a76deadc">SERIAL_OUTPUT_TYPE</a> = <a class="el" href="types_8h.html#a79eb4203772befbcfd761524de448ac7a589f8ced60a13f2f4c7e11c7b0875efa">SerialOutputType::IoT</a></td></tr>
+<tr class="memitem:a1cf0afdd8d3e481b6965846cf5704aa9" id="r_a1cf0afdd8d3e481b6965846cf5704aa9"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classScheduledBoosts.html">ScheduledBoosts</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cf0afdd8d3e481b6965846cf5704aa9">scheduledBoosts</a> { { { <a class="el" href="config__types_8h.html#a1443b40bba36a2678456b87bae0ba5e1">BEFORE_END</a>( <a class="el" href="structintegral__constant.html">integral_constant</a>&lt; uint16_t, ((3) * 60) &gt; {} ), <a class="el" href="config__types_8h.html#a29ce77d1007e49cacadbead00f25d579">FOR</a>( <a class="el" href="structintegral__constant.html">integral_constant</a>&lt; uint16_t, ((2) * 60) &gt; {} ), { <a class="el" href="config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98">LOAD</a>(0) } } } }</td></tr>
+<tr class="separator:a1cf0afdd8d3e481b6965846cf5704aa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8647e43a79ff20a858c1e3e3a76deadc" id="r_a8647e43a79ff20a858c1e3e3a76deadc"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="config__types_8h.html#a79eb4203772befbcfd761524de448ac7">SerialOutputType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8647e43a79ff20a858c1e3e3a76deadc">SERIAL_OUTPUT_TYPE</a> = <a class="el" href="config__types_8h.html#a79eb4203772befbcfd761524de448ac7a589f8ced60a13f2f4c7e11c7b0875efa">SerialOutputType::IoT</a></td></tr>
 <tr class="separator:a8647e43a79ff20a858c1e3e3a76deadc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe9c0a80c3e6d59aaa13ce3e193a5083" id="r_abe9c0a80c3e6d59aaa13ce3e193a5083"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe9c0a80c3e6d59aaa13ce3e193a5083">TEMP_SENSOR_PRESENT</a> { false }</td></tr>
 <tr class="separator:abe9c0a80c3e6d59aaa13ce3e193a5083"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -382,17 +317,43 @@ Variables</h2></td></tr>
 <tr class="separator:abd1baf11732956aa199473daae453926"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade0710fc9c69b9177ecf06974f7e811d" id="r_ade0710fc9c69b9177ecf06974f7e811d"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade0710fc9c69b9177ecf06974f7e811d">WATCHDOG_PIN_PRESENT</a> { false }</td></tr>
 <tr class="separator:ade0710fc9c69b9177ecf06974f7e811d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe190da9e3f78f2466d2f5aaf549c12d" id="r_afe190da9e3f78f2466d2f5aaf549c12d"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe190da9e3f78f2466d2f5aaf549c12d">watchDogPin</a> { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td></tr>
+<tr class="memitem:afe190da9e3f78f2466d2f5aaf549c12d" id="r_afe190da9e3f78f2466d2f5aaf549c12d"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe190da9e3f78f2466d2f5aaf549c12d">watchDogPin</a> { <a class="el" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td></tr>
 <tr class="separator:afe190da9e3f78f2466d2f5aaf549c12d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Router configuration: loads, relays, control pins and features. </p>
 <p>Edit it by hand, or create it with the configurator: <a href="https://fredm67.github.io/Mk2PVRouter/configurateur/">https://fredm67.github.io/Mk2PVRouter/configurateur/</a></p>
-<dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2026-11-13 </dd></dl>
+<p>Settings only: no #include line but the one below, nothing computed. The firmware builds what it needs from these settings in <a class="el" href="config__derived_8h.html" title="The configuration as the firmware uses it: the settings, and what is built from them.">config_derived.h</a>.</p>
+<dl class="section version"><dt>Version</dt><dd>2.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2026-11-21 </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 </div><h2 class="groupheader">Variable Documentation</h2>
+<a id="ae74834afbf58bc7d04243bad16ef83d5" name="ae74834afbf58bc7d04243bad16ef83d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae74834afbf58bc7d04243bad16ef83d5">&#9670;&#160;</a></span>BOOST_TEMP_SENSOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t BOOST_TEMP_SENSOR { 0 }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>the sensor checked against it: its index in temperatureSensing, from 0 </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00175">175</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+</div>
+</div>
 <a id="a858e958b407980de6e11570157e619cd" name="a858e958b407980de6e11570157e619cd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a858e958b407980de6e11570157e619cd">&#9670;&#160;</a></span>CALIBRATION_MODE</h2>
 
@@ -413,7 +374,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00034">34</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00035">35</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -438,7 +399,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if you want to control diversion ON/OFF </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00074">74</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00057">57</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -452,7 +413,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t diversionPin { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td>
+          <td class="memname">uint8_t diversionPin { <a class="el" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td>
         </tr>
       </table>
   </td>
@@ -463,7 +424,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>if LOW, no surplus diversion: only forced loads/relays are ON </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00116">116</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00104">104</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -488,7 +449,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00081">81</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00064">64</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -502,7 +463,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t dualTariffPin { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td>
+          <td class="memname">uint8_t dualTariffPin { <a class="el" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td>
         </tr>
       </table>
   </td>
@@ -513,7 +474,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>for 3-phase PCB, off-peak trigger </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00115">115</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00103">103</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -537,7 +498,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00028">28</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00029">29</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -562,7 +523,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>the temperature threshold to stop overriding in °C </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00184">184</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00174">174</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -587,7 +548,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>load priorities at startup (0=highest) </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00112">112</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00091">91</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -612,57 +573,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>TOTAL number of dump loads (local + remote) </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00039">39</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
-
-</div>
-</div>
-<a id="af9e49b9ee7b4e089889d4d9446860da3" name="af9e49b9ee7b4e089889d4d9446860da3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9e49b9ee7b4e089889d4d9446860da3">&#9670;&#160;</a></span>NO_OF_REMOTE_LOADS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t NO_OF_REMOTE_LOADS { <a class="el" href="namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557">Load::countRemoteLoads</a>(<a class="el" href="#a4cfb4b5cc5504c54511b565a29906efc">physicalLoadPin</a>) }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>number of loads controlled via RF </p>
-
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00056">56</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
-
-</div>
-</div>
-<a id="a7b86e4a3369c03fec917295508ef3a2f" name="a7b86e4a3369c03fec917295508ef3a2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b86e4a3369c03fec917295508ef3a2f">&#9670;&#160;</a></span>NO_OF_REMOTE_UNITS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t NO_OF_REMOTE_UNITS { <a class="el" href="namespaceLoad.html#a45143ff1b1b918a50f68c637c882a610">Load::countUnits</a>(<a class="el" href="#a4cfb4b5cc5504c54511b565a29906efc">physicalLoadPin</a>) }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>number of remote units to talk to </p>
-
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00057">57</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00040">40</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -687,7 +598,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if there's a override pin </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00077">77</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00060">60</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -701,7 +612,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classOverridePins.html">OverridePins</a> overridePins { { { 4, <a class="el" href="utils__override__helpers_8h.html#ad19b0f6bfb7e49c2a32b6bb68d3228cd">ALL_LOADS</a>() } } }</td>
+          <td class="memname"><a class="el" href="classOverridePins.html">OverridePins</a> overridePins { { { 4, <a class="el" href="config__types_8h.html#aad6aa9352a63d75d3ac6ea162d333bf1">ALL_LOADS</a>() } } }</td>
         </tr>
       </table>
   </td>
@@ -712,7 +623,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>list of override pin/loads-relays pairs </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00179">179</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00157">157</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -726,7 +637,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#a8bb3ae3452a609d213c4d66e88a7086b">PcbVersion</a> PCB_VERSION { <a class="el" href="types_8h.html#a8bb3ae3452a609d213c4d66e88a7086ba24d459a81449d7210c8f9a86c2913034">PcbVersion::NEW</a> }</td>
+          <td class="memname"><a class="el" href="config__types_8h.html#a8bb3ae3452a609d213c4d66e88a7086b">PcbVersion</a> PCB_VERSION { <a class="el" href="config__types_8h.html#a8bb3ae3452a609d213c4d66e88a7086ba24d459a81449d7210c8f9a86c2913034">PcbVersion::NEW</a> }</td>
         </tr>
       </table>
   </td>
@@ -736,7 +647,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00020">20</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00021">21</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -764,10 +675,10 @@ Variables</h2></td></tr>
 <div class="line">  <a class="code hl_function" href="namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671">Load::local</a>(6),</div>
 <div class="line">  <a class="code hl_function" href="namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671">Load::local</a>(7)</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespaceLoad_html_a3c4a0ef2578d140feed4d9e1fa474671"><div class="ttname"><a href="namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671">Load::local</a></div><div class="ttdeci">constexpr uint8_t local(uint8_t pin)</div><div class="ttdoc">Declares a load driven locally by the router.</div><div class="ttdef"><b>Definition</b> <a href="load__map_8h_source.html#l00053">load_map.h:53</a></div></div>
+<div class="ttc" id="anamespaceLoad_html_a3c4a0ef2578d140feed4d9e1fa474671"><div class="ttname"><a href="namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671">Load::local</a></div><div class="ttdeci">constexpr uint8_t local(uint8_t pin)</div><div class="ttdoc">Declares a load driven locally by the router.</div><div class="ttdef"><b>Definition</b> <a href="load__map_8h_source.html#l00068">load_map.h:68</a></div></div>
 </div><!-- fragment --><p>the load map: one packed entry per dump load </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00049">49</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00050">50</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -792,7 +703,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if a relay is used for diversion </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00080">80</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00063">63</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -817,7 +728,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>EWMA filter delay in minutes for relay control </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00139">139</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00123">123</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -840,68 +751,16 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{  <a class="code hl_struct" href="structintegral__constant.html">integral_constant</a>&lt; uint8_t, (<a class="code hl_variable" href="#a4e6a54dbc2ca8c81fe77c28bf5d05056">RELAY_FILTER_DELAY</a>) &gt; {} ,</div>
-<div class="line">                                     { { <a class="code hl_variable" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a>, 100, 200, 1, 1 },</div>
-<div class="line">                                       { <a class="code hl_variable" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a>, 300, 400, 1, 1 },</div>
-<div class="line">                                       { <a class="code hl_variable" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a>, 500, 600, 1, 1 } } }</div>
-<div class="ttc" id="aconfig_8h_html_a4e6a54dbc2ca8c81fe77c28bf5d05056"><div class="ttname"><a href="#a4e6a54dbc2ca8c81fe77c28bf5d05056">RELAY_FILTER_DELAY</a></div><div class="ttdeci">constexpr uint8_t RELAY_FILTER_DELAY</div><div class="ttdef"><b>Definition</b> <a href="config_8h_source.html#l00139">config.h:139</a></div></div>
+<b>Initial value:</b><div class="fragment"><div class="line">{  <a class="code hl_struct" href="structintegral__constant.html">integral_constant</a>&lt; uint16_t, (<a class="code hl_variable" href="#a4e6a54dbc2ca8c81fe77c28bf5d05056">RELAY_FILTER_DELAY</a>) &gt; {} ,</div>
+<div class="line">                                     { { <a class="code hl_variable" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a>, 100, 200, 1, 1 },</div>
+<div class="line">                                       { <a class="code hl_variable" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a>, 300, 400, 1, 1 },</div>
+<div class="line">                                       { <a class="code hl_variable" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a>, 500, 600, 1, 1 } } }</div>
+<div class="ttc" id="aconfig_8h_html_a4e6a54dbc2ca8c81fe77c28bf5d05056"><div class="ttname"><a href="#a4e6a54dbc2ca8c81fe77c28bf5d05056">RELAY_FILTER_DELAY</a></div><div class="ttdeci">constexpr uint8_t RELAY_FILTER_DELAY</div><div class="ttdef"><b>Definition</b> <a href="config_8h_source.html#l00123">config.h:123</a></div></div>
 <div class="ttc" id="astructintegral__constant_html"><div class="ttname"><a href="structintegral__constant.html">integral_constant</a></div><div class="ttdef"><b>Definition</b> <a href="integral__constant_8hpp_source.html#l00008">integral_constant.hpp:9</a></div></div>
-<div class="ttc" id="autils__pins_8h_html_af56aa6e64828c1a87b646a7e02fc5ded"><div class="ttname"><a href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a></div><div class="ttdeci">constexpr uint8_t unused_pin</div><div class="ttdef"><b>Definition</b> <a href="utils__pins_8h_source.html#l00019">utils_pins.h:19</a></div></div>
+<div class="ttc" id="autils__bits_8h_html_af56aa6e64828c1a87b646a7e02fc5ded"><div class="ttname"><a href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a></div><div class="ttdeci">constexpr uint8_t unused_pin</div><div class="ttdef"><b>Definition</b> <a href="utils__bits_8h_source.html#l00020">utils_bits.h:20</a></div></div>
 </div><!-- fragment --><p>config for relay diversion with optimized EWMA filtering </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00146">146</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
-
-</div>
-</div>
-<a id="a75c68e7e76d77336ac94d74ed0349718" name="a75c68e7e76d77336ac94d74ed0349718"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75c68e7e76d77336ac94d74ed0349718">&#9670;&#160;</a></span>REMOTE_LOADS_PRESENT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool REMOTE_LOADS_PRESENT { <a class="el" href="#af9e49b9ee7b4e089889d4d9446860da3">NO_OF_REMOTE_LOADS</a> != 0 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>automatically true if remote loads configured </p>
-
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00058">58</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
-
-</div>
-</div>
-<a id="a0562929108ccf8867442f664dd511581" name="a0562929108ccf8867442f664dd511581"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0562929108ccf8867442f664dd511581">&#9670;&#160;</a></span>remoteLoads</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classRemoteLoadCore.html">RemoteLoadCore</a>&lt; <a class="el" href="#a7b86e4a3369c03fec917295508ef3a2f">NO_OF_REMOTE_UNITS</a> &gt; remoteLoads {}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The one and only remote-load controller. </p>
-<p>Declared non-const on purpose: it holds the per-unit transmission state. <code><a class="el" href="classRemoteLoadCore.html" title="Builds and schedules the RF payloads of every remote unit.">RemoteLoadCore</a></code> has a <code>constexpr</code> default constructor and brace-or-equal member initialisers, so this object is constant-initialized. It therefore lands in <code></code>.bss with no entry in <code></code>.init_array, and <code>--gc-sections</code> drops it outright when no remote unit is configured. </p>
-
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00071">71</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00130">130</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -926,32 +785,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if RF data logging is needed </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00083">83</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
-
-</div>
-</div>
-<a id="a281368464ae362f565124959a02d2888" name="a281368464ae362f565124959a02d2888"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a281368464ae362f565124959a02d2888">&#9670;&#160;</a></span>rg_ForceLoad</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classpairForceLoad.html">pairForceLoad</a> rg_ForceLoad[<a class="el" href="#aa2458020f21db854d8f2fe0e500dcd05">NO_OF_DUMPLOADS</a>] { { -3, 2 } }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>force config for load #1 ONLY for dual tariff </p>
-
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00182">182</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00066">66</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -976,7 +810,32 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>rotates load priorities after this period of inactivity </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00190">190</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00181">181</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+</div>
+</div>
+<a id="a9daee0bd0bfe4f17ee1cd1441d9e5ad5" name="a9daee0bd0bfe4f17ee1cd1441d9e5ad5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9daee0bd0bfe4f17ee1cd1441d9e5ad5">&#9670;&#160;</a></span>rotationGroups</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classRotationGroups.html">RotationGroups</a> rotationGroups {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>the loads that take turns, {} without rotation </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00100">100</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -990,7 +849,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#a06b890c4a964752df814257dc1f13073">RotationModes</a> { <a class="el" href="types_8h.html#a06b890c4a964752df814257dc1f13073a88559a0cfd8250c9d65970cc145c92d4">RotationModes::OFF</a> }</td>
+          <td class="memname"><a class="el" href="config__types_8h.html#a06b890c4a964752df814257dc1f13073">RotationModes</a> { <a class="el" href="config__types_8h.html#a06b890c4a964752df814257dc1f13073a88559a0cfd8250c9d65970cc145c92d4">RotationModes::OFF</a> }</td>
         </tr>
       </table>
   </td>
@@ -1001,7 +860,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'OFF/AUTO/PIN' if you want manual/automatic rotation of priorities </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00076">76</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00059">59</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -1015,7 +874,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t rotationPin { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td>
+          <td class="memname">uint8_t rotationPin { <a class="el" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td>
         </tr>
       </table>
   </td>
@@ -1026,7 +885,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>if LOW, trigger a load priority rotation </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00118">118</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00106">106</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -1051,7 +910,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if you want a pin that switches the router OFF </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00075">75</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00058">58</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -1065,7 +924,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t routerOffPin { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td>
+          <td class="memname">uint8_t routerOffPin { <a class="el" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td>
         </tr>
       </table>
   </td>
@@ -1076,7 +935,32 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>if LOW, router OFF: every load and relay is OFF, forcing included </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00117">117</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00105">105</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+</div>
+</div>
+<a id="a1cf0afdd8d3e481b6965846cf5704aa9" name="a1cf0afdd8d3e481b6965846cf5704aa9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cf0afdd8d3e481b6965846cf5704aa9">&#9670;&#160;</a></span>scheduledBoosts</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classScheduledBoosts.html">ScheduledBoosts</a> scheduledBoosts { { { <a class="el" href="config__types_8h.html#a1443b40bba36a2678456b87bae0ba5e1">BEFORE_END</a>( <a class="el" href="structintegral__constant.html">integral_constant</a>&lt; uint16_t, ((3) * 60) &gt; {} ), <a class="el" href="config__types_8h.html#a29ce77d1007e49cacadbead00f25d579">FOR</a>( <a class="el" href="structintegral__constant.html">integral_constant</a>&lt; uint16_t, ((2) * 60) &gt; {} ), { <a class="el" href="config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98">LOAD</a>(0) } } } }</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>load #1, from 3 hours before the end, for 2 hours </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00172">172</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -1090,7 +974,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="types_8h.html#a79eb4203772befbcfd761524de448ac7">SerialOutputType</a> SERIAL_OUTPUT_TYPE = <a class="el" href="types_8h.html#a79eb4203772befbcfd761524de448ac7a589f8ced60a13f2f4c7e11c7b0875efa">SerialOutputType::IoT</a></td>
+          <td class="memname"><a class="el" href="config__types_8h.html#a79eb4203772befbcfd761524de448ac7">SerialOutputType</a> SERIAL_OUTPUT_TYPE = <a class="el" href="config__types_8h.html#a79eb4203772befbcfd761524de448ac7a589f8ced60a13f2f4c7e11c7b0875efa">SerialOutputType::IoT</a></td>
         </tr>
       </table>
   </td>
@@ -1100,7 +984,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00023">23</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00024">24</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -1125,7 +1009,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if temperature sensing is needed </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00082">82</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00065">65</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -1148,12 +1032,12 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{ <a class="code hl_variable" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a>,</div>
+<b>Initial value:</b><div class="fragment"><div class="line">{ <a class="code hl_variable" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a>,</div>
 <div class="line">                                                        { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },</div>
 <div class="line">                                                          { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } }</div>
 </div><!-- fragment --><p>list of temperature sensor Addresses </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00186">186</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00177">177</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -1176,9 +1060,9 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Duration of the off-peak period in hours </p>
+<p>Duration of the off-peak period in hours: must match the meter (it places the boosts counted back from the end) </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00181">181</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00159">159</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -1203,7 +1087,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>set it to 'true' if there's a watch led </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00079">79</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00062">62</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -1217,7 +1101,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t watchDogPin { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td>
+          <td class="memname">uint8_t watchDogPin { <a class="el" href="utils__bits_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td>
         </tr>
       </table>
   </td>
@@ -1228,7 +1112,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>watch dog LED </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00119">119</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00107">107</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>

@@ -1,0 +1,7 @@
+<map id="DS18B20::PowerOnFilter::operator()" name="DS18B20::PowerOnFilter::operator()">
+<area shape="rect" id="Node000001" title="The reading to keep." alt="" coords="5,24,185,68"/>
+<area shape="rect" id="Node000002" href="$ds18b20_8h.html#ad55adf4c2798fb2203dd07c6954856fe" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="264,5,410,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,33,251,28,246,29,186,39"/>
+<area shape="rect" id="Node000003" href="$namespaceDS18B20.html#a166c2c73b01cdf77a7574d440dc2025f" title="The reading to keep, the power&#45;on value skipped." alt="" coords="233,57,442,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="185,53,220,58,214,59,185,58"/>
+</map>

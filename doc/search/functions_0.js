@@ -1,7 +1,21 @@
 var searchData=
 [
-  ['_5faddvalue_0',['_addValue',['../classmovingAvg.html#a9c6172f2908bce1a00fb585c5bbf6db3',1,'movingAvg']]],
-  ['_5fclear_5fsub_1',['_clear_sub',['../classmovingAvg.html#a98ab84acfc83c305cbf6f94905ba0e70',1,'movingAvg']]],
-  ['_5fgetaverage_2',['_getAverage',['../classmovingAvg.html#aefebb67b75394eec209f617d8b1b357c',1,'movingAvg']]],
-  ['_5frg_5foffsetforce_3',['_rg_OffsetForce',['../class__rg__OffsetForce.html#aa397559f69858d9b3ea69c37cd429c1b',1,'_rg_OffsetForce']]]
+  ['absencecount_0',['absenceCount',['../structFrameSource.html#a58f88ab6bb1fe6ef0ebd574b1106ce99',1,'FrameSource::absenceCount()'],['../structTestSource.html#ac48bc8217d9d848faef5c471f7e70012',1,'TestSource::absenceCount()'],['../structTestSource.html#ac48bc8217d9d848faef5c471f7e70012',1,'TestSource::absenceCount()'],['../structTeleInfoData.html#a8cb0e008a53d0a3bf5d833ab4c62122c',1,'TeleInfoData::absenceCount()']]],
+  ['add_1',['add',['../structCycles.html#a7eef5f75cf8b1cf3435a683462b7ff8e',1,'Cycles']]],
+  ['addvalue_2',['addValue',['../classEWMA__average.html#a208b9b3d82809466b4d90aedb3c7e4db',1,'EWMA_average']]],
+  ['admuxof_3',['admuxOf',['../namespaceAdcChain.html#a3f992a5e4ee47876cb5765bf267c27f5',1,'AdcChain']]],
+  ['admuxwrittenafter_4',['admuxWrittenAfter',['../namespaceAdcChain.html#a6d2f12ba9de9b28a2c36a59b29648c80',1,'AdcChain']]],
+  ['all_5floads_5',['ALL_LOADS',['../config__types_8h.html#aad6aa9352a63d75d3ac6ea162d333bf1',1,'config_types.h']]],
+  ['all_5floads_5fand_5frelays_6',['ALL_LOADS_AND_RELAYS',['../config__types_8h.html#ada9ecc3d74b7d01b88818c184ea8eb27',1,'config_types.h']]],
+  ['all_5flocal_5floads_7',['ALL_LOCAL_LOADS',['../config__types_8h.html#a8af39b8c36153ede0635e295ee423ad0',1,'config_types.h']]],
+  ['all_5frelays_8',['ALL_RELAYS',['../config__types_8h.html#a5637044513629a11c42791dad62d6fba',1,'config_types.h']]],
+  ['all_5fremote_5floads_9',['ALL_REMOTE_LOADS',['../config__types_8h.html#a2c2103d3e6ef4a17b3be0c4c77627e7a',1,'config_types.h']]],
+  ['appendline_10',['appendLine',['../embedded_2test__teleinfo_2test__main_8cpp.html#a2a68a15b365d99047b738628d77bd56b',1,'test_main.cpp']]],
+  ['apply_11',['apply',['../structCtFilter_1_1LowPassBoost.html#a10df09b866e7a13b17fbedf3141ba5df',1,'CtFilter::LowPassBoost::apply()'],['../structRobin.html#a6fb351d4e59a86c1d556e8057482d2e6',1,'Robin::apply()']]],
+  ['are_5fpins_5fvalid_12',['are_pins_valid',['../utils__override_8h.html#a7e15c4d8fe7154a837f77741fbcbd389',1,'utils_override.h']]],
+  ['arevalidnodeids_13',['areValidNodeIds',['../remote__loads__core_8h.html#a06668c9ec3f2bbccd5182261564f1602',1,'remote_loads_core.h']]],
+  ['assertcaptured_14',['assertCaptured',['../embedded_2test__serial__output_2test__main_8cpp.html#ac4aaab4b8ae82859a1852d8209ecc509',1,'test_main.cpp']]],
+  ['assertsameasreference_15',['assertSameAsReference',['../native_2test__teleinfo_2test__main_8cpp.html#a93d29d98543146f8457ae77079e5a41d',1,'test_main.cpp']]],
+  ['availableforwrite_16',['availableForWrite',['../classCapturePrint.html#a814feef980c3c487fabc15158adbac0a',1,'CapturePrint']]],
+  ['average_17',['average',['../structCycles.html#a87b29654ad420a8bb7b0ce7a04543abc',1,'Cycles']]]
 ];

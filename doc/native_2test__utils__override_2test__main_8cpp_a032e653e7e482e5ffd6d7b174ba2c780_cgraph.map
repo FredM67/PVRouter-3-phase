@@ -1,0 +1,7 @@
+<map id="test_TargetMap_LOAD_gives_the_pin_or_the_remote_rank" name="test_TargetMap_LOAD_gives_the_pin_or_the_remote_rank">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,15,172,77"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98" title="Load loadNum of physicalLoadPin[], local or remote (0, no load, if out of range)." alt="" coords="244,5,302,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,31,231,25,226,26,173,36"/>
+<area shape="rect" id="Node000003" href="$config__types_8h.html#a30df68bcb2fef5f40118867b32ee826a" title="Same as LOAD(), for a load known to be local." alt="" coords="220,57,326,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="172,55,207,62,202,62,172,60"/>
+</map>

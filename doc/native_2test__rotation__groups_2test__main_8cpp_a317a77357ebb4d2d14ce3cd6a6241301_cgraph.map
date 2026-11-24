@@ -1,0 +1,21 @@
+<map id="test_check_group_of_one" name="test_check_group_of_one">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,84,192,112"/>
+<area shape="rect" id="Node000002" href="$namespaceRotation.html#a3bd8dc9ec91cbd01ac61807186c1194b" title="Every group holds at least 2 loads." alt="" coords="240,57,465,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,85,227,84,221,85,193,91"/>
+<area shape="rect" id="Node000010" href="$config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98" title="Load loadNum of physicalLoadPin[], local or remote (0, no load, if out of range)." alt="" coords="324,109,381,137"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="192,104,311,118,306,119,192,110"/>
+<area shape="rect" id="Node000003" href="$namespaceRotation.html#a3be7c703aea1c9dde590e09524ce5915" title="Number of bits set in mask." alt="" coords="514,5,672,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="419,54,508,37,513,36,420,59"/>
+<area shape="rect" id="Node000004" href="$namespaceRotation.html#ac9dbe2a247e49dafaad508219c3dc8c7" title="The loads of group g, all its codes together." alt="" coords="513,57,672,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="465,69,500,71,495,71,466,74"/>
+<area shape="rect" id="Node000009" href="$classRotationGroups.html#a8ff1ab9670673dc8bb0dc18a699d1c27" title="Number of groups." alt="" coords="514,109,671,137"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="420,83,513,105,508,105,420,88"/>
+<area shape="rect" id="Node000005" href="$classRotationGroups.html#ad78cbe84f9b6ad77591a84c5446335cb" title="The targets of group index, as codes." alt="" coords="720,32,911,60"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="673,59,702,59,707,58,673,65"/>
+<area shape="rect" id="Node000006" href="$namespaceRotation.html#a36513c8eb5ac373cec0e77e69744cac5" title="The loads a target code stands for, by load number." alt="" coords="748,84,883,112"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="673,78,736,88,730,88,673,83"/>
+<area shape="rect" id="Node000007" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="959,57,1064,85"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="883,86,940,81,946,80,884,91"/>
+<area shape="rect" id="Node000008" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="964,109,1059,137"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="883,104,951,115,946,115,883,109"/>
+</map>

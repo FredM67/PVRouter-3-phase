@@ -1,0 +1,5 @@
+<map id="TempSensors::isConfigured" name="TempSensors::isConfigured">
+<area shape="rect" id="Node000001" title="Whether config.h lists this sensor." alt="" coords="250,14,446,42"/>
+<area shape="rect" id="Node000002" href="$classTempSensors.html#a80b0959867c7d30015fe661b51777db7" title="Lists the sensors on the bus, with their ROM codes as config.h takes them." alt="" coords="5,5,202,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,28,202,30,202,25,237,27"/>
+</map>

@@ -1,0 +1,20 @@
+<map id="LoadPriorities::rotate" name="LoadPriorities::rotate">
+<area shape="rect" id="Node000001" title="Rotates the priorities by one: the last load becomes the first, the others move down one place...." alt="" coords="341,152,498,180"/>
+<area shape="rect" id="Node000002" href="$native_2test__rotation__groups_2test__main_8cpp.html#ab6fceeb94d6dc8dab32e97440a8fe39b" title=" " alt="" coords="108,5,293,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="391,142,347,104,292,65,270,53,269,48,294,60,351,100,397,142"/>
+<area shape="rect" id="Node000004" href="$native_2test__load__priorities_2test__main_8cpp.html#a03d462cf1ffa0505b66686f85af27d62" title=" " alt="" coords="114,75,287,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="356,148,273,123,273,117,361,147"/>
+<area shape="rect" id="Node000006" href="$native_2test__load__priorities_2test__main_8cpp.html#a588af268c1b0a4174430155bf29b10dd" title=" " alt="" coords="113,144,288,189"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="323,167,289,169,288,164,328,166"/>
+<area shape="rect" id="Node000007" href="$native_2test__load__priorities_2test__main_8cpp.html#a3b7ca60b1d38e9df41c064d9ee66f77c" title=" " alt="" coords="115,213,286,258"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="356,186,274,215,272,210,361,184"/>
+<area shape="rect" id="Node000008" href="$native_2test__load__priorities_2test__main_8cpp.html#a023427625ca48535356c0e7f63a365f8" title=" " alt="" coords="119,283,282,327"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="396,190,351,233,294,273,271,285,269,280,292,268,347,229,392,192"/>
+<area shape="rect" id="Node000003" href="$native_2test__rotation__groups_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,14,60,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="90,29,62,30,59,25,94,26"/>
+<area shape="rect" id="Node000005" href="$native_2test__load__priorities_2test__main_8cpp.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,187,60,215"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="115,129,109,134,74,161,48,189,43,186,71,157,106,129,118,125"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="95,190,61,198,59,193,99,186"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="98,216,61,209,59,204,102,213"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="114,275,106,273,71,245,45,218,46,212,74,241,109,268,119,275"/>
+</map>

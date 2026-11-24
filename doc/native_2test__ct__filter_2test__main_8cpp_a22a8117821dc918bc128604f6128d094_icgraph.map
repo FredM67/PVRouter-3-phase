@@ -1,0 +1,22 @@
+<map id="sineCounts" name="sineCounts">
+<area shape="rect" id="Node000001" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="862,148,955,176"/>
+<area shape="rect" id="Node000002" href="$native_2test__ct__filter_2test__main_8cpp.html#a3c5f570fee70d19aa60015762fd35987" title="Input sample i, in ADC counts; noise is a fixed linear congruential sequence. The step is sized so th..." alt="" coords="715,119,814,147"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="844,150,814,146,815,140,849,150"/>
+<area shape="rect" id="Node000009" href="$native_2test__ct__filter_2test__main_8cpp.html#ab296665170913a3d6065906c3a950c16" title=" " alt="" coords="513,166,667,228"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="849,169,668,191,667,186,844,169"/>
+<area shape="rect" id="Node000003" href="$native_2test__ct__filter_2test__main_8cpp.html#ae3e25fa0cb30344a485f73a6ff28ba28" title="Largest |fixed &#45; float| at the output (x64) over samples of the input." alt="" coords="527,99,653,127"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="696,126,653,123,653,118,702,125"/>
+<area shape="rect" id="Node000004" href="$native_2test__ct__filter_2test__main_8cpp.html#a0526f690f6801da0ccf609e62c19371a" title=" " alt="" coords="332,91,465,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="509,110,466,110,466,105,515,109"/>
+<area shape="rect" id="Node000005" href="$native_2test__ct__filter_2test__main_8cpp.html#ab82b88e4e9da05d94858e21d45127a4b" title=" " alt="" coords="108,5,284,50"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="344,86,256,53,257,48,349,84"/>
+<area shape="rect" id="Node000007" href="$native_2test__ct__filter_2test__main_8cpp.html#a02febd87673b04263885e9a5bcf30b6b" title=" " alt="" coords="111,75,280,119"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="314,102,282,103,281,98,319,101"/>
+<area shape="rect" id="Node000008" href="$native_2test__ct__filter_2test__main_8cpp.html#a5c21c96bbe0230fcf7af99ea379e95fe" title=" " alt="" coords="120,144,272,189"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="334,125,273,146,271,141,339,123"/>
+<area shape="rect" id="Node000006" href="$native_2test__ct__filter_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,118,60,146"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="114,59,109,65,75,92,48,119,44,116,71,88,106,60,118,56"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="94,120,61,128,59,124,98,116"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="103,149,61,140,60,135,107,145"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="501,217,413,232,314,238,261,236,208,230,156,220,107,203,86,192,68,178,43,149,45,144,72,174,89,188,109,199,158,214,209,225,261,231,314,232,413,227,495,218"/>
+</map>

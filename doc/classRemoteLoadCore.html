@@ -175,7 +175,7 @@ class RemoteLoadCore&lt; NumUnits &gt;</div><p>Builds and schedules the RF paylo
 <p>The load map is a template argument of <a class="el" href="#a22769675a75fa14f2107571fb7b1ae2c" title="Rebuild every unit&#39;s payload from the current load states.">updateLoads()</a> rather than read from the <code>physicalLoadPin</code>[] global: the tests pass maps of their own, and the compiler resolves every load's unit and payload bit, so the ISR only tests states and ORs bits.</p>
 <p>The default constructor is <code>constexpr</code> and every member carries a brace-or-equal initialiser, so an instance at namespace scope is constant-initialized: it lands in <code></code>.bss with no <code></code>.init_array entry, and is dropped altogether by <code>--gc-sections</code> when unused. </p>
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00099">99</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00100">100</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a269925e49616632b7a8ea0e7b68952e4" name="a269925e49616632b7a8ea0e7b68952e4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a269925e49616632b7a8ea0e7b68952e4">&#9670;&#160;</a></span>RemoteLoadCore()</h2>
@@ -234,7 +234,7 @@ template&lt;const auto &amp; Map, uint8_t Unit, uint8_t I, uint8_t NumLoads&gt; 
 
 <p>Payload of <code class="param">Unit</code>, from map entry <code class="param">I</code> onwards. </p>
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00227">227</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00228">228</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -293,7 +293,7 @@ template&lt;uint8_t NumUnits&gt; </div>
 
 <p>True if a transmission is due for that unit. </p>
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00194">194</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00195">195</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -366,7 +366,7 @@ template&lt;uint8_t NumUnits&gt; </div>
 
 <p>Current payload of a unit, whether or not it has been sent. </p>
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00188">188</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00189">189</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -442,7 +442,7 @@ template&lt;uint8_t NumUnits&gt; </div>
 
 <p>Return every unit to its power-on state. </p>
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00200">200</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00201">201</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -489,7 +489,7 @@ template&lt;uint8_t NumUnits&gt; </div>
 
 <p>Record a unit's freshly computed payload and decide whether to send it. </p>
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00254">254</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00255">255</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -547,7 +547,7 @@ template&lt;uint8_t NumIds, typename Send&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00172">172</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00173">173</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -612,7 +612,7 @@ template&lt;uint8_t NumUnits&gt; </div>
 
 <p>Number of remote units handled. </p>
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00105">105</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00106">106</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -668,7 +668,7 @@ template&lt;uint8_t NumUnits&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if a transmission is due. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00148">148</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00149">149</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -773,7 +773,7 @@ template&lt;const auto &amp; Map, uint8_t NumLoads&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00125">125</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00126">126</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -827,7 +827,7 @@ template&lt;const auto &amp; Map, uint8_t Unit, uint8_t NumLoads&gt; </div>
 
 <p>Build and schedule the payload of <code class="param">Unit</code>, then of every unit after it. </p>
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00213">213</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00214">214</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -884,7 +884,7 @@ template&lt;uint8_t NumUnits&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00278">278</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="remote__loads__core_8h_source.html#l00279">279</a> of file <a class="el" href="remote__loads__core_8h_source.html">remote_loads_core.h</a>.</p>
 
 </div>
 </div>

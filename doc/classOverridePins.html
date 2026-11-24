@@ -85,80 +85,73 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classOverridePins-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">OverridePins&lt; N, MaxPins &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Manages override pins and their associated bitmasks for forced operation.  
+<p>The override pins, as in <a class="el" href="config_8h.html" title="Router configuration: loads, relays, control pins and features.">config.h</a>: each pin with the targets it forces.  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="utils__override_8h_source.html">utils_override.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="config__types_8h_source.html">config_types.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for OverridePins&lt; N, MaxPins &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classOverridePins__coll__graph.png" border="0" usemap="#aOverridePins_3_01N_00_01MaxPins_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="aOverridePins_3_01N_00_01MaxPins_01_4_coll__map" id="aOverridePins_3_01N_00_01MaxPins_01_4_coll__map">
-<area shape="rect" title="Manages override pins and their associated bitmasks for forced operation." alt="" coords="5,115,213,143"/>
-<area shape="rect" href="structOverridePins_1_1Entry.html" title="Internal structure representing a pin and its associated bitmasks." alt="" coords="13,5,205,50"/>
-<area shape="poly" title=" " alt="" coords="111,64,112,116,106,114,107,67"/>
+<area shape="rect" title="The override pins, as in config.h: each pin with the targets it forces." alt="" coords="5,191,213,218"/>
+<area shape="rect" href="structKeyIndexPair.html" title=" " alt="" coords="33,98,185,126"/>
+<area shape="poly" title=" " alt="" coords="111,139,112,191,106,189,107,143"/>
+<area shape="rect" href="structKeyIndexPair.html" title="Structure holding a pin and its associated index list." alt="" coords="14,5,204,33"/>
+<area shape="poly" title=" " alt="" coords="110,46,112,98,106,97,108,51"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structOverridePins_1_1Entry.html">Entry</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal structure representing a pin and its associated bitmasks.  <a href="structOverridePins_1_1Entry.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4d137946dc0dc6f9e5ef77877fddd41b" id="r_a4d137946dc0dc6f9e5ef77877fddd41b"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d137946dc0dc6f9e5ef77877fddd41b">OverridePins</a> (const <a class="el" href="structKeyIndexPair.html">KeyIndexPair</a>&lt; MaxPins &gt;(&amp;pairs)[N])</td></tr>
-<tr class="memdesc:a4d137946dc0dc6f9e5ef77877fddd41b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. Initializes the override pin mapping from pin-index pairs.  <br /></td></tr>
+<tr class="memdesc:a4d137946dc0dc6f9e5ef77877fddd41b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The override pins, from a list of { pin, targets }.  <br /></td></tr>
 <tr class="separator:a4d137946dc0dc6f9e5ef77877fddd41b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a871f92e908698a3dae4099a6851441a5" id="r_a871f92e908698a3dae4099a6851441a5"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a871f92e908698a3dae4099a6851441a5">findLocalBitmask</a> (uint8_t pin) const</td></tr>
-<tr class="memdesc:a871f92e908698a3dae4099a6851441a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the local bitmask associated with a given pin number.  <br /></td></tr>
-<tr class="separator:a871f92e908698a3dae4099a6851441a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ea64489fe147f5da39b8128e1af3c68" id="r_a6ea64489fe147f5da39b8128e1af3c68"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ea64489fe147f5da39b8128e1af3c68">findRemoteBitmask</a> (uint8_t pin) const</td></tr>
-<tr class="memdesc:a6ea64489fe147f5da39b8128e1af3c68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the remote bitmask associated with a given pin number.  <br /></td></tr>
-<tr class="separator:a6ea64489fe147f5da39b8128e1af3c68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8326a40faeb8123b362b22251defcd33" id="r_a8326a40faeb8123b362b22251defcd33"><td class="memItemLeft" align="right" valign="top">constexpr uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8326a40faeb8123b362b22251defcd33">getLocalBitmask</a> (uint8_t index) const</td></tr>
-<tr class="memdesc:a8326a40faeb8123b362b22251defcd33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the local bitmask for the specified entry index.  <br /></td></tr>
-<tr class="separator:a8326a40faeb8123b362b22251defcd33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6ab65669669d5056460428e568c4345" id="r_ae6ab65669669d5056460428e568c4345"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6ab65669669d5056460428e568c4345">getPin</a> (uint8_t index) const</td></tr>
-<tr class="memdesc:ae6ab65669669d5056460428e568c4345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pin number at the specified entry index.  <br /></td></tr>
-<tr class="separator:ae6ab65669669d5056460428e568c4345"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c48fbd593fc7ba19083224896efbea5" id="r_a7c48fbd593fc7ba19083224896efbea5"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c48fbd593fc7ba19083224896efbea5">getRemoteBitmask</a> (uint8_t index) const</td></tr>
-<tr class="memdesc:a7c48fbd593fc7ba19083224896efbea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the remote bitmask for the specified entry index.  <br /></td></tr>
-<tr class="separator:a7c48fbd593fc7ba19083224896efbea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62718a31c7127bbc762aa83ed9d0d558" id="r_a62718a31c7127bbc762aa83ed9d0d558"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62718a31c7127bbc762aa83ed9d0d558">getPin</a> (const uint8_t index) const</td></tr>
+<tr class="memdesc:a62718a31c7127bbc762aa83ed9d0d558"><td class="mdescLeft">&#160;</td><td class="mdescRight">The override pin at <code class="param">index</code> (0 if out of range).  <br /></td></tr>
+<tr class="separator:a62718a31c7127bbc762aa83ed9d0d558"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fc83d409bb34add39e1bf1c96dff7fe" id="r_a9fc83d409bb34add39e1bf1c96dff7fe"><td class="memItemLeft" align="right" valign="top">constexpr const <a class="el" href="structPinList.html">PinList</a>&lt; MaxPins &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9fc83d409bb34add39e1bf1c96dff7fe">getTargets</a> (const uint8_t index) const</td></tr>
+<tr class="memdesc:a9fc83d409bb34add39e1bf1c96dff7fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The targets of the override pin at <code class="param">index</code>, as codes.  <br /></td></tr>
+<tr class="separator:a9fc83d409bb34add39e1bf1c96dff7fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9418492133ce96da02bfa84a32d0e1f8" id="r_a9418492133ce96da02bfa84a32d0e1f8"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9418492133ce96da02bfa84a32d0e1f8">size</a> () const</td></tr>
-<tr class="memdesc:a9418492133ce96da02bfa84a32d0e1f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of override pin entries.  <br /></td></tr>
+<tr class="memdesc:a9418492133ce96da02bfa84a32d0e1f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of override pins.  <br /></td></tr>
 <tr class="separator:a9418492133ce96da02bfa84a32d0e1f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:afed289cbc1bd9e355fa56492ed5ca799" id="r_afed289cbc1bd9e355fa56492ed5ca799"><td class="memTemplParams" colspan="2">template&lt;uint8_t... I&gt; </td></tr>
+<tr class="memitem:afed289cbc1bd9e355fa56492ed5ca799"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#afed289cbc1bd9e355fa56492ed5ca799">OverridePins</a> (const <a class="el" href="structKeyIndexPair.html">KeyIndexPair</a>&lt; MaxPins &gt;(&amp;pairs)[N], <a class="el" href="structindex__sequence.html">index_sequence</a>&lt; I... &gt;)</td></tr>
+<tr class="separator:afed289cbc1bd9e355fa56492ed5ca799"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a8bf6bcf16da2e94200cc419a72c48b2b" id="r_a8bf6bcf16da2e94200cc419a72c48b2b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structOverridePins_1_1Entry.html">Entry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bf6bcf16da2e94200cc419a72c48b2b">entries_</a> [N]</td></tr>
-<tr class="separator:a8bf6bcf16da2e94200cc419a72c48b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa72c3788741ba600cd75fc0cf54c8d8a" id="r_aa72c3788741ba600cd75fc0cf54c8d8a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structKeyIndexPair.html">KeyIndexPair</a>&lt; MaxPins &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa72c3788741ba600cd75fc0cf54c8d8a">entries_</a> [N]</td></tr>
+<tr class="separator:aa72c3788741ba600cd75fc0cf54c8d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;uint8_t N, uint8_t MaxPins = 16&gt;<br />
-class OverridePins&lt; N, MaxPins &gt;</div><p>Manages override pins and their associated bitmasks for forced operation. </p>
-<p>This class provides compile-time mapping between override pins and the loads/relays they control. Each pin can be associated with a set of pins (loads/relays), represented as separate bitmasks for local loads/relays and remote loads.</p>
+class OverridePins&lt; N, MaxPins &gt;</div><p>The override pins, as in <a class="el" href="config_8h.html" title="Router configuration: loads, relays, control pins and features.">config.h</a>: each pin with the targets it forces. </p>
+<p>The targets stay codes here; <a class="el" href="classOverrideTable.html" title="Manages override pins and their associated bitmasks for forced operation.">OverrideTable</a> (<a class="el" href="utils__override_8h.html" title="Compile-time utilities for managing override pins and index-to-bitmask mapping.">utils_override.h</a>) holds what they force.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">N</td><td>Number of pin-index pairs (entries). </td></tr>
-    <tr><td class="paramname">MaxPins</td><td>Maximum number of pins supported (loads + relays). Default is 16. </td></tr>
+    <tr><td class="paramname">N</td><td>Number of override pins. </td></tr>
+    <tr><td class="paramname">MaxPins</td><td>Maximum number of targets per pin. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00288">288</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00305">305</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4d137946dc0dc6f9e5ef77877fddd41b" name="a4d137946dc0dc6f9e5ef77877fddd41b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d137946dc0dc6f9e5ef77877fddd41b">&#9670;&#160;</a></span>OverridePins()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d137946dc0dc6f9e5ef77877fddd41b">&#9670;&#160;</a></span>OverridePins() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,135 +175,68 @@ template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor. Initializes the override pin mapping from pin-index pairs. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pairs</td><td>Array of pin-index pairs, each specifying a pin and its associated pins. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>The override pins, from a list of { pin, targets }. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00317">317</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00309">309</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classOverridePins_a4d137946dc0dc6f9e5ef77877fddd41b_cgraph.png" border="0" usemap="#aclassOverridePins_a4d137946dc0dc6f9e5ef77877fddd41b_cgraph" alt=""/></div>
+<map name="aclassOverridePins_a4d137946dc0dc6f9e5ef77877fddd41b_cgraph" id="aclassOverridePins_a4d137946dc0dc6f9e5ef77877fddd41b_cgraph">
+<area shape="rect" title="The override pins, from a list of { pin, targets }." alt="" coords="5,29,201,57"/>
+<area shape="poly" title=" " alt="" coords="69,28,64,20,68,11,81,5,103,3,126,5,140,14,135,14,125,10,103,8,83,10,72,15,69,20,74,29"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classOverridePins_a4d137946dc0dc6f9e5ef77877fddd41b_icgraph.png" border="0" usemap="#aclassOverridePins_a4d137946dc0dc6f9e5ef77877fddd41b_icgraph" alt=""/></div>
+<map name="aclassOverridePins_a4d137946dc0dc6f9e5ef77877fddd41b_icgraph" id="aclassOverridePins_a4d137946dc0dc6f9e5ef77877fddd41b_icgraph">
+<area shape="rect" title="The override pins, from a list of { pin, targets }." alt="" coords="5,29,201,57"/>
+<area shape="poly" title=" " alt="" coords="135,14,125,10,103,8,83,10,72,15,69,20,74,29,69,28,64,20,68,11,81,5,103,3,126,5,140,14"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="afed289cbc1bd9e355fa56492ed5ca799" name="afed289cbc1bd9e355fa56492ed5ca799"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afed289cbc1bd9e355fa56492ed5ca799">&#9670;&#160;</a></span>OverridePins() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
+<div class="memtemplate">
+template&lt;uint8_t... I&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOverridePins.html">OverridePins</a>&lt; N, MaxPins &gt;<a class="el" href="classOverridePins.html">::OverridePins</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structKeyIndexPair.html">KeyIndexPair</a>&lt; MaxPins &gt;(&amp;)</td>          <td class="paramname"><span class="paramname"><em>pairs</em></span>[N], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structindex__sequence.html">index_sequence</a>&lt; I... &gt;</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00334">334</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a871f92e908698a3dae4099a6851441a5" name="a871f92e908698a3dae4099a6851441a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a871f92e908698a3dae4099a6851441a5">&#9670;&#160;</a></span>findLocalBitmask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t <a class="el" href="classOverridePins.html">OverridePins</a>&lt; N, MaxPins &gt;::findLocalBitmask </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>pin</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Finds the local bitmask associated with a given pin number. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pin</td><td>Pin value to search for. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Local bitmask for the pin, or 0 if not found. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00375">375</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
-
-</div>
-</div>
-<a id="a6ea64489fe147f5da39b8128e1af3c68" name="a6ea64489fe147f5da39b8128e1af3c68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ea64489fe147f5da39b8128e1af3c68">&#9670;&#160;</a></span>findRemoteBitmask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t <a class="el" href="classOverridePins.html">OverridePins</a>&lt; N, MaxPins &gt;::findRemoteBitmask </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>pin</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Finds the remote bitmask associated with a given pin number. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pin</td><td>Pin value to search for. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Remote bitmask for the pin, or 0 if not found. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00392">392</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
-
-</div>
-</div>
-<a id="a8326a40faeb8123b362b22251defcd33" name="a8326a40faeb8123b362b22251defcd33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8326a40faeb8123b362b22251defcd33">&#9670;&#160;</a></span>getLocalBitmask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t <a class="el" href="classOverridePins.html">OverridePins</a>&lt; N, MaxPins &gt;::getLocalBitmask </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the local bitmask for the specified entry index. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Index in the entries array. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Local bitmask for physical pins, or 0 if out of bounds. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00355">355</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
-
-</div>
-</div>
-<a id="ae6ab65669669d5056460428e568c4345" name="ae6ab65669669d5056460428e568c4345"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6ab65669669d5056460428e568c4345">&#9670;&#160;</a></span>getPin()</h2>
+<a id="a62718a31c7127bbc762aa83ed9d0d558" name="a62718a31c7127bbc762aa83ed9d0d558"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62718a31c7127bbc762aa83ed9d0d558">&#9670;&#160;</a></span>getPin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -323,7 +249,7 @@ template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
         <tr>
           <td class="memname">uint8_t <a class="el" href="classOverridePins.html">OverridePins</a>&lt; N, MaxPins &gt;::getPin </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -334,21 +260,24 @@ template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the pin number at the specified entry index. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Index in the entries array. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pin value, or 0 if out of bounds. </dd></dl>
+<p>The override pin at <code class="param">index</code> (0 if out of range). </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00345">345</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00321">321</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classOverridePins_a62718a31c7127bbc762aa83ed9d0d558_icgraph.png" border="0" usemap="#aclassOverridePins_a62718a31c7127bbc762aa83ed9d0d558_icgraph" alt=""/></div>
+<map name="aclassOverridePins_a62718a31c7127bbc762aa83ed9d0d558_icgraph" id="aclassOverridePins_a62718a31c7127bbc762aa83ed9d0d558_icgraph">
+<area shape="rect" title="The override pin at index (0 if out of range)." alt="" coords="263,5,416,33"/>
+<area shape="rect" href="classOverrideTable.html#aebf0e1582da62a380112408a07f67380" title="Constructor. The override pins of config.h, their codes turned into pins by map." alt="" coords="5,5,215,33"/>
+<area shape="poly" title=" " alt="" coords="245,19,215,22,215,17,250,19"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="a7c48fbd593fc7ba19083224896efbea5" name="a7c48fbd593fc7ba19083224896efbea5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c48fbd593fc7ba19083224896efbea5">&#9670;&#160;</a></span>getRemoteBitmask()</h2>
+<a id="a9fc83d409bb34add39e1bf1c96dff7fe" name="a9fc83d409bb34add39e1bf1c96dff7fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fc83d409bb34add39e1bf1c96dff7fe">&#9670;&#160;</a></span>getTargets()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -359,9 +288,9 @@ template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t <a class="el" href="classOverridePins.html">OverridePins</a>&lt; N, MaxPins &gt;::getRemoteBitmask </td>
+          <td class="memname">const <a class="el" href="structPinList.html">PinList</a>&lt; MaxPins &gt; &amp; <a class="el" href="classOverridePins.html">OverridePins</a>&lt; N, MaxPins &gt;::getTargets </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -372,16 +301,19 @@ template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the remote bitmask for the specified entry index. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">index</td><td>Index in the entries array. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Remote bitmask (bit n = remote load n), or 0 if out of bounds. </dd></dl>
+<p>The targets of the override pin at <code class="param">index</code>, as codes. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00365">365</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00327">327</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classOverridePins_a9fc83d409bb34add39e1bf1c96dff7fe_icgraph.png" border="0" usemap="#aclassOverridePins_a9fc83d409bb34add39e1bf1c96dff7fe_icgraph" alt=""/></div>
+<map name="aclassOverridePins_a9fc83d409bb34add39e1bf1c96dff7fe_icgraph" id="aclassOverridePins_a9fc83d409bb34add39e1bf1c96dff7fe_icgraph">
+<area shape="rect" title="The targets of the override pin at index, as codes." alt="" coords="263,5,443,33"/>
+<area shape="rect" href="classOverrideTable.html#aebf0e1582da62a380112408a07f67380" title="Constructor. The override pins of config.h, their codes turned into pins by map." alt="" coords="5,5,215,33"/>
+<area shape="poly" title=" " alt="" coords="244,19,215,22,215,17,249,19"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -410,16 +342,15 @@ template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the number of override pin entries. </p>
-<dl class="section return"><dt>Returns</dt><dd>Number of pin-index pairs (entries). </dd></dl>
+<p>Number of override pins. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00335">335</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00315">315</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a8bf6bcf16da2e94200cc419a72c48b2b" name="a8bf6bcf16da2e94200cc419a72c48b2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bf6bcf16da2e94200cc419a72c48b2b">&#9670;&#160;</a></span>entries_</h2>
+<a id="aa72c3788741ba600cd75fc0cf54c8d8a" name="aa72c3788741ba600cd75fc0cf54c8d8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa72c3788741ba600cd75fc0cf54c8d8a">&#9670;&#160;</a></span>entries_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -430,7 +361,7 @@ template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structOverridePins_1_1Entry.html">Entry</a> <a class="el" href="classOverridePins.html">OverridePins</a>&lt; N, MaxPins &gt;::entries_[N]</td>
+          <td class="memname">const <a class="el" href="structKeyIndexPair.html">KeyIndexPair</a>&lt; MaxPins &gt; <a class="el" href="classOverridePins.html">OverridePins</a>&lt; N, MaxPins &gt;::entries_[N]</td>
         </tr>
       </table>
   </td>
@@ -439,14 +370,14 @@ template&lt;uint8_t N, uint8_t MaxPins = 16&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Array of entries for all pin-index pairs. </p>
+<p>the pins and their targets </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__override_8h_source.html#l00309">309</a> of file <a class="el" href="utils__override_8h_source.html">utils_override.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00339">339</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Mk2_3phase_RFdatalog_temp/<a class="el" href="utils__override_8h_source.html">utils_override.h</a></li>
+<li>Mk2_3phase_RFdatalog_temp/<a class="el" href="config__types_8h_source.html">config_types.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

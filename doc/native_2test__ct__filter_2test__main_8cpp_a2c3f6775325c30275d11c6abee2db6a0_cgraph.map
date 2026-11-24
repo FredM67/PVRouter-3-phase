@@ -1,0 +1,67 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,255,60,283"/>
+<area shape="rect" id="Node000002" href="$native_2test__ct__filter_2test__main_8cpp.html#aee73d7095085deccabbc3c6222fe3081" title=" " alt="" coords="530,85,710,130"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="34,254,41,225,55,189,76,153,106,124,155,98,206,81,260,70,315,64,370,64,422,67,517,81,512,83,421,72,369,69,316,70,261,75,208,86,157,103,109,128,80,156,59,191,46,227,39,255"/>
+<area shape="rect" id="Node000008" href="$native_2test__ct__filter_2test__main_8cpp.html#aabf66e40a3cf0ab9484cd9e67f8660b1" title=" " alt="" coords="524,240,716,268"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="39,281,65,328,85,352,109,371,154,387,193,388,284,370,339,361,382,350,475,311,499,295,523,279,545,272,540,275,526,283,502,299,478,315,384,355,341,366,284,376,193,393,153,392,106,375,81,356,61,331,39,286"/>
+<area shape="rect" id="Node000009" href="$native_2test__ct__filter_2test__main_8cpp.html#ab82b88e4e9da05d94858e21d45127a4b" title=" " alt="" coords="108,177,284,222"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="58,254,107,232,124,226,120,230,109,237,62,258"/>
+<area shape="rect" id="Node000015" href="$native_2test__ct__filter_2test__main_8cpp.html#a02febd87673b04263885e9a5bcf30b6b" title=" " alt="" coords="111,247,280,291"/>
+<area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="59,267,98,267,94,271,61,271"/>
+<area shape="rect" id="Node000016" href="$native_2test__ct__filter_2test__main_8cpp.html#ab29c129ae63f7a9c41eaff5d8d778f66" title=" " alt="" coords="539,16,701,61"/>
+<area shape="poly" id="edge21_Node000001_Node000016" title=" " alt="" coords="32,254,36,218,48,169,70,119,86,96,106,77,154,48,207,26,262,13,319,5,375,3,429,4,526,17,521,19,428,10,375,8,319,10,263,18,208,31,157,52,109,82,90,100,75,122,53,171,42,219,37,255"/>
+<area shape="rect" id="Node000017" href="$native_2test__ct__filter_2test__main_8cpp.html#a5c21c96bbe0230fcf7af99ea379e95fe" title=" " alt="" coords="120,316,272,361"/>
+<area shape="poly" id="edge26_Node000001_Node000017" title=" " alt="" coords="60,279,109,301,125,309,120,311,107,306,61,284"/>
+<area shape="rect" id="Node000018" href="$native_2test__ct__filter_2test__main_8cpp.html#ab296665170913a3d6065906c3a950c16" title=" " alt="" coords="543,394,697,456"/>
+<area shape="poly" id="edge28_Node000001_Node000018" title=" " alt="" coords="34,280,38,326,47,384,56,414,69,443,86,469,109,491,134,506,161,519,217,533,277,536,337,530,396,517,452,500,545,463,550,462,453,505,397,523,338,535,277,541,217,538,159,524,132,511,106,495,82,473,64,446,51,416,42,385,32,326,33,286"/>
+<area shape="rect" id="Node000020" href="$native_2test__ct__filter_2test__main_8cpp.html#a9a32961b0fc47c71be3df59d97e020f6" title=" " alt="" coords="540,154,700,216"/>
+<area shape="poly" id="edge36_Node000001_Node000020" title=" " alt="" coords="37,254,61,206,81,182,106,163,158,141,213,128,269,122,326,121,434,132,528,154,523,156,433,137,326,126,270,127,214,133,160,146,109,167,85,185,65,209,42,255"/>
+<area shape="rect" id="Node000021" href="$native_2test__ct__filter_2test__main_8cpp.html#ac6275604253f6e8c4509c37d2219f95a" title=" " alt="" coords="121,436,270,481"/>
+<area shape="poly" id="edge41_Node000001_Node000021" title=" " alt="" coords="38,280,63,345,83,382,110,415,123,427,117,427,106,419,79,385,58,347,37,286"/>
+<area shape="rect" id="Node000003" href="$structCtFilter_1_1LowPassBoost.html#a10df09b866e7a13b17fbedf3141ba5df" title="Filters one sample." alt="" coords="764,175,932,219"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="685,128,717,140,780,168,775,168,715,145,685,133"/>
+<area shape="rect" id="Node000005" href="$namespaceCtFilter.html#ab9ffad2517588975b04987dfa01da104" title="Converts the float settings to fixed point, at compile time." alt="" coords="765,243,931,271"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="699,128,718,140,735,163,742,186,749,208,766,230,771,235,766,235,762,233,744,211,737,188,730,166,714,144,699,133"/>
+<area shape="rect" id="Node000006" href="$structCtFilter_1_1LowPassBoost.html#a9c5345543b4137f98bf2e8db4acff17b" title="The low&#45;pass state, x256 scale (Robin&#39;s lpf_long)." alt="" coords="980,64,1148,109"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="710,101,967,90,962,92,711,106"/>
+<area shape="rect" id="Node000007" href="$native_2test__ct__filter_2test__main_8cpp.html#ab22ab0f95f0afee6d34745548c195f52" title="A DC&#45;removed sample in ADC counts, at the x64 scale of the firmware." alt="" coords="825,123,870,151"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="710,117,813,132,807,133,711,122"/>
+<area shape="rect" id="Node000004" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="996,183,1132,211"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="932,194,984,196,978,197,933,200"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="677,237,751,221,746,223,679,242"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="716,253,752,255,746,256,717,258"/>
+<area shape="rect" id="Node000010" href="$native_2test__ct__filter_2test__main_8cpp.html#a0526f690f6801da0ccf609e62c19371a" title=" " alt="" coords="338,274,471,301"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="255,220,285,232,360,266,355,268,283,237,256,225"/>
+<area shape="rect" id="Node000011" href="$native_2test__ct__filter_2test__main_8cpp.html#ae3e25fa0cb30344a485f73a6ff28ba28" title="Largest |fixed &#45; float| at the output (x64) over samples of the input." alt="" coords="557,292,683,320"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="471,291,545,299,539,300,472,296"/>
+<area shape="poly" id="edge13_Node000011_Node000003" title=" " alt="" coords="682,291,714,277,729,266,738,255,747,242,762,229,769,228,773,226,765,234,751,246,742,258,732,270,717,282,684,296"/>
+<area shape="poly" id="edge15_Node000011_Node000005" title=" " alt="" coords="682,290,768,274,763,275,684,295"/>
+<area shape="poly" id="edge18_Node000011_Node000007" title=" " alt="" coords="682,295,699,288,714,278,726,264,732,250,737,221,742,191,749,175,762,160,784,146,812,140,807,142,787,151,765,164,754,178,747,192,742,221,738,252,730,267,717,282,702,292,684,300"/>
+<area shape="rect" id="Node000012" href="$structRobin.html#a6fb351d4e59a86c1d556e8057482d2e6" title=" " alt="" coords="797,399,899,427"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="644,318,699,350,765,384,785,394,780,393,763,389,696,355,643,323"/>
+<area shape="rect" id="Node000013" href="$native_2test__ct__filter_2test__main_8cpp.html#a3c5f570fee70d19aa60015762fd35987" title="Input sample i, in ADC counts; noise is a fixed linear congruential sequence. The step is sized so th..." alt="" coords="798,347,898,375"/>
+<area shape="poly" id="edge16_Node000011_Node000013" title=" " alt="" coords="681,318,786,345,780,346,680,323"/>
+<area shape="rect" id="Node000014" href="$native_2test__ct__filter_2test__main_8cpp.html#a22a8117821dc918bc128604f6128d094" title="50 Hz sine at 9.6 kHz / 3 phases: 64 samples per cycle, quarter wave table, 100 peak." alt="" coords="1018,398,1111,425"/>
+<area shape="poly" id="edge17_Node000013_Node000014" title=" " alt="" coords="898,370,1005,397,1000,397,897,375"/>
+<area shape="poly" id="edge20_Node000015_Node000010" title=" " alt="" coords="280,274,324,279,319,281,282,279"/>
+<area shape="poly" id="edge22_Node000016_Node000003" title=" " alt="" coords="699,58,718,71,735,94,742,116,749,138,766,160,770,166,765,165,762,164,744,141,737,118,730,96,714,75,699,64"/>
+<area shape="poly" id="edge23_Node000016_Node000005" title=" " alt="" coords="702,59,718,71,732,92,740,112,742,153,744,192,751,211,766,230,769,234,764,233,762,233,746,213,739,193,736,153,735,113,728,94,714,75,701,64"/>
+<area shape="poly" id="edge24_Node000016_Node000006" title=" " alt="" coords="701,44,967,75,962,77,702,50"/>
+<area shape="poly" id="edge25_Node000016_Node000007" title=" " alt="" coords="686,58,717,70,814,118,809,119,715,75,686,64"/>
+<area shape="poly" id="edge27_Node000017_Node000010" title=" " alt="" coords="271,317,332,304,327,307,273,322"/>
+<area shape="poly" id="edge29_Node000018_Node000003" title=" " alt="" coords="657,391,686,363,713,330,728,303,734,278,743,255,762,230,765,230,769,227,766,233,747,257,740,280,733,305,718,333,690,367,660,396"/>
+<area shape="poly" id="edge31_Node000018_Node000005" title=" " alt="" coords="692,391,714,374,730,350,736,328,744,305,762,282,768,280,773,277,766,285,748,307,741,329,734,353,718,377,694,396"/>
+<area shape="poly" id="edge35_Node000018_Node000007" title=" " alt="" coords="660,391,688,363,713,330,724,306,730,284,731,242,736,202,745,181,762,160,784,146,812,139,807,141,786,150,765,164,750,184,741,204,737,243,735,285,729,308,718,333,692,367,663,396"/>
+<area shape="poly" id="edge30_Node000018_Node000012" title=" " alt="" coords="697,418,784,416,779,417,697,424"/>
+<area shape="poly" id="edge34_Node000018_Node000014" title=" " alt="" coords="697,432,808,439,870,439,932,436,1000,427,1005,426,932,441,870,445,808,444,697,437"/>
+<area shape="rect" id="Node000019" href="$native_2test__ct__filter_2test__main_8cpp.html#a6fc1aff038a4cf3ba928f348a3a86bb2" title="The low&#45;pass state of the filter, in ADC counts." alt="" coords="789,295,907,323"/>
+<area shape="poly" id="edge32_Node000018_Node000019" title=" " alt="" coords="685,391,714,373,737,353,762,333,775,330,780,328,765,338,741,357,717,378,687,396"/>
+<area shape="poly" id="edge33_Node000019_Node000006" title=" " alt="" coords="906,295,930,280,950,255,957,229,963,202,978,170,1000,142,1023,121,1027,118,1004,146,982,173,968,203,962,231,954,257,934,284,908,300"/>
+<area shape="poly" id="edge37_Node000020_Node000003" title=" " alt="" coords="700,186,751,191,745,192,701,192"/>
+<area shape="poly" id="edge38_Node000020_Node000005" title=" " alt="" coords="700,208,764,229,787,238,782,238,763,234,700,214"/>
+<area shape="poly" id="edge40_Node000020_Node000007" title=" " alt="" coords="699,166,812,144,807,146,701,171"/>
+<area shape="poly" id="edge39_Node000020_Node000019" title=" " alt="" coords="696,214,717,227,732,241,741,255,750,267,765,280,777,289,772,288,762,284,747,271,737,258,728,245,714,231,696,219"/>
+<area shape="rect" id="Node000022" href="$namespaceCtFilter.html#afb49ba33d8d170851bb6e7807b5adffd" title="Whether the settings fit the fixed point, the coefficients within 1 % of them." alt="" coords="332,440,476,468"/>
+<area shape="poly" id="edge42_Node000021_Node000022" title=" " alt="" coords="271,454,319,455,314,456,271,459"/>
+<area shape="poly" id="edge43_Node000022_Node000005" title=" " alt="" coords="434,437,475,415,498,396,523,380,576,362,621,357,664,350,688,342,714,329,729,318,738,306,747,294,762,281,773,278,778,276,765,286,751,297,742,309,732,322,717,334,690,347,665,355,622,362,578,367,526,385,501,401,478,419,436,442"/>
+</map>

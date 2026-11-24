@@ -85,6 +85,7 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">Load Namespace Reference</div></div>
 </div><!--header-->
@@ -93,6 +94,12 @@ $(function(){ initResizable(false); });
 <p>Authoring and decoding helpers for the packed load map.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structLoad_1_1OverrideMasks.html">OverrideMasks</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override bit of each load, in the local or in the remote override bitmask.  <a href="structLoad_1_1OverrideMasks.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2af331573ede4c50d696449fe9b4ab8d" id="r_a2af331573ede4c50d696449fe9b4ab8d"><td class="memTemplParams" colspan="2">template&lt;uint8_t N&gt; </td></tr>
@@ -107,6 +114,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a45143ff1b1b918a50f68c637c882a610"><td class="memTemplItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a45143ff1b1b918a50f68c637c882a610">countUnits</a> (const uint8_t(&amp;map)[N])</td></tr>
 <tr class="memdesc:a45143ff1b1b918a50f68c637c882a610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Highest remote unit number appearing in the map (0 if fully local).  <br /></td></tr>
 <tr class="separator:a45143ff1b1b918a50f68c637c882a610"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f9bfc414551f643b26e70ee05ceaa11" id="r_a9f9bfc414551f643b26e70ee05ceaa11"><td class="memTemplParams" colspan="2">template&lt;uint8_t N&gt; </td></tr>
+<tr class="memitem:a9f9bfc414551f643b26e70ee05ceaa11"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9f9bfc414551f643b26e70ee05ceaa11">hasValidRemoteUnits</a> (const uint8_t(&amp;map)[N])</td></tr>
+<tr class="memdesc:a9f9bfc414551f643b26e70ee05ceaa11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check that every remote load of a map was declared with a unit from 1 to 3.  <br /></td></tr>
+<tr class="separator:a9f9bfc414551f643b26e70ee05ceaa11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0684e53aa0eae096cef354f171c08724" id="r_a0684e53aa0eae096cef354f171c08724"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0684e53aa0eae096cef354f171c08724">isLocal</a> (uint8_t entry)</td></tr>
 <tr class="memdesc:a0684e53aa0eae096cef354f171c08724"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the entry describes a locally driven load.  <br /></td></tr>
 <tr class="separator:a0684e53aa0eae096cef354f171c08724"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,6 +132,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a1a6efa19f6bd3e1740ed98a48ab475ff"><td class="memTemplItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1a6efa19f6bd3e1740ed98a48ab475ff">maxLoadsPerUnit</a> (const uint8_t(&amp;map)[N])</td></tr>
 <tr class="memdesc:a1a6efa19f6bd3e1740ed98a48ab475ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largest number of loads assigned to any single remote unit.  <br /></td></tr>
 <tr class="separator:a1a6efa19f6bd3e1740ed98a48ab475ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9679d070377ade53a8315b4ec5bbece6" id="r_a9679d070377ade53a8315b4ec5bbece6"><td class="memTemplParams" colspan="2">template&lt;uint8_t N&gt; </td></tr>
+<tr class="memitem:a9679d070377ade53a8315b4ec5bbece6"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="structLoad_1_1OverrideMasks.html">OverrideMasks</a>&lt; N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a9679d070377ade53a8315b4ec5bbece6">overrideMasks</a> (const uint8_t(&amp;map)[N])</td></tr>
+<tr class="memdesc:a9679d070377ade53a8315b4ec5bbece6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build the override bits of a load map.  <br /></td></tr>
+<tr class="separator:a9679d070377ade53a8315b4ec5bbece6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a846d844f03b72ddda22516ea20e81799" id="r_a846d844f03b72ddda22516ea20e81799"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a846d844f03b72ddda22516ea20e81799">pinOf</a> (uint8_t entry)</td></tr>
 <tr class="memdesc:a846d844f03b72ddda22516ea20e81799"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote.  <br /></td></tr>
 <tr class="separator:a846d844f03b72ddda22516ea20e81799"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,7 +185,7 @@ template&lt;uint8_t N&gt; </div>
 <p>Rank of a load among the loads of its own unit, in ascending map order. </p>
 <p>This is the bit position of the load inside its unit's RF payload. </p>
 
-<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00175">175</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00195">195</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -231,7 +246,7 @@ template&lt;uint8_t N&gt; </div>
 
 <p>Number of entries of the map that are driven remotely. </p>
 
-<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00107">107</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00127">127</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -247,31 +262,28 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceLoad_a91ab3cc2d65eb23246c21bd20a9d9557_icgraph.png" border="0" usemap="#anamespaceLoad_a91ab3cc2d65eb23246c21bd20a9d9557_icgraph" alt=""/></div>
 <map name="anamespaceLoad_a91ab3cc2d65eb23246c21bd20a9d9557_icgraph" id="anamespaceLoad_a91ab3cc2d65eb23246c21bd20a9d9557_icgraph">
-<area shape="rect" title="Number of entries of the map that are driven remotely." alt="" coords="828,255,1013,282"/>
-<area shape="rect" href="utils__override_8h.html#a13662843c76f975c9c66890fe7659d91" title="Bitmask of every remote load (bit 16 + remote rank)." alt="" coords="615,135,757,162"/>
-<area shape="poly" title=" " alt="" coords="875,247,714,165,716,160,880,247"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a21c6a116daf14b5d5b245130e42ee0ea" title=" " alt="" coords="592,255,780,282"/>
-<area shape="poly" title=" " alt="" coords="810,269,780,271,780,266,815,268"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ad9cdda787ac040663adb8268e280f445" title=" " alt="" coords="604,306,768,351"/>
-<area shape="poly" title=" " alt="" coords="851,286,769,310,768,305,846,287"/>
-<area shape="rect" href="utils__override__helpers_8h.html#a56b1293dc6f12ee82283d9630b026306" title="Returns a bitmask representing all REMOTE loads." alt="" coords="386,5,543,33"/>
-<area shape="poly" title=" " alt="" coords="655,124,605,86,543,47,519,36,519,31,546,42,608,82,660,124"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="388,57,540,102"/>
-<area shape="poly" title=" " alt="" coords="622,130,538,105,538,99,628,129"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1b9c634350ac05f34a47777b31d92453" title=" " alt="" coords="388,126,540,171"/>
-<area shape="poly" title=" " alt="" coords="597,149,541,151,540,146,602,148"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="384,196,544,240"/>
-<area shape="poly" title=" " alt="" coords="627,167,539,197,537,192,622,168"/>
-<area shape="rect" href="utils__override__helpers_8h.html#ad19b0f6bfb7e49c2a32b6bb68d3228cd" title="Returns a bitmask representing all loads (local + remote)." alt="" coords="241,5,336,33"/>
-<area shape="poly" title=" " alt="" coords="367,20,337,22,336,17,372,18"/>
-<area shape="rect" href="utils__override__helpers_8h.html#a1f9a7b43cca9e7e2cca9e7f2d052b07c" title="Returns a bitmask representing all loads and all relays." alt="" coords="5,5,193,33"/>
-<area shape="poly" title=" " alt="" coords="223,21,195,22,192,17,228,18"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="261,204,316,232"/>
-<area shape="poly" title=" " alt="" coords="393,108,386,116,360,138,336,162,301,206,298,202,332,159,356,134,382,112,388,111"/>
-<area shape="poly" title=" " alt="" coords="389,178,317,210,315,205,394,176"/>
-<area shape="poly" title=" " alt="" coords="366,218,316,220,315,215,371,217"/>
-<area shape="poly" title=" " alt="" coords="574,271,482,269,383,255,347,245,316,233,316,227,349,240,385,250,483,263,580,270"/>
-<area shape="poly" title=" " alt="" coords="586,321,488,307,435,294,383,278,341,257,308,235,309,230,344,252,385,273,436,289,489,302,591,321"/>
+<area shape="rect" title="Number of entries of the map that are driven remotely." alt="" coords="704,211,890,238"/>
+<area shape="rect" href="utils__override_8h.html#a13662843c76f975c9c66890fe7659d91" title="Bitmask of every remote load (bit 16 + remote rank)." alt="" coords="492,125,633,153"/>
+<area shape="poly" title=" " alt="" coords="739,205,603,156,603,151,745,205"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a21c6a116daf14b5d5b245130e42ee0ea" title=" " alt="" coords="469,211,656,238"/>
+<area shape="poly" title=" " alt="" coords="686,225,657,227,657,222,692,224"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ad9cdda787ac040663adb8268e280f445" title=" " alt="" coords="480,262,645,307"/>
+<area shape="poly" title=" " alt="" coords="728,242,646,266,645,261,723,243"/>
+<area shape="rect" href="classTargetMap.html#a9854eec5fe26949adc12534da598721f" title="The pins of an ALL_...() code: local pins in the lower 16 bits, remote loads from bit 16." alt="" coords="252,31,421,58"/>
+<area shape="poly" title=" " alt="" coords="519,118,420,72,390,62,390,56,422,67,525,117"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="261,82,412,127"/>
+<area shape="poly" title=" " alt="" coords="474,127,413,119,412,113,479,126"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1b9c634350ac05f34a47777b31d92453" title=" " alt="" coords="261,152,412,196"/>
+<area shape="poly" title=" " alt="" coords="474,153,413,165,412,160,479,152"/>
+<area shape="rect" href="classTargetMap.html#addc13e5c41027c9794828390352a3691" title="The local loads and relays that targets force, as a bitmask of pins." alt="" coords="13,5,196,33"/>
+<area shape="poly" title=" " alt="" coords="234,35,197,32,195,27,239,32"/>
+<area shape="rect" href="classTargetMap.html#a569944af2a4592b46e252e6f7814f0dd" title="The remote loads that targets force, as a bitmask (bit 0 = remote load 0)." alt="" coords="5,57,204,85"/>
+<area shape="poly" title=" " alt="" coords="234,57,205,62,203,57,239,55"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="77,189,132,217"/>
+<area shape="poly" title=" " alt="" coords="263,135,253,142,133,194,131,189,251,137,268,132"/>
+<area shape="poly" title=" " alt="" coords="244,187,133,202,131,197,248,183"/>
+<area shape="poly" title=" " alt="" coords="453,222,132,207,132,202,454,217"/>
+<area shape="poly" title=" " alt="" coords="464,270,132,210,132,205,466,265"/>
 </map>
 </div>
 
@@ -304,7 +316,7 @@ template&lt;uint8_t N&gt; </div>
 
 <p>Highest remote unit number appearing in the map (0 if fully local). </p>
 
-<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00090">90</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00110">110</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -337,6 +349,50 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a9f9bfc414551f643b26e70ee05ceaa11" name="a9f9bfc414551f643b26e70ee05ceaa11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f9bfc414551f643b26e70ee05ceaa11">&#9670;&#160;</a></span>hasValidRemoteUnits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Load::hasValidRemoteUnits </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t(&amp;)</td>          <td class="paramname"><span class="paramname"><em>map</em></span>[N]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check that every remote load of a map was declared with a unit from 1 to 3. </p>
+<p><a class="el" href="#adb9797ea49459ec57cf3641aee0d7bd6" title="Declares a load driven by a remote unit over RF.">Load::remote()</a> returns invalidRemoteUnitEntry otherwise: see there. </p>
+
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00288">288</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceLoad_a9f9bfc414551f643b26e70ee05ceaa11_icgraph.png" border="0" usemap="#anamespaceLoad_a9f9bfc414551f643b26e70ee05ceaa11_icgraph" alt=""/></div>
+<map name="anamespaceLoad_a9f9bfc414551f643b26e70ee05ceaa11_icgraph" id="anamespaceLoad_a9f9bfc414551f643b26e70ee05ceaa11_icgraph">
+<area shape="rect" title="Check that every remote load of a map was declared with a unit from 1 to 3." alt="" coords="316,14,516,42"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aed68fc4ff8cb6df64bc796925d8e9084" title=" " alt="" coords="108,5,268,50"/>
+<area shape="poly" title=" " alt="" coords="298,28,269,30,268,25,303,28"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,14,60,42"/>
+<area shape="poly" title=" " alt="" coords="89,29,60,30,60,25,94,27"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a0684e53aa0eae096cef354f171c08724" name="a0684e53aa0eae096cef354f171c08724"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0684e53aa0eae096cef354f171c08724">&#9670;&#160;</a></span>isLocal()</h2>
 
@@ -362,116 +418,160 @@ Here is the caller graph for this function:</div>
 
 <p>True if the entry describes a locally driven load. </p>
 
-<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00069">69</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00089">89</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceLoad_a0684e53aa0eae096cef354f171c08724_icgraph.png" border="0" usemap="#anamespaceLoad_a0684e53aa0eae096cef354f171c08724_icgraph" alt=""/></div>
 <map name="anamespaceLoad_a0684e53aa0eae096cef354f171c08724_icgraph" id="anamespaceLoad_a0684e53aa0eae096cef354f171c08724_icgraph">
-<area shape="rect" title="True if the entry describes a locally driven load." alt="" coords="1309,628,1415,656"/>
-<area shape="rect" href="validation_8h.html#aceb581f17d3f679ec643c0f5fc316196" title="Overrides reach the outputs through the load states and the relay engine only, so each override pin m..." alt="" coords="1076,345,1250,373"/>
-<area shape="poly" title=" " alt="" coords="1355,612,1347,564,1330,503,1302,441,1283,413,1260,388,1243,376,1243,371,1263,384,1287,409,1306,438,1335,501,1352,563,1360,614"/>
-<area shape="rect" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="1116,397,1210,425"/>
-<area shape="poly" title=" " alt="" coords="1352,611,1341,574,1322,527,1296,480,1260,440,1236,426,1210,418,1210,413,1238,421,1263,436,1300,477,1327,525,1346,572,1357,614"/>
-<area shape="rect" href="namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557" title="Number of entries of the map that are driven remotely." alt="" coords="1070,603,1256,630"/>
-<area shape="poly" title=" " alt="" coords="1292,634,1257,631,1256,626,1297,633"/>
-<area shape="rect" href="group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="1106,449,1220,477"/>
-<area shape="poly" title=" " alt="" coords="1346,613,1312,555,1288,524,1260,497,1241,486,1220,477,1220,472,1243,481,1263,493,1292,520,1317,552,1351,614"/>
-<area shape="rect" href="namespaceLoad.html#a88996fa00857a07607a6543382aabeb4" title="Check that every entry of a load map designates a usable pin." alt="" coords="845,204,976,232"/>
-<area shape="poly" title=" " alt="" coords="1339,615,1306,578,1284,558,1260,541,1232,529,1207,524,1158,523,1135,523,1111,519,1088,509,1063,490,1047,471,1038,452,1032,414,1030,374,1025,353,1015,330,995,301,972,274,930,235,930,229,975,271,999,298,1019,327,1030,351,1035,373,1038,413,1043,450,1051,468,1067,487,1090,504,1113,514,1135,517,1158,518,1207,518,1234,524,1263,537,1287,554,1309,574,1345,616"/>
-<area shape="rect" href="utils__override_8h.html#aece58b485056402b91be81d615714b28" title="Bitmask of the pins of every local load (lower 16 bits)." alt="" coords="848,653,974,681"/>
-<area shape="poly" title=" " alt="" coords="1291,647,974,666,973,661,1296,645"/>
-<area shape="rect" href="utils__override_8h.html#ab72aa66577de637d07a6d3bb1b809108" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="856,804,966,832"/>
-<area shape="poly" title=" " alt="" coords="1352,668,1339,700,1319,732,1294,763,1263,788,1226,806,1187,819,1106,832,1030,834,966,829,966,824,1030,828,1106,827,1186,814,1224,801,1260,784,1290,759,1315,729,1334,697,1348,672"/>
-<area shape="rect" href="namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="1086,747,1240,774"/>
-<area shape="poly" title=" " alt="" coords="1326,663,1189,749,1187,744,1322,665"/>
-<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="815,1124,1007,1152"/>
-<area shape="poly" title=" " alt="" coords="1358,669,1349,724,1331,792,1303,865,1285,900,1263,933,1208,997,1156,1039,1096,1071,1018,1108,972,1126,971,1121,1016,1103,1093,1066,1153,1034,1204,993,1259,930,1280,897,1298,863,1326,790,1344,723,1355,673"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1e90d25bff3d841e925a7ee0f3adfe21" title=" " alt="" coords="1065,551,1261,578"/>
-<area shape="poly" title=" " alt="" coords="1320,620,1260,594,1225,582,1224,576,1262,589,1326,620"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#acaba3232206430d7189d0eeaea27b89e" title=" " alt="" coords="1082,874,1244,919"/>
-<area shape="poly" title=" " alt="" coords="1353,668,1320,749,1295,794,1263,836,1239,858,1211,876,1209,871,1235,854,1259,832,1290,791,1316,747,1349,672"/>
-<area shape="rect" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="1093,1121,1233,1149"/>
-<area shape="poly" title=" " alt="" coords="1359,669,1350,737,1332,825,1304,923,1285,972,1264,1019,1245,1050,1223,1079,1181,1123,1179,1118,1219,1075,1240,1047,1259,1017,1280,970,1298,922,1327,824,1345,736,1355,673"/>
-<area shape="rect" href="utils__override_8h.html#a13662843c76f975c9c66890fe7659d91" title="Bitmask of every remote load (bit 16 + remote rank)." alt="" coords="840,601,982,629"/>
-<area shape="poly" title=" " alt="" coords="1052,617,983,618,981,613,1057,615"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a21c6a116daf14b5d5b245130e42ee0ea" title=" " alt="" coords="817,535,1004,562"/>
-<area shape="poly" title=" " alt="" coords="1092,599,965,566,965,560,1097,598"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ad9cdda787ac040663adb8268e280f445" title=" " alt="" coords="829,412,993,456"/>
-<area shape="poly" title=" " alt="" coords="1072,596,1063,592,1046,576,1037,560,1028,543,1015,525,978,489,943,459,943,454,981,485,1019,521,1033,541,1041,557,1050,573,1067,588,1078,596"/>
-<area shape="rect" href="utils__override__helpers_8h.html#a56b1293dc6f12ee82283d9630b026306" title="Returns a bitmask representing all REMOTE loads." alt="" coords="575,485,733,513"/>
-<area shape="poly" title=" " alt="" coords="844,596,803,576,788,563,779,550,770,538,755,527,733,516,732,511,758,522,774,534,783,547,792,559,806,572,849,595"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="578,537,730,582"/>
-<area shape="poly" title=" " alt="" coords="827,598,730,578,730,573,832,597"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1b9c634350ac05f34a47777b31d92453" title=" " alt="" coords="578,606,730,651"/>
-<area shape="poly" title=" " alt="" coords="822,621,731,627,730,622,827,619"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="574,676,734,720"/>
-<area shape="poly" title=" " alt="" coords="829,635,806,644,758,666,726,677,724,673,756,661,804,639,834,632"/>
-<area shape="rect" href="utils__override__helpers_8h.html#ad19b0f6bfb7e49c2a32b6bb68d3228cd" title="Returns a bitmask representing all loads (local + remote)." alt="" coords="378,704,473,732"/>
-<area shape="poly" title=" " alt="" coords="559,520,553,527,530,546,509,569,474,620,449,668,434,705,430,702,444,666,469,617,504,566,526,542,550,522,563,517"/>
-<area shape="rect" href="utils__override__helpers_8h.html#a1f9a7b43cca9e7e2cca9e7f2d052b07c" title="Returns a bitmask representing all loads and all relays." alt="" coords="108,704,295,732"/>
-<area shape="poly" title=" " alt="" coords="360,719,296,720,294,715,365,716"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="398,491,453,518"/>
-<area shape="poly" title=" " alt="" coords="561,539,454,513,452,508,566,536"/>
-<area shape="poly" title=" " alt="" coords="561,600,550,596,489,558,444,522,443,516,492,553,553,591,567,599"/>
-<area shape="poly" title=" " alt="" coords="557,669,550,665,510,630,476,589,434,521,435,516,480,586,513,626,553,661,563,669"/>
-<area shape="poly" title=" " alt="" coords="873,527,820,499,756,476,700,466,655,465,552,476,499,486,455,498,452,494,498,481,551,471,655,459,700,461,757,471,822,495,878,526"/>
-<area shape="poly" title=" " alt="" coords="811,429,688,432,619,439,552,451,498,470,453,492,450,488,496,465,551,446,618,434,687,427,816,427"/>
-<area shape="rect" href="group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="837,79,984,106"/>
-<area shape="poly" title=" " alt="" coords="1089,454,1063,438,1041,408,1031,378,1028,349,1030,320,1034,260,1029,228,1015,194,997,168,975,144,934,109,933,104,979,140,1001,164,1019,191,1034,227,1039,260,1035,321,1033,349,1036,377,1046,405,1067,435,1094,454"/>
-<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="625,5,683,33"/>
-<area shape="poly" title=" " alt="" coords="849,75,756,47,684,28,682,23,757,42,854,73"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="563,126,745,171"/>
-<area shape="poly" title=" " alt="" coords="840,201,740,174,739,169,845,199"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a6edc3c18882bd89a34fed2ad718d6546" title=" " alt="" coords="566,196,742,240"/>
-<area shape="poly" title=" " alt="" coords="827,219,744,220,741,215,832,217"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a34f86f2e1854aedced0ec6e7267d0399" title=" " alt="" coords="559,57,749,102"/>
-<area shape="poly" title=" " alt="" coords="877,194,823,156,755,116,731,105,729,100,758,111,826,152,882,194"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a35522623f3d902b482054aa21bbcf3af" title=" " alt="" coords="566,265,742,310"/>
-<area shape="poly" title=" " alt="" coords="840,238,741,267,738,262,845,235"/>
-<area shape="poly" title=" " alt="" coords="553,182,553,185,522,222,496,263,475,308,459,353,439,435,431,491,426,489,434,433,454,351,470,306,491,261,517,219,549,181,557,178"/>
-<area shape="poly" title=" " alt="" coords="554,251,553,254,526,282,503,314,468,382,445,445,432,491,428,489,440,444,463,380,499,311,522,279,550,251,558,247"/>
-<area shape="poly" title=" " alt="" coords="553,113,553,116,517,161,488,213,467,268,451,323,434,424,430,491,425,489,429,423,446,322,462,266,484,211,512,158,549,112,556,109"/>
-<area shape="poly" title=" " alt="" coords="566,319,553,331,512,371,479,416,436,491,431,489,474,413,508,367,550,326,570,315"/>
-<area shape="poly" title=" " alt="" coords="830,653,803,643,788,631,778,619,769,608,755,596,730,583,730,578,758,592,773,604,783,616,792,627,806,638,836,652"/>
-<area shape="poly" title=" " alt="" coords="830,656,730,642,729,637,835,655"/>
-<area shape="poly" title=" " alt="" coords="831,677,735,691,734,686,836,675"/>
-<area shape="rect" href="utils__override__helpers_8h.html#aacfc43b81341d59e7dd02a0eb307f6c6" title="Returns a bitmask representing all LOCAL load pins." alt="" coords="582,864,726,892"/>
-<area shape="poly" title=" " alt="" coords="856,687,829,705,807,725,795,742,789,758,785,790,780,822,772,839,758,855,728,872,726,867,755,850,768,836,775,821,780,789,784,756,791,739,803,721,826,701,851,689"/>
-<area shape="poly" title=" " alt="" coords="565,861,550,855,512,826,479,793,436,735,436,730,483,789,515,822,553,850,570,860"/>
-<area shape="poly" title=" " alt="" coords="838,805,804,795,737,760,684,723,685,718,740,755,806,790,843,804"/>
-<area shape="rect" href="group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="551,1036,757,1064"/>
-<area shape="poly" title=" " alt="" coords="899,843,878,887,846,935,806,984,758,1025,733,1038,732,1033,755,1021,802,980,842,932,873,884,895,847"/>
-<area shape="rect" href="utils__override__helpers_8h.html#ab3ada13405f7827c8b4255eba95e4081" title="Returns the pin number for any load (local or remote)." alt="" coords="625,984,683,1012"/>
-<area shape="poly" title=" " alt="" coords="893,843,838,911,800,946,758,975,720,990,684,998,682,992,719,985,755,970,797,941,834,907,889,846"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac7648d1668efa6a99495b61260ce0cf3" title=" " alt="" coords="557,916,751,960"/>
-<area shape="poly" title=" " alt="" coords="876,839,821,874,758,906,728,917,726,912,756,901,818,869,872,841"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#afdfeabe1158cf24b64eee1cc4910b668" title=" " alt="" coords="562,796,746,840"/>
-<area shape="poly" title=" " alt="" coords="838,819,747,820,746,815,843,817"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="350,1036,502,1064"/>
-<area shape="poly" title=" " alt="" coords="533,1050,503,1052,502,1047,539,1049"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="117,1036,286,1064"/>
-<area shape="poly" title=" " alt="" coords="332,1050,287,1052,286,1047,337,1049"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,1036,55,1064"/>
-<area shape="poly" title=" " alt="" coords="99,1052,56,1052,54,1047,103,1048"/>
-<area shape="poly" title=" " alt="" coords="551,905,549,905,530,879,518,854,513,830,511,805,511,754,508,725,501,693,464,593,433,521,434,516,469,591,506,692,514,724,517,754,517,805,518,829,523,852,534,876,553,901,556,906"/>
-<area shape="poly" title=" " alt="" coords="562,787,549,778,525,737,490,661,432,521,434,516,495,659,530,734,553,775,567,787"/>
-<area shape="poly" title=" " alt="" coords="1081,779,967,808,966,803,1087,778"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a22f96dcf5229ee5ef61e6dc61a1498a8" title=" " alt="" coords="805,736,1017,780"/>
-<area shape="poly" title=" " alt="" coords="1068,760,1018,762,1017,756,1073,759"/>
-<area shape="poly" title=" " alt="" coords="1137,784,1102,822,1067,863,1018,938,975,1013,920,1126,917,1122,971,1011,1014,935,1063,860,1098,818,1132,787"/>
-<area shape="poly" title=" " alt="" coords="787,778,731,781,668,776,607,762,550,735,522,712,498,685,478,655,462,623,439,564,429,522,430,516,444,562,467,621,483,652,502,682,525,708,553,730,608,757,669,771,731,776,792,776"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="570,1149,738,1177"/>
-<area shape="poly" title=" " alt="" coords="802,1149,738,1158,738,1152,797,1149"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="348,1149,503,1177"/>
-<area shape="poly" title=" " alt="" coords="552,1163,504,1166,504,1161,558,1163"/>
-<area shape="rect" href="group__TimeCritical.html#gac1f07cd36657d61affe4642911ad27c1" title="Processes the current voltage raw sample for the specified phase." alt="" coords="103,1149,300,1177"/>
-<area shape="poly" title=" " alt="" coords="330,1163,301,1166,300,1161,335,1163"/>
-<area shape="rect" href="processing_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title=" " alt="" coords="9,1149,51,1177"/>
-<area shape="poly" title=" " alt="" coords="85,1164,52,1166,51,1161,90,1162"/>
-<area shape="poly" title=" " alt="" coords="1059,539,1048,522,1042,503,1041,465,1037,431,1030,415,1015,401,956,365,900,344,847,337,795,340,741,353,684,372,552,422,520,436,490,455,444,492,440,488,487,451,517,432,550,417,682,367,739,348,794,335,847,331,902,339,958,360,1019,397,1034,412,1043,429,1046,465,1048,502,1053,520,1064,540"/>
-<area shape="poly" title=" " alt="" coords="1126,928,1078,968,1016,1011,943,1055,864,1093,781,1121,740,1128,699,1131,659,1128,620,1119,584,1102,550,1077,538,1064,529,1047,517,1004,511,951,509,894,508,779,506,731,501,693,485,642,466,593,434,521,435,516,470,591,490,640,506,692,512,730,514,779,514,894,516,951,522,1003,534,1045,543,1061,553,1073,586,1097,622,1114,660,1123,699,1126,739,1123,780,1116,862,1089,941,1050,1013,1007,1075,964,1121,930"/>
-<area shape="poly" title=" " alt="" coords="1089,1152,1017,1166,869,1173,738,1170,738,1165,869,1167,1017,1161,1083,1153"/>
+<area shape="rect" title="True if the entry describes a locally driven load." alt="" coords="1132,686,1237,714"/>
+<area shape="rect" href="validation_8h.html#afec5bfb31058ece3c98c5bc005283250" title=" " alt="" coords="939,244,1032,272"/>
+<area shape="poly" title=" " alt="" coords="1177,669,1165,584,1145,470,1117,363,1100,321,1082,292,1059,276,1034,266,1032,261,1062,271,1086,288,1105,318,1122,361,1150,469,1171,583,1182,671"/>
+<area shape="rect" href="namespaceLoad.html#a91ab3cc2d65eb23246c21bd20a9d9557" title="Number of entries of the map that are driven remotely." alt="" coords="893,907,1078,935"/>
+<area shape="poly" title=" " alt="" coords="1174,726,1141,799,1116,837,1086,872,1057,893,1028,909,1025,904,1055,889,1082,868,1112,834,1137,796,1171,730"/>
+<area shape="rect" href="group__Initialization.html#ga14cc59dd6d400eda065ce5bddfacb53e" title="The pins the loads drive: the local TRIACs, plus the status LED of each remote load." alt="" coords="936,346,1036,374"/>
+<area shape="poly" title=" " alt="" coords="1180,669,1175,611,1160,535,1148,495,1131,456,1109,420,1082,388,1061,374,1037,366,1035,361,1063,369,1086,384,1114,417,1136,454,1153,493,1165,534,1180,610,1185,671"/>
+<area shape="rect" href="group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="929,398,1042,426"/>
+<area shape="poly" title=" " alt="" coords="1178,670,1169,622,1152,562,1123,499,1105,471,1082,446,1063,432,1044,424,1042,418,1066,428,1086,442,1109,468,1128,497,1157,560,1174,621,1183,671"/>
+<area shape="rect" href="namespaceLoad.html#a88996fa00857a07607a6543382aabeb4" title="Check that every entry of a load map designates a usable pin." alt="" coords="668,212,799,240"/>
+<area shape="poly" title=" " alt="" coords="1182,669,1180,602,1168,512,1155,464,1137,418,1113,374,1082,336,1059,317,1037,306,1016,300,994,298,945,297,918,294,887,286,770,243,769,238,888,281,919,288,946,291,994,293,1017,295,1039,301,1062,313,1086,332,1118,371,1142,415,1160,462,1173,511,1185,601,1187,671"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aed68fc4ff8cb6df64bc796925d8e9084" title=" " alt="" coords="386,343,547,387"/>
+<area shape="poly" title=" " alt="" coords="1174,671,1163,634,1145,588,1118,543,1082,506,1054,492,1004,477,858,442,548,381,546,376,859,437,1005,472,1056,488,1086,502,1122,540,1149,586,1168,632,1180,672"/>
+<area shape="rect" href="namespaceRotation.html#a36513c8eb5ac373cec0e77e69744cac5" title="The loads a target code stands for, by load number." alt="" coords="919,1340,1053,1368"/>
+<area shape="poly" title=" " alt="" coords="1177,727,1087,1051,994,1342,990,1339,1081,1050,1174,731"/>
+<area shape="rect" href="utils__override_8h.html#aece58b485056402b91be81d615714b28" title="Bitmask of the pins of every local load (lower 16 bits)." alt="" coords="671,1099,796,1127"/>
+<area shape="poly" title=" " alt="" coords="1180,726,1170,775,1152,833,1124,893,1086,948,1054,979,1019,1006,942,1050,864,1081,798,1101,795,1097,863,1076,939,1045,1016,1002,1051,975,1082,945,1120,891,1147,831,1165,774,1177,731"/>
+<area shape="rect" href="namespaceLoad.html#a9679d070377ade53a8315b4ec5bbece6" title="Build the override bits of a load map." alt="" coords="655,499,812,527"/>
+<area shape="poly" title=" " alt="" coords="1171,671,1158,641,1139,607,1114,574,1083,547,1051,531,1017,519,945,505,875,501,814,504,811,499,875,496,946,499,1018,514,1053,526,1085,543,1118,570,1144,604,1163,639,1177,672"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac86822dc7a27827952067d504d333e08" title=" " alt="" coords="382,497,551,558"/>
+<area shape="poly" title=" " alt="" coords="1144,679,1083,651,940,607,794,575,659,552,553,538,550,533,660,547,795,570,941,602,1085,647,1149,677"/>
+<area shape="rect" href="utils__override_8h.html#ab72aa66577de637d07a6d3bb1b809108" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="678,720,789,748"/>
+<area shape="poly" title=" " alt="" coords="1115,706,790,733,788,728,1119,703"/>
+<area shape="rect" href="namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="909,660,1063,688"/>
+<area shape="poly" title=" " alt="" coords="1114,692,1064,687,1063,682,1119,690"/>
+<area shape="rect" href="validation_8h.html#a71818e18785fcb00e72b6daed42cd751" title="Overrides and boosts reach the outputs through the load states and the relay engine only,..." alt="" coords="916,1443,1056,1471"/>
+<area shape="poly" title=" " alt="" coords="1183,727,1176,864,1158,1055,1145,1155,1129,1247,1109,1325,1086,1381,1072,1401,1054,1419,1016,1445,1014,1440,1050,1415,1068,1398,1082,1378,1104,1323,1123,1246,1139,1154,1153,1055,1171,863,1181,731"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1e90d25bff3d841e925a7ee0f3adfe21" title=" " alt="" coords="888,762,1084,790"/>
+<area shape="poly" title=" " alt="" coords="1137,722,1085,746,1035,764,1032,759,1083,741,1141,719"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#acaba3232206430d7189d0eeaea27b89e" title=" " alt="" coords="905,813,1066,858"/>
+<area shape="poly" title=" " alt="" coords="1166,724,1131,766,1085,803,1064,815,1061,810,1083,799,1127,762,1162,727"/>
+<area shape="rect" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="916,1596,1056,1624"/>
+<area shape="poly" title=" " alt="" coords="1183,727,1174,880,1154,1100,1125,1323,1107,1415,1086,1483,1069,1518,1046,1550,1004,1598,1001,1594,1042,1547,1064,1515,1082,1481,1102,1414,1120,1322,1149,1099,1169,879,1180,731"/>
+<area shape="rect" href="utils__override_8h.html#a13662843c76f975c9c66890fe7659d91" title="Bitmask of every remote load (bit 16 + remote rank)." alt="" coords="663,1039,804,1067"/>
+<area shape="poly" title=" " alt="" coords="942,944,763,1041,761,1036,946,941"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a21c6a116daf14b5d5b245130e42ee0ea" title=" " alt="" coords="640,872,827,900"/>
+<area shape="poly" title=" " alt="" coords="875,907,829,902,827,897,880,905"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ad9cdda787ac040663adb8268e280f445" title=" " alt="" coords="651,924,816,969"/>
+<area shape="poly" title=" " alt="" coords="875,933,817,941,815,936,880,931"/>
+<area shape="rect" href="classTargetMap.html#a9854eec5fe26949adc12534da598721f" title="The pins of an ALL_...() code: local pins in the lower 16 bits, remote loads from bit 16." alt="" coords="382,1163,551,1191"/>
+<area shape="poly" title=" " alt="" coords="652,1074,629,1090,614,1105,606,1121,597,1138,581,1154,553,1167,550,1163,578,1149,593,1135,601,1119,610,1102,626,1086,656,1071"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="391,1095,542,1139"/>
+<area shape="poly" title=" " alt="" coords="656,1072,544,1101,541,1097,661,1069"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1b9c634350ac05f34a47777b31d92453" title=" " alt="" coords="391,1025,542,1070"/>
+<area shape="poly" title=" " alt="" coords="645,1053,544,1052,542,1047,650,1050"/>
+<area shape="rect" href="classTargetMap.html#addc13e5c41027c9794828390352a3691" title="The local loads and relays that targets force, as a bitmask of pins." alt="" coords="116,996,298,1024"/>
+<area shape="poly" title=" " alt="" coords="365,1160,352,1154,335,1137,326,1120,318,1102,304,1083,267,1051,234,1027,232,1022,271,1047,308,1079,323,1099,331,1117,339,1134,356,1150,370,1159"/>
+<area shape="rect" href="classTargetMap.html#a569944af2a4592b46e252e6f7814f0dd" title="The remote loads that targets force, as a bitmask (bit 0 = remote load 0)." alt="" coords="108,1092,306,1120"/>
+<area shape="poly" title=" " alt="" coords="381,1160,353,1154,252,1123,250,1118,355,1149,386,1158"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="180,612,234,640"/>
+<area shape="poly" title=" " alt="" coords="374,1099,352,1084,337,1058,318,1011,275,878,212,643,212,638,280,876,323,1009,341,1056,356,1081,379,1098"/>
+<area shape="poly" title=" " alt="" coords="375,1030,352,1015,313,970,281,918,257,863,238,808,215,708,209,643,209,638,220,707,243,807,261,861,286,916,317,967,356,1011,380,1028"/>
+<area shape="poly" title=" " alt="" coords="622,903,559,906,489,901,418,886,384,873,353,857,322,834,296,807,254,745,226,686,213,643,212,638,231,684,259,743,300,804,326,830,355,852,387,868,420,881,490,896,560,901,626,900"/>
+<area shape="poly" title=" " alt="" coords="634,948,557,948,475,942,403,930,374,922,353,911,318,882,289,847,266,809,246,769,220,694,211,643,211,638,226,693,251,767,270,806,294,844,322,878,355,907,376,917,404,925,476,936,557,942,638,946"/>
+<area shape="rect" href="validation_8h.html#ab24866c5cec7b4140dcd049e199a4c79" title="Each REMOTE_LOAD(n) target of an entry of list must be an existing remote load." alt="" coords="378,14,556,42"/>
+<area shape="poly" title=" " alt="" coords="713,200,691,167,660,127,622,88,578,55,557,45,555,40,581,51,625,84,664,124,695,164,719,199"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="376,65,557,110"/>
+<area shape="poly" title=" " alt="" coords="700,203,646,164,578,125,552,113,550,108,581,120,649,160,706,202"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a6edc3c18882bd89a34fed2ad718d6546" title=" " alt="" coords="378,135,555,179"/>
+<area shape="poly" title=" " alt="" coords="661,209,557,182,554,178,665,207"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a34f86f2e1854aedced0ec6e7267d0399" title=" " alt="" coords="372,204,561,249"/>
+<area shape="poly" title=" " alt="" coords="650,228,563,229,560,224,654,225"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a35522623f3d902b482054aa21bbcf3af" title=" " alt="" coords="379,273,554,318"/>
+<area shape="poly" title=" " alt="" coords="661,246,557,275,553,271,665,243"/>
+<area shape="poly" title=" " alt="" coords="701,252,649,293,581,333,549,345,545,342,578,328,646,288,705,248"/>
+<area shape="rect" href="validation_8h.html#ae1df6b53bb219de54ee6ea79ee4e1f81" title="Each REMOTE_LOAD(n) target of an override pin must be an existing remote load." alt="" coords="120,5,294,50"/>
+<area shape="poly" title=" " alt="" coords="360,29,296,30,293,26,364,26"/>
+<area shape="poly" title=" " alt="" coords="361,117,356,124,331,153,309,184,273,252,247,325,229,398,218,467,213,528,210,612,205,612,207,528,213,466,224,397,242,323,268,250,304,181,327,150,352,120,364,112"/>
+<area shape="poly" title=" " alt="" coords="364,185,356,194,314,244,281,302,256,364,237,426,225,485,217,538,211,612,206,612,212,538,220,484,232,425,251,362,276,300,309,241,352,190,366,180"/>
+<area shape="poly" title=" " alt="" coords="358,259,356,263,319,305,288,352,264,403,245,455,222,549,212,612,207,612,217,548,240,453,259,401,284,350,314,301,352,259,361,254"/>
+<area shape="poly" title=" " alt="" coords="364,324,356,332,323,365,296,403,273,443,254,484,227,560,214,613,208,612,222,559,249,482,268,441,291,400,319,362,352,328,367,320"/>
+<area shape="poly" title=" " alt="" coords="371,390,356,402,328,426,303,454,262,515,233,572,216,613,211,611,228,569,258,512,299,451,324,422,352,398,374,386"/>
+<area shape="rect" href="namespaceRotation.html#ac9dbe2a247e49dafaad508219c3dc8c7" title="The loads of group g, all its codes together." alt="" coords="654,1518,813,1546"/>
+<area shape="poly" title=" " alt="" coords="953,1376,921,1404,890,1433,876,1452,868,1469,858,1485,841,1502,806,1520,804,1515,838,1497,854,1482,863,1466,871,1449,886,1430,917,1400,949,1379"/>
+<area shape="rect" href="namespaceRotation.html#a17a4b1e578045cd1fd65c50b2f4cbf0d" title="No load is named twice, within a group or across groups." alt="" coords="650,1212,817,1240"/>
+<area shape="poly" title=" " alt="" coords="954,1330,903,1293,839,1255,806,1243,806,1238,841,1251,906,1288,959,1330"/>
+<area shape="rect" href="namespaceRotation.html#a238ea91bf428faeb307acf2254b41a65" title="Every code of every group stands for at least one load." alt="" coords="638,1264,829,1292"/>
+<area shape="poly" title=" " alt="" coords="920,1336,782,1295,782,1290,925,1335"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a921b649b122b06156c0508281f5d9179" title=" " alt="" coords="127,1288,286,1333"/>
+<area shape="poly" title=" " alt="" coords="902,1352,287,1317,286,1312,904,1347"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a5994bfc25a4c7c66626ebab72c3912dd" title=" " alt="" coords="135,1357,278,1402"/>
+<area shape="poly" title=" " alt="" coords="902,1359,279,1380,278,1375,904,1355"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a204ce9bf272bfa69ee0451c41f0f327c" title=" " alt="" coords="126,1427,288,1471"/>
+<area shape="poly" title=" " alt="" coords="903,1367,288,1442,287,1437,904,1362"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#ac2187be0fdc9583387598663ee52e69f" title=" " alt="" coords="113,1496,300,1541"/>
+<area shape="poly" title=" " alt="" coords="929,1375,840,1405,694,1439,546,1468,302,1508,300,1503,546,1463,693,1434,839,1400,934,1373"/>
+<area shape="rect" href="classRotation_1_1Table.html#a2db024b99e9182a421f03d1d61b4bbb1" title=" " alt="" coords="386,1518,547,1546"/>
+<area shape="poly" title=" " alt="" coords="635,1532,548,1534,547,1529,641,1531"/>
+<area shape="rect" href="namespaceRotation.html#a57cf6c54748dfbca21338d5b77c66b7d" title="In each group, every load is local, or every load is on the same remote unit." alt="" coords="357,1624,576,1652"/>
+<area shape="poly" title=" " alt="" coords="643,1551,629,1561,614,1572,606,1585,596,1598,581,1611,546,1627,544,1622,578,1607,592,1595,601,1582,610,1569,626,1556,638,1553"/>
+<area shape="rect" href="namespaceRotation.html#a3bd8dc9ec91cbd01ac61807186c1194b" title="Every group holds at least 2 loads." alt="" coords="354,1570,579,1598"/>
+<area shape="poly" title=" " alt="" coords="641,1550,542,1572,541,1567,646,1548"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a0b5919461811ca8a29d1aa9f989c026c" title=" " alt="" coords="119,1616,295,1661"/>
+<area shape="poly" title=" " alt="" coords="339,1639,296,1641,295,1636,344,1638"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a598e53502423cb24b8bca1111ba3d96d" title=" " alt="" coords="119,1685,295,1730"/>
+<area shape="poly" title=" " alt="" coords="395,1657,294,1687,293,1682,400,1656"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,1435,60,1463"/>
+<area shape="poly" title=" " alt="" coords="109,1607,106,1606,77,1571,56,1531,42,1493,37,1466,37,1460,47,1491,61,1529,81,1568,110,1602,114,1606"/>
+<area shape="poly" title=" " alt="" coords="108,1676,106,1675,85,1650,69,1621,47,1561,36,1504,34,1466,34,1461,41,1504,52,1559,74,1619,90,1647,110,1671,113,1676"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a317a77357ebb4d2d14ce3cd6a6241301" title=" " alt="" coords="114,1564,300,1592"/>
+<area shape="poly" title=" " alt="" coords="336,1582,301,1583,300,1578,341,1580"/>
+<area shape="poly" title=" " alt="" coords="113,1558,106,1555,82,1534,63,1509,40,1466,40,1461,67,1506,86,1531,109,1551,118,1557"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#afcd6a2399aaf4eff7348863d154e5ef5" title=" " alt="" coords="123,1167,291,1195"/>
+<area shape="poly" title=" " alt="" coords="632,1224,501,1217,354,1205,292,1197,290,1192,354,1200,501,1212,636,1221"/>
+<area shape="poly" title=" " alt="" coords="109,1206,110,1208,88,1234,70,1264,58,1296,48,1329,39,1390,36,1435,31,1434,33,1390,43,1328,52,1295,66,1262,83,1231,106,1204,112,1201"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#ae02980ca0e1540f877916886e4a05cc8" title=" " alt="" coords="132,1219,282,1263"/>
+<area shape="poly" title=" " alt="" coords="621,1272,282,1249,281,1244,625,1269"/>
+<area shape="poly" title=" " alt="" coords="117,1269,110,1278,79,1316,58,1361,45,1403,39,1435,33,1434,40,1402,53,1359,75,1313,106,1274,120,1265"/>
+<area shape="poly" title=" " alt="" coords="112,1343,109,1347,87,1368,68,1392,43,1436,38,1434,64,1389,83,1364,106,1343,115,1338"/>
+<area shape="poly" title=" " alt="" coords="123,1410,109,1417,62,1438,58,1434,107,1412,126,1406"/>
+<area shape="poly" title=" " alt="" coords="109,1451,62,1451,59,1447,113,1447"/>
+<area shape="poly" title=" " alt="" coords="122,1491,107,1486,61,1465,59,1460,109,1481,127,1489"/>
+<area shape="poly" title=" " alt="" coords="659,1133,580,1154,534,1165,532,1160,579,1149,664,1130"/>
+<area shape="poly" title=" " alt="" coords="653,1115,544,1118,542,1113,657,1113"/>
+<area shape="poly" title=" " alt="" coords="657,1096,543,1069,542,1064,661,1094"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aa55babe91a241e1902b369c04265f5ea" title=" " alt="" coords="380,412,554,473"/>
+<area shape="poly" title=" " alt="" coords="661,496,555,468,553,463,666,493"/>
+<area shape="poly" title=" " alt="" coords="637,520,553,525,550,521,642,517"/>
+<area shape="poly" title=" " alt="" coords="364,480,355,487,314,518,276,554,222,613,217,611,272,550,310,514,353,483,367,476"/>
+<area shape="poly" title=" " alt="" coords="368,567,236,618,232,614,371,562"/>
+<area shape="rect" href="classTargetMap.html#a464414e7658c5db11e79ceeb7fe42cf2" title="The pin that a single code stands for (any code but ALL_...())." alt="" coords="400,974,533,1002"/>
+<area shape="poly" title=" " alt="" coords="705,761,485,975,481,972,708,757"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac7648d1668efa6a99495b61260ce0cf3" title=" " alt="" coords="370,703,563,747"/>
+<area shape="poly" title=" " alt="" coords="661,733,565,731,563,726,665,730"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#afdfeabe1158cf24b64eee1cc4910b668" title=" " alt="" coords="374,633,559,678"/>
+<area shape="poly" title=" " alt="" coords="661,720,626,712,578,693,545,681,543,676,580,688,628,706,666,718"/>
+<area shape="poly" title=" " alt="" coords="383,996,300,1005,297,1000,387,993"/>
+<area shape="poly" title=" " alt="" coords="383,1004,355,1015,318,1034,283,1055,228,1094,224,1090,280,1050,315,1029,353,1011,387,1001"/>
+<area shape="poly" title=" " alt="" coords="371,698,353,693,235,641,233,636,355,688,376,696"/>
+<area shape="poly" title=" " alt="" coords="357,645,236,632,233,627,361,642"/>
+<area shape="poly" title=" " alt="" coords="947,653,757,530,757,525,952,651"/>
+<area shape="poly" title=" " alt="" coords="909,658,627,585,552,560,550,555,628,580,914,655"/>
+<area shape="poly" title=" " alt="" coords="908,694,790,724,788,719,912,691"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a22f96dcf5229ee5ef61e6dc61a1498a8" title=" " alt="" coords="627,652,840,697"/>
+<area shape="poly" title=" " alt="" coords="891,676,841,677,839,672,896,673"/>
+<area shape="poly" title=" " alt="" coords="657,647,579,624,480,614,382,614,296,619,236,625,233,621,296,613,382,608,480,608,580,618,661,645"/>
+<area shape="rect" href="validation_8h.html#aceb581f17d3f679ec643c0f5fc316196" title="Each override pin may only force local loads and relays." alt="" coords="647,1570,820,1598"/>
+<area shape="poly" title=" " alt="" coords="959,1480,905,1522,841,1559,807,1572,805,1567,839,1555,903,1518,954,1482"/>
+<area shape="poly" title=" " alt="" coords="892,794,782,808,645,813,571,810,496,801,423,785,353,762,308,737,269,704,237,670,219,643,218,638,242,666,272,700,311,732,355,757,425,780,497,796,571,804,645,808,782,803,897,791"/>
+<area shape="poly" title=" " alt="" coords="887,843,754,849,598,850,454,840,396,829,353,814,325,797,301,776,260,727,230,678,214,643,214,638,235,676,264,724,305,772,329,793,355,809,398,824,455,834,599,844,754,844,892,840"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="650,1668,817,1696"/>
+<area shape="poly" title=" " alt="" coords="923,1628,786,1670,784,1665,918,1629"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="389,1715,544,1743"/>
+<area shape="poly" title=" " alt="" coords="638,1699,545,1718,544,1713,633,1700"/>
+<area shape="rect" href="group__TimeCritical.html#gac1f07cd36657d61affe4642911ad27c1" title="Processes the current voltage raw sample for the specified phase." alt="" coords="108,1754,306,1782"/>
+<area shape="poly" title=" " alt="" coords="377,1742,305,1756,304,1751,371,1743"/>
+<area shape="rect" href="processing_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title=" " alt="" coords="11,1754,54,1782"/>
+<area shape="poly" title=" " alt="" coords="90,1769,54,1770,54,1765,95,1766"/>
 </map>
 </div>
 
@@ -506,7 +606,7 @@ template&lt;uint8_t N&gt; </div>
 <p>A local load needs a real TRIAC pin, 2..13 (0 and 1 are the serial interface, 14 and above do not exist). A remote load needs no pin, but its optional status LED, when present, obeys the same range.</p>
 <p>This is also what catches an entry left at <code>unused_pin:</code> 0xFF decodes as unit 3 / pin 63, which is out of range. </p>
 
-<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00199">199</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00258">258</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -524,20 +624,27 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceLoad_a88996fa00857a07607a6543382aabeb4_icgraph.png" border="0" usemap="#anamespaceLoad_a88996fa00857a07607a6543382aabeb4_icgraph" alt=""/></div>
 <map name="anamespaceLoad_a88996fa00857a07607a6543382aabeb4_icgraph" id="anamespaceLoad_a88996fa00857a07607a6543382aabeb4_icgraph">
-<area shape="rect" title="Check that every entry of a load map designates a usable pin." alt="" coords="345,118,476,146"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="112,5,293,50"/>
-<area shape="poly" title=" " alt="" coords="374,109,296,65,270,53,270,48,298,60,379,109"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a6edc3c18882bd89a34fed2ad718d6546" title=" " alt="" coords="114,75,290,119"/>
-<area shape="poly" title=" " alt="" coords="327,119,291,114,291,109,333,118"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a34f86f2e1854aedced0ec6e7267d0399" title=" " alt="" coords="108,144,297,189"/>
-<area shape="poly" title=" " alt="" coords="327,146,298,153,297,148,333,144"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a35522623f3d902b482054aa21bbcf3af" title=" " alt="" coords="115,213,290,258"/>
-<area shape="poly" title=" " alt="" coords="379,154,298,203,271,215,269,210,296,199,374,155"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,118,60,146"/>
-<area shape="poly" title=" " alt="" coords="115,59,109,65,74,92,48,119,43,116,71,88,106,60,118,55"/>
-<area shape="poly" title=" " alt="" coords="98,120,61,129,59,124,101,116"/>
-<area shape="poly" title=" " alt="" coords="90,145,61,140,59,135,95,142"/>
-<area shape="poly" title=" " alt="" coords="114,206,106,203,71,175,45,148,46,143,74,171,109,199,119,206"/>
+<area shape="rect" title="Check that every entry of a load map designates a usable pin." alt="" coords="465,178,596,206"/>
+<area shape="rect" href="validation_8h.html#ab24866c5cec7b4140dcd049e199a4c79" title="Each REMOTE_LOAD(n) target of an entry of list must be an existing remote load." alt="" coords="233,14,412,42"/>
+<area shape="poly" title=" " alt="" coords="512,164,473,109,446,80,416,55,396,45,395,39,418,51,450,76,477,106,517,165"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="232,65,413,110"/>
+<area shape="poly" title=" " alt="" coords="494,169,416,125,390,113,390,108,418,120,499,169"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a6edc3c18882bd89a34fed2ad718d6546" title=" " alt="" coords="234,135,410,179"/>
+<area shape="poly" title=" " alt="" coords="447,179,411,174,411,169,453,178"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a34f86f2e1854aedced0ec6e7267d0399" title=" " alt="" coords="228,204,417,249"/>
+<area shape="poly" title=" " alt="" coords="447,206,418,213,417,208,453,204"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a35522623f3d902b482054aa21bbcf3af" title=" " alt="" coords="235,273,410,318"/>
+<area shape="poly" title=" " alt="" coords="499,213,418,263,391,275,389,270,416,259,494,215"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aed68fc4ff8cb6df64bc796925d8e9084" title=" " alt="" coords="242,343,402,387"/>
+<area shape="poly" title=" " alt="" coords="516,218,476,277,449,306,419,333,398,345,396,340,415,328,445,303,472,273,511,220"/>
+<area shape="rect" href="validation_8h.html#ae1df6b53bb219de54ee6ea79ee4e1f81" title="Each REMOTE_LOAD(n) target of an override pin must be an existing remote load." alt="" coords="5,5,180,50"/>
+<area shape="poly" title=" " alt="" coords="215,29,181,30,179,25,220,26"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="65,212,120,240"/>
+<area shape="poly" title=" " alt="" coords="236,118,229,125,161,171,111,214,107,210,158,167,226,120,241,115"/>
+<area shape="poly" title=" " alt="" coords="230,186,121,221,119,216,233,182"/>
+<area shape="poly" title=" " alt="" coords="210,228,121,229,119,224,214,225"/>
+<area shape="poly" title=" " alt="" coords="229,270,120,237,120,232,234,267"/>
+<area shape="poly" title=" " alt="" coords="236,336,226,333,158,286,108,243,109,238,161,282,229,328,241,336"/>
 </map>
 </div>
 
@@ -574,62 +681,91 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00053">53</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00068">68</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceLoad_a3c4a0ef2578d140feed4d9e1fa474671_icgraph.png" border="0" usemap="#anamespaceLoad_a3c4a0ef2578d140feed4d9e1fa474671_icgraph" alt=""/></div>
 <map name="anamespaceLoad_a3c4a0ef2578d140feed4d9e1fa474671_icgraph" id="anamespaceLoad_a3c4a0ef2578d140feed4d9e1fa474671_icgraph">
-<area shape="rect" title="Declares a load driven locally by the router." alt="" coords="368,497,459,525"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a21c6a116daf14b5d5b245130e42ee0ea" title=" " alt="" coords="120,5,308,33"/>
-<area shape="poly" title=" " alt="" coords="408,481,400,384,383,253,371,187,356,127,339,79,318,46,307,36,305,31,322,43,344,77,362,126,376,186,388,252,405,383,413,482"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ad9cdda787ac040663adb8268e280f445" title=" " alt="" coords="132,57,296,102"/>
-<area shape="poly" title=" " alt="" coords="407,481,396,397,377,288,351,184,335,143,318,116,297,99,296,94,322,112,340,141,356,182,382,287,401,397,412,482"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#af665f7c29cc8ba1bc9a94b66607c7d88" title=" " alt="" coords="114,126,314,171"/>
-<area shape="poly" title=" " alt="" coords="410,481,407,420,394,341,382,299,366,258,345,219,318,185,306,174,305,169,322,181,349,216,371,256,387,297,399,340,412,420,415,482"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a0b7da53239c63347a112ca8279e8af85" title=" " alt="" coords="132,195,296,222"/>
-<area shape="poly" title=" " alt="" coords="409,481,403,429,389,362,377,328,362,294,342,263,318,236,296,221,295,216,322,232,347,260,367,291,382,326,394,361,409,428,414,482"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="123,246,304,291"/>
-<area shape="poly" title=" " alt="" coords="404,481,394,442,378,395,353,347,318,305,304,294,303,289,322,301,357,344,383,393,400,441,410,482"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a34f86f2e1854aedced0ec6e7267d0399" title=" " alt="" coords="119,316,308,360"/>
-<area shape="poly" title=" " alt="" coords="398,483,367,428,345,399,318,375,302,363,300,358,322,370,349,396,371,426,403,483"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a35522623f3d902b482054aa21bbcf3af" title=" " alt="" coords="126,385,302,430"/>
-<area shape="poly" title=" " alt="" coords="383,488,353,466,319,444,294,433,293,427,321,439,357,462,388,487"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="138,454,290,499"/>
-<area shape="poly" title=" " alt="" coords="351,502,291,492,289,487,355,499"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1b9c634350ac05f34a47777b31d92453" title=" " alt="" coords="138,524,290,568"/>
-<area shape="poly" title=" " alt="" coords="351,523,291,535,289,530,355,520"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1e90d25bff3d841e925a7ee0f3adfe21" title=" " alt="" coords="116,592,312,620"/>
-<area shape="poly" title=" " alt="" coords="384,538,357,562,321,583,293,594,289,589,319,578,354,557,388,534"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a0a0b69b3dbc671592b16d05910f2eb30" title=" " alt="" coords="137,644,291,688"/>
-<area shape="poly" title=" " alt="" coords="399,537,368,588,346,612,322,633,293,649,290,645,318,629,343,608,364,584,396,541"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="134,713,294,758"/>
-<area shape="poly" title=" " alt="" coords="407,537,397,577,380,621,355,664,322,703,296,719,293,715,318,698,351,661,375,618,392,575,405,542"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aba9521b46aea2bba65a589c4cab97d3c" title=" " alt="" coords="126,782,302,827"/>
-<area shape="poly" title=" " alt="" coords="411,538,405,590,390,652,363,716,345,745,322,772,304,785,301,781,318,768,340,742,358,713,385,650,400,589,409,543"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac7648d1668efa6a99495b61260ce0cf3" title=" " alt="" coords="117,852,310,896"/>
-<area shape="poly" title=" " alt="" coords="414,538,412,602,399,682,387,725,371,767,349,806,322,841,307,853,304,849,318,837,345,803,366,765,382,723,394,681,407,602,412,543"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#afdfeabe1158cf24b64eee1cc4910b668" title=" " alt="" coords="122,921,306,966"/>
-<area shape="poly" title=" " alt="" coords="410,538,401,626,382,736,356,840,340,882,322,910,307,923,305,918,318,907,335,879,351,839,377,735,396,625,408,543"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a22f96dcf5229ee5ef61e6dc61a1498a8" title=" " alt="" coords="108,990,320,1035"/>
-<area shape="poly" title=" " alt="" coords="412,538,404,638,387,769,375,835,360,895,343,945,322,980,308,992,305,987,318,976,338,943,355,894,370,834,382,768,399,638,409,543"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,497,60,525"/>
-<area shape="poly" title=" " alt="" coords="108,45,110,46,89,82,72,135,60,199,50,270,40,406,37,497,31,497,35,405,45,269,54,198,67,133,84,80,106,43,110,41"/>
-<area shape="poly" title=" " alt="" coords="117,106,110,116,92,146,78,190,56,304,43,419,37,497,32,497,38,418,50,303,72,189,87,144,106,112,120,101"/>
-<area shape="poly" title=" " alt="" coords="109,183,110,185,95,209,81,245,60,337,45,431,38,497,33,497,40,430,55,336,76,243,90,207,106,182,111,178"/>
-<area shape="poly" title=" " alt="" coords="117,228,110,236,85,266,66,301,53,339,44,377,36,448,36,497,30,497,30,447,38,376,47,337,61,299,80,263,106,232,119,223"/>
-<area shape="poly" title=" " alt="" coords="110,302,110,305,91,327,75,353,54,407,42,459,37,497,32,497,37,458,49,406,71,350,86,324,106,301,113,297"/>
-<area shape="poly" title=" " alt="" coords="111,371,109,374,83,404,63,438,40,497,35,496,58,436,79,401,106,371,114,367"/>
-<area shape="poly" title=" " alt="" coords="116,438,109,444,74,471,48,498,43,496,70,467,106,440,119,434"/>
-<area shape="poly" title=" " alt="" coords="121,496,62,508,59,504,124,492"/>
-<area shape="poly" title=" " alt="" coords="121,530,62,519,59,514,125,527"/>
-<area shape="poly" title=" " alt="" coords="117,587,106,583,70,555,46,528,44,523,73,552,109,578,122,585"/>
-<area shape="poly" title=" " alt="" coords="120,642,106,633,81,608,61,578,39,528,39,523,66,576,85,604,109,629,125,640"/>
-<area shape="poly" title=" " alt="" coords="118,711,106,702,88,682,73,658,51,608,38,561,35,528,35,523,44,560,56,607,77,656,92,679,109,699,123,709"/>
-<area shape="poly" title=" " alt="" coords="111,776,106,772,83,742,65,709,52,673,42,637,33,572,34,528,34,522,38,571,47,636,57,671,70,706,87,739,110,768,116,774"/>
-<area shape="poly" title=" " alt="" coords="107,842,106,841,90,816,76,779,55,686,40,592,35,528,35,523,45,592,60,685,81,777,95,813,110,838,113,841"/>
-<area shape="poly" title=" " alt="" coords="107,911,106,910,87,879,72,833,50,719,38,604,35,528,35,523,43,604,56,718,78,832,92,877,110,907,113,911"/>
-<area shape="poly" title=" " alt="" coords="107,979,105,979,85,942,68,888,56,823,46,752,35,616,34,528,34,523,41,616,52,751,61,822,74,887,90,940,110,976,112,980"/>
+<area shape="rect" title="Declares a load driven locally by the router." alt="" coords="368,790,459,818"/>
+<area shape="rect" href="native_2test__dual__tariff_2test__main_8cpp.html#ab1856ca4c3f60ab8bfa373c4bc92a473" title=" " alt="" coords="133,5,295,50"/>
+<area shape="poly" title=" " alt="" coords="410,774,409,627,398,414,387,304,371,204,348,121,334,89,318,64,296,46,294,41,322,61,338,86,353,119,376,203,392,304,404,414,414,626,415,775"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a21c6a116daf14b5d5b245130e42ee0ea" title=" " alt="" coords="120,143,308,171"/>
+<area shape="poly" title=" " alt="" coords="410,774,406,648,393,470,382,380,366,297,345,230,332,204,318,184,308,174,306,169,322,181,337,201,350,228,371,296,387,379,399,470,411,647,415,775"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ad9cdda787ac040663adb8268e280f445" title=" " alt="" coords="132,195,296,239"/>
+<area shape="poly" title=" " alt="" coords="409,774,402,661,387,505,375,426,360,353,341,294,318,253,297,236,296,231,322,250,346,292,365,352,381,425,392,505,408,661,414,775"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#af665f7c29cc8ba1bc9a94b66607c7d88" title=" " alt="" coords="114,264,314,309"/>
+<area shape="poly" title=" " alt="" coords="408,774,400,674,383,538,371,470,356,408,338,357,318,323,307,312,306,307,322,319,343,355,361,407,376,469,388,538,405,673,413,774"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a0b7da53239c63347a112ca8279e8af85" title=" " alt="" coords="132,332,296,360"/>
+<area shape="poly" title=" " alt="" coords="407,774,398,683,381,562,369,502,354,448,337,403,318,374,297,358,295,353,322,370,342,401,359,446,374,501,386,561,403,682,413,775"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="123,384,304,429"/>
+<area shape="poly" title=" " alt="" coords="406,774,394,697,375,598,349,504,334,468,318,443,306,431,304,426,322,439,339,465,354,502,380,597,399,696,411,775"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a34f86f2e1854aedced0ec6e7267d0399" title=" " alt="" coords="119,453,308,498"/>
+<area shape="poly" title=" " alt="" coords="409,774,404,719,389,649,378,612,362,576,343,542,318,512,306,501,304,496,322,508,347,539,367,574,383,610,395,648,409,719,414,775"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a35522623f3d902b482054aa21bbcf3af" title=" " alt="" coords="126,523,302,567"/>
+<area shape="poly" title=" " alt="" coords="406,774,396,732,380,680,355,627,338,603,318,582,303,569,301,564,322,578,342,600,359,625,385,678,402,731,411,775"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="138,592,290,637"/>
+<area shape="poly" title=" " alt="" coords="400,776,370,713,347,680,318,651,291,634,289,629,322,647,351,676,374,710,405,775"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1b9c634350ac05f34a47777b31d92453" title=" " alt="" coords="138,661,290,706"/>
+<area shape="poly" title=" " alt="" coords="388,779,357,749,319,721,291,706,289,701,321,716,361,745,393,778"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#ac2187be0fdc9583387598663ee52e69f" title=" " alt="" coords="120,1437,308,1482"/>
+<area shape="poly" title=" " alt="" coords="413,831,410,960,397,1137,385,1227,369,1310,348,1379,336,1406,322,1427,309,1439,305,1435,318,1423,331,1403,343,1377,364,1309,380,1226,391,1136,405,959,411,836"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1e90d25bff3d841e925a7ee0f3adfe21" title=" " alt="" coords="116,730,312,758"/>
+<area shape="poly" title=" " alt="" coords="360,785,319,772,282,760,279,756,321,766,365,783"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a0a0b69b3dbc671592b16d05910f2eb30" title=" " alt="" coords="137,781,291,826"/>
+<area shape="poly" title=" " alt="" coords="351,805,293,806,290,801,355,802"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="134,851,294,895"/>
+<area shape="poly" title=" " alt="" coords="359,825,321,841,288,852,284,848,319,836,363,821"/>
+<area shape="rect" href="native_2test__dual__tariff_2test__main_8cpp.html#a8d1eb45a62b15c7c2a0b37eb48570d9b" title=" " alt="" coords="134,75,294,119"/>
+<area shape="poly" title=" " alt="" coords="410,774,407,639,394,447,383,348,367,258,345,184,332,155,318,133,295,115,293,110,322,130,337,153,350,182,372,257,388,348,400,446,412,638,415,775"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aba9521b46aea2bba65a589c4cab97d3c" title=" " alt="" coords="126,920,302,965"/>
+<area shape="poly" title=" " alt="" coords="393,833,365,872,322,910,300,921,296,918,318,905,361,868,396,828"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#aa28573460d4ef0c4460195246059be66" title=" " alt="" coords="141,1507,286,1551"/>
+<area shape="poly" title=" " alt="" coords="413,830,413,972,401,1170,389,1271,373,1365,351,1442,337,1473,322,1496,306,1510,288,1520,285,1515,303,1506,318,1493,333,1470,346,1440,368,1364,384,1271,395,1169,407,971,412,835"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#ab6fceeb94d6dc8dab32e97440a8fe39b" title=" " alt="" coords="121,1576,306,1621"/>
+<area shape="poly" title=" " alt="" coords="414,831,415,985,405,1203,394,1316,377,1420,353,1505,339,1539,322,1565,308,1578,306,1573,318,1562,334,1537,348,1504,372,1418,388,1315,399,1203,409,985,412,836"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aa55babe91a241e1902b369c04265f5ea" title=" " alt="" coords="127,989,301,1050"/>
+<area shape="poly" title=" " alt="" coords="405,830,376,905,352,944,322,979,303,992,299,989,318,975,348,941,372,903,403,835"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac86822dc7a27827952067d504d333e08" title=" " alt="" coords="130,1074,298,1136"/>
+<area shape="poly" title=" " alt="" coords="410,831,404,883,388,944,362,1008,344,1037,322,1064,300,1081,296,1077,318,1060,339,1034,357,1005,383,942,399,882,409,836"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac7648d1668efa6a99495b61260ce0cf3" title=" " alt="" coords="117,1160,310,1205"/>
+<area shape="poly" title=" " alt="" coords="414,831,413,898,401,982,389,1027,373,1071,351,1113,322,1150,308,1161,304,1158,318,1146,346,1110,368,1069,384,1025,396,981,408,897,412,836"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#afdfeabe1158cf24b64eee1cc4910b668" title=" " alt="" coords="122,1229,306,1274"/>
+<area shape="poly" title=" " alt="" coords="410,831,402,921,384,1036,357,1146,341,1189,322,1219,308,1231,304,1227,318,1215,336,1186,352,1144,378,1035,396,921,409,836"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aed68fc4ff8cb6df64bc796925d8e9084" title=" " alt="" coords="134,1299,294,1343"/>
+<area shape="poly" title=" " alt="" coords="411,831,405,934,388,1070,376,1138,361,1201,343,1252,322,1288,296,1307,292,1303,318,1285,338,1250,356,1199,371,1137,383,1069,400,934,410,836"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a22f96dcf5229ee5ef61e6dc61a1498a8" title=" " alt="" coords="108,1368,320,1413"/>
+<area shape="poly" title=" " alt="" coords="412,830,408,946,392,1103,381,1182,365,1255,346,1315,322,1357,309,1369,305,1366,318,1354,341,1313,360,1254,375,1182,387,1102,402,946,411,835"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#aad804694bca81e84ad75fb97b1fd8e10" title=" " alt="" coords="134,1645,294,1690"/>
+<area shape="poly" title=" " alt="" coords="412,831,404,1009,385,1262,372,1389,358,1501,341,1587,332,1616,322,1635,295,1655,293,1651,318,1631,327,1614,336,1586,352,1501,367,1389,379,1262,398,1008,410,836"/>
+<area shape="rect" href="native_2test__dual__tariff_2test__main_8cpp.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,48,60,76"/>
+<area shape="poly" title=" " alt="" coords="116,48,62,59,58,55,119,44"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,730,60,758"/>
+<area shape="poly" title=" " alt="" coords="108,183,110,184,97,203,85,228,67,293,54,372,45,458,37,623,36,730,31,730,32,623,39,458,48,371,62,292,80,226,92,200,106,181,110,178"/>
+<area shape="poly" title=" " alt="" coords="117,244,110,253,89,292,72,348,60,417,50,492,40,635,37,730,31,729,34,635,45,491,54,416,67,347,84,290,106,250,120,239"/>
+<area shape="poly" title=" " alt="" coords="108,321,110,323,91,355,76,403,64,461,54,524,42,647,37,729,32,729,37,646,49,524,59,460,71,402,86,353,106,319,111,316"/>
+<area shape="poly" title=" " alt="" coords="117,365,110,373,92,401,78,442,56,548,43,655,37,730,32,729,38,655,51,547,73,441,88,399,106,370,120,360"/>
+<area shape="poly" title=" " alt="" coords="110,440,110,443,96,465,83,498,62,582,47,668,38,729,33,729,41,667,56,581,78,496,91,462,106,439,112,436"/>
+<area shape="poly" title=" " alt="" coords="110,510,110,512,89,538,72,567,51,629,40,687,37,730,31,729,35,687,45,628,68,564,84,535,106,509,112,505"/>
+<area shape="poly" title=" " alt="" coords="112,578,110,582,80,618,59,659,46,699,39,730,34,729,41,698,54,657,76,615,106,578,114,573"/>
+<area shape="poly" title=" " alt="" coords="123,641,109,651,88,670,69,691,44,730,39,728,65,688,84,666,106,647,125,637"/>
+<area shape="poly" title=" " alt="" coords="127,713,109,721,62,736,58,733,107,716,130,709"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,1550,60,1578"/>
+<area shape="poly" title=" " alt="" coords="116,1491,109,1497,74,1524,48,1551,43,1548,70,1520,106,1492,120,1487"/>
+<area shape="poly" title=" " alt="" coords="98,746,62,746,59,742,102,742"/>
+<area shape="poly" title=" " alt="" coords="126,777,107,772,61,755,59,750,109,766,131,775"/>
+<area shape="poly" title=" " alt="" coords="117,847,106,840,84,821,65,799,42,761,41,755,69,796,88,818,109,836,122,845"/>
+<area shape="poly" title=" " alt="" coords="117,81,62,70,59,65,121,77"/>
+<area shape="poly" title=" " alt="" coords="110,913,106,910,76,872,54,830,41,789,36,760,36,755,46,788,59,828,80,870,110,906,115,911"/>
+<area shape="poly" title=" " alt="" coords="124,1548,61,1561,59,1556,128,1544"/>
+<area shape="poly" title=" " alt="" coords="103,1579,61,1571,59,1566,108,1576"/>
+<area shape="poly" title=" " alt="" coords="112,984,106,979,85,952,69,922,47,859,36,800,34,760,34,755,41,799,52,857,74,920,90,949,110,975,117,982"/>
+<area shape="poly" title=" " alt="" coords="115,1073,106,1064,91,1039,78,1003,56,914,41,823,35,761,35,755,46,822,61,913,83,1002,96,1037,110,1061,120,1071"/>
+<area shape="poly" title=" " alt="" coords="107,1150,106,1149,87,1117,72,1071,50,955,37,838,35,760,35,755,43,837,55,954,77,1070,92,1115,110,1146,112,1149"/>
+<area shape="poly" title=" " alt="" coords="107,1220,105,1219,85,1181,68,1125,55,1059,46,987,35,849,34,760,34,755,40,849,51,987,61,1058,73,1124,90,1178,110,1215,113,1219"/>
+<area shape="poly" title=" " alt="" coords="118,1299,106,1288,93,1269,82,1244,64,1180,51,1103,42,1020,33,861,34,760,34,755,38,861,47,1019,56,1102,69,1179,87,1242,98,1266,110,1285,123,1297"/>
+<area shape="poly" title=" " alt="" coords="106,1358,106,1357,92,1335,79,1307,60,1234,47,1147,38,1052,31,873,34,760,34,755,36,873,43,1052,52,1146,66,1233,85,1305,96,1333,110,1354,112,1357"/>
+<area shape="poly" title=" " alt="" coords="117,1640,106,1635,70,1608,45,1580,46,1575,74,1604,109,1631,123,1639"/>
 </map>
 </div>
 
@@ -662,7 +798,7 @@ template&lt;uint8_t N&gt; </div>
 
 <p>Largest number of loads assigned to any single remote unit. </p>
 
-<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00124">124</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00144">144</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -694,6 +830,74 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a9679d070377ade53a8315b4ec5bbece6" name="a9679d070377ade53a8315b4ec5bbece6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9679d070377ade53a8315b4ec5bbece6">&#9670;&#160;</a></span>overrideMasks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structLoad_1_1OverrideMasks.html">OverrideMasks</a>&lt; N &gt; Load::overrideMasks </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t(&amp;)</td>          <td class="paramname"><span class="paramname"><em>map</em></span>[N]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Build the override bits of a load map. </p>
+<p>An entry out of range (rejected by <a class="el" href="#a88996fa00857a07607a6543382aabeb4" title="Check that every entry of a load map designates a usable pin.">isValidMap()</a> and the remote load count checks) gets no bit, so that the error reported is that one.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>The load map. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00230">230</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceLoad_a9679d070377ade53a8315b4ec5bbece6_cgraph.png" border="0" usemap="#anamespaceLoad_a9679d070377ade53a8315b4ec5bbece6_cgraph" alt=""/></div>
+<map name="anamespaceLoad_a9679d070377ade53a8315b4ec5bbece6_cgraph" id="anamespaceLoad_a9679d070377ade53a8315b4ec5bbece6_cgraph">
+<area shape="rect" title="Build the override bits of a load map." alt="" coords="5,23,162,51"/>
+<area shape="rect" href="namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="412,24,517,52"/>
+<area shape="poly" title=" " alt="" coords="143,20,209,9,287,3,364,9,407,20,402,20,364,14,287,8,210,14,144,25"/>
+<area shape="rect" href="namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="239,23,334,51"/>
+<area shape="poly" title=" " alt="" coords="162,34,226,36,221,38,162,40"/>
+<area shape="rect" href="namespaceLoad.html#a54db0a4a5f07b8a23a48c7e8be9640c0" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="210,75,364,103"/>
+<area shape="poly" title=" " alt="" coords="141,49,217,70,212,71,140,54"/>
+<area shape="poly" title=" " alt="" coords="337,72,397,57,402,56,338,77"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceLoad_a9679d070377ade53a8315b4ec5bbece6_icgraph.png" border="0" usemap="#anamespaceLoad_a9679d070377ade53a8315b4ec5bbece6_icgraph" alt=""/></div>
+<map name="anamespaceLoad_a9679d070377ade53a8315b4ec5bbece6_icgraph" id="anamespaceLoad_a9679d070377ade53a8315b4ec5bbece6_icgraph">
+<area shape="rect" title="Build the override bits of a load map." alt="" coords="330,65,486,93"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aa55babe91a241e1902b369c04265f5ea" title=" " alt="" coords="108,5,282,67"/>
+<area shape="poly" title=" " alt="" coords="318,62,282,56,282,51,323,61"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac86822dc7a27827952067d504d333e08" title=" " alt="" coords="111,91,279,152"/>
+<area shape="poly" title=" " alt="" coords="324,96,280,107,279,102,318,97"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,65,60,93"/>
+<area shape="poly" title=" " alt="" coords="91,65,62,74,59,69,94,61"/>
+<area shape="poly" title=" " alt="" coords="93,97,60,89,60,83,98,94"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a846d844f03b72ddda22516ea20e81799" name="a846d844f03b72ddda22516ea20e81799"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a846d844f03b72ddda22516ea20e81799">&#9670;&#160;</a></span>pinOf()</h2>
 
@@ -719,98 +923,142 @@ Here is the caller graph for this function:</div>
 
 <p>The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote. </p>
 
-<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00081">81</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00101">101</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceLoad_a846d844f03b72ddda22516ea20e81799_icgraph.png" border="0" usemap="#anamespaceLoad_a846d844f03b72ddda22516ea20e81799_icgraph" alt=""/></div>
 <map name="anamespaceLoad_a846d844f03b72ddda22516ea20e81799_icgraph" id="anamespaceLoad_a846d844f03b72ddda22516ea20e81799_icgraph">
-<area shape="rect" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="1049,583,1144,610"/>
-<area shape="rect" href="validation_8h.html#aceb581f17d3f679ec643c0f5fc316196" title="Overrides reach the outputs through the load states and the relay engine only, so each override pin m..." alt="" coords="816,151,990,178"/>
-<area shape="poly" title=" " alt="" coords="1090,566,1079,481,1060,369,1034,262,1017,221,999,193,985,182,985,176,1003,189,1022,218,1039,260,1066,368,1084,481,1095,568"/>
-<area shape="rect" href="validation_8h.html#a07d77671cb50e935bf9015eb1bef3bcc" title=" " alt="" coords="856,203,950,230"/>
-<area shape="poly" title=" " alt="" coords="1089,566,1076,491,1057,395,1031,304,1015,269,999,245,976,230,951,222,950,217,978,225,1003,241,1020,266,1036,302,1062,393,1082,490,1094,568"/>
-<area shape="rect" href="group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="846,255,960,282"/>
-<area shape="poly" title=" " alt="" coords="1093,566,1087,510,1073,437,1062,399,1046,362,1025,327,999,297,981,284,960,277,959,271,983,280,1003,293,1029,324,1050,359,1067,397,1079,436,1093,509,1097,568"/>
-<area shape="rect" href="namespaceLoad.html#a88996fa00857a07607a6543382aabeb4" title="Check that every entry of a load map designates a usable pin." alt="" coords="837,683,968,710"/>
-<area shape="poly" title=" " alt="" coords="1067,619,1002,663,951,685,949,680,1000,658,1063,621"/>
-<area shape="rect" href="utils__override__helpers_8h.html#a8beeb966fc76657ca9f48713526dd35f" title="Returns the physical pin number for a LOCAL load." alt="" coords="850,803,956,830"/>
-<area shape="poly" title=" " alt="" coords="1091,624,1081,664,1063,709,1038,755,1003,793,981,806,957,814,956,809,979,801,999,789,1033,752,1059,707,1076,663,1087,628"/>
-<area shape="rect" href="utils__override_8h.html#aece58b485056402b91be81d615714b28" title="Bitmask of the pins of every local load (lower 16 bits)." alt="" coords="840,307,966,334"/>
-<area shape="poly" title=" " alt="" coords="1084,567,1052,490,1028,444,999,401,963,364,927,338,927,332,966,360,1003,397,1032,441,1057,488,1089,569"/>
-<area shape="rect" href="utils__override_8h.html#ab72aa66577de637d07a6d3bb1b809108" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="848,411,958,438"/>
-<area shape="poly" title=" " alt="" coords="1066,572,919,441,921,436,1071,572"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1e90d25bff3d841e925a7ee0f3adfe21" title=" " alt="" coords="805,552,1001,580"/>
-<area shape="poly" title=" " alt="" coords="1031,587,995,583,994,578,1036,586"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a80eee57fe7404fe25999412313eb4488" title=" " alt="" coords="826,604,980,648"/>
-<area shape="poly" title=" " alt="" coords="1031,607,981,617,980,612,1036,605"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a153e9dc902075f32fb57db2aa23f7c8b" title=" " alt="" coords="825,734,981,779"/>
-<area shape="poly" title=" " alt="" coords="1083,622,1051,675,1028,701,1003,724,982,736,980,731,999,720,1024,698,1046,672,1079,625"/>
-<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="807,876,999,904"/>
-<area shape="poly" title=" " alt="" coords="1093,623,1084,672,1067,729,1041,789,1023,818,1003,844,978,864,950,878,949,873,975,859,999,840,1019,815,1036,787,1062,727,1079,671,1089,627"/>
-<area shape="rect" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="833,971,973,998"/>
-<area shape="poly" title=" " alt="" coords="1095,624,1088,684,1072,759,1045,841,1026,880,1003,917,971,949,935,973,933,968,967,945,999,914,1021,878,1040,839,1067,758,1083,683,1091,628"/>
-<area shape="rect" href="group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="580,5,728,33"/>
-<area shape="poly" title=" " alt="" coords="829,259,803,244,785,219,777,194,776,168,778,143,780,119,779,95,772,71,755,48,729,31,728,25,758,44,777,69,785,94,786,119,783,144,781,168,782,193,790,216,806,240,834,259"/>
-<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="397,5,454,33"/>
-<area shape="poly" title=" " alt="" coords="563,21,456,22,453,17,567,18"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="563,797,745,842"/>
-<area shape="poly" title=" " alt="" coords="825,711,806,724,791,739,783,754,774,770,758,787,738,799,736,794,755,782,770,767,778,752,787,735,803,720,820,713"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a6edc3c18882bd89a34fed2ad718d6546" title=" " alt="" coords="566,866,742,911"/>
-<area shape="poly" title=" " alt="" coords="825,709,806,724,793,739,787,755,783,788,779,821,772,839,759,856,742,868,740,863,755,852,767,836,774,820,777,787,781,753,789,736,803,720,820,711"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a34f86f2e1854aedced0ec6e7267d0399" title=" " alt="" coords="559,658,749,703"/>
-<area shape="poly" title=" " alt="" coords="819,692,750,689,749,684,825,691"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a35522623f3d902b482054aa21bbcf3af" title=" " alt="" coords="566,728,742,772"/>
-<area shape="poly" title=" " alt="" coords="819,715,743,734,742,728,824,713"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="398,581,453,609"/>
-<area shape="poly" title=" " alt="" coords="554,788,550,787,506,743,471,693,446,646,432,612,433,607,450,643,476,690,510,740,553,782,560,789"/>
-<area shape="poly" title=" " alt="" coords="553,857,550,856,522,827,498,793,462,722,439,657,429,612,431,607,444,655,467,720,503,791,526,823,553,852,558,858"/>
-<area shape="poly" title=" " alt="" coords="575,653,453,608,453,602,580,651"/>
-<area shape="poly" title=" " alt="" coords="558,720,550,717,514,692,482,662,438,612,439,607,486,659,518,688,553,713,563,720"/>
-<area shape="rect" href="utils__override__helpers_8h.html#aacfc43b81341d59e7dd02a0eb307f6c6" title="Returns a bitmask representing all LOCAL load pins." alt="" coords="582,57,726,85"/>
-<area shape="poly" title=" " alt="" coords="823,309,803,296,785,271,777,245,776,220,778,195,781,170,780,146,772,122,755,98,741,88,727,81,726,76,744,84,759,95,777,119,785,145,786,170,784,195,781,220,782,244,790,268,807,292,829,308"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="578,109,730,154"/>
-<area shape="poly" title=" " alt="" coords="823,308,803,296,789,280,782,263,778,231,774,199,767,183,755,168,730,151,730,145,758,164,772,180,779,197,783,230,787,262,794,277,806,292,828,307"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1b9c634350ac05f34a47777b31d92453" title=" " alt="" coords="578,229,730,274"/>
-<area shape="poly" title=" " alt="" coords="831,303,804,296,731,275,730,270,805,291,837,301"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="574,298,734,343"/>
-<area shape="poly" title=" " alt="" coords="823,322,735,323,734,318,827,319"/>
-<area shape="rect" href="utils__override__helpers_8h.html#ad19b0f6bfb7e49c2a32b6bb68d3228cd" title="Returns a bitmask representing all loads (local + remote)." alt="" coords="378,57,473,85"/>
-<area shape="poly" title=" " alt="" coords="564,73,475,74,473,69,568,70"/>
-<area shape="rect" href="utils__override__helpers_8h.html#a1f9a7b43cca9e7e2cca9e7f2d052b07c" title="Returns a bitmask representing all loads and all relays." alt="" coords="108,57,295,85"/>
-<area shape="poly" title=" " alt="" coords="360,73,297,73,294,69,365,70"/>
-<area shape="poly" title=" " alt="" coords="563,157,553,168,514,218,484,276,462,337,447,399,437,457,432,509,429,582,424,580,427,509,432,456,442,397,457,336,479,274,510,216,549,164,566,153"/>
-<area shape="poly" title=" " alt="" coords="563,277,553,288,522,323,497,363,477,405,461,448,440,527,431,582,426,580,435,526,456,446,472,403,492,360,518,320,550,284,567,274"/>
-<area shape="poly" title=" " alt="" coords="559,350,553,357,527,383,505,413,469,478,446,538,433,582,428,580,441,536,464,476,500,410,523,380,550,353,562,346"/>
-<area shape="poly" title=" " alt="" coords="858,404,756,358,726,346,725,341,758,353,863,403"/>
-<area shape="rect" href="group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="551,177,757,205"/>
-<area shape="poly" title=" " alt="" coords="862,402,831,379,803,347,792,329,786,311,782,278,776,248,768,233,755,219,741,208,740,203,758,214,773,230,781,246,787,277,791,310,797,327,807,344,835,375,867,402"/>
-<area shape="rect" href="utils__override__helpers_8h.html#ab3ada13405f7827c8b4255eba95e4081" title="Returns the pin number for any load (local or remote)." alt="" coords="625,505,683,533"/>
-<area shape="poly" title=" " alt="" coords="860,447,814,473,758,496,684,516,682,511,756,491,811,468,864,445"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac7648d1668efa6a99495b61260ce0cf3" title=" " alt="" coords="557,368,751,412"/>
-<area shape="poly" title=" " alt="" coords="830,416,751,406,750,401,835,414"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#afdfeabe1158cf24b64eee1cc4910b668" title=" " alt="" coords="562,437,746,482"/>
-<area shape="poly" title=" " alt="" coords="830,435,747,449,746,444,835,433"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="350,177,502,205"/>
-<area shape="poly" title=" " alt="" coords="534,193,504,194,501,189,538,190"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="117,177,286,205"/>
-<area shape="poly" title=" " alt="" coords="332,193,288,193,285,189,336,190"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,177,55,205"/>
-<area shape="poly" title=" " alt="" coords="99,193,57,193,54,189,103,189"/>
-<area shape="poly" title=" " alt="" coords="556,422,553,427,512,465,478,508,436,583,431,579,474,505,508,461,550,422,560,418"/>
-<area shape="poly" title=" " alt="" coords="560,490,553,496,489,541,443,583,439,579,486,536,550,492,564,487"/>
-<area shape="poly" title=" " alt="" coords="787,574,454,596,453,591,791,571"/>
-<area shape="poly" title=" " alt="" coords="808,622,454,600,453,594,812,618"/>
-<area shape="poly" title=" " alt="" coords="814,784,807,793,794,809,788,826,786,860,782,894,774,911,758,925,705,955,679,962,654,965,629,962,604,955,550,925,513,892,484,851,462,806,446,758,429,670,426,612,428,607,434,670,451,757,467,804,488,848,517,888,553,921,606,950,630,957,654,960,678,957,703,950,755,921,769,907,777,893,781,860,783,825,790,807,803,789,809,786"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="570,985,738,1013"/>
-<area shape="poly" title=" " alt="" coords="868,911,816,942,758,970,708,987,707,982,756,965,813,937,862,912"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="348,985,503,1013"/>
-<area shape="poly" title=" " alt="" coords="552,999,504,1002,504,997,558,999"/>
-<area shape="rect" href="group__TimeCritical.html#gac1f07cd36657d61affe4642911ad27c1" title="Processes the current voltage raw sample for the specified phase." alt="" coords="103,985,300,1013"/>
-<area shape="poly" title=" " alt="" coords="330,999,301,1002,300,997,335,999"/>
-<area shape="rect" href="processing_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title=" " alt="" coords="9,985,51,1013"/>
-<area shape="poly" title=" " alt="" coords="85,1000,52,1002,51,997,90,998"/>
-<area shape="poly" title=" " alt="" coords="820,989,738,997,738,992,814,990"/>
+<area shape="rect" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="1112,779,1207,807"/>
+<area shape="rect" href="validation_8h.html#afec5bfb31058ece3c98c5bc005283250" title=" " alt="" coords="919,160,1012,188"/>
+<area shape="poly" title=" " alt="" coords="1155,763,1150,643,1136,474,1124,388,1108,310,1087,246,1075,221,1062,203,1039,187,1014,179,1012,174,1042,182,1066,199,1080,219,1092,244,1113,309,1129,388,1141,474,1155,642,1160,765"/>
+<area shape="rect" href="group__Initialization.html#ga14cc59dd6d400eda065ce5bddfacb53e" title="The pins the loads drive: the local TRIACs, plus the status LED of each remote load." alt="" coords="916,212,1016,240"/>
+<area shape="poly" title=" " alt="" coords="1155,763,1148,652,1132,499,1120,422,1105,351,1085,294,1062,255,1041,240,1017,232,1016,227,1043,235,1066,251,1090,292,1110,350,1125,421,1138,499,1153,652,1160,765"/>
+<area shape="rect" href="group__Initialization.html#gac599ad38730b3cb0276687ba6cbfaf1e" title="Retrieves the output pins configuration." alt="" coords="909,264,1022,292"/>
+<area shape="poly" title=" " alt="" coords="1154,763,1146,662,1129,525,1117,455,1102,393,1083,341,1062,307,1044,293,1024,285,1022,280,1046,289,1066,303,1088,339,1107,391,1122,454,1134,524,1151,661,1159,765"/>
+<area shape="rect" href="namespaceLoad.html#a88996fa00857a07607a6543382aabeb4" title="Check that every entry of a load map designates a usable pin." alt="" coords="900,316,1032,344"/>
+<area shape="poly" title=" " alt="" coords="1146,764,1111,663,1062,534,1012,425,974,347,975,342,1017,423,1066,532,1116,661,1152,765"/>
+<area shape="rect" href="namespaceRotation.html#a36513c8eb5ac373cec0e77e69744cac5" title="The loads a target code stands for, by load number." alt="" coords="899,1240,1033,1268"/>
+<area shape="poly" title=" " alt="" coords="1152,820,1119,935,1066,1075,1019,1171,978,1242,974,1238,1014,1169,1062,1073,1114,933,1149,824"/>
+<area shape="rect" href="utils__override_8h.html#aece58b485056402b91be81d615714b28" title="Bitmask of the pins of every local load (lower 16 bits)." alt="" coords="903,544,1028,572"/>
+<area shape="poly" title=" " alt="" coords="1142,765,1108,707,1062,643,1023,604,987,575,987,570,1026,600,1066,639,1113,705,1147,766"/>
+<area shape="rect" href="namespaceLoad.html#a9679d070377ade53a8315b4ec5bbece6" title="Build the override bits of a load map." alt="" coords="888,652,1044,680"/>
+<area shape="poly" title=" " alt="" coords="1131,768,1100,741,1063,713,1006,683,1005,678,1065,708,1104,737,1137,768"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac86822dc7a27827952067d504d333e08" title=" " alt="" coords="639,636,807,697"/>
+<area shape="poly" title=" " alt="" coords="1095,776,808,693,807,688,1100,774"/>
+<area shape="rect" href="utils__override_8h.html#ab72aa66577de637d07a6d3bb1b809108" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="911,779,1021,807"/>
+<area shape="poly" title=" " alt="" coords="1094,794,1022,796,1021,790,1099,792"/>
+<area shape="rect" href="classTargetMap.html#a464414e7658c5db11e79ceeb7fe42cf2" title="The pin that a single code stands for (any code but ALL_...())." alt="" coords="657,1063,789,1091"/>
+<area shape="poly" title=" " alt="" coords="1156,820,1148,865,1131,916,1104,968,1087,991,1066,1011,1034,1033,999,1050,926,1072,853,1082,790,1083,789,1078,853,1076,925,1066,997,1045,1031,1028,1062,1007,1083,987,1100,965,1126,914,1143,863,1153,824"/>
+<area shape="rect" href="validation_8h.html#a71818e18785fcb00e72b6daed42cd751" title="Overrides and boosts reach the outputs through the load states and the relay engine only,..." alt="" coords="896,1343,1036,1371"/>
+<area shape="poly" title=" " alt="" coords="1161,820,1161,906,1150,1024,1138,1090,1121,1156,1097,1221,1066,1281,1051,1301,1033,1319,995,1345,993,1340,1029,1315,1047,1298,1062,1278,1092,1218,1116,1154,1133,1088,1144,1023,1156,906,1158,825"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1e90d25bff3d841e925a7ee0f3adfe21" title=" " alt="" coords="868,831,1064,859"/>
+<area shape="poly" title=" " alt="" coords="1095,811,1021,833,1019,828,1099,808"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a80eee57fe7404fe25999412313eb4488" title=" " alt="" coords="889,883,1043,927"/>
+<area shape="poly" title=" " alt="" coords="1136,816,1103,847,1065,873,1041,884,1038,880,1063,868,1100,843,1131,819"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a153e9dc902075f32fb57db2aa23f7c8b" title=" " alt="" coords="888,952,1044,997"/>
+<area shape="poly" title=" " alt="" coords="1149,819,1117,882,1094,914,1066,942,1046,954,1043,950,1062,938,1090,911,1113,879,1145,823"/>
+<area shape="rect" href="group__TimeCritical.html#ga44ac46a7ff4e0717bd668d5907b38249" title="Updates the control ports for each of the physical loads." alt="" coords="896,1498,1036,1526"/>
+<area shape="poly" title=" " alt="" coords="1160,820,1158,919,1146,1061,1134,1141,1117,1223,1095,1305,1066,1383,1048,1418,1026,1451,983,1500,980,1495,1021,1447,1044,1416,1062,1381,1090,1303,1112,1222,1129,1140,1140,1060,1153,919,1157,825"/>
+<area shape="rect" href="validation_8h.html#ab24866c5cec7b4140dcd049e199a4c79" title="Each REMOTE_LOAD(n) target of an entry of list must be an existing remote load." alt="" coords="634,14,812,42"/>
+<area shape="poly" title=" " alt="" coords="883,318,866,306,844,273,836,241,836,209,841,178,846,147,846,116,838,85,818,55,806,45,805,39,822,51,843,83,852,115,851,147,846,179,842,210,841,241,849,271,870,302,889,317"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="632,65,814,110"/>
+<area shape="poly" title=" " alt="" coords="883,317,866,306,849,283,841,260,839,237,840,214,840,169,833,147,818,124,806,113,805,108,822,121,838,144,845,168,845,214,844,236,846,258,853,280,870,302,888,316"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a6edc3c18882bd89a34fed2ad718d6546" title=" " alt="" coords="635,135,811,179"/>
+<area shape="poly" title=" " alt="" coords="883,316,866,306,853,292,846,277,840,249,835,221,829,207,818,194,804,182,803,177,822,190,834,204,841,219,846,248,851,276,858,289,869,302,889,315"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a34f86f2e1854aedced0ec6e7267d0399" title=" " alt="" coords="628,204,818,249"/>
+<area shape="poly" title=" " alt="" coords="883,313,866,306,851,295,841,284,832,274,818,263,797,252,796,247,821,259,836,270,845,281,855,291,869,301,888,311"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a35522623f3d902b482054aa21bbcf3af" title=" " alt="" coords="635,273,811,318"/>
+<area shape="poly" title=" " alt="" coords="882,320,812,311,810,306,887,318"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aed68fc4ff8cb6df64bc796925d8e9084" title=" " alt="" coords="643,343,803,387"/>
+<area shape="poly" title=" " alt="" coords="882,343,805,356,802,351,887,340"/>
+<area shape="rect" href="validation_8h.html#ae1df6b53bb219de54ee6ea79ee4e1f81" title="Each REMOTE_LOAD(n) target of an override pin must be an existing remote load." alt="" coords="378,5,553,50"/>
+<area shape="poly" title=" " alt="" coords="616,29,555,30,552,25,621,26"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="438,528,493,556"/>
+<area shape="poly" title=" " alt="" coords="628,122,628,124,587,174,553,230,526,290,506,349,481,458,471,529,466,527,475,457,501,348,521,288,548,227,582,171,624,120,631,117"/>
+<area shape="poly" title=" " alt="" coords="628,191,628,194,591,234,560,280,535,329,514,378,486,468,472,529,467,527,480,466,509,376,530,327,556,277,587,231,624,190,632,186"/>
+<area shape="poly" title=" " alt="" coords="629,259,628,263,596,295,568,331,522,408,491,479,474,529,469,527,486,477,517,406,563,328,592,291,625,259,633,255"/>
+<area shape="poly" title=" " alt="" coords="631,328,628,332,575,382,531,438,497,491,476,529,471,527,493,488,526,435,571,378,625,328,634,324"/>
+<area shape="poly" title=" " alt="" coords="634,396,628,402,582,434,541,469,481,530,477,527,537,465,579,429,625,397,638,392"/>
+<area shape="rect" href="namespaceRotation.html#ac9dbe2a247e49dafaad508219c3dc8c7" title="The loads of group g, all its codes together." alt="" coords="643,1316,803,1344"/>
+<area shape="poly" title=" " alt="" coords="902,1274,771,1318,769,1313,907,1272"/>
+<area shape="rect" href="namespaceRotation.html#a17a4b1e578045cd1fd65c50b2f4cbf0d" title="No load is named twice, within a group or across groups." alt="" coords="639,1368,807,1396"/>
+<area shape="poly" title=" " alt="" coords="939,1277,886,1320,821,1358,788,1370,787,1365,819,1353,883,1315,934,1279"/>
+<area shape="rect" href="namespaceRotation.html#a238ea91bf428faeb307acf2254b41a65" title="Every code of every group stands for at least one load." alt="" coords="628,1420,818,1448"/>
+<area shape="poly" title=" " alt="" coords="933,1276,900,1304,870,1333,856,1354,848,1373,839,1391,821,1410,799,1422,797,1417,818,1406,835,1388,843,1371,851,1351,866,1330,897,1300,928,1279"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a921b649b122b06156c0508281f5d9179" title=" " alt="" coords="127,1059,286,1103"/>
+<area shape="poly" title=" " alt="" coords="919,1234,872,1215,819,1196,714,1171,569,1143,287,1096,286,1091,570,1138,715,1165,820,1190,874,1210,925,1233"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a5994bfc25a4c7c66626ebab72c3912dd" title=" " alt="" coords="135,1128,278,1173"/>
+<area shape="poly" title=" " alt="" coords="881,1237,819,1228,519,1186,279,1160,278,1155,519,1181,820,1222,886,1236"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a204ce9bf272bfa69ee0451c41f0f327c" title=" " alt="" coords="126,1197,287,1242"/>
+<area shape="poly" title=" " alt="" coords="882,1253,288,1226,287,1221,885,1248"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#ac2187be0fdc9583387598663ee52e69f" title=" " alt="" coords="113,1267,300,1311"/>
+<area shape="poly" title=" " alt="" coords="882,1260,301,1287,300,1282,884,1256"/>
+<area shape="rect" href="classRotation_1_1Table.html#a2db024b99e9182a421f03d1d61b4bbb1" title=" " alt="" coords="386,1316,546,1344"/>
+<area shape="poly" title=" " alt="" coords="625,1331,547,1333,546,1328,630,1330"/>
+<area shape="rect" href="namespaceRotation.html#a57cf6c54748dfbca21338d5b77c66b7d" title="In each group, every load is local, or every load is on the same remote unit." alt="" coords="356,1420,575,1448"/>
+<area shape="poly" title=" " alt="" coords="641,1349,628,1359,613,1371,605,1384,595,1397,580,1410,552,1422,549,1418,577,1405,591,1394,600,1381,609,1368,625,1355,636,1352"/>
+<area shape="rect" href="namespaceRotation.html#a3bd8dc9ec91cbd01ac61807186c1194b" title="Every group holds at least 2 loads." alt="" coords="353,1368,578,1396"/>
+<area shape="poly" title=" " alt="" coords="633,1349,539,1370,537,1365,638,1347"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a0b5919461811ca8a29d1aa9f989c026c" title=" " alt="" coords="118,1387,294,1431"/>
+<area shape="poly" title=" " alt="" coords="338,1423,295,1420,294,1415,343,1421"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a598e53502423cb24b8bca1111ba3d96d" title=" " alt="" coords="118,1456,294,1501"/>
+<area shape="poly" title=" " alt="" coords="363,1452,296,1466,294,1461,367,1450"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,1335,60,1363"/>
+<area shape="poly" title=" " alt="" coords="124,1383,61,1361,59,1356,128,1380"/>
+<area shape="poly" title=" " alt="" coords="112,1449,106,1446,84,1427,65,1405,42,1366,41,1361,70,1401,88,1423,109,1442,117,1447"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a317a77357ebb4d2d14ce3cd6a6241301" title=" " alt="" coords="113,1335,300,1363"/>
+<area shape="poly" title=" " alt="" coords="335,1367,300,1364,299,1358,340,1365"/>
+<area shape="poly" title=" " alt="" coords="96,1351,62,1351,59,1347,100,1347"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#afcd6a2399aaf4eff7348863d154e5ef5" title=" " alt="" coords="122,1524,290,1552"/>
+<area shape="poly" title=" " alt="" coords="641,1401,628,1411,613,1423,605,1436,595,1449,580,1462,527,1482,452,1501,292,1529,290,1524,451,1495,525,1477,577,1457,592,1446,600,1433,609,1420,625,1407,636,1404"/>
+<area shape="poly" title=" " alt="" coords="110,1517,106,1515,75,1479,54,1436,40,1395,36,1366,36,1361,45,1394,59,1434,79,1476,110,1511,115,1516"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#ae02980ca0e1540f877916886e4a05cc8" title=" " alt="" coords="391,1532,540,1577"/>
+<area shape="poly" title=" " alt="" coords="643,1453,628,1463,613,1474,604,1485,594,1496,580,1509,532,1534,530,1529,577,1504,591,1493,600,1481,610,1470,625,1459,638,1455"/>
+<area shape="poly" title=" " alt="" coords="388,1581,321,1599,248,1605,210,1603,174,1596,139,1584,106,1566,83,1545,66,1519,52,1491,43,1461,33,1405,33,1366,34,1361,38,1404,48,1460,57,1489,70,1516,87,1541,109,1562,141,1579,175,1591,211,1598,248,1600,320,1593,383,1582"/>
+<area shape="poly" title=" " alt="" coords="112,1113,110,1117,89,1143,73,1172,51,1235,40,1293,37,1335,31,1335,35,1292,46,1233,68,1170,85,1140,106,1114,115,1108"/>
+<area shape="poly" title=" " alt="" coords="120,1177,110,1187,80,1223,60,1265,46,1305,39,1335,34,1334,41,1304,55,1263,76,1220,106,1183,122,1173"/>
+<area shape="poly" title=" " alt="" coords="113,1252,109,1256,88,1275,70,1297,44,1336,39,1334,65,1293,84,1271,106,1252,116,1248"/>
+<area shape="poly" title=" " alt="" coords="124,1319,62,1342,58,1338,127,1315"/>
+<area shape="rect" href="classTargetMap.html#a9854eec5fe26949adc12534da598721f" title="The pins of an ALL_...() code: local pins in the lower 16 bits, remote loads from bit 16." alt="" coords="638,1011,808,1039"/>
+<area shape="poly" title=" " alt="" coords="926,583,897,609,870,642,855,670,847,695,840,742,837,790,832,817,822,849,801,897,777,944,736,1013,732,1009,772,941,796,895,817,847,827,816,832,789,835,741,842,694,850,668,865,640,894,606,930,579"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="647,481,799,526"/>
+<area shape="poly" title=" " alt="" coords="885,542,800,523,798,518,890,540"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1b9c634350ac05f34a47777b31d92453" title=" " alt="" coords="647,412,799,457"/>
+<area shape="poly" title=" " alt="" coords="929,536,879,505,818,471,793,460,792,455,821,467,881,500,934,535"/>
+<area shape="rect" href="classTargetMap.html#addc13e5c41027c9794828390352a3691" title="The local loads and relays that targets force, as a bitmask of pins." alt="" coords="374,1063,557,1091"/>
+<area shape="poly" title=" " alt="" coords="634,1044,539,1065,537,1060,638,1041"/>
+<area shape="rect" href="classTargetMap.html#a569944af2a4592b46e252e6f7814f0dd" title="The remote loads that targets force, as a bitmask (bit 0 = remote load 0)." alt="" coords="366,1011,565,1039"/>
+<area shape="poly" title=" " alt="" coords="621,1026,566,1027,564,1023,625,1024"/>
+<area shape="poly" title=" " alt="" coords="630,519,494,541,492,536,634,516"/>
+<area shape="poly" title=" " alt="" coords="640,465,627,471,495,531,491,527,625,467,644,461"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aa55babe91a241e1902b369c04265f5ea" title=" " alt="" coords="636,550,810,612"/>
+<area shape="poly" title=" " alt="" coords="907,648,811,614,810,609,912,646"/>
+<area shape="poly" title=" " alt="" coords="870,668,809,669,807,664,874,665"/>
+<area shape="poly" title=" " alt="" coords="618,567,495,549,492,544,623,564"/>
+<area shape="poly" title=" " alt="" coords="634,629,625,626,494,559,493,554,628,621,639,628"/>
+<area shape="poly" title=" " alt="" coords="893,803,882,811,870,821,850,849,843,878,843,906,846,935,850,964,850,993,842,1023,822,1052,807,1064,791,1071,788,1067,804,1059,818,1049,837,1020,845,992,845,964,841,935,837,906,837,877,846,847,866,818,879,807,898,800"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac7648d1668efa6a99495b61260ce0cf3" title=" " alt="" coords="626,791,820,835"/>
+<area shape="poly" title=" " alt="" coords="892,800,821,807,819,803,897,798"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#afdfeabe1158cf24b64eee1cc4910b668" title=" " alt="" coords="631,721,815,766"/>
+<area shape="poly" title=" " alt="" coords="893,780,816,765,815,760,898,778"/>
+<area shape="poly" title=" " alt="" coords="639,1078,558,1080,556,1074,644,1076"/>
+<area shape="poly" title=" " alt="" coords="639,1062,538,1042,537,1037,644,1060"/>
+<area shape="poly" title=" " alt="" coords="629,783,625,780,595,754,568,724,523,660,490,600,473,559,473,554,495,598,527,657,572,721,599,750,628,776,634,782"/>
+<area shape="poly" title=" " alt="" coords="632,715,625,711,576,673,533,630,477,559,477,554,537,626,580,669,628,707,637,713"/>
+<area shape="rect" href="validation_8h.html#aceb581f17d3f679ec643c0f5fc316196" title="Each override pin may only force local loads and relays." alt="" coords="636,1472,810,1500"/>
+<area shape="poly" title=" " alt="" coords="939,1380,886,1423,821,1462,788,1475,787,1469,819,1457,883,1419,934,1382"/>
+<area shape="poly" title=" " alt="" coords="850,859,787,866,722,867,665,862,625,850,586,820,554,783,528,741,507,697,479,615,469,559,470,554,484,614,512,695,533,738,558,779,590,816,628,845,666,857,722,862,787,860,855,857"/>
+<area shape="poly" title=" " alt="" coords="870,919,813,922,749,917,684,901,653,888,625,871,586,837,553,796,527,750,506,704,479,617,469,559,469,554,484,616,511,702,532,748,558,793,590,833,628,867,656,883,686,896,749,912,814,917,875,917"/>
+<area shape="poly" title=" " alt="" coords="869,985,812,986,747,978,683,960,652,945,625,927,582,885,547,836,520,782,500,727,475,625,468,559,469,554,480,624,505,725,525,780,552,833,586,882,628,923,655,941,684,955,748,973,812,981,874,983"/>
+<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="639,1558,807,1586"/>
+<area shape="poly" title=" " alt="" coords="895,1529,783,1560,782,1555,890,1530"/>
+<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="388,1612,543,1640"/>
+<area shape="poly" title=" " alt="" coords="642,1589,535,1615,534,1609,637,1590"/>
+<area shape="rect" href="group__TimeCritical.html#gac1f07cd36657d61affe4642911ad27c1" title="Processes the current voltage raw sample for the specified phase." alt="" coords="108,1626,305,1654"/>
+<area shape="poly" title=" " alt="" coords="370,1631,306,1637,305,1632,375,1631"/>
+<area shape="rect" href="processing_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title=" " alt="" coords="11,1626,54,1654"/>
+<area shape="poly" title=" " alt="" coords="90,1641,54,1642,54,1637,95,1639"/>
 </map>
 </div>
 
@@ -851,108 +1099,126 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>The packed entry, or invalidRemoteUnitEntry if the unit is not 1..MAX_REMOTE_UNITS. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00063">63</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00079">79</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceLoad_adb9797ea49459ec57cf3641aee0d7bd6_icgraph.png" border="0" usemap="#anamespaceLoad_adb9797ea49459ec57cf3641aee0d7bd6_icgraph" alt=""/></div>
 <map name="anamespaceLoad_adb9797ea49459ec57cf3641aee0d7bd6_icgraph" id="anamespaceLoad_adb9797ea49459ec57cf3641aee0d7bd6_icgraph">
-<area shape="rect" title="Declares a load driven by a remote unit over RF." alt="" coords="379,1016,486,1044"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a01203af8152e9616082cc6d5737634b8" title=" " alt="" coords="110,5,329,50"/>
-<area shape="poly" title=" " alt="" coords="428,1000,418,800,398,502,385,352,369,219,350,118,340,84,329,64,319,53,318,48,333,61,345,82,355,117,374,218,390,351,404,501,423,799,433,1001"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#af6b62e16608e334e0d24f14a4e568173" title=" " alt="" coords="133,75,306,119"/>
-<area shape="poly" title=" " alt="" coords="427,1001,417,813,396,537,383,398,367,276,349,183,339,152,329,133,307,115,305,110,333,130,344,150,354,182,372,275,388,398,402,537,422,813,433,1001"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a34697b40a74f3a95f1ff89a719c887b0" title=" " alt="" coords="140,144,298,189"/>
-<area shape="poly" title=" " alt="" coords="429,1000,429,837,418,598,406,474,388,361,363,267,347,230,329,203,315,190,300,181,298,176,318,186,333,199,352,228,368,265,393,359,412,474,424,598,434,837,435,1001"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1e307e81b14e9ea7bd00008e1453ebd1" title=" " alt="" coords="157,213,282,258"/>
-<area shape="poly" title=" " alt="" coords="429,1000,427,849,414,631,402,518,384,415,360,330,345,297,329,272,307,255,283,245,281,240,310,250,333,269,350,295,365,328,390,414,407,518,420,630,432,849,434,1001"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a94ad702b38939aa477b1126cccf4892f" title=" " alt="" coords="128,283,310,327"/>
-<area shape="poly" title=" " alt="" coords="428,1001,424,862,410,665,398,563,380,470,358,393,344,364,329,341,312,326,310,321,333,338,349,361,363,392,386,469,403,562,416,664,430,862,434,1001"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a21c6a116daf14b5d5b245130e42ee0ea" title=" " alt="" coords="126,351,313,379"/>
-<area shape="poly" title=" " alt="" coords="428,1001,424,870,409,687,396,594,379,509,357,439,344,412,329,392,314,379,312,374,333,388,348,409,362,437,384,507,402,593,414,687,429,870,434,1001"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#af7eaa697deaa5fe84ef7a000ee645cd1" title=" " alt="" coords="143,403,296,447"/>
-<area shape="poly" title=" " alt="" coords="427,1001,420,884,403,722,390,640,374,565,353,503,329,461,314,448,298,439,295,434,317,444,333,458,358,501,379,563,395,639,408,721,425,883,433,1001"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1639338ff20d86d16965f4b671cb3674" title=" " alt="" coords="143,472,296,517"/>
-<area shape="poly" title=" " alt="" coords="427,1001,417,897,399,756,386,685,370,620,351,567,329,531,313,518,297,508,295,504,316,513,333,527,356,565,375,618,391,683,404,755,423,896,432,1001"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a936bdf818c07cfdfc2596d177bc3c755" title=" " alt="" coords="144,541,295,586"/>
-<area shape="poly" title=" " alt="" coords="426,1001,414,910,394,790,366,675,348,630,329,600,313,587,297,578,294,573,316,583,333,597,353,628,371,673,399,789,419,909,431,1001"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1274ca63e260e0a7539014f1fdd9a1c4" title=" " alt="" coords="147,611,292,655"/>
-<area shape="poly" title=" " alt="" coords="429,1000,426,934,413,845,401,797,383,751,359,708,329,670,312,656,294,647,291,642,315,652,333,666,364,705,388,749,406,796,418,844,432,933,435,1001"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#af665f7c29cc8ba1bc9a94b66607c7d88" title=" " alt="" coords="120,680,319,725"/>
-<area shape="poly" title=" " alt="" coords="427,1001,420,946,404,876,392,839,375,802,355,769,329,739,317,728,315,723,333,735,359,766,380,800,397,837,410,874,426,945,432,1002"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a0b7da53239c63347a112ca8279e8af85" title=" " alt="" coords="138,748,301,776"/>
-<area shape="poly" title=" " alt="" coords="425,1001,416,955,399,897,371,839,352,812,329,790,303,774,300,769,333,786,356,809,375,836,404,895,421,953,431,1001"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="129,800,310,845"/>
-<area shape="poly" title=" " alt="" coords="420,1002,407,969,387,931,361,892,329,859,311,846,309,842,333,855,366,889,392,928,411,967,425,1002"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a6edc3c18882bd89a34fed2ad718d6546" title=" " alt="" coords="131,869,308,914"/>
-<area shape="poly" title=" " alt="" coords="410,1005,375,966,330,929,309,917,307,912,332,924,379,962,415,1004"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="144,939,295,983"/>
-<area shape="poly" title=" " alt="" coords="374,1012,330,998,296,986,293,981,332,993,379,1010"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a0a0b69b3dbc671592b16d05910f2eb30" title=" " alt="" coords="142,1008,296,1053"/>
-<area shape="poly" title=" " alt="" coords="362,1032,298,1033,295,1028,366,1029"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="139,1077,300,1122"/>
-<area shape="poly" title=" " alt="" coords="374,1052,332,1068,296,1079,292,1075,330,1062,378,1048"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac7648d1668efa6a99495b61260ce0cf3" title=" " alt="" coords="123,1147,316,1191"/>
-<area shape="poly" title=" " alt="" coords="411,1059,379,1098,332,1137,310,1148,306,1144,330,1132,375,1095,414,1054"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#afdfeabe1158cf24b64eee1cc4910b668" title=" " alt="" coords="127,1216,312,1261"/>
-<area shape="poly" title=" " alt="" coords="423,1056,411,1093,392,1133,366,1172,333,1206,314,1218,310,1214,329,1202,361,1169,387,1130,407,1091,421,1061"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#af46f8471c24b6ac26691340c1ab055f7" title=" " alt="" coords="133,1285,306,1346"/>
-<area shape="poly" title=" " alt="" coords="428,1057,419,1106,401,1163,373,1223,355,1250,333,1275,308,1293,304,1290,329,1271,350,1247,368,1220,396,1161,414,1105,426,1062"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a9ed309c05c66b91fd0ef285bd05edd3d" title=" " alt="" coords="128,1371,311,1415"/>
-<area shape="poly" title=" " alt="" coords="432,1057,429,1122,414,1202,401,1245,384,1286,361,1326,333,1360,313,1375,309,1371,329,1356,357,1323,379,1284,396,1243,409,1201,423,1121,430,1063"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a4b2c6f8bd6a07e242f7e116705f62dfb" title=" " alt="" coords="108,1440,331,1485"/>
-<area shape="poly" title=" " alt="" coords="428,1057,418,1145,397,1255,369,1360,352,1401,333,1429,319,1441,315,1438,329,1426,347,1398,364,1358,392,1254,413,1144,427,1062"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#acaba3232206430d7189d0eeaea27b89e" title=" " alt="" coords="139,1509,300,1554"/>
-<area shape="poly" title=" " alt="" coords="430,1057,421,1158,402,1289,389,1355,373,1415,354,1464,333,1499,318,1511,302,1520,298,1516,315,1507,329,1495,350,1462,368,1413,383,1354,396,1288,416,1157,428,1062"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a80eee57fe7404fe25999412313eb4488" title=" " alt="" coords="142,1579,296,1623"/>
-<area shape="poly" title=" " alt="" coords="430,1057,424,1171,406,1323,393,1400,377,1470,357,1528,333,1568,317,1582,299,1591,295,1587,314,1577,329,1565,352,1526,372,1468,388,1399,401,1322,419,1171,429,1062"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a153e9dc902075f32fb57db2aa23f7c8b" title=" " alt="" coords="141,1648,298,1693"/>
-<area shape="poly" title=" " alt="" coords="431,1057,427,1184,411,1356,398,1444,381,1525,360,1591,347,1617,333,1637,317,1651,300,1660,296,1656,314,1647,329,1634,342,1615,355,1589,376,1523,392,1443,405,1355,421,1183,430,1062"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a22f96dcf5229ee5ef61e6dc61a1498a8" title=" " alt="" coords="113,1717,326,1762"/>
-<area shape="poly" title=" " alt="" coords="432,1057,429,1196,415,1390,402,1489,385,1579,362,1655,348,1684,333,1707,320,1719,316,1715,329,1703,344,1681,357,1653,380,1578,397,1488,409,1389,424,1196,430,1063"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a7ef5cec310a37cbd48ea171685d6031d" title=" " alt="" coords="115,1786,324,1814"/>
-<area shape="poly" title=" " alt="" coords="432,1057,433,1209,421,1424,409,1534,391,1636,366,1719,351,1751,333,1776,320,1787,316,1783,329,1773,346,1749,361,1717,385,1634,403,1534,416,1423,427,1209,431,1062"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac1b1d713dcd107675d914f379f8bf386" title=" " alt="" coords="128,1838,311,1866"/>
-<area shape="poly" title=" " alt="" coords="433,1057,434,1217,424,1447,412,1566,393,1675,368,1765,352,1800,333,1827,313,1842,310,1838,329,1823,347,1797,363,1763,388,1674,406,1566,418,1447,429,1217,431,1062"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a7d1a27ec9a96e8d9f6fb28884517cd58" title=" " alt="" coords="141,1889,298,1934"/>
-<area shape="poly" title=" " alt="" coords="433,1057,435,1226,425,1471,413,1598,394,1715,368,1812,352,1849,333,1879,318,1893,300,1902,297,1897,315,1888,329,1875,347,1847,363,1810,389,1714,408,1597,419,1470,429,1226,431,1062"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ab84c00187c4042db57fbd4859de29696" title=" " alt="" coords="147,1959,292,2003"/>
-<area shape="poly" title=" " alt="" coords="431,1057,422,1251,402,1533,388,1675,372,1800,354,1895,344,1927,333,1948,315,1964,293,1974,291,1969,312,1959,329,1945,339,1925,349,1894,367,1799,383,1674,397,1532,417,1251,429,1062"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a3cdc2eedbcd0ce31f95486351ff9d5f1" title=" " alt="" coords="137,2028,302,2073"/>
-<area shape="poly" title=" " alt="" coords="431,1057,424,1264,404,1567,391,1721,374,1856,355,1960,345,1995,333,2017,319,2030,303,2040,301,2035,316,2026,329,2014,340,1993,350,1958,369,1856,385,1720,399,1567,418,1264,429,1062"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,1016,60,1044"/>
-<area shape="poly" title=" " alt="" coords="108,63,110,64,99,86,89,122,73,229,60,369,51,526,40,830,37,1016,31,1016,35,830,45,526,55,368,68,228,84,121,94,84,105,61,110,58"/>
-<area shape="poly" title=" " alt="" coords="119,122,110,133,100,153,91,186,75,285,62,415,53,560,41,842,37,1016,31,1016,36,842,47,560,57,414,69,285,85,185,95,151,106,130,121,117"/>
-<area shape="poly" title=" " alt="" coords="125,187,110,203,101,221,92,251,77,342,64,460,55,594,42,854,37,1016,32,1016,37,853,49,594,59,460,71,341,87,250,96,219,106,199,127,183"/>
-<area shape="poly" title=" " alt="" coords="141,249,125,258,110,272,101,289,93,316,79,399,56,629,43,867,37,1017,32,1016,38,867,51,629,73,398,88,315,96,287,106,269,122,254,144,244"/>
-<area shape="poly" title=" " alt="" coords="115,334,110,341,102,356,94,381,81,455,59,663,44,878,37,1016,32,1016,39,878,53,663,75,455,89,380,97,354,106,338,117,329"/>
-<area shape="poly" title=" " alt="" coords="112,388,110,392,102,405,95,428,81,496,59,688,44,888,37,1016,32,1016,39,888,54,688,76,496,90,427,97,403,106,389,114,383"/>
-<area shape="poly" title=" " alt="" coords="127,445,110,461,97,481,86,506,68,573,54,654,45,741,37,908,36,1016,31,1016,32,908,40,741,49,653,62,572,81,505,92,478,106,458,130,440"/>
-<area shape="poly" title=" " alt="" coords="128,514,110,531,88,570,71,627,59,697,49,773,39,919,37,1016,31,1016,34,919,44,773,53,697,66,626,83,568,106,527,131,509"/>
-<area shape="poly" title=" " alt="" coords="128,584,110,600,91,633,75,682,63,742,53,807,42,932,37,1016,32,1016,36,931,48,806,58,741,70,681,86,631,106,597,131,579"/>
-<area shape="poly" title=" " alt="" coords="131,652,110,669,93,697,79,737,58,840,44,944,37,1016,32,1016,39,943,52,839,74,735,89,694,106,666,134,647"/>
-<area shape="poly" title=" " alt="" coords="109,737,110,739,96,760,83,792,62,873,38,1016,33,1016,57,872,78,790,91,758,106,735,111,732"/>
-<area shape="poly" title=" " alt="" coords="122,779,109,790,87,816,70,845,57,878,48,911,38,972,36,1016,31,1016,33,972,43,910,52,876,65,843,83,812,106,786,125,774"/>
-<area shape="poly" title=" " alt="" coords="114,853,110,859,79,897,58,942,45,984,38,1016,33,1016,40,983,53,940,74,894,106,855,117,848"/>
-<area shape="poly" title=" " alt="" coords="116,922,109,928,87,949,68,973,43,1017,38,1015,63,970,83,945,106,924,119,918"/>
-<area shape="poly" title=" " alt="" coords="128,990,109,998,62,1019,58,1015,107,993,131,986"/>
-<area shape="poly" title=" " alt="" coords="125,1032,62,1032,58,1028,129,1028"/>
-<area shape="poly" title=" " alt="" coords="124,1073,107,1067,61,1046,59,1041,109,1063,128,1070"/>
-<area shape="poly" title=" " alt="" coords="112,1140,106,1136,83,1115,63,1090,41,1047,40,1042,68,1087,87,1112,109,1132,117,1138"/>
-<area shape="poly" title=" " alt="" coords="111,1210,106,1206,74,1166,53,1121,40,1078,36,1047,36,1042,45,1077,58,1119,79,1163,110,1202,116,1208"/>
-<area shape="poly" title=" " alt="" coords="118,1285,106,1275,84,1247,67,1216,45,1149,35,1088,34,1047,34,1042,40,1088,50,1148,72,1213,89,1244,110,1271,123,1283"/>
-<area shape="poly" title=" " alt="" coords="112,1366,106,1360,90,1335,76,1298,55,1206,40,1112,35,1047,35,1042,45,1111,60,1205,81,1297,95,1332,110,1357,117,1364"/>
-<area shape="poly" title=" " alt="" coords="107,1431,106,1429,87,1398,72,1353,50,1239,37,1124,35,1047,35,1042,43,1123,56,1238,77,1351,92,1396,110,1426,112,1429"/>
-<area shape="poly" title=" " alt="" coords="123,1513,106,1499,85,1461,68,1407,56,1342,46,1271,35,1135,34,1047,34,1042,40,1135,51,1271,61,1341,73,1406,90,1459,110,1495,128,1511"/>
-<area shape="poly" title=" " alt="" coords="126,1584,106,1568,93,1549,82,1524,64,1462,51,1386,42,1304,33,1147,34,1047,34,1042,38,1147,47,1303,57,1385,70,1460,87,1523,98,1547,110,1565,131,1582"/>
-<area shape="poly" title=" " alt="" coords="125,1653,106,1637,92,1616,80,1588,60,1516,47,1429,38,1336,31,1158,34,1047,34,1042,36,1158,44,1335,52,1429,66,1515,85,1586,96,1613,110,1634,130,1651"/>
-<area shape="poly" title=" " alt="" coords="106,1707,105,1706,97,1691,90,1666,76,1593,54,1390,39,1179,34,1047,34,1042,44,1179,59,1389,81,1592,95,1665,102,1689,110,1704,112,1706"/>
-<area shape="poly" title=" " alt="" coords="106,1776,105,1776,96,1759,88,1731,73,1650,61,1545,51,1425,37,1192,34,1047,34,1042,43,1192,56,1425,66,1544,78,1650,93,1730,101,1757,110,1773,111,1775"/>
-<area shape="poly" title=" " alt="" coords="112,1833,106,1827,96,1808,87,1779,71,1692,59,1578,49,1450,37,1200,34,1047,34,1042,42,1200,55,1449,64,1577,77,1691,92,1777,101,1806,110,1823,118,1832"/>
-<area shape="poly" title=" " alt="" coords="124,1894,106,1879,95,1859,86,1827,71,1734,58,1612,49,1476,36,1210,34,1047,34,1042,42,1210,54,1475,64,1612,76,1733,92,1826,100,1857,110,1875,129,1893"/>
-<area shape="poly" title=" " alt="" coords="131,1967,106,1948,95,1926,85,1892,69,1790,56,1658,47,1509,35,1222,34,1047,34,1042,41,1222,52,1509,62,1658,74,1790,90,1890,100,1924,110,1945,136,1966"/>
-<area shape="poly" title=" " alt="" coords="121,2030,106,2017,94,1994,84,1956,67,1847,54,1704,45,1543,34,1234,34,1047,34,1042,40,1233,50,1543,60,1703,72,1846,89,1955,99,1992,110,2014,126,2030"/>
+<area shape="rect" title="Declares a load driven by a remote unit over RF." alt="" coords="379,1194,486,1222"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a01203af8152e9616082cc6d5737634b8" title=" " alt="" coords="110,75,329,119"/>
+<area shape="poly" title=" " alt="" coords="428,1178,420,958,402,625,388,457,372,308,352,195,341,156,329,133,319,122,318,117,333,130,346,154,357,193,377,307,394,456,407,625,425,957,433,1179"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#af6b62e16608e334e0d24f14a4e568173" title=" " alt="" coords="133,144,306,189"/>
+<area shape="poly" title=" " alt="" coords="428,1178,419,969,400,659,386,503,370,365,351,259,340,224,329,203,307,184,305,179,333,199,345,222,356,258,375,364,391,502,405,659,424,969,433,1178"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a34697b40a74f3a95f1ff89a719c887b0" title=" " alt="" coords="140,213,298,258"/>
+<area shape="poly" title=" " alt="" coords="427,1178,417,983,398,695,384,550,368,422,349,325,339,292,329,272,315,259,300,250,298,245,318,255,333,269,344,290,355,323,373,421,389,549,403,695,423,983,433,1179"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1e307e81b14e9ea7bd00008e1453ebd1" title=" " alt="" coords="157,283,282,327"/>
+<area shape="poly" title=" " alt="" coords="427,1178,416,995,395,730,382,596,366,479,348,389,339,359,329,341,307,324,283,314,280,309,310,319,333,338,343,357,353,388,371,478,387,596,401,729,421,995,432,1178"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a94ad702b38939aa477b1126cccf4892f" title=" " alt="" coords="128,352,310,397"/>
+<area shape="poly" title=" " alt="" coords="429,1178,428,1021,417,790,405,671,387,562,362,472,346,437,329,411,312,395,310,390,333,407,351,435,367,470,392,561,410,671,422,790,433,1021,434,1179"/>
+<area shape="rect" href="native_2test__dual__tariff_2test__main_8cpp.html#ab1856ca4c3f60ab8bfa373c4bc92a473" title=" " alt="" coords="138,5,300,50"/>
+<area shape="poly" title=" " alt="" coords="428,1178,421,945,404,590,390,410,374,251,353,130,341,89,329,64,316,52,302,43,300,38,319,47,333,61,346,87,358,128,379,250,396,410,409,590,426,944,433,1178"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a21c6a116daf14b5d5b245130e42ee0ea" title=" " alt="" coords="126,420,313,448"/>
+<area shape="poly" title=" " alt="" coords="429,1178,427,1028,416,813,404,702,386,600,361,517,346,485,329,462,314,449,313,444,333,458,351,483,366,515,391,599,409,701,421,812,433,1028,434,1179"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#af7eaa697deaa5fe84ef7a000ee645cd1" title=" " alt="" coords="143,472,296,517"/>
+<area shape="poly" title=" " alt="" coords="428,1178,424,1042,410,848,397,748,380,657,357,582,344,553,329,531,314,517,298,508,295,503,317,513,333,527,349,550,362,580,385,656,402,747,415,847,429,1042,434,1179"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1639338ff20d86d16965f4b671cb3674" title=" " alt="" coords="143,541,296,586"/>
+<area shape="poly" title=" " alt="" coords="428,1178,421,1054,405,881,393,792,376,712,355,645,342,620,329,600,313,587,297,577,294,573,316,582,333,597,347,617,360,643,381,710,398,792,411,880,427,1054,433,1179"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a936bdf818c07cfdfc2596d177bc3c755" title=" " alt="" coords="144,611,295,655"/>
+<area shape="poly" title=" " alt="" coords="427,1178,419,1067,401,915,388,837,372,767,352,709,329,669,313,656,297,647,294,642,316,652,333,666,357,707,377,765,393,836,406,914,424,1067,432,1179"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1274ca63e260e0a7539014f1fdd9a1c4" title=" " alt="" coords="147,680,292,725"/>
+<area shape="poly" title=" " alt="" coords="426,1179,416,1081,397,949,384,882,368,822,350,772,329,739,312,725,294,715,291,711,315,720,333,735,355,770,373,820,389,881,402,948,421,1080,432,1179"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#af665f7c29cc8ba1bc9a94b66607c7d88" title=" " alt="" coords="120,749,319,794"/>
+<area shape="poly" title=" " alt="" coords="425,1179,413,1094,392,983,364,877,347,836,329,808,318,797,316,792,333,805,352,833,369,875,397,982,418,1093,430,1179"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a0b7da53239c63347a112ca8279e8af85" title=" " alt="" coords="138,818,301,846"/>
+<area shape="poly" title=" " alt="" coords="430,1178,427,1112,414,1026,401,980,383,936,360,895,329,859,302,842,300,837,333,855,364,892,388,933,406,978,419,1025,432,1112,435,1179"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a8fcad1820e4b1824e203ad9f83e1759b" title=" " alt="" coords="129,869,310,914"/>
+<area shape="poly" title=" " alt="" coords="427,1178,419,1125,403,1058,374,988,354,956,329,928,311,914,309,909,333,924,358,953,379,986,408,1056,424,1124,432,1179"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a6edc3c18882bd89a34fed2ad718d6546" title=" " alt="" coords="131,939,308,983"/>
+<area shape="poly" title=" " alt="" coords="423,1179,412,1139,393,1090,366,1040,329,998,309,983,307,978,333,994,370,1037,398,1088,417,1137,428,1179"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ae4fdf9e5cb0d0b000a5f5b04e7b4387d" title=" " alt="" coords="144,1008,295,1053"/>
+<area shape="poly" title=" " alt="" coords="416,1180,382,1123,358,1093,329,1067,296,1049,294,1044,333,1063,362,1089,387,1120,421,1180"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#ac2187be0fdc9583387598663ee52e69f" title=" " alt="" coords="126,2407,313,2451"/>
+<area shape="poly" title=" " alt="" coords="431,1235,427,1478,410,1846,397,2033,380,2199,359,2326,347,2369,333,2396,315,2412,312,2407,329,2393,342,2367,354,2324,375,2198,392,2033,405,1846,422,1478,430,1240"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a0a0b69b3dbc671592b16d05910f2eb30" title=" " alt="" coords="142,1077,296,1122"/>
+<area shape="poly" title=" " alt="" coords="401,1185,369,1160,330,1137,298,1122,296,1118,332,1132,372,1156,406,1183"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="139,1147,300,1191"/>
+<area shape="poly" title=" " alt="" coords="362,1197,301,1186,299,1181,366,1194"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aa55babe91a241e1902b369c04265f5ea" title=" " alt="" coords="132,1216,306,1277"/>
+<area shape="poly" title=" " alt="" coords="362,1222,309,1233,305,1228,366,1218"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac86822dc7a27827952067d504d333e08" title=" " alt="" coords="135,1301,304,1362"/>
+<area shape="poly" title=" " alt="" coords="404,1234,373,1263,332,1291,306,1304,302,1301,330,1287,370,1259,407,1230"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac7648d1668efa6a99495b61260ce0cf3" title=" " alt="" coords="123,1387,316,1431"/>
+<area shape="poly" title=" " alt="" coords="421,1239,391,1307,365,1344,333,1376,315,1388,310,1384,329,1372,361,1341,386,1304,422,1234"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#afdfeabe1158cf24b64eee1cc4910b668" title=" " alt="" coords="127,1456,312,1501"/>
+<area shape="poly" title=" " alt="" coords="428,1234,420,1282,402,1338,373,1396,355,1422,333,1446,314,1458,310,1455,329,1442,351,1419,369,1393,397,1336,415,1281,426,1239"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#af46f8471c24b6ac26691340c1ab055f7" title=" " alt="" coords="133,1525,306,1586"/>
+<area shape="poly" title=" " alt="" coords="430,1234,426,1295,409,1368,397,1407,380,1446,359,1482,333,1515,308,1534,304,1530,329,1511,354,1479,375,1444,392,1406,404,1367,420,1294,429,1240"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a9ed309c05c66b91fd0ef285bd05edd3d" title=" " alt="" coords="128,1611,311,1655"/>
+<area shape="poly" title=" " alt="" coords="428,1234,417,1321,397,1429,368,1532,352,1572,333,1600,314,1615,309,1612,329,1597,347,1570,363,1530,391,1428,412,1320,427,1239"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a4b2c6f8bd6a07e242f7e116705f62dfb" title=" " alt="" coords="108,1680,331,1725"/>
+<area shape="poly" title=" " alt="" coords="429,1234,421,1334,401,1463,388,1528,372,1587,354,1636,333,1669,319,1681,315,1678,329,1666,349,1633,367,1585,383,1527,396,1462,415,1333,428,1240"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#acaba3232206430d7189d0eeaea27b89e" title=" " alt="" coords="139,1749,300,1794"/>
+<area shape="poly" title=" " alt="" coords="430,1234,424,1347,406,1496,393,1572,376,1642,357,1699,333,1739,318,1751,302,1760,299,1756,315,1747,329,1735,352,1697,371,1640,387,1571,401,1496,418,1346,429,1239"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a80eee57fe7404fe25999412313eb4488" title=" " alt="" coords="142,1819,296,1863"/>
+<area shape="poly" title=" " alt="" coords="431,1235,426,1360,410,1530,397,1617,380,1697,359,1762,347,1788,333,1808,317,1822,299,1831,295,1827,314,1818,329,1805,342,1785,354,1760,375,1695,392,1616,405,1529,421,1359,430,1240"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aed68fc4ff8cb6df64bc796925d8e9084" title=" " alt="" coords="139,1888,300,1933"/>
+<area shape="poly" title=" " alt="" coords="432,1234,429,1372,414,1563,402,1661,384,1751,362,1826,348,1855,333,1877,318,1891,302,1899,298,1896,315,1886,329,1874,344,1852,357,1824,379,1750,396,1661,409,1563,424,1372,430,1240"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a153e9dc902075f32fb57db2aa23f7c8b" title=" " alt="" coords="141,1957,298,2002"/>
+<area shape="poly" title=" " alt="" coords="432,1234,431,1384,418,1596,406,1706,388,1806,364,1889,350,1922,333,1947,318,1960,300,1970,296,1966,314,1956,329,1943,345,1919,359,1887,383,1805,401,1705,413,1596,426,1384,431,1240"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a22f96dcf5229ee5ef61e6dc61a1498a8" title=" " alt="" coords="113,2027,326,2071"/>
+<area shape="poly" title=" " alt="" coords="432,1234,433,1396,423,1629,410,1750,392,1860,367,1952,351,1988,333,2016,320,2028,316,2024,329,2013,346,1986,362,1951,387,1859,405,1749,417,1629,428,1396,431,1239"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a7ef5cec310a37cbd48ea171685d6031d" title=" " alt="" coords="115,2095,324,2123"/>
+<area shape="poly" title=" " alt="" coords="431,1235,422,1422,402,1691,388,1826,372,1945,354,2035,344,2066,333,2085,320,2097,316,2093,329,2082,339,2064,349,2034,367,1944,383,1826,397,1691,417,1422,429,1240"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac1b1d713dcd107675d914f379f8bf386" title=" " alt="" coords="128,2147,311,2175"/>
+<area shape="poly" title=" " alt="" coords="431,1234,423,1431,404,1716,390,1860,374,1987,355,2083,344,2116,333,2136,313,2151,310,2147,329,2133,340,2113,350,2081,369,1986,385,1859,398,1716,418,1431,429,1240"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a7d1a27ec9a96e8d9f6fb28884517cd58" title=" " alt="" coords="141,2199,298,2243"/>
+<area shape="poly" title=" " alt="" coords="431,1235,423,1440,404,1742,390,1894,374,2028,355,2131,345,2166,333,2188,318,2202,300,2211,297,2207,315,2198,329,2185,340,2164,350,2130,369,2028,385,1893,399,1741,418,1440,430,1240"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ab84c00187c4042db57fbd4859de29696" title=" " alt="" coords="147,2268,292,2313"/>
+<area shape="poly" title=" " alt="" coords="431,1235,425,1453,406,1777,393,1941,376,2085,357,2196,345,2234,333,2257,315,2273,293,2284,290,2279,312,2269,329,2254,340,2232,351,2195,371,2085,387,1940,401,1776,419,1453,430,1240"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a3cdc2eedbcd0ce31f95486351ff9d5f1" title=" " alt="" coords="137,2337,302,2382"/>
+<area shape="poly" title=" " alt="" coords="431,1234,426,1466,408,1811,395,1987,378,2142,358,2261,346,2301,333,2327,319,2340,303,2349,301,2344,316,2335,329,2323,341,2299,353,2259,373,2141,390,1986,403,1811,420,1465,430,1240"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,1194,60,1222"/>
+<area shape="poly" title=" " alt="" coords="108,132,110,133,98,158,87,198,70,318,57,474,48,650,38,989,37,1193,31,1193,33,989,42,650,51,474,64,317,82,197,93,156,105,130,110,127"/>
+<area shape="poly" title=" " alt="" coords="119,192,110,203,99,225,89,263,72,374,59,520,50,684,39,1000,37,1193,31,1193,34,1000,44,684,54,520,66,374,83,262,94,223,106,199,121,187"/>
+<area shape="poly" title=" " alt="" coords="125,257,110,272,99,293,90,328,74,431,61,566,52,718,40,1013,37,1194,31,1193,35,1013,46,718,56,566,68,430,85,327,94,291,106,269,127,252"/>
+<area shape="poly" title=" " alt="" coords="141,318,125,328,110,341,100,360,91,392,76,488,63,612,53,752,41,1024,37,1193,31,1193,36,1024,48,752,58,612,70,487,86,391,95,359,106,338,122,323,144,313"/>
+<area shape="poly" title=" " alt="" coords="115,403,110,411,101,428,92,457,78,545,65,659,55,787,42,1037,37,1194,32,1194,37,1037,50,787,60,658,72,544,87,456,96,426,105,407,117,398"/>
+<area shape="rect" href="native_2test__dual__tariff_2test__main_8cpp.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,14,60,42"/>
+<area shape="poly" title=" " alt="" coords="121,30,62,30,58,26,125,26"/>
+<area shape="poly" title=" " alt="" coords="112,457,110,461,101,477,93,504,78,585,66,691,56,811,43,1045,37,1193,32,1193,37,1045,51,811,60,691,73,584,88,503,96,475,106,458,114,452"/>
+<area shape="poly" title=" " alt="" coords="127,514,110,531,102,545,95,570,81,643,59,847,44,1058,37,1194,32,1193,39,1058,54,846,76,642,90,568,97,543,106,527,129,510"/>
+<area shape="poly" title=" " alt="" coords="128,583,110,600,96,621,84,649,65,720,52,807,43,901,36,1079,36,1194,31,1194,31,1079,38,900,47,806,60,719,79,647,92,618,106,597,131,578"/>
+<area shape="poly" title=" " alt="" coords="129,652,110,669,98,688,87,712,69,774,56,850,47,933,38,1090,36,1193,31,1193,33,1090,42,932,51,849,64,773,82,710,93,685,106,666,131,648"/>
+<area shape="poly" title=" " alt="" coords="131,721,110,739,89,775,73,829,61,894,51,965,40,1102,37,1193,31,1193,35,1102,46,965,55,893,68,828,85,773,106,735,134,716"/>
+<area shape="poly" title=" " alt="" coords="109,807,110,808,92,838,77,883,55,998,43,1114,37,1193,32,1193,37,1114,50,997,72,882,87,836,106,805,111,802"/>
+<area shape="poly" title=" " alt="" coords="123,847,110,859,93,884,79,923,57,1022,44,1123,37,1194,32,1193,39,1122,52,1021,74,921,88,882,106,855,125,842"/>
+<area shape="poly" title=" " alt="" coords="115,921,110,928,85,960,67,996,53,1034,44,1073,36,1144,36,1194,30,1194,31,1144,39,1072,48,1033,62,994,81,957,106,925,117,916"/>
+<area shape="poly" title=" " alt="" coords="117,990,110,998,90,1020,75,1046,53,1102,42,1155,37,1194,32,1193,36,1154,48,1101,70,1044,86,1017,106,994,119,985"/>
+<area shape="poly" title=" " alt="" coords="128,1053,109,1067,82,1097,62,1133,40,1194,35,1193,57,1130,78,1094,106,1063,131,1049"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,2415,60,2443"/>
+<area shape="poly" title=" " alt="" coords="108,2431,60,2432,60,2426,112,2427"/>
+<area shape="poly" title=" " alt="" coords="127,1126,109,1137,73,1165,47,1194,42,1192,70,1162,106,1132,129,1122"/>
+<area shape="poly" title=" " alt="" coords="122,1191,62,1204,58,1200,125,1187"/>
+<area shape="poly" title=" " alt="" coords="115,1227,62,1215,59,1211,119,1223"/>
+<area shape="poly" title=" " alt="" coords="119,1299,106,1291,68,1257,44,1224,43,1219,72,1253,109,1287,123,1296"/>
+<area shape="poly" title=" " alt="" coords="110,1379,106,1376,75,1339,54,1295,41,1254,36,1225,36,1219,46,1253,59,1293,80,1336,110,1372,115,1377"/>
+<area shape="poly" title=" " alt="" coords="112,1451,106,1446,84,1419,67,1389,45,1325,34,1265,34,1224,34,1219,40,1264,50,1323,72,1387,88,1416,110,1442,117,1449"/>
+<area shape="poly" title=" " alt="" coords="118,1526,106,1515,91,1491,78,1457,57,1372,36,1225,35,1219,62,1371,83,1455,96,1489,110,1511,123,1524"/>
+<area shape="poly" title=" " alt="" coords="113,1606,106,1600,88,1569,73,1525,51,1412,38,1299,35,1224,35,1219,43,1299,56,1412,78,1523,92,1567,110,1597,118,1605"/>
+<area shape="poly" title=" " alt="" coords="107,1671,106,1669,85,1633,69,1579,56,1515,47,1445,35,1311,34,1224,34,1219,41,1311,52,1445,61,1514,74,1578,90,1630,110,1666,112,1669"/>
+<area shape="poly" title=" " alt="" coords="123,1753,106,1739,93,1720,82,1696,65,1634,52,1559,43,1478,33,1323,34,1225,34,1219,39,1323,48,1477,57,1558,70,1632,87,1694,98,1717,110,1735,128,1751"/>
+<area shape="poly" title=" " alt="" coords="126,1824,106,1808,92,1787,80,1759,61,1688,47,1603,39,1511,31,1335,34,1225,34,1219,36,1335,44,1510,53,1602,66,1687,85,1757,96,1784,110,1805,131,1822"/>
+<area shape="poly" title=" " alt="" coords="123,1892,105,1877,90,1837,76,1765,54,1563,39,1355,34,1224,34,1219,44,1355,59,1563,81,1764,95,1835,110,1874,128,1890"/>
+<area shape="poly" title=" " alt="" coords="125,1963,106,1947,97,1929,88,1902,74,1821,52,1598,38,1368,34,1224,34,1219,43,1367,57,1598,79,1821,94,1901,102,1927,110,1943,130,1961"/>
+<area shape="poly" title=" " alt="" coords="106,2017,105,2016,96,1997,87,1967,72,1878,60,1763,50,1632,37,1380,34,1224,34,1219,42,1380,55,1632,65,1762,77,1877,92,1965,101,1995,110,2013,112,2015"/>
+<area shape="poly" title=" " alt="" coords="106,2085,105,2085,95,2065,85,2032,69,1936,56,1810,47,1668,35,1393,34,1225,34,1219,41,1393,52,1668,62,1809,74,1935,90,2031,100,2063,110,2082,111,2084"/>
+<area shape="poly" title=" " alt="" coords="112,2142,106,2136,94,2114,84,2079,68,1977,55,1844,45,1693,35,1402,34,1225,34,1219,40,1402,51,1693,60,1843,73,1977,89,2078,99,2112,110,2133,118,2141"/>
+<area shape="poly" title=" " alt="" coords="124,2203,106,2188,94,2165,84,2128,67,2019,54,1877,45,1718,34,1410,34,1225,34,1219,40,1410,50,1718,60,1877,73,2018,89,2126,99,2163,110,2185,129,2202"/>
+<area shape="poly" title=" " alt="" coords="130,2276,106,2257,93,2232,83,2192,65,2075,52,1923,43,1752,34,1422,34,1225,34,1219,39,1422,48,1752,58,1923,71,2075,88,2191,98,2230,110,2254,136,2275"/>
+<area shape="poly" title=" " alt="" coords="121,2340,106,2327,93,2300,81,2257,63,2132,50,1969,41,1786,33,1434,34,1225,34,1219,38,1434,47,1786,56,1969,69,2132,87,2256,98,2298,110,2323,126,2339"/>
 </map>
 </div>
 
@@ -988,7 +1254,7 @@ template&lt;uint8_t N&gt; </div>
 </div><div class="memdoc">
 
 <p>Rank of a remote load among the remote loads, in ascending map order. </p>
-<p>This is the ordinal used by the virtual-pin space of the override subsystem (<code>REMOTE_PIN_BASE</code> + ordinal) and by bit 16+ordinal of the <code><a class="el" href="utils__override__helpers_8h.html#a56b1293dc6f12ee82283d9630b026306" title="Returns a bitmask representing all REMOTE loads.">ALL_REMOTE_LOADS()</a></code> bitmask.</p>
+<p>This is the ordinal used by the virtual-pin space of the override subsystem (<code>REMOTE_PIN_BASE</code> + ordinal) and by bit 16+ordinal of the <code><a class="el" href="config__types_8h.html#a2c2103d3e6ef4a17b3be0c4c77627e7a" title="Every remote load.">ALL_REMOTE_LOADS()</a></code> bitmask.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">map</td><td>The load map. </td></tr>
@@ -997,7 +1263,7 @@ template&lt;uint8_t N&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00156">156</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00176">176</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1013,42 +1279,34 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceLoad_a54db0a4a5f07b8a23a48c7e8be9640c0_icgraph.png" border="0" usemap="#anamespaceLoad_a54db0a4a5f07b8a23a48c7e8be9640c0_icgraph" alt=""/></div>
 <map name="anamespaceLoad_a54db0a4a5f07b8a23a48c7e8be9640c0_icgraph" id="anamespaceLoad_a54db0a4a5f07b8a23a48c7e8be9640c0_icgraph">
-<area shape="rect" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="1065,311,1219,338"/>
-<area shape="rect" href="utils__override_8h.html#ab72aa66577de637d07a6d3bb1b809108" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="856,152,966,180"/>
-<area shape="poly" title=" " alt="" coords="1105,301,932,183,933,178,1110,302"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a22f96dcf5229ee5ef61e6dc61a1498a8" title=" " alt="" coords="805,302,1017,347"/>
-<area shape="poly" title=" " alt="" coords="1047,325,1017,327,1017,322,1052,324"/>
-<area shape="rect" href="group__TimeCritical.html#ga1950a35c4c210dae480943adca0a3c88" title="Updates the physical load states based on logical load priorities and states." alt="" coords="815,371,1007,398"/>
-<area shape="poly" title=" " alt="" coords="1079,343,1018,362,974,373,973,367,1016,357,1074,343"/>
-<area shape="rect" href="group__DualTariff.html#gaf02bde0d44c73c6a662d2adc64d17092" title="Calculates the dual tariff forcing bitmasks based on current conditions." alt="" coords="551,5,757,33"/>
-<area shape="poly" title=" " alt="" coords="882,141,827,95,792,70,756,48,725,36,725,31,758,43,795,65,831,91,887,142"/>
-<area shape="rect" href="utils__override__helpers_8h.html#ab3ada13405f7827c8b4255eba95e4081" title="Returns the pin number for any load (local or remote)." alt="" coords="625,57,683,85"/>
-<area shape="poly" title=" " alt="" coords="866,145,815,123,756,99,683,79,683,74,758,94,817,118,871,145"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a4fd1385e40333697d75d8fb1f93fd487" title=" " alt="" coords="574,109,734,154"/>
-<area shape="poly" title=" " alt="" coords="838,157,735,145,735,139,843,156"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac7648d1668efa6a99495b61260ce0cf3" title=" " alt="" coords="557,178,751,223"/>
-<area shape="poly" title=" " alt="" coords="838,176,752,190,751,185,843,175"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#afdfeabe1158cf24b64eee1cc4910b668" title=" " alt="" coords="562,248,746,292"/>
-<area shape="poly" title=" " alt="" coords="869,186,758,238,726,249,725,244,756,233,864,187"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga138363324cdfb878a017c41a0d33bcf3" title="Gets the combined bitmasks of all active override pins and dual tariff forcing." alt="" coords="350,5,502,33"/>
-<area shape="poly" title=" " alt="" coords="534,20,503,22,502,17,539,18"/>
-<area shape="rect" href="group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="117,5,286,33"/>
-<area shape="poly" title=" " alt="" coords="332,20,287,22,285,17,337,18"/>
-<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,55,33"/>
-<area shape="poly" title=" " alt="" coords="99,21,57,21,54,17,103,17"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="398,221,453,249"/>
-<area shape="poly" title=" " alt="" coords="564,160,552,168,497,196,451,223,449,218,495,192,550,163,569,158"/>
-<area shape="poly" title=" " alt="" coords="539,218,454,234,453,229,544,217"/>
-<area shape="poly" title=" " alt="" coords="544,254,453,242,453,237,549,253"/>
-<area shape="poly" title=" " alt="" coords="786,331,672,329,611,321,551,307,520,296,491,281,445,252,447,247,494,276,522,291,552,302,612,316,673,324,792,331"/>
-<area shape="rect" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0." alt="" coords="570,371,738,398"/>
-<area shape="poly" title=" " alt="" coords="797,385,738,387,738,382,802,384"/>
-<area shape="rect" href="group__TimeCritical.html#ga8cff922940989b7edaa8bd0347f9becc" title="Processes raw voltage and current samples for the specified phase." alt="" coords="348,371,503,398"/>
-<area shape="poly" title=" " alt="" coords="552,385,504,387,504,382,558,384"/>
-<area shape="rect" href="group__TimeCritical.html#gac1f07cd36657d61affe4642911ad27c1" title="Processes the current voltage raw sample for the specified phase." alt="" coords="103,371,300,398"/>
-<area shape="poly" title=" " alt="" coords="330,385,301,387,300,382,335,384"/>
-<area shape="rect" href="processing_8cpp.html#a05c2e5b588ced1cd7312f5b0edc5b295" title=" " alt="" coords="9,371,51,398"/>
-<area shape="poly" title=" " alt="" coords="85,386,52,387,51,382,90,383"/>
+<area shape="rect" title="Rank of a remote load among the remote loads, in ascending map order." alt="" coords="753,120,908,148"/>
+<area shape="rect" href="namespaceLoad.html#a9679d070377ade53a8315b4ec5bbece6" title="Build the override bits of a load map." alt="" coords="521,95,677,123"/>
+<area shape="poly" title=" " alt="" coords="735,125,678,120,678,115,741,124"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac86822dc7a27827952067d504d333e08" title=" " alt="" coords="264,129,432,190"/>
+<area shape="poly" title=" " alt="" coords="736,141,433,158,433,153,741,138"/>
+<area shape="rect" href="utils__override_8h.html#ab72aa66577de637d07a6d3bb1b809108" title="Override pin of a load: its physical pin if local, a virtual pin if remote." alt="" coords="544,258,654,286"/>
+<area shape="poly" title=" " alt="" coords="795,156,626,260,623,255,790,157"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a22f96dcf5229ee5ef61e6dc61a1498a8" title=" " alt="" coords="493,5,705,50"/>
+<area shape="poly" title=" " alt="" coords="782,114,649,53,650,48,788,113"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#aa55babe91a241e1902b369c04265f5ea" title=" " alt="" coords="261,44,436,105"/>
+<area shape="poly" title=" " alt="" coords="503,97,436,89,435,84,508,95"/>
+<area shape="poly" title=" " alt="" coords="510,127,434,145,432,140,515,125"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="77,146,132,174"/>
+<area shape="poly" title=" " alt="" coords="245,112,133,153,131,148,248,108"/>
+<area shape="poly" title=" " alt="" coords="246,162,133,162,131,157,250,158"/>
+<area shape="rect" href="classTargetMap.html#a464414e7658c5db11e79ceeb7fe42cf2" title="The pin that a single code stands for (any code but ALL_...())." alt="" coords="282,352,414,380"/>
+<area shape="poly" title=" " alt="" coords="559,292,505,320,446,344,411,354,410,349,444,338,503,315,554,294"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ac7648d1668efa6a99495b61260ce0cf3" title=" " alt="" coords="252,215,445,259"/>
+<area shape="poly" title=" " alt="" coords="526,262,446,253,445,248,531,262"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#afdfeabe1158cf24b64eee1cc4910b668" title=" " alt="" coords="256,284,440,329"/>
+<area shape="poly" title=" " alt="" coords="526,282,442,296,441,291,531,281"/>
+<area shape="rect" href="classTargetMap.html#addc13e5c41027c9794828390352a3691" title="The local loads and relays that targets force, as a bitmask of pins." alt="" coords="13,378,196,406"/>
+<area shape="poly" title=" " alt="" coords="264,375,196,385,196,380,269,374"/>
+<area shape="rect" href="classTargetMap.html#a569944af2a4592b46e252e6f7814f0dd" title="The remote loads that targets force, as a bitmask (bit 0 = remote load 0)." alt="" coords="5,326,204,354"/>
+<area shape="poly" title=" " alt="" coords="264,358,204,353,204,348,269,357"/>
+<area shape="poly" title=" " alt="" coords="259,211,132,171,132,165,263,208"/>
+<area shape="poly" title=" " alt="" coords="260,277,250,274,211,250,175,223,121,176,121,171,178,219,214,245,253,269,265,277"/>
+<area shape="poly" title=" " alt="" coords="475,10,423,9,366,11,308,18,253,34,209,58,171,89,140,121,119,147,114,144,136,117,167,85,206,53,251,29,307,13,365,5,423,4,480,8"/>
 </map>
 </div>
 
@@ -1079,50 +1337,59 @@ Here is the caller graph for this function:</div>
 
 <p>The owning unit of the entry: 0 for a local load, 1..3 for a remote one. </p>
 
-<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00075">75</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="load__map_8h_source.html#l00095">95</a> of file <a class="el" href="load__map_8h_source.html">load_map.h</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="namespaceLoad_ab4ce134e88bb49ba929ef2e5e8236bbe_icgraph.png" border="0" usemap="#anamespaceLoad_ab4ce134e88bb49ba929ef2e5e8236bbe_icgraph" alt=""/></div>
 <map name="anamespaceLoad_ab4ce134e88bb49ba929ef2e5e8236bbe_icgraph" id="anamespaceLoad_ab4ce134e88bb49ba929ef2e5e8236bbe_icgraph">
-<area shape="rect" title="The owning unit of the entry: 0 for a local load, 1..3 for a remote one." alt="" coords="999,200,1099,228"/>
+<area shape="rect" title="The owning unit of the entry: 0 for a local load, 1..3 for a remote one." alt="" coords="1064,240,1164,268"/>
 <area shape="rect" href="classRemoteLoadCore.html#a3e667a8b690360f1544772f98365e895" title="Payload of Unit, from map entry I onwards." alt="" coords="539,29,748,57"/>
-<area shape="poly" title=" " alt="" coords="1034,185,1001,131,978,103,949,80,902,58,850,45,798,39,750,37,748,32,799,33,851,40,903,53,952,76,982,99,1006,128,1039,187"/>
-<area shape="rect" href="namespaceLoad.html#a2af331573ede4c50d696449fe9b4ab8d" title="Rank of a load among the loads of its own unit, in ascending map order." alt="" coords="827,89,920,117"/>
-<area shape="poly" title=" " alt="" coords="1014,190,949,147,903,120,903,115,952,142,1020,191"/>
-<area shape="rect" href="namespaceLoad.html#a45143ff1b1b918a50f68c637c882a610" title="Highest remote unit number appearing in the map (0 if fully local)." alt="" coords="808,331,939,358"/>
-<area shape="poly" title=" " alt="" coords="1028,238,994,276,952,311,912,333,910,328,949,306,990,272,1023,240"/>
-<area shape="rect" href="namespaceLoad.html#a1a6efa19f6bd3e1740ed98a48ab475ff" title="Largest number of loads assigned to any single remote unit." alt="" coords="556,412,731,440"/>
-<area shape="poly" title=" " alt="" coords="1040,241,1028,274,1009,309,984,344,952,372,899,400,842,417,785,427,732,431,732,426,784,422,841,412,897,395,949,368,980,340,1004,306,1023,272,1036,244"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1e90d25bff3d841e925a7ee0f3adfe21" title=" " alt="" coords="546,149,742,177"/>
-<area shape="poly" title=" " alt="" coords="981,201,950,198,742,174,742,169,951,193,986,201"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#acaba3232206430d7189d0eeaea27b89e" title=" " alt="" coords="304,192,465,236"/>
-<area shape="poly" title=" " alt="" coords="981,216,465,216,465,211,985,212"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a80eee57fe7404fe25999412313eb4488" title=" " alt="" coords="796,252,951,296"/>
-<area shape="poly" title=" " alt="" coords="994,233,942,253,940,248,989,234"/>
-<area shape="poly" title=" " alt="" coords="681,14,669,10,644,8,620,10,607,15,603,20,609,29,604,28,598,20,603,11,619,5,644,3,671,5,687,14"/>
+<area shape="poly" title=" " alt="" coords="1104,223,1093,188,1076,145,1050,104,1033,86,1014,71,979,52,942,38,902,30,862,25,785,24,718,31,716,26,784,19,863,19,903,24,943,33,981,47,1017,66,1037,82,1054,100,1080,143,1098,187,1109,226"/>
+<area shape="rect" href="namespaceLoad.html#a2af331573ede4c50d696449fe9b4ab8d" title="Rank of a load among the loads of its own unit, in ascending map order." alt="" coords="860,80,952,108"/>
+<area shape="poly" title=" " alt="" coords="1097,225,1065,172,1042,145,1014,121,984,107,953,100,952,94,986,102,1017,117,1045,141,1069,169,1102,227"/>
+<area shape="rect" href="namespaceLoad.html#a45143ff1b1b918a50f68c637c882a610" title="Highest remote unit number appearing in the map (0 if fully local)." alt="" coords="841,328,971,356"/>
+<area shape="poly" title=" " alt="" coords="1074,274,1017,304,950,330,949,325,1015,299,1069,276"/>
+<area shape="rect" href="namespaceLoad.html#a1a6efa19f6bd3e1740ed98a48ab475ff" title="Largest number of loads assigned to any single remote unit." alt="" coords="556,415,731,442"/>
+<area shape="poly" title=" " alt="" coords="1099,280,1066,328,1043,351,1017,369,946,400,871,419,797,430,732,433,732,428,797,424,870,414,944,395,1014,365,1040,347,1062,325,1095,282"/>
+<area shape="rect" href="namespaceRotation.html#a57cf6c54748dfbca21338d5b77c66b7d" title="In each group, every load is local, or every load is on the same remote unit." alt="" coords="796,475,1016,502"/>
+<area shape="poly" title=" " alt="" coords="1104,280,1072,354,1047,393,1018,429,982,457,944,477,942,472,979,452,1014,425,1043,390,1067,351,1100,284"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a1e90d25bff3d841e925a7ee0f3adfe21" title=" " alt="" coords="286,259,482,286"/>
+<area shape="poly" title=" " alt="" coords="1046,257,1016,260,483,273,482,268,1016,255,1051,256"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#acaba3232206430d7189d0eeaea27b89e" title=" " alt="" coords="825,132,987,176"/>
+<area shape="poly" title=" " alt="" coords="1080,230,1050,211,1014,191,987,179,987,174,1017,186,1053,206,1085,231"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a80eee57fe7404fe25999412313eb4488" title=" " alt="" coords="829,201,983,246"/>
+<area shape="poly" title=" " alt="" coords="1046,245,984,237,984,232,1051,244"/>
+<area shape="poly" title=" " alt="" coords="687,14,673,10,644,8,617,10,601,15,598,20,605,29,599,29,592,20,598,11,615,5,644,3,674,5,692,14"/>
 <area shape="rect" href="classRemoteLoadCore.html#a062d2ae5848e06eb2885f5e5118e2699" title="Build and schedule the payload of Unit, then of every unit after it." alt="" coords="278,29,491,57"/>
-<area shape="poly" title=" " alt="" coords="521,44,492,46,491,41,526,42"/>
+<area shape="poly" title=" " alt="" coords="521,44,492,46,490,41,526,42"/>
 <area shape="poly" title=" " alt="" coords="427,15,413,10,384,8,357,10,342,15,338,20,345,29,340,29,333,20,339,11,356,5,384,3,415,5,433,13"/>
 <area shape="rect" href="classRemoteLoadCore.html#a22769675a75fa14f2107571fb7b1ae2c" title="Rebuild every unit&#39;s payload from the current load states." alt="" coords="5,29,230,57"/>
-<area shape="poly" title=" " alt="" coords="260,45,231,46,229,41,264,42"/>
-<area shape="poly" title=" " alt="" coords="810,86,748,71,705,60,705,55,749,66,815,86"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a94ad702b38939aa477b1126cccf4892f" title=" " alt="" coords="552,81,735,126"/>
-<area shape="poly" title=" " alt="" coords="809,104,736,106,735,101,814,103"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="90,229,145,257"/>
-<area shape="poly" title=" " alt="" coords="535,107,412,121,344,134,279,152,238,170,199,191,139,231,135,227,196,186,235,165,277,147,343,129,411,116,539,104"/>
-<area shape="poly" title=" " alt="" coords="827,364,749,396,695,414,694,409,747,391,821,365"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a21c6a116daf14b5d5b245130e42ee0ea" title=" " alt="" coords="291,311,478,338"/>
-<area shape="poly" title=" " alt="" coords="791,342,479,331,479,326,796,340"/>
-<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ad9cdda787ac040663adb8268e280f445" title=" " alt="" coords="302,362,466,407"/>
-<area shape="poly" title=" " alt="" coords="790,351,467,380,467,375,796,351"/>
-<area shape="poly" title=" " alt="" coords="602,404,551,379,490,352,455,342,456,336,492,347,553,374,607,404"/>
-<area shape="poly" title=" " alt="" coords="538,409,467,400,467,395,543,409"/>
-<area shape="poly" title=" " alt="" coords="318,306,277,295,145,254,145,249,278,290,323,305"/>
-<area shape="poly" title=" " alt="" coords="289,356,276,352,196,304,136,260,137,255,199,300,279,347,294,356"/>
-<area shape="poly" title=" " alt="" coords="527,159,408,164,342,171,278,182,205,205,146,232,143,227,204,200,277,177,342,166,407,159,532,157"/>
-<area shape="poly" title=" " alt="" coords="286,226,146,243,144,238,290,222"/>
-<area shape="poly" title=" " alt="" coords="780,273,145,247,145,242,781,268"/>
+<area shape="poly" title=" " alt="" coords="260,45,231,45,229,41,264,42"/>
+<area shape="poly" title=" " alt="" coords="842,83,720,60,719,55,847,81"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a94ad702b38939aa477b1126cccf4892f" title=" " alt="" coords="552,82,735,127"/>
+<area shape="poly" title=" " alt="" coords="842,97,736,103,735,98,847,95"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="90,233,145,261"/>
+<area shape="poly" title=" " alt="" coords="535,107,411,120,344,132,279,151,237,169,198,192,138,235,134,231,195,188,234,165,277,146,343,127,411,114,539,104"/>
+<area shape="poly" title=" " alt="" coords="853,360,749,399,694,417,692,411,747,394,848,362"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#a21c6a116daf14b5d5b245130e42ee0ea" title=" " alt="" coords="291,379,478,406"/>
+<area shape="poly" title=" " alt="" coords="823,351,479,386,478,381,828,348"/>
+<area shape="rect" href="native_2test__remote__loads_2test__main_8cpp.html#ad9cdda787ac040663adb8268e280f445" title=" " alt="" coords="302,310,466,355"/>
+<area shape="poly" title=" " alt="" coords="823,342,467,337,467,331,828,339"/>
+<area shape="poly" title=" " alt="" coords="538,415,479,408,478,403,543,414"/>
+<area shape="poly" title=" " alt="" coords="593,409,490,370,457,358,457,353,492,365,598,408"/>
+<area shape="poly" title=" " alt="" coords="289,374,276,370,232,345,191,315,133,264,133,259,195,311,235,340,279,365,295,373"/>
+<area shape="poly" title=" " alt="" coords="295,306,145,258,145,253,299,303"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a0b5919461811ca8a29d1aa9f989c026c" title=" " alt="" coords="556,466,732,511"/>
+<area shape="poly" title=" " alt="" coords="778,489,733,491,732,486,783,488"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a598e53502423cb24b8bca1111ba3d96d" title=" " alt="" coords="556,536,732,580"/>
+<area shape="poly" title=" " alt="" coords="839,506,731,538,730,532,833,507"/>
+<area shape="rect" href="native_2test__rotation__groups_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="357,509,412,537"/>
+<area shape="poly" title=" " alt="" coords="537,503,412,522,411,517,543,502"/>
+<area shape="poly" title=" " alt="" coords="537,544,412,529,412,524,543,544"/>
+<area shape="poly" title=" " alt="" coords="269,263,146,252,144,247,273,260"/>
+<area shape="poly" title=" " alt="" coords="807,163,568,189,278,223,146,245,144,240,277,218,568,183,812,161"/>
+<area shape="poly" title=" " alt="" coords="813,229,145,249,145,244,814,223"/>
 </map>
 </div>
 

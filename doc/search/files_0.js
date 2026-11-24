@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bench_5freport_2eh_0',['bench_report.h',['../bench__report_8h.html',1,'']]]
+  ['adc_5fchain_2eh_0',['adc_chain.h',['../adc__chain_8h.html',1,'']]]
 ];

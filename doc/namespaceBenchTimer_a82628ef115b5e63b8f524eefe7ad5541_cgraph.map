@@ -1,0 +1,7 @@
+<map id="BenchTimer::start" name="BenchTimer::start">
+<area shape="rect" id="Node000001" title="Starts a measurement (the first one also measures the overhead)." alt="" coords="5,32,143,60"/>
+<area shape="rect" id="Node000002" href="$namespaceBenchTimer.html#aec7b874a7b2744549e4aa1acbb8023f2" title="Starts counting: from the last instruction on, one count per CPU cycle." alt="" coords="191,5,334,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,34,178,31,172,32,143,39"/>
+<area shape="rect" id="Node000003" href="$namespaceBenchTimer.html#a1e486fe101f7927a060dec577b62b817" title="The cycles since begin(), its own instructions included." alt="" coords="197,57,328,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="143,52,184,60,179,61,143,58"/>
+</map>

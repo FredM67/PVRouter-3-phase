@@ -1,0 +1,7 @@
+<map id="FIRST" name="FIRST">
+<area shape="rect" id="Node000001" title="The first d of the off&#45;peak period." alt="" coords="5,32,64,60"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#a29ce77d1007e49cacadbead00f25d579" title="A boost lasting m." alt="" coords="141,5,190,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="64,37,128,25,124,29,65,42"/>
+<area shape="rect" id="Node000003" href="$config__types_8h.html#a68fc652a2abfa341df092d301f4f9a7c" title="A start m after the beginning of the off&#45;peak period." alt="" coords="112,57,219,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="64,49,99,57,94,59,64,54"/>
+</map>

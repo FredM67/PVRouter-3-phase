@@ -1,0 +1,11 @@
+<map id="test_one_group_of_every_load_is_todays_rotation" name="test_one_group_of_every_load_is_todays_rotation">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,76,191,120"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#aad6aa9352a63d75d3ac6ea162d333bf1" title="Every load, local and remote." alt="" coords="274,5,369,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,72,238,43,263,37,258,39,240,48,160,77"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671" title="Declares a load driven locally by the router." alt="" coords="276,57,367,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="190,84,263,77,258,79,192,89"/>
+<area shape="rect" id="Node000004" href="$namespaceLoadPriorities.html#ac84e28dbdd820c3bc19bd40b93840555" title="Rotates the priorities by one: the last load becomes the first, the others move down one place...." alt="" coords="243,109,400,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="191,106,230,112,225,113,191,111"/>
+<area shape="rect" id="Node000005" href="$classRotation_1_1Table.html#a8c71e672bcec5dafa18bb8efaf704ed5" title="Rotates each group by one among its places; each entry keeps its ON bit." alt="" coords="239,161,404,189"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="162,118,240,146,264,156,258,156,238,151,161,123"/>
+</map>

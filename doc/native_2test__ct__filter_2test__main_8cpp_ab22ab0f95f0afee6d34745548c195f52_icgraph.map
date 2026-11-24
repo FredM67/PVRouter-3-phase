@@ -1,0 +1,29 @@
+<map id="x64" name="x64">
+<area shape="rect" id="Node000001" title="A DC&#45;removed sample in ADC counts, at the x64 scale of the firmware." alt="" coords="768,235,813,263"/>
+<area shape="rect" id="Node000002" href="$native_2test__ct__filter_2test__main_8cpp.html#ae3e25fa0cb30344a485f73a6ff28ba28" title="Largest |fixed &#45; float| at the output (x64) over samples of the input." alt="" coords="577,119,703,147"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="764,223,718,182,669,150,670,145,721,178,769,224"/>
+<area shape="rect" id="Node000008" href="$native_2test__ct__filter_2test__main_8cpp.html#aee73d7095085deccabbc3c6222fe3081" title=" " alt="" coords="332,176,512,221"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="750,243,719,241,513,213,513,207,720,236,755,243"/>
+<area shape="rect" id="Node000009" href="$native_2test__ct__filter_2test__main_8cpp.html#ab29c129ae63f7a9c41eaff5d8d778f66" title=" " alt="" coords="341,245,503,290"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="750,252,504,266,503,261,755,250"/>
+<area shape="rect" id="Node000010" href="$native_2test__ct__filter_2test__main_8cpp.html#ab296665170913a3d6065906c3a950c16" title=" " alt="" coords="563,286,717,348"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="756,265,710,288,708,283,751,266"/>
+<area shape="rect" id="Node000011" href="$native_2test__ct__filter_2test__main_8cpp.html#a9a32961b0fc47c71be3df59d97e020f6" title=" " alt="" coords="560,372,720,433"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="779,276,755,320,722,362,707,373,705,369,718,358,751,317,774,278"/>
+<area shape="rect" id="Node000003" href="$native_2test__ct__filter_2test__main_8cpp.html#a0526f690f6801da0ccf609e62c19371a" title=" " alt="" coords="356,104,489,132"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="559,129,490,125,489,120,564,127"/>
+<area shape="rect" id="Node000004" href="$native_2test__ct__filter_2test__main_8cpp.html#ab82b88e4e9da05d94858e21d45127a4b" title=" " alt="" coords="108,5,284,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="369,99,283,65,255,53,254,48,285,60,374,97"/>
+<area shape="rect" id="Node000006" href="$native_2test__ct__filter_2test__main_8cpp.html#a02febd87673b04263885e9a5bcf30b6b" title=" " alt="" coords="111,75,280,119"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="337,112,282,108,280,102,342,109"/>
+<area shape="rect" id="Node000007" href="$native_2test__ct__filter_2test__main_8cpp.html#a5c21c96bbe0230fcf7af99ea379e95fe" title=" " alt="" coords="120,144,272,189"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="338,137,273,153,271,148,343,134"/>
+<area shape="rect" id="Node000005" href="$native_2test__ct__filter_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,212,60,240"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="110,61,110,64,81,101,60,143,47,182,39,212,34,211,42,181,55,140,76,98,106,61,113,57"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="112,129,109,134,88,153,70,174,44,213,39,211,66,171,85,149,106,130,115,125"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="118,197,62,219,58,214,121,192"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="316,208,61,227,59,222,318,203"/>
+<area shape="poly" id="edge12_Node000009_Node000005" title=" " alt="" coords="325,260,60,232,60,226,327,255"/>
+<area shape="poly" id="edge14_Node000010_Node000005" title=" " alt="" coords="545,317,444,315,332,305,218,289,107,260,61,241,59,236,108,254,219,283,332,300,444,309,550,316"/>
+<area shape="poly" id="edge16_Node000011_Node000005" title=" " alt="" coords="542,401,449,396,337,380,219,350,161,329,106,303,86,290,68,273,44,243,43,238,72,270,89,286,109,299,163,324,220,345,338,374,450,391,548,401"/>
+</map>

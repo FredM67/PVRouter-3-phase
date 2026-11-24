@@ -1,0 +1,11 @@
+<map id="readPinEdges" name="readPinEdges">
+<area shape="rect" id="Node000001" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="5,32,115,60"/>
+<area shape="rect" id="Node000002" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="171,5,268,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,34,158,29,153,31,116,39"/>
+<area shape="rect" id="Node000004" href="$pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="163,57,276,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="115,52,150,59,145,60,115,57"/>
+<area shape="rect" id="Node000003" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="327,5,401,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="268,17,314,19,309,20,268,22"/>
+<area shape="rect" id="Node000005" href="$pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="324,57,404,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="276,69,311,71,306,71,277,74"/>
+</map>

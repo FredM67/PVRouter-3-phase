@@ -1,0 +1,14 @@
+<map id="LOCAL_LOAD" name="LOCAL_LOAD">
+<area shape="rect" id="Node000001" title="Same as LOAD(), for a load known to be local." alt="" coords="325,91,431,119"/>
+<area shape="rect" id="Node000002" href="$native_2test__rotation__groups_2test__main_8cpp.html#a5994bfc25a4c7c66626ebab72c3912dd" title=" " alt="" coords="121,5,264,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="327,85,276,65,249,53,249,48,278,60,332,84"/>
+<area shape="rect" id="Node000004" href="$native_2test__utils__override_2test__main_8cpp.html#a032e653e7e482e5ffd6d7b174ba2c780" title=" " alt="" coords="109,74,276,136"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="307,106,276,108,276,102,312,104"/>
+<area shape="rect" id="Node000006" href="$native_2test__utils__override_2test__main_8cpp.html#ae3cee01aa21bf70a43d8974fcead4b38" title=" " alt="" coords="108,160,277,205"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="332,125,278,150,250,162,248,157,276,145,327,126"/>
+<area shape="rect" id="Node000003" href="$native_2test__rotation__groups_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,14,60,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="103,29,61,30,59,25,107,26"/>
+<area shape="rect" id="Node000005" href="$native_2test__utils__override_2test__main_8cpp.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,130,60,158"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="92,131,61,140,59,135,96,127"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="90,159,60,153,60,147,95,157"/>
+</map>

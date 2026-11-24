@@ -1,0 +1,13 @@
+<map id="Rotation::targetsAreLoads" name="Rotation::targetsAreLoads">
+<area shape="rect" id="Node000001" title="Every code of every group stands for at least one load." alt="" coords="5,57,196,85"/>
+<area shape="rect" id="Node000002" href="$classRotationGroups.html#ad78cbe84f9b6ad77591a84c5446335cb" title="The targets of group index, as codes." alt="" coords="244,5,434,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,54,259,36,255,38,168,59"/>
+<area shape="rect" id="Node000003" href="$namespaceRotation.html#a36513c8eb5ac373cec0e77e69744cac5" title="The loads a target code stands for, by load number." alt="" coords="272,57,406,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,69,259,71,254,72,197,74"/>
+<area shape="rect" id="Node000006" href="$classRotationGroups.html#a8ff1ab9670673dc8bb0dc18a699d1c27" title="Number of groups." alt="" coords="261,109,417,137"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="168,83,259,105,254,106,167,88"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="482,32,587,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="406,60,469,54,464,55,407,65"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="487,84,582,112"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="407,78,475,89,469,89,407,83"/>
+</map>

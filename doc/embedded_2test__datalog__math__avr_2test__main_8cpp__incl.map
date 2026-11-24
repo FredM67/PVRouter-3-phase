@@ -6,7 +6,7 @@
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="158,70,95,108,92,105,161,65"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="114,115,182,143"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="188,70,168,103,163,101,190,65"/>
-<area shape="rect" id="Node000005" href="$bench__report_8h.html" title="One machine&#45;readable line per benchmark result, for the CI history." alt="" coords="205,115,336,143"/>
+<area shape="rect" id="Node000005" href="$bench__report_8h.html" title="Machine&#45;readable lines per benchmark result, for the CI performance report." alt="" coords="205,115,336,143"/>
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="230,65,256,102,251,102,230,70"/>
 <area shape="rect" id="Node000006" href="$halt__after__tests_8h.html" title="Stops the MCU once an embedded test suite has run." alt="" coords="360,115,506,143"/>
 <area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="284,65,389,108,384,110,284,70"/>

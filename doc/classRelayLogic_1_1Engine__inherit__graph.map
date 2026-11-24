@@ -1,0 +1,9 @@
+<map id="RelayLogic::Engine&lt; R, N, D &gt;" name="RelayLogic::Engine&lt; R, N, D &gt;">
+<area shape="rect" id="Node000001" title="A collection of relays, switched one at a time from a sliding average." alt="" coords="103,5,248,50"/>
+<area shape="rect" id="Node000002" href="$classRelayLogic_1_1Engine.html" title=" " alt="" coords="5,115,170,160"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,62,97,75,90,95,88,116,83,114,85,93,93,73,110,57"/>
+<area shape="rect" id="Node000003" href="$classRelayLogic_1_1Engine.html" title=" " alt="" coords="194,115,365,160"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="226,57,244,72,260,92,272,115,267,114,255,95,240,76,226,62"/>
+<area shape="rect" id="Node000004" href="$classRelayDiverter.html" title="Manages a collection of relays and their behavior based on surplus and import thresholds." alt="" coords="195,209,364,237"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="281,173,282,210,277,207,278,177"/>
+</map>

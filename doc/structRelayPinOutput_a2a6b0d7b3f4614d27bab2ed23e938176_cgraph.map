@@ -1,0 +1,13 @@
+<map id="RelayPinOutput::switched" name="RelayPinOutput::switched">
+<area shape="rect" id="Node000001" title="Called on each change of a relay, before its state changes." alt="" coords="5,32,194,60"/>
+<area shape="rect" id="Node000002" href="$utils__pins_8h.html#a505180a01641b0a5b17a0f2376f9b586" title="Set the Pin state for the specified pin." alt="" coords="242,5,337,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,30,229,27,224,29,194,35"/>
+<area shape="rect" id="Node000003" href="$debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="253,57,326,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,56,240,64,234,64,194,61"/>
+<area shape="rect" id="Node000004" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="385,57,443,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="327,69,372,71,367,71,327,74"/>
+<area shape="rect" id="Node000005" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="491,57,663,85"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="444,69,479,71,473,71,444,74"/>
+<area shape="rect" id="Node000006" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="711,57,871,85"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="663,69,698,71,693,71,663,74"/>
+</map>

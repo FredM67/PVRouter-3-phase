@@ -1,0 +1,9 @@
+<map id="test_bad_crc_is_a_disconnected_probe" name="test_bad_crc_is_a_disconnected_probe">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,235,68"/>
+<area shape="rect" id="Node000002" href="$namespaceDS18B20.html#aaf6ef3bce762af86ea3c251474b509a4" title="The reading of a scratchpad, its CRC checked." alt="" coords="283,32,418,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="235,43,270,46,265,46,235,48"/>
+<area shape="rect" id="Node000003" href="$namespaceDS18B20.html#a0ecb269888a40e4a3edad6d1864c79af" title="The Dallas/Maxim CRC&#45;8 (x^8 + x^5 + x^4 + 1), as OneWire::crc8." alt="" coords="496,5,612,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="418,34,478,29,484,28,419,40"/>
+<area shape="rect" id="Node000004" href="$namespaceDS18B20.html#ae74d41c356b743b6a5b1453c3e68dbb5" title="The temperature of the register, in hundredths of °C." alt="" coords="466,57,642,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="419,52,453,58,448,58,419,57"/>
+</map>

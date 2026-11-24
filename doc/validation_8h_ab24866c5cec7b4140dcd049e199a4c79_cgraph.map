@@ -1,0 +1,9 @@
+<map id="targetsAreRemoteLoads" name="targetsAreRemoteLoads">
+<area shape="rect" id="Node000001" title="Each REMOTE_LOAD(n) target of an entry of list must be an existing remote load." alt="" coords="5,32,184,60"/>
+<area shape="rect" id="Node000002" href="$namespaceLoad.html#a88996fa00857a07607a6543382aabeb4" title="Check that every entry of a load map designates a usable pin." alt="" coords="232,32,363,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,43,219,45,214,46,184,48"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="411,5,516,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="363,33,393,30,399,30,364,38"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="416,57,511,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="364,53,403,62,398,62,363,59"/>
+</map>

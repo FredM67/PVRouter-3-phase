@@ -1,0 +1,5 @@
+<map id="test_rotate_keeps_each_load_state" name="test_rotate_keeps_each_load_state">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,181,50"/>
+<area shape="rect" id="Node000002" href="$namespaceLoadPriorities.html#ac84e28dbdd820c3bc19bd40b93840555" title="Rotates the priorities by one: the last load becomes the first, the others move down one place...." alt="" coords="229,14,386,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="181,25,216,27,210,28,181,30"/>
+</map>

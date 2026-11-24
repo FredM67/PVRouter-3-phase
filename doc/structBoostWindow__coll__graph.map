@@ -1,0 +1,7 @@
+<map id="BoostWindow" name="BoostWindow">
+<area shape="rect" id="Node000001" title="When a load is boosted during the off&#45;peak period." alt="" coords="55,98,165,126"/>
+<area shape="rect" id="Node000002" href="$structBoostStart.html" title="Where a boost starts: minutes after the start of the off&#45;peak period, or before its end if fromEnd." alt="" coords="5,5,95,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="68,43,104,97,99,98,65,48"/>
+<area shape="rect" id="Node000003" href="$structBoostLength.html" title="How long a boost lasts, in minutes, or UNTIL_THE_END." alt="" coords="119,5,221,33"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="156,45,121,99,117,96,151,47"/>
+</map>

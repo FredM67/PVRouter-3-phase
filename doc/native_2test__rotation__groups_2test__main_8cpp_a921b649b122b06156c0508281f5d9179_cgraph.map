@@ -1,0 +1,21 @@
+<map id="test_loads_of_groups_and_relays" name="test_loads_of_groups_and_relays">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,153,165,198"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#aad6aa9352a63d75d3ac6ea162d333bf1" title="Every load, local and remote." alt="" coords="259,5,354,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,151,146,97,177,68,211,44,246,30,242,34,214,48,180,72,150,101,105,154"/>
+<area shape="rect" id="Node000003" href="$config__types_8h.html#ada9ecc3d74b7d01b88818c184ea8eb27" title="Every load and every relay." alt="" coords="213,57,400,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="116,150,161,122,212,95,234,89,230,92,214,100,163,127,120,154"/>
+<area shape="rect" id="Node000004" href="$config__types_8h.html#a8af39b8c36153ede0635e295ee423ad0" title="Every local load." alt="" coords="234,109,378,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="164,154,232,139,227,143,166,159"/>
+<area shape="rect" id="Node000005" href="$config__types_8h.html#a5637044513629a11c42791dad62d6fba" title="Every relay (none without relay diversion)." alt="" coords="256,161,356,189"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="165,173,243,174,239,177,166,178"/>
+<area shape="rect" id="Node000006" href="$config__types_8h.html#a2c2103d3e6ef4a17b3be0c4c77627e7a" title="Every remote load." alt="" coords="228,213,385,241"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="165,191,232,208,227,210,165,197"/>
+<area shape="rect" id="Node000007" href="$namespaceRotation.html#a36513c8eb5ac373cec0e77e69744cac5" title="The loads a target code stands for, by load number." alt="" coords="239,265,374,293"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="118,195,163,224,214,250,234,260,229,260,212,255,161,228,118,201"/>
+<area shape="rect" id="Node000010" href="$config__types_8h.html#a9938283660846cb266258c478ef4a7bd" title="Relay relayNum of relays (0, no relay, if out of range or without relay diversion)." alt="" coords="275,317,338,345"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="103,195,150,250,180,278,214,302,237,313,263,323,258,323,235,318,211,307,177,282,146,253,102,200"/>
+<area shape="rect" id="Node000008" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="448,240,553,268"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="374,268,435,262,430,263,375,273"/>
+<area shape="rect" id="Node000009" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="453,292,548,320"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="374,286,441,297,435,297,374,291"/>
+</map>

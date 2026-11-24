@@ -1,0 +1,13 @@
+<map id="test_the_upper_threshold_stays_within_the_bucket" name="test_the_upper_threshold_stays_within_the_bucket">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,40,194,85"/>
+<area shape="rect" id="Node000002" href="$structLoadPriorities_1_1Switching.html#a7d79ced5e64eedf2731796d021807a9b" title="The decision of one mains cycle: may switch one load ON or OFF." alt="" coords="242,40,423,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,60,229,62,223,63,194,65"/>
+<area shape="rect" id="Node000003" href="$structLoadPriorities_1_1Switching.html#acf8c0c8a19301b3d209ae5bbb363359b" title="The energy level is high: may switch the next load ON." alt="" coords="471,5,652,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="423,46,458,43,453,44,424,51"/>
+<area shape="rect" id="Node000005" href="$structLoadPriorities_1_1Switching.html#a8cb972b6750de408b20de11579739d3c" title="The energy level is low: may switch the last load ON to OFF." alt="" coords="471,75,652,119"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="423,73,458,81,453,81,423,79"/>
+<area shape="rect" id="Node000004" href="$namespaceLoadPriorities.html#a36125f3d6722a8bc0307afc39deee588" title="The next logical load to switch ON: the first one OFF, in priority order." alt="" coords="715,14,901,42"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="653,25,702,27,696,28,653,30"/>
+<area shape="rect" id="Node000006" href="$namespaceLoadPriorities.html#a1258efcfb93fd5721c9b43d3711daa58" title="The next logical load to switch OFF: the last one ON, in priority order." alt="" coords="700,83,916,111"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="653,94,687,97,682,97,653,100"/>
+</map>

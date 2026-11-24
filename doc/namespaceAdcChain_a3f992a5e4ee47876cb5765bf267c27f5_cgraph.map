@@ -1,0 +1,7 @@
+<map id="AdcChain::admuxOf" name="AdcChain::admuxOf">
+<area shape="rect" id="Node000001" title="The ADMUX value that converts a channel: reference, left&#45;adjusted result, analog input." alt="" coords="5,32,156,60"/>
+<area shape="rect" id="Node000002" href="$namespaceAdcChain.html#ab0c38e0462567f16eac56f6f252229d5" title="The analog input of a channel (A0 = 0)." alt="" coords="208,5,333,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,33,195,29,190,31,156,38"/>
+<area shape="rect" id="Node000003" href="$namespaceAdcChain.html#a49994e50fa1e55e1cbd23ea74cc14ea6" title="The reference bits of ADMUX on a board." alt="" coords="204,57,337,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="156,53,191,60,186,60,156,59"/>
+</map>

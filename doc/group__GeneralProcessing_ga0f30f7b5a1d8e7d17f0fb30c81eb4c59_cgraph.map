@@ -1,15 +1,21 @@
 <map id="isRouterOff" name="isRouterOff">
-<area shape="rect" id="Node000001" title="Tells whether the router is OFF." alt="" coords="5,32,100,60"/>
-<area shape="rect" id="Node000002" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="148,5,244,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,34,135,30,130,32,101,40"/>
-<area shape="rect" id="Node000004" href="$debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="159,57,232,85"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="100,52,147,61,141,63,100,57"/>
-<area shape="rect" id="Node000003" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="292,5,366,33"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="244,17,279,19,274,20,245,22"/>
-<area shape="rect" id="Node000005" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="300,57,358,85"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="233,69,287,71,282,71,233,74"/>
-<area shape="rect" id="Node000006" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="414,57,586,85"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="359,69,401,71,396,71,359,74"/>
-<area shape="rect" id="Node000007" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="634,57,794,85"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="586,69,621,71,616,71,586,74"/>
+<area shape="rect" id="Node000001" title="Tells whether the router is OFF." alt="" coords="5,84,100,112"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="148,57,257,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,87,135,83,130,85,101,92"/>
+<area shape="rect" id="Node000007" href="$debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="166,109,239,137"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="100,103,153,114,148,115,100,108"/>
+<area shape="rect" id="Node000003" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="314,5,410,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="246,54,305,37,300,39,248,59"/>
+<area shape="rect" id="Node000005" href="$pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="305,57,418,85"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="257,69,292,71,287,72,258,74"/>
+<area shape="rect" id="Node000004" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="515,5,589,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="410,17,502,19,497,20,411,22"/>
+<area shape="rect" id="Node000006" href="$pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="512,57,592,85"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="419,69,499,71,494,71,419,74"/>
+<area shape="rect" id="Node000008" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="332,109,391,137"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="240,121,319,123,314,123,240,126"/>
+<area shape="rect" id="Node000009" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="466,109,638,137"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="391,121,453,123,448,123,391,126"/>
+<area shape="rect" id="Node000010" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="686,109,846,137"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="638,121,673,123,668,123,638,126"/>
 </map>

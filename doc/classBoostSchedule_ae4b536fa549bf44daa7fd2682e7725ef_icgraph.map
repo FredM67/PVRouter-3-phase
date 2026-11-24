@@ -1,0 +1,5 @@
+<map id="BoostSchedule::getWindow" name="BoostSchedule::getWindow">
+<area shape="rect" id="Node000001" title="The window of boost i, or a window of length 0 if out of bounds." alt="" coords="193,5,391,33"/>
+<area shape="rect" id="Node000002" href="$namespaceDualTariff.html#a0a0695c296e5eb740ea51bae242d9e80" title="Boost i of boosts, for an off&#45;peak period of offPeakHours." alt="" coords="5,5,145,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,19,145,22,145,17,180,19"/>
+</map>

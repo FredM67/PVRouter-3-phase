@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['energy_0',['Energy',['../namespaceEnergy.html',1,'']]]
+  ['benchtimer_0',['BenchTimer',['../namespaceBenchTimer.html',1,'']]]
 ];

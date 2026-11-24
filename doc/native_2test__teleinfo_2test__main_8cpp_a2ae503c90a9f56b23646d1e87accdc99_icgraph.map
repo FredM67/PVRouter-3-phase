@@ -1,0 +1,25 @@
+<map id="typicalValues" name="typicalValues">
+<area shape="rect" id="Node000001" title="A datalog with every value set, temperature 2 invalid." alt="" coords="366,178,474,206"/>
+<area shape="rect" id="Node000002" href="$native_2test__teleinfo_2test__main_8cpp.html#a7199e20d34ee2a9f648670035b077d0c" title=" " alt="" coords="138,5,288,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="401,164,367,114,343,87,316,65,289,49,288,44,320,60,347,84,371,111,407,164"/>
+<area shape="rect" id="Node000004" href="$native_2test__teleinfo_2test__main_8cpp.html#a95121a5262f0d1135ef5becaa0a87a8b" title=" " alt="" coords="154,74,272,102"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="391,168,358,142,317,117,273,101,272,96,319,112,361,138,396,168"/>
+<area shape="rect" id="Node000005" href="$native_2test__teleinfo_2test__main_8cpp.html#abd16c7cc57d696e4508201665db10ae0" title=" " alt="" coords="127,126,298,154"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="348,175,271,157,271,151,353,174"/>
+<area shape="rect" id="Node000006" href="$native_2test__teleinfo_2test__main_8cpp.html#a01335e7dbc51eb8fcd884d0ddea4f55e" title=" " alt="" coords="129,178,296,206"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="348,193,297,194,296,189,353,191"/>
+<area shape="rect" id="Node000007" href="$native_2test__teleinfo_2test__main_8cpp.html#a0ea95610c8a15f3fe79d1d94efe12b18" title=" " alt="" coords="108,230,318,258"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="348,210,272,232,270,227,353,208"/>
+<area shape="rect" id="Node000008" href="$native_2test__teleinfo_2test__main_8cpp.html#aecd3a467a7010b9877fd6b3984b1a735" title=" " alt="" coords="132,281,294,326"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="394,215,359,246,319,271,293,283,291,278,317,267,356,241,390,217"/>
+<area shape="rect" id="Node000009" href="$native_2test__teleinfo_2test__main_8cpp.html#aad7dd778241bc17fc1da19ac8c06f10a" title=" " alt="" coords="129,350,297,378"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="409,218,375,282,350,314,320,341,298,352,297,347,316,336,346,310,371,279,405,221"/>
+<area shape="rect" id="Node000003" href="$native_2test__teleinfo_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,178,60,206"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="122,54,109,64,84,91,64,123,41,178,36,177,59,120,80,88,106,60,125,49"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="137,103,109,117,72,147,46,179,41,176,68,143,106,112,140,99"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="135,160,108,169,62,184,59,180,107,164,139,156"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="112,194,61,194,59,189,116,190"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="135,227,107,220,61,204,60,199,108,214,140,224"/>
+<area shape="poly" id="edge12_Node000008_Node000003" title=" " alt="" coords="116,276,106,271,69,239,44,208,44,203,72,235,109,267,121,275"/>
+<area shape="poly" id="edge14_Node000009_Node000003" title=" " alt="" coords="112,343,106,340,77,309,56,271,42,235,37,209,37,203,47,233,61,269,81,305,109,336,118,344"/>
+</map>

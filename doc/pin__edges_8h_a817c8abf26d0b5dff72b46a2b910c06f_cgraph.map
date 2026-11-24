@@ -1,0 +1,5 @@
+<map id="isRotationRequested" name="isRotationRequested">
+<area shape="rect" id="Node000001" title="Tells whether the rotation pin asks for a rotation now." alt="" coords="5,5,162,33"/>
+<area shape="rect" id="Node000002" href="$structPinEdges.html#a8d666a88ac780603e6d26475bec567d6" title="it went LOW since the previous reading" alt="" coords="210,5,349,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,17,197,19,191,19,162,22"/>
+</map>

@@ -1,0 +1,21 @@
+<map id="DS18B20::skipPowerOnValue" name="DS18B20::skipPowerOnValue">
+<area shape="rect" id="Node000001" title="The reading to keep, the power&#45;on value skipped." alt="" coords="376,187,585,215"/>
+<area shape="rect" id="Node000002" href="$structDS18B20_1_1PowerOnFilter.html#a06e2fdc5e886b6c603e5882de4bc5ca0" title="The reading to keep." alt="" coords="128,5,308,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="455,175,400,121,365,91,327,65,304,53,304,48,329,60,368,86,404,117,460,175"/>
+<area shape="rect" id="Node000003" href="$native_2test__ds18b20_2test__main_8cpp.html#a2c038e25bcc3155163c87507d5e1d5a6" title=" " alt="" coords="144,75,292,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="434,181,327,134,293,122,292,116,329,129,440,179"/>
+<area shape="rect" id="Node000005" href="$native_2test__ds18b20_2test__main_8cpp.html#a0c3c7e1d76f29d91bc6339bb21c68990" title=" " alt="" coords="136,144,300,189"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="358,186,301,180,300,175,363,184"/>
+<area shape="rect" id="Node000006" href="$native_2test__ds18b20_2test__main_8cpp.html#a88c589c900f2438666316c8608aae7d9" title=" " alt="" coords="128,213,308,258"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="358,218,309,226,308,221,363,216"/>
+<area shape="rect" id="Node000007" href="$native_2test__ds18b20_2test__main_8cpp.html#a165314ef3361e87cc41f63e4ccdd6524" title=" " alt="" coords="134,283,302,327"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="439,221,329,273,296,285,294,280,327,268,435,223"/>
+<area shape="rect" id="Node000008" href="$native_2test__ds18b20_2test__main_8cpp.html#a137368da50ae5d428cd4350c094c44e1" title=" " alt="" coords="108,352,328,397"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="460,226,404,285,368,316,329,342,305,354,303,349,327,337,365,311,400,281,455,228"/>
+<area shape="rect" id="Node000004" href="$native_2test__ds18b20_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,222,60,250"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="128,121,109,134,87,154,68,179,43,222,38,220,63,176,83,151,106,130,131,117"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="124,196,109,203,62,224,58,220,107,199,128,192"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="110,238,61,238,59,233,114,234"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="123,278,107,273,60,252,60,246,109,268,128,276"/>
+<area shape="poly" id="edge11_Node000008_Node000004" title=" " alt="" coords="111,344,106,342,83,320,63,296,40,253,41,247,68,293,87,317,109,338,117,344"/>
+</map>

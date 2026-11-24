@@ -1,0 +1,7 @@
+<map id="RelayLogic::Relay::Relay" name="RelayLogic::Relay::Relay">
+<area shape="rect" id="Node000001" title="Construct a new relay Config object with custom parameters." alt="" coords="5,40,150,85"/>
+<area shape="rect" id="Node000002" href="$classRelayLogic_1_1Relay.html#a0112c2e5f6a55c37dca3fdf0ba5aab93" title="&#45;abs(value), without the abs() macro of Arduino.h." alt="" coords="198,5,342,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,47,185,42,180,44,151,52"/>
+<area shape="rect" id="Node000003" href="$classRelayLogic_1_1Relay.html#ae7586646a09e6dcaf7d4154ad59dcbfe" title="Minutes to seconds, in 16 bits." alt="" coords="198,75,342,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="150,73,185,81,180,82,150,78"/>
+</map>

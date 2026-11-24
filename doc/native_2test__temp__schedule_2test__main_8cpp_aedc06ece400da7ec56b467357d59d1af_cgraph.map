@@ -1,0 +1,12 @@
+<map id="roundEndsInPeriod" name="roundEndsInPeriod">
+<area shape="rect" id="Node000001" title="A datalog period of the main loop: the round must be over before the cycle that ends the period,..." alt="" coords="5,104,148,132"/>
+<area shape="rect" id="Node000002" href="$namespaceTempSchedule.html#a0356a338801144f1af30252869624d3c" title="The mains cycles from the conversion to the first read." alt="" coords="196,5,390,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,102,225,54,222,59,113,106"/>
+<area shape="rect" id="Node000003" href="$classTempSchedule_1_1Scheduler.html#a06d7c05594cf2e6999e68bee213cd309" title="Whether the round is over." alt="" coords="438,96,625,141"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="148,112,196,110,390,110,425,113,420,114,390,116,196,116,149,117"/>
+<area shape="rect" id="Node000004" href="$classTempSchedule_1_1Scheduler.html#a96cbcf289b18997371a4189f3e712dd0" title="A datalog period begins: a new round, once this one is over." alt="" coords="199,125,386,170"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="147,125,186,132,181,134,148,131"/>
+<area shape="rect" id="Node000005" href="$classTempSchedule_1_1Scheduler.html#acc6aa991b44f223071aebace47c5ac45" title="The transaction of this mains cycle: called once per cycle, when the loop sees it." alt="" coords="199,195,386,239"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="102,130,197,180,213,189,207,188,195,185,101,135"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="386,134,425,131,420,132,387,139"/>
+</map>

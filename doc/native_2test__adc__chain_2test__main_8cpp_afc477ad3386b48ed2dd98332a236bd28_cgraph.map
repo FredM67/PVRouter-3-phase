@@ -1,0 +1,5 @@
+<map id="channelOfAdmux" name="channelOfAdmux">
+<area shape="rect" id="Node000001" title="The channel an ADMUX value selects, from its analog input." alt="" coords="5,5,139,33"/>
+<area shape="rect" id="Node000002" href="$namespaceAdcChain.html#ab0c38e0462567f16eac56f6f252229d5" title="The analog input of a channel (A0 = 0)." alt="" coords="187,5,312,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,17,174,19,168,19,139,22"/>
+</map>

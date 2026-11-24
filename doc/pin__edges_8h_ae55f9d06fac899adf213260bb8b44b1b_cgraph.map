@@ -1,0 +1,5 @@
+<map id="trackPinEdges" name="trackPinEdges">
+<area shape="rect" id="Node000001" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="5,5,119,33"/>
+<area shape="rect" id="Node000002" href="$pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="167,5,247,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,17,154,19,148,19,119,22"/>
+</map>

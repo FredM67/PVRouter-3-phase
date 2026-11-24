@@ -1,5 +1,10 @@
 <map id="processCurrentRawSample" name="processCurrentRawSample">
-<area shape="rect" id="Node000001" title="Processes the current raw sample for the specified phase." alt="" coords="5,5,202,33"/>
-<area shape="rect" id="Node000002" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="250,5,385,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,17,237,19,231,19,202,22"/>
+<area shape="rect" id="Node000001" title="Processes the current raw sample for the specified phase." alt="" coords="5,74,202,102"/>
+<area shape="rect" id="Node000002" href="$structCtFilter_1_1LowPassBoost.html#a10df09b866e7a13b17fbedf3141ba5df" title="Filters one sample." alt="" coords="250,5,418,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,71,237,52,232,55,160,76"/>
+<area shape="rect" id="Node000003" href="$group__TimeCritical.html#ga520fbe6bc7525c2f565dbed9ac84fc1c" title="Optimized 16×16→32 signed multiplication with assembly." alt="" coords="466,44,601,72"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="202,78,452,61,450,66,202,84"/>
+<area shape="rect" id="Node000004" href="$namespaceCtFilter.html#ab9ffad2517588975b04987dfa01da104" title="Converts the float settings to fixed point, at compile time." alt="" coords="251,124,417,152"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="170,99,255,120,250,121,169,105"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="418,38,453,45,448,46,418,43"/>
 </map>

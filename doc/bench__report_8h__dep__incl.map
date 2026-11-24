@@ -1,5 +1,5 @@
 <map id="Mk2_3phase_RFdatalog_temp/test/embedded/bench_report.h" name="Mk2_3phase_RFdatalog_temp/test/embedded/bench_report.h">
-<area shape="rect" id="Node000001" title="One machine&#45;readable line per benchmark result, for the CI history." alt="" coords="264,5,472,67"/>
+<area shape="rect" id="Node000001" title="Machine&#45;readable lines per benchmark result, for the CI performance report." alt="" coords="264,5,472,67"/>
 <area shape="rect" id="Node000002" href="$embedded_2test__datalog__math__avr_2test__main_8cpp.html" title="The integer datalog arithmetic on the target: exact results, and cycle counts against the float code ..." alt="" coords="5,124,248,185"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="294,73,190,125,188,120,289,75"/>
 <area shape="rect" id="Node000003" href="$embedded_2test__fastdivision__perf_2test__main_8cpp.html" title="Performance benchmarks for FastDivision." alt="" coords="271,115,464,194"/>

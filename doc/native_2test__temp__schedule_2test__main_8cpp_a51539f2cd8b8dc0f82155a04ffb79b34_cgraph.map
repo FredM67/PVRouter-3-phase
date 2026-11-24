@@ -1,0 +1,9 @@
+<map id="test_first_read_conversion_cycles_after_the_conversion" name="test_first_read_conversion_cycles_after_the_conversion">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,57,218,102"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aaec8897a0d016b7a6930a2b2ca2654b3" title="Run one mains cycle: feed the states to the core, for the given map." alt="" coords="332,5,387,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,54,319,28,314,31,207,59"/>
+<area shape="rect" id="Node000003" href="$classTempSchedule_1_1Scheduler.html#a06d7c05594cf2e6999e68bee213cd309" title="Whether the round is over." alt="" coords="266,57,453,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,77,252,79,247,80,219,82"/>
+<area shape="rect" id="Node000004" href="$classTempSchedule_1_1Scheduler.html#acc6aa991b44f223071aebace47c5ac45" title="The transaction of this mains cycle: called once per cycle, when the loop sees it." alt="" coords="266,126,453,171"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="194,100,265,121,260,122,194,105"/>
+</map>

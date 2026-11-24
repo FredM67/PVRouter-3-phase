@@ -1,0 +1,5 @@
+<map id="PinList::toRemoteBitmask" name="PinList::toRemoteBitmask">
+<area shape="rect" id="Node000001" title="Converts the pin list to a bitmask for remote loads only." alt="" coords="252,5,442,33"/>
+<area shape="rect" id="Node000002" href="$classTargetMap.html#a569944af2a4592b46e252e6f7814f0dd" title="The remote loads that targets force, as a bitmask (bit 0 = remote load 0)." alt="" coords="5,5,204,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,19,204,22,204,17,239,19"/>
+</map>

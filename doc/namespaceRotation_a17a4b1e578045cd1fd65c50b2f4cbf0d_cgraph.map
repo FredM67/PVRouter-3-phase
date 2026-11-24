@@ -1,0 +1,13 @@
+<map id="Rotation::noLoadTwice" name="Rotation::noLoadTwice">
+<area shape="rect" id="Node000001" title="No load is named twice, within a group or across groups." alt="" coords="5,57,173,85"/>
+<area shape="rect" id="Node000002" href="$classRotationGroups.html#ad78cbe84f9b6ad77591a84c5446335cb" title="The targets of group index, as codes." alt="" coords="221,5,411,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,54,239,36,235,38,154,59"/>
+<area shape="rect" id="Node000003" href="$namespaceRotation.html#a36513c8eb5ac373cec0e77e69744cac5" title="The loads a target code stands for, by load number." alt="" coords="249,57,383,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,69,235,70,230,72,173,74"/>
+<area shape="rect" id="Node000006" href="$classRotationGroups.html#a8ff1ab9670673dc8bb0dc18a699d1c27" title="Number of groups." alt="" coords="238,109,394,137"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="153,83,240,104,235,106,153,88"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="459,32,564,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="383,60,446,54,441,55,384,65"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="464,84,559,112"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="384,78,452,89,446,89,384,83"/>
+</map>

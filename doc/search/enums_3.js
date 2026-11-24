@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['rotationmodes_0',['RotationModes',['../types_8h.html#a06b890c4a964752df814257dc1f13073',1,'types.h']]]
+  ['pcbversion_0',['PcbVersion',['../config__types_8h.html#a8bb3ae3452a609d213c4d66e88a7086b',1,'config_types.h']]],
+  ['polarities_1',['Polarities',['../types_8h.html#a297c9a15e28f6c3824b7a33453238136',1,'types.h']]]
 ];

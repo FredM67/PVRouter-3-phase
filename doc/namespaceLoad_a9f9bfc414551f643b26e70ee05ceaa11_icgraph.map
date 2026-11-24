@@ -1,0 +1,7 @@
+<map id="Load::hasValidRemoteUnits" name="Load::hasValidRemoteUnits">
+<area shape="rect" id="Node000001" title="Check that every remote load of a map was declared with a unit from 1 to 3." alt="" coords="316,14,516,42"/>
+<area shape="rect" id="Node000002" href="$native_2test__remote__loads_2test__main_8cpp.html#aed68fc4ff8cb6df64bc796925d8e9084" title=" " alt="" coords="108,5,268,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="298,28,269,30,268,25,303,28"/>
+<area shape="rect" id="Node000003" href="$native_2test__remote__loads_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="5,14,60,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="89,29,60,30,60,25,94,27"/>
+</map>

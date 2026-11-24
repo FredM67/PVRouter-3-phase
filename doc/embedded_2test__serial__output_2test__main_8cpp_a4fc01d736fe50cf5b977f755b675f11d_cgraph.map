@@ -1,72 +1,78 @@
 <map id="setup" name="setup">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,340,63,368"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,336,63,364"/>
 <area shape="rect" id="Node000002" href="$halt__after__tests_8h.html#a37a449e5fc91f8ecccc52de6fe54bac6" title=" " alt="" coords="148,5,258,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="34,339,43,276,58,187,80,100,93,66,109,43,135,27,132,31,113,46,98,69,85,102,63,188,48,277,40,340"/>
-<area shape="rect" id="Node000003" href="$embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="113,57,294,102"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="33,340,37,296,48,236,70,171,87,140,109,112,114,109,112,114,113,116,92,143,75,173,53,237,42,297,38,340"/>
-<area shape="rect" id="Node000009" href="$embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="111,125,296,153"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="34,339,40,304,53,256,75,206,90,183,109,163,116,159,113,164,113,166,94,186,79,209,58,258,45,305,39,340"/>
-<area shape="rect" id="Node000010" href="$embedded_2test__serial__output_2test__main_8cpp.html#aae27f1312bc163c3eb9f5309b9fdf7dd" title=" " alt="" coords="125,332,282,376"/>
-<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="62,352,111,352,107,356,65,356"/>
-<area shape="rect" id="Node000013" href="$embedded_2test__serial__output_2test__main_8cpp.html#ae4661fa1d0daf8ee1282ebe4e9e68a60" title=" " alt="" coords="124,246,283,307"/>
-<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="61,339,122,312,119,316,65,343"/>
-<area shape="rect" id="Node000015" href="$embedded_2test__serial__output_2test__main_8cpp.html#a07107a28d434313f838f3395056327e6" title=" " alt="" coords="124,470,282,515"/>
-<area shape="poly" id="edge20_Node000001_Node000015" title=" " alt="" coords="42,366,71,411,90,435,112,456,119,461,114,463,109,460,86,438,66,414,43,371"/>
-<area shape="rect" id="Node000017" href="$embedded_2test__serial__output_2test__main_8cpp.html#a2f8d563ef5adba483aa88be54f71c7a3" title=" " alt="" coords="120,401,287,446"/>
-<area shape="poly" id="edge22_Node000001_Node000017" title=" " alt="" coords="62,365,112,386,128,394,124,396,110,391,64,370"/>
-<area shape="rect" id="Node000018" href="$embedded_2test__serial__output_2test__main_8cpp.html#a04bbc580ce141020e3c27f9a5555ad0d" title=" " alt="" coords="122,177,285,222"/>
-<area shape="poly" id="edge24_Node000001_Node000018" title=" " alt="" coords="38,339,64,287,84,258,109,232,117,228,114,233,112,236,88,261,68,290,43,340"/>
-<area shape="rect" id="Node000019" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4070063df5cd8cbbfa255a41ee1cf6c7" title="The startup text at 8N1, then 7E1 for the IoT output only (UART0 frame format in UCSR0C)" alt="" coords="116,540,291,584"/>
-<area shape="poly" id="edge27_Node000001_Node000019" title=" " alt="" coords="38,365,47,400,61,442,82,486,113,525,116,529,111,531,109,529,78,489,56,444,42,401,38,371"/>
-<area shape="rect" id="Node000022" href="$embedded_2test__serial__output_2test__main_8cpp.html#a27de18cd8e431ab8826ec6aa60d14c0c" title=" " alt="" coords="125,640,282,684"/>
-<area shape="poly" id="edge30_Node000001_Node000022" title=" " alt="" coords="37,365,45,409,57,468,79,534,94,566,113,595,129,613,149,630,143,631,125,617,109,598,90,568,74,536,52,470,40,410,37,370"/>
-<area shape="rect" id="Node000030" href="$embedded_2test__serial__output_2test__main_8cpp.html#a65218dd97cd5257ddbf898fe11218a92" title=" " alt="" coords="130,752,277,796"/>
-<area shape="poly" id="edge38_Node000001_Node000030" title=" " alt="" coords="35,365,40,424,50,508,73,604,90,651,113,695,132,719,156,742,150,742,128,723,108,698,86,653,68,605,45,509,35,425,35,371"/>
-<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c" title="Whether an output is still in progress." alt="" coords="622,164,763,192"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="266,54,331,37,407,25,448,24,488,26,527,33,565,46,583,56,593,68,614,97,668,153,663,153,610,101,589,72,579,61,563,51,526,38,487,32,447,29,408,31,333,42,270,58"/>
-<area shape="rect" id="Node000005" href="$embedded_2test__serial__output_2test__main_8cpp.html#acf70e15d56fee675be26106b5566d620" title=" " alt="" coords="412,112,497,140"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="293,93,398,114,394,117,295,98"/>
-<area shape="rect" id="Node000006" href="$namespaceSerialOutput.html#afd684610f3d410706ad307dcb113376a" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="387,60,521,88"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="293,75,374,74,369,77,295,80"/>
-<area shape="rect" id="Node000008" href="$namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="384,164,524,192"/>
-<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="271,100,297,112,321,131,345,149,371,160,366,162,343,153,318,135,295,116,273,105"/>
-<area shape="rect" id="Node000007" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="612,60,773,88"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="521,71,599,73,595,75,523,76"/>
-<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="524,175,609,177,604,179,526,180"/>
-<area shape="poly" id="edge10_Node000009_Node000004" title=" " alt="" coords="268,151,297,162,312,173,321,183,331,193,345,201,382,211,420,216,497,217,570,208,634,195,629,198,571,213,498,222,419,222,381,216,343,206,327,197,317,187,308,177,295,167,270,156"/>
-<area shape="poly" id="edge11_Node000009_Node000005" title=" " alt="" coords="295,132,398,127,394,131,298,137"/>
-<area shape="poly" id="edge12_Node000009_Node000006" title=" " alt="" coords="255,123,295,111,343,98,380,90,376,94,345,103,297,116,259,127"/>
-<area shape="poly" id="edge13_Node000009_Node000008" title=" " alt="" coords="295,151,371,163,366,166,297,156"/>
-<area shape="rect" id="Node000011" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="354,317,555,345"/>
-<area shape="poly" id="edge15_Node000010_Node000011" title=" " alt="" coords="281,344,340,340,336,343,284,349"/>
-<area shape="rect" id="Node000012" href="$native_2test__energy__bucket_2test__main_8cpp.html#a6daf045ca0cf4c7885ee70a055efcbf0" title="The float arithmetic being replaced, in bucket units." alt="" coords="412,369,496,397"/>
-<area shape="poly" id="edge16_Node000010_Node000012" title=" " alt="" coords="282,360,399,375,395,378,283,366"/>
-<area shape="poly" id="edge19_Node000013_Node000011" title=" " alt="" coords="283,291,374,312,370,315,284,296"/>
-<area shape="rect" id="Node000014" href="$embedded_2test__serial__output_2test__main_8cpp.html#ac4aaab4b8ae82859a1852d8209ecc509" title=" " alt="" coords="394,265,514,293"/>
-<area shape="poly" id="edge18_Node000013_Node000014" title=" " alt="" coords="282,275,380,277,376,280,285,280"/>
-<area shape="rect" id="Node000016" href="$namespaceSerialOutput.html#a5c00010099424ac29a16b77dbd562e5c" title="Print a value given in hundredths, in its shortest decimal form." alt="" coords="346,428,562,456"/>
-<area shape="poly" id="edge21_Node000015_Node000016" title=" " alt="" coords="282,474,369,458,365,461,284,479"/>
-<area shape="poly" id="edge23_Node000017_Node000016" title=" " alt="" coords="287,427,333,431,329,434,289,432"/>
-<area shape="poly" id="edge25_Node000018_Node000005" title=" " alt="" coords="268,174,343,150,399,137,395,140,345,155,271,178"/>
-<area shape="poly" id="edge26_Node000018_Node000008" title=" " alt="" coords="284,190,371,183,367,187,287,195"/>
-<area shape="rect" id="Node000020" href="$namespaceSerialOutput.html#aac2a2b989ae1aed012a9149bcb922751" title="Serial settings for the startup text: 9600 baud 8N1, the default of serial monitors." alt="" coords="344,492,564,520"/>
-<area shape="poly" id="edge28_Node000019_Node000020" title=" " alt="" coords="290,540,376,522,372,525,293,545"/>
-<area shape="rect" id="Node000021" href="$namespaceSerialOutput.html#afa14847acb347d3b042396e0b082d086" title="Serial settings after the startup text: 7E1 for the IoT telemetry frames, as the mk2Wifi module expec..." alt="" coords="350,544,558,572"/>
-<area shape="poly" id="edge29_Node000019_Node000021" title=" " alt="" coords="291,558,337,559,332,561,292,563"/>
-<area shape="rect" id="Node000023" href="$classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character." alt="" coords="382,596,527,624"/>
-<area shape="poly" id="edge31_Node000022_Node000023" title=" " alt="" coords="281,643,371,626,366,629,283,648"/>
-<area shape="rect" id="Node000024" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="398,648,510,676"/>
-<area shape="poly" id="edge32_Node000022_Node000024" title=" " alt="" coords="281,659,386,661,381,663,282,664"/>
-<area shape="rect" id="Node000028" href="$classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="378,700,530,728"/>
-<area shape="poly" id="edge36_Node000022_Node000028" title=" " alt="" coords="282,675,371,696,366,697,282,681"/>
-<area shape="rect" id="Node000029" href="$classTeleInfo.html#a699a9710dfbb9c795aac33144cd2703d" title="Writes the next part of the finished frame." alt="" coords="382,752,526,780"/>
-<area shape="poly" id="edge37_Node000022_Node000029" title=" " alt="" coords="240,682,289,710,345,737,370,747,365,747,343,742,287,715,239,687"/>
-<area shape="rect" id="Node000025" href="$classTeleInfo.html#a83f6500622fefb17eef340037510392e" title="Writes a whole line: line feed, tag, value, checksum and carriage return." alt="" coords="622,648,763,676"/>
-<area shape="poly" id="edge33_Node000024_Node000025" title=" " alt="" coords="510,659,610,661,604,662,510,664"/>
-<area shape="rect" id="Node000026" href="$classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="821,621,1028,649"/>
-<area shape="poly" id="edge34_Node000025_Node000026" title=" " alt="" coords="763,651,808,648,802,649,764,656"/>
-<area shape="rect" id="Node000027" href="$classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="857,673,992,701"/>
-<area shape="poly" id="edge35_Node000025_Node000027" title=" " alt="" coords="763,667,844,678,838,678,763,672"/>
-<area shape="rect" id="Node000031" href="$namespaceSerialOutput.html#a92c5012053b5fe0d463a87a06be6fe40" title="A float constant as an integer with the given number of decimals, rounded." alt="" coords="362,804,546,832"/>
-<area shape="poly" id="edge39_Node000030_Node000031" title=" " alt="" coords="278,784,359,801,354,801,277,789"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="34,335,43,273,58,186,80,101,94,67,109,44,135,28,132,33,113,48,98,70,85,103,63,187,48,274,40,336"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__serial__output_2test__main_8cpp.html#a215336d911a182105c054b4406d3d270" title=" " alt="" coords="113,178,294,223"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="39,335,65,287,85,260,109,236,121,229,119,233,112,240,89,263,70,290,44,336"/>
+<area shape="rect" id="Node000009" href="$embedded_2test__serial__output_2test__main_8cpp.html#a766c8075dccdc486803bd478491cf711" title=" " alt="" coords="111,57,296,85"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="32,335,35,289,44,225,54,190,67,155,85,123,109,95,115,92,112,96,113,98,90,126,72,158,59,191,50,226,40,290,38,336"/>
+<area shape="rect" id="Node000010" href="$embedded_2test__serial__output_2test__main_8cpp.html#aae27f1312bc163c3eb9f5309b9fdf7dd" title=" " alt="" coords="125,405,282,450"/>
+<area shape="poly" id="edge14_Node000001_Node000010" title=" " alt="" coords="58,362,112,390,127,397,122,400,109,395,59,367"/>
+<area shape="rect" id="Node000013" href="$embedded_2test__serial__output_2test__main_8cpp.html#ae4661fa1d0daf8ee1282ebe4e9e68a60" title=" " alt="" coords="124,319,283,381"/>
+<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="62,348,110,348,106,352,65,352"/>
+<area shape="rect" id="Node000015" href="$embedded_2test__serial__output_2test__main_8cpp.html#a07107a28d434313f838f3395056327e6" title=" " alt="" coords="124,544,282,588"/>
+<area shape="poly" id="edge20_Node000001_Node000015" title=" " alt="" coords="37,362,47,397,60,441,81,488,113,529,116,534,111,534,109,533,77,491,55,443,42,398,37,367"/>
+<area shape="rect" id="Node000017" href="$embedded_2test__serial__output_2test__main_8cpp.html#a2f8d563ef5adba483aa88be54f71c7a3" title=" " alt="" coords="120,474,287,519"/>
+<area shape="poly" id="edge22_Node000001_Node000017" title=" " alt="" coords="41,362,70,410,89,437,112,460,119,465,114,467,109,464,85,440,65,413,42,367"/>
+<area shape="rect" id="Node000018" href="$embedded_2test__serial__output_2test__main_8cpp.html#a04bbc580ce141020e3c27f9a5555ad0d" title=" " alt="" coords="122,109,285,154"/>
+<area shape="poly" id="edge24_Node000001_Node000018" title=" " alt="" coords="35,335,41,301,55,255,76,207,91,184,109,164,115,161,112,165,113,168,95,187,81,210,60,257,46,302,40,336"/>
+<area shape="rect" id="Node000019" href="$embedded_2test__serial__output_2test__main_8cpp.html#a4070063df5cd8cbbfa255a41ee1cf6c7" title="The startup text at 8N1, then 7E1 for the IoT output only (UART0 frame format in UCSR0C)" alt="" coords="116,613,291,658"/>
+<area shape="poly" id="edge27_Node000001_Node000019" title=" " alt="" coords="36,361,41,408,52,471,74,539,91,570,113,599,116,603,110,603,109,602,86,573,69,541,46,472,36,409,35,367"/>
+<area shape="rect" id="Node000022" href="$embedded_2test__serial__output_2test__main_8cpp.html#a27de18cd8e431ab8826ec6aa60d14c0c" title=" " alt="" coords="125,250,282,295"/>
+<area shape="poly" id="edge30_Node000001_Node000022" title=" " alt="" coords="57,334,109,305,126,299,122,303,112,310,61,337"/>
+<area shape="rect" id="Node000031" href="$embedded_2test__serial__output_2test__main_8cpp.html#a65218dd97cd5257ddbf898fe11218a92" title=" " alt="" coords="130,682,277,727"/>
+<area shape="poly" id="edge43_Node000001_Node000031" title=" " alt="" coords="37,362,48,429,63,520,85,609,98,644,113,668,120,676,114,676,109,671,93,647,80,611,58,521,43,429,37,367"/>
+<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c" title="Whether an output is still in progress." alt="" coords="633,133,775,161"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="293,188,619,154,616,158,295,193"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__serial__output_2test__main_8cpp.html#acf70e15d56fee675be26106b5566d620" title=" " alt="" coords="412,56,497,84"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="276,176,294,164,309,147,317,129,325,112,342,94,368,81,399,74,394,77,370,86,346,99,330,115,322,132,314,150,298,168,280,179"/>
+<area shape="rect" id="Node000006" href="$namespaceSerialOutput.html#afd684610f3d410706ad307dcb113376a" title="Write as many steps as the transmit buffer can take, without waiting." alt="" coords="387,209,521,237"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="293,206,374,214,369,217,295,211"/>
+<area shape="rect" id="Node000008" href="$namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="384,108,524,136"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="270,175,343,151,390,139,386,142,345,156,273,180"/>
+<area shape="rect" id="Node000007" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="624,209,784,237"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="521,221,611,222,606,224,523,226"/>
+<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="524,126,620,137,615,140,525,131"/>
+<area shape="poly" id="edge10_Node000009_Node000004" title=" " alt="" coords="249,55,313,39,393,27,480,26,523,31,565,42,599,57,631,77,682,122,677,122,628,82,597,62,563,47,522,37,479,31,393,33,314,44,252,59"/>
+<area shape="poly" id="edge11_Node000009_Node000005" title=" " alt="" coords="295,68,398,69,394,72,298,73"/>
+<area shape="poly" id="edge12_Node000009_Node000006" title=" " alt="" coords="272,83,297,94,313,106,323,119,346,145,419,200,414,201,342,149,319,122,310,110,295,99,274,88"/>
+<area shape="poly" id="edge13_Node000009_Node000008" title=" " alt="" coords="274,83,371,103,367,106,276,88"/>
+<area shape="rect" id="Node000011" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="354,415,555,442"/>
+<area shape="poly" id="edge15_Node000010_Node000011" title=" " alt="" coords="282,425,340,427,336,429,283,430"/>
+<area shape="rect" id="Node000012" href="$native_2test__energy__bucket_2test__main_8cpp.html#a6daf045ca0cf4c7885ee70a055efcbf0" title="The float arithmetic being replaced, in bucket units." alt="" coords="412,467,496,494"/>
+<area shape="poly" id="edge16_Node000010_Node000012" title=" " alt="" coords="282,441,400,467,395,470,283,447"/>
+<area shape="poly" id="edge19_Node000013_Node000011" title=" " alt="" coords="283,378,345,399,376,410,371,411,343,404,284,384"/>
+<area shape="rect" id="Node000014" href="$embedded_2test__serial__output_2test__main_8cpp.html#ac4aaab4b8ae82859a1852d8209ecc509" title=" " alt="" coords="394,363,514,390"/>
+<area shape="poly" id="edge18_Node000013_Node000014" title=" " alt="" coords="283,356,381,367,376,370,284,361"/>
+<area shape="rect" id="Node000016" href="$namespaceSerialOutput.html#a5c00010099424ac29a16b77dbd562e5c" title="Print a value given in hundredths, in its shortest decimal form." alt="" coords="346,523,562,550"/>
+<area shape="poly" id="edge21_Node000015_Node000016" title=" " alt="" coords="282,554,333,550,329,552,284,559"/>
+<area shape="poly" id="edge23_Node000017_Node000016" title=" " alt="" coords="287,507,351,519,346,521,288,513"/>
+<area shape="poly" id="edge25_Node000018_Node000005" title=" " alt="" coords="284,109,343,94,398,82,394,85,345,99,287,113"/>
+<area shape="poly" id="edge26_Node000018_Node000008" title=" " alt="" coords="284,126,371,123,367,127,287,130"/>
+<area shape="rect" id="Node000020" href="$namespaceSerialOutput.html#aac2a2b989ae1aed012a9149bcb922751" title="Serial settings for the startup text: 9600 baud 8N1, the default of serial monitors." alt="" coords="344,581,564,609"/>
+<area shape="poly" id="edge28_Node000019_Node000020" title=" " alt="" coords="291,619,351,611,346,613,292,624"/>
+<area shape="rect" id="Node000021" href="$namespaceSerialOutput.html#afa14847acb347d3b042396e0b082d086" title="Serial settings after the startup text: 7E1 for the IoT telemetry frames, as the mk2Wifi module expec..." alt="" coords="350,633,558,661"/>
+<area shape="poly" id="edge29_Node000019_Node000021" title=" " alt="" coords="291,637,337,641,332,642,292,642"/>
+<area shape="poly" id="edge31_Node000022_Node000004" title=" " alt="" coords="281,281,345,284,418,282,492,270,529,260,563,246,578,236,588,224,596,210,611,196,661,167,656,170,614,200,601,214,592,227,582,240,566,251,530,265,494,275,418,287,345,289,283,286"/>
+<area shape="poly" id="edge41_Node000022_Node000006" title=" " alt="" coords="281,255,374,238,370,241,283,259"/>
+<area shape="poly" id="edge42_Node000022_Node000008" title=" " alt="" coords="265,248,295,233,319,215,342,196,421,143,417,147,346,200,322,220,297,237,269,252"/>
+<area shape="rect" id="Node000023" href="$embedded_2test__serial__output_2test__main_8cpp.html#ae8d26a821500deebb3c197509980f495" title=" " alt="" coords="410,311,499,338"/>
+<area shape="poly" id="edge32_Node000022_Node000023" title=" " alt="" coords="281,286,397,311,392,314,282,291"/>
+<area shape="rect" id="Node000024" href="$namespaceTeleInfo.html#a1ada410c6d97aa6b44e403d583f46480" title="Writes a step of the frame: one line, STX before the first one, ETX after the last." alt="" coords="612,311,796,338"/>
+<area shape="poly" id="edge33_Node000023_Node000024" title=" " alt="" coords="498,322,599,323,594,326,500,327"/>
+<area shape="rect" id="Node000025" href="$namespaceTeleInfo.html#a7587a7c6cf35dbbad31cfddc9d0526da" title="Writes the line of a step." alt="" coords="848,284,994,312"/>
+<area shape="poly" id="edge34_Node000024_Node000025" title=" " alt="" coords="795,311,835,308,830,309,797,316"/>
+<area shape="rect" id="Node000030" href="$namespaceTeleInfo.html#ad667795b4250f603604afc9b30c0a017" title="The number of steps of a frame: one per line, invalid temperatures included (they write nothing)." alt="" coords="844,336,999,364"/>
+<area shape="poly" id="edge40_Node000024_Node000030" title=" " alt="" coords="795,333,831,339,826,339,796,338"/>
+<area shape="rect" id="Node000026" href="$namespaceTeleInfo.html#af4144be70a1141bccb67583aa9730635" title="Writes the line of a signed value." alt="" coords="1078,259,1182,286"/>
+<area shape="poly" id="edge35_Node000025_Node000026" title=" " alt="" coords="994,286,1064,280,1059,281,995,292"/>
+<area shape="rect" id="Node000029" href="$namespaceTeleInfo.html#a17cf541f513ec089af6363fb0cc75769" title="Writes the line of an unsigned value (above 32767, line() would wrap)." alt="" coords="1047,311,1212,338"/>
+<area shape="poly" id="edge38_Node000025_Node000029" title=" " alt="" coords="994,305,1034,312,1029,312,995,310"/>
+<area shape="rect" id="Node000027" href="$namespaceTeleInfo.html#ab851b8161d4b41b2b4898e46f38b64e0" title="Writes a whole line: LF, tag and index, TAB, value, TAB, checksum and CR." alt="" coords="1260,285,1401,313"/>
+<area shape="poly" id="edge36_Node000026_Node000027" title=" " alt="" coords="1182,277,1248,288,1243,288,1182,282"/>
+<area shape="rect" id="Node000028" href="$namespaceTeleInfo.html#ae66100e613f030a8bb86f56d9b509a84" title="Writes the decimal digits of a 16&#45;bit value." alt="" coords="1449,285,1600,313"/>
+<area shape="poly" id="edge37_Node000027_Node000028" title=" " alt="" coords="1400,297,1436,299,1430,300,1401,302"/>
+<area shape="poly" id="edge39_Node000029_Node000027" title=" " alt="" coords="1212,311,1248,309,1243,311,1213,317"/>
+<area shape="rect" id="Node000032" href="$namespaceSerialOutput.html#a92c5012053b5fe0d463a87a06be6fe40" title="A float constant as an integer with the given number of decimals, rounded." alt="" coords="362,691,546,718"/>
+<area shape="poly" id="edge44_Node000031_Node000032" title=" " alt="" coords="277,702,349,704,344,705,278,707"/>
 </map>

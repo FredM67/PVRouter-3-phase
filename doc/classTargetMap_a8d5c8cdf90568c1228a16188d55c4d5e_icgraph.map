@@ -1,0 +1,7 @@
+<map id="TargetMap::isGroup" name="TargetMap::isGroup">
+<area shape="rect" id="Node000001" title="Whether code is one of ALL_...(): several pins." alt="" coords="252,32,399,60"/>
+<area shape="rect" id="Node000002" href="$classTargetMap.html#addc13e5c41027c9794828390352a3691" title="The local loads and relays that targets force, as a bitmask of pins." alt="" coords="13,5,196,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="234,35,196,33,196,28,239,35"/>
+<area shape="rect" id="Node000003" href="$classTargetMap.html#a569944af2a4592b46e252e6f7814f0dd" title="The remote loads that targets force, as a bitmask (bit 0 = remote load 0)." alt="" coords="5,57,204,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,56,204,62,204,57,239,56"/>
+</map>

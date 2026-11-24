@@ -1,0 +1,13 @@
+<map id="test_a_skipped_power_on_value_is_not_sent" name="test_a_skipped_power_on_value_is_not_sent">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,74,174,119"/>
+<area shape="rect" id="Node000002" href="$namespaceDS18B20.html#aaf6ef3bce762af86ea3c251474b509a4" title="The reading of a scratchpad, its CRC checked." alt="" coords="259,31,394,58"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,75,247,61,243,63,175,81"/>
+<area shape="rect" id="Node000005" href="$ds18b20_8h.html#ad55adf4c2798fb2203dd07c6954856fe" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="253,83,400,110"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="174,94,240,96,235,97,174,99"/>
+<area shape="rect" id="Node000006" href="$namespaceDS18B20.html#a166c2c73b01cdf77a7574d440dc2025f" title="The reading to keep, the power&#45;on value skipped." alt="" coords="222,135,431,162"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="174,112,248,130,242,131,174,118"/>
+<area shape="rect" id="Node000003" href="$namespaceDS18B20.html#a0ecb269888a40e4a3edad6d1864c79af" title="The Dallas/Maxim CRC&#45;8 (x^8 + x^5 + x^4 + 1), as OneWire::crc8." alt="" coords="510,5,625,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="394,35,497,26,491,27,395,40"/>
+<area shape="rect" id="Node000004" href="$namespaceDS18B20.html#ae74d41c356b743b6a5b1453c3e68dbb5" title="The temperature of the register, in hundredths of °C." alt="" coords="479,57,655,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="395,49,466,59,461,60,395,55"/>
+</map>

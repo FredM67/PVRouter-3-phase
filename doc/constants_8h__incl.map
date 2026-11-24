@@ -1,5 +1,9 @@
 <map id="Mk2_3phase_RFdatalog_temp/constants.h" name="Mk2_3phase_RFdatalog_temp/constants.h">
-<area shape="rect" id="Node000001" title="Some constants." alt="" coords="5,5,182,50"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="52,98,135,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,48,96,83,91,81,92,52"/>
+<area shape="rect" id="Node000001" title="Some constants." alt="" coords="14,5,190,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,98,89,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,53,66,86,62,84,89,48"/>
+<area shape="rect" id="Node000003" href="$ds18b20_8h.html" title="The checks of a DS18B20 reading: CRC, conversion to hundredths of °C, range, power&#45;on value." alt="" coords="112,98,200,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="117,48,142,85,137,85,115,53"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="121,174,192,201"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="158,124,159,159,154,157,155,128"/>
 </map>

@@ -1,0 +1,21 @@
+<map id="test_boosts_from_the_settings" name="test_boosts_from_the_settings">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,180,168,224"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#a51382a9a5bceb02ebbfc0be795cb9ea5" title="The first d of the off&#45;peak period." alt="" coords="240,57,298,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,177,158,137,214,96,228,90,224,93,217,100,161,141,114,181"/>
+<area shape="rect" id="Node000005" href="$config__types_8h.html#a68f3d6551120fd462ed0022322f874f0" title="The last d of the off&#45;peak period, until the end." alt="" coords="242,109,296,137"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="139,177,230,139,226,143,142,181"/>
+<area shape="rect" id="Node000007" href="$config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98" title="Load loadNum of physicalLoadPin[], local or remote (0, no load, if out of range)." alt="" coords="241,161,298,189"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="167,187,228,180,223,183,169,192"/>
+<area shape="rect" id="Node000008" href="$namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671" title="Declares a load driven locally by the router." alt="" coords="224,213,315,241"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="167,210,211,218,206,220,168,216"/>
+<area shape="rect" id="Node000009" href="$config__types_8h.html#a9938283660846cb266258c478ef4a7bd" title="Relay relayNum of relays (0, no relay, if out of range or without relay diversion)." alt="" coords="238,265,300,293"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="142,222,227,259,222,261,141,227"/>
+<area shape="rect" id="Node000010" href="$namespaceLoad.html#adb9797ea49459ec57cf3641aee0d7bd6" title="Declares a load driven by a remote unit over RF." alt="" coords="216,317,323,345"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="114,222,161,262,217,302,226,310,221,309,214,307,158,266,112,227"/>
+<area shape="rect" id="Node000003" href="$config__types_8h.html#a29ce77d1007e49cacadbead00f25d579" title="A boost lasting m." alt="" coords="401,5,449,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="298,59,388,30,384,33,300,64"/>
+<area shape="rect" id="Node000004" href="$config__types_8h.html#a68fc652a2abfa341df092d301f4f9a7c" title="A start m after the beginning of the off&#45;peak period." alt="" coords="372,57,479,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="298,69,359,70,354,72,300,74"/>
+<area shape="rect" id="Node000006" href="$config__types_8h.html#a1443b40bba36a2678456b87bae0ba5e1" title="A start m before the end of the off&#45;peak period." alt="" coords="371,109,479,137"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="296,121,358,122,353,124,298,126"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Mk2_3phase_RFdatalog_temp/override_masks.h" name="Mk2_3phase_RFdatalog_temp/override_masks.h">
+<area shape="rect" id="Node000001" title="The forced outputs: the override pins, and the scheduled boosts of the dual tariff." alt="" coords="116,5,298,50"/>
+<area shape="rect" id="Node000002" href="$main_8cpp.html" title="Main code for the PVRouter 3&#45;phase project." alt="" coords="5,106,182,151"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,59,120,108,116,104,168,61"/>
+<area shape="rect" id="Node000003" href="$native_2test__override__masks_2test__main_8cpp.html" title="Native unit tests for override_masks.h: what is forced ON, by the override pins and the scheduled boo..." alt="" coords="206,98,434,160"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="244,58,288,98,283,97,242,63"/>
+</map>

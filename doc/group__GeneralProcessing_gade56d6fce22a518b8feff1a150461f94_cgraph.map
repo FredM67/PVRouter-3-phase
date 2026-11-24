@@ -1,35 +1,50 @@
 <map id="sendResults" name="sendResults">
-<area shape="rect" id="Node000001" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="5,212,106,240"/>
-<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c" title="Whether an output is still in progress." alt="" coords="387,213,528,241"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,223,373,224,370,229,107,229"/>
-<area shape="rect" id="Node000003" href="$group__Telemetry.html#ga0018bc6f3f3b53571428522d11575051" title="One step of the datalog in JSON format." alt="" coords="174,57,282,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="62,210,96,155,122,123,152,96,164,90,160,94,155,100,126,127,100,158,66,213"/>
-<area shape="rect" id="Node000006" href="$group__Telemetry.html#ga678079c20f2260c02b6d805a3252fdb8" title="One step of the datalog in text format." alt="" coords="174,109,282,137"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="69,210,106,179,152,148,168,142,164,145,155,152,109,183,74,214"/>
-<area shape="rect" id="Node000010" href="$utils__rf_8h.html#af4688adbf4f3ed19323b79cf2fa2272b" title="Send RF data to gateway." alt="" coords="175,315,280,342"/>
-<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="72,237,109,268,155,300,169,308,164,308,152,304,106,273,71,242"/>
-<area shape="rect" id="Node000013" href="$utils_8h.html#a1907e04bd551745d6acdaaf198bda73a" title="Sends telemetry data using the TeleInfo class." alt="" coords="154,263,302,290"/>
-<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="105,238,166,256,161,259,105,243"/>
-<area shape="rect" id="Node000014" href="$namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="158,161,298,189"/>
-<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="104,209,166,192,162,196,106,214"/>
-<area shape="rect" id="Node000015" href="$group__Telemetry.html#gac998b3a180f6abe87514dad43b9033f2" title="One step of the telemetry frame: its next part." alt="" coords="161,367,295,394"/>
-<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="65,238,100,293,126,325,155,352,165,360,160,359,152,356,122,328,96,297,63,243"/>
-<area shape="rect" id="Node000004" href="$utils_8h.html#ad526defbfbce2f1f32bcb38a7a1a7b42" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="384,57,531,85"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="281,69,371,70,367,72,283,74"/>
-<area shape="rect" id="Node000005" href="$namespaceSerialOutput.html#a5c00010099424ac29a16b77dbd562e5c" title="Print a value given in hundredths, in its shortest decimal form." alt="" coords="350,5,565,33"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="281,57,380,35,376,39,283,62"/>
-<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="281,109,380,88,376,91,283,114"/>
-<area shape="rect" id="Node000007" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="357,161,558,189"/>
-<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="282,133,381,156,376,158,282,138"/>
-<area shape="rect" id="Node000008" href="$namespaceEnergy.html#a993caf3ccf42a68629e46c31dc5fe885" title="An energy in bucket units, in hundredths of a joule (for the datalog)." alt="" coords="354,109,562,137"/>
-<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="281,121,340,122,336,124,283,126"/>
-<area shape="rect" id="Node000009" href="$namespaceEnergy.html#a7aaa5a81b4e5ecaca75d4e9f5eb9a052" title="Greatest common divisor, to reduce fractions at compile time." alt="" coords="627,109,723,137"/>
-<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="561,121,614,123,609,124,562,126"/>
-<area shape="poly" id="edge10_Node000009_Node000009" title=" " alt="" coords="637,108,632,100,636,91,651,85,675,83,701,85,716,94,711,94,699,90,675,88,652,90,640,95,637,100,643,110"/>
-<area shape="rect" id="Node000011" href="$utils__rf_8h.html#af054c00af4d014f9db280e6e6e19e968" title="Initialize the shared RF module." alt="" coords="410,289,505,317"/>
-<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="280,320,397,309,392,311,281,325"/>
-<area shape="rect" id="Node000012" href="$namespaceSharedRF.html#a1885bc1c65805664c2ad68a37868cd57" title="Accessor for the shared RFM69 instance." alt="" coords="613,315,737,342"/>
-<area shape="poly" id="edge14_Node000010_Node000012" title=" " alt="" coords="281,326,599,326,597,331,281,331"/>
-<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="505,306,601,319,595,320,505,311"/>
-<area shape="poly" id="edge17_Node000014_Node000002" title=" " alt="" coords="292,187,381,208,376,210,293,192"/>
+<area shape="rect" id="Node000001" title="Prints or sends telemetry data logs based on the selected output format." alt="" coords="5,185,106,213"/>
+<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#afc1b88b24077b89e9c80e4ecc709b64c" title="Whether an output is still in progress." alt="" coords="409,120,550,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,183,111,162,153,145,215,132,278,125,396,126,391,129,279,131,216,137,154,150,113,167,79,186"/>
+<area shape="rect" id="Node000003" href="$utils__rf_8h.html#af054c00af4d014f9db280e6e6e19e968" title="Initialize the shared RF module." alt="" coords="192,5,286,33"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="59,184,91,117,118,78,152,44,179,31,175,35,155,48,122,81,96,120,64,186"/>
+<area shape="rect" id="Node000005" href="$group__Telemetry.html#ga0018bc6f3f3b53571428522d11575051" title="One step of the datalog in JSON format." alt="" coords="185,211,292,238"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="105,204,172,213,168,217,107,209"/>
+<area shape="rect" id="Node000008" href="$group__Telemetry.html#ga678079c20f2260c02b6d805a3252fdb8" title="One step of the datalog in text format." alt="" coords="185,315,292,342"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="67,211,104,255,128,279,155,300,173,310,168,311,152,304,125,283,100,259,67,216"/>
+<area shape="rect" id="Node000012" href="$utils__rf_8h.html#af4688adbf4f3ed19323b79cf2fa2272b" title="Send RF data to gateway." alt="" coords="186,57,292,85"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="66,184,102,143,152,101,177,89,174,93,155,105,105,147,70,186"/>
+<area shape="rect" id="Node000013" href="$structTeleInfoData.html#afdf74e3ad6a18d229b186afea64cf945" title="Takes the values that change during the frame (the tariff is in datalogOffPeak)." alt="" coords="154,263,324,290"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="81,211,155,247,175,256,170,258,153,252,82,216"/>
+<area shape="rect" id="Node000014" href="$namespaceSerialOutput.html#ad10739abc0b7b1ec80ce4fe144ee2094" title="Start an output, written by later calls to poll()" alt="" coords="169,159,309,186"/>
+<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="105,190,155,183,152,187,108,194"/>
+<area shape="rect" id="Node000015" href="$group__Telemetry.html#gab51e8b51241c993237fc1badfa8466bf" title="One step of the telemetry frame, in IoT format: one line (see TeleInfo::writeFrameStep())." alt="" coords="172,367,306,394"/>
+<area shape="poly" id="edge18_Node000001_Node000015" title=" " alt="" coords="62,211,96,279,122,318,155,352,165,359,159,360,152,356,118,322,91,282,61,216"/>
+<area shape="rect" id="Node000004" href="$namespaceSharedRF.html#a1885bc1c65805664c2ad68a37868cd57" title="Accessor for the shared RFM69 instance." alt="" coords="418,43,541,70"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="286,24,405,43,400,46,287,29"/>
+<area shape="rect" id="Node000006" href="$ds18b20_8h.html#ad55adf4c2798fb2203dd07c6954856fe" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="406,249,553,277"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="293,230,394,248,389,250,293,236"/>
+<area shape="rect" id="Node000007" href="$namespaceSerialOutput.html#a5c00010099424ac29a16b77dbd562e5c" title="Print a value given in hundredths, in its shortest decimal form." alt="" coords="372,197,587,225"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="292,219,359,217,354,219,294,224"/>
+<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="287,312,371,287,407,280,402,282,373,292,289,317"/>
+<area shape="rect" id="Node000009" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="379,353,580,381"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="293,334,377,350,372,351,293,340"/>
+<area shape="rect" id="Node000010" href="$namespaceEnergy.html#a993caf3ccf42a68629e46c31dc5fe885" title="An energy in bucket units, in hundredths of a joule (for the datalog)." alt="" coords="376,301,584,329"/>
+<area shape="poly" id="edge10_Node000008_Node000010" title=" " alt="" coords="292,323,363,321,358,323,294,328"/>
+<area shape="rect" id="Node000011" href="$namespaceEnergy.html#a7aaa5a81b4e5ecaca75d4e9f5eb9a052" title="Greatest common divisor, to reduce fractions at compile time." alt="" coords="665,301,761,329"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="584,313,652,315,647,316,584,318"/>
+<area shape="poly" id="edge12_Node000011_Node000011" title=" " alt="" coords="677,300,671,292,676,283,690,277,713,275,738,277,752,286,747,286,736,282,713,280,691,282,680,287,677,292,682,302"/>
+<area shape="poly" id="edge14_Node000012_Node000004" title=" " alt="" coords="291,66,405,60,400,63,293,70"/>
+<area shape="poly" id="edge17_Node000014_Node000002" title=" " alt="" coords="308,159,396,146,391,149,310,164"/>
+<area shape="rect" id="Node000016" href="$namespaceTeleInfo.html#a1ada410c6d97aa6b44e403d583f46480" title="Writes a step of the frame: one line, STX before the first one, ETX after the last." alt="" coords="388,405,571,433"/>
+<area shape="poly" id="edge19_Node000015_Node000016" title=" " alt="" coords="307,389,377,402,372,403,307,394"/>
+<area shape="rect" id="Node000017" href="$namespaceTeleInfo.html#a7587a7c6cf35dbbad31cfddc9d0526da" title="Writes the line of a step." alt="" coords="640,431,786,458"/>
+<area shape="poly" id="edge20_Node000016_Node000017" title=" " alt="" coords="572,426,627,435,622,435,571,432"/>
+<area shape="rect" id="Node000022" href="$namespaceTeleInfo.html#ad667795b4250f603604afc9b30c0a017" title="The number of steps of a frame: one per line, invalid temperatures included (they write nothing)." alt="" coords="635,379,791,406"/>
+<area shape="poly" id="edge26_Node000016_Node000022" title=" " alt="" coords="571,406,622,403,617,403,572,411"/>
+<area shape="rect" id="Node000018" href="$namespaceTeleInfo.html#af4144be70a1141bccb67583aa9730635" title="Writes the line of a signed value." alt="" coords="869,404,974,432"/>
+<area shape="poly" id="edge21_Node000017_Node000018" title=" " alt="" coords="786,433,851,427,856,426,787,438"/>
+<area shape="rect" id="Node000021" href="$namespaceTeleInfo.html#a17cf541f513ec089af6363fb0cc75769" title="Writes the line of an unsigned value (above 32767, line() would wrap)." alt="" coords="839,456,1004,484"/>
+<area shape="poly" id="edge24_Node000017_Node000021" title=" " alt="" coords="786,451,826,458,821,458,786,456"/>
+<area shape="rect" id="Node000019" href="$namespaceTeleInfo.html#ab851b8161d4b41b2b4898e46f38b64e0" title="Writes a whole line: LF, tag and index, TAB, value, TAB, checksum and CR." alt="" coords="1052,431,1192,458"/>
+<area shape="poly" id="edge22_Node000018_Node000019" title=" " alt="" coords="974,422,1040,433,1034,433,974,427"/>
+<area shape="rect" id="Node000020" href="$namespaceTeleInfo.html#ae66100e613f030a8bb86f56d9b509a84" title="Writes the decimal digits of a 16&#45;bit value." alt="" coords="1240,431,1392,458"/>
+<area shape="poly" id="edge23_Node000019_Node000020" title=" " alt="" coords="1192,442,1227,444,1222,445,1193,447"/>
+<area shape="poly" id="edge25_Node000021_Node000019" title=" " alt="" coords="1004,457,1034,455,1040,455,1005,462"/>
 </map>

@@ -1,0 +1,21 @@
+<map id="readPinEdges" name="readPinEdges">
+<area shape="rect" id="Node000001" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="537,84,647,112"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="332,109,478,137"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="519,108,479,116,478,111,524,107"/>
+<area shape="rect" id="Node000006" href="$group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="358,161,452,189"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="554,119,490,151,453,164,452,159,488,146,549,120"/>
+<area shape="rect" id="Node000007" href="$group__GeneralProcessing.html#ga6cceee9dcc5819acbee76f71dad833f7" title="Handles dual tariff state transitions and priority rotation during off&#45;peak periods." alt="" coords="320,5,489,33"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="549,76,488,48,456,36,456,31,490,43,555,76"/>
+<area shape="rect" id="Node000008" href="$group__GeneralProcessing.html#ga74b56510aaa212ac90624173a857edaa" title="Handles load priority rotation." alt="" coords="324,57,486,85"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="519,88,486,85,486,80,525,88"/>
+<area shape="rect" id="Node000003" href="$group__GeneralProcessing.html#ga143b5ab1cc611c04c761240ce5687fdd" title="Handles tasks that need to be executed every second." alt="" coords="103,71,272,98"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="314,108,269,102,269,96,319,107"/>
+<area shape="rect" id="Node000005" href="$group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="159,136,216,164"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="314,135,217,149,216,144,319,133"/>
+<area shape="rect" id="Node000004" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,71,55,98"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="85,86,56,87,54,82,89,83"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="340,157,319,151,271,127,218,101,219,96,273,122,321,146,345,157"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="340,169,216,156,216,150,345,167"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="339,39,237,73,235,68,344,37"/>
+<area shape="poly" id="edge11_Node000008_Node000003" title=" " alt="" coords="306,78,273,82,272,77,311,76"/>
+</map>

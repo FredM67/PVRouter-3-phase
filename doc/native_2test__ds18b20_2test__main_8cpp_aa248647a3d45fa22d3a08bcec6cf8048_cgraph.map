@@ -1,0 +1,5 @@
+<map id="test_valid_readings_are_sent" name="test_valid_readings_are_sent">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,154,50"/>
+<area shape="rect" id="Node000002" href="$ds18b20_8h.html#ad55adf4c2798fb2203dd07c6954856fe" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="202,14,348,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="154,25,189,27,184,28,154,30"/>
+</map>

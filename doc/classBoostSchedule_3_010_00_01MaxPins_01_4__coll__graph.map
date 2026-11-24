@@ -1,0 +1,13 @@
+<map id="BoostSchedule&lt; 0, MaxPins &gt;" name="BoostSchedule&lt; 0, MaxPins &gt;">
+<area shape="rect" id="Node000001" title="No boost at all." alt="" coords="6,393,225,421"/>
+<area shape="rect" id="Node000002" href="$classBoostSchedule.html" title="The scheduled boosts: a window and the bitmasks of its targets, for each entry." alt="" coords="5,300,226,328"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,342,118,394,113,392,113,345"/>
+<area shape="rect" id="Node000003" href="$structBoostSchedule_1_1Entry.html" title=" " alt="" coords="13,191,218,235"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="117,248,118,301,113,300,114,253"/>
+<area shape="rect" id="Node000004" href="$structBoostWindow.html" title="When a load is boosted during the off&#45;peak period." alt="" coords="60,98,171,126"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="116,139,118,191,113,190,115,144"/>
+<area shape="rect" id="Node000005" href="$structBoostStart.html" title="Where a boost starts: minutes after the start of the off&#45;peak period, or before its end if fromEnd." alt="" coords="11,5,100,33"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="72,43,109,97,104,98,72,48"/>
+<area shape="rect" id="Node000006" href="$structBoostLength.html" title="How long a boost lasts, in minutes, or UNTIL_THE_END." alt="" coords="124,5,227,33"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="158,48,126,99,122,96,160,43"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="test_the_bounds_of_the_sensor_are_in_range" name="test_the_bounds_of_the_sensor_are_in_range">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,196,68"/>
+<area shape="rect" id="Node000002" href="$ds18b20_8h.html#ad55adf4c2798fb2203dd07c6954856fe" title="Whether a temperature reading is valid, and so worth sending." alt="" coords="259,5,405,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,32,246,29,240,30,197,37"/>
+<area shape="rect" id="Node000003" href="$namespaceDS18B20.html#ae74d41c356b743b6a5b1453c3e68dbb5" title="The temperature of the register, in hundredths of °C." alt="" coords="244,57,420,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="196,54,231,60,226,60,196,59"/>
+</map>

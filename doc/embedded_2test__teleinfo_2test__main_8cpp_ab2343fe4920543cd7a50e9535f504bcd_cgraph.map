@@ -1,22 +1,16 @@
 <map id="test_teleinfo_line_contents" name="test_teleinfo_line_contents">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,128,140,172"/>
-<area shape="rect" id="Node000002" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a2a68a15b365d99047b738628d77bd56b" title=" " alt="" coords="226,5,322,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,126,132,84,186,44,213,33,209,37,189,48,136,88,95,129"/>
-<area shape="rect" id="Node000003" href="$classTeleInfo.html#a37b1447161869bf3ecc2faed134b7eee" title="Finalizes the frame by adding the end character." alt="" coords="201,57,346,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,125,187,95,211,89,206,92,189,100,122,129"/>
-<area shape="rect" id="Node000004" href="$classTeleInfo.html#a4f418a8ad0164f7b10956c9186cdb345" title="Sends a telemetry value as an integer." alt="" coords="218,109,330,137"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="139,138,205,131,201,134,141,143"/>
-<area shape="rect" id="Node000008" href="$classTeleInfo.html#a61bb01da9590444331f8a02d39cfc7c7" title="Sends a telemetry value as an unsigned integer (above 32767, send() would wrap)." alt="" coords="188,161,360,189"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="139,156,175,161,170,163,141,161"/>
-<area shape="rect" id="Node000009" href="$classTeleInfo.html#ac3c9628b79d8f92c3d80dfdda4078e66" title="Initializes a new frame by resetting the buffer and adding the start character." alt="" coords="198,213,350,241"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="122,170,189,198,211,208,206,208,187,203,122,175"/>
-<area shape="rect" id="Node000010" href="$classTeleInfo.html#a699a9710dfbb9c795aac33144cd2703d" title="Writes the next part of the finished frame." alt="" coords="202,265,346,293"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="94,170,136,211,189,250,204,259,198,259,186,255,133,215,93,175"/>
-<area shape="rect" id="Node000005" href="$classTeleInfo.html#a83f6500622fefb17eef340037510392e" title="Writes a whole line: line feed, tag, value, checksum and carriage return." alt="" coords="408,136,548,164"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="329,128,395,138,390,139,330,133"/>
-<area shape="rect" id="Node000006" href="$classTeleInfo.html#a5db3eab02a4cc17cc5dc12bc081e3d58" title="Calculates the checksum for a portion of the buffer." alt="" coords="596,109,804,137"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="548,139,583,137,578,138,549,144"/>
-<area shape="rect" id="Node000007" href="$classTeleInfo.html#aa3553828cf429c6a22eec47c1b4e0458" title="Writes a tag to the buffer." alt="" coords="632,161,768,189"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="549,155,619,165,614,166,549,161"/>
-<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="360,162,395,160,390,161,361,167"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,140,94"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a833fe919c4e009301cd00ce0fba00c87" title=" " alt="" coords="216,5,324,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="139,51,204,36,199,39,141,56"/>
+<area shape="rect" id="Node000004" href="$namespaceTeleInfo.html#af4144be70a1141bccb67583aa9730635" title="Writes the line of a signed value." alt="" coords="218,57,322,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="140,69,205,70,200,72,140,74"/>
+<area shape="rect" id="Node000007" href="$namespaceTeleInfo.html#a17cf541f513ec089af6363fb0cc75769" title="Writes the line of an unsigned value (above 32767, line() would wrap)." alt="" coords="188,109,353,137"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="140,86,203,104,197,105,140,91"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__teleinfo_2test__main_8cpp.html#a2a68a15b365d99047b738628d77bd56b" title=" " alt="" coords="423,5,519,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="324,17,410,19,405,20,325,22"/>
+<area shape="rect" id="Node000005" href="$namespaceTeleInfo.html#ab851b8161d4b41b2b4898e46f38b64e0" title="Writes a whole line: LF, tag and index, TAB, value, TAB, checksum and CR." alt="" coords="401,83,541,110"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="323,75,389,86,383,86,323,80"/>
+<area shape="rect" id="Node000006" href="$namespaceTeleInfo.html#ae66100e613f030a8bb86f56d9b509a84" title="Writes the decimal digits of a 16&#45;bit value." alt="" coords="589,83,741,110"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="541,94,576,96,571,97,542,99"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="353,110,383,108,389,108,354,115"/>
 </map>

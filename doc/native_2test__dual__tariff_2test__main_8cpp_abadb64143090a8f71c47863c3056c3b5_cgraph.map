@@ -1,0 +1,7 @@
+<map id="test_last_starts_back_from_the_end_and_has_no_end" name="test_last_starts_back_from_the_end_and_has_no_end">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,185,67"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#a68f3d6551120fd462ed0022322f874f0" title="The last d of the off&#45;peak period, until the end." alt="" coords="233,22,287,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,34,220,36,215,36,185,39"/>
+<area shape="rect" id="Node000003" href="$config__types_8h.html#a1443b40bba36a2678456b87bae0ba5e1" title="A start m before the end of the off&#45;peak period." alt="" coords="335,22,443,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="287,34,322,36,317,36,288,39"/>
+</map>

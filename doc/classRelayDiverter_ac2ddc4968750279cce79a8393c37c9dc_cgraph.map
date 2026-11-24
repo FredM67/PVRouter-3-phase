@@ -1,0 +1,5 @@
+<map id="RelayDiverter::RelayDiverter" name="RelayDiverter::RelayDiverter">
+<area shape="rect" id="Node000001" title="The relays of config.h." alt="" coords="5,5,215,33"/>
+<area shape="rect" id="Node000002" href="$classRelayDiverter.html#a93766bfa3d303d4ad7464b7e5929327e" title="Construct a list of relays." alt="" coords="263,5,472,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="215,17,250,19,245,19,215,22"/>
+</map>

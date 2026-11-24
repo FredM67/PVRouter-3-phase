@@ -1,0 +1,10 @@
+<map id="Mk2_3phase_RFdatalog_temp/test/native/test_ds18b20/test_main.cpp" name="Mk2_3phase_RFdatalog_temp/test/native/test_ds18b20/test_main.cpp">
+<area shape="rect" id="Node000001" title="The checks of a DS18B20 reading (ds18b20.h): CRC, conversion, range, power&#45;on value." alt="" coords="17,5,196,67"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,115,70,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,70,59,104,55,101,85,65"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="112,191,182,218"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="116,65,135,142,143,176,138,175,130,143,112,70"/>
+<area shape="rect" id="Node000004" href="$ds18b20_8h.html" title="The checks of a DS18B20 reading: CRC, conversion to hundredths of °C, range, power&#45;on value." alt="" coords="144,115,232,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="135,65,169,103,164,103,133,70"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="183,142,164,179,160,175,179,145"/>
+</map>

@@ -85,8 +85,8 @@ $(function(){ initResizable(false); });
 
 <div class="header">
   <div class="summary">
+<a href="#files">Files</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">Temperature sensing feature</div></div>
 </div><!--header-->
@@ -95,68 +95,43 @@ $(function(){ initResizable(false); });
 <p>Functions used for temperature monitoring and processing.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="files" name="files"></a>
+Files</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ds18b20_8h.html">ds18b20.h</a></td></tr>
+<tr class="memdesc:ds18b20_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">The checks of a <a class="el" href="namespaceDS18B20.html">DS18B20</a> reading: CRC, conversion to hundredths of °C, range, power-on value. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="onewire__search_8h.html">onewire_search.h</a></td></tr>
+<tr class="memdesc:onewire__search_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ROM search of a 1-Wire bus, on the bit primitives of the bus. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="temp__schedule_8h.html">temp_schedule.h</a></td></tr>
+<tr class="memdesc:temp__schedule_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which 1-Wire transaction of the temperature sensors runs on which mains cycle. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structDeviceAddress.html">DeviceAddress</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure representing the address of a device.  <a href="structDeviceAddress.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTemperatureSensing.html">TemperatureSensing&lt; N &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements temperature sensing functionality for multiple sensors.  <a href="classTemperatureSensing.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTempSensors.html">TempSensors&lt; N &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements temperature sensing functionality for multiple sensors.  <a href="classTempSensors.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga89c7e0a0d9d1ce58b1583f591701d2c4" id="r_ga89c7e0a0d9d1ce58b1583f591701d2c4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga89c7e0a0d9d1ce58b1583f591701d2c4">TemperatureSensing&lt; N &gt;::ScratchPad</a> = uint8_t[9]</td></tr>
-<tr class="memdesc:ga89c7e0a0d9d1ce58b1583f591701d2c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a buffer for storing sensor data.  <br /></td></tr>
-<tr class="separator:ga89c7e0a0d9d1ce58b1583f591701d2c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga90dc0c3192649d64ae885b62e6afa6e4" id="r_ga90dc0c3192649d64ae885b62e6afa6e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga90dc0c3192649d64ae885b62e6afa6e4">processTemperatureData</a> ()</td></tr>
-<tr class="memdesc:ga90dc0c3192649d64ae885b62e6afa6e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes temperature data from DS18B20 sensors.  <br /></td></tr>
-<tr class="separator:ga90dc0c3192649d64ae885b62e6afa6e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7db1cd9dbe3ce12b90dc41523338353b" id="r_ga7db1cd9dbe3ce12b90dc41523338353b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga7db1cd9dbe3ce12b90dc41523338353b">processTemperatureData</a> (const bool bStartNow)</td></tr>
+<tr class="memdesc:ga7db1cd9dbe3ce12b90dc41523338353b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes temperature data from <a class="el" href="namespaceDS18B20.html">DS18B20</a> sensors.  <br /></td></tr>
+<tr class="separator:ga7db1cd9dbe3ce12b90dc41523338353b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3a97244f1558e94cb1fe9d0190fea8af" id="r_ga3a97244f1558e94cb1fe9d0190fea8af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga3a97244f1558e94cb1fe9d0190fea8af">runTemperatureTransaction</a> (const bool onTime)</td></tr>
+<tr class="memdesc:ga3a97244f1558e94cb1fe9d0190fea8af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the 1-Wire transaction of this mains cycle, if any.  <br /></td></tr>
+<tr class="separator:ga3a97244f1558e94cb1fe9d0190fea8af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Functions used for temperature monitoring and processing. </p>
-<p>This group contains functions that handle temperature sensing using DS18B20 sensors. It includes reading temperature data, filtering invalid readings, and updating telemetry with valid temperature values. The temperature data can also influence load diversion decisions.</p>
+<p>This group contains functions that handle temperature sensing using <a class="el" href="namespaceDS18B20.html">DS18B20</a> sensors. It includes reading temperature data, filtering invalid readings, and updating telemetry with valid temperature values. The temperature data can also influence load diversion decisions.</p>
 <dl class="section note"><dt>Note</dt><dd>The system supports multiple sensors and stores temperature values as integers multiplied by 100 for precision. </dd></dl>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="ga89c7e0a0d9d1ce58b1583f591701d2c4" name="ga89c7e0a0d9d1ce58b1583f591701d2c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga89c7e0a0d9d1ce58b1583f591701d2c4">&#9670;&#160;</a></span>ScratchPad</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;uint8_t N&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classTemperatureSensing.html">TemperatureSensing</a>&lt; N &gt;::ScratchPad = uint8_t[9]</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Represents a buffer for storing sensor data. </p>
-<p>The <code><a class="el" href="#ga89c7e0a0d9d1ce58b1583f591701d2c4" title="Represents a buffer for storing sensor data.">ScratchPad</a></code> type alias is used to define a buffer of 9 bytes, which is typically used to store data read from a DS18B20 temperature sensor's scratchpad memory.</p>
-<ul>
-<li>The scratchpad memory contains temperature data, configuration settings, and a CRC byte.</li>
-<li>This buffer is used during temperature reading and validation processes. </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="utils__temp_8h_source.html#l00119">119</a> of file <a class="el" href="utils__temp_8h_source.html">utils_temp.h</a>.</p>
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga90dc0c3192649d64ae885b62e6afa6e4" name="ga90dc0c3192649d64ae885b62e6afa6e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga90dc0c3192649d64ae885b62e6afa6e4">&#9670;&#160;</a></span>processTemperatureData()</h2>
+<a id="ga7db1cd9dbe3ce12b90dc41523338353b" name="ga7db1cd9dbe3ce12b90dc41523338353b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7db1cd9dbe3ce12b90dc41523338353b">&#9670;&#160;</a></span>processTemperatureData()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,27 +139,84 @@ template&lt;uint8_t N&gt; </div>
         <tr>
           <td class="memname">void processTemperatureData </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>bStartNow</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Processes temperature data from DS18B20 sensors. </p>
-<p>This function reads temperature values from all connected DS18B20 sensors, filters out invalid readings, and updates the telemetry data structure with valid temperature values. Invalid readings are identified as 85.00°C (encoded as 8500) with a delta greater than 5.00°C (encoded as 500) from the previous reading. After processing, it requests new temperature measurements for the next cycle.</p>
+<p>Processes temperature data from <a class="el" href="namespaceDS18B20.html">DS18B20</a> sensors. </p>
+<p>At the end of each datalog period: the readings of the period's round (<a class="el" href="#ga3a97244f1558e94cb1fe9d0190fea8af" title="Runs the 1-Wire transaction of this mains cycle, if any.">runTemperatureTransaction()</a>), converted 750 ms or more before they were read, filtered and copied for the datalog output. Invalid readings are identified as 85.00°C (encoded as 8500) with a delta greater than 5.00°C (encoded as 500) from the previous reading. The next round starts at once if the loop handles the end of the period on time, so that its conversion runs before the datalog output (the UART interrupts would add to the delay of the ADC interrupt after a 1-Wire slot); otherwise with the next mains cycle.</p>
 <dl class="section note"><dt>Note</dt><dd>This function assumes that temperature values are stored as integers multiplied by 100 for precision.</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd>The <code>temperatureSensing</code> object must be initialized and configured with the connected DS18B20 sensors.</dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>The <code>tx_data.temperature_x100</code> array is updated with the latest valid temperature readings. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The <code>temperatureSensing</code> object must be initialized and configured with the connected <a class="el" href="namespaceDS18B20.html">DS18B20</a> sensors.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The <code>tx_data.temperature_x100</code> array is updated with the latest valid temperature readings.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bStartNow</td><td>Whether the end of the period is handled on time, soon after its mains cycle was flagged </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00475">475</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00469">469</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__TemperatureSensing_ga7db1cd9dbe3ce12b90dc41523338353b_cgraph.png" border="0" usemap="#agroup__TemperatureSensing_ga7db1cd9dbe3ce12b90dc41523338353b_cgraph" alt=""/></div>
+<map name="agroup__TemperatureSensing_ga7db1cd9dbe3ce12b90dc41523338353b_cgraph" id="agroup__TemperatureSensing_ga7db1cd9dbe3ce12b90dc41523338353b_cgraph">
+<area shape="rect" title="Processes temperature data from DS18B20 sensors." alt="" coords="5,5,190,33"/>
+<area shape="rect" href="group__TemperatureSensing.html#ga3a97244f1558e94cb1fe9d0190fea8af" title="Runs the 1&#45;Wire transaction of this mains cycle, if any." alt="" coords="238,5,436,33"/>
+<area shape="poly" title=" " alt="" coords="190,17,225,19,219,19,190,22"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__TemperatureSensing_ga90dc0c3192649d64ae885b62e6afa6e4_icgraph.png" border="0" usemap="#agroup__TemperatureSensing_ga90dc0c3192649d64ae885b62e6afa6e4_icgraph" alt=""/></div>
-<map name="agroup__TemperatureSensing_ga90dc0c3192649d64ae885b62e6afa6e4_icgraph" id="agroup__TemperatureSensing_ga90dc0c3192649d64ae885b62e6afa6e4_icgraph">
+<div class="center"><img src="group__TemperatureSensing_ga7db1cd9dbe3ce12b90dc41523338353b_icgraph.png" border="0" usemap="#agroup__TemperatureSensing_ga7db1cd9dbe3ce12b90dc41523338353b_icgraph" alt=""/></div>
+<map name="agroup__TemperatureSensing_ga7db1cd9dbe3ce12b90dc41523338353b_icgraph" id="agroup__TemperatureSensing_ga7db1cd9dbe3ce12b90dc41523338353b_icgraph">
 <area shape="rect" title="Processes temperature data from DS18B20 sensors." alt="" coords="103,5,287,33"/>
 <area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,55,33"/>
 <area shape="poly" title=" " alt="" coords="85,20,55,22,55,17,90,18"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ga3a97244f1558e94cb1fe9d0190fea8af" name="ga3a97244f1558e94cb1fe9d0190fea8af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3a97244f1558e94cb1fe9d0190fea8af">&#9670;&#160;</a></span>runTemperatureTransaction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void runTemperatureTransaction </td>
+          <td>(</td>
+          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>onTime</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Runs the 1-Wire transaction of this mains cycle, if any. </p>
+<p>Called at the top of the loop pass that sees the new mains cycle, before any other work: the cycle's work in the ADC interrupt (<a class="el" href="group__TimeCritical.html#ga5a8b9dce34e44a69a46344e8ee1c0dd6" title="Processes the start of a new mains cycle on phase 0.">processStartNewCycle()</a>) is done by then (<a class="el" href="namespaceShared.html#aeb0c8d5068e7da50d773ea26d9f27393">Shared::b_newMainsCycle</a>), and the long slots of the transaction (its resets and 0s written, which keep interrupts off for 65 to 70 µs) end long before the next one, a mains cycle later (<a class="el" href="temp__schedule_8h.html" title="Which 1-Wire transaction of the temperature sensors runs on which mains cycle.">temp_schedule.h</a>).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">onTime</td><td>Whether the loop was idle when the cycle began: the flag is fresh </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00423">423</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__TemperatureSensing_ga3a97244f1558e94cb1fe9d0190fea8af_icgraph.png" border="0" usemap="#agroup__TemperatureSensing_ga3a97244f1558e94cb1fe9d0190fea8af_icgraph" alt=""/></div>
+<map name="agroup__TemperatureSensing_ga3a97244f1558e94cb1fe9d0190fea8af_icgraph" id="agroup__TemperatureSensing_ga3a97244f1558e94cb1fe9d0190fea8af_icgraph">
+<area shape="rect" title="Runs the 1&#45;Wire transaction of this mains cycle, if any." alt="" coords="335,5,533,33"/>
+<area shape="rect" href="group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,55,33"/>
+<area shape="poly" title=" " alt="" coords="319,22,55,22,55,17,320,17"/>
+<area shape="rect" href="group__TemperatureSensing.html#ga7db1cd9dbe3ce12b90dc41523338353b" title="Processes temperature data from DS18B20 sensors." alt="" coords="103,31,287,58"/>
+<area shape="poly" title=" " alt="" coords="322,31,288,37,287,32,317,32"/>
+<area shape="poly" title=" " alt="" coords="85,29,55,26,55,20,90,27"/>
 </map>
 </div>
 

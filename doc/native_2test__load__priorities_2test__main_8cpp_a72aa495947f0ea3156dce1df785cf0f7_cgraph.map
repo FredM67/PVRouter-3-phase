@@ -1,0 +1,5 @@
+<map id="test_calibration_mode_keeps_every_load_off" name="test_calibration_mode_keeps_every_load_off">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,175,50"/>
+<area shape="rect" id="Node000002" href="$namespaceLoadPriorities.html#a47aea1ccecee86d6d769f85e0ec56772" title="Maps the logical load states to the physical ones." alt="" coords="223,14,408,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,25,210,27,204,28,175,30"/>
+</map>

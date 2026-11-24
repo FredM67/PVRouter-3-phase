@@ -1,0 +1,13 @@
+<map id="RelayLogic::Relay::get_importThreshold" name="RelayLogic::Relay::get_importThreshold">
+<area shape="rect" id="Node000001" title="Get the import threshold which will turns OFF the relay." alt="" coords="346,57,502,102"/>
+<area shape="rect" id="Node000002" href="$embedded_2test__utils__relay_2test__main_8cpp.html#acf18f50974498226d414b44788f59752" title=" " alt="" coords="113,5,288,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="328,54,297,47,257,36,257,31,299,42,334,53"/>
+<area shape="rect" id="Node000004" href="$embedded_2test__utils__relay_2test__main_8cpp.html#af6ddac18c62df593b1a20bb447f953a4" title=" " alt="" coords="103,57,298,102"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="328,80,299,82,298,77,333,79"/>
+<area shape="rect" id="Node000005" href="$embedded_2test__utils__relay_2test__main_8cpp.html#ab5b1d70e0be648ef2951a655bf828574" title=" " alt="" coords="105,126,296,171"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="338,106,276,128,274,123,333,107"/>
+<area shape="rect" id="Node000003" href="$embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,65,55,93"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="120,40,104,47,57,68,54,64,102,42,124,36"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="85,81,56,82,54,77,89,77"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="116,121,102,116,55,94,55,89,104,111,121,120"/>
+</map>

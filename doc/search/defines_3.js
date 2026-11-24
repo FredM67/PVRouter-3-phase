@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['project_5fpath_0',['PROJECT_PATH',['../version_8h.html#a799965f801bbe1f540c3100566f78d81',1,'version.h']]]
+  ['measure_0',['MEASURE',['../embedded_2test__datalog__math__avr_2test__main_8cpp.html#a4e5250d7d83989bcaec73010101d5baa',1,'test_main.cpp']]],
+  ['minutes_1',['MINUTES',['../type__traits_8hpp.html#a1ff3cad1c24da56b3ff84a8c39db99d7',1,'type_traits.hpp']]]
 ];

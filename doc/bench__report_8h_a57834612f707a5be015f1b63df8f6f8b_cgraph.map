@@ -1,0 +1,9 @@
+<map id="printPerOp" name="printPerOp">
+<area shape="rect" id="Node000001" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="5,57,96,85"/>
+<area shape="rect" id="Node000002" href="$bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="148,5,244,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,54,143,37,139,40,93,59"/>
+<area shape="rect" id="Node000003" href="$bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="151,57,242,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="95,69,138,70,133,72,96,74"/>
+<area shape="rect" id="Node000004" href="$bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="144,109,249,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="92,83,144,103,139,105,91,88"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="test_on_bits_travel_with_their_load" name="test_on_bits_travel_with_their_load">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,151,94"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98" title="Load loadNum of physicalLoadPin[], local or remote (0, no load, if out of range)." alt="" coords="253,5,310,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,50,240,29,236,31,152,55"/>
+<area shape="rect" id="Node000003" href="$namespaceLoad.html#a3c4a0ef2578d140feed4d9e1fa474671" title="Declares a load driven locally by the router." alt="" coords="236,57,327,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="151,69,223,70,218,72,152,74"/>
+<area shape="rect" id="Node000004" href="$classRotation_1_1Table.html#a8c71e672bcec5dafa18bb8efaf704ed5" title="Rotates each group by one among its places; each entry keeps its ON bit." alt="" coords="199,109,364,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="151,87,212,104,207,105,151,92"/>
+</map>

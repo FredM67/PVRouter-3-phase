@@ -1,0 +1,12 @@
+<map id="TeleInfo::frameLine" name="TeleInfo::frameLine">
+<area shape="rect" id="Node000001" title="Writes the line of a step." alt="" coords="5,32,152,60"/>
+<area shape="rect" id="Node000002" href="$namespaceTeleInfo.html#af4144be70a1141bccb67583aa9730635" title="Writes the line of a signed value." alt="" coords="230,5,334,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,34,217,27,212,29,152,39"/>
+<area shape="rect" id="Node000005" href="$namespaceTeleInfo.html#a17cf541f513ec089af6363fb0cc75769" title="Writes the line of an unsigned value (above 32767, line() would wrap)." alt="" coords="200,57,365,85"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="152,52,187,59,181,59,152,58"/>
+<area shape="rect" id="Node000003" href="$namespaceTeleInfo.html#ab851b8161d4b41b2b4898e46f38b64e0" title="Writes a whole line: LF, tag and index, TAB, value, TAB, checksum and CR." alt="" coords="413,32,553,60"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="335,23,401,34,395,35,335,29"/>
+<area shape="rect" id="Node000004" href="$namespaceTeleInfo.html#ae66100e613f030a8bb86f56d9b509a84" title="Writes the decimal digits of a 16&#45;bit value." alt="" coords="601,32,753,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="553,43,588,46,583,46,554,48"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="365,58,395,57,401,56,366,63"/>
+</map>

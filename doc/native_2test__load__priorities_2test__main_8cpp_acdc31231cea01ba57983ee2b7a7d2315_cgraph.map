@@ -1,0 +1,7 @@
+<map id="test_next_ignores_the_load_numbers" name="test_next_ignores_the_load_numbers">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,24,171,68"/>
+<area shape="rect" id="Node000002" href="$namespaceLoadPriorities.html#a36125f3d6722a8bc0307afc39deee588" title="The next logical load to switch ON: the first one OFF, in priority order." alt="" coords="233,5,420,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,34,221,31,215,32,172,39"/>
+<area shape="rect" id="Node000003" href="$namespaceLoadPriorities.html#a1258efcfb93fd5721c9b43d3711daa58" title="The next logical load to switch OFF: the last one ON, in priority order." alt="" coords="219,57,434,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="171,52,206,58,200,58,171,57"/>
+</map>

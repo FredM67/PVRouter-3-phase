@@ -1,0 +1,28 @@
+<map id="LAST" name="LAST">
+<area shape="rect" id="Node000001" title="The last d of the off&#45;peak period, until the end." alt="" coords="363,268,417,296"/>
+<area shape="rect" id="Node000002" href="$native_2test__dual__tariff_2test__main_8cpp.html#ae7cbc6aac460ee9fbfb4ef0f67e903c3" title=" " alt="" coords="120,5,302,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="385,252,379,212,367,161,346,109,331,85,313,64,300,53,300,48,317,60,335,82,350,107,372,159,384,211,390,254"/>
+<area shape="rect" id="Node000004" href="$native_2test__dual__tariff_2test__main_8cpp.html#a5b4db7d8ea556cda25c63680c804c30f" title=" " alt="" coords="114,75,309,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="379,253,356,193,338,161,313,134,299,123,298,117,317,130,342,158,361,191,385,254"/>
+<area shape="rect" id="Node000005" href="$native_2test__dual__tariff_2test__main_8cpp.html#a2e0c8e70f9fd9dc171c13b4b38075d4c" title=" " alt="" coords="108,144,315,205"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="362,258,314,219,295,208,295,203,316,215,368,257"/>
+<area shape="rect" id="Node000006" href="$native_2test__dual__tariff_2test__main_8cpp.html#ab1856ca4c3f60ab8bfa373c4bc92a473" title=" " alt="" coords="130,229,292,274"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="345,276,294,268,293,263,350,274"/>
+<area shape="rect" id="Node000007" href="$native_2test__dual__tariff_2test__main_8cpp.html#a3712af81a72f2405d7988a4cdd90b820" title=" " alt="" coords="114,298,308,326"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="345,290,301,300,299,295,350,288"/>
+<area shape="rect" id="Node000008" href="$native_2test__dual__tariff_2test__main_8cpp.html#abadb64143090a8f71c47863c3056c3b5" title=" " alt="" coords="122,350,301,412"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="363,304,316,339,292,352,289,347,314,335,358,307"/>
+<area shape="rect" id="Node000009" href="$native_2test__dual__tariff_2test__main_8cpp.html#ac90d8a567fc4cb2b7b9d17370e0a8d91" title=" " alt="" coords="143,436,280,481"/>
+<area shape="poly" id="edge13_Node000001_Node000009" title=" " alt="" coords="383,309,360,369,341,399,317,426,282,446,279,441,313,422,337,396,355,367,379,313"/>
+<area shape="rect" id="Node000010" href="$native_2test__dual__tariff_2test__main_8cpp.html#a8ef873137693a9e96865e0456246eb7a" title=" " alt="" coords="141,504,282,532"/>
+<area shape="poly" id="edge15_Node000001_Node000010" title=" " alt="" coords="389,310,384,353,372,402,350,452,335,475,317,495,301,506,282,514,281,509,298,501,313,491,331,472,346,450,367,401,379,352,385,314"/>
+<area shape="rect" id="Node000003" href="$native_2test__dual__tariff_2test__main_8cpp.html#a840291bc02cba5474a4cb46a9b9566fe" title=" " alt="" coords="5,268,60,296"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="109,62,110,64,90,88,74,115,52,174,41,229,37,269,32,268,36,228,47,172,69,113,85,85,106,61,112,57"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="111,130,110,134,82,166,61,204,40,269,34,267,56,202,77,163,106,130,114,126"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="113,215,109,219,75,245,49,270,45,267,72,241,106,215,116,211"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="113,270,62,280,59,276,117,266"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="106,296,61,289,59,284,110,293"/>
+<area shape="poly" id="edge12_Node000008_Node000003" title=" " alt="" coords="116,344,106,339,51,299,50,294,109,335,121,342"/>
+<area shape="poly" id="edge14_Node000009_Node000003" title=" " alt="" coords="126,438,106,426,78,395,58,359,37,299,38,294,63,356,83,391,109,422,131,437"/>
+<area shape="poly" id="edge16_Node000010_Node000003" title=" " alt="" coords="124,506,106,495,85,472,69,446,47,390,36,336,34,299,35,294,41,335,52,388,74,444,90,469,109,491,130,506"/>
+</map>

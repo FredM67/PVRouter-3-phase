@@ -86,8 +86,6 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classrelayOutput-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">relayOutput Class Reference<div class="ingroups"><a class="el" href="group__RelayDiversion.html">Relay diversion feature</a></div></div></div>
 </div><!--header-->
@@ -97,601 +95,85 @@ $(function(){ initResizable(false); });
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for relayOutput:</div>
+<div class="dyncontent">
+<div class="center"><img src="classrelayOutput__inherit__graph.png" border="0" usemap="#arelayOutput_inherit__map" alt="Inheritance graph"/></div>
+<map name="arelayOutput_inherit__map" id="arelayOutput_inherit__map">
+<area shape="rect" title="Represents a single relay configuration and its behavior." alt="" coords="30,209,129,237"/>
+<area shape="rect" href="classRelayLogic_1_1Relay.html" title=" " alt="" coords="5,115,154,160"/>
+<area shape="poly" title=" " alt="" coords="81,173,82,209,77,208,78,177"/>
+<area shape="rect" href="classRelayLogic_1_1Relay.html" title="The state of one relay, and its decisions." alt="" coords="5,5,154,50"/>
+<area shape="poly" title=" " alt="" coords="81,63,82,115,77,114,78,68"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for relayOutput:</div>
+<div class="dyncontent">
+<div class="center"><img src="classrelayOutput__coll__graph.png" border="0" usemap="#arelayOutput_coll__map" alt="Collaboration graph"/></div>
+<map name="arelayOutput_coll__map" id="arelayOutput_coll__map">
+<area shape="rect" title="Represents a single relay configuration and its behavior." alt="" coords="30,209,129,237"/>
+<area shape="rect" href="classRelayLogic_1_1Relay.html" title=" " alt="" coords="5,115,154,160"/>
+<area shape="poly" title=" " alt="" coords="81,173,82,209,77,208,78,177"/>
+<area shape="rect" href="classRelayLogic_1_1Relay.html" title="The state of one relay, and its decisions." alt="" coords="5,5,154,50"/>
+<area shape="poly" title=" " alt="" coords="81,63,82,115,77,114,78,68"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1e14c420e720e082a327e2341906cb18" id="r_a1e14c420e720e082a327e2341906cb18"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1e14c420e720e082a327e2341906cb18">relayOutput</a> ()=delete</td></tr>
-<tr class="separator:a1e14c420e720e082a327e2341906cb18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ec4f8ef291d95028b40b11f2238e1b0" id="r_a8ec4f8ef291d95028b40b11f2238e1b0"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8ec4f8ef291d95028b40b11f2238e1b0">relayOutput</a> (const uint8_t _relay_pin)</td></tr>
-<tr class="memdesc:a8ec4f8ef291d95028b40b11f2238e1b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object with default parameters.  <br /></td></tr>
-<tr class="separator:a8ec4f8ef291d95028b40b11f2238e1b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaea9886591a4fc044da5922bb90e746" id="r_aaaea9886591a4fc044da5922bb90e746"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaaea9886591a4fc044da5922bb90e746">relayOutput</a> (uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)</td></tr>
-<tr class="memdesc:aaaea9886591a4fc044da5922bb90e746"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object with default/custom parameters.  <br /></td></tr>
-<tr class="separator:aaaea9886591a4fc044da5922bb90e746"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c37604b74d578740144dedb3d38096e" id="r_a6c37604b74d578740144dedb3d38096e"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c37604b74d578740144dedb3d38096e">relayOutput</a> (uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)</td></tr>
-<tr class="memdesc:a6c37604b74d578740144dedb3d38096e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object with custom parameters.  <br /></td></tr>
-<tr class="separator:a6c37604b74d578740144dedb3d38096e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5e29e98a79b0a99ca429b2d3c80969e" id="r_aa5e29e98a79b0a99ca429b2d3c80969e"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa5e29e98a79b0a99ca429b2d3c80969e">get_importThreshold</a> () const</td></tr>
-<tr class="memdesc:aa5e29e98a79b0a99ca429b2d3c80969e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the import threshold which will turns OFF the relay.  <br /></td></tr>
-<tr class="separator:aa5e29e98a79b0a99ca429b2d3c80969e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b3ccb243e3e2c287249e0f0e079f554" id="r_a3b3ccb243e3e2c287249e0f0e079f554"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b3ccb243e3e2c287249e0f0e079f554">get_minOFF</a> () const</td></tr>
-<tr class="memdesc:a3b3ccb243e3e2c287249e0f0e079f554"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the minimum OFF-time in seconds.  <br /></td></tr>
-<tr class="separator:a3b3ccb243e3e2c287249e0f0e079f554"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefe2af3c49240ec8fc219a26f37c8bb8" id="r_aefe2af3c49240ec8fc219a26f37c8bb8"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aefe2af3c49240ec8fc219a26f37c8bb8">get_minON</a> () const</td></tr>
-<tr class="memdesc:aefe2af3c49240ec8fc219a26f37c8bb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the minimum ON-time in seconds.  <br /></td></tr>
-<tr class="separator:aefe2af3c49240ec8fc219a26f37c8bb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9bf2670034f07cc718b4a9b7c513155" id="r_ac9bf2670034f07cc718b4a9b7c513155"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9bf2670034f07cc718b4a9b7c513155">get_pin</a> () const</td></tr>
-<tr class="memdesc:ac9bf2670034f07cc718b4a9b7c513155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the control pin of the relay.  <br /></td></tr>
-<tr class="separator:ac9bf2670034f07cc718b4a9b7c513155"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53d146f5a123d31cae6146e8fb4c038a" id="r_a53d146f5a123d31cae6146e8fb4c038a"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53d146f5a123d31cae6146e8fb4c038a">get_surplusThreshold</a> () const</td></tr>
-<tr class="memdesc:a53d146f5a123d31cae6146e8fb4c038a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the surplus threshold which will turns ON the relay.  <br /></td></tr>
-<tr class="separator:a53d146f5a123d31cae6146e8fb4c038a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad34639fdac60c7ef36bbb763f97ab9f1" id="r_ad34639fdac60c7ef36bbb763f97ab9f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad34639fdac60c7ef36bbb763f97ab9f1">inc_duration</a> () const</td></tr>
-<tr class="memdesc:ad34639fdac60c7ef36bbb763f97ab9f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment the duration of the current state.  <br /></td></tr>
-<tr class="separator:ad34639fdac60c7ef36bbb763f97ab9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6905bae7d7204139b695ca089defb20" id="r_ab6905bae7d7204139b695ca089defb20"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6905bae7d7204139b695ca089defb20">isRelayON</a> () const</td></tr>
-<tr class="memdesc:ab6905bae7d7204139b695ca089defb20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the state.  <br /></td></tr>
-<tr class="separator:ab6905bae7d7204139b695ca089defb20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa900099d8298cde7d15e3e2dd804df4a" id="r_aa900099d8298cde7d15e3e2dd804df4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa900099d8298cde7d15e3e2dd804df4a">printRelayConfiguration</a> (uint8_t idx) const</td></tr>
 <tr class="memdesc:aa900099d8298cde7d15e3e2dd804df4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the configuration of the current relay-diversion.  <br /></td></tr>
 <tr class="separator:aa900099d8298cde7d15e3e2dd804df4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bba2dafbdc27d07468741bc1d849f57" id="r_a7bba2dafbdc27d07468741bc1d849f57"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7bba2dafbdc27d07468741bc1d849f57">proceed_forced_only</a> (const uint16_t overrideBitmask) const</td></tr>
-<tr class="memdesc:a7bba2dafbdc27d07468741bc1d849f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed with the relay while diversion is disabled: ON only while forced.  <br /></td></tr>
-<tr class="separator:a7bba2dafbdc27d07468741bc1d849f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8db1c0f340b319bfc7ff11467ea57cc7" id="r_a8db1c0f340b319bfc7ff11467ea57cc7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8db1c0f340b319bfc7ff11467ea57cc7">proceed_relay</a> (const int32_t currentAvgPower, const uint16_t overrideBitmask) const</td></tr>
-<tr class="memdesc:a8db1c0f340b319bfc7ff11467ea57cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed with the relay.  <br /></td></tr>
-<tr class="separator:a8db1c0f340b319bfc7ff11467ea57cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:af866e8a61c04548ed5e40e971f6b0e3f" id="r_af866e8a61c04548ed5e40e971f6b0e3f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af866e8a61c04548ed5e40e971f6b0e3f">isForced</a> (const uint16_t overrideBitmask) const</td></tr>
-<tr class="separator:af866e8a61c04548ed5e40e971f6b0e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5b46b3ccabacb3565a16038f8099398" id="r_ac5b46b3ccabacb3565a16038f8099398"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5b46b3ccabacb3565a16038f8099398">try_switch</a> (const bool on) const</td></tr>
-<tr class="memdesc:ac5b46b3ccabacb3565a16038f8099398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turn the relay ON or OFF if the 'time' condition is met.  <br /></td></tr>
-<tr class="separator:ac5b46b3ccabacb3565a16038f8099398"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a9da57bd903102fb1ed765fe94a6c352c" id="r_a9da57bd903102fb1ed765fe94a6c352c"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9da57bd903102fb1ed765fe94a6c352c">duration</a> { 0 }</td></tr>
-<tr class="separator:a9da57bd903102fb1ed765fe94a6c352c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ef45ace133c038e9e6fca3c9ed20d05" id="r_a4ef45ace133c038e9e6fca3c9ed20d05"><td class="memItemLeft" align="right" valign="top">const int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ef45ace133c038e9e6fca3c9ed20d05">importThreshold</a> { 200 }</td></tr>
-<tr class="separator:a4ef45ace133c038e9e6fca3c9ed20d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdf09f94d1891f24a200a6bece01b449" id="r_acdf09f94d1891f24a200a6bece01b449"><td class="memItemLeft" align="right" valign="top">const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acdf09f94d1891f24a200a6bece01b449">minOFF</a> { 5 * 60 }</td></tr>
-<tr class="separator:acdf09f94d1891f24a200a6bece01b449"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa128ef24702813df92dc95a7e9da05e0" id="r_aa128ef24702813df92dc95a7e9da05e0"><td class="memItemLeft" align="right" valign="top">const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa128ef24702813df92dc95a7e9da05e0">minON</a> { 5 * 60 }</td></tr>
-<tr class="separator:aa128ef24702813df92dc95a7e9da05e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a536df28c34f0ad3ca86b73bfc1505355" id="r_a536df28c34f0ad3ca86b73bfc1505355"><td class="memItemLeft" align="right" valign="top">const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a536df28c34f0ad3ca86b73bfc1505355">relay_pin</a> { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td></tr>
-<tr class="separator:a536df28c34f0ad3ca86b73bfc1505355"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74d185ffeecb49b68552e419748f5773" id="r_a74d185ffeecb49b68552e419748f5773"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74d185ffeecb49b68552e419748f5773">relayIsON</a> { false }</td></tr>
-<tr class="separator:a74d185ffeecb49b68552e419748f5773"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5149cd72bf3d2ad09b5c8cf217db3e08" id="r_a5149cd72bf3d2ad09b5c8cf217db3e08"><td class="memItemLeft" align="right" valign="top">const int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5149cd72bf3d2ad09b5c8cf217db3e08">surplusThreshold</a> { -1000 }</td></tr>
-<tr class="separator:a5149cd72bf3d2ad09b5c8cf217db3e08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classRelayLogic_1_1Relay"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classRelayLogic_1_1Relay')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classRelayLogic_1_1Relay.html">RelayLogic::Relay&lt; RelayPinOutput &gt;</a></td></tr>
+<tr class="memitem:a9160ea999bd2a84d1a5b8de77d547097 inherit pub_methods_classRelayLogic_1_1Relay" id="r_a9160ea999bd2a84d1a5b8de77d547097"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#a9160ea999bd2a84d1a5b8de77d547097">Relay</a> ()=delete</td></tr>
+<tr class="separator:a9160ea999bd2a84d1a5b8de77d547097 inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade70c2745463cb06d2614f4fdb5a4e2e inherit pub_methods_classRelayLogic_1_1Relay" id="r_ade70c2745463cb06d2614f4fdb5a4e2e"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#ade70c2745463cb06d2614f4fdb5a4e2e">Relay</a> (const uint8_t _relay_pin)</td></tr>
+<tr class="memdesc:ade70c2745463cb06d2614f4fdb5a4e2e inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object with default parameters.  <br /></td></tr>
+<tr class="separator:ade70c2745463cb06d2614f4fdb5a4e2e inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa99e2cd76636799f714f4188a7389ae inherit pub_methods_classRelayLogic_1_1Relay" id="r_afa99e2cd76636799f714f4188a7389ae"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#afa99e2cd76636799f714f4188a7389ae">Relay</a> (uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold)</td></tr>
+<tr class="memdesc:afa99e2cd76636799f714f4188a7389ae inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object with default/custom parameters.  <br /></td></tr>
+<tr class="separator:afa99e2cd76636799f714f4188a7389ae inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87c9db04bd0806761bd60dadd51c778b inherit pub_methods_classRelayLogic_1_1Relay" id="r_a87c9db04bd0806761bd60dadd51c778b"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#a87c9db04bd0806761bd60dadd51c778b">Relay</a> (uint8_t _relay_pin, int16_t _surplusThreshold, int16_t _importThreshold, uint16_t _minON, uint16_t _minOFF)</td></tr>
+<tr class="memdesc:a87c9db04bd0806761bd60dadd51c778b inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new relay Config object with custom parameters.  <br /></td></tr>
+<tr class="separator:a87c9db04bd0806761bd60dadd51c778b inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa740cb24fa9e1df59138945c3c4f72ce inherit pub_methods_classRelayLogic_1_1Relay" id="r_aa740cb24fa9e1df59138945c3c4f72ce"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#aa740cb24fa9e1df59138945c3c4f72ce">get_importThreshold</a> () const</td></tr>
+<tr class="memdesc:aa740cb24fa9e1df59138945c3c4f72ce inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the import threshold which will turns OFF the relay.  <br /></td></tr>
+<tr class="separator:aa740cb24fa9e1df59138945c3c4f72ce inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36416492cbeb7c0967530975ea70185a inherit pub_methods_classRelayLogic_1_1Relay" id="r_a36416492cbeb7c0967530975ea70185a"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#a36416492cbeb7c0967530975ea70185a">get_minOFF</a> () const</td></tr>
+<tr class="memdesc:a36416492cbeb7c0967530975ea70185a inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the minimum OFF-time in seconds.  <br /></td></tr>
+<tr class="separator:a36416492cbeb7c0967530975ea70185a inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a045862f95e0013c39e488cbf34504c42 inherit pub_methods_classRelayLogic_1_1Relay" id="r_a045862f95e0013c39e488cbf34504c42"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#a045862f95e0013c39e488cbf34504c42">get_minON</a> () const</td></tr>
+<tr class="memdesc:a045862f95e0013c39e488cbf34504c42 inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the minimum ON-time in seconds.  <br /></td></tr>
+<tr class="separator:a045862f95e0013c39e488cbf34504c42 inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8bf92354342e42367624b27be8666cb inherit pub_methods_classRelayLogic_1_1Relay" id="r_ac8bf92354342e42367624b27be8666cb"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#ac8bf92354342e42367624b27be8666cb">get_pin</a> () const</td></tr>
+<tr class="memdesc:ac8bf92354342e42367624b27be8666cb inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the control pin of the relay.  <br /></td></tr>
+<tr class="separator:ac8bf92354342e42367624b27be8666cb inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4192d85927e9b7fa4bb3e61844bc42aa inherit pub_methods_classRelayLogic_1_1Relay" id="r_a4192d85927e9b7fa4bb3e61844bc42aa"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#a4192d85927e9b7fa4bb3e61844bc42aa">get_surplusThreshold</a> () const</td></tr>
+<tr class="memdesc:a4192d85927e9b7fa4bb3e61844bc42aa inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the surplus threshold which will turns ON the relay.  <br /></td></tr>
+<tr class="separator:a4192d85927e9b7fa4bb3e61844bc42aa inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff72dbfc17966955f6ff1968f5171c8c inherit pub_methods_classRelayLogic_1_1Relay" id="r_aff72dbfc17966955f6ff1968f5171c8c"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#aff72dbfc17966955f6ff1968f5171c8c">hasValidMinimumTimes</a> () const</td></tr>
+<tr class="memdesc:aff72dbfc17966955f6ff1968f5171c8c inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether both minimum times fit in 16 bits of seconds (1092 minutes at most).  <br /></td></tr>
+<tr class="separator:aff72dbfc17966955f6ff1968f5171c8c inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a874a95853f5b24600fd5f1f5082565b2 inherit pub_methods_classRelayLogic_1_1Relay" id="r_a874a95853f5b24600fd5f1f5082565b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#a874a95853f5b24600fd5f1f5082565b2">inc_duration</a> () const</td></tr>
+<tr class="memdesc:a874a95853f5b24600fd5f1f5082565b2 inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increment the duration of the current state.  <br /></td></tr>
+<tr class="separator:a874a95853f5b24600fd5f1f5082565b2 inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c68c61d9ddb517fef63443a02febce0 inherit pub_methods_classRelayLogic_1_1Relay" id="r_a4c68c61d9ddb517fef63443a02febce0"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#a4c68c61d9ddb517fef63443a02febce0">isRelayON</a> () const</td></tr>
+<tr class="memdesc:a4c68c61d9ddb517fef63443a02febce0 inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the state.  <br /></td></tr>
+<tr class="separator:a4c68c61d9ddb517fef63443a02febce0 inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a8139a4792b5d4fa104003898952de3 inherit pub_methods_classRelayLogic_1_1Relay" id="r_a0a8139a4792b5d4fa104003898952de3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#a0a8139a4792b5d4fa104003898952de3">proceed_forced_only</a> (const uint16_t overrideBitmask) const</td></tr>
+<tr class="memdesc:a0a8139a4792b5d4fa104003898952de3 inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed with the relay while diversion is disabled: ON only while forced.  <br /></td></tr>
+<tr class="separator:a0a8139a4792b5d4fa104003898952de3 inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7c9dcc2003959eff518578edb1f0b01 inherit pub_methods_classRelayLogic_1_1Relay" id="r_ad7c9dcc2003959eff518578edb1f0b01"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRelayLogic_1_1Relay.html#ad7c9dcc2003959eff518578edb1f0b01">proceed_relay</a> (const int32_t currentAvgPower, const uint16_t overrideBitmask, const bool onAllowed=true) const</td></tr>
+<tr class="memdesc:ad7c9dcc2003959eff518578edb1f0b01 inherit pub_methods_classRelayLogic_1_1Relay"><td class="mdescLeft">&#160;</td><td class="mdescRight">Proceed with the relay.  <br /></td></tr>
+<tr class="separator:ad7c9dcc2003959eff518578edb1f0b01 inherit pub_methods_classRelayLogic_1_1Relay"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a single relay configuration and its behavior. </p>
-<p>The <code><a class="el" href="classrelayOutput.html" title="Represents a single relay configuration and its behavior.">relayOutput</a></code> class encapsulates the configuration and state management of a single relay. It provides methods to control the relay based on surplus and import thresholds, as well as minimum ON/OFF durations.</p>
-<ul>
-<li><b>Relay Control</b>: The relay is turned ON when the surplus threshold is exceeded and turned OFF when the import threshold is crossed.</li>
-<li><b>Time Constraints</b>: Minimum ON and OFF durations ensure stable operation.</li>
-<li><b>State Management</b>: The class tracks the relay's current state and the duration of its current state. </li>
-</ul>
+<p>The decisions are those of <a class="el" href="classRelayLogic_1_1Relay.html" title="The state of one relay, and its decisions.">RelayLogic::Relay</a> (<a class="el" href="relay__engine_8h.html" title="Decisions of the relay diversion: which relay switches, and when.">relay_engine.h</a>); on each change, the relay pin follows the new state and the change is printed (<a class="el" href="structRelayPinOutput.html" title="The output of a relay in the firmware: its pin, and a status message.">RelayPinOutput</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00040">40</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1e14c420e720e082a327e2341906cb18" name="a1e14c420e720e082a327e2341906cb18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e14c420e720e082a327e2341906cb18">&#9670;&#160;</a></span>relayOutput() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">relayOutput::relayOutput </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8ec4f8ef291d95028b40b11f2238e1b0" name="a8ec4f8ef291d95028b40b11f2238e1b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ec4f8ef291d95028b40b11f2238e1b0">&#9670;&#160;</a></span>relayOutput() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">relayOutput::relayOutput </td>
-          <td>(</td>
-          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>_relay_pin</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel explicit">explicit</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct a new relay Config object with default parameters. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">_relay_pin</td><td>Control pin for the relay </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00050">50</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="aaaea9886591a4fc044da5922bb90e746" name="aaaea9886591a4fc044da5922bb90e746"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaea9886591a4fc044da5922bb90e746">&#9670;&#160;</a></span>relayOutput() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">relayOutput::relayOutput </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>_relay_pin</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t</td>          <td class="paramname"><span class="paramname"><em>_surplusThreshold</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t</td>          <td class="paramname"><span class="paramname"><em>_importThreshold</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct a new relay Config object with default/custom parameters. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">_relay_pin</td><td>Control pin for the relay </td></tr>
-    <tr><td class="paramname">_surplusThreshold</td><td>Surplus threshold to turn relay ON (positive value, e.g., 1000) </td></tr>
-    <tr><td class="paramname">_importThreshold</td><td>Import threshold to turn relay OFF<ul>
-<li>Positive values: turn OFF when importing &gt; threshold (normal installations)</li>
-<li>Negative values: turn OFF when surplus &lt; abs(threshold) (battery systems)</li>
-<li>Zero: turn OFF when importing &gt; 0W (problematic with batteries) </li>
-</ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00065">65</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="a6c37604b74d578740144dedb3d38096e" name="a6c37604b74d578740144dedb3d38096e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c37604b74d578740144dedb3d38096e">&#9670;&#160;</a></span>relayOutput() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">relayOutput::relayOutput </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>_relay_pin</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t</td>          <td class="paramname"><span class="paramname"><em>_surplusThreshold</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int16_t</td>          <td class="paramname"><span class="paramname"><em>_importThreshold</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>_minON</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>_minOFF</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct a new relay Config object with custom parameters. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">_relay_pin</td><td>Control pin for the relay </td></tr>
-    <tr><td class="paramname">_surplusThreshold</td><td>Surplus threshold to turn relay ON (positive value, e.g., 1000) </td></tr>
-    <tr><td class="paramname">_importThreshold</td><td>Import threshold to turn relay OFF<ul>
-<li>Positive values: turn OFF when importing &gt; threshold (normal installations)</li>
-<li>Negative values: turn OFF when surplus &lt; abs(threshold) (battery systems)</li>
-<li>Zero: turn OFF when importing &gt; 0W (problematic with batteries) </li>
-</ul>
-</td></tr>
-    <tr><td class="paramname">_minON</td><td>Minimum duration in minutes to leave relay ON </td></tr>
-    <tr><td class="paramname">_minOFF</td><td>Minimum duration in minutes to leave relay OFF </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00082">82</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa5e29e98a79b0a99ca429b2d3c80969e" name="aa5e29e98a79b0a99ca429b2d3c80969e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5e29e98a79b0a99ca429b2d3c80969e">&#9670;&#160;</a></span>get_importThreshold()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto relayOutput::get_importThreshold </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the import threshold which will turns OFF the relay. </p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00112">112</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrelayOutput_aa5e29e98a79b0a99ca429b2d3c80969e_icgraph.png" border="0" usemap="#aclassrelayOutput_aa5e29e98a79b0a99ca429b2d3c80969e_icgraph" alt=""/></div>
-<map name="aclassrelayOutput_aa5e29e98a79b0a99ca429b2d3c80969e_icgraph" id="aclassrelayOutput_aa5e29e98a79b0a99ca429b2d3c80969e_icgraph">
-<area shape="rect" title="Get the import threshold which will turns OFF the relay." alt="" coords="411,88,652,116"/>
-<area shape="rect" href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="103,5,363,33"/>
-<area shape="poly" title=" " alt="" coords="475,83,362,48,312,36,311,31,364,43,480,82"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#acf18f50974498226d414b44788f59752" title=" " alt="" coords="146,57,320,85"/>
-<area shape="poly" title=" " alt="" coords="393,89,321,83,320,77,398,87"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#af6ddac18c62df593b1a20bb447f953a4" title=" " alt="" coords="135,109,330,154"/>
-<area shape="poly" title=" " alt="" coords="393,116,331,124,331,119,398,115"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#ab5b1d70e0be648ef2951a655bf828574" title=" " alt="" coords="138,178,328,223"/>
-<area shape="poly" title=" " alt="" coords="485,121,364,168,325,180,324,175,362,163,480,122"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,117,55,145"/>
-<area shape="poly" title=" " alt="" coords="128,90,104,99,57,120,54,116,102,94,132,87"/>
-<area shape="poly" title=" " alt="" coords="118,133,56,134,55,129,121,129"/>
-<area shape="poly" title=" " alt="" coords="121,174,102,168,55,147,56,142,104,163,126,173"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a3b3ccb243e3e2c287249e0f0e079f554" name="a3b3ccb243e3e2c287249e0f0e079f554"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b3ccb243e3e2c287249e0f0e079f554">&#9670;&#160;</a></span>get_minOFF()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto relayOutput::get_minOFF </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the minimum OFF-time in seconds. </p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00132">132</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrelayOutput_a3b3ccb243e3e2c287249e0f0e079f554_icgraph.png" border="0" usemap="#aclassrelayOutput_a3b3ccb243e3e2c287249e0f0e079f554_icgraph" alt=""/></div>
-<map name="aclassrelayOutput_a3b3ccb243e3e2c287249e0f0e079f554_icgraph" id="aclassrelayOutput_a3b3ccb243e3e2c287249e0f0e079f554_icgraph">
-<area shape="rect" title="Get the minimum OFF&#45;time in seconds." alt="" coords="314,5,499,33"/>
-<area shape="rect" href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="5,5,266,33"/>
-<area shape="poly" title=" " alt="" coords="295,19,266,22,266,17,301,19"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="aefe2af3c49240ec8fc219a26f37c8bb8" name="aefe2af3c49240ec8fc219a26f37c8bb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefe2af3c49240ec8fc219a26f37c8bb8">&#9670;&#160;</a></span>get_minON()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto relayOutput::get_minON </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the minimum ON-time in seconds. </p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00122">122</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrelayOutput_aefe2af3c49240ec8fc219a26f37c8bb8_icgraph.png" border="0" usemap="#aclassrelayOutput_aefe2af3c49240ec8fc219a26f37c8bb8_icgraph" alt=""/></div>
-<map name="aclassrelayOutput_aefe2af3c49240ec8fc219a26f37c8bb8_icgraph" id="aclassrelayOutput_aefe2af3c49240ec8fc219a26f37c8bb8_icgraph">
-<area shape="rect" title="Get the minimum ON&#45;time in seconds." alt="" coords="314,5,493,33"/>
-<area shape="rect" href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="5,5,266,33"/>
-<area shape="poly" title=" " alt="" coords="295,19,266,22,266,17,301,19"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ac9bf2670034f07cc718b4a9b7c513155" name="ac9bf2670034f07cc718b4a9b7c513155"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9bf2670034f07cc718b4a9b7c513155">&#9670;&#160;</a></span>get_pin()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto relayOutput::get_pin </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the control pin of the relay. </p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00092">92</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrelayOutput_ac9bf2670034f07cc718b4a9b7c513155_icgraph.png" border="0" usemap="#aclassrelayOutput_ac9bf2670034f07cc718b4a9b7c513155_icgraph" alt=""/></div>
-<map name="aclassrelayOutput_ac9bf2670034f07cc718b4a9b7c513155_icgraph" id="aclassrelayOutput_ac9bf2670034f07cc718b4a9b7c513155_icgraph">
-<area shape="rect" title="Get the control pin of the relay." alt="" coords="411,88,565,116"/>
-<area shape="rect" href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="103,5,363,33"/>
-<area shape="poly" title=" " alt="" coords="443,81,362,48,318,36,318,31,364,43,449,80"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#acf18f50974498226d414b44788f59752" title=" " alt="" coords="146,57,320,85"/>
-<area shape="poly" title=" " alt="" coords="393,91,321,84,320,79,398,90"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#af6ddac18c62df593b1a20bb447f953a4" title=" " alt="" coords="135,109,330,154"/>
-<area shape="poly" title=" " alt="" coords="393,113,331,123,331,117,398,112"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#ab5b1d70e0be648ef2951a655bf828574" title=" " alt="" coords="138,178,328,223"/>
-<area shape="poly" title=" " alt="" coords="452,123,410,148,364,168,329,180,328,175,362,163,407,143,447,125"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,117,55,145"/>
-<area shape="poly" title=" " alt="" coords="128,90,104,99,57,120,54,116,102,94,132,87"/>
-<area shape="poly" title=" " alt="" coords="118,133,56,134,55,129,121,129"/>
-<area shape="poly" title=" " alt="" coords="121,174,102,168,55,147,56,142,104,163,126,173"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a53d146f5a123d31cae6146e8fb4c038a" name="a53d146f5a123d31cae6146e8fb4c038a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53d146f5a123d31cae6146e8fb4c038a">&#9670;&#160;</a></span>get_surplusThreshold()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto relayOutput::get_surplusThreshold </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the surplus threshold which will turns ON the relay. </p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr auto </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00102">102</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrelayOutput_a53d146f5a123d31cae6146e8fb4c038a_icgraph.png" border="0" usemap="#aclassrelayOutput_a53d146f5a123d31cae6146e8fb4c038a_icgraph" alt=""/></div>
-<map name="aclassrelayOutput_a53d146f5a123d31cae6146e8fb4c038a_icgraph" id="aclassrelayOutput_a53d146f5a123d31cae6146e8fb4c038a_icgraph">
-<area shape="rect" title="Get the surplus threshold which will turns ON the relay." alt="" coords="411,80,592,124"/>
-<area shape="rect" href="classrelayOutput.html#aa900099d8298cde7d15e3e2dd804df4a" title="Print the configuration of the current relay&#45;diversion." alt="" coords="103,5,363,33"/>
-<area shape="poly" title=" " alt="" coords="434,73,362,48,316,36,315,31,364,43,439,73"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#acf18f50974498226d414b44788f59752" title=" " alt="" coords="146,57,320,85"/>
-<area shape="poly" title=" " alt="" coords="393,90,321,84,320,78,398,89"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#af6ddac18c62df593b1a20bb447f953a4" title=" " alt="" coords="135,109,330,154"/>
-<area shape="poly" title=" " alt="" coords="393,114,331,123,330,118,399,113"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#ab5b1d70e0be648ef2951a655bf828574" title=" " alt="" coords="138,178,328,223"/>
-<area shape="poly" title=" " alt="" coords="446,131,364,168,328,180,327,175,362,163,440,132"/>
-<area shape="rect" href="embedded_2test__utils__relay_2test__main_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title=" " alt="" coords="5,117,55,145"/>
-<area shape="poly" title=" " alt="" coords="128,90,104,99,57,120,54,116,102,94,132,87"/>
-<area shape="poly" title=" " alt="" coords="118,133,56,134,55,129,121,129"/>
-<area shape="poly" title=" " alt="" coords="121,174,102,168,55,147,56,142,104,163,126,173"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ad34639fdac60c7ef36bbb763f97ab9f1" name="ad34639fdac60c7ef36bbb763f97ab9f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad34639fdac60c7ef36bbb763f97ab9f1">&#9670;&#160;</a></span>inc_duration()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void relayOutput::inc_duration </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Increment the duration of the current state. </p>
-<p>This function must be called every second. </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00152">152</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="af866e8a61c04548ed5e40e971f6b0e3f" name="af866e8a61c04548ed5e40e971f6b0e3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af866e8a61c04548ed5e40e971f6b0e3f">&#9670;&#160;</a></span>isForced()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool relayOutput::isForced </td>
-          <td>(</td>
-          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>overrideBitmask</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00234">234</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrelayOutput_af866e8a61c04548ed5e40e971f6b0e3f_cgraph.png" border="0" usemap="#aclassrelayOutput_af866e8a61c04548ed5e40e971f6b0e3f_cgraph" alt=""/></div>
-<map name="aclassrelayOutput_af866e8a61c04548ed5e40e971f6b0e3f_cgraph" id="aclassrelayOutput_af866e8a61c04548ed5e40e971f6b0e3f_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,166,33"/>
-<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="214,5,288,33"/>
-<area shape="poly" title=" " alt="" coords="166,17,201,19,195,19,166,22"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrelayOutput_af866e8a61c04548ed5e40e971f6b0e3f_icgraph.png" border="0" usemap="#aclassrelayOutput_af866e8a61c04548ed5e40e971f6b0e3f_icgraph" alt=""/></div>
-<map name="aclassrelayOutput_af866e8a61c04548ed5e40e971f6b0e3f_icgraph" id="aclassrelayOutput_af866e8a61c04548ed5e40e971f6b0e3f_icgraph">
-<area shape="rect" title=" " alt="" coords="212,48,372,76"/>
-<area shape="rect" href="classrelayOutput.html#a7bba2dafbdc27d07468741bc1d849f57" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="5,5,164,50"/>
-<area shape="poly" title=" " alt="" coords="194,47,164,44,164,38,199,46"/>
-<area shape="rect" href="classrelayOutput.html#a8db1c0f340b319bfc7ff11467ea57cc7" title="Proceed with the relay." alt="" coords="5,75,164,119"/>
-<area shape="poly" title=" " alt="" coords="194,79,165,86,164,81,199,78"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ab6905bae7d7204139b695ca089defb20" name="ab6905bae7d7204139b695ca089defb20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6905bae7d7204139b695ca089defb20">&#9670;&#160;</a></span>isRelayON()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto relayOutput::isRelayON </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Return the state. </p>
-<dl class="section return"><dt>Returns</dt><dd>auto </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00142">142</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00056">56</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa900099d8298cde7d15e3e2dd804df4a" name="aa900099d8298cde7d15e3e2dd804df4a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa900099d8298cde7d15e3e2dd804df4a">&#9670;&#160;</a></span>printRelayConfiguration()</h2>
 
@@ -717,402 +199,34 @@ Here is the caller graph for this function:</div>
 
 <p>Print the configuration of the current relay-diversion. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00190">190</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00065">65</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classrelayOutput_aa900099d8298cde7d15e3e2dd804df4a_cgraph.png" border="0" usemap="#aclassrelayOutput_aa900099d8298cde7d15e3e2dd804df4a_cgraph" alt=""/></div>
 <map name="aclassrelayOutput_aa900099d8298cde7d15e3e2dd804df4a_cgraph" id="aclassrelayOutput_aa900099d8298cde7d15e3e2dd804df4a_cgraph">
-<area shape="rect" title="Print the configuration of the current relay&#45;diversion." alt="" coords="5,161,266,189"/>
-<area shape="rect" href="classrelayOutput.html#aa5e29e98a79b0a99ca429b2d3c80969e" title="Get the import threshold which will turns OFF the relay." alt="" coords="314,5,555,33"/>
-<area shape="poly" title=" " alt="" coords="150,159,217,103,263,71,313,43,336,36,332,39,315,48,266,75,220,107,153,163"/>
-<area shape="rect" href="classrelayOutput.html#a3b3ccb243e3e2c287249e0f0e079f554" title="Get the minimum OFF&#45;time in seconds." alt="" coords="342,57,527,85"/>
-<area shape="poly" title=" " alt="" coords="163,159,231,127,313,95,346,88,341,91,315,100,233,132,166,163"/>
-<area shape="rect" href="classrelayOutput.html#aefe2af3c49240ec8fc219a26f37c8bb8" title="Get the minimum ON&#45;time in seconds." alt="" coords="345,109,524,137"/>
-<area shape="poly" title=" " alt="" coords="218,158,338,139,334,142,220,163"/>
-<area shape="rect" href="classrelayOutput.html#ac9bf2670034f07cc718b4a9b7c513155" title="Get the control pin of the relay." alt="" coords="357,161,512,189"/>
-<area shape="poly" title=" " alt="" coords="266,173,344,174,339,176,267,178"/>
-<area shape="rect" href="classrelayOutput.html#a53d146f5a123d31cae6146e8fb4c038a" title="Get the surplus threshold which will turns ON the relay." alt="" coords="344,213,525,258"/>
-<area shape="poly" title=" " alt="" coords="208,187,331,213,326,215,208,192"/>
-<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="411,281,458,309"/>
-<area shape="poly" title=" " alt="" coords="159,187,228,227,315,267,357,280,399,290,393,290,355,285,313,272,225,232,158,192"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="405,333,464,361"/>
-<area shape="poly" title=" " alt="" coords="150,187,217,251,264,287,315,318,352,332,392,343,387,342,351,337,313,323,261,292,214,255,149,192"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="603,308,774,336"/>
-<area shape="poly" title=" " alt="" coords="458,295,590,311,585,311,458,300"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="822,308,983,336"/>
-<area shape="poly" title=" " alt="" coords="775,319,810,322,804,322,775,324"/>
-<area shape="poly" title=" " alt="" coords="464,342,585,332,590,332,464,347"/>
+<area shape="rect" title="Print the configuration of the current relay&#45;diversion." alt="" coords="5,254,266,282"/>
+<area shape="rect" href="classRelayLogic_1_1Relay.html#aa740cb24fa9e1df59138945c3c4f72ce" title=" " alt="" coords="340,5,510,67"/>
+<area shape="poly" title=" " alt="" coords="145,252,209,171,257,121,312,77,328,69,324,73,315,81,261,125,213,174,149,255"/>
+<area shape="rect" href="classRelayLogic_1_1Relay.html#a36416492cbeb7c0967530975ea70185a" title=" " alt="" coords="340,91,510,152"/>
+<area shape="poly" title=" " alt="" coords="157,252,225,209,312,162,328,157,323,160,315,167,228,214,160,256"/>
+<area shape="rect" href="classRelayLogic_1_1Relay.html#a045862f95e0013c39e488cbf34504c42" title=" " alt="" coords="314,176,536,221"/>
+<area shape="poly" title=" " alt="" coords="196,251,316,223,312,227,198,256"/>
+<area shape="rect" href="classRelayLogic_1_1Relay.html#ac8bf92354342e42367624b27be8666cb" title=" " alt="" coords="326,246,524,290"/>
+<area shape="poly" title=" " alt="" coords="266,266,313,267,308,269,267,271"/>
+<area shape="rect" href="classRelayLogic_1_1Relay.html#a4192d85927e9b7fa4bb3e61844bc42aa" title=" " alt="" coords="340,315,510,376"/>
+<area shape="poly" title=" " alt="" coords="190,280,327,317,323,320,190,285"/>
+<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="402,401,448,429"/>
+<area shape="poly" title=" " alt="" coords="154,280,222,332,267,361,315,386,351,398,389,409,384,409,350,404,313,391,264,365,219,336,153,285"/>
+<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="396,453,454,481"/>
+<area shape="poly" title=" " alt="" coords="147,280,175,313,213,356,261,400,315,438,348,451,383,462,378,462,346,456,312,443,257,405,209,360,171,317,147,285"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="584,428,755,455"/>
+<area shape="poly" title=" " alt="" coords="449,415,571,430,566,431,448,420"/>
+<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="803,428,964,455"/>
+<area shape="poly" title=" " alt="" coords="756,439,791,441,785,442,756,444"/>
+<area shape="poly" title=" " alt="" coords="454,461,566,452,571,452,455,467"/>
 </map>
 </div>
-
-</div>
-</div>
-<a id="a7bba2dafbdc27d07468741bc1d849f57" name="a7bba2dafbdc27d07468741bc1d849f57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bba2dafbdc27d07468741bc1d849f57">&#9670;&#160;</a></span>proceed_forced_only()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool relayOutput::proceed_forced_only </td>
-          <td>(</td>
-          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>overrideBitmask</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Proceed with the relay while diversion is disabled: ON only while forced. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">overrideBitmask</td><td>Override bitmask (local pins) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if state has changed</dd></dl>
-<p>The minimum ON and OFF times still apply. </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00228">228</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrelayOutput_a7bba2dafbdc27d07468741bc1d849f57_cgraph.png" border="0" usemap="#aclassrelayOutput_a7bba2dafbdc27d07468741bc1d849f57_cgraph" alt=""/></div>
-<map name="aclassrelayOutput_a7bba2dafbdc27d07468741bc1d849f57_cgraph" id="aclassrelayOutput_a7bba2dafbdc27d07468741bc1d849f57_cgraph">
-<area shape="rect" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="5,24,164,68"/>
-<area shape="rect" href="classrelayOutput.html#af866e8a61c04548ed5e40e971f6b0e3f" title=" " alt="" coords="218,5,378,33"/>
-<area shape="poly" title=" " alt="" coords="163,33,205,30,200,32,165,39"/>
-<area shape="rect" href="classrelayOutput.html#ac5b46b3ccabacb3565a16038f8099398" title="Turn the relay ON or OFF if the &#39;time&#39; condition is met." alt="" coords="212,57,385,85"/>
-<area shape="poly" title=" " alt="" coords="164,53,199,58,193,60,164,58"/>
-<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="444,5,518,33"/>
-<area shape="poly" title=" " alt="" coords="379,17,431,19,425,20,379,22"/>
-<area shape="rect" href="utils__pins_8h.html#a505180a01641b0a5b17a0f2376f9b586" title="Set the Pin state for the specified pin." alt="" coords="433,57,528,85"/>
-<area shape="poly" title=" " alt="" coords="385,69,420,71,415,71,385,74"/>
-<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="444,109,517,137"/>
-<area shape="poly" title=" " alt="" coords="350,83,432,109,426,109,349,88"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="576,109,635,137"/>
-<area shape="poly" title=" " alt="" coords="518,121,563,123,558,123,518,126"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="683,109,854,137"/>
-<area shape="poly" title=" " alt="" coords="635,121,670,123,665,123,635,126"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="902,109,1062,137"/>
-<area shape="poly" title=" " alt="" coords="854,121,889,123,884,123,854,126"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a8db1c0f340b319bfc7ff11467ea57cc7" name="a8db1c0f340b319bfc7ff11467ea57cc7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8db1c0f340b319bfc7ff11467ea57cc7">&#9670;&#160;</a></span>proceed_relay()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool relayOutput::proceed_relay </td>
-          <td>(</td>
-          <td class="paramtype">const int32_t</td>          <td class="paramname"><span class="paramname"><em>currentAvgPower</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>overrideBitmask</em></span>&#160;) const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Proceed with the relay. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">currentAvgPower</td><td>Current average power </td></tr>
-    <tr><td class="paramname">overrideBitmask</td><td>Override bitmask (local pins): the relay is forced ON while its bit is set </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if state has changed </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00167">167</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrelayOutput_a8db1c0f340b319bfc7ff11467ea57cc7_cgraph.png" border="0" usemap="#aclassrelayOutput_a8db1c0f340b319bfc7ff11467ea57cc7_cgraph" alt=""/></div>
-<map name="aclassrelayOutput_a8db1c0f340b319bfc7ff11467ea57cc7_cgraph" id="aclassrelayOutput_a8db1c0f340b319bfc7ff11467ea57cc7_cgraph">
-<area shape="rect" title="Proceed with the relay." alt="" coords="5,24,164,68"/>
-<area shape="rect" href="classrelayOutput.html#af866e8a61c04548ed5e40e971f6b0e3f" title=" " alt="" coords="218,5,378,33"/>
-<area shape="poly" title=" " alt="" coords="163,33,205,30,200,32,165,39"/>
-<area shape="rect" href="classrelayOutput.html#ac5b46b3ccabacb3565a16038f8099398" title="Turn the relay ON or OFF if the &#39;time&#39; condition is met." alt="" coords="212,57,385,85"/>
-<area shape="poly" title=" " alt="" coords="164,53,199,58,193,60,164,58"/>
-<area shape="rect" href="utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="444,5,518,33"/>
-<area shape="poly" title=" " alt="" coords="379,17,431,19,425,20,379,22"/>
-<area shape="rect" href="utils__pins_8h.html#a505180a01641b0a5b17a0f2376f9b586" title="Set the Pin state for the specified pin." alt="" coords="433,57,528,85"/>
-<area shape="poly" title=" " alt="" coords="385,69,420,71,415,71,385,74"/>
-<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="444,109,517,137"/>
-<area shape="poly" title=" " alt="" coords="350,83,432,109,426,109,349,88"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="576,109,635,137"/>
-<area shape="poly" title=" " alt="" coords="518,121,563,123,558,123,518,126"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="683,109,854,137"/>
-<area shape="poly" title=" " alt="" coords="635,121,670,123,665,123,635,126"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="902,109,1062,137"/>
-<area shape="poly" title=" " alt="" coords="854,121,889,123,884,123,854,126"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ac5b46b3ccabacb3565a16038f8099398" name="ac5b46b3ccabacb3565a16038f8099398"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5b46b3ccabacb3565a16038f8099398">&#9670;&#160;</a></span>try_switch()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool relayOutput::try_switch </td>
-          <td>(</td>
-          <td class="paramtype">const bool</td>          <td class="paramname"><span class="paramname"><em>on</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Turn the relay ON or OFF if the 'time' condition is met. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">on</td><td>True to turn the relay ON, false to turn it OFF </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if state has changed </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00245">245</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrelayOutput_ac5b46b3ccabacb3565a16038f8099398_cgraph.png" border="0" usemap="#aclassrelayOutput_ac5b46b3ccabacb3565a16038f8099398_cgraph" alt=""/></div>
-<map name="aclassrelayOutput_ac5b46b3ccabacb3565a16038f8099398_cgraph" id="aclassrelayOutput_ac5b46b3ccabacb3565a16038f8099398_cgraph">
-<area shape="rect" title="Turn the relay ON or OFF if the &#39;time&#39; condition is met." alt="" coords="5,32,179,60"/>
-<area shape="rect" href="utils__pins_8h.html#a505180a01641b0a5b17a0f2376f9b586" title="Set the Pin state for the specified pin." alt="" coords="227,5,322,33"/>
-<area shape="poly" title=" " alt="" coords="178,31,214,28,209,29,179,36"/>
-<area shape="rect" href="debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="238,57,311,85"/>
-<area shape="poly" title=" " alt="" coords="179,55,225,64,220,64,179,61"/>
-<area shape="rect" href="debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="370,57,428,85"/>
-<area shape="poly" title=" " alt="" coords="312,69,357,71,352,71,312,74"/>
-<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="476,57,648,85"/>
-<area shape="poly" title=" " alt="" coords="429,69,464,71,458,71,429,74"/>
-<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="696,57,856,85"/>
-<area shape="poly" title=" " alt="" coords="648,69,683,71,678,71,648,74"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classrelayOutput_ac5b46b3ccabacb3565a16038f8099398_icgraph.png" border="0" usemap="#aclassrelayOutput_ac5b46b3ccabacb3565a16038f8099398_icgraph" alt=""/></div>
-<map name="aclassrelayOutput_ac5b46b3ccabacb3565a16038f8099398_icgraph" id="aclassrelayOutput_ac5b46b3ccabacb3565a16038f8099398_icgraph">
-<area shape="rect" title="Turn the relay ON or OFF if the &#39;time&#39; condition is met." alt="" coords="212,48,385,76"/>
-<area shape="rect" href="classrelayOutput.html#a7bba2dafbdc27d07468741bc1d849f57" title="Proceed with the relay while diversion is disabled: ON only while forced." alt="" coords="5,5,164,50"/>
-<area shape="poly" title=" " alt="" coords="193,46,164,43,164,38,199,45"/>
-<area shape="rect" href="classrelayOutput.html#a8db1c0f340b319bfc7ff11467ea57cc7" title="Proceed with the relay." alt="" coords="5,75,164,119"/>
-<area shape="poly" title=" " alt="" coords="193,79,165,87,164,82,199,78"/>
-</map>
-</div>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a9da57bd903102fb1ed765fe94a6c352c" name="a9da57bd903102fb1ed765fe94a6c352c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9da57bd903102fb1ed765fe94a6c352c">&#9670;&#160;</a></span>duration</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16_t relayOutput::duration { 0 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Duration of the current state </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00269">269</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="a4ef45ace133c038e9e6fca3c9ed20d05" name="a4ef45ace133c038e9e6fca3c9ed20d05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ef45ace133c038e9e6fca3c9ed20d05">&#9670;&#160;</a></span>importThreshold</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int16_t relayOutput::importThreshold { 200 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Import threshold to turn relay OFF (positive = import mode, negative = surplus mode) </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00265">265</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="acdf09f94d1891f24a200a6bece01b449" name="acdf09f94d1891f24a200a6bece01b449"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdf09f94d1891f24a200a6bece01b449">&#9670;&#160;</a></span>minOFF</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const uint16_t relayOutput::minOFF { 5 * 60 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Minimum duration in seconds the relay is turned OFF </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00267">267</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="aa128ef24702813df92dc95a7e9da05e0" name="aa128ef24702813df92dc95a7e9da05e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa128ef24702813df92dc95a7e9da05e0">&#9670;&#160;</a></span>minON</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const uint16_t relayOutput::minON { 5 * 60 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Minimum duration in seconds the relay is turned ON </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00266">266</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="a536df28c34f0ad3ca86b73bfc1505355" name="a536df28c34f0ad3ca86b73bfc1505355"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a536df28c34f0ad3ca86b73bfc1505355">&#9670;&#160;</a></span>relay_pin</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const uint8_t relayOutput::relay_pin { <a class="el" href="utils__pins_8h.html#af56aa6e64828c1a87b646a7e02fc5ded">unused_pin</a> }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Pin associated with the relay </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00263">263</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="a74d185ffeecb49b68552e419748f5773" name="a74d185ffeecb49b68552e419748f5773"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a74d185ffeecb49b68552e419748f5773">&#9670;&#160;</a></span>relayIsON</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool relayOutput::relayIsON { false }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel mutable">mutable</span><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>True if the relay is ON </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00270">270</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
-
-</div>
-</div>
-<a id="a5149cd72bf3d2ad09b5c8cf217db3e08" name="a5149cd72bf3d2ad09b5c8cf217db3e08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5149cd72bf3d2ad09b5c8cf217db3e08">&#9670;&#160;</a></span>surplusThreshold</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int16_t relayOutput::surplusThreshold { -1000 }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Surplus threshold to turn relay ON </p>
-
-<p class="definition">Definition at line <a class="el" href="utils__relay_8h_source.html#l00264">264</a> of file <a class="el" href="utils__relay_8h_source.html">utils_relay.h</a>.</p>
 
 </div>
 </div>

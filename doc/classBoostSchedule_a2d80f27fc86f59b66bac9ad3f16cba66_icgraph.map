@@ -1,0 +1,5 @@
+<map id="BoostSchedule::getRemoteBitmask" name="BoostSchedule::getRemoteBitmask">
+<area shape="rect" id="Node000001" title="The remote bitmask of boost i, or 0 if out of bounds." alt="" coords="193,5,390,50"/>
+<area shape="rect" id="Node000002" href="$namespaceDualTariff.html#a0a0695c296e5eb740ea51bae242d9e80" title="Boost i of boosts, for an off&#45;peak period of offPeakHours." alt="" coords="5,14,145,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,28,145,30,145,25,180,27"/>
+</map>

@@ -1,0 +1,21 @@
+<map id="TempSchedule::Scheduler::newPeriod" name="TempSchedule::Scheduler::newPeriod">
+<area shape="rect" id="Node000001" title="A datalog period begins: a new round, once this one is over." alt="" coords="615,157,803,202"/>
+<area shape="rect" id="Node000002" href="$native_2test__temp__schedule_2test__main_8cpp.html#aedc06ece400da7ec56b467357d59d1af" title="A datalog period of the main loop: the round must be over before the cycle that ends the period,..." alt="" coords="397,34,539,62"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="653,149,566,101,498,65,499,60,569,96,659,149"/>
+<area shape="rect" id="Node000005" href="$native_2test__temp__schedule_2test__main_8cpp.html#a7abc3612c9dca53b41787db5e7699cd4" title=" " alt="" coords="134,74,295,136"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="598,165,296,120,296,114,602,162"/>
+<area shape="rect" id="Node000006" href="$native_2test__temp__schedule_2test__main_8cpp.html#a235312f1c5df58aa88913547d5549c3f" title=" " alt="" coords="108,160,321,221"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="598,184,322,191,321,185,602,180"/>
+<area shape="rect" id="Node000007" href="$native_2test__temp__schedule_2test__main_8cpp.html#a100a444c53b2b616c6ef286b7d4a8450" title=" " alt="" coords="369,217,567,262"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="604,206,561,219,560,214,599,207"/>
+<area shape="rect" id="Node000008" href="$native_2test__temp__schedule_2test__main_8cpp.html#a7d837578ac0d2edfcc1f897964786b32" title=" " alt="" coords="376,287,561,331"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="669,210,622,246,569,277,542,289,540,284,566,272,619,241,664,212"/>
+<area shape="rect" id="Node000003" href="$native_2test__temp__schedule_2test__main_8cpp.html#ab199d16a4a93bed03d4049a9e1b3385c" title=" " alt="" coords="137,5,292,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="379,42,293,36,291,31,384,40"/>
+<area shape="rect" id="Node000004" href="$native_2test__temp__schedule_2test__main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,176,60,204"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="122,54,109,64,84,91,64,122,41,177,36,175,60,120,80,88,106,60,125,50"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="117,144,109,150,58,178,55,174,106,145,121,140"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="90,192,61,193,59,188,94,189"/>
+<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="351,253,234,255,169,249,107,236,77,223,53,207,52,202,79,218,108,230,170,243,234,250,356,251"/>
+<area shape="poly" id="edge11_Node000008_Node000004" title=" " alt="" coords="357,311,300,310,235,301,169,286,106,262,69,236,44,207,45,202,73,232,109,257,171,281,236,296,301,305,363,311"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="RelayEngine&lt; N, D &gt;" name="RelayEngine&lt; N, D &gt;">
+<area shape="rect" id="Node000001" title="The relays, as in config.h: the sliding average and the settings of each relay." alt="" coords="10,5,170,33"/>
+<area shape="rect" id="Node000002" href="$classRelayEngine.html" title=" " alt="" coords="5,98,175,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,47,93,98,87,97,88,50"/>
+</map>

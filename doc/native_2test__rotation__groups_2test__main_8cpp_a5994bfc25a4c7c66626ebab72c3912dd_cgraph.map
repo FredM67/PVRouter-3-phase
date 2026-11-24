@@ -1,0 +1,13 @@
+<map id="test_loads_of_load_and_local_load" name="test_loads_of_load_and_local_load">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,49,149,94"/>
+<area shape="rect" id="Node000002" href="$config__types_8h.html#ad3d911e42f0df1219bb1754477a8db98" title="Load loadNum of physicalLoadPin[], local or remote (0, no load, if out of range)." alt="" coords="235,5,292,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,49,222,30,218,32,150,54"/>
+<area shape="rect" id="Node000003" href="$namespaceRotation.html#a36513c8eb5ac373cec0e77e69744cac5" title="The loads a target code stands for, by load number." alt="" coords="197,57,331,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="149,69,184,70,179,72,149,74"/>
+<area shape="rect" id="Node000006" href="$config__types_8h.html#a30df68bcb2fef5f40118867b32ee826a" title="Same as LOAD(), for a load known to be local." alt="" coords="211,109,317,137"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="149,88,199,104,194,105,149,94"/>
+<area shape="rect" id="Node000004" href="$namespaceLoad.html#a0684e53aa0eae096cef354f171c08724" title="True if the entry describes a locally driven load." alt="" coords="379,32,484,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="331,58,367,55,361,57,332,64"/>
+<area shape="rect" id="Node000005" href="$namespaceLoad.html#a846d844f03b72ddda22516ea20e81799" title="The pin of the entry: TRIAC pin if local, status LED (0 = none) if remote." alt="" coords="384,84,479,112"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="331,79,371,88,366,88,331,85"/>
+</map>

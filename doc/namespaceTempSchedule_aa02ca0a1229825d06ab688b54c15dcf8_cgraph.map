@@ -1,0 +1,7 @@
+<map id="TempSchedule::fitsInPeriod" name="TempSchedule::fitsInPeriod">
+<area shape="rect" id="Node000001" title="Whether a round ends within its datalog period." alt="" coords="5,14,202,42"/>
+<area shape="rect" id="Node000002" href="$namespaceTempSchedule.html#a121ce6c5bcb0b60682342712228bebde" title="The mains cycles of a round on time: from the conversion to the last CLOSE." alt="" coords="250,14,453,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,25,237,27,231,28,202,30"/>
+<area shape="rect" id="Node000003" href="$namespaceTempSchedule.html#a0356a338801144f1af30252869624d3c" title="The mains cycles from the conversion to the first read." alt="" coords="501,5,695,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="453,25,488,28,483,28,453,30"/>
+</map>

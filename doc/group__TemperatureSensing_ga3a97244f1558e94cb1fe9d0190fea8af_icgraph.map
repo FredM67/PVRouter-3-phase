@@ -1,0 +1,8 @@
+<map id="runTemperatureTransaction" name="runTemperatureTransaction">
+<area shape="rect" id="Node000001" title="Runs the 1&#45;Wire transaction of this mains cycle, if any." alt="" coords="335,5,533,33"/>
+<area shape="rect" id="Node000002" href="$group__GeneralProcessing.html#gafe461d27b9c48d5921c00d521181f12f" title="Main processor loop." alt="" coords="5,5,55,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="319,22,55,22,55,17,320,17"/>
+<area shape="rect" id="Node000003" href="$group__TemperatureSensing.html#ga7db1cd9dbe3ce12b90dc41523338353b" title="Processes temperature data from DS18B20 sensors." alt="" coords="103,31,287,58"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="322,31,288,37,287,32,317,32"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="85,29,55,26,55,20,90,27"/>
+</map>

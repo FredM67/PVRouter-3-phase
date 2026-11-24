@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['enable_5fif_2ehpp_0',['enable_if.hpp',['../enable__if_8hpp.html',1,'']]],
-  ['energy_5fbucket_2eh_1',['energy_bucket.h',['../energy__bucket_8h.html',1,'']]],
-  ['ewma_5favg_2ehpp_2',['ewma_avg.hpp',['../ewma__avg_8hpp.html',1,'']]]
+  ['datalog_5fmath_2eh_0',['datalog_math.h',['../datalog__math_8h.html',1,'']]],
+  ['debug_2eh_1',['debug.h',['../debug_8h.html',1,'']]],
+  ['decay_2ehpp_2',['decay.hpp',['../decay_8hpp.html',1,'']]],
+  ['declval_2ehpp_3',['declval.hpp',['../declval_8hpp.html',1,'']]],
+  ['ds18b20_2eh_4',['ds18b20.h',['../ds18b20_8h.html',1,'']]],
+  ['dualtariff_2eh_5',['dualtariff.h',['../dualtariff_8h.html',1,'']]]
 ];

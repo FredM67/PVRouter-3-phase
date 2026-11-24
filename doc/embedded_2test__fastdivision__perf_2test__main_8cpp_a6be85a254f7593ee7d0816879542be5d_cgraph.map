@@ -1,9 +1,31 @@
 <map id="test_perf_cycle_estimation" name="test_perf_cycle_estimation">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,57,203,85"/>
-<area shape="rect" id="Node000002" href="$bench__report_8h.html#a851e319646c9038dd48af27b76722cf6" title=" " alt="" coords="251,5,354,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,54,238,35,233,38,161,59"/>
-<area shape="rect" id="Node000003" href="$FastDivision_8cpp.html#a23623280f6a9bc988eea84e057769267" title=" " alt="" coords="259,57,346,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,69,246,71,241,72,203,74"/>
-<area shape="rect" id="Node000004" href="$FastDivision_8cpp.html#a8533c8b2efd068df7dd1b2e4d65b7ced" title=" " alt="" coords="270,109,335,137"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="160,83,257,110,252,112,159,88"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,188,203,216"/>
+<area shape="rect" id="Node000002" href="$bench__report_8h.html#a6f39002b7d7499dff47b590d10ec6759" title="A result in CPU cycles, reported twice: in microseconds and in cycles." alt="" coords="268,57,371,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,186,176,143,249,96,265,90,261,93,252,100,179,147,124,190"/>
+<area shape="rect" id="Node000007" href="$FastDivision_8cpp.html#a23623280f6a9bc988eea84e057769267" title=" " alt="" coords="276,161,362,189"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="202,187,263,181,258,184,204,192"/>
+<area shape="rect" id="Node000008" href="$FastDivision_8cpp.html#a8533c8b2efd068df7dd1b2e4d65b7ced" title=" " alt="" coords="287,213,352,241"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="203,211,274,221,269,223,203,216"/>
+<area shape="rect" id="Node000009" href="$bench__report_8h.html#a57834612f707a5be015f1b63df8f6f8b" title="Prints &quot;&lt;cycles&gt; cycles = &lt;us&gt; us&quot; for one operation, for the human&#45;readable output." alt="" coords="274,109,364,137"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="143,185,266,141,263,145,146,190"/>
+<area shape="rect" id="Node000010" href="$namespaceBenchTimer.html#a82628ef115b5e63b8f524eefe7ad5541" title="Starts a measurement (the first one also measures the overhead)." alt="" coords="251,265,388,293"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="145,214,266,258,262,261,145,219"/>
+<area shape="rect" id="Node000013" href="$namespaceBenchTimer.html#a83598a5f4301aae3bc20f76dc0edeeac" title="The CPU cycles since start(), without those of start() and stop()." alt="" coords="252,317,387,345"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="123,214,180,256,252,302,266,311,261,310,249,307,177,261,122,219"/>
+<area shape="rect" id="Node000003" href="$bench__report_8h.html#a0b4f58e6fe8c7d77844d6df1c0fcc796" title="The start of a BENCH line, up to the separator before the value." alt="" coords="459,5,556,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="370,55,447,35,442,38,372,59"/>
+<area shape="rect" id="Node000004" href="$bench__report_8h.html#a5d74028e61e7cbb08e8f2fdef588e430" title="cycles / ops in hundredths of a cycle, rounded." alt="" coords="460,57,556,85"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="371,69,446,70,441,72,372,74"/>
+<area shape="rect" id="Node000005" href="$bench__report_8h.html#acdbb80b81727b5ee2565ea50d6cdc973" title="cycles / ops in 1/10000 us at 16 MHz, rounded (exact for ops = 1: 1 cycle = 625)." alt="" coords="462,109,553,137"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="371,83,449,106,444,107,372,88"/>
+<area shape="rect" id="Node000006" href="$bench__report_8h.html#a9576607ec7127ac2c5450f07643e1c10" title="Prints value / 10^decimals with that many decimals, zero&#45;padded: 27326, 4 &#45;&gt; 2.7326." alt="" coords="455,161,560,189"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="365,83,390,96,405,109,414,122,423,134,438,146,449,154,443,154,434,151,419,138,410,125,401,112,386,100,365,88"/>
+<area shape="poly" id="edge9_Node000009_Node000004" title=" " alt="" coords="364,108,447,87,442,90,366,113"/>
+<area shape="poly" id="edge10_Node000009_Node000005" title=" " alt="" coords="365,121,449,122,444,124,366,126"/>
+<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="365,133,443,156,437,157,365,138"/>
+<area shape="rect" id="Node000011" href="$namespaceBenchTimer.html#aec7b874a7b2744549e4aa1acbb8023f2" title="Starts counting: from the last instruction on, one count per CPU cycle." alt="" coords="436,265,579,293"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="388,277,423,279,418,279,388,282"/>
+<area shape="rect" id="Node000012" href="$namespaceBenchTimer.html#a1e486fe101f7927a060dec577b62b817" title="The cycles since begin(), its own instructions included." alt="" coords="442,317,573,345"/>
+<area shape="poly" id="edge14_Node000010_Node000012" title=" " alt="" coords="373,291,443,313,438,313,372,296"/>
+<area shape="poly" id="edge16_Node000013_Node000012" title=" " alt="" coords="387,329,429,331,424,331,387,334"/>
 </map>

@@ -1,0 +1,5 @@
+<map id="test_other_readings_are_kept_whatever_the_jump" name="test_other_readings_are_kept_whatever_the_jump">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,226,50"/>
+<area shape="rect" id="Node000002" href="$namespaceDS18B20.html#a166c2c73b01cdf77a7574d440dc2025f" title="The reading to keep, the power&#45;on value skipped." alt="" coords="274,14,483,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="226,25,261,28,255,28,226,30"/>
+</map>

@@ -1,0 +1,29 @@
+<map id="DS18B20::decode" name="DS18B20::decode">
+<area shape="rect" id="Node000001" title="The reading of a scratchpad, its CRC checked." alt="" coords="557,239,692,266"/>
+<area shape="rect" id="Node000002" href="$classTempSensors.html#a5cd5e7c474cb8cb494c00273fbd00165" title="CLOSE, the last transaction: a reset (the sensor still there?), the reading decoded." alt="" coords="308,5,480,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="613,223,599,184,578,135,547,87,529,65,507,47,481,32,481,27,511,42,532,62,552,84,582,133,604,182,618,224"/>
+<area shape="rect" id="Node000004" href="$native_2test__ds18b20_2test__main_8cpp.html#a165314ef3361e87cc41f63e4ccdd6524" title=" " alt="" coords="310,57,478,102"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="605,225,566,171,538,141,508,116,479,101,479,96,510,112,542,137,570,167,611,226"/>
+<area shape="rect" id="Node000006" href="$native_2test__ds18b20_2test__main_8cpp.html#adb6dd05eaf0425325141fb4058139cc7" title=" " alt="" coords="315,126,474,171"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="588,230,551,208,508,186,474,172,474,167,510,181,553,203,593,229"/>
+<area shape="rect" id="Node000007" href="$native_2test__ds18b20_2test__main_8cpp.html#a2e6aa3b30286179f3f147f35be687e75" title=" " alt="" coords="313,196,476,240"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="539,241,477,233,476,227,544,239"/>
+<area shape="rect" id="Node000008" href="$native_2test__ds18b20_2test__main_8cpp.html#acf799807eaa02986ddc114684492ce24" title=" " alt="" coords="280,265,509,310"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="539,266,510,272,509,267,544,264"/>
+<area shape="rect" id="Node000009" href="$native_2test__ds18b20_2test__main_8cpp.html#a1f1c4050eece38bbdec37673f7875dab" title=" " alt="" coords="314,334,474,379"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="593,274,553,302,510,324,476,338,474,333,508,319,551,297,588,277"/>
+<area shape="rect" id="Node000010" href="$native_2test__ds18b20_2test__main_8cpp.html#a28de296ace6a369609e189445f0039a7" title=" " alt="" coords="318,404,471,448"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="610,278,570,338,542,368,510,393,473,412,471,407,508,389,538,364,566,334,606,281"/>
+<area shape="rect" id="Node000011" href="$native_2test__ds18b20_2test__main_8cpp.html#a8abeb654254a41ee15361caad239e021" title=" " alt="" coords="297,473,492,518"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="617,279,604,322,581,371,551,420,511,463,492,475,490,470,507,458,546,417,577,368,599,320,613,283"/>
+<area shape="rect" id="Node000003" href="$classTempSensors.html#a2dbc30f78c42cb642cc1052c5a24eb67" title="Reads the temperature of a specific sensor (runtime bounds checking)." alt="" coords="5,5,232,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="291,21,233,22,231,17,295,18"/>
+<area shape="rect" id="Node000005" href="$native_2test__ds18b20_2test__main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0" title=" " alt="" coords="91,273,146,301"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="294,107,281,116,232,154,189,199,131,274,127,271,185,196,228,150,278,112,298,103"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="299,176,281,186,200,232,140,275,136,271,198,227,278,181,303,173"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="296,244,147,283,145,278,299,240"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="262,289,147,290,145,285,266,285"/>
+<area shape="poly" id="edge12_Node000009_Node000005" title=" " alt="" coords="297,334,146,296,146,291,301,331"/>
+<area shape="poly" id="edge14_Node000010_Node000005" title=" " alt="" coords="301,401,278,394,198,347,138,304,138,299,200,343,281,389,306,401"/>
+<area shape="poly" id="edge16_Node000011_Node000005" title=" " alt="" coords="286,466,278,463,228,424,185,379,128,304,130,299,189,375,232,420,281,458,292,466"/>
+</map>

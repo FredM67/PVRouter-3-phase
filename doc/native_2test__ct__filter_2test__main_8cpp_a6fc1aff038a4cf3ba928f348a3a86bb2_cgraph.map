@@ -1,0 +1,5 @@
+<map id="lowPassCounts" name="lowPassCounts">
+<area shape="rect" id="Node000001" title="The low&#45;pass state of the filter, in ADC counts." alt="" coords="5,14,124,42"/>
+<area shape="rect" id="Node000002" href="$structCtFilter_1_1LowPassBoost.html#a9c5345543b4137f98bf2e8db4acff17b" title="The low&#45;pass state, x256 scale (Robin&#39;s lpf_long)." alt="" coords="172,5,340,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,25,159,27,154,28,124,30"/>
+</map>
