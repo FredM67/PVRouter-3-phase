@@ -654,16 +654,14 @@ void processVoltage(const uint8_t phase)
  * to settle before normal operation begins. It ensures that the system is stable
  * before processing energy and load states.
  *
- * @param phase The phase number [0..NO_OF_PHASES[.
- *
  * @details
  * - During the startup period, the function waits until the filters have settled.
- * - Once the startup period is over, it resets key variables and flags to prepare
- *   for normal operation.
+ * - Once the startup period is over, it resets the sums and sample counts of every phase,
+ *   and the flags, to prepare for normal operation.
  *
  * @ingroup TimeCritical
  */
-void processStartUp(const uint8_t phase)
+void processStartUp()
 {
   // wait until the DC-blocking filters have had time to settle
   if (millis() <= (initialDelay + startUpPeriod))
@@ -673,10 +671,15 @@ void processStartUp(const uint8_t phase)
 
   // the DC-blocking filters have had time to settle
   beyondStartUpPeriod = true;
-  l_sumP[phase] = 0;
-  l_sumP_atSupplyPoint[phase] = 0;
-  l_sum_Vsquared[phase] = 0;  // with the sample set count: the first datalog period holds only its own samples
-  n_samplesDuringThisMainsCycle[phase] = 0;
+  // every phase restarts here, not only the one whose crossing ends the start-up period: the
+  // others would keep the sums and the sample count of the whole start-up period
+  for (uint8_t phase = 0; phase != NO_OF_PHASES; ++phase)
+  {
+    l_sumP[phase] = 0;
+    l_sumP_atSupplyPoint[phase] = 0;
+    l_sum_Vsquared[phase] = 0;  // with the sample set count: the first datalog period holds only its own samples
+    n_samplesDuringThisMainsCycle[phase] = 0;
+  }
   i_sampleSetsDuringThisDatalogPeriod = 0;
 
   n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
@@ -971,7 +974,7 @@ void processRawSamples(const uint8_t phase)
       }
       else
       {
-        processStartUp(phase);
+        processStartUp();
       }
     }
 
