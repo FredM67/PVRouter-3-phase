@@ -124,7 +124,7 @@ For users who want to experiment with different filter types, the relay system c
 - **DEMA**: `ewma_average.getAverageD()` - Good balance
 - **TEMA**: `ewma_average.getAverageT()` - Best cloud immunity (current default)
 
-The filter selection is in `utils_relay.h` in the `get_average()` and `proceed_relays()` methods.
+The filter selection is in `relay_engine.h` in the `get_average()` and `proceed_relays()` methods.
 
 ### Visual Filter Comparison
 

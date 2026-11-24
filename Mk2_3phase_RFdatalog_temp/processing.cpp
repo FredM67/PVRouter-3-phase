@@ -3,30 +3,32 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2021-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
 
 #include <Arduino.h>
 
-#include "config.h"
-#include "calibration.h"
+#include "config_derived.h"
 #include "dualtariff.h"
 #include "processing.h"
 #include "utils_pins.h"
 #include "shared_var.h"
 #include "mult_asm.h"
+#include "ct_filter.h"
 #include "energy_bucket.h"
+#include "load_priorities.h"
+#include "adc_chain.h"
+#include "datalog_math.h"
 
-// analogue input pins
-inline constexpr uint8_t sensorV[NO_OF_PHASES]{ 0, 2, 4 }; /**< for 3-phase PCB, voltage measurement for each phase */
-inline constexpr uint8_t sensorI[NO_OF_PHASES]{ 1, 3, 5 }; /**< for 3-phase PCB, current measurement for each phase */
-
-// ADC reference: AVCC (= VCC, 5 V or 3.3 V) on the old board, the internal 1.1 V on the new one (buffered from AREF).
-// ADLAR=1 enables left-aligned ADC for efficient fixed-point math.
-constexpr uint8_t _ADMUX{ (PCB_VERSION == PcbVersion::NEW ? bit(REFS1) | bit(REFS0) : bit(REFS0)) | bit(ADLAR) };
+// Analogue input pins, ADC reference and left-aligned result of each conversion: adc_chain.h.
+// The reference is AVCC (= VCC, 5 V or 3.3 V) on the old board, the internal 1.1 V on the new one
+// (buffered from AREF). ADLAR=1 enables left-aligned ADC for efficient fixed-point math.
+static_assert(AdcChain::BIT_REFS1 == REFS1 && AdcChain::BIT_REFS0 == REFS0 && AdcChain::BIT_ADLAR == ADLAR, "adc_chain.h: ADMUX bits differ from avr/io.h");
+static_assert(AdcChain::NO_OF_CONVERSIONS == 2 * NO_OF_PHASES, "adc_chain.h: a V and an I conversion per phase");
 // ------------------------------------------
 
 // Define ideal bias, ADC mid-range, left aligned.
@@ -40,15 +42,15 @@ constexpr int32_t l_midPointOfEnergyBucket_main{ l_capacityOfEnergyBucket_main /
 /**< threshold in anti-flicker mode - must not exceed 0.4 */
 constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1F };
 
-// Expected number of sample sets per mains cycle. One ADC conversion takes 13 ADC clocks
-// at F_CPU / 128 (104 us at 16 MHz); a sample set is one V and one I conversion per phase.
-constexpr uint8_t ADC_CLOCKS_PER_CONVERSION{ 13 };
-constexpr uint8_t ADC_PRESCALER{ 128 };
-constexpr uint32_t SAMPLE_SET_PERIOD_US{ 2UL * NO_OF_PHASES * ADC_CLOCKS_PER_CONVERSION * ADC_PRESCALER / (F_CPU / 1000000UL) }; /**< 624 us */
-constexpr uint8_t SAMPLE_SETS_PER_CYCLE{ 1000000UL / (SUPPLY_FREQUENCY * SAMPLE_SET_PERIOD_US) };                                /**< 32 at 50 Hz, 26 at 60 Hz */
-constexpr uint8_t SAMPLE_SETS_MARGIN{ 4 };                                                                                       /**< covers crossing jitter and frequency drift */
-constexpr uint8_t N_MIN{ SAMPLE_SETS_PER_CYCLE - SAMPLE_SETS_MARGIN };
-constexpr uint8_t N_MAX{ SAMPLE_SETS_PER_CYCLE + SAMPLE_SETS_MARGIN };
+// The sums of a datalog period, in ADC steps: at most MAX_SAMPLE_SETS_PER_DATALOG samples
+// (config_derived.h), each adding at most 2^18 (|V_ADC x I_ADC| or V_ADC^2, x1 scale).
+constexpr uint32_t FULL_SCALE_PER_SAMPLE{ 1UL << 18 };
+// the sample sets, the divisor of the datalog power and voltage, in 16 bits (30 s at most, validation.h)
+static_assert(MAX_SAMPLE_SETS_PER_DATALOG <= UINT16_MAX, "******** The counter of the sample sets of a datalog period would overflow ! ********");
+// the power, scaled down by 16 when the period needs it: without the shift, it holds full-span
+// sines (2^17 on average per sample, Datalog::powerShift()); with it, any signal
+static_assert(DATALOG_POWER_SHIFT == 0 || MAX_SAMPLE_SETS_PER_DATALOG * (FULL_SCALE_PER_SAMPLE >> DATALOG_POWER_SHIFT) <= static_cast< uint32_t >(INT32_MAX),
+              "******** The datalog power sum would overflow ! ********");
 
 /**< power calibration over n, in fixed point, for every expected n: no division in the ISR */
 const Energy::PerSampleCalibration< N_MIN, N_MAX, NO_OF_PHASES > powerCalPerSample PROGMEM{ Energy::toFixedPerSample< N_MIN, N_MAX >(f_powerCal) };
@@ -96,16 +98,13 @@ constexpr int32_t initThreshold(const bool lower)
 constexpr int32_t l_lowerThreshold_default{ initThreshold(true) };  /**< lower default threshold set accordingly to the output mode */
 constexpr int32_t l_upperThreshold_default{ initThreshold(false) }; /**< upper default threshold set accordingly to the output mode */
 
-int32_t l_energyInBucket_main{ 0 };  /**< main energy bucket (over all phases) */
-int32_t l_lowerEnergyThreshold{ 0 }; /**< dynamic lower threshold */
-int32_t l_upperEnergyThreshold{ 0 }; /**< dynamic upper threshold */
+int32_t l_energyInBucket_main{ 0 }; /**< main energy bucket (over all phases) */
 
-// for improved control of multiple loads
-bool b_recentTransition{ false };                 /**< a load state has been recently toggled */
-uint8_t postTransitionCount{ 0 };                 /**< counts the number of cycle since last transition */
-constexpr uint8_t POST_TRANSITION_MAX_COUNT{ 3 }; /**< allows each transition to take effect */
-// constexpr uint8_t POST_TRANSITION_MAX_COUNT{50}; /**< for testing only */
-uint8_t activeLoad{ NO_OF_DUMPLOADS }; /**< current active load */
+/** the fixed levels of the main energy bucket */
+constexpr LoadPriorities::Bucket bucketLevels{ l_capacityOfEnergyBucket_main, l_midPointOfEnergyBucket_main,
+                                               l_lowerThreshold_default, l_upperThreshold_default };
+
+LoadPriorities::Switching< NO_OF_DUMPLOADS > loadSwitching; /**< for improved control of multiple loads */
 
 uint8_t triggerPhase{ 1 };              /**< phase whose -ve crossing is the last one before L1's +ve crossing */
 uint8_t n_samplesSinceTrigger{ 0 };     /**< sample sets of the trigger phase since its -ve crossing */
@@ -225,9 +224,9 @@ constexpr uint16_t getOutputPins()
 
   if constexpr (RELAY_DIVERSION)
   {
-    for (uint8_t idx = 0; idx < relays.size(); ++idx)
+    for (uint8_t idx = 0; idx < relayDiverter.size(); ++idx)
     {
-      const auto relayPin = relays.get_relay(idx).get_pin();
+      const auto relayPin = relayDiverter.get_relay(idx).get_pin();
 
       if (bit_read(output_pins, relayPin))
         return 0;
@@ -293,9 +292,9 @@ constexpr uint16_t getInputPins()
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
     // Add all configured override pins
-    for (uint8_t i = 0; i < overridePins.size(); ++i)
+    for (uint8_t i = 0; i < overrideTable.size(); ++i)
     {
-      const uint8_t pin = overridePins.getPin(i);
+      const uint8_t pin = overrideTable.getPin(i);
       if (bit_read(input_pins, pin))
         return 0;
 
@@ -328,8 +327,8 @@ void initializeProcessing()
   constexpr uint32_t filterDC_V_nom = static_cast< uint32_t >(i_DCoffset_V_nom) << 15;
   initializeArray(l_filterDC_V, filterDC_V_nom);  // nominal mid-point value of ADC left-aligned
 
-  setPinsAsOutput(getOutputPins());      // set the output pins as OUTPUT
-  setPinsAsInputPullup(getInputPins());  // set the input pins as INPUT_PULLUP
+  setPinsAsOutput< getOutputPins() >();      // set the output pins as OUTPUT
+  setPinsAsInputPullup< getInputPins() >();  // set the input pins as INPUT_PULLUP
 
   uint8_t i{ NO_OF_DUMPLOADS };
   do
@@ -358,33 +357,45 @@ void initializeProcessing()
     infoln(F("Remote loads initialized"));
   }
 
-  // First stop the ADC
-  bit_clear(ADCSRA, ADEN);
-
-  // Activate free-running mode
-  ADCSRB = 0x00;
+  // The ADC runs free: each conversion starts the next one, and each end of conversion
+  // raises the ADC interrupt, where the samples are processed (1664 CPU cycles per call).
+  ADCSRA = 0;  // ADC off while it is set up
+  ADCSRB = 0;  // ADTS2:0 = 0: the auto-trigger source is the ADC itself (free running)
 
   // Reference and left-aligned result for the first conversion too, on the first channel (V1)
-  ADMUX = _ADMUX | sensorV[0];
+  ADMUX = AdcChain::admuxOf(PCB_VERSION, AdcChain::Channel::V1);
 
-  // Set up the ADC to be free-running
-  bit_set(ADCSRA, ADPS0);  // Set the ADC's clock to system clock / 128
-  bit_set(ADCSRA, ADPS1);
-  bit_set(ADCSRA, ADPS2);
-
-  bit_set(ADCSRA, ADATE);  // set the Auto Trigger Enable bit in the ADCSRA register. Because
-  // bits ADTS0-2 have not been set (i.e. they are all zero), the
-  // ADC's trigger source is set to "free running mode".
-
-  bit_set(ADCSRA, ADIE);  // set the ADC interrupt enable bit. When this bit is written
-  // to one and the I-bit in SREG is set, the
-  // ADC Conversion Complete Interrupt is activated.
-
-  bit_set(ADCSRA, ADEN);  // Enable the ADC
-
-  bit_set(ADCSRA, ADSC);  // start ADC manually first time
+  ADCSRA = bit(ADEN)                                // ADC on
+           | bit(ADSC)                              // first conversion, the next ones start by themselves
+           | bit(ADATE)                             // auto-trigger, from the source set in ADCSRB
+           | bit(ADIE)                              // interrupt at the end of each conversion
+           | bit(ADPS2) | bit(ADPS1) | bit(ADPS0);  // ADC clock 16 MHz / 128 = 125 kHz: 104 µs per conversion
 
   sei();  // Enable Global Interrupts
+}
+
+/**
+ * @brief The pins the loads drive: the local TRIACs, plus the status LED of each remote load.
+ *
+ * @return A 16-bit mask of these pins, computed at compile time.
+ *
+ * @ingroup Initialization
+ */
+constexpr uint16_t getLoadPins()
+{
+  uint16_t load_pins{ 0 };
+
+  for (const auto &loadEntry : physicalLoadPin)
+  {
+    const uint8_t pin{ Load::pinOf(loadEntry) };
+
+    if (Load::isLocal(loadEntry) || (pin != 0))
+    {
+      bit_set(load_pins, pin);
+    }
+  }
+
+  return load_pins;
 }
 
 /**
@@ -396,7 +407,8 @@ void initializeProcessing()
  * @details
  * - If a load is OFF, its corresponding pin is added to the `pinsOFF` mask.
  * - If a load is ON, its corresponding pin is added to the `pinsON` mask.
- * - Finally, the pins are updated using `setPinsOFF` and `setPinsON` functions.
+ * - Finally, the pins are updated with `setPinsState`, one write per port, and only on the
+ *   ports the load pins are on.
  * - Overrides are already part of the physical load states, and the relays are driven
  *   by the relay engine only: no other pin is ever written here.
  *
@@ -438,8 +450,7 @@ void updatePortsStates()
     }
   } while (i);
 
-  setPinsOFF(pinsOFF);
-  setPinsON(pinsON);
+  setPinsState< getLoadPins() >(pinsON, pinsOFF);
 }
 
 /**
@@ -477,14 +488,7 @@ void updatePhysicalLoadStates()
   {
     if (Shared::b_reOrderLoads)
     {
-      uint8_t i{ static_cast< uint8_t >(NO_OF_DUMPLOADS - 1) };
-      const auto temp{ loadPrioritiesAndState[i] };
-      do
-      {
-        loadPrioritiesAndState[i] = loadPrioritiesAndState[i - 1];
-        --i;
-      } while (i);
-      loadPrioritiesAndState[0] = temp;
+      rotationTable.rotate(loadPrioritiesAndState);  // each rotation group, among its own places
 
       Shared::b_reOrderLoads = false;
     }
@@ -496,24 +500,20 @@ void updatePhysicalLoadStates()
   // the override bitmasks are read once: the same snapshot for every load of this cycle
   const uint16_t overrideBitmask{ Shared::overrideBitmask };
   const uint8_t remoteOverrideBitmask{ REMOTE_LOADS_PRESENT ? Shared::remoteOverrideBitmask : uint8_t{ 0 } };
-  uint8_t idx{ NO_OF_DUMPLOADS };
-  do
-  {
-    --idx;
-    const auto iLoad{ loadPrioritiesAndState[idx] & loadStateMask };
 
-    // A local load has its pin's bit in the local override bitmask, a remote load its
-    // ordinal's bit in the remote one; the other mask is 0. With an all-local map, the
-    // remote test folds away.
-    bool bOverrideActive{ (overrideBitmask & pgm_read_word(&overrideMasks.local[iLoad])) != 0 };
-    if constexpr (REMOTE_LOADS_PRESENT)
-    {
-      bOverrideActive = bOverrideActive || ((remoteOverrideBitmask & pgm_read_byte(&overrideMasks.remote[iLoad])) != 0);
-    }
-
-    const bool bOn{ bOverrideActive || (bDiversionEnabled && (loadPrioritiesAndState[idx] & loadStateOnBit)) };
-    physicalLoadState[iLoad] = (!CALIBRATION_MODE && bOn) ? LoadStates::LOAD_ON : LoadStates::LOAD_OFF;
-  } while (idx);
+  LoadPriorities::toPhysical< CALIBRATION_MODE >(
+    loadPrioritiesAndState, physicalLoadState, bDiversionEnabled,
+    [overrideBitmask, remoteOverrideBitmask](const uint8_t iLoad) __attribute__((always_inline)) {
+      // A local load has its pin's bit in the local override bitmask, a remote load its
+      // ordinal's bit in the remote one; the other mask is 0. With an all-local map, the
+      // remote test folds away.
+      bool bOverrideActive{ (overrideBitmask & pgm_read_word(&overrideMasks.local[iLoad])) != 0 };
+      if constexpr (REMOTE_LOADS_PRESENT)
+      {
+        bOverrideActive = bOverrideActive || ((remoteOverrideBitmask & pgm_read_byte(&overrideMasks.remote[iLoad])) != 0);
+      }
+      return bOverrideActive;
+    });
 }
 
 /**
@@ -562,9 +562,6 @@ void processPolarity(const uint8_t phase, const uint16_t rawSample)
  */
 void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
 {
-  // extra items for an LPF to improve the processing of data samples from CT1
-  static int32_t lpf_long[NO_OF_PHASES]{};  // new LPF, for offsetting the behaviour of CTx as a HPF
-
   // remove most of the DC offset from the current sample.
   // Use the voltage bias, it's most likely more accurate than the default mid-range.
   // Add 0.5 for the rounding, +32 when 10-bits left aligned `1<<(15-10)`
@@ -574,9 +571,11 @@ void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
   // Using if constexpr ensures zero overhead when CT filtering is disabled
   if constexpr (lpf_gain != 0.0F && alpha != 0.0F)
   {
-    const auto last_lpf_long{ lpf_long[phase] };
-    lpf_long[phase] += alpha * (sampleIminusDC - last_lpf_long);
-    sampleIminusDC += (lpf_gain * lpf_long[phase]);
+    // Robin's filter in fixed point, one state per phase (ct_filter.h); the settings are checked in validation.h
+    static CtFilter::LowPassBoost ctFilter[NO_OF_PHASES];  // for offsetting the behaviour of CTx as a HPF
+    constexpr CtFilter::Coefficients ctFilterCoefficients{ CtFilter::coefficientsOf(lpf_gain, alpha) };
+
+    sampleIminusDC = ctFilter[phase].apply(sampleIminusDC, ctFilterCoefficients);  // at x256, saturated to int16
   }
 
   // calculate the "real power" in this sample pair and add to the accumulated sum
@@ -589,8 +588,18 @@ void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
   multS16x16_to32(instP, filtV_div4, filtI_div4);  // 32-bits (now x256, or 2^8)
   instP >>= 8;                                     // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
-  l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
-  l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+
+  // for the datalog: scaled down by 16, rounded, when the period needs it (DATALOG_POWER_SHIFT);
+  // the main code scales the average back up (Datalog::averagePower())
+  if constexpr (DATALOG_POWER_SHIFT != 0)
+  {
+    l_sumP_atSupplyPoint[phase] += (instP + (1L << (DATALOG_POWER_SHIFT - 1))) >> DATALOG_POWER_SHIFT;
+  }
+  else
+  {
+    l_sumP_atSupplyPoint[phase] += instP;
+  }
 }
 
 /**
@@ -683,131 +692,37 @@ void processVoltage(const uint8_t phase)
  * @param phase The phase number [0..NO_OF_PHASES[.
  *
  * @details
- * - During the startup period, the function waits until the filters have settled.
- * - Once the startup period is over, it resets key variables and flags to prepare
- *   for normal operation.
+ * - At each crossing of the phase during the startup period, the phase starts its sums and its
+ *   sample count afresh.
+ * - Once the filters have settled, the startup period is over: the flags are set for normal
+ *   operation.
  *
  * @ingroup TimeCritical
  */
 void processStartUp(const uint8_t phase)
 {
+  // Every phase starts afresh at each of its crossings during the start-up period: the crossing
+  // that ends it is the first phase's to come, and the others then hold one cycle at most, not
+  // the sums and the sample count of the whole start-up period. Done here, for the crossing
+  // phase only, rather than for all phases at the end: a loop over the phases, inlined or
+  // called, makes the ISR spill to a stack frame on every call.
+  l_sumP[phase] = 0;
+  l_sumP_atSupplyPoint[phase] = 0;
+  l_sum_Vsquared[phase] = 0;  // with the sample set count: the first datalog period holds its own samples (one cycle more at most for the other phases)
+  n_samplesDuringThisMainsCycle[phase] = 0;
+
   // wait until the DC-blocking filters have had time to settle
   if (millis() <= (initialDelay + startUpPeriod))
   {
-    return;  // still settling, do nothing
+    return;  // still settling
   }
 
   // the DC-blocking filters have had time to settle
   beyondStartUpPeriod = true;
-  l_sumP[phase] = 0;
-  l_sumP_atSupplyPoint[phase] = 0;
-  n_samplesDuringThisMainsCycle[phase] = 0;
   i_sampleSetsDuringThisDatalogPeriod = 0;
 
   n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
   // can't say "Go!" here 'cos we're in an ISR!
-}
-
-/**
- * @brief Handles the case when the energy level is high, potentially adding a load.
- *
- * This function determines if a new load can be added based on the current energy level
- * and recent transitions. It updates the logical load states and thresholds accordingly.
- *
- * @details
- * - Identifies the next logical load to be added.
- * - Ensures that only the active load can be switched during the post-transition period.
- * - Updates the upper energy threshold and logical load states if a load is added.
- *
- * @param l_energy The bucket level the decision is based on (predicted or measured).
- *
- * @ingroup TimeCritical
- */
-void proceedHighEnergyLevel(const int32_t l_energy)
-{
-  bool bOK_toAddLoad{ true };
-  const auto tempLoad{ nextLogicalLoadToBeAdded() };
-
-  if (tempLoad == NO_OF_DUMPLOADS)
-  {
-    return;
-  }
-
-  // a load which is now OFF has been identified for potentially being switched ON
-  if (b_recentTransition)
-  {
-    // During the post-transition period, any increase in the energy level is noted.
-    l_upperEnergyThreshold = l_energy;
-
-    // the energy thresholds must remain within range
-    if (l_upperEnergyThreshold > l_capacityOfEnergyBucket_main)
-    {
-      l_upperEnergyThreshold = l_capacityOfEnergyBucket_main;
-    }
-
-    // Only the active load may be switched during this period. All other loads must
-    // wait until the recent transition has had sufficient opportunity to take effect.
-    bOK_toAddLoad = (tempLoad == activeLoad);
-  }
-
-  if (bOK_toAddLoad)
-  {
-    loadPrioritiesAndState[tempLoad] |= loadStateOnBit;
-    activeLoad = tempLoad;
-    postTransitionCount = 0;
-    b_recentTransition = true;
-  }
-}
-
-/**
- * @brief Handles the case when the energy level is low, potentially removing a load.
- *
- * This function determines if a load can be removed based on the current energy level
- * and recent transitions. It updates the logical load states and thresholds accordingly.
- *
- * @details
- * - Identifies the next logical load to be removed.
- * - Ensures that only the active load can be switched during the post-transition period.
- * - Updates the lower energy threshold and logical load states if a load is removed.
- *
- * @param l_energy The bucket level the decision is based on (predicted or measured).
- *
- * @ingroup TimeCritical
- */
-void proceedLowEnergyLevel(const int32_t l_energy)
-{
-  bool bOK_toRemoveLoad{ true };
-  const auto tempLoad{ nextLogicalLoadToBeRemoved() };
-
-  if (tempLoad == NO_OF_DUMPLOADS)
-  {
-    return;
-  }
-
-  // a load which is now ON has been identified for potentially being switched OFF
-  if (b_recentTransition)
-  {
-    // During the post-transition period, any decrease in the energy level is noted.
-    l_lowerEnergyThreshold = l_energy;
-
-    // the energy thresholds must remain within range
-    if (l_lowerEnergyThreshold < 0)
-    {
-      l_lowerEnergyThreshold = 0;
-    }
-
-    // Only the active load may be switched during this period. All other loads must
-    // wait until the recent transition has had sufficient opportunity to take effect.
-    bOK_toRemoveLoad = (tempLoad == activeLoad);
-  }
-
-  if (bOK_toRemoveLoad)
-  {
-    loadPrioritiesAndState[tempLoad] &= loadStateMask;
-    activeLoad = tempLoad;
-    postTransitionCount = 0;
-    b_recentTransition = true;
-  }
 }
 
 /**
@@ -826,38 +741,14 @@ void proceedLowEnergyLevel(const int32_t l_energy)
  * - Adjusts energy thresholds and determines whether to add or remove loads.
  * - Updates the physical load states and control ports.
  * - Ensures the energy bucket level remains within defined limits.
+ * - Signals the new mains cycle to the main code (Shared::b_newMainsCycle), last.
  *
  * @ingroup TimeCritical
  */
 void processStartNewCycle(const int32_t l_energy)
 {
-  // Restrictions apply for the period immediately after a load has been switched.
-  // Here the b_recentTransition flag is checked and updated as necessary.
-  // if (b_recentTransition)
-  //   b_recentTransition = (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
-  // for optimization, the next line is equivalent to the two lines above
-  b_recentTransition &= (++postTransitionCount < POST_TRANSITION_MAX_COUNT);
-
-  if (l_energy > l_midPointOfEnergyBucket_main)
-  {
-    // the energy state is in the upper half of the working range
-    l_lowerEnergyThreshold = l_lowerThreshold_default;  // reset the "opposite" threshold
-    if (l_energy > l_upperEnergyThreshold)
-    {
-      // Because the energy level is high, some action may be required
-      proceedHighEnergyLevel(l_energy);
-    }
-  }
-  else
-  {
-    // the energy state is in the lower half of the working range
-    l_upperEnergyThreshold = l_upperThreshold_default;  // reset the "opposite" threshold
-    if (l_energy < l_lowerEnergyThreshold)
-    {
-      // Because the energy level is low, some action may be required
-      proceedLowEnergyLevel(l_energy);
-    }
-  }
+  // may switch one load ON or OFF (load_priorities.h), on the level the decision is based on
+  loadSwitching.onNewCycle(loadPrioritiesAndState, l_energy, bucketLevels);
 
   updatePhysicalLoadStates();  // allows the logical-to-physical mapping to be changed
 
@@ -891,6 +782,10 @@ void processStartNewCycle(const int32_t l_energy)
   {
     l_energyInBucket_main = 0;
   }
+
+  // one 'tick' per mains cycle for use by the main code, once the cycle's work is done: the 1-Wire
+  // transactions start when the loop sees it, their slots must not delay this call
+  Shared::b_newMainsCycle = true;
 }
 
 /**
@@ -923,57 +818,6 @@ void processMinusHalfCycle(const uint8_t phase)
 }
 
 /**
- * @brief Retrieve the next logical load that could be added.
- *
- * This function identifies the next logical load that can be added based on the
- * current load priorities and states. It iterates through the load priorities
- * to find the first load that is currently OFF.
- *
- * @return The load number if a suitable load is found, or `NO_OF_DUMPLOADS` if no
- *         load can be added.
- *
- * @ingroup TimeCritical
- */
-uint8_t nextLogicalLoadToBeAdded()
-{
-  for (uint8_t index = 0; index < NO_OF_DUMPLOADS; ++index)
-  {
-    if (0x00 == (loadPrioritiesAndState[index] & loadStateOnBit))
-    {
-      return (index);
-    }
-  }
-
-  return (NO_OF_DUMPLOADS);
-}
-
-/**
- * @brief Retrieve the next logical load that could be removed (in reverse order).
- *
- * This function identifies the next logical load that can be removed based on the
- * current load priorities and states. It iterates through the load priorities
- * in reverse order to find the first load that is currently ON.
- *
- * @return The load number if a suitable load is found, or `NO_OF_DUMPLOADS` if no
- *         load can be removed.
- *
- * @ingroup TimeCritical
- */
-uint8_t nextLogicalLoadToBeRemoved()
-{
-  uint8_t index{ NO_OF_DUMPLOADS };
-  do
-  {
-    if (loadPrioritiesAndState[--index] & loadStateOnBit)
-    {
-      return (index);
-    }
-  } while (index);
-
-  return (NO_OF_DUMPLOADS);
-}
-
-/**
  * @brief Process the latest contribution after each phase-specific new cycle.
  *
  * This function calculates and updates the energy contribution for the specified phase
@@ -985,7 +829,6 @@ uint8_t nextLogicalLoadToBeRemoved()
  * @details
  * - Adds the latest energy contribution to the main energy bucket.
  * - Applies adjustments for required export energy on phase 0.
- * - Signals a new mains cycle for phase 0.
  *
  * @ingroup TimeCritical
  */
@@ -1028,22 +871,6 @@ void processLatestContribution(const uint8_t phase)
       // Comment or remove this if you want to divert ALL surplus once started
       l_energyInBucket_main -= Energy::fromWatts(REQUIRED_EXPORT_IN_WATTS);
     }
-
-    if (++perSecondCounter == SUPPLY_FREQUENCY)
-    {
-      perSecondCounter = 0;
-
-      if (absenceOfDivertedEnergyCountInMC > SUPPLY_FREQUENCY)
-      {
-        ++Shared::absenceOfDivertedEnergyCountInSeconds;
-        // Reset diversion state if we've had no diversion for a full second
-        b_diversionStarted = false;
-      }
-      else
-        Shared::absenceOfDivertedEnergyCountInSeconds = 0;
-    }
-
-    Shared::b_newMainsCycle = true;  //  a 50 Hz 'tick' for use by the main code
   }
   // Applying max and min limits to the main accumulator's level
   // is deferred until after the energy related decisions have been taken
@@ -1099,9 +926,8 @@ void processDataLogging()
   n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
   i_sampleSetsDuringThisDatalogPeriod = 0;
 
-  // signal the main processor that logging data are available
-  // we skip the period from start to running stable
-  Shared::b_datalogEventPending = beyondStartUpPeriod;
+  // signal the main processor that logging data are available (beyond the start-up period)
+  Shared::b_datalogEventPending = true;
 }
 
 /**
@@ -1117,6 +943,7 @@ void processDataLogging()
  * - Processes the latest energy contribution for the specified phase.
  * - Updates the minimum number of ADC sample sets per mains cycle for phase 0.
  * - Handles data logging at the end of the logging period for phase 0.
+ * - Counts the seconds without diversion, for phase 0.
  * - Resets cumulative power and sample count for the phase.
  *
  * @ingroup TimeCritical
@@ -1136,6 +963,21 @@ void processPlusHalfCycle(const uint8_t phase)
     }
 
     processDataLogging();
+
+    // the seconds without diversion
+    if (++perSecondCounter == SUPPLY_FREQUENCY)
+    {
+      perSecondCounter = 0;
+
+      if (absenceOfDivertedEnergyCountInMC > SUPPLY_FREQUENCY)
+      {
+        ++Shared::absenceOfDivertedEnergyCountInSeconds;
+        // Reset diversion state if we've had no diversion for a full second
+        b_diversionStarted = false;
+      }
+      else
+        Shared::absenceOfDivertedEnergyCountInSeconds = 0;
+    }
   }
 
   l_sumP[phase] = 0;
@@ -1379,18 +1221,19 @@ void printParamsForSelectedOutputMode()
 struct adc_ctx_t
 {
   struct adc_ctx_t *next; /**< pointer to next context in circular list */
-  uint8_t index;          /**< channel index (0-5 for V1,I1,V2,I2,V3,I3) */
-  uint8_t admux;          /**< ADMUX register value for this channel */
+  uint8_t index;          /**< channel just converted (0-5 for V1,I1,V2,I2,V3,I3: AdcChain::Channel) */
+  uint8_t admux;          /**< ADMUX register value written after this channel: the channel after next */
 };
 
-// ADC optimization: circular linked list for channel management
-static adc_ctx_t _channels[6] = {
-  { .next = &_channels[1], .index = 0, .admux = _ADMUX | sensorV[1] },  // V1 -> setup for V2
-  { .next = &_channels[2], .index = 1, .admux = _ADMUX | sensorI[1] },  // I1 -> setup for I2
-  { .next = &_channels[3], .index = 2, .admux = _ADMUX | sensorV[2] },  // V2 -> setup for V3
-  { .next = &_channels[4], .index = 3, .admux = _ADMUX | sensorI[2] },  // I2 -> setup for I3
-  { .next = &_channels[5], .index = 4, .admux = _ADMUX | sensorV[0] },  // V3 -> setup for V1
-  { .next = &_channels[0], .index = 5, .admux = _ADMUX | sensorI[0] }   // I3 -> setup for I1
+// ADC optimization: circular linked list for channel management. The ADMUX written after a
+// conversion applies to the conversion after next (adc_chain.h); every entry is a constant.
+static adc_ctx_t _channels[AdcChain::NO_OF_CONVERSIONS] = {
+  { .next = &_channels[1], .index = static_cast< uint8_t >(AdcChain::Channel::V1), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::V1) },  // V1 -> setup for V2
+  { .next = &_channels[2], .index = static_cast< uint8_t >(AdcChain::Channel::I1), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::I1) },  // I1 -> setup for I2
+  { .next = &_channels[3], .index = static_cast< uint8_t >(AdcChain::Channel::V2), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::V2) },  // V2 -> setup for V3
+  { .next = &_channels[4], .index = static_cast< uint8_t >(AdcChain::Channel::I2), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::I2) },  // I2 -> setup for I3
+  { .next = &_channels[5], .index = static_cast< uint8_t >(AdcChain::Channel::V3), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::V3) },  // V3 -> setup for V1
+  { .next = &_channels[0], .index = static_cast< uint8_t >(AdcChain::Channel::I3), .admux = AdcChain::admuxWrittenAfter(PCB_VERSION, AdcChain::Channel::I3) }   // I3 -> setup for I1
 };
 
 static adc_ctx_t *_ctx = &_channels[0];

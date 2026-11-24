@@ -4,6 +4,8 @@
  * Pure functions: each one returns the full text of a file. The layout follows the shipped
  * files (and clang-format: trailing comments aligned within runs of consecutive lines), so the
  * defaults give back the shipped files byte for byte.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(require('./model.js'), require('./yaml.js'));
@@ -51,6 +53,12 @@
   }
 
   const hex = (b) => '0x' + b.toString(16).toUpperCase().padStart(2, '0');
+  // The threshold, as entered when the router reads the probes; without them its field is hidden and
+  // the firmware ignores it, but validation.h still wants 1..100: an unreadable one is written as 100
+  const tempThreshold = (m) => {
+    const t = m.dualTariff.tempThreshold;
+    return M.tempSensorPresent(m) || (Number.isInteger(t) && t >= 1 && t <= 100) ? t : 100;
+  };
 
   function overrideTargets(targets) {
     if (typeof targets === 'string') return `${targets}()`;
@@ -67,32 +75,99 @@
     ALL_LOADS_AND_RELAYS: 'all loads and relays',
   };
 
-  // What each override pin forces, numbered from 1 as on the page: LOAD(0) is load 1. Only when
-  // a list names loads or relays one by one; ALL_LOADS() and the like speak for themselves.
-  function overrideComments(m, overrides) {
-    if (overrides.every((o) => typeof o.targets === 'string')) return [];
+  // What a list of targets names, numbered from 1 as on the page: LOAD(0) is load 1
+  function targetsText(m, targets) {
+    if (typeof targets === 'string') return TARGET_NAMES[targets];
     const target = (t) => {
       if ('relay' in t) return `relay ${t.relay + 1} (${pinName((m.relays.list[t.relay] || {}).pin)})`;
       const load = m.loads[t.load] || {};
       return `load ${t.load + 1} (${load.type === 'remote' ? `remote unit ${load.unit}` : pinName(load.pin)})`;
     };
+    return targets.map(target).join(', ');
+  }
+
+  const COUNT_FROM_0 = '(LOAD(n) and RELAY(n) count from 0: LOAD(0) is load 1):';
+
+  // What each override pin forces. Only when a list names loads or relays one by one;
+  // ALL_LOADS() and the like speak for themselves.
+  function overrideComments(m, overrides) {
+    if (overrides.every((o) => typeof o.targets === 'string')) return [];
+    return [`// What each override pin forces ${COUNT_FROM_0}`, ...overrides.map((o) => `//   ${pinName(o.pin)}: ${targetsText(m, o.targets)}`)];
+  }
+
+  // ---- rotation groups ----
+  // {} without rotation; ALL_LOCAL_LOADS() for a single group of every local load
+  function rotationGroups(m) {
+    const groups = m.rotation.mode === 'OFF' ? [] : m.rotation.groups;
+    if (!groups.length) return '{}';
+    const local = m.loads.map((l, i) => (l.type === 'local' ? i : null)).filter((i) => i !== null);
+    const everyLocal = (g) => g.length === local.length && local.every((i) => g.includes(i));
+    if (groups.length === 1 && everyLocal(groups[0])) return '{ { ALL_LOCAL_LOADS() } }';
+    return `{ ${groups.map((g) => `{ ${g.map((i) => `LOAD(${i})`).join(', ')} }`).join(', ')} }`;
+  }
+
+  // ---- scheduled boosts ----
+
+  const boostTime = (min) => (min % 60 === 0 ? `HOURS(${min / 60})` : `MINUTES(${min})`);
+  const isFirst = (b) => b.from === 'start' && b.at === 0 && b.for !== null;
+
+  // The window of a boost, in the shortest form the firmware takes
+  function boostWindow(b) {
+    if (isFirst(b)) return `FIRST(${boostTime(b.for)})`;
+    if (b.for === null) return `${b.from === 'end' ? 'LAST' : 'FROM_START'}(${boostTime(b.at)})`;
+    return `${b.from === 'end' ? 'BEFORE_END' : 'FROM_START'}(${boostTime(b.at)}), FOR(${boostTime(b.for)})`;
+  }
+
+  const plural = (n, unit) => `${n} ${unit}${n === 1 ? '' : 's'}`;
+  const amount = (min) => (min % 60 === 0 ? plural(min / 60, 'hour') : plural(min, 'minute'));
+  const joinAnd = (xs) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}` : xs.join(''));
+
+  // A single boost in words, for the trailing comment: "load #1, from 3 hours before the end, for 2 hours"
+  function boostInWords(b) {
+    const what = typeof b.targets === 'string' ? TARGET_NAMES[b.targets] : joinAnd(b.targets.map((t) => ('relay' in t ? `relay #${t.relay + 1}` : `load #${t.load + 1}`)));
+    let when;
+    if (isFirst(b)) when = `the first ${amount(b.for)}`;
+    else if (b.from === 'end' && b.for === null) when = `the last ${amount(b.at)}`;
+    else {
+      const start = `from ${amount(b.at)} ${b.from === 'end' ? 'before the end' : 'after the start'}`;
+      when = b.for === null ? `${start}, until the end` : `${start}, for ${amount(b.for)}`;
+    }
+    return `${what}, ${when}`;
+  }
+
+  // What each boost forces, when there are several and a list names loads or relays one by one
+  // (a single boost says it in its trailing comment)
+  function boostComments(m, boosts) {
+    if (boosts.length < 2 || boosts.every((b) => typeof b.targets === 'string')) return [];
+    return [`// What each scheduled boost forces ${COUNT_FROM_0}`, ...boosts.map((b, i) => `//   boost ${i + 1}: ${targetsText(m, b.targets)}`)];
+  }
+
+  function boostLines(m) {
+    const boosts = m.dualTariff.boosts;
+    const prefix = 'inline constexpr ScheduledBoosts scheduledBoosts';
+    if (!boosts.length) return [[`${prefix}{};`, '/**< no scheduled boost */']];
+    const comment = boosts.length === 1 ? `/**< ${boostInWords(boosts[0])} */` : '/**< list of scheduled boosts */';
     return [
-      '// What each override pin forces (LOAD(n) and RELAY(n) count from 0: LOAD(0) is load 1):',
-      ...overrides.map((o) => `//   ${pinName(o.pin)}: ${typeof o.targets === 'string' ? TARGET_NAMES[o.targets] : o.targets.map(target).join(', ')}`),
+      ...boostComments(m, boosts),
+      ...list(
+        `${prefix}{ `,
+        boosts.map((b) => `{ ${boostWindow(b)}, ${overrideTargets(b.targets)} }`),
+        ' };',
+        comment
+      ),
     ];
+  }
+
+  // the delay as set; when its field is hidden, an invalid one (never checked) gives the default
+  function rotationDelay(m) {
+    const s = m.rotation.afterSeconds;
+    return M.rotationDelayShown(m) || M.rotationDelayValid(s) ? s : M.defaults().rotation.afterSeconds;
   }
 
   function rotationSeconds(s) {
     if (s % 3600 === 0) return `${s / 3600}UL * 3600UL`;
     if (s % 60 === 0) return `${s / 60}UL * 60UL`;
     return `${s}UL`;
-  }
-
-  // Trailing entries equal to the default ({ 0, UINT16_MAX }) can be left out
-  function forceEntries(m) {
-    const f = m.dualTariff.force.slice(0, m.loads.length);
-    while (f.length && f[f.length - 1].start === 0 && f[f.length - 1].duration === null) f.pop();
-    return f.map((e) => `{ ${e.start}, ${e.duration === null ? 'UINT16_MAX' : e.duration} }`);
   }
 
   // ---- config.h ----
@@ -116,15 +191,16 @@
       ' * Edit it by hand, or create it with the configurator:',
       ' * https://fredm67.github.io/Mk2PVRouter/configurateur/',
       ' *',
-      ' * @version 1.0',
+      ' * Settings only: no #include line but the one below, nothing computed. The firmware builds',
+      ' * what it needs from these settings in config_derived.h.',
+      ' *',
+      ' * @version 2.0',
       ` * @date ${date || today()}`,
       ' */',
       '',
-      '#ifndef CONFIG_H',
-      '#define CONFIG_H',
+      '#pragma once',
       '',
-      '#include "config_system.h"',
-      '#include "types.h"',
+      ['#include "config_types.h"', '// the types and helpers used below (Load::local(), LOAD(), HOURS()...)'],
       '',
       '// Motherboard: OLD for the former 3-phase board, NEW for the universal 3phaseDiverter board',
       '// (rev. 6.0 and later). A wrong choice gives wrong measurements: recalibrate after a change.',
@@ -138,10 +214,10 @@
       '// messages in human-readable output only.',
       `inline constexpr bool ENABLE_DEBUG{ ${bool(m.enableDebug)} };`,
       '',
-      ['#include "debug.h"', '// needs SERIAL_OUTPUT_TYPE and ENABLE_DEBUG'],
-      '',
       '// Calibration mode: the router measures and logs as usual, but never switches any load',
-      '// (TRIACs, relays, remote loads, overrides), as with the router OFF. Set back to false once calibrated!',
+      '// (TRIACs, relays, remote loads, overrides), as with the router OFF. With temperature sensing, it',
+      '// also lists the sensors on the bus at startup, with their addresses for this file.',
+      '// Set back to false once calibrated!',
       `inline constexpr bool CALIBRATION_MODE{ ${bool(m.calibrationMode)} };`,
       '',
       '//--------------------------------------------------------------------------------------------------',
@@ -166,24 +242,6 @@
     add(
       ['};', '/**< the load map: one packed entry per dump load */'],
       '',
-      '// Derived from the load map above - never edit these by hand.',
-      ['inline constexpr uint8_t NO_OF_REMOTE_LOADS{ Load::countRemoteLoads(physicalLoadPin) };', '/**< number of loads controlled via RF */'],
-      ['inline constexpr uint8_t NO_OF_REMOTE_UNITS{ Load::countUnits(physicalLoadPin) };', '/**< number of remote units to talk to */'],
-      ['inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 };', '/**< automatically true if remote loads configured */'],
-      '',
-      '#include "remote_loads_core.h"',
-      '',
-      '/**',
-      ' * @brief The one and only remote-load controller.',
-      ' *',
-      ' * @details Declared non-const on purpose: it holds the per-unit transmission state.',
-      ' *          @c RemoteLoadCore has a @c constexpr default constructor and brace-or-equal',
-      ' *          member initialisers, so this object is constant-initialized. It therefore',
-      ' *          lands in @c .bss with no entry in @c .init_array, and @c --gc-sections drops',
-      ' *          it outright when no remote unit is configured.',
-      ' */',
-      'inline RemoteLoadCore< NO_OF_REMOTE_UNITS > remoteLoads{};',
-      '',
       '// Feature toggles',
       [`inline constexpr bool DIVERSION_PIN_PRESENT{ ${bool(m.diversion.enabled)} };`, "/**< set it to 'true' if you want to control diversion ON/OFF */"],
       [`inline constexpr bool ROUTER_OFF_PIN_PRESENT{ ${bool(m.routerOff.enabled)} };`, "/**< set it to 'true' if you want a pin that switches the router OFF */"],
@@ -195,10 +253,6 @@
       [`inline constexpr bool DUAL_TARIFF{ ${bool(m.dualTariff.enabled)} };`, "/**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */"],
       [`inline constexpr bool TEMP_SENSOR_PRESENT{ ${bool(M.tempSensorPresent(m))} };`, "/**< set it to 'true' if temperature sensing is needed */"],
       [`inline constexpr bool RF_LOGGING_PRESENT{ ${bool(m.rf.logging)} };`, "/**< set it to 'true' if RF data logging is needed */"],
-      '',
-      '#include "utils_dualtariff.h"',
-      '#include "utils_relay.h"',
-      '#include "utils_temp.h"',
       '',
       '// ----------- Pinout Assignments -----------',
       '//',
@@ -225,8 +279,17 @@
       '// Load indices refer to physicalLoadPin[] above, local and remote loads alike.',
       [`inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ ${m.priorities.join(', ')} };`, '/**< load priorities at startup (0=highest) */'],
       '',
+      '// Rotation groups: the loads that take turns at the top of the priority list, when',
+      '// PRIORITY_ROTATION is not OFF. One group per appliance, e.g. the 3 elements of a water heater:',
+      '//   { { ALL_LOCAL_LOADS() } }                                     - one heater, every local load',
+      '//   { { LOAD(0), LOAD(1), LOAD(2) }, { LOAD(3), LOAD(4), LOAD(5) } } - two heaters',
+      '// Each group rotates among the priority places its loads hold; loads in no group never move.',
+      '// A group has at least 2 loads, all local or all on the same remote unit, and a load is in one',
+      '// group at most. Leave it empty, {}, without rotation.',
+      [`inline constexpr RotationGroups rotationGroups${rotationGroups(m)};`, '/**< the loads that take turns, {} without rotation */'],
+      '',
       "// Set the value to 'unused_pin' when the pin is not needed (feature deactivated)",
-      [`inline constexpr uint8_t dualTariffPin{ ${pin(m.dualTariff.enabled ? m.dualTariff.pin : null)} };`, '/**< for 3-phase PCB, off-peak trigger */'],
+      [`inline constexpr uint8_t dualTariffPin{ ${pin(m.dualTariff.enabled ? m.dualTariff.pin : null)} };`, "/**< off-peak trigger, the meter's dry contact */"],
       [`inline constexpr uint8_t diversionPin{ ${pin(m.diversion.enabled ? m.diversion.pin : null)} };`, '/**< if LOW, no surplus diversion: only forced loads/relays are ON */'],
       [`inline constexpr uint8_t routerOffPin{ ${pin(m.routerOff.enabled ? m.routerOff.pin : null)} };`, '/**< if LOW, router OFF: every load and relay is OFF, forcing included */'],
       [`inline constexpr uint8_t rotationPin{ ${pin(m.rotation.mode === 'PIN' ? m.rotation.pin : null)} };`, '/**< if LOW, trigger a load priority rotation */'],
@@ -244,11 +307,7 @@
       '// - Frequently cloudy (coastal):         3 minutes (enhanced stability)',
       '// - Very cloudy (mountain, tropical):    4 minutes (maximum stability)',
       '//',
-      '// \u{1F9EA} Scientific Tuning:',
-      '// Run cloud pattern analysis tests to determine optimal setting for your climate:',
-      '//   cd Mk2_3phase_RFdatalog_temp && pio test -e native --filter="test_cloud_patterns" -v',
-      '//',
-      '// \u{1F4D6} Full guide: docs/Cloud_Pattern_Tuning_Guide.md',
+      '// \u{1F4D6} Full guide: docs/Cloud_Pattern_Tuning_Guide.md, at the root of the repository',
       '//--------------------------------------------------------------------------------------------------',
       [`inline constexpr uint8_t RELAY_FILTER_DELAY{ ${m.relays.filterDelay} };`, '/**< EWMA filter delay in minutes for relay control */'],
       '',
@@ -264,24 +323,18 @@
     add(...list(' '.repeat(relayPrefix.length), relayEntries, ' };', '/**< config for relay diversion with optimized EWMA filtering */'));
     add(
       '',
-      ['#include "utils_override_helpers.h"', '// Provides LOAD(), RELAY(), ALL_LOADS(), ALL_RELAYS(), ALL_LOADS_AND_RELAYS()'],
-      '',
       '// This is an example of override pin configuration.',
       '// You can modify the pin numbers and associated loads/relays as needed.',
       '// Ensure that the pins used do not conflict with other functionalities in your setup.',
       '//',
-      '// Helper functions available:',
-      '//   LOAD(n)           - Returns the pin for load n of physicalLoadPin[] (physical if the',
-      '//                       load is local, virtual >= REMOTE_PIN_BASE if it is remote)',
+      '// Targets, in a list or alone:',
+      '//   LOAD(n)           - load n of physicalLoadPin[], local or remote',
       '//   LOCAL_LOAD(n)     - Same as LOAD(n), for a load known to be local',
-      '//   REMOTE_LOAD(n)    - Returns the virtual pin for the n-th REMOTE load (>= 128).',
-      '//                       n counts remote loads only, in physicalLoadPin[] order.',
-      '//   ALL_LOCAL_LOADS() - uint32_t bitmask, lower 16 bits for local load pins',
-      '//   ALL_REMOTE_LOADS()- uint32_t bitmask, upper 16 bits for remote loads (bit 16 = remote 0)',
-      '//   ALL_LOADS()       - uint32_t combining local (lower 16 bits) and remote (upper 16 bits)',
-      '//   RELAY(n)          - Returns pin for relay n',
-      '//   ALL_RELAYS()      - uint32_t bitmask, lower 16 bits for relay pins',
-      '//   ALL_LOADS_AND_RELAYS() - uint32_t combining all loads and relays',
+      '//   REMOTE_LOAD(n)    - the n-th REMOTE load: n counts remote loads only, in',
+      '//                       physicalLoadPin[] order',
+      '//   RELAY(n)          - relay n of relays',
+      '//   ALL_LOCAL_LOADS(), ALL_REMOTE_LOADS(), ALL_LOADS(), ALL_RELAYS(), ALL_LOADS_AND_RELAYS()',
+      '//   a number          - that pin',
       '//',
       '// Example configurations:',
       '// inline constexpr OverridePins overridePins{',
@@ -297,30 +350,37 @@
     const overrides = m.overrides.list.length ? m.overrides.list : [{ pin: null, targets: 'ALL_LOADS' }];
     add(...overrideComments(m, overrides));
     add(...list('inline constexpr OverridePins overridePins{ ', overrides.map((o) => `{ ${pin(o.pin)}, ${overrideTargets(o.targets)} }`), ' };', '/**< list of override pin/loads-relays pairs */'));
-    const force = forceEntries(m);
     add(
       '',
-      [`inline constexpr uint8_t ul_OFF_PEAK_DURATION{ ${m.dualTariff.offPeakHours} };`, '/**< Duration of the off-peak period in hours */'],
-      [
-        `inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]${force.length ? `{ ${force.join(', ')} }` : '{}'};`,
-        force.length === 1 ? '/**< force config for load #1 ONLY for dual tariff */' : '/**< force config of each load for dual tariff */',
-      ],
+      [`inline constexpr uint8_t ul_OFF_PEAK_DURATION{ ${m.dualTariff.offPeakHours} };`, '/**< Duration of the off-peak period in hours: must match the meter (it places the boosts counted back from the end) */'],
       '',
-      [`inline constexpr int16_t iTemperatureThreshold{ ${m.dualTariff.tempThreshold} };`, '/**< the temperature threshold to stop overriding in °C */'],
+      '// Scheduled boosts during the off-peak period (DUAL_TARIFF): when, and what they force.',
+      '// Targets as for the override pins; what is not listed is never boosted.',
+      '// Each window lies within the period; every boost stops when the meter switches back to peak.',
+      '//   FIRST(d)                the first d of the period',
+      '//   LAST(d)                 the last d of the period',
+      '//   FROM_START(t), FOR(d)   from t after the start, for d (without FOR: until the end)',
+      '//   BEFORE_END(t), FOR(d)   from t before the end, for d (without FOR: until the end)',
+      '//   t and d: HOURS(n) or MINUTES(n)',
+      '// inline constexpr ScheduledBoosts scheduledBoosts{ {',
+      '//     { FIRST(HOURS(2)), { LOAD(0), LOAD(2) } },    // loads #1 and #3, the first 2 hours',
+      '//     { LAST(MINUTES(90)), { RELAY(0) } } } };      // relay #1, the last 1 h 30'
+    );
+    add(...boostLines(m));
+    add(
+      '',
+      [`inline constexpr int16_t iTemperatureThreshold{ ${tempThreshold(m)} };`, '/**< the temperature threshold to stop overriding in °C */'],
+      [`inline constexpr uint8_t BOOST_TEMP_SENSOR{ ${m.dualTariff.tempSensor} };`, '/**< the sensor checked against it: its index in temperatureSensing, from 0 */'],
       ''
     );
     const sensors = m.temperature.sensors.map((s) => M.parseAddress(s.address)).filter(Boolean);
     const addresses = (sensors.length ? sensors : M.defaults().temperature.sensors.map((s) => M.parseAddress(s.address))).map((a) => `{ ${a.map(hex).join(', ')} }`);
     const tempPrefix = 'inline constexpr TemperatureSensing temperatureSensing{ ';
-    add(`${tempPrefix}${pin(M.tempSensorPresent(m) ? m.temperature.pin : null)},`);
+    add(`${tempPrefix}${pin(M.tempSensorPresent(m) ? M.tempPin(m) : null)},`);
     add(...list(' '.repeat(tempPrefix.length), addresses, ' };', '/**< list of temperature sensor Addresses */'));
     add(
       '',
-      [`inline constexpr uint32_t ROTATION_AFTER_SECONDS{ ${rotationSeconds(m.rotation.afterSeconds)} };`, '/**< rotates load priorities after this period of inactivity */'],
-      '',
-      ['#include "remote_loads.h"', '// the RF shell; needs remoteLoads and the RF feature flags above'],
-      '',
-      '#endif  // CONFIG_H'
+      [`inline constexpr uint32_t ROTATION_AFTER_SECONDS{ ${rotationSeconds(rotationDelay(m))} };`, '/**< rotates load priorities after this period of inactivity */']
     );
     return render(L);
   }
@@ -350,7 +410,7 @@
       '//--------------------------------------------------------------------------------------------------',
       '// for users with zero-export profile, this value will be negative',
       [`inline constexpr int16_t REQUIRED_EXPORT_IN_WATTS{ ${m.requiredExport} };`, '/**< when set to a negative value, this acts as a PV generator */'],
-      [`inline constexpr int16_t DIVERSION_START_THRESHOLD_WATTS{ ${m.diversionStartThreshold} };`, '/**< Adjust value as needed - this means 50W surplus is needed to start diversion */'],
+      [`inline constexpr int16_t DIVERSION_START_THRESHOLD_WATTS{ ${m.diversionStartThreshold} };`, '/**< surplus in W needed before diversion starts (e.g. 50 for a battery to charge first), then the whole surplus is diverted */'],
       '',
       '//--------------------------------------------------------------------------------------------------',
       '// other system constants, should match most of installations',

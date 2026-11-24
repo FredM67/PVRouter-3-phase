@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
 :root {
   --fg: #1d2330;
   --muted: #5d6676;
@@ -35,6 +36,20 @@ header {
 header h1 {
   margin: 0;
   font-size: 1.5rem;
+}
+
+.switch {
+  margin: 0.25rem 0 0;
+}
+
+.refused:not(:empty) {
+  max-width: 70rem;
+  margin: 0 auto 1rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid #c0392b;
+  border-radius: 6px;
+  background: #fdecea;
+  color: #7b241c;
 }
 
 header p {
@@ -415,4 +430,118 @@ footer {
 
 footer a {
   color: inherit;
+}
+
+/* ---- boost timeline ---- */
+
+.timeline {
+  margin: 0.5rem 0 0.75rem;
+}
+
+.tl-lane {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 3px 0;
+}
+
+.tl-name {
+  font-size: 0.85rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tl-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.tl-track {
+  position: relative;
+  height: 26px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+
+.tl-bar {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  min-width: 6px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 20px;
+  cursor: grab;
+  touch-action: none; /* a touch drag moves the bar, not the page */
+  user-select: none;
+}
+
+.tl-bar.dragging {
+  cursor: grabbing;
+  opacity: 0.85;
+}
+
+.tl-bar.c0 {
+  background: #3b6fd8;
+}
+.tl-bar.c1 {
+  background: #2f9e6a;
+}
+.tl-bar.c2 {
+  background: #c7792a;
+}
+.tl-bar.c3 {
+  background: #8a55c2;
+}
+
+.tl-bar.open {
+  border-right: 3px dashed #fff; /* until the meter goes back to peak */
+}
+
+.tl-bar.bad {
+  background: var(--error);
+}
+
+.tl-bar.selected {
+  outline: 2px solid var(--fg);
+  outline-offset: 1px;
+}
+
+.tl-text {
+  display: block;
+  padding: 0 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.tl-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 33%; /* a short bar keeps a body to move it by */
+  max-width: 8px;
+  cursor: ew-resize;
+}
+
+.tl-handle.right {
+  right: 0;
+}
+
+.tl-handle.left {
+  left: 0;
+}
+
+.sub.selected {
+  border-left-color: var(--accent);
+  background: #fff8ec;
 }

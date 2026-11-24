@@ -12,9 +12,23 @@ Changes on `dev`, not yet on `main`.
 
 If you keep your own `config.h`, check these points:
 
+- **`config.h` holds the settings only (breaking):** its `#include` lines, the values derived
+  from the load map and `remoteLoads` move to `config_derived.h`, which the code includes
+  instead. The settings lines themselves do not change. A `config.h` of the former layout stops
+  the build with *This config.h has the former layout*. Create it again with the configurator,
+  or edit it by hand:
+  - replace `#ifndef CONFIG_H`, `#define CONFIG_H`, `#include "config_system.h"` and
+    `#include "types.h"` with `#pragma once` and `#include "config_types.h"`;
+  - delete the other `#include` lines (`debug.h`, `remote_loads_core.h`, `utils_dualtariff.h`,
+    `utils_relay.h`, `utils_temp.h`, `utils_override_helpers.h`, `remote_loads.h`) and the
+    final `#endif`;
+  - delete `NO_OF_REMOTE_LOADS`, `NO_OF_REMOTE_UNITS`, `REMOTE_LOADS_PRESENT` and `remoteLoads`.
+
+  `LOAD()`, `RELAY()` and `ALL_LOADS()` are written as before; a group and single targets can
+  now share a list: `{ ALL_LOCAL_LOADS(), RELAY(0) }` ([#238]).
 - **Motherboard:** add `inline constexpr PcbVersion PCB_VERSION{ PcbVersion::OLD };` after
-  `#include "types.h"`, or `NEW` for the universal 3phaseDiverter board, then recalibrate if
-  you choose `NEW`.
+  `#include "config_types.h"`, or `NEW` for the universal 3phaseDiverter board, then recalibrate
+  if you choose `NEW`.
 - **Shipped `config.h`:** it now targets the new board with the mk2Wifi module
   (`PcbVersion::NEW`, `SerialOutputType::IoT`), as does the configurator by default. With the
   old board, set `PcbVersion::OLD`; for the serial monitor, `SerialOutputType::HumanReadable`.
@@ -38,6 +52,44 @@ If you keep your own `config.h`, check these points:
 - **Calibration:** `calibration.h` has a set of values per board, chosen by `PCB_VERSION`.
   Old board: copy your former `f_powerCal` and `f_voltageCal` values into `f_powerCalOldBoard`
   and `f_voltageCalOldBoard`.
+  The values derived from them (`NEW_BOARD_CALIBRATION`, `f_powerCal`, `f_voltageCal`) are in
+  `config_derived.h`: a `calibration.h` taken from `dev` before that still ends with them, below
+  *Nothing to change below this line*; delete that part.
+- **Dual tariff, scheduled boosts (breaking):** `rg_ForceLoad` (with `pairForceLoad` and
+  `rg_OffsetForce`) is replaced by `scheduledBoosts`; there is no compatibility layer. Rewrite each
+  load's pair as a boost, with explicit units (`HOURS()`, `MINUTES()`) and its target:
+
+  | Before | After |
+  |--------|-------|
+  | `{ -3, 2 }` | `{ BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(n) } }` |
+  | `{ 2 }` or `{ 2, UINT16_MAX }` | `{ FROM_START(HOURS(2)), { LOAD(n) } }` (no `FOR`: until the end) |
+  | `{ -3, UINT16_MAX }` | `{ LAST(HOURS(3)), { LOAD(n) } }` |
+  | `{ -150, 90 }` | `{ BEFORE_END(MINUTES(150)), FOR(MINUTES(90)), { LOAD(n) } }` |
+  | `{ 0, 0 }` (never boosted) | leave the load out of `scheduledBoosts` |
+
+  A load left out of `rg_ForceLoad` used to be boosted all night; what is not listed in
+  `scheduledBoosts` is never boosted. To keep the whole-night boost, list it with
+  `{ FROM_START(MINUTES(0)), { LOAD(n) } }`. The shipped `config.h` now boosts only load #1.
+  `ul_OFF_PEAK_DURATION` must match the meter's off-peak period: it places `LAST` and
+  `BEFORE_END`. The configurator writes the new form (see "Changed"). Also add
+  `inline constexpr uint8_t BOOST_TEMP_SENSOR{ 0 };` after `iTemperatureThreshold`: the sensor
+  checked against the threshold (0, the first, as before).
+- **`rotationGroups` (breaking):** every `config.h` needs this line after
+  `loadPrioritiesAtStartup`, or the build stops with *'rotationGroups' was not declared*. Without
+  rotation (`PRIORITY_ROTATION` is `OFF`), write `inline constexpr RotationGroups rotationGroups{};`.
+  With rotation, list the loads that take turns:
+  `inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } };` for one water heater
+  on every local load (what rotation did before, when every load is local). An empty list with
+  rotation on stops the build with *Priority rotation is on but rotationGroups is empty* ([#241]).
+- **Temperature sensors and the datalog period:** a round of reads (the conversion, 750 ms, then
+  3 mains cycles per sensor) must end within the datalog period. With a 1 s period, at most 3
+  sensors at 50 Hz, 4 at 60 Hz; more stops the build with *Too many temperature sensors for
+  DATALOG_PERIOD_IN_SECONDS*. Lengthen `DATALOG_PERIOD_IN_SECONDS`, or use fewer sensors.
+- **Datalog period:** at most 30 s, instead of 40 s. From 37 s on, the sample-set counter wrapped;
+  and the power of a long period could wrap its 32-bit sum. The power is now summed scaled down
+  by 16 when the period needs it (from 10 s on), as the voltage already was, and scaled back up
+  for the average. A period over 30 s stops the build with *Data log duration is too
+  long*; the configurator refuses it too ([#259]).
 
 No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still
@@ -53,6 +105,9 @@ valid load maps ([#160]).
   backup and an undo. In calibration mode, it computes the power and voltage values of the chosen
   board from the router's and a reference meter's readings, and writes them into your `calibration.h`.
   <https://fredm67.github.io/Mk2PVRouter/configurateur/>
+  A switch at the top leads to the single-phase configurator, and a save made there is refused
+  here, with a link to it. Pin errors name their users in the page's language, and the pin lists
+  leave out D2 and D10 to D13 when the RFM69 is present.
 - **New motherboard:** `PCB_VERSION` in `config.h` selects the board. `NEW` (universal
   3phaseDiverter board, rev. 6.0 and later) switches the ADC to the internal 1.1 V reference the
   board is designed for; `OLD` keeps AVCC. The startup summary shows the choice.
@@ -75,6 +130,54 @@ valid load maps ([#160]).
 
 ### Changed
 
+- **Temperature sensing keeps the ADC deadline** with remote loads and relays: the DS18B20 are
+  read in short 1-Wire transactions, one per mains cycle at most, started right after the cycle's
+  heavy ADC interrupt call (`temp_schedule.h`). A 1-Wire reset or `0` keeps interrupts off for
+  65 to 70 µs; read in one burst, they could delay that call past its deadline and misfile ADC
+  samples (the simulator measured 5 to 35 samples in a run with four loads, RF datalog, relays and
+  sensors). The values and the datalog format do not change: one reading per sensor per datalog
+  period, converted at its start and sent at its end. Two side effects: in every build (not only
+  temperature builds), `Shared::b_newMainsCycle` is set at the end of `processStartNewCycle()`,
+  1248 µs after L1's crossing (and once more at the end of the start-up period), so the loop's
+  per-cycle work, the per-second tasks included, runs that much later; in temperature builds
+  only, the datalog output is handled on the pass that sees the new cycle, 1248 µs after its
+  event.
+- **Priority rotation** rotates the loads of `rotationGroups` only, any number of groups, each
+  among the priority places its loads hold at startup: two 3-phase water heaters each take turns
+  on their own, and loads in no group keep their place. A group holds at least 2 loads, local
+  loads only or the loads of one remote unit, and a load is in one group at most; the compiler
+  and the configurator check it. The configurator has a checkbox per load in each group, and the
+  startup summary prints the groups ([#241]).
+- **`config.h`** only holds settings: it includes `config_types.h` and nothing else, and no line
+  depends on a header included before it. `config_derived.h` builds the rest from it: the derived
+  values, `remoteLoads`, the relay engine, the override and boost bitmasks, the temperature
+  sensors. `LOAD()`, `RELAY()` and `ALL_...()` give codes that it turns into pins once the load map
+  and the relays are known, so a list may mix a group and single targets. The firmware is the same,
+  instruction for instruction ([#238]).
+- **Scheduled boosts** replace the per-load forcing of the dual tariff: a list of `{ window,
+  { targets } }` entries, written with `FIRST()`, `LAST()`, `FROM_START()`, `BEFORE_END()`, `FOR()`
+  and `HOURS()` / `MINUTES()`, and the same targets as the override pins. Remote loads and relays
+  can now be boosted, a target may be in several boosts, and a boost that never runs, or that
+  starts or ends outside the off-peak period (`ul_OFF_PEAK_DURATION`), is rejected at compile
+  time. Every boost stops when the meter switches back to peak. The configurator has a
+  "Scheduled boosts" list in place of the per-load forcing fields, and the startup summary prints
+  one line per boost.
+- **Temperature threshold of the boosts:** `BOOST_TEMP_SENSOR` chooses which sensor is checked
+  against `iTemperatureThreshold` (it was always the first). In the configurator, the threshold
+  is hidden without temperature sensing on the router, and a sensor can be chosen when there
+  are several.
+- **Configurator, temperature probes:** read by the router on the new board, they are on `D3`,
+  wired with its pull-up on the board, so the pin is no longer a choice there. On the old board,
+  the pin is still chosen, with a reminder to wire the pull-up and the probes' power.
+- **Configurator, probes read by the mk2Wifi module:** the addresses are optional, ESPHome finds
+  the probes on the bus. With all of them, the YAML keeps each name on its probe (`address`);
+  otherwise it tells several probes apart by `index`.
+- **`RELAY(n)`** with relay diversion off, or beyond the configured relays, now fails to compile,
+  in the override pins and in the boosts, and so does `LOAD(n)` beyond the configured loads, with
+  the message of `validation.h` instead of an array-bounds error. `REMOTE_LOAD(n)` from 8 on fails
+  too: the target masks hold 8 remote loads, and it used to force nothing. `MINUTES()` is one macro shared
+  by the relays and the boosts; `HOURS()` is built on it, so too many hours fail to compile
+  instead of wrapping around.
 - **One meaning for "diversion OFF":** the diversion pin stops the surplus diversion on TRIACs,
   relays and remote loads alike; forcing (override pins, dual tariff) still works ([#179]).
 - **Control inputs at power-up:** the diversion and router OFF pins are read once in `setup()`,
@@ -92,6 +195,20 @@ valid load maps ([#160]).
 
 ### Fixed
 
+- **IoT output:** the voltage of each phase (`V1` to `V3`) and the count of seconds without
+  diverted energy (`N`) go out unsigned. `V` was read as a signed number, negative above 327.67 V;
+  `N` turned negative after 9.1 hours without diverted energy.
+- **Rotation pin with dual tariff:** the pin was not read when `DUAL_TARIFF` is on, so
+  `RotationModes::PIN` never rotated. It now works as without dual tariff; automatic rotation
+  still happens at the start of each off-peak period ([#242]). With dual tariff and automatic
+  rotation, the configurator no longer warns: it hides the delay without diversion, which does
+  not apply, and says when the priorities rotate ([#241]).
+- **Relays in battery mode:** on a small surplus, they went out first relay first; they now go
+  out in decreasing order, as on an import. A minimum ON or OFF time beyond 1092 minutes wrapped
+  silently (1093 minutes gave 44 seconds); it is now refused at compile time ([#237]).
+- **Temperature:** -55.00 and +125.00 °C were reported out of range, and after one CRC error a
+  steady 85.00 °C was dropped every second as the sensor's power-on value. It is now compared
+  with the sensor's last valid reading ([#234]).
 - **Remote load receiver with the Arduino IDE:** it did not build (`utils_pins.h: No such
   file or directory`), since it took `utils_pins.h` and `utils_bits.h` from the router's folder,
   which only PlatformIO could see. The receiver now has its own copies, checked against the
@@ -129,6 +246,19 @@ valid load maps ([#160]).
   IoT output use integer arithmetic too, with an assembly integer square root; the float library
   is no longer linked: about 365 bytes of flash and 24 bytes of RAM less. The voltage takes ~570
   cycles per phase instead of ~830, the power ~155 instead of ~290 ([#120]).
+- **IoT output, 154 bytes of RAM less:** the telemetry frame is written a line at a time, as the
+  text and JSON outputs are, instead of being built in a buffer first (the biggest RAM item of
+  the firmware, 156 to 224 bytes depending on the settings). The frame on the wire does not change
+  but for the two fixes above, and about 30 bytes of flash are saved too.
+- **CT filter in fixed point:** the low-pass of the current added back with a gain (`lpf_gain`,
+  `alpha` in `calibration.h`, off by default) no longer uses float in the ADC ISR; it is the
+  fixed-point filter of the single-phase firmware (`ct_filter.h`), Robin's filter at his x256
+  resolution (the float one worked at x64: its dead zone was four times wider). The settings keep
+  their names and meaning; they are converted at compile time and
+  checked in `validation.h` (alpha from 0.00005 to below 0.0625, gain below 64). With the filter
+  on (gain 9, alpha 0.002, old board, grid simulator) the ISR averages 421 cycles instead of
+  782, against 317 with the filter off; the firmware is 504 bytes smaller. With `lpf_gain` 0
+  the firmware is unchanged.
 - **Flash:**
   - the RFM69 driver is only linked when RF is used (+2.9 kB avoided without RF) ([#155]);
   - the relay code is 396 bytes smaller ([#175]);
@@ -141,6 +271,8 @@ valid load maps ([#160]).
 - `EMONESP_CONTROL`, the `emonesp` environment and its SoftwareSerial debug port ([#180]).
 - The RFM12B / JeeLib RF stack, and the `remote_loads` and `rf_all` environments, which built the
   same firmware as `rf` ([#155]).
+- The `rf` environment, which built the same firmware as `basic`: RF telemetry and remote loads
+  are chosen in `config.h` ([#226]).
 - The ArduinoJson dependency of the firmware ([#172]).
 
 ### Development
@@ -150,12 +282,37 @@ valid load maps ([#160]).
   the flash and RAM of every build configuration on two charts, recorded on each push to `dev`.
 - **Performance report** on every pull request, as a comment updated at each push: the target
   branch is measured in the same run and compared with the PR, 🚨 beyond 2% worse.
+- **Compile-fail checks:** the expected message must be in the compiler's own error line, not in the
+  source line gcc echoes under it, so a case proves that its own `static_assert` fired.
 - **Configurator CI:** its default choices must regenerate the shipped config files byte for
   byte; presets are built with PlatformIO, and their YAML checked with `esphome config`.
 - **Grid simulator** (`sim/`, simavr): the production firmware runs on a simulated 3-phase grid,
   with scenarios checked in CI. It covers regulation, ISR timing and switching instants ([#169],
   [#170]), the RFM69 radio and the receiver firmware with frame loss ([#171], [#173]), relay
   diversion ([#176]), and runs the scenarios in parallel ([#174]), over several CI jobs.
+- **Grid simulator, relays at 60 Hz:** `make check-relays60` runs `scenarios/relays` on a 60 Hz build,
+  in the relay CI job; `rotation_pin_off_peak` no longer checks D6 at one instant, since D6 modulates
+  there (the check failed at 60 Hz and passed at 50 Hz by luck).
+- **Grid simulator, DS18B20 sensors:** `ds18b20.c` models two sensors on the firmware's 1-Wire pin
+  (reset and presence, Skip ROM, Match ROM, Convert T, Read Scratchpad with its CRC, the real bit
+  timing), with the `ds18b20` scenario command and the `ds18b20_early_reads` and `temperature`
+  expectations. `make check-temp` and `make check-new-temp` build and run the scenarios with
+  temperature sensing and measure the 1-Wire interrupt-off windows against the ADC interrupt's deadline.
+- **Grid simulator, temperature sensing at 60 Hz:** `make check-temp60` and `make check-new-temp60`
+  run the scenarios at 60 Hz (`configs/supply_60hz.patch`) with the two sensors, in CI.
+- **Grid simulator, temperature with remote loads, RF datalog and relays:** `make check-combo`,
+  `check-new-combo`, `check-combo60` and `check-new-combo60` run `scenarios/combo` (surplus
+  climbing through two local and two remote loads and two relays, RF datalog frames, two DS18B20) on
+  the heaviest build (`configs/temp_rf_relays.patch`), old and new board, 50 and 60 Hz, in a CI job
+  of their own: no misfiled sample, no overrun, latest ADMUX write 1545 cycles of 1664 (5 to 35
+  misfiled samples before the 1-Wire transactions were scheduled). The new expectation
+  `admux_delay_max` sets a ceiling on that write.
+- **Tests:** the IoT frame no longer needs Arduino and has native tests: checksums, every tag,
+  line lengths, optional features on and off, and the frame byte for byte against the former
+  buffered one.
+- **Tests:** the ADC channel order and the "ADMUX applies to the conversion after next" rule are
+  described once in `adc_chain.h`, with native tests; `processing.cpp` builds its channel table
+  from it. The firmware is the same, instruction for instruction.
 - **Embedded tests in simavr** instead of Wokwi, with no token needed ([#168]); CI without
   duplicate runs, with automatic test discovery ([#167]).
 - **CI builds** every environment ([#154]) and the IoT serial output, and reports flash and RAM
@@ -165,6 +322,11 @@ valid load maps ([#160]).
   multiplies ([#120], [#127], [#160], [#163], [#172], [#180]).
 - **Workflow:** `main` (stable) and `dev` (development) branches ([#134], [#135]), pre-commit
   hooks for formatting and file headers ([#153], [#159]).
+- **CT recorder** (`dev/CtRecorder/`, `analysis/ct_recorder/`): a sketch that records the router's
+  own ADC chain (voltage and one current, no calibration) while a load is driven in bursts, and a
+  Python tool that finds the CT filter (`lpf_gain` and `alpha` of `calibration.h`) for a board, or
+  concludes that none is needed. Native, golden and synthetic tests run in CI (job `ct-recorder`).
+  Not yet tested on a real board.
 
 [Unreleased]: https://github.com/FredM67/PVRouter-3-phase/compare/main...dev
 [#120]: https://github.com/FredM67/PVRouter-3-phase/issues/120
@@ -195,3 +357,10 @@ valid load maps ([#160]).
 [#179]: https://github.com/FredM67/PVRouter-3-phase/pull/179
 [#180]: https://github.com/FredM67/PVRouter-3-phase/pull/180
 [#185]: https://github.com/FredM67/PVRouter-3-phase/pull/185
+[#226]: https://github.com/FredM67/PVRouter-3-phase/pull/226
+[#234]: https://github.com/FredM67/PVRouter-3-phase/pull/234
+[#237]: https://github.com/FredM67/PVRouter-3-phase/pull/237
+[#238]: https://github.com/FredM67/PVRouter-3-phase/pull/238
+[#241]: https://github.com/FredM67/PVRouter-3-phase/pull/241
+[#242]: https://github.com/FredM67/PVRouter-3-phase/pull/242
+[#259]: https://github.com/FredM67/PVRouter-3-phase/pull/259

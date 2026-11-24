@@ -1,6 +1,8 @@
 /*
  * PVRouter configurator - English and French texts of the page.
  * The generated files stay in English; the YAML entity names follow their own setting.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
@@ -10,7 +12,12 @@
 
   const STRINGS = {
     en: {
-      title: 'PVRouter configurator',
+      title: '3-phase PVRouter configurator',
+      'router.label': 'Router:',
+      'router.one': 'single-phase',
+      'router.three': '3-phase',
+      'router.refused': 'This save is for the single-phase router. Load it in the {link} configurator.',
+      'router.dismiss': 'Close',
       subtitle: 'Choose your installation, get the firmware configuration files (and the ESPHome YAML for the mk2Wifi module).',
       language: 'Français',
       save: 'Save choices',
@@ -91,6 +98,11 @@
       'rotation.AUTO': 'automatic',
       'rotation.PIN': 'on a pin',
       rotationAfter: 'Rotate after (hours without diversion)',
+      rotationAtOffPeak: 'With dual tariff, the priorities rotate at the start of each off-peak period.',
+      rotationGroups: 'Rotation groups',
+      rotationGroup: 'Group',
+      rotationGroupsHelp: 'The loads of a group take turns at the top of the priority list; loads in no group never move. One group per appliance (the elements of a water heater), with local loads only or the loads of one remote unit.',
+      addRotationGroup: 'Add a group',
       watchdog: 'Watchdog LED',
 
       'sec.dualTariff': 'Dual tariff',
@@ -98,18 +110,39 @@
       dualTariffHelp: 'Pin LOW during off-peak hours. Loads can then be forced, to finish heating at night.',
       offPeakHours: 'Off-peak duration (h)',
       tempThreshold: 'Stop forcing above (°C)',
-      force: 'Forcing',
-      start: 'Start (h, or min beyond 24; negative: before the end)',
-      duration: 'Duration (h, or min beyond 24)',
+      tempThresholdHelp: 'Below the water heater’s thermostat, which stays the safety limit: e.g. thermostat at 80 °C to take as much surplus as possible, boosts up to 60 °C so the next day’s surplus still has room.',
+      tempThresholdNone: 'No temperature threshold: the router reads no probe (Temperatures section).',
+      tempSensor: 'Probe checked',
+      boosts: 'Scheduled boosts',
+      boostsHelp: 'Each one forces its loads and relays for a while during the off-peak period, and stops at its end anyway.',
+      'tl.start': 'start',
+      'tl.end': 'end',
+      'tl.load': 'load',
+      'tl.loads': 'loads',
+      'tl.remote': 'remote',
+      'tl.relay': 'relay',
+      'tl.lane': 'Boost {n}',
+      'tl.title': '{targets}: {from} → {to}',
+      'tl.help': 'Drag a bar to move it, its end to change its duration (15-minute steps). The fields below do the same with the keyboard.',
+      boost: 'Scheduled boost',
+      boostAt: 'Starts (h)',
+      'boostFrom.start': 'after the start',
+      'boostFrom.end': 'before the end',
+      minutes: 'min',
       untilEnd: 'until the end',
+      boostFor: 'Lasts (h)',
 
       'sec.temperature': 'Temperatures (DS18B20)',
       tempMode: 'Probes read by',
+      tempPinFixed: 'On {pin}, wired with its pull-up on the board.',
+      tempEspProbes: 'The module finds the probes itself: the addresses are optional. With all of them, each name stays on its probe; otherwise ESPHome numbers the probes in the order of their addresses, which changes if a probe is added or replaced (check in Home Assistant which is which). ESPHome lists the addresses it finds in its log at startup.',
+      tempPinOld: 'Old board: wire the bus yourself, a 4.7 kΩ pull-up between the data line and +5 V, and the probes’ power (+5 V, GND).',
       'temp.off': 'no probe',
       'temp.router': 'the router',
       'temp.esp': 'the mk2Wifi module (TEMP jumper on 3-centre)',
       sensor: 'Probe',
       address: 'Address (8 bytes)',
+      addressOptional: 'Address (optional)',
       sensorName: 'Name (Home Assistant)',
 
       'sec.rf': 'RF (RFM69)',
@@ -175,7 +208,7 @@
 
       // problems (validate.js)
       'err.frequency': 'The grid frequency must be 50 or 60 Hz.',
-      'err.datalogPeriod': 'The datalog period must be between 1 and 40 s.',
+      'err.datalogPeriod': 'The datalog period must be between 1 and 30 s.',
       'err.requiredExport': 'The required export must be between -32768 and 32767 W.',
       'err.diversionStart': 'The diversion start threshold must be between 0 and 32767 W.',
       'err.serialOutput': 'Unknown serial output.',
@@ -233,10 +266,13 @@
       'err.rotationPin': 'Priority rotation: choose a pin.',
       'err.watchdogPin': 'Watchdog LED: choose a pin.',
       'err.dualTariffPin': 'Dual tariff: choose a pin.',
-      'err.tempPin': 'Temperatures: choose the pin of the probes.',
       'err.rotationMode': 'Unknown rotation mode.',
       'err.rotationAfter': 'The rotation delay must be between 1 s and 18 h.',
-      'warn.rotationDualTariff': 'With dual tariff, the priorities rotate at the start of each off-peak period: the rotation setting is ignored.',
+      'err.rotationNoGroup': 'Priority rotation: add a group of the loads that take turns.',
+      'err.rotationNotALoad': 'Rotation group {group}: load {load} does not exist.',
+      'err.rotationGroupSmall': 'Rotation group {group} needs at least 2 loads.',
+      'err.rotationLoadTwice': 'A load is in two rotation groups, or twice in one.',
+      'err.rotationGroupMixed': 'Rotation group {group} mixes local and remote loads, or loads of two remote units.',
       'err.noRelay': 'Relay diversion: add at least one relay.',
       'err.datalogDivides60': 'With relays, the datalog period must divide 60 s.',
       'err.filterDelay': 'The relay filter delay must be between 1 and 10 minutes.',
@@ -253,14 +289,32 @@
       'err.overrideLoad': 'Boost {index}: load {load} does not exist.',
       'err.offPeakHours': 'The off-peak period must last 1 to 12 hours.',
       'err.tempThreshold': 'The temperature threshold must be between 1 and 100 °C.',
-      'err.forceCount': 'More forcing entries than loads.',
-      'err.force': 'Forcing of load {load}: invalid value.',
+      'err.boost': 'Scheduled boost {index}: invalid value.',
+      'err.boostWindow': 'Scheduled boost {index} starts or ends outside the off-peak period, or lasts 0 min.',
+      'err.boostTargets': 'Scheduled boost {index}: choose what it forces.',
+      'err.boostNoRelay': 'Scheduled boost {index}: forces a relay, but relay diversion is off.',
+      'warn.boostNothing': 'Scheduled boost {index}: there is nothing of that kind to force.',
+      'err.boostRelay': 'Scheduled boost {index}: relay {relay} does not exist.',
+      'err.boostLoad': 'Scheduled boost {index}: load {load} does not exist.',
       'err.tempMode': 'Unknown temperature mode.',
+      'err.tempRoundTooLong': 'Too many temperature probes for the datalog period: their conversion (750 ms) and reads must end within it. Lengthen the datalog period or remove probes.',
       'err.noSensor': 'Temperatures: add at least one probe.',
+      'err.tempPin': 'Temperatures: choose the pin of the probes.',
+      'err.tempSensor': 'Dual tariff: the probe checked against the temperature threshold is not in the list of probes.',
       'err.sensorAddress': 'Probe {sensor}: the address must have 8 bytes (16 hexadecimal digits).',
       'warn.sensorCrc': 'Probe {sensor}: the last byte of the address does not match its CRC. Typo?',
+      'warn.sensorSomeAddresses': 'Temperatures: only some probes have an address, so none is used. Give one to each probe, or to none.',
       'err.tempEspNoWifi': 'Probes read by the mk2Wifi module: enable the module.',
       'err.duplicatePin': 'D{pin} is used more than once: {uses}.',
+      'use.temperature': 'temperature probes',
+      'use.diversion': 'diversion stop',
+      'use.routerOff': 'router off',
+      'use.rotation': 'priority rotation',
+      'use.dualTariff': 'dual tariff',
+      'use.override': 'override {n}',
+      'use.watchdog': 'watchdog LED',
+      'use.load': 'load {n}',
+      'use.relay': 'relay {n}',
       'err.rfPin': 'D{pin} belongs to the RFM69 module ({uses}).',
       'err.rfFrequency': 'Unknown RF band.',
       'err.networkId': 'The network ID must be between 1 and 250.',
@@ -281,7 +335,12 @@
     },
 
     fr: {
-      title: 'Configurateur PVRouter',
+      title: 'Configurateur PVRouter triphasé',
+      'router.label': 'Routeur :',
+      'router.one': 'monophasé',
+      'router.three': 'triphasé',
+      'router.refused': 'Cette sauvegarde est celle du routeur monophasé. Chargez-la dans le configurateur {link}.',
+      'router.dismiss': 'Fermer',
       subtitle: 'Décrivez votre installation, récupérez les fichiers de configuration du firmware (et le YAML ESPHome du module mk2Wifi).',
       language: 'English',
       save: 'Enregistrer les choix',
@@ -362,6 +421,11 @@
       'rotation.AUTO': 'automatique',
       'rotation.PIN': 'sur une broche',
       rotationAfter: 'Rotation après (heures sans routage)',
+      rotationAtOffPeak: 'Avec le double tarif, les priorités tournent au début de chaque période creuse.',
+      rotationGroups: 'Groupes de rotation',
+      rotationGroup: 'Groupe',
+      rotationGroupsHelp: 'Les charges d’un groupe passent tour à tour en tête des priorités ; les charges hors groupe ne bougent jamais. Un groupe par appareil (les résistances d’un chauffe-eau), avec des charges locales seulement, ou les charges d’une seule unité distante.',
+      addRotationGroup: 'Ajouter un groupe',
       watchdog: 'LED de vie',
 
       'sec.dualTariff': 'Double tarif',
@@ -369,18 +433,39 @@
       dualTariffHelp: 'Broche à l’état bas pendant les heures creuses. Les charges peuvent alors être forcées, pour finir de chauffer la nuit.',
       offPeakHours: 'Durée des heures creuses (h)',
       tempThreshold: 'Arrêt du forçage au-delà de (°C)',
-      force: 'Forçage',
-      start: 'Début (h, ou min au-delà de 24 ; négatif : avant la fin)',
-      duration: 'Durée (h, ou min au-delà de 24)',
+      tempThresholdHelp: 'En dessous du thermostat du chauffe-eau, qui reste la sécurité : par exemple thermostat à 80 °C pour absorber le plus de surplus possible, boosts jusqu’à 60 °C pour laisser de la place au surplus du lendemain.',
+      tempThresholdNone: 'Pas de seuil de température : le routeur ne lit aucune sonde (section Températures).',
+      tempSensor: 'Sonde surveillée',
+      boosts: 'Marches forcées programmées',
+      boostsHelp: 'Chacune force ses charges et relais un temps pendant les heures creuses, et s’arrête de toute façon à leur fin.',
+      'tl.start': 'début',
+      'tl.end': 'fin',
+      'tl.load': 'charge',
+      'tl.loads': 'charges',
+      'tl.remote': 'charge distante',
+      'tl.relay': 'relais',
+      'tl.lane': 'Marche {n}',
+      'tl.title': '{targets} : {from} → {to}',
+      'tl.help': 'Faites glisser une barre pour la déplacer, son extrémité pour changer sa durée (par pas de 15 minutes). Les champs ci-dessous font de même au clavier.',
+      boost: 'Marche forcée programmée',
+      boostAt: 'Démarre (h)',
+      'boostFrom.start': 'après le début',
+      'boostFrom.end': 'avant la fin',
+      minutes: 'min',
       untilEnd: 'jusqu’à la fin',
+      boostFor: 'Dure (h)',
 
       'sec.temperature': 'Températures (DS18B20)',
       tempMode: 'Sondes lues par',
+      tempPinFixed: 'Sur {pin}, câblée avec son pull-up sur la carte.',
+      tempEspProbes: 'Le module trouve les sondes lui-même : les adresses sont facultatives. Avec toutes, chaque nom reste sur sa sonde ; sinon ESPHome numérote les sondes dans l’ordre de leurs adresses, qui change si une sonde est ajoutée ou remplacée (vérifiez dans Home Assistant laquelle est laquelle). ESPHome affiche les adresses trouvées dans son journal au démarrage.',
+      tempPinOld: 'Ancienne carte : câblez le bus vous-même, un pull-up de 4,7 kΩ entre la ligne de données et le +5 V, et l’alimentation des sondes (+5 V, GND).',
       'temp.off': 'pas de sonde',
       'temp.router': 'le routeur',
       'temp.esp': 'le module mk2Wifi (cavalier TEMP sur 3-centre)',
       sensor: 'Sonde',
       address: 'Adresse (8 octets)',
+      addressOptional: 'Adresse (facultative)',
       sensorName: 'Nom (Home Assistant)',
 
       'sec.rf': 'Radio (RFM69)',
@@ -445,7 +530,7 @@
       'where.yaml': 'dans ESPHome (tableau de bord ou ligne de commande), avec un secrets.yaml.',
 
       'err.frequency': 'La fréquence du réseau doit être de 50 ou 60 Hz.',
-      'err.datalogPeriod': 'La période de journalisation doit être comprise entre 1 et 40 s.',
+      'err.datalogPeriod': 'La période de journalisation doit être comprise entre 1 et 30 s.',
       'err.requiredExport': 'L’export requis doit être compris entre -32768 et 32767 W.',
       'err.diversionStart': 'Le seuil de démarrage doit être compris entre 0 et 32767 W.',
       'err.serialOutput': 'Sortie série inconnue.',
@@ -503,10 +588,13 @@
       'err.rotationPin': 'Rotation des priorités : choisir une broche.',
       'err.watchdogPin': 'LED de vie : choisir une broche.',
       'err.dualTariffPin': 'Double tarif : choisir une broche.',
-      'err.tempPin': 'Températures : choisir la broche des sondes.',
       'err.rotationMode': 'Mode de rotation inconnu.',
       'err.rotationAfter': 'Le délai de rotation doit être compris entre 1 s et 18 h.',
-      'warn.rotationDualTariff': 'Avec le double tarif, les priorités tournent au début de chaque période creuse : le réglage de rotation est ignoré.',
+      'err.rotationNoGroup': 'Rotation des priorités : ajouter un groupe des charges qui tournent.',
+      'err.rotationNotALoad': 'Groupe de rotation {group} : la charge {load} n’existe pas.',
+      'err.rotationGroupSmall': 'Le groupe de rotation {group} doit compter au moins 2 charges.',
+      'err.rotationLoadTwice': 'Une charge est dans deux groupes de rotation, ou deux fois dans le même.',
+      'err.rotationGroupMixed': 'Le groupe de rotation {group} mélange charges locales et distantes, ou les charges de deux unités distantes.',
       'err.noRelay': 'Routage par relais : ajouter au moins un relais.',
       'err.datalogDivides60': 'Avec des relais, la période de journalisation doit diviser 60 s.',
       'err.filterDelay': 'Le délai du filtre des relais doit être compris entre 1 et 10 minutes.',
@@ -523,14 +611,32 @@
       'err.overrideLoad': 'Marche forcée {index} : la charge {load} n’existe pas.',
       'err.offPeakHours': 'Les heures creuses doivent durer de 1 à 12 heures.',
       'err.tempThreshold': 'Le seuil de température doit être compris entre 1 et 100 °C.',
-      'err.forceCount': 'Plus de forçages que de charges.',
-      'err.force': 'Forçage de la charge {load} : valeur invalide.',
+      'err.boost': 'Marche forcée programmée {index} : valeur invalide.',
+      'err.boostWindow': 'La marche forcée programmée {index} démarre ou finit en dehors des heures creuses, ou dure 0 min.',
+      'err.boostTargets': 'Marche forcée programmée {index} : choisir ce qu’elle force.',
+      'err.boostNoRelay': 'Marche forcée programmée {index} : force un relais, mais le routage par relais est désactivé.',
+      'warn.boostNothing': 'Marche forcée programmée {index} : rien de ce type à forcer.',
+      'err.boostRelay': 'Marche forcée programmée {index} : le relais {relay} n’existe pas.',
+      'err.boostLoad': 'Marche forcée programmée {index} : la charge {load} n’existe pas.',
       'err.tempMode': 'Mode de température inconnu.',
+      'err.tempRoundTooLong': 'Trop de sondes de température pour la période de journalisation : leur conversion (750 ms) et leurs lectures doivent finir dans cette période. Allonger la période de journalisation ou retirer des sondes.',
       'err.noSensor': 'Températures : ajouter au moins une sonde.',
+      'err.tempPin': 'Températures : choisir la broche des sondes.',
+      'err.tempSensor': 'Double tarif : la sonde surveillée pour le seuil de température n’est pas dans la liste des sondes.',
       'err.sensorAddress': 'Sonde {sensor} : l’adresse doit faire 8 octets (16 chiffres hexadécimaux).',
       'warn.sensorCrc': 'Sonde {sensor} : le dernier octet de l’adresse ne correspond pas à son CRC. Faute de frappe ?',
+      'warn.sensorSomeAddresses': 'Températures : seules certaines sondes ont une adresse, aucune n’est donc utilisée. Donnez-en une à chaque sonde, ou à aucune.',
       'err.tempEspNoWifi': 'Sondes lues par le module mk2Wifi : activer le module.',
       'err.duplicatePin': 'D{pin} est utilisée plusieurs fois : {uses}.',
+      'use.temperature': 'sondes de température',
+      'use.diversion': 'arrêt du routage',
+      'use.routerOff': 'routeur à l’arrêt',
+      'use.rotation': 'rotation des priorités',
+      'use.dualTariff': 'double tarif',
+      'use.override': 'forçage {n}',
+      'use.watchdog': 'LED de vie',
+      'use.load': 'charge {n}',
+      'use.relay': 'relais {n}',
       'err.rfPin': 'D{pin} appartient au module RFM69 ({uses}).',
       'err.rfFrequency': 'Bande radio inconnue.',
       'err.networkId': 'L’ID du réseau doit être compris entre 1 et 250.',
@@ -554,11 +660,19 @@
   // French typography: a no-break space before : ; ! ? and inside « » (typed as a plain space above)
   const typo = (lang, s) => (lang === 'fr' ? s.replace(/ ([:;!?»])/g, ' $1').replace(/« /g, '« ') : s);
 
-  function t(lang, key, params) {
+  // a parameter may be a text key with its own parameters ({ key: 'use.load', n: 2 }), or a list
+  // of them, named in the page's language
+  const show = (lang, v) => (Array.isArray(v) ? v.map((x) => show(lang, x)).join(', ') : v && typeof v === 'object' && v.key ? raw(lang, v.key, v) : String(v));
+
+  function raw(lang, key, params) {
     const table = STRINGS[lang] || STRINGS.en;
     let s = key in table ? table[key] : key in STRINGS.en ? STRINGS.en[key] : key;
-    for (const [k, v] of Object.entries(params || {})) s = s.split(`{${k}}`).join(String(v));
-    return typo(lang, s);
+    for (const [k, v] of Object.entries(params || {})) if (k !== 'key') s = s.split(`{${k}}`).join(show(lang, v));
+    return s;
+  }
+
+  function t(lang, key, params) {
+    return typo(lang, raw(lang, key, params));
   }
 
   return { STRINGS, t };

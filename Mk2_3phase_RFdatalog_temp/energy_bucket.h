@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Integer arithmetic of the energy bucket
  * @version 0.1
- * @date 2026-11-19
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details The energy bucket used to be a float, which put libgcc floating-point calls
  *          in the ADC ISR. It is now an int32_t in fixed-point units:
@@ -94,35 +95,41 @@ constexpr uint16_t toFixed(const float cal, const uint8_t shift)
  *          truncation of that division either.
  *
  * @tparam NMin Smallest expected number of sample sets per mains cycle.
- * @tparam NMax Largest expected number of sample sets per mains cycle (<= 64, so that
- *              sumP stays within the 24 bits contribution() expects).
+ * @tparam NMax Largest expected number of sample sets per mains cycle (<= 64 << SumShift of
+ *              toFixedPerSample(), so that sumP stays within the 24 bits contribution() expects).
  * @tparam N Number of phases.
  */
 template< uint8_t NMin, uint8_t NMax, uint8_t N >
 struct PerSampleCalibration
 {
-  uint16_t value[N][NMax - NMin + 1]; /**< round(cal / n x 2^shift), indexed [phase][n - NMin] */
+  uint16_t value[N][NMax - NMin + 1]; /**< round(cal x 2^SumShift / n x 2^shift), indexed [phase][n - NMin] */
   uint8_t shift;                      /**< shared by the whole table */
 };
 
 /**
  * @brief Build the per-sample calibration table at compile time.
  *
+ * @details Beyond 64 sample sets per cycle, sumP may exceed 24 bits: the ISR then hands over
+ *          sumP >> SumShift, and the table holds cal x 2^SumShift / n to make up for it.
+ *
+ * @tparam SumShift The shift the ISR applies to sumP before contribution() (0: none).
  * @param cal The power calibration values, one per phase.
  */
-template< uint8_t NMin, uint8_t NMax, uint8_t N >
+template< uint8_t NMin, uint8_t NMax, uint8_t SumShift = 0, uint8_t N >
 constexpr PerSampleCalibration< NMin, NMax, N > toFixedPerSample(const float (&cal)[N])
 {
   static_assert((NMin >= 1) && (NMin <= NMax), "empty range of sample counts");
-  static_assert(NMax <= 64, "sumP must stay within 24 bits: at most 64 sample sets per cycle");
+  static_assert(NMax <= (64U << SumShift), "sumP must stay within 24 bits: at most 64 sample sets per cycle, or shift sumP");
+
+  constexpr float sumScale{ static_cast< float >(1UL << SumShift) };  // exact in float
 
   PerSampleCalibration< NMin, NMax, N > table{};
-  table.shift = shiftFor(largestOf(cal) / NMin);  // the largest entry: largest cal, smallest n
+  table.shift = shiftFor(largestOf(cal) * sumScale / NMin);  // the largest entry: largest cal, smallest n
   for (uint8_t phase = 0; phase < N; ++phase)
   {
     for (uint8_t n = NMin; n <= NMax; ++n)
     {
-      table.value[phase][n - NMin] = toFixed(cal[phase] / n, table.shift);
+      table.value[phase][n - NMin] = toFixed(cal[phase] * sumScale / n, table.shift);
     }
   }
   return table;
@@ -158,7 +165,7 @@ constexpr bool isValidCalibration(const float (&cal)[N])
  * @param shift The shift returned by calibrationShift().
  * @return averagePower x cal, in bucket units, rounded to the nearest unit.
  */
-inline int32_t contribution(const int32_t averagePower, const uint16_t calFixed, const uint8_t shift)
+inline __attribute__((always_inline)) int32_t contribution(const int32_t averagePower, const uint16_t calFixed, const uint8_t shift)
 {
   // Work on the magnitude and apply the sign last: rounding is then half away from
   // zero, and import and export weigh exactly the same.

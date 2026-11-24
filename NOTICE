@@ -1,0 +1,51 @@
+PVRouter-3-phase
+Copyright (c) 2019-2026 Frédéric Metrich and contributors
+
+Licensed under the GNU General Public License, version 3 or (at your option) any later
+version (GPL-3.0-or-later): see LICENSE. This applies to every file of this repository
+unless the file, or this notice, says otherwise.
+
+
+Origins
+-------
+
+The router firmware (Mk2_3phase_RFdatalog_temp) derives from Robin Emley's 3-phase Mk2 PV
+Router sketch, Mk2_3phase_RFdatalog_temp_1.ino, the first file of this repository
+(2019-10-12). The remote load firmware (RemoteLoadReceiver) derives from his
+remoteUnit_fasterControl_1.ino. He published his sketches on the OpenEnergyMonitor forum
+(summary page: www.openenergymonitor.org/emon/node/1757) and on www.mk2pvrouter.co.uk,
+for others to build PV routers with, without any license statement.
+
+obsolete/ and dev/RST_375us_dev, dev/RST_3phase_free_dev, dev/RawSamplesTool_6chan,
+dev/Transformer_Checker and dev/blink_dig4 hold sketches of his, kept for reference.
+
+The changes made since 2019 are by Frédéric Metrich and the contributors listed on
+GitHub, under GPL-3.0-or-later.
+
+
+Your settings
+-------------
+
+The files that hold your settings are yours: use, change and share them on any terms you
+like. These are, for the router, config.h, config_system.h, config_rf.h and calibration.h,
+and for the remote units, config.h and config_rf.h, whether you edit them by hand or the
+configurator writes them, and every other file the configurator writes, such as the
+ESPHome YAML of the mk2Wifi module. They carry no license tag for that reason.
+
+
+Third-party code in this repository
+-----------------------------------
+
+- type_traits/ (in Mk2_3phase_RFdatalog_temp and dev/MathPerfTests): from ArduinoJson,
+  Copyright (c) 2014-2024 Benoit Blanchon, MIT License (stated in each file).
+- sim/avr_adc.c: from simavr, Copyright 2008, 2010 Michel Pollet, GPL-3.0-or-later.
+- Mk2_3phase_RFdatalog_temp/FastDivision.cpp and FastDivision.h: division by 10 in AVR
+  assembly; their origin is not recorded here, so they carry no license tag.
+
+
+Libraries used, not included
+----------------------------
+
+- RFM69 by LowPowerLab (RF datalog and remote loads): GPL-3.0.
+- OneWire by Paul Stoffregen (temperature sensors): MIT-style license.
+- The Arduino AVR core: LGPL-2.1-or-later.

@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2023-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
 
@@ -16,7 +17,7 @@
 
 #include "FastDivision.h"
 
-#include "calibration.h"
+#include "config_derived.h"
 #include "constants.h"
 #include "dualtariff.h"
 #include "energy_bucket.h"
@@ -29,6 +30,31 @@
 #include "utils_temp.h"
 
 #include "version.h"
+
+/**
+ * @brief Prints the rotation groups, as load numbers counted from 0 as in LOAD(n):
+ *        "\tgroups { 0 1 2 } { 3 4 5 }".
+ *
+ * @ingroup Initialization
+ */
+inline void printRotationGroups()
+{
+  info(F("\tgroups"));
+  for (uint8_t g = 0; g != rotationTable.size(); ++g)
+  {
+    info(F(" {"));
+    for (uint8_t i = 0; i != NO_OF_DUMPLOADS; ++i)
+    {
+      if (rotationTable.loads(g) & (1UL << i))
+      {
+        info(F(" "));
+        info(i);
+      }
+    }
+    info(F(" }"));
+  }
+  infoln(F(""));
+}
 
 /**
  * @brief Print "is present" or "is NOT present", and a line end.
@@ -146,19 +172,23 @@ inline void printConfiguration()
 
   info(F("Load rotation feature "));
   infolnPresence(PRIORITY_ROTATION != RotationModes::OFF);
+  if constexpr (PRIORITY_ROTATION != RotationModes::OFF)
+  {
+    printRotationGroups();
+  }
 
   info(F("Relay diversion feature "));
   infolnPresence(RELAY_DIVERSION);
   if constexpr (RELAY_DIVERSION)
   {
-    relays.printRelayEngineConfiguration();
+    relayDiverter.printRelayEngineConfiguration();
   }
 
   info(F("Override feature "));
   infolnPresence(OVERRIDE_PIN_PRESENT);
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    overridePins.printOverrideConfig();
+    overrideTable.printOverrideConfig();
   }
 
   info(F("RF capability "));
@@ -218,17 +248,7 @@ inline void printConfiguration()
   }
 }
 
-/**
- * @brief Whether a temperature reading is valid, and so worth sending.
- *
- * @param temperature_x100 The reading, in hundredths of °C.
- */
-inline bool isValidTemperature(int16_t temperature_x100)
-{
-  return (OUTOFRANGE_TEMPERATURE != temperature_x100) && (DEVICE_DISCONNECTED_RAW != temperature_x100);
-}
-
-inline bool datalogOffPeak{ false }; /**< tariff at the datalog being printed, for the JSON format */
+inline bool datalogOffPeak{ false }; /**< tariff at the datalog being printed, for the JSON and IoT formats */
 
 /**
  * @brief One step of the datalog in JSON format.
@@ -256,7 +276,7 @@ inline bool printJsonStep(Print& out, uint8_t step)
     if constexpr (RELAY_DIVERSION)
     {
       out.print(F(",\"R\":"));
-      out.print(relays.get_average());
+      out.print(relayDiverter.get_average());
     }
     return true;
   }
@@ -274,7 +294,7 @@ inline bool printJsonStep(Print& out, uint8_t step)
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    if (step < temperatureSensing.size())
+    if (step < tempSensors.size())
     {
       if (isValidTemperature(tx_data.temperature_x100[step]))
       {
@@ -285,7 +305,7 @@ inline bool printJsonStep(Print& out, uint8_t step)
       }
       return true;
     }
-    step -= temperatureSensing.size();
+    step -= tempSensors.size();
   }
 
   if constexpr (DUAL_TARIFF)
@@ -331,7 +351,7 @@ inline bool printTextStep(Print& out, uint8_t step)
     if constexpr (RELAY_DIVERSION)
     {
       out.print(F("/"));
-      out.print(relays.get_average());
+      out.print(relayDiverter.get_average());
     }
     return true;
   }
@@ -359,7 +379,7 @@ inline bool printTextStep(Print& out, uint8_t step)
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    if (step < temperatureSensing.size())
+    if (step < tempSensors.size())
     {
       if (isValidTemperature(tx_data.temperature_x100[step]))
       {
@@ -370,7 +390,7 @@ inline bool printTextStep(Print& out, uint8_t step)
       }
       return true;
     }
-    step -= temperatureSensing.size();
+    step -= tempSensors.size();
   }
 
   switch (step)
@@ -396,109 +416,122 @@ inline bool printTextStep(Print& out, uint8_t step)
   }
 }
 
-inline TeleInfo teleInfo; /**< telemetry frame, in IoT format */
+/**
+ * @brief The data of the IoT frame, for TeleInfo::writeFrameStep().
+ *
+ * @details The frame is written a line per step, over the next passes of the main loop: about
+ *          300 characters at 9600 baud 7E1, 0.3 s, well within the datalog period (1 s at least).
+ *          Each value must be that of the datalog period of the frame until its last step:
+ * - tx_data, the Shared::copyOf_... copies and the relays' average only change at the end of
+ *   a datalog period (the ISR writes the copies once per period, the main loop tx_data and the
+ *   average once per datalog event);
+ * - the relay states, the tariff and the absence of diverted energy count change every second:
+ *   they are taken by snapshot() at the datalog event, when the buffered frame took them.
+ *
+ * @ingroup Telemetry
+ */
+struct TeleInfoData
+{
+  static constexpr uint8_t PHASE_COUNT{ NO_OF_PHASES };
+  static constexpr bool RELAY_DIVERSION{ ::RELAY_DIVERSION };
+  static constexpr uint8_t RELAY_COUNT{ static_cast< uint8_t >(relayDiverter.size()) };
+  static constexpr uint8_t LOAD_COUNT{ NO_OF_DUMPLOADS };
+  static constexpr uint8_t TEMP_COUNT{ TEMP_SENSOR_PRESENT ? static_cast< uint8_t >(tempSensors.size()) : uint8_t{ 0 } };
+  static constexpr bool DUAL_TARIFF{ ::DUAL_TARIFF };
+
+  static_assert(RELAY_COUNT <= 16, "the relay states are kept in 16 bits");
+
+  inline static uint16_t relayStatesAtDatalog{ 0 };  /**< the relay states at the datalog event, bit n for relay n */
+  inline static uint16_t absenceCountAtDatalog{ 0 }; /**< the absence of diverted energy count at the datalog event */
+
+  /**
+   * @brief Takes the values that change during the frame (the tariff is in datalogOffPeak).
+   */
+  static void snapshot()
+  {
+    if constexpr (RELAY_DIVERSION)
+    {
+      uint16_t states{ 0 };
+      for (uint8_t idx = 0; idx != RELAY_COUNT; ++idx)
+      {
+        if (relayDiverter.get_relay(idx).isRelayON())
+        {
+          states |= 1U << idx;
+        }
+      }
+      relayStatesAtDatalog = states;
+    }
+    absenceCountAtDatalog = Shared::absenceOfDivertedEnergyCountInSeconds;
+  }
+
+  static int16_t power()
+  {
+    return tx_data.power;
+  }
+  static int16_t phasePower(uint8_t idx)
+  {
+    return tx_data.power_L[idx];
+  }
+  static uint16_t phaseVoltage(uint8_t idx)
+  {
+    return tx_data.Vrms_L_x100[idx];
+  }
+  static int16_t relayAverage()
+  {
+    return static_cast< int16_t >(relayDiverter.get_average());
+  }
+  static bool relayOn(uint8_t idx)
+  {
+    return relayStatesAtDatalog & (1U << idx);
+  }
+  static int16_t loadOnPercent(uint8_t idx)
+  {
+    return static_cast< int16_t >(Shared::copyOf_countLoadON[idx] * 100UL / DATALOG_PERIOD_IN_MAINS_CYCLES);
+  }
+  static bool temperatureValid(uint8_t idx)
+  {
+    return isValidTemperature(tx_data.temperature_x100[idx]);
+  }
+  static int16_t temperature(uint8_t idx)
+  {
+    return tx_data.temperature_x100[idx];
+  }
+  static uint16_t absenceCount()
+  {
+    return absenceCountAtDatalog;
+  }
+  static bool offPeak()
+  {
+    return datalogOffPeak;
+  }
+  static uint16_t sampleSets()
+  {
+    return Shared::copyOf_sampleSetsDuringThisDatalogPeriod;
+  }
+  static uint8_t lowestSampleSetsPerCycle()
+  {
+    return Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle;
+  }
+};
+
+static_assert(TeleInfo::MAX_STEP_LENGTH <= SerialOutput::MAX_STEP_LENGTH, "a line of the IoT frame must fit a step of the serial output");
 
 /**
- * @brief One step of the telemetry frame: its next part.
+ * @brief One step of the telemetry frame, in IoT format: one line (see TeleInfo::writeFrameStep()).
  *
  * @param out Where to write.
+ * @param step Index of the step.
  * @return false once the frame is complete.
  *
  * @ingroup Telemetry
  */
-inline bool writeTeleInfoStep(Print& out, uint8_t /*step*/)
+inline bool writeTeleInfoStep(Print& out, uint8_t step)
 {
-  return teleInfo.writeNext(out, SerialOutput::MAX_STEP_LENGTH);
-}
-
-/**
- * @brief Sends telemetry data using the TeleInfo class.
- *
- * This function collects various telemetry data (e.g., power, voltage, temperature, etc.)
- * and sends it in a structured format using the `TeleInfo` class. The data is sent as a
- * telemetry frame, which starts with a frame initialization, includes multiple data points,
- * and ends with a frame finalization.
- *
- * The function supports conditional features such as relay diversion, temperature sensing,
- * dual tariff information, and different supply frequencies (50 Hz or 60 Hz).
- *
- * @param bOffPeak Indicates whether the system is in an off-peak tariff period.
- *
- * @details
- * - **Power Data**: Sends the total power grid data.
- * - **Relay Data**: If relay diversion is enabled (`RELAY_DIVERSION`), sends the average relay data.
- * - **Voltage Data**: Sends the voltage data for each phase.
- * - **Temperature Data**: If temperature sensing is enabled (`TEMP_SENSOR_PRESENT`), sends valid temperature readings.
- * - **Dual Tariff Data**: If dual tariff is enabled (`DUAL_TARIFF`), sends the current tariff state.
- * - **Absence of Diverted Energy Count**: The amount of seconds without diverting energy.
- *
- * @note The function uses compile-time constants (`constexpr`) to include or exclude specific features.
- *       Invalid temperature readings (e.g., `OUTOFRANGE_TEMPERATURE` or `DEVICE_DISCONNECTED_RAW`) are skipped.
- *
- * @throws static_assert If `SUPPLY_FREQUENCY` is not 50 or 60 Hz.
- */
-void sendTelemetryData(const bool bOffPeak)
-{
-  uint8_t idx{ 0 };
-
-  teleInfo.startFrame();  // Start a new telemetry frame
-
-  teleInfo.send("P", tx_data.power);  // Send power grid data
-
-  if constexpr (NO_OF_PHASES > 1)
-  {
-    idx = NO_OF_PHASES;
-    do
-    {
-      --idx;
-      teleInfo.send("P", tx_data.power_L[idx], idx + 1);      // Send power for each phase
-      teleInfo.send("V", tx_data.Vrms_L_x100[idx], idx + 1);  // Send voltage for each phase
-    } while (idx);
-  }
-
-  if constexpr (RELAY_DIVERSION)
-  {
-    teleInfo.send("R", static_cast< int16_t >(relays.get_average()));  // Send relay average if diversion is enabled
-
-    idx = relays.size();
-    do
-    {
-      --idx;
-      teleInfo.send("R", relays.get_relay(idx).isRelayON(), idx + 1);  // Send state of each relay (R1-Rn)
-    } while (idx);
-  }
-
-  idx = NO_OF_DUMPLOADS;
-  do
-  {
-    --idx;
-    teleInfo.send("D", static_cast< int16_t >(Shared::copyOf_countLoadON[idx] * 100UL / DATALOG_PERIOD_IN_MAINS_CYCLES), idx + 1);  // Send the ON time of each load, in %
-  } while (idx);
-
-  if constexpr (TEMP_SENSOR_PRESENT)
-  {
-    for (uint8_t idx = 0; idx < temperatureSensing.size(); ++idx)
-    {
-      if ((OUTOFRANGE_TEMPERATURE == tx_data.temperature_x100[idx])
-          || (DEVICE_DISCONNECTED_RAW == tx_data.temperature_x100[idx]))
-      {
-        continue;  // Skip invalid temperature readings
-      }
-      teleInfo.send("T", tx_data.temperature_x100[idx], idx + 1);  // Send temperature
-    }
-  }
-
-  teleInfo.send("N", static_cast< int16_t >(Shared::absenceOfDivertedEnergyCountInSeconds));  // Send absence of diverted energy count for 50Hz
-
-  if constexpr (DUAL_TARIFF)
-  {
-    teleInfo.send("TA", static_cast< int16_t >(bOffPeak ? 1 : 0));  // Send current tariff state (0=high/on-peak, 1=low/off-peak)
-  }
-
-  teleInfo.sendUnsigned("S", Shared::copyOf_sampleSetsDuringThisDatalogPeriod);  // above 32767 with long datalog periods
-  teleInfo.send("S_MC", Shared::copyOf_lowestNoOfSampleSetsPerMainsCycle);
-
-  teleInfo.endFrame();  // Finalize the telemetry frame, written out by writeTeleInfoStep()
+  char text[TeleInfo::MAX_STEP_LENGTH];
+  uint8_t length;
+  const bool more{ TeleInfo::writeFrameStep< TeleInfoData >(step, text, length) };
+  out.write(text, length);
+  return more;
 }
 
 /**
@@ -555,7 +588,8 @@ inline void sendResults(bool bOffPeak)
   }
   else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::IoT)
   {
-    sendTelemetryData(bOffPeak);
+    datalogOffPeak = bOffPeak;
+    TeleInfoData::snapshot();
     SerialOutput::start(writeTeleInfoStep);
   }
   else if constexpr (SERIAL_OUTPUT_TYPE == SerialOutputType::JSON)

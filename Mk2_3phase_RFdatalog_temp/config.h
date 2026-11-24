@@ -5,15 +5,16 @@
  * Edit it by hand, or create it with the configurator:
  * https://fredm67.github.io/Mk2PVRouter/configurateur/
  *
- * @version 1.0
- * @date 2026-11-13
+ * Settings only: no #include line but the one below, nothing computed. The firmware builds
+ * what it needs from these settings in config_derived.h.
+ *
+ * @version 2.0
+ * @date 2026-11-24
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
-#include "config_system.h"
-#include "types.h"
+#include "config_types.h"  // the types and helpers used below (Load::local(), LOAD(), HOURS()...)
 
 // Motherboard: OLD for the former 3-phase board, NEW for the universal 3phaseDiverter board
 // (rev. 6.0 and later). A wrong choice gives wrong measurements: recalibrate after a change.
@@ -27,10 +28,10 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::IoT;
 // messages in human-readable output only.
 inline constexpr bool ENABLE_DEBUG{ true };
 
-#include "debug.h"  // needs SERIAL_OUTPUT_TYPE and ENABLE_DEBUG
-
 // Calibration mode: the router measures and logs as usual, but never switches any load
-// (TRIACs, relays, remote loads, overrides), as with the router OFF. Set back to false once calibrated!
+// (TRIACs, relays, remote loads, overrides), as with the router OFF. With temperature sensing, it
+// also lists the sensors on the bus at startup, with their addresses for this file.
+// Set back to false once calibrated!
 inline constexpr bool CALIBRATION_MODE{ false };
 
 //--------------------------------------------------------------------------------------------------
@@ -52,24 +53,6 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
   Load::local(7)
 }; /**< the load map: one packed entry per dump load */
 
-// Derived from the load map above - never edit these by hand.
-inline constexpr uint8_t NO_OF_REMOTE_LOADS{ Load::countRemoteLoads(physicalLoadPin) }; /**< number of loads controlled via RF */
-inline constexpr uint8_t NO_OF_REMOTE_UNITS{ Load::countUnits(physicalLoadPin) };       /**< number of remote units to talk to */
-inline constexpr bool REMOTE_LOADS_PRESENT{ NO_OF_REMOTE_LOADS != 0 };                  /**< automatically true if remote loads configured */
-
-#include "remote_loads_core.h"
-
-/**
- * @brief The one and only remote-load controller.
- *
- * @details Declared non-const on purpose: it holds the per-unit transmission state.
- *          @c RemoteLoadCore has a @c constexpr default constructor and brace-or-equal
- *          member initialisers, so this object is constant-initialized. It therefore
- *          lands in @c .bss with no entry in @c .init_array, and @c --gc-sections drops
- *          it outright when no remote unit is configured.
- */
-inline RemoteLoadCore< NO_OF_REMOTE_UNITS > remoteLoads{};
-
 // Feature toggles
 inline constexpr bool DIVERSION_PIN_PRESENT{ false };                   /**< set it to 'true' if you want to control diversion ON/OFF */
 inline constexpr bool ROUTER_OFF_PIN_PRESENT{ false };                  /**< set it to 'true' if you want a pin that switches the router OFF */
@@ -81,10 +64,6 @@ inline constexpr bool RELAY_DIVERSION{ false };      /**< set it to 'true' if a 
 inline constexpr bool DUAL_TARIFF{ false };          /**< set it to 'true' if there's a dual tariff each day AND the router is connected to the billing meter */
 inline constexpr bool TEMP_SENSOR_PRESENT{ false };  /**< set it to 'true' if temperature sensing is needed */
 inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF data logging is needed */
-
-#include "utils_dualtariff.h"
-#include "utils_relay.h"
-#include "utils_temp.h"
 
 // ----------- Pinout Assignments -----------
 //
@@ -111,8 +90,17 @@ inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF
 // Load indices refer to physicalLoadPin[] above, local and remote loads alike.
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
 
+// Rotation groups: the loads that take turns at the top of the priority list, when
+// PRIORITY_ROTATION is not OFF. One group per appliance, e.g. the 3 elements of a water heater:
+//   { { ALL_LOCAL_LOADS() } }                                     - one heater, every local load
+//   { { LOAD(0), LOAD(1), LOAD(2) }, { LOAD(3), LOAD(4), LOAD(5) } } - two heaters
+// Each group rotates among the priority places its loads hold; loads in no group never move.
+// A group has at least 2 loads, all local or all on the same remote unit, and a load is in one
+// group at most. Leave it empty, {}, without rotation.
+inline constexpr RotationGroups rotationGroups{}; /**< the loads that take turns, {} without rotation */
+
 // Set the value to 'unused_pin' when the pin is not needed (feature deactivated)
-inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
+inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< off-peak trigger, the meter's dry contact */
 inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, no surplus diversion: only forced loads/relays are ON */
 inline constexpr uint8_t routerOffPin{ unused_pin };  /**< if LOW, router OFF: every load and relay is OFF, forcing included */
 inline constexpr uint8_t rotationPin{ unused_pin };   /**< if LOW, trigger a load priority rotation */
@@ -130,11 +118,7 @@ inline constexpr uint8_t watchDogPin{ unused_pin };   /**< watch dog LED */
 // - Frequently cloudy (coastal):         3 minutes (enhanced stability)
 // - Very cloudy (mountain, tropical):    4 minutes (maximum stability)
 //
-// 🧪 Scientific Tuning:
-// Run cloud pattern analysis tests to determine optimal setting for your climate:
-//   cd Mk2_3phase_RFdatalog_temp && pio test -e native --filter="test_cloud_patterns" -v
-//
-// 📖 Full guide: docs/Cloud_Pattern_Tuning_Guide.md
+// 📖 Full guide: docs/Cloud_Pattern_Tuning_Guide.md, at the root of the repository
 //--------------------------------------------------------------------------------------------------
 inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minutes for relay control */
 
@@ -148,24 +132,18 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
                                        { unused_pin, 300, 400, 1, 1 },
                                        { unused_pin, 500, 600, 1, 1 } } }; /**< config for relay diversion with optimized EWMA filtering */
 
-#include "utils_override_helpers.h"  // Provides LOAD(), RELAY(), ALL_LOADS(), ALL_RELAYS(), ALL_LOADS_AND_RELAYS()
-
 // This is an example of override pin configuration.
 // You can modify the pin numbers and associated loads/relays as needed.
 // Ensure that the pins used do not conflict with other functionalities in your setup.
 //
-// Helper functions available:
-//   LOAD(n)           - Returns the pin for load n of physicalLoadPin[] (physical if the
-//                       load is local, virtual >= REMOTE_PIN_BASE if it is remote)
+// Targets, in a list or alone:
+//   LOAD(n)           - load n of physicalLoadPin[], local or remote
 //   LOCAL_LOAD(n)     - Same as LOAD(n), for a load known to be local
-//   REMOTE_LOAD(n)    - Returns the virtual pin for the n-th REMOTE load (>= 128).
-//                       n counts remote loads only, in physicalLoadPin[] order.
-//   ALL_LOCAL_LOADS() - uint32_t bitmask, lower 16 bits for local load pins
-//   ALL_REMOTE_LOADS()- uint32_t bitmask, upper 16 bits for remote loads (bit 16 = remote 0)
-//   ALL_LOADS()       - uint32_t combining local (lower 16 bits) and remote (upper 16 bits)
-//   RELAY(n)          - Returns pin for relay n
-//   ALL_RELAYS()      - uint32_t bitmask, lower 16 bits for relay pins
-//   ALL_LOADS_AND_RELAYS() - uint32_t combining all loads and relays
+//   REMOTE_LOAD(n)    - the n-th REMOTE load: n counts remote loads only, in
+//                       physicalLoadPin[] order
+//   RELAY(n)          - relay n of relays
+//   ALL_LOCAL_LOADS(), ALL_REMOTE_LOADS(), ALL_LOADS(), ALL_RELAYS(), ALL_LOADS_AND_RELAYS()
+//   a number          - that pin
 //
 // Example configurations:
 // inline constexpr OverridePins overridePins{
@@ -178,17 +156,26 @@ inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
 
 inline constexpr OverridePins overridePins{ { { 4, ALL_LOADS() } } }; /**< list of override pin/loads-relays pairs */
 
-inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };                        /**< Duration of the off-peak period in hours */
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { -3, 2 } }; /**< force config for load #1 ONLY for dual tariff */
+inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 }; /**< Duration of the off-peak period in hours: must match the meter (it places the boosts counted back from the end) */
+
+// Scheduled boosts during the off-peak period (DUAL_TARIFF): when, and what they force.
+// Targets as for the override pins; what is not listed is never boosted.
+// Each window lies within the period; every boost stops when the meter switches back to peak.
+//   FIRST(d)                the first d of the period
+//   LAST(d)                 the last d of the period
+//   FROM_START(t), FOR(d)   from t after the start, for d (without FOR: until the end)
+//   BEFORE_END(t), FOR(d)   from t before the end, for d (without FOR: until the end)
+//   t and d: HOURS(n) or MINUTES(n)
+// inline constexpr ScheduledBoosts scheduledBoosts{ {
+//     { FIRST(HOURS(2)), { LOAD(0), LOAD(2) } },    // loads #1 and #3, the first 2 hours
+//     { LAST(MINUTES(90)), { RELAY(0) } } } };      // relay #1, the last 1 h 30
+inline constexpr ScheduledBoosts scheduledBoosts{ { { BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(0) } } } }; /**< load #1, from 3 hours before the end, for 2 hours */
 
 inline constexpr int16_t iTemperatureThreshold{ 100 }; /**< the temperature threshold to stop overriding in °C */
+inline constexpr uint8_t BOOST_TEMP_SENSOR{ 0 };       /**< the sensor checked against it: its index in temperatureSensing, from 0 */
 
 inline constexpr TemperatureSensing temperatureSensing{ unused_pin,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } }; /**< list of temperature sensor Addresses */
 
 inline constexpr uint32_t ROTATION_AFTER_SECONDS{ 8UL * 3600UL }; /**< rotates load priorities after this period of inactivity */
-
-#include "remote_loads.h"  // the RF shell; needs remoteLoads and the RF feature flags above
-
-#endif  // CONFIG_H

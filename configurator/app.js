@@ -1,6 +1,8 @@
 /*
  * PVRouter configurator - the page: form, problems, files.
  * Every change updates the model and redraws the page from it.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function () {
   'use strict';
@@ -11,17 +13,19 @@
   const I = window.PVRI18n;
   const Z = window.PVRZip;
   const D = window.PVRFolder;
+  const TL = window.PVRTimeline;
 
   const STORE = 'pvrouter-configurator';
   let m = M.defaults();
   let lang = (navigator.language || 'en').toLowerCase().startsWith('fr') ? 'fr' : 'en';
   let activeFile = 0;
   let folderStatus = null; // { level: 'ok' | 'error', text } after saving into a folder
+  let selectedBoost = null; // the boost chosen on the timeline (page state, not saved)
 
   try {
     const saved = JSON.parse(localStorage.getItem(STORE) || 'null');
     if (saved) {
-      m = M.normalize(saved.model);
+      m = M.normalize(saved.model); // a single-phase state throws: the defaults stay
       lang = saved.lang === 'fr' ? 'fr' : 'en';
     }
   } catch (e) {
@@ -29,6 +33,8 @@
   }
 
   const T = (key, params) => I.t(lang, key, params);
+  const singlePhaseUrl = M.singlePhaseUrl(window.location);
+  const devTag = window.PVR_DOC_VERSION === 'dev' ? ' (dev)' : ''; // set by the docs site's doc-version.js, if any
 
   // ---- DOM helpers ----
 
@@ -123,7 +129,7 @@
   const pinLabel = (p) => (p >= 14 ? `A${p - 14}` : `D${p}`);
   const pinSelect = (get, set, opts) => {
     const o = opts || {};
-    const pins = o.pins || M.DIGITAL_PINS;
+    const pins = o.pins || M.offeredPins(m, get());
     const options = pins.map((p) => [p, pinLabel(p)]);
     if (o.none || get() === null || get() === undefined) options.unshift([null, o.none ? T('none') : '—']);
     return select(get, set, options);
@@ -239,7 +245,7 @@
           num(
             () => m.datalogPeriod,
             (v) => (m.datalogPeriod = v),
-            { min: 1, max: 40 }
+            { min: 1, max: 30 }
           )
         )
       ),
@@ -508,6 +514,44 @@
     ];
   }
 
+  // the rotation groups: a checkbox per load in each group (rotationGroups)
+  function rotationGroupsEditor(rot) {
+    if (!rot.groups) rot.groups = [];
+    return h(
+      'div',
+      { class: 'sub' },
+      h('strong', null, T('rotationGroups')),
+      help('rotationGroupsHelp'),
+      rot.groups.map((g, i) =>
+        h(
+          'div',
+          { class: 'sub' },
+          row(h('strong', null, `${T('rotationGroup')} ${i + 1}`), button('remove', () => rot.groups.splice(i, 1), 'small')),
+          h(
+            'div',
+            { class: 'targets' },
+            M.rotationChoices(m, g).map((l) =>
+              h(
+                'label',
+                { class: 'check' },
+                h('input', {
+                  type: 'checkbox',
+                  checked: g.includes(l),
+                  onchange: (e) => {
+                    rot.groups[i] = e.target.checked ? [...g.filter((x) => x !== l), l].sort((x, y) => x - y) : g.filter((x) => x !== l);
+                    changed();
+                  },
+                }),
+                h('span', null, l < m.loads.length ? loadName(l) : `${T('load')} ${l + 1}`)
+              )
+            )
+          )
+        )
+      ),
+      button('addRotationGroup', () => rot.groups.push([]))
+    );
+  }
+
   function controls(p) {
     const o = m.overrides;
     const rot = m.rotation;
@@ -579,7 +623,9 @@
               wifiCheck(rot, rot.pin)
             )
           : null,
-        rot.mode === 'AUTO'
+        // with dual tariff, automatic rotation happens at off-peak start: no delay to set
+        rot.mode === 'AUTO' && m.dualTariff.enabled ? help('rotationAtOffPeak') : null,
+        M.rotationDelayShown(m)
           ? field(
               'rotationAfter',
               num(
@@ -588,18 +634,166 @@
                 { min: 0.5, max: 18, step: 0.5 }
               )
             )
-          : null
+          : null,
+        rot.mode !== 'OFF' ? rotationGroupsEditor(rot) : null
       ),
       inputPin(m.watchdog, 'enabled', 'watchdog')
     );
   }
 
+  // A number of minutes as two inputs, h and min (quarters of an hour)
+  function hoursMinutes(labelKey, get, set, maxHours) {
+    const total = () => get() || 0;
+    return [
+      field(
+        labelKey,
+        num(
+          () => Math.floor(total() / 60),
+          (v) => set((v || 0) * 60 + (total() % 60)),
+          { min: 0, max: maxHours }
+        )
+      ),
+      field(
+        'minutes',
+        num(
+          () => total() % 60,
+          (v) => set(Math.floor(total() / 60) * 60 + TL.quarter(v)),
+          { min: 0, max: 60 - TL.SNAP, step: TL.SNAP }
+        )
+      ),
+    ];
+  }
+
+  // ---- the boost timeline: one lane per boost, bars dragged with the mouse, touch or pen ----
+
+  const offPeakTime = (min) => `+${Math.floor(min / 60)}h${String(min % 60).padStart(2, '0')}`;
+
+  // Where the bar goes; a window that does not fit is still drawn, inside the track
+  function placeBar(bar, b, period, label) {
+    const w = M.boostWindow(b, period);
+    let start = Math.min(Math.max(w.start, 0), period);
+    let end = Math.min(Math.max(w.end, start), period);
+    if (end - start < TL.SNAP) {
+      start = Math.max(0, Math.min(start, period - TL.SNAP));
+      end = start + TL.SNAP;
+    }
+    bar.style.left = `${TL.toPercent(start, period)}%`;
+    bar.style.width = `${TL.toPercent(end - start, period)}%`;
+    bar.title = T('tl.title', { targets: label, from: offPeakTime(w.start), to: w.open ? T('tl.end') : offPeakTime(w.end) });
+    bar.classList.toggle('bad', !M.boostFits(b, period));
+  }
+
+  function selectBoost(i) {
+    selectedBoost = i;
+    render();
+    const card = document.getElementById(`boost-${i}`);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Drag the body: move; drag the free edge (handle): resize. Only the bar follows the pointer
+  // (a full redraw would drop the captured element); the page redraws on release.
+  function timelineBar(b, i, period) {
+    const label = TL.targetsLabel(m, b.targets, T);
+    const open = b.for === null;
+    const handle = open ? null : h('span', { class: `tl-handle ${b.from === 'start' ? 'right' : 'left'}` });
+    const bar = h('div', { class: `tl-bar c${i % 4}${open ? ' open' : ''}${selectedBoost === i ? ' selected' : ''}` }, handle, h('span', { class: 'tl-text' }, label));
+    placeBar(bar, b, period, label);
+    bar.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      const resizing = e.target === handle;
+      const width = bar.parentElement.getBoundingClientRect().width;
+      const x0 = e.clientX;
+      const orig = { ...b };
+      let moved = false;
+      bar.setPointerCapture(e.pointerId);
+      const onMove = (ev) => {
+        const dx = ev.clientX - x0;
+        if (!moved && Math.abs(dx) < 3) return; // a click, so far
+        moved = true;
+        const r = (resizing ? TL.resize : TL.move)(orig, Math.round((dx / width) * period), period);
+        b.at = r.at;
+        b.for = r.for;
+        bar.classList.add('dragging');
+        placeBar(bar, b, period, label);
+      };
+      const onUp = () => {
+        bar.removeEventListener('pointermove', onMove);
+        bar.removeEventListener('pointerup', onUp);
+        bar.removeEventListener('pointercancel', onUp);
+        if (moved) changed();
+        else selectBoost(i);
+      };
+      bar.addEventListener('pointermove', onMove);
+      bar.addEventListener('pointerup', onUp);
+      bar.addEventListener('pointercancel', onUp);
+    });
+    return bar;
+  }
+
+  function boostTimeline(d) {
+    const period = d.offPeakHours * 60;
+    if (!d.boosts.length || !(period > 0)) return null;
+    const lane = (name, track) => h('div', { class: 'tl-lane' }, h('span', { class: 'tl-name' }, name), track);
+    return h(
+      'div',
+      { class: 'timeline' },
+      lane(
+        '',
+        h(
+          'div',
+          { class: 'tl-axis' },
+          TL.axisLabels(d.offPeakHours, T).map((l) => h('span', null, l))
+        )
+      ),
+      d.boosts.map((b, i) => lane(T('tl.lane', { n: i + 1 }), h('div', { class: 'tl-track' }, M.boostWindow(b, period) ? timelineBar(b, i, period) : null))),
+      help('tl.help')
+    );
+  }
+
+  function boostEditor(d, b, i) {
+    const remove = () => {
+      d.boosts.splice(i, 1);
+      selectedBoost = null; // the numbers shift
+    };
+    return h(
+      'div',
+      { class: `sub${selectedBoost === i ? ' selected' : ''}`, id: `boost-${i}` },
+      row(h('strong', null, `${T('boost')} ${i + 1}`), button('remove', remove, 'small')),
+      row(
+        hoursMinutes(
+          'boostAt',
+          () => b.at,
+          (v) => Object.assign(b, M.withStart(b, v, d.offPeakHours * 60)),
+          d.offPeakHours || 12
+        ),
+        select(
+          () => b.from,
+          (v) => Object.assign(b, M.reanchor(b, v, d.offPeakHours * 60)),
+          ['start', 'end'].map((f) => [f, T(`boostFrom.${f}`)])
+        )
+      ),
+      row(
+        check(
+          () => b.for === null,
+          (v) => Object.assign(b, M.withDuration(b, v ? null : 120, d.offPeakHours * 60)),
+          'untilEnd'
+        ),
+        b.for !== null
+          ? hoursMinutes(
+              'boostFor',
+              () => b.for,
+              (v) => Object.assign(b, M.withDuration(b, v, d.offPeakHours * 60)),
+              d.offPeakHours || 12 // the whole window lies within the off-peak period
+            )
+          : null
+      ),
+      targetsEditor(b)
+    );
+  }
+
   function dualTariff(p) {
     const d = m.dualTariff;
-    const entry = (i) => {
-      while (d.force.length <= i) d.force.push({ start: 0, duration: null });
-      return d.force[i];
-    };
     return section(
       'dualTariff',
       'sec.dualTariff',
@@ -612,47 +806,47 @@
                 'offPeakHours',
                 num(
                   () => d.offPeakHours,
-                  (v) => (d.offPeakHours = v),
+                  (v) => {
+                    d.offPeakHours = v;
+                    // a shorter period: the boosts are brought inside it
+                    if (Number.isInteger(v) && v >= 1 && v <= 12) d.boosts.forEach((b) => Object.assign(b, M.fitBoost(b, v * 60)));
+                  },
                   { min: 1, max: 12 }
                 )
               ),
-              field(
-                'tempThreshold',
-                num(
-                  () => d.tempThreshold,
-                  (v) => (d.tempThreshold = v),
-                  { min: 1, max: 100 }
-                )
-              )
-            ),
-            m.loads.map((_, i) => {
-              const f = i < d.force.length ? d.force[i] : { start: 0, duration: null };
-              return row(
-                h('strong', null, `${T('force')} – ${loadName(i)}`),
-                field(
-                  'start',
-                  num(
-                    () => f.start,
-                    (v) => (entry(i).start = v || 0)
+              // the threshold needs the router to read the probes; with several, the one it is checked on
+              M.tempSensorPresent(m)
+                ? field(
+                    'tempThreshold',
+                    num(
+                      () => d.tempThreshold,
+                      (v) => (d.tempThreshold = v),
+                      { min: 1, max: 100 }
+                    ),
+                    'tempThresholdHelp'
                   )
-                ),
-                f.duration !== null
-                  ? field(
-                      'duration',
-                      num(
-                        () => f.duration,
-                        (v) => (entry(i).duration = v),
-                        { min: 0 }
-                      )
+                : null,
+              M.tempSensorPresent(m) && m.temperature.sensors.length > 1
+                ? field(
+                    'tempSensor',
+                    select(
+                      () => d.tempSensor,
+                      (v) => (d.tempSensor = v),
+                      m.temperature.sensors.map((s, i) => [i, `${T('sensor')} ${i + 1}${s.name ? ` (${s.name})` : ''}`])
                     )
-                  : null,
-                check(
-                  () => f.duration === null,
-                  (v) => (entry(i).duration = v ? null : 2),
-                  'untilEnd'
-                )
-              );
-            }),
+                  )
+                : null
+            ),
+            M.tempSensorPresent(m) ? null : help('tempThresholdNone'),
+            h(
+              'div',
+              { class: 'block' },
+              h('strong', null, T('boosts')),
+              help('boostsHelp'),
+              boostTimeline(d),
+              d.boosts.map((b, i) => boostEditor(d, b, i)),
+              button('add', () => d.boosts.push({ from: 'start', at: 0, for: 120, targets: 'ALL_LOADS' }))
+            ),
           ]
         : null
     );
@@ -672,22 +866,28 @@
           M.TEMP_MODES.map((x) => [x, T(`temp.${x}`)])
         )
       ),
+      // new board: the bus is wired on D3; old board: the user wires it, on a pin of their choice
       t.mode === 'router'
-        ? field(
-            'pin',
-            pinSelect(
-              () => t.pin,
-              (v) => (t.pin = v)
+        ? m.pcbVersion === 'OLD'
+          ? field(
+              'pin',
+              pinSelect(
+                () => t.pin,
+                (v) => (t.pin = v)
+              ),
+              'tempPinOld'
             )
-          )
+          : h('p', { class: 'help' }, T('tempPinFixed', { pin: pinLabel(M.TEMP_PIN) }))
         : null,
+      // the module finds the probes itself: the addresses are optional there
+      t.mode === 'esp' ? help('tempEspProbes') : null,
       t.mode !== 'off'
         ? [
             t.sensors.map((s, i) =>
               row(
                 h('strong', null, `${T('sensor')} ${i + 1}`),
                 field(
-                  'address',
+                  t.mode === 'esp' ? 'addressOptional' : 'address',
                   text(
                     () => s.address,
                     (v) => (s.address = v),
@@ -701,7 +901,7 @@
                     (v) => (s.name = v)
                   )
                 ),
-                button('remove', () => t.sensors.splice(i, 1), 'small')
+                button('remove', () => M.removeSensor(m, i), 'small')
               )
             ),
             button('add', () => t.sensors.push({ address: '', name: '' })),
@@ -1230,12 +1430,15 @@
     document.documentElement.lang = lang;
     for (const el of document.querySelectorAll('[data-t]')) el.textContent = T(el.dataset.t);
     for (const el of document.querySelectorAll('[data-title]')) el.title = T(el.dataset.title);
-    document.title = T('title');
+    document.title = T('title') + devTag;
+    for (const el of document.querySelectorAll('[data-t="title"]')) el.textContent = T('title') + devTag;
+    const sw = document.getElementById('switch');
+    sw.replaceChildren(T('router.label'), ' ', h('a', { href: singlePhaseUrl }, T('router.one')), ' / ', h('strong', null, T('router.three')));
     document.getElementById('lang').textContent = T('language');
     const problems = V.validate(m);
     const scroll = window.scrollY;
     // In calibration mode, only what calibration needs, plus the sections with an error to fix
-    const all = [general, loads, relays, controls, dualTariff, temperature, mk2wifi, rf, units];
+    const all = [general, loads, relays, controls, temperature, dualTariff, mk2wifi, rf, units];
     const withError = (s) => problems.some((x) => x.level === 'error' && sectionOf(x.field) === s.name);
     const shown = m.calibrationMode ? [general, calibration, ...all.slice(1).filter(withError)] : all;
     document.getElementById('form').replaceChildren(...shown.map((s) => s(problems)).filter(Boolean));
@@ -1250,6 +1453,7 @@
   document.getElementById('lang').addEventListener('click', () => {
     lang = lang === 'fr' ? 'en' : 'fr';
     changed();
+    renderRefused(); // in the new language
   });
   document.getElementById('save').addEventListener('click', () => download('pvrouter-config.json', JSON.stringify(m, null, 2) + '\n', 'application/json'));
   document.getElementById('load').addEventListener('change', async (e) => {
@@ -1261,11 +1465,25 @@
       if (typeof data !== 'object' || data === null || !('formatVersion' in data)) throw new Error('not a save');
       m = M.normalize(data);
       activeFile = 0;
+      showRefused(false); // a good save: the message of a refused one goes
       changed();
     } catch (err) {
-      alert(T('loadError'));
+      if (err.message === 'router') showRefused(true);
+      else alert(T('loadError'));
     }
   });
+  // a save of the other router: a message with the link, in place of the problems
+  let refusedShown = false;
+  function showRefused(shown) {
+    refusedShown = shown;
+    renderRefused();
+  }
+  function renderRefused() {
+    const box = document.getElementById('refused');
+    if (!refusedShown) return box.replaceChildren();
+    const [pre, post] = T('router.refused', { link: '' }).split('');
+    box.replaceChildren(pre, h('a', { href: singlePhaseUrl }, T('router.one')), post, ' ', h('button', { type: 'button', onclick: () => showRefused(false) }, T('router.dismiss')));
+  }
   const restoreBtn = document.getElementById('restore');
   if (D.supported()) restoreBtn.addEventListener('click', restoreFromFolder);
   else restoreBtn.remove();
@@ -1273,6 +1491,7 @@
     if (!confirm(T('resetConfirm'))) return;
     m = M.defaults();
     activeFile = 0;
+    showRefused(false);
     changed();
   });
 

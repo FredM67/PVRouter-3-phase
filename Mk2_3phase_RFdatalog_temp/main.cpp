@@ -15,9 +15,10 @@
  * - **Watchdog**: Toggles a pin to indicate system activity.
  *
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2023-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
 
@@ -26,12 +27,12 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 
 #include <Arduino.h>  // may not be needed, but it's probably a good idea to include this
 
-#include "config.h"
+#include "config_derived.h"
 
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
 
-#include "calibration.h"
 #include "datalog_math.h"
+#include "pin_edges.h"
 #include "processing.h"
 #include "shared_var.h"
 #include "types.h"
@@ -39,6 +40,8 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 #include "utils_relay.h"
 #include "validation.h"
 #include "main.h"
+#include "override_masks.h"
+#include "temp_schedule.h"
 
 // --------------  general global variables -----------------
 //
@@ -46,34 +49,26 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 // For integer maths, some variables need to be 'int32_t'
 //
 
-/**
- * @struct OverrideMasks
- * @brief Holds both local and remote override bitmasks.
- *
- * @var OverrideMasks::local
- * Bitmask for local loads and relays (physical pins 2-13).
- * @var OverrideMasks::remote
- * Bitmask for remote loads (bit n = remote load n, n being the remote ordinal).
- */
-struct OverrideMasks
-{
-  uint16_t local;
-  uint8_t remote;
-};
+/** @brief The round of the temperature sensors: one 1-Wire transaction per mains cycle (temp_schedule.h). */
+TempSchedule::Scheduler< tempSensors.size(), TempSchedule::conversionCycles(SUPPLY_FREQUENCY) > tempSchedule;
+
+/** @brief The last reading of each sensor, in hundredths of °C, as endRead() returned it (none yet: setup()). */
+int16_t temperatureReadings[tempSensors.size()];
 
 /**
  * @brief Calculates the dual tariff forcing bitmasks based on current conditions.
  *
- * This function determines which loads should be forced ON during off-peak periods
- * based on elapsed time since off-peak start, configured time windows, and temperature conditions.
+ * This function determines which loads and relays should be forced ON during off-peak periods
+ * based on elapsed time since off-peak start, the scheduled boosts, and temperature conditions.
  *
  * @param bOffPeak true if the system is in an off-peak period (as tracked by proceedDualTariffLogic()).
  * @param currentTemperature_x100 Current temperature multiplied by 100.
- * @return Bitmasks of loads that should be forced ON due to dual tariff conditions, 0 if none.
+ * @return Bitmasks of loads and relays that should be forced ON due to dual tariff conditions, 0 if none.
  *
  * @details
+ * - The logic is Forcing::boostForcing() (override_masks.h); this wrapper reads millis() and the tables.
  * - Only applies during off-peak periods.
- * - Each load has its own time window defined in rg_OffsetForce.
+ * - Each scheduled boost has its own window (scheduledBoosts), resolved at compile time.
  * - Temperature must be at or below the threshold for forcing to activate.
  * - Relies on proceedDualTariffLogic() having been called first, so that ul_TimeOffPeak is up to date.
  *
@@ -88,43 +83,8 @@ OverrideMasks getDualTariffForcingBitmask(const bool bOffPeak, const int16_t cur
 
   constexpr int16_t iTemperatureThreshold_x100{ iTemperatureThreshold * 100 };
 
-  // Return early if we're not in off-peak period
-  if (!bOffPeak)
-  {
-    return { 0, 0 };
-  }
-
-  // We're in off-peak period - check forcing time windows
-  const auto ulElapsedTime{ static_cast< uint32_t >(millis() - ul_TimeOffPeak) };
-
-  OverrideMasks forcing{ 0, 0 };
-  uint8_t i{ NO_OF_DUMPLOADS };
-  do
-  {
-    --i;
-    // Skip if not within the 'force period'
-    if ((ulElapsedTime < rg_OffsetForce[i][0]) || (ulElapsedTime >= rg_OffsetForce[i][1]))
-    {
-      continue;
-    }
-
-    // Force load ON if temperature condition is met
-    if (currentTemperature_x100 <= iTemperatureThreshold_x100)
-    {
-      const uint8_t pin{ overridePinOf(physicalLoadPin, i) };
-
-      if (pin < REMOTE_PIN_BASE)
-      {
-        bit_set(forcing.local, pin);
-      }
-      else
-      {
-        bit_set(forcing.remote, pin - REMOTE_PIN_BASE);
-      }
-    }
-  } while (i);
-
-  return forcing;
+  return Forcing::boostForcing(bOffPeak, static_cast< uint32_t >(millis() - ul_TimeOffPeak), currentTemperature_x100,
+                               iTemperatureThreshold_x100, NO_OF_BOOSTS, readBoost);
 }
 
 /**
@@ -140,7 +100,8 @@ OverrideMasks getDualTariffForcingBitmask(const bool bOffPeak, const int16_t cur
  * @return OverrideMasks struct containing both local (physical pins) and remote (virtual pins) bitmasks.
  *
  * @details
- * - First checks all configured external override pins and sets corresponding bits.
+ * - The logic is Forcing::pinForcing() (override_masks.h); this wrapper reads the pins.
+ * - First checks all configured external override pins (active LOW) and sets corresponding bits.
  * - Local bitmask controls physical pins (loads/relays on pins 2-13).
  * - Remote bitmask controls remote loads (bit n = remote load n).
  * - Then applies dual tariff forcing using bitwise OR operation (local and remote).
@@ -156,30 +117,31 @@ OverrideMasks getOverrideBitmask(const bool bOffPeak, const int16_t currentTempe
   // Add external override pins
   if constexpr (OVERRIDE_PIN_PRESENT)
   {
-    // Check each configured override pin and combine their bitmasks
-    uint8_t i{ overridePins.size() };
-    do
-    {
-      --i;
-      const uint8_t pin = overridePins.getPin(i);
-      const auto pinState = getPinState(pin);
-
-      if (!pinState)  // Pin is LOW (active)
-      {
-        masks.local |= overridePins.getLocalBitmask(i);
-        masks.remote |= overridePins.getRemoteBitmask(i);
-      }
-    } while (i);
+    masks = Forcing::pinForcing(overrideTable, [](const uint8_t pin)
+                                {
+                                  return !getPinState(pin);  // Pin is LOW (active)
+                                });
   }
 
   // Add dual tariff forcing - OR operation handles precedence automatically
-  // If a bit is already set by external override, OR won't change it
-  // If a bit is not set, OR will apply dual tariff forcing
-  const auto forcing{ getDualTariffForcingBitmask(bOffPeak, currentTemperature_x100) };
-  masks.local |= forcing.local;
-  masks.remote |= forcing.remote;
+  return masks | getDualTariffForcingBitmask(bOffPeak, currentTemperature_x100);
+}
 
-  return masks;
+/**
+ * @brief Reads an active-LOW input pin, and tells how it changed since the previous reading.
+ *
+ * @tparam pin the input pin: each one keeps its own previous level, released at startup.
+ * @return its state and its edges.
+ *
+ * @details Read each pin every second, whether its edges are used or not: a previous level
+ *          left stale would turn a press made long ago into an edge now.
+ *
+ * @ingroup GeneralProcessing
+ */
+template< uint8_t pin >
+PinEdges readPinEdges()
+{
+  return trackPinEdges< pin >(!getPinState(pin));
 }
 
 /**
@@ -194,20 +156,14 @@ bool isDiversionEnabled()
 {
   if constexpr (DIVERSION_PIN_PRESENT)
   {
-    const bool pinState{ getPinState(diversionPin) };
+    const PinEdges pin{ readPinEdges< diversionPin >() };
 
-    if constexpr (STATUS_OUTPUT_ENABLED)
+    if (pin.changed)
     {
-      static bool previousState{ HIGH };
-      if (previousState != pinState)
-      {
-        statusln(!pinState ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
-      }
-
-      previousState = pinState;
+      statusln(pin.active ? F("Trigger diversion OFF!") : F("End diversion OFF!"));
     }
 
-    return pinState;
+    return !pin.active;
   }
   else
   {
@@ -231,20 +187,14 @@ bool isRouterOff()
   }
   else if constexpr (ROUTER_OFF_PIN_PRESENT)
   {
-    const bool pinState{ getPinState(routerOffPin) };
+    const PinEdges pin{ readPinEdges< routerOffPin >() };
 
-    if constexpr (STATUS_OUTPUT_ENABLED)
+    if (pin.changed)
     {
-      static bool previousState{ HIGH };
-      if (previousState != pinState)
-      {
-        statusln(!pinState ? F("Router OFF!") : F("Router ON!"));
-      }
-
-      previousState = pinState;
+      statusln(pin.active ? F("Router OFF!") : F("Router ON!"));
     }
 
-    return !pinState;
+    return pin.active;
   }
   else
   {
@@ -298,10 +248,9 @@ void proceedRotation()
  */
 bool proceedDualTariffLogic()
 {
-  static bool pinOffPeakState{ HIGH };
-  const auto pinNewState{ getPinState(dualTariffPin) };
+  const PinEdges pin{ readPinEdges< dualTariffPin >() };
 
-  if (pinOffPeakState && !pinNewState)
+  if (pin.pressed())
   {
     // we start off-peak period
     statusln(F("Change to off-peak period!"));
@@ -315,14 +264,12 @@ bool proceedDualTariffLogic()
   }
 
   // end of off-peak period
-  if (!pinOffPeakState && pinNewState)
+  if (pin.released())
   {
     statusln(F("Change to peak period!"));
   }
 
-  pinOffPeakState = pinNewState;
-
-  return (LOW == pinOffPeakState);
+  return pin.active;
 }
 
 /**
@@ -332,36 +279,34 @@ bool proceedDualTariffLogic()
  * It supports priority rotation via pin control or automatic rotation.
  * Override logic is handled in getOverrideBitmask().
  *
+ * @param bOverridden true while a load, relay or remote load is forced: no rotation then.
+ *
  * @details
- * - In dual tariff mode, rotation is handled by `proceedDualTariffLogic` when off-peak starts.
- * - If priority rotation is set to auto, it rotates priorities after a defined period of inactivity.
+ * - The rotation pin works with or without dual tariff.
+ * - Automatic rotation: after a defined period without diversion; with dual tariff,
+ *   `proceedDualTariffLogic` rotates when off-peak starts instead.
+ * - The rotation pin is read every second, forced or not: a press during forcing is dropped,
+ *   not carried over to its end.
  * - Override logic (external pins + dual tariff forcing) is handled atomically in getOverrideBitmask().
  *
  * @ingroup GeneralProcessing
  */
-void proceedLoadPriorities()
+void proceedLoadPriorities(const bool bOverridden)
 {
-  if constexpr (DUAL_TARIFF)
-  {
-    return;
-  }
-
   if constexpr (PRIORITY_ROTATION == RotationModes::PIN)
   {
-    static uint8_t pinRotationState{ HIGH };
-    const auto pinNewState{ getPinState(rotationPin) };
+    const PinEdges pin{ readPinEdges< rotationPin >() };
 
-    if (pinRotationState && !pinNewState)
+    if (isRotationRequested(pin, bOverridden))
     {
       statusln(F("Trigger rotation!"));
 
       proceedRotation();
     }
-    pinRotationState = pinNewState;
   }
-  else if constexpr (PRIORITY_ROTATION == RotationModes::AUTO)
+  else if constexpr (PRIORITY_ROTATION == RotationModes::AUTO && !DUAL_TARIFF)
   {
-    if (ROTATION_AFTER_SECONDS < Shared::absenceOfDivertedEnergyCountInSeconds)
+    if (!bOverridden && ROTATION_AFTER_SECONDS < Shared::absenceOfDivertedEnergyCountInSeconds)
     {
       proceedRotation();
 
@@ -408,7 +353,12 @@ void setup()
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    temperatureSensing.initTemperatureSensors();
+    tempSensors.printSensorsOnBus();  // empty unless CALIBRATION_MODE
+    tempSensors.initTemperatureSensors();
+    for (auto &reading : temperatureReadings)
+    {
+      reading = DEVICE_DISCONNECTED_RAW;  // not sent until read
+    }
   }
 
   debug(F(">>free RAM = "));
@@ -446,7 +396,7 @@ void updatePowerAndVoltageData()
     const uint16_t sampleSets{ Shared::copyOf_sampleSetsDuringThisDatalogPeriod };
 
     // import = +ve: the sum of the ISR is negative when importing
-    tx_data.power_L[phase] = Datalog::watts(-Shared::copyOf_sumP_atSupplyPoint[phase] / sampleSets,
+    tx_data.power_L[phase] = Datalog::watts(Datalog::averagePower< DATALOG_POWER_SHIFT >(-Shared::copyOf_sumP_atSupplyPoint[phase], sampleSets),
                                             pgm_read_word(&powerCal.value[phase]), powerCal.shift);
 
     tx_data.power += tx_data.power_L[phase];
@@ -457,12 +407,53 @@ void updatePowerAndVoltageData()
 }
 
 /**
+ * @brief Runs the 1-Wire transaction of this mains cycle, if any.
+ *
+ * @details Called at the top of the loop pass that sees the new mains cycle, before any other
+ *          work: the cycle's work in the ADC interrupt (processStartNewCycle()) is done by then
+ *          (Shared::b_newMainsCycle), and the long slots of the transaction (its resets and 0s
+ *          written, which keep interrupts off for 65 to 70 µs) end long before the next one,
+ *          a mains cycle later (temp_schedule.h).
+ *
+ * @param onTime Whether the loop was idle when the cycle began: the flag is fresh
+ *
+ * @ingroup TemperatureSensing
+ */
+void runTemperatureTransaction(const bool onTime)
+{
+  const TempSchedule::Action action{ tempSchedule.next(onTime) };
+  switch (action.step)
+  {
+    case TempSchedule::Step::CONVERT:
+      tempSensors.requestTemperatures();
+      break;
+    case TempSchedule::Step::ADDRESS:
+      if (!tempSensors.startRead(action.sensor))
+      {
+        temperatureReadings[action.sensor] = DEVICE_DISCONNECTED_RAW;  // no answer to the reset
+        tempSchedule.skipRestOf(action.sensor);
+      }
+      break;
+    case TempSchedule::Step::READ:
+      tempSensors.readScratchpad(action.sensor);
+      break;
+    case TempSchedule::Step::CLOSE:
+      temperatureReadings[action.sensor] = tempSensors.endRead();
+      break;
+    default:
+      break;
+  }
+}
+
+/**
  * @brief Processes temperature data from DS18B20 sensors.
  *
- * @details This function reads temperature values from all connected DS18B20 sensors, filters out invalid readings,
- *          and updates the telemetry data structure with valid temperature values. Invalid readings are identified
- *          as 85.00°C (encoded as 8500) with a delta greater than 5.00°C (encoded as 500) from the previous reading.
- *          After processing, it requests new temperature measurements for the next cycle.
+ * @details At the end of each datalog period: the readings of the period's round (runTemperatureTransaction()),
+ *          converted 750 ms or more before they were read, filtered and copied for the datalog output. Invalid
+ *          readings are identified as 85.00°C (encoded as 8500) with a delta greater than 5.00°C (encoded as 500)
+ *          from the previous reading. The next round starts at once if the loop handles the end of the
+ *          period on time, so that its conversion runs before the datalog output (the UART interrupts would add
+ *          to the delay of the ADC interrupt after a 1-Wire slot); otherwise with the next mains cycle.
  *
  * @note This function assumes that temperature values are stored as integers multiplied by 100 for precision.
  *
@@ -470,25 +461,28 @@ void updatePowerAndVoltageData()
  *
  * @post The `tx_data.temperature_x100` array is updated with the latest valid temperature readings.
  *
+ * @param bStartNow Whether the end of the period is handled on time, soon after its mains cycle was flagged
+ *
  * @ingroup TemperatureSensing
  */
-void processTemperatureData()
+void processTemperatureData(const bool bStartNow)
 {
-  uint8_t idx{ temperatureSensing.size() };
+  // 85.00 °C more than 5.00 °C away from the last valid reading: the power-on value, skipped
+  static DS18B20::PowerOnFilter powerOnFilter[tempSensors.size()];
+
+  uint8_t idx{ tempSensors.size() };
   do
   {
-    auto tmp = temperatureSensing.readTemperature(--idx);
-
-    // if read temperature is 85 and the delta with previous is greater than 5, skip the value
-    if (8500 == tmp && (abs(tmp - tx_data.temperature_x100[idx]) > 500))
-    {
-      tmp = DEVICE_DISCONNECTED_RAW;
-    }
-
-    tx_data.temperature_x100[idx] = tmp;
+    --idx;
+    tx_data.temperature_x100[idx] = powerOnFilter[idx](temperatureReadings[idx]);
   } while (idx);
 
-  temperatureSensing.requestTemperatures();  // for use next time around
+  // the next round: its conversion now, in the cycle that ends the period (which had no transaction,
+  // the round being over), or with the next cycle
+  if (tempSchedule.newPeriod() && bStartNow)
+  {
+    runTemperatureTransaction(true);
+  }
 }
 
 /**
@@ -538,8 +532,8 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
 
   if constexpr (RELAY_DIVERSION)
   {
-    relays.inc_duration();
-    relays.proceed_relays(privateOverrideMasks.local, bDiversionEnabled);
+    relayDiverter.inc_duration();
+    relayDiverter.proceed_relays(privateOverrideMasks.local, bDiversionEnabled);
   }
 
   // Copy to the shared versions for ISR access
@@ -547,11 +541,8 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
   Shared::overrideBitmask = privateOverrideMasks.local;
   Shared::remoteOverrideBitmask = privateOverrideMasks.remote;
 
-  // Only process priority logic if no override pins are active (local or remote)
-  if (!Shared::overrideBitmask && !Shared::remoteOverrideBitmask)
-  {
-    proceedLoadPriorities();
-  }
+  // no rotation while anything is forced (local or remote)
+  proceedLoadPriorities(privateOverrideMasks.local || privateOverrideMasks.remote);
 }
 
 /**
@@ -562,7 +553,8 @@ void handlePerSecondTasks(bool &bOffPeak, int16_t &iTemperature_x100)
  * proper system operation.
  *
  * @details
- * - Executes tasks triggered by the `b_newMainsCycle` flag, which is set after every pair of ADC conversions.
+ * - Executes tasks triggered by the `b_newMainsCycle` flag, which is set once per mains cycle; with temperature
+ *   sensing, the cycle's 1-Wire transaction first, before any other work.
  * - Handles per-second tasks such as load priority management and diversion state updates.
  * - Processes data logging events and updates power, voltage, and temperature data.
  * - Sends telemetry results and updates relay states if relay diversion is enabled.
@@ -575,6 +567,33 @@ void loop()
   static bool bOffPeak{ false };
   static int16_t iTemperature_x100{ 0 };
 
+  const bool bNewMainsCycle{ Shared::b_newMainsCycle };  // set once per mains cycle, by the ADC interrupt
+  if (bNewMainsCycle)
+  {
+    Shared::b_newMainsCycle = false;  // reset the flag
+  }
+
+  [[maybe_unused]] uint32_t cycleSeen_us{ 0 };  // temperature sensing: when this pass saw the new cycle
+  [[maybe_unused]] bool bCycleOnTime{ false };  // ... and whether on time
+
+  if constexpr (TEMP_SENSOR_PRESENT)
+  {
+    // The flag was set at most one loop pass ago: on time if the last pass was short (the loop
+    // idle when the cycle began), late after a long one (per-second work, datalog, RF frame).
+    constexpr uint32_t ON_TIME_US{ 1000 };
+    static uint32_t passStart_us{ 0 };
+    const uint32_t now_us{ micros() };
+    const bool bOnTime{ (now_us - passStart_us) < ON_TIME_US };
+    passStart_us = now_us;
+
+    if (bNewMainsCycle)
+    {
+      cycleSeen_us = now_us;
+      bCycleOnTime = bOnTime;
+      runTemperatureTransaction(bOnTime);  // first: its long slots must end before the next cycle's work
+    }
+  }
+
   // Write the datalog output in progress, as far as the serial buffer allows (never waits)
   SerialOutput::poll();
 
@@ -584,9 +603,8 @@ void loop()
     processRemoteLoadTransmissions();
   }
 
-  if (Shared::b_newMainsCycle)  // flag is set after every pair of ADC conversions
+  if (bNewMainsCycle)
   {
-    Shared::b_newMainsCycle = false;  // reset the flag
     ++perSecondTimer;
 
     if (perSecondTimer >= SUPPLY_FREQUENCY)
@@ -596,7 +614,18 @@ void loop()
     }
   }
 
-  if (Shared::b_datalogEventPending)
+  // With temperature sensing, the end of the period waits for the pass that sees the new cycle, so
+  // that the next round's conversion starts after the cycle's work and before the datalog output.
+  // The timing, a sample set being 6 conversions (624 µs, whatever the mains frequency):
+  // - L1's positive crossing: the period's datalog copies (processDataLogging(), from
+  //   processPlusHalfCycle()), then b_datalogEventPending;
+  // - 2 sample sets later (1248 µs): the cycle's work, processStartNewCycle(), the heaviest call
+  //   (its ADMUX written ~660 to 780 cycles in with 4 loads: sim/README.md, Temperature with remote
+  //   loads, RF datalog and relays), then b_newMainsCycle;
+  // - the next such call, a mains cycle later.
+  // The conversion (reset, Skip ROM, Convert T: ~2.1 ms of bus I/O) cannot fit between the event
+  // and processStartNewCycle(); started after it, its slots fall among the ordinary calls.
+  if (Shared::b_datalogEventPending && (bNewMainsCycle || !TEMP_SENSOR_PRESENT))
   {
     Shared::b_datalogEventPending = false;
 
@@ -604,15 +633,18 @@ void loop()
 
     if constexpr (RELAY_DIVERSION)
     {
-      relays.update_average(tx_data.power);
+      relayDiverter.update_average(tx_data.power);
     }
 
     if constexpr (TEMP_SENSOR_PRESENT)
     {
-      processTemperatureData();
+      // On time if this pass saw the new cycle on time and is still within 3 ms of it (the per-second
+      // work may run in between): the conversion's slots then end within ~6 ms of the cycle's work
+      constexpr uint32_t PERIOD_END_ON_TIME_US{ 3000 };
+      processTemperatureData(bCycleOnTime && (micros() - cycleSeen_us) < PERIOD_END_ON_TIME_US);
 
-      // the first sensor is the reference for the dual tariff temperature threshold
-      iTemperature_x100 = tx_data.temperature_x100[0];
+      // the sensor checked against the dual tariff temperature threshold
+      iTemperature_x100 = tx_data.temperature_x100[BOOST_TEMP_SENSOR];
     }
 
     sendResults(bOffPeak);

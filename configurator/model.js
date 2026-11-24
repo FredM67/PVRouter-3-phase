@@ -6,6 +6,8 @@
  * (checked by test/generate.test.js).
  *
  * Works as a classic <script> (global PVRModel) and as a Node module.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
@@ -40,11 +42,13 @@
   const RF_FREQUENCIES = ['RF69_433MHZ', 'RF69_868MHZ', 'RF69_915MHZ'];
   const OVERRIDE_GROUPS = ['ALL_LOADS', 'ALL_LOCAL_LOADS', 'ALL_REMOTE_LOADS', 'ALL_RELAYS', 'ALL_LOADS_AND_RELAYS'];
   const TEMP_MODES = ['off', 'router', 'esp'];
+  const TEMP_PIN = 3; // the probes' bus on the new board, wired there with its pull-up (router mode)
   const PHASES = 3; // NO_OF_PHASES of the 3-phase firmware
 
   function defaults() {
     return {
       formatVersion: FORMAT_VERSION,
+      router: 3, // 3: this page, 1: the single-phase page (a save without it is a 3-phase one)
 
       // config.h - general
       pcbVersion: 'NEW', // OLD: former 3-phase board, NEW: universal 3phaseDiverter board
@@ -84,7 +88,8 @@
       // control inputs (active LOW). 'wifi': driven by the mk2Wifi module (pin in D5..D9)
       diversion: { enabled: false, pin: null, wifi: false },
       routerOff: { enabled: false, pin: null, wifi: false },
-      rotation: { mode: 'OFF', pin: null, wifi: false, afterSeconds: 8 * 3600 },
+      // groups: lists of load indices that take turns (rotationGroups), only written with rotation on
+      rotation: { mode: 'OFF', pin: null, wifi: false, afterSeconds: 8 * 3600, groups: [] },
       watchdog: { enabled: false, pin: null },
 
       relays: {
@@ -109,15 +114,16 @@
         pin: null,
         wifi: false,
         offPeakHours: 8,
-        // one entry per load: start offset (hours, or minutes beyond 24) and duration
-        // (null = until the end of the off-peak period)
-        force: [{ start: -3, duration: 2 }],
+        // scheduled boosts: from 'start' or 'end' of the off-peak period, 'at' minutes after the
+        // start or before the end, for 'for' minutes (null: until the end); targets as overrides
+        boosts: [{ from: 'end', at: 180, for: 120, targets: [{ load: 0 }] }],
         tempThreshold: 100,
+        tempSensor: 0, // the probe checked against it, from 0 (temperature.sensors)
       },
 
       temperature: {
         mode: 'off', // 'router': the router reads the probes; 'esp': the mk2Wifi module does
-        pin: 3,
+        pin: 3, // old board: the user wires the bus, on the pin of their choice (new board: TEMP_PIN)
         sensors: [
           { address: '28BE416B090000A4', name: '' },
           { address: '281BD76A090000B7', name: '' },
@@ -153,8 +159,19 @@
 
   const clone = (o) => JSON.parse(JSON.stringify(o));
 
+  // The router a save is for: a save without the field is a 3-phase one
+  const saveRouter = (data) => (data && data.router) ?? 3;
+
+  const SINGLE_PHASE_URL = 'https://fredm67.github.io/Mk2PVRouter/configurateur-monophase/';
+  // Where the "single-phase" link goes: relative on the docs site (it follows the version being
+  // read), absolute from a file or any other host. loc: { protocol, pathname }
+  function singlePhaseUrl(loc) {
+    return loc && /^https?:$/.test(loc.protocol) && String(loc.pathname).includes('/Mk2PVRouter/') ? '../configurateur-monophase/' : SINGLE_PHASE_URL;
+  }
+
   // Fill what an older or hand-edited JSON lacks, keep the rest
   function normalize(input) {
+    if (saveRouter(input) !== 3) throw new Error('router');
     const base = defaults();
     const merge = (b, v) => {
       if (Array.isArray(b)) return Array.isArray(v) ? clone(v) : b;
@@ -244,8 +261,87 @@
   const remoteLoadCount = (m) => m.loads.filter((l) => l.type === 'remote').length;
   const loadsOfUnit = (m, unit) => m.loads.filter((l) => l.type === 'remote' && l.unit === unit).length;
   const remoteLoadsPresent = (m) => remoteLoadCount(m) > 0;
+
+  // A scheduled boost's window, in minutes from the start of the off-peak period ({ from, at, for }:
+  // 'at' counted from the start or back from the end; for: null = until the meter goes back to
+  // peak, drawn up to the end). null when its time cannot be read.
+  function boostWindow(b, periodMin) {
+    if (!Number.isInteger(b.at) || !['start', 'end'].includes(b.from)) return null;
+    const start = b.from === 'end' ? periodMin - b.at : b.at;
+    const open = b.for === null;
+    return { start, end: open ? periodMin : start + b.for, open };
+  }
+
+  // The same window counted from the other end: switching "after the start" / "before the end"
+  // must not move the boost (0 h after the start, for 2 h = 8 h before the end, for 2 h, with 8 h)
+  function reanchor(b, from, periodMin) {
+    const w = boostWindow(b, periodMin);
+    if (!w || from === b.from || !(periodMin > 0)) return { from, at: b.at, for: b.for }; // no period (field emptied): as typed
+    return { from, at: periodMin - b.at, for: b.for };
+  }
+
+  // A new duration (null: until the end) keeps the anchored edge: the start of a boost counted
+  // from the start, the end of one counted back from the end (it then starts earlier or later).
+  // A boost that would no longer fit moves to end with the period, or start with it; a duration
+  // longer than the period is cut to it. No period (field emptied): as typed.
+  function withDuration(b, duration, periodMin) {
+    const w = boostWindow(b, periodMin);
+    if (duration === null || !w || !(periodMin > 0)) return { at: b.at, for: duration };
+    const length = Math.min(duration, periodMin);
+    const anchored = b.from === 'end' ? w.end - length : w.start; // w.end: the period's end when open
+    const start = Math.min(Math.max(anchored, 0), periodMin - length);
+    return { at: b.from === 'end' ? periodMin - start : start, for: length };
+  }
+
+  // A boost brought inside a shorter off-peak period: its anchored edge (the start counted from the
+  // start, or back from the end) stays where it is and the duration is cut to the period; an edge
+  // now outside the period comes back to it, keeping what it can of the duration. A boost that
+  // fits, or with unreadable times, is unchanged.
+  function fitBoost(b, periodMin) {
+    const w = boostWindow(b, periodMin);
+    if (!w || !(periodMin > 0) || boostFits(b, periodMin) || (!w.open && b.for <= 0)) return { at: b.at, for: b.for };
+    if (b.from === 'end') {
+      const at = Math.min(b.at, periodMin);
+      return { at, for: w.open ? null : Math.min(b.for, at) };
+    }
+    if (w.open) return { at: Math.min(b.at, periodMin - 15), for: null };
+    if (b.at < periodMin) return { at: b.at, for: periodMin - b.at };
+    const length = Math.min(b.for, periodMin);
+    return { at: periodMin - length, for: length };
+  }
+
+  // A new start ('at') keeps the duration while the window fits; one that would run past the end
+  // of the period is cut there (3 h before the end, for 3 h -> 2 h before the end, for 2 h). A start
+  // outside the period is left to err.boostWindow.
+  function withStart(b, at, periodMin) {
+    const w = boostWindow({ ...b, at }, periodMin);
+    if (!w || w.open || w.start < 0 || w.start >= periodMin || w.end <= periodMin) return { at, for: b.for };
+    return { at, for: periodMin - w.start };
+  }
+
+  // As validation.h (startsWithinOffPeak(), endsWithinOffPeak(), hasLength()): the whole window
+  // lies within the period, and lasts.
+  function boostFits(b, periodMin) {
+    const w = boostWindow(b, periodMin);
+    if (!w || w.start < 0 || w.start >= periodMin) return false;
+    return w.open || (b.for > 0 && w.end <= periodMin);
+  }
   const rfChipPresent = (m) => m.rf.logging || remoteLoadsPresent(m);
+
+  // the router pins a pin list offers: not those of the RF chip when it is there; the pin already
+  // chosen stays, so the page shows it with the error that says why
+  const offeredPins = (m, current) => DIGITAL_PINS.filter((p) => p === current || !(rfChipPresent(m) && RF_PINS.includes(p)));
   const tempSensorPresent = (m) => m.temperature.mode === 'router';
+  // The pin of the probes' bus: wired on the new board, chosen on the old one
+  const tempPin = (m) => (m.pcbVersion === 'OLD' ? m.temperature.pin : TEMP_PIN);
+
+  // Remove probe i; the boosts keep the probe they check, or fall back to the first if it was this one
+  function removeSensor(m, i) {
+    m.temperature.sensors.splice(i, 1);
+    const d = m.dualTariff;
+    if (d.tempSensor === i) d.tempSensor = 0;
+    else if (d.tempSensor > i) --d.tempSensor;
+  }
   const overridePresent = (m) => m.overrides.enabled && m.overrides.list.length > 0;
   // calibration reads P1..P3 on the serial monitor: human-readable, whatever the usual choice
   const serialOutputOf = (m) => (m.calibrationMode ? 'HumanReadable' : m.serialOutput);
@@ -291,15 +387,38 @@
   }
 
   // Keep the per-load arrays in step with the number of loads
+  // The boosts and override pins drop the targets that no longer exist (a group stays)
+  function dropTargets(m, keep) {
+    const trim = (o) => {
+      if (Array.isArray(o.targets)) o.targets = o.targets.filter(keep);
+    };
+    m.dualTariff.boosts.forEach(trim);
+    m.overrides.list.forEach(trim);
+  }
+
+  // the delay without diversion only applies to automatic rotation without dual tariff (with it,
+  // rotation happens at off-peak start): only then is its field shown and checked
+  const rotationDelayShown = (m) => m.rotation.mode === 'AUTO' && !m.dualTariff.enabled;
+  const ROTATION_DELAY_MAX = 65534; // the firmware counts the seconds in 16 bits (validation.h)
+  const rotationDelayValid = (s) => Number.isInteger(s) && s >= 1 && s <= ROTATION_DELAY_MAX;
+
+  // the loads a rotation group editor offers: every load, plus any load of the group that is no
+  // longer in the map, so that it can be unticked (validate.js flags it as not a load)
+  function rotationChoices(m, group) {
+    const n = m.loads.length;
+    return [...m.loads.map((_, l) => l), ...group.filter((l) => l >= n).sort((x, y) => x - y)];
+  }
+
   function resizeLoads(m, count) {
     while (m.loads.length < count) {
       const used = new Set(m.loads.filter((l) => l.type === 'local').map((l) => l.pin));
+      if (tempSensorPresent(m)) used.add(tempPin(m)); // the probes' bus
       const pin = [5, 6, 7, 3, 4, 8, 9].find((p) => !used.has(p)) || 2;
       m.loads.push({ type: 'local', pin });
     }
     m.loads.length = count;
     m.priorities = m.loads.map((_, i) => i);
-    while (m.dualTariff.force.length > count) m.dualTariff.force.pop();
+    dropTargets(m, (x) => !('load' in x) || x.load < count);
     return m;
   }
 
@@ -307,6 +426,7 @@
   function resizeRelays(m, count) {
     while (m.relays.list.length < count) m.relays.list.push({ pin: null, surplus: 1000, import: 200, minOn: 5, minOff: 5 });
     m.relays.list.length = count;
+    dropTargets(m, (x) => !('relay' in x) || x.relay < count);
     return m;
   }
 
@@ -324,16 +444,28 @@
     RF_FREQUENCIES,
     OVERRIDE_GROUPS,
     TEMP_MODES,
+    TEMP_PIN,
     PHASES,
     defaults,
     normalize,
+    saveRouter,
+    singlePhaseUrl,
     clone,
     remoteUnitsUsed,
     remoteLoadCount,
     loadsOfUnit,
     remoteLoadsPresent,
+    boostWindow,
+    boostFits,
+    reanchor,
+    withDuration,
+    withStart,
+    fitBoost,
     rfChipPresent,
+    offeredPins,
     tempSensorPresent,
+    tempPin,
+    removeSensor,
     overridePresent,
     serialOutputOf,
     controlInputs,
@@ -347,6 +479,9 @@
     CT_RATING,
     ctRatingUsed,
     CAL_NAMES,
+    rotationChoices,
+    rotationDelayShown,
+    rotationDelayValid,
     resizeLoads,
     resizeRelays,
   };

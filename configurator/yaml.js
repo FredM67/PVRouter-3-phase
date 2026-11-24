@@ -10,6 +10,8 @@
  * wire, an open jumper or an ESP32 that reboots or hangs at boot leaves the router in its
  * default state: routing ON, router running, no boost, no rotation. Every control goes back
  * to that state at each boot of the module.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(require('./model.js'));
@@ -236,12 +238,17 @@
       add(...sensor('S', t.sampleSets, null, ['unit_of_measurement: ""', 'accuracy_decimals: 0', 'icon: "mdi:counter"', 'entity_category: diagnostic']));
       add(...sensor('S_MC', t.sampleSetsPerCycle, null, ['unit_of_measurement: ""', 'accuracy_decimals: 0', 'icon: "mdi:counter"', 'entity_category: diagnostic']));
     }
-    if (espTemp)
-      m.temperature.sensors.forEach((s, i) => {
-        const a = M.parseAddress(s.address);
+    // ESPHome finds the probes on the bus. Each one by its address when all have one (the name stays
+    // on its probe); otherwise one needs nothing, several are told apart by their rank in the order
+    // of their addresses (index)
+    if (espTemp) {
+      const addresses = m.temperature.sensors.map((s) => M.parseAddress(s.address));
+      const byAddress = addresses.every(Boolean);
+      m.temperature.sensors.forEach((s, i, all) => {
+        const a = addresses[i];
         add(
           '  - platform: dallas_temp',
-          ...(a ? [`    address: 0x${a.map((b) => b.toString(16).toUpperCase().padStart(2, '0')).join('')}`] : []),
+          ...(byAddress ? [`    address: 0x${a.map((b) => b.toString(16).toUpperCase().padStart(2, '0')).join('')}`] : all.length > 1 ? [`    index: ${i}`] : []),
           `    name: ${q(s.name || t.temperature(i + 1))}`,
           `    id: t${i + 1}`,
           '    update_interval: 30s',
@@ -250,6 +257,7 @@
           ''
         );
       });
+    }
     add(
       '  - platform: wifi_signal',
       '    name: "WiFi Signal"',

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 #include <Arduino.h>
 #include <unity.h>
 
@@ -52,32 +53,52 @@ void test_setPinState(void)
   TEST_ASSERT_EQUAL(LOW, digitalRead(LED_BUILTIN));
 }
 
-void test_setPinsON(void)
+void test_setPinsState(void)
 {
-  const uint16_t pinsToSet{ 0b11111111111100 };
+  constexpr uint16_t allPins{ 0b11111111111100 };  // pins 2..13
+  constexpr uint16_t evenPins{ 0b01010101010100 };
+  constexpr uint16_t oddPins{ 0b10101010101000 };
 
-  setPinsON(pinsToSet);
+  setPinsState< allPins >(allPins, 0);
   delay(100);
-
   for (uint8_t pin = 2; pin < 14; ++pin)
   {
     TEST_ASSERT_EQUAL(HIGH, digitalRead(pin));
   }
-}
 
-void test_setPinsOFF(void)
-{
-  const uint16_t pinsToSet{ 0b11111111111100 };
-
-  setPinsOFF(pinsToSet);
+  setPinsState< allPins >(evenPins, oddPins);
   delay(100);
+  for (uint8_t pin = 2; pin < 14; ++pin)
+  {
+    TEST_ASSERT_EQUAL((pin % 2) ? LOW : HIGH, digitalRead(pin));
+  }
 
+  setPinsState< allPins >(0, allPins);
+  delay(100);
   for (uint8_t pin = 2; pin < 14; ++pin)
   {
     TEST_ASSERT_EQUAL(LOW, digitalRead(pin));
   }
 }
 
+void test_setPinsState_skipsUnusedPort(void)
+{
+  constexpr uint16_t portDPins{ 0b00000011111100 };  // pins 2..7
+  constexpr uint16_t portBPins{ 0b11111100000000 };  // pins 8..13
+
+  setPinsState< portBPins >(portBPins, 0);
+  delay(100);
+  // PORTD is outside usedPins: even asked to, the call leaves it alone
+  setPinsState< portBPins >(portDPins, 0);
+  delay(100);
+  for (uint8_t pin = 2; pin < 14; ++pin)
+  {
+    TEST_ASSERT_EQUAL((pin < 8) ? LOW : HIGH, digitalRead(pin));
+  }
+
+  setPinsState< portBPins >(0, portBPins);
+  delay(100);
+}
 
 void setup()
 {
@@ -106,9 +127,9 @@ void loop()
     delay(100);
     RUN_TEST(test_setPinState);
     delay(100);
-    RUN_TEST(test_setPinsON);
+    RUN_TEST(test_setPinsState);
     delay(100);
-    RUN_TEST(test_setPinsOFF);
+    RUN_TEST(test_setPinsState_skipsUnusedPort);
     delay(100);
     ++i;
   }

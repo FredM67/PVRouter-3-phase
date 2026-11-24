@@ -3,9 +3,10 @@
  * @author Based on florentbr's suggestions and avrfreertos optimizations
  * @brief Assembly-optimized multiplication functions for AVR microcontrollers
  * @version 0.1
- * @date 2026-09-23
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2025-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * This file contains highly optimized assembly multiplication functions for
  * time-critical operations on AVR microcontrollers. These functions eliminate

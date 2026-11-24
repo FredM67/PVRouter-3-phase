@@ -44,6 +44,14 @@ analysis/
 - **ema_effectiveness_analysis_extended.py** : Comparaison complète de l'efficacité du filtrage EMA, DEMA et TEMA avec des scénarios étendus montrant la stabilisation à long terme.
 - **tema_comparison.py** : Comparaison ciblée entre TEMA multi-alpha (implémentation de production) et TEMA single-alpha standard.
 
+### Enregistreur de TC (CT recorder)
+
+**Emplacement** : `ct_recorder/` (outil Python) et `../dev/CtRecorder/` (croquis)
+
+- Le croquis enregistre la chaîne ADC du routeur (une tension, un courant, sans calibration) pendant que la charge est pilotée par impulsions. L'outil analyse l'enregistrement et cherche le filtre du TC (`lpf_gain` et `alpha` de `calibration.h`), ou conclut qu'aucun filtre n'est nécessaire.
+- Pas encore testé sur une vraie carte.
+- Marche à suivre et lecture du rapport : [dev/CtRecorder/README.md](../dev/CtRecorder/README.md).
+
 ### Visualisation des Motifs Nuageux
 
 **Emplacement** : `../Mk2_3phase_RFdatalog_temp/scripts/`

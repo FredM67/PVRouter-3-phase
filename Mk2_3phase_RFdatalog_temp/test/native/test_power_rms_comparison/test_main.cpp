@@ -1,8 +1,9 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief Unity tests for power and RMS calculations: old vs new (left-aligned ADC)
  * @author Based on Florian's suggestions in issue #121
- * @date 2026-01-30
+ * @date 2026-11-24
  *
  * Tests the power and RMS calculation implementations comparing:
  * - Old: Right-aligned ADC (0-1023), x256 scaling

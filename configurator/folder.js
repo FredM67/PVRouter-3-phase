@@ -10,6 +10,8 @@
  * save(prepared, stamp) -> the backup's path
  * lastBackup(root)      -> { error } or { place, dir, name, manifest }
  * restore(backup)
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();

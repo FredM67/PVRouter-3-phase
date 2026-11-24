@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Calibration values definition
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2023-2026
  *
@@ -67,24 +67,9 @@ inline constexpr float f_voltageCalNewBoard[NO_OF_PHASES]{ 0.888065256F, 0.88806
 //
 inline constexpr float f_phaseCal{ 1 }; /**< Nominal values only */
 
+// CT filter: a low-pass of the current added back with a gain, to offset the high-pass behaviour of the CTs.
+// Turned into fixed point at compile time (ct_filter.h): alpha from 0.00005 to below 0.0625, gain below 64.
 inline constexpr float lpf_gain{ 0 }; /**< setting this to 0 disables this extra processing */
 inline constexpr float alpha{ 0.002 };
-//--------------------------------------------------------------------------------------------------
-// Nothing to change below this line.
-
-static_assert(NO_OF_PHASES == 3, "f_powerCal and f_voltageCal below list 3 phases");
-
-/** Whether the router runs with the set of the new board */
-inline constexpr bool NEW_BOARD_CALIBRATION{ PCB_VERSION == PcbVersion::NEW };
-
-/** f_powerCal of each phase, as the router uses it */
-inline constexpr float f_powerCal[NO_OF_PHASES]{ NEW_BOARD_CALIBRATION ? f_powerCalPerAmp[0] * f_ctRating[0] : f_powerCalOldBoard[0],
-                                                 NEW_BOARD_CALIBRATION ? f_powerCalPerAmp[1] * f_ctRating[1] : f_powerCalOldBoard[1],
-                                                 NEW_BOARD_CALIBRATION ? f_powerCalPerAmp[2] * f_ctRating[2] : f_powerCalOldBoard[2] };
-
-/** f_voltageCal of each phase, as the router uses it */
-inline constexpr float f_voltageCal[NO_OF_PHASES]{ NEW_BOARD_CALIBRATION ? f_voltageCalNewBoard[0] : f_voltageCalOldBoard[0],
-                                                   NEW_BOARD_CALIBRATION ? f_voltageCalNewBoard[1] : f_voltageCalOldBoard[1],
-                                                   NEW_BOARD_CALIBRATION ? f_voltageCalNewBoard[2] : f_voltageCalOldBoard[2] };
 
 #endif  // CALIBRATION_H

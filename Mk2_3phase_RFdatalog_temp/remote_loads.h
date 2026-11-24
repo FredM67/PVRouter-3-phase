@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Support for remotely controlled loads via RF using RFM69
  * @version 3.0
- * @date 2026-11-19
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2025-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details Radio shell around RemoteLoadCore (remote_loads_core.h). The core decides
  *          what each remote unit should be told and when; this file does the telling,
@@ -31,7 +32,7 @@
 
 #include "config_system.h"
 #include "types.h"
-#include "config.h"
+#include "config_derived.h"
 
 #include "remote_loads_core.h"
 #include "utils_rf.h"  // For shared RF configuration

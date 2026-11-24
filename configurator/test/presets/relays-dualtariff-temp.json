@@ -12,12 +12,14 @@
     "enabled": true,
     "pin": 4,
     "offPeakHours": 8,
-    "force": [{ "start": -3, "duration": 2 }, { "start": 2, "duration": null }],
+    "boosts": [
+      { "from": "end", "at": 180, "for": 120, "targets": [{ "load": 0 }] },
+      { "from": "start", "at": 120, "for": null, "targets": [{ "load": 1 }] }
+    ],
     "tempThreshold": 70
   },
   "temperature": {
     "mode": "router",
-    "pin": 3,
     "sensors": [
       { "address": "28BE416B090000A4", "name": "" },
       { "address": "281BD76A090000B7", "name": "" }

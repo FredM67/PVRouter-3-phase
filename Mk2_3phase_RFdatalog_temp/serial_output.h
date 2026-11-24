@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Non-blocking serial output of the datalog
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-21
  *
  * @details At 9600 baud, a datalog line takes about 130 ms to send, and the UART's
  *          transmit buffer holds only 64 characters: a plain Serial.print() of the
@@ -18,6 +18,7 @@
  *          middle of a datalog line or telemetry frame.
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
 

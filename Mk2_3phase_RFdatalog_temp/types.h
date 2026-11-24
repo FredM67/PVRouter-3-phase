@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some basics classes/types
  * @version 0.1
- * @date 2026-11-13
+ * @date 2026-11-21
  *
  * @copyright Copyright (c) 2023-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
 
@@ -16,28 +17,16 @@
 
 #include "type_traits.hpp"
 
+#include "config_types.h"  // the enums of config.h (SerialOutputType, PcbVersion, RotationModes)
+
 #include "constants.h"
-#include "load_map.h"  // LoadStates and the packed load-map encoding
+#include "load_map.h"         // LoadStates and the packed load-map encoding
+#include "load_priorities.h"  // loadStateMask, loadStateOnBit
 
 // -------------------------------
 // definitions of enumerated types
 
 //--------------------------------------------------------------------------------------------------
-/** Enum for serial output types */
-enum class SerialOutputType
-{
-  HumanReadable, /**< Human-readable output for commissioning */
-  IoT,           /**< Output for HomeAssistant or similar */
-  JSON           /**< Output in JSON format */
-};
-
-/** Motherboard generation: they do not measure the same way */
-enum class PcbVersion : uint8_t
-{
-  OLD, /**< the former 3-phase board: ADC reference AVCC (= VCC, 5 V or 3.3 V) */
-  NEW  /**< the universal 3phaseDiverter board (rev. 6.0 and later): internal 1.1 V ADC reference */
-};
-
 /** Polarities */
 enum class Polarities : uint8_t
 {
@@ -53,17 +42,6 @@ enum class OutputModes : uint8_t
 };
 
 // LoadStates lives in load_map.h, so that the load-map logic stays Arduino-free.
-
-inline constexpr uint8_t loadStateMask{ 0x7FU };                      /**< bit mask for masking load state */
-inline constexpr uint8_t loadStateOnBit{ (uint8_t)(~loadStateMask) }; /**< bit mask for load state ON */
-
-/** Rotation modes */
-enum class RotationModes : uint8_t
-{
-  OFF,  /**< Off */
-  AUTO, /**< Once a day */
-  PIN   /**< Pin triggered */
-};
 
 /** @brief container for datalogging
  *  @details This class is used for datalogging.
@@ -120,13 +98,6 @@ constexpr integral_constant< uint8_t, ival(Vs...) > operator""_i()
   return {};
 }
 
-/**
- * @brief Macro to convert compile-time constant to integral_constant
- *
- * This allows clean syntax for creating integral_constant from constexpr values
- * Usage: MINUTES(RELAY_FILTER_DELAY_MINUTES) instead of RELAY_FILTER_DELAY_MINUTES"_i"
- */
-#define MINUTES(value) \
-  integral_constant< uint8_t, (value) > {}
+// MINUTES(): in type_traits.hpp, shared with the scheduled boosts
 
 #endif  // TYPES_H

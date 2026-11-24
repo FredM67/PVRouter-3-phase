@@ -15,6 +15,7 @@ No build step, no dependency: plain scripts that also load in Node for the tests
 | ------------- | ------------------------------------------------------------------------ |
 | `model.js`    | the settings, their defaults (= the shipped files) and derived values    |
 | `validate.js` | the checks of `validation.h`, plus what the compiler cannot see          |
+| `timeline.js` | the geometry of the boost timeline: windows, 15-minute snap, drag        |
 | `generate.js` | model → the firmware files                                               |
 | `yaml.js`     | model → the ESPHome YAML (fail-safe controls, sensors of what is sent)   |
 | `i18n.js`     | English and French texts of the page                                     |
@@ -37,3 +38,8 @@ bash configurator/test/check-yaml.sh              # 'esphome config' on the mk2W
 
 The presets (`test/presets/*.json`) are saves of the page: a new one is picked up by both
 scripts. The CI job `Configurator` runs all three.
+
+## License
+
+The configurator is GPL-3.0-or-later, as the rest of the project. The files it writes are yours: use, change and
+share them on any terms you like (see [NOTICE](../NOTICE)).

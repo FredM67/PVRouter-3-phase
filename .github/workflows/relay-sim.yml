@@ -53,7 +53,7 @@ jobs:
     name: Grid simulation (relays ${{ matrix.part }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    # the scenarios spread over jobs, two each (sim/ci_targets.sh)
+    # the scenarios spread over jobs, three each, at 50 and 60 Hz (sim/ci_targets.sh)
     strategy:
       fail-fast: false
       matrix:
@@ -70,13 +70,22 @@ jobs:
           sim/configs/sim_config.sh
           git apply --unidiff-zero sim/configs/relays.patch
           PLATFORMIO_BUILD_DIR=.pio/build-relays pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+          git checkout ${{ env.PROJECT_DIR }}/config.h
+
+      # the same at 60 Hz: the relays are switched at other angles of the cycle
+      - name: Build firmware (relays, 60 Hz)
+        run: |
+          sim/configs/sim_config.sh
+          git apply --unidiff-zero sim/configs/relays.patch sim/configs/supply_60hz.patch
+          PLATFORMIO_BUILD_DIR=.pio/build-relays60 pio run --project-dir ${{ env.PROJECT_DIR }} -e basic
+          git checkout ${{ env.PROJECT_DIR }}/config.h ${{ env.PROJECT_DIR }}/config_system.h
 
       - name: Install simavr
         run: pio pkg install --global --tool platformio/tool-simavr
 
       - name: Run relay scenarios
         run: |
-          targets=$(sim/ci_targets.sh relays ${{ matrix.part }})
+          targets="$(sim/ci_targets.sh relays ${{ matrix.part }}) $(sim/ci_targets.sh relays60 ${{ matrix.part }})"
           echo "make $targets"
           make -C sim -j"$(nproc)" -k $targets
 

@@ -15,11 +15,17 @@ pio run
 # Build specific environment
 pio run -e basic           # Production build
 pio run -e basic_debug     # Debug build with symbols
-pio run -e rf              # RF module support (RFM69)
 
 # Run tests
-pio test -e native         # Cross-platform unit tests
-pio test -e uno            # Embedded tests (requires hardware)
+pio test -e native         # Cross-platform unit tests (needs gcc: WSL on Windows)
+pio test -e uno_sim        # Embedded tests in simavr, no hardware
+pio test -e uno            # Embedded tests on a real board
+
+# Settings that must be refused (from the repo root)
+bash ../scripts/ci/compile-fail.sh
+
+# Grid simulator: regulation and ISR timing on a simulated grid (see ../sim/README.md)
+make -C ../sim check
 
 # Upload to Arduino
 pio run -t upload
@@ -42,12 +48,17 @@ pio check
 
 ### Key Files
 
-- `config.h` - User configuration (features, pins, loads) - **primary file users edit**
+- `config.h` - User configuration (features, pins, loads) - **primary file users edit**. Settings only: it includes `config_types.h` and nothing else
+- `config_types.h` - What config.h is written with: settings types, `LOAD()`/`RELAY()`/`ALL_...()` target codes, the boost windows. No setting, no Arduino
+- `config_derived.h` - What the code includes (never config.h): derived constants, `remoteLoads`, and the objects built from the settings (`relayDiverter`, `overrideTable`, `boostSchedule`, `tempSensors`)
 - `calibration.h` - Power calibration values - **users edit for their hardware**
+- `ct_filter.h` - The CT filter (`lpf_gain`, `alpha` of `calibration.h`) in fixed point, Arduino-free (native tests); compiled out with `lpf_gain` 0
 - `processing.cpp/.h` - Core real-time processing engine
+- `adc_chain.h` - The six ADC conversions (V1, I1, V2, I2, V3, I3), their pins and ADMUX values, and the rule that the ADMUX written in an ISR call applies to the conversion after next; Arduino-free, native tests. `processing.cpp` builds its channel table from it
 - `validation.h` - ~50+ compile-time safety assertions
-- `utils_relay.h` - Relay control with EWMA filtering
-- `utils_temp.h` - DS18B20 temperature sensor management
+- `utils_relay.h` - Relay control: pins and printing; the decisions, with EWMA filtering, are in `relay_engine.h` (Arduino-free, native tests)
+- `utils_temp.h` - DS18B20 temperature sensor management: the bus I/O in short transactions (`startRead()`, `readScratchpad()`, `endRead()`)
+- `temp_schedule.h` - Which 1-Wire transaction runs on which mains cycle (Arduino-free, native tests): one per cycle, right after the cycle's heavy ADC interrupt call, so the ADC deadline holds with remote loads and relays
 
 ### Real-Time Constraints
 
@@ -76,31 +87,33 @@ pio check
 
 - All load control must include safety validation
 - Never modify power routing logic without understanding the energy bucket algorithm
-- Test timing on real hardware with oscilloscope for ISR changes
+- Measure every ISR change in the grid simulator (`ADC ISR max`, `ADMUX delay`, `misfiled samples`); confirm on real hardware when the change is risky
 - Compile-time validation via `static_assert` is preferred over runtime checks
 
 ## Git Workflow
 
-- Two-branch model: `main` (stable) + `dev` (development)
+- `main` (stable) and `dev` (development), both protected by rulesets; topic branches (`feat/…`, `fix/…`, `docs/…`, …), personal branches under `users/`
 - PRs target `dev` branch
 - Conventional commits: `fix:`, `feat:`, `docs:`, `chore:`
+- **Port every change to the single-phase firmware** (PVRouter-1-phase, `Mk2_1phase_RFdatalog_temp`), when it applies there: the two firmwares share their settings, names, files and interfaces. A fix, feature or refactor here gets a matching PR there, unless it touches what only this firmware has (the three phases and their per-phase arrays, `RemoteLoadReceiver`). Each PR says whether it was ported, with a link to the other PR, or why not.
 
 ## Test Structure
 
 ```
 test/
-├── embedded/     # Hardware-dependent tests (run on Arduino)
-│   ├── test_teleinfo/
-│   ├── test_utils_relay/
-│   └── test_utils_pins/
-└── native/       # Cross-platform tests (run on host)
-    ├── test_ewma_avg/
-    ├── test_remote_loads/
-    └── test_utils_override/
+├── embedded/     # Run on the AVR: in simavr (uno_sim) or on a board (uno)
+│   ├── test_datalog_math_avr/  test_fastdivision/  test_fastdivision_perf/
+│   ├── test_mult_asm/  test_mult_asm_perf/  test_serial_output/
+│   └── test_teleinfo/  test_utils_pins/  test_utils_relay/  test_voltage_accumulation/
+└── native/       # Run on the host
+    ├── test_adc_chain/  test_config_h/  test_ct_filter/  test_datalog_math/  test_dc_offset_filter/
+    ├── test_ds18b20/  test_dual_tariff/  test_energy_bucket/  test_ewma_avg/  test_load_priorities/
+    ├── test_onewire_search/  test_override_masks/  test_pin_edges/  test_power_rms_comparison/
+    └── test_relay_engine/  test_remote_loads/  test_rotation_groups/  test_teleinfo/  test_temp_schedule/  test_utils_override/
 ```
 
 ## Dependencies
 
 - **ArduinoJson 6.x** (NOT v7): only for the embedded test `test_serial_output`, the firmware writes its JSON itself
 - **OneWire 2.3.8+** (for DS18B20 sensors)
-- **JeeLib** (optional, for RF support)
+- **RFM69** by LowPowerLab (`lowpowerlab/RFM69`, for the RF datalog and remote loads)

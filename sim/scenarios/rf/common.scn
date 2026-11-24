@@ -15,3 +15,6 @@ remote 16 0 1 2000
 receiver_pins 4 3
 
 input 4 1    # override pin released (active low)
+
+# ADMUX must change one ADC clock (128 cycles) or more after the conversion started
+expect admux_delay_min 128

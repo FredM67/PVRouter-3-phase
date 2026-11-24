@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Compile-time validations
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2023-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
 
@@ -16,10 +17,11 @@
 #include "utils_pins.h"
 #include "utils_rf.h"
 
-#include "config.h"
-#include "calibration.h"
+#include "config_derived.h"
+#include "ct_filter.h"
 #include "datalog_math.h"
 #include "energy_bucket.h"
+#include "temp_schedule.h"
 
 /**
  * @note All these checks are done by the compiler.
@@ -31,10 +33,11 @@
 
 static_assert(SUPPLY_FREQUENCY == 50 || SUPPLY_FREQUENCY == 60, "******** SUPPLY_FREQUENCY must be 50 or 60 Hz ! ********");
 
-static_assert(DATALOG_PERIOD_IN_SECONDS <= 40, "**** Data log duration is too long and will lead to overflow ! ****");
+static_assert(DATALOG_PERIOD_IN_SECONDS <= 30, "**** Data log duration is too long and will lead to overflow ! 30 s at most. ****");
 
 static_assert(Energy::isValidCalibration(f_powerCal), "******** Wrong power calibration ! Each value of f_powerCal must be positive and below 8. Please check your calibration.h ! ********");
 static_assert(Datalog::isValidVoltageCalibration(Datalog::vrmsFactor(DATALOG_PERIOD_IN_SECONDS), f_voltageCal), "******** Wrong voltage calibration ! Each value of f_voltageCal must be positive. Please check your calibration.h ! ********");
+static_assert(lpf_gain == 0.0F || alpha == 0.0F || CtFilter::isAccurate(lpf_gain, alpha), "******** Wrong CT filter settings ! alpha must be from 0.00005 to below 0.0625 and lpf_gain from 0 to below 64. Please check your calibration.h ! ********");
 
 static_assert(TEMP_SENSOR_PRESENT ^ (temperatureSensing.get_pin() == unused_pin), "******** Wrong pin value for temperature sensor(s). Please check your config.h ! ********");
 static_assert(DIVERSION_PIN_PRESENT ^ (diversionPin == unused_pin), "******** Wrong pin value for diversion command. Please check your config.h ! ********");
@@ -46,6 +49,25 @@ static_assert(DUAL_TARIFF ^ (dualTariffPin == unused_pin), "******** Wrong pin v
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION == 0)), "******** Off-peak duration cannot be zero. Please check your config.h ! ********");
 static_assert(!(DUAL_TARIFF & (ul_OFF_PEAK_DURATION > 12)), "******** Off-peak duration cannot last more than 12 hours. Please check your config.h ! ********");
 
+/**
+ * @brief Every scheduled boost lies within the off-peak period and lasts: otherwise, it never
+ *        runs (LAST(HOURS(9)) with 8 hours, FOR(MINUTES(0))), or the meter cuts it short
+ *        (FIRST(HOURS(10)) with 8 hours).
+ */
+constexpr bool check_boost_windows()
+{
+  for (uint8_t i = 0; i != scheduledBoosts.size(); ++i)
+  {
+    const BoostWindow window{ scheduledBoosts.getWindow(i) };
+
+    if (!DualTariff::startsWithinOffPeak(window, ul_OFF_PEAK_DURATION) || !DualTariff::endsWithinOffPeak(window, ul_OFF_PEAK_DURATION) || !DualTariff::hasLength(window))
+    {
+      return false;
+    }
+  }
+  return true;
+}
+static_assert(!DUAL_TARIFF || check_boost_windows(), "******** A scheduled boost starts or ends outside the off-peak period, or lasts 0 minutes. Please check scheduledBoosts in your config.h ! ********");
 
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
 // the EWMA of the relays averages RELAY_FILTER_DELAY * 60 / DATALOG_PERIOD_IN_SECONDS datalogs:
@@ -61,13 +83,15 @@ static_assert(DIVERSION_START_THRESHOLD_WATTS >= 0 && DIVERSION_START_THRESHOLD_
 
 static_assert(sizeof(physicalLoadPin) / sizeof(physicalLoadPin[0]) == NO_OF_DUMPLOADS, "******** physicalLoadPin array size mismatch (one entry per dump load) ! ********");
 static_assert(sizeof(loadPrioritiesAtStartup) / sizeof(loadPrioritiesAtStartup[0]) == NO_OF_DUMPLOADS, "******** loadPrioritiesAtStartup array size mismatch ! ********");
-static_assert(sizeof(rg_ForceLoad) / sizeof(rg_ForceLoad[0]) == NO_OF_DUMPLOADS, "******** rg_ForceLoad array size mismatch ! ********");
 
 static_assert(ROTATION_AFTER_SECONDS > 0, "******** ROTATION_AFTER_SECONDS must be greater than 0 ! ********");
 // compared with a 16-bit counter of seconds (Shared::absenceOfDivertedEnergyCountInSeconds)
 static_assert(ROTATION_AFTER_SECONDS < UINT16_MAX, "******** ROTATION_AFTER_SECONDS cannot exceed 65534 seconds (about 18 hours) ! ********");
 
 static_assert(!TEMP_SENSOR_PRESENT || (temperatureSensing.size() > 0), "******** No temperature sensors configured but TEMP_SENSOR_PRESENT is true ! ********");
+static_assert(!TEMP_SENSOR_PRESENT || (BOOST_TEMP_SENSOR < temperatureSensing.size()), "******** BOOST_TEMP_SENSOR must be one of the sensors in temperatureSensing (from 0) ! ********");
+// one 1-Wire transaction per mains cycle (temp_schedule.h): the conversion, 750 ms, then 3 per sensor
+static_assert(!TEMP_SENSOR_PRESENT || TempSchedule::fitsInPeriod(temperatureSensing.size(), SUPPLY_FREQUENCY, DATALOG_PERIOD_IN_MAINS_CYCLES), "******** Too many temperature sensors for DATALOG_PERIOD_IN_SECONDS: their conversion (750 ms) and reads must end within a datalog period. Lengthen DATALOG_PERIOD_IN_SECONDS ! ********");
 static_assert(TEMP_RANGE_LOW < TEMP_RANGE_HIGH, "******** Invalid temperature range ! ********");
 
 /**
@@ -79,49 +103,54 @@ static_assert(TEMP_RANGE_LOW < TEMP_RANGE_HIGH, "******** Invalid temperature ra
 struct PinCheck
 {
   bool unique;   /**< no pin is used twice */
-  uint16_t used; /**< the pins used (0 on a conflict) */
+  uint32_t used; /**< the pins used, bit n = pin n (0 on a conflict); bit 31 = a pin from 32 on */
 };
+
+/**
+ * @brief Marks @p pin as used in @p used.
+ * @return false if it was already used. A pin from 32 on (not a pin of an ATmega328P) sets bit 31,
+ *         which the range check below refuses, as it does every pin from 14 on.
+ */
+constexpr bool claimPin(uint32_t &used, const uint8_t pin)
+{
+  const uint8_t bit{ pin > 31 ? static_cast< uint8_t >(31) : pin };
+  const bool free{ !bit_read(used, bit) };
+  bit_set(used, bit);
+  return free;
+}
 
 constexpr PinCheck check_pins()
 {
-  uint16_t used_pins{ 0 };
+  uint32_t used_pins{ 0 };
 
   if constexpr (TEMP_SENSOR_PRESENT)
   {
-    if (temperatureSensing.get_pin() != unused_pin)
-      bit_set(used_pins, temperatureSensing.get_pin());
+    if (temperatureSensing.get_pin() != unused_pin && !claimPin(used_pins, temperatureSensing.get_pin()))
+      return { false, 0 };
   }
 
   if (diversionPin != unused_pin)
   {
-    if (bit_read(used_pins, diversionPin))
+    if (!claimPin(used_pins, diversionPin))
       return { false, 0 };
-
-    bit_set(used_pins, diversionPin);
   }
 
   if (routerOffPin != unused_pin)
   {
-    if (bit_read(used_pins, routerOffPin))
+    if (!claimPin(used_pins, routerOffPin))
       return { false, 0 };
-
-    bit_set(used_pins, routerOffPin);
   }
 
   if (rotationPin != unused_pin)
   {
-    if (bit_read(used_pins, rotationPin))
+    if (!claimPin(used_pins, rotationPin))
       return { false, 0 };
-
-    bit_set(used_pins, rotationPin);
   }
 
   if (dualTariffPin != unused_pin)
   {
-    if (bit_read(used_pins, dualTariffPin))
+    if (!claimPin(used_pins, dualTariffPin))
       return { false, 0 };
-
-    bit_set(used_pins, dualTariffPin);
   }
 
   // Check override pins from the flexible override system
@@ -132,20 +161,16 @@ constexpr PinCheck check_pins()
       const uint8_t pin = overridePins.getPin(i);
       if (pin != unused_pin)
       {
-        if (bit_read(used_pins, pin))
+        if (!claimPin(used_pins, pin))
           return { false, 0 };
-
-        bit_set(used_pins, pin);
       }
     }
   }
 
   if (watchDogPin != unused_pin)
   {
-    if (bit_read(used_pins, watchDogPin))
+    if (!claimPin(used_pins, watchDogPin))
       return { false, 0 };
-
-    bit_set(used_pins, watchDogPin);
   }
 
   // physicalLoadPin: the local TRIACs, plus the optional status LED of each remote load
@@ -167,24 +192,20 @@ constexpr PinCheck check_pins()
     if (pin > 15)
       continue;
 
-    if (bit_read(used_pins, pin))
+    if (!claimPin(used_pins, pin))
       return { false, 0 };
-
-    bit_set(used_pins, pin);
   }
 
   if constexpr (RELAY_DIVERSION)
   {
-    for (uint8_t idx = 0; idx < relays.size(); ++idx)
+    for (uint8_t idx = 0; idx < relayDiverter.size(); ++idx)
     {
-      const auto relayPin = relays.get_relay(idx).get_pin();
+      const auto relayPin = relayDiverter.get_relay(idx).get_pin();
 
       if (relayPin != unused_pin)
       {
-        if (bit_read(used_pins, relayPin))
+        if (!claimPin(used_pins, relayPin))
           return { false, 0 };
-
-        bit_set(used_pins, relayPin);
       }
     }
   }
@@ -213,10 +234,13 @@ constexpr bool check_load_priorities()
 }
 
 /**
- * @brief Overrides reach the outputs through the load states and the relay engine only,
- *        so each override pin may only force local loads and relays.
+ * @brief Overrides and boosts reach the outputs through the load states and the relay engine
+ *        only, so each entry of @p list may only force local loads and relays.
+ *
+ * @tparam List OverridePins or ScheduledBoosts
  */
-constexpr bool check_override_targets()
+template< typename List >
+constexpr bool targetsAreOutputs(const List &list)
 {
   uint16_t outputs{ 0 };
 
@@ -228,30 +252,30 @@ constexpr bool check_override_targets()
 
   if constexpr (RELAY_DIVERSION)
   {
-    for (uint8_t idx = 0; idx < relays.size(); ++idx)
-      bit_set(outputs, relays.get_relay(idx).get_pin());
+    for (uint8_t idx = 0; idx < relayDiverter.size(); ++idx)
+      bit_set(outputs, relayDiverter.get_relay(idx).get_pin());
   }
 
-  if constexpr (OVERRIDE_PIN_PRESENT)
+  for (uint8_t i = 0; i != list.size(); ++i)
   {
-    for (uint8_t i = 0; i < overridePins.size(); ++i)
-    {
-      if (overridePins.getLocalBitmask(i) & ~outputs)
-        return false;
-    }
+    if (list.getLocalBitmask(i) & ~outputs)
+      return false;
   }
 
   return true;
 }
 
 /**
- * @brief Each REMOTE_LOAD(n) target of an override pin must be an existing remote load.
+ * @brief Each REMOTE_LOAD(n) target of an entry of @p list must be an existing remote load.
  *
  * @details REMOTE_LOAD() counts from 0: with two remote loads, REMOTE_LOAD(2) is a third one
- *          that does not exist, and the override pin would force nothing. A target from 8 on
- *          cannot be seen here: OverridePins already dropped it (8 bits per entry).
+ *          that does not exist, and the entry would force nothing. From 8 on, REMOTE_LOAD()
+ *          gives pin 0 (the masks hold 8 remote loads): targetsAreOutputs() rejects it.
+ *
+ * @tparam List OverridePins or ScheduledBoosts
  */
-constexpr bool check_override_remote_targets()
+template< typename List >
+constexpr bool targetsAreRemoteLoads(const List &list)
 {
   // a local load on a pin from 16 on lands in the remote range of LOAD(): isValidMap() reports it
   if (!Load::isValidMap(physicalLoadPin))
@@ -259,17 +283,38 @@ constexpr bool check_override_remote_targets()
     return true;
   }
 
-  if constexpr (OVERRIDE_PIN_PRESENT)
-  {
-    const uint16_t existing{ static_cast< uint16_t >((1U << NO_OF_REMOTE_LOADS) - 1) };
+  const uint16_t existing{ static_cast< uint16_t >((1U << NO_OF_REMOTE_LOADS) - 1) };
 
-    for (uint8_t i = 0; i < overridePins.size(); ++i)
-    {
-      if (overridePins.getRemoteBitmask(i) & ~existing)
-        return false;
-    }
+  for (uint8_t i = 0; i != list.size(); ++i)
+  {
+    if (list.getRemoteBitmask(i) & ~existing)
+      return false;
   }
 
+  return true;
+}
+
+/**
+ * @brief Each override pin may only force local loads and relays.
+ */
+constexpr bool check_override_targets()
+{
+  if constexpr (OVERRIDE_PIN_PRESENT)
+  {
+    return targetsAreOutputs(overrideTable);
+  }
+  return true;
+}
+
+/**
+ * @brief Each REMOTE_LOAD(n) target of an override pin must be an existing remote load.
+ */
+constexpr bool check_override_remote_targets()
+{
+  if constexpr (OVERRIDE_PIN_PRESENT)
+  {
+    return targetsAreRemoteLoads(overrideTable);
+  }
   return true;
 }
 
@@ -277,9 +322,9 @@ constexpr uint16_t check_relay_pins()
 {
   bool pins_ok{ true };
 
-  for (uint8_t idx = 0; idx < relays.size(); ++idx)
+  for (uint8_t idx = 0; idx < relayDiverter.size(); ++idx)
   {
-    const auto relayPin = relays.get_relay(idx).get_pin();
+    const auto relayPin = relayDiverter.get_relay(idx).get_pin();
 
     if constexpr (RELAY_DIVERSION)
     {
@@ -294,6 +339,21 @@ constexpr uint16_t check_relay_pins()
   return pins_ok;
 }
 
+/**
+ * @brief Each relay's minimum ON and OFF times fit in 16 bits of seconds: 1092 minutes at most.
+ */
+constexpr bool check_relay_minimum_times()
+{
+  for (uint8_t idx = 0; idx < relayDiverter.size(); ++idx)
+  {
+    if (!relayDiverter.get_relay(idx).hasValidMinimumTimes())
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
 static_assert(Load::hasValidRemoteUnits(physicalLoadPin), "******** Wrong remote unit ! Load::remote() takes a unit from 1 to 3. Please check physicalLoadPin in your config.h ! ********");
 static_assert(Load::isValidMap(physicalLoadPin), "******** Wrong load map ! Each local load needs a pin in 2..13. Please check physicalLoadPin in your config.h ! ********");
 static_assert(Load::maxLoadsPerUnit(physicalLoadPin) <= MAX_LOADS_PER_UNIT, "******** Too many loads on a single remote unit (one payload byte per unit) ! ********");
@@ -302,12 +362,21 @@ static_assert(sizeof(RFConfig::REMOTE_NODE_ID) >= NO_OF_REMOTE_UNITS * sizeof(RF
 static_assert(areValidNodeIds(RFConfig::REMOTE_NODE_ID, NO_OF_REMOTE_UNITS, RFConfig::ROUTER_NODE_ID), "******** Remote node IDs must be unique, differ from the router and lie between 1 and 30 ! ********");
 
 static_assert(check_load_priorities(), "******** Load Priorities wrong ! Please check your config ! ********");
+static_assert(PRIORITY_ROTATION == RotationModes::OFF || rotationGroups.size() != 0, "******** Priority rotation is on but rotationGroups is empty ! Please check rotationGroups in your config.h ! ********");
+static_assert(PRIORITY_ROTATION != RotationModes::OFF || rotationGroups.size() == 0, "******** rotationGroups is set but priority rotation is OFF ! Please check rotationGroups in your config.h ! ********");
+static_assert(Rotation::targetsAreLoads(rotationGroups, physicalLoadPin), "******** A rotation group names something that is not a load ! Please check rotationGroups in your config.h ! ********");
+static_assert(Rotation::groupsHaveTwoLoads(rotationGroups, physicalLoadPin), "******** A rotation group needs at least 2 loads ! Please check rotationGroups in your config.h ! ********");
+static_assert(Rotation::noLoadTwice(rotationGroups, physicalLoadPin), "******** A load is listed twice in rotationGroups ! Please check rotationGroups in your config.h ! ********");
+static_assert(Rotation::groupsAreConsistent(rotationGroups, physicalLoadPin), "******** A rotation group mixes local and remote loads, or loads of two remote units ! Please check rotationGroups in your config.h ! ********");
 static_assert(check_pins().unique, "******** Duplicate pin definition ! Please check your config ! ********");
 static_assert((check_pins().used & B00000011) == 0, "******** Pins 0 & 1 are reserved for RX/TX ! Please check your config ! ********");
-static_assert((check_pins().used & 0xC000) == 0, "******** Pins 14 and/or 15 do not exist ! Please check your config ! ********");
+static_assert((check_pins().used & 0xFFFFC000UL) == 0, "******** Pins 14 and above cannot be used (A0 to A5 are the analog inputs) ! Please check your config ! ********");
 static_assert(check_relay_pins(), "******** Wrong pin(s) configuration for relay(s) ********");
-static_assert(check_override_targets(), "******** An override pin forces a pin that is neither a local load nor a relay ! Please check overridePins in your config.h ! ********");
+static_assert(check_relay_minimum_times(), "******** A relay's minimum ON or OFF time cannot exceed 1092 minutes (about 18 hours) ! Please check relays in your config.h ! ********");
+static_assert(check_override_targets(), "******** An override pin forces a pin that is neither a local load nor a relay (REMOTE_LOAD() goes up to 7) ! Please check overridePins in your config.h ! ********");
 static_assert(check_override_remote_targets(), "******** An override pin forces a remote load that does not exist ! REMOTE_LOAD(n) counts from 0. Please check overridePins in your config.h ! ********");
+static_assert(!DUAL_TARIFF || targetsAreOutputs(boostSchedule), "******** A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on? REMOTE_LOAD() goes up to 7). Please check scheduledBoosts in your config.h ! ********");
+static_assert(!DUAL_TARIFF || targetsAreRemoteLoads(boostSchedule), "******** A scheduled boost forces a remote load that does not exist (REMOTE_LOAD() counts from 0). Please check scheduledBoosts in your config.h ! ********");
 
 static_assert(!(RF_CHIP_PRESENT && ((check_pins().used & 0x3C04) != 0)), "******** Pins from RF chip are reserved ! Please check your config ! ********");
 static_assert(!(RF_CHIP_PRESENT && (SharedRF::ROUTER_NODE_ID < 1 || SharedRF::ROUTER_NODE_ID > 30)), "******** RF node ID must be between 1 and 30 ! ********");

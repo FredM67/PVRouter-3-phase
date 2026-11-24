@@ -3,16 +3,17 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Public functions/variables of processing engine
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2021-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  */
 
 #ifndef PROCESSING_H
 #define PROCESSING_H
 
-#include "config.h"
+#include "config_derived.h"
 
 inline uint8_t loadPrioritiesAndState[NO_OF_DUMPLOADS]; /**< load priorities */
 
@@ -22,7 +23,7 @@ inline constexpr uint16_t initialDelay{ 3000 };  /**< in milli-seconds, to allow
 inline constexpr uint16_t startUpPeriod{ 3000 }; /**< in milli-seconds, to allow LP filter to settle */
 
 // one temperature per sensor, only with temperature sensing (TEMP_SENSOR_PRESENT is a constexpr, not a macro)
-inline PayloadTx_struct< NO_OF_PHASES, TEMP_SENSOR_PRESENT ? temperatureSensing.size() : 0 > tx_data; /**< logging data */
+inline PayloadTx_struct< NO_OF_PHASES, TEMP_SENSOR_PRESENT ? tempSensors.size() : 0 > tx_data; /**< logging data */
 
 void printParamsForSelectedOutputMode();
 
@@ -38,15 +39,11 @@ inline void processRawSamples(const uint8_t phase);
 inline void processVoltage(uint8_t phase);
 inline void processPolarity(uint8_t phase, uint16_t rawSample);
 inline void confirmPolarity(uint8_t phase);
-inline void proceedLowEnergyLevel(int32_t l_energy);
-inline void proceedHighEnergyLevel(int32_t l_energy);
-inline uint8_t nextLogicalLoadToBeAdded();
-inline uint8_t nextLogicalLoadToBeRemoved();
 inline void processLatestContribution(uint8_t phase);
 inline int32_t predictEnergyInBucket(uint8_t n);
 inline void processDataLogging();
 inline void updatePortsStates();
-inline void updatePhysicalLoadStates();
+void updatePhysicalLoadStates();
 #else
 // -O3 on a function that is a call of its own: here 50 bytes smaller than with -Os
 void initializeProcessing() __attribute__((optimize("-O3")));
@@ -61,20 +58,16 @@ inline void processRawSamples(const uint8_t phase) __attribute__((always_inline)
 inline void processVoltage(uint8_t phase) __attribute__((always_inline));
 inline void processPolarity(uint8_t phase, uint16_t rawSample) __attribute__((always_inline));
 inline void confirmPolarity(uint8_t phase) __attribute__((always_inline));
-inline void proceedLowEnergyLevel(int32_t l_energy) __attribute__((always_inline));
-inline void proceedHighEnergyLevel(int32_t l_energy) __attribute__((always_inline));
-inline uint8_t nextLogicalLoadToBeAdded() __attribute__((always_inline));
-inline uint8_t nextLogicalLoadToBeRemoved() __attribute__((always_inline));
 inline void processLatestContribution(uint8_t phase) __attribute__((always_inline));
 inline int32_t predictEnergyInBucket(uint8_t n) __attribute__((always_inline));
 inline void processDataLogging() __attribute__((always_inline));
-// An inlined function is compiled with the options of the ISR it lands in: an optimize() attribute
-// on it changes nothing (same firmware, to the byte). updatePortsStates() is a call: -O3 unrolls
-// its load loop into constant masks (grid simulator: 38 cycles less on average, 88 less at most).
+// An inlined function is compiled with the options of the function it lands in: an optimize()
+// attribute on it changes nothing. updatePortsStates() is a call: -O3 unrolls its load loop into
+// constant masks (grid simulator: 38 cycles less on average, 88 less at most).
 inline void updatePortsStates() __attribute__((optimize("-O3")));
 // not inlined on purpose: inlined, it takes registers that the rest of the ISR then spills to a
 // stack frame on every call (grid simulator: 30 cycles more on average, 65 more at most)
-inline void updatePhysicalLoadStates() __attribute__((noinline));
+void updatePhysicalLoadStates() __attribute__((noinline));
 #endif
 
 #endif /* PROCESSING_H */

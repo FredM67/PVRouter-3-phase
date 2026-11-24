@@ -15,8 +15,12 @@
  * payload's bits once it has been sent, and they drop out when no frame arrives
  * within the receiver's link timeout, like RemoteLoadReceiver does.
  *
- * Measured: ADC conversion period, ADC ISR duration (cycle-exact), load switching,
- * RF frames, grid import/export energy, and the firmware's own serial output.
+ * DS18B20 temperature sensors can sit on a 1-Wire bus (ds18b20.c): the firmware reads them as on
+ * the board, and the timing of its bus I/O against the mains cycle is measured.
+ *
+ * Measured: ADC conversion period, ADC ISR duration (cycle-exact), delay of its ADMUX write, load switching,
+ * RF frames, grid import/export energy, 1-Wire bus timing, the temperatures reported, and the firmware's
+ * own serial output.
  *
  * Usage: grid_sim [-q] [-t trace.csv] [-e events.csv] firmware.elf scenario.scn
  *
@@ -37,8 +41,10 @@
 #include "avr_adc.h"
 #include "avr_ioport.h"
 #include "avr_uart.h"
+#include "ds18b20.h"
 #include "rfm69.h"
 #include "sim_avr.h"
+#include "sim_core.h"
 #include "sim_elf.h"
 #include "sim_interrupts.h"
 
@@ -48,6 +54,7 @@
 #define ADC_MID_COUNTS 511.5           /* bias of the analog front end */
 #define ADC_MAX_SWING 510.0            /* counts, either side of the bias */
 #define ADMUX_ADDR 0x7C                /* ADMUX in the data space of the ATmega328P */
+#define ADC_CLOCK_CYCLES 128           /* one ADC clock at F_CPU / 128 */
 #define AVCC_MV 5000.0                 /* old board: ADC reference AVCC, the 5 V supply */
 #define INTERNAL_REF_MV 1100.0         /* new board: internal 1.1 V reference */
 #define NO_OF_PHASES 3
@@ -62,6 +69,7 @@
 #define MAX_RECEIVERS 8
 #define MAX_RECEIVER_PINS 8
 #define MAX_RF_DROPS 16
+#define MAX_TEMPERATURES 8 /* T1 to T8 of the datalog */
 
 #define RF_CS_PORT 'B' /* D10 */
 #define RF_CS_BIT 2
@@ -79,17 +87,21 @@ typedef struct
 
 typedef enum
 {
-  EXPECT_PIN,      /* expect <t> pin <p> on|off   or   expect <t> remote <node> <bit> on|off */
-  EXPECT_GRID_AVG, /* expect <t0> <t1> grid_avg <min> <max>  (W, import > 0, all phases) */
-  EXPECT_ISR_MAX,  /* expect isr_max <cycles> */
-  EXPECT_MIN_SETS, /* expect min_sample_sets <n>  (lowest value reported by the firmware) */
-  EXPECT_OVERRUNS, /* expect isr_overruns <n>  (ISR calls longer than one conversion, at most) */
-  EXPECT_MISFILED, /* expect misfiled_samples <n>  (conversions filed under the wrong channel, at most) */
-  EXPECT_RF_GAP,   /* expect rf_max_gap <node> <s>  (longest silence towards a node, once it got a frame) */
-  EXPECT_RF_LOST,  /* expect rf_links_lost <node> <min> <max>  (times the node's receiver lost the link) */
-  EXPECT_SWITCHES, /* expect switches <pin> <min> <max>  (switch-ons of a load or relay) */
-  EXPECT_MIN_ON,   /* expect min_on <pin> <s>  (shortest complete ON period, at least) */
-  EXPECT_MIN_OFF,  /* expect min_off <pin> <s>  (shortest complete OFF period between two ON ones, at least) */
+  EXPECT_PIN,         /* expect <t> pin <p> on|off   or   expect <t> remote <node> <bit> on|off */
+  EXPECT_GRID_AVG,    /* expect <t0> <t1> grid_avg <min> <max>  (W, import > 0, all phases) */
+  EXPECT_ISR_MAX,     /* expect isr_max <cycles> */
+  EXPECT_MIN_SETS,    /* expect min_sample_sets <n>  (lowest value reported by the firmware) */
+  EXPECT_OVERRUNS,    /* expect isr_overruns <n>  (ISR calls longer than one conversion, at most) */
+  EXPECT_MISFILED,    /* expect misfiled_samples <n>  (conversions filed under the wrong channel, at most) */
+  EXPECT_ADMUX,       /* expect admux_delay_min <cycles>  (ADMUX written by the ISR this long after its conversion started, at least) */
+  EXPECT_ADMUX_MAX,   /* expect admux_delay_max <cycles>  (the same, at most: the ceiling of a build with 1-Wire transactions) */
+  EXPECT_RF_GAP,      /* expect rf_max_gap <node> <s>  (longest silence towards a node, once it got a frame) */
+  EXPECT_RF_LOST,     /* expect rf_links_lost <node> <min> <max>  (times the node's receiver lost the link) */
+  EXPECT_SWITCHES,    /* expect switches <pin> <min> <max>  (switch-ons of a load or relay) */
+  EXPECT_MIN_ON,      /* expect min_on <pin> <s>  (shortest complete ON period, at least) */
+  EXPECT_MIN_OFF,     /* expect min_off <pin> <s>  (shortest complete OFF period between two ON ones, at least) */
+  EXPECT_EARLY_READS, /* expect ds18b20_early_reads <n>  (scratchpads read before the end of their conversion, at most) */
+  EXPECT_TEMPERATURE, /* expect temperature <n> <min> <max>  (every T<n> the datalog reports, at least one) */
 } expect_kind_t;
 
 typedef struct
@@ -116,6 +128,12 @@ typedef struct
   double t0, t1;
   int node; /* 0: every node */
 } rf_drop_t;
+
+typedef struct
+{
+  double celsius;
+  uint8_t rom[8];
+} sensor_t;
 
 typedef struct
 {
@@ -157,9 +175,12 @@ static struct
   int no_of_receiver_pins;
   rf_drop_t rf_drops[MAX_RF_DROPS]; /* frames lost in these windows */
   int no_of_rf_drops;
-  double rf_loss;      /* share of frames lost at random, in % */
-  int rf_absent;       /* the router's RFM69 does not answer */
-  int rf_loss_max_run; /* at most this many frames lost at random in a row, per node; 0: no limit */
+  double rf_loss;                /* share of frames lost at random, in % */
+  int rf_absent;                 /* the router's RFM69 does not answer */
+  int rf_loss_max_run;           /* at most this many frames lost at random in a row, per node; 0: no limit */
+  sensor_t sensors[DS18B20_MAX]; /* DS18B20 on the 1-Wire bus */
+  int no_of_sensors;
+  int sensor_pin;
   char name[PATH_MAX];
 } scn = {
   .duration = 60.0,
@@ -292,6 +313,29 @@ static void parse_scenario(const char *path, int depth)
       if (ok)
         ++scn.no_of_inputs;
     }
+    else if (!strcmp(cmd, "ds18b20"))
+    {
+      /* ds18b20 <pin> <degrees C> <ROM code, 8 bytes in hex>: a sensor on the 1-Wire bus of <pin> */
+      if (scn.no_of_sensors == DS18B20_MAX)
+        die("%s:%d: too many DS18B20", path, lineno);
+      sensor_t *s = &scn.sensors[scn.no_of_sensors];
+      unsigned r[8];
+      int pin;
+      ok = sscanf(args, "%d %lf %x %x %x %x %x %x %x %x", &pin, &s->celsius, &r[0], &r[1], &r[2], &r[3], &r[4], &r[5],
+                  &r[6], &r[7])
+             == 10
+           && pin >= 0 && pin <= 13 && (!scn.no_of_sensors || pin == scn.sensor_pin);
+      for (int k = 0; ok && k < 8; ++k)
+      {
+        ok = r[k] <= 0xff;
+        s->rom[k] = (uint8_t)r[k];
+      }
+      if (ok)
+      {
+        scn.sensor_pin = pin;
+        ++scn.no_of_sensors;
+      }
+    }
     else if (!strcmp(cmd, "at"))
     {
       if (scn.no_of_points == MAX_POINTS)
@@ -319,6 +363,10 @@ static void parse_scenario(const char *path, int depth)
         e->kind = EXPECT_OVERRUNS;
       else if (sscanf(args, " misfiled_samples %lf", &e->hi) == 1)
         e->kind = EXPECT_MISFILED;
+      else if (sscanf(args, " admux_delay_min %lf", &e->lo) == 1)
+        e->kind = EXPECT_ADMUX;
+      else if (sscanf(args, " admux_delay_max %lf", &e->hi) == 1)
+        e->kind = EXPECT_ADMUX_MAX;
       else if (sscanf(args, " rf_max_gap %d %lf", &e->node, &e->hi) == 2)
         e->kind = EXPECT_RF_GAP;
       else if (sscanf(args, " rf_links_lost %d %lf %lf", &e->node, &e->lo, &e->hi) == 3 && e->hi >= e->lo)
@@ -329,6 +377,11 @@ static void parse_scenario(const char *path, int depth)
         e->kind = EXPECT_MIN_ON;
       else if (sscanf(args, " min_off %d %lf", &e->pin, &e->lo) == 2)
         e->kind = EXPECT_MIN_OFF;
+      else if (sscanf(args, " ds18b20_early_reads %lf", &e->hi) == 1)
+        e->kind = EXPECT_EARLY_READS;
+      else if (sscanf(args, " temperature %d %lf %lf", &e->node, &e->lo, &e->hi) == 3 && e->node >= 1
+               && e->node <= MAX_TEMPERATURES && e->hi >= e->lo)
+        e->kind = EXPECT_TEMPERATURE;
       else if (sscanf(args, "%lf pin %d %31s", &t, &e->pin, a) == 3 && (!strcmp(a, "on") || !strcmp(a, "off")))
       {
         e->kind = EXPECT_PIN;
@@ -424,7 +477,30 @@ static struct
   avr_cycle_count_t max;
   double max_at;
   uint64_t overruns; /* calls longer than one conversion: the next sample may use the wrong channel */
+  int running;
 } isr;
+
+/* ADMUX writes of the ADC ISR, timed from the start of the conversion in progress.
+ * Free-running, a conversion starts when the previous one completes and raises the
+ * interrupt. The ATmega328P datasheet (24.5) allows changing ADMUX during a conversion
+ * only one ADC clock (128 CPU cycles) or more after it started: earlier, the conversion
+ * that just started may already take the new channel. The simulated ADC locks the
+ * channel at the very start, so misfiled_samples cannot see such a write: this does. */
+static struct
+{
+  avr_cycle_count_t conversion_started;
+  uint64_t writes;
+  uint64_t early; /* less than one ADC clock after the conversion started */
+  avr_cycle_count_t min, max;
+  double min_at;
+} admux = { .min = UINT64_MAX };
+
+/* the temperatures of the datalog (", T<n>:<value>"): lines with it, lowest, highest */
+typedef struct
+{
+  int lines;
+  double min, max;
+} reported_t;
 
 static struct
 {
@@ -432,7 +508,10 @@ static struct
   size_t len;
   int datalog_lines;
   int min_sets, max_sets;
+  reported_t temperature[MAX_TEMPERATURES];
 } serial = { .min_sets = INT_MAX, .max_sets = INT_MIN };
+
+static ds18b20_bus_t onewire;
 
 /* a remote unit running the receiver firmware in its own simulated AVR */
 typedef struct
@@ -669,6 +748,7 @@ static void isr_hook(struct avr_irq_t *irq, uint32_t value, void *param)
   (void)irq;
   (void)param;
 
+  isr.running = (int)value;
   if (value)
   {
     isr.started = avr->cycle;
@@ -684,6 +764,35 @@ static void isr_hook(struct avr_irq_t *irq, uint32_t value, void *param)
     isr.max = duration;
     isr.max_at = now();
   }
+}
+
+/* the ADC interrupt is raised: free-running, the next conversion starts now */
+static void adc_pending_hook(struct avr_irq_t *irq, uint32_t value, void *param)
+{
+  (void)irq;
+  (void)param;
+  if (value)
+    admux.conversion_started = avr->cycle;
+}
+
+static void admux_write(struct avr_t *mcu, avr_io_addr_t addr, uint8_t v, void *param)
+{
+  (void)param;
+  avr_core_watch_write(mcu, addr, v);
+  /* setup() writes it too, before the ADC runs: only the ISR's writes count */
+  if (!isr.running || !admux.conversion_started)
+    return;
+  const avr_cycle_count_t delay = mcu->cycle - admux.conversion_started;
+  ++admux.writes;
+  if (delay < ADC_CLOCK_CYCLES)
+    ++admux.early;
+  if (delay < admux.min)
+  {
+    admux.min = delay;
+    admux.min_at = now();
+  }
+  if (delay > admux.max)
+    admux.max = delay;
 }
 
 /* the input of a load's power stage changes: an output pin, or a remote receiver */
@@ -842,6 +951,22 @@ static void rf_frame(const rfm69_frame_t *f, void *param)
 
 static void serial_line(const char *line)
 {
+  /* ", T<n>:<value>" (TEMP_SENSOR_PRESENT), for each valid temperature */
+  for (const char *t = strstr(line, ", T"); t; t = strstr(t + 3, ", T"))
+  {
+    int n;
+    double c;
+    if (sscanf(t, ", T%d:%lf", &n, &c) == 2 && n >= 1 && n <= MAX_TEMPERATURES)
+    {
+      reported_t *st = &serial.temperature[n - 1];
+      if (!st->lines || c < st->min)
+        st->min = c;
+      if (!st->lines || c > st->max)
+        st->max = c;
+      ++st->lines;
+    }
+  }
+
   const char *p = strstr(line, "minSampleSets/MC ");
   if (p)
   {
@@ -921,12 +1046,38 @@ static int bit_of(int pin)
   return (pin < 8) ? pin : pin - 8;
 }
 
+/* the levels the input pins read (PORTD, PORTB), and the pins the DS18B20 hold low */
+static uint8_t ext[2] = { 0xff, 0xff }, ext_held_low[2];
+
+static void set_external(void)
+{
+  avr_ioport_external_t ext_d = { .name = 'D', .mask = 0xff, .value = ext[0] & ~ext_held_low[0] };
+  avr_ioport_external_t ext_b = { .name = 'B', .mask = 0xff, .value = ext[1] & ~ext_held_low[1] };
+  avr_ioctl(avr, AVR_IOCTL_IOPORT_SET_EXTERNAL('D'), &ext_d);
+  avr_ioctl(avr, AVR_IOCTL_IOPORT_SET_EXTERNAL('B'), &ext_b);
+}
+
+/* the DS18B20 pull their bus low, or release it: the level of the pin as an input, at once */
+static void onewire_level(int low, void *param)
+{
+  (void)param;
+  const int pin = scn.sensor_pin;
+  uint8_t *held = &ext_held_low[port_of(pin) == 'B'];
+  const uint8_t mask = (uint8_t)(1U << bit_of(pin));
+  *held = low ? (*held | mask) : (*held & ~mask);
+  set_external();
+  const uint8_t level = ext[port_of(pin) == 'B'] & ~*held & mask;
+  avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ(port_of(pin)), bit_of(pin)), level ? 1 : 0);
+}
+
 /* Drives the input pins with their levels at time t: unconnected inputs read HIGH, like the
  * firmware's pull-ups; for each pin, the latest 'input' line at or before t wins.
+ * simavr copies the external levels into PINx only when the firmware writes the port, so the
+ * pin of each 'input' line also gets its level at once, as on the chip (see onewire_level).
  * Returns when the next level change is due. */
 static double apply_inputs(double t)
 {
-  uint8_t ext[2] = { 0xff, 0xff }; /* PORTD, PORTB */
+  ext[0] = ext[1] = 0xff;
   double since[14];
   double next = INFINITY;
 
@@ -948,10 +1099,15 @@ static double apply_inputs(double t)
     const uint8_t mask = (uint8_t)(1U << bit_of(in->pin));
     *e = in->value ? (*e | mask) : (*e & ~mask);
   }
-  avr_ioport_external_t ext_d = { .name = 'D', .mask = 0xff, .value = ext[0] };
-  avr_ioport_external_t ext_b = { .name = 'B', .mask = 0xff, .value = ext[1] };
-  avr_ioctl(avr, AVR_IOCTL_IOPORT_SET_EXTERNAL('D'), &ext_d);
-  avr_ioctl(avr, AVR_IOCTL_IOPORT_SET_EXTERNAL('B'), &ext_b);
+  set_external();
+  for (int pin = 0; pin < 14; ++pin)
+  {
+    if (since[pin] < 0)
+      continue;
+    const int b = port_of(pin) == 'B';
+    const int level = ((ext[b] & ~ext_held_low[b]) >> bit_of(pin)) & 1;
+    avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ(port_of(pin)), bit_of(pin)), level);
+  }
   return next;
 }
 
@@ -1017,6 +1173,16 @@ static int report_expects(void)
         snprintf(what, sizeof what, "samples filed under the wrong channel at most %.0f: %llu", e->hi,
                  (unsigned long long)adc.misfiled);
         break;
+      case EXPECT_ADMUX:
+        e->passed = admux.writes && admux.min >= e->lo;
+        snprintf(what, sizeof what, "ADMUX written at least %.0f cycles after its conversion started: %llu", e->lo,
+                 admux.writes ? (unsigned long long)admux.min : 0ULL);
+        break;
+      case EXPECT_ADMUX_MAX:
+        e->passed = admux.writes && admux.max <= e->hi;
+        snprintf(what, sizeof what, "ADMUX written at most %.0f cycles after its conversion started: %llu", e->hi,
+                 admux.writes ? (unsigned long long)admux.max : 0ULL);
+        break;
       case EXPECT_RF_GAP:
         {
           const struct rf_node *n = NULL;
@@ -1066,6 +1232,28 @@ static int report_expects(void)
               snprintf(what, sizeof what, "D%d %s at least %g s: %.3f s", e->pin, on ? "ON" : "OFF", e->lo,
                        e->measured);
           }
+          break;
+        }
+      case EXPECT_EARLY_READS:
+        {
+          unsigned early = 0;
+          for (int j = 0; j < onewire.no_of_devs; ++j)
+            early += onewire.dev[j].early_reads;
+          e->measured = early;
+          e->passed = onewire.no_of_devs && e->measured <= e->hi;
+          snprintf(what, sizeof what, "DS18B20 scratchpads read before the end of their conversion at most %.0f: %.0f",
+                   e->hi, e->measured);
+          break;
+        }
+      case EXPECT_TEMPERATURE:
+        {
+          const reported_t *st = &serial.temperature[e->node - 1];
+          e->passed = st->lines && st->min >= e->lo && st->max <= e->hi;
+          if (st->lines)
+            snprintf(what, sizeof what, "T%d reported in [%g, %g]: %.2f to %.2f, in %d of %d datalog lines", e->node,
+                     e->lo, e->hi, st->min, st->max, st->lines, serial.datalog_lines);
+          else
+            snprintf(what, sizeof what, "T%d reported in [%g, %g]: never reported", e->node, e->lo, e->hi);
           break;
         }
       case EXPECT_MIN_SETS:
@@ -1153,6 +1341,8 @@ int main(int argc, char *argv[])
 
   avr_irq_register_notify(avr_io_getirq(avr, AVR_IOCTL_ADC_GETIRQ, ADC_IRQ_OUT_TRIGGER), adc_trigger_hook, NULL);
   avr_irq_register_notify(avr_get_interrupt_irq(avr, ADC_VECTOR) + AVR_INT_IRQ_RUNNING, isr_hook, NULL);
+  avr_irq_register_notify(avr_get_interrupt_irq(avr, ADC_VECTOR) + AVR_INT_IRQ_PENDING, adc_pending_hook, NULL);
+  avr_register_io_write(avr, ADMUX_ADDR, admux_write, NULL);
 
   double next_input_t = apply_inputs(0);
 
@@ -1165,6 +1355,13 @@ int main(int argc, char *argv[])
   }
   rfm69_init(&rf.chip, avr, RF_CS_PORT, RF_CS_BIT, rf_frame, &rf.chip);
   rf.chip.absent = scn.rf_absent;
+
+  if (scn.no_of_sensors)
+  {
+    ds18b20_init(&onewire, avr, port_of(scn.sensor_pin), bit_of(scn.sensor_pin), scn.frequency, onewire_level, NULL);
+    for (int i = 0; i < scn.no_of_sensors; ++i)
+      ds18b20_add(&onewire, scn.sensors[i].celsius, scn.sensors[i].rom);
+  }
 
   /* remote units running the receiver firmware: its load pins drive their remote loads */
   for (int r = 0; r < no_of_receivers; ++r)
@@ -1238,6 +1435,10 @@ int main(int argc, char *argv[])
   if (adc.misfiled)
     printf(", first at %.3f s", adc.first_misfiled);
   printf("\n");
+  if (admux.writes)
+    printf("ADC       ADMUX written %llu-%llu cycles after its conversion started (at least %d), min at %.3f s%s\n",
+           (unsigned long long)admux.min, (unsigned long long)admux.max, ADC_CLOCK_CYCLES, admux.min_at,
+           admux.early ? ", TOO EARLY" : "");
   if (isr.count)
     printf("ADC ISR   average %.1f cycles, max %llu cycles (%.1f us) at %.3f s, %llu of %llu calls over %d cycles\n",
            (double)isr.total / isr.count, (unsigned long long)isr.max, isr.max * 1e6 / F_CPU, isr.max_at,
@@ -1245,6 +1446,11 @@ int main(int argc, char *argv[])
   if (serial.datalog_lines)
     printf("Datalog   %d lines, min sample sets per mains cycle %d-%d\n", serial.datalog_lines, serial.min_sets,
            serial.max_sets);
+  for (int n = 0; n < MAX_TEMPERATURES; ++n)
+    if (serial.temperature[n].lines)
+      printf("Datalog   T%d in %d lines, %.2f to %.2f C\n", n + 1, serial.temperature[n].lines, serial.temperature[n].min,
+             serial.temperature[n].max);
+  ds18b20_report(&onewire);
   for (int i = 0; i < scn.no_of_loads; ++i)
   {
     const load_t *l = &scn.loads[i];

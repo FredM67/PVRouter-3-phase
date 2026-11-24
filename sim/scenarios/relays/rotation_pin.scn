@@ -1,0 +1,16 @@
+# Rotation pin (D12) pressed for a moment: the load priorities rotate. With 1800 W of
+# surplus, the first load in priority runs fully, the second takes the rest, the third
+# stays OFF. Priorities 0, 1, 2 (D5, D6, D7) become 2, 0, 1: D7 runs, D6 stays OFF.
+include common.scn
+duration 60
+
+at 0   600 600 600
+at 60  600 600 600
+
+input 12 0 30           # pressed
+input 12 1 32           # released
+
+expect 28 pin 5 on
+expect 28 pin 7 off
+expect 45 pin 7 on
+expect 45 pin 6 off

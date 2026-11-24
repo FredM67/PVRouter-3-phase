@@ -1,16 +1,16 @@
 name: Greetings
 
-on: [pull_request_target, issues]
+# Issues only: outside pull requests hardly ever come, and greeting them would need
+# pull_request_target, which GitHub blocks by default on public repositories from December 2026.
+on: [issues]
 
 jobs:
   greeting:
     runs-on: ubuntu-latest
     permissions:
       issues: write
-      pull-requests: write
     steps:
     - uses: actions/first-interaction@v3
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         issue_message: 'Hello @${{ github.actor }} , thank you for submitting an issue!'
-        pr_message: 'Hello @${{ github.actor }} , thank you for submitting a pull request!'

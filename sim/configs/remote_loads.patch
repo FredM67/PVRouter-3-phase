@@ -2,19 +2,19 @@ Firmware for scenarios/rf: the project's config with the third and fourth loads
 on remote units 1 and 2 (nodes 15 and 16, REMOTE_NODE_ID in config_rf.h).
 
   git apply --unidiff-zero sim/configs/remote_loads.patch
-  pio run --project-dir Mk2_3phase_RFdatalog_temp -e rf
+  PLATFORMIO_BUILD_DIR=.pio/build-rf pio run --project-dir Mk2_3phase_RFdatalog_temp -e basic
 
 diff --git a/Mk2_3phase_RFdatalog_temp/config.h b/Mk2_3phase_RFdatalog_temp/config.h
-index 971f5118..96fa9958 100644
+index c2e358a4..2a9bb904 100644
 --- a/Mk2_3phase_RFdatalog_temp/config.h
 +++ b/Mk2_3phase_RFdatalog_temp/config.h
-@@ -43 +43 @@ inline constexpr bool CALIBRATION_MODE{ false };
+@@ -40 +40 @@ inline constexpr bool CALIBRATION_MODE{ false };
 -inline constexpr uint8_t NO_OF_DUMPLOADS{ 3 }; /**< TOTAL number of dump loads (local + remote) */
 +inline constexpr uint8_t NO_OF_DUMPLOADS{ 4 }; /**< TOTAL number of dump loads (local + remote) */
-@@ -56 +56,2 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
+@@ -53 +53,2 @@ inline constexpr uint8_t physicalLoadPin[NO_OF_DUMPLOADS]{
 -  Load::local(7)
 +  Load::remote(1),
 +  Load::remote(2)
-@@ -130 +131 @@ inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF
+@@ -91 +92 @@ inline constexpr bool RF_LOGGING_PRESENT{ false };   /**< set it to 'true' if RF
 -inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /**< load priorities at startup (0=highest) */
 +inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2, 3 }; /**< load priorities at startup (0=highest) */

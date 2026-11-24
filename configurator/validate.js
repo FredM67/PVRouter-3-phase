@@ -7,6 +7,8 @@
  *
  * Each problem: { level: 'error' | 'warning', key, params, field }. 'key' is an i18n key
  * (i18n.js), 'field' the setting to highlight.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(require('./model.js'));
@@ -25,7 +27,7 @@
 
     // ---- general (config_system.h) ----
     if (m.supplyFrequency !== 50 && m.supplyFrequency !== 60) error('err.frequency', 'supplyFrequency');
-    if (!inRange(m.datalogPeriod, 1, 40)) error('err.datalogPeriod', 'datalogPeriod');
+    if (!inRange(m.datalogPeriod, 1, 30)) error('err.datalogPeriod', 'datalogPeriod');
     if (!inRange(m.requiredExport, -32768, 32767)) error('err.requiredExport', 'requiredExport');
     if (!inRange(m.diversionStartThreshold, 0, 32767)) error('err.diversionStart', 'diversionStartThreshold');
     if (!M.SERIAL_OUTPUTS.includes(m.serialOutput)) error('err.serialOutput', 'serialOutput');
@@ -85,13 +87,30 @@
     needPin(m.diversion.enabled, m.diversion.pin, 'err.diversionPin', 'diversion');
     needPin(m.routerOff.enabled, m.routerOff.pin, 'err.routerOffPin', 'routerOff');
     needPin(m.rotation.mode === 'PIN', m.rotation.pin, 'err.rotationPin', 'rotation');
+    needPin(M.tempSensorPresent(m) && m.pcbVersion === 'OLD', m.temperature.pin, 'err.tempPin', 'temperature');
     needPin(m.watchdog.enabled, m.watchdog.pin, 'err.watchdogPin', 'watchdog');
     needPin(m.dualTariff.enabled, m.dualTariff.pin, 'err.dualTariffPin', 'dualTariff');
-    needPin(M.tempSensorPresent(m), m.temperature.pin, 'err.tempPin', 'temperature');
     if (!M.ROTATION_MODES.includes(m.rotation.mode)) error('err.rotationMode', 'rotation');
-    // the firmware counts the seconds in 16 bits (validation.h)
-    if (!inRange(m.rotation.afterSeconds, 1, 65534)) error('err.rotationAfter', 'rotation');
-    if (m.dualTariff.enabled && m.rotation.mode !== 'OFF') warning('warn.rotationDualTariff', 'rotation');
+    if (M.rotationDelayShown(m) && !M.rotationDelayValid(m.rotation.afterSeconds)) error('err.rotationAfter', 'rotation');
+    // rotation groups (validation.h): with rotation OFF, rotationGroups is written empty
+    if (m.rotation.mode !== 'OFF') {
+      const groups = m.rotation.groups || [];
+      const seen = new Set();
+      let twice = false;
+      if (!groups.length) error('err.rotationNoGroup', 'rotation');
+      groups.forEach((g, i) => {
+        const group = i + 1;
+        const missing = g.find((l) => !inRange(l, 0, n - 1));
+        if (missing !== undefined) return error('err.rotationNotALoad', 'rotation', { group, load: missing + 1 });
+        if (new Set(g).size < 2) error('err.rotationGroupSmall', 'rotation', { group });
+        for (const l of g) {
+          if (seen.has(l)) twice = true;
+          seen.add(l);
+        }
+        if (new Set(g.map((l) => m.loads[l].type === 'local' ? 0 : m.loads[l].unit)).size > 1) error('err.rotationGroupMixed', 'rotation', { group });
+      });
+      if (twice) error('err.rotationLoadTwice', 'rotation');
+    }
 
     // ---- relays ----
     const relays = m.relays.enabled ? m.relays.list : [];
@@ -110,35 +129,30 @@
       });
     }
 
+    // ---- what an override pin or a boost forces (validation.h: targetsAreOutputs) ----
+    const checkTargets = (t, field, index, keys) => {
+      if (typeof t === 'string') {
+        if (!M.OVERRIDE_GROUPS.includes(t)) error(keys.targets, field, { index });
+        if (t === 'ALL_RELAYS' && !m.relays.enabled) error(keys.noRelay, field, { index });
+        if (keys.nothing && t === 'ALL_REMOTE_LOADS' && !remote) warning(keys.nothing, field, { index });
+        if (keys.nothing && t === 'ALL_LOCAL_LOADS' && remote === n) warning(keys.nothing, field, { index });
+      } else if (!Array.isArray(t) || !t.length) error(keys.targets, field, { index });
+      else
+        for (const x of t) {
+          if ('relay' in x) {
+            if (!m.relays.enabled) error(keys.noRelay, field, { index });
+            else if (!inRange(x.relay, 0, relays.length - 1)) error(keys.relay, field, { index, relay: x.relay + 1 });
+          } else if (!inRange(x.load, 0, n - 1)) error(keys.load, field, { index, load: x.load + 1 });
+        }
+    };
+
     // ---- overrides ----
     if (M.overridePresent(m)) {
+      const keys = { targets: 'err.overrideTargets', noRelay: 'err.overrideNoRelay', relay: 'err.overrideRelay', load: 'err.overrideLoad', nothing: 'warn.overrideNothing' };
       m.overrides.list.forEach((o, i) => {
         const field = `overrides.${i}`;
         if (!isRouterPin(o.pin)) error('err.overridePin', field, { index: i + 1 });
-        const t = o.targets;
-        if (typeof t === 'string') {
-          if (!M.OVERRIDE_GROUPS.includes(t)) error('err.overrideTargets', field, { index: i + 1 });
-          if (t === 'ALL_RELAYS' && !m.relays.enabled) error('err.overrideNoRelay', field, { index: i + 1 });
-          if (t === 'ALL_REMOTE_LOADS' && !remote) warning('warn.overrideNothing', field, { index: i + 1 });
-          if (t === 'ALL_LOCAL_LOADS' && remote === n) warning('warn.overrideNothing', field, { index: i + 1 });
-        } else if (!Array.isArray(t) || !t.length) error('err.overrideTargets', field, { index: i + 1 });
-        else
-          for (const x of t) {
-            if ('relay' in x) {
-              if (!m.relays.enabled) error('err.overrideNoRelay', field, { index: i + 1 });
-              else if (!inRange(x.relay, 0, relays.length - 1)) error('err.overrideRelay', field, { index: i + 1, relay: x.relay + 1 });
-            } else if (!inRange(x.load, 0, n - 1)) error('err.overrideLoad', field, { index: i + 1, load: x.load + 1 });
-          }
-      });
-    }
-
-    // ---- dual tariff ----
-    if (m.dualTariff.enabled) {
-      if (!inRange(m.dualTariff.offPeakHours, 1, 12)) error('err.offPeakHours', 'dualTariff');
-      if (!inRange(m.dualTariff.tempThreshold, 1, 100)) error('err.tempThreshold', 'dualTariff');
-      if (m.dualTariff.force.length > n) error('err.forceCount', 'dualTariff');
-      m.dualTariff.force.forEach((f, i) => {
-        if (!inRange(f.start, -32768, 32767) || (f.duration !== null && !inRange(f.duration, 0, 65534))) error('err.force', 'dualTariff', { load: i + 1 });
+        checkTargets(o.targets, field, i + 1, keys);
       });
     }
 
@@ -147,34 +161,74 @@
     if (m.temperature.mode !== 'off') {
       const sensors = m.temperature.sensors;
       if (!sensors.length) error('err.noSensor', 'temperature');
+      // the router needs each probe's address; on the module, ESPHome finds them itself: optional,
+      // checked when given
       sensors.forEach((s, i) => {
         const a = M.parseAddress(s.address);
-        const optional = m.temperature.mode === 'esp' && sensors.length === 1 && !s.address;
         if (!a) {
-          if (!optional) error('err.sensorAddress', `temperature.${i}`, { sensor: i + 1 });
+          if (M.tempSensorPresent(m) || (s.address || '').trim()) error('err.sensorAddress', `temperature.${i}`, { sensor: i + 1 });
         } else if (M.crc8(a.slice(0, 7)) !== a[7]) warning('warn.sensorCrc', `temperature.${i}`, { sensor: i + 1 });
       });
       if (m.temperature.mode === 'esp' && !m.mk2wifi.enabled) error('err.tempEspNoWifi', 'temperature');
+      // on the module, the YAML uses the addresses only when every probe has one (yaml.js)
+      const withAddress = sensors.filter((s) => M.parseAddress(s.address)).length;
+      if (m.temperature.mode === 'esp' && withAddress && withAddress < sensors.length) warning('warn.sensorSomeAddresses', 'temperature');
+      // BOOST_TEMP_SENSOR: one of the probes (validation.h), whether dual tariff is on or not
+      if (M.tempSensorPresent(m) && sensors.length && !inRange(m.dualTariff.tempSensor, 0, sensors.length - 1))
+        error('err.tempSensor', m.dualTariff.enabled ? 'dualTariff' : 'temperature');
+      // one 1-Wire transaction per mains cycle (temp_schedule.h fitsInPeriod(), validation.h): the
+      // conversion, then 3 per probe, must end within a datalog period
+      if (M.tempSensorPresent(m) && sensors.length && (m.supplyFrequency === 50 || m.supplyFrequency === 60) && inRange(m.datalogPeriod, 1, 30)) {
+        const f = m.supplyFrequency;
+        const cycles = Math.floor((750 * f + 999) / 1000) + 1 + 3 * sensors.length;
+        if (cycles + Math.floor(cycles / f) + 2 > m.datalogPeriod * f) error('err.tempRoundTooLong', 'temperature');
+      }
     }
+
+    // ---- dual tariff ----
+    if (m.dualTariff.enabled) {
+      if (!inRange(m.dualTariff.offPeakHours, 1, 12)) error('err.offPeakHours', 'dualTariff');
+      // shown (and used) only when the router reads the probes; otherwise written as 100 (generate.js)
+      if (M.tempSensorPresent(m) && !inRange(m.dualTariff.tempThreshold, 1, 100)) error('err.tempThreshold', 'dualTariff');
+    }
+    // The boosts are written into config.h with dual tariff off too: their values must be numbers.
+    // Their windows and targets only matter with dual tariff, as in validation.h (LOAD(), RELAY()
+    // and REMOTE_LOAD() give pin 0 out of range, checked with DUAL_TARIFF only): the whole window
+    // lies within the period, and lasts (M.boostFits()), and the targets exist.
+    const period = m.dualTariff.offPeakHours * 60;
+    const boostKeys = {
+      targets: 'err.boostTargets',
+      noRelay: 'err.boostNoRelay',
+      relay: 'err.boostRelay',
+      load: 'err.boostLoad',
+      nothing: m.dualTariff.enabled ? 'warn.boostNothing' : null, // a boost that never runs forces nothing anyway
+    };
+    m.dualTariff.boosts.forEach((b, i) => {
+      const field = `dualTariff.boosts.${i}`;
+      if (!['start', 'end'].includes(b.from) || !inRange(b.at, 0, 720) || (b.for !== null && !inRange(b.for, 0, 720))) error('err.boost', field, { index: i + 1 });
+      else if (m.dualTariff.enabled && !M.boostFits(b, period)) error('err.boostWindow', field, { index: i + 1 });
+      if (m.dualTariff.enabled) checkTargets(b.targets, field, i + 1, boostKeys);
+    });
 
     // ---- one pin, one use ----
     const uses = [];
     const use = (p, what) => {
       if (isRouterPin(p)) uses.push([p, what]);
     };
-    if (M.tempSensorPresent(m)) use(m.temperature.pin, 'temperature');
-    if (m.diversion.enabled) use(m.diversion.pin, 'diversion');
-    if (m.routerOff.enabled) use(m.routerOff.pin, 'routerOff');
-    if (m.rotation.mode === 'PIN') use(m.rotation.pin, 'rotation');
-    if (m.dualTariff.enabled) use(m.dualTariff.pin, 'dualTariff');
-    if (M.overridePresent(m)) m.overrides.list.forEach((o, i) => use(o.pin, `override ${i + 1}`));
-    if (m.watchdog.enabled) use(m.watchdog.pin, 'watchdog');
-    m.loads.forEach((l, i) => use(l.type === 'local' ? l.pin : l.led, `load ${i + 1}`));
-    relays.forEach((r, i) => use(r.pin, `relay ${i + 1}`));
+    // what: a text key, translated by the page ({ key: 'use.load', n: 1 })
+    if (M.tempSensorPresent(m)) use(M.tempPin(m), { key: 'use.temperature' });
+    if (m.diversion.enabled) use(m.diversion.pin, { key: 'use.diversion' });
+    if (m.routerOff.enabled) use(m.routerOff.pin, { key: 'use.routerOff' });
+    if (m.rotation.mode === 'PIN') use(m.rotation.pin, { key: 'use.rotation' });
+    if (m.dualTariff.enabled) use(m.dualTariff.pin, { key: 'use.dualTariff' });
+    if (M.overridePresent(m)) m.overrides.list.forEach((o, i) => use(o.pin, { key: 'use.override', n: i + 1 }));
+    if (m.watchdog.enabled) use(m.watchdog.pin, { key: 'use.watchdog' });
+    m.loads.forEach((l, i) => use(l.type === 'local' ? l.pin : l.led, { key: 'use.load', n: i + 1 }));
+    relays.forEach((r, i) => use(r.pin, { key: 'use.relay', n: i + 1 }));
     const byPin = new Map();
     for (const [p, what] of uses) byPin.set(p, [...(byPin.get(p) || []), what]);
-    for (const [p, whats] of byPin) if (whats.length > 1) error('err.duplicatePin', 'pins', { pin: p, uses: whats.join(', ') });
-    if (M.rfChipPresent(m)) for (const [p, whats] of byPin) if (M.RF_PINS.includes(p)) error('err.rfPin', 'pins', { pin: p, uses: whats.join(', ') });
+    for (const [p, whats] of byPin) if (whats.length > 1) error('err.duplicatePin', 'pins', { pin: p, uses: whats });
+    if (M.rfChipPresent(m)) for (const [p, whats] of byPin) if (M.RF_PINS.includes(p)) error('err.rfPin', 'pins', { pin: p, uses: whats });
 
     // ---- RF ----
     if (M.rfChipPresent(m)) {

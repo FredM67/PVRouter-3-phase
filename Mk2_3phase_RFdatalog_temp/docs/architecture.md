@@ -63,8 +63,11 @@ flowchart TB
 - Energy bucket algorithm for load switching decisions
 - State machine for polarity detection
 
-### 2. Configuration System (`config.h`, `validation.h`)
+### 2. Configuration System (`config.h`, `config_types.h`, `config_derived.h`, `validation.h`)
 **Core responsibility**: Compile-time configuration and validation
+
+config.h holds the settings only, written with the types of config_types.h; config_derived.h,
+which the code includes, builds the derived values and objects from them (see configuration.md).
 
 **Key features**:
 - Template-based configuration
@@ -89,8 +92,9 @@ static_assert(NO_OF_DUMPLOADS > 0, "Number of dump loads must be greater than 0"
 
 ### 4. Utility Modules
 - **`utils_pins.h`**: Direct port manipulation for performance
-- **`utils_relay.h`**: Relay-based load control with timing
-- **`utils_dualtariff.h`**: Off-peak period management
+- **`utils_relay.h`**: Relay-based load control: the pins and the printing
+- **`relay_engine.h`**: The decisions of the relays: thresholds, minimum ON/OFF times, settle time, order, EWMA average (Arduino-free)
+- **`utils_dualtariff.h`**: Off-peak period management and the windows of the scheduled boosts (Arduino-free, `constexpr`)
 - **`utils_rf.h`**: RF communication support
 
 ## Data Flow

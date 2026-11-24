@@ -2,8 +2,9 @@
  * @file RemoteLoadReceiver.ino
  * @brief Main sketch for remotely controlled loads via RF using RFM69
  * @version 2.0
- * @date 2026-10-01
+ * @date 2026-11-21
  * @author Based on remoteUnit_fasterControl_1 by Robin Emley
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details This sketch receives RF commands from the main PV Router and controls
  *          local loads (TRIACs or SSRs) accordingly. Uses RFM69 library (maintained)

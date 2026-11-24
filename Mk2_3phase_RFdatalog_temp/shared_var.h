@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 #ifndef SHARED_VAR_H
 #define SHARED_VAR_H
 
@@ -8,7 +9,7 @@ namespace Shared
 {
 // for interaction between the main processor and the ISR
 inline volatile bool b_datalogEventPending{ false }; /**< async trigger to signal datalog is available */
-inline volatile bool b_newMainsCycle{ false };       /**< async trigger to signal start of new main cycle based on first phase */
+inline volatile bool b_newMainsCycle{ false };       /**< async trigger of the loop's per-cycle work: set at the end of processStartNewCycle(), 1248 us after L1's crossing (and once more when the start-up period ends) */
 inline volatile bool b_reOrderLoads{ false };        /**< async trigger for loads re-ordering */
 inline volatile bool b_diversionEnabled{ true };     /**< async trigger to stop diversion */
 inline volatile uint16_t overrideBitmask{ 0 };       /**< combined bitmask of all active override pins (local) */

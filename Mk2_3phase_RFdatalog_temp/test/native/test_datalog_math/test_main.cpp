@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief Native unit tests for datalog_math.h
@@ -241,6 +242,94 @@ void test_watts_differs_from_the_float_code_by_at_most_1_W(void)
 // RMS voltage
 // ============================================================================
 
+void test_power_shift_follows_the_sample_count(void)
+{
+  // full-span sines average 2^17 per sample: up to 16383 sample sets fit in 31 bits unshifted
+  TEST_ASSERT_EQUAL_UINT8(0, Datalog::powerShift(16383));
+  TEST_ASSERT_EQUAL_UINT8(4, Datalog::powerShift(16384));
+  // 3-phase, 36 sets per cycle at most at 50 Hz: 5 s and 9 s unshifted, 10 s and 30 s shifted
+  TEST_ASSERT_EQUAL_UINT8(0, Datalog::powerShift(5UL * 50 * 36));
+  TEST_ASSERT_EQUAL_UINT8(0, Datalog::powerShift(9UL * 50 * 36));
+  TEST_ASSERT_EQUAL_UINT8(4, Datalog::powerShift(10UL * 50 * 36));
+  TEST_ASSERT_EQUAL_UINT8(4, Datalog::powerShift(30UL * 50 * 36));
+}
+
+void test_power_shift_keeps_30_s_of_any_signal_in_32_bits(void)
+{
+  // shifted by 4, a sample adds at most 2^14: the 54000 sets of 30 s stay below 2^31
+  const uint32_t sets{ 30UL * 50 * 36 };
+  TEST_ASSERT_TRUE(static_cast< uint64_t >(sets) * ((1UL << 18) >> Datalog::powerShift(sets)) <= INT32_MAX);
+}
+
+void test_average_power_unshifted_is_the_quotient(void)
+{
+  TEST_ASSERT_EQUAL_INT32(-142, Datalog::averagePower< 0 >(-1000, 7));
+  TEST_ASSERT_EQUAL_INT32(142, Datalog::averagePower< 0 >(1000, 7));
+  TEST_ASSERT_EQUAL_INT32(0, Datalog::averagePower< 0 >(0, 9000));
+}
+
+void test_average_power_shifted_is_the_exact_average(void)
+{
+  // sum x 16 / n truncated toward zero, over the whole range of a 30 s period
+  const int32_t sums[]{ 0, 1, -1, 15, -15, 123456789, -123456789, 54000L * 16384 - 1, -(54000L * 16384 - 1), 3374, -3374 };
+  const uint16_t counts[]{ 1, 7, 9000, 16383, 16384, 54000, UINT16_MAX };
+  for (const int32_t sum : sums)
+  {
+    for (const uint16_t n : counts)
+    {
+      const auto exact{ static_cast< int32_t >(static_cast< int64_t >(sum) * 16 / n) };
+      TEST_ASSERT_EQUAL_INT32(exact, Datalog::averagePower< 4 >(sum, n));
+    }
+  }
+}
+
+/** 30 s at 50 Hz, 32 sample sets per cycle, summed as the ISR does (rounded, / 16), against the
+ *  exact average (64-bit sum, here only); noise: pseudo-random, uniform over +-noise */
+static void checkShiftedAverage(const int32_t amplitude, const int32_t offset, const int32_t noise, const int32_t delta)
+{
+  const uint16_t n{ 30U * 50 * 32 };
+  uint32_t lcg{ 12345 };
+  int32_t scaled{ 0 };
+  int64_t exact{ 0 };
+  for (uint16_t i = 0; i != n; ++i)
+  {
+    lcg = lcg * 1664525UL + 1013904223UL;
+    const int32_t dither{ noise ? static_cast< int32_t >(lcg >> 16) % (2 * noise + 1) - noise : 0 };
+    const auto instP{ static_cast< int32_t >(lround(offset + amplitude * sin(2.0 * M_PI * i / 32.0 + 0.1))) + dither };
+    scaled += (instP + 8) >> 4;
+    exact += instP;
+  }
+  TEST_ASSERT_INT32_WITHIN(delta, static_cast< int32_t >(exact / n), Datalog::averagePower< 4 >(scaled, n));
+}
+
+void test_shifted_sum_is_within_half_the_shift_over_30_s(void)
+{
+  // any signal, even a constant or a sine repeating the same samples: within 8 step^2 (half of 16)
+  const int32_t amplitudes[]{ 0, 1, 7, 100, 5000, 131072 };
+  const int32_t offsets[]{ 0, 3, -3, 1000, -77777, 131071 };
+  for (const int32_t amplitude : amplitudes)
+  {
+    for (const int32_t offset : offsets)
+    {
+      checkShiftedAverage(amplitude, offset, 0, 8);
+    }
+  }
+}
+
+void test_shifted_sum_keeps_the_average_of_a_noisy_signal_over_30_s(void)
+{
+  // with the noise of real samples (here +-64 step^2), the rounding averages out: within 1 step^2
+  const int32_t amplitudes[]{ 0, 100, 5000, 131072 };
+  const int32_t offsets[]{ 0, 3, -3, 1000, -77777 };
+  for (const int32_t amplitude : amplitudes)
+  {
+    for (const int32_t offset : offsets)
+    {
+      checkShiftedAverage(amplitude, offset, 64, 1);
+    }
+  }
+}
+
 void test_voltage_calibration_is_constexpr(void)
 {
   constexpr auto fixed{ Datalog::voltageCalibration(100, oldBoardVCal) };  // must be constexpr
@@ -328,6 +417,13 @@ int main(int argc, char** argv)
   RUN_TEST(test_watts_is_sign_symmetric);
   RUN_TEST(test_watts_saturates_beyond_int16);
   RUN_TEST(test_watts_differs_from_the_float_code_by_at_most_1_W);
+
+  RUN_TEST(test_power_shift_follows_the_sample_count);
+  RUN_TEST(test_power_shift_keeps_30_s_of_any_signal_in_32_bits);
+  RUN_TEST(test_average_power_unshifted_is_the_quotient);
+  RUN_TEST(test_average_power_shifted_is_the_exact_average);
+  RUN_TEST(test_shifted_sum_is_within_half_the_shift_over_30_s);
+  RUN_TEST(test_shifted_sum_keeps_the_average_of_a_noisy_signal_over_30_s);
 
   RUN_TEST(test_voltage_calibration_is_constexpr);
   RUN_TEST(test_vrms_matches_the_reference_short_period);

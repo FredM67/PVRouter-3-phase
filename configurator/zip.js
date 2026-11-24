@@ -1,6 +1,8 @@
 /*
  * PVRouter configurator - a minimal ZIP writer (stored, no compression), for "download all".
  * zip([{ path, text }]) -> Uint8Array
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();

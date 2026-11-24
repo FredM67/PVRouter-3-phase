@@ -27,15 +27,16 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
   - [Configuration du Watchdog](#configuration-du-watchdog)
   - [Configuration du ou des capteurs de température](#configuration-du-ou-des-capteurs-de-température)
     - [Activation de la fonctionnalité](#activation-de-la-fonctionnalité)
-    - [Configuration du ou des capteurs (commun aux 2 cas précédents)](#configuration-du-ou-des-capteurs-commun-aux-2-cas-précédents)
+    - [Configuration du ou des capteurs](#configuration-du-ou-des-capteurs)
   - [Gestion des Heures Creuses et boost programmé (dual tariff)](#gestion-des-heures-creuses-et-boost-programmé-dual-tariff)
     - [Configuration matérielle](#configuration-matérielle)
     - [Configuration logicielle](#configuration-logicielle-1)
-    - [Configuration du boost programmé (rg\_ForceLoad)](#configuration-du-boost-programmé-rg_forceload)
-    - [Exemples visuels](#exemples-visuels)
-    - [Configuration pour plusieurs charges](#configuration-pour-plusieurs-charges)
+    - [Configuration des boosts programmés (scheduledBoosts)](#configuration-des-boosts-programmés-scheduledboosts)
+      - [Comprendre la ligne du temps](#comprendre-la-ligne-du-temps)
+      - [Exemples](#exemples)
     - [Aide-mémoire](#aide-mémoire)
   - [Rotation des priorités](#rotation-des-priorités)
+    - [Groupes de rotation](#groupes-de-rotation)
   - [Boost manuel (déclenché par pin)](#boost-manuel-déclenché-par-pin)
     - [Fonctionnement](#fonctionnement)
     - [Quand utiliser le boost manuel](#quand-utiliser-le-boost-manuel)
@@ -109,17 +110,20 @@ Toutes les bibliothèques sont toujours incluses dans le code source. Cependant,
 
 - **Mk2_3phase_RFdatalog_temp.ino** : Ce fichier est nécessaire pour l’IDE Arduino
 - **calibration.h** : contient les paramètres d’étalonnage
-- **config.h** : les préférences de l’utilisateur sont stockées ici (affectation des broches, fonctionnalités…)
+- **config.h** : les préférences de l’utilisateur sont stockées ici (affectation des broches, fonctionnalités…), et rien d’autre
+- **config_types.h** : ce avec quoi s’écrit **config.h** (types, `LOAD()`, `HOURS()`…) — *ne pas modifier*
+- **config_derived.h** : ce que le firmware construit à partir de **config.h** — *ne pas modifier*
 - **config_system.h** : constantes système rarement modifiées
 - **constants.h** : quelques constantes — *ne pas modifier*
+- **ct_filter.h** : le filtre des TC (`lpf_gain`, `alpha` de **calibration.h**), en virgule fixe — *ne pas modifier*
 - **debug.h** : Quelques macros pour la sortie série et le débogage
 - **dualtariff.h** : définitions de la fonction double tarif
 - **ewma_avg.h** : fonctions de calcul de moyenne EWMA
 - **main.cpp** : code source principal
-- **movingAvg.h** : code source pour la moyenne glissante
 - **processing.cpp** : code source du moteur de traitement
 - **processing.h** : prototypes de fonctions du moteur de traitement
 - **Readme.md** : ce fichier
+- **relay_engine.h** : décisions de la *diversion par relais* (seuils, temps minimaux, ordre), sans Arduino
 - **teleinfo.h**: code source de la fonctionnalité *Télémétrie IoT*
 - **types.h** : définitions des types…
 - **type_traits.h** : quelques trucs STL qui ne sont pas encore disponibles dans le paquet avr
@@ -136,6 +140,9 @@ Toutes les bibliothèques sont toujours incluses dans le code source. Cependant,
 - **Doxyfile** : paramètre pour Doxygen (documentation du code)
 
 L’utilisateur final ne doit éditer QUE les fichiers **calibration.h** et **config.h**.
+
+> [!NOTE]
+> **config.h** ne contient que des réglages : il n’inclut que `config_types.h`. Un **config.h** d’une version précédente, avec des lignes `#include`, `NO_OF_REMOTE_LOADS` ou `remoteLoads`, arrête la compilation sur *This config.h has the former layout* : recréez-le avec le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/), ou supprimez ces lignes (voir le CHANGELOG).
 
 ## Documentation technique
 Le dossier **[docs/](docs/)** contient la documentation technique détaillée :
@@ -295,7 +302,7 @@ inline constexpr RelayEngine relays{ MINUTES(15), { { 3, 1000, 200, 1, 1 } } };
 ```
 ___
 > [!NOTE]
-> La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n’est nécessaire !
+> La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n’est nécessaire ! La même macro (et `HOURS()`) sert à écrire les temps des [boosts programmés](#configuration-des-boosts-programmés-scheduledboosts).
 ___
 
 Les relais configurés dans le système sont gérés par un système similaire à une machine à états.
@@ -303,7 +310,7 @@ Chaque seconde, le système augmente la durée de l’état actuel de chaque rel
 - si la puissance moyenne actuelle est supérieure au seuil d’import, elle essaie d’éteindre certains relais.
 - si la puissance moyenne actuelle est supérieure au seuil de surplus, elle essaie d’allumer plus de relais.
 
-Les relais sont traités dans l’ordre croissant pour le surplus et dans l’ordre décroissant pour l’importation.
+Les relais s’allument dans l’ordre croissant et s’éteignent dans l’ordre décroissant : sur une importation, et aussi sur un petit surplus pour les relais en mode batterie.
 
 Pour chaque relais, la transition ou le changement d’état est géré de la manière suivante :
 - si le relais est *OFF* et que la puissance moyenne actuelle est inférieure au seuil de surplus, le relais essaie de passer à l’état *ON*. Cette transition est soumise à la condition que le relais ait été *OFF* pendant au moins la durée *minOFF*.
@@ -450,7 +457,7 @@ Chaque unité distante reçoit un seul octet, **un bit par charge, dans l'ordre 
 
 **Priorités :**
 
-Charges locales et distantes partagent une seule liste de priorités et une seule rotation. Il n'y a plus de règle imposant aux charges distantes d'être en dernier — `loadPrioritiesAtStartup` donne l'ordre, quel que soit le mélange :
+Charges locales et distantes partagent une seule liste de priorités (un [groupe de rotation](#rotation-des-priorités) ne contient que des charges locales, ou les charges d’une seule unité distante). Il n'y a plus de règle imposant aux charges distantes d'être en dernier — `loadPrioritiesAtStartup` donne l'ordre, quel que soit le mélange :
 
 ```cpp
 inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2, 3 };
@@ -539,12 +546,12 @@ inline constexpr uint8_t watchDogPin{ 9 };
 Il est possible de brancher un ou plusieurs capteurs de température Dallas DS18B20.
 Ces capteurs peuvent servir à des fins informatives ou pour contrôler le mode boost.
 
-Par défaut, la sortie `D3` est utilisée pour la sortie du capteur de température et dispose déjà d’un pull-up.
-Si vous souhaitez utiliser une autre pin, il faudra rajouter un *pull-up* sur la pin utilisée.
+- **Nouvelle carte** (`PcbVersion::NEW`) : le bus des sondes est sur `D3`, câblé avec son pull-up sur la carte. Branchez les sondes sur le connecteur de température de la carte ; avec le module mk2Wifi, mettez le cavalier `TEMP` en position routeur (voir [Cavalier `TEMP`](#cavalier-temp)).
+- **Ancienne carte** (`PcbVersion::OLD`) : rien n’est câblé. Choisissez une pin libre, ajoutez un pull-up de 4,7 kΩ entre la ligne de données et le +5 V, et alimentez les sondes (+5 V, GND).
 
 ### Activation de la fonctionnalité
 
-Dans `config.h`, passez `TEMP_SENSOR_PRESENT` à `true`, et indiquez la pin du bus et les adresses des capteurs dans `temperatureSensing` (voir plus bas) :
+Dans `config.h`, passez `TEMP_SENSOR_PRESENT` à `true`, et indiquez la pin du bus (`3`) et les adresses des capteurs dans `temperatureSensing` (voir plus bas) :
 ```cpp
 inline constexpr bool TEMP_SENSOR_PRESENT{ true };
 ```
@@ -553,17 +560,21 @@ Avec l’Arduino IDE, la bibliothèque *OneWire* doit être installée, comme po
 
 ### Configuration du ou des capteurs
 Pour configurer les capteurs, vous devez entrer leurs adresses.
-Utilisez un programme pour scanner les capteurs connectés.
-Vous pouvez trouver de tels programmes sur Internet ou parmi les exemples fournis avec l’Arduino IDE.
-Il est recommandé de coller une étiquette avec l’adresse de chaque capteur sur son câble.
+Le routeur les trouve lui-même : mettez `TEMP_SENSOR_PRESENT` à `true` avec la broche du bus, mettez `CALIBRATION_MODE` à `true` (voir [Étalonnage du routeur](#étalonnage-du-routeur)) et téléversez. Au démarrage, il liste les capteurs présents sur le bus, avec leurs adresses écrites comme **config.h** les attend, et indique si **config.h** contient déjà chacune d’elles :
+```
+Temperature sensors found on pin 3:
+	{ 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 }  not in config.h
+	{ 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 }  not in config.h
+```
+En branchant les capteurs un par un, on sait quelle adresse correspond à quel capteur. Il est recommandé de coller une étiquette avec l’adresse de chaque capteur sur son câble.
 
 Entrez les adresses comme suit :
 ```cpp
-inline constexpr TemperatureSensing temperatureSensing{ 4,
+inline constexpr TemperatureSensing temperatureSensing{ 3,
                                                         { { 0x28, 0xBE, 0x41, 0x6B, 0x09, 0x00, 0x00, 0xA4 },
                                                           { 0x28, 0x1B, 0xD7, 0x6A, 0x09, 0x00, 0x00, 0xB7 } } };
 ```
-Le nombre *4* en premier paramètre est la *pin* que l’utilisateur aura choisi pour le bus *OneWire*.
+Le premier paramètre, *3*, est la pin du bus *OneWire* : `D3` sur la nouvelle carte, la pin choisie sur l’ancienne.
 
 ___
 > [!NOTE]
@@ -604,19 +615,61 @@ inline constexpr uint8_t dualTariffPin{ 3 };
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };
 ```
 
-**Étape 4 :** Configurez le timing du boost programmé pour chaque charge.
+**Étape 4 :** Configurez les boosts programmés : quelles charges sont forcées, et quand.
 
-### Configuration du boost programmé (rg_ForceLoad)
+> [!IMPORTANT]
+> `ul_OFF_PEAK_DURATION` doit correspondre à la durée réelle de la période d’Heures Creuses de votre compteur. Le routeur ne connaît que le **début** et la **fin** des HC, par le contact du compteur ; la durée sert à placer les boosts comptés depuis la fin (`LAST`, `BEFORE_END`).
 
-Le tableau `rg_ForceLoad` définit **quand** et **combien de temps** chaque charge doit être en boost pendant la période d’Heures Creuses.
+### Configuration des boosts programmés (scheduledBoosts)
+
+La liste `scheduledBoosts` dit **quand** et **combien de temps** quelles charges, charges distantes ou relais sont en boost pendant la période d’Heures Creuses. Elle se lit comme un planning, une ligne par boost, et prend les mêmes cibles que les [pins d’override](#cibler-les-charges-et-relais).
 
 ```cpp
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{ { HEURE_DEBUT, DUREE } };
+inline constexpr ScheduledBoosts scheduledBoosts{ {
+    { FENETRE, { CIBLES } }
+} };
 ```
 
-Chaque charge a deux paramètres : `{ HEURE_DEBUT, DUREE }`
+Chaque boost est une **fenêtre** (quand) suivie de ses **cibles** (qui). Tous les temps sont relatifs à la période d’HC, écrits avec `HOURS(n)` ou `MINUTES(n)` : un nombre seul n’est pas accepté.
+
+#### Les fenêtres
+
+| Fenêtre | Signification |
+|---------|---------------|
+| `FIRST(d)` | depuis le début de la période d’HC, pendant `d` |
+| `LAST(d)` | les `d` dernières de la période, jusqu’à sa fin |
+| `FROM_START(t), FOR(d)` | `t` après le début, pendant `d` |
+| `BEFORE_END(t), FOR(d)` | `t` avant la fin, pendant `d` |
+| `FROM_START(t)` ou `BEFORE_END(t)` sans `FOR` | de là jusqu’à la fin de la période |
+| `HOURS(n)` / `MINUTES(n)` | la seule façon d’écrire un temps `t` ou une durée `d` |
+
+#### Les cibles
+
+Les cibles s’écrivent comme pour les pins d’override : `LOAD(n)`, `REMOTE_LOAD(n)`, `RELAY(n)`, `ALL_LOADS()`, `ALL_RELAYS()`, `ALL_LOADS_AND_RELAYS()`… Tout compte à partir de 0 : `LOAD(0)` est la première charge.
+
+> [!NOTE]
+> `RELAY(n)` ne fonctionne qu’avec la diversion sur relais active (`RELAY_DIVERSION`) et pour un relais qui existe. Sinon la compilation échoue : c’est aussi le cas pour les cibles des pins d’override.
+
+Trois règles à retenir :
+- **Ce qui n’est pas listé n’est jamais en boost.** Une liste vide, `inline constexpr ScheduledBoosts scheduledBoosts{};`, signifie aucun boost.
+- **Chaque boost s’arrête quand le compteur repasse en heures pleines**, quelle que soit sa fenêtre.
+- **Toute la fenêtre tient dans la période d’HC** (`ul_OFF_PEAK_DURATION`) : une fenêtre avec `FOR` finit au plus tard à la fin de la période, sinon la compilation échoue. `LAST` et une fenêtre sans `FOR` durent jusqu’à ce que le compteur repasse en heures pleines.
+- La condition de température (`iTemperatureThreshold`) s’applique à tous les boosts : au-dessus du seuil, rien n’est en boost. Elle demande la mesure de température sur le routeur (`TEMP_SENSOR_PRESENT`) ; `BOOST_TEMP_SENSOR` choisit la sonde, par son rang dans `temperatureSensing` (0 : la première). Le seuil se règle en dessous du thermostat du chauffe-eau, qui reste la sécurité : par exemple le thermostat à 80 °C pour que le chauffe-eau absorbe le plus de surplus possible, et le seuil à 60 °C pour que le boost des heures creuses laisse de la place au surplus du lendemain. Si la sonde ne peut pas être lue (débranchée, en panne), les boosts ont lieu, jusqu’au thermostat.
+
+Une charge peut figurer dans plusieurs boosts : leurs fenêtres s’additionnent. Une fenêtre inclut son début et exclut sa fin.
 
 #### Comprendre la ligne du temps
+
+Tous les exemples supposent une période d’HC de **23:00 à 07:00** (`ul_OFF_PEAK_DURATION{ 8 }`) :
+
+```cpp
+inline constexpr ScheduledBoosts scheduledBoosts{ {
+    { FIRST(HOURS(2)), { LOAD(0), LOAD(2) } },                // charges #1 et #3, les 2 premières heures
+    { LAST(HOURS(2)), { REMOTE_LOAD(1) } },                   // la 2e charge distante, les 2 dernières heures
+    { FROM_START(HOURS(2)), FOR(HOURS(2)), { LOAD(1) } },     // charge #2, 2 h après le début, pendant 2 h
+    { BEFORE_END(HOURS(3)), FOR(MINUTES(90)), { RELAY(0) } }  // relais #1, 3 h avant la fin, pendant 1 h 30
+} };
+```
 
 ```mermaid
 gantt
@@ -626,139 +679,70 @@ gantt
     todayMarker off
     section HC
     Heures creuses (8 h) :active, hc, 2001-01-01 23:00, 8h
-    section START_TIME
-    positif, compte depuis le début, ici +3 h  :b8, 2001-01-01 23:00, 3h
-    négatif, compte depuis la fin, ici −3 h    :b9, 2001-01-02 04:00, 3h
+    section Boosts
+    FIRST(HOURS(2)), charges #1 et #3 :crit, sb1, 2001-01-01 23:00, 2h
+    FROM_START(HOURS(2)), FOR(HOURS(2)), charge #2 :crit, sb2, 2001-01-02 01:00, 2h
+    BEFORE_END(HOURS(3)), FOR(MINUTES(90)), relais #1 :crit, sb3, 2001-01-02 04:00, 90m
+    LAST(HOURS(2)), charge distante #2 :crit, sb4, 2001-01-02 05:00, 2h
 ```
 
-#### Paramètre 1 : HEURE_DEBUT (quand démarrer)
+#### Exemples
 
-| Valeur | Signification | Exemple (HC 23:00-07:00) |
-|--------|---------------|--------------------------|
-| `0` | **Désactivé** – pas de boost pour cette charge | - |
-| `1` à `23` | Heures **après** le DÉBUT des HC | `3` = démarrage à 02:00 (23:00 + 3 h) |
-| `-1` à `-23` | Heures **avant** la FIN des HC | `-3` = démarrage à 04:00 (07:00 - 3 h) |
-| `24` ou plus | Minutes **après** le DÉBUT des HC | `90` = démarrage à 00:30 (23:00 + 90 min) |
-| `-24` ou moins | Minutes **avant** la FIN des HC | `-90` = démarrage à 05:30 (07:00 - 90 min) |
+**Exemple 1 :** `{ BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(0) } }` : 3 heures avant la fin, pendant 2 heures. Le boost fonctionne de **04:00 à 06:00**.
 
-> [!NOTE]
-> **Pourquoi 24 ?** La valeur 24 sert de seuil pour distinguer les heures des minutes.
-> Les valeurs de 1 à 23 sont interprétées comme des heures, les valeurs 24+ sont interprétées comme des minutes.
+**Exemple 2 :** `{ FROM_START(HOURS(2)), FOR(HOURS(3)), { LOAD(0) } }` : 2 heures après le début, pendant 3 heures. Le boost fonctionne de **01:00 à 04:00**.
 
-#### Paramètre 2 : DUREE (combien de temps)
+**Exemple 3 :** `{ BEFORE_END(MINUTES(90)), FOR(MINUTES(60)), { LOAD(0) } }` : 90 minutes avant la fin, pendant 60 minutes. Le boost fonctionne de **05:30 à 06:30**. Avec `FOR(MINUTES(120))`, il finirait à 07:30, après la période d’HC : la compilation le refuse. Pour aller jusqu’à la fin, omettez `FOR`.
 
-| Valeur | Signification |
-|--------|---------------|
-| `0` | **Désactivé** - pas de boost |
-| `1` à `23` | Durée en **heures** |
-| `24` ou plus | Durée en **minutes** |
-| `UINT16_MAX` | Jusqu’à la **fin** de la période HC |
+**Exemple 4 :** `{ FROM_START(HOURS(1)), { LOAD(0) } }` : 1 heure après le début, jusqu’à la fin. Le boost fonctionne de **00:00 à 07:00**.
 
-> [!IMPORTANT]
-> **Le boost s’arrête toujours à la fin de la période d’Heures Creuses**, quelle que soit la durée configurée.
-> Si vous définissez une durée qui dépasse la fin des HC, le boost sera interrompu.
+**Exemple 5 :** toute la nuit, pour une charge : `{ FROM_START(MINUTES(0)), { LOAD(0) } }`. Quelle que soit la durée des HC, le compteur met fin au boost.
 
-### Exemples visuels
-
-Tous les exemples supposent une période HC de **23:00 à 07:00** (8 heures) :
-
-**Exemple 1 :** `{ -3, 2 }` - Démarrage 3 heures avant la fin, durée 2 heures
-```mermaid
-gantt
-    title { -3, 2 }
-    dateFormat YYYY-MM-DD HH:mm
-    axisFormat %H:%M
-    todayMarker off
-    section HC
-    Heures creuses :active, hc, 2001-01-01 23:00, 8h
-    section Charge
-    Boost, 2 h :crit, b10, 2001-01-02 04:00, 2h
-```
-Résultat : Le boost fonctionne de **04:00 à 06:00**
-
-**Exemple 2 :** `{ 2, 3 }` - Démarrage 2 heures après le début, durée 3 heures
-```mermaid
-gantt
-    title { 2, 3 }
-    dateFormat YYYY-MM-DD HH:mm
-    axisFormat %H:%M
-    todayMarker off
-    section HC
-    Heures creuses :active, hc, 2001-01-01 23:00, 8h
-    section Charge
-    Boost, 3 h :crit, b11, 2001-01-02 01:00, 3h
-```
-Résultat : Le boost fonctionne de **01:00 à 04:00**
-
-**Exemple 3 :** `{ -90, 120 }` - Démarrage 90 minutes avant la fin, durée de 120 minutes (mais limitée)
-```mermaid
-gantt
-    title { -90, 120 }
-    dateFormat YYYY-MM-DD HH:mm
-    axisFormat %H:%M
-    todayMarker off
-    section HC
-    Heures creuses :active, hc, 2001-01-01 23:00, 8h
-    section Charge
-    Boost, 90 min :crit, b12, 2001-01-02 05:30, 90m
-    coupé, fin des HC :done, b13, 2001-01-02 07:00, 30m
-```
-Résultat : Le boost fonctionne de **05:30 à 07:00** (s’arrête à la fin des HC, pas à 07:30)
-
-> [!NOTE]
-> **Le boost s’arrête toujours à la fin de la période d’Heures Creuses**, même si la durée configurée est plus longue.
-> Dans cet exemple, seules 90 minutes de boost ont lieu au lieu des 120 minutes configurées.
-
-**Exemple 4 :** `{ 1, UINT16_MAX }` - Démarrage 1 heure après le début, jusqu’à la fin
-```mermaid
-gantt
-    title { 1, UINT16_MAX }
-    dateFormat YYYY-MM-DD HH:mm
-    axisFormat %H:%M
-    todayMarker off
-    section HC
-    Heures creuses :active, hc, 2001-01-01 23:00, 8h
-    section Charge
-    Boost, jusqu’à la fin :crit, b14, 2001-01-02 00:00, 7h
-```
-Résultat : Le boost fonctionne de **00:00 à 07:00**
-
-### Configuration pour plusieurs charges
-
-Chaque charge peut avoir sa propre programmation de boost. Utilisez `{ 0, 0 }` pour désactiver le boost d’une charge spécifique.
-
-**Exemple :** 2 charges, boost uniquement sur la deuxième :
+Plusieurs charges et plusieurs fenêtres :
 ```cpp
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{
-    { 0, 0 },      // Charge #1 : pas de boost programmé
-    { -3, 2 }      // Charge #2 : boost 3h avant la fin, pendant 2h
-};
+inline constexpr ScheduledBoosts scheduledBoosts{ {
+    { BEFORE_END(HOURS(4)), FOR(HOURS(2)), { LOAD(0) } },  // charge #1 : 03:00-05:00 (dernier recours, si l’eau est encore froide)
+    { LAST(HOURS(2)), { LOAD(1) } },                       // charge #2 : 05:00-07:00 (complément avant le matin)
+    { FIRST(HOURS(1)), { LOAD(0) } }                       // charge #1 aussi : 23:00-00:00
+} };                                                       // charge #3 : jamais en boost
 ```
 
-**Exemple :** 3 charges avec des programmations différentes :
-```cpp
-inline constexpr pairForceLoad rg_ForceLoad[NO_OF_DUMPLOADS]{
-    { -4, 2 },          // Charge #1 : 03:00-05:00 (dernier recours, si l’eau est encore froide)
-    { -2, UINT16_MAX }, // Charge #2 : 05:00-07:00 (complément avant le matin)
-    { 0, 0 }            // Charge #3 : pas de boost programmé
-};
+#### Ce que la compilation refuse
+
+Le compilateur s’arrête avec un message qui nomme le problème :
+
+- `A scheduled boost starts or ends outside the off-peak period, or lasts 0 minutes. Please check scheduledBoosts in your config.h !` : par exemple `LAST(HOURS(10))` ou `BEFORE_END(HOURS(9))` avec 8 heures (démarre avant la période), `FIRST(HOURS(10))` ou `BEFORE_END(HOURS(1)), FOR(HOURS(2))` avec 8 heures (finit après), ou `FOR(MINUTES(0))`.
+- `A scheduled boost forces something that is neither a local load nor a relay (is relay diversion on?). Please check scheduledBoosts in your config.h !` : par exemple `RELAY(0)` sans diversion sur relais, un `RELAY(n)` au-delà des relais configurés, ou un `LOAD(n)` au-delà des charges configurées (`LOAD(3)` avec 3 charges). Dans un boost manuel (`overridePins`), les mêmes cibles arrêtent la compilation avec `An override pin forces a pin that is neither a local load nor a relay ! Please check overridePins in your config.h !`
+- `A scheduled boost forces a remote load that does not exist (REMOTE_LOAD() counts from 0). Please check scheduledBoosts in your config.h !`
+
+#### Ce que le routeur affiche au démarrage
+
+Une ligne par boost, dans l’ordre de la liste, avec la fenêtre en heures et minutes après le début des HC. Pour les quatre boosts de [Comprendre la ligne du temps](#comprendre-la-ligne-du-temps) (8 heures d’HC), avec les trois premières charges locales sur D5, D6 et D7, deux charges distantes, et le relais #1 sur D4 :
 ```
+	Boost #1: from 0h00 to 2h00 of off-peak, forcing D5, D7.
+	Boost #2: from 6h00 until the end of off-peak, forcing remote load 2.
+	Boost #3: from 2h00 to 4h00 of off-peak, forcing D6.
+	Boost #4: from 5h00 to 6h30 of off-peak, forcing D4.
+```
+Les charges locales et les relais s’affichent par leur broche (D5, D4), dans l’ordre croissant des broches. Les charges distantes comptent à partir de 1 : `REMOTE_LOAD(1)` s’affiche `remote load 2`.
 
 ### Aide-mémoire
 
-| Vous voulez…   | Utilisez ceci |
-|----------------|---------------|
-| Désactiver le boost | `{ 0, 0 }` |
-| Démarrer 2 h après le début des HC, pendant 3 h | `{ 2, 3 }` |
-| Démarrer 3 h avant la fin des HC, pendant 2 h | `{ -3, 2 }` |
-| Démarrer 90 min après le début des HC, pendant 2 h | `{ 90, 2 }` |
-| Démarrer 90 min avant la fin des HC, jusqu’à la fin | `{ -90, UINT16_MAX }` |
+| Vous voulez… | Écrivez |
+|--------------|---------|
+| Les 2 premières heures, charges #1 et #3 | `{ FIRST(HOURS(2)), { LOAD(0), LOAD(2) } }` |
+| Les 90 dernières minutes | `{ LAST(MINUTES(90)), { LOAD(0) } }` |
+| Démarrer 2 h après le début des HC, pendant 3 h | `{ FROM_START(HOURS(2)), FOR(HOURS(3)), { LOAD(0) } }` |
+| Démarrer 3 h avant la fin des HC, pendant 2 h | `{ BEFORE_END(HOURS(3)), FOR(HOURS(2)), { LOAD(0) } }` |
+| Démarrer 90 min avant la fin des HC, jusqu’à la fin | `{ BEFORE_END(MINUTES(90)), { LOAD(0) } }` |
+| Un boost sur un relais ou une charge distante | `{ ..., { RELAY(0) } }`, `{ ..., { REMOTE_LOAD(0) } }` |
+| Aucun boost | `inline constexpr ScheduledBoosts scheduledBoosts{};` |
 
 ## Rotation des priorités
 La rotation des priorités est utile lors de l’alimentation d’un chauffe-eau triphasé.
 Elle permet d’équilibrer la durée de fonctionnement des différentes résistances sur une période prolongée.
 
-Mais elle peut aussi être intéressante si on veut permuter les priorités de deux appareils chaque jour (deux chauffe-eau…).
+Mais elle peut aussi être intéressante si on veut permuter les priorités de deux appareils chaque jour (deux chauffe-eau…) : on en fait un groupe de deux charges.
 
 Une fois n’est pas coutume, l’activation de cette fonction possède 2 modes :
 - **automatique**, on spécifiera alors
@@ -769,15 +753,36 @@ inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::AUTO };
 ```cpp
 inline constexpr RotationModes PRIORITY_ROTATION{ RotationModes::PIN };
 ```
-En mode **automatique**, la rotation se fait automatiquement toutes les 24 h.
-Em mode **manuel**, vous devez également définir la *pin* qui déclenchera la rotation :
+En mode **automatique**, la rotation se fait quand le routeur n’a rien routé pendant `ROTATION_AFTER_SECONDS` (8 h par défaut), en général une fois par nuit. Avec le double tarif, elle se fait à la place au début de chaque période creuse.
+En mode **manuel**, vous devez également définir la *pin* qui déclenchera la rotation :
 ```cpp
 inline constexpr uint8_t rotationPin{ 10 };
 ```
+La pin fonctionne de la même façon avec ou sans double tarif.
+
+### Groupes de rotation
+`rotationGroups` liste les charges qui tournent, un groupe par appareil. Pour un chauffe-eau sur toutes les charges locales :
+```cpp
+inline constexpr RotationGroups rotationGroups{ { ALL_LOCAL_LOADS() } };
+```
+Chaque groupe tourne entre les places de priorité que ses charges occupent au démarrage ; les charges hors groupe ne bougent jamais. Avec deux chauffe-eau triphasés et des priorités entrelacées :
+```cpp
+inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 3, 1, 4, 2, 5 };
+inline constexpr RotationGroups rotationGroups{ { LOAD(0), LOAD(1), LOAD(2) }, { LOAD(3), LOAD(4), LOAD(5) } };
+```
+une rotation transforme `0, 3, 1, 4, 2, 5` en `2, 5, 0, 3, 1, 4` : chaque chauffe-eau fait passer son dernier élément en tête, et chacun garde les mêmes places.
+
+Les règles, vérifiées à la compilation :
+- un groupe compte au moins 2 charges ;
+- une charge est dans un groupe au plus ;
+- un groupe ne contient que des charges locales, ou les charges d’une seule unité distante ;
+- rotation active, il faut au moins un groupe ; rotation `OFF`, `rotationGroups` reste vide, `{}`.
+
+Tous les groupes tournent ensemble, sur le même déclencheur.
 
 ## Boost manuel (déclenché par pin)
 
-Contrairement au [boost programmé](#configuration-du-boost-programmé-rg_forceload) qui s’exécute automatiquement pendant les Heures Creuses, le **boost manuel** vous permet de déclencher le chauffage à la demande via des interrupteurs physiques, des boutons, des minuteries ou des systèmes domotiques.
+Contrairement au [boost programmé](#configuration-des-boosts-programmés-scheduledboosts) qui s’exécute automatiquement pendant les Heures Creuses, le **boost manuel** vous permet de déclencher le chauffage à la demande via des interrupteurs physiques, des boutons, des minuteries ou des systèmes domotiques.
 
 ### Fonctionnement
 
@@ -815,15 +820,18 @@ Il existe **deux méthodes** pour spécifier quelles charges/relais activer :
 
 | Macro | Description |
 |-------|-------------|
-| `LOAD(n)` | Charge par index (0 = première charge, 1 = deuxième, etc. - locales puis distantes) |
-| `LOCAL_LOAD(n)` | Charge locale par index (0 = première charge locale) |
-| `REMOTE_LOAD(n)` | Charge distante par index (0 = première charge distante) |
+| `LOAD(n)` | Charge n de `physicalLoadPin[]`, locale ou distante (0 = première entrée, 1 = deuxième, etc.) |
+| `LOCAL_LOAD(n)` | Comme `LOAD(n)`, pour une charge que l’on sait locale : n compte toujours toutes les charges de `physicalLoadPin[]` |
+| `REMOTE_LOAD(n)` | La n-ième charge distante (0 = première charge distante), en ne comptant que les charges distantes, dans l’ordre de `physicalLoadPin[]` |
 | `RELAY(n)` | Relais par index (0 = premier relais, 1 = deuxième, etc.) |
 | `ALL_LOADS()` | Toutes les charges configurées (locales + distantes) |
 | `ALL_LOCAL_LOADS()` | Toutes les charges locales uniquement |
 | `ALL_REMOTE_LOADS()` | Toutes les charges distantes uniquement |
 | `ALL_RELAYS()` | Tous les relais configurés |
 | `ALL_LOADS_AND_RELAYS()` | Tout le système |
+
+> [!NOTE]
+> `RELAY(n)` ne fonctionne qu’avec la diversion sur relais active (`RELAY_DIVERSION`) et pour un relais qui existe : sinon la compilation échoue, pour les pins d’override comme pour les [boosts programmés](#configuration-des-boosts-programmés-scheduledboosts).
 
 #### Méthode 2 : Par numéro de pin physique
 
@@ -841,6 +849,8 @@ Vous pouvez mélanger les deux méthodes dans la même configuration :
 ```cpp
 { 3, { 5, LOAD(1) } }  // Pin D3 : active la pin 5 ET la charge #1
 ```
+
+Un groupe se mélange aussi : `{ 3, { ALL_LOCAL_LOADS(), RELAY(0) } }` force toutes les charges locales et le relais #1.
 
 ### Exemples de configuration
 
