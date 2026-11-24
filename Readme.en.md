@@ -3,7 +3,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/FredM67/PVRouter-3-phase/build.yml?branch=dev&label=CI&logo=github)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/build.yml)
 [![relay simulation](https://img.shields.io/github/actions/workflow/status/FredM67/PVRouter-3-phase/relay-sim.yml?branch=dev&label=relay%20simulation&logo=github)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/relay-sim.yml)
 [![CodeQL](https://img.shields.io/github/actions/workflow/status/FredM67/PVRouter-3-phase/codeql.yml?branch=dev&label=CodeQL&logo=github)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/codeql.yml)
-[![doc](https://img.shields.io/github/actions/workflow/status/FredM67/PVRouter-3-phase/doxygen-gh-pages.yml?branch=main&label=doc&logo=github)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml)
+[![doc](https://img.shields.io/github/actions/workflow/status/FredM67/PVRouter-3-phase/doxygen-gh-pages.yml?branch=dev&label=doc&logo=github)](https://github.com/FredM67/PVRouter-3-phase/actions/workflows/doxygen-gh-pages.yml)
 <br/>
 [![Arduino Uno](https://img.shields.io/badge/Arduino%20Uno-ATmega328P-00878F?logo=arduino&logoColor=white)](https://docs.arduino.cc/hardware/uno-rev3/)
 [![flash](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ffredm67.github.io%2FPVRouter-3-phase%2Fbench%2Fhistory.json&query=%24.entries%5B-1%3A%5D.sizes.basic.flash&label=flash&suffix=%20%2F%2032256%20B&color=blue)](https://fredm67.github.io/PVRouter-3-phase/bench/)
