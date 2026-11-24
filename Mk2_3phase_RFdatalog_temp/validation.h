@@ -18,7 +18,6 @@
 #include "utils_rf.h"
 
 #include "config_derived.h"
-#include "calibration.h"
 #include "ct_filter.h"
 #include "datalog_math.h"
 #include "energy_bucket.h"
