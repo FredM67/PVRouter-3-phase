@@ -17,7 +17,7 @@
  * - **Serial Configuration**: Serial at 9600 baud, 7 data bits, even parity, 1 stop bit.
  *
  * @version 0.2
- * @date 2026-11-22
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2025-2026
  * SPDX-License-Identifier: GPL-3.0-or-later

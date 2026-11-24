@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-11-22
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2023-2026
  * SPDX-License-Identifier: GPL-3.0-or-later

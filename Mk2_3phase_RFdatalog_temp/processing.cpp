@@ -23,6 +23,7 @@
 #include "energy_bucket.h"
 #include "load_priorities.h"
 #include "adc_chain.h"
+#include "datalog_math.h"
 
 // Analogue input pins, ADC reference and left-aligned result of each conversion: adc_chain.h.
 // The reference is AVCC (= VCC, 5 V or 3.3 V) on the old board, the internal 1.1 V on the new one
@@ -42,15 +43,15 @@ constexpr int32_t l_midPointOfEnergyBucket_main{ l_capacityOfEnergyBucket_main /
 /**< threshold in anti-flicker mode - must not exceed 0.4 */
 constexpr float f_offsetOfEnergyThresholdsInAFmode{ 0.1F };
 
-// Expected number of sample sets per mains cycle. One ADC conversion takes 13 ADC clocks
-// at F_CPU / 128 (104 us at 16 MHz); a sample set is one V and one I conversion per phase.
-constexpr uint8_t ADC_CLOCKS_PER_CONVERSION{ 13 };
-constexpr uint8_t ADC_PRESCALER{ 128 };
-constexpr uint32_t SAMPLE_SET_PERIOD_US{ 1UL * AdcChain::NO_OF_CONVERSIONS * ADC_CLOCKS_PER_CONVERSION * ADC_PRESCALER / (F_CPU / 1000000UL) }; /**< 624 us */
-constexpr uint8_t SAMPLE_SETS_PER_CYCLE{ 1000000UL / (SUPPLY_FREQUENCY * SAMPLE_SET_PERIOD_US) };                                               /**< 32 at 50 Hz, 26 at 60 Hz */
-constexpr uint8_t SAMPLE_SETS_MARGIN{ 4 };                                                                                                      /**< covers crossing jitter and frequency drift */
-constexpr uint8_t N_MIN{ SAMPLE_SETS_PER_CYCLE - SAMPLE_SETS_MARGIN };
-constexpr uint8_t N_MAX{ SAMPLE_SETS_PER_CYCLE + SAMPLE_SETS_MARGIN };
+// The sums of a datalog period, in ADC steps: at most MAX_SAMPLE_SETS_PER_DATALOG samples
+// (config_derived.h), each adding at most 2^18 (|V_ADC x I_ADC| or V_ADC^2, x1 scale).
+constexpr uint32_t FULL_SCALE_PER_SAMPLE{ 1UL << 18 };
+// the sample sets, the divisor of the datalog power and voltage, in 16 bits (30 s at most, validation.h)
+static_assert(MAX_SAMPLE_SETS_PER_DATALOG <= UINT16_MAX, "******** The counter of the sample sets of a datalog period would overflow ! ********");
+// the power, scaled down by 16 when the period needs it: without the shift, it holds full-span
+// sines (2^17 on average per sample, Datalog::powerShift()); with it, any signal
+static_assert(DATALOG_POWER_SHIFT == 0 || MAX_SAMPLE_SETS_PER_DATALOG * (FULL_SCALE_PER_SAMPLE >> DATALOG_POWER_SHIFT) <= static_cast< uint32_t >(INT32_MAX),
+              "******** The datalog power sum would overflow ! ********");
 
 /**< power calibration over n, in fixed point, for every expected n: no division in the ISR */
 const Energy::PerSampleCalibration< N_MIN, N_MAX, NO_OF_PHASES > powerCalPerSample PROGMEM{ Energy::toFixedPerSample< N_MIN, N_MAX >(f_powerCal) };
@@ -563,8 +564,18 @@ void processCurrentRawSample(const uint8_t phase, const uint16_t rawSample)
   multS16x16_to32(instP, filtV_div4, filtI_div4);  // 32-bits (now x256, or 2^8)
   instP >>= 8;                                     // scaling is now x1, as for Mk2 (V_ADC x I_ADC)
 
-  l_sumP[phase] += instP;                // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
-  l_sumP_atSupplyPoint[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+  l_sumP[phase] += instP;  // cumulative power, scaling as for Mk2 (V_ADC x I_ADC)
+
+  // for the datalog: scaled down by 16, rounded, when the period needs it (DATALOG_POWER_SHIFT);
+  // the main code scales the average back up (Datalog::averagePower())
+  if constexpr (DATALOG_POWER_SHIFT != 0)
+  {
+    l_sumP_atSupplyPoint[phase] += (instP + (1L << (DATALOG_POWER_SHIFT - 1))) >> DATALOG_POWER_SHIFT;
+  }
+  else
+  {
+    l_sumP_atSupplyPoint[phase] += instP;
+  }
 }
 
 /**

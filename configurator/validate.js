@@ -27,7 +27,7 @@
 
     // ---- general (config_system.h) ----
     if (m.supplyFrequency !== 50 && m.supplyFrequency !== 60) error('err.frequency', 'supplyFrequency');
-    if (!inRange(m.datalogPeriod, 1, 40)) error('err.datalogPeriod', 'datalogPeriod');
+    if (!inRange(m.datalogPeriod, 1, 30)) error('err.datalogPeriod', 'datalogPeriod');
     if (!inRange(m.requiredExport, -32768, 32767)) error('err.requiredExport', 'requiredExport');
     if (!inRange(m.diversionStartThreshold, 0, 32767)) error('err.diversionStart', 'diversionStartThreshold');
     if (!M.SERIAL_OUTPUTS.includes(m.serialOutput)) error('err.serialOutput', 'serialOutput');
@@ -178,7 +178,7 @@
         error('err.tempSensor', m.dualTariff.enabled ? 'dualTariff' : 'temperature');
       // one 1-Wire transaction per mains cycle (temp_schedule.h fitsInPeriod(), validation.h): the
       // conversion, then 3 per probe, must end within a datalog period
-      if (M.tempSensorPresent(m) && sensors.length && (m.supplyFrequency === 50 || m.supplyFrequency === 60) && inRange(m.datalogPeriod, 1, 40)) {
+      if (M.tempSensorPresent(m) && sensors.length && (m.supplyFrequency === 50 || m.supplyFrequency === 60) && inRange(m.datalogPeriod, 1, 30)) {
         const f = m.supplyFrequency;
         const cycles = Math.floor((750 * f + 999) / 1000) + 1 + 3 * sensors.length;
         if (cycles + Math.floor(cycles / f) + 2 > m.datalogPeriod * f) error('err.tempRoundTooLong', 'temperature');
