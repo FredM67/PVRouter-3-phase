@@ -2276,6 +2276,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "18e1555efbbc23a66b76b33d1890d4020399d17d",
+   "date": "2026-11-24T16:31:55+01:00",
+   "message": "refactor: align the firmware with the single-phase one (#260)\n\n* fix: the pin check sees pins from 16 on, and every phase restarts after start-up\n\nPin check (validation.h): check_pins() kept the pins in a 16-bit mask, so\na feature pin from 16 on (A2 to A5, analog inputs of this board) was\ndropped from it and passed every check. The mask is now 32 bits, with\nclaimPin() as in the single-phase firmware, and every pin from 14 on is\nrefused (\"Pins 14 and above cannot be used\"; the former message said that\npins 14 and 15 do not exist, while they are A0 and A1). New compile-fail\ncase: 77-analog-input-used-by-a-feature.\n\nStart-up (processing.cpp): the end of the start-up period reset the sums\nand the sample count of the phase whose crossing ended it only; the other\ntwo kept those of the whole start-up period, for their first\ncontribution and their first datalog period. Every phase is now reset.\nprocessStartUp() is out of line: it runs once, and inlined it was copied\nonce per phase into the ADC interrupt.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix: the datalog power summed in 64 bits, the sample-set counter widened as the period needs\n\nThe datalog power was summed per sample in 32 bits: up to 32 sample sets per mains cycle (36 with\nthe margin), each adding up to 2^18, wrap the sum long before the 40 s that validation.h allows.\nThe sample-set counter, 16 bits, wrapped from 37 s on.\n\n- Each sample still adds to a 32-bit sum, folded once per mains cycle into a 64-bit sum by\n  addToDatalogSums(), called from processStartNewCycle(). The fold is a call of its own: inlined,\n  or called from the crossing, its 64-bit adds made the ISR spill to a stack frame on every call\n  (grid simulator: 29 cycles more on average, ADMUX written up to 220 cycles later).\n- SampleSetCounter (sample_sets.h, config_derived.h): uint16_t up to 36 s, uint32_t above; the\n  IoT frame streams a 32-bit count (TeleInfo::lineUnsigned, MAX_STEP_LENGTH for 10 digits).\n- The sampling constants (N_MIN, N_MAX...) move to config_derived.h; static_asserts check the\n  counter, the 64-bit power and the 32-bit V^2 sum for the configured period.\n- Datalog::isVSquaredScaled(): the one condition for the V^2 scaling, in processing.cpp and in\n  vrmsFactor(); the V^2 sum is scaled from 10 s on (it wrapped above 9 s at full scale).\n- compile-fail cases 78-81: 41 s refused, 37 s (32-bit counter), 40 s at 50 and 60 Hz build.\n\nGrid simulator, against dev: ISR 320 cycles on average (317), 1269 at most (1268), ADMUX written\n1188 cycles at most (1187); datalog values unchanged.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix: each phase restarts at its own crossings during start-up, not in a loop at the end\n\nThe loop over the phases at the end of the start-up period made the ADC ISR spill to a stack\nframe on every call, as a call (noinline) and inlined alike. processStartUp(phase) is back to\ndev's shape, with the per-phase resets moved before the end-of-start-up check: every phase\nstarts afresh at each of its crossings during the start-up period, so when the first phase to\ncross ends it, the others hold one cycle at most.\n\nGrid simulator, against dev (old board / new board): ISR average 316.9 / 316.7 cycles\n(unchanged), ISR max 917-928 / 903-914 cycles (1268 / 1260), ADMUX written at most 847 / 833\ncycles (1187 / 1179). The former worst case was the first contribution of L2 and L3 after the\nstart-up period, through the division of an unexpected cycle length, with the sample count of\nthe whole start-up period.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* refactor: the derived calibration in config_derived.h, energy_bucket.h shared with the single-phase\n\n- NEW_BOARD_CALIBRATION, f_powerCal[] and f_voltageCal[] (with the NO_OF_PHASES check) move from\n  calibration.h to config_derived.h, as in the single-phase firmware: calibration.h only holds\n  the values of each board. The code includes config_derived.h, never calibration.h directly.\n- energy_bucket.h is the single-phase copy: toFixedPerSample() takes an optional SumShift (0, no\n  change here) and contribution() is always_inline.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* refactor: align the firmware with the single-phase one\n\nSame shapes and wording in both firmwares, where they do the same thing:\n\n- the second counter without diversion moves after the datalog, in the\n  phase-0 block of processPlusHalfCycle, as in the single-phase firmware;\n- the datalog event is flagged beyond the start-up period only, said so;\n- the ADMUX comment names the channel written: the one after next;\n- updatePhysicalLoadStates loses its inline (defined in the .cpp), which\n  removes a build warning;\n- calibration.h keeps the per-board values only; f_powerCal, f_voltageCal\n  and the board checks are derived in config_derived.h;\n- energy_bucket.h and the test_ct_filter suite are shared with the\n  single-phase repository;\n- dualTariffPin is described as the meter's dry contact (config.h and the\n  configurator);\n- SPDX line in every test file; test README lists every suite.\n\nMeasured in the simulator: ISR average 318.3 cycles, max 1102, ADMUX at\nmost 1064 cycles, the same as the branch without these changes.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix!: the datalog period at most 30 s, its power summed in 32 bits\n\nNo 64-bit arithmetic on the ATmega328P: the power of the datalog period is\nsummed in 32 bits again, scaled down by 16 when the period needs it, as the\nvoltage already was (Robin's x1/16 for V^2).\n\n- Datalog::powerShift(): in ADC steps, a full-span sine averages 2^17 per\n  sample; while the sample sets of the period times 2^17 fit in 31 bits, no\n  shift (up to 9 s), else a shift by 4 (2^14 per sample at most: 30 s of\n  any signal fit). The ISR adds (instP + 8) >> 4, rounded; the energy\n  bucket keeps its unscaled sum.\n- Datalog::averagePower<SHIFT>(): the average scaled back up, quotient and\n  remainder apart, in 32 bits.\n- At most 30 s (validation.h, configurator): up to 54000 sample sets, so\n  the counter stays 16 bits. From 37 s on it used to wrap.\n- Removed: the 64-bit sums, addToDatalogSums(), SampleSetCounter and\n  sample_sets.h, the 32-bit IoT count line; V^2 scaled above 10 s again.\n- compile-fail: 31 s refused; 30 s builds at 50 and 60 Hz.\n\nDefault build: same size as dev (7866 bytes of flash, 414 of RAM) and the\nsame ISR (average 316.9 cycles, max 928). At 30 s: 16 cycles more on\naverage than dev at 30 s, the same max, 52 bytes of flash.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* refactor: averagePower() takes a 16- or 32-bit count, as in the single-phase firmware\n\nThe same code in both firmwares; the single-phase counter widens to 32 bits\nfrom 20 s on. The division stays signed. Same size, same tests.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* test(sim): relays.patch follows the new dualTariffPin comment\n\nThe patch carries the line as context: with the former comment it no longer\napplied, and the relay scenarios stopped before building.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/18e1555efbbc23a66b76b33d1890d4020399d17d",
+   "sizes": {
+    "basic": {
+     "flash": 7872,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12244,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7872,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7742,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
