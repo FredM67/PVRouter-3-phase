@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Implements the processing engine
  * @version 0.1
- * @date 2026-11-23
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2021-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -332,31 +332,19 @@ void initializeProcessing()
     infoln(F("Remote loads initialized"));
   }
 
-  // First stop the ADC
-  bit_clear(ADCSRA, ADEN);
-
-  // Activate free-running mode
-  ADCSRB = 0x00;
+  // The ADC runs free: each conversion starts the next one, and each end of conversion
+  // raises the ADC interrupt, where the samples are processed (1664 CPU cycles per call).
+  ADCSRA = 0;  // ADC off while it is set up
+  ADCSRB = 0;  // ADTS2:0 = 0: the auto-trigger source is the ADC itself (free running)
 
   // Reference and left-aligned result for the first conversion too, on the first channel (V1)
   ADMUX = AdcChain::admuxOf(PCB_VERSION, AdcChain::Channel::V1);
 
-  // Set up the ADC to be free-running
-  bit_set(ADCSRA, ADPS0);  // Set the ADC's clock to system clock / 128
-  bit_set(ADCSRA, ADPS1);
-  bit_set(ADCSRA, ADPS2);
-
-  bit_set(ADCSRA, ADATE);  // set the Auto Trigger Enable bit in the ADCSRA register. Because
-  // bits ADTS0-2 have not been set (i.e. they are all zero), the
-  // ADC's trigger source is set to "free running mode".
-
-  bit_set(ADCSRA, ADIE);  // set the ADC interrupt enable bit. When this bit is written
-  // to one and the I-bit in SREG is set, the
-  // ADC Conversion Complete Interrupt is activated.
-
-  bit_set(ADCSRA, ADEN);  // Enable the ADC
-
-  bit_set(ADCSRA, ADSC);  // start ADC manually first time
+  ADCSRA = bit(ADEN)                                // ADC on
+           | bit(ADSC)                              // first conversion, the next ones start by themselves
+           | bit(ADATE)                             // auto-trigger, from the source set in ADCSRB
+           | bit(ADIE)                              // interrupt at the end of each conversion
+           | bit(ADPS2) | bit(ADPS1) | bit(ADPS0);  // ADC clock 16 MHz / 128 = 125 kHz: 104 µs per conversion
 
   sei();  // Enable Global Interrupts
 }
