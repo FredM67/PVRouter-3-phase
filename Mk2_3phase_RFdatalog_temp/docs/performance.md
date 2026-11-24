@@ -63,12 +63,12 @@ Mains cycle (50Hz): 20ms
 #### Shared Variables Details
 ```cpp
 // Critical shared data between ISR and main loop
-volatile int64_t copyOf_sumP_atSupplyPoint[3];      // 24 bytes (64 bits: a datalog period of up to 40 s)
-volatile uint32_t copyOf_sum_Vsquared[3];           // 12 bytes
+volatile int32_t copyOf_sumP_atSupplyPoint[3];      // 12 bytes
+volatile int32_t copyOf_sum_Vsquared[3];            // 12 bytes
 volatile int32_t copyOf_energyInBucket_main;        // 4 bytes (fixed point, see energy_bucket.h)
 volatile uint16_t copyOf_countLoadON[2];            // 4 bytes
 volatile bool flags[6];                             // 6 bytes
-// Total: ~52 bytes for shared state
+// Total: ~40 bytes for shared state
 ```
 
 ### Flash Distribution (8952 bytes / 32256 bytes = 27.8%)

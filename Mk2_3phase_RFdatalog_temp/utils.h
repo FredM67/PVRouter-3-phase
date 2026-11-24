@@ -504,7 +504,7 @@ struct TeleInfoData
   {
     return datalogOffPeak;
   }
-  static SampleSetCounter sampleSets()
+  static uint16_t sampleSets()
   {
     return Shared::copyOf_sampleSetsDuringThisDatalogPeriod;
   }

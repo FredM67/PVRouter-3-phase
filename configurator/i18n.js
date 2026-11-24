@@ -208,7 +208,7 @@
 
       // problems (validate.js)
       'err.frequency': 'The grid frequency must be 50 or 60 Hz.',
-      'err.datalogPeriod': 'The datalog period must be between 1 and 40 s.',
+      'err.datalogPeriod': 'The datalog period must be between 1 and 30 s.',
       'err.requiredExport': 'The required export must be between -32768 and 32767 W.',
       'err.diversionStart': 'The diversion start threshold must be between 0 and 32767 W.',
       'err.serialOutput': 'Unknown serial output.',
@@ -530,7 +530,7 @@
       'where.yaml': 'dans ESPHome (tableau de bord ou ligne de commande), avec un secrets.yaml.',
 
       'err.frequency': 'La fréquence du réseau doit être de 50 ou 60 Hz.',
-      'err.datalogPeriod': 'La période de journalisation doit être comprise entre 1 et 40 s.',
+      'err.datalogPeriod': 'La période de journalisation doit être comprise entre 1 et 30 s.',
       'err.requiredExport': 'L’export requis doit être compris entre -32768 et 32767 W.',
       'err.diversionStart': 'Le seuil de démarrage doit être compris entre 0 et 32767 W.',
       'err.serialOutput': 'Sortie série inconnue.',

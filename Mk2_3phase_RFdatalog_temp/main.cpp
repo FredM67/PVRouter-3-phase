@@ -394,10 +394,10 @@ void updatePowerAndVoltageData()
   do
   {
     --phase;
-    const SampleSetCounter sampleSets{ Shared::copyOf_sampleSetsDuringThisDatalogPeriod };
+    const uint16_t sampleSets{ Shared::copyOf_sampleSetsDuringThisDatalogPeriod };
 
     // import = +ve: the sum of the ISR is negative when importing
-    tx_data.power_L[phase] = Datalog::watts(static_cast< int32_t >(-Shared::copyOf_sumP_atSupplyPoint[phase] / sampleSets),
+    tx_data.power_L[phase] = Datalog::watts(Datalog::averagePower< DATALOG_POWER_SHIFT >(-Shared::copyOf_sumP_atSupplyPoint[phase], sampleSets),
                                             pgm_read_word(&powerCal.value[phase]), powerCal.shift);
 
     tx_data.power += tx_data.power_L[phase];
