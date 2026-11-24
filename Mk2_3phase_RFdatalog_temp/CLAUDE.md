@@ -95,6 +95,7 @@ pio check
 - `main` (stable) and `dev` (development), both protected by rulesets; topic branches (`feat/…`, `fix/…`, `docs/…`, …), personal branches under `users/`
 - PRs target `dev` branch
 - Conventional commits: `fix:`, `feat:`, `docs:`, `chore:`
+- **Port every change to the single-phase firmware** (PVRouter-1-phase, `Mk2_1phase_RFdatalog_temp`), when it applies there: the two firmwares share their settings, names, files and interfaces. A fix, feature or refactor here gets a matching PR there, unless it touches what only this firmware has (the three phases and their per-phase arrays, `RemoteLoadReceiver`). Each PR says whether it was ported, with a link to the other PR, or why not.
 
 ## Test Structure
 
