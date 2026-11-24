@@ -28,8 +28,10 @@ inline void setPinsState(uint16_t pinsON, uint16_t pinsOFF);
 
 inline constexpr bool getPinState(uint8_t pin);
 
-inline void setPinsAsOutput(uint16_t pins);
-inline void setPinsAsInputPullup(uint16_t pins);
+template< uint16_t pins >
+inline void setPinsAsOutput();
+template< uint16_t pins >
+inline void setPinsAsInputPullup();
 #else
 inline constexpr void togglePin(uint8_t pin) __attribute__((always_inline));
 
@@ -41,8 +43,10 @@ inline void setPinsState(uint16_t pinsON, uint16_t pinsOFF) __attribute__((alway
 
 inline constexpr bool getPinState(uint8_t pin) __attribute__((always_inline));
 
-inline void setPinsAsOutput(uint16_t pins) __attribute__((always_inline));
-inline void setPinsAsInputPullup(uint16_t pins) __attribute__((always_inline));
+template< uint16_t pins >
+inline void setPinsAsOutput() __attribute__((always_inline));
+template< uint16_t pins >
+inline void setPinsAsInputPullup() __attribute__((always_inline));
 #endif
 
 /**
@@ -191,28 +195,44 @@ inline constexpr bool getPinState(const uint8_t pin)
 /**
  * @brief Set the pins as OUTPUT
  *
- * @param pins The pins to set as OUTPUT
+ * @tparam pins The pins to set as OUTPUT, known at compile time
+ *
+ * @details The registers are volatile: `DDRB |= 0` is still a read and a write. A port none of
+ *          @p pins is on is not touched at all.
  */
-inline void setPinsAsOutput(const uint16_t pins)
+template< uint16_t pins >
+inline void setPinsAsOutput()
 {
-  DDRD |= lowByte(pins);
-  DDRB |= highByte(pins);
+  if constexpr (lowByte(pins) != 0)
+  {
+    DDRD |= lowByte(pins);
+  }
+  if constexpr (highByte(pins) != 0)
+  {
+    DDRB |= highByte(pins);
+  }
 }
 
 /**
  * @brief Set the pins as INPUT_PULLUP
  *
- * @param pins The pins to set as INPUT_PULLUP
+ * @tparam pins The pins to set as INPUT_PULLUP, known at compile time
+ *
+ * @details A port none of @p pins is on is not touched at all (see setPinsAsOutput()).
  */
-inline void setPinsAsInputPullup(const uint16_t pins)
+template< uint16_t pins >
+inline void setPinsAsInputPullup()
 {
-  // Set pins as input
-  DDRD &= ~lowByte(pins);
-  DDRB &= ~highByte(pins);
-
-  // Enable pull-up resistors
-  PORTD |= lowByte(pins);
-  PORTB |= highByte(pins);
+  if constexpr (lowByte(pins) != 0)
+  {
+    DDRD &= static_cast< uint8_t >(~lowByte(pins));  // input
+    PORTD |= lowByte(pins);                          // pull-up on
+  }
+  if constexpr (highByte(pins) != 0)
+  {
+    DDRB &= static_cast< uint8_t >(~highByte(pins));
+    PORTB |= highByte(pins);
+  }
 }
 
 #endif /* UTILS_PINS_H */

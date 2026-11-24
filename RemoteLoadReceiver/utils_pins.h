@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions for pins manipulation
  * @version 0.1
- * @date 2026-11-21
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2023-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -21,28 +21,32 @@
 inline constexpr void togglePin(uint8_t pin);
 
 inline constexpr void setPinON(uint8_t pin);
-inline void setPinsON(uint16_t pins);
 
 inline constexpr void setPinOFF(uint8_t pin);
-inline void setPinsOFF(uint16_t pins);
+template< uint16_t usedPins >
+inline void setPinsState(uint16_t pinsON, uint16_t pinsOFF);
 
 inline constexpr bool getPinState(uint8_t pin);
 
-inline void setPinsAsOutput(uint16_t pins);
-inline void setPinsAsInputPullup(uint16_t pins);
+template< uint16_t pins >
+inline void setPinsAsOutput();
+template< uint16_t pins >
+inline void setPinsAsInputPullup();
 #else
 inline constexpr void togglePin(uint8_t pin) __attribute__((always_inline));
 
 inline constexpr void setPinON(uint8_t pin) __attribute__((always_inline));
-inline void setPinsON(uint16_t pins) __attribute__((always_inline));
 
 inline constexpr void setPinOFF(uint8_t pin) __attribute__((always_inline));
-inline void setPinsOFF(uint16_t pins) __attribute__((always_inline));
+template< uint16_t usedPins >
+inline void setPinsState(uint16_t pinsON, uint16_t pinsOFF) __attribute__((always_inline));
 
 inline constexpr bool getPinState(uint8_t pin) __attribute__((always_inline));
 
-inline void setPinsAsOutput(uint16_t pins) __attribute__((always_inline));
-inline void setPinsAsInputPullup(uint16_t pins) __attribute__((always_inline));
+template< uint16_t pins >
+inline void setPinsAsOutput() __attribute__((always_inline));
+template< uint16_t pins >
+inline void setPinsAsInputPullup() __attribute__((always_inline));
 #endif
 
 /**
@@ -114,21 +118,6 @@ inline constexpr void setPinON(const uint8_t pin)
 }
 
 /**
- * @brief Set the Pins state to ON
- *
- * @param pins The pins to change
- *
- * @warning Read-modify-write of PORTD and PORTB: only safe from the ADC ISR (its sole caller),
- *          which cannot be interrupted. From loop(), use setPinState() or togglePin(): an ISR
- *          landing in the middle would have its load pin changes written back to the old state.
- */
-inline void setPinsON(const uint16_t pins)
-{
-  PORTD |= lowByte(pins);
-  PORTB |= highByte(pins);
-}
-
-/**
  * @brief Set the Pin state to OFF for the specified pin
  *
  * @param pin pin to change [2..13]
@@ -153,18 +142,31 @@ inline constexpr void setPinOFF(const uint8_t pin)
 }
 
 /**
- * @brief Set the Pins state to OFF
+ * @brief Switch pins ON and OFF, with one write per port
  *
- * @param pins The pins to change
+ * @tparam usedPins All the pins this call may ever change, known at compile time
+ * @param pinsON The pins to switch ON
+ * @param pinsOFF The pins to switch OFF (none of them in pinsON)
+ *
+ * @details The ports are volatile: each `PORTD |= …` is its own read and write, even when
+ *          another one follows or the mask is 0. So each port is read and written once, and a
+ *          port none of @p usedPins is on (PORTB with every pin on 2..7) is not touched at all.
  *
  * @warning Read-modify-write of PORTD and PORTB: only safe from the ADC ISR (its sole caller),
  *          which cannot be interrupted. From loop(), use setPinState() or togglePin(): an ISR
  *          landing in the middle would have its load pin changes written back to the old state.
  */
-inline void setPinsOFF(const uint16_t pins)
+template< uint16_t usedPins >
+inline void setPinsState(const uint16_t pinsON, const uint16_t pinsOFF)
 {
-  PORTD &= ~lowByte(pins);
-  PORTB &= ~highByte(pins);
+  if constexpr (lowByte(usedPins) != 0)
+  {
+    PORTD = static_cast< uint8_t >((PORTD & ~lowByte(pinsOFF)) | lowByte(pinsON));
+  }
+  if constexpr (highByte(usedPins) != 0)
+  {
+    PORTB = static_cast< uint8_t >((PORTB & ~highByte(pinsOFF)) | highByte(pinsON));
+  }
 }
 
 /**
@@ -193,28 +195,44 @@ inline constexpr bool getPinState(const uint8_t pin)
 /**
  * @brief Set the pins as OUTPUT
  *
- * @param pins The pins to set as OUTPUT
+ * @tparam pins The pins to set as OUTPUT, known at compile time
+ *
+ * @details The registers are volatile: `DDRB |= 0` is still a read and a write. A port none of
+ *          @p pins is on is not touched at all.
  */
-inline void setPinsAsOutput(const uint16_t pins)
+template< uint16_t pins >
+inline void setPinsAsOutput()
 {
-  DDRD |= lowByte(pins);
-  DDRB |= highByte(pins);
+  if constexpr (lowByte(pins) != 0)
+  {
+    DDRD |= lowByte(pins);
+  }
+  if constexpr (highByte(pins) != 0)
+  {
+    DDRB |= highByte(pins);
+  }
 }
 
 /**
  * @brief Set the pins as INPUT_PULLUP
  *
- * @param pins The pins to set as INPUT_PULLUP
+ * @tparam pins The pins to set as INPUT_PULLUP, known at compile time
+ *
+ * @details A port none of @p pins is on is not touched at all (see setPinsAsOutput()).
  */
-inline void setPinsAsInputPullup(const uint16_t pins)
+template< uint16_t pins >
+inline void setPinsAsInputPullup()
 {
-  // Set pins as input
-  DDRD &= ~lowByte(pins);
-  DDRB &= ~highByte(pins);
-
-  // Enable pull-up resistors
-  PORTD |= lowByte(pins);
-  PORTB |= highByte(pins);
+  if constexpr (lowByte(pins) != 0)
+  {
+    DDRD &= static_cast< uint8_t >(~lowByte(pins));  // input
+    PORTD |= lowByte(pins);                          // pull-up on
+  }
+  if constexpr (highByte(pins) != 0)
+  {
+    DDRB &= static_cast< uint8_t >(~highByte(pins));
+    PORTB |= highByte(pins);
+  }
 }
 
 #endif /* UTILS_PINS_H */

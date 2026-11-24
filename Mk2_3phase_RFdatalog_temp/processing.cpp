@@ -302,8 +302,8 @@ void initializeProcessing()
   constexpr uint32_t filterDC_V_nom = static_cast< uint32_t >(i_DCoffset_V_nom) << 15;
   initializeArray(l_filterDC_V, filterDC_V_nom);  // nominal mid-point value of ADC left-aligned
 
-  setPinsAsOutput(getOutputPins());      // set the output pins as OUTPUT
-  setPinsAsInputPullup(getInputPins());  // set the input pins as INPUT_PULLUP
+  setPinsAsOutput< getOutputPins() >();      // set the output pins as OUTPUT
+  setPinsAsInputPullup< getInputPins() >();  // set the input pins as INPUT_PULLUP
 
   uint8_t i{ NO_OF_DUMPLOADS };
   do
