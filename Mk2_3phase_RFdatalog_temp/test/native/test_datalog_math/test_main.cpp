@@ -251,14 +251,14 @@ void test_voltage_calibration_is_constexpr(void)
 
 void test_vrms_matches_the_reference_short_period(void)
 {
-  // 5 s datalog: V^2 unscaled, V_ADC up to 512 (old board: 230 V ~ 282 steps rms)
+  // datalog up to 9 s: V^2 unscaled, V_ADC up to 512 (old board: 230 V ~ 282 steps rms)
   TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(100, oldBoardVCal, 512UL * 512UL));
   TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(100, newBoardVCal, 512UL * 512UL));
 }
 
 void test_vrms_matches_the_reference_long_period(void)
 {
-  // datalog > 10 s: V^2 scaled down by 16, the result scaled up by 4
+  // datalog > 9 s: V^2 scaled down by 16, the result scaled up by 4
   TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(400, oldBoardVCal, 512UL * 512UL / 16));
   TEST_ASSERT_LESS_OR_EQUAL_FLOAT(0.5F, worstVrmsError(400, newBoardVCal, 512UL * 512UL / 16));
 }
@@ -287,11 +287,14 @@ void test_vrms_saturates(void)
 
 void test_vrms_factor_follows_the_scaling_of_the_isr(void)
 {
+  // 3 phases, 32 sample sets per cycle: V^2 is scaled from 10 s on
   static_assert(Datalog::vrmsFactor(5) == 100, "must be constexpr");
   TEST_ASSERT_EQUAL_UINT16(100, Datalog::vrmsFactor(1));
-  TEST_ASSERT_EQUAL_UINT16(100, Datalog::vrmsFactor(10));  // V^2 unscaled up to 10 s
-  TEST_ASSERT_EQUAL_UINT16(400, Datalog::vrmsFactor(11));  // V^2 / 16 above: root / 4
+  TEST_ASSERT_EQUAL_UINT16(100, Datalog::vrmsFactor(9));   // V^2 unscaled up to 9 s
+  TEST_ASSERT_EQUAL_UINT16(400, Datalog::vrmsFactor(10));  // V^2 / 16 above: root / 4
   TEST_ASSERT_EQUAL_UINT16(400, Datalog::vrmsFactor(40));
+  TEST_ASSERT_FALSE(Datalog::isVSquaredScaled(9));
+  TEST_ASSERT_TRUE(Datalog::isVSquaredScaled(10));
 }
 
 void test_valid_voltage_calibration(void)

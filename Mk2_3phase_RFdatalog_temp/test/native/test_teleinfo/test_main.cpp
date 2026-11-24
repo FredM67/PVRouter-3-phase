@@ -623,10 +623,17 @@ void test_line(void)
   TEST_ASSERT_EQUAL_UINT32(TeleInfo::lineSize(2, 5), end - text);
   TEST_ASSERT_EQUAL_MEMORY("\nV1\t65535\t", text, 10);
 
-  // the longest: a 4-character tag and a signed 5-digit value
+  // a 4-character tag and a signed 5-digit value
   end = TeleInfo::line(text, "S_MC", -32768);
   TEST_ASSERT_EQUAL_UINT32(TeleInfo::lineSize(4, 6), end - text);
-  TEST_ASSERT_EQUAL_UINT8(TeleInfo::MAX_STEP_LENGTH - 1, TeleInfo::lineSize(4, 6));
+
+  // the 32-bit sample count of a datalog period beyond 36 s
+  end = TeleInfo::lineUnsigned(text, "S", static_cast< uint32_t >(4294967295UL));
+  TEST_ASSERT_EQUAL_UINT32(TeleInfo::lineSize(1, 10), end - text);
+  TEST_ASSERT_EQUAL_MEMORY("\nS\t4294967295\t", text, 14);
+
+  // the room of a step: a 4-character tag and a 10-digit value
+  TEST_ASSERT_EQUAL_UINT8(TeleInfo::MAX_STEP_LENGTH - 1, TeleInfo::lineSize(4, 10));
 
   // 0 and -32768
   end = TeleInfo::line(text, "P", 0);

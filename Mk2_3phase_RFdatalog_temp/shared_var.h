@@ -4,6 +4,8 @@
 
 #include <Arduino.h>
 
+#include "config_derived.h"  // NO_OF_PHASES, NO_OF_DUMPLOADS, SampleSetCounter
+
 // Shared variables - carefully managed between ISR and loop
 namespace Shared
 {
@@ -20,12 +22,12 @@ inline volatile uint16_t absenceOfDivertedEnergyCountInSeconds{ 0 }; /**< number
 // since there's no real locking feature for shared variables, a couple of data
 // generated from inside the ISR are copied from time to time to be passed to the
 // main processor. When the data are available, the ISR signals it to the main processor.
-inline volatile int32_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES];   /**< copy of cumulative power per phase */
-inline volatile uint32_t copyOf_sum_Vsquared[NO_OF_PHASES];        /**< copy of for summation of V^2 values during datalog period */
-inline volatile int32_t copyOf_energyInBucket_main;                /**< copy of main energy bucket (over all phases), in Energy:: units */
-inline volatile uint8_t copyOf_lowestNoOfSampleSetsPerMainsCycle;  /**< copy of a mechanism to check the integrity of this code structure */
-inline volatile uint16_t copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
-inline volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];      /**< copy of number of cycle the load was ON (over 1 datalog period) */
+inline volatile int64_t copyOf_sumP_atSupplyPoint[NO_OF_PHASES];           /**< copy of cumulative power per phase */
+inline volatile uint32_t copyOf_sum_Vsquared[NO_OF_PHASES];                /**< copy of for summation of V^2 values during datalog period */
+inline volatile int32_t copyOf_energyInBucket_main;                        /**< copy of main energy bucket (over all phases), in Energy:: units */
+inline volatile uint8_t copyOf_lowestNoOfSampleSetsPerMainsCycle;          /**< copy of a mechanism to check the integrity of this code structure */
+inline volatile SampleSetCounter copyOf_sampleSetsDuringThisDatalogPeriod; /**< copy of for counting the sample sets during each datalogging period */
+inline volatile uint16_t copyOf_countLoadON[NO_OF_DUMPLOADS];              /**< copy of number of cycle the load was ON (over 1 datalog period) */
 }
 
 #endif /* SHARED_VAR_H */

@@ -3,7 +3,7 @@
 Tests for the integer datalog arithmetic (`datalog_math.h`), which replaces the float code that computed, at the end of each datalog period, the power and the RMS voltage of each phase (#120):
 
 - `power_L = -(sumP / n) * f_powerCal[phase]`
-- `Vrms_L_x100 = factor * f_voltageCal[phase] * sqrt(sum_Vsquared / n)` (factor 100, or 400 when the ISR scales V² down by 16 for datalog periods over 10 s)
+- `Vrms_L_x100 = factor * f_voltageCal[phase] * sqrt(sum_Vsquared / n)` (factor 100, or 400 when the ISR scales V² down by 16 for datalog periods over 9 s, Datalog::isVSquaredScaled())
 
 The float expressions, evaluated in double precision, are the reference. The calibration constants have at least 16 significant bits, like the root of the normalised square root; together with the final rounding, the power stays within 0.5 W + 2⁻¹⁶ of the value (< 1 W up to 32 kW), and the voltage within 0.012 V at 230 V.
 

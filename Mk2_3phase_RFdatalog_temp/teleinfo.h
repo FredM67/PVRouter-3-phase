@@ -17,7 +17,7 @@
  * - **Serial Configuration**: Serial at 9600 baud, 7 data bits, even parity, 1 stop bit.
  *
  * @version 0.2
- * @date 2026-11-22
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2025-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -55,20 +55,21 @@ constexpr uint8_t lineSize(uint8_t tagLength, uint8_t valueLength)
 
 /**
  * @brief The most a step writes: STX or ETX, and the longest line, a 4-character tag ("S_MC")
- *        with a signed 16-bit value (-32768).
+ *        with a 10-digit value (a 32-bit sample count).
  */
-inline constexpr uint8_t MAX_STEP_LENGTH{ 1 + lineSize(4, 6) };
+inline constexpr uint8_t MAX_STEP_LENGTH{ 1 + lineSize(4, 10) };
 
 /**
- * @brief Writes the decimal digits of a 16-bit value.
+ * @brief Writes the decimal digits of a value.
  *
  * @param dst Where to write.
  * @param value The value.
  * @return The end of what was written.
  */
-inline char* writeDigits(char* dst, uint16_t value)
+template< typename Unsigned >
+char* writeDigits(char* dst, Unsigned value)
 {
-  char digits[5];
+  char digits[10];
   uint8_t count{ 0 };
   do
   {
@@ -93,11 +94,12 @@ inline char* writeDigits(char* dst, uint16_t value)
  * @param dst Where to write, room for lineSize() bytes.
  * @param tag The tag, at most 4 characters with the index.
  * @param index Appended to the tag as a digit (1-9), none when 0.
- * @param magnitude The magnitude of the value.
+ * @param magnitude The magnitude of the value: 16 bits, or 32 bits for the sample count.
  * @param negative Whether the value is negative.
  * @return The end of the line.
  */
-inline char* writeLine(char* dst, const char* tag, uint8_t index, uint16_t magnitude, bool negative)
+template< typename Magnitude >
+char* writeLine(char* dst, const char* tag, uint8_t index, Magnitude magnitude, bool negative)
 {
   *dst++ = LF;
 
@@ -150,13 +152,22 @@ inline char* line(char* dst, const char* tag, int16_t value, uint8_t index = 0)
  *
  * @param dst Where to write, room for lineSize() bytes.
  * @param tag The tag.
- * @param value The value.
+ * @param value The value: 16 bits, or 32 bits (the sample count beyond 36 s).
  * @param index Appended to the tag as a digit (1-9), none when 0.
  * @return The end of the line.
  */
-inline char* lineUnsigned(char* dst, const char* tag, uint16_t value, uint8_t index = 0)
+template< typename Unsigned >
+char* lineUnsigned(char* dst, const char* tag, Unsigned value, uint8_t index = 0)
 {
-  return writeLine(dst, tag, index, value, false);
+  static_assert(sizeof(Unsigned) <= 4, "at most 32 bits");
+  if constexpr (sizeof(Unsigned) > 2)
+  {
+    return writeLine(dst, tag, index, static_cast< uint32_t >(value), false);
+  }
+  else
+  {
+    return writeLine(dst, tag, index, static_cast< uint16_t >(value), false);
+  }
 }
 
 /**

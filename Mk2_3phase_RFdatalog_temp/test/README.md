@@ -17,6 +17,7 @@ test/
 │   ├── test_power_rms_comparison/
 │   ├── test_relay_engine/
 │   ├── test_remote_loads/
+│   ├── test_sample_sets/
 │   ├── test_teleinfo/
 │   ├── test_temp_schedule/
 │   └── test_utils_override/
@@ -68,6 +69,7 @@ pio test -e uno -f "*test_utils_relay*"
 | [test_power_rms_comparison](native/test_power_rms_comparison/) | Real power vs. RMS power computation |
 | [test_relay_engine](native/test_relay_engine/) | Relay diversion decisions: strict thresholds, minimum ON/OFF times, settle time after any change, order in and out, overrides, diversion OFF, decision on the average |
 | [test_remote_loads](native/test_remote_loads/) | Packed load map and per-unit remote payloads |
+| [test_sample_sets](native/test_sample_sets/) | The counter of the sample sets of a datalog period: 16 bits up to 36 s, 32 bits above; the datalog sums hold the largest count of 40 s |
 | [test_teleinfo](native/test_teleinfo/) | The IoT frame streamed a line per step: byte for byte the former buffered frame for every feature set, a golden frame, every tag, optional features on and off, `N`, `V` and `S` unsigned |
 | [test_temp_schedule](native/test_temp_schedule/) | Which 1-Wire transaction of the temperature sensors runs on which mains cycle (`temp_schedule.h`): the round (conversion, then ADDRESS, READ and CLOSE per sensor), one transaction per cycle, only on a cycle seen on time, the round ending within the datalog period |
 | [test_utils_override](native/test_utils_override/) | Override pin system (local + remote loads) |

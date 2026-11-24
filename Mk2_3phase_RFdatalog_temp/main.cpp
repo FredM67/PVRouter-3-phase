@@ -15,7 +15,7 @@
  * - **Watchdog**: Toggles a pin to indicate system activity.
  *
  * @version 0.1
- * @date 2026-11-23
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2023-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -394,10 +394,10 @@ void updatePowerAndVoltageData()
   do
   {
     --phase;
-    const uint16_t sampleSets{ Shared::copyOf_sampleSetsDuringThisDatalogPeriod };
+    const SampleSetCounter sampleSets{ Shared::copyOf_sampleSetsDuringThisDatalogPeriod };
 
     // import = +ve: the sum of the ISR is negative when importing
-    tx_data.power_L[phase] = Datalog::watts(-Shared::copyOf_sumP_atSupplyPoint[phase] / sampleSets,
+    tx_data.power_L[phase] = Datalog::watts(static_cast< int32_t >(-Shared::copyOf_sumP_atSupplyPoint[phase] / sampleSets),
                                             pgm_read_word(&powerCal.value[phase]), powerCal.shift);
 
     tx_data.power += tx_data.power_L[phase];

@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Public functions/variables of processing engine
  * @version 0.1
- * @date 2026-11-21
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2021-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -41,6 +41,7 @@ inline void processPolarity(uint8_t phase, uint16_t rawSample);
 inline void confirmPolarity(uint8_t phase);
 inline void processLatestContribution(uint8_t phase);
 inline void processDataLogging();
+void addToDatalogSums();
 inline void updatePortsStates();
 inline void updatePhysicalLoadStates();
 #else
@@ -65,6 +66,9 @@ inline void updatePortsStates() __attribute__((optimize("-O3")));
 // not inlined on purpose: inlined, it takes registers that the rest of the ISR then spills to a
 // stack frame on every call (grid simulator: 30 cycles more on average, 65 more at most)
 inline void updatePhysicalLoadStates() __attribute__((noinline));
+// not inlined on purpose either: its 64-bit datalog sums, inlined, make the ISR spill to a stack
+// frame on every call (grid simulator: 29 cycles more on average)
+void addToDatalogSums() __attribute__((noinline));
 #endif
 
 #endif /* PROCESSING_H */
