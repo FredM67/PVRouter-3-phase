@@ -1,8 +1,9 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief Performance benchmarks for assembly multiplication functions
  * @version 0.1
- * @date 2026-11-20
+ * @date 2026-11-24
  *
  * This file contains performance benchmarks for the assembly-optimized
  * multiplication functions. They run in CI in the simavr simulator (uno_sim

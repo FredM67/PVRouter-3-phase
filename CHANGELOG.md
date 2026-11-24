@@ -52,6 +52,9 @@ If you keep your own `config.h`, check these points:
 - **Calibration:** `calibration.h` has a set of values per board, chosen by `PCB_VERSION`.
   Old board: copy your former `f_powerCal` and `f_voltageCal` values into `f_powerCalOldBoard`
   and `f_voltageCalOldBoard`.
+  The values derived from them (`NEW_BOARD_CALIBRATION`, `f_powerCal`, `f_voltageCal`) are in
+  `config_derived.h`: a `calibration.h` taken from `dev` before that still ends with them, below
+  *Nothing to change below this line*; delete that part.
 - **Dual tariff, scheduled boosts (breaking):** `rg_ForceLoad` (with `pairForceLoad` and
   `rg_OffsetForce`) is replaced by `scheduledBoosts`; there is no compatibility layer. Rewrite each
   load's pair as a boost, with explicit units (`HOURS()`, `MINUTES()`) and its target:

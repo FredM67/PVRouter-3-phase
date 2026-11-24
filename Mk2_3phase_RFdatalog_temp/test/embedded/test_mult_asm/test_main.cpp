@@ -1,8 +1,9 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief Unity-based unit tests for assembly multiplication functions
  * @version 0.1
- * @date 2026-09-23
+ * @date 2026-11-24
  *
  * This file contains comprehensive unit tests for the assembly-optimized
  * multiplication functions using the Unity testing framework.

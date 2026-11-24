@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief Native tests for the rotation groups: the setting, its resolution and the rotation

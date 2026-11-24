@@ -13,7 +13,6 @@
 #include <Arduino.h>
 
 #include "config_derived.h"
-#include "calibration.h"
 #include "dualtariff.h"
 #include "processing.h"
 #include "utils_pins.h"
@@ -843,20 +842,6 @@ void processLatestContribution(const uint8_t phase)
       // Comment or remove this if you want to divert ALL surplus once started
       l_energyInBucket_main -= Energy::fromWatts(REQUIRED_EXPORT_IN_WATTS);
     }
-
-    if (++perSecondCounter == SUPPLY_FREQUENCY)
-    {
-      perSecondCounter = 0;
-
-      if (absenceOfDivertedEnergyCountInMC > SUPPLY_FREQUENCY)
-      {
-        ++Shared::absenceOfDivertedEnergyCountInSeconds;
-        // Reset diversion state if we've had no diversion for a full second
-        b_diversionStarted = false;
-      }
-      else
-        Shared::absenceOfDivertedEnergyCountInSeconds = 0;
-    }
   }
   // Applying max and min limits to the main accumulator's level
   // is deferred until after the energy related decisions have been taken
@@ -912,9 +897,8 @@ void processDataLogging()
   n_lowestNoOfSampleSetsPerMainsCycle = UINT8_MAX;
   i_sampleSetsDuringThisDatalogPeriod = 0;
 
-  // signal the main processor that logging data are available
-  // we skip the period from start to running stable
-  Shared::b_datalogEventPending = beyondStartUpPeriod;
+  // signal the main processor that logging data are available (beyond the start-up period)
+  Shared::b_datalogEventPending = true;
 }
 
 /**
@@ -930,6 +914,7 @@ void processDataLogging()
  * - Processes the latest energy contribution for the specified phase.
  * - Updates the minimum number of ADC sample sets per mains cycle for phase 0.
  * - Handles data logging at the end of the logging period for phase 0.
+ * - Counts the seconds without diversion, for phase 0.
  * - Resets cumulative power and sample count for the phase.
  *
  * @ingroup TimeCritical
@@ -949,6 +934,21 @@ void processPlusHalfCycle(const uint8_t phase)
     }
 
     processDataLogging();
+
+    // the seconds without diversion
+    if (++perSecondCounter == SUPPLY_FREQUENCY)
+    {
+      perSecondCounter = 0;
+
+      if (absenceOfDivertedEnergyCountInMC > SUPPLY_FREQUENCY)
+      {
+        ++Shared::absenceOfDivertedEnergyCountInSeconds;
+        // Reset diversion state if we've had no diversion for a full second
+        b_diversionStarted = false;
+      }
+      else
+        Shared::absenceOfDivertedEnergyCountInSeconds = 0;
+    }
   }
 
   l_sumP[phase] = 0;
@@ -1127,7 +1127,7 @@ struct adc_ctx_t
 {
   struct adc_ctx_t *next; /**< pointer to next context in circular list */
   uint8_t index;          /**< channel just converted (0-5 for V1,I1,V2,I2,V3,I3: AdcChain::Channel) */
-  uint8_t admux;          /**< ADMUX register value for this channel */
+  uint8_t admux;          /**< ADMUX register value written after this channel: the channel after next */
 };
 
 // ADC optimization: circular linked list for channel management. The ADMUX written after a

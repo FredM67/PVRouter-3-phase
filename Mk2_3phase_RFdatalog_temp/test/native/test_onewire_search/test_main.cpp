@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief The ROM search of onewire_search.h, on a simulated 1-Wire bus

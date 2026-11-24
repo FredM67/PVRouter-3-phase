@@ -31,7 +31,6 @@ static_assert(__cplusplus >= 201703L, "See also : https://github.com/FredM67/PVR
 
 // In this sketch, the ADC is free-running with a cycle time of ~104uS.
 
-#include "calibration.h"
 #include "datalog_math.h"
 #include "pin_edges.h"
 #include "processing.h"

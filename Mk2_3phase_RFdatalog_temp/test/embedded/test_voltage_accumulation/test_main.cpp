@@ -1,8 +1,9 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief Unity tests for voltage accumulation overflow analysis with 14-bit optimization
  * @author Frederic Metrich
- * @date 2026-09-30
+ * @date 2026-11-24
  *
  * Tests the optimized voltage accumulation strategy where samples are reduced to 14-bits
  * before multiplication, then shifted by 8 (for ≤10s periods) or 12 (for >10s periods).

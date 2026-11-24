@@ -9,7 +9,7 @@
  * what it needs from these settings in config_derived.h.
  *
  * @version 2.0
- * @date 2026-11-21
+ * @date 2026-11-24
  */
 
 #pragma once
@@ -100,7 +100,7 @@ inline constexpr uint8_t loadPrioritiesAtStartup[NO_OF_DUMPLOADS]{ 0, 1, 2 }; /*
 inline constexpr RotationGroups rotationGroups{}; /**< the loads that take turns, {} without rotation */
 
 // Set the value to 'unused_pin' when the pin is not needed (feature deactivated)
-inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< for 3-phase PCB, off-peak trigger */
+inline constexpr uint8_t dualTariffPin{ unused_pin }; /**< off-peak trigger, the meter's dry contact */
 inline constexpr uint8_t diversionPin{ unused_pin };  /**< if LOW, no surplus diversion: only forced loads/relays are ON */
 inline constexpr uint8_t routerOffPin{ unused_pin };  /**< if LOW, router OFF: every load and relay is OFF, forcing included */
 inline constexpr uint8_t rotationPin{ unused_pin };   /**< if LOW, trigger a load priority rotation */

@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief What config.h is written with: its types, constants and helpers
  * @version 1.0
- * @date 2026-11-21
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2026-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -35,7 +35,7 @@ enum class SerialOutputType
   JSON           /**< Output in JSON format */
 };
 
-/** Motherboard generation: they do not measure the same way */
+/** Motherboard: each has its own analog inputs and ADC reference (adc_chain.h) */
 enum class PcbVersion : uint8_t
 {
   OLD, /**< the former 3-phase board: ADC reference AVCC (= VCC, 5 V or 3.3 V) */

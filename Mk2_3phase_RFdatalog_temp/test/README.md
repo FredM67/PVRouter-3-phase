@@ -1,12 +1,15 @@
 # Test Suite
 
-Unit tests for PVRouter-3-phase firmware.
+Unit tests for the PVRouter-3-phase firmware.
 
 ## Structure
 
 ```
 test/
 ├── native/           # Run on host PC (no hardware required)
+│   ├── test_adc_chain/
+│   ├── test_config_h/
+│   ├── test_ct_filter/
 │   ├── test_datalog_math/
 │   ├── test_dc_offset_filter/
 │   ├── test_ds18b20/
@@ -14,9 +17,13 @@ test/
 │   ├── test_energy_bucket/
 │   ├── test_ewma_avg/
 │   ├── test_load_priorities/
+│   ├── test_onewire_search/
+│   ├── test_override_masks/
+│   ├── test_pin_edges/
 │   ├── test_power_rms_comparison/
 │   ├── test_relay_engine/
 │   ├── test_remote_loads/
+│   ├── test_rotation_groups/
 │   ├── test_teleinfo/
 │   ├── test_temp_schedule/
 │   └── test_utils_override/
@@ -56,6 +63,9 @@ pio test -e uno -f "*test_utils_relay*"
 
 | Test | Purpose |
 |------|---------|
+| [test_adc_chain](native/test_adc_chain/) | The six conversions of the chain V1, I1, V2, I2, V3, I3: pins, reference, ADMUX of each channel, the channel after next, and the free-running pipeline on both boards |
+| [test_config_h](native/test_config_h/) | `config.h` builds alone, without Arduino; the targets of its override pins and scheduled boosts resolve against the load map and the relays |
+| [test_ct_filter](native/test_ct_filter/) | The CT filter in fixed point, against Robin's float filter: the valid settings, saturation at the int16 limits, the time constant, tracking on a step, a sine and noise |
 | [test_datalog_math](native/test_datalog_math/) | Integer power and RMS voltage of the datalog, checked against the float references |
 | [test_dc_offset_filter](native/test_dc_offset_filter/) | DC offset removal filter |
 | [test_ds18b20](native/test_ds18b20/) | Checks of a DS18B20 reading: CRC-8, register to hundredths of °C (1/16 °C steps, negatives), range, disconnected probe, the 85 °C power-on value skipped after a jump, invalid readings not sent |
@@ -63,11 +73,13 @@ pio test -e uno -f "*test_utils_relay*"
 | [test_energy_bucket](native/test_energy_bucket/) | Integer energy bucket, checked against the float and exact references |
 | [test_ewma_avg](native/test_ewma_avg/) | EWMA filter for cloud immunity |
 | [test_load_priorities](native/test_load_priorities/) | Load priority state machine: switching order, post-transition period, rotation, overrides |
+| [test_onewire_search](native/test_onewire_search/) | The ROM search of `onewire_search.h`, on a simulated wired-AND 1-Wire bus |
 | [test_override_masks](native/test_override_masks/) | Forced outputs: the targets of the override pins held LOW and of the scheduled boosts in their window (off-peak, temperature threshold, dead probe), joined |
 | [test_pin_edges](native/test_pin_edges/) | Edges of the active-LOW input pins: released at startup, one edge per press or release, one previous level per pin, a rotation press during forcing dropped |
 | [test_power_rms_comparison](native/test_power_rms_comparison/) | Real power vs. RMS power computation |
 | [test_relay_engine](native/test_relay_engine/) | Relay diversion decisions: strict thresholds, minimum ON/OFF times, settle time after any change, order in and out, overrides, diversion OFF, decision on the average |
 | [test_remote_loads](native/test_remote_loads/) | Packed load map and per-unit remote payloads |
+| [test_rotation_groups](native/test_rotation_groups/) | The rotation groups: the setting, its resolution against the load map, and the rotation within each group |
 | [test_teleinfo](native/test_teleinfo/) | The IoT frame streamed a line per step: byte for byte the former buffered frame for every feature set, a golden frame, every tag, optional features on and off, `N`, `V` and `S` unsigned |
 | [test_temp_schedule](native/test_temp_schedule/) | Which 1-Wire transaction of the temperature sensors runs on which mains cycle (`temp_schedule.h`): the round (conversion, then ADDRESS, READ and CLOSE per sensor), one transaction per cycle, only on a cycle seen on time, the round ending within the datalog period |
 | [test_utils_override](native/test_utils_override/) | Override pin system (local + remote loads) |

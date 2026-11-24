@@ -1,8 +1,9 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief Unity tests for DC offset filter with left-aligned ADC
  * @author Based on PR #127 changes
- * @date 2026-01-29
+ * @date 2026-11-24
  *
  * Tests the DC offset filter implementation that uses:
  * - Left-aligned ADC (ADLAR=1): 10-bit ADC in bits 15:6 (0-65472)

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 /**
  * @file test_main.cpp
  * @brief Native unit tests for override_masks.h: what is forced ON, by the override pins and the

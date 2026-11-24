@@ -3,9 +3,10 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief The rotation groups: which loads take turns, checked and resolved at compile time
  * @version 0.1
- * @date 2026-11-21
+ * @date 2026-11-24
  *
  * @copyright Copyright (c) 2026-2026
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * @details rotationGroups (config.h) lists, group by group, the loads that take turns at the top
  *          of the priority list: one group per appliance, such as the elements of a 3-phase water

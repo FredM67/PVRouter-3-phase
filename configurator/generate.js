@@ -289,7 +289,7 @@
       [`inline constexpr RotationGroups rotationGroups${rotationGroups(m)};`, '/**< the loads that take turns, {} without rotation */'],
       '',
       "// Set the value to 'unused_pin' when the pin is not needed (feature deactivated)",
-      [`inline constexpr uint8_t dualTariffPin{ ${pin(m.dualTariff.enabled ? m.dualTariff.pin : null)} };`, '/**< for 3-phase PCB, off-peak trigger */'],
+      [`inline constexpr uint8_t dualTariffPin{ ${pin(m.dualTariff.enabled ? m.dualTariff.pin : null)} };`, "/**< off-peak trigger, the meter's dry contact */"],
       [`inline constexpr uint8_t diversionPin{ ${pin(m.diversion.enabled ? m.diversion.pin : null)} };`, '/**< if LOW, no surplus diversion: only forced loads/relays are ON */'],
       [`inline constexpr uint8_t routerOffPin{ ${pin(m.routerOff.enabled ? m.routerOff.pin : null)} };`, '/**< if LOW, router OFF: every load and relay is OFF, forcing included */'],
       [`inline constexpr uint8_t rotationPin{ ${pin(m.rotation.mode === 'PIN' ? m.rotation.pin : null)} };`, '/**< if LOW, trigger a load priority rotation */'],

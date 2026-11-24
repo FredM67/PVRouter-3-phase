@@ -10,6 +10,9 @@
  *
  * @details The code includes this file, never config.h directly. config.h only holds the
  *          settings; here come the values derived from them and the objects built from them:
+ *          - the calibration of the board (calibration.h): f_powerCal and f_voltageCal of
+ *            PCB_VERSION, in the per-phase arrays the code uses;
+ *          - the sample sets per mains cycle, and the counter of those of a datalog period;
  *          - the number of remote loads and units, from the load map;
  *          - remoteLoads, the remote-load controller, which holds the transmission state;
  *          - relayDiverter, the relay engine, from relays;
@@ -31,6 +34,26 @@
 
 #include "types.h"
 #include "debug.h"
+
+//--------------------------------------------------------------------------------------------------
+// From calibration.h: the values of the board, as the firmware uses them
+//
+#include "calibration.h"
+
+static_assert(NO_OF_PHASES == 3, "f_powerCal and f_voltageCal below list 3 phases");
+
+/** Whether the router runs with the set of the new board */
+inline constexpr bool NEW_BOARD_CALIBRATION{ PCB_VERSION == PcbVersion::NEW };
+
+/** f_powerCal of each phase, as the router uses it */
+inline constexpr float f_powerCal[NO_OF_PHASES]{ NEW_BOARD_CALIBRATION ? f_powerCalPerAmp[0] * f_ctRating[0] : f_powerCalOldBoard[0],
+                                                 NEW_BOARD_CALIBRATION ? f_powerCalPerAmp[1] * f_ctRating[1] : f_powerCalOldBoard[1],
+                                                 NEW_BOARD_CALIBRATION ? f_powerCalPerAmp[2] * f_ctRating[2] : f_powerCalOldBoard[2] };
+
+/** f_voltageCal of each phase, as the router uses it */
+inline constexpr float f_voltageCal[NO_OF_PHASES]{ NEW_BOARD_CALIBRATION ? f_voltageCalNewBoard[0] : f_voltageCalOldBoard[0],
+                                                   NEW_BOARD_CALIBRATION ? f_voltageCalNewBoard[1] : f_voltageCalOldBoard[1],
+                                                   NEW_BOARD_CALIBRATION ? f_voltageCalNewBoard[2] : f_voltageCalOldBoard[2] };
 
 //--------------------------------------------------------------------------------------------------
 // From the sampling: a V and an I conversion per phase in a sample set (adc_chain.h), and the
