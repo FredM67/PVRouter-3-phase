@@ -741,7 +741,6 @@ void processStartUp(const uint8_t phase)
  * - Adjusts energy thresholds and determines whether to add or remove loads.
  * - Updates the physical load states and control ports.
  * - Ensures the energy bucket level remains within defined limits.
- * - Signals the new mains cycle to the main code (Shared::b_newMainsCycle), last.
  *
  * @ingroup TimeCritical
  */
@@ -782,10 +781,6 @@ void processStartNewCycle(const int32_t l_energy)
   {
     l_energyInBucket_main = 0;
   }
-
-  // one 'tick' per mains cycle for use by the main code, once the cycle's work is done: the 1-Wire
-  // transactions start when the loop sees it, their slots must not delay this call
-  Shared::b_newMainsCycle = true;
 }
 
 /**
@@ -1060,12 +1055,21 @@ void processRawSamples(const uint8_t phase)
 
     // still processing samples where the voltage is POSITIVE ...
     // check to see whether the trigger device can now be reliably armed
-    if ((0 == phase) && beyondStartUpPeriod && b_fallbackDecisionDue && (2 == n_samplesDuringThisMainsCycle[0]))  // lower value for larger sample set
+    if ((0 == phase) && beyondStartUpPeriod && (2 == n_samplesDuringThisMainsCycle[0]))  // lower value for larger sample set
     {
-      // Executed shortly after the start of a new mains cycle on phase 0, when no predictive
-      // decision was taken during the previous cycle.
-      b_fallbackDecisionDue = false;
-      processStartNewCycle(l_energyInBucket_main);
+      if (b_fallbackDecisionDue)
+      {
+        // Executed shortly after the start of a new mains cycle on phase 0, when no predictive
+        // decision was taken during the previous cycle.
+        b_fallbackDecisionDue = false;
+        processStartNewCycle(l_energyInBucket_main);
+      }
+
+      // one 'tick' per mains cycle for use by the main code, here whichever way the decision was
+      // taken: shortly after L1's +ve crossing, once its heavy ISR call is done. The 1-Wire
+      // transactions start when the loop sees it; with the tick at the predictive decision, ~1.6 ms
+      // before that crossing, their time slots delayed its ADMUX write (combo scenario: 1626 cycles)
+      Shared::b_newMainsCycle = true;
     }
   }
   else
