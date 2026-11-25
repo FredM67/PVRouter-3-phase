@@ -48,12 +48,20 @@ no gcc and no simavr.
   `chore:`); `!` marks a change that breaks existing settings.
 - **Never commit** the local changes to `Mk2_3phase_RFdatalog_temp/version.h` (rewritten by
   every build) or `Mk2_3phase_RFdatalog_temp/.vscode/extensions.json` (rewritten by VS Code).
-- **Formatting:** clang-format (`.clang-format`), applied by the pre-commit hook; CI checks it.
+- **Formatting:** clang-format 18 (`.clang-format`), applied by the pre-commit hook; CI checks it.
+  A fresh clone has no hook until `scripts/install-hooks.sh` (or `pre-commit install`) runs:
+  without it, run `clang-format -i` (18.1.8, as CI) on the changed files before committing.
 - **Real time:** the ADC interrupt has 1664 CPU cycles per call. ADMUX is written last in the
   ISR, for the conversion after next; no busy-wait and no allocation in the ISR. Any
   ISR change is measured in the simulator (`ADC ISR max`, `ADMUX delay`, `misfiled samples`).
+  An ISR change must not add flash, lengthen the slowest call or bring the ADMUX write closer
+  to its limits (`admux_delay_min 128` stays). Gains on the average call alone are not wanted:
+  `loop()` is not short of CPU. Already measured and turned down: a `switch` per phase in the
+  ISR, and the rare paths moved out of line (`noinline`).
 - **Pins:** no feature on pins 14 and above (A0–A5 are the analog inputs).
 - **Warnings:** the build must stay warning-free. Keep the narrow types (`uint8_t`, …); when a
   loop count can be 0, write the loop with `!=` rather than casting to `int`.
 - **Settings:** every user setting is checked at compile time in `validation.h`; a new check
-  gets a case in `scripts/ci/compile-fail/`.
+  gets a case in `scripts/ci/compile-fail/`. A setting users see also needs its page in the
+  documentation repository (FredM67/Mk2PVRouter, French docs), in a PR there or an issue that
+  the PR links to.
