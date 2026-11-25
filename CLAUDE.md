@@ -53,7 +53,8 @@ no gcc and no simavr.
   without it, run `clang-format -i` (18.1.8, as CI) on the changed files before committing.
 - **Real time:** the ADC interrupt has 1664 CPU cycles per call. ADMUX is written last in the
   ISR, for the conversion after next; no busy-wait and no allocation in the ISR. Any
-  ISR change is measured in the simulator (`ADC ISR max`, `ADMUX delay`, `misfiled samples`).
+  ISR change is measured in the simulator (`ADC ISR max`, `ADMUX delay`, `misfiled samples`),
+  against dev, as the `isr-change` skill (`.claude/skills/isr-change/`) describes.
   An ISR change must not add flash, lengthen the slowest call or bring the ADMUX write closer
   to its limits (`admux_delay_min 128` stays). Gains on the average call alone are not wanted:
   `loop()` is not short of CPU. Already measured and turned down: a `switch` per phase in the
