@@ -56,8 +56,10 @@ Each relay is `{ pin, surplus, import, minON, minOFF }`; what is left out takes 
 
 ## The fix: a negative import threshold
 
-With an import threshold of -50, the relay turns OFF when the surplus falls below 50 W. The
-battery cannot hide that: a surplus it absorbs to charge is still a surplus at the meter.
+With an import threshold of -50, the relay turns OFF when the average surplus falls below 50 W.
+A battery that covers part of the relay's load holds the grid near 0 W, which is a surplus below
+50 W: the relay turns OFF. It turns ON only on a surplus seen at the meter, so not while the
+battery absorbs the surplus to charge.
 
 At startup the router prints the meaning of each threshold:
 
@@ -150,9 +152,10 @@ on while the surplus allows.
 
 - **The relay turns OFF right after its minimum ON time:** the surplus threshold is too low for
   the load: raise it to the load's power + |import threshold| or more.
-- **The relay turns OFF too early in good sun:** make the import threshold more negative
-  (e.g. -20 W to -50 W), and raise the surplus threshold by as much.
+- **The relay turns OFF too early in good sun:** bring the import threshold closer to 0
+  (e.g. from -50 W to -20 W): the relay then turns OFF at a smaller surplus.
 - **The relay never turns OFF:** check that the import threshold is negative, and that no override
   pin or scheduled boost forces the relay.
-- **The relay chatters:** the threshold is too close to the measurement noise: make it more
-  negative, or lengthen `RELAY_FILTER_DELAY` or the minimum ON and OFF times.
+- **The relay chatters:** the import threshold is too close to the measurement noise: move it
+  further from 0 and raise the surplus threshold by as much, or lengthen `RELAY_FILTER_DELAY`
+  or the minimum ON and OFF times.

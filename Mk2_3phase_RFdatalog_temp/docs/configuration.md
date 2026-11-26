@@ -66,7 +66,7 @@ builds from them. Among them:
 - the temperature sensors: `BOOST_TEMP_SENSOR` among them, and their reads within a datalog period;
 - the RF node and network IDs.
 
-Each message ends with what to check, e.g.
+Most messages name what to check, e.g.
 `******** Duplicate pin definition ! Please check your config ! ********`.
 
 `scripts/ci/compile-fail.sh` builds the router with settings that must be refused and checks each
