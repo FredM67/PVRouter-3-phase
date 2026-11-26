@@ -2366,6 +2366,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "a83e8199ea46d80271b0b29f36dcd3070a882f37",
+   "date": "2026-11-26T14:13:22+01:00",
+   "message": "chore: a shared graphify code graph, rebuilt by the pre-commit hook (#264)\n\ngraphify-out/graph.json is a code-only graphify graph (local AST, no LLM),\nas in https://docs.graphify.com/cookbooks/shared-team-graph. The pre-commit\nhook (framework and plain hook) rebuilds and stages it on commits that change\ncode, with PYTHONHASHSEED=0, and skips when graphify is not installed or with\nGRAPHIFY_SKIP_HOOK=1; pre-commit.ci skips it. No other hook checks the file.\n.gitattributes selects the graphify union merge driver, registered per clone\n(scripts/README.md); the rest of graphify-out/ stays ignored.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/a83e8199ea46d80271b0b29f36dcd3070a882f37",
+   "sizes": {
+    "basic": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12282,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
