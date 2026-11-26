@@ -90,6 +90,9 @@ If you keep your own `config.h`, check these points:
   by 16 when the period needs it (from 10 s on), as the voltage already was, and scaled back up
   for the average. A period over 30 s stops the build with *Data log duration is too
   long*; the configurator refuses it too ([#259]).
+- **Relay filter:** at most 255 datalog periods, 21 minutes at the default 5 s. A longer one
+  built, but with a much shorter filter (its count wrapped in 8 bits); it now stops the build with
+  *RELAY_FILTER_DELAY too long for DATALOG_PERIOD_IN_SECONDS*, and the configurator refuses it too.
 
 No change needed for: `f_phaseCal`, which keeps its meaning ([#127], [#163]),
 and load pin lists such as `{ 5, 6, 7 }`, which are still
@@ -194,6 +197,13 @@ valid load maps ([#160]).
   (`-9.97` instead of `-9.969999`) ([#172]).
 
 ### Fixed
+
+- **Relay filter longer than 255 datalog periods:** the build refuses it. The relay filter counts
+  `RELAY_FILTER_DELAY * 60 / DATALOG_PERIOD_IN_SECONDS` datalog periods in 8 bits: 22 minutes or
+  more at 5 s built silently with a much shorter filter (25 minutes gave 44 periods, under
+  4 minutes). Both bounds (5 and 255 periods) now apply to the delay that `relays` carries, also
+  when it differs from `RELAY_FILTER_DELAY` or is the default 10 minutes; the configurator
+  refuses a filter over 255 periods too (5 minutes or more with a 1 s datalog period).
 
 - **Start-up banner:** the calibration of each phase is printed as `calibration.h` has it, under
   its names there: `f_ctRating`, `f_powerCalPerAmp` and `f_voltageCalNewBoard` on the new board,

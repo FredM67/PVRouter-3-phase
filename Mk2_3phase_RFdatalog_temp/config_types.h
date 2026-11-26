@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief What config.h is written with: its types, constants and helpers
  * @version 1.0
- * @date 2026-11-24
+ * @date 2026-11-26
  *
  * @copyright Copyright (c) 2026-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -672,6 +672,12 @@ public:
   constexpr uint8_t size() const
   {
     return N;
+  }
+
+  /** @brief Duration of the sliding average, in minutes: D, the one the relay engine uses. */
+  static constexpr uint8_t filterDelay()
+  {
+    return D;
   }
 
   /** @brief The settings of relay @p idx. */

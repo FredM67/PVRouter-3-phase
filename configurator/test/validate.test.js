@@ -68,6 +68,7 @@ const CASES = [
   ['err.relayPin', (m) => (m.relays.enabled = true)],
   ['err.datalogDivides60', (m) => (m.relays.enabled = true) && (m.datalogPeriod = 7)],
   ['err.filterTooShort', (m) => (m.relays.enabled = true) && (m.relays.filterDelay = 1) && (m.datalogPeriod = 15)],
+  ['err.filterTooLong', (m) => (m.relays.enabled = true) && (m.relays.filterDelay = 5) && (m.datalogPeriod = 1)], // 300 datalogs
   ['err.relaySurplus', (m) => (m.relays.enabled = true) && (m.relays.list[0].surplus = 0)],
   ['err.relayMinTime', (m) => (m.relays.enabled = true) && (m.relays.list[0].minOn = 2000)],
   ['err.overridePin', (m) => (m.overrides.list[0].pin = null)],
