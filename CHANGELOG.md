@@ -195,6 +195,12 @@ valid load maps ([#160]).
 
 ### Fixed
 
+- **Start-up banner:** the calibration of each phase is printed as `calibration.h` has it, under
+  its names there: `f_ctRating`, `f_powerCalPerAmp` and `f_voltageCalNewBoard` on the new board,
+  `f_powerCalOldBoard` and `f_voltageCalOldBoard` on the old one, the voltage with 6 decimals
+  instead of 5. The banner printed `f_powerCal`, which the router computes (on the new board, from
+  the CT rating), and which could not be compared with `calibration.h`.
+
 - **IoT output:** the voltage of each phase (`V1` to `V3`) and the count of seconds without
   diverted energy (`N`) go out unsigned. `V` was read as a signed number, negative above 327.67 V;
   `N` turned negative after 9.1 hours without diverted energy.

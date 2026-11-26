@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Some utility functions
  * @version 0.1
- * @date 2026-11-24
+ * @date 2026-11-26
  *
  * @copyright Copyright (c) 2023-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -70,6 +70,61 @@ inline void infolnPresence(const bool present)
 }
 
 /**
+ * @brief Print one calibration line: "<name> for L<phase> =    <value>"
+ *
+ * @param name the name in calibration.h, with its leading tab
+ * @param phase the phase, 0 for L1
+ * @param value the value in PROGMEM, scaled by 10^decimals
+ * @param decimals the number of decimals
+ */
+inline void printCalibrationLine(const __FlashStringHelper* name, const uint8_t phase, const int32_t* value,
+                                 const uint8_t decimals)
+{
+  info(name);
+  info(F(" for L"));
+  info(phase + 1);
+  info(F(" =    "));
+  infolnDecimals_P(value, decimals);
+}
+
+/**
+ * @brief Print the calibration of a phase as calibration.h has it
+ *
+ * @details The new board: f_ctRating, f_powerCalPerAmp and f_voltageCalNewBoard; the old board:
+ *          f_powerCalOldBoard and f_voltageCalOldBoard. The f_powerCal the router computes from
+ *          them is not printed: what can be checked is what was typed. A template, so that each
+ *          build compiles only its board's branch (its strings included).
+ *
+ * @tparam newBoard whether the router runs with the new board's calibration
+ * @param phase the phase, 0 for L1
+ */
+template< bool newBoard >
+inline void printCalibration(const uint8_t phase)
+{
+  if constexpr (newBoard)
+  {
+    static constexpr auto ctRating_x100 PROGMEM{ SerialOutput::toDecimals(f_ctRating, 2) };
+    static constexpr auto powerCalPerAmp_x1e8 PROGMEM{ SerialOutput::toDecimals(f_powerCalPerAmp, 8) };
+    static constexpr auto voltageCalNewBoard_x1e6 PROGMEM{ SerialOutput::toDecimals(f_voltageCalNewBoard, 6) };
+
+    printCalibrationLine(F("\tf_ctRating"), phase, &ctRating_x100.value[phase], 2);
+
+    printCalibrationLine(F("\tf_powerCalPerAmp"), phase, &powerCalPerAmp_x1e8.value[phase], 8);
+
+    printCalibrationLine(F("\tf_voltageCalNewBoard"), phase, &voltageCalNewBoard_x1e6.value[phase], 6);
+  }
+  else
+  {
+    static constexpr auto powerCalOldBoard_x1e6 PROGMEM{ SerialOutput::toDecimals(f_powerCalOldBoard, 6) };
+    static constexpr auto voltageCalOldBoard_x1e6 PROGMEM{ SerialOutput::toDecimals(f_voltageCalOldBoard, 6) };
+
+    printCalibrationLine(F("\tf_powerCalOldBoard"), phase, &powerCalOldBoard_x1e6.value[phase], 6);
+
+    printCalibrationLine(F("\tf_voltageCalOldBoard"), phase, &voltageCalOldBoard_x1e6.value[phase], 6);
+  }
+}
+
+/**
  * @brief Print the configuration during startup.
  *
  * This function outputs the system configuration to the Serial output during startup.
@@ -131,22 +186,12 @@ inline void printConfiguration()
   }
 
   // the calibration constants, converted at compile time: no float printing code in the firmware
-  static constexpr auto powerCal_x1e6 PROGMEM{ SerialOutput::toDecimals(f_powerCal, 6) };
-  static constexpr auto voltageCal_x1e5 PROGMEM{ SerialOutput::toDecimals(f_voltageCal, 5) };
   constexpr int32_t phaseCal_x100{ SerialOutput::toDecimals(f_phaseCal, 2) };
 
   infoln(F("Electrical settings"));
   for (uint8_t phase = 0; phase < NO_OF_PHASES; ++phase)
   {
-    info(F("\tf_powerCal for L"));
-    info(phase + 1);
-    info(F(" =    "));
-    infolnDecimals_P(&powerCal_x1e6.value[phase], 6);
-
-    info(F("\tf_voltageCal, for Vrms_L"));
-    info(phase + 1);
-    info(F(" =    "));
-    infolnDecimals_P(&voltageCal_x1e5.value[phase], 5);
+    printCalibration< NEW_BOARD_CALIBRATION >(phase);
   }
 
   info(F("\tf_phaseCal for all phases =     "));
