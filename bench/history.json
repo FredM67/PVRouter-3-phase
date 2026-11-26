@@ -2501,6 +2501,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "46647a32979d6cddc4b6433c239b530387f6623e",
+   "date": "2026-11-26T22:23:47+01:00",
+   "message": "docs: firmware docs checked against the code (#268)\n\n* docs: battery guides, relays as config.h writes them, ON threshold above the load\n\nThe guides wrote relays as relayOutput(pin, ...), an internal class nobody\nwrites in config.h, and set the surplus threshold at the load's power: the\nrelay's own load is in the grid power it measures, so such a relay turns\nitself OFF once its minimum ON time is over (relay_engine.h, proceed_relay).\n\n- relays as RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { pin, surplus,\n  import, minON, minOFF } } } with RELAY_DIVERSION, and the rule surplus\n  threshold >= load power + |import threshold|;\n- what the engine really does: TEMA average, 60 s settle time, one relay at a\n  time, forced relays never turned OFF; the internal logic block was wrong;\n- the graph texts say only what the scripts compute (no EWMA in them, the\n  +50 W chattering is scripted, 2500/1000 W pumps); duplicate sections gone;\n  English and French give the same values;\n- the scripts turn the relay ON at load + |threshold| (1050 W for 1000 W and\n  -50 W), say they illustrate the rule and not the firmware, have their\n  corrupted docstrings repaired and a seeded noise; PNGs regenerated.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* chore: remove the cloud tuning scripts that ran the deleted test_cloud_patterns\n\ntest_cloud_patterns was removed on purpose in ebdd8330 (it tested a copy of\nthe EWMA code). tune_cloud_immunity.sh ran nothing but that test, and\nvisualize_cloud_patterns.py parsed its output (falling back to made-up data).\n\nThe standalone visualize_cloud_patterns_demo.py stays: its TEMA follows\newma_avg.hpp. It now names the real setting, RELAY_FILTER_DELAY (not\n_MINUTES), and says that its relay is simplified. scripts/README.md describes\nthat one script and points to the grid simulator's relay scenarios for the\nreal firmware.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: Cloud_Pattern_Tuning_Guide, the real setting and the grid simulator\n\n- RELAY_FILTER_DELAY, not RELAY_FILTER_DELAY_MINUTES: a pasted line defined\n  an unused constant;\n- no test_cloud_patterns or tune_cloud_immunity.sh any more, nor the test\n  patterns and the ns timings that came from the deleted tests;\n- a negative import threshold turns the relay OFF below that surplus; it did\n  not \"turn on when surplus > 100W\";\n- relays written as config.h has them (MINUTES(RELAY_FILTER_DELAY), a real\n  pin), the 5-datalog-period rule, the TEMA;\n- for checking a setting: the grid simulator's relay and cloud scenarios.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: delete interrupts, debugging and power-calculation; architecture from the code\n\nThe three pages described code that does not exist (Timer1 TRIAC control, a\nwatchdog ISR, ATOMIC_BLOCK, startup DC calibration, float RMS and filters,\nserial debug commands, an ESP32 web server...). Nothing in them was both true\nand missing elsewhere, except a few facts that now live where they belong:\n\n- architecture.md, rewritten from processing.cpp and main.cpp: the one ISR\n  and its steps, ADMUX written last for the conversion after next, what runs\n  at each zero crossing, the main loop and its flags, shared_var.h, the\n  headers (debug.h's info/status/debug among them), 3-phase ATmega328P only.\n  Gone: the watchdog, sleep modes, fault handling and the stale sizes;\n- calibration.md: CALIBRATION_MODE and the configurator's calibration mode,\n  with a link to the procedure in Readme.en.md.\n\nThe Readme links to the deleted pages are removed in the Readme fix.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: testing and contributing guides, the tests and rules that exist\n\ntesting.md was a template whose code exists nowhere (power_calculation.h, an\nembedded env, fault injection, a watchdog test, a self-hosted CI job). It is\nnow a short page: native suites, embedded suites in simavr (uno_sim,\nhaltAfterTests()), compile-fail checks, the grid simulator and the\nbenchmarks, with their commands, pointing to test/README.md and\nsim/README.md for the details.\n\ncontributing.md: pio test with an environment (a bare pio test needs a\nboard), OneWire and RFM69 rather than DallasTemperature, no float and no\nfictional safety-check code, the ISR rules (1664 cycles, ADMUX last,\nmeasured in the simulator), the validation.h + compile-fail rule, topic\nbranches and conventional commits, PRs to dev, the single-phase port, the\nreal CI checks (no cppcheck or clang-tidy in CI) and the real PR template.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: configuration, memory, performance and index pages from the code\n\n- configuration.md: the header tree (calibration.h under config_derived.h,\n  validation.h), then what validation.h really checks instead of invented\n  asserts, enums, macros and runtime self-tests; features are constexpr\n  settings, not #ifdef macros; the former-layout #error;\n- memory-layout.md: sizes of the shipped config.h from pio run -e basic and\n  avr-size (7,946 bytes of flash, 414 bytes of static RAM), the real globals,\n  freeRam(); no DallasTemperature, RFM12B, watchdog or float arrays;\n- performance.md: the ISR timing section kept, plus the ADMUX deadline and\n  the 1-Wire delays measured by the simulator, and the main loop as main.cpp\n  runs it; no stale per-component tables, Mega or SAMD21 sections;\n- README.md: lists every page that remains, calibration and the battery and\n  cloud guides included, without the deleted ones or the watchdog and bounds\n  checking claims.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* chore: graph.json as on dev\n\nThe hook of dev rebuilt it with `graphify update`, which adds the Markdown\nfiles; fix/graphify-hook-code-only fixes the hook, and the next code commit\nrebuilds the graph.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: battery guide, restore the French punctuation and fix the OFF rule\n\n- The French guide had a control byte (0x01) in place of 47 colons and\n  semicolons after the no-break spaces: restored from the English text.\n- The relay with a negative import threshold turns OFF because the battery\n  holds the grid near 0 W, which is a surplus below the threshold; a\n  charging battery hides a surplus, it does not show it.\n- Troubleshooting: a threshold closer to 0 turns the relay OFF later, one\n  further from 0 earlier; the advice said the reverse.\n- configuration.md: most validation messages name what to check, not all.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: cloud guide, the relay filter count fits in 8 bits\n\nThe relay EWMA takes RELAY_FILTER_DELAY * 60 / DATALOG_PERIOD_IN_SECONDS as\na uint8_t: 25 minutes at 5 s builds silently with a count of 44. The guide\nsaid the delay could go up to 255 minutes; it now gives the real bound\n(21 minutes at 5 s) until the build checks it.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* chore: remove two stale cloud pattern plots from docs/\n\nNo page links to them; visualize_cloud_patterns_demo.py writes fresh ones to\nthe current directory, and these still show the old\nRELAY_FILTER_DELAY_MINUTES name.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/46647a32979d6cddc4b6433c239b530387f6623e",
+   "sizes": {
+    "basic": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12282,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
