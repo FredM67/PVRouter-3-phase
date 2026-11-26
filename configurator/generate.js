@@ -483,7 +483,7 @@
       `inline constexpr uint8_t FREQUENCY{ ${r.frequency} };`,
       '',
       '// Network configuration',
-      [`inline constexpr uint8_t NETWORK_ID{ ${r.networkId} };`, '/**< Network ID (1-255, MUST be identical on ALL devices) */'],
+      [`inline constexpr uint8_t NETWORK_ID{ ${r.networkId} };`, '/**< Network ID (1-250, MUST be identical on ALL devices) */'],
       [`inline constexpr uint8_t ROUTER_NODE_ID{ ${r.routerId} };`, "/**< THIS router's unique ID (1-30) */"],
       '',
       '// Destination node IDs - Addresses of REMOTE devices this router talks to',

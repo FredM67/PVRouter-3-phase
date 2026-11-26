@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief RF module configuration for RFM69
  * @version 1.0
- * @date 2026-09-23
+ * @date 2026-11-26
  *
  * @copyright Copyright (c) 2025-2026
  *
@@ -43,7 +43,7 @@ namespace RFConfig
 inline constexpr uint8_t FREQUENCY{ RF69_868MHZ };
 
 // Network configuration
-inline constexpr uint8_t NETWORK_ID{ 210 };    /**< Network ID (1-255, MUST be identical on ALL devices) */
+inline constexpr uint8_t NETWORK_ID{ 210 };    /**< Network ID (1-250, MUST be identical on ALL devices) */
 inline constexpr uint8_t ROUTER_NODE_ID{ 10 }; /**< THIS router's unique ID (1-30) */
 
 // Destination node IDs - Addresses of REMOTE devices this router talks to
