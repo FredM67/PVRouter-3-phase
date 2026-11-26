@@ -75,5 +75,5 @@ pre-commit run --all-files
 If a hook modifies files, add them again and commit again.
 
 Without Python, `./scripts/install-hooks.sh` (Linux, macOS, Git Bash) or `scripts\install-hooks.bat`
-(Windows command prompt) installs a plain git hook that only runs clang-format and the
-`@date` / `@copyright` update.
+(Windows command prompt) installs a plain git hook, `scripts/git-hooks/pre-commit`: clang-format,
+the `@date` / `@copyright` update and the graphify code graph.

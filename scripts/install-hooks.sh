@@ -63,7 +63,7 @@ fi
 echo -e "${GREEN}Successfully installed $INSTALLED_COUNT hook(s)${NC}"
 echo
 echo "Hooks installed:"
-echo "  • pre-commit: Formats code with clang-format and updates @date/@copyright"
+echo "  • pre-commit: Formats code with clang-format, updates @date/@copyright and rebuilds the graphify code graph"
 echo
 echo "Note: clang-format is optional but recommended for automatic code formatting."
 echo "      Install with: pacman -S mingw-w64-x86_64-clang-tools-extra"
