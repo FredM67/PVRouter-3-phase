@@ -10,6 +10,11 @@ ci:
     # Date stamping is a local convenience: on CI it would rewrite headers with
     # the build date, which has nothing to do with when the code was edited.
     - update-metadata
+    # graphify is not installed on CI; the hook would skip anyway, but CI runs no system tools.
+    - graphify-graph
+
+# graphify-out/graph.json is generated (one long JSON line, several MB): no hook checks it.
+exclude: ^graphify-out/
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -46,3 +51,10 @@ repos:
         language: script
         types_or: [c, c++]
         exclude: ^sim/avr_adc\.c$
+      - id: graphify-graph
+        name: rebuild graphify-out/graph.json (skipped without graphify)
+        entry: scripts/hooks/graphify-update.sh
+        language: script
+        pass_filenames: false
+        # the file types graphify indexes as code: a commit of docs only leaves the graph alone
+        types_or: [c, c++, python, javascript, shell, yaml, json]

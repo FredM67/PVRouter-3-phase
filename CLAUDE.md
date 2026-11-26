@@ -12,6 +12,7 @@ own, more detailed guide: [`Mk2_3phase_RFdatalog_temp/CLAUDE.md`](Mk2_3phase_RFd
 | `sim/` | `grid_sim`: the unmodified firmware in simavr on a simulated grid, with scenarios and CI targets ([README](sim/README.md)) |
 | `scripts/ci/` | CI helpers: `compile-fail.sh` (settings that must be refused by a `static_assert`), benchmark reports |
 | `scripts/` | Git hooks (pre-commit framework or plain hooks, [README](scripts/README.md)) |
+| `graphify-out/graph.json` | graphify code graph, rebuilt by the pre-commit hook; the rest of `graphify-out/` is local ([README](scripts/README.md#code-graph-graphify-optional)) |
 | `configurator/` | Browser configurator that writes `config.h` (plain JS, Node tests) |
 | `analysis/`, `dev/` | Measurement analysis and development sketches; not part of the build |
 | `dev/CtRecorder/`, `analysis/ct_recorder/` | CT recorder: a sketch recording the ADC chain (own PlatformIO envs and native tests) and the Python tool that finds the CT filter ([README](dev/CtRecorder/README.en.md)); built and tested by the `ct-recorder` CI job |

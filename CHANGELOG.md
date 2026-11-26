@@ -283,6 +283,10 @@ valid load maps ([#160]).
 
 ### Development
 
+- **Code graph:** `graphify-out/graph.json`, a [graphify](https://docs.graphify.com/cookbooks/shared-team-graph)
+  graph of the code (functions, files, calls, includes), built locally without an LLM. The pre-commit
+  hook rebuilds it on commits that change code, and skips when graphify is not installed; a merge
+  driver merges it instead of a conflict. Setup in `scripts/README.md`.
 - **GitHub Pages** ([fredm67.github.io/PVRouter-3-phase](https://fredm67.github.io/PVRouter-3-phase/)):
   a landing page to the code documentation (now in `doc/`) and the **firmware size history**,
   the flash and RAM of every build configuration on two charts, recorded on each push to `dev`.
