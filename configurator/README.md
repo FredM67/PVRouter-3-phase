@@ -2,7 +2,9 @@
 
 A static web page that writes the firmware configuration: `config.h`, `config_system.h` and
 `config_rf.h` for the router, `config.h` and `config_rf.h` for each remote unit
-(`RemoteLoadReceiver`), and the ESPHome YAML for the mk2Wifi module.
+(`RemoteLoadReceiver`), and the ESPHome YAML for the mk2Wifi module. In calibration mode, it
+computes the corrected calibration values from the readings and writes them into the user's
+`calibration.h`, the rest of the file untouched.
 
 Online: <https://fredm67.github.io/Mk2PVRouter/configurateur/>, published by the documentation
 site ([Mk2PVRouter](https://github.com/FredM67/Mk2PVRouter)), from its `3-phase` submodule: the
