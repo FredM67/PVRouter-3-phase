@@ -86,6 +86,7 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classRelayEngine-members.html">List of all members</a>  </div>
@@ -136,6 +137,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0560ef5dd22363f805946013cb0d6338" id="r_a0560ef5dd22363f805946013cb0d6338"><td class="memItemLeft" align="right" valign="top">constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0560ef5dd22363f805946013cb0d6338">size</a> () const</td></tr>
 <tr class="memdesc:a0560ef5dd22363f805946013cb0d6338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of relays.  <br /></td></tr>
 <tr class="separator:a0560ef5dd22363f805946013cb0d6338"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ab89b9b97fb976f33691273a6e7c2305c" id="r_ab89b9b97fb976f33691273a6e7c2305c"><td class="memItemLeft" align="right" valign="top">static constexpr uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab89b9b97fb976f33691273a6e7c2305c">filterDelay</a> ()</td></tr>
+<tr class="memdesc:ab89b9b97fb976f33691273a6e7c2305c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duration of the sliding average, in minutes: D, the one the relay engine uses.  <br /></td></tr>
+<tr class="separator:ab89b9b97fb976f33691273a6e7c2305c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -340,11 +347,42 @@ template&lt;uint8_t... I&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00685">685</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00691">691</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab89b9b97fb976f33691273a6e7c2305c" name="ab89b9b97fb976f33691273a6e7c2305c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab89b9b97fb976f33691273a6e7c2305c">&#9670;&#160;</a></span>filterDelay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;uint8_t N, uint8_t D = 10&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static constexpr uint8_t <a class="el" href="classRelayEngine.html">RelayEngine</a>&lt; N, D &gt;::filterDelay </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Duration of the sliding average, in minutes: D, the one the relay engine uses. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00678">678</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
+
+</div>
+</div>
 <a id="aac7060db6dbefb2b9f0a474f01c4ed3f" name="aac7060db6dbefb2b9f0a474f01c4ed3f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aac7060db6dbefb2b9f0a474f01c4ed3f">&#9670;&#160;</a></span>get_relay()</h2>
 
@@ -372,7 +410,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 
 <p>The settings of relay <code class="param">idx</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00678">678</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00684">684</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
 
 </div>
 </div>
@@ -431,7 +469,7 @@ template&lt;uint8_t N, uint8_t D = 10&gt; </div>
 </div><div class="memdoc">
 <p>the settings of each relay </p>
 
-<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00690">690</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config__types_8h_source.html#l00696">696</a> of file <a class="el" href="config__types_8h_source.html">config_types.h</a>.</p>
 
 </div>
 </div>
