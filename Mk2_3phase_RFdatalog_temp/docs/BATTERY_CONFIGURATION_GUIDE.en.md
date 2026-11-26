@@ -12,6 +12,7 @@
     - [Graph 1: 0 W against -50 W](#graph-1-0-w-against--50-w)
     - [Graph 2: a cloud (17:00-17:45)](#graph-2-a-cloud-1700-1745)
     - [Graph 3: two relays, heat pump and pool pump (17:30-19:00)](#graph-3-two-relays-heat-pump-and-pool-pump-1730-1900)
+  - [Limits](#limits)
   - [Troubleshooting](#troubleshooting)
 
 ## The problem
@@ -147,6 +148,22 @@ Heat pump 2500 W, import threshold -100 W, 20 minutes minimum ON and OFF; pool p
 
 With the negative thresholds, the heat pump turns OFF after its 20 minutes; the pool pump runs
 on while the surplus allows.
+
+## Limits
+
+The router does not know the state of the battery: charging, full or discharging, the meter shows
+a grid power near 0 W. A relay in battery mode turns OFF whenever the export falls below the
+absolute value of its import threshold, and that includes the times when the TRIAC loads hold the
+grid near 0 W: while they have room, they leave only `REQUIRED_EXPORT_IN_WATTS` (20 W) of export.
+The relay therefore runs only on the surplus the TRIAC loads cannot take. What it leaves goes to
+the battery while the battery can charge, and to the grid once it is full.
+
+If the state of the battery is known, a manual boost can do better: an override pin that targets
+the relay (`RELAY(0)`, see [Targeting loads and relays](../Readme.en.md#targeting-loads-and-relays))
+forces it ON while the pin is LOW, for instance from a "battery full" dry contact of the charger,
+or from Home Assistant through the [mk2Wifi module](../Readme.en.md#configuration-with-the-mk2wifi-module).
+A forced relay stays ON whatever the surplus: the contact or the automation must release it once
+the battery is no longer full.
 
 ## Troubleshooting
 

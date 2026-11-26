@@ -12,6 +12,7 @@
     - [Graphique 1, 0 W contre -50 W](#graphique-1-0-w-contre--50-w)
     - [Graphique 2, un nuage (17:00-17:45)](#graphique-2-un-nuage-1700-1745)
     - [Graphique 3, deux relais, pompe à chaleur et pompe de piscine (17:30-19:00)](#graphique-3-deux-relais-pompe-à-chaleur-et-pompe-de-piscine-1730-1900)
+  - [Limites](#limites)
   - [Dépannage](#dépannage)
 
 ## Le problème
@@ -154,6 +155,23 @@ de piscine 1000 W, -50 W ; maison 500 W. Échelle logarithmique, pour que les n
 
 Avec les seuils négatifs, la pompe à chaleur s'éteint après ses 20 minutes ; la pompe de piscine
 continue tant que le surplus le permet.
+
+## Limites
+
+Le routeur ne connaît pas l'état de la batterie : en charge, pleine ou en décharge, le compteur
+voit une puissance réseau proche de 0 W. Un relais en mode batterie s'éteint dès que l'export passe
+sous la valeur absolue de son seuil d'import, y compris quand ce sont les charges des triacs qui
+maintiennent le réseau près de 0 W : tant qu'elles ont de la marge, elles ne laissent que
+`REQUIRED_EXPORT_IN_WATTS` (20 W) d'export. Le relais ne tourne donc que sur le surplus que les
+charges des triacs ne peuvent pas prendre. Ce qu'il laisse va à la batterie tant qu'elle peut se
+charger, et au réseau une fois qu'elle est pleine.
+
+Si l'état de la batterie est connu, une marche forcée manuelle fait mieux : une broche de forçage
+qui cible le relais (`RELAY(0)`, voir [Cibler les charges et relais](../Readme.md#cibler-les-charges-et-relais))
+l'allume tant que la broche est à LOW, par exemple depuis un contact sec « batterie pleine » du
+chargeur, ou depuis Home Assistant via le [module mk2Wifi](../Readme.md#configuration-avec-le-module-mk2wifi).
+Un relais forcé reste allumé quel que soit le surplus : le contact ou l'automatisation doit le
+libérer dès que la batterie n'est plus pleine.
 
 ## Dépannage
 

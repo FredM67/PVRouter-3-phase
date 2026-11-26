@@ -14,8 +14,8 @@ inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minu
 
 The shipped `config.h` uses 2 minutes. The build refuses a delay that spans fewer than 5 datalog
 periods (`RELAY_FILTER_DELAY * 60 / DATALOG_PERIOD_IN_SECONDS >= 5`, `validation.h`): with the
-default 5 s period, 1 minute is allowed. Keep that count at 255 or less (21 minutes at 5 s): the
-filter takes it as an 8-bit value, and the build does not check this upper bound yet.
+default 5 s period, 1 minute is allowed. It also refuses a delay over 255 datalog periods
+(21 minutes at 5 s): the filter takes the count as an 8-bit value.
 
 ## Configuration guidelines
 
