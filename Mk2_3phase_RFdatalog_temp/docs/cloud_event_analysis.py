@@ -6,12 +6,20 @@ This simulation focuses on a specific cloud event (17:00-17:45) to demonstrate
 the critical moment when solar production drops and how different threshold
 configurations respond. Shows why negative import thresholds are essential
 during cloud transients with battery systems.
+
+An illustration of the rule, not of the firmware: one decision per minute on the
+surplus, without the TEMA average, the minimum ON/OFF times or the settle time.
+The +50W chattering is scripted, not computed.
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
 
 plt.rcParams['font.family'] = 'DejaVu Sans'
+
+# The relay's own load is in the grid power it measures: it turns ON above
+# load + |import threshold| of surplus (1000 + 50 W), or it would turn itself OFF.
+ON_THRESHOLD = 1050
 
 def simulate_cloud_event_analysis():
     """Create detailed analysis of cloud event behavior with batteries."""
@@ -61,7 +69,7 @@ def simulate_import_threshold(net_balance, relay_power, threshold):
     current_state = False
 
     for i in range(len(net_balance)):
-        if not current_state and net_balance[i] > relay_power:
+        if not current_state and net_balance[i] > ON_THRESHOLD:
             current_state = True
 
         surplus_after_relay = net_balance[i] - (relay_power if current_state else 0)
@@ -82,7 +90,7 @@ def simulate_import_threshold_chattering(net_balance, relay_power, threshold):
     current_state = False
 
     for i in range(len(net_balance)):
-        if not current_state and net_balance[i] > relay_power:
+        if not current_state and net_balance[i] > ON_THRESHOLD:
             current_state = True
 
         surplus_after_relay = net_balance[i] - (relay_power if current_state else 0)
@@ -107,7 +115,7 @@ def simulate_negative_import_threshold(net_balance, relay_power, import_threshol
     current_state = False
 
     for i in range(len(net_balance)):
-        if not current_state and net_balance[i] > relay_power:
+        if not current_state and net_balance[i] > ON_THRESHOLD:
             current_state = True
 
         surplus_after_relay = net_balance[i] - (relay_power if current_state else 0)
@@ -178,7 +186,7 @@ def create_cloud_subplot(ax, time_hours, solar, house, net_before, relay_state,
     grid_power = net_after_relay + battery_output
 
     # Add measurement noise
-    grid_power += np.random.normal(0, 2, len(time_hours))
+    grid_power += np.random.default_rng(0).normal(0, 2, len(time_hours))
 
     # Background colors for relay state
     for i in range(len(relay_state) - 1):
@@ -198,8 +206,8 @@ def create_cloud_subplot(ax, time_hours, solar, house, net_before, relay_state,
 
     # Reference lines
     ax.axhline(0, color='gray', linewidth=1, alpha=0.7, label='Zero line')
-    ax.axhline(1000, color='green', linestyle=':', linewidth=2, alpha=0.8,
-              label='Relay ON threshold (1000W)')
+    ax.axhline(ON_THRESHOLD, color='green', linestyle=':', linewidth=2, alpha=0.8,
+              label=f'Relay ON threshold ({ON_THRESHOLD}W)')
 
     if threshold_type == "zero":
         ax.axhline(0, color='red', linestyle='--', linewidth=2,

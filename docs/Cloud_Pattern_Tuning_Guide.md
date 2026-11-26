@@ -2,156 +2,71 @@
 
 ## Overview
 
-This guide helps you tune the `RELAY_FILTER_DELAY_MINUTES` parameter in your PV Router configuration based on your local weather conditions. The parameter controls how aggressively the EWMA filter smooths power measurements before making relay decisions.
+This guide helps you choose `RELAY_FILTER_DELAY` in `config.h` for your climate. The relays do
+not decide on the instant grid power but on its average: a triple EMA (TEMA, `getAverageT()` in
+`ewma_avg.hpp`) of the power of each datalog line, over `RELAY_FILTER_DELAY` minutes
+(`relay_engine.h`). A longer delay rides through clouds; a shorter one follows real changes
+sooner.
 
-## How to Use This Guide
+```cpp
+inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 }; /**< EWMA filter delay in minutes for relay control */
+```
 
-### 1. Run the Cloud Pattern Analysis
+The shipped `config.h` uses 2 minutes. The build refuses a delay that spans fewer than 5 datalog
+periods (`RELAY_FILTER_DELAY * 60 / DATALOG_PERIOD_IN_SECONDS >= 5`, `validation.h`): with the
+default 5 s period, 1 minute is allowed. Keep that count at 255 or less (21 minutes at 5 s): the
+filter takes it as an 8-bit value, and the build does not check this upper bound yet.
 
-**Option A: Automated Analysis (Recommended)**
+## Configuration guidelines
+
+The same table as in `config.h`:
+
+| Climate | `RELAY_FILTER_DELAY` |
+|---|---|
+| Clear sky (desert, dry) | 1 minute: fast response, few clouds |
+| Mixed conditions (most locations) | 2 minutes: the default |
+| Frequently cloudy (coastal) | 3 minutes: more stability |
+| Very cloudy (mountain, tropical) | 4 minutes: the most stability |
+
+If a relay chatters on partly cloudy days, lengthen the delay. If it follows real changes too
+slowly, shorten it. The minimum ON and OFF times of each relay, and the 60 s the engine waits
+after any relay change, also limit how often a relay switches.
+
+## Visualizing the filter
+
+`Mk2_3phase_RFdatalog_temp/scripts/visualize_cloud_patterns_demo.py` plots the TEMA of delays of
+1 to 5 minutes on simulated clouds, and the relay switches they give with a simplified relay
+(see [its README](../Mk2_3phase_RFdatalog_temp/scripts/README.md)):
+
 ```bash
 cd Mk2_3phase_RFdatalog_temp
-./scripts/tune_cloud_immunity.sh
+python3 scripts/visualize_cloud_patterns_demo.py
 ```
 
-**Option B: Direct Test Execution**
-```bash
-cd Mk2_3phase_RFdatalog_temp
-pio test -e native --filter="test_cloud_patterns" -v
-```
+## Checking a setting with the grid simulator
 
-**Option C: Visual Analysis (Beautiful Graphs)**
-```bash
-cd Mk2_3phase_RFdatalog_temp
-./scripts/visualize_cloud_patterns_demo.py
-```
+The grid simulator runs the unmodified firmware on a simulated grid, relay engine included: the
+TEMA, the minimum ON and OFF times and the settle time
+([`sim/README.md`](../sim/README.md)). The scenarios of `sim/scenarios/relays` need a firmware
+built with `sim/configs/relays.patch` (two relays, a 1-minute filter); `sim/scenarios/clouds.scn`
+runs a cloudy afternoon on the triac loads. To try your own relays and delay, build the firmware
+with them and write a scenario: `at` lines for the surplus, `relay` lines for the loads on the
+relays, and `expect switches <pin> <min> <max>` to count the switch-ons (see the
+[Relays](../sim/README.md#relays) and [Scenarios](../sim/README.md#scenarios) sections).
 
-This will show you how different filter delay settings perform with various cloud patterns typical of different climates.
+## Battery systems
 
-### 2. Analyze the Results
+With a home battery, use a negative import threshold: the relay then turns OFF when the surplus
+falls below the threshold's absolute value (`-100`: OFF below 100 W of surplus), instead of
+waiting for an import that the battery hides. The surplus threshold must then be at least the
+load's power + |import threshold|, or the relay turns itself OFF. Details in the
+[battery guide](../Mk2_3phase_RFdatalog_temp/docs/BATTERY_CONFIGURATION_GUIDE.en.md).
 
-The tests show:
-- **Sample Data**: Realistic power measurements during different weather conditions
-- **Filtered Values**: How different delay settings smooth the data (1min, 2min, 3min, 4min, 5min)
-- **Relay States**: When the relay would turn on/off (1=on, 0=off)
-- **State Changes**: Total relay switching events (lower = better stability)
-
-### 3. Choose Your Setting
-
-Based on the analysis results and your local climate:
-
-## Configuration Guidelines
-
-### 🌤️ Clear Sky Regions (Desert, Dry Climates)
 ```cpp
-inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 1 };
+inline constexpr bool RELAY_DIVERSION{ true };
+
+inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 };
+
+// 1000 W load: ON above 1100 W of surplus, OFF below 100 W of surplus
+inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 8, 1100, -100, 5, 5 } } };
 ```
-- **Characteristics**: Minimal cloud cover, stable solar production
-- **Benefits**: Fast response to actual power changes
-- **Examples**: Arizona, Nevada, parts of California, Australian Outback
-
-### ⛅ Mixed Conditions (Most Installations)
-```cpp
-inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 2 };
-```
-- **Characteristics**: Occasional clouds, typical suburban/rural locations
-- **Benefits**: Good balance of responsiveness and stability
-- **Examples**: Most of continental Europe, central US states, temperate regions
-- **Recommended default setting**
-
-### ☁️ Frequently Cloudy (Coastal, Temperate)
-```cpp
-inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 3 };
-```
-- **Characteristics**: Regular cloud cover, maritime climates
-- **Benefits**: Enhanced stability during frequent cloud events
-- **Examples**: UK, coastal regions, Pacific Northwest, Northern Europe
-
-### 🌧️ Very Cloudy (Mountain, Tropical, Marine)
-```cpp
-inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 4 };
-```
-- **Characteristics**: Challenging conditions with frequent/dramatic cloud changes
-- **Benefits**: Maximum stability, reduced relay wear
-- **Examples**: Mountain regions, tropical areas, marine environments
-
-## Test Pattern Interpretations
-
-### Scattered Clouds Pattern
-- **Scenario**: Light, intermittent cloud cover
-- **Typical Result**: 1-2 minute delays work well
-- **Climate Match**: Spring/fall conditions in temperate regions
-
-### Heavy Cloud Bank Pattern
-- **Scenario**: Dense cloud formation passing over
-- **Typical Result**: 2-3 minute delays recommended
-- **Climate Match**: Weather fronts, storm systems
-
-### Intermittent Clouds Pattern
-- **Scenario**: Rapid cloud/sun alternation
-- **Typical Result**: Higher delays reduce chatter significantly
-- **Climate Match**: Unstable weather, cumulus cloud days
-
-### Morning Fog Clearing Pattern
-- **Scenario**: Gradual power increase as fog lifts
-- **Typical Result**: Most delay settings work well (gradual change)
-- **Climate Match**: Coastal areas, valleys with morning fog
-
-### Storm Approach Pattern
-- **Scenario**: Clear conditions deteriorating to storms
-- **Typical Result**: 3+ minute delays prevent premature relay shutoff
-- **Climate Match**: Thunderstorm development, weather fronts
-
-### Battery System Pattern
-- **Scenario**: Grid-tied battery system with surplus-based control
-- **Special Configuration**: Use negative import threshold
-- **Example**: `-100` means relay turns on when surplus > 100W
-
-## Complete Configuration Examples
-
-### Standard Installation (Grid-Tie Only)
-```cpp
-// config.h
-inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 2 }; // Adjust based on your climate
-
-// Relay turns OFF when importing > 200W (normal behavior)
-inline constexpr RelayEngine< 1, RELAY_FILTER_DELAY_MINUTES > relays{
-  { { unused_pin, 1000, 200, 1, 1 } }
-};
-```
-
-### Battery System Installation
-```cpp
-// config.h
-inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ 2 }; // 2-3 minutes recommended
-
-// Relay turns OFF when surplus < 100W (battery-friendly)
-inline constexpr RelayEngine< 1, RELAY_FILTER_DELAY_MINUTES > relays{
-  { { unused_pin, 1000, -100, 1, 1 } }
-};
-```
-
-## Performance Impact
-
-The EWMA filter performance is excellent across all delay settings:
-- **1-2 minutes**: ~28-30 ns per operation
-- **3-5 minutes**: ~30-32 ns per operation
-- **Overhead**: Minimal impact on microcontroller performance
-
-## Validation
-
-Run your chosen configuration in actual conditions and monitor:
-1. **Relay cycling frequency** during partly cloudy days
-2. **Response time** to actual power changes
-3. **System stability** during challenging weather
-
-If you see excessive relay chatter during cloudy periods, increase the delay setting. If the system responds too slowly to genuine power changes, decrease it.
-
-## Advanced Tuning
-
-For locations with very specific weather patterns, you can:
-1. Log actual power data during typical cloud events
-2. Modify the test patterns to match your specific conditions
-3. Run custom analysis to find optimal settings
-
-The cloud pattern tests provide a scientific basis for configuration rather than guesswork, leading to optimal PV router performance for your specific installation and climate.

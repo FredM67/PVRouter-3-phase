@@ -1,46 +1,36 @@
-# Architecture Documentation
+# Firmware Documentation
 
-This directory contains technical documentation about the PVRouter's software architecture, performance characteristics, and design decisions.
+Technical documentation of the router firmware, and guides for some settings. The settings
+themselves are described in [Readme.en.md](../Readme.en.md).
 
-## Documents
+## Design
 
-### Core Architecture
-- **[Software Architecture](architecture.md)** - Overall system design and module relationships
-- **[Memory Layout](memory-layout.md)** - RAM and Flash usage analysis
-- **[Performance Characteristics](performance.md)** - Timing analysis and benchmarks
+- **[Software Architecture](architecture.md)** - the ADC interrupt, the main loop, the headers
+- **[Configuration System](configuration.md)** - how the settings reach the code, and what the build checks
+- **[Performance Characteristics](performance.md)** - ADC interrupt timing, the ADMUX deadline, the main loop
+- **[Memory Layout](memory-layout.md)** - flash and RAM use
 
-### Technical Details
-- **[Interrupt System](interrupts.md)** - ADC processing and ISR design
-- **[Power Calculation Engine](power-calculation.md)** - Real power measurement algorithms
-- **[Configuration System](configuration.md)** - Compile-time validation and type safety
+## Guides
 
-### Development Guides
-- **[Contributing Guide](contributing.md)** - How to contribute to the project
-- **[Testing Guide](testing.md)** - Testing methodologies and tools
-- **[Debugging Guide](debugging.md)** - Troubleshooting and diagnostic techniques
+- **[Calibration values](calibration.md)** - where the default values of `calibration.h` come from
+- **[Battery systems](BATTERY_CONFIGURATION_GUIDE.en.md)** ([français](BATTERY_CONFIGURATION_GUIDE.md)) - relay thresholds with a home battery
+- **[Cloud pattern tuning](../../docs/Cloud_Pattern_Tuning_Guide.md)** - choosing `RELAY_FILTER_DELAY`
 
-## Quick Reference
+## Development
 
-### System Overview
+- **[Contributing Guide](contributing.md)** - setup, code rules, branches and pull requests
+- **[Testing Guide](testing.md)** - native and embedded tests, compile-fail checks, the grid simulator, benchmarks
+
+## Quick reference
+
 ```mermaid
 flowchart LR
-    ADC["ADC inputs<br/>(V/I sensors)"] --> P["Processing engine"] --> L["Load control<br/>(TRIACs)"]
-    P --> D["Data logging<br/>& telemetry"]
+    ADC["ADC inputs<br/>(V/I sensors)"] --> P["ADC interrupt"] --> L["Load control<br/>(TRIACs)"]
+    P --> D["Main loop: relays,<br/>datalog & telemetry"]
 ```
 
-### Key Performance Metrics
-- **ADC Sampling**: ~104μs per cycle (9.6 kHz)
-- **Memory Usage**: 26.3% RAM, 27.8% Flash (Arduino Uno)
-- **Real-time Processing**: Zero missed cycles
-- **Temperature Resolution**: 0.01°C
-- **Power Accuracy**: <1% with proper calibration
-
-### Safety Features
-- ✅ Compile-time configuration validation
-- ✅ Bounds checking for all array accesses
-- ✅ Watchdog monitoring
-- ✅ Polarity detection and confirmation
-- ✅ Temperature range validation
-- ✅ CRC verification for sensor data
-
-For detailed information, see the individual documentation files.
+- **ADC sampling:** one conversion every 104 µs (9.6 kHz), V and I of each of the three phases in turn
+- **ADC interrupt:** 318 cycles (~20 µs) on average, of the 1664 cycles of a conversion
+- **Compile-time checks:** every setting is checked by `validation.h`
+- **Sensor data:** DS18B20 readings are checked (CRC, range, power-on value, `ds18b20.h`)
+- **Polarity:** each phase's voltage polarity is confirmed before it counts (`processing.cpp`)

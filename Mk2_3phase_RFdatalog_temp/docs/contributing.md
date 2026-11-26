@@ -1,395 +1,91 @@
 # Contributing Guide
 
-Welcome to the PVRouter project! This guide will help you contribute effectively to the codebase while maintaining the high standards of safety, reliability, and performance that are essential for power electronics applications.
+How to work on the router firmware. The workflow of the repository (branches, pre-commit hooks)
+is also in [CONTRIBUTING.md](../../CONTRIBUTING.md); the rules below come from
+[CLAUDE.md](../../CLAUDE.md), which the maintainers follow too.
 
-## Project Overview
+## Setup
 
-The PVRouter is a safety-critical embedded system that controls electrical power routing in real-time. Contributions must prioritize:
+### PlatformIO (recommended)
 
-1. **Safety** - No changes that could cause electrical hazards
-2. **Reliability** - Code must work consistently in production environments
-3. **Performance** - Real-time constraints must be maintained
-4. **Maintainability** - Code should be readable and well-documented
-
-## Getting Started
-
-### Development Environment Setup
-
-#### Option 1: PlatformIO (Recommended)
 ```bash
-# Install PlatformIO Core
-pip install platformio
-
-# Clone repository
 git clone https://github.com/FredM67/PVRouter-3-phase.git
 cd PVRouter-3-phase/Mk2_3phase_RFdatalog_temp
-
-# Build and test
-pio run
-pio test
+pio run -e basic          # build
+pio test -e native        # native unit tests (needs gcc)
 ```
 
-#### Option 2: Arduino IDE
-1. Install Arduino IDE 1.8.19 or newer
-2. Install required libraries:
-   - OneWire (Paul Stoffregen)
-   - DallasTemperature (Miles Burton)
-3. Open `Mk2_3phase_RFdatalog_temp.ino`
+PlatformIO fetches the libraries itself (`platformio.ini`). On Windows, the native tests, the
+simavr tests, the compile-fail checks and the grid simulator run in WSL: Git Bash has no gcc and
+no simavr.
 
-### Hardware Requirements for Testing
-- Arduino Uno or compatible board
-- 3-phase PVRouter shield (for full testing)
-- Oscilloscope (for timing verification)
-- Multimeter (for power measurements)
+### Arduino IDE
 
-## Code Standards
+Install **OneWire** and **RFM69** (LowPowerLab) with the Library Manager, then open
+`Mk2_3phase_RFdatalog_temp.ino`: see
+[Required libraries for Arduino IDE](../Readme.en.md#required-libraries-for-arduino-ide).
 
-### C++ Guidelines
+## Code rules
 
-#### Modern C++ Features (C++17)
-```cpp
-// ✅ Good: Use constexpr for compile-time constants
-constexpr uint8_t MAX_LOADS = 6;
+- C++17, `constexpr`, `enum class`, `static_cast`; camelCase for variables and functions,
+  UPPER_CASE for constants, PascalCase for types.
+- Include `config_derived.h`, never `config.h`: `config.h` holds the settings only
+  (see [configuration.md](configuration.md)).
+- No dynamic allocation, and no float arithmetic at run time: the float calibration values are
+  turned into fixed-point constants at compile time; the energy bucket, the datalog and the CT
+  filter are integer code.
+- Keep the narrow types (`uint8_t`, ...). The build must stay warning-free; when a loop count can
+  be 0, write the loop with `!=` rather than casting to `int`.
+- No feature on pins 14 and above (A0-A5 are the analog inputs).
+- Formatting: clang-format (`.clang-format`), applied by the pre-commit hook and checked by CI.
+- A new file starts with the header the others have (`@file`, `@author`, `@brief`, `@version`,
+  `@date`, `@copyright` and `SPDX-License-Identifier: GPL-3.0-or-later`); the pre-commit hook
+  updates `@date` and `@copyright`.
 
-// ✅ Good: Use auto for type deduction
-auto sampleRate = calculateSampleRate();
+### The ADC interrupt
 
-// ✅ Good: Use range-based for loops
-for (const auto& load : loadConfigs) {
-  processLoad(load);
-}
+`ISR(ADC_vect)` (`processing.cpp`) has 1664 CPU cycles per call, one ADC conversion (104 µs).
 
-// ❌ Avoid: C-style casts
-float value = (float)intValue;  // Bad
-float value = static_cast<float>(intValue);  // Good
-```
+- ADMUX is written last in the ISR, for the conversion after next (`adc_chain.h`).
+- No busy-wait, no allocation, no serial output in the ISR.
+- Any ISR change is measured in the grid simulator (`ADC ISR max`, `ADMUX delay`,
+  `misfiled samples`; [sim/README.md](../../sim/README.md)), with the procedure of
+  [.claude/skills/isr-change](../../.claude/skills/isr-change/SKILL.md). The current figures are in
+  [performance.md](performance.md).
 
-#### Memory Management
-```cpp
-// ✅ Good: Stack allocation preferred
-int16_t samples[BUFFER_SIZE];
+### Settings
 
-// ❌ Avoid: Dynamic allocation in embedded code
-int16_t* samples = malloc(sizeof(int16_t) * size);  // Forbidden
+Every user setting is checked at compile time in `validation.h`, with a `static_assert` and a
+message that says what to fix. A new check gets a case in `scripts/ci/compile-fail/` (see
+[testing.md](testing.md)).
 
-// ✅ Good: Use fixed-size containers
-std::array<float, NO_OF_PHASES> powerReadings;
-```
+## Before a pull request
 
-#### Type Safety
-```cpp
-// ✅ Good: Use enum class for type safety
-enum class LoadState : uint8_t {
-  OFF = 0,
-  ON = 1,
-  TRANSITIONING = 2
-};
+Run the tests your change touches ([testing.md](testing.md)):
 
-// ✅ Good: Use explicit constructors
-class PowerReading {
-  explicit PowerReading(float watts) : watts_(watts) {}
-private:
-  float watts_;
-};
-
-// ❌ Avoid: Magic numbers
-delay(1000);  // Bad
-delay(STARTUP_DELAY_MS);  // Good
-```
-
-### Coding Style
-
-#### Naming Conventions
-```cpp
-// Variables and functions: camelCase
-int sampleCount;
-void processAdcReading();
-
-// Constants: UPPER_CASE
-constexpr uint16_t MAX_ADC_VALUE = 1023;
-
-// Classes and types: PascalCase
-class PowerCalculator;
-enum class OperationMode;
-
-// Private members: trailing underscore
-class MyClass {
-private:
-  int privateMember_;
-};
-```
-
-#### File Organization
-```cpp
-// File header template
-/**
- * @file filename.h
- * @brief Brief description
- * @author Your Name (your.email@domain.com)
- * @date YYYY-MM-DD
- *
- * Detailed description of the file's purpose and functionality.
- */
-
-#ifndef CONTRIBUTING_H
-#define CONTRIBUTING_H
-
-// Include order:
-// 1. Standard library
-#include <stdint.h>
-
-// 2. Arduino/platform headers
-#include <Arduino.h>
-
-// 3. Project headers: config_derived.h, never config.h (the settings only)
-#include "config_derived.h"
-#include "types.h"
-
-// Implementation...
-
-#endif /* CONTRIBUTING_H */
-```
-
-## Safety Requirements
-
-### Critical Code Sections
-
-#### Interrupt Service Routines
-```cpp
-// ISR must be:
-// - Minimal in duration (well within one ADC conversion, 104μs; ~22μs on average today)
-// - Atomic in operation
-// - Free of blocking calls
-
-ISR(ADC_vect) {
-  // ✅ Good: Essential operations only
-  rawSample = ADC;
-  processRawSample(rawSample);
-
-  // ❌ Forbidden in ISR:
-  // Serial.print()    - Blocking I/O
-  // delay()           - Blocking delay
-  // malloc()          - Dynamic allocation
-  // digitalWrite()    - Unless absolutely necessary
-}
-```
-
-#### Load Control Logic
-```cpp
-// All load control must include safety checks
-void activateLoad(uint8_t loadIndex) {
-  // Validate input parameters
-  if (loadIndex >= NO_OF_DUMPLOADS) {
-    logError("Invalid load index");
-    return;
-  }
-
-  // Check system state
-  if (systemInFaultState()) {
-    logError("Cannot activate load - system fault");
-    return;
-  }
-
-  // Check power limits
-  if (getCurrentPower() > MAX_SAFE_POWER) {
-    logError("Power limit exceeded");
-    return;
-  }
-
-  // Proceed with activation
-  setLoadState(loadIndex, LoadState::ON);
-}
-```
-
-### Testing Requirements
-
-#### Unit Tests (Required for Safety-Critical Code)
-```cpp
-// Example test for power calculation
-void test_powerCalculation() {
-  // Setup known conditions
-  float voltage = 230.0;  // RMS voltage
-  float current = 10.0;   // RMS current
-  float expectedPower = 2300.0;  // Expected power
-
-  // Test calculation
-  float calculatedPower = calculatePower(voltage, current);
-
-  // Verify result within tolerance
-  assert(abs(calculatedPower - expectedPower) < 0.1);
-}
-```
-
-#### Hardware-in-the-Loop Testing
-- All GPIO control code must be tested on actual hardware
-- Power calculations must be verified with calibrated instruments
-- Timing requirements must be validated with oscilloscope
-
-## Contribution Workflow
-
-### 1. Issue Creation
-Before starting work, create or comment on an issue describing:
-- Problem statement or feature request
-- Proposed solution approach
-- Potential safety implications
-- Testing strategy
-
-### 2. Branch Strategy
 ```bash
-# Create feature branch
-git checkout -b feature/description-of-change
-
-# Keep commits focused and atomic
-git commit -m "Add bounds checking for temperature sensors"
-git commit -m "Update documentation for new safety feature"
+pio test -e native                  # from Mk2_3phase_RFdatalog_temp/
+pio test -e uno_sim                 # embedded tests in simavr (Linux/WSL)
+bash scripts/ci/compile-fail.sh     # from the repository root (Linux/WSL)
+make -C sim check                   # grid simulator, see sim/README.md
 ```
 
-### 3. Development Process
+Never commit the local changes to `version.h` (rewritten by every build) or
+`.vscode/extensions.json` (rewritten by VS Code).
 
-#### Code Changes
-1. **Implement** the change following coding standards
-2. **Add tests** for new functionality
-3. **Update documentation** for any API changes
-4. **Verify safety** implications have been addressed
+## Branches, commits, pull requests
 
-#### Compilation Requirements
-```bash
-# Must compile without warnings
-pio run
+- `main` (releases) and `dev` (integration) are protected. Work on a topic branch: `feat/...`,
+  `fix/...`, `docs/...`, `ci/...`; personal branches under `users/`.
+- Conventional commits: `feat:`, `fix:`, `docs:`, `test:`, `ci:`, `refactor:`, `chore:`; `!`
+  marks a change that breaks existing settings.
+- Pull requests target `dev`, never `main`, with the
+  [pull request template](../../.github/pull_request_template.md).
+- A change that applies to the single-phase firmware (PVRouter-1-phase) gets a matching pull
+  request there; each pull request says whether it was ported, or why not.
 
-# Must pass all tests
-pio test
-
-# Must fit memory constraints
-# Check memory usage after compilation
-```
-
-### 4. Pull Request Guidelines
-
-#### PR Description Template
-```markdown
-## Description
-Brief description of the change and why it's needed.
-
-## Type of Change
-- [ ] Bug fix (non-breaking change that fixes an issue)
-- [ ] New feature (non-breaking change that adds functionality)
-- [ ] Breaking change (fix or feature that changes existing behavior)
-- [ ] Documentation update
-
-## Safety Impact Assessment
-- [ ] No safety implications
-- [ ] Safety implications reviewed and mitigated
-- [ ] Requires safety review by maintainer
-
-## Testing
-- [ ] Unit tests added/updated
-- [ ] Hardware testing completed
-- [ ] Performance impact measured
-- [ ] Documentation updated
-
-## Hardware Tested
-- [ ] Arduino Uno
-- [ ] ESP32 (if applicable)
-- [ ] Full 3-phase hardware setup
-
-## Checklist
-- [ ] Code follows project style guidelines
-- [ ] Self-review completed
-- [ ] Comments added for complex logic
-- [ ] Documentation updated
-- [ ] No compiler warnings
-- [ ] Memory usage verified
-```
-
-### 5. Review Process
-
-#### Automated Checks
-- Code compilation (all platforms)
-- Static analysis (cppcheck, clang-tidy)
-- Memory usage verification
-- Performance regression tests
-
-#### Human Review Focus Areas
-1. **Safety**: Could this change cause electrical hazards?
-2. **Performance**: Does this maintain real-time requirements?
-3. **Correctness**: Is the logic sound and properly tested?
-4. **Style**: Does it follow project conventions?
-5. **Documentation**: Are changes properly documented?
-
-## Specific Areas for Contribution
-
-### High-Priority Areas
-1. **Test Coverage** - Expand unit test suite
-2. **Documentation** - Improve user guides and technical docs
-3. **Hardware Support** - Support for new MCU platforms
-4. **Performance** - Optimization of critical paths
-5. **Safety Features** - Additional fault detection and protection
-
-### Configuration Examples
-Help create configuration examples for:
-- Different hardware setups
-- Various load types (heat pumps, battery chargers)
-- Home automation integration
-- Industrial applications
-
-### Feature Requests
-Current areas of active development:
-- **Web interface** for remote monitoring
-- **WiFi configuration** for ESP32 platforms
-- **Advanced algorithms** for load prediction
-- **Integration** with home energy management systems
-
-## Code Review Checklist
-
-### For Contributors (Self-Review)
-- [ ] Code compiles without warnings on all target platforms
-- [ ] All new functions have appropriate documentation
-- [ ] Error handling is comprehensive and appropriate
-- [ ] Performance impact has been considered
-- [ ] Memory usage is within acceptable limits
-- [ ] Safety implications have been analyzed
-
-### For Reviewers
-- [ ] Code follows project style guidelines
-- [ ] Safety-critical sections are properly implemented
-- [ ] Test coverage is adequate for the change
-- [ ] Documentation is clear and complete
-- [ ] Change is backward compatible (if required)
-- [ ] Performance requirements are maintained
-
-## Release Process
-
-### Version Numbering
-We follow semantic versioning (MAJOR.MINOR.PATCH):
-- **MAJOR**: Incompatible API changes
-- **MINOR**: New functionality, backward compatible
-- **PATCH**: Bug fixes, backward compatible
-
-### Release Checklist
-1. All tests pass on target hardware
-2. Documentation is updated
-3. Example configurations are verified
-4. Performance benchmarks are acceptable
-5. Safety review is completed (for safety-critical changes)
-
-## Getting Help
-
-### Communication Channels
-- **GitHub Issues**: Bug reports and feature requests
-- **GitHub Discussions**: General questions and ideas
-- **Email**: For security-related issues
-
-### Documentation Resources
-- **README.md**: Quick start guide
-- **docs/**: Technical documentation
-- **examples/**: Configuration examples
-- **Gallery.md**: Hardware setup photos
-
-### Common Gotchas
-1. **Timing sensitivity**: ADC ISR must complete within 104μs
-2. **Memory constraints**: Arduino Uno has only 2KB RAM
-3. **Power safety**: All load control must include safety checks
-4. **Calibration**: Hardware must be properly calibrated before use
-
-Thank you for contributing to the PVRouter project! Your contributions help make sustainable energy systems more accessible and reliable.
+CI (`.github/workflows/build.yml`) builds the firmware in several configurations and runs the
+native tests, the embedded tests in simavr, the compile-fail checks, the grid simulator scenarios,
+the CT recorder and configurator tests, and posts a performance report (flash, RAM and benchmark
+cycles against the target branch) on the pull request. Other workflows check the formatting and
+the spelling, and run CodeQL.
