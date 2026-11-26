@@ -1,0 +1,16 @@
+<map id="printCalibrationLine" name="printCalibrationLine">
+<area shape="rect" id="Node000001" title="Print one calibration line: &quot;&lt;name&gt; for L&lt;phase&gt; = &#160;&#160;&#160;&lt;value&gt;&quot;." alt="" coords="5,32,155,60"/>
+<area shape="rect" id="Node000002" href="$debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="422,5,468,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,38,406,19,406,25,155,43"/>
+<area shape="rect" id="Node000005" href="$debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="203,57,337,85"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="155,53,190,60,185,60,155,59"/>
+<area shape="rect" id="Node000003" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="567,5,739,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="468,17,554,19,549,19,469,22"/>
+<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="802,5,962,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="739,17,789,19,783,19,739,22"/>
+<area shape="rect" id="Node000006" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="385,57,504,85"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="337,69,372,71,367,71,337,74"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="503,54,577,38,582,37,504,59"/>
+<area shape="rect" id="Node000007" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="552,57,754,85"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="505,69,540,71,534,71,505,74"/>
+</map>

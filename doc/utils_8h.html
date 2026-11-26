@@ -378,6 +378,13 @@ Functions</h2></td></tr>
 <tr class="memitem:gae473b1c0d80fe056d1fab9bdee38aca1" id="r_gae473b1c0d80fe056d1fab9bdee38aca1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1">logLoadPriorities</a> ()</td></tr>
 <tr class="memdesc:gae473b1c0d80fe056d1fab9bdee38aca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the load priorities to the Serial output.  <br /></td></tr>
 <tr class="separator:gae473b1c0d80fe056d1fab9bdee38aca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09da93232f42a453bd184173273f73a1" id="r_a09da93232f42a453bd184173273f73a1"><td class="memTemplParams" colspan="2">template&lt;bool newBoard&gt; </td></tr>
+<tr class="memitem:a09da93232f42a453bd184173273f73a1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a09da93232f42a453bd184173273f73a1">printCalibration</a> (const uint8_t phase)</td></tr>
+<tr class="memdesc:a09da93232f42a453bd184173273f73a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the calibration of a phase as <a class="el" href="calibration_8h.html" title="Calibration values definition.">calibration.h</a> has it.  <br /></td></tr>
+<tr class="separator:a09da93232f42a453bd184173273f73a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1408f66400b02deb1f2d01eb7bb608c2" id="r_a1408f66400b02deb1f2d01eb7bb608c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1408f66400b02deb1f2d01eb7bb608c2">printCalibrationLine</a> (const __FlashStringHelper *name, const uint8_t phase, const int32_t *value, const uint8_t decimals)</td></tr>
+<tr class="memdesc:a1408f66400b02deb1f2d01eb7bb608c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print one calibration line: "&lt;name&gt; for L&lt;phase&gt; =    &lt;value&gt;".  <br /></td></tr>
+<tr class="separator:a1408f66400b02deb1f2d01eb7bb608c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa45f069fe76674a03f3dd560dd00b1ee" id="r_gaa45f069fe76674a03f3dd560dd00b1ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee">printConfiguration</a> ()</td></tr>
 <tr class="memdesc:gaa45f069fe76674a03f3dd560dd00b1ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the configuration during startup.  <br /></td></tr>
 <tr class="separator:gaa45f069fe76674a03f3dd560dd00b1ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -406,7 +413,7 @@ Variables</h2></td></tr>
 <div class="textblock"><p>Some utility functions. </p>
 <dl class="section author"><dt>Author</dt><dd>Frédéric Metrich (<a href="#" onclick="location.href='mai'+'lto:'+'fre'+'de'+'ric'+'.m'+'etr'+'ic'+'h@l'+'iv'+'e.f'+'r'; return false;">frede<span class="obfuscator">.nosp@m.</span>ric.<span class="obfuscator">.nosp@m.</span>metri<span class="obfuscator">.nosp@m.</span>ch@l<span class="obfuscator">.nosp@m.</span>ive.f<span class="obfuscator">.nosp@m.</span>r</a>) </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2026-11-24</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2026-11-26</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023-2026 SPDX-License-Identifier: GPL-3.0-or-later </dd></dl>
 
 <p class="definition">Definition in file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
@@ -473,6 +480,174 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="a09da93232f42a453bd184173273f73a1" name="a09da93232f42a453bd184173273f73a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09da93232f42a453bd184173273f73a1">&#9670;&#160;</a></span>printCalibration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;bool newBoard&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printCalibration </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>phase</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Print the calibration of a phase as <a class="el" href="calibration_8h.html" title="Calibration values definition.">calibration.h</a> has it. </p>
+<p>The new board: f_ctRating, f_powerCalPerAmp and f_voltageCalNewBoard; the old board: f_powerCalOldBoard and f_voltageCalOldBoard. The f_powerCal the router computes from them is not printed: what can be checked is what was typed. A template, so that each build compiles only its board's branch (its strings included).</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">newBoard</td><td>whether the router runs with the new board's calibration </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">phase</td><td>the phase, 0 for L1 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00102">102</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="utils_8h_a09da93232f42a453bd184173273f73a1_cgraph.png" border="0" usemap="#autils_8h_a09da93232f42a453bd184173273f73a1_cgraph" alt=""/></div>
+<map name="autils_8h_a09da93232f42a453bd184173273f73a1_cgraph" id="autils_8h_a09da93232f42a453bd184173273f73a1_cgraph">
+<area shape="rect" title="Print the calibration of a phase as calibration.h has it." alt="" coords="5,59,128,86"/>
+<area shape="rect" href="utils_8h.html#a1408f66400b02deb1f2d01eb7bb608c2" title="Print one calibration line: &quot;&lt;name&gt; for L&lt;phase&gt; = &#160;&#160;&#160;&lt;value&gt;&quot;." alt="" coords="193,32,342,60"/>
+<area shape="poly" title=" " alt="" coords="127,62,180,57,175,59,129,67"/>
+<area shape="rect" href="namespaceSerialOutput.html#a92c5012053b5fe0d463a87a06be6fe40" title="A float constant as an integer with the given number of decimals, rounded." alt="" coords="176,84,360,112"/>
+<area shape="poly" title=" " alt="" coords="128,78,163,84,157,85,128,83"/>
+<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="627,5,673,33"/>
+<area shape="poly" title=" " alt="" coords="343,38,614,21,609,23,343,43"/>
+<area shape="rect" href="debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="408,57,542,85"/>
+<area shape="poly" title=" " alt="" coords="343,52,395,61,390,61,343,58"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="773,5,944,33"/>
+<area shape="poly" title=" " alt="" coords="674,17,760,19,754,19,674,22"/>
+<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1007,5,1167,33"/>
+<area shape="poly" title=" " alt="" coords="944,17,994,19,989,19,945,22"/>
+<area shape="rect" href="debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="590,57,710,85"/>
+<area shape="poly" title=" " alt="" coords="542,69,577,71,572,71,543,74"/>
+<area shape="poly" title=" " alt="" coords="708,54,782,38,788,37,709,59"/>
+<area shape="rect" href="namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="758,57,959,85"/>
+<area shape="poly" title=" " alt="" coords="710,69,745,71,740,71,710,74"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="utils_8h_a09da93232f42a453bd184173273f73a1_icgraph.png" border="0" usemap="#autils_8h_a09da93232f42a453bd184173273f73a1_icgraph" alt=""/></div>
+<map name="autils_8h_a09da93232f42a453bd184173273f73a1_icgraph" id="autils_8h_a09da93232f42a453bd184173273f73a1_icgraph">
+<area shape="rect" title="Print the calibration of a phase as calibration.h has it." alt="" coords="297,5,419,33"/>
+<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="111,5,249,33"/>
+<area shape="poly" title=" " alt="" coords="279,19,250,22,250,17,284,19"/>
+<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,63,33"/>
+<area shape="poly" title=" " alt="" coords="92,20,63,22,63,17,98,19"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a1408f66400b02deb1f2d01eb7bb608c2" name="a1408f66400b02deb1f2d01eb7bb608c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1408f66400b02deb1f2d01eb7bb608c2">&#9670;&#160;</a></span>printCalibrationLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void printCalibrationLine </td>
+          <td>(</td>
+          <td class="paramtype">const __FlashStringHelper *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>phase</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t *</td>          <td class="paramname"><span class="paramname"><em>value</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>decimals</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Print one calibration line: "&lt;name&gt; for L&lt;phase&gt; =    &lt;value&gt;". </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>the name in <a class="el" href="calibration_8h.html" title="Calibration values definition.">calibration.h</a>, with its leading tab </td></tr>
+    <tr><td class="paramname">phase</td><td>the phase, 0 for L1 </td></tr>
+    <tr><td class="paramname">value</td><td>the value in PROGMEM, scaled by 10^decimals </td></tr>
+    <tr><td class="paramname">decimals</td><td>the number of decimals </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00080">80</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="utils_8h_a1408f66400b02deb1f2d01eb7bb608c2_cgraph.png" border="0" usemap="#autils_8h_a1408f66400b02deb1f2d01eb7bb608c2_cgraph" alt=""/></div>
+<map name="autils_8h_a1408f66400b02deb1f2d01eb7bb608c2_cgraph" id="autils_8h_a1408f66400b02deb1f2d01eb7bb608c2_cgraph">
+<area shape="rect" title="Print one calibration line: &quot;&lt;name&gt; for L&lt;phase&gt; = &#160;&#160;&#160;&lt;value&gt;&quot;." alt="" coords="5,32,155,60"/>
+<area shape="rect" href="debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="422,5,468,33"/>
+<area shape="poly" title=" " alt="" coords="155,38,406,19,406,25,155,43"/>
+<area shape="rect" href="debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="203,57,337,85"/>
+<area shape="poly" title=" " alt="" coords="155,53,190,60,185,60,155,59"/>
+<area shape="rect" href="namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="567,5,739,33"/>
+<area shape="poly" title=" " alt="" coords="468,17,554,19,549,19,469,22"/>
+<area shape="rect" href="namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="802,5,962,33"/>
+<area shape="poly" title=" " alt="" coords="739,17,789,19,783,19,739,22"/>
+<area shape="rect" href="debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="385,57,504,85"/>
+<area shape="poly" title=" " alt="" coords="337,69,372,71,367,71,337,74"/>
+<area shape="poly" title=" " alt="" coords="503,54,577,38,582,37,504,59"/>
+<area shape="rect" href="namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="552,57,754,85"/>
+<area shape="poly" title=" " alt="" coords="505,69,540,71,534,71,505,74"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="utils_8h_a1408f66400b02deb1f2d01eb7bb608c2_icgraph.png" border="0" usemap="#autils_8h_a1408f66400b02deb1f2d01eb7bb608c2_icgraph" alt=""/></div>
+<map name="autils_8h_a1408f66400b02deb1f2d01eb7bb608c2_icgraph" id="autils_8h_a1408f66400b02deb1f2d01eb7bb608c2_icgraph">
+<area shape="rect" title="Print one calibration line: &quot;&lt;name&gt; for L&lt;phase&gt; = &#160;&#160;&#160;&lt;value&gt;&quot;." alt="" coords="467,5,617,33"/>
+<area shape="rect" href="utils_8h.html#a09da93232f42a453bd184173273f73a1" title="Print the calibration of a phase as calibration.h has it." alt="" coords="297,5,419,33"/>
+<area shape="poly" title=" " alt="" coords="449,19,420,22,420,17,454,19"/>
+<area shape="rect" href="group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="111,5,249,33"/>
+<area shape="poly" title=" " alt="" coords="279,19,250,22,250,17,284,19"/>
+<area shape="rect" href="group__Initialization.html#ga4fc01d736fe50cf5b977f755b675f11d" title="Called once during startup." alt="" coords="5,5,63,33"/>
+<area shape="poly" title=" " alt="" coords="92,20,63,22,63,17,98,19"/>
+</map>
+</div>
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="ac47772a18c87b4f0e7a52366398a43d3" name="ac47772a18c87b4f0e7a52366398a43d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac47772a18c87b4f0e7a52366398a43d3">&#9670;&#160;</a></span>datalogOffPeak</h2>
@@ -495,7 +670,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>tariff at the datalog being printed, for the JSON and IoT formats </p>
 
-<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00251">251</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils_8h_source.html#l00296">296</a> of file <a class="el" href="utils_8h_source.html">utils.h</a>.</p>
 
 </div>
 </div>

@@ -1,104 +1,110 @@
 <map id="setup" name="setup">
-<area shape="rect" id="Node000001" title="Called once during startup." alt="" coords="5,610,63,637"/>
-<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#aac2a2b989ae1aed012a9149bcb922751" title="Serial settings for the startup text: 9600 baud 8N1, the default of serial monitors." alt="" coords="111,200,331,228"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="33,609,39,533,53,422,75,312,90,269,109,239,116,235,113,240,113,243,95,271,80,313,58,422,45,533,39,609"/>
-<area shape="rect" id="Node000003" href="$debug_8h.html#ae99b323afab58fbf83f92c6d679e1276" title="Print a debug message, as Serial.print() does (only with ENABLE_DEBUG)." alt="" coords="190,252,252,280"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="34,609,41,542,56,446,78,353,92,316,109,291,123,280,140,272,176,265,172,269,141,277,126,284,113,295,97,319,83,355,61,447,47,543,39,610"/>
-<area shape="rect" id="Node000007" href="$debug_8h.html#ab753909eac023c9095cde3544f912923" title="Print a debug message and a line end, as Serial.println() does (only with ENABLE_DEBUG)." alt="" coords="184,508,258,536"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="45,608,73,579,109,552,138,539,171,530,167,534,140,544,112,556,76,583,50,610"/>
-<area shape="rect" id="Node000008" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="745,559,804,587"/>
-<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="61,610,110,596,199,582,290,573,467,564,621,564,733,569,728,571,621,569,467,569,290,578,199,587,111,601,65,614"/>
-<area shape="rect" id="Node000009" href="$namespaceSerialOutput.html#afa14847acb347d3b042396e0b082d086" title="Serial settings after the startup text: 7E1 for the IoT telemetry frames, as the mk2Wifi module expec..." alt="" coords="117,866,325,893"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="36,635,41,680,52,737,74,799,91,827,113,851,118,857,113,858,109,855,87,830,70,801,47,739,36,680,35,641"/>
-<area shape="rect" id="Node000010" href="$group__Initialization.html#gaac7b29dc45caaaca67299571f6a2dcc0" title="Get the available RAM during setup." alt="" coords="182,918,260,945"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="35,635,37,688,46,760,55,798,68,837,87,872,112,903,138,919,169,929,164,931,136,924,109,907,83,875,63,839,50,800,40,761,32,688,34,640"/>
-<area shape="rect" id="Node000011" href="$group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="147,814,294,841"/>
-<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="41,635,70,690,89,722,113,751,146,780,181,805,176,807,142,784,109,755,85,725,65,692,41,640"/>
-<area shape="rect" id="Node000020" href="$group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="148,714,294,741"/>
-<area shape="poly" id="edge22_Node000001_Node000020" title=" " alt="" coords="45,635,74,668,112,699,135,710,131,712,109,703,70,672,46,640"/>
-<area shape="rect" id="Node000027" href="$group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="174,662,268,689"/>
-<area shape="poly" id="edge30_Node000001_Node000027" title=" " alt="" coords="62,631,111,646,161,660,156,663,110,651,64,636"/>
-<area shape="rect" id="Node000028" href="$group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="156,610,286,637"/>
-<area shape="poly" id="edge33_Node000001_Node000028" title=" " alt="" coords="62,621,142,622,138,625,65,626"/>
-<area shape="rect" id="Node000030" href="$group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="152,304,290,332"/>
-<area shape="poly" id="edge37_Node000001_Node000030" title=" " alt="" coords="41,608,108,495,204,343,202,348,113,498,46,610"/>
-<area shape="rect" id="Node000004" href="$debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="992,304,1038,332"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="250,265,292,258,312,250,329,238,346,214,353,189,353,163,350,137,347,111,348,85,357,60,377,38,410,16,440,6,469,3,498,6,560,22,635,37,703,40,759,41,785,45,811,53,839,66,868,87,889,110,898,134,904,160,917,189,956,245,994,293,989,292,952,248,912,192,899,162,893,136,885,113,865,91,836,71,809,58,784,50,759,46,703,45,634,42,559,27,497,11,469,8,441,11,412,21,381,42,361,63,353,86,352,111,355,136,358,163,358,189,351,216,333,241,315,255,294,263,254,269"/>
-<area shape="rect" id="Node000005" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1164,304,1335,332"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1038,316,1151,317,1146,319,1040,321"/>
-<area shape="rect" id="Node000006" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1383,304,1544,332"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1335,316,1370,318,1365,319,1336,321"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="257,522,421,533,635,552,733,566,728,567,634,557,421,538,259,527"/>
-<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="801,556,1211,338,1206,341,804,561"/>
-<area shape="poly" id="edge16_Node000011_Node000008" title=" " alt="" coords="245,811,304,779,378,748,417,738,452,734,513,735,542,734,571,730,600,718,633,697,644,686,651,675,656,650,662,623,669,610,681,597,704,583,732,577,727,579,706,588,684,602,673,613,667,625,661,651,655,677,648,689,636,702,603,723,572,735,543,740,513,740,452,739,418,743,380,753,307,784,248,815"/>
-<area shape="rect" id="Node000012" href="$namespaceAdcChain.html#a3f992a5e4ee47876cb5765bf267c27f5" title="The ADMUX value that converts a channel: reference, left&#45;adjusted result, analog input." alt="" coords="432,1022,582,1049"/>
-<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="294,832,315,840,333,852,348,872,356,892,357,932,359,971,366,989,381,1007,398,1019,419,1030,414,1029,395,1023,377,1011,362,992,354,972,352,932,351,893,344,874,329,856,313,845,295,837"/>
-<area shape="rect" id="Node000015" href="$utils__rf_8h.html#af054c00af4d014f9db280e6e6e19e968" title="Initialize the shared RF module." alt="" coords="460,866,554,893"/>
-<area shape="poly" id="edge17_Node000011_Node000015" title=" " alt="" coords="295,838,446,867,442,869,295,844"/>
-<area shape="rect" id="Node000017" href="$group__Initialization.html#ga2d9a6fb1fe26a80cf146d1bf115ab5ac" title="Initializes all elements of a given array to a specified value." alt="" coords="450,814,563,841"/>
-<area shape="poly" id="edge19_Node000011_Node000017" title=" " alt="" coords="295,825,437,826,433,829,296,830"/>
-<area shape="rect" id="Node000018" href="$utils__pins_8h.html#adab4ad92d1c13bd111827aa168ab340b" title="Set the pins as INPUT_PULLUP." alt="" coords="428,918,585,945"/>
-<area shape="poly" id="edge20_Node000011_Node000018" title=" " alt="" coords="295,836,332,852,348,865,357,878,366,891,380,903,416,919,411,919,378,907,362,895,353,881,344,868,330,856,295,842"/>
-<area shape="rect" id="Node000019" href="$utils__pins_8h.html#af7b4634d92b63c510179ad8040341b72" title="Set the pins as OUTPUT." alt="" coords="442,970,571,997"/>
-<area shape="poly" id="edge21_Node000011_Node000019" title=" " alt="" coords="295,833,315,841,333,852,345,865,352,878,357,905,363,931,369,943,381,955,403,968,430,979,424,979,401,973,377,959,365,946,358,933,352,906,347,880,340,868,329,856,313,846,295,838"/>
-<area shape="rect" id="Node000013" href="$namespaceAdcChain.html#ab0c38e0462567f16eac56f6f252229d5" title="The analog input of a channel (A0 = 0)." alt="" coords="712,1047,837,1075"/>
-<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="582,1040,699,1054,694,1054,582,1045"/>
-<area shape="rect" id="Node000014" href="$namespaceAdcChain.html#a49994e50fa1e55e1cbd23ea74cc14ea6" title="The reference bits of ADMUX on a board." alt="" coords="708,995,841,1023"/>
-<area shape="poly" id="edge15_Node000012_Node000014" title=" " alt="" coords="582,1025,690,1017,695,1017,582,1031"/>
-<area shape="rect" id="Node000016" href="$namespaceSharedRF.html#a1885bc1c65805664c2ad68a37868cd57" title="Accessor for the shared RFM69 instance." alt="" coords="713,866,836,893"/>
-<area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="554,877,700,879,695,880,554,882"/>
-<area shape="rect" id="Node000021" href="$group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="452,762,561,789"/>
-<area shape="poly" id="edge23_Node000020_Node000021" title=" " alt="" coords="294,737,439,763,435,765,295,742"/>
-<area shape="rect" id="Node000026" href="$debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="470,660,543,688"/>
-<area shape="poly" id="edge28_Node000020_Node000026" title=" " alt="" coords="293,711,457,682,453,685,295,716"/>
-<area shape="rect" id="Node000022" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="726,686,823,713"/>
-<area shape="poly" id="edge24_Node000021_Node000022" title=" " alt="" coords="561,760,634,741,718,718,713,720,635,746,563,765"/>
-<area shape="rect" id="Node000024" href="$pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="718,762,831,789"/>
-<area shape="poly" id="edge26_Node000021_Node000024" title=" " alt="" coords="561,773,705,775,700,776,562,778"/>
-<area shape="rect" id="Node000023" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="978,598,1052,625"/>
-<area shape="poly" id="edge25_Node000022_Node000023" title=" " alt="" coords="814,683,966,629,961,631,816,688"/>
-<area shape="rect" id="Node000025" href="$pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="975,762,1056,789"/>
-<area shape="poly" id="edge27_Node000024_Node000025" title=" " alt="" coords="831,773,962,775,957,776,832,778"/>
-<area shape="poly" id="edge29_Node000026_Node000008" title=" " alt="" coords="537,658,603,628,681,597,733,583,728,585,683,602,605,633,540,662"/>
-<area shape="poly" id="edge31_Node000027_Node000021" title=" " alt="" coords="268,683,332,700,401,726,464,754,459,755,399,731,330,705,269,688"/>
-<area shape="poly" id="edge32_Node000027_Node000026" title=" " alt="" coords="268,673,457,673,452,676,269,678"/>
-<area shape="poly" id="edge36_Node000028_Node000026" title=" " alt="" coords="286,632,457,664,452,667,287,638"/>
-<area shape="rect" id="Node000029" href="$debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="744,611,805,639"/>
-<area shape="poly" id="edge34_Node000028_Node000029" title=" " alt="" coords="286,621,730,623,727,627,287,626"/>
-<area shape="poly" id="edge35_Node000029_Node000004" title=" " alt="" coords="805,620,836,612,865,596,894,568,919,537,960,467,988,400,1005,349,1009,345,993,402,964,470,924,540,898,572,868,600,838,617,807,625"/>
-<area shape="poly" id="edge38_Node000030_Node000004" title=" " alt="" coords="289,302,379,290,516,282,623,281,730,286,867,297,979,312,974,313,866,302,730,292,623,286,516,287,379,296,292,307"/>
-<area shape="poly" id="edge39_Node000030_Node000008" title=" " alt="" coords="246,330,307,362,380,393,418,403,452,407,513,406,542,407,572,411,603,423,636,444,648,456,655,468,662,492,668,516,684,539,706,553,733,565,728,565,704,558,680,543,663,518,657,493,650,470,644,459,633,448,600,428,570,417,542,412,513,411,452,412,417,408,378,398,304,367,247,335"/>
-<area shape="rect" id="Node000031" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="715,100,834,128"/>
-<area shape="poly" id="edge40_Node000030_Node000031" title=" " alt="" coords="289,310,311,302,329,290,343,273,349,255,351,218,354,181,362,162,377,145,401,133,435,123,520,111,614,108,702,110,697,112,614,113,520,117,436,128,403,137,381,150,366,165,359,182,356,218,355,256,347,275,333,293,313,307,293,314"/>
-<area shape="rect" id="Node000033" href="$debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="440,51,574,79"/>
-<area shape="poly" id="edge43_Node000030_Node000033" title=" " alt="" coords="288,311,311,303,329,290,346,266,354,243,355,219,352,195,350,170,351,145,359,120,377,95,399,79,426,70,422,74,401,84,381,99,364,122,356,146,356,170,358,194,360,219,359,244,351,269,333,293,313,307,292,315"/>
-<area shape="rect" id="Node000034" href="$utils_8h.html#a25c5ac42b5ae08d9a1fb30c1cb69b1c2" title="Print &quot;is present&quot; or &quot;is NOT present&quot;, and a line end." alt="" coords="448,458,565,485"/>
-<area shape="poly" id="edge45_Node000030_Node000034" title=" " alt="" coords="236,330,297,383,337,412,380,437,435,458,430,460,378,442,334,417,294,387,237,335"/>
-<area shape="rect" id="Node000035" href="$group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="406,304,607,332"/>
-<area shape="poly" id="edge47_Node000030_Node000035" title=" " alt="" coords="289,316,393,317,389,320,292,321"/>
-<area shape="rect" id="Node000038" href="$group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="379,203,634,231"/>
-<area shape="poly" id="edge54_Node000030_Node000038" title=" " alt="" coords="288,305,330,289,344,279,353,268,363,257,378,247,411,234,408,238,380,251,366,261,357,272,347,283,332,294,292,309"/>
-<area shape="rect" id="Node000039" href="$namespaceSerialOutput.html#a92c5012053b5fe0d463a87a06be6fe40" title="A float constant as an integer with the given number of decimals, rounded." alt="" coords="682,152,867,180"/>
-<area shape="poly" id="edge62_Node000030_Node000039" title=" " alt="" coords="288,309,311,301,329,289,340,278,346,266,351,240,357,213,365,201,377,189,415,169,455,154,496,144,539,139,621,139,695,148,691,150,621,144,539,144,497,150,456,159,417,174,381,194,369,204,362,215,357,241,351,268,345,281,333,294,313,306,292,313"/>
-<area shape="rect" id="Node000040" href="$group__Initialization.html#gaf89dd9a18ac303e10da1e6bbb50f310b" title="Prints the rotation groups, as load numbers counted from 0 as in LOAD(n): &quot;\tgroups { 0 1 2 }..." alt="" coords="430,356,583,384"/>
-<area shape="poly" id="edge59_Node000030_Node000040" title=" " alt="" coords="289,328,418,352,413,355,291,333"/>
-<area shape="poly" id="edge41_Node000031_Node000005" title=" " alt="" coords="834,102,896,97,969,98,1045,110,1082,121,1117,137,1160,169,1194,210,1221,252,1239,290,1234,289,1216,255,1190,213,1156,173,1115,142,1080,126,1044,115,969,103,896,102,836,107"/>
-<area shape="rect" id="Node000032" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="915,151,1116,179"/>
-<area shape="poly" id="edge42_Node000031_Node000032" title=" " alt="" coords="834,124,934,146,929,148,835,129"/>
-<area shape="poly" id="edge44_Node000033_Node000031" title=" " alt="" coords="573,75,702,99,698,102,575,80"/>
-<area shape="poly" id="edge46_Node000034_Node000008" title=" " alt="" coords="565,478,601,488,636,501,660,520,684,539,733,561,728,561,681,543,657,524,633,506,600,493,566,484"/>
-<area shape="poly" id="edge49_Node000035_Node000004" title=" " alt="" coords="607,316,978,317,974,320,608,321"/>
-<area shape="poly" id="edge50_Node000035_Node000008" title=" " alt="" coords="607,325,636,343,655,367,663,392,665,417,663,442,660,466,661,491,668,515,684,539,706,555,733,566,728,567,703,560,680,543,663,517,656,491,655,466,657,441,659,417,658,393,650,370,633,347,608,330"/>
-<area shape="poly" id="edge48_Node000035_Node000023" title=" " alt="" coords="607,327,636,343,648,355,656,368,663,393,668,419,684,444,726,470,803,510,971,590,966,591,800,515,723,475,680,448,663,421,657,394,651,370,644,358,633,347,608,332"/>
-<area shape="rect" id="Node000036" href="$group__DualTariff.html#ga58395f016d0737f432ea1cec1e160971" title="Prints a time in ms from the start of the off&#45;peak period, as &lt;h&gt;h&lt;mm&gt;." alt="" coords="707,355,842,383"/>
-<area shape="poly" id="edge51_Node000035_Node000036" title=" " alt="" coords="583,330,694,352,689,354,584,335"/>
-<area shape="rect" id="Node000037" href="$group__DualTariff.html#ga686c4ecdf9da4efb37be3fe956774d83" title="Reads scheduled boost i from flash." alt="" coords="731,407,818,435"/>
-<area shape="poly" id="edge53_Node000035_Node000037" title=" " alt="" coords="605,330,636,343,651,355,661,368,670,380,684,392,719,408,713,410,681,396,666,384,656,371,648,358,633,347,606,335"/>
-<area shape="poly" id="edge52_Node000036_Node000004" title=" " alt="" coords="842,352,979,325,975,327,844,357"/>
-<area shape="poly" id="edge55_Node000038_Node000004" title=" " alt="" coords="634,215,749,224,809,233,867,246,928,269,982,297,976,298,926,274,866,251,808,238,748,229,636,220"/>
-<area shape="poly" id="edge56_Node000038_Node000008" title=" " alt="" coords="546,229,594,254,617,271,636,291,650,312,659,331,666,366,670,403,685,445,718,500,754,547,748,547,714,503,680,447,665,404,660,367,653,332,645,314,632,295,613,275,591,258,547,234"/>
-<area shape="poly" id="edge57_Node000038_Node000031" title=" " alt="" coords="536,200,602,170,681,138,708,131,704,135,683,143,605,175,539,205"/>
-<area shape="poly" id="edge58_Node000038_Node000039" title=" " alt="" coords="582,200,685,182,680,185,585,205"/>
-<area shape="poly" id="edge60_Node000040_Node000004" title=" " alt="" coords="583,380,636,400,651,412,660,424,669,435,683,444,733,460,774,465,816,460,866,444,905,424,939,397,992,346,996,343,943,401,907,428,868,449,817,465,774,471,732,465,681,449,665,439,656,427,647,415,633,405,584,385"/>
-<area shape="poly" id="edge61_Node000040_Node000008" title=" " alt="" coords="583,374,612,384,636,400,651,418,658,435,662,470,665,505,671,522,684,539,706,554,733,566,727,566,703,559,680,543,667,525,660,507,656,471,653,437,646,420,633,404,609,389,584,379"/>
+<area shape="rect" id="Node000001" title="Called once during startup." alt="" coords="5,464,63,492"/>
+<area shape="rect" id="Node000002" href="$namespaceSerialOutput.html#aac2a2b989ae1aed012a9149bcb922751" title="Serial settings for the startup text: 9600 baud 8N1, the default of serial monitors." alt="" coords="111,183,331,210"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="32,464,34,417,44,352,53,317,67,282,85,250,109,221,117,216,115,221,113,225,89,253,71,284,58,318,49,353,39,418,38,464"/>
+<area shape="rect" id="Node000003" href="$debug_8h.html#ae99b323afab58fbf83f92c6d679e1276" title="Print a debug message, as Serial.print() does (only with ENABLE_DEBUG)." alt="" coords="190,308,252,336"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="37,463,61,406,82,374,109,346,141,330,177,323,173,327,143,335,112,351,86,377,66,409,42,464"/>
+<area shape="rect" id="Node000007" href="$debug_8h.html#ab753909eac023c9095cde3544f912923" title="Print a debug message and a line end, as Serial.println() does (only with ENABLE_DEBUG)." alt="" coords="184,620,258,648"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="39,489,66,547,86,579,112,605,139,619,171,628,166,631,137,624,109,609,82,582,61,550,40,495"/>
+<area shape="rect" id="Node000008" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="745,685,804,713"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="36,490,44,527,56,573,78,620,93,640,112,657,134,669,161,679,231,694,316,704,408,708,592,707,732,701,727,703,592,712,408,713,316,709,231,700,160,684,131,674,109,661,89,644,73,622,51,575,39,528,36,495"/>
+<area shape="rect" id="Node000009" href="$namespaceSerialOutput.html#afa14847acb347d3b042396e0b082d086" title="Serial settings after the startup text: 7E1 for the IoT telemetry frames, as the mk2Wifi module expec..." alt="" coords="117,412,325,440"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="61,466,110,450,144,442,140,446,111,455,65,470"/>
+<area shape="rect" id="Node000010" href="$group__Initialization.html#gaac7b29dc45caaaca67299571f6a2dcc0" title="Get the available RAM during setup." alt="" coords="182,464,260,492"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="62,476,168,476,165,480,65,480"/>
+<area shape="rect" id="Node000011" href="$group__Initialization.html#gadeeaa08a0a50d8535fdf2c8a92d4aebc" title="Initializes the processing engine, including ports, load states, and ADC setup." alt="" coords="147,235,294,262"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="35,463,42,430,56,385,77,337,109,295,129,279,154,267,151,271,132,283,113,298,82,340,61,387,47,431,40,464"/>
+<area shape="rect" id="Node000020" href="$group__GeneralProcessing.html#ga4e06ff3a8f34e61a5a7029370755ffd1" title="Reads the diversion pin." alt="" coords="148,516,294,544"/>
+<area shape="poly" id="edge22_Node000001_Node000020" title=" " alt="" coords="62,485,111,501,144,510,140,513,110,506,64,490"/>
+<area shape="rect" id="Node000027" href="$group__GeneralProcessing.html#ga0f30f7b5a1d8e7d17f0fb30c81eb4c59" title="Tells whether the router is OFF." alt="" coords="174,360,268,388"/>
+<area shape="poly" id="edge30_Node000001_Node000027" title=" " alt="" coords="43,462,70,429,109,398,133,387,161,380,157,384,135,392,112,403,74,433,48,465"/>
+<area shape="rect" id="Node000028" href="$group__GeneralProcessing.html#gae473b1c0d80fe056d1fab9bdee38aca1" title="Prints the load priorities to the Serial output." alt="" coords="156,568,286,596"/>
+<area shape="poly" id="edge33_Node000001_Node000028" title=" " alt="" coords="45,490,74,522,112,553,143,567,138,569,109,557,70,526,46,495"/>
+<area shape="rect" id="Node000030" href="$group__Initialization.html#gaa45f069fe76674a03f3dd560dd00b1ee" title="Print the configuration during startup." alt="" coords="152,849,290,877"/>
+<area shape="poly" id="edge37_Node000001_Node000030" title=" " alt="" coords="39,489,66,582,87,642,113,702,157,776,201,837,196,838,153,779,108,704,82,644,61,584,39,495"/>
+<area shape="rect" id="Node000004" href="$debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="959,692,1005,720"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="250,317,382,307,565,303,659,306,746,314,818,329,846,340,868,353,888,376,906,411,938,502,962,599,978,678,973,676,957,601,933,503,901,413,884,379,865,357,844,345,816,334,745,319,659,311,565,308,382,313,253,321"/>
+<area shape="rect" id="Node000005" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1279,743,1451,770"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1005,706,1267,743,1262,744,1005,711"/>
+<area shape="rect" id="Node000006" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1514,743,1674,770"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1451,754,1501,756,1495,757,1452,759"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="257,632,421,640,528,649,635,663,733,686,728,688,634,668,527,655,421,646,259,637"/>
+<area shape="poly" id="edge8_Node000008_Node000005" title=" " alt="" coords="804,705,856,717,915,729,1007,739,1100,746,1267,755,1261,756,1100,752,1007,745,914,734,855,723,805,710"/>
+<area shape="poly" id="edge16_Node000011_Node000008" title=" " alt="" coords="280,260,309,274,333,295,350,323,357,351,358,378,355,405,352,431,354,456,362,481,381,505,411,527,442,536,472,537,503,533,535,529,568,528,602,536,636,556,648,568,656,581,662,607,668,633,674,646,684,659,706,675,733,688,728,688,704,679,681,662,669,649,663,635,657,608,651,583,644,571,633,560,600,541,567,534,536,534,504,539,472,542,441,542,409,532,377,509,357,483,348,457,347,431,349,404,352,378,352,352,345,325,329,298,306,279,282,265"/>
+<area shape="rect" id="Node000012" href="$namespaceAdcChain.html#a3f992a5e4ee47876cb5765bf267c27f5" title="The ADMUX value that converts a channel: reference, left&#45;adjusted result, analog input." alt="" coords="432,57,582,85"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="293,239,313,231,329,220,342,205,348,191,352,159,356,127,364,111,377,96,395,84,418,76,414,80,398,89,381,100,368,114,361,129,357,160,353,192,346,208,333,224,315,236,297,243"/>
+<area shape="rect" id="Node000015" href="$utils__rf_8h.html#af054c00af4d014f9db280e6e6e19e968" title="Initialize the shared RF module." alt="" coords="460,109,554,137"/>
+<area shape="poly" id="edge17_Node000011_Node000015" title=" " alt="" coords="293,237,329,220,345,203,352,185,360,166,377,148,410,132,446,125,443,128,412,137,381,152,365,169,357,187,350,206,333,224,297,240"/>
+<area shape="rect" id="Node000017" href="$group__Initialization.html#ga2d9a6fb1fe26a80cf146d1bf115ab5ac" title="Initializes all elements of a given array to a specified value." alt="" coords="450,161,563,189"/>
+<area shape="poly" id="edge19_Node000011_Node000017" title=" " alt="" coords="286,232,330,219,378,199,437,186,434,189,380,204,332,224,290,236"/>
+<area shape="rect" id="Node000018" href="$utils__pins_8h.html#adab4ad92d1c13bd111827aa168ab340b" title="Set the pins as INPUT_PULLUP." alt="" coords="428,213,585,241"/>
+<area shape="poly" id="edge20_Node000011_Node000018" title=" " alt="" coords="294,241,415,232,411,236,297,245"/>
+<area shape="rect" id="Node000019" href="$utils__pins_8h.html#af7b4634d92b63c510179ad8040341b72" title="Set the pins as OUTPUT." alt="" coords="442,265,571,293"/>
+<area shape="poly" id="edge21_Node000011_Node000019" title=" " alt="" coords="294,254,430,269,425,272,296,259"/>
+<area shape="rect" id="Node000013" href="$namespaceAdcChain.html#ab0c38e0462567f16eac56f6f252229d5" title="The analog input of a channel (A0 = 0)." alt="" coords="712,57,837,85"/>
+<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="581,69,699,70,694,73,583,74"/>
+<area shape="rect" id="Node000014" href="$namespaceAdcChain.html#a49994e50fa1e55e1cbd23ea74cc14ea6" title="The reference bits of ADMUX on a board." alt="" coords="708,5,841,33"/>
+<area shape="poly" id="edge15_Node000012_Node000014" title=" " alt="" coords="580,54,695,33,691,37,583,59"/>
+<area shape="rect" id="Node000016" href="$namespaceSharedRF.html#a1885bc1c65805664c2ad68a37868cd57" title="Accessor for the shared RFM69 instance." alt="" coords="713,109,836,137"/>
+<area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="553,121,700,122,695,125,555,126"/>
+<area shape="rect" id="Node000021" href="$group__GeneralProcessing.html#gad44625fcec1a89332de1ca29930f28ea" title="Reads an active&#45;LOW input pin, and tells how it changed since the previous reading." alt="" coords="452,367,561,394"/>
+<area shape="poly" id="edge23_Node000020_Node000021" title=" " alt="" coords="293,519,313,511,329,501,346,480,352,457,359,433,377,410,406,394,439,385,435,389,408,399,381,415,364,436,358,459,351,482,333,505,315,516,296,523"/>
+<area shape="rect" id="Node000026" href="$debug_8h.html#a871eb50cafa9f77e93cf136b16b2b458" title="Print a status message and a line end, as Serial.println() does (human&#45;readable output only)." alt="" coords="470,569,543,597"/>
+<area shape="poly" id="edge28_Node000020_Node000026" title=" " alt="" coords="294,541,457,572,452,575,295,546"/>
+<area shape="rect" id="Node000022" href="$utils__pins_8h.html#a410a7bdd300104398ce91797bd936cdb" title="Get the Pin State." alt="" coords="726,367,823,394"/>
+<area shape="poly" id="edge24_Node000021_Node000022" title=" " alt="" coords="561,378,713,379,708,382,563,383"/>
+<area shape="rect" id="Node000024" href="$pin__edges_8h.html#ae55f9d06fac899adf213260bb8b44b1b" title="Gives the edges of a pin from its current level, and keeps that level for the next call." alt="" coords="718,265,831,293"/>
+<area shape="poly" id="edge26_Node000021_Node000024" title=" " alt="" coords="544,364,724,297,720,301,547,368"/>
+<area shape="rect" id="Node000023" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="945,392,1019,420"/>
+<area shape="poly" id="edge25_Node000022_Node000023" title=" " alt="" coords="823,384,932,399,927,400,824,389"/>
+<area shape="rect" id="Node000025" href="$pin__edges_8h.html#a8a6b39283f4b6158ff1c32104834aed6" title="The edges of a pin, from its previous level and its current one." alt="" coords="942,265,1022,293"/>
+<area shape="poly" id="edge27_Node000024_Node000025" title=" " alt="" coords="831,277,929,278,924,280,833,282"/>
+<area shape="poly" id="edge29_Node000026_Node000008" title=" " alt="" coords="543,585,589,594,636,613,651,624,661,635,670,647,684,658,734,685,728,685,681,663,666,650,657,639,647,628,633,618,587,599,544,590"/>
+<area shape="poly" id="edge31_Node000027_Node000021" title=" " alt="" coords="267,373,438,377,434,381,269,377"/>
+<area shape="poly" id="edge32_Node000027_Node000026" title=" " alt="" coords="267,373,302,381,333,398,348,417,356,437,358,476,360,513,367,532,381,549,397,561,416,570,457,581,452,583,414,575,394,566,377,553,362,534,355,515,352,476,350,438,343,420,329,403,300,385,270,377"/>
+<area shape="poly" id="edge36_Node000028_Node000026" title=" " alt="" coords="285,580,456,581,452,585,287,585"/>
+<area shape="rect" id="Node000029" href="$debug_8h.html#adcd54bd01b7d09758f8dea890ae69eab" title="Print a status message, as Serial.print() does (human&#45;readable output only)." alt="" coords="744,468,805,496"/>
+<area shape="poly" id="edge34_Node000028_Node000029" title=" " alt="" coords="285,574,309,565,329,553,340,542,346,530,351,504,357,478,365,465,378,454,422,433,469,422,518,418,567,421,658,438,732,463,727,464,657,443,566,426,518,423,470,427,423,438,380,459,369,469,362,480,356,505,351,531,344,545,333,557,311,570,288,578"/>
+<area shape="poly" id="edge35_Node000029_Node000004" title=" " alt="" coords="805,484,838,494,868,512,906,551,936,595,958,639,973,678,968,677,953,642,931,598,902,554,865,516,836,499,806,489"/>
+<area shape="poly" id="edge38_Node000030_Node000004" title=" " alt="" coords="290,870,406,878,477,879,553,876,633,867,713,853,792,830,865,798,915,765,954,733,959,730,918,769,868,803,793,835,714,858,634,873,554,881,477,884,405,883,291,875"/>
+<area shape="poly" id="edge39_Node000030_Node000008" title=" " alt="" coords="237,847,296,802,336,778,378,758,474,729,572,711,661,701,732,699,727,701,661,707,573,716,475,734,380,763,338,783,299,806,240,851"/>
+<area shape="rect" id="Node000031" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="1097,964,1216,992"/>
+<area shape="poly" id="edge40_Node000030_Node000031" title=" " alt="" coords="229,875,249,916,281,969,325,1023,351,1045,380,1063,474,1104,557,1129,634,1139,709,1137,783,1124,863,1102,1048,1038,1088,1020,1121,1002,1126,1000,1090,1025,1050,1043,864,1107,785,1129,709,1142,634,1145,556,1134,472,1109,378,1068,348,1050,321,1027,276,973,244,919,227,880"/>
+<area shape="rect" id="Node000033" href="$utils_8h.html#a25c5ac42b5ae08d9a1fb30c1cb69b1c2" title="Print &quot;is present&quot; or &quot;is NOT present&quot;, and a line end." alt="" coords="448,772,565,800"/>
+<area shape="poly" id="edge43_Node000030_Node000033" title=" " alt="" coords="261,846,378,810,436,798,431,801,380,815,264,851"/>
+<area shape="rect" id="Node000034" href="$utils_8h.html#a09da93232f42a453bd184173273f73a1" title="Print the calibration of a phase as calibration.h has it." alt="" coords="446,1027,568,1054"/>
+<area shape="poly" id="edge45_Node000030_Node000034" title=" " alt="" coords="234,875,293,939,334,975,380,1006,433,1028,428,1028,378,1011,331,980,289,943,233,880"/>
+<area shape="rect" id="Node000037" href="$namespaceSerialOutput.html#a92c5012053b5fe0d463a87a06be6fe40" title="A float constant as an integer with the given number of decimals, rounded." alt="" coords="682,976,867,1004"/>
+<area shape="poly" id="edge66_Node000030_Node000037" title=" " alt="" coords="238,875,299,920,338,944,380,962,453,980,528,991,601,995,669,997,664,998,601,1000,527,996,452,986,378,967,335,949,296,925,238,880"/>
+<area shape="rect" id="Node000038" href="$group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="406,468,607,496"/>
+<area shape="poly" id="edge51_Node000030_Node000038" title=" " alt="" coords="228,848,329,658,341,629,348,605,358,582,377,556,414,524,458,501,454,505,418,529,381,560,363,584,353,607,346,631,333,660,232,850"/>
+<area shape="rect" id="Node000041" href="$group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="379,925,634,953"/>
+<area shape="poly" id="edge58_Node000030_Node000041" title=" " alt="" coords="272,875,380,905,436,921,430,922,378,910,273,880"/>
+<area shape="rect" id="Node000042" href="$group__Initialization.html#gaf89dd9a18ac303e10da1e6bbb50f310b" title="Prints the rotation groups, as load numbers counted from 0 as in LOAD(n): &quot;\tgroups { 0 1 2 }..." alt="" coords="430,824,583,852"/>
+<area shape="poly" id="edge63_Node000030_Node000042" title=" " alt="" coords="290,855,417,844,413,847,291,860"/>
+<area shape="poly" id="edge41_Node000031_Node000005" title=" " alt="" coords="1169,962,1338,783,1343,781,1172,966"/>
+<area shape="rect" id="Node000032" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="1264,964,1466,992"/>
+<area shape="poly" id="edge42_Node000031_Node000032" title=" " alt="" coords="1217,975,1252,978,1246,978,1217,980"/>
+<area shape="poly" id="edge44_Node000033_Node000008" title=" " alt="" coords="565,770,634,751,733,716,728,719,635,756,567,775"/>
+<area shape="rect" id="Node000035" href="$utils_8h.html#a1408f66400b02deb1f2d01eb7bb608c2" title="Print one calibration line: &quot;&lt;name&gt; for L&lt;phase&gt; = &#160;&#160;&#160;&lt;value&gt;&quot;." alt="" coords="700,1028,849,1056"/>
+<area shape="poly" id="edge46_Node000034_Node000035" title=" " alt="" coords="568,1038,687,1041,682,1042,568,1043"/>
+<area shape="poly" id="edge50_Node000034_Node000037" title=" " alt="" coords="568,1026,685,1007,680,1008,569,1032"/>
+<area shape="poly" id="edge47_Node000035_Node000004" title=" " alt="" coords="848,1025,865,1013,893,982,916,946,934,908,948,869,967,794,977,737,980,733,972,795,954,870,939,910,920,949,897,985,868,1017,850,1030"/>
+<area shape="rect" id="Node000036" href="$debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="915,1001,1049,1029"/>
+<area shape="poly" id="edge48_Node000035_Node000036" title=" " alt="" coords="849,1030,902,1025,897,1026,850,1035"/>
+<area shape="poly" id="edge49_Node000036_Node000031" title=" " alt="" coords="1049,998,1079,994,1084,993,1050,1003"/>
+<area shape="poly" id="edge53_Node000038_Node000004" title=" " alt="" coords="591,494,758,526,828,542,868,555,902,583,930,615,970,679,965,678,926,618,898,586,865,560,827,547,757,531,592,499"/>
+<area shape="poly" id="edge54_Node000038_Node000008" title=" " alt="" coords="607,494,636,512,651,530,659,549,662,586,665,622,671,640,684,659,706,676,733,689,728,690,703,680,680,662,667,643,660,623,657,586,654,550,647,533,633,516,607,499"/>
+<area shape="poly" id="edge52_Node000038_Node000023" title=" " alt="" coords="597,465,931,412,927,416,599,470"/>
+<area shape="rect" id="Node000039" href="$group__DualTariff.html#ga58395f016d0737f432ea1cec1e160971" title="Prints a time in ms from the start of the off&#45;peak period, as &lt;h&gt;h&lt;mm&gt;." alt="" coords="707,569,842,597"/>
+<area shape="poly" id="edge55_Node000038_Node000039" title=" " alt="" coords="585,494,636,511,660,530,684,549,711,563,706,564,681,553,657,534,633,516,586,499"/>
+<area shape="rect" id="Node000040" href="$group__DualTariff.html#ga686c4ecdf9da4efb37be3fe956774d83" title="Reads scheduled boost i from flash." alt="" coords="731,621,818,649"/>
+<area shape="poly" id="edge57_Node000038_Node000040" title=" " alt="" coords="602,494,636,512,648,524,655,536,661,560,667,584,674,595,684,606,719,626,713,626,681,611,669,599,662,586,656,562,650,538,643,527,633,516,603,499"/>
+<area shape="poly" id="edge56_Node000039_Node000004" title=" " alt="" coords="838,595,868,607,918,642,960,681,954,680,915,646,865,612,838,600"/>
+<area shape="poly" id="edge59_Node000041_Node000004" title=" " alt="" coords="603,922,753,893,819,874,865,854,898,827,926,795,965,735,969,732,930,798,902,831,868,859,821,879,754,898,604,927"/>
+<area shape="poly" id="edge60_Node000041_Node000008" title=" " alt="" coords="537,922,583,896,633,861,669,827,702,790,753,727,757,724,706,793,673,831,636,865,586,901,539,927"/>
+<area shape="poly" id="edge61_Node000041_Node000031" title=" " alt="" coords="635,944,1084,972,1079,975,635,949"/>
+<area shape="poly" id="edge62_Node000041_Node000037" title=" " alt="" coords="584,951,685,972,680,973,584,956"/>
+<area shape="poly" id="edge64_Node000042_Node000004" title=" " alt="" coords="581,821,634,809,807,759,946,717,941,719,809,764,635,814,583,826"/>
+<area shape="poly" id="edge65_Node000042_Node000008" title=" " alt="" coords="582,829,609,821,633,809,649,794,657,778,665,761,681,743,705,726,733,714,729,716,707,730,684,746,670,764,662,780,653,797,636,813,611,826,584,834"/>
 </map>

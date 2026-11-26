@@ -1,46 +1,52 @@
 <map id="printConfiguration" name="printConfiguration">
-<area shape="rect" id="Node000001" title="Print the configuration during startup." alt="" coords="5,272,144,300"/>
-<area shape="rect" id="Node000002" href="$debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="805,92,851,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,271,92,236,116,191,148,144,168,123,190,105,254,64,312,34,368,15,422,5,478,3,539,8,680,35,741,56,794,84,789,84,739,61,679,40,538,14,478,9,423,10,369,20,315,39,257,68,193,109,172,127,152,148,120,194,97,238,83,272"/>
-<area shape="rect" id="Node000005" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="558,273,616,301"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="129,269,191,258,319,249,447,258,545,276,540,277,447,263,319,254,192,263,131,274"/>
-<area shape="rect" id="Node000006" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="528,375,647,402"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="91,297,136,331,163,348,193,361,276,381,362,392,443,394,515,394,509,395,443,400,361,397,275,387,191,366,161,352,133,336,91,303"/>
-<area shape="rect" id="Node000008" href="$debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="252,425,386,453"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="86,298,129,351,159,380,193,405,240,425,235,426,190,409,156,384,125,355,85,303"/>
-<area shape="rect" id="Node000009" href="$utils_8h.html#a25c5ac42b5ae08d9a1fb30c1cb69b1c2" title="Print &quot;is present&quot; or &quot;is NOT present&quot;, and a line end." alt="" coords="261,272,378,300"/>
-<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="143,283,247,284,243,287,145,288"/>
-<area shape="rect" id="Node000010" href="$group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="219,171,420,198"/>
-<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="94,269,137,241,191,214,233,201,229,204,193,219,140,246,98,273"/>
-<area shape="rect" id="Node000014" href="$group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="192,324,447,352"/>
-<area shape="poly" id="edge20_Node000001_Node000014" title=" " alt="" coords="141,298,192,308,237,319,232,321,191,314,142,303"/>
-<area shape="rect" id="Node000015" href="$namespaceSerialOutput.html#a92c5012053b5fe0d463a87a06be6fe40" title="A float constant as an integer with the given number of decimals, rounded." alt="" coords="495,451,679,478"/>
-<area shape="poly" id="edge28_Node000001_Node000015" title=" " alt="" coords="80,297,95,334,117,381,150,427,170,446,193,462,233,480,276,491,320,497,364,499,449,493,518,483,524,482,450,498,364,504,320,502,275,496,231,485,190,467,167,450,146,430,113,383,90,337,79,303"/>
-<area shape="rect" id="Node000016" href="$group__Initialization.html#gaf89dd9a18ac303e10da1e6bbb50f310b" title="Prints the rotation groups, as load numbers counted from 0 as in LOAD(n): &quot;\tgroups { 0 1 2 }..." alt="" coords="243,119,396,146"/>
-<area shape="poly" id="edge25_Node000001_Node000016" title=" " alt="" coords="82,270,124,214,155,183,190,157,230,142,227,146,193,161,158,187,128,218,87,273"/>
-<area shape="rect" id="Node000003" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="977,273,1148,301"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="848,117,1034,264,1028,264,847,123"/>
-<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1196,273,1356,301"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1148,284,1183,287,1178,287,1149,290"/>
-<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="617,284,963,286,958,288,617,290"/>
-<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="647,373,976,305,982,304,648,378"/>
-<area shape="rect" id="Node000007" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="727,375,929,402"/>
-<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="647,386,714,388,709,389,648,391"/>
-<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="386,424,515,402,510,403,387,429"/>
-<area shape="poly" id="edge12_Node000009_Node000005" title=" " alt="" coords="378,283,545,286,540,288,379,289"/>
-<area shape="poly" id="edge15_Node000010_Node000002" title=" " alt="" coords="417,168,446,155,460,143,468,129,477,115,494,103,533,90,574,81,656,77,731,83,792,96,787,97,730,89,656,82,574,87,534,95,496,108,481,119,473,132,464,147,448,160,420,172"/>
-<area shape="poly" id="edge16_Node000010_Node000005" title=" " alt="" coords="402,196,448,214,464,225,473,237,482,248,496,258,545,278,540,279,494,263,479,251,469,240,460,229,446,219,403,201"/>
-<area shape="rect" id="Node000011" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="550,169,624,197"/>
-<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="420,181,537,182,532,184,421,186"/>
-<area shape="rect" id="Node000012" href="$group__DualTariff.html#ga58395f016d0737f432ea1cec1e160971" title="Prints a time in ms from the start of the off&#45;peak period, as &lt;h&gt;h&lt;mm&gt;." alt="" coords="520,117,655,145"/>
-<area shape="poly" id="edge17_Node000010_Node000012" title=" " alt="" coords="391,167,506,146,502,149,393,172"/>
-<area shape="rect" id="Node000013" href="$group__DualTariff.html#ga686c4ecdf9da4efb37be3fe956774d83" title="Reads scheduled boost i from flash." alt="" coords="544,221,631,249"/>
-<area shape="poly" id="edge19_Node000010_Node000013" title=" " alt="" coords="396,196,531,223,526,225,397,202"/>
-<area shape="poly" id="edge18_Node000012_Node000002" title=" " alt="" coords="655,121,792,109,787,111,656,127"/>
-<area shape="poly" id="edge21_Node000014_Node000002" title=" " alt="" coords="416,350,478,353,546,349,614,336,647,325,678,310,703,293,726,272,765,224,794,175,814,136,818,132,799,177,770,227,730,276,707,297,681,315,649,330,616,341,546,354,478,358,416,355"/>
-<area shape="poly" id="edge22_Node000014_Node000005" title=" " alt="" coords="396,321,546,294,541,296,397,326"/>
-<area shape="poly" id="edge23_Node000014_Node000006" title=" " alt="" coords="396,350,515,374,509,375,396,355"/>
-<area shape="poly" id="edge24_Node000014_Node000015" title=" " alt="" coords="351,349,545,443,539,444,350,355"/>
-<area shape="poly" id="edge26_Node000016_Node000002" title=" " alt="" coords="345,116,412,85,452,70,494,59,546,51,587,49,680,59,739,72,793,91,788,92,738,77,679,64,587,54,547,56,496,64,454,75,414,90,348,120"/>
-<area shape="poly" id="edge27_Node000016_Node000005" title=" " alt="" coords="395,134,424,143,449,157,461,169,468,182,474,209,480,234,486,246,497,258,519,272,545,282,540,282,516,276,493,262,481,250,475,236,469,210,463,184,457,173,445,161,422,147,396,139"/>
+<area shape="rect" id="Node000001" title="Print the configuration during startup." alt="" coords="5,277,144,305"/>
+<area shape="rect" id="Node000002" href="$debug_8h.html#aca46af6ad7e486edceb7ad7752f02d6a" title="Print an informational message, as Serial.print() does." alt="" coords="771,302,818,330"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,290,679,307,759,313,753,314,679,312,144,295"/>
+<area shape="rect" id="Node000005" href="$debug_8h.html#a3adeb14e342ac09e6112ddc3f314b2ca" title="Print an informational message and a line end, as Serial.println() does." alt="" coords="558,378,616,406"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="91,302,136,335,163,352,193,364,239,377,288,387,385,396,474,397,545,396,540,397,474,403,385,402,287,392,238,383,191,369,161,356,133,340,92,308"/>
+<area shape="rect" id="Node000006" href="$debug_8h.html#aee87d72abd6349f18c91e48447af3d1a" title="Print a value given as an integer with a fixed number of decimals, and a line end." alt="" coords="910,125,1029,153"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="78,275,92,241,115,196,148,150,168,129,190,111,279,59,361,25,438,7,513,3,591,11,672,29,863,84,899,98,933,117,928,117,897,103,861,89,671,34,590,16,513,9,438,13,362,30,281,64,193,116,171,133,152,153,120,199,97,243,83,277"/>
+<area shape="rect" id="Node000008" href="$utils_8h.html#a25c5ac42b5ae08d9a1fb30c1cb69b1c2" title="Print &quot;is present&quot; or &quot;is NOT present&quot;, and a line end." alt="" coords="261,429,378,457"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="85,302,129,355,159,384,193,408,219,420,248,431,243,432,217,425,190,413,156,388,125,359,85,308"/>
+<area shape="rect" id="Node000009" href="$utils_8h.html#a09da93232f42a453bd184173273f73a1" title="Print the calibration of a phase as calibration.h has it." alt="" coords="258,125,380,153"/>
+<area shape="poly" id="edge11_Node000001_Node000009" title=" " alt="" coords="83,275,125,223,156,193,190,168,216,156,245,149,241,152,218,161,193,173,159,197,129,226,88,278"/>
+<area shape="rect" id="Node000012" href="$namespaceSerialOutput.html#a92c5012053b5fe0d463a87a06be6fe40" title="A float constant as an integer with the given number of decimals, rounded." alt="" coords="495,125,679,153"/>
+<area shape="poly" id="edge32_Node000001_Node000012" title=" " alt="" coords="91,275,135,243,191,212,304,188,493,154,490,158,305,194,193,217,138,247,95,278"/>
+<area shape="rect" id="Node000013" href="$group__DualTariff.html#ga4378fe99f16f9f2a6990ac70c27783a2" title="Print the settings for off&#45;peak period." alt="" coords="219,481,420,509"/>
+<area shape="poly" id="edge17_Node000001_Node000013" title=" " alt="" coords="81,302,97,338,120,382,152,428,172,448,193,466,208,476,203,476,190,470,168,452,148,431,116,385,92,340,81,308"/>
+<area shape="rect" id="Node000017" href="$group__Initialization.html#gaa2b3b1d496e37e5f29af6a766743dc8b" title="Print the settings used for the selected output mode." alt="" coords="192,226,447,254"/>
+<area shape="poly" id="edge24_Node000001_Node000017" title=" " alt="" coords="143,274,236,256,232,260,145,279"/>
+<area shape="rect" id="Node000018" href="$group__Initialization.html#gaf89dd9a18ac303e10da1e6bbb50f310b" title="Prints the rotation groups, as load numbers counted from 0 as in LOAD(n): &quot;\tgroups { 0 1 2 }..." alt="" coords="243,328,396,355"/>
+<area shape="poly" id="edge29_Node000001_Node000018" title=" " alt="" coords="143,302,236,322,232,325,145,308"/>
+<area shape="rect" id="Node000003" href="$namespaceSerialOutput.html#a7a595eab49199186c178345e2e5a3ca5" title="Write whatever is left of the current output to Serial, waiting like a plain print." alt="" coords="1092,302,1263,330"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="818,313,1079,315,1074,317,818,319"/>
+<area shape="rect" id="Node000004" href="$namespaceSerialOutput.html#a60a79de5db3bb8e9787c5430b5eaafa5" title="Run the next step of the current output." alt="" coords="1326,302,1487,330"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1264,313,1313,316,1308,316,1264,319"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="616,386,1079,328,1074,330,617,391"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="988,150,1151,292,1146,292,986,155"/>
+<area shape="rect" id="Node000007" href="$namespaceSerialOutput.html#afe70890e346c41dfd6d25fae03235ad0" title="Print a value given as an integer with a fixed number of decimals (see toDecimals())" alt="" coords="1077,125,1278,153"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="1029,136,1064,138,1059,139,1030,141"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="378,429,545,399,540,401,379,434"/>
+<area shape="rect" id="Node000010" href="$utils_8h.html#a1408f66400b02deb1f2d01eb7bb608c2" title="Print one calibration line: &quot;&lt;name&gt; for L&lt;phase&gt; = &#160;&#160;&#160;&lt;value&gt;&quot;." alt="" coords="512,73,662,101"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="380,125,499,103,495,106,382,129"/>
+<area shape="poly" id="edge16_Node000009_Node000012" title=" " alt="" coords="380,136,482,137,477,140,382,141"/>
+<area shape="poly" id="edge13_Node000010_Node000002" title=" " alt="" coords="659,99,681,111,720,152,751,200,773,247,787,289,782,287,768,249,746,203,716,156,678,115,659,104"/>
+<area shape="rect" id="Node000011" href="$debug_8h.html#a8556357c0a2b1e78ae7e930668795c2e" title="Same as infolnDecimals(), with the value read from PROGMEM." alt="" coords="727,98,862,126"/>
+<area shape="poly" id="edge14_Node000010_Node000011" title=" " alt="" coords="662,93,715,101,710,103,663,98"/>
+<area shape="poly" id="edge15_Node000011_Node000006" title=" " alt="" coords="861,120,897,127,892,128,862,125"/>
+<area shape="poly" id="edge19_Node000013_Node000002" title=" " alt="" coords="413,478,562,449,630,432,678,415,705,399,730,379,769,343,774,340,733,383,708,403,680,420,632,437,564,455,414,483"/>
+<area shape="poly" id="edge20_Node000013_Node000005" title=" " alt="" coords="415,478,446,466,460,456,469,445,479,433,494,422,541,404,546,402,496,426,483,437,473,448,464,460,448,470,417,483"/>
+<area shape="rect" id="Node000014" href="$utils__bits_8h.html#abaa54130a12679d0dcc0e7578e0e4d37" title="Read the specified bit." alt="" coords="550,480,624,507"/>
+<area shape="poly" id="edge18_Node000013_Node000014" title=" " alt="" coords="420,492,537,493,532,494,420,497"/>
+<area shape="rect" id="Node000015" href="$group__DualTariff.html#ga58395f016d0737f432ea1cec1e160971" title="Prints a time in ms from the start of the off&#45;peak period, as &lt;h&gt;h&lt;mm&gt;." alt="" coords="520,584,655,611"/>
+<area shape="poly" id="edge21_Node000013_Node000015" title=" " alt="" coords="351,506,417,536,496,568,521,579,516,578,494,573,415,541,350,512"/>
+<area shape="rect" id="Node000016" href="$group__DualTariff.html#ga686c4ecdf9da4efb37be3fe956774d83" title="Reads scheduled boost i from flash." alt="" coords="544,532,631,559"/>
+<area shape="poly" id="edge23_Node000013_Node000016" title=" " alt="" coords="396,506,531,534,526,535,396,512"/>
+<area shape="poly" id="edge22_Node000015_Node000002" title=" " alt="" coords="654,583,678,569,702,544,722,516,754,454,774,393,786,347,790,343,779,395,759,456,727,519,706,547,681,573,656,588"/>
+<area shape="poly" id="edge25_Node000017_Node000002" title=" " alt="" coords="447,240,561,249,680,269,721,282,760,299,754,299,719,287,679,275,561,255,448,245"/>
+<area shape="poly" id="edge26_Node000017_Node000005" title=" " alt="" coords="346,252,550,369,545,371,345,257"/>
+<area shape="poly" id="edge27_Node000017_Node000006" title=" " alt="" coords="412,223,896,148,893,152,414,228"/>
+<area shape="poly" id="edge28_Node000017_Node000012" title=" " alt="" coords="397,223,446,206,470,188,494,168,524,157,519,160,496,173,473,192,448,210,400,228"/>
+<area shape="poly" id="edge30_Node000018_Node000002" title=" " alt="" coords="396,335,758,316,754,320,396,340"/>
+<area shape="poly" id="edge31_Node000018_Node000005" title=" " alt="" coords="396,353,545,383,540,385,396,358"/>
 </map>
