@@ -59,7 +59,6 @@ analysis/
 
 **Location**: `../Mk2_3phase_RFdatalog_temp/scripts/`
 
-- **visualize_cloud_patterns.py**: plots the TEMA response to simulated cloud scenarios (the native test it first tries to run, `test_cloud_patterns`, no longer exists).
 - **visualize_cloud_patterns_demo.py**: Demo version with simplified scenarios.
 
 ## Running Analysis
@@ -80,9 +79,9 @@ python3 ema_effectiveness_analysis_extended.py
 # Run TEMA comparison
 python3 tema_comparison.py
 
-# Run cloud pattern visualization
+# Run the cloud pattern demo
 cd ../../Mk2_3phase_RFdatalog_temp/scripts
-python3 visualize_cloud_patterns.py
+python3 visualize_cloud_patterns_demo.py
 ```
 
 ## Generated Plots
