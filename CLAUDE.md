@@ -67,3 +67,6 @@ no gcc and no simavr.
   gets a case in `scripts/ci/compile-fail/`. A setting users see also needs its page in the
   documentation repository (FredM67/Mk2PVRouter, French docs), in a PR there or an issue that
   the PR links to.
+- **Single-phase parity:** `Mk2_1phase_RFdatalog_temp` of PVRouter-1-phase derives from this
+  firmware, with the same setting names, meaning and syntax; keep them aligned, and say in the PR
+  when a change is not ported (or not portable) to the other repository.
