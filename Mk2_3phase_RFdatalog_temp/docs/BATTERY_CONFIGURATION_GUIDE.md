@@ -1,368 +1,168 @@
-# Guide de Configuration pour Systèmes Batterie
+# Guide de configuration pour systèmes avec batterie
 
 [![en](https://img.shields.io/badge/lang-en-red.svg)](BATTERY_CONFIGURATION_GUIDE.en.md)
 
-- [Guide de Configuration pour Systèmes Batterie](#guide-de-configuration-pour-systèmes-batterie)
-  - [Le Vrai Problème avec les Systèmes Batterie](#le-vrai-problème-avec-les-systèmes-batterie)
-  - [Comprendre le Problème](#comprendre-le-problème)
-    - [Installation Normale (Raccordée au Réseau Uniquement)](#installation-normale-raccordée-au-réseau-uniquement)
-    - [Installation Batterie (Le Problème)](#installation-batterie-le-problème)
-  - [Exemples Visuels : Comportement des Systèmes Batterie](#exemples-visuels--comportement-des-systèmes-batterie)
-    - [Graphique Comparatif : Seuils Positifs vs Négatifs](#graphique-comparatif--seuils-positifs-vs-négatifs)
-    - [Graphique 2 : Analyse Détaillée Événement Nuageux (17:00-17:45)](#graphique-2--analyse-détaillée-événement-nuageux-1700-1745)
-    - [Graphique 3 : Système 2 Relais - Pompe à Chaleur \& Pompe Piscine (17:30-19:00)](#graphique-3--système-2-relais---pompe-à-chaleur--pompe-piscine-1730-1900)
-    - [Patterns Comportement Monde Réel](#patterns-comportement-monde-réel)
-    - [Insight Technique : Pourquoi Seuils Négatifs Fonctionnent](#insight-technique--pourquoi-seuils-négatifs-fonctionnent)
-  - [La Solution Correcte : Seuil d'Import Négatif](#la-solution-correcte--seuil-dimport-négatif)
-    - [Configuration Compatible Batterie](#configuration-compatible-batterie)
-    - [Guide de Sélection des Seuils](#guide-de-sélection-des-seuils)
-  - [Exemples de Configurations](#exemples-de-configurations)
-    - [Batterie X + Pompe Piscine (1.5kW)](#batterie-x--pompe-piscine-15kw)
-    - [Batterie Y + Chauffage Eau (2kW)](#batterie-y--chauffage-eau-2kw)
-    - [Configuration Conservative (Gros Système Batterie)](#configuration-conservative-gros-système-batterie)
-  - [Comment Ça Fonctionne : Explication Technique](#comment-ça-fonctionne--explication-technique)
-    - [L'Insight Clé](#linsight-clé)
-    - [Comparaison des Approches](#comparaison-des-approches)
-    - [Exemples de Sortie Série](#exemples-de-sortie-série)
-  - [Détails d'Implémentation](#détails-dimplémentation)
-    - [Logique Interne](#logique-interne)
-    - [Intégration avec le Filtre EWMA](#intégration-avec-le-filtre-ewma)
-  - [Guide de Migration](#guide-de-migration)
-    - [Depuis une Configuration Problématique](#depuis-une-configuration-problématique)
-    - [Choisir la Bonne Valeur Négative](#choisir-la-bonne-valeur-négative)
+- [Guide de configuration pour systèmes avec batterie](#guide-de-configuration-pour-systèmes-avec-batterie)
+  - [Le problème](#le-problème)
+  - [Comment un relais décide](#comment-un-relais-décide)
+  - [La solution, un seuil d'import négatif](#la-solution-un-seuil-dimport-négatif)
+  - [Choisir le seuil de surplus](#choisir-le-seuil-de-surplus)
+  - [Exemples](#exemples)
+  - [Les graphiques](#les-graphiques)
+    - [Graphique 1, 0 W contre -50 W](#graphique-1-0-w-contre--50-w)
+    - [Graphique 2, un nuage (17:00-17:45)](#graphique-2-un-nuage-1700-1745)
+    - [Graphique 3, deux relais, pompe à chaleur et pompe de piscine (17:30-19:00)](#graphique-3-deux-relais-pompe-à-chaleur-et-pompe-de-piscine-1730-1900)
   - [Dépannage](#dépannage)
-    - [Si le relais s'éteint trop tôt](#si-le-relais-séteint-trop-tôt)
-    - [Si le relais ne s'éteint toujours pas](#si-le-relais-ne-séteint-toujours-pas)
-    - [Si le relais claquette](#si-le-relais-claquette)
-  - [Avantages de Cette Approche](#avantages-de-cette-approche)
-    - [✅ **Fonctionne avec la Physique des Batteries**](#-fonctionne-avec-la-physique-des-batteries)
-    - [✅ **Simple \& Robuste**](#-simple--robuste)
-    - [✅ **Configurable**](#-configurable)
-    - [✅ **Maintient Toutes les Fonctionnalités**](#-maintient-toutes-les-fonctionnalités)
-  - [Résumé](#résumé)
 
-## Le Vrai Problème avec les Systèmes Batterie
+## Le problème
 
-Quand un Routeur PV est utilisé avec des systèmes batterie, les clients expérimentent souvent des relais qui **ne s'éteignent jamais**. La cause racine est la physique fondamentale de comment les systèmes batterie maintiennent l'équilibre du réseau.
+Une batterie domestique se charge sur le surplus et se décharge pour couvrir tout import : la
+puissance réseau reste proche de 0 W. Un relais qui attend un import pour s'éteindre n'en voit
+jamais :
 
-## Comprendre le Problème
+- seuil d'import 0 W : le relais s'allume sur un surplus, puis **ne s'éteint jamais**, puisque la
+  batterie couvre sa charge ;
+- seuil d'import positif (par ex. 50 W) : la batterie masque aussi l'import, et l'import qu'elle
+  laisse passer est bref : le relais peut claquer.
 
-### Installation Normale (Raccordée au Réseau Uniquement)
-```cpp
-// Configuration typique
-relayOutput(pin, 1000, 200, 5, 5)
-//                ^    ^
-//                |    └─ Seuil d'import : 200W (éteindre quand import > 200W)
-//                └─ Seuil de surplus : 1000W (allumer quand surplus > 1000W)
-```
+## Comment un relais décide
 
-**Comportement :**
-- ☀️ **Surplus > 1000W** → Le relais s'allume
-- ☁️ **Import > 200W** → Le relais s'éteint
-- ✅ **Fonctionne parfaitement** - conditions ON/OFF claires
-
-### Installation Batterie (Le Problème)
-```cpp
-// Le client essaie de mettre un contrôle serré
-relayOutput(pin, 1000, 0, 5, 5)   // ❌ PROBLÈME !
-//                ^    ^
-//                |    └─ Seuil d'import : 0W
-//                └─ Seuil de surplus : 1000W
-```
-
-**Ce qui arrive :**
-- ☀️ **Surplus > 1000W** → Le relais s'allume
-- 🔋 **La batterie compense** → Le réseau reste ≈ 0W peu importe ce que fait le relais
-- ❌ **Le relais a besoin d'import > 0W pour s'éteindre** → Mais la batterie l'empêche !
-- 🚨 **Le relais reste allumé indéfiniment**
-
-**Pourquoi augmenter le seuil d'import empire les choses :**
-```cpp
-relayOutput(pin, 1000, 50, 5, 5)  // Encore pire !
-```
-- Le relais s'éteint quand import > 50W
-- La batterie se décharge immédiatement pour ramener le réseau à 0W
-- Le relais se rallume
-- **Résultat : Relais qui claquette !**
-
-## Exemples Visuels : Comportement des Systèmes Batterie
-
-Les graphiques suivants démontrent pourquoi les configurations de relais traditionnelles échouent avec les systèmes batterie et comment les seuils négatifs résolvent le problème. Ces simulations montrent des scénarios réalistes de fin de journée avec production solaire déclinante.
-
-### Graphique Comparatif : Seuils Positifs vs Négatifs
-
-![Seuils Import Positifs vs Négatifs](battery_import_vs_surplus_thresholds.png)
-
-**Ce graphique démontre :**
-- **Graphique du haut (CASSÉ)** : Seuil d'import 0W
-  - Le relais s'allume mais **ne s'éteint JAMAIS**
-  - La batterie compense les déficits → Puissance réseau ≈ 0W en permanence
-  - Impossible de détecter l'import → Relais reste allumé 100% du temps
-
-- **Graphique du bas (FONCTIONNE)** : Seuil d'import négatif -50W
-  - Le relais cycle correctement : 1 commutation, 24% du temps
-  - Surveille le surplus réel avant compensation batterie
-  - Fonctionne car non affecté par le comportement de la batterie
-
-**Éléments visibles sur chaque graphique :**
-- 🟡 **Production solaire** : Déclin de 2,5kW en fin de journée
-- 🔴 **Consommation maison** : 350W constant
-- 🔵 **Bilan net (avant relais)** : Solaire - consommation
-- 🟣 **Bilan net (après relais)** : Après charge relais 1kW
-- 🟠 **Sortie batterie** : Compense les déficits
-- ⚫ **Puissance réseau** : Ce que voit le compteur
-- 🟢/🔴 **Arrière-plan** : Vert = relais ON, Rouge = relais OFF
-
-**Fonctionnalités de Visualisation Améliorées :**
-- **Lignes Balance Nette :** Les lignes vertes épaisses montrent la métrique clé (solaire - maison) avant et après charges relais
-- **Fonds État Relais :** Fond vert = relais ON, fond rose = relais OFF pour un statut parfaitement clair
-- **Pourquoi Seuils Zéro/Positifs Échouent :** La batterie empêche détection import réseau, relais ne s'éteint jamais ou oscille constamment
-- **Pourquoi Seuils Négatifs Fonctionnent :** Le système surveille directement le surplus, assurant priorité charge batterie
-
-**Observations Clés :**
-- **Panneau Haut (❌ Seuil Zéro) :** Le relais s'allume quand surplus dépasse 1000W mais **ne s'éteint jamais** même quand production solaire chute sous consommation maison. Compensation batterie empêche détection import.
-- **Panneau Milieu (❌ Seuil Positif) :** Montre claquement relais car batterie lutte contre détection import, créant fonctionnement instable.
-- **Panneau Bas (✅ Seuil Négatif) :** Démontre fonctionnement correct relais qui répond aux changements surplus que batterie ne peut cacher.
-
-### Graphique 2 : Analyse Détaillée Événement Nuageux (17:00-17:45)
-
-![Analyse Événement Nuageux](cloud_event_analysis.png)
-
-**Vue Focalisée :** Ce graphique zoome sur événement nuageux pour montrer moment précis où :
-- **Configuration Problème :** Relais reste ON malgré nuage réduisant surplus disponible
-- **Configuration Solution :** Relais s'éteint correctement quand surplus chute sous seuil 50W
-
-### Graphique 3 : Système 2 Relais - Pompe à Chaleur & Pompe Piscine (17:30-19:00)
-
-![Système Multi-Relais](multi_relay_battery_system.png)
-
-**Visualisation Ultra-Optimisée :** Échelle logarithmique avec lignes de seuils POSITIVES (50W, 100W surplus) correspondant aux seuils négatifs d'import (-50W, -100W). Zone négative ultra-minimale (-10W) pour maximiser visibilité zone positive critique.
-
-**Configuration 2 Relais Réaliste :**
-- 🔴 **Pompe à Chaleur (2500W)** : Seuil -100W (priorité haute)
-- 🔵 **Pompe Piscine (1000W)** : Seuil -50W (priorité basse)
-- ⚡ **Chauffe-eau** : Contrôlé par triac du routeur PV (non par relais externe)
-
-**Résultats Comparatifs :**
-
-| Métrique | Système Fonctionnel | Système Cassé | Différence |
-|----------|---------------------|----------------|------------|
-| **Commutations Totales** | 4 cycles | 0 cycles | ∞ |
-| **Consommation Énergie** | 1933 Wh | 5250 Wh | **+172%** |
-| **Gestion Charge** | Progressive intelligente | Toutes charges collées ON | Critique |
-
-**Gestion Progressive Intelligente :**
-- **17:30-17:45** : Surplus élevé, **les deux relais s'allument** (démonstration complète)
-- **17:50-18:10** : Pompe à chaleur fonctionne 20min puis s'éteint (minimum ON respecté)
-- **17:30-18:56** : Pompe piscine continue 66min avec surplus modéré
-- **18:56-19:00** : Toutes charges éteintes, priorité charge batterie
-
-**Impact Seuils Cassés (0W) :**
-- ❌ **Toutes charges collées ON** : Les deux relais restent ON pendant 90min complètes
-- ❌ **5.25 kWh consommés** : 172% plus énergie batterie que nécessaire
-- ❌ **3.3 kWh gaspillés** : Épuisement prématuré batterie
-- ❌ **Aucune priorisation** : Impossible distinguer charges critiques/non-critiques
-
-### Patterns Comportement Monde Réel
-
-**Ce que Utilisateurs Expérimentent Réellement :**
-
-1. **Avec Seuils Zéro/Positifs :**
-   - Relais s'allument pendant bon soleil ✓
-   - Relais ne s'éteignent jamais ou claquettent ❌
-   - Batterie compensant constamment pour charge relais
-   - Cyclage batterie élevé, durée vie batterie réduite
-   - Gestion énergie médiocre
-
-2. **Avec Seuils Négatifs :**
-   - Relais s'allument pendant bon soleil ✓
-   - Relais s'éteignent quand surplus insuffisant ✓
-   - Priorisation charge intelligente
-   - Batterie utilisée efficacement pour charges essentielles
-   - Gestion énergie optimale
-
-### Insight Technique : Pourquoi Seuils Négatifs Fonctionnent
-
-Les graphiques montrent clairement que **systèmes batterie maintiennent équilibre réseau mais ne peuvent cacher changements surplus** :
-
-- **Puissance Réseau :** Reste près 0W grâce compensation batterie
-- **Production Solaire :** Varie avec météo et heure du jour
-- **Surplus Net :** Changements détectables et exploitables
-- **Logique Relais :** Surveille surplus, pas import réseau
-
-**Principe Physique :** Compensation batterie affecte point mesure réseau mais ne peut altérer équilibre énergétique fondamental qui détermine surplus disponible.
-
-## La Solution Correcte : Seuil d'Import Négatif
-
-### Configuration Compatible Batterie
+Les relais se règlent dans `config.h`, avec `RELAY_DIVERSION` à `true` :
 
 ```cpp
-// Configuration compatible batterie utilisant un seuil négatif
-relayOutput(pin, 1000, -20, 5, 5)
-//                ^    ^
-//                |    └─ Seuil négatif : éteindre quand surplus < 20W
-//                └─ Seuil de surplus : 1000W (allumer quand surplus > 1000W)
+inline constexpr bool RELAY_DIVERSION{ true };
+
+inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 };
+
+inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
+                                     { { 8, 1550, -50, 10, 5 } } };
+//                                       |   |     |   |   └─ temps minimal à l'arrêt, minutes
+//                                       |   |     |   └─ temps minimal en marche, minutes
+//                                       |   |     └─ seuil d'import, W
+//                                       |   └─ seuil de surplus, W
+//                                       └─ broche
 ```
 
-**Comment ça fonctionne :**
-- ☀️ **Surplus > 1000W** → Le relais s'allume
-- ☁️ **Le surplus tombe < 20W** → Le relais s'éteint
-- ✅ **La batterie ne peut pas empêcher cela** - on surveille le surplus, pas l'import !
+Chaque relais s'écrit `{ pin, surplus, import, minON, minOFF }` ; ce qui est omis prend les
+valeurs par défaut 1000 W, 200 W, 5 et 5 minutes (`config_types.h`). Le moteur (`relay_engine.h`) :
 
-### Guide de Sélection des Seuils
+- décide sur la puissance réseau moyenne : une triple EMA (TEMA) de la puissance de chaque ligne
+  du datalog, sur `RELAY_FILTER_DELAY` minutes (voir [Cloud_Pattern_Tuning_Guide.md](../../docs/Cloud_Pattern_Tuning_Guide.md)) ;
+- allume un relais quand le surplus moyen dépasse son seuil de surplus ;
+- l'éteint quand la puissance réseau moyenne dépasse son seuil d'import : avec un seuil positif,
+  un import au-delà ; avec un seuil négatif, un surplus sous sa valeur absolue ;
+- garde chaque relais pendant son temps minimal en marche ou à l'arrêt, et attend 60 s après tout
+  changement de relais avant le suivant ; un seul relais change à la fois : extinction du dernier
+  relais vers le premier, allumage du premier vers le dernier ;
+- n'éteint jamais un relais forcé par une broche de forçage ou une marche forcée programmée.
 
-| Type d'Installation | Seuil Négatif Recommandé | Raisonnement |
-|---------------------|--------------------------|--------------|
-| **Petites charges** (< 1kW) | `-10W à -30W` | Petite marge pour le bruit de mesure |
-| **Charges moyennes** (1-3kW) | `-20W à -50W` | Approche équilibrée |
-| **Grosses charges** (> 3kW) | `-50W à -100W` | Marge plus large pour gros systèmes |
-| **Mesures très bruyantes** | `-100W` | Pour systèmes avec mauvaise précision de mesure |
+## La solution, un seuil d'import négatif
 
-## Exemples de Configurations
+Avec un seuil d'import de -50, le relais s'éteint quand le surplus moyen passe sous 50 W. Une
+batterie qui couvre une partie de la charge du relais maintient le réseau près de 0 W, soit un
+surplus sous 50 W : le relais s'éteint. Il ne s'allume que sur un surplus vu au compteur, donc
+pas tant que la batterie absorbe le surplus pour se charger.
 
-### Batterie X + Pompe Piscine (1.5kW)
-```cpp
-relayOutput(4, 1500, -30, 10, 5)
-//          ^   ^    ^   ^   ^
-//          |   |    |   |   └─ Min OFF : 5 minutes
-//          |   |    |   └─ Min ON : 10 minutes (protection pompe)
-//          |   |    └─ Éteindre quand surplus < 30W
-//          |   └─ Allumer quand surplus > 1000W (puissance pompe)
-//          └─ Pin de contrôle
-```
+Au démarrage, le routeur affiche le sens de chaque seuil :
 
-### Batterie Y + Chauffage Eau (2kW)
-```cpp
-relayOutput(5, 2000, -50, 15, 10)
-//          ^   ^    ^    ^   ^
-//          |   |    |    |   └─ Min OFF : 10 minutes
-//          |   |    |    └─ Min ON : 15 minutes
-//          |   |    └─ Éteindre quand surplus < 50W
-//          |   └─ Allumer quand surplus > 2000W
-//          └─ Pin de contrôle
-```
-
-### Configuration Conservative (Gros Système Batterie)
-```cpp
-relayOutput(6, 3000, -100, 5, 5)
-//          ^   ^    ^     ^ ^
-//          |   |    |     | └─ Temporisation standard
-//          |   |    |     └─ Temporisation standard
-//          |   |    └─ Éteindre quand surplus < 100W (marge sûre)
-//          |   └─ Allumer quand surplus > 2500W
-//          └─ Pin de contrôle
-```
-
-## Comment Ça Fonctionne : Explication Technique
-
-### L'Insight Clé
-**Les systèmes batterie maintiennent l'équilibre réseau, mais ils ne peuvent pas cacher les changements de surplus**
-
-- 🔋 **Charge/décharge batterie** garde le réseau ≈ 0W
-- ☀️ **Les changements de surplus PV** sont encore détectables en surveillant le "côté surplus"
-- ✅ **Les seuils négatifs** surveillent les chutes de surplus, pas les montées d'import
-
-### Comparaison des Approches
-
-| Approche | Surveillance Réseau | Fonctionne avec Batterie | Résultat |
-|----------|-------------------|-------------------------|----------|
-| **Seuil positif** | "Éteindre quand import > X" | ❌ Non | La batterie empêche l'import |
-| **Seuil zéro** | "Éteindre quand import > 0" | ❌ Non | Fluctuations autour de 0W |
-| **Seuil négatif** | "Éteindre quand surplus < X" | ✅ Oui | La batterie ne peut pas cacher les chutes de surplus |
-
-### Exemples de Sortie Série
-
-**Mode normal (seuil positif) :**
 ```
 Import threshold: 200 (import mode)
-```
-
-**Mode batterie (seuil négatif) :**
-```
 Import threshold: -50 (surplus mode: turn OFF when surplus < 50W)
 ```
 
-## Détails d'Implémentation
+## Choisir le seuil de surplus
 
-### Logique Interne
+La charge du relais fait partie de la puissance réseau qu'il mesure. Une fois le relais allumé,
+le surplus baisse de la puissance de la charge. Si ce qui reste est sous la valeur absolue du
+seuil d'import, le relais s'éteint de lui-même dès la fin de son temps minimal en marche.
+
+Le seuil de surplus doit donc valoir au moins **la puissance de la charge + |seuil d'import|** :
+1050 W ou plus pour une charge de 1000 W avec -50 W. Ajoutez une marge pour une charge dont la
+puissance varie.
+
+| Taille de la charge | Seuil d'import |
+|---|---|
+| moins de 1 kW | -10 à -30 W |
+| 1 à 3 kW | -20 à -50 W |
+| plus de 3 kW | -50 à -100 W |
+| mesures bruitées | -100 W |
+
+## Exemples
+
 ```cpp
-if (importThreshold >= 0)
-{
-  // Mode normal : éteindre quand import > seuil
-  if (currentAvgPower > importThreshold)
-    return try_turnOFF();
-}
-else
-{
-  // Mode batterie : éteindre quand surplus < abs(seuil)
-  if (currentAvgPower > importThreshold)  // importThreshold est négatif
-    return try_turnOFF();
-}
+// Pompe de piscine, 1500 W : éteinte sous 30 W de surplus, allumée au-delà de 1550 W, 10 minutes en marche au moins
+inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 8, 1550, -30, 10, 5 } } };
+
+// Chauffe-eau sur relais, 2000 W : éteint sous 50 W de surplus, allumé au-delà de 2100 W
+inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 8, 2100, -50, 15, 10 } } };
+
+// Pompe à chaleur 2500 W d'abord, puis pompe de piscine 1000 W
+inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY),
+                                     { { 8, 2600, -100, 20, 20 },
+                                       { 9, 1050, -50, 5, 5 } } };
 ```
 
-### Intégration avec le Filtre EWMA
-- Le filtrage EWMA fonctionne encore parfaitement
-- Les seuils négatifs fonctionnent avec les valeurs de puissance filtrées
-- L'immunité aux nuages est maintenue
+Les broches doivent être libres dans votre configuration : la compilation refuse une broche
+utilisée deux fois.
 
-## Guide de Migration
+## Les graphiques
 
-### Depuis une Configuration Problématique
-```cpp
-// Ancien (problématique)
-relayOutput(pin, 1000, 0, 5, 5)     // Ne s'éteint jamais avec batterie
+Les graphiques viennent des scripts Python à côté de ce guide (`battery_system_simulation.py`,
+`cloud_event_analysis.py`, `multi_relay_analysis.py` ; numpy et matplotlib). Ils illustrent la
+règle, pas le firmware : une décision par minute sur le surplus, sans la moyenne TEMA ni l'attente
+de 60 s, et une batterie sans limite. Chaque panneau montre la production solaire, la
+consommation de la maison, le bilan avant et après les relais, la sortie de la batterie et la
+puissance réseau.
 
-// Nouveau (fonctionne avec batterie)
-relayOutput(pin, 1000, -20, 5, 5)   // S'éteint quand surplus < 20W
-```
+### Graphique 1, 0 W contre -50 W
 
-### Choisir la Bonne Valeur Négative
-1. **Commencer conservateur :** Utiliser -50W à -100W
-2. **Surveiller le comportement :** Observer les cycles ON/OFF appropriés
-3. **Ajuster finement :** Ajuster selon le niveau de bruit de votre système
-4. **Valider :** S'assurer d'un fonctionnement fiable sur plusieurs jours
+![Seuil d'import 0 W contre -50 W](battery_import_vs_surplus_thresholds.png)
+
+De 16:00 à 19:00, production solaire en baisse depuis 2,5 kW, maison 350 W, un relais de 1000 W
+qui s'allume au-delà de 1050 W de surplus. Fond vert : relais allumé ; rose : relais éteint.
+
+- En haut, seuil d'import 0 W : le relais reste allumé pendant les 3 heures ; la batterie le
+  couvre.
+- En bas, seuil d'import -50 W : le relais s'éteint une fois, quand le surplus passe sous
+  1050 W ; allumé 24 % du temps.
+
+### Graphique 2, un nuage (17:00-17:45)
+
+![Passage nuageux](cloud_event_analysis.png)
+
+Un nuage de 17:12 à 17:28, la même maison et le même relais, trois seuils d'import :
+
+- 0 W : le relais reste allumé pendant le nuage (0 commutation) ;
+- +50 W : 3 commutations, allumé 27 minutes ; le claquement pendant le nuage est écrit dans le
+  script, pas calculé ;
+- -50 W : le relais s'éteint pendant le nuage, se rallume après, puis s'éteint quand le soleil
+  baisse (3 commutations, allumé 15 minutes).
+
+### Graphique 3, deux relais, pompe à chaleur et pompe de piscine (17:30-19:00)
+
+![Deux relais](multi_relay_battery_system.png)
+
+Pompe à chaleur 2500 W, seuil d'import -100 W, 20 minutes minimum en marche et à l'arrêt ; pompe
+de piscine 1000 W, -50 W ; maison 500 W. Échelle logarithmique, pour que les niveaux de 50 et
+100 W se voient.
+
+| | Seuils à 0 W | Seuils négatifs |
+|---|---|---|
+| Pompe à chaleur | allumée 90 minutes | 1 commutation, allumée 20 minutes |
+| Pompe de piscine | allumée 90 minutes | 3 commutations, allumée 66 minutes |
+| Énergie des relais | 5250 Wh | 1933 Wh |
+
+Avec les seuils négatifs, la pompe à chaleur s'éteint après ses 20 minutes ; la pompe de piscine
+continue tant que le surplus le permet.
 
 ## Dépannage
 
-### Si le relais s'éteint trop tôt
-- **Symptôme :** Le relais s'éteint pendant du bon soleil avec système batterie
-- **Solution :** Rendre le seuil plus négatif (ex. -20W → -50W)
-
-### Si le relais ne s'éteint toujours pas
-- **Vérifier :** S'assurer d'utiliser un seuil négatif
-- **Vérifier :** S'assurer que la valeur est appropriée pour la taille de votre charge
-- **Vérifier :** Surveiller les valeurs de surplus réelles dans votre système
-
-### Si le relais claquette
-- **Cause probable :** Seuil trop proche du niveau de bruit
-- **Solution :** Rendre le seuil plus négatif ou augmenter le filtrage EWMA
-
-## Avantages de Cette Approche
-
-### ✅ **Fonctionne avec la Physique des Batteries**
-- Surveille les changements de surplus que les batteries ne peuvent pas cacher
-- Aucun contournement nécessaire pour la compensation batterie
-
-### ✅ **Simple & Robuste**
-- Un changement de paramètre unique résout le problème
-- Aucune logique complexe ou timeouts requis
-
-### ✅ **Configurable**
-- Facile à régler pour différents systèmes et niveaux de bruit
-- Compatible avec les installations normales
-
-### ✅ **Maintient Toutes les Fonctionnalités**
-- L'immunité aux nuages EWMA fonctionne encore
-- Les temps Min ON/OFF s'appliquent encore
-- L'intégration avec d'autres fonctionnalités inchangée
-
-## Résumé
-
-Les problèmes de relais des systèmes batterie sont résolus avec **des seuils d'import négatifs** :
-
-1. **Cause racine :** Les systèmes batterie empêchent la détection d'import
-2. **Réalité physique :** Les batteries ne peuvent pas cacher les changements de surplus
-3. **Solution élégante :** Surveiller les chutes de surplus au lieu des montées d'import
-4. **Résultat :** Fonctionnement fiable des relais avec systèmes batterie
-
-Cette approche fonctionne **avec** la physique des systèmes batterie plutôt que d'essayer de la contourner.
+- **Le relais s'éteint juste après son temps minimal en marche :** le seuil de surplus est trop
+  bas pour la charge : montez-le à la puissance de la charge + |seuil d'import| ou plus.
+- **Le relais s'éteint trop tôt en plein soleil :** rapprochez le seuil d'import de 0
+  (par ex. de -50 W à -20 W) : le relais s'éteint alors sur un surplus plus faible.
+- **Le relais ne s'éteint jamais :** vérifiez que le seuil d'import est négatif, et qu'aucune
+  broche de forçage ni marche forcée programmée ne force le relais.
+- **Le relais claque :** le seuil d'import est trop proche du bruit de mesure :
+  éloignez-le de 0 et montez le seuil de surplus d'autant, ou allongez `RELAY_FILTER_DELAY` ou
+  les temps minimaux en marche et à l'arrêt.

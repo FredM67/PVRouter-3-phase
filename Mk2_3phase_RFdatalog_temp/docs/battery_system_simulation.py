@@ -3,13 +3,11 @@
 Battery System Simulation: Why Import Thresholds Fail
 
 This demonstrates why import thresholds (0W or positive) cannot work
-when a battery system is present. The battery compensates for deficit    print(f"\nSCENARIO 1 - Import Threshold (0W):")
-    print(f"  • Relay switches: {switches_import}")
-    print(f"  • Total ON time: {on_time_import:.1f} hours ({on_time_import/3*100:.1f}% of period)")
-    if switches_import <= 1 and on_time_import > 2:
-        print(f"  • Result: BROKEN - Relay turns on but NEVER turns off due to battery compensation")
-    else:
-        print(f"  • Result: BROKEN - Relay behavior inconsistent")enting import detection and causing the relay to never turn off.
+when a battery system is present. The battery compensates for deficits,
+preventing import detection and causing the relay to never turn off.
+
+An illustration of the rule, not of the firmware: one decision per minute on the
+surplus, without the TEMA average, the minimum ON/OFF times or the settle time.
 
 Two scenarios:
 1. Positive import threshold = 0W (BROKEN - relay never turns off)
@@ -20,6 +18,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 plt.rcParams['font.family'] = 'DejaVu Sans'
+
+# The relay's own load is in the grid power it measures: it turns ON above
+# load + |import threshold| of surplus (1000 + 50 W), or it would turn itself OFF.
+ON_THRESHOLD = 1050
 
 def simulate_battery_system():
     # Time from 4 PM to 7 PM (end of day when sun declines)
@@ -48,8 +50,8 @@ def simulate_with_import_threshold(net_balance, relay_power=1000, threshold=0):
     current_state = False
 
     for i in range(len(net_balance)):
-        # Turn ON when sufficient surplus (1000W)
-        if not current_state and net_balance[i] > relay_power:
+        # Turn ON when sufficient surplus
+        if not current_state and net_balance[i] > ON_THRESHOLD:
             current_state = True
 
         # Calculate power after relay consumption
@@ -76,8 +78,8 @@ def simulate_with_negative_import_threshold(net_balance, relay_power=1000, impor
     current_state = False
 
     for i in range(len(net_balance)):
-        # Turn ON when sufficient surplus (1000W)
-        if not current_state and net_balance[i] > relay_power:
+        # Turn ON when sufficient surplus
+        if not current_state and net_balance[i] > ON_THRESHOLD:
             current_state = True
 
         # Calculate surplus after relay consumption
@@ -142,7 +144,7 @@ def create_single_graph(ax, time_hours, solar, house, net_before, relay_state,
     grid_power = net_after_relay + battery_output  # What meter sees after battery
 
     # Add realistic measurement noise
-    grid_power += np.random.normal(0, 3, len(time_hours))
+    grid_power += np.random.default_rng(0).normal(0, 3, len(time_hours))
 
     # Background colors for relay state (green=ON, red=OFF)
     for i in range(len(relay_state) - 1):
@@ -159,8 +161,8 @@ def create_single_graph(ax, time_hours, solar, house, net_before, relay_state,
 
     # Reference lines
     ax.axhline(0, color='gray', linewidth=1, alpha=0.7, label='Zero line')
-    ax.axhline(1000, color='green', linestyle=':', linewidth=2, alpha=0.8,
-              label='Relay ON threshold (1000W surplus)')
+    ax.axhline(ON_THRESHOLD, color='green', linestyle=':', linewidth=2, alpha=0.8,
+              label=f'Relay ON threshold ({ON_THRESHOLD}W surplus)')
 
     if is_import_based:
         ax.axhline(threshold, color='red', linestyle='--', linewidth=2,

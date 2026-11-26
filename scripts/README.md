@@ -93,8 +93,11 @@ On Windows, `graphify.exe` has no shebang line: set `PY` to the `python.exe` of 
 environment instead (`uv tool dir` gives its folder, then `graphifyy\Scripts\python.exe`).
 
 Do not run `graphify hook install`: it rebuilds the graph after each commit, which leaves it as an
-uncommitted change. After switching branches, `graphify update .` refreshes the local report and
-`graph.html`. To rebuild the graph from scratch: `PYTHONHASHSEED=0 graphify extract . --code-only`.
+uncommitted change. Do not run `graphify update .` either: it merges into `graph.json` and adds the
+Markdown files to it. The hook rebuilds the graph from scratch (`graph.json` deleted, then
+`PYTHONHASHSEED=0 graphify extract . --code-only`). Any rebuild outside a commit changes `graph.json`,
+since it records the commit it was built on; `graphify export html` refreshes the local `graph.html`
+from the committed graph without touching it.
 
 ## Installing clang-format (Optional but Recommended)
 

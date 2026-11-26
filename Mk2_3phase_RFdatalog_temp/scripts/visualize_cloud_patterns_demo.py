@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
 PV Router Cloud Pattern Visualization Tool (Demo Version)
-Generates beautiful graphs showing TEMA filtering behavior with simulated cloud patterns.
+Generates graphs showing TEMA filtering behavior with simulated cloud patterns.
+
+The TEMA follows ewma_avg.hpp (one value per 5 s datalog line). The relay is simplified:
+ON from 1100 W, OFF from 900 W down (TEMA), with no minimum times and no settle time.
 """
 
 import matplotlib.pyplot as plt
@@ -270,7 +273,7 @@ def create_switching_analysis():
                 fontsize=14, fontweight='bold')
     ax.set_xticks(x)
     ax.set_xticklabels(scenarios)
-    ax.legend(title='RELAY_FILTER_DELAY_MINUTES')
+    ax.legend(title='RELAY_FILTER_DELAY (minutes)')
     ax.grid(True, alpha=0.3, axis='y')
 
     # Add recommendation box
@@ -303,7 +306,7 @@ def main():
     # Check if we're in the right directory
     if not os.path.exists('platformio.ini'):
         print("❌ Error: Please run this script from the Mk2_3phase_RFdatalog_temp directory")
-        print("   cd Mk2_3phase_RFdatalog_temp && python3 scripts/visualize_cloud_patterns.py")
+        print("   cd Mk2_3phase_RFdatalog_temp && python3 scripts/visualize_cloud_patterns_demo.py")
         sys.exit(1)
 
     # Check dependencies
@@ -352,7 +355,7 @@ def main():
         print("• Lower delays = faster response but more relay chatter")
         print()
         print("Apply your chosen setting in config.h:")
-        print("   inline constexpr uint8_t RELAY_FILTER_DELAY_MINUTES{ X };")
+        print("   inline constexpr uint8_t RELAY_FILTER_DELAY{ X };")
 
     except Exception as e:
         print(f"❌ Error creating visualizations: {e}")

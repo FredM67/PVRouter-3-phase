@@ -2,17 +2,13 @@
 """
 Multi-Relay System Analysis: Progressive Load Management with Batteries
 
-This simulation demonstrates how multiple relays    # Top graph: Broken system with 0W thresholds
-    create_multi_relay_subplot(ax1, time_hours, solar, house, net_before,
-                              relay_states_broken, relays_broken,
-                              "BROKEN: All Relays Use 0W Import Threshold", False)
-
-    # Bottom graph: Working system with progressive negative import thresholds
-    create_multi_relay_subplot(ax2, time_hours, solar, house, net_before,
-                              relay_states_good, relays_good,
-                              "WORKS: Progressive Negative Import Thresholds", True)ferent negative import
+This simulation demonstrates how multiple relays with different negative import
 thresholds create intelligent load management in battery systems. Shows
 progressive load shedding as solar production declines through the evening.
+
+An illustration of the rule, not of the firmware: one decision per minute on the
+surplus, without the TEMA average or the settle time; each relay turns ON above
+its load + |import threshold| of surplus.
 """
 
 import numpy as np
@@ -201,7 +197,7 @@ def create_multi_relay_subplot(ax, time_hours, solar, house, net_before,
     grid_power = net_after_relays + battery_output
 
     # Add measurement noise
-    grid_power += np.random.normal(0, 3, len(time_hours))
+    grid_power += np.random.default_rng(0).normal(0, 3, len(time_hours))
 
     # Colors for different relays
     relay_colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4']
@@ -254,9 +250,9 @@ def create_multi_relay_subplot(ax, time_hours, solar, house, net_before,
     # (negative import thresholds = positive surplus requirements)
     if is_working:
         ax.axhline(50, color='cyan', linestyle='--', linewidth=2, alpha=0.8,
-                  label='Pool Pump ON at 50W surplus (-50W import threshold)')
+                  label='Pool Pump OFF below 50W surplus (-50W import threshold)')
         ax.axhline(100, color='red', linestyle='--', linewidth=2, alpha=0.8,
-                  label='Heat Pump ON at 100W surplus (-100W import threshold)')
+                  label='Heat Pump OFF below 100W surplus (-100W import threshold)')
 
     ax.grid(True, alpha=0.3)
     ax.grid(True, which='minor', alpha=0.15)  # Minor grid for better readability
