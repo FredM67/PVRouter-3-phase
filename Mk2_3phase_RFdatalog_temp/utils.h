@@ -70,6 +70,24 @@ inline void infolnPresence(const bool present)
 }
 
 /**
+ * @brief Print one calibration line: "<name> for L<phase> =    <value>"
+ *
+ * @param name the name in calibration.h, with its leading tab
+ * @param phase the phase, 0 for L1
+ * @param value the value in PROGMEM, scaled by 10^decimals
+ * @param decimals the number of decimals
+ */
+inline void printCalibrationLine(const __FlashStringHelper* name, const uint8_t phase, const int32_t* value,
+                                 const uint8_t decimals)
+{
+  info(name);
+  info(F(" for L"));
+  info(phase + 1);
+  info(F(" =    "));
+  infolnDecimals_P(value, decimals);
+}
+
+/**
  * @brief Print the calibration of a phase as calibration.h has it
  *
  * @details The new board: f_ctRating, f_powerCalPerAmp and f_voltageCalNewBoard; the old board:
@@ -89,35 +107,20 @@ inline void printCalibration(const uint8_t phase)
     static constexpr auto powerCalPerAmp_x1e8 PROGMEM{ SerialOutput::toDecimals(f_powerCalPerAmp, 8) };
     static constexpr auto voltageCalNewBoard_x1e6 PROGMEM{ SerialOutput::toDecimals(f_voltageCalNewBoard, 6) };
 
-    info(F("\tf_ctRating for L"));
-    info(phase + 1);
-    info(F(" =    "));
-    infolnDecimals_P(&ctRating_x100.value[phase], 2);
+    printCalibrationLine(F("\tf_ctRating"), phase, &ctRating_x100.value[phase], 2);
 
-    info(F("\tf_powerCalPerAmp for L"));
-    info(phase + 1);
-    info(F(" =    "));
-    infolnDecimals_P(&powerCalPerAmp_x1e8.value[phase], 8);
+    printCalibrationLine(F("\tf_powerCalPerAmp"), phase, &powerCalPerAmp_x1e8.value[phase], 8);
 
-    info(F("\tf_voltageCalNewBoard for L"));
-    info(phase + 1);
-    info(F(" =    "));
-    infolnDecimals_P(&voltageCalNewBoard_x1e6.value[phase], 6);
+    printCalibrationLine(F("\tf_voltageCalNewBoard"), phase, &voltageCalNewBoard_x1e6.value[phase], 6);
   }
   else
   {
     static constexpr auto powerCalOldBoard_x1e6 PROGMEM{ SerialOutput::toDecimals(f_powerCalOldBoard, 6) };
     static constexpr auto voltageCalOldBoard_x1e6 PROGMEM{ SerialOutput::toDecimals(f_voltageCalOldBoard, 6) };
 
-    info(F("\tf_powerCalOldBoard for L"));
-    info(phase + 1);
-    info(F(" =    "));
-    infolnDecimals_P(&powerCalOldBoard_x1e6.value[phase], 6);
+    printCalibrationLine(F("\tf_powerCalOldBoard"), phase, &powerCalOldBoard_x1e6.value[phase], 6);
 
-    info(F("\tf_voltageCalOldBoard for L"));
-    info(phase + 1);
-    info(F(" =    "));
-    infolnDecimals_P(&voltageCalOldBoard_x1e6.value[phase], 6);
+    printCalibrationLine(F("\tf_voltageCalOldBoard"), phase, &voltageCalOldBoard_x1e6.value[phase], 6);
   }
 }
 
