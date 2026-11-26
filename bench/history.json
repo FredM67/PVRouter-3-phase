@@ -2546,6 +2546,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "d0a9e43a5a6cffd256192625926aa3f8f348be24",
+   "date": "2026-11-26T22:33:49+01:00",
+   "message": "docs: READMEs, CONTRIBUTING.md and templates checked against the code (#269)\n\n* docs: CONTRIBUTING.md for this project, not the GitHub docs template\n\nThe root CONTRIBUTING.md was still the GitHub docs guide: links to a\ncontributing/ folder that does not exist, docs.github.com and github/docs\nissues, Git LFS, and a release done by merging dev into main locally,\nwhich the rulesets on main forbid. It now describes the real workflow:\ntopic branches from dev, conventional commits, pull requests to dev,\nreleases as a pull request from dev to main, and the pre-commit hooks of\n.pre-commit-config.yaml including the graphify code graph. The code\nstandards stay in Mk2_3phase_RFdatalog_temp/docs/contributing.md.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: issue and pull request templates with real names and links\n\n- config.yml: the REPO_NAME / USERNAME placeholders become the user\n  documentation, the project site and the discussions of\n  FredM67/PVRouter-3-phase.\n- bug_report.md: ask for the PlatformIO environment (uno, basic,\n  basic_debug; there is no rf environment), the motherboard and\n  ENABLE_DEBUG; RFM12B is no longer supported, RFM69 only.\n- pull_request_template.md: the README link pointed to a file that does\n  not exist; link CONTRIBUTING.md and add the repo rules (PR to dev,\n  conventional title, warning-free build, tests).\n- custom.md: the empty GitHub default template, removed from the chooser.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: firmware Readme, real file list and settings as the code defines them\n\nBoth languages:\n- file list: ewma_avg.hpp and type_traits.hpp (not .h), and the headers\n  it omitted (adc_chain.h, load_map.h, remote_loads*.h, ds18b20.h...),\n  grouped; config_rf.h and config_system.h are settings files too.\n- development documentation: the Doxygen link went to a site that does\n  not exist; the section now lists the docs/ pages that remain (the\n  French file had a shorter \"Documentation technique\" section that the\n  English one lacked).\n- relay filter: the shipped config.h uses RELAY_FILTER_DELAY 2 min (10\n  only without MINUTES()); the 15 min example sets RELAY_FILTER_DELAY;\n  the limits of validation.h (at least 5 datalog periods, a datalog\n  period dividing 60).\n- NETWORK_ID 1-250, as validation.h checks; FREQUENCY and IS_RFM69HW.\n- ENABLE_DEBUG, SUPPLY_FREQUENCY and DATALOG_PERIOD_IN_SECONDS (30 s\n  at most, relay and temperature sensor limits) documented.\n- ul_OFF_PEAK_DURATION 1 to 12 h, iTemperatureThreshold 1 to 100 °C,\n  \"four rules\" (the list has four bullets).\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: EWMA and TEMA guides with the real setting and scripts\n\n- EWMA_TUNING_GUIDE (both languages): RELAY_FILTER_DELAY, not\n  RELAY_FILTER_DELAY_MINUTES; the relays as config.h writes them, with\n  MINUTES(RELAY_FILTER_DELAY); the quick reference of config.h (1 to 4\n  minutes) and the 5-datalog-period rule of validation.h; the battery\n  example uses a negative import threshold in the RelayEngine syntax\n  (relayOutput() is gone, and a positive 50 W is what the battery guide\n  calls wrong); links to the battery guides in docs/. The \"recent\n  improvements\", benefits and debugging sections are dropped; the filtered\n  average the relays use is printed in the datalog (R).\n- TEMA_ANALYSIS_README (both languages): the script is\n  ema_effectiveness_analysis_extended.py, run from analysis/scripts, and\n  writes the *_extended.png plots; tema_comparison.py is run from\n  analysis/scripts too. The conclusion and the repeated results section\n  are dropped.\n- analysis/README: visualize_cloud_patterns.py plots simulated data, the\n  native test it tries first no longer exists.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: configurator README, the calibration.h it writes in calibration mode\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: root Readme, what the configurator writes, CT recorder in the layout\n\nThe configurator writes config.h, config_system.h, config_rf.h, the\nremote units' files and the YAML; calibration.h only in calibration\nmode, from the readings. The layout table now names the CT recorder in\nanalysis/ and dev/.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: receiver README, antenna length and the router side of several units\n\n- a quarter-wave antenna is about 17 cm at 433 MHz, not 10 cm; the\n  lengths for 868 and 915 MHz are given too.\n- several units: REMOTE_NODE_ID[] of the router's config_rf.h, the ID\n  rules checked by the router's build (unique, not the router, 1 to 30),\n  Load::remote(unit) and how loadPins maps the unit's remote loads.\n- the message printed when the RFM69 does not start, and the watchdog\n  reset that follows.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: the plain git hook also rebuilds the graphify code graph\n\nscripts/git-hooks/pre-commit runs scripts/hooks/graphify-update.sh since the\nshared graph was added; CONTRIBUTING.md and the summary of install-hooks.sh\nsaid it only formats and stamps the headers.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* docs: analysis READMEs without visualize_cloud_patterns.py\n\nThe script ran the native test test_cloud_patterns, deleted in ebdd8330; the\nfirmware-docs PR removes it. The quick start runs the demo script instead.\ninstall-hooks.bat: its summary names the graphify step, as install-hooks.sh.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* chore: graph.json as on dev\n\nThe hook of dev rebuilt it with `graphify update`, which adds the Markdown\nfiles; fix/graphify-hook-code-only fixes the hook, and the next code commit\nrebuilds the graph.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/d0a9e43a5a6cffd256192625926aa3f8f348be24",
+   "sizes": {
+    "basic": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12282,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
