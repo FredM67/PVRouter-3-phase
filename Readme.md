@@ -69,7 +69,7 @@ Ce que le routeur fait pour vous :
 ## Pour commencer
 
 1. **Matériel et câblage** : la [documentation utilisateur](https://fredm67.github.io/Mk2PVRouter/), la [notice d’installation](docs/HowToInstall.pdf), le [schéma de la carte-mère](schematics/3phase_Mainboard.pdf), et les [exemples de câblage](#exemples-de-câblage) plus bas. Quelques [photos](Gallery.md) de routeurs assemblés.
-2. **Configuration** : les réglages sont dans `config.h`, l’étalonnage dans `calibration.h`. Le [configurateur](configurator/) écrit les deux, ainsi que le YAML ESPHome du module mk2Wifi, depuis une page web : ouvrez `configurator/index.html` dans un navigateur.
+2. **Configuration** : les réglages sont dans `config.h`, l’étalonnage dans `calibration.h`. Le [configurateur](configurator/) écrit `config.h`, `config_system.h`, `config_rf.h`, les fichiers des unités distantes et le YAML ESPHome du module mk2Wifi depuis une page web, et en mode étalonnage les valeurs corrigées dans votre `calibration.h` : ouvrez `configurator/index.html` dans un navigateur.
 3. **Compilation et téléversement** : avec [Visual Studio Code et PlatformIO](Mk2_3phase_RFdatalog_temp/Readme.md#utilisation-avec-visual-studio-code-recommandé) (recommandé) ou l’[Arduino IDE](Mk2_3phase_RFdatalog_temp/Readme.md#utilisation-avec-arduino-ide).
 4. **Étalonnage** : voir l’[étalonnage du routeur](Mk2_3phase_RFdatalog_temp/Readme.md#étalonnage-du-routeur).
 
@@ -81,8 +81,8 @@ Ce que le routeur fait pour vous :
 | [`RemoteLoadReceiver`](RemoteLoadReceiver/)                | le firmware des unités de charges distantes (RFM69)                                           |
 | [`configurator`](configurator/)                            | la page web qui écrit les fichiers de configuration                                           |
 | [`sim`](sim/)                                              | le simulateur de réseau : le firmware tourne sur un réseau triphasé simulé (simavr)           |
-| [`analysis`](analysis/README.md)                           | outils d’analyse du filtrage des sorties relais (EWMA/TEMA, immunité aux nuages)              |
-| [`dev`](dev/)                                              | programmes de développement : échantillons bruts des 6 canaux, test de transformateur, mesures de performance, ... |
+| [`analysis`](analysis/README.md)                           | outils d’analyse du filtrage des sorties relais (EWMA/TEMA, immunité aux nuages), et l’outil du CT recorder |
+| [`dev`](dev/)                                              | programmes de développement : échantillons bruts des 6 canaux, CT recorder, test de transformateur, mesures de performance, ... |
 | [`docs`](docs/), [`schematics`](schematics/), [`img`](img/) | notice d’installation, schémas de câblage, schémas électroniques, images                      |
 
 ## Documentation de développement

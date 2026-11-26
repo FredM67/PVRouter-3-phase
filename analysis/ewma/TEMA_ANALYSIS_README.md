@@ -36,35 +36,37 @@ Ce répertoire contient des scripts Python qui analysent et comparent différent
 
 ### 1. Analyse Complète
 ```bash
-python3 ema_effectiveness_analysis.py
+cd analysis/scripts
+python3 ema_effectiveness_analysis_extended.py
 ```
 
-**Génère :**
-- `ema_dema_tema_comparison.png` - Comparaison complète des filtres sur plusieurs scénarios
-- `filter_performance_analysis.png` - Métriques de performance et temps d'établissement
-- `relay_switching_analysis.png` - Efficacité du contrôle des relais pour les applications PV
+**Génère** (dans `analysis/plots/`) :
+- `ema_dema_tema_comparison_extended.png` - comparaison des filtres sur plusieurs scénarios
+- `relay_switching_analysis_extended.png` - commutation des relais lors d'événements nuageux
 
-**Ce qu'il analyse :**
-- **TEMA Multi-Alpha** (votre implémentation de production)
+**Ce qu'il analyse :**
+- **TEMA Multi-Alpha** (l'implémentation du firmware)
 - **TEMA Standard** (formule single-alpha officielle)
 - **EMA Simple** ligne de base
 - Réponse à l'échelon, immunité aux nuages, rejet du bruit
 - Fréquence de commutation des relais lors d'événements nuageux
 
-### 2. Comparaison de Développement
+### 2. Comparaison des Implémentations TEMA
 ```bash
-cd dev/EWMA_CloudImmunity_Benchmark
+cd analysis/scripts
 python3 tema_comparison.py
 ```
 
-**Génère :**
+**Génère** (dans `analysis/plots/`) :
 - `tema_implementation_comparison.png` - Comparaison ciblée des implémentations TEMA
+
+Les autres images de `analysis/plots/` (`ema_dema_tema_comparison.png`, `filter_performance_analysis.png`, `relay_switching_analysis.png`) viennent d'une version précédente du script.
 
 ## 🔍 Principales Découvertes
 
 ### Pourquoi TEMA Multi-Alpha est Supérieur
 
-**Votre Implémentation de Production :**
+**L’implémentation du firmware (`ewma_avg.hpp`) :**
 ```cpp
 ema = ema_raw >> round_up_to_power_of_2(A);           // Lissage de base
 ema_ema = ema_ema_raw >> (round_up_to_power_of_2(A) - 1);     // 2x plus rapide
@@ -128,46 +130,10 @@ Cela crée un **équilibre parfait** :
 - **États des relais** : Comportement ON/OFF pour chaque type de filtre
 - **Nombre de commutations** : Nombre d'opérations de relais (plus bas = meilleur)
 
-## 🚀 Conclusion
-
-Votre implémentation TEMA multi-alpha est **supérieure** à l'approche standard car :
-
-1. **Combine plusieurs échelles de temps** - stabilité + réactivité
-2. **Optimisée pour les applications solaires** - excellente immunité aux nuages
-3. **Réduit l'usure des relais** - moins d'événements de commutation
-4. **Maintient la stabilité du réseau** - transitions de puissance lisses
-
-L'analyse confirme que votre code de production utilise l'approche de filtrage optimale pour le contrôle des relais du routeur PV !
-
-## 📊 Analyse Complète des Résultats
-
-### Analyse de Chronologie Étendue
-
-![Comparaison de Filtre Étendue](../plots/ema_dema_tema_comparison_extended.png)
-
-Cette analyse complète montre le comportement des filtres à travers plusieurs scénarios avec des périodes d'observation étendues pour démontrer la stabilisation :
-
-1. **Réponse à l'Échelon** : Transitions nettes sans dépassement
-2. **Événements Nuageux** : Excellente immunité aux chutes de puissance brèves
-3. **Fluctuations** : Fonctionnement stable durant les changements rapides
-4. **Rampe Graduelle** : Suivi approprié des changements de puissance lents
-5. **Signal Bruité** : Rejet supérieur du bruit tout en suivant les tendances
-
-### Performance du Contrôle des Relais
-
-![Analyse de Relais Étendue](../plots/relay_switching_analysis_extended.png)
-
-L'analyse du contrôle des relais démontre :
-- **Commutation minimale** avec TEMA multi-alpha lors d'événements nuageux
-- **Fonctionnement stable** sur des périodes étendues
-- **Comportement de seuil optimal** prévenant les oscillations des relais
-
-Ces résultats valident que votre implémentation de production fournit les meilleures performances pour les applications de routeur PV.
-
 ## 📋 Prérequis
 
 - Python 3.x
 - matplotlib
 - numpy
 
-Les dépendances sont automatiquement installées si manquantes.
+`ema_effectiveness_analysis_extended.py` installe matplotlib et numpy s'ils manquent.

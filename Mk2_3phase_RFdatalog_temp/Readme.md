@@ -10,7 +10,6 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
     - [Bibliothèques obligatoires](#bibliothèques-obligatoires)
     - [Note importante](#note-importante)
 - [Aperçu rapide des fichiers](#aperçu-rapide-des-fichiers)
-  - [Documentation technique](#documentation-technique)
 - [Documentation de développement](#documentation-de-développement)
 - [Étalonnage du routeur](#étalonnage-du-routeur)
 - [Documentation d’analyse et outils](#documentation-danalyse-et-outils)
@@ -50,6 +49,8 @@ Ce programme est conçu pour être utilisé avec l’IDE Arduino et/ou d’autre
 - [Configuration avancée du programme](#configuration-avancée-du-programme)
   - [Paramètre `DIVERSION_START_THRESHOLD_WATTS`](#paramètre-diversion_start_threshold_watts)
   - [Paramètre `REQUIRED_EXPORT_IN_WATTS`](#paramètre-required_export_in_watts)
+  - [Paramètre `SUPPLY_FREQUENCY`](#paramètre-supply_frequency)
+  - [Paramètre `DATALOG_PERIOD_IN_SECONDS`](#paramètre-datalog_period_in_seconds)
 - [Configuration avec le module mk2Wifi](#configuration-avec-le-module-mk2wifi)
   - [Liaisons entre le routeur et le module](#liaisons-entre-le-routeur-et-le-module)
   - [Choix des broches D5–D9](#choix-des-broches-d5d9)
@@ -108,50 +109,60 @@ Toutes les bibliothèques sont toujours incluses dans le code source. Cependant,
 
 # Aperçu rapide des fichiers
 
-- **Mk2_3phase_RFdatalog_temp.ino** : Ce fichier est nécessaire pour l’IDE Arduino
-- **calibration.h** : contient les paramètres d’étalonnage
-- **config.h** : les préférences de l’utilisateur sont stockées ici (affectation des broches, fonctionnalités…), et rien d’autre
-- **config_types.h** : ce avec quoi s’écrit **config.h** (types, `LOAD()`, `HOURS()`…) — *ne pas modifier*
-- **config_derived.h** : ce que le firmware construit à partir de **config.h** — *ne pas modifier*
-- **config_system.h** : constantes système rarement modifiées
-- **constants.h** : quelques constantes — *ne pas modifier*
-- **ct_filter.h** : le filtre des TC (`lpf_gain`, `alpha` de **calibration.h**), en virgule fixe — *ne pas modifier*
-- **debug.h** : Quelques macros pour la sortie série et le débogage
-- **dualtariff.h** : définitions de la fonction double tarif
-- **ewma_avg.h** : fonctions de calcul de moyenne EWMA
-- **main.cpp** : code source principal
-- **processing.cpp** : code source du moteur de traitement
-- **processing.h** : prototypes de fonctions du moteur de traitement
-- **Readme.md** : ce fichier
-- **relay_engine.h** : décisions de la *diversion par relais* (seuils, temps minimaux, ordre), sans Arduino
-- **teleinfo.h**: code source de la fonctionnalité *Télémétrie IoT*
-- **types.h** : définitions des types…
-- **type_traits.h** : quelques trucs STL qui ne sont pas encore disponibles dans le paquet avr
-- **type_traits** : contient des patrons STL manquants
-- **utils_dualtariff.h** : code source de la fonctionnalité *gestion Heures Creuses*
-- **utils_pins.h** : quelques fonctions d’accès direct aux entrées/sorties du micro-contrôleur
-- **utils_relay.h** : code source de la fonctionnalité *diversion par relais*
-- **utils_rf.h** : code source de la fonction *RF*
-- **utils_temp.h** : code source de la fonctionnalité *Température*
-- **utils.h** : fonctions d’aide et trucs divers
-- **validation.h** : validation des paramètres, ce code n’est exécuté qu’au moment de la compilation !
-- **platformio.ini** : paramètres PlatformIO
-- **inject_sketch_name.py** : script d’aide pour PlatformIO
-- **Doxyfile** : paramètre pour Doxygen (documentation du code)
+Réglages (modifiés par l’utilisateur, ou écrits par le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/)) :
 
-L’utilisateur final ne doit éditer QUE les fichiers **calibration.h** et **config.h**.
+- **config.h** : les réglages de l’utilisateur (charges, relais, broches de commande, fonctionnalités), et rien d’autre
+- **config_system.h** : constantes système rarement modifiées
+- **config_rf.h** : les réglages du module RF (RFM69)
+- **calibration.h** : les valeurs d’étalonnage
+
+Firmware (*ne pas modifier*) :
+
+- **Mk2_3phase_RFdatalog_temp.ino** : nécessaire pour l’IDE Arduino
+- **main.cpp**, **main.h** : programme principal
+- **processing.cpp**, **processing.h** : moteur de traitement
+- **adc_chain.h** : les six conversions de l’ADC et le pipeline ADMUX de l’ADC en conversion continue
+- **config_types.h** : ce avec quoi s’écrit **config.h** (types, `LOAD()`, `HOURS()`…)
+- **config_derived.h** : ce que le firmware construit à partir de **config.h**
+- **validation.h** : vérifications des réglages, exécutées à la compilation seulement
+- **ct_filter.h**, **datalog_math.h**, **energy_bucket.h**, **mult_asm.h**, **FastDivision.cpp**, **FastDivision.h** : arithmétique entière et en virgule fixe (filtre des TC, datalog, réservoir d’énergie, multiplication, division)
+- **load_priorities.h**, **load_map.h**, **rotation_groups.h** : priorités des charges, carte des charges et groupes de rotation
+- **relay_engine.h**, **utils_relay.h**, **ewma_avg.hpp** : *diversion par relais* et ses moyennes EWMA
+- **dualtariff.h**, **utils_dualtariff.h**, **override_masks.h**, **utils_override.h**, **pin_edges.h** : *heures creuses*, marches forcées programmées, sorties forcées et broches d’entrée
+- **remote_loads.h**, **remote_loads_core.h**, **utils_rf.h** : *RF* et charges distantes
+- **utils_temp.h**, **ds18b20.h**, **onewire_search.h**, **temp_schedule.h** : sondes de *température*
+- **serial_output.h**, **teleinfo.h**, **debug.h** : sortie série (datalog, *télémétrie IoT*, messages)
+- **shared_var.h** : variables partagées entre l’interruption et la boucle principale
+- **constants.h**, **types.h**, **utils.h**, **utils_bits.h**, **utils_pins.h** : constantes, types, fonctions d’aide, accès direct aux broches du micro-contrôleur
+- **type_traits.hpp**, **type_traits/** : patrons STL absents de la chaîne de compilation AVR
+- **version.h** : réécrit par chaque compilation
+
+Autres fichiers :
+
+- **platformio.ini** : paramètres PlatformIO
+- **inject_sketch_name.py** : script d’aide pour PlatformIO (écrit **version.h**)
+- **Doxyfile** : paramètre pour Doxygen (documentation du code)
+- **docs/** : documentation technique ; **test/** : tests ([README](test/README.md))
+- **Readme.md** : ce fichier
+
+L’utilisateur final ne doit éditer QUE les quatre fichiers de réglages : **config.h**, **config_system.h**, **config_rf.h** et **calibration.h**.
 
 > [!NOTE]
 > **config.h** ne contient que des réglages : il n’inclut que `config_types.h`. Un **config.h** d’une version précédente, avec des lignes `#include`, `NO_OF_REMOTE_LOADS` ou `remoteLoads`, arrête la compilation sur *This config.h has the former layout* : recréez-le avec le [configurateur](https://fredm67.github.io/Mk2PVRouter/configurateur/), ou supprimez ces lignes (voir le CHANGELOG).
 
-## Documentation technique
-Le dossier **[docs/](docs/)** contient la documentation technique détaillée :
-- **[Architecture logicielle](docs/architecture.md)** - Conception et organisation des modules
-- **[Performances](docs/performance.md)** - Analyses de timing et optimisations
-
 # Documentation de développement
 
-Vous pouvez commencer à lire la documentation ici [3-phase routeur](https://fredm67.github.io/Mk2PVRouter-3-phase/) (en anglais).
+La [documentation du code](https://fredm67.github.io/PVRouter-3-phase/doc/) (Doxygen, en anglais) est sur le [site du projet](https://fredm67.github.io/PVRouter-3-phase/).
+
+Le dossier **[docs/](docs/)** contient la documentation technique, en anglais ([index](docs/README.md)) :
+- **[Architecture logicielle](docs/architecture.md)** - conception et organisation des modules
+- **[Système de configuration](docs/configuration.md)** - comment les réglages sont écrits et vérifiés
+- **[Valeurs d’étalonnage par défaut](docs/calibration.md)** - d’où elles viennent
+- **[Organisation de la mémoire](docs/memory-layout.md)** - utilisation de la flash et de la RAM
+- **[Performances](docs/performance.md)** - analyses de timing
+- **[Tests](docs/testing.md)** - les tests et comment les lancer
+- **[Contribuer](docs/contributing.md)** - règles de code
+- **[Systèmes avec batterie](docs/BATTERY_CONFIGURATION_GUIDE.md)** [![en](https://img.shields.io/badge/lang-en-red.svg)](docs/BATTERY_CONFIGURATION_GUIDE.en.md) - seuils des relais avec une batterie
 
 # Étalonnage du routeur
 Les valeurs d’étalonnage se trouvent dans le fichier **calibration.h**, un jeu par carte : le routeur utilise celui de `PCB_VERSION` (**config.h**). Seule la puissance compte pour le routage ; la tension (`V1`, `V2`, `V3`) n’est qu’affichée.
@@ -229,6 +240,12 @@ inline constexpr SerialOutputType SERIAL_OUTPUT_TYPE = SerialOutputType::HumanRe
 ```
 Remplacez `HumanReadable` par `IoT` ou `JSON` selon vos besoins.
 
+`ENABLE_DEBUG`, aussi dans **config.h**, ajoute des messages de débogage au démarrage (la RAM libre…) :
+```cpp
+inline constexpr bool ENABLE_DEBUG{ true };
+```
+Quelle que soit sa valeur, la configuration de démarrage est affichée dans tous les types de sortie (avec `IoT`, à 9600 bauds 8N1, avant que la télémétrie passe en 7E1) ; les messages d’état en cours de fonctionnement ne sont affichés qu’en sortie `HumanReadable`.
+
 ## Configuration des sorties TRIAC
 
 La première étape consiste à définir le nombre de sorties TRIAC :
@@ -290,16 +307,18 @@ Dans tous les cas, les durées minimales de fonctionnement et d’arrêt sont to
 
 ### Principe de fonctionnement
 Les seuils de surplus et d’import sont calculés en utilisant une moyenne mobile pondérée exponentiellement (EWMA), dans notre cas précis, il s’agit d’une modification d’une moyenne mobile triple exponentiellement pondérée (TEMA).
-Par défaut, cette moyenne est calculée sur une fenêtre d’environ **10 min**. Vous pouvez ajuster cette durée pour l’adapter à vos besoins.
-Il est possible de la rallonger mais aussi de la raccourcir.
+La fenêtre de cette moyenne, en minutes, est le paramètre `RELAY_FILTER_DELAY` de **config.h**, passé aux relais avec `MINUTES()`. Le **config.h** fourni utilise **2 min** :
+```cpp
+inline constexpr uint8_t RELAY_FILTER_DELAY{ 2 };
+inline constexpr RelayEngine relays{ MINUTES(RELAY_FILTER_DELAY), { { 3, 1000, 200, 1, 1 } } };
+```
+Sans `MINUTES()`, comme dans les exemples ci-dessus, la fenêtre est de **10 min**.
+Il est possible de la rallonger mais aussi de la raccourcir : pour une fenêtre de 15 min, réglez `RELAY_FILTER_DELAY{ 15 }`. Gardez la forme `MINUTES(RELAY_FILTER_DELAY)` : la compilation vérifie `RELAY_FILTER_DELAY`.
 Pour des raisons de performances de l’Arduino, la durée choisie sera arrondie à une durée proche qui permettra de faire les calculs sans impacter les performances du routeur.
 
-La durée de la fenêtre temporelle est contrôlée par le paramètre `RELAY_FILTER_DELAY` dans le fichier de configuration.
-
-Si l’utilisateur souhaite plutôt une fenêtre de 15 min, il suffira d’écrire :
-```cpp
-inline constexpr RelayEngine relays{ MINUTES(15), { { 3, 1000, 200, 1, 1 } } };
-```
+La compilation refuse :
+- une fenêtre plus courte que 5 périodes de datalog (`RELAY_FILTER_DELAY * 60 / DATALOG_PERIOD_IN_SECONDS` doit valoir au moins 5) : 1 min demande une [période de datalog](#paramètre-datalog_period_in_seconds) de 12 s ou moins ;
+- avec des relais, un `DATALOG_PERIOD_IN_SECONDS` qui ne divise pas 60.
 ___
 > [!NOTE]
 > La macro `MINUTES()` convertit automatiquement la valeur en paramètre template. Aucun suffixe spécial n’est nécessaire ! La même macro (et `HOURS()`) sert à écrire les temps des [boosts programmés](#configuration-des-boosts-programmés-scheduledboosts).
@@ -477,10 +496,12 @@ Pour modifier ces paramètres, éditez **config_rf.h** :
 inline constexpr uint8_t ROUTER_NODE_ID{ 10 };            // ID du routeur (cet appareil)
 inline constexpr uint8_t GATEWAY_ID{ 1 };                 // ID de la passerelle (télémétrie)
 inline constexpr uint8_t REMOTE_NODE_ID[]{ 15, 16, 17 };  // Un ID par unité distante, l'unité 1 en premier
-inline constexpr uint8_t NETWORK_ID{ 210 };               // ID du réseau (1-255)
+inline constexpr uint8_t NETWORK_ID{ 210 };               // ID du réseau (1-250)
 ```
 
-`REMOTE_NODE_ID[0]` est l'adresse de l'unité 1, `REMOTE_NODE_ID[1]` celle de l'unité 2, etc. Ces ID doivent être compris entre 1 et 30, distincts entre eux et différents de `ROUTER_NODE_ID` ; le compilateur le vérifie.
+`REMOTE_NODE_ID[0]` est l'adresse de l'unité 1, `REMOTE_NODE_ID[1]` celle de l'unité 2, etc. Ces ID doivent être compris entre 1 et 30, distincts entre eux et différents de `ROUTER_NODE_ID` ; le compilateur le vérifie, ainsi que `NETWORK_ID` entre 1 et 250.
+
+Réglez aussi la bande et le type de module selon votre matériel, dans **config_rf.h** : `FREQUENCY` (`RF69_433MHZ`, `RF69_868MHZ` ou `RF69_915MHZ`) et `IS_RFM69HW` (`true` pour un RFM69HW/HCW, `false` pour un RFM69W/CW).
 
 ### Configuration du récepteur distant
 
@@ -610,7 +631,7 @@ inline constexpr bool DUAL_TARIFF{ true };
 inline constexpr uint8_t dualTariffPin{ 3 };
 ```
 
-**Étape 3 :** Configurez la durée en heures de la période d’Heures Creuses (pour l’instant, une seule période est supportée par jour) :
+**Étape 3 :** Configurez la durée en heures de la période d’Heures Creuses, de 1 à 12 (pour l’instant, une seule période est supportée par jour) :
 ```cpp
 inline constexpr uint8_t ul_OFF_PEAK_DURATION{ 8 };
 ```
@@ -650,11 +671,11 @@ Les cibles s’écrivent comme pour les pins d’override : `LOAD(n)`, `REMOTE_
 > [!NOTE]
 > `RELAY(n)` ne fonctionne qu’avec la diversion sur relais active (`RELAY_DIVERSION`) et pour un relais qui existe. Sinon la compilation échoue : c’est aussi le cas pour les cibles des pins d’override.
 
-Trois règles à retenir :
+Quatre règles à retenir :
 - **Ce qui n’est pas listé n’est jamais en boost.** Une liste vide, `inline constexpr ScheduledBoosts scheduledBoosts{};`, signifie aucun boost.
 - **Chaque boost s’arrête quand le compteur repasse en heures pleines**, quelle que soit sa fenêtre.
 - **Toute la fenêtre tient dans la période d’HC** (`ul_OFF_PEAK_DURATION`) : une fenêtre avec `FOR` finit au plus tard à la fin de la période, sinon la compilation échoue. `LAST` et une fenêtre sans `FOR` durent jusqu’à ce que le compteur repasse en heures pleines.
-- La condition de température (`iTemperatureThreshold`) s’applique à tous les boosts : au-dessus du seuil, rien n’est en boost. Elle demande la mesure de température sur le routeur (`TEMP_SENSOR_PRESENT`) ; `BOOST_TEMP_SENSOR` choisit la sonde, par son rang dans `temperatureSensing` (0 : la première). Le seuil se règle en dessous du thermostat du chauffe-eau, qui reste la sécurité : par exemple le thermostat à 80 °C pour que le chauffe-eau absorbe le plus de surplus possible, et le seuil à 60 °C pour que le boost des heures creuses laisse de la place au surplus du lendemain. Si la sonde ne peut pas être lue (débranchée, en panne), les boosts ont lieu, jusqu’au thermostat.
+- La condition de température (`iTemperatureThreshold`, de 1 à 100 °C) s’applique à tous les boosts : au-dessus du seuil, rien n’est en boost. Elle demande la mesure de température sur le routeur (`TEMP_SENSOR_PRESENT`) ; `BOOST_TEMP_SENSOR` choisit la sonde, par son rang dans `temperatureSensing` (0 : la première). Le seuil se règle en dessous du thermostat du chauffe-eau, qui reste la sécurité : par exemple le thermostat à 80 °C pour que le chauffe-eau absorbe le plus de surplus possible, et le seuil à 60 °C pour que le boost des heures creuses laisse de la place au surplus du lendemain. Si la sonde ne peut pas être lue (débranchée, en panne), les boosts ont lieu, jusqu’au thermostat.
 
 Une charge peut figurer dans plusieurs boosts : leurs fenêtres s’additionnent. Une fenêtre inclut son début et exclut sa fin.
 
@@ -958,6 +979,14 @@ Une valeur négative obligera le routeur à consommer cette puissance depuis le 
 > [!IMPORTANT]
 > Contrairement au premier paramètre, celui-ci représente un décalage permanent qui est continuellement soustrait du surplus disponible.
 > Si réglé à 20 W par exemple, le système réservera **toujours** 20 W pour l’exportation, indépendamment des autres conditions.
+
+## Paramètre `SUPPLY_FREQUENCY`
+La fréquence du réseau, en Hz : 50 par défaut, ou 60. La compilation refuse toute autre valeur.
+
+## Paramètre `DATALOG_PERIOD_IN_SECONDS`
+La période du datalog, en secondes : 5 par défaut, 30 au plus. La compilation refuse aussi :
+- avec la diversion par relais, une période qui ne divise pas 60, ou qui rend le [filtre des relais](#principe-de-fonctionnement) plus court que 5 périodes ;
+- avec la mesure de température, une période trop courte pour les sondes : la conversion (750 ms) et les lectures de toutes les sondes (3 cycles secteur chacune) doivent finir dans une période. Avec une période de 1 s, cela fait 3 sondes à 50 Hz, 4 à 60 Hz. Allongez la période, ou utilisez moins de sondes.
 
 # Configuration avec le module mk2Wifi
 

@@ -56,7 +56,6 @@ analysis/
 
 **Emplacement** : `../Mk2_3phase_RFdatalog_temp/scripts/`
 
-- **visualize_cloud_patterns.py** : Outil principal de visualisation des motifs nuageux correspondant à l'implémentation TEMA de production.
 - **visualize_cloud_patterns_demo.py** : Version de démonstration avec des scénarios simplifiés.
 
 ## Exécution des Analyses
@@ -77,9 +76,9 @@ python3 ema_effectiveness_analysis_extended.py
 # Exécuter la comparaison TEMA
 python3 tema_comparison.py
 
-# Exécuter la visualisation des motifs nuageux
+# Lancer la démo des motifs nuageux
 cd ../../Mk2_3phase_RFdatalog_temp/scripts
-python3 visualize_cloud_patterns.py
+python3 visualize_cloud_patterns_demo.py
 ```
 
 ## Graphiques Générés

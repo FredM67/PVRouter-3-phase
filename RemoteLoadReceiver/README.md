@@ -131,6 +131,9 @@ RF link LOST - turning all loads OFF
 RF link restored
 ```
 
+If the RF module does not answer at start-up, the receiver prints
+`RFM69 initialization FAILED! Retrying after a reset...` and waits for the watchdog to reset it.
+
 ## Troubleshooting
 
 ### No RF messages received
@@ -143,7 +146,7 @@ RF link restored
 3. Check D2 → IRQ connection
 4. Verify the settings match the router (FREQUENCY, NETWORK_ID, ROUTER_NODE_ID, REMOTE_NODE_ID)
 5. Move units closer together
-6. Check antenna (10cm wire for 433MHz)
+6. Check antenna (λ/4 wire: about 17 cm at 433 MHz, 8.2 cm at 868 MHz, 7.8 cm at 915 MHz)
 
 ### RF link keeps dropping
 
@@ -183,7 +186,12 @@ inline constexpr uint8_t REMOTE_NODE_ID{ 15 };  // Unique ID, in config_rf.h
 inline constexpr uint8_t REMOTE_NODE_ID{ 16 };  // Different ID, in config_rf.h
 ```
 
-**Router:** sends each remote unit its own frame, to its node ID
+**Router:** sends each remote unit its own frame, to its node ID. In the router's `config_rf.h`,
+`REMOTE_NODE_ID[]` lists the units' IDs, unit 1 first; the IDs must be unique, differ from
+`ROUTER_NODE_ID` and lie between 1 and 30 (the router's build checks it). In the router's load
+map, `Load::remote(unit)` gives each remote load its unit (1 to 3), 8 remote loads at most in all.
+On a unit, `loadPins[0]` is the unit's first remote load in the router's map, `loadPins[1]` the
+second, and so on.
 
 ## Performance
 

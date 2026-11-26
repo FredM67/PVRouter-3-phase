@@ -52,7 +52,7 @@ if %INSTALLED_COUNT% equ 0 (
 echo [32mSuccessfully installed %INSTALLED_COUNT% hook(s)[0m
 echo.
 echo Hooks installed:
-echo   • pre-commit: Formats code with clang-format and updates @date/@copyright
+echo   • pre-commit: Formats code with clang-format, updates @date/@copyright and rebuilds the graphify code graph
 echo.
 echo Note: clang-format is optional but recommended for automatic code formatting.
 echo       Install LLVM from https://llvm.org/ or use Chocolatey: choco install llvm

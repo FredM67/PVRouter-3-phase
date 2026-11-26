@@ -11,11 +11,13 @@ assignees: ''
 A clear and concise description of what the bug is.
 
 **Hardware Configuration**
-- **PVRouter version**: [e.g. basic, rf]
+- **Motherboard**: [`PCB_VERSION`: OLD or NEW]
+- **PlatformIO environment**: [e.g. basic, basic_debug, uno; or Arduino IDE]
 - **Serial output**: [HumanReadable, IoT (mk2Wifi module) or JSON]
+- **Debug output**: [`ENABLE_DEBUG`: true or false]
 - **Firmware version**: [e.g. commit hash or release tag]
-- **Load configuration**: [e.g. 3-phase water heater, single-phase loads]
-- **RF module**: [if applicable: RFM12B, RFM69CW, etc.]
+- **Load configuration**: [e.g. 3-phase water heater, single-phase loads, relays]
+- **RF module**: [if applicable: RFM69CW, RFM69HCW; number of remote units]
 
 **Electrical Installation**
 - **Grid configuration**: [e.g. 3-phase + neutral, 3-phase no neutral]
