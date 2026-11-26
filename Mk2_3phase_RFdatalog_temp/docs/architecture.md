@@ -1,201 +1,87 @@
 # Software Architecture
 
-This document describes the software architecture of the PVRouter system, including module organization, data flow, and key design decisions.
+How the firmware is organized: the ADC interrupt that measures and switches, the main loop that
+does the rest, and the headers each part lives in. The firmware is for the 3-phase board and the
+ATmega328P only: the ADC chain has exactly six conversions (A0 to A5), and the ISR, the ADMUX
+values and the port writes are specific to that chip.
 
-## System Overview
-
-The PVRouter is designed as a real-time embedded system with the following core responsibilities:
-
-1. **Real-time power measurement** across three phases
-2. **Intelligent load switching** based on surplus energy
-3. **Temperature monitoring** for load management
-4. **Remote control and monitoring** capabilities
-5. **Data logging and telemetry** for analysis
-
-## Architecture Diagram
+## Overview
 
 ```mermaid
----
-config:
-  flowchart:
-    wrappingWidth: 700
----
-flowchart TB
-    subgraph APP["Application layer"]
-        MAIN["<b>Main loop</b><br/>main.cpp"]
-        TEMP["<b>Temperature sensing</b><br/>utils_temp.h"]
-        TELE["<b>Telemetry & data logging</b><br/>various utils"]
-    end
-    subgraph PROC["Processing engine layer"]
-        CORE["<b>Core processing engine</b><br/>processing.cpp/.h<br/><br/>Real power calculation (V × I × cos φ)<br/>Energy bucket management<br/>Load priority algorithms<br/>Polarity detection & confirmation<br/>Data aggregation for logging"]
-    end
-    subgraph HAL["Hardware abstraction layer"]
-        ISR["<b>ADC ISR</b><br/>(interrupt)<br/><br/>Sample V<br/>Sample I<br/>Timing"]
-        PINS["<b>Pin control</b><br/>utils_pins.h<br/><br/>TRIAC<br/>Relay<br/>GPIO"]
-        OW["<b>OneWire bus</b><br/>utils_temp.h<br/><br/>DS18B20 sensors<br/>Temperature reading<br/>CRC validation"]
-    end
-    subgraph CFG["Configuration layer"]
-        CONF["<b>config.h</b><br/><br/>Features<br/>Pin maps<br/>Behavior"]
-        CAL["<b>calibration.h</b><br/><br/>Cal values<br/>Power/V/I<br/>Phase cal"]
-        VAL["<b>validation.h</b><br/><br/>Compile-time checks<br/>Static assertions<br/>Safety validation"]
-    end
-    MAIN & TEMP & TELE --> CORE
-    CORE --> ISR & PINS & OW
-    ISR ~~~ CONF
-    PINS ~~~ CAL
-    OW ~~~ VAL
+flowchart LR
+    ADC["Free-running ADC<br/>V1 I1 V2 I2 V3 I3"] --> ISR["ADC ISR<br/>processing.cpp"]
+    ISR --> OUT["TRIAC outputs<br/>once per mains cycle"]
+    ISR -- "copyOf_* and flags<br/>shared_var.h" --> LOOP["Main loop<br/>main.cpp"]
+    LOOP --> REL["Relays, overrides,<br/>rotation, dual tariff"]
+    LOOP --> TEMP["DS18B20 sensors<br/>1-Wire"]
+    LOOP --> SER["Serial output<br/>HumanReadable / IoT / JSON"]
+    LOOP --> RF["RFM69<br/>RF datalog, remote loads"]
 ```
 
-## Key Modules
+## The ADC interrupt
 
-### 1. Processing Engine (`processing.cpp/.h`)
-**Core responsibility**: Real-time power measurement and load control
+The ADC runs free, one conversion every 104 µs (1664 CPU cycles), through a fixed chain of six
+channels: V1, I1, V2, I2, V3, I3 (`adc_chain.h`, set up in `initializeProcessing()`). The firmware
+has one interrupt, `ISR(ADC_vect)` in `processing.cpp`:
 
-**Key functions**:
-- `processCurrentRawSample()` - Process current sensor ADC samples
-- `processVoltageRawSample()` - Process voltage sensor ADC samples
-- `processRawSamples()` - Main ADC sample processing
-- `updatePhysicalLoadStates()` - Control TRIAC outputs
-- `processDataLogging()` - Aggregate data for logging
+1. it reads `ADC` (left-adjusted);
+2. it calls `processVoltageRawSample()` or `processCurrentRawSample()` for the channel just
+   converted;
+3. it writes ADMUX last, for the conversion after next (the next one has already started);
+4. it steps to the next entry of a circular list of six constant entries (`_channels`).
 
-**Design patterns**:
-- Interrupt Service Routine (ISR) for real-time processing
-- Energy bucket algorithm for load switching decisions
-- State machine for polarity detection
+After each voltage sample, `processRawSamples()` acts on the zero crossings of the phase: at the
+negative-going one, the DC offset of the phase is refreshed; at the positive-going one, the
+phase's power of the cycle goes into the energy bucket (`processPlusHalfCycle()`). On phase 1,
+the positive crossing also calls `processDataLogging()`, which at the end of each datalog period
+copies the sums for the main loop, and two sample sets later `processStartNewCycle()` decides the
+load states (`load_priorities.h`) and writes them to the ports (`updatePhysicalLoadStates()`).
 
-### 2. Configuration System (`config.h`, `config_types.h`, `config_derived.h`, `validation.h`)
-**Core responsibility**: Compile-time configuration and validation
+The interrupt has no floating point, no allocation and no busy-wait. Its timing, and the ADMUX
+deadline, are in [performance.md](performance.md).
 
-config.h holds the settings only, written with the types of config_types.h; config_derived.h,
-which the code includes, builds the derived values and objects from them (see configuration.md).
+## The main loop
 
-**Key features**:
-- Template-based configuration
-- Compile-time validation with `static_assert`
-- Type-safe pin assignments
-- Feature toggles with zero runtime overhead
+`loop()` in `main.cpp` reads the flags of `shared_var.h`:
 
-**Example validation**:
-```cpp
-static_assert(check_pins().unique, "******** Duplicate pin definition ! ********");
-static_assert(NO_OF_DUMPLOADS > 0, "Number of dump loads must be greater than 0");
-```
+- `b_newMainsCycle`, once per mains cycle: a 1-Wire transaction with temperature sensing, and once
+  per second the per-second tasks (dual tariff, override pins and scheduled boosts, router OFF and
+  diversion pins, relays, load priorities and rotation);
+- `b_datalogEventPending`, once per datalog period: power and voltage per phase from the
+  `copyOf_*` copies, the relays' average, the temperatures, and the output.
 
-### 3. Temperature Sensing (`utils_temp.h`)
-**Core responsibility**: DS18B20 temperature sensor management
+It also writes the serial output in progress without waiting, and sends the RF frames of the
+remote loads. The main loop passes back to the ISR, through `shared_var.h`, which outputs are
+forced and whether diversion is on.
 
-**Key features**:
-- Template-based sensor configuration
-- Compile-time bounds checking: `readTemperature<INDEX>()`
-- Runtime bounds checking: `readTemperature(index)`
-- CRC validation and error handling
+## Configuration
 
-### 4. Utility Modules
-- **`utils_pins.h`**: Direct port manipulation for performance
-- **`utils_relay.h`**: Relay-based load control: the pins and the printing
-- **`relay_engine.h`**: The decisions of the relays: thresholds, minimum ON/OFF times, settle time, order, EWMA average (Arduino-free)
-- **`utils_dualtariff.h`**: Off-peak period management and the windows of the scheduled boosts (Arduino-free, `constexpr`)
-- **`utils_rf.h`**: RF communication support
+`config.h` holds the settings, `config_derived.h` builds what the code uses from them, and
+`validation.h` checks them at compile time: see [configuration.md](configuration.md).
 
-## Data Flow
+## Headers
 
-### 1. ADC Sampling (9.6 kHz)
-```
-ADC Interrupt → processRawSamples() → Update running calculations
-     ↓
-V/I samples → Real power calculation → Energy bucket update
-     ↓
-Load switching decisions → TRIAC control → Physical load changes
-```
+| Header | Content |
+|---|---|
+| `processing.cpp/.h` | The ADC interrupt and the processing engine |
+| `adc_chain.h` | The six conversions and the ADMUX pipeline |
+| `energy_bucket.h` | Integer arithmetic of the energy bucket |
+| `ct_filter.h` | The optional CT filter (settings in `calibration.h`) |
+| `datalog_math.h` | Integer power and RMS voltage of the datalog |
+| `load_priorities.h` | Which load to switch at each mains cycle |
+| `load_map.h` | The load map: one packed byte per load, local or remote |
+| `rotation_groups.h` | The loads that take turns at the top of the priorities |
+| `override_masks.h`, `utils_override.h`, `pin_edges.h` | Forced outputs: override pins and scheduled boosts; edges of the input pins |
+| `dualtariff.h`, `utils_dualtariff.h` | Off-peak period and the windows of the scheduled boosts |
+| `relay_engine.h`, `utils_relay.h` | Relay decisions (thresholds, minimum times, settle time, TEMA average); the relay pins and printing |
+| `ewma_avg.hpp` | The EMA, DEMA and TEMA averages |
+| `remote_loads.h`, `remote_loads_core.h`, `utils_rf.h`, `config_rf.h` | RFM69: RF datalog and remote loads |
+| `utils_temp.h`, `ds18b20.h`, `onewire_search.h`, `temp_schedule.h` | DS18B20 sensors: reading, checks, ROM search, scheduling of the 1-Wire transactions |
+| `serial_output.h`, `teleinfo.h`, `utils.h` | Non-blocking serial output, the IoT frame; the startup configuration and the datalog output (`sendResults()`) |
+| `debug.h` | Text output: `info()` (startup configuration, every output mode), `status()` (human-readable output only), `debug()` (only with `ENABLE_DEBUG`) |
+| `shared_var.h` | The variables shared by the ISR and the main loop |
+| `utils_pins.h`, `utils_bits.h` | Direct port access, bit helpers |
+| `mult_asm.h`, `FastDivision.*` | Assembly multiplications and divisions |
+| `config.h`, `config_types.h`, `config_system.h`, `config_derived.h`, `calibration.h`, `validation.h` | Configuration |
 
-### 2. Main Loop (Background)
-```
-Temperature reading → Sensor validation → Data storage
-     ↓
-User input processing → Control logic → State updates
-     ↓
-Data logging → Serial output → Telemetry transmission
-```
-
-## Memory Architecture
-
-### Flash Memory Usage (27.8% on Arduino Uno)
-- **Code**: ~7.5KB (Processing engine, utility functions)
-- **Constants**: ~1.0KB (Calibration, configuration tables)
-- **Strings**: ~0.5KB (Debug messages, validation text)
-
-### RAM Usage (26.3% on Arduino Uno)
-- **Global variables**: ~300 bytes (Shared state, accumulators)
-- **Local variables**: ~150 bytes (Stack usage)
-- **Buffers**: ~88 bytes (Temperature scratchpad, arrays)
-
-### Key Memory Optimizations
-1. **No dynamic allocation** - All memory statically allocated
-2. **Compile-time constants** - `constexpr` eliminates runtime overhead
-3. **Efficient data types** - `uint16_t` where `uint32_t` not needed
-4. **Shared buffers** - Reuse static buffers for temporary data
-
-## Real-Time Guarantees
-
-### Interrupt Service Routine (ISR)
-- **Execution time**: 318 cycles (~20μs) on average, ~58μs for the longest steady-state call; every call must end within one ADC conversion (104μs) - see [performance.md](performance.md)
-- **Frequency**: 9.6 kHz (every 104μs)
-- **Priority**: Highest (hardware ADC interrupt)
-- **Memory**: Stack-based, no heap allocation
-
-### Critical Timing Requirements
-1. **ADC processing**: Must complete within 104μs
-2. **TRIAC switching**: Synchronized to mains zero-crossing
-3. **Temperature conversion**: 750ms maximum (DS18B20 limit)
-4. **Serial communication**: Non-blocking, buffered output
-
-## Error Handling Strategy
-
-### Compile-Time Safety
-- Static assertions for configuration validation
-- Template bounds checking for array access
-- Type safety with strong typing (enums, constexpr)
-
-### Runtime Error Handling
-- CRC validation for sensor data
-- Range checking for temperature readings
-- Polarity confirmation for power calculations
-- Watchdog monitoring for system health
-
-### Graceful Degradation
-- Continue operation if temperature sensors fail
-- Disable loads if voltage/current sensors malfunction
-- Maintain basic power measurement if advanced features fail
-
-## Performance Characteristics
-
-### Computational Efficiency
-- **Real power calculation**: 16-bit integer arithmetic
-- **Phase correction**: Linear interpolation
-- **Load switching**: Energy bucket algorithm (O(1) complexity)
-
-### Memory Efficiency
-- **Zero-copy data flow**: Direct ADC → calculation → output
-- **Minimal buffering**: Only essential data stored
-- **Compile-time optimization**: Templates eliminate runtime overhead
-
-### Power Efficiency
-- **Minimal sleep usage**: Interrupt-driven design
-- **Efficient algorithms**: Optimized for AVR instruction set
-- **Low-power modes**: Available for battery applications
-
-## Extension Points
-
-### Adding New Features
-1. **New sensor types**: Extend template system in utils_temp.h
-2. **Additional loads**: Modify NO_OF_DUMPLOADS and arrays
-3. **Communication protocols**: Add new utils_*.h modules
-4. **Control algorithms**: Extend processing engine
-
-### Hardware Adaptations
-1. **Different microcontrollers**: Modify pin definitions
-2. **Additional phases**: Extend NO_OF_PHASES constant
-3. **Different ADC resolution**: Adjust calibration factors
-4. **Custom hardware**: Implement new utils modules
-
-This architecture provides a solid foundation for embedded real-time power management while maintaining extensibility and safety.
+The Arduino-free headers are tested on the PC; see [testing.md](testing.md).
