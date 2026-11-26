@@ -2456,6 +2456,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "9a158aa9f8fd57557c92067bf226fcfe559edb04",
+   "date": "2026-11-26T22:20:44+01:00",
+   "message": "fix: the graphify hook rebuilds a code-only graph from scratch (#267)\n\n`graphify update .` merges into the existing graph.json and also indexes the\nMarkdown files: on the first docs branches the graph grew from 3281 to 4361\nnodes, 990 of them from .md files. `graphify extract --code-only` merges too,\nso the nodes of deleted code stayed. The hook now deletes graph.json and runs\n`extract . --code-only` (5-7 s with the AST cache, byte-identical runs), and\nputs the previous graph back if the extraction fails.\n\nscripts/README.md no longer advises `graphify update .` after a branch switch:\nit rewrote the tracked graph; `graphify export html` refreshes the local view.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/9a158aa9f8fd57557c92067bf226fcfe559edb04",
+   "sizes": {
+    "basic": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12282,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
