@@ -69,7 +69,7 @@ What the router does for you:
 ## Getting started
 
 1. **Hardware and wiring**: the [user documentation](https://fredm67.github.io/Mk2PVRouter/), the [installation guide](docs/HowToInstall.pdf), the [schematic of the motherboard](schematics/3phase_Mainboard.pdf), and the [wiring use cases](#wiring-use-cases) below. A few [pictures](Gallery.md) of assembled routers.
-2. **Configuration**: the settings are in `config.h`, the calibration in `calibration.h`. The [configurator](configurator/) writes both, and the ESPHome YAML of the mk2Wifi module, from a web page: open `configurator/index.html` in a browser.
+2. **Configuration**: the settings are in `config.h`, the calibration in `calibration.h`. The [configurator](configurator/) writes `config.h`, `config_system.h`, `config_rf.h`, the remote units' files and the ESPHome YAML of the mk2Wifi module from a web page, and in calibration mode the corrected values into your `calibration.h`: open `configurator/index.html` in a browser.
 3. **Build and upload**: with [Visual Studio Code and PlatformIO](Mk2_3phase_RFdatalog_temp/Readme.en.md#use-with-visual-studio-code-recommended) (recommended) or the [Arduino IDE](Mk2_3phase_RFdatalog_temp/Readme.en.md#use-with-arduino-ide).
 4. **Calibration**: see [router calibration](Mk2_3phase_RFdatalog_temp/Readme.en.md#router-calibration).
 
@@ -81,8 +81,8 @@ What the router does for you:
 | [`RemoteLoadReceiver`](RemoteLoadReceiver/)                | the firmware of the remote load units (RFM69)                                             |
 | [`configurator`](configurator/)                            | the web page that writes the configuration files                                          |
 | [`sim`](sim/)                                              | the grid simulator: the firmware runs on a simulated 3-phase grid (simavr)                |
-| [`analysis`](analysis/README.en.md)                        | analysis tools for the filtering of the relay outputs (EWMA/TEMA, cloud immunity)         |
-| [`dev`](dev/)                                              | development sketches: raw samples of the 6 channels, transformer checker, benchmarks, ... |
+| [`analysis`](analysis/README.en.md)                        | analysis tools for the filtering of the relay outputs (EWMA/TEMA, cloud immunity), and the CT recorder tool |
+| [`dev`](dev/)                                              | development sketches: raw samples of the 6 channels, CT recorder, transformer checker, benchmarks, ... |
 | [`docs`](docs/), [`schematics`](schematics/), [`img`](img/) | installation guide, wiring diagrams, schematics, pictures                                 |
 
 ## Developer documentation
