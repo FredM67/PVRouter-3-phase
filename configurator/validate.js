@@ -118,8 +118,9 @@
       if (!relays.length) error('err.noRelay', 'relays');
       if (60 % m.datalogPeriod !== 0) error('err.datalogDivides60', 'datalogPeriod');
       if (!inRange(m.relays.filterDelay, 1, 10)) error('err.filterDelay', 'relays');
-      // the EWMA must span at least 5 datalogs (validation.h)
+      // the EWMA must span 5 to 255 datalogs (validation.h): its count is 8 bits
       else if (Math.floor((m.relays.filterDelay * 60) / m.datalogPeriod) < 5) error('err.filterTooShort', 'relays');
+      else if (Math.floor((m.relays.filterDelay * 60) / m.datalogPeriod) > 255) error('err.filterTooLong', 'relays');
       relays.forEach((r, i) => {
         const field = `relays.${i}`;
         if (!isRouterPin(r.pin)) error('err.relayPin', field, { relay: i + 1 });
