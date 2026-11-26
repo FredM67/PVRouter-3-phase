@@ -2591,6 +2591,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "42247cfa7d21908764574e10888bb8b59fe3a54d",
+   "date": "2026-11-26T22:43:55+01:00",
+   "message": "fix!: refuse a relay filter longer than 255 datalog periods (#270)\n\n* fix: refuse a relay filter longer than 255 datalog periods\n\nThe relay engine instantiates EWMA_average< D * 60 / DATALOG_PERIOD_IN_SECONDS >,\nwhose parameter is a uint8_t: RELAY_FILTER_DELAY{ 25 } built silently with a\ncount of 44 (a filter under 4 minutes instead of 25). validation.h only\nchecked the lower bound, and on the RELAY_FILTER_DELAY constant rather than\non the minutes relays carries (MINUTES(...) or the default 10).\n\nRelayEngine::filterDelay() gives that D; validation.h checks both bounds on\nit (5 to 255 datalog periods). New compile-fail cases: 22 minutes refused,\n21 minutes builds, MINUTES(25) with RELAY_FILTER_DELAY 2 refused, and the\nlower bound (2 minutes at 30 s), which had no case.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix: the NETWORK_ID comment says 1-250, as validation.h checks\n\nconfig_rf.h and the configurator's generated config_rf.h said 1-255; the\nbuild and the configurator refuse anything above 250.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n* fix(configurator): refuse a relay filter longer than 255 datalog periods\n\nThe configurator accepted delays of 1 to 10 minutes and checked only the\nlower bound: with a 1 s datalog period, 5 minutes or more (300 periods)\ngave a config.h that the build now refuses. New message, EN and FR, and a\ntest case; the CHANGELOG lists the change under Upgrading.\n\nCo-Authored-By: Claude <noreply@anthropic.com>\n\n---------\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/42247cfa7d21908764574e10888bb8b59fe3a54d",
+   "sizes": {
+    "basic": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12282,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
