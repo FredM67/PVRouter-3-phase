@@ -2411,6 +2411,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "5e207cbe51f6dded29ea993bedd0f51af4292e2f",
+   "date": "2026-11-26T21:54:02+01:00",
+   "message": "chore: remove the blink_dig4 development sketch (#266)\n\nCo-authored-by: Claude Opus 5.5 <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/5e207cbe51f6dded29ea993bedd0f51af4292e2f",
+   "sizes": {
+    "basic": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12282,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
