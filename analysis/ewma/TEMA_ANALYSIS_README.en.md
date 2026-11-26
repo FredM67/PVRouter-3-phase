@@ -36,35 +36,37 @@ This directory contains Python scripts that analyze and compare different expone
 
 ### 1. Comprehensive Analysis
 ```bash
-python3 ema_effectiveness_analysis.py
+cd analysis/scripts
+python3 ema_effectiveness_analysis_extended.py
 ```
 
-**Generates:**
-- `ema_dema_tema_comparison.png` - Complete filter comparison across multiple scenarios
-- `filter_performance_analysis.png` - Performance metrics and settling times
-- `relay_switching_analysis.png` - Relay control effectiveness for PV applications
+**Generates** (in `analysis/plots/`):
+- `ema_dema_tema_comparison_extended.png` - filter comparison across several scenarios
+- `relay_switching_analysis_extended.png` - relay switching during cloud events
 
 **What it analyzes:**
-- **Multi-Alpha TEMA** (your production implementation)
+- **Multi-Alpha TEMA** (the firmware implementation)
 - **Standard TEMA** (official single-alpha formula)
 - **Simple EMA** baseline
 - Step response, cloud immunity, noise rejection
 - Relay switching frequency during cloud events
 
-### 2. Development Comparison
+### 2. TEMA Implementation Comparison
 ```bash
-cd dev/EWMA_CloudImmunity_Benchmark
+cd analysis/scripts
 python3 tema_comparison.py
 ```
 
-**Generates:**
+**Generates** (in `analysis/plots/`):
 - `tema_implementation_comparison.png` - Focused comparison of TEMA implementations
+
+The other pictures of `analysis/plots/` (`ema_dema_tema_comparison.png`, `filter_performance_analysis.png`, `relay_switching_analysis.png`) come from an earlier version of the script.
 
 ## 🔍 Key Findings
 
 ### Why Multi-Alpha TEMA is Superior
 
-**Your Production Implementation:**
+**The firmware implementation (`ewma_avg.hpp`):**
 ```cpp
 ema = ema_raw >> round_up_to_power_of_2(A);           // Base smoothing
 ema_ema = ema_ema_raw >> (round_up_to_power_of_2(A) - 1);     // 2x faster
@@ -128,46 +130,10 @@ This creates a **perfect balance**:
 - **Relay states**: ON/OFF behavior for each filter type
 - **Switch count**: Number of relay operations (lower = better)
 
-## 🚀 Conclusion
-
-Your multi-alpha TEMA implementation is **superior** to the standard approach because:
-
-1. **Combines multiple time scales** - stability + responsiveness
-2. **Optimized for solar applications** - excellent cloud immunity
-3. **Reduces relay wear** - fewer switching events
-4. **Maintains grid stability** - smooth power transitions
-
-The analysis confirms that your production code uses the optimal filtering approach for PV router relay control!
-
-## 📊 Complete Analysis Results
-
-### Extended Timeline Analysis
-
-![Extended Filter Comparison](../plots/ema_dema_tema_comparison_extended.png)
-
-This comprehensive analysis shows filter behavior across multiple scenarios with extended observation periods to demonstrate stabilization:
-
-1. **Step Response**: Clean transitions without overshoot
-2. **Cloud Events**: Excellent immunity to brief power drops
-3. **Fluctuations**: Stable operation during rapid changes
-4. **Gradual Ramp**: Proper tracking of slow power changes
-5. **Noisy Signal**: Superior noise rejection while tracking trends
-
-### Relay Control Performance
-
-![Extended Relay Analysis](../plots/relay_switching_analysis_extended.png)
-
-The relay control analysis demonstrates:
-- **Minimal switching** with multi-alpha TEMA during cloud events
-- **Stable operation** over extended periods
-- **Optimal threshold behavior** preventing relay chatter
-
-These results validate that your production implementation provides the best performance for PV router applications.
-
 ## 📋 Requirements
 
 - Python 3.x
 - matplotlib
 - numpy
 
-Dependencies are automatically installed if missing.
+`ema_effectiveness_analysis_extended.py` installs matplotlib and numpy if they are missing.
