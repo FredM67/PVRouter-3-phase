@@ -53,3 +53,9 @@ analysis/temp/
 # Generated plots (keep versioned ones in analysis/plots/)
 temp_*.png
 test_*.png
+
+# graphify: only the shared code graph is versioned, the rest is rebuilt on each machine.
+# !graphify-out/ re-includes the folder for clones that ignore it globally.
+!graphify-out/
+graphify-out/*
+!graphify-out/graph.json

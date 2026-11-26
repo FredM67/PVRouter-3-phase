@@ -111,3 +111,6 @@
 *.webm binary
 *.ogv binary
 *.ogm binary
+
+# graphify: union merge of the shared code graph (driver registered per clone, see scripts/README.md)
+graphify-out/graph.json merge=graphify linguist-generated=true -diff
