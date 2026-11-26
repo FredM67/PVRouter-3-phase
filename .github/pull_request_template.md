@@ -17,6 +17,8 @@
 
 <!-- Go over all the following points, and put an `x` in all the boxes that apply. If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 
-- [ ] I have read the **[README](./README.md)** document.
+- [ ] I have read the **[contributing guide](https://github.com/FredM67/PVRouter-3-phase/blob/dev/CONTRIBUTING.md)**.
+- [ ] This pull request targets `dev` and its title is a conventional commit (`feat:`, `fix:`, `docs:`, ...).
+- [ ] The firmware builds without warnings and the tests pass.
 - [ ] My change requires a change to the documentation.
 - [ ] I have updated the documentation accordingly.
