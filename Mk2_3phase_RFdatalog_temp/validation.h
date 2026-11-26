@@ -3,7 +3,7 @@
  * @author Frédéric Metrich (frederic.metrich@live.fr)
  * @brief Compile-time validations
  * @version 0.1
- * @date 2026-11-24
+ * @date 2026-11-26
  *
  * @copyright Copyright (c) 2023-2026
  * SPDX-License-Identifier: GPL-3.0-or-later
@@ -70,9 +70,12 @@ constexpr bool check_boost_windows()
 static_assert(!DUAL_TARIFF || check_boost_windows(), "******** A scheduled boost starts or ends outside the off-peak period, or lasts 0 minutes. Please check scheduledBoosts in your config.h ! ********");
 
 static_assert(!RELAY_DIVERSION | (60 / DATALOG_PERIOD_IN_SECONDS * DATALOG_PERIOD_IN_SECONDS == 60), "******** Wrong configuration. DATALOG_PERIOD_IN_SECONDS must be a divider of 60 ! ********");
-// the EWMA of the relays averages RELAY_FILTER_DELAY * 60 / DATALOG_PERIOD_IN_SECONDS datalogs:
-// below 5, its triple EMA would shift by a negative count (ewma_avg.hpp)
-static_assert(!RELAY_DIVERSION | (RELAY_FILTER_DELAY * 60 / DATALOG_PERIOD_IN_SECONDS >= 5), "******** RELAY_FILTER_DELAY too short for DATALOG_PERIOD_IN_SECONDS: the filter must span at least 5 datalog periods ! ********");
+// the EWMA of the relays averages D * 60 / DATALOG_PERIOD_IN_SECONDS datalogs, D being the minutes
+// that relays carries (MINUTES(RELAY_FILTER_DELAY), 10 without MINUTES()): below 5, its triple EMA
+// would shift by a negative count; above 255, the count would wrap (EWMA_average< uint8_t >,
+// ewma_avg.hpp)
+static_assert(!RELAY_DIVERSION | (relays.filterDelay() * 60 / DATALOG_PERIOD_IN_SECONDS >= 5), "******** RELAY_FILTER_DELAY too short for DATALOG_PERIOD_IN_SECONDS: the filter must span at least 5 datalog periods ! ********");
+static_assert(!RELAY_DIVERSION | (relays.filterDelay() * 60 / DATALOG_PERIOD_IN_SECONDS <= UINT8_MAX), "******** RELAY_FILTER_DELAY too long for DATALOG_PERIOD_IN_SECONDS: the filter can span at most 255 datalog periods (21 minutes at 5 s) ! Please check your config.h ! ********");
 
 static_assert(NO_OF_DUMPLOADS > 0, "Number of dump loads must be greater than 0");
 static_assert(iTemperatureThreshold > 0, "Temperature threshold must be greater than 0");

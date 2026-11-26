@@ -64,6 +64,13 @@ dual_tariff_on() {
   replace 'dualTariffPin{ unused_pin }' 'dualTariffPin{ 8 }'
 }
 
+relays_on() {
+  replace 'RELAY_DIVERSION{ false }' 'RELAY_DIVERSION{ true }'
+  replace '{ unused_pin, 100, 200, 1, 1 }' '{ 11, 100, 200, 1, 1 }'
+  replace '{ unused_pin, 300, 400, 1, 1 }' '{ 12, 300, 400, 1, 1 }'
+  replace '{ unused_pin, 500, 600, 1, 1 }' '{ 13, 500, 600, 1, 1 }'
+}
+
 temperature_on() {
   replace 'TEMP_SENSOR_PRESENT{ false }' 'TEMP_SENSOR_PRESENT{ true }'
   replace 'temperatureSensing{ unused_pin,' 'temperatureSensing{ 3,'
