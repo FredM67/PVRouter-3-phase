@@ -2636,6 +2636,51 @@
     "fastdivision: divu10(12345) per call": 41.01,
     "fastdivision: divmod10(12345678) per call": 130.05
    }
+  },
+  {
+   "commit": "ebb26b6288d85f196eae5e69de8010789716254c",
+   "date": "2026-11-27T11:46:04+01:00",
+   "message": "chore: no blank issue, the templates only (#274)\n\nblank_issues_enabled: false in .github/ISSUE_TEMPLATE/config.yml: the\nissue chooser no longer offers a blank issue.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/ebb26b6288d85f196eae5e69de8010789716254c",
+   "sizes": {
+    "basic": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12282,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05,
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09
+   }
   }
  ]
 }
