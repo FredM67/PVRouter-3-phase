@@ -2681,6 +2681,51 @@
     "mult_asm: mult16x8_q8 per op": 27.16,
     "mult_asm: ISR simulation per sample": 132.09
    }
+  },
+  {
+   "commit": "12b3ec396a2aca180cfbc5e459c52f11f839b4c7",
+   "date": "2026-11-27T11:52:46+01:00",
+   "message": "chore: issue forms for bugs and feature requests, as in 1-phase (#276)\n\nbug_report.md and feature_request.md become issue forms (.yml), with the\nlook of the PVRouter-1-phase ones: the bug form asks for PCB_VERSION (OLD\nor NEW), the PlatformIO env or the Arduino IDE, the commit printed at\nstartup, the settings in use, the RFM69 and the grid; the feature form\nuses the enhancement label.\n\nCo-authored-by: Claude <noreply@anthropic.com>",
+   "url": "https://github.com/FredM67/PVRouter-3-phase/commit/12b3ec396a2aca180cfbc5e459c52f11f839b4c7",
+   "sizes": {
+    "basic": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, remote loads": {
+     "flash": 12282,
+     "ram": 511
+    },
+    "basic, IoT": {
+     "flash": 7924,
+     "ram": 414
+    },
+    "basic, HumanReadable": {
+     "flash": 7798,
+     "ram": 396
+    }
+   },
+   "speed": {
+    "mult_asm: multS16x16_to32 per op": 44.58,
+    "mult_asm: multU16x16_to32 per op": 42.33,
+    "mult_asm: mult16x8_q8 per op": 27.16,
+    "mult_asm: ISR simulation per sample": 132.09,
+    "datalog: isqrt avg": 414,
+    "datalog: isqrt max": 420,
+    "datalog: sqrtScaled avg": 446,
+    "datalog: sqrtScaled max": 513,
+    "datalog: vrms avg": 568,
+    "datalog: vrms max": 652,
+    "datalog: watts avg": 156,
+    "datalog: watts max": 158,
+    "fastdivision: divu10 small per call": 41.02,
+    "fastdivision: divu10 medium per call": 42.02,
+    "fastdivision: divu10 large per call": 40.02,
+    "fastdivision: divmod10 small per call": 141.08,
+    "fastdivision: divmod10 large per call": 141.08,
+    "fastdivision: divu10(12345) per call": 41.01,
+    "fastdivision: divmod10(12345678) per call": 130.05
+   }
   }
  ]
 }
