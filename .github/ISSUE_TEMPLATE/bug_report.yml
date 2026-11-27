@@ -1,0 +1,78 @@
+name: 🐞 Bug
+description: Something does not work as described
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: What happens
+      description: What the router does, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: The settings, the load, the conditions in which it happens.
+    validations:
+      required: false
+  - type: dropdown
+    attributes:
+      label: Motherboard (PCB_VERSION)
+      options:
+        - OLD (the former 3-phase board)
+        - NEW (the universal 3phaseDiverter board, rev. 6.0 and later)
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Build
+      description: The PlatformIO environment (basic, basic_debug, uno), or the Arduino IDE.
+      placeholder: basic
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Firmware version
+      description: The branch and commit printed at startup, or a release tag.
+    validations:
+      required: false
+  - type: input
+    attributes:
+      label: Settings in use
+      description: |
+        SERIAL_OUTPUT_TYPE, ENABLE_DEBUG, relays, remote loads, dual tariff, temperature sensors...
+      placeholder: 'IoT (mk2Wifi), two relays, dual tariff'
+    validations:
+      required: false
+  - type: input
+    attributes:
+      label: RF module
+      description: If any - RFM69W/CW or RFM69HW/HCW, the band, the number of remote units.
+    validations:
+      required: false
+  - type: input
+    attributes:
+      label: Installation
+      description: Grid (3 phases with or without neutral), voltage and frequency, the loads and their power.
+      placeholder: '3 phases + neutral, 230/400 V 50 Hz, 3 x 2 kW water heater'
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Serial monitor output
+      description: The startup lines and the lines around the problem.
+      render: text
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: config.h
+      description: The settings you changed from the shipped config.h.
+      render: cpp
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: Measurements, photos, oscilloscope traces... You can drag files into this area.
+    validations:
+      required: false
