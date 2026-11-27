@@ -1,8 +1,11 @@
 contact_links:
-  - name: Are you looking for documentation on REPO_NAME?
-    url: https://USERNAME.github.io/REPO_NAME
-    about: Please see the documentation for REPO_NAME on its GitHub Pages page.
-  - name: Do want to discuss REPO_NAME with the community?
-    url: https://github.com/USERNAME/REPO_NAME/discussions
-    about: Please see the discussions page for REPO_NAME.
+  - name: Looking for the user documentation?
+    url: https://fredm67.github.io/Mk2PVRouter/
+    about: Hardware, installation, calibration and troubleshooting (in French).
+  - name: Looking for the code documentation?
+    url: https://fredm67.github.io/PVRouter-3-phase/
+    about: Code documentation (Doxygen) and firmware size and speed history.
+  - name: Do you want to discuss PVRouter-3-phase with the community?
+    url: https://github.com/FredM67/PVRouter-3-phase/discussions
+    about: Questions and ideas go to the discussions page.
 blank_issues_enabled: true
