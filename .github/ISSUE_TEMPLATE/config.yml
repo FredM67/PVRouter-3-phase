@@ -8,4 +8,4 @@ contact_links:
   - name: Do you want to discuss PVRouter-3-phase with the community?
     url: https://github.com/FredM67/PVRouter-3-phase/discussions
     about: Questions and ideas go to the discussions page.
-blank_issues_enabled: true
+blank_issues_enabled: false
